@@ -1,5 +1,5 @@
 /*! Perseus with editors | http://github.com/Khan/perseus */
-// commit 59ef46c6a0f339a523a68c598052d595e8f882d9
+// commit 7673dd4bf26830e0db0c96754246747187b78550
 // branch master
 // @generated
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -832,12 +832,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            // triple digit or decimal
 	        } else if (span > 100 || span < 5) {
-	            tickFactor = 10;
+	                tickFactor = 10;
 
-	            // double digit
-	        } else {
-	            tickFactor = 16;
-	        }
+	                // double digit
+	            } else {
+	                    tickFactor = 16;
+	                }
 	        var constraintFactor = dimensionConstraint / 500;
 	        var desiredNumTicks = tickFactor * constraintFactor;
 	        return Util.tickStepFromNumTicks(span, desiredNumTicks);
@@ -1921,6 +1921,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	"use strict";
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	/* eslint-disable max-lines */
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable brace-style, no-console, no-var, object-curly-spacing, react/prop-types, react/sort-comp */
@@ -5134,7 +5136,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        (function () {
 	            var Widgets = __webpack_require__(24);
 	            !/*require.ensure*/(function (require) {
-	                var extraWidgets = __webpack_require__(60);
+	                var extraWidgets = __webpack_require__(59);
 	                Widgets.registerMany(extraWidgets);
 	                widgetsDeferred.resolve();
 	            }(__webpack_require__));
@@ -5195,7 +5197,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ApiOptions = __webpack_require__(5).Options;
 	var ApiClassNames = __webpack_require__(5).ClassNames;
 	var Renderer = __webpack_require__(31);
-	var ProvideKeypad = __webpack_require__(59);
+	var ProvideKeypad = __webpack_require__(60);
 
 	var rendererProps = React.PropTypes.shape({
 	    content: React.PropTypes.string,
@@ -5383,7 +5385,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ApiOptions = __webpack_require__(5).Options;
 	var HintsRenderer = __webpack_require__(30);
 	var Renderer = __webpack_require__(31);
-	var ProvideKeypad = __webpack_require__(59);
+	var ProvideKeypad = __webpack_require__(60);
 	var Util = __webpack_require__(6);
 
 	var _require = __webpack_require__(85),
@@ -5808,7 +5810,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ApiOptions = __webpack_require__(5).Options;
 	var HintsRenderer = __webpack_require__(30);
-	var ProvideKeypad = __webpack_require__(59);
+	var ProvideKeypad = __webpack_require__(60);
 	var Renderer = __webpack_require__(31);
 	var Util = __webpack_require__(6);
 
@@ -5843,6 +5845,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            apiOptions: {} };
 	    },
 
+	    // a deep default is done in `this.update()`
 	    getInitialState: function getInitialState() {
 	        return _extends({}, ProvideKeypad.getInitialState(), {
 	            questionCompleted: false,
@@ -6452,6 +6455,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	/* eslint-disable max-lines */
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable array-bracket-spacing, no-var, object-curly-spacing */
@@ -8332,7 +8337,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // eslint is complaining that `content` and `children` are unused. I'm
 	        // explicitly pulling them out of `this.props` so I don't pass them to
 	        // `<Renderer>`. I'm not sure how else to do this.
-	        var _props = this.props,
+	        var _props = // @Nolint(trailing comma): I'm so confused why it's
+	        // complaining about this, we want trailing commas..
+	        this.props,
 	            content = _props.content,
 	            children = _props.children,
 	            shape = _props.shape,
@@ -8543,7 +8550,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	"use strict";
 
 	var basicWidgets = __webpack_require__(25);
-	var extraWidgets = __webpack_require__(60);
+	var extraWidgets = __webpack_require__(59);
 
 	module.exports = basicWidgets.concat(extraWidgets);
 
@@ -10400,7 +10407,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    KeyBindingUtil = _require.KeyBindingUtil;
 
 	var Widgets = __webpack_require__(24);
-	var DraftUtils = __webpack_require__(75);
+	var DraftUtils = __webpack_require__(74);
 
 	// This controls the minimum time between when updates for the parent
 	// component are generated.  The best time for this number sort of depends
@@ -11218,7 +11225,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(19);
 
 	var Editor = __webpack_require__(11);
-	var InfoTip = __webpack_require__(74);
+	var InfoTip = __webpack_require__(75);
 	var DeviceFramer = __webpack_require__(17);
 
 	var ApiOptions = __webpack_require__(5).Options;
@@ -12504,72 +12511,72 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                        // 5 / 6 pi
 	                    } else if (match = text.match(/^([+-]?\s*\d+\s*(?:\/\s*[+-]?\s*\d+)?)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i)) {
-	                        // @Nolint
-	                        possibilities = fractionTransformer(match[1]);
+	                            // @Nolint
+	                            possibilities = fractionTransformer(match[1]);
 
-	                        // 4 5 / 6 pi
-	                    } else if (match = text.match(/^([+-]?)\s*(\d+)\s*([+-]?\d+)\s*\/\s*([+-]?\d+)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i)) {
-	                        // @Nolint
-	                        var sign = parseFloat(match[1] + "1");
-	                        var integ = parseFloat(match[2]);
-	                        var num = parseFloat(match[3]);
-	                        var denom = parseFloat(match[4]);
-	                        var simplified = num < denom && KhanMath.getGCD(num, denom) === 1;
+	                            // 4 5 / 6 pi
+	                        } else if (match = text.match(/^([+-]?)\s*(\d+)\s*([+-]?\d+)\s*\/\s*([+-]?\d+)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i)) {
+	                                // @Nolint
+	                                var sign = parseFloat(match[1] + "1");
+	                                var integ = parseFloat(match[2]);
+	                                var num = parseFloat(match[3]);
+	                                var denom = parseFloat(match[4]);
+	                                var simplified = num < denom && KhanMath.getGCD(num, denom) === 1;
 
-	                        possibilities = [{
-	                            value: sign * (integ + num / denom),
-	                            exact: simplified
-	                        }];
+	                                possibilities = [{
+	                                    value: sign * (integ + num / denom),
+	                                    exact: simplified
+	                                }];
 
-	                        // 5 pi / 6
-	                    } else if (match = text.match(/^([+-]?\s*\d+)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)\s*(?:\/\s*([+-]?\s*\d+))?$/i)) {
-	                        // @Nolint
-	                        possibilities = fractionTransformer(match[1] + "/" + match[3]);
+	                                // 5 pi / 6
+	                            } else if (match = text.match(/^([+-]?\s*\d+)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)\s*(?:\/\s*([+-]?\s*\d+))?$/i)) {
+	                                    // @Nolint
+	                                    possibilities = fractionTransformer(match[1] + "/" + match[3]);
 
-	                        // - pi / 4
-	                    } else if (match = text.match(/^([+-]?)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)\s*(?:\/\s*([+-]?\d+))?$/i)) {
-	                        // @Nolint
-	                        possibilities = fractionTransformer(match[1] + "1/" + match[3]);
+	                                    // - pi / 4
+	                                } else if (match = text.match(/^([+-]?)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)\s*(?:\/\s*([+-]?\d+))?$/i)) {
+	                                        // @Nolint
+	                                        possibilities = fractionTransformer(match[1] + "1/" + match[3]);
 
-	                        // 0
-	                    } else if (text === "0") {
-	                        possibilities = [{ value: 0, exact: true }];
+	                                        // 0
+	                                    } else if (text === "0") {
+	                                            possibilities = [{ value: 0, exact: true }];
 
-	                        // 0.5 pi (fallback)
-	                    } else if (match = text.match(/^(.+)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i)) {
-	                        possibilities = forms.decimal(match[1]);
-	                    } else {
-	                        possibilities = _.reduce(KhanAnswerTypes.predicate.defaultForms.split(/\s*,\s*/), function (memo, form) {
-	                            return memo.concat(forms[form](text));
-	                        }, []);
+	                                            // 0.5 pi (fallback)
+	                                        } else if (match = text.match(/^(.+)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i)) {
+	                                                possibilities = forms.decimal(match[1]);
+	                                            } else {
+	                                                possibilities = _.reduce(KhanAnswerTypes.predicate.defaultForms.split(/\s*,\s*/), function (memo, form) {
+	                                                    return memo.concat(forms[form](text));
+	                                                }, []);
 
-	                        // If the answer is a floating point number that's
-	                        // near a multiple of pi, mark is as being possibly
-	                        // an approximation of pi.  We actually check if
-	                        // it's a plausible approximation of pi/12, since
-	                        // sometimes the correct answer is like pi/3 or pi/4.
-	                        // We also say it's a pi-approximation if it involves
-	                        // x/7 (since 22/7 is an approximation of pi.)
-	                        // Never mark an integer as being an approximation
-	                        // of pi.
-	                        var approximatesPi = false;
-	                        var number = parseFloat(text);
-	                        if (!isNaN(number) && number !== parseInt(text)) {
-	                            var piMult = Math.PI / 12;
-	                            var roundedNumber = piMult * Math.round(number / piMult);
-	                            if (Math.abs(number - roundedNumber) < 0.01) {
-	                                approximatesPi = true;
-	                            }
-	                        } else if (text.match(/\/\s*7/)) {
-	                            approximatesPi = true;
-	                        }
-	                        if (approximatesPi) {
-	                            _.each(possibilities, function (possibility) {
-	                                possibility.piApprox = true;
-	                            });
-	                        }
-	                        return possibilities;
-	                    }
+	                                                // If the answer is a floating point number that's
+	                                                // near a multiple of pi, mark is as being possibly
+	                                                // an approximation of pi.  We actually check if
+	                                                // it's a plausible approximation of pi/12, since
+	                                                // sometimes the correct answer is like pi/3 or pi/4.
+	                                                // We also say it's a pi-approximation if it involves
+	                                                // x/7 (since 22/7 is an approximation of pi.)
+	                                                // Never mark an integer as being an approximation
+	                                                // of pi.
+	                                                var approximatesPi = false;
+	                                                var number = parseFloat(text);
+	                                                if (!isNaN(number) && number !== parseInt(text)) {
+	                                                    var piMult = Math.PI / 12;
+	                                                    var roundedNumber = piMult * Math.round(number / piMult);
+	                                                    if (Math.abs(number - roundedNumber) < 0.01) {
+	                                                        approximatesPi = true;
+	                                                    }
+	                                                } else if (text.match(/\/\s*7/)) {
+	                                                    approximatesPi = true;
+	                                                }
+	                                                if (approximatesPi) {
+	                                                    _.each(possibilities, function (possibility) {
+	                                                        possibility.piApprox = true;
+	                                                    });
+	                                                }
+	                                                return possibilities;
+	                                            }
 
 	                    var multiplier = Math.PI;
 	                    if (text.match(/\\?tau|t|\u03c4/)) {
@@ -13515,6 +13522,21 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
+	/* globals true */
+
+	// As new widgets get added here, please also make sure they get added in
+	// webapp perseus/traversal.py so they can be properly translated.
+	module.exports = [[__webpack_require__(100), true && __webpack_require__(101)], [__webpack_require__(102), true && __webpack_require__(103)], [__webpack_require__(104), true && __webpack_require__(105)], [__webpack_require__(106), true && __webpack_require__(107)], [__webpack_require__(108), true && __webpack_require__(109)], [__webpack_require__(110), true && __webpack_require__(111)], [__webpack_require__(112), true && __webpack_require__(113)], [__webpack_require__(114), true && __webpack_require__(115)], [__webpack_require__(116), true && __webpack_require__(117)], [__webpack_require__(118), true && __webpack_require__(119)], [__webpack_require__(120), true && __webpack_require__(121)], [__webpack_require__(122), true && __webpack_require__(123)], [__webpack_require__(124), true && __webpack_require__(125)], [__webpack_require__(126), true && __webpack_require__(127)], [__webpack_require__(128), true && __webpack_require__(129)], [__webpack_require__(130), true && __webpack_require__(131)], [__webpack_require__(132), true && __webpack_require__(133)], [__webpack_require__(134), true && __webpack_require__(135)], [__webpack_require__(136), true && __webpack_require__(137)], [__webpack_require__(138), true && __webpack_require__(139)], [__webpack_require__(140), true && __webpack_require__(141)], [__webpack_require__(142), true && __webpack_require__(143)], [__webpack_require__(144), true && __webpack_require__(145)], [__webpack_require__(146), true && __webpack_require__(147)], [__webpack_require__(148), true && __webpack_require__(149)], [__webpack_require__(150), true && __webpack_require__(151)], [__webpack_require__(152), true && __webpack_require__(153)], [__webpack_require__(154), true && __webpack_require__(155)], [__webpack_require__(156), true && __webpack_require__(157)], [__webpack_require__(158), true && __webpack_require__(159)], [__webpack_require__(160), true && __webpack_require__(161)],
+	// These widgets are only used when testing things, so remove them in the
+	// non-editor bundle.
+	true && [__webpack_require__(162), __webpack_require__(163)], true && [__webpack_require__(164), __webpack_require__(165)], true && [__webpack_require__(166), __webpack_require__(167)]];
+
+/***/ },
+/* 60 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable object-curly-spacing */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
@@ -13593,21 +13615,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	module.exports = ProvideKeypad;
-
-/***/ },
-/* 60 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/* globals true */
-
-	// As new widgets get added here, please also make sure they get added in
-	// webapp perseus/traversal.py so they can be properly translated.
-	module.exports = [[__webpack_require__(100), true && __webpack_require__(101)], [__webpack_require__(102), true && __webpack_require__(103)], [__webpack_require__(104), true && __webpack_require__(105)], [__webpack_require__(106), true && __webpack_require__(107)], [__webpack_require__(108), true && __webpack_require__(109)], [__webpack_require__(110), true && __webpack_require__(111)], [__webpack_require__(112), true && __webpack_require__(113)], [__webpack_require__(114), true && __webpack_require__(115)], [__webpack_require__(116), true && __webpack_require__(117)], [__webpack_require__(118), true && __webpack_require__(119)], [__webpack_require__(120), true && __webpack_require__(121)], [__webpack_require__(122), true && __webpack_require__(123)], [__webpack_require__(124), true && __webpack_require__(125)], [__webpack_require__(126), true && __webpack_require__(127)], [__webpack_require__(128), true && __webpack_require__(129)], [__webpack_require__(130), true && __webpack_require__(131)], [__webpack_require__(132), true && __webpack_require__(133)], [__webpack_require__(134), true && __webpack_require__(135)], [__webpack_require__(136), true && __webpack_require__(137)], [__webpack_require__(138), true && __webpack_require__(139)], [__webpack_require__(140), true && __webpack_require__(141)], [__webpack_require__(142), true && __webpack_require__(143)], [__webpack_require__(144), true && __webpack_require__(145)], [__webpack_require__(146), true && __webpack_require__(147)], [__webpack_require__(148), true && __webpack_require__(149)], [__webpack_require__(150), true && __webpack_require__(151)], [__webpack_require__(152), true && __webpack_require__(153)], [__webpack_require__(154), true && __webpack_require__(155)], [__webpack_require__(156), true && __webpack_require__(157)], [__webpack_require__(158), true && __webpack_require__(159)], [__webpack_require__(160), true && __webpack_require__(161)],
-	// These widgets are only used when testing things, so remove them in the
-	// non-editor bundle.
-	true && [__webpack_require__(162), __webpack_require__(163)], true && [__webpack_require__(164), __webpack_require__(165)], true && [__webpack_require__(166), __webpack_require__(167)]];
 
 /***/ },
 /* 61 */
@@ -14131,8 +14138,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	            /* eslint-enable react/no-did-mount-set-state */
 	        }
 	    },
-
-
 	    render: function render() {
 	        var className = classNames({
 	            "perseus-widget-container": true,
@@ -14623,30 +14628,30 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            // Deleting the last character in the second-to-last input removes it
 	        } else if (which === 8 /* backspace */ && this.state.items[index].length === 1 && index === this.state.items.length - 2) {
-	            event.preventDefault();
-
-	            var items = _.clone(this.state.items);
-	            items.splice(index, 1);
-	            this.setState({ items: items });
-	            this.props.onChange(_.compact(items));
-
-	            // Enter adds an option below the current one...
-	        } else if (which === 13 /* enter */) {
 	                event.preventDefault();
 
 	                var items = _.clone(this.state.items);
-	                var focusIndex = index + 1;
+	                items.splice(index, 1);
+	                this.setState({ items: items });
+	                this.props.onChange(_.compact(items));
 
-	                if (index === items.length - 2) {
-	                    // ...unless the empty input is just below.
-	                    ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
-	                } else {
-	                    items.splice(focusIndex, 0, "");
-	                    this.setState({ items: items }, function () {
-	                        ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
-	                    });
-	                }
-	            }
+	                // Enter adds an option below the current one...
+	            } else if (which === 13 /* enter */) {
+	                        event.preventDefault();
+
+	                        var items = _.clone(this.state.items);
+	                        var focusIndex = index + 1;
+
+	                        if (index === items.length - 2) {
+	                            // ...unless the empty input is just below.
+	                            ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
+	                        } else {
+	                            items.splice(focusIndex, 0, "");
+	                            this.setState({ items: items }, function () {
+	                                ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
+	                            });
+	                        }
+	                    }
 	    }
 	});
 
@@ -15786,49 +15791,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
-
-	/**
-	 * A wrapper around react-components/info-tip.jsx that can be rendered on the
-	 * server without causing a checksum mismatch on the client.
-	 * (RCSS generates classnames with a randomSuffix, which ensures that any
-	 * two sets of generated classnames will not match.)
-	 */
-
-	var React = __webpack_require__(18);
-
-	var ReactComponentsInfoTip = __webpack_require__(176);
-
-	var InfoTip = React.createClass({
-	    displayName: "InfoTip",
-
-	    getInitialState: function getInitialState() {
-	        return {
-	            didMount: false
-	        };
-	    },
-
-	    componentDidMount: function componentDidMount() {
-	        /* eslint-disable react/no-did-mount-set-state */
-	        this.setState({ didMount: true });
-	        /* eslint-enable react/no-did-mount-set-state */
-	    },
-
-	    render: function render() {
-	        if (this.state.didMount) {
-	            return React.createElement(ReactComponentsInfoTip, this.props);
-	        } else {
-	            return React.createElement("div", null);
-	        }
-	    }
-	});
-
-	module.exports = InfoTip;
-
-/***/ },
-/* 75 */
-/***/ function(module, exports, __webpack_require__) {
-
 	'use strict';
 
 	/*
@@ -15869,7 +15831,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    SelectionState = _require.SelectionState,
 	    genKey = _require.genKey;
 
-	var _require2 = __webpack_require__(247),
+	var _require2 = __webpack_require__(224),
 	    List = _require2.List;
 
 	// This provides sensible defaults for editorState, contentState, and selection.
@@ -16296,6 +16258,49 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
+/* 75 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/**
+	 * A wrapper around react-components/info-tip.jsx that can be rendered on the
+	 * server without causing a checksum mismatch on the client.
+	 * (RCSS generates classnames with a randomSuffix, which ensures that any
+	 * two sets of generated classnames will not match.)
+	 */
+
+	var React = __webpack_require__(18);
+
+	var ReactComponentsInfoTip = __webpack_require__(176);
+
+	var InfoTip = React.createClass({
+	    displayName: "InfoTip",
+
+	    getInitialState: function getInitialState() {
+	        return {
+	            didMount: false
+	        };
+	    },
+
+	    componentDidMount: function componentDidMount() {
+	        /* eslint-disable react/no-did-mount-set-state */
+	        this.setState({ didMount: true });
+	        /* eslint-enable react/no-did-mount-set-state */
+	    },
+
+	    render: function render() {
+	        if (this.state.didMount) {
+	            return React.createElement(ReactComponentsInfoTip, this.props);
+	        } else {
+	            return React.createElement("div", null);
+	        }
+	    }
+	});
+
+	module.exports = InfoTip;
+
+/***/ },
 /* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -16307,7 +16312,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(18);
 
-	var InfoTip = __webpack_require__(74);
+	var InfoTip = __webpack_require__(75);
 
 	var ItemExtrasEditor = React.createClass({
 	    displayName: "ItemExtrasEditor",
@@ -16899,7 +16904,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Util = __webpack_require__(6);
 
 	var BlurInput = __webpack_require__(182);
-	var InfoTip = __webpack_require__(74);
+	var InfoTip = __webpack_require__(75);
 
 	var answerTypes = {
 	    number: {
@@ -17567,7 +17572,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    iconGear = _require.iconGear,
 	    iconTrash = _require.iconTrash;
 
-	var InfoTip = __webpack_require__(74);
+	var InfoTip = __webpack_require__(75);
 	var InlineIcon = __webpack_require__(39);
 	var MultiButtonGroup = __webpack_require__(185);
 	var NumberInput = __webpack_require__(186);
@@ -18100,7 +18105,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var classNames = __webpack_require__(55);
 	var React = __webpack_require__(18);
 	var ReactDOM = __webpack_require__(20);
-	var Tooltip = __webpack_require__(188);
+	var Tooltip = __webpack_require__(190);
 	var _ = __webpack_require__(19);
 
 	var ApiOptions = __webpack_require__(5).Options;
@@ -18111,8 +18116,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var InlineIcon = __webpack_require__(39);
 	var InputWithExamples = __webpack_require__(178);
-	var MathInput = __webpack_require__(189);
-	var TexButtons = __webpack_require__(190);
+	var MathInput = __webpack_require__(191);
+	var TexButtons = __webpack_require__(189);
 
 	var KeypadInput = __webpack_require__(170).components.KeypadInput;
 
@@ -18496,27 +18501,27 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            // we matched an ungraded answer - return "invalid"
 	        } else if (matchingAnswer.considered === "ungraded") {
-	            var apiResult = onInputError(null, // reserved for some widget identifier
-	            state, message);
-	            return {
-	                type: "invalid",
-	                message: apiResult === false ? null : message
-	            };
+	                var apiResult = onInputError(null, // reserved for some widget identifier
+	                state, message);
+	                return {
+	                    type: "invalid",
+	                    message: apiResult === false ? null : message
+	                };
 
-	            // The user's input matched one of the answers - is it correct or
-	            // incorrect?
-	        } else {
+	                // The user's input matched one of the answers - is it correct or
+	                // incorrect?
+	            } else {
 
-	            // TODO(eater): Seems silly to translate result to this
-	            // invalid/points thing and immediately translate it back in
-	            // ItemRenderer.scoreInput()
-	            return {
-	                type: "points",
-	                earned: matchingAnswer.considered === "correct" ? 1 : 0,
-	                total: 1,
-	                message: message
-	            };
-	        }
+	                    // TODO(eater): Seems silly to translate result to this
+	                    // invalid/points thing and immediately translate it back in
+	                    // ItemRenderer.scoreInput()
+	                    return {
+	                        type: "points",
+	                        earned: matchingAnswer.considered === "correct" ? 1 : 0,
+	                        total: 1,
+	                        message: message
+	                    };
+	                }
 	    }
 	});
 
@@ -18713,11 +18718,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Changeable = __webpack_require__(183);
 
-	var InfoTip = __webpack_require__(74);
+	var InfoTip = __webpack_require__(75);
 	var PropCheckBox = __webpack_require__(42);
-	var SortableArea = __webpack_require__(191);
+	var SortableArea = __webpack_require__(188);
 	var TeX = __webpack_require__(64); // OldExpression only
-	var TexButtons = __webpack_require__(190);
+	var TexButtons = __webpack_require__(189);
 
 	var Expression = __webpack_require__(82).Expression;
 
@@ -20390,10 +20395,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	            if (_denominator === 1) {
 	                return _sign + _numerator; // for integers, irrational, d > 1000
 	            } else if (format === "mixed") {
-	                var modulus = _numerator % _denominator;
-	                var integer = (_numerator - modulus) / _denominator;
-	                return _sign + (integer ? integer + " " : "") + modulus + "/" + _denominator;
-	            } // otherwise proper, improper, or fraction
+	                    var modulus = _numerator % _denominator;
+	                    var integer = (_numerator - modulus) / _denominator;
+	                    return _sign + (integer ? integer + " " : "") + modulus + "/" + _denominator;
+	                } // otherwise proper, improper, or fraction
 	            return _sign + _numerator + "/" + _denominator;
 	        }
 
@@ -21620,7 +21625,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var EditorJsonify = __webpack_require__(184);
 
 	var BlurInput = __webpack_require__(182);
-	var InfoTip = __webpack_require__(74);
+	var InfoTip = __webpack_require__(75);
 	var PropCheckBox = __webpack_require__(42);
 
 	var DEFAULT_WIDTH = 400;
@@ -22067,7 +22072,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    iconPlus = _require.iconPlus,
 	    iconTrash = _require.iconTrash;
 
-	var InfoTip = __webpack_require__(74);
+	var InfoTip = __webpack_require__(75);
 	var InlineIcon = __webpack_require__(39);
 	var EditorJsonify = __webpack_require__(184);
 
@@ -22649,7 +22654,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(18);
 	var _ = __webpack_require__(19);
 
-	var Interactive2 = __webpack_require__(196);
+	var Interactive2 = __webpack_require__(195);
 	var SvgImage = __webpack_require__(35);
 	var Util = __webpack_require__(6);
 	var ButtonGroup = __webpack_require__(57);
@@ -22658,12 +22663,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Graphie = __webpack_require__(70);
 	var MovablePoint = Graphie.MovablePoint;
 	var MovableLine = Graphie.MovableLine;
-	var WrappedLine = __webpack_require__(197);
+	var WrappedLine = __webpack_require__(196);
 
 	var knumber = __webpack_require__(206).number;
 	var kvector = __webpack_require__(206).vector;
 	var kpoint = __webpack_require__(206).point;
-	var KhanColors = __webpack_require__(198);
+	var KhanColors = __webpack_require__(197);
 
 	var _require = __webpack_require__(169),
 	    containerSizeClassPropType = _require.containerSizeClassPropType;
@@ -23175,8 +23180,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Changeable = __webpack_require__(183);
 
-	var GraphSettings = __webpack_require__(195);
-	var InfoTip = __webpack_require__(74);
+	var GraphSettings = __webpack_require__(198);
+	var InfoTip = __webpack_require__(75);
 	var MultiButtonGroup = __webpack_require__(185);
 
 	var Grapher = __webpack_require__(108).widget;
@@ -25261,7 +25266,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var BlurInput = __webpack_require__(182);
 	var Editor = __webpack_require__(11);
-	var InfoTip = __webpack_require__(74);
+	var InfoTip = __webpack_require__(75);
 	var InlineIcon = __webpack_require__(39);
 	var RangeInput = __webpack_require__(200);
 
@@ -26111,55 +26116,57 @@ return /******/ (function(modules) { // webpackBootstrap
 	                            strokeDasharray: element.options.strokeDasharray,
 	                            plotPoints: 100 }
 	                    });
-	                } else if (element.type === "parametric") {
-	                    var fn = function fn(t) {
-	                        return [_this2._eval(element.options.x, { t: t }), _this2._eval(element.options.y, { t: t })];
-	                    };
-	                    // find all the variables referenced by this function
-	                    var vars = _.without(this._extractVars(KASparse(element.options.x).expr).concat(this._extractVars(KASparse(element.options.y).expr)), "t");
-	                    // and find their values, so we redraw if any change
-	                    var varValues = _.object(vars, _.map(vars, function (v) {
-	                        return _this2.state.variables[v];
-	                    }));
+	                } else // TODO(eater): why so slow?
+	                    if (element.type === "parametric") {
+	                        var fn = function fn(t) {
+	                            return [_this2._eval(element.options.x, { t: t }), _this2._eval(element.options.y, { t: t })];
+	                        };
+	                        // find all the variables referenced by this function
+	                        var vars = _.without(this._extractVars(KASparse(element.options.x).expr).concat(this._extractVars(KASparse(element.options.y).expr)), "t");
+	                        // and find their values, so we redraw if any change
+	                        var varValues = _.object(vars, _.map(vars, function (v) {
+	                            return _this2.state.variables[v];
+	                        }));
 
-	                    var range = [this._eval(element.options.rangeMin, this.state.variables), this._eval(element.options.rangeMax, this.state.variables)];
+	                        var range = [this._eval(element.options.rangeMin, this.state.variables), this._eval(element.options.rangeMax, this.state.variables)];
 
-	                    return React.createElement(PlotParametric, {
-	                        key: element.key,
-	                        fn: fn,
-	                        foo_fnx: element.options.x,
-	                        foo_fny: element.options.y,
-	                        foo_varvalues: varValues,
-	                        range: range,
-	                        style: {
-	                            stroke: element.options.color,
-	                            strokeWidth: element.options.strokeWidth,
-	                            strokeDasharray: element.options.strokeDasharray,
-	                            plotPoints: 100 }
-	                    });
-	                } else if (element.type === "label") {
-	                    var coord = [this._eval(element.options.coordX), this._eval(element.options.coordY)];
-	                    return React.createElement(Label, {
-	                        key: n + 1,
-	                        coord: coord,
-	                        text: element.options.label,
-	                        style: {
-	                            color: element.options.color
+	                        return React.createElement(PlotParametric, {
+	                            key: element.key,
+	                            fn: fn,
+	                            foo_fnx: element.options.x,
+	                            foo_fny: element.options.y,
+	                            foo_varvalues: varValues,
+	                            range: range,
+	                            style: {
+	                                stroke: element.options.color,
+	                                strokeWidth: element.options.strokeWidth,
+	                                strokeDasharray: element.options.strokeDasharray,
+	                                plotPoints: 100 }
+	                        });
+	                    } else // TODO(eater): why so slow?
+	                        if (element.type === "label") {
+	                            var coord = [this._eval(element.options.coordX), this._eval(element.options.coordY)];
+	                            return React.createElement(Label, {
+	                                key: n + 1,
+	                                coord: coord,
+	                                text: element.options.label,
+	                                style: {
+	                                    color: element.options.color
+	                                }
+	                            });
+	                        } else if (element.type === "rectangle") {
+	                            return React.createElement(Rect, {
+	                                key: n + 1,
+	                                x: this._eval(element.options.coordX),
+	                                y: this._eval(element.options.coordY),
+	                                width: _.max([this._eval(element.options.width), 0]),
+	                                height: _.max([this._eval(element.options.height), 0]),
+	                                style: {
+	                                    stroke: "none",
+	                                    fill: element.options.color
+	                                }
+	                            });
 	                        }
-	                    });
-	                } else if (element.type === "rectangle") {
-	                    return React.createElement(Rect, {
-	                        key: n + 1,
-	                        x: this._eval(element.options.coordX),
-	                        y: this._eval(element.options.coordY),
-	                        width: _.max([this._eval(element.options.width), 0]),
-	                        height: _.max([this._eval(element.options.height), 0]),
-	                        style: {
-	                            stroke: "none",
-	                            fill: element.options.color
-	                        }
-	                    });
-	                }
 	            }, this)
 	        );
 	    },
@@ -26203,6 +26210,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+	/* eslint-disable max-lines */
+
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
@@ -26218,13 +26227,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ConstraintEditor = __webpack_require__(214);
 	var DashPicker = __webpack_require__(215);
 	var ElementContainer = __webpack_require__(216);
-	var GraphSettings = __webpack_require__(195);
-	var MathInput = __webpack_require__(189);
+	var GraphSettings = __webpack_require__(198);
+	var MathInput = __webpack_require__(191);
 	var NumberInput = __webpack_require__(186);
 	var TeX = __webpack_require__(64);
 	var TextInput = __webpack_require__(187);
 
-	var KhanColors = __webpack_require__(198);
+	var KhanColors = __webpack_require__(197);
 
 	var defaultInteractionProps = {
 	    graph: {
@@ -27670,6 +27679,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+	/* eslint-disable max-lines */
+
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable brace-style, comma-dangle, indent, no-redeclare, no-undef, no-unused-vars, no-var, object-curly-spacing, one-var, prefer-spread, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp, space-infix-ops */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
@@ -27678,14 +27689,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(19);
 
 	var Graph = __webpack_require__(201);
-	var InfoTip = __webpack_require__(74);
-	var Interactive2 = __webpack_require__(196);
+	var InfoTip = __webpack_require__(75);
+	var Interactive2 = __webpack_require__(195);
 	var NumberInput = __webpack_require__(186);
 	var Util = __webpack_require__(6);
 
 	var knumber = __webpack_require__(206).number;
 	var kpoint = __webpack_require__(206).point;
-	var KhanColors = __webpack_require__(198);
+	var KhanColors = __webpack_require__(197);
 	var GraphUtils = __webpack_require__(174);
 
 	var _require = __webpack_require__(88),
@@ -27695,7 +27706,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    containerSizeClassPropType = _require2.containerSizeClassPropType,
 	    getInteractiveBoxFromSizeClass = _require2.getInteractiveBoxFromSizeClass;
 
-	var WrappedLine = __webpack_require__(197);
+	var WrappedLine = __webpack_require__(196);
 
 	var DeprecationMixin = Util.DeprecationMixin;
 
@@ -30014,8 +30025,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var DeprecationMixin = Util.DeprecationMixin;
 
-	var GraphSettings = __webpack_require__(195);
-	var InfoTip = __webpack_require__(74);
+	var GraphSettings = __webpack_require__(198);
+	var InfoTip = __webpack_require__(75);
 
 	var InteractiveGraph = __webpack_require__(122).widget;
 
@@ -30717,7 +30728,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var NumberInput = __webpack_require__(186);
 	var PropCheckBox = __webpack_require__(42);
-	var InfoTip = __webpack_require__(74);
+	var InfoTip = __webpack_require__(75);
 
 	var MAX_SIZE = 8;
 
@@ -31880,7 +31891,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(18);
 	var _ = __webpack_require__(19);
 
-	var InfoTip = __webpack_require__(74);
+	var InfoTip = __webpack_require__(75);
 	var PropCheckBox = __webpack_require__(42);
 	var TextListEditor = __webpack_require__(68);
 
@@ -32226,7 +32237,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Changeable = __webpack_require__(183);
 	var EditorJsonify = __webpack_require__(184);
 
-	var InfoTip = __webpack_require__(74);
+	var InfoTip = __webpack_require__(75);
 	var NumberInput = __webpack_require__(186);
 	var PropCheckBox = __webpack_require__(42);
 	var RangeInput = __webpack_require__(200);
@@ -32799,7 +32810,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var knumber = __webpack_require__(206).number;
 	var KhanMath = __webpack_require__(92);
-	var KhanColors = __webpack_require__(198);
+	var KhanColors = __webpack_require__(197);
 
 	var bound = function bound(x, gt, lt) {
 	    return Math.min(Math.max(x, gt), lt);
@@ -33480,7 +33491,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var EditorJsonify = __webpack_require__(184);
 
 	var ButtonGroup = __webpack_require__(57);
-	var InfoTip = __webpack_require__(74);
+	var InfoTip = __webpack_require__(75);
 	var NumberInput = __webpack_require__(186);
 	var PropCheckBox = __webpack_require__(42);
 	var RangeInput = __webpack_require__(200);
@@ -34590,7 +34601,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(18);
 	var _ = __webpack_require__(19);
 
-	var InfoTip = __webpack_require__(74);
+	var InfoTip = __webpack_require__(75);
 	var TextListEditor = __webpack_require__(68);
 
 	var NORMAL = "normal",
@@ -35837,7 +35848,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var EditorJsonify = __webpack_require__(184);
 
 	var Editor = __webpack_require__(11);
-	var InfoTip = __webpack_require__(74);
+	var InfoTip = __webpack_require__(75);
 	var PropCheckBox = __webpack_require__(42);
 
 	var PassageEditor = React.createClass({
@@ -36149,7 +36160,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Changeable = __webpack_require__(183);
 	var EditorJsonify = __webpack_require__(184);
 
-	var InfoTip = __webpack_require__(74);
+	var InfoTip = __webpack_require__(75);
 	var NumberInput = __webpack_require__(186);
 	var TextInput = __webpack_require__(187);
 
@@ -36404,10 +36415,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var deepEq = __webpack_require__(6).deepEq;
 	var KhanMath = __webpack_require__(92);
-	var KhanColors = __webpack_require__(198);
+	var KhanColors = __webpack_require__(197);
 	var GraphUtils = __webpack_require__(174);
-	var Interactive2 = __webpack_require__(196);
-	var WrappedLine = __webpack_require__(197);
+	var Interactive2 = __webpack_require__(195);
+	var WrappedLine = __webpack_require__(196);
 
 	var BAR = "bar",
 	    LINE = "line",
@@ -36442,6 +36453,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        trackInteraction: React.PropTypes.func.isRequired
 	    },
 
+	    // TODO(alex): Figure out why lint chokes on this line
+	    // ...widgetPropTypes,
 	    getDefaultProps: function getDefaultProps() {
 	        return {
 	            type: BAR,
@@ -37286,7 +37299,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(19);
 
 	var BlurInput = __webpack_require__(182);
-	var InfoTip = __webpack_require__(74);
+	var InfoTip = __webpack_require__(75);
 	var NumberInput = __webpack_require__(186);
 	var RangeInput = __webpack_require__(200);
 	var SvgImage = __webpack_require__(35);
@@ -38476,7 +38489,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	/* globals $_, i18n */
-	var InfoTip = __webpack_require__(74);
+	var InfoTip = __webpack_require__(75);
 	var React = __webpack_require__(18);
 	var ReactDOM = __webpack_require__(20);
 	var _ = __webpack_require__(19);
@@ -38500,7 +38513,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var seededRNG = __webpack_require__(6).seededRNG;
 	var Util = __webpack_require__(6);
 	var knumber = __webpack_require__(206).number;
-	var KhanColors = __webpack_require__(198);
+	var KhanColors = __webpack_require__(197);
 	var KhanMath = __webpack_require__(92);
 
 	var defaultBoxSize = 400;
@@ -39260,7 +39273,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Changeable = __webpack_require__(183);
 	var EditorJsonify = __webpack_require__(184);
 
-	var InfoTip = __webpack_require__(74);
+	var InfoTip = __webpack_require__(75);
 	var NumberInput = __webpack_require__(186);
 
 	var maxTrials = 5000;
@@ -39518,7 +39531,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(18);
 	var _ = __webpack_require__(19);
 
-	var InfoTip = __webpack_require__(74);
+	var InfoTip = __webpack_require__(75);
 	var PropCheckBox = __webpack_require__(42);
 	var TextListEditor = __webpack_require__(68);
 
@@ -39989,7 +40002,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Util = __webpack_require__(6);
 
-	var InfoTip = __webpack_require__(74);
+	var InfoTip = __webpack_require__(75);
 	var NumberInput = __webpack_require__(186);
 	var Editor = __webpack_require__(11);
 
@@ -40160,6 +40173,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+	/* eslint-disable max-lines */
+
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable camelcase, comma-dangle, indent, no-redeclare, no-undef, no-var, object-curly-spacing, prefer-spread, react/jsx-closing-bracket-location, react/jsx-indent-props, react/no-did-update-set-state, react/prop-types, react/sort-comp, space-before-function-paren, space-infix-ops */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
@@ -40200,7 +40215,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var kray = __webpack_require__(206).ray;
 	var kline = __webpack_require__(206).line;
 	var KhanMath = __webpack_require__(92);
-	var KhanColors = __webpack_require__(198);
+	var KhanColors = __webpack_require__(197);
 
 	var assert = __webpack_require__(173).assert;
 
@@ -40408,8 +40423,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (!Transformations[transform.type].isValid(transform)) {
 	            return _.identity; // do not transform the coord
 	        } else {
-	            return Transformations[transform.type].apply(transform);
-	        }
+	                return Transformations[transform.type].apply(transform);
+	            }
 	    },
 
 	    append: function append(transformList, newTransform) {
@@ -42604,8 +42619,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ApiOptions = __webpack_require__(5).Options;
 
 	var Graph = __webpack_require__(201);
-	var GraphSettings = __webpack_require__(195);
-	var InfoTip = __webpack_require__(74);
+	var GraphSettings = __webpack_require__(198);
+	var InfoTip = __webpack_require__(75);
 	var PropCheckBox = __webpack_require__(42);
 
 	var Transformer = __webpack_require__(156).widget;
@@ -42617,7 +42632,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var kpoint = __webpack_require__(206).point;
 	var kray = __webpack_require__(206).ray;
 	var kvector = __webpack_require__(206).vector;
-	var KhanColors = __webpack_require__(198);
+	var KhanColors = __webpack_require__(197);
 
 	function arraySum(array) {
 	    return _.reduce(array, function (memo, arg) {
@@ -43791,6 +43806,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	// Extract the primitive units from a unit expression. This first simplifies
 	// `expr` to a `Mul` like "5 kg m / s^2" then removes the first term.
+	// end mobile stuff
 	var primUnits = function primUnits(expr) {
 	    return expr.simplify().asMul().partition()[1].flatten().simplify();
 	};
@@ -44356,7 +44372,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Changeable = __webpack_require__(183);
 	var EditorJsonify = __webpack_require__(184);
 
-	var InfoTip = __webpack_require__(74);
+	var InfoTip = __webpack_require__(75);
 	var BlurInput = __webpack_require__(182);
 
 	var KA_VIDEO_URL = /khanacademy\.org\/.*\/v\/(.*)$/;
@@ -45501,8 +45517,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                    // This is the case where it's a string in the value property
 	                } else {
-	                    newPower = powerMap[supValue];
-	                }
+	                        newPower = powerMap[supValue];
+	                    }
 	            }
 
 	            buildRegion(a11yStrings, function (a11yStrings) {
@@ -45540,18 +45556,18 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        // Handle arrays
 	    } else if (tree.constructor === Array) {
-	        for (var i = 0; i < tree.length; i++) {
-	            buildA11yStrings(tree[i], a11yStrings);
-	        }
+	            for (var i = 0; i < tree.length; i++) {
+	                buildA11yStrings(tree[i], a11yStrings);
+	            }
 
-	        // Everything else is assumed to be an object...
-	    } else {
-	        if (!tree.type || !(tree.type in typeHandlers)) {
-	            throw "KaTeX a11y un-recognized type: " + tree.type;
+	            // Everything else is assumed to be an object...
 	        } else {
-	            typeHandlers[tree.type](tree, a11yStrings);
-	        }
-	    }
+	                if (!tree.type || !(tree.type in typeHandlers)) {
+	                    throw "KaTeX a11y un-recognized type: " + tree.type;
+	                } else {
+	                    typeHandlers[tree.type](tree, a11yStrings);
+	                }
+	            }
 
 	    return a11yStrings;
 	};
@@ -45866,10 +45882,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(19);
 	var GraphieClasses = __webpack_require__(171);
-	var Interactive2 = __webpack_require__(196);
+	var Interactive2 = __webpack_require__(195);
 	var InteractiveUtil = __webpack_require__(173);
 
-	var KhanColors = __webpack_require__(198);
+	var KhanColors = __webpack_require__(197);
 
 	var assert = InteractiveUtil.assert;
 
@@ -48002,32 +48018,32 @@ return /******/ (function(modules) { // webpackBootstrap
 	            };
 	            // If NOTA and some other answer are checked, ...
 	        } else if (state.noneOfTheAboveSelected && numSelected > 1) {
-	            return {
-	                type: "invalid",
-	                message: i18n._("'None of the above' may not be selected " + "when other answers are selected.")
-	            };
-	        } else {
-	            /* jshint -W018 */
-	            var correct = _.all(state.values, function (selected, i) {
-	                var isCorrect = void 0;
-	                if (state.noneOfTheAboveIndex === i) {
-	                    isCorrect = _.all(rubric.choices, function (choice, j) {
-	                        return i === j || !choice.correct;
-	                    });
-	                } else {
-	                    isCorrect = !!rubric.choices[i].correct;
-	                }
-	                return isCorrect === selected;
-	            });
-	            /* jshint +W018 */
+	                return {
+	                    type: "invalid",
+	                    message: i18n._("'None of the above' may not be selected " + "when other answers are selected.")
+	                };
+	            } else {
+	                /* jshint -W018 */
+	                var correct = _.all(state.values, function (selected, i) {
+	                    var isCorrect = void 0;
+	                    if (state.noneOfTheAboveIndex === i) {
+	                        isCorrect = _.all(rubric.choices, function (choice, j) {
+	                            return i === j || !choice.correct;
+	                        });
+	                    } else {
+	                        isCorrect = !!rubric.choices[i].correct;
+	                    }
+	                    return isCorrect === selected;
+	                });
+	                /* jshint +W018 */
 
-	            return {
-	                type: "points",
-	                earned: correct ? 1 : 0,
-	                total: 1,
-	                message: null
-	            };
-	        }
+	                return {
+	                    type: "points",
+	                    earned: correct ? 1 : 0,
+	                    total: 1,
+	                    message: null
+	                };
+	            }
 	    }
 	});
 
@@ -48044,11 +48060,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var React = __webpack_require__(18);
-	var Tooltip = __webpack_require__(188);
+	var Tooltip = __webpack_require__(190);
 	var _ = __webpack_require__(19);
 
 	var ApiClassNames = __webpack_require__(5).ClassNames;
-	var MathInput = __webpack_require__(189);
+	var MathInput = __webpack_require__(191);
 	var Renderer = __webpack_require__(31);
 	var TextInput = __webpack_require__(187);
 	var MathOutput = __webpack_require__(202);
@@ -49149,654 +49165,178 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, indent, no-var, one-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var React = __webpack_require__(18);
 	var ReactDOM = __webpack_require__(20);
 	var _ = __webpack_require__(19);
 
-	// TODO(joel/jack) fix z-index issues https://s3.amazonaws.com/uploads.hipchat.com/6574/29028/yOApjwmgiMhEZYJ/Screen%20Shot%202014-05-30%20at%203.34.18%20PM.png
-	// z-index: 3 on perseus-formats-tooltip seemed to work
+	var PT = React.PropTypes;
 
-	/**
-	 * A generic tooltip library for React.js
-	 *
-	 * This should eventually end up in react-components
-	 *
-	 * Interface: ({a, b} means one of a or b)
-	 * var Tooltip = require("./tooltip.jsx");
-	 * <Tooltip
-	 *         className="class-for-tooltip-contents"
-	 *         horizontalPosition="left" // one of "left", "right"
-	 *         horizontalAlign="left" // one of "left", "right"
-	 *         verticalPosition="bottom" // one of "top", "bottom"
-	 *         arrowSize={10} // arrow size in pixels
-	 *         borderColor="#ccc" // color of the border for the tooltip
-	 *         show={true} // whether the tooltip should currently be visible
-	 *         targetContainerStyle={targetContainerStyle}
-	 *         >
-	 *     <TargetElementOfTheTooltip />
-	 *     <TooltipContents1 />
-	 *     <TooltipContents2 />
-	 * </Tooltip>
-	 *
-	 * To show/hide the tooltip, the parent component should call the
-	 * .show() and .hide() methods of the tooltip when appropriate.
-	 * (These are usually set up as handlers of events on the target element.)
-	 *
-	 * Notes:
-	 *     className should not specify a border; that is handled by borderColor
-	 *     so that the arrow and tooltip match
-	 */
-
-	//          __,,--``\\
-	//  _,,-''``         \\     ,
-	// '----------_.------'-.___|\__
-	//    _.--''``    `)__   )__   @\__
-	//   (  .. ''---/___,,E/__,E'------`
-	//    `-''`''
-	// Here be dragons.
-
-	var zIndex = 10;
-
-	var Triangle = React.createClass({
-	    displayName: "Triangle",
+	// Takes an array of components to sort
+	var SortableArea = React.createClass({
+	    displayName: 'SortableArea',
 
 	    propTypes: {
-	        color: React.PropTypes.string.isRequired,
-	        left: React.PropTypes.number.isRequired,
-	        "top": React.PropTypes.number.isRequired,
-	        width: React.PropTypes.number.isRequired,
-	        height: React.PropTypes.number.isRequired,
-	        horizontalDirection: React.PropTypes.oneOf(["left", "right"]).isRequired,
-	        verticalDirection: React.PropTypes.oneOf(["top", "bottom"]).isRequired
+	        components: PT.arrayOf(PT.node).isRequired,
+	        onReorder: PT.func.isRequired,
+	        verify: PT.func
 	    },
-
 	    render: function render() {
-	        var borderLeft, borderRight, borderTop, borderBottom;
+	        var _this = this;
 
-	        var hBorder = this.props.width + "px solid transparent";
-	        if (this.props.horizontalDirection === "right") {
-	            borderLeft = hBorder;
-	        } else {
-	            borderRight = hBorder;
-	        }
-
-	        var vBorder = this.props.height + "px solid " + this.props.color;
-	        if (this.props.verticalDirection === "top") {
-	            borderTop = vBorder;
-	        } else {
-	            borderBottom = vBorder;
-	        }
-
-	        return React.createElement("div", { style: {
-	                display: "block",
-	                height: 0,
-	                width: 0,
-	                position: "absolute",
-	                left: this.props.left,
-	                "top": this.props["top"],
-	                borderLeft: borderLeft,
-	                borderRight: borderRight,
-	                borderTop: borderTop,
-	                borderBottom: borderBottom
-	            } });
-	    }
-	});
-
-	var TooltipArrow = React.createClass({
-	    displayName: "TooltipArrow",
-
-	    propTypes: {
-	        position: React.PropTypes.string,
-	        visibility: React.PropTypes.string,
-	        left: React.PropTypes.number,
-	        "top": React.PropTypes.number,
-	        color: React.PropTypes.string.isRequired, // a css color
-	        border: React.PropTypes.string.isRequired, // a css color
-	        width: React.PropTypes.number.isRequired,
-	        height: React.PropTypes.number.isRequired,
-	        horizontalDirection: React.PropTypes.oneOf(["left", "right"]).isRequired,
-	        verticalDirection: React.PropTypes.oneOf(["top", "bottom"]).isRequired
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            position: "relative",
-	            visibility: "visible",
-	            left: 0,
-	            "top": 0
-	        };
-	    },
-
-	    // TODO(jack): Think about adding a box-shadow to the triangle here
-	    // See http://css-tricks.com/triangle-with-shadow/
-	    render: function render() {
-	        //var isRight = (this.props.horizontalDirection === "right");
-	        var isTop = this.props.verticalDirection === "top";
-
-	        var frontTopOffset = isTop ? 0 : 1;
-	        var borderTopOffset = isTop ? 0 : -1;
-
+	        var sortables = _(this.state.components).map(function (component, index) {
+	            return React.createElement(SortableItem, {
+	                index: index,
+	                component: component,
+	                area: _this,
+	                key: component.key,
+	                draggable: component.props.draggable,
+	                dragging: index === _this.state.dragging });
+	        });
 	        return React.createElement(
-	            "div",
-	            { style: {
-	                    display: "block",
-	                    position: this.props.position,
-	                    visibility: this.props.visibility,
-	                    left: this.props.left,
-	                    "top": this.props["top"],
-	                    width: this.props.width + 2,
-	                    height: this.props.height + 1,
-	                    marginTop: -1,
-	                    marginBottom: -2,
-	                    zIndex: zIndex
-	                } },
-	            React.createElement(Triangle, {
-	                horizontalDirection: this.props.horizontalDirection,
-	                verticalDirection: this.props.verticalDirection,
-	                color: this.props.border,
-	                left: 0,
-	                top: borderTopOffset,
-	                width: this.props.width + 2 // one extra for the diagonal
-	                , height: this.props.height + 2 }),
-	            React.createElement(Triangle, {
-	                horizontalDirection: this.props.horizontalDirection,
-	                verticalDirection: this.props.verticalDirection,
-	                color: this.props.color,
-	                left: 1,
-	                top: frontTopOffset,
-	                width: this.props.width,
-	                height: this.props.height })
+	            'ol',
+	            { className: this.props.className, style: this.props.style },
+	            sortables
 	        );
-	    }
-	});
-
-	var VERTICAL_CORNERS = {
-	    "top": {
-	        "top": "-100%"
 	    },
-	    bottom: {
-	        "top": 0
-	    }
-	};
-
-	var HORIZONTAL_CORNERS = {
-	    left: {
-	        targetLeft: 0
-	    },
-
-	    right: {
-	        targetLeft: "100%"
-	    }
-	};
-
-	var HORIZONTAL_ALIGNMNENTS = {
-	    left: {
-	        tooltipLeft: 0,
-	        arrowLeft: function arrowLeft(arrowSize) {
-	            return 0;
-	        }
-	    },
-	    right: {
-	        tooltipLeft: "-100%",
-	        arrowLeft: function arrowLeft(arrowSize) {
-	            return -arrowSize - 2;
-	        }
-	    }
-	};
-
-	var Tooltip = React.createClass({
-	    displayName: "Tooltip",
-
-	    propTypes: {
-	        show: React.PropTypes.bool.isRequired,
-	        className: React.PropTypes.string,
-	        arrowSize: React.PropTypes.number,
-	        borderColor: React.PropTypes.string,
-	        verticalPosition: React.PropTypes.oneOf(_.keys(VERTICAL_CORNERS)),
-	        horizontalPosition: React.PropTypes.oneOf(_.keys(HORIZONTAL_CORNERS)),
-	        horizontalAlign: React.PropTypes.oneOf(_.keys(HORIZONTAL_ALIGNMNENTS)),
-	        children: React.PropTypes.arrayOf(React.PropTypes.element).isRequired,
-	        targetContainerStyle: React.PropTypes.any },
-
 	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            className: "",
-	            arrowSize: 10,
-	            borderColor: "#ccc",
-	            verticalPosition: "bottom",
-	            horizontalPosition: "left",
-	            horizontalAlign: "left",
-	            targetContainerStyle: {}
-	        };
+	        return { verify: function verify() {
+	                return true;
+	            } };
 	    },
-
 	    getInitialState: function getInitialState() {
 	        return {
-	            height: null // used for offsetting "top" positioned tooltips
+	            // index of the component being dragged
+	            dragging: null,
+	            components: this.props.components
 	        };
 	    },
-
-	    componentWillReceiveProps: function componentWillReceiveProps() {
-	        // If the contents have changed, reset our measure of the height
-	        this.setState({ height: null });
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        this.setState({ components: nextProps.components });
 	    },
-
-	    render: function render() {
-	        var isTooltipAbove = this.props.verticalPosition === "top";
-
-	        /* We wrap the entire output in a span so that it displays inline */
-	        return React.createElement(
-	            "span",
-	            null,
-	            isTooltipAbove && this._renderToolTipDiv(isTooltipAbove),
-	            React.createElement(
-	                "div",
-	                { style: this.props.targetContainerStyle },
-	                _.first(this.props.children)
-	            ),
-	            !isTooltipAbove && this._renderToolTipDiv()
-	        );
+	    // Alternatively send each handler to each component individually,
+	    // partially applied
+	    onDragStart: function onDragStart(startIndex) {
+	        this.setState({ dragging: startIndex });
 	    },
-
-	    _renderToolTipDiv: function _renderToolTipDiv(isTooltipAbove) {
-	        var settings = _.extend({}, HORIZONTAL_CORNERS[this.props.horizontalPosition], HORIZONTAL_ALIGNMNENTS[this.props.horizontalAlign], VERTICAL_CORNERS[this.props.verticalPosition]);
-
-	        var arrowAbove;
-	        var arrowBelow;
-
-	        if (isTooltipAbove) {
-	            // We put an absolutely positioned arrow in the correct place
-	            arrowAbove = React.createElement(TooltipArrow, {
-	                verticalDirection: "top",
-	                horizontalDirection: this.props.horizontalAlign,
-	                position: "absolute",
-	                color: "white",
-	                border: this.props.borderColor,
-	                left: settings.arrowLeft(this.props.arrowSize),
-	                top: -this.props.arrowSize + 2,
-	                width: this.props.arrowSize,
-	                height: this.props.arrowSize,
-	                zIndex: zIndex });
-
-	            // And we use a visibility: hidden arrow below to shift up the
-	            // content by the correct amount
-	            arrowBelow = React.createElement(TooltipArrow, {
-	                verticalDirection: "top",
-	                horizontalDirection: this.props.horizontalAlign,
-	                visibility: "hidden",
-	                color: "white",
-	                border: this.props.borderColor,
-	                left: settings.arrowLeft(this.props.arrowSize),
-	                top: -1,
-	                width: this.props.arrowSize,
-	                height: this.props.arrowSize,
-	                zIndex: zIndex });
-	        } else {
-	            arrowAbove = React.createElement(TooltipArrow, {
-	                verticalDirection: "bottom",
-	                horizontalDirection: this.props.horizontalAlign,
-	                color: "white",
-	                border: this.props.borderColor,
-	                left: settings.arrowLeft(this.props.arrowSize),
-	                top: -1,
-	                width: this.props.arrowSize,
-	                height: this.props.arrowSize,
-	                zIndex: zIndex });
-
-	            arrowBelow = null;
+	    onDrop: function onDrop() {
+	        // tell the parent component
+	        this.setState({ dragging: null });
+	        this.props.onReorder(this.state.components);
+	    },
+	    onDragEnter: function onDragEnter(enterIndex) {
+	        // When a label is first dragged it triggers a dragEnter with itself,
+	        // which we don't care about.
+	        if (this.state.dragging === enterIndex) {
+	            return;
 	        }
 
-	        /* A positioned div below the input to be the parent for our
-	            tooltip */
-	        return React.createElement(
-	            "div",
-	            { style: {
-	                    position: "relative",
-	                    height: 0,
-	                    display: this.props.show ? "block" : "none"
-	                } },
-	            React.createElement(
-	                "div",
-	                { ref: "tooltipContainer", className: "tooltipContainer", style: {
-	                        position: "absolute",
-	                        // height must start out undefined, not null, so that
-	                        // we can measure the actual height with jquery.
-	                        // This is used to position the tooltip with top: -100%
-	                        // when in verticalPosition: "top" mode
-	                        height: this.state.height || undefined,
-	                        left: settings.targetLeft
-	                    } },
-	                arrowAbove,
-	                React.createElement(
-	                    "div",
-	                    { className: this.props.className,
-	                        ref: "tooltipContent",
-	                        style: {
-	                            position: "relative",
-	                            top: settings["top"],
-	                            left: settings.tooltipLeft,
-	                            border: "1px solid " + this.props.borderColor,
-	                            WebkitBoxShadow: "0 1px 3px " + this.props.borderColor,
-	                            MozBoxShadow: "0 1px 3px " + this.props.borderColor,
-	                            boxShadow: "0 1px 3px " + this.props.borderColor,
-	                            zIndex: zIndex - 1
-	                        } },
-	                    _.rest(this.props.children)
-	                ),
-	                arrowBelow
-	            )
-	        );
+	        var newComponents = this.state.components.slice();
+
+	        // splice the tab out of its old position
+	        var removed = newComponents.splice(this.state.dragging, 1);
+	        // ... and into its new position
+	        newComponents.splice(enterIndex, 0, removed[0]);
+
+	        var verified = this.props.verify(newComponents);
+	        if (verified) {
+	            this.setState({
+	                dragging: enterIndex,
+	                components: newComponents
+	            });
+	        }
+	        return verified;
 	    },
 
+	    // Firefox refuses to drag an element unless you set data on it. Hackily
+	    // add data each time an item is dragged.
 	    componentDidMount: function componentDidMount() {
-	        this._updateHeight();
+	        this._setDragEvents();
 	    },
-
 	    componentDidUpdate: function componentDidUpdate() {
-	        this._updateHeight();
+	        this._setDragEvents();
 	    },
+	    _listenEvent: function _listenEvent(e) {
+	        e.dataTransfer.setData('hackhackhack', 'because browsers!');
+	    },
+	    _cancelEvent: function _cancelEvent(e) {
+	        // prevent the browser from redirecting to 'because browsers!'
+	        e.preventDefault();
+	    },
+	    _setDragEvents: function _setDragEvents() {
+	        var _this2 = this;
 
-	    _updateHeight: function _updateHeight() {
-	        var height = ReactDOM.findDOMNode(this.refs.tooltipContainer).offsetHeight;
-	        if (height !== this.state.height) {
-	            this.setState({ height: height });
-	        }
+	        this._dragItems = this._dragItems || [];
+	        var items = ReactDOM.findDOMNode(this).querySelectorAll('[draggable=true]');
+	        var oldItems = _(this._dragItems).difference(items);
+	        var newItems = _(items).difference(this._dragItems);
+
+	        _(newItems).each(function (dragItem) {
+	            dragItem.addEventListener('dragstart', _this2._listenEvent);
+	            dragItem.addEventListener('drop', _this2._cancelEvent);
+	        });
+
+	        _(oldItems).each(function (dragItem) {
+	            dragItem.removeEventListener('dragstart', _this2._listenEvent);
+	            dragItem.removeEventListener('drop', _this2._cancelEvent);
+	        });
 	    }
 	});
 
-	// Sorry.  // Apology-Oriented-Programming
-	module.exports = Tooltip;
+	// An individual sortable item
+	var SortableItem = React.createClass({
+	    displayName: 'SortableItem',
+
+	    propTypes: {
+	        // item: what is this?
+	    },
+	    render: function render() {
+	        var dragState = "sortable-disabled";
+	        if (this.props.dragging) {
+	            dragState = "sortable-dragging";
+	        } else if (this.props.draggable) {
+	            dragState = "sortable-enabled";
+	        }
+
+	        return React.createElement(
+	            'li',
+	            { draggable: this.props.draggable,
+	                className: dragState,
+	                onDragStart: this.handleDragStart,
+	                onDrop: this.handleDrop,
+	                onDragEnter: this.handleDragEnter,
+	                onDragOver: this.handleDragOver },
+	            this.props.component
+	        );
+	    },
+	    handleDragStart: function handleDragStart(e) {
+	        e.nativeEvent.dataTransfer.effectAllowed = "move";
+	        this.props.area.onDragStart(this.props.index);
+	    },
+	    handleDrop: function handleDrop() {
+	        this.props.area.onDrop(this.props.index);
+	    },
+	    handleDragEnter: function handleDragEnter(e) {
+	        var verified = this.props.area.onDragEnter(this.props.index);
+	        // Ideally this would change the cursor based on whether this is a
+	        // valid place to drop.
+	        e.nativeEvent.dataTransfer.effectAllowed = verified ? "move" : "none";
+	    },
+	    handleDragOver: function handleDragOver(e) {
+	        // allow a drop by preventing default handling
+	        e.preventDefault();
+	    }
+	});
+
+	module.exports = SortableArea;
 
 /***/ },
 /* 189 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, max-len, no-var, object-curly-spacing, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var classNames = __webpack_require__(55);
-	var React = __webpack_require__(18);
-	var ReactDOM = __webpack_require__(20);
-	var _ = __webpack_require__(19);
-
-	var TexButtons = __webpack_require__(190);
-
-	// TODO(alex): Package MathQuill
-	var MathQuill = window.MathQuill;
-	var PT = React.PropTypes;
-
-	// A WYSIWYG math input that calls `onChange(LaTeX-string)`
-	var MathInput = React.createClass({
-	    displayName: "MathInput",
-
-	    propTypes: {
-	        value: PT.string,
-	        onChange: PT.func.isRequired,
-	        convertDotToTimes: PT.bool,
-	        buttonsVisible: PT.oneOf(['always', 'never', 'focused']),
-	        buttonSets: TexButtons.buttonSetsType.isRequired,
-	        labelText: React.PropTypes.string,
-	        onFocus: PT.func,
-	        onBlur: PT.func
-	    },
-
-	    render: function render() {
-	        var className = classNames({
-	            "perseus-math-input": true,
-
-	            // mathquill usually adds these itself but react removes them when
-	            // updating the component.
-	            "mq-editable-field": true,
-	            "mq-math-mode": true
-	        });
-
-	        if (this.props.className) {
-	            className = className + " " + this.props.className;
-	        }
-
-	        var buttons = null;
-	        if (this._shouldShowButtons()) {
-	            buttons = React.createElement(TexButtons, {
-	                sets: this.props.buttonSets,
-	                className: "math-input-buttons absolute",
-	                convertDotToTimes: this.props.convertDotToTimes,
-	                onInsert: this.insert });
-	        }
-
-	        return React.createElement(
-	            "div",
-	            { style: { display: "inline-block" } },
-	            React.createElement(
-	                "div",
-	                { style: { display: 'inline-block' } },
-	                React.createElement("span", { className: className,
-	                    ref: "mathinput",
-	                    "aria-label": this.props.labelText,
-	                    onFocus: this.handleFocus,
-	                    onBlur: this.handleBlur })
-	            ),
-	            React.createElement(
-	                "div",
-	                { style: { position: "relative" } },
-	                buttons
-	            )
-	        );
-	    },
-
-	    // handlers:
-	    // keep track of two related bits of state:
-	    // * this.state.focused - whether the buttons are currently shown
-	    // * this.mouseDown - whether a mouse click is active that started in the
-	    //   buttons div
-
-	    handleFocus: function handleFocus() {
-	        this.setState({ focused: true });
-	        // TODO(joel) fix properly - we should probably allow onFocus handlers
-	        // to this property, but we need to work correctly with them.
-	        // if (this.props.onFocus) {
-	        //     this.props.onFocus();
-	        // }
-	    },
-
-	    handleMouseDown: function handleMouseDown(event) {
-	        var focused = ReactDOM.findDOMNode(this).contains(event.target);
-	        this.mouseDown = focused;
-	        if (!focused) {
-	            this.setState({ focused: false });
-	        }
-	    },
-
-	    handleMouseUp: function handleMouseUp() {
-	        // this mouse click started in the buttons div so we should focus the
-	        // input
-	        if (this.mouseDown) {
-	            this.focus();
-	        }
-	        this.mouseDown = false;
-	    },
-
-	    handleBlur: function handleBlur() {
-	        if (!this.mouseDown) {
-	            this.setState({ focused: false });
-	        }
-	    },
-
-	    _shouldShowButtons: function _shouldShowButtons() {
-	        if (this.props.buttonsVisible === 'always') {
-	            return true;
-	        } else if (this.props.buttonsVisible === 'never') {
-	            return false;
-	        } else {
-	            return this.state.focused;
-	        }
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            value: "",
-	            convertDotToTimes: false,
-	            buttonsVisible: 'focused'
-	        };
-	    },
-
-	    getInitialState: function getInitialState() {
-	        return { focused: false };
-	    },
-
-	    insert: function insert(value) {
-	        var input = this.mathField();
-	        if (_(value).isFunction()) {
-	            value(input);
-	        } else if (value[0] === '\\') {
-	            input.cmd(value).focus();
-	        } else {
-	            input.write(value).focus();
-	        }
-	        input.focus();
-	    },
-
-	    mathField: function mathField(options) {
-	        // The MathQuill API is now "versioned" through its own "InterVer" system.
-	        // See: https://github.com/mathquill/mathquill/pull/459
-	        var MQ = MathQuill.getInterface(2);
-
-	        // MathQuill.MathField takes a DOM node, MathQuill-ifies it if it's
-	        // seeing that node for the first time, then returns the associated
-	        // MathQuill object for that node. It is stable - will always return
-	        // the same object when called on the same DOM node.
-	        return MQ.MathField(ReactDOM.findDOMNode(this.refs.mathinput), options);
-	    },
-
-	    componentWillUnmount: function componentWillUnmount() {
-	        window.removeEventListener("mousedown", this.handleMouseDown);
-	        window.removeEventListener("mouseup", this.handleMouseUp);
-	    },
-
-	    componentDidMount: function componentDidMount() {
-	        var _this = this;
-
-	        window.addEventListener("mousedown", this.handleMouseDown);
-	        window.addEventListener("mouseup", this.handleMouseUp);
-
-	        var initialized = false;
-
-	        // Initialize MathQuill.MathField instance
-	        this.mathField({
-	            // LaTeX commands that, when typed, are immediately replaced by the
-	            // appropriate symbol. This does not include ln, log, or any of the
-	            // trig functions; those are always interpreted as commands.
-	            autoCommands: "pi theta phi sqrt nthroot",
-
-	            // Pop the cursor out of super/subscripts on arithmetic operators
-	            // or (in)equalities.
-	            charsThatBreakOutOfSupSub: "+-*/=<>≠≤≥",
-
-	            // Prevent excessive super/subscripts or fractions from being created
-	            // without operands, e.g. when somebody holds down a key
-	            supSubsRequireOperand: true,
-
-	            // The name of this option is somewhat misleading, as tabbing in
-	            // MathQuill breaks you out of a nested context (fraction/script)
-	            // if you're in one, but moves focus to the next input if you're
-	            // not. Spaces (with this option enabled) are just ignored in the
-	            // latter case.
-	            //
-	            // TODO(alex): In order to allow inputting mixed numbers, we will
-	            // have to accept spaces in certain cases. The desired behavior is
-	            // still to escape nested contexts if currently in one, but to
-	            // insert a space if not (we don't expect mixed numbers in nested
-	            // contexts). We should also limit to one consecutive space.
-	            spaceBehavesLikeTab: true,
-
-	            handlers: {
-	                edited: function edited(mathField) {
-	                    // This handler is guaranteed to be called on change, but
-	                    // unlike React it sometimes generates false positives.
-	                    // One of these is on initialization (with an empty string
-	                    // value), so we have to guard against that below.
-	                    var value = mathField.latex();
-
-	                    // Provide a MathQuill-compatible way to generate the
-	                    // not-equals sign without pasting unicode or typing TeX
-	                    value = value.replace(/<>/g, "\\ne");
-
-	                    // Use the specified symbol to represent multiplication
-	                    // TODO(alex): Add an option to disallow variables, in
-	                    // which case 'x' should get converted to '\\times'
-	                    if (_this.props.convertDotToTimes) {
-	                        value = value.replace(/\\cdot/g, "\\times");
-
-	                        // Preserve cursor position in the common case:
-	                        // typing '*' to insert a multiplication sign.
-	                        // We do this by modifying internal MathQuill state
-	                        // directly, instead of waiting for `.latex()` to be
-	                        // called in `componentDidUpdate()`.
-	                        var left = mathField.__controller.cursor[MathQuill.L];
-	                        if (left && left.ctrlSeq === '\\cdot ') {
-	                            mathField.__controller.backspace();
-	                            mathField.cmd('\\times');
-	                        }
-	                    } else {
-	                        value = value.replace(/\\times/g, "\\cdot");
-	                    }
-
-	                    if (initialized && _this.props.value !== value) {
-	                        _this.props.onChange(value);
-	                    }
-	                },
-	                enter: function enter() {
-	                    // This handler is called when the user presses the enter
-	                    // key. Since this isn't an actual <input> element, we have
-	                    // to manually trigger the usually automatic form submit.
-	                    $(ReactDOM.findDOMNode(_this.refs.mathinput)).submit();
-	                },
-	                upOutOf: function upOutOf(mathField) {
-	                    // This handler is called when the user presses the up
-	                    // arrow key, but there is nowhere in the expression to go
-	                    // up to (no numerator or exponent). For ease of use,
-	                    // interpret this as an attempt to create an exponent.
-	                    mathField.typedText("^");
-	                }
-	            }
-	        });
-
-	        // Ideally, we would be able to pass an initial value directly into
-	        // the constructor above
-	        this.mathField().latex(this.props.value);
-
-	        initialized = true;
-	    },
-
-	    componentDidUpdate: function componentDidUpdate() {
-	        if (!_.isEqual(this.mathField().latex(), this.props.value)) {
-	            this.mathField().latex(this.props.value);
-	        }
-	    },
-
-	    focus: function focus() {
-	        this.mathField().focus();
-	        this.setState({ focused: true });
-	    },
-
-	    blur: function blur() {
-	        this.mathField().blur();
-	        this.setState({ focused: false });
-	    }
-	});
-
-	module.exports = MathInput;
-
-/***/ },
-/* 190 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -50085,178 +49625,655 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = TexButtons;
 
 /***/ },
-/* 191 */
+/* 190 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
+	/* eslint-disable comma-dangle, indent, no-var, one-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var React = __webpack_require__(18);
 	var ReactDOM = __webpack_require__(20);
 	var _ = __webpack_require__(19);
 
-	var PT = React.PropTypes;
+	// TODO(joel/jack) fix z-index issues https://s3.amazonaws.com/uploads.hipchat.com/6574/29028/yOApjwmgiMhEZYJ/Screen%20Shot%202014-05-30%20at%203.34.18%20PM.png
+	// z-index: 3 on perseus-formats-tooltip seemed to work
 
-	// Takes an array of components to sort
-	var SortableArea = React.createClass({
-	    displayName: 'SortableArea',
+	/**
+	 * A generic tooltip library for React.js
+	 *
+	 * This should eventually end up in react-components
+	 *
+	 * Interface: ({a, b} means one of a or b)
+	 * var Tooltip = require("./tooltip.jsx");
+	 * <Tooltip
+	 *         className="class-for-tooltip-contents"
+	 *         horizontalPosition="left" // one of "left", "right"
+	 *         horizontalAlign="left" // one of "left", "right"
+	 *         verticalPosition="bottom" // one of "top", "bottom"
+	 *         arrowSize={10} // arrow size in pixels
+	 *         borderColor="#ccc" // color of the border for the tooltip
+	 *         show={true} // whether the tooltip should currently be visible
+	 *         targetContainerStyle={targetContainerStyle}
+	 *         >
+	 *     <TargetElementOfTheTooltip />
+	 *     <TooltipContents1 />
+	 *     <TooltipContents2 />
+	 * </Tooltip>
+	 *
+	 * To show/hide the tooltip, the parent component should call the
+	 * .show() and .hide() methods of the tooltip when appropriate.
+	 * (These are usually set up as handlers of events on the target element.)
+	 *
+	 * Notes:
+	 *     className should not specify a border; that is handled by borderColor
+	 *     so that the arrow and tooltip match
+	 */
+
+	//          __,,--``\\
+	//  _,,-''``         \\     ,
+	// '----------_.------'-.___|\__
+	//    _.--''``    `)__   )__   @\__
+	//   (  .. ''---/___,,E/__,E'------`
+	//    `-''`''
+	// Here be dragons.
+
+	var zIndex = 10;
+
+	var Triangle = React.createClass({
+	    displayName: "Triangle",
 
 	    propTypes: {
-	        components: PT.arrayOf(PT.node).isRequired,
-	        onReorder: PT.func.isRequired,
-	        verify: PT.func
+	        color: React.PropTypes.string.isRequired,
+	        left: React.PropTypes.number.isRequired,
+	        "top": React.PropTypes.number.isRequired,
+	        width: React.PropTypes.number.isRequired,
+	        height: React.PropTypes.number.isRequired,
+	        horizontalDirection: React.PropTypes.oneOf(["left", "right"]).isRequired,
+	        verticalDirection: React.PropTypes.oneOf(["top", "bottom"]).isRequired
 	    },
-	    render: function render() {
-	        var _this = this;
 
-	        var sortables = _(this.state.components).map(function (component, index) {
-	            return React.createElement(SortableItem, {
-	                index: index,
-	                component: component,
-	                area: _this,
-	                key: component.key,
-	                draggable: component.props.draggable,
-	                dragging: index === _this.state.dragging });
-	        });
-	        return React.createElement(
-	            'ol',
-	            { className: this.props.className, style: this.props.style },
-	            sortables
-	        );
+	    render: function render() {
+	        var borderLeft, borderRight, borderTop, borderBottom;
+
+	        var hBorder = this.props.width + "px solid transparent";
+	        if (this.props.horizontalDirection === "right") {
+	            borderLeft = hBorder;
+	        } else {
+	            borderRight = hBorder;
+	        }
+
+	        var vBorder = this.props.height + "px solid " + this.props.color;
+	        if (this.props.verticalDirection === "top") {
+	            borderTop = vBorder;
+	        } else {
+	            borderBottom = vBorder;
+	        }
+
+	        return React.createElement("div", { style: {
+	                display: "block",
+	                height: 0,
+	                width: 0,
+	                position: "absolute",
+	                left: this.props.left,
+	                "top": this.props["top"],
+	                borderLeft: borderLeft,
+	                borderRight: borderRight,
+	                borderTop: borderTop,
+	                borderBottom: borderBottom
+	            } });
+	    }
+	});
+
+	var TooltipArrow = React.createClass({
+	    displayName: "TooltipArrow",
+
+	    propTypes: {
+	        position: React.PropTypes.string,
+	        visibility: React.PropTypes.string,
+	        left: React.PropTypes.number,
+	        "top": React.PropTypes.number,
+	        color: React.PropTypes.string.isRequired, // a css color
+	        border: React.PropTypes.string.isRequired, // a css color
+	        width: React.PropTypes.number.isRequired,
+	        height: React.PropTypes.number.isRequired,
+	        horizontalDirection: React.PropTypes.oneOf(["left", "right"]).isRequired,
+	        verticalDirection: React.PropTypes.oneOf(["top", "bottom"]).isRequired
 	    },
+
 	    getDefaultProps: function getDefaultProps() {
-	        return { verify: function verify() {
-	                return true;
-	            } };
-	    },
-	    getInitialState: function getInitialState() {
 	        return {
-	            // index of the component being dragged
-	            dragging: null,
-	            components: this.props.components
+	            position: "relative",
+	            visibility: "visible",
+	            left: 0,
+	            "top": 0
 	        };
 	    },
-	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        this.setState({ components: nextProps.components });
-	    },
-	    // Alternatively send each handler to each component individually,
-	    // partially applied
-	    onDragStart: function onDragStart(startIndex) {
-	        this.setState({ dragging: startIndex });
-	    },
-	    onDrop: function onDrop() {
-	        // tell the parent component
-	        this.setState({ dragging: null });
-	        this.props.onReorder(this.state.components);
-	    },
-	    onDragEnter: function onDragEnter(enterIndex) {
-	        // When a label is first dragged it triggers a dragEnter with itself,
-	        // which we don't care about.
-	        if (this.state.dragging === enterIndex) {
-	            return;
-	        }
 
-	        var newComponents = this.state.components.slice();
+	    // TODO(jack): Think about adding a box-shadow to the triangle here
+	    // See http://css-tricks.com/triangle-with-shadow/
+	    render: function render() {
+	        //var isRight = (this.props.horizontalDirection === "right");
+	        var isTop = this.props.verticalDirection === "top";
 
-	        // splice the tab out of its old position
-	        var removed = newComponents.splice(this.state.dragging, 1);
-	        // ... and into its new position
-	        newComponents.splice(enterIndex, 0, removed[0]);
+	        var frontTopOffset = isTop ? 0 : 1;
+	        var borderTopOffset = isTop ? 0 : -1;
 
-	        var verified = this.props.verify(newComponents);
-	        if (verified) {
-	            this.setState({
-	                dragging: enterIndex,
-	                components: newComponents
-	            });
-	        }
-	        return verified;
-	    },
-
-	    // Firefox refuses to drag an element unless you set data on it. Hackily
-	    // add data each time an item is dragged.
-	    componentDidMount: function componentDidMount() {
-	        this._setDragEvents();
-	    },
-	    componentDidUpdate: function componentDidUpdate() {
-	        this._setDragEvents();
-	    },
-	    _listenEvent: function _listenEvent(e) {
-	        e.dataTransfer.setData('hackhackhack', 'because browsers!');
-	    },
-	    _cancelEvent: function _cancelEvent(e) {
-	        // prevent the browser from redirecting to 'because browsers!'
-	        e.preventDefault();
-	    },
-	    _setDragEvents: function _setDragEvents() {
-	        var _this2 = this;
-
-	        this._dragItems = this._dragItems || [];
-	        var items = ReactDOM.findDOMNode(this).querySelectorAll('[draggable=true]');
-	        var oldItems = _(this._dragItems).difference(items);
-	        var newItems = _(items).difference(this._dragItems);
-
-	        _(newItems).each(function (dragItem) {
-	            dragItem.addEventListener('dragstart', _this2._listenEvent);
-	            dragItem.addEventListener('drop', _this2._cancelEvent);
-	        });
-
-	        _(oldItems).each(function (dragItem) {
-	            dragItem.removeEventListener('dragstart', _this2._listenEvent);
-	            dragItem.removeEventListener('drop', _this2._cancelEvent);
-	        });
+	        return React.createElement(
+	            "div",
+	            { style: {
+	                    display: "block",
+	                    position: this.props.position,
+	                    visibility: this.props.visibility,
+	                    left: this.props.left,
+	                    "top": this.props["top"],
+	                    width: this.props.width + 2,
+	                    height: this.props.height + 1,
+	                    marginTop: -1,
+	                    marginBottom: -2,
+	                    zIndex: zIndex
+	                } },
+	            React.createElement(Triangle, {
+	                horizontalDirection: this.props.horizontalDirection,
+	                verticalDirection: this.props.verticalDirection,
+	                color: this.props.border,
+	                left: 0,
+	                top: borderTopOffset,
+	                width: this.props.width + 2 // one extra for the diagonal
+	                , height: this.props.height + 2 }),
+	            React.createElement(Triangle, {
+	                horizontalDirection: this.props.horizontalDirection,
+	                verticalDirection: this.props.verticalDirection,
+	                color: this.props.color,
+	                left: 1,
+	                top: frontTopOffset,
+	                width: this.props.width,
+	                height: this.props.height })
+	        );
 	    }
 	});
 
-	// An individual sortable item
-	var SortableItem = React.createClass({
-	    displayName: 'SortableItem',
+	var VERTICAL_CORNERS = {
+	    "top": {
+	        "top": "-100%"
+	    },
+	    bottom: {
+	        "top": 0
+	    }
+	};
+
+	var HORIZONTAL_CORNERS = {
+	    left: {
+	        targetLeft: 0
+	    },
+
+	    right: {
+	        targetLeft: "100%"
+	    }
+	};
+
+	var HORIZONTAL_ALIGNMNENTS = {
+	    left: {
+	        tooltipLeft: 0,
+	        arrowLeft: function arrowLeft(arrowSize) {
+	            return 0;
+	        }
+	    },
+	    right: {
+	        tooltipLeft: "-100%",
+	        arrowLeft: function arrowLeft(arrowSize) {
+	            return -arrowSize - 2;
+	        }
+	    }
+	};
+
+	var Tooltip = React.createClass({
+	    displayName: "Tooltip",
 
 	    propTypes: {
-	        // item: what is this?
+	        show: React.PropTypes.bool.isRequired,
+	        className: React.PropTypes.string,
+	        arrowSize: React.PropTypes.number,
+	        borderColor: React.PropTypes.string,
+	        verticalPosition: React.PropTypes.oneOf(_.keys(VERTICAL_CORNERS)),
+	        horizontalPosition: React.PropTypes.oneOf(_.keys(HORIZONTAL_CORNERS)),
+	        horizontalAlign: React.PropTypes.oneOf(_.keys(HORIZONTAL_ALIGNMNENTS)),
+	        children: React.PropTypes.arrayOf(React.PropTypes.element).isRequired,
+	        targetContainerStyle: React.PropTypes.any },
+
+	    // style object
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            className: "",
+	            arrowSize: 10,
+	            borderColor: "#ccc",
+	            verticalPosition: "bottom",
+	            horizontalPosition: "left",
+	            horizontalAlign: "left",
+	            targetContainerStyle: {}
+	        };
 	    },
+
+	    getInitialState: function getInitialState() {
+	        return {
+	            height: null // used for offsetting "top" positioned tooltips
+	        };
+	    },
+
+	    componentWillReceiveProps: function componentWillReceiveProps() {
+	        // If the contents have changed, reset our measure of the height
+	        this.setState({ height: null });
+	    },
+
 	    render: function render() {
-	        var dragState = "sortable-disabled";
-	        if (this.props.dragging) {
-	            dragState = "sortable-dragging";
-	        } else if (this.props.draggable) {
-	            dragState = "sortable-enabled";
+	        var isTooltipAbove = this.props.verticalPosition === "top";
+
+	        /* We wrap the entire output in a span so that it displays inline */
+	        return React.createElement(
+	            "span",
+	            null,
+	            isTooltipAbove && this._renderToolTipDiv(isTooltipAbove),
+	            React.createElement(
+	                "div",
+	                { style: this.props.targetContainerStyle },
+	                _.first(this.props.children)
+	            ),
+	            !isTooltipAbove && this._renderToolTipDiv()
+	        );
+	    },
+
+	    _renderToolTipDiv: function _renderToolTipDiv(isTooltipAbove) {
+	        var settings = _.extend({}, HORIZONTAL_CORNERS[this.props.horizontalPosition], HORIZONTAL_ALIGNMNENTS[this.props.horizontalAlign], VERTICAL_CORNERS[this.props.verticalPosition]);
+
+	        var arrowAbove;
+	        var arrowBelow;
+
+	        if (isTooltipAbove) {
+	            // We put an absolutely positioned arrow in the correct place
+	            arrowAbove = React.createElement(TooltipArrow, {
+	                verticalDirection: "top",
+	                horizontalDirection: this.props.horizontalAlign,
+	                position: "absolute",
+	                color: "white",
+	                border: this.props.borderColor,
+	                left: settings.arrowLeft(this.props.arrowSize),
+	                top: -this.props.arrowSize + 2,
+	                width: this.props.arrowSize,
+	                height: this.props.arrowSize,
+	                zIndex: zIndex });
+
+	            // And we use a visibility: hidden arrow below to shift up the
+	            // content by the correct amount
+	            arrowBelow = React.createElement(TooltipArrow, {
+	                verticalDirection: "top",
+	                horizontalDirection: this.props.horizontalAlign,
+	                visibility: "hidden",
+	                color: "white",
+	                border: this.props.borderColor,
+	                left: settings.arrowLeft(this.props.arrowSize),
+	                top: -1,
+	                width: this.props.arrowSize,
+	                height: this.props.arrowSize,
+	                zIndex: zIndex });
+	        } else {
+	            arrowAbove = React.createElement(TooltipArrow, {
+	                verticalDirection: "bottom",
+	                horizontalDirection: this.props.horizontalAlign,
+	                color: "white",
+	                border: this.props.borderColor,
+	                left: settings.arrowLeft(this.props.arrowSize),
+	                top: -1,
+	                width: this.props.arrowSize,
+	                height: this.props.arrowSize,
+	                zIndex: zIndex });
+
+	            arrowBelow = null;
+	        }
+
+	        /* A positioned div below the input to be the parent for our
+	            tooltip */
+	        return React.createElement(
+	            "div",
+	            { style: {
+	                    position: "relative",
+	                    height: 0,
+	                    display: this.props.show ? "block" : "none"
+	                } },
+	            React.createElement(
+	                "div",
+	                { ref: "tooltipContainer", className: "tooltipContainer", style: {
+	                        position: "absolute",
+	                        // height must start out undefined, not null, so that
+	                        // we can measure the actual height with jquery.
+	                        // This is used to position the tooltip with top: -100%
+	                        // when in verticalPosition: "top" mode
+	                        height: this.state.height || undefined,
+	                        left: settings.targetLeft
+	                    } },
+	                arrowAbove,
+	                React.createElement(
+	                    "div",
+	                    { className: this.props.className,
+	                        ref: "tooltipContent",
+	                        style: {
+	                            position: "relative",
+	                            top: settings["top"],
+	                            left: settings.tooltipLeft,
+	                            border: "1px solid " + this.props.borderColor,
+	                            WebkitBoxShadow: "0 1px 3px " + this.props.borderColor,
+	                            MozBoxShadow: "0 1px 3px " + this.props.borderColor,
+	                            boxShadow: "0 1px 3px " + this.props.borderColor,
+	                            zIndex: zIndex - 1
+	                        } },
+	                    _.rest(this.props.children)
+	                ),
+	                arrowBelow
+	            )
+	        );
+	    },
+
+	    componentDidMount: function componentDidMount() {
+	        this._updateHeight();
+	    },
+
+	    componentDidUpdate: function componentDidUpdate() {
+	        this._updateHeight();
+	    },
+
+	    _updateHeight: function _updateHeight() {
+	        var height = ReactDOM.findDOMNode(this.refs.tooltipContainer).offsetHeight;
+	        if (height !== this.state.height) {
+	            this.setState({ height: height });
+	        }
+	    }
+	});
+
+	// Sorry.  // Apology-Oriented-Programming
+	module.exports = Tooltip;
+
+/***/ },
+/* 191 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, max-len, no-var, object-curly-spacing, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var classNames = __webpack_require__(55);
+	var React = __webpack_require__(18);
+	var ReactDOM = __webpack_require__(20);
+	var _ = __webpack_require__(19);
+
+	var TexButtons = __webpack_require__(189);
+
+	// TODO(alex): Package MathQuill
+	var MathQuill = window.MathQuill;
+	var PT = React.PropTypes;
+
+	// A WYSIWYG math input that calls `onChange(LaTeX-string)`
+	var MathInput = React.createClass({
+	    displayName: "MathInput",
+
+	    propTypes: {
+	        value: PT.string,
+	        onChange: PT.func.isRequired,
+	        convertDotToTimes: PT.bool,
+	        buttonsVisible: PT.oneOf(['always', 'never', 'focused']),
+	        buttonSets: TexButtons.buttonSetsType.isRequired,
+	        labelText: React.PropTypes.string,
+	        onFocus: PT.func,
+	        onBlur: PT.func
+	    },
+
+	    render: function render() {
+	        var className = classNames({
+	            "perseus-math-input": true,
+
+	            // mathquill usually adds these itself but react removes them when
+	            // updating the component.
+	            "mq-editable-field": true,
+	            "mq-math-mode": true
+	        });
+
+	        if (this.props.className) {
+	            className = className + " " + this.props.className;
+	        }
+
+	        var buttons = null;
+	        if (this._shouldShowButtons()) {
+	            buttons = React.createElement(TexButtons, {
+	                sets: this.props.buttonSets,
+	                className: "math-input-buttons absolute",
+	                convertDotToTimes: this.props.convertDotToTimes,
+	                onInsert: this.insert });
 	        }
 
 	        return React.createElement(
-	            'li',
-	            { draggable: this.props.draggable,
-	                className: dragState,
-	                onDragStart: this.handleDragStart,
-	                onDrop: this.handleDrop,
-	                onDragEnter: this.handleDragEnter,
-	                onDragOver: this.handleDragOver },
-	            this.props.component
+	            "div",
+	            { style: { display: "inline-block" } },
+	            React.createElement(
+	                "div",
+	                { style: { display: 'inline-block' } },
+	                React.createElement("span", { className: className,
+	                    ref: "mathinput",
+	                    "aria-label": this.props.labelText,
+	                    onFocus: this.handleFocus,
+	                    onBlur: this.handleBlur })
+	            ),
+	            React.createElement(
+	                "div",
+	                { style: { position: "relative" } },
+	                buttons
+	            )
 	        );
 	    },
-	    handleDragStart: function handleDragStart(e) {
-	        e.nativeEvent.dataTransfer.effectAllowed = "move";
-	        this.props.area.onDragStart(this.props.index);
+
+	    // handlers:
+	    // keep track of two related bits of state:
+	    // * this.state.focused - whether the buttons are currently shown
+	    // * this.mouseDown - whether a mouse click is active that started in the
+	    //   buttons div
+
+	    handleFocus: function handleFocus() {
+	        this.setState({ focused: true });
+	        // TODO(joel) fix properly - we should probably allow onFocus handlers
+	        // to this property, but we need to work correctly with them.
+	        // if (this.props.onFocus) {
+	        //     this.props.onFocus();
+	        // }
 	    },
-	    handleDrop: function handleDrop() {
-	        this.props.area.onDrop(this.props.index);
+
+	    handleMouseDown: function handleMouseDown(event) {
+	        var focused = ReactDOM.findDOMNode(this).contains(event.target);
+	        this.mouseDown = focused;
+	        if (!focused) {
+	            this.setState({ focused: false });
+	        }
 	    },
-	    handleDragEnter: function handleDragEnter(e) {
-	        var verified = this.props.area.onDragEnter(this.props.index);
-	        // Ideally this would change the cursor based on whether this is a
-	        // valid place to drop.
-	        e.nativeEvent.dataTransfer.effectAllowed = verified ? "move" : "none";
+
+	    handleMouseUp: function handleMouseUp() {
+	        // this mouse click started in the buttons div so we should focus the
+	        // input
+	        if (this.mouseDown) {
+	            this.focus();
+	        }
+	        this.mouseDown = false;
 	    },
-	    handleDragOver: function handleDragOver(e) {
-	        // allow a drop by preventing default handling
-	        e.preventDefault();
+
+	    handleBlur: function handleBlur() {
+	        if (!this.mouseDown) {
+	            this.setState({ focused: false });
+	        }
+	    },
+
+	    _shouldShowButtons: function _shouldShowButtons() {
+	        if (this.props.buttonsVisible === 'always') {
+	            return true;
+	        } else if (this.props.buttonsVisible === 'never') {
+	            return false;
+	        } else {
+	            return this.state.focused;
+	        }
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            value: "",
+	            convertDotToTimes: false,
+	            buttonsVisible: 'focused'
+	        };
+	    },
+
+	    getInitialState: function getInitialState() {
+	        return { focused: false };
+	    },
+
+	    insert: function insert(value) {
+	        var input = this.mathField();
+	        if (_(value).isFunction()) {
+	            value(input);
+	        } else if (value[0] === '\\') {
+	            input.cmd(value).focus();
+	        } else {
+	            input.write(value).focus();
+	        }
+	        input.focus();
+	    },
+
+	    mathField: function mathField(options) {
+	        // The MathQuill API is now "versioned" through its own "InterVer" system.
+	        // See: https://github.com/mathquill/mathquill/pull/459
+	        var MQ = MathQuill.getInterface(2);
+
+	        // MathQuill.MathField takes a DOM node, MathQuill-ifies it if it's
+	        // seeing that node for the first time, then returns the associated
+	        // MathQuill object for that node. It is stable - will always return
+	        // the same object when called on the same DOM node.
+	        return MQ.MathField(ReactDOM.findDOMNode(this.refs.mathinput), options);
+	    },
+
+	    componentWillUnmount: function componentWillUnmount() {
+	        window.removeEventListener("mousedown", this.handleMouseDown);
+	        window.removeEventListener("mouseup", this.handleMouseUp);
+	    },
+
+	    componentDidMount: function componentDidMount() {
+	        var _this = this;
+
+	        window.addEventListener("mousedown", this.handleMouseDown);
+	        window.addEventListener("mouseup", this.handleMouseUp);
+
+	        var initialized = false;
+
+	        // Initialize MathQuill.MathField instance
+	        this.mathField({
+	            // LaTeX commands that, when typed, are immediately replaced by the
+	            // appropriate symbol. This does not include ln, log, or any of the
+	            // trig functions; those are always interpreted as commands.
+	            autoCommands: "pi theta phi sqrt nthroot",
+
+	            // Pop the cursor out of super/subscripts on arithmetic operators
+	            // or (in)equalities.
+	            charsThatBreakOutOfSupSub: "+-*/=<>≠≤≥",
+
+	            // Prevent excessive super/subscripts or fractions from being created
+	            // without operands, e.g. when somebody holds down a key
+	            supSubsRequireOperand: true,
+
+	            // The name of this option is somewhat misleading, as tabbing in
+	            // MathQuill breaks you out of a nested context (fraction/script)
+	            // if you're in one, but moves focus to the next input if you're
+	            // not. Spaces (with this option enabled) are just ignored in the
+	            // latter case.
+	            //
+	            // TODO(alex): In order to allow inputting mixed numbers, we will
+	            // have to accept spaces in certain cases. The desired behavior is
+	            // still to escape nested contexts if currently in one, but to
+	            // insert a space if not (we don't expect mixed numbers in nested
+	            // contexts). We should also limit to one consecutive space.
+	            spaceBehavesLikeTab: true,
+
+	            handlers: {
+	                edited: function edited(mathField) {
+	                    // This handler is guaranteed to be called on change, but
+	                    // unlike React it sometimes generates false positives.
+	                    // One of these is on initialization (with an empty string
+	                    // value), so we have to guard against that below.
+	                    var value = mathField.latex();
+
+	                    // Provide a MathQuill-compatible way to generate the
+	                    // not-equals sign without pasting unicode or typing TeX
+	                    value = value.replace(/<>/g, "\\ne");
+
+	                    // Use the specified symbol to represent multiplication
+	                    // TODO(alex): Add an option to disallow variables, in
+	                    // which case 'x' should get converted to '\\times'
+	                    if (_this.props.convertDotToTimes) {
+	                        value = value.replace(/\\cdot/g, "\\times");
+
+	                        // Preserve cursor position in the common case:
+	                        // typing '*' to insert a multiplication sign.
+	                        // We do this by modifying internal MathQuill state
+	                        // directly, instead of waiting for `.latex()` to be
+	                        // called in `componentDidUpdate()`.
+	                        var left = mathField.__controller.cursor[MathQuill.L];
+	                        if (left && left.ctrlSeq === '\\cdot ') {
+	                            mathField.__controller.backspace();
+	                            mathField.cmd('\\times');
+	                        }
+	                    } else {
+	                        value = value.replace(/\\times/g, "\\cdot");
+	                    }
+
+	                    if (initialized && _this.props.value !== value) {
+	                        _this.props.onChange(value);
+	                    }
+	                },
+	                enter: function enter() {
+	                    // This handler is called when the user presses the enter
+	                    // key. Since this isn't an actual <input> element, we have
+	                    // to manually trigger the usually automatic form submit.
+	                    $(ReactDOM.findDOMNode(_this.refs.mathinput)).submit();
+	                },
+	                upOutOf: function upOutOf(mathField) {
+	                    // This handler is called when the user presses the up
+	                    // arrow key, but there is nowhere in the expression to go
+	                    // up to (no numerator or exponent). For ease of use,
+	                    // interpret this as an attempt to create an exponent.
+	                    mathField.typedText("^");
+	                }
+	            }
+	        });
+
+	        // Ideally, we would be able to pass an initial value directly into
+	        // the constructor above
+	        this.mathField().latex(this.props.value);
+
+	        initialized = true;
+	    },
+
+	    componentDidUpdate: function componentDidUpdate() {
+	        if (!_.isEqual(this.mathField().latex(), this.props.value)) {
+	            this.mathField().latex(this.props.value);
+	        }
+	    },
+
+	    focus: function focus() {
+	        this.mathField().focus();
+	        this.setState({ focused: true });
+	    },
+
+	    blur: function blur() {
+	        this.mathField().blur();
+	        this.setState({ focused: false });
 	    }
 	});
 
-	module.exports = SortableArea;
+	module.exports = MathInput;
 
 /***/ },
 /* 192 */
@@ -50422,6 +50439,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                verticalAlign: "middle"
 	            },
 
+	            // See http://stackoverflow.com/q/8120466 for explanation of
+	            // why vertical align property is needed
 	            responsiveItem: (_responsiveItem = {}, _responsiveItem[mediaQueries.lgOrSmaller] = {
 	                marginLeft: 0,
 	                padding: 0,
@@ -50474,6 +50493,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                paddingLeft: styleConstants.phoneMargin
 	            },
 
+	            // paddingRight is handled by responsiveFieldset
 	            responsiveFieldset: {
 	                paddingRight: styleConstants.phoneMargin
 	            }
@@ -50704,30 +50724,30 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var AtomicBlockUtils = __webpack_require__(224);
-	var BlockMapBuilder = __webpack_require__(225);
-	var CharacterMetadata = __webpack_require__(226);
-	var CompositeDraftDecorator = __webpack_require__(227);
-	var ContentBlock = __webpack_require__(228);
-	var ContentState = __webpack_require__(229);
-	var DefaultDraftBlockRenderMap = __webpack_require__(230);
-	var DefaultDraftInlineStyle = __webpack_require__(231);
-	var DraftEditor = __webpack_require__(232);
-	var DraftEditorBlock = __webpack_require__(233);
-	var DraftModifier = __webpack_require__(234);
-	var DraftEntity = __webpack_require__(235);
-	var DraftEntityInstance = __webpack_require__(236);
-	var EditorState = __webpack_require__(237);
-	var KeyBindingUtil = __webpack_require__(238);
-	var RichTextEditorUtil = __webpack_require__(239);
-	var SelectionState = __webpack_require__(240);
+	var AtomicBlockUtils = __webpack_require__(225);
+	var BlockMapBuilder = __webpack_require__(226);
+	var CharacterMetadata = __webpack_require__(227);
+	var CompositeDraftDecorator = __webpack_require__(228);
+	var ContentBlock = __webpack_require__(229);
+	var ContentState = __webpack_require__(230);
+	var DefaultDraftBlockRenderMap = __webpack_require__(231);
+	var DefaultDraftInlineStyle = __webpack_require__(232);
+	var DraftEditor = __webpack_require__(233);
+	var DraftEditorBlock = __webpack_require__(234);
+	var DraftModifier = __webpack_require__(235);
+	var DraftEntity = __webpack_require__(236);
+	var DraftEntityInstance = __webpack_require__(237);
+	var EditorState = __webpack_require__(238);
+	var KeyBindingUtil = __webpack_require__(239);
+	var RichTextEditorUtil = __webpack_require__(240);
+	var SelectionState = __webpack_require__(241);
 
-	var convertFromDraftStateToRaw = __webpack_require__(241);
-	var convertFromHTMLToContentBlocks = __webpack_require__(242);
-	var convertFromRawToDraftState = __webpack_require__(243);
-	var generateRandomKey = __webpack_require__(244);
-	var getDefaultKeyBinding = __webpack_require__(245);
-	var getVisibleSelectionRect = __webpack_require__(246);
+	var convertFromDraftStateToRaw = __webpack_require__(242);
+	var convertFromHTMLToContentBlocks = __webpack_require__(243);
+	var convertFromRawToDraftState = __webpack_require__(244);
+	var generateRandomKey = __webpack_require__(245);
+	var getDefaultKeyBinding = __webpack_require__(246);
+	var getVisibleSelectionRect = __webpack_require__(247);
 
 	var DraftPublic = {
 	  Editor: DraftEditor,
@@ -50797,6 +50817,256 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var Movable = __webpack_require__(248);
+	var MovablePoint = __webpack_require__(249);
+	var MovableLine = __webpack_require__(250);
+	var MovablePolygon = __webpack_require__(251);
+
+	var KhanColors = __webpack_require__(197);
+
+	var Interactive2 = {
+	    MovablePoint: MovablePoint,
+	    addMovablePoint: function addMovablePoint(graphie, options) {
+	        var movable = new Movable(graphie, {});
+	        return new MovablePoint(graphie, movable, options);
+	    },
+	    MovableLine: MovableLine,
+	    addMovableLine: function addMovableLine(graphie, options) {
+	        var movable = new Movable(graphie, {});
+	        return new MovableLine(graphie, movable, options);
+	    },
+	    MovablePolygon: MovablePolygon,
+	    addMovablePolygon: function addMovablePolygon(graphie, options) {
+	        var movable = new Movable(graphie, {});
+	        return new MovablePolygon(graphie, movable, options);
+	    },
+
+	    addMaybeMobileMovablePoint: function addMaybeMobileMovablePoint(widget, extraProps) {
+	        var isMobile = widget.props.apiOptions.isMobile;
+
+	        var commonStyle = isMobile ? {
+	            stroke: "#ffffff",
+	            "stroke-width": 3,
+	            fill: KhanColors.INTERACTIVE
+	        } : {
+	            stroke: KhanColors.INTERACTIVE,
+	            fill: KhanColors.INTERACTIVE
+	        };
+
+	        var normalStyle = Object.assign(commonStyle, extraProps.normalStyle);
+
+	        var highlightStyle = Object.assign(isMobile ? _extends({}, commonStyle, {
+	            "stroke-width": 0,
+	            scale: 0.75
+	        }) : {}, extraProps.highlightStyle);
+
+	        var props = Object.assign({
+	            normalStyle: normalStyle,
+	            highlightStyle: highlightStyle,
+	            shadow: isMobile,
+	            tooltip: isMobile && widget.props.showTooltips,
+	            showHairlines: widget.showHairlines,
+	            hideHairlines: widget.hideHairlines
+	        }, isMobile ? { pointSize: 7 } : {});
+
+	        return Interactive2.addMovablePoint(widget.graphie, Object.assign(extraProps, props));
+	    }
+	};
+
+	module.exports = Interactive2;
+
+/***/ },
+/* 196 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var _ = __webpack_require__(19);
+	var InteractiveUtil = __webpack_require__(173);
+	var WrappedDefaults = __webpack_require__(252);
+	var kpoint = __webpack_require__(206).point;
+	var kvector = __webpack_require__(206).vector;
+	var KhanMath = __webpack_require__(92);
+
+	var DEFAULT_OPTIONS = {
+	    thickness: 2,
+	    mouselayer: false
+	};
+
+	var WrappedLine = function WrappedLine(graphie, start, end, options) {
+	    options = _.extend({}, DEFAULT_OPTIONS, options);
+
+	    // Always make the line as large as possible and horizontal; this
+	    // simplifies a lot of the transforms, e.g., we can rotate by exactly the
+	    // angle of the argument points in `moveTo`.
+	    var initialStart = [graphie.range[0][0], 0];
+	    var initialEnd = [graphie.range[0][1], 0];
+
+	    // Add `wrapper` and `visibleShape`
+	    _.extend(this, graphie.fixedLine(initialStart, initialEnd, options.thickness));
+
+	    this.visibleShape.attr(options.normalStyle);
+
+	    // Save properties for computing transformations
+	    _.extend(this, {
+	        graphie: graphie,
+	        initialPoint: graphie.scalePoint(initialStart),
+	        initialLength: kpoint.distanceToPoint(graphie.scalePoint(initialStart), graphie.scalePoint(initialEnd))
+	    });
+
+	    // Add to appropriate graphie layer
+	    if (options.mouselayer) {
+	        this.graphie.addToMouseLayerWrapper(this.wrapper);
+	    } else {
+	        this.graphie.addToVisibleLayerWrapper(this.wrapper);
+	    }
+
+	    // Move to argument points
+	    this.moveTo(start, end);
+	};
+
+	_.extend(WrappedLine.prototype, WrappedDefaults, {
+	    getMouseTarget: function getMouseTarget() {
+	        return this.wrapper;
+	    },
+
+	    moveTo: function moveTo(start, end) {
+	        var scaledStart = this.graphie.scalePoint(start);
+	        var scaledEnd = this.graphie.scalePoint(end);
+
+	        // Compute transformation parameters
+	        var polarDiff = kvector.polarDegFromCart(kvector.subtract(scaledEnd, scaledStart));
+	        var lineLength = polarDiff[0];
+	        var angle = KhanMath.bound(polarDiff[1]);
+	        var delta = kvector.subtract(scaledStart, this.initialPoint);
+	        var scale = KhanMath.bound(lineLength / this.initialLength);
+
+	        // Construct and apply transformation string
+	        var do3dTransform = InteractiveUtil.getCanUse3dTransform();
+	        var transformation = "translateX(" + delta[0] + "px) " + "translateY(" + delta[1] + "px) " + (do3dTransform ? " translateZ(0)" : "") + "rotate(" + angle + "deg) " + "scaleX(" + scale + ") scaleY(1)";
+	        this.transform(transformation);
+	    }
+	});
+
+	module.exports = WrappedLine;
+
+/***/ },
+/* 197 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/**
+	 * Color constants we use throughout Perseus (originally on KhanUtil).
+	 *
+	 * Note that if the color palette changes substantially, it may also need to be
+	 * updated in khan-exercises and cherry-picked into graphie-to-png's
+	 * khan-exercises submodule, as graphie-to-png still relies on the palette
+	 * provided on KhanUtil.
+	 */
+	var KhanColors = {
+	    BLUE: "#6495ED",
+	    ORANGE: "#FFA500",
+	    PINK: "#FF00AF",
+	    GREEN: "#28AE7B",
+	    PURPLE: "#9D38BD",
+	    RED: "#DF0030",
+	    GRAY: "gray",
+	    BLACK: "black",
+	    LIGHT_BLUE: "#9AB8ED",
+	    LIGHT_ORANGE: "#EDD19B",
+	    LIGHT_PINK: "#ED9BD3",
+	    LIGHT_GREEN: "#9BEDCE",
+	    LIGHT_PURPLE: "#DA9BED",
+	    LIGHT_RED: "#ED9AAC",
+	    LIGHT_GRAY: "#ED9B9B",
+	    LIGHT_BLACK: "#ED9B9B",
+	    GRAY10: "#D6D6D6",
+	    GRAY20: "#CDCDCD",
+	    GRAY30: "#B3B3B3",
+	    GRAY40: "#9A9A9A",
+	    GRAY50: "#808080",
+	    GRAY60: "#666666",
+	    GRAY70: "#4D4D4D",
+	    GRAY80: "#333333",
+	    GRAY90: "#1A1A1A",
+	    BLUE_A: "#CCFAFF",
+	    BLUE_B: "#80F6FF",
+	    BLUE_C: "#63D9EA",
+	    BLUE_D: "#11ACCD",
+	    BLUE_E: "#0C7F99",
+	    TEAL_A: "#94FFF5",
+	    TEAL_B: "#26EDD5",
+	    TEAL_C: "#01D1C1",
+	    TEAL_D: "#01A995",
+	    TEAL_E: "#208170",
+	    GREEN_A: "#B6FFB0",
+	    GREEN_B: "#8AF281",
+	    GREEN_C: "#74CF70",
+	    GREEN_D: "#1FAB54",
+	    GREEN_E: "#0D923F",
+	    GOLD_A: "#FFD0A9",
+	    GOLD_B: "#FFBB71",
+	    GOLD_C: "#FF9C39",
+	    GOLD_D: "#E07D10",
+	    GOLD_E: "#A75A05",
+	    RED_A: "#FCA9A9",
+	    RED_B: "#FF8482",
+	    RED_C: "#F9685D",
+	    RED_D: "#E84D39",
+	    RED_E: "#BC2612",
+	    MAROON_A: "#FFBDE0",
+	    MAROON_B: "#FF92C6",
+	    MAROON_C: "#ED5FA6",
+	    MAROON_D: "#CA337C",
+	    MAROON_E: "#9E034E",
+	    PURPLE_A: "#DDD7FF",
+	    PURPLE_B: "#C6B9FC",
+	    PURPLE_C: "#AA87FF",
+	    PURPLE_D: "#7854AB",
+	    PURPLE_E: "#543B78",
+	    MINT_A: "#F5F9E8",
+	    MINT_B: "#EDF2DF",
+	    MINT_C: "#E0E5CC",
+	    GRAY_A: "#F6F7F7",
+	    GRAY_B: "#F0F1F2",
+	    GRAY_C: "#E3E5E6",
+	    GRAY_D: "#D6D8DA",
+	    GRAY_E: "#BABEC2",
+	    GRAY_F: "#888D93",
+	    GRAY_G: "#626569",
+	    GRAY_H: "#3B3E40",
+	    GRAY_I: "#21242C",
+	    KA_BLUE: "#314453",
+	    KA_GREEN: "#71B307",
+	    // Don't actually use _BACKGROUND! Make things transparent instead. The
+	    // background color used in exercises is subject to change at the whim
+	    // of any redesigns.
+	    _BACKGROUND: "#FDFDFD" };
+
+	// TODO(eater): Get rid of this altogether.
+	KhanColors.INTERACTING = KhanColors.KA_GREEN;
+	KhanColors.INTERACTIVE = KhanColors.KA_GREEN;
+	KhanColors.DYNAMIC = KhanColors.BLUE;
+
+	module.exports = KhanColors;
+
+/***/ },
+/* 198 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable brace-style, comma-dangle, object-curly-spacing, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp, space-unary-ops */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
@@ -50807,7 +51077,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Changeable = __webpack_require__(183);
 
 	var ButtonGroup = __webpack_require__(57);
-	var InfoTip = __webpack_require__(74);
+	var InfoTip = __webpack_require__(75);
 	var PropCheckBox = __webpack_require__(42);
 	var RangeInput = __webpack_require__(200);
 	var TeX = __webpack_require__(64);
@@ -51411,255 +51681,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 	module.exports = GraphSettings;
-
-/***/ },
-/* 196 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var Movable = __webpack_require__(248);
-	var MovablePoint = __webpack_require__(249);
-	var MovableLine = __webpack_require__(250);
-	var MovablePolygon = __webpack_require__(251);
-
-	var KhanColors = __webpack_require__(198);
-
-	var Interactive2 = {
-	    MovablePoint: MovablePoint,
-	    addMovablePoint: function addMovablePoint(graphie, options) {
-	        var movable = new Movable(graphie, {});
-	        return new MovablePoint(graphie, movable, options);
-	    },
-	    MovableLine: MovableLine,
-	    addMovableLine: function addMovableLine(graphie, options) {
-	        var movable = new Movable(graphie, {});
-	        return new MovableLine(graphie, movable, options);
-	    },
-	    MovablePolygon: MovablePolygon,
-	    addMovablePolygon: function addMovablePolygon(graphie, options) {
-	        var movable = new Movable(graphie, {});
-	        return new MovablePolygon(graphie, movable, options);
-	    },
-
-	    addMaybeMobileMovablePoint: function addMaybeMobileMovablePoint(widget, extraProps) {
-	        var isMobile = widget.props.apiOptions.isMobile;
-
-	        var commonStyle = isMobile ? {
-	            stroke: "#ffffff",
-	            "stroke-width": 3,
-	            fill: KhanColors.INTERACTIVE
-	        } : {
-	            stroke: KhanColors.INTERACTIVE,
-	            fill: KhanColors.INTERACTIVE
-	        };
-
-	        var normalStyle = Object.assign(commonStyle, extraProps.normalStyle);
-
-	        var highlightStyle = Object.assign(isMobile ? _extends({}, commonStyle, {
-	            "stroke-width": 0,
-	            scale: 0.75
-	        }) : {}, extraProps.highlightStyle);
-
-	        var props = Object.assign({
-	            normalStyle: normalStyle,
-	            highlightStyle: highlightStyle,
-	            shadow: isMobile,
-	            tooltip: isMobile && widget.props.showTooltips,
-	            showHairlines: widget.showHairlines,
-	            hideHairlines: widget.hideHairlines
-	        }, isMobile ? { pointSize: 7 } : {});
-
-	        return Interactive2.addMovablePoint(widget.graphie, Object.assign(extraProps, props));
-	    }
-	};
-
-	module.exports = Interactive2;
-
-/***/ },
-/* 197 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var _ = __webpack_require__(19);
-	var InteractiveUtil = __webpack_require__(173);
-	var WrappedDefaults = __webpack_require__(252);
-	var kpoint = __webpack_require__(206).point;
-	var kvector = __webpack_require__(206).vector;
-	var KhanMath = __webpack_require__(92);
-
-	var DEFAULT_OPTIONS = {
-	    thickness: 2,
-	    mouselayer: false
-	};
-
-	var WrappedLine = function WrappedLine(graphie, start, end, options) {
-	    options = _.extend({}, DEFAULT_OPTIONS, options);
-
-	    // Always make the line as large as possible and horizontal; this
-	    // simplifies a lot of the transforms, e.g., we can rotate by exactly the
-	    // angle of the argument points in `moveTo`.
-	    var initialStart = [graphie.range[0][0], 0];
-	    var initialEnd = [graphie.range[0][1], 0];
-
-	    // Add `wrapper` and `visibleShape`
-	    _.extend(this, graphie.fixedLine(initialStart, initialEnd, options.thickness));
-
-	    this.visibleShape.attr(options.normalStyle);
-
-	    // Save properties for computing transformations
-	    _.extend(this, {
-	        graphie: graphie,
-	        initialPoint: graphie.scalePoint(initialStart),
-	        initialLength: kpoint.distanceToPoint(graphie.scalePoint(initialStart), graphie.scalePoint(initialEnd))
-	    });
-
-	    // Add to appropriate graphie layer
-	    if (options.mouselayer) {
-	        this.graphie.addToMouseLayerWrapper(this.wrapper);
-	    } else {
-	        this.graphie.addToVisibleLayerWrapper(this.wrapper);
-	    }
-
-	    // Move to argument points
-	    this.moveTo(start, end);
-	};
-
-	_.extend(WrappedLine.prototype, WrappedDefaults, {
-	    getMouseTarget: function getMouseTarget() {
-	        return this.wrapper;
-	    },
-
-	    moveTo: function moveTo(start, end) {
-	        var scaledStart = this.graphie.scalePoint(start);
-	        var scaledEnd = this.graphie.scalePoint(end);
-
-	        // Compute transformation parameters
-	        var polarDiff = kvector.polarDegFromCart(kvector.subtract(scaledEnd, scaledStart));
-	        var lineLength = polarDiff[0];
-	        var angle = KhanMath.bound(polarDiff[1]);
-	        var delta = kvector.subtract(scaledStart, this.initialPoint);
-	        var scale = KhanMath.bound(lineLength / this.initialLength);
-
-	        // Construct and apply transformation string
-	        var do3dTransform = InteractiveUtil.getCanUse3dTransform();
-	        var transformation = "translateX(" + delta[0] + "px) " + "translateY(" + delta[1] + "px) " + (do3dTransform ? " translateZ(0)" : "") + "rotate(" + angle + "deg) " + "scaleX(" + scale + ") scaleY(1)";
-	        this.transform(transformation);
-	    }
-	});
-
-	module.exports = WrappedLine;
-
-/***/ },
-/* 198 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/**
-	 * Color constants we use throughout Perseus (originally on KhanUtil).
-	 *
-	 * Note that if the color palette changes substantially, it may also need to be
-	 * updated in khan-exercises and cherry-picked into graphie-to-png's
-	 * khan-exercises submodule, as graphie-to-png still relies on the palette
-	 * provided on KhanUtil.
-	 */
-	var KhanColors = {
-	    BLUE: "#6495ED",
-	    ORANGE: "#FFA500",
-	    PINK: "#FF00AF",
-	    GREEN: "#28AE7B",
-	    PURPLE: "#9D38BD",
-	    RED: "#DF0030",
-	    GRAY: "gray",
-	    BLACK: "black",
-	    LIGHT_BLUE: "#9AB8ED",
-	    LIGHT_ORANGE: "#EDD19B",
-	    LIGHT_PINK: "#ED9BD3",
-	    LIGHT_GREEN: "#9BEDCE",
-	    LIGHT_PURPLE: "#DA9BED",
-	    LIGHT_RED: "#ED9AAC",
-	    LIGHT_GRAY: "#ED9B9B",
-	    LIGHT_BLACK: "#ED9B9B",
-	    GRAY10: "#D6D6D6",
-	    GRAY20: "#CDCDCD",
-	    GRAY30: "#B3B3B3",
-	    GRAY40: "#9A9A9A",
-	    GRAY50: "#808080",
-	    GRAY60: "#666666",
-	    GRAY70: "#4D4D4D",
-	    GRAY80: "#333333",
-	    GRAY90: "#1A1A1A",
-	    BLUE_A: "#CCFAFF",
-	    BLUE_B: "#80F6FF",
-	    BLUE_C: "#63D9EA",
-	    BLUE_D: "#11ACCD",
-	    BLUE_E: "#0C7F99",
-	    TEAL_A: "#94FFF5",
-	    TEAL_B: "#26EDD5",
-	    TEAL_C: "#01D1C1",
-	    TEAL_D: "#01A995",
-	    TEAL_E: "#208170",
-	    GREEN_A: "#B6FFB0",
-	    GREEN_B: "#8AF281",
-	    GREEN_C: "#74CF70",
-	    GREEN_D: "#1FAB54",
-	    GREEN_E: "#0D923F",
-	    GOLD_A: "#FFD0A9",
-	    GOLD_B: "#FFBB71",
-	    GOLD_C: "#FF9C39",
-	    GOLD_D: "#E07D10",
-	    GOLD_E: "#A75A05",
-	    RED_A: "#FCA9A9",
-	    RED_B: "#FF8482",
-	    RED_C: "#F9685D",
-	    RED_D: "#E84D39",
-	    RED_E: "#BC2612",
-	    MAROON_A: "#FFBDE0",
-	    MAROON_B: "#FF92C6",
-	    MAROON_C: "#ED5FA6",
-	    MAROON_D: "#CA337C",
-	    MAROON_E: "#9E034E",
-	    PURPLE_A: "#DDD7FF",
-	    PURPLE_B: "#C6B9FC",
-	    PURPLE_C: "#AA87FF",
-	    PURPLE_D: "#7854AB",
-	    PURPLE_E: "#543B78",
-	    MINT_A: "#F5F9E8",
-	    MINT_B: "#EDF2DF",
-	    MINT_C: "#E0E5CC",
-	    GRAY_A: "#F6F7F7",
-	    GRAY_B: "#F0F1F2",
-	    GRAY_C: "#E3E5E6",
-	    GRAY_D: "#D6D8DA",
-	    GRAY_E: "#BABEC2",
-	    GRAY_F: "#888D93",
-	    GRAY_G: "#626569",
-	    GRAY_H: "#3B3E40",
-	    GRAY_I: "#21242C",
-	    KA_BLUE: "#314453",
-	    KA_GREEN: "#71B307",
-	    // Don't actually use _BACKGROUND! Make things transparent instead. The
-	    // background color used in exercises is subject to change at the whim
-	    // of any redesigns.
-	    _BACKGROUND: "#FDFDFD" };
-
-	KhanColors.INTERACTING = KhanColors.KA_GREEN;
-	KhanColors.INTERACTIVE = KhanColors.KA_GREEN;
-	KhanColors.DYNAMIC = KhanColors.BLUE;
-
-	module.exports = KhanColors;
 
 /***/ },
 /* 199 */
@@ -52300,7 +52321,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(19);
 	var TeX = __webpack_require__(64);
 	var ApiClassNames = __webpack_require__(5).ClassNames;
-	var Tooltip = __webpack_require__(188);
+	var Tooltip = __webpack_require__(190);
 	var ModifyTex = __webpack_require__(180).modifyTex;
 
 	var MathOutput = React.createClass({
@@ -52803,8 +52824,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            if (this.props.layout === HORIZONTAL) {
 	                margin = "0 " + this.props.margin + "px 0 0"; // right
 	            } else if (this.props.layout === VERTICAL) {
-	                margin = "0 0 " + this.props.margin + "px 0"; // bottom
-	            }
+	                    margin = "0 0 " + this.props.margin + "px 0"; // bottom
+	                }
 
 	            cards.push(React.createElement(Draggable, {
 	                content: item.option,
@@ -53655,6 +53676,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
+	/* eslint-disable max-lines */
+
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable brace-style, object-curly-spacing */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
@@ -53671,7 +53694,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var KhanMath = __webpack_require__(92);
 	var processMath = __webpack_require__(259).processMath;
-	var KhanColors = __webpack_require__(198);
+	var KhanColors = __webpack_require__(197);
 
 	/* Convert cartesian coordinates [x, y] to polar coordinates [r,
 	 * theta], with theta in degrees, or in radians if angleInRadians is
@@ -54756,16 +54779,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	                // also, we don't support "<-" arrows yet, but why you
 	                // would want that on your graph is beyond me.
 	            } else if (axisArrows === "->" || axisArrows === "") {
-	                this.style({
-	                    stroke: "#000000",
-	                    opacity: axisOpacity,
-	                    strokeWidth: 2,
-	                    arrows: axisArrows
-	                }, function () {
-	                    this.path([[gridRange[0][0], axisCenter[1]], [gridRange[0][1], axisCenter[1]]]);
-	                    this.path([[axisCenter[0], gridRange[1][0]], [axisCenter[0], gridRange[1][1]]]);
-	                });
-	            }
+	                    this.style({
+	                        stroke: "#000000",
+	                        opacity: axisOpacity,
+	                        strokeWidth: 2,
+	                        arrows: axisArrows
+	                    }, function () {
+	                        this.path([[gridRange[0][0], axisCenter[1]], [gridRange[0][1], axisCenter[1]]]);
+	                        this.path([[axisCenter[0], gridRange[1][0]], [axisCenter[0], gridRange[1][1]]]);
+	                    });
+	                }
 
 	            if (axisLabels && axisLabels.length === 2) {
 	                this.label([gridRange[0][1], axisCenter[1]], axisLabels[0], "right");
@@ -54889,325 +54912,3095 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 209 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";var _typeof=typeof Symbol==="function"&&typeof Symbol.iterator==="symbol"?function(obj){return typeof obj;}:function(obj){return obj&&typeof Symbol==="function"&&obj.constructor===Symbol&&obj!==Symbol.prototype?"symbol":typeof obj;};/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): *//* eslint-disable brace-style, object-curly-spacing *//* To fix, remove an entry above, run ka-lint, and fix errors. *//**
+	"use strict";
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+	/* eslint-disable max-lines */
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable brace-style, object-curly-spacing */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	/**
 	 * Interactive graphie utilities.
 	 *
 	 * This file exposes a couple functions, but mostly it adds functions to the
 	 * `Graphie` prototype for dealing with interactive graphie elements.
-	 */// TODO(emily): This file breaks our line length limits like nobody's business.
+	 */
+
+	// TODO(emily): This file breaks our line length limits like nobody's business.
 	// Figure out how to fix that.
-	/* eslint-disable max-len */var _=__webpack_require__(19);__webpack_require__(260);/* global Raphael:false */var GraphUtils=__webpack_require__(208);var kvector=__webpack_require__(206).vector;var kpoint=__webpack_require__(206).point;var kline=__webpack_require__(206).line;var WrappedEllipse=__webpack_require__(261);var WrappedLine=__webpack_require__(197);var WrappedPath=__webpack_require__(262);var KhanMath=__webpack_require__(92);var KhanColors=__webpack_require__(198);var _require=__webpack_require__(173),getCanUse3dTransform=_require.getCanUse3dTransform;function sum(array){return _.reduce(array,function(memo,arg){return memo+arg;},0);}function clockwise(points){var segments=_.zip(points,points.slice(1).concat(points.slice(0,1)));var areas=_.map(segments,function(segment){var p1=segment[0];var p2=segment[1];return(p2[0]-p1[0])*(p2[1]+p1[1]);});return sum(areas)>0;}/* vector-add multiple [x, y] coords/vectors */function addPoints(){var points=_.toArray(arguments);var zipped=_.zip.apply(_,points);return _.map(zipped,sum);}function reverseVector(vector){return _.map(vector,function(coord){return coord*-1;});}function scaledDistanceFromAngle(angle){var a=3.51470560176242*20;var b=0.5687298702748785*20;var c=-0.037587715462826674;return(a-b)*Math.exp(c*angle)+b;}function scaledPolarRad(radius,radians){return[radius*Math.cos(radians),radius*Math.sin(radians)*-1];}function scaledPolarDeg(radius,degrees){var radians=degrees*Math.PI/180;return scaledPolarRad(radius,radians);}// Global dragging state
-	var dragging=false;var InteractiveUtils={// Useful for shapes that are only sometimes drawn. If a shape isn't
-	// needed, it can be replaced with bogusShape which just has stub methods
-	// that successfully do nothing.
-	// The alternative would be 'if..typeof' checks all over the place.
-	bogusShape:{animate:function animate(){},attr:function attr(){},remove:function remove(){}}};_.extend(GraphUtils.Graphie.prototype,{// graphie puts text spans on top of the SVG, which looks good, but gets
-	// in the way of mouse events. This adds another SVG element on top
-	// of everything else where we can add invisible shapes with mouse
-	// handlers wherever we want.
-	addMouseLayer:function addMouseLayer(options){var graph=this;options=_.extend({allowScratchpad:false,setDrawingAreaAvailable:function setDrawingAreaAvailable(){}},options);var mouselayerZIndex=2;graph.mouselayer=Raphael(graph.raphael.canvas.parentNode,graph.xpixels,graph.ypixels);$(graph.mouselayer.canvas).css("z-index",mouselayerZIndex);if(options.onClick||options.onMouseDown||options.onMouseMove||options.onMouseOver||options.onMouseOut){(function(){var canvasClickTarget=graph.mouselayer.rect(0,0,graph.xpixels,graph.ypixels).attr({fill:"#000",opacity:0});var isClickingCanvas=false;$(graph.mouselayer.canvas).on("vmousedown",function(e){if(e.target===canvasClickTarget[0]){if(options.onMouseDown){options.onMouseDown(graph.getMouseCoord(e));}isClickingCanvas=true;if(options.onMouseMove){$(document).bind("vmousemove.mouseLayer",function(e){if(isClickingCanvas){e.preventDefault();options.onMouseMove(graph.getMouseCoord(e));}});}$(document).bind("vmouseup.mouseLayer",function(e){$(document).unbind(".mouseLayer");// Only register clicks that started on the canvas, and not
-	// on another mouseLayer target
-	if(isClickingCanvas&&options.onClick){options.onClick(graph.getMouseCoord(e));}isClickingCanvas=false;});}});if(options.onMouseOver){$(graph.mouselayer.canvas).on("vmouseover",function(e){options.onMouseOver(graph.getMouseCoord(e));});}if(options.onMouseOut){$(graph.mouselayer.canvas).on("vmouseout",function(e){options.onMouseOut(graph.getMouseCoord(e));});}})();}if(!options.allowScratchpad){options.setDrawingAreaAvailable(false);}// Add mouse and visible wrapper layers for DOM-node-wrapped movables
-	graph._mouselayerWrapper=document.createElement("div");$(graph._mouselayerWrapper).css({position:"absolute",left:0,top:0,zIndex:mouselayerZIndex});graph._visiblelayerWrapper=document.createElement("div");$(graph._visiblelayerWrapper).css({position:"absolute",left:0,top:0});var el=graph.raphael.canvas.parentNode;el.appendChild(graph._visiblelayerWrapper);el.appendChild(graph._mouselayerWrapper);// Add functions for adding to wrappers
-	graph.addToMouseLayerWrapper=function(el){this._mouselayerWrapper.appendChild(el);};graph.addToVisibleLayerWrapper=function(el){this._visiblelayerWrapper.appendChild(el);};},/**
+	/* eslint-disable max-len */
+	var _ = __webpack_require__(19);
+
+	__webpack_require__(260);
+
+	/* global Raphael:false */
+	var GraphUtils = __webpack_require__(208);
+	var kvector = __webpack_require__(206).vector;
+	var kpoint = __webpack_require__(206).point;
+	var kline = __webpack_require__(206).line;
+	var WrappedEllipse = __webpack_require__(261);
+	var WrappedLine = __webpack_require__(196);
+	var WrappedPath = __webpack_require__(262);
+	var KhanMath = __webpack_require__(92);
+	var KhanColors = __webpack_require__(197);
+
+	var _require = __webpack_require__(173),
+	    getCanUse3dTransform = _require.getCanUse3dTransform;
+
+	function sum(array) {
+	    return _.reduce(array, function (memo, arg) {
+	        return memo + arg;
+	    }, 0);
+	}
+
+	function clockwise(points) {
+	    var segments = _.zip(points, points.slice(1).concat(points.slice(0, 1)));
+	    var areas = _.map(segments, function (segment) {
+	        var p1 = segment[0];
+	        var p2 = segment[1];
+	        return (p2[0] - p1[0]) * (p2[1] + p1[1]);
+	    });
+	    return sum(areas) > 0;
+	}
+
+	/* vector-add multiple [x, y] coords/vectors */
+	function addPoints() {
+	    var points = _.toArray(arguments);
+	    var zipped = _.zip.apply(_, points);
+	    return _.map(zipped, sum);
+	}
+
+	function reverseVector(vector) {
+	    return _.map(vector, function (coord) {
+	        return coord * -1;
+	    });
+	}
+
+	function scaledDistanceFromAngle(angle) {
+	    var a = 3.51470560176242 * 20;
+	    var b = 0.5687298702748785 * 20;
+	    var c = -0.037587715462826674;
+	    return (a - b) * Math.exp(c * angle) + b;
+	}
+
+	function scaledPolarRad(radius, radians) {
+	    return [radius * Math.cos(radians), radius * Math.sin(radians) * -1];
+	}
+
+	// SVG flips y axis
+	function scaledPolarDeg(radius, degrees) {
+	    var radians = degrees * Math.PI / 180;
+	    return scaledPolarRad(radius, radians);
+	}
+
+	// Global dragging state
+	var dragging = false;
+
+	var InteractiveUtils = {
+	    // Useful for shapes that are only sometimes drawn. If a shape isn't
+	    // needed, it can be replaced with bogusShape which just has stub methods
+	    // that successfully do nothing.
+	    // The alternative would be 'if..typeof' checks all over the place.
+	    bogusShape: {
+	        animate: function animate() {},
+	        attr: function attr() {},
+	        remove: function remove() {}
+	    }
+	};
+
+	_.extend(GraphUtils.Graphie.prototype, {
+	    // graphie puts text spans on top of the SVG, which looks good, but gets
+	    // in the way of mouse events. This adds another SVG element on top
+	    // of everything else where we can add invisible shapes with mouse
+	    // handlers wherever we want.
+	    addMouseLayer: function addMouseLayer(options) {
+	        var graph = this;
+	        options = _.extend({
+	            allowScratchpad: false,
+	            setDrawingAreaAvailable: function setDrawingAreaAvailable() {}
+	        }, options);
+
+	        var mouselayerZIndex = 2;
+	        graph.mouselayer = Raphael(graph.raphael.canvas.parentNode, graph.xpixels, graph.ypixels);
+	        $(graph.mouselayer.canvas).css("z-index", mouselayerZIndex);
+	        if (options.onClick || options.onMouseDown || options.onMouseMove || options.onMouseOver || options.onMouseOut) {
+	            (function () {
+	                var canvasClickTarget = graph.mouselayer.rect(0, 0, graph.xpixels, graph.ypixels).attr({
+	                    fill: "#000",
+	                    opacity: 0
+	                });
+	                var isClickingCanvas = false;
+
+	                $(graph.mouselayer.canvas).on("vmousedown", function (e) {
+	                    if (e.target === canvasClickTarget[0]) {
+	                        if (options.onMouseDown) {
+	                            options.onMouseDown(graph.getMouseCoord(e));
+	                        }
+	                        isClickingCanvas = true;
+
+	                        if (options.onMouseMove) {
+	                            $(document).bind("vmousemove.mouseLayer", function (e) {
+	                                if (isClickingCanvas) {
+	                                    e.preventDefault();
+	                                    options.onMouseMove(graph.getMouseCoord(e));
+	                                }
+	                            });
+	                        }
+
+	                        $(document).bind("vmouseup.mouseLayer", function (e) {
+	                            $(document).unbind(".mouseLayer");
+
+	                            // Only register clicks that started on the canvas, and not
+	                            // on another mouseLayer target
+	                            if (isClickingCanvas && options.onClick) {
+	                                options.onClick(graph.getMouseCoord(e));
+	                            }
+	                            isClickingCanvas = false;
+	                        });
+	                    }
+	                });
+	                if (options.onMouseOver) {
+	                    $(graph.mouselayer.canvas).on("vmouseover", function (e) {
+	                        options.onMouseOver(graph.getMouseCoord(e));
+	                    });
+	                }
+	                if (options.onMouseOut) {
+	                    $(graph.mouselayer.canvas).on("vmouseout", function (e) {
+	                        options.onMouseOut(graph.getMouseCoord(e));
+	                    });
+	                }
+	            })();
+	        }
+	        if (!options.allowScratchpad) {
+	            options.setDrawingAreaAvailable(false);
+	        }
+
+	        // Add mouse and visible wrapper layers for DOM-node-wrapped movables
+	        graph._mouselayerWrapper = document.createElement("div");
+	        $(graph._mouselayerWrapper).css({
+	            position: "absolute",
+	            left: 0,
+	            top: 0,
+	            zIndex: mouselayerZIndex
+	        });
+
+	        graph._visiblelayerWrapper = document.createElement("div");
+	        $(graph._visiblelayerWrapper).css({
+	            position: "absolute",
+	            left: 0,
+	            top: 0
+	        });
+
+	        var el = graph.raphael.canvas.parentNode;
+	        el.appendChild(graph._visiblelayerWrapper);
+	        el.appendChild(graph._mouselayerWrapper);
+
+	        // Add functions for adding to wrappers
+	        graph.addToMouseLayerWrapper = function (el) {
+	            this._mouselayerWrapper.appendChild(el);
+	        };
+	        graph.addToVisibleLayerWrapper = function (el) {
+	            this._visiblelayerWrapper.appendChild(el);
+	        };
+	    },
+
+	    /**
 	     * Get mouse coordinates in pixels
-	     */getMousePx:function getMousePx(event){var graphie=this;var mouseX=event.pageX-$(graphie.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY-$(graphie.raphael.canvas.parentNode).offset().top;return[mouseX,mouseY];},/**
+	     */
+	    getMousePx: function getMousePx(event) {
+	        var graphie = this;
+
+	        var mouseX = event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;
+	        var mouseY = event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;
+
+	        return [mouseX, mouseY];
+	    },
+
+	    /**
 	     * Get mouse coordinates in graph coordinates
-	     */getMouseCoord:function getMouseCoord(event){return this.unscalePoint(this.getMousePx(event));},/**
+	     */
+	    getMouseCoord: function getMouseCoord(event) {
+	        return this.unscalePoint(this.getMousePx(event));
+	    },
+
+	    /**
 	     * Unlike all other Graphie-related code, the following three functions use
 	     * a lot of scaled coordinates (so that labels appear the same size
 	     * regardless of current shape/figure scale). These are prefixed with 's'.
-	     */labelAngle:function labelAngle(options){var graphie=this;_.defaults(options,{point1:[0,0],vertex:[0,0],point3:[0,0],label:null,numArcs:1,showRightAngleMarker:true,pushOut:0,clockwise:false,style:{}});var text=options.text===undefined?"":options.text;var vertex=options.vertex;var sVertex=graphie.scalePoint(vertex);var p1=void 0;var p3=void 0;if(options.clockwise){p1=options.point1;p3=options.point3;}else{p1=options.point3;p3=options.point1;}var startAngle=GraphUtils.findAngle(p1,vertex);var endAngle=GraphUtils.findAngle(p3,vertex);var angle=(endAngle+360-startAngle)%360;var halfAngle=(startAngle+angle/2)%360;var sPadding=5*options.pushOut;var sRadius=sPadding+scaledDistanceFromAngle(angle);var temp=[];if(Math.abs(angle-90)<1e-9&&options.showRightAngleMarker){(function(){var v1=addPoints(sVertex,scaledPolarDeg(sRadius,startAngle));var v2=addPoints(sVertex,scaledPolarDeg(sRadius,endAngle));sRadius*=Math.SQRT2;var v3=addPoints(sVertex,scaledPolarDeg(sRadius,halfAngle));_.each([v1,v2],function(v){temp.push(graphie.scaledPath([v,v3],options.style));});})();}else{// Draw arcs
-	_.times(options.numArcs,function(i){temp.push(graphie.arc(vertex,graphie.unscaleVector(sRadius),startAngle,endAngle,options.style));sRadius+=3;});}if(text){var match=text.match(/\$deg(\d)?/);if(match){var precision=match[1]||1;text=text.replace(match[0],KhanMath.toFixedApprox(angle,precision)+"^{\\circ}");}var sOffset=scaledPolarDeg(sRadius+15,halfAngle);var sPosition=addPoints(sVertex,sOffset);var position=graphie.unscalePoint(sPosition);// Reuse label if possible
-	if(options.label){options.label.setPosition(position);options.label.processMath(text,/* force */true);}else{graphie.label(position,text,"center",options.style);}}return temp;},labelSide:function labelSide(options){var graphie=this;_.defaults(options,{point1:[0,0],point2:[0,0],label:null,text:"",numTicks:0,numArrows:0,clockwise:false,style:{}});var p1=void 0;var p2=void 0;if(options.clockwise){p1=options.point1;p2=options.point2;}else{p1=options.point2;p2=options.point1;}var midpoint=[(p1[0]+p2[0])/2,(p1[1]+p2[1])/2];var sMidpoint=graphie.scalePoint(midpoint);var parallelAngle=Math.atan2(p2[1]-p1[1],p2[0]-p1[0]);var perpendicularAngle=parallelAngle+Math.PI/2;var temp=[];var sCumulativeOffset=0;if(options.numTicks){(function(){var n=options.numTicks;var sSpacing=5;var sHeight=5;var style=_.extend({},options.style,{strokeWidth:2});_.times(n,function(i){var sOffset=sSpacing*(i-(n-1)/2);var sOffsetVector=scaledPolarRad(sOffset,parallelAngle);var sHeightVector=scaledPolarRad(sHeight,perpendicularAngle);var sPath=[addPoints(sMidpoint,sOffsetVector,sHeightVector),addPoints(sMidpoint,sOffsetVector,reverseVector(sHeightVector))];temp.push(graphie.scaledPath(sPath,style));});sCumulativeOffset+=sSpacing*(n-1)+15;})();}if(options.numArrows){(function(){var n=options.numArrows;var start=[p1,p2].sort(function(a,b){if(a[1]===b[1]){return a[0]-b[0];}else{return a[1]-b[1];}})[0];var sStart=graphie.scalePoint(start);var style=_.extend({},options.style,{arrows:"->",strokeWidth:2});var sSpacing=5;_.times(n,function(i){var sOffset=sCumulativeOffset+sSpacing*i;var sOffsetVector=scaledPolarRad(sOffset,parallelAngle);if(start!==p1){sOffsetVector=reverseVector(sOffsetVector);}var sEnd=addPoints(sMidpoint,sOffsetVector);temp.push(graphie.scaledPath([sStart,sEnd],style));});})();}var text=options.text;if(text){var match=text.match(/\$len(\d)?/);if(match){var distance=GraphUtils.getDistance(p1,p2);var precision=match[1]||1;text=text.replace(match[0],KhanMath.toFixedApprox(distance,precision));}var sOffset=20;var sOffsetVector=scaledPolarRad(sOffset,perpendicularAngle);var sPosition=addPoints(sMidpoint,sOffsetVector);var position=graphie.unscalePoint(sPosition);// Reuse label if possible
-	if(options.label){options.label.setPosition(position);options.label.processMath(text,/* force */true);}else{graphie.label(position,text,"center",options.style);}}return temp;},/* Can also be used to label points that aren't vertices */labelVertex:function labelVertex(options){var graphie=this;_.defaults(options,{point1:null,vertex:[0,0],point3:null,label:null,text:"",clockwise:false,style:{}});if(!options.text){return;}var vertex=options.vertex;var sVertex=graphie.scalePoint(vertex);var p1=void 0;var p3=void 0;if(options.clockwise){p1=options.point1;p3=options.point3;}else{p1=options.point3;p3=options.point1;}var angle=135;var halfAngle=void 0;if(p1&&p3){var startAngle=GraphUtils.findAngle(p1,vertex);var endAngle=GraphUtils.findAngle(p3,vertex);angle=(endAngle+360-startAngle)%360;halfAngle=(startAngle+angle/2+180)%360;}else if(p1){var parallelAngle=GraphUtils.findAngle(vertex,p1);halfAngle=parallelAngle+90;}else if(p3){var _parallelAngle=GraphUtils.findAngle(p3,vertex);halfAngle=_parallelAngle+90;}else{// Standalone point
-	halfAngle=135;}var sRadius=10+scaledDistanceFromAngle(360-angle);var sOffsetVector=scaledPolarDeg(sRadius,halfAngle);var sPosition=addPoints(sVertex,sOffsetVector);var position=graphie.unscalePoint(sPosition);// Reuse label if possible
-	if(options.label){options.label.setPosition(position);options.label.processMath(options.text,/* force */true);}else{graphie.label(position,options.text,"center",options.style);}},// Add a point to the graph that can be dragged around.
-	// It allows automatic constraints on its movement as well as automatically
-	// managing line segments that terminate at the point.
-	//
-	// Options can be set to control how the point behaves:
-	//   coord[]:
-	//     The initial position of the point
-	//   snapX, snapY:
-	//     The minimum increment the point can be moved
-	//
-	// The return value is an object that can be used to manipulate the point:
-	//   The coordX and coordY properties tell you the current position
-	//
-	//   By adding an onMove() method to the returned object, you can install an
-	//   event handler that gets called every time the user moves the point.
-	//
-	//   The returned object also provides a moveTo(x,y) method that will move
-	//   the point to a specific coordinate
-	//
-	// Constraints can be set on the on the returned object:
-	//
-	//  - Set point to be immovable:
-	//        movablePoint.constraints.fixed = true
-	//
-	//  - Constrain point to a fixed distance from another point. The resulting
-	//    point will move in a circle:
-	//        movablePoint.fixedDistance = {
-	//           dist: 2,
-	//           point: point1
-	//        }
-	//
-	//  - Constrain point to a line defined by a fixed angle between it and
-	//    two other points:
-	//        movablePoint.fixedAngle = {
-	//           angle: 45,
-	//           vertex: point1,
-	//           ref: point2
-	//        }
-	//
-	//  - Confined the point to traveling in a vertical or horizontal line,
-	//    respectively
-	//        movablePoint.constrainX = true;
-	//        movablePoint.constrainY = true;
-	//
-	//  - Connect a movableLineSegment to a movablePoint. The point is attached
-	//    to a specific end of the line segment by adding the segment either to
-	//    the list of lines that start at the point or the list of lines that
-	//    end at the point (movableLineSegment can do this for you):
-	//        movablePoint.lineStarts.push(movableLineSegment);
-	//          - or -
-	//        movablePoint.lineEnds.push(movableLineSegment);
-	//
-	//  - Connect a movablePolygon to a movablePoint in exacty the same way:
-	//        movablePoint.polygonVertices.push(movablePolygon);
-	//
-	addMovablePoint:function addMovablePoint(options){var movablePoint=$.extend(true,{graph:this,coord:[0,0],snapX:0,snapY:0,pointSize:4,highlight:false,dragging:false,visible:true,bounded:true,constraints:{fixed:false,constrainX:false,constrainY:false,fixedAngle:{},fixedDistance:{}},lineStarts:[],lineEnds:[],polygonVertices:[],normalStyle:{},highlightStyle:{fill:KhanColors.INTERACTING,stroke:KhanColors.INTERACTING},labelStyle:{color:KhanColors.INTERACTIVE},vertexLabel:"",mouseTarget:null},options);var normalColor=movablePoint.constraints.fixed?KhanColors.DYNAMIC:KhanColors.INTERACTIVE;movablePoint.normalStyle=_.extend({},{"fill":normalColor,"stroke":normalColor},options.normalStyle);// deprecated: don't use coordX/coordY; use coord[]
-	if(options.coordX!==undefined){movablePoint.coord[0]=options.coordX;}if(options.coordY!==undefined){movablePoint.coord[1]=options.coordY;}var graph=movablePoint.graph;var applySnapAndConstraints=function applySnapAndConstraints(coord){// coord should be the scaled coordinate
-	// move point away from edge of graph unless it's invisible or fixed
-	if(movablePoint.visible&&movablePoint.bounded&&!movablePoint.constraints.fixed){// can't go beyond 10 pixels from the edge
-	coord=graph.constrainToBounds(coord,10);}var coordX=coord[0];var coordY=coord[1];// snap coordinates to grid
-	if(movablePoint.snapX!==0){coordX=Math.round(coordX/movablePoint.snapX)*movablePoint.snapX;}if(movablePoint.snapY!==0){coordY=Math.round(coordY/movablePoint.snapY)*movablePoint.snapY;}// snap to points around circle
-	if(movablePoint.constraints.fixedDistance.snapPoints){var mouse=graph.scalePoint(coord);var mouseX=mouse[0];var mouseY=mouse[1];var snapRadians=2*Math.PI/movablePoint.constraints.fixedDistance.snapPoints;var radius=movablePoint.constraints.fixedDistance.dist;var centerCoord=movablePoint.constraints.fixedDistance.point;var centerX=(centerCoord[0]-graph.range[0][0])*graph.scale[0];var centerY=(-centerCoord[1]+graph.range[1][1])*graph.scale[1];var mouseXrel=mouseX-centerX;var mouseYrel=-mouseY+centerY;var radians=Math.atan(mouseYrel/mouseXrel);var outsideArcTanRange=mouseXrel<0;// adjust so that angles increase from 0 to 2 pi as you go around the circle
-	if(outsideArcTanRange){radians+=Math.PI;}// perform the snap
-	radians=Math.round(radians/snapRadians)*snapRadians;// convert from radians back to pixels
-	mouseXrel=radius*Math.cos(radians);mouseYrel=radius*Math.sin(radians);// convert back to coordinates relative to graphie canvas
-	mouseX=mouseXrel+centerX;mouseY=-mouseYrel+centerY;coordX=KhanMath.roundTo(5,mouseX/graph.scale[0]+graph.range[0][0]);coordY=KhanMath.roundTo(5,graph.range[1][1]-mouseY/graph.scale[1]);}var result=movablePoint.applyConstraint([coordX,coordY]);return result;};// Using the passed coordinates, apply any constraints and return the closest coordinates
-	// that match the constraints.
-	movablePoint.applyConstraint=function(coord,extraConstraints,override){var newCoord=coord.slice();var constraints={};if(override){$.extend(constraints,{fixed:false,constrainX:false,constrainY:false,fixedAngle:{},fixedDistance:{}},extraConstraints);}else{$.extend(constraints,this.constraints,extraConstraints);}// constrain to vertical movement
-	if(constraints.constrainX){newCoord=[this.coord[0],coord[1]];// constrain to horizontal movement
-	}else if(constraints.constrainY){newCoord=[coord[0],this.coord[1]];// both distance and angle are constrained
-	}else if(typeof constraints.fixedAngle.angle==="number"&&typeof constraints.fixedDistance.dist==="number"){var vertex=constraints.fixedAngle.vertex.coord||constraints.fixedAngle.vertex;var ref=constraints.fixedAngle.ref.coord||constraints.fixedAngle.ref;var distPoint=constraints.fixedDistance.point.coord||constraints.fixedDistance.point;var constrainedAngle=(constraints.fixedAngle.angle+GraphUtils.findAngle(ref,vertex))*Math.PI/180;var length=constraints.fixedDistance.dist;newCoord[0]=length*Math.cos(constrainedAngle)+distPoint[0];newCoord[1]=length*Math.sin(constrainedAngle)+distPoint[1];// angle is constrained
-	}else if(typeof constraints.fixedAngle.angle==="number"){var _vertex=constraints.fixedAngle.vertex.coord||constraints.fixedAngle.vertex;var _ref=constraints.fixedAngle.ref.coord||constraints.fixedAngle.ref;var _constrainedAngle=(constraints.fixedAngle.angle+GraphUtils.findAngle(_ref,_vertex))*Math.PI/180;var angle=GraphUtils.findAngle(coord,_vertex)*Math.PI/180;var distance=GraphUtils.getDistance(coord,_vertex);var _length=distance*Math.cos(_constrainedAngle-angle);_length=_length<1.0?1.0:_length;newCoord[0]=_length*Math.cos(_constrainedAngle)+_vertex[0];newCoord[1]=_length*Math.sin(_constrainedAngle)+_vertex[1];// distance is constrained
-	}else if(typeof constraints.fixedDistance.dist==="number"){var _distPoint=constraints.fixedDistance.point.coord||constraints.fixedDistance.point;var _angle=GraphUtils.findAngle(coord,_distPoint);var _length2=constraints.fixedDistance.dist;_angle=_angle*Math.PI/180;newCoord[0]=_length2*Math.cos(_angle)+_distPoint[0];newCoord[1]=_length2*Math.sin(_angle)+_distPoint[1];// point is fixed
-	}else if(constraints.fixed){newCoord=movablePoint.coord;}return newCoord;};movablePoint.coord=applySnapAndConstraints(movablePoint.coord);var highlightScale=2;if(movablePoint.visible){graph.style(movablePoint.normalStyle,function(){var radii=[movablePoint.pointSize/graph.scale[0],movablePoint.pointSize/graph.scale[1]];var options={maxScale:highlightScale,// Add in 2px of padding to avoid clipping at the edges.
-	padding:2};movablePoint.visibleShape=new WrappedEllipse(graph,movablePoint.coord,radii,options);movablePoint.visibleShape.attr(_.omit(movablePoint.normalStyle,"scale"));movablePoint.visibleShape.toFront();});}movablePoint.normalStyle.scale=1;movablePoint.highlightStyle.scale=highlightScale;if(movablePoint.vertexLabel){movablePoint.labeledVertex=this.label([0,0],"","center",movablePoint.labelStyle);}movablePoint.drawLabel=function(){if(movablePoint.vertexLabel){movablePoint.graph.labelVertex({vertex:movablePoint.coord,label:movablePoint.labeledVertex,text:movablePoint.vertexLabel,style:movablePoint.labelStyle});}};movablePoint.drawLabel();movablePoint.grab=function(offset){// The offset for the gesture. When provided, the movable point will
-	// track the mouse's position, plus this offset. This is typically
-	// used to lock the distance between a user's finger and the movable
-	// point, when dragging.
-	offset=offset||[0,0];$(document).bind("vmousemove.point vmouseup.point",function(event){event.preventDefault();movablePoint.dragging=true;dragging=true;// Adjust the target coordinate by accounting for the gesture's
-	// offset.
-	var coord=kvector.add(graph.getMouseCoord(event),offset);coord=applySnapAndConstraints(coord);var coordX=coord[0];var coordY=coord[1];var mouseX=void 0;var mouseY=void 0;if(event.type==="vmousemove"){var doMove=true;// The caller has the option of adding an onMove() method to the
-	// movablePoint object we return as a sort of event handler
-	// By returning false from onMove(), the move can be vetoed,
-	// providing custom constraints on where the point can be moved.
-	// By returning array [x, y], the move can be overridden
-	if(_.isFunction(movablePoint.onMove)){var result=movablePoint.onMove(coordX,coordY);if(result===false){doMove=false;}if(_.isArray(result)){coordX=result[0];coordY=result[1];}}// coord{X|Y} may have been modified by constraints or onMove handler; adjust mouse{X|Y} to match
-	mouseX=(coordX-graph.range[0][0])*graph.scale[0];mouseY=(-coordY+graph.range[1][1])*graph.scale[1];if(doMove){var point=graph.unscalePoint([mouseX,mouseY]);movablePoint.visibleShape.moveTo(point);movablePoint.mouseTarget.moveTo(point);movablePoint.coord=[coordX,coordY];movablePoint.updateLineEnds();$(movablePoint).trigger("move");}movablePoint.drawLabel();}else if(event.type==="vmouseup"){$(document).unbind(".point");movablePoint.dragging=false;dragging=false;if(_.isFunction(movablePoint.onMoveEnd)){var _result=movablePoint.onMoveEnd(coordX,coordY);if(_.isArray(_result)){coordX=_result[0];coordY=_result[1];mouseX=(coordX-graph.range[0][0])*graph.scale[0];mouseY=(-coordY+graph.range[1][1])*graph.scale[1];var _point=graph.unscalePoint([mouseX,mouseY]);movablePoint.visibleShape.moveTo(_point);movablePoint.mouseTarget.moveTo(_point);movablePoint.coord=[coordX,coordY];}}if(!movablePoint.highlight){movablePoint.visibleShape.animate(movablePoint.normalStyle,50);if(movablePoint.onUnhighlight){movablePoint.onUnhighlight();}}}});};if(movablePoint.visible&&!movablePoint.constraints.fixed){// the invisible shape in front of the point that gets mouse events
-	if(!movablePoint.mouseTarget){var radii=graph.unscaleVector(24);var _options={mouselayer:true,padding:0};movablePoint.mouseTarget=new WrappedEllipse(graph,movablePoint.coord,radii,_options);movablePoint.mouseTarget.attr({fill:"#000",opacity:0.0});}var $mouseTarget=$(movablePoint.mouseTarget.getMouseTarget());$mouseTarget.css("cursor","move");$mouseTarget.bind("vmousedown vmouseover vmouseout",function(event){if(event.type==="vmouseover"){movablePoint.highlight=true;if(!dragging){movablePoint.visibleShape.animate(movablePoint.highlightStyle,50);if(movablePoint.onHighlight){movablePoint.onHighlight();}}}else if(event.type==="vmouseout"){movablePoint.highlight=false;if(!movablePoint.dragging&&!dragging){movablePoint.visibleShape.animate(movablePoint.normalStyle,50);if(movablePoint.onUnhighlight){movablePoint.onUnhighlight();}}}else if(event.type==="vmousedown"&&(event.which===1||event.which===0)){event.preventDefault();// The offset between the cursor or finger and the initial
-	// coordinates of the point. This is tracked so as to avoid
-	// locking the moving point to the user's finger on touch
-	// devices, which would obscure it, no matter how large we
-	// made the touch target. Instead, we respect the offset at
-	// which the point was grabbed for the entirety of the
-	// gesture, if it's a touch-based interaction.
-	var startCoord=movablePoint.coord;var startMouseCoord=graph.getMouseCoord(event);var isMouse=!('ontouchstart'in window);var touchOffset=isMouse?[0,0]:kvector.subtract(startCoord,startMouseCoord);movablePoint.grab(touchOffset);}});}// Method to let the caller animate the point to a new position. Useful
-	// as part of a hint to show the user the correct place to put the point.
-	movablePoint.moveTo=function(coordX,coordY,updateLines){var distance=GraphUtils.getDistance(this.graph.scalePoint([coordX,coordY]),this.graph.scalePoint(this.coord));var time=distance*5;var cb=updateLines&&function(coord){movablePoint.coord=coord;movablePoint.updateLineEnds();};this.visibleShape.animateTo([coordX,coordY],time,cb);this.mouseTarget.animateTo([coordX,coordY],time,cb);this.coord=[coordX,coordY];if(_.isFunction(this.onMove)){this.onMove(coordX,coordY);}};// After moving the point, call this to update all line segments terminating at the point
-	movablePoint.updateLineEnds=function(){$(this.lineStarts).each(function(){this.coordA=movablePoint.coord;this.transform();});$(this.lineEnds).each(function(){this.coordZ=movablePoint.coord;this.transform();});$(this.polygonVertices).each(function(){this.transform();});};// Put the point at a new position without any checks, animation, or callbacks
-	movablePoint.setCoord=function(coord){if(this.visible){this.visibleShape.moveTo(coord);if(this.mouseTarget!=null){this.mouseTarget.moveTo(coord);}}this.coord=coord.slice();};// Put the point at the new position, checking that it is within the graph's bounds
-	movablePoint.setCoordConstrained=function(coord){this.setCoord(applySnapAndConstraints(coord));};// Change z-order to back
-	movablePoint.toBack=function(){if(this.visible){if(this.mouseTarget!=null){this.mouseTarget.toBack();}this.visibleShape.toBack();}};// Change z-order to front
-	movablePoint.toFront=function(){if(this.visible){if(this.mouseTarget!=null){this.mouseTarget.toFront();}this.visibleShape.toFront();}};movablePoint.remove=function(){if(this.visibleShape){this.visibleShape.remove();}if(this.mouseTarget){this.mouseTarget.remove();}if(this.labeledVertex){this.labeledVertex.remove();}};return movablePoint;},// MovableLineSegment is a line segment that can be dragged around the
-	// screen. By attaching a smartPoint to each (or one) end, the ends can be
-	// manipulated individually.
-	//
-	// To use with smartPoints, add the smartPoints first, then:
-	//   addMovableLineSegment({ pointA: smartPoint1, pointZ: smartPoint2 });
-	// Or just one end:
-	//   addMovableLineSegment({ pointA: smartPoint, coordZ: [0, 0] });
-	//
-	// Include "fixed: true" in the options if you don't want the entire line
-	// to be draggable (you can still use points to make the endpoints
-	// draggable)
-	//
-	// The returned object includes the following properties/methods:
-	//
-	//   - lineSegment.coordA / lineSegment.coordZ
-	//         The coordinates of each end of the line segment
-	//
-	//   - lineSegment.transform(syncToPoints)
-	//         Repositions the line segment. Call after changing coordA and/or
-	//         coordZ, or pass syncToPoints = true to use the current position
-	//         of the corresponding smartPoints, if the segment was defined using
-	//         smartPoints
-	//
-	addMovableLineSegment:function addMovableLineSegment(options){var lineSegment=$.extend({graph:this,coordA:[0,0],coordZ:[1,1],snapX:0,snapY:0,fixed:false,ticks:0,normalStyle:{},highlightStyle:{"stroke":KhanColors.INTERACTING,"stroke-width":6},labelStyle:{"stroke":KhanColors.INTERACTIVE,"color":KhanColors.INTERACTIVE},highlight:false,dragging:false,tick:[],extendLine:false,extendRay:false,constraints:{fixed:false,constrainX:false,constrainY:false},sideLabel:"",vertexLabels:[],numArrows:0,numTicks:0,movePointsWithLine:false},options);var normalColor=lineSegment.fixed?KhanColors.DYNAMIC:KhanColors.INTERACTIVE;lineSegment.normalStyle=_.extend({},{"stroke-width":2,"stroke":normalColor},options.normalStyle);// arrowStyle should be kept in sync with styling of the line
-	lineSegment.arrowStyle=_.extend({},lineSegment.normalStyle,{"color":lineSegment.normalStyle.stroke});// If the line segment is defined by movablePoints, coordA/coordZ are
-	// owned by the points, otherwise they're owned by us
-	if(options.pointA!==undefined){lineSegment.coordA=options.pointA.coord;lineSegment.pointA.lineStarts.push(lineSegment);}else if(options.coordA!==undefined){lineSegment.coordA=options.coordA.slice();}if(options.pointZ!==undefined){lineSegment.coordZ=options.pointZ.coord;lineSegment.pointZ.lineEnds.push(lineSegment);}else if(options.coordA!==undefined){lineSegment.coordA=lineSegment.coordA.slice();}var graph=lineSegment.graph;graph.style(lineSegment.normalStyle);for(var i=0;i<lineSegment.ticks;++i){lineSegment.tick[i]=InteractiveUtils.bogusShape;}// TODO(kevinb) figure out why path isn't being used
-	/* eslint-disable */var path=GraphUtils.unscaledSvgPath([[0,0],[1,0]]);for(var _i=0;_i<lineSegment.ticks;++_i){var tickoffset=0.5-(lineSegment.ticks-1+_i*2)/graph.scale[0];path+=GraphUtils.unscaledSvgPath([[tickoffset,-7],[tickoffset,7]]);}/* eslint-enable */options={thickness:Math.max(lineSegment.normalStyle["stroke-width"],lineSegment.highlightStyle["stroke-width"])};lineSegment.visibleLine=new WrappedLine(graph,[0,0],[1,0],options);lineSegment.visibleLine.attr(lineSegment.normalStyle);// Add mouse target
-	if(!lineSegment.fixed){var _options2={thickness:30,mouselayer:true};lineSegment.mouseTarget=new WrappedLine(graph,[0,0],[1,0],_options2);lineSegment.mouseTarget.attr({fill:"#000","opacity":0.0});}// Reposition the line segment. Call after changing coordA and/or
-	// coordZ, or pass syncToPoints = true to use the current position of
-	// the corresponding movablePoints, if the segment was defined using
-	// movablePoints
-	lineSegment.transform=function(syncToPoints){if(syncToPoints){if(_typeof(this.pointA)==="object"){this.coordA=this.pointA.coord;}if(_typeof(this.pointZ)==="object"){this.coordZ=this.pointZ.coord;}}var getScaledAngle=function getScaledAngle(line){var scaledA=line.graph.scalePoint(line.coordA);var scaledZ=line.graph.scalePoint(line.coordZ);return kvector.polarDegFromCart(kvector.subtract(scaledZ,scaledA))[1];};var getClipPoint=function getClipPoint(graph,coord,angle){graph=lineSegment.graph;var xExtent=graph.range[0][1]-graph.range[0][0];var yExtent=graph.range[1][1]-graph.range[1][0];var distance=xExtent+yExtent;var angleVec=graph.unscaleVector(kvector.cartFromPolarDeg([1,angle]));var distVec=kvector.scale(kvector.normalize(angleVec),distance);var farCoord=kvector.add(coord,distVec);var scaledAngle=kvector.polarDegFromCart(angleVec)[1];var clipPoint=graph.constrainToBoundsOnAngle(farCoord,4,scaledAngle*Math.PI/180);return clipPoint;};var angle=getScaledAngle(this);var start=this.coordA;var end=this.coordZ;// Extend start, end if necessary (i.e., if not a line segment)
-	if(this.extendLine){start=getClipPoint(graph,start,360-angle);end=getClipPoint(graph,end,(540-angle)%360);}else if(this.extendRay){end=getClipPoint(graph,start,360-angle);}var elements=[this.visibleLine];if(!this.fixed){elements.push(this.mouseTarget);}_.each(elements,function(element){element.moveTo(start,end);});var createArrow=function createArrow(graph,style){var center=[0.75,0];var points=[[-3,4],[-2.75,2.5],[0,0.25],center,[0,-0.25],[-2.75,-2.5],[-3,-4]];var scale=1.4;points=_.map(points,function(point){var pv=kvector.subtract(point,center);var pvScaled=kvector.scale(pv,scale);return kvector.add(center,pvScaled);});var createCubicPath=function createCubicPath(points){var path="M"+points[0][0]+" "+points[0][1];for(var _i2=1;_i2<points.length;_i2+=3){path+="C"+points[_i2][0]+" "+points[_i2][1]+" "+points[_i2+1][0]+" "+points[_i2+1][1]+" "+points[_i2+2][0]+" "+points[_i2+2][1];}return path;};var unscaledPoints=_.map(points,graph.unscalePoint);var options={center:graph.unscalePoint(center),createPath:createCubicPath};var arrowHead=new WrappedPath(graph,unscaledPoints,options);arrowHead.attr(_.extend({"stroke-linejoin":"round","stroke-linecap":"round","stroke-dasharray":""},style));// Add custom function for transforming arrowheads that accounts for
-	// center, scaling, etc.
-	arrowHead.toCoordAtAngle=function(coord,angle){var clipPoint=graph.scalePoint(getClipPoint(graph,coord,angle));var do3dTransform=getCanUse3dTransform();arrowHead.transform("translateX("+(clipPoint[0]+scale*center[0])+"px) "+"translateY("+(clipPoint[1]+scale*center[1])+"px) "+(do3dTransform?"translateZ(0) ":"")+"rotate("+(360-KhanMath.bound(angle))+"deg)");};return arrowHead;};// Add arrows
-	if(this._arrows==null){this._arrows=[];if(this.extendLine){this._arrows.push(createArrow(graph,this.normalStyle));this._arrows.push(createArrow(graph,this.normalStyle));}else if(this.extendRay){this._arrows.push(createArrow(graph,this.normalStyle));}}var coordForArrow=[this.coordA,this.coordZ];var angleForArrow=[360-angle,(540-angle)%360];_.each(this._arrows,function(arrow,i){arrow.toCoordAtAngle(coordForArrow[i],angleForArrow[i]);});// Temporary objects: array of SVG nodes that get recreated on drag
-	_.invoke(this.temp,"remove");this.temp=[];var isClockwise=this.coordA[0]<this.coordZ[0]||this.coordA[0]===this.coordZ[0]&&this.coordA[1]>this.coordZ[1];// Update side label
-	if(this.sideLabel){this.temp.push(this.graph.labelSide({point1:this.coordA,point2:this.coordZ,label:this.labeledSide,text:this.sideLabel,numArrows:this.numArrows,numTicks:this.numTicks,clockwise:isClockwise,style:this.labelStyle}));}// Update vertex labels
-	if(this.vertexLabels.length){this.graph.labelVertex({vertex:this.coordA,point3:this.coordZ,label:this.labeledVertices[0],text:this.vertexLabels[0],clockwise:isClockwise,style:this.labelStyle});this.graph.labelVertex({point1:this.coordA,vertex:this.coordZ,label:this.labeledVertices[1],text:this.vertexLabels[1],clockwise:isClockwise,style:this.labelStyle});}this.temp=_.flatten(this.temp);};// Change z-order to back;
-	lineSegment.toBack=function(){if(!lineSegment.fixed){lineSegment.mouseTarget.toBack();}lineSegment.visibleLine.toBack();};// Change z-order to front
-	lineSegment.toFront=function(){if(!lineSegment.fixed){lineSegment.mouseTarget.toFront();}lineSegment.visibleLine.toFront();};lineSegment.remove=function(){if(!lineSegment.fixed){lineSegment.mouseTarget.remove();}lineSegment.visibleLine.remove();if(lineSegment.labeledSide){lineSegment.labeledSide.remove();}if(lineSegment.labeledVertices){_.invoke(lineSegment.labeledVertices,"remove");}if(lineSegment._arrows){_.invoke(lineSegment._arrows,"remove");}if(lineSegment.temp.length){_.invoke(lineSegment.temp,"remove");}};lineSegment.hide=function(){lineSegment.visibleLine.hide();if(lineSegment.temp.length){_.invoke(lineSegment.temp,"hide");}if(lineSegment._arrows){_.invoke(lineSegment._arrows,"hide");}};lineSegment.show=function(){lineSegment.visibleLine.show();if(lineSegment.temp.length){_.invoke(lineSegment.temp,"show");}if(lineSegment._arrows){_.invoke(lineSegment._arrows,"show");}};if(lineSegment.sideLabel){lineSegment.labeledSide=this.label([0,0],"","center",lineSegment.labelStyle);}if(lineSegment.vertexLabels.length){lineSegment.labeledVertices=_.map(lineSegment.vertexLabels,function(label){return this.label([0,0],"","center",lineSegment.labelStyle);},this);}if(!lineSegment.fixed&&!lineSegment.constraints.fixed){var $mouseTarget=$(lineSegment.mouseTarget.getMouseTarget());$mouseTarget.css("cursor","move");$mouseTarget.bind("vmousedown vmouseover vmouseout",function(event){if(event.type==="vmouseover"){if(!dragging){lineSegment.highlight=true;lineSegment.visibleLine.animate(lineSegment.highlightStyle,50);lineSegment.arrowStyle=_.extend({},lineSegment.arrowStyle,{"color":lineSegment.highlightStyle.stroke,"stroke":lineSegment.highlightStyle.stroke});lineSegment.transform();}}else if(event.type==="vmouseout"){lineSegment.highlight=false;if(!lineSegment.dragging){lineSegment.visibleLine.animate(lineSegment.normalStyle,50);lineSegment.arrowStyle=_.extend({},lineSegment.arrowStyle,{"color":lineSegment.normalStyle.stroke,"stroke":lineSegment.normalStyle.stroke});lineSegment.transform();}}else if(event.type==="vmousedown"&&(event.which===1||event.which===0)){(function(){event.preventDefault();var coordX=(event.pageX-$(graph.raphael.canvas.parentNode).offset().left)/graph.scale[0]+graph.range[0][0];var coordY=graph.range[1][1]-(event.pageY-$(graph.raphael.canvas.parentNode).offset().top)/graph.scale[1];if(lineSegment.snapX>0){coordX=Math.round(coordX/lineSegment.snapX)*lineSegment.snapX;}if(lineSegment.snapY>0){coordY=Math.round(coordY/lineSegment.snapY)*lineSegment.snapY;}var mouseOffsetA=[lineSegment.coordA[0]-coordX,lineSegment.coordA[1]-coordY];var mouseOffsetZ=[lineSegment.coordZ[0]-coordX,lineSegment.coordZ[1]-coordY];var offsetLeft=-Math.min(graph.scaleVector(mouseOffsetA)[0],graph.scaleVector(mouseOffsetZ)[0]);var offsetRight=Math.max(graph.scaleVector(mouseOffsetA)[0],graph.scaleVector(mouseOffsetZ)[0]);var offsetTop=Math.max(graph.scaleVector(mouseOffsetA)[1],graph.scaleVector(mouseOffsetZ)[1]);var offsetBottom=-Math.min(graph.scaleVector(mouseOffsetA)[1],graph.scaleVector(mouseOffsetZ)[1]);$(document).bind("vmousemove.lineSegment vmouseup.lineSegment",function(event){event.preventDefault();lineSegment.dragging=true;dragging=true;var mouseX=event.pageX-$(graph.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY-$(graph.raphael.canvas.parentNode).offset().top;// no part of the line segment can go beyond 10 pixels from the edge
-	mouseX=Math.max(offsetLeft+10,Math.min(graph.xpixels-10-offsetRight,mouseX));mouseY=Math.max(offsetTop+10,Math.min(graph.ypixels-10-offsetBottom,mouseY));var coordX=mouseX/graph.scale[0]+graph.range[0][0];var coordY=graph.range[1][1]-mouseY/graph.scale[1];if(lineSegment.snapX>0){coordX=Math.round(coordX/lineSegment.snapX)*lineSegment.snapX;}if(lineSegment.snapY>0){coordY=Math.round(coordY/lineSegment.snapY)*lineSegment.snapY;}if(event.type==="vmousemove"){if(lineSegment.constraints.constrainX){coordX=lineSegment.coordA[0]-mouseOffsetA[0];}if(lineSegment.constraints.constrainY){coordY=lineSegment.coordA[1]-mouseOffsetA[1];}var dX=coordX+mouseOffsetA[0]-lineSegment.coordA[0];var dY=coordY+mouseOffsetA[1]-lineSegment.coordA[1];lineSegment.coordA=[coordX+mouseOffsetA[0],coordY+mouseOffsetA[1]];lineSegment.coordZ=[coordX+mouseOffsetZ[0],coordY+mouseOffsetZ[1]];lineSegment.transform();if(lineSegment.movePointsWithLine){// If the points are movablePoints, adjust
-	// their coordinates when the line itself is
-	// dragged
-	if(_typeof(lineSegment.pointA)==="object"){lineSegment.pointA.setCoord([lineSegment.pointA.coord[0]+dX,lineSegment.pointA.coord[1]+dY]);}if(_typeof(lineSegment.pointZ)==="object"){lineSegment.pointZ.setCoord([lineSegment.pointZ.coord[0]+dX,lineSegment.pointZ.coord[1]+dY]);}}if(_.isFunction(lineSegment.onMove)){lineSegment.onMove(dX,dY);}}else if(event.type==="vmouseup"){$(document).unbind(".lineSegment");lineSegment.dragging=false;dragging=false;if(!lineSegment.highlight){lineSegment.visibleLine.animate(lineSegment.normalStyle,50);lineSegment.arrowStyle=_.extend({},lineSegment.arrowStyle,{"color":lineSegment.normalStyle.stroke,"stroke":lineSegment.normalStyle.stroke});lineSegment.transform();}if(_.isFunction(lineSegment.onMoveEnd)){lineSegment.onMoveEnd();}}$(lineSegment).trigger("move");});})();}});}if(lineSegment.pointA!==undefined){lineSegment.pointA.toFront();}if(lineSegment.pointZ!==undefined){lineSegment.pointZ.toFront();}lineSegment.transform();return lineSegment;},// MovablePolygon is a polygon that can be dragged around the screen.
-	// By attaching a smartPoint to each vertex, the points can be
-	// manipulated individually.
-	//
-	// To use with smartPoints, add the smartPoints first, then:
-	//   addMovablePolygon({points: [...]});
-	//
-	// Include "fixed: true" in the options if you don't want the entire
-	// polygon to be draggable (you can still use points to make the
-	// vertices draggable)
-	//
-	// The returned object includes the following properties/methods:
-	//
-	//   - polygon.points
-	//         The polygon's dynamic smartPoints and static coordinates, mixed.
-	//
-	//   - polygon.coords
-	//         The polygon's current coordinates (generated, don't edit).
-	//
-	//   - polygon.transform()
-	//         Repositions the polygon. Call after changing any points.
-	//
-	addMovablePolygon:function addMovablePolygon(options){var graphie=this;var polygon=$.extend({snapX:0,snapY:0,fixed:false,constrainToGraph:true,normalStyle:{},highlightStyle:{"stroke":KhanColors.INTERACTING,"stroke-width":2,"fill":KhanColors.INTERACTING,"fill-opacity":0.05},pointHighlightStyle:{"fill":KhanColors.INTERACTING,"stroke":KhanColors.INTERACTING},labelStyle:{"stroke":KhanColors.DYNAMIC,"stroke-width":1,"color":KhanColors.DYNAMIC},angleLabels:[],showRightAngleMarkers:[],sideLabels:[],vertexLabels:[],numArcs:[],numArrows:[],numTicks:[],updateOnPointMove:true,closed:true},_.omit(options,"points"));var normalColor=polygon.fixed?KhanColors.DYNAMIC:KhanColors.INTERACTIVE;polygon.normalStyle=_.extend({"stroke-width":2,"fill-opacity":0,"fill":normalColor,"stroke":normalColor},options.normalStyle);// don't deep copy the points array with $.extend;
-	// we may want to append to it later for click-to-add-points
-	polygon.points=options.points;var isPoint=function isPoint(coordOrPoint){return!_.isArray(coordOrPoint);};polygon.update=function(){var n=polygon.points.length;// Update coords
-	polygon.coords=_.map(polygon.points,function(coordOrPoint,i){if(isPoint(coordOrPoint)){return coordOrPoint.coord;}else{return coordOrPoint;}});// Calculate bounding box
-	polygon.left=_.min(_.pluck(polygon.coords,0));polygon.right=_.max(_.pluck(polygon.coords,0));polygon.top=_.max(_.pluck(polygon.coords,1));polygon.bottom=_.min(_.pluck(polygon.coords,1));var scaledCoords=_.map(polygon.coords,function(coord){return graphie.scalePoint(coord);});// Create path
-	if(polygon.closed){scaledCoords.push(true);}else{// For open polygons, concatenate a reverse of the path,
-	// to remove the inside area of the path, which would
-	// otherwise be clickable (even if the closing line segment
-	// wasn't drawn
-	scaledCoords=scaledCoords.concat(_.clone(scaledCoords).reverse());}polygon.path=GraphUtils.unscaledSvgPath(scaledCoords);// Temporary objects
-	_.invoke(polygon.temp,"remove");polygon.temp=[];var isClockwise=clockwise(polygon.coords);// Update angle labels
-	if(polygon.angleLabels.length||polygon.showRightAngleMarkers.length){_.each(polygon.labeledAngles,function(label,i){polygon.temp.push(graphie.labelAngle({point1:polygon.coords[(i-1+n)%n],vertex:polygon.coords[i],point3:polygon.coords[(i+1)%n],label:label,text:polygon.angleLabels[i],showRightAngleMarker:polygon.showRightAngleMarkers[i],numArcs:polygon.numArcs[i],clockwise:isClockwise,style:polygon.labelStyle}));});}// Update side labels
-	if(polygon.sideLabels.length){_.each(polygon.labeledSides,function(label,i){polygon.temp.push(graphie.labelSide({point1:polygon.coords[i],point2:polygon.coords[(i+1)%n],label:label,text:polygon.sideLabels[i],numArrows:polygon.numArrows[i],numTicks:polygon.numTicks[i],clockwise:isClockwise,style:polygon.labelStyle}));});}// Update vertex labels
-	if(polygon.vertexLabels.length){_.each(polygon.labeledVertices,function(label,i){graphie.labelVertex({point1:polygon.coords[(i-1+n)%n],vertex:polygon.coords[i],point3:polygon.coords[(i+1)%n],label:label,text:polygon.vertexLabels[i],clockwise:isClockwise,style:polygon.labelStyle});});}polygon.temp=_.flatten(polygon.temp);};polygon.transform=function(){polygon.update();polygon.visibleShape.attr({path:polygon.path});if(!polygon.fixed){polygon.mouseTarget.attr({path:polygon.path});}};polygon.remove=function(){polygon.visibleShape.remove();if(!polygon.fixed){polygon.mouseTarget.remove();}if(polygon.labeledAngles){_.invoke(polygon.labeledAngles,"remove");}if(polygon.labeledSides){_.invoke(polygon.labeledSides,"remove");}if(polygon.labeledVertices){_.invoke(polygon.labeledVertices,"remove");}if(polygon.temp.length){_.invoke(polygon.temp,"remove");}};polygon.toBack=function(){if(!polygon.fixed){polygon.mouseTarget.toBack();}polygon.visibleShape.toBack();};polygon.toFront=function(){if(!polygon.fixed){polygon.mouseTarget.toFront();}polygon.visibleShape.toFront();};// Setup
-	if(polygon.updateOnPointMove){_.each(_.filter(polygon.points,isPoint),function(coordOrPoint){coordOrPoint.polygonVertices.push(polygon);});}polygon.coords=new Array(polygon.points.length);if(polygon.angleLabels.length){var numLabels=Math.max(polygon.angleLabels.length,polygon.showRightAngleMarkers.length);polygon.labeledAngles=_.times(numLabels,function(){return this.label([0,0],"","center",polygon.labelStyle);},this);}if(polygon.sideLabels.length){polygon.labeledSides=_.map(polygon.sideLabels,function(label){return this.label([0,0],"","center",polygon.labelStyle);},this);}if(polygon.vertexLabels.length){polygon.labeledVertices=_.map(polygon.vertexLabels,function(label){return this.label([0,0],"","center",polygon.labelStyle);},this);}polygon.update();polygon.visibleShape=graphie.raphael.path(polygon.path);polygon.visibleShape.attr(polygon.normalStyle);if(!polygon.fixed){polygon.mouseTarget=graphie.mouselayer.path(polygon.path);polygon.mouseTarget.attr({fill:"#000",opacity:0,cursor:"move"});$(polygon.mouseTarget[0]).bind("vmousedown vmouseover vmouseout",function(event){if(event.type==="vmouseover"){if(!dragging||polygon.dragging){polygon.highlight=true;polygon.visibleShape.animate(polygon.highlightStyle,50);_.each(_.filter(polygon.points,isPoint),function(point){point.visibleShape.animate(polygon.pointHighlightStyle,50);});}}else if(event.type==="vmouseout"){polygon.highlight=false;if(!polygon.dragging){polygon.visibleShape.animate(polygon.normalStyle,50);var points=_.filter(polygon.points,isPoint);if(!_.any(_.pluck(points,"dragging"))){_.each(points,function(point){point.visibleShape.animate(point.normalStyle,50);});}}}else if(event.type==="vmousedown"&&(event.which===1||event.which===0)){(function(){event.preventDefault();_.each(_.filter(polygon.points,isPoint),function(point){point.dragging=true;});var startX=(event.pageX-$(graphie.raphael.canvas.parentNode).offset().left)/graphie.scale[0]+graphie.range[0][0];var startY=graphie.range[1][1]-(event.pageY-$(graphie.raphael.canvas.parentNode).offset().top)/graphie.scale[1];if(polygon.snapX>0){startX=Math.round(startX/polygon.snapX)*polygon.snapX;}if(polygon.snapY>0){startY=Math.round(startY/polygon.snapY)*polygon.snapY;}var lastX=startX;var lastY=startY;var polygonCoords=polygon.coords.slice();var offsetLeft=(startX-polygon.left)*graphie.scale[0];var offsetRight=(polygon.right-startX)*graphie.scale[0];var offsetTop=(polygon.top-startY)*graphie.scale[1];var offsetBottom=(startY-polygon.bottom)*graphie.scale[1];$(document).bind("vmousemove.polygon vmouseup.polygon",function(event){event.preventDefault();polygon.dragging=true;dragging=true;var mouseX=event.pageX-$(graphie.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY-$(graphie.raphael.canvas.parentNode).offset().top;// no part of the polygon can go beyond 10 pixels from the edge
-	if(polygon.constrainToGraph){mouseX=Math.max(offsetLeft+10,Math.min(graphie.xpixels-10-offsetRight,mouseX));mouseY=Math.max(offsetTop+10,Math.min(graphie.ypixels-10-offsetBottom,mouseY));}var currentX=mouseX/graphie.scale[0]+graphie.range[0][0];var currentY=graphie.range[1][1]-mouseY/graphie.scale[1];if(polygon.snapX>0){currentX=Math.round(currentX/polygon.snapX)*polygon.snapX;}if(polygon.snapY>0){currentY=Math.round(currentY/polygon.snapY)*polygon.snapY;}if(event.type==="vmousemove"){(function(){var dX=currentX-startX;var dY=currentY-startY;var doMove=true;if(_.isFunction(polygon.onMove)){var onMoveResult=polygon.onMove(dX,dY);if(onMoveResult===false){doMove=false;}else if(_.isArray(onMoveResult)){dX=onMoveResult[0];dY=onMoveResult[1];currentX=startX+dX;currentY=startY+dY;}}var increment=function increment(i){return[polygonCoords[i][0]+dX,polygonCoords[i][1]+dY];};if(doMove){_.each(polygon.points,function(coordOrPoint,i){if(isPoint(coordOrPoint)){coordOrPoint.setCoord(increment(i));}else{polygon.points[i]=increment(i);}});polygon.transform();$(polygon).trigger("move");lastX=currentX;lastY=currentY;}})();}else if(event.type==="vmouseup"){$(document).unbind(".polygon");var _points=_.filter(polygon.points,isPoint);_.each(_points,function(point){point.dragging=false;});polygon.dragging=false;dragging=false;if(!polygon.highlight){polygon.visibleShape.animate(polygon.normalStyle,50);_.each(_points,function(point){point.visibleShape.animate(point.normalStyle,50);});}if(_.isFunction(polygon.onMoveEnd)){polygon.onMoveEnd(lastX-startX,lastY-startY);}}});})();}});}// Bring any movable points to the front
-	_.invoke(_.filter(polygon.points,isPoint),"toFront");return polygon;},/**
+	     */
+	    labelAngle: function labelAngle(options) {
+	        var graphie = this;
+
+	        _.defaults(options, {
+	            point1: [0, 0],
+	            vertex: [0, 0],
+	            point3: [0, 0],
+	            label: null,
+	            numArcs: 1,
+	            showRightAngleMarker: true,
+	            pushOut: 0,
+	            clockwise: false,
+	            style: {}
+	        });
+
+	        var text = options.text === undefined ? "" : options.text;
+	        var vertex = options.vertex;
+	        var sVertex = graphie.scalePoint(vertex);
+	        var p1 = void 0;
+	        var p3 = void 0;
+	        if (options.clockwise) {
+	            p1 = options.point1;
+	            p3 = options.point3;
+	        } else {
+	            p1 = options.point3;
+	            p3 = options.point1;
+	        }
+
+	        var startAngle = GraphUtils.findAngle(p1, vertex);
+	        var endAngle = GraphUtils.findAngle(p3, vertex);
+	        var angle = (endAngle + 360 - startAngle) % 360;
+	        var halfAngle = (startAngle + angle / 2) % 360;
+	        var sPadding = 5 * options.pushOut;
+	        var sRadius = sPadding + scaledDistanceFromAngle(angle);
+	        var temp = [];
+
+	        if (Math.abs(angle - 90) < 1e-9 && options.showRightAngleMarker) {
+	            (function () {
+	                var v1 = addPoints(sVertex, scaledPolarDeg(sRadius, startAngle));
+	                var v2 = addPoints(sVertex, scaledPolarDeg(sRadius, endAngle));
+
+	                sRadius *= Math.SQRT2;
+	                var v3 = addPoints(sVertex, scaledPolarDeg(sRadius, halfAngle));
+
+	                _.each([v1, v2], function (v) {
+	                    temp.push(graphie.scaledPath([v, v3], options.style));
+	                });
+	            })();
+	        } else {
+	            // Draw arcs
+	            _.times(options.numArcs, function (i) {
+	                temp.push(graphie.arc(vertex, graphie.unscaleVector(sRadius), startAngle, endAngle, options.style));
+	                sRadius += 3;
+	            });
+	        }
+
+	        if (text) {
+	            var match = text.match(/\$deg(\d)?/);
+	            if (match) {
+	                var precision = match[1] || 1;
+	                text = text.replace(match[0], KhanMath.toFixedApprox(angle, precision) + "^{\\circ}");
+	            }
+
+	            var sOffset = scaledPolarDeg(sRadius + 15, halfAngle);
+	            var sPosition = addPoints(sVertex, sOffset);
+	            var position = graphie.unscalePoint(sPosition);
+
+	            // Reuse label if possible
+	            if (options.label) {
+	                options.label.setPosition(position);
+	                options.label.processMath(text, /* force */true);
+	            } else {
+	                graphie.label(position, text, "center", options.style);
+	            }
+	        }
+
+	        return temp;
+	    },
+
+	    labelSide: function labelSide(options) {
+	        var graphie = this;
+
+	        _.defaults(options, {
+	            point1: [0, 0],
+	            point2: [0, 0],
+	            label: null,
+	            text: "",
+	            numTicks: 0,
+	            numArrows: 0,
+	            clockwise: false,
+	            style: {}
+	        });
+
+	        var p1 = void 0;
+	        var p2 = void 0;
+	        if (options.clockwise) {
+	            p1 = options.point1;
+	            p2 = options.point2;
+	        } else {
+	            p1 = options.point2;
+	            p2 = options.point1;
+	        }
+
+	        var midpoint = [(p1[0] + p2[0]) / 2, (p1[1] + p2[1]) / 2];
+	        var sMidpoint = graphie.scalePoint(midpoint);
+	        var parallelAngle = Math.atan2(p2[1] - p1[1], p2[0] - p1[0]);
+	        var perpendicularAngle = parallelAngle + Math.PI / 2;
+	        var temp = [];
+	        var sCumulativeOffset = 0;
+
+	        if (options.numTicks) {
+	            (function () {
+	                var n = options.numTicks;
+
+	                var sSpacing = 5;
+	                var sHeight = 5;
+
+	                var style = _.extend({}, options.style, {
+	                    strokeWidth: 2
+	                });
+
+	                _.times(n, function (i) {
+	                    var sOffset = sSpacing * (i - (n - 1) / 2);
+
+	                    var sOffsetVector = scaledPolarRad(sOffset, parallelAngle);
+	                    var sHeightVector = scaledPolarRad(sHeight, perpendicularAngle);
+
+	                    var sPath = [addPoints(sMidpoint, sOffsetVector, sHeightVector), addPoints(sMidpoint, sOffsetVector, reverseVector(sHeightVector))];
+
+	                    temp.push(graphie.scaledPath(sPath, style));
+	                });
+
+	                sCumulativeOffset += sSpacing * (n - 1) + 15;
+	            })();
+	        }
+
+	        if (options.numArrows) {
+	            (function () {
+	                var n = options.numArrows;
+
+	                var start = [p1, p2].sort(function (a, b) {
+	                    if (a[1] === b[1]) {
+	                        return a[0] - b[0];
+	                    } else {
+	                        return a[1] - b[1];
+	                    }
+	                })[0];
+	                var sStart = graphie.scalePoint(start);
+
+	                var style = _.extend({}, options.style, {
+	                    arrows: "->",
+	                    strokeWidth: 2
+	                });
+
+	                var sSpacing = 5;
+
+	                _.times(n, function (i) {
+	                    var sOffset = sCumulativeOffset + sSpacing * i;
+	                    var sOffsetVector = scaledPolarRad(sOffset, parallelAngle);
+
+	                    if (start !== p1) {
+	                        sOffsetVector = reverseVector(sOffsetVector);
+	                    }
+
+	                    var sEnd = addPoints(sMidpoint, sOffsetVector);
+
+	                    temp.push(graphie.scaledPath([sStart, sEnd], style));
+	                });
+	            })();
+	        }
+
+	        var text = options.text;
+	        if (text) {
+	            var match = text.match(/\$len(\d)?/);
+	            if (match) {
+	                var distance = GraphUtils.getDistance(p1, p2);
+	                var precision = match[1] || 1;
+	                text = text.replace(match[0], KhanMath.toFixedApprox(distance, precision));
+	            }
+
+	            var sOffset = 20;
+	            var sOffsetVector = scaledPolarRad(sOffset, perpendicularAngle);
+	            var sPosition = addPoints(sMidpoint, sOffsetVector);
+	            var position = graphie.unscalePoint(sPosition);
+
+	            // Reuse label if possible
+	            if (options.label) {
+	                options.label.setPosition(position);
+	                options.label.processMath(text, /* force */true);
+	            } else {
+	                graphie.label(position, text, "center", options.style);
+	            }
+	        }
+
+	        return temp;
+	    },
+
+	    /* Can also be used to label points that aren't vertices */
+	    labelVertex: function labelVertex(options) {
+	        var graphie = this;
+
+	        _.defaults(options, {
+	            point1: null,
+	            vertex: [0, 0],
+	            point3: null,
+	            label: null,
+	            text: "",
+	            clockwise: false,
+	            style: {}
+	        });
+
+	        if (!options.text) {
+	            return;
+	        }
+
+	        var vertex = options.vertex;
+	        var sVertex = graphie.scalePoint(vertex);
+	        var p1 = void 0;
+	        var p3 = void 0;
+	        if (options.clockwise) {
+	            p1 = options.point1;
+	            p3 = options.point3;
+	        } else {
+	            p1 = options.point3;
+	            p3 = options.point1;
+	        }
+
+	        var angle = 135;
+	        var halfAngle = void 0;
+	        if (p1 && p3) {
+	            var startAngle = GraphUtils.findAngle(p1, vertex);
+	            var endAngle = GraphUtils.findAngle(p3, vertex);
+	            angle = (endAngle + 360 - startAngle) % 360;
+	            halfAngle = (startAngle + angle / 2 + 180) % 360;
+	        } else if (p1) {
+	            var parallelAngle = GraphUtils.findAngle(vertex, p1);
+	            halfAngle = parallelAngle + 90;
+	        } else if (p3) {
+	            var _parallelAngle = GraphUtils.findAngle(p3, vertex);
+	            halfAngle = _parallelAngle + 90;
+	        } else {
+	            // Standalone point
+	            halfAngle = 135;
+	        }
+
+	        var sRadius = 10 + scaledDistanceFromAngle(360 - angle);
+	        var sOffsetVector = scaledPolarDeg(sRadius, halfAngle);
+	        var sPosition = addPoints(sVertex, sOffsetVector);
+	        var position = graphie.unscalePoint(sPosition);
+
+	        // Reuse label if possible
+	        if (options.label) {
+	            options.label.setPosition(position);
+	            options.label.processMath(options.text, /* force */true);
+	        } else {
+	            graphie.label(position, options.text, "center", options.style);
+	        }
+	    },
+
+	    // Add a point to the graph that can be dragged around.
+	    // It allows automatic constraints on its movement as well as automatically
+	    // managing line segments that terminate at the point.
+	    //
+	    // Options can be set to control how the point behaves:
+	    //   coord[]:
+	    //     The initial position of the point
+	    //   snapX, snapY:
+	    //     The minimum increment the point can be moved
+	    //
+	    // The return value is an object that can be used to manipulate the point:
+	    //   The coordX and coordY properties tell you the current position
+	    //
+	    //   By adding an onMove() method to the returned object, you can install an
+	    //   event handler that gets called every time the user moves the point.
+	    //
+	    //   The returned object also provides a moveTo(x,y) method that will move
+	    //   the point to a specific coordinate
+	    //
+	    // Constraints can be set on the on the returned object:
+	    //
+	    //  - Set point to be immovable:
+	    //        movablePoint.constraints.fixed = true
+	    //
+	    //  - Constrain point to a fixed distance from another point. The resulting
+	    //    point will move in a circle:
+	    //        movablePoint.fixedDistance = {
+	    //           dist: 2,
+	    //           point: point1
+	    //        }
+	    //
+	    //  - Constrain point to a line defined by a fixed angle between it and
+	    //    two other points:
+	    //        movablePoint.fixedAngle = {
+	    //           angle: 45,
+	    //           vertex: point1,
+	    //           ref: point2
+	    //        }
+	    //
+	    //  - Confined the point to traveling in a vertical or horizontal line,
+	    //    respectively
+	    //        movablePoint.constrainX = true;
+	    //        movablePoint.constrainY = true;
+	    //
+	    //  - Connect a movableLineSegment to a movablePoint. The point is attached
+	    //    to a specific end of the line segment by adding the segment either to
+	    //    the list of lines that start at the point or the list of lines that
+	    //    end at the point (movableLineSegment can do this for you):
+	    //        movablePoint.lineStarts.push(movableLineSegment);
+	    //          - or -
+	    //        movablePoint.lineEnds.push(movableLineSegment);
+	    //
+	    //  - Connect a movablePolygon to a movablePoint in exacty the same way:
+	    //        movablePoint.polygonVertices.push(movablePolygon);
+	    //
+	    addMovablePoint: function addMovablePoint(options) {
+	        var movablePoint = $.extend(true, {
+	            graph: this,
+	            coord: [0, 0],
+	            snapX: 0,
+	            snapY: 0,
+	            pointSize: 4,
+	            highlight: false,
+	            dragging: false,
+	            visible: true,
+	            bounded: true,
+	            constraints: {
+	                fixed: false,
+	                constrainX: false,
+	                constrainY: false,
+	                fixedAngle: {},
+	                fixedDistance: {}
+	            },
+	            lineStarts: [],
+	            lineEnds: [],
+	            polygonVertices: [],
+	            normalStyle: {},
+	            highlightStyle: {
+	                fill: KhanColors.INTERACTING,
+	                stroke: KhanColors.INTERACTING
+	            },
+	            labelStyle: {
+	                color: KhanColors.INTERACTIVE
+	            },
+	            vertexLabel: "",
+	            mouseTarget: null
+	        }, options);
+
+	        var normalColor = movablePoint.constraints.fixed ? KhanColors.DYNAMIC : KhanColors.INTERACTIVE;
+	        movablePoint.normalStyle = _.extend({}, {
+	            "fill": normalColor,
+	            "stroke": normalColor
+	        }, options.normalStyle);
+
+	        // deprecated: don't use coordX/coordY; use coord[]
+	        if (options.coordX !== undefined) {
+	            movablePoint.coord[0] = options.coordX;
+	        }
+	        if (options.coordY !== undefined) {
+	            movablePoint.coord[1] = options.coordY;
+	        }
+
+	        var graph = movablePoint.graph;
+
+	        var applySnapAndConstraints = function applySnapAndConstraints(coord) {
+	            // coord should be the scaled coordinate
+
+	            // move point away from edge of graph unless it's invisible or fixed
+	            if (movablePoint.visible && movablePoint.bounded && !movablePoint.constraints.fixed) {
+	                // can't go beyond 10 pixels from the edge
+	                coord = graph.constrainToBounds(coord, 10);
+	            }
+
+	            var coordX = coord[0];
+	            var coordY = coord[1];
+
+	            // snap coordinates to grid
+	            if (movablePoint.snapX !== 0) {
+	                coordX = Math.round(coordX / movablePoint.snapX) * movablePoint.snapX;
+	            }
+	            if (movablePoint.snapY !== 0) {
+	                coordY = Math.round(coordY / movablePoint.snapY) * movablePoint.snapY;
+	            }
+
+	            // snap to points around circle
+	            if (movablePoint.constraints.fixedDistance.snapPoints) {
+	                var mouse = graph.scalePoint(coord);
+	                var mouseX = mouse[0];
+	                var mouseY = mouse[1];
+
+	                var snapRadians = 2 * Math.PI / movablePoint.constraints.fixedDistance.snapPoints;
+	                var radius = movablePoint.constraints.fixedDistance.dist;
+
+	                var centerCoord = movablePoint.constraints.fixedDistance.point;
+	                var centerX = (centerCoord[0] - graph.range[0][0]) * graph.scale[0];
+	                var centerY = (-centerCoord[1] + graph.range[1][1]) * graph.scale[1];
+
+	                var mouseXrel = mouseX - centerX;
+	                var mouseYrel = -mouseY + centerY;
+	                var radians = Math.atan(mouseYrel / mouseXrel);
+	                var outsideArcTanRange = mouseXrel < 0;
+
+	                // adjust so that angles increase from 0 to 2 pi as you go around the circle
+	                if (outsideArcTanRange) {
+	                    radians += Math.PI;
+	                }
+
+	                // perform the snap
+	                radians = Math.round(radians / snapRadians) * snapRadians;
+
+	                // convert from radians back to pixels
+	                mouseXrel = radius * Math.cos(radians);
+	                mouseYrel = radius * Math.sin(radians);
+	                // convert back to coordinates relative to graphie canvas
+	                mouseX = mouseXrel + centerX;
+	                mouseY = -mouseYrel + centerY;
+	                coordX = KhanMath.roundTo(5, mouseX / graph.scale[0] + graph.range[0][0]);
+	                coordY = KhanMath.roundTo(5, graph.range[1][1] - mouseY / graph.scale[1]);
+	            }
+
+	            var result = movablePoint.applyConstraint([coordX, coordY]);
+	            return result;
+	        };
+
+	        // Using the passed coordinates, apply any constraints and return the closest coordinates
+	        // that match the constraints.
+	        movablePoint.applyConstraint = function (coord, extraConstraints, override) {
+	            var newCoord = coord.slice();
+	            var constraints = {};
+	            if (override) {
+	                $.extend(constraints, {
+	                    fixed: false,
+	                    constrainX: false,
+	                    constrainY: false,
+	                    fixedAngle: {},
+	                    fixedDistance: {}
+	                }, extraConstraints);
+	            } else {
+	                $.extend(constraints, this.constraints, extraConstraints);
+	            }
+
+	            // constrain to vertical movement
+	            if (constraints.constrainX) {
+	                newCoord = [this.coord[0], coord[1]];
+
+	                // constrain to horizontal movement
+	            } else if (constraints.constrainY) {
+	                    newCoord = [coord[0], this.coord[1]];
+
+	                    // both distance and angle are constrained
+	                } else if (typeof constraints.fixedAngle.angle === "number" && typeof constraints.fixedDistance.dist === "number") {
+	                        var vertex = constraints.fixedAngle.vertex.coord || constraints.fixedAngle.vertex;
+	                        var ref = constraints.fixedAngle.ref.coord || constraints.fixedAngle.ref;
+	                        var distPoint = constraints.fixedDistance.point.coord || constraints.fixedDistance.point;
+
+	                        var constrainedAngle = (constraints.fixedAngle.angle + GraphUtils.findAngle(ref, vertex)) * Math.PI / 180;
+	                        var length = constraints.fixedDistance.dist;
+	                        newCoord[0] = length * Math.cos(constrainedAngle) + distPoint[0];
+	                        newCoord[1] = length * Math.sin(constrainedAngle) + distPoint[1];
+
+	                        // angle is constrained
+	                    } else if (typeof constraints.fixedAngle.angle === "number") {
+	                            var _vertex = constraints.fixedAngle.vertex.coord || constraints.fixedAngle.vertex;
+	                            var _ref = constraints.fixedAngle.ref.coord || constraints.fixedAngle.ref;
+
+	                            var _constrainedAngle = (constraints.fixedAngle.angle + GraphUtils.findAngle(_ref, _vertex)) * Math.PI / 180;
+	                            var angle = GraphUtils.findAngle(coord, _vertex) * Math.PI / 180;
+	                            var distance = GraphUtils.getDistance(coord, _vertex);
+	                            var _length = distance * Math.cos(_constrainedAngle - angle);
+	                            _length = _length < 1.0 ? 1.0 : _length;
+	                            newCoord[0] = _length * Math.cos(_constrainedAngle) + _vertex[0];
+	                            newCoord[1] = _length * Math.sin(_constrainedAngle) + _vertex[1];
+
+	                            // distance is constrained
+	                        } else if (typeof constraints.fixedDistance.dist === "number") {
+	                                var _distPoint = constraints.fixedDistance.point.coord || constraints.fixedDistance.point;
+
+	                                var _angle = GraphUtils.findAngle(coord, _distPoint);
+	                                var _length2 = constraints.fixedDistance.dist;
+	                                _angle = _angle * Math.PI / 180;
+	                                newCoord[0] = _length2 * Math.cos(_angle) + _distPoint[0];
+	                                newCoord[1] = _length2 * Math.sin(_angle) + _distPoint[1];
+
+	                                // point is fixed
+	                            } else if (constraints.fixed) {
+	                                    newCoord = movablePoint.coord;
+	                                }
+	            return newCoord;
+	        };
+
+	        movablePoint.coord = applySnapAndConstraints(movablePoint.coord);
+
+	        var highlightScale = 2;
+
+	        if (movablePoint.visible) {
+	            graph.style(movablePoint.normalStyle, function () {
+	                var radii = [movablePoint.pointSize / graph.scale[0], movablePoint.pointSize / graph.scale[1]];
+	                var options = {
+	                    maxScale: highlightScale,
+	                    // Add in 2px of padding to avoid clipping at the edges.
+	                    padding: 2
+	                };
+	                movablePoint.visibleShape = new WrappedEllipse(graph, movablePoint.coord, radii, options);
+	                movablePoint.visibleShape.attr(_.omit(movablePoint.normalStyle, "scale"));
+	                movablePoint.visibleShape.toFront();
+	            });
+	        }
+	        movablePoint.normalStyle.scale = 1;
+	        movablePoint.highlightStyle.scale = highlightScale;
+
+	        if (movablePoint.vertexLabel) {
+	            movablePoint.labeledVertex = this.label([0, 0], "", "center", movablePoint.labelStyle);
+	        }
+
+	        movablePoint.drawLabel = function () {
+	            if (movablePoint.vertexLabel) {
+	                movablePoint.graph.labelVertex({
+	                    vertex: movablePoint.coord,
+	                    label: movablePoint.labeledVertex,
+	                    text: movablePoint.vertexLabel,
+	                    style: movablePoint.labelStyle
+	                });
+	            }
+	        };
+
+	        movablePoint.drawLabel();
+
+	        movablePoint.grab = function (offset) {
+	            // The offset for the gesture. When provided, the movable point will
+	            // track the mouse's position, plus this offset. This is typically
+	            // used to lock the distance between a user's finger and the movable
+	            // point, when dragging.
+	            offset = offset || [0, 0];
+
+	            $(document).bind("vmousemove.point vmouseup.point", function (event) {
+	                event.preventDefault();
+	                movablePoint.dragging = true;
+	                dragging = true;
+
+	                // Adjust the target coordinate by accounting for the gesture's
+	                // offset.
+	                var coord = kvector.add(graph.getMouseCoord(event), offset);
+
+	                coord = applySnapAndConstraints(coord);
+	                var coordX = coord[0];
+	                var coordY = coord[1];
+	                var mouseX = void 0;
+	                var mouseY = void 0;
+
+	                if (event.type === "vmousemove") {
+	                    var doMove = true;
+	                    // The caller has the option of adding an onMove() method to the
+	                    // movablePoint object we return as a sort of event handler
+	                    // By returning false from onMove(), the move can be vetoed,
+	                    // providing custom constraints on where the point can be moved.
+	                    // By returning array [x, y], the move can be overridden
+	                    if (_.isFunction(movablePoint.onMove)) {
+	                        var result = movablePoint.onMove(coordX, coordY);
+	                        if (result === false) {
+	                            doMove = false;
+	                        }
+	                        if (_.isArray(result)) {
+	                            coordX = result[0];
+	                            coordY = result[1];
+	                        }
+	                    }
+	                    // coord{X|Y} may have been modified by constraints or onMove handler; adjust mouse{X|Y} to match
+	                    mouseX = (coordX - graph.range[0][0]) * graph.scale[0];
+	                    mouseY = (-coordY + graph.range[1][1]) * graph.scale[1];
+
+	                    if (doMove) {
+	                        var point = graph.unscalePoint([mouseX, mouseY]);
+	                        movablePoint.visibleShape.moveTo(point);
+	                        movablePoint.mouseTarget.moveTo(point);
+	                        movablePoint.coord = [coordX, coordY];
+	                        movablePoint.updateLineEnds();
+	                        $(movablePoint).trigger("move");
+	                    }
+
+	                    movablePoint.drawLabel();
+	                } else if (event.type === "vmouseup") {
+	                    $(document).unbind(".point");
+	                    movablePoint.dragging = false;
+	                    dragging = false;
+	                    if (_.isFunction(movablePoint.onMoveEnd)) {
+	                        var _result = movablePoint.onMoveEnd(coordX, coordY);
+	                        if (_.isArray(_result)) {
+	                            coordX = _result[0];
+	                            coordY = _result[1];
+	                            mouseX = (coordX - graph.range[0][0]) * graph.scale[0];
+	                            mouseY = (-coordY + graph.range[1][1]) * graph.scale[1];
+	                            var _point = graph.unscalePoint([mouseX, mouseY]);
+	                            movablePoint.visibleShape.moveTo(_point);
+	                            movablePoint.mouseTarget.moveTo(_point);
+	                            movablePoint.coord = [coordX, coordY];
+	                        }
+	                    }
+	                    if (!movablePoint.highlight) {
+	                        movablePoint.visibleShape.animate(movablePoint.normalStyle, 50);
+	                        if (movablePoint.onUnhighlight) {
+	                            movablePoint.onUnhighlight();
+	                        }
+	                    }
+	                }
+	            });
+	        };
+
+	        if (movablePoint.visible && !movablePoint.constraints.fixed) {
+	            // the invisible shape in front of the point that gets mouse events
+	            if (!movablePoint.mouseTarget) {
+	                var radii = graph.unscaleVector(24);
+	                var _options = {
+	                    mouselayer: true,
+	                    padding: 0
+	                };
+	                movablePoint.mouseTarget = new WrappedEllipse(graph, movablePoint.coord, radii, _options);
+	                movablePoint.mouseTarget.attr({ fill: "#000", opacity: 0.0 });
+	            }
+
+	            var $mouseTarget = $(movablePoint.mouseTarget.getMouseTarget());
+	            $mouseTarget.css("cursor", "move");
+	            $mouseTarget.bind("vmousedown vmouseover vmouseout", function (event) {
+	                if (event.type === "vmouseover") {
+	                    movablePoint.highlight = true;
+	                    if (!dragging) {
+	                        movablePoint.visibleShape.animate(movablePoint.highlightStyle, 50);
+	                        if (movablePoint.onHighlight) {
+	                            movablePoint.onHighlight();
+	                        }
+	                    }
+	                } else if (event.type === "vmouseout") {
+	                    movablePoint.highlight = false;
+	                    if (!movablePoint.dragging && !dragging) {
+	                        movablePoint.visibleShape.animate(movablePoint.normalStyle, 50);
+	                        if (movablePoint.onUnhighlight) {
+	                            movablePoint.onUnhighlight();
+	                        }
+	                    }
+	                } else if (event.type === "vmousedown" && (event.which === 1 || event.which === 0)) {
+	                    event.preventDefault();
+
+	                    // The offset between the cursor or finger and the initial
+	                    // coordinates of the point. This is tracked so as to avoid
+	                    // locking the moving point to the user's finger on touch
+	                    // devices, which would obscure it, no matter how large we
+	                    // made the touch target. Instead, we respect the offset at
+	                    // which the point was grabbed for the entirety of the
+	                    // gesture, if it's a touch-based interaction.
+	                    var startCoord = movablePoint.coord;
+	                    var startMouseCoord = graph.getMouseCoord(event);
+	                    var isMouse = !('ontouchstart' in window);
+	                    var touchOffset = isMouse ? [0, 0] : kvector.subtract(startCoord, startMouseCoord);
+
+	                    movablePoint.grab(touchOffset);
+	                }
+	            });
+	        }
+
+	        // Method to let the caller animate the point to a new position. Useful
+	        // as part of a hint to show the user the correct place to put the point.
+	        movablePoint.moveTo = function (coordX, coordY, updateLines) {
+	            var distance = GraphUtils.getDistance(this.graph.scalePoint([coordX, coordY]), this.graph.scalePoint(this.coord));
+
+	            var time = distance * 5;
+
+	            var cb = updateLines && function (coord) {
+	                movablePoint.coord = coord;
+	                movablePoint.updateLineEnds();
+	            };
+	            this.visibleShape.animateTo([coordX, coordY], time, cb);
+	            this.mouseTarget.animateTo([coordX, coordY], time, cb);
+	            this.coord = [coordX, coordY];
+	            if (_.isFunction(this.onMove)) {
+	                this.onMove(coordX, coordY);
+	            }
+	        };
+
+	        // After moving the point, call this to update all line segments terminating at the point
+	        movablePoint.updateLineEnds = function () {
+	            $(this.lineStarts).each(function () {
+	                this.coordA = movablePoint.coord;
+	                this.transform();
+	            });
+	            $(this.lineEnds).each(function () {
+	                this.coordZ = movablePoint.coord;
+	                this.transform();
+	            });
+	            $(this.polygonVertices).each(function () {
+	                this.transform();
+	            });
+	        };
+
+	        // Put the point at a new position without any checks, animation, or callbacks
+	        movablePoint.setCoord = function (coord) {
+	            if (this.visible) {
+	                this.visibleShape.moveTo(coord);
+	                if (this.mouseTarget != null) {
+	                    this.mouseTarget.moveTo(coord);
+	                }
+	            }
+	            this.coord = coord.slice();
+	        };
+
+	        // Put the point at the new position, checking that it is within the graph's bounds
+	        movablePoint.setCoordConstrained = function (coord) {
+	            this.setCoord(applySnapAndConstraints(coord));
+	        };
+
+	        // Change z-order to back
+	        movablePoint.toBack = function () {
+	            if (this.visible) {
+	                if (this.mouseTarget != null) {
+	                    this.mouseTarget.toBack();
+	                }
+	                this.visibleShape.toBack();
+	            }
+	        };
+
+	        // Change z-order to front
+	        movablePoint.toFront = function () {
+	            if (this.visible) {
+	                if (this.mouseTarget != null) {
+	                    this.mouseTarget.toFront();
+	                }
+	                this.visibleShape.toFront();
+	            }
+	        };
+
+	        movablePoint.remove = function () {
+	            if (this.visibleShape) {
+	                this.visibleShape.remove();
+	            }
+	            if (this.mouseTarget) {
+	                this.mouseTarget.remove();
+	            }
+	            if (this.labeledVertex) {
+	                this.labeledVertex.remove();
+	            }
+	        };
+
+	        return movablePoint;
+	    },
+
+	    // MovableLineSegment is a line segment that can be dragged around the
+	    // screen. By attaching a smartPoint to each (or one) end, the ends can be
+	    // manipulated individually.
+	    //
+	    // To use with smartPoints, add the smartPoints first, then:
+	    //   addMovableLineSegment({ pointA: smartPoint1, pointZ: smartPoint2 });
+	    // Or just one end:
+	    //   addMovableLineSegment({ pointA: smartPoint, coordZ: [0, 0] });
+	    //
+	    // Include "fixed: true" in the options if you don't want the entire line
+	    // to be draggable (you can still use points to make the endpoints
+	    // draggable)
+	    //
+	    // The returned object includes the following properties/methods:
+	    //
+	    //   - lineSegment.coordA / lineSegment.coordZ
+	    //         The coordinates of each end of the line segment
+	    //
+	    //   - lineSegment.transform(syncToPoints)
+	    //         Repositions the line segment. Call after changing coordA and/or
+	    //         coordZ, or pass syncToPoints = true to use the current position
+	    //         of the corresponding smartPoints, if the segment was defined using
+	    //         smartPoints
+	    //
+	    addMovableLineSegment: function addMovableLineSegment(options) {
+	        var lineSegment = $.extend({
+	            graph: this,
+	            coordA: [0, 0],
+	            coordZ: [1, 1],
+	            snapX: 0,
+	            snapY: 0,
+	            fixed: false,
+	            ticks: 0,
+	            normalStyle: {},
+	            highlightStyle: {
+	                "stroke": KhanColors.INTERACTING,
+	                "stroke-width": 6
+	            },
+	            labelStyle: {
+	                "stroke": KhanColors.INTERACTIVE,
+	                "color": KhanColors.INTERACTIVE
+	            },
+	            highlight: false,
+	            dragging: false,
+	            tick: [],
+	            extendLine: false,
+	            extendRay: false,
+	            constraints: {
+	                fixed: false,
+	                constrainX: false,
+	                constrainY: false
+	            },
+	            sideLabel: "",
+	            vertexLabels: [],
+	            numArrows: 0,
+	            numTicks: 0,
+	            movePointsWithLine: false
+	        }, options);
+
+	        var normalColor = lineSegment.fixed ? KhanColors.DYNAMIC : KhanColors.INTERACTIVE;
+	        lineSegment.normalStyle = _.extend({}, {
+	            "stroke-width": 2,
+	            "stroke": normalColor
+	        }, options.normalStyle);
+	        // arrowStyle should be kept in sync with styling of the line
+	        lineSegment.arrowStyle = _.extend({}, lineSegment.normalStyle, {
+	            "color": lineSegment.normalStyle.stroke
+	        });
+
+	        // If the line segment is defined by movablePoints, coordA/coordZ are
+	        // owned by the points, otherwise they're owned by us
+	        if (options.pointA !== undefined) {
+	            lineSegment.coordA = options.pointA.coord;
+	            lineSegment.pointA.lineStarts.push(lineSegment);
+	        } else if (options.coordA !== undefined) {
+	            lineSegment.coordA = options.coordA.slice();
+	        }
+
+	        if (options.pointZ !== undefined) {
+	            lineSegment.coordZ = options.pointZ.coord;
+	            lineSegment.pointZ.lineEnds.push(lineSegment);
+	        } else if (options.coordA !== undefined) {
+	            lineSegment.coordA = lineSegment.coordA.slice();
+	        }
+
+	        var graph = lineSegment.graph;
+
+	        graph.style(lineSegment.normalStyle);
+	        for (var i = 0; i < lineSegment.ticks; ++i) {
+	            lineSegment.tick[i] = InteractiveUtils.bogusShape;
+	        }
+	        // TODO(kevinb) figure out why path isn't being used
+	        /* eslint-disable */
+	        var path = GraphUtils.unscaledSvgPath([[0, 0], [1, 0]]);
+	        for (var _i = 0; _i < lineSegment.ticks; ++_i) {
+	            var tickoffset = 0.5 - (lineSegment.ticks - 1 + _i * 2) / graph.scale[0];
+	            path += GraphUtils.unscaledSvgPath([[tickoffset, -7], [tickoffset, 7]]);
+	        }
+	        /* eslint-enable */
+
+	        options = {
+	            thickness: Math.max(lineSegment.normalStyle["stroke-width"], lineSegment.highlightStyle["stroke-width"])
+	        };
+	        lineSegment.visibleLine = new WrappedLine(graph, [0, 0], [1, 0], options);
+	        lineSegment.visibleLine.attr(lineSegment.normalStyle);
+
+	        // Add mouse target
+	        if (!lineSegment.fixed) {
+	            var _options2 = {
+	                thickness: 30,
+	                mouselayer: true
+	            };
+	            lineSegment.mouseTarget = new WrappedLine(graph, [0, 0], [1, 0], _options2);
+	            lineSegment.mouseTarget.attr({ fill: "#000", "opacity": 0.0 });
+	        }
+
+	        // Reposition the line segment. Call after changing coordA and/or
+	        // coordZ, or pass syncToPoints = true to use the current position of
+	        // the corresponding movablePoints, if the segment was defined using
+	        // movablePoints
+	        lineSegment.transform = function (syncToPoints) {
+	            if (syncToPoints) {
+	                if (_typeof(this.pointA) === "object") {
+	                    this.coordA = this.pointA.coord;
+	                }
+	                if (_typeof(this.pointZ) === "object") {
+	                    this.coordZ = this.pointZ.coord;
+	                }
+	            }
+
+	            var getScaledAngle = function getScaledAngle(line) {
+	                var scaledA = line.graph.scalePoint(line.coordA);
+	                var scaledZ = line.graph.scalePoint(line.coordZ);
+	                return kvector.polarDegFromCart(kvector.subtract(scaledZ, scaledA))[1];
+	            };
+
+	            var getClipPoint = function getClipPoint(graph, coord, angle) {
+	                graph = lineSegment.graph;
+	                var xExtent = graph.range[0][1] - graph.range[0][0];
+	                var yExtent = graph.range[1][1] - graph.range[1][0];
+
+	                var distance = xExtent + yExtent;
+	                var angleVec = graph.unscaleVector(kvector.cartFromPolarDeg([1, angle]));
+	                var distVec = kvector.scale(kvector.normalize(angleVec), distance);
+	                var farCoord = kvector.add(coord, distVec);
+	                var scaledAngle = kvector.polarDegFromCart(angleVec)[1];
+	                var clipPoint = graph.constrainToBoundsOnAngle(farCoord, 4, scaledAngle * Math.PI / 180);
+	                return clipPoint;
+	            };
+
+	            var angle = getScaledAngle(this);
+	            var start = this.coordA;
+	            var end = this.coordZ;
+
+	            // Extend start, end if necessary (i.e., if not a line segment)
+	            if (this.extendLine) {
+	                start = getClipPoint(graph, start, 360 - angle);
+	                end = getClipPoint(graph, end, (540 - angle) % 360);
+	            } else if (this.extendRay) {
+	                end = getClipPoint(graph, start, 360 - angle);
+	            }
+
+	            var elements = [this.visibleLine];
+	            if (!this.fixed) {
+	                elements.push(this.mouseTarget);
+	            }
+	            _.each(elements, function (element) {
+	                element.moveTo(start, end);
+	            });
+
+	            var createArrow = function createArrow(graph, style) {
+	                var center = [0.75, 0];
+	                var points = [[-3, 4], [-2.75, 2.5], [0, 0.25], center, [0, -0.25], [-2.75, -2.5], [-3, -4]];
+
+	                var scale = 1.4;
+	                points = _.map(points, function (point) {
+	                    var pv = kvector.subtract(point, center);
+	                    var pvScaled = kvector.scale(pv, scale);
+	                    return kvector.add(center, pvScaled);
+	                });
+
+	                var createCubicPath = function createCubicPath(points) {
+	                    var path = "M" + points[0][0] + " " + points[0][1];
+	                    for (var _i2 = 1; _i2 < points.length; _i2 += 3) {
+	                        path += "C" + points[_i2][0] + " " + points[_i2][1] + " " + points[_i2 + 1][0] + " " + points[_i2 + 1][1] + " " + points[_i2 + 2][0] + " " + points[_i2 + 2][1];
+	                    }
+	                    return path;
+	                };
+
+	                var unscaledPoints = _.map(points, graph.unscalePoint);
+	                var options = {
+	                    center: graph.unscalePoint(center),
+	                    createPath: createCubicPath
+	                };
+	                var arrowHead = new WrappedPath(graph, unscaledPoints, options);
+	                arrowHead.attr(_.extend({
+	                    "stroke-linejoin": "round",
+	                    "stroke-linecap": "round",
+	                    "stroke-dasharray": ""
+	                }, style));
+
+	                // Add custom function for transforming arrowheads that accounts for
+	                // center, scaling, etc.
+	                arrowHead.toCoordAtAngle = function (coord, angle) {
+	                    var clipPoint = graph.scalePoint(getClipPoint(graph, coord, angle));
+	                    var do3dTransform = getCanUse3dTransform();
+	                    arrowHead.transform("translateX(" + (clipPoint[0] + scale * center[0]) + "px) " + "translateY(" + (clipPoint[1] + scale * center[1]) + "px) " + (do3dTransform ? "translateZ(0) " : "") + "rotate(" + (360 - KhanMath.bound(angle)) + "deg)");
+	                };
+
+	                return arrowHead;
+	            };
+
+	            // Add arrows
+	            if (this._arrows == null) {
+	                this._arrows = [];
+
+	                if (this.extendLine) {
+	                    this._arrows.push(createArrow(graph, this.normalStyle));
+	                    this._arrows.push(createArrow(graph, this.normalStyle));
+	                } else if (this.extendRay) {
+	                    this._arrows.push(createArrow(graph, this.normalStyle));
+	                }
+	            }
+
+	            var coordForArrow = [this.coordA, this.coordZ];
+	            var angleForArrow = [360 - angle, (540 - angle) % 360];
+	            _.each(this._arrows, function (arrow, i) {
+	                arrow.toCoordAtAngle(coordForArrow[i], angleForArrow[i]);
+	            });
+
+	            // Temporary objects: array of SVG nodes that get recreated on drag
+	            _.invoke(this.temp, "remove");
+	            this.temp = [];
+
+	            var isClockwise = this.coordA[0] < this.coordZ[0] || this.coordA[0] === this.coordZ[0] && this.coordA[1] > this.coordZ[1];
+
+	            // Update side label
+	            if (this.sideLabel) {
+	                this.temp.push(this.graph.labelSide({
+	                    point1: this.coordA,
+	                    point2: this.coordZ,
+	                    label: this.labeledSide,
+	                    text: this.sideLabel,
+	                    numArrows: this.numArrows,
+	                    numTicks: this.numTicks,
+	                    clockwise: isClockwise,
+	                    style: this.labelStyle
+	                }));
+	            }
+
+	            // Update vertex labels
+	            if (this.vertexLabels.length) {
+	                this.graph.labelVertex({
+	                    vertex: this.coordA,
+	                    point3: this.coordZ,
+	                    label: this.labeledVertices[0],
+	                    text: this.vertexLabels[0],
+	                    clockwise: isClockwise,
+	                    style: this.labelStyle
+	                });
+
+	                this.graph.labelVertex({
+	                    point1: this.coordA,
+	                    vertex: this.coordZ,
+	                    label: this.labeledVertices[1],
+	                    text: this.vertexLabels[1],
+	                    clockwise: isClockwise,
+	                    style: this.labelStyle
+	                });
+	            }
+
+	            this.temp = _.flatten(this.temp);
+	        };
+
+	        // Change z-order to back;
+	        lineSegment.toBack = function () {
+	            if (!lineSegment.fixed) {
+	                lineSegment.mouseTarget.toBack();
+	            }
+	            lineSegment.visibleLine.toBack();
+	        };
+
+	        // Change z-order to front
+	        lineSegment.toFront = function () {
+	            if (!lineSegment.fixed) {
+	                lineSegment.mouseTarget.toFront();
+	            }
+	            lineSegment.visibleLine.toFront();
+	        };
+
+	        lineSegment.remove = function () {
+	            if (!lineSegment.fixed) {
+	                lineSegment.mouseTarget.remove();
+	            }
+	            lineSegment.visibleLine.remove();
+	            if (lineSegment.labeledSide) {
+	                lineSegment.labeledSide.remove();
+	            }
+	            if (lineSegment.labeledVertices) {
+	                _.invoke(lineSegment.labeledVertices, "remove");
+	            }
+	            if (lineSegment._arrows) {
+	                _.invoke(lineSegment._arrows, "remove");
+	            }
+	            if (lineSegment.temp.length) {
+	                _.invoke(lineSegment.temp, "remove");
+	            }
+	        };
+
+	        lineSegment.hide = function () {
+	            lineSegment.visibleLine.hide();
+	            if (lineSegment.temp.length) {
+	                _.invoke(lineSegment.temp, "hide");
+	            }
+	            if (lineSegment._arrows) {
+	                _.invoke(lineSegment._arrows, "hide");
+	            }
+	        };
+
+	        lineSegment.show = function () {
+	            lineSegment.visibleLine.show();
+	            if (lineSegment.temp.length) {
+	                _.invoke(lineSegment.temp, "show");
+	            }
+	            if (lineSegment._arrows) {
+	                _.invoke(lineSegment._arrows, "show");
+	            }
+	        };
+
+	        if (lineSegment.sideLabel) {
+	            lineSegment.labeledSide = this.label([0, 0], "", "center", lineSegment.labelStyle);
+	        }
+
+	        if (lineSegment.vertexLabels.length) {
+	            lineSegment.labeledVertices = _.map(lineSegment.vertexLabels, function (label) {
+	                return this.label([0, 0], "", "center", lineSegment.labelStyle);
+	            }, this);
+	        }
+
+	        if (!lineSegment.fixed && !lineSegment.constraints.fixed) {
+	            var $mouseTarget = $(lineSegment.mouseTarget.getMouseTarget());
+	            $mouseTarget.css("cursor", "move");
+	            $mouseTarget.bind("vmousedown vmouseover vmouseout", function (event) {
+	                if (event.type === "vmouseover") {
+	                    if (!dragging) {
+	                        lineSegment.highlight = true;
+	                        lineSegment.visibleLine.animate(lineSegment.highlightStyle, 50);
+	                        lineSegment.arrowStyle = _.extend({}, lineSegment.arrowStyle, {
+	                            "color": lineSegment.highlightStyle.stroke,
+	                            "stroke": lineSegment.highlightStyle.stroke
+	                        });
+	                        lineSegment.transform();
+	                    }
+	                } else if (event.type === "vmouseout") {
+	                    lineSegment.highlight = false;
+	                    if (!lineSegment.dragging) {
+	                        lineSegment.visibleLine.animate(lineSegment.normalStyle, 50);
+	                        lineSegment.arrowStyle = _.extend({}, lineSegment.arrowStyle, {
+	                            "color": lineSegment.normalStyle.stroke,
+	                            "stroke": lineSegment.normalStyle.stroke
+	                        });
+	                        lineSegment.transform();
+	                    }
+	                } else if (event.type === "vmousedown" && (event.which === 1 || event.which === 0)) {
+	                    (function () {
+	                        event.preventDefault();
+	                        var coordX = (event.pageX - $(graph.raphael.canvas.parentNode).offset().left) / graph.scale[0] + graph.range[0][0];
+	                        var coordY = graph.range[1][1] - (event.pageY - $(graph.raphael.canvas.parentNode).offset().top) / graph.scale[1];
+	                        if (lineSegment.snapX > 0) {
+	                            coordX = Math.round(coordX / lineSegment.snapX) * lineSegment.snapX;
+	                        }
+	                        if (lineSegment.snapY > 0) {
+	                            coordY = Math.round(coordY / lineSegment.snapY) * lineSegment.snapY;
+	                        }
+	                        var mouseOffsetA = [lineSegment.coordA[0] - coordX, lineSegment.coordA[1] - coordY];
+	                        var mouseOffsetZ = [lineSegment.coordZ[0] - coordX, lineSegment.coordZ[1] - coordY];
+
+	                        var offsetLeft = -Math.min(graph.scaleVector(mouseOffsetA)[0], graph.scaleVector(mouseOffsetZ)[0]);
+	                        var offsetRight = Math.max(graph.scaleVector(mouseOffsetA)[0], graph.scaleVector(mouseOffsetZ)[0]);
+	                        var offsetTop = Math.max(graph.scaleVector(mouseOffsetA)[1], graph.scaleVector(mouseOffsetZ)[1]);
+	                        var offsetBottom = -Math.min(graph.scaleVector(mouseOffsetA)[1], graph.scaleVector(mouseOffsetZ)[1]);
+
+	                        $(document).bind("vmousemove.lineSegment vmouseup.lineSegment", function (event) {
+	                            event.preventDefault();
+	                            lineSegment.dragging = true;
+	                            dragging = true;
+
+	                            var mouseX = event.pageX - $(graph.raphael.canvas.parentNode).offset().left;
+	                            var mouseY = event.pageY - $(graph.raphael.canvas.parentNode).offset().top;
+	                            // no part of the line segment can go beyond 10 pixels from the edge
+	                            mouseX = Math.max(offsetLeft + 10, Math.min(graph.xpixels - 10 - offsetRight, mouseX));
+	                            mouseY = Math.max(offsetTop + 10, Math.min(graph.ypixels - 10 - offsetBottom, mouseY));
+
+	                            var coordX = mouseX / graph.scale[0] + graph.range[0][0];
+	                            var coordY = graph.range[1][1] - mouseY / graph.scale[1];
+	                            if (lineSegment.snapX > 0) {
+	                                coordX = Math.round(coordX / lineSegment.snapX) * lineSegment.snapX;
+	                            }
+	                            if (lineSegment.snapY > 0) {
+	                                coordY = Math.round(coordY / lineSegment.snapY) * lineSegment.snapY;
+	                            }
+
+	                            if (event.type === "vmousemove") {
+	                                if (lineSegment.constraints.constrainX) {
+	                                    coordX = lineSegment.coordA[0] - mouseOffsetA[0];
+	                                }
+	                                if (lineSegment.constraints.constrainY) {
+	                                    coordY = lineSegment.coordA[1] - mouseOffsetA[1];
+	                                }
+	                                var dX = coordX + mouseOffsetA[0] - lineSegment.coordA[0];
+	                                var dY = coordY + mouseOffsetA[1] - lineSegment.coordA[1];
+	                                lineSegment.coordA = [coordX + mouseOffsetA[0], coordY + mouseOffsetA[1]];
+	                                lineSegment.coordZ = [coordX + mouseOffsetZ[0], coordY + mouseOffsetZ[1]];
+	                                lineSegment.transform();
+
+	                                if (lineSegment.movePointsWithLine) {
+	                                    // If the points are movablePoints, adjust
+	                                    // their coordinates when the line itself is
+	                                    // dragged
+	                                    if (_typeof(lineSegment.pointA) === "object") {
+	                                        lineSegment.pointA.setCoord([lineSegment.pointA.coord[0] + dX, lineSegment.pointA.coord[1] + dY]);
+	                                    }
+	                                    if (_typeof(lineSegment.pointZ) === "object") {
+	                                        lineSegment.pointZ.setCoord([lineSegment.pointZ.coord[0] + dX, lineSegment.pointZ.coord[1] + dY]);
+	                                    }
+	                                }
+
+	                                if (_.isFunction(lineSegment.onMove)) {
+	                                    lineSegment.onMove(dX, dY);
+	                                }
+	                            } else if (event.type === "vmouseup") {
+	                                $(document).unbind(".lineSegment");
+	                                lineSegment.dragging = false;
+	                                dragging = false;
+	                                if (!lineSegment.highlight) {
+	                                    lineSegment.visibleLine.animate(lineSegment.normalStyle, 50);
+	                                    lineSegment.arrowStyle = _.extend({}, lineSegment.arrowStyle, {
+	                                        "color": lineSegment.normalStyle.stroke,
+	                                        "stroke": lineSegment.normalStyle.stroke
+	                                    });
+	                                    lineSegment.transform();
+	                                }
+	                                if (_.isFunction(lineSegment.onMoveEnd)) {
+	                                    lineSegment.onMoveEnd();
+	                                }
+	                            }
+
+	                            $(lineSegment).trigger("move");
+	                        });
+	                    })();
+	                }
+	            });
+	        }
+
+	        if (lineSegment.pointA !== undefined) {
+	            lineSegment.pointA.toFront();
+	        }
+	        if (lineSegment.pointZ !== undefined) {
+	            lineSegment.pointZ.toFront();
+	        }
+	        lineSegment.transform();
+	        return lineSegment;
+	    },
+
+	    // MovablePolygon is a polygon that can be dragged around the screen.
+	    // By attaching a smartPoint to each vertex, the points can be
+	    // manipulated individually.
+	    //
+	    // To use with smartPoints, add the smartPoints first, then:
+	    //   addMovablePolygon({points: [...]});
+	    //
+	    // Include "fixed: true" in the options if you don't want the entire
+	    // polygon to be draggable (you can still use points to make the
+	    // vertices draggable)
+	    //
+	    // The returned object includes the following properties/methods:
+	    //
+	    //   - polygon.points
+	    //         The polygon's dynamic smartPoints and static coordinates, mixed.
+	    //
+	    //   - polygon.coords
+	    //         The polygon's current coordinates (generated, don't edit).
+	    //
+	    //   - polygon.transform()
+	    //         Repositions the polygon. Call after changing any points.
+	    //
+	    addMovablePolygon: function addMovablePolygon(options) {
+	        var graphie = this;
+
+	        var polygon = $.extend({
+	            snapX: 0,
+	            snapY: 0,
+	            fixed: false,
+	            constrainToGraph: true,
+	            normalStyle: {},
+	            highlightStyle: {
+	                "stroke": KhanColors.INTERACTING,
+	                "stroke-width": 2,
+	                "fill": KhanColors.INTERACTING,
+	                "fill-opacity": 0.05
+	            },
+	            pointHighlightStyle: {
+	                "fill": KhanColors.INTERACTING,
+	                "stroke": KhanColors.INTERACTING
+	            },
+	            labelStyle: {
+	                "stroke": KhanColors.DYNAMIC,
+	                "stroke-width": 1,
+	                "color": KhanColors.DYNAMIC
+	            },
+	            angleLabels: [],
+	            showRightAngleMarkers: [],
+	            sideLabels: [],
+	            vertexLabels: [],
+	            numArcs: [],
+	            numArrows: [],
+	            numTicks: [],
+	            updateOnPointMove: true,
+	            closed: true
+	        }, _.omit(options, "points"));
+
+	        var normalColor = polygon.fixed ? KhanColors.DYNAMIC : KhanColors.INTERACTIVE;
+	        polygon.normalStyle = _.extend({
+	            "stroke-width": 2,
+	            "fill-opacity": 0,
+	            "fill": normalColor,
+	            "stroke": normalColor
+	        }, options.normalStyle);
+
+	        // don't deep copy the points array with $.extend;
+	        // we may want to append to it later for click-to-add-points
+	        polygon.points = options.points;
+
+	        var isPoint = function isPoint(coordOrPoint) {
+	            return !_.isArray(coordOrPoint);
+	        };
+
+	        polygon.update = function () {
+	            var n = polygon.points.length;
+
+	            // Update coords
+	            polygon.coords = _.map(polygon.points, function (coordOrPoint, i) {
+	                if (isPoint(coordOrPoint)) {
+	                    return coordOrPoint.coord;
+	                } else {
+	                    return coordOrPoint;
+	                }
+	            });
+
+	            // Calculate bounding box
+	            polygon.left = _.min(_.pluck(polygon.coords, 0));
+	            polygon.right = _.max(_.pluck(polygon.coords, 0));
+	            polygon.top = _.max(_.pluck(polygon.coords, 1));
+	            polygon.bottom = _.min(_.pluck(polygon.coords, 1));
+
+	            var scaledCoords = _.map(polygon.coords, function (coord) {
+	                return graphie.scalePoint(coord);
+	            });
+
+	            // Create path
+	            if (polygon.closed) {
+	                scaledCoords.push(true);
+	            } else {
+	                // For open polygons, concatenate a reverse of the path,
+	                // to remove the inside area of the path, which would
+	                // otherwise be clickable (even if the closing line segment
+	                // wasn't drawn
+	                scaledCoords = scaledCoords.concat(_.clone(scaledCoords).reverse());
+	            }
+	            polygon.path = GraphUtils.unscaledSvgPath(scaledCoords);
+
+	            // Temporary objects
+	            _.invoke(polygon.temp, "remove");
+	            polygon.temp = [];
+
+	            var isClockwise = clockwise(polygon.coords);
+
+	            // Update angle labels
+	            if (polygon.angleLabels.length || polygon.showRightAngleMarkers.length) {
+	                _.each(polygon.labeledAngles, function (label, i) {
+	                    polygon.temp.push(graphie.labelAngle({
+	                        point1: polygon.coords[(i - 1 + n) % n],
+	                        vertex: polygon.coords[i],
+	                        point3: polygon.coords[(i + 1) % n],
+	                        label: label,
+	                        text: polygon.angleLabels[i],
+	                        showRightAngleMarker: polygon.showRightAngleMarkers[i],
+	                        numArcs: polygon.numArcs[i],
+	                        clockwise: isClockwise,
+	                        style: polygon.labelStyle
+	                    }));
+	                });
+	            }
+
+	            // Update side labels
+	            if (polygon.sideLabels.length) {
+	                _.each(polygon.labeledSides, function (label, i) {
+	                    polygon.temp.push(graphie.labelSide({
+	                        point1: polygon.coords[i],
+	                        point2: polygon.coords[(i + 1) % n],
+	                        label: label,
+	                        text: polygon.sideLabels[i],
+	                        numArrows: polygon.numArrows[i],
+	                        numTicks: polygon.numTicks[i],
+	                        clockwise: isClockwise,
+	                        style: polygon.labelStyle
+	                    }));
+	                });
+	            }
+
+	            // Update vertex labels
+	            if (polygon.vertexLabels.length) {
+	                _.each(polygon.labeledVertices, function (label, i) {
+	                    graphie.labelVertex({
+	                        point1: polygon.coords[(i - 1 + n) % n],
+	                        vertex: polygon.coords[i],
+	                        point3: polygon.coords[(i + 1) % n],
+	                        label: label,
+	                        text: polygon.vertexLabels[i],
+	                        clockwise: isClockwise,
+	                        style: polygon.labelStyle
+	                    });
+	                });
+	            }
+
+	            polygon.temp = _.flatten(polygon.temp);
+	        };
+
+	        polygon.transform = function () {
+	            polygon.update();
+
+	            polygon.visibleShape.attr({ path: polygon.path });
+
+	            if (!polygon.fixed) {
+	                polygon.mouseTarget.attr({ path: polygon.path });
+	            }
+	        };
+
+	        polygon.remove = function () {
+	            polygon.visibleShape.remove();
+
+	            if (!polygon.fixed) {
+	                polygon.mouseTarget.remove();
+	            }
+
+	            if (polygon.labeledAngles) {
+	                _.invoke(polygon.labeledAngles, "remove");
+	            }
+
+	            if (polygon.labeledSides) {
+	                _.invoke(polygon.labeledSides, "remove");
+	            }
+
+	            if (polygon.labeledVertices) {
+	                _.invoke(polygon.labeledVertices, "remove");
+	            }
+
+	            if (polygon.temp.length) {
+	                _.invoke(polygon.temp, "remove");
+	            }
+	        };
+
+	        polygon.toBack = function () {
+	            if (!polygon.fixed) {
+	                polygon.mouseTarget.toBack();
+	            }
+
+	            polygon.visibleShape.toBack();
+	        };
+
+	        polygon.toFront = function () {
+	            if (!polygon.fixed) {
+	                polygon.mouseTarget.toFront();
+	            }
+
+	            polygon.visibleShape.toFront();
+	        };
+
+	        // Setup
+
+	        if (polygon.updateOnPointMove) {
+	            _.each(_.filter(polygon.points, isPoint), function (coordOrPoint) {
+	                coordOrPoint.polygonVertices.push(polygon);
+	            });
+	        }
+
+	        polygon.coords = new Array(polygon.points.length);
+
+	        if (polygon.angleLabels.length) {
+	            var numLabels = Math.max(polygon.angleLabels.length, polygon.showRightAngleMarkers.length);
+	            polygon.labeledAngles = _.times(numLabels, function () {
+	                return this.label([0, 0], "", "center", polygon.labelStyle);
+	            }, this);
+	        }
+
+	        if (polygon.sideLabels.length) {
+	            polygon.labeledSides = _.map(polygon.sideLabels, function (label) {
+	                return this.label([0, 0], "", "center", polygon.labelStyle);
+	            }, this);
+	        }
+
+	        if (polygon.vertexLabels.length) {
+	            polygon.labeledVertices = _.map(polygon.vertexLabels, function (label) {
+	                return this.label([0, 0], "", "center", polygon.labelStyle);
+	            }, this);
+	        }
+
+	        polygon.update();
+
+	        polygon.visibleShape = graphie.raphael.path(polygon.path);
+	        polygon.visibleShape.attr(polygon.normalStyle);
+
+	        if (!polygon.fixed) {
+	            polygon.mouseTarget = graphie.mouselayer.path(polygon.path);
+	            polygon.mouseTarget.attr({ fill: "#000", opacity: 0, cursor: "move" });
+
+	            $(polygon.mouseTarget[0]).bind("vmousedown vmouseover vmouseout", function (event) {
+	                if (event.type === "vmouseover") {
+	                    if (!dragging || polygon.dragging) {
+	                        polygon.highlight = true;
+	                        polygon.visibleShape.animate(polygon.highlightStyle, 50);
+	                        _.each(_.filter(polygon.points, isPoint), function (point) {
+	                            point.visibleShape.animate(polygon.pointHighlightStyle, 50);
+	                        });
+	                    }
+	                } else if (event.type === "vmouseout") {
+	                    polygon.highlight = false;
+	                    if (!polygon.dragging) {
+	                        polygon.visibleShape.animate(polygon.normalStyle, 50);
+	                        var points = _.filter(polygon.points, isPoint);
+	                        if (!_.any(_.pluck(points, "dragging"))) {
+	                            _.each(points, function (point) {
+	                                point.visibleShape.animate(point.normalStyle, 50);
+	                            });
+	                        }
+	                    }
+	                } else if (event.type === "vmousedown" && (event.which === 1 || event.which === 0)) {
+	                    (function () {
+	                        event.preventDefault();
+
+	                        _.each(_.filter(polygon.points, isPoint), function (point) {
+	                            point.dragging = true;
+	                        });
+
+	                        var startX = (event.pageX - $(graphie.raphael.canvas.parentNode).offset().left) / graphie.scale[0] + graphie.range[0][0];
+	                        var startY = graphie.range[1][1] - (event.pageY - $(graphie.raphael.canvas.parentNode).offset().top) / graphie.scale[1];
+	                        if (polygon.snapX > 0) {
+	                            startX = Math.round(startX / polygon.snapX) * polygon.snapX;
+	                        }
+	                        if (polygon.snapY > 0) {
+	                            startY = Math.round(startY / polygon.snapY) * polygon.snapY;
+	                        }
+	                        var lastX = startX;
+	                        var lastY = startY;
+
+	                        var polygonCoords = polygon.coords.slice();
+
+	                        var offsetLeft = (startX - polygon.left) * graphie.scale[0];
+	                        var offsetRight = (polygon.right - startX) * graphie.scale[0];
+	                        var offsetTop = (polygon.top - startY) * graphie.scale[1];
+	                        var offsetBottom = (startY - polygon.bottom) * graphie.scale[1];
+
+	                        $(document).bind("vmousemove.polygon vmouseup.polygon", function (event) {
+	                            event.preventDefault();
+
+	                            polygon.dragging = true;
+	                            dragging = true;
+
+	                            var mouseX = event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;
+	                            var mouseY = event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;
+
+	                            // no part of the polygon can go beyond 10 pixels from the edge
+	                            if (polygon.constrainToGraph) {
+	                                mouseX = Math.max(offsetLeft + 10, Math.min(graphie.xpixels - 10 - offsetRight, mouseX));
+	                                mouseY = Math.max(offsetTop + 10, Math.min(graphie.ypixels - 10 - offsetBottom, mouseY));
+	                            }
+
+	                            var currentX = mouseX / graphie.scale[0] + graphie.range[0][0];
+	                            var currentY = graphie.range[1][1] - mouseY / graphie.scale[1];
+	                            if (polygon.snapX > 0) {
+	                                currentX = Math.round(currentX / polygon.snapX) * polygon.snapX;
+	                            }
+	                            if (polygon.snapY > 0) {
+	                                currentY = Math.round(currentY / polygon.snapY) * polygon.snapY;
+	                            }
+
+	                            if (event.type === "vmousemove") {
+	                                (function () {
+	                                    var dX = currentX - startX;
+	                                    var dY = currentY - startY;
+
+	                                    var doMove = true;
+	                                    if (_.isFunction(polygon.onMove)) {
+	                                        var onMoveResult = polygon.onMove(dX, dY);
+	                                        if (onMoveResult === false) {
+	                                            doMove = false;
+	                                        } else if (_.isArray(onMoveResult)) {
+	                                            dX = onMoveResult[0];
+	                                            dY = onMoveResult[1];
+	                                            currentX = startX + dX;
+	                                            currentY = startY + dY;
+	                                        }
+	                                    }
+
+	                                    var increment = function increment(i) {
+	                                        return [polygonCoords[i][0] + dX, polygonCoords[i][1] + dY];
+	                                    };
+
+	                                    if (doMove) {
+	                                        _.each(polygon.points, function (coordOrPoint, i) {
+	                                            if (isPoint(coordOrPoint)) {
+	                                                coordOrPoint.setCoord(increment(i));
+	                                            } else {
+	                                                polygon.points[i] = increment(i);
+	                                            }
+	                                        });
+
+	                                        polygon.transform();
+
+	                                        $(polygon).trigger("move");
+
+	                                        lastX = currentX;
+	                                        lastY = currentY;
+	                                    }
+	                                })();
+	                            } else if (event.type === "vmouseup") {
+	                                $(document).unbind(".polygon");
+
+	                                var _points = _.filter(polygon.points, isPoint);
+	                                _.each(_points, function (point) {
+	                                    point.dragging = false;
+	                                });
+
+	                                polygon.dragging = false;
+	                                dragging = false;
+	                                if (!polygon.highlight) {
+	                                    polygon.visibleShape.animate(polygon.normalStyle, 50);
+
+	                                    _.each(_points, function (point) {
+	                                        point.visibleShape.animate(point.normalStyle, 50);
+	                                    });
+	                                }
+	                                if (_.isFunction(polygon.onMoveEnd)) {
+	                                    polygon.onMoveEnd(lastX - startX, lastY - startY);
+	                                }
+	                            }
+	                        });
+	                    })();
+	                }
+	            });
+	        }
+
+	        // Bring any movable points to the front
+	        _.invoke(_.filter(polygon.points, isPoint), "toFront");
+
+	        return polygon;
+	    },
+
+	    /**
 	     * Constrain a point to be within the graph (including padding).
 	     * If outside graph, point's x and y coordinates are clamped within
 	     * the graph.
-	     */constrainToBounds:function constrainToBounds(point,padding){var lower=this.unscalePoint([padding,this.ypixels-padding]);var upper=this.unscalePoint([this.xpixels-padding,padding]);var coordX=Math.max(lower[0],Math.min(upper[0],point[0]));var coordY=Math.max(lower[1],Math.min(upper[1],point[1]));return[coordX,coordY];},/**
+	     */
+	    constrainToBounds: function constrainToBounds(point, padding) {
+	        var lower = this.unscalePoint([padding, this.ypixels - padding]);
+	        var upper = this.unscalePoint([this.xpixels - padding, padding]);
+	        var coordX = Math.max(lower[0], Math.min(upper[0], point[0]));
+	        var coordY = Math.max(lower[1], Math.min(upper[1], point[1]));
+	        return [coordX, coordY];
+	    },
+
+	    /**
 	     * Constrain a point to be within the graph (including padding).
 	     * If outside graph, point is moved along the ray specified by angle
 	     * until inside graph.
-	     */constrainToBoundsOnAngle:function constrainToBoundsOnAngle(point,padding,angle){var lower=this.unscalePoint([padding,this.ypixels-padding]);var upper=this.unscalePoint([this.xpixels-padding,padding]);var result=point.slice();if(result[0]<lower[0]){result=[lower[0],result[1]+(lower[0]-result[0])*Math.tan(angle)];}else if(result[0]>upper[0]){result=[upper[0],result[1]-(result[0]-upper[0])*Math.tan(angle)];}if(result[1]<lower[1]){result=[result[0]+(lower[1]-result[1])/Math.tan(angle),lower[1]];}else if(result[1]>upper[1]){result=[result[0]-(result[1]-upper[1])/Math.tan(angle),upper[1]];}return result;},// MovableAngle is an angle that can be dragged around the screen.
-	// By attaching a smartPoint to the vertex and ray control points, the
-	// rays can be manipulated individually.
-	//
-	// Use only with smartPoints; add the smartPoints first, then:
-	//   addMovableAngle({points: [...]});
-	//
-	// The rays can be controlled to snap on degrees (more useful than snapping
-	// on coordinates) by setting snapDegrees to a positive integer.
-	//
-	// The returned object includes the following properties/methods:
-	//
-	//   - movableAngle.points
-	//         The movableAngle's dynamic smartPoints.
-	//
-	//   - movableAngle.coords
-	//         The movableAngle's current coordinates (generated, don't edit).
-	//
-	addMovableAngle:function addMovableAngle(options){return new MovableAngle(this,options);},// center: movable point
-	// radius: int
-	// circ: graphie circle
-	// perim: invisible mouse target for dragging/changing radius
-	addCircleGraph:function addCircleGraph(options){var graphie=this;var circle=$.extend({center:[0,0],radius:2,snapX:0.5,snapY:0.5,snapRadius:0.5,minRadius:1,centerConstraints:{},centerNormalStyle:{},centerHighlightStyle:{stroke:KhanColors.INTERACTING,fill:KhanColors.INTERACTING},circleNormalStyle:{stroke:KhanColors.INTERACTIVE,"fill-opacity":0},circleHighlightStyle:{stroke:KhanColors.INTERACTING,fill:KhanColors.INTERACTING,"fill-opacity":0.05}},options);var normalColor=circle.centerConstraints.fixed?KhanColors.DYNAMIC:KhanColors.INTERACTIVE;var centerNormalStyle=options?options.centerNormalStyle:null;circle.centerNormalStyle=_.extend({},{"fill":normalColor,"stroke":normalColor},centerNormalStyle);circle.centerPoint=graphie.addMovablePoint({graph:graphie,coord:circle.center,normalStyle:circle.centerNormalStyle,snapX:circle.snapX,snapY:circle.snapY,constraints:circle.centerConstraints});circle.circ=graphie.circle(circle.center,circle.radius,circle.circleNormalStyle);circle.perim=graphie.mouselayer.circle(graphie.scalePoint(circle.center)[0],graphie.scalePoint(circle.center)[1],graphie.scaleVector(circle.radius)[0]).attr({"stroke-width":20,"opacity":0.002});// Highlight circle circumference on center point hover
-	if(!circle.centerConstraints.fixed){$(circle.centerPoint.mouseTarget.getMouseTarget()).on("vmouseover vmouseout",function(event){if(circle.centerPoint.highlight||circle.centerPoint.dragging){circle.circ.animate(circle.circleHighlightStyle,50);}else{circle.circ.animate(circle.circleNormalStyle,50);}});}circle.toFront=function(){circle.circ.toFront();circle.perim.toFront();circle.centerPoint.visibleShape.toFront();if(!circle.centerConstraints.fixed){circle.centerPoint.mouseTarget.toFront();}};circle.centerPoint.onMove=function(x,y){circle.toFront();circle.circ.attr({cx:graphie.scalePoint(x)[0],cy:graphie.scalePoint(y)[1]});circle.perim.attr({cx:graphie.scalePoint(x)[0],cy:graphie.scalePoint(y)[1]});if(circle.onMove){circle.onMove(x,y);}};$(circle.centerPoint).on("move",function(){circle.center=this.coord;$(circle).trigger("move");});// circle.setCenter(x, y) moves the circle to the specified
-	// x, y coordinate as if the user had dragged it there.
-	circle.setCenter=function(x,y){circle.centerPoint.setCoord([x,y]);circle.centerPoint.onMove(x,y);circle.center=[x,y];};// circle.setRadius(r) sets the circle's radius to the specified
-	// value as if the user had dragged it there.
-	circle.setRadius=function(r){circle.radius=r;circle.perim.attr({r:graphie.scaleVector(r)[0]});circle.circ.attr({rx:graphie.scaleVector(r)[0],ry:graphie.scaleVector(r)[1]});};circle.remove=function(){circle.centerPoint.remove();circle.circ.remove();circle.perim.remove();};$(circle.perim[0]).css("cursor","move");$(circle.perim[0]).on("vmouseover vmouseout vmousedown",function(event){if(event.type==="vmouseover"){circle.highlight=true;if(!dragging){// TODO(jack): Figure out why this doesn't work
-	// for circleHighlightStyle's that change
-	// stroke-dasharray
-	circle.circ.animate(circle.circleHighlightStyle,50);circle.centerPoint.visibleShape.animate(circle.centerHighlightStyle,50);}}else if(event.type==="vmouseout"){circle.highlight=false;if(!circle.dragging&&!circle.centerPoint.dragging){circle.circ.animate(circle.circleNormalStyle,50);circle.centerPoint.visibleShape.animate(circle.centerNormalStyle,50);}}else if(event.type==="vmousedown"&&(event.which===1||event.which===0)){(function(){event.preventDefault();circle.toFront();var startRadius=circle.radius;$(document).on("vmousemove vmouseup",function(event){event.preventDefault();circle.dragging=true;dragging=true;if(event.type==="vmousemove"){var coord=graphie.constrainToBounds(graphie.getMouseCoord(event),10);var radius=GraphUtils.getDistance(circle.centerPoint.coord,coord);radius=Math.max(circle.minRadius,Math.round(radius/circle.snapRadius)*circle.snapRadius);var oldRadius=circle.radius;var doResize=true;if(circle.onResize){var onResizeResult=circle.onResize(radius,oldRadius);if(_.isNumber(onResizeResult)){radius=onResizeResult;}else if(onResizeResult===false){doResize=false;}}if(doResize){circle.setRadius(radius);$(circle).trigger("move");}}else if(event.type==="vmouseup"){$(document).off("vmousemove vmouseup");circle.dragging=false;dragging=false;if(circle.onResizeEnd){circle.onResizeEnd(circle.radius,startRadius);}}});})();}});return circle;},addRotateHandle:function(){var drawRotateHandle=function drawRotateHandle(graphie,center,radius,halfWidth,lengthAngle,angle,interacting){var getRotateHandlePoint=function getRotateHandlePoint(offset,distanceFromArrowMidline){var distFromRotationCenter=radius+distanceFromArrowMidline;var vec=kvector.cartFromPolarDeg([distFromRotationCenter,angle+offset]);var absolute=kvector.add(center,vec);var pixels=graphie.scalePoint(absolute);return pixels[0]+","+pixels[1];};var innerR=graphie.scaleVector(radius-halfWidth);var outerR=graphie.scaleVector(radius+halfWidth);// Draw the double-headed arrow thing that shows users where to
-	// click and drag to rotate
-	return graphie.raphael.path(// upper arrowhead
-	" M"+getRotateHandlePoint(lengthAngle,-halfWidth)+" L"+getRotateHandlePoint(lengthAngle,-3*halfWidth)+" L"+getRotateHandlePoint(2*lengthAngle,0)+" L"+getRotateHandlePoint(lengthAngle,3*halfWidth)+" L"+getRotateHandlePoint(lengthAngle,halfWidth)+// outer arc
-	" A"+outerR[0]+","+outerR[1]+",0,0,1,"+getRotateHandlePoint(-lengthAngle,halfWidth)+// lower arrowhead
-	" L"+getRotateHandlePoint(-lengthAngle,3*halfWidth)+" L"+getRotateHandlePoint(-2*lengthAngle,0)+" L"+getRotateHandlePoint(-lengthAngle,-3*halfWidth)+" L"+getRotateHandlePoint(-lengthAngle,-halfWidth)+// inner arc
-	" A"+innerR[0]+","+innerR[1]+",0,0,0,"+getRotateHandlePoint(lengthAngle,-halfWidth)+" Z").attr({stroke:null,fill:interacting?KhanColors.INTERACTING:KhanColors.INTERACTIVE});};return function(options){var graph=this;var rotatePoint=options.center;var radius=options.radius;var lengthAngle=options.lengthAngle||30;var hideArrow=options.hideArrow||false;var mouseTarget=options.mouseTarget;var id=_.uniqueId("rotateHandle");// Normalize rotatePoint into something that always looks
-	// like a movablePoint
-	if(_.isArray(rotatePoint)){rotatePoint={coord:rotatePoint};}var rotateHandle=graph.addMovablePoint({coord:kpoint.addVector(rotatePoint.coord,kvector.cartFromPolarDeg(radius,options.angleDeg||0)),constraints:{fixedDistance:{dist:radius,point:rotatePoint}},mouseTarget:mouseTarget});// move the rotatePoint in front of the rotateHandle to avoid
-	// confusing clicking/scaling of the rotateHandle when the user
-	// intends to click on the rotatePoint
-	rotatePoint.toFront();var rotatePointPrevCoord=rotatePoint.coord;var rotateHandlePrevCoord=rotateHandle.coord;var rotateHandleStartCoord=rotateHandlePrevCoord;var isRotating=false;var isHovering=false;var drawnRotateHandle=void 0;var redrawRotateHandle=function redrawRotateHandle(handleCoord){if(hideArrow){return;// Don't draw anything!
-	}var handleVec=kvector.subtract(handleCoord,rotatePoint.coord);var handlePolar=kvector.polarDegFromCart(handleVec);var angle=handlePolar[1];if(drawnRotateHandle){drawnRotateHandle.remove();}drawnRotateHandle=drawRotateHandle(graph,rotatePoint.coord,options.radius,isRotating||isHovering?options.hoverWidth/2:options.width/2,lengthAngle,angle,isRotating||isHovering);};// when the rotation center moves, we need to move
-	// the rotationHandle as well, or it will end up out
-	// of sync
-	$(rotatePoint).on("move."+id,function(){var delta=kvector.subtract(rotatePoint.coord,rotatePointPrevCoord);rotateHandle.setCoord(kvector.add(rotateHandle.coord,delta));redrawRotateHandle(rotateHandle.coord);rotatePointPrevCoord=rotatePoint.coord;rotateHandle.constraints.fixedDistance.point=rotatePoint;rotateHandlePrevCoord=rotateHandle.coord;});// Rotate polygon with rotateHandle
-	rotateHandle.onMove=function(x,y){if(!isRotating){rotateHandleStartCoord=rotateHandlePrevCoord;isRotating=true;}var coord=[x,y];if(options.onMove){var oldPolar=kvector.polarDegFromCart(kvector.subtract(rotateHandlePrevCoord,rotatePoint.coord));var newPolar=kvector.polarDegFromCart(kvector.subtract(coord,rotatePoint.coord));var oldAngle=oldPolar[1];var newAngle=newPolar[1];var result=options.onMove(newAngle,oldAngle);if(result!=null&&result!==true){if(result===false){result=oldAngle;}coord=kvector.add(rotatePoint.coord,kvector.cartFromPolarDeg([oldPolar[0],result]));}}redrawRotateHandle(coord);rotateHandlePrevCoord=coord;return coord;};rotateHandle.onMoveEnd=function(){isRotating=false;redrawRotateHandle(rotateHandle.coord);if(options.onMoveEnd){var oldPolar=kvector.polarDegFromCart(kvector.subtract(rotateHandleStartCoord,rotatePoint.coord));var newPolar=kvector.polarDegFromCart(kvector.subtract(rotateHandle.coord,rotatePoint.coord));options.onMoveEnd(newPolar[1],oldPolar[1]);}};// Remove the default dot added by the movablePoint since we have
-	// our double-arrow thing
-	rotateHandle.visibleShape.remove();if(!mouseTarget){// Make the default mouse target bigger to encompass the whole
-	// area around the double-arrow thing
-	rotateHandle.mouseTarget.attr({scale:2});}var $mouseTarget=$(rotateHandle.mouseTarget.getMouseTarget());$mouseTarget.bind("vmouseover",function(e){isHovering=true;redrawRotateHandle(rotateHandle.coord);});$mouseTarget.bind("vmouseout",function(e){isHovering=false;redrawRotateHandle(rotateHandle.coord);});redrawRotateHandle(rotateHandle.coord);var oldRemove=rotateHandle.remove;rotateHandle.remove=function(){oldRemove.call(rotateHandle);if(drawnRotateHandle){drawnRotateHandle.remove();}$(rotatePoint).off("move."+id);};rotateHandle.update=function(){redrawRotateHandle(rotateHandle.coord);};return rotateHandle;};}(),addReflectButton:function(){var drawButton=function drawButton(graphie,buttonCoord,lineCoords,size,distanceFromCenter,leftStyle,rightStyle){// Avoid invalid lines
-	if(kpoint.equal(lineCoords[0],lineCoords[1])){lineCoords=[lineCoords[0],kpoint.addVector(lineCoords[0],[1,1])];}var lineDirection=kvector.normalize(kvector.subtract(lineCoords[1],lineCoords[0]));var lineVec=kvector.scale(lineDirection,size/2);var centerVec=kvector.scale(lineDirection,distanceFromCenter);var leftCenterVec=kvector.rotateDeg(centerVec,90);var rightCenterVec=kvector.rotateDeg(centerVec,-90);var negLineVec=kvector.negate(lineVec);var leftVec=kvector.rotateDeg(lineVec,90);var rightVec=kvector.rotateDeg(lineVec,-90);var leftCenter=kpoint.addVectors(buttonCoord,leftCenterVec);var rightCenter=kpoint.addVectors(buttonCoord,rightCenterVec);var leftCoord1=kpoint.addVectors(buttonCoord,leftCenterVec,lineVec,leftVec);var leftCoord2=kpoint.addVectors(buttonCoord,leftCenterVec,negLineVec,leftVec);var rightCoord1=kpoint.addVectors(buttonCoord,rightCenterVec,lineVec,rightVec);var rightCoord2=kpoint.addVectors(buttonCoord,rightCenterVec,negLineVec,rightVec);var leftButton=graphie.path([leftCenter,leftCoord1,leftCoord2,true],leftStyle);var rightButton=graphie.path([rightCenter,rightCoord1,rightCoord2,true],rightStyle);return{remove:function remove(){leftButton.remove();rightButton.remove();}};};return function(options){var graphie=this;var line=options.line;var button=graphie.addMovablePoint({constraints:options.constraints,coord:kline.midpoint([line.pointA.coord,line.pointZ.coord]),snapX:graphie.snap[0],snapY:graphie.snap[1],onMove:function onMove(x,y){// Don't allow the button to actually move. This is a hack
-	// around the inability to both set a point as fixed AND
-	// allow it to be clicked.
-	return false;},onMoveEnd:function onMoveEnd(x,y){if(options.onMoveEnd){options.onMoveEnd.call(this,x,y);}}});var isHovering=false;var isFlipped=false;var currentlyDrawnButton=void 0;var isHighlight=function isHighlight(){return isHovering;};var styles=_.map([0,1],function(isHighlight){var baseStyle=isHighlight?options.highlightStyle:options.normalStyle;return _.map([0,1],function(opacity){return _.defaults({"fill-opacity":opacity},baseStyle);});});var getStyle=function getStyle(isRight){if(isFlipped){isRight=!isRight;}return styles[+isHighlight()][+isRight];};var redraw=function redraw(coord,lineCoords){if(currentlyDrawnButton){currentlyDrawnButton.remove();}currentlyDrawnButton=drawButton(graphie,coord,lineCoords,isHighlight()?options.size*1.5:options.size,isHighlight()?options.size*0.125:0.25,getStyle(0),getStyle(1));};var update=function update(coordA,coordZ){coordA=coordA||line.pointA.coord;coordZ=coordZ||line.pointZ.coord;var buttonCoord=kline.midpoint([coordA,coordZ]);button.setCoord(buttonCoord);redraw(buttonCoord,[coordA,coordZ]);};$(line).on("move",_.bind(update,button,null,null));var $mouseTarget=$(button.mouseTarget.getMouseTarget());$mouseTarget.on("vclick",function(){var result=options.onClick();if(result!==false){isFlipped=!isFlipped;redraw(button.coord,[line.pointA.coord,line.pointZ.coord]);}});// Bring the reflection line handles in front of the button, so
-	// that if we drag the reflectPoints really close together, we can
-	// still move the handles away from each other, rather than only
-	// being able to apply the reflection.
-	line.pointA.toFront();line.pointZ.toFront();// Replace the visual point with the double triangle thing
-	button.visibleShape.remove();var pointScale=graphie.scaleVector(options.size)[0]/20;button.mouseTarget.attr({scale:1.5*pointScale});$mouseTarget.css("cursor","pointer");// Make the arrow-thing grow and shrink with mouseover/out
-	$mouseTarget.bind("vmouseover",function(e){isHovering=true;redraw(button.coord,[line.pointA.coord,line.pointZ.coord]);});$mouseTarget.bind("vmouseout",function(e){isHovering=false;redraw(button.coord,[line.pointA.coord,line.pointZ.coord]);});var oldButtonRemove=button.remove;button.remove=function(){currentlyDrawnButton.remove();oldButtonRemove.call(button);};button.update=update;button.isFlipped=function(){return isFlipped;};update();return button;};}(),protractor:function protractor(center){return new Protractor(this,center);},ruler:function ruler(options){return new Ruler(this,options||{});},addPoints:addPoints});function Protractor(graph,center){this.set=graph.raphael.set();this.cx=center[0];this.cy=center[1];var pro=this;var r=graph.unscaleVector(180.5)[0];var imgPos=graph.scalePoint([this.cx-r,this.cy+r-graph.unscaleVector(10.5)[1]]);this.set.push(graph.mouselayer.image("https://ka-perseus-graphie.s3.amazonaws.com/e9d032f2ab8b95979f674fbfa67056442ba1ff6a.png",imgPos[0],imgPos[1],360,180));var arrowHelper=function arrowHelper(angle,pixelsFromEdge){var scaledRadius=graph.scaleVector(r);scaledRadius[0]-=16;scaledRadius[1]-=16;var scaledCenter=graph.scalePoint(center);var x=Math.sin((angle+90)*Math.PI/180)*(scaledRadius[0]+pixelsFromEdge)+scaledCenter[0];var y=Math.cos((angle+90)*Math.PI/180)*(scaledRadius[1]+pixelsFromEdge)+scaledCenter[1];return x+","+y;};var arrow=graph.raphael.path(" M"+arrowHelper(180,6)+" L"+arrowHelper(180,2)+" L"+arrowHelper(183,10)+" L"+arrowHelper(180,18)+" L"+arrowHelper(180,14)+" A"+(graph.scaleVector(r)[0]+10)+","+(graph.scaleVector(r)[1]+10)+",0,0,1,"+arrowHelper(170,14)+" L"+arrowHelper(170,18)+" L"+arrowHelper(167,10)+" L"+arrowHelper(170,2)+" L"+arrowHelper(170,6)+" A"+(graph.scaleVector(r)[0]+10)+","+(graph.scaleVector(r)[1]+10)+",0,0,0,"+arrowHelper(180,6)+" Z").attr({"stroke":null,"fill":KhanColors.INTERACTIVE});// add it to the set so it translates with everything else
-	this.set.push(arrow);this.centerPoint=graph.addMovablePoint({coord:center,visible:false});// Use a movablePoint for rotation
-	this.rotateHandle=graph.addMovablePoint({coord:[Math.sin(275*Math.PI/180)*(r+0.5)+this.cx,Math.cos(275*Math.PI/180)*(r+0.5)+this.cy],onMove:function onMove(x,y){var angle=Math.atan2(pro.centerPoint.coord[1]-y,pro.centerPoint.coord[0]-x)*180/Math.PI;pro.rotate(-angle-5,true);}});// Add a constraint so the point moves in a circle
-	this.rotateHandle.constraints.fixedDistance.dist=r+0.5;this.rotateHandle.constraints.fixedDistance.point=this.centerPoint;// Remove the default dot added by the movablePoint since we have our double-arrow thing
-	this.rotateHandle.visibleShape.remove();// Make the mouse target bigger to encompass the whole area around the double-arrow thing
-	this.rotateHandle.mouseTarget.attr({scale:2.0});var isDragging=false;var isHovering=false;var isHighlight=function isHighlight(){return isHovering||isDragging;};var self=this;var $mouseTarget=$(self.rotateHandle.mouseTarget.getMouseTarget());$mouseTarget.bind("vmousedown",function(event){isDragging=true;arrow.animate({scale:1.5,fill:KhanColors.INTERACTING},50);$(document).bind("vmouseup.rotateHandle",function(event){isDragging=false;if(!isHighlight()){arrow.animate({scale:1.0,fill:KhanColors.INTERACTIVE},50);}$(document).unbind("vmouseup.rotateHandle");});});$mouseTarget.bind("vmouseover",function(event){isHovering=true;arrow.animate({scale:1.5,fill:KhanColors.INTERACTING},50);});$mouseTarget.bind("vmouseout",function(event){isHovering=false;if(!isHighlight()){arrow.animate({scale:1.0,fill:KhanColors.INTERACTIVE},50);}});var setNodes=$.map(this.set,function(el){return el.node;});this.makeTranslatable=function makeTranslatable(){$(setNodes).css("cursor","move");$(setNodes).bind("vmousedown",function(event){event.preventDefault();var startx=event.pageX-$(graph.raphael.canvas.parentNode).offset().left;var starty=event.pageY-$(graph.raphael.canvas.parentNode).offset().top;$(document).bind("vmousemove.protractor",function(event){var mouseX=event.pageX-$(graph.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY-$(graph.raphael.canvas.parentNode).offset().top;// can't go beyond 10 pixels from the edge
-	mouseX=Math.max(10,Math.min(graph.xpixels-10,mouseX));mouseY=Math.max(10,Math.min(graph.ypixels-10,mouseY));var dx=mouseX-startx;var dy=mouseY-starty;$.each(pro.set.items,function(){this.translate(dx,dy);});pro.centerPoint.setCoord([pro.centerPoint.coord[0]+dx/graph.scale[0],pro.centerPoint.coord[1]-dy/graph.scale[1]]);pro.rotateHandle.setCoord([pro.rotateHandle.coord[0]+dx/graph.scale[0],pro.rotateHandle.coord[1]-dy/graph.scale[1]]);startx=mouseX;starty=mouseY;});$(document).one("vmouseup",function(event){$(document).unbind("vmousemove.protractor");});});};this.rotation=0;this.rotate=function(offset,absolute){var center=graph.scalePoint(this.centerPoint.coord);if(absolute){this.rotation=0;}this.set.rotate(this.rotation+offset,center[0],center[1]);this.rotation=this.rotation+offset;return this;};this.moveTo=function moveTo(x,y){var start=graph.scalePoint(pro.centerPoint.coord);var end=graph.scalePoint([x,y]);var time=GraphUtils.getDistance(start,end)*2;$({x:start[0],y:start[1]}).animate({x:end[0],y:end[1]},{duration:time,step:function step(now,fx){var dx=0;var dy=0;if(fx.prop==="x"){dx=now-graph.scalePoint(pro.centerPoint.coord)[0];}else if(fx.prop==="y"){dy=now-graph.scalePoint(pro.centerPoint.coord)[1];}$.each(pro.set.items,function(){this.translate(dx,dy);});pro.centerPoint.setCoord([pro.centerPoint.coord[0]+dx/graph.scale[0],pro.centerPoint.coord[1]-dy/graph.scale[1]]);pro.rotateHandle.setCoord([pro.rotateHandle.coord[0]+dx/graph.scale[0],pro.rotateHandle.coord[1]-dy/graph.scale[1]]);}});};this.rotateTo=function rotateTo(angle){if(Math.abs(this.rotation-angle)>180){this.rotation+=360;}var time=Math.abs(this.rotation-angle)*5;$({0:this.rotation}).animate({0:angle},{duration:time,step:function step(now,fx){pro.rotate(now,true);pro.rotateHandle.setCoord([Math.sin((now+275)*Math.PI/180)*(r+0.5)+pro.centerPoint.coord[0],Math.cos((now+275)*Math.PI/180)*(r+0.5)+pro.centerPoint.coord[1]]);}});};this.remove=function(){this.set.remove();};this.makeTranslatable();return this;}function Ruler(graphie,options){_.defaults(options,{center:[0,0],pixelsPerUnit:40,ticksPerUnit:10,// 10 or power of 2
-	units:10,// the length the ruler can measure
-	label:"",// e.g "cm" (the shorter, the better)
-	style:{fill:null,stroke:KhanColors.GRAY}});var light=_.extend({},options.style,{strokeWidth:1});var bold=_.extend({},options.style,{strokeWidth:2});var width=options.units*options.pixelsPerUnit;var height=50;var leftBottom=graphie.unscalePoint(kvector.subtract(graphie.scalePoint(options.center),kvector.scale([width,-height],0.5)));var graphieUnitsPerUnit=options.pixelsPerUnit/graphie.scale[0];var graphieUnitsHeight=height/graphie.scale[0];var rightTop=kvector.add(leftBottom,[options.units*graphieUnitsPerUnit,graphieUnitsHeight]);var tickHeight=1.0;var tickHeightMap=void 0;if(options.ticksPerUnit===10){// decimal, as on a centimeter ruler
-	tickHeightMap={10:tickHeight,5:tickHeight*0.55,1:tickHeight*0.35};}else{var sizes=[1,0.6,0.45,0.3];tickHeightMap={};for(var i=options.ticksPerUnit;i>=1;i/=2){tickHeightMap[i]=tickHeight*(sizes.shift()||0.2);}}var tickFrequencies=_.keys(tickHeightMap).sort(function(a,b){return b-a;});function getTickHeight(i){for(var k=0;k<tickFrequencies.length;k++){var key=tickFrequencies[k];if(i%key===0){return tickHeightMap[key];}}}var left=leftBottom[0];var bottom=leftBottom[1];var right=rightTop[0];var top=rightTop[1];var numTicks=options.units*options.ticksPerUnit+1;var set=graphie.raphael.set();var px=1/graphie.scale[0];set.push(graphie.line([left-px,bottom],[right+px,bottom],bold));set.push(graphie.line([left-px,top],[right+px,top],bold));_.times(numTicks,function(i){var n=i/options.ticksPerUnit;var x=left+n*graphieUnitsPerUnit;var height=getTickHeight(i)*graphieUnitsHeight;var style=i===0||i===numTicks-1?bold:light;set.push(graphie.line([x,bottom],[x,bottom+height],style));if(n%1===0){var coord=graphie.scalePoint([x,top]);var text=void 0;var offset=void 0;if(n===0){// Unit label
-	text=options.label;offset={mm:13,cm:11,m:8,km:11,in:8,ft:8,yd:10,mi:10}[text]||3*text.toString().length;}else{// Tick label
-	text=n;offset=-3*(n.toString().length+1);}var label=graphie.raphael.text(coord[0]+offset,coord[1]+10,text);label.attr({"font-family":"KaTeX_Main","font-size":"12px","color":"#444"});set.push(label);}});var mouseTarget=graphie.mouselayer.path(GraphUtils.svgPath([leftBottom,[left,top],rightTop,[right,bottom],/* closed */true]));mouseTarget.attr({fill:"#000",opacity:0,stroke:"#000","stroke-width":2});set.push(mouseTarget);var setNodes=$.map(set,function(el){return el.node;});$(setNodes).css("cursor","move");$(setNodes).bind("vmousedown",function(event){event.preventDefault();var startx=event.pageX-$(graphie.raphael.canvas.parentNode).offset().left;var starty=event.pageY-$(graphie.raphael.canvas.parentNode).offset().top;$(document).bind("vmousemove.ruler",function(event){var mouseX=event.pageX-$(graphie.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY-$(graphie.raphael.canvas.parentNode).offset().top;// can't go beyond 10 pixels from the edge
-	mouseX=Math.max(10,Math.min(graphie.xpixels-10,mouseX));mouseY=Math.max(10,Math.min(graphie.ypixels-10,mouseY));var dx=mouseX-startx;var dy=mouseY-starty;set.translate(dx,dy);leftBottomHandle.setCoord([leftBottomHandle.coord[0]+dx/graphie.scale[0],leftBottomHandle.coord[1]-dy/graphie.scale[1]]);rightBottomHandle.setCoord([rightBottomHandle.coord[0]+dx/graphie.scale[0],rightBottomHandle.coord[1]-dy/graphie.scale[1]]);startx=mouseX;starty=mouseY;});$(document).one("vmouseup",function(event){$(document).unbind("vmousemove.ruler");});});var leftBottomHandle=graphie.addMovablePoint({coord:leftBottom,normalStyle:{fill:KhanColors.INTERACTIVE,"fill-opacity":0,stroke:KhanColors.INTERACTIVE},highlightStyle:{fill:KhanColors.INTERACTING,"fill-opacity":0.1,stroke:KhanColors.INTERACTING},pointSize:6,// or 8 maybe?
-	onMove:function onMove(x,y){var dy=rightBottomHandle.coord[1]-y;var dx=rightBottomHandle.coord[0]-x;var angle=Math.atan2(dy,dx)*180/Math.PI;var center=kvector.scale(kvector.add([x,y],rightBottomHandle.coord),0.5);var scaledCenter=graphie.scalePoint(center);var oldCenter=kvector.scale(kvector.add(leftBottomHandle.coord,rightBottomHandle.coord),0.5);var scaledOldCenter=graphie.scalePoint(oldCenter);var diff=kvector.subtract(scaledCenter,scaledOldCenter);set.rotate(-angle,scaledOldCenter[0],scaledOldCenter[1]);set.translate(diff[0],diff[1]);}});var rightBottomHandle=graphie.addMovablePoint({coord:[right,bottom],normalStyle:{fill:KhanColors.INTERACTIVE,"fill-opacity":0,stroke:KhanColors.INTERACTIVE},highlightStyle:{fill:KhanColors.INTERACTING,"fill-opacity":0.1,stroke:KhanColors.INTERACTING},pointSize:6,// or 8 maybe?
-	onMove:function onMove(x,y){var dy=y-leftBottomHandle.coord[1];var dx=x-leftBottomHandle.coord[0];var angle=Math.atan2(dy,dx)*180/Math.PI;var center=kvector.scale(kvector.add([x,y],leftBottomHandle.coord),0.5);var scaledCenter=graphie.scalePoint(center);var oldCenter=kvector.scale(kvector.add(leftBottomHandle.coord,rightBottomHandle.coord),0.5);var scaledOldCenter=graphie.scalePoint(oldCenter);var diff=kvector.subtract(scaledCenter,scaledOldCenter);set.rotate(-angle,scaledOldCenter[0],scaledOldCenter[1]);set.translate(diff[0],diff[1]);}});// Make each handle rotate the ruler about the other one
-	leftBottomHandle.constraints.fixedDistance.dist=width/graphie.scale[0];leftBottomHandle.constraints.fixedDistance.point=rightBottomHandle;rightBottomHandle.constraints.fixedDistance.dist=width/graphie.scale[0];rightBottomHandle.constraints.fixedDistance.point=leftBottomHandle;this.remove=function(){set.remove();leftBottomHandle.remove();rightBottomHandle.remove();};return this;}function MovableAngle(graphie,options){this.graphie=graphie;// TODO(alex): Move standard colors from math.js to somewhere else
-	// so that they are available when this file is first parsed
-	_.extend(this,options);_.defaults(this,{normalStyle:{"stroke":KhanColors.INTERACTIVE,"stroke-width":2,"fill":KhanColors.INTERACTIVE},highlightStyle:{"stroke":KhanColors.INTERACTING,"stroke-width":2,"fill":KhanColors.INTERACTING},labelStyle:{"stroke":KhanColors.DYNAMIC,"stroke-width":1,"color":KhanColors.DYNAMIC},angleStyle:{"stroke":KhanColors.DYNAMIC,"stroke-width":1,"color":KhanColors.DYNAMIC},allowReflex:true});if(!this.points||this.points.length!==3){throw new Error("MovableAngle requires 3 points");}// Handle coordinates that are not MovablePoints (i.e. [2, 4])
-	this.points=_.map(options.points,function(point){if(_.isArray(point)){return graphie.addMovablePoint({coord:point,visible:false,constraints:{fixed:true},normalStyle:this.normalStyle});}else{return point;}},this);this.coords=_.pluck(this.points,"coord");if(this.reflex==null){if(this.allowReflex){this.reflex=this._getClockwiseAngle(this.coords)>180;}else{this.reflex=false;}}this.rays=_.map([0,2],function(i){return graphie.addMovableLineSegment({pointA:this.points[1],pointZ:this.points[i],fixed:true,extendRay:true});},this);this.temp=[];this.labeledAngle=graphie.label([0,0],"","center",this.labelStyle);if(!this.fixed){this.addMoveHandlers();this.addHighlightHandlers();}this.update();}_.extend(MovableAngle.prototype,{points:[],snapDegrees:0,snapOffsetDeg:0,angleLabel:"",numArcs:1,pushOut:0,fixed:false,addMoveHandlers:function addMoveHandlers(){var graphie=this.graphie;function tooClose(point1,point2){var safeDistance=30;var distance=GraphUtils.getDistance(graphie.scalePoint(point1),graphie.scalePoint(point2));return distance<safeDistance;}var points=this.points;// Drag the vertex to move the entire angle
-	points[1].onMove=function(x,y){var oldVertex=points[1].coord;var newVertex=[x,y];var delta=addPoints(newVertex,reverseVector(oldVertex));var valid=true;var newPoints={};_.each([0,2],function(i){var oldPoint=points[i].coord;var newPoint=addPoints(oldPoint,delta);var angle=GraphUtils.findAngle(newVertex,newPoint);angle*=Math.PI/180;newPoint=graphie.constrainToBoundsOnAngle(newPoint,10,angle);newPoints[i]=newPoint;if(tooClose(newVertex,newPoint)){valid=false;}});// Only move points if all new positions are valid
-	if(valid){_.each(newPoints,function(newPoint,i){points[i].setCoord(newPoint);});}return valid;};var snap=this.snapDegrees;var snapOffset=this.snapOffsetDeg;// Drag ray control points to move each ray individually
-	_.each([0,2],function(i){points[i].onMove=function(x,y){var newPoint=[x,y];var vertex=points[1].coord;if(tooClose(vertex,newPoint)){return false;}else if(snap){var angle=GraphUtils.findAngle(newPoint,vertex);angle=Math.round((angle-snapOffset)/snap)*snap+snapOffset;var distance=GraphUtils.getDistance(newPoint,vertex);return addPoints(vertex,graphie.polar(distance,angle));}else{return true;}};});// Expose only a single move event
-	$(points).on("move",function(){this.update();$(this).trigger("move");}.bind(this));},addHighlightHandlers:function addHighlightHandlers(){var vertex=this.points[1];vertex.onHighlight=function(){_.each(this.points,function(point){point.visibleShape.animate(this.highlightStyle,50);},this);_.each(this.rays,function(ray){ray.visibleLine.animate(this.highlightStyle,50);ray.arrowStyle=_.extend({},ray.arrowStyle,{"color":this.highlightStyle.stroke,"stroke":this.highlightStyle.stroke});},this);this.angleStyle=_.extend({},this.angleStyle,{"color":this.highlightStyle.stroke,"stroke":this.highlightStyle.stroke});this.update();}.bind(this);vertex.onUnhighlight=function(){_.each(this.points,function(point){point.visibleShape.animate(this.normalStyle,50);},this);_.each(this.rays,function(ray){ray.visibleLine.animate(ray.normalStyle,50);ray.arrowStyle=_.extend({},ray.arrowStyle,{"color":ray.normalStyle.stroke,"stroke":ray.normalStyle.stroke});},this);this.angleStyle=_.extend({},this.angleStyle,{"color":KhanColors.DYNAMIC,"stroke":KhanColors.DYNAMIC});this.update();}.bind(this);},/**
+	     */
+	    constrainToBoundsOnAngle: function constrainToBoundsOnAngle(point, padding, angle) {
+	        var lower = this.unscalePoint([padding, this.ypixels - padding]);
+	        var upper = this.unscalePoint([this.xpixels - padding, padding]);
+
+	        var result = point.slice();
+
+	        if (result[0] < lower[0]) {
+	            result = [lower[0], result[1] + (lower[0] - result[0]) * Math.tan(angle)];
+	        } else if (result[0] > upper[0]) {
+	            result = [upper[0], result[1] - (result[0] - upper[0]) * Math.tan(angle)];
+	        }
+
+	        if (result[1] < lower[1]) {
+	            result = [result[0] + (lower[1] - result[1]) / Math.tan(angle), lower[1]];
+	        } else if (result[1] > upper[1]) {
+	            result = [result[0] - (result[1] - upper[1]) / Math.tan(angle), upper[1]];
+	        }
+
+	        return result;
+	    },
+
+	    // MovableAngle is an angle that can be dragged around the screen.
+	    // By attaching a smartPoint to the vertex and ray control points, the
+	    // rays can be manipulated individually.
+	    //
+	    // Use only with smartPoints; add the smartPoints first, then:
+	    //   addMovableAngle({points: [...]});
+	    //
+	    // The rays can be controlled to snap on degrees (more useful than snapping
+	    // on coordinates) by setting snapDegrees to a positive integer.
+	    //
+	    // The returned object includes the following properties/methods:
+	    //
+	    //   - movableAngle.points
+	    //         The movableAngle's dynamic smartPoints.
+	    //
+	    //   - movableAngle.coords
+	    //         The movableAngle's current coordinates (generated, don't edit).
+	    //
+	    addMovableAngle: function addMovableAngle(options) {
+	        return new MovableAngle(this, options);
+	    },
+
+	    // center: movable point
+	    // radius: int
+	    // circ: graphie circle
+	    // perim: invisible mouse target for dragging/changing radius
+	    addCircleGraph: function addCircleGraph(options) {
+	        var graphie = this;
+	        var circle = $.extend({
+	            center: [0, 0],
+	            radius: 2,
+	            snapX: 0.5,
+	            snapY: 0.5,
+	            snapRadius: 0.5,
+	            minRadius: 1,
+	            centerConstraints: {},
+	            centerNormalStyle: {},
+	            centerHighlightStyle: {
+	                stroke: KhanColors.INTERACTING,
+	                fill: KhanColors.INTERACTING
+	            },
+	            circleNormalStyle: {
+	                stroke: KhanColors.INTERACTIVE,
+	                "fill-opacity": 0
+	            },
+	            circleHighlightStyle: {
+	                stroke: KhanColors.INTERACTING,
+	                fill: KhanColors.INTERACTING,
+	                "fill-opacity": 0.05
+	            }
+	        }, options);
+
+	        var normalColor = circle.centerConstraints.fixed ? KhanColors.DYNAMIC : KhanColors.INTERACTIVE;
+	        var centerNormalStyle = options ? options.centerNormalStyle : null;
+	        circle.centerNormalStyle = _.extend({}, {
+	            "fill": normalColor,
+	            "stroke": normalColor
+	        }, centerNormalStyle);
+
+	        circle.centerPoint = graphie.addMovablePoint({
+	            graph: graphie,
+	            coord: circle.center,
+	            normalStyle: circle.centerNormalStyle,
+	            snapX: circle.snapX,
+	            snapY: circle.snapY,
+	            constraints: circle.centerConstraints
+	        });
+	        circle.circ = graphie.circle(circle.center, circle.radius, circle.circleNormalStyle);
+	        circle.perim = graphie.mouselayer.circle(graphie.scalePoint(circle.center)[0], graphie.scalePoint(circle.center)[1], graphie.scaleVector(circle.radius)[0]).attr({
+	            "stroke-width": 20,
+	            "opacity": 0.002 });
+
+	        // Highlight circle circumference on center point hover
+	        // This is as close to 0 as MSIE will allow
+	        if (!circle.centerConstraints.fixed) {
+	            $(circle.centerPoint.mouseTarget.getMouseTarget()).on("vmouseover vmouseout", function (event) {
+	                if (circle.centerPoint.highlight || circle.centerPoint.dragging) {
+	                    circle.circ.animate(circle.circleHighlightStyle, 50);
+	                } else {
+	                    circle.circ.animate(circle.circleNormalStyle, 50);
+	                }
+	            });
+	        }
+
+	        circle.toFront = function () {
+	            circle.circ.toFront();
+	            circle.perim.toFront();
+	            circle.centerPoint.visibleShape.toFront();
+	            if (!circle.centerConstraints.fixed) {
+	                circle.centerPoint.mouseTarget.toFront();
+	            }
+	        };
+
+	        circle.centerPoint.onMove = function (x, y) {
+	            circle.toFront();
+	            circle.circ.attr({
+	                cx: graphie.scalePoint(x)[0],
+	                cy: graphie.scalePoint(y)[1]
+	            });
+	            circle.perim.attr({
+	                cx: graphie.scalePoint(x)[0],
+	                cy: graphie.scalePoint(y)[1]
+	            });
+	            if (circle.onMove) {
+	                circle.onMove(x, y);
+	            }
+	        };
+
+	        $(circle.centerPoint).on("move", function () {
+	            circle.center = this.coord;
+	            $(circle).trigger("move");
+	        });
+
+	        // circle.setCenter(x, y) moves the circle to the specified
+	        // x, y coordinate as if the user had dragged it there.
+	        circle.setCenter = function (x, y) {
+	            circle.centerPoint.setCoord([x, y]);
+	            circle.centerPoint.onMove(x, y);
+	            circle.center = [x, y];
+	        };
+
+	        // circle.setRadius(r) sets the circle's radius to the specified
+	        // value as if the user had dragged it there.
+	        circle.setRadius = function (r) {
+	            circle.radius = r;
+
+	            circle.perim.attr({
+	                r: graphie.scaleVector(r)[0]
+	            });
+	            circle.circ.attr({
+	                rx: graphie.scaleVector(r)[0],
+	                ry: graphie.scaleVector(r)[1]
+	            });
+	        };
+
+	        circle.remove = function () {
+	            circle.centerPoint.remove();
+	            circle.circ.remove();
+	            circle.perim.remove();
+	        };
+
+	        $(circle.perim[0]).css("cursor", "move");
+	        $(circle.perim[0]).on("vmouseover vmouseout vmousedown", function (event) {
+	            if (event.type === "vmouseover") {
+	                circle.highlight = true;
+	                if (!dragging) {
+	                    // TODO(jack): Figure out why this doesn't work
+	                    // for circleHighlightStyle's that change
+	                    // stroke-dasharray
+	                    circle.circ.animate(circle.circleHighlightStyle, 50);
+	                    circle.centerPoint.visibleShape.animate(circle.centerHighlightStyle, 50);
+	                }
+	            } else if (event.type === "vmouseout") {
+	                circle.highlight = false;
+	                if (!circle.dragging && !circle.centerPoint.dragging) {
+	                    circle.circ.animate(circle.circleNormalStyle, 50);
+	                    circle.centerPoint.visibleShape.animate(circle.centerNormalStyle, 50);
+	                }
+	            } else if (event.type === "vmousedown" && (event.which === 1 || event.which === 0)) {
+	                (function () {
+	                    event.preventDefault();
+	                    circle.toFront();
+	                    var startRadius = circle.radius;
+
+	                    $(document).on("vmousemove vmouseup", function (event) {
+	                        event.preventDefault();
+	                        circle.dragging = true;
+	                        dragging = true;
+
+	                        if (event.type === "vmousemove") {
+	                            var coord = graphie.constrainToBounds(graphie.getMouseCoord(event), 10);
+
+	                            var radius = GraphUtils.getDistance(circle.centerPoint.coord, coord);
+	                            radius = Math.max(circle.minRadius, Math.round(radius / circle.snapRadius) * circle.snapRadius);
+	                            var oldRadius = circle.radius;
+	                            var doResize = true;
+	                            if (circle.onResize) {
+	                                var onResizeResult = circle.onResize(radius, oldRadius);
+	                                if (_.isNumber(onResizeResult)) {
+	                                    radius = onResizeResult;
+	                                } else if (onResizeResult === false) {
+	                                    doResize = false;
+	                                }
+	                            }
+	                            if (doResize) {
+	                                circle.setRadius(radius);
+	                                $(circle).trigger("move");
+	                            }
+	                        } else if (event.type === "vmouseup") {
+	                            $(document).off("vmousemove vmouseup");
+	                            circle.dragging = false;
+	                            dragging = false;
+	                            if (circle.onResizeEnd) {
+	                                circle.onResizeEnd(circle.radius, startRadius);
+	                            }
+	                        }
+	                    });
+	                })();
+	            }
+	        });
+
+	        return circle;
+	    },
+
+	    addRotateHandle: function () {
+	        var drawRotateHandle = function drawRotateHandle(graphie, center, radius, halfWidth, lengthAngle, angle, interacting) {
+	            var getRotateHandlePoint = function getRotateHandlePoint(offset, distanceFromArrowMidline) {
+	                var distFromRotationCenter = radius + distanceFromArrowMidline;
+	                var vec = kvector.cartFromPolarDeg([distFromRotationCenter, angle + offset]);
+	                var absolute = kvector.add(center, vec);
+	                var pixels = graphie.scalePoint(absolute);
+	                return pixels[0] + "," + pixels[1];
+	            };
+
+	            var innerR = graphie.scaleVector(radius - halfWidth);
+	            var outerR = graphie.scaleVector(radius + halfWidth);
+
+	            // Draw the double-headed arrow thing that shows users where to
+	            // click and drag to rotate
+	            return graphie.raphael.path(
+	            // upper arrowhead
+	            " M" + getRotateHandlePoint(lengthAngle, -halfWidth) + " L" + getRotateHandlePoint(lengthAngle, -3 * halfWidth) + " L" + getRotateHandlePoint(2 * lengthAngle, 0) + " L" + getRotateHandlePoint(lengthAngle, 3 * halfWidth) + " L" + getRotateHandlePoint(lengthAngle, halfWidth) +
+	            // outer arc
+	            " A" + outerR[0] + "," + outerR[1] + ",0,0,1," + getRotateHandlePoint(-lengthAngle, halfWidth) +
+	            // lower arrowhead
+	            " L" + getRotateHandlePoint(-lengthAngle, 3 * halfWidth) + " L" + getRotateHandlePoint(-2 * lengthAngle, 0) + " L" + getRotateHandlePoint(-lengthAngle, -3 * halfWidth) + " L" + getRotateHandlePoint(-lengthAngle, -halfWidth) +
+	            // inner arc
+	            " A" + innerR[0] + "," + innerR[1] + ",0,0,0," + getRotateHandlePoint(lengthAngle, -halfWidth) + " Z").attr({
+	                stroke: null,
+	                fill: interacting ? KhanColors.INTERACTING : KhanColors.INTERACTIVE
+	            });
+	        };
+
+	        return function (options) {
+	            var graph = this;
+
+	            var rotatePoint = options.center;
+	            var radius = options.radius;
+	            var lengthAngle = options.lengthAngle || 30;
+	            var hideArrow = options.hideArrow || false;
+	            var mouseTarget = options.mouseTarget;
+	            var id = _.uniqueId("rotateHandle");
+
+	            // Normalize rotatePoint into something that always looks
+	            // like a movablePoint
+	            if (_.isArray(rotatePoint)) {
+	                rotatePoint = {
+	                    coord: rotatePoint
+	                };
+	            }
+
+	            var rotateHandle = graph.addMovablePoint({
+	                coord: kpoint.addVector(rotatePoint.coord, kvector.cartFromPolarDeg(radius, options.angleDeg || 0)),
+	                constraints: {
+	                    fixedDistance: {
+	                        dist: radius,
+	                        point: rotatePoint
+	                    }
+	                },
+	                mouseTarget: mouseTarget
+	            });
+
+	            // move the rotatePoint in front of the rotateHandle to avoid
+	            // confusing clicking/scaling of the rotateHandle when the user
+	            // intends to click on the rotatePoint
+	            rotatePoint.toFront();
+
+	            var rotatePointPrevCoord = rotatePoint.coord;
+	            var rotateHandlePrevCoord = rotateHandle.coord;
+	            var rotateHandleStartCoord = rotateHandlePrevCoord;
+	            var isRotating = false;
+	            var isHovering = false;
+	            var drawnRotateHandle = void 0;
+
+	            var redrawRotateHandle = function redrawRotateHandle(handleCoord) {
+	                if (hideArrow) {
+	                    return; // Don't draw anything!
+	                }
+
+	                var handleVec = kvector.subtract(handleCoord, rotatePoint.coord);
+	                var handlePolar = kvector.polarDegFromCart(handleVec);
+	                var angle = handlePolar[1];
+
+	                if (drawnRotateHandle) {
+	                    drawnRotateHandle.remove();
+	                }
+
+	                drawnRotateHandle = drawRotateHandle(graph, rotatePoint.coord, options.radius, isRotating || isHovering ? options.hoverWidth / 2 : options.width / 2, lengthAngle, angle, isRotating || isHovering);
+	            };
+
+	            // when the rotation center moves, we need to move
+	            // the rotationHandle as well, or it will end up out
+	            // of sync
+	            $(rotatePoint).on("move." + id, function () {
+	                var delta = kvector.subtract(rotatePoint.coord, rotatePointPrevCoord);
+
+	                rotateHandle.setCoord(kvector.add(rotateHandle.coord, delta));
+
+	                redrawRotateHandle(rotateHandle.coord);
+
+	                rotatePointPrevCoord = rotatePoint.coord;
+	                rotateHandle.constraints.fixedDistance.point = rotatePoint;
+	                rotateHandlePrevCoord = rotateHandle.coord;
+	            });
+
+	            // Rotate polygon with rotateHandle
+	            rotateHandle.onMove = function (x, y) {
+	                if (!isRotating) {
+	                    rotateHandleStartCoord = rotateHandlePrevCoord;
+	                    isRotating = true;
+	                }
+
+	                var coord = [x, y];
+
+	                if (options.onMove) {
+	                    var oldPolar = kvector.polarDegFromCart(kvector.subtract(rotateHandlePrevCoord, rotatePoint.coord));
+	                    var newPolar = kvector.polarDegFromCart(kvector.subtract(coord, rotatePoint.coord));
+
+	                    var oldAngle = oldPolar[1];
+	                    var newAngle = newPolar[1];
+	                    var result = options.onMove(newAngle, oldAngle);
+	                    if (result != null && result !== true) {
+	                        if (result === false) {
+	                            result = oldAngle;
+	                        }
+	                        coord = kvector.add(rotatePoint.coord, kvector.cartFromPolarDeg([oldPolar[0], result]));
+	                    }
+	                }
+
+	                redrawRotateHandle(coord);
+
+	                rotateHandlePrevCoord = coord;
+	                return coord;
+	            };
+
+	            rotateHandle.onMoveEnd = function () {
+	                isRotating = false;
+	                redrawRotateHandle(rotateHandle.coord);
+	                if (options.onMoveEnd) {
+	                    var oldPolar = kvector.polarDegFromCart(kvector.subtract(rotateHandleStartCoord, rotatePoint.coord));
+	                    var newPolar = kvector.polarDegFromCart(kvector.subtract(rotateHandle.coord, rotatePoint.coord));
+	                    options.onMoveEnd(newPolar[1], oldPolar[1]);
+	                }
+	            };
+
+	            // Remove the default dot added by the movablePoint since we have
+	            // our double-arrow thing
+	            rotateHandle.visibleShape.remove();
+
+	            if (!mouseTarget) {
+	                // Make the default mouse target bigger to encompass the whole
+	                // area around the double-arrow thing
+	                rotateHandle.mouseTarget.attr({ scale: 2 });
+	            }
+
+	            var $mouseTarget = $(rotateHandle.mouseTarget.getMouseTarget());
+	            $mouseTarget.bind("vmouseover", function (e) {
+	                isHovering = true;
+	                redrawRotateHandle(rotateHandle.coord);
+	            });
+	            $mouseTarget.bind("vmouseout", function (e) {
+	                isHovering = false;
+	                redrawRotateHandle(rotateHandle.coord);
+	            });
+
+	            redrawRotateHandle(rotateHandle.coord);
+
+	            var oldRemove = rotateHandle.remove;
+	            rotateHandle.remove = function () {
+	                oldRemove.call(rotateHandle);
+	                if (drawnRotateHandle) {
+	                    drawnRotateHandle.remove();
+	                }
+	                $(rotatePoint).off("move." + id);
+	            };
+
+	            rotateHandle.update = function () {
+	                redrawRotateHandle(rotateHandle.coord);
+	            };
+
+	            return rotateHandle;
+	        };
+	    }(),
+
+	    addReflectButton: function () {
+	        var drawButton = function drawButton(graphie, buttonCoord, lineCoords, size, distanceFromCenter, leftStyle, rightStyle) {
+
+	            // Avoid invalid lines
+	            if (kpoint.equal(lineCoords[0], lineCoords[1])) {
+	                lineCoords = [lineCoords[0], kpoint.addVector(lineCoords[0], [1, 1])];
+	            }
+
+	            var lineDirection = kvector.normalize(kvector.subtract(lineCoords[1], lineCoords[0]));
+
+	            var lineVec = kvector.scale(lineDirection, size / 2);
+
+	            var centerVec = kvector.scale(lineDirection, distanceFromCenter);
+	            var leftCenterVec = kvector.rotateDeg(centerVec, 90);
+	            var rightCenterVec = kvector.rotateDeg(centerVec, -90);
+
+	            var negLineVec = kvector.negate(lineVec);
+	            var leftVec = kvector.rotateDeg(lineVec, 90);
+	            var rightVec = kvector.rotateDeg(lineVec, -90);
+
+	            var leftCenter = kpoint.addVectors(buttonCoord, leftCenterVec);
+	            var rightCenter = kpoint.addVectors(buttonCoord, rightCenterVec);
+
+	            var leftCoord1 = kpoint.addVectors(buttonCoord, leftCenterVec, lineVec, leftVec);
+	            var leftCoord2 = kpoint.addVectors(buttonCoord, leftCenterVec, negLineVec, leftVec);
+	            var rightCoord1 = kpoint.addVectors(buttonCoord, rightCenterVec, lineVec, rightVec);
+	            var rightCoord2 = kpoint.addVectors(buttonCoord, rightCenterVec, negLineVec, rightVec);
+
+	            var leftButton = graphie.path([leftCenter, leftCoord1, leftCoord2, true], leftStyle);
+	            var rightButton = graphie.path([rightCenter, rightCoord1, rightCoord2, true], rightStyle);
+
+	            return {
+	                remove: function remove() {
+	                    leftButton.remove();
+	                    rightButton.remove();
+	                }
+	            };
+	        };
+
+	        return function (options) {
+	            var graphie = this;
+
+	            var line = options.line;
+
+	            var button = graphie.addMovablePoint({
+	                constraints: options.constraints,
+	                coord: kline.midpoint([line.pointA.coord, line.pointZ.coord]),
+	                snapX: graphie.snap[0],
+	                snapY: graphie.snap[1],
+	                onMove: function onMove(x, y) {
+	                    // Don't allow the button to actually move. This is a hack
+	                    // around the inability to both set a point as fixed AND
+	                    // allow it to be clicked.
+	                    return false;
+	                },
+	                onMoveEnd: function onMoveEnd(x, y) {
+	                    if (options.onMoveEnd) {
+	                        options.onMoveEnd.call(this, x, y);
+	                    }
+	                }
+	            });
+
+	            var isHovering = false;
+	            var isFlipped = false;
+	            var currentlyDrawnButton = void 0;
+
+	            var isHighlight = function isHighlight() {
+	                return isHovering;
+	            };
+
+	            var styles = _.map([0, 1], function (isHighlight) {
+	                var baseStyle = isHighlight ? options.highlightStyle : options.normalStyle;
+
+	                return _.map([0, 1], function (opacity) {
+	                    return _.defaults({
+	                        "fill-opacity": opacity
+	                    }, baseStyle);
+	                });
+	            });
+
+	            var getStyle = function getStyle(isRight) {
+	                if (isFlipped) {
+	                    isRight = !isRight;
+	                }
+	                return styles[+isHighlight()][+isRight];
+	            };
+
+	            var redraw = function redraw(coord, lineCoords) {
+	                if (currentlyDrawnButton) {
+	                    currentlyDrawnButton.remove();
+	                }
+	                currentlyDrawnButton = drawButton(graphie, coord, lineCoords, isHighlight() ? options.size * 1.5 : options.size, isHighlight() ? options.size * 0.125 : 0.25, getStyle(0), getStyle(1));
+	            };
+
+	            var update = function update(coordA, coordZ) {
+	                coordA = coordA || line.pointA.coord;
+	                coordZ = coordZ || line.pointZ.coord;
+
+	                var buttonCoord = kline.midpoint([coordA, coordZ]);
+	                button.setCoord(buttonCoord);
+
+	                redraw(buttonCoord, [coordA, coordZ]);
+	            };
+
+	            $(line).on("move", _.bind(update, button, null, null));
+
+	            var $mouseTarget = $(button.mouseTarget.getMouseTarget());
+	            $mouseTarget.on("vclick", function () {
+	                var result = options.onClick();
+	                if (result !== false) {
+	                    isFlipped = !isFlipped;
+	                    redraw(button.coord, [line.pointA.coord, line.pointZ.coord]);
+	                }
+	            });
+
+	            // Bring the reflection line handles in front of the button, so
+	            // that if we drag the reflectPoints really close together, we can
+	            // still move the handles away from each other, rather than only
+	            // being able to apply the reflection.
+	            line.pointA.toFront();
+	            line.pointZ.toFront();
+
+	            // Replace the visual point with the double triangle thing
+	            button.visibleShape.remove();
+	            var pointScale = graphie.scaleVector(options.size)[0] / 20;
+	            button.mouseTarget.attr({ scale: 1.5 * pointScale });
+	            $mouseTarget.css("cursor", "pointer");
+
+	            // Make the arrow-thing grow and shrink with mouseover/out
+	            $mouseTarget.bind("vmouseover", function (e) {
+	                isHovering = true;
+	                redraw(button.coord, [line.pointA.coord, line.pointZ.coord]);
+	            });
+	            $mouseTarget.bind("vmouseout", function (e) {
+	                isHovering = false;
+	                redraw(button.coord, [line.pointA.coord, line.pointZ.coord]);
+	            });
+
+	            var oldButtonRemove = button.remove;
+	            button.remove = function () {
+	                currentlyDrawnButton.remove();
+	                oldButtonRemove.call(button);
+	            };
+
+	            button.update = update;
+	            button.isFlipped = function () {
+	                return isFlipped;
+	            };
+
+	            update();
+	            return button;
+	        };
+	    }(),
+
+	    protractor: function protractor(center) {
+	        return new Protractor(this, center);
+	    },
+
+	    ruler: function ruler(options) {
+	        return new Ruler(this, options || {});
+	    },
+
+	    addPoints: addPoints
+	});
+
+	function Protractor(graph, center) {
+	    this.set = graph.raphael.set();
+
+	    this.cx = center[0];
+	    this.cy = center[1];
+	    var pro = this;
+
+	    var r = graph.unscaleVector(180.5)[0];
+	    var imgPos = graph.scalePoint([this.cx - r, this.cy + r - graph.unscaleVector(10.5)[1]]);
+	    this.set.push(graph.mouselayer.image("https://ka-perseus-graphie.s3.amazonaws.com/e9d032f2ab8b95979f674fbfa67056442ba1ff6a.png", imgPos[0], imgPos[1], 360, 180));
+
+	    var arrowHelper = function arrowHelper(angle, pixelsFromEdge) {
+	        var scaledRadius = graph.scaleVector(r);
+	        scaledRadius[0] -= 16;
+	        scaledRadius[1] -= 16;
+	        var scaledCenter = graph.scalePoint(center);
+	        var x = Math.sin((angle + 90) * Math.PI / 180) * (scaledRadius[0] + pixelsFromEdge) + scaledCenter[0];
+	        var y = Math.cos((angle + 90) * Math.PI / 180) * (scaledRadius[1] + pixelsFromEdge) + scaledCenter[1];
+	        return x + "," + y;
+	    };
+
+	    var arrow = graph.raphael.path(" M" + arrowHelper(180, 6) + " L" + arrowHelper(180, 2) + " L" + arrowHelper(183, 10) + " L" + arrowHelper(180, 18) + " L" + arrowHelper(180, 14) + " A" + (graph.scaleVector(r)[0] + 10) + "," + (graph.scaleVector(r)[1] + 10) + ",0,0,1," + arrowHelper(170, 14) + " L" + arrowHelper(170, 18) + " L" + arrowHelper(167, 10) + " L" + arrowHelper(170, 2) + " L" + arrowHelper(170, 6) + " A" + (graph.scaleVector(r)[0] + 10) + "," + (graph.scaleVector(r)[1] + 10) + ",0,0,0," + arrowHelper(180, 6) + " Z").attr({
+	        "stroke": null,
+	        "fill": KhanColors.INTERACTIVE
+	    });
+
+	    // add it to the set so it translates with everything else
+	    this.set.push(arrow);
+
+	    this.centerPoint = graph.addMovablePoint({
+	        coord: center,
+	        visible: false
+	    });
+
+	    // Use a movablePoint for rotation
+	    this.rotateHandle = graph.addMovablePoint({
+	        coord: [Math.sin(275 * Math.PI / 180) * (r + 0.5) + this.cx, Math.cos(275 * Math.PI / 180) * (r + 0.5) + this.cy],
+	        onMove: function onMove(x, y) {
+	            var angle = Math.atan2(pro.centerPoint.coord[1] - y, pro.centerPoint.coord[0] - x) * 180 / Math.PI;
+	            pro.rotate(-angle - 5, true);
+	        }
+	    });
+
+	    // Add a constraint so the point moves in a circle
+	    this.rotateHandle.constraints.fixedDistance.dist = r + 0.5;
+	    this.rotateHandle.constraints.fixedDistance.point = this.centerPoint;
+
+	    // Remove the default dot added by the movablePoint since we have our double-arrow thing
+	    this.rotateHandle.visibleShape.remove();
+	    // Make the mouse target bigger to encompass the whole area around the double-arrow thing
+	    this.rotateHandle.mouseTarget.attr({ scale: 2.0 });
+
+	    var isDragging = false;
+	    var isHovering = false;
+	    var isHighlight = function isHighlight() {
+	        return isHovering || isDragging;
+	    };
+
+	    var self = this;
+	    var $mouseTarget = $(self.rotateHandle.mouseTarget.getMouseTarget());
+	    $mouseTarget.bind("vmousedown", function (event) {
+	        isDragging = true;
+	        arrow.animate({ scale: 1.5, fill: KhanColors.INTERACTING }, 50);
+
+	        $(document).bind("vmouseup.rotateHandle", function (event) {
+	            isDragging = false;
+
+	            if (!isHighlight()) {
+	                arrow.animate({ scale: 1.0, fill: KhanColors.INTERACTIVE }, 50);
+	            }
+
+	            $(document).unbind("vmouseup.rotateHandle");
+	        });
+	    });
+
+	    $mouseTarget.bind("vmouseover", function (event) {
+	        isHovering = true;
+	        arrow.animate({ scale: 1.5, fill: KhanColors.INTERACTING }, 50);
+	    });
+	    $mouseTarget.bind("vmouseout", function (event) {
+	        isHovering = false;
+	        if (!isHighlight()) {
+	            arrow.animate({ scale: 1.0, fill: KhanColors.INTERACTIVE }, 50);
+	        }
+	    });
+
+	    var setNodes = $.map(this.set, function (el) {
+	        return el.node;
+	    });
+	    this.makeTranslatable = function makeTranslatable() {
+	        $(setNodes).css("cursor", "move");
+
+	        $(setNodes).bind("vmousedown", function (event) {
+	            event.preventDefault();
+	            var startx = event.pageX - $(graph.raphael.canvas.parentNode).offset().left;
+	            var starty = event.pageY - $(graph.raphael.canvas.parentNode).offset().top;
+
+	            $(document).bind("vmousemove.protractor", function (event) {
+	                var mouseX = event.pageX - $(graph.raphael.canvas.parentNode).offset().left;
+	                var mouseY = event.pageY - $(graph.raphael.canvas.parentNode).offset().top;
+	                // can't go beyond 10 pixels from the edge
+	                mouseX = Math.max(10, Math.min(graph.xpixels - 10, mouseX));
+	                mouseY = Math.max(10, Math.min(graph.ypixels - 10, mouseY));
+
+	                var dx = mouseX - startx;
+	                var dy = mouseY - starty;
+
+	                $.each(pro.set.items, function () {
+	                    this.translate(dx, dy);
+	                });
+	                pro.centerPoint.setCoord([pro.centerPoint.coord[0] + dx / graph.scale[0], pro.centerPoint.coord[1] - dy / graph.scale[1]]);
+	                pro.rotateHandle.setCoord([pro.rotateHandle.coord[0] + dx / graph.scale[0], pro.rotateHandle.coord[1] - dy / graph.scale[1]]);
+	                startx = mouseX;
+	                starty = mouseY;
+	            });
+
+	            $(document).one("vmouseup", function (event) {
+	                $(document).unbind("vmousemove.protractor");
+	            });
+	        });
+	    };
+
+	    this.rotation = 0;
+
+	    this.rotate = function (offset, absolute) {
+	        var center = graph.scalePoint(this.centerPoint.coord);
+
+	        if (absolute) {
+	            this.rotation = 0;
+	        }
+
+	        this.set.rotate(this.rotation + offset, center[0], center[1]);
+	        this.rotation = this.rotation + offset;
+
+	        return this;
+	    };
+
+	    this.moveTo = function moveTo(x, y) {
+	        var start = graph.scalePoint(pro.centerPoint.coord);
+	        var end = graph.scalePoint([x, y]);
+	        var time = GraphUtils.getDistance(start, end) * 2;
+
+	        $({ x: start[0], y: start[1] }).animate({ x: end[0], y: end[1] }, {
+	            duration: time,
+	            step: function step(now, fx) {
+	                var dx = 0;
+	                var dy = 0;
+	                if (fx.prop === "x") {
+	                    dx = now - graph.scalePoint(pro.centerPoint.coord)[0];
+	                } else if (fx.prop === "y") {
+	                    dy = now - graph.scalePoint(pro.centerPoint.coord)[1];
+	                }
+	                $.each(pro.set.items, function () {
+	                    this.translate(dx, dy);
+	                });
+	                pro.centerPoint.setCoord([pro.centerPoint.coord[0] + dx / graph.scale[0], pro.centerPoint.coord[1] - dy / graph.scale[1]]);
+	                pro.rotateHandle.setCoord([pro.rotateHandle.coord[0] + dx / graph.scale[0], pro.rotateHandle.coord[1] - dy / graph.scale[1]]);
+	            }
+	        });
+	    };
+
+	    this.rotateTo = function rotateTo(angle) {
+	        if (Math.abs(this.rotation - angle) > 180) {
+	            this.rotation += 360;
+	        }
+	        var time = Math.abs(this.rotation - angle) * 5;
+	        $({ 0: this.rotation }).animate({ 0: angle }, {
+	            duration: time,
+	            step: function step(now, fx) {
+	                pro.rotate(now, true);
+	                pro.rotateHandle.setCoord([Math.sin((now + 275) * Math.PI / 180) * (r + 0.5) + pro.centerPoint.coord[0], Math.cos((now + 275) * Math.PI / 180) * (r + 0.5) + pro.centerPoint.coord[1]]);
+	            }
+	        });
+	    };
+
+	    this.remove = function () {
+	        this.set.remove();
+	    };
+
+	    this.makeTranslatable();
+	    return this;
+	}
+
+	function Ruler(graphie, options) {
+	    _.defaults(options, {
+	        center: [0, 0],
+	        pixelsPerUnit: 40,
+	        ticksPerUnit: 10, // 10 or power of 2
+	        units: 10, // the length the ruler can measure
+	        label: "", // e.g "cm" (the shorter, the better)
+	        style: {
+	            fill: null,
+	            stroke: KhanColors.GRAY
+	        }
+	    });
+
+	    var light = _.extend({}, options.style, { strokeWidth: 1 });
+	    var bold = _.extend({}, options.style, { strokeWidth: 2 });
+
+	    var width = options.units * options.pixelsPerUnit;
+	    var height = 50;
+
+	    var leftBottom = graphie.unscalePoint(kvector.subtract(graphie.scalePoint(options.center), kvector.scale([width, -height], 0.5)));
+
+	    var graphieUnitsPerUnit = options.pixelsPerUnit / graphie.scale[0];
+	    var graphieUnitsHeight = height / graphie.scale[0];
+
+	    var rightTop = kvector.add(leftBottom, [options.units * graphieUnitsPerUnit, graphieUnitsHeight]);
+
+	    var tickHeight = 1.0;
+	    var tickHeightMap = void 0;
+
+	    if (options.ticksPerUnit === 10) {
+	        // decimal, as on a centimeter ruler
+	        tickHeightMap = {
+	            10: tickHeight,
+	            5: tickHeight * 0.55,
+	            1: tickHeight * 0.35
+	        };
+	    } else {
+	        var sizes = [1, 0.6, 0.45, 0.3];
+
+	        tickHeightMap = {};
+	        for (var i = options.ticksPerUnit; i >= 1; i /= 2) {
+	            tickHeightMap[i] = tickHeight * (sizes.shift() || 0.2);
+	        }
+	    }
+
+	    var tickFrequencies = _.keys(tickHeightMap).sort(function (a, b) {
+	        return b - a;
+	    });
+
+	    function getTickHeight(i) {
+	        for (var k = 0; k < tickFrequencies.length; k++) {
+	            var key = tickFrequencies[k];
+	            if (i % key === 0) {
+	                return tickHeightMap[key];
+	            }
+	        }
+	    }
+
+	    var left = leftBottom[0];
+	    var bottom = leftBottom[1];
+	    var right = rightTop[0];
+	    var top = rightTop[1];
+
+	    var numTicks = options.units * options.ticksPerUnit + 1;
+
+	    var set = graphie.raphael.set();
+
+	    var px = 1 / graphie.scale[0];
+	    set.push(graphie.line([left - px, bottom], [right + px, bottom], bold));
+	    set.push(graphie.line([left - px, top], [right + px, top], bold));
+
+	    _.times(numTicks, function (i) {
+	        var n = i / options.ticksPerUnit;
+	        var x = left + n * graphieUnitsPerUnit;
+	        var height = getTickHeight(i) * graphieUnitsHeight;
+
+	        var style = i === 0 || i === numTicks - 1 ? bold : light;
+	        set.push(graphie.line([x, bottom], [x, bottom + height], style));
+
+	        if (n % 1 === 0) {
+	            var coord = graphie.scalePoint([x, top]);
+	            var text = void 0;
+	            var offset = void 0;
+
+	            if (n === 0) {
+	                // Unit label
+	                text = options.label;
+	                offset = {
+	                    mm: 13,
+	                    cm: 11,
+	                    m: 8,
+	                    km: 11,
+	                    in: 8,
+	                    ft: 8,
+	                    yd: 10,
+	                    mi: 10
+	                }[text] || 3 * text.toString().length;
+	            } else {
+	                // Tick label
+	                text = n;
+	                offset = -3 * (n.toString().length + 1);
+	            }
+	            var label = graphie.raphael.text(coord[0] + offset, coord[1] + 10, text);
+	            label.attr({
+	                "font-family": "KaTeX_Main",
+	                "font-size": "12px",
+	                "color": "#444"
+	            });
+	            set.push(label);
+	        }
+	    });
+
+	    var mouseTarget = graphie.mouselayer.path(GraphUtils.svgPath([leftBottom, [left, top], rightTop, [right, bottom], /* closed */true]));
+	    mouseTarget.attr({
+	        fill: "#000",
+	        opacity: 0,
+	        stroke: "#000",
+	        "stroke-width": 2
+	    });
+	    set.push(mouseTarget);
+
+	    var setNodes = $.map(set, function (el) {
+	        return el.node;
+	    });
+	    $(setNodes).css("cursor", "move");
+
+	    $(setNodes).bind("vmousedown", function (event) {
+	        event.preventDefault();
+	        var startx = event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;
+	        var starty = event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;
+
+	        $(document).bind("vmousemove.ruler", function (event) {
+	            var mouseX = event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;
+	            var mouseY = event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;
+	            // can't go beyond 10 pixels from the edge
+	            mouseX = Math.max(10, Math.min(graphie.xpixels - 10, mouseX));
+	            mouseY = Math.max(10, Math.min(graphie.ypixels - 10, mouseY));
+
+	            var dx = mouseX - startx;
+	            var dy = mouseY - starty;
+
+	            set.translate(dx, dy);
+	            leftBottomHandle.setCoord([leftBottomHandle.coord[0] + dx / graphie.scale[0], leftBottomHandle.coord[1] - dy / graphie.scale[1]]);
+	            rightBottomHandle.setCoord([rightBottomHandle.coord[0] + dx / graphie.scale[0], rightBottomHandle.coord[1] - dy / graphie.scale[1]]);
+
+	            startx = mouseX;
+	            starty = mouseY;
+	        });
+
+	        $(document).one("vmouseup", function (event) {
+	            $(document).unbind("vmousemove.ruler");
+	        });
+	    });
+
+	    var leftBottomHandle = graphie.addMovablePoint({
+	        coord: leftBottom,
+	        normalStyle: {
+	            fill: KhanColors.INTERACTIVE,
+	            "fill-opacity": 0,
+	            stroke: KhanColors.INTERACTIVE
+	        },
+	        highlightStyle: {
+	            fill: KhanColors.INTERACTING,
+	            "fill-opacity": 0.1,
+	            stroke: KhanColors.INTERACTING
+	        },
+	        pointSize: 6, // or 8 maybe?
+	        onMove: function onMove(x, y) {
+	            var dy = rightBottomHandle.coord[1] - y;
+	            var dx = rightBottomHandle.coord[0] - x;
+	            var angle = Math.atan2(dy, dx) * 180 / Math.PI;
+	            var center = kvector.scale(kvector.add([x, y], rightBottomHandle.coord), 0.5);
+	            var scaledCenter = graphie.scalePoint(center);
+	            var oldCenter = kvector.scale(kvector.add(leftBottomHandle.coord, rightBottomHandle.coord), 0.5);
+	            var scaledOldCenter = graphie.scalePoint(oldCenter);
+	            var diff = kvector.subtract(scaledCenter, scaledOldCenter);
+	            set.rotate(-angle, scaledOldCenter[0], scaledOldCenter[1]);
+	            set.translate(diff[0], diff[1]);
+	        }
+	    });
+	    var rightBottomHandle = graphie.addMovablePoint({
+	        coord: [right, bottom],
+	        normalStyle: {
+	            fill: KhanColors.INTERACTIVE,
+	            "fill-opacity": 0,
+	            stroke: KhanColors.INTERACTIVE
+	        },
+	        highlightStyle: {
+	            fill: KhanColors.INTERACTING,
+	            "fill-opacity": 0.1,
+	            stroke: KhanColors.INTERACTING
+	        },
+	        pointSize: 6, // or 8 maybe?
+	        onMove: function onMove(x, y) {
+	            var dy = y - leftBottomHandle.coord[1];
+	            var dx = x - leftBottomHandle.coord[0];
+	            var angle = Math.atan2(dy, dx) * 180 / Math.PI;
+	            var center = kvector.scale(kvector.add([x, y], leftBottomHandle.coord), 0.5);
+	            var scaledCenter = graphie.scalePoint(center);
+	            var oldCenter = kvector.scale(kvector.add(leftBottomHandle.coord, rightBottomHandle.coord), 0.5);
+	            var scaledOldCenter = graphie.scalePoint(oldCenter);
+	            var diff = kvector.subtract(scaledCenter, scaledOldCenter);
+	            set.rotate(-angle, scaledOldCenter[0], scaledOldCenter[1]);
+	            set.translate(diff[0], diff[1]);
+	        }
+	    });
+
+	    // Make each handle rotate the ruler about the other one
+	    leftBottomHandle.constraints.fixedDistance.dist = width / graphie.scale[0];
+	    leftBottomHandle.constraints.fixedDistance.point = rightBottomHandle;
+	    rightBottomHandle.constraints.fixedDistance.dist = width / graphie.scale[0];
+	    rightBottomHandle.constraints.fixedDistance.point = leftBottomHandle;
+
+	    this.remove = function () {
+	        set.remove();
+	        leftBottomHandle.remove();
+	        rightBottomHandle.remove();
+	    };
+
+	    return this;
+	}
+
+	function MovableAngle(graphie, options) {
+	    this.graphie = graphie;
+
+	    // TODO(alex): Move standard colors from math.js to somewhere else
+	    // so that they are available when this file is first parsed
+	    _.extend(this, options);
+	    _.defaults(this, {
+	        normalStyle: {
+	            "stroke": KhanColors.INTERACTIVE,
+	            "stroke-width": 2,
+	            "fill": KhanColors.INTERACTIVE
+	        },
+	        highlightStyle: {
+	            "stroke": KhanColors.INTERACTING,
+	            "stroke-width": 2,
+	            "fill": KhanColors.INTERACTING
+	        },
+	        labelStyle: {
+	            "stroke": KhanColors.DYNAMIC,
+	            "stroke-width": 1,
+	            "color": KhanColors.DYNAMIC
+	        },
+	        angleStyle: {
+	            "stroke": KhanColors.DYNAMIC,
+	            "stroke-width": 1,
+	            "color": KhanColors.DYNAMIC
+	        },
+	        allowReflex: true });
+
+	    // not on MovableAngle.prototype so that
+	    // it is not overridden by undefined
+	    if (!this.points || this.points.length !== 3) {
+	        throw new Error("MovableAngle requires 3 points");
+	    }
+
+	    // Handle coordinates that are not MovablePoints (i.e. [2, 4])
+	    this.points = _.map(options.points, function (point) {
+	        if (_.isArray(point)) {
+	            return graphie.addMovablePoint({
+	                coord: point,
+	                visible: false,
+	                constraints: {
+	                    fixed: true
+	                },
+	                normalStyle: this.normalStyle
+	            });
+	        } else {
+	            return point;
+	        }
+	    }, this);
+	    this.coords = _.pluck(this.points, "coord");
+	    if (this.reflex == null) {
+	        if (this.allowReflex) {
+	            this.reflex = this._getClockwiseAngle(this.coords) > 180;
+	        } else {
+	            this.reflex = false;
+	        }
+	    }
+
+	    this.rays = _.map([0, 2], function (i) {
+	        return graphie.addMovableLineSegment({
+	            pointA: this.points[1],
+	            pointZ: this.points[i],
+	            fixed: true,
+	            extendRay: true
+	        });
+	    }, this);
+
+	    this.temp = [];
+	    this.labeledAngle = graphie.label([0, 0], "", "center", this.labelStyle);
+
+	    if (!this.fixed) {
+	        this.addMoveHandlers();
+	        this.addHighlightHandlers();
+	    }
+	    this.update();
+	}
+
+	_.extend(MovableAngle.prototype, {
+	    points: [],
+	    snapDegrees: 0,
+	    snapOffsetDeg: 0,
+	    angleLabel: "",
+	    numArcs: 1,
+	    pushOut: 0,
+	    fixed: false,
+
+	    addMoveHandlers: function addMoveHandlers() {
+	        var graphie = this.graphie;
+
+	        function tooClose(point1, point2) {
+	            var safeDistance = 30;
+	            var distance = GraphUtils.getDistance(graphie.scalePoint(point1), graphie.scalePoint(point2));
+	            return distance < safeDistance;
+	        }
+
+	        var points = this.points;
+
+	        // Drag the vertex to move the entire angle
+	        points[1].onMove = function (x, y) {
+	            var oldVertex = points[1].coord;
+	            var newVertex = [x, y];
+	            var delta = addPoints(newVertex, reverseVector(oldVertex));
+
+	            var valid = true;
+	            var newPoints = {};
+	            _.each([0, 2], function (i) {
+	                var oldPoint = points[i].coord;
+	                var newPoint = addPoints(oldPoint, delta);
+
+	                var angle = GraphUtils.findAngle(newVertex, newPoint);
+	                angle *= Math.PI / 180;
+	                newPoint = graphie.constrainToBoundsOnAngle(newPoint, 10, angle);
+	                newPoints[i] = newPoint;
+
+	                if (tooClose(newVertex, newPoint)) {
+	                    valid = false;
+	                }
+	            });
+
+	            // Only move points if all new positions are valid
+	            if (valid) {
+	                _.each(newPoints, function (newPoint, i) {
+	                    points[i].setCoord(newPoint);
+	                });
+	            }
+	            return valid;
+	        };
+
+	        var snap = this.snapDegrees;
+	        var snapOffset = this.snapOffsetDeg;
+
+	        // Drag ray control points to move each ray individually
+	        _.each([0, 2], function (i) {
+	            points[i].onMove = function (x, y) {
+	                var newPoint = [x, y];
+	                var vertex = points[1].coord;
+
+	                if (tooClose(vertex, newPoint)) {
+	                    return false;
+	                } else if (snap) {
+	                    var angle = GraphUtils.findAngle(newPoint, vertex);
+	                    angle = Math.round((angle - snapOffset) / snap) * snap + snapOffset;
+	                    var distance = GraphUtils.getDistance(newPoint, vertex);
+	                    return addPoints(vertex, graphie.polar(distance, angle));
+	                } else {
+	                    return true;
+	                }
+	            };
+	        });
+
+	        // Expose only a single move event
+	        $(points).on("move", function () {
+	            this.update();
+	            $(this).trigger("move");
+	        }.bind(this));
+	    },
+
+	    addHighlightHandlers: function addHighlightHandlers() {
+	        var vertex = this.points[1];
+
+	        vertex.onHighlight = function () {
+	            _.each(this.points, function (point) {
+	                point.visibleShape.animate(this.highlightStyle, 50);
+	            }, this);
+	            _.each(this.rays, function (ray) {
+	                ray.visibleLine.animate(this.highlightStyle, 50);
+	                ray.arrowStyle = _.extend({}, ray.arrowStyle, {
+	                    "color": this.highlightStyle.stroke,
+	                    "stroke": this.highlightStyle.stroke
+	                });
+	            }, this);
+
+	            this.angleStyle = _.extend({}, this.angleStyle, {
+	                "color": this.highlightStyle.stroke,
+	                "stroke": this.highlightStyle.stroke
+	            });
+	            this.update();
+	        }.bind(this);
+
+	        vertex.onUnhighlight = function () {
+	            _.each(this.points, function (point) {
+	                point.visibleShape.animate(this.normalStyle, 50);
+	            }, this);
+	            _.each(this.rays, function (ray) {
+	                ray.visibleLine.animate(ray.normalStyle, 50);
+	                ray.arrowStyle = _.extend({}, ray.arrowStyle, {
+	                    "color": ray.normalStyle.stroke,
+	                    "stroke": ray.normalStyle.stroke
+	                });
+	            }, this);
+
+	            this.angleStyle = _.extend({}, this.angleStyle, {
+	                "color": KhanColors.DYNAMIC,
+	                "stroke": KhanColors.DYNAMIC
+	            });
+	            this.update();
+	        }.bind(this);
+	    },
+
+	    /**
 	     * Returns the angle in [0, 360) degrees created by the
 	     * coords when interpreted in a clockwise direction.
-	     */_getClockwiseAngle:function _getClockwiseAngle(coords){var clockwiseAngle=(GraphUtils.findAngle(// The order of these is "weird" to match what a clockwise
-	// order is in graphie.labelAngle
-	coords[2],// from the second point
-	coords[0],// clockwise to the first point
-	coords[1]// the vertex parameter is last
-	)+360)%360;return clockwiseAngle;},isReflex:function isReflex(){return this.reflex;},isClockwise:function isClockwise(){var clockwiseReflexive=this._getClockwiseAngle(this.coords)>180;return clockwiseReflexive===this.reflex;},getClockwiseCoords:function getClockwiseCoords(){if(this.isClockwise()){return _.clone(this.coords);}else{return _.clone(this.coords).reverse();}},update:function update(shouldChangeReflexivity){var prevCoords=this.coords;this.coords=_.pluck(this.points,"coord");// Update lines
-	_.invoke(this.points,"updateLineEnds");var prevAngle=this._getClockwiseAngle(prevCoords);var angle=this._getClockwiseAngle(this.coords);var prevClockwiseReflexive=prevAngle>180;var clockwiseReflexive=angle>180;if(this.allowReflex){if(shouldChangeReflexivity==null){shouldChangeReflexivity=prevClockwiseReflexive!==clockwiseReflexive&&Math.abs(angle-prevAngle)<180;}if(shouldChangeReflexivity){this.reflex=!this.reflex;}}_.invoke(this.temp,"remove");this.temp=this.graphie.labelAngle({point1:this.coords[0],vertex:this.coords[1],point3:this.coords[2],label:this.labeledAngle,text:this.angleLabel,numArcs:this.numArcs,pushOut:this.pushOut,clockwise:this.reflex===clockwiseReflexive,style:this.angleStyle});},remove:function remove(){_.invoke(this.rays,"remove");_.invoke(this.temp,"remove");this.labeledAngle.remove();}});module.exports=InteractiveUtils;
+	     */
+	    _getClockwiseAngle: function _getClockwiseAngle(coords) {
+	        var clockwiseAngle = (GraphUtils.findAngle(
+	        // The order of these is "weird" to match what a clockwise
+	        // order is in graphie.labelAngle
+	        coords[2], // from the second point
+	        coords[0], // clockwise to the first point
+	        coords[1] // the vertex parameter is last
+	        ) + 360) % 360;
+
+	        return clockwiseAngle;
+	    },
+
+	    isReflex: function isReflex() {
+	        return this.reflex;
+	    },
+
+	    isClockwise: function isClockwise() {
+	        var clockwiseReflexive = this._getClockwiseAngle(this.coords) > 180;
+	        return clockwiseReflexive === this.reflex;
+	    },
+
+	    getClockwiseCoords: function getClockwiseCoords() {
+	        if (this.isClockwise()) {
+	            return _.clone(this.coords);
+	        } else {
+	            return _.clone(this.coords).reverse();
+	        }
+	    },
+
+	    update: function update(shouldChangeReflexivity) {
+	        var prevCoords = this.coords;
+	        this.coords = _.pluck(this.points, "coord");
+
+	        // Update lines
+	        _.invoke(this.points, "updateLineEnds");
+
+	        var prevAngle = this._getClockwiseAngle(prevCoords);
+	        var angle = this._getClockwiseAngle(this.coords);
+	        var prevClockwiseReflexive = prevAngle > 180;
+	        var clockwiseReflexive = angle > 180;
+
+	        if (this.allowReflex) {
+	            if (shouldChangeReflexivity == null) {
+	                shouldChangeReflexivity = prevClockwiseReflexive !== clockwiseReflexive && Math.abs(angle - prevAngle) < 180;
+	            }
+
+	            if (shouldChangeReflexivity) {
+	                this.reflex = !this.reflex;
+	            }
+	        }
+
+	        _.invoke(this.temp, "remove");
+	        this.temp = this.graphie.labelAngle({
+	            point1: this.coords[0],
+	            vertex: this.coords[1],
+	            point3: this.coords[2],
+	            label: this.labeledAngle,
+	            text: this.angleLabel,
+	            numArcs: this.numArcs,
+	            pushOut: this.pushOut,
+	            clockwise: this.reflex === clockwiseReflexive,
+	            style: this.angleStyle
+	        });
+	    },
+
+	    remove: function remove() {
+	        _.invoke(this.rays, "remove");
+	        _.invoke(this.temp, "remove");
+	        this.labeledAngle.remove();
+	    }
+	});
+
+	module.exports = InteractiveUtils;
 
 /***/ },
 /* 210 */
@@ -55571,8 +58364,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                // If the option wasn't checked, but was correct, we need to tell
 	                // the user that this was, in fact, the correct answer.
 	            } else if (_this.props.correct) {
-	                return i18n._("(Choice %(letter)s, Correct Answer)", { letter: letter });
-	            }
+	                    return i18n._("(Choice %(letter)s, Correct Answer)", { letter: letter });
+	                }
 
 	            return i18n._("(Choice %(letter)s)", { letter: letter });
 	        };
@@ -56420,6 +59213,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    null,
 	                    "\u2192"
 	                ) }],
+
+	            /*
+	            TODO(eater): fix khan-exercises so these are supported
+	            {value: "<-", content: <span>&#x2190;</span>},
+	            {value: "<->", content: <span>&#x2194;</span>}
+	            */
 	            onChange: this.props.onChange
 	        });
 	    };
@@ -56453,7 +59252,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _require = __webpack_require__(183),
 	    ChangeableProps = _require.ChangeableProps;
 
-	var KhanColors = __webpack_require__(198);
+	var KhanColors = __webpack_require__(197);
 
 	var COLORS = [KhanColors.BLACK, KhanColors.BLUE, KhanColors.GREEN, KhanColors.PINK, KhanColors.PURPLE, KhanColors.RED, KhanColors.GRAY];
 
@@ -56522,7 +59321,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    ChangeableProps = _require.ChangeableProps,
 	    change = _require.change;
 
-	var MathInput = __webpack_require__(189);
+	var MathInput = __webpack_require__(191);
 	var NumberInput = __webpack_require__(186);
 
 	var ConstraintEditor = function (_React$Component) {
@@ -58803,8 +61602,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        e.stopPropagation();
 
 	        // Update the handle-less cursor's location on move, if there's any
-	        // content in the box.
-	        if (this.mathField.getContent() !== "") {
+	        // content in the box. Note that if the user touched outside the keypad
+	        // (e.g., with a different finger) during this touch interaction, we
+	        // may have blurred, in which case we should ignore the touch (since
+	        // the cursor is no longer visible and the input is no longer
+	        // highlighted).
+	        if (this.mathField.getContent() !== "" && this.state.focused) {
 	            var touch = e.changedTouches[0];
 	            this._insertCursorAtClosestNode(touch.clientX, touch.clientY);
 	        }
@@ -58812,8 +61615,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    handleTouchEnd: function handleTouchEnd(e) {
 	        e.stopPropagation();
 
-	        // And on touch-end, reveal the cursor, unless the input is empty.
-	        if (this.mathField.getContent() !== "") {
+	        // And on touch-end, reveal the cursor, unless the input is empty. Note
+	        // that if the user touched outside the keypad (e.g., with a different
+	        // finger) during this touch interaction, we may have blurred, in which
+	        // case we should ignore the touch (since the cursor is no longer
+	        // visible and the input is no longer highlighted).
+	        if (this.mathField.getContent() !== "" && this.state.focused) {
 	            this._updateCursorHandle();
 	        }
 	    },
@@ -59037,3647 +61844,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 224 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule AtomicBlockUtils
-	 * @typechecks
-	 * 
-	 */
-
-	'use strict';
-
-	var BlockMapBuilder = __webpack_require__(225);
-	var CharacterMetadata = __webpack_require__(226);
-	var ContentBlock = __webpack_require__(228);
-	var DraftModifier = __webpack_require__(234);
-	var EditorState = __webpack_require__(237);
-	var Immutable = __webpack_require__(247);
-
-	var generateRandomKey = __webpack_require__(244);
-
-	var List = Immutable.List;
-	var Repeat = Immutable.Repeat;
-
-	var AtomicBlockUtils = {
-	  insertAtomicBlock: function insertAtomicBlock(editorState, entityKey, character) {
-	    var contentState = editorState.getCurrentContent();
-	    var selectionState = editorState.getSelection();
-
-	    var afterRemoval = DraftModifier.removeRange(contentState, selectionState, 'backward');
-
-	    var targetSelection = afterRemoval.getSelectionAfter();
-	    var afterSplit = DraftModifier.splitBlock(afterRemoval, targetSelection);
-	    var insertionTarget = afterSplit.getSelectionAfter();
-
-	    var asAtomicBlock = DraftModifier.setBlockType(afterSplit, insertionTarget, 'atomic');
-
-	    var charData = CharacterMetadata.create({ entity: entityKey });
-
-	    var fragmentArray = [new ContentBlock({
-	      key: generateRandomKey(),
-	      type: 'atomic',
-	      text: character,
-	      characterList: List(Repeat(charData, character.length))
-	    }), new ContentBlock({
-	      key: generateRandomKey(),
-	      type: 'unstyled',
-	      text: '',
-	      characterList: List()
-	    })];
-
-	    var fragment = BlockMapBuilder.createFromArray(fragmentArray);
-
-	    var withAtomicBlock = DraftModifier.replaceWithFragment(asAtomicBlock, insertionTarget, fragment);
-
-	    var newContent = withAtomicBlock.merge({
-	      selectionBefore: selectionState,
-	      selectionAfter: withAtomicBlock.getSelectionAfter().set('hasFocus', true)
-	    });
-
-	    return EditorState.push(editorState, newContent, 'insert-fragment');
-	  }
-	};
-
-	module.exports = AtomicBlockUtils;
-
-/***/ },
-/* 225 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule BlockMapBuilder
-	 * 
-	 */
-
-	'use strict';
-
-	var Immutable = __webpack_require__(247);
-
-	var OrderedMap = Immutable.OrderedMap;
-
-	var BlockMapBuilder = {
-	  createFromArray: function createFromArray(blocks) {
-	    return OrderedMap(blocks.map(function (block) {
-	      return [block.getKey(), block];
-	    }));
-	  }
-	};
-
-	module.exports = BlockMapBuilder;
-
-/***/ },
-/* 226 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule CharacterMetadata
-	 * @typechecks
-	 * 
-	 */
-
-	'use strict';
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _require = __webpack_require__(247);
-
-	var Map = _require.Map;
-	var OrderedSet = _require.OrderedSet;
-	var Record = _require.Record;
-
-	var EMPTY_SET = OrderedSet();
-
-	var defaultRecord = {
-	  style: EMPTY_SET,
-	  entity: null
-	};
-
-	var CharacterMetadataRecord = Record(defaultRecord);
-
-	var CharacterMetadata = (function (_CharacterMetadataRecord) {
-	  _inherits(CharacterMetadata, _CharacterMetadataRecord);
-
-	  function CharacterMetadata() {
-	    _classCallCheck(this, CharacterMetadata);
-
-	    _get(Object.getPrototypeOf(CharacterMetadata.prototype), 'constructor', this).apply(this, arguments);
-	  }
-
-	  _createClass(CharacterMetadata, [{
-	    key: 'getStyle',
-	    value: function getStyle() {
-	      return this.get('style');
-	    }
-	  }, {
-	    key: 'getEntity',
-	    value: function getEntity() {
-	      return this.get('entity');
-	    }
-	  }, {
-	    key: 'hasStyle',
-	    value: function hasStyle(style) {
-	      return this.getStyle().has(style);
-	    }
-	  }], [{
-	    key: 'applyStyle',
-	    value: function applyStyle(record, style) {
-	      var withStyle = record.set('style', record.getStyle().add(style));
-	      return CharacterMetadata.create(withStyle);
-	    }
-	  }, {
-	    key: 'removeStyle',
-	    value: function removeStyle(record, style) {
-	      var withoutStyle = record.set('style', record.getStyle().remove(style));
-	      return CharacterMetadata.create(withoutStyle);
-	    }
-	  }, {
-	    key: 'applyEntity',
-	    value: function applyEntity(record, entityKey) {
-	      var withEntity = record.getEntity() === entityKey ? record : record.set('entity', entityKey);
-	      return CharacterMetadata.create(withEntity);
-	    }
-
-	    /**
-	     * Use this function instead of the `CharacterMetadata` constructor.
-	     * Since most content generally uses only a very small number of
-	     * style/entity permutations, we can reuse these objects as often as
-	     * possible.
-	     */
-	  }, {
-	    key: 'create',
-	    value: function create(config) {
-	      if (!config) {
-	        return EMPTY;
-	      }
-
-	      // Fill in unspecified properties, if necessary.
-	      var configMap = Map({ style: EMPTY_SET, entity: null }).merge(config);
-
-	      var existing = pool.get(configMap);
-	      if (existing) {
-	        return existing;
-	      }
-
-	      var newCharacter = new CharacterMetadata(configMap);
-	      pool = pool.set(configMap, newCharacter);
-	      return newCharacter;
-	    }
-	  }]);
-
-	  return CharacterMetadata;
-	})(CharacterMetadataRecord);
-
-	var EMPTY = new CharacterMetadata();
-	var pool = Map([[Map(defaultRecord), EMPTY]]);
-
-	CharacterMetadata.EMPTY = EMPTY;
-
-	module.exports = CharacterMetadata;
-
-/***/ },
-/* 227 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule CompositeDraftDecorator
-	 * @typechecks
-	 * 
-	 */
-
-	'use strict';
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	var Immutable = __webpack_require__(247);
-
-	var List = Immutable.List;
-
-	var DELIMITER = '.';
-
-	/**
-	 * A CompositeDraftDecorator traverses through a list of DraftDecorator
-	 * instances to identify sections of a ContentBlock that should be rendered
-	 * in a "decorated" manner. For example, hashtags, mentions, and links may
-	 * be intended to stand out visually, be rendered as anchors, etc.
-	 *
-	 * The list of decorators supplied to the constructor will be used in the
-	 * order they are provided. This allows the caller to specify a priority for
-	 * string matching, in case of match collisions among decorators.
-	 *
-	 * For instance, I may have a link with a `#` in its text. Though this section
-	 * of text may match our hashtag decorator, it should not be treated as a
-	 * hashtag. I should therefore list my link DraftDecorator
-	 * before my hashtag DraftDecorator when constructing this composite
-	 * decorator instance.
-	 *
-	 * Thus, when a collision like this is encountered, the earlier match is
-	 * preserved and the new match is discarded.
-	 */
-
-	var CompositeDraftDecorator = (function () {
-	  function CompositeDraftDecorator(decorators) {
-	    _classCallCheck(this, CompositeDraftDecorator);
-
-	    // Copy the decorator array, since we use this array order to determine
-	    // precedence of decoration matching. If the array is mutated externally,
-	    // we don't want to be affected here.
-	    this._decorators = decorators.slice();
-	  }
-
-	  /**
-	   * Determine whether we can occupy the specified slice of the decorations
-	   * array.
-	   */
-
-	  _createClass(CompositeDraftDecorator, [{
-	    key: 'getDecorations',
-	    value: function getDecorations(block) {
-	      var decorations = Array(block.getText().length).fill(null);
-
-	      this._decorators.forEach(function ( /*object*/decorator, /*number*/ii) {
-	        var counter = 0;
-	        var strategy = decorator.strategy;
-	        strategy(block, function ( /*number*/start, /*number*/end) {
-	          // Find out if any of our matching range is already occupied
-	          // by another decorator. If so, discard the match. Otherwise, store
-	          // the component key for rendering.
-	          if (canOccupySlice(decorations, start, end)) {
-	            occupySlice(decorations, start, end, ii + DELIMITER + counter);
-	            counter++;
-	          }
-	        });
-	      });
-
-	      return List(decorations);
-	    }
-	  }, {
-	    key: 'getComponentForKey',
-	    value: function getComponentForKey(key) {
-	      var componentKey = parseInt(key.split(DELIMITER)[0], 10);
-	      return this._decorators[componentKey].component;
-	    }
-	  }, {
-	    key: 'getPropsForKey',
-	    value: function getPropsForKey(key) {
-	      var componentKey = parseInt(key.split(DELIMITER)[0], 10);
-	      return this._decorators[componentKey].props;
-	    }
-	  }]);
-
-	  return CompositeDraftDecorator;
-	})();
-
-	function canOccupySlice(decorations, start, end) {
-	  for (var ii = start; ii < end; ii++) {
-	    if (decorations[ii] != null) {
-	      return false;
-	    }
-	  }
-	  return true;
-	}
-
-	/**
-	 * Splice the specified component into our decoration array at the desired
-	 * range.
-	 */
-	function occupySlice(targetArr, start, end, componentKey) {
-	  for (var ii = start; ii < end; ii++) {
-	    targetArr[ii] = componentKey;
-	  }
-	}
-
-	module.exports = CompositeDraftDecorator;
-
-/***/ },
-/* 228 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule ContentBlock
-	 * @typechecks
-	 * 
-	 */
-
-	'use strict';
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Immutable = __webpack_require__(247);
-
-	var findRangesImmutable = __webpack_require__(271);
-
-	var List = Immutable.List;
-	var OrderedSet = Immutable.OrderedSet;
-	var Record = Immutable.Record;
-
-	var EMPTY_SET = OrderedSet();
-
-	var defaultRecord = {
-	  key: '',
-	  type: 'unstyled',
-	  text: '',
-	  characterList: List(),
-	  depth: 0
-	};
-
-	var ContentBlockRecord = Record(defaultRecord);
-
-	var ContentBlock = (function (_ContentBlockRecord) {
-	  _inherits(ContentBlock, _ContentBlockRecord);
-
-	  function ContentBlock() {
-	    _classCallCheck(this, ContentBlock);
-
-	    _get(Object.getPrototypeOf(ContentBlock.prototype), 'constructor', this).apply(this, arguments);
-	  }
-
-	  _createClass(ContentBlock, [{
-	    key: 'getKey',
-	    value: function getKey() {
-	      return this.get('key');
-	    }
-	  }, {
-	    key: 'getType',
-	    value: function getType() {
-	      return this.get('type');
-	    }
-	  }, {
-	    key: 'getText',
-	    value: function getText() {
-	      return this.get('text');
-	    }
-	  }, {
-	    key: 'getCharacterList',
-	    value: function getCharacterList() {
-	      return this.get('characterList');
-	    }
-	  }, {
-	    key: 'getLength',
-	    value: function getLength() {
-	      return this.getText().length;
-	    }
-	  }, {
-	    key: 'getDepth',
-	    value: function getDepth() {
-	      return this.get('depth');
-	    }
-	  }, {
-	    key: 'getInlineStyleAt',
-	    value: function getInlineStyleAt(offset) {
-	      var character = this.getCharacterList().get(offset);
-	      return character ? character.getStyle() : EMPTY_SET;
-	    }
-	  }, {
-	    key: 'getEntityAt',
-	    value: function getEntityAt(offset) {
-	      var character = this.getCharacterList().get(offset);
-	      return character ? character.getEntity() : null;
-	    }
-
-	    /**
-	     * Execute a callback for every contiguous range of styles within the block.
-	     */
-	  }, {
-	    key: 'findStyleRanges',
-	    value: function findStyleRanges(filterFn, callback) {
-	      findRangesImmutable(this.getCharacterList(), haveEqualStyle, filterFn, callback);
-	    }
-
-	    /**
-	     * Execute a callback for every contiguous range of entities within the block.
-	     */
-	  }, {
-	    key: 'findEntityRanges',
-	    value: function findEntityRanges(filterFn, callback) {
-	      findRangesImmutable(this.getCharacterList(), haveEqualEntity, filterFn, callback);
-	    }
-	  }]);
-
-	  return ContentBlock;
-	})(ContentBlockRecord);
-
-	function haveEqualStyle(charA, charB) {
-	  return charA.getStyle() === charB.getStyle();
-	}
-
-	function haveEqualEntity(charA, charB) {
-	  return charA.getEntity() === charB.getEntity();
-	}
-
-	module.exports = ContentBlock;
-
-/***/ },
-/* 229 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule ContentState
-	 * @typechecks
-	 * 
-	 */
-
-	'use strict';
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x2, _x3, _x4) { var _again = true; _function: while (_again) { var object = _x2, property = _x3, receiver = _x4; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x2 = parent; _x3 = property; _x4 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var BlockMapBuilder = __webpack_require__(225);
-	var CharacterMetadata = __webpack_require__(226);
-	var ContentBlock = __webpack_require__(228);
-	var Immutable = __webpack_require__(247);
-	var SelectionState = __webpack_require__(240);
-
-	var generateRandomKey = __webpack_require__(244);
-	var sanitizeDraftText = __webpack_require__(272);
-
-	var List = Immutable.List;
-	var Record = Immutable.Record;
-	var Repeat = Immutable.Repeat;
-
-	var defaultRecord = {
-	  blockMap: null,
-	  selectionBefore: null,
-	  selectionAfter: null
-	};
-
-	var ContentStateRecord = Record(defaultRecord);
-
-	var ContentState = (function (_ContentStateRecord) {
-	  _inherits(ContentState, _ContentStateRecord);
-
-	  function ContentState() {
-	    _classCallCheck(this, ContentState);
-
-	    _get(Object.getPrototypeOf(ContentState.prototype), 'constructor', this).apply(this, arguments);
-	  }
-
-	  _createClass(ContentState, [{
-	    key: 'getBlockMap',
-	    value: function getBlockMap() {
-	      return this.get('blockMap');
-	    }
-	  }, {
-	    key: 'getSelectionBefore',
-	    value: function getSelectionBefore() {
-	      return this.get('selectionBefore');
-	    }
-	  }, {
-	    key: 'getSelectionAfter',
-	    value: function getSelectionAfter() {
-	      return this.get('selectionAfter');
-	    }
-	  }, {
-	    key: 'getBlockForKey',
-	    value: function getBlockForKey(key) {
-	      var block = this.getBlockMap().get(key);
-	      return block;
-	    }
-	  }, {
-	    key: 'getKeyBefore',
-	    value: function getKeyBefore(key) {
-	      return this.getBlockMap().reverse().keySeq().skipUntil(function (v) {
-	        return v === key;
-	      }).skip(1).first();
-	    }
-	  }, {
-	    key: 'getKeyAfter',
-	    value: function getKeyAfter(key) {
-	      return this.getBlockMap().keySeq().skipUntil(function (v) {
-	        return v === key;
-	      }).skip(1).first();
-	    }
-	  }, {
-	    key: 'getBlockAfter',
-	    value: function getBlockAfter(key) {
-	      return this.getBlockMap().skipUntil(function (_, k) {
-	        return k === key;
-	      }).skip(1).first();
-	    }
-	  }, {
-	    key: 'getBlockBefore',
-	    value: function getBlockBefore(key) {
-	      return this.getBlockMap().reverse().skipUntil(function (_, k) {
-	        return k === key;
-	      }).skip(1).first();
-	    }
-	  }, {
-	    key: 'getBlocksAsArray',
-	    value: function getBlocksAsArray() {
-	      return this.getBlockMap().toArray();
-	    }
-	  }, {
-	    key: 'getFirstBlock',
-	    value: function getFirstBlock() {
-	      return this.getBlockMap().first();
-	    }
-	  }, {
-	    key: 'getLastBlock',
-	    value: function getLastBlock() {
-	      return this.getBlockMap().last();
-	    }
-	  }, {
-	    key: 'getPlainText',
-	    value: function getPlainText(delimiter) {
-	      return this.getBlockMap().map(function (block) {
-	        return block ? block.getText() : '';
-	      }).join(delimiter || '\n');
-	    }
-	  }, {
-	    key: 'hasText',
-	    value: function hasText() {
-	      var blockMap = this.getBlockMap();
-	      return blockMap.size > 1 || blockMap.first().getLength() > 0;
-	    }
-	  }], [{
-	    key: 'createFromBlockArray',
-	    value: function createFromBlockArray(blocks) {
-	      var blockMap = BlockMapBuilder.createFromArray(blocks);
-	      var selectionState = SelectionState.createEmpty(blockMap.first().getKey());
-	      return new ContentState({
-	        blockMap: blockMap,
-	        selectionBefore: selectionState,
-	        selectionAfter: selectionState
-	      });
-	    }
-	  }, {
-	    key: 'createFromText',
-	    value: function createFromText(text) {
-	      var delimiter = arguments.length <= 1 || arguments[1] === undefined ? /\r\n?|\n/g : arguments[1];
-
-	      var strings = text.split(delimiter);
-	      var blocks = strings.map(function (block) {
-	        block = sanitizeDraftText(block);
-	        return new ContentBlock({
-	          key: generateRandomKey(),
-	          text: block,
-	          type: 'unstyled',
-	          characterList: List(Repeat(CharacterMetadata.EMPTY, block.length))
-	        });
-	      });
-	      return ContentState.createFromBlockArray(blocks);
-	    }
-	  }]);
-
-	  return ContentState;
-	})(ContentStateRecord);
-
-	module.exports = ContentState;
-
-/***/ },
-/* 230 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule DefaultDraftBlockRenderMap
-	 * 
-	 */
-
-	'use strict';
-
-	var _require = __webpack_require__(247);
-
-	var Map = _require.Map;
-
-	var React = __webpack_require__(18);
-
-	var cx = __webpack_require__(344);
-
-	var UL_WRAP = React.createElement('ul', { className: cx('public/DraftStyleDefault/ul') });
-	var OL_WRAP = React.createElement('ol', { className: cx('public/DraftStyleDefault/ol') });
-	var PRE_WRAP = React.createElement('pre', { className: cx('public/DraftStyleDefault/pre') });
-
-	module.exports = Map({
-	  'header-one': {
-	    element: 'h1'
-	  },
-	  'header-two': {
-	    element: 'h2'
-	  },
-	  'header-three': {
-	    element: 'h3'
-	  },
-	  'header-four': {
-	    element: 'h4'
-	  },
-	  'header-five': {
-	    element: 'h5'
-	  },
-	  'header-six': {
-	    element: 'h6'
-	  },
-	  'unordered-list-item': {
-	    element: 'li',
-	    wrapper: UL_WRAP
-	  },
-	  'ordered-list-item': {
-	    element: 'li',
-	    wrapper: OL_WRAP
-	  },
-	  'blockquote': {
-	    element: 'blockquote'
-	  },
-	  'atomic': {
-	    element: 'figure'
-	  },
-	  'code-block': {
-	    element: 'pre',
-	    wrapper: PRE_WRAP
-	  },
-	  'unstyled': {
-	    element: 'div'
-	  }
-	});
-
-/***/ },
-/* 231 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule DefaultDraftInlineStyle
-	 * 
-	 */
-
-	'use strict';
-
-	module.exports = {
-	  BOLD: {
-	    fontWeight: 'bold'
-	  },
-
-	  CODE: {
-	    fontFamily: 'monospace',
-	    wordWrap: 'break-word'
-	  },
-
-	  ITALIC: {
-	    fontStyle: 'italic'
-	  },
-
-	  STRIKETHROUGH: {
-	    textDecoration: 'line-through'
-	  },
-
-	  UNDERLINE: {
-	    textDecoration: 'underline'
-	  }
-	};
-
-/***/ },
-/* 232 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule DraftEditor.react
-	 * @typechecks
-	 * 
-	 */
-
-	'use strict';
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var DefaultDraftBlockRenderMap = __webpack_require__(230);
-	var DefaultDraftInlineStyle = __webpack_require__(231);
-	var DraftEditorCompositionHandler = __webpack_require__(273);
-	var DraftEditorContents = __webpack_require__(274);
-	var DraftEditorDragHandler = __webpack_require__(275);
-	var DraftEditorEditHandler = __webpack_require__(276);
-	var DraftEditorPlaceholder = __webpack_require__(277);
-	var EditorState = __webpack_require__(237);
-	var React = __webpack_require__(18);
-	var ReactDOM = __webpack_require__(20);
-	var Scroll = __webpack_require__(345);
-	var Style = __webpack_require__(346);
-	var UserAgent = __webpack_require__(347);
-
-	var cx = __webpack_require__(344);
-	var emptyFunction = __webpack_require__(348);
-	var generateRandomKey = __webpack_require__(244);
-	var getDefaultKeyBinding = __webpack_require__(245);
-	var nullthrows = __webpack_require__(349);
-	var getScrollPosition = __webpack_require__(350);
-
-	var isIE = UserAgent.isBrowser('IE');
-
-	// IE does not support the `input` event on contentEditable, so we can't
-	// observe spellcheck behavior.
-	var allowSpellCheck = !isIE;
-
-	// Define a set of handler objects to correspond to each possible `mode`
-	// of editor behavior.
-	var handlerMap = {
-	  'edit': DraftEditorEditHandler,
-	  'composite': DraftEditorCompositionHandler,
-	  'drag': DraftEditorDragHandler,
-	  'cut': null,
-	  'render': null
-	};
-
-	/**
-	 * `DraftEditor` is the root editor component. It composes a `contentEditable`
-	 * div, and provides a wide variety of useful function props for managing the
-	 * state of the editor. See `DraftEditorProps` for details.
-	 */
-
-	var DraftEditor = (function (_React$Component) {
-	  _inherits(DraftEditor, _React$Component);
-
-	  _createClass(DraftEditor, null, [{
-	    key: 'defaultProps',
-	    value: {
-	      blockRenderMap: DefaultDraftBlockRenderMap,
-	      blockRendererFn: emptyFunction.thatReturnsNull,
-	      blockStyleFn: emptyFunction.thatReturns(''),
-	      keyBindingFn: getDefaultKeyBinding,
-	      readOnly: false,
-	      spellCheck: false,
-	      stripPastedStyles: false
-	    },
-	    enumerable: true
-	  }]);
-
-	  function DraftEditor(props) {
-	    var _this = this;
-
-	    _classCallCheck(this, DraftEditor);
-
-	    _get(Object.getPrototypeOf(DraftEditor.prototype), 'constructor', this).call(this, props);
-
-	    this._blockSelectEvents = false;
-	    this._clipboard = null;
-	    this._guardAgainstRender = false;
-	    this._handler = null;
-	    this._dragCount = 0;
-	    this._editorKey = generateRandomKey();
-	    this._placeholderAccessibilityID = 'placeholder-' + this._editorKey;
-
-	    this._onBeforeInput = this._buildHandler('onBeforeInput');
-	    this._onBlur = this._buildHandler('onBlur');
-	    this._onCharacterData = this._buildHandler('onCharacterData');
-	    this._onCompositionEnd = this._buildHandler('onCompositionEnd');
-	    this._onCompositionStart = this._buildHandler('onCompositionStart');
-	    this._onCopy = this._buildHandler('onCopy');
-	    this._onCut = this._buildHandler('onCut');
-	    this._onDragEnd = this._buildHandler('onDragEnd');
-	    this._onDragOver = this._buildHandler('onDragOver');
-	    this._onDragStart = this._buildHandler('onDragStart');
-	    this._onDrop = this._buildHandler('onDrop');
-	    this._onInput = this._buildHandler('onInput');
-	    this._onFocus = this._buildHandler('onFocus');
-	    this._onKeyDown = this._buildHandler('onKeyDown');
-	    this._onKeyPress = this._buildHandler('onKeyPress');
-	    this._onKeyUp = this._buildHandler('onKeyUp');
-	    this._onMouseDown = this._buildHandler('onMouseDown');
-	    this._onMouseUp = this._buildHandler('onMouseUp');
-	    this._onPaste = this._buildHandler('onPaste');
-	    this._onSelect = this._buildHandler('onSelect');
-
-	    // Manual binding for public and internal methods.
-	    this.focus = this._focus.bind(this);
-	    this.blur = this._blur.bind(this);
-	    this.setMode = this._setMode.bind(this);
-	    this.exitCurrentMode = this._exitCurrentMode.bind(this);
-	    this.restoreEditorDOM = this._restoreEditorDOM.bind(this);
-	    this.setRenderGuard = this._setRenderGuard.bind(this);
-	    this.removeRenderGuard = this._removeRenderGuard.bind(this);
-	    this.setClipboard = this._setClipboard.bind(this);
-	    this.getClipboard = this._getClipboard.bind(this);
-	    this.getEditorKey = function () {
-	      return _this._editorKey;
-	    };
-	    this.update = this._update.bind(this);
-	    this.onDragEnter = this._onDragEnter.bind(this);
-	    this.onDragLeave = this._onDragLeave.bind(this);
-
-	    // See `_restoreEditorDOM()`.
-	    this.state = { containerKey: 0 };
-	  }
-
-	  /**
-	   * Build a method that will pass the event to the specified handler method.
-	   * This allows us to look up the correct handler function for the current
-	   * editor mode, if any has been specified.
-	   */
-
-	  _createClass(DraftEditor, [{
-	    key: '_buildHandler',
-	    value: function _buildHandler(eventName) {
-	      var _this2 = this;
-
-	      return function (e) {
-	        if (!_this2.props.readOnly) {
-	          var method = _this2._handler && _this2._handler[eventName];
-	          method && method.call(_this2, e);
-	        }
-	      };
-	    }
-	  }, {
-	    key: '_showPlaceholder',
-	    value: function _showPlaceholder() {
-	      return !!this.props.placeholder && !this.props.editorState.isInCompositionMode() && !this.props.editorState.getCurrentContent().hasText();
-	    }
-	  }, {
-	    key: '_renderPlaceholder',
-	    value: function _renderPlaceholder() {
-	      if (this._showPlaceholder()) {
-	        return React.createElement(DraftEditorPlaceholder, {
-	          text: nullthrows(this.props.placeholder),
-	          editorState: this.props.editorState,
-	          textAlignment: this.props.textAlignment,
-	          accessibilityID: this._placeholderAccessibilityID
-	        });
-	      }
-	      return null;
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var _props = this.props;
-	      var readOnly = _props.readOnly;
-	      var textAlignment = _props.textAlignment;
-
-	      var rootClass = cx({
-	        'DraftEditor/root': true,
-	        'DraftEditor/alignLeft': textAlignment === 'left',
-	        'DraftEditor/alignRight': textAlignment === 'right',
-	        'DraftEditor/alignCenter': textAlignment === 'center'
-	      });
-	      var hasContent = this.props.editorState.getCurrentContent().hasText();
-
-	      var contentStyle = {
-	        outline: 'none',
-	        whiteSpace: 'pre-wrap',
-	        wordWrap: 'break-word'
-	      };
-
-	      return React.createElement(
-	        'div',
-	        { className: rootClass },
-	        this._renderPlaceholder(),
-	        React.createElement(
-	          'div',
-	          {
-	            className: cx('DraftEditor/editorContainer'),
-	            key: 'editor' + this.state.containerKey,
-	            ref: 'editorContainer' },
-	          React.createElement(
-	            'div',
-	            {
-	              'aria-activedescendant': readOnly ? null : this.props.ariaActiveDescendantID,
-	              'aria-autocomplete': readOnly ? null : this.props.ariaAutoComplete,
-	              'aria-describedby': this._showPlaceholder() ? this._placeholderAccessibilityID : null,
-	              'aria-expanded': readOnly ? null : this.props.ariaExpanded,
-	              'aria-haspopup': readOnly ? null : this.props.ariaHasPopup,
-	              'aria-label': this.props.ariaLabel,
-	              'aria-owns': readOnly ? null : this.props.ariaOwneeID,
-	              className: cx('public/DraftEditor/content'),
-	              contentEditable: !readOnly,
-	              'data-testid': this.props.webDriverTestID,
-	              onBeforeInput: this._onBeforeInput,
-	              onBlur: this._onBlur,
-	              onCompositionEnd: this._onCompositionEnd,
-	              onCompositionStart: this._onCompositionStart,
-	              onCopy: this._onCopy,
-	              onCut: this._onCut,
-	              onDragEnd: this._onDragEnd,
-	              onDragEnter: this.onDragEnter,
-	              onDragLeave: this.onDragLeave,
-	              onDragOver: this._onDragOver,
-	              onDragStart: this._onDragStart,
-	              onDrop: this._onDrop,
-	              onFocus: this._onFocus,
-	              onInput: this._onInput,
-	              onKeyDown: this._onKeyDown,
-	              onKeyPress: this._onKeyPress,
-	              onKeyUp: this._onKeyUp,
-	              onMouseUp: this._onMouseUp,
-	              onPaste: this._onPaste,
-	              onSelect: this._onSelect,
-	              ref: 'editor',
-	              role: readOnly ? null : this.props.role || 'textbox',
-	              spellCheck: allowSpellCheck && this.props.spellCheck,
-	              style: contentStyle,
-	              suppressContentEditableWarning: true,
-	              tabIndex: this.props.tabIndex },
-	            React.createElement(DraftEditorContents, {
-	              blockRenderMap: this.props.blockRenderMap,
-	              blockRendererFn: this.props.blockRendererFn,
-	              blockStyleFn: this.props.blockStyleFn,
-	              customStyleMap: _extends({}, DefaultDraftInlineStyle, this.props.customStyleMap),
-	              editorKey: this._editorKey,
-	              editorState: this.props.editorState
-	            })
-	          )
-	        )
-	      );
-	    }
-	  }, {
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      this.setMode('edit');
-
-	      /**
-	       * IE has a hardcoded "feature" that attempts to convert link text into
-	       * anchors in contentEditable DOM. This breaks the editor's expectations of
-	       * the DOM, and control is lost. Disable it to make IE behave.
-	       * See: http://blogs.msdn.com/b/ieinternals/archive/2010/09/15/
-	       * ie9-beta-minor-change-list.aspx
-	       */
-	      if (isIE) {
-	        document.execCommand('AutoUrlDetect', false, false);
-	      }
-	    }
-
-	    /**
-	     * Prevent selection events from affecting the current editor state. This
-	     * is mostly intended to defend against IE, which fires off `selectionchange`
-	     * events regardless of whether the selection is set via the browser or
-	     * programmatically. We only care about selection events that occur because
-	     * of browser interaction, not re-renders and forced selections.
-	     */
-	  }, {
-	    key: 'componentWillUpdate',
-	    value: function componentWillUpdate() {
-	      this._blockSelectEvents = true;
-	    }
-	  }, {
-	    key: 'componentDidUpdate',
-	    value: function componentDidUpdate() {
-	      this._blockSelectEvents = false;
-	    }
-
-	    /**
-	     * Used via `this.focus()`.
-	     *
-	     * Force focus back onto the editor node.
-	     *
-	     * Forcing focus causes the browser to scroll to the top of the editor, which
-	     * may be undesirable when the editor is taller than the viewport. To solve
-	     * this, either use a specified scroll position (in cases like `cut` behavior
-	     * where it should be restored to a known position) or store the current
-	     * scroll state and put it back in place after focus has been forced.
-	     */
-	  }, {
-	    key: '_focus',
-	    value: function _focus(scrollPosition) {
-	      var editorState = this.props.editorState;
-
-	      var alreadyHasFocus = editorState.getSelection().getHasFocus();
-	      var editorNode = ReactDOM.findDOMNode(this.refs.editor);
-
-	      var scrollParent = Style.getScrollParent(editorNode);
-
-	      var _ref = scrollPosition || getScrollPosition(scrollParent);
-
-	      var x = _ref.x;
-	      var y = _ref.y;
-
-	      editorNode.focus();
-	      if (scrollParent === window) {
-	        window.scrollTo(x, y);
-	      } else {
-	        Scroll.setTop(scrollParent, y);
-	      }
-
-	      // On Chrome and Safari, calling focus on contenteditable focuses the
-	      // cursor at the first character. This is something you don't expect when
-	      // you're clicking on an input element but not directly on a character.
-	      // Put the cursor back where it was before the blur.
-	      if (!alreadyHasFocus) {
-	        this.update(EditorState.forceSelection(editorState, editorState.getSelection()));
-	      }
-	    }
-	  }, {
-	    key: '_blur',
-	    value: function _blur() {
-	      ReactDOM.findDOMNode(this.refs.editor).blur();
-	    }
-
-	    /**
-	     * Used via `this.setMode(...)`.
-	     *
-	     * Set the behavior mode for the editor component. This switches the current
-	     * handler module to ensure that DOM events are managed appropriately for
-	     * the active mode.
-	     */
-	  }, {
-	    key: '_setMode',
-	    value: function _setMode(mode) {
-	      this._handler = handlerMap[mode];
-	    }
-	  }, {
-	    key: '_exitCurrentMode',
-	    value: function _exitCurrentMode() {
-	      this.setMode('edit');
-	    }
-
-	    /**
-	     * Used via `this.restoreEditorDOM()`.
-	     *
-	     * Force a complete re-render of the editor based on the current EditorState.
-	     * This is useful when we know we are going to lose control of the DOM
-	     * state (cut command, IME) and we want to make sure that reconciliation
-	     * occurs on a version of the DOM that is synchronized with our EditorState.
-	     */
-	  }, {
-	    key: '_restoreEditorDOM',
-	    value: function _restoreEditorDOM(scrollPosition) {
-	      var _this3 = this;
-
-	      this.setState({ containerKey: this.state.containerKey + 1 }, function () {
-	        _this3._focus(scrollPosition);
-	      });
-	    }
-
-	    /**
-	     * Guard against rendering. Intended for use when we need to manually
-	     * reset editor contents, to ensure that no outside influences lead to
-	     * React reconciliation when we are in an uncertain state.
-	     */
-	  }, {
-	    key: '_setRenderGuard',
-	    value: function _setRenderGuard() {
-	      this._guardAgainstRender = true;
-	    }
-	  }, {
-	    key: '_removeRenderGuard',
-	    value: function _removeRenderGuard() {
-	      this._guardAgainstRender = false;
-	    }
-
-	    /**
-	     * Used via `this.setClipboard(...)`.
-	     *
-	     * Set the clipboard state for a cut/copy event.
-	     */
-	  }, {
-	    key: '_setClipboard',
-	    value: function _setClipboard(clipboard) {
-	      this._clipboard = clipboard;
-	    }
-
-	    /**
-	     * Used via `this.getClipboard()`.
-	     *
-	     * Retrieve the clipboard state for a cut/copy event.
-	     */
-	  }, {
-	    key: '_getClipboard',
-	    value: function _getClipboard() {
-	      return this._clipboard;
-	    }
-
-	    /**
-	     * Used via `this.update(...)`.
-	     *
-	     * Propagate a new `EditorState` object to higher-level components. This is
-	     * the method by which event handlers inform the `DraftEditor` component of
-	     * state changes. A component that composes a `DraftEditor` **must** provide
-	     * an `onChange` prop to receive state updates passed along from this
-	     * function.
-	     */
-	  }, {
-	    key: '_update',
-	    value: function _update(editorState) {
-	      this.props.onChange(editorState);
-	    }
-
-	    /**
-	     * Used in conjunction with `_onDragLeave()`, by counting the number of times
-	     * a dragged element enters and leaves the editor (or any of its children),
-	     * to determine when the dragged element absolutely leaves the editor.
-	     */
-	  }, {
-	    key: '_onDragEnter',
-	    value: function _onDragEnter() {
-	      this._dragCount++;
-	    }
-
-	    /**
-	     * See `_onDragEnter()`.
-	     */
-	  }, {
-	    key: '_onDragLeave',
-	    value: function _onDragLeave() {
-	      this._dragCount--;
-	      if (this._dragCount === 0) {
-	        this.exitCurrentMode();
-	      }
-	    }
-	  }]);
-
-	  return DraftEditor;
-	})(React.Component);
-
-	module.exports = DraftEditor;
-
-	/**
-	 * Define proxies that can route events to the current handler.
-	 */
-
-/***/ },
-/* 233 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule DraftEditorBlock.react
-	 * @typechecks
-	 * 
-	 */
-
-	'use strict';
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var ContentBlock = __webpack_require__(228);
-	var DraftEditorLeaf = __webpack_require__(278);
-	var DraftOffsetKey = __webpack_require__(279);
-	var React = __webpack_require__(18);
-	var ReactDOM = __webpack_require__(20);
-	var Scroll = __webpack_require__(345);
-	var SelectionState = __webpack_require__(240);
-	var Style = __webpack_require__(346);
-	var UnicodeBidi = __webpack_require__(351);
-	var UnicodeBidiDirection = __webpack_require__(352);
-
-	var cx = __webpack_require__(344);
-	var getElementPosition = __webpack_require__(353);
-	var getScrollPosition = __webpack_require__(350);
-	var getViewportDimensions = __webpack_require__(354);
-	var nullthrows = __webpack_require__(349);
-
-	var SCROLL_BUFFER = 10;
-
-	/**
-	 * The default block renderer for a `DraftEditor` component.
-	 *
-	 * A `DraftEditorBlock` is able to render a given `ContentBlock` to its
-	 * appropriate decorator and inline style components.
-	 */
-
-	var DraftEditorBlock = (function (_React$Component) {
-	  _inherits(DraftEditorBlock, _React$Component);
-
-	  function DraftEditorBlock() {
-	    _classCallCheck(this, DraftEditorBlock);
-
-	    _get(Object.getPrototypeOf(DraftEditorBlock.prototype), 'constructor', this).apply(this, arguments);
-	  }
-
-	  /**
-	   * Return whether a block overlaps with either edge of the `SelectionState`.
-	   */
-
-	  _createClass(DraftEditorBlock, [{
-	    key: 'shouldComponentUpdate',
-	    value: function shouldComponentUpdate(nextProps) {
-	      return this.props.block !== nextProps.block || this.props.tree !== nextProps.tree || this.props.direction !== nextProps.direction || isBlockOnSelectionEdge(nextProps.selection, nextProps.block.getKey()) && nextProps.forceSelection;
-	    }
-
-	    /**
-	     * When a block is mounted and overlaps the selection state, we need to make
-	     * sure that the cursor is visible to match native behavior. This may not
-	     * be the case if the user has pressed `RETURN` or pasted some content, since
-	     * programatically creating these new blocks and setting the DOM selection
-	     * will miss out on the browser natively scrolling to that position.
-	     *
-	     * To replicate native behavior, if the block overlaps the selection state
-	     * on mount, force the scroll position. Check the scroll state of the scroll
-	     * parent, and adjust it to align the entire block to the bottom of the
-	     * scroll parent.
-	     */
-	  }, {
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      var selection = this.props.selection;
-	      var endKey = selection.getEndKey();
-	      if (!selection.getHasFocus() || endKey !== this.props.block.getKey()) {
-	        return;
-	      }
-
-	      var blockNode = ReactDOM.findDOMNode(this);
-	      var scrollParent = Style.getScrollParent(blockNode);
-	      var scrollPosition = getScrollPosition(scrollParent);
-	      var scrollDelta;
-
-	      if (scrollParent === window) {
-	        var nodePosition = getElementPosition(blockNode);
-	        var nodeBottom = nodePosition.y + nodePosition.height;
-	        var viewportHeight = getViewportDimensions().height;
-	        scrollDelta = nodeBottom - viewportHeight;
-	        if (scrollDelta > 0) {
-	          window.scrollTo(scrollPosition.x, scrollPosition.y + scrollDelta + SCROLL_BUFFER);
-	        }
-	      } else {
-	        var blockBottom = blockNode.offsetHeight + blockNode.offsetTop;
-	        var scrollBottom = scrollParent.offsetHeight + scrollPosition.y;
-	        scrollDelta = blockBottom - scrollBottom;
-	        if (scrollDelta > 0) {
-	          Scroll.setTop(scrollParent, Scroll.getTop(scrollParent) + scrollDelta + SCROLL_BUFFER);
-	        }
-	      }
-	    }
-	  }, {
-	    key: '_renderChildren',
-	    value: function _renderChildren() {
-	      var _this = this;
-
-	      var block = this.props.block;
-	      var blockKey = block.getKey();
-	      var text = block.getText();
-	      var lastLeafSet = this.props.tree.size - 1;
-	      var hasSelection = isBlockOnSelectionEdge(this.props.selection, blockKey);
-
-	      return this.props.tree.map(function (leafSet, ii) {
-	        var leavesForLeafSet = leafSet.get('leaves');
-	        var lastLeaf = leavesForLeafSet.size - 1;
-	        var leaves = leavesForLeafSet.map(function (leaf, jj) {
-	          var offsetKey = DraftOffsetKey.encode(blockKey, ii, jj);
-	          var start = leaf.get('start');
-	          var end = leaf.get('end');
-	          return React.createElement(DraftEditorLeaf, {
-	            key: offsetKey,
-	            offsetKey: offsetKey,
-	            blockKey: blockKey,
-	            start: start,
-	            selection: hasSelection ? _this.props.selection : undefined,
-	            forceSelection: _this.props.forceSelection,
-	            text: text.slice(start, end),
-	            styleSet: block.getInlineStyleAt(start),
-	            customStyleMap: _this.props.customStyleMap,
-	            isLast: ii === lastLeafSet && jj === lastLeaf
-	          });
-	        }).toArray();
-
-	        var decoratorKey = leafSet.get('decoratorKey');
-	        if (decoratorKey == null) {
-	          return leaves;
-	        }
-
-	        if (!_this.props.decorator) {
-	          return leaves;
-	        }
-
-	        var decorator = nullthrows(_this.props.decorator);
-
-	        var DecoratorComponent = decorator.getComponentForKey(decoratorKey);
-	        if (!DecoratorComponent) {
-	          return leaves;
-	        }
-
-	        var decoratorProps = decorator.getPropsForKey(decoratorKey);
-	        var decoratorOffsetKey = DraftOffsetKey.encode(blockKey, ii, 0);
-	        var decoratedText = text.slice(leavesForLeafSet.first().get('start'), leavesForLeafSet.last().get('end'));
-
-	        // Resetting dir to the same value on a child node makes Chrome/Firefox
-	        // confused on cursor movement. See http://jsfiddle.net/d157kLck/3/
-	        var dir = UnicodeBidiDirection.getHTMLDirIfDifferent(UnicodeBidi.getDirection(decoratedText), _this.props.direction);
-
-	        return React.createElement(
-	          DecoratorComponent,
-	          _extends({}, decoratorProps, {
-	            decoratedText: decoratedText,
-	            dir: dir,
-	            key: decoratorOffsetKey,
-	            entityKey: block.getEntityAt(leafSet.get('start')),
-	            offsetKey: decoratorOffsetKey }),
-	          leaves
-	        );
-	      }).toArray();
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var _props = this.props;
-	      var direction = _props.direction;
-	      var offsetKey = _props.offsetKey;
-
-	      var className = cx({
-	        'public/DraftStyleDefault/block': true,
-	        'public/DraftStyleDefault/ltr': direction === 'LTR',
-	        'public/DraftStyleDefault/rtl': direction === 'RTL'
-	      });
-
-	      return React.createElement(
-	        'div',
-	        { 'data-offset-key': offsetKey, className: className },
-	        this._renderChildren()
-	      );
-	    }
-	  }]);
-
-	  return DraftEditorBlock;
-	})(React.Component);
-
-	function isBlockOnSelectionEdge(selection, key) {
-	  return selection.getAnchorKey() === key || selection.getFocusKey() === key;
-	}
-
-	module.exports = DraftEditorBlock;
-
-/***/ },
-/* 234 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule DraftModifier
-	 * @typechecks
-	 * 
-	 */
-
-	/**
-	 * `DraftModifier` provides a set of convenience methods that apply
-	 * modifications to a `ContentState` object based on a target `SelectionState`.
-	 *
-	 * Any change to a `ContentState` should be decomposable into a series of
-	 * transaction functions that apply the required changes and return output
-	 * `ContentState` objects.
-	 *
-	 * These functions encapsulate some of the most common transaction sequences.
-	 */
-	'use strict';
-
-	var CharacterMetadata = __webpack_require__(226);
-	var ContentStateInlineStyle = __webpack_require__(280);
-
-	var _require = __webpack_require__(247);
-
-	var OrderedSet = _require.OrderedSet;
-
-	var applyEntityToContentState = __webpack_require__(281);
-	var getCharacterRemovalRange = __webpack_require__(282);
-	var getContentStateFragment = __webpack_require__(283);
-	var insertFragmentIntoContentState = __webpack_require__(284);
-	var insertTextIntoContentState = __webpack_require__(285);
-	var invariant = __webpack_require__(355);
-	var removeEntitiesAtEdges = __webpack_require__(286);
-	var removeRangeFromContentState = __webpack_require__(287);
-	var setBlockTypeForContentState = __webpack_require__(288);
-	var splitBlockInContentState = __webpack_require__(289);
-
-	var DraftModifier = {
-	  replaceText: function replaceText(contentState, rangeToReplace, text, inlineStyle, entityKey) {
-	    var withoutEntities = removeEntitiesAtEdges(contentState, rangeToReplace);
-	    var withoutText = removeRangeFromContentState(withoutEntities, rangeToReplace);
-
-	    var character = CharacterMetadata.create({
-	      style: inlineStyle || OrderedSet(),
-	      entity: entityKey || null
-	    });
-
-	    return insertTextIntoContentState(withoutText, withoutText.getSelectionAfter(), text, character);
-	  },
-
-	  insertText: function insertText(contentState, targetRange, text, inlineStyle, entityKey) {
-	    !targetRange.isCollapsed() ? false ? invariant(false, 'Target range must be collapsed for `insertText`.') : invariant(false) : undefined;
-	    return DraftModifier.replaceText(contentState, targetRange, text, inlineStyle, entityKey);
-	  },
-
-	  moveText: function moveText(contentState, removalRange, targetRange) {
-	    var movedFragment = getContentStateFragment(contentState, removalRange);
-
-	    var afterRemoval = DraftModifier.removeRange(contentState, removalRange, 'backward');
-
-	    return DraftModifier.replaceWithFragment(afterRemoval, targetRange, movedFragment);
-	  },
-
-	  replaceWithFragment: function replaceWithFragment(contentState, targetRange, fragment) {
-	    var withoutEntities = removeEntitiesAtEdges(contentState, targetRange);
-	    var withoutText = removeRangeFromContentState(withoutEntities, targetRange);
-
-	    return insertFragmentIntoContentState(withoutText, withoutText.getSelectionAfter(), fragment);
-	  },
-
-	  removeRange: function removeRange(contentState, rangeToRemove, removalDirection) {
-	    // Check whether the selection state overlaps with a single entity.
-	    // If so, try to remove the appropriate substring of the entity text.
-	    if (rangeToRemove.getAnchorKey() === rangeToRemove.getFocusKey()) {
-	      var key = rangeToRemove.getAnchorKey();
-	      var startOffset = rangeToRemove.getStartOffset();
-	      var endOffset = rangeToRemove.getEndOffset();
-	      var block = contentState.getBlockForKey(key);
-
-	      var startEntity = block.getEntityAt(startOffset);
-	      var endEntity = block.getEntityAt(endOffset - 1);
-	      if (startEntity && startEntity === endEntity) {
-	        var adjustedRemovalRange = getCharacterRemovalRange(block, rangeToRemove, removalDirection);
-	        return removeRangeFromContentState(contentState, adjustedRemovalRange);
-	      }
-	    }
-
-	    var withoutEntities = removeEntitiesAtEdges(contentState, rangeToRemove);
-	    return removeRangeFromContentState(withoutEntities, rangeToRemove);
-	  },
-
-	  splitBlock: function splitBlock(contentState, selectionState) {
-	    var withoutEntities = removeEntitiesAtEdges(contentState, selectionState);
-	    var withoutText = removeRangeFromContentState(withoutEntities, selectionState);
-
-	    return splitBlockInContentState(withoutText, withoutText.getSelectionAfter());
-	  },
-
-	  applyInlineStyle: function applyInlineStyle(contentState, selectionState, inlineStyle) {
-	    return ContentStateInlineStyle.add(contentState, selectionState, inlineStyle);
-	  },
-
-	  removeInlineStyle: function removeInlineStyle(contentState, selectionState, inlineStyle) {
-	    return ContentStateInlineStyle.remove(contentState, selectionState, inlineStyle);
-	  },
-
-	  setBlockType: function setBlockType(contentState, selectionState, blockType) {
-	    return setBlockTypeForContentState(contentState, selectionState, blockType);
-	  },
-
-	  applyEntity: function applyEntity(contentState, selectionState, entityKey) {
-	    var withoutEntities = removeEntitiesAtEdges(contentState, selectionState);
-	    return applyEntityToContentState(withoutEntities, selectionState, entityKey);
-	  }
-	};
-
-	module.exports = DraftModifier;
-
-/***/ },
-/* 235 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule DraftEntity
-	 * @typechecks
-	 * 
-	 */
-
-	'use strict';
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var DraftEntityInstance = __webpack_require__(236);
-	var Immutable = __webpack_require__(247);
-
-	var invariant = __webpack_require__(355);
-
-	var Map = Immutable.Map;
-
-	var instances = Map();
-	var instanceKey = 0;
-
-	/**
-	 * A "document entity" is an object containing metadata associated with a
-	 * piece of text in a ContentBlock.
-	 *
-	 * For example, a `link` entity might include a `uri` property. When a
-	 * ContentBlock is rendered in the browser, text that refers to that link
-	 * entity may be rendered as an anchor, with the `uri` as the href value.
-	 *
-	 * In a ContentBlock, every position in the text may correspond to zero
-	 * or one entities. This correspondence is tracked using a key string,
-	 * generated via DraftEntity.create() and used to obtain entity metadata
-	 * via DraftEntity.get().
-	 */
-	var DraftEntity = {
-	  /**
-	   * Create a DraftEntityInstance and store it for later retrieval.
-	   *
-	   * A random key string will be generated and returned. This key may
-	   * be used to track the entity's usage in a ContentBlock, and for
-	   * retrieving data about the entity at render time.
-	   */
-	  create: function create(type, mutability, data) {
-	    return DraftEntity.add(new DraftEntityInstance({ type: type, mutability: mutability, data: data || {} }));
-	  },
-
-	  /**
-	   * Add an existing DraftEntityInstance to the DraftEntity map. This is
-	   * useful when restoring instances from the server.
-	   */
-	  add: function add(instance) {
-	    var key = '' + ++instanceKey;
-	    instances = instances.set(key, instance);
-	    return key;
-	  },
-
-	  /**
-	   * Retrieve the entity corresponding to the supplied key string.
-	   */
-	  get: function get(key) {
-	    var instance = instances.get(key);
-	    !!!instance ? false ? invariant(false, 'Unknown DraftEntity key.') : invariant(false) : undefined;
-	    return instance;
-	  },
-
-	  /**
-	   * Entity instances are immutable. If you need to update the data for an
-	   * instance, this method will merge your data updates and return a new
-	   * instance.
-	   */
-	  mergeData: function mergeData(key, toMerge) {
-	    var instance = DraftEntity.get(key);
-	    var newData = _extends({}, instance.getData(), toMerge);
-	    var newInstance = instance.set('data', newData);
-	    instances = instances.set(key, newInstance);
-	    return newInstance;
-	  },
-
-	  /**
-	   * Completely replace the data for a given instance.
-	   */
-	  replaceData: function replaceData(key, newData) {
-	    var instance = DraftEntity.get(key);
-	    var newInstance = instance.set('data', newData);
-	    instances = instances.set(key, newInstance);
-	    return newInstance;
-	  }
-	};
-
-	module.exports = DraftEntity;
-
-/***/ },
-/* 236 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule DraftEntityInstance
-	 * 
-	 */
-
-	'use strict';
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Immutable = __webpack_require__(247);
-
-	var Record = Immutable.Record;
-
-	var DraftEntityInstanceRecord = Record({
-	  type: 'TOKEN',
-	  mutability: 'IMMUTABLE',
-	  data: Object
-	});
-
-	/**
-	 * An instance of a document entity, consisting of a `type` and relevant
-	 * `data`, metadata about the entity.
-	 *
-	 * For instance, a "link" entity might provide a URI, and a "mention"
-	 * entity might provide the mentioned user's ID. These pieces of data
-	 * may be used when rendering the entity as part of a ContentBlock DOM
-	 * representation. For a link, the data would be used as an href for
-	 * the rendered anchor. For a mention, the ID could be used to retrieve
-	 * a hovercard.
-	 */
-
-	var DraftEntityInstance = (function (_DraftEntityInstanceRecord) {
-	  _inherits(DraftEntityInstance, _DraftEntityInstanceRecord);
-
-	  function DraftEntityInstance() {
-	    _classCallCheck(this, DraftEntityInstance);
-
-	    _get(Object.getPrototypeOf(DraftEntityInstance.prototype), 'constructor', this).apply(this, arguments);
-	  }
-
-	  _createClass(DraftEntityInstance, [{
-	    key: 'getType',
-	    value: function getType() {
-	      return this.get('type');
-	    }
-	  }, {
-	    key: 'getMutability',
-	    value: function getMutability() {
-	      return this.get('mutability');
-	    }
-	  }, {
-	    key: 'getData',
-	    value: function getData() {
-	      return this.get('data');
-	    }
-	  }]);
-
-	  return DraftEntityInstance;
-	})(DraftEntityInstanceRecord);
-
-	module.exports = DraftEntityInstance;
-
-/***/ },
-/* 237 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule EditorState
-	 * 
-	 */
-
-	'use strict';
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	var BlockTree = __webpack_require__(290);
-	var ContentState = __webpack_require__(229);
-	var EditorBidiService = __webpack_require__(291);
-	var Immutable = __webpack_require__(247);
-	var SelectionState = __webpack_require__(240);
-
-	var OrderedSet = Immutable.OrderedSet;
-	var Record = Immutable.Record;
-	var Stack = Immutable.Stack;
-
-	var defaultRecord = {
-	  allowUndo: true,
-	  currentContent: null,
-	  decorator: null,
-	  directionMap: null,
-	  forceSelection: false,
-	  inCompositionMode: false,
-	  inlineStyleOverride: null,
-	  lastChangeType: null,
-	  nativelyRenderedContent: null,
-	  redoStack: Stack(),
-	  selection: null,
-	  treeMap: null,
-	  undoStack: Stack()
-	};
-
-	var EditorStateRecord = Record(defaultRecord);
-
-	var EditorState = (function () {
-	  _createClass(EditorState, [{
-	    key: 'toJS',
-	    value: function toJS() {
-	      return this.getImmutable().toJS();
-	    }
-	  }, {
-	    key: 'getAllowUndo',
-	    value: function getAllowUndo() {
-	      return this.getImmutable().get('allowUndo');
-	    }
-	  }, {
-	    key: 'getCurrentContent',
-	    value: function getCurrentContent() {
-	      return this.getImmutable().get('currentContent');
-	    }
-	  }, {
-	    key: 'getUndoStack',
-	    value: function getUndoStack() {
-	      return this.getImmutable().get('undoStack');
-	    }
-	  }, {
-	    key: 'getRedoStack',
-	    value: function getRedoStack() {
-	      return this.getImmutable().get('redoStack');
-	    }
-	  }, {
-	    key: 'getSelection',
-	    value: function getSelection() {
-	      return this.getImmutable().get('selection');
-	    }
-	  }, {
-	    key: 'getDecorator',
-	    value: function getDecorator() {
-	      return this.getImmutable().get('decorator');
-	    }
-	  }, {
-	    key: 'isInCompositionMode',
-	    value: function isInCompositionMode() {
-	      return this.getImmutable().get('inCompositionMode');
-	    }
-	  }, {
-	    key: 'mustForceSelection',
-	    value: function mustForceSelection() {
-	      return this.getImmutable().get('forceSelection');
-	    }
-	  }, {
-	    key: 'getNativelyRenderedContent',
-	    value: function getNativelyRenderedContent() {
-	      return this.getImmutable().get('nativelyRenderedContent');
-	    }
-	  }, {
-	    key: 'getLastChangeType',
-	    value: function getLastChangeType() {
-	      return this.getImmutable().get('lastChangeType');
-	    }
-
-	    /**
-	     * While editing, the user may apply inline style commands with a collapsed
-	     * cursor, intending to type text that adopts the specified style. In this
-	     * case, we track the specified style as an "override" that takes precedence
-	     * over the inline style of the text adjacent to the cursor.
-	     *
-	     * If null, there is no override in place.
-	     */
-	  }, {
-	    key: 'getInlineStyleOverride',
-	    value: function getInlineStyleOverride() {
-	      return this.getImmutable().get('inlineStyleOverride');
-	    }
-	  }, {
-	    key: 'getCurrentInlineStyle',
-
-	    /**
-	     * Get the appropriate inline style for the editor state. If an
-	     * override is in place, use it. Otherwise, the current style is
-	     * based on the location of the selection state.
-	     */
-	    value: function getCurrentInlineStyle() {
-	      var override = this.getInlineStyleOverride();
-	      if (override != null) {
-	        return override;
-	      }
-
-	      var content = this.getCurrentContent();
-	      var selection = this.getSelection();
-
-	      if (selection.isCollapsed()) {
-	        return getInlineStyleForCollapsedSelection(content, selection);
-	      }
-
-	      return getInlineStyleForNonCollapsedSelection(content, selection);
-	    }
-	  }, {
-	    key: 'getBlockTree',
-	    value: function getBlockTree(blockKey) {
-	      return this.getImmutable().getIn(['treeMap', blockKey]);
-	    }
-	  }, {
-	    key: 'isSelectionAtStartOfContent',
-	    value: function isSelectionAtStartOfContent() {
-	      var firstKey = this.getCurrentContent().getBlockMap().first().getKey();
-	      return this.getSelection().hasEdgeWithin(firstKey, 0, 0);
-	    }
-	  }, {
-	    key: 'isSelectionAtEndOfContent',
-	    value: function isSelectionAtEndOfContent() {
-	      var content = this.getCurrentContent();
-	      var blockMap = content.getBlockMap();
-	      var last = blockMap.last();
-	      var end = last.getLength();
-	      return this.getSelection().hasEdgeWithin(last.getKey(), end, end);
-	    }
-	  }, {
-	    key: 'getDirectionMap',
-	    value: function getDirectionMap() {
-	      return this.getImmutable().get('directionMap');
-	    }
-
-	    /**
-	     * Incorporate native DOM selection changes into the EditorState. This
-	     * method can be used when we simply want to accept whatever the DOM
-	     * has given us to represent selection, and we do not need to re-render
-	     * the editor.
-	     *
-	     * To forcibly move the DOM selection, see `EditorState.forceSelection`.
-	     */
-	  }], [{
-	    key: 'createEmpty',
-	    value: function createEmpty(decorator) {
-	      return EditorState.createWithContent(ContentState.createFromText(''), decorator);
-	    }
-	  }, {
-	    key: 'createWithContent',
-	    value: function createWithContent(contentState, decorator) {
-	      var firstKey = contentState.getBlockMap().first().getKey();
-	      return EditorState.create({
-	        currentContent: contentState,
-	        undoStack: Stack(),
-	        redoStack: Stack(),
-	        decorator: decorator || null,
-	        selection: SelectionState.createEmpty(firstKey)
-	      });
-	    }
-	  }, {
-	    key: 'create',
-	    value: function create(config) {
-	      var currentContent = config.currentContent;
-	      var decorator = config.decorator;
-
-	      var recordConfig = _extends({}, config, {
-	        treeMap: generateNewTreeMap(currentContent, decorator),
-	        directionMap: EditorBidiService.getDirectionMap(currentContent)
-	      });
-	      return new EditorState(new EditorStateRecord(recordConfig));
-	    }
-	  }, {
-	    key: 'set',
-	    value: function set(editorState, put) {
-	      var map = editorState.getImmutable().withMutations(function (state) {
-	        var existingDecorator = state.get('decorator');
-	        var decorator = existingDecorator;
-	        if (put.decorator === null) {
-	          decorator = null;
-	        } else if (put.decorator) {
-	          decorator = put.decorator;
-	        }
-
-	        var newContent = put.currentContent || editorState.getCurrentContent();
-
-	        if (decorator !== existingDecorator) {
-	          var treeMap = state.get('treeMap');
-	          var newTreeMap;
-	          if (decorator && existingDecorator) {
-	            newTreeMap = regenerateTreeForNewDecorator(newContent.getBlockMap(), treeMap, decorator, existingDecorator);
-	          } else {
-	            newTreeMap = generateNewTreeMap(newContent, decorator);
-	          }
-
-	          state.merge({
-	            decorator: decorator,
-	            treeMap: newTreeMap,
-	            nativelyRenderedContent: null
-	          });
-	          return;
-	        }
-
-	        var existingContent = editorState.getCurrentContent();
-	        if (newContent !== existingContent) {
-	          state.set('treeMap', regenerateTreeForNewBlocks(editorState, newContent.getBlockMap(), decorator));
-	        }
-
-	        state.merge(put);
-	      });
-
-	      return new EditorState(map);
-	    }
-	  }, {
-	    key: 'setInlineStyleOverride',
-	    value: function setInlineStyleOverride(editorState, inlineStyleOverride) {
-	      return EditorState.set(editorState, { inlineStyleOverride: inlineStyleOverride });
-	    }
-	  }, {
-	    key: 'acceptSelection',
-	    value: function acceptSelection(editorState, selection) {
-	      return updateSelection(editorState, selection, false);
-	    }
-
-	    /**
-	     * At times, we need to force the DOM selection to be where we
-	     * need it to be. This can occur when the anchor or focus nodes
-	     * are non-text nodes, for instance. In this case, we want to trigger
-	     * a re-render of the editor, which in turn forces selection into
-	     * the correct place in the DOM. The `forceSelection` method
-	     * accomplishes this.
-	     *
-	     * This method should be used in cases where you need to explicitly
-	     * move the DOM selection from one place to another without a change
-	     * in ContentState.
-	     */
-	  }, {
-	    key: 'forceSelection',
-	    value: function forceSelection(editorState, selection) {
-	      if (!selection.getHasFocus()) {
-	        selection = selection.set('hasFocus', true);
-	      }
-	      return updateSelection(editorState, selection, true);
-	    }
-
-	    /**
-	     * Move selection to the end of the editor without forcing focus.
-	     */
-	  }, {
-	    key: 'moveSelectionToEnd',
-	    value: function moveSelectionToEnd(editorState) {
-	      var content = editorState.getCurrentContent();
-	      var lastBlock = content.getLastBlock();
-	      var lastKey = lastBlock.getKey();
-	      var length = lastBlock.getLength();
-
-	      return EditorState.acceptSelection(editorState, new SelectionState({
-	        anchorKey: lastKey,
-	        anchorOffset: length,
-	        focusKey: lastKey,
-	        focusOffset: length,
-	        isBackward: false
-	      }));
-	    }
-
-	    /**
-	     * Force focus to the end of the editor. This is useful in scenarios
-	     * where we want to programmatically focus the input and it makes sense
-	     * to allow the user to continue working seamlessly.
-	     */
-	  }, {
-	    key: 'moveFocusToEnd',
-	    value: function moveFocusToEnd(editorState) {
-	      var afterSelectionMove = EditorState.moveSelectionToEnd(editorState);
-	      return EditorState.forceSelection(afterSelectionMove, afterSelectionMove.getSelection());
-	    }
-
-	    /**
-	     * Push the current ContentState onto the undo stack if it should be
-	     * considered a boundary state, and set the provided ContentState as the
-	     * new current content.
-	     */
-	  }, {
-	    key: 'push',
-	    value: function push(editorState, contentState, changeType) {
-	      if (editorState.getCurrentContent() === contentState) {
-	        return editorState;
-	      }
-
-	      var forceSelection = changeType !== 'insert-characters';
-	      var directionMap = EditorBidiService.getDirectionMap(contentState, editorState.getDirectionMap());
-
-	      if (!editorState.getAllowUndo()) {
-	        return EditorState.set(editorState, {
-	          currentContent: contentState,
-	          directionMap: directionMap,
-	          lastChangeType: changeType,
-	          selection: contentState.getSelectionAfter(),
-	          forceSelection: forceSelection,
-	          inlineStyleOverride: null
-	        });
-	      }
-
-	      var selection = editorState.getSelection();
-	      var currentContent = editorState.getCurrentContent();
-	      var undoStack = editorState.getUndoStack();
-	      var newContent = contentState;
-
-	      if (selection !== currentContent.getSelectionAfter() || mustBecomeBoundary(editorState, changeType)) {
-	        undoStack = undoStack.push(currentContent);
-	        newContent = newContent.set('selectionBefore', selection);
-	      } else if (changeType === 'insert-characters' || changeType === 'backspace-character' || changeType === 'delete-character') {
-	        // Preserve the previous selection.
-	        newContent = newContent.set('selectionBefore', currentContent.getSelectionBefore());
-	      }
-
-	      var inlineStyleOverride = editorState.getInlineStyleOverride();
-
-	      // Don't discard inline style overrides on block type or depth changes.
-	      if (changeType !== 'adjust-depth' && changeType !== 'change-block-type') {
-	        inlineStyleOverride = null;
-	      }
-
-	      var editorStateChanges = {
-	        currentContent: newContent,
-	        directionMap: directionMap,
-	        undoStack: undoStack,
-	        redoStack: Stack(),
-	        lastChangeType: changeType,
-	        selection: contentState.getSelectionAfter(),
-	        forceSelection: forceSelection,
-	        inlineStyleOverride: inlineStyleOverride
-	      };
-
-	      return EditorState.set(editorState, editorStateChanges);
-	    }
-
-	    /**
-	     * Make the top ContentState in the undo stack the new current content and
-	     * push the current content onto the redo stack.
-	     */
-	  }, {
-	    key: 'undo',
-	    value: function undo(editorState) {
-	      if (!editorState.getAllowUndo()) {
-	        return editorState;
-	      }
-
-	      var undoStack = editorState.getUndoStack();
-	      var newCurrentContent = undoStack.peek();
-	      if (!newCurrentContent) {
-	        return editorState;
-	      }
-
-	      var currentContent = editorState.getCurrentContent();
-	      var directionMap = EditorBidiService.getDirectionMap(newCurrentContent, editorState.getDirectionMap());
-
-	      return EditorState.set(editorState, {
-	        currentContent: newCurrentContent,
-	        directionMap: directionMap,
-	        undoStack: undoStack.shift(),
-	        redoStack: editorState.getRedoStack().push(currentContent),
-	        forceSelection: true,
-	        inlineStyleOverride: null,
-	        lastChangeType: 'undo',
-	        nativelyRenderedContent: null,
-	        selection: currentContent.getSelectionBefore()
-	      });
-	    }
-
-	    /**
-	     * Make the top ContentState in the redo stack the new current content and
-	     * push the current content onto the undo stack.
-	     */
-	  }, {
-	    key: 'redo',
-	    value: function redo(editorState) {
-	      if (!editorState.getAllowUndo()) {
-	        return editorState;
-	      }
-
-	      var redoStack = editorState.getRedoStack();
-	      var newCurrentContent = redoStack.peek();
-	      if (!newCurrentContent) {
-	        return editorState;
-	      }
-
-	      var currentContent = editorState.getCurrentContent();
-	      var directionMap = EditorBidiService.getDirectionMap(newCurrentContent, editorState.getDirectionMap());
-
-	      return EditorState.set(editorState, {
-	        currentContent: newCurrentContent,
-	        directionMap: directionMap,
-	        undoStack: editorState.getUndoStack().push(currentContent),
-	        redoStack: redoStack.shift(),
-	        forceSelection: true,
-	        inlineStyleOverride: null,
-	        lastChangeType: 'redo',
-	        nativelyRenderedContent: null,
-	        selection: newCurrentContent.getSelectionAfter()
-	      });
-	    }
-
-	    /**
-	     * Not for public consumption.
-	     */
-	  }]);
-
-	  function EditorState(immutable) {
-	    _classCallCheck(this, EditorState);
-
-	    this._immutable = immutable;
-	  }
-
-	  /**
-	   * Set the supplied SelectionState as the new current selection, and set
-	   * the `force` flag to trigger manual selection placement by the view.
-	   */
-
-	  /**
-	   * Not for public consumption.
-	   */
-
-	  _createClass(EditorState, [{
-	    key: 'getImmutable',
-	    value: function getImmutable() {
-	      return this._immutable;
-	    }
-	  }]);
-
-	  return EditorState;
-	})();
-
-	function updateSelection(editorState, selection, forceSelection) {
-	  return EditorState.set(editorState, {
-	    selection: selection,
-	    forceSelection: forceSelection,
-	    nativelyRenderedContent: null,
-	    inlineStyleOverride: null
-	  });
-	}
-
-	/**
-	 * Regenerate the entire tree map for a given ContentState and decorator.
-	 * Returns an OrderedMap that maps all available ContentBlock objects.
-	 */
-	function generateNewTreeMap(contentState, decorator) {
-	  return contentState.getBlockMap().map(function (block) {
-	    return BlockTree.generate(block, decorator);
-	  }).toOrderedMap();
-	}
-
-	/**
-	 * Regenerate tree map objects for all ContentBlocks that have changed
-	 * between the current editorState and newContent. Returns an OrderedMap
-	 * with only changed regenerated tree map objects.
-	 */
-	function regenerateTreeForNewBlocks(editorState, newBlockMap, decorator) {
-	  var prevBlockMap = editorState.getCurrentContent().getBlockMap();
-	  var prevTreeMap = editorState.getImmutable().get('treeMap');
-	  return prevTreeMap.merge(newBlockMap.toSeq().filter(function (block, key) {
-	    return block !== prevBlockMap.get(key);
-	  }).map(function (block) {
-	    return BlockTree.generate(block, decorator);
-	  }));
-	}
-
-	/**
-	 * Generate tree map objects for a new decorator object, preserving any
-	 * decorations that are unchanged from the previous decorator.
-	 *
-	 * Note that in order for this to perform optimally, decoration Lists for
-	 * decorators should be preserved when possible to allow for direct immutable
-	 * List comparison.
-	 */
-	function regenerateTreeForNewDecorator(blockMap, previousTreeMap, decorator, existingDecorator) {
-	  return previousTreeMap.merge(blockMap.toSeq().filter(function (block) {
-	    return decorator.getDecorations(block) !== existingDecorator.getDecorations(block);
-	  }).map(function (block) {
-	    return BlockTree.generate(block, decorator);
-	  }));
-	}
-
-	/**
-	 * Return whether a change should be considered a boundary state, given
-	 * the previous change type. Allows us to discard potential boundary states
-	 * during standard typing or deletion behavior.
-	 */
-	function mustBecomeBoundary(editorState, changeType) {
-	  var lastChangeType = editorState.getLastChangeType();
-	  return changeType !== lastChangeType || changeType !== 'insert-characters' && changeType !== 'backspace-character' && changeType !== 'delete-character';
-	}
-
-	function getInlineStyleForCollapsedSelection(content, selection) {
-	  var startKey = selection.getStartKey();
-	  var startOffset = selection.getStartOffset();
-	  var startBlock = content.getBlockForKey(startKey);
-
-	  // If the cursor is not at the start of the block, look backward to
-	  // preserve the style of the preceding character.
-	  if (startOffset > 0) {
-	    return startBlock.getInlineStyleAt(startOffset - 1);
-	  }
-
-	  // The caret is at position zero in this block. If the block has any
-	  // text at all, use the style of the first character.
-	  if (startBlock.getLength()) {
-	    return startBlock.getInlineStyleAt(0);
-	  }
-
-	  // Otherwise, look upward in the document to find the closest character.
-	  return lookUpwardForInlineStyle(content, startKey);
-	}
-
-	function getInlineStyleForNonCollapsedSelection(content, selection) {
-	  var startKey = selection.getStartKey();
-	  var startOffset = selection.getStartOffset();
-	  var startBlock = content.getBlockForKey(startKey);
-
-	  // If there is a character just inside the selection, use its style.
-	  if (startOffset < startBlock.getLength()) {
-	    return startBlock.getInlineStyleAt(startOffset);
-	  }
-
-	  // Check if the selection at the end of a non-empty block. Use the last
-	  // style in the block.
-	  if (startOffset > 0) {
-	    return startBlock.getInlineStyleAt(startOffset - 1);
-	  }
-
-	  // Otherwise, look upward in the document to find the closest character.
-	  return lookUpwardForInlineStyle(content, startKey);
-	}
-
-	function lookUpwardForInlineStyle(content, fromKey) {
-	  var previousBlock = content.getBlockBefore(fromKey);
-	  var previousLength;
-
-	  while (previousBlock) {
-	    previousLength = previousBlock.getLength();
-	    if (previousLength) {
-	      return previousBlock.getInlineStyleAt(previousLength - 1);
-	    }
-	    previousBlock = content.getBlockBefore(previousBlock.getKey());
-	  }
-
-	  return OrderedSet();
-	}
-
-	module.exports = EditorState;
-
-/***/ },
-/* 238 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule KeyBindingUtil
-	 * @typechecks
-	 * 
-	 */
-
-	'use strict';
-
-	var UserAgent = __webpack_require__(347);
-
-	var isOSX = UserAgent.isPlatform('Mac OS X');
-
-	var KeyBindingUtil = {
-	  /**
-	   * Check whether the ctrlKey modifier is *not* being used in conjunction with
-	   * the altKey modifier. If they are combined, the result is an `altGraph`
-	   * key modifier, which should not be handled by this set of key bindings.
-	   */
-	  isCtrlKeyCommand: function isCtrlKeyCommand(e) {
-	    return !!e.ctrlKey && !e.altKey;
-	  },
-
-	  isOptionKeyCommand: function isOptionKeyCommand(e) {
-	    return isOSX && e.altKey;
-	  },
-
-	  hasCommandModifier: function hasCommandModifier(e) {
-	    return isOSX ? !!e.metaKey && !e.altKey : KeyBindingUtil.isCtrlKeyCommand(e);
-	  }
-	};
-
-	module.exports = KeyBindingUtil;
-
-/***/ },
-/* 239 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule RichTextEditorUtil
-	 * @typechecks
-	 * 
-	 */
-
-	'use strict';
-
-	var DraftEntity = __webpack_require__(235);
-	var DraftModifier = __webpack_require__(234);
-	var EditorState = __webpack_require__(237);
-	var SelectionState = __webpack_require__(240);
-
-	var adjustBlockDepthForContentState = __webpack_require__(292);
-	var nullthrows = __webpack_require__(349);
-
-	var RichTextEditorUtil = {
-	  currentBlockContainsLink: function currentBlockContainsLink(editorState) {
-	    var selection = editorState.getSelection();
-	    return editorState.getCurrentContent().getBlockForKey(selection.getAnchorKey()).getCharacterList().slice(selection.getStartOffset(), selection.getEndOffset()).some(function (v) {
-	      var entity = v.getEntity();
-	      return !!entity && DraftEntity.get(entity).getType() === 'LINK';
-	    });
-	  },
-
-	  getCurrentBlockType: function getCurrentBlockType(editorState) {
-	    var selection = editorState.getSelection();
-	    return editorState.getCurrentContent().getBlockForKey(selection.getStartKey()).getType();
-	  },
-
-	  getDataObjectForLinkURL: function getDataObjectForLinkURL(uri) {
-	    return { url: uri.toString() };
-	  },
-
-	  handleKeyCommand: function handleKeyCommand(editorState, command) {
-	    switch (command) {
-	      case 'bold':
-	        return RichTextEditorUtil.toggleInlineStyle(editorState, 'BOLD');
-	      case 'italic':
-	        return RichTextEditorUtil.toggleInlineStyle(editorState, 'ITALIC');
-	      case 'underline':
-	        return RichTextEditorUtil.toggleInlineStyle(editorState, 'UNDERLINE');
-	      case 'code':
-	        return RichTextEditorUtil.toggleCode(editorState);
-	      case 'backspace':
-	      case 'backspace-word':
-	      case 'backspace-to-start-of-line':
-	        return RichTextEditorUtil.onBackspace(editorState);
-	      case 'delete':
-	      case 'delete-word':
-	      case 'delete-to-end-of-block':
-	        return RichTextEditorUtil.onDelete(editorState);
-	      default:
-	        return null;
-	    }
-	  },
-
-	  insertSoftNewline: function insertSoftNewline(editorState) {
-	    var contentState = DraftModifier.insertText(editorState.getCurrentContent(), editorState.getSelection(), '\n', editorState.getCurrentInlineStyle(), null);
-
-	    var newEditorState = EditorState.push(editorState, contentState, 'insert-characters');
-
-	    return EditorState.forceSelection(newEditorState, contentState.getSelectionAfter());
-	  },
-
-	  /**
-	   * For collapsed selections at the start of styled blocks, backspace should
-	   * just remove the existing style.
-	   */
-	  onBackspace: function onBackspace(editorState) {
-	    var selection = editorState.getSelection();
-	    if (!selection.isCollapsed() || selection.getAnchorOffset() || selection.getFocusOffset()) {
-	      return null;
-	    }
-
-	    // First, try to remove a preceding atomic block.
-	    var content = editorState.getCurrentContent();
-	    var startKey = selection.getStartKey();
-	    var blockBefore = content.getBlockBefore(startKey);
-
-	    if (blockBefore && blockBefore.getType() === 'atomic') {
-	      var atomicBlockTarget = selection.merge({
-	        anchorKey: blockBefore.getKey(),
-	        anchorOffset: 0
-	      });
-	      var asCurrentStyle = DraftModifier.setBlockType(content, atomicBlockTarget, content.getBlockForKey(startKey).getType());
-	      var withoutAtomicBlock = DraftModifier.removeRange(asCurrentStyle, atomicBlockTarget, 'backward');
-	      if (withoutAtomicBlock !== content) {
-	        return EditorState.push(editorState, withoutAtomicBlock, 'remove-range');
-	      }
-	    }
-
-	    // If that doesn't succeed, try to remove the current block style.
-	    var withoutBlockStyle = RichTextEditorUtil.tryToRemoveBlockStyle(editorState);
-
-	    if (withoutBlockStyle) {
-	      return EditorState.push(editorState, withoutBlockStyle, 'change-block-type');
-	    }
-
-	    return null;
-	  },
-
-	  onDelete: function onDelete(editorState) {
-	    var selection = editorState.getSelection();
-	    if (!selection.isCollapsed()) {
-	      return null;
-	    }
-
-	    var content = editorState.getCurrentContent();
-	    var startKey = selection.getStartKey();
-	    var block = content.getBlockForKey(startKey);
-	    var length = block.getLength();
-
-	    // The cursor is somewhere within the text. Behave normally.
-	    if (selection.getStartOffset() < length) {
-	      return null;
-	    }
-
-	    var blockAfter = content.getBlockAfter(startKey);
-
-	    if (!blockAfter || blockAfter.getType() !== 'atomic') {
-	      return null;
-	    }
-
-	    var atomicBlockTarget = selection.merge({
-	      focusKey: blockAfter.getKey(),
-	      focusOffset: blockAfter.getLength()
-	    });
-
-	    var withoutAtomicBlock = DraftModifier.removeRange(content, atomicBlockTarget, 'forward');
-
-	    if (withoutAtomicBlock !== content) {
-	      return EditorState.push(editorState, withoutAtomicBlock, 'remove-range');
-	    }
-
-	    return null;
-	  },
-
-	  onTab: function onTab(event, editorState, maxDepth) {
-	    var selection = editorState.getSelection();
-	    var key = selection.getAnchorKey();
-	    if (key !== selection.getFocusKey()) {
-	      return editorState;
-	    }
-
-	    var content = editorState.getCurrentContent();
-	    var block = content.getBlockForKey(key);
-	    var type = block.getType();
-	    if (type !== 'unordered-list-item' && type !== 'ordered-list-item') {
-	      return editorState;
-	    }
-
-	    event.preventDefault();
-
-	    // Only allow indenting one level beyond the block above, and only if
-	    // the block above is a list item as well.
-	    var blockAbove = content.getBlockBefore(key);
-	    if (!blockAbove) {
-	      return editorState;
-	    }
-
-	    var typeAbove = blockAbove.getType();
-	    if (typeAbove !== 'unordered-list-item' && typeAbove !== 'ordered-list-item') {
-	      return editorState;
-	    }
-
-	    var depth = block.getDepth();
-	    if (!event.shiftKey && depth === maxDepth) {
-	      return editorState;
-	    }
-
-	    maxDepth = Math.min(blockAbove.getDepth() + 1, maxDepth);
-
-	    var withAdjustment = adjustBlockDepthForContentState(content, selection, event.shiftKey ? -1 : 1, maxDepth);
-
-	    return EditorState.push(editorState, withAdjustment, 'adjust-depth');
-	  },
-
-	  toggleBlockType: function toggleBlockType(editorState, blockType) {
-	    var selection = editorState.getSelection();
-	    var startKey = selection.getStartKey();
-	    var endKey = selection.getEndKey();
-	    var content = editorState.getCurrentContent();
-	    var target = selection;
-
-	    // Triple-click can lead to a selection that includes offset 0 of the
-	    // following block. The `SelectionState` for this case is accurate, but
-	    // we should avoid toggling block type for the trailing block because it
-	    // is a confusing interaction.
-	    if (startKey !== endKey && selection.getEndOffset() === 0) {
-	      var blockBefore = nullthrows(content.getBlockBefore(endKey));
-	      endKey = blockBefore.getKey();
-	      target = target.merge({
-	        anchorKey: startKey,
-	        anchorOffset: selection.getStartOffset(),
-	        focusKey: endKey,
-	        focusOffset: blockBefore.getLength(),
-	        isBackward: false
-	      });
-	    }
-
-	    var hasAtomicBlock = content.getBlockMap().skipWhile(function (_, k) {
-	      return k !== startKey;
-	    }).takeWhile(function (_, k) {
-	      return k !== endKey;
-	    }).some(function (v) {
-	      return v.getType() === 'atomic';
-	    });
-
-	    if (hasAtomicBlock) {
-	      return editorState;
-	    }
-
-	    var typeToSet = content.getBlockForKey(startKey).getType() === blockType ? 'unstyled' : blockType;
-
-	    return EditorState.push(editorState, DraftModifier.setBlockType(content, target, typeToSet), 'change-block-type');
-	  },
-
-	  toggleCode: function toggleCode(editorState) {
-	    var selection = editorState.getSelection();
-	    var anchorKey = selection.getAnchorKey();
-	    var focusKey = selection.getFocusKey();
-
-	    if (selection.isCollapsed() || anchorKey !== focusKey) {
-	      return RichTextEditorUtil.toggleBlockType(editorState, 'code-block');
-	    }
-
-	    return RichTextEditorUtil.toggleInlineStyle(editorState, 'CODE');
-	  },
-
-	  /**
-	   * Toggle the specified inline style for the selection. If the
-	   * user's selection is collapsed, apply or remove the style for the
-	   * internal state. If it is not collapsed, apply the change directly
-	   * to the document state.
-	   */
-	  toggleInlineStyle: function toggleInlineStyle(editorState, inlineStyle) {
-	    var selection = editorState.getSelection();
-	    var currentStyle = editorState.getCurrentInlineStyle();
-
-	    // If the selection is collapsed, toggle the specified style on or off and
-	    // set the result as the new inline style override. This will then be
-	    // used as the inline style for the next character to be inserted.
-	    if (selection.isCollapsed()) {
-	      return EditorState.setInlineStyleOverride(editorState, currentStyle.has(inlineStyle) ? currentStyle.remove(inlineStyle) : currentStyle.add(inlineStyle));
-	    }
-
-	    // If characters are selected, immediately apply or remove the
-	    // inline style on the document state itself.
-	    var content = editorState.getCurrentContent();
-	    var newContent;
-
-	    // If the style is already present for the selection range, remove it.
-	    // Otherwise, apply it.
-	    if (currentStyle.has(inlineStyle)) {
-	      newContent = DraftModifier.removeInlineStyle(content, selection, inlineStyle);
-	    } else {
-	      newContent = DraftModifier.applyInlineStyle(content, selection, inlineStyle);
-	    }
-
-	    return EditorState.push(editorState, newContent, 'change-inline-style');
-	  },
-
-	  toggleLink: function toggleLink(editorState, targetSelection, entityKey) {
-	    var withoutLink = DraftModifier.applyEntity(editorState.getCurrentContent(), targetSelection, entityKey);
-
-	    return EditorState.push(editorState, withoutLink, 'apply-entity');
-	  },
-
-	  /**
-	   * When a collapsed cursor is at the start of an empty styled block, allow
-	   * certain key commands (newline, backspace) to simply change the
-	   * style of the block instead of the default behavior.
-	   */
-	  tryToRemoveBlockStyle: function tryToRemoveBlockStyle(editorState) {
-	    var selection = editorState.getSelection();
-	    var offset = selection.getAnchorOffset();
-	    if (selection.isCollapsed() && offset === 0) {
-	      var key = selection.getAnchorKey();
-	      var content = editorState.getCurrentContent();
-	      var block = content.getBlockForKey(key);
-	      if (block.getLength() > 0) {
-	        return null;
-	      }
-
-	      var type = block.getType();
-	      var blockBefore = content.getBlockBefore(key);
-	      if (type === 'code-block' && blockBefore && blockBefore.getType() === 'code-block') {
-	        return null;
-	      }
-
-	      if (type !== 'unstyled') {
-	        return DraftModifier.setBlockType(content, selection, 'unstyled');
-	      }
-	    }
-	    return null;
-	  }
-	};
-
-	module.exports = RichTextEditorUtil;
-
-/***/ },
-/* 240 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule SelectionState
-	 * @typechecks
-	 * 
-	 */
-
-	'use strict';
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Immutable = __webpack_require__(247);
-
-	var Record = Immutable.Record;
-
-	var defaultRecord = {
-	  anchorKey: '',
-	  anchorOffset: 0,
-	  focusKey: '',
-	  focusOffset: 0,
-	  isBackward: false,
-	  hasFocus: false
-	};
-
-	var SelectionStateRecord = Record(defaultRecord);
-
-	var SelectionState = (function (_SelectionStateRecord) {
-	  _inherits(SelectionState, _SelectionStateRecord);
-
-	  function SelectionState() {
-	    _classCallCheck(this, SelectionState);
-
-	    _get(Object.getPrototypeOf(SelectionState.prototype), 'constructor', this).apply(this, arguments);
-	  }
-
-	  _createClass(SelectionState, [{
-	    key: 'serialize',
-	    value: function serialize() {
-	      return 'Anchor: ' + this.getAnchorKey() + ':' + this.getAnchorOffset() + ', ' + 'Focus: ' + this.getFocusKey() + ':' + this.getFocusOffset() + ', ' + 'Is Backward: ' + String(this.getIsBackward()) + ', ' + 'Has Focus: ' + String(this.getHasFocus());
-	    }
-	  }, {
-	    key: 'getAnchorKey',
-	    value: function getAnchorKey() {
-	      return this.get('anchorKey');
-	    }
-	  }, {
-	    key: 'getAnchorOffset',
-	    value: function getAnchorOffset() {
-	      return this.get('anchorOffset');
-	    }
-	  }, {
-	    key: 'getFocusKey',
-	    value: function getFocusKey() {
-	      return this.get('focusKey');
-	    }
-	  }, {
-	    key: 'getFocusOffset',
-	    value: function getFocusOffset() {
-	      return this.get('focusOffset');
-	    }
-	  }, {
-	    key: 'getIsBackward',
-	    value: function getIsBackward() {
-	      return this.get('isBackward');
-	    }
-	  }, {
-	    key: 'getHasFocus',
-	    value: function getHasFocus() {
-	      return this.get('hasFocus');
-	    }
-
-	    /**
-	     * Return whether the specified range overlaps with an edge of the
-	     * SelectionState.
-	     */
-	  }, {
-	    key: 'hasEdgeWithin',
-	    value: function hasEdgeWithin(blockKey, start, end) {
-	      var anchorKey = this.getAnchorKey();
-	      var focusKey = this.getFocusKey();
-
-	      if (anchorKey === focusKey && anchorKey === blockKey) {
-	        var selectionStart = this.getStartOffset();
-	        var selectionEnd = this.getEndOffset();
-	        return start <= selectionEnd && selectionStart <= end;
-	      }
-
-	      if (blockKey !== anchorKey && blockKey !== focusKey) {
-	        return false;
-	      }
-
-	      var offsetToCheck = blockKey === anchorKey ? this.getAnchorOffset() : this.getFocusOffset();
-
-	      return start <= offsetToCheck && end >= offsetToCheck;
-	    }
-	  }, {
-	    key: 'isCollapsed',
-	    value: function isCollapsed() {
-	      return this.getAnchorKey() === this.getFocusKey() && this.getAnchorOffset() === this.getFocusOffset();
-	    }
-	  }, {
-	    key: 'getStartKey',
-	    value: function getStartKey() {
-	      return this.getIsBackward() ? this.getFocusKey() : this.getAnchorKey();
-	    }
-	  }, {
-	    key: 'getStartOffset',
-	    value: function getStartOffset() {
-	      return this.getIsBackward() ? this.getFocusOffset() : this.getAnchorOffset();
-	    }
-	  }, {
-	    key: 'getEndKey',
-	    value: function getEndKey() {
-	      return this.getIsBackward() ? this.getAnchorKey() : this.getFocusKey();
-	    }
-	  }, {
-	    key: 'getEndOffset',
-	    value: function getEndOffset() {
-	      return this.getIsBackward() ? this.getAnchorOffset() : this.getFocusOffset();
-	    }
-	  }], [{
-	    key: 'createEmpty',
-	    value: function createEmpty(key) {
-	      return new SelectionState({
-	        anchorKey: key,
-	        anchorOffset: 0,
-	        focusKey: key,
-	        focusOffset: 0,
-	        isBackward: false,
-	        hasFocus: false
-	      });
-	    }
-	  }]);
-
-	  return SelectionState;
-	})(SelectionStateRecord);
-
-	module.exports = SelectionState;
-
-/***/ },
-/* 241 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule convertFromDraftStateToRaw
-	 * 
-	 */
-
-	'use strict';
-
-	var DraftEntity = __webpack_require__(235);
-	var DraftStringKey = __webpack_require__(293);
-
-	var encodeEntityRanges = __webpack_require__(294);
-	var encodeInlineStyleRanges = __webpack_require__(295);
-
-	function convertFromDraftStateToRaw(contentState) {
-	  var entityStorageKey = 0;
-	  var entityStorageMap = {};
-	  var rawBlocks = [];
-
-	  contentState.getBlockMap().forEach(function (block, blockKey) {
-	    block.findEntityRanges(function (character) {
-	      return character.getEntity() !== null;
-	    }, function (start) {
-	      // Stringify to maintain order of otherwise numeric keys.
-	      var stringifiedEntityKey = DraftStringKey.stringify(block.getEntityAt(start));
-	      if (!entityStorageMap.hasOwnProperty(stringifiedEntityKey)) {
-	        entityStorageMap[stringifiedEntityKey] = '' + entityStorageKey++;
-	      }
-	    });
-
-	    rawBlocks.push({
-	      key: blockKey,
-	      text: block.getText(),
-	      type: block.getType(),
-	      depth: canHaveDepth(block) ? block.getDepth() : 0,
-	      inlineStyleRanges: encodeInlineStyleRanges(block),
-	      entityRanges: encodeEntityRanges(block, entityStorageMap)
-	    });
-	  });
-
-	  // Flip storage map so that our storage keys map to global
-	  // DraftEntity keys.
-	  var entityKeys = Object.keys(entityStorageMap);
-	  var flippedStorageMap = {};
-	  entityKeys.forEach(function (key, jj) {
-	    var entity = DraftEntity.get(DraftStringKey.unstringify(key));
-	    flippedStorageMap[jj] = {
-	      type: entity.getType(),
-	      mutability: entity.getMutability(),
-	      data: entity.getData()
-	    };
-	  });
-
-	  return {
-	    entityMap: flippedStorageMap,
-	    blocks: rawBlocks
-	  };
-	}
-
-	function canHaveDepth(block) {
-	  var type = block.getType();
-	  return type === 'ordered-list-item' || type === 'unordered-list-item';
-	}
-
-	module.exports = convertFromDraftStateToRaw;
-
-/***/ },
-/* 242 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule convertFromHTMLToContentBlocks
-	 * @typechecks
-	 * 
-	 */
-
-	'use strict';
-
-	var CharacterMetadata = __webpack_require__(226);
-	var ContentBlock = __webpack_require__(228);
-	var DefaultDraftBlockRenderMap = __webpack_require__(230);
-	var DraftEntity = __webpack_require__(235);
-	var Immutable = __webpack_require__(247);
-	var URI = __webpack_require__(356);
-
-	var generateRandomKey = __webpack_require__(244);
-	var getSafeBodyFromHTML = __webpack_require__(296);
-	var invariant = __webpack_require__(355);
-	var nullthrows = __webpack_require__(349);
-	var sanitizeDraftText = __webpack_require__(272);
-
-	var List = Immutable.List;
-	var OrderedSet = Immutable.OrderedSet;
-
-	var NBSP = '&nbsp;';
-	var SPACE = ' ';
-
-	// Arbitrary max indent
-	var MAX_DEPTH = 4;
-
-	// used for replacing characters in HTML
-	var REGEX_CR = new RegExp('\r', 'g');
-	var REGEX_LF = new RegExp('\n', 'g');
-	var REGEX_NBSP = new RegExp(NBSP, 'g');
-
-	// Block tag flow is different because LIs do not have
-	// a deterministic style ;_;
-	var inlineTags = {
-	  b: 'BOLD',
-	  code: 'CODE',
-	  del: 'STRIKETHROUGH',
-	  em: 'ITALIC',
-	  i: 'ITALIC',
-	  s: 'STRIKETHROUGH',
-	  strike: 'STRIKETHROUGH',
-	  strong: 'BOLD',
-	  u: 'UNDERLINE'
-	};
-
-	var lastBlock;
-
-	function getEmptyChunk() {
-	  return {
-	    text: '',
-	    inlines: [],
-	    entities: [],
-	    blocks: []
-	  };
-	}
-
-	function getWhitespaceChunk(inEntity) {
-	  var entities = new Array(1);
-	  if (inEntity) {
-	    entities[0] = inEntity;
-	  }
-	  return {
-	    text: SPACE,
-	    inlines: [OrderedSet()],
-	    entities: entities,
-	    blocks: []
-	  };
-	}
-
-	function getSoftNewlineChunk() {
-	  return {
-	    text: '\n',
-	    inlines: [OrderedSet()],
-	    entities: new Array(1),
-	    blocks: []
-	  };
-	}
-
-	function getBlockDividerChunk(block, depth) {
-	  return {
-	    text: '\r',
-	    inlines: [OrderedSet()],
-	    entities: new Array(1),
-	    blocks: [{
-	      type: block,
-	      depth: Math.max(0, Math.min(MAX_DEPTH, depth))
-	    }]
-	  };
-	}
-
-	function getListBlockType(tag, lastList) {
-	  if (tag === 'li') {
-	    return lastList === 'ol' ? 'ordered-list-item' : 'unordered-list-item';
-	  }
-	  return null;
-	}
-
-	function getBlockMapSupportedTags(blockRenderMap) {
-	  var unstyledElement = blockRenderMap.get('unstyled').element;
-	  return blockRenderMap.map(function (config) {
-	    return config.element;
-	  }).valueSeq().toSet().filter(function (tag) {
-	    return tag !== unstyledElement;
-	  }).toArray().sort();
-	}
-
-	// custom element conversions
-	function getMultiMatchedType(tag, lastList, multiMatchExtractor) {
-	  for (var ii = 0; ii < multiMatchExtractor.length; ii++) {
-	    var matchType = multiMatchExtractor[ii](tag, lastList);
-	    if (matchType) {
-	      return matchType;
-	    }
-	  }
-	  return null;
-	}
-
-	function getBlockTypeForTag(tag, lastList, blockRenderMap) {
-	  var matchedTypes = blockRenderMap.filter(function (config) {
-	    return config.element === tag || config.wrapper === tag;
-	  }).keySeq().toSet().toArray().sort();
-
-	  // if we dont have any matched type, return unstyled
-	  // if we have one matched type return it
-	  // if we have multi matched types use the multi-match function to gather type
-	  switch (matchedTypes.length) {
-	    case 0:
-	      return 'unstyled';
-	    case 1:
-	      return matchedTypes[0];
-	    default:
-	      return getMultiMatchedType(tag, lastList, [getListBlockType]) || 'unstyled';
-	  }
-	}
-
-	function processInlineTag(tag, node, currentStyle) {
-	  var styleToCheck = inlineTags[tag];
-	  if (styleToCheck) {
-	    currentStyle = currentStyle.add(styleToCheck).toOrderedSet();
-	  } else if (node instanceof HTMLElement) {
-	    (function () {
-	      var htmlElement = node;
-	      currentStyle = currentStyle.withMutations(function (style) {
-	        if (htmlElement.style.fontWeight === 'bold') {
-	          style.add('BOLD');
-	        }
-
-	        if (htmlElement.style.fontStyle === 'italic') {
-	          style.add('ITALIC');
-	        }
-
-	        if (htmlElement.style.textDecoration === 'underline') {
-	          style.add('UNDERLINE');
-	        }
-
-	        if (htmlElement.style.textDecoration === 'line-through') {
-	          style.add('STRIKETHROUGH');
-	        }
-	      }).toOrderedSet();
-	    })();
-	  }
-	  return currentStyle;
-	}
-
-	function joinChunks(A, B) {
-	  // Sometimes two blocks will touch in the DOM and we need to strip the
-	  // extra delimiter to preserve niceness.
-	  var lastInB = B.text.slice(0, 1);
-
-	  if (A.text.slice(-1) === '\r' && lastInB === '\r') {
-	    A.text = A.text.slice(0, -1);
-	    A.inlines.pop();
-	    A.entities.pop();
-	    A.blocks.pop();
-	  }
-
-	  // Kill whitespace after blocks
-	  if (A.text.slice(-1) === '\r') {
-	    if (B.text === SPACE || B.text === '\n') {
-	      return A;
-	    } else if (lastInB === SPACE || lastInB === '\n') {
-	      B.text = B.text.slice(1);
-	      B.inlines.shift();
-	      B.entities.shift();
-	    }
-	  }
-
-	  return {
-	    text: A.text + B.text,
-	    inlines: A.inlines.concat(B.inlines),
-	    entities: A.entities.concat(B.entities),
-	    blocks: A.blocks.concat(B.blocks)
-	  };
-	}
-
-	/**
-	 * Check to see if we have anything like <p> <blockquote> <h1>... to create
-	 * block tags from. If we do, we can use those and ignore <div> tags. If we
-	 * don't, we can treat <div> tags as meaningful (unstyled) blocks.
-	 */
-	function containsSemanticBlockMarkup(html, blockTags) {
-	  return blockTags.some(function (tag) {
-	    return html.indexOf('<' + tag) !== -1;
-	  });
-	}
-
-	function hasValidLinkText(link) {
-	  !(link instanceof HTMLAnchorElement) ? false ? invariant(false, 'Link must be an HTMLAnchorElement.') : invariant(false) : undefined;
-	  var protocol = link.protocol;
-	  return protocol === 'http:' || protocol === 'https:';
-	}
-
-	function genFragment(node, inlineStyle, lastList, inBlock, blockTags, depth, blockRenderMap, inEntity) {
-	  var nodeName = node.nodeName.toLowerCase();
-	  var newBlock = false;
-	  var nextBlockType = 'unstyled';
-	  var lastLastBlock = lastBlock;
-
-	  // Base Case
-	  if (nodeName === '#text') {
-	    var text = node.textContent;
-	    if (text.trim() === '' && inBlock !== 'pre') {
-	      return getWhitespaceChunk(inEntity);
-	    }
-	    if (inBlock !== 'pre') {
-	      // Can't use empty string because MSWord
-	      text = text.replace(REGEX_LF, SPACE);
-	    }
-
-	    // save the last block so we can use it later
-	    lastBlock = nodeName;
-
-	    return {
-	      text: text,
-	      inlines: Array(text.length).fill(inlineStyle),
-	      entities: Array(text.length).fill(inEntity),
-	      blocks: []
-	    };
-	  }
-
-	  // save the last block so we can use it later
-	  lastBlock = nodeName;
-
-	  // BR tags
-	  if (nodeName === 'br') {
-	    if (lastLastBlock === 'br' && (!inBlock || getBlockTypeForTag(inBlock, lastList, blockRenderMap) === 'unstyled')) {
-	      return getBlockDividerChunk('unstyled', depth);
-	    }
-	    return getSoftNewlineChunk();
-	  }
-
-	  var chunk = getEmptyChunk();
-	  var newChunk = null;
-
-	  // Inline tags
-	  inlineStyle = processInlineTag(nodeName, node, inlineStyle);
-
-	  // Handle lists
-	  if (nodeName === 'ul' || nodeName === 'ol') {
-	    if (lastList) {
-	      depth += 1;
-	    }
-	    lastList = nodeName;
-	  }
-
-	  // Block Tags
-	  if (!inBlock && blockTags.indexOf(nodeName) !== -1) {
-	    chunk = getBlockDividerChunk(getBlockTypeForTag(nodeName, lastList, blockRenderMap), depth);
-	    inBlock = nodeName;
-	    newBlock = true;
-	  } else if (lastList && inBlock === 'li' && nodeName === 'li') {
-	    chunk = getBlockDividerChunk(getBlockTypeForTag(nodeName, lastList, blockRenderMap), depth);
-	    inBlock = nodeName;
-	    newBlock = true;
-	    nextBlockType = lastList === 'ul' ? 'unordered-list-item' : 'ordered-list-item';
-	  }
-
-	  // Recurse through children
-	  var child = node.firstChild;
-	  if (child != null) {
-	    nodeName = child.nodeName.toLowerCase();
-	  }
-
-	  var entityId = null;
-	  var href = null;
-
-	  while (child) {
-	    if (nodeName === 'a' && child.href && hasValidLinkText(child)) {
-	      href = new URI(child.href).toString();
-	      entityId = DraftEntity.create('LINK', 'MUTABLE', { url: href });
-	    } else {
-	      entityId = undefined;
-	    }
-
-	    newChunk = genFragment(child, inlineStyle, lastList, inBlock, blockTags, depth, blockRenderMap, entityId || inEntity);
-
-	    chunk = joinChunks(chunk, newChunk);
-	    var sibling = child.nextSibling;
-
-	    // Put in a newline to break up blocks inside blocks
-	    if (sibling && blockTags.indexOf(nodeName) >= 0 && inBlock) {
-	      chunk = joinChunks(chunk, getSoftNewlineChunk());
-	    }
-	    if (sibling) {
-	      nodeName = sibling.nodeName.toLowerCase();
-	    }
-	    child = sibling;
-	  }
-
-	  if (newBlock) {
-	    chunk = joinChunks(chunk, getBlockDividerChunk(nextBlockType, depth));
-	  }
-
-	  return chunk;
-	}
-
-	function getChunkForHTML(html, DOMBuilder, blockRenderMap) {
-	  html = html.trim().replace(REGEX_CR, '').replace(REGEX_NBSP, SPACE);
-
-	  var supportedBlockTags = getBlockMapSupportedTags(blockRenderMap);
-
-	  var safeBody = DOMBuilder(html);
-	  if (!safeBody) {
-	    return null;
-	  }
-	  lastBlock = null;
-
-	  // Sometimes we aren't dealing with content that contains nice semantic
-	  // tags. In this case, use divs to separate everything out into paragraphs
-	  // and hope for the best.
-	  var workingBlocks = containsSemanticBlockMarkup(html, supportedBlockTags) ? supportedBlockTags : ['div'];
-
-	  // Start with -1 block depth to offset the fact that we are passing in a fake
-	  // UL block to start with.
-	  var chunk = genFragment(safeBody, OrderedSet(), 'ul', null, workingBlocks, -1, blockRenderMap);
-
-	  // join with previous block to prevent weirdness on paste
-	  if (chunk.text.indexOf('\r') === 0) {
-	    chunk = {
-	      text: chunk.text.slice(1),
-	      inlines: chunk.inlines.slice(1),
-	      entities: chunk.entities.slice(1),
-	      blocks: chunk.blocks
-	    };
-	  }
-
-	  // Kill block delimiter at the end
-	  if (chunk.text.slice(-1) === '\r') {
-	    chunk.text = chunk.text.slice(0, -1);
-	    chunk.inlines = chunk.inlines.slice(0, -1);
-	    chunk.entities = chunk.entities.slice(0, -1);
-	    chunk.blocks.pop();
-	  }
-
-	  // If we saw no block tags, put an unstyled one in
-	  if (chunk.blocks.length === 0) {
-	    chunk.blocks.push({ type: 'unstyled', depth: 0 });
-	  }
-
-	  // Sometimes we start with text that isn't in a block, which is then
-	  // followed by blocks. Need to fix up the blocks to add in
-	  // an unstyled block for this content
-	  if (chunk.text.split('\r').length === chunk.blocks.length + 1) {
-	    chunk.blocks.unshift({ type: 'unstyled', depth: 0 });
-	  }
-
-	  return chunk;
-	}
-
-	function convertFromHTMLtoContentBlocks(html) {
-	  var DOMBuilder = arguments.length <= 1 || arguments[1] === undefined ? getSafeBodyFromHTML : arguments[1];
-	  var blockRenderMap = arguments.length <= 2 || arguments[2] === undefined ? DefaultDraftBlockRenderMap : arguments[2];
-
-	  // Be ABSOLUTELY SURE that the dom builder you pass hare won't execute
-	  // arbitrary code in whatever environment you're running this in. For an
-	  // example of how we try to do this in-browser, see getSafeBodyFromHTML.
-
-	  var chunk = getChunkForHTML(html, DOMBuilder, blockRenderMap);
-
-	  if (chunk == null) {
-	    return null;
-	  }
-	  var start = 0;
-	  return chunk.text.split('\r').map(function (textBlock, ii) {
-	    // Make absolutely certain that our text is acceptable.
-	    textBlock = sanitizeDraftText(textBlock);
-	    var end = start + textBlock.length;
-	    var inlines = nullthrows(chunk).inlines.slice(start, end);
-	    var entities = nullthrows(chunk).entities.slice(start, end);
-	    var characterList = List(inlines.map(function (style, ii) {
-	      var data = { style: style, entity: null };
-	      if (entities[ii]) {
-	        data.entity = entities[ii];
-	      }
-	      return CharacterMetadata.create(data);
-	    }));
-	    start = end + 1;
-
-	    return new ContentBlock({
-	      key: generateRandomKey(),
-	      type: nullthrows(chunk).blocks[ii].type,
-	      depth: nullthrows(chunk).blocks[ii].depth,
-	      text: textBlock,
-	      characterList: characterList
-	    });
-	  });
-	}
-
-	module.exports = convertFromHTMLtoContentBlocks;
-
-/***/ },
-/* 243 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule convertFromRawToDraftState
-	 * 
-	 */
-
-	'use strict';
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var ContentBlock = __webpack_require__(228);
-	var ContentState = __webpack_require__(229);
-	var DraftEntity = __webpack_require__(235);
-
-	var createCharacterList = __webpack_require__(297);
-	var decodeEntityRanges = __webpack_require__(298);
-	var decodeInlineStyleRanges = __webpack_require__(299);
-	var generateRandomKey = __webpack_require__(244);
-
-	function convertFromRawToDraftState(rawState) {
-	  var blocks = rawState.blocks;
-	  var entityMap = rawState.entityMap;
-
-	  var fromStorageToLocal = {};
-	  Object.keys(entityMap).forEach(function (storageKey) {
-	    var encodedEntity = entityMap[storageKey];
-	    var type = encodedEntity.type;
-	    var mutability = encodedEntity.mutability;
-	    var data = encodedEntity.data;
-
-	    var newKey = DraftEntity.create(type, mutability, data || {});
-	    fromStorageToLocal[storageKey] = newKey;
-	  });
-
-	  var contentBlocks = blocks.map(function (block) {
-	    var key = block.key;
-	    var type = block.type;
-	    var text = block.text;
-	    var depth = block.depth;
-	    var inlineStyleRanges = block.inlineStyleRanges;
-	    var entityRanges = block.entityRanges;
-
-	    key = key || generateRandomKey();
-	    depth = depth || 0;
-	    inlineStyleRanges = inlineStyleRanges || [];
-	    entityRanges = entityRanges || [];
-
-	    var inlineStyles = decodeInlineStyleRanges(text, inlineStyleRanges);
-
-	    // Translate entity range keys to the DraftEntity map.
-	    var filteredEntityRanges = entityRanges.filter(function (range) {
-	      return fromStorageToLocal.hasOwnProperty(range.key);
-	    }).map(function (range) {
-	      return _extends({}, range, { key: fromStorageToLocal[range.key] });
-	    });
-
-	    var entities = decodeEntityRanges(text, filteredEntityRanges);
-	    var characterList = createCharacterList(inlineStyles, entities);
-
-	    return new ContentBlock({ key: key, type: type, text: text, depth: depth, characterList: characterList });
-	  });
-
-	  return ContentState.createFromBlockArray(contentBlocks);
-	}
-
-	module.exports = convertFromRawToDraftState;
-
-/***/ },
-/* 244 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule generateRandomKey
-	 * @typechecks
-	 * 
-	 */
-
-	'use strict';
-
-	var seenKeys = {};
-	var MULTIPLIER = Math.pow(2, 24);
-
-	function generateRandomKey() {
-	  var key = undefined;
-	  while (key === undefined || seenKeys.hasOwnProperty(key) || !isNaN(+key)) {
-	    key = Math.floor(Math.random() * MULTIPLIER).toString(32);
-	  }
-	  seenKeys[key] = true;
-	  return key;
-	}
-
-	module.exports = generateRandomKey;
-
-/***/ },
-/* 245 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule getDefaultKeyBinding
-	 * @typechecks
-	 * 
-	 */
-
-	'use strict';
-
-	var KeyBindingUtil = __webpack_require__(238);
-	var Keys = __webpack_require__(357);
-	var UserAgent = __webpack_require__(347);
-
-	var isOSX = UserAgent.isPlatform('Mac OS X');
-	var isWindows = UserAgent.isPlatform('Windows');
-
-	// Firefox on OSX had a bug resulting in navigation instead of cursor movement.
-	// This bug was fixed in Firefox 29. Feature detection is virtually impossible
-	// so we just check the version number. See #342765.
-	var shouldFixFirefoxMovement = isOSX && UserAgent.isBrowser('Firefox < 29');
-
-	var hasCommandModifier = KeyBindingUtil.hasCommandModifier;
-	var isCtrlKeyCommand = KeyBindingUtil.isCtrlKeyCommand;
-
-	function shouldRemoveWord(e) {
-	  return isOSX && e.altKey || isCtrlKeyCommand(e);
-	}
-
-	/**
-	 * Get the appropriate undo/redo command for a Z key command.
-	 */
-	function getZCommand(e) {
-	  if (hasCommandModifier(e)) {
-	    return e.shiftKey ? 'redo' : 'undo';
-	  }
-	}
-
-	function getDeleteCommand(e) {
-	  // Allow default "cut" behavior for Windows on Shift + Delete.
-	  if (isWindows && e.shiftKey) {
-	    return null;
-	  }
-	  return shouldRemoveWord(e) ? 'delete-word' : 'delete';
-	}
-
-	function getBackspaceCommand(e) {
-	  if (hasCommandModifier(e) && isOSX) {
-	    return 'backspace-to-start-of-line';
-	  }
-	  return shouldRemoveWord(e) ? 'backspace-word' : 'backspace';
-	}
-
-	/**
-	 * Retrieve a bound key command for the given event.
-	 */
-	function getDefaultKeyBinding(e) {
-	  switch (e.keyCode) {
-	    case 66:
-	      // B
-	      return hasCommandModifier(e) ? 'bold' : null;
-	    case 68:
-	      // D
-	      return isCtrlKeyCommand(e) ? 'delete' : null;
-	    case 72:
-	      // H
-	      return isCtrlKeyCommand(e) ? 'backspace' : null;
-	    case 73:
-	      // I
-	      return hasCommandModifier(e) ? 'italic' : null;
-	    case 74:
-	      // J
-	      return hasCommandModifier(e) ? 'code' : null;
-	    case 75:
-	      // K
-	      return !isWindows && isCtrlKeyCommand(e) ? 'secondary-cut' : null;
-	    case 77:
-	      // M
-	      return isCtrlKeyCommand(e) ? 'split-block' : null;
-	    case 79:
-	      // O
-	      return isCtrlKeyCommand(e) ? 'split-block' : null;
-	    case 84:
-	      // T
-	      return isOSX && isCtrlKeyCommand(e) ? 'transpose-characters' : null;
-	    case 85:
-	      // U
-	      return hasCommandModifier(e) ? 'underline' : null;
-	    case 87:
-	      // W
-	      return isOSX && isCtrlKeyCommand(e) ? 'backspace-word' : null;
-	    case 89:
-	      // Y
-	      if (isCtrlKeyCommand(e)) {
-	        return isWindows ? 'redo' : 'secondary-paste';
-	      }
-	      return null;
-	    case 90:
-	      // Z
-	      return getZCommand(e) || null;
-	    case Keys.RETURN:
-	      return 'split-block';
-	    case Keys.DELETE:
-	      return getDeleteCommand(e);
-	    case Keys.BACKSPACE:
-	      return getBackspaceCommand(e);
-	    // LEFT/RIGHT handlers serve as a workaround for a Firefox bug.
-	    case Keys.LEFT:
-	      return shouldFixFirefoxMovement && hasCommandModifier(e) ? 'move-selection-to-start-of-block' : null;
-	    case Keys.RIGHT:
-	      return shouldFixFirefoxMovement && hasCommandModifier(e) ? 'move-selection-to-end-of-block' : null;
-	    default:
-	      return null;
-	  }
-	}
-
-	module.exports = getDefaultKeyBinding;
-
-/***/ },
-/* 246 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule getVisibleSelectionRect
-	 * @typechecks
-	 * 
-	 */
-
-	/**
-	 * Return the bounding ClientRect for the visible DOM selection, if any.
-	 * In cases where there are no selected ranges or the bounding rect is
-	 * temporarily invalid, return null.
-	 */
-	'use strict';
-
-	var getRangeBoundingClientRect = __webpack_require__(300);
-
-	function getVisibleSelectionRect(global) {
-	  var selection = global.getSelection();
-	  if (!selection.rangeCount) {
-	    return null;
-	  }
-
-	  var range = selection.getRangeAt(0);
-	  var boundingRect = getRangeBoundingClientRect(range);
-	  var top = boundingRect.top;
-	  var right = boundingRect.right;
-	  var bottom = boundingRect.bottom;
-	  var left = boundingRect.left;
-
-	  // When a re-render leads to a node being removed, the DOM selection will
-	  // temporarily be placed on an ancestor node, which leads to an invalid
-	  // bounding rect. Discard this state.
-	  if (top === 0 && right === 0 && bottom === 0 && left === 0) {
-	    return null;
-	  }
-
-	  return boundingRect;
-	}
-
-	module.exports = getVisibleSelectionRect;
-
-/***/ },
-/* 247 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -67664,6 +66830,3647 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+/* 225 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule AtomicBlockUtils
+	 * @typechecks
+	 * 
+	 */
+
+	'use strict';
+
+	var BlockMapBuilder = __webpack_require__(226);
+	var CharacterMetadata = __webpack_require__(227);
+	var ContentBlock = __webpack_require__(229);
+	var DraftModifier = __webpack_require__(235);
+	var EditorState = __webpack_require__(238);
+	var Immutable = __webpack_require__(224);
+
+	var generateRandomKey = __webpack_require__(245);
+
+	var List = Immutable.List;
+	var Repeat = Immutable.Repeat;
+
+	var AtomicBlockUtils = {
+	  insertAtomicBlock: function insertAtomicBlock(editorState, entityKey, character) {
+	    var contentState = editorState.getCurrentContent();
+	    var selectionState = editorState.getSelection();
+
+	    var afterRemoval = DraftModifier.removeRange(contentState, selectionState, 'backward');
+
+	    var targetSelection = afterRemoval.getSelectionAfter();
+	    var afterSplit = DraftModifier.splitBlock(afterRemoval, targetSelection);
+	    var insertionTarget = afterSplit.getSelectionAfter();
+
+	    var asAtomicBlock = DraftModifier.setBlockType(afterSplit, insertionTarget, 'atomic');
+
+	    var charData = CharacterMetadata.create({ entity: entityKey });
+
+	    var fragmentArray = [new ContentBlock({
+	      key: generateRandomKey(),
+	      type: 'atomic',
+	      text: character,
+	      characterList: List(Repeat(charData, character.length))
+	    }), new ContentBlock({
+	      key: generateRandomKey(),
+	      type: 'unstyled',
+	      text: '',
+	      characterList: List()
+	    })];
+
+	    var fragment = BlockMapBuilder.createFromArray(fragmentArray);
+
+	    var withAtomicBlock = DraftModifier.replaceWithFragment(asAtomicBlock, insertionTarget, fragment);
+
+	    var newContent = withAtomicBlock.merge({
+	      selectionBefore: selectionState,
+	      selectionAfter: withAtomicBlock.getSelectionAfter().set('hasFocus', true)
+	    });
+
+	    return EditorState.push(editorState, newContent, 'insert-fragment');
+	  }
+	};
+
+	module.exports = AtomicBlockUtils;
+
+/***/ },
+/* 226 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule BlockMapBuilder
+	 * 
+	 */
+
+	'use strict';
+
+	var Immutable = __webpack_require__(224);
+
+	var OrderedMap = Immutable.OrderedMap;
+
+	var BlockMapBuilder = {
+	  createFromArray: function createFromArray(blocks) {
+	    return OrderedMap(blocks.map(function (block) {
+	      return [block.getKey(), block];
+	    }));
+	  }
+	};
+
+	module.exports = BlockMapBuilder;
+
+/***/ },
+/* 227 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule CharacterMetadata
+	 * @typechecks
+	 * 
+	 */
+
+	'use strict';
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _require = __webpack_require__(224);
+
+	var Map = _require.Map;
+	var OrderedSet = _require.OrderedSet;
+	var Record = _require.Record;
+
+	var EMPTY_SET = OrderedSet();
+
+	var defaultRecord = {
+	  style: EMPTY_SET,
+	  entity: null
+	};
+
+	var CharacterMetadataRecord = Record(defaultRecord);
+
+	var CharacterMetadata = (function (_CharacterMetadataRecord) {
+	  _inherits(CharacterMetadata, _CharacterMetadataRecord);
+
+	  function CharacterMetadata() {
+	    _classCallCheck(this, CharacterMetadata);
+
+	    _get(Object.getPrototypeOf(CharacterMetadata.prototype), 'constructor', this).apply(this, arguments);
+	  }
+
+	  _createClass(CharacterMetadata, [{
+	    key: 'getStyle',
+	    value: function getStyle() {
+	      return this.get('style');
+	    }
+	  }, {
+	    key: 'getEntity',
+	    value: function getEntity() {
+	      return this.get('entity');
+	    }
+	  }, {
+	    key: 'hasStyle',
+	    value: function hasStyle(style) {
+	      return this.getStyle().has(style);
+	    }
+	  }], [{
+	    key: 'applyStyle',
+	    value: function applyStyle(record, style) {
+	      var withStyle = record.set('style', record.getStyle().add(style));
+	      return CharacterMetadata.create(withStyle);
+	    }
+	  }, {
+	    key: 'removeStyle',
+	    value: function removeStyle(record, style) {
+	      var withoutStyle = record.set('style', record.getStyle().remove(style));
+	      return CharacterMetadata.create(withoutStyle);
+	    }
+	  }, {
+	    key: 'applyEntity',
+	    value: function applyEntity(record, entityKey) {
+	      var withEntity = record.getEntity() === entityKey ? record : record.set('entity', entityKey);
+	      return CharacterMetadata.create(withEntity);
+	    }
+
+	    /**
+	     * Use this function instead of the `CharacterMetadata` constructor.
+	     * Since most content generally uses only a very small number of
+	     * style/entity permutations, we can reuse these objects as often as
+	     * possible.
+	     */
+	  }, {
+	    key: 'create',
+	    value: function create(config) {
+	      if (!config) {
+	        return EMPTY;
+	      }
+
+	      // Fill in unspecified properties, if necessary.
+	      var configMap = Map({ style: EMPTY_SET, entity: null }).merge(config);
+
+	      var existing = pool.get(configMap);
+	      if (existing) {
+	        return existing;
+	      }
+
+	      var newCharacter = new CharacterMetadata(configMap);
+	      pool = pool.set(configMap, newCharacter);
+	      return newCharacter;
+	    }
+	  }]);
+
+	  return CharacterMetadata;
+	})(CharacterMetadataRecord);
+
+	var EMPTY = new CharacterMetadata();
+	var pool = Map([[Map(defaultRecord), EMPTY]]);
+
+	CharacterMetadata.EMPTY = EMPTY;
+
+	module.exports = CharacterMetadata;
+
+/***/ },
+/* 228 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule CompositeDraftDecorator
+	 * @typechecks
+	 * 
+	 */
+
+	'use strict';
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var Immutable = __webpack_require__(224);
+
+	var List = Immutable.List;
+
+	var DELIMITER = '.';
+
+	/**
+	 * A CompositeDraftDecorator traverses through a list of DraftDecorator
+	 * instances to identify sections of a ContentBlock that should be rendered
+	 * in a "decorated" manner. For example, hashtags, mentions, and links may
+	 * be intended to stand out visually, be rendered as anchors, etc.
+	 *
+	 * The list of decorators supplied to the constructor will be used in the
+	 * order they are provided. This allows the caller to specify a priority for
+	 * string matching, in case of match collisions among decorators.
+	 *
+	 * For instance, I may have a link with a `#` in its text. Though this section
+	 * of text may match our hashtag decorator, it should not be treated as a
+	 * hashtag. I should therefore list my link DraftDecorator
+	 * before my hashtag DraftDecorator when constructing this composite
+	 * decorator instance.
+	 *
+	 * Thus, when a collision like this is encountered, the earlier match is
+	 * preserved and the new match is discarded.
+	 */
+
+	var CompositeDraftDecorator = (function () {
+	  function CompositeDraftDecorator(decorators) {
+	    _classCallCheck(this, CompositeDraftDecorator);
+
+	    // Copy the decorator array, since we use this array order to determine
+	    // precedence of decoration matching. If the array is mutated externally,
+	    // we don't want to be affected here.
+	    this._decorators = decorators.slice();
+	  }
+
+	  /**
+	   * Determine whether we can occupy the specified slice of the decorations
+	   * array.
+	   */
+
+	  _createClass(CompositeDraftDecorator, [{
+	    key: 'getDecorations',
+	    value: function getDecorations(block) {
+	      var decorations = Array(block.getText().length).fill(null);
+
+	      this._decorators.forEach(function ( /*object*/decorator, /*number*/ii) {
+	        var counter = 0;
+	        var strategy = decorator.strategy;
+	        strategy(block, function ( /*number*/start, /*number*/end) {
+	          // Find out if any of our matching range is already occupied
+	          // by another decorator. If so, discard the match. Otherwise, store
+	          // the component key for rendering.
+	          if (canOccupySlice(decorations, start, end)) {
+	            occupySlice(decorations, start, end, ii + DELIMITER + counter);
+	            counter++;
+	          }
+	        });
+	      });
+
+	      return List(decorations);
+	    }
+	  }, {
+	    key: 'getComponentForKey',
+	    value: function getComponentForKey(key) {
+	      var componentKey = parseInt(key.split(DELIMITER)[0], 10);
+	      return this._decorators[componentKey].component;
+	    }
+	  }, {
+	    key: 'getPropsForKey',
+	    value: function getPropsForKey(key) {
+	      var componentKey = parseInt(key.split(DELIMITER)[0], 10);
+	      return this._decorators[componentKey].props;
+	    }
+	  }]);
+
+	  return CompositeDraftDecorator;
+	})();
+
+	function canOccupySlice(decorations, start, end) {
+	  for (var ii = start; ii < end; ii++) {
+	    if (decorations[ii] != null) {
+	      return false;
+	    }
+	  }
+	  return true;
+	}
+
+	/**
+	 * Splice the specified component into our decoration array at the desired
+	 * range.
+	 */
+	function occupySlice(targetArr, start, end, componentKey) {
+	  for (var ii = start; ii < end; ii++) {
+	    targetArr[ii] = componentKey;
+	  }
+	}
+
+	module.exports = CompositeDraftDecorator;
+
+/***/ },
+/* 229 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule ContentBlock
+	 * @typechecks
+	 * 
+	 */
+
+	'use strict';
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Immutable = __webpack_require__(224);
+
+	var findRangesImmutable = __webpack_require__(271);
+
+	var List = Immutable.List;
+	var OrderedSet = Immutable.OrderedSet;
+	var Record = Immutable.Record;
+
+	var EMPTY_SET = OrderedSet();
+
+	var defaultRecord = {
+	  key: '',
+	  type: 'unstyled',
+	  text: '',
+	  characterList: List(),
+	  depth: 0
+	};
+
+	var ContentBlockRecord = Record(defaultRecord);
+
+	var ContentBlock = (function (_ContentBlockRecord) {
+	  _inherits(ContentBlock, _ContentBlockRecord);
+
+	  function ContentBlock() {
+	    _classCallCheck(this, ContentBlock);
+
+	    _get(Object.getPrototypeOf(ContentBlock.prototype), 'constructor', this).apply(this, arguments);
+	  }
+
+	  _createClass(ContentBlock, [{
+	    key: 'getKey',
+	    value: function getKey() {
+	      return this.get('key');
+	    }
+	  }, {
+	    key: 'getType',
+	    value: function getType() {
+	      return this.get('type');
+	    }
+	  }, {
+	    key: 'getText',
+	    value: function getText() {
+	      return this.get('text');
+	    }
+	  }, {
+	    key: 'getCharacterList',
+	    value: function getCharacterList() {
+	      return this.get('characterList');
+	    }
+	  }, {
+	    key: 'getLength',
+	    value: function getLength() {
+	      return this.getText().length;
+	    }
+	  }, {
+	    key: 'getDepth',
+	    value: function getDepth() {
+	      return this.get('depth');
+	    }
+	  }, {
+	    key: 'getInlineStyleAt',
+	    value: function getInlineStyleAt(offset) {
+	      var character = this.getCharacterList().get(offset);
+	      return character ? character.getStyle() : EMPTY_SET;
+	    }
+	  }, {
+	    key: 'getEntityAt',
+	    value: function getEntityAt(offset) {
+	      var character = this.getCharacterList().get(offset);
+	      return character ? character.getEntity() : null;
+	    }
+
+	    /**
+	     * Execute a callback for every contiguous range of styles within the block.
+	     */
+	  }, {
+	    key: 'findStyleRanges',
+	    value: function findStyleRanges(filterFn, callback) {
+	      findRangesImmutable(this.getCharacterList(), haveEqualStyle, filterFn, callback);
+	    }
+
+	    /**
+	     * Execute a callback for every contiguous range of entities within the block.
+	     */
+	  }, {
+	    key: 'findEntityRanges',
+	    value: function findEntityRanges(filterFn, callback) {
+	      findRangesImmutable(this.getCharacterList(), haveEqualEntity, filterFn, callback);
+	    }
+	  }]);
+
+	  return ContentBlock;
+	})(ContentBlockRecord);
+
+	function haveEqualStyle(charA, charB) {
+	  return charA.getStyle() === charB.getStyle();
+	}
+
+	function haveEqualEntity(charA, charB) {
+	  return charA.getEntity() === charB.getEntity();
+	}
+
+	module.exports = ContentBlock;
+
+/***/ },
+/* 230 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule ContentState
+	 * @typechecks
+	 * 
+	 */
+
+	'use strict';
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x2, _x3, _x4) { var _again = true; _function: while (_again) { var object = _x2, property = _x3, receiver = _x4; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x2 = parent; _x3 = property; _x4 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var BlockMapBuilder = __webpack_require__(226);
+	var CharacterMetadata = __webpack_require__(227);
+	var ContentBlock = __webpack_require__(229);
+	var Immutable = __webpack_require__(224);
+	var SelectionState = __webpack_require__(241);
+
+	var generateRandomKey = __webpack_require__(245);
+	var sanitizeDraftText = __webpack_require__(272);
+
+	var List = Immutable.List;
+	var Record = Immutable.Record;
+	var Repeat = Immutable.Repeat;
+
+	var defaultRecord = {
+	  blockMap: null,
+	  selectionBefore: null,
+	  selectionAfter: null
+	};
+
+	var ContentStateRecord = Record(defaultRecord);
+
+	var ContentState = (function (_ContentStateRecord) {
+	  _inherits(ContentState, _ContentStateRecord);
+
+	  function ContentState() {
+	    _classCallCheck(this, ContentState);
+
+	    _get(Object.getPrototypeOf(ContentState.prototype), 'constructor', this).apply(this, arguments);
+	  }
+
+	  _createClass(ContentState, [{
+	    key: 'getBlockMap',
+	    value: function getBlockMap() {
+	      return this.get('blockMap');
+	    }
+	  }, {
+	    key: 'getSelectionBefore',
+	    value: function getSelectionBefore() {
+	      return this.get('selectionBefore');
+	    }
+	  }, {
+	    key: 'getSelectionAfter',
+	    value: function getSelectionAfter() {
+	      return this.get('selectionAfter');
+	    }
+	  }, {
+	    key: 'getBlockForKey',
+	    value: function getBlockForKey(key) {
+	      var block = this.getBlockMap().get(key);
+	      return block;
+	    }
+	  }, {
+	    key: 'getKeyBefore',
+	    value: function getKeyBefore(key) {
+	      return this.getBlockMap().reverse().keySeq().skipUntil(function (v) {
+	        return v === key;
+	      }).skip(1).first();
+	    }
+	  }, {
+	    key: 'getKeyAfter',
+	    value: function getKeyAfter(key) {
+	      return this.getBlockMap().keySeq().skipUntil(function (v) {
+	        return v === key;
+	      }).skip(1).first();
+	    }
+	  }, {
+	    key: 'getBlockAfter',
+	    value: function getBlockAfter(key) {
+	      return this.getBlockMap().skipUntil(function (_, k) {
+	        return k === key;
+	      }).skip(1).first();
+	    }
+	  }, {
+	    key: 'getBlockBefore',
+	    value: function getBlockBefore(key) {
+	      return this.getBlockMap().reverse().skipUntil(function (_, k) {
+	        return k === key;
+	      }).skip(1).first();
+	    }
+	  }, {
+	    key: 'getBlocksAsArray',
+	    value: function getBlocksAsArray() {
+	      return this.getBlockMap().toArray();
+	    }
+	  }, {
+	    key: 'getFirstBlock',
+	    value: function getFirstBlock() {
+	      return this.getBlockMap().first();
+	    }
+	  }, {
+	    key: 'getLastBlock',
+	    value: function getLastBlock() {
+	      return this.getBlockMap().last();
+	    }
+	  }, {
+	    key: 'getPlainText',
+	    value: function getPlainText(delimiter) {
+	      return this.getBlockMap().map(function (block) {
+	        return block ? block.getText() : '';
+	      }).join(delimiter || '\n');
+	    }
+	  }, {
+	    key: 'hasText',
+	    value: function hasText() {
+	      var blockMap = this.getBlockMap();
+	      return blockMap.size > 1 || blockMap.first().getLength() > 0;
+	    }
+	  }], [{
+	    key: 'createFromBlockArray',
+	    value: function createFromBlockArray(blocks) {
+	      var blockMap = BlockMapBuilder.createFromArray(blocks);
+	      var selectionState = SelectionState.createEmpty(blockMap.first().getKey());
+	      return new ContentState({
+	        blockMap: blockMap,
+	        selectionBefore: selectionState,
+	        selectionAfter: selectionState
+	      });
+	    }
+	  }, {
+	    key: 'createFromText',
+	    value: function createFromText(text) {
+	      var delimiter = arguments.length <= 1 || arguments[1] === undefined ? /\r\n?|\n/g : arguments[1];
+
+	      var strings = text.split(delimiter);
+	      var blocks = strings.map(function (block) {
+	        block = sanitizeDraftText(block);
+	        return new ContentBlock({
+	          key: generateRandomKey(),
+	          text: block,
+	          type: 'unstyled',
+	          characterList: List(Repeat(CharacterMetadata.EMPTY, block.length))
+	        });
+	      });
+	      return ContentState.createFromBlockArray(blocks);
+	    }
+	  }]);
+
+	  return ContentState;
+	})(ContentStateRecord);
+
+	module.exports = ContentState;
+
+/***/ },
+/* 231 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule DefaultDraftBlockRenderMap
+	 * 
+	 */
+
+	'use strict';
+
+	var _require = __webpack_require__(224);
+
+	var Map = _require.Map;
+
+	var React = __webpack_require__(18);
+
+	var cx = __webpack_require__(344);
+
+	var UL_WRAP = React.createElement('ul', { className: cx('public/DraftStyleDefault/ul') });
+	var OL_WRAP = React.createElement('ol', { className: cx('public/DraftStyleDefault/ol') });
+	var PRE_WRAP = React.createElement('pre', { className: cx('public/DraftStyleDefault/pre') });
+
+	module.exports = Map({
+	  'header-one': {
+	    element: 'h1'
+	  },
+	  'header-two': {
+	    element: 'h2'
+	  },
+	  'header-three': {
+	    element: 'h3'
+	  },
+	  'header-four': {
+	    element: 'h4'
+	  },
+	  'header-five': {
+	    element: 'h5'
+	  },
+	  'header-six': {
+	    element: 'h6'
+	  },
+	  'unordered-list-item': {
+	    element: 'li',
+	    wrapper: UL_WRAP
+	  },
+	  'ordered-list-item': {
+	    element: 'li',
+	    wrapper: OL_WRAP
+	  },
+	  'blockquote': {
+	    element: 'blockquote'
+	  },
+	  'atomic': {
+	    element: 'figure'
+	  },
+	  'code-block': {
+	    element: 'pre',
+	    wrapper: PRE_WRAP
+	  },
+	  'unstyled': {
+	    element: 'div'
+	  }
+	});
+
+/***/ },
+/* 232 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule DefaultDraftInlineStyle
+	 * 
+	 */
+
+	'use strict';
+
+	module.exports = {
+	  BOLD: {
+	    fontWeight: 'bold'
+	  },
+
+	  CODE: {
+	    fontFamily: 'monospace',
+	    wordWrap: 'break-word'
+	  },
+
+	  ITALIC: {
+	    fontStyle: 'italic'
+	  },
+
+	  STRIKETHROUGH: {
+	    textDecoration: 'line-through'
+	  },
+
+	  UNDERLINE: {
+	    textDecoration: 'underline'
+	  }
+	};
+
+/***/ },
+/* 233 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule DraftEditor.react
+	 * @typechecks
+	 * 
+	 */
+
+	'use strict';
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var DefaultDraftBlockRenderMap = __webpack_require__(231);
+	var DefaultDraftInlineStyle = __webpack_require__(232);
+	var DraftEditorCompositionHandler = __webpack_require__(273);
+	var DraftEditorContents = __webpack_require__(274);
+	var DraftEditorDragHandler = __webpack_require__(275);
+	var DraftEditorEditHandler = __webpack_require__(276);
+	var DraftEditorPlaceholder = __webpack_require__(277);
+	var EditorState = __webpack_require__(238);
+	var React = __webpack_require__(18);
+	var ReactDOM = __webpack_require__(20);
+	var Scroll = __webpack_require__(345);
+	var Style = __webpack_require__(346);
+	var UserAgent = __webpack_require__(347);
+
+	var cx = __webpack_require__(344);
+	var emptyFunction = __webpack_require__(348);
+	var generateRandomKey = __webpack_require__(245);
+	var getDefaultKeyBinding = __webpack_require__(246);
+	var nullthrows = __webpack_require__(349);
+	var getScrollPosition = __webpack_require__(350);
+
+	var isIE = UserAgent.isBrowser('IE');
+
+	// IE does not support the `input` event on contentEditable, so we can't
+	// observe spellcheck behavior.
+	var allowSpellCheck = !isIE;
+
+	// Define a set of handler objects to correspond to each possible `mode`
+	// of editor behavior.
+	var handlerMap = {
+	  'edit': DraftEditorEditHandler,
+	  'composite': DraftEditorCompositionHandler,
+	  'drag': DraftEditorDragHandler,
+	  'cut': null,
+	  'render': null
+	};
+
+	/**
+	 * `DraftEditor` is the root editor component. It composes a `contentEditable`
+	 * div, and provides a wide variety of useful function props for managing the
+	 * state of the editor. See `DraftEditorProps` for details.
+	 */
+
+	var DraftEditor = (function (_React$Component) {
+	  _inherits(DraftEditor, _React$Component);
+
+	  _createClass(DraftEditor, null, [{
+	    key: 'defaultProps',
+	    value: {
+	      blockRenderMap: DefaultDraftBlockRenderMap,
+	      blockRendererFn: emptyFunction.thatReturnsNull,
+	      blockStyleFn: emptyFunction.thatReturns(''),
+	      keyBindingFn: getDefaultKeyBinding,
+	      readOnly: false,
+	      spellCheck: false,
+	      stripPastedStyles: false
+	    },
+	    enumerable: true
+	  }]);
+
+	  function DraftEditor(props) {
+	    var _this = this;
+
+	    _classCallCheck(this, DraftEditor);
+
+	    _get(Object.getPrototypeOf(DraftEditor.prototype), 'constructor', this).call(this, props);
+
+	    this._blockSelectEvents = false;
+	    this._clipboard = null;
+	    this._guardAgainstRender = false;
+	    this._handler = null;
+	    this._dragCount = 0;
+	    this._editorKey = generateRandomKey();
+	    this._placeholderAccessibilityID = 'placeholder-' + this._editorKey;
+
+	    this._onBeforeInput = this._buildHandler('onBeforeInput');
+	    this._onBlur = this._buildHandler('onBlur');
+	    this._onCharacterData = this._buildHandler('onCharacterData');
+	    this._onCompositionEnd = this._buildHandler('onCompositionEnd');
+	    this._onCompositionStart = this._buildHandler('onCompositionStart');
+	    this._onCopy = this._buildHandler('onCopy');
+	    this._onCut = this._buildHandler('onCut');
+	    this._onDragEnd = this._buildHandler('onDragEnd');
+	    this._onDragOver = this._buildHandler('onDragOver');
+	    this._onDragStart = this._buildHandler('onDragStart');
+	    this._onDrop = this._buildHandler('onDrop');
+	    this._onInput = this._buildHandler('onInput');
+	    this._onFocus = this._buildHandler('onFocus');
+	    this._onKeyDown = this._buildHandler('onKeyDown');
+	    this._onKeyPress = this._buildHandler('onKeyPress');
+	    this._onKeyUp = this._buildHandler('onKeyUp');
+	    this._onMouseDown = this._buildHandler('onMouseDown');
+	    this._onMouseUp = this._buildHandler('onMouseUp');
+	    this._onPaste = this._buildHandler('onPaste');
+	    this._onSelect = this._buildHandler('onSelect');
+
+	    // Manual binding for public and internal methods.
+	    this.focus = this._focus.bind(this);
+	    this.blur = this._blur.bind(this);
+	    this.setMode = this._setMode.bind(this);
+	    this.exitCurrentMode = this._exitCurrentMode.bind(this);
+	    this.restoreEditorDOM = this._restoreEditorDOM.bind(this);
+	    this.setRenderGuard = this._setRenderGuard.bind(this);
+	    this.removeRenderGuard = this._removeRenderGuard.bind(this);
+	    this.setClipboard = this._setClipboard.bind(this);
+	    this.getClipboard = this._getClipboard.bind(this);
+	    this.getEditorKey = function () {
+	      return _this._editorKey;
+	    };
+	    this.update = this._update.bind(this);
+	    this.onDragEnter = this._onDragEnter.bind(this);
+	    this.onDragLeave = this._onDragLeave.bind(this);
+
+	    // See `_restoreEditorDOM()`.
+	    this.state = { containerKey: 0 };
+	  }
+
+	  /**
+	   * Build a method that will pass the event to the specified handler method.
+	   * This allows us to look up the correct handler function for the current
+	   * editor mode, if any has been specified.
+	   */
+
+	  _createClass(DraftEditor, [{
+	    key: '_buildHandler',
+	    value: function _buildHandler(eventName) {
+	      var _this2 = this;
+
+	      return function (e) {
+	        if (!_this2.props.readOnly) {
+	          var method = _this2._handler && _this2._handler[eventName];
+	          method && method.call(_this2, e);
+	        }
+	      };
+	    }
+	  }, {
+	    key: '_showPlaceholder',
+	    value: function _showPlaceholder() {
+	      return !!this.props.placeholder && !this.props.editorState.isInCompositionMode() && !this.props.editorState.getCurrentContent().hasText();
+	    }
+	  }, {
+	    key: '_renderPlaceholder',
+	    value: function _renderPlaceholder() {
+	      if (this._showPlaceholder()) {
+	        return React.createElement(DraftEditorPlaceholder, {
+	          text: nullthrows(this.props.placeholder),
+	          editorState: this.props.editorState,
+	          textAlignment: this.props.textAlignment,
+	          accessibilityID: this._placeholderAccessibilityID
+	        });
+	      }
+	      return null;
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props;
+	      var readOnly = _props.readOnly;
+	      var textAlignment = _props.textAlignment;
+
+	      var rootClass = cx({
+	        'DraftEditor/root': true,
+	        'DraftEditor/alignLeft': textAlignment === 'left',
+	        'DraftEditor/alignRight': textAlignment === 'right',
+	        'DraftEditor/alignCenter': textAlignment === 'center'
+	      });
+	      var hasContent = this.props.editorState.getCurrentContent().hasText();
+
+	      var contentStyle = {
+	        outline: 'none',
+	        whiteSpace: 'pre-wrap',
+	        wordWrap: 'break-word'
+	      };
+
+	      return React.createElement(
+	        'div',
+	        { className: rootClass },
+	        this._renderPlaceholder(),
+	        React.createElement(
+	          'div',
+	          {
+	            className: cx('DraftEditor/editorContainer'),
+	            key: 'editor' + this.state.containerKey,
+	            ref: 'editorContainer' },
+	          React.createElement(
+	            'div',
+	            {
+	              'aria-activedescendant': readOnly ? null : this.props.ariaActiveDescendantID,
+	              'aria-autocomplete': readOnly ? null : this.props.ariaAutoComplete,
+	              'aria-describedby': this._showPlaceholder() ? this._placeholderAccessibilityID : null,
+	              'aria-expanded': readOnly ? null : this.props.ariaExpanded,
+	              'aria-haspopup': readOnly ? null : this.props.ariaHasPopup,
+	              'aria-label': this.props.ariaLabel,
+	              'aria-owns': readOnly ? null : this.props.ariaOwneeID,
+	              className: cx('public/DraftEditor/content'),
+	              contentEditable: !readOnly,
+	              'data-testid': this.props.webDriverTestID,
+	              onBeforeInput: this._onBeforeInput,
+	              onBlur: this._onBlur,
+	              onCompositionEnd: this._onCompositionEnd,
+	              onCompositionStart: this._onCompositionStart,
+	              onCopy: this._onCopy,
+	              onCut: this._onCut,
+	              onDragEnd: this._onDragEnd,
+	              onDragEnter: this.onDragEnter,
+	              onDragLeave: this.onDragLeave,
+	              onDragOver: this._onDragOver,
+	              onDragStart: this._onDragStart,
+	              onDrop: this._onDrop,
+	              onFocus: this._onFocus,
+	              onInput: this._onInput,
+	              onKeyDown: this._onKeyDown,
+	              onKeyPress: this._onKeyPress,
+	              onKeyUp: this._onKeyUp,
+	              onMouseUp: this._onMouseUp,
+	              onPaste: this._onPaste,
+	              onSelect: this._onSelect,
+	              ref: 'editor',
+	              role: readOnly ? null : this.props.role || 'textbox',
+	              spellCheck: allowSpellCheck && this.props.spellCheck,
+	              style: contentStyle,
+	              suppressContentEditableWarning: true,
+	              tabIndex: this.props.tabIndex },
+	            React.createElement(DraftEditorContents, {
+	              blockRenderMap: this.props.blockRenderMap,
+	              blockRendererFn: this.props.blockRendererFn,
+	              blockStyleFn: this.props.blockStyleFn,
+	              customStyleMap: _extends({}, DefaultDraftInlineStyle, this.props.customStyleMap),
+	              editorKey: this._editorKey,
+	              editorState: this.props.editorState
+	            })
+	          )
+	        )
+	      );
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.setMode('edit');
+
+	      /**
+	       * IE has a hardcoded "feature" that attempts to convert link text into
+	       * anchors in contentEditable DOM. This breaks the editor's expectations of
+	       * the DOM, and control is lost. Disable it to make IE behave.
+	       * See: http://blogs.msdn.com/b/ieinternals/archive/2010/09/15/
+	       * ie9-beta-minor-change-list.aspx
+	       */
+	      if (isIE) {
+	        document.execCommand('AutoUrlDetect', false, false);
+	      }
+	    }
+
+	    /**
+	     * Prevent selection events from affecting the current editor state. This
+	     * is mostly intended to defend against IE, which fires off `selectionchange`
+	     * events regardless of whether the selection is set via the browser or
+	     * programmatically. We only care about selection events that occur because
+	     * of browser interaction, not re-renders and forced selections.
+	     */
+	  }, {
+	    key: 'componentWillUpdate',
+	    value: function componentWillUpdate() {
+	      this._blockSelectEvents = true;
+	    }
+	  }, {
+	    key: 'componentDidUpdate',
+	    value: function componentDidUpdate() {
+	      this._blockSelectEvents = false;
+	    }
+
+	    /**
+	     * Used via `this.focus()`.
+	     *
+	     * Force focus back onto the editor node.
+	     *
+	     * Forcing focus causes the browser to scroll to the top of the editor, which
+	     * may be undesirable when the editor is taller than the viewport. To solve
+	     * this, either use a specified scroll position (in cases like `cut` behavior
+	     * where it should be restored to a known position) or store the current
+	     * scroll state and put it back in place after focus has been forced.
+	     */
+	  }, {
+	    key: '_focus',
+	    value: function _focus(scrollPosition) {
+	      var editorState = this.props.editorState;
+
+	      var alreadyHasFocus = editorState.getSelection().getHasFocus();
+	      var editorNode = ReactDOM.findDOMNode(this.refs.editor);
+
+	      var scrollParent = Style.getScrollParent(editorNode);
+
+	      var _ref = scrollPosition || getScrollPosition(scrollParent);
+
+	      var x = _ref.x;
+	      var y = _ref.y;
+
+	      editorNode.focus();
+	      if (scrollParent === window) {
+	        window.scrollTo(x, y);
+	      } else {
+	        Scroll.setTop(scrollParent, y);
+	      }
+
+	      // On Chrome and Safari, calling focus on contenteditable focuses the
+	      // cursor at the first character. This is something you don't expect when
+	      // you're clicking on an input element but not directly on a character.
+	      // Put the cursor back where it was before the blur.
+	      if (!alreadyHasFocus) {
+	        this.update(EditorState.forceSelection(editorState, editorState.getSelection()));
+	      }
+	    }
+	  }, {
+	    key: '_blur',
+	    value: function _blur() {
+	      ReactDOM.findDOMNode(this.refs.editor).blur();
+	    }
+
+	    /**
+	     * Used via `this.setMode(...)`.
+	     *
+	     * Set the behavior mode for the editor component. This switches the current
+	     * handler module to ensure that DOM events are managed appropriately for
+	     * the active mode.
+	     */
+	  }, {
+	    key: '_setMode',
+	    value: function _setMode(mode) {
+	      this._handler = handlerMap[mode];
+	    }
+	  }, {
+	    key: '_exitCurrentMode',
+	    value: function _exitCurrentMode() {
+	      this.setMode('edit');
+	    }
+
+	    /**
+	     * Used via `this.restoreEditorDOM()`.
+	     *
+	     * Force a complete re-render of the editor based on the current EditorState.
+	     * This is useful when we know we are going to lose control of the DOM
+	     * state (cut command, IME) and we want to make sure that reconciliation
+	     * occurs on a version of the DOM that is synchronized with our EditorState.
+	     */
+	  }, {
+	    key: '_restoreEditorDOM',
+	    value: function _restoreEditorDOM(scrollPosition) {
+	      var _this3 = this;
+
+	      this.setState({ containerKey: this.state.containerKey + 1 }, function () {
+	        _this3._focus(scrollPosition);
+	      });
+	    }
+
+	    /**
+	     * Guard against rendering. Intended for use when we need to manually
+	     * reset editor contents, to ensure that no outside influences lead to
+	     * React reconciliation when we are in an uncertain state.
+	     */
+	  }, {
+	    key: '_setRenderGuard',
+	    value: function _setRenderGuard() {
+	      this._guardAgainstRender = true;
+	    }
+	  }, {
+	    key: '_removeRenderGuard',
+	    value: function _removeRenderGuard() {
+	      this._guardAgainstRender = false;
+	    }
+
+	    /**
+	     * Used via `this.setClipboard(...)`.
+	     *
+	     * Set the clipboard state for a cut/copy event.
+	     */
+	  }, {
+	    key: '_setClipboard',
+	    value: function _setClipboard(clipboard) {
+	      this._clipboard = clipboard;
+	    }
+
+	    /**
+	     * Used via `this.getClipboard()`.
+	     *
+	     * Retrieve the clipboard state for a cut/copy event.
+	     */
+	  }, {
+	    key: '_getClipboard',
+	    value: function _getClipboard() {
+	      return this._clipboard;
+	    }
+
+	    /**
+	     * Used via `this.update(...)`.
+	     *
+	     * Propagate a new `EditorState` object to higher-level components. This is
+	     * the method by which event handlers inform the `DraftEditor` component of
+	     * state changes. A component that composes a `DraftEditor` **must** provide
+	     * an `onChange` prop to receive state updates passed along from this
+	     * function.
+	     */
+	  }, {
+	    key: '_update',
+	    value: function _update(editorState) {
+	      this.props.onChange(editorState);
+	    }
+
+	    /**
+	     * Used in conjunction with `_onDragLeave()`, by counting the number of times
+	     * a dragged element enters and leaves the editor (or any of its children),
+	     * to determine when the dragged element absolutely leaves the editor.
+	     */
+	  }, {
+	    key: '_onDragEnter',
+	    value: function _onDragEnter() {
+	      this._dragCount++;
+	    }
+
+	    /**
+	     * See `_onDragEnter()`.
+	     */
+	  }, {
+	    key: '_onDragLeave',
+	    value: function _onDragLeave() {
+	      this._dragCount--;
+	      if (this._dragCount === 0) {
+	        this.exitCurrentMode();
+	      }
+	    }
+	  }]);
+
+	  return DraftEditor;
+	})(React.Component);
+
+	module.exports = DraftEditor;
+
+	/**
+	 * Define proxies that can route events to the current handler.
+	 */
+
+/***/ },
+/* 234 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule DraftEditorBlock.react
+	 * @typechecks
+	 * 
+	 */
+
+	'use strict';
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ContentBlock = __webpack_require__(229);
+	var DraftEditorLeaf = __webpack_require__(278);
+	var DraftOffsetKey = __webpack_require__(279);
+	var React = __webpack_require__(18);
+	var ReactDOM = __webpack_require__(20);
+	var Scroll = __webpack_require__(345);
+	var SelectionState = __webpack_require__(241);
+	var Style = __webpack_require__(346);
+	var UnicodeBidi = __webpack_require__(351);
+	var UnicodeBidiDirection = __webpack_require__(352);
+
+	var cx = __webpack_require__(344);
+	var getElementPosition = __webpack_require__(353);
+	var getScrollPosition = __webpack_require__(350);
+	var getViewportDimensions = __webpack_require__(354);
+	var nullthrows = __webpack_require__(349);
+
+	var SCROLL_BUFFER = 10;
+
+	/**
+	 * The default block renderer for a `DraftEditor` component.
+	 *
+	 * A `DraftEditorBlock` is able to render a given `ContentBlock` to its
+	 * appropriate decorator and inline style components.
+	 */
+
+	var DraftEditorBlock = (function (_React$Component) {
+	  _inherits(DraftEditorBlock, _React$Component);
+
+	  function DraftEditorBlock() {
+	    _classCallCheck(this, DraftEditorBlock);
+
+	    _get(Object.getPrototypeOf(DraftEditorBlock.prototype), 'constructor', this).apply(this, arguments);
+	  }
+
+	  /**
+	   * Return whether a block overlaps with either edge of the `SelectionState`.
+	   */
+
+	  _createClass(DraftEditorBlock, [{
+	    key: 'shouldComponentUpdate',
+	    value: function shouldComponentUpdate(nextProps) {
+	      return this.props.block !== nextProps.block || this.props.tree !== nextProps.tree || this.props.direction !== nextProps.direction || isBlockOnSelectionEdge(nextProps.selection, nextProps.block.getKey()) && nextProps.forceSelection;
+	    }
+
+	    /**
+	     * When a block is mounted and overlaps the selection state, we need to make
+	     * sure that the cursor is visible to match native behavior. This may not
+	     * be the case if the user has pressed `RETURN` or pasted some content, since
+	     * programatically creating these new blocks and setting the DOM selection
+	     * will miss out on the browser natively scrolling to that position.
+	     *
+	     * To replicate native behavior, if the block overlaps the selection state
+	     * on mount, force the scroll position. Check the scroll state of the scroll
+	     * parent, and adjust it to align the entire block to the bottom of the
+	     * scroll parent.
+	     */
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var selection = this.props.selection;
+	      var endKey = selection.getEndKey();
+	      if (!selection.getHasFocus() || endKey !== this.props.block.getKey()) {
+	        return;
+	      }
+
+	      var blockNode = ReactDOM.findDOMNode(this);
+	      var scrollParent = Style.getScrollParent(blockNode);
+	      var scrollPosition = getScrollPosition(scrollParent);
+	      var scrollDelta;
+
+	      if (scrollParent === window) {
+	        var nodePosition = getElementPosition(blockNode);
+	        var nodeBottom = nodePosition.y + nodePosition.height;
+	        var viewportHeight = getViewportDimensions().height;
+	        scrollDelta = nodeBottom - viewportHeight;
+	        if (scrollDelta > 0) {
+	          window.scrollTo(scrollPosition.x, scrollPosition.y + scrollDelta + SCROLL_BUFFER);
+	        }
+	      } else {
+	        var blockBottom = blockNode.offsetHeight + blockNode.offsetTop;
+	        var scrollBottom = scrollParent.offsetHeight + scrollPosition.y;
+	        scrollDelta = blockBottom - scrollBottom;
+	        if (scrollDelta > 0) {
+	          Scroll.setTop(scrollParent, Scroll.getTop(scrollParent) + scrollDelta + SCROLL_BUFFER);
+	        }
+	      }
+	    }
+	  }, {
+	    key: '_renderChildren',
+	    value: function _renderChildren() {
+	      var _this = this;
+
+	      var block = this.props.block;
+	      var blockKey = block.getKey();
+	      var text = block.getText();
+	      var lastLeafSet = this.props.tree.size - 1;
+	      var hasSelection = isBlockOnSelectionEdge(this.props.selection, blockKey);
+
+	      return this.props.tree.map(function (leafSet, ii) {
+	        var leavesForLeafSet = leafSet.get('leaves');
+	        var lastLeaf = leavesForLeafSet.size - 1;
+	        var leaves = leavesForLeafSet.map(function (leaf, jj) {
+	          var offsetKey = DraftOffsetKey.encode(blockKey, ii, jj);
+	          var start = leaf.get('start');
+	          var end = leaf.get('end');
+	          return React.createElement(DraftEditorLeaf, {
+	            key: offsetKey,
+	            offsetKey: offsetKey,
+	            blockKey: blockKey,
+	            start: start,
+	            selection: hasSelection ? _this.props.selection : undefined,
+	            forceSelection: _this.props.forceSelection,
+	            text: text.slice(start, end),
+	            styleSet: block.getInlineStyleAt(start),
+	            customStyleMap: _this.props.customStyleMap,
+	            isLast: ii === lastLeafSet && jj === lastLeaf
+	          });
+	        }).toArray();
+
+	        var decoratorKey = leafSet.get('decoratorKey');
+	        if (decoratorKey == null) {
+	          return leaves;
+	        }
+
+	        if (!_this.props.decorator) {
+	          return leaves;
+	        }
+
+	        var decorator = nullthrows(_this.props.decorator);
+
+	        var DecoratorComponent = decorator.getComponentForKey(decoratorKey);
+	        if (!DecoratorComponent) {
+	          return leaves;
+	        }
+
+	        var decoratorProps = decorator.getPropsForKey(decoratorKey);
+	        var decoratorOffsetKey = DraftOffsetKey.encode(blockKey, ii, 0);
+	        var decoratedText = text.slice(leavesForLeafSet.first().get('start'), leavesForLeafSet.last().get('end'));
+
+	        // Resetting dir to the same value on a child node makes Chrome/Firefox
+	        // confused on cursor movement. See http://jsfiddle.net/d157kLck/3/
+	        var dir = UnicodeBidiDirection.getHTMLDirIfDifferent(UnicodeBidi.getDirection(decoratedText), _this.props.direction);
+
+	        return React.createElement(
+	          DecoratorComponent,
+	          _extends({}, decoratorProps, {
+	            decoratedText: decoratedText,
+	            dir: dir,
+	            key: decoratorOffsetKey,
+	            entityKey: block.getEntityAt(leafSet.get('start')),
+	            offsetKey: decoratorOffsetKey }),
+	          leaves
+	        );
+	      }).toArray();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props;
+	      var direction = _props.direction;
+	      var offsetKey = _props.offsetKey;
+
+	      var className = cx({
+	        'public/DraftStyleDefault/block': true,
+	        'public/DraftStyleDefault/ltr': direction === 'LTR',
+	        'public/DraftStyleDefault/rtl': direction === 'RTL'
+	      });
+
+	      return React.createElement(
+	        'div',
+	        { 'data-offset-key': offsetKey, className: className },
+	        this._renderChildren()
+	      );
+	    }
+	  }]);
+
+	  return DraftEditorBlock;
+	})(React.Component);
+
+	function isBlockOnSelectionEdge(selection, key) {
+	  return selection.getAnchorKey() === key || selection.getFocusKey() === key;
+	}
+
+	module.exports = DraftEditorBlock;
+
+/***/ },
+/* 235 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule DraftModifier
+	 * @typechecks
+	 * 
+	 */
+
+	/**
+	 * `DraftModifier` provides a set of convenience methods that apply
+	 * modifications to a `ContentState` object based on a target `SelectionState`.
+	 *
+	 * Any change to a `ContentState` should be decomposable into a series of
+	 * transaction functions that apply the required changes and return output
+	 * `ContentState` objects.
+	 *
+	 * These functions encapsulate some of the most common transaction sequences.
+	 */
+	'use strict';
+
+	var CharacterMetadata = __webpack_require__(227);
+	var ContentStateInlineStyle = __webpack_require__(280);
+
+	var _require = __webpack_require__(224);
+
+	var OrderedSet = _require.OrderedSet;
+
+	var applyEntityToContentState = __webpack_require__(281);
+	var getCharacterRemovalRange = __webpack_require__(282);
+	var getContentStateFragment = __webpack_require__(283);
+	var insertFragmentIntoContentState = __webpack_require__(284);
+	var insertTextIntoContentState = __webpack_require__(285);
+	var invariant = __webpack_require__(355);
+	var removeEntitiesAtEdges = __webpack_require__(286);
+	var removeRangeFromContentState = __webpack_require__(287);
+	var setBlockTypeForContentState = __webpack_require__(288);
+	var splitBlockInContentState = __webpack_require__(289);
+
+	var DraftModifier = {
+	  replaceText: function replaceText(contentState, rangeToReplace, text, inlineStyle, entityKey) {
+	    var withoutEntities = removeEntitiesAtEdges(contentState, rangeToReplace);
+	    var withoutText = removeRangeFromContentState(withoutEntities, rangeToReplace);
+
+	    var character = CharacterMetadata.create({
+	      style: inlineStyle || OrderedSet(),
+	      entity: entityKey || null
+	    });
+
+	    return insertTextIntoContentState(withoutText, withoutText.getSelectionAfter(), text, character);
+	  },
+
+	  insertText: function insertText(contentState, targetRange, text, inlineStyle, entityKey) {
+	    !targetRange.isCollapsed() ? false ? invariant(false, 'Target range must be collapsed for `insertText`.') : invariant(false) : undefined;
+	    return DraftModifier.replaceText(contentState, targetRange, text, inlineStyle, entityKey);
+	  },
+
+	  moveText: function moveText(contentState, removalRange, targetRange) {
+	    var movedFragment = getContentStateFragment(contentState, removalRange);
+
+	    var afterRemoval = DraftModifier.removeRange(contentState, removalRange, 'backward');
+
+	    return DraftModifier.replaceWithFragment(afterRemoval, targetRange, movedFragment);
+	  },
+
+	  replaceWithFragment: function replaceWithFragment(contentState, targetRange, fragment) {
+	    var withoutEntities = removeEntitiesAtEdges(contentState, targetRange);
+	    var withoutText = removeRangeFromContentState(withoutEntities, targetRange);
+
+	    return insertFragmentIntoContentState(withoutText, withoutText.getSelectionAfter(), fragment);
+	  },
+
+	  removeRange: function removeRange(contentState, rangeToRemove, removalDirection) {
+	    // Check whether the selection state overlaps with a single entity.
+	    // If so, try to remove the appropriate substring of the entity text.
+	    if (rangeToRemove.getAnchorKey() === rangeToRemove.getFocusKey()) {
+	      var key = rangeToRemove.getAnchorKey();
+	      var startOffset = rangeToRemove.getStartOffset();
+	      var endOffset = rangeToRemove.getEndOffset();
+	      var block = contentState.getBlockForKey(key);
+
+	      var startEntity = block.getEntityAt(startOffset);
+	      var endEntity = block.getEntityAt(endOffset - 1);
+	      if (startEntity && startEntity === endEntity) {
+	        var adjustedRemovalRange = getCharacterRemovalRange(block, rangeToRemove, removalDirection);
+	        return removeRangeFromContentState(contentState, adjustedRemovalRange);
+	      }
+	    }
+
+	    var withoutEntities = removeEntitiesAtEdges(contentState, rangeToRemove);
+	    return removeRangeFromContentState(withoutEntities, rangeToRemove);
+	  },
+
+	  splitBlock: function splitBlock(contentState, selectionState) {
+	    var withoutEntities = removeEntitiesAtEdges(contentState, selectionState);
+	    var withoutText = removeRangeFromContentState(withoutEntities, selectionState);
+
+	    return splitBlockInContentState(withoutText, withoutText.getSelectionAfter());
+	  },
+
+	  applyInlineStyle: function applyInlineStyle(contentState, selectionState, inlineStyle) {
+	    return ContentStateInlineStyle.add(contentState, selectionState, inlineStyle);
+	  },
+
+	  removeInlineStyle: function removeInlineStyle(contentState, selectionState, inlineStyle) {
+	    return ContentStateInlineStyle.remove(contentState, selectionState, inlineStyle);
+	  },
+
+	  setBlockType: function setBlockType(contentState, selectionState, blockType) {
+	    return setBlockTypeForContentState(contentState, selectionState, blockType);
+	  },
+
+	  applyEntity: function applyEntity(contentState, selectionState, entityKey) {
+	    var withoutEntities = removeEntitiesAtEdges(contentState, selectionState);
+	    return applyEntityToContentState(withoutEntities, selectionState, entityKey);
+	  }
+	};
+
+	module.exports = DraftModifier;
+
+/***/ },
+/* 236 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule DraftEntity
+	 * @typechecks
+	 * 
+	 */
+
+	'use strict';
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var DraftEntityInstance = __webpack_require__(237);
+	var Immutable = __webpack_require__(224);
+
+	var invariant = __webpack_require__(355);
+
+	var Map = Immutable.Map;
+
+	var instances = Map();
+	var instanceKey = 0;
+
+	/**
+	 * A "document entity" is an object containing metadata associated with a
+	 * piece of text in a ContentBlock.
+	 *
+	 * For example, a `link` entity might include a `uri` property. When a
+	 * ContentBlock is rendered in the browser, text that refers to that link
+	 * entity may be rendered as an anchor, with the `uri` as the href value.
+	 *
+	 * In a ContentBlock, every position in the text may correspond to zero
+	 * or one entities. This correspondence is tracked using a key string,
+	 * generated via DraftEntity.create() and used to obtain entity metadata
+	 * via DraftEntity.get().
+	 */
+	var DraftEntity = {
+	  /**
+	   * Create a DraftEntityInstance and store it for later retrieval.
+	   *
+	   * A random key string will be generated and returned. This key may
+	   * be used to track the entity's usage in a ContentBlock, and for
+	   * retrieving data about the entity at render time.
+	   */
+	  create: function create(type, mutability, data) {
+	    return DraftEntity.add(new DraftEntityInstance({ type: type, mutability: mutability, data: data || {} }));
+	  },
+
+	  /**
+	   * Add an existing DraftEntityInstance to the DraftEntity map. This is
+	   * useful when restoring instances from the server.
+	   */
+	  add: function add(instance) {
+	    var key = '' + ++instanceKey;
+	    instances = instances.set(key, instance);
+	    return key;
+	  },
+
+	  /**
+	   * Retrieve the entity corresponding to the supplied key string.
+	   */
+	  get: function get(key) {
+	    var instance = instances.get(key);
+	    !!!instance ? false ? invariant(false, 'Unknown DraftEntity key.') : invariant(false) : undefined;
+	    return instance;
+	  },
+
+	  /**
+	   * Entity instances are immutable. If you need to update the data for an
+	   * instance, this method will merge your data updates and return a new
+	   * instance.
+	   */
+	  mergeData: function mergeData(key, toMerge) {
+	    var instance = DraftEntity.get(key);
+	    var newData = _extends({}, instance.getData(), toMerge);
+	    var newInstance = instance.set('data', newData);
+	    instances = instances.set(key, newInstance);
+	    return newInstance;
+	  },
+
+	  /**
+	   * Completely replace the data for a given instance.
+	   */
+	  replaceData: function replaceData(key, newData) {
+	    var instance = DraftEntity.get(key);
+	    var newInstance = instance.set('data', newData);
+	    instances = instances.set(key, newInstance);
+	    return newInstance;
+	  }
+	};
+
+	module.exports = DraftEntity;
+
+/***/ },
+/* 237 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule DraftEntityInstance
+	 * 
+	 */
+
+	'use strict';
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Immutable = __webpack_require__(224);
+
+	var Record = Immutable.Record;
+
+	var DraftEntityInstanceRecord = Record({
+	  type: 'TOKEN',
+	  mutability: 'IMMUTABLE',
+	  data: Object
+	});
+
+	/**
+	 * An instance of a document entity, consisting of a `type` and relevant
+	 * `data`, metadata about the entity.
+	 *
+	 * For instance, a "link" entity might provide a URI, and a "mention"
+	 * entity might provide the mentioned user's ID. These pieces of data
+	 * may be used when rendering the entity as part of a ContentBlock DOM
+	 * representation. For a link, the data would be used as an href for
+	 * the rendered anchor. For a mention, the ID could be used to retrieve
+	 * a hovercard.
+	 */
+
+	var DraftEntityInstance = (function (_DraftEntityInstanceRecord) {
+	  _inherits(DraftEntityInstance, _DraftEntityInstanceRecord);
+
+	  function DraftEntityInstance() {
+	    _classCallCheck(this, DraftEntityInstance);
+
+	    _get(Object.getPrototypeOf(DraftEntityInstance.prototype), 'constructor', this).apply(this, arguments);
+	  }
+
+	  _createClass(DraftEntityInstance, [{
+	    key: 'getType',
+	    value: function getType() {
+	      return this.get('type');
+	    }
+	  }, {
+	    key: 'getMutability',
+	    value: function getMutability() {
+	      return this.get('mutability');
+	    }
+	  }, {
+	    key: 'getData',
+	    value: function getData() {
+	      return this.get('data');
+	    }
+	  }]);
+
+	  return DraftEntityInstance;
+	})(DraftEntityInstanceRecord);
+
+	module.exports = DraftEntityInstance;
+
+/***/ },
+/* 238 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule EditorState
+	 * 
+	 */
+
+	'use strict';
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var BlockTree = __webpack_require__(290);
+	var ContentState = __webpack_require__(230);
+	var EditorBidiService = __webpack_require__(291);
+	var Immutable = __webpack_require__(224);
+	var SelectionState = __webpack_require__(241);
+
+	var OrderedSet = Immutable.OrderedSet;
+	var Record = Immutable.Record;
+	var Stack = Immutable.Stack;
+
+	var defaultRecord = {
+	  allowUndo: true,
+	  currentContent: null,
+	  decorator: null,
+	  directionMap: null,
+	  forceSelection: false,
+	  inCompositionMode: false,
+	  inlineStyleOverride: null,
+	  lastChangeType: null,
+	  nativelyRenderedContent: null,
+	  redoStack: Stack(),
+	  selection: null,
+	  treeMap: null,
+	  undoStack: Stack()
+	};
+
+	var EditorStateRecord = Record(defaultRecord);
+
+	var EditorState = (function () {
+	  _createClass(EditorState, [{
+	    key: 'toJS',
+	    value: function toJS() {
+	      return this.getImmutable().toJS();
+	    }
+	  }, {
+	    key: 'getAllowUndo',
+	    value: function getAllowUndo() {
+	      return this.getImmutable().get('allowUndo');
+	    }
+	  }, {
+	    key: 'getCurrentContent',
+	    value: function getCurrentContent() {
+	      return this.getImmutable().get('currentContent');
+	    }
+	  }, {
+	    key: 'getUndoStack',
+	    value: function getUndoStack() {
+	      return this.getImmutable().get('undoStack');
+	    }
+	  }, {
+	    key: 'getRedoStack',
+	    value: function getRedoStack() {
+	      return this.getImmutable().get('redoStack');
+	    }
+	  }, {
+	    key: 'getSelection',
+	    value: function getSelection() {
+	      return this.getImmutable().get('selection');
+	    }
+	  }, {
+	    key: 'getDecorator',
+	    value: function getDecorator() {
+	      return this.getImmutable().get('decorator');
+	    }
+	  }, {
+	    key: 'isInCompositionMode',
+	    value: function isInCompositionMode() {
+	      return this.getImmutable().get('inCompositionMode');
+	    }
+	  }, {
+	    key: 'mustForceSelection',
+	    value: function mustForceSelection() {
+	      return this.getImmutable().get('forceSelection');
+	    }
+	  }, {
+	    key: 'getNativelyRenderedContent',
+	    value: function getNativelyRenderedContent() {
+	      return this.getImmutable().get('nativelyRenderedContent');
+	    }
+	  }, {
+	    key: 'getLastChangeType',
+	    value: function getLastChangeType() {
+	      return this.getImmutable().get('lastChangeType');
+	    }
+
+	    /**
+	     * While editing, the user may apply inline style commands with a collapsed
+	     * cursor, intending to type text that adopts the specified style. In this
+	     * case, we track the specified style as an "override" that takes precedence
+	     * over the inline style of the text adjacent to the cursor.
+	     *
+	     * If null, there is no override in place.
+	     */
+	  }, {
+	    key: 'getInlineStyleOverride',
+	    value: function getInlineStyleOverride() {
+	      return this.getImmutable().get('inlineStyleOverride');
+	    }
+	  }, {
+	    key: 'getCurrentInlineStyle',
+
+	    /**
+	     * Get the appropriate inline style for the editor state. If an
+	     * override is in place, use it. Otherwise, the current style is
+	     * based on the location of the selection state.
+	     */
+	    value: function getCurrentInlineStyle() {
+	      var override = this.getInlineStyleOverride();
+	      if (override != null) {
+	        return override;
+	      }
+
+	      var content = this.getCurrentContent();
+	      var selection = this.getSelection();
+
+	      if (selection.isCollapsed()) {
+	        return getInlineStyleForCollapsedSelection(content, selection);
+	      }
+
+	      return getInlineStyleForNonCollapsedSelection(content, selection);
+	    }
+	  }, {
+	    key: 'getBlockTree',
+	    value: function getBlockTree(blockKey) {
+	      return this.getImmutable().getIn(['treeMap', blockKey]);
+	    }
+	  }, {
+	    key: 'isSelectionAtStartOfContent',
+	    value: function isSelectionAtStartOfContent() {
+	      var firstKey = this.getCurrentContent().getBlockMap().first().getKey();
+	      return this.getSelection().hasEdgeWithin(firstKey, 0, 0);
+	    }
+	  }, {
+	    key: 'isSelectionAtEndOfContent',
+	    value: function isSelectionAtEndOfContent() {
+	      var content = this.getCurrentContent();
+	      var blockMap = content.getBlockMap();
+	      var last = blockMap.last();
+	      var end = last.getLength();
+	      return this.getSelection().hasEdgeWithin(last.getKey(), end, end);
+	    }
+	  }, {
+	    key: 'getDirectionMap',
+	    value: function getDirectionMap() {
+	      return this.getImmutable().get('directionMap');
+	    }
+
+	    /**
+	     * Incorporate native DOM selection changes into the EditorState. This
+	     * method can be used when we simply want to accept whatever the DOM
+	     * has given us to represent selection, and we do not need to re-render
+	     * the editor.
+	     *
+	     * To forcibly move the DOM selection, see `EditorState.forceSelection`.
+	     */
+	  }], [{
+	    key: 'createEmpty',
+	    value: function createEmpty(decorator) {
+	      return EditorState.createWithContent(ContentState.createFromText(''), decorator);
+	    }
+	  }, {
+	    key: 'createWithContent',
+	    value: function createWithContent(contentState, decorator) {
+	      var firstKey = contentState.getBlockMap().first().getKey();
+	      return EditorState.create({
+	        currentContent: contentState,
+	        undoStack: Stack(),
+	        redoStack: Stack(),
+	        decorator: decorator || null,
+	        selection: SelectionState.createEmpty(firstKey)
+	      });
+	    }
+	  }, {
+	    key: 'create',
+	    value: function create(config) {
+	      var currentContent = config.currentContent;
+	      var decorator = config.decorator;
+
+	      var recordConfig = _extends({}, config, {
+	        treeMap: generateNewTreeMap(currentContent, decorator),
+	        directionMap: EditorBidiService.getDirectionMap(currentContent)
+	      });
+	      return new EditorState(new EditorStateRecord(recordConfig));
+	    }
+	  }, {
+	    key: 'set',
+	    value: function set(editorState, put) {
+	      var map = editorState.getImmutable().withMutations(function (state) {
+	        var existingDecorator = state.get('decorator');
+	        var decorator = existingDecorator;
+	        if (put.decorator === null) {
+	          decorator = null;
+	        } else if (put.decorator) {
+	          decorator = put.decorator;
+	        }
+
+	        var newContent = put.currentContent || editorState.getCurrentContent();
+
+	        if (decorator !== existingDecorator) {
+	          var treeMap = state.get('treeMap');
+	          var newTreeMap;
+	          if (decorator && existingDecorator) {
+	            newTreeMap = regenerateTreeForNewDecorator(newContent.getBlockMap(), treeMap, decorator, existingDecorator);
+	          } else {
+	            newTreeMap = generateNewTreeMap(newContent, decorator);
+	          }
+
+	          state.merge({
+	            decorator: decorator,
+	            treeMap: newTreeMap,
+	            nativelyRenderedContent: null
+	          });
+	          return;
+	        }
+
+	        var existingContent = editorState.getCurrentContent();
+	        if (newContent !== existingContent) {
+	          state.set('treeMap', regenerateTreeForNewBlocks(editorState, newContent.getBlockMap(), decorator));
+	        }
+
+	        state.merge(put);
+	      });
+
+	      return new EditorState(map);
+	    }
+	  }, {
+	    key: 'setInlineStyleOverride',
+	    value: function setInlineStyleOverride(editorState, inlineStyleOverride) {
+	      return EditorState.set(editorState, { inlineStyleOverride: inlineStyleOverride });
+	    }
+	  }, {
+	    key: 'acceptSelection',
+	    value: function acceptSelection(editorState, selection) {
+	      return updateSelection(editorState, selection, false);
+	    }
+
+	    /**
+	     * At times, we need to force the DOM selection to be where we
+	     * need it to be. This can occur when the anchor or focus nodes
+	     * are non-text nodes, for instance. In this case, we want to trigger
+	     * a re-render of the editor, which in turn forces selection into
+	     * the correct place in the DOM. The `forceSelection` method
+	     * accomplishes this.
+	     *
+	     * This method should be used in cases where you need to explicitly
+	     * move the DOM selection from one place to another without a change
+	     * in ContentState.
+	     */
+	  }, {
+	    key: 'forceSelection',
+	    value: function forceSelection(editorState, selection) {
+	      if (!selection.getHasFocus()) {
+	        selection = selection.set('hasFocus', true);
+	      }
+	      return updateSelection(editorState, selection, true);
+	    }
+
+	    /**
+	     * Move selection to the end of the editor without forcing focus.
+	     */
+	  }, {
+	    key: 'moveSelectionToEnd',
+	    value: function moveSelectionToEnd(editorState) {
+	      var content = editorState.getCurrentContent();
+	      var lastBlock = content.getLastBlock();
+	      var lastKey = lastBlock.getKey();
+	      var length = lastBlock.getLength();
+
+	      return EditorState.acceptSelection(editorState, new SelectionState({
+	        anchorKey: lastKey,
+	        anchorOffset: length,
+	        focusKey: lastKey,
+	        focusOffset: length,
+	        isBackward: false
+	      }));
+	    }
+
+	    /**
+	     * Force focus to the end of the editor. This is useful in scenarios
+	     * where we want to programmatically focus the input and it makes sense
+	     * to allow the user to continue working seamlessly.
+	     */
+	  }, {
+	    key: 'moveFocusToEnd',
+	    value: function moveFocusToEnd(editorState) {
+	      var afterSelectionMove = EditorState.moveSelectionToEnd(editorState);
+	      return EditorState.forceSelection(afterSelectionMove, afterSelectionMove.getSelection());
+	    }
+
+	    /**
+	     * Push the current ContentState onto the undo stack if it should be
+	     * considered a boundary state, and set the provided ContentState as the
+	     * new current content.
+	     */
+	  }, {
+	    key: 'push',
+	    value: function push(editorState, contentState, changeType) {
+	      if (editorState.getCurrentContent() === contentState) {
+	        return editorState;
+	      }
+
+	      var forceSelection = changeType !== 'insert-characters';
+	      var directionMap = EditorBidiService.getDirectionMap(contentState, editorState.getDirectionMap());
+
+	      if (!editorState.getAllowUndo()) {
+	        return EditorState.set(editorState, {
+	          currentContent: contentState,
+	          directionMap: directionMap,
+	          lastChangeType: changeType,
+	          selection: contentState.getSelectionAfter(),
+	          forceSelection: forceSelection,
+	          inlineStyleOverride: null
+	        });
+	      }
+
+	      var selection = editorState.getSelection();
+	      var currentContent = editorState.getCurrentContent();
+	      var undoStack = editorState.getUndoStack();
+	      var newContent = contentState;
+
+	      if (selection !== currentContent.getSelectionAfter() || mustBecomeBoundary(editorState, changeType)) {
+	        undoStack = undoStack.push(currentContent);
+	        newContent = newContent.set('selectionBefore', selection);
+	      } else if (changeType === 'insert-characters' || changeType === 'backspace-character' || changeType === 'delete-character') {
+	        // Preserve the previous selection.
+	        newContent = newContent.set('selectionBefore', currentContent.getSelectionBefore());
+	      }
+
+	      var inlineStyleOverride = editorState.getInlineStyleOverride();
+
+	      // Don't discard inline style overrides on block type or depth changes.
+	      if (changeType !== 'adjust-depth' && changeType !== 'change-block-type') {
+	        inlineStyleOverride = null;
+	      }
+
+	      var editorStateChanges = {
+	        currentContent: newContent,
+	        directionMap: directionMap,
+	        undoStack: undoStack,
+	        redoStack: Stack(),
+	        lastChangeType: changeType,
+	        selection: contentState.getSelectionAfter(),
+	        forceSelection: forceSelection,
+	        inlineStyleOverride: inlineStyleOverride
+	      };
+
+	      return EditorState.set(editorState, editorStateChanges);
+	    }
+
+	    /**
+	     * Make the top ContentState in the undo stack the new current content and
+	     * push the current content onto the redo stack.
+	     */
+	  }, {
+	    key: 'undo',
+	    value: function undo(editorState) {
+	      if (!editorState.getAllowUndo()) {
+	        return editorState;
+	      }
+
+	      var undoStack = editorState.getUndoStack();
+	      var newCurrentContent = undoStack.peek();
+	      if (!newCurrentContent) {
+	        return editorState;
+	      }
+
+	      var currentContent = editorState.getCurrentContent();
+	      var directionMap = EditorBidiService.getDirectionMap(newCurrentContent, editorState.getDirectionMap());
+
+	      return EditorState.set(editorState, {
+	        currentContent: newCurrentContent,
+	        directionMap: directionMap,
+	        undoStack: undoStack.shift(),
+	        redoStack: editorState.getRedoStack().push(currentContent),
+	        forceSelection: true,
+	        inlineStyleOverride: null,
+	        lastChangeType: 'undo',
+	        nativelyRenderedContent: null,
+	        selection: currentContent.getSelectionBefore()
+	      });
+	    }
+
+	    /**
+	     * Make the top ContentState in the redo stack the new current content and
+	     * push the current content onto the undo stack.
+	     */
+	  }, {
+	    key: 'redo',
+	    value: function redo(editorState) {
+	      if (!editorState.getAllowUndo()) {
+	        return editorState;
+	      }
+
+	      var redoStack = editorState.getRedoStack();
+	      var newCurrentContent = redoStack.peek();
+	      if (!newCurrentContent) {
+	        return editorState;
+	      }
+
+	      var currentContent = editorState.getCurrentContent();
+	      var directionMap = EditorBidiService.getDirectionMap(newCurrentContent, editorState.getDirectionMap());
+
+	      return EditorState.set(editorState, {
+	        currentContent: newCurrentContent,
+	        directionMap: directionMap,
+	        undoStack: editorState.getUndoStack().push(currentContent),
+	        redoStack: redoStack.shift(),
+	        forceSelection: true,
+	        inlineStyleOverride: null,
+	        lastChangeType: 'redo',
+	        nativelyRenderedContent: null,
+	        selection: newCurrentContent.getSelectionAfter()
+	      });
+	    }
+
+	    /**
+	     * Not for public consumption.
+	     */
+	  }]);
+
+	  function EditorState(immutable) {
+	    _classCallCheck(this, EditorState);
+
+	    this._immutable = immutable;
+	  }
+
+	  /**
+	   * Set the supplied SelectionState as the new current selection, and set
+	   * the `force` flag to trigger manual selection placement by the view.
+	   */
+
+	  /**
+	   * Not for public consumption.
+	   */
+
+	  _createClass(EditorState, [{
+	    key: 'getImmutable',
+	    value: function getImmutable() {
+	      return this._immutable;
+	    }
+	  }]);
+
+	  return EditorState;
+	})();
+
+	function updateSelection(editorState, selection, forceSelection) {
+	  return EditorState.set(editorState, {
+	    selection: selection,
+	    forceSelection: forceSelection,
+	    nativelyRenderedContent: null,
+	    inlineStyleOverride: null
+	  });
+	}
+
+	/**
+	 * Regenerate the entire tree map for a given ContentState and decorator.
+	 * Returns an OrderedMap that maps all available ContentBlock objects.
+	 */
+	function generateNewTreeMap(contentState, decorator) {
+	  return contentState.getBlockMap().map(function (block) {
+	    return BlockTree.generate(block, decorator);
+	  }).toOrderedMap();
+	}
+
+	/**
+	 * Regenerate tree map objects for all ContentBlocks that have changed
+	 * between the current editorState and newContent. Returns an OrderedMap
+	 * with only changed regenerated tree map objects.
+	 */
+	function regenerateTreeForNewBlocks(editorState, newBlockMap, decorator) {
+	  var prevBlockMap = editorState.getCurrentContent().getBlockMap();
+	  var prevTreeMap = editorState.getImmutable().get('treeMap');
+	  return prevTreeMap.merge(newBlockMap.toSeq().filter(function (block, key) {
+	    return block !== prevBlockMap.get(key);
+	  }).map(function (block) {
+	    return BlockTree.generate(block, decorator);
+	  }));
+	}
+
+	/**
+	 * Generate tree map objects for a new decorator object, preserving any
+	 * decorations that are unchanged from the previous decorator.
+	 *
+	 * Note that in order for this to perform optimally, decoration Lists for
+	 * decorators should be preserved when possible to allow for direct immutable
+	 * List comparison.
+	 */
+	function regenerateTreeForNewDecorator(blockMap, previousTreeMap, decorator, existingDecorator) {
+	  return previousTreeMap.merge(blockMap.toSeq().filter(function (block) {
+	    return decorator.getDecorations(block) !== existingDecorator.getDecorations(block);
+	  }).map(function (block) {
+	    return BlockTree.generate(block, decorator);
+	  }));
+	}
+
+	/**
+	 * Return whether a change should be considered a boundary state, given
+	 * the previous change type. Allows us to discard potential boundary states
+	 * during standard typing or deletion behavior.
+	 */
+	function mustBecomeBoundary(editorState, changeType) {
+	  var lastChangeType = editorState.getLastChangeType();
+	  return changeType !== lastChangeType || changeType !== 'insert-characters' && changeType !== 'backspace-character' && changeType !== 'delete-character';
+	}
+
+	function getInlineStyleForCollapsedSelection(content, selection) {
+	  var startKey = selection.getStartKey();
+	  var startOffset = selection.getStartOffset();
+	  var startBlock = content.getBlockForKey(startKey);
+
+	  // If the cursor is not at the start of the block, look backward to
+	  // preserve the style of the preceding character.
+	  if (startOffset > 0) {
+	    return startBlock.getInlineStyleAt(startOffset - 1);
+	  }
+
+	  // The caret is at position zero in this block. If the block has any
+	  // text at all, use the style of the first character.
+	  if (startBlock.getLength()) {
+	    return startBlock.getInlineStyleAt(0);
+	  }
+
+	  // Otherwise, look upward in the document to find the closest character.
+	  return lookUpwardForInlineStyle(content, startKey);
+	}
+
+	function getInlineStyleForNonCollapsedSelection(content, selection) {
+	  var startKey = selection.getStartKey();
+	  var startOffset = selection.getStartOffset();
+	  var startBlock = content.getBlockForKey(startKey);
+
+	  // If there is a character just inside the selection, use its style.
+	  if (startOffset < startBlock.getLength()) {
+	    return startBlock.getInlineStyleAt(startOffset);
+	  }
+
+	  // Check if the selection at the end of a non-empty block. Use the last
+	  // style in the block.
+	  if (startOffset > 0) {
+	    return startBlock.getInlineStyleAt(startOffset - 1);
+	  }
+
+	  // Otherwise, look upward in the document to find the closest character.
+	  return lookUpwardForInlineStyle(content, startKey);
+	}
+
+	function lookUpwardForInlineStyle(content, fromKey) {
+	  var previousBlock = content.getBlockBefore(fromKey);
+	  var previousLength;
+
+	  while (previousBlock) {
+	    previousLength = previousBlock.getLength();
+	    if (previousLength) {
+	      return previousBlock.getInlineStyleAt(previousLength - 1);
+	    }
+	    previousBlock = content.getBlockBefore(previousBlock.getKey());
+	  }
+
+	  return OrderedSet();
+	}
+
+	module.exports = EditorState;
+
+/***/ },
+/* 239 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule KeyBindingUtil
+	 * @typechecks
+	 * 
+	 */
+
+	'use strict';
+
+	var UserAgent = __webpack_require__(347);
+
+	var isOSX = UserAgent.isPlatform('Mac OS X');
+
+	var KeyBindingUtil = {
+	  /**
+	   * Check whether the ctrlKey modifier is *not* being used in conjunction with
+	   * the altKey modifier. If they are combined, the result is an `altGraph`
+	   * key modifier, which should not be handled by this set of key bindings.
+	   */
+	  isCtrlKeyCommand: function isCtrlKeyCommand(e) {
+	    return !!e.ctrlKey && !e.altKey;
+	  },
+
+	  isOptionKeyCommand: function isOptionKeyCommand(e) {
+	    return isOSX && e.altKey;
+	  },
+
+	  hasCommandModifier: function hasCommandModifier(e) {
+	    return isOSX ? !!e.metaKey && !e.altKey : KeyBindingUtil.isCtrlKeyCommand(e);
+	  }
+	};
+
+	module.exports = KeyBindingUtil;
+
+/***/ },
+/* 240 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule RichTextEditorUtil
+	 * @typechecks
+	 * 
+	 */
+
+	'use strict';
+
+	var DraftEntity = __webpack_require__(236);
+	var DraftModifier = __webpack_require__(235);
+	var EditorState = __webpack_require__(238);
+	var SelectionState = __webpack_require__(241);
+
+	var adjustBlockDepthForContentState = __webpack_require__(292);
+	var nullthrows = __webpack_require__(349);
+
+	var RichTextEditorUtil = {
+	  currentBlockContainsLink: function currentBlockContainsLink(editorState) {
+	    var selection = editorState.getSelection();
+	    return editorState.getCurrentContent().getBlockForKey(selection.getAnchorKey()).getCharacterList().slice(selection.getStartOffset(), selection.getEndOffset()).some(function (v) {
+	      var entity = v.getEntity();
+	      return !!entity && DraftEntity.get(entity).getType() === 'LINK';
+	    });
+	  },
+
+	  getCurrentBlockType: function getCurrentBlockType(editorState) {
+	    var selection = editorState.getSelection();
+	    return editorState.getCurrentContent().getBlockForKey(selection.getStartKey()).getType();
+	  },
+
+	  getDataObjectForLinkURL: function getDataObjectForLinkURL(uri) {
+	    return { url: uri.toString() };
+	  },
+
+	  handleKeyCommand: function handleKeyCommand(editorState, command) {
+	    switch (command) {
+	      case 'bold':
+	        return RichTextEditorUtil.toggleInlineStyle(editorState, 'BOLD');
+	      case 'italic':
+	        return RichTextEditorUtil.toggleInlineStyle(editorState, 'ITALIC');
+	      case 'underline':
+	        return RichTextEditorUtil.toggleInlineStyle(editorState, 'UNDERLINE');
+	      case 'code':
+	        return RichTextEditorUtil.toggleCode(editorState);
+	      case 'backspace':
+	      case 'backspace-word':
+	      case 'backspace-to-start-of-line':
+	        return RichTextEditorUtil.onBackspace(editorState);
+	      case 'delete':
+	      case 'delete-word':
+	      case 'delete-to-end-of-block':
+	        return RichTextEditorUtil.onDelete(editorState);
+	      default:
+	        return null;
+	    }
+	  },
+
+	  insertSoftNewline: function insertSoftNewline(editorState) {
+	    var contentState = DraftModifier.insertText(editorState.getCurrentContent(), editorState.getSelection(), '\n', editorState.getCurrentInlineStyle(), null);
+
+	    var newEditorState = EditorState.push(editorState, contentState, 'insert-characters');
+
+	    return EditorState.forceSelection(newEditorState, contentState.getSelectionAfter());
+	  },
+
+	  /**
+	   * For collapsed selections at the start of styled blocks, backspace should
+	   * just remove the existing style.
+	   */
+	  onBackspace: function onBackspace(editorState) {
+	    var selection = editorState.getSelection();
+	    if (!selection.isCollapsed() || selection.getAnchorOffset() || selection.getFocusOffset()) {
+	      return null;
+	    }
+
+	    // First, try to remove a preceding atomic block.
+	    var content = editorState.getCurrentContent();
+	    var startKey = selection.getStartKey();
+	    var blockBefore = content.getBlockBefore(startKey);
+
+	    if (blockBefore && blockBefore.getType() === 'atomic') {
+	      var atomicBlockTarget = selection.merge({
+	        anchorKey: blockBefore.getKey(),
+	        anchorOffset: 0
+	      });
+	      var asCurrentStyle = DraftModifier.setBlockType(content, atomicBlockTarget, content.getBlockForKey(startKey).getType());
+	      var withoutAtomicBlock = DraftModifier.removeRange(asCurrentStyle, atomicBlockTarget, 'backward');
+	      if (withoutAtomicBlock !== content) {
+	        return EditorState.push(editorState, withoutAtomicBlock, 'remove-range');
+	      }
+	    }
+
+	    // If that doesn't succeed, try to remove the current block style.
+	    var withoutBlockStyle = RichTextEditorUtil.tryToRemoveBlockStyle(editorState);
+
+	    if (withoutBlockStyle) {
+	      return EditorState.push(editorState, withoutBlockStyle, 'change-block-type');
+	    }
+
+	    return null;
+	  },
+
+	  onDelete: function onDelete(editorState) {
+	    var selection = editorState.getSelection();
+	    if (!selection.isCollapsed()) {
+	      return null;
+	    }
+
+	    var content = editorState.getCurrentContent();
+	    var startKey = selection.getStartKey();
+	    var block = content.getBlockForKey(startKey);
+	    var length = block.getLength();
+
+	    // The cursor is somewhere within the text. Behave normally.
+	    if (selection.getStartOffset() < length) {
+	      return null;
+	    }
+
+	    var blockAfter = content.getBlockAfter(startKey);
+
+	    if (!blockAfter || blockAfter.getType() !== 'atomic') {
+	      return null;
+	    }
+
+	    var atomicBlockTarget = selection.merge({
+	      focusKey: blockAfter.getKey(),
+	      focusOffset: blockAfter.getLength()
+	    });
+
+	    var withoutAtomicBlock = DraftModifier.removeRange(content, atomicBlockTarget, 'forward');
+
+	    if (withoutAtomicBlock !== content) {
+	      return EditorState.push(editorState, withoutAtomicBlock, 'remove-range');
+	    }
+
+	    return null;
+	  },
+
+	  onTab: function onTab(event, editorState, maxDepth) {
+	    var selection = editorState.getSelection();
+	    var key = selection.getAnchorKey();
+	    if (key !== selection.getFocusKey()) {
+	      return editorState;
+	    }
+
+	    var content = editorState.getCurrentContent();
+	    var block = content.getBlockForKey(key);
+	    var type = block.getType();
+	    if (type !== 'unordered-list-item' && type !== 'ordered-list-item') {
+	      return editorState;
+	    }
+
+	    event.preventDefault();
+
+	    // Only allow indenting one level beyond the block above, and only if
+	    // the block above is a list item as well.
+	    var blockAbove = content.getBlockBefore(key);
+	    if (!blockAbove) {
+	      return editorState;
+	    }
+
+	    var typeAbove = blockAbove.getType();
+	    if (typeAbove !== 'unordered-list-item' && typeAbove !== 'ordered-list-item') {
+	      return editorState;
+	    }
+
+	    var depth = block.getDepth();
+	    if (!event.shiftKey && depth === maxDepth) {
+	      return editorState;
+	    }
+
+	    maxDepth = Math.min(blockAbove.getDepth() + 1, maxDepth);
+
+	    var withAdjustment = adjustBlockDepthForContentState(content, selection, event.shiftKey ? -1 : 1, maxDepth);
+
+	    return EditorState.push(editorState, withAdjustment, 'adjust-depth');
+	  },
+
+	  toggleBlockType: function toggleBlockType(editorState, blockType) {
+	    var selection = editorState.getSelection();
+	    var startKey = selection.getStartKey();
+	    var endKey = selection.getEndKey();
+	    var content = editorState.getCurrentContent();
+	    var target = selection;
+
+	    // Triple-click can lead to a selection that includes offset 0 of the
+	    // following block. The `SelectionState` for this case is accurate, but
+	    // we should avoid toggling block type for the trailing block because it
+	    // is a confusing interaction.
+	    if (startKey !== endKey && selection.getEndOffset() === 0) {
+	      var blockBefore = nullthrows(content.getBlockBefore(endKey));
+	      endKey = blockBefore.getKey();
+	      target = target.merge({
+	        anchorKey: startKey,
+	        anchorOffset: selection.getStartOffset(),
+	        focusKey: endKey,
+	        focusOffset: blockBefore.getLength(),
+	        isBackward: false
+	      });
+	    }
+
+	    var hasAtomicBlock = content.getBlockMap().skipWhile(function (_, k) {
+	      return k !== startKey;
+	    }).takeWhile(function (_, k) {
+	      return k !== endKey;
+	    }).some(function (v) {
+	      return v.getType() === 'atomic';
+	    });
+
+	    if (hasAtomicBlock) {
+	      return editorState;
+	    }
+
+	    var typeToSet = content.getBlockForKey(startKey).getType() === blockType ? 'unstyled' : blockType;
+
+	    return EditorState.push(editorState, DraftModifier.setBlockType(content, target, typeToSet), 'change-block-type');
+	  },
+
+	  toggleCode: function toggleCode(editorState) {
+	    var selection = editorState.getSelection();
+	    var anchorKey = selection.getAnchorKey();
+	    var focusKey = selection.getFocusKey();
+
+	    if (selection.isCollapsed() || anchorKey !== focusKey) {
+	      return RichTextEditorUtil.toggleBlockType(editorState, 'code-block');
+	    }
+
+	    return RichTextEditorUtil.toggleInlineStyle(editorState, 'CODE');
+	  },
+
+	  /**
+	   * Toggle the specified inline style for the selection. If the
+	   * user's selection is collapsed, apply or remove the style for the
+	   * internal state. If it is not collapsed, apply the change directly
+	   * to the document state.
+	   */
+	  toggleInlineStyle: function toggleInlineStyle(editorState, inlineStyle) {
+	    var selection = editorState.getSelection();
+	    var currentStyle = editorState.getCurrentInlineStyle();
+
+	    // If the selection is collapsed, toggle the specified style on or off and
+	    // set the result as the new inline style override. This will then be
+	    // used as the inline style for the next character to be inserted.
+	    if (selection.isCollapsed()) {
+	      return EditorState.setInlineStyleOverride(editorState, currentStyle.has(inlineStyle) ? currentStyle.remove(inlineStyle) : currentStyle.add(inlineStyle));
+	    }
+
+	    // If characters are selected, immediately apply or remove the
+	    // inline style on the document state itself.
+	    var content = editorState.getCurrentContent();
+	    var newContent;
+
+	    // If the style is already present for the selection range, remove it.
+	    // Otherwise, apply it.
+	    if (currentStyle.has(inlineStyle)) {
+	      newContent = DraftModifier.removeInlineStyle(content, selection, inlineStyle);
+	    } else {
+	      newContent = DraftModifier.applyInlineStyle(content, selection, inlineStyle);
+	    }
+
+	    return EditorState.push(editorState, newContent, 'change-inline-style');
+	  },
+
+	  toggleLink: function toggleLink(editorState, targetSelection, entityKey) {
+	    var withoutLink = DraftModifier.applyEntity(editorState.getCurrentContent(), targetSelection, entityKey);
+
+	    return EditorState.push(editorState, withoutLink, 'apply-entity');
+	  },
+
+	  /**
+	   * When a collapsed cursor is at the start of an empty styled block, allow
+	   * certain key commands (newline, backspace) to simply change the
+	   * style of the block instead of the default behavior.
+	   */
+	  tryToRemoveBlockStyle: function tryToRemoveBlockStyle(editorState) {
+	    var selection = editorState.getSelection();
+	    var offset = selection.getAnchorOffset();
+	    if (selection.isCollapsed() && offset === 0) {
+	      var key = selection.getAnchorKey();
+	      var content = editorState.getCurrentContent();
+	      var block = content.getBlockForKey(key);
+	      if (block.getLength() > 0) {
+	        return null;
+	      }
+
+	      var type = block.getType();
+	      var blockBefore = content.getBlockBefore(key);
+	      if (type === 'code-block' && blockBefore && blockBefore.getType() === 'code-block') {
+	        return null;
+	      }
+
+	      if (type !== 'unstyled') {
+	        return DraftModifier.setBlockType(content, selection, 'unstyled');
+	      }
+	    }
+	    return null;
+	  }
+	};
+
+	module.exports = RichTextEditorUtil;
+
+/***/ },
+/* 241 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule SelectionState
+	 * @typechecks
+	 * 
+	 */
+
+	'use strict';
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Immutable = __webpack_require__(224);
+
+	var Record = Immutable.Record;
+
+	var defaultRecord = {
+	  anchorKey: '',
+	  anchorOffset: 0,
+	  focusKey: '',
+	  focusOffset: 0,
+	  isBackward: false,
+	  hasFocus: false
+	};
+
+	var SelectionStateRecord = Record(defaultRecord);
+
+	var SelectionState = (function (_SelectionStateRecord) {
+	  _inherits(SelectionState, _SelectionStateRecord);
+
+	  function SelectionState() {
+	    _classCallCheck(this, SelectionState);
+
+	    _get(Object.getPrototypeOf(SelectionState.prototype), 'constructor', this).apply(this, arguments);
+	  }
+
+	  _createClass(SelectionState, [{
+	    key: 'serialize',
+	    value: function serialize() {
+	      return 'Anchor: ' + this.getAnchorKey() + ':' + this.getAnchorOffset() + ', ' + 'Focus: ' + this.getFocusKey() + ':' + this.getFocusOffset() + ', ' + 'Is Backward: ' + String(this.getIsBackward()) + ', ' + 'Has Focus: ' + String(this.getHasFocus());
+	    }
+	  }, {
+	    key: 'getAnchorKey',
+	    value: function getAnchorKey() {
+	      return this.get('anchorKey');
+	    }
+	  }, {
+	    key: 'getAnchorOffset',
+	    value: function getAnchorOffset() {
+	      return this.get('anchorOffset');
+	    }
+	  }, {
+	    key: 'getFocusKey',
+	    value: function getFocusKey() {
+	      return this.get('focusKey');
+	    }
+	  }, {
+	    key: 'getFocusOffset',
+	    value: function getFocusOffset() {
+	      return this.get('focusOffset');
+	    }
+	  }, {
+	    key: 'getIsBackward',
+	    value: function getIsBackward() {
+	      return this.get('isBackward');
+	    }
+	  }, {
+	    key: 'getHasFocus',
+	    value: function getHasFocus() {
+	      return this.get('hasFocus');
+	    }
+
+	    /**
+	     * Return whether the specified range overlaps with an edge of the
+	     * SelectionState.
+	     */
+	  }, {
+	    key: 'hasEdgeWithin',
+	    value: function hasEdgeWithin(blockKey, start, end) {
+	      var anchorKey = this.getAnchorKey();
+	      var focusKey = this.getFocusKey();
+
+	      if (anchorKey === focusKey && anchorKey === blockKey) {
+	        var selectionStart = this.getStartOffset();
+	        var selectionEnd = this.getEndOffset();
+	        return start <= selectionEnd && selectionStart <= end;
+	      }
+
+	      if (blockKey !== anchorKey && blockKey !== focusKey) {
+	        return false;
+	      }
+
+	      var offsetToCheck = blockKey === anchorKey ? this.getAnchorOffset() : this.getFocusOffset();
+
+	      return start <= offsetToCheck && end >= offsetToCheck;
+	    }
+	  }, {
+	    key: 'isCollapsed',
+	    value: function isCollapsed() {
+	      return this.getAnchorKey() === this.getFocusKey() && this.getAnchorOffset() === this.getFocusOffset();
+	    }
+	  }, {
+	    key: 'getStartKey',
+	    value: function getStartKey() {
+	      return this.getIsBackward() ? this.getFocusKey() : this.getAnchorKey();
+	    }
+	  }, {
+	    key: 'getStartOffset',
+	    value: function getStartOffset() {
+	      return this.getIsBackward() ? this.getFocusOffset() : this.getAnchorOffset();
+	    }
+	  }, {
+	    key: 'getEndKey',
+	    value: function getEndKey() {
+	      return this.getIsBackward() ? this.getAnchorKey() : this.getFocusKey();
+	    }
+	  }, {
+	    key: 'getEndOffset',
+	    value: function getEndOffset() {
+	      return this.getIsBackward() ? this.getAnchorOffset() : this.getFocusOffset();
+	    }
+	  }], [{
+	    key: 'createEmpty',
+	    value: function createEmpty(key) {
+	      return new SelectionState({
+	        anchorKey: key,
+	        anchorOffset: 0,
+	        focusKey: key,
+	        focusOffset: 0,
+	        isBackward: false,
+	        hasFocus: false
+	      });
+	    }
+	  }]);
+
+	  return SelectionState;
+	})(SelectionStateRecord);
+
+	module.exports = SelectionState;
+
+/***/ },
+/* 242 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule convertFromDraftStateToRaw
+	 * 
+	 */
+
+	'use strict';
+
+	var DraftEntity = __webpack_require__(236);
+	var DraftStringKey = __webpack_require__(293);
+
+	var encodeEntityRanges = __webpack_require__(294);
+	var encodeInlineStyleRanges = __webpack_require__(295);
+
+	function convertFromDraftStateToRaw(contentState) {
+	  var entityStorageKey = 0;
+	  var entityStorageMap = {};
+	  var rawBlocks = [];
+
+	  contentState.getBlockMap().forEach(function (block, blockKey) {
+	    block.findEntityRanges(function (character) {
+	      return character.getEntity() !== null;
+	    }, function (start) {
+	      // Stringify to maintain order of otherwise numeric keys.
+	      var stringifiedEntityKey = DraftStringKey.stringify(block.getEntityAt(start));
+	      if (!entityStorageMap.hasOwnProperty(stringifiedEntityKey)) {
+	        entityStorageMap[stringifiedEntityKey] = '' + entityStorageKey++;
+	      }
+	    });
+
+	    rawBlocks.push({
+	      key: blockKey,
+	      text: block.getText(),
+	      type: block.getType(),
+	      depth: canHaveDepth(block) ? block.getDepth() : 0,
+	      inlineStyleRanges: encodeInlineStyleRanges(block),
+	      entityRanges: encodeEntityRanges(block, entityStorageMap)
+	    });
+	  });
+
+	  // Flip storage map so that our storage keys map to global
+	  // DraftEntity keys.
+	  var entityKeys = Object.keys(entityStorageMap);
+	  var flippedStorageMap = {};
+	  entityKeys.forEach(function (key, jj) {
+	    var entity = DraftEntity.get(DraftStringKey.unstringify(key));
+	    flippedStorageMap[jj] = {
+	      type: entity.getType(),
+	      mutability: entity.getMutability(),
+	      data: entity.getData()
+	    };
+	  });
+
+	  return {
+	    entityMap: flippedStorageMap,
+	    blocks: rawBlocks
+	  };
+	}
+
+	function canHaveDepth(block) {
+	  var type = block.getType();
+	  return type === 'ordered-list-item' || type === 'unordered-list-item';
+	}
+
+	module.exports = convertFromDraftStateToRaw;
+
+/***/ },
+/* 243 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule convertFromHTMLToContentBlocks
+	 * @typechecks
+	 * 
+	 */
+
+	'use strict';
+
+	var CharacterMetadata = __webpack_require__(227);
+	var ContentBlock = __webpack_require__(229);
+	var DefaultDraftBlockRenderMap = __webpack_require__(231);
+	var DraftEntity = __webpack_require__(236);
+	var Immutable = __webpack_require__(224);
+	var URI = __webpack_require__(356);
+
+	var generateRandomKey = __webpack_require__(245);
+	var getSafeBodyFromHTML = __webpack_require__(296);
+	var invariant = __webpack_require__(355);
+	var nullthrows = __webpack_require__(349);
+	var sanitizeDraftText = __webpack_require__(272);
+
+	var List = Immutable.List;
+	var OrderedSet = Immutable.OrderedSet;
+
+	var NBSP = '&nbsp;';
+	var SPACE = ' ';
+
+	// Arbitrary max indent
+	var MAX_DEPTH = 4;
+
+	// used for replacing characters in HTML
+	var REGEX_CR = new RegExp('\r', 'g');
+	var REGEX_LF = new RegExp('\n', 'g');
+	var REGEX_NBSP = new RegExp(NBSP, 'g');
+
+	// Block tag flow is different because LIs do not have
+	// a deterministic style ;_;
+	var inlineTags = {
+	  b: 'BOLD',
+	  code: 'CODE',
+	  del: 'STRIKETHROUGH',
+	  em: 'ITALIC',
+	  i: 'ITALIC',
+	  s: 'STRIKETHROUGH',
+	  strike: 'STRIKETHROUGH',
+	  strong: 'BOLD',
+	  u: 'UNDERLINE'
+	};
+
+	var lastBlock;
+
+	function getEmptyChunk() {
+	  return {
+	    text: '',
+	    inlines: [],
+	    entities: [],
+	    blocks: []
+	  };
+	}
+
+	function getWhitespaceChunk(inEntity) {
+	  var entities = new Array(1);
+	  if (inEntity) {
+	    entities[0] = inEntity;
+	  }
+	  return {
+	    text: SPACE,
+	    inlines: [OrderedSet()],
+	    entities: entities,
+	    blocks: []
+	  };
+	}
+
+	function getSoftNewlineChunk() {
+	  return {
+	    text: '\n',
+	    inlines: [OrderedSet()],
+	    entities: new Array(1),
+	    blocks: []
+	  };
+	}
+
+	function getBlockDividerChunk(block, depth) {
+	  return {
+	    text: '\r',
+	    inlines: [OrderedSet()],
+	    entities: new Array(1),
+	    blocks: [{
+	      type: block,
+	      depth: Math.max(0, Math.min(MAX_DEPTH, depth))
+	    }]
+	  };
+	}
+
+	function getListBlockType(tag, lastList) {
+	  if (tag === 'li') {
+	    return lastList === 'ol' ? 'ordered-list-item' : 'unordered-list-item';
+	  }
+	  return null;
+	}
+
+	function getBlockMapSupportedTags(blockRenderMap) {
+	  var unstyledElement = blockRenderMap.get('unstyled').element;
+	  return blockRenderMap.map(function (config) {
+	    return config.element;
+	  }).valueSeq().toSet().filter(function (tag) {
+	    return tag !== unstyledElement;
+	  }).toArray().sort();
+	}
+
+	// custom element conversions
+	function getMultiMatchedType(tag, lastList, multiMatchExtractor) {
+	  for (var ii = 0; ii < multiMatchExtractor.length; ii++) {
+	    var matchType = multiMatchExtractor[ii](tag, lastList);
+	    if (matchType) {
+	      return matchType;
+	    }
+	  }
+	  return null;
+	}
+
+	function getBlockTypeForTag(tag, lastList, blockRenderMap) {
+	  var matchedTypes = blockRenderMap.filter(function (config) {
+	    return config.element === tag || config.wrapper === tag;
+	  }).keySeq().toSet().toArray().sort();
+
+	  // if we dont have any matched type, return unstyled
+	  // if we have one matched type return it
+	  // if we have multi matched types use the multi-match function to gather type
+	  switch (matchedTypes.length) {
+	    case 0:
+	      return 'unstyled';
+	    case 1:
+	      return matchedTypes[0];
+	    default:
+	      return getMultiMatchedType(tag, lastList, [getListBlockType]) || 'unstyled';
+	  }
+	}
+
+	function processInlineTag(tag, node, currentStyle) {
+	  var styleToCheck = inlineTags[tag];
+	  if (styleToCheck) {
+	    currentStyle = currentStyle.add(styleToCheck).toOrderedSet();
+	  } else if (node instanceof HTMLElement) {
+	    (function () {
+	      var htmlElement = node;
+	      currentStyle = currentStyle.withMutations(function (style) {
+	        if (htmlElement.style.fontWeight === 'bold') {
+	          style.add('BOLD');
+	        }
+
+	        if (htmlElement.style.fontStyle === 'italic') {
+	          style.add('ITALIC');
+	        }
+
+	        if (htmlElement.style.textDecoration === 'underline') {
+	          style.add('UNDERLINE');
+	        }
+
+	        if (htmlElement.style.textDecoration === 'line-through') {
+	          style.add('STRIKETHROUGH');
+	        }
+	      }).toOrderedSet();
+	    })();
+	  }
+	  return currentStyle;
+	}
+
+	function joinChunks(A, B) {
+	  // Sometimes two blocks will touch in the DOM and we need to strip the
+	  // extra delimiter to preserve niceness.
+	  var lastInB = B.text.slice(0, 1);
+
+	  if (A.text.slice(-1) === '\r' && lastInB === '\r') {
+	    A.text = A.text.slice(0, -1);
+	    A.inlines.pop();
+	    A.entities.pop();
+	    A.blocks.pop();
+	  }
+
+	  // Kill whitespace after blocks
+	  if (A.text.slice(-1) === '\r') {
+	    if (B.text === SPACE || B.text === '\n') {
+	      return A;
+	    } else if (lastInB === SPACE || lastInB === '\n') {
+	      B.text = B.text.slice(1);
+	      B.inlines.shift();
+	      B.entities.shift();
+	    }
+	  }
+
+	  return {
+	    text: A.text + B.text,
+	    inlines: A.inlines.concat(B.inlines),
+	    entities: A.entities.concat(B.entities),
+	    blocks: A.blocks.concat(B.blocks)
+	  };
+	}
+
+	/**
+	 * Check to see if we have anything like <p> <blockquote> <h1>... to create
+	 * block tags from. If we do, we can use those and ignore <div> tags. If we
+	 * don't, we can treat <div> tags as meaningful (unstyled) blocks.
+	 */
+	function containsSemanticBlockMarkup(html, blockTags) {
+	  return blockTags.some(function (tag) {
+	    return html.indexOf('<' + tag) !== -1;
+	  });
+	}
+
+	function hasValidLinkText(link) {
+	  !(link instanceof HTMLAnchorElement) ? false ? invariant(false, 'Link must be an HTMLAnchorElement.') : invariant(false) : undefined;
+	  var protocol = link.protocol;
+	  return protocol === 'http:' || protocol === 'https:';
+	}
+
+	function genFragment(node, inlineStyle, lastList, inBlock, blockTags, depth, blockRenderMap, inEntity) {
+	  var nodeName = node.nodeName.toLowerCase();
+	  var newBlock = false;
+	  var nextBlockType = 'unstyled';
+	  var lastLastBlock = lastBlock;
+
+	  // Base Case
+	  if (nodeName === '#text') {
+	    var text = node.textContent;
+	    if (text.trim() === '' && inBlock !== 'pre') {
+	      return getWhitespaceChunk(inEntity);
+	    }
+	    if (inBlock !== 'pre') {
+	      // Can't use empty string because MSWord
+	      text = text.replace(REGEX_LF, SPACE);
+	    }
+
+	    // save the last block so we can use it later
+	    lastBlock = nodeName;
+
+	    return {
+	      text: text,
+	      inlines: Array(text.length).fill(inlineStyle),
+	      entities: Array(text.length).fill(inEntity),
+	      blocks: []
+	    };
+	  }
+
+	  // save the last block so we can use it later
+	  lastBlock = nodeName;
+
+	  // BR tags
+	  if (nodeName === 'br') {
+	    if (lastLastBlock === 'br' && (!inBlock || getBlockTypeForTag(inBlock, lastList, blockRenderMap) === 'unstyled')) {
+	      return getBlockDividerChunk('unstyled', depth);
+	    }
+	    return getSoftNewlineChunk();
+	  }
+
+	  var chunk = getEmptyChunk();
+	  var newChunk = null;
+
+	  // Inline tags
+	  inlineStyle = processInlineTag(nodeName, node, inlineStyle);
+
+	  // Handle lists
+	  if (nodeName === 'ul' || nodeName === 'ol') {
+	    if (lastList) {
+	      depth += 1;
+	    }
+	    lastList = nodeName;
+	  }
+
+	  // Block Tags
+	  if (!inBlock && blockTags.indexOf(nodeName) !== -1) {
+	    chunk = getBlockDividerChunk(getBlockTypeForTag(nodeName, lastList, blockRenderMap), depth);
+	    inBlock = nodeName;
+	    newBlock = true;
+	  } else if (lastList && inBlock === 'li' && nodeName === 'li') {
+	    chunk = getBlockDividerChunk(getBlockTypeForTag(nodeName, lastList, blockRenderMap), depth);
+	    inBlock = nodeName;
+	    newBlock = true;
+	    nextBlockType = lastList === 'ul' ? 'unordered-list-item' : 'ordered-list-item';
+	  }
+
+	  // Recurse through children
+	  var child = node.firstChild;
+	  if (child != null) {
+	    nodeName = child.nodeName.toLowerCase();
+	  }
+
+	  var entityId = null;
+	  var href = null;
+
+	  while (child) {
+	    if (nodeName === 'a' && child.href && hasValidLinkText(child)) {
+	      href = new URI(child.href).toString();
+	      entityId = DraftEntity.create('LINK', 'MUTABLE', { url: href });
+	    } else {
+	      entityId = undefined;
+	    }
+
+	    newChunk = genFragment(child, inlineStyle, lastList, inBlock, blockTags, depth, blockRenderMap, entityId || inEntity);
+
+	    chunk = joinChunks(chunk, newChunk);
+	    var sibling = child.nextSibling;
+
+	    // Put in a newline to break up blocks inside blocks
+	    if (sibling && blockTags.indexOf(nodeName) >= 0 && inBlock) {
+	      chunk = joinChunks(chunk, getSoftNewlineChunk());
+	    }
+	    if (sibling) {
+	      nodeName = sibling.nodeName.toLowerCase();
+	    }
+	    child = sibling;
+	  }
+
+	  if (newBlock) {
+	    chunk = joinChunks(chunk, getBlockDividerChunk(nextBlockType, depth));
+	  }
+
+	  return chunk;
+	}
+
+	function getChunkForHTML(html, DOMBuilder, blockRenderMap) {
+	  html = html.trim().replace(REGEX_CR, '').replace(REGEX_NBSP, SPACE);
+
+	  var supportedBlockTags = getBlockMapSupportedTags(blockRenderMap);
+
+	  var safeBody = DOMBuilder(html);
+	  if (!safeBody) {
+	    return null;
+	  }
+	  lastBlock = null;
+
+	  // Sometimes we aren't dealing with content that contains nice semantic
+	  // tags. In this case, use divs to separate everything out into paragraphs
+	  // and hope for the best.
+	  var workingBlocks = containsSemanticBlockMarkup(html, supportedBlockTags) ? supportedBlockTags : ['div'];
+
+	  // Start with -1 block depth to offset the fact that we are passing in a fake
+	  // UL block to start with.
+	  var chunk = genFragment(safeBody, OrderedSet(), 'ul', null, workingBlocks, -1, blockRenderMap);
+
+	  // join with previous block to prevent weirdness on paste
+	  if (chunk.text.indexOf('\r') === 0) {
+	    chunk = {
+	      text: chunk.text.slice(1),
+	      inlines: chunk.inlines.slice(1),
+	      entities: chunk.entities.slice(1),
+	      blocks: chunk.blocks
+	    };
+	  }
+
+	  // Kill block delimiter at the end
+	  if (chunk.text.slice(-1) === '\r') {
+	    chunk.text = chunk.text.slice(0, -1);
+	    chunk.inlines = chunk.inlines.slice(0, -1);
+	    chunk.entities = chunk.entities.slice(0, -1);
+	    chunk.blocks.pop();
+	  }
+
+	  // If we saw no block tags, put an unstyled one in
+	  if (chunk.blocks.length === 0) {
+	    chunk.blocks.push({ type: 'unstyled', depth: 0 });
+	  }
+
+	  // Sometimes we start with text that isn't in a block, which is then
+	  // followed by blocks. Need to fix up the blocks to add in
+	  // an unstyled block for this content
+	  if (chunk.text.split('\r').length === chunk.blocks.length + 1) {
+	    chunk.blocks.unshift({ type: 'unstyled', depth: 0 });
+	  }
+
+	  return chunk;
+	}
+
+	function convertFromHTMLtoContentBlocks(html) {
+	  var DOMBuilder = arguments.length <= 1 || arguments[1] === undefined ? getSafeBodyFromHTML : arguments[1];
+	  var blockRenderMap = arguments.length <= 2 || arguments[2] === undefined ? DefaultDraftBlockRenderMap : arguments[2];
+
+	  // Be ABSOLUTELY SURE that the dom builder you pass hare won't execute
+	  // arbitrary code in whatever environment you're running this in. For an
+	  // example of how we try to do this in-browser, see getSafeBodyFromHTML.
+
+	  var chunk = getChunkForHTML(html, DOMBuilder, blockRenderMap);
+
+	  if (chunk == null) {
+	    return null;
+	  }
+	  var start = 0;
+	  return chunk.text.split('\r').map(function (textBlock, ii) {
+	    // Make absolutely certain that our text is acceptable.
+	    textBlock = sanitizeDraftText(textBlock);
+	    var end = start + textBlock.length;
+	    var inlines = nullthrows(chunk).inlines.slice(start, end);
+	    var entities = nullthrows(chunk).entities.slice(start, end);
+	    var characterList = List(inlines.map(function (style, ii) {
+	      var data = { style: style, entity: null };
+	      if (entities[ii]) {
+	        data.entity = entities[ii];
+	      }
+	      return CharacterMetadata.create(data);
+	    }));
+	    start = end + 1;
+
+	    return new ContentBlock({
+	      key: generateRandomKey(),
+	      type: nullthrows(chunk).blocks[ii].type,
+	      depth: nullthrows(chunk).blocks[ii].depth,
+	      text: textBlock,
+	      characterList: characterList
+	    });
+	  });
+	}
+
+	module.exports = convertFromHTMLtoContentBlocks;
+
+/***/ },
+/* 244 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule convertFromRawToDraftState
+	 * 
+	 */
+
+	'use strict';
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var ContentBlock = __webpack_require__(229);
+	var ContentState = __webpack_require__(230);
+	var DraftEntity = __webpack_require__(236);
+
+	var createCharacterList = __webpack_require__(297);
+	var decodeEntityRanges = __webpack_require__(298);
+	var decodeInlineStyleRanges = __webpack_require__(299);
+	var generateRandomKey = __webpack_require__(245);
+
+	function convertFromRawToDraftState(rawState) {
+	  var blocks = rawState.blocks;
+	  var entityMap = rawState.entityMap;
+
+	  var fromStorageToLocal = {};
+	  Object.keys(entityMap).forEach(function (storageKey) {
+	    var encodedEntity = entityMap[storageKey];
+	    var type = encodedEntity.type;
+	    var mutability = encodedEntity.mutability;
+	    var data = encodedEntity.data;
+
+	    var newKey = DraftEntity.create(type, mutability, data || {});
+	    fromStorageToLocal[storageKey] = newKey;
+	  });
+
+	  var contentBlocks = blocks.map(function (block) {
+	    var key = block.key;
+	    var type = block.type;
+	    var text = block.text;
+	    var depth = block.depth;
+	    var inlineStyleRanges = block.inlineStyleRanges;
+	    var entityRanges = block.entityRanges;
+
+	    key = key || generateRandomKey();
+	    depth = depth || 0;
+	    inlineStyleRanges = inlineStyleRanges || [];
+	    entityRanges = entityRanges || [];
+
+	    var inlineStyles = decodeInlineStyleRanges(text, inlineStyleRanges);
+
+	    // Translate entity range keys to the DraftEntity map.
+	    var filteredEntityRanges = entityRanges.filter(function (range) {
+	      return fromStorageToLocal.hasOwnProperty(range.key);
+	    }).map(function (range) {
+	      return _extends({}, range, { key: fromStorageToLocal[range.key] });
+	    });
+
+	    var entities = decodeEntityRanges(text, filteredEntityRanges);
+	    var characterList = createCharacterList(inlineStyles, entities);
+
+	    return new ContentBlock({ key: key, type: type, text: text, depth: depth, characterList: characterList });
+	  });
+
+	  return ContentState.createFromBlockArray(contentBlocks);
+	}
+
+	module.exports = convertFromRawToDraftState;
+
+/***/ },
+/* 245 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule generateRandomKey
+	 * @typechecks
+	 * 
+	 */
+
+	'use strict';
+
+	var seenKeys = {};
+	var MULTIPLIER = Math.pow(2, 24);
+
+	function generateRandomKey() {
+	  var key = undefined;
+	  while (key === undefined || seenKeys.hasOwnProperty(key) || !isNaN(+key)) {
+	    key = Math.floor(Math.random() * MULTIPLIER).toString(32);
+	  }
+	  seenKeys[key] = true;
+	  return key;
+	}
+
+	module.exports = generateRandomKey;
+
+/***/ },
+/* 246 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule getDefaultKeyBinding
+	 * @typechecks
+	 * 
+	 */
+
+	'use strict';
+
+	var KeyBindingUtil = __webpack_require__(239);
+	var Keys = __webpack_require__(357);
+	var UserAgent = __webpack_require__(347);
+
+	var isOSX = UserAgent.isPlatform('Mac OS X');
+	var isWindows = UserAgent.isPlatform('Windows');
+
+	// Firefox on OSX had a bug resulting in navigation instead of cursor movement.
+	// This bug was fixed in Firefox 29. Feature detection is virtually impossible
+	// so we just check the version number. See #342765.
+	var shouldFixFirefoxMovement = isOSX && UserAgent.isBrowser('Firefox < 29');
+
+	var hasCommandModifier = KeyBindingUtil.hasCommandModifier;
+	var isCtrlKeyCommand = KeyBindingUtil.isCtrlKeyCommand;
+
+	function shouldRemoveWord(e) {
+	  return isOSX && e.altKey || isCtrlKeyCommand(e);
+	}
+
+	/**
+	 * Get the appropriate undo/redo command for a Z key command.
+	 */
+	function getZCommand(e) {
+	  if (hasCommandModifier(e)) {
+	    return e.shiftKey ? 'redo' : 'undo';
+	  }
+	}
+
+	function getDeleteCommand(e) {
+	  // Allow default "cut" behavior for Windows on Shift + Delete.
+	  if (isWindows && e.shiftKey) {
+	    return null;
+	  }
+	  return shouldRemoveWord(e) ? 'delete-word' : 'delete';
+	}
+
+	function getBackspaceCommand(e) {
+	  if (hasCommandModifier(e) && isOSX) {
+	    return 'backspace-to-start-of-line';
+	  }
+	  return shouldRemoveWord(e) ? 'backspace-word' : 'backspace';
+	}
+
+	/**
+	 * Retrieve a bound key command for the given event.
+	 */
+	function getDefaultKeyBinding(e) {
+	  switch (e.keyCode) {
+	    case 66:
+	      // B
+	      return hasCommandModifier(e) ? 'bold' : null;
+	    case 68:
+	      // D
+	      return isCtrlKeyCommand(e) ? 'delete' : null;
+	    case 72:
+	      // H
+	      return isCtrlKeyCommand(e) ? 'backspace' : null;
+	    case 73:
+	      // I
+	      return hasCommandModifier(e) ? 'italic' : null;
+	    case 74:
+	      // J
+	      return hasCommandModifier(e) ? 'code' : null;
+	    case 75:
+	      // K
+	      return !isWindows && isCtrlKeyCommand(e) ? 'secondary-cut' : null;
+	    case 77:
+	      // M
+	      return isCtrlKeyCommand(e) ? 'split-block' : null;
+	    case 79:
+	      // O
+	      return isCtrlKeyCommand(e) ? 'split-block' : null;
+	    case 84:
+	      // T
+	      return isOSX && isCtrlKeyCommand(e) ? 'transpose-characters' : null;
+	    case 85:
+	      // U
+	      return hasCommandModifier(e) ? 'underline' : null;
+	    case 87:
+	      // W
+	      return isOSX && isCtrlKeyCommand(e) ? 'backspace-word' : null;
+	    case 89:
+	      // Y
+	      if (isCtrlKeyCommand(e)) {
+	        return isWindows ? 'redo' : 'secondary-paste';
+	      }
+	      return null;
+	    case 90:
+	      // Z
+	      return getZCommand(e) || null;
+	    case Keys.RETURN:
+	      return 'split-block';
+	    case Keys.DELETE:
+	      return getDeleteCommand(e);
+	    case Keys.BACKSPACE:
+	      return getBackspaceCommand(e);
+	    // LEFT/RIGHT handlers serve as a workaround for a Firefox bug.
+	    case Keys.LEFT:
+	      return shouldFixFirefoxMovement && hasCommandModifier(e) ? 'move-selection-to-start-of-block' : null;
+	    case Keys.RIGHT:
+	      return shouldFixFirefoxMovement && hasCommandModifier(e) ? 'move-selection-to-end-of-block' : null;
+	    default:
+	      return null;
+	  }
+	}
+
+	module.exports = getDefaultKeyBinding;
+
+/***/ },
+/* 247 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule getVisibleSelectionRect
+	 * @typechecks
+	 * 
+	 */
+
+	/**
+	 * Return the bounding ClientRect for the visible DOM selection, if any.
+	 * In cases where there are no selected ranges or the bounding rect is
+	 * temporarily invalid, return null.
+	 */
+	'use strict';
+
+	var getRangeBoundingClientRect = __webpack_require__(300);
+
+	function getVisibleSelectionRect(global) {
+	  var selection = global.getSelection();
+	  if (!selection.rangeCount) {
+	    return null;
+	  }
+
+	  var range = selection.getRangeAt(0);
+	  var boundingRect = getRangeBoundingClientRect(range);
+	  var top = boundingRect.top;
+	  var right = boundingRect.right;
+	  var bottom = boundingRect.bottom;
+	  var left = boundingRect.left;
+
+	  // When a re-render leads to a node being removed, the DOM selection will
+	  // temporarily be placed on an ancestor node, which leads to an invalid
+	  // bounding rect. Discard this state.
+	  if (top === 0 && right === 0 && bottom === 0 && left === 0) {
+	    return null;
+	  }
+
+	  return boundingRect;
+	}
+
+	module.exports = getVisibleSelectionRect;
+
+/***/ },
 /* 248 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -67991,7 +70798,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var kpoint = __webpack_require__(206).point;
 	var kvector = __webpack_require__(206).vector;
-	var KhanColors = __webpack_require__(198);
+	var KhanColors = __webpack_require__(197);
 	var processMath = __webpack_require__(259).processMath;
 
 	var _require = __webpack_require__(38),
@@ -68489,14 +71296,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(19);
 
 	var MovableLineOptions = __webpack_require__(306);
-	var WrappedLine = __webpack_require__(197);
+	var WrappedLine = __webpack_require__(196);
 	var InteractiveUtil = __webpack_require__(173);
 	var objective_ = __webpack_require__(85);
 	var assert = InteractiveUtil.assert;
 	var normalizeOptions = InteractiveUtil.normalizeOptions;
 
 	var kvector = __webpack_require__(206).vector;
-	var KhanColors = __webpack_require__(198);
+	var KhanColors = __webpack_require__(197);
 
 	var FUNCTION_ARRAY_OPTIONS = ["add", "draw", "remove", "onMoveStart", "constraints", "onMove", "onMoveEnd"];
 
@@ -68758,7 +71565,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var objective_ = __webpack_require__(85);
 	var assert = InteractiveUtil.assert;
 	var normalizeOptions = InteractiveUtil.normalizeOptions;
-	var KhanColors = __webpack_require__(198);
+	var KhanColors = __webpack_require__(197);
 	var GraphUtils = __webpack_require__(174);
 
 	// State parameters that should be converted into an array of
@@ -74936,23 +77743,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	            this.mathField.keystroke('Left'); // out of parentheses
 	            this.mathField.keystroke('Left'); // into index
 	        } else if (key === Keys.CUBE_ROOT) {
-	            this.mathField.write('\\sqrt[3]{}');
-	            this.mathField.keystroke('Left'); // under the root
-	        } else if (key === Keys.EXP || key === Keys.EXP_2 || key === Keys.EXP_3) {
-	            this._handleExponent(cursor, key);
-	        } else if (key === Keys.JUMP_OUT_PARENTHESES || key === Keys.JUMP_OUT_EXPONENT || key === Keys.JUMP_OUT_BASE || key === Keys.JUMP_INTO_NUMERATOR || key === Keys.JUMP_OUT_NUMERATOR || key === Keys.JUMP_OUT_DENOMINATOR) {
-	            this._handleJumpOut(cursor, key);
-	        } else if (key === Keys.BACKSPACE) {
-	            this._handleBackspace(cursor);
-	        } else if (key === Keys.LEFT) {
-	            this._handleLeftArrow(cursor);
-	        } else if (key === Keys.RIGHT || key === Keys.JUMP_OUT) {
-	            this._handleRightArrow(cursor);
-	        } else if (/^[a-zA-Z]$/.test(key)) {
-	            this.mathField[WRITE](key);
-	        } else if (/^NUM_\d/.test(key)) {
-	            this.mathField[WRITE](key[4]);
-	        }
+	                this.mathField.write('\\sqrt[3]{}');
+	                this.mathField.keystroke('Left'); // under the root
+	            } else if (key === Keys.EXP || key === Keys.EXP_2 || key === Keys.EXP_3) {
+	                    this._handleExponent(cursor, key);
+	                } else if (key === Keys.JUMP_OUT_PARENTHESES || key === Keys.JUMP_OUT_EXPONENT || key === Keys.JUMP_OUT_BASE || key === Keys.JUMP_INTO_NUMERATOR || key === Keys.JUMP_OUT_NUMERATOR || key === Keys.JUMP_OUT_DENOMINATOR) {
+	                    this._handleJumpOut(cursor, key);
+	                } else if (key === Keys.BACKSPACE) {
+	                    this._handleBackspace(cursor);
+	                } else if (key === Keys.LEFT) {
+	                    this._handleLeftArrow(cursor);
+	                } else if (key === Keys.RIGHT || key === Keys.JUMP_OUT) {
+	                    this._handleRightArrow(cursor);
+	                } else if (/^[a-zA-Z]$/.test(key)) {
+	                    this.mathField[WRITE](key);
+	                } else if (/^NUM_\d/.test(key)) {
+	                    this.mathField[WRITE](key[4]);
+	                }
 
 	        if (!cursor.selection) {
 	            // don't show the cursor for selections
@@ -75973,8 +78780,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var DraftModifier = __webpack_require__(234);
-	var EditorState = __webpack_require__(237);
+	var DraftModifier = __webpack_require__(235);
+	var EditorState = __webpack_require__(238);
 	var Keys = __webpack_require__(357);
 
 	var getEntityKeyForSelection = __webpack_require__(315);
@@ -76152,9 +78959,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var DraftEditorBlock = __webpack_require__(233);
+	var DraftEditorBlock = __webpack_require__(234);
 	var DraftOffsetKey = __webpack_require__(279);
-	var EditorState = __webpack_require__(237);
+	var EditorState = __webpack_require__(238);
 	var React = __webpack_require__(18);
 
 	var cx = __webpack_require__(344);
@@ -76392,8 +79199,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	var DataTransfer = __webpack_require__(359);
-	var DraftModifier = __webpack_require__(234);
-	var EditorState = __webpack_require__(237);
+	var DraftModifier = __webpack_require__(235);
+	var EditorState = __webpack_require__(238);
 
 	var findAncestorOffsetKey = __webpack_require__(317);
 	var getTextContentFromFiles = __webpack_require__(318);
@@ -76650,7 +79457,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var DraftEditorTextNode = __webpack_require__(332);
 	var React = __webpack_require__(18);
 	var ReactDOM = __webpack_require__(20);
-	var SelectionState = __webpack_require__(240);
+	var SelectionState = __webpack_require__(241);
 
 	var setDraftEditorSelection = __webpack_require__(333);
 
@@ -76866,9 +79673,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var CharacterMetadata = __webpack_require__(226);
+	var CharacterMetadata = __webpack_require__(227);
 
-	var _require = __webpack_require__(247);
+	var _require = __webpack_require__(224);
 
 	var Map = _require.Map;
 
@@ -76944,7 +79751,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var Immutable = __webpack_require__(247);
+	var Immutable = __webpack_require__(224);
 
 	var applyEntityToContentBlock = __webpack_require__(334);
 
@@ -77002,7 +79809,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	'use strict';
 
-	var DraftEntity = __webpack_require__(235);
+	var DraftEntity = __webpack_require__(236);
 	var DraftEntitySegments = __webpack_require__(335);
 
 	var getRangesForDraftEntity = __webpack_require__(336);
@@ -77075,7 +79882,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var generateRandomKey = __webpack_require__(244);
+	var generateRandomKey = __webpack_require__(245);
 	var removeEntitiesAtEdges = __webpack_require__(286);
 
 	function getContentStateFragment(contentState, selectionState) {
@@ -77151,9 +79958,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var BlockMapBuilder = __webpack_require__(225);
+	var BlockMapBuilder = __webpack_require__(226);
 
-	var generateRandomKey = __webpack_require__(244);
+	var generateRandomKey = __webpack_require__(245);
 	var insertIntoList = __webpack_require__(337);
 	var invariant = __webpack_require__(355);
 
@@ -77278,7 +80085,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var Immutable = __webpack_require__(247);
+	var Immutable = __webpack_require__(224);
 
 	var insertIntoList = __webpack_require__(337);
 	var invariant = __webpack_require__(355);
@@ -77335,8 +80142,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var CharacterMetadata = __webpack_require__(226);
-	var DraftEntity = __webpack_require__(235);
+	var CharacterMetadata = __webpack_require__(227);
+	var DraftEntity = __webpack_require__(236);
 
 	var findRangesImmutable = __webpack_require__(271);
 	var invariant = __webpack_require__(355);
@@ -77441,7 +80248,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var Immutable = __webpack_require__(247);
+	var Immutable = __webpack_require__(224);
 
 	function removeRangeFromContentState(contentState, selectionState) {
 	  if (selectionState.isCollapsed()) {
@@ -77538,7 +80345,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var Immutable = __webpack_require__(247);
+	var Immutable = __webpack_require__(224);
 
 	function setBlockTypeForContentState(contentState, selectionState, blockType) {
 	  var startKey = selectionState.getStartKey();
@@ -77580,7 +80387,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var generateRandomKey = __webpack_require__(244);
+	var generateRandomKey = __webpack_require__(245);
 	var invariant = __webpack_require__(355);
 
 	function splitBlockInContentState(contentState, selectionState) {
@@ -77647,7 +80454,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var Immutable = __webpack_require__(247);
+	var Immutable = __webpack_require__(224);
 
 	var emptyFunction = __webpack_require__(348);
 	var findRangesImmutable = __webpack_require__(271);
@@ -77764,7 +80571,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var Immutable = __webpack_require__(247);
+	var Immutable = __webpack_require__(224);
 	var UnicodeBidiService = __webpack_require__(360);
 
 	var nullthrows = __webpack_require__(349);
@@ -78050,8 +80857,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var CharacterMetadata = __webpack_require__(226);
-	var Immutable = __webpack_require__(247);
+	var CharacterMetadata = __webpack_require__(227);
+	var Immutable = __webpack_require__(224);
 
 	var List = Immutable.List;
 
@@ -78130,7 +80937,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var UnicodeUtils = __webpack_require__(361);
 
-	var _require = __webpack_require__(247);
+	var _require = __webpack_require__(224);
 
 	var OrderedSet = _require.OrderedSet;
 	var substr = UnicodeUtils.substr;
@@ -78303,7 +81110,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _require = __webpack_require__(270),
 	    tabletCutoffPx = _require.tabletCutoffPx;
 
-	var computeLayoutParameters = __webpack_require__(341);
+	var computeLayoutParameters = __webpack_require__(339);
 
 	var _require2 = __webpack_require__(205),
 	    DeviceOrientations = _require2.DeviceOrientations,
@@ -78316,8 +81123,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Keys = __webpack_require__(313);
 	var KeyConfigs = __webpack_require__(303);
 	var CursorContexts = __webpack_require__(265);
-	var GestureManager = __webpack_require__(342);
-	var VelocityTracker = __webpack_require__(343);
+	var GestureManager = __webpack_require__(340);
+	var VelocityTracker = __webpack_require__(341);
 
 	var FractionKeypad = __webpack_require__(308);
 	var ExpressionKeypad = __webpack_require__(309);
@@ -78979,6 +81786,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	// Add in every numeral.
+	// childKeyIds will be configured by the client.
 	var NUMBERS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 	for (var _iterator = NUMBERS, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
 	    var _ref;
@@ -79083,8 +81891,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 
 	module.exports = {
-	  Text: __webpack_require__(339),
-	  View: __webpack_require__(340)
+	  Text: __webpack_require__(342),
+	  View: __webpack_require__(343)
 	};
 
 /***/ },
@@ -79262,7 +82070,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * A library of options to pass to add/draw/remove/constraints
 	 */
 	var _ = __webpack_require__(19);
-	var WrappedLine = __webpack_require__(197);
+	var WrappedLine = __webpack_require__(196);
 	var WrappedPath = __webpack_require__(262);
 	var kvector = __webpack_require__(206).vector;
 	var kpoint = __webpack_require__(206).point;
@@ -80754,7 +83562,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	'use strict';
 
-	var DraftEntity = __webpack_require__(235);
+	var DraftEntity = __webpack_require__(236);
 
 	function getEntityKeyForSelection(contentState, targetSelection) {
 	  var entityKey;
@@ -81070,8 +83878,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	var BlockTree = __webpack_require__(290);
-	var DraftModifier = __webpack_require__(234);
-	var EditorState = __webpack_require__(237);
+	var DraftModifier = __webpack_require__(235);
+	var EditorState = __webpack_require__(238);
 	var UserAgent = __webpack_require__(347);
 
 	var getEntityKeyForSelection = __webpack_require__(315);
@@ -81185,7 +83993,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var EditorState = __webpack_require__(237);
+	var EditorState = __webpack_require__(238);
 	var UserAgent = __webpack_require__(347);
 
 	var getActiveElement = __webpack_require__(368);
@@ -81235,7 +84043,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var EditorState = __webpack_require__(237);
+	var EditorState = __webpack_require__(238);
 
 	/**
 	 * The user has begun using an IME input system. Switching to `composite` mode
@@ -81307,8 +84115,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var DraftModifier = __webpack_require__(234);
-	var EditorState = __webpack_require__(237);
+	var DraftModifier = __webpack_require__(235);
+	var EditorState = __webpack_require__(238);
 	var Style = __webpack_require__(346);
 
 	var getFragmentFromSelection = __webpack_require__(369);
@@ -81442,7 +84250,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var EditorState = __webpack_require__(237);
+	var EditorState = __webpack_require__(238);
 
 	function editOnFocus(e) {
 	  var editorState = this.props.editorState;
@@ -81483,10 +84291,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var DraftModifier = __webpack_require__(234);
+	var DraftModifier = __webpack_require__(235);
 	var DraftOffsetKey = __webpack_require__(279);
-	var EditorState = __webpack_require__(237);
-	var Entity = __webpack_require__(235);
+	var EditorState = __webpack_require__(238);
+	var Entity = __webpack_require__(236);
 	var UserAgent = __webpack_require__(347);
 
 	var findAncestorOffsetKey = __webpack_require__(317);
@@ -81630,9 +84438,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var DraftModifier = __webpack_require__(234);
-	var EditorState = __webpack_require__(237);
-	var KeyBindingUtil = __webpack_require__(238);
+	var DraftModifier = __webpack_require__(235);
+	var EditorState = __webpack_require__(238);
+	var KeyBindingUtil = __webpack_require__(239);
 	var Keys = __webpack_require__(357);
 	var SecondaryClipboard = __webpack_require__(370);
 	var UserAgent = __webpack_require__(347);
@@ -81784,16 +84592,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	'use strict';
 
-	var BlockMapBuilder = __webpack_require__(225);
-	var CharacterMetadata = __webpack_require__(226);
+	var BlockMapBuilder = __webpack_require__(226);
+	var CharacterMetadata = __webpack_require__(227);
 	var DataTransfer = __webpack_require__(359);
-	var DraftModifier = __webpack_require__(234);
-	var DraftPasteProcessor = __webpack_require__(382);
-	var EditorState = __webpack_require__(237);
+	var DraftModifier = __webpack_require__(235);
+	var DraftPasteProcessor = __webpack_require__(381);
+	var EditorState = __webpack_require__(238);
 
 	var getEntityKeyForSelection = __webpack_require__(315);
 	var getTextContentFromFiles = __webpack_require__(318);
-	var splitTextIntoTextBlocks = __webpack_require__(383);
+	var splitTextIntoTextBlocks = __webpack_require__(382);
 
 	function editOnPaste(e) {
 	  var _this = this;
@@ -81927,10 +84735,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var EditorState = __webpack_require__(237);
+	var EditorState = __webpack_require__(238);
 	var ReactDOM = __webpack_require__(20);
 
-	var getDraftEditorSelection = __webpack_require__(381);
+	var getDraftEditorSelection = __webpack_require__(383);
 
 	function editOnSelect() {
 	  if (this._blockSelectEvents) {
@@ -82230,7 +85038,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var CharacterMetadata = __webpack_require__(226);
+	var CharacterMetadata = __webpack_require__(227);
 
 	function applyEntityToContentBlock(contentBlock, start, end, entityKey) {
 	  var characterList = contentBlock.getCharacterList();
@@ -82503,155 +85311,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var React = __webpack_require__(18);
-
-	var _require = __webpack_require__(23),
-	    StyleSheet = _require.StyleSheet,
-	    css = _require.css;
-
-	var Text = React.createClass({
-	    displayName: 'Text',
-
-	    propTypes: {
-	        children: React.PropTypes.oneOfType([React.PropTypes.arrayOf(React.PropTypes.node), React.PropTypes.node]),
-	        // The `dynamicStyle` prop is provided for animating dynamic
-	        // properties, as creating Aphrodite StyleSheets in animation loops is
-	        // expensive. `dynamicStyle` should be a raw style object, rather than
-	        // a StyleSheet.
-	        dynamicStyle: React.PropTypes.any,
-	        numberOfLines: React.PropTypes.number,
-	        style: React.PropTypes.any
-	    },
-
-	    render: function render() {
-	        var _props = this.props,
-	            numberOfLines = _props.numberOfLines,
-	            style = _props.style;
-
-
-	        var className = css.apply(undefined, [styles.initial].concat(Array.isArray(style) ? style : [style], [numberOfLines === 1 && styles.singleLineStyle]));
-
-	        return React.createElement(
-	            'span',
-	            { className: className, style: this.props.dynamicStyle },
-	            this.props.children
-	        );
-	    }
-	});
-
-	// https://github.com/necolas/react-native-web/blob/master/src/components/Text/index.js
-	var styles = StyleSheet.create({
-	    initial: {
-	        color: 'inherit',
-	        display: 'inline',
-	        font: 'inherit',
-	        margin: 0,
-	        padding: 0,
-	        textDecorationLine: 'none',
-	        wordWrap: 'break-word'
-	    },
-	    singleLineStyle: {
-	        maxWidth: '100%',
-	        overflow: 'hidden',
-	        textOverflow: 'ellipsis',
-	        whiteSpace: 'nowrap'
-	    }
-	});
-
-	module.exports = Text;
-
-/***/ },
-/* 340 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var React = __webpack_require__(18);
-
-	var _require = __webpack_require__(23),
-	    StyleSheet = _require.StyleSheet,
-	    css = _require.css;
-
-	var View = React.createClass({
-	    displayName: 'View',
-
-	    propTypes: {
-	        ariaLabel: React.PropTypes.string,
-	        children: React.PropTypes.oneOfType([React.PropTypes.arrayOf(React.PropTypes.node), React.PropTypes.node]),
-	        // The `dynamicStyle` prop is provided for animating dynamic
-	        // properties, as creating Aphrodite StyleSheets in animation loops is
-	        // expensive. `dynamicStyle` should be a raw style object, rather than
-	        // a StyleSheet.
-	        dynamicStyle: React.PropTypes.any,
-	        numberOfLines: React.PropTypes.number,
-	        onClick: React.PropTypes.func,
-	        onTouchCancel: React.PropTypes.func,
-	        onTouchEnd: React.PropTypes.func,
-	        onTouchMove: React.PropTypes.func,
-	        onTouchStart: React.PropTypes.func,
-	        role: React.PropTypes.string,
-	        style: React.PropTypes.any
-	    },
-
-	    statics: {
-	        styles: StyleSheet.create({
-	            // From: https://github.com/necolas/react-native-web/blob/master/src/components/View/index.js
-	            initial: {
-	                alignItems: 'stretch',
-	                borderWidth: 0,
-	                borderStyle: 'solid',
-	                boxSizing: 'border-box',
-	                display: 'flex',
-	                flexBasis: 'auto',
-	                flexDirection: 'column',
-	                margin: 0,
-	                padding: 0,
-	                position: 'relative',
-	                // button and anchor reset
-	                backgroundColor: 'transparent',
-	                color: 'inherit',
-	                font: 'inherit',
-	                textAlign: 'inherit',
-	                textDecorationLine: 'none',
-	                // list reset
-	                listStyle: 'none',
-	                // fix flexbox bugs
-	                maxWidth: '100%',
-	                minHeight: 0,
-	                minWidth: 0
-	            }
-	        })
-	    },
-
-	    render: function render() {
-	        var className = css.apply(undefined, [View.styles.initial].concat(Array.isArray(this.props.style) ? this.props.style : [this.props.style]));
-
-	        return React.createElement(
-	            'div',
-	            {
-	                className: className,
-	                style: this.props.dynamicStyle,
-	                onClick: this.props.onClick,
-	                onTouchCancel: this.props.onTouchCancel,
-	                onTouchEnd: this.props.onTouchEnd,
-	                onTouchMove: this.props.onTouchMove,
-	                onTouchStart: this.props.onTouchStart,
-	                'aria-label': this.props.ariaLabel,
-	                role: this.props.role
-	            },
-	            this.props.children
-	        );
-	    }
-	});
-
-	module.exports = View;
-
-/***/ },
-/* 341 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
 	/**
 	 * An algorithm for computing the appropriate layout parameters for the keypad,
 	 * including the size of the buttons and whether or not to render fullscreen,
@@ -82795,7 +85454,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = computeLayoutParameters;
 
 /***/ },
-/* 342 */
+/* 340 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -83052,7 +85711,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = GestureManager;
 
 /***/ },
-/* 343 */
+/* 341 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -83068,7 +85727,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * occurred in the last 100 milliseconds.
 	 */
 
-	var now = __webpack_require__(421);
+	var now = __webpack_require__(416);
 
 	var VelocityTracker = function () {
 	    function VelocityTracker(options) {
@@ -83146,6 +85805,155 @@ return /******/ (function(modules) { // webpackBootstrap
 	}();
 
 	module.exports = VelocityTracker;
+
+/***/ },
+/* 342 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(18);
+
+	var _require = __webpack_require__(23),
+	    StyleSheet = _require.StyleSheet,
+	    css = _require.css;
+
+	var Text = React.createClass({
+	    displayName: 'Text',
+
+	    propTypes: {
+	        children: React.PropTypes.oneOfType([React.PropTypes.arrayOf(React.PropTypes.node), React.PropTypes.node]),
+	        // The `dynamicStyle` prop is provided for animating dynamic
+	        // properties, as creating Aphrodite StyleSheets in animation loops is
+	        // expensive. `dynamicStyle` should be a raw style object, rather than
+	        // a StyleSheet.
+	        dynamicStyle: React.PropTypes.any,
+	        numberOfLines: React.PropTypes.number,
+	        style: React.PropTypes.any
+	    },
+
+	    render: function render() {
+	        var _props = this.props,
+	            numberOfLines = _props.numberOfLines,
+	            style = _props.style;
+
+
+	        var className = css.apply(undefined, [styles.initial].concat(Array.isArray(style) ? style : [style], [numberOfLines === 1 && styles.singleLineStyle]));
+
+	        return React.createElement(
+	            'span',
+	            { className: className, style: this.props.dynamicStyle },
+	            this.props.children
+	        );
+	    }
+	});
+
+	// https://github.com/necolas/react-native-web/blob/master/src/components/Text/index.js
+	var styles = StyleSheet.create({
+	    initial: {
+	        color: 'inherit',
+	        display: 'inline',
+	        font: 'inherit',
+	        margin: 0,
+	        padding: 0,
+	        textDecorationLine: 'none',
+	        wordWrap: 'break-word'
+	    },
+	    singleLineStyle: {
+	        maxWidth: '100%',
+	        overflow: 'hidden',
+	        textOverflow: 'ellipsis',
+	        whiteSpace: 'nowrap'
+	    }
+	});
+
+	module.exports = Text;
+
+/***/ },
+/* 343 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(18);
+
+	var _require = __webpack_require__(23),
+	    StyleSheet = _require.StyleSheet,
+	    css = _require.css;
+
+	var View = React.createClass({
+	    displayName: 'View',
+
+	    propTypes: {
+	        ariaLabel: React.PropTypes.string,
+	        children: React.PropTypes.oneOfType([React.PropTypes.arrayOf(React.PropTypes.node), React.PropTypes.node]),
+	        // The `dynamicStyle` prop is provided for animating dynamic
+	        // properties, as creating Aphrodite StyleSheets in animation loops is
+	        // expensive. `dynamicStyle` should be a raw style object, rather than
+	        // a StyleSheet.
+	        dynamicStyle: React.PropTypes.any,
+	        numberOfLines: React.PropTypes.number,
+	        onClick: React.PropTypes.func,
+	        onTouchCancel: React.PropTypes.func,
+	        onTouchEnd: React.PropTypes.func,
+	        onTouchMove: React.PropTypes.func,
+	        onTouchStart: React.PropTypes.func,
+	        role: React.PropTypes.string,
+	        style: React.PropTypes.any
+	    },
+
+	    statics: {
+	        styles: StyleSheet.create({
+	            // From: https://github.com/necolas/react-native-web/blob/master/src/components/View/index.js
+	            initial: {
+	                alignItems: 'stretch',
+	                borderWidth: 0,
+	                borderStyle: 'solid',
+	                boxSizing: 'border-box',
+	                display: 'flex',
+	                flexBasis: 'auto',
+	                flexDirection: 'column',
+	                margin: 0,
+	                padding: 0,
+	                position: 'relative',
+	                // button and anchor reset
+	                backgroundColor: 'transparent',
+	                color: 'inherit',
+	                font: 'inherit',
+	                textAlign: 'inherit',
+	                textDecorationLine: 'none',
+	                // list reset
+	                listStyle: 'none',
+	                // fix flexbox bugs
+	                maxWidth: '100%',
+	                minHeight: 0,
+	                minWidth: 0
+	            }
+	        })
+	    },
+
+	    render: function render() {
+	        var className = css.apply(undefined, [View.styles.initial].concat(Array.isArray(this.props.style) ? this.props.style : [this.props.style]));
+
+	        return React.createElement(
+	            'div',
+	            {
+	                className: className,
+	                style: this.props.dynamicStyle,
+	                onClick: this.props.onClick,
+	                onTouchCancel: this.props.onTouchCancel,
+	                onTouchEnd: this.props.onTouchEnd,
+	                onTouchMove: this.props.onTouchMove,
+	                onTouchStart: this.props.onTouchStart,
+	                'aria-label': this.props.ariaLabel,
+	                role: this.props.role
+	            },
+	            this.props.children
+	        );
+	    }
+	});
+
+	module.exports = View;
 
 /***/ },
 /* 344 */
@@ -83758,11 +86566,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var RANGE_BY_BIDI_TYPE = {
 
-	  L: 'A-Za-zªµºÀ-ÖØ-öø-ƺƻ' + 'Ƽ-ƿǀ-ǃǄ-ʓʔʕ-ʯʰ-ʸ' + 'ʻ-ˁː-ˑˠ-ˤˮͰ-ͳͶ-ͷ' + 'ͺͻ-ͽͿΆΈ-ΊΌΎ-Ρ' + 'Σ-ϵϷ-ҁ҂Ҋ-ԯԱ-Ֆՙ' + '՚-՟ա-և։ःऄ-हऻऽ' + 'ा-ीॉ-ौॎ-ॏॐक़-ॡ।-॥' + '०-९॰ॱॲ-ঀং-ঃঅ-ঌ' + 'এ-ঐও-নপ-রলশ-হঽ' + 'া-ীে-ৈো-ৌৎৗড়-ঢ়' + 'য়-ৡ০-৯ৰ-ৱ৴-৹৺ਃ' + 'ਅ-ਊਏ-ਐਓ-ਨਪ-ਰਲ-ਲ਼' + 'ਵ-ਸ਼ਸ-ਹਾ-ੀਖ਼-ੜਫ਼੦-੯' + 'ੲ-ੴઃઅ-ઍએ-ઑઓ-નપ-ર' + 'લ-ળવ-હઽા-ીૉો-ૌૐ' + 'ૠ-ૡ૦-૯૰ଂ-ଃଅ-ଌଏ-ଐ' + 'ଓ-ନପ-ରଲ-ଳଵ-ହଽାୀ' + 'େ-ୈୋ-ୌୗଡ଼-ଢ଼ୟ-ୡ୦-୯' + '୰ୱ୲-୷ஃஅ-ஊஎ-ஐஒ-க' + 'ங-சஜஞ-டண-தந-பம-ஹ' + 'ா-ிு-ூெ-ைொ-ௌௐௗ' + '௦-௯௰-௲ఁ-ఃఅ-ఌఎ-ఐ' + 'ఒ-నప-హఽు-ౄౘ-ౙౠ-ౡ' + '౦-౯౿ಂ-ಃಅ-ಌಎ-ಐಒ-ನ' + 'ಪ-ಳವ-ಹಽಾಿೀ-ೄೆ' + 'ೇ-ೈೊ-ೋೕ-ೖೞೠ-ೡ೦-೯' + 'ೱ-ೲം-ഃഅ-ഌഎ-ഐഒ-ഺഽ' + 'ാ-ീെ-ൈൊ-ൌൎൗൠ-ൡ' + '൦-൯൰-൵൹ൺ-ൿං-ඃඅ-ඖ' + 'ක-නඳ-රලව-ෆා-ෑෘ-ෟ' + '෦-෯ෲ-ෳ෴ก-ะา-ำเ-ๅ' + 'ๆ๏๐-๙๚-๛ກ-ຂຄງ-ຈ' + 'ຊຍດ-ທນ-ຟມ-ຣລວ' + 'ສ-ຫອ-ະາ-ຳຽເ-ໄໆ' + '໐-໙ໜ-ໟༀ༁-༃༄-༒༓༔' + '༕-༗༚-༟༠-༩༪-༳༴༶༸' + '༾-༿ཀ-ཇཉ-ཬཿ྅ྈ-ྌ' + '྾-࿅࿇-࿌࿎-࿏࿐-࿔࿕-࿘' + '࿙-࿚က-ဪါ-ာေးျ-ြဿ' + '၀-၉၊-၏ၐ-ၕၖ-ၗၚ-ၝၡ' + 'ၢ-ၤၥ-ၦၧ-ၭၮ-ၰၵ-ႁ' + 'ႃ-ႄႇ-ႌႎႏ႐-႙ႚ-ႜ' + '႞-႟Ⴀ-ჅჇჍა-ჺ჻ჼ' + 'ჽ-ቈቊ-ቍቐ-ቖቘቚ-ቝበ-ኈ' + 'ኊ-ኍነ-ኰኲ-ኵኸ-ኾዀዂ-ዅ' + 'ወ-ዖዘ-ጐጒ-ጕጘ-ፚ፠-፨' + '፩-፼ᎀ-ᎏᎠ-Ᏼᐁ-ᙬ᙭-᙮' + 'ᙯ-ᙿᚁ-ᚚᚠ-ᛪ᛫-᛭ᛮ-ᛰ' + 'ᛱ-ᛸᜀ-ᜌᜎ-ᜑᜠ-ᜱ᜵-᜶' + 'ᝀ-ᝑᝠ-ᝬᝮ-ᝰក-ឳាើ-ៅ' + 'ះ-ៈ។-៖ៗ៘-៚ៜ០-៩' + '᠐-᠙ᠠ-ᡂᡃᡄ-ᡷᢀ-ᢨᢪ' + 'ᢰ-ᣵᤀ-ᤞᤣ-ᤦᤩ-ᤫᤰ-ᤱ' + 'ᤳ-ᤸ᥆-᥏ᥐ-ᥭᥰ-ᥴᦀ-ᦫ' + 'ᦰ-ᧀᧁ-ᧇᧈ-ᧉ᧐-᧙᧚ᨀ-ᨖ' + 'ᨙ-ᨚ᨞-᨟ᨠ-ᩔᩕᩗᩡᩣ-ᩤ' + 'ᩭ-ᩲ᪀-᪉᪐-᪙᪠-᪦ᪧ᪨-᪭' + 'ᬄᬅ-ᬳᬵᬻᬽ-ᭁᭃ-᭄ᭅ-ᭋ' + '᭐-᭙᭚-᭠᭡-᭪᭴-᭼ᮂᮃ-ᮠ' + 'ᮡᮦ-ᮧ᮪ᮮ-ᮯ᮰-᮹ᮺ-ᯥᯧ' + 'ᯪ-ᯬᯮ᯲-᯳᯼-᯿ᰀ-ᰣᰤ-ᰫ' + 'ᰴ-ᰵ᰻-᰿᱀-᱉ᱍ-ᱏ᱐-᱙' + 'ᱚ-ᱷᱸ-ᱽ᱾-᱿᳀-᳇᳓᳡' + 'ᳩ-ᳬᳮ-ᳱᳲ-ᳳᳵ-ᳶᴀ-ᴫ' + 'ᴬ-ᵪᵫ-ᵷᵸᵹ-ᶚᶛ-ᶿḀ-ἕ' + 'Ἐ-Ἕἠ-ὅὈ-Ὅὐ-ὗὙὛὝ' + 'Ὗ-ώᾀ-ᾴᾶ-ᾼιῂ-ῄῆ-ῌ' + 'ῐ-ΐῖ-Ίῠ-Ῥῲ-ῴῶ-ῼ‎' + 'ⁱⁿₐ-ₜℂℇℊ-ℓℕℙ-ℝ' + 'ℤΩℨK-ℭℯ-ℴℵ-ℸℹ' + 'ℼ-ℿⅅ-ⅉⅎ⅏Ⅰ-ↂↃ-ↄ' + 'ↅ-ↈ⌶-⍺⎕⒜-ⓩ⚬⠀-⣿' + 'Ⰰ-Ⱞⰰ-ⱞⱠ-ⱻⱼ-ⱽⱾ-ⳤ' + 'Ⳬ-ⳮⳲ-ⳳⴀ-ⴥⴧⴭⴰ-ⵧⵯ' + '⵰ⶀ-ⶖⶠ-ⶦⶨ-ⶮⶰ-ⶶⶸ-ⶾ' + 'ⷀ-ⷆⷈ-ⷎⷐ-ⷖⷘ-ⷞ々〆〇' + '〡-〩〮-〯〱-〵〸-〺〻〼' + 'ぁ-ゖゝ-ゞゟァ-ヺー-ヾヿ' + 'ㄅ-ㄭㄱ-ㆎ㆐-㆑㆒-㆕㆖-㆟' + 'ㆠ-ㆺㇰ-ㇿ㈀-㈜㈠-㈩㈪-㉇' + '㉈-㉏㉠-㉻㉿㊀-㊉㊊-㊰㋀-㋋' + '㋐-㋾㌀-㍶㍻-㏝㏠-㏾㐀-䶵' + '一-鿌ꀀ-ꀔꀕꀖ-ꒌꓐ-ꓷꓸ-ꓽ' + '꓾-꓿ꔀ-ꘋꘌꘐ-ꘟ꘠-꘩ꘪ-ꘫ' + 'Ꙁ-ꙭꙮꚀ-ꚛꚜ-ꚝꚠ-ꛥꛦ-ꛯ' + '꛲-꛷Ꜣ-ꝯꝰꝱ-ꞇ꞉-꞊Ꞌ-ꞎ' + 'Ꞑ-ꞭꞰ-Ʇꟷꟸ-ꟹꟺꟻ-ꠁ' + 'ꠃ-ꠅꠇ-ꠊꠌ-ꠢꠣ-ꠤꠧ꠰-꠵' + '꠶-꠷ꡀ-ꡳꢀ-ꢁꢂ-ꢳꢴ-ꣃ' + '꣎-꣏꣐-꣙ꣲ-ꣷ꣸-꣺ꣻ꤀-꤉' + 'ꤊ-ꤥ꤮-꤯ꤰ-ꥆꥒ-꥓꥟ꥠ-ꥼ' + 'ꦃꦄ-ꦲꦴ-ꦵꦺ-ꦻꦽ-꧀꧁-꧍' + 'ꧏ꧐-꧙꧞-꧟ꧠ-ꧤꧦꧧ-ꧯ' + '꧰-꧹ꧺ-ꧾꨀ-ꨨꨯ-ꨰꨳ-ꨴ' + 'ꩀ-ꩂꩄ-ꩋꩍ꩐-꩙꩜-꩟ꩠ-ꩯ' + 'ꩰꩱ-ꩶ꩷-꩹ꩺꩻꩽꩾ-ꪯꪱ' + 'ꪵ-ꪶꪹ-ꪽꫀꫂꫛ-ꫜꫝ꫞-꫟' + 'ꫠ-ꫪꫫꫮ-ꫯ꫰-꫱ꫲꫳ-ꫴꫵ' + 'ꬁ-ꬆꬉ-ꬎꬑ-ꬖꬠ-ꬦꬨ-ꬮ' + 'ꬰ-ꭚ꭛ꭜ-ꭟꭤ-ꭥꯀ-ꯢꯣ-ꯤ' + 'ꯦ-ꯧꯩ-ꯪ꯫꯬꯰-꯹가-힣' + 'ힰ-ퟆퟋ-ퟻ-豈-舘並-龎' + 'ﬀ-ﬆﬓ-ﬗＡ-Ｚａ-ｚｦ-ｯｰ' + 'ｱ-ﾝﾞ-ﾟﾠ-ﾾￂ-ￇￊ-ￏ' + 'ￒ-ￗￚ-ￜ',
+	  L: 'A-Za-z\xAA\xB5\xBA\xC0-\xD6\xD8-\xF6\xF8-\u01BA\u01BB' + '\u01BC-\u01BF\u01C0-\u01C3\u01C4-\u0293\u0294\u0295-\u02AF\u02B0-\u02B8' + '\u02BB-\u02C1\u02D0-\u02D1\u02E0-\u02E4\u02EE\u0370-\u0373\u0376-\u0377' + '\u037A\u037B-\u037D\u037F\u0386\u0388-\u038A\u038C\u038E-\u03A1' + '\u03A3-\u03F5\u03F7-\u0481\u0482\u048A-\u052F\u0531-\u0556\u0559' + '\u055A-\u055F\u0561-\u0587\u0589\u0903\u0904-\u0939\u093B\u093D' + '\u093E-\u0940\u0949-\u094C\u094E-\u094F\u0950\u0958-\u0961\u0964-\u0965' + '\u0966-\u096F\u0970\u0971\u0972-\u0980\u0982-\u0983\u0985-\u098C' + '\u098F-\u0990\u0993-\u09A8\u09AA-\u09B0\u09B2\u09B6-\u09B9\u09BD' + '\u09BE-\u09C0\u09C7-\u09C8\u09CB-\u09CC\u09CE\u09D7\u09DC-\u09DD' + '\u09DF-\u09E1\u09E6-\u09EF\u09F0-\u09F1\u09F4-\u09F9\u09FA\u0A03' + '\u0A05-\u0A0A\u0A0F-\u0A10\u0A13-\u0A28\u0A2A-\u0A30\u0A32-\u0A33' + '\u0A35-\u0A36\u0A38-\u0A39\u0A3E-\u0A40\u0A59-\u0A5C\u0A5E\u0A66-\u0A6F' + '\u0A72-\u0A74\u0A83\u0A85-\u0A8D\u0A8F-\u0A91\u0A93-\u0AA8\u0AAA-\u0AB0' + '\u0AB2-\u0AB3\u0AB5-\u0AB9\u0ABD\u0ABE-\u0AC0\u0AC9\u0ACB-\u0ACC\u0AD0' + '\u0AE0-\u0AE1\u0AE6-\u0AEF\u0AF0\u0B02-\u0B03\u0B05-\u0B0C\u0B0F-\u0B10' + '\u0B13-\u0B28\u0B2A-\u0B30\u0B32-\u0B33\u0B35-\u0B39\u0B3D\u0B3E\u0B40' + '\u0B47-\u0B48\u0B4B-\u0B4C\u0B57\u0B5C-\u0B5D\u0B5F-\u0B61\u0B66-\u0B6F' + '\u0B70\u0B71\u0B72-\u0B77\u0B83\u0B85-\u0B8A\u0B8E-\u0B90\u0B92-\u0B95' + '\u0B99-\u0B9A\u0B9C\u0B9E-\u0B9F\u0BA3-\u0BA4\u0BA8-\u0BAA\u0BAE-\u0BB9' + '\u0BBE-\u0BBF\u0BC1-\u0BC2\u0BC6-\u0BC8\u0BCA-\u0BCC\u0BD0\u0BD7' + '\u0BE6-\u0BEF\u0BF0-\u0BF2\u0C01-\u0C03\u0C05-\u0C0C\u0C0E-\u0C10' + '\u0C12-\u0C28\u0C2A-\u0C39\u0C3D\u0C41-\u0C44\u0C58-\u0C59\u0C60-\u0C61' + '\u0C66-\u0C6F\u0C7F\u0C82-\u0C83\u0C85-\u0C8C\u0C8E-\u0C90\u0C92-\u0CA8' + '\u0CAA-\u0CB3\u0CB5-\u0CB9\u0CBD\u0CBE\u0CBF\u0CC0-\u0CC4\u0CC6' + '\u0CC7-\u0CC8\u0CCA-\u0CCB\u0CD5-\u0CD6\u0CDE\u0CE0-\u0CE1\u0CE6-\u0CEF' + '\u0CF1-\u0CF2\u0D02-\u0D03\u0D05-\u0D0C\u0D0E-\u0D10\u0D12-\u0D3A\u0D3D' + '\u0D3E-\u0D40\u0D46-\u0D48\u0D4A-\u0D4C\u0D4E\u0D57\u0D60-\u0D61' + '\u0D66-\u0D6F\u0D70-\u0D75\u0D79\u0D7A-\u0D7F\u0D82-\u0D83\u0D85-\u0D96' + '\u0D9A-\u0DB1\u0DB3-\u0DBB\u0DBD\u0DC0-\u0DC6\u0DCF-\u0DD1\u0DD8-\u0DDF' + '\u0DE6-\u0DEF\u0DF2-\u0DF3\u0DF4\u0E01-\u0E30\u0E32-\u0E33\u0E40-\u0E45' + '\u0E46\u0E4F\u0E50-\u0E59\u0E5A-\u0E5B\u0E81-\u0E82\u0E84\u0E87-\u0E88' + '\u0E8A\u0E8D\u0E94-\u0E97\u0E99-\u0E9F\u0EA1-\u0EA3\u0EA5\u0EA7' + '\u0EAA-\u0EAB\u0EAD-\u0EB0\u0EB2-\u0EB3\u0EBD\u0EC0-\u0EC4\u0EC6' + '\u0ED0-\u0ED9\u0EDC-\u0EDF\u0F00\u0F01-\u0F03\u0F04-\u0F12\u0F13\u0F14' + '\u0F15-\u0F17\u0F1A-\u0F1F\u0F20-\u0F29\u0F2A-\u0F33\u0F34\u0F36\u0F38' + '\u0F3E-\u0F3F\u0F40-\u0F47\u0F49-\u0F6C\u0F7F\u0F85\u0F88-\u0F8C' + '\u0FBE-\u0FC5\u0FC7-\u0FCC\u0FCE-\u0FCF\u0FD0-\u0FD4\u0FD5-\u0FD8' + '\u0FD9-\u0FDA\u1000-\u102A\u102B-\u102C\u1031\u1038\u103B-\u103C\u103F' + '\u1040-\u1049\u104A-\u104F\u1050-\u1055\u1056-\u1057\u105A-\u105D\u1061' + '\u1062-\u1064\u1065-\u1066\u1067-\u106D\u106E-\u1070\u1075-\u1081' + '\u1083-\u1084\u1087-\u108C\u108E\u108F\u1090-\u1099\u109A-\u109C' + '\u109E-\u109F\u10A0-\u10C5\u10C7\u10CD\u10D0-\u10FA\u10FB\u10FC' + '\u10FD-\u1248\u124A-\u124D\u1250-\u1256\u1258\u125A-\u125D\u1260-\u1288' + '\u128A-\u128D\u1290-\u12B0\u12B2-\u12B5\u12B8-\u12BE\u12C0\u12C2-\u12C5' + '\u12C8-\u12D6\u12D8-\u1310\u1312-\u1315\u1318-\u135A\u1360-\u1368' + '\u1369-\u137C\u1380-\u138F\u13A0-\u13F4\u1401-\u166C\u166D-\u166E' + '\u166F-\u167F\u1681-\u169A\u16A0-\u16EA\u16EB-\u16ED\u16EE-\u16F0' + '\u16F1-\u16F8\u1700-\u170C\u170E-\u1711\u1720-\u1731\u1735-\u1736' + '\u1740-\u1751\u1760-\u176C\u176E-\u1770\u1780-\u17B3\u17B6\u17BE-\u17C5' + '\u17C7-\u17C8\u17D4-\u17D6\u17D7\u17D8-\u17DA\u17DC\u17E0-\u17E9' + '\u1810-\u1819\u1820-\u1842\u1843\u1844-\u1877\u1880-\u18A8\u18AA' + '\u18B0-\u18F5\u1900-\u191E\u1923-\u1926\u1929-\u192B\u1930-\u1931' + '\u1933-\u1938\u1946-\u194F\u1950-\u196D\u1970-\u1974\u1980-\u19AB' + '\u19B0-\u19C0\u19C1-\u19C7\u19C8-\u19C9\u19D0-\u19D9\u19DA\u1A00-\u1A16' + '\u1A19-\u1A1A\u1A1E-\u1A1F\u1A20-\u1A54\u1A55\u1A57\u1A61\u1A63-\u1A64' + '\u1A6D-\u1A72\u1A80-\u1A89\u1A90-\u1A99\u1AA0-\u1AA6\u1AA7\u1AA8-\u1AAD' + '\u1B04\u1B05-\u1B33\u1B35\u1B3B\u1B3D-\u1B41\u1B43-\u1B44\u1B45-\u1B4B' + '\u1B50-\u1B59\u1B5A-\u1B60\u1B61-\u1B6A\u1B74-\u1B7C\u1B82\u1B83-\u1BA0' + '\u1BA1\u1BA6-\u1BA7\u1BAA\u1BAE-\u1BAF\u1BB0-\u1BB9\u1BBA-\u1BE5\u1BE7' + '\u1BEA-\u1BEC\u1BEE\u1BF2-\u1BF3\u1BFC-\u1BFF\u1C00-\u1C23\u1C24-\u1C2B' + '\u1C34-\u1C35\u1C3B-\u1C3F\u1C40-\u1C49\u1C4D-\u1C4F\u1C50-\u1C59' + '\u1C5A-\u1C77\u1C78-\u1C7D\u1C7E-\u1C7F\u1CC0-\u1CC7\u1CD3\u1CE1' + '\u1CE9-\u1CEC\u1CEE-\u1CF1\u1CF2-\u1CF3\u1CF5-\u1CF6\u1D00-\u1D2B' + '\u1D2C-\u1D6A\u1D6B-\u1D77\u1D78\u1D79-\u1D9A\u1D9B-\u1DBF\u1E00-\u1F15' + '\u1F18-\u1F1D\u1F20-\u1F45\u1F48-\u1F4D\u1F50-\u1F57\u1F59\u1F5B\u1F5D' + '\u1F5F-\u1F7D\u1F80-\u1FB4\u1FB6-\u1FBC\u1FBE\u1FC2-\u1FC4\u1FC6-\u1FCC' + '\u1FD0-\u1FD3\u1FD6-\u1FDB\u1FE0-\u1FEC\u1FF2-\u1FF4\u1FF6-\u1FFC\u200E' + '\u2071\u207F\u2090-\u209C\u2102\u2107\u210A-\u2113\u2115\u2119-\u211D' + '\u2124\u2126\u2128\u212A-\u212D\u212F-\u2134\u2135-\u2138\u2139' + '\u213C-\u213F\u2145-\u2149\u214E\u214F\u2160-\u2182\u2183-\u2184' + '\u2185-\u2188\u2336-\u237A\u2395\u249C-\u24E9\u26AC\u2800-\u28FF' + '\u2C00-\u2C2E\u2C30-\u2C5E\u2C60-\u2C7B\u2C7C-\u2C7D\u2C7E-\u2CE4' + '\u2CEB-\u2CEE\u2CF2-\u2CF3\u2D00-\u2D25\u2D27\u2D2D\u2D30-\u2D67\u2D6F' + '\u2D70\u2D80-\u2D96\u2DA0-\u2DA6\u2DA8-\u2DAE\u2DB0-\u2DB6\u2DB8-\u2DBE' + '\u2DC0-\u2DC6\u2DC8-\u2DCE\u2DD0-\u2DD6\u2DD8-\u2DDE\u3005\u3006\u3007' + '\u3021-\u3029\u302E-\u302F\u3031-\u3035\u3038-\u303A\u303B\u303C' + '\u3041-\u3096\u309D-\u309E\u309F\u30A1-\u30FA\u30FC-\u30FE\u30FF' + '\u3105-\u312D\u3131-\u318E\u3190-\u3191\u3192-\u3195\u3196-\u319F' + '\u31A0-\u31BA\u31F0-\u31FF\u3200-\u321C\u3220-\u3229\u322A-\u3247' + '\u3248-\u324F\u3260-\u327B\u327F\u3280-\u3289\u328A-\u32B0\u32C0-\u32CB' + '\u32D0-\u32FE\u3300-\u3376\u337B-\u33DD\u33E0-\u33FE\u3400-\u4DB5' + '\u4E00-\u9FCC\uA000-\uA014\uA015\uA016-\uA48C\uA4D0-\uA4F7\uA4F8-\uA4FD' + '\uA4FE-\uA4FF\uA500-\uA60B\uA60C\uA610-\uA61F\uA620-\uA629\uA62A-\uA62B' + '\uA640-\uA66D\uA66E\uA680-\uA69B\uA69C-\uA69D\uA6A0-\uA6E5\uA6E6-\uA6EF' + '\uA6F2-\uA6F7\uA722-\uA76F\uA770\uA771-\uA787\uA789-\uA78A\uA78B-\uA78E' + '\uA790-\uA7AD\uA7B0-\uA7B1\uA7F7\uA7F8-\uA7F9\uA7FA\uA7FB-\uA801' + '\uA803-\uA805\uA807-\uA80A\uA80C-\uA822\uA823-\uA824\uA827\uA830-\uA835' + '\uA836-\uA837\uA840-\uA873\uA880-\uA881\uA882-\uA8B3\uA8B4-\uA8C3' + '\uA8CE-\uA8CF\uA8D0-\uA8D9\uA8F2-\uA8F7\uA8F8-\uA8FA\uA8FB\uA900-\uA909' + '\uA90A-\uA925\uA92E-\uA92F\uA930-\uA946\uA952-\uA953\uA95F\uA960-\uA97C' + '\uA983\uA984-\uA9B2\uA9B4-\uA9B5\uA9BA-\uA9BB\uA9BD-\uA9C0\uA9C1-\uA9CD' + '\uA9CF\uA9D0-\uA9D9\uA9DE-\uA9DF\uA9E0-\uA9E4\uA9E6\uA9E7-\uA9EF' + '\uA9F0-\uA9F9\uA9FA-\uA9FE\uAA00-\uAA28\uAA2F-\uAA30\uAA33-\uAA34' + '\uAA40-\uAA42\uAA44-\uAA4B\uAA4D\uAA50-\uAA59\uAA5C-\uAA5F\uAA60-\uAA6F' + '\uAA70\uAA71-\uAA76\uAA77-\uAA79\uAA7A\uAA7B\uAA7D\uAA7E-\uAAAF\uAAB1' + '\uAAB5-\uAAB6\uAAB9-\uAABD\uAAC0\uAAC2\uAADB-\uAADC\uAADD\uAADE-\uAADF' + '\uAAE0-\uAAEA\uAAEB\uAAEE-\uAAEF\uAAF0-\uAAF1\uAAF2\uAAF3-\uAAF4\uAAF5' + '\uAB01-\uAB06\uAB09-\uAB0E\uAB11-\uAB16\uAB20-\uAB26\uAB28-\uAB2E' + '\uAB30-\uAB5A\uAB5B\uAB5C-\uAB5F\uAB64-\uAB65\uABC0-\uABE2\uABE3-\uABE4' + '\uABE6-\uABE7\uABE9-\uABEA\uABEB\uABEC\uABF0-\uABF9\uAC00-\uD7A3' + '\uD7B0-\uD7C6\uD7CB-\uD7FB\uE000-\uF8FF\uF900-\uFA6D\uFA70-\uFAD9' + '\uFB00-\uFB06\uFB13-\uFB17\uFF21-\uFF3A\uFF41-\uFF5A\uFF66-\uFF6F\uFF70' + '\uFF71-\uFF9D\uFF9E-\uFF9F\uFFA0-\uFFBE\uFFC2-\uFFC7\uFFCA-\uFFCF' + '\uFFD2-\uFFD7\uFFDA-\uFFDC',
 
-	  R: '֐־׀׃׆׈-׏א-ת׫-ׯ' + 'װ-ײ׳-״׵-׿߀-߉ߊ-ߪ' + 'ߴ-ߵߺ߻-߿ࠀ-ࠕࠚࠤࠨ' + '࠮-࠯࠰-࠾࠿ࡀ-ࡘ࡜-࡝࡞' + '࡟-࢟‏יִײַ-ﬨשׁ-זּ﬷טּ-לּ' + '﬽מּ﬿נּ-סּ﭂ףּ-פּ﭅צּ-ﭏ',
+	  R: '\u0590\u05BE\u05C0\u05C3\u05C6\u05C8-\u05CF\u05D0-\u05EA\u05EB-\u05EF' + '\u05F0-\u05F2\u05F3-\u05F4\u05F5-\u05FF\u07C0-\u07C9\u07CA-\u07EA' + '\u07F4-\u07F5\u07FA\u07FB-\u07FF\u0800-\u0815\u081A\u0824\u0828' + '\u082E-\u082F\u0830-\u083E\u083F\u0840-\u0858\u085C-\u085D\u085E' + '\u085F-\u089F\u200F\uFB1D\uFB1F-\uFB28\uFB2A-\uFB36\uFB37\uFB38-\uFB3C' + '\uFB3D\uFB3E\uFB3F\uFB40-\uFB41\uFB42\uFB43-\uFB44\uFB45\uFB46-\uFB4F',
 
-	  AL: '؈؋؍؛؜؝؞-؟ؠ-ؿـ' + 'ف-ي٭ٮ-ٯٱ-ۓ۔ەۥ-ۦ' + 'ۮ-ۯۺ-ۼ۽-۾ۿ܀-܍܎܏' + 'ܐܒ-ܯ݋-݌ݍ-ޥޱ޲-޿' + 'ࢠ-ࢲࢳ-ࣣﭐ-ﮱ﮲-﯁﯂-﯒' + 'ﯓ-ﴽ﵀-﵏ﵐ-ﶏ﶐-﶑ﶒ-ﷇ' + '﷈-﷏ﷰ-ﷻ﷼﷾-﷿ﹰ-ﹴ﹵' + 'ﹶ-ﻼ﻽-﻾'
+	  AL: '\u0608\u060B\u060D\u061B\u061C\u061D\u061E-\u061F\u0620-\u063F\u0640' + '\u0641-\u064A\u066D\u066E-\u066F\u0671-\u06D3\u06D4\u06D5\u06E5-\u06E6' + '\u06EE-\u06EF\u06FA-\u06FC\u06FD-\u06FE\u06FF\u0700-\u070D\u070E\u070F' + '\u0710\u0712-\u072F\u074B-\u074C\u074D-\u07A5\u07B1\u07B2-\u07BF' + '\u08A0-\u08B2\u08B3-\u08E3\uFB50-\uFBB1\uFBB2-\uFBC1\uFBC2-\uFBD2' + '\uFBD3-\uFD3D\uFD40-\uFD4F\uFD50-\uFD8F\uFD90-\uFD91\uFD92-\uFDC7' + '\uFDC8-\uFDCF\uFDF0-\uFDFB\uFDFC\uFDFE-\uFDFF\uFE70-\uFE74\uFE75' + '\uFE76-\uFEFC\uFEFD-\uFEFE'
 
 	};
 
@@ -84861,8 +87669,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    StyleSheet = _require2.StyleSheet;
 
 	var Keypad = __webpack_require__(366);
-	var ViewPager = __webpack_require__(401);
-	var PagerIndicator = __webpack_require__(402);
+	var ViewPager = __webpack_require__(402);
+	var PagerIndicator = __webpack_require__(403);
 
 	var _require3 = __webpack_require__(304),
 	    View = _require3.View;
@@ -84976,7 +87784,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(18);
 
-	var EmptyKeypadButton = __webpack_require__(403);
+	var EmptyKeypadButton = __webpack_require__(401);
 	var TouchableKeypadButton = __webpack_require__(365);
 
 	var Keys = __webpack_require__(313);
@@ -85047,7 +87855,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var KeypadButton = __webpack_require__(404);
 	var KeyConfigs = __webpack_require__(303);
-	var GestureManager = __webpack_require__(342);
+	var GestureManager = __webpack_require__(340);
 
 	var _require2 = __webpack_require__(222),
 	    bordersPropType = _require2.bordersPropType,
@@ -85445,8 +88253,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var DraftModifier = __webpack_require__(234);
-	var EditorState = __webpack_require__(237);
+	var DraftModifier = __webpack_require__(235);
+	var EditorState = __webpack_require__(238);
 
 	var getContentStateFragment = __webpack_require__(283);
 	var nullthrows = __webpack_require__(349);
@@ -85519,7 +88327,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var EditorState = __webpack_require__(237);
+	var EditorState = __webpack_require__(238);
 
 	var expandRangeToStartOfLine = __webpack_require__(407);
 	var getDraftEditorSelectionWithNodes = __webpack_require__(408);
@@ -85569,7 +88377,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	var DraftRemovableWord = __webpack_require__(411);
-	var EditorState = __webpack_require__(237);
+	var EditorState = __webpack_require__(238);
 
 	var moveSelectionBackward = __webpack_require__(409);
 	var removeTextWithStrategy = __webpack_require__(410);
@@ -85621,7 +88429,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	var DraftRemovableWord = __webpack_require__(411);
-	var EditorState = __webpack_require__(237);
+	var EditorState = __webpack_require__(238);
 
 	var moveSelectionForward = __webpack_require__(412);
 	var removeTextWithStrategy = __webpack_require__(410);
@@ -85670,8 +88478,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var DraftModifier = __webpack_require__(234);
-	var EditorState = __webpack_require__(237);
+	var DraftModifier = __webpack_require__(235);
+	var EditorState = __webpack_require__(238);
 
 	function keyCommandInsertNewline(editorState) {
 	  var contentState = DraftModifier.splitBlock(editorState.getCurrentContent(), editorState.getSelection());
@@ -85698,7 +88506,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var EditorState = __webpack_require__(237);
+	var EditorState = __webpack_require__(238);
 	var UnicodeUtils = __webpack_require__(361);
 
 	var moveSelectionBackward = __webpack_require__(409);
@@ -85747,7 +88555,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var EditorState = __webpack_require__(237);
+	var EditorState = __webpack_require__(238);
 	var UnicodeUtils = __webpack_require__(361);
 
 	var moveSelectionForward = __webpack_require__(412);
@@ -85797,7 +88605,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var EditorState = __webpack_require__(237);
+	var EditorState = __webpack_require__(238);
 
 	/**
 	 * See comment for `moveSelectionToStartOfBlock`.
@@ -85839,7 +88647,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var EditorState = __webpack_require__(237);
+	var EditorState = __webpack_require__(238);
 
 	/**
 	 * Collapse selection at the start of the first selected block. This is used
@@ -85881,8 +88689,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var DraftModifier = __webpack_require__(234);
-	var EditorState = __webpack_require__(237);
+	var DraftModifier = __webpack_require__(235);
+	var EditorState = __webpack_require__(238);
 
 	var getContentStateFragment = __webpack_require__(283);
 
@@ -85964,7 +88772,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var EditorState = __webpack_require__(237);
+	var EditorState = __webpack_require__(238);
 
 	function keyCommandUndo(e, editorState, updateFn) {
 	  var undoneState = EditorState.undo(editorState);
@@ -86001,6 +88809,83 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 381 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule DraftPasteProcessor
+	 * @typechecks
+	 * 
+	 */
+
+	'use strict';
+
+	var CharacterMetadata = __webpack_require__(227);
+	var ContentBlock = __webpack_require__(229);
+	var Immutable = __webpack_require__(224);
+
+	var convertFromHTMLtoContentBlocks = __webpack_require__(243);
+	var generateRandomKey = __webpack_require__(245);
+	var getSafeBodyFromHTML = __webpack_require__(296);
+	var sanitizeDraftText = __webpack_require__(272);
+
+	var List = Immutable.List;
+	var Repeat = Immutable.Repeat;
+
+	var DraftPasteProcessor = {
+	  processHTML: function processHTML(html, blockRenderMap) {
+	    return convertFromHTMLtoContentBlocks(html, getSafeBodyFromHTML, blockRenderMap);
+	  },
+
+	  processText: function processText(textBlocks, character) {
+	    return textBlocks.map(function (textLine) {
+	      textLine = sanitizeDraftText(textLine);
+	      return new ContentBlock({
+	        key: generateRandomKey(),
+	        type: 'unstyled',
+	        text: textLine,
+	        characterList: List(Repeat(character, textLine.length))
+	      });
+	    });
+	  }
+	};
+
+	module.exports = DraftPasteProcessor;
+
+/***/ },
+/* 382 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule splitTextIntoTextBlocks
+	 * 
+	 */
+
+	'use strict';
+
+	var NEWLINE_REGEX = /\r\n?|\n/g;
+
+	function splitTextIntoTextBlocks(text) {
+	  return text.split(NEWLINE_REGEX);
+	}
+
+	module.exports = splitTextIntoTextBlocks;
+
+/***/ },
+/* 383 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -86040,83 +88925,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = getDraftEditorSelection;
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
-
-/***/ },
-/* 382 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule DraftPasteProcessor
-	 * @typechecks
-	 * 
-	 */
-
-	'use strict';
-
-	var CharacterMetadata = __webpack_require__(226);
-	var ContentBlock = __webpack_require__(228);
-	var Immutable = __webpack_require__(247);
-
-	var convertFromHTMLtoContentBlocks = __webpack_require__(242);
-	var generateRandomKey = __webpack_require__(244);
-	var getSafeBodyFromHTML = __webpack_require__(296);
-	var sanitizeDraftText = __webpack_require__(272);
-
-	var List = Immutable.List;
-	var Repeat = Immutable.Repeat;
-
-	var DraftPasteProcessor = {
-	  processHTML: function processHTML(html, blockRenderMap) {
-	    return convertFromHTMLtoContentBlocks(html, getSafeBodyFromHTML, blockRenderMap);
-	  },
-
-	  processText: function processText(textBlocks, character) {
-	    return textBlocks.map(function (textLine) {
-	      textLine = sanitizeDraftText(textLine);
-	      return new ContentBlock({
-	        key: generateRandomKey(),
-	        type: 'unstyled',
-	        text: textLine,
-	        characterList: List(Repeat(character, textLine.length))
-	      });
-	    });
-	  }
-	};
-
-	module.exports = DraftPasteProcessor;
-
-/***/ },
-/* 383 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule splitTextIntoTextBlocks
-	 * 
-	 */
-
-	'use strict';
-
-	var NEWLINE_REGEX = /\r\n?|\n/g;
-
-	function splitTextIntoTextBlocks(text) {
-	  return text.split(NEWLINE_REGEX);
-	}
-
-	module.exports = splitTextIntoTextBlocks;
 
 /***/ },
 /* 384 */
@@ -87059,8 +89867,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  if (expressions.length === 1) {
 	    return checkSimpleExpression(expressions[0], version);
 	  } else {
-	    var startVersion = expressions[0];
-	    var endVersion = expressions[1];
+	    var startVersion = expressions[0],
+	        endVersion = expressions[1];
 
 	    !(isSimpleVersion(startVersion) && isSimpleVersion(endVersion)) ? false ? invariant(false, 'operands to the "-" operator must be simple (no modifiers)') : invariant(false) : void 0;
 
@@ -87084,10 +89892,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  var versionComponents = version.split(componentRegex);
 
-	  var _getModifierAndCompon = getModifierAndComponents(range);
-
-	  var modifier = _getModifierAndCompon.modifier;
-	  var rangeComponents = _getModifierAndCompon.rangeComponents;
+	  var _getModifierAndCompon = getModifierAndComponents(range),
+	      modifier = _getModifierAndCompon.modifier,
+	      rangeComponents = _getModifierAndCompon.rangeComponents;
 
 	  switch (modifier) {
 	    case '<':
@@ -87333,11 +90140,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * or greater than `b`, respectively
 	 */
 	function compareComponents(a, b) {
-	  var _normalizeVersions = normalizeVersions(a, b);
-
-	  var aNormalized = _normalizeVersions[0];
-	  var bNormalized = _normalizeVersions[1];
-
+	  var _normalizeVersions = normalizeVersions(a, b),
+	      aNormalized = _normalizeVersions[0],
+	      bNormalized = _normalizeVersions[1];
 
 	  for (var i = 0; i < bNormalized.length; i++) {
 	    var result = compareNumeric(aNormalized[i], bNormalized[i]);
@@ -87783,23 +90588,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.__esModule = true;
 	exports.compose = exports.applyMiddleware = exports.bindActionCreators = exports.combineReducers = exports.createStore = undefined;
 
-	var _createStore = __webpack_require__(416);
+	var _createStore = __webpack_require__(417);
 
 	var _createStore2 = _interopRequireDefault(_createStore);
 
-	var _combineReducers = __webpack_require__(417);
+	var _combineReducers = __webpack_require__(418);
 
 	var _combineReducers2 = _interopRequireDefault(_combineReducers);
 
-	var _bindActionCreators = __webpack_require__(418);
+	var _bindActionCreators = __webpack_require__(419);
 
 	var _bindActionCreators2 = _interopRequireDefault(_bindActionCreators);
 
-	var _applyMiddleware = __webpack_require__(419);
+	var _applyMiddleware = __webpack_require__(420);
 
 	var _applyMiddleware2 = _interopRequireDefault(_applyMiddleware);
 
-	var _compose = __webpack_require__(420);
+	var _compose = __webpack_require__(421);
 
 	var _compose2 = _interopRequireDefault(_compose);
 
@@ -87808,7 +90613,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _warning2 = _interopRequireDefault(_warning);
 
 	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { "default": obj };
+	  return obj && obj.__esModule ? obj : { 'default': obj };
 	}
 
 	/*
@@ -87818,14 +90623,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	function isCrushed() {}
 
 	if (false) {
-	  (0, _warning2["default"])('You are currently using minified code outside of NODE_ENV === \'production\'. ' + 'This means that you are running a slower development build of Redux. ' + 'You can use loose-envify (https://github.com/zertosh/loose-envify) for browserify ' + 'or DefinePlugin for webpack (http://stackoverflow.com/questions/30030031) ' + 'to ensure you have the correct code for your production build.');
+	  (0, _warning2['default'])('You are currently using minified code outside of NODE_ENV === \'production\'. ' + 'This means that you are running a slower development build of Redux. ' + 'You can use loose-envify (https://github.com/zertosh/loose-envify) for browserify ' + 'or DefinePlugin for webpack (http://stackoverflow.com/questions/30030031) ' + 'to ensure you have the correct code for your production build.');
 	}
 
-	exports.createStore = _createStore2["default"];
-	exports.combineReducers = _combineReducers2["default"];
-	exports.bindActionCreators = _bindActionCreators2["default"];
-	exports.applyMiddleware = _applyMiddleware2["default"];
-	exports.compose = _compose2["default"];
+	exports.createStore = _createStore2['default'];
+	exports.combineReducers = _combineReducers2['default'];
+	exports.bindActionCreators = _bindActionCreators2['default'];
+	exports.applyMiddleware = _applyMiddleware2['default'];
+	exports.compose = _compose2['default'];
 
 /***/ },
 /* 399 */
@@ -87897,9 +90702,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 
 	  Provider.prototype.render = function render() {
-	    var children = this.props.children;
-
-	    return _react.Children.only(children);
+	    return _react.Children.only(this.props.children);
 	  };
 
 	  return Provider;
@@ -87934,6 +90737,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
+	exports.__esModule = true;
+
 	var _extends = Object.assign || function (target) {
 	  for (var i = 1; i < arguments.length; i++) {
 	    var source = arguments[i];for (var key in source) {
@@ -87944,7 +90749,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }return target;
 	};
 
-	exports.__esModule = true;
 	exports["default"] = connect;
 
 	var _react = __webpack_require__(18);
@@ -88027,12 +90831,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	var nextVersion = 0;
 
 	function connect(mapStateToProps, mapDispatchToProps, mergeProps) {
-	  var options = arguments.length <= 3 || arguments[3] === undefined ? {} : arguments[3];
+	  var options = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
 
 	  var shouldSubscribe = Boolean(mapStateToProps);
 	  var mapState = mapStateToProps || defaultMapStateToProps;
 
-	  var mapDispatch = undefined;
+	  var mapDispatch = void 0;
 	  if (typeof mapDispatchToProps === 'function') {
 	    mapDispatch = mapDispatchToProps;
 	  } else if (!mapDispatchToProps) {
@@ -88042,10 +90846,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 
 	  var finalMergeProps = mergeProps || defaultMergeProps;
-	  var _options$pure = options.pure;
-	  var pure = _options$pure === undefined ? true : _options$pure;
-	  var _options$withRef = options.withRef;
-	  var withRef = _options$withRef === undefined ? false : _options$withRef;
+	  var _options$pure = options.pure,
+	      pure = _options$pure === undefined ? true : _options$pure,
+	      _options$withRef = options.withRef,
+	      withRef = _options$withRef === undefined ? false : _options$withRef;
 
 	  var checkMergedEquals = pure && finalMergeProps !== defaultMergeProps;
 
@@ -88264,11 +91068,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	      };
 
 	      Connect.prototype.render = function render() {
-	        var haveOwnPropsChanged = this.haveOwnPropsChanged;
-	        var hasStoreStateChanged = this.hasStoreStateChanged;
-	        var haveStatePropsBeenPrecalculated = this.haveStatePropsBeenPrecalculated;
-	        var statePropsPrecalculationError = this.statePropsPrecalculationError;
-	        var renderedElement = this.renderedElement;
+	        var haveOwnPropsChanged = this.haveOwnPropsChanged,
+	            hasStoreStateChanged = this.hasStoreStateChanged,
+	            haveStatePropsBeenPrecalculated = this.haveStatePropsBeenPrecalculated,
+	            statePropsPrecalculationError = this.statePropsPrecalculationError,
+	            renderedElement = this.renderedElement;
 
 	        this.haveOwnPropsChanged = false;
 	        this.hasStoreStateChanged = false;
@@ -88350,6 +91154,75 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 401 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+	/**
+	 * A keypad button containing no symbols and triggering no actions on click.
+	 */
+
+	var React = __webpack_require__(18);
+
+	var _require = __webpack_require__(362),
+	    connect = _require.connect;
+
+	var GestureManager = __webpack_require__(340);
+	var KeyConfigs = __webpack_require__(303);
+	var KeypadButton = __webpack_require__(404);
+
+	var EmptyKeypadButton = React.createClass({
+	    displayName: 'EmptyKeypadButton',
+
+	    propTypes: {
+	        gestureManager: React.PropTypes.instanceOf(GestureManager)
+	    },
+
+	    render: function render() {
+	        var _props = this.props,
+	            gestureManager = _props.gestureManager,
+	            rest = _objectWithoutProperties(_props, ['gestureManager']);
+
+	        // Register touch events on the button, but don't register its DOM node
+	        // or compute focus state or anything like that. We want the gesture
+	        // manager to know about touch events that start on empty buttons, but
+	        // we don't need it to know about their DOM nodes, as it doesn't need
+	        // to focus them or trigger presses.
+
+
+	        return React.createElement(KeypadButton, _extends({
+	            onTouchStart: function onTouchStart(evt) {
+	                return gestureManager.onTouchStart(evt);
+	            },
+	            onTouchEnd: function onTouchEnd(evt) {
+	                return gestureManager.onTouchEnd(evt);
+	            },
+	            onTouchMove: function onTouchMove(evt) {
+	                return gestureManager.onTouchMove(evt);
+	            },
+	            onTouchCancel: function onTouchCancel(evt) {
+	                return gestureManager.onTouchCancel(evt);
+	            }
+	        }, KeyConfigs.NOOP, rest));
+	    }
+	});
+
+	var mapStateToProps = function mapStateToProps(state) {
+	    var gestures = state.gestures;
+
+	    return {
+	        gestureManager: gestures.gestureManager
+	    };
+	};
+
+	module.exports = connect(mapStateToProps)(EmptyKeypadButton);
+
+/***/ },
+/* 402 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -88502,7 +91375,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = connect(mapStateToProps)(ViewPager);
 
 /***/ },
-/* 402 */
+/* 403 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -88621,75 +91494,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 	module.exports = PagerIndicator;
-
-/***/ },
-/* 403 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-	/**
-	 * A keypad button containing no symbols and triggering no actions on click.
-	 */
-
-	var React = __webpack_require__(18);
-
-	var _require = __webpack_require__(362),
-	    connect = _require.connect;
-
-	var GestureManager = __webpack_require__(342);
-	var KeyConfigs = __webpack_require__(303);
-	var KeypadButton = __webpack_require__(404);
-
-	var EmptyKeypadButton = React.createClass({
-	    displayName: 'EmptyKeypadButton',
-
-	    propTypes: {
-	        gestureManager: React.PropTypes.instanceOf(GestureManager)
-	    },
-
-	    render: function render() {
-	        var _props = this.props,
-	            gestureManager = _props.gestureManager,
-	            rest = _objectWithoutProperties(_props, ['gestureManager']);
-
-	        // Register touch events on the button, but don't register its DOM node
-	        // or compute focus state or anything like that. We want the gesture
-	        // manager to know about touch events that start on empty buttons, but
-	        // we don't need it to know about their DOM nodes, as it doesn't need
-	        // to focus them or trigger presses.
-
-
-	        return React.createElement(KeypadButton, _extends({
-	            onTouchStart: function onTouchStart(evt) {
-	                return gestureManager.onTouchStart(evt);
-	            },
-	            onTouchEnd: function onTouchEnd(evt) {
-	                return gestureManager.onTouchEnd(evt);
-	            },
-	            onTouchMove: function onTouchMove(evt) {
-	                return gestureManager.onTouchMove(evt);
-	            },
-	            onTouchCancel: function onTouchCancel(evt) {
-	                return gestureManager.onTouchCancel(evt);
-	            }
-	        }, KeyConfigs.NOOP, rest));
-	    }
-	});
-
-	var mapStateToProps = function mapStateToProps(state) {
-	    var gestures = state.gestures;
-
-	    return {
-	        gestureManager: gestures.gestureManager
-	    };
-	};
-
-	module.exports = connect(mapStateToProps)(EmptyKeypadButton);
 
 /***/ },
 /* 404 */
@@ -89788,7 +92592,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	'use strict';
 
-	var DraftModifier = __webpack_require__(234);
+	var DraftModifier = __webpack_require__(235);
 
 	function removeTextWithStrategy(editorState, strategy, direction) {
 	  var selection = editorState.getSelection();
@@ -90024,24 +92828,63 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 416 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/* WEBPACK VAR INJECTION */(function(process) {"use strict";
+
+	// Generated by CoffeeScript 1.7.1
+	(function () {
+	  var getNanoSeconds, hrtime, loadTime;
+
+	  if (typeof performance !== "undefined" && performance !== null && performance.now) {
+	    module.exports = function () {
+	      return performance.now();
+	    };
+	  } else if (typeof process !== "undefined" && process !== null && process.hrtime) {
+	    module.exports = function () {
+	      return (getNanoSeconds() - loadTime) / 1e6;
+	    };
+	    hrtime = process.hrtime;
+	    getNanoSeconds = function getNanoSeconds() {
+	      var hr;
+	      hr = hrtime();
+	      return hr[0] * 1e9 + hr[1];
+	    };
+	    loadTime = getNanoSeconds();
+	  } else if (Date.now) {
+	    module.exports = function () {
+	      return Date.now() - loadTime;
+	    };
+	    loadTime = Date.now();
+	  } else {
+	    module.exports = function () {
+	      return new Date().getTime() - loadTime;
+	    };
+	    loadTime = new Date().getTime();
+	  }
+	}).call(undefined);
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(441)))
+
+/***/ },
+/* 417 */
+/***/ function(module, exports, __webpack_require__) {
+
 	'use strict';
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	exports.__esModule = true;
 	exports.ActionTypes = undefined;
-	exports["default"] = createStore;
+	exports['default'] = createStore;
 
 	var _isPlainObject = __webpack_require__(436);
 
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
-	var _symbolObservable = __webpack_require__(441);
+	var _symbolObservable = __webpack_require__(442);
 
 	var _symbolObservable2 = _interopRequireDefault(_symbolObservable);
 
 	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { "default": obj };
+	  return obj && obj.__esModule ? obj : { 'default': obj };
 	}
 
 	/**
@@ -90065,7 +92908,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @param {Function} reducer A function that returns the next state tree, given
 	 * the current state tree and the action to handle.
 	 *
-	 * @param {any} [initialState] The initial state. You may optionally specify it
+	 * @param {any} [preloadedState] The initial state. You may optionally specify it
 	 * to hydrate the state from the server in universal apps, or to restore a
 	 * previously serialized user session.
 	 * If you use `combineReducers` to produce the root reducer function, this must be
@@ -90079,12 +92922,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @returns {Store} A Redux store that lets you read the state, dispatch actions
 	 * and subscribe to changes.
 	 */
-	function createStore(reducer, initialState, enhancer) {
+	function createStore(reducer, preloadedState, enhancer) {
 	  var _ref2;
 
-	  if (typeof initialState === 'function' && typeof enhancer === 'undefined') {
-	    enhancer = initialState;
-	    initialState = undefined;
+	  if (typeof preloadedState === 'function' && typeof enhancer === 'undefined') {
+	    enhancer = preloadedState;
+	    preloadedState = undefined;
 	  }
 
 	  if (typeof enhancer !== 'undefined') {
@@ -90092,7 +92935,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      throw new Error('Expected the enhancer to be a function.');
 	    }
 
-	    return enhancer(createStore)(reducer, initialState);
+	    return enhancer(createStore)(reducer, preloadedState);
 	  }
 
 	  if (typeof reducer !== 'function') {
@@ -90100,7 +92943,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 
 	  var currentReducer = reducer;
-	  var currentState = initialState;
+	  var currentState = preloadedState;
 	  var currentListeners = [];
 	  var nextListeners = currentListeners;
 	  var isDispatching = false;
@@ -90192,7 +93035,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	   * return something else (for example, a Promise you can await).
 	   */
 	  function dispatch(action) {
-	    if (!(0, _isPlainObject2["default"])(action)) {
+	    if (!(0, _isPlainObject2['default'])(action)) {
 	      throw new Error('Actions must be plain objects. ' + 'Use custom middleware for async actions.');
 	    }
 
@@ -90257,7 +93100,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	       * be used to unsubscribe the observable from the store, and prevent further
 	       * emission of values from the observable.
 	       */
-
 	      subscribe: function subscribe(observer) {
 	        if ((typeof observer === 'undefined' ? 'undefined' : _typeof(observer)) !== 'object') {
 	          throw new TypeError('Expected the observer to be an object.');
@@ -90273,7 +93115,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var unsubscribe = outerSubscribe(observeState);
 	        return { unsubscribe: unsubscribe };
 	      }
-	    }, _ref[_symbolObservable2["default"]] = function () {
+	    }, _ref[_symbolObservable2['default']] = function () {
 	      return this;
 	    }, _ref;
 	  }
@@ -90288,19 +93130,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	    subscribe: subscribe,
 	    getState: getState,
 	    replaceReducer: replaceReducer
-	  }, _ref2[_symbolObservable2["default"]] = observable, _ref2;
+	  }, _ref2[_symbolObservable2['default']] = observable, _ref2;
 	}
 
 /***/ },
-/* 417 */
+/* 418 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	exports.__esModule = true;
-	exports["default"] = combineReducers;
+	exports['default'] = combineReducers;
 
-	var _createStore = __webpack_require__(416);
+	var _createStore = __webpack_require__(417);
 
 	var _isPlainObject = __webpack_require__(436);
 
@@ -90311,7 +93153,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _warning2 = _interopRequireDefault(_warning);
 
 	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { "default": obj };
+	  return obj && obj.__esModule ? obj : { 'default': obj };
 	}
 
 	function getUndefinedStateErrorMessage(key, action) {
@@ -90321,20 +93163,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return 'Given action ' + actionName + ', reducer "' + key + '" returned undefined. ' + 'To ignore an action, you must explicitly return the previous state.';
 	}
 
-	function getUnexpectedStateShapeWarningMessage(inputState, reducers, action) {
+	function getUnexpectedStateShapeWarningMessage(inputState, reducers, action, unexpectedKeyCache) {
 	  var reducerKeys = Object.keys(reducers);
-	  var argumentName = action && action.type === _createStore.ActionTypes.INIT ? 'initialState argument passed to createStore' : 'previous state received by the reducer';
+	  var argumentName = action && action.type === _createStore.ActionTypes.INIT ? 'preloadedState argument passed to createStore' : 'previous state received by the reducer';
 
 	  if (reducerKeys.length === 0) {
 	    return 'Store does not have a valid reducer. Make sure the argument passed ' + 'to combineReducers is an object whose values are reducers.';
 	  }
 
-	  if (!(0, _isPlainObject2["default"])(inputState)) {
+	  if (!(0, _isPlainObject2['default'])(inputState)) {
 	    return 'The ' + argumentName + ' has unexpected type of "' + {}.toString.call(inputState).match(/\s([a-z|A-Z]+)/)[1] + '". Expected argument to be an object with the following ' + ('keys: "' + reducerKeys.join('", "') + '"');
 	  }
 
 	  var unexpectedKeys = Object.keys(inputState).filter(function (key) {
-	    return !reducers.hasOwnProperty(key);
+	    return !reducers.hasOwnProperty(key) && !unexpectedKeyCache[key];
+	  });
+
+	  unexpectedKeys.forEach(function (key) {
+	    unexpectedKeyCache[key] = true;
 	  });
 
 	  if (unexpectedKeys.length > 0) {
@@ -90379,11 +93225,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var finalReducers = {};
 	  for (var i = 0; i < reducerKeys.length; i++) {
 	    var key = reducerKeys[i];
+
+	    if (false) {
+	      if (typeof reducers[key] === 'undefined') {
+	        (0, _warning2['default'])('No reducer provided for key "' + key + '"');
+	      }
+	    }
+
 	    if (typeof reducers[key] === 'function') {
 	      finalReducers[key] = reducers[key];
 	    }
 	  }
 	  var finalReducerKeys = Object.keys(finalReducers);
+
+	  if (false) {
+	    var unexpectedKeyCache = {};
+	  }
 
 	  var sanityError;
 	  try {
@@ -90401,9 +93258,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    if (false) {
-	      var warningMessage = getUnexpectedStateShapeWarningMessage(state, finalReducers, action);
+	      var warningMessage = getUnexpectedStateShapeWarningMessage(state, finalReducers, action, unexpectedKeyCache);
 	      if (warningMessage) {
-	        (0, _warning2["default"])(warningMessage);
+	        (0, _warning2['default'])(warningMessage);
 	      }
 	    }
 
@@ -90426,7 +93283,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 418 */
+/* 419 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -90434,7 +93291,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	exports.__esModule = true;
-	exports["default"] = bindActionCreators;
+	exports['default'] = bindActionCreators;
 	function bindActionCreator(actionCreator, dispatch) {
 	  return function () {
 	    return dispatch(actionCreator.apply(undefined, arguments));
@@ -90484,7 +93341,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 419 */
+/* 420 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -90501,14 +93358,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }return target;
 	};
 
-	exports["default"] = applyMiddleware;
+	exports['default'] = applyMiddleware;
 
-	var _compose = __webpack_require__(420);
+	var _compose = __webpack_require__(421);
 
 	var _compose2 = _interopRequireDefault(_compose);
 
 	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { "default": obj };
+	  return obj && obj.__esModule ? obj : { 'default': obj };
 	}
 
 	/**
@@ -90533,8 +93390,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 
 	  return function (createStore) {
-	    return function (reducer, initialState, enhancer) {
-	      var store = createStore(reducer, initialState, enhancer);
+	    return function (reducer, preloadedState, enhancer) {
+	      var store = createStore(reducer, preloadedState, enhancer);
 	      var _dispatch = store.dispatch;
 	      var chain = [];
 
@@ -90547,7 +93404,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      chain = middlewares.map(function (middleware) {
 	        return middleware(middlewareAPI);
 	      });
-	      _dispatch = _compose2["default"].apply(undefined, chain)(store.dispatch);
+	      _dispatch = _compose2['default'].apply(undefined, chain)(store.dispatch);
 
 	      return _extends({}, store, {
 	        dispatch: _dispatch
@@ -90557,12 +93414,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 420 */
+/* 421 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	exports.__esModule = true;
 	exports["default"] = compose;
@@ -90586,61 +93441,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return function (arg) {
 	      return arg;
 	    };
-	  } else {
-	    var _ret = function () {
-	      var last = funcs[funcs.length - 1];
-	      var rest = funcs.slice(0, -1);
-	      return {
-	        v: function v() {
-	          return rest.reduceRight(function (composed, f) {
-	            return f(composed);
-	          }, last.apply(undefined, arguments));
-	        }
-	      };
-	    }();
-
-	    if ((typeof _ret === "undefined" ? "undefined" : _typeof(_ret)) === "object") return _ret.v;
 	  }
+
+	  if (funcs.length === 1) {
+	    return funcs[0];
+	  }
+
+	  var last = funcs[funcs.length - 1];
+	  var rest = funcs.slice(0, -1);
+	  return function () {
+	    return rest.reduceRight(function (composed, f) {
+	      return f(composed);
+	    }, last.apply(undefined, arguments));
+	  };
 	}
-
-/***/ },
-/* 421 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {"use strict";
-
-	// Generated by CoffeeScript 1.7.1
-	(function () {
-	  var getNanoSeconds, hrtime, loadTime;
-
-	  if (typeof performance !== "undefined" && performance !== null && performance.now) {
-	    module.exports = function () {
-	      return performance.now();
-	    };
-	  } else if (typeof process !== "undefined" && process !== null && process.hrtime) {
-	    module.exports = function () {
-	      return (getNanoSeconds() - loadTime) / 1e6;
-	    };
-	    hrtime = process.hrtime;
-	    getNanoSeconds = function getNanoSeconds() {
-	      var hr;
-	      hr = hrtime();
-	      return hr[0] * 1e9 + hr[1];
-	    };
-	    loadTime = getNanoSeconds();
-	  } else if (Date.now) {
-	    module.exports = function () {
-	      return Date.now() - loadTime;
-	    };
-	    loadTime = Date.now();
-	  } else {
-	    module.exports = function () {
-	      return new Date().getTime() - loadTime;
-	    };
-	    loadTime = new Date().getTime();
-	  }
-	}).call(undefined);
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(442)))
 
 /***/ },
 /* 422 */
@@ -90649,7 +93463,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	exports.__esModule = true;
-	exports["default"] = warning;
+	exports['default'] = warning;
 	/**
 	 * Prints a warning in the console if it exists.
 	 *
@@ -90709,8 +93523,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	  /* eslint-enable no-console */
 	  try {
-	    // This error was thrown as a convenience so that you can use this stack
-	    // to find the callsite that caused this warning to fire.
+	    // This error was thrown as a convenience so that if you enable
+	    // "break on all exceptions" in your console,
+	    // it would pause the execution at this line.
 	    throw new Error(message);
 	    /* eslint-disable no-empty */
 	  } catch (e) {}
@@ -91235,7 +94050,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// \u1801\u0964\u104a\u104b
 	//             is misc. other language punctuation marks
 
-	var PUNCTUATION = '[.,+*?$|#{}()\'\\^\\-\\[\\]\\\\\\/!@%"~=<>_:;' + '・、。〈-】〔-〟：-？！-／' + '［-｀｛-･⸮؟٪-٬؛،؍' + '﴾﴿᠁।၊။‐-‧‰-⁞' + '¡-±´-¸º»¿]';
+	var PUNCTUATION = '[.,+*?$|#{}()\'\\^\\-\\[\\]\\\\\\/!@%"~=<>_:;' + '\u30FB\u3001\u3002\u3008-\u3011\u3014-\u301F\uFF1A-\uFF1F\uFF01-\uFF0F' + '\uFF3B-\uFF40\uFF5B-\uFF65\u2E2E\u061F\u066A-\u066C\u061B\u060C\u060D' + '\uFD3E\uFD3F\u1801\u0964\u104A\u104B\u2010-\u2027\u2030-\u205E' + '\xA1-\xB1\xB4-\xB8\xBA\xBB\xBF]';
 
 	module.exports = {
 	  getPunctuation: function getPunctuation() {
@@ -91329,11 +94144,11 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/**
-	 * UAParser.js v0.7.10
+	 * UAParser.js v0.7.12
 	 * Lightweight JavaScript-based User-Agent string parser
 	 * https://github.com/faisalman/ua-parser-js
 	 *
-	 * Copyright © 2012-2015 Faisal Salman <fyzlman@gmail.com>
+	 * Copyright © 2012-2016 Faisal Salman <fyzlman@gmail.com>
 	 * Dual licensed under GPLv2 & MIT
 	 */
 
@@ -91346,7 +94161,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    /////////////
 
 
-	    var LIBVERSION  = '0.7.10',
+	    var LIBVERSION  = '0.7.12',
 	        EMPTY       = '',
 	        UNKNOWN     = '?',
 	        FUNC_TYPE   = 'function',
@@ -91375,12 +94190,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    var util = {
 	        extend : function (regexes, extensions) {
-	            for (var i in extensions) {
-	                if ("browser cpu device engine os".indexOf(i) !== -1 && extensions[i].length % 2 === 0) {
-	                    regexes[i] = extensions[i].concat(regexes[i]);
+	            var margedRegexes = {};
+	            for (var i in regexes) {
+	                if (extensions[i] && extensions[i].length % 2 === 0) {
+	                    margedRegexes[i] = extensions[i].concat(regexes[i]);
+	                } else {
+	                    margedRegexes[i] = regexes[i];
 	                }
 	            }
-	            return regexes;
+	            return margedRegexes;
 	        },
 	        has : function (str1, str2) {
 	          if (typeof str1 === "string") {
@@ -91393,7 +94211,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	            return str.toLowerCase();
 	        },
 	        major : function (version) {
-	            return typeof(version) === STR_TYPE ? version.split(".")[0] : undefined;
+	            return typeof(version) === STR_TYPE ? version.replace(/[^\d\.]/g,'').split(".")[0] : undefined;
+	        },
+	        trim : function (str) {
+	          return str.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
 	        }
 	    };
 
@@ -91563,8 +94384,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	            /(opera\s[mobiletab]+).+version\/([\w\.-]+)/i,                      // Opera Mobi/Tablet
 	            /(opera).+version\/([\w\.]+)/i,                                     // Opera > 9.80
 	            /(opera)[\/\s]+([\w\.]+)/i                                          // Opera < 9.80
-
 	            ], [NAME, VERSION], [
+
+	            /(opios)[\/\s]+([\w\.]+)/i                                          // Opera mini on iphone >= 8.0
+	            ], [[NAME, 'Opera Mini'], VERSION], [
 
 	            /\s(opr)\/([\w\.]+)/i                                               // Opera Webkit
 	            ], [[NAME, 'Opera'], VERSION], [
@@ -91597,6 +94420,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	            /(comodo_dragon)\/([\w\.]+)/i                                       // Comodo Dragon
 	            ], [[NAME, /_/g, ' '], VERSION], [
 
+	            /(micromessenger)\/([\w\.]+)/i                                      // WeChat
+	            ], [[NAME, 'WeChat'], VERSION], [
+
+	            /xiaomi\/miuibrowser\/([\w\.]+)/i                                   // MIUI Browser
+	            ], [VERSION, [NAME, 'MIUI Browser']], [
+
+	            /\swv\).+(chrome)\/([\w\.]+)/i                                      // Chrome WebView
+	            ], [[NAME, /(.+)/, '$1 WebView'], VERSION], [
+
+	            /android.+samsungbrowser\/([\w\.]+)/i,
+	            /android.+version\/([\w\.]+)\s+(?:mobile\s?safari|safari)*/i        // Android Browser
+	            ], [VERSION, [NAME, 'Android Browser']], [
+
 	            /(chrome|omniweb|arora|[tizenoka]{5}\s?browser)\/v?([\w\.]+)/i,
 	                                                                                // Chrome/OmniWeb/Arora/Tizen/Nokia
 	            /(qqbrowser)[\/\s]?([\w\.]+)/i
@@ -91605,7 +94441,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            /(uc\s?browser)[\/\s]?([\w\.]+)/i,
 	            /ucweb.+(ucbrowser)[\/\s]?([\w\.]+)/i,
-	            /JUC.+(ucweb)[\/\s]?([\w\.]+)/i
+	            /juc.+(ucweb)[\/\s]?([\w\.]+)/i
 	                                                                                // UCBrowser
 	            ], [[NAME, 'UCBrowser'], VERSION], [
 
@@ -91615,13 +94451,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            /((?:android.+)crmo|crios)\/([\w\.]+)/i                             // Chrome for Android/iOS
 	            ], [[NAME, 'Chrome'], VERSION], [
 
-	            /XiaoMi\/MiuiBrowser\/([\w\.]+)/i                                   // MIUI Browser
-	            ], [VERSION, [NAME, 'MIUI Browser']], [
-
-	            /android.+version\/([\w\.]+)\s+(?:mobile\s?safari|safari)/i         // Android Browser
-	            ], [VERSION, [NAME, 'Android Browser']], [
-
-	            /FBAV\/([\w\.]+);/i                                                 // Facebook App for iOS
+	            /;fbav\/([\w\.]+);/i                                                // Facebook App for iOS
 	            ], [VERSION, [NAME, 'Facebook']], [
 
 	            /fxios\/([\w\.-]+)/i                                                // Firefox for iOS
@@ -91810,6 +94640,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            /(archos)\s(gamepad2?)/i,                                           // Archos
 	            /(hp).+(touchpad)/i,                                                // HP TouchPad
+	            /(hp).+(tablet)/i,                                                  // HP Tablet
 	            /(kindle)\/([\w\.]+)/i,                                             // Kindle
 	            /\s(nook)[\w\s]+build\/(\w+)/i,                                     // Nook
 	            /(dell)\s(strea[kpr\s\d]*[\dko])/i                                  // Dell Streak
@@ -91834,7 +94665,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            /\(bb10;\s(\w+)/i                                                   // BlackBerry 10
 	            ], [MODEL, [VENDOR, 'BlackBerry'], [TYPE, MOBILE]], [
 	                                                                                // Asus Tablets
-	            /android.+(transfo[prime\s]{4,10}\s\w+|eeepc|slider\s\w+|nexus 7)/i
+	            /android.+(transfo[prime\s]{4,10}\s\w+|eeepc|slider\s\w+|nexus 7|padfone)/i
 	            ], [MODEL, [VENDOR, 'Asus'], [TYPE, TABLET]], [
 
 	            /(sony)\s(tablet\s[ps])\sbuild\//i,                                  // Sony
@@ -91864,9 +94695,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	            /(alcatel|geeksphone|huawei|lenovo|nexian|panasonic|(?=;\s)sony)[_\s-]?([\w-]+)*/i
 	                                                                                // Alcatel/GeeksPhone/Huawei/Lenovo/Nexian/Panasonic/Sony
 	            ], [VENDOR, [MODEL, /_/g, ' '], [TYPE, MOBILE]], [
-	                
+
 	            /(nexus\s9)/i                                                       // HTC Nexus 9
 	            ], [MODEL, [VENDOR, 'HTC'], [TYPE, TABLET]], [
+
+	            /(nexus\s6p)/i                                                      // Huawei Nexus 6P
+	            ], [MODEL, [VENDOR, 'Huawei'], [TYPE, MOBILE]], [
+
+	            /(microsoft);\s(lumia[\s\w]+)/i                                     // Microsoft Lumia
+	            ], [VENDOR, MODEL, [TYPE, MOBILE]], [
 
 	            /[\s\(;](xbox(?:\sone)?)[\s\);]/i                                   // Microsoft Xbox
 	            ], [MODEL, [VENDOR, 'Microsoft'], [TYPE, CONSOLE]], [
@@ -91877,23 +94714,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	            /\s(milestone|droid(?:[2-4x]|\s(?:bionic|x2|pro|razr))?(:?\s4g)?)[\w\s]+build\//i,
 	            /mot[\s-]?(\w+)*/i,
 	            /(XT\d{3,4}) build\//i,
-	            /(nexus\s[6])/i
+	            /(nexus\s6)/i
 	            ], [MODEL, [VENDOR, 'Motorola'], [TYPE, MOBILE]], [
 	            /android.+\s(mz60\d|xoom[\s2]{0,2})\sbuild\//i
 	            ], [MODEL, [VENDOR, 'Motorola'], [TYPE, TABLET]], [
 
-	            /android.+((sch-i[89]0\d|shw-m380s|gt-p\d{4}|gt-n8000|sgh-t8[56]9|nexus 10))/i,
-	            /((SM-T\w+))/i
-	            ], [[VENDOR, 'Samsung'], MODEL, [TYPE, TABLET]], [                  // Samsung
-	            /((s[cgp]h-\w+|gt-\w+|galaxy\snexus|sm-n900))/i,
-	            /(sam[sung]*)[\s-]*(\w+-?[\w-]*)*/i,
-	            /sec-((sgh\w+))/i
-	            ], [[VENDOR, 'Samsung'], MODEL, [TYPE, MOBILE]], [
-	            /(samsung);smarttv/i
-	            ], [VENDOR, MODEL, [TYPE, SMARTTV]], [
+	            /hbbtv\/\d+\.\d+\.\d+\s+\([\w\s]*;\s*(\w[^;]*);([^;]*)/i            // HbbTV devices
+	            ], [[VENDOR, util.trim], [MODEL, util.trim], [TYPE, SMARTTV]], [
+
+	            /hbbtv.+maple;(\d+)/i
+	            ], [[MODEL, /^/, 'SmartTV'], [VENDOR, 'Samsung'], [TYPE, SMARTTV]], [
 
 	            /\(dtv[\);].+(aquos)/i                                              // Sharp
 	            ], [MODEL, [VENDOR, 'Sharp'], [TYPE, SMARTTV]], [
+
+	            /android.+((sch-i[89]0\d|shw-m380s|gt-p\d{4}|gt-n\d+|sgh-t8[56]9|nexus 10))/i,
+	            /((SM-T\w+))/i
+	            ], [[VENDOR, 'Samsung'], MODEL, [TYPE, TABLET]], [                  // Samsung
+	            /smart-tv.+(samsung)/i
+	            ], [VENDOR, [TYPE, SMARTTV], MODEL], [
+	            /((s[cgp]h-\w+|gt-\w+|galaxy\snexus|sm-\w[\w\d]+))/i,
+	            /(sam[sung]*)[\s-]*(\w+-?[\w-]*)*/i,
+	            /sec-((sgh\w+))/i
+	            ], [[VENDOR, 'Samsung'], MODEL, [TYPE, MOBILE]], [
+
 	            /sie-(\w+)*/i                                                       // Siemens
 	            ], [MODEL, [VENDOR, 'Siemens'], [TYPE, MOBILE]], [
 
@@ -91924,13 +94768,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	            /android.+;\s(glass)\s\d/i                                          // Google Glass
 	            ], [MODEL, [VENDOR, 'Google'], [TYPE, WEARABLE]], [
 
-	            /android.+(\w+)\s+build\/hm\1/i,                                        // Xiaomi Hongmi 'numeric' models
-	            /android.+(hm[\s\-_]*note?[\s_]*(?:\d\w)?)\s+build/i,                   // Xiaomi Hongmi
-	            /android.+(mi[\s\-_]*(?:one|one[\s_]plus)?[\s_]*(?:\d\w)?)\s+build/i    // Xiaomi Mi
+	            /android.+(\w+)\s+build\/hm\1/i,                                    // Xiaomi Hongmi 'numeric' models
+	            /android.+(hm[\s\-_]*note?[\s_]*(?:\d\w)?)\s+build/i,               // Xiaomi Hongmi
+	            /android.+(mi[\s\-_]*(?:one|one[\s_]plus|note lte)?[\s_]*(?:\d\w)?)\s+build/i    // Xiaomi Mi
 	            ], [[MODEL, /_/g, ' '], [VENDOR, 'Xiaomi'], [TYPE, MOBILE]], [
 
-	            /\s(tablet)[;\/\s]/i,                                               // Unidentifiable Tablet
-	            /\s(mobile)[;\/\s]/i                                                // Unidentifiable Mobile
+	            /android.+a000(1)\s+build/i                                         // OnePlus
+	            ], [MODEL, [VENDOR, 'OnePlus'], [TYPE, MOBILE]], [
+
+	            /\s(tablet)[;\/]/i,                                                 // Unidentifiable Tablet
+	            /\s(mobile)(?:[;\/]|\ssafari)/i                                     // Unidentifiable Mobile
 	            ], [[TYPE, util.lowerize], VENDOR, MODEL]
 
 	            /*//////////////////////////
@@ -91986,7 +94833,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            ], [VENDOR, MODEL, [TYPE, MOBILE]], [
 	            /(i-STYLE2.1)/i                                                     // i-mobile i-STYLE 2.1
 	            ], [[MODEL, 'i-STYLE 2.1'], [VENDOR, 'i-mobile'], [TYPE, MOBILE]], [
-	            
+
 	            /(mobiistar touch LAI 512)/i                                        // mobiistar touch LAI 512
 	            ], [[MODEL, 'Touch LAI 512'], [VENDOR, 'mobiistar'], [TYPE, MOBILE]], [
 
@@ -92017,7 +94864,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            /microsoft\s(windows)\s(vista|xp)/i                                 // Windows (iTunes)
 	            ], [NAME, VERSION], [
 	            /(windows)\snt\s6\.2;\s(arm)/i,                                     // Windows RT
-	            /(windows\sphone(?:\sos)*|windows\smobile|windows)[\s\/]?([ntce\d\.\s]+\w)/i
+	            /(windows\sphone(?:\sos)*)[\s\/]?([\d\.\s]+\w)*/i,                  // Windows Phone
+	            /(windows\smobile|windows)[\s\/]?([ntce\d\.\s]+\w)/i
 	            ], [NAME, [VERSION, mapper.str, maps.os.windows.version]], [
 	            /(win(?=3|9|n)|win\s9x\s)([nt\d\.]+)/i
 	            ], [[NAME, 'Windows'], [VERSION, mapper.str, maps.os.windows.version]], [
@@ -92044,7 +94892,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            // GNU/Linux based
 	            /(mint)[\/\s\(]?(\w+)*/i,                                           // Mint
 	            /(mageia|vectorlinux)[;\s]/i,                                       // Mageia/VectorLinux
-	            /(joli|[kxln]?ubuntu|debian|[open]*suse|gentoo|(?=\s)arch|slackware|fedora|mandriva|centos|pclinuxos|redhat|zenwalk|linpus)[\/\s-]?([\w\.-]+)*/i,
+	            /(joli|[kxln]?ubuntu|debian|[open]*suse|gentoo|(?=\s)arch|slackware|fedora|mandriva|centos|pclinuxos|redhat|zenwalk|linpus)[\/\s-]?(?!chrom)([\w\.-]+)*/i,
 	                                                                                // Joli/Ubuntu/Debian/SUSE/Gentoo/Arch/Slackware
 	                                                                                // Fedora/Mandriva/CentOS/PCLinuxOS/RedHat/Zenwalk/Linpus
 	            /(hurd|linux)\s?([\w\.]+)*/i,                                       // Hurd/Linux
@@ -92062,6 +94910,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	            /\s([frentopc-]{0,4}bsd|dragonfly)\s?([\w\.]+)*/i                   // FreeBSD/NetBSD/OpenBSD/PC-BSD/DragonFly
 	            ], [NAME, VERSION],[
 
+	            /(haiku)\s(\w+)/i                                                  // Haiku
+	            ], [NAME, VERSION],[
+
 	            /(ip[honead]+)(?:.*os\s([\w]+)*\slike\smac|;\sopera)/i              // iOS
 	            ], [[NAME, 'iOS'], [VERSION, /_/g, '.']], [
 
@@ -92071,7 +94922,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            // Other
 	            /((?:open)?solaris)[\/\s-]?([\w\.]+)*/i,                            // Solaris
-	            /(haiku)\s(\w+)/i,                                                  // Haiku
 	            /(aix)\s((\d)(?=\.|\)|\s)[\w\.]*)*/i,                               // AIX
 	            /(plan\s9|minix|beos|os\/2|amigaos|morphos|risc\sos|openvms)/i,
 	                                                                                // Plan9/Minix/BeOS/OS2/AmigaOS/MorphOS/RISCOS/OpenVMS
@@ -92129,7 +94979,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	            ua = uastring;
 	            return this;
 	        };
-	        this.setUA(ua);
 	        return this;
 	    };
 
@@ -92188,7 +95037,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    // jQuery/Zepto specific (optional)
-	    // Note: 
+	    // Note:
 	    //   In AMD env the global scope should be kept clean, but jQuery is an exception.
 	    //   jQuery always exports to global scope, unless jQuery.noConflict(true) is used,
 	    //   and we should catch that.
@@ -92217,31 +95066,25 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var getPrototype = __webpack_require__(443),
-	    isHostObject = __webpack_require__(444),
+	var baseGetTag = __webpack_require__(443),
+	    getPrototype = __webpack_require__(444),
 	    isObjectLike = __webpack_require__(445);
 
 	/** `Object#toString` result references. */
 	var objectTag = '[object Object]';
 
 	/** Used for built-in method references. */
-	var objectProto = Object.prototype;
+	var funcProto = Function.prototype,
+	    objectProto = Object.prototype;
 
 	/** Used to resolve the decompiled source of functions. */
-	var funcToString = Function.prototype.toString;
+	var funcToString = funcProto.toString;
 
 	/** Used to check objects for own properties. */
 	var hasOwnProperty = objectProto.hasOwnProperty;
 
 	/** Used to infer the `Object` constructor. */
 	var objectCtorString = funcToString.call(Object);
-
-	/**
-	 * Used to resolve the
-	 * [`toStringTag`](http://ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring)
-	 * of values.
-	 */
-	var objectToString = objectProto.toString;
 
 	/**
 	 * Checks if `value` is a plain object, that is, an object created by the
@@ -92252,8 +95095,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @since 0.8.0
 	 * @category Lang
 	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a plain object,
-	 *  else `false`.
+	 * @returns {boolean} Returns `true` if `value` is a plain object, else `false`.
 	 * @example
 	 *
 	 * function Foo() {
@@ -92273,7 +95115,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * // => true
 	 */
 	function isPlainObject(value) {
-	  if (!isObjectLike(value) || objectToString.call(value) != objectTag || isHostObject(value)) {
+	  if (!isObjectLike(value) || baseGetTag(value) != objectTag) {
 	    return false;
 	  }
 	  var proto = getPrototype(value);
@@ -92534,16 +95376,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 441 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(global) {/* global window */
-	'use strict';
-
-	module.exports = __webpack_require__(447)(global || window || undefined);
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
-
-/***/ },
-/* 442 */
-/***/ function(module, exports, __webpack_require__) {
-
 	// shim for using process in browser
 
 	var process = module.exports = {};
@@ -92605,26 +95437,46 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+/* 442 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	module.exports = __webpack_require__(447);
+
+/***/ },
 /* 443 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var overArg = __webpack_require__(449);
+	var _Symbol = __webpack_require__(449),
+	    getRawTag = __webpack_require__(450),
+	    objectToString = __webpack_require__(451);
 
-	/* Built-in method references for those with the same name as other `lodash` methods. */
-	var nativeGetPrototype = Object.getPrototypeOf;
+	/** `Object#toString` result references. */
+	var nullTag = '[object Null]',
+	    undefinedTag = '[object Undefined]';
+
+	/** Built-in value references. */
+	var symToStringTag = _Symbol ? _Symbol.toStringTag : undefined;
 
 	/**
-	 * Gets the `[[Prototype]]` of `value`.
+	 * The base implementation of `getTag` without fallbacks for buggy environments.
 	 *
 	 * @private
 	 * @param {*} value The value to query.
-	 * @returns {null|Object} Returns the `[[Prototype]]`.
+	 * @returns {string} Returns the `toStringTag`.
 	 */
-	var getPrototype = overArg(nativeGetPrototype, Object);
+	function baseGetTag(value) {
+	    if (value == null) {
+	        return value === undefined ? undefinedTag : nullTag;
+	    }
+	    value = Object(value);
+	    return symToStringTag && symToStringTag in value ? getRawTag(value) : objectToString(value);
+	}
 
-	module.exports = getPrototype;
+	module.exports = baseGetTag;
 
 /***/ },
 /* 444 */
@@ -92632,26 +95484,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	/**
-	 * Checks if `value` is a host object in IE < 9.
-	 *
-	 * @private
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a host object, else `false`.
-	 */
-	function isHostObject(value) {
-	  // Many host objects are `Object` objects that can coerce to strings
-	  // despite having improperly defined `toString` methods.
-	  var result = false;
-	  if (value != null && typeof value.toString != 'function') {
-	    try {
-	      result = !!(value + '');
-	    } catch (e) {}
-	  }
-	  return result;
-	}
+	var overArg = __webpack_require__(452);
 
-	module.exports = isHostObject;
+	/** Built-in value references. */
+	var getPrototype = overArg(Object.getPrototypeOf, Object);
+
+	module.exports = getPrototype;
 
 /***/ },
 /* 445 */
@@ -92686,7 +95524,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * // => false
 	 */
 	function isObjectLike(value) {
-	  return !!value && (typeof value === 'undefined' ? 'undefined' : _typeof(value)) == 'object';
+	  return value != null && (typeof value === 'undefined' ? 'undefined' : _typeof(value)) == 'object';
 	}
 
 	module.exports = isObjectLike;
@@ -92702,73 +95540,85 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 
 	module.exports = {
-	    COS: __webpack_require__(450),
-	    LOG: __webpack_require__(451),
-	    EQUAL: __webpack_require__(452),
-	    BACKSPACE: __webpack_require__(453),
-	    SQRT: __webpack_require__(454),
-	    EXP: __webpack_require__(455),
-	    NEQ: __webpack_require__(456),
-	    GEQ: __webpack_require__(457),
-	    LN: __webpack_require__(458),
-	    DISMISS: __webpack_require__(459),
-	    SIN: __webpack_require__(460),
-	    LT: __webpack_require__(461),
-	    CUBE_ROOT: __webpack_require__(462),
-	    PLUS: __webpack_require__(463),
-	    TAN: __webpack_require__(464),
-	    LEFT: __webpack_require__(465),
-	    UP: __webpack_require__(466),
-	    DOWN: __webpack_require__(467),
-	    LEFT_PAREN: __webpack_require__(468),
-	    RIGHT_PAREN: __webpack_require__(469),
-	    GT: __webpack_require__(470),
-	    DIVIDE: __webpack_require__(471),
-	    PERIOD: __webpack_require__(472),
-	    PERCENT: __webpack_require__(473),
-	    TIMES: __webpack_require__(474),
-	    EXP_3: __webpack_require__(475),
-	    EXP_2: __webpack_require__(476),
-	    RIGHT: __webpack_require__(477),
-	    CDOT: __webpack_require__(478),
-	    LOG_N: __webpack_require__(479),
-	    LEQ: __webpack_require__(480),
-	    MINUS: __webpack_require__(481),
-	    NEGATIVE: __webpack_require__(481),
-	    RADICAL: __webpack_require__(482),
-	    FRAC_INCLUSIVE: __webpack_require__(483),
-	    FRAC_EXCLUSIVE: __webpack_require__(484),
-	    JUMP_OUT_PARENTHESES: __webpack_require__(485),
-	    JUMP_OUT_EXPONENT: __webpack_require__(486),
-	    JUMP_OUT_BASE: __webpack_require__(487),
-	    JUMP_INTO_NUMERATOR: __webpack_require__(488),
-	    JUMP_OUT_NUMERATOR: __webpack_require__(489),
-	    JUMP_OUT_DENOMINATOR: __webpack_require__(490)
+	    COS: __webpack_require__(453),
+	    LOG: __webpack_require__(454),
+	    EQUAL: __webpack_require__(455),
+	    BACKSPACE: __webpack_require__(456),
+	    SQRT: __webpack_require__(457),
+	    EXP: __webpack_require__(458),
+	    NEQ: __webpack_require__(459),
+	    GEQ: __webpack_require__(460),
+	    LN: __webpack_require__(461),
+	    DISMISS: __webpack_require__(462),
+	    SIN: __webpack_require__(463),
+	    LT: __webpack_require__(464),
+	    CUBE_ROOT: __webpack_require__(465),
+	    PLUS: __webpack_require__(466),
+	    TAN: __webpack_require__(467),
+	    LEFT: __webpack_require__(468),
+	    UP: __webpack_require__(469),
+	    DOWN: __webpack_require__(470),
+	    LEFT_PAREN: __webpack_require__(471),
+	    RIGHT_PAREN: __webpack_require__(472),
+	    GT: __webpack_require__(473),
+	    DIVIDE: __webpack_require__(474),
+	    PERIOD: __webpack_require__(475),
+	    PERCENT: __webpack_require__(476),
+	    TIMES: __webpack_require__(477),
+	    EXP_3: __webpack_require__(478),
+	    EXP_2: __webpack_require__(479),
+	    RIGHT: __webpack_require__(480),
+	    CDOT: __webpack_require__(481),
+	    LOG_N: __webpack_require__(482),
+	    LEQ: __webpack_require__(483),
+	    MINUS: __webpack_require__(484),
+	    NEGATIVE: __webpack_require__(484),
+	    RADICAL: __webpack_require__(485),
+	    FRAC_INCLUSIVE: __webpack_require__(486),
+	    FRAC_EXCLUSIVE: __webpack_require__(487),
+	    JUMP_OUT_PARENTHESES: __webpack_require__(488),
+	    JUMP_OUT_EXPONENT: __webpack_require__(489),
+	    JUMP_OUT_BASE: __webpack_require__(490),
+	    JUMP_INTO_NUMERATOR: __webpack_require__(491),
+	    JUMP_OUT_NUMERATOR: __webpack_require__(492),
+	    JUMP_OUT_DENOMINATOR: __webpack_require__(493)
 	};
 
 /***/ },
 /* 447 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	/* WEBPACK VAR INJECTION */(function(global, module) {'use strict';
 
-	module.exports = function symbolObservablePonyfill(root) {
-		var result;
-		var _Symbol = root.Symbol;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 
-		if (typeof _Symbol === 'function') {
-			if (_Symbol.observable) {
-				result = _Symbol.observable;
-			} else {
-				result = _Symbol('observable');
-				_Symbol.observable = result;
-			}
-		} else {
-			result = '@@observable';
-		}
+	var _ponyfill = __webpack_require__(494);
 
-		return result;
-	};
+	var _ponyfill2 = _interopRequireDefault(_ponyfill);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { 'default': obj };
+	}
+
+	var root; /* global window */
+
+	if (typeof self !== 'undefined') {
+	  root = self;
+	} else if (typeof window !== 'undefined') {
+	  root = window;
+	} else if (typeof global !== 'undefined') {
+	  root = global;
+	} else if (true) {
+	  root = module;
+	} else {
+	  root = Function('return this')();
+	}
+
+	var result = (0, _ponyfill2['default'])(root);
+	exports['default'] = result;
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(495)(module)))
 
 /***/ },
 /* 448 */
@@ -92782,10 +95632,105 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 449 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
+
+	var root = __webpack_require__(496);
+
+	/** Built-in value references. */
+	var _Symbol = root.Symbol;
+
+	module.exports = _Symbol;
+
+/***/ },
+/* 450 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _Symbol = __webpack_require__(449);
+
+	/** Used for built-in method references. */
+	var objectProto = Object.prototype;
+
+	/** Used to check objects for own properties. */
+	var hasOwnProperty = objectProto.hasOwnProperty;
+
+	/**
+	 * Used to resolve the
+	 * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+	 * of values.
+	 */
+	var nativeObjectToString = objectProto.toString;
+
+	/** Built-in value references. */
+	var symToStringTag = _Symbol ? _Symbol.toStringTag : undefined;
+
+	/**
+	 * A specialized version of `baseGetTag` which ignores `Symbol.toStringTag` values.
+	 *
+	 * @private
+	 * @param {*} value The value to query.
+	 * @returns {string} Returns the raw `toStringTag`.
+	 */
+	function getRawTag(value) {
+	  var isOwn = hasOwnProperty.call(value, symToStringTag),
+	      tag = value[symToStringTag];
+
+	  try {
+	    value[symToStringTag] = undefined;
+	    var unmasked = true;
+	  } catch (e) {}
+
+	  var result = nativeObjectToString.call(value);
+	  if (unmasked) {
+	    if (isOwn) {
+	      value[symToStringTag] = tag;
+	    } else {
+	      delete value[symToStringTag];
+	    }
+	  }
+	  return result;
+	}
+
+	module.exports = getRawTag;
+
+/***/ },
+/* 451 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/** Used for built-in method references. */
+	var objectProto = Object.prototype;
+
+	/**
+	 * Used to resolve the
+	 * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+	 * of values.
+	 */
+	var nativeObjectToString = objectProto.toString;
+
+	/**
+	 * Converts `value` to a string using `Object.prototype.toString`.
+	 *
+	 * @private
+	 * @param {*} value The value to convert.
+	 * @returns {string} Returns the converted string.
+	 */
+	function objectToString(value) {
+	  return nativeObjectToString.call(value);
+	}
+
+	module.exports = objectToString;
+
+/***/ },
+/* 452 */
+/***/ function(module, exports, __webpack_require__) {
+
 	"use strict";
 
 	/**
-	 * Creates a function that invokes `func` with its first argument transformed.
+	 * Creates a unary function that invokes `func` with its argument transformed.
 	 *
 	 * @private
 	 * @param {Function} func The function to wrap.
@@ -92801,7 +95746,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = overArg;
 
 /***/ },
-/* 450 */
+/* 453 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -92838,7 +95783,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Cos;
 
 /***/ },
-/* 451 */
+/* 454 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -92874,7 +95819,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Log;
 
 /***/ },
-/* 452 */
+/* 455 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -92911,7 +95856,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Equal;
 
 /***/ },
-/* 453 */
+/* 456 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -92940,7 +95885,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Backspace;
 
 /***/ },
-/* 454 */
+/* 457 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -92976,7 +95921,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Sqrt;
 
 /***/ },
-/* 455 */
+/* 458 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93012,7 +95957,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Exp;
 
 /***/ },
-/* 456 */
+/* 459 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93049,7 +95994,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Neq;
 
 /***/ },
-/* 457 */
+/* 460 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93086,7 +96031,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Geq;
 
 /***/ },
-/* 458 */
+/* 461 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93122,7 +96067,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Ln;
 
 /***/ },
-/* 459 */
+/* 462 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93150,7 +96095,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Dismiss;
 
 /***/ },
-/* 460 */
+/* 463 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93187,7 +96132,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Sin;
 
 /***/ },
-/* 461 */
+/* 464 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93224,7 +96169,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Lt;
 
 /***/ },
-/* 462 */
+/* 465 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93261,7 +96206,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = CubeRoot;
 
 /***/ },
-/* 463 */
+/* 466 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93297,7 +96242,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Plus;
 
 /***/ },
-/* 464 */
+/* 467 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93334,7 +96279,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Tan;
 
 /***/ },
-/* 465 */
+/* 468 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -93344,7 +96289,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(18);
 
-	var Arrow = __webpack_require__(491);
+	var Arrow = __webpack_require__(497);
 
 	var Left = function Left() {
 	  return React.createElement(
@@ -93357,7 +96302,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Left;
 
 /***/ },
-/* 466 */
+/* 469 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -93367,7 +96312,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(18);
 
-	var Arrow = __webpack_require__(491);
+	var Arrow = __webpack_require__(497);
 
 	var Up = function Up() {
 	    return React.createElement(
@@ -93380,7 +96325,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Up;
 
 /***/ },
-/* 467 */
+/* 470 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -93390,7 +96335,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(18);
 
-	var Arrow = __webpack_require__(491);
+	var Arrow = __webpack_require__(497);
 
 	var Down = function Down() {
 	    return React.createElement(
@@ -93403,7 +96348,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Down;
 
 /***/ },
-/* 468 */
+/* 471 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93440,7 +96385,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = LeftParen;
 
 /***/ },
-/* 469 */
+/* 472 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93477,7 +96422,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = RightParen;
 
 /***/ },
-/* 470 */
+/* 473 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93514,7 +96459,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Gt;
 
 /***/ },
-/* 471 */
+/* 474 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93552,7 +96497,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Divide;
 
 /***/ },
-/* 472 */
+/* 475 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93588,7 +96533,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Period;
 
 /***/ },
-/* 473 */
+/* 476 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93631,7 +96576,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Percent;
 
 /***/ },
-/* 474 */
+/* 477 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93668,7 +96613,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Times;
 
 /***/ },
-/* 475 */
+/* 478 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93704,7 +96649,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Exp3;
 
 /***/ },
-/* 476 */
+/* 479 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93740,7 +96685,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Exp2;
 
 /***/ },
-/* 477 */
+/* 480 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -93750,7 +96695,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(18);
 
-	var Arrow = __webpack_require__(491);
+	var Arrow = __webpack_require__(497);
 
 	var Right = function Right() {
 	    return React.createElement(
@@ -93763,7 +96708,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Right;
 
 /***/ },
-/* 478 */
+/* 481 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93804,7 +96749,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Cdot;
 
 /***/ },
-/* 479 */
+/* 482 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93840,7 +96785,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = LogN;
 
 /***/ },
-/* 480 */
+/* 483 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93877,7 +96822,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Leq;
 
 /***/ },
-/* 481 */
+/* 484 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93913,7 +96858,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Minus;
 
 /***/ },
-/* 482 */
+/* 485 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93950,7 +96895,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Radical;
 
 /***/ },
-/* 483 */
+/* 486 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93993,7 +96938,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = FracInclusive;
 
 /***/ },
-/* 484 */
+/* 487 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -94036,7 +96981,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = FracExclusive;
 
 /***/ },
-/* 485 */
+/* 488 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -94066,7 +97011,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = JumpOutParentheses;
 
 /***/ },
-/* 486 */
+/* 489 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -94096,7 +97041,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = JumpOutExponent;
 
 /***/ },
-/* 487 */
+/* 490 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -94126,7 +97071,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = JumpOutBase;
 
 /***/ },
-/* 488 */
+/* 491 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -94158,7 +97103,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = JumpIntoNumerator;
 
 /***/ },
-/* 489 */
+/* 492 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -94190,7 +97135,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = JumpOutNumerator;
 
 /***/ },
-/* 490 */
+/* 493 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -94222,7 +97167,69 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = JumpOutDenominator;
 
 /***/ },
-/* 491 */
+/* 494 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports['default'] = symbolObservablePonyfill;
+	function symbolObservablePonyfill(root) {
+		var result;
+		var _Symbol = root.Symbol;
+
+		if (typeof _Symbol === 'function') {
+			if (_Symbol.observable) {
+				result = _Symbol.observable;
+			} else {
+				result = _Symbol('observable');
+				_Symbol.observable = result;
+			}
+		} else {
+			result = '@@observable';
+		}
+
+		return result;
+	};
+
+/***/ },
+/* 495 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = function(module) {
+		if(!module.webpackPolyfill) {
+			module.deprecate = function() {};
+			module.paths = [];
+			// module.parent = undefined by default
+			module.children = [];
+			module.webpackPolyfill = 1;
+		}
+		return module;
+	}
+
+
+/***/ },
+/* 496 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+	var freeGlobal = __webpack_require__(498);
+
+	/** Detect free variable `self`. */
+	var freeSelf = (typeof self === 'undefined' ? 'undefined' : _typeof(self)) == 'object' && self && self.Object === Object && self;
+
+	/** Used as a reference to the global object. */
+	var root = freeGlobal || freeSelf || Function('return this')();
+
+	module.exports = root;
+
+/***/ },
+/* 497 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -94245,6 +97252,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	module.exports = Arrow;
+
+/***/ },
+/* 498 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+	/** Detect free variable `global` from Node.js. */
+	var freeGlobal = (typeof global === 'undefined' ? 'undefined' : _typeof(global)) == 'object' && global && global.Object === Object && global;
+
+	module.exports = freeGlobal;
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ }
 /******/ ])
