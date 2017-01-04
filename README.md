@@ -39,7 +39,7 @@ global `window` object.
 
 Also, the following global variables are used, if present:
 
-- `Khan` (`warnTimeout` & `warnFont`)
+- `Khan` (`warnMathJaxError` & `warnFont`)
 - `icu` (a subset of the localeplanet api is depended on, as covered by
   `icu-slim.js` from our fork of localeplanet)
 - `MathQuill`
