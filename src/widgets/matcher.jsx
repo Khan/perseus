@@ -2,17 +2,20 @@
 /* eslint-disable comma-dangle, no-var, react/forbid-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var React = require('react');
-var _ = require("underscore");
+const React = require('react');
+const {StyleSheet, css} = require("aphrodite");
+const _ = require("underscore");
 
-var Renderer       = require("../renderer.jsx");
-var Sortable       = require("../components/sortable.jsx");
+const Renderer = require("../renderer.jsx");
+const Sortable = require("../components/sortable.jsx");
 
 const ApiOptions = require("../perseus-api.jsx").Options;
-var shuffle = require("../util.js").shuffle;
-var seededRNG = require("../util.js").seededRNG;
+const shuffle = require("../util.js").shuffle;
+const seededRNG = require("../util.js").seededRNG;
 
-var Matcher = React.createClass({
+const HACKY_CSS_CLASSNAME = 'perseus-widget-matcher';
+
+const Matcher = React.createClass({
     propTypes: {
         apiOptions: ApiOptions.propTypes,
         labels: React.PropTypes.array,
@@ -64,53 +67,57 @@ var Matcher = React.createClass({
 
         const cellMarginPx = this.props.apiOptions.isMobile ? 8 : 5;
 
-        return <div className="perseus-widget-matcher">
-            {showLabels &&
-                <div className="perseus-clearfix">
-                    <div className="column">
-                        <div className="column-label">
+        return <table
+            className={css(styles.widget) + ' ' + HACKY_CSS_CLASSNAME}
+        >
+            <tbody>
+                {showLabels &&
+                    <tr className={css(styles.row)}>
+                        <th className={css(styles.column, styles.columnLabel)}>
                             <Renderer
                                 content={this.props.labels[0] || "..."}
                             />
-                        </div>
-                    </div>
-                    <div className="column">
-                        <div className="column-label">
+                        </th>
+                        <th className={css(
+                                styles.column,
+                                styles.columnRight,
+                                styles.columnLabel)}
+                        >
                             <Renderer
                                 content={this.props.labels[1] || "..."}
                             />
-                        </div>
-                    </div>
-                </div>
-            }
-            <div className="perseus-clearfix">
-                <div className="column">
-                    <Sortable
-                        options={left}
-                        layout="vertical"
-                        padding={this.props.padding}
-                        disabled={!this.props.orderMatters}
-                        constraints={constraints}
-                        onMeasure={this.onMeasureLeft}
-                        onChange={this.changeAndTrack}
-                        margin={cellMarginPx}
-                        ref="left"
-                    />
-                </div>
-                <div className="column">
-                    <Sortable
-                        options={right}
-                        layout="vertical"
-                        padding={this.props.padding}
-                        constraints={constraints}
-                        onMeasure={this.onMeasureRight}
-                        onChange={this.changeAndTrack}
-                        margin={cellMarginPx}
-                        ref="right"
-                    />
-                </div>
-            </div>
-        </div>;
+                        </th>
+                    </tr>
+                }
+                <tr className={css(styles.row)}>
+                    <td className={css(styles.column)}>
+                        <Sortable
+                            options={left}
+                            layout="vertical"
+                            padding={this.props.padding}
+                            disabled={!this.props.orderMatters}
+                            constraints={constraints}
+                            onMeasure={this.onMeasureLeft}
+                            onChange={this.changeAndTrack}
+                            margin={cellMarginPx}
+                            ref="left"
+                        />
+                    </td>
+                    <td className={css(styles.column, styles.columnRight)}>
+                        <Sortable
+                            options={right}
+                            layout="vertical"
+                            padding={this.props.padding}
+                            constraints={constraints}
+                            onMeasure={this.onMeasureRight}
+                            onChange={this.changeAndTrack}
+                            margin={cellMarginPx}
+                            ref="right"
+                        />
+                    </td>
+                </tr>
+            </tbody>
+        </table>;
     },
 
     changeAndTrack: function(e) {
@@ -140,7 +147,6 @@ var Matcher = React.createClass({
     }
 });
 
-
 _.extend(Matcher, {
     validate: function(state, rubric) {
         var correct = _.isEqual(state.left, rubric.left) &&
@@ -153,6 +159,41 @@ _.extend(Matcher, {
             message: null
         };
     }
+});
+
+const padding = 5;
+const border = '1px solid #444';
+
+const styles = StyleSheet.create({
+    widget: {
+        paddingTop: padding,
+        maxWidth: '100%',
+
+        // Need to override minWidth in CSS :(
+        minWidth: 'auto',
+    },
+
+    row: {
+        // Need to override global rules in CSS :(
+        border: 0,
+    },
+
+    column: {
+        // TODO(benkomalo): constraint to half width?
+        padding: 0,
+        border: 0,
+    },
+
+    columnRight: {
+        borderLeft: border,
+    },
+
+    columnLabel: {
+        fontWeight: 'inherit',
+        borderBottom: border,
+        padding: `0 ${padding}px ${padding}px ${padding}px`,
+        textAlign: 'center',
+    },
 });
 
 module.exports = {

@@ -1,36 +1,8 @@
 .perseus-widget-matcher {
-    @matcher-border: 1px solid #444;
-    @matcher-padding: 5px;
-
-    .column {
-        float: left;
-        max-width: 50%;
-
-        &:first-child {
-            .column-label, .perseus-sortable {
-                padding-right: @matcher-padding;
-            }
-        }
-
-        & + .column {
-            .column-label, .perseus-sortable {
-                border-left: @matcher-border;
-                padding-left: @matcher-padding;
-            }
-        }
-    }
-
-    .column-label {
-        border-bottom: @matcher-border;
-        padding-bottom: @matcher-padding;
-        text-align: center;
-
-        div.paragraph {
-            margin: 0;
-        }
-    }
-
-    .perseus-sortable {
-        padding-top: @matcher-padding;
+    /* Ideally we'd get rid of this, as most of the styles have been moved
+       to inline styles using Aphrodite, but this is a hacky "reach-in" into
+       descendent widgets that we can't modify */
+    div.paragraph {
+        margin: 0;
     }
 }

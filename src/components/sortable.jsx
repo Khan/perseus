@@ -2,28 +2,39 @@
 /* eslint-disable comma-dangle, indent, max-len, no-irregular-whitespace, no-var, one-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var React = require('react');
-var ReactDOM = require("react-dom");
-var _ = require("underscore");
+const React = require('react');
+const ReactDOM = require("react-dom");
+const {StyleSheet, css} = require("aphrodite");
+const _ = require("underscore");
 
-var Util     = require("../util.js");
-var Renderer = require("../renderer.jsx");
+const Util = require("../util.js");
+const Renderer = require("../renderer.jsx");
 
-var ApiClassNames = require("../perseus-api.jsx").ClassNames;
+const ApiClassNames = require("../perseus-api.jsx").ClassNames;
 
-var PREFIX = "perseus-sortable";
+const HORIZONTAL = "horizontal";
+const VERTICAL = "vertical";
 
+const STATIC = "static";
+const DRAGGING = "dragging";
+const ANIMATING = "animating";
+const DISABLED = "disabled";
 
 // A placeholder that appears in the sortable whenever an item is dragged.
-var Placeholder = React.createClass({
+const Placeholder = React.createClass({
     propTypes: {
+        layout: React.PropTypes.oneOf([HORIZONTAL, VERTICAL]),
         width: React.PropTypes.number.isRequired,
-        height: React.PropTypes.number.isRequired
+        height: React.PropTypes.number.isRequired,
     },
 
     render: function() {
-        var className = [PREFIX + "-card", PREFIX + "-placeholder"].join(" ");
-        var style = {width: this.props.width, height: this.props.height};
+        const {layout} = this.props;
+        const className = css(
+                styles.card,
+                styles.placeholder,
+                layout === HORIZONTAL && styles.horizontalCard);
+        const style = {width: this.props.width, height: this.props.height};
 
         if (this.props.margin != null) {
             style.margin = this.props.margin;
@@ -33,12 +44,6 @@ var Placeholder = React.createClass({
     }
 });
 
-
-var STATIC = "static",
-    DRAGGING = "dragging",
-    ANIMATING = "animating",
-    DISABLED = "disabled";
-
 // A draggable item in the sortable. Can be in one of four states:
 //     Static:    The item is not being interacted with.
 //     Dragging:  The item is being dragged.
@@ -47,20 +52,23 @@ var STATIC = "static",
 //
 // Usual flow:      Static -> Dragging -> Animating -> Static
 // [Dis|en]abling:  Static|Dragging|Animating -> Disabled -> Static
-var Draggable = React.createClass({
+const Draggable = React.createClass({
     propTypes: {
-        type: React.PropTypes.oneOf([STATIC, DRAGGING, ANIMATING, DISABLED]),
         content: React.PropTypes.string.isRequired,
         endPosition: React.PropTypes.object.isRequired,
-        onRender: React.PropTypes.func.isRequired,
+        includePadding: React.PropTypes.bool,
+        layout: React.PropTypes.oneOf([HORIZONTAL, VERTICAL]),
+        onAnimationEnd: React.PropTypes.func.isRequired,
         onMouseDown: React.PropTypes.func.isRequired,
         onMouseMove: React.PropTypes.func.isRequired,
         onMouseUp: React.PropTypes.func.isRequired,
-        onAnimationEnd: React.PropTypes.func.isRequired
+        onRender: React.PropTypes.func.isRequired,
+        type: React.PropTypes.oneOf([STATIC, DRAGGING, ANIMATING, DISABLED]),
     },
 
     getDefaultProps: function() {
         return {
+            includePadding: true,
             type: STATIC
         };
     },
@@ -97,12 +105,25 @@ var Draggable = React.createClass({
     },
 
     render: function() {
-        var className = [
-                PREFIX + "-card",
-                PREFIX + "-draggable",
-                PREFIX + "-" + this.props.type,
-                ApiClassNames.INTERACTIVE
-            ].join(" ");
+        const {includePadding, layout, type} = this.props;
+
+        // We need to keep backwards compatbility with rules specified directly
+        // in CSS. Hence the hacky tacking on of manual classNames.
+        // See sortable.less for details.
+        let className = css(
+            styles.card,
+            styles.draggable,
+            layout === HORIZONTAL && styles.horizontalCard,
+            layout === VERTICAL && styles.verticalCard,
+            type === DRAGGING && styles.dragging,
+            type === ANIMATING && styles.animating,
+            type === DISABLED && styles.disabled,
+            !includePadding && styles.unpaddedCard
+        ) + ' ' + ApiClassNames.INTERACTIVE + ' perseus-sortable-draggable';
+
+        if (!includePadding) {
+            className += ' perseus-sortable-draggable-unpadded';
+        }
 
         var style = {
             position: "static"
@@ -121,7 +142,6 @@ var Draggable = React.createClass({
         if (this.props.margin != null) {
             style.margin = this.props.margin;
         }
-
         return <li
                     className={className}
                     style={style}
@@ -232,20 +252,17 @@ var Draggable = React.createClass({
 });
 
 
-var HORIZONTAL = "horizontal",
-    VERTICAL = "vertical";
-
 // The main sortable component.
-var Sortable = React.createClass({
+const Sortable = React.createClass({
     propTypes: {
-        options: React.PropTypes.array.isRequired,
-        layout: React.PropTypes.oneOf([HORIZONTAL, VERTICAL]),
-        padding: React.PropTypes.bool,
-        disabled: React.PropTypes.bool,
         constraints: React.PropTypes.object,
-        onMeasure: React.PropTypes.func,
+        disabled: React.PropTypes.bool,
+        layout: React.PropTypes.oneOf([HORIZONTAL, VERTICAL]),
         margin: React.PropTypes.number,
-        onChange: React.PropTypes.func
+        onChange: React.PropTypes.func,
+        onMeasure: React.PropTypes.func,
+        options: React.PropTypes.array.isRequired,
+        padding: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
@@ -373,10 +390,12 @@ var Sortable = React.createClass({
     }, 20),
 
     render: function() {
-        var className = [PREFIX, "layout-" + this.props.layout].join(" ");
-        var cards = [];
+        const cards = [];
 
-        className += this.props.padding ? "" : " unpadded";
+        const {layout} = this.props;
+        // We need to keep backwards compatbility with rules specified directly
+        // in CSS. See sortable.less for details.
+        const className = css(styles.sortable) + ' perseus-sortable';
 
         _.each(this.state.items, function(item, i, items) {
             var isLast = (i === items.length - 1);
@@ -397,6 +416,8 @@ var Sortable = React.createClass({
                     ref={item.key}
                     width={item.width}
                     height={item.height}
+                    layout={layout}
+                    includePadding={this.props.padding}
                     margin={isLast && isStatic ? 0 : margin}
                     endPosition={item.endPosition}
                     onRender={this.remeasureItems}
@@ -417,6 +438,7 @@ var Sortable = React.createClass({
                         ref={"placeholder_" + item.key}
                         width={item.width}
                         height={item.height}
+                        layout={layout}
                         margin={isLast ? 0 : margin} />
                 );
             }
@@ -516,6 +538,66 @@ var Sortable = React.createClass({
     getOptions: function() {
         return _.pluck(this.state.items, "option");
     }
+});
+
+
+const styles = StyleSheet.create({
+    sortable: {
+        boxSizing: 'border-box',
+        float: 'left',
+
+        padding: 0,
+        margin: 0,
+    },
+
+    card: {
+        boxSizing: 'border-box',
+        background: '#fff',
+        border: '1px solid #ddd',
+        borderRadius: 4,
+        cursor: 'pointer',
+        minWidth: 25,
+        minHeight: 44,
+        padding: 10,
+
+        listStyleType: 'none',
+
+        userSelect: 'none',
+    },
+
+    placeholder: {
+        background: '#ddd',
+        border: '1px solid #ccc',
+    },
+
+    draggable: {
+        textAlign: 'center',
+    },
+
+    horizontalCard: {
+        float: 'left',
+        cursor: 'ew-resize',
+    },
+
+    verticalCard: {
+        maxWidth: '100%',
+        cursor: 'ns-resize',
+    },
+
+    unpaddedCard: {
+        padding: 0,
+    },
+
+    dragging: {
+        background: '#ffedcd',
+        opacity: '0.8',
+    },
+
+    disabled: {
+        backgroundColor: 'inherit',
+        border: '1px solid transparent',
+        cursor: 'default',
+    },
 });
 
 module.exports = Sortable;

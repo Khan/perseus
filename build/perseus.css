@@ -1,6 +1,6 @@
 /* Perseus CSS
-// commit 7a58638a797be62f066ec5da9b25d9627a2a8602
-// branch master
+// commit c98540627a1ad74791a9184285f460173dc67e55
+// branch fix-matcher
 // @generated
 */
 .perseus-sr-only {
@@ -1324,29 +1324,13 @@ body.mobile .categorizer-container td.category input[type="radio"] + span:active
 .perseus-mobile .graphie-label .katex {
   color: inherit !important;
 }
-.perseus-widget-matcher .column {
-  float: left;
-  max-width: 50%;
+.perseus-widget-matcher {
+  /* Ideally we'd get rid of this, as most of the styles have been moved
+       to inline styles using Aphrodite, but this is a hacky "reach-in" into
+       descendent widgets that we can't modify */
 }
-.perseus-widget-matcher .column:first-child .column-label,
-.perseus-widget-matcher .column:first-child .perseus-sortable {
-  padding-right: 5px;
-}
-.perseus-widget-matcher .column + .column .column-label,
-.perseus-widget-matcher .column + .column .perseus-sortable {
-  border-left: 1px solid #444444;
-  padding-left: 5px;
-}
-.perseus-widget-matcher .column-label {
-  border-bottom: 1px solid #444444;
-  padding-bottom: 5px;
-  text-align: center;
-}
-.perseus-widget-matcher .column-label div.paragraph {
+.perseus-widget-matcher div.paragraph {
   margin: 0;
-}
-.perseus-widget-matcher .perseus-sortable {
-  padding-top: 5px;
 }
 .perseus-matrix .matrix-prefix,
 .perseus-matrix .matrix-suffix {
@@ -1772,39 +1756,8 @@ body.sat-section .perseus-widget-passage {
   -o-box-shadow: 0 0 4px #c78100;
   -webkit-box-shadow: 0 0 4px #c78100;
 }
-.perseus-sortable {
-  position: relative;
-  z-index: 3;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  float: left;
-  padding: 0 !important;
-}
-.perseus-sortable .perseus-sortable-card {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  cursor: pointer;
-  min-width: 25px;
-  min-height: 44px;
-  padding: 10px;
-  list-style-type: none !important;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -o-user-select: none;
-}
-.perseus-sortable .perseus-sortable-placeholder {
-  background: #ddd;
-  border: 1px solid #ccc;
-}
-.perseus-sortable .perseus-sortable-draggable {
-  font-size: 0;
-  text-align: center;
+.perseus-sortable div.paragraph {
+  margin: 0;
 }
 .perseus-sortable .perseus-sortable-draggable:before {
   content: "";
@@ -1818,47 +1771,7 @@ body.sat-section .perseus-widget-passage {
   max-width: 100%;
   vertical-align: middle;
 }
-.perseus-sortable .perseus-sortable-draggable div.paragraph {
-  margin: 0;
-}
-.perseus-sortable .perseus-sortable-draggable.perseus-sortable-static {
-  cursor: pointer;
-}
-.perseus-sortable .perseus-sortable-draggable.perseus-sortable-static:hover {
-  border-color: #ffa500;
-  box-shadow: 0 0 4px #c78100;
-  -moz-box-shadow: 0 0 4px #c78100;
-  -ms-box-shadow: 0 0 4px #c78100;
-  -o-box-shadow: 0 0 4px #c78100;
-  -webkit-box-shadow: 0 0 4px #c78100;
-}
-.perseus-sortable .perseus-sortable-draggable.perseus-sortable-dragging {
-  background-color: #ffedcd;
-  filter: opacity(0.8);
-  opacity: 0.8;
-}
-.perseus-sortable .perseus-sortable-draggable.perseus-sortable-disabled {
-  background-color: inherit;
-  border: 1px solid transparent;
-  cursor: default;
-}
-.perseus-sortable.layout-horizontal .perseus-sortable-card {
-  float: left;
-}
-.perseus-sortable.layout-horizontal .perseus-sortable-dragging {
-  cursor: ew-resize;
-}
-.perseus-sortable.layout-vertical,
-.perseus-sortable.layout-vertical .perseus-sortable-card {
-  max-width: 100%;
-}
-.perseus-sortable.layout-vertical .perseus-sortable-dragging {
-  cursor: ns-resize;
-}
-.perseus-sortable.unpadded .perseus-sortable-card {
-  padding: 0;
-}
-.perseus-sortable.unpadded .perseus-sortable-card img {
+.perseus-sortable .perseus-sortable-draggable-unpadded img {
   vertical-align: bottom;
 }
 .framework-perseus table.perseus-widget-table-of-values.non-markdown {
