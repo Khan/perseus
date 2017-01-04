@@ -218,8 +218,10 @@ ZoomService.prototype._activeZoomClose = function(forceDispose) {
             `width=device-width, initial-scale=1, minimum-scale=1,
             maximum-scale=1`,
             () => {
-                this._activeZoom.close();
-                this._disposeActiveZoom();
+                if (this._activeZoom) {
+                    this._activeZoom.close();
+                    this._disposeActiveZoom();
+                }
             }
         );
     }

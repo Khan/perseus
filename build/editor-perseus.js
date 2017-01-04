@@ -1,6 +1,6 @@
 /*! Perseus with editors | http://github.com/Khan/perseus */
-// commit a0bdcae6fc9c056944de70d32319394a6b5af5dc
-// branch master
+// commit ad6eff660f1c57a481de8f134d4179f3f94de0cb
+// branch arcpatch-D32874
 // @generated
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -15498,8 +15498,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    } else {
 	        // Reset any underlying page zoom in case the user had pinched to zoom.
 	        changeViewportTag('width=device-width, initial-scale=1, minimum-scale=1,\n            maximum-scale=1', function () {
-	            _this2._activeZoom.close();
-	            _this2._disposeActiveZoom();
+	            if (_this2._activeZoom) {
+	                _this2._activeZoom.close();
+	                _this2._disposeActiveZoom();
+	            }
 	        });
 	    }
 	};
@@ -16589,10 +16591,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(18);
 	var _ = __webpack_require__(19);
 
-	var InputWithExamples = __webpack_require__(178);
-	var SimpleKeypadInput = __webpack_require__(179);
-	var ParseTex = __webpack_require__(180).parseTex;
-	var PossibleAnswers = __webpack_require__(181);
+	var InputWithExamples = __webpack_require__(179);
+	var SimpleKeypadInput = __webpack_require__(180);
+	var ParseTex = __webpack_require__(181).parseTex;
+	var PossibleAnswers = __webpack_require__(182);
 	var KhanAnswerTypes = __webpack_require__(49);
 
 	var keypadElementPropType = __webpack_require__(170).propTypes.keypadElementPropType;
@@ -16903,7 +16905,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Util = __webpack_require__(6);
 
-	var BlurInput = __webpack_require__(182);
+	var BlurInput = __webpack_require__(178);
 	var InfoTip = __webpack_require__(75);
 
 	var answerTypes = {
@@ -17165,10 +17167,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(18);
 	var _ = __webpack_require__(19);
 
-	var InputWithExamples = __webpack_require__(178);
-	var SimpleKeypadInput = __webpack_require__(179);
-	var ParseTex = __webpack_require__(180).parseTex;
-	var PossibleAnswers = __webpack_require__(181);
+	var InputWithExamples = __webpack_require__(179);
+	var SimpleKeypadInput = __webpack_require__(180);
+	var ParseTex = __webpack_require__(181).parseTex;
+	var PossibleAnswers = __webpack_require__(182);
 
 	var ApiClassNames = __webpack_require__(5).ClassNames;
 	var ApiOptions = __webpack_require__(5).Options;
@@ -18115,7 +18117,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var KhanAnswerTypes = __webpack_require__(49);
 
 	var InlineIcon = __webpack_require__(39);
-	var InputWithExamples = __webpack_require__(178);
+	var InputWithExamples = __webpack_require__(179);
 	var MathInput = __webpack_require__(189);
 	var TexButtons = __webpack_require__(190);
 
@@ -20160,7 +20162,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	"use strict";
 
 	var _ = __webpack_require__(19);
-	var knumber = __webpack_require__(205).number;
+	var knumber = __webpack_require__(206).number;
 
 	var KhanMath = {
 	    // Simplify formulas before display
@@ -21624,7 +21626,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Changeable = __webpack_require__(183);
 	var EditorJsonify = __webpack_require__(184);
 
-	var BlurInput = __webpack_require__(182);
+	var BlurInput = __webpack_require__(178);
 	var InfoTip = __webpack_require__(75);
 	var PropCheckBox = __webpack_require__(42);
 
@@ -22665,9 +22667,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var MovableLine = Graphie.MovableLine;
 	var WrappedLine = __webpack_require__(196);
 
-	var knumber = __webpack_require__(205).number;
-	var kvector = __webpack_require__(205).vector;
-	var kpoint = __webpack_require__(205).point;
+	var knumber = __webpack_require__(206).number;
+	var kvector = __webpack_require__(206).vector;
+	var kpoint = __webpack_require__(206).point;
 	var KhanColors = __webpack_require__(197);
 
 	var _require = __webpack_require__(169),
@@ -24712,7 +24714,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Changeable = __webpack_require__(183);
 	var EditorJsonify = __webpack_require__(184);
 
-	var BlurInput = __webpack_require__(182);
+	var BlurInput = __webpack_require__(178);
 	var PropCheckBox = __webpack_require__(42);
 
 	/**
@@ -25264,7 +25266,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Changeable = __webpack_require__(183);
 	var EditorJsonify = __webpack_require__(184);
 
-	var BlurInput = __webpack_require__(182);
+	var BlurInput = __webpack_require__(178);
 	var Editor = __webpack_require__(11);
 	var InfoTip = __webpack_require__(75);
 	var InlineIcon = __webpack_require__(39);
@@ -25760,7 +25762,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Point = Graphie.Point;
 	var Rect = Graphie.Rect;
 
-	var kvector = __webpack_require__(205).vector;
+	var kvector = __webpack_require__(206).vector;
 
 	// Memoize KAS parsing
 	var KAShashFunc = function KAShashFunc(expr, options) {
@@ -27694,8 +27696,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var NumberInput = __webpack_require__(186);
 	var Util = __webpack_require__(6);
 
-	var knumber = __webpack_require__(205).number;
-	var kpoint = __webpack_require__(205).point;
+	var knumber = __webpack_require__(206).number;
+	var kpoint = __webpack_require__(206).point;
 	var KhanColors = __webpack_require__(197);
 	var GraphUtils = __webpack_require__(174);
 
@@ -31017,7 +31019,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Renderer = __webpack_require__(31);
 	var TextInput = __webpack_require__(187);
 	var MathOutput = __webpack_require__(202);
-	var SimpleKeypadInput = __webpack_require__(179);
+	var SimpleKeypadInput = __webpack_require__(180);
 
 	var ApiOptions = __webpack_require__(5).Options;
 	var KhanAnswerTypes = __webpack_require__(49);
@@ -32798,7 +32800,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var NumberInput = __webpack_require__(186);
 	var MathOutput = __webpack_require__(202);
-	var SimpleKeypadInput = __webpack_require__(179);
+	var SimpleKeypadInput = __webpack_require__(180);
 
 	var ApiOptions = __webpack_require__(5).Options;
 
@@ -32808,7 +32810,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var MovablePoint = Graphie.MovablePoint;
 	var Line = Graphie.Line;
 
-	var knumber = __webpack_require__(205).number;
+	var knumber = __webpack_require__(206).number;
 	var KhanMath = __webpack_require__(92);
 	var KhanColors = __webpack_require__(197);
 
@@ -33496,7 +33498,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var PropCheckBox = __webpack_require__(42);
 	var RangeInput = __webpack_require__(200);
 
-	var knumber = __webpack_require__(205).number;
+	var knumber = __webpack_require__(206).number;
 	var bound = function bound(x, gt, lt) {
 	    return Math.min(Math.max(x, gt), lt);
 	};
@@ -37298,7 +37300,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ReactDOM = __webpack_require__(20);
 	var _ = __webpack_require__(19);
 
-	var BlurInput = __webpack_require__(182);
+	var BlurInput = __webpack_require__(178);
 	var InfoTip = __webpack_require__(75);
 	var NumberInput = __webpack_require__(186);
 	var RangeInput = __webpack_require__(200);
@@ -37307,7 +37309,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Plotter = __webpack_require__(144).widget;
 
-	var knumber = __webpack_require__(205).number;
+	var knumber = __webpack_require__(206).number;
 
 	var BAR = "bar",
 	    LINE = "line",
@@ -38512,7 +38514,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var MathOutput = __webpack_require__(202);
 	var seededRNG = __webpack_require__(6).seededRNG;
 	var Util = __webpack_require__(6);
-	var knumber = __webpack_require__(205).number;
+	var knumber = __webpack_require__(206).number;
 	var KhanColors = __webpack_require__(197);
 	var KhanMath = __webpack_require__(92);
 
@@ -40188,7 +40190,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var NumberInput = __webpack_require__(186);
 	var MathOutput = __webpack_require__(202);
 	var TeX = __webpack_require__(64);
-	var SimpleKeypadInput = __webpack_require__(179);
+	var SimpleKeypadInput = __webpack_require__(180);
 
 	var ApiOptions = __webpack_require__(5).Options;
 
@@ -40209,11 +40211,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	var getGridStep = __webpack_require__(6).getGridStep;
 	var captureScratchpadTouchStart = __webpack_require__(6).captureScratchpadTouchStart;
 
-	var knumber = __webpack_require__(205).number;
-	var kvector = __webpack_require__(205).vector;
-	var kpoint = __webpack_require__(205).point;
-	var kray = __webpack_require__(205).ray;
-	var kline = __webpack_require__(205).line;
+	var knumber = __webpack_require__(206).number;
+	var kvector = __webpack_require__(206).vector;
+	var kpoint = __webpack_require__(206).point;
+	var kray = __webpack_require__(206).ray;
+	var kline = __webpack_require__(206).line;
 	var KhanMath = __webpack_require__(92);
 	var KhanColors = __webpack_require__(197);
 
@@ -42627,11 +42629,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var deepEq = __webpack_require__(6).deepEq;
 	var getGridStep = __webpack_require__(6).getGridStep;
-	var kline = __webpack_require__(205).line;
-	var knumber = __webpack_require__(205).number;
-	var kpoint = __webpack_require__(205).point;
-	var kray = __webpack_require__(205).ray;
-	var kvector = __webpack_require__(205).vector;
+	var kline = __webpack_require__(206).line;
+	var knumber = __webpack_require__(206).number;
+	var kpoint = __webpack_require__(206).point;
+	var kray = __webpack_require__(206).ray;
+	var kvector = __webpack_require__(206).vector;
 	var KhanColors = __webpack_require__(197);
 
 	function arraySum(array) {
@@ -44373,7 +44375,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var EditorJsonify = __webpack_require__(184);
 
 	var InfoTip = __webpack_require__(75);
-	var BlurInput = __webpack_require__(182);
+	var BlurInput = __webpack_require__(178);
 
 	var KA_VIDEO_URL = /khanacademy\.org\/.*\/v\/(.*)$/;
 
@@ -44479,8 +44481,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Graphie = __webpack_require__(70);
 	var MovablePoint = Graphie.MovablePoint;
 
-	var knumber = __webpack_require__(205).number;
-	var kpoint = __webpack_require__(205).point;
+	var knumber = __webpack_require__(206).number;
+	var kpoint = __webpack_require__(206).point;
 
 	/**
 	 * This is the widget's renderer. It shows up in the right column
@@ -45717,7 +45719,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    KeypadInput: __webpack_require__(223)
 	};
 
-	var _require = __webpack_require__(206),
+	var _require = __webpack_require__(205),
 	    KeypadTypes = _require.KeypadTypes;
 
 	var consts = { KeypadTypes: KeypadTypes };
@@ -48055,6 +48057,62 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var React = __webpack_require__(18);
+
+	/* You know when you want to propagate input to a parent...
+	 * but then that parent does something with the input...
+	 * then changing the props of the input...
+	 * on every keystroke...
+	 * so if some input is invalid or incomplete...
+	 * the input gets reset or otherwise effed...
+	 *
+	 * This is the solution.
+	 *
+	 * Enough melodrama. Its an input that only sends changes
+	 * to its parent on blur.
+	 */
+	var BlurInput = React.createClass({
+	    displayName: "BlurInput",
+
+	    propTypes: {
+	        value: React.PropTypes.string.isRequired,
+	        onChange: React.PropTypes.func.isRequired
+	    },
+	    getInitialState: function getInitialState() {
+	        return { value: this.props.value };
+	    },
+	    render: function render() {
+	        return React.createElement("input", _extends({}, this.props, {
+	            type: "text",
+	            value: this.state.value,
+	            onChange: this.handleChange,
+	            onBlur: this.handleBlur }));
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        this.setState({ value: nextProps.value });
+	    },
+	    handleChange: function handleChange(e) {
+	        this.setState({ value: e.target.value });
+	    },
+	    handleBlur: function handleBlur(e) {
+	        this.props.onChange(e.target.value);
+	    }
+	});
+
+	module.exports = BlurInput;
+
+/***/ },
+/* 179 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
@@ -48274,7 +48332,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = InputWithExamples;
 
 /***/ },
-/* 179 */
+/* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -48362,7 +48420,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = SimpleKeypadInput;
 
 /***/ },
-/* 180 */
+/* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -48526,7 +48584,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 181 */
+/* 182 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -48577,62 +48635,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 	module.exports = PossibleAnswers;
-
-/***/ },
-/* 182 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var React = __webpack_require__(18);
-
-	/* You know when you want to propagate input to a parent...
-	 * but then that parent does something with the input...
-	 * then changing the props of the input...
-	 * on every keystroke...
-	 * so if some input is invalid or incomplete...
-	 * the input gets reset or otherwise effed...
-	 *
-	 * This is the solution.
-	 *
-	 * Enough melodrama. Its an input that only sends changes
-	 * to its parent on blur.
-	 */
-	var BlurInput = React.createClass({
-	    displayName: "BlurInput",
-
-	    propTypes: {
-	        value: React.PropTypes.string.isRequired,
-	        onChange: React.PropTypes.func.isRequired
-	    },
-	    getInitialState: function getInitialState() {
-	        return { value: this.props.value };
-	    },
-	    render: function render() {
-	        return React.createElement("input", _extends({}, this.props, {
-	            type: "text",
-	            value: this.state.value,
-	            onChange: this.handleChange,
-	            onBlur: this.handleBlur }));
-	    },
-	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        this.setState({ value: nextProps.value });
-	    },
-	    handleChange: function handleChange(e) {
-	        this.setState({ value: e.target.value });
-	    },
-	    handleBlur: function handleBlur(e) {
-	        this.props.onChange(e.target.value);
-	    }
-	});
-
-	module.exports = BlurInput;
 
 /***/ },
 /* 183 */
@@ -48877,7 +48879,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var firstNumericalParse = __webpack_require__(6).firstNumericalParse;
 	var captureScratchpadTouchStart = __webpack_require__(6).captureScratchpadTouchStart;
-	var knumber = __webpack_require__(205).number;
+	var knumber = __webpack_require__(206).number;
 	var KhanMath = __webpack_require__(92);
 
 	var toNumericString = KhanMath.toNumericString;
@@ -50891,8 +50893,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(19);
 	var InteractiveUtil = __webpack_require__(173);
 	var WrappedDefaults = __webpack_require__(252);
-	var kpoint = __webpack_require__(205).point;
-	var kvector = __webpack_require__(205).vector;
+	var kpoint = __webpack_require__(206).point;
+	var kvector = __webpack_require__(206).vector;
 	var KhanMath = __webpack_require__(92);
 
 	var DEFAULT_OPTIONS = {
@@ -52322,7 +52324,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var TeX = __webpack_require__(64);
 	var ApiClassNames = __webpack_require__(5).ClassNames;
 	var Tooltip = __webpack_require__(188);
-	var ModifyTex = __webpack_require__(180).modifyTex;
+	var ModifyTex = __webpack_require__(181).modifyTex;
 
 	var MathOutput = React.createClass({
 	    displayName: "MathOutput",
@@ -53430,19 +53432,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 205 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = {
-	    number: __webpack_require__(253),
-	    vector: __webpack_require__(254),
-	    point: __webpack_require__(255),
-	    line: __webpack_require__(256),
-	    ray: __webpack_require__(257),
-	};
-
-
-/***/ },
-/* 206 */
-/***/ function(module, exports, __webpack_require__) {
-
 	'use strict';
 
 	/**
@@ -53520,6 +53509,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
+/* 206 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = {
+	    number: __webpack_require__(253),
+	    vector: __webpack_require__(254),
+	    point: __webpack_require__(255),
+	    line: __webpack_require__(256),
+	    ray: __webpack_require__(257),
+	};
+
+
+/***/ },
 /* 207 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -53540,7 +53542,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 
 	var _ = __webpack_require__(19);
-	var kpoint = __webpack_require__(205).point;
+	var kpoint = __webpack_require__(206).point;
 
 	/* Local helper methods. */
 
@@ -53682,8 +53684,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* eslint-disable brace-style, object-curly-spacing */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-	var kpoint = __webpack_require__(205).point;
-	var kvector = __webpack_require__(205).vector;
+	var kpoint = __webpack_require__(206).point;
+	var kvector = __webpack_require__(206).vector;
 	var _ = __webpack_require__(19);
 
 	// Minify Raphael ourselves because IE8 has a problem with the 1.5.2 minified
@@ -54938,9 +54940,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/* global Raphael:false */
 	var GraphUtils = __webpack_require__(208);
-	var kvector = __webpack_require__(205).vector;
-	var kpoint = __webpack_require__(205).point;
-	var kline = __webpack_require__(205).line;
+	var kvector = __webpack_require__(206).vector;
+	var kpoint = __webpack_require__(206).point;
+	var kline = __webpack_require__(206).line;
 	var WrappedEllipse = __webpack_require__(261);
 	var WrappedLine = __webpack_require__(196);
 	var WrappedPath = __webpack_require__(262);
@@ -58509,7 +58511,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Util = __webpack_require__(6);
 	var Graphie = __webpack_require__(70);
 	var Plot = Graphie.Plot;
-	var kpoint = __webpack_require__(205).point;
+	var kpoint = __webpack_require__(206).point;
 
 	var DEFAULT_BACKGROUND_IMAGE = {
 	    url: null
@@ -60967,7 +60969,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var KeyConfigs = __webpack_require__(303);
 	var CursorContexts = __webpack_require__(265);
 
-	var _require = __webpack_require__(206),
+	var _require = __webpack_require__(205),
 	    BorderDirections = _require.BorderDirections,
 	    EchoAnimationTypes = _require.EchoAnimationTypes,
 	    IconTypes = _require.IconTypes,
@@ -64713,10 +64715,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	var DraftEntity = __webpack_require__(235);
-	var DraftStringKey = __webpack_require__(294);
+	var DraftStringKey = __webpack_require__(293);
 
-	var encodeEntityRanges = __webpack_require__(295);
-	var encodeInlineStyleRanges = __webpack_require__(296);
+	var encodeEntityRanges = __webpack_require__(294);
+	var encodeInlineStyleRanges = __webpack_require__(295);
 
 	function convertFromDraftStateToRaw(contentState) {
 	  var entityStorageKey = 0;
@@ -64797,7 +64799,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var URI = __webpack_require__(356);
 
 	var generateRandomKey = __webpack_require__(244);
-	var getSafeBodyFromHTML = __webpack_require__(293);
+	var getSafeBodyFromHTML = __webpack_require__(296);
 	var invariant = __webpack_require__(355);
 	var nullthrows = __webpack_require__(349);
 	var sanitizeDraftText = __webpack_require__(272);
@@ -70497,7 +70499,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var normalizeOptions = InteractiveUtil.normalizeOptions;
 
 	var assert = InteractiveUtil.assert;
-	var kpoint = __webpack_require__(205).point;
+	var kpoint = __webpack_require__(206).point;
 
 	// state parameters that should be converted into an array of
 	// functions
@@ -70796,8 +70798,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var assert = InteractiveUtil.assert;
 	var normalizeOptions = InteractiveUtil.normalizeOptions;
 
-	var kpoint = __webpack_require__(205).point;
-	var kvector = __webpack_require__(205).vector;
+	var kpoint = __webpack_require__(206).point;
+	var kvector = __webpack_require__(206).vector;
 	var KhanColors = __webpack_require__(197);
 	var processMath = __webpack_require__(259).processMath;
 
@@ -71302,7 +71304,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var assert = InteractiveUtil.assert;
 	var normalizeOptions = InteractiveUtil.normalizeOptions;
 
-	var kvector = __webpack_require__(205).vector;
+	var kvector = __webpack_require__(206).vector;
 	var KhanColors = __webpack_require__(197);
 
 	var FUNCTION_ARRAY_OPTIONS = ["add", "draw", "remove", "onMoveStart", "constraints", "onMove", "onMoveEnd"];
@@ -71557,7 +71559,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Creates and adds a polygon to the graph that can be dragged around.
 	 * It allows constraints on its movement and draws when moves happen.
 	 */
-	var kvector = __webpack_require__(205).vector;
+	var kvector = __webpack_require__(206).vector;
 	var _ = __webpack_require__(19);
 
 	var MovablePolygonOptions = __webpack_require__(307);
@@ -71877,7 +71879,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(19);
 	var InteractiveUtil = __webpack_require__(173);
 	var objective_ = __webpack_require__(85);
-	var kvector = __webpack_require__(205).vector;
+	var kvector = __webpack_require__(206).vector;
 
 	/*
 	 * These functions, when called on the wrapped object, simply pass the
@@ -76958,7 +76960,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(19);
 	var WrappedDefaults = __webpack_require__(252);
 	var InteractiveUtil = __webpack_require__(173);
-	var kvector = __webpack_require__(205).vector;
+	var kvector = __webpack_require__(206).vector;
 
 	var DEFAULT_OPTIONS = {
 	    maxScale: 1,
@@ -77177,7 +77179,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _require5 = __webpack_require__(222),
 	    keyIdPropType = _require5.keyIdPropType;
 
-	var _require6 = __webpack_require__(206),
+	var _require6 = __webpack_require__(205),
 	    KeypadTypes = _require6.KeypadTypes,
 	    LayoutModes = _require6.LayoutModes;
 
@@ -77624,7 +77626,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Keys = __webpack_require__(313);
 	var CursorContexts = __webpack_require__(265);
 
-	var _require = __webpack_require__(206),
+	var _require = __webpack_require__(205),
 	    DecimalSeparators = _require.DecimalSeparators;
 
 	var _require2 = __webpack_require__(314),
@@ -78965,7 +78967,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(18);
 
 	var cx = __webpack_require__(344);
-	var joinClasses = __webpack_require__(358);
+	var joinClasses = __webpack_require__(359);
 	var nullthrows = __webpack_require__(349);
 
 	/**
@@ -79198,7 +79200,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	'use strict';
 
-	var DataTransfer = __webpack_require__(359);
+	var DataTransfer = __webpack_require__(358);
 	var DraftModifier = __webpack_require__(234);
 	var EditorState = __webpack_require__(237);
 
@@ -80660,46 +80662,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 * @providesModule getSafeBodyFromHTML
-	 * 
-	 */
-
-	'use strict';
-
-	var UserAgent = __webpack_require__(347);
-
-	var isOldIE = UserAgent.isBrowser('IE <= 9');
-
-	// Provides a dom node that will not execute scripts
-	// https://developer.mozilla.org/en-US/docs/Web/API/DOMImplementation.createHTMLDocument
-	// https://developer.mozilla.org/en-US/Add-ons/Code_snippets/HTML_to_DOM
-
-	function getSafeBodyFromHTML(html) {
-	  var doc;
-	  var root = null;
-	  // Provides a safe context
-	  if (!isOldIE && document.implementation && document.implementation.createHTMLDocument) {
-	    doc = document.implementation.createHTMLDocument('foo');
-	    doc.documentElement.innerHTML = html;
-	    root = doc.getElementsByTagName('body')[0];
-	  }
-	  return root;
-	}
-
-	module.exports = getSafeBodyFromHTML;
-
-/***/ },
-/* 294 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
 	 * @providesModule DraftStringKey
 	 * @typechecks
 	 * 
@@ -80720,7 +80682,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = DraftStringKey;
 
 /***/ },
-/* 295 */
+/* 294 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -80738,7 +80700,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var DraftStringKey = __webpack_require__(294);
+	var DraftStringKey = __webpack_require__(293);
 	var UnicodeUtils = __webpack_require__(361);
 
 	var strlen = UnicodeUtils.strlen;
@@ -80766,7 +80728,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = encodeEntityRanges;
 
 /***/ },
-/* 296 */
+/* 295 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -80837,6 +80799,46 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	module.exports = encodeInlineStyleRanges;
+
+/***/ },
+/* 296 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule getSafeBodyFromHTML
+	 * 
+	 */
+
+	'use strict';
+
+	var UserAgent = __webpack_require__(347);
+
+	var isOldIE = UserAgent.isBrowser('IE <= 9');
+
+	// Provides a dom node that will not execute scripts
+	// https://developer.mozilla.org/en-US/docs/Web/API/DOMImplementation.createHTMLDocument
+	// https://developer.mozilla.org/en-US/Add-ons/Code_snippets/HTML_to_DOM
+
+	function getSafeBodyFromHTML(html) {
+	  var doc;
+	  var root = null;
+	  // Provides a safe context
+	  if (!isOldIE && document.implementation && document.implementation.createHTMLDocument) {
+	    doc = document.implementation.createHTMLDocument('foo');
+	    doc.documentElement.innerHTML = html;
+	    root = doc.getElementsByTagName('body')[0];
+	  }
+	  return root;
+	}
+
+	module.exports = getSafeBodyFromHTML;
 
 /***/ },
 /* 297 */
@@ -81112,7 +81114,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var computeLayoutParameters = __webpack_require__(339);
 
-	var _require2 = __webpack_require__(206),
+	var _require2 = __webpack_require__(205),
 	    DeviceOrientations = _require2.DeviceOrientations,
 	    DeviceTypes = _require2.DeviceTypes,
 	    EchoAnimationTypes = _require2.EchoAnimationTypes,
@@ -81588,7 +81590,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Keys = __webpack_require__(313);
 
-	var _require = __webpack_require__(206),
+	var _require = __webpack_require__(205),
 	    DecimalSeparators = _require.DecimalSeparators,
 	    IconTypes = _require.IconTypes,
 	    KeyTypes = _require.KeyTypes;
@@ -81911,7 +81913,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(19);
 
 	var WrappedEllipse = __webpack_require__(261);
-	var kpoint = __webpack_require__(205).point;
+	var kpoint = __webpack_require__(206).point;
 
 	var add = {
 	    constrain: function constrain() {
@@ -82072,8 +82074,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(19);
 	var WrappedLine = __webpack_require__(196);
 	var WrappedPath = __webpack_require__(262);
-	var kvector = __webpack_require__(205).vector;
-	var kpoint = __webpack_require__(205).point;
+	var kvector = __webpack_require__(206).vector;
+	var kpoint = __webpack_require__(206).point;
 	var KhanMath = __webpack_require__(92);
 
 	/**
@@ -82382,8 +82384,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 
 	var _ = __webpack_require__(19);
-	var kpoint = __webpack_require__(205).point;
-	var kvector = __webpack_require__(205).vector;
+	var kpoint = __webpack_require__(206).point;
+	var kvector = __webpack_require__(206).vector;
 
 	function sum(array) {
 	    return _.reduce(array, function (memo, arg) {
@@ -82681,7 +82683,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    roundedTopLeft = _require3.roundedTopLeft,
 	    roundedTopRight = _require3.roundedTopRight;
 
-	var _require4 = __webpack_require__(206),
+	var _require4 = __webpack_require__(205),
 	    BorderStyles = _require4.BorderStyles;
 
 	var CursorContexts = __webpack_require__(265);
@@ -82890,7 +82892,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    roundedTopLeft = _require4.roundedTopLeft,
 	    roundedTopRight = _require4.roundedTopRight;
 
-	var _require5 = __webpack_require__(206),
+	var _require5 = __webpack_require__(205),
 	    BorderStyles = _require5.BorderStyles;
 
 	var _require6 = __webpack_require__(270),
@@ -83245,7 +83247,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    valueGrey = _require4.valueGrey,
 	    gray85 = _require4.gray85;
 
-	var _require5 = __webpack_require__(206),
+	var _require5 = __webpack_require__(205),
 	    BorderStyles = _require5.BorderStyles;
 
 	var KeyConfigs = __webpack_require__(303);
@@ -83518,7 +83520,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var _require = __webpack_require__(206),
+	var _require = __webpack_require__(205),
 	    DecimalSeparators = _require.DecimalSeparators;
 
 	// We expect `window.icu` to be exposed by the parent. When in doubt, we fall
@@ -84594,7 +84596,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var BlockMapBuilder = __webpack_require__(225);
 	var CharacterMetadata = __webpack_require__(226);
-	var DataTransfer = __webpack_require__(359);
+	var DataTransfer = __webpack_require__(358);
 	var DraftModifier = __webpack_require__(234);
 	var DraftPasteProcessor = __webpack_require__(381);
 	var EditorState = __webpack_require__(237);
@@ -85332,7 +85334,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * might need to be.
 	 */
 
-	var _require = __webpack_require__(206),
+	var _require = __webpack_require__(205),
 	    DeviceTypes = _require.DeviceTypes,
 	    DeviceOrientations = _require.DeviceOrientations,
 	    LayoutModes = _require.LayoutModes;
@@ -87036,50 +87038,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 358 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @typechecks static-only
-	 */
-
-	'use strict';
-
-	/**
-	 * Combines multiple className strings into one.
-	 * http://jsperf.com/joinclasses-args-vs-array
-	 *
-	 * @param {...?string} className
-	 * @return {string}
-	 */
-
-	function joinClasses(className /*, ... */) {
-	  if (!className) {
-	    className = '';
-	  }
-	  var nextClass = void 0;
-	  var argLength = arguments.length;
-	  if (argLength > 1) {
-	    for (var ii = 1; ii < argLength; ii++) {
-	      nextClass = arguments[ii];
-	      if (nextClass) {
-	        className = (className ? className + ' ' : '') + nextClass;
-	      }
-	    }
-	  }
-	  return className;
-	}
-
-	module.exports = joinClasses;
-
-/***/ },
-/* 359 */
-/***/ function(module, exports, __webpack_require__) {
-
 	'use strict';
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -87301,6 +87259,50 @@ return /******/ (function(modules) { // webpackBootstrap
 	}();
 
 	module.exports = DataTransfer;
+
+/***/ },
+/* 359 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @typechecks static-only
+	 */
+
+	'use strict';
+
+	/**
+	 * Combines multiple className strings into one.
+	 * http://jsperf.com/joinclasses-args-vs-array
+	 *
+	 * @param {...?string} className
+	 * @return {string}
+	 */
+
+	function joinClasses(className /*, ... */) {
+	  if (!className) {
+	    className = '';
+	  }
+	  var nextClass = void 0;
+	  var argLength = arguments.length;
+	  if (argLength > 1) {
+	    for (var ii = 1; ii < argLength; ii++) {
+	      nextClass = arguments[ii];
+	      if (nextClass) {
+	        className = (className ? className + ' ' : '') + nextClass;
+	      }
+	    }
+	  }
+	  return className;
+	}
+
+	module.exports = joinClasses;
 
 /***/ },
 /* 360 */
@@ -87842,7 +87844,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    bordersPropType = _require2.bordersPropType,
 	    keyIdPropType = _require2.keyIdPropType;
 
-	var _require3 = __webpack_require__(206),
+	var _require3 = __webpack_require__(205),
 	    KeyTypes = _require3.KeyTypes;
 
 	var TouchableKeypadButton = React.createClass({
@@ -88098,7 +88100,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Keys = __webpack_require__(313);
 	var KeyConfigs = __webpack_require__(303);
 
-	var _require = __webpack_require__(206),
+	var _require = __webpack_require__(205),
 	    KeyTypes = _require.KeyTypes;
 
 	var _require2 = __webpack_require__(222),
@@ -88832,7 +88834,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var convertFromHTMLtoContentBlocks = __webpack_require__(242);
 	var generateRandomKey = __webpack_require__(244);
-	var getSafeBodyFromHTML = __webpack_require__(293);
+	var getSafeBodyFromHTML = __webpack_require__(296);
 	var sanitizeDraftText = __webpack_require__(272);
 
 	var List = Immutable.List;
@@ -91169,7 +91171,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var KeypadButton = __webpack_require__(403);
 	var KeyConfigs = __webpack_require__(303);
 
-	var _require = __webpack_require__(206),
+	var _require = __webpack_require__(205),
 	    KeyTypes = _require.KeyTypes,
 	    EchoAnimationTypes = _require.EchoAnimationTypes;
 
@@ -91452,7 +91454,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var MultiSymbolGrid = __webpack_require__(430);
 	var CornerDecal = __webpack_require__(431);
 
-	var _require4 = __webpack_require__(206),
+	var _require4 = __webpack_require__(205),
 	    KeyTypes = _require4.KeyTypes,
 	    BorderDirections = _require4.BorderDirections,
 	    BorderStyles = _require4.BorderStyles;
@@ -93607,7 +93609,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _require3 = __webpack_require__(222),
 	    keyConfigPropType = _require3.keyConfigPropType;
 
-	var _require4 = __webpack_require__(206),
+	var _require4 = __webpack_require__(205),
 	    BorderStyles = _require4.BorderStyles;
 
 	var zIndexes = __webpack_require__(311);
@@ -93678,7 +93680,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var SvgIcon = __webpack_require__(439);
 	var TextIcon = __webpack_require__(440);
 
-	var _require2 = __webpack_require__(206),
+	var _require2 = __webpack_require__(205),
 	    IconTypes = _require2.IconTypes;
 
 	var _require3 = __webpack_require__(222),
@@ -93774,7 +93776,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Icon = __webpack_require__(429);
 
-	var _require3 = __webpack_require__(206),
+	var _require3 = __webpack_require__(205),
 	    IconTypes = _require3.IconTypes;
 
 	var _require4 = __webpack_require__(222),
@@ -95026,7 +95028,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        exports.UAParser = UAParser;
 	    } else {
 	        // requirejs env (optional)
-	        if ("function" === FUNC_TYPE && __webpack_require__(448)) {
+	        if ("function" === FUNC_TYPE && __webpack_require__(452)) {
 	            !(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
 	                return UAParser;
 	            }.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -95450,9 +95452,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var _Symbol = __webpack_require__(449),
-	    getRawTag = __webpack_require__(450),
-	    objectToString = __webpack_require__(451);
+	var _Symbol = __webpack_require__(448),
+	    getRawTag = __webpack_require__(449),
+	    objectToString = __webpack_require__(450);
 
 	/** `Object#toString` result references. */
 	var nullTag = '[object Null]',
@@ -95484,7 +95486,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var overArg = __webpack_require__(452);
+	var overArg = __webpack_require__(451);
 
 	/** Built-in value references. */
 	var getPrototype = overArg(Object.getPrototypeOf, Object);
@@ -95624,14 +95626,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 448 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {module.exports = __webpack_amd_options__;
-	
-	/* WEBPACK VAR INJECTION */}.call(exports, {}))
-
-/***/ },
-/* 449 */
-/***/ function(module, exports, __webpack_require__) {
-
 	'use strict';
 
 	var root = __webpack_require__(496);
@@ -95642,12 +95636,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = _Symbol;
 
 /***/ },
-/* 450 */
+/* 449 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _Symbol = __webpack_require__(449);
+	var _Symbol = __webpack_require__(448);
 
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -95695,7 +95689,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = getRawTag;
 
 /***/ },
-/* 451 */
+/* 450 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -95724,7 +95718,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = objectToString;
 
 /***/ },
-/* 452 */
+/* 451 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -95744,6 +95738,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	module.exports = overArg;
+
+/***/ },
+/* 452 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {module.exports = __webpack_amd_options__;
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, {}))
 
 /***/ },
 /* 453 */
