@@ -205,6 +205,7 @@ describe("emptyValueForShape", () => {
         "content": "",
         "images": {},
         "widgets": {},
+        "__type": "item",
     };
 
     const expectedEmptyHintValue = {
@@ -212,6 +213,7 @@ describe("emptyValueForShape", () => {
         "content": "",
         "images": {},
         "widgets": {},
+        "__type": "hint",
     };
 
     it("creates an empty item", () => {
@@ -299,48 +301,57 @@ describe("shapeToPropType", () => {
     it("validates an item", () => {
         const propType = shapeToPropType(shapes.item);
 
-        // Perseus has default values for all item fields, so all are optional.
-        assertPropTypePasses(propType, {});
-        assertPropTypePasses(propType, {content: "", widgets: {}, images: {}});
+        // Perseus has default values for all item fields, so all except the
+        // type are optional.
+        assertPropTypePasses(propType, {__type: "item"});
+        assertPropTypePasses(propType,
+            {content: "", widgets: {}, images: {}, __type: "item"});
 
         // We also leave the full object optional by default, like the propType
         // primitives.
         assertPropTypePasses(propType, null);
 
         // But specifying a bad type for any field will fail the propType.
-        assertPropTypeFails(propType, {content: 1});
-        assertPropTypeFails(propType, {widgets: 1});
-        assertPropTypeFails(propType, {images: 1});
+        assertPropTypeFails(propType, {content: 1, __type: "item"});
+        assertPropTypeFails(propType, {widgets: 1, __type: "item"});
+        assertPropTypeFails(propType, {images: 1, __type: "item"});
     });
 
     it("validates a hint", () => {
         const propType = shapeToPropType(shapes.hint);
 
-        // Perseus has default values for all hint fields, so all are optional.
-        assertPropTypePasses(propType, {});
-        assertPropTypePasses(propType,
-            {content: "", widgets: {}, images: {}, replace: false});
+        // Perseus has default values for all hint fields, so all except the
+        // type are optional.
+        assertPropTypePasses(propType, {__type: "hint"});
+        assertPropTypePasses(propType, {
+            content: "",
+            widgets: {},
+            images: {},
+            replace: false,
+            __type: "hint",
+        });
 
         // We also leave the full object optional by default, like the propType
         // primitives.
         assertPropTypePasses(propType, null);
 
         // But specifying a bad type for any field will fail the propType.
-        assertPropTypeFails(propType, {content: 1});
-        assertPropTypeFails(propType, {widgets: 1});
-        assertPropTypeFails(propType, {images: 1});
-        assertPropTypeFails(propType, {replace: 1});
+        assertPropTypeFails(propType, {content: 1, __type: "hint"});
+        assertPropTypeFails(propType, {widgets: 1, __type: "hint"});
+        assertPropTypeFails(propType, {images: 1, __type: "hint"});
+        assertPropTypeFails(propType, {replace: 1, __type: "hint"});
     });
 
     it("validates an array", () => {
         const propType = shapeToPropType(shapes.arrayOf(shapes.item));
+        const emptyItem = {__type: "item"};
 
         assertPropTypePasses(propType, []);
-        assertPropTypePasses(propType, [{}, {}, {}]);
+        assertPropTypePasses(propType, [emptyItem, emptyItem, emptyItem]);
 
         // While the array itself is optional, its elements are required.
         assertPropTypePasses(propType, null);
-        assertPropTypeFails(propType, [{}, null, {}]);
+        assertPropTypeFails(propType, [emptyItem, null, emptyItem]);
     });
 
     it("validates an object", () => {
@@ -348,13 +359,14 @@ describe("shapeToPropType", () => {
             a: shapes.item,
             b: shapes.item,
         }));
+        const emptyItem = {__type: "item"};
 
-        assertPropTypePasses(propType, {a: {}, b: {}});
+        assertPropTypePasses(propType, {a: emptyItem, b: emptyItem});
 
         // While the object itself is optional, its fields are required.
         assertPropTypePasses(propType, null);
         assertPropTypeFails(propType, {});
-        assertPropTypeFails(propType, {a: {}});
-        assertPropTypeFails(propType, {b: {}});
+        assertPropTypeFails(propType, {a: emptyItem});
+        assertPropTypeFails(propType, {b: emptyItem});
     });
 });

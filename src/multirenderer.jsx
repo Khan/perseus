@@ -222,6 +222,7 @@ function emptyValueForShape(shape) {
             "content": "",
             "images": {},
             "widgets": {},
+            "__type": "item",
         };
     } else if (shape.type === "hint") {
         return {
@@ -229,6 +230,7 @@ function emptyValueForShape(shape) {
             "content": "",
             "images": {},
             "widgets": {},
+            "__type": "hint",
         };
     } else if (shape.type === "array") {
         return [];
@@ -280,6 +282,7 @@ function shapeToPropTypeRec(shape) {
             content: React.PropTypes.string,
             images: React.PropTypes.objectOf(React.PropTypes.any),
             widgets: React.PropTypes.objectOf(React.PropTypes.any),
+            __type: React.PropTypes.oneOf(["item"]).isRequired,
         });
     } else if (shape.type === "hint") {
         return React.PropTypes.shape({
@@ -287,6 +290,7 @@ function shapeToPropTypeRec(shape) {
             images: React.PropTypes.objectOf(React.PropTypes.any),
             widgets: React.PropTypes.objectOf(React.PropTypes.any),
             replace: React.PropTypes.bool,
+            __type: React.PropTypes.oneOf(["hint"]).isRequired,
         });
     } else if (shape.type === "array") {
         const elementPropType = shapeToPropTypeRec(shape.elementShape);
