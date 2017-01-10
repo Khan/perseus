@@ -71,6 +71,52 @@ const shapes = {
 shapes.hints = shapes.arrayOf(shapes.hint);
 
 /**
+ * A callback called on each of the leaf nodes in findLeafNodes.
+ * @callback SimpleLeafCallback
+ * @param {} data: The data of the leaf node.
+ * @param {"item"|"hint"} type: The type of the leaf node.
+ */
+
+/**
+ * This function traverses a multirenderer item-data and calls the callback on
+ * each of the leaf nodes. This function does not require the shape of the item
+ * to be passed in.
+ *
+ * Example:
+ *
+ *   data = {
+ *       _multi: {
+ *           question: { __type: "item", content: "question" },
+ *           hints: [
+ *               { __type: "hint", content: "hint 1" },
+ *               { __type: "hint", content: "hint 2" }
+ *           ]
+ *       }
+ *   }
+ *   findLeafNodes(data, (d, t) => console.log(d, t));
+ *   // logs in some order:
+ *   // { __type: "item", content: "question" } "item"
+ *   // { __type: "hint", content: "hint 1" } "hint"
+ *   // { __type: "hint", content: "hint 2" } "hint"
+ *
+ * @param {} data: A multirenderer item-data.
+ * @param {SimpleLeafCallback} callback: The callback called on each leaf node.
+ */
+function findLeafNodes(data, callback) {
+    if (Array.isArray(data)) {
+        data.forEach(datum => findLeafNodes(datum, callback));
+    } else if (typeof data === "object") {
+        if (data.__type) {
+            callback(data, data.__type);
+        } else {
+            Object.keys(data).forEach(key => {
+                findLeafNodes(data[key], callback);
+            });
+        }
+    }
+}
+
+/**
  * Traverse a multirenderer item shape and piece of data at the same time, and
  * call the callback with the data at each of the leaf nodes of the shape (an
  * item) is reached. Returns data of the same structure as the shape, with the
@@ -528,6 +574,7 @@ module.exports = {
     shapeToPropType,
     traverseShape,
     traverseContent,
+    findLeafNodes,
 
     emptyValueForShape,
     shapePropType,

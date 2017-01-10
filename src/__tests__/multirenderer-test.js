@@ -1,7 +1,6 @@
 const assert = require("assert");
 
-const {emptyValueForShape, traverseShape, shapes, shapeToPropType} =
-    require("../multirenderer.jsx");
+const {emptyValueForShape, traverseShape, shapes, shapeToPropType, findLeafNodes} = require("../multirenderer.jsx");
 
 function item(n) {
     return {
@@ -368,5 +367,94 @@ describe("shapeToPropType", () => {
         assertPropTypeFails(propType, {});
         assertPropTypeFails(propType, {a: emptyItem});
         assertPropTypeFails(propType, {b: emptyItem});
+    });
+});
+
+describe("findLeafNodes", () => {
+    it("calls the callback for item leaf nodes", () => {
+        const data = {
+            _multi: {
+                __type: "item",
+                content: "boo",
+            },
+        };
+
+        findLeafNodes(data, (obj, type) => {
+            assert.deepEqual(obj, {
+                __type: "item",
+                content: "boo",
+            });
+            assert.equal(type, "item");
+        });
+    });
+
+    it("calls the callback for hint leaf nodes", () => {
+        const data = {
+            _multi: {
+                __type: "hint",
+                content: "boo",
+                replace: false,
+            },
+        };
+
+        findLeafNodes(data, (obj, type) => {
+            assert.deepEqual(obj, {
+                __type: "hint",
+                content: "boo",
+                replace: false,
+            });
+            assert.equal(type, "hint");
+        });
+    });
+
+    it("calls the callback for leaf nodes inside of arrays", () => {
+        const items = [{
+            __type: "item",
+            content: "boo",
+        }, {
+            __type: "item",
+            content: "boo2",
+        }];
+        items.sort();
+
+        const data = {
+            _multi: items,
+        };
+
+        const calls = [];
+        findLeafNodes(data, (obj, type) => {
+            assert.equal(type, "item");
+            calls.push(obj);
+        });
+
+        calls.sort();
+        assert.deepEqual(items, calls);
+    });
+
+    it("calls the callback for leaf nodes inside of objects", () => {
+        const items = [{
+            __type: "item",
+            content: "boo",
+        }, {
+            __type: "item",
+            content: "boo2",
+        }];
+        items.sort();
+
+        const data = {
+            _multi: {
+                a: items[0],
+                b: items[1],
+            },
+        };
+
+        const calls = [];
+        findLeafNodes(data, (obj, type) => {
+            assert.equal(type, "item");
+            calls.push(obj);
+        });
+
+        calls.sort();
+        assert.deepEqual(items, calls);
     });
 });
