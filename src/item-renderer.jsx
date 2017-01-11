@@ -269,6 +269,10 @@ var ItemRenderer = React.createClass({
         return this.props.item.hints.length;
     },
 
+    applyAnswers: function(answerData) {
+        this.questionRenderer.applyAnswers(answerData);
+    },
+
     scoreInput: function() {
         var qGuessAndScore = this.questionRenderer.guessAndScore();
         var aGuessAndScore = this.answerAreaRenderer.guessAndScore();

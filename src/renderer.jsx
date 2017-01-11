@@ -514,6 +514,15 @@ var Renderer = React.createClass({
         }, () => focus);
     },
 
+    applyAnswers: function(answerData) {
+        _.map(this.widgetIds, function(id) {
+            if (id.indexOf('lights-puzzle') > -1 || id.indexOf('transformer') > -1 || id.indexOf('image') > -1) {
+                return 'no save ' + id +' widget'
+            }
+            return this.refs[id].setAnswerFromJSON(answerData[0]);
+        }, this);
+    },
+
     guessAndScore: function() {
         var widgetProps = this.props.widgets;
         var onInputError = this.props.apiOptions.onInputError ||
