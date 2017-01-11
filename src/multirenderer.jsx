@@ -59,6 +59,9 @@ const shapes = {
     hint: {
         type: "hint",
     },
+    tags: {
+        type: "tags",
+    },
     arrayOf: elementShape => ({
         type: "array",
         elementShape,
@@ -210,12 +213,8 @@ function identity(x) {
 
 function traverseShapeRec(shape, data, path, leafCallback, collectionCallback) {
     if (shape.type === "item" || shape.type === "hint") {
-        if (data && typeof data !== "object") {
-            throw new Error(
-                `Invalid object of type "${typeof data}" found at path ` +
-                `${["<root>"].concat(path).join(".")}. ` +
-                `Expected ${shape.type}.`);
-        }
+        return leafCallback(data, shape, path);
+    } else if (shape.type === "tags") {
         return leafCallback(data, shape, path);
     } else if (shape.type === "array") {
         if (!Array.isArray(data)) {
@@ -238,7 +237,7 @@ function traverseShapeRec(shape, data, path, leafCallback, collectionCallback) {
 
         const object = {};
         Object.keys(shape.shape).forEach(key => {
-            if (!data[key]) {
+            if (!(key in data)) {
                 throw new Error(
                     `Key "${key}" is missing from shape at path ` +
                     `${["<root>"].concat(path).join(".")}.`);
@@ -278,6 +277,8 @@ function emptyValueForShape(shape) {
             "widgets": {},
             "__type": "hint",
         };
+    } else if (shape.type === "tags") {
+        return [];
     } else if (shape.type === "array") {
         return [];
     } else if (shape.type === "object") {
@@ -299,6 +300,9 @@ function shapePropType(...args) {
         }).isRequired,
         React.PropTypes.shape({
             type: React.PropTypes.oneOf(["hint"]).isRequired,
+        }).isRequired,
+        React.PropTypes.shape({
+            type: React.PropTypes.oneOf(["tags"]).isRequired,
         }).isRequired,
         React.PropTypes.shape({
             type: React.PropTypes.oneOf(["object"]).isRequired,
@@ -338,6 +342,8 @@ function shapeToPropTypeRec(shape) {
             replace: React.PropTypes.bool,
             __type: React.PropTypes.oneOf(["hint"]).isRequired,
         });
+    } else if (shape.type === "tags") {
+        return React.PropTypes.arrayOf(React.PropTypes.string.isRequired);
     } else if (shape.type === "array") {
         const elementPropType = shapeToPropTypeRec(shape.elementShape);
         return React.PropTypes.arrayOf(elementPropType.isRequired);
@@ -432,6 +438,8 @@ const MultiRenderer = React.createClass({
                 hints={[renderable]}
             />;
             return data;
+        } else if (shape.type === "tags") {
+            return null;
         } else {
             throw new Error(`can't create renderer for type ${shape.type}`);
         }
@@ -453,9 +461,17 @@ const MultiRenderer = React.createClass({
         return results;
     },
 
-    _traverseRenderers(...args) {
+    _traverseRenderers(leafCallback, ...args) {
         return traverseShape(
-            this.props.shape, this.state.rendererData, ...args);
+            this.props.shape, this.state.rendererData,
+            (data, shape, ...leafArgs) => {
+                if (shape.type === "item" || shape.type === "hint") {
+                    return leafCallback(data, shape, ...leafArgs);
+                } else {
+                    return null;
+                }
+            },
+            ...args);
     },
 
     _scoreFromRef(ref) {

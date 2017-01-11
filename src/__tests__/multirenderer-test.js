@@ -227,6 +227,12 @@ describe("emptyValueForShape", () => {
         ));
     });
 
+    it("creates empty tags", () => {
+        assert.deepEqual([], emptyValueForShape(
+            shapes.tags
+        ));
+    });
+
     it("creates an empty array of items", () => {
         assert.deepEqual([], emptyValueForShape(
             shapes.arrayOf(shapes.item)
@@ -339,6 +345,17 @@ describe("shapeToPropType", () => {
         assertPropTypeFails(propType, {widgets: 1, __type: "hint"});
         assertPropTypeFails(propType, {images: 1, __type: "hint"});
         assertPropTypeFails(propType, {replace: 1, __type: "hint"});
+    });
+
+    it("validates tags", () => {
+        const propType = shapeToPropType(shapes.tags);
+
+        assertPropTypePasses(propType, []);
+        assertPropTypePasses(propType, ["a", "b", "c"]);
+
+        assertPropTypePasses(propType, null);
+        assertPropTypeFails(propType, ["a", null, "b"]);
+        assertPropTypeFails(propType, [1, 2, 3]);
     });
 
     it("validates an array", () => {
