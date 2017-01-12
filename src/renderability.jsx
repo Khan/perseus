@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, indent, no-var */
+/* eslint-disable comma-dangle, indent */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -12,12 +12,13 @@
  * group or sequence widgets.
  */
 
-var _ = require("underscore");
+const _ = require("underscore");
 
-var Traversal = require("./traversal.jsx");
-var Widgets = require("./widgets.js");
+const {findLeafNodes} = require("./multirenderer.jsx");
+const Traversal = require("./traversal.jsx");
+const Widgets = require("./widgets.js");
 
-var isUpgradedWidgetInfoRenderableBy =
+const isUpgradedWidgetInfoRenderableBy =
         function(widgetInfo, widgetRendererVersion) {
     if (widgetRendererVersion == null) {
         // If the widget does not exist in this version, this will
@@ -26,7 +27,7 @@ var isUpgradedWidgetInfoRenderableBy =
         return false;
     }
 
-    var widgetVersion = widgetInfo.version || {major: 0, minor: 0};
+    const widgetVersion = widgetInfo.version || {major: 0, minor: 0};
     if (widgetRendererVersion.major > widgetVersion.major) {
         return true;
     } else if (widgetRendererVersion.major < widgetVersion.major) {
@@ -40,7 +41,7 @@ var isUpgradedWidgetInfoRenderableBy =
     }
 };
 
-var isRawWidgetInfoRenderableBy = function(widgetInfo,
+const isRawWidgetInfoRenderableBy = function(widgetInfo,
         rendererContentVersion) {
     // Empty/non-existant widgets are always safe to render
     if (widgetInfo == null || widgetInfo.type == null) {
@@ -49,7 +50,7 @@ var isRawWidgetInfoRenderableBy = function(widgetInfo,
 
     // NOTE: This doesn't modify the widget info if the widget info
     // is at a later version than is supported.
-    var upgradedWidgetInfo = Widgets.upgradeWidgetInfoToLatestVersion(
+    const upgradedWidgetInfo = Widgets.upgradeWidgetInfoToLatestVersion(
         widgetInfo
     );
     return isUpgradedWidgetInfoRenderableBy(
@@ -58,9 +59,9 @@ var isRawWidgetInfoRenderableBy = function(widgetInfo,
     );
 };
 
-var isRendererContentRenderableBy =
+const isRendererContentRenderableBy =
         function(rendererOptions, rendererContentVersion) {
-    var isRenderable = true;
+    let isRenderable = true;
     Traversal.traverseRendererDeep(
         rendererOptions,
         null,
@@ -74,24 +75,26 @@ var isRendererContentRenderableBy =
     return isRenderable;
 };
 
-var isItemRenderableBy = function(itemData, rendererContentVersion) {
+const isItemRenderableBy = function(itemData, rendererContentVersion) {
     if (itemData == null || rendererContentVersion == null) {
         throw new Error("missing parameter to Perseus.isRenderable.item");
     }
     if (itemData._multi) {
-        // We're in a multi-renderer item. We don't have a good way to check if
-        // we can render this for now, so just assume we can. (since things
-        // probably won't break between the creation of this hack and when
-        // we're planning on fixing it)
-        // TODO(emily): Make this actually check if the multi-item is
-        // renderable! We might need to have access to the shape of the item in
-        // order to do so.
-        return true;
+        let isRenderable = true;
+        findLeafNodes(itemData, (leaf, type) => {
+            if (type === "item") {
+                const leafIsRenderable = isRendererContentRenderableBy(
+                    leaf, rendererContentVersion);
+                if (!leafIsRenderable) {
+                    isRenderable = false;
+                }
+            }
+        });
+        return isRenderable;
+    } else {
+        return isRendererContentRenderableBy(
+            itemData.question, rendererContentVersion);
     }
-    return isRendererContentRenderableBy(
-        itemData.question,
-        rendererContentVersion
-    );
 };
 
 module.exports = {
