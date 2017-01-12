@@ -46,312 +46,16 @@ const {StyleSheet, css} = require("aphrodite");
 const lens = require("../hubble/index.js");
 const React = require("react");
 
+const {buildEmptyNodeForShape, buildEmptyItemForShape} =
+    require("./multi-items/item-builders.js");
 const HintsRenderer = require("./hints-renderer.jsx");
+const {shapePropType, buildPropTypeForShape} =
+    require("./multi-items/prop-types.js");
 const Renderer = require("./renderer.jsx");
+const shapes = require("./multi-items/shapes.js");
+const {mapLeafNodes, findLeafNodesInItem} =
+    require("./multi-items/traversal.js");
 const Util = require("./util.js");
-
-// Shape constructors to generate multi-item shapes. These work exactly like
-// React propTypes.
-const shapes = {
-    item: {
-        type: "item",
-    },
-    hint: {
-        type: "hint",
-    },
-    arrayOf: elementShape => ({
-        type: "array",
-        elementShape,
-    }),
-    shape: shape => ({
-        type: "object",
-        shape,
-    }),
-};
-shapes.hints = shapes.arrayOf(shapes.hint);
-
-/**
- * A callback called on each of the leaf nodes in findLeafNodes.
- * @callback SimpleLeafCallback
- * @param {} data: The data of the leaf node.
- * @param {"item"|"hint"} type: The type of the leaf node.
- */
-
-/**
- * This function traverses a multirenderer item-data and calls the callback on
- * each of the leaf nodes. This function does not require the shape of the item
- * to be passed in.
- *
- * Example:
- *
- *   data = {
- *       _multi: {
- *           question: { __type: "item", content: "question" },
- *           hints: [
- *               { __type: "hint", content: "hint 1" },
- *               { __type: "hint", content: "hint 2" }
- *           ]
- *       }
- *   }
- *   findLeafNodes(data, (d, t) => console.log(d, t));
- *   // logs in some order:
- *   // { __type: "item", content: "question" } "item"
- *   // { __type: "hint", content: "hint 1" } "hint"
- *   // { __type: "hint", content: "hint 2" } "hint"
- *
- * @param {} data: A multirenderer item-data.
- * @param {SimpleLeafCallback} callback: The callback called on each leaf node.
- */
-function findLeafNodes(data, callback) {
-    if (Array.isArray(data)) {
-        data.forEach(datum => findLeafNodes(datum, callback));
-    } else if (typeof data === "object") {
-        if (data.__type) {
-            callback(data, data.__type);
-        } else {
-            Object.keys(data).forEach(key => {
-                findLeafNodes(data[key], callback);
-            });
-        }
-    }
-}
-
-/**
- * Traverse a multirenderer item shape and piece of data at the same time, and
- * call the callback with the data at each of the leaf nodes of the shape (an
- * item) is reached. Returns data of the same structure as the shape, with the
- * leaf node data being whatever is returned from the callback.
- *
- * Example:
- *
- *   data = {
- *       x: 1,
- *       y: [2, 3, 4],
- *       z: {v: 5, w: 6},
- *   }
- *   shape = shapes.shape({
- *       x: shapes.item,
- *       y: shapes.arrayOf(shapes.item),
- *       z: shapes.shape({
- *           v: shapes.item,
- *           w: shapes.item,
- *       }),
- *   })
- *
- *   traverseShape(shape, data, x => x + 1)
- *
- * This would call the callback with the values 1, 2, 3, 4, 5, and 6, and would
- * return an object of the shape
- *
- *   {
- *     x: 2,
- *     y: [3, 4, 5],
- *     z: {v: 6, w: 7},
- *   }
- *
- * @function traverseShape
- * @param {} shape: A shape returned from one of the shapes constructors.
- * @param {} data: Some data in the shape that is described by the shape
- *     argument.
- * @param {LeafCallback} leafCallback: A function called with the data at each
- *     of the leaf nodes, and the path of the current leaf. The path is an
- *     array of keys inside the object.
- * @param {CollectionCallback} [collectionCallback=identity]: A function called
- *     for each of the interior container nodes to munge the data after
- *     traversing the child nodes.
- * @returns {} An object in the shape described by the shape argument, with the
- *     result of the callback() function at the leaves. Or, if the collection
- *     callback is specified, the value of that callback called on the top
- *     level value.
- */
-function traverseShape(shape, data, leafCallback,
-                       collectionCallback = identity) {
-    return traverseShapeRec(shape, data, [], leafCallback, collectionCallback);
-}
-
-function traverseContent(shape, data, leafCallback, collectionCallback) {
-    return traverseShape(shape, data._multi, leafCallback, collectionCallback);
-}
-
-/**
- * This callback is called for each of the leaf nodes of a shape when
- * traversing. Its return value is substituted in place of the leaf when
- * building the resulting structure.
- * @callback LeafCallback
- * @param {} data: The object found at the leaf position of the data object
- *     passed into the traversal.
- * @param {} shape: The shape of the leaf. Most notable (only?) attribute is
- *     the type attribute.
- * @param {Array.<(string|number)>} path: The path of the leaf node within the
- *     object. The path is an array of keys within the object.
- * @returns {} A value which is placed in the object that is built by the
- *     traversal.
- */
-
-/**
- * This callback is called on each of the interior nodes of a shape (i.e.
- * arrays or objects). Its return value is used in place of that structure in
- * the resulting object.
- * @callback CollectionCallback
- * @param {} result: The collection found at the current place in the shape,
- *     with its contents already traversed and mapped.
- * @param {} data: The collection in the original tree, before being traversed
- *     and mapped.
- * @param {} shape: The shape of the collection.
- * @param {Array.<(string|number)>} path: The path of the collection within the
- *     overall object. The path is an array of keys within the object.
- * @returns {} A value which is placed at the location of the current shape in
- *     the object that is built by the traversal.
- */
-
-function identity(x) {
-    return x;
-}
-
-function traverseShapeRec(shape, data, path, leafCallback, collectionCallback) {
-    if (shape.type === "item" || shape.type === "hint") {
-        if (data && typeof data !== "object") {
-            throw new Error(
-                `Invalid object of type "${typeof data}" found at path ` +
-                `${["<root>"].concat(path).join(".")}. ` +
-                `Expected ${shape.type}.`);
-        }
-        return leafCallback(data, shape, path);
-    } else if (shape.type === "array") {
-        if (!Array.isArray(data)) {
-            throw new Error(
-                `Invalid object of type "${typeof data}" found at path ` +
-                `${["<root>"].concat(path).join(".")}. Expected array.`);
-        }
-
-        const results = data.map((inner, i) => traverseShapeRec(
-            shape.elementShape, inner, path.concat(i), leafCallback,
-            collectionCallback));
-        return collectionCallback(results, data, shape, path);
-    } else if (shape.type === "object") {
-        if (data && typeof data !== "object") {
-            throw new Error(
-                `Invalid object of type "${typeof data}" found at path ` +
-                `${["<root>"].concat(path).join(".")}. Expected "object" ` +
-                `type.`);
-        }
-
-        const object = {};
-        Object.keys(shape.shape).forEach(key => {
-            if (!data[key]) {
-                throw new Error(
-                    `Key "${key}" is missing from shape at path ` +
-                    `${["<root>"].concat(path).join(".")}.`);
-            }
-
-            object[key] = traverseShapeRec(
-                shape.shape[key], data[key], path.concat(key),
-                leafCallback, collectionCallback);
-        });
-        return collectionCallback(object, data, shape, path);
-    } else {
-        throw new Error(
-            `Invalid shape type "${shape.type}" at path ` +
-            `${["<root>"].concat(path).join(".")}.`);
-    }
-}
-
-function emptyContentForShape(shape) {
-    return {
-        _multi: emptyValueForShape(shape),
-    };
-}
-
-function emptyValueForShape(shape) {
-    if (shape.type === "item") {
-        return {
-            "content": "",
-            "images": {},
-            "widgets": {},
-            "__type": "item",
-        };
-    } else if (shape.type === "hint") {
-        return {
-            "replace": false,
-            "content": "",
-            "images": {},
-            "widgets": {},
-            "__type": "hint",
-        };
-    } else if (shape.type === "array") {
-        return [];
-    } else if (shape.type === "object") {
-        const object = {};
-        Object.keys(shape.shape).forEach(key => {
-            object[key] = emptyValueForShape(shape.shape[key]);
-        });
-        return object;
-    } else {
-        throw new Error(`unexpected shape type ${shape.type}`);
-    }
-}
-
-// Recursive prop type to check that the shape prop is structured correctly.
-function shapePropType(...args) {
-    const itemShape = React.PropTypes.oneOfType([
-        React.PropTypes.shape({
-            type: React.PropTypes.oneOf(["item"]).isRequired,
-        }).isRequired,
-        React.PropTypes.shape({
-            type: React.PropTypes.oneOf(["hint"]).isRequired,
-        }).isRequired,
-        React.PropTypes.shape({
-            type: React.PropTypes.oneOf(["object"]).isRequired,
-            shape: React.PropTypes.objectOf(shapePropType),
-        }).isRequired,
-        React.PropTypes.shape({
-            type: React.PropTypes.oneOf(["array"]).isRequired,
-            elementShape: shapePropType,
-        }).isRequired,
-    ]);
-
-    return itemShape(...args);
-}
-
-function shapeToPropType(shape) {
-    return React.PropTypes.oneOfType([
-        React.PropTypes.shape({
-            _multi: shapeToPropTypeRec(shape),
-        }),
-        React.PropTypes.oneOf([null, undefined]),
-    ]);
-}
-
-function shapeToPropTypeRec(shape) {
-    if (shape.type === "item") {
-        return React.PropTypes.shape({
-            content: React.PropTypes.string,
-            images: React.PropTypes.objectOf(React.PropTypes.any),
-            widgets: React.PropTypes.objectOf(React.PropTypes.any),
-            __type: React.PropTypes.oneOf(["item"]).isRequired,
-        });
-    } else if (shape.type === "hint") {
-        return React.PropTypes.shape({
-            content: React.PropTypes.string,
-            images: React.PropTypes.objectOf(React.PropTypes.any),
-            widgets: React.PropTypes.objectOf(React.PropTypes.any),
-            replace: React.PropTypes.bool,
-            __type: React.PropTypes.oneOf(["hint"]).isRequired,
-        });
-    } else if (shape.type === "array") {
-        const elementPropType = shapeToPropTypeRec(shape.elementShape);
-        return React.PropTypes.arrayOf(elementPropType.isRequired);
-    } else if (shape.type === "object") {
-        const propTypeShape = {};
-        Object.keys(shape.shape).forEach(key => {
-            propTypeShape[key] =
-                shapeToPropTypeRec(shape.shape[key]).isRequired;
-        });
-        return React.PropTypes.shape(propTypeShape);
-    } else {
-        throw new Error(`unexpected shape type ${shape.type}`);
-    }
-}
 
 const MultiRenderer = React.createClass({
     propTypes: {
@@ -438,7 +142,7 @@ const MultiRenderer = React.createClass({
     },
 
     _makeRenderers(shape, content) {
-        return traverseContent(shape, content, this._makeRendererData);
+        return mapLeafNodes(shape, content, this._makeRendererData);
     },
 
     _findWidgets(callingData, filterCriterion) {
@@ -454,7 +158,7 @@ const MultiRenderer = React.createClass({
     },
 
     _traverseRenderers(...args) {
-        return traverseShape(
+        return mapLeafNodes(
             this.props.shape, this.state.rendererData, ...args);
     },
 
@@ -570,12 +274,14 @@ const styles = StyleSheet.create({
 module.exports = {
     MultiRenderer,
     shapes,
-    emptyContentForShape,
-    shapeToPropType,
-    traverseShape,
-    traverseContent,
-    findLeafNodes,
+    // TODO(mdr): rename call sites
+    emptyContentForShape: buildEmptyItemForShape,
+    // TODO(mdr): rename call sites
+    shapeToPropType: buildPropTypeForShape,
+    traverseShape: mapLeafNodes,
+    findLeafNodesInItem,
 
-    emptyValueForShape,
+    // TODO(mdr): rename call sites
+    emptyValueForShape: buildEmptyNodeForShape,
     shapePropType,
 };

@@ -1,9 +1,10 @@
 const assert = require("assert");
 
-const {emptyValueForShape, traverseShape, shapes, shapeToPropType, findLeafNodes} = require("../multirenderer.jsx");
+const {emptyValueForShape, traverseShape, shapes, shapeToPropType, findLeafNodesInItem} = require("../multirenderer.jsx");
 
 function item(n) {
     return {
+        __type: "item",
         content: `item ${n}`,
         images: {},
         widgets: {},
@@ -117,85 +118,6 @@ describe("traverseShape", () => {
         const result =
             traverseShape(shape, [[], [item(1)], []], e => e.content);
         assert.deepEqual([[], ["item 1"], []], result);
-    });
-
-    it("calls the collection callback for arrays", () => {
-        const shape = shapes.arrayOf(shapes.item);
-        const data = [item(1), item(2), item(3)];
-
-        traverseShape(shape, data, e => e.content,
-            (result, data2, shape2, path) => {
-                assert.deepEqual(["item 1", "item 2", "item 3"], result);
-                assert.equal(data, data2);
-                assert.deepEqual(shape, shape2);
-                assert.deepEqual([], path);
-            });
-    });
-
-    it("calls the collection callback for objects", () => {
-        const shape = shapes.shape({
-            a: shapes.item,
-            b: shapes.item,
-        });
-        const data = {
-            a: item(1),
-            b: item(2),
-        };
-
-        traverseShape(shape, data, e => e.content,
-            (result, data2, shape2, path) => {
-                assert.deepEqual({
-                    a: "item 1",
-                    b: "item 2",
-                }, result);
-                assert.equal(data, data2);
-                assert.deepEqual(shape, shape2);
-                assert.deepEqual([], path);
-            });
-    });
-
-    it("builds the structure from the collection callback return value", () => {
-        const shape = shapes.shape({
-            a: shapes.item,
-            b: shapes.arrayOf(shapes.item),
-            c: shapes.shape({
-                d: shapes.item,
-                e: shapes.item,
-            }),
-        });
-
-        const data = {
-            a: item(1),
-            b: [item(2), item(3), item(4)],
-            c: {
-                d: item(5),
-                e: item(6),
-            },
-        };
-
-        function collectionCallback(result, dat, shp, path) {
-            if (path.length === 0) {
-                result.top = true;
-                return result;
-            }
-
-            if (shp.type === "object") {
-                return Object.keys(result).concat(
-                    Object.keys(result).map(k => result[k]));
-            } else if (shp.type === "array") {
-                return result.map(c => c + " in array");
-            }
-        }
-
-        const result = traverseShape(shape, data, e => e.content,
-                                     collectionCallback);
-
-        assert.deepEqual({
-            top: true,
-            a: "item 1",
-            b: ["item 2 in array", "item 3 in array", "item 4 in array"],
-            c: ["d", "e", "item 5", "item 6"],
-        }, result);
     });
 });
 
@@ -370,7 +292,7 @@ describe("shapeToPropType", () => {
     });
 });
 
-describe("findLeafNodes", () => {
+describe("findLeafNodesInItem", () => {
     it("calls the callback for item leaf nodes", () => {
         const data = {
             _multi: {
@@ -379,7 +301,7 @@ describe("findLeafNodes", () => {
             },
         };
 
-        findLeafNodes(data, (obj, type) => {
+        findLeafNodesInItem(data, (obj, type) => {
             assert.deepEqual(obj, {
                 __type: "item",
                 content: "boo",
@@ -397,7 +319,7 @@ describe("findLeafNodes", () => {
             },
         };
 
-        findLeafNodes(data, (obj, type) => {
+        findLeafNodesInItem(data, (obj, type) => {
             assert.deepEqual(obj, {
                 __type: "hint",
                 content: "boo",
@@ -422,7 +344,7 @@ describe("findLeafNodes", () => {
         };
 
         const calls = [];
-        findLeafNodes(data, (obj, type) => {
+        findLeafNodesInItem(data, (obj, type) => {
             assert.equal(type, "item");
             calls.push(obj);
         });
@@ -449,7 +371,7 @@ describe("findLeafNodes", () => {
         };
 
         const calls = [];
-        findLeafNodes(data, (obj, type) => {
+        findLeafNodesInItem(data, (obj, type) => {
             assert.equal(type, "item");
             calls.push(obj);
         });
