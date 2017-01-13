@@ -315,11 +315,27 @@ describe("a11y", () => {
                 assert.strictEqual(result.length, 0);
             });
 
-            it("should not break on a multi-item", () => {
-                var result = a11y.violatingWidgets({
-                    _multi: {},
+            it("should handle all these same cases in multi-items", () => {
+                const decorateItem = item => ({
+                    __type: "item",
+                    ...item.question,
                 });
-                assert.strictEqual(result.length, 0);
+                var result = a11y.violatingWidgets({
+                    _multi: {
+                        sharedContext: decorateItem(oneInaccessibleWidget),
+                        questions: [
+                            decorateItem(noWidgets),
+                            decorateItem(oneAccessibleWidget),
+                            decorateItem(imageWithAltText),
+                            decorateItem(imageWithoutAltText),
+                            decorateItem(emptyImageWithoutAltText),
+                        ],
+                    },
+                });
+                result.sort();  // don't depend on iteration order
+                assert.strictEqual(result.length, 2);
+                assert.strictEqual(result[0], "image");
+                assert.strictEqual(result[1], "matrix");
             });
         });
     });

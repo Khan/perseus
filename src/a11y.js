@@ -1,16 +1,27 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /**
  * Identifies whether or not a given perseus item requires the use of a mouse
  * or screen, based on the widgets it contains.
  */
 
-var _ = require("underscore");
+const _ = require("underscore");
 
-var Traversal = require("./traversal.jsx");
-var Widgets = require("./widgets.js");
+const {findLeafNodes} = require("./multirenderer.jsx");
+const Traversal = require("./traversal.jsx");
+const Widgets = require("./widgets.js");
+
+// Iterate over a single Perseus renderer, mutating `widgets` by appending
+// violating widget types discovered in this item.
+function traverseRenderer(itemData, widgets) {
+    Traversal.traverseRendererDeep(
+        itemData,
+        null,
+        function(info) {
+            if (info.type && !Widgets.isAccessible(info)) {
+                widgets.push(info.type);
+            }
+        }
+    );
+}
 
 module.exports = {
     // Returns a list of widgets that cause a given perseus item to require
@@ -21,27 +32,17 @@ module.exports = {
     // each widget with higher granularity.
     violatingWidgets: function(itemData) {
         // TODO(jordan): Hints as well
-        var widgets = [];
+        const widgets = [];
 
         if (itemData._multi) {
-            // We're in a multi-renderer item. We don't have a good way to find
-            // violating widgets for now, so just bail out.
-            // TODO(emily): Make this actually find violating widgets in the
-            // multi-item! We might need to have access to the shape of the
-            // item in order to do so.
-            return [];
-        }
-
-        // Traverse the question data
-        Traversal.traverseRendererDeep(
-            itemData.question,
-            null,
-            function(info) {
-                if (info.type && !Widgets.isAccessible(info)) {
-                    widgets.push(info.type);
+            findLeafNodes(itemData, (leaf, type) => {
+                if (type === "item") {
+                    traverseRenderer(leaf, widgets);
                 }
-            }
-        );
+            });
+        } else {
+            traverseRenderer(itemData.question, widgets);
+        }
 
         // Uniquify the list of widgets (by type)
         return _.uniq(widgets);
