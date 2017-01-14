@@ -5,14 +5,15 @@
 /**
  * Functions for extracting data from items for use in i18n.
  */
-var _ = require("underscore");
+const _ = require("underscore");
 
-var traversal = require("./traversal.jsx");
-var PerseusMarkdown = require("./perseus-markdown.jsx");
+const {findLeafNodes} = require("./multirenderer.jsx");
+const traversal = require("./traversal.jsx");
+const PerseusMarkdown = require("./perseus-markdown.jsx");
 
 // Takes a renderer content and parses the markdown for images
 function findImagesInContent(content, images) {
-    var parsed = PerseusMarkdown.parse(content);
+    const parsed = PerseusMarkdown.parse(content);
 
     PerseusMarkdown.traverseContent(parsed, function(node) {
         if (node.type === "image") {
@@ -101,7 +102,7 @@ function widgetCallback(widgetInfo, images) {
 
 
 function findImagesInRenderers(renderers) {
-    var images = [];
+    const images = [];
 
     _.each(renderers, (renderer) => {
         traversal.traverseRendererDeep(
@@ -120,17 +121,16 @@ function findImagesInRenderers(renderers) {
 // Calls findImagesInContent on all of the different content areas for
 // assessment items
 function findImagesInItemData(itemData) {
+    let renderers = [];
     if (itemData._multi) {
-        // We're in a multi-renderer item. We don't have a good way to find
-        // images for now, so just bail out.
-        // TODO(emily): Make this actually find images in the multi-item! We
-        // might need to have access to the shape of the item in order to do
-        // so.
-        return [];
+        findLeafNodes(itemData, leaf => {
+            if (leaf.__type === "item" || leaf.__type === "hint") {
+                renderers.push(leaf)
+            }
+        });
+    } else {
+        renderers = [itemData.question, ...itemData.hints];
     }
-
-    var renderers = [itemData.question].concat(itemData.hints);
-
     return findImagesInRenderers(renderers);
 }
 
