@@ -125,7 +125,7 @@ function findImagesInItemData(itemData) {
     if (itemData._multi) {
         findLeafNodes(itemData, leaf => {
             if (leaf.__type === "item" || leaf.__type === "hint") {
-                renderers.push(leaf)
+                renderers.push(leaf);
             }
         });
     } else {
