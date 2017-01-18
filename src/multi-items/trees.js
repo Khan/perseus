@@ -8,16 +8,117 @@ const shapes = require("./shapes.js");
 
 
 type Path = Array<string | number>;
-type Mappers<CI, CO, HI, HO> = {
-    content: (content: CI, shape: ContentShape, path: Path) => CO,
-    hint: (hint: HI, shape: HintShape, path: Path) => HO,
-    array: (array: ArrayNode<CO, HO>, shape: ArrayShape, path: Path) =>
-        ArrayNode<CO, HO>,
+
+
+type ContentMapper<CI, CO> =
+    (content: CI, shape: ContentShape, path: Path) => CO;
+type HintMapper<HI, HO> =
+    (hint: HI, shape: HintShape, path: Path) => HO;
+type ArrayMapper<CI, CO, HI, HO> =
+    (
+        newArray: ArrayNode<CO, HO>,
+        oldArray: ArrayNode<CI, HI>,
+        shape: ArrayShape,
+        path: Path
+    ) => ArrayNode<CO, HO>;
+type TreeMapper<CI, CO, HI, HO> = {
+    content: ContentMapper<CI, CO>,
+    hint: HintMapper<HI, HO>,
+    array: ArrayMapper<CI, CO, HI, HO>,
 };
+
+
+class TreeMapperJustForLeaves<CI, CO, HI, HO> {
+    content: ContentMapper<CI, CO>
+    hint: HintMapper<HI, HO>
+    array: ArrayMapper<CI, CO, HI, HO>
+
+    constructor(
+        content: ContentMapper<CI, CO>,
+        hint: HintMapper<HI, HO>,
+    ) {
+        this.content = content;
+        this.hint = hint;
+        this.array = identity;
+    }
+
+    setContentMapper<CI2, CO2>(
+        newContentMapper: ContentMapper<CI2, CO2>
+    ): TreeMapperJustForLeaves<CI2, CO2, HI, HO> {
+        return new TreeMapperJustForLeaves(newContentMapper, this.hint);
+    }
+
+    setHintMapper<HI2, HO2>(
+        newHintMapper: HintMapper<HI2, HO2>
+    ): TreeMapperJustForLeaves<CI, CO, HI2, HO2> {
+        return new TreeMapperJustForLeaves(this.content, newHintMapper);
+    }
+
+    setArrayMapper(
+        newArrayMapper: ArrayMapper<CI, CO, HI, HO>
+    ): TreeMapperForLeavesAndCollections<CI, CO, HI, HO> {
+        return new TreeMapperForLeavesAndCollections(
+            this.content, this.hint, newArrayMapper);
+    }
+
+    mapTree(tree: Tree<CI, HI>, shape: Shape): Tree<CO, HO> {
+        return mapTree(tree, shape, [], this);
+    }
+}
+
+
+// Once you add an ArrayMapper, we don't let you change the leaf mapper types
+// anymore, because the ArrayMapper depends on the leaf mapper types.
+// If you want to start fresh, you're gonna have to *really* start fresh.
+class TreeMapperForLeavesAndCollections<CI, CO, HI, HO> {
+    content: ContentMapper<CI, CO>
+    hint: HintMapper<HI, HO>
+    array: ArrayMapper<CI, CO, HI, HO>
+
+    constructor(
+        content: ContentMapper<CI, CO>,
+        hint: HintMapper<HI, HO>,
+        array: ArrayMapper<CI, CO, HI, HO>
+    ) {
+        this.content = content;
+        this.hint = hint;
+        this.array = array;
+    }
+
+    setContentMapper(
+        newContentMapper: ContentMapper<CI, CO>
+    ): TreeMapperForLeavesAndCollections<CI, CO, HI, HO> {
+        return new TreeMapperForLeavesAndCollections(
+            newContentMapper, this.hint, this.array);
+    }
+
+    setHintMapper(
+        newHintMapper: HintMapper<HI, HO>
+    ): TreeMapperForLeavesAndCollections<CI, CO, HI, HO> {
+        return new TreeMapperForLeavesAndCollections(
+            this.content, newHintMapper, this.array);
+    }
+
+    setArrayMapper(
+        newArrayMapper: ArrayMapper<CI, CO, HI, HO>
+    ): TreeMapperForLeavesAndCollections<CI, CO, HI, HO> {
+        return new TreeMapperForLeavesAndCollections(
+            this.content, this.hint, newArrayMapper);
+    }
+
+    mapTree(tree: Tree<CI, HI>, shape: Shape): Tree<CO, HO> {
+        return mapTree(tree, shape, [], this);
+    }
+}
 
 
 function identity<T>(x: T): T {
     return x;
+}
+
+
+function buildMapper<C, C, H, H>(): TreeMapperJustForLeaves<C, C, H, H> {
+    return new TreeMapperJustForLeaves(identity, identity);
 }
 
 
@@ -26,11 +127,9 @@ function mapContentNodes<CI, CO, H>(
     shape: Shape,
     mapper: (content: CI, shape: Shape, path: Path) => CO
 ): Tree<CO, H> {
-    return mapTree(tree, shape, {
-        content: mapper,
-        hint: identity,
-        array: identity,
-    });
+    return buildMapper()
+        .setContentMapper(mapper)
+        .mapTree(tree, shape);
 }
 
 
@@ -39,56 +138,17 @@ function mapHintNodes<C, HI, HO>(
     shape: Shape,
     mapper: (hint: HI, shape: Shape, path: Path) => HO
 ): Tree<C, HO> {
-    return mapTree(tree, shape, {
-        content: identity,
-        hint: mapper,
-        array: identity,
-    });
-}
-
-
-function mapArrayNodes<C, H>(
-    tree: Tree<C, H>,
-    shape: Shape,
-    mapper:
-        (array: ArrayNode<C, H>, shape: Shape, path: Path) => ArrayNode<C, H>
-) {
-    // HACK(mdr): Flow has a hard time inferring the type parameterization of
-    //     this mapTree call. I don't fully understand why, but passing the
-    //     parametrically-typed `mappers` through a one-off function seems to
-    //     help Flow understand that this is a Mappers<C, C, H, H>, which seems
-    //     to resolve the issue - whereas an assignment to a type-annotated
-    //     variable, surprisingly, doesn't have the same effect. Go figure.
-    //     https://github.com/facebook/flow/issues/2165#issuecomment-236868389
-    const boundMapTree = (
-        mappers: Mappers<C, C, H, H>
-    ): Tree<C, H> => {
-        return mapTree(tree, shape, mappers);
-    };
-
-    return boundMapTree({
-        content: identity,
-        hint: identity,
-        array: mapper,
-    });
+    return buildMapper()
+        .setHintMapper(mapper)
+        .mapTree(tree, shape);
 }
 
 
 function mapTree<CI, CO, HI, HO>(
     tree: Tree<CI, HI>,
     shape: Shape,
-    mappers: Mappers<CI, CO, HI, HO>
-): Tree<CO, HO> {
-    console.trace("let's map tree!");
-    return mapTreeRec(tree, shape, [], mappers);
-}
-
-
-function mapTreeRec<CI, CO, HI, HO>(
-    tree: Tree<CI, HI>,
-    shape: Shape,
     path: Path,
-    mappers: Mappers<CI, CO, HI, HO>
+    mappers: TreeMapper<CI, CO, HI, HO>
 ): Tree<CO, HO> {
     if (shape.type === "item") {
         const content: CI = (tree: any);
@@ -107,12 +167,10 @@ function mapTreeRec<CI, CO, HI, HO>(
 
         // TODO(mdr): Flow fails if I inline the expression shape.elementShape?
         const elementShape = shape.elementShape;
-        console.log("start array", path);
         const mappedElements: ArrayNode<CO, HO> =
             array.map((inner, i) =>
-                mapTreeRec(inner, elementShape, path.concat(i), mappers));
-        console.log("end array", path);
-        return mappers.array(mappedElements, shape, path);
+                mapTree(inner, elementShape, path.concat(i), mappers));
+        return mappers.array(mappedElements, array, shape, path);
     } else if (shape.type === "object") {
         const object: ObjectNode<CI, HI> = (tree: any);
 
@@ -131,7 +189,6 @@ function mapTreeRec<CI, CO, HI, HO>(
                 `${["<root>"].concat(path).join(".")}.`);
         }
         const newObject = {};
-        console.log("start object", path);
         Object.keys(valueShapes).forEach(key => {
             if (!object[key]) {
                 throw new Error(
@@ -139,10 +196,9 @@ function mapTreeRec<CI, CO, HI, HO>(
                     `${["<root>"].concat(path).join(".")}.`);
             }
 
-            newObject[key] = mapTreeRec(
+            newObject[key] = mapTree(
                 object[key], valueShapes[key], path.concat(key), mappers);
         });
-        console.log("end object", path);
         return newObject;
     } else {
         throw new Error(`unexpected shape type ${shape.type}`);
@@ -151,7 +207,7 @@ function mapTreeRec<CI, CO, HI, HO>(
 
 
 module.exports = {
+    buildMapper,
     mapContentNodes,
     mapHintNodes,
-    mapArrayNodes,
 };

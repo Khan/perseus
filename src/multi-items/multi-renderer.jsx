@@ -53,7 +53,7 @@ const {shapePropType, buildPropTypeForShape} =
     require("./prop-type-builders.js");
 const Renderer = require("../renderer.jsx");
 const shapes = require("./shapes.js");
-const {mapContentNodes, mapHintNodes, mapArrayNodes} =
+const {buildMapper, mapContentNodes, mapHintNodes} =
     require("./trees.js");
 const Util = require("../util.js");
 
@@ -84,6 +84,7 @@ const MultiRenderer = React.createClass({
                 renderError: null,
             };
         } catch (e) {
+            console.error(e);
             return {
                 rendererData: null,
                 renderError: e,
@@ -141,10 +142,12 @@ const MultiRenderer = React.createClass({
         }
     },
 
-    _makeRenderers(shape, tree) {
-        tree = mapContentNodes(tree, shape, this._makeRendererData);
-        tree = mapHintNodes(tree, shape, this._makeRendererData);
-        return tree;
+    _makeRenderers(shape, content) {
+        const itemTree = itemToTree(content);
+        return buildMapper()
+            .setContentMapper(this._makeRendererData)
+            .setHintMapper(this._makeRendererData)
+            .mapTree(itemTree, shape);
     },
 
     _findWidgets(callingData, filterCriterion) {
@@ -159,11 +162,14 @@ const MultiRenderer = React.createClass({
         return results;
     },
 
-    _traverseRenderers(mapper) {
-        let tree = this.state.rendererData;
-        tree = mapContentNodes(tree, this.props.shape, mapper);
-        tree = mapHintNodes(tree, this.props.shape, mapper);
-        return tree;
+    _traverseRenderers(leafMapper, arrayMapper) {
+        let mapper = buildMapper()
+            .setContentMapper(leafMapper)
+            .setHintMapper(leafMapper);
+        if (arrayMapper) {
+            mapper = mapper.setArrayMapper(arrayMapper);
+        }
+        return mapper.mapTree(this.state.rendererData, this.props.shape);
     },
 
     _scoreFromRef(ref) {
@@ -252,10 +258,8 @@ const MultiRenderer = React.createClass({
     },
 
     _getRenderers() {
-        let tree = this._traverseRenderers(data => data.renderer);
-        tree = mapArrayNodes(
-            tree, this.props.shape, this._annotateRendererArray);
-        return tree;
+        return this._traverseRenderers(
+            data => data.renderer, this._annotateRendererArray);
     },
 
     render() {
