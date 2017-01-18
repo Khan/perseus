@@ -1,8 +1,8 @@
 const assert = require("assert");
 
-const {emptyValueForShape, traverseShape, shapes, shapeToPropType, findLeafNodesInItem} = require("../multirenderer.jsx");
+const {emptyValueForShape, traverseShape, shapes, shapeToPropType, findLeafNodes} = require("../multirenderer.jsx");
 
-function item(n) {
+function content(n) {
     return {
         __type: "item",
         content: `item ${n}`,
@@ -22,11 +22,11 @@ describe("traverseShape", () => {
     });
 
     const data = {
-        a: item(1),
-        b: [item(2), item(3), item(4)],
+        a: content(1),
+        b: [content(2), content(3), content(4)],
         c: {
-            d: item(5),
-            e: item(6),
+            d: content(5),
+            e: content(6),
         },
     };
 
@@ -35,9 +35,10 @@ describe("traverseShape", () => {
         traverseShape(shape, data, e => calledWith.push(e));
         calledWith.sort();
 
-        assert.deepEqual(
-            [item(1), item(2), item(3), item(4), item(5), item(6)],
-            calledWith);
+        assert.deepEqual([
+            content(1), content(2), content(3), content(4), content(5),
+            content(6)
+        ], calledWith);
     });
 
     it("returns a data result with the correct shape", () => {
@@ -90,7 +91,7 @@ describe("traverseShape", () => {
             }),
         });
 
-        const data = {a: {b: {c: item(1)}}};
+        const data = {a: {b: {c: content(1)}}};
 
         const result = traverseShape(shape, data, e => e.content);
 
@@ -101,7 +102,10 @@ describe("traverseShape", () => {
         const shape = shapes.arrayOf(
             shapes.arrayOf(shapes.arrayOf(shapes.item)));
 
-        const data = [[[item(0)], [item(1)]], [[item(2)], [item(3), item(4)]]];
+        const data = [
+            [[content(0)], [content(1)]],
+            [[content(2)], [content(3), content(4)]]
+        ];
 
         const result = traverseShape(shape, data, e => e.content);
 
@@ -116,7 +120,7 @@ describe("traverseShape", () => {
         assert.deepEqual([], traverseShape(shape, [], () => {}));
 
         const result =
-            traverseShape(shape, [[], [item(1)], []], e => e.content);
+            traverseShape(shape, [[], [content(1)], []], e => e.content);
         assert.deepEqual([[], ["item 1"], []], result);
     });
 });
@@ -292,7 +296,7 @@ describe("shapeToPropType", () => {
     });
 });
 
-describe("findLeafNodesInItem", () => {
+describe("findLeafNodes", () => {
     it("calls the callback for item leaf nodes", () => {
         const data = {
             _multi: {
@@ -301,7 +305,7 @@ describe("findLeafNodesInItem", () => {
             },
         };
 
-        findLeafNodesInItem(data, (obj, type) => {
+        findLeafNodes(data, (obj, type) => {
             assert.deepEqual(obj, {
                 __type: "item",
                 content: "boo",
@@ -319,7 +323,7 @@ describe("findLeafNodesInItem", () => {
             },
         };
 
-        findLeafNodesInItem(data, (obj, type) => {
+        findLeafNodes(data, (obj, type) => {
             assert.deepEqual(obj, {
                 __type: "hint",
                 content: "boo",
@@ -344,7 +348,7 @@ describe("findLeafNodesInItem", () => {
         };
 
         const calls = [];
-        findLeafNodesInItem(data, (obj, type) => {
+        findLeafNodes(data, (obj, type) => {
             assert.equal(type, "item");
             calls.push(obj);
         });
@@ -371,7 +375,7 @@ describe("findLeafNodesInItem", () => {
         };
 
         const calls = [];
-        findLeafNodesInItem(data, (obj, type) => {
+        findLeafNodes(data, (obj, type) => {
             assert.equal(type, "item");
             calls.push(obj);
         });

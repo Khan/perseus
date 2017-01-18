@@ -1,7 +1,7 @@
 // @flow
 const React = require("react");
 
-import type {Shape} from "./shapes.js";
+import type {Shape} from "./shape-types.js";
 
 
 // Recursive prop type to check that the shape prop is structured correctly.

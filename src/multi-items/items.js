@@ -1,9 +1,9 @@
 // @flow
-import type {MultiItem, MultiItemNode, ObjectNode} from "./item-types.js";
-import type {Shape} from "./shapes.js";
+import type {Item, ItemTree, ItemObjectNode} from "./item-types.js";
+import type {Shape} from "./shape-types.js";
 
 
-function buildEmptyNodeForShape(shape: Shape): MultiItemNode {
+function buildEmptyItemTreeForShape(shape: Shape): ItemTree {
     if (shape.type === "item") {
         return {
             "__type": "item",
@@ -23,9 +23,9 @@ function buildEmptyNodeForShape(shape: Shape): MultiItemNode {
         return [];
     } else if (shape.type === "object") {
         const valueShapes = shape.shape;
-        const object: ObjectNode = {};
+        const object: ItemObjectNode = {};
         Object.keys(valueShapes).forEach(key => {
-            object[key] = buildEmptyNodeForShape(valueShapes[key]);
+            object[key] = buildEmptyItemTreeForShape(valueShapes[key]);
         });
         return object;
     } else {
@@ -34,24 +34,24 @@ function buildEmptyNodeForShape(shape: Shape): MultiItemNode {
 }
 
 
-function buildEmptyItemForShape(shape: Shape): MultiItem {
-    return wrapItem(buildEmptyNodeForShape(shape));
+function buildEmptyItemForShape(shape: Shape): Item {
+    return treeToItem(buildEmptyItemTreeForShape(shape));
 }
 
 
-function unwrapItem(item: MultiItem): MultiItemNode {
+function itemToTree(item: Item): ItemTree {
     return item._multi;
 }
 
 
-function wrapItem(node: MultiItemNode): MultiItem {
+function treeToItem(node: ItemTree): Item {
     return {_multi: node};
 }
 
 
 module.exports = {
-    buildEmptyNodeForShape,
+    buildEmptyItemTreeForShape,
     buildEmptyItemForShape,
-    unwrapItem,
-    wrapItem,
+    itemToTree,
+    treeToItem,
 };

@@ -1,27 +1,11 @@
 // @flow
+import type {ItemTree} from "./item-types.js";
 import type {
-    MultiItem, MultiItemNode, ItemNode, HintNode, ArrayNode, ObjectNode
-} from "./item-types.js";
+    Shape, ContentShape, HintShape, ArrayShape, ObjectShape
+} from "./shape-types.js";
 
 
-export type ItemShape = {
-    type: "item",
-};
-export type HintShape = {
-    type: "hint",
-};
-export type ArrayShape = {
-    type: "array",
-    elementShape: Shape,
-};
-export type ObjectShape = {
-    type: "object",
-    shape: {[k: string]: Shape},
-};
-export type Shape = ItemShape | HintShape | ArrayShape | ObjectShape;
-
-
-const itemShape: ItemShape = {
+const contentShape: ContentShape = {
     type: "item",
 };
 const hintShape: HintShape = {
@@ -38,23 +22,23 @@ const buildObjectShape = (shape: {[k: string]: Shape}): ObjectShape => ({
 const hintsShape = buildArrayShape(hintShape);
 
 
-function inferNodeShape(node: MultiItemNode): Shape {
+function inferTreeShape(node: ItemTree): Shape {
     if (Array.isArray(node)) {
         // If the array is empty, we guess that it's an item array, not that it
         // matters. If you need to be able to work with empty arrays, like in
         // the Perseus editor, you should get the correct shape explicitly!
         return buildArrayShape(
-            node.length ? inferNodeShape(node[0]) : itemShape
+            node.length ? inferTreeShape(node[0]) : contentShape
         );
     } else if (typeof node === "object" && node.__type === "item") {
-        return itemShape;
+        return contentShape;
     } else if (typeof node === "object" && node.__type === "hint") {
         return hintShape;
     } else if (typeof node === "object") {
         const valueShapes = {};
         Object.keys(node).forEach(key => {
             // Flow, I promise you: `node` is not an array right now.
-            valueShapes[key] = inferNodeShape((node: any)[key]);
+            valueShapes[key] = inferTreeShape((node: any)[key]);
         });
         return buildObjectShape(valueShapes);
     } else {
@@ -64,10 +48,10 @@ function inferNodeShape(node: MultiItemNode): Shape {
 
 
 module.exports = {
-    item: itemShape,
+    content: contentShape,
     hint: hintShape,
     hints: hintsShape,
     arrayOf: buildArrayShape,
     shape: buildObjectShape,
-    inferNodeShape,
+    inferTreeShape,
 };
