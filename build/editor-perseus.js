@@ -1,5 +1,5 @@
 /*! Perseus with editors | http://github.com/Khan/perseus */
-// commit 95e73e171d84aaef11d7e56c7ddf01670ac6294e
+// commit 5a3c1002be0f723faf2cbee870d2bc58fe87cddf
 // branch master
 // @generated
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -556,7 +556,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var _ = __webpack_require__(19);
-	var KhanAnswerTypes = __webpack_require__(50);
+	var KhanAnswerTypes = __webpack_require__(47);
 
 	var nestedMap = function nestedMap(children, func, context) {
 	    if (_.isArray(children)) {
@@ -1960,7 +1960,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var PropCheckBox = __webpack_require__(44);
 	var Util = __webpack_require__(6);
 	var Widgets = __webpack_require__(24);
-	var preprocessTex = __webpack_require__(52);
+	var preprocessTex = __webpack_require__(49);
 
 	var PerseusEditor = __webpack_require__(45);
 
@@ -3113,7 +3113,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ApiClassNames = __webpack_require__(5).ClassNames;
 	var ApiOptionsProps = __webpack_require__(53);
 	var CombinedHintsEditor = __webpack_require__(41);
-	var FixPassageRefs = __webpack_require__(51);
+	var FixPassageRefs = __webpack_require__(48);
 	var ItemEditor = __webpack_require__(42);
 	var JsonEditor = __webpack_require__(40);
 	var ViewportResizer = __webpack_require__(16);
@@ -3687,7 +3687,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    path: React.PropTypes.arrayOf(React.PropTypes.oneOfType([React.PropTypes.string.isRequired, React.PropTypes.number.isRequired])).isRequired,
 	    actions: React.PropTypes.shape({
 	        addArrayElement: React.PropTypes.func.isRequired,
-	        handleEditorChange: React.PropTypes.func.isRequired,
+	        mergeValueAtPath: React.PropTypes.func.isRequired,
+	        setValueAtPath: React.PropTypes.func.isRequired,
 	        moveArrayElementDown: React.PropTypes.func.isRequired,
 	        moveArrayElementUp: React.PropTypes.func.isRequired,
 	        removeArrayElement: React.PropTypes.func.isRequired
@@ -3765,7 +3766,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        controls = _ref2.controls,
 	        children = _ref2.children,
 	        path = _ref2.path,
-	        mode = _ref2.mode;
+	        mode = _ref2.mode,
+	        shape = _ref2.shape;
 
 	    return React.createElement(
 	        "div",
@@ -3780,7 +3782,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            ),
 	            controls
 	        ),
-	        mode === "preview" && React.createElement(
+	        mode === "preview" && (shape.type === "item" || shape.type === "hint") && React.createElement(
 	            "div",
 	            {
 	                className: css(styles.containerHeader, styles.collectionHeader)
@@ -3803,7 +3805,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    controls: React.PropTypes.node,
 	    children: React.PropTypes.node,
 	    path: React.PropTypes.arrayOf(React.PropTypes.any).isRequired,
-	    mode: React.PropTypes.oneOf(["edit", "preview"]).isRequired
+	    mode: React.PropTypes.oneOf(["edit", "preview"]).isRequired,
+	    shape: shapePropType
 	};
 
 	var ArrayContainer = function ArrayContainer(props) {
@@ -3914,6 +3917,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return React.createElement(ItemNodeContent, props);
 	    } else if (shape.type === "hint") {
 	        return React.createElement(HintNodeContent, props);
+	    } else if (shape.type === "tags") {
+	        return React.createElement(TagsNodeContent, props);
 	    } else if (shape.type === "array") {
 	        return React.createElement(ArrayNodeContent, props);
 	    } else if (shape.type === "object") {
@@ -3934,7 +3939,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (mode === "edit") {
 	        return React.createElement(Editor, _extends({}, data, {
 	            onChange: function onChange(newVal) {
-	                return actions.handleEditorChange(path, newVal);
+	                return actions.mergeValueAtPath(path, newVal);
 	            },
 	            apiOptions: apiOptions
 	        }));
@@ -3957,7 +3962,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return React.createElement(HintEditor, _extends({}, data, {
 	            className: css(styles.hintEditor),
 	            onChange: function onChange(newVal) {
-	                return actions.handleEditorChange(path, newVal);
+	                return actions.mergeValueAtPath(path, newVal);
 	            },
 	            apiOptions: apiOptions,
 	            showTitle: false,
@@ -3969,6 +3974,33 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	};
 	HintNodeContent.propTypes = nodePropTypes;
+
+	var TagsNodeContent = function TagsNodeContent(props) {
+	    var data = props.data,
+	        path = props.path,
+	        actions = props.actions,
+	        apiOptions = props.apiOptions,
+	        mode = props.mode;
+	    var GroupMetadataEditor = apiOptions.GroupMetadataEditor;
+
+
+	    if (mode === "edit") {
+	        return React.createElement(
+	            "div",
+	            { className: css(styles.tagsEditor) },
+	            React.createElement(GroupMetadataEditor, {
+	                value: data,
+	                onChange: function onChange(newVal) {
+	                    return actions.setValueAtPath(path, newVal);
+	                },
+	                showTitle: false
+	            })
+	        );
+	    } else {
+	        return React.createElement("div", null);
+	    }
+	};
+	TagsNodeContent.propTypes = nodePropTypes;
 
 	var ArrayNodeContent = function ArrayNodeContent(props) {
 	    var shape = props.shape,
@@ -4167,9 +4199,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	            this._renderLayout()
 	        );
 	    },
-	    handleEditorChange: function handleEditorChange(path, newValue) {
+	    mergeValueAtPath: function mergeValueAtPath(path, newValue) {
 	        this.props.onChange({
 	            content: lens(this.props.content).merge(multiPath(path), newValue).freeze()
+	        });
+	    },
+	    setValueAtPath: function setValueAtPath(path, newValue) {
+	        this.props.onChange({
+	            content: lens(this.props.content).set(multiPath(path), newValue).freeze()
 	        });
 	    },
 	    addArrayElement: function addArrayElement(path, shape) {
@@ -4378,6 +4415,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    objectElement: {
 	        marginBottom: 16
+	    },
+
+	    tagsEditor: {
+	        border: "1px solid #ddd",
+	        padding: "5px 10px"
 	    }
 	});
 
@@ -4398,8 +4440,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(18);
 	var _ = __webpack_require__(19);
 
-	var TextDiff = __webpack_require__(47);
-	var WidgetDiff = __webpack_require__(48);
+	var TextDiff = __webpack_require__(51);
+	var WidgetDiff = __webpack_require__(52);
 
 	// Deeply look up a property in an object,
 	// -> getPath(obj, ["a", "b", "c"]) === obj["a"]["b"]["c"]
@@ -4558,7 +4600,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ButtonGroup = __webpack_require__(57);
 
-	var _require = __webpack_require__(49),
+	var _require = __webpack_require__(50),
 	    devices = _require.devices;
 
 	var _require2 = __webpack_require__(38),
@@ -4635,7 +4677,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(18);
 
-	var _require = __webpack_require__(49),
+	var _require = __webpack_require__(50),
 	    devices = _require.devices;
 
 	var SCREEN_SIZES = {
@@ -6480,20 +6522,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(19);
 	var classNames = __webpack_require__(55);
 
-	var JiptParagraphs = __webpack_require__(62);
+	var JiptParagraphs = __webpack_require__(63);
 	var PerseusMarkdown = __webpack_require__(37);
-	var QuestionParagraph = __webpack_require__(63);
+	var QuestionParagraph = __webpack_require__(64);
 	var SvgImage = __webpack_require__(35);
-	var TeX = __webpack_require__(64);
-	var WidgetContainer = __webpack_require__(65);
+	var TeX = __webpack_require__(65);
+	var WidgetContainer = __webpack_require__(66);
 	var Widgets = __webpack_require__(24);
 
 	var Util = __webpack_require__(6);
 	var ApiOptionsProps = __webpack_require__(53);
 	var ApiClassNames = __webpack_require__(5).ClassNames;
-	var Zoomable = __webpack_require__(66);
-	var Deferred = __webpack_require__(67);
-	var preprocessTex = __webpack_require__(52);
+	var Zoomable = __webpack_require__(67);
+	var Deferred = __webpack_require__(68);
+	var preprocessTex = __webpack_require__(49);
 
 	var keypadElementPropType = __webpack_require__(170).propTypes.keypadElementPropType;
 
@@ -7496,14 +7538,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	                marginLeft: -margin,
 	                marginRight: -margin
 	            };
-	            var _innerStyle = {
+	            var innerStyle = {
 	                paddingLeft: 0,
 	                paddingRight: 0
 	            };
 
 	            var wrappedOutput = React.createElement(
 	                "div",
-	                { style: _extends({}, _innerStyle, { overflowX: 'auto' }) },
+	                { style: _extends({}, innerStyle, { overflowX: 'auto' }) },
 	                React.createElement(
 	                    Zoomable,
 	                    { animateHeight: true },
@@ -8066,6 +8108,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    hint: {
 	        type: "hint"
 	    },
+	    tags: {
+	        type: "tags"
+	    },
 	    arrayOf: function arrayOf(elementShape) {
 	        return {
 	            type: "array",
@@ -8224,9 +8269,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function traverseShapeRec(shape, data, path, leafCallback, collectionCallback) {
 	    if (shape.type === "item" || shape.type === "hint") {
-	        if (data && (typeof data === "undefined" ? "undefined" : _typeof(data)) !== "object") {
-	            throw new Error("Invalid object of type \"" + (typeof data === "undefined" ? "undefined" : _typeof(data)) + "\" found at path " + (["<root>"].concat(path).join(".") + ". ") + ("Expected " + shape.type + "."));
-	        }
+	        return leafCallback(data, shape, path);
+	    } else if (shape.type === "tags") {
 	        return leafCallback(data, shape, path);
 	    } else if (shape.type === "array") {
 	        if (!Array.isArray(data)) {
@@ -8245,7 +8289,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            var object = {};
 	            Object.keys(shape.shape).forEach(function (key) {
-	                if (!data[key]) {
+	                if (!(key in data)) {
 	                    throw new Error("Key \"" + key + "\" is missing from shape at path " + (["<root>"].concat(path).join(".") + "."));
 	                }
 
@@ -8284,6 +8328,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            "widgets": {},
 	            "__type": "hint"
 	        };
+	    } else if (shape.type === "tags") {
+	        return [];
 	    } else if (shape.type === "array") {
 	        return [];
 	    } else if (shape.type === "object") {
@@ -8309,6 +8355,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        type: React.PropTypes.oneOf(["item"]).isRequired
 	    }).isRequired, React.PropTypes.shape({
 	        type: React.PropTypes.oneOf(["hint"]).isRequired
+	    }).isRequired, React.PropTypes.shape({
+	        type: React.PropTypes.oneOf(["tags"]).isRequired
 	    }).isRequired, React.PropTypes.shape({
 	        type: React.PropTypes.oneOf(["object"]).isRequired,
 	        shape: React.PropTypes.objectOf(shapePropType)
@@ -8342,6 +8390,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            replace: React.PropTypes.bool,
 	            __type: React.PropTypes.oneOf(["hint"]).isRequired
 	        });
+	    } else if (shape.type === "tags") {
+	        return React.PropTypes.arrayOf(React.PropTypes.string.isRequired);
 	    } else if (shape.type === "array") {
 	        var elementPropType = shapeToPropTypeRec(shape.elementShape);
 	        return React.PropTypes.arrayOf(elementPropType.isRequired);
@@ -8439,11 +8489,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	            // TODO(mdr): Once HintsRenderer supports inter-widget
 	            //     communication, give it a ref. Until then, leave the ref null
 	            //     forever, to avoid confusing the findWidgets functions.
-	            var _data = { renderer: null, ref: null, hint: renderable };
-	            _data.renderer = React.createElement(HintsRenderer, _extends({}, rendererProps, {
+	            var data = { renderer: null, ref: null, hint: renderable };
+	            data.renderer = React.createElement(HintsRenderer, _extends({}, rendererProps, {
 	                hints: [renderable]
 	            }));
-	            return _data;
+	            return data;
+	        } else if (shape.type === "tags") {
+	            return null;
 	        } else {
 	            throw new Error("can't create renderer for type " + shape.type);
 	        }
@@ -8462,12 +8514,22 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        return results;
 	    },
-	    _traverseRenderers: function _traverseRenderers() {
-	        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	            args[_key] = arguments[_key];
+	    _traverseRenderers: function _traverseRenderers(leafCallback) {
+	        for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+	            args[_key - 1] = arguments[_key];
 	        }
 
-	        return traverseShape.apply(undefined, [this.props.shape, this.state.rendererData].concat(args));
+	        return traverseShape.apply(undefined, [this.props.shape, this.state.rendererData, function (data, shape) {
+	            for (var _len2 = arguments.length, leafArgs = Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
+	                leafArgs[_key2 - 2] = arguments[_key2];
+	            }
+
+	            if (shape.type === "item" || shape.type === "hint") {
+	                return leafCallback.apply(undefined, [data, shape].concat(leafArgs));
+	            } else {
+	                return null;
+	            }
+	        }].concat(args));
 	    },
 	    _scoreFromRef: function _scoreFromRef(ref) {
 	        if (!ref) {
@@ -8621,10 +8683,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 	/**
 	 * Stub Tag Editor.
 	 *
@@ -8640,7 +8698,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(18);
 
-	var TextListEditor = __webpack_require__(68);
+	var TextListEditor = __webpack_require__(62);
 	var EMPTY_ARRAY = [];
 
 	var StubTagEditor = React.createClass({
@@ -8648,12 +8706,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    propTypes: {
 	        value: React.PropTypes.arrayOf(React.PropTypes.string),
-	        onChange: React.PropTypes.func.isRequired
+	        onChange: React.PropTypes.func.isRequired,
+	        showTitle: React.PropTypes.bool.isRequired
 	    },
 
 	    getDefaultProps: function getDefaultProps() {
 	        return {
-	            value: EMPTY_ARRAY
+	            value: EMPTY_ARRAY,
+	            showTitle: true
 	        };
 	    },
 
@@ -8661,7 +8721,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return React.createElement(
 	            "div",
 	            null,
-	            React.createElement(
+	            this.props.showTitle && React.createElement(
 	                "div",
 	                { style: { fontSize: 14 } },
 	                "Tags:"
@@ -8669,7 +8729,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            React.createElement(TextListEditor, {
 	                options: this.props.value || EMPTY_ARRAY,
 	                layout: "vertical",
-	                onChange: this.props.onChange })
+	                onChange: this.props.onChange
+	            })
 	        );
 	    }
 	});
@@ -9449,7 +9510,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(19);
 
 	var SimpleMarkdown = __webpack_require__(175);
-	var TeX = __webpack_require__(64);
+	var TeX = __webpack_require__(65);
 	var Util = __webpack_require__(6);
 
 	/**
@@ -11908,466 +11969,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	"use strict";
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var, object-curly-spacing, react/forbid-prop-types, react/jsx-closing-bracket-location, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var classNames = __webpack_require__(55);
-	var React = __webpack_require__(18);
-	var _ = __webpack_require__(19);
-
-	var diff = __webpack_require__(93);
-	var splitDiff = __webpack_require__(89);
-	var stringArrayDiff = __webpack_require__(90);
-
-	var BEFORE = "before";
-	var AFTER = "after";
-
-	var IMAGE_REGEX = /http.*?\.png/g;
-
-	var imagesInString = function imagesInString(str) {
-	    return str.match(IMAGE_REGEX) || [];
-	};
-
-	var classFor = function classFor(entry, ifAdded, ifRemoved) {
-	    if (entry.added) {
-	        return ifAdded;
-	    } else if (entry.removed) {
-	        return ifRemoved;
-	    } else {
-	        return "";
-	    }
-	};
-
-	var ImageDiffSide = React.createClass({
-	    displayName: "ImageDiffSide",
-
-	    propTypes: {
-	        side: React.PropTypes.oneOf([BEFORE, AFTER]).isRequired,
-	        images: React.PropTypes.array.isRequired
-	    },
-
-	    render: function render() {
-	        return React.createElement(
-	            "div",
-	            null,
-	            this.props.images.length > 0 && React.createElement(
-	                "div",
-	                { className: "diff-header" },
-	                "Images"
-	            ),
-	            _.map(this.props.images, function (entry, index) {
-	                var className = classNames({
-	                    "image": true,
-	                    "image-unchanged": entry.status === "unchanged",
-	                    "image-added": entry.status === "added",
-	                    "image-removed": entry.status === "removed"
-	                });
-	                return React.createElement(
-	                    "div",
-	                    { key: index },
-	                    React.createElement("img", { src: entry.value,
-	                        title: entry.value,
-	                        className: className })
-	                );
-	            })
-	        );
-	    }
-	});
-
-	var TextDiff = React.createClass({
-	    displayName: "TextDiff",
-
-	    propTypes: {
-	        before: React.PropTypes.string,
-	        after: React.PropTypes.string,
-	        title: React.PropTypes.string
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            before: "",
-	            after: "",
-	            title: ""
-	        };
-	    },
-
-	    getInitialState: function getInitialState() {
-	        return {
-	            collapsed: this.props.before === this.props.after
-	        };
-	    },
-
-	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        this.setState({
-	            collapsed: nextProps.before === nextProps.after
-	        });
-	    },
-
-	    render: function render() {
-	        var _this = this;
-
-	        var diffed = diff.diffWords(this.props.before, this.props.after);
-
-	        var lines = splitDiff(diffed);
-
-	        var beforeImages = imagesInString(this.props.before);
-	        var afterImages = imagesInString(this.props.after);
-
-	        var images = stringArrayDiff(beforeImages, afterImages);
-
-	        var renderedLines = _.map(lines, function (line) {
-	            var contents = {};
-
-	            contents.before = _(line).map(function (entry, i) {
-	                var className = classFor(entry, "not-present", "removed dark");
-	                return React.createElement(
-	                    "span",
-	                    {
-	                        key: i,
-	                        className: className },
-	                    entry.value
-	                );
-	            });
-
-	            contents.after = _(line).map(function (entry, i) {
-	                var className = classFor(entry, "added dark", "not-present");
-	                return React.createElement(
-	                    "span",
-	                    {
-	                        key: i,
-	                        className: className },
-	                    entry.value
-	                );
-	            });
-	            return contents;
-	        });
-
-	        var className = classNames({
-	            "diff-row": true,
-	            "collapsed": this.state.collapsed
-	        });
-
-	        return React.createElement(
-	            "div",
-	            null,
-	            React.createElement(
-	                "div",
-	                { className: "perseus-clearfix" },
-	                _.map([BEFORE, AFTER], function (side, index) {
-	                    return React.createElement(
-	                        "div",
-	                        { className: "diff-row " + side, key: index },
-	                        !_this.state.collapsed && _.map(renderedLines, function (line, lineNum) {
-	                            var changed = line[side].length > 1;
-	                            var lineClass = classNames({
-	                                "diff-line": true,
-	                                "added": side === AFTER && changed,
-	                                "removed": side === BEFORE && changed
-	                            });
-	                            return React.createElement(
-	                                "div",
-	                                {
-	                                    className: lineClass,
-	                                    key: lineNum
-	                                },
-	                                line[side]
-	                            );
-	                        }),
-	                        !_this.state.collapsed && React.createElement(ImageDiffSide, {
-	                            side: side,
-	                            images: images[side] })
-	                    );
-	                })
-	            ),
-	            _.map([BEFORE, AFTER], function (side, index) {
-	                return React.createElement(
-	                    "div",
-	                    {
-	                        className: className + " " + side,
-	                        key: index,
-	                        onClick: _this.handleExpand
-	                    },
-	                    _this.state.collapsed && React.createElement(
-	                        "span",
-	                        null,
-	                        React.createElement(
-	                            "span",
-	                            { className: "expand-button" },
-	                            " ",
-	                            "[ show unmodified ]"
-	                        )
-	                    )
-	                );
-	            })
-	        );
-	    },
-
-	    handleExpand: function handleExpand() {
-	        this.setState({ collapsed: false });
-	    }
-	});
-
-	module.exports = TextDiff;
-
-/***/ },
-/* 48 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var, object-curly-spacing, react/jsx-closing-bracket-location, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var classNames = __webpack_require__(55);
-	var React = __webpack_require__(18);
-	var _ = __webpack_require__(19);
-
-	var performDiff = __webpack_require__(91);
-
-	var indentationFromDepth = function indentationFromDepth(depth) {
-	    return (depth - 1) * 20;
-	};
-
-	var BEFORE = "before";
-	var AFTER = "after";
-
-	var UNCHANGED = "unchanged";
-
-	var DiffSide = React.createClass({
-	    displayName: "DiffSide",
-
-	    propTypes: {
-	        side: React.PropTypes.oneOf([BEFORE, AFTER]).isRequired,
-	        className: React.PropTypes.string.isRequired,
-	        showKey: React.PropTypes.bool.isRequired,
-	        propKey: React.PropTypes.string.isRequired,
-	        value: React.PropTypes.string,
-	        depth: React.PropTypes.number.isRequired
-	    },
-
-	    render: function render() {
-	        var className = classNames(this.props.className, {
-	            "diff-row": true,
-	            before: this.props.side === BEFORE,
-	            after: this.props.side === AFTER
-	        });
-	        return React.createElement(
-	            "div",
-	            { className: className },
-	            React.createElement(
-	                "div",
-	                { style: {
-	                        paddingLeft: indentationFromDepth(this.props.depth)
-	                    } },
-	                this.props.showKey && this.props.propKey + ": ",
-	                React.createElement(
-	                    "span",
-	                    { className: "inner-value dark " + this.props.className },
-	                    this.props.value
-	                )
-	            )
-	        );
-	    }
-	});
-
-	var CollapsedRow = React.createClass({
-	    displayName: "CollapsedRow",
-
-	    propTypes: {
-	        depth: React.PropTypes.number,
-	        onClick: React.PropTypes.func.isRequired
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            depth: 0
-	        };
-	    },
-
-	    render: function render() {
-	        var self = this;
-	        return React.createElement(
-	            "div",
-	            { onClick: self.props.onClick },
-	            _.map([BEFORE, AFTER], function (side) {
-	                return React.createElement(
-	                    "div",
-	                    { className: "diff-row collapsed " + side,
-	                        key: side },
-	                    React.createElement(
-	                        "div",
-	                        { style: {
-	                                paddingLeft: indentationFromDepth(self.props.depth)
-	                            } },
-	                        React.createElement(
-	                            "span",
-	                            null,
-	                            " [ show unmodified ] "
-	                        )
-	                    )
-	                );
-	            })
-	        );
-	    }
-	});
-
-	// Component representing a single property that may be nested.
-	var DiffEntry = React.createClass({
-	    displayName: "DiffEntry",
-
-	    propTypes: {
-	        entry: React.PropTypes.shape({
-	            key: React.PropTypes.string,
-	            children: React.PropTypes.array,
-	            before: React.PropTypes.string,
-	            after: React.PropTypes.string
-	        }),
-	        depth: React.PropTypes.number,
-	        expanded: React.PropTypes.bool
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            depth: 0
-	        };
-	    },
-
-	    getInitialState: function getInitialState() {
-	        return {
-	            expanded: this.props.expanded
-	        };
-	    },
-
-	    render: function render() {
-	        var entry = this.props.entry;
-	        var propertyDeleted = entry.status === "removed";
-	        var propertyAdded = entry.status === "added";
-	        var propertyChanged = entry.status === "changed";
-
-	        var hasChildren = entry.children.length > 0;
-
-	        var leftClass = classNames({
-	            "removed": (propertyDeleted || propertyChanged) && !hasChildren,
-	            "dark": propertyDeleted,
-	            "blank-space": propertyAdded
-	        });
-
-	        var rightClass = classNames({
-	            "added": (propertyAdded || propertyChanged) && !hasChildren,
-	            "dark": propertyAdded,
-	            "blank-space": propertyDeleted
-	        });
-
-	        var shownChildren;
-	        if (this.state.expanded) {
-	            shownChildren = entry.children;
-	        } else {
-	            shownChildren = _(entry.children).select(function (child) {
-	                return child.status !== UNCHANGED;
-	            });
-	        }
-
-	        var collapsed = shownChildren.length < entry.children.length;
-
-	        // don't hide just one entry
-	        if (entry.children.length === shownChildren.length + 1) {
-	            shownChildren = entry.children;
-	            collapsed = false;
-	        }
-
-	        var self = this;
-	        return React.createElement(
-	            "div",
-	            null,
-	            entry.key && React.createElement(
-	                "div",
-	                null,
-	                React.createElement(DiffSide, {
-	                    side: BEFORE,
-	                    className: leftClass,
-	                    depth: this.props.depth,
-	                    propKey: entry.key,
-	                    showKey: !propertyAdded,
-	                    value: entry.before }),
-	                React.createElement(DiffSide, {
-	                    side: AFTER,
-	                    className: rightClass,
-	                    depth: this.props.depth,
-	                    propKey: entry.key,
-	                    showKey: !propertyDeleted,
-	                    value: entry.after })
-	            ),
-	            _.map(shownChildren, function (child) {
-	                return React.createElement(DiffEntry, {
-	                    key: child.key,
-	                    depth: self.props.depth + 1,
-	                    entry: child,
-	                    expanded: self.state.expanded });
-	            }),
-	            collapsed && React.createElement(CollapsedRow, {
-	                depth: this.props.depth + 1,
-	                onClick: this.expand })
-	        );
-	    },
-
-	    expand: function expand() {
-	        this.setState({ expanded: true });
-	    }
-	});
-
-	var WidgetDiff = React.createClass({
-	    displayName: "WidgetDiff",
-
-	    propTypes: {
-	        before: React.PropTypes.shape({
-	            options: React.PropTypes.object
-	        }).isRequired,
-	        after: React.PropTypes.shape({
-	            options: React.PropTypes.object
-	        }).isRequired,
-	        title: React.PropTypes.string.isRequired
-	    },
-
-	    render: function render() {
-	        var diff = performDiff(this.props.before, this.props.after);
-	        return React.createElement(
-	            "div",
-	            null,
-	            React.createElement(
-	                "div",
-	                { className: "perseus-clearfix" },
-	                React.createElement(DiffEntry, { entry: diff })
-	            )
-	        );
-	    }
-	});
-
-	module.exports = WidgetDiff;
-
-/***/ },
-/* 49 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var devices = {
-	    PHONE: "phone",
-	    TABLET: "tablet",
-	    DESKTOP: "desktop"
-	};
-
-	module.exports = {
-	    devices: devices
-	};
-
-/***/ },
-/* 50 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable object-curly-spacing */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
@@ -12376,7 +11977,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var $ = __webpack_require__(22);
 	var _ = __webpack_require__(19);
 
-	var KhanMath = __webpack_require__(92);
+	var KhanMath = __webpack_require__(89);
 
 	var MAXERROR_EPSILON = Math.pow(2, -42);
 
@@ -13023,7 +12624,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = KhanAnswerTypes;
 
 /***/ },
-/* 51 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -13142,7 +12743,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = FixPassageRefs;
 
 /***/ },
-/* 52 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13163,6 +12764,466 @@ return /******/ (function(modules) { // webpackBootstrap
 	  // Replace non-breaking spaces with regular spaces.
 	  .replace(/[\u00a0]/g, ' ');
 	};
+
+/***/ },
+/* 50 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var devices = {
+	    PHONE: "phone",
+	    TABLET: "tablet",
+	    DESKTOP: "desktop"
+	};
+
+	module.exports = {
+	    devices: devices
+	};
+
+/***/ },
+/* 51 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var, object-curly-spacing, react/forbid-prop-types, react/jsx-closing-bracket-location, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var classNames = __webpack_require__(55);
+	var React = __webpack_require__(18);
+	var _ = __webpack_require__(19);
+
+	var diff = __webpack_require__(93);
+	var splitDiff = __webpack_require__(90);
+	var stringArrayDiff = __webpack_require__(91);
+
+	var BEFORE = "before";
+	var AFTER = "after";
+
+	var IMAGE_REGEX = /http.*?\.png/g;
+
+	var imagesInString = function imagesInString(str) {
+	    return str.match(IMAGE_REGEX) || [];
+	};
+
+	var classFor = function classFor(entry, ifAdded, ifRemoved) {
+	    if (entry.added) {
+	        return ifAdded;
+	    } else if (entry.removed) {
+	        return ifRemoved;
+	    } else {
+	        return "";
+	    }
+	};
+
+	var ImageDiffSide = React.createClass({
+	    displayName: "ImageDiffSide",
+
+	    propTypes: {
+	        side: React.PropTypes.oneOf([BEFORE, AFTER]).isRequired,
+	        images: React.PropTypes.array.isRequired
+	    },
+
+	    render: function render() {
+	        return React.createElement(
+	            "div",
+	            null,
+	            this.props.images.length > 0 && React.createElement(
+	                "div",
+	                { className: "diff-header" },
+	                "Images"
+	            ),
+	            _.map(this.props.images, function (entry, index) {
+	                var className = classNames({
+	                    "image": true,
+	                    "image-unchanged": entry.status === "unchanged",
+	                    "image-added": entry.status === "added",
+	                    "image-removed": entry.status === "removed"
+	                });
+	                return React.createElement(
+	                    "div",
+	                    { key: index },
+	                    React.createElement("img", { src: entry.value,
+	                        title: entry.value,
+	                        className: className })
+	                );
+	            })
+	        );
+	    }
+	});
+
+	var TextDiff = React.createClass({
+	    displayName: "TextDiff",
+
+	    propTypes: {
+	        before: React.PropTypes.string,
+	        after: React.PropTypes.string,
+	        title: React.PropTypes.string
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            before: "",
+	            after: "",
+	            title: ""
+	        };
+	    },
+
+	    getInitialState: function getInitialState() {
+	        return {
+	            collapsed: this.props.before === this.props.after
+	        };
+	    },
+
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        this.setState({
+	            collapsed: nextProps.before === nextProps.after
+	        });
+	    },
+
+	    render: function render() {
+	        var _this = this;
+
+	        var diffed = diff.diffWords(this.props.before, this.props.after);
+
+	        var lines = splitDiff(diffed);
+
+	        var beforeImages = imagesInString(this.props.before);
+	        var afterImages = imagesInString(this.props.after);
+
+	        var images = stringArrayDiff(beforeImages, afterImages);
+
+	        var renderedLines = _.map(lines, function (line) {
+	            var contents = {};
+
+	            contents.before = _(line).map(function (entry, i) {
+	                var className = classFor(entry, "not-present", "removed dark");
+	                return React.createElement(
+	                    "span",
+	                    {
+	                        key: i,
+	                        className: className },
+	                    entry.value
+	                );
+	            });
+
+	            contents.after = _(line).map(function (entry, i) {
+	                var className = classFor(entry, "added dark", "not-present");
+	                return React.createElement(
+	                    "span",
+	                    {
+	                        key: i,
+	                        className: className },
+	                    entry.value
+	                );
+	            });
+	            return contents;
+	        });
+
+	        var className = classNames({
+	            "diff-row": true,
+	            "collapsed": this.state.collapsed
+	        });
+
+	        return React.createElement(
+	            "div",
+	            null,
+	            React.createElement(
+	                "div",
+	                { className: "perseus-clearfix" },
+	                _.map([BEFORE, AFTER], function (side, index) {
+	                    return React.createElement(
+	                        "div",
+	                        { className: "diff-row " + side, key: index },
+	                        !_this.state.collapsed && _.map(renderedLines, function (line, lineNum) {
+	                            var changed = line[side].length > 1;
+	                            var lineClass = classNames({
+	                                "diff-line": true,
+	                                "added": side === AFTER && changed,
+	                                "removed": side === BEFORE && changed
+	                            });
+	                            return React.createElement(
+	                                "div",
+	                                {
+	                                    className: lineClass,
+	                                    key: lineNum
+	                                },
+	                                line[side]
+	                            );
+	                        }),
+	                        !_this.state.collapsed && React.createElement(ImageDiffSide, {
+	                            side: side,
+	                            images: images[side] })
+	                    );
+	                })
+	            ),
+	            _.map([BEFORE, AFTER], function (side, index) {
+	                return React.createElement(
+	                    "div",
+	                    {
+	                        className: className + " " + side,
+	                        key: index,
+	                        onClick: _this.handleExpand
+	                    },
+	                    _this.state.collapsed && React.createElement(
+	                        "span",
+	                        null,
+	                        React.createElement(
+	                            "span",
+	                            { className: "expand-button" },
+	                            " ",
+	                            "[ show unmodified ]"
+	                        )
+	                    )
+	                );
+	            })
+	        );
+	    },
+
+	    handleExpand: function handleExpand() {
+	        this.setState({ collapsed: false });
+	    }
+	});
+
+	module.exports = TextDiff;
+
+/***/ },
+/* 52 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var, object-curly-spacing, react/jsx-closing-bracket-location, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var classNames = __webpack_require__(55);
+	var React = __webpack_require__(18);
+	var _ = __webpack_require__(19);
+
+	var performDiff = __webpack_require__(92);
+
+	var indentationFromDepth = function indentationFromDepth(depth) {
+	    return (depth - 1) * 20;
+	};
+
+	var BEFORE = "before";
+	var AFTER = "after";
+
+	var UNCHANGED = "unchanged";
+
+	var DiffSide = React.createClass({
+	    displayName: "DiffSide",
+
+	    propTypes: {
+	        side: React.PropTypes.oneOf([BEFORE, AFTER]).isRequired,
+	        className: React.PropTypes.string.isRequired,
+	        showKey: React.PropTypes.bool.isRequired,
+	        propKey: React.PropTypes.string.isRequired,
+	        value: React.PropTypes.string,
+	        depth: React.PropTypes.number.isRequired
+	    },
+
+	    render: function render() {
+	        var className = classNames(this.props.className, {
+	            "diff-row": true,
+	            before: this.props.side === BEFORE,
+	            after: this.props.side === AFTER
+	        });
+	        return React.createElement(
+	            "div",
+	            { className: className },
+	            React.createElement(
+	                "div",
+	                { style: {
+	                        paddingLeft: indentationFromDepth(this.props.depth)
+	                    } },
+	                this.props.showKey && this.props.propKey + ": ",
+	                React.createElement(
+	                    "span",
+	                    { className: "inner-value dark " + this.props.className },
+	                    this.props.value
+	                )
+	            )
+	        );
+	    }
+	});
+
+	var CollapsedRow = React.createClass({
+	    displayName: "CollapsedRow",
+
+	    propTypes: {
+	        depth: React.PropTypes.number,
+	        onClick: React.PropTypes.func.isRequired
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            depth: 0
+	        };
+	    },
+
+	    render: function render() {
+	        var self = this;
+	        return React.createElement(
+	            "div",
+	            { onClick: self.props.onClick },
+	            _.map([BEFORE, AFTER], function (side) {
+	                return React.createElement(
+	                    "div",
+	                    { className: "diff-row collapsed " + side,
+	                        key: side },
+	                    React.createElement(
+	                        "div",
+	                        { style: {
+	                                paddingLeft: indentationFromDepth(self.props.depth)
+	                            } },
+	                        React.createElement(
+	                            "span",
+	                            null,
+	                            " [ show unmodified ] "
+	                        )
+	                    )
+	                );
+	            })
+	        );
+	    }
+	});
+
+	// Component representing a single property that may be nested.
+	var DiffEntry = React.createClass({
+	    displayName: "DiffEntry",
+
+	    propTypes: {
+	        entry: React.PropTypes.shape({
+	            key: React.PropTypes.string,
+	            children: React.PropTypes.array,
+	            before: React.PropTypes.string,
+	            after: React.PropTypes.string
+	        }),
+	        depth: React.PropTypes.number,
+	        expanded: React.PropTypes.bool
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            depth: 0
+	        };
+	    },
+
+	    getInitialState: function getInitialState() {
+	        return {
+	            expanded: this.props.expanded
+	        };
+	    },
+
+	    render: function render() {
+	        var entry = this.props.entry;
+	        var propertyDeleted = entry.status === "removed";
+	        var propertyAdded = entry.status === "added";
+	        var propertyChanged = entry.status === "changed";
+
+	        var hasChildren = entry.children.length > 0;
+
+	        var leftClass = classNames({
+	            "removed": (propertyDeleted || propertyChanged) && !hasChildren,
+	            "dark": propertyDeleted,
+	            "blank-space": propertyAdded
+	        });
+
+	        var rightClass = classNames({
+	            "added": (propertyAdded || propertyChanged) && !hasChildren,
+	            "dark": propertyAdded,
+	            "blank-space": propertyDeleted
+	        });
+
+	        var shownChildren;
+	        if (this.state.expanded) {
+	            shownChildren = entry.children;
+	        } else {
+	            shownChildren = _(entry.children).select(function (child) {
+	                return child.status !== UNCHANGED;
+	            });
+	        }
+
+	        var collapsed = shownChildren.length < entry.children.length;
+
+	        // don't hide just one entry
+	        if (entry.children.length === shownChildren.length + 1) {
+	            shownChildren = entry.children;
+	            collapsed = false;
+	        }
+
+	        var self = this;
+	        return React.createElement(
+	            "div",
+	            null,
+	            entry.key && React.createElement(
+	                "div",
+	                null,
+	                React.createElement(DiffSide, {
+	                    side: BEFORE,
+	                    className: leftClass,
+	                    depth: this.props.depth,
+	                    propKey: entry.key,
+	                    showKey: !propertyAdded,
+	                    value: entry.before }),
+	                React.createElement(DiffSide, {
+	                    side: AFTER,
+	                    className: rightClass,
+	                    depth: this.props.depth,
+	                    propKey: entry.key,
+	                    showKey: !propertyDeleted,
+	                    value: entry.after })
+	            ),
+	            _.map(shownChildren, function (child) {
+	                return React.createElement(DiffEntry, {
+	                    key: child.key,
+	                    depth: self.props.depth + 1,
+	                    entry: child,
+	                    expanded: self.state.expanded });
+	            }),
+	            collapsed && React.createElement(CollapsedRow, {
+	                depth: this.props.depth + 1,
+	                onClick: this.expand })
+	        );
+	    },
+
+	    expand: function expand() {
+	        this.setState({ expanded: true });
+	    }
+	});
+
+	var WidgetDiff = React.createClass({
+	    displayName: "WidgetDiff",
+
+	    propTypes: {
+	        before: React.PropTypes.shape({
+	            options: React.PropTypes.object
+	        }).isRequired,
+	        after: React.PropTypes.shape({
+	            options: React.PropTypes.object
+	        }).isRequired,
+	        title: React.PropTypes.string.isRequired
+	    },
+
+	    render: function render() {
+	        var diff = performDiff(this.props.before, this.props.after);
+	        return React.createElement(
+	            "div",
+	            null,
+	            React.createElement(
+	                "div",
+	                { className: "perseus-clearfix" },
+	                React.createElement(DiffEntry, { entry: diff })
+	            )
+	        );
+	    }
+	});
+
+	module.exports = WidgetDiff;
 
 /***/ },
 /* 53 */
@@ -13816,6 +13877,147 @@ return /******/ (function(modules) { // webpackBootstrap
 	"use strict";
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, max-len, no-redeclare, no-trailing-spaces, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var React = __webpack_require__(18);
+	var ReactDOM = __webpack_require__(20);
+	var _ = __webpack_require__(19);
+
+	var textWidthCache = {};
+	function getTextWidth(text) {
+	    if (!textWidthCache[text]) {
+	        // Hacky way to guess the width of an input box
+	        var $test = $("<span>").text(text).appendTo("body");
+	        textWidthCache[text] = $test.width() + 5;
+	        $test.remove();
+	    }
+	    return textWidthCache[text];
+	}
+
+	var TextListEditor = React.createClass({
+	    displayName: "TextListEditor",
+
+	    propTypes: {
+	        options: React.PropTypes.array,
+	        layout: React.PropTypes.string,
+	        onChange: React.PropTypes.func.isRequired
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            options: [],
+	            layout: "horizontal"
+	        };
+	    },
+
+	    getInitialState: function getInitialState() {
+	        return {
+	            items: this.props.options.concat("")
+	        };
+	    },
+
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        this.setState({
+	            items: nextProps.options.concat("")
+	        });
+	    },
+
+	    render: function render() {
+	        var className = ["perseus-text-list-editor", "perseus-clearfix", "layout-" + this.props.layout].join(" ");
+
+	        var inputs = _.map(this.state.items, function (item, i) {
+	            return React.createElement(
+	                "li",
+	                { key: i },
+	                React.createElement("input", {
+	                    ref: "input_" + i,
+	                    type: "text",
+	                    value: item,
+	                    onChange: this.onChange.bind(this, i),
+	                    onKeyDown: this.onKeyDown.bind(this, i),
+	                    style: { width: getTextWidth(item) } })
+	            );
+	        }, this);
+
+	        return React.createElement(
+	            "ul",
+	            { className: className },
+	            inputs
+	        );
+	    },
+
+	    onChange: function onChange(index, event) {
+	        var items = _.clone(this.state.items);
+	        items[index] = event.target.value;
+
+	        if (index === items.length - 1) {
+	            items = items.concat("");
+	        }
+
+	        this.setState({ items: items });
+	        this.props.onChange(_.compact(items));
+	    },
+
+	    onKeyDown: function onKeyDown(index, event) {
+	        var which = event.nativeEvent.keyCode;
+
+	        // Backspace deletes an empty input...
+	        if (which === 8 /* backspace */ && this.state.items[index] === "") {
+	            event.preventDefault();
+
+	            var items = _.clone(this.state.items);
+	            var focusIndex = index === 0 ? 0 : index - 1;
+
+	            if (index === items.length - 1 && (index === 0 || items[focusIndex] !== "")) {
+	                // ...except for the last one, iff it is the only empty
+	                // input at the end.
+	                ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
+	            } else {
+	                items.splice(index, 1);
+	                this.setState({ items: items }, function () {
+	                    ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
+	                });
+	            }
+
+	            // Deleting the last character in the second-to-last input removes it
+	        } else if (which === 8 /* backspace */ && this.state.items[index].length === 1 && index === this.state.items.length - 2) {
+	            event.preventDefault();
+
+	            var items = _.clone(this.state.items);
+	            items.splice(index, 1);
+	            this.setState({ items: items });
+	            this.props.onChange(_.compact(items));
+
+	            // Enter adds an option below the current one...
+	        } else if (which === 13 /* enter */) {
+	                event.preventDefault();
+
+	                var items = _.clone(this.state.items);
+	                var focusIndex = index + 1;
+
+	                if (index === items.length - 2) {
+	                    // ...unless the empty input is just below.
+	                    ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
+	                } else {
+	                    items.splice(focusIndex, 0, "");
+	                    this.setState({ items: items }, function () {
+	                        ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
+	                    });
+	                }
+	            }
+	    }
+	});
+
+	module.exports = TextListEditor;
+
+/***/ },
+/* 63 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable object-curly-spacing */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
@@ -13857,7 +14059,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 63 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -13889,7 +14091,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = QuestionParagraph;
 
 /***/ },
-/* 64 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -14140,7 +14342,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = TeX;
 
 /***/ },
-/* 65 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14284,7 +14486,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = WidgetContainer;
 
 /***/ },
-/* 66 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -14302,7 +14504,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(18);
 	var ReactDOM = __webpack_require__(20);
 
-	var Deferred = __webpack_require__(67);
+	var Deferred = __webpack_require__(68);
 
 	var Zoomable = React.createClass({
 	    displayName: "Zoomable",
@@ -14547,7 +14749,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Zoomable;
 
 /***/ },
-/* 67 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -14578,147 +14780,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	}();
 
 	module.exports = Deferred;
-
-/***/ },
-/* 68 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, max-len, no-redeclare, no-trailing-spaces, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var React = __webpack_require__(18);
-	var ReactDOM = __webpack_require__(20);
-	var _ = __webpack_require__(19);
-
-	var textWidthCache = {};
-	function getTextWidth(text) {
-	    if (!textWidthCache[text]) {
-	        // Hacky way to guess the width of an input box
-	        var $test = $("<span>").text(text).appendTo("body");
-	        textWidthCache[text] = $test.width() + 5;
-	        $test.remove();
-	    }
-	    return textWidthCache[text];
-	}
-
-	var TextListEditor = React.createClass({
-	    displayName: "TextListEditor",
-
-	    propTypes: {
-	        options: React.PropTypes.array,
-	        layout: React.PropTypes.string,
-	        onChange: React.PropTypes.func.isRequired
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            options: [],
-	            layout: "horizontal"
-	        };
-	    },
-
-	    getInitialState: function getInitialState() {
-	        return {
-	            items: this.props.options.concat("")
-	        };
-	    },
-
-	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        this.setState({
-	            items: nextProps.options.concat("")
-	        });
-	    },
-
-	    render: function render() {
-	        var className = ["perseus-text-list-editor", "perseus-clearfix", "layout-" + this.props.layout].join(" ");
-
-	        var inputs = _.map(this.state.items, function (item, i) {
-	            return React.createElement(
-	                "li",
-	                { key: i },
-	                React.createElement("input", {
-	                    ref: "input_" + i,
-	                    type: "text",
-	                    value: item,
-	                    onChange: this.onChange.bind(this, i),
-	                    onKeyDown: this.onKeyDown.bind(this, i),
-	                    style: { width: getTextWidth(item) } })
-	            );
-	        }, this);
-
-	        return React.createElement(
-	            "ul",
-	            { className: className },
-	            inputs
-	        );
-	    },
-
-	    onChange: function onChange(index, event) {
-	        var items = _.clone(this.state.items);
-	        items[index] = event.target.value;
-
-	        if (index === items.length - 1) {
-	            items = items.concat("");
-	        }
-
-	        this.setState({ items: items });
-	        this.props.onChange(_.compact(items));
-	    },
-
-	    onKeyDown: function onKeyDown(index, event) {
-	        var which = event.nativeEvent.keyCode;
-
-	        // Backspace deletes an empty input...
-	        if (which === 8 /* backspace */ && this.state.items[index] === "") {
-	            event.preventDefault();
-
-	            var items = _.clone(this.state.items);
-	            var focusIndex = index === 0 ? 0 : index - 1;
-
-	            if (index === items.length - 1 && (index === 0 || items[focusIndex] !== "")) {
-	                // ...except for the last one, iff it is the only empty
-	                // input at the end.
-	                ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
-	            } else {
-	                items.splice(index, 1);
-	                this.setState({ items: items }, function () {
-	                    ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
-	                });
-	            }
-
-	            // Deleting the last character in the second-to-last input removes it
-	        } else if (which === 8 /* backspace */ && this.state.items[index].length === 1 && index === this.state.items.length - 2) {
-	            event.preventDefault();
-
-	            var items = _.clone(this.state.items);
-	            items.splice(index, 1);
-	            this.setState({ items: items });
-	            this.props.onChange(_.compact(items));
-
-	            // Enter adds an option below the current one...
-	        } else if (which === 13 /* enter */) {
-	                event.preventDefault();
-
-	                var items = _.clone(this.state.items);
-	                var focusIndex = index + 1;
-
-	                if (index === items.length - 2) {
-	                    // ...unless the empty input is just below.
-	                    ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
-	                } else {
-	                    items.splice(focusIndex, 0, "");
-	                    this.setState({ items: items }, function () {
-	                        ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
-	                    });
-	                }
-	            }
-	    }
-	});
-
-	module.exports = TextListEditor;
 
 /***/ },
 /* 69 */
@@ -16546,7 +16607,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var shuffle = __webpack_require__(6).shuffle;
 
-	var Radio = __webpack_require__(177);
+	var Radio = __webpack_require__(181);
 
 	var _choiceTransform = function _choiceTransform(editorProps, problemNum) {
 	    var _maybeRandomize = function _maybeRandomize(array) {
@@ -16654,11 +16715,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(18);
 	var _ = __webpack_require__(19);
 
-	var InputWithExamples = __webpack_require__(178);
-	var SimpleKeypadInput = __webpack_require__(179);
-	var ParseTex = __webpack_require__(180).parseTex;
-	var PossibleAnswers = __webpack_require__(181);
-	var KhanAnswerTypes = __webpack_require__(50);
+	var InputWithExamples = __webpack_require__(177);
+	var SimpleKeypadInput = __webpack_require__(178);
+	var ParseTex = __webpack_require__(179).parseTex;
+	var PossibleAnswers = __webpack_require__(180);
+	var KhanAnswerTypes = __webpack_require__(47);
 
 	var keypadElementPropType = __webpack_require__(170).propTypes.keypadElementPropType;
 
@@ -17230,15 +17291,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(18);
 	var _ = __webpack_require__(19);
 
-	var InputWithExamples = __webpack_require__(178);
-	var SimpleKeypadInput = __webpack_require__(179);
-	var ParseTex = __webpack_require__(180).parseTex;
-	var PossibleAnswers = __webpack_require__(181);
+	var InputWithExamples = __webpack_require__(177);
+	var SimpleKeypadInput = __webpack_require__(178);
+	var ParseTex = __webpack_require__(179).parseTex;
+	var PossibleAnswers = __webpack_require__(180);
 
 	var ApiClassNames = __webpack_require__(5).ClassNames;
 	var ApiOptions = __webpack_require__(5).Options;
-	var KhanAnswerTypes = __webpack_require__(50);
-	var KhanMath = __webpack_require__(92);
+	var KhanAnswerTypes = __webpack_require__(47);
+	var KhanMath = __webpack_require__(89);
 
 	var keypadElementPropType = __webpack_require__(170).propTypes.keypadElementPropType;
 
@@ -18177,10 +18238,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Changeable = __webpack_require__(183);
 	var ApiOptions = __webpack_require__(5).Options;
 	var ApiClassNames = __webpack_require__(5).ClassNames;
-	var KhanAnswerTypes = __webpack_require__(50);
+	var KhanAnswerTypes = __webpack_require__(47);
 
 	var InlineIcon = __webpack_require__(39);
-	var InputWithExamples = __webpack_require__(178);
+	var InputWithExamples = __webpack_require__(177);
 	var MathInput = __webpack_require__(189);
 	var TexButtons = __webpack_require__(190);
 
@@ -18786,7 +18847,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var InfoTip = __webpack_require__(73);
 	var PropCheckBox = __webpack_require__(44);
 	var SortableArea = __webpack_require__(191);
-	var TeX = __webpack_require__(64); // OldExpression only
+	var TeX = __webpack_require__(65); // OldExpression only
 	var TexButtons = __webpack_require__(190);
 
 	var Expression = __webpack_require__(82).Expression;
@@ -20007,225 +20068,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable no-var, object-curly-spacing */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 	var _ = __webpack_require__(19);
-
-	// Split a word-wise diff generated by jsdiff into multiple lines, for the
-	// purpose of breaking up the diffs into lines, so that modified lines can be
-	// faintly highlighted
-
-	var splitDiff = function splitDiff(diffEntries) {
-	    var lines = [];
-	    var currentLine = [];
-	    _.each(diffEntries, function (entry) {
-	        var values = entry.value.split("\n");
-	        _.each(values, function (value, i) {
-	            var isNewline = i > 0;
-	            if (isNewline) {
-	                lines.push(currentLine);
-	                currentLine = [];
-	            }
-	            var newEntry = _.extend({}, entry, { value: value });
-	            currentLine.push(newEntry);
-	        });
-	    });
-
-	    if (currentLine.length) {
-	        lines.push(currentLine);
-	    }
-	    return lines;
-	};
-
-	module.exports = splitDiff;
-
-/***/ },
-/* 90 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var jsdiff = __webpack_require__(93);
-	var _ = __webpack_require__(19);
-
-	var statusFor = function statusFor(chunk) {
-	    if (chunk.added) {
-	        return "added";
-	    } else if (chunk.removed) {
-	        return "removed";
-	    } else {
-	        return "unchanged";
-	    }
-	};
-
-	// Turn a chunk (which contains an array of values and a status)
-	// into an array of values, each with the same status
-	var splitUpChunk = function splitUpChunk(chunk) {
-	    return _.map(chunk.value, function (value) {
-	        return {
-	            value: value,
-	            status: statusFor(chunk)
-	        };
-	    });
-	};
-
-	// Apply `fn` to every element in `lst` and then concatenate all the results
-	// http://clojuredocs.org/clojure_core/clojure.core/mapcat
-	var mapcat = function mapcat(lst, fn) {
-	    return _.flatten(_.map(lst, fn), true /* only flatten one level */);
-	};
-
-	// > ArrayDiff.diff([1,2,3], [2,3,4]);
-	// = [{ "value": [1],
-	//      "removed": true },
-	//    { "value": [2, 3] },
-	//    { "value": [4],
-	//      "added": true }]
-	var ArrayDiff = new jsdiff.Diff();
-	ArrayDiff.tokenize = function (array) {
-	    return _.map(array, function (elem) {
-	        return [elem];
-	    });
-	};
-	// The default is `+` for string concatenation, which doesn't work for array
-	// concatenation.
-	ArrayDiff.join = function (a, b) {
-	    return a.concat(b);
-	};
-	// By default jsDiff uses ===
-	ArrayDiff.equals = _.isEqual;
-
-	// Take the output of jsdiff's function (which concatenates adjacent entries)
-	// and make it just one entry per chunk
-	// > flattenChunks([{ "value": [1],
-	//                    "removed": true },
-	//                  { "value": [2, 3] },
-	//                  { "value": [4],
-	//                    "added": true }])
-	// = [{ "value":1, "status":"removed"},
-	//    { "value":2, "status":"unchanged"},
-	//    { "value":3, "status":"unchanged"},
-	//    { "value":4, "status":"added"}]
-	var flattenChunks = function flattenChunks(chunks) {
-	    return mapcat(chunks, splitUpChunk);
-	};
-
-	// Take two arrays and create a diff for them. The result is two arrays of
-	// objects, one for the things that should be included in a 'before', and one
-	// for 'after'
-	var stringArrayDiff = function stringArrayDiff(a, b) {
-	    var diffResult = ArrayDiff.diff(a, b);
-	    var flattened = flattenChunks(diffResult);
-
-	    return {
-	        before: _.filter(flattened, function (entry) {
-	            return entry.status !== "added";
-	        }),
-	        after: _.filter(flattened, function (entry) {
-	            return entry.status !== "removed";
-	        })
-	    };
-	};
-
-	module.exports = stringArrayDiff;
-
-/***/ },
-/* 91 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var _ = __webpack_require__(19);
-
-	var UNCHANGED = "unchanged";
-	var CHANGED = "changed";
-	var ADDED = "added";
-	var REMOVED = "removed";
-
-	// For values which do not have further values nested within them (strings,
-	// numbers, and booleans)
-	var valueEntry = function valueEntry(before, after, key) {
-	    var status;
-	    if (before === after) {
-	        status = UNCHANGED;
-	    } else if (before === undefined) {
-	        status = ADDED;
-	    } else if (after === undefined) {
-	        status = REMOVED;
-	    } else {
-	        status = CHANGED;
-	    }
-
-	    return {
-	        after: JSON.stringify(after),
-	        before: JSON.stringify(before),
-	        children: [],
-	        key: key,
-	        status: status
-	    };
-	};
-
-	// For values which require a more granular diff (objects and arrays)
-	var objectEntry = function objectEntry(before, after, key) {
-	    var beforeKeys = _.isObject(before) ? _(before).keys() : [];
-	    var afterKeys = _.isObject(after) ? _(after).keys() : [];
-	    var keys = _.union(beforeKeys, afterKeys);
-
-	    var children = _.map(keys, function (key) {
-	        return performDiff((before || {})[key], (after || {})[key], key);
-	    });
-
-	    var status;
-	    if (before === undefined) {
-	        status = ADDED;
-	    } else if (after === undefined) {
-	        status = REMOVED;
-	    } else {
-	        var changed = _.any(children, function (child) {
-	            return child.status !== UNCHANGED;
-	        });
-	        status = changed ? CHANGED : UNCHANGED;
-	    }
-
-	    return {
-	        after: "",
-	        before: "",
-	        children: children,
-	        key: key,
-	        status: status
-	    };
-	};
-
-	var performDiff = function performDiff(before, after, /* optional */key) {
-	    if ((typeof before === "undefined" ? "undefined" : _typeof(before)) === "object" || (typeof after === "undefined" ? "undefined" : _typeof(after)) === "object") {
-	        return objectEntry(before, after, key);
-	    } else {
-	        return valueEntry(before, after, key);
-	    }
-	};
-
-	module.exports = performDiff;
-
-/***/ },
-/* 92 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _ = __webpack_require__(19);
-	var knumber = __webpack_require__(206).number;
+	var knumber = __webpack_require__(205).number;
 
 	var KhanMath = {
 	    // Simplify formulas before display
@@ -20473,6 +20317,223 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	module.exports = KhanMath;
+
+/***/ },
+/* 90 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable no-var, object-curly-spacing */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var _ = __webpack_require__(19);
+
+	// Split a word-wise diff generated by jsdiff into multiple lines, for the
+	// purpose of breaking up the diffs into lines, so that modified lines can be
+	// faintly highlighted
+
+	var splitDiff = function splitDiff(diffEntries) {
+	    var lines = [];
+	    var currentLine = [];
+	    _.each(diffEntries, function (entry) {
+	        var values = entry.value.split("\n");
+	        _.each(values, function (value, i) {
+	            var isNewline = i > 0;
+	            if (isNewline) {
+	                lines.push(currentLine);
+	                currentLine = [];
+	            }
+	            var newEntry = _.extend({}, entry, { value: value });
+	            currentLine.push(newEntry);
+	        });
+	    });
+
+	    if (currentLine.length) {
+	        lines.push(currentLine);
+	    }
+	    return lines;
+	};
+
+	module.exports = splitDiff;
+
+/***/ },
+/* 91 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var jsdiff = __webpack_require__(93);
+	var _ = __webpack_require__(19);
+
+	var statusFor = function statusFor(chunk) {
+	    if (chunk.added) {
+	        return "added";
+	    } else if (chunk.removed) {
+	        return "removed";
+	    } else {
+	        return "unchanged";
+	    }
+	};
+
+	// Turn a chunk (which contains an array of values and a status)
+	// into an array of values, each with the same status
+	var splitUpChunk = function splitUpChunk(chunk) {
+	    return _.map(chunk.value, function (value) {
+	        return {
+	            value: value,
+	            status: statusFor(chunk)
+	        };
+	    });
+	};
+
+	// Apply `fn` to every element in `lst` and then concatenate all the results
+	// http://clojuredocs.org/clojure_core/clojure.core/mapcat
+	var mapcat = function mapcat(lst, fn) {
+	    return _.flatten(_.map(lst, fn), true /* only flatten one level */);
+	};
+
+	// > ArrayDiff.diff([1,2,3], [2,3,4]);
+	// = [{ "value": [1],
+	//      "removed": true },
+	//    { "value": [2, 3] },
+	//    { "value": [4],
+	//      "added": true }]
+	var ArrayDiff = new jsdiff.Diff();
+	ArrayDiff.tokenize = function (array) {
+	    return _.map(array, function (elem) {
+	        return [elem];
+	    });
+	};
+	// The default is `+` for string concatenation, which doesn't work for array
+	// concatenation.
+	ArrayDiff.join = function (a, b) {
+	    return a.concat(b);
+	};
+	// By default jsDiff uses ===
+	ArrayDiff.equals = _.isEqual;
+
+	// Take the output of jsdiff's function (which concatenates adjacent entries)
+	// and make it just one entry per chunk
+	// > flattenChunks([{ "value": [1],
+	//                    "removed": true },
+	//                  { "value": [2, 3] },
+	//                  { "value": [4],
+	//                    "added": true }])
+	// = [{ "value":1, "status":"removed"},
+	//    { "value":2, "status":"unchanged"},
+	//    { "value":3, "status":"unchanged"},
+	//    { "value":4, "status":"added"}]
+	var flattenChunks = function flattenChunks(chunks) {
+	    return mapcat(chunks, splitUpChunk);
+	};
+
+	// Take two arrays and create a diff for them. The result is two arrays of
+	// objects, one for the things that should be included in a 'before', and one
+	// for 'after'
+	var stringArrayDiff = function stringArrayDiff(a, b) {
+	    var diffResult = ArrayDiff.diff(a, b);
+	    var flattened = flattenChunks(diffResult);
+
+	    return {
+	        before: _.filter(flattened, function (entry) {
+	            return entry.status !== "added";
+	        }),
+	        after: _.filter(flattened, function (entry) {
+	            return entry.status !== "removed";
+	        })
+	    };
+	};
+
+	module.exports = stringArrayDiff;
+
+/***/ },
+/* 92 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var _ = __webpack_require__(19);
+
+	var UNCHANGED = "unchanged";
+	var CHANGED = "changed";
+	var ADDED = "added";
+	var REMOVED = "removed";
+
+	// For values which do not have further values nested within them (strings,
+	// numbers, and booleans)
+	var valueEntry = function valueEntry(before, after, key) {
+	    var status;
+	    if (before === after) {
+	        status = UNCHANGED;
+	    } else if (before === undefined) {
+	        status = ADDED;
+	    } else if (after === undefined) {
+	        status = REMOVED;
+	    } else {
+	        status = CHANGED;
+	    }
+
+	    return {
+	        after: JSON.stringify(after),
+	        before: JSON.stringify(before),
+	        children: [],
+	        key: key,
+	        status: status
+	    };
+	};
+
+	// For values which require a more granular diff (objects and arrays)
+	var objectEntry = function objectEntry(before, after, key) {
+	    var beforeKeys = _.isObject(before) ? _(before).keys() : [];
+	    var afterKeys = _.isObject(after) ? _(after).keys() : [];
+	    var keys = _.union(beforeKeys, afterKeys);
+
+	    var children = _.map(keys, function (key) {
+	        return performDiff((before || {})[key], (after || {})[key], key);
+	    });
+
+	    var status;
+	    if (before === undefined) {
+	        status = ADDED;
+	    } else if (after === undefined) {
+	        status = REMOVED;
+	    } else {
+	        var changed = _.any(children, function (child) {
+	            return child.status !== UNCHANGED;
+	        });
+	        status = changed ? CHANGED : UNCHANGED;
+	    }
+
+	    return {
+	        after: "",
+	        before: "",
+	        children: children,
+	        key: key,
+	        status: status
+	    };
+	};
+
+	var performDiff = function performDiff(before, after, /* optional */key) {
+	    if ((typeof before === "undefined" ? "undefined" : _typeof(before)) === "object" || (typeof after === "undefined" ? "undefined" : _typeof(after)) === "object") {
+	        return objectEntry(before, after, key);
+	    } else {
+	        return valueEntry(before, after, key);
+	    }
+	};
+
+	module.exports = performDiff;
 
 /***/ },
 /* 93 */
@@ -21382,7 +21443,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ApiOptions = __webpack_require__(5).Options;
 	var EditorJsonify = __webpack_require__(184);
 	var PropCheckBox = __webpack_require__(44);
-	var TextListEditor = __webpack_require__(68);
+	var TextListEditor = __webpack_require__(62);
 
 	var Categorizer = __webpack_require__(100).widget;
 
@@ -22730,9 +22791,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var MovableLine = Graphie.MovableLine;
 	var WrappedLine = __webpack_require__(196);
 
-	var knumber = __webpack_require__(206).number;
-	var kvector = __webpack_require__(206).vector;
-	var kpoint = __webpack_require__(206).point;
+	var knumber = __webpack_require__(205).number;
+	var kvector = __webpack_require__(205).vector;
+	var kpoint = __webpack_require__(205).point;
 	var KhanColors = __webpack_require__(197);
 
 	var _require = __webpack_require__(168),
@@ -25825,7 +25886,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Point = Graphie.Point;
 	var Rect = Graphie.Rect;
 
-	var kvector = __webpack_require__(206).vector;
+	var kvector = __webpack_require__(205).vector;
 
 	// Memoize KAS parsing
 	var KAShashFunc = function KAShashFunc(expr, options) {
@@ -26293,7 +26354,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var GraphSettings = __webpack_require__(198);
 	var MathInput = __webpack_require__(189);
 	var NumberInput = __webpack_require__(186);
-	var TeX = __webpack_require__(64);
+	var TeX = __webpack_require__(65);
 	var TextInput = __webpack_require__(187);
 
 	var KhanColors = __webpack_require__(197);
@@ -27751,14 +27812,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(18);
 	var _ = __webpack_require__(19);
 
-	var Graph = __webpack_require__(202);
+	var Graph = __webpack_require__(201);
 	var InfoTip = __webpack_require__(73);
 	var Interactive2 = __webpack_require__(195);
 	var NumberInput = __webpack_require__(186);
 	var Util = __webpack_require__(6);
 
-	var knumber = __webpack_require__(206).number;
-	var kpoint = __webpack_require__(206).point;
+	var knumber = __webpack_require__(205).number;
+	var kpoint = __webpack_require__(205).point;
 	var KhanColors = __webpack_require__(197);
 	var GraphUtils = __webpack_require__(174);
 
@@ -31079,11 +31140,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	var NumberInput = __webpack_require__(186);
 	var Renderer = __webpack_require__(31);
 	var TextInput = __webpack_require__(187);
-	var MathOutput = __webpack_require__(201);
-	var SimpleKeypadInput = __webpack_require__(179);
+	var MathOutput = __webpack_require__(202);
+	var SimpleKeypadInput = __webpack_require__(178);
 
 	var ApiOptions = __webpack_require__(5).Options;
-	var KhanAnswerTypes = __webpack_require__(50);
+	var KhanAnswerTypes = __webpack_require__(47);
 
 	var keypadElementPropType = __webpack_require__(170).propTypes.keypadElementPropType;
 
@@ -31997,7 +32058,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var InfoTip = __webpack_require__(73);
 	var PropCheckBox = __webpack_require__(44);
-	var TextListEditor = __webpack_require__(68);
+	var TextListEditor = __webpack_require__(62);
 
 	var MatcherEditor = React.createClass({
 	    displayName: "MatcherEditor",
@@ -32901,8 +32962,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Changeable = __webpack_require__(183);
 
 	var NumberInput = __webpack_require__(186);
-	var MathOutput = __webpack_require__(201);
-	var SimpleKeypadInput = __webpack_require__(179);
+	var MathOutput = __webpack_require__(202);
+	var SimpleKeypadInput = __webpack_require__(178);
 
 	var ApiOptions = __webpack_require__(5).Options;
 
@@ -32912,8 +32973,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var MovablePoint = Graphie.MovablePoint;
 	var Line = Graphie.Line;
 
-	var knumber = __webpack_require__(206).number;
-	var KhanMath = __webpack_require__(92);
+	var knumber = __webpack_require__(205).number;
+	var KhanMath = __webpack_require__(89);
 	var KhanColors = __webpack_require__(197);
 
 	var bound = function bound(x, gt, lt) {
@@ -33600,7 +33661,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var PropCheckBox = __webpack_require__(44);
 	var RangeInput = __webpack_require__(200);
 
-	var knumber = __webpack_require__(206).number;
+	var knumber = __webpack_require__(205).number;
 	var bound = function bound(x, gt, lt) {
 	    return Math.min(Math.max(x, gt), lt);
 	};
@@ -34706,7 +34767,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(19);
 
 	var InfoTip = __webpack_require__(73);
-	var TextListEditor = __webpack_require__(68);
+	var TextListEditor = __webpack_require__(62);
 
 	var NORMAL = "normal",
 	    AUTO = "auto",
@@ -36518,7 +36579,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ApiClassNames = __webpack_require__(5).ClassNames;
 
 	var deepEq = __webpack_require__(6).deepEq;
-	var KhanMath = __webpack_require__(92);
+	var KhanMath = __webpack_require__(89);
 	var KhanColors = __webpack_require__(197);
 	var GraphUtils = __webpack_require__(174);
 	var Interactive2 = __webpack_require__(195);
@@ -37405,11 +37466,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	var NumberInput = __webpack_require__(186);
 	var RangeInput = __webpack_require__(200);
 	var SvgImage = __webpack_require__(35);
-	var TextListEditor = __webpack_require__(68);
+	var TextListEditor = __webpack_require__(62);
 
 	var Plotter = __webpack_require__(144).widget;
 
-	var knumber = __webpack_require__(206).number;
+	var knumber = __webpack_require__(205).number;
 
 	var BAR = "bar",
 	    LINE = "line",
@@ -38611,12 +38672,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    MovableLine = Graphie.MovableLine;
 
 	var NumberInput = __webpack_require__(186);
-	var MathOutput = __webpack_require__(201);
+	var MathOutput = __webpack_require__(202);
 	var seededRNG = __webpack_require__(6).seededRNG;
 	var Util = __webpack_require__(6);
-	var knumber = __webpack_require__(206).number;
+	var knumber = __webpack_require__(205).number;
 	var KhanColors = __webpack_require__(197);
-	var KhanMath = __webpack_require__(92);
+	var KhanMath = __webpack_require__(89);
 
 	var defaultBoxSize = 400;
 	var maxSampleSize = 1000;
@@ -39635,7 +39696,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var InfoTip = __webpack_require__(73);
 	var PropCheckBox = __webpack_require__(44);
-	var TextListEditor = __webpack_require__(68);
+	var TextListEditor = __webpack_require__(62);
 
 	var HORIZONTAL = "horizontal";
 	var VERTICAL = "vertical";
@@ -39765,12 +39826,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ReactDOM = __webpack_require__(20);
 	var _ = __webpack_require__(19);
 
-	var MathOutput = __webpack_require__(201);
+	var MathOutput = __webpack_require__(202);
 	var Renderer = __webpack_require__(31);
 	var Util = __webpack_require__(6);
 
 	var ApiOptions = __webpack_require__(5).Options;
-	var KhanAnswerTypes = __webpack_require__(50);
+	var KhanAnswerTypes = __webpack_require__(47);
 
 	var assert = __webpack_require__(173).assert;
 
@@ -40285,12 +40346,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ReactDOM = __webpack_require__(20);
 	var _ = __webpack_require__(19);
 
-	var Graph = __webpack_require__(202);
+	var Graph = __webpack_require__(201);
 	var InlineIcon = __webpack_require__(39);
 	var NumberInput = __webpack_require__(186);
-	var MathOutput = __webpack_require__(201);
-	var TeX = __webpack_require__(64);
-	var SimpleKeypadInput = __webpack_require__(179);
+	var MathOutput = __webpack_require__(202);
+	var TeX = __webpack_require__(65);
+	var SimpleKeypadInput = __webpack_require__(178);
 
 	var ApiOptions = __webpack_require__(5).Options;
 
@@ -40311,12 +40372,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	var getGridStep = __webpack_require__(6).getGridStep;
 	var captureScratchpadTouchStart = __webpack_require__(6).captureScratchpadTouchStart;
 
-	var knumber = __webpack_require__(206).number;
-	var kvector = __webpack_require__(206).vector;
-	var kpoint = __webpack_require__(206).point;
-	var kray = __webpack_require__(206).ray;
-	var kline = __webpack_require__(206).line;
-	var KhanMath = __webpack_require__(92);
+	var knumber = __webpack_require__(205).number;
+	var kvector = __webpack_require__(205).vector;
+	var kpoint = __webpack_require__(205).point;
+	var kray = __webpack_require__(205).ray;
+	var kline = __webpack_require__(205).line;
+	var KhanMath = __webpack_require__(89);
 	var KhanColors = __webpack_require__(197);
 
 	var assert = __webpack_require__(173).assert;
@@ -42720,7 +42781,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ApiOptions = __webpack_require__(5).Options;
 
-	var Graph = __webpack_require__(202);
+	var Graph = __webpack_require__(201);
 	var GraphSettings = __webpack_require__(198);
 	var InfoTip = __webpack_require__(73);
 	var PropCheckBox = __webpack_require__(44);
@@ -42729,11 +42790,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var deepEq = __webpack_require__(6).deepEq;
 	var getGridStep = __webpack_require__(6).getGridStep;
-	var kline = __webpack_require__(206).line;
-	var knumber = __webpack_require__(206).number;
-	var kpoint = __webpack_require__(206).point;
-	var kray = __webpack_require__(206).ray;
-	var kvector = __webpack_require__(206).vector;
+	var kline = __webpack_require__(205).line;
+	var knumber = __webpack_require__(205).number;
+	var kpoint = __webpack_require__(205).point;
+	var kray = __webpack_require__(205).ray;
+	var kvector = __webpack_require__(205).vector;
 	var KhanColors = __webpack_require__(197);
 
 	function arraySum(array) {
@@ -43738,7 +43799,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ApiClassNames = __webpack_require__(5).ClassNames;
 	var ApiOptions = __webpack_require__(5).Options;
 	var Changeable = __webpack_require__(183);
-	var MathOutput = __webpack_require__(201);
+	var MathOutput = __webpack_require__(202);
 
 	var _require = __webpack_require__(204),
 	    SignificantFigures = _require.SignificantFigures,
@@ -44580,8 +44641,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Graphie = __webpack_require__(70);
 	var MovablePoint = Graphie.MovablePoint;
 
-	var knumber = __webpack_require__(206).number;
-	var kpoint = __webpack_require__(206).point;
+	var knumber = __webpack_require__(205).number;
+	var kpoint = __webpack_require__(205).point;
 
 	/**
 	 * This is the widget's renderer. It shows up in the right column
@@ -45818,7 +45879,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    KeypadInput: __webpack_require__(223)
 	};
 
-	var _require = __webpack_require__(205),
+	var _require = __webpack_require__(206),
 	    KeypadTypes = _require.KeypadTypes;
 
 	var consts = { KeypadTypes: KeypadTypes };
@@ -47923,6 +47984,535 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var React = __webpack_require__(18);
+	var Tooltip = __webpack_require__(188);
+	var _ = __webpack_require__(19);
+
+	var ApiClassNames = __webpack_require__(5).ClassNames;
+	var MathInput = __webpack_require__(189);
+	var Renderer = __webpack_require__(31);
+	var TextInput = __webpack_require__(187);
+	var MathOutput = __webpack_require__(202);
+
+	var captureScratchpadTouchStart = __webpack_require__(6).captureScratchpadTouchStart;
+
+	var MATH = "math";
+	var TEXT = "text";
+	var TEX = "tex";
+
+	var InputWithExamples = React.createClass({
+	    displayName: "InputWithExamples",
+
+	    propTypes: {
+	        type: React.PropTypes.oneOf([MATH, TEXT, TEX]),
+	        value: React.PropTypes.string,
+	        onChange: React.PropTypes.func.isRequired,
+	        className: React.PropTypes.string,
+	        examples: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
+	        shouldShowExamples: React.PropTypes.bool,
+	        convertDotToTimes: React.PropTypes.bool,
+	        buttonSet: React.PropTypes.string,
+	        buttonsVisible: React.PropTypes.oneOf(['always', 'never', 'focused']),
+	        labelText: React.PropTypes.string,
+	        onFocus: React.PropTypes.func,
+	        onBlur: React.PropTypes.func,
+	        disabled: React.PropTypes.bool,
+
+	        // A unique string identifying this InputWithExamples
+	        id: React.PropTypes.string.isRequired
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            type: TEXT,
+	            shouldShowExamples: true,
+	            onFocus: function onFocus() {},
+	            onBlur: function onBlur() {},
+	            disabled: false
+	        };
+	    },
+
+	    getInitialState: function getInitialState() {
+	        return {
+	            focused: false,
+	            showExamples: false
+	        };
+	    },
+
+	    _getUniqueId: function _getUniqueId() {
+	        return "input-with-examples-" + btoa(this.props.id).replace(/=/g, '');
+	    },
+
+	    _getInputClassName: function _getInputClassName() {
+	        // <MathOutput> is a special component that manages its own class and
+	        // state, as it's a <span> that wants to act like an <input>.
+	        if (this.props.type === TEX) {
+	            return this.props.className;
+	        }
+
+	        // Otherwise, we need to add these INPUT and FOCUSED tags here.
+	        var className = ApiClassNames.INPUT + " " + ApiClassNames.INTERACTIVE;
+	        if (this.state.focused) {
+	            className += " " + ApiClassNames.FOCUSED;
+	        }
+	        if (this.props.className) {
+	            className += " " + this.props.className;
+	        }
+	        return className;
+	    },
+
+	    _getPropsForInputType: function _getPropsForInputType() {
+	        // Minimal set of props, used by each input type
+	        var inputProps = {
+	            "aria-describedby": this._getUniqueId(),
+	            ref: "input",
+	            className: this._getInputClassName(),
+	            labelText: this.props.labelText,
+	            value: this.props.value,
+	            onFocus: this._handleFocus,
+	            onBlur: this._handleBlur,
+	            disabled: this.props.disabled
+	        };
+
+	        if (this.props.type === TEX) {
+	            return inputProps;
+	        }
+
+	        // Add useful props required for MATH and TEXT modes
+	        _.extend(inputProps, {
+	            buttonSet: this.props.buttonSet,
+	            buttonsVisible: this.props.buttonsVisible,
+	            onChange: this.props.onChange,
+	            onTouchStart: captureScratchpadTouchStart
+	        });
+
+	        // And add final props that are MATH- and TEXT-specific
+	        if (this.props.type === MATH) {
+	            return _.extend({
+	                convertDotToTimes: this.props.convertDotToTimes
+	            }, inputProps);
+	        } else if (this.props.type === TEXT) {
+	            return _.extend({
+	                autoCapitalize: "off",
+	                autoComplete: "off",
+	                autoCorrect: "off",
+	                spellCheck: "false"
+	            }, inputProps);
+	        }
+	    },
+
+	    _getComponentForInputType: function _getComponentForInputType() {
+	        switch (this.props.type) {
+	            case TEX:
+	                return MathOutput;
+
+	            case MATH:
+	                return MathInput;
+
+	            case TEXT:
+	                return TextInput;
+
+	            default:
+	                return null;
+	        }
+	    },
+
+	    _renderInput: function _renderInput() {
+	        var inputProps = this._getPropsForInputType();
+	        var InputComponent = this._getComponentForInputType();
+	        return React.createElement(InputComponent, inputProps);
+	    },
+
+	    render: function render() {
+	        var input = this._renderInput();
+
+	        // Static rendering, which doesn't include the 'tooltip' logic that the
+	        // other types require, and is hence handled separately.
+	        if (this.props.type === TEX) {
+	            return input;
+	        }
+
+	        // Else, we need to be able to show examples
+	        var examplesContent = _.map(this.props.examples, function (example) {
+	            return "- " + example;
+	        }).join("\n");
+
+	        var showExamples = this.props.shouldShowExamples && this.state.showExamples;
+
+	        return React.createElement(
+	            Tooltip,
+	            {
+	                ref: "tooltip",
+	                className: "perseus-formats-tooltip preview-measure",
+	                horizontalPosition: "left",
+	                horizontalAlign: "left",
+	                verticalPosition: "bottom",
+	                arrowSize: 10,
+	                borderColor: "#ccc",
+	                show: showExamples },
+	            input,
+	            React.createElement(
+	                "div",
+	                { id: this._getUniqueId() },
+	                React.createElement(Renderer, { content: examplesContent })
+	            )
+	        );
+	    },
+
+	    _handleFocus: function _handleFocus() {
+	        this.props.onFocus();
+	        this.setState({
+	            focused: true,
+	            showExamples: true
+	        });
+	    },
+
+	    show: function show() {
+	        this.setState({ showExamples: true });
+	    },
+
+	    hide: function hide() {
+	        this.setState({ showExamples: false });
+	    },
+
+	    _handleBlur: function _handleBlur() {
+	        this.props.onBlur();
+	        this.setState({
+	            focused: false,
+	            showExamples: false
+	        });
+	    },
+
+	    focus: function focus() {
+	        this.refs.input.focus();
+	    },
+
+	    blur: function blur() {
+	        this.refs.input.blur();
+	    },
+
+	    handleChange: function handleChange(e) {
+	        this.props.onChange(e.target.value);
+	    }
+	});
+
+	module.exports = InputWithExamples;
+
+/***/ },
+/* 178 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	/**
+	 * A version of the `math-input` subrepo's KeypadInput component that adheres to
+	 * the same API as Perseus's  MathOuput and NumberInput, allowing it to be
+	 * dropped in as a replacement for those components without any modifications.
+	 *
+	 * TODO(charlie): Once the keypad API has stabilized, move this into the
+	 * `math-input` subrepo and use it everywhere as a simpler, keypad-coupled
+	 * interface to `math-input`'s MathInput component.
+	 */
+
+	var React = __webpack_require__(18);
+
+	var KeypadInput = __webpack_require__(170).components.KeypadInput;
+
+	var KeypadTypes = __webpack_require__(170).consts.KeypadTypes;
+
+	var keypadElementPropType = __webpack_require__(170).propTypes.keypadElementPropType;
+
+	var SimpleKeypadInput = React.createClass({
+	    displayName: "SimpleKeypadInput",
+
+	    propTypes: {
+	        keypadElement: keypadElementPropType,
+	        onFocus: React.PropTypes.func,
+	        value: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number])
+	    },
+
+	    focus: function focus() {
+	        this.refs.input.focus();
+	    },
+	    blur: function blur() {
+	        this.refs.input.blur();
+	    },
+
+
+	    getValue: function getValue() {
+	        return this.props.value;
+	    },
+
+	    render: function render() {
+	        var _this = this;
+
+	        // Intercept the `onFocus` prop, as we need to configure the keypad
+	        // before continuing with the default focus logic for Perseus inputs.
+	        // Intercept the `value` prop so as to map `null` to the empty string,
+	        // as the `KeypadInput` does not support `null` values.
+	        var _props = this.props,
+	            keypadElement = _props.keypadElement,
+	            _onFocus = _props.onFocus,
+	            value = _props.value,
+	            rest = _objectWithoutProperties(_props, ["keypadElement", "onFocus", "value"]);
+
+	        return React.createElement(KeypadInput, _extends({
+	            ref: "input",
+	            keypadElement: keypadElement,
+	            onFocus: function onFocus() {
+	                if (keypadElement) {
+	                    keypadElement.configure({
+	                        keypadType: KeypadTypes.FRACTION
+	                    }, function () {
+	                        if (_this.isMounted()) {
+	                            _onFocus && _onFocus();
+	                        }
+	                    });
+	                } else {
+	                    _onFocus && _onFocus();
+	                }
+	            },
+	            value: value == null ? "" : "" + value
+	        }, rest));
+	    }
+	});
+
+	module.exports = SimpleKeypadInput;
+
+/***/ },
+/* 179 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	/*
+	 * In this file, an `expression` is some portion of valid TeX enclosed in
+	 * curly brackets.
+	 */
+
+	/*
+	 * Find the index at which an expression ends, i.e., has an unmatched
+	 * closing curly bracket. This method assumes that we start with a non-open
+	 * bracket character and end when we've seen more left than right brackets
+	 * (rather than assuming that we start with a bracket character and wait for
+	 * bracket equality).
+	 */
+	function findEndpoint(tex, currentIndex) {
+	    var bracketDepth = 0;
+
+	    for (var i = currentIndex, len = tex.length; i < len; i++) {
+	        var c = tex[i];
+
+	        if (c === '{') {
+	            bracketDepth++;
+	        } else if (c === '}') {
+	            bracketDepth--;
+	        }
+
+	        if (bracketDepth < 0) {
+	            return i;
+	        }
+	    }
+	    // If we never see unbalanced curly brackets, default to the
+	    // entire string
+	    return tex.length;
+	}
+
+	/*
+	 * Parses an individual set of curly brackets into TeX.
+	 */
+	function parseNextExpression(tex, currentIndex, handler) {
+	    // Find the first '{' and grab subsequent TeX
+	    // Ex) tex: '{3}{7}', and we want the '3'
+	    var openBracketIndex = tex.indexOf('{', currentIndex);
+	    var nextExpIndex = openBracketIndex + 1;
+
+	    // Truncate to only contain remaining TeX
+	    var endpoint = findEndpoint(tex, nextExpIndex);
+	    var expressionTeX = tex.substring(nextExpIndex, endpoint);
+	    var parsedExp = walkTex(expressionTeX, handler);
+
+	    return {
+	        endpoint: endpoint,
+	        expression: parsedExp
+	    };
+	}
+
+	function getNextFracIndex(tex, currentIndex) {
+	    var dfrac = "\\dfrac";
+	    var frac = "\\frac";
+
+	    var nextFrac = tex.indexOf(frac, currentIndex);
+	    var nextDFrac = tex.indexOf(dfrac, currentIndex);
+
+	    if (nextFrac > -1 && nextDFrac > -1) {
+	        return Math.min(nextFrac, nextDFrac);
+	    } else if (nextFrac > -1) {
+	        return nextFrac;
+	    } else if (nextDFrac > -1) {
+	        return nextDFrac;
+	    } else {
+	        return -1;
+	    }
+	}
+
+	function walkTex(tex, handler) {
+	    // Ex) tex: '2 \dfrac {3}{7}'
+	    var parsedString = "";
+	    var currentIndex = 0;
+	    var nextFrac = getNextFracIndex(tex, currentIndex);
+
+	    // For each \dfrac, find the two expressions (wrapped in {}) and recur
+	    while (nextFrac > -1) {
+	        // Gather first fragment, preceding \dfrac
+	        // Ex) parsedString: '2 '
+	        parsedString += tex.substring(currentIndex, nextFrac);
+
+	        // Remove everything preceding \dfrac, which has been parsed
+	        currentIndex = nextFrac;
+
+	        // Parse first expression and move index past it
+	        // Ex) firstParsedExpression.expression: '3'
+	        var firstParsedExpression = parseNextExpression(tex, currentIndex, handler);
+	        currentIndex = firstParsedExpression.endpoint + 1;
+
+	        // Parse second expression
+	        // Ex) secondParsedExpression.expression: '7'
+	        var secondParsedExpression = parseNextExpression(tex, currentIndex, handler);
+	        currentIndex = secondParsedExpression.endpoint + 1;
+
+	        // Add expressions to running total of parsed expressions
+	        if (parsedString.length) {
+	            parsedString += " ";
+	        }
+
+	        // Apply a custom handler based on the parsed subexpressions
+	        parsedString += handler(firstParsedExpression.expression, secondParsedExpression.expression);
+
+	        // Find next DFrac, relative to currentIndex
+	        nextFrac = getNextFracIndex(tex, currentIndex);
+	    }
+
+	    // Add remaining TeX, which is \dfrac-free
+	    parsedString += tex.slice(currentIndex);
+
+	    return parsedString;
+	}
+
+	/*
+	 * Modify a TeX expression, returning another TeX expression. The resulting
+	 * expression will have its innermost fractions stubbed out with \fracs
+	 * (as opposed to \dfracs). All other content will remain untouched.
+	 */
+	function modifyTex(tex) {
+	    function isNestedFraction(tex) {
+	        return tex.indexOf("\\frac") > -1 || tex.indexOf("\\dfrac") > -1;
+	    }
+	    var handler = function handler(exp1, exp2) {
+	        var prefix;
+	        if (isNestedFraction(exp1) || isNestedFraction(exp2)) {
+	            prefix = "\\dfrac";
+	        } else {
+	            prefix = "\\frac";
+	        }
+	        return prefix + " {" + exp1 + "}{" + exp2 + "}";
+	    };
+	    return walkTex(tex, handler);
+	}
+
+	/*
+	 * Parse a TeX expression into something interpretable by input-number.
+	 * The process is exclusively concerned with parsing fractions, i.e., \dfracs.
+	 * The basic algorithm splits on \dfracs and then recurs on the subsequent
+	 * "expressions", i.e., the {} pairs that follow \dfrac. The recursion is to
+	 * allow for nested \dfrac elements.
+	 */
+	function parseTex(tex) {
+	    var handler = function handler(exp1, exp2) {
+	        return exp1 + "/" + exp2;
+	    };
+	    return walkTex(tex, handler);
+	}
+
+	module.exports = {
+	    parseTex: parseTex,
+	    modifyTex: modifyTex
+	};
+
+/***/ },
+/* 180 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	/**
+	 * In review mode (currently only visible in the sat-mission), NumericInput and
+	 * InputNumber use this component to display the set of correct answers.
+	 */
+
+	var React = __webpack_require__(18);
+	var _ = __webpack_require__(19);
+
+	var PossibleAnswers = React.createClass({
+	    displayName: "PossibleAnswers",
+
+	    propTypes: {
+	        answers: React.PropTypes.arrayOf(React.PropTypes.string)
+	    },
+	    render: function render() {
+	        // It's redundant to show duplicate answers.
+	        // So, remove duplicates from the given list of answer strings.
+	        var answers = _.uniq(this.props.answers);
+
+	        var answerComponents = _.map(answers, function (answer) {
+	            // Plus, now that our answers are distinct, we can safely use the
+	            // answer string as a key.
+	            return React.createElement(
+	                "dd",
+	                { key: answer },
+	                answer
+	            );
+	        });
+	        return React.createElement(
+	            "dl",
+	            { className: "perseus-possible-answers" },
+	            React.createElement(
+	                "dt",
+	                null,
+	                "Correct Answer"
+	            ),
+	            answerComponents
+	        );
+	    }
+	});
+
+	module.exports = PossibleAnswers;
+
+/***/ },
+/* 181 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
 	/* global i18n */
 
 	var React = __webpack_require__(18);
@@ -48149,535 +48739,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 	module.exports = Radio;
-
-/***/ },
-/* 178 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var React = __webpack_require__(18);
-	var Tooltip = __webpack_require__(188);
-	var _ = __webpack_require__(19);
-
-	var ApiClassNames = __webpack_require__(5).ClassNames;
-	var MathInput = __webpack_require__(189);
-	var Renderer = __webpack_require__(31);
-	var TextInput = __webpack_require__(187);
-	var MathOutput = __webpack_require__(201);
-
-	var captureScratchpadTouchStart = __webpack_require__(6).captureScratchpadTouchStart;
-
-	var MATH = "math";
-	var TEXT = "text";
-	var TEX = "tex";
-
-	var InputWithExamples = React.createClass({
-	    displayName: "InputWithExamples",
-
-	    propTypes: {
-	        type: React.PropTypes.oneOf([MATH, TEXT, TEX]),
-	        value: React.PropTypes.string,
-	        onChange: React.PropTypes.func.isRequired,
-	        className: React.PropTypes.string,
-	        examples: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
-	        shouldShowExamples: React.PropTypes.bool,
-	        convertDotToTimes: React.PropTypes.bool,
-	        buttonSet: React.PropTypes.string,
-	        buttonsVisible: React.PropTypes.oneOf(['always', 'never', 'focused']),
-	        labelText: React.PropTypes.string,
-	        onFocus: React.PropTypes.func,
-	        onBlur: React.PropTypes.func,
-	        disabled: React.PropTypes.bool,
-
-	        // A unique string identifying this InputWithExamples
-	        id: React.PropTypes.string.isRequired
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            type: TEXT,
-	            shouldShowExamples: true,
-	            onFocus: function onFocus() {},
-	            onBlur: function onBlur() {},
-	            disabled: false
-	        };
-	    },
-
-	    getInitialState: function getInitialState() {
-	        return {
-	            focused: false,
-	            showExamples: false
-	        };
-	    },
-
-	    _getUniqueId: function _getUniqueId() {
-	        return "input-with-examples-" + btoa(this.props.id).replace(/=/g, '');
-	    },
-
-	    _getInputClassName: function _getInputClassName() {
-	        // <MathOutput> is a special component that manages its own class and
-	        // state, as it's a <span> that wants to act like an <input>.
-	        if (this.props.type === TEX) {
-	            return this.props.className;
-	        }
-
-	        // Otherwise, we need to add these INPUT and FOCUSED tags here.
-	        var className = ApiClassNames.INPUT + " " + ApiClassNames.INTERACTIVE;
-	        if (this.state.focused) {
-	            className += " " + ApiClassNames.FOCUSED;
-	        }
-	        if (this.props.className) {
-	            className += " " + this.props.className;
-	        }
-	        return className;
-	    },
-
-	    _getPropsForInputType: function _getPropsForInputType() {
-	        // Minimal set of props, used by each input type
-	        var inputProps = {
-	            "aria-describedby": this._getUniqueId(),
-	            ref: "input",
-	            className: this._getInputClassName(),
-	            labelText: this.props.labelText,
-	            value: this.props.value,
-	            onFocus: this._handleFocus,
-	            onBlur: this._handleBlur,
-	            disabled: this.props.disabled
-	        };
-
-	        if (this.props.type === TEX) {
-	            return inputProps;
-	        }
-
-	        // Add useful props required for MATH and TEXT modes
-	        _.extend(inputProps, {
-	            buttonSet: this.props.buttonSet,
-	            buttonsVisible: this.props.buttonsVisible,
-	            onChange: this.props.onChange,
-	            onTouchStart: captureScratchpadTouchStart
-	        });
-
-	        // And add final props that are MATH- and TEXT-specific
-	        if (this.props.type === MATH) {
-	            return _.extend({
-	                convertDotToTimes: this.props.convertDotToTimes
-	            }, inputProps);
-	        } else if (this.props.type === TEXT) {
-	            return _.extend({
-	                autoCapitalize: "off",
-	                autoComplete: "off",
-	                autoCorrect: "off",
-	                spellCheck: "false"
-	            }, inputProps);
-	        }
-	    },
-
-	    _getComponentForInputType: function _getComponentForInputType() {
-	        switch (this.props.type) {
-	            case TEX:
-	                return MathOutput;
-
-	            case MATH:
-	                return MathInput;
-
-	            case TEXT:
-	                return TextInput;
-
-	            default:
-	                return null;
-	        }
-	    },
-
-	    _renderInput: function _renderInput() {
-	        var inputProps = this._getPropsForInputType();
-	        var InputComponent = this._getComponentForInputType();
-	        return React.createElement(InputComponent, inputProps);
-	    },
-
-	    render: function render() {
-	        var input = this._renderInput();
-
-	        // Static rendering, which doesn't include the 'tooltip' logic that the
-	        // other types require, and is hence handled separately.
-	        if (this.props.type === TEX) {
-	            return input;
-	        }
-
-	        // Else, we need to be able to show examples
-	        var examplesContent = _.map(this.props.examples, function (example) {
-	            return "- " + example;
-	        }).join("\n");
-
-	        var showExamples = this.props.shouldShowExamples && this.state.showExamples;
-
-	        return React.createElement(
-	            Tooltip,
-	            {
-	                ref: "tooltip",
-	                className: "perseus-formats-tooltip preview-measure",
-	                horizontalPosition: "left",
-	                horizontalAlign: "left",
-	                verticalPosition: "bottom",
-	                arrowSize: 10,
-	                borderColor: "#ccc",
-	                show: showExamples },
-	            input,
-	            React.createElement(
-	                "div",
-	                { id: this._getUniqueId() },
-	                React.createElement(Renderer, { content: examplesContent })
-	            )
-	        );
-	    },
-
-	    _handleFocus: function _handleFocus() {
-	        this.props.onFocus();
-	        this.setState({
-	            focused: true,
-	            showExamples: true
-	        });
-	    },
-
-	    show: function show() {
-	        this.setState({ showExamples: true });
-	    },
-
-	    hide: function hide() {
-	        this.setState({ showExamples: false });
-	    },
-
-	    _handleBlur: function _handleBlur() {
-	        this.props.onBlur();
-	        this.setState({
-	            focused: false,
-	            showExamples: false
-	        });
-	    },
-
-	    focus: function focus() {
-	        this.refs.input.focus();
-	    },
-
-	    blur: function blur() {
-	        this.refs.input.blur();
-	    },
-
-	    handleChange: function handleChange(e) {
-	        this.props.onChange(e.target.value);
-	    }
-	});
-
-	module.exports = InputWithExamples;
-
-/***/ },
-/* 179 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	/**
-	 * A version of the `math-input` subrepo's KeypadInput component that adheres to
-	 * the same API as Perseus's  MathOuput and NumberInput, allowing it to be
-	 * dropped in as a replacement for those components without any modifications.
-	 *
-	 * TODO(charlie): Once the keypad API has stabilized, move this into the
-	 * `math-input` subrepo and use it everywhere as a simpler, keypad-coupled
-	 * interface to `math-input`'s MathInput component.
-	 */
-
-	var React = __webpack_require__(18);
-
-	var KeypadInput = __webpack_require__(170).components.KeypadInput;
-
-	var KeypadTypes = __webpack_require__(170).consts.KeypadTypes;
-
-	var keypadElementPropType = __webpack_require__(170).propTypes.keypadElementPropType;
-
-	var SimpleKeypadInput = React.createClass({
-	    displayName: "SimpleKeypadInput",
-
-	    propTypes: {
-	        keypadElement: keypadElementPropType,
-	        onFocus: React.PropTypes.func,
-	        value: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number])
-	    },
-
-	    focus: function focus() {
-	        this.refs.input.focus();
-	    },
-	    blur: function blur() {
-	        this.refs.input.blur();
-	    },
-
-
-	    getValue: function getValue() {
-	        return this.props.value;
-	    },
-
-	    render: function render() {
-	        var _this = this;
-
-	        // Intercept the `onFocus` prop, as we need to configure the keypad
-	        // before continuing with the default focus logic for Perseus inputs.
-	        // Intercept the `value` prop so as to map `null` to the empty string,
-	        // as the `KeypadInput` does not support `null` values.
-	        var _props = this.props,
-	            keypadElement = _props.keypadElement,
-	            _onFocus = _props.onFocus,
-	            value = _props.value,
-	            rest = _objectWithoutProperties(_props, ["keypadElement", "onFocus", "value"]);
-
-	        return React.createElement(KeypadInput, _extends({
-	            ref: "input",
-	            keypadElement: keypadElement,
-	            onFocus: function onFocus() {
-	                if (keypadElement) {
-	                    keypadElement.configure({
-	                        keypadType: KeypadTypes.FRACTION
-	                    }, function () {
-	                        if (_this.isMounted()) {
-	                            _onFocus && _onFocus();
-	                        }
-	                    });
-	                } else {
-	                    _onFocus && _onFocus();
-	                }
-	            },
-	            value: value == null ? "" : "" + value
-	        }, rest));
-	    }
-	});
-
-	module.exports = SimpleKeypadInput;
-
-/***/ },
-/* 180 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	/*
-	 * In this file, an `expression` is some portion of valid TeX enclosed in
-	 * curly brackets.
-	 */
-
-	/*
-	 * Find the index at which an expression ends, i.e., has an unmatched
-	 * closing curly bracket. This method assumes that we start with a non-open
-	 * bracket character and end when we've seen more left than right brackets
-	 * (rather than assuming that we start with a bracket character and wait for
-	 * bracket equality).
-	 */
-	function findEndpoint(tex, currentIndex) {
-	    var bracketDepth = 0;
-
-	    for (var i = currentIndex, len = tex.length; i < len; i++) {
-	        var c = tex[i];
-
-	        if (c === '{') {
-	            bracketDepth++;
-	        } else if (c === '}') {
-	            bracketDepth--;
-	        }
-
-	        if (bracketDepth < 0) {
-	            return i;
-	        }
-	    }
-	    // If we never see unbalanced curly brackets, default to the
-	    // entire string
-	    return tex.length;
-	}
-
-	/*
-	 * Parses an individual set of curly brackets into TeX.
-	 */
-	function parseNextExpression(tex, currentIndex, handler) {
-	    // Find the first '{' and grab subsequent TeX
-	    // Ex) tex: '{3}{7}', and we want the '3'
-	    var openBracketIndex = tex.indexOf('{', currentIndex);
-	    var nextExpIndex = openBracketIndex + 1;
-
-	    // Truncate to only contain remaining TeX
-	    var endpoint = findEndpoint(tex, nextExpIndex);
-	    var expressionTeX = tex.substring(nextExpIndex, endpoint);
-	    var parsedExp = walkTex(expressionTeX, handler);
-
-	    return {
-	        endpoint: endpoint,
-	        expression: parsedExp
-	    };
-	}
-
-	function getNextFracIndex(tex, currentIndex) {
-	    var dfrac = "\\dfrac";
-	    var frac = "\\frac";
-
-	    var nextFrac = tex.indexOf(frac, currentIndex);
-	    var nextDFrac = tex.indexOf(dfrac, currentIndex);
-
-	    if (nextFrac > -1 && nextDFrac > -1) {
-	        return Math.min(nextFrac, nextDFrac);
-	    } else if (nextFrac > -1) {
-	        return nextFrac;
-	    } else if (nextDFrac > -1) {
-	        return nextDFrac;
-	    } else {
-	        return -1;
-	    }
-	}
-
-	function walkTex(tex, handler) {
-	    // Ex) tex: '2 \dfrac {3}{7}'
-	    var parsedString = "";
-	    var currentIndex = 0;
-	    var nextFrac = getNextFracIndex(tex, currentIndex);
-
-	    // For each \dfrac, find the two expressions (wrapped in {}) and recur
-	    while (nextFrac > -1) {
-	        // Gather first fragment, preceding \dfrac
-	        // Ex) parsedString: '2 '
-	        parsedString += tex.substring(currentIndex, nextFrac);
-
-	        // Remove everything preceding \dfrac, which has been parsed
-	        currentIndex = nextFrac;
-
-	        // Parse first expression and move index past it
-	        // Ex) firstParsedExpression.expression: '3'
-	        var firstParsedExpression = parseNextExpression(tex, currentIndex, handler);
-	        currentIndex = firstParsedExpression.endpoint + 1;
-
-	        // Parse second expression
-	        // Ex) secondParsedExpression.expression: '7'
-	        var secondParsedExpression = parseNextExpression(tex, currentIndex, handler);
-	        currentIndex = secondParsedExpression.endpoint + 1;
-
-	        // Add expressions to running total of parsed expressions
-	        if (parsedString.length) {
-	            parsedString += " ";
-	        }
-
-	        // Apply a custom handler based on the parsed subexpressions
-	        parsedString += handler(firstParsedExpression.expression, secondParsedExpression.expression);
-
-	        // Find next DFrac, relative to currentIndex
-	        nextFrac = getNextFracIndex(tex, currentIndex);
-	    }
-
-	    // Add remaining TeX, which is \dfrac-free
-	    parsedString += tex.slice(currentIndex);
-
-	    return parsedString;
-	}
-
-	/*
-	 * Modify a TeX expression, returning another TeX expression. The resulting
-	 * expression will have its innermost fractions stubbed out with \fracs
-	 * (as opposed to \dfracs). All other content will remain untouched.
-	 */
-	function modifyTex(tex) {
-	    function isNestedFraction(tex) {
-	        return tex.indexOf("\\frac") > -1 || tex.indexOf("\\dfrac") > -1;
-	    }
-	    var handler = function handler(exp1, exp2) {
-	        var prefix;
-	        if (isNestedFraction(exp1) || isNestedFraction(exp2)) {
-	            prefix = "\\dfrac";
-	        } else {
-	            prefix = "\\frac";
-	        }
-	        return prefix + " {" + exp1 + "}{" + exp2 + "}";
-	    };
-	    return walkTex(tex, handler);
-	}
-
-	/*
-	 * Parse a TeX expression into something interpretable by input-number.
-	 * The process is exclusively concerned with parsing fractions, i.e., \dfracs.
-	 * The basic algorithm splits on \dfracs and then recurs on the subsequent
-	 * "expressions", i.e., the {} pairs that follow \dfrac. The recursion is to
-	 * allow for nested \dfrac elements.
-	 */
-	function parseTex(tex) {
-	    var handler = function handler(exp1, exp2) {
-	        return exp1 + "/" + exp2;
-	    };
-	    return walkTex(tex, handler);
-	}
-
-	module.exports = {
-	    parseTex: parseTex,
-	    modifyTex: modifyTex
-	};
-
-/***/ },
-/* 181 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	/**
-	 * In review mode (currently only visible in the sat-mission), NumericInput and
-	 * InputNumber use this component to display the set of correct answers.
-	 */
-
-	var React = __webpack_require__(18);
-	var _ = __webpack_require__(19);
-
-	var PossibleAnswers = React.createClass({
-	    displayName: "PossibleAnswers",
-
-	    propTypes: {
-	        answers: React.PropTypes.arrayOf(React.PropTypes.string)
-	    },
-	    render: function render() {
-	        // It's redundant to show duplicate answers.
-	        // So, remove duplicates from the given list of answer strings.
-	        var answers = _.uniq(this.props.answers);
-
-	        var answerComponents = _.map(answers, function (answer) {
-	            // Plus, now that our answers are distinct, we can safely use the
-	            // answer string as a key.
-	            return React.createElement(
-	                "dd",
-	                { key: answer },
-	                answer
-	            );
-	        });
-	        return React.createElement(
-	            "dl",
-	            { className: "perseus-possible-answers" },
-	            React.createElement(
-	                "dt",
-	                null,
-	                "Correct Answer"
-	            ),
-	            answerComponents
-	        );
-	    }
-	});
-
-	module.exports = PossibleAnswers;
 
 /***/ },
 /* 182 */
@@ -48978,8 +49039,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var firstNumericalParse = __webpack_require__(6).firstNumericalParse;
 	var captureScratchpadTouchStart = __webpack_require__(6).captureScratchpadTouchStart;
-	var knumber = __webpack_require__(206).number;
-	var KhanMath = __webpack_require__(92);
+	var knumber = __webpack_require__(205).number;
+	var KhanMath = __webpack_require__(89);
 
 	var toNumericString = KhanMath.toNumericString;
 	var getNumericFormat = KhanMath.getNumericFormat;
@@ -49925,7 +49986,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(18);
 	var _ = __webpack_require__(19);
 
-	var TeX = __webpack_require__(64);
+	var TeX = __webpack_require__(65);
 
 	var prettyBig = { fontSize: "150%" };
 	var slightlyBig = { fontSize: "120%" };
@@ -50988,9 +51049,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(19);
 	var InteractiveUtil = __webpack_require__(173);
 	var WrappedDefaults = __webpack_require__(252);
-	var kpoint = __webpack_require__(206).point;
-	var kvector = __webpack_require__(206).vector;
-	var KhanMath = __webpack_require__(92);
+	var kpoint = __webpack_require__(205).point;
+	var kvector = __webpack_require__(205).vector;
+	var KhanMath = __webpack_require__(89);
 
 	var DEFAULT_OPTIONS = {
 	    thickness: 2,
@@ -51176,9 +51237,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var InfoTip = __webpack_require__(73);
 	var PropCheckBox = __webpack_require__(44);
 	var RangeInput = __webpack_require__(200);
-	var TeX = __webpack_require__(64);
+	var TeX = __webpack_require__(65);
 	var Util = __webpack_require__(6);
-	var KhanMath = __webpack_require__(92);
+	var KhanMath = __webpack_require__(89);
 
 	var _require = __webpack_require__(88),
 	    interactiveSizes = _require.interactiveSizes;
@@ -52064,143 +52125,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	"use strict";
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, max-len, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var React = __webpack_require__(18);
-	var ReactDOM = __webpack_require__(20);
-	var _ = __webpack_require__(19);
-	var TeX = __webpack_require__(64);
-	var ApiClassNames = __webpack_require__(5).ClassNames;
-	var Tooltip = __webpack_require__(188);
-	var ModifyTex = __webpack_require__(180).modifyTex;
-
-	var MathOutput = React.createClass({
-	    displayName: "MathOutput",
-
-	    propTypes: {
-	        value: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
-	        className: React.PropTypes.string,
-	        labelText: React.PropTypes.string,
-	        onFocus: React.PropTypes.func,
-	        onBlur: React.PropTypes.func
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            value: "",
-	            onFocus: function onFocus() {},
-	            onBlur: function onBlur() {}
-	        };
-	    },
-
-	    getInitialState: function getInitialState() {
-	        return {
-	            focused: false,
-	            selectorNamespace: _.uniqueId("math-output")
-	        };
-	    },
-
-	    _getInputClassName: function _getInputClassName() {
-	        var className = "math-output " + ApiClassNames.INPUT + " " + ApiClassNames.INTERACTIVE;
-	        if (this.state.focused) {
-	            className += " " + ApiClassNames.FOCUSED;
-	        }
-	        if (this.props.className) {
-	            className += " " + this.props.className;
-	        }
-	        return className;
-	    },
-
-	    _getDisplayValue: function _getDisplayValue(value) {
-	        // Cast from (potentially a) number to string
-	        var displayText;
-	        if (value != null) {
-	            displayText = "" + value;
-	        } else {
-	            displayText = "";
-	        }
-	        return ModifyTex(displayText);
-	    },
-
-	    render: function render() {
-	        var divStyle = {
-	            textAlign: "center"
-	        };
-
-	        return React.createElement(
-	            "span",
-	            { ref: "input",
-	                className: this._getInputClassName(),
-	                "aria-label": this.props.labelText,
-	                onMouseDown: this.focus,
-	                onTouchStart: this.focus },
-	            React.createElement(
-	                "div",
-	                { style: divStyle },
-	                React.createElement(
-	                    TeX,
-	                    null,
-	                    this._getDisplayValue(this.props.value)
-	                )
-	            )
-	        );
-	    },
-
-	    getValue: function getValue() {
-	        return this.props.value;
-	    },
-
-	    focus: function focus() {
-	        if (!this.state.focused) {
-	            this.props.onFocus();
-	            this._bindBlurHandler();
-	            this.setState({
-	                focused: true
-	            });
-	        }
-	    },
-
-	    blur: function blur() {
-	        if (this.state.focused) {
-	            this.props.onBlur();
-	            this._unbindBlurHandler();
-	            this.setState({
-	                focused: false
-	            });
-	        }
-	    },
-
-	    _bindBlurHandler: function _bindBlurHandler() {
-	        var _this = this;
-
-	        $(document).bind("vclick." + this.state.selectorNamespace, function (e) {
-	            // Detect whether the target has our React DOM node as a parent
-	            var $closestWidget = $(e.target).closest(ReactDOM.findDOMNode(_this));
-	            if (!$closestWidget.length) {
-	                _this.blur();
-	            }
-	        });
-	    },
-
-	    _unbindBlurHandler: function _unbindBlurHandler() {
-	        $(document).unbind("." + this.state.selectorNamespace);
-	    },
-
-	    componentWillUnmount: function componentWillUnmount() {
-	        this._unbindBlurHandler();
-	    }
-	});
-
-	module.exports = MathOutput;
-
-/***/ },
-/* 202 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable brace-style, comma-dangle, no-redeclare, no-var, object-curly-spacing, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
@@ -52538,6 +52462,143 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 	module.exports = Graph;
+
+/***/ },
+/* 202 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, max-len, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var React = __webpack_require__(18);
+	var ReactDOM = __webpack_require__(20);
+	var _ = __webpack_require__(19);
+	var TeX = __webpack_require__(65);
+	var ApiClassNames = __webpack_require__(5).ClassNames;
+	var Tooltip = __webpack_require__(188);
+	var ModifyTex = __webpack_require__(179).modifyTex;
+
+	var MathOutput = React.createClass({
+	    displayName: "MathOutput",
+
+	    propTypes: {
+	        value: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
+	        className: React.PropTypes.string,
+	        labelText: React.PropTypes.string,
+	        onFocus: React.PropTypes.func,
+	        onBlur: React.PropTypes.func
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            value: "",
+	            onFocus: function onFocus() {},
+	            onBlur: function onBlur() {}
+	        };
+	    },
+
+	    getInitialState: function getInitialState() {
+	        return {
+	            focused: false,
+	            selectorNamespace: _.uniqueId("math-output")
+	        };
+	    },
+
+	    _getInputClassName: function _getInputClassName() {
+	        var className = "math-output " + ApiClassNames.INPUT + " " + ApiClassNames.INTERACTIVE;
+	        if (this.state.focused) {
+	            className += " " + ApiClassNames.FOCUSED;
+	        }
+	        if (this.props.className) {
+	            className += " " + this.props.className;
+	        }
+	        return className;
+	    },
+
+	    _getDisplayValue: function _getDisplayValue(value) {
+	        // Cast from (potentially a) number to string
+	        var displayText;
+	        if (value != null) {
+	            displayText = "" + value;
+	        } else {
+	            displayText = "";
+	        }
+	        return ModifyTex(displayText);
+	    },
+
+	    render: function render() {
+	        var divStyle = {
+	            textAlign: "center"
+	        };
+
+	        return React.createElement(
+	            "span",
+	            { ref: "input",
+	                className: this._getInputClassName(),
+	                "aria-label": this.props.labelText,
+	                onMouseDown: this.focus,
+	                onTouchStart: this.focus },
+	            React.createElement(
+	                "div",
+	                { style: divStyle },
+	                React.createElement(
+	                    TeX,
+	                    null,
+	                    this._getDisplayValue(this.props.value)
+	                )
+	            )
+	        );
+	    },
+
+	    getValue: function getValue() {
+	        return this.props.value;
+	    },
+
+	    focus: function focus() {
+	        if (!this.state.focused) {
+	            this.props.onFocus();
+	            this._bindBlurHandler();
+	            this.setState({
+	                focused: true
+	            });
+	        }
+	    },
+
+	    blur: function blur() {
+	        if (this.state.focused) {
+	            this.props.onBlur();
+	            this._unbindBlurHandler();
+	            this.setState({
+	                focused: false
+	            });
+	        }
+	    },
+
+	    _bindBlurHandler: function _bindBlurHandler() {
+	        var _this = this;
+
+	        $(document).bind("vclick." + this.state.selectorNamespace, function (e) {
+	            // Detect whether the target has our React DOM node as a parent
+	            var $closestWidget = $(e.target).closest(ReactDOM.findDOMNode(_this));
+	            if (!$closestWidget.length) {
+	                _this.blur();
+	            }
+	        });
+	    },
+
+	    _unbindBlurHandler: function _unbindBlurHandler() {
+	        $(document).unbind("." + this.state.selectorNamespace);
+	    },
+
+	    componentWillUnmount: function componentWillUnmount() {
+	        this._unbindBlurHandler();
+	    }
+	});
+
+	module.exports = MathOutput;
 
 /***/ },
 /* 203 */
@@ -53612,6 +53673,19 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 205 */
 /***/ function(module, exports, __webpack_require__) {
 
+	module.exports = {
+	    number: __webpack_require__(253),
+	    vector: __webpack_require__(254),
+	    point: __webpack_require__(255),
+	    line: __webpack_require__(256),
+	    ray: __webpack_require__(257),
+	};
+
+
+/***/ },
+/* 206 */
+/***/ function(module, exports, __webpack_require__) {
+
 	'use strict';
 
 	/**
@@ -53689,19 +53763,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 206 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = {
-	    number: __webpack_require__(253),
-	    vector: __webpack_require__(254),
-	    point: __webpack_require__(255),
-	    line: __webpack_require__(256),
-	    ray: __webpack_require__(257),
-	};
-
-
-/***/ },
 /* 207 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -53722,7 +53783,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 
 	var _ = __webpack_require__(19);
-	var kpoint = __webpack_require__(206).point;
+	var kpoint = __webpack_require__(205).point;
 
 	/* Local helper methods. */
 
@@ -53864,8 +53925,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* eslint-disable brace-style, object-curly-spacing */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-	var kpoint = __webpack_require__(206).point;
-	var kvector = __webpack_require__(206).vector;
+	var kpoint = __webpack_require__(205).point;
+	var kvector = __webpack_require__(205).vector;
 	var _ = __webpack_require__(19);
 
 	// Minify Raphael ourselves because IE8 has a problem with the 1.5.2 minified
@@ -53874,7 +53935,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* globals Raphael:false */
 	__webpack_require__(258);
 
-	var KhanMath = __webpack_require__(92);
+	var KhanMath = __webpack_require__(89);
 	var processMath = __webpack_require__(259).processMath;
 	var KhanColors = __webpack_require__(197);
 
@@ -55094,325 +55155,3091 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 209 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";var _typeof=typeof Symbol==="function"&&typeof Symbol.iterator==="symbol"?function(obj){return typeof obj;}:function(obj){return obj&&typeof Symbol==="function"&&obj.constructor===Symbol&&obj!==Symbol.prototype?"symbol":typeof obj;};/* eslint-disable max-lines *//* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): *//* eslint-disable brace-style, object-curly-spacing *//* To fix, remove an entry above, run ka-lint, and fix errors. *//**
+	"use strict";
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+	/* eslint-disable max-lines */
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable brace-style, object-curly-spacing */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	/**
 	 * Interactive graphie utilities.
 	 *
 	 * This file exposes a couple functions, but mostly it adds functions to the
 	 * `Graphie` prototype for dealing with interactive graphie elements.
-	 */// TODO(emily): This file breaks our line length limits like nobody's business.
+	 */
+
+	// TODO(emily): This file breaks our line length limits like nobody's business.
 	// Figure out how to fix that.
-	/* eslint-disable max-len */var _=__webpack_require__(19);__webpack_require__(260);/* global Raphael:false */var GraphUtils=__webpack_require__(208);var kvector=__webpack_require__(206).vector;var kpoint=__webpack_require__(206).point;var kline=__webpack_require__(206).line;var WrappedEllipse=__webpack_require__(261);var WrappedLine=__webpack_require__(196);var WrappedPath=__webpack_require__(262);var KhanMath=__webpack_require__(92);var KhanColors=__webpack_require__(197);var _require=__webpack_require__(173),getCanUse3dTransform=_require.getCanUse3dTransform;function sum(array){return _.reduce(array,function(memo,arg){return memo+arg;},0);}function clockwise(points){var segments=_.zip(points,points.slice(1).concat(points.slice(0,1)));var areas=_.map(segments,function(segment){var p1=segment[0];var p2=segment[1];return(p2[0]-p1[0])*(p2[1]+p1[1]);});return sum(areas)>0;}/* vector-add multiple [x, y] coords/vectors */function addPoints(){var points=_.toArray(arguments);var zipped=_.zip.apply(_,points);return _.map(zipped,sum);}function reverseVector(vector){return _.map(vector,function(coord){return coord*-1;});}function scaledDistanceFromAngle(angle){var a=3.51470560176242*20;var b=0.5687298702748785*20;var c=-0.037587715462826674;return(a-b)*Math.exp(c*angle)+b;}function scaledPolarRad(radius,radians){return[radius*Math.cos(radians),radius*Math.sin(radians)*-1];}function scaledPolarDeg(radius,degrees){var radians=degrees*Math.PI/180;return scaledPolarRad(radius,radians);}// Global dragging state
-	var dragging=false;var InteractiveUtils={// Useful for shapes that are only sometimes drawn. If a shape isn't
-	// needed, it can be replaced with bogusShape which just has stub methods
-	// that successfully do nothing.
-	// The alternative would be 'if..typeof' checks all over the place.
-	bogusShape:{animate:function animate(){},attr:function attr(){},remove:function remove(){}}};_.extend(GraphUtils.Graphie.prototype,{// graphie puts text spans on top of the SVG, which looks good, but gets
-	// in the way of mouse events. This adds another SVG element on top
-	// of everything else where we can add invisible shapes with mouse
-	// handlers wherever we want.
-	addMouseLayer:function addMouseLayer(options){var graph=this;options=_.extend({allowScratchpad:false,setDrawingAreaAvailable:function setDrawingAreaAvailable(){}},options);var mouselayerZIndex=2;graph.mouselayer=Raphael(graph.raphael.canvas.parentNode,graph.xpixels,graph.ypixels);$(graph.mouselayer.canvas).css("z-index",mouselayerZIndex);if(options.onClick||options.onMouseDown||options.onMouseMove||options.onMouseOver||options.onMouseOut){(function(){var canvasClickTarget=graph.mouselayer.rect(0,0,graph.xpixels,graph.ypixels).attr({fill:"#000",opacity:0});var isClickingCanvas=false;$(graph.mouselayer.canvas).on("vmousedown",function(e){if(e.target===canvasClickTarget[0]){if(options.onMouseDown){options.onMouseDown(graph.getMouseCoord(e));}isClickingCanvas=true;if(options.onMouseMove){$(document).bind("vmousemove.mouseLayer",function(e){if(isClickingCanvas){e.preventDefault();options.onMouseMove(graph.getMouseCoord(e));}});}$(document).bind("vmouseup.mouseLayer",function(e){$(document).unbind(".mouseLayer");// Only register clicks that started on the canvas, and not
-	// on another mouseLayer target
-	if(isClickingCanvas&&options.onClick){options.onClick(graph.getMouseCoord(e));}isClickingCanvas=false;});}});if(options.onMouseOver){$(graph.mouselayer.canvas).on("vmouseover",function(e){options.onMouseOver(graph.getMouseCoord(e));});}if(options.onMouseOut){$(graph.mouselayer.canvas).on("vmouseout",function(e){options.onMouseOut(graph.getMouseCoord(e));});}})();}if(!options.allowScratchpad){options.setDrawingAreaAvailable(false);}// Add mouse and visible wrapper layers for DOM-node-wrapped movables
-	graph._mouselayerWrapper=document.createElement("div");$(graph._mouselayerWrapper).css({position:"absolute",left:0,top:0,zIndex:mouselayerZIndex});graph._visiblelayerWrapper=document.createElement("div");$(graph._visiblelayerWrapper).css({position:"absolute",left:0,top:0});var el=graph.raphael.canvas.parentNode;el.appendChild(graph._visiblelayerWrapper);el.appendChild(graph._mouselayerWrapper);// Add functions for adding to wrappers
-	graph.addToMouseLayerWrapper=function(el){this._mouselayerWrapper.appendChild(el);};graph.addToVisibleLayerWrapper=function(el){this._visiblelayerWrapper.appendChild(el);};},/**
+	/* eslint-disable max-len */
+	var _ = __webpack_require__(19);
+
+	__webpack_require__(260);
+
+	/* global Raphael:false */
+	var GraphUtils = __webpack_require__(208);
+	var kvector = __webpack_require__(205).vector;
+	var kpoint = __webpack_require__(205).point;
+	var kline = __webpack_require__(205).line;
+	var WrappedEllipse = __webpack_require__(261);
+	var WrappedLine = __webpack_require__(196);
+	var WrappedPath = __webpack_require__(262);
+	var KhanMath = __webpack_require__(89);
+	var KhanColors = __webpack_require__(197);
+
+	var _require = __webpack_require__(173),
+	    getCanUse3dTransform = _require.getCanUse3dTransform;
+
+	function sum(array) {
+	    return _.reduce(array, function (memo, arg) {
+	        return memo + arg;
+	    }, 0);
+	}
+
+	function clockwise(points) {
+	    var segments = _.zip(points, points.slice(1).concat(points.slice(0, 1)));
+	    var areas = _.map(segments, function (segment) {
+	        var p1 = segment[0];
+	        var p2 = segment[1];
+	        return (p2[0] - p1[0]) * (p2[1] + p1[1]);
+	    });
+	    return sum(areas) > 0;
+	}
+
+	/* vector-add multiple [x, y] coords/vectors */
+	function addPoints() {
+	    var points = _.toArray(arguments);
+	    var zipped = _.zip.apply(_, points);
+	    return _.map(zipped, sum);
+	}
+
+	function reverseVector(vector) {
+	    return _.map(vector, function (coord) {
+	        return coord * -1;
+	    });
+	}
+
+	function scaledDistanceFromAngle(angle) {
+	    var a = 3.51470560176242 * 20;
+	    var b = 0.5687298702748785 * 20;
+	    var c = -0.037587715462826674;
+	    return (a - b) * Math.exp(c * angle) + b;
+	}
+
+	function scaledPolarRad(radius, radians) {
+	    return [radius * Math.cos(radians), radius * Math.sin(radians) * -1];
+	}
+
+	function scaledPolarDeg(radius, degrees) {
+	    var radians = degrees * Math.PI / 180;
+	    return scaledPolarRad(radius, radians);
+	}
+
+	// Global dragging state
+	var dragging = false;
+
+	var InteractiveUtils = {
+	    // Useful for shapes that are only sometimes drawn. If a shape isn't
+	    // needed, it can be replaced with bogusShape which just has stub methods
+	    // that successfully do nothing.
+	    // The alternative would be 'if..typeof' checks all over the place.
+	    bogusShape: {
+	        animate: function animate() {},
+	        attr: function attr() {},
+	        remove: function remove() {}
+	    }
+	};
+
+	_.extend(GraphUtils.Graphie.prototype, {
+	    // graphie puts text spans on top of the SVG, which looks good, but gets
+	    // in the way of mouse events. This adds another SVG element on top
+	    // of everything else where we can add invisible shapes with mouse
+	    // handlers wherever we want.
+	    addMouseLayer: function addMouseLayer(options) {
+	        var graph = this;
+	        options = _.extend({
+	            allowScratchpad: false,
+	            setDrawingAreaAvailable: function setDrawingAreaAvailable() {}
+	        }, options);
+
+	        var mouselayerZIndex = 2;
+	        graph.mouselayer = Raphael(graph.raphael.canvas.parentNode, graph.xpixels, graph.ypixels);
+	        $(graph.mouselayer.canvas).css("z-index", mouselayerZIndex);
+	        if (options.onClick || options.onMouseDown || options.onMouseMove || options.onMouseOver || options.onMouseOut) {
+	            (function () {
+	                var canvasClickTarget = graph.mouselayer.rect(0, 0, graph.xpixels, graph.ypixels).attr({
+	                    fill: "#000",
+	                    opacity: 0
+	                });
+	                var isClickingCanvas = false;
+
+	                $(graph.mouselayer.canvas).on("vmousedown", function (e) {
+	                    if (e.target === canvasClickTarget[0]) {
+	                        if (options.onMouseDown) {
+	                            options.onMouseDown(graph.getMouseCoord(e));
+	                        }
+	                        isClickingCanvas = true;
+
+	                        if (options.onMouseMove) {
+	                            $(document).bind("vmousemove.mouseLayer", function (e) {
+	                                if (isClickingCanvas) {
+	                                    e.preventDefault();
+	                                    options.onMouseMove(graph.getMouseCoord(e));
+	                                }
+	                            });
+	                        }
+
+	                        $(document).bind("vmouseup.mouseLayer", function (e) {
+	                            $(document).unbind(".mouseLayer");
+
+	                            // Only register clicks that started on the canvas, and not
+	                            // on another mouseLayer target
+	                            if (isClickingCanvas && options.onClick) {
+	                                options.onClick(graph.getMouseCoord(e));
+	                            }
+	                            isClickingCanvas = false;
+	                        });
+	                    }
+	                });
+	                if (options.onMouseOver) {
+	                    $(graph.mouselayer.canvas).on("vmouseover", function (e) {
+	                        options.onMouseOver(graph.getMouseCoord(e));
+	                    });
+	                }
+	                if (options.onMouseOut) {
+	                    $(graph.mouselayer.canvas).on("vmouseout", function (e) {
+	                        options.onMouseOut(graph.getMouseCoord(e));
+	                    });
+	                }
+	            })();
+	        }
+	        if (!options.allowScratchpad) {
+	            options.setDrawingAreaAvailable(false);
+	        }
+
+	        // Add mouse and visible wrapper layers for DOM-node-wrapped movables
+	        graph._mouselayerWrapper = document.createElement("div");
+	        $(graph._mouselayerWrapper).css({
+	            position: "absolute",
+	            left: 0,
+	            top: 0,
+	            zIndex: mouselayerZIndex
+	        });
+
+	        graph._visiblelayerWrapper = document.createElement("div");
+	        $(graph._visiblelayerWrapper).css({
+	            position: "absolute",
+	            left: 0,
+	            top: 0
+	        });
+
+	        var el = graph.raphael.canvas.parentNode;
+	        el.appendChild(graph._visiblelayerWrapper);
+	        el.appendChild(graph._mouselayerWrapper);
+
+	        // Add functions for adding to wrappers
+	        graph.addToMouseLayerWrapper = function (el) {
+	            this._mouselayerWrapper.appendChild(el);
+	        };
+	        graph.addToVisibleLayerWrapper = function (el) {
+	            this._visiblelayerWrapper.appendChild(el);
+	        };
+	    },
+
+	    /**
 	     * Get mouse coordinates in pixels
-	     */getMousePx:function getMousePx(event){var graphie=this;var mouseX=event.pageX-$(graphie.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY-$(graphie.raphael.canvas.parentNode).offset().top;return[mouseX,mouseY];},/**
+	     */
+	    getMousePx: function getMousePx(event) {
+	        var graphie = this;
+
+	        var mouseX = event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;
+	        var mouseY = event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;
+
+	        return [mouseX, mouseY];
+	    },
+
+	    /**
 	     * Get mouse coordinates in graph coordinates
-	     */getMouseCoord:function getMouseCoord(event){return this.unscalePoint(this.getMousePx(event));},/**
+	     */
+	    getMouseCoord: function getMouseCoord(event) {
+	        return this.unscalePoint(this.getMousePx(event));
+	    },
+
+	    /**
 	     * Unlike all other Graphie-related code, the following three functions use
 	     * a lot of scaled coordinates (so that labels appear the same size
 	     * regardless of current shape/figure scale). These are prefixed with 's'.
-	     */labelAngle:function labelAngle(options){var graphie=this;_.defaults(options,{point1:[0,0],vertex:[0,0],point3:[0,0],label:null,numArcs:1,showRightAngleMarker:true,pushOut:0,clockwise:false,style:{}});var text=options.text===undefined?"":options.text;var vertex=options.vertex;var sVertex=graphie.scalePoint(vertex);var p1=void 0;var p3=void 0;if(options.clockwise){p1=options.point1;p3=options.point3;}else{p1=options.point3;p3=options.point1;}var startAngle=GraphUtils.findAngle(p1,vertex);var endAngle=GraphUtils.findAngle(p3,vertex);var angle=(endAngle+360-startAngle)%360;var halfAngle=(startAngle+angle/2)%360;var sPadding=5*options.pushOut;var sRadius=sPadding+scaledDistanceFromAngle(angle);var temp=[];if(Math.abs(angle-90)<1e-9&&options.showRightAngleMarker){(function(){var v1=addPoints(sVertex,scaledPolarDeg(sRadius,startAngle));var v2=addPoints(sVertex,scaledPolarDeg(sRadius,endAngle));sRadius*=Math.SQRT2;var v3=addPoints(sVertex,scaledPolarDeg(sRadius,halfAngle));_.each([v1,v2],function(v){temp.push(graphie.scaledPath([v,v3],options.style));});})();}else{// Draw arcs
-	_.times(options.numArcs,function(i){temp.push(graphie.arc(vertex,graphie.unscaleVector(sRadius),startAngle,endAngle,options.style));sRadius+=3;});}if(text){var match=text.match(/\$deg(\d)?/);if(match){var precision=match[1]||1;text=text.replace(match[0],KhanMath.toFixedApprox(angle,precision)+"^{\\circ}");}var sOffset=scaledPolarDeg(sRadius+15,halfAngle);var sPosition=addPoints(sVertex,sOffset);var position=graphie.unscalePoint(sPosition);// Reuse label if possible
-	if(options.label){options.label.setPosition(position);options.label.processMath(text,/* force */true);}else{graphie.label(position,text,"center",options.style);}}return temp;},labelSide:function labelSide(options){var graphie=this;_.defaults(options,{point1:[0,0],point2:[0,0],label:null,text:"",numTicks:0,numArrows:0,clockwise:false,style:{}});var p1=void 0;var p2=void 0;if(options.clockwise){p1=options.point1;p2=options.point2;}else{p1=options.point2;p2=options.point1;}var midpoint=[(p1[0]+p2[0])/2,(p1[1]+p2[1])/2];var sMidpoint=graphie.scalePoint(midpoint);var parallelAngle=Math.atan2(p2[1]-p1[1],p2[0]-p1[0]);var perpendicularAngle=parallelAngle+Math.PI/2;var temp=[];var sCumulativeOffset=0;if(options.numTicks){(function(){var n=options.numTicks;var sSpacing=5;var sHeight=5;var style=_.extend({},options.style,{strokeWidth:2});_.times(n,function(i){var sOffset=sSpacing*(i-(n-1)/2);var sOffsetVector=scaledPolarRad(sOffset,parallelAngle);var sHeightVector=scaledPolarRad(sHeight,perpendicularAngle);var sPath=[addPoints(sMidpoint,sOffsetVector,sHeightVector),addPoints(sMidpoint,sOffsetVector,reverseVector(sHeightVector))];temp.push(graphie.scaledPath(sPath,style));});sCumulativeOffset+=sSpacing*(n-1)+15;})();}if(options.numArrows){(function(){var n=options.numArrows;var start=[p1,p2].sort(function(a,b){if(a[1]===b[1]){return a[0]-b[0];}else{return a[1]-b[1];}})[0];var sStart=graphie.scalePoint(start);var style=_.extend({},options.style,{arrows:"->",strokeWidth:2});var sSpacing=5;_.times(n,function(i){var sOffset=sCumulativeOffset+sSpacing*i;var sOffsetVector=scaledPolarRad(sOffset,parallelAngle);if(start!==p1){sOffsetVector=reverseVector(sOffsetVector);}var sEnd=addPoints(sMidpoint,sOffsetVector);temp.push(graphie.scaledPath([sStart,sEnd],style));});})();}var text=options.text;if(text){var match=text.match(/\$len(\d)?/);if(match){var distance=GraphUtils.getDistance(p1,p2);var precision=match[1]||1;text=text.replace(match[0],KhanMath.toFixedApprox(distance,precision));}var sOffset=20;var sOffsetVector=scaledPolarRad(sOffset,perpendicularAngle);var sPosition=addPoints(sMidpoint,sOffsetVector);var position=graphie.unscalePoint(sPosition);// Reuse label if possible
-	if(options.label){options.label.setPosition(position);options.label.processMath(text,/* force */true);}else{graphie.label(position,text,"center",options.style);}}return temp;},/* Can also be used to label points that aren't vertices */labelVertex:function labelVertex(options){var graphie=this;_.defaults(options,{point1:null,vertex:[0,0],point3:null,label:null,text:"",clockwise:false,style:{}});if(!options.text){return;}var vertex=options.vertex;var sVertex=graphie.scalePoint(vertex);var p1=void 0;var p3=void 0;if(options.clockwise){p1=options.point1;p3=options.point3;}else{p1=options.point3;p3=options.point1;}var angle=135;var halfAngle=void 0;if(p1&&p3){var startAngle=GraphUtils.findAngle(p1,vertex);var endAngle=GraphUtils.findAngle(p3,vertex);angle=(endAngle+360-startAngle)%360;halfAngle=(startAngle+angle/2+180)%360;}else if(p1){var parallelAngle=GraphUtils.findAngle(vertex,p1);halfAngle=parallelAngle+90;}else if(p3){var _parallelAngle=GraphUtils.findAngle(p3,vertex);halfAngle=_parallelAngle+90;}else{// Standalone point
-	halfAngle=135;}var sRadius=10+scaledDistanceFromAngle(360-angle);var sOffsetVector=scaledPolarDeg(sRadius,halfAngle);var sPosition=addPoints(sVertex,sOffsetVector);var position=graphie.unscalePoint(sPosition);// Reuse label if possible
-	if(options.label){options.label.setPosition(position);options.label.processMath(options.text,/* force */true);}else{graphie.label(position,options.text,"center",options.style);}},// Add a point to the graph that can be dragged around.
-	// It allows automatic constraints on its movement as well as automatically
-	// managing line segments that terminate at the point.
-	//
-	// Options can be set to control how the point behaves:
-	//   coord[]:
-	//     The initial position of the point
-	//   snapX, snapY:
-	//     The minimum increment the point can be moved
-	//
-	// The return value is an object that can be used to manipulate the point:
-	//   The coordX and coordY properties tell you the current position
-	//
-	//   By adding an onMove() method to the returned object, you can install an
-	//   event handler that gets called every time the user moves the point.
-	//
-	//   The returned object also provides a moveTo(x,y) method that will move
-	//   the point to a specific coordinate
-	//
-	// Constraints can be set on the on the returned object:
-	//
-	//  - Set point to be immovable:
-	//        movablePoint.constraints.fixed = true
-	//
-	//  - Constrain point to a fixed distance from another point. The resulting
-	//    point will move in a circle:
-	//        movablePoint.fixedDistance = {
-	//           dist: 2,
-	//           point: point1
-	//        }
-	//
-	//  - Constrain point to a line defined by a fixed angle between it and
-	//    two other points:
-	//        movablePoint.fixedAngle = {
-	//           angle: 45,
-	//           vertex: point1,
-	//           ref: point2
-	//        }
-	//
-	//  - Confined the point to traveling in a vertical or horizontal line,
-	//    respectively
-	//        movablePoint.constrainX = true;
-	//        movablePoint.constrainY = true;
-	//
-	//  - Connect a movableLineSegment to a movablePoint. The point is attached
-	//    to a specific end of the line segment by adding the segment either to
-	//    the list of lines that start at the point or the list of lines that
-	//    end at the point (movableLineSegment can do this for you):
-	//        movablePoint.lineStarts.push(movableLineSegment);
-	//          - or -
-	//        movablePoint.lineEnds.push(movableLineSegment);
-	//
-	//  - Connect a movablePolygon to a movablePoint in exacty the same way:
-	//        movablePoint.polygonVertices.push(movablePolygon);
-	//
-	addMovablePoint:function addMovablePoint(options){var movablePoint=$.extend(true,{graph:this,coord:[0,0],snapX:0,snapY:0,pointSize:4,highlight:false,dragging:false,visible:true,bounded:true,constraints:{fixed:false,constrainX:false,constrainY:false,fixedAngle:{},fixedDistance:{}},lineStarts:[],lineEnds:[],polygonVertices:[],normalStyle:{},highlightStyle:{fill:KhanColors.INTERACTING,stroke:KhanColors.INTERACTING},labelStyle:{color:KhanColors.INTERACTIVE},vertexLabel:"",mouseTarget:null},options);var normalColor=movablePoint.constraints.fixed?KhanColors.DYNAMIC:KhanColors.INTERACTIVE;movablePoint.normalStyle=_.extend({},{"fill":normalColor,"stroke":normalColor},options.normalStyle);// deprecated: don't use coordX/coordY; use coord[]
-	if(options.coordX!==undefined){movablePoint.coord[0]=options.coordX;}if(options.coordY!==undefined){movablePoint.coord[1]=options.coordY;}var graph=movablePoint.graph;var applySnapAndConstraints=function applySnapAndConstraints(coord){// coord should be the scaled coordinate
-	// move point away from edge of graph unless it's invisible or fixed
-	if(movablePoint.visible&&movablePoint.bounded&&!movablePoint.constraints.fixed){// can't go beyond 10 pixels from the edge
-	coord=graph.constrainToBounds(coord,10);}var coordX=coord[0];var coordY=coord[1];// snap coordinates to grid
-	if(movablePoint.snapX!==0){coordX=Math.round(coordX/movablePoint.snapX)*movablePoint.snapX;}if(movablePoint.snapY!==0){coordY=Math.round(coordY/movablePoint.snapY)*movablePoint.snapY;}// snap to points around circle
-	if(movablePoint.constraints.fixedDistance.snapPoints){var mouse=graph.scalePoint(coord);var mouseX=mouse[0];var mouseY=mouse[1];var snapRadians=2*Math.PI/movablePoint.constraints.fixedDistance.snapPoints;var radius=movablePoint.constraints.fixedDistance.dist;var centerCoord=movablePoint.constraints.fixedDistance.point;var centerX=(centerCoord[0]-graph.range[0][0])*graph.scale[0];var centerY=(-centerCoord[1]+graph.range[1][1])*graph.scale[1];var mouseXrel=mouseX-centerX;var mouseYrel=-mouseY+centerY;var radians=Math.atan(mouseYrel/mouseXrel);var outsideArcTanRange=mouseXrel<0;// adjust so that angles increase from 0 to 2 pi as you go around the circle
-	if(outsideArcTanRange){radians+=Math.PI;}// perform the snap
-	radians=Math.round(radians/snapRadians)*snapRadians;// convert from radians back to pixels
-	mouseXrel=radius*Math.cos(radians);mouseYrel=radius*Math.sin(radians);// convert back to coordinates relative to graphie canvas
-	mouseX=mouseXrel+centerX;mouseY=-mouseYrel+centerY;coordX=KhanMath.roundTo(5,mouseX/graph.scale[0]+graph.range[0][0]);coordY=KhanMath.roundTo(5,graph.range[1][1]-mouseY/graph.scale[1]);}var result=movablePoint.applyConstraint([coordX,coordY]);return result;};// Using the passed coordinates, apply any constraints and return the closest coordinates
-	// that match the constraints.
-	movablePoint.applyConstraint=function(coord,extraConstraints,override){var newCoord=coord.slice();var constraints={};if(override){$.extend(constraints,{fixed:false,constrainX:false,constrainY:false,fixedAngle:{},fixedDistance:{}},extraConstraints);}else{$.extend(constraints,this.constraints,extraConstraints);}// constrain to vertical movement
-	if(constraints.constrainX){newCoord=[this.coord[0],coord[1]];// constrain to horizontal movement
-	}else if(constraints.constrainY){newCoord=[coord[0],this.coord[1]];// both distance and angle are constrained
-	}else if(typeof constraints.fixedAngle.angle==="number"&&typeof constraints.fixedDistance.dist==="number"){var vertex=constraints.fixedAngle.vertex.coord||constraints.fixedAngle.vertex;var ref=constraints.fixedAngle.ref.coord||constraints.fixedAngle.ref;var distPoint=constraints.fixedDistance.point.coord||constraints.fixedDistance.point;var constrainedAngle=(constraints.fixedAngle.angle+GraphUtils.findAngle(ref,vertex))*Math.PI/180;var length=constraints.fixedDistance.dist;newCoord[0]=length*Math.cos(constrainedAngle)+distPoint[0];newCoord[1]=length*Math.sin(constrainedAngle)+distPoint[1];// angle is constrained
-	}else if(typeof constraints.fixedAngle.angle==="number"){var _vertex=constraints.fixedAngle.vertex.coord||constraints.fixedAngle.vertex;var _ref=constraints.fixedAngle.ref.coord||constraints.fixedAngle.ref;var _constrainedAngle=(constraints.fixedAngle.angle+GraphUtils.findAngle(_ref,_vertex))*Math.PI/180;var angle=GraphUtils.findAngle(coord,_vertex)*Math.PI/180;var distance=GraphUtils.getDistance(coord,_vertex);var _length=distance*Math.cos(_constrainedAngle-angle);_length=_length<1.0?1.0:_length;newCoord[0]=_length*Math.cos(_constrainedAngle)+_vertex[0];newCoord[1]=_length*Math.sin(_constrainedAngle)+_vertex[1];// distance is constrained
-	}else if(typeof constraints.fixedDistance.dist==="number"){var _distPoint=constraints.fixedDistance.point.coord||constraints.fixedDistance.point;var _angle=GraphUtils.findAngle(coord,_distPoint);var _length2=constraints.fixedDistance.dist;_angle=_angle*Math.PI/180;newCoord[0]=_length2*Math.cos(_angle)+_distPoint[0];newCoord[1]=_length2*Math.sin(_angle)+_distPoint[1];// point is fixed
-	}else if(constraints.fixed){newCoord=movablePoint.coord;}return newCoord;};movablePoint.coord=applySnapAndConstraints(movablePoint.coord);var highlightScale=2;if(movablePoint.visible){graph.style(movablePoint.normalStyle,function(){var radii=[movablePoint.pointSize/graph.scale[0],movablePoint.pointSize/graph.scale[1]];var options={maxScale:highlightScale,// Add in 2px of padding to avoid clipping at the edges.
-	padding:2};movablePoint.visibleShape=new WrappedEllipse(graph,movablePoint.coord,radii,options);movablePoint.visibleShape.attr(_.omit(movablePoint.normalStyle,"scale"));movablePoint.visibleShape.toFront();});}movablePoint.normalStyle.scale=1;movablePoint.highlightStyle.scale=highlightScale;if(movablePoint.vertexLabel){movablePoint.labeledVertex=this.label([0,0],"","center",movablePoint.labelStyle);}movablePoint.drawLabel=function(){if(movablePoint.vertexLabel){movablePoint.graph.labelVertex({vertex:movablePoint.coord,label:movablePoint.labeledVertex,text:movablePoint.vertexLabel,style:movablePoint.labelStyle});}};movablePoint.drawLabel();movablePoint.grab=function(offset){// The offset for the gesture. When provided, the movable point will
-	// track the mouse's position, plus this offset. This is typically
-	// used to lock the distance between a user's finger and the movable
-	// point, when dragging.
-	offset=offset||[0,0];$(document).bind("vmousemove.point vmouseup.point",function(event){event.preventDefault();movablePoint.dragging=true;dragging=true;// Adjust the target coordinate by accounting for the gesture's
-	// offset.
-	var coord=kvector.add(graph.getMouseCoord(event),offset);coord=applySnapAndConstraints(coord);var coordX=coord[0];var coordY=coord[1];var mouseX=void 0;var mouseY=void 0;if(event.type==="vmousemove"){var doMove=true;// The caller has the option of adding an onMove() method to the
-	// movablePoint object we return as a sort of event handler
-	// By returning false from onMove(), the move can be vetoed,
-	// providing custom constraints on where the point can be moved.
-	// By returning array [x, y], the move can be overridden
-	if(_.isFunction(movablePoint.onMove)){var result=movablePoint.onMove(coordX,coordY);if(result===false){doMove=false;}if(_.isArray(result)){coordX=result[0];coordY=result[1];}}// coord{X|Y} may have been modified by constraints or onMove handler; adjust mouse{X|Y} to match
-	mouseX=(coordX-graph.range[0][0])*graph.scale[0];mouseY=(-coordY+graph.range[1][1])*graph.scale[1];if(doMove){var point=graph.unscalePoint([mouseX,mouseY]);movablePoint.visibleShape.moveTo(point);movablePoint.mouseTarget.moveTo(point);movablePoint.coord=[coordX,coordY];movablePoint.updateLineEnds();$(movablePoint).trigger("move");}movablePoint.drawLabel();}else if(event.type==="vmouseup"){$(document).unbind(".point");movablePoint.dragging=false;dragging=false;if(_.isFunction(movablePoint.onMoveEnd)){var _result=movablePoint.onMoveEnd(coordX,coordY);if(_.isArray(_result)){coordX=_result[0];coordY=_result[1];mouseX=(coordX-graph.range[0][0])*graph.scale[0];mouseY=(-coordY+graph.range[1][1])*graph.scale[1];var _point=graph.unscalePoint([mouseX,mouseY]);movablePoint.visibleShape.moveTo(_point);movablePoint.mouseTarget.moveTo(_point);movablePoint.coord=[coordX,coordY];}}if(!movablePoint.highlight){movablePoint.visibleShape.animate(movablePoint.normalStyle,50);if(movablePoint.onUnhighlight){movablePoint.onUnhighlight();}}}});};if(movablePoint.visible&&!movablePoint.constraints.fixed){// the invisible shape in front of the point that gets mouse events
-	if(!movablePoint.mouseTarget){var radii=graph.unscaleVector(24);var _options={mouselayer:true,padding:0};movablePoint.mouseTarget=new WrappedEllipse(graph,movablePoint.coord,radii,_options);movablePoint.mouseTarget.attr({fill:"#000",opacity:0.0});}var $mouseTarget=$(movablePoint.mouseTarget.getMouseTarget());$mouseTarget.css("cursor","move");$mouseTarget.bind("vmousedown vmouseover vmouseout",function(event){if(event.type==="vmouseover"){movablePoint.highlight=true;if(!dragging){movablePoint.visibleShape.animate(movablePoint.highlightStyle,50);if(movablePoint.onHighlight){movablePoint.onHighlight();}}}else if(event.type==="vmouseout"){movablePoint.highlight=false;if(!movablePoint.dragging&&!dragging){movablePoint.visibleShape.animate(movablePoint.normalStyle,50);if(movablePoint.onUnhighlight){movablePoint.onUnhighlight();}}}else if(event.type==="vmousedown"&&(event.which===1||event.which===0)){event.preventDefault();// The offset between the cursor or finger and the initial
-	// coordinates of the point. This is tracked so as to avoid
-	// locking the moving point to the user's finger on touch
-	// devices, which would obscure it, no matter how large we
-	// made the touch target. Instead, we respect the offset at
-	// which the point was grabbed for the entirety of the
-	// gesture, if it's a touch-based interaction.
-	var startCoord=movablePoint.coord;var startMouseCoord=graph.getMouseCoord(event);var isMouse=!('ontouchstart'in window);var touchOffset=isMouse?[0,0]:kvector.subtract(startCoord,startMouseCoord);movablePoint.grab(touchOffset);}});}// Method to let the caller animate the point to a new position. Useful
-	// as part of a hint to show the user the correct place to put the point.
-	movablePoint.moveTo=function(coordX,coordY,updateLines){var distance=GraphUtils.getDistance(this.graph.scalePoint([coordX,coordY]),this.graph.scalePoint(this.coord));var time=distance*5;var cb=updateLines&&function(coord){movablePoint.coord=coord;movablePoint.updateLineEnds();};this.visibleShape.animateTo([coordX,coordY],time,cb);this.mouseTarget.animateTo([coordX,coordY],time,cb);this.coord=[coordX,coordY];if(_.isFunction(this.onMove)){this.onMove(coordX,coordY);}};// After moving the point, call this to update all line segments terminating at the point
-	movablePoint.updateLineEnds=function(){$(this.lineStarts).each(function(){this.coordA=movablePoint.coord;this.transform();});$(this.lineEnds).each(function(){this.coordZ=movablePoint.coord;this.transform();});$(this.polygonVertices).each(function(){this.transform();});};// Put the point at a new position without any checks, animation, or callbacks
-	movablePoint.setCoord=function(coord){if(this.visible){this.visibleShape.moveTo(coord);if(this.mouseTarget!=null){this.mouseTarget.moveTo(coord);}}this.coord=coord.slice();};// Put the point at the new position, checking that it is within the graph's bounds
-	movablePoint.setCoordConstrained=function(coord){this.setCoord(applySnapAndConstraints(coord));};// Change z-order to back
-	movablePoint.toBack=function(){if(this.visible){if(this.mouseTarget!=null){this.mouseTarget.toBack();}this.visibleShape.toBack();}};// Change z-order to front
-	movablePoint.toFront=function(){if(this.visible){if(this.mouseTarget!=null){this.mouseTarget.toFront();}this.visibleShape.toFront();}};movablePoint.remove=function(){if(this.visibleShape){this.visibleShape.remove();}if(this.mouseTarget){this.mouseTarget.remove();}if(this.labeledVertex){this.labeledVertex.remove();}};return movablePoint;},// MovableLineSegment is a line segment that can be dragged around the
-	// screen. By attaching a smartPoint to each (or one) end, the ends can be
-	// manipulated individually.
-	//
-	// To use with smartPoints, add the smartPoints first, then:
-	//   addMovableLineSegment({ pointA: smartPoint1, pointZ: smartPoint2 });
-	// Or just one end:
-	//   addMovableLineSegment({ pointA: smartPoint, coordZ: [0, 0] });
-	//
-	// Include "fixed: true" in the options if you don't want the entire line
-	// to be draggable (you can still use points to make the endpoints
-	// draggable)
-	//
-	// The returned object includes the following properties/methods:
-	//
-	//   - lineSegment.coordA / lineSegment.coordZ
-	//         The coordinates of each end of the line segment
-	//
-	//   - lineSegment.transform(syncToPoints)
-	//         Repositions the line segment. Call after changing coordA and/or
-	//         coordZ, or pass syncToPoints = true to use the current position
-	//         of the corresponding smartPoints, if the segment was defined using
-	//         smartPoints
-	//
-	addMovableLineSegment:function addMovableLineSegment(options){var lineSegment=$.extend({graph:this,coordA:[0,0],coordZ:[1,1],snapX:0,snapY:0,fixed:false,ticks:0,normalStyle:{},highlightStyle:{"stroke":KhanColors.INTERACTING,"stroke-width":6},labelStyle:{"stroke":KhanColors.INTERACTIVE,"color":KhanColors.INTERACTIVE},highlight:false,dragging:false,tick:[],extendLine:false,extendRay:false,constraints:{fixed:false,constrainX:false,constrainY:false},sideLabel:"",vertexLabels:[],numArrows:0,numTicks:0,movePointsWithLine:false},options);var normalColor=lineSegment.fixed?KhanColors.DYNAMIC:KhanColors.INTERACTIVE;lineSegment.normalStyle=_.extend({},{"stroke-width":2,"stroke":normalColor},options.normalStyle);// arrowStyle should be kept in sync with styling of the line
-	lineSegment.arrowStyle=_.extend({},lineSegment.normalStyle,{"color":lineSegment.normalStyle.stroke});// If the line segment is defined by movablePoints, coordA/coordZ are
-	// owned by the points, otherwise they're owned by us
-	if(options.pointA!==undefined){lineSegment.coordA=options.pointA.coord;lineSegment.pointA.lineStarts.push(lineSegment);}else if(options.coordA!==undefined){lineSegment.coordA=options.coordA.slice();}if(options.pointZ!==undefined){lineSegment.coordZ=options.pointZ.coord;lineSegment.pointZ.lineEnds.push(lineSegment);}else if(options.coordA!==undefined){lineSegment.coordA=lineSegment.coordA.slice();}var graph=lineSegment.graph;graph.style(lineSegment.normalStyle);for(var i=0;i<lineSegment.ticks;++i){lineSegment.tick[i]=InteractiveUtils.bogusShape;}// TODO(kevinb) figure out why path isn't being used
-	/* eslint-disable */var path=GraphUtils.unscaledSvgPath([[0,0],[1,0]]);for(var _i=0;_i<lineSegment.ticks;++_i){var tickoffset=0.5-(lineSegment.ticks-1+_i*2)/graph.scale[0];path+=GraphUtils.unscaledSvgPath([[tickoffset,-7],[tickoffset,7]]);}/* eslint-enable */options={thickness:Math.max(lineSegment.normalStyle["stroke-width"],lineSegment.highlightStyle["stroke-width"])};lineSegment.visibleLine=new WrappedLine(graph,[0,0],[1,0],options);lineSegment.visibleLine.attr(lineSegment.normalStyle);// Add mouse target
-	if(!lineSegment.fixed){var _options2={thickness:30,mouselayer:true};lineSegment.mouseTarget=new WrappedLine(graph,[0,0],[1,0],_options2);lineSegment.mouseTarget.attr({fill:"#000","opacity":0.0});}// Reposition the line segment. Call after changing coordA and/or
-	// coordZ, or pass syncToPoints = true to use the current position of
-	// the corresponding movablePoints, if the segment was defined using
-	// movablePoints
-	lineSegment.transform=function(syncToPoints){if(syncToPoints){if(_typeof(this.pointA)==="object"){this.coordA=this.pointA.coord;}if(_typeof(this.pointZ)==="object"){this.coordZ=this.pointZ.coord;}}var getScaledAngle=function getScaledAngle(line){var scaledA=line.graph.scalePoint(line.coordA);var scaledZ=line.graph.scalePoint(line.coordZ);return kvector.polarDegFromCart(kvector.subtract(scaledZ,scaledA))[1];};var getClipPoint=function getClipPoint(graph,coord,angle){graph=lineSegment.graph;var xExtent=graph.range[0][1]-graph.range[0][0];var yExtent=graph.range[1][1]-graph.range[1][0];var distance=xExtent+yExtent;var angleVec=graph.unscaleVector(kvector.cartFromPolarDeg([1,angle]));var distVec=kvector.scale(kvector.normalize(angleVec),distance);var farCoord=kvector.add(coord,distVec);var scaledAngle=kvector.polarDegFromCart(angleVec)[1];var clipPoint=graph.constrainToBoundsOnAngle(farCoord,4,scaledAngle*Math.PI/180);return clipPoint;};var angle=getScaledAngle(this);var start=this.coordA;var end=this.coordZ;// Extend start, end if necessary (i.e., if not a line segment)
-	if(this.extendLine){start=getClipPoint(graph,start,360-angle);end=getClipPoint(graph,end,(540-angle)%360);}else if(this.extendRay){end=getClipPoint(graph,start,360-angle);}var elements=[this.visibleLine];if(!this.fixed){elements.push(this.mouseTarget);}_.each(elements,function(element){element.moveTo(start,end);});var createArrow=function createArrow(graph,style){var center=[0.75,0];var points=[[-3,4],[-2.75,2.5],[0,0.25],center,[0,-0.25],[-2.75,-2.5],[-3,-4]];var scale=1.4;points=_.map(points,function(point){var pv=kvector.subtract(point,center);var pvScaled=kvector.scale(pv,scale);return kvector.add(center,pvScaled);});var createCubicPath=function createCubicPath(points){var path="M"+points[0][0]+" "+points[0][1];for(var _i2=1;_i2<points.length;_i2+=3){path+="C"+points[_i2][0]+" "+points[_i2][1]+" "+points[_i2+1][0]+" "+points[_i2+1][1]+" "+points[_i2+2][0]+" "+points[_i2+2][1];}return path;};var unscaledPoints=_.map(points,graph.unscalePoint);var options={center:graph.unscalePoint(center),createPath:createCubicPath};var arrowHead=new WrappedPath(graph,unscaledPoints,options);arrowHead.attr(_.extend({"stroke-linejoin":"round","stroke-linecap":"round","stroke-dasharray":""},style));// Add custom function for transforming arrowheads that accounts for
-	// center, scaling, etc.
-	arrowHead.toCoordAtAngle=function(coord,angle){var clipPoint=graph.scalePoint(getClipPoint(graph,coord,angle));var do3dTransform=getCanUse3dTransform();arrowHead.transform("translateX("+(clipPoint[0]+scale*center[0])+"px) "+"translateY("+(clipPoint[1]+scale*center[1])+"px) "+(do3dTransform?"translateZ(0) ":"")+"rotate("+(360-KhanMath.bound(angle))+"deg)");};return arrowHead;};// Add arrows
-	if(this._arrows==null){this._arrows=[];if(this.extendLine){this._arrows.push(createArrow(graph,this.normalStyle));this._arrows.push(createArrow(graph,this.normalStyle));}else if(this.extendRay){this._arrows.push(createArrow(graph,this.normalStyle));}}var coordForArrow=[this.coordA,this.coordZ];var angleForArrow=[360-angle,(540-angle)%360];_.each(this._arrows,function(arrow,i){arrow.toCoordAtAngle(coordForArrow[i],angleForArrow[i]);});// Temporary objects: array of SVG nodes that get recreated on drag
-	_.invoke(this.temp,"remove");this.temp=[];var isClockwise=this.coordA[0]<this.coordZ[0]||this.coordA[0]===this.coordZ[0]&&this.coordA[1]>this.coordZ[1];// Update side label
-	if(this.sideLabel){this.temp.push(this.graph.labelSide({point1:this.coordA,point2:this.coordZ,label:this.labeledSide,text:this.sideLabel,numArrows:this.numArrows,numTicks:this.numTicks,clockwise:isClockwise,style:this.labelStyle}));}// Update vertex labels
-	if(this.vertexLabels.length){this.graph.labelVertex({vertex:this.coordA,point3:this.coordZ,label:this.labeledVertices[0],text:this.vertexLabels[0],clockwise:isClockwise,style:this.labelStyle});this.graph.labelVertex({point1:this.coordA,vertex:this.coordZ,label:this.labeledVertices[1],text:this.vertexLabels[1],clockwise:isClockwise,style:this.labelStyle});}this.temp=_.flatten(this.temp);};// Change z-order to back;
-	lineSegment.toBack=function(){if(!lineSegment.fixed){lineSegment.mouseTarget.toBack();}lineSegment.visibleLine.toBack();};// Change z-order to front
-	lineSegment.toFront=function(){if(!lineSegment.fixed){lineSegment.mouseTarget.toFront();}lineSegment.visibleLine.toFront();};lineSegment.remove=function(){if(!lineSegment.fixed){lineSegment.mouseTarget.remove();}lineSegment.visibleLine.remove();if(lineSegment.labeledSide){lineSegment.labeledSide.remove();}if(lineSegment.labeledVertices){_.invoke(lineSegment.labeledVertices,"remove");}if(lineSegment._arrows){_.invoke(lineSegment._arrows,"remove");}if(lineSegment.temp.length){_.invoke(lineSegment.temp,"remove");}};lineSegment.hide=function(){lineSegment.visibleLine.hide();if(lineSegment.temp.length){_.invoke(lineSegment.temp,"hide");}if(lineSegment._arrows){_.invoke(lineSegment._arrows,"hide");}};lineSegment.show=function(){lineSegment.visibleLine.show();if(lineSegment.temp.length){_.invoke(lineSegment.temp,"show");}if(lineSegment._arrows){_.invoke(lineSegment._arrows,"show");}};if(lineSegment.sideLabel){lineSegment.labeledSide=this.label([0,0],"","center",lineSegment.labelStyle);}if(lineSegment.vertexLabels.length){lineSegment.labeledVertices=_.map(lineSegment.vertexLabels,function(label){return this.label([0,0],"","center",lineSegment.labelStyle);},this);}if(!lineSegment.fixed&&!lineSegment.constraints.fixed){var $mouseTarget=$(lineSegment.mouseTarget.getMouseTarget());$mouseTarget.css("cursor","move");$mouseTarget.bind("vmousedown vmouseover vmouseout",function(event){if(event.type==="vmouseover"){if(!dragging){lineSegment.highlight=true;lineSegment.visibleLine.animate(lineSegment.highlightStyle,50);lineSegment.arrowStyle=_.extend({},lineSegment.arrowStyle,{"color":lineSegment.highlightStyle.stroke,"stroke":lineSegment.highlightStyle.stroke});lineSegment.transform();}}else if(event.type==="vmouseout"){lineSegment.highlight=false;if(!lineSegment.dragging){lineSegment.visibleLine.animate(lineSegment.normalStyle,50);lineSegment.arrowStyle=_.extend({},lineSegment.arrowStyle,{"color":lineSegment.normalStyle.stroke,"stroke":lineSegment.normalStyle.stroke});lineSegment.transform();}}else if(event.type==="vmousedown"&&(event.which===1||event.which===0)){(function(){event.preventDefault();var coordX=(event.pageX-$(graph.raphael.canvas.parentNode).offset().left)/graph.scale[0]+graph.range[0][0];var coordY=graph.range[1][1]-(event.pageY-$(graph.raphael.canvas.parentNode).offset().top)/graph.scale[1];if(lineSegment.snapX>0){coordX=Math.round(coordX/lineSegment.snapX)*lineSegment.snapX;}if(lineSegment.snapY>0){coordY=Math.round(coordY/lineSegment.snapY)*lineSegment.snapY;}var mouseOffsetA=[lineSegment.coordA[0]-coordX,lineSegment.coordA[1]-coordY];var mouseOffsetZ=[lineSegment.coordZ[0]-coordX,lineSegment.coordZ[1]-coordY];var offsetLeft=-Math.min(graph.scaleVector(mouseOffsetA)[0],graph.scaleVector(mouseOffsetZ)[0]);var offsetRight=Math.max(graph.scaleVector(mouseOffsetA)[0],graph.scaleVector(mouseOffsetZ)[0]);var offsetTop=Math.max(graph.scaleVector(mouseOffsetA)[1],graph.scaleVector(mouseOffsetZ)[1]);var offsetBottom=-Math.min(graph.scaleVector(mouseOffsetA)[1],graph.scaleVector(mouseOffsetZ)[1]);$(document).bind("vmousemove.lineSegment vmouseup.lineSegment",function(event){event.preventDefault();lineSegment.dragging=true;dragging=true;var mouseX=event.pageX-$(graph.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY-$(graph.raphael.canvas.parentNode).offset().top;// no part of the line segment can go beyond 10 pixels from the edge
-	mouseX=Math.max(offsetLeft+10,Math.min(graph.xpixels-10-offsetRight,mouseX));mouseY=Math.max(offsetTop+10,Math.min(graph.ypixels-10-offsetBottom,mouseY));var coordX=mouseX/graph.scale[0]+graph.range[0][0];var coordY=graph.range[1][1]-mouseY/graph.scale[1];if(lineSegment.snapX>0){coordX=Math.round(coordX/lineSegment.snapX)*lineSegment.snapX;}if(lineSegment.snapY>0){coordY=Math.round(coordY/lineSegment.snapY)*lineSegment.snapY;}if(event.type==="vmousemove"){if(lineSegment.constraints.constrainX){coordX=lineSegment.coordA[0]-mouseOffsetA[0];}if(lineSegment.constraints.constrainY){coordY=lineSegment.coordA[1]-mouseOffsetA[1];}var dX=coordX+mouseOffsetA[0]-lineSegment.coordA[0];var dY=coordY+mouseOffsetA[1]-lineSegment.coordA[1];lineSegment.coordA=[coordX+mouseOffsetA[0],coordY+mouseOffsetA[1]];lineSegment.coordZ=[coordX+mouseOffsetZ[0],coordY+mouseOffsetZ[1]];lineSegment.transform();if(lineSegment.movePointsWithLine){// If the points are movablePoints, adjust
-	// their coordinates when the line itself is
-	// dragged
-	if(_typeof(lineSegment.pointA)==="object"){lineSegment.pointA.setCoord([lineSegment.pointA.coord[0]+dX,lineSegment.pointA.coord[1]+dY]);}if(_typeof(lineSegment.pointZ)==="object"){lineSegment.pointZ.setCoord([lineSegment.pointZ.coord[0]+dX,lineSegment.pointZ.coord[1]+dY]);}}if(_.isFunction(lineSegment.onMove)){lineSegment.onMove(dX,dY);}}else if(event.type==="vmouseup"){$(document).unbind(".lineSegment");lineSegment.dragging=false;dragging=false;if(!lineSegment.highlight){lineSegment.visibleLine.animate(lineSegment.normalStyle,50);lineSegment.arrowStyle=_.extend({},lineSegment.arrowStyle,{"color":lineSegment.normalStyle.stroke,"stroke":lineSegment.normalStyle.stroke});lineSegment.transform();}if(_.isFunction(lineSegment.onMoveEnd)){lineSegment.onMoveEnd();}}$(lineSegment).trigger("move");});})();}});}if(lineSegment.pointA!==undefined){lineSegment.pointA.toFront();}if(lineSegment.pointZ!==undefined){lineSegment.pointZ.toFront();}lineSegment.transform();return lineSegment;},// MovablePolygon is a polygon that can be dragged around the screen.
-	// By attaching a smartPoint to each vertex, the points can be
-	// manipulated individually.
-	//
-	// To use with smartPoints, add the smartPoints first, then:
-	//   addMovablePolygon({points: [...]});
-	//
-	// Include "fixed: true" in the options if you don't want the entire
-	// polygon to be draggable (you can still use points to make the
-	// vertices draggable)
-	//
-	// The returned object includes the following properties/methods:
-	//
-	//   - polygon.points
-	//         The polygon's dynamic smartPoints and static coordinates, mixed.
-	//
-	//   - polygon.coords
-	//         The polygon's current coordinates (generated, don't edit).
-	//
-	//   - polygon.transform()
-	//         Repositions the polygon. Call after changing any points.
-	//
-	addMovablePolygon:function addMovablePolygon(options){var graphie=this;var polygon=$.extend({snapX:0,snapY:0,fixed:false,constrainToGraph:true,normalStyle:{},highlightStyle:{"stroke":KhanColors.INTERACTING,"stroke-width":2,"fill":KhanColors.INTERACTING,"fill-opacity":0.05},pointHighlightStyle:{"fill":KhanColors.INTERACTING,"stroke":KhanColors.INTERACTING},labelStyle:{"stroke":KhanColors.DYNAMIC,"stroke-width":1,"color":KhanColors.DYNAMIC},angleLabels:[],showRightAngleMarkers:[],sideLabels:[],vertexLabels:[],numArcs:[],numArrows:[],numTicks:[],updateOnPointMove:true,closed:true},_.omit(options,"points"));var normalColor=polygon.fixed?KhanColors.DYNAMIC:KhanColors.INTERACTIVE;polygon.normalStyle=_.extend({"stroke-width":2,"fill-opacity":0,"fill":normalColor,"stroke":normalColor},options.normalStyle);// don't deep copy the points array with $.extend;
-	// we may want to append to it later for click-to-add-points
-	polygon.points=options.points;var isPoint=function isPoint(coordOrPoint){return!_.isArray(coordOrPoint);};polygon.update=function(){var n=polygon.points.length;// Update coords
-	polygon.coords=_.map(polygon.points,function(coordOrPoint,i){if(isPoint(coordOrPoint)){return coordOrPoint.coord;}else{return coordOrPoint;}});// Calculate bounding box
-	polygon.left=_.min(_.pluck(polygon.coords,0));polygon.right=_.max(_.pluck(polygon.coords,0));polygon.top=_.max(_.pluck(polygon.coords,1));polygon.bottom=_.min(_.pluck(polygon.coords,1));var scaledCoords=_.map(polygon.coords,function(coord){return graphie.scalePoint(coord);});// Create path
-	if(polygon.closed){scaledCoords.push(true);}else{// For open polygons, concatenate a reverse of the path,
-	// to remove the inside area of the path, which would
-	// otherwise be clickable (even if the closing line segment
-	// wasn't drawn
-	scaledCoords=scaledCoords.concat(_.clone(scaledCoords).reverse());}polygon.path=GraphUtils.unscaledSvgPath(scaledCoords);// Temporary objects
-	_.invoke(polygon.temp,"remove");polygon.temp=[];var isClockwise=clockwise(polygon.coords);// Update angle labels
-	if(polygon.angleLabels.length||polygon.showRightAngleMarkers.length){_.each(polygon.labeledAngles,function(label,i){polygon.temp.push(graphie.labelAngle({point1:polygon.coords[(i-1+n)%n],vertex:polygon.coords[i],point3:polygon.coords[(i+1)%n],label:label,text:polygon.angleLabels[i],showRightAngleMarker:polygon.showRightAngleMarkers[i],numArcs:polygon.numArcs[i],clockwise:isClockwise,style:polygon.labelStyle}));});}// Update side labels
-	if(polygon.sideLabels.length){_.each(polygon.labeledSides,function(label,i){polygon.temp.push(graphie.labelSide({point1:polygon.coords[i],point2:polygon.coords[(i+1)%n],label:label,text:polygon.sideLabels[i],numArrows:polygon.numArrows[i],numTicks:polygon.numTicks[i],clockwise:isClockwise,style:polygon.labelStyle}));});}// Update vertex labels
-	if(polygon.vertexLabels.length){_.each(polygon.labeledVertices,function(label,i){graphie.labelVertex({point1:polygon.coords[(i-1+n)%n],vertex:polygon.coords[i],point3:polygon.coords[(i+1)%n],label:label,text:polygon.vertexLabels[i],clockwise:isClockwise,style:polygon.labelStyle});});}polygon.temp=_.flatten(polygon.temp);};polygon.transform=function(){polygon.update();polygon.visibleShape.attr({path:polygon.path});if(!polygon.fixed){polygon.mouseTarget.attr({path:polygon.path});}};polygon.remove=function(){polygon.visibleShape.remove();if(!polygon.fixed){polygon.mouseTarget.remove();}if(polygon.labeledAngles){_.invoke(polygon.labeledAngles,"remove");}if(polygon.labeledSides){_.invoke(polygon.labeledSides,"remove");}if(polygon.labeledVertices){_.invoke(polygon.labeledVertices,"remove");}if(polygon.temp.length){_.invoke(polygon.temp,"remove");}};polygon.toBack=function(){if(!polygon.fixed){polygon.mouseTarget.toBack();}polygon.visibleShape.toBack();};polygon.toFront=function(){if(!polygon.fixed){polygon.mouseTarget.toFront();}polygon.visibleShape.toFront();};// Setup
-	if(polygon.updateOnPointMove){_.each(_.filter(polygon.points,isPoint),function(coordOrPoint){coordOrPoint.polygonVertices.push(polygon);});}polygon.coords=new Array(polygon.points.length);if(polygon.angleLabels.length){var numLabels=Math.max(polygon.angleLabels.length,polygon.showRightAngleMarkers.length);polygon.labeledAngles=_.times(numLabels,function(){return this.label([0,0],"","center",polygon.labelStyle);},this);}if(polygon.sideLabels.length){polygon.labeledSides=_.map(polygon.sideLabels,function(label){return this.label([0,0],"","center",polygon.labelStyle);},this);}if(polygon.vertexLabels.length){polygon.labeledVertices=_.map(polygon.vertexLabels,function(label){return this.label([0,0],"","center",polygon.labelStyle);},this);}polygon.update();polygon.visibleShape=graphie.raphael.path(polygon.path);polygon.visibleShape.attr(polygon.normalStyle);if(!polygon.fixed){polygon.mouseTarget=graphie.mouselayer.path(polygon.path);polygon.mouseTarget.attr({fill:"#000",opacity:0,cursor:"move"});$(polygon.mouseTarget[0]).bind("vmousedown vmouseover vmouseout",function(event){if(event.type==="vmouseover"){if(!dragging||polygon.dragging){polygon.highlight=true;polygon.visibleShape.animate(polygon.highlightStyle,50);_.each(_.filter(polygon.points,isPoint),function(point){point.visibleShape.animate(polygon.pointHighlightStyle,50);});}}else if(event.type==="vmouseout"){polygon.highlight=false;if(!polygon.dragging){polygon.visibleShape.animate(polygon.normalStyle,50);var points=_.filter(polygon.points,isPoint);if(!_.any(_.pluck(points,"dragging"))){_.each(points,function(point){point.visibleShape.animate(point.normalStyle,50);});}}}else if(event.type==="vmousedown"&&(event.which===1||event.which===0)){(function(){event.preventDefault();_.each(_.filter(polygon.points,isPoint),function(point){point.dragging=true;});var startX=(event.pageX-$(graphie.raphael.canvas.parentNode).offset().left)/graphie.scale[0]+graphie.range[0][0];var startY=graphie.range[1][1]-(event.pageY-$(graphie.raphael.canvas.parentNode).offset().top)/graphie.scale[1];if(polygon.snapX>0){startX=Math.round(startX/polygon.snapX)*polygon.snapX;}if(polygon.snapY>0){startY=Math.round(startY/polygon.snapY)*polygon.snapY;}var lastX=startX;var lastY=startY;var polygonCoords=polygon.coords.slice();var offsetLeft=(startX-polygon.left)*graphie.scale[0];var offsetRight=(polygon.right-startX)*graphie.scale[0];var offsetTop=(polygon.top-startY)*graphie.scale[1];var offsetBottom=(startY-polygon.bottom)*graphie.scale[1];$(document).bind("vmousemove.polygon vmouseup.polygon",function(event){event.preventDefault();polygon.dragging=true;dragging=true;var mouseX=event.pageX-$(graphie.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY-$(graphie.raphael.canvas.parentNode).offset().top;// no part of the polygon can go beyond 10 pixels from the edge
-	if(polygon.constrainToGraph){mouseX=Math.max(offsetLeft+10,Math.min(graphie.xpixels-10-offsetRight,mouseX));mouseY=Math.max(offsetTop+10,Math.min(graphie.ypixels-10-offsetBottom,mouseY));}var currentX=mouseX/graphie.scale[0]+graphie.range[0][0];var currentY=graphie.range[1][1]-mouseY/graphie.scale[1];if(polygon.snapX>0){currentX=Math.round(currentX/polygon.snapX)*polygon.snapX;}if(polygon.snapY>0){currentY=Math.round(currentY/polygon.snapY)*polygon.snapY;}if(event.type==="vmousemove"){(function(){var dX=currentX-startX;var dY=currentY-startY;var doMove=true;if(_.isFunction(polygon.onMove)){var onMoveResult=polygon.onMove(dX,dY);if(onMoveResult===false){doMove=false;}else if(_.isArray(onMoveResult)){dX=onMoveResult[0];dY=onMoveResult[1];currentX=startX+dX;currentY=startY+dY;}}var increment=function increment(i){return[polygonCoords[i][0]+dX,polygonCoords[i][1]+dY];};if(doMove){_.each(polygon.points,function(coordOrPoint,i){if(isPoint(coordOrPoint)){coordOrPoint.setCoord(increment(i));}else{polygon.points[i]=increment(i);}});polygon.transform();$(polygon).trigger("move");lastX=currentX;lastY=currentY;}})();}else if(event.type==="vmouseup"){$(document).unbind(".polygon");var _points=_.filter(polygon.points,isPoint);_.each(_points,function(point){point.dragging=false;});polygon.dragging=false;dragging=false;if(!polygon.highlight){polygon.visibleShape.animate(polygon.normalStyle,50);_.each(_points,function(point){point.visibleShape.animate(point.normalStyle,50);});}if(_.isFunction(polygon.onMoveEnd)){polygon.onMoveEnd(lastX-startX,lastY-startY);}}});})();}});}// Bring any movable points to the front
-	_.invoke(_.filter(polygon.points,isPoint),"toFront");return polygon;},/**
+	     */
+	    labelAngle: function labelAngle(options) {
+	        var graphie = this;
+
+	        _.defaults(options, {
+	            point1: [0, 0],
+	            vertex: [0, 0],
+	            point3: [0, 0],
+	            label: null,
+	            numArcs: 1,
+	            showRightAngleMarker: true,
+	            pushOut: 0,
+	            clockwise: false,
+	            style: {}
+	        });
+
+	        var text = options.text === undefined ? "" : options.text;
+	        var vertex = options.vertex;
+	        var sVertex = graphie.scalePoint(vertex);
+	        var p1 = void 0;
+	        var p3 = void 0;
+	        if (options.clockwise) {
+	            p1 = options.point1;
+	            p3 = options.point3;
+	        } else {
+	            p1 = options.point3;
+	            p3 = options.point1;
+	        }
+
+	        var startAngle = GraphUtils.findAngle(p1, vertex);
+	        var endAngle = GraphUtils.findAngle(p3, vertex);
+	        var angle = (endAngle + 360 - startAngle) % 360;
+	        var halfAngle = (startAngle + angle / 2) % 360;
+	        var sPadding = 5 * options.pushOut;
+	        var sRadius = sPadding + scaledDistanceFromAngle(angle);
+	        var temp = [];
+
+	        if (Math.abs(angle - 90) < 1e-9 && options.showRightAngleMarker) {
+	            (function () {
+	                var v1 = addPoints(sVertex, scaledPolarDeg(sRadius, startAngle));
+	                var v2 = addPoints(sVertex, scaledPolarDeg(sRadius, endAngle));
+
+	                sRadius *= Math.SQRT2;
+	                var v3 = addPoints(sVertex, scaledPolarDeg(sRadius, halfAngle));
+
+	                _.each([v1, v2], function (v) {
+	                    temp.push(graphie.scaledPath([v, v3], options.style));
+	                });
+	            })();
+	        } else {
+	            // Draw arcs
+	            _.times(options.numArcs, function (i) {
+	                temp.push(graphie.arc(vertex, graphie.unscaleVector(sRadius), startAngle, endAngle, options.style));
+	                sRadius += 3;
+	            });
+	        }
+
+	        if (text) {
+	            var match = text.match(/\$deg(\d)?/);
+	            if (match) {
+	                var precision = match[1] || 1;
+	                text = text.replace(match[0], KhanMath.toFixedApprox(angle, precision) + "^{\\circ}");
+	            }
+
+	            var sOffset = scaledPolarDeg(sRadius + 15, halfAngle);
+	            var sPosition = addPoints(sVertex, sOffset);
+	            var position = graphie.unscalePoint(sPosition);
+
+	            // Reuse label if possible
+	            if (options.label) {
+	                options.label.setPosition(position);
+	                options.label.processMath(text, /* force */true);
+	            } else {
+	                graphie.label(position, text, "center", options.style);
+	            }
+	        }
+
+	        return temp;
+	    },
+
+	    labelSide: function labelSide(options) {
+	        var graphie = this;
+
+	        _.defaults(options, {
+	            point1: [0, 0],
+	            point2: [0, 0],
+	            label: null,
+	            text: "",
+	            numTicks: 0,
+	            numArrows: 0,
+	            clockwise: false,
+	            style: {}
+	        });
+
+	        var p1 = void 0;
+	        var p2 = void 0;
+	        if (options.clockwise) {
+	            p1 = options.point1;
+	            p2 = options.point2;
+	        } else {
+	            p1 = options.point2;
+	            p2 = options.point1;
+	        }
+
+	        var midpoint = [(p1[0] + p2[0]) / 2, (p1[1] + p2[1]) / 2];
+	        var sMidpoint = graphie.scalePoint(midpoint);
+	        var parallelAngle = Math.atan2(p2[1] - p1[1], p2[0] - p1[0]);
+	        var perpendicularAngle = parallelAngle + Math.PI / 2;
+	        var temp = [];
+	        var sCumulativeOffset = 0;
+
+	        if (options.numTicks) {
+	            (function () {
+	                var n = options.numTicks;
+
+	                var sSpacing = 5;
+	                var sHeight = 5;
+
+	                var style = _.extend({}, options.style, {
+	                    strokeWidth: 2
+	                });
+
+	                _.times(n, function (i) {
+	                    var sOffset = sSpacing * (i - (n - 1) / 2);
+
+	                    var sOffsetVector = scaledPolarRad(sOffset, parallelAngle);
+	                    var sHeightVector = scaledPolarRad(sHeight, perpendicularAngle);
+
+	                    var sPath = [addPoints(sMidpoint, sOffsetVector, sHeightVector), addPoints(sMidpoint, sOffsetVector, reverseVector(sHeightVector))];
+
+	                    temp.push(graphie.scaledPath(sPath, style));
+	                });
+
+	                sCumulativeOffset += sSpacing * (n - 1) + 15;
+	            })();
+	        }
+
+	        if (options.numArrows) {
+	            (function () {
+	                var n = options.numArrows;
+
+	                var start = [p1, p2].sort(function (a, b) {
+	                    if (a[1] === b[1]) {
+	                        return a[0] - b[0];
+	                    } else {
+	                        return a[1] - b[1];
+	                    }
+	                })[0];
+	                var sStart = graphie.scalePoint(start);
+
+	                var style = _.extend({}, options.style, {
+	                    arrows: "->",
+	                    strokeWidth: 2
+	                });
+
+	                var sSpacing = 5;
+
+	                _.times(n, function (i) {
+	                    var sOffset = sCumulativeOffset + sSpacing * i;
+	                    var sOffsetVector = scaledPolarRad(sOffset, parallelAngle);
+
+	                    if (start !== p1) {
+	                        sOffsetVector = reverseVector(sOffsetVector);
+	                    }
+
+	                    var sEnd = addPoints(sMidpoint, sOffsetVector);
+
+	                    temp.push(graphie.scaledPath([sStart, sEnd], style));
+	                });
+	            })();
+	        }
+
+	        var text = options.text;
+	        if (text) {
+	            var match = text.match(/\$len(\d)?/);
+	            if (match) {
+	                var distance = GraphUtils.getDistance(p1, p2);
+	                var precision = match[1] || 1;
+	                text = text.replace(match[0], KhanMath.toFixedApprox(distance, precision));
+	            }
+
+	            var sOffset = 20;
+	            var sOffsetVector = scaledPolarRad(sOffset, perpendicularAngle);
+	            var sPosition = addPoints(sMidpoint, sOffsetVector);
+	            var position = graphie.unscalePoint(sPosition);
+
+	            // Reuse label if possible
+	            if (options.label) {
+	                options.label.setPosition(position);
+	                options.label.processMath(text, /* force */true);
+	            } else {
+	                graphie.label(position, text, "center", options.style);
+	            }
+	        }
+
+	        return temp;
+	    },
+
+	    /* Can also be used to label points that aren't vertices */
+	    labelVertex: function labelVertex(options) {
+	        var graphie = this;
+
+	        _.defaults(options, {
+	            point1: null,
+	            vertex: [0, 0],
+	            point3: null,
+	            label: null,
+	            text: "",
+	            clockwise: false,
+	            style: {}
+	        });
+
+	        if (!options.text) {
+	            return;
+	        }
+
+	        var vertex = options.vertex;
+	        var sVertex = graphie.scalePoint(vertex);
+	        var p1 = void 0;
+	        var p3 = void 0;
+	        if (options.clockwise) {
+	            p1 = options.point1;
+	            p3 = options.point3;
+	        } else {
+	            p1 = options.point3;
+	            p3 = options.point1;
+	        }
+
+	        var angle = 135;
+	        var halfAngle = void 0;
+	        if (p1 && p3) {
+	            var startAngle = GraphUtils.findAngle(p1, vertex);
+	            var endAngle = GraphUtils.findAngle(p3, vertex);
+	            angle = (endAngle + 360 - startAngle) % 360;
+	            halfAngle = (startAngle + angle / 2 + 180) % 360;
+	        } else if (p1) {
+	            var parallelAngle = GraphUtils.findAngle(vertex, p1);
+	            halfAngle = parallelAngle + 90;
+	        } else if (p3) {
+	            var _parallelAngle = GraphUtils.findAngle(p3, vertex);
+	            halfAngle = _parallelAngle + 90;
+	        } else {
+	            // Standalone point
+	            halfAngle = 135;
+	        }
+
+	        var sRadius = 10 + scaledDistanceFromAngle(360 - angle);
+	        var sOffsetVector = scaledPolarDeg(sRadius, halfAngle);
+	        var sPosition = addPoints(sVertex, sOffsetVector);
+	        var position = graphie.unscalePoint(sPosition);
+
+	        // Reuse label if possible
+	        if (options.label) {
+	            options.label.setPosition(position);
+	            options.label.processMath(options.text, /* force */true);
+	        } else {
+	            graphie.label(position, options.text, "center", options.style);
+	        }
+	    },
+
+	    // Add a point to the graph that can be dragged around.
+	    // It allows automatic constraints on its movement as well as automatically
+	    // managing line segments that terminate at the point.
+	    //
+	    // Options can be set to control how the point behaves:
+	    //   coord[]:
+	    //     The initial position of the point
+	    //   snapX, snapY:
+	    //     The minimum increment the point can be moved
+	    //
+	    // The return value is an object that can be used to manipulate the point:
+	    //   The coordX and coordY properties tell you the current position
+	    //
+	    //   By adding an onMove() method to the returned object, you can install an
+	    //   event handler that gets called every time the user moves the point.
+	    //
+	    //   The returned object also provides a moveTo(x,y) method that will move
+	    //   the point to a specific coordinate
+	    //
+	    // Constraints can be set on the on the returned object:
+	    //
+	    //  - Set point to be immovable:
+	    //        movablePoint.constraints.fixed = true
+	    //
+	    //  - Constrain point to a fixed distance from another point. The resulting
+	    //    point will move in a circle:
+	    //        movablePoint.fixedDistance = {
+	    //           dist: 2,
+	    //           point: point1
+	    //        }
+	    //
+	    //  - Constrain point to a line defined by a fixed angle between it and
+	    //    two other points:
+	    //        movablePoint.fixedAngle = {
+	    //           angle: 45,
+	    //           vertex: point1,
+	    //           ref: point2
+	    //        }
+	    //
+	    //  - Confined the point to traveling in a vertical or horizontal line,
+	    //    respectively
+	    //        movablePoint.constrainX = true;
+	    //        movablePoint.constrainY = true;
+	    //
+	    //  - Connect a movableLineSegment to a movablePoint. The point is attached
+	    //    to a specific end of the line segment by adding the segment either to
+	    //    the list of lines that start at the point or the list of lines that
+	    //    end at the point (movableLineSegment can do this for you):
+	    //        movablePoint.lineStarts.push(movableLineSegment);
+	    //          - or -
+	    //        movablePoint.lineEnds.push(movableLineSegment);
+	    //
+	    //  - Connect a movablePolygon to a movablePoint in exacty the same way:
+	    //        movablePoint.polygonVertices.push(movablePolygon);
+	    //
+	    addMovablePoint: function addMovablePoint(options) {
+	        var movablePoint = $.extend(true, {
+	            graph: this,
+	            coord: [0, 0],
+	            snapX: 0,
+	            snapY: 0,
+	            pointSize: 4,
+	            highlight: false,
+	            dragging: false,
+	            visible: true,
+	            bounded: true,
+	            constraints: {
+	                fixed: false,
+	                constrainX: false,
+	                constrainY: false,
+	                fixedAngle: {},
+	                fixedDistance: {}
+	            },
+	            lineStarts: [],
+	            lineEnds: [],
+	            polygonVertices: [],
+	            normalStyle: {},
+	            highlightStyle: {
+	                fill: KhanColors.INTERACTING,
+	                stroke: KhanColors.INTERACTING
+	            },
+	            labelStyle: {
+	                color: KhanColors.INTERACTIVE
+	            },
+	            vertexLabel: "",
+	            mouseTarget: null
+	        }, options);
+
+	        var normalColor = movablePoint.constraints.fixed ? KhanColors.DYNAMIC : KhanColors.INTERACTIVE;
+	        movablePoint.normalStyle = _.extend({}, {
+	            "fill": normalColor,
+	            "stroke": normalColor
+	        }, options.normalStyle);
+
+	        // deprecated: don't use coordX/coordY; use coord[]
+	        if (options.coordX !== undefined) {
+	            movablePoint.coord[0] = options.coordX;
+	        }
+	        if (options.coordY !== undefined) {
+	            movablePoint.coord[1] = options.coordY;
+	        }
+
+	        var graph = movablePoint.graph;
+
+	        var applySnapAndConstraints = function applySnapAndConstraints(coord) {
+	            // coord should be the scaled coordinate
+
+	            // move point away from edge of graph unless it's invisible or fixed
+	            if (movablePoint.visible && movablePoint.bounded && !movablePoint.constraints.fixed) {
+	                // can't go beyond 10 pixels from the edge
+	                coord = graph.constrainToBounds(coord, 10);
+	            }
+
+	            var coordX = coord[0];
+	            var coordY = coord[1];
+
+	            // snap coordinates to grid
+	            if (movablePoint.snapX !== 0) {
+	                coordX = Math.round(coordX / movablePoint.snapX) * movablePoint.snapX;
+	            }
+	            if (movablePoint.snapY !== 0) {
+	                coordY = Math.round(coordY / movablePoint.snapY) * movablePoint.snapY;
+	            }
+
+	            // snap to points around circle
+	            if (movablePoint.constraints.fixedDistance.snapPoints) {
+	                var mouse = graph.scalePoint(coord);
+	                var mouseX = mouse[0];
+	                var mouseY = mouse[1];
+
+	                var snapRadians = 2 * Math.PI / movablePoint.constraints.fixedDistance.snapPoints;
+	                var radius = movablePoint.constraints.fixedDistance.dist;
+
+	                var centerCoord = movablePoint.constraints.fixedDistance.point;
+	                var centerX = (centerCoord[0] - graph.range[0][0]) * graph.scale[0];
+	                var centerY = (-centerCoord[1] + graph.range[1][1]) * graph.scale[1];
+
+	                var mouseXrel = mouseX - centerX;
+	                var mouseYrel = -mouseY + centerY;
+	                var radians = Math.atan(mouseYrel / mouseXrel);
+	                var outsideArcTanRange = mouseXrel < 0;
+
+	                // adjust so that angles increase from 0 to 2 pi as you go around the circle
+	                if (outsideArcTanRange) {
+	                    radians += Math.PI;
+	                }
+
+	                // perform the snap
+	                radians = Math.round(radians / snapRadians) * snapRadians;
+
+	                // convert from radians back to pixels
+	                mouseXrel = radius * Math.cos(radians);
+	                mouseYrel = radius * Math.sin(radians);
+	                // convert back to coordinates relative to graphie canvas
+	                mouseX = mouseXrel + centerX;
+	                mouseY = -mouseYrel + centerY;
+	                coordX = KhanMath.roundTo(5, mouseX / graph.scale[0] + graph.range[0][0]);
+	                coordY = KhanMath.roundTo(5, graph.range[1][1] - mouseY / graph.scale[1]);
+	            }
+
+	            var result = movablePoint.applyConstraint([coordX, coordY]);
+	            return result;
+	        };
+
+	        // Using the passed coordinates, apply any constraints and return the closest coordinates
+	        // that match the constraints.
+	        movablePoint.applyConstraint = function (coord, extraConstraints, override) {
+	            var newCoord = coord.slice();
+	            var constraints = {};
+	            if (override) {
+	                $.extend(constraints, {
+	                    fixed: false,
+	                    constrainX: false,
+	                    constrainY: false,
+	                    fixedAngle: {},
+	                    fixedDistance: {}
+	                }, extraConstraints);
+	            } else {
+	                $.extend(constraints, this.constraints, extraConstraints);
+	            }
+
+	            // constrain to vertical movement
+	            if (constraints.constrainX) {
+	                newCoord = [this.coord[0], coord[1]];
+
+	                // constrain to horizontal movement
+	            } else if (constraints.constrainY) {
+	                newCoord = [coord[0], this.coord[1]];
+
+	                // both distance and angle are constrained
+	            } else if (typeof constraints.fixedAngle.angle === "number" && typeof constraints.fixedDistance.dist === "number") {
+	                var vertex = constraints.fixedAngle.vertex.coord || constraints.fixedAngle.vertex;
+	                var ref = constraints.fixedAngle.ref.coord || constraints.fixedAngle.ref;
+	                var distPoint = constraints.fixedDistance.point.coord || constraints.fixedDistance.point;
+
+	                var constrainedAngle = (constraints.fixedAngle.angle + GraphUtils.findAngle(ref, vertex)) * Math.PI / 180;
+	                var length = constraints.fixedDistance.dist;
+	                newCoord[0] = length * Math.cos(constrainedAngle) + distPoint[0];
+	                newCoord[1] = length * Math.sin(constrainedAngle) + distPoint[1];
+
+	                // angle is constrained
+	            } else if (typeof constraints.fixedAngle.angle === "number") {
+	                var _vertex = constraints.fixedAngle.vertex.coord || constraints.fixedAngle.vertex;
+	                var _ref = constraints.fixedAngle.ref.coord || constraints.fixedAngle.ref;
+
+	                var _constrainedAngle = (constraints.fixedAngle.angle + GraphUtils.findAngle(_ref, _vertex)) * Math.PI / 180;
+	                var angle = GraphUtils.findAngle(coord, _vertex) * Math.PI / 180;
+	                var distance = GraphUtils.getDistance(coord, _vertex);
+	                var _length = distance * Math.cos(_constrainedAngle - angle);
+	                _length = _length < 1.0 ? 1.0 : _length;
+	                newCoord[0] = _length * Math.cos(_constrainedAngle) + _vertex[0];
+	                newCoord[1] = _length * Math.sin(_constrainedAngle) + _vertex[1];
+
+	                // distance is constrained
+	            } else if (typeof constraints.fixedDistance.dist === "number") {
+	                var _distPoint = constraints.fixedDistance.point.coord || constraints.fixedDistance.point;
+
+	                var _angle = GraphUtils.findAngle(coord, _distPoint);
+	                var _length2 = constraints.fixedDistance.dist;
+	                _angle = _angle * Math.PI / 180;
+	                newCoord[0] = _length2 * Math.cos(_angle) + _distPoint[0];
+	                newCoord[1] = _length2 * Math.sin(_angle) + _distPoint[1];
+
+	                // point is fixed
+	            } else if (constraints.fixed) {
+	                newCoord = movablePoint.coord;
+	            }
+	            return newCoord;
+	        };
+
+	        movablePoint.coord = applySnapAndConstraints(movablePoint.coord);
+
+	        var highlightScale = 2;
+
+	        if (movablePoint.visible) {
+	            graph.style(movablePoint.normalStyle, function () {
+	                var radii = [movablePoint.pointSize / graph.scale[0], movablePoint.pointSize / graph.scale[1]];
+	                var options = {
+	                    maxScale: highlightScale,
+	                    // Add in 2px of padding to avoid clipping at the edges.
+	                    padding: 2
+	                };
+	                movablePoint.visibleShape = new WrappedEllipse(graph, movablePoint.coord, radii, options);
+	                movablePoint.visibleShape.attr(_.omit(movablePoint.normalStyle, "scale"));
+	                movablePoint.visibleShape.toFront();
+	            });
+	        }
+	        movablePoint.normalStyle.scale = 1;
+	        movablePoint.highlightStyle.scale = highlightScale;
+
+	        if (movablePoint.vertexLabel) {
+	            movablePoint.labeledVertex = this.label([0, 0], "", "center", movablePoint.labelStyle);
+	        }
+
+	        movablePoint.drawLabel = function () {
+	            if (movablePoint.vertexLabel) {
+	                movablePoint.graph.labelVertex({
+	                    vertex: movablePoint.coord,
+	                    label: movablePoint.labeledVertex,
+	                    text: movablePoint.vertexLabel,
+	                    style: movablePoint.labelStyle
+	                });
+	            }
+	        };
+
+	        movablePoint.drawLabel();
+
+	        movablePoint.grab = function (offset) {
+	            // The offset for the gesture. When provided, the movable point will
+	            // track the mouse's position, plus this offset. This is typically
+	            // used to lock the distance between a user's finger and the movable
+	            // point, when dragging.
+	            offset = offset || [0, 0];
+
+	            $(document).bind("vmousemove.point vmouseup.point", function (event) {
+	                event.preventDefault();
+	                movablePoint.dragging = true;
+	                dragging = true;
+
+	                // Adjust the target coordinate by accounting for the gesture's
+	                // offset.
+	                var coord = kvector.add(graph.getMouseCoord(event), offset);
+
+	                coord = applySnapAndConstraints(coord);
+	                var coordX = coord[0];
+	                var coordY = coord[1];
+	                var mouseX = void 0;
+	                var mouseY = void 0;
+
+	                if (event.type === "vmousemove") {
+	                    var doMove = true;
+	                    // The caller has the option of adding an onMove() method to the
+	                    // movablePoint object we return as a sort of event handler
+	                    // By returning false from onMove(), the move can be vetoed,
+	                    // providing custom constraints on where the point can be moved.
+	                    // By returning array [x, y], the move can be overridden
+	                    if (_.isFunction(movablePoint.onMove)) {
+	                        var result = movablePoint.onMove(coordX, coordY);
+	                        if (result === false) {
+	                            doMove = false;
+	                        }
+	                        if (_.isArray(result)) {
+	                            coordX = result[0];
+	                            coordY = result[1];
+	                        }
+	                    }
+	                    // coord{X|Y} may have been modified by constraints or onMove handler; adjust mouse{X|Y} to match
+	                    mouseX = (coordX - graph.range[0][0]) * graph.scale[0];
+	                    mouseY = (-coordY + graph.range[1][1]) * graph.scale[1];
+
+	                    if (doMove) {
+	                        var point = graph.unscalePoint([mouseX, mouseY]);
+	                        movablePoint.visibleShape.moveTo(point);
+	                        movablePoint.mouseTarget.moveTo(point);
+	                        movablePoint.coord = [coordX, coordY];
+	                        movablePoint.updateLineEnds();
+	                        $(movablePoint).trigger("move");
+	                    }
+
+	                    movablePoint.drawLabel();
+	                } else if (event.type === "vmouseup") {
+	                    $(document).unbind(".point");
+	                    movablePoint.dragging = false;
+	                    dragging = false;
+	                    if (_.isFunction(movablePoint.onMoveEnd)) {
+	                        var _result = movablePoint.onMoveEnd(coordX, coordY);
+	                        if (_.isArray(_result)) {
+	                            coordX = _result[0];
+	                            coordY = _result[1];
+	                            mouseX = (coordX - graph.range[0][0]) * graph.scale[0];
+	                            mouseY = (-coordY + graph.range[1][1]) * graph.scale[1];
+	                            var _point = graph.unscalePoint([mouseX, mouseY]);
+	                            movablePoint.visibleShape.moveTo(_point);
+	                            movablePoint.mouseTarget.moveTo(_point);
+	                            movablePoint.coord = [coordX, coordY];
+	                        }
+	                    }
+	                    if (!movablePoint.highlight) {
+	                        movablePoint.visibleShape.animate(movablePoint.normalStyle, 50);
+	                        if (movablePoint.onUnhighlight) {
+	                            movablePoint.onUnhighlight();
+	                        }
+	                    }
+	                }
+	            });
+	        };
+
+	        if (movablePoint.visible && !movablePoint.constraints.fixed) {
+	            // the invisible shape in front of the point that gets mouse events
+	            if (!movablePoint.mouseTarget) {
+	                var radii = graph.unscaleVector(24);
+	                var _options = {
+	                    mouselayer: true,
+	                    padding: 0
+	                };
+	                movablePoint.mouseTarget = new WrappedEllipse(graph, movablePoint.coord, radii, _options);
+	                movablePoint.mouseTarget.attr({ fill: "#000", opacity: 0.0 });
+	            }
+
+	            var $mouseTarget = $(movablePoint.mouseTarget.getMouseTarget());
+	            $mouseTarget.css("cursor", "move");
+	            $mouseTarget.bind("vmousedown vmouseover vmouseout", function (event) {
+	                if (event.type === "vmouseover") {
+	                    movablePoint.highlight = true;
+	                    if (!dragging) {
+	                        movablePoint.visibleShape.animate(movablePoint.highlightStyle, 50);
+	                        if (movablePoint.onHighlight) {
+	                            movablePoint.onHighlight();
+	                        }
+	                    }
+	                } else if (event.type === "vmouseout") {
+	                    movablePoint.highlight = false;
+	                    if (!movablePoint.dragging && !dragging) {
+	                        movablePoint.visibleShape.animate(movablePoint.normalStyle, 50);
+	                        if (movablePoint.onUnhighlight) {
+	                            movablePoint.onUnhighlight();
+	                        }
+	                    }
+	                } else if (event.type === "vmousedown" && (event.which === 1 || event.which === 0)) {
+	                    event.preventDefault();
+
+	                    // The offset between the cursor or finger and the initial
+	                    // coordinates of the point. This is tracked so as to avoid
+	                    // locking the moving point to the user's finger on touch
+	                    // devices, which would obscure it, no matter how large we
+	                    // made the touch target. Instead, we respect the offset at
+	                    // which the point was grabbed for the entirety of the
+	                    // gesture, if it's a touch-based interaction.
+	                    var startCoord = movablePoint.coord;
+	                    var startMouseCoord = graph.getMouseCoord(event);
+	                    var isMouse = !('ontouchstart' in window);
+	                    var touchOffset = isMouse ? [0, 0] : kvector.subtract(startCoord, startMouseCoord);
+
+	                    movablePoint.grab(touchOffset);
+	                }
+	            });
+	        }
+
+	        // Method to let the caller animate the point to a new position. Useful
+	        // as part of a hint to show the user the correct place to put the point.
+	        movablePoint.moveTo = function (coordX, coordY, updateLines) {
+	            var distance = GraphUtils.getDistance(this.graph.scalePoint([coordX, coordY]), this.graph.scalePoint(this.coord));
+
+	            var time = distance * 5;
+
+	            var cb = updateLines && function (coord) {
+	                movablePoint.coord = coord;
+	                movablePoint.updateLineEnds();
+	            };
+	            this.visibleShape.animateTo([coordX, coordY], time, cb);
+	            this.mouseTarget.animateTo([coordX, coordY], time, cb);
+	            this.coord = [coordX, coordY];
+	            if (_.isFunction(this.onMove)) {
+	                this.onMove(coordX, coordY);
+	            }
+	        };
+
+	        // After moving the point, call this to update all line segments terminating at the point
+	        movablePoint.updateLineEnds = function () {
+	            $(this.lineStarts).each(function () {
+	                this.coordA = movablePoint.coord;
+	                this.transform();
+	            });
+	            $(this.lineEnds).each(function () {
+	                this.coordZ = movablePoint.coord;
+	                this.transform();
+	            });
+	            $(this.polygonVertices).each(function () {
+	                this.transform();
+	            });
+	        };
+
+	        // Put the point at a new position without any checks, animation, or callbacks
+	        movablePoint.setCoord = function (coord) {
+	            if (this.visible) {
+	                this.visibleShape.moveTo(coord);
+	                if (this.mouseTarget != null) {
+	                    this.mouseTarget.moveTo(coord);
+	                }
+	            }
+	            this.coord = coord.slice();
+	        };
+
+	        // Put the point at the new position, checking that it is within the graph's bounds
+	        movablePoint.setCoordConstrained = function (coord) {
+	            this.setCoord(applySnapAndConstraints(coord));
+	        };
+
+	        // Change z-order to back
+	        movablePoint.toBack = function () {
+	            if (this.visible) {
+	                if (this.mouseTarget != null) {
+	                    this.mouseTarget.toBack();
+	                }
+	                this.visibleShape.toBack();
+	            }
+	        };
+
+	        // Change z-order to front
+	        movablePoint.toFront = function () {
+	            if (this.visible) {
+	                if (this.mouseTarget != null) {
+	                    this.mouseTarget.toFront();
+	                }
+	                this.visibleShape.toFront();
+	            }
+	        };
+
+	        movablePoint.remove = function () {
+	            if (this.visibleShape) {
+	                this.visibleShape.remove();
+	            }
+	            if (this.mouseTarget) {
+	                this.mouseTarget.remove();
+	            }
+	            if (this.labeledVertex) {
+	                this.labeledVertex.remove();
+	            }
+	        };
+
+	        return movablePoint;
+	    },
+
+	    // MovableLineSegment is a line segment that can be dragged around the
+	    // screen. By attaching a smartPoint to each (or one) end, the ends can be
+	    // manipulated individually.
+	    //
+	    // To use with smartPoints, add the smartPoints first, then:
+	    //   addMovableLineSegment({ pointA: smartPoint1, pointZ: smartPoint2 });
+	    // Or just one end:
+	    //   addMovableLineSegment({ pointA: smartPoint, coordZ: [0, 0] });
+	    //
+	    // Include "fixed: true" in the options if you don't want the entire line
+	    // to be draggable (you can still use points to make the endpoints
+	    // draggable)
+	    //
+	    // The returned object includes the following properties/methods:
+	    //
+	    //   - lineSegment.coordA / lineSegment.coordZ
+	    //         The coordinates of each end of the line segment
+	    //
+	    //   - lineSegment.transform(syncToPoints)
+	    //         Repositions the line segment. Call after changing coordA and/or
+	    //         coordZ, or pass syncToPoints = true to use the current position
+	    //         of the corresponding smartPoints, if the segment was defined using
+	    //         smartPoints
+	    //
+	    addMovableLineSegment: function addMovableLineSegment(options) {
+	        var lineSegment = $.extend({
+	            graph: this,
+	            coordA: [0, 0],
+	            coordZ: [1, 1],
+	            snapX: 0,
+	            snapY: 0,
+	            fixed: false,
+	            ticks: 0,
+	            normalStyle: {},
+	            highlightStyle: {
+	                "stroke": KhanColors.INTERACTING,
+	                "stroke-width": 6
+	            },
+	            labelStyle: {
+	                "stroke": KhanColors.INTERACTIVE,
+	                "color": KhanColors.INTERACTIVE
+	            },
+	            highlight: false,
+	            dragging: false,
+	            tick: [],
+	            extendLine: false,
+	            extendRay: false,
+	            constraints: {
+	                fixed: false,
+	                constrainX: false,
+	                constrainY: false
+	            },
+	            sideLabel: "",
+	            vertexLabels: [],
+	            numArrows: 0,
+	            numTicks: 0,
+	            movePointsWithLine: false
+	        }, options);
+
+	        var normalColor = lineSegment.fixed ? KhanColors.DYNAMIC : KhanColors.INTERACTIVE;
+	        lineSegment.normalStyle = _.extend({}, {
+	            "stroke-width": 2,
+	            "stroke": normalColor
+	        }, options.normalStyle);
+	        // arrowStyle should be kept in sync with styling of the line
+	        lineSegment.arrowStyle = _.extend({}, lineSegment.normalStyle, {
+	            "color": lineSegment.normalStyle.stroke
+	        });
+
+	        // If the line segment is defined by movablePoints, coordA/coordZ are
+	        // owned by the points, otherwise they're owned by us
+	        if (options.pointA !== undefined) {
+	            lineSegment.coordA = options.pointA.coord;
+	            lineSegment.pointA.lineStarts.push(lineSegment);
+	        } else if (options.coordA !== undefined) {
+	            lineSegment.coordA = options.coordA.slice();
+	        }
+
+	        if (options.pointZ !== undefined) {
+	            lineSegment.coordZ = options.pointZ.coord;
+	            lineSegment.pointZ.lineEnds.push(lineSegment);
+	        } else if (options.coordA !== undefined) {
+	            lineSegment.coordA = lineSegment.coordA.slice();
+	        }
+
+	        var graph = lineSegment.graph;
+
+	        graph.style(lineSegment.normalStyle);
+	        for (var i = 0; i < lineSegment.ticks; ++i) {
+	            lineSegment.tick[i] = InteractiveUtils.bogusShape;
+	        }
+	        // TODO(kevinb) figure out why path isn't being used
+	        /* eslint-disable */
+	        var path = GraphUtils.unscaledSvgPath([[0, 0], [1, 0]]);
+	        for (var _i = 0; _i < lineSegment.ticks; ++_i) {
+	            var tickoffset = 0.5 - (lineSegment.ticks - 1 + _i * 2) / graph.scale[0];
+	            path += GraphUtils.unscaledSvgPath([[tickoffset, -7], [tickoffset, 7]]);
+	        }
+	        /* eslint-enable */
+
+	        options = {
+	            thickness: Math.max(lineSegment.normalStyle["stroke-width"], lineSegment.highlightStyle["stroke-width"])
+	        };
+	        lineSegment.visibleLine = new WrappedLine(graph, [0, 0], [1, 0], options);
+	        lineSegment.visibleLine.attr(lineSegment.normalStyle);
+
+	        // Add mouse target
+	        if (!lineSegment.fixed) {
+	            var _options2 = {
+	                thickness: 30,
+	                mouselayer: true
+	            };
+	            lineSegment.mouseTarget = new WrappedLine(graph, [0, 0], [1, 0], _options2);
+	            lineSegment.mouseTarget.attr({ fill: "#000", "opacity": 0.0 });
+	        }
+
+	        // Reposition the line segment. Call after changing coordA and/or
+	        // coordZ, or pass syncToPoints = true to use the current position of
+	        // the corresponding movablePoints, if the segment was defined using
+	        // movablePoints
+	        lineSegment.transform = function (syncToPoints) {
+	            if (syncToPoints) {
+	                if (_typeof(this.pointA) === "object") {
+	                    this.coordA = this.pointA.coord;
+	                }
+	                if (_typeof(this.pointZ) === "object") {
+	                    this.coordZ = this.pointZ.coord;
+	                }
+	            }
+
+	            var getScaledAngle = function getScaledAngle(line) {
+	                var scaledA = line.graph.scalePoint(line.coordA);
+	                var scaledZ = line.graph.scalePoint(line.coordZ);
+	                return kvector.polarDegFromCart(kvector.subtract(scaledZ, scaledA))[1];
+	            };
+
+	            var getClipPoint = function getClipPoint(graph, coord, angle) {
+	                graph = lineSegment.graph;
+	                var xExtent = graph.range[0][1] - graph.range[0][0];
+	                var yExtent = graph.range[1][1] - graph.range[1][0];
+
+	                var distance = xExtent + yExtent;
+	                var angleVec = graph.unscaleVector(kvector.cartFromPolarDeg([1, angle]));
+	                var distVec = kvector.scale(kvector.normalize(angleVec), distance);
+	                var farCoord = kvector.add(coord, distVec);
+	                var scaledAngle = kvector.polarDegFromCart(angleVec)[1];
+	                var clipPoint = graph.constrainToBoundsOnAngle(farCoord, 4, scaledAngle * Math.PI / 180);
+	                return clipPoint;
+	            };
+
+	            var angle = getScaledAngle(this);
+	            var start = this.coordA;
+	            var end = this.coordZ;
+
+	            // Extend start, end if necessary (i.e., if not a line segment)
+	            if (this.extendLine) {
+	                start = getClipPoint(graph, start, 360 - angle);
+	                end = getClipPoint(graph, end, (540 - angle) % 360);
+	            } else if (this.extendRay) {
+	                end = getClipPoint(graph, start, 360 - angle);
+	            }
+
+	            var elements = [this.visibleLine];
+	            if (!this.fixed) {
+	                elements.push(this.mouseTarget);
+	            }
+	            _.each(elements, function (element) {
+	                element.moveTo(start, end);
+	            });
+
+	            var createArrow = function createArrow(graph, style) {
+	                var center = [0.75, 0];
+	                var points = [[-3, 4], [-2.75, 2.5], [0, 0.25], center, [0, -0.25], [-2.75, -2.5], [-3, -4]];
+
+	                var scale = 1.4;
+	                points = _.map(points, function (point) {
+	                    var pv = kvector.subtract(point, center);
+	                    var pvScaled = kvector.scale(pv, scale);
+	                    return kvector.add(center, pvScaled);
+	                });
+
+	                var createCubicPath = function createCubicPath(points) {
+	                    var path = "M" + points[0][0] + " " + points[0][1];
+	                    for (var _i2 = 1; _i2 < points.length; _i2 += 3) {
+	                        path += "C" + points[_i2][0] + " " + points[_i2][1] + " " + points[_i2 + 1][0] + " " + points[_i2 + 1][1] + " " + points[_i2 + 2][0] + " " + points[_i2 + 2][1];
+	                    }
+	                    return path;
+	                };
+
+	                var unscaledPoints = _.map(points, graph.unscalePoint);
+	                var options = {
+	                    center: graph.unscalePoint(center),
+	                    createPath: createCubicPath
+	                };
+	                var arrowHead = new WrappedPath(graph, unscaledPoints, options);
+	                arrowHead.attr(_.extend({
+	                    "stroke-linejoin": "round",
+	                    "stroke-linecap": "round",
+	                    "stroke-dasharray": ""
+	                }, style));
+
+	                // Add custom function for transforming arrowheads that accounts for
+	                // center, scaling, etc.
+	                arrowHead.toCoordAtAngle = function (coord, angle) {
+	                    var clipPoint = graph.scalePoint(getClipPoint(graph, coord, angle));
+	                    var do3dTransform = getCanUse3dTransform();
+	                    arrowHead.transform("translateX(" + (clipPoint[0] + scale * center[0]) + "px) " + "translateY(" + (clipPoint[1] + scale * center[1]) + "px) " + (do3dTransform ? "translateZ(0) " : "") + "rotate(" + (360 - KhanMath.bound(angle)) + "deg)");
+	                };
+
+	                return arrowHead;
+	            };
+
+	            // Add arrows
+	            if (this._arrows == null) {
+	                this._arrows = [];
+
+	                if (this.extendLine) {
+	                    this._arrows.push(createArrow(graph, this.normalStyle));
+	                    this._arrows.push(createArrow(graph, this.normalStyle));
+	                } else if (this.extendRay) {
+	                    this._arrows.push(createArrow(graph, this.normalStyle));
+	                }
+	            }
+
+	            var coordForArrow = [this.coordA, this.coordZ];
+	            var angleForArrow = [360 - angle, (540 - angle) % 360];
+	            _.each(this._arrows, function (arrow, i) {
+	                arrow.toCoordAtAngle(coordForArrow[i], angleForArrow[i]);
+	            });
+
+	            // Temporary objects: array of SVG nodes that get recreated on drag
+	            _.invoke(this.temp, "remove");
+	            this.temp = [];
+
+	            var isClockwise = this.coordA[0] < this.coordZ[0] || this.coordA[0] === this.coordZ[0] && this.coordA[1] > this.coordZ[1];
+
+	            // Update side label
+	            if (this.sideLabel) {
+	                this.temp.push(this.graph.labelSide({
+	                    point1: this.coordA,
+	                    point2: this.coordZ,
+	                    label: this.labeledSide,
+	                    text: this.sideLabel,
+	                    numArrows: this.numArrows,
+	                    numTicks: this.numTicks,
+	                    clockwise: isClockwise,
+	                    style: this.labelStyle
+	                }));
+	            }
+
+	            // Update vertex labels
+	            if (this.vertexLabels.length) {
+	                this.graph.labelVertex({
+	                    vertex: this.coordA,
+	                    point3: this.coordZ,
+	                    label: this.labeledVertices[0],
+	                    text: this.vertexLabels[0],
+	                    clockwise: isClockwise,
+	                    style: this.labelStyle
+	                });
+
+	                this.graph.labelVertex({
+	                    point1: this.coordA,
+	                    vertex: this.coordZ,
+	                    label: this.labeledVertices[1],
+	                    text: this.vertexLabels[1],
+	                    clockwise: isClockwise,
+	                    style: this.labelStyle
+	                });
+	            }
+
+	            this.temp = _.flatten(this.temp);
+	        };
+
+	        // Change z-order to back;
+	        lineSegment.toBack = function () {
+	            if (!lineSegment.fixed) {
+	                lineSegment.mouseTarget.toBack();
+	            }
+	            lineSegment.visibleLine.toBack();
+	        };
+
+	        // Change z-order to front
+	        lineSegment.toFront = function () {
+	            if (!lineSegment.fixed) {
+	                lineSegment.mouseTarget.toFront();
+	            }
+	            lineSegment.visibleLine.toFront();
+	        };
+
+	        lineSegment.remove = function () {
+	            if (!lineSegment.fixed) {
+	                lineSegment.mouseTarget.remove();
+	            }
+	            lineSegment.visibleLine.remove();
+	            if (lineSegment.labeledSide) {
+	                lineSegment.labeledSide.remove();
+	            }
+	            if (lineSegment.labeledVertices) {
+	                _.invoke(lineSegment.labeledVertices, "remove");
+	            }
+	            if (lineSegment._arrows) {
+	                _.invoke(lineSegment._arrows, "remove");
+	            }
+	            if (lineSegment.temp.length) {
+	                _.invoke(lineSegment.temp, "remove");
+	            }
+	        };
+
+	        lineSegment.hide = function () {
+	            lineSegment.visibleLine.hide();
+	            if (lineSegment.temp.length) {
+	                _.invoke(lineSegment.temp, "hide");
+	            }
+	            if (lineSegment._arrows) {
+	                _.invoke(lineSegment._arrows, "hide");
+	            }
+	        };
+
+	        lineSegment.show = function () {
+	            lineSegment.visibleLine.show();
+	            if (lineSegment.temp.length) {
+	                _.invoke(lineSegment.temp, "show");
+	            }
+	            if (lineSegment._arrows) {
+	                _.invoke(lineSegment._arrows, "show");
+	            }
+	        };
+
+	        if (lineSegment.sideLabel) {
+	            lineSegment.labeledSide = this.label([0, 0], "", "center", lineSegment.labelStyle);
+	        }
+
+	        if (lineSegment.vertexLabels.length) {
+	            lineSegment.labeledVertices = _.map(lineSegment.vertexLabels, function (label) {
+	                return this.label([0, 0], "", "center", lineSegment.labelStyle);
+	            }, this);
+	        }
+
+	        if (!lineSegment.fixed && !lineSegment.constraints.fixed) {
+	            var $mouseTarget = $(lineSegment.mouseTarget.getMouseTarget());
+	            $mouseTarget.css("cursor", "move");
+	            $mouseTarget.bind("vmousedown vmouseover vmouseout", function (event) {
+	                if (event.type === "vmouseover") {
+	                    if (!dragging) {
+	                        lineSegment.highlight = true;
+	                        lineSegment.visibleLine.animate(lineSegment.highlightStyle, 50);
+	                        lineSegment.arrowStyle = _.extend({}, lineSegment.arrowStyle, {
+	                            "color": lineSegment.highlightStyle.stroke,
+	                            "stroke": lineSegment.highlightStyle.stroke
+	                        });
+	                        lineSegment.transform();
+	                    }
+	                } else if (event.type === "vmouseout") {
+	                    lineSegment.highlight = false;
+	                    if (!lineSegment.dragging) {
+	                        lineSegment.visibleLine.animate(lineSegment.normalStyle, 50);
+	                        lineSegment.arrowStyle = _.extend({}, lineSegment.arrowStyle, {
+	                            "color": lineSegment.normalStyle.stroke,
+	                            "stroke": lineSegment.normalStyle.stroke
+	                        });
+	                        lineSegment.transform();
+	                    }
+	                } else if (event.type === "vmousedown" && (event.which === 1 || event.which === 0)) {
+	                    (function () {
+	                        event.preventDefault();
+	                        var coordX = (event.pageX - $(graph.raphael.canvas.parentNode).offset().left) / graph.scale[0] + graph.range[0][0];
+	                        var coordY = graph.range[1][1] - (event.pageY - $(graph.raphael.canvas.parentNode).offset().top) / graph.scale[1];
+	                        if (lineSegment.snapX > 0) {
+	                            coordX = Math.round(coordX / lineSegment.snapX) * lineSegment.snapX;
+	                        }
+	                        if (lineSegment.snapY > 0) {
+	                            coordY = Math.round(coordY / lineSegment.snapY) * lineSegment.snapY;
+	                        }
+	                        var mouseOffsetA = [lineSegment.coordA[0] - coordX, lineSegment.coordA[1] - coordY];
+	                        var mouseOffsetZ = [lineSegment.coordZ[0] - coordX, lineSegment.coordZ[1] - coordY];
+
+	                        var offsetLeft = -Math.min(graph.scaleVector(mouseOffsetA)[0], graph.scaleVector(mouseOffsetZ)[0]);
+	                        var offsetRight = Math.max(graph.scaleVector(mouseOffsetA)[0], graph.scaleVector(mouseOffsetZ)[0]);
+	                        var offsetTop = Math.max(graph.scaleVector(mouseOffsetA)[1], graph.scaleVector(mouseOffsetZ)[1]);
+	                        var offsetBottom = -Math.min(graph.scaleVector(mouseOffsetA)[1], graph.scaleVector(mouseOffsetZ)[1]);
+
+	                        $(document).bind("vmousemove.lineSegment vmouseup.lineSegment", function (event) {
+	                            event.preventDefault();
+	                            lineSegment.dragging = true;
+	                            dragging = true;
+
+	                            var mouseX = event.pageX - $(graph.raphael.canvas.parentNode).offset().left;
+	                            var mouseY = event.pageY - $(graph.raphael.canvas.parentNode).offset().top;
+	                            // no part of the line segment can go beyond 10 pixels from the edge
+	                            mouseX = Math.max(offsetLeft + 10, Math.min(graph.xpixels - 10 - offsetRight, mouseX));
+	                            mouseY = Math.max(offsetTop + 10, Math.min(graph.ypixels - 10 - offsetBottom, mouseY));
+
+	                            var coordX = mouseX / graph.scale[0] + graph.range[0][0];
+	                            var coordY = graph.range[1][1] - mouseY / graph.scale[1];
+	                            if (lineSegment.snapX > 0) {
+	                                coordX = Math.round(coordX / lineSegment.snapX) * lineSegment.snapX;
+	                            }
+	                            if (lineSegment.snapY > 0) {
+	                                coordY = Math.round(coordY / lineSegment.snapY) * lineSegment.snapY;
+	                            }
+
+	                            if (event.type === "vmousemove") {
+	                                if (lineSegment.constraints.constrainX) {
+	                                    coordX = lineSegment.coordA[0] - mouseOffsetA[0];
+	                                }
+	                                if (lineSegment.constraints.constrainY) {
+	                                    coordY = lineSegment.coordA[1] - mouseOffsetA[1];
+	                                }
+	                                var dX = coordX + mouseOffsetA[0] - lineSegment.coordA[0];
+	                                var dY = coordY + mouseOffsetA[1] - lineSegment.coordA[1];
+	                                lineSegment.coordA = [coordX + mouseOffsetA[0], coordY + mouseOffsetA[1]];
+	                                lineSegment.coordZ = [coordX + mouseOffsetZ[0], coordY + mouseOffsetZ[1]];
+	                                lineSegment.transform();
+
+	                                if (lineSegment.movePointsWithLine) {
+	                                    // If the points are movablePoints, adjust
+	                                    // their coordinates when the line itself is
+	                                    // dragged
+	                                    if (_typeof(lineSegment.pointA) === "object") {
+	                                        lineSegment.pointA.setCoord([lineSegment.pointA.coord[0] + dX, lineSegment.pointA.coord[1] + dY]);
+	                                    }
+	                                    if (_typeof(lineSegment.pointZ) === "object") {
+	                                        lineSegment.pointZ.setCoord([lineSegment.pointZ.coord[0] + dX, lineSegment.pointZ.coord[1] + dY]);
+	                                    }
+	                                }
+
+	                                if (_.isFunction(lineSegment.onMove)) {
+	                                    lineSegment.onMove(dX, dY);
+	                                }
+	                            } else if (event.type === "vmouseup") {
+	                                $(document).unbind(".lineSegment");
+	                                lineSegment.dragging = false;
+	                                dragging = false;
+	                                if (!lineSegment.highlight) {
+	                                    lineSegment.visibleLine.animate(lineSegment.normalStyle, 50);
+	                                    lineSegment.arrowStyle = _.extend({}, lineSegment.arrowStyle, {
+	                                        "color": lineSegment.normalStyle.stroke,
+	                                        "stroke": lineSegment.normalStyle.stroke
+	                                    });
+	                                    lineSegment.transform();
+	                                }
+	                                if (_.isFunction(lineSegment.onMoveEnd)) {
+	                                    lineSegment.onMoveEnd();
+	                                }
+	                            }
+
+	                            $(lineSegment).trigger("move");
+	                        });
+	                    })();
+	                }
+	            });
+	        }
+
+	        if (lineSegment.pointA !== undefined) {
+	            lineSegment.pointA.toFront();
+	        }
+	        if (lineSegment.pointZ !== undefined) {
+	            lineSegment.pointZ.toFront();
+	        }
+	        lineSegment.transform();
+	        return lineSegment;
+	    },
+
+	    // MovablePolygon is a polygon that can be dragged around the screen.
+	    // By attaching a smartPoint to each vertex, the points can be
+	    // manipulated individually.
+	    //
+	    // To use with smartPoints, add the smartPoints first, then:
+	    //   addMovablePolygon({points: [...]});
+	    //
+	    // Include "fixed: true" in the options if you don't want the entire
+	    // polygon to be draggable (you can still use points to make the
+	    // vertices draggable)
+	    //
+	    // The returned object includes the following properties/methods:
+	    //
+	    //   - polygon.points
+	    //         The polygon's dynamic smartPoints and static coordinates, mixed.
+	    //
+	    //   - polygon.coords
+	    //         The polygon's current coordinates (generated, don't edit).
+	    //
+	    //   - polygon.transform()
+	    //         Repositions the polygon. Call after changing any points.
+	    //
+	    addMovablePolygon: function addMovablePolygon(options) {
+	        var graphie = this;
+
+	        var polygon = $.extend({
+	            snapX: 0,
+	            snapY: 0,
+	            fixed: false,
+	            constrainToGraph: true,
+	            normalStyle: {},
+	            highlightStyle: {
+	                "stroke": KhanColors.INTERACTING,
+	                "stroke-width": 2,
+	                "fill": KhanColors.INTERACTING,
+	                "fill-opacity": 0.05
+	            },
+	            pointHighlightStyle: {
+	                "fill": KhanColors.INTERACTING,
+	                "stroke": KhanColors.INTERACTING
+	            },
+	            labelStyle: {
+	                "stroke": KhanColors.DYNAMIC,
+	                "stroke-width": 1,
+	                "color": KhanColors.DYNAMIC
+	            },
+	            angleLabels: [],
+	            showRightAngleMarkers: [],
+	            sideLabels: [],
+	            vertexLabels: [],
+	            numArcs: [],
+	            numArrows: [],
+	            numTicks: [],
+	            updateOnPointMove: true,
+	            closed: true
+	        }, _.omit(options, "points"));
+
+	        var normalColor = polygon.fixed ? KhanColors.DYNAMIC : KhanColors.INTERACTIVE;
+	        polygon.normalStyle = _.extend({
+	            "stroke-width": 2,
+	            "fill-opacity": 0,
+	            "fill": normalColor,
+	            "stroke": normalColor
+	        }, options.normalStyle);
+
+	        // don't deep copy the points array with $.extend;
+	        // we may want to append to it later for click-to-add-points
+	        polygon.points = options.points;
+
+	        var isPoint = function isPoint(coordOrPoint) {
+	            return !_.isArray(coordOrPoint);
+	        };
+
+	        polygon.update = function () {
+	            var n = polygon.points.length;
+
+	            // Update coords
+	            polygon.coords = _.map(polygon.points, function (coordOrPoint, i) {
+	                if (isPoint(coordOrPoint)) {
+	                    return coordOrPoint.coord;
+	                } else {
+	                    return coordOrPoint;
+	                }
+	            });
+
+	            // Calculate bounding box
+	            polygon.left = _.min(_.pluck(polygon.coords, 0));
+	            polygon.right = _.max(_.pluck(polygon.coords, 0));
+	            polygon.top = _.max(_.pluck(polygon.coords, 1));
+	            polygon.bottom = _.min(_.pluck(polygon.coords, 1));
+
+	            var scaledCoords = _.map(polygon.coords, function (coord) {
+	                return graphie.scalePoint(coord);
+	            });
+
+	            // Create path
+	            if (polygon.closed) {
+	                scaledCoords.push(true);
+	            } else {
+	                // For open polygons, concatenate a reverse of the path,
+	                // to remove the inside area of the path, which would
+	                // otherwise be clickable (even if the closing line segment
+	                // wasn't drawn
+	                scaledCoords = scaledCoords.concat(_.clone(scaledCoords).reverse());
+	            }
+	            polygon.path = GraphUtils.unscaledSvgPath(scaledCoords);
+
+	            // Temporary objects
+	            _.invoke(polygon.temp, "remove");
+	            polygon.temp = [];
+
+	            var isClockwise = clockwise(polygon.coords);
+
+	            // Update angle labels
+	            if (polygon.angleLabels.length || polygon.showRightAngleMarkers.length) {
+	                _.each(polygon.labeledAngles, function (label, i) {
+	                    polygon.temp.push(graphie.labelAngle({
+	                        point1: polygon.coords[(i - 1 + n) % n],
+	                        vertex: polygon.coords[i],
+	                        point3: polygon.coords[(i + 1) % n],
+	                        label: label,
+	                        text: polygon.angleLabels[i],
+	                        showRightAngleMarker: polygon.showRightAngleMarkers[i],
+	                        numArcs: polygon.numArcs[i],
+	                        clockwise: isClockwise,
+	                        style: polygon.labelStyle
+	                    }));
+	                });
+	            }
+
+	            // Update side labels
+	            if (polygon.sideLabels.length) {
+	                _.each(polygon.labeledSides, function (label, i) {
+	                    polygon.temp.push(graphie.labelSide({
+	                        point1: polygon.coords[i],
+	                        point2: polygon.coords[(i + 1) % n],
+	                        label: label,
+	                        text: polygon.sideLabels[i],
+	                        numArrows: polygon.numArrows[i],
+	                        numTicks: polygon.numTicks[i],
+	                        clockwise: isClockwise,
+	                        style: polygon.labelStyle
+	                    }));
+	                });
+	            }
+
+	            // Update vertex labels
+	            if (polygon.vertexLabels.length) {
+	                _.each(polygon.labeledVertices, function (label, i) {
+	                    graphie.labelVertex({
+	                        point1: polygon.coords[(i - 1 + n) % n],
+	                        vertex: polygon.coords[i],
+	                        point3: polygon.coords[(i + 1) % n],
+	                        label: label,
+	                        text: polygon.vertexLabels[i],
+	                        clockwise: isClockwise,
+	                        style: polygon.labelStyle
+	                    });
+	                });
+	            }
+
+	            polygon.temp = _.flatten(polygon.temp);
+	        };
+
+	        polygon.transform = function () {
+	            polygon.update();
+
+	            polygon.visibleShape.attr({ path: polygon.path });
+
+	            if (!polygon.fixed) {
+	                polygon.mouseTarget.attr({ path: polygon.path });
+	            }
+	        };
+
+	        polygon.remove = function () {
+	            polygon.visibleShape.remove();
+
+	            if (!polygon.fixed) {
+	                polygon.mouseTarget.remove();
+	            }
+
+	            if (polygon.labeledAngles) {
+	                _.invoke(polygon.labeledAngles, "remove");
+	            }
+
+	            if (polygon.labeledSides) {
+	                _.invoke(polygon.labeledSides, "remove");
+	            }
+
+	            if (polygon.labeledVertices) {
+	                _.invoke(polygon.labeledVertices, "remove");
+	            }
+
+	            if (polygon.temp.length) {
+	                _.invoke(polygon.temp, "remove");
+	            }
+	        };
+
+	        polygon.toBack = function () {
+	            if (!polygon.fixed) {
+	                polygon.mouseTarget.toBack();
+	            }
+
+	            polygon.visibleShape.toBack();
+	        };
+
+	        polygon.toFront = function () {
+	            if (!polygon.fixed) {
+	                polygon.mouseTarget.toFront();
+	            }
+
+	            polygon.visibleShape.toFront();
+	        };
+
+	        // Setup
+
+	        if (polygon.updateOnPointMove) {
+	            _.each(_.filter(polygon.points, isPoint), function (coordOrPoint) {
+	                coordOrPoint.polygonVertices.push(polygon);
+	            });
+	        }
+
+	        polygon.coords = new Array(polygon.points.length);
+
+	        if (polygon.angleLabels.length) {
+	            var numLabels = Math.max(polygon.angleLabels.length, polygon.showRightAngleMarkers.length);
+	            polygon.labeledAngles = _.times(numLabels, function () {
+	                return this.label([0, 0], "", "center", polygon.labelStyle);
+	            }, this);
+	        }
+
+	        if (polygon.sideLabels.length) {
+	            polygon.labeledSides = _.map(polygon.sideLabels, function (label) {
+	                return this.label([0, 0], "", "center", polygon.labelStyle);
+	            }, this);
+	        }
+
+	        if (polygon.vertexLabels.length) {
+	            polygon.labeledVertices = _.map(polygon.vertexLabels, function (label) {
+	                return this.label([0, 0], "", "center", polygon.labelStyle);
+	            }, this);
+	        }
+
+	        polygon.update();
+
+	        polygon.visibleShape = graphie.raphael.path(polygon.path);
+	        polygon.visibleShape.attr(polygon.normalStyle);
+
+	        if (!polygon.fixed) {
+	            polygon.mouseTarget = graphie.mouselayer.path(polygon.path);
+	            polygon.mouseTarget.attr({ fill: "#000", opacity: 0, cursor: "move" });
+
+	            $(polygon.mouseTarget[0]).bind("vmousedown vmouseover vmouseout", function (event) {
+	                if (event.type === "vmouseover") {
+	                    if (!dragging || polygon.dragging) {
+	                        polygon.highlight = true;
+	                        polygon.visibleShape.animate(polygon.highlightStyle, 50);
+	                        _.each(_.filter(polygon.points, isPoint), function (point) {
+	                            point.visibleShape.animate(polygon.pointHighlightStyle, 50);
+	                        });
+	                    }
+	                } else if (event.type === "vmouseout") {
+	                    polygon.highlight = false;
+	                    if (!polygon.dragging) {
+	                        polygon.visibleShape.animate(polygon.normalStyle, 50);
+	                        var points = _.filter(polygon.points, isPoint);
+	                        if (!_.any(_.pluck(points, "dragging"))) {
+	                            _.each(points, function (point) {
+	                                point.visibleShape.animate(point.normalStyle, 50);
+	                            });
+	                        }
+	                    }
+	                } else if (event.type === "vmousedown" && (event.which === 1 || event.which === 0)) {
+	                    (function () {
+	                        event.preventDefault();
+
+	                        _.each(_.filter(polygon.points, isPoint), function (point) {
+	                            point.dragging = true;
+	                        });
+
+	                        var startX = (event.pageX - $(graphie.raphael.canvas.parentNode).offset().left) / graphie.scale[0] + graphie.range[0][0];
+	                        var startY = graphie.range[1][1] - (event.pageY - $(graphie.raphael.canvas.parentNode).offset().top) / graphie.scale[1];
+	                        if (polygon.snapX > 0) {
+	                            startX = Math.round(startX / polygon.snapX) * polygon.snapX;
+	                        }
+	                        if (polygon.snapY > 0) {
+	                            startY = Math.round(startY / polygon.snapY) * polygon.snapY;
+	                        }
+	                        var lastX = startX;
+	                        var lastY = startY;
+
+	                        var polygonCoords = polygon.coords.slice();
+
+	                        var offsetLeft = (startX - polygon.left) * graphie.scale[0];
+	                        var offsetRight = (polygon.right - startX) * graphie.scale[0];
+	                        var offsetTop = (polygon.top - startY) * graphie.scale[1];
+	                        var offsetBottom = (startY - polygon.bottom) * graphie.scale[1];
+
+	                        $(document).bind("vmousemove.polygon vmouseup.polygon", function (event) {
+	                            event.preventDefault();
+
+	                            polygon.dragging = true;
+	                            dragging = true;
+
+	                            var mouseX = event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;
+	                            var mouseY = event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;
+
+	                            // no part of the polygon can go beyond 10 pixels from the edge
+	                            if (polygon.constrainToGraph) {
+	                                mouseX = Math.max(offsetLeft + 10, Math.min(graphie.xpixels - 10 - offsetRight, mouseX));
+	                                mouseY = Math.max(offsetTop + 10, Math.min(graphie.ypixels - 10 - offsetBottom, mouseY));
+	                            }
+
+	                            var currentX = mouseX / graphie.scale[0] + graphie.range[0][0];
+	                            var currentY = graphie.range[1][1] - mouseY / graphie.scale[1];
+	                            if (polygon.snapX > 0) {
+	                                currentX = Math.round(currentX / polygon.snapX) * polygon.snapX;
+	                            }
+	                            if (polygon.snapY > 0) {
+	                                currentY = Math.round(currentY / polygon.snapY) * polygon.snapY;
+	                            }
+
+	                            if (event.type === "vmousemove") {
+	                                (function () {
+	                                    var dX = currentX - startX;
+	                                    var dY = currentY - startY;
+
+	                                    var doMove = true;
+	                                    if (_.isFunction(polygon.onMove)) {
+	                                        var onMoveResult = polygon.onMove(dX, dY);
+	                                        if (onMoveResult === false) {
+	                                            doMove = false;
+	                                        } else if (_.isArray(onMoveResult)) {
+	                                            dX = onMoveResult[0];
+	                                            dY = onMoveResult[1];
+	                                            currentX = startX + dX;
+	                                            currentY = startY + dY;
+	                                        }
+	                                    }
+
+	                                    var increment = function increment(i) {
+	                                        return [polygonCoords[i][0] + dX, polygonCoords[i][1] + dY];
+	                                    };
+
+	                                    if (doMove) {
+	                                        _.each(polygon.points, function (coordOrPoint, i) {
+	                                            if (isPoint(coordOrPoint)) {
+	                                                coordOrPoint.setCoord(increment(i));
+	                                            } else {
+	                                                polygon.points[i] = increment(i);
+	                                            }
+	                                        });
+
+	                                        polygon.transform();
+
+	                                        $(polygon).trigger("move");
+
+	                                        lastX = currentX;
+	                                        lastY = currentY;
+	                                    }
+	                                })();
+	                            } else if (event.type === "vmouseup") {
+	                                $(document).unbind(".polygon");
+
+	                                var _points = _.filter(polygon.points, isPoint);
+	                                _.each(_points, function (point) {
+	                                    point.dragging = false;
+	                                });
+
+	                                polygon.dragging = false;
+	                                dragging = false;
+	                                if (!polygon.highlight) {
+	                                    polygon.visibleShape.animate(polygon.normalStyle, 50);
+
+	                                    _.each(_points, function (point) {
+	                                        point.visibleShape.animate(point.normalStyle, 50);
+	                                    });
+	                                }
+	                                if (_.isFunction(polygon.onMoveEnd)) {
+	                                    polygon.onMoveEnd(lastX - startX, lastY - startY);
+	                                }
+	                            }
+	                        });
+	                    })();
+	                }
+	            });
+	        }
+
+	        // Bring any movable points to the front
+	        _.invoke(_.filter(polygon.points, isPoint), "toFront");
+
+	        return polygon;
+	    },
+
+	    /**
 	     * Constrain a point to be within the graph (including padding).
 	     * If outside graph, point's x and y coordinates are clamped within
 	     * the graph.
-	     */constrainToBounds:function constrainToBounds(point,padding){var lower=this.unscalePoint([padding,this.ypixels-padding]);var upper=this.unscalePoint([this.xpixels-padding,padding]);var coordX=Math.max(lower[0],Math.min(upper[0],point[0]));var coordY=Math.max(lower[1],Math.min(upper[1],point[1]));return[coordX,coordY];},/**
+	     */
+	    constrainToBounds: function constrainToBounds(point, padding) {
+	        var lower = this.unscalePoint([padding, this.ypixels - padding]);
+	        var upper = this.unscalePoint([this.xpixels - padding, padding]);
+	        var coordX = Math.max(lower[0], Math.min(upper[0], point[0]));
+	        var coordY = Math.max(lower[1], Math.min(upper[1], point[1]));
+	        return [coordX, coordY];
+	    },
+
+	    /**
 	     * Constrain a point to be within the graph (including padding).
 	     * If outside graph, point is moved along the ray specified by angle
 	     * until inside graph.
-	     */constrainToBoundsOnAngle:function constrainToBoundsOnAngle(point,padding,angle){var lower=this.unscalePoint([padding,this.ypixels-padding]);var upper=this.unscalePoint([this.xpixels-padding,padding]);var result=point.slice();if(result[0]<lower[0]){result=[lower[0],result[1]+(lower[0]-result[0])*Math.tan(angle)];}else if(result[0]>upper[0]){result=[upper[0],result[1]-(result[0]-upper[0])*Math.tan(angle)];}if(result[1]<lower[1]){result=[result[0]+(lower[1]-result[1])/Math.tan(angle),lower[1]];}else if(result[1]>upper[1]){result=[result[0]-(result[1]-upper[1])/Math.tan(angle),upper[1]];}return result;},// MovableAngle is an angle that can be dragged around the screen.
-	// By attaching a smartPoint to the vertex and ray control points, the
-	// rays can be manipulated individually.
-	//
-	// Use only with smartPoints; add the smartPoints first, then:
-	//   addMovableAngle({points: [...]});
-	//
-	// The rays can be controlled to snap on degrees (more useful than snapping
-	// on coordinates) by setting snapDegrees to a positive integer.
-	//
-	// The returned object includes the following properties/methods:
-	//
-	//   - movableAngle.points
-	//         The movableAngle's dynamic smartPoints.
-	//
-	//   - movableAngle.coords
-	//         The movableAngle's current coordinates (generated, don't edit).
-	//
-	addMovableAngle:function addMovableAngle(options){return new MovableAngle(this,options);},// center: movable point
-	// radius: int
-	// circ: graphie circle
-	// perim: invisible mouse target for dragging/changing radius
-	addCircleGraph:function addCircleGraph(options){var graphie=this;var circle=$.extend({center:[0,0],radius:2,snapX:0.5,snapY:0.5,snapRadius:0.5,minRadius:1,centerConstraints:{},centerNormalStyle:{},centerHighlightStyle:{stroke:KhanColors.INTERACTING,fill:KhanColors.INTERACTING},circleNormalStyle:{stroke:KhanColors.INTERACTIVE,"fill-opacity":0},circleHighlightStyle:{stroke:KhanColors.INTERACTING,fill:KhanColors.INTERACTING,"fill-opacity":0.05}},options);var normalColor=circle.centerConstraints.fixed?KhanColors.DYNAMIC:KhanColors.INTERACTIVE;var centerNormalStyle=options?options.centerNormalStyle:null;circle.centerNormalStyle=_.extend({},{"fill":normalColor,"stroke":normalColor},centerNormalStyle);circle.centerPoint=graphie.addMovablePoint({graph:graphie,coord:circle.center,normalStyle:circle.centerNormalStyle,snapX:circle.snapX,snapY:circle.snapY,constraints:circle.centerConstraints});circle.circ=graphie.circle(circle.center,circle.radius,circle.circleNormalStyle);circle.perim=graphie.mouselayer.circle(graphie.scalePoint(circle.center)[0],graphie.scalePoint(circle.center)[1],graphie.scaleVector(circle.radius)[0]).attr({"stroke-width":20,"opacity":0.002});// Highlight circle circumference on center point hover
-	if(!circle.centerConstraints.fixed){$(circle.centerPoint.mouseTarget.getMouseTarget()).on("vmouseover vmouseout",function(event){if(circle.centerPoint.highlight||circle.centerPoint.dragging){circle.circ.animate(circle.circleHighlightStyle,50);}else{circle.circ.animate(circle.circleNormalStyle,50);}});}circle.toFront=function(){circle.circ.toFront();circle.perim.toFront();circle.centerPoint.visibleShape.toFront();if(!circle.centerConstraints.fixed){circle.centerPoint.mouseTarget.toFront();}};circle.centerPoint.onMove=function(x,y){circle.toFront();circle.circ.attr({cx:graphie.scalePoint(x)[0],cy:graphie.scalePoint(y)[1]});circle.perim.attr({cx:graphie.scalePoint(x)[0],cy:graphie.scalePoint(y)[1]});if(circle.onMove){circle.onMove(x,y);}};$(circle.centerPoint).on("move",function(){circle.center=this.coord;$(circle).trigger("move");});// circle.setCenter(x, y) moves the circle to the specified
-	// x, y coordinate as if the user had dragged it there.
-	circle.setCenter=function(x,y){circle.centerPoint.setCoord([x,y]);circle.centerPoint.onMove(x,y);circle.center=[x,y];};// circle.setRadius(r) sets the circle's radius to the specified
-	// value as if the user had dragged it there.
-	circle.setRadius=function(r){circle.radius=r;circle.perim.attr({r:graphie.scaleVector(r)[0]});circle.circ.attr({rx:graphie.scaleVector(r)[0],ry:graphie.scaleVector(r)[1]});};circle.remove=function(){circle.centerPoint.remove();circle.circ.remove();circle.perim.remove();};$(circle.perim[0]).css("cursor","move");$(circle.perim[0]).on("vmouseover vmouseout vmousedown",function(event){if(event.type==="vmouseover"){circle.highlight=true;if(!dragging){// TODO(jack): Figure out why this doesn't work
-	// for circleHighlightStyle's that change
-	// stroke-dasharray
-	circle.circ.animate(circle.circleHighlightStyle,50);circle.centerPoint.visibleShape.animate(circle.centerHighlightStyle,50);}}else if(event.type==="vmouseout"){circle.highlight=false;if(!circle.dragging&&!circle.centerPoint.dragging){circle.circ.animate(circle.circleNormalStyle,50);circle.centerPoint.visibleShape.animate(circle.centerNormalStyle,50);}}else if(event.type==="vmousedown"&&(event.which===1||event.which===0)){(function(){event.preventDefault();circle.toFront();var startRadius=circle.radius;$(document).on("vmousemove vmouseup",function(event){event.preventDefault();circle.dragging=true;dragging=true;if(event.type==="vmousemove"){var coord=graphie.constrainToBounds(graphie.getMouseCoord(event),10);var radius=GraphUtils.getDistance(circle.centerPoint.coord,coord);radius=Math.max(circle.minRadius,Math.round(radius/circle.snapRadius)*circle.snapRadius);var oldRadius=circle.radius;var doResize=true;if(circle.onResize){var onResizeResult=circle.onResize(radius,oldRadius);if(_.isNumber(onResizeResult)){radius=onResizeResult;}else if(onResizeResult===false){doResize=false;}}if(doResize){circle.setRadius(radius);$(circle).trigger("move");}}else if(event.type==="vmouseup"){$(document).off("vmousemove vmouseup");circle.dragging=false;dragging=false;if(circle.onResizeEnd){circle.onResizeEnd(circle.radius,startRadius);}}});})();}});return circle;},addRotateHandle:function(){var drawRotateHandle=function drawRotateHandle(graphie,center,radius,halfWidth,lengthAngle,angle,interacting){var getRotateHandlePoint=function getRotateHandlePoint(offset,distanceFromArrowMidline){var distFromRotationCenter=radius+distanceFromArrowMidline;var vec=kvector.cartFromPolarDeg([distFromRotationCenter,angle+offset]);var absolute=kvector.add(center,vec);var pixels=graphie.scalePoint(absolute);return pixels[0]+","+pixels[1];};var innerR=graphie.scaleVector(radius-halfWidth);var outerR=graphie.scaleVector(radius+halfWidth);// Draw the double-headed arrow thing that shows users where to
-	// click and drag to rotate
-	return graphie.raphael.path(// upper arrowhead
-	" M"+getRotateHandlePoint(lengthAngle,-halfWidth)+" L"+getRotateHandlePoint(lengthAngle,-3*halfWidth)+" L"+getRotateHandlePoint(2*lengthAngle,0)+" L"+getRotateHandlePoint(lengthAngle,3*halfWidth)+" L"+getRotateHandlePoint(lengthAngle,halfWidth)+// outer arc
-	" A"+outerR[0]+","+outerR[1]+",0,0,1,"+getRotateHandlePoint(-lengthAngle,halfWidth)+// lower arrowhead
-	" L"+getRotateHandlePoint(-lengthAngle,3*halfWidth)+" L"+getRotateHandlePoint(-2*lengthAngle,0)+" L"+getRotateHandlePoint(-lengthAngle,-3*halfWidth)+" L"+getRotateHandlePoint(-lengthAngle,-halfWidth)+// inner arc
-	" A"+innerR[0]+","+innerR[1]+",0,0,0,"+getRotateHandlePoint(lengthAngle,-halfWidth)+" Z").attr({stroke:null,fill:interacting?KhanColors.INTERACTING:KhanColors.INTERACTIVE});};return function(options){var graph=this;var rotatePoint=options.center;var radius=options.radius;var lengthAngle=options.lengthAngle||30;var hideArrow=options.hideArrow||false;var mouseTarget=options.mouseTarget;var id=_.uniqueId("rotateHandle");// Normalize rotatePoint into something that always looks
-	// like a movablePoint
-	if(_.isArray(rotatePoint)){rotatePoint={coord:rotatePoint};}var rotateHandle=graph.addMovablePoint({coord:kpoint.addVector(rotatePoint.coord,kvector.cartFromPolarDeg(radius,options.angleDeg||0)),constraints:{fixedDistance:{dist:radius,point:rotatePoint}},mouseTarget:mouseTarget});// move the rotatePoint in front of the rotateHandle to avoid
-	// confusing clicking/scaling of the rotateHandle when the user
-	// intends to click on the rotatePoint
-	rotatePoint.toFront();var rotatePointPrevCoord=rotatePoint.coord;var rotateHandlePrevCoord=rotateHandle.coord;var rotateHandleStartCoord=rotateHandlePrevCoord;var isRotating=false;var isHovering=false;var drawnRotateHandle=void 0;var redrawRotateHandle=function redrawRotateHandle(handleCoord){if(hideArrow){return;// Don't draw anything!
-	}var handleVec=kvector.subtract(handleCoord,rotatePoint.coord);var handlePolar=kvector.polarDegFromCart(handleVec);var angle=handlePolar[1];if(drawnRotateHandle){drawnRotateHandle.remove();}drawnRotateHandle=drawRotateHandle(graph,rotatePoint.coord,options.radius,isRotating||isHovering?options.hoverWidth/2:options.width/2,lengthAngle,angle,isRotating||isHovering);};// when the rotation center moves, we need to move
-	// the rotationHandle as well, or it will end up out
-	// of sync
-	$(rotatePoint).on("move."+id,function(){var delta=kvector.subtract(rotatePoint.coord,rotatePointPrevCoord);rotateHandle.setCoord(kvector.add(rotateHandle.coord,delta));redrawRotateHandle(rotateHandle.coord);rotatePointPrevCoord=rotatePoint.coord;rotateHandle.constraints.fixedDistance.point=rotatePoint;rotateHandlePrevCoord=rotateHandle.coord;});// Rotate polygon with rotateHandle
-	rotateHandle.onMove=function(x,y){if(!isRotating){rotateHandleStartCoord=rotateHandlePrevCoord;isRotating=true;}var coord=[x,y];if(options.onMove){var oldPolar=kvector.polarDegFromCart(kvector.subtract(rotateHandlePrevCoord,rotatePoint.coord));var newPolar=kvector.polarDegFromCart(kvector.subtract(coord,rotatePoint.coord));var oldAngle=oldPolar[1];var newAngle=newPolar[1];var result=options.onMove(newAngle,oldAngle);if(result!=null&&result!==true){if(result===false){result=oldAngle;}coord=kvector.add(rotatePoint.coord,kvector.cartFromPolarDeg([oldPolar[0],result]));}}redrawRotateHandle(coord);rotateHandlePrevCoord=coord;return coord;};rotateHandle.onMoveEnd=function(){isRotating=false;redrawRotateHandle(rotateHandle.coord);if(options.onMoveEnd){var oldPolar=kvector.polarDegFromCart(kvector.subtract(rotateHandleStartCoord,rotatePoint.coord));var newPolar=kvector.polarDegFromCart(kvector.subtract(rotateHandle.coord,rotatePoint.coord));options.onMoveEnd(newPolar[1],oldPolar[1]);}};// Remove the default dot added by the movablePoint since we have
-	// our double-arrow thing
-	rotateHandle.visibleShape.remove();if(!mouseTarget){// Make the default mouse target bigger to encompass the whole
-	// area around the double-arrow thing
-	rotateHandle.mouseTarget.attr({scale:2});}var $mouseTarget=$(rotateHandle.mouseTarget.getMouseTarget());$mouseTarget.bind("vmouseover",function(e){isHovering=true;redrawRotateHandle(rotateHandle.coord);});$mouseTarget.bind("vmouseout",function(e){isHovering=false;redrawRotateHandle(rotateHandle.coord);});redrawRotateHandle(rotateHandle.coord);var oldRemove=rotateHandle.remove;rotateHandle.remove=function(){oldRemove.call(rotateHandle);if(drawnRotateHandle){drawnRotateHandle.remove();}$(rotatePoint).off("move."+id);};rotateHandle.update=function(){redrawRotateHandle(rotateHandle.coord);};return rotateHandle;};}(),addReflectButton:function(){var drawButton=function drawButton(graphie,buttonCoord,lineCoords,size,distanceFromCenter,leftStyle,rightStyle){// Avoid invalid lines
-	if(kpoint.equal(lineCoords[0],lineCoords[1])){lineCoords=[lineCoords[0],kpoint.addVector(lineCoords[0],[1,1])];}var lineDirection=kvector.normalize(kvector.subtract(lineCoords[1],lineCoords[0]));var lineVec=kvector.scale(lineDirection,size/2);var centerVec=kvector.scale(lineDirection,distanceFromCenter);var leftCenterVec=kvector.rotateDeg(centerVec,90);var rightCenterVec=kvector.rotateDeg(centerVec,-90);var negLineVec=kvector.negate(lineVec);var leftVec=kvector.rotateDeg(lineVec,90);var rightVec=kvector.rotateDeg(lineVec,-90);var leftCenter=kpoint.addVectors(buttonCoord,leftCenterVec);var rightCenter=kpoint.addVectors(buttonCoord,rightCenterVec);var leftCoord1=kpoint.addVectors(buttonCoord,leftCenterVec,lineVec,leftVec);var leftCoord2=kpoint.addVectors(buttonCoord,leftCenterVec,negLineVec,leftVec);var rightCoord1=kpoint.addVectors(buttonCoord,rightCenterVec,lineVec,rightVec);var rightCoord2=kpoint.addVectors(buttonCoord,rightCenterVec,negLineVec,rightVec);var leftButton=graphie.path([leftCenter,leftCoord1,leftCoord2,true],leftStyle);var rightButton=graphie.path([rightCenter,rightCoord1,rightCoord2,true],rightStyle);return{remove:function remove(){leftButton.remove();rightButton.remove();}};};return function(options){var graphie=this;var line=options.line;var button=graphie.addMovablePoint({constraints:options.constraints,coord:kline.midpoint([line.pointA.coord,line.pointZ.coord]),snapX:graphie.snap[0],snapY:graphie.snap[1],onMove:function onMove(x,y){// Don't allow the button to actually move. This is a hack
-	// around the inability to both set a point as fixed AND
-	// allow it to be clicked.
-	return false;},onMoveEnd:function onMoveEnd(x,y){if(options.onMoveEnd){options.onMoveEnd.call(this,x,y);}}});var isHovering=false;var isFlipped=false;var currentlyDrawnButton=void 0;var isHighlight=function isHighlight(){return isHovering;};var styles=_.map([0,1],function(isHighlight){var baseStyle=isHighlight?options.highlightStyle:options.normalStyle;return _.map([0,1],function(opacity){return _.defaults({"fill-opacity":opacity},baseStyle);});});var getStyle=function getStyle(isRight){if(isFlipped){isRight=!isRight;}return styles[+isHighlight()][+isRight];};var redraw=function redraw(coord,lineCoords){if(currentlyDrawnButton){currentlyDrawnButton.remove();}currentlyDrawnButton=drawButton(graphie,coord,lineCoords,isHighlight()?options.size*1.5:options.size,isHighlight()?options.size*0.125:0.25,getStyle(0),getStyle(1));};var update=function update(coordA,coordZ){coordA=coordA||line.pointA.coord;coordZ=coordZ||line.pointZ.coord;var buttonCoord=kline.midpoint([coordA,coordZ]);button.setCoord(buttonCoord);redraw(buttonCoord,[coordA,coordZ]);};$(line).on("move",_.bind(update,button,null,null));var $mouseTarget=$(button.mouseTarget.getMouseTarget());$mouseTarget.on("vclick",function(){var result=options.onClick();if(result!==false){isFlipped=!isFlipped;redraw(button.coord,[line.pointA.coord,line.pointZ.coord]);}});// Bring the reflection line handles in front of the button, so
-	// that if we drag the reflectPoints really close together, we can
-	// still move the handles away from each other, rather than only
-	// being able to apply the reflection.
-	line.pointA.toFront();line.pointZ.toFront();// Replace the visual point with the double triangle thing
-	button.visibleShape.remove();var pointScale=graphie.scaleVector(options.size)[0]/20;button.mouseTarget.attr({scale:1.5*pointScale});$mouseTarget.css("cursor","pointer");// Make the arrow-thing grow and shrink with mouseover/out
-	$mouseTarget.bind("vmouseover",function(e){isHovering=true;redraw(button.coord,[line.pointA.coord,line.pointZ.coord]);});$mouseTarget.bind("vmouseout",function(e){isHovering=false;redraw(button.coord,[line.pointA.coord,line.pointZ.coord]);});var oldButtonRemove=button.remove;button.remove=function(){currentlyDrawnButton.remove();oldButtonRemove.call(button);};button.update=update;button.isFlipped=function(){return isFlipped;};update();return button;};}(),protractor:function protractor(center){return new Protractor(this,center);},ruler:function ruler(options){return new Ruler(this,options||{});},addPoints:addPoints});function Protractor(graph,center){this.set=graph.raphael.set();this.cx=center[0];this.cy=center[1];var pro=this;var r=graph.unscaleVector(180.5)[0];var imgPos=graph.scalePoint([this.cx-r,this.cy+r-graph.unscaleVector(10.5)[1]]);this.set.push(graph.mouselayer.image("https://ka-perseus-graphie.s3.amazonaws.com/e9d032f2ab8b95979f674fbfa67056442ba1ff6a.png",imgPos[0],imgPos[1],360,180));var arrowHelper=function arrowHelper(angle,pixelsFromEdge){var scaledRadius=graph.scaleVector(r);scaledRadius[0]-=16;scaledRadius[1]-=16;var scaledCenter=graph.scalePoint(center);var x=Math.sin((angle+90)*Math.PI/180)*(scaledRadius[0]+pixelsFromEdge)+scaledCenter[0];var y=Math.cos((angle+90)*Math.PI/180)*(scaledRadius[1]+pixelsFromEdge)+scaledCenter[1];return x+","+y;};var arrow=graph.raphael.path(" M"+arrowHelper(180,6)+" L"+arrowHelper(180,2)+" L"+arrowHelper(183,10)+" L"+arrowHelper(180,18)+" L"+arrowHelper(180,14)+" A"+(graph.scaleVector(r)[0]+10)+","+(graph.scaleVector(r)[1]+10)+",0,0,1,"+arrowHelper(170,14)+" L"+arrowHelper(170,18)+" L"+arrowHelper(167,10)+" L"+arrowHelper(170,2)+" L"+arrowHelper(170,6)+" A"+(graph.scaleVector(r)[0]+10)+","+(graph.scaleVector(r)[1]+10)+",0,0,0,"+arrowHelper(180,6)+" Z").attr({"stroke":null,"fill":KhanColors.INTERACTIVE});// add it to the set so it translates with everything else
-	this.set.push(arrow);this.centerPoint=graph.addMovablePoint({coord:center,visible:false});// Use a movablePoint for rotation
-	this.rotateHandle=graph.addMovablePoint({coord:[Math.sin(275*Math.PI/180)*(r+0.5)+this.cx,Math.cos(275*Math.PI/180)*(r+0.5)+this.cy],onMove:function onMove(x,y){var angle=Math.atan2(pro.centerPoint.coord[1]-y,pro.centerPoint.coord[0]-x)*180/Math.PI;pro.rotate(-angle-5,true);}});// Add a constraint so the point moves in a circle
-	this.rotateHandle.constraints.fixedDistance.dist=r+0.5;this.rotateHandle.constraints.fixedDistance.point=this.centerPoint;// Remove the default dot added by the movablePoint since we have our double-arrow thing
-	this.rotateHandle.visibleShape.remove();// Make the mouse target bigger to encompass the whole area around the double-arrow thing
-	this.rotateHandle.mouseTarget.attr({scale:2.0});var isDragging=false;var isHovering=false;var isHighlight=function isHighlight(){return isHovering||isDragging;};var self=this;var $mouseTarget=$(self.rotateHandle.mouseTarget.getMouseTarget());$mouseTarget.bind("vmousedown",function(event){isDragging=true;arrow.animate({scale:1.5,fill:KhanColors.INTERACTING},50);$(document).bind("vmouseup.rotateHandle",function(event){isDragging=false;if(!isHighlight()){arrow.animate({scale:1.0,fill:KhanColors.INTERACTIVE},50);}$(document).unbind("vmouseup.rotateHandle");});});$mouseTarget.bind("vmouseover",function(event){isHovering=true;arrow.animate({scale:1.5,fill:KhanColors.INTERACTING},50);});$mouseTarget.bind("vmouseout",function(event){isHovering=false;if(!isHighlight()){arrow.animate({scale:1.0,fill:KhanColors.INTERACTIVE},50);}});var setNodes=$.map(this.set,function(el){return el.node;});this.makeTranslatable=function makeTranslatable(){$(setNodes).css("cursor","move");$(setNodes).bind("vmousedown",function(event){event.preventDefault();var startx=event.pageX-$(graph.raphael.canvas.parentNode).offset().left;var starty=event.pageY-$(graph.raphael.canvas.parentNode).offset().top;$(document).bind("vmousemove.protractor",function(event){var mouseX=event.pageX-$(graph.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY-$(graph.raphael.canvas.parentNode).offset().top;// can't go beyond 10 pixels from the edge
-	mouseX=Math.max(10,Math.min(graph.xpixels-10,mouseX));mouseY=Math.max(10,Math.min(graph.ypixels-10,mouseY));var dx=mouseX-startx;var dy=mouseY-starty;$.each(pro.set.items,function(){this.translate(dx,dy);});pro.centerPoint.setCoord([pro.centerPoint.coord[0]+dx/graph.scale[0],pro.centerPoint.coord[1]-dy/graph.scale[1]]);pro.rotateHandle.setCoord([pro.rotateHandle.coord[0]+dx/graph.scale[0],pro.rotateHandle.coord[1]-dy/graph.scale[1]]);startx=mouseX;starty=mouseY;});$(document).one("vmouseup",function(event){$(document).unbind("vmousemove.protractor");});});};this.rotation=0;this.rotate=function(offset,absolute){var center=graph.scalePoint(this.centerPoint.coord);if(absolute){this.rotation=0;}this.set.rotate(this.rotation+offset,center[0],center[1]);this.rotation=this.rotation+offset;return this;};this.moveTo=function moveTo(x,y){var start=graph.scalePoint(pro.centerPoint.coord);var end=graph.scalePoint([x,y]);var time=GraphUtils.getDistance(start,end)*2;$({x:start[0],y:start[1]}).animate({x:end[0],y:end[1]},{duration:time,step:function step(now,fx){var dx=0;var dy=0;if(fx.prop==="x"){dx=now-graph.scalePoint(pro.centerPoint.coord)[0];}else if(fx.prop==="y"){dy=now-graph.scalePoint(pro.centerPoint.coord)[1];}$.each(pro.set.items,function(){this.translate(dx,dy);});pro.centerPoint.setCoord([pro.centerPoint.coord[0]+dx/graph.scale[0],pro.centerPoint.coord[1]-dy/graph.scale[1]]);pro.rotateHandle.setCoord([pro.rotateHandle.coord[0]+dx/graph.scale[0],pro.rotateHandle.coord[1]-dy/graph.scale[1]]);}});};this.rotateTo=function rotateTo(angle){if(Math.abs(this.rotation-angle)>180){this.rotation+=360;}var time=Math.abs(this.rotation-angle)*5;$({0:this.rotation}).animate({0:angle},{duration:time,step:function step(now,fx){pro.rotate(now,true);pro.rotateHandle.setCoord([Math.sin((now+275)*Math.PI/180)*(r+0.5)+pro.centerPoint.coord[0],Math.cos((now+275)*Math.PI/180)*(r+0.5)+pro.centerPoint.coord[1]]);}});};this.remove=function(){this.set.remove();};this.makeTranslatable();return this;}function Ruler(graphie,options){_.defaults(options,{center:[0,0],pixelsPerUnit:40,ticksPerUnit:10,// 10 or power of 2
-	units:10,// the length the ruler can measure
-	label:"",// e.g "cm" (the shorter, the better)
-	style:{fill:null,stroke:KhanColors.GRAY}});var light=_.extend({},options.style,{strokeWidth:1});var bold=_.extend({},options.style,{strokeWidth:2});var width=options.units*options.pixelsPerUnit;var height=50;var leftBottom=graphie.unscalePoint(kvector.subtract(graphie.scalePoint(options.center),kvector.scale([width,-height],0.5)));var graphieUnitsPerUnit=options.pixelsPerUnit/graphie.scale[0];var graphieUnitsHeight=height/graphie.scale[0];var rightTop=kvector.add(leftBottom,[options.units*graphieUnitsPerUnit,graphieUnitsHeight]);var tickHeight=1.0;var tickHeightMap=void 0;if(options.ticksPerUnit===10){// decimal, as on a centimeter ruler
-	tickHeightMap={10:tickHeight,5:tickHeight*0.55,1:tickHeight*0.35};}else{var sizes=[1,0.6,0.45,0.3];tickHeightMap={};for(var i=options.ticksPerUnit;i>=1;i/=2){tickHeightMap[i]=tickHeight*(sizes.shift()||0.2);}}var tickFrequencies=_.keys(tickHeightMap).sort(function(a,b){return b-a;});function getTickHeight(i){for(var k=0;k<tickFrequencies.length;k++){var key=tickFrequencies[k];if(i%key===0){return tickHeightMap[key];}}}var left=leftBottom[0];var bottom=leftBottom[1];var right=rightTop[0];var top=rightTop[1];var numTicks=options.units*options.ticksPerUnit+1;var set=graphie.raphael.set();var px=1/graphie.scale[0];set.push(graphie.line([left-px,bottom],[right+px,bottom],bold));set.push(graphie.line([left-px,top],[right+px,top],bold));_.times(numTicks,function(i){var n=i/options.ticksPerUnit;var x=left+n*graphieUnitsPerUnit;var height=getTickHeight(i)*graphieUnitsHeight;var style=i===0||i===numTicks-1?bold:light;set.push(graphie.line([x,bottom],[x,bottom+height],style));if(n%1===0){var coord=graphie.scalePoint([x,top]);var text=void 0;var offset=void 0;if(n===0){// Unit label
-	text=options.label;offset={mm:13,cm:11,m:8,km:11,in:8,ft:8,yd:10,mi:10}[text]||3*text.toString().length;}else{// Tick label
-	text=n;offset=-3*(n.toString().length+1);}var label=graphie.raphael.text(coord[0]+offset,coord[1]+10,text);label.attr({"font-family":"KaTeX_Main","font-size":"12px","color":"#444"});set.push(label);}});var mouseTarget=graphie.mouselayer.path(GraphUtils.svgPath([leftBottom,[left,top],rightTop,[right,bottom],/* closed */true]));mouseTarget.attr({fill:"#000",opacity:0,stroke:"#000","stroke-width":2});set.push(mouseTarget);var setNodes=$.map(set,function(el){return el.node;});$(setNodes).css("cursor","move");$(setNodes).bind("vmousedown",function(event){event.preventDefault();var startx=event.pageX-$(graphie.raphael.canvas.parentNode).offset().left;var starty=event.pageY-$(graphie.raphael.canvas.parentNode).offset().top;$(document).bind("vmousemove.ruler",function(event){var mouseX=event.pageX-$(graphie.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY-$(graphie.raphael.canvas.parentNode).offset().top;// can't go beyond 10 pixels from the edge
-	mouseX=Math.max(10,Math.min(graphie.xpixels-10,mouseX));mouseY=Math.max(10,Math.min(graphie.ypixels-10,mouseY));var dx=mouseX-startx;var dy=mouseY-starty;set.translate(dx,dy);leftBottomHandle.setCoord([leftBottomHandle.coord[0]+dx/graphie.scale[0],leftBottomHandle.coord[1]-dy/graphie.scale[1]]);rightBottomHandle.setCoord([rightBottomHandle.coord[0]+dx/graphie.scale[0],rightBottomHandle.coord[1]-dy/graphie.scale[1]]);startx=mouseX;starty=mouseY;});$(document).one("vmouseup",function(event){$(document).unbind("vmousemove.ruler");});});var leftBottomHandle=graphie.addMovablePoint({coord:leftBottom,normalStyle:{fill:KhanColors.INTERACTIVE,"fill-opacity":0,stroke:KhanColors.INTERACTIVE},highlightStyle:{fill:KhanColors.INTERACTING,"fill-opacity":0.1,stroke:KhanColors.INTERACTING},pointSize:6,// or 8 maybe?
-	onMove:function onMove(x,y){var dy=rightBottomHandle.coord[1]-y;var dx=rightBottomHandle.coord[0]-x;var angle=Math.atan2(dy,dx)*180/Math.PI;var center=kvector.scale(kvector.add([x,y],rightBottomHandle.coord),0.5);var scaledCenter=graphie.scalePoint(center);var oldCenter=kvector.scale(kvector.add(leftBottomHandle.coord,rightBottomHandle.coord),0.5);var scaledOldCenter=graphie.scalePoint(oldCenter);var diff=kvector.subtract(scaledCenter,scaledOldCenter);set.rotate(-angle,scaledOldCenter[0],scaledOldCenter[1]);set.translate(diff[0],diff[1]);}});var rightBottomHandle=graphie.addMovablePoint({coord:[right,bottom],normalStyle:{fill:KhanColors.INTERACTIVE,"fill-opacity":0,stroke:KhanColors.INTERACTIVE},highlightStyle:{fill:KhanColors.INTERACTING,"fill-opacity":0.1,stroke:KhanColors.INTERACTING},pointSize:6,// or 8 maybe?
-	onMove:function onMove(x,y){var dy=y-leftBottomHandle.coord[1];var dx=x-leftBottomHandle.coord[0];var angle=Math.atan2(dy,dx)*180/Math.PI;var center=kvector.scale(kvector.add([x,y],leftBottomHandle.coord),0.5);var scaledCenter=graphie.scalePoint(center);var oldCenter=kvector.scale(kvector.add(leftBottomHandle.coord,rightBottomHandle.coord),0.5);var scaledOldCenter=graphie.scalePoint(oldCenter);var diff=kvector.subtract(scaledCenter,scaledOldCenter);set.rotate(-angle,scaledOldCenter[0],scaledOldCenter[1]);set.translate(diff[0],diff[1]);}});// Make each handle rotate the ruler about the other one
-	leftBottomHandle.constraints.fixedDistance.dist=width/graphie.scale[0];leftBottomHandle.constraints.fixedDistance.point=rightBottomHandle;rightBottomHandle.constraints.fixedDistance.dist=width/graphie.scale[0];rightBottomHandle.constraints.fixedDistance.point=leftBottomHandle;this.remove=function(){set.remove();leftBottomHandle.remove();rightBottomHandle.remove();};return this;}function MovableAngle(graphie,options){this.graphie=graphie;// TODO(alex): Move standard colors from math.js to somewhere else
-	// so that they are available when this file is first parsed
-	_.extend(this,options);_.defaults(this,{normalStyle:{"stroke":KhanColors.INTERACTIVE,"stroke-width":2,"fill":KhanColors.INTERACTIVE},highlightStyle:{"stroke":KhanColors.INTERACTING,"stroke-width":2,"fill":KhanColors.INTERACTING},labelStyle:{"stroke":KhanColors.DYNAMIC,"stroke-width":1,"color":KhanColors.DYNAMIC},angleStyle:{"stroke":KhanColors.DYNAMIC,"stroke-width":1,"color":KhanColors.DYNAMIC},allowReflex:true});if(!this.points||this.points.length!==3){throw new Error("MovableAngle requires 3 points");}// Handle coordinates that are not MovablePoints (i.e. [2, 4])
-	this.points=_.map(options.points,function(point){if(_.isArray(point)){return graphie.addMovablePoint({coord:point,visible:false,constraints:{fixed:true},normalStyle:this.normalStyle});}else{return point;}},this);this.coords=_.pluck(this.points,"coord");if(this.reflex==null){if(this.allowReflex){this.reflex=this._getClockwiseAngle(this.coords)>180;}else{this.reflex=false;}}this.rays=_.map([0,2],function(i){return graphie.addMovableLineSegment({pointA:this.points[1],pointZ:this.points[i],fixed:true,extendRay:true});},this);this.temp=[];this.labeledAngle=graphie.label([0,0],"","center",this.labelStyle);if(!this.fixed){this.addMoveHandlers();this.addHighlightHandlers();}this.update();}_.extend(MovableAngle.prototype,{points:[],snapDegrees:0,snapOffsetDeg:0,angleLabel:"",numArcs:1,pushOut:0,fixed:false,addMoveHandlers:function addMoveHandlers(){var graphie=this.graphie;function tooClose(point1,point2){var safeDistance=30;var distance=GraphUtils.getDistance(graphie.scalePoint(point1),graphie.scalePoint(point2));return distance<safeDistance;}var points=this.points;// Drag the vertex to move the entire angle
-	points[1].onMove=function(x,y){var oldVertex=points[1].coord;var newVertex=[x,y];var delta=addPoints(newVertex,reverseVector(oldVertex));var valid=true;var newPoints={};_.each([0,2],function(i){var oldPoint=points[i].coord;var newPoint=addPoints(oldPoint,delta);var angle=GraphUtils.findAngle(newVertex,newPoint);angle*=Math.PI/180;newPoint=graphie.constrainToBoundsOnAngle(newPoint,10,angle);newPoints[i]=newPoint;if(tooClose(newVertex,newPoint)){valid=false;}});// Only move points if all new positions are valid
-	if(valid){_.each(newPoints,function(newPoint,i){points[i].setCoord(newPoint);});}return valid;};var snap=this.snapDegrees;var snapOffset=this.snapOffsetDeg;// Drag ray control points to move each ray individually
-	_.each([0,2],function(i){points[i].onMove=function(x,y){var newPoint=[x,y];var vertex=points[1].coord;if(tooClose(vertex,newPoint)){return false;}else if(snap){var angle=GraphUtils.findAngle(newPoint,vertex);angle=Math.round((angle-snapOffset)/snap)*snap+snapOffset;var distance=GraphUtils.getDistance(newPoint,vertex);return addPoints(vertex,graphie.polar(distance,angle));}else{return true;}};});// Expose only a single move event
-	$(points).on("move",function(){this.update();$(this).trigger("move");}.bind(this));},addHighlightHandlers:function addHighlightHandlers(){var vertex=this.points[1];vertex.onHighlight=function(){_.each(this.points,function(point){point.visibleShape.animate(this.highlightStyle,50);},this);_.each(this.rays,function(ray){ray.visibleLine.animate(this.highlightStyle,50);ray.arrowStyle=_.extend({},ray.arrowStyle,{"color":this.highlightStyle.stroke,"stroke":this.highlightStyle.stroke});},this);this.angleStyle=_.extend({},this.angleStyle,{"color":this.highlightStyle.stroke,"stroke":this.highlightStyle.stroke});this.update();}.bind(this);vertex.onUnhighlight=function(){_.each(this.points,function(point){point.visibleShape.animate(this.normalStyle,50);},this);_.each(this.rays,function(ray){ray.visibleLine.animate(ray.normalStyle,50);ray.arrowStyle=_.extend({},ray.arrowStyle,{"color":ray.normalStyle.stroke,"stroke":ray.normalStyle.stroke});},this);this.angleStyle=_.extend({},this.angleStyle,{"color":KhanColors.DYNAMIC,"stroke":KhanColors.DYNAMIC});this.update();}.bind(this);},/**
+	     */
+	    constrainToBoundsOnAngle: function constrainToBoundsOnAngle(point, padding, angle) {
+	        var lower = this.unscalePoint([padding, this.ypixels - padding]);
+	        var upper = this.unscalePoint([this.xpixels - padding, padding]);
+
+	        var result = point.slice();
+
+	        if (result[0] < lower[0]) {
+	            result = [lower[0], result[1] + (lower[0] - result[0]) * Math.tan(angle)];
+	        } else if (result[0] > upper[0]) {
+	            result = [upper[0], result[1] - (result[0] - upper[0]) * Math.tan(angle)];
+	        }
+
+	        if (result[1] < lower[1]) {
+	            result = [result[0] + (lower[1] - result[1]) / Math.tan(angle), lower[1]];
+	        } else if (result[1] > upper[1]) {
+	            result = [result[0] - (result[1] - upper[1]) / Math.tan(angle), upper[1]];
+	        }
+
+	        return result;
+	    },
+
+	    // MovableAngle is an angle that can be dragged around the screen.
+	    // By attaching a smartPoint to the vertex and ray control points, the
+	    // rays can be manipulated individually.
+	    //
+	    // Use only with smartPoints; add the smartPoints first, then:
+	    //   addMovableAngle({points: [...]});
+	    //
+	    // The rays can be controlled to snap on degrees (more useful than snapping
+	    // on coordinates) by setting snapDegrees to a positive integer.
+	    //
+	    // The returned object includes the following properties/methods:
+	    //
+	    //   - movableAngle.points
+	    //         The movableAngle's dynamic smartPoints.
+	    //
+	    //   - movableAngle.coords
+	    //         The movableAngle's current coordinates (generated, don't edit).
+	    //
+	    addMovableAngle: function addMovableAngle(options) {
+	        return new MovableAngle(this, options);
+	    },
+
+	    // center: movable point
+	    // radius: int
+	    // circ: graphie circle
+	    // perim: invisible mouse target for dragging/changing radius
+	    addCircleGraph: function addCircleGraph(options) {
+	        var graphie = this;
+	        var circle = $.extend({
+	            center: [0, 0],
+	            radius: 2,
+	            snapX: 0.5,
+	            snapY: 0.5,
+	            snapRadius: 0.5,
+	            minRadius: 1,
+	            centerConstraints: {},
+	            centerNormalStyle: {},
+	            centerHighlightStyle: {
+	                stroke: KhanColors.INTERACTING,
+	                fill: KhanColors.INTERACTING
+	            },
+	            circleNormalStyle: {
+	                stroke: KhanColors.INTERACTIVE,
+	                "fill-opacity": 0
+	            },
+	            circleHighlightStyle: {
+	                stroke: KhanColors.INTERACTING,
+	                fill: KhanColors.INTERACTING,
+	                "fill-opacity": 0.05
+	            }
+	        }, options);
+
+	        var normalColor = circle.centerConstraints.fixed ? KhanColors.DYNAMIC : KhanColors.INTERACTIVE;
+	        var centerNormalStyle = options ? options.centerNormalStyle : null;
+	        circle.centerNormalStyle = _.extend({}, {
+	            "fill": normalColor,
+	            "stroke": normalColor
+	        }, centerNormalStyle);
+
+	        circle.centerPoint = graphie.addMovablePoint({
+	            graph: graphie,
+	            coord: circle.center,
+	            normalStyle: circle.centerNormalStyle,
+	            snapX: circle.snapX,
+	            snapY: circle.snapY,
+	            constraints: circle.centerConstraints
+	        });
+	        circle.circ = graphie.circle(circle.center, circle.radius, circle.circleNormalStyle);
+	        circle.perim = graphie.mouselayer.circle(graphie.scalePoint(circle.center)[0], graphie.scalePoint(circle.center)[1], graphie.scaleVector(circle.radius)[0]).attr({
+	            "stroke-width": 20,
+	            "opacity": 0.002 });
+
+	        // Highlight circle circumference on center point hover
+	        if (!circle.centerConstraints.fixed) {
+	            $(circle.centerPoint.mouseTarget.getMouseTarget()).on("vmouseover vmouseout", function (event) {
+	                if (circle.centerPoint.highlight || circle.centerPoint.dragging) {
+	                    circle.circ.animate(circle.circleHighlightStyle, 50);
+	                } else {
+	                    circle.circ.animate(circle.circleNormalStyle, 50);
+	                }
+	            });
+	        }
+
+	        circle.toFront = function () {
+	            circle.circ.toFront();
+	            circle.perim.toFront();
+	            circle.centerPoint.visibleShape.toFront();
+	            if (!circle.centerConstraints.fixed) {
+	                circle.centerPoint.mouseTarget.toFront();
+	            }
+	        };
+
+	        circle.centerPoint.onMove = function (x, y) {
+	            circle.toFront();
+	            circle.circ.attr({
+	                cx: graphie.scalePoint(x)[0],
+	                cy: graphie.scalePoint(y)[1]
+	            });
+	            circle.perim.attr({
+	                cx: graphie.scalePoint(x)[0],
+	                cy: graphie.scalePoint(y)[1]
+	            });
+	            if (circle.onMove) {
+	                circle.onMove(x, y);
+	            }
+	        };
+
+	        $(circle.centerPoint).on("move", function () {
+	            circle.center = this.coord;
+	            $(circle).trigger("move");
+	        });
+
+	        // circle.setCenter(x, y) moves the circle to the specified
+	        // x, y coordinate as if the user had dragged it there.
+	        circle.setCenter = function (x, y) {
+	            circle.centerPoint.setCoord([x, y]);
+	            circle.centerPoint.onMove(x, y);
+	            circle.center = [x, y];
+	        };
+
+	        // circle.setRadius(r) sets the circle's radius to the specified
+	        // value as if the user had dragged it there.
+	        circle.setRadius = function (r) {
+	            circle.radius = r;
+
+	            circle.perim.attr({
+	                r: graphie.scaleVector(r)[0]
+	            });
+	            circle.circ.attr({
+	                rx: graphie.scaleVector(r)[0],
+	                ry: graphie.scaleVector(r)[1]
+	            });
+	        };
+
+	        circle.remove = function () {
+	            circle.centerPoint.remove();
+	            circle.circ.remove();
+	            circle.perim.remove();
+	        };
+
+	        $(circle.perim[0]).css("cursor", "move");
+	        $(circle.perim[0]).on("vmouseover vmouseout vmousedown", function (event) {
+	            if (event.type === "vmouseover") {
+	                circle.highlight = true;
+	                if (!dragging) {
+	                    // TODO(jack): Figure out why this doesn't work
+	                    // for circleHighlightStyle's that change
+	                    // stroke-dasharray
+	                    circle.circ.animate(circle.circleHighlightStyle, 50);
+	                    circle.centerPoint.visibleShape.animate(circle.centerHighlightStyle, 50);
+	                }
+	            } else if (event.type === "vmouseout") {
+	                circle.highlight = false;
+	                if (!circle.dragging && !circle.centerPoint.dragging) {
+	                    circle.circ.animate(circle.circleNormalStyle, 50);
+	                    circle.centerPoint.visibleShape.animate(circle.centerNormalStyle, 50);
+	                }
+	            } else if (event.type === "vmousedown" && (event.which === 1 || event.which === 0)) {
+	                (function () {
+	                    event.preventDefault();
+	                    circle.toFront();
+	                    var startRadius = circle.radius;
+
+	                    $(document).on("vmousemove vmouseup", function (event) {
+	                        event.preventDefault();
+	                        circle.dragging = true;
+	                        dragging = true;
+
+	                        if (event.type === "vmousemove") {
+	                            var coord = graphie.constrainToBounds(graphie.getMouseCoord(event), 10);
+
+	                            var radius = GraphUtils.getDistance(circle.centerPoint.coord, coord);
+	                            radius = Math.max(circle.minRadius, Math.round(radius / circle.snapRadius) * circle.snapRadius);
+	                            var oldRadius = circle.radius;
+	                            var doResize = true;
+	                            if (circle.onResize) {
+	                                var onResizeResult = circle.onResize(radius, oldRadius);
+	                                if (_.isNumber(onResizeResult)) {
+	                                    radius = onResizeResult;
+	                                } else if (onResizeResult === false) {
+	                                    doResize = false;
+	                                }
+	                            }
+	                            if (doResize) {
+	                                circle.setRadius(radius);
+	                                $(circle).trigger("move");
+	                            }
+	                        } else if (event.type === "vmouseup") {
+	                            $(document).off("vmousemove vmouseup");
+	                            circle.dragging = false;
+	                            dragging = false;
+	                            if (circle.onResizeEnd) {
+	                                circle.onResizeEnd(circle.radius, startRadius);
+	                            }
+	                        }
+	                    });
+	                })();
+	            }
+	        });
+
+	        return circle;
+	    },
+
+	    addRotateHandle: function () {
+	        var drawRotateHandle = function drawRotateHandle(graphie, center, radius, halfWidth, lengthAngle, angle, interacting) {
+	            var getRotateHandlePoint = function getRotateHandlePoint(offset, distanceFromArrowMidline) {
+	                var distFromRotationCenter = radius + distanceFromArrowMidline;
+	                var vec = kvector.cartFromPolarDeg([distFromRotationCenter, angle + offset]);
+	                var absolute = kvector.add(center, vec);
+	                var pixels = graphie.scalePoint(absolute);
+	                return pixels[0] + "," + pixels[1];
+	            };
+
+	            var innerR = graphie.scaleVector(radius - halfWidth);
+	            var outerR = graphie.scaleVector(radius + halfWidth);
+
+	            // Draw the double-headed arrow thing that shows users where to
+	            // click and drag to rotate
+	            return graphie.raphael.path(
+	            // upper arrowhead
+	            " M" + getRotateHandlePoint(lengthAngle, -halfWidth) + " L" + getRotateHandlePoint(lengthAngle, -3 * halfWidth) + " L" + getRotateHandlePoint(2 * lengthAngle, 0) + " L" + getRotateHandlePoint(lengthAngle, 3 * halfWidth) + " L" + getRotateHandlePoint(lengthAngle, halfWidth) +
+	            // outer arc
+	            " A" + outerR[0] + "," + outerR[1] + ",0,0,1," + getRotateHandlePoint(-lengthAngle, halfWidth) +
+	            // lower arrowhead
+	            " L" + getRotateHandlePoint(-lengthAngle, 3 * halfWidth) + " L" + getRotateHandlePoint(-2 * lengthAngle, 0) + " L" + getRotateHandlePoint(-lengthAngle, -3 * halfWidth) + " L" + getRotateHandlePoint(-lengthAngle, -halfWidth) +
+	            // inner arc
+	            " A" + innerR[0] + "," + innerR[1] + ",0,0,0," + getRotateHandlePoint(lengthAngle, -halfWidth) + " Z").attr({
+	                stroke: null,
+	                fill: interacting ? KhanColors.INTERACTING : KhanColors.INTERACTIVE
+	            });
+	        };
+
+	        return function (options) {
+	            var graph = this;
+
+	            var rotatePoint = options.center;
+	            var radius = options.radius;
+	            var lengthAngle = options.lengthAngle || 30;
+	            var hideArrow = options.hideArrow || false;
+	            var mouseTarget = options.mouseTarget;
+	            var id = _.uniqueId("rotateHandle");
+
+	            // Normalize rotatePoint into something that always looks
+	            // like a movablePoint
+	            if (_.isArray(rotatePoint)) {
+	                rotatePoint = {
+	                    coord: rotatePoint
+	                };
+	            }
+
+	            var rotateHandle = graph.addMovablePoint({
+	                coord: kpoint.addVector(rotatePoint.coord, kvector.cartFromPolarDeg(radius, options.angleDeg || 0)),
+	                constraints: {
+	                    fixedDistance: {
+	                        dist: radius,
+	                        point: rotatePoint
+	                    }
+	                },
+	                mouseTarget: mouseTarget
+	            });
+
+	            // move the rotatePoint in front of the rotateHandle to avoid
+	            // confusing clicking/scaling of the rotateHandle when the user
+	            // intends to click on the rotatePoint
+	            rotatePoint.toFront();
+
+	            var rotatePointPrevCoord = rotatePoint.coord;
+	            var rotateHandlePrevCoord = rotateHandle.coord;
+	            var rotateHandleStartCoord = rotateHandlePrevCoord;
+	            var isRotating = false;
+	            var isHovering = false;
+	            var drawnRotateHandle = void 0;
+
+	            var redrawRotateHandle = function redrawRotateHandle(handleCoord) {
+	                if (hideArrow) {
+	                    return; // Don't draw anything!
+	                }
+
+	                var handleVec = kvector.subtract(handleCoord, rotatePoint.coord);
+	                var handlePolar = kvector.polarDegFromCart(handleVec);
+	                var angle = handlePolar[1];
+
+	                if (drawnRotateHandle) {
+	                    drawnRotateHandle.remove();
+	                }
+
+	                drawnRotateHandle = drawRotateHandle(graph, rotatePoint.coord, options.radius, isRotating || isHovering ? options.hoverWidth / 2 : options.width / 2, lengthAngle, angle, isRotating || isHovering);
+	            };
+
+	            // when the rotation center moves, we need to move
+	            // the rotationHandle as well, or it will end up out
+	            // of sync
+	            $(rotatePoint).on("move." + id, function () {
+	                var delta = kvector.subtract(rotatePoint.coord, rotatePointPrevCoord);
+
+	                rotateHandle.setCoord(kvector.add(rotateHandle.coord, delta));
+
+	                redrawRotateHandle(rotateHandle.coord);
+
+	                rotatePointPrevCoord = rotatePoint.coord;
+	                rotateHandle.constraints.fixedDistance.point = rotatePoint;
+	                rotateHandlePrevCoord = rotateHandle.coord;
+	            });
+
+	            // Rotate polygon with rotateHandle
+	            rotateHandle.onMove = function (x, y) {
+	                if (!isRotating) {
+	                    rotateHandleStartCoord = rotateHandlePrevCoord;
+	                    isRotating = true;
+	                }
+
+	                var coord = [x, y];
+
+	                if (options.onMove) {
+	                    var oldPolar = kvector.polarDegFromCart(kvector.subtract(rotateHandlePrevCoord, rotatePoint.coord));
+	                    var newPolar = kvector.polarDegFromCart(kvector.subtract(coord, rotatePoint.coord));
+
+	                    var oldAngle = oldPolar[1];
+	                    var newAngle = newPolar[1];
+	                    var result = options.onMove(newAngle, oldAngle);
+	                    if (result != null && result !== true) {
+	                        if (result === false) {
+	                            result = oldAngle;
+	                        }
+	                        coord = kvector.add(rotatePoint.coord, kvector.cartFromPolarDeg([oldPolar[0], result]));
+	                    }
+	                }
+
+	                redrawRotateHandle(coord);
+
+	                rotateHandlePrevCoord = coord;
+	                return coord;
+	            };
+
+	            rotateHandle.onMoveEnd = function () {
+	                isRotating = false;
+	                redrawRotateHandle(rotateHandle.coord);
+	                if (options.onMoveEnd) {
+	                    var oldPolar = kvector.polarDegFromCart(kvector.subtract(rotateHandleStartCoord, rotatePoint.coord));
+	                    var newPolar = kvector.polarDegFromCart(kvector.subtract(rotateHandle.coord, rotatePoint.coord));
+	                    options.onMoveEnd(newPolar[1], oldPolar[1]);
+	                }
+	            };
+
+	            // Remove the default dot added by the movablePoint since we have
+	            // our double-arrow thing
+	            rotateHandle.visibleShape.remove();
+
+	            if (!mouseTarget) {
+	                // Make the default mouse target bigger to encompass the whole
+	                // area around the double-arrow thing
+	                rotateHandle.mouseTarget.attr({ scale: 2 });
+	            }
+
+	            var $mouseTarget = $(rotateHandle.mouseTarget.getMouseTarget());
+	            $mouseTarget.bind("vmouseover", function (e) {
+	                isHovering = true;
+	                redrawRotateHandle(rotateHandle.coord);
+	            });
+	            $mouseTarget.bind("vmouseout", function (e) {
+	                isHovering = false;
+	                redrawRotateHandle(rotateHandle.coord);
+	            });
+
+	            redrawRotateHandle(rotateHandle.coord);
+
+	            var oldRemove = rotateHandle.remove;
+	            rotateHandle.remove = function () {
+	                oldRemove.call(rotateHandle);
+	                if (drawnRotateHandle) {
+	                    drawnRotateHandle.remove();
+	                }
+	                $(rotatePoint).off("move." + id);
+	            };
+
+	            rotateHandle.update = function () {
+	                redrawRotateHandle(rotateHandle.coord);
+	            };
+
+	            return rotateHandle;
+	        };
+	    }(),
+
+	    addReflectButton: function () {
+	        var drawButton = function drawButton(graphie, buttonCoord, lineCoords, size, distanceFromCenter, leftStyle, rightStyle) {
+
+	            // Avoid invalid lines
+	            if (kpoint.equal(lineCoords[0], lineCoords[1])) {
+	                lineCoords = [lineCoords[0], kpoint.addVector(lineCoords[0], [1, 1])];
+	            }
+
+	            var lineDirection = kvector.normalize(kvector.subtract(lineCoords[1], lineCoords[0]));
+
+	            var lineVec = kvector.scale(lineDirection, size / 2);
+
+	            var centerVec = kvector.scale(lineDirection, distanceFromCenter);
+	            var leftCenterVec = kvector.rotateDeg(centerVec, 90);
+	            var rightCenterVec = kvector.rotateDeg(centerVec, -90);
+
+	            var negLineVec = kvector.negate(lineVec);
+	            var leftVec = kvector.rotateDeg(lineVec, 90);
+	            var rightVec = kvector.rotateDeg(lineVec, -90);
+
+	            var leftCenter = kpoint.addVectors(buttonCoord, leftCenterVec);
+	            var rightCenter = kpoint.addVectors(buttonCoord, rightCenterVec);
+
+	            var leftCoord1 = kpoint.addVectors(buttonCoord, leftCenterVec, lineVec, leftVec);
+	            var leftCoord2 = kpoint.addVectors(buttonCoord, leftCenterVec, negLineVec, leftVec);
+	            var rightCoord1 = kpoint.addVectors(buttonCoord, rightCenterVec, lineVec, rightVec);
+	            var rightCoord2 = kpoint.addVectors(buttonCoord, rightCenterVec, negLineVec, rightVec);
+
+	            var leftButton = graphie.path([leftCenter, leftCoord1, leftCoord2, true], leftStyle);
+	            var rightButton = graphie.path([rightCenter, rightCoord1, rightCoord2, true], rightStyle);
+
+	            return {
+	                remove: function remove() {
+	                    leftButton.remove();
+	                    rightButton.remove();
+	                }
+	            };
+	        };
+
+	        return function (options) {
+	            var graphie = this;
+
+	            var line = options.line;
+
+	            var button = graphie.addMovablePoint({
+	                constraints: options.constraints,
+	                coord: kline.midpoint([line.pointA.coord, line.pointZ.coord]),
+	                snapX: graphie.snap[0],
+	                snapY: graphie.snap[1],
+	                onMove: function onMove(x, y) {
+	                    // Don't allow the button to actually move. This is a hack
+	                    // around the inability to both set a point as fixed AND
+	                    // allow it to be clicked.
+	                    return false;
+	                },
+	                onMoveEnd: function onMoveEnd(x, y) {
+	                    if (options.onMoveEnd) {
+	                        options.onMoveEnd.call(this, x, y);
+	                    }
+	                }
+	            });
+
+	            var isHovering = false;
+	            var isFlipped = false;
+	            var currentlyDrawnButton = void 0;
+
+	            var isHighlight = function isHighlight() {
+	                return isHovering;
+	            };
+
+	            var styles = _.map([0, 1], function (isHighlight) {
+	                var baseStyle = isHighlight ? options.highlightStyle : options.normalStyle;
+
+	                return _.map([0, 1], function (opacity) {
+	                    return _.defaults({
+	                        "fill-opacity": opacity
+	                    }, baseStyle);
+	                });
+	            });
+
+	            var getStyle = function getStyle(isRight) {
+	                if (isFlipped) {
+	                    isRight = !isRight;
+	                }
+	                return styles[+isHighlight()][+isRight];
+	            };
+
+	            var redraw = function redraw(coord, lineCoords) {
+	                if (currentlyDrawnButton) {
+	                    currentlyDrawnButton.remove();
+	                }
+	                currentlyDrawnButton = drawButton(graphie, coord, lineCoords, isHighlight() ? options.size * 1.5 : options.size, isHighlight() ? options.size * 0.125 : 0.25, getStyle(0), getStyle(1));
+	            };
+
+	            var update = function update(coordA, coordZ) {
+	                coordA = coordA || line.pointA.coord;
+	                coordZ = coordZ || line.pointZ.coord;
+
+	                var buttonCoord = kline.midpoint([coordA, coordZ]);
+	                button.setCoord(buttonCoord);
+
+	                redraw(buttonCoord, [coordA, coordZ]);
+	            };
+
+	            $(line).on("move", _.bind(update, button, null, null));
+
+	            var $mouseTarget = $(button.mouseTarget.getMouseTarget());
+	            $mouseTarget.on("vclick", function () {
+	                var result = options.onClick();
+	                if (result !== false) {
+	                    isFlipped = !isFlipped;
+	                    redraw(button.coord, [line.pointA.coord, line.pointZ.coord]);
+	                }
+	            });
+
+	            // Bring the reflection line handles in front of the button, so
+	            // that if we drag the reflectPoints really close together, we can
+	            // still move the handles away from each other, rather than only
+	            // being able to apply the reflection.
+	            line.pointA.toFront();
+	            line.pointZ.toFront();
+
+	            // Replace the visual point with the double triangle thing
+	            button.visibleShape.remove();
+	            var pointScale = graphie.scaleVector(options.size)[0] / 20;
+	            button.mouseTarget.attr({ scale: 1.5 * pointScale });
+	            $mouseTarget.css("cursor", "pointer");
+
+	            // Make the arrow-thing grow and shrink with mouseover/out
+	            $mouseTarget.bind("vmouseover", function (e) {
+	                isHovering = true;
+	                redraw(button.coord, [line.pointA.coord, line.pointZ.coord]);
+	            });
+	            $mouseTarget.bind("vmouseout", function (e) {
+	                isHovering = false;
+	                redraw(button.coord, [line.pointA.coord, line.pointZ.coord]);
+	            });
+
+	            var oldButtonRemove = button.remove;
+	            button.remove = function () {
+	                currentlyDrawnButton.remove();
+	                oldButtonRemove.call(button);
+	            };
+
+	            button.update = update;
+	            button.isFlipped = function () {
+	                return isFlipped;
+	            };
+
+	            update();
+	            return button;
+	        };
+	    }(),
+
+	    protractor: function protractor(center) {
+	        return new Protractor(this, center);
+	    },
+
+	    ruler: function ruler(options) {
+	        return new Ruler(this, options || {});
+	    },
+
+	    addPoints: addPoints
+	});
+
+	function Protractor(graph, center) {
+	    this.set = graph.raphael.set();
+
+	    this.cx = center[0];
+	    this.cy = center[1];
+	    var pro = this;
+
+	    var r = graph.unscaleVector(180.5)[0];
+	    var imgPos = graph.scalePoint([this.cx - r, this.cy + r - graph.unscaleVector(10.5)[1]]);
+	    this.set.push(graph.mouselayer.image("https://ka-perseus-graphie.s3.amazonaws.com/e9d032f2ab8b95979f674fbfa67056442ba1ff6a.png", imgPos[0], imgPos[1], 360, 180));
+
+	    var arrowHelper = function arrowHelper(angle, pixelsFromEdge) {
+	        var scaledRadius = graph.scaleVector(r);
+	        scaledRadius[0] -= 16;
+	        scaledRadius[1] -= 16;
+	        var scaledCenter = graph.scalePoint(center);
+	        var x = Math.sin((angle + 90) * Math.PI / 180) * (scaledRadius[0] + pixelsFromEdge) + scaledCenter[0];
+	        var y = Math.cos((angle + 90) * Math.PI / 180) * (scaledRadius[1] + pixelsFromEdge) + scaledCenter[1];
+	        return x + "," + y;
+	    };
+
+	    var arrow = graph.raphael.path(" M" + arrowHelper(180, 6) + " L" + arrowHelper(180, 2) + " L" + arrowHelper(183, 10) + " L" + arrowHelper(180, 18) + " L" + arrowHelper(180, 14) + " A" + (graph.scaleVector(r)[0] + 10) + "," + (graph.scaleVector(r)[1] + 10) + ",0,0,1," + arrowHelper(170, 14) + " L" + arrowHelper(170, 18) + " L" + arrowHelper(167, 10) + " L" + arrowHelper(170, 2) + " L" + arrowHelper(170, 6) + " A" + (graph.scaleVector(r)[0] + 10) + "," + (graph.scaleVector(r)[1] + 10) + ",0,0,0," + arrowHelper(180, 6) + " Z").attr({
+	        "stroke": null,
+	        "fill": KhanColors.INTERACTIVE
+	    });
+
+	    // add it to the set so it translates with everything else
+	    this.set.push(arrow);
+
+	    this.centerPoint = graph.addMovablePoint({
+	        coord: center,
+	        visible: false
+	    });
+
+	    // Use a movablePoint for rotation
+	    this.rotateHandle = graph.addMovablePoint({
+	        coord: [Math.sin(275 * Math.PI / 180) * (r + 0.5) + this.cx, Math.cos(275 * Math.PI / 180) * (r + 0.5) + this.cy],
+	        onMove: function onMove(x, y) {
+	            var angle = Math.atan2(pro.centerPoint.coord[1] - y, pro.centerPoint.coord[0] - x) * 180 / Math.PI;
+	            pro.rotate(-angle - 5, true);
+	        }
+	    });
+
+	    // Add a constraint so the point moves in a circle
+	    this.rotateHandle.constraints.fixedDistance.dist = r + 0.5;
+	    this.rotateHandle.constraints.fixedDistance.point = this.centerPoint;
+
+	    // Remove the default dot added by the movablePoint since we have our double-arrow thing
+	    this.rotateHandle.visibleShape.remove();
+	    // Make the mouse target bigger to encompass the whole area around the double-arrow thing
+	    this.rotateHandle.mouseTarget.attr({ scale: 2.0 });
+
+	    var isDragging = false;
+	    var isHovering = false;
+	    var isHighlight = function isHighlight() {
+	        return isHovering || isDragging;
+	    };
+
+	    var self = this;
+	    var $mouseTarget = $(self.rotateHandle.mouseTarget.getMouseTarget());
+	    $mouseTarget.bind("vmousedown", function (event) {
+	        isDragging = true;
+	        arrow.animate({ scale: 1.5, fill: KhanColors.INTERACTING }, 50);
+
+	        $(document).bind("vmouseup.rotateHandle", function (event) {
+	            isDragging = false;
+
+	            if (!isHighlight()) {
+	                arrow.animate({ scale: 1.0, fill: KhanColors.INTERACTIVE }, 50);
+	            }
+
+	            $(document).unbind("vmouseup.rotateHandle");
+	        });
+	    });
+
+	    $mouseTarget.bind("vmouseover", function (event) {
+	        isHovering = true;
+	        arrow.animate({ scale: 1.5, fill: KhanColors.INTERACTING }, 50);
+	    });
+	    $mouseTarget.bind("vmouseout", function (event) {
+	        isHovering = false;
+	        if (!isHighlight()) {
+	            arrow.animate({ scale: 1.0, fill: KhanColors.INTERACTIVE }, 50);
+	        }
+	    });
+
+	    var setNodes = $.map(this.set, function (el) {
+	        return el.node;
+	    });
+	    this.makeTranslatable = function makeTranslatable() {
+	        $(setNodes).css("cursor", "move");
+
+	        $(setNodes).bind("vmousedown", function (event) {
+	            event.preventDefault();
+	            var startx = event.pageX - $(graph.raphael.canvas.parentNode).offset().left;
+	            var starty = event.pageY - $(graph.raphael.canvas.parentNode).offset().top;
+
+	            $(document).bind("vmousemove.protractor", function (event) {
+	                var mouseX = event.pageX - $(graph.raphael.canvas.parentNode).offset().left;
+	                var mouseY = event.pageY - $(graph.raphael.canvas.parentNode).offset().top;
+	                // can't go beyond 10 pixels from the edge
+	                mouseX = Math.max(10, Math.min(graph.xpixels - 10, mouseX));
+	                mouseY = Math.max(10, Math.min(graph.ypixels - 10, mouseY));
+
+	                var dx = mouseX - startx;
+	                var dy = mouseY - starty;
+
+	                $.each(pro.set.items, function () {
+	                    this.translate(dx, dy);
+	                });
+	                pro.centerPoint.setCoord([pro.centerPoint.coord[0] + dx / graph.scale[0], pro.centerPoint.coord[1] - dy / graph.scale[1]]);
+	                pro.rotateHandle.setCoord([pro.rotateHandle.coord[0] + dx / graph.scale[0], pro.rotateHandle.coord[1] - dy / graph.scale[1]]);
+	                startx = mouseX;
+	                starty = mouseY;
+	            });
+
+	            $(document).one("vmouseup", function (event) {
+	                $(document).unbind("vmousemove.protractor");
+	            });
+	        });
+	    };
+
+	    this.rotation = 0;
+
+	    this.rotate = function (offset, absolute) {
+	        var center = graph.scalePoint(this.centerPoint.coord);
+
+	        if (absolute) {
+	            this.rotation = 0;
+	        }
+
+	        this.set.rotate(this.rotation + offset, center[0], center[1]);
+	        this.rotation = this.rotation + offset;
+
+	        return this;
+	    };
+
+	    this.moveTo = function moveTo(x, y) {
+	        var start = graph.scalePoint(pro.centerPoint.coord);
+	        var end = graph.scalePoint([x, y]);
+	        var time = GraphUtils.getDistance(start, end) * 2;
+
+	        $({ x: start[0], y: start[1] }).animate({ x: end[0], y: end[1] }, {
+	            duration: time,
+	            step: function step(now, fx) {
+	                var dx = 0;
+	                var dy = 0;
+	                if (fx.prop === "x") {
+	                    dx = now - graph.scalePoint(pro.centerPoint.coord)[0];
+	                } else if (fx.prop === "y") {
+	                    dy = now - graph.scalePoint(pro.centerPoint.coord)[1];
+	                }
+	                $.each(pro.set.items, function () {
+	                    this.translate(dx, dy);
+	                });
+	                pro.centerPoint.setCoord([pro.centerPoint.coord[0] + dx / graph.scale[0], pro.centerPoint.coord[1] - dy / graph.scale[1]]);
+	                pro.rotateHandle.setCoord([pro.rotateHandle.coord[0] + dx / graph.scale[0], pro.rotateHandle.coord[1] - dy / graph.scale[1]]);
+	            }
+	        });
+	    };
+
+	    this.rotateTo = function rotateTo(angle) {
+	        if (Math.abs(this.rotation - angle) > 180) {
+	            this.rotation += 360;
+	        }
+	        var time = Math.abs(this.rotation - angle) * 5;
+	        $({ 0: this.rotation }).animate({ 0: angle }, {
+	            duration: time,
+	            step: function step(now, fx) {
+	                pro.rotate(now, true);
+	                pro.rotateHandle.setCoord([Math.sin((now + 275) * Math.PI / 180) * (r + 0.5) + pro.centerPoint.coord[0], Math.cos((now + 275) * Math.PI / 180) * (r + 0.5) + pro.centerPoint.coord[1]]);
+	            }
+	        });
+	    };
+
+	    this.remove = function () {
+	        this.set.remove();
+	    };
+
+	    this.makeTranslatable();
+	    return this;
+	}
+
+	function Ruler(graphie, options) {
+	    _.defaults(options, {
+	        center: [0, 0],
+	        pixelsPerUnit: 40,
+	        ticksPerUnit: 10, // 10 or power of 2
+	        units: 10, // the length the ruler can measure
+	        label: "", // e.g "cm" (the shorter, the better)
+	        style: {
+	            fill: null,
+	            stroke: KhanColors.GRAY
+	        }
+	    });
+
+	    var light = _.extend({}, options.style, { strokeWidth: 1 });
+	    var bold = _.extend({}, options.style, { strokeWidth: 2 });
+
+	    var width = options.units * options.pixelsPerUnit;
+	    var height = 50;
+
+	    var leftBottom = graphie.unscalePoint(kvector.subtract(graphie.scalePoint(options.center), kvector.scale([width, -height], 0.5)));
+
+	    var graphieUnitsPerUnit = options.pixelsPerUnit / graphie.scale[0];
+	    var graphieUnitsHeight = height / graphie.scale[0];
+
+	    var rightTop = kvector.add(leftBottom, [options.units * graphieUnitsPerUnit, graphieUnitsHeight]);
+
+	    var tickHeight = 1.0;
+	    var tickHeightMap = void 0;
+
+	    if (options.ticksPerUnit === 10) {
+	        // decimal, as on a centimeter ruler
+	        tickHeightMap = {
+	            10: tickHeight,
+	            5: tickHeight * 0.55,
+	            1: tickHeight * 0.35
+	        };
+	    } else {
+	        var sizes = [1, 0.6, 0.45, 0.3];
+
+	        tickHeightMap = {};
+	        for (var i = options.ticksPerUnit; i >= 1; i /= 2) {
+	            tickHeightMap[i] = tickHeight * (sizes.shift() || 0.2);
+	        }
+	    }
+
+	    var tickFrequencies = _.keys(tickHeightMap).sort(function (a, b) {
+	        return b - a;
+	    });
+
+	    function getTickHeight(i) {
+	        for (var k = 0; k < tickFrequencies.length; k++) {
+	            var key = tickFrequencies[k];
+	            if (i % key === 0) {
+	                return tickHeightMap[key];
+	            }
+	        }
+	    }
+
+	    var left = leftBottom[0];
+	    var bottom = leftBottom[1];
+	    var right = rightTop[0];
+	    var top = rightTop[1];
+
+	    var numTicks = options.units * options.ticksPerUnit + 1;
+
+	    var set = graphie.raphael.set();
+
+	    var px = 1 / graphie.scale[0];
+	    set.push(graphie.line([left - px, bottom], [right + px, bottom], bold));
+	    set.push(graphie.line([left - px, top], [right + px, top], bold));
+
+	    _.times(numTicks, function (i) {
+	        var n = i / options.ticksPerUnit;
+	        var x = left + n * graphieUnitsPerUnit;
+	        var height = getTickHeight(i) * graphieUnitsHeight;
+
+	        var style = i === 0 || i === numTicks - 1 ? bold : light;
+	        set.push(graphie.line([x, bottom], [x, bottom + height], style));
+
+	        if (n % 1 === 0) {
+	            var coord = graphie.scalePoint([x, top]);
+	            var text = void 0;
+	            var offset = void 0;
+
+	            if (n === 0) {
+	                // Unit label
+	                text = options.label;
+	                offset = {
+	                    mm: 13,
+	                    cm: 11,
+	                    m: 8,
+	                    km: 11,
+	                    in: 8,
+	                    ft: 8,
+	                    yd: 10,
+	                    mi: 10
+	                }[text] || 3 * text.toString().length;
+	            } else {
+	                // Tick label
+	                text = n;
+	                offset = -3 * (n.toString().length + 1);
+	            }
+	            var label = graphie.raphael.text(coord[0] + offset, coord[1] + 10, text);
+	            label.attr({
+	                "font-family": "KaTeX_Main",
+	                "font-size": "12px",
+	                "color": "#444"
+	            });
+	            set.push(label);
+	        }
+	    });
+
+	    var mouseTarget = graphie.mouselayer.path(GraphUtils.svgPath([leftBottom, [left, top], rightTop, [right, bottom], /* closed */true]));
+	    mouseTarget.attr({
+	        fill: "#000",
+	        opacity: 0,
+	        stroke: "#000",
+	        "stroke-width": 2
+	    });
+	    set.push(mouseTarget);
+
+	    var setNodes = $.map(set, function (el) {
+	        return el.node;
+	    });
+	    $(setNodes).css("cursor", "move");
+
+	    $(setNodes).bind("vmousedown", function (event) {
+	        event.preventDefault();
+	        var startx = event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;
+	        var starty = event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;
+
+	        $(document).bind("vmousemove.ruler", function (event) {
+	            var mouseX = event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;
+	            var mouseY = event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;
+	            // can't go beyond 10 pixels from the edge
+	            mouseX = Math.max(10, Math.min(graphie.xpixels - 10, mouseX));
+	            mouseY = Math.max(10, Math.min(graphie.ypixels - 10, mouseY));
+
+	            var dx = mouseX - startx;
+	            var dy = mouseY - starty;
+
+	            set.translate(dx, dy);
+	            leftBottomHandle.setCoord([leftBottomHandle.coord[0] + dx / graphie.scale[0], leftBottomHandle.coord[1] - dy / graphie.scale[1]]);
+	            rightBottomHandle.setCoord([rightBottomHandle.coord[0] + dx / graphie.scale[0], rightBottomHandle.coord[1] - dy / graphie.scale[1]]);
+
+	            startx = mouseX;
+	            starty = mouseY;
+	        });
+
+	        $(document).one("vmouseup", function (event) {
+	            $(document).unbind("vmousemove.ruler");
+	        });
+	    });
+
+	    var leftBottomHandle = graphie.addMovablePoint({
+	        coord: leftBottom,
+	        normalStyle: {
+	            fill: KhanColors.INTERACTIVE,
+	            "fill-opacity": 0,
+	            stroke: KhanColors.INTERACTIVE
+	        },
+	        highlightStyle: {
+	            fill: KhanColors.INTERACTING,
+	            "fill-opacity": 0.1,
+	            stroke: KhanColors.INTERACTING
+	        },
+	        pointSize: 6, // or 8 maybe?
+	        onMove: function onMove(x, y) {
+	            var dy = rightBottomHandle.coord[1] - y;
+	            var dx = rightBottomHandle.coord[0] - x;
+	            var angle = Math.atan2(dy, dx) * 180 / Math.PI;
+	            var center = kvector.scale(kvector.add([x, y], rightBottomHandle.coord), 0.5);
+	            var scaledCenter = graphie.scalePoint(center);
+	            var oldCenter = kvector.scale(kvector.add(leftBottomHandle.coord, rightBottomHandle.coord), 0.5);
+	            var scaledOldCenter = graphie.scalePoint(oldCenter);
+	            var diff = kvector.subtract(scaledCenter, scaledOldCenter);
+	            set.rotate(-angle, scaledOldCenter[0], scaledOldCenter[1]);
+	            set.translate(diff[0], diff[1]);
+	        }
+	    });
+	    var rightBottomHandle = graphie.addMovablePoint({
+	        coord: [right, bottom],
+	        normalStyle: {
+	            fill: KhanColors.INTERACTIVE,
+	            "fill-opacity": 0,
+	            stroke: KhanColors.INTERACTIVE
+	        },
+	        highlightStyle: {
+	            fill: KhanColors.INTERACTING,
+	            "fill-opacity": 0.1,
+	            stroke: KhanColors.INTERACTING
+	        },
+	        pointSize: 6, // or 8 maybe?
+	        onMove: function onMove(x, y) {
+	            var dy = y - leftBottomHandle.coord[1];
+	            var dx = x - leftBottomHandle.coord[0];
+	            var angle = Math.atan2(dy, dx) * 180 / Math.PI;
+	            var center = kvector.scale(kvector.add([x, y], leftBottomHandle.coord), 0.5);
+	            var scaledCenter = graphie.scalePoint(center);
+	            var oldCenter = kvector.scale(kvector.add(leftBottomHandle.coord, rightBottomHandle.coord), 0.5);
+	            var scaledOldCenter = graphie.scalePoint(oldCenter);
+	            var diff = kvector.subtract(scaledCenter, scaledOldCenter);
+	            set.rotate(-angle, scaledOldCenter[0], scaledOldCenter[1]);
+	            set.translate(diff[0], diff[1]);
+	        }
+	    });
+
+	    // Make each handle rotate the ruler about the other one
+	    leftBottomHandle.constraints.fixedDistance.dist = width / graphie.scale[0];
+	    leftBottomHandle.constraints.fixedDistance.point = rightBottomHandle;
+	    rightBottomHandle.constraints.fixedDistance.dist = width / graphie.scale[0];
+	    rightBottomHandle.constraints.fixedDistance.point = leftBottomHandle;
+
+	    this.remove = function () {
+	        set.remove();
+	        leftBottomHandle.remove();
+	        rightBottomHandle.remove();
+	    };
+
+	    return this;
+	}
+
+	function MovableAngle(graphie, options) {
+	    this.graphie = graphie;
+
+	    // TODO(alex): Move standard colors from math.js to somewhere else
+	    // so that they are available when this file is first parsed
+	    _.extend(this, options);
+	    _.defaults(this, {
+	        normalStyle: {
+	            "stroke": KhanColors.INTERACTIVE,
+	            "stroke-width": 2,
+	            "fill": KhanColors.INTERACTIVE
+	        },
+	        highlightStyle: {
+	            "stroke": KhanColors.INTERACTING,
+	            "stroke-width": 2,
+	            "fill": KhanColors.INTERACTING
+	        },
+	        labelStyle: {
+	            "stroke": KhanColors.DYNAMIC,
+	            "stroke-width": 1,
+	            "color": KhanColors.DYNAMIC
+	        },
+	        angleStyle: {
+	            "stroke": KhanColors.DYNAMIC,
+	            "stroke-width": 1,
+	            "color": KhanColors.DYNAMIC
+	        },
+	        allowReflex: true });
+
+	    if (!this.points || this.points.length !== 3) {
+	        throw new Error("MovableAngle requires 3 points");
+	    }
+
+	    // Handle coordinates that are not MovablePoints (i.e. [2, 4])
+	    this.points = _.map(options.points, function (point) {
+	        if (_.isArray(point)) {
+	            return graphie.addMovablePoint({
+	                coord: point,
+	                visible: false,
+	                constraints: {
+	                    fixed: true
+	                },
+	                normalStyle: this.normalStyle
+	            });
+	        } else {
+	            return point;
+	        }
+	    }, this);
+	    this.coords = _.pluck(this.points, "coord");
+	    if (this.reflex == null) {
+	        if (this.allowReflex) {
+	            this.reflex = this._getClockwiseAngle(this.coords) > 180;
+	        } else {
+	            this.reflex = false;
+	        }
+	    }
+
+	    this.rays = _.map([0, 2], function (i) {
+	        return graphie.addMovableLineSegment({
+	            pointA: this.points[1],
+	            pointZ: this.points[i],
+	            fixed: true,
+	            extendRay: true
+	        });
+	    }, this);
+
+	    this.temp = [];
+	    this.labeledAngle = graphie.label([0, 0], "", "center", this.labelStyle);
+
+	    if (!this.fixed) {
+	        this.addMoveHandlers();
+	        this.addHighlightHandlers();
+	    }
+	    this.update();
+	}
+
+	_.extend(MovableAngle.prototype, {
+	    points: [],
+	    snapDegrees: 0,
+	    snapOffsetDeg: 0,
+	    angleLabel: "",
+	    numArcs: 1,
+	    pushOut: 0,
+	    fixed: false,
+
+	    addMoveHandlers: function addMoveHandlers() {
+	        var graphie = this.graphie;
+
+	        function tooClose(point1, point2) {
+	            var safeDistance = 30;
+	            var distance = GraphUtils.getDistance(graphie.scalePoint(point1), graphie.scalePoint(point2));
+	            return distance < safeDistance;
+	        }
+
+	        var points = this.points;
+
+	        // Drag the vertex to move the entire angle
+	        points[1].onMove = function (x, y) {
+	            var oldVertex = points[1].coord;
+	            var newVertex = [x, y];
+	            var delta = addPoints(newVertex, reverseVector(oldVertex));
+
+	            var valid = true;
+	            var newPoints = {};
+	            _.each([0, 2], function (i) {
+	                var oldPoint = points[i].coord;
+	                var newPoint = addPoints(oldPoint, delta);
+
+	                var angle = GraphUtils.findAngle(newVertex, newPoint);
+	                angle *= Math.PI / 180;
+	                newPoint = graphie.constrainToBoundsOnAngle(newPoint, 10, angle);
+	                newPoints[i] = newPoint;
+
+	                if (tooClose(newVertex, newPoint)) {
+	                    valid = false;
+	                }
+	            });
+
+	            // Only move points if all new positions are valid
+	            if (valid) {
+	                _.each(newPoints, function (newPoint, i) {
+	                    points[i].setCoord(newPoint);
+	                });
+	            }
+	            return valid;
+	        };
+
+	        var snap = this.snapDegrees;
+	        var snapOffset = this.snapOffsetDeg;
+
+	        // Drag ray control points to move each ray individually
+	        _.each([0, 2], function (i) {
+	            points[i].onMove = function (x, y) {
+	                var newPoint = [x, y];
+	                var vertex = points[1].coord;
+
+	                if (tooClose(vertex, newPoint)) {
+	                    return false;
+	                } else if (snap) {
+	                    var angle = GraphUtils.findAngle(newPoint, vertex);
+	                    angle = Math.round((angle - snapOffset) / snap) * snap + snapOffset;
+	                    var distance = GraphUtils.getDistance(newPoint, vertex);
+	                    return addPoints(vertex, graphie.polar(distance, angle));
+	                } else {
+	                    return true;
+	                }
+	            };
+	        });
+
+	        // Expose only a single move event
+	        $(points).on("move", function () {
+	            this.update();
+	            $(this).trigger("move");
+	        }.bind(this));
+	    },
+
+	    addHighlightHandlers: function addHighlightHandlers() {
+	        var vertex = this.points[1];
+
+	        vertex.onHighlight = function () {
+	            _.each(this.points, function (point) {
+	                point.visibleShape.animate(this.highlightStyle, 50);
+	            }, this);
+	            _.each(this.rays, function (ray) {
+	                ray.visibleLine.animate(this.highlightStyle, 50);
+	                ray.arrowStyle = _.extend({}, ray.arrowStyle, {
+	                    "color": this.highlightStyle.stroke,
+	                    "stroke": this.highlightStyle.stroke
+	                });
+	            }, this);
+
+	            this.angleStyle = _.extend({}, this.angleStyle, {
+	                "color": this.highlightStyle.stroke,
+	                "stroke": this.highlightStyle.stroke
+	            });
+	            this.update();
+	        }.bind(this);
+
+	        vertex.onUnhighlight = function () {
+	            _.each(this.points, function (point) {
+	                point.visibleShape.animate(this.normalStyle, 50);
+	            }, this);
+	            _.each(this.rays, function (ray) {
+	                ray.visibleLine.animate(ray.normalStyle, 50);
+	                ray.arrowStyle = _.extend({}, ray.arrowStyle, {
+	                    "color": ray.normalStyle.stroke,
+	                    "stroke": ray.normalStyle.stroke
+	                });
+	            }, this);
+
+	            this.angleStyle = _.extend({}, this.angleStyle, {
+	                "color": KhanColors.DYNAMIC,
+	                "stroke": KhanColors.DYNAMIC
+	            });
+	            this.update();
+	        }.bind(this);
+	    },
+
+	    /**
 	     * Returns the angle in [0, 360) degrees created by the
 	     * coords when interpreted in a clockwise direction.
-	     */_getClockwiseAngle:function _getClockwiseAngle(coords){var clockwiseAngle=(GraphUtils.findAngle(// The order of these is "weird" to match what a clockwise
-	// order is in graphie.labelAngle
-	coords[2],// from the second point
-	coords[0],// clockwise to the first point
-	coords[1]// the vertex parameter is last
-	)+360)%360;return clockwiseAngle;},isReflex:function isReflex(){return this.reflex;},isClockwise:function isClockwise(){var clockwiseReflexive=this._getClockwiseAngle(this.coords)>180;return clockwiseReflexive===this.reflex;},getClockwiseCoords:function getClockwiseCoords(){if(this.isClockwise()){return _.clone(this.coords);}else{return _.clone(this.coords).reverse();}},update:function update(shouldChangeReflexivity){var prevCoords=this.coords;this.coords=_.pluck(this.points,"coord");// Update lines
-	_.invoke(this.points,"updateLineEnds");var prevAngle=this._getClockwiseAngle(prevCoords);var angle=this._getClockwiseAngle(this.coords);var prevClockwiseReflexive=prevAngle>180;var clockwiseReflexive=angle>180;if(this.allowReflex){if(shouldChangeReflexivity==null){shouldChangeReflexivity=prevClockwiseReflexive!==clockwiseReflexive&&Math.abs(angle-prevAngle)<180;}if(shouldChangeReflexivity){this.reflex=!this.reflex;}}_.invoke(this.temp,"remove");this.temp=this.graphie.labelAngle({point1:this.coords[0],vertex:this.coords[1],point3:this.coords[2],label:this.labeledAngle,text:this.angleLabel,numArcs:this.numArcs,pushOut:this.pushOut,clockwise:this.reflex===clockwiseReflexive,style:this.angleStyle});},remove:function remove(){_.invoke(this.rays,"remove");_.invoke(this.temp,"remove");this.labeledAngle.remove();}});module.exports=InteractiveUtils;
+	     */
+	    _getClockwiseAngle: function _getClockwiseAngle(coords) {
+	        var clockwiseAngle = (GraphUtils.findAngle(
+	        // The order of these is "weird" to match what a clockwise
+	        // order is in graphie.labelAngle
+	        coords[2], // from the second point
+	        coords[0], // clockwise to the first point
+	        coords[1] // the vertex parameter is last
+	        ) + 360) % 360;
+
+	        return clockwiseAngle;
+	    },
+
+	    isReflex: function isReflex() {
+	        return this.reflex;
+	    },
+
+	    isClockwise: function isClockwise() {
+	        var clockwiseReflexive = this._getClockwiseAngle(this.coords) > 180;
+	        return clockwiseReflexive === this.reflex;
+	    },
+
+	    getClockwiseCoords: function getClockwiseCoords() {
+	        if (this.isClockwise()) {
+	            return _.clone(this.coords);
+	        } else {
+	            return _.clone(this.coords).reverse();
+	        }
+	    },
+
+	    update: function update(shouldChangeReflexivity) {
+	        var prevCoords = this.coords;
+	        this.coords = _.pluck(this.points, "coord");
+
+	        // Update lines
+	        _.invoke(this.points, "updateLineEnds");
+
+	        var prevAngle = this._getClockwiseAngle(prevCoords);
+	        var angle = this._getClockwiseAngle(this.coords);
+	        var prevClockwiseReflexive = prevAngle > 180;
+	        var clockwiseReflexive = angle > 180;
+
+	        if (this.allowReflex) {
+	            if (shouldChangeReflexivity == null) {
+	                shouldChangeReflexivity = prevClockwiseReflexive !== clockwiseReflexive && Math.abs(angle - prevAngle) < 180;
+	            }
+
+	            if (shouldChangeReflexivity) {
+	                this.reflex = !this.reflex;
+	            }
+	        }
+
+	        _.invoke(this.temp, "remove");
+	        this.temp = this.graphie.labelAngle({
+	            point1: this.coords[0],
+	            vertex: this.coords[1],
+	            point3: this.coords[2],
+	            label: this.labeledAngle,
+	            text: this.angleLabel,
+	            numArcs: this.numArcs,
+	            pushOut: this.pushOut,
+	            clockwise: this.reflex === clockwiseReflexive,
+	            style: this.angleStyle
+	        });
+	    },
+
+	    remove: function remove() {
+	        _.invoke(this.rays, "remove");
+	        _.invoke(this.temp, "remove");
+	        this.labeledAngle.remove();
+	    }
+	});
+
+	module.exports = InteractiveUtils;
 
 /***/ },
 /* 210 */
@@ -55429,7 +58256,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Util = __webpack_require__(6);
 	var Graphie = __webpack_require__(70);
 	var Plot = Graphie.Plot;
-	var kpoint = __webpack_require__(206).point;
+	var kpoint = __webpack_require__(205).point;
 
 	var DEFAULT_BACKGROUND_IMAGE = {
 	    url: null
@@ -56227,7 +59054,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var React = __webpack_require__(18);
-	var TeX = __webpack_require__(64);
+	var TeX = __webpack_require__(65);
 
 	var ButtonGroup = __webpack_require__(57);
 
@@ -58373,7 +61200,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var KeyConfigs = __webpack_require__(303);
 	var CursorContexts = __webpack_require__(265);
 
-	var _require = __webpack_require__(205),
+	var _require = __webpack_require__(206),
 	    BorderDirections = _require.BorderDirections,
 	    EchoAnimationTypes = _require.EchoAnimationTypes,
 	    IconTypes = _require.IconTypes,
@@ -67903,7 +70730,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var normalizeOptions = InteractiveUtil.normalizeOptions;
 
 	var assert = InteractiveUtil.assert;
-	var kpoint = __webpack_require__(206).point;
+	var kpoint = __webpack_require__(205).point;
 
 	// state parameters that should be converted into an array of
 	// functions
@@ -68202,8 +71029,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var assert = InteractiveUtil.assert;
 	var normalizeOptions = InteractiveUtil.normalizeOptions;
 
-	var kpoint = __webpack_require__(206).point;
-	var kvector = __webpack_require__(206).vector;
+	var kpoint = __webpack_require__(205).point;
+	var kvector = __webpack_require__(205).vector;
 	var KhanColors = __webpack_require__(197);
 	var processMath = __webpack_require__(259).processMath;
 
@@ -68708,7 +71535,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var assert = InteractiveUtil.assert;
 	var normalizeOptions = InteractiveUtil.normalizeOptions;
 
-	var kvector = __webpack_require__(206).vector;
+	var kvector = __webpack_require__(205).vector;
 	var KhanColors = __webpack_require__(197);
 
 	var FUNCTION_ARRAY_OPTIONS = ["add", "draw", "remove", "onMoveStart", "constraints", "onMove", "onMoveEnd"];
@@ -68963,7 +71790,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Creates and adds a polygon to the graph that can be dragged around.
 	 * It allows constraints on its movement and draws when moves happen.
 	 */
-	var kvector = __webpack_require__(206).vector;
+	var kvector = __webpack_require__(205).vector;
 	var _ = __webpack_require__(19);
 
 	var MovablePolygonOptions = __webpack_require__(307);
@@ -69283,7 +72110,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(19);
 	var InteractiveUtil = __webpack_require__(173);
 	var objective_ = __webpack_require__(85);
-	var kvector = __webpack_require__(206).vector;
+	var kvector = __webpack_require__(205).vector;
 
 	/*
 	 * These functions, when called on the wrapped object, simply pass the
@@ -73647,7 +76474,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/* globals katex:false, MathJax:false, Exercises:false */
 
-	var KhanMath = __webpack_require__(92);
+	var KhanMath = __webpack_require__(89);
 
 	function findChildOrAdd(elem, className) {
 	    var $child = $(elem).find("." + className);
@@ -74364,7 +77191,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(19);
 	var WrappedDefaults = __webpack_require__(252);
 	var InteractiveUtil = __webpack_require__(173);
-	var kvector = __webpack_require__(206).vector;
+	var kvector = __webpack_require__(205).vector;
 
 	var DEFAULT_OPTIONS = {
 	    maxScale: 1,
@@ -74583,7 +77410,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _require5 = __webpack_require__(222),
 	    keyIdPropType = _require5.keyIdPropType;
 
-	var _require6 = __webpack_require__(205),
+	var _require6 = __webpack_require__(206),
 	    KeypadTypes = _require6.KeypadTypes,
 	    LayoutModes = _require6.LayoutModes;
 
@@ -75030,7 +77857,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Keys = __webpack_require__(313);
 	var CursorContexts = __webpack_require__(265);
 
-	var _require = __webpack_require__(205),
+	var _require = __webpack_require__(206),
 	    DecimalSeparators = _require.DecimalSeparators;
 
 	var _require2 = __webpack_require__(314),
@@ -78518,7 +81345,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var computeLayoutParameters = __webpack_require__(339);
 
-	var _require2 = __webpack_require__(205),
+	var _require2 = __webpack_require__(206),
 	    DeviceOrientations = _require2.DeviceOrientations,
 	    DeviceTypes = _require2.DeviceTypes,
 	    EchoAnimationTypes = _require2.EchoAnimationTypes,
@@ -78994,7 +81821,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Keys = __webpack_require__(313);
 
-	var _require = __webpack_require__(205),
+	var _require = __webpack_require__(206),
 	    DecimalSeparators = _require.DecimalSeparators,
 	    IconTypes = _require.IconTypes,
 	    KeyTypes = _require.KeyTypes;
@@ -79316,7 +82143,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(19);
 
 	var WrappedEllipse = __webpack_require__(261);
-	var kpoint = __webpack_require__(206).point;
+	var kpoint = __webpack_require__(205).point;
 
 	var add = {
 	    constrain: function constrain() {
@@ -79477,9 +82304,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(19);
 	var WrappedLine = __webpack_require__(196);
 	var WrappedPath = __webpack_require__(262);
-	var kvector = __webpack_require__(206).vector;
-	var kpoint = __webpack_require__(206).point;
-	var KhanMath = __webpack_require__(92);
+	var kvector = __webpack_require__(205).vector;
+	var kpoint = __webpack_require__(205).point;
+	var KhanMath = __webpack_require__(89);
 
 	/**
 	 * Helper functions
@@ -79787,8 +82614,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 
 	var _ = __webpack_require__(19);
-	var kpoint = __webpack_require__(206).point;
-	var kvector = __webpack_require__(206).vector;
+	var kpoint = __webpack_require__(205).point;
+	var kvector = __webpack_require__(205).vector;
 
 	function sum(array) {
 	    return _.reduce(array, function (memo, arg) {
@@ -80086,7 +82913,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    roundedTopLeft = _require3.roundedTopLeft,
 	    roundedTopRight = _require3.roundedTopRight;
 
-	var _require4 = __webpack_require__(205),
+	var _require4 = __webpack_require__(206),
 	    BorderStyles = _require4.BorderStyles;
 
 	var CursorContexts = __webpack_require__(265);
@@ -80295,7 +83122,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    roundedTopLeft = _require4.roundedTopLeft,
 	    roundedTopRight = _require4.roundedTopRight;
 
-	var _require5 = __webpack_require__(205),
+	var _require5 = __webpack_require__(206),
 	    BorderStyles = _require5.BorderStyles;
 
 	var _require6 = __webpack_require__(270),
@@ -80650,7 +83477,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    valueGrey = _require4.valueGrey,
 	    gray85 = _require4.gray85;
 
-	var _require5 = __webpack_require__(205),
+	var _require5 = __webpack_require__(206),
 	    BorderStyles = _require5.BorderStyles;
 
 	var KeyConfigs = __webpack_require__(303);
@@ -80923,7 +83750,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var _require = __webpack_require__(205),
+	var _require = __webpack_require__(206),
 	    DecimalSeparators = _require.DecimalSeparators;
 
 	// We expect `window.icu` to be exposed by the parent. When in doubt, we fall
@@ -82737,7 +85564,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * might need to be.
 	 */
 
-	var _require = __webpack_require__(205),
+	var _require = __webpack_require__(206),
 	    DeviceTypes = _require.DeviceTypes,
 	    DeviceOrientations = _require.DeviceOrientations,
 	    LayoutModes = _require.LayoutModes;
@@ -83971,11 +86798,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var RANGE_BY_BIDI_TYPE = {
 
-	  L: 'A-Za-zªµºÀ-ÖØ-öø-ƺƻ' + 'Ƽ-ƿǀ-ǃǄ-ʓʔʕ-ʯʰ-ʸ' + 'ʻ-ˁː-ˑˠ-ˤˮͰ-ͳͶ-ͷ' + 'ͺͻ-ͽͿΆΈ-ΊΌΎ-Ρ' + 'Σ-ϵϷ-ҁ҂Ҋ-ԯԱ-Ֆՙ' + '՚-՟ա-և։ःऄ-हऻऽ' + 'ा-ीॉ-ौॎ-ॏॐक़-ॡ।-॥' + '०-९॰ॱॲ-ঀং-ঃঅ-ঌ' + 'এ-ঐও-নপ-রলশ-হঽ' + 'া-ীে-ৈো-ৌৎৗড়-ঢ়' + 'য়-ৡ০-৯ৰ-ৱ৴-৹৺ਃ' + 'ਅ-ਊਏ-ਐਓ-ਨਪ-ਰਲ-ਲ਼' + 'ਵ-ਸ਼ਸ-ਹਾ-ੀਖ਼-ੜਫ਼੦-੯' + 'ੲ-ੴઃઅ-ઍએ-ઑઓ-નપ-ર' + 'લ-ળવ-હઽા-ીૉો-ૌૐ' + 'ૠ-ૡ૦-૯૰ଂ-ଃଅ-ଌଏ-ଐ' + 'ଓ-ନପ-ରଲ-ଳଵ-ହଽାୀ' + 'େ-ୈୋ-ୌୗଡ଼-ଢ଼ୟ-ୡ୦-୯' + '୰ୱ୲-୷ஃஅ-ஊஎ-ஐஒ-க' + 'ங-சஜஞ-டண-தந-பம-ஹ' + 'ா-ிு-ூெ-ைொ-ௌௐௗ' + '௦-௯௰-௲ఁ-ఃఅ-ఌఎ-ఐ' + 'ఒ-నప-హఽు-ౄౘ-ౙౠ-ౡ' + '౦-౯౿ಂ-ಃಅ-ಌಎ-ಐಒ-ನ' + 'ಪ-ಳವ-ಹಽಾಿೀ-ೄೆ' + 'ೇ-ೈೊ-ೋೕ-ೖೞೠ-ೡ೦-೯' + 'ೱ-ೲം-ഃഅ-ഌഎ-ഐഒ-ഺഽ' + 'ാ-ീെ-ൈൊ-ൌൎൗൠ-ൡ' + '൦-൯൰-൵൹ൺ-ൿං-ඃඅ-ඖ' + 'ක-නඳ-රලව-ෆා-ෑෘ-ෟ' + '෦-෯ෲ-ෳ෴ก-ะา-ำเ-ๅ' + 'ๆ๏๐-๙๚-๛ກ-ຂຄງ-ຈ' + 'ຊຍດ-ທນ-ຟມ-ຣລວ' + 'ສ-ຫອ-ະາ-ຳຽເ-ໄໆ' + '໐-໙ໜ-ໟༀ༁-༃༄-༒༓༔' + '༕-༗༚-༟༠-༩༪-༳༴༶༸' + '༾-༿ཀ-ཇཉ-ཬཿ྅ྈ-ྌ' + '྾-࿅࿇-࿌࿎-࿏࿐-࿔࿕-࿘' + '࿙-࿚က-ဪါ-ာေးျ-ြဿ' + '၀-၉၊-၏ၐ-ၕၖ-ၗၚ-ၝၡ' + 'ၢ-ၤၥ-ၦၧ-ၭၮ-ၰၵ-ႁ' + 'ႃ-ႄႇ-ႌႎႏ႐-႙ႚ-ႜ' + '႞-႟Ⴀ-ჅჇჍა-ჺ჻ჼ' + 'ჽ-ቈቊ-ቍቐ-ቖቘቚ-ቝበ-ኈ' + 'ኊ-ኍነ-ኰኲ-ኵኸ-ኾዀዂ-ዅ' + 'ወ-ዖዘ-ጐጒ-ጕጘ-ፚ፠-፨' + '፩-፼ᎀ-ᎏᎠ-Ᏼᐁ-ᙬ᙭-᙮' + 'ᙯ-ᙿᚁ-ᚚᚠ-ᛪ᛫-᛭ᛮ-ᛰ' + 'ᛱ-ᛸᜀ-ᜌᜎ-ᜑᜠ-ᜱ᜵-᜶' + 'ᝀ-ᝑᝠ-ᝬᝮ-ᝰក-ឳាើ-ៅ' + 'ះ-ៈ។-៖ៗ៘-៚ៜ០-៩' + '᠐-᠙ᠠ-ᡂᡃᡄ-ᡷᢀ-ᢨᢪ' + 'ᢰ-ᣵᤀ-ᤞᤣ-ᤦᤩ-ᤫᤰ-ᤱ' + 'ᤳ-ᤸ᥆-᥏ᥐ-ᥭᥰ-ᥴᦀ-ᦫ' + 'ᦰ-ᧀᧁ-ᧇᧈ-ᧉ᧐-᧙᧚ᨀ-ᨖ' + 'ᨙ-ᨚ᨞-᨟ᨠ-ᩔᩕᩗᩡᩣ-ᩤ' + 'ᩭ-ᩲ᪀-᪉᪐-᪙᪠-᪦ᪧ᪨-᪭' + 'ᬄᬅ-ᬳᬵᬻᬽ-ᭁᭃ-᭄ᭅ-ᭋ' + '᭐-᭙᭚-᭠᭡-᭪᭴-᭼ᮂᮃ-ᮠ' + 'ᮡᮦ-ᮧ᮪ᮮ-ᮯ᮰-᮹ᮺ-ᯥᯧ' + 'ᯪ-ᯬᯮ᯲-᯳᯼-᯿ᰀ-ᰣᰤ-ᰫ' + 'ᰴ-ᰵ᰻-᰿᱀-᱉ᱍ-ᱏ᱐-᱙' + 'ᱚ-ᱷᱸ-ᱽ᱾-᱿᳀-᳇᳓᳡' + 'ᳩ-ᳬᳮ-ᳱᳲ-ᳳᳵ-ᳶᴀ-ᴫ' + 'ᴬ-ᵪᵫ-ᵷᵸᵹ-ᶚᶛ-ᶿḀ-ἕ' + 'Ἐ-Ἕἠ-ὅὈ-Ὅὐ-ὗὙὛὝ' + 'Ὗ-ώᾀ-ᾴᾶ-ᾼιῂ-ῄῆ-ῌ' + 'ῐ-ΐῖ-Ίῠ-Ῥῲ-ῴῶ-ῼ‎' + 'ⁱⁿₐ-ₜℂℇℊ-ℓℕℙ-ℝ' + 'ℤΩℨK-ℭℯ-ℴℵ-ℸℹ' + 'ℼ-ℿⅅ-ⅉⅎ⅏Ⅰ-ↂↃ-ↄ' + 'ↅ-ↈ⌶-⍺⎕⒜-ⓩ⚬⠀-⣿' + 'Ⰰ-Ⱞⰰ-ⱞⱠ-ⱻⱼ-ⱽⱾ-ⳤ' + 'Ⳬ-ⳮⳲ-ⳳⴀ-ⴥⴧⴭⴰ-ⵧⵯ' + '⵰ⶀ-ⶖⶠ-ⶦⶨ-ⶮⶰ-ⶶⶸ-ⶾ' + 'ⷀ-ⷆⷈ-ⷎⷐ-ⷖⷘ-ⷞ々〆〇' + '〡-〩〮-〯〱-〵〸-〺〻〼' + 'ぁ-ゖゝ-ゞゟァ-ヺー-ヾヿ' + 'ㄅ-ㄭㄱ-ㆎ㆐-㆑㆒-㆕㆖-㆟' + 'ㆠ-ㆺㇰ-ㇿ㈀-㈜㈠-㈩㈪-㉇' + '㉈-㉏㉠-㉻㉿㊀-㊉㊊-㊰㋀-㋋' + '㋐-㋾㌀-㍶㍻-㏝㏠-㏾㐀-䶵' + '一-鿌ꀀ-ꀔꀕꀖ-ꒌꓐ-ꓷꓸ-ꓽ' + '꓾-꓿ꔀ-ꘋꘌꘐ-ꘟ꘠-꘩ꘪ-ꘫ' + 'Ꙁ-ꙭꙮꚀ-ꚛꚜ-ꚝꚠ-ꛥꛦ-ꛯ' + '꛲-꛷Ꜣ-ꝯꝰꝱ-ꞇ꞉-꞊Ꞌ-ꞎ' + 'Ꞑ-ꞭꞰ-Ʇꟷꟸ-ꟹꟺꟻ-ꠁ' + 'ꠃ-ꠅꠇ-ꠊꠌ-ꠢꠣ-ꠤꠧ꠰-꠵' + '꠶-꠷ꡀ-ꡳꢀ-ꢁꢂ-ꢳꢴ-ꣃ' + '꣎-꣏꣐-꣙ꣲ-ꣷ꣸-꣺ꣻ꤀-꤉' + 'ꤊ-ꤥ꤮-꤯ꤰ-ꥆꥒ-꥓꥟ꥠ-ꥼ' + 'ꦃꦄ-ꦲꦴ-ꦵꦺ-ꦻꦽ-꧀꧁-꧍' + 'ꧏ꧐-꧙꧞-꧟ꧠ-ꧤꧦꧧ-ꧯ' + '꧰-꧹ꧺ-ꧾꨀ-ꨨꨯ-ꨰꨳ-ꨴ' + 'ꩀ-ꩂꩄ-ꩋꩍ꩐-꩙꩜-꩟ꩠ-ꩯ' + 'ꩰꩱ-ꩶ꩷-꩹ꩺꩻꩽꩾ-ꪯꪱ' + 'ꪵ-ꪶꪹ-ꪽꫀꫂꫛ-ꫜꫝ꫞-꫟' + 'ꫠ-ꫪꫫꫮ-ꫯ꫰-꫱ꫲꫳ-ꫴꫵ' + 'ꬁ-ꬆꬉ-ꬎꬑ-ꬖꬠ-ꬦꬨ-ꬮ' + 'ꬰ-ꭚ꭛ꭜ-ꭟꭤ-ꭥꯀ-ꯢꯣ-ꯤ' + 'ꯦ-ꯧꯩ-ꯪ꯫꯬꯰-꯹가-힣' + 'ힰ-ퟆퟋ-ퟻ-豈-舘並-龎' + 'ﬀ-ﬆﬓ-ﬗＡ-Ｚａ-ｚｦ-ｯｰ' + 'ｱ-ﾝﾞ-ﾟﾠ-ﾾￂ-ￇￊ-ￏ' + 'ￒ-ￗￚ-ￜ',
+	  L: 'A-Za-z\xAA\xB5\xBA\xC0-\xD6\xD8-\xF6\xF8-\u01BA\u01BB' + '\u01BC-\u01BF\u01C0-\u01C3\u01C4-\u0293\u0294\u0295-\u02AF\u02B0-\u02B8' + '\u02BB-\u02C1\u02D0-\u02D1\u02E0-\u02E4\u02EE\u0370-\u0373\u0376-\u0377' + '\u037A\u037B-\u037D\u037F\u0386\u0388-\u038A\u038C\u038E-\u03A1' + '\u03A3-\u03F5\u03F7-\u0481\u0482\u048A-\u052F\u0531-\u0556\u0559' + '\u055A-\u055F\u0561-\u0587\u0589\u0903\u0904-\u0939\u093B\u093D' + '\u093E-\u0940\u0949-\u094C\u094E-\u094F\u0950\u0958-\u0961\u0964-\u0965' + '\u0966-\u096F\u0970\u0971\u0972-\u0980\u0982-\u0983\u0985-\u098C' + '\u098F-\u0990\u0993-\u09A8\u09AA-\u09B0\u09B2\u09B6-\u09B9\u09BD' + '\u09BE-\u09C0\u09C7-\u09C8\u09CB-\u09CC\u09CE\u09D7\u09DC-\u09DD' + '\u09DF-\u09E1\u09E6-\u09EF\u09F0-\u09F1\u09F4-\u09F9\u09FA\u0A03' + '\u0A05-\u0A0A\u0A0F-\u0A10\u0A13-\u0A28\u0A2A-\u0A30\u0A32-\u0A33' + '\u0A35-\u0A36\u0A38-\u0A39\u0A3E-\u0A40\u0A59-\u0A5C\u0A5E\u0A66-\u0A6F' + '\u0A72-\u0A74\u0A83\u0A85-\u0A8D\u0A8F-\u0A91\u0A93-\u0AA8\u0AAA-\u0AB0' + '\u0AB2-\u0AB3\u0AB5-\u0AB9\u0ABD\u0ABE-\u0AC0\u0AC9\u0ACB-\u0ACC\u0AD0' + '\u0AE0-\u0AE1\u0AE6-\u0AEF\u0AF0\u0B02-\u0B03\u0B05-\u0B0C\u0B0F-\u0B10' + '\u0B13-\u0B28\u0B2A-\u0B30\u0B32-\u0B33\u0B35-\u0B39\u0B3D\u0B3E\u0B40' + '\u0B47-\u0B48\u0B4B-\u0B4C\u0B57\u0B5C-\u0B5D\u0B5F-\u0B61\u0B66-\u0B6F' + '\u0B70\u0B71\u0B72-\u0B77\u0B83\u0B85-\u0B8A\u0B8E-\u0B90\u0B92-\u0B95' + '\u0B99-\u0B9A\u0B9C\u0B9E-\u0B9F\u0BA3-\u0BA4\u0BA8-\u0BAA\u0BAE-\u0BB9' + '\u0BBE-\u0BBF\u0BC1-\u0BC2\u0BC6-\u0BC8\u0BCA-\u0BCC\u0BD0\u0BD7' + '\u0BE6-\u0BEF\u0BF0-\u0BF2\u0C01-\u0C03\u0C05-\u0C0C\u0C0E-\u0C10' + '\u0C12-\u0C28\u0C2A-\u0C39\u0C3D\u0C41-\u0C44\u0C58-\u0C59\u0C60-\u0C61' + '\u0C66-\u0C6F\u0C7F\u0C82-\u0C83\u0C85-\u0C8C\u0C8E-\u0C90\u0C92-\u0CA8' + '\u0CAA-\u0CB3\u0CB5-\u0CB9\u0CBD\u0CBE\u0CBF\u0CC0-\u0CC4\u0CC6' + '\u0CC7-\u0CC8\u0CCA-\u0CCB\u0CD5-\u0CD6\u0CDE\u0CE0-\u0CE1\u0CE6-\u0CEF' + '\u0CF1-\u0CF2\u0D02-\u0D03\u0D05-\u0D0C\u0D0E-\u0D10\u0D12-\u0D3A\u0D3D' + '\u0D3E-\u0D40\u0D46-\u0D48\u0D4A-\u0D4C\u0D4E\u0D57\u0D60-\u0D61' + '\u0D66-\u0D6F\u0D70-\u0D75\u0D79\u0D7A-\u0D7F\u0D82-\u0D83\u0D85-\u0D96' + '\u0D9A-\u0DB1\u0DB3-\u0DBB\u0DBD\u0DC0-\u0DC6\u0DCF-\u0DD1\u0DD8-\u0DDF' + '\u0DE6-\u0DEF\u0DF2-\u0DF3\u0DF4\u0E01-\u0E30\u0E32-\u0E33\u0E40-\u0E45' + '\u0E46\u0E4F\u0E50-\u0E59\u0E5A-\u0E5B\u0E81-\u0E82\u0E84\u0E87-\u0E88' + '\u0E8A\u0E8D\u0E94-\u0E97\u0E99-\u0E9F\u0EA1-\u0EA3\u0EA5\u0EA7' + '\u0EAA-\u0EAB\u0EAD-\u0EB0\u0EB2-\u0EB3\u0EBD\u0EC0-\u0EC4\u0EC6' + '\u0ED0-\u0ED9\u0EDC-\u0EDF\u0F00\u0F01-\u0F03\u0F04-\u0F12\u0F13\u0F14' + '\u0F15-\u0F17\u0F1A-\u0F1F\u0F20-\u0F29\u0F2A-\u0F33\u0F34\u0F36\u0F38' + '\u0F3E-\u0F3F\u0F40-\u0F47\u0F49-\u0F6C\u0F7F\u0F85\u0F88-\u0F8C' + '\u0FBE-\u0FC5\u0FC7-\u0FCC\u0FCE-\u0FCF\u0FD0-\u0FD4\u0FD5-\u0FD8' + '\u0FD9-\u0FDA\u1000-\u102A\u102B-\u102C\u1031\u1038\u103B-\u103C\u103F' + '\u1040-\u1049\u104A-\u104F\u1050-\u1055\u1056-\u1057\u105A-\u105D\u1061' + '\u1062-\u1064\u1065-\u1066\u1067-\u106D\u106E-\u1070\u1075-\u1081' + '\u1083-\u1084\u1087-\u108C\u108E\u108F\u1090-\u1099\u109A-\u109C' + '\u109E-\u109F\u10A0-\u10C5\u10C7\u10CD\u10D0-\u10FA\u10FB\u10FC' + '\u10FD-\u1248\u124A-\u124D\u1250-\u1256\u1258\u125A-\u125D\u1260-\u1288' + '\u128A-\u128D\u1290-\u12B0\u12B2-\u12B5\u12B8-\u12BE\u12C0\u12C2-\u12C5' + '\u12C8-\u12D6\u12D8-\u1310\u1312-\u1315\u1318-\u135A\u1360-\u1368' + '\u1369-\u137C\u1380-\u138F\u13A0-\u13F4\u1401-\u166C\u166D-\u166E' + '\u166F-\u167F\u1681-\u169A\u16A0-\u16EA\u16EB-\u16ED\u16EE-\u16F0' + '\u16F1-\u16F8\u1700-\u170C\u170E-\u1711\u1720-\u1731\u1735-\u1736' + '\u1740-\u1751\u1760-\u176C\u176E-\u1770\u1780-\u17B3\u17B6\u17BE-\u17C5' + '\u17C7-\u17C8\u17D4-\u17D6\u17D7\u17D8-\u17DA\u17DC\u17E0-\u17E9' + '\u1810-\u1819\u1820-\u1842\u1843\u1844-\u1877\u1880-\u18A8\u18AA' + '\u18B0-\u18F5\u1900-\u191E\u1923-\u1926\u1929-\u192B\u1930-\u1931' + '\u1933-\u1938\u1946-\u194F\u1950-\u196D\u1970-\u1974\u1980-\u19AB' + '\u19B0-\u19C0\u19C1-\u19C7\u19C8-\u19C9\u19D0-\u19D9\u19DA\u1A00-\u1A16' + '\u1A19-\u1A1A\u1A1E-\u1A1F\u1A20-\u1A54\u1A55\u1A57\u1A61\u1A63-\u1A64' + '\u1A6D-\u1A72\u1A80-\u1A89\u1A90-\u1A99\u1AA0-\u1AA6\u1AA7\u1AA8-\u1AAD' + '\u1B04\u1B05-\u1B33\u1B35\u1B3B\u1B3D-\u1B41\u1B43-\u1B44\u1B45-\u1B4B' + '\u1B50-\u1B59\u1B5A-\u1B60\u1B61-\u1B6A\u1B74-\u1B7C\u1B82\u1B83-\u1BA0' + '\u1BA1\u1BA6-\u1BA7\u1BAA\u1BAE-\u1BAF\u1BB0-\u1BB9\u1BBA-\u1BE5\u1BE7' + '\u1BEA-\u1BEC\u1BEE\u1BF2-\u1BF3\u1BFC-\u1BFF\u1C00-\u1C23\u1C24-\u1C2B' + '\u1C34-\u1C35\u1C3B-\u1C3F\u1C40-\u1C49\u1C4D-\u1C4F\u1C50-\u1C59' + '\u1C5A-\u1C77\u1C78-\u1C7D\u1C7E-\u1C7F\u1CC0-\u1CC7\u1CD3\u1CE1' + '\u1CE9-\u1CEC\u1CEE-\u1CF1\u1CF2-\u1CF3\u1CF5-\u1CF6\u1D00-\u1D2B' + '\u1D2C-\u1D6A\u1D6B-\u1D77\u1D78\u1D79-\u1D9A\u1D9B-\u1DBF\u1E00-\u1F15' + '\u1F18-\u1F1D\u1F20-\u1F45\u1F48-\u1F4D\u1F50-\u1F57\u1F59\u1F5B\u1F5D' + '\u1F5F-\u1F7D\u1F80-\u1FB4\u1FB6-\u1FBC\u1FBE\u1FC2-\u1FC4\u1FC6-\u1FCC' + '\u1FD0-\u1FD3\u1FD6-\u1FDB\u1FE0-\u1FEC\u1FF2-\u1FF4\u1FF6-\u1FFC\u200E' + '\u2071\u207F\u2090-\u209C\u2102\u2107\u210A-\u2113\u2115\u2119-\u211D' + '\u2124\u2126\u2128\u212A-\u212D\u212F-\u2134\u2135-\u2138\u2139' + '\u213C-\u213F\u2145-\u2149\u214E\u214F\u2160-\u2182\u2183-\u2184' + '\u2185-\u2188\u2336-\u237A\u2395\u249C-\u24E9\u26AC\u2800-\u28FF' + '\u2C00-\u2C2E\u2C30-\u2C5E\u2C60-\u2C7B\u2C7C-\u2C7D\u2C7E-\u2CE4' + '\u2CEB-\u2CEE\u2CF2-\u2CF3\u2D00-\u2D25\u2D27\u2D2D\u2D30-\u2D67\u2D6F' + '\u2D70\u2D80-\u2D96\u2DA0-\u2DA6\u2DA8-\u2DAE\u2DB0-\u2DB6\u2DB8-\u2DBE' + '\u2DC0-\u2DC6\u2DC8-\u2DCE\u2DD0-\u2DD6\u2DD8-\u2DDE\u3005\u3006\u3007' + '\u3021-\u3029\u302E-\u302F\u3031-\u3035\u3038-\u303A\u303B\u303C' + '\u3041-\u3096\u309D-\u309E\u309F\u30A1-\u30FA\u30FC-\u30FE\u30FF' + '\u3105-\u312D\u3131-\u318E\u3190-\u3191\u3192-\u3195\u3196-\u319F' + '\u31A0-\u31BA\u31F0-\u31FF\u3200-\u321C\u3220-\u3229\u322A-\u3247' + '\u3248-\u324F\u3260-\u327B\u327F\u3280-\u3289\u328A-\u32B0\u32C0-\u32CB' + '\u32D0-\u32FE\u3300-\u3376\u337B-\u33DD\u33E0-\u33FE\u3400-\u4DB5' + '\u4E00-\u9FCC\uA000-\uA014\uA015\uA016-\uA48C\uA4D0-\uA4F7\uA4F8-\uA4FD' + '\uA4FE-\uA4FF\uA500-\uA60B\uA60C\uA610-\uA61F\uA620-\uA629\uA62A-\uA62B' + '\uA640-\uA66D\uA66E\uA680-\uA69B\uA69C-\uA69D\uA6A0-\uA6E5\uA6E6-\uA6EF' + '\uA6F2-\uA6F7\uA722-\uA76F\uA770\uA771-\uA787\uA789-\uA78A\uA78B-\uA78E' + '\uA790-\uA7AD\uA7B0-\uA7B1\uA7F7\uA7F8-\uA7F9\uA7FA\uA7FB-\uA801' + '\uA803-\uA805\uA807-\uA80A\uA80C-\uA822\uA823-\uA824\uA827\uA830-\uA835' + '\uA836-\uA837\uA840-\uA873\uA880-\uA881\uA882-\uA8B3\uA8B4-\uA8C3' + '\uA8CE-\uA8CF\uA8D0-\uA8D9\uA8F2-\uA8F7\uA8F8-\uA8FA\uA8FB\uA900-\uA909' + '\uA90A-\uA925\uA92E-\uA92F\uA930-\uA946\uA952-\uA953\uA95F\uA960-\uA97C' + '\uA983\uA984-\uA9B2\uA9B4-\uA9B5\uA9BA-\uA9BB\uA9BD-\uA9C0\uA9C1-\uA9CD' + '\uA9CF\uA9D0-\uA9D9\uA9DE-\uA9DF\uA9E0-\uA9E4\uA9E6\uA9E7-\uA9EF' + '\uA9F0-\uA9F9\uA9FA-\uA9FE\uAA00-\uAA28\uAA2F-\uAA30\uAA33-\uAA34' + '\uAA40-\uAA42\uAA44-\uAA4B\uAA4D\uAA50-\uAA59\uAA5C-\uAA5F\uAA60-\uAA6F' + '\uAA70\uAA71-\uAA76\uAA77-\uAA79\uAA7A\uAA7B\uAA7D\uAA7E-\uAAAF\uAAB1' + '\uAAB5-\uAAB6\uAAB9-\uAABD\uAAC0\uAAC2\uAADB-\uAADC\uAADD\uAADE-\uAADF' + '\uAAE0-\uAAEA\uAAEB\uAAEE-\uAAEF\uAAF0-\uAAF1\uAAF2\uAAF3-\uAAF4\uAAF5' + '\uAB01-\uAB06\uAB09-\uAB0E\uAB11-\uAB16\uAB20-\uAB26\uAB28-\uAB2E' + '\uAB30-\uAB5A\uAB5B\uAB5C-\uAB5F\uAB64-\uAB65\uABC0-\uABE2\uABE3-\uABE4' + '\uABE6-\uABE7\uABE9-\uABEA\uABEB\uABEC\uABF0-\uABF9\uAC00-\uD7A3' + '\uD7B0-\uD7C6\uD7CB-\uD7FB\uE000-\uF8FF\uF900-\uFA6D\uFA70-\uFAD9' + '\uFB00-\uFB06\uFB13-\uFB17\uFF21-\uFF3A\uFF41-\uFF5A\uFF66-\uFF6F\uFF70' + '\uFF71-\uFF9D\uFF9E-\uFF9F\uFFA0-\uFFBE\uFFC2-\uFFC7\uFFCA-\uFFCF' + '\uFFD2-\uFFD7\uFFDA-\uFFDC',
 
-	  R: '֐־׀׃׆׈-׏א-ת׫-ׯ' + 'װ-ײ׳-״׵-׿߀-߉ߊ-ߪ' + 'ߴ-ߵߺ߻-߿ࠀ-ࠕࠚࠤࠨ' + '࠮-࠯࠰-࠾࠿ࡀ-ࡘ࡜-࡝࡞' + '࡟-࢟‏יִײַ-ﬨשׁ-זּ﬷טּ-לּ' + '﬽מּ﬿נּ-סּ﭂ףּ-פּ﭅צּ-ﭏ',
+	  R: '\u0590\u05BE\u05C0\u05C3\u05C6\u05C8-\u05CF\u05D0-\u05EA\u05EB-\u05EF' + '\u05F0-\u05F2\u05F3-\u05F4\u05F5-\u05FF\u07C0-\u07C9\u07CA-\u07EA' + '\u07F4-\u07F5\u07FA\u07FB-\u07FF\u0800-\u0815\u081A\u0824\u0828' + '\u082E-\u082F\u0830-\u083E\u083F\u0840-\u0858\u085C-\u085D\u085E' + '\u085F-\u089F\u200F\uFB1D\uFB1F-\uFB28\uFB2A-\uFB36\uFB37\uFB38-\uFB3C' + '\uFB3D\uFB3E\uFB3F\uFB40-\uFB41\uFB42\uFB43-\uFB44\uFB45\uFB46-\uFB4F',
 
-	  AL: '؈؋؍؛؜؝؞-؟ؠ-ؿـ' + 'ف-ي٭ٮ-ٯٱ-ۓ۔ەۥ-ۦ' + 'ۮ-ۯۺ-ۼ۽-۾ۿ܀-܍܎܏' + 'ܐܒ-ܯ݋-݌ݍ-ޥޱ޲-޿' + 'ࢠ-ࢲࢳ-ࣣﭐ-ﮱ﮲-﯁﯂-﯒' + 'ﯓ-ﴽ﵀-﵏ﵐ-ﶏ﶐-﶑ﶒ-ﷇ' + '﷈-﷏ﷰ-ﷻ﷼﷾-﷿ﹰ-ﹴ﹵' + 'ﹶ-ﻼ﻽-﻾'
+	  AL: '\u0608\u060B\u060D\u061B\u061C\u061D\u061E-\u061F\u0620-\u063F\u0640' + '\u0641-\u064A\u066D\u066E-\u066F\u0671-\u06D3\u06D4\u06D5\u06E5-\u06E6' + '\u06EE-\u06EF\u06FA-\u06FC\u06FD-\u06FE\u06FF\u0700-\u070D\u070E\u070F' + '\u0710\u0712-\u072F\u074B-\u074C\u074D-\u07A5\u07B1\u07B2-\u07BF' + '\u08A0-\u08B2\u08B3-\u08E3\uFB50-\uFBB1\uFBB2-\uFBC1\uFBC2-\uFBD2' + '\uFBD3-\uFD3D\uFD40-\uFD4F\uFD50-\uFD8F\uFD90-\uFD91\uFD92-\uFDC7' + '\uFDC8-\uFDCF\uFDF0-\uFDFB\uFDFC\uFDFE-\uFDFF\uFE70-\uFE74\uFE75' + '\uFE76-\uFEFC\uFEFD-\uFEFE'
 
 	};
 
@@ -84334,12 +87161,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * will remain to ensure logic does not differ in production.
 	 */
 
-	function invariant(condition, format, a, b, c, d, e, f) {
-	  if (false) {
+	var validateFormat = function validateFormat(format) {};
+
+	if (false) {
+	  validateFormat = function validateFormat(format) {
 	    if (format === undefined) {
 	      throw new Error('invariant requires an error message argument');
 	    }
-	  }
+	  };
+	}
+
+	function invariant(condition, format, a, b, c, d, e, f) {
+	  validateFormat(format);
 
 	  if (!condition) {
 	    var error;
@@ -85077,7 +87910,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    connect = _require.connect;
 
 	var _require2 = __webpack_require__(301),
-	    _removeEcho = _require2.removeEcho;
+	    removeEcho = _require2.removeEcho;
 
 	var _require3 = __webpack_require__(304),
 	    View = _require3.View;
@@ -85209,9 +88042,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	    return {
-	        removeEcho: function removeEcho(animationId) {
-	            dispatch(_removeEcho(animationId));
-	        }
+	        removeEcho: function (_removeEcho) {
+	            function removeEcho(_x) {
+	                return _removeEcho.apply(this, arguments);
+	            }
+
+	            removeEcho.toString = function () {
+	                return _removeEcho.toString();
+	            };
+
+	            return removeEcho;
+	        }(function (animationId) {
+	            dispatch(removeEcho(animationId));
+	        })
 	    };
 	};
 
@@ -85247,7 +88090,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    bordersPropType = _require2.bordersPropType,
 	    keyIdPropType = _require2.keyIdPropType;
 
-	var _require3 = __webpack_require__(205),
+	var _require3 = __webpack_require__(206),
 	    KeyTypes = _require3.KeyTypes;
 
 	var TouchableKeypadButton = React.createClass({
@@ -85503,7 +88346,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Keys = __webpack_require__(313);
 	var KeyConfigs = __webpack_require__(303);
 
-	var _require = __webpack_require__(205),
+	var _require = __webpack_require__(206),
 	    KeyTypes = _require.KeyTypes;
 
 	var _require2 = __webpack_require__(222),
@@ -87272,8 +90115,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  if (expressions.length === 1) {
 	    return checkSimpleExpression(expressions[0], version);
 	  } else {
-	    var startVersion = expressions[0];
-	    var endVersion = expressions[1];
+	    var startVersion = expressions[0],
+	        endVersion = expressions[1];
 
 	    !(isSimpleVersion(startVersion) && isSimpleVersion(endVersion)) ? false ? invariant(false, 'operands to the "-" operator must be simple (no modifiers)') : invariant(false) : void 0;
 
@@ -87297,10 +90140,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  var versionComponents = version.split(componentRegex);
 
-	  var _getModifierAndCompon = getModifierAndComponents(range);
-
-	  var modifier = _getModifierAndCompon.modifier;
-	  var rangeComponents = _getModifierAndCompon.rangeComponents;
+	  var _getModifierAndCompon = getModifierAndComponents(range),
+	      modifier = _getModifierAndCompon.modifier,
+	      rangeComponents = _getModifierAndCompon.rangeComponents;
 
 	  switch (modifier) {
 	    case '<':
@@ -87546,11 +90388,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * or greater than `b`, respectively
 	 */
 	function compareComponents(a, b) {
-	  var _normalizeVersions = normalizeVersions(a, b);
-
-	  var aNormalized = _normalizeVersions[0];
-	  var bNormalized = _normalizeVersions[1];
-
+	  var _normalizeVersions = normalizeVersions(a, b),
+	      aNormalized = _normalizeVersions[0],
+	      bNormalized = _normalizeVersions[1];
 
 	  for (var i = 0; i < bNormalized.length; i++) {
 	    var result = compareNumeric(aNormalized[i], bNormalized[i]);
@@ -88021,7 +90861,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _warning2 = _interopRequireDefault(_warning);
 
 	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { "default": obj };
+	  return obj && obj.__esModule ? obj : { 'default': obj };
 	}
 
 	/*
@@ -88031,14 +90871,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	function isCrushed() {}
 
 	if (false) {
-	  (0, _warning2["default"])('You are currently using minified code outside of NODE_ENV === \'production\'. ' + 'This means that you are running a slower development build of Redux. ' + 'You can use loose-envify (https://github.com/zertosh/loose-envify) for browserify ' + 'or DefinePlugin for webpack (http://stackoverflow.com/questions/30030031) ' + 'to ensure you have the correct code for your production build.');
+	  (0, _warning2['default'])('You are currently using minified code outside of NODE_ENV === \'production\'. ' + 'This means that you are running a slower development build of Redux. ' + 'You can use loose-envify (https://github.com/zertosh/loose-envify) for browserify ' + 'or DefinePlugin for webpack (http://stackoverflow.com/questions/30030031) ' + 'to ensure you have the correct code for your production build.');
 	}
 
-	exports.createStore = _createStore2["default"];
-	exports.combineReducers = _combineReducers2["default"];
-	exports.bindActionCreators = _bindActionCreators2["default"];
-	exports.applyMiddleware = _applyMiddleware2["default"];
-	exports.compose = _compose2["default"];
+	exports.createStore = _createStore2['default'];
+	exports.combineReducers = _combineReducers2['default'];
+	exports.bindActionCreators = _bindActionCreators2['default'];
+	exports.applyMiddleware = _applyMiddleware2['default'];
+	exports.compose = _compose2['default'];
 
 /***/ },
 /* 399 */
@@ -88110,9 +90950,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 
 	  Provider.prototype.render = function render() {
-	    var children = this.props.children;
-
-	    return _react.Children.only(children);
+	    return _react.Children.only(this.props.children);
 	  };
 
 	  return Provider;
@@ -88147,6 +90985,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
+	exports.__esModule = true;
+
 	var _extends = Object.assign || function (target) {
 	  for (var i = 1; i < arguments.length; i++) {
 	    var source = arguments[i];for (var key in source) {
@@ -88157,7 +90997,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }return target;
 	};
 
-	exports.__esModule = true;
 	exports["default"] = connect;
 
 	var _react = __webpack_require__(18);
@@ -88240,12 +91079,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	var nextVersion = 0;
 
 	function connect(mapStateToProps, mapDispatchToProps, mergeProps) {
-	  var options = arguments.length <= 3 || arguments[3] === undefined ? {} : arguments[3];
+	  var options = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
 
 	  var shouldSubscribe = Boolean(mapStateToProps);
 	  var mapState = mapStateToProps || defaultMapStateToProps;
 
-	  var mapDispatch = undefined;
+	  var mapDispatch = void 0;
 	  if (typeof mapDispatchToProps === 'function') {
 	    mapDispatch = mapDispatchToProps;
 	  } else if (!mapDispatchToProps) {
@@ -88255,10 +91094,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 
 	  var finalMergeProps = mergeProps || defaultMergeProps;
-	  var _options$pure = options.pure;
-	  var pure = _options$pure === undefined ? true : _options$pure;
-	  var _options$withRef = options.withRef;
-	  var withRef = _options$withRef === undefined ? false : _options$withRef;
+	  var _options$pure = options.pure,
+	      pure = _options$pure === undefined ? true : _options$pure,
+	      _options$withRef = options.withRef,
+	      withRef = _options$withRef === undefined ? false : _options$withRef;
 
 	  var checkMergedEquals = pure && finalMergeProps !== defaultMergeProps;
 
@@ -88477,11 +91316,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	      };
 
 	      Connect.prototype.render = function render() {
-	        var haveOwnPropsChanged = this.haveOwnPropsChanged;
-	        var hasStoreStateChanged = this.hasStoreStateChanged;
-	        var haveStatePropsBeenPrecalculated = this.haveStatePropsBeenPrecalculated;
-	        var statePropsPrecalculationError = this.statePropsPrecalculationError;
-	        var renderedElement = this.renderedElement;
+	        var haveOwnPropsChanged = this.haveOwnPropsChanged,
+	            hasStoreStateChanged = this.hasStoreStateChanged,
+	            haveStatePropsBeenPrecalculated = this.haveStatePropsBeenPrecalculated,
+	            statePropsPrecalculationError = this.statePropsPrecalculationError,
+	            renderedElement = this.renderedElement;
 
 	        this.haveOwnPropsChanged = false;
 	        this.hasStoreStateChanged = false;
@@ -88578,7 +91417,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var KeypadButton = __webpack_require__(403);
 	var KeyConfigs = __webpack_require__(303);
 
-	var _require = __webpack_require__(205),
+	var _require = __webpack_require__(206),
 	    KeyTypes = _require.KeyTypes,
 	    EchoAnimationTypes = _require.EchoAnimationTypes;
 
@@ -88861,7 +91700,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var MultiSymbolGrid = __webpack_require__(430);
 	var CornerDecal = __webpack_require__(431);
 
-	var _require4 = __webpack_require__(205),
+	var _require4 = __webpack_require__(206),
 	    KeyTypes = _require4.KeyTypes,
 	    BorderDirections = _require4.BorderDirections,
 	    BorderStyles = _require4.BorderStyles;
@@ -90243,7 +93082,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports.__esModule = true;
 	exports.ActionTypes = undefined;
-	exports["default"] = createStore;
+	exports['default'] = createStore;
 
 	var _isPlainObject = __webpack_require__(436);
 
@@ -90254,7 +93093,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _symbolObservable2 = _interopRequireDefault(_symbolObservable);
 
 	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { "default": obj };
+	  return obj && obj.__esModule ? obj : { 'default': obj };
 	}
 
 	/**
@@ -90278,7 +93117,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @param {Function} reducer A function that returns the next state tree, given
 	 * the current state tree and the action to handle.
 	 *
-	 * @param {any} [initialState] The initial state. You may optionally specify it
+	 * @param {any} [preloadedState] The initial state. You may optionally specify it
 	 * to hydrate the state from the server in universal apps, or to restore a
 	 * previously serialized user session.
 	 * If you use `combineReducers` to produce the root reducer function, this must be
@@ -90292,12 +93131,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @returns {Store} A Redux store that lets you read the state, dispatch actions
 	 * and subscribe to changes.
 	 */
-	function createStore(reducer, initialState, enhancer) {
+	function createStore(reducer, preloadedState, enhancer) {
 	  var _ref2;
 
-	  if (typeof initialState === 'function' && typeof enhancer === 'undefined') {
-	    enhancer = initialState;
-	    initialState = undefined;
+	  if (typeof preloadedState === 'function' && typeof enhancer === 'undefined') {
+	    enhancer = preloadedState;
+	    preloadedState = undefined;
 	  }
 
 	  if (typeof enhancer !== 'undefined') {
@@ -90305,7 +93144,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      throw new Error('Expected the enhancer to be a function.');
 	    }
 
-	    return enhancer(createStore)(reducer, initialState);
+	    return enhancer(createStore)(reducer, preloadedState);
 	  }
 
 	  if (typeof reducer !== 'function') {
@@ -90313,7 +93152,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 
 	  var currentReducer = reducer;
-	  var currentState = initialState;
+	  var currentState = preloadedState;
 	  var currentListeners = [];
 	  var nextListeners = currentListeners;
 	  var isDispatching = false;
@@ -90405,7 +93244,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	   * return something else (for example, a Promise you can await).
 	   */
 	  function dispatch(action) {
-	    if (!(0, _isPlainObject2["default"])(action)) {
+	    if (!(0, _isPlainObject2['default'])(action)) {
 	      throw new Error('Actions must be plain objects. ' + 'Use custom middleware for async actions.');
 	    }
 
@@ -90470,7 +93309,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	       * be used to unsubscribe the observable from the store, and prevent further
 	       * emission of values from the observable.
 	       */
-
 	      subscribe: function subscribe(observer) {
 	        if ((typeof observer === 'undefined' ? 'undefined' : _typeof(observer)) !== 'object') {
 	          throw new TypeError('Expected the observer to be an object.');
@@ -90486,7 +93324,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var unsubscribe = outerSubscribe(observeState);
 	        return { unsubscribe: unsubscribe };
 	      }
-	    }, _ref[_symbolObservable2["default"]] = function () {
+	    }, _ref[_symbolObservable2['default']] = function () {
 	      return this;
 	    }, _ref;
 	  }
@@ -90501,7 +93339,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    subscribe: subscribe,
 	    getState: getState,
 	    replaceReducer: replaceReducer
-	  }, _ref2[_symbolObservable2["default"]] = observable, _ref2;
+	  }, _ref2[_symbolObservable2['default']] = observable, _ref2;
 	}
 
 /***/ },
@@ -90511,7 +93349,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	exports.__esModule = true;
-	exports["default"] = combineReducers;
+	exports['default'] = combineReducers;
 
 	var _createStore = __webpack_require__(416);
 
@@ -90524,7 +93362,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _warning2 = _interopRequireDefault(_warning);
 
 	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { "default": obj };
+	  return obj && obj.__esModule ? obj : { 'default': obj };
 	}
 
 	function getUndefinedStateErrorMessage(key, action) {
@@ -90534,20 +93372,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return 'Given action ' + actionName + ', reducer "' + key + '" returned undefined. ' + 'To ignore an action, you must explicitly return the previous state.';
 	}
 
-	function getUnexpectedStateShapeWarningMessage(inputState, reducers, action) {
+	function getUnexpectedStateShapeWarningMessage(inputState, reducers, action, unexpectedKeyCache) {
 	  var reducerKeys = Object.keys(reducers);
-	  var argumentName = action && action.type === _createStore.ActionTypes.INIT ? 'initialState argument passed to createStore' : 'previous state received by the reducer';
+	  var argumentName = action && action.type === _createStore.ActionTypes.INIT ? 'preloadedState argument passed to createStore' : 'previous state received by the reducer';
 
 	  if (reducerKeys.length === 0) {
 	    return 'Store does not have a valid reducer. Make sure the argument passed ' + 'to combineReducers is an object whose values are reducers.';
 	  }
 
-	  if (!(0, _isPlainObject2["default"])(inputState)) {
+	  if (!(0, _isPlainObject2['default'])(inputState)) {
 	    return 'The ' + argumentName + ' has unexpected type of "' + {}.toString.call(inputState).match(/\s([a-z|A-Z]+)/)[1] + '". Expected argument to be an object with the following ' + ('keys: "' + reducerKeys.join('", "') + '"');
 	  }
 
 	  var unexpectedKeys = Object.keys(inputState).filter(function (key) {
-	    return !reducers.hasOwnProperty(key);
+	    return !reducers.hasOwnProperty(key) && !unexpectedKeyCache[key];
+	  });
+
+	  unexpectedKeys.forEach(function (key) {
+	    unexpectedKeyCache[key] = true;
 	  });
 
 	  if (unexpectedKeys.length > 0) {
@@ -90592,11 +93434,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var finalReducers = {};
 	  for (var i = 0; i < reducerKeys.length; i++) {
 	    var key = reducerKeys[i];
+
+	    if (false) {
+	      if (typeof reducers[key] === 'undefined') {
+	        (0, _warning2['default'])('No reducer provided for key "' + key + '"');
+	      }
+	    }
+
 	    if (typeof reducers[key] === 'function') {
 	      finalReducers[key] = reducers[key];
 	    }
 	  }
 	  var finalReducerKeys = Object.keys(finalReducers);
+
+	  if (false) {
+	    var unexpectedKeyCache = {};
+	  }
 
 	  var sanityError;
 	  try {
@@ -90614,9 +93467,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    if (false) {
-	      var warningMessage = getUnexpectedStateShapeWarningMessage(state, finalReducers, action);
+	      var warningMessage = getUnexpectedStateShapeWarningMessage(state, finalReducers, action, unexpectedKeyCache);
 	      if (warningMessage) {
-	        (0, _warning2["default"])(warningMessage);
+	        (0, _warning2['default'])(warningMessage);
 	      }
 	    }
 
@@ -90647,7 +93500,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	exports.__esModule = true;
-	exports["default"] = bindActionCreators;
+	exports['default'] = bindActionCreators;
 	function bindActionCreator(actionCreator, dispatch) {
 	  return function () {
 	    return dispatch(actionCreator.apply(undefined, arguments));
@@ -90714,14 +93567,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }return target;
 	};
 
-	exports["default"] = applyMiddleware;
+	exports['default'] = applyMiddleware;
 
 	var _compose = __webpack_require__(420);
 
 	var _compose2 = _interopRequireDefault(_compose);
 
 	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { "default": obj };
+	  return obj && obj.__esModule ? obj : { 'default': obj };
 	}
 
 	/**
@@ -90746,8 +93599,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 
 	  return function (createStore) {
-	    return function (reducer, initialState, enhancer) {
-	      var store = createStore(reducer, initialState, enhancer);
+	    return function (reducer, preloadedState, enhancer) {
+	      var store = createStore(reducer, preloadedState, enhancer);
 	      var _dispatch = store.dispatch;
 	      var chain = [];
 
@@ -90760,7 +93613,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      chain = middlewares.map(function (middleware) {
 	        return middleware(middlewareAPI);
 	      });
-	      _dispatch = _compose2["default"].apply(undefined, chain)(store.dispatch);
+	      _dispatch = _compose2['default'].apply(undefined, chain)(store.dispatch);
 
 	      return _extends({}, store, {
 	        dispatch: _dispatch
@@ -90774,8 +93627,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	exports.__esModule = true;
 	exports["default"] = compose;
@@ -90799,21 +93650,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return function (arg) {
 	      return arg;
 	    };
-	  } else {
-	    var _ret = function () {
-	      var last = funcs[funcs.length - 1];
-	      var rest = funcs.slice(0, -1);
-	      return {
-	        v: function v() {
-	          return rest.reduceRight(function (composed, f) {
-	            return f(composed);
-	          }, last.apply(undefined, arguments));
-	        }
-	      };
-	    }();
-
-	    if ((typeof _ret === "undefined" ? "undefined" : _typeof(_ret)) === "object") return _ret.v;
 	  }
+
+	  if (funcs.length === 1) {
+	    return funcs[0];
+	  }
+
+	  var last = funcs[funcs.length - 1];
+	  var rest = funcs.slice(0, -1);
+	  return function () {
+	    return rest.reduceRight(function (composed, f) {
+	      return f(composed);
+	    }, last.apply(undefined, arguments));
+	  };
 	}
 
 /***/ },
@@ -90862,7 +93711,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	exports.__esModule = true;
-	exports["default"] = warning;
+	exports['default'] = warning;
 	/**
 	 * Prints a warning in the console if it exists.
 	 *
@@ -90922,8 +93771,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	  /* eslint-enable no-console */
 	  try {
-	    // This error was thrown as a convenience so that you can use this stack
-	    // to find the callsite that caused this warning to fire.
+	    // This error was thrown as a convenience so that if you enable
+	    // "break on all exceptions" in your console,
+	    // it would pause the execution at this line.
 	    throw new Error(message);
 	    /* eslint-disable no-empty */
 	  } catch (e) {}
@@ -91005,7 +93855,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _require3 = __webpack_require__(222),
 	    keyConfigPropType = _require3.keyConfigPropType;
 
-	var _require4 = __webpack_require__(205),
+	var _require4 = __webpack_require__(206),
 	    BorderStyles = _require4.BorderStyles;
 
 	var zIndexes = __webpack_require__(311);
@@ -91076,7 +93926,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var SvgIcon = __webpack_require__(439);
 	var TextIcon = __webpack_require__(440);
 
-	var _require2 = __webpack_require__(205),
+	var _require2 = __webpack_require__(206),
 	    IconTypes = _require2.IconTypes;
 
 	var _require3 = __webpack_require__(222),
@@ -91172,7 +94022,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Icon = __webpack_require__(429);
 
-	var _require3 = __webpack_require__(205),
+	var _require3 = __webpack_require__(206),
 	    IconTypes = _require3.IconTypes;
 
 	var _require4 = __webpack_require__(222),
@@ -91448,7 +94298,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// \u1801\u0964\u104a\u104b
 	//             is misc. other language punctuation marks
 
-	var PUNCTUATION = '[.,+*?$|#{}()\'\\^\\-\\[\\]\\\\\\/!@%"~=<>_:;' + '・、。〈-】〔-〟：-？！-／' + '［-｀｛-･⸮؟٪-٬؛،؍' + '﴾﴿᠁।၊။‐-‧‰-⁞' + '¡-±´-¸º»¿]';
+	var PUNCTUATION = '[.,+*?$|#{}()\'\\^\\-\\[\\]\\\\\\/!@%"~=<>_:;' + '\u30FB\u3001\u3002\u3008-\u3011\u3014-\u301F\uFF1A-\uFF1F\uFF01-\uFF0F' + '\uFF3B-\uFF40\uFF5B-\uFF65\u2E2E\u061F\u066A-\u066C\u061B\u060C\u060D' + '\uFD3E\uFD3F\u1801\u0964\u104A\u104B\u2010-\u2027\u2030-\u205E' + '\xA1-\xB1\xB4-\xB8\xBA\xBB\xBF]';
 
 	module.exports = {
 	  getPunctuation: function getPunctuation() {
@@ -91542,11 +94392,11 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/**
-	 * UAParser.js v0.7.10
+	 * UAParser.js v0.7.12
 	 * Lightweight JavaScript-based User-Agent string parser
 	 * https://github.com/faisalman/ua-parser-js
 	 *
-	 * Copyright © 2012-2015 Faisal Salman <fyzlman@gmail.com>
+	 * Copyright © 2012-2016 Faisal Salman <fyzlman@gmail.com>
 	 * Dual licensed under GPLv2 & MIT
 	 */
 
@@ -91559,7 +94409,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    /////////////
 
 
-	    var LIBVERSION  = '0.7.10',
+	    var LIBVERSION  = '0.7.12',
 	        EMPTY       = '',
 	        UNKNOWN     = '?',
 	        FUNC_TYPE   = 'function',
@@ -91588,12 +94438,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    var util = {
 	        extend : function (regexes, extensions) {
-	            for (var i in extensions) {
-	                if ("browser cpu device engine os".indexOf(i) !== -1 && extensions[i].length % 2 === 0) {
-	                    regexes[i] = extensions[i].concat(regexes[i]);
+	            var margedRegexes = {};
+	            for (var i in regexes) {
+	                if (extensions[i] && extensions[i].length % 2 === 0) {
+	                    margedRegexes[i] = extensions[i].concat(regexes[i]);
+	                } else {
+	                    margedRegexes[i] = regexes[i];
 	                }
 	            }
-	            return regexes;
+	            return margedRegexes;
 	        },
 	        has : function (str1, str2) {
 	          if (typeof str1 === "string") {
@@ -91606,7 +94459,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	            return str.toLowerCase();
 	        },
 	        major : function (version) {
-	            return typeof(version) === STR_TYPE ? version.split(".")[0] : undefined;
+	            return typeof(version) === STR_TYPE ? version.replace(/[^\d\.]/g,'').split(".")[0] : undefined;
+	        },
+	        trim : function (str) {
+	          return str.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
 	        }
 	    };
 
@@ -91776,8 +94632,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	            /(opera\s[mobiletab]+).+version\/([\w\.-]+)/i,                      // Opera Mobi/Tablet
 	            /(opera).+version\/([\w\.]+)/i,                                     // Opera > 9.80
 	            /(opera)[\/\s]+([\w\.]+)/i                                          // Opera < 9.80
-
 	            ], [NAME, VERSION], [
+
+	            /(opios)[\/\s]+([\w\.]+)/i                                          // Opera mini on iphone >= 8.0
+	            ], [[NAME, 'Opera Mini'], VERSION], [
 
 	            /\s(opr)\/([\w\.]+)/i                                               // Opera Webkit
 	            ], [[NAME, 'Opera'], VERSION], [
@@ -91810,6 +94668,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	            /(comodo_dragon)\/([\w\.]+)/i                                       // Comodo Dragon
 	            ], [[NAME, /_/g, ' '], VERSION], [
 
+	            /(micromessenger)\/([\w\.]+)/i                                      // WeChat
+	            ], [[NAME, 'WeChat'], VERSION], [
+
+	            /xiaomi\/miuibrowser\/([\w\.]+)/i                                   // MIUI Browser
+	            ], [VERSION, [NAME, 'MIUI Browser']], [
+
+	            /\swv\).+(chrome)\/([\w\.]+)/i                                      // Chrome WebView
+	            ], [[NAME, /(.+)/, '$1 WebView'], VERSION], [
+
+	            /android.+samsungbrowser\/([\w\.]+)/i,
+	            /android.+version\/([\w\.]+)\s+(?:mobile\s?safari|safari)*/i        // Android Browser
+	            ], [VERSION, [NAME, 'Android Browser']], [
+
 	            /(chrome|omniweb|arora|[tizenoka]{5}\s?browser)\/v?([\w\.]+)/i,
 	                                                                                // Chrome/OmniWeb/Arora/Tizen/Nokia
 	            /(qqbrowser)[\/\s]?([\w\.]+)/i
@@ -91818,7 +94689,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            /(uc\s?browser)[\/\s]?([\w\.]+)/i,
 	            /ucweb.+(ucbrowser)[\/\s]?([\w\.]+)/i,
-	            /JUC.+(ucweb)[\/\s]?([\w\.]+)/i
+	            /juc.+(ucweb)[\/\s]?([\w\.]+)/i
 	                                                                                // UCBrowser
 	            ], [[NAME, 'UCBrowser'], VERSION], [
 
@@ -91828,13 +94699,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            /((?:android.+)crmo|crios)\/([\w\.]+)/i                             // Chrome for Android/iOS
 	            ], [[NAME, 'Chrome'], VERSION], [
 
-	            /XiaoMi\/MiuiBrowser\/([\w\.]+)/i                                   // MIUI Browser
-	            ], [VERSION, [NAME, 'MIUI Browser']], [
-
-	            /android.+version\/([\w\.]+)\s+(?:mobile\s?safari|safari)/i         // Android Browser
-	            ], [VERSION, [NAME, 'Android Browser']], [
-
-	            /FBAV\/([\w\.]+);/i                                                 // Facebook App for iOS
+	            /;fbav\/([\w\.]+);/i                                                // Facebook App for iOS
 	            ], [VERSION, [NAME, 'Facebook']], [
 
 	            /fxios\/([\w\.-]+)/i                                                // Firefox for iOS
@@ -92023,6 +94888,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            /(archos)\s(gamepad2?)/i,                                           // Archos
 	            /(hp).+(touchpad)/i,                                                // HP TouchPad
+	            /(hp).+(tablet)/i,                                                  // HP Tablet
 	            /(kindle)\/([\w\.]+)/i,                                             // Kindle
 	            /\s(nook)[\w\s]+build\/(\w+)/i,                                     // Nook
 	            /(dell)\s(strea[kpr\s\d]*[\dko])/i                                  // Dell Streak
@@ -92047,7 +94913,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            /\(bb10;\s(\w+)/i                                                   // BlackBerry 10
 	            ], [MODEL, [VENDOR, 'BlackBerry'], [TYPE, MOBILE]], [
 	                                                                                // Asus Tablets
-	            /android.+(transfo[prime\s]{4,10}\s\w+|eeepc|slider\s\w+|nexus 7)/i
+	            /android.+(transfo[prime\s]{4,10}\s\w+|eeepc|slider\s\w+|nexus 7|padfone)/i
 	            ], [MODEL, [VENDOR, 'Asus'], [TYPE, TABLET]], [
 
 	            /(sony)\s(tablet\s[ps])\sbuild\//i,                                  // Sony
@@ -92077,9 +94943,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	            /(alcatel|geeksphone|huawei|lenovo|nexian|panasonic|(?=;\s)sony)[_\s-]?([\w-]+)*/i
 	                                                                                // Alcatel/GeeksPhone/Huawei/Lenovo/Nexian/Panasonic/Sony
 	            ], [VENDOR, [MODEL, /_/g, ' '], [TYPE, MOBILE]], [
-	                
+
 	            /(nexus\s9)/i                                                       // HTC Nexus 9
 	            ], [MODEL, [VENDOR, 'HTC'], [TYPE, TABLET]], [
+
+	            /(nexus\s6p)/i                                                      // Huawei Nexus 6P
+	            ], [MODEL, [VENDOR, 'Huawei'], [TYPE, MOBILE]], [
+
+	            /(microsoft);\s(lumia[\s\w]+)/i                                     // Microsoft Lumia
+	            ], [VENDOR, MODEL, [TYPE, MOBILE]], [
 
 	            /[\s\(;](xbox(?:\sone)?)[\s\);]/i                                   // Microsoft Xbox
 	            ], [MODEL, [VENDOR, 'Microsoft'], [TYPE, CONSOLE]], [
@@ -92090,23 +94962,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	            /\s(milestone|droid(?:[2-4x]|\s(?:bionic|x2|pro|razr))?(:?\s4g)?)[\w\s]+build\//i,
 	            /mot[\s-]?(\w+)*/i,
 	            /(XT\d{3,4}) build\//i,
-	            /(nexus\s[6])/i
+	            /(nexus\s6)/i
 	            ], [MODEL, [VENDOR, 'Motorola'], [TYPE, MOBILE]], [
 	            /android.+\s(mz60\d|xoom[\s2]{0,2})\sbuild\//i
 	            ], [MODEL, [VENDOR, 'Motorola'], [TYPE, TABLET]], [
 
-	            /android.+((sch-i[89]0\d|shw-m380s|gt-p\d{4}|gt-n8000|sgh-t8[56]9|nexus 10))/i,
-	            /((SM-T\w+))/i
-	            ], [[VENDOR, 'Samsung'], MODEL, [TYPE, TABLET]], [                  // Samsung
-	            /((s[cgp]h-\w+|gt-\w+|galaxy\snexus|sm-n900))/i,
-	            /(sam[sung]*)[\s-]*(\w+-?[\w-]*)*/i,
-	            /sec-((sgh\w+))/i
-	            ], [[VENDOR, 'Samsung'], MODEL, [TYPE, MOBILE]], [
-	            /(samsung);smarttv/i
-	            ], [VENDOR, MODEL, [TYPE, SMARTTV]], [
+	            /hbbtv\/\d+\.\d+\.\d+\s+\([\w\s]*;\s*(\w[^;]*);([^;]*)/i            // HbbTV devices
+	            ], [[VENDOR, util.trim], [MODEL, util.trim], [TYPE, SMARTTV]], [
+
+	            /hbbtv.+maple;(\d+)/i
+	            ], [[MODEL, /^/, 'SmartTV'], [VENDOR, 'Samsung'], [TYPE, SMARTTV]], [
 
 	            /\(dtv[\);].+(aquos)/i                                              // Sharp
 	            ], [MODEL, [VENDOR, 'Sharp'], [TYPE, SMARTTV]], [
+
+	            /android.+((sch-i[89]0\d|shw-m380s|gt-p\d{4}|gt-n\d+|sgh-t8[56]9|nexus 10))/i,
+	            /((SM-T\w+))/i
+	            ], [[VENDOR, 'Samsung'], MODEL, [TYPE, TABLET]], [                  // Samsung
+	            /smart-tv.+(samsung)/i
+	            ], [VENDOR, [TYPE, SMARTTV], MODEL], [
+	            /((s[cgp]h-\w+|gt-\w+|galaxy\snexus|sm-\w[\w\d]+))/i,
+	            /(sam[sung]*)[\s-]*(\w+-?[\w-]*)*/i,
+	            /sec-((sgh\w+))/i
+	            ], [[VENDOR, 'Samsung'], MODEL, [TYPE, MOBILE]], [
+
 	            /sie-(\w+)*/i                                                       // Siemens
 	            ], [MODEL, [VENDOR, 'Siemens'], [TYPE, MOBILE]], [
 
@@ -92137,13 +95016,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	            /android.+;\s(glass)\s\d/i                                          // Google Glass
 	            ], [MODEL, [VENDOR, 'Google'], [TYPE, WEARABLE]], [
 
-	            /android.+(\w+)\s+build\/hm\1/i,                                        // Xiaomi Hongmi 'numeric' models
-	            /android.+(hm[\s\-_]*note?[\s_]*(?:\d\w)?)\s+build/i,                   // Xiaomi Hongmi
-	            /android.+(mi[\s\-_]*(?:one|one[\s_]plus)?[\s_]*(?:\d\w)?)\s+build/i    // Xiaomi Mi
+	            /android.+(\w+)\s+build\/hm\1/i,                                    // Xiaomi Hongmi 'numeric' models
+	            /android.+(hm[\s\-_]*note?[\s_]*(?:\d\w)?)\s+build/i,               // Xiaomi Hongmi
+	            /android.+(mi[\s\-_]*(?:one|one[\s_]plus|note lte)?[\s_]*(?:\d\w)?)\s+build/i    // Xiaomi Mi
 	            ], [[MODEL, /_/g, ' '], [VENDOR, 'Xiaomi'], [TYPE, MOBILE]], [
 
-	            /\s(tablet)[;\/\s]/i,                                               // Unidentifiable Tablet
-	            /\s(mobile)[;\/\s]/i                                                // Unidentifiable Mobile
+	            /android.+a000(1)\s+build/i                                         // OnePlus
+	            ], [MODEL, [VENDOR, 'OnePlus'], [TYPE, MOBILE]], [
+
+	            /\s(tablet)[;\/]/i,                                                 // Unidentifiable Tablet
+	            /\s(mobile)(?:[;\/]|\ssafari)/i                                     // Unidentifiable Mobile
 	            ], [[TYPE, util.lowerize], VENDOR, MODEL]
 
 	            /*//////////////////////////
@@ -92199,7 +95081,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            ], [VENDOR, MODEL, [TYPE, MOBILE]], [
 	            /(i-STYLE2.1)/i                                                     // i-mobile i-STYLE 2.1
 	            ], [[MODEL, 'i-STYLE 2.1'], [VENDOR, 'i-mobile'], [TYPE, MOBILE]], [
-	            
+
 	            /(mobiistar touch LAI 512)/i                                        // mobiistar touch LAI 512
 	            ], [[MODEL, 'Touch LAI 512'], [VENDOR, 'mobiistar'], [TYPE, MOBILE]], [
 
@@ -92230,7 +95112,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            /microsoft\s(windows)\s(vista|xp)/i                                 // Windows (iTunes)
 	            ], [NAME, VERSION], [
 	            /(windows)\snt\s6\.2;\s(arm)/i,                                     // Windows RT
-	            /(windows\sphone(?:\sos)*|windows\smobile|windows)[\s\/]?([ntce\d\.\s]+\w)/i
+	            /(windows\sphone(?:\sos)*)[\s\/]?([\d\.\s]+\w)*/i,                  // Windows Phone
+	            /(windows\smobile|windows)[\s\/]?([ntce\d\.\s]+\w)/i
 	            ], [NAME, [VERSION, mapper.str, maps.os.windows.version]], [
 	            /(win(?=3|9|n)|win\s9x\s)([nt\d\.]+)/i
 	            ], [[NAME, 'Windows'], [VERSION, mapper.str, maps.os.windows.version]], [
@@ -92257,7 +95140,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            // GNU/Linux based
 	            /(mint)[\/\s\(]?(\w+)*/i,                                           // Mint
 	            /(mageia|vectorlinux)[;\s]/i,                                       // Mageia/VectorLinux
-	            /(joli|[kxln]?ubuntu|debian|[open]*suse|gentoo|(?=\s)arch|slackware|fedora|mandriva|centos|pclinuxos|redhat|zenwalk|linpus)[\/\s-]?([\w\.-]+)*/i,
+	            /(joli|[kxln]?ubuntu|debian|[open]*suse|gentoo|(?=\s)arch|slackware|fedora|mandriva|centos|pclinuxos|redhat|zenwalk|linpus)[\/\s-]?(?!chrom)([\w\.-]+)*/i,
 	                                                                                // Joli/Ubuntu/Debian/SUSE/Gentoo/Arch/Slackware
 	                                                                                // Fedora/Mandriva/CentOS/PCLinuxOS/RedHat/Zenwalk/Linpus
 	            /(hurd|linux)\s?([\w\.]+)*/i,                                       // Hurd/Linux
@@ -92275,6 +95158,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	            /\s([frentopc-]{0,4}bsd|dragonfly)\s?([\w\.]+)*/i                   // FreeBSD/NetBSD/OpenBSD/PC-BSD/DragonFly
 	            ], [NAME, VERSION],[
 
+	            /(haiku)\s(\w+)/i                                                  // Haiku
+	            ], [NAME, VERSION],[
+
 	            /(ip[honead]+)(?:.*os\s([\w]+)*\slike\smac|;\sopera)/i              // iOS
 	            ], [[NAME, 'iOS'], [VERSION, /_/g, '.']], [
 
@@ -92284,7 +95170,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            // Other
 	            /((?:open)?solaris)[\/\s-]?([\w\.]+)*/i,                            // Solaris
-	            /(haiku)\s(\w+)/i,                                                  // Haiku
 	            /(aix)\s((\d)(?=\.|\)|\s)[\w\.]*)*/i,                               // AIX
 	            /(plan\s9|minix|beos|os\/2|amigaos|morphos|risc\sos|openvms)/i,
 	                                                                                // Plan9/Minix/BeOS/OS2/AmigaOS/MorphOS/RISCOS/OpenVMS
@@ -92342,7 +95227,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	            ua = uastring;
 	            return this;
 	        };
-	        this.setUA(ua);
 	        return this;
 	    };
 
@@ -92401,7 +95285,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    // jQuery/Zepto specific (optional)
-	    // Note: 
+	    // Note:
 	    //   In AMD env the global scope should be kept clean, but jQuery is an exception.
 	    //   jQuery always exports to global scope, unless jQuery.noConflict(true) is used,
 	    //   and we should catch that.
@@ -92430,31 +95314,25 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var getPrototype = __webpack_require__(443),
-	    isHostObject = __webpack_require__(444),
+	var baseGetTag = __webpack_require__(443),
+	    getPrototype = __webpack_require__(444),
 	    isObjectLike = __webpack_require__(445);
 
 	/** `Object#toString` result references. */
 	var objectTag = '[object Object]';
 
 	/** Used for built-in method references. */
-	var objectProto = Object.prototype;
+	var funcProto = Function.prototype,
+	    objectProto = Object.prototype;
 
 	/** Used to resolve the decompiled source of functions. */
-	var funcToString = Function.prototype.toString;
+	var funcToString = funcProto.toString;
 
 	/** Used to check objects for own properties. */
 	var hasOwnProperty = objectProto.hasOwnProperty;
 
 	/** Used to infer the `Object` constructor. */
 	var objectCtorString = funcToString.call(Object);
-
-	/**
-	 * Used to resolve the
-	 * [`toStringTag`](http://ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring)
-	 * of values.
-	 */
-	var objectToString = objectProto.toString;
 
 	/**
 	 * Checks if `value` is a plain object, that is, an object created by the
@@ -92465,8 +95343,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @since 0.8.0
 	 * @category Lang
 	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a plain object,
-	 *  else `false`.
+	 * @returns {boolean} Returns `true` if `value` is a plain object, else `false`.
 	 * @example
 	 *
 	 * function Foo() {
@@ -92486,7 +95363,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * // => true
 	 */
 	function isPlainObject(value) {
-	  if (!isObjectLike(value) || objectToString.call(value) != objectTag || isHostObject(value)) {
+	  if (!isObjectLike(value) || baseGetTag(value) != objectTag) {
 	    return false;
 	  }
 	  var proto = getPrototype(value);
@@ -92747,11 +95624,9 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 441 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(global) {/* global window */
 	'use strict';
 
-	module.exports = __webpack_require__(447)(global || window || undefined);
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+	module.exports = __webpack_require__(449);
 
 /***/ },
 /* 442 */
@@ -92823,21 +95698,32 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var overArg = __webpack_require__(449);
+	var _Symbol = __webpack_require__(450),
+	    getRawTag = __webpack_require__(451),
+	    objectToString = __webpack_require__(452);
 
-	/* Built-in method references for those with the same name as other `lodash` methods. */
-	var nativeGetPrototype = Object.getPrototypeOf;
+	/** `Object#toString` result references. */
+	var nullTag = '[object Null]',
+	    undefinedTag = '[object Undefined]';
+
+	/** Built-in value references. */
+	var symToStringTag = _Symbol ? _Symbol.toStringTag : undefined;
 
 	/**
-	 * Gets the `[[Prototype]]` of `value`.
+	 * The base implementation of `getTag` without fallbacks for buggy environments.
 	 *
 	 * @private
 	 * @param {*} value The value to query.
-	 * @returns {null|Object} Returns the `[[Prototype]]`.
+	 * @returns {string} Returns the `toStringTag`.
 	 */
-	var getPrototype = overArg(nativeGetPrototype, Object);
+	function baseGetTag(value) {
+	    if (value == null) {
+	        return value === undefined ? undefinedTag : nullTag;
+	    }
+	    return symToStringTag && symToStringTag in Object(value) ? getRawTag(value) : objectToString(value);
+	}
 
-	module.exports = getPrototype;
+	module.exports = baseGetTag;
 
 /***/ },
 /* 444 */
@@ -92845,26 +95731,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	/**
-	 * Checks if `value` is a host object in IE < 9.
-	 *
-	 * @private
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a host object, else `false`.
-	 */
-	function isHostObject(value) {
-	  // Many host objects are `Object` objects that can coerce to strings
-	  // despite having improperly defined `toString` methods.
-	  var result = false;
-	  if (value != null && typeof value.toString != 'function') {
-	    try {
-	      result = !!(value + '');
-	    } catch (e) {}
-	  }
-	  return result;
-	}
+	var overArg = __webpack_require__(447);
 
-	module.exports = isHostObject;
+	/** Built-in value references. */
+	var getPrototype = overArg(Object.getPrototypeOf, Object);
+
+	module.exports = getPrototype;
 
 /***/ },
 /* 445 */
@@ -92899,7 +95771,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * // => false
 	 */
 	function isObjectLike(value) {
-	  return !!value && (typeof value === 'undefined' ? 'undefined' : _typeof(value)) == 'object';
+	  return value != null && (typeof value === 'undefined' ? 'undefined' : _typeof(value)) == 'object';
 	}
 
 	module.exports = isObjectLike;
@@ -92915,90 +95787,58 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 
 	module.exports = {
-	    COS: __webpack_require__(450),
-	    LOG: __webpack_require__(451),
-	    EQUAL: __webpack_require__(452),
-	    BACKSPACE: __webpack_require__(453),
-	    SQRT: __webpack_require__(454),
-	    EXP: __webpack_require__(455),
-	    NEQ: __webpack_require__(456),
-	    GEQ: __webpack_require__(457),
-	    LN: __webpack_require__(458),
-	    DISMISS: __webpack_require__(459),
-	    SIN: __webpack_require__(460),
-	    LT: __webpack_require__(461),
-	    CUBE_ROOT: __webpack_require__(462),
-	    PLUS: __webpack_require__(463),
-	    TAN: __webpack_require__(464),
-	    LEFT: __webpack_require__(465),
-	    UP: __webpack_require__(466),
-	    DOWN: __webpack_require__(467),
-	    LEFT_PAREN: __webpack_require__(468),
-	    RIGHT_PAREN: __webpack_require__(469),
-	    GT: __webpack_require__(470),
-	    DIVIDE: __webpack_require__(471),
-	    PERIOD: __webpack_require__(472),
-	    PERCENT: __webpack_require__(473),
-	    TIMES: __webpack_require__(474),
-	    EXP_3: __webpack_require__(475),
-	    EXP_2: __webpack_require__(476),
-	    RIGHT: __webpack_require__(477),
-	    CDOT: __webpack_require__(478),
-	    LOG_N: __webpack_require__(479),
-	    LEQ: __webpack_require__(480),
-	    MINUS: __webpack_require__(481),
-	    NEGATIVE: __webpack_require__(481),
-	    RADICAL: __webpack_require__(482),
-	    FRAC_INCLUSIVE: __webpack_require__(483),
-	    FRAC_EXCLUSIVE: __webpack_require__(484),
-	    JUMP_OUT_PARENTHESES: __webpack_require__(485),
-	    JUMP_OUT_EXPONENT: __webpack_require__(486),
-	    JUMP_OUT_BASE: __webpack_require__(487),
-	    JUMP_INTO_NUMERATOR: __webpack_require__(488),
-	    JUMP_OUT_NUMERATOR: __webpack_require__(489),
-	    JUMP_OUT_DENOMINATOR: __webpack_require__(490)
+	    COS: __webpack_require__(453),
+	    LOG: __webpack_require__(454),
+	    EQUAL: __webpack_require__(455),
+	    BACKSPACE: __webpack_require__(456),
+	    SQRT: __webpack_require__(457),
+	    EXP: __webpack_require__(458),
+	    NEQ: __webpack_require__(459),
+	    GEQ: __webpack_require__(460),
+	    LN: __webpack_require__(461),
+	    DISMISS: __webpack_require__(462),
+	    SIN: __webpack_require__(463),
+	    LT: __webpack_require__(464),
+	    CUBE_ROOT: __webpack_require__(465),
+	    PLUS: __webpack_require__(466),
+	    TAN: __webpack_require__(467),
+	    LEFT: __webpack_require__(468),
+	    UP: __webpack_require__(469),
+	    DOWN: __webpack_require__(470),
+	    LEFT_PAREN: __webpack_require__(471),
+	    RIGHT_PAREN: __webpack_require__(472),
+	    GT: __webpack_require__(473),
+	    DIVIDE: __webpack_require__(474),
+	    PERIOD: __webpack_require__(475),
+	    PERCENT: __webpack_require__(476),
+	    TIMES: __webpack_require__(477),
+	    EXP_3: __webpack_require__(478),
+	    EXP_2: __webpack_require__(479),
+	    RIGHT: __webpack_require__(480),
+	    CDOT: __webpack_require__(481),
+	    LOG_N: __webpack_require__(482),
+	    LEQ: __webpack_require__(483),
+	    MINUS: __webpack_require__(484),
+	    NEGATIVE: __webpack_require__(484),
+	    RADICAL: __webpack_require__(485),
+	    FRAC_INCLUSIVE: __webpack_require__(486),
+	    FRAC_EXCLUSIVE: __webpack_require__(487),
+	    JUMP_OUT_PARENTHESES: __webpack_require__(488),
+	    JUMP_OUT_EXPONENT: __webpack_require__(489),
+	    JUMP_OUT_BASE: __webpack_require__(490),
+	    JUMP_INTO_NUMERATOR: __webpack_require__(491),
+	    JUMP_OUT_NUMERATOR: __webpack_require__(492),
+	    JUMP_OUT_DENOMINATOR: __webpack_require__(493)
 	};
 
 /***/ },
 /* 447 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	module.exports = function symbolObservablePonyfill(root) {
-		var result;
-		var _Symbol = root.Symbol;
-
-		if (typeof _Symbol === 'function') {
-			if (_Symbol.observable) {
-				result = _Symbol.observable;
-			} else {
-				result = _Symbol('observable');
-				_Symbol.observable = result;
-			}
-		} else {
-			result = '@@observable';
-		}
-
-		return result;
-	};
-
-/***/ },
-/* 448 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {module.exports = __webpack_amd_options__;
-	
-	/* WEBPACK VAR INJECTION */}.call(exports, {}))
-
-/***/ },
-/* 449 */
-/***/ function(module, exports, __webpack_require__) {
-
 	"use strict";
 
 	/**
-	 * Creates a function that invokes `func` with its first argument transformed.
+	 * Creates a unary function that invokes `func` with its argument transformed.
 	 *
 	 * @private
 	 * @param {Function} func The function to wrap.
@@ -93014,7 +95854,146 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = overArg;
 
 /***/ },
+/* 448 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {module.exports = __webpack_amd_options__;
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, {}))
+
+/***/ },
+/* 449 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(global, module) {'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _ponyfill = __webpack_require__(494);
+
+	var _ponyfill2 = _interopRequireDefault(_ponyfill);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { 'default': obj };
+	}
+
+	var root; /* global window */
+
+	if (typeof self !== 'undefined') {
+	  root = self;
+	} else if (typeof window !== 'undefined') {
+	  root = window;
+	} else if (typeof global !== 'undefined') {
+	  root = global;
+	} else if (true) {
+	  root = module;
+	} else {
+	  root = Function('return this')();
+	}
+
+	var result = (0, _ponyfill2['default'])(root);
+	exports['default'] = result;
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(495)(module)))
+
+/***/ },
 /* 450 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var root = __webpack_require__(496);
+
+	/** Built-in value references. */
+	var _Symbol = root.Symbol;
+
+	module.exports = _Symbol;
+
+/***/ },
+/* 451 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _Symbol = __webpack_require__(450);
+
+	/** Used for built-in method references. */
+	var objectProto = Object.prototype;
+
+	/** Used to check objects for own properties. */
+	var hasOwnProperty = objectProto.hasOwnProperty;
+
+	/**
+	 * Used to resolve the
+	 * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+	 * of values.
+	 */
+	var nativeObjectToString = objectProto.toString;
+
+	/** Built-in value references. */
+	var symToStringTag = _Symbol ? _Symbol.toStringTag : undefined;
+
+	/**
+	 * A specialized version of `baseGetTag` which ignores `Symbol.toStringTag` values.
+	 *
+	 * @private
+	 * @param {*} value The value to query.
+	 * @returns {string} Returns the raw `toStringTag`.
+	 */
+	function getRawTag(value) {
+	  var isOwn = hasOwnProperty.call(value, symToStringTag),
+	      tag = value[symToStringTag];
+
+	  try {
+	    value[symToStringTag] = undefined;
+	    var unmasked = true;
+	  } catch (e) {}
+
+	  var result = nativeObjectToString.call(value);
+	  if (unmasked) {
+	    if (isOwn) {
+	      value[symToStringTag] = tag;
+	    } else {
+	      delete value[symToStringTag];
+	    }
+	  }
+	  return result;
+	}
+
+	module.exports = getRawTag;
+
+/***/ },
+/* 452 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/** Used for built-in method references. */
+	var objectProto = Object.prototype;
+
+	/**
+	 * Used to resolve the
+	 * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+	 * of values.
+	 */
+	var nativeObjectToString = objectProto.toString;
+
+	/**
+	 * Converts `value` to a string using `Object.prototype.toString`.
+	 *
+	 * @private
+	 * @param {*} value The value to convert.
+	 * @returns {string} Returns the converted string.
+	 */
+	function objectToString(value) {
+	  return nativeObjectToString.call(value);
+	}
+
+	module.exports = objectToString;
+
+/***/ },
+/* 453 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93051,7 +96030,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Cos;
 
 /***/ },
-/* 451 */
+/* 454 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93087,7 +96066,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Log;
 
 /***/ },
-/* 452 */
+/* 455 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93124,7 +96103,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Equal;
 
 /***/ },
-/* 453 */
+/* 456 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93153,7 +96132,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Backspace;
 
 /***/ },
-/* 454 */
+/* 457 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93189,7 +96168,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Sqrt;
 
 /***/ },
-/* 455 */
+/* 458 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93225,7 +96204,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Exp;
 
 /***/ },
-/* 456 */
+/* 459 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93262,7 +96241,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Neq;
 
 /***/ },
-/* 457 */
+/* 460 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93299,7 +96278,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Geq;
 
 /***/ },
-/* 458 */
+/* 461 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93335,7 +96314,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Ln;
 
 /***/ },
-/* 459 */
+/* 462 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93363,7 +96342,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Dismiss;
 
 /***/ },
-/* 460 */
+/* 463 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93400,7 +96379,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Sin;
 
 /***/ },
-/* 461 */
+/* 464 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93437,7 +96416,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Lt;
 
 /***/ },
-/* 462 */
+/* 465 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93474,7 +96453,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = CubeRoot;
 
 /***/ },
-/* 463 */
+/* 466 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93510,7 +96489,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Plus;
 
 /***/ },
-/* 464 */
+/* 467 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93547,7 +96526,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Tan;
 
 /***/ },
-/* 465 */
+/* 468 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -93557,7 +96536,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(18);
 
-	var Arrow = __webpack_require__(491);
+	var Arrow = __webpack_require__(497);
 
 	var Left = function Left() {
 	  return React.createElement(
@@ -93570,7 +96549,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Left;
 
 /***/ },
-/* 466 */
+/* 469 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -93580,7 +96559,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(18);
 
-	var Arrow = __webpack_require__(491);
+	var Arrow = __webpack_require__(497);
 
 	var Up = function Up() {
 	    return React.createElement(
@@ -93593,7 +96572,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Up;
 
 /***/ },
-/* 467 */
+/* 470 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -93603,7 +96582,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(18);
 
-	var Arrow = __webpack_require__(491);
+	var Arrow = __webpack_require__(497);
 
 	var Down = function Down() {
 	    return React.createElement(
@@ -93616,7 +96595,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Down;
 
 /***/ },
-/* 468 */
+/* 471 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93653,7 +96632,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = LeftParen;
 
 /***/ },
-/* 469 */
+/* 472 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93690,7 +96669,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = RightParen;
 
 /***/ },
-/* 470 */
+/* 473 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93727,7 +96706,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Gt;
 
 /***/ },
-/* 471 */
+/* 474 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93765,7 +96744,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Divide;
 
 /***/ },
-/* 472 */
+/* 475 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93801,7 +96780,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Period;
 
 /***/ },
-/* 473 */
+/* 476 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93844,7 +96823,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Percent;
 
 /***/ },
-/* 474 */
+/* 477 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93881,7 +96860,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Times;
 
 /***/ },
-/* 475 */
+/* 478 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93917,7 +96896,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Exp3;
 
 /***/ },
-/* 476 */
+/* 479 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93953,7 +96932,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Exp2;
 
 /***/ },
-/* 477 */
+/* 480 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -93963,7 +96942,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(18);
 
-	var Arrow = __webpack_require__(491);
+	var Arrow = __webpack_require__(497);
 
 	var Right = function Right() {
 	    return React.createElement(
@@ -93976,7 +96955,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Right;
 
 /***/ },
-/* 478 */
+/* 481 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -94017,7 +96996,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Cdot;
 
 /***/ },
-/* 479 */
+/* 482 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -94053,7 +97032,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = LogN;
 
 /***/ },
-/* 480 */
+/* 483 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -94090,7 +97069,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Leq;
 
 /***/ },
-/* 481 */
+/* 484 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -94126,7 +97105,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Minus;
 
 /***/ },
-/* 482 */
+/* 485 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -94163,7 +97142,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Radical;
 
 /***/ },
-/* 483 */
+/* 486 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -94206,7 +97185,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = FracInclusive;
 
 /***/ },
-/* 484 */
+/* 487 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -94249,7 +97228,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = FracExclusive;
 
 /***/ },
-/* 485 */
+/* 488 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -94279,7 +97258,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = JumpOutParentheses;
 
 /***/ },
-/* 486 */
+/* 489 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -94309,7 +97288,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = JumpOutExponent;
 
 /***/ },
-/* 487 */
+/* 490 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -94339,7 +97318,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = JumpOutBase;
 
 /***/ },
-/* 488 */
+/* 491 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -94371,7 +97350,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = JumpIntoNumerator;
 
 /***/ },
-/* 489 */
+/* 492 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -94403,7 +97382,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = JumpOutNumerator;
 
 /***/ },
-/* 490 */
+/* 493 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -94435,7 +97414,69 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = JumpOutDenominator;
 
 /***/ },
-/* 491 */
+/* 494 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports['default'] = symbolObservablePonyfill;
+	function symbolObservablePonyfill(root) {
+		var result;
+		var _Symbol = root.Symbol;
+
+		if (typeof _Symbol === 'function') {
+			if (_Symbol.observable) {
+				result = _Symbol.observable;
+			} else {
+				result = _Symbol('observable');
+				_Symbol.observable = result;
+			}
+		} else {
+			result = '@@observable';
+		}
+
+		return result;
+	};
+
+/***/ },
+/* 495 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = function(module) {
+		if(!module.webpackPolyfill) {
+			module.deprecate = function() {};
+			module.paths = [];
+			// module.parent = undefined by default
+			module.children = [];
+			module.webpackPolyfill = 1;
+		}
+		return module;
+	}
+
+
+/***/ },
+/* 496 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+	var freeGlobal = __webpack_require__(498);
+
+	/** Detect free variable `self`. */
+	var freeSelf = (typeof self === 'undefined' ? 'undefined' : _typeof(self)) == 'object' && self && self.Object === Object && self;
+
+	/** Used as a reference to the global object. */
+	var root = freeGlobal || freeSelf || Function('return this')();
+
+	module.exports = root;
+
+/***/ },
+/* 497 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -94458,6 +97499,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	module.exports = Arrow;
+
+/***/ },
+/* 498 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+	/** Detect free variable `global` from Node.js. */
+	var freeGlobal = (typeof global === 'undefined' ? 'undefined' : _typeof(global)) == 'object' && global && global.Object === Object && global;
+
+	module.exports = freeGlobal;
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ }
 /******/ ])
