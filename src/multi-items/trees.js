@@ -7,24 +7,27 @@ import type {Tree, ArrayNode, ObjectNode} from "./tree-types.js";
 const shapes = require("./shapes.js");
 
 
-type Path = Array<string | number>;
+export type Path = Array<string | number>;
 
 
-type ContentMapper<CI, CO> =
+export type ContentMapper<CI, CO> =
     (content: CI, shape: ContentShape, path: Path) => CO;
-type HintMapper<HI, HO> =
+export type HintMapper<HI, HO> =
     (hint: HI, shape: HintShape, path: Path) => HO;
-type ArrayMapper<CI, CO, HI, HO> =
+export type ArrayMapper<CI, CO, HI, HO> =
     (
         newArray: ArrayNode<CO, HO>,
         oldArray: ArrayNode<CI, HI>,
         shape: ArrayShape,
         path: Path
     ) => ArrayNode<CO, HO>;
-type TreeMapper<CI, CO, HI, HO> = {
+export type TreeMapper<CI, CO, HI, HO> = {
     content: ContentMapper<CI, CO>,
     hint: HintMapper<HI, HO>,
     array: ArrayMapper<CI, CO, HI, HO>,
+    // NOTE(mdr): Class methods are covariant, so we use `+` to denote
+    //     covariance in this interface's `mapTree` property, too.
+    +mapTree: (tree: Tree<CI, HI>, shape: Shape) => Tree<CO, HO>,
 };
 
 

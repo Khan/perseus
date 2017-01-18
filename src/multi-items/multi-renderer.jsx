@@ -1,3 +1,4 @@
+// @flow
 /**
  * Main entry point to the MultiRenderer render portion.
  *
@@ -42,6 +43,13 @@
  * else.
  * TODO(emily): Figure out an infrastructure where this isn't as confusing.
  */
+import type {Item, ContentNode, HintNode} from "./item-types.js";
+import type {Shape, ArrayShape} from "./shape-types.js";
+import type {Tree} from "./tree-types.js";
+import type {
+    TreeMapper, ContentMapper, HintMapper, ArrayMapper, Path
+} from "./trees.js";
+
 const {StyleSheet, css} = require("aphrodite");
 const lens = require("../../hubble/index.js");
 const React = require("react");
@@ -57,40 +65,70 @@ const {buildMapper, mapContentNodes, mapHintNodes} =
     require("./trees.js");
 const Util = require("../util.js");
 
-const MultiRenderer = React.createClass({
-    propTypes: {
-        content: React.PropTypes.shape({
-            _multi: React.PropTypes.any.isRequired,
-        }).isRequired,
-        shape: shapePropType,
-        children: React.PropTypes.func.isRequired,
-    },
 
-    getInitialState() {
-        return this._tryMakeRendererState(this.props);
-    },
+type ReactElement = any;  // TODO(mdr)
+type FindWidgetsFilterCriterion = any;  // TODO(mdr)
+type Hint = any;  // TODO(mdr)
+type Score = any;  // TODO(mdr)
+type SerializedState = any;  // TODO(mdr)
+type WidgetRef = any;  // TODO(mdr)
 
-    componentWillReceiveProps(nextProps) {
+type RendererElement = ReactElement;
+type ContentRendererData = {
+    renderer: RendererElement,
+    ref: ?Renderer,
+};
+type HintRendererData = {
+    renderer: RendererElement,
+    ref: null,
+    hint: Hint,
+};
+type RendererData = ContentRendererData | HintRendererData;
+type RendererDataTree = Tree<ContentRendererData, HintRendererData>;
+type RendererTree = Tree<RendererElement, RendererElement>;
+
+type Props = {
+    content: Item,  // TODO(mdr): Rename to item
+    shape: Shape,
+    children: (tree: RendererTree) => ReactElement,
+};
+type State = {
+    rendererDataTree: ?RendererDataTree,
+    renderError: ?Error,
+};
+
+
+class MultiRenderer extends React.Component {
+    props: Props
+    state: State
+
+    constructor(props: Props) {
+        super(props);
+
+        this.state = this._tryMakeRendererState(this.props);
+    }
+
+    componentWillReceiveProps(nextProps: Props) {
         if (nextProps.content !== this.props.content) {
             this.setState(this._tryMakeRendererState(nextProps));
         }
-    },
+    }
 
-    _tryMakeRendererState(props) {
+    _tryMakeRendererState(props: Props): State {
         try {
             return {
-                rendererData: this._makeRenderers(
-                    props.shape, props.content),
+                rendererDataTree: this._makeRendererDataTree(
+                    props.content, props.shape),
                 renderError: null,
             };
         } catch (e) {
             console.error(e);
             return {
-                rendererData: null,
+                rendererDataTree: null,
                 renderError: e,
             };
         }
-    },
+    }
 
     _getRendererProps() {
         /* eslint-disable no-unused-vars */
@@ -107,50 +145,52 @@ const MultiRenderer = React.createClass({
         /* eslint-enable no-unused-vars */
 
         return otherProps;
-    },
+    }
 
-    _makeRendererData(renderable, shape) {
-        const rendererProps = this._getRendererProps();
+    _makeContentRendererData(content: ContentNode): ContentRendererData {
+        // NOTE(emily): The `findExternalWidgets` function here is computed
+        //     inline and thus changes each time we run this function. If it
+        //     were to change every render, it would cause the Renderer to
+        //     re-render a lot more than is necessary. Don't re-compute this
+        //     element unless it is necessary!
+        const data: any = {renderer: null, ref: null};
+        data.renderer = <Renderer
+            {...this._getRendererProps()}
+            {...content}
+            ref={e => data.ref = e}
+            findExternalWidgets={
+                criterion => this._findWidgets(data, criterion)}
+        />;
+        return data;
+    }
 
-        if (shape.type === "item") {
-            // NOTE(emily): The `findExternalWidgets` function here is computed
-            // inline and thus changes each time we run this function. If it
-            // were to change every render, it would cause the Renderer to
-            // re-render a lot more than is necessary. Don't re-compute this
-            // element unless it is necessary!
-            const data = {renderer: null, ref: null};
-            data.renderer = <Renderer
-                {...rendererProps}
-                {...renderable}
-                ref={e => data.ref = e}
-                findExternalWidgets={
-                    criterion => this._findWidgets(data, criterion)}
-            />;
-            return data;
-        } else if (shape.type === "hint") {
-            // TODO(mdr): Once HintsRenderer supports inter-widget
-            //     communication, give it a ref. Until then, leave the ref null
-            //     forever, to avoid confusing the findWidgets functions.
-            const data = {renderer: null, ref: null, hint: renderable};
-            data.renderer = <HintsRenderer
-                {...rendererProps}
-                hints={[renderable]}
-            />;
-            return data;
-        } else {
-            throw new Error(`can't create renderer for type ${shape.type}`);
-        }
-    },
+    _makeHintRendererData(hint: HintNode): HintRendererData {
+        // TODO(mdr): Once HintsRenderer supports inter-widget communication,
+        //     give it a ref. Until then, leave the ref null forever, to avoid
+        //     confusing the findWidgets functions.
+        const data: any = {renderer: null, ref: null, hint: hint};
+        data.renderer = <HintsRenderer
+            {...this._getRendererProps()}
+            hints={[hint]}
+        />;
+        return data;
+    }
 
-    _makeRenderers(shape, content) {
-        const itemTree = itemToTree(content);
-        return buildMapper()
-            .setContentMapper(this._makeRendererData)
-            .setHintMapper(this._makeRendererData)
-            .mapTree(itemTree, shape);
-    },
+    _makeRendererDataTree(item: Item, shape: Shape): RendererDataTree {
+        const itemTree = itemToTree(item);
+        const mapper: TreeMapper<
+            ContentNode, ContentRendererData, HintNode, HintRendererData
+        > = 
+            buildMapper()
+            .setContentMapper(c => this._makeContentRendererData(c))
+            .setHintMapper(h => this._makeHintRendererData(h));
+        return mapper.mapTree(itemTree, shape);
+    }
 
-    _findWidgets(callingData, filterCriterion) {
+    _findWidgets(
+        callingData: RendererData,
+        filterCriterion: FindWidgetsFilterCriterion
+    ): Array<WidgetRef> {
         const results = [];
 
         this._traverseRenderers(data => {
@@ -160,37 +200,47 @@ const MultiRenderer = React.createClass({
         });
 
         return results;
-    },
+    }
 
-    _traverseRenderers(leafMapper, arrayMapper) {
+    _traverseRenderers<O>(
+        leafMapper:
+            ContentMapper<RendererData, O> & HintMapper<RendererData, O>,
+        arrayMapper: ?ArrayMapper<RendererData, O, RendererData, O>
+    ): ?Tree<O, O> {
+        const {rendererDataTree} = this.state;
+
+        if (!rendererDataTree) {
+            return null;
+        }
+
         let mapper = buildMapper()
             .setContentMapper(leafMapper)
             .setHintMapper(leafMapper);
         if (arrayMapper) {
             mapper = mapper.setArrayMapper(arrayMapper);
         }
-        return mapper.mapTree(this.state.rendererData, this.props.shape);
-    },
+        return mapper.mapTree(rendererDataTree, this.props.shape);
+    }
 
-    _scoreFromRef(ref) {
+    _scoreFromRef(ref: Renderer): Score {
         if (!ref) {
             return null;
         }
 
         const [guess, score] = ref.guessAndScore();
         return Util.keScoreFromPerseusScore(score, guess);
-    },
+    }
 
     // Return a structure in the shape of the content, with scores at each of
     // the leaf nodes.
-    getScores() {
+    getScores(): Tree<Score, null> {
         return this._traverseRenderers(data => this._scoreFromRef(data.ref));
-    },
+    }
 
     // Return a single score for all parts of the multi renderer. The guess is
     // an object in the shape of the content, with the individual guess at the
     // leaf node.
-    score() {
+    score(): Score {
         const scores = [];
         const guess = this._traverseRenderers(data => {
             if (!data.ref) {
@@ -204,9 +254,9 @@ const MultiRenderer = React.createClass({
         const combinedScore = scores.reduce(Util.combineScores);
 
         return Util.keScoreFromPerseusScore(combinedScore, guess);
-    },
+    }
 
-    getSerializedState() {
+    getSerializedState(): Tree<SerializedState, null> {
         return this._traverseRenderers(data => {
             if (!data.ref) {
                 return null;
@@ -214,9 +264,12 @@ const MultiRenderer = React.createClass({
 
             return data.ref.getSerializedState();
         });
-    },
+    }
 
-    restoreSerializedState(serializedState, callback) {
+    restoreSerializedState(
+        serializedState: SerializedState,
+        callback: () => any,
+    ) {
         // We want to call our async callback only once all of the childrens'
         // callbacks have run. We add one to this counter before we call out to
         // each renderer and decrement it when it runs our callback.
@@ -241,44 +294,58 @@ const MultiRenderer = React.createClass({
             numCallbacks++;
             data.ref.restoreSerializedState(state, countCallback);
         });
-    },
+    }
 
-    _annotateRendererArray(renderers, data, shape, path) {
+    _annotateRendererArray(
+        renderers: Array<Renderer>,
+        rendererDatas: Array<RendererData>,
+        shape: ArrayShape,
+        path: Path
+    ): Array<Renderer> {
         // Attach a `firstN` method to arrays of hints, which allows the layout
         // to render the hints together in one HintsRenderer.
         if (shape.elementShape.type === "hint") {
+            // HACK(mdr): I know by the shape that these are HintRendererDatas,
+            //     even though Flow can't prove it.
+            const hintRendererDatas: Array<HintRendererData> =
+                (rendererDatas: any);
+
             renderers = [...renderers];
-            renderers.firstN = (n) => <HintsRenderer
+            (renderers: any).firstN = (n) => <HintsRenderer
                 {...this._getRendererProps()}
-                hints={data.map(d => d.hint)}
+                hints={hintRendererDatas.map(d => d.hint)}
                 hintsVisible={n}
             />;
         }
         return renderers;
-    },
+    }
 
-    _getRenderers() {
+    _getRenderers(): Tree<Renderer, Renderer> {
         return this._traverseRenderers(
-            data => data.renderer, this._annotateRendererArray);
-    },
+            data => data.renderer,
+            (rs, rds, s, p) => this._annotateRendererArray(rs, rds, s, p)
+        );
+    }
 
     render() {
         if (this.state.renderError) {
             return <div className={css(styles.error)}>
-                Error rendering: {"" + this.state.renderError}
+                Error rendering: {String(this.state.renderError)}
             </div>;
         }
 
         return this.props.children({
             renderers: this._getRenderers(),
         });
-    },
-});
+    }
+}
+
 
 const styles = StyleSheet.create({
     error: {
         color: "red",
     },
 });
+
 
 module.exports = MultiRenderer;
