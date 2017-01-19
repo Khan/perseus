@@ -1,6 +1,6 @@
 const {buildEmptyItemTreeForShape, buildEmptyItemForShape, itemToTree} =
     require("./multi-items/items.js");
-const {buildMapper} =
+const {buildMapper, mapContentNodes, mapHintNodes} =
     require("./multi-items/trees.js");
 const MultiRenderer = require("./multi-items/multi-renderer.jsx");
 const {shapePropType, buildPropTypeForShape} =
@@ -16,8 +16,8 @@ module.exports = {
     // TODO(mdr): rename call sites
     shapeToPropType: buildPropTypeForShape,
     traverseShape(shape, tree, leafMapper) {
-        // TODO(mdr): I dropped the collection callback, becuase I don't think
-        //     we use it anywhere anymore?
+        // TODO(mdr): I dropped the collection callback, because I don't think
+        //     any external call sites use it.
         return buildMapper()
             .setContentMapper(leafMapper)
             .setHintMapper(leafMapper)
@@ -30,10 +30,8 @@ module.exports = {
         const shape = shapes.inferTreeShape(tree);
 
         // Use the mapper functions for iteration. Throw away the return value.
-        return buildMapper()
-            .setContentMapper(content => leafCallback(content, "item"))
-            .setHintMapper(hint => leafCallback(hint, "hint"))
-            .mapTree(tree, shape);
+        mapContentNodes(tree, shape, content => leafCallback(content, "item"));
+        mapHintNodes(tree, shape, hint => leafCallback(hint, "hint"));
     },
 
     // TODO(mdr): rename call sites

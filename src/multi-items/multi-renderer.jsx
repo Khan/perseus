@@ -32,37 +32,22 @@
  *           </div>
  *       }
  *   </MultiRenderer>
- *
- * This also exposes the shape system for describing the shape of a piece of
- * multi-item content, and a `traverseShape` function for traversing a piece of
- * content using its shape.
- *
- * We currently have a strange distinction between content that is wrapped in
- * the unique `_multi` key and content that is not. Currently, the `_multi` key
- * is required when the content is used from the top-level, but not everywhere
- * else.
- * TODO(emily): Figure out an infrastructure where this isn't as confusing.
  */
 import type {Item, ContentNode, HintNode} from "./item-types.js";
 import type {Shape, ArrayShape} from "./shape-types.js";
 import type {Tree} from "./tree-types.js";
 import type {
-    TreeMapper, ContentMapper, HintMapper, ArrayMapper, Path
+    TreeMapper, ContentMapper, HintMapper, ArrayMapper,
 } from "./trees.js";
 
 const {StyleSheet, css} = require("aphrodite");
 const lens = require("../../hubble/index.js");
 const React = require("react");
 
-const {buildEmptyItemTreeForShape, buildEmptyItemForShape, itemToTree} =
-    require("./items.js");
+const {itemToTree} = require("./items.js");
 const HintsRenderer = require("../hints-renderer.jsx");
-const {shapePropType, buildPropTypeForShape} =
-    require("./prop-type-builders.js");
 const Renderer = require("../renderer.jsx");
-const shapes = require("./shapes.js");
-const {buildMapper, mapContentNodes, mapHintNodes} =
-    require("./trees.js");
+const {buildMapper} = require("./trees.js");
 const Util = require("../util.js");
 
 
@@ -73,19 +58,20 @@ type Score = any;  // TODO(mdr)
 type SerializedState = any;  // TODO(mdr)
 type WidgetRef = any;  // TODO(mdr)
 
-type RendererElement = ReactElement;
+type ContentRendererElement = ReactElement;
+type HintRendererElement = ReactElement;
 type ContentRendererData = {
-    renderer: RendererElement,
+    renderer: ContentRendererElement,
     ref: ?Renderer,
 };
 type HintRendererData = {
-    renderer: RendererElement,
+    renderer: HintRendererElement,
     ref: null,
     hint: Hint,
 };
 type RendererData = ContentRendererData | HintRendererData;
 type RendererDataTree = Tree<ContentRendererData, HintRendererData>;
-type RendererTree = Tree<RendererElement, RendererElement>;
+type RendererTree = Tree<ContentRendererElement, HintRendererElement>;
 
 type Props = {
     content: Item,  // TODO(mdr): Rename to item
@@ -93,27 +79,41 @@ type Props = {
     children: (tree: RendererTree) => ReactElement,
 };
 type State = {
+    // We cache the renderer elements and refs in `rendererDataTree`, and
+    // change them every time props changes. This isn't just a performance
+    // optimization; see `_makeContentRendererData` for more discussion.
     rendererDataTree: ?RendererDataTree,
+    // But, if traversing the tree fails, we store the Error in `renderError`.
     renderError: ?Error,
 };
 
 
 class MultiRenderer extends React.Component {
+    /* eslint-disable react/sort-comp */
+    // TODO(mdr): Update the linter to allow property type declarations here.
     props: Props
     state: State
+    /* eslint-enable react/sort-comp */
 
     constructor(props: Props) {
         super(props);
 
+        // Keep state in sync with props.
         this.state = this._tryMakeRendererState(this.props);
     }
 
     componentWillReceiveProps(nextProps: Props) {
+        // Keep state in sync with props.
         if (nextProps.content !== this.props.content) {
             this.setState(this._tryMakeRendererState(nextProps));
         }
     }
 
+    /**
+     * Attempt to build a State that includes a renderer tree corresponding to
+     * the item provided in props. On error, return a state with `renderError`
+     * set instead.
+     */
     _tryMakeRendererState(props: Props): State {
         try {
             return {
@@ -122,6 +122,10 @@ class MultiRenderer extends React.Component {
                 renderError: null,
             };
         } catch (e) {
+            // NOTE(mdr): It's appropriate to log an error traceback in a
+            //     caught error condition, and console.error is supported in
+            //     all target browsers. Just do it, linter.
+            // eslint-disable-next-line no-console
             console.error(e);
             return {
                 rendererDataTree: null,
@@ -130,6 +134,10 @@ class MultiRenderer extends React.Component {
         }
     }
 
+    /**
+     * Props that aren't directly used by the MultiRenderer are delegated to
+     * the underlying Renderers.
+     */
     _getRendererProps() {
         /* eslint-disable no-unused-vars */
         // eslint is complaining that `content` and `children` are unused. I'm
@@ -147,12 +155,18 @@ class MultiRenderer extends React.Component {
         return otherProps;
     }
 
+    /**
+     * Construct a Renderer and a ref placeholder for the given ContentNode.
+     */
     _makeContentRendererData(content: ContentNode): ContentRendererData {
         // NOTE(emily): The `findExternalWidgets` function here is computed
         //     inline and thus changes each time we run this function. If it
         //     were to change every render, it would cause the Renderer to
         //     re-render a lot more than is necessary. Don't re-compute this
         //     element unless it is necessary!
+        // HACK(mdr): Flow can't prove that this is a ContentRendererData,
+        //     because of how we awkwardly construct it in order to obtain a
+        //     circular reference. But it is, I promise.
         const data: any = {renderer: null, ref: null};
         data.renderer = <Renderer
             {...this._getRendererProps()}
@@ -164,36 +178,54 @@ class MultiRenderer extends React.Component {
         return data;
     }
 
+    /**
+     * Construct a Renderer for the given HintNode, and keep track of the hint
+     * itself for future use, too.
+     */
     _makeHintRendererData(hint: HintNode): HintRendererData {
         // TODO(mdr): Once HintsRenderer supports inter-widget communication,
         //     give it a ref. Until then, leave the ref null forever, to avoid
         //     confusing the findWidgets functions.
-        const data: any = {renderer: null, ref: null, hint: hint};
-        data.renderer = <HintsRenderer
+        const renderer = <HintsRenderer
             {...this._getRendererProps()}
             hints={[hint]}
         />;
-        return data;
+        return {hint, renderer, ref: null};
     }
 
+    /**
+     * Construct a tree of interconnected RendererDatas, corresponding to the
+     * given item. Called in `_tryMakeRendererState`, in order to store this
+     * tree in the component state.
+     */
     _makeRendererDataTree(item: Item, shape: Shape): RendererDataTree {
         const itemTree = itemToTree(item);
-        const mapper: TreeMapper<
-            ContentNode, ContentRendererData, HintNode, HintRendererData
-        > = 
+        // NOTE(mdr): Flow has trouble inferring this type parameterization,
+        //     so we provide it explicitly.
+        const mapper:
+            TreeMapper<ContentNode, ContentRendererData, HintNode,
+                HintRendererData> =
             buildMapper()
             .setContentMapper(c => this._makeContentRendererData(c))
             .setHintMapper(h => this._makeHintRendererData(h));
         return mapper.mapTree(itemTree, shape);
     }
 
+    /**
+     * Return all widgets that meet the given criterion, from all Renderers
+     * except the Renderer that triggered this call.
+     *
+     * This function is provided to each Renderer's `findExternalWidgets` prop,
+     * which enables widgets in different Renderers to discover each other and
+     * communicate.
+     */
     _findWidgets(
         callingData: RendererData,
         filterCriterion: FindWidgetsFilterCriterion
     ): Array<WidgetRef> {
         const results = [];
 
-        this._traverseRenderers(data => {
+        this._mapRenderers(data => {
             if (callingData !== data && data.ref) {
                 results.push(...data.ref.findInternalWidgets(filterCriterion));
             }
@@ -202,9 +234,19 @@ class MultiRenderer extends React.Component {
         return results;
     }
 
-    _traverseRenderers<O>(
-        leafMapper:
-            ContentMapper<RendererData, O> & HintMapper<RendererData, O>,
+    /**
+     * Copy the renderer tree, apply the given transformation to the leaf nodes
+     * and the optional given transformation to the array nodes, and return the
+     * result.
+     *
+     * Used to provide structured data to the call site (the Renderer tree on
+     * `render`, the Score tree on `getScores`, etc.), and to traverse the
+     * renderer tree even when we disregard the output (like in
+     * `_findWidgets`).
+     */
+    _mapRenderers<O>(
+        leafMapper: ContentMapper<RendererData, O> &
+            HintMapper<RendererData, O>,
         arrayMapper: ?ArrayMapper<RendererData, O, RendererData, O>
     ): ?Tree<O, O> {
         const {rendererDataTree} = this.state;
@@ -231,18 +273,22 @@ class MultiRenderer extends React.Component {
         return Util.keScoreFromPerseusScore(score, guess);
     }
 
-    // Return a structure in the shape of the content, with scores at each of
-    // the leaf nodes.
+    /**
+     * Return a tree in the shape of the multi-item, with scores at each of
+     * the content nodes and `null` at the other leaf nodes.
+     */
     getScores(): Tree<Score, null> {
-        return this._traverseRenderers(data => this._scoreFromRef(data.ref));
+        return this._mapRenderers(data => this._scoreFromRef(data.ref));
     }
 
-    // Return a single score for all parts of the multi renderer. The guess is
-    // an object in the shape of the content, with the individual guess at the
-    // leaf node.
+    /**
+     * Return a single composite score for all rendered content nodes.
+     * The `guess` is a tree in the shape of the multi-item, with an individual
+     * guess at each content node and `null` at the other leaf nodes.
+     */
     score(): Score {
         const scores = [];
-        const guess = this._traverseRenderers(data => {
+        const guess = this._mapRenderers(data => {
             if (!data.ref) {
                 return null;
             }
@@ -256,8 +302,12 @@ class MultiRenderer extends React.Component {
         return Util.keScoreFromPerseusScore(combinedScore, guess);
     }
 
+    /**
+     * Return a tree in the shape of the multi-item, with serialized state at
+     * each of the content nodes and `null` at the other leaf nodes.
+     */
     getSerializedState(): Tree<SerializedState, null> {
-        return this._traverseRenderers(data => {
+        return this._mapRenderers(data => {
             if (!data.ref) {
                 return null;
             }
@@ -266,6 +316,11 @@ class MultiRenderer extends React.Component {
         });
     }
 
+    /**
+     * Given a tree in the shape of the multi-item, with serialized state at
+     * each of the content nodes, restore each state to the corresponding
+     * renderer if currently mounted.
+     */
     restoreSerializedState(
         serializedState: SerializedState,
         callback: () => any,
@@ -281,7 +336,7 @@ class MultiRenderer extends React.Component {
             }
         };
 
-        this._traverseRenderers((data, _, path) => {
+        this._mapRenderers((data, _, path) => {
             if (!data.ref) {
                 return;
             }
@@ -296,14 +351,16 @@ class MultiRenderer extends React.Component {
         });
     }
 
+    /**
+     * Given an array of renderers, if it happens to be an array of *hint*
+     * renderers, then attach a `firstN` method to the array, which allows the
+     * layout to render the hints together in one HintsRenderer.
+     */
     _annotateRendererArray(
         renderers: Array<Renderer>,
         rendererDatas: Array<RendererData>,
-        shape: ArrayShape,
-        path: Path
+        shape: ArrayShape
     ): Array<Renderer> {
-        // Attach a `firstN` method to arrays of hints, which allows the layout
-        // to render the hints together in one HintsRenderer.
         if (shape.elementShape.type === "hint") {
             // HACK(mdr): I know by the shape that these are HintRendererDatas,
             //     even though Flow can't prove it.
@@ -320,8 +377,14 @@ class MultiRenderer extends React.Component {
         return renderers;
     }
 
-    _getRenderers(): Tree<Renderer, Renderer> {
-        return this._traverseRenderers(
+    /**
+     * Return a tree in the shape of the multi-item, with a Renderer at each
+     * content node and a HintRenderer at each hint node.
+     *
+     * Uses the elements already stored in state.
+     */
+    _getRenderers(): RendererTree {
+        return this._mapRenderers(
             data => data.renderer,
             (rs, rds, s, p) => this._annotateRendererArray(rs, rds, s, p)
         );
@@ -334,6 +397,8 @@ class MultiRenderer extends React.Component {
             </div>;
         }
 
+        // Pass the renderer tree to the `children` function, which will
+        // determine the actual content of this component.
         return this.props.children({
             renderers: this._getRenderers(),
         });

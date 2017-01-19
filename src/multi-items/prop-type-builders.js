@@ -1,10 +1,20 @@
 // @flow
+/**
+ * Utility functions to build React PropTypes for multi-items and shapes.
+ *
+ * If you're writing new components, though, consider using the Item and Shape
+ * Flow types instead.
+ */
 const React = require("react");
 
 import type {Shape} from "./shape-types.js";
 
 
-// Recursive prop type to check that the shape prop is structured correctly.
+/**
+ * A recursive PropType that accepts Shape objects, and rejects other objects.
+ *
+ * Usage: `propTypes: {shape: shapePropType}`.
+ */
 function shapePropType(...args: Array<any>) {
     const itemShape = React.PropTypes.oneOfType([
         React.PropTypes.shape({
@@ -27,18 +37,27 @@ function shapePropType(...args: Array<any>) {
 }
 
 
-// A propType that matches multi-items of the given shape.
+/**
+ * Return a PropType that accepts Items of the given shape, and rejects other
+ * objects.
+ *
+ * Usage: `propTypes: {item: buildPropTypeForShape(myShape)}`
+ */
 function buildPropTypeForShape(shape: Shape) {
     return React.PropTypes.oneOfType([
         React.PropTypes.shape({
-            _multi: buildPropTypeForShapeRec(shape),
+            _multi: buildTreePropTypeForShape(shape),
         }),
         React.PropTypes.oneOf([null, undefined]),
     ]);
 }
 
 
-function buildPropTypeForShapeRec(shape: Shape) {
+/**
+ * Return a PropType that accepts ItemTrees of the given shape, and rejects
+ * other objects.
+ */
+function buildTreePropTypeForShape(shape: Shape) {
     if (shape.type === "item") {
         return React.PropTypes.shape({
             __type: React.PropTypes.oneOf(["item"]).isRequired,
@@ -55,14 +74,14 @@ function buildPropTypeForShapeRec(shape: Shape) {
             replace: React.PropTypes.bool,
         });
     } else if (shape.type === "array") {
-        const elementPropType = buildPropTypeForShapeRec(shape.elementShape);
+        const elementPropType = buildTreePropTypeForShape(shape.elementShape);
         return React.PropTypes.arrayOf(elementPropType.isRequired);
     } else if (shape.type === "object") {
         const valueShapes = shape.shape;
         const propTypeShape = {};
         Object.keys(valueShapes).forEach(key => {
             propTypeShape[key] =
-                buildPropTypeForShapeRec(valueShapes[key]).isRequired;
+                buildTreePropTypeForShape(valueShapes[key]).isRequired;
         });
         return React.PropTypes.shape(propTypeShape);
     } else {

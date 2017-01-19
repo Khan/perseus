@@ -37,7 +37,7 @@ describe("traverseShape", () => {
 
         assert.deepEqual([
             content(1), content(2), content(3), content(4), content(5),
-            content(6)
+            content(6),
         ], calledWith);
     });
 
@@ -104,7 +104,7 @@ describe("traverseShape", () => {
 
         const data = [
             [[content(0)], [content(1)]],
-            [[content(2)], [content(3), content(4)]]
+            [[content(2)], [content(3), content(4)]],
         ];
 
         const result = traverseShape(shape, data, e => e.content);
