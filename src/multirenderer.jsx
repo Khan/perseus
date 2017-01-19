@@ -1,7 +1,8 @@
-const {buildEmptyItemTreeForShape, buildEmptyItemForShape, itemToTree} =
+const {
+    buildEmptyItemTreeForShape, buildEmptyItemForShape,
+    findContentNodesInItem, findHintNodesInItem, inferItemShape, treeToItem,
+} =
     require("./multi-items/items.js");
-const {buildMapper, mapContentNodes, mapHintNodes} =
-    require("./multi-items/trees.js");
 const MultiRenderer = require("./multi-items/multi-renderer.jsx");
 const {shapePropType, buildPropTypeForShape} =
     require("./multi-items/prop-type-builders.js");
@@ -15,23 +16,23 @@ module.exports = {
     emptyContentForShape: buildEmptyItemForShape,
     // TODO(mdr): rename call sites
     shapeToPropType: buildPropTypeForShape,
-    traverseShape(shape, tree, leafMapper) {
-        // TODO(mdr): I dropped the collection callback, because I don't think
-        //     any external call sites use it.
-        return buildMapper()
-            .setContentMapper(leafMapper)
-            .setHintMapper(leafMapper)
-            .mapTree(tree, shape);
+    traverseShape(shape, tree, callback) {
+        // TODO(mdr): The one webapp call site *just* wants to find content
+        //     nodes. This isn't what traverseShape used to mean, but that's
+        //     the only use case for it today, sooo, yeah.
+        // TODO(mdr): Also, why isn't the item wrapped in `_multi` at that call
+        //     site? (It's item-controls.jsx.)
+        findContentNodesInItem(treeToItem(tree), shape, callback);
     },
-    // TODO(mdr): Let's just have the call site do the unwrap and the inference
-    //     and the other things.
+    // TODO(mdr): Have the call site use inference and the find functions.
     findLeafNodes(item, leafCallback) {
-        const tree = itemToTree(item);
-        const shape = shapes.inferTreeShape(tree);
+        const shape = inferItemShape(item);
 
         // Use the mapper functions for iteration. Throw away the return value.
-        mapContentNodes(tree, shape, content => leafCallback(content, "item"));
-        mapHintNodes(tree, shape, hint => leafCallback(hint, "hint"));
+        findContentNodesInItem(
+            item, shape, content => leafCallback(content, "item"));
+        findHintNodesInItem(
+            item, shape, hint => leafCallback(hint, "hint"));
     },
 
     // TODO(mdr): rename call sites

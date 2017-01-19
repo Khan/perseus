@@ -2,7 +2,7 @@
 /**
  * Main entry point to the MultiRenderer render portion.
  *
- * Mainly, this file exposes the `MultiRenderer` component which performs
+ * This file exposes the `MultiRenderer` component which performs
  * multi-rendering. To multi-render a question, pass in the content of the item
  * to the `MultiRenderer` component as a props. Then, pass in a function which
  * takes an object of renderers (in the same structure as the content), and
@@ -50,7 +50,6 @@ const Renderer = require("../renderer.jsx");
 const {buildMapper} = require("./trees.js");
 const Util = require("../util.js");
 
-
 type ReactElement = any;  // TODO(mdr)
 type FindWidgetsFilterCriterion = any;  // TODO(mdr)
 type Hint = any;  // TODO(mdr)
@@ -72,6 +71,8 @@ type HintRendererData = {
 type RendererData = ContentRendererData | HintRendererData;
 type RendererDataTree = Tree<ContentRendererData, HintRendererData>;
 type RendererTree = Tree<ContentRendererElement, HintRendererElement>;
+type ScoreTree = Tree<Score, null>;
+type SerializedStateTree = Tree<SerializedState, null>;
 
 type Props = {
     content: Item,  // TODO(mdr): Rename to item
@@ -86,7 +87,6 @@ type State = {
     // But, if traversing the tree fails, we store the Error in `renderError`.
     renderError: ?Error,
 };
-
 
 class MultiRenderer extends React.Component {
     /* eslint-disable react/sort-comp */
@@ -277,7 +277,7 @@ class MultiRenderer extends React.Component {
      * Return a tree in the shape of the multi-item, with scores at each of
      * the content nodes and `null` at the other leaf nodes.
      */
-    getScores(): Tree<Score, null> {
+    getScores(): ScoreTree {
         return this._mapRenderers(data => this._scoreFromRef(data.ref));
     }
 
@@ -306,7 +306,7 @@ class MultiRenderer extends React.Component {
      * Return a tree in the shape of the multi-item, with serialized state at
      * each of the content nodes and `null` at the other leaf nodes.
      */
-    getSerializedState(): Tree<SerializedState, null> {
+    getSerializedState(): SerializedStateTree {
         return this._mapRenderers(data => {
             if (!data.ref) {
                 return null;
@@ -362,8 +362,8 @@ class MultiRenderer extends React.Component {
         shape: ArrayShape
     ): Array<Renderer> {
         if (shape.elementShape.type === "hint") {
-            // HACK(mdr): I know by the shape that these are HintRendererDatas,
-            //     even though Flow can't prove it.
+            // The shape says that these are HintRendererDatas, even though
+            // it's not provable at compile time, so perform a cast.
             const hintRendererDatas: Array<HintRendererData> =
                 (rendererDatas: any);
 
@@ -405,12 +405,10 @@ class MultiRenderer extends React.Component {
     }
 }
 
-
 const styles = StyleSheet.create({
     error: {
         color: "red",
     },
 });
-
 
 module.exports = MultiRenderer;

@@ -9,7 +9,6 @@ const React = require("react");
 
 import type {Shape} from "./shape-types.js";
 
-
 /**
  * A recursive PropType that accepts Shape objects, and rejects other objects.
  *
@@ -36,7 +35,6 @@ function shapePropType(...args: Array<any>) {
     return itemShape(...args);
 }
 
-
 /**
  * Return a PropType that accepts Items of the given shape, and rejects other
  * objects.
@@ -51,7 +49,6 @@ function buildPropTypeForShape(shape: Shape) {
         React.PropTypes.oneOf([null, undefined]),
     ]);
 }
-
 
 /**
  * Return a PropType that accepts ItemTrees of the given shape, and rejects
@@ -88,7 +85,6 @@ function buildTreePropTypeForShape(shape: Shape) {
         throw new Error(`unexpected shape type ${shape.type}`);
     }
 }
-
 
 module.exports = {
     shapePropType,

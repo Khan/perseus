@@ -41,7 +41,7 @@
  * details.
  *
  * WARNING: These functions trust that the provided tree conforms to the
- * provided shape. If not, behavior is undefined and may not adhere to the type
+ * provided shape. If not, behavior is undefined and may not respect the type
  * signatures specified here.
  */
 import type {
@@ -49,14 +49,12 @@ import type {
 } from "./shape-types.js";
 import type {Tree, ArrayNode, ObjectNode} from "./tree-types.js";
 
-
 /**
  * The sequence of edges that lead to a particular node in a Tree.
  * Elements can be `string` to correspond to an ObjectNode key, or `number` to
  * correspond to an ArrayNode index.
  */
 export type Path = Array<string | number>;
-
 
 /**
  * These are function interfaces for mapping over various types of tree nodes.
@@ -90,8 +88,8 @@ export type HintMapper<HI, HO> =
     (hint: HI, shape: HintShape, path: Path) => HO;
 export type ArrayMapper<CI, CO, HI, HO> =
     (
-        newArray: ArrayNode<CO, HO>,
-        oldArray: ArrayNode<CI, HI>,
+        mappedArray: ArrayNode<CO, HO>,
+        originalArray: ArrayNode<CI, HI>,
         shape: ArrayShape,
         path: Path
     ) => ArrayNode<CO, HO>;
@@ -100,20 +98,16 @@ export type ArrayMapper<CI, CO, HI, HO> =
  * A TreeMapper is a collection of node mappers, which, together, compose the
  * behavior for mapping over an entire tree.
  *
- * This object serves as an interface for the two TreeMapper classes, including
- * both the internal mapper properties that we care about, and the `mapTree`
+ * This serves as the interface for the two TreeMapper classes, including both
+ * the internal mapper properties that we care about, and the `mapTree`
  * function that the call site will use.
  */
-export type TreeMapper<CI, CO, HI, HO> = {
+export interface TreeMapper<CI, CO, HI, HO> {
     content: ContentMapper<CI, CO>,
     hint: HintMapper<HI, HO>,
     array: ArrayMapper<CI, CO, HI, HO>,
-
-    // NOTE(mdr): Class methods are covariant, so we use `+` to denote
-    //     covariance in this interface's `mapTree` property, too.
-    +mapTree: (tree: Tree<CI, HI>, shape: Shape) => Tree<CO, HO>,
-};
-
+    mapTree(tree: Tree<CI, HI>, shape: Shape): Tree<CO, HO>,
+}
 
 /**
  * This is a TreeMapper that only has mappers specified for its leaf nodes; its
@@ -167,18 +161,9 @@ class TreeMapperJustForLeaves<CI, CO, HI, HO> {
     }
 }
 
-
 /**
- * This is a TreeMapper that has an ArrayMapper specified, so the types of its
- * ContentMapper and HintMapper are now locked in. You can still change any of
- * the mappers, so long as you don't change their types anymore.
- *
- * (Okay, yeah, fine, I lied. The `setArrayMapper` call doesn't *strictly* have
- * to come last, *if* your ContentMapper and HintMapper return the same type of
- * node data as they consume. But that's not really worth explaining in the
- * module docstring, ya know? :P)
- *
- * TODO(mdr): Would it be better to just remove those methods instead?
+ * This is a TreeMapper that already has an ArrayMapper specified, so its
+ * ContentMapper and HintMapper are now locked in.
  */
 class TreeMapperForLeavesAndCollections<CI, CO, HI, HO> {
     content: ContentMapper<CI, CO>
@@ -195,20 +180,6 @@ class TreeMapperForLeavesAndCollections<CI, CO, HI, HO> {
         this.array = array;
     }
 
-    setContentMapper(
-        newContentMapper: ContentMapper<CI, CO>
-    ): TreeMapperForLeavesAndCollections<CI, CO, HI, HO> {
-        return new TreeMapperForLeavesAndCollections(
-            newContentMapper, this.hint, this.array);
-    }
-
-    setHintMapper(
-        newHintMapper: HintMapper<HI, HO>
-    ): TreeMapperForLeavesAndCollections<CI, CO, HI, HO> {
-        return new TreeMapperForLeavesAndCollections(
-            this.content, newHintMapper, this.array);
-    }
-
     setArrayMapper(
         newArrayMapper: ArrayMapper<CI, CO, HI, HO>
     ): TreeMapperForLeavesAndCollections<CI, CO, HI, HO> {
@@ -221,11 +192,9 @@ class TreeMapperForLeavesAndCollections<CI, CO, HI, HO> {
     }
 }
 
-
 function identity<T>(x: T): T {
     return x;
 }
-
 
 /**
  * Return a new TreeMapper that will perform a no-op transformation on an input
@@ -236,37 +205,6 @@ function identity<T>(x: T): T {
 function buildMapper<C, C, H, H>(): TreeMapperJustForLeaves<C, C, H, H> {
     return new TreeMapperJustForLeaves(identity, identity);
 }
-
-
-/**
- * Copy the given tree, apply the given transformation to its hint nodes, and
- * return the resulting tree.
- */
-function mapContentNodes<CI, CO, H>(
-    tree: Tree<CI, H>,
-    shape: Shape,
-    mapper: (content: CI, shape: Shape, path: Path) => CO
-): Tree<CO, H> {
-    return buildMapper()
-        .setContentMapper(mapper)
-        .mapTree(tree, shape);
-}
-
-
-/**
- * Copy the given tree, apply the given transformation to its hint nodes, and
- * return the resulting tree.
- */
-function mapHintNodes<C, HI, HO>(
-    tree: Tree<C, HI>,
-    shape: Shape,
-    mapper: (hint: HI, shape: Shape, path: Path) => HO
-): Tree<C, HO> {
-    return buildMapper()
-        .setHintMapper(mapper)
-        .mapTree(tree, shape);
-}
-
 
 /**
  * Copy the given tree, apply the corresponding transformation specified in the
@@ -336,9 +274,6 @@ function mapTree<CI, CO, HI, HO>(
     }
 }
 
-
 module.exports = {
     buildMapper,
-    mapContentNodes,
-    mapHintNodes,
 };
