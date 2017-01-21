@@ -15,8 +15,10 @@ const {iconChevronDown, iconTrash} = require("./icon-paths.js");
 const InlineIcon = require("./components/inline-icon.jsx");
 const JsonEditor = require("./json-editor.jsx");
 const SimpleButton = require("./simple-button.jsx");
-const {emptyValueForShape, MultiRenderer, shapePropType} =
-    require("./multirenderer.jsx");
+const {MultiRenderer} = require("./multi-items.js");
+const {buildEmptyItemTreeForShape, itemToTree} =
+    require("./multi-items/items.js");
+const {shapePropType} = require("./multi-items/prop-type-builders.js");
 
 const EDITOR_MODES = ["edit", "preview", "json"];
 
@@ -448,18 +450,18 @@ const MultiRendererEditor = React.createClass({
         // TODO(emily): use ApiOptions.propTypes
         apiOptions: React.PropTypes.any.isRequired,
 
-        content: React.PropTypes.any.isRequired,
+        item: React.PropTypes.any.isRequired,
         editorMode: React.PropTypes.oneOf(EDITOR_MODES).isRequired,
 
         onChange: React.PropTypes.func.isRequired,
     },
 
     _renderLayout() {
-        const {Layout, apiOptions, content} = this.props;
+        const {Layout, apiOptions, item} = this.props;
 
         return <Layout
             ref={e => this.layout = e}
-            content={content}
+            item={item}
             apiOptions={apiOptions}
         />;
     },
@@ -472,8 +474,8 @@ const MultiRendererEditor = React.createClass({
             />
             <JsonEditor
                 multiLine
-                value={this.props.content}
-                onChange={content => this.props.onChange({content})}
+                value={this.props.item}
+                onChange={item => this.props.onChange({item})}
             />
         </div>;
     },
@@ -490,19 +492,19 @@ const MultiRendererEditor = React.createClass({
 
     handleEditorChange(path, newValue) {
         this.props.onChange({
-            content: lens(this.props.content)
+            item: lens(this.props.item)
                 .merge(multiPath(path), newValue)
                 .freeze(),
         });
     },
 
     addArrayElement(path, shape) {
-        const currentLength = lens(this.props.content)
+        const currentLength = lens(this.props.item)
             .get(multiPath(path)).length;
         const newElementPath = path.concat(currentLength);
-        const newValue = emptyValueForShape(shape);
+        const newValue = buildEmptyItemTreeForShape(shape);
         this.props.onChange({
-            content: lens(this.props.content)
+            item: lens(this.props.item)
                 .set(multiPath(newElementPath), newValue)
                 .freeze(),
         });
@@ -510,7 +512,7 @@ const MultiRendererEditor = React.createClass({
 
     removeArrayElement(path) {
         this.props.onChange({
-            content: lens(this.props.content).del(multiPath(path)).freeze(),
+            item: lens(this.props.item).del(multiPath(path)).freeze(),
         });
     },
 
@@ -521,12 +523,12 @@ const MultiRendererEditor = React.createClass({
         const nextElementIndex = index + 1;
         const nextElementPath = path.slice(0, -1).concat(nextElementIndex);
 
-        const element = lens(this.props.content).get(multiPath(path));
-        const nextElement = lens(this.props.content).get(
+        const element = lens(this.props.item).get(multiPath(path));
+        const nextElement = lens(this.props.item).get(
             multiPath(nextElementPath));
 
         this.props.onChange({
-            content: lens(this.props.content)
+            item: lens(this.props.item)
                 .set(multiPath(path), nextElement)
                 .set(multiPath(nextElementPath), element)
                 .freeze(),
@@ -547,28 +549,28 @@ const MultiRendererEditor = React.createClass({
             ...this.props.apiOptions,
         };
 
-        const content = this.props.content;
-        const contentShape = this.props.Layout.shape;
+        const item = this.props.item;
+        const itemShape = this.props.Layout.shape;
 
         const treeEditor = <NodeContainer
             mode="edit"
-            shape={contentShape}
-            data={content._multi}
+            shape={itemShape}
+            data={item._multi}
             path={[]}
             actions={this}
             apiOptions={apiOptions}
         />;
 
         const treePreview = <MultiRenderer
-            content={content}
-            shape={contentShape}
+            item={item}
+            shape={itemShape}
             apiOptions={apiOptions}
         >
             {({renderers}) =>
                 <NodeContainer
                     mode="preview"
-                    shape={contentShape}
-                    data={content._multi}
+                    shape={itemShape}
+                    data={itemToTree(item)}
                     path={[]}
                     actions={this}
                     apiOptions={apiOptions}

@@ -13,16 +13,16 @@
  *
  * Example:
  *
- *   content = {_multi: {
- *       left: <item data>,
- *       right: [<item data>, <item data>],
+ *   item = {_multi: {
+ *       left: <content data>,
+ *       right: [<content data>, <content data>],
  *   }}
  *   shape = shapes.shape({
- *       left: shapes.item,
- *       right: shapes.arrayOf(shapes.item),
+ *       left: shapes.content,
+ *       right: shapes.arrayOf(shapes.content),
  *   })
  *
- *   <MultiRenderer content={content} shape={shape}>
+ *   <MultiRenderer item={item} shape={shape}>
  *       {({renderers}) =>
  *           <div>
  *               <div id="left">{renderers.left}</div>
@@ -75,7 +75,7 @@ type ScoreTree = Tree<Score, null>;
 type SerializedStateTree = Tree<SerializedState, null>;
 
 type Props = {
-    content: Item,  // TODO(mdr): Rename to item
+    item: Item,
     shape: Shape,
     children: (tree: RendererTree) => ReactElement,
 };
@@ -104,7 +104,7 @@ class MultiRenderer extends React.Component {
 
     componentWillReceiveProps(nextProps: Props) {
         // Keep state in sync with props.
-        if (nextProps.content !== this.props.content) {
+        if (nextProps.item !== this.props.item) {
             this.setState(this._tryMakeRendererState(nextProps));
         }
     }
@@ -118,7 +118,7 @@ class MultiRenderer extends React.Component {
         try {
             return {
                 rendererDataTree: this._makeRendererDataTree(
-                    props.content, props.shape),
+                    props.item, props.shape),
                 renderError: null,
             };
         } catch (e) {
@@ -140,11 +140,11 @@ class MultiRenderer extends React.Component {
      */
     _getRendererProps() {
         /* eslint-disable no-unused-vars */
-        // eslint is complaining that `content` and `children` are unused. I'm
+        // eslint is complaining that `item` and `children` are unused. I'm
         // explicitly pulling them out of `this.props` so I don't pass them to
         // `<Renderer>`. I'm not sure how else to do this.
         const {
-            content,
+            item,
             children,
             shape,
             ...otherProps, // @Nolint(trailing comma): I'm so confused why it's

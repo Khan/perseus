@@ -16,5 +16,5 @@ module.exports = {
     ServerItemRenderer: require("./server-item-renderer.jsx"),
     HintsRenderer:      require("./hints-renderer.jsx"),
     Renderer:           require("./renderer.jsx"),
-    MultiRenderer:      require("./multirenderer.jsx"),
+    MultiItems:         require("./multi-items.js"),
 };

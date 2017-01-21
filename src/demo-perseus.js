@@ -31,7 +31,7 @@ const path = window.location.search.substring(1);
 const routes = { // The value is spread across a React.createElement call
     'renderer': [RendererDemo, {question, problemNum}],
     'article': [ArticleDemo, {content: question}],
-    'multirenderer': [MultirendererDemo, {content: question}],
+    'multirenderer': [MultirendererDemo, {item: question}],
     '': [EditorDemo, {question, problemNum}],
 };
 

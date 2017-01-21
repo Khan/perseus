@@ -7,17 +7,18 @@ const React = require("react");
 
 const MultiRendererEditor = require("./multirenderer-editor.jsx");
 const Util = require("./util.js");
-const {emptyContentForShape, MultiRenderer, shapes} = require("./multirenderer.jsx");
+const {buildEmptyItemForShape, MultiRenderer, shapes} =
+    require("./multi-items.js");
 
 const DemoLayout = React.createClass({
     propTypes: {
-        content: React.PropTypes.any.isRequired,
+        item: React.PropTypes.any.isRequired,
     },
 
     statics: {
         shape: shapes.shape({
-            sharedContext: shapes.item,
-            questions: shapes.arrayOf(shapes.item),
+            sharedContext: shapes.content,
+            questions: shapes.arrayOf(shapes.content),
             hints: shapes.hints,
         }),
     },
@@ -49,7 +50,7 @@ const DemoLayout = React.createClass({
     render() {
         return <MultiRenderer
             ref={e => this.multirenderer = e}
-            content={this.props.content}
+            item={this.props.item}
             shape={DemoLayout.shape}
         >
             {({renderers}) =>
@@ -99,18 +100,18 @@ const demoStyles = StyleSheet.create({
 
 const MultiRendererDemo = React.createClass({
     propTypes: {
-        content: React.PropTypes.any.isRequired,
+        item: React.PropTypes.any.isRequired,
     },
 
     getDefaultProps() {
         return {
-            content: emptyContentForShape(DemoLayout.shape),
+            item: buildEmptyItemForShape(DemoLayout.shape),
         };
     },
 
     getInitialState() {
         return {
-            content: this.props.content,
+            item: this.props.item,
             editorMode: "edit",
         };
     },
@@ -128,7 +129,7 @@ const MultiRendererDemo = React.createClass({
                 },
             },
 
-            content: this.state.content,
+            item: this.state.item,
             editorMode: this.state.editorMode,
         };
     },
@@ -137,15 +138,15 @@ const MultiRendererDemo = React.createClass({
         this.setState(newState);
     },
 
-    _getContentHash: function() {
+    _getItemHash: function() {
         return Util.strongEncodeURIComponent(
             // TODO(emily): this.editor.serialize()
-            JSON.stringify(this.state.content)
+            JSON.stringify(this.state.item)
         );
     },
 
     handlePermalink(e) {
-        window.location.hash = `content=${this._getContentHash()}`;
+        window.location.hash = `content=${this._getItemHash()}`;
         e.preventDefault();
     },
 
