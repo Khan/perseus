@@ -1,6 +1,6 @@
 /*! Perseus | http://github.com/Khan/perseus */
-// commit 65af56486a5b7a5703309f7e0bb70991d9226e32
-// branch master
+// commit b5078899120db2a9d4e11ea50a3db19bbb8db03a
+// branch HEAD
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Perseus = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /*
 Software License Agreement (BSD License)
@@ -524,6 +524,1595 @@ function(b){console.log("On Boundary");a.iOS&&!a.onstartFired&&a.speech_onstart(
 }());
 
 },{}],4:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+
+/** Used to pool arrays and objects used internally */
+var arrayPool = [];
+
+module.exports = arrayPool;
+
+},{}],5:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+var baseCreate = require('lodash._basecreate'),
+    isObject = require('lodash.isobject'),
+    setBindData = require('lodash._setbinddata'),
+    slice = require('lodash._slice');
+
+/**
+ * Used for `Array` method references.
+ *
+ * Normally `Array.prototype` would suffice, however, using an array literal
+ * avoids issues in Narwhal.
+ */
+var arrayRef = [];
+
+/** Native method shortcuts */
+var push = arrayRef.push;
+
+/**
+ * The base implementation of `_.bind` that creates the bound function and
+ * sets its meta data.
+ *
+ * @private
+ * @param {Array} bindData The bind data array.
+ * @returns {Function} Returns the new bound function.
+ */
+function baseBind(bindData) {
+  var func = bindData[0],
+      partialArgs = bindData[2],
+      thisArg = bindData[4];
+
+  function bound() {
+    // `Function#bind` spec
+    // http://es5.github.io/#x15.3.4.5
+    if (partialArgs) {
+      // avoid `arguments` object deoptimizations by using `slice` instead
+      // of `Array.prototype.slice.call` and not assigning `arguments` to a
+      // variable as a ternary expression
+      var args = slice(partialArgs);
+      push.apply(args, arguments);
+    }
+    // mimic the constructor's `return` behavior
+    // http://es5.github.io/#x13.2.2
+    if (this instanceof bound) {
+      // ensure `new bound` is an instance of `func`
+      var thisBinding = baseCreate(func.prototype),
+          result = func.apply(thisBinding, args || arguments);
+      return isObject(result) ? result : thisBinding;
+    }
+    return func.apply(thisArg, args || arguments);
+  }
+  setBindData(bound, bindData);
+  return bound;
+}
+
+module.exports = baseBind;
+
+},{"lodash._basecreate":6,"lodash._setbinddata":19,"lodash._slice":21,"lodash.isobject":31}],6:[function(require,module,exports){
+(function (global){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+var isNative = require('lodash._isnative'),
+    isObject = require('lodash.isobject'),
+    noop = require('lodash.noop');
+
+/* Native method shortcuts for methods with the same name as other `lodash` methods */
+var nativeCreate = isNative(nativeCreate = Object.create) && nativeCreate;
+
+/**
+ * The base implementation of `_.create` without support for assigning
+ * properties to the created object.
+ *
+ * @private
+ * @param {Object} prototype The object to inherit from.
+ * @returns {Object} Returns the new object.
+ */
+function baseCreate(prototype, properties) {
+  return isObject(prototype) ? nativeCreate(prototype) : {};
+}
+// fallback for browsers without `Object.create`
+if (!nativeCreate) {
+  baseCreate = (function() {
+    function Object() {}
+    return function(prototype) {
+      if (isObject(prototype)) {
+        Object.prototype = prototype;
+        var result = new Object;
+        Object.prototype = null;
+      }
+      return result || global.Object();
+    };
+  }());
+}
+
+module.exports = baseCreate;
+
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{"lodash._isnative":14,"lodash.isobject":31,"lodash.noop":33}],7:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+var bind = require('lodash.bind'),
+    identity = require('lodash.identity'),
+    setBindData = require('lodash._setbinddata'),
+    support = require('lodash.support');
+
+/** Used to detected named functions */
+var reFuncName = /^\s*function[ \n\r\t]+\w/;
+
+/** Used to detect functions containing a `this` reference */
+var reThis = /\bthis\b/;
+
+/** Native method shortcuts */
+var fnToString = Function.prototype.toString;
+
+/**
+ * The base implementation of `_.createCallback` without support for creating
+ * "_.pluck" or "_.where" style callbacks.
+ *
+ * @private
+ * @param {*} [func=identity] The value to convert to a callback.
+ * @param {*} [thisArg] The `this` binding of the created callback.
+ * @param {number} [argCount] The number of arguments the callback accepts.
+ * @returns {Function} Returns a callback function.
+ */
+function baseCreateCallback(func, thisArg, argCount) {
+  if (typeof func != 'function') {
+    return identity;
+  }
+  // exit early for no `thisArg` or already bound by `Function#bind`
+  if (typeof thisArg == 'undefined' || !('prototype' in func)) {
+    return func;
+  }
+  var bindData = func.__bindData__;
+  if (typeof bindData == 'undefined') {
+    if (support.funcNames) {
+      bindData = !func.name;
+    }
+    bindData = bindData || !support.funcDecomp;
+    if (!bindData) {
+      var source = fnToString.call(func);
+      if (!support.funcNames) {
+        bindData = !reFuncName.test(source);
+      }
+      if (!bindData) {
+        // checks if `func` references the `this` keyword and stores the result
+        bindData = reThis.test(source);
+        setBindData(func, bindData);
+      }
+    }
+  }
+  // exit early if there are no `this` references or `func` is bound
+  if (bindData === false || (bindData !== true && bindData[1] & 1)) {
+    return func;
+  }
+  switch (argCount) {
+    case 1: return function(value) {
+      return func.call(thisArg, value);
+    };
+    case 2: return function(a, b) {
+      return func.call(thisArg, a, b);
+    };
+    case 3: return function(value, index, collection) {
+      return func.call(thisArg, value, index, collection);
+    };
+    case 4: return function(accumulator, value, index, collection) {
+      return func.call(thisArg, accumulator, value, index, collection);
+    };
+  }
+  return bind(func, thisArg);
+}
+
+module.exports = baseCreateCallback;
+
+},{"lodash._setbinddata":19,"lodash.bind":23,"lodash.identity":29,"lodash.support":35}],8:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+var baseCreate = require('lodash._basecreate'),
+    isObject = require('lodash.isobject'),
+    setBindData = require('lodash._setbinddata'),
+    slice = require('lodash._slice');
+
+/**
+ * Used for `Array` method references.
+ *
+ * Normally `Array.prototype` would suffice, however, using an array literal
+ * avoids issues in Narwhal.
+ */
+var arrayRef = [];
+
+/** Native method shortcuts */
+var push = arrayRef.push;
+
+/**
+ * The base implementation of `createWrapper` that creates the wrapper and
+ * sets its meta data.
+ *
+ * @private
+ * @param {Array} bindData The bind data array.
+ * @returns {Function} Returns the new function.
+ */
+function baseCreateWrapper(bindData) {
+  var func = bindData[0],
+      bitmask = bindData[1],
+      partialArgs = bindData[2],
+      partialRightArgs = bindData[3],
+      thisArg = bindData[4],
+      arity = bindData[5];
+
+  var isBind = bitmask & 1,
+      isBindKey = bitmask & 2,
+      isCurry = bitmask & 4,
+      isCurryBound = bitmask & 8,
+      key = func;
+
+  function bound() {
+    var thisBinding = isBind ? thisArg : this;
+    if (partialArgs) {
+      var args = slice(partialArgs);
+      push.apply(args, arguments);
+    }
+    if (partialRightArgs || isCurry) {
+      args || (args = slice(arguments));
+      if (partialRightArgs) {
+        push.apply(args, partialRightArgs);
+      }
+      if (isCurry && args.length < arity) {
+        bitmask |= 16 & ~32;
+        return baseCreateWrapper([func, (isCurryBound ? bitmask : bitmask & ~3), args, null, thisArg, arity]);
+      }
+    }
+    args || (args = arguments);
+    if (isBindKey) {
+      func = thisBinding[key];
+    }
+    if (this instanceof bound) {
+      thisBinding = baseCreate(func.prototype);
+      var result = func.apply(thisBinding, args);
+      return isObject(result) ? result : thisBinding;
+    }
+    return func.apply(thisBinding, args);
+  }
+  setBindData(bound, bindData);
+  return bound;
+}
+
+module.exports = baseCreateWrapper;
+
+},{"lodash._basecreate":6,"lodash._setbinddata":19,"lodash._slice":21,"lodash.isobject":31}],9:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+var forIn = require('lodash.forin'),
+    getArray = require('lodash._getarray'),
+    isFunction = require('lodash.isfunction'),
+    objectTypes = require('lodash._objecttypes'),
+    releaseArray = require('lodash._releasearray');
+
+/** `Object#toString` result shortcuts */
+var argsClass = '[object Arguments]',
+    arrayClass = '[object Array]',
+    boolClass = '[object Boolean]',
+    dateClass = '[object Date]',
+    numberClass = '[object Number]',
+    objectClass = '[object Object]',
+    regexpClass = '[object RegExp]',
+    stringClass = '[object String]';
+
+/** Used for native method references */
+var objectProto = Object.prototype;
+
+/** Used to resolve the internal [[Class]] of values */
+var toString = objectProto.toString;
+
+/** Native method shortcuts */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/**
+ * The base implementation of `_.isEqual`, without support for `thisArg` binding,
+ * that allows partial "_.where" style comparisons.
+ *
+ * @private
+ * @param {*} a The value to compare.
+ * @param {*} b The other value to compare.
+ * @param {Function} [callback] The function to customize comparing values.
+ * @param {Function} [isWhere=false] A flag to indicate performing partial comparisons.
+ * @param {Array} [stackA=[]] Tracks traversed `a` objects.
+ * @param {Array} [stackB=[]] Tracks traversed `b` objects.
+ * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
+ */
+function baseIsEqual(a, b, callback, isWhere, stackA, stackB) {
+  // used to indicate that when comparing objects, `a` has at least the properties of `b`
+  if (callback) {
+    var result = callback(a, b);
+    if (typeof result != 'undefined') {
+      return !!result;
+    }
+  }
+  // exit early for identical values
+  if (a === b) {
+    // treat `+0` vs. `-0` as not equal
+    return a !== 0 || (1 / a == 1 / b);
+  }
+  var type = typeof a,
+      otherType = typeof b;
+
+  // exit early for unlike primitive values
+  if (a === a &&
+      !(a && objectTypes[type]) &&
+      !(b && objectTypes[otherType])) {
+    return false;
+  }
+  // exit early for `null` and `undefined` avoiding ES3's Function#call behavior
+  // http://es5.github.io/#x15.3.4.4
+  if (a == null || b == null) {
+    return a === b;
+  }
+  // compare [[Class]] names
+  var className = toString.call(a),
+      otherClass = toString.call(b);
+
+  if (className == argsClass) {
+    className = objectClass;
+  }
+  if (otherClass == argsClass) {
+    otherClass = objectClass;
+  }
+  if (className != otherClass) {
+    return false;
+  }
+  switch (className) {
+    case boolClass:
+    case dateClass:
+      // coerce dates and booleans to numbers, dates to milliseconds and booleans
+      // to `1` or `0` treating invalid dates coerced to `NaN` as not equal
+      return +a == +b;
+
+    case numberClass:
+      // treat `NaN` vs. `NaN` as equal
+      return (a != +a)
+        ? b != +b
+        // but treat `+0` vs. `-0` as not equal
+        : (a == 0 ? (1 / a == 1 / b) : a == +b);
+
+    case regexpClass:
+    case stringClass:
+      // coerce regexes to strings (http://es5.github.io/#x15.10.6.4)
+      // treat string primitives and their corresponding object instances as equal
+      return a == String(b);
+  }
+  var isArr = className == arrayClass;
+  if (!isArr) {
+    // unwrap any `lodash` wrapped values
+    var aWrapped = hasOwnProperty.call(a, '__wrapped__'),
+        bWrapped = hasOwnProperty.call(b, '__wrapped__');
+
+    if (aWrapped || bWrapped) {
+      return baseIsEqual(aWrapped ? a.__wrapped__ : a, bWrapped ? b.__wrapped__ : b, callback, isWhere, stackA, stackB);
+    }
+    // exit for functions and DOM nodes
+    if (className != objectClass) {
+      return false;
+    }
+    // in older versions of Opera, `arguments` objects have `Array` constructors
+    var ctorA = a.constructor,
+        ctorB = b.constructor;
+
+    // non `Object` object instances with different constructors are not equal
+    if (ctorA != ctorB &&
+          !(isFunction(ctorA) && ctorA instanceof ctorA && isFunction(ctorB) && ctorB instanceof ctorB) &&
+          ('constructor' in a && 'constructor' in b)
+        ) {
+      return false;
+    }
+  }
+  // assume cyclic structures are equal
+  // the algorithm for detecting cyclic structures is adapted from ES 5.1
+  // section 15.12.3, abstract operation `JO` (http://es5.github.io/#x15.12.3)
+  var initedStack = !stackA;
+  stackA || (stackA = getArray());
+  stackB || (stackB = getArray());
+
+  var length = stackA.length;
+  while (length--) {
+    if (stackA[length] == a) {
+      return stackB[length] == b;
+    }
+  }
+  var size = 0;
+  result = true;
+
+  // add `a` and `b` to the stack of traversed objects
+  stackA.push(a);
+  stackB.push(b);
+
+  // recursively compare objects and arrays (susceptible to call stack limits)
+  if (isArr) {
+    // compare lengths to determine if a deep comparison is necessary
+    length = a.length;
+    size = b.length;
+    result = size == length;
+
+    if (result || isWhere) {
+      // deep compare the contents, ignoring non-numeric properties
+      while (size--) {
+        var index = length,
+            value = b[size];
+
+        if (isWhere) {
+          while (index--) {
+            if ((result = baseIsEqual(a[index], value, callback, isWhere, stackA, stackB))) {
+              break;
+            }
+          }
+        } else if (!(result = baseIsEqual(a[size], value, callback, isWhere, stackA, stackB))) {
+          break;
+        }
+      }
+    }
+  }
+  else {
+    // deep compare objects using `forIn`, instead of `forOwn`, to avoid `Object.keys`
+    // which, in this case, is more costly
+    forIn(b, function(value, key, b) {
+      if (hasOwnProperty.call(b, key)) {
+        // count the number of properties.
+        size++;
+        // deep compare each property value.
+        return (result = hasOwnProperty.call(a, key) && baseIsEqual(a[key], value, callback, isWhere, stackA, stackB));
+      }
+    });
+
+    if (result && !isWhere) {
+      // ensure both objects have the same number of properties
+      forIn(a, function(value, key, a) {
+        if (hasOwnProperty.call(a, key)) {
+          // `size` will be `-1` if `a` has more properties than `b`
+          return (result = --size > -1);
+        }
+      });
+    }
+  }
+  stackA.pop();
+  stackB.pop();
+
+  if (initedStack) {
+    releaseArray(stackA);
+    releaseArray(stackB);
+  }
+  return result;
+}
+
+module.exports = baseIsEqual;
+
+},{"lodash._getarray":12,"lodash._objecttypes":16,"lodash._releasearray":17,"lodash.forin":27,"lodash.isfunction":30}],10:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+var baseBind = require('lodash._basebind'),
+    baseCreateWrapper = require('lodash._basecreatewrapper'),
+    isFunction = require('lodash.isfunction'),
+    slice = require('lodash._slice');
+
+/**
+ * Used for `Array` method references.
+ *
+ * Normally `Array.prototype` would suffice, however, using an array literal
+ * avoids issues in Narwhal.
+ */
+var arrayRef = [];
+
+/** Native method shortcuts */
+var push = arrayRef.push,
+    unshift = arrayRef.unshift;
+
+/**
+ * Creates a function that, when called, either curries or invokes `func`
+ * with an optional `this` binding and partially applied arguments.
+ *
+ * @private
+ * @param {Function|string} func The function or method name to reference.
+ * @param {number} bitmask The bitmask of method flags to compose.
+ *  The bitmask may be composed of the following flags:
+ *  1 - `_.bind`
+ *  2 - `_.bindKey`
+ *  4 - `_.curry`
+ *  8 - `_.curry` (bound)
+ *  16 - `_.partial`
+ *  32 - `_.partialRight`
+ * @param {Array} [partialArgs] An array of arguments to prepend to those
+ *  provided to the new function.
+ * @param {Array} [partialRightArgs] An array of arguments to append to those
+ *  provided to the new function.
+ * @param {*} [thisArg] The `this` binding of `func`.
+ * @param {number} [arity] The arity of `func`.
+ * @returns {Function} Returns the new function.
+ */
+function createWrapper(func, bitmask, partialArgs, partialRightArgs, thisArg, arity) {
+  var isBind = bitmask & 1,
+      isBindKey = bitmask & 2,
+      isCurry = bitmask & 4,
+      isCurryBound = bitmask & 8,
+      isPartial = bitmask & 16,
+      isPartialRight = bitmask & 32;
+
+  if (!isBindKey && !isFunction(func)) {
+    throw new TypeError;
+  }
+  if (isPartial && !partialArgs.length) {
+    bitmask &= ~16;
+    isPartial = partialArgs = false;
+  }
+  if (isPartialRight && !partialRightArgs.length) {
+    bitmask &= ~32;
+    isPartialRight = partialRightArgs = false;
+  }
+  var bindData = func && func.__bindData__;
+  if (bindData && bindData !== true) {
+    // clone `bindData`
+    bindData = slice(bindData);
+    if (bindData[2]) {
+      bindData[2] = slice(bindData[2]);
+    }
+    if (bindData[3]) {
+      bindData[3] = slice(bindData[3]);
+    }
+    // set `thisBinding` is not previously bound
+    if (isBind && !(bindData[1] & 1)) {
+      bindData[4] = thisArg;
+    }
+    // set if previously bound but not currently (subsequent curried functions)
+    if (!isBind && bindData[1] & 1) {
+      bitmask |= 8;
+    }
+    // set curried arity if not yet set
+    if (isCurry && !(bindData[1] & 4)) {
+      bindData[5] = arity;
+    }
+    // append partial left arguments
+    if (isPartial) {
+      push.apply(bindData[2] || (bindData[2] = []), partialArgs);
+    }
+    // append partial right arguments
+    if (isPartialRight) {
+      unshift.apply(bindData[3] || (bindData[3] = []), partialRightArgs);
+    }
+    // merge flags
+    bindData[1] |= bitmask;
+    return createWrapper.apply(null, bindData);
+  }
+  // fast path for `_.bind`
+  var creater = (bitmask == 1 || bitmask === 17) ? baseBind : baseCreateWrapper;
+  return creater([func, bitmask, partialArgs, partialRightArgs, thisArg, arity]);
+}
+
+module.exports = createWrapper;
+
+},{"lodash._basebind":5,"lodash._basecreatewrapper":8,"lodash._slice":21,"lodash.isfunction":30}],11:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+var htmlEscapes = require('lodash._htmlescapes');
+
+/**
+ * Used by `escape` to convert characters to HTML entities.
+ *
+ * @private
+ * @param {string} match The matched character to escape.
+ * @returns {string} Returns the escaped character.
+ */
+function escapeHtmlChar(match) {
+  return htmlEscapes[match];
+}
+
+module.exports = escapeHtmlChar;
+
+},{"lodash._htmlescapes":13}],12:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+var arrayPool = require('lodash._arraypool');
+
+/**
+ * Gets an array from the array pool or creates a new one if the pool is empty.
+ *
+ * @private
+ * @returns {Array} The array from the pool.
+ */
+function getArray() {
+  return arrayPool.pop() || [];
+}
+
+module.exports = getArray;
+
+},{"lodash._arraypool":4}],13:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+
+/**
+ * Used to convert characters to HTML entities:
+ *
+ * Though the `>` character is escaped for symmetry, characters like `>` and `/`
+ * don't require escaping in HTML and have no special meaning unless they're part
+ * of a tag or an unquoted attribute value.
+ * http://mathiasbynens.be/notes/ambiguous-ampersands (under "semi-related fun fact")
+ */
+var htmlEscapes = {
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quot;',
+  "'": '&#39;'
+};
+
+module.exports = htmlEscapes;
+
+},{}],14:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+
+/** Used for native method references */
+var objectProto = Object.prototype;
+
+/** Used to resolve the internal [[Class]] of values */
+var toString = objectProto.toString;
+
+/** Used to detect if a method is native */
+var reNative = RegExp('^' +
+  String(toString)
+    .replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+    .replace(/toString| for [^\]]+/g, '.*?') + '$'
+);
+
+/**
+ * Checks if `value` is a native function.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if the `value` is a native function, else `false`.
+ */
+function isNative(value) {
+  return typeof value == 'function' && reNative.test(value);
+}
+
+module.exports = isNative;
+
+},{}],15:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+
+/** Used as the max size of the `arrayPool` and `objectPool` */
+var maxPoolSize = 40;
+
+module.exports = maxPoolSize;
+
+},{}],16:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+
+/** Used to determine if values are of the language type Object */
+var objectTypes = {
+  'boolean': false,
+  'function': true,
+  'object': true,
+  'number': false,
+  'string': false,
+  'undefined': false
+};
+
+module.exports = objectTypes;
+
+},{}],17:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+var arrayPool = require('lodash._arraypool'),
+    maxPoolSize = require('lodash._maxpoolsize');
+
+/**
+ * Releases the given array back to the array pool.
+ *
+ * @private
+ * @param {Array} [array] The array to release.
+ */
+function releaseArray(array) {
+  array.length = 0;
+  if (arrayPool.length < maxPoolSize) {
+    arrayPool.push(array);
+  }
+}
+
+module.exports = releaseArray;
+
+},{"lodash._arraypool":4,"lodash._maxpoolsize":15}],18:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+var htmlEscapes = require('lodash._htmlescapes'),
+    keys = require('lodash.keys');
+
+/** Used to match HTML entities and HTML characters */
+var reUnescapedHtml = RegExp('[' + keys(htmlEscapes).join('') + ']', 'g');
+
+module.exports = reUnescapedHtml;
+
+},{"lodash._htmlescapes":13,"lodash.keys":32}],19:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+var isNative = require('lodash._isnative'),
+    noop = require('lodash.noop');
+
+/** Used as the property descriptor for `__bindData__` */
+var descriptor = {
+  'configurable': false,
+  'enumerable': false,
+  'value': null,
+  'writable': false
+};
+
+/** Used to set meta data on functions */
+var defineProperty = (function() {
+  // IE 8 only accepts DOM elements
+  try {
+    var o = {},
+        func = isNative(func = Object.defineProperty) && func,
+        result = func(o, o, o) && func;
+  } catch(e) { }
+  return result;
+}());
+
+/**
+ * Sets `this` binding data on a given function.
+ *
+ * @private
+ * @param {Function} func The function to set data on.
+ * @param {Array} value The data array to set.
+ */
+var setBindData = !defineProperty ? noop : function(func, value) {
+  descriptor.value = value;
+  defineProperty(func, '__bindData__', descriptor);
+};
+
+module.exports = setBindData;
+
+},{"lodash._isnative":14,"lodash.noop":33}],20:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+var objectTypes = require('lodash._objecttypes');
+
+/** Used for native method references */
+var objectProto = Object.prototype;
+
+/** Native method shortcuts */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/**
+ * A fallback implementation of `Object.keys` which produces an array of the
+ * given object's own enumerable property names.
+ *
+ * @private
+ * @type Function
+ * @param {Object} object The object to inspect.
+ * @returns {Array} Returns an array of property names.
+ */
+var shimKeys = function(object) {
+  var index, iterable = object, result = [];
+  if (!iterable) return result;
+  if (!(objectTypes[typeof object])) return result;
+    for (index in iterable) {
+      if (hasOwnProperty.call(iterable, index)) {
+        result.push(index);
+      }
+    }
+  return result
+};
+
+module.exports = shimKeys;
+
+},{"lodash._objecttypes":16}],21:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+
+/**
+ * Slices the `collection` from the `start` index up to, but not including,
+ * the `end` index.
+ *
+ * Note: This function is used instead of `Array#slice` to support node lists
+ * in IE < 9 and to ensure dense arrays are returned.
+ *
+ * @private
+ * @param {Array|Object|string} collection The collection to slice.
+ * @param {number} start The start index.
+ * @param {number} end The end index.
+ * @returns {Array} Returns the new array.
+ */
+function slice(array, start, end) {
+  start || (start = 0);
+  if (typeof end == 'undefined') {
+    end = array ? array.length : 0;
+  }
+  var index = -1,
+      length = end - start || 0,
+      result = Array(length < 0 ? 0 : length);
+
+  while (++index < length) {
+    result[index] = array[start + index];
+  }
+  return result;
+}
+
+module.exports = slice;
+
+},{}],22:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+var baseCreateCallback = require('lodash._basecreatecallback'),
+    keys = require('lodash.keys'),
+    objectTypes = require('lodash._objecttypes');
+
+/**
+ * Assigns own enumerable properties of source object(s) to the destination
+ * object. Subsequent sources will overwrite property assignments of previous
+ * sources. If a callback is provided it will be executed to produce the
+ * assigned values. The callback is bound to `thisArg` and invoked with two
+ * arguments; (objectValue, sourceValue).
+ *
+ * @static
+ * @memberOf _
+ * @type Function
+ * @alias extend
+ * @category Objects
+ * @param {Object} object The destination object.
+ * @param {...Object} [source] The source objects.
+ * @param {Function} [callback] The function to customize assigning values.
+ * @param {*} [thisArg] The `this` binding of `callback`.
+ * @returns {Object} Returns the destination object.
+ * @example
+ *
+ * _.assign({ 'name': 'fred' }, { 'employer': 'slate' });
+ * // => { 'name': 'fred', 'employer': 'slate' }
+ *
+ * var defaults = _.partialRight(_.assign, function(a, b) {
+ *   return typeof a == 'undefined' ? b : a;
+ * });
+ *
+ * var object = { 'name': 'barney' };
+ * defaults(object, { 'name': 'fred', 'employer': 'slate' });
+ * // => { 'name': 'barney', 'employer': 'slate' }
+ */
+var assign = function(object, source, guard) {
+  var index, iterable = object, result = iterable;
+  if (!iterable) return result;
+  var args = arguments,
+      argsIndex = 0,
+      argsLength = typeof guard == 'number' ? 2 : args.length;
+  if (argsLength > 3 && typeof args[argsLength - 2] == 'function') {
+    var callback = baseCreateCallback(args[--argsLength - 1], args[argsLength--], 2);
+  } else if (argsLength > 2 && typeof args[argsLength - 1] == 'function') {
+    callback = args[--argsLength];
+  }
+  while (++argsIndex < argsLength) {
+    iterable = args[argsIndex];
+    if (iterable && objectTypes[typeof iterable]) {
+    var ownIndex = -1,
+        ownProps = objectTypes[typeof iterable] && keys(iterable),
+        length = ownProps ? ownProps.length : 0;
+
+    while (++ownIndex < length) {
+      index = ownProps[ownIndex];
+      result[index] = callback ? callback(result[index], iterable[index]) : iterable[index];
+    }
+    }
+  }
+  return result
+};
+
+module.exports = assign;
+
+},{"lodash._basecreatecallback":7,"lodash._objecttypes":16,"lodash.keys":32}],23:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+var createWrapper = require('lodash._createwrapper'),
+    slice = require('lodash._slice');
+
+/**
+ * Creates a function that, when called, invokes `func` with the `this`
+ * binding of `thisArg` and prepends any additional `bind` arguments to those
+ * provided to the bound function.
+ *
+ * @static
+ * @memberOf _
+ * @category Functions
+ * @param {Function} func The function to bind.
+ * @param {*} [thisArg] The `this` binding of `func`.
+ * @param {...*} [arg] Arguments to be partially applied.
+ * @returns {Function} Returns the new bound function.
+ * @example
+ *
+ * var func = function(greeting) {
+ *   return greeting + ' ' + this.name;
+ * };
+ *
+ * func = _.bind(func, { 'name': 'fred' }, 'hi');
+ * func();
+ * // => 'hi fred'
+ */
+function bind(func, thisArg) {
+  return arguments.length > 2
+    ? createWrapper(func, 17, slice(arguments, 2), null, thisArg)
+    : createWrapper(func, 1, null, null, thisArg);
+}
+
+module.exports = bind;
+
+},{"lodash._createwrapper":10,"lodash._slice":21}],24:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.4 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+var baseCreateCallback = require('lodash._basecreatecallback'),
+    baseIsEqual = require('lodash._baseisequal'),
+    isObject = require('lodash.isobject'),
+    keys = require('lodash.keys'),
+    property = require('lodash.property');
+
+/**
+ * Produces a callback bound to an optional `thisArg`. If `func` is a property
+ * name the created callback will return the property value for a given element.
+ * If `func` is an object the created callback will return `true` for elements
+ * that contain the equivalent object properties, otherwise it will return `false`.
+ *
+ * @static
+ * @memberOf _
+ * @category Utilities
+ * @param {*} [func=identity] The value to convert to a callback.
+ * @param {*} [thisArg] The `this` binding of the created callback.
+ * @param {number} [argCount] The number of arguments the callback accepts.
+ * @returns {Function} Returns a callback function.
+ * @example
+ *
+ * var characters = [
+ *   { 'name': 'barney', 'age': 36 },
+ *   { 'name': 'fred',   'age': 40 }
+ * ];
+ *
+ * // wrap to create custom callback shorthands
+ * _.createCallback = _.wrap(_.createCallback, function(func, callback, thisArg) {
+ *   var match = /^(.+?)__([gl]t)(.+)$/.exec(callback);
+ *   return !match ? func(callback, thisArg) : function(object) {
+ *     return match[2] == 'gt' ? object[match[1]] > match[3] : object[match[1]] < match[3];
+ *   };
+ * });
+ *
+ * _.filter(characters, 'age__gt38');
+ * // => [{ 'name': 'fred', 'age': 40 }]
+ */
+function createCallback(func, thisArg, argCount) {
+  var type = typeof func;
+  if (func == null || type == 'function') {
+    return baseCreateCallback(func, thisArg, argCount);
+  }
+  // handle "_.pluck" style callback shorthands
+  if (type != 'object') {
+    return property(func);
+  }
+  var props = keys(func),
+      key = props[0],
+      a = func[key];
+
+  // handle "_.where" style callback shorthands
+  if (props.length == 1 && a === a && !isObject(a)) {
+    // fast path the common case of providing an object with a single
+    // property containing a primitive value
+    return function(object) {
+      var b = object[key];
+      return a === b && (a !== 0 || (1 / a == 1 / b));
+    };
+  }
+  return function(object) {
+    var length = props.length,
+        result = false;
+
+    while (length--) {
+      if (!(result = baseIsEqual(object[props[length]], func[props[length]], null, true))) {
+        break;
+      }
+    }
+    return result;
+  };
+}
+
+module.exports = createCallback;
+
+},{"lodash._basecreatecallback":7,"lodash._baseisequal":9,"lodash.isobject":31,"lodash.keys":32,"lodash.property":34}],25:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+var escapeHtmlChar = require('lodash._escapehtmlchar'),
+    keys = require('lodash.keys'),
+    reUnescapedHtml = require('lodash._reunescapedhtml');
+
+/**
+ * Converts the characters `&`, `<`, `>`, `"`, and `'` in `string` to their
+ * corresponding HTML entities.
+ *
+ * @static
+ * @memberOf _
+ * @category Utilities
+ * @param {string} string The string to escape.
+ * @returns {string} Returns the escaped string.
+ * @example
+ *
+ * _.escape('Fred, Wilma, & Pebbles');
+ * // => 'Fred, Wilma, &amp; Pebbles'
+ */
+function escape(string) {
+  return string == null ? '' : String(string).replace(reUnescapedHtml, escapeHtmlChar);
+}
+
+module.exports = escape;
+
+},{"lodash._escapehtmlchar":11,"lodash._reunescapedhtml":18,"lodash.keys":32}],26:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+var createCallback = require('lodash.createcallback'),
+    forOwn = require('lodash.forown');
+
+/**
+ * Checks if the given callback returns truey value for **all** elements of
+ * a collection. The callback is bound to `thisArg` and invoked with three
+ * arguments; (value, index|key, collection).
+ *
+ * If a property name is provided for `callback` the created "_.pluck" style
+ * callback will return the property value of the given element.
+ *
+ * If an object is provided for `callback` the created "_.where" style callback
+ * will return `true` for elements that have the properties of the given object,
+ * else `false`.
+ *
+ * @static
+ * @memberOf _
+ * @alias all
+ * @category Collections
+ * @param {Array|Object|string} collection The collection to iterate over.
+ * @param {Function|Object|string} [callback=identity] The function called
+ *  per iteration. If a property name or object is provided it will be used
+ *  to create a "_.pluck" or "_.where" style callback, respectively.
+ * @param {*} [thisArg] The `this` binding of `callback`.
+ * @returns {boolean} Returns `true` if all elements passed the callback check,
+ *  else `false`.
+ * @example
+ *
+ * _.every([true, 1, null, 'yes']);
+ * // => false
+ *
+ * var characters = [
+ *   { 'name': 'barney', 'age': 36 },
+ *   { 'name': 'fred',   'age': 40 }
+ * ];
+ *
+ * // using "_.pluck" callback shorthand
+ * _.every(characters, 'age');
+ * // => true
+ *
+ * // using "_.where" callback shorthand
+ * _.every(characters, { 'age': 36 });
+ * // => false
+ */
+function every(collection, callback, thisArg) {
+  var result = true;
+  callback = createCallback(callback, thisArg, 3);
+
+  var index = -1,
+      length = collection ? collection.length : 0;
+
+  if (typeof length == 'number') {
+    while (++index < length) {
+      if (!(result = !!callback(collection[index], index, collection))) {
+        break;
+      }
+    }
+  } else {
+    forOwn(collection, function(value, index, collection) {
+      return (result = !!callback(value, index, collection));
+    });
+  }
+  return result;
+}
+
+module.exports = every;
+
+},{"lodash.createcallback":24,"lodash.forown":28}],27:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+var baseCreateCallback = require('lodash._basecreatecallback'),
+    objectTypes = require('lodash._objecttypes');
+
+/**
+ * Iterates over own and inherited enumerable properties of an object,
+ * executing the callback for each property. The callback is bound to `thisArg`
+ * and invoked with three arguments; (value, key, object). Callbacks may exit
+ * iteration early by explicitly returning `false`.
+ *
+ * @static
+ * @memberOf _
+ * @type Function
+ * @category Objects
+ * @param {Object} object The object to iterate over.
+ * @param {Function} [callback=identity] The function called per iteration.
+ * @param {*} [thisArg] The `this` binding of `callback`.
+ * @returns {Object} Returns `object`.
+ * @example
+ *
+ * function Shape() {
+ *   this.x = 0;
+ *   this.y = 0;
+ * }
+ *
+ * Shape.prototype.move = function(x, y) {
+ *   this.x += x;
+ *   this.y += y;
+ * };
+ *
+ * _.forIn(new Shape, function(value, key) {
+ *   console.log(key);
+ * });
+ * // => logs 'x', 'y', and 'move' (property order is not guaranteed across environments)
+ */
+var forIn = function(collection, callback, thisArg) {
+  var index, iterable = collection, result = iterable;
+  if (!iterable) return result;
+  if (!objectTypes[typeof iterable]) return result;
+  callback = callback && typeof thisArg == 'undefined' ? callback : baseCreateCallback(callback, thisArg, 3);
+    for (index in iterable) {
+      if (callback(iterable[index], index, collection) === false) return result;
+    }
+  return result
+};
+
+module.exports = forIn;
+
+},{"lodash._basecreatecallback":7,"lodash._objecttypes":16}],28:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+var baseCreateCallback = require('lodash._basecreatecallback'),
+    keys = require('lodash.keys'),
+    objectTypes = require('lodash._objecttypes');
+
+/**
+ * Iterates over own enumerable properties of an object, executing the callback
+ * for each property. The callback is bound to `thisArg` and invoked with three
+ * arguments; (value, key, object). Callbacks may exit iteration early by
+ * explicitly returning `false`.
+ *
+ * @static
+ * @memberOf _
+ * @type Function
+ * @category Objects
+ * @param {Object} object The object to iterate over.
+ * @param {Function} [callback=identity] The function called per iteration.
+ * @param {*} [thisArg] The `this` binding of `callback`.
+ * @returns {Object} Returns `object`.
+ * @example
+ *
+ * _.forOwn({ '0': 'zero', '1': 'one', 'length': 2 }, function(num, key) {
+ *   console.log(key);
+ * });
+ * // => logs '0', '1', and 'length' (property order is not guaranteed across environments)
+ */
+var forOwn = function(collection, callback, thisArg) {
+  var index, iterable = collection, result = iterable;
+  if (!iterable) return result;
+  if (!objectTypes[typeof iterable]) return result;
+  callback = callback && typeof thisArg == 'undefined' ? callback : baseCreateCallback(callback, thisArg, 3);
+    var ownIndex = -1,
+        ownProps = objectTypes[typeof iterable] && keys(iterable),
+        length = ownProps ? ownProps.length : 0;
+
+    while (++ownIndex < length) {
+      index = ownProps[ownIndex];
+      if (callback(iterable[index], index, collection) === false) return result;
+    }
+  return result
+};
+
+module.exports = forOwn;
+
+},{"lodash._basecreatecallback":7,"lodash._objecttypes":16,"lodash.keys":32}],29:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+
+/**
+ * This method returns the first argument provided to it.
+ *
+ * @static
+ * @memberOf _
+ * @category Utilities
+ * @param {*} value Any value.
+ * @returns {*} Returns `value`.
+ * @example
+ *
+ * var object = { 'name': 'fred' };
+ * _.identity(object) === object;
+ * // => true
+ */
+function identity(value) {
+  return value;
+}
+
+module.exports = identity;
+
+},{}],30:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+
+/**
+ * Checks if `value` is a function.
+ *
+ * @static
+ * @memberOf _
+ * @category Objects
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if the `value` is a function, else `false`.
+ * @example
+ *
+ * _.isFunction(_);
+ * // => true
+ */
+function isFunction(value) {
+  return typeof value == 'function';
+}
+
+module.exports = isFunction;
+
+},{}],31:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+var objectTypes = require('lodash._objecttypes');
+
+/**
+ * Checks if `value` is the language type of Object.
+ * (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+ *
+ * @static
+ * @memberOf _
+ * @category Objects
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if the `value` is an object, else `false`.
+ * @example
+ *
+ * _.isObject({});
+ * // => true
+ *
+ * _.isObject([1, 2, 3]);
+ * // => true
+ *
+ * _.isObject(1);
+ * // => false
+ */
+function isObject(value) {
+  // check if the value is the ECMAScript language type of Object
+  // http://es5.github.io/#x8
+  // and avoid a V8 bug
+  // http://code.google.com/p/v8/issues/detail?id=2291
+  return !!(value && objectTypes[typeof value]);
+}
+
+module.exports = isObject;
+
+},{"lodash._objecttypes":16}],32:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+var isNative = require('lodash._isnative'),
+    isObject = require('lodash.isobject'),
+    shimKeys = require('lodash._shimkeys');
+
+/* Native method shortcuts for methods with the same name as other `lodash` methods */
+var nativeKeys = isNative(nativeKeys = Object.keys) && nativeKeys;
+
+/**
+ * Creates an array composed of the own enumerable property names of an object.
+ *
+ * @static
+ * @memberOf _
+ * @category Objects
+ * @param {Object} object The object to inspect.
+ * @returns {Array} Returns an array of property names.
+ * @example
+ *
+ * _.keys({ 'one': 1, 'two': 2, 'three': 3 });
+ * // => ['one', 'two', 'three'] (property order is not guaranteed across environments)
+ */
+var keys = !nativeKeys ? shimKeys : function(object) {
+  if (!isObject(object)) {
+    return [];
+  }
+  return nativeKeys(object);
+};
+
+module.exports = keys;
+
+},{"lodash._isnative":14,"lodash._shimkeys":20,"lodash.isobject":31}],33:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+
+/**
+ * A no-operation function.
+ *
+ * @static
+ * @memberOf _
+ * @category Utilities
+ * @example
+ *
+ * var object = { 'name': 'fred' };
+ * _.noop(object) === undefined;
+ * // => true
+ */
+function noop() {
+  // no operation performed
+}
+
+module.exports = noop;
+
+},{}],34:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+
+/**
+ * Creates a "_.pluck" style function, which returns the `key` value of a
+ * given object.
+ *
+ * @static
+ * @memberOf _
+ * @category Utilities
+ * @param {string} key The name of the property to retrieve.
+ * @returns {Function} Returns the new function.
+ * @example
+ *
+ * var characters = [
+ *   { 'name': 'fred',   'age': 40 },
+ *   { 'name': 'barney', 'age': 36 }
+ * ];
+ *
+ * var getName = _.property('name');
+ *
+ * _.map(characters, getName);
+ * // => ['barney', 'fred']
+ *
+ * _.sortBy(characters, getName);
+ * // => [{ 'name': 'barney', 'age': 36 }, { 'name': 'fred',   'age': 40 }]
+ */
+function property(key) {
+  return function(object) {
+    return object[key];
+  };
+}
+
+module.exports = property;
+
+},{}],35:[function(require,module,exports){
+(function (global){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+var isNative = require('lodash._isnative');
+
+/** Used to detect functions containing a `this` reference */
+var reThis = /\bthis\b/;
+
+/**
+ * An object used to flag environments features.
+ *
+ * @static
+ * @memberOf _
+ * @type Object
+ */
+var support = {};
+
+/**
+ * Detect if functions can be decompiled by `Function#toString`
+ * (all but PS3 and older Opera mobile browsers & avoided in Windows 8 apps).
+ *
+ * @memberOf _.support
+ * @type boolean
+ */
+support.funcDecomp = !isNative(global.WinRTError) && reThis.test(function() { return this; });
+
+/**
+ * Detect if `Function#name` is supported (all but IE).
+ *
+ * @memberOf _.support
+ * @type boolean
+ */
+support.funcNames = typeof Function.name == 'string';
+
+module.exports = support;
+
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{"lodash._isnative":14}],36:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require("react");
@@ -568,7 +2157,7 @@ var BlurInput = React.createClass({displayName: 'BlurInput',
 
 module.exports = BlurInput;
 
-},{"react":117}],5:[function(require,module,exports){
+},{"react":45}],37:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -695,7 +2284,7 @@ var ButtonGroup = React.createClass({displayName: 'ButtonGroup',
 
 module.exports = ButtonGroup;
 
-},{"rcss":8,"react":117,"underscore":118}],6:[function(require,module,exports){
+},{"rcss":40,"react":45,"underscore":46}],38:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -775,7 +2364,7 @@ var DragTarget = React.createClass({displayName: 'DragTarget',
 
 module.exports = DragTarget;
 
-},{"react":117}],7:[function(require,module,exports){
+},{"react":45}],39:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -897,7 +2486,7 @@ var InfoTip = React.createClass({displayName: 'InfoTip',
 
 module.exports = InfoTip;
 
-},{"rcss":8,"react":117,"underscore":118}],8:[function(require,module,exports){
+},{"rcss":40,"react":45,"underscore":46}],40:[function(require,module,exports){
 var assign = require('lodash.assign');
 
 var styleRuleValidator = require('./styleRuleValidator');
@@ -1026,1028 +2615,613 @@ var RCSS = {
 
 module.exports = RCSS;
 
-},{"./styleRuleConverter":113,"./styleRuleValidator":114,"lodash.assign":9,"valid-media-queries":48}],9:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var baseCreateCallback = require('lodash._basecreatecallback'),
-    keys = require('lodash.keys'),
-    objectTypes = require('lodash._objecttypes');
+},{"./styleRuleConverter":41,"./styleRuleValidator":42,"lodash.assign":22,"valid-media-queries":48}],41:[function(require,module,exports){
+var escape = require('lodash.escape');
 
-/**
- * Assigns own enumerable properties of source object(s) to the destination
- * object. Subsequent sources will overwrite property assignments of previous
- * sources. If a callback is provided it will be executed to produce the
- * assigned values. The callback is bound to `thisArg` and invoked with two
- * arguments; (objectValue, sourceValue).
- *
- * @static
- * @memberOf _
- * @type Function
- * @alias extend
- * @category Objects
- * @param {Object} object The destination object.
- * @param {...Object} [source] The source objects.
- * @param {Function} [callback] The function to customize assigning values.
- * @param {*} [thisArg] The `this` binding of `callback`.
- * @returns {Object} Returns the destination object.
- * @example
- *
- * _.assign({ 'name': 'fred' }, { 'employer': 'slate' });
- * // => { 'name': 'fred', 'employer': 'slate' }
- *
- * var defaults = _.partialRight(_.assign, function(a, b) {
- *   return typeof a == 'undefined' ? b : a;
- * });
- *
- * var object = { 'name': 'barney' };
- * defaults(object, { 'name': 'fred', 'employer': 'slate' });
- * // => { 'name': 'barney', 'employer': 'slate' }
- */
-var assign = function(object, source, guard) {
-  var index, iterable = object, result = iterable;
-  if (!iterable) return result;
-  var args = arguments,
-      argsIndex = 0,
-      argsLength = typeof guard == 'number' ? 2 : args.length;
-  if (argsLength > 3 && typeof args[argsLength - 2] == 'function') {
-    var callback = baseCreateCallback(args[--argsLength - 1], args[argsLength--], 2);
-  } else if (argsLength > 2 && typeof args[argsLength - 1] == 'function') {
-    callback = args[--argsLength];
-  }
-  while (++argsIndex < argsLength) {
-    iterable = args[argsIndex];
-    if (iterable && objectTypes[typeof iterable]) {
-    var ownIndex = -1,
-        ownProps = objectTypes[typeof iterable] && keys(iterable),
-        length = ownProps ? ownProps.length : 0;
+var _uppercasePattern = /([A-Z])/g;
 
-    while (++ownIndex < length) {
-      index = ownProps[ownIndex];
-      result[index] = callback ? callback(result[index], iterable[index]) : iterable[index];
-    }
-    }
+function hyphenateProp(string) {
+  return string.replace(_uppercasePattern, '-$1').toLowerCase();
+}
+
+function escapeValueForProp(value, prop) {
+  // 'content' is a special property that must be quoted
+  if (prop === 'content') {
+    return '"' + value + '"';
   }
-  return result
+  return escape(value);
+}
+
+module.exports = {
+  hyphenateProp: hyphenateProp,
+  escapeValueForProp: escapeValueForProp
 };
 
-module.exports = assign;
+},{"lodash.escape":25}],42:[function(require,module,exports){
+var isValidCSSProps = require('valid-css-props');
 
-},{"lodash._basecreatecallback":10,"lodash._objecttypes":31,"lodash.keys":32}],10:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var bind = require('lodash.bind'),
-    identity = require('lodash.identity'),
-    setBindData = require('lodash._setbinddata'),
-    support = require('lodash.support');
-
-/** Used to detected named functions */
-var reFuncName = /^\s*function[ \n\r\t]+\w/;
-
-/** Used to detect functions containing a `this` reference */
-var reThis = /\bthis\b/;
-
-/** Native method shortcuts */
-var fnToString = Function.prototype.toString;
-
-/**
- * The base implementation of `_.createCallback` without support for creating
- * "_.pluck" or "_.where" style callbacks.
- *
- * @private
- * @param {*} [func=identity] The value to convert to a callback.
- * @param {*} [thisArg] The `this` binding of the created callback.
- * @param {number} [argCount] The number of arguments the callback accepts.
- * @returns {Function} Returns a callback function.
- */
-function baseCreateCallback(func, thisArg, argCount) {
-  if (typeof func != 'function') {
-    return identity;
-  }
-  // exit early for no `thisArg` or already bound by `Function#bind`
-  if (typeof thisArg == 'undefined' || !('prototype' in func)) {
-    return func;
-  }
-  var bindData = func.__bindData__;
-  if (typeof bindData == 'undefined') {
-    if (support.funcNames) {
-      bindData = !func.name;
-    }
-    bindData = bindData || !support.funcDecomp;
-    if (!bindData) {
-      var source = fnToString.call(func);
-      if (!support.funcNames) {
-        bindData = !reFuncName.test(source);
-      }
-      if (!bindData) {
-        // checks if `func` references the `this` keyword and stores the result
-        bindData = reThis.test(source);
-        setBindData(func, bindData);
-      }
-    }
-  }
-  // exit early if there are no `this` references or `func` is bound
-  if (bindData === false || (bindData !== true && bindData[1] & 1)) {
-    return func;
-  }
-  switch (argCount) {
-    case 1: return function(value) {
-      return func.call(thisArg, value);
-    };
-    case 2: return function(a, b) {
-      return func.call(thisArg, a, b);
-    };
-    case 3: return function(value, index, collection) {
-      return func.call(thisArg, value, index, collection);
-    };
-    case 4: return function(accumulator, value, index, collection) {
-      return func.call(thisArg, accumulator, value, index, collection);
-    };
-  }
-  return bind(func, thisArg);
+function isValidProp(prop) {
+  return isValidCSSProps(prop);
 }
 
-module.exports = baseCreateCallback;
+function isValidValue(value) {
+  return value != null && typeof value !== 'boolean' && value !== '';
+}
 
-},{"lodash._setbinddata":11,"lodash.bind":14,"lodash.identity":28,"lodash.support":29}],11:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var isNative = require('lodash._isnative'),
-    noop = require('lodash.noop');
-
-/** Used as the property descriptor for `__bindData__` */
-var descriptor = {
-  'configurable': false,
-  'enumerable': false,
-  'value': null,
-  'writable': false
+module.exports = {
+  isValidProp: isValidProp,
+  isValidValue: isValidValue
 };
 
-/** Used to set meta data on functions */
-var defineProperty = (function() {
-  // IE 8 only accepts DOM elements
-  try {
-    var o = {},
-        func = isNative(func = Object.defineProperty) && func,
-        result = func(o, o, o) && func;
-  } catch(e) { }
-  return result;
-}());
+},{"valid-css-props":47}],43:[function(require,module,exports){
+/** @jsx React.DOM */
+/**
+ * For math rendered using KaTex and/or MathJax. Use me like <TeX>2x + 3</TeX>.
+ */
+// TODO(joel) - require MathJax / katex so they don't have to be global
+
+var React = require('react');
+
+var pendingScripts = [];
+var needsProcess = false;
+var timeout = null;
+
+function process(script, callback) {
+    pendingScripts.push(script);
+    if (!needsProcess) {
+        needsProcess = true;
+        timeout = setTimeout(doProcess, 0, callback);
+    }
+}
+
+function doProcess(callback) {
+    MathJax.Hub.Queue(function() {
+        var oldElementScripts = MathJax.Hub.elementScripts;
+        MathJax.Hub.elementScripts = function(element) {
+            var scripts = pendingScripts;
+            pendingScripts = [];
+            needsProcess = false;
+            return scripts;
+        };
+
+        try {
+            return MathJax.Hub.Process(null, callback);
+        } catch (e) {
+            // IE8 requires `catch` in order to use `finally`
+            throw e;
+        } finally {
+            MathJax.Hub.elementScripts = oldElementScripts;
+        }
+    });
+}
+
+var TeX = React.createClass({displayName: 'TeX',
+    getDefaultProps: function() {
+        return {
+            // Called after math is rendered or re-rendered
+            onRender: function() {}
+        };
+    },
+
+    render: function() {
+        return React.DOM.span( {style:this.props.style}, 
+            React.DOM.span( {ref:"mathjax"} ),
+            React.DOM.span( {ref:"katex"} )
+        );
+    },
+
+    componentDidMount: function() {
+        var text = this.props.children;
+        var onRender = this.props.onRender;
+
+        try {
+            var katexHolder = this.refs.katex.getDOMNode();
+            katex.process(text, katexHolder);
+            onRender();
+            return;
+        } catch (e) {
+            /* jshint -W103 */
+            if (e.__proto__ !== katex.ParseError.prototype) {
+            /* jshint +W103 */
+                throw e;
+            }
+        }
+
+        this.setScriptText(text);
+        process(this.script, onRender);
+    },
+
+    componentDidUpdate: function(prevProps, prevState) {
+        var oldText = prevProps.children;
+        var newText = this.props.children;
+        var onRender = this.props.onRender;
+
+        if (oldText !== newText) {
+            try {
+                var katexHolder = this.refs.katex.getDOMNode();
+                katex.process(newText, katexHolder);
+                if (this.script) {
+                    var jax = MathJax.Hub.getJaxFor(this.script);
+                    if (jax) {
+                        jax.Remove();
+                    }
+                }
+                onRender();
+                return;
+            } catch (e) {
+                /* jshint -W103 */
+                if (e.__proto__ !== katex.ParseError.prototype) {
+                /* jshint +W103 */
+                    throw e;
+                }
+            }
+
+            $(this.refs.katex.getDOMNode()).empty();
+
+            if (this.script) {
+                var component = this;
+                MathJax.Hub.Queue(function() {
+                    var jax = MathJax.Hub.getJaxFor(component.script);
+                    if (jax) {
+                        return jax.Text(newText, onRender);
+                    } else {
+                        component.setScriptText(newText);
+                        process(component.script, onRender);
+                    }
+                });
+            } else {
+                this.setScriptText(newText);
+                process(this.script, onRender);
+            }
+        }
+    },
+
+    setScriptText: function(text) {
+        if (!this.script) {
+            this.script = document.createElement("script");
+            this.script.type = "math/tex";
+            this.refs.mathjax.getDOMNode().appendChild(this.script);
+        }
+        if ("text" in this.script) {
+            // IE8, etc
+            this.script.text = text;
+        } else {
+            this.script.textContent = text;
+        }
+    },
+
+    componentWillUnmount: function() {
+        if (this.script) {
+            var jax = MathJax.Hub.getJaxFor(this.script);
+            if (jax) {
+                jax.Remove();
+            }
+        }
+    }
+});
+
+module.exports = TeX;
+
+},{"react":45}],44:[function(require,module,exports){
+/** @jsx React.DOM */
+
+var React = require("react");
+var _ = require("underscore");
+
+// TODO(joel/jack) fix z-index issues https://s3.amazonaws.com/uploads.hipchat.com/6574/29028/yOApjwmgiMhEZYJ/Screen%20Shot%202014-05-30%20at%203.34.18%20PM.png
+// z-index: 3 on perseus-formats-tooltip seemed to work
 
 /**
- * Sets `this` binding data on a given function.
+ * A generic tooltip library for React.js
  *
- * @private
- * @param {Function} func The function to set data on.
- * @param {Array} value The data array to set.
+ * This should eventually end up in react-components
+ *
+ * Interface: ({a, b} means one of a or b)
+ * var Tooltip = require("./tooltip.jsx");
+ * <Tooltip
+ *         className="class-for-tooltip-contents"
+ *         horizontalPosition="left" // one of "left", "right"
+ *         horizontalAlign="left" // one of "left", "right"
+ *         verticalPosition="bottom" // one of "top", "bottom"
+ *         arrowSize={10} // arrow size in pixels
+ *         borderColor="#ccc" // color of the border for the tooltip
+ *         show={true} // whether the tooltip should currently be visible
+ *         >
+ *     <TargetElementOfTheTooltip />
+ *     <TooltipContents1 />
+ *     <TooltipContents2 />
+ * </Tooltip>
+ *
+ * To show/hide the tooltip, the parent component should call the
+ * .show() and .hide() methods of the tooltip when appropriate.
+ * (These are usually set up as handlers of events on the target element.)
+ *
+ * Notes:
+ *     className should not specify a border; that is handled by borderColor
+ *     so that the arrow and tooltip match
  */
-var setBindData = !defineProperty ? noop : function(func, value) {
-  descriptor.value = value;
-  defineProperty(func, '__bindData__', descriptor);
+
+//          __,,--``\\
+//  _,,-''``         \\     ,
+// '----------_.------'-.___|\__
+//    _.--''``    `)__   )__   @\__
+//   (  .. ''---/___,,E/__,E'------`
+//    `-''`''
+// Here be dragons.
+
+var zIndex = 10;
+
+var Triangle = React.createClass({displayName: 'Triangle',
+    propTypes: {
+        color: React.PropTypes.string.isRequired,
+        left: React.PropTypes.number.isRequired,
+        "top": React.PropTypes.number.isRequired,
+        width: React.PropTypes.number.isRequired,
+        height: React.PropTypes.number.isRequired,
+        horizontalDirection: React.PropTypes.oneOf(
+            ["left", "right"]
+        ).isRequired,
+        verticalDirection: React.PropTypes.oneOf(
+            ["top", "bottom"]
+        ).isRequired,
+    },
+
+    render: function() {
+        var borderLeft, borderRight, borderTop, borderBottom;
+
+        var hBorder = (this.props.width + "px solid transparent");
+        if (this.props.horizontalDirection === "right") {
+            borderLeft = hBorder;
+        } else {
+            borderRight = hBorder;
+        }
+
+        var vBorder = (this.props.height + "px solid " + this.props.color);
+        if (this.props.verticalDirection === "top") {
+            borderTop = vBorder;
+        } else {
+            borderBottom = vBorder;
+        }
+
+        return React.DOM.div( {style:{
+            display: "block",
+            height: 0,
+            width: 0,
+            position: "absolute",
+            left: this.props.left,
+            "top": this.props["top"],
+            borderLeft: borderLeft,
+            borderRight: borderRight,
+            borderTop: borderTop,
+            borderBottom: borderBottom
+        }} );
+    }
+});
+
+var TooltipArrow = React.createClass({displayName: 'TooltipArrow',
+    propTypes: {
+        position: React.PropTypes.string,
+        visibility: React.PropTypes.string,
+        left: React.PropTypes.number,
+        "top": React.PropTypes.number,
+        color: React.PropTypes.string.isRequired,  // a css color
+        border: React.PropTypes.string.isRequired,  // a css color
+        width: React.PropTypes.number.isRequired,
+        height: React.PropTypes.number.isRequired,
+        horizontalDirection: React.PropTypes.oneOf(
+            ["left", "right"]
+        ).isRequired,
+        verticalDirection: React.PropTypes.oneOf(
+            ["top", "bottom"]
+        ).isRequired
+    },
+
+    getDefaultProps: function() {
+        return {
+            position: "relative",
+            visibility: "visible",
+            left: 0,
+            "top": 0
+        };
+    },
+
+    // TODO(jack): Think about adding a box-shadow to the triangle here
+    // See http://css-tricks.com/triangle-with-shadow/
+    render: function() {
+        var isRight = (this.props.horizontalDirection === "right");
+        var isTop = (this.props.verticalDirection === "top");
+
+        var frontTopOffset = isTop ? 0 : 1;
+        var borderTopOffset = isTop ? 0 : -1;
+
+        return React.DOM.div( {style:{
+                display: "block",
+                position: this.props.position,
+                visibility: this.props.visibility,
+                left: this.props.left,
+                "top": this.props["top"],
+                width: this.props.width + 2,
+                height: this.props.height + 1,
+                marginTop: -1,
+                marginBottom: -2,
+                zIndex: zIndex
+            }}, 
+            /* The background triangle used to create the effect of a
+                border around the foreground triangle*/
+            Triangle(
+                {horizontalDirection:this.props.horizontalDirection,
+                verticalDirection:this.props.verticalDirection,
+                color:this.props.border,
+                left:0,
+                top:borderTopOffset,
+                width:this.props.width + 2,  // one extra for the diagonal
+                height:this.props.height + 2} ),
+            /* The foreground triangle covers all but the left/right edges
+                of the background triangle */
+            Triangle(
+                {horizontalDirection:this.props.horizontalDirection,
+                verticalDirection:this.props.verticalDirection,
+                color:this.props.color,
+                left:1,
+                top:frontTopOffset,
+                width:this.props.width,
+                height:this.props.height} )
+        );
+    }
+});
+
+var VERTICAL_CORNERS = {
+    "top": {
+        "top": "-100%"
+    },
+    bottom: {
+        "top": 0
+    }
 };
 
-module.exports = setBindData;
+var HORIZONTAL_CORNERS = {
+    left: {
+        targetLeft: 0,
+    },
 
-},{"lodash._isnative":12,"lodash.noop":13}],12:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-
-/** Used for native method references */
-var objectProto = Object.prototype;
-
-/** Used to resolve the internal [[Class]] of values */
-var toString = objectProto.toString;
-
-/** Used to detect if a method is native */
-var reNative = RegExp('^' +
-  String(toString)
-    .replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-    .replace(/toString| for [^\]]+/g, '.*?') + '$'
-);
-
-/**
- * Checks if `value` is a native function.
- *
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if the `value` is a native function, else `false`.
- */
-function isNative(value) {
-  return typeof value == 'function' && reNative.test(value);
-}
-
-module.exports = isNative;
-
-},{}],13:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-
-/**
- * A no-operation function.
- *
- * @static
- * @memberOf _
- * @category Utilities
- * @example
- *
- * var object = { 'name': 'fred' };
- * _.noop(object) === undefined;
- * // => true
- */
-function noop() {
-  // no operation performed
-}
-
-module.exports = noop;
-
-},{}],14:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var createWrapper = require('lodash._createwrapper'),
-    slice = require('lodash._slice');
-
-/**
- * Creates a function that, when called, invokes `func` with the `this`
- * binding of `thisArg` and prepends any additional `bind` arguments to those
- * provided to the bound function.
- *
- * @static
- * @memberOf _
- * @category Functions
- * @param {Function} func The function to bind.
- * @param {*} [thisArg] The `this` binding of `func`.
- * @param {...*} [arg] Arguments to be partially applied.
- * @returns {Function} Returns the new bound function.
- * @example
- *
- * var func = function(greeting) {
- *   return greeting + ' ' + this.name;
- * };
- *
- * func = _.bind(func, { 'name': 'fred' }, 'hi');
- * func();
- * // => 'hi fred'
- */
-function bind(func, thisArg) {
-  return arguments.length > 2
-    ? createWrapper(func, 17, slice(arguments, 2), null, thisArg)
-    : createWrapper(func, 1, null, null, thisArg);
-}
-
-module.exports = bind;
-
-},{"lodash._createwrapper":15,"lodash._slice":27}],15:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var baseBind = require('lodash._basebind'),
-    baseCreateWrapper = require('lodash._basecreatewrapper'),
-    isFunction = require('lodash.isfunction'),
-    slice = require('lodash._slice');
-
-/**
- * Used for `Array` method references.
- *
- * Normally `Array.prototype` would suffice, however, using an array literal
- * avoids issues in Narwhal.
- */
-var arrayRef = [];
-
-/** Native method shortcuts */
-var push = arrayRef.push,
-    unshift = arrayRef.unshift;
-
-/**
- * Creates a function that, when called, either curries or invokes `func`
- * with an optional `this` binding and partially applied arguments.
- *
- * @private
- * @param {Function|string} func The function or method name to reference.
- * @param {number} bitmask The bitmask of method flags to compose.
- *  The bitmask may be composed of the following flags:
- *  1 - `_.bind`
- *  2 - `_.bindKey`
- *  4 - `_.curry`
- *  8 - `_.curry` (bound)
- *  16 - `_.partial`
- *  32 - `_.partialRight`
- * @param {Array} [partialArgs] An array of arguments to prepend to those
- *  provided to the new function.
- * @param {Array} [partialRightArgs] An array of arguments to append to those
- *  provided to the new function.
- * @param {*} [thisArg] The `this` binding of `func`.
- * @param {number} [arity] The arity of `func`.
- * @returns {Function} Returns the new function.
- */
-function createWrapper(func, bitmask, partialArgs, partialRightArgs, thisArg, arity) {
-  var isBind = bitmask & 1,
-      isBindKey = bitmask & 2,
-      isCurry = bitmask & 4,
-      isCurryBound = bitmask & 8,
-      isPartial = bitmask & 16,
-      isPartialRight = bitmask & 32;
-
-  if (!isBindKey && !isFunction(func)) {
-    throw new TypeError;
-  }
-  if (isPartial && !partialArgs.length) {
-    bitmask &= ~16;
-    isPartial = partialArgs = false;
-  }
-  if (isPartialRight && !partialRightArgs.length) {
-    bitmask &= ~32;
-    isPartialRight = partialRightArgs = false;
-  }
-  var bindData = func && func.__bindData__;
-  if (bindData && bindData !== true) {
-    // clone `bindData`
-    bindData = slice(bindData);
-    if (bindData[2]) {
-      bindData[2] = slice(bindData[2]);
+    right: {
+        targetLeft: "100%",
     }
-    if (bindData[3]) {
-      bindData[3] = slice(bindData[3]);
-    }
-    // set `thisBinding` is not previously bound
-    if (isBind && !(bindData[1] & 1)) {
-      bindData[4] = thisArg;
-    }
-    // set if previously bound but not currently (subsequent curried functions)
-    if (!isBind && bindData[1] & 1) {
-      bitmask |= 8;
-    }
-    // set curried arity if not yet set
-    if (isCurry && !(bindData[1] & 4)) {
-      bindData[5] = arity;
-    }
-    // append partial left arguments
-    if (isPartial) {
-      push.apply(bindData[2] || (bindData[2] = []), partialArgs);
-    }
-    // append partial right arguments
-    if (isPartialRight) {
-      unshift.apply(bindData[3] || (bindData[3] = []), partialRightArgs);
-    }
-    // merge flags
-    bindData[1] |= bitmask;
-    return createWrapper.apply(null, bindData);
-  }
-  // fast path for `_.bind`
-  var creater = (bitmask == 1 || bitmask === 17) ? baseBind : baseCreateWrapper;
-  return creater([func, bitmask, partialArgs, partialRightArgs, thisArg, arity]);
-}
-
-module.exports = createWrapper;
-
-},{"lodash._basebind":16,"lodash._basecreatewrapper":21,"lodash._slice":27,"lodash.isfunction":26}],16:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var baseCreate = require('lodash._basecreate'),
-    isObject = require('lodash.isobject'),
-    setBindData = require('lodash._setbinddata'),
-    slice = require('lodash._slice');
-
-/**
- * Used for `Array` method references.
- *
- * Normally `Array.prototype` would suffice, however, using an array literal
- * avoids issues in Narwhal.
- */
-var arrayRef = [];
-
-/** Native method shortcuts */
-var push = arrayRef.push;
-
-/**
- * The base implementation of `_.bind` that creates the bound function and
- * sets its meta data.
- *
- * @private
- * @param {Array} bindData The bind data array.
- * @returns {Function} Returns the new bound function.
- */
-function baseBind(bindData) {
-  var func = bindData[0],
-      partialArgs = bindData[2],
-      thisArg = bindData[4];
-
-  function bound() {
-    // `Function#bind` spec
-    // http://es5.github.io/#x15.3.4.5
-    if (partialArgs) {
-      // avoid `arguments` object deoptimizations by using `slice` instead
-      // of `Array.prototype.slice.call` and not assigning `arguments` to a
-      // variable as a ternary expression
-      var args = slice(partialArgs);
-      push.apply(args, arguments);
-    }
-    // mimic the constructor's `return` behavior
-    // http://es5.github.io/#x13.2.2
-    if (this instanceof bound) {
-      // ensure `new bound` is an instance of `func`
-      var thisBinding = baseCreate(func.prototype),
-          result = func.apply(thisBinding, args || arguments);
-      return isObject(result) ? result : thisBinding;
-    }
-    return func.apply(thisArg, args || arguments);
-  }
-  setBindData(bound, bindData);
-  return bound;
-}
-
-module.exports = baseBind;
-
-},{"lodash._basecreate":17,"lodash._setbinddata":11,"lodash._slice":27,"lodash.isobject":20}],17:[function(require,module,exports){
-(function (global){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var isNative = require('lodash._isnative'),
-    isObject = require('lodash.isobject'),
-    noop = require('lodash.noop');
-
-/* Native method shortcuts for methods with the same name as other `lodash` methods */
-var nativeCreate = isNative(nativeCreate = Object.create) && nativeCreate;
-
-/**
- * The base implementation of `_.create` without support for assigning
- * properties to the created object.
- *
- * @private
- * @param {Object} prototype The object to inherit from.
- * @returns {Object} Returns the new object.
- */
-function baseCreate(prototype, properties) {
-  return isObject(prototype) ? nativeCreate(prototype) : {};
-}
-// fallback for browsers without `Object.create`
-if (!nativeCreate) {
-  baseCreate = (function() {
-    function Object() {}
-    return function(prototype) {
-      if (isObject(prototype)) {
-        Object.prototype = prototype;
-        var result = new Object;
-        Object.prototype = null;
-      }
-      return result || global.Object();
-    };
-  }());
-}
-
-module.exports = baseCreate;
-
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"lodash._isnative":18,"lodash.isobject":20,"lodash.noop":19}],18:[function(require,module,exports){
-arguments[4][12][0].apply(exports,arguments)
-},{"dup":12}],19:[function(require,module,exports){
-arguments[4][13][0].apply(exports,arguments)
-},{"dup":13}],20:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var objectTypes = require('lodash._objecttypes');
-
-/**
- * Checks if `value` is the language type of Object.
- * (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
- *
- * @static
- * @memberOf _
- * @category Objects
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if the `value` is an object, else `false`.
- * @example
- *
- * _.isObject({});
- * // => true
- *
- * _.isObject([1, 2, 3]);
- * // => true
- *
- * _.isObject(1);
- * // => false
- */
-function isObject(value) {
-  // check if the value is the ECMAScript language type of Object
-  // http://es5.github.io/#x8
-  // and avoid a V8 bug
-  // http://code.google.com/p/v8/issues/detail?id=2291
-  return !!(value && objectTypes[typeof value]);
-}
-
-module.exports = isObject;
-
-},{"lodash._objecttypes":31}],21:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var baseCreate = require('lodash._basecreate'),
-    isObject = require('lodash.isobject'),
-    setBindData = require('lodash._setbinddata'),
-    slice = require('lodash._slice');
-
-/**
- * Used for `Array` method references.
- *
- * Normally `Array.prototype` would suffice, however, using an array literal
- * avoids issues in Narwhal.
- */
-var arrayRef = [];
-
-/** Native method shortcuts */
-var push = arrayRef.push;
-
-/**
- * The base implementation of `createWrapper` that creates the wrapper and
- * sets its meta data.
- *
- * @private
- * @param {Array} bindData The bind data array.
- * @returns {Function} Returns the new function.
- */
-function baseCreateWrapper(bindData) {
-  var func = bindData[0],
-      bitmask = bindData[1],
-      partialArgs = bindData[2],
-      partialRightArgs = bindData[3],
-      thisArg = bindData[4],
-      arity = bindData[5];
-
-  var isBind = bitmask & 1,
-      isBindKey = bitmask & 2,
-      isCurry = bitmask & 4,
-      isCurryBound = bitmask & 8,
-      key = func;
-
-  function bound() {
-    var thisBinding = isBind ? thisArg : this;
-    if (partialArgs) {
-      var args = slice(partialArgs);
-      push.apply(args, arguments);
-    }
-    if (partialRightArgs || isCurry) {
-      args || (args = slice(arguments));
-      if (partialRightArgs) {
-        push.apply(args, partialRightArgs);
-      }
-      if (isCurry && args.length < arity) {
-        bitmask |= 16 & ~32;
-        return baseCreateWrapper([func, (isCurryBound ? bitmask : bitmask & ~3), args, null, thisArg, arity]);
-      }
-    }
-    args || (args = arguments);
-    if (isBindKey) {
-      func = thisBinding[key];
-    }
-    if (this instanceof bound) {
-      thisBinding = baseCreate(func.prototype);
-      var result = func.apply(thisBinding, args);
-      return isObject(result) ? result : thisBinding;
-    }
-    return func.apply(thisBinding, args);
-  }
-  setBindData(bound, bindData);
-  return bound;
-}
-
-module.exports = baseCreateWrapper;
-
-},{"lodash._basecreate":22,"lodash._setbinddata":11,"lodash._slice":27,"lodash.isobject":25}],22:[function(require,module,exports){
-arguments[4][17][0].apply(exports,arguments)
-},{"dup":17,"lodash._isnative":23,"lodash.isobject":25,"lodash.noop":24}],23:[function(require,module,exports){
-arguments[4][12][0].apply(exports,arguments)
-},{"dup":12}],24:[function(require,module,exports){
-arguments[4][13][0].apply(exports,arguments)
-},{"dup":13}],25:[function(require,module,exports){
-arguments[4][20][0].apply(exports,arguments)
-},{"dup":20,"lodash._objecttypes":31}],26:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-
-/**
- * Checks if `value` is a function.
- *
- * @static
- * @memberOf _
- * @category Objects
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if the `value` is a function, else `false`.
- * @example
- *
- * _.isFunction(_);
- * // => true
- */
-function isFunction(value) {
-  return typeof value == 'function';
-}
-
-module.exports = isFunction;
-
-},{}],27:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-
-/**
- * Slices the `collection` from the `start` index up to, but not including,
- * the `end` index.
- *
- * Note: This function is used instead of `Array#slice` to support node lists
- * in IE < 9 and to ensure dense arrays are returned.
- *
- * @private
- * @param {Array|Object|string} collection The collection to slice.
- * @param {number} start The start index.
- * @param {number} end The end index.
- * @returns {Array} Returns the new array.
- */
-function slice(array, start, end) {
-  start || (start = 0);
-  if (typeof end == 'undefined') {
-    end = array ? array.length : 0;
-  }
-  var index = -1,
-      length = end - start || 0,
-      result = Array(length < 0 ? 0 : length);
-
-  while (++index < length) {
-    result[index] = array[start + index];
-  }
-  return result;
-}
-
-module.exports = slice;
-
-},{}],28:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-
-/**
- * This method returns the first argument provided to it.
- *
- * @static
- * @memberOf _
- * @category Utilities
- * @param {*} value Any value.
- * @returns {*} Returns `value`.
- * @example
- *
- * var object = { 'name': 'fred' };
- * _.identity(object) === object;
- * // => true
- */
-function identity(value) {
-  return value;
-}
-
-module.exports = identity;
-
-},{}],29:[function(require,module,exports){
-(function (global){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var isNative = require('lodash._isnative');
-
-/** Used to detect functions containing a `this` reference */
-var reThis = /\bthis\b/;
-
-/**
- * An object used to flag environments features.
- *
- * @static
- * @memberOf _
- * @type Object
- */
-var support = {};
-
-/**
- * Detect if functions can be decompiled by `Function#toString`
- * (all but PS3 and older Opera mobile browsers & avoided in Windows 8 apps).
- *
- * @memberOf _.support
- * @type boolean
- */
-support.funcDecomp = !isNative(global.WinRTError) && reThis.test(function() { return this; });
-
-/**
- * Detect if `Function#name` is supported (all but IE).
- *
- * @memberOf _.support
- * @type boolean
- */
-support.funcNames = typeof Function.name == 'string';
-
-module.exports = support;
-
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"lodash._isnative":30}],30:[function(require,module,exports){
-arguments[4][12][0].apply(exports,arguments)
-},{"dup":12}],31:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-
-/** Used to determine if values are of the language type Object */
-var objectTypes = {
-  'boolean': false,
-  'function': true,
-  'object': true,
-  'number': false,
-  'string': false,
-  'undefined': false
 };
 
-module.exports = objectTypes;
-
-},{}],32:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var isNative = require('lodash._isnative'),
-    isObject = require('lodash.isobject'),
-    shimKeys = require('lodash._shimkeys');
-
-/* Native method shortcuts for methods with the same name as other `lodash` methods */
-var nativeKeys = isNative(nativeKeys = Object.keys) && nativeKeys;
-
-/**
- * Creates an array composed of the own enumerable property names of an object.
- *
- * @static
- * @memberOf _
- * @category Objects
- * @param {Object} object The object to inspect.
- * @returns {Array} Returns an array of property names.
- * @example
- *
- * _.keys({ 'one': 1, 'two': 2, 'three': 3 });
- * // => ['one', 'two', 'three'] (property order is not guaranteed across environments)
- */
-var keys = !nativeKeys ? shimKeys : function(object) {
-  if (!isObject(object)) {
-    return [];
-  }
-  return nativeKeys(object);
-};
-
-module.exports = keys;
-
-},{"lodash._isnative":33,"lodash._shimkeys":34,"lodash.isobject":35}],33:[function(require,module,exports){
-arguments[4][12][0].apply(exports,arguments)
-},{"dup":12}],34:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var objectTypes = require('lodash._objecttypes');
-
-/** Used for native method references */
-var objectProto = Object.prototype;
-
-/** Native method shortcuts */
-var hasOwnProperty = objectProto.hasOwnProperty;
-
-/**
- * A fallback implementation of `Object.keys` which produces an array of the
- * given object's own enumerable property names.
- *
- * @private
- * @type Function
- * @param {Object} object The object to inspect.
- * @returns {Array} Returns an array of property names.
- */
-var shimKeys = function(object) {
-  var index, iterable = object, result = [];
-  if (!iterable) return result;
-  if (!(objectTypes[typeof object])) return result;
-    for (index in iterable) {
-      if (hasOwnProperty.call(iterable, index)) {
-        result.push(index);
-      }
+var HORIZONTAL_ALIGNMNENTS = {
+    left: {
+        tooltipLeft: 0,
+        arrowLeft: function(arrowSize)  {return 0;}
+    },
+    right: {
+        tooltipLeft: "-100%",
+        arrowLeft: function(arrowSize)  {return -arrowSize - 2;}
     }
-  return result
 };
 
-module.exports = shimKeys;
 
-},{"lodash._objecttypes":31}],35:[function(require,module,exports){
-arguments[4][20][0].apply(exports,arguments)
-},{"dup":20,"lodash._objecttypes":31}],36:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var escapeHtmlChar = require('lodash._escapehtmlchar'),
-    keys = require('lodash.keys'),
-    reUnescapedHtml = require('lodash._reunescapedhtml');
+var Tooltip = React.createClass({displayName: 'Tooltip',
+    propTypes: {
+        show: React.PropTypes.bool.isRequired,
+        className: React.PropTypes.string,
+        arrowSize: React.PropTypes.number,
+        borderColor: React.PropTypes.string,
+        verticalPosition: React.PropTypes.oneOf(
+            _.keys(VERTICAL_CORNERS)
+        ),
+        horizontalPosition: React.PropTypes.oneOf(
+            _.keys(HORIZONTAL_CORNERS)
+        ),
+        horizontalAlign: React.PropTypes.oneOf(
+            _.keys(HORIZONTAL_ALIGNMNENTS)
+        ),
+        children: React.PropTypes.arrayOf(
+            React.PropTypes.component
+        ).isRequired
+    },
 
-/**
- * Converts the characters `&`, `<`, `>`, `"`, and `'` in `string` to their
- * corresponding HTML entities.
+    getDefaultProps: function() {
+        return {
+            className: "",
+            arrowSize: 10,
+            borderColor: "#ccc",
+            verticalPosition: "bottom",
+            horizontalPosition: "left",
+            horizontalAlign: "left"
+        };
+    },
+
+    getInitialState: function() {
+        return {
+            height: null  // used for offsetting "top" positioned tooltips
+        };
+    },
+
+    componentWillReceiveProps: function() {
+        // If the contents have changed, reset our measure of the height
+        this.setState({height: null});
+    },
+
+    render: function() {
+        var isTooltipAbove = this.props.verticalPosition === "top";
+
+        /* We wrap the entire output in a span so that it displays inline */
+        return React.DOM.span(null, 
+            isTooltipAbove && this._renderToolTipDiv(isTooltipAbove),
+
+            /* We wrap our input in a div so that we can put the tooltip in a
+                div above/below it */
+            React.DOM.div(null, 
+                _.first(this.props.children)
+            ),
+
+            !isTooltipAbove && this._renderToolTipDiv()
+        );
+    },
+
+    _renderToolTipDiv: function(isTooltipAbove) {
+        var settings = _.extend({},
+            HORIZONTAL_CORNERS[this.props.horizontalPosition],
+            HORIZONTAL_ALIGNMNENTS[this.props.horizontalAlign],
+            VERTICAL_CORNERS[this.props.verticalPosition]
+        );
+
+        var arrowAbove;
+        var arrowBelow;
+
+        if (isTooltipAbove) {
+            // We put an absolutely positioned arrow in the correct place
+            arrowAbove = TooltipArrow(
+                {verticalDirection:"top",
+                horizontalDirection:this.props.horizontalAlign,
+                position:"absolute",
+                color:"white",
+                border:this.props.borderColor,
+                left:settings.arrowLeft(this.props.arrowSize),
+                top:-this.props.arrowSize + 2,
+                width:this.props.arrowSize,
+                height:this.props.arrowSize,
+                zIndex:zIndex} );
+
+            // And we use a visibility: hidden arrow below to shift up the
+            // content by the correct amount
+            arrowBelow = TooltipArrow(
+                {verticalDirection:"top",
+                horizontalDirection:this.props.horizontalAlign,
+                visibility:"hidden",
+                color:"white",
+                border:this.props.borderColor,
+                left:settings.arrowLeft(this.props.arrowSize),
+                top:-1,
+                width:this.props.arrowSize,
+                height:this.props.arrowSize,
+                zIndex:zIndex} );
+        } else {
+            arrowAbove = TooltipArrow(
+                {verticalDirection:"bottom",
+                horizontalDirection:this.props.horizontalAlign,
+                color:"white",
+                border:this.props.borderColor,
+                left:settings.arrowLeft(this.props.arrowSize),
+                top:-1,
+                width:this.props.arrowSize,
+                height:this.props.arrowSize,
+                zIndex:zIndex} );
+
+            arrowBelow = null;
+        }
+
+        /* A positioned div below the input to be the parent for our
+            tooltip */
+        return React.DOM.div( {style:{
+                position: "relative",
+                height: 0,
+                display: this.props.show ? "block" : "none",
+                }}, 
+            React.DOM.div( {ref:"tooltipContainer", className:"tooltipContainer", style:{
+                        position: "absolute",
+                        // height must start out undefined, not null, so that
+                        // we can measure the actual height with jquery.
+                        // This is used to position the tooltip with top: -100%
+                        // when in verticalPosition: "top" mode
+                        height: this.state.height || undefined,
+                        left: settings.targetLeft
+                    }}, 
+                arrowAbove,
+
+                /* The contents of the tooltip */
+                React.DOM.div( {className:this.props.className,
+                        ref:"tooltipContent",
+                        style:{
+                            position: "relative",
+                            "top": settings["top"],
+                            "left": settings.tooltipLeft,
+                            border: "1px solid " + this.props.borderColor,
+                            "-webkit-box-shadow": "0 1px 3px " +
+                                    this.props.borderColor,
+                            "-moz-box-shadow": "0 1px 3px " +
+                                    this.props.borderColor,
+                            boxShadow: "0 1px 3px " +
+                                    this.props.borderColor,
+                            zIndex: zIndex - 1
+                        }}, 
+                    _.rest(this.props.children)
+                ),
+
+                arrowBelow
+            )
+        );
+    },
+
+    componentDidMount: function() {
+        this._updateHeight();
+    },
+
+    componentDidUpdate: function() {
+        this._updateHeight();
+    },
+
+    _updateHeight: function() {
+        var height = this.refs.tooltipContainer.getDOMNode().offsetHeight;
+        if (height !== this.state.height) {
+            this.setState({height:height});
+        }
+    }
+});
+
+// Sorry.  // Apology-Oriented-Programming
+module.exports = Tooltip;
+
+},{"react":45,"underscore":46}],45:[function(require,module,exports){
+/* This note applies to rcss, react, and underscore.
  *
- * @static
- * @memberOf _
- * @category Utilities
- * @param {string} string The string to escape.
- * @returns {string} Returns the escaped string.
- * @example
+ * We're faking a node module for this package by just exporting the global.
+ * There are a few complications which led us to this solution as a temporary
+ * fix.
  *
- * _.escape('Fred, Wilma, & Pebbles');
- * // => 'Fred, Wilma, &amp; Pebbles'
- */
-function escape(string) {
-  return string == null ? '' : String(string).replace(reUnescapedHtml, escapeHtmlChar);
-}
-
-module.exports = escape;
-
-},{"lodash._escapehtmlchar":37,"lodash._reunescapedhtml":39,"lodash.keys":41}],37:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var htmlEscapes = require('lodash._htmlescapes');
-
-/**
- * Used by `escape` to convert characters to HTML entities.
+ * - Browserify can slow down a lot when you include the other packages (and
+ *   their dependency graphs). We were also battling general browserify
+ *   slowness at this time - browserify 3.4.0 is "good" but later versions
+ *   (3.53 if I remember correctly) are terribly slow (on the order of 20x
+ *   slower).
  *
- * @private
- * @param {string} match The matched character to escape.
- * @returns {string} Returns the escaped character.
- */
-function escapeHtmlChar(match) {
-  return htmlEscapes[match];
-}
-
-module.exports = escapeHtmlChar;
-
-},{"lodash._htmlescapes":38}],38:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-
-/**
- * Used to convert characters to HTML entities:
+ * - I'm not clear on the details of packaging this so we don't duplicate
+ *   dependencies anywhere. For instance when packaging perseus for webapp we
+ *   need to be careful not to include packages like underscore from our
+ *   dependencies or from the packages we depend on. (note: this is a very good
+ *   opportunity to either explain how existing tools solve the problem or
+ *   create a new tool to solve it)
  *
- * Though the `>` character is escaped for symmetry, characters like `>` and `/`
- * don't require escaping in HTML and have no special meaning unless they're part
- * of a tag or an unquoted attribute value.
- * http://mathiasbynens.be/notes/ambiguous-ampersands (under "semi-related fun fact")
+ * - Joel (and Jack)
  */
-var htmlEscapes = {
-  '&': '&amp;',
-  '<': '&lt;',
-  '>': '&gt;',
-  '"': '&quot;',
-  "'": '&#39;'
-};
+module.exports = window.React;
 
-module.exports = htmlEscapes;
-
-},{}],39:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
+},{}],46:[function(require,module,exports){
+/* This note applies to rcss, react, and underscore.
+ *
+ * We're faking a node module for this package by just exporting the global.
+ * There are a few complications which led us to this solution as a temporary
+ * fix.
+ *
+ * - Browserify can slow down a lot when you include the other packages (and
+ *   their dependency graphs). We were also battling general browserify
+ *   slowness at this time - browserify 3.4.0 is "good" but later versions
+ *   (3.53 if I remember correctly) are terribly slow (on the order of 20x
+ *   slower).
+ *
+ * - I'm not clear on the details of packaging this so we don't duplicate
+ *   dependencies anywhere. For instance when packaging perseus for webapp we
+ *   need to be careful not to include packages like underscore from our
+ *   dependencies or from the packages we depend on. (note: this is a very good
+ *   opportunity to either explain how existing tools solve the problem or
+ *   create a new tool to solve it)
+ *
+ * - Joel (and Jack)
  */
-var htmlEscapes = require('lodash._htmlescapes'),
-    keys = require('lodash.keys');
+module.exports = window._;
 
-/** Used to match HTML entities and HTML characters */
-var reUnescapedHtml = RegExp('[' + keys(htmlEscapes).join('') + ']', 'g');
-
-module.exports = reUnescapedHtml;
-
-},{"lodash._htmlescapes":40,"lodash.keys":41}],40:[function(require,module,exports){
-arguments[4][38][0].apply(exports,arguments)
-},{"dup":38}],41:[function(require,module,exports){
-arguments[4][32][0].apply(exports,arguments)
-},{"dup":32,"lodash._isnative":42,"lodash._shimkeys":43,"lodash.isobject":45}],42:[function(require,module,exports){
-arguments[4][12][0].apply(exports,arguments)
-},{"dup":12}],43:[function(require,module,exports){
-arguments[4][34][0].apply(exports,arguments)
-},{"dup":34,"lodash._objecttypes":44}],44:[function(require,module,exports){
-arguments[4][31][0].apply(exports,arguments)
-},{"dup":31}],45:[function(require,module,exports){
-arguments[4][20][0].apply(exports,arguments)
-},{"dup":20,"lodash._objecttypes":46}],46:[function(require,module,exports){
-arguments[4][31][0].apply(exports,arguments)
-},{"dup":31}],47:[function(require,module,exports){
+},{}],47:[function(require,module,exports){
 var _validCSSProps = {
   'alignment-adjust': true,
   'alignment-baseline': true,
@@ -2505,1321 +3679,7 @@ function isValidMediaQueryList(mediaQuery) {
 
 module.exports = isValidMediaQueryList
 
-},{"lodash.every":49}],49:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var createCallback = require('lodash.createcallback'),
-    forOwn = require('lodash.forown');
-
-/**
- * Checks if the given callback returns truey value for **all** elements of
- * a collection. The callback is bound to `thisArg` and invoked with three
- * arguments; (value, index|key, collection).
- *
- * If a property name is provided for `callback` the created "_.pluck" style
- * callback will return the property value of the given element.
- *
- * If an object is provided for `callback` the created "_.where" style callback
- * will return `true` for elements that have the properties of the given object,
- * else `false`.
- *
- * @static
- * @memberOf _
- * @alias all
- * @category Collections
- * @param {Array|Object|string} collection The collection to iterate over.
- * @param {Function|Object|string} [callback=identity] The function called
- *  per iteration. If a property name or object is provided it will be used
- *  to create a "_.pluck" or "_.where" style callback, respectively.
- * @param {*} [thisArg] The `this` binding of `callback`.
- * @returns {boolean} Returns `true` if all elements passed the callback check,
- *  else `false`.
- * @example
- *
- * _.every([true, 1, null, 'yes']);
- * // => false
- *
- * var characters = [
- *   { 'name': 'barney', 'age': 36 },
- *   { 'name': 'fred',   'age': 40 }
- * ];
- *
- * // using "_.pluck" callback shorthand
- * _.every(characters, 'age');
- * // => true
- *
- * // using "_.where" callback shorthand
- * _.every(characters, { 'age': 36 });
- * // => false
- */
-function every(collection, callback, thisArg) {
-  var result = true;
-  callback = createCallback(callback, thisArg, 3);
-
-  var index = -1,
-      length = collection ? collection.length : 0;
-
-  if (typeof length == 'number') {
-    while (++index < length) {
-      if (!(result = !!callback(collection[index], index, collection))) {
-        break;
-      }
-    }
-  } else {
-    forOwn(collection, function(value, index, collection) {
-      return (result = !!callback(value, index, collection));
-    });
-  }
-  return result;
-}
-
-module.exports = every;
-
-},{"lodash.createcallback":50,"lodash.forown":86}],50:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.4 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var baseCreateCallback = require('lodash._basecreatecallback'),
-    baseIsEqual = require('lodash._baseisequal'),
-    isObject = require('lodash.isobject'),
-    keys = require('lodash.keys'),
-    property = require('lodash.property');
-
-/**
- * Produces a callback bound to an optional `thisArg`. If `func` is a property
- * name the created callback will return the property value for a given element.
- * If `func` is an object the created callback will return `true` for elements
- * that contain the equivalent object properties, otherwise it will return `false`.
- *
- * @static
- * @memberOf _
- * @category Utilities
- * @param {*} [func=identity] The value to convert to a callback.
- * @param {*} [thisArg] The `this` binding of the created callback.
- * @param {number} [argCount] The number of arguments the callback accepts.
- * @returns {Function} Returns a callback function.
- * @example
- *
- * var characters = [
- *   { 'name': 'barney', 'age': 36 },
- *   { 'name': 'fred',   'age': 40 }
- * ];
- *
- * // wrap to create custom callback shorthands
- * _.createCallback = _.wrap(_.createCallback, function(func, callback, thisArg) {
- *   var match = /^(.+?)__([gl]t)(.+)$/.exec(callback);
- *   return !match ? func(callback, thisArg) : function(object) {
- *     return match[2] == 'gt' ? object[match[1]] > match[3] : object[match[1]] < match[3];
- *   };
- * });
- *
- * _.filter(characters, 'age__gt38');
- * // => [{ 'name': 'fred', 'age': 40 }]
- */
-function createCallback(func, thisArg, argCount) {
-  var type = typeof func;
-  if (func == null || type == 'function') {
-    return baseCreateCallback(func, thisArg, argCount);
-  }
-  // handle "_.pluck" style callback shorthands
-  if (type != 'object') {
-    return property(func);
-  }
-  var props = keys(func),
-      key = props[0],
-      a = func[key];
-
-  // handle "_.where" style callback shorthands
-  if (props.length == 1 && a === a && !isObject(a)) {
-    // fast path the common case of providing an object with a single
-    // property containing a primitive value
-    return function(object) {
-      var b = object[key];
-      return a === b && (a !== 0 || (1 / a == 1 / b));
-    };
-  }
-  return function(object) {
-    var length = props.length,
-        result = false;
-
-    while (length--) {
-      if (!(result = baseIsEqual(object[props[length]], func[props[length]], null, true))) {
-        break;
-      }
-    }
-    return result;
-  };
-}
-
-module.exports = createCallback;
-
-},{"lodash._basecreatecallback":51,"lodash._baseisequal":70,"lodash.isobject":79,"lodash.keys":81,"lodash.property":85}],51:[function(require,module,exports){
-arguments[4][10][0].apply(exports,arguments)
-},{"dup":10,"lodash._setbinddata":52,"lodash.bind":55,"lodash.identity":67,"lodash.support":68}],52:[function(require,module,exports){
-arguments[4][11][0].apply(exports,arguments)
-},{"dup":11,"lodash._isnative":53,"lodash.noop":54}],53:[function(require,module,exports){
-arguments[4][12][0].apply(exports,arguments)
-},{"dup":12}],54:[function(require,module,exports){
-arguments[4][13][0].apply(exports,arguments)
-},{"dup":13}],55:[function(require,module,exports){
-arguments[4][14][0].apply(exports,arguments)
-},{"dup":14,"lodash._createwrapper":56,"lodash._slice":66}],56:[function(require,module,exports){
-arguments[4][15][0].apply(exports,arguments)
-},{"dup":15,"lodash._basebind":57,"lodash._basecreatewrapper":61,"lodash._slice":66,"lodash.isfunction":65}],57:[function(require,module,exports){
-arguments[4][16][0].apply(exports,arguments)
-},{"dup":16,"lodash._basecreate":58,"lodash._setbinddata":52,"lodash._slice":66,"lodash.isobject":79}],58:[function(require,module,exports){
-arguments[4][17][0].apply(exports,arguments)
-},{"dup":17,"lodash._isnative":59,"lodash.isobject":79,"lodash.noop":60}],59:[function(require,module,exports){
-arguments[4][12][0].apply(exports,arguments)
-},{"dup":12}],60:[function(require,module,exports){
-arguments[4][13][0].apply(exports,arguments)
-},{"dup":13}],61:[function(require,module,exports){
-arguments[4][21][0].apply(exports,arguments)
-},{"dup":21,"lodash._basecreate":62,"lodash._setbinddata":52,"lodash._slice":66,"lodash.isobject":79}],62:[function(require,module,exports){
-arguments[4][17][0].apply(exports,arguments)
-},{"dup":17,"lodash._isnative":63,"lodash.isobject":79,"lodash.noop":64}],63:[function(require,module,exports){
-arguments[4][12][0].apply(exports,arguments)
-},{"dup":12}],64:[function(require,module,exports){
-arguments[4][13][0].apply(exports,arguments)
-},{"dup":13}],65:[function(require,module,exports){
-arguments[4][26][0].apply(exports,arguments)
-},{"dup":26}],66:[function(require,module,exports){
-arguments[4][27][0].apply(exports,arguments)
-},{"dup":27}],67:[function(require,module,exports){
-arguments[4][28][0].apply(exports,arguments)
-},{"dup":28}],68:[function(require,module,exports){
-arguments[4][29][0].apply(exports,arguments)
-},{"dup":29,"lodash._isnative":69}],69:[function(require,module,exports){
-arguments[4][12][0].apply(exports,arguments)
-},{"dup":12}],70:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var forIn = require('lodash.forin'),
-    getArray = require('lodash._getarray'),
-    isFunction = require('lodash.isfunction'),
-    objectTypes = require('lodash._objecttypes'),
-    releaseArray = require('lodash._releasearray');
-
-/** `Object#toString` result shortcuts */
-var argsClass = '[object Arguments]',
-    arrayClass = '[object Array]',
-    boolClass = '[object Boolean]',
-    dateClass = '[object Date]',
-    numberClass = '[object Number]',
-    objectClass = '[object Object]',
-    regexpClass = '[object RegExp]',
-    stringClass = '[object String]';
-
-/** Used for native method references */
-var objectProto = Object.prototype;
-
-/** Used to resolve the internal [[Class]] of values */
-var toString = objectProto.toString;
-
-/** Native method shortcuts */
-var hasOwnProperty = objectProto.hasOwnProperty;
-
-/**
- * The base implementation of `_.isEqual`, without support for `thisArg` binding,
- * that allows partial "_.where" style comparisons.
- *
- * @private
- * @param {*} a The value to compare.
- * @param {*} b The other value to compare.
- * @param {Function} [callback] The function to customize comparing values.
- * @param {Function} [isWhere=false] A flag to indicate performing partial comparisons.
- * @param {Array} [stackA=[]] Tracks traversed `a` objects.
- * @param {Array} [stackB=[]] Tracks traversed `b` objects.
- * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
- */
-function baseIsEqual(a, b, callback, isWhere, stackA, stackB) {
-  // used to indicate that when comparing objects, `a` has at least the properties of `b`
-  if (callback) {
-    var result = callback(a, b);
-    if (typeof result != 'undefined') {
-      return !!result;
-    }
-  }
-  // exit early for identical values
-  if (a === b) {
-    // treat `+0` vs. `-0` as not equal
-    return a !== 0 || (1 / a == 1 / b);
-  }
-  var type = typeof a,
-      otherType = typeof b;
-
-  // exit early for unlike primitive values
-  if (a === a &&
-      !(a && objectTypes[type]) &&
-      !(b && objectTypes[otherType])) {
-    return false;
-  }
-  // exit early for `null` and `undefined` avoiding ES3's Function#call behavior
-  // http://es5.github.io/#x15.3.4.4
-  if (a == null || b == null) {
-    return a === b;
-  }
-  // compare [[Class]] names
-  var className = toString.call(a),
-      otherClass = toString.call(b);
-
-  if (className == argsClass) {
-    className = objectClass;
-  }
-  if (otherClass == argsClass) {
-    otherClass = objectClass;
-  }
-  if (className != otherClass) {
-    return false;
-  }
-  switch (className) {
-    case boolClass:
-    case dateClass:
-      // coerce dates and booleans to numbers, dates to milliseconds and booleans
-      // to `1` or `0` treating invalid dates coerced to `NaN` as not equal
-      return +a == +b;
-
-    case numberClass:
-      // treat `NaN` vs. `NaN` as equal
-      return (a != +a)
-        ? b != +b
-        // but treat `+0` vs. `-0` as not equal
-        : (a == 0 ? (1 / a == 1 / b) : a == +b);
-
-    case regexpClass:
-    case stringClass:
-      // coerce regexes to strings (http://es5.github.io/#x15.10.6.4)
-      // treat string primitives and their corresponding object instances as equal
-      return a == String(b);
-  }
-  var isArr = className == arrayClass;
-  if (!isArr) {
-    // unwrap any `lodash` wrapped values
-    var aWrapped = hasOwnProperty.call(a, '__wrapped__'),
-        bWrapped = hasOwnProperty.call(b, '__wrapped__');
-
-    if (aWrapped || bWrapped) {
-      return baseIsEqual(aWrapped ? a.__wrapped__ : a, bWrapped ? b.__wrapped__ : b, callback, isWhere, stackA, stackB);
-    }
-    // exit for functions and DOM nodes
-    if (className != objectClass) {
-      return false;
-    }
-    // in older versions of Opera, `arguments` objects have `Array` constructors
-    var ctorA = a.constructor,
-        ctorB = b.constructor;
-
-    // non `Object` object instances with different constructors are not equal
-    if (ctorA != ctorB &&
-          !(isFunction(ctorA) && ctorA instanceof ctorA && isFunction(ctorB) && ctorB instanceof ctorB) &&
-          ('constructor' in a && 'constructor' in b)
-        ) {
-      return false;
-    }
-  }
-  // assume cyclic structures are equal
-  // the algorithm for detecting cyclic structures is adapted from ES 5.1
-  // section 15.12.3, abstract operation `JO` (http://es5.github.io/#x15.12.3)
-  var initedStack = !stackA;
-  stackA || (stackA = getArray());
-  stackB || (stackB = getArray());
-
-  var length = stackA.length;
-  while (length--) {
-    if (stackA[length] == a) {
-      return stackB[length] == b;
-    }
-  }
-  var size = 0;
-  result = true;
-
-  // add `a` and `b` to the stack of traversed objects
-  stackA.push(a);
-  stackB.push(b);
-
-  // recursively compare objects and arrays (susceptible to call stack limits)
-  if (isArr) {
-    // compare lengths to determine if a deep comparison is necessary
-    length = a.length;
-    size = b.length;
-    result = size == length;
-
-    if (result || isWhere) {
-      // deep compare the contents, ignoring non-numeric properties
-      while (size--) {
-        var index = length,
-            value = b[size];
-
-        if (isWhere) {
-          while (index--) {
-            if ((result = baseIsEqual(a[index], value, callback, isWhere, stackA, stackB))) {
-              break;
-            }
-          }
-        } else if (!(result = baseIsEqual(a[size], value, callback, isWhere, stackA, stackB))) {
-          break;
-        }
-      }
-    }
-  }
-  else {
-    // deep compare objects using `forIn`, instead of `forOwn`, to avoid `Object.keys`
-    // which, in this case, is more costly
-    forIn(b, function(value, key, b) {
-      if (hasOwnProperty.call(b, key)) {
-        // count the number of properties.
-        size++;
-        // deep compare each property value.
-        return (result = hasOwnProperty.call(a, key) && baseIsEqual(a[key], value, callback, isWhere, stackA, stackB));
-      }
-    });
-
-    if (result && !isWhere) {
-      // ensure both objects have the same number of properties
-      forIn(a, function(value, key, a) {
-        if (hasOwnProperty.call(a, key)) {
-          // `size` will be `-1` if `a` has more properties than `b`
-          return (result = --size > -1);
-        }
-      });
-    }
-  }
-  stackA.pop();
-  stackB.pop();
-
-  if (initedStack) {
-    releaseArray(stackA);
-    releaseArray(stackB);
-  }
-  return result;
-}
-
-module.exports = baseIsEqual;
-
-},{"lodash._getarray":71,"lodash._objecttypes":73,"lodash._releasearray":74,"lodash.forin":77,"lodash.isfunction":78}],71:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var arrayPool = require('lodash._arraypool');
-
-/**
- * Gets an array from the array pool or creates a new one if the pool is empty.
- *
- * @private
- * @returns {Array} The array from the pool.
- */
-function getArray() {
-  return arrayPool.pop() || [];
-}
-
-module.exports = getArray;
-
-},{"lodash._arraypool":72}],72:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-
-/** Used to pool arrays and objects used internally */
-var arrayPool = [];
-
-module.exports = arrayPool;
-
-},{}],73:[function(require,module,exports){
-arguments[4][31][0].apply(exports,arguments)
-},{"dup":31}],74:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var arrayPool = require('lodash._arraypool'),
-    maxPoolSize = require('lodash._maxpoolsize');
-
-/**
- * Releases the given array back to the array pool.
- *
- * @private
- * @param {Array} [array] The array to release.
- */
-function releaseArray(array) {
-  array.length = 0;
-  if (arrayPool.length < maxPoolSize) {
-    arrayPool.push(array);
-  }
-}
-
-module.exports = releaseArray;
-
-},{"lodash._arraypool":75,"lodash._maxpoolsize":76}],75:[function(require,module,exports){
-arguments[4][72][0].apply(exports,arguments)
-},{"dup":72}],76:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-
-/** Used as the max size of the `arrayPool` and `objectPool` */
-var maxPoolSize = 40;
-
-module.exports = maxPoolSize;
-
-},{}],77:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var baseCreateCallback = require('lodash._basecreatecallback'),
-    objectTypes = require('lodash._objecttypes');
-
-/**
- * Iterates over own and inherited enumerable properties of an object,
- * executing the callback for each property. The callback is bound to `thisArg`
- * and invoked with three arguments; (value, key, object). Callbacks may exit
- * iteration early by explicitly returning `false`.
- *
- * @static
- * @memberOf _
- * @type Function
- * @category Objects
- * @param {Object} object The object to iterate over.
- * @param {Function} [callback=identity] The function called per iteration.
- * @param {*} [thisArg] The `this` binding of `callback`.
- * @returns {Object} Returns `object`.
- * @example
- *
- * function Shape() {
- *   this.x = 0;
- *   this.y = 0;
- * }
- *
- * Shape.prototype.move = function(x, y) {
- *   this.x += x;
- *   this.y += y;
- * };
- *
- * _.forIn(new Shape, function(value, key) {
- *   console.log(key);
- * });
- * // => logs 'x', 'y', and 'move' (property order is not guaranteed across environments)
- */
-var forIn = function(collection, callback, thisArg) {
-  var index, iterable = collection, result = iterable;
-  if (!iterable) return result;
-  if (!objectTypes[typeof iterable]) return result;
-  callback = callback && typeof thisArg == 'undefined' ? callback : baseCreateCallback(callback, thisArg, 3);
-    for (index in iterable) {
-      if (callback(iterable[index], index, collection) === false) return result;
-    }
-  return result
-};
-
-module.exports = forIn;
-
-},{"lodash._basecreatecallback":51,"lodash._objecttypes":73}],78:[function(require,module,exports){
-arguments[4][26][0].apply(exports,arguments)
-},{"dup":26}],79:[function(require,module,exports){
-arguments[4][20][0].apply(exports,arguments)
-},{"dup":20,"lodash._objecttypes":80}],80:[function(require,module,exports){
-arguments[4][31][0].apply(exports,arguments)
-},{"dup":31}],81:[function(require,module,exports){
-arguments[4][32][0].apply(exports,arguments)
-},{"dup":32,"lodash._isnative":82,"lodash._shimkeys":83,"lodash.isobject":79}],82:[function(require,module,exports){
-arguments[4][12][0].apply(exports,arguments)
-},{"dup":12}],83:[function(require,module,exports){
-arguments[4][34][0].apply(exports,arguments)
-},{"dup":34,"lodash._objecttypes":84}],84:[function(require,module,exports){
-arguments[4][31][0].apply(exports,arguments)
-},{"dup":31}],85:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-
-/**
- * Creates a "_.pluck" style function, which returns the `key` value of a
- * given object.
- *
- * @static
- * @memberOf _
- * @category Utilities
- * @param {string} key The name of the property to retrieve.
- * @returns {Function} Returns the new function.
- * @example
- *
- * var characters = [
- *   { 'name': 'fred',   'age': 40 },
- *   { 'name': 'barney', 'age': 36 }
- * ];
- *
- * var getName = _.property('name');
- *
- * _.map(characters, getName);
- * // => ['barney', 'fred']
- *
- * _.sortBy(characters, getName);
- * // => [{ 'name': 'barney', 'age': 36 }, { 'name': 'fred',   'age': 40 }]
- */
-function property(key) {
-  return function(object) {
-    return object[key];
-  };
-}
-
-module.exports = property;
-
-},{}],86:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var baseCreateCallback = require('lodash._basecreatecallback'),
-    keys = require('lodash.keys'),
-    objectTypes = require('lodash._objecttypes');
-
-/**
- * Iterates over own enumerable properties of an object, executing the callback
- * for each property. The callback is bound to `thisArg` and invoked with three
- * arguments; (value, key, object). Callbacks may exit iteration early by
- * explicitly returning `false`.
- *
- * @static
- * @memberOf _
- * @type Function
- * @category Objects
- * @param {Object} object The object to iterate over.
- * @param {Function} [callback=identity] The function called per iteration.
- * @param {*} [thisArg] The `this` binding of `callback`.
- * @returns {Object} Returns `object`.
- * @example
- *
- * _.forOwn({ '0': 'zero', '1': 'one', 'length': 2 }, function(num, key) {
- *   console.log(key);
- * });
- * // => logs '0', '1', and 'length' (property order is not guaranteed across environments)
- */
-var forOwn = function(collection, callback, thisArg) {
-  var index, iterable = collection, result = iterable;
-  if (!iterable) return result;
-  if (!objectTypes[typeof iterable]) return result;
-  callback = callback && typeof thisArg == 'undefined' ? callback : baseCreateCallback(callback, thisArg, 3);
-    var ownIndex = -1,
-        ownProps = objectTypes[typeof iterable] && keys(iterable),
-        length = ownProps ? ownProps.length : 0;
-
-    while (++ownIndex < length) {
-      index = ownProps[ownIndex];
-      if (callback(iterable[index], index, collection) === false) return result;
-    }
-  return result
-};
-
-module.exports = forOwn;
-
-},{"lodash._basecreatecallback":87,"lodash._objecttypes":108,"lodash.keys":109}],87:[function(require,module,exports){
-arguments[4][10][0].apply(exports,arguments)
-},{"dup":10,"lodash._setbinddata":88,"lodash.bind":91,"lodash.identity":105,"lodash.support":106}],88:[function(require,module,exports){
-arguments[4][11][0].apply(exports,arguments)
-},{"dup":11,"lodash._isnative":89,"lodash.noop":90}],89:[function(require,module,exports){
-arguments[4][12][0].apply(exports,arguments)
-},{"dup":12}],90:[function(require,module,exports){
-arguments[4][13][0].apply(exports,arguments)
-},{"dup":13}],91:[function(require,module,exports){
-arguments[4][14][0].apply(exports,arguments)
-},{"dup":14,"lodash._createwrapper":92,"lodash._slice":104}],92:[function(require,module,exports){
-arguments[4][15][0].apply(exports,arguments)
-},{"dup":15,"lodash._basebind":93,"lodash._basecreatewrapper":98,"lodash._slice":104,"lodash.isfunction":103}],93:[function(require,module,exports){
-arguments[4][16][0].apply(exports,arguments)
-},{"dup":16,"lodash._basecreate":94,"lodash._setbinddata":88,"lodash._slice":104,"lodash.isobject":97}],94:[function(require,module,exports){
-arguments[4][17][0].apply(exports,arguments)
-},{"dup":17,"lodash._isnative":95,"lodash.isobject":97,"lodash.noop":96}],95:[function(require,module,exports){
-arguments[4][12][0].apply(exports,arguments)
-},{"dup":12}],96:[function(require,module,exports){
-arguments[4][13][0].apply(exports,arguments)
-},{"dup":13}],97:[function(require,module,exports){
-arguments[4][20][0].apply(exports,arguments)
-},{"dup":20,"lodash._objecttypes":108}],98:[function(require,module,exports){
-arguments[4][21][0].apply(exports,arguments)
-},{"dup":21,"lodash._basecreate":99,"lodash._setbinddata":88,"lodash._slice":104,"lodash.isobject":102}],99:[function(require,module,exports){
-arguments[4][17][0].apply(exports,arguments)
-},{"dup":17,"lodash._isnative":100,"lodash.isobject":102,"lodash.noop":101}],100:[function(require,module,exports){
-arguments[4][12][0].apply(exports,arguments)
-},{"dup":12}],101:[function(require,module,exports){
-arguments[4][13][0].apply(exports,arguments)
-},{"dup":13}],102:[function(require,module,exports){
-arguments[4][20][0].apply(exports,arguments)
-},{"dup":20,"lodash._objecttypes":108}],103:[function(require,module,exports){
-arguments[4][26][0].apply(exports,arguments)
-},{"dup":26}],104:[function(require,module,exports){
-arguments[4][27][0].apply(exports,arguments)
-},{"dup":27}],105:[function(require,module,exports){
-arguments[4][28][0].apply(exports,arguments)
-},{"dup":28}],106:[function(require,module,exports){
-arguments[4][29][0].apply(exports,arguments)
-},{"dup":29,"lodash._isnative":107}],107:[function(require,module,exports){
-arguments[4][12][0].apply(exports,arguments)
-},{"dup":12}],108:[function(require,module,exports){
-arguments[4][31][0].apply(exports,arguments)
-},{"dup":31}],109:[function(require,module,exports){
-arguments[4][32][0].apply(exports,arguments)
-},{"dup":32,"lodash._isnative":110,"lodash._shimkeys":111,"lodash.isobject":112}],110:[function(require,module,exports){
-arguments[4][12][0].apply(exports,arguments)
-},{"dup":12}],111:[function(require,module,exports){
-arguments[4][34][0].apply(exports,arguments)
-},{"dup":34,"lodash._objecttypes":108}],112:[function(require,module,exports){
-arguments[4][20][0].apply(exports,arguments)
-},{"dup":20,"lodash._objecttypes":108}],113:[function(require,module,exports){
-var escape = require('lodash.escape');
-
-var _uppercasePattern = /([A-Z])/g;
-
-function hyphenateProp(string) {
-  return string.replace(_uppercasePattern, '-$1').toLowerCase();
-}
-
-function escapeValueForProp(value, prop) {
-  // 'content' is a special property that must be quoted
-  if (prop === 'content') {
-    return '"' + value + '"';
-  }
-  return escape(value);
-}
-
-module.exports = {
-  hyphenateProp: hyphenateProp,
-  escapeValueForProp: escapeValueForProp
-};
-
-},{"lodash.escape":36}],114:[function(require,module,exports){
-var isValidCSSProps = require('valid-css-props');
-
-function isValidProp(prop) {
-  return isValidCSSProps(prop);
-}
-
-function isValidValue(value) {
-  return value != null && typeof value !== 'boolean' && value !== '';
-}
-
-module.exports = {
-  isValidProp: isValidProp,
-  isValidValue: isValidValue
-};
-
-},{"valid-css-props":47}],115:[function(require,module,exports){
-/** @jsx React.DOM */
-/**
- * For math rendered using KaTex and/or MathJax. Use me like <TeX>2x + 3</TeX>.
- */
-// TODO(joel) - require MathJax / katex so they don't have to be global
-
-var React = require('react');
-
-var pendingScripts = [];
-var needsProcess = false;
-var timeout = null;
-
-function process(script, callback) {
-    pendingScripts.push(script);
-    if (!needsProcess) {
-        needsProcess = true;
-        timeout = setTimeout(doProcess, 0, callback);
-    }
-}
-
-function doProcess(callback) {
-    MathJax.Hub.Queue(function() {
-        var oldElementScripts = MathJax.Hub.elementScripts;
-        MathJax.Hub.elementScripts = function(element) {
-            var scripts = pendingScripts;
-            pendingScripts = [];
-            needsProcess = false;
-            return scripts;
-        };
-
-        try {
-            return MathJax.Hub.Process(null, callback);
-        } catch (e) {
-            // IE8 requires `catch` in order to use `finally`
-            throw e;
-        } finally {
-            MathJax.Hub.elementScripts = oldElementScripts;
-        }
-    });
-}
-
-var TeX = React.createClass({displayName: 'TeX',
-    getDefaultProps: function() {
-        return {
-            // Called after math is rendered or re-rendered
-            onRender: function() {}
-        };
-    },
-
-    render: function() {
-        return React.DOM.span( {style:this.props.style}, 
-            React.DOM.span( {ref:"mathjax"} ),
-            React.DOM.span( {ref:"katex"} )
-        );
-    },
-
-    componentDidMount: function() {
-        var text = this.props.children;
-        var onRender = this.props.onRender;
-
-        try {
-            var katexHolder = this.refs.katex.getDOMNode();
-            katex.process(text, katexHolder);
-            onRender();
-            return;
-        } catch (e) {
-            /* jshint -W103 */
-            if (e.__proto__ !== katex.ParseError.prototype) {
-            /* jshint +W103 */
-                throw e;
-            }
-        }
-
-        this.setScriptText(text);
-        process(this.script, onRender);
-    },
-
-    componentDidUpdate: function(prevProps, prevState) {
-        var oldText = prevProps.children;
-        var newText = this.props.children;
-        var onRender = this.props.onRender;
-
-        if (oldText !== newText) {
-            try {
-                var katexHolder = this.refs.katex.getDOMNode();
-                katex.process(newText, katexHolder);
-                if (this.script) {
-                    var jax = MathJax.Hub.getJaxFor(this.script);
-                    if (jax) {
-                        jax.Remove();
-                    }
-                }
-                onRender();
-                return;
-            } catch (e) {
-                /* jshint -W103 */
-                if (e.__proto__ !== katex.ParseError.prototype) {
-                /* jshint +W103 */
-                    throw e;
-                }
-            }
-
-            $(this.refs.katex.getDOMNode()).empty();
-
-            if (this.script) {
-                var component = this;
-                MathJax.Hub.Queue(function() {
-                    var jax = MathJax.Hub.getJaxFor(component.script);
-                    if (jax) {
-                        return jax.Text(newText, onRender);
-                    } else {
-                        component.setScriptText(newText);
-                        process(component.script, onRender);
-                    }
-                });
-            } else {
-                this.setScriptText(newText);
-                process(this.script, onRender);
-            }
-        }
-    },
-
-    setScriptText: function(text) {
-        if (!this.script) {
-            this.script = document.createElement("script");
-            this.script.type = "math/tex";
-            this.refs.mathjax.getDOMNode().appendChild(this.script);
-        }
-        if ("text" in this.script) {
-            // IE8, etc
-            this.script.text = text;
-        } else {
-            this.script.textContent = text;
-        }
-    },
-
-    componentWillUnmount: function() {
-        if (this.script) {
-            var jax = MathJax.Hub.getJaxFor(this.script);
-            if (jax) {
-                jax.Remove();
-            }
-        }
-    }
-});
-
-module.exports = TeX;
-
-},{"react":117}],116:[function(require,module,exports){
-/** @jsx React.DOM */
-
-var React = require("react");
-var _ = require("underscore");
-
-// TODO(joel/jack) fix z-index issues https://s3.amazonaws.com/uploads.hipchat.com/6574/29028/yOApjwmgiMhEZYJ/Screen%20Shot%202014-05-30%20at%203.34.18%20PM.png
-// z-index: 3 on perseus-formats-tooltip seemed to work
-
-/**
- * A generic tooltip library for React.js
- *
- * This should eventually end up in react-components
- *
- * Interface: ({a, b} means one of a or b)
- * var Tooltip = require("./tooltip.jsx");
- * <Tooltip
- *         className="class-for-tooltip-contents"
- *         horizontalPosition="left" // one of "left", "right"
- *         horizontalAlign="left" // one of "left", "right"
- *         verticalPosition="bottom" // one of "top", "bottom"
- *         arrowSize={10} // arrow size in pixels
- *         borderColor="#ccc" // color of the border for the tooltip
- *         show={true} // whether the tooltip should currently be visible
- *         >
- *     <TargetElementOfTheTooltip />
- *     <TooltipContents1 />
- *     <TooltipContents2 />
- * </Tooltip>
- *
- * To show/hide the tooltip, the parent component should call the
- * .show() and .hide() methods of the tooltip when appropriate.
- * (These are usually set up as handlers of events on the target element.)
- *
- * Notes:
- *     className should not specify a border; that is handled by borderColor
- *     so that the arrow and tooltip match
- */
-
-//          __,,--``\\
-//  _,,-''``         \\     ,
-// '----------_.------'-.___|\__
-//    _.--''``    `)__   )__   @\__
-//   (  .. ''---/___,,E/__,E'------`
-//    `-''`''
-// Here be dragons.
-
-var zIndex = 10;
-
-var Triangle = React.createClass({displayName: 'Triangle',
-    propTypes: {
-        color: React.PropTypes.string.isRequired,
-        left: React.PropTypes.number.isRequired,
-        "top": React.PropTypes.number.isRequired,
-        width: React.PropTypes.number.isRequired,
-        height: React.PropTypes.number.isRequired,
-        horizontalDirection: React.PropTypes.oneOf(
-            ["left", "right"]
-        ).isRequired,
-        verticalDirection: React.PropTypes.oneOf(
-            ["top", "bottom"]
-        ).isRequired,
-    },
-
-    render: function() {
-        var borderLeft, borderRight, borderTop, borderBottom;
-
-        var hBorder = (this.props.width + "px solid transparent");
-        if (this.props.horizontalDirection === "right") {
-            borderLeft = hBorder;
-        } else {
-            borderRight = hBorder;
-        }
-
-        var vBorder = (this.props.height + "px solid " + this.props.color);
-        if (this.props.verticalDirection === "top") {
-            borderTop = vBorder;
-        } else {
-            borderBottom = vBorder;
-        }
-
-        return React.DOM.div( {style:{
-            display: "block",
-            height: 0,
-            width: 0,
-            position: "absolute",
-            left: this.props.left,
-            "top": this.props["top"],
-            borderLeft: borderLeft,
-            borderRight: borderRight,
-            borderTop: borderTop,
-            borderBottom: borderBottom
-        }} );
-    }
-});
-
-var TooltipArrow = React.createClass({displayName: 'TooltipArrow',
-    propTypes: {
-        position: React.PropTypes.string,
-        visibility: React.PropTypes.string,
-        left: React.PropTypes.number,
-        "top": React.PropTypes.number,
-        color: React.PropTypes.string.isRequired,  // a css color
-        border: React.PropTypes.string.isRequired,  // a css color
-        width: React.PropTypes.number.isRequired,
-        height: React.PropTypes.number.isRequired,
-        horizontalDirection: React.PropTypes.oneOf(
-            ["left", "right"]
-        ).isRequired,
-        verticalDirection: React.PropTypes.oneOf(
-            ["top", "bottom"]
-        ).isRequired
-    },
-
-    getDefaultProps: function() {
-        return {
-            position: "relative",
-            visibility: "visible",
-            left: 0,
-            "top": 0
-        };
-    },
-
-    // TODO(jack): Think about adding a box-shadow to the triangle here
-    // See http://css-tricks.com/triangle-with-shadow/
-    render: function() {
-        var isRight = (this.props.horizontalDirection === "right");
-        var isTop = (this.props.verticalDirection === "top");
-
-        var frontTopOffset = isTop ? 0 : 1;
-        var borderTopOffset = isTop ? 0 : -1;
-
-        return React.DOM.div( {style:{
-                display: "block",
-                position: this.props.position,
-                visibility: this.props.visibility,
-                left: this.props.left,
-                "top": this.props["top"],
-                width: this.props.width + 2,
-                height: this.props.height + 1,
-                marginTop: -1,
-                marginBottom: -2,
-                zIndex: zIndex
-            }}, 
-            /* The background triangle used to create the effect of a
-                border around the foreground triangle*/
-            Triangle(
-                {horizontalDirection:this.props.horizontalDirection,
-                verticalDirection:this.props.verticalDirection,
-                color:this.props.border,
-                left:0,
-                top:borderTopOffset,
-                width:this.props.width + 2,  // one extra for the diagonal
-                height:this.props.height + 2} ),
-            /* The foreground triangle covers all but the left/right edges
-                of the background triangle */
-            Triangle(
-                {horizontalDirection:this.props.horizontalDirection,
-                verticalDirection:this.props.verticalDirection,
-                color:this.props.color,
-                left:1,
-                top:frontTopOffset,
-                width:this.props.width,
-                height:this.props.height} )
-        );
-    }
-});
-
-var VERTICAL_CORNERS = {
-    "top": {
-        "top": "-100%"
-    },
-    bottom: {
-        "top": 0
-    }
-};
-
-var HORIZONTAL_CORNERS = {
-    left: {
-        targetLeft: 0,
-    },
-
-    right: {
-        targetLeft: "100%",
-    }
-};
-
-var HORIZONTAL_ALIGNMNENTS = {
-    left: {
-        tooltipLeft: 0,
-        arrowLeft: function(arrowSize)  {return 0;}
-    },
-    right: {
-        tooltipLeft: "-100%",
-        arrowLeft: function(arrowSize)  {return -arrowSize - 2;}
-    }
-};
-
-
-var Tooltip = React.createClass({displayName: 'Tooltip',
-    propTypes: {
-        show: React.PropTypes.bool.isRequired,
-        className: React.PropTypes.string,
-        arrowSize: React.PropTypes.number,
-        borderColor: React.PropTypes.string,
-        verticalPosition: React.PropTypes.oneOf(
-            _.keys(VERTICAL_CORNERS)
-        ),
-        horizontalPosition: React.PropTypes.oneOf(
-            _.keys(HORIZONTAL_CORNERS)
-        ),
-        horizontalAlign: React.PropTypes.oneOf(
-            _.keys(HORIZONTAL_ALIGNMNENTS)
-        ),
-        children: React.PropTypes.arrayOf(
-            React.PropTypes.component
-        ).isRequired
-    },
-
-    getDefaultProps: function() {
-        return {
-            className: "",
-            arrowSize: 10,
-            borderColor: "#ccc",
-            verticalPosition: "bottom",
-            horizontalPosition: "left",
-            horizontalAlign: "left"
-        };
-    },
-
-    getInitialState: function() {
-        return {
-            height: null  // used for offsetting "top" positioned tooltips
-        };
-    },
-
-    componentWillReceiveProps: function() {
-        // If the contents have changed, reset our measure of the height
-        this.setState({height: null});
-    },
-
-    render: function() {
-        var isTooltipAbove = this.props.verticalPosition === "top";
-
-        /* We wrap the entire output in a span so that it displays inline */
-        return React.DOM.span(null, 
-            isTooltipAbove && this._renderToolTipDiv(isTooltipAbove),
-
-            /* We wrap our input in a div so that we can put the tooltip in a
-                div above/below it */
-            React.DOM.div(null, 
-                _.first(this.props.children)
-            ),
-
-            !isTooltipAbove && this._renderToolTipDiv()
-        );
-    },
-
-    _renderToolTipDiv: function(isTooltipAbove) {
-        var settings = _.extend({},
-            HORIZONTAL_CORNERS[this.props.horizontalPosition],
-            HORIZONTAL_ALIGNMNENTS[this.props.horizontalAlign],
-            VERTICAL_CORNERS[this.props.verticalPosition]
-        );
-
-        var arrowAbove;
-        var arrowBelow;
-
-        if (isTooltipAbove) {
-            // We put an absolutely positioned arrow in the correct place
-            arrowAbove = TooltipArrow(
-                {verticalDirection:"top",
-                horizontalDirection:this.props.horizontalAlign,
-                position:"absolute",
-                color:"white",
-                border:this.props.borderColor,
-                left:settings.arrowLeft(this.props.arrowSize),
-                top:-this.props.arrowSize + 2,
-                width:this.props.arrowSize,
-                height:this.props.arrowSize,
-                zIndex:zIndex} );
-
-            // And we use a visibility: hidden arrow below to shift up the
-            // content by the correct amount
-            arrowBelow = TooltipArrow(
-                {verticalDirection:"top",
-                horizontalDirection:this.props.horizontalAlign,
-                visibility:"hidden",
-                color:"white",
-                border:this.props.borderColor,
-                left:settings.arrowLeft(this.props.arrowSize),
-                top:-1,
-                width:this.props.arrowSize,
-                height:this.props.arrowSize,
-                zIndex:zIndex} );
-        } else {
-            arrowAbove = TooltipArrow(
-                {verticalDirection:"bottom",
-                horizontalDirection:this.props.horizontalAlign,
-                color:"white",
-                border:this.props.borderColor,
-                left:settings.arrowLeft(this.props.arrowSize),
-                top:-1,
-                width:this.props.arrowSize,
-                height:this.props.arrowSize,
-                zIndex:zIndex} );
-
-            arrowBelow = null;
-        }
-
-        /* A positioned div below the input to be the parent for our
-            tooltip */
-        return React.DOM.div( {style:{
-                position: "relative",
-                height: 0,
-                display: this.props.show ? "block" : "none",
-                }}, 
-            React.DOM.div( {ref:"tooltipContainer", className:"tooltipContainer", style:{
-                        position: "absolute",
-                        // height must start out undefined, not null, so that
-                        // we can measure the actual height with jquery.
-                        // This is used to position the tooltip with top: -100%
-                        // when in verticalPosition: "top" mode
-                        height: this.state.height || undefined,
-                        left: settings.targetLeft
-                    }}, 
-                arrowAbove,
-
-                /* The contents of the tooltip */
-                React.DOM.div( {className:this.props.className,
-                        ref:"tooltipContent",
-                        style:{
-                            position: "relative",
-                            "top": settings["top"],
-                            "left": settings.tooltipLeft,
-                            border: "1px solid " + this.props.borderColor,
-                            "-webkit-box-shadow": "0 1px 3px " +
-                                    this.props.borderColor,
-                            "-moz-box-shadow": "0 1px 3px " +
-                                    this.props.borderColor,
-                            boxShadow: "0 1px 3px " +
-                                    this.props.borderColor,
-                            zIndex: zIndex - 1
-                        }}, 
-                    _.rest(this.props.children)
-                ),
-
-                arrowBelow
-            )
-        );
-    },
-
-    componentDidMount: function() {
-        this._updateHeight();
-    },
-
-    componentDidUpdate: function() {
-        this._updateHeight();
-    },
-
-    _updateHeight: function() {
-        var height = this.refs.tooltipContainer.getDOMNode().offsetHeight;
-        if (height !== this.state.height) {
-            this.setState({height:height});
-        }
-    }
-});
-
-// Sorry.  // Apology-Oriented-Programming
-module.exports = Tooltip;
-
-},{"react":117,"underscore":118}],117:[function(require,module,exports){
-/* This note applies to rcss, react, and underscore.
- *
- * We're faking a node module for this package by just exporting the global.
- * There are a few complications which led us to this solution as a temporary
- * fix.
- *
- * - Browserify can slow down a lot when you include the other packages (and
- *   their dependency graphs). We were also battling general browserify
- *   slowness at this time - browserify 3.4.0 is "good" but later versions
- *   (3.53 if I remember correctly) are terribly slow (on the order of 20x
- *   slower).
- *
- * - I'm not clear on the details of packaging this so we don't duplicate
- *   dependencies anywhere. For instance when packaging perseus for webapp we
- *   need to be careful not to include packages like underscore from our
- *   dependencies or from the packages we depend on. (note: this is a very good
- *   opportunity to either explain how existing tools solve the problem or
- *   create a new tool to solve it)
- *
- * - Joel (and Jack)
- */
-module.exports = window.React;
-
-},{}],118:[function(require,module,exports){
-/* This note applies to rcss, react, and underscore.
- *
- * We're faking a node module for this package by just exporting the global.
- * There are a few complications which led us to this solution as a temporary
- * fix.
- *
- * - Browserify can slow down a lot when you include the other packages (and
- *   their dependency graphs). We were also battling general browserify
- *   slowness at this time - browserify 3.4.0 is "good" but later versions
- *   (3.53 if I remember correctly) are terribly slow (on the order of 20x
- *   slower).
- *
- * - I'm not clear on the details of packaging this so we don't duplicate
- *   dependencies anywhere. For instance when packaging perseus for webapp we
- *   need to be careful not to include packages like underscore from our
- *   dependencies or from the packages we depend on. (note: this is a very good
- *   opportunity to either explain how existing tools solve the problem or
- *   create a new tool to solve it)
- *
- * - Joel (and Jack)
- */
-module.exports = window._;
-
-},{}],119:[function(require,module,exports){
+},{"lodash.every":26}],49:[function(require,module,exports){
 var Widgets = require("./widgets.js");
 
 _.each([
@@ -3850,7 +3710,7 @@ _.each([
     Widgets.register(widget.name, _.omit(widget, "name"));
 });
 
-},{"./widgets.js":173,"./widgets/categorizer.jsx":174,"./widgets/dropdown.jsx":175,"./widgets/example-graphie-widget.jsx":176,"./widgets/example-widget.jsx":177,"./widgets/expression.jsx":178,"./widgets/iframe.jsx":179,"./widgets/image.jsx":180,"./widgets/input-number.jsx":181,"./widgets/interactive-graph.jsx":182,"./widgets/interactive-number-line.jsx":183,"./widgets/lights-puzzle.jsx":184,"./widgets/matcher.jsx":185,"./widgets/measurer.jsx":186,"./widgets/number-line.jsx":187,"./widgets/numeric-input.jsx":188,"./widgets/orderer.jsx":189,"./widgets/plotter.jsx":190,"./widgets/radio.jsx":191,"./widgets/sorter.jsx":192,"./widgets/speaking-text-input.jsx":193,"./widgets/speaking-voice.jsx":194,"./widgets/table.jsx":195,"./widgets/transformer.jsx":196}],120:[function(require,module,exports){
+},{"./widgets.js":103,"./widgets/categorizer.jsx":104,"./widgets/dropdown.jsx":105,"./widgets/example-graphie-widget.jsx":106,"./widgets/example-widget.jsx":107,"./widgets/expression.jsx":108,"./widgets/iframe.jsx":109,"./widgets/image.jsx":110,"./widgets/input-number.jsx":111,"./widgets/interactive-graph.jsx":112,"./widgets/interactive-number-line.jsx":113,"./widgets/lights-puzzle.jsx":114,"./widgets/matcher.jsx":115,"./widgets/measurer.jsx":116,"./widgets/number-line.jsx":117,"./widgets/numeric-input.jsx":118,"./widgets/orderer.jsx":119,"./widgets/plotter.jsx":120,"./widgets/radio.jsx":121,"./widgets/sorter.jsx":122,"./widgets/speaking-text-input.jsx":123,"./widgets/speaking-voice.jsx":124,"./widgets/table.jsx":125,"./widgets/transformer.jsx":126}],50:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -3921,7 +3781,7 @@ var AnswerAreaEditor = React.createClass({displayName: 'AnswerAreaEditor',
 
 module.exports = AnswerAreaEditor;
 
-},{"./editor.jsx":145,"./widgets.js":173,"react":117,"react-components/info-tip":7}],121:[function(require,module,exports){
+},{"./editor.jsx":75,"./widgets.js":103,"react":45,"react-components/info-tip":39}],51:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -4276,7 +4136,7 @@ var AnswerAreaRenderer = React.createClass({displayName: 'AnswerAreaRenderer',
 
 module.exports = AnswerAreaRenderer;
 
-},{"./enabled-features.jsx":146,"./perseus-api.jsx":164,"./question-paragraph.jsx":166,"./renderer.jsx":167,"./util.js":170,"./widget-container.jsx":172,"./widgets.js":173,"react":117}],122:[function(require,module,exports){
+},{"./enabled-features.jsx":76,"./perseus-api.jsx":94,"./question-paragraph.jsx":96,"./renderer.jsx":97,"./util.js":100,"./widget-container.jsx":102,"./widgets.js":103,"react":45}],52:[function(require,module,exports){
 /** @jsx React.DOM */
 
 /**
@@ -4464,7 +4324,7 @@ FancySelect.Option = FancyOption;
 
 module.exports = FancySelect;
 
-},{"react":117}],123:[function(require,module,exports){
+},{"react":45}],53:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -4907,7 +4767,7 @@ var GraphSettings = React.createClass({displayName: 'GraphSettings',
 
 module.exports = GraphSettings;
 
-},{"../components/number-input.jsx":131,"../components/prop-check-box.jsx":132,"../components/range-input.jsx":133,"../mixins/changeable.jsx":161,"../util.js":170,"react":117,"react-components/blur-input":4,"react-components/button-group":5,"react-components/info-tip":7}],124:[function(require,module,exports){
+},{"../components/number-input.jsx":61,"../components/prop-check-box.jsx":62,"../components/range-input.jsx":63,"../mixins/changeable.jsx":91,"../util.js":100,"react":45,"react-components/blur-input":36,"react-components/button-group":37,"react-components/info-tip":39}],54:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -5246,7 +5106,7 @@ var Graph = React.createClass({displayName: 'Graph',
 
 module.exports = Graph;
 
-},{"../util.js":170,"react":117}],125:[function(require,module,exports){
+},{"../util.js":100,"react":45}],55:[function(require,module,exports){
 /** @jsx React.DOM */var Util = require("../util.js");
 var nestedMap = Util.nestedMap;
 var deepEq = Util.deepEq;
@@ -5377,7 +5237,7 @@ module.exports = {
     createSimpleClass: createSimpleClass
 };
 
-},{"../util.js":170}],126:[function(require,module,exports){
+},{"../util.js":100}],56:[function(require,module,exports){
 /** @jsx React.DOM */var GraphieClasses = require("./graphie-classes.jsx");
 var Interactive2 = require("../interactive2.js");
 var InteractiveUtil = require("../interactive2/interactive-util.js");
@@ -5428,7 +5288,7 @@ module.exports = {
     MovablePoint: MovablePoint
 };
 
-},{"../interactive2.js":150,"../interactive2/interactive-util.js":151,"./graphie-classes.jsx":125}],127:[function(require,module,exports){
+},{"../interactive2.js":80,"../interactive2/interactive-util.js":81,"./graphie-classes.jsx":55}],57:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var GraphieClasses = require("./graphie-classes.jsx");
@@ -5708,7 +5568,7 @@ _.extend(Graphie, Movables);
 
 module.exports = Graphie;
 
-},{"../interactive2/interactive-util.js":151,"../util.js":170,"./graphie-classes.jsx":125,"./graphie-movables.jsx":126}],128:[function(require,module,exports){
+},{"../interactive2/interactive-util.js":81,"../util.js":100,"./graphie-classes.jsx":55,"./graphie-movables.jsx":56}],58:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -5868,7 +5728,7 @@ var InputWithExamples = React.createClass({displayName: 'InputWithExamples',
 
 module.exports = InputWithExamples;
 
-},{"../perseus-api.jsx":164,"../renderer.jsx":167,"../util.js":170,"./math-input.jsx":129,"./text-input.jsx":136,"react":117,"react-components/tooltip":116}],129:[function(require,module,exports){
+},{"../perseus-api.jsx":94,"../renderer.jsx":97,"../util.js":100,"./math-input.jsx":59,"./text-input.jsx":66,"react":45,"react-components/tooltip":44}],59:[function(require,module,exports){
 /** @jsx React.DOM */
 
 // TODO(alex): Package MathQuill
@@ -5889,6 +5749,7 @@ var MathInput = React.createClass({displayName: 'MathInput',
         onFocus: PT.func,
         onBlur: PT.func,
         buttonSets: TexButtons.buttonSetsType.isRequired,
+        offsetLeft: PT.number
     },
 
     render: function() {
@@ -5911,6 +5772,12 @@ var MathInput = React.createClass({displayName: 'MathInput',
                 sets:this.props.buttonSets} );
             button_height = (6 + 58 * this.props.buttonSets.length).toString() + "px";
         }
+        var button_left = "0px";
+        if (this.props.offsetLeft >= 260){
+            button_left = "-240px";
+        } else if (this.props.offsetLeft > 130 && this.props.offsetLeft < 260){
+            button_left = "-120px";
+        }
 
         return React.DOM.div( {style:{display: "inline-block"}}, 
             React.DOM.div( {style:{display: 'inline-block'}}, 
@@ -5919,7 +5786,7 @@ var MathInput = React.createClass({displayName: 'MathInput',
                       onFocus:this.handleFocus,
                       onBlur:this.handleBlur} )
             ),
-            React.DOM.div( {style:{position: "relative", height: button_height}}, 
+            React.DOM.div( {style:{position: "relative", height: button_height, left: button_left}}, 
                 buttons
             )
         );
@@ -6109,7 +5976,7 @@ var MathInput = React.createClass({displayName: 'MathInput',
 
 module.exports = MathInput;
 
-},{"./tex-buttons.jsx":135,"react":117,"underscore":118}],130:[function(require,module,exports){
+},{"./tex-buttons.jsx":65,"react":45,"underscore":46}],60:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -6181,7 +6048,7 @@ var MultiButtonGroup = React.createClass({displayName: 'MultiButtonGroup',
 
 module.exports = MultiButtonGroup;
 
-},{"react":117}],131:[function(require,module,exports){
+},{"react":45}],61:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -6360,7 +6227,7 @@ var NumberInput = React.createClass({displayName: 'NumberInput',
 
 module.exports = NumberInput;
 
-},{"../util.js":170,"react":117}],132:[function(require,module,exports){
+},{"../util.js":100,"react":45}],62:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -6422,7 +6289,7 @@ var PropCheckBox = React.createClass({displayName: 'PropCheckBox',
 
 module.exports = PropCheckBox;
 
-},{"react":117}],133:[function(require,module,exports){
+},{"react":45}],63:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -6481,7 +6348,7 @@ var RangeInput = React.createClass({displayName: 'RangeInput',
 
 module.exports = RangeInput;
 
-},{"../components/number-input.jsx":131,"react":117}],134:[function(require,module,exports){
+},{"../components/number-input.jsx":61,"react":45}],64:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -6998,7 +6865,7 @@ var Sortable = React.createClass({displayName: 'Sortable',
 
 module.exports = Sortable;
 
-},{"../renderer.jsx":167,"../util.js":170,"react":117}],135:[function(require,module,exports){
+},{"../renderer.jsx":97,"../util.js":100,"react":45}],65:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React     = require("react");
@@ -7133,7 +7000,7 @@ var TexButtons = React.createClass({displayName: 'TexButtons',
 
 module.exports = TexButtons;
 
-},{"react":117,"react-components/tex":115}],136:[function(require,module,exports){
+},{"react":45,"react-components/tex":43}],66:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var TextInput = React.createClass({displayName: 'TextInput',
@@ -7165,7 +7032,7 @@ var TextInput = React.createClass({displayName: 'TextInput',
 
 module.exports = TextInput;
 
-},{}],137:[function(require,module,exports){
+},{}],67:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var textWidthCache = {};
@@ -7295,7 +7162,7 @@ var TextListEditor = React.createClass({displayName: 'TextListEditor',
 
 module.exports = TextListEditor;
 
-},{}],138:[function(require,module,exports){
+},{}],68:[function(require,module,exports){
 /** @jsx React.DOM */
 
 // Responsible for combining the text diffs from text-diff and the widget
@@ -7410,7 +7277,7 @@ var RevisionDiff = React.createClass({displayName: 'RevisionDiff',
 
 module.exports = RevisionDiff;
 
-},{"./text-diff.jsx":141,"./widget-diff.jsx":143}],139:[function(require,module,exports){
+},{"./text-diff.jsx":71,"./widget-diff.jsx":73}],69:[function(require,module,exports){
 /** @jsx React.DOM */// Split a word-wise diff generated by jsdiff into multiple lines, for the
 // purpose of breaking up the diffs into lines, so that modified lines can be
 // faintly highlighted
@@ -7440,7 +7307,7 @@ var splitDiff = function(diffEntries) {
 
 module.exports = splitDiff;
 
-},{}],140:[function(require,module,exports){
+},{}],70:[function(require,module,exports){
 /** @jsx React.DOM */var jsdiff = require("../../lib/jsdiff");
 
 var statusFor = function(chunk) {
@@ -7510,7 +7377,7 @@ var stringArrayDiff = function(a, b) {
 
 module.exports = stringArrayDiff;
 
-},{"../../lib/jsdiff":1}],141:[function(require,module,exports){
+},{"../../lib/jsdiff":1}],71:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var diff = require("../../lib/jsdiff");
@@ -7675,7 +7542,7 @@ var TextDiff = React.createClass({displayName: 'TextDiff',
 
 module.exports = TextDiff;
 
-},{"../../lib/jsdiff":1,"./split-diff.jsx":139,"./string-array-diff.jsx":140}],142:[function(require,module,exports){
+},{"../../lib/jsdiff":1,"./split-diff.jsx":69,"./string-array-diff.jsx":70}],72:[function(require,module,exports){
 /** @jsx React.DOM */var UNCHANGED = "unchanged";
 var CHANGED = "changed";
 var ADDED = "added";
@@ -7745,7 +7612,7 @@ var performDiff = function(before, after, /* optional */ key) {
 
 module.exports = performDiff;
 
-},{}],143:[function(require,module,exports){
+},{}],73:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var cx = React.addons.classSet;
@@ -7941,7 +7808,7 @@ var WidgetDiff = React.createClass({displayName: 'WidgetDiff',
 
 module.exports = WidgetDiff;
 
-},{"./widget-diff-performer.jsx":142}],144:[function(require,module,exports){
+},{"./widget-diff-performer.jsx":72}],74:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -8225,7 +8092,7 @@ var EditorPage = React.createClass({displayName: 'EditorPage',
 
 module.exports = EditorPage;
 
-},{"./components/prop-check-box.jsx":132,"./enabled-features.jsx":146,"./hint-editor.jsx":147,"./item-editor.jsx":159,"./item-renderer.jsx":160,"./perseus-api.jsx":164,"react":117}],145:[function(require,module,exports){
+},{"./components/prop-check-box.jsx":62,"./enabled-features.jsx":76,"./hint-editor.jsx":77,"./item-editor.jsx":89,"./item-renderer.jsx":90,"./perseus-api.jsx":94,"react":45}],75:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -8827,7 +8694,7 @@ var Editor = React.createClass({displayName: 'Editor',
 
 module.exports = Editor;
 
-},{"./components/prop-check-box.jsx":132,"./util.js":170,"./widgets.js":173,"react":117,"react-components/drag-target":6}],146:[function(require,module,exports){
+},{"./components/prop-check-box.jsx":62,"./util.js":100,"./widgets.js":103,"react":45,"react-components/drag-target":38}],76:[function(require,module,exports){
 /** @jsx React.DOM */var React = require('react');
 
 module.exports = {
@@ -8843,7 +8710,7 @@ module.exports = {
     }
 };
 
-},{"react":117}],147:[function(require,module,exports){
+},{"react":45}],77:[function(require,module,exports){
 /** @jsx React.DOM */
 
 /* Collection of classes for rendering the hint editor area,
@@ -9059,7 +8926,7 @@ var CombinedHintsEditor = React.createClass({displayName: 'CombinedHintsEditor',
 
 module.exports = CombinedHintsEditor;
 
-},{"./editor.jsx":145,"./hint-renderer.jsx":148,"react":117,"react-components/info-tip":7}],148:[function(require,module,exports){
+},{"./editor.jsx":75,"./hint-renderer.jsx":78,"react":45,"react-components/info-tip":39}],78:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -9087,7 +8954,7 @@ var HintRenderer = React.createClass({displayName: 'HintRenderer',
 
 module.exports = HintRenderer;
 
-},{"./renderer.jsx":167,"react":117}],149:[function(require,module,exports){
+},{"./renderer.jsx":97,"react":45}],79:[function(require,module,exports){
 var React = require('react');
 
 var init = function(options) {
@@ -9128,7 +8995,7 @@ var init = function(options) {
 
 module.exports = init;
 
-},{"react":117}],150:[function(require,module,exports){
+},{"react":45}],80:[function(require,module,exports){
 var Movable = require("./interactive2/movable.js");
 var MovablePoint = require("./interactive2/movable-point.js");
 var MovableLine = require("./interactive2/movable-line.js");
@@ -9148,7 +9015,7 @@ var Interactive2 = {
 
 module.exports = Interactive2;
 
-},{"./interactive2/movable-line.js":154,"./interactive2/movable-point.js":156,"./interactive2/movable.js":157}],151:[function(require,module,exports){
+},{"./interactive2/movable-line.js":84,"./interactive2/movable-point.js":86,"./interactive2/movable.js":87}],81:[function(require,module,exports){
 /**
  * Utility functions for writing Interactive2 movablethings
  */
@@ -9226,7 +9093,7 @@ var InteractiveUtil = {
 
 module.exports = InteractiveUtil;
 
-},{"./movable-helper-methods.js":152}],152:[function(require,module,exports){
+},{"./movable-helper-methods.js":82}],82:[function(require,module,exports){
 /**
  * MovableThing convenience methods
  *
@@ -9329,7 +9196,7 @@ var MovableHelperMethods = {
 
 module.exports = MovableHelperMethods;
 
-},{}],153:[function(require,module,exports){
+},{}],83:[function(require,module,exports){
 /**
  * A library of options to pass to add/draw/remove/constraints
  */
@@ -9612,7 +9479,7 @@ module.exports = {
     onMoveEnd: {standard: null},
 };
 
-},{}],154:[function(require,module,exports){
+},{}],84:[function(require,module,exports){
 /**
  * MovableLine
  */
@@ -9896,7 +9763,7 @@ _.extend(MovableLine.prototype, {
 
 module.exports = MovableLine;
 
-},{"./interactive-util.js":151,"./movable-line-options.js":153,"./objective_.js":158}],155:[function(require,module,exports){
+},{"./interactive-util.js":81,"./movable-line-options.js":83,"./objective_.js":88}],85:[function(require,module,exports){
 /**
  * A library of options to pass to add/draw/remove/constraints
  */
@@ -10041,7 +9908,7 @@ module.exports = {
     onClick: {standard: null}
 };
 
-},{}],156:[function(require,module,exports){
+},{}],86:[function(require,module,exports){
 /**
  * Creates and adds a point to the graph that can be dragged around.
  * It allows constraints on its movement and draws when moves happen.
@@ -10374,7 +10241,7 @@ _.extend(MovablePoint.prototype, {
 
 module.exports = MovablePoint;
 
-},{"./interactive-util.js":151,"./movable-point-options.js":155,"./objective_.js":158}],157:[function(require,module,exports){
+},{"./interactive-util.js":81,"./movable-point-options.js":85,"./objective_.js":88}],87:[function(require,module,exports){
 /**
  * Movable
  *
@@ -10639,7 +10506,7 @@ _.extend(Movable.prototype, {
 
 module.exports = Movable;
 
-},{"./interactive-util.js":151}],158:[function(require,module,exports){
+},{"./interactive-util.js":81}],88:[function(require,module,exports){
 /**
  * A work-in-progress of _ methods for objects.
  * That is, they take an object as a parameter,
@@ -10668,7 +10535,7 @@ var pluck = exports.pluck = function(table, subKey) {
     }));
 };
 
-},{}],159:[function(require,module,exports){
+},{}],89:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -10778,7 +10645,7 @@ var ItemEditor = React.createClass({displayName: 'ItemEditor',
 
 module.exports = ItemEditor;
 
-},{"./answer-area-editor.jsx":120,"./editor.jsx":145,"./version.json":171,"react":117}],160:[function(require,module,exports){
+},{"./answer-area-editor.jsx":50,"./editor.jsx":75,"./version.json":101,"react":45}],90:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -11098,7 +10965,7 @@ var ItemRenderer = React.createClass({displayName: 'ItemRenderer',
 
 module.exports = ItemRenderer;
 
-},{"./answer-area-renderer.jsx":121,"./enabled-features.jsx":146,"./hint-renderer.jsx":148,"./perseus-api.jsx":164,"./renderer.jsx":167,"./util.js":170,"react":117}],161:[function(require,module,exports){
+},{"./answer-area-renderer.jsx":51,"./enabled-features.jsx":76,"./hint-renderer.jsx":78,"./perseus-api.jsx":94,"./renderer.jsx":97,"./util.js":100,"react":45}],91:[function(require,module,exports){
 /** @jsx React.DOM */
 /**
  * Changeable
@@ -11199,7 +11066,7 @@ var Changeable = {
 
 module.exports = Changeable;
 
-},{"./widget-prop-blacklist.jsx":163}],162:[function(require,module,exports){
+},{"./widget-prop-blacklist.jsx":93}],92:[function(require,module,exports){
 /** @jsx React.DOM */var WIDGET_PROP_BLACKLIST = require("./widget-prop-blacklist.jsx");
 
 var JsonifyProps = {
@@ -11211,7 +11078,7 @@ var JsonifyProps = {
 
 module.exports = JsonifyProps;
 
-},{"./widget-prop-blacklist.jsx":163}],163:[function(require,module,exports){
+},{"./widget-prop-blacklist.jsx":93}],93:[function(require,module,exports){
 /** @jsx React.DOM */module.exports = [
     // standard props "added" by react
     // (technically the renderer still adds them)
@@ -11225,7 +11092,7 @@ module.exports = JsonifyProps;
     "apiOptions"
 ];
 
-},{}],164:[function(require,module,exports){
+},{}],94:[function(require,module,exports){
 /** @jsx React.DOM *//**
  * [Most of] the Perseus client API.
  *
@@ -11284,7 +11151,7 @@ module.exports = {
 };
 
 
-},{}],165:[function(require,module,exports){
+},{}],95:[function(require,module,exports){
 require("./all-widgets.js");
 
 var version = require("./version.json");
@@ -11304,7 +11171,7 @@ module.exports = {
     Util:               require("./util.js")
 };
 
-},{"./all-widgets.js":119,"./answer-area-renderer.jsx":121,"./diffs/revision-diff.jsx":138,"./editor-page.jsx":144,"./editor.jsx":145,"./init.js":149,"./item-renderer.jsx":160,"./perseus-api.jsx":164,"./renderer.jsx":167,"./stateful-editor-page.jsx":168,"./util.js":170,"./version.json":171}],166:[function(require,module,exports){
+},{"./all-widgets.js":49,"./answer-area-renderer.jsx":51,"./diffs/revision-diff.jsx":68,"./editor-page.jsx":74,"./editor.jsx":75,"./init.js":79,"./item-renderer.jsx":90,"./perseus-api.jsx":94,"./renderer.jsx":97,"./stateful-editor-page.jsx":98,"./util.js":100,"./version.json":101}],96:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -11320,7 +11187,7 @@ var QuestionParagraph = React.createClass({displayName: 'QuestionParagraph',
 
 module.exports = QuestionParagraph;
 
-},{"react":117}],167:[function(require,module,exports){
+},{"react":45}],97:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -11955,7 +11822,7 @@ function extractMathAndWidgets(text) {
 
 module.exports = Renderer;
 
-},{"./enabled-features.jsx":146,"./perseus-api.jsx":164,"./question-paragraph.jsx":166,"./tex.jsx":169,"./util.js":170,"./widget-container.jsx":172,"./widgets.js":173,"react":117}],168:[function(require,module,exports){
+},{"./enabled-features.jsx":76,"./perseus-api.jsx":94,"./question-paragraph.jsx":96,"./tex.jsx":99,"./util.js":100,"./widget-container.jsx":102,"./widgets.js":103,"react":45}],98:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -11998,7 +11865,7 @@ var StatefulEditorPage = React.createClass({displayName: 'StatefulEditorPage',
 
 module.exports = StatefulEditorPage;
 
-},{"./editor-page.jsx":144,"react":117}],169:[function(require,module,exports){
+},{"./editor-page.jsx":74,"react":45}],99:[function(require,module,exports){
 /** @jsx React.DOM */
 /**
  * For math rendered using MathJax. Use me like <TeX>2x + 3</TeX>.
@@ -12151,7 +12018,7 @@ var TeX = React.createClass({displayName: 'TeX',
 
 module.exports = TeX;
 
-},{"react":117}],170:[function(require,module,exports){
+},{"react":45}],100:[function(require,module,exports){
 var nestedMap = function(children, func, context) {
     if (_.isArray(children)) {
         return _.map(children, function(child) {
@@ -12707,7 +12574,7 @@ Util.random = Util.seededRNG(new Date().getTime() & 0xffffffff);
 
 module.exports = Util;
 
-},{}],171:[function(require,module,exports){
+},{}],101:[function(require,module,exports){
 module.exports={
     "apiVersion": {
         "major": 1,
@@ -12719,7 +12586,7 @@ module.exports={
     }
 }
 
-},{}],172:[function(require,module,exports){
+},{}],102:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -12758,7 +12625,7 @@ var WidgetContainer = React.createClass({displayName: 'WidgetContainer',
 
 module.exports = WidgetContainer;
 
-},{"react":117}],173:[function(require,module,exports){
+},{"react":45}],103:[function(require,module,exports){
 var widgets = {};
 
 var Widgets = {
@@ -12898,7 +12765,7 @@ var Widgets = {
 
 module.exports = Widgets;
 
-},{}],174:[function(require,module,exports){
+},{}],104:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var Changeable   = require("../mixins/changeable.jsx");
@@ -13084,7 +12951,7 @@ module.exports = {
 };
 
 
-},{"../components/text-list-editor.jsx":137,"../mixins/changeable.jsx":161,"../mixins/jsonify-props.jsx":162,"../renderer.jsx":167,"../util.js":170}],175:[function(require,module,exports){
+},{"../components/text-list-editor.jsx":67,"../mixins/changeable.jsx":91,"../mixins/jsonify-props.jsx":92,"../renderer.jsx":97,"../util.js":100}],105:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -13342,7 +13209,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/fancy-select.jsx":122,"../mixins/jsonify-props.jsx":162,"../perseus-api.jsx":164,"../util.js":170,"react":117,"react-components/info-tip":7}],176:[function(require,module,exports){
+},{"../components/fancy-select.jsx":52,"../mixins/jsonify-props.jsx":92,"../perseus-api.jsx":94,"../util.js":100,"react":45,"react-components/info-tip":39}],106:[function(require,module,exports){
 /** @jsx React.DOM */
 
 /**
@@ -13537,7 +13404,7 @@ module.exports = {
     editor: ExampleGraphieWidgetEditor
 };
 
-},{"../components/graphie.jsx":127,"../mixins/changeable.jsx":161,"../mixins/jsonify-props.jsx":162,"../util.js":170,"react":117}],177:[function(require,module,exports){
+},{"../components/graphie.jsx":57,"../mixins/changeable.jsx":91,"../mixins/jsonify-props.jsx":92,"../util.js":100,"react":45}],107:[function(require,module,exports){
 /** @jsx React.DOM */
 
 /**
@@ -13721,7 +13588,7 @@ module.exports = {
     editor: ExampleWidgetEditor
 };
 
-},{"../mixins/changeable.jsx":161,"../mixins/jsonify-props.jsx":162,"react":117}],178:[function(require,module,exports){
+},{"../mixins/changeable.jsx":91,"../mixins/jsonify-props.jsx":92,"react":45}],108:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React   = require("react");
@@ -13776,7 +13643,8 @@ var Expression = React.createClass({displayName: 'Expression',
     getInitialState: function() {
         return {
             showErrorTooltip: false,
-            showErrorText: false
+            showErrorText: false,
+            offsetLeft: 0
         };
     },
 
@@ -13788,6 +13656,11 @@ var Expression = React.createClass({displayName: 'Expression',
             _.extend(options, icu.getDecimalFormatSymbols());
         }
         return KAS.parse(value, options);
+    },
+
+    componentDidMount: function() {
+        var expression = this.getDOMNode();
+        this.setState({offsetLeft: expression.offsetLeft});
     },
 
     render: function() {
@@ -13861,7 +13734,8 @@ var Expression = React.createClass({displayName: 'Expression',
                     buttonsVisible:this.props.buttonsVisible || "focused",
                     buttonSets:this.props.buttonSets,
                     onFocus:this._handleFocus,
-                    onBlur:this._handleBlur} ),
+                    onBlur:this._handleBlur,
+                    offsetLeft:this.state.offsetLeft} ),
                 this.state.showErrorTooltip && errorTooltip
             );
         }
@@ -14214,7 +14088,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/input-with-examples.jsx":128,"../components/math-input.jsx":129,"../components/prop-check-box.jsx":132,"../components/tex-buttons.jsx":135,"../enabled-features.jsx":146,"../mixins/changeable.jsx":161,"../mixins/jsonify-props.jsx":162,"../perseus-api.jsx":164,"../tex.jsx":169,"../util.js":170,"react":117,"react-components/info-tip":7,"react-components/tooltip":116}],179:[function(require,module,exports){
+},{"../components/input-with-examples.jsx":58,"../components/math-input.jsx":59,"../components/prop-check-box.jsx":62,"../components/tex-buttons.jsx":65,"../enabled-features.jsx":76,"../mixins/changeable.jsx":91,"../mixins/jsonify-props.jsx":92,"../perseus-api.jsx":94,"../tex.jsx":99,"../util.js":100,"react":45,"react-components/info-tip":39,"react-components/tooltip":44}],109:[function(require,module,exports){
 /** @jsx React.DOM */
 
 /**
@@ -14466,7 +14340,7 @@ module.exports = {
     editor: IframeEditor
 };
 
-},{"../mixins/changeable.jsx":161,"../mixins/jsonify-props.jsx":162,"../util.js":170,"react":117,"react-components/blur-input":4}],180:[function(require,module,exports){
+},{"../mixins/changeable.jsx":91,"../mixins/jsonify-props.jsx":92,"../util.js":100,"react":45,"react-components/blur-input":36}],110:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var BlurInput    = require("react-components/blur-input");
@@ -14801,7 +14675,7 @@ module.exports = {
 };
 
 
-},{"../components/graphie.jsx":127,"../components/range-input.jsx":133,"../mixins/changeable.jsx":161,"../mixins/jsonify-props.jsx":162,"react-components/blur-input":4,"react-components/info-tip":7}],181:[function(require,module,exports){
+},{"../components/graphie.jsx":57,"../components/range-input.jsx":63,"../mixins/changeable.jsx":91,"../mixins/jsonify-props.jsx":92,"react-components/blur-input":36,"react-components/info-tip":39}],111:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React             = require('react');
@@ -15122,7 +14996,7 @@ module.exports = {
     transform: propTransform
 };
 
-},{"../components/input-with-examples.jsx":128,"../enabled-features.jsx":146,"../perseus-api.jsx":164,"../renderer.jsx":167,"../tex.jsx":169,"../util.js":170,"react":117,"react-components/blur-input":4,"react-components/info-tip":7}],182:[function(require,module,exports){
+},{"../components/input-with-examples.jsx":58,"../enabled-features.jsx":76,"../perseus-api.jsx":94,"../renderer.jsx":97,"../tex.jsx":99,"../util.js":100,"react":45,"react-components/blur-input":36,"react-components/info-tip":39}],112:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React         = require('react');
@@ -17620,7 +17494,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/graph-settings.jsx":123,"../components/graph.jsx":124,"../components/number-input.jsx":131,"../interactive2.js":150,"../util.js":170,"react":117,"react-components/info-tip":7}],183:[function(require,module,exports){
+},{"../components/graph-settings.jsx":53,"../components/graph.jsx":54,"../components/number-input.jsx":61,"../interactive2.js":80,"../util.js":100,"react":45,"react-components/info-tip":39}],113:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var InfoTip      = require("react-components/info-tip");
@@ -18068,7 +17942,7 @@ module.exports = {
     editor: InteractiveNumberLineEditor
 };
 
-},{"../components/prop-check-box.jsx":132,"../util.js":170,"react-components/info-tip":7}],184:[function(require,module,exports){
+},{"../components/prop-check-box.jsx":62,"../util.js":100,"react-components/info-tip":39}],114:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -18530,7 +18404,7 @@ module.exports = {
     transform: transformProps
 };
 
-},{"../components/number-input.jsx":131,"../components/prop-check-box.jsx":132,"../mixins/changeable.jsx":161,"../mixins/jsonify-props.jsx":162,"react":117,"react-components/info-tip":7}],185:[function(require,module,exports){
+},{"../components/number-input.jsx":61,"../components/prop-check-box.jsx":62,"../mixins/changeable.jsx":91,"../mixins/jsonify-props.jsx":92,"react":45,"react-components/info-tip":39}],115:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -18770,7 +18644,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/prop-check-box.jsx":132,"../components/sortable.jsx":134,"../components/text-list-editor.jsx":137,"../renderer.jsx":167,"../util.js":170,"react":117,"react-components/info-tip":7}],186:[function(require,module,exports){
+},{"../components/prop-check-box.jsx":62,"../components/sortable.jsx":64,"../components/text-list-editor.jsx":67,"../renderer.jsx":97,"../util.js":100,"react":45,"react-components/info-tip":39}],116:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React        = require('react');
@@ -19131,7 +19005,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/number-input.jsx":131,"../components/prop-check-box.jsx":132,"../components/range-input.jsx":133,"../mixins/changeable.jsx":161,"../mixins/jsonify-props.jsx":162,"react":117,"react-components/info-tip":7}],187:[function(require,module,exports){
+},{"../components/number-input.jsx":61,"../components/prop-check-box.jsx":62,"../components/range-input.jsx":63,"../mixins/changeable.jsx":91,"../mixins/jsonify-props.jsx":92,"react":45,"react-components/info-tip":39}],117:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -19982,7 +19856,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/graphie.jsx":127,"../components/number-input.jsx":131,"../components/prop-check-box.jsx":132,"../components/range-input.jsx":133,"../interactive2.js":150,"../interactive2/interactive-util.js":151,"../mixins/changeable.jsx":161,"../mixins/jsonify-props.jsx":162,"../util.js":170,"react":117,"react-components/button-group":5,"react-components/info-tip":7}],188:[function(require,module,exports){
+},{"../components/graphie.jsx":57,"../components/number-input.jsx":61,"../components/prop-check-box.jsx":62,"../components/range-input.jsx":63,"../interactive2.js":80,"../interactive2/interactive-util.js":81,"../mixins/changeable.jsx":91,"../mixins/jsonify-props.jsx":92,"../util.js":100,"react":45,"react-components/button-group":37,"react-components/info-tip":39}],118:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -20427,7 +20301,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/input-with-examples.jsx":128,"../components/multi-button-group.jsx":130,"../components/number-input.jsx":131,"../components/prop-check-box.jsx":132,"../editor.jsx":145,"../mixins/changeable.jsx":161,"../mixins/jsonify-props.jsx":162,"../util.js":170,"react":117,"react-components/button-group":5,"react-components/info-tip":7}],189:[function(require,module,exports){
+},{"../components/input-with-examples.jsx":58,"../components/multi-button-group.jsx":60,"../components/number-input.jsx":61,"../components/prop-check-box.jsx":62,"../editor.jsx":75,"../mixins/changeable.jsx":91,"../mixins/jsonify-props.jsx":92,"../util.js":100,"react":45,"react-components/button-group":37,"react-components/info-tip":39}],119:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React          = require('react');
@@ -21100,7 +20974,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/text-list-editor.jsx":137,"../renderer.jsx":167,"../util.js":170,"react":117,"react-components/info-tip":7}],190:[function(require,module,exports){
+},{"../components/text-list-editor.jsx":67,"../renderer.jsx":97,"../util.js":100,"react":45,"react-components/info-tip":39}],120:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -22097,7 +21971,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/number-input.jsx":131,"../components/range-input.jsx":133,"../components/text-list-editor.jsx":137,"../util.js":170,"react":117,"react-components/info-tip":7}],191:[function(require,module,exports){
+},{"../components/number-input.jsx":61,"../components/range-input.jsx":63,"../components/text-list-editor.jsx":67,"../util.js":100,"react":45,"react-components/info-tip":39}],121:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -22644,7 +22518,7 @@ module.exports = {
     transform: choiceTransform
 };
 
-},{"../components/prop-check-box.jsx":132,"../editor.jsx":145,"../mixins/changeable.jsx":161,"../perseus-api.jsx":164,"../renderer.jsx":167,"../util.js":170,"react":117,"react-components/button-group":5,"react-components/info-tip":7}],192:[function(require,module,exports){
+},{"../components/prop-check-box.jsx":62,"../editor.jsx":75,"../mixins/changeable.jsx":91,"../perseus-api.jsx":94,"../renderer.jsx":97,"../util.js":100,"react":45,"react-components/button-group":37,"react-components/info-tip":39}],122:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React          = require('react');
@@ -22796,7 +22670,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/prop-check-box.jsx":132,"../components/sortable.jsx":134,"../components/text-list-editor.jsx":137,"../util.js":170,"react":117,"react-components/info-tip":7}],193:[function(require,module,exports){
+},{"../components/prop-check-box.jsx":62,"../components/sortable.jsx":64,"../components/text-list-editor.jsx":67,"../util.js":100,"react":45,"react-components/info-tip":39}],123:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -23128,7 +23002,7 @@ _.extend(SpeakingTextInput, {
         editor: SpeakingTextInputEditor
     };
 
-},{"../mixins/changeable.jsx":161,"../mixins/jsonify-props.jsx":162,"classnames":3,"react":117}],194:[function(require,module,exports){
+},{"../mixins/changeable.jsx":91,"../mixins/jsonify-props.jsx":92,"classnames":3,"react":45}],124:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -23301,7 +23175,7 @@ module.exports = {
     editor: SpeakingVoiceEditor
 };
 
-},{"../../lib/responsivevoice.js":2,"../mixins/changeable.jsx":161,"../mixins/jsonify-props.jsx":162,"react":117}],195:[function(require,module,exports){
+},{"../../lib/responsivevoice.js":2,"../mixins/changeable.jsx":91,"../mixins/jsonify-props.jsx":92,"react":45}],125:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -23621,7 +23495,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../editor.jsx":145,"../renderer.jsx":167,"../util.js":170,"react":117,"react-components/info-tip":7}],196:[function(require,module,exports){
+},{"../editor.jsx":75,"../renderer.jsx":97,"../util.js":100,"react":45,"react-components/info-tip":39}],126:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -26125,5 +25999,5 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/graph-settings.jsx":123,"../components/graph.jsx":124,"../components/number-input.jsx":131,"../components/prop-check-box.jsx":132,"../tex.jsx":169,"../util.js":170,"react":117,"react-components/info-tip":7}]},{},[165])(165)
+},{"../components/graph-settings.jsx":53,"../components/graph.jsx":54,"../components/number-input.jsx":61,"../components/prop-check-box.jsx":62,"../tex.jsx":99,"../util.js":100,"react":45,"react-components/info-tip":39}]},{},[95])(95)
 });
