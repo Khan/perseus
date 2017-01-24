@@ -6,10 +6,9 @@ declare function it(s: string, f: () => any): any;
 const shapes = require("../shapes.js");
 
 describe("shapes.content", () => {
-    // TODO(mdr): It shouldn't! Let's use "content" instead.
-    it('has type "item"', () => {
+    it('has type "content"', () => {
         const shape = shapes.content;
-        assert.equal("item", shape.type);
+        assert.equal("content", shape.type);
     });
 });
 

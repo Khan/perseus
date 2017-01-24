@@ -12,7 +12,7 @@
 import type {Tree, ArrayNode, ObjectNode} from "./tree-types.js";
 
 export type ContentNode = {
-    __type: "item",  // TODO(mdr): can we just rename this "content" pls?
+    __type: "content",
     // Perseus has default values for these fields, so they're all optional.
     content?: ?string,
     images?: ?{[k: string]: any},

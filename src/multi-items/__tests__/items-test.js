@@ -32,7 +32,7 @@ describe("buildEmptyItemTreeForShape and buildEmptyItemForShape", () => {
         "content": "",
         "images": {},
         "widgets": {},
-        "__type": "item",
+        "__type": "content",
     };
 
     const expectedEmptyHintNode = {
@@ -143,7 +143,7 @@ describe("inferItemShape", () => {
 
 function content(n): ContentNode {
     return {
-        __type: "item",
+        __type: "content",
         content: `content ${n}`,
     };
 }

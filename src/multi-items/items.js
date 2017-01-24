@@ -26,9 +26,9 @@ const shapes = require("./shapes.js");
  *   (That is, we recursively call buildEmptyItemTreeForShape for each key.)
  */
 function buildEmptyItemTreeForShape(shape: Shape): ItemTree {
-    if (shape.type === "item") {
+    if (shape.type === "content") {
         return {
-            "__type": "item",
+            "__type": "content",
             "content": "",
             "images": {},
             "widgets": {},
@@ -128,7 +128,7 @@ function inferItemTreeShape(node: ItemTree): Shape {
             // and you shouldn't depend on it.
             return shapes.arrayOf(shapes.content);
         }
-    } else if (typeof node === "object" && node.__type === "item") {
+    } else if (typeof node === "object" && node.__type === "content") {
         return shapes.content;
     } else if (typeof node === "object" && node.__type === "hint") {
         return shapes.hint;

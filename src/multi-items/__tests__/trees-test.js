@@ -13,7 +13,7 @@ const shapes = require("../shapes.js");
 describe("buildMapper", () => {
     function content(n): ContentNode {
         return {
-            __type: "item",
+            __type: "content",
             content: `content ${n}`,
         };
     }
@@ -118,7 +118,7 @@ describe("buildMapper", () => {
     });
 
     it("provides each node shape to the leaf mappers", () => {
-        // Return the type of the shape of the item in place of each item.
+        // Return the type of the shape of the node in place of each node.
         const result = buildMapper()
             .setContentMapper((_, s) => s.type)
             .setHintMapper((_, s) => s.type)
@@ -126,10 +126,10 @@ describe("buildMapper", () => {
             .mapTree(tree, shape);
 
         assert.deepEqual({
-            a: "item",
-            b: ["item", "item", "item"],
+            a: "content",
+            b: ["content", "content", "content"],
             c: {
-                d: "item",
+                d: "content",
                 e: "hint",
             },
             f: "hint",
@@ -138,7 +138,7 @@ describe("buildMapper", () => {
     });
 
     it("provides each node path to the leaf mappers", () => {
-        // Return the path of the item in place of each item.
+        // Return the path to the node in place of each node.
         const result = buildMapper()
             .setContentMapper((_, __, p) => p)
             .setHintMapper((_, __, p) => p)

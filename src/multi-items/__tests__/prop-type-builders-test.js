@@ -30,18 +30,18 @@ describe("buildPropTypeForShape", () => {
 
         // Perseus has default values for all item fields, so all except the
         // type are optional.
-        assertPropTypePasses(propType, {__type: "item"});
+        assertPropTypePasses(propType, {__type: "content"});
         assertPropTypePasses(propType,
-            {content: "", widgets: {}, images: {}, __type: "item"});
+            {content: "", widgets: {}, images: {}, __type: "content"});
 
         // We also leave the full object optional by default, like the propType
         // primitives.
         assertPropTypePasses(propType, null);
 
         // But specifying a bad type for any field will fail the propType.
-        assertPropTypeFails(propType, {content: 1, __type: "item"});
-        assertPropTypeFails(propType, {widgets: 1, __type: "item"});
-        assertPropTypeFails(propType, {images: 1, __type: "item"});
+        assertPropTypeFails(propType, {content: 1, __type: "content"});
+        assertPropTypeFails(propType, {widgets: 1, __type: "content"});
+        assertPropTypeFails(propType, {images: 1, __type: "content"});
     });
 
     it("validates a hint", () => {
@@ -71,7 +71,7 @@ describe("buildPropTypeForShape", () => {
 
     it("validates an array", () => {
         const propType = buildPropTypeForShape(shapes.arrayOf(shapes.content));
-        const emptyItem = {__type: "item"};
+        const emptyItem = {__type: "content"};
 
         assertPropTypePasses(propType, []);
         assertPropTypePasses(propType, [emptyItem, emptyItem, emptyItem]);
@@ -97,7 +97,7 @@ describe("buildPropTypeForShape", () => {
             a: shapes.content,
             b: shapes.content,
         }));
-        const emptyItem = {__type: "item"};
+        const emptyItem = {__type: "content"};
 
         assertPropTypePasses(propType, {a: emptyItem, b: emptyItem});
 

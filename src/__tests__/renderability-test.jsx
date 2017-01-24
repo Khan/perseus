@@ -438,12 +438,12 @@ describe("Renderability", () => {
                     {
                         _multi: {
                             sharedContext: {
-                                __type: "item",
+                                __type: "content",
                                 ...sampleV0InputNumberItem.question,
                             },
                             questions: [
                                 {
-                                    __type: "item",
+                                    __type: "content",
                                     ...sampleV1MeasurerItem.question,
                                 },
                             ],
@@ -459,16 +459,16 @@ describe("Renderability", () => {
                     {
                         _multi: {
                             sharedContext: {
-                                __type: "item",
+                                __type: "content",
                                 ...sampleV0InputNumberItem.question,
                             },
                             questions: [
                                 {
-                                    __type: "item",
+                                    __type: "content",
                                     ...sampleImpossibleWidgetsItem.question,
                                 },
                                 {
-                                    __type: "item",
+                                    __type: "content",
                                     ...sampleV1MeasurerItem.question,
                                 },
                             ],

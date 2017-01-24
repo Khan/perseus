@@ -129,7 +129,7 @@ describe("i18n", () => {
             const foundImages = i18n.findImagesInItemData({
                 _multi: {
                     question: {
-                        __type: "item",
+                        __type: "content",
                         ...exerciseImagesEverywhere.question,
                     },
                     hints: exerciseImagesEverywhere.hints.map(hint => ({

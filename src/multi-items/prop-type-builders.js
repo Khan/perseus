@@ -17,7 +17,7 @@ import type {Shape} from "./shape-types.js";
 function shapePropType(...args: Array<any>) {
     const itemShape = React.PropTypes.oneOfType([
         React.PropTypes.shape({
-            type: React.PropTypes.oneOf(["item"]).isRequired,
+            type: React.PropTypes.oneOf(["content"]).isRequired,
         }).isRequired,
         React.PropTypes.shape({
             type: React.PropTypes.oneOf(["hint"]).isRequired,
@@ -58,9 +58,9 @@ function buildPropTypeForShape(shape: Shape) {
  * other objects.
  */
 function buildTreePropTypeForShape(shape: Shape) {
-    if (shape.type === "item") {
+    if (shape.type === "content") {
         return React.PropTypes.shape({
-            __type: React.PropTypes.oneOf(["item"]).isRequired,
+            __type: React.PropTypes.oneOf(["content"]).isRequired,
             content: React.PropTypes.string,
             images: React.PropTypes.objectOf(React.PropTypes.any),
             widgets: React.PropTypes.objectOf(React.PropTypes.any),

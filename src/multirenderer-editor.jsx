@@ -200,7 +200,7 @@ const LeafContainer = ({name, controls, children, path, mode, shape}) => {
         }
         {/* In preview mode, render a simple header above the preview. */}
         {mode === "preview" &&
-         (shape.type === "item" || shape.type === "hint") &&
+         (shape.type === "content" || shape.type === "hint") &&
             <div
                 className={css(styles.containerHeader, styles.collectionHeader)}
             >
@@ -298,7 +298,7 @@ ObjectContainer.propTypes = {
 const NodeContent = (props) => {
     const {shape} = props;
 
-    if (shape.type === "item") {
+    if (shape.type === "content") {
         return <ItemNodeContent {...props} />;
     } else if (shape.type === "hint") {
         return <HintNodeContent {...props} />;
@@ -373,7 +373,7 @@ const ArrayNodeContent = (props) => {
     const elementName = pluralToSingular(collectionName);
 
     const elementType = shape.elementShape.type;
-    const elementIsLeaf = elementType === "item" || elementType === "hint";
+    const elementIsLeaf = elementType === "content" || elementType === "hint";
 
     const children = data.map((subdata, i) => {
         const subpath = path.concat(i);

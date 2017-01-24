@@ -19,7 +19,7 @@
  * deal with all possible Javascript types.
  */
 export type ContentShape = {
-    type: "item",  // TODO(mdr): can we just rename this "content" pls?
+    type: "content",
 };
 export type HintShape = {
     type: "hint",

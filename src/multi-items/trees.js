@@ -239,7 +239,7 @@ function mapTree<CI, CO, HI, HO, TI, TO>(
     // We trust the shape of the multi-item to match the shape provided at
     // runtime. Therefore, in each shape branch, we cast the node to `any` and
     // reinterpret it as the expected node type.
-    if (shape.type === "item") {
+    if (shape.type === "content") {
         const content: CI = (tree: any);
         return mappers.content(content, shape, path);
     } else if (shape.type === "hint") {

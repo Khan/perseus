@@ -20,7 +20,7 @@ import type {
  * `arrayOf(shape({question: content, hints: arrayOf(hint)}))`.
  */
 const contentShape: ContentShape = {
-    type: "item",
+    type: "content",
 };
 const hintShape: HintShape = {
     type: "hint",
