@@ -840,7 +840,10 @@ var Renderer = React.createClass({
                 }
             };
 
-            const content = <TeX onRender={onRender}>
+            const content = <TeX
+                onRender={onRender}
+                onResourceLoaded={onRender}
+            >
                 {preprocessTex(node.content)}
             </TeX>;
 
@@ -958,7 +961,10 @@ var Renderer = React.createClass({
                 {/* We add extra empty spans around the math to make it not
                     wrap (I don't know why this works, but it does) */}
                 <span />
-                <TeX onRender={this.props.onRender}>
+                <TeX
+                    onRender={this.props.onRender}
+                    onResourceLoaded={this.props.onRender}
+                >
                     {tex}
                 </TeX>
                 <span />

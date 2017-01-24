@@ -386,7 +386,7 @@ const Sortable = React.createClass({
         this.setState({
             // Clear item measurements
             items: this.clearItemMeasurements(this.state.items)
-        }, this.measureItems);
+        });
     }, 20),
 
     render: function() {
