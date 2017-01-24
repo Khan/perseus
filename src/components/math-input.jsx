@@ -18,6 +18,7 @@ var MathInput = React.createClass({
         onFocus: PT.func,
         onBlur: PT.func,
         buttonSets: TexButtons.buttonSetsType.isRequired,
+        offsetLeft: PT.number
     },
 
     render: function() {
@@ -40,6 +41,14 @@ var MathInput = React.createClass({
                 sets={this.props.buttonSets} />;
             button_height = (6 + 58 * this.props.buttonSets.length).toString() + "px";
         }
+        var button_left = "0px";
+        if(!this.props.inEditor){
+            if (this.props.offsetLeft >= 260){
+                button_left = "-240px";
+            } else if (this.props.offsetLeft > 130 && this.props.offsetLeft < 260){
+                button_left = "-120px";
+            }
+        }
 
         return <div style={{display: "inline-block"}}>
             <div style={{display: 'inline-block'}}>
@@ -48,7 +57,7 @@ var MathInput = React.createClass({
                       onFocus={this.handleFocus}
                       onBlur={this.handleBlur} />
             </div>
-            <div style={{position: "relative", height: button_height}}>
+            <div style={{position: "relative", height: button_height, left: button_left}}>
                 {buttons}
             </div>
         </div>;
