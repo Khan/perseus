@@ -134,6 +134,8 @@ var Expression = React.createClass({
                 "show-error-tooltip": this.state.showErrorTooltip
             });
 
+            var inEditor = window.location.pathname.indexOf("/questionpanel/perseus_editor/") >= 0;
+
             return <span className={className}>
                 <MathInput
                     ref="input"
@@ -144,7 +146,8 @@ var Expression = React.createClass({
                     buttonSets={this.props.buttonSets}
                     onFocus={this._handleFocus}
                     onBlur={this._handleBlur}
-                    offsetLeft={this.state.offsetLeft} />
+                    offsetLeft={this.state.offsetLeft}
+                    inEditor={inEditor} />
                 {this.state.showErrorTooltip && errorTooltip}
             </span>;
         }

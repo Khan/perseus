@@ -42,8 +42,7 @@ var MathInput = React.createClass({
             button_height = (6 + 58 * this.props.buttonSets.length).toString() + "px";
         }
         var button_left = "0px";
-        var in_editor = window.location.pathname.indexOf("/questionpanel/perseus_editor/") >= 0;
-        if(!in_editor){
+        if(!this.props.inEditor){
             if (this.props.offsetLeft >= 260){
                 button_left = "-240px";
             } else if (this.props.offsetLeft > 130 && this.props.offsetLeft < 260){

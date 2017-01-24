@@ -1,5 +1,5 @@
 /*! Perseus | http://github.com/Khan/perseus */
-// commit 43cb7dcf7f0f02a8717b81c16b5632a1b5858030
+// commit ffd9f90a81ec1f7ac6a5cca8dd38e88931a8c4dc
 // branch fixbug_math_input_is_hidden_by_answer_area
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Perseus = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /*
@@ -5773,8 +5773,7 @@ var MathInput = React.createClass({displayName: 'MathInput',
             button_height = (6 + 58 * this.props.buttonSets.length).toString() + "px";
         }
         var button_left = "0px";
-        var in_editor = window.location.pathname.indexOf("/questionpanel/perseus_editor/") >= 0;
-        if(!in_editor){
+        if(!this.props.inEditor){
             if (this.props.offsetLeft >= 260){
                 button_left = "-240px";
             } else if (this.props.offsetLeft > 130 && this.props.offsetLeft < 260){
@@ -13728,6 +13727,8 @@ var Expression = React.createClass({displayName: 'Expression',
                 "show-error-tooltip": this.state.showErrorTooltip
             });
 
+            var inEditor = window.location.pathname.indexOf("/questionpanel/perseus_editor/") >= 0;
+
             return React.DOM.span( {className:className}, 
                 MathInput(
                     {ref:"input",
@@ -13738,7 +13739,8 @@ var Expression = React.createClass({displayName: 'Expression',
                     buttonSets:this.props.buttonSets,
                     onFocus:this._handleFocus,
                     onBlur:this._handleBlur,
-                    offsetLeft:this.state.offsetLeft} ),
+                    offsetLeft:this.state.offsetLeft,
+                    inEditor:inEditor} ),
                 this.state.showErrorTooltip && errorTooltip
             );
         }
