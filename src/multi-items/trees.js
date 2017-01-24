@@ -80,9 +80,8 @@ export type Path = Array<string | number>;
  * provide a compatible ContentMapper and HintMapper, which is difficult to
  * prove at compile time.
  *
- * There's no TagsMapper or ObjectMapper here, but not for any particular
- * reason. We just don't have a use case for them yet, so we haven't built them
- * yet.
+ * There's no ObjectMapper here, but not for any particular reason. We just
+ * don't have a use case for it yet, so we haven't built it yet.
  */
 export type ContentMapper<CI, CO> =
     (content: CI, shape: ContentShape, path: Path) => CO;
