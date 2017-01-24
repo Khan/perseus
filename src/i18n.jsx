@@ -7,7 +7,8 @@
  */
 const _ = require("underscore");
 
-const {findLeafNodes} = require("./multirenderer.jsx");
+const {findContentNodesInItem, findHintNodesInItem, inferItemShape} =
+    require("./multi-items.js");
 const traversal = require("./traversal.jsx");
 const PerseusMarkdown = require("./perseus-markdown.jsx");
 
@@ -123,11 +124,11 @@ function findImagesInRenderers(renderers) {
 function findImagesInItemData(itemData) {
     let renderers = [];
     if (itemData._multi) {
-        findLeafNodes(itemData, leaf => {
-            if (leaf.__type === "item" || leaf.__type === "hint") {
-                renderers.push(leaf)
-            }
-        });
+        const shape = inferItemShape(itemData);
+        findContentNodesInItem(
+            itemData, shape, node => renderers.push(node));
+        findHintNodesInItem(
+            itemData, shape, node => renderers.push(node));
     } else {
         renderers = [itemData.question, ...itemData.hints];
     }

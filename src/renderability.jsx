@@ -14,7 +14,7 @@
 
 const _ = require("underscore");
 
-const {findLeafNodes} = require("./multirenderer.jsx");
+const {findContentNodesInItem, inferItemShape} = require("./multi-items.js");
 const Traversal = require("./traversal.jsx");
 const Widgets = require("./widgets.js");
 
@@ -80,14 +80,14 @@ const isItemRenderableBy = function(itemData, rendererContentVersion) {
         throw new Error("missing parameter to Perseus.isRenderable.item");
     }
     if (itemData._multi) {
+        const shape = inferItemShape(itemData);
+
         let isRenderable = true;
-        findLeafNodes(itemData, (leaf, type) => {
-            if (type === "item") {
-                const leafIsRenderable = isRendererContentRenderableBy(
-                    leaf, rendererContentVersion);
-                if (!leafIsRenderable) {
-                    isRenderable = false;
-                }
+        findContentNodesInItem(itemData, shape, node => {
+            const nodeIsRenderable = isRendererContentRenderableBy(
+                node, rendererContentVersion);
+            if (!nodeIsRenderable) {
+                isRenderable = false;
             }
         });
         return isRenderable;

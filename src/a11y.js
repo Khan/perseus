@@ -5,7 +5,7 @@
 
 const _ = require("underscore");
 
-const {findLeafNodes} = require("./multirenderer.jsx");
+const {findContentNodesInItem, inferItemShape} = require("./multi-items.js");
 const Traversal = require("./traversal.jsx");
 const Widgets = require("./widgets.js");
 
@@ -35,11 +35,9 @@ module.exports = {
         const widgets = [];
 
         if (itemData._multi) {
-            findLeafNodes(itemData, (leaf, type) => {
-                if (type === "item") {
-                    traverseRenderer(leaf, widgets);
-                }
-            });
+            const shape = inferItemShape(itemData);
+            findContentNodesInItem(itemData, shape,
+                content => traverseRenderer(content, widgets));
         } else {
             traverseRenderer(itemData.question, widgets);
         }
