@@ -17,7 +17,10 @@ const DemoLayout = React.createClass({
     statics: {
         shape: shapes.shape({
             sharedContext: shapes.content,
-            questions: shapes.arrayOf(shapes.content),
+            questions: shapes.arrayOf(shapes.shape({
+                tags: shapes.tags,
+                question: shapes.content,
+            })),
             hints: shapes.hints,
         }),
     },
@@ -61,7 +64,7 @@ const DemoLayout = React.createClass({
                         <h2>Questions</h2>
                         <ul>
                             {renderers.questions.map(
-                                (r, i) => <li key={i}>{r}</li>
+                                (r, i) => <li key={i}>{r.question}</li>
                             )}
                         </ul>
                         {renderers.hints.length > 0 && <div>

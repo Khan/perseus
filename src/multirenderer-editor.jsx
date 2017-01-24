@@ -117,7 +117,8 @@ const nodePropTypes = {
     ])).isRequired,
     actions: React.PropTypes.shape({
         addArrayElement: React.PropTypes.func.isRequired,
-        handleEditorChange: React.PropTypes.func.isRequired,
+        mergeValueAtPath: React.PropTypes.func.isRequired,
+        setValueAtPath: React.PropTypes.func.isRequired,
         moveArrayElementDown: React.PropTypes.func.isRequired,
         moveArrayElementUp: React.PropTypes.func.isRequired,
         removeArrayElement: React.PropTypes.func.isRequired,
@@ -186,7 +187,7 @@ NodeContainer.propTypes = {
     controls: React.PropTypes.arrayOf(React.PropTypes.node),
 };
 
-const LeafContainer = ({name, controls, children, path, mode}) => {
+const LeafContainer = ({name, controls, children, path, mode, shape}) => {
     return <div className={css(styles.container)}>
         {/* In edit mode, render a cute pod for the editor. */}
         {mode === "edit" &&
@@ -199,6 +200,7 @@ const LeafContainer = ({name, controls, children, path, mode}) => {
         }
         {/* In preview mode, render a simple header above the preview. */}
         {mode === "preview" &&
+         (shape.type === "item" || shape.type === "hint") &&
             <div
                 className={css(styles.containerHeader, styles.collectionHeader)}
             >
@@ -220,6 +222,7 @@ LeafContainer.propTypes = {
     children: React.PropTypes.node,
     path: React.PropTypes.arrayOf(React.PropTypes.any).isRequired,
     mode: React.PropTypes.oneOf(["edit", "preview"]).isRequired,
+    shape: shapePropType,
 };
 
 const ArrayContainer = (props) => {
@@ -299,6 +302,8 @@ const NodeContent = (props) => {
         return <ItemNodeContent {...props} />;
     } else if (shape.type === "hint") {
         return <HintNodeContent {...props} />;
+    } else if (shape.type === "tags") {
+        return <TagsNodeContent {...props} />;
     } else if (shape.type === "array") {
         return <ArrayNodeContent {...props} />;
     } else if (shape.type === "object") {
@@ -314,7 +319,7 @@ const ItemNodeContent = (props) => {
         return <Editor
             {...data}
             onChange={
-                newVal => actions.handleEditorChange(path, newVal)}
+                newVal => actions.mergeValueAtPath(path, newVal)}
             apiOptions={apiOptions}
         />;
     } else {
@@ -331,7 +336,7 @@ const HintNodeContent = (props) => {
             {...data}
             className={css(styles.hintEditor)}
             onChange={
-                newVal => actions.handleEditorChange(path, newVal)}
+                newVal => actions.mergeValueAtPath(path, newVal)}
             apiOptions={apiOptions}
             showTitle={false}
             showRemoveButton={false}
@@ -342,6 +347,24 @@ const HintNodeContent = (props) => {
     }
 };
 HintNodeContent.propTypes = nodePropTypes;
+
+const TagsNodeContent = (props) => {
+    const {data, path, actions, apiOptions, mode} = props;
+    const {GroupMetadataEditor} = apiOptions;
+
+    if (mode === "edit") {
+        return <div className={css(styles.tagsEditor)}>
+            <GroupMetadataEditor
+                value={data}
+                onChange={newVal => actions.setValueAtPath(path, newVal)}
+                showTitle={false}
+            />
+        </div>;
+    } else {
+        return <div />;
+    }
+};
+TagsNodeContent.propTypes = nodePropTypes;
 
 const ArrayNodeContent = (props) => {
     const {shape, data, path, actions, mode, ...otherProps} = props;
@@ -489,10 +512,18 @@ const MultiRendererEditor = React.createClass({
         </div>;
     },
 
-    handleEditorChange(path, newValue) {
+    mergeValueAtPath(path, newValue) {
         this.props.onChange({
             item: lens(this.props.item)
                 .merge(multiPath(path), newValue)
+                .freeze(),
+        });
+    },
+
+    setValueAtPath(path, newValue) {
+        this.props.onChange({
+            item: lens(this.props.item)
+                .set(multiPath(path), newValue)
                 .freeze(),
         });
     },
@@ -694,6 +725,11 @@ const styles = StyleSheet.create({
 
     objectElement: {
         marginBottom: 16,
+    },
+
+    tagsEditor: {
+        border: "1px solid #ddd",
+        padding: "5px 10px",
     },
 });
 

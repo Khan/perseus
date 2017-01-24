@@ -26,10 +26,11 @@ export type HintNode = {
     widgets?: ?{[k: string]: any},
     replace?: ?boolean,
 };
+export type TagsNode = Array<string>;
 
-export type ItemArrayNode = ArrayNode<ContentNode, HintNode>;
-export type ItemObjectNode = ObjectNode<ContentNode, HintNode>;
-export type ItemTree = Tree<ContentNode, HintNode>;
+export type ItemArrayNode = ArrayNode<ContentNode, HintNode, TagsNode>;
+export type ItemObjectNode = ObjectNode<ContentNode, HintNode, TagsNode>;
+export type ItemTree = Tree<ContentNode, HintNode, TagsNode>;
 
 export type Item = {
     _multi: any,

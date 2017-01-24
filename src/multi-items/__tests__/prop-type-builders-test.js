@@ -81,6 +81,17 @@ describe("buildPropTypeForShape", () => {
         assertPropTypeFails(propType, [emptyItem, null, emptyItem]);
     });
 
+    it("validates tags", () => {
+        const propType = buildPropTypeForShape(shapes.tags);
+
+        assertPropTypePasses(propType, []);
+        assertPropTypePasses(propType, ["a", "b", "c"]);
+
+        assertPropTypePasses(propType, null);
+        assertPropTypeFails(propType, ["a", null, "b"]);
+        assertPropTypeFails(propType, [1, 2, 3]);
+    });
+
     it("validates an object", () => {
         const propType = buildPropTypeForShape(shapes.shape({
             a: shapes.content,

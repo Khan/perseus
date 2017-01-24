@@ -33,7 +33,7 @@
  *       }
  *   </MultiRenderer>
  */
-import type {Item, ContentNode, HintNode} from "./item-types.js";
+import type {Item, ContentNode, HintNode, TagsNode} from "./item-types.js";
 import type {Shape, ArrayShape} from "./shape-types.js";
 import type {Tree} from "./tree-types.js";
 import type {
@@ -69,10 +69,10 @@ type HintRendererData = {
     hint: Hint,
 };
 type RendererData = ContentRendererData | HintRendererData;
-type RendererDataTree = Tree<ContentRendererData, HintRendererData>;
-type RendererTree = Tree<ContentRendererElement, HintRendererElement>;
-type ScoreTree = Tree<Score, null>;
-type SerializedStateTree = Tree<SerializedState, null>;
+type RendererDataTree = Tree<ContentRendererData, HintRendererData, null>;
+type RendererTree = Tree<ContentRendererElement, HintRendererElement, null>;
+type ScoreTree = Tree<Score, null, null>;
+type SerializedStateTree = Tree<SerializedState, null, null>;
 
 type Props = {
     item: Item,
@@ -204,10 +204,11 @@ class MultiRenderer extends React.Component {
         //     so we provide it explicitly.
         const mapper:
             TreeMapper<ContentNode, ContentRendererData, HintNode,
-                HintRendererData> =
+                HintRendererData, TagsNode, null> =
             buildMapper()
             .setContentMapper(c => this._makeContentRendererData(c))
-            .setHintMapper(h => this._makeHintRendererData(h));
+            .setHintMapper(h => this._makeHintRendererData(h))
+            .setTagsMapper(t => null);
         return mapper.mapTree(itemTree, shape);
     }
 
@@ -247,8 +248,8 @@ class MultiRenderer extends React.Component {
     _mapRenderers<O>(
         leafMapper: ContentMapper<RendererData, O> &
             HintMapper<RendererData, O>,
-        arrayMapper: ?ArrayMapper<RendererData, O, RendererData, O>
-    ): ?Tree<O, O> {
+        arrayMapper: ?ArrayMapper<RendererData, O, RendererData, O, null, null>
+    ): ?Tree<O, O, null> {
         const {rendererDataTree} = this.state;
 
         if (!rendererDataTree) {

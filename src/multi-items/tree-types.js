@@ -21,6 +21,7 @@
  * This enables us to write generic tree-traversal and tree-mapping functions,
  * as you'll see in trees.js.
  */
-export type ArrayNode<C, H> = Array<Tree<C, H>>;
-export type ObjectNode<C, H> = {[k: string]: Tree<C, H>};
-export type Tree<C, H> = C | H | ArrayNode<C, H> | ObjectNode<C, H>;
+export type ArrayNode<C, H, T> = Array<Tree<C, H, T>>;
+export type ObjectNode<C, H, T> = {[k: string]: Tree<C, H, T>};
+export type Tree<C, H, T> =
+    C | H | T | ArrayNode<C, H, T> | ObjectNode<C, H, T>;

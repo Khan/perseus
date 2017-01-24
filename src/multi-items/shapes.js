@@ -11,7 +11,7 @@
  * `arrayOf(shape({foo: content, bar: hint}))`.
  */
 import type {
-    Shape, ContentShape, HintShape, ArrayShape, ObjectShape,
+    Shape, ContentShape, HintShape, TagsShape, ArrayShape, ObjectShape,
 } from "./shape-types.js";
 
 /**
@@ -24,6 +24,9 @@ const contentShape: ContentShape = {
 };
 const hintShape: HintShape = {
     type: "hint",
+};
+const tagsShape: TagsShape = {
+    type: "tags",
 };
 const buildArrayShape = (elementShape: Shape): ArrayShape => ({
     type: "array",
@@ -40,6 +43,7 @@ module.exports = {
     content: contentShape,
     hint: hintShape,
     hints: hintsShape,
+    tags: tagsShape,
     arrayOf: buildArrayShape,
     shape: buildObjectShape,
 };

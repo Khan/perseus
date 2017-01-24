@@ -23,6 +23,9 @@ function shapePropType(...args: Array<any>) {
             type: React.PropTypes.oneOf(["hint"]).isRequired,
         }).isRequired,
         React.PropTypes.shape({
+            type: React.PropTypes.oneOf(["tags"]).isRequired,
+        }).isRequired,
+        React.PropTypes.shape({
             type: React.PropTypes.oneOf(["object"]).isRequired,
             shape: React.PropTypes.objectOf(shapePropType),
         }).isRequired,
@@ -70,6 +73,8 @@ function buildTreePropTypeForShape(shape: Shape) {
             widgets: React.PropTypes.objectOf(React.PropTypes.any),
             replace: React.PropTypes.bool,
         });
+    } else if (shape.type === "tags") {
+        return React.PropTypes.arrayOf(React.PropTypes.string.isRequired);
     } else if (shape.type === "array") {
         const elementPropType = buildTreePropTypeForShape(shape.elementShape);
         return React.PropTypes.arrayOf(elementPropType.isRequired);

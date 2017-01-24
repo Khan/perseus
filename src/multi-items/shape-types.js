@@ -24,6 +24,9 @@ export type ContentShape = {
 export type HintShape = {
     type: "hint",
 };
+export type TagsShape = {
+    type: "tags",
+};
 export type ArrayShape = {
     type: "array",
     /**
@@ -40,4 +43,5 @@ export type ObjectShape = {
      */
     shape: {[k: string]: Shape},
 };
-export type Shape = ContentShape | HintShape | ArrayShape | ObjectShape;
+export type Shape =
+    ContentShape | HintShape | TagsShape | ArrayShape | ObjectShape;

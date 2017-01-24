@@ -8,7 +8,8 @@
  * renderer tree or a score tree or, well, a multi-item), see trees.js.
  */
 import type {
-    Item, ItemTree, ContentNode, HintNode, ItemObjectNode,
+    Item, ItemTree, ContentNode, HintNode, TagsNode, ItemArrayNode,
+    ItemObjectNode,
 } from "./item-types.js";
 import type {Shape} from "./shape-types.js";
 
@@ -40,8 +41,10 @@ function buildEmptyItemTreeForShape(shape: Shape): ItemTree {
             "images": {},
             "widgets": {},
         };
+    } else if (shape.type === "tags") {
+        return ([]: TagsNode);
     } else if (shape.type === "array") {
-        return [];
+        return ([]: ItemArrayNode);
     } else if (shape.type === "object") {
         const valueShapes = shape.shape;
         const object: ItemObjectNode = {};
@@ -108,14 +111,23 @@ function inferItemShape(item: Item) {
 
 function inferItemTreeShape(node: ItemTree): Shape {
     if (Array.isArray(node)) {
-        // If the array is empty, we guess that it's a content array. Could be
-        // wrong, but, if we're only going to use this inferred shape for
-        // traversing this particular item, then it doesn't matter, anyway :P
-        // But, if you need to be able to work with empty arrays, like in the
-        // Perseus editor, you should get the correct shape explicitly!
-        return shapes.arrayOf(
-            node.length ? inferItemTreeShape(node[0]) : shapes.content
-        );
+        if (node.length) {
+            if (typeof node[0] === "string") {
+                // There's no ItemTree that can manifest as a string.
+                // So, an array of strings must be a TagsNode, not ArrayNode.
+                return shapes.tags;
+            } else {
+                // Otherwise, assume that this is a valid ArrayNode, and
+                // therefore the shape of the first element applies to all
+                // elements in the array.
+                return shapes.arrayOf(inferItemTreeShape(node[0]));
+            }
+        } else {
+            // The array is empty, so we arbitrarily guess that it's a content
+            // array. As discussed in the docstring, this might be incorrect,
+            // and you shouldn't depend on it.
+            return shapes.arrayOf(shapes.content);
+        }
     } else if (typeof node === "object" && node.__type === "item") {
         return shapes.content;
     } else if (typeof node === "object" && node.__type === "hint") {

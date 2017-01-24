@@ -25,6 +25,7 @@
  *     const renderers = buildMapper()
  *         .setContentMapper(this.renderContentNode)
  *         .setHintMapper(this.renderHintNode)
+ *         .setTagsMapper(this.renderTagsNode)
  *         .setArrayMapper(this.hideSkippedQuestions)
  *         .mapTree(tree, shape);
  *
@@ -45,7 +46,7 @@
  * signatures specified here.
  */
 import type {
-    Shape, ContentShape, HintShape, ArrayShape,
+    Shape, ContentShape, HintShape, TagsShape, ArrayShape,
 } from "./shape-types.js";
 import type {Tree, ArrayNode, ObjectNode} from "./tree-types.js";
 
@@ -79,20 +80,23 @@ export type Path = Array<string | number>;
  * provide a compatible ContentMapper and HintMapper, which is difficult to
  * prove at compile time.
  *
- * There's no ObjectMapper here, but not for any particular reason. We just
- * don't have a use case for it yet, so we haven't built it yet.
+ * There's no TagsMapper or ObjectMapper here, but not for any particular
+ * reason. We just don't have a use case for them yet, so we haven't built them
+ * yet.
  */
 export type ContentMapper<CI, CO> =
     (content: CI, shape: ContentShape, path: Path) => CO;
 export type HintMapper<HI, HO> =
     (hint: HI, shape: HintShape, path: Path) => HO;
-export type ArrayMapper<CI, CO, HI, HO> =
+export type TagsMapper<TI, TO> =
+    (tag: TI, shape: TagsShape, path: Path) => TO;
+export type ArrayMapper<CI, CO, HI, HO, TI, TO> =
     (
-        mappedArray: ArrayNode<CO, HO>,
-        originalArray: ArrayNode<CI, HI>,
+        mappedArray: ArrayNode<CO, HO, TO>,
+        originalArray: ArrayNode<CI, HI, TI>,
         shape: ArrayShape,
         path: Path
-    ) => ArrayNode<CO, HO>;
+    ) => ArrayNode<CO, HO, TO>;
 
 /**
  * A TreeMapper is a collection of node mappers, which, together, compose the
@@ -102,11 +106,12 @@ export type ArrayMapper<CI, CO, HI, HO> =
  * the internal mapper properties that we care about, and the `mapTree`
  * function that the call site will use.
  */
-export interface TreeMapper<CI, CO, HI, HO> {
+export interface TreeMapper<CI, CO, HI, HO, TI, TO> {
     content: ContentMapper<CI, CO>,
     hint: HintMapper<HI, HO>,
-    array: ArrayMapper<CI, CO, HI, HO>,
-    mapTree(tree: Tree<CI, HI>, shape: Shape): Tree<CO, HO>,
+    tags: TagsMapper<TI, TO>,
+    array: ArrayMapper<CI, CO, HI, HO, TI, TO>,
+    mapTree(tree: Tree<CI, HI, TI>, shape: Shape): Tree<CO, HO, TO>,
 }
 
 /**
@@ -123,40 +128,52 @@ export interface TreeMapper<CI, CO, HI, HO> {
  * Once you call `setArrayMapper`, however, we move to the other class:
  * TreeMapperForLeavesAndCollections.
  */
-class TreeMapperJustForLeaves<CI, CO, HI, HO> {
+class TreeMapperJustForLeaves<CI, CO, HI, HO, TI, TO> {
     content: ContentMapper<CI, CO>
     hint: HintMapper<HI, HO>
-    array: ArrayMapper<CI, CO, HI, HO>
+    tags: TagsMapper<TI, TO>
+    array: ArrayMapper<CI, CO, HI, HO, TI, TO>
 
     constructor(
         content: ContentMapper<CI, CO>,
         hint: HintMapper<HI, HO>,
+        tags: TagsMapper<TI, TO>
     ) {
         this.content = content;
         this.hint = hint;
+        this.tags = tags;
         this.array = identity;
     }
 
     setContentMapper<CI2, CO2>(
         newContentMapper: ContentMapper<CI2, CO2>
-    ): TreeMapperJustForLeaves<CI2, CO2, HI, HO> {
-        return new TreeMapperJustForLeaves(newContentMapper, this.hint);
+    ): TreeMapperJustForLeaves<CI2, CO2, HI, HO, TI, TO> {
+        return new TreeMapperJustForLeaves(
+            newContentMapper, this.hint, this.tags);
     }
 
     setHintMapper<HI2, HO2>(
         newHintMapper: HintMapper<HI2, HO2>
-    ): TreeMapperJustForLeaves<CI, CO, HI2, HO2> {
-        return new TreeMapperJustForLeaves(this.content, newHintMapper);
+    ): TreeMapperJustForLeaves<CI, CO, HI2, HO2, TI, TO> {
+        return new TreeMapperJustForLeaves(
+            this.content, newHintMapper, this.tags);
+    }
+
+    setTagsMapper<TI2, TO2>(
+        newTagsMapper: TagsMapper<TI2, TO2>
+    ): TreeMapperJustForLeaves<CI, CO, HI, HO, TI2, TO2> {
+        return new TreeMapperJustForLeaves(
+            this.content, this.hint, newTagsMapper);
     }
 
     setArrayMapper(
-        newArrayMapper: ArrayMapper<CI, CO, HI, HO>
-    ): TreeMapperForLeavesAndCollections<CI, CO, HI, HO> {
+        newArrayMapper: ArrayMapper<CI, CO, HI, HO, TI, TO>
+    ): TreeMapperForLeavesAndCollections<CI, CO, HI, HO, TI, TO> {
         return new TreeMapperForLeavesAndCollections(
-            this.content, this.hint, newArrayMapper);
+            this.content, this.hint, this.tags, newArrayMapper);
     }
 
-    mapTree(tree: Tree<CI, HI>, shape: Shape): Tree<CO, HO> {
+    mapTree(tree: Tree<CI, HI, TI>, shape: Shape): Tree<CO, HO, TO> {
         return mapTree(tree, shape, [], this);
     }
 }
@@ -165,29 +182,32 @@ class TreeMapperJustForLeaves<CI, CO, HI, HO> {
  * This is a TreeMapper that already has an ArrayMapper specified, so its
  * ContentMapper and HintMapper are now locked in.
  */
-class TreeMapperForLeavesAndCollections<CI, CO, HI, HO> {
+class TreeMapperForLeavesAndCollections<CI, CO, HI, HO, TI, TO> {
     content: ContentMapper<CI, CO>
     hint: HintMapper<HI, HO>
-    array: ArrayMapper<CI, CO, HI, HO>
+    tags: TagsMapper<TI, TO>
+    array: ArrayMapper<CI, CO, HI, HO, TI, TO>
 
     constructor(
         content: ContentMapper<CI, CO>,
         hint: HintMapper<HI, HO>,
-        array: ArrayMapper<CI, CO, HI, HO>
+        tags: TagsMapper<TI, TO>,
+        array: ArrayMapper<CI, CO, HI, HO, TI, TO>
     ) {
         this.content = content;
         this.hint = hint;
+        this.tags = tags;
         this.array = array;
     }
 
     setArrayMapper(
-        newArrayMapper: ArrayMapper<CI, CO, HI, HO>
-    ): TreeMapperForLeavesAndCollections<CI, CO, HI, HO> {
+        newArrayMapper: ArrayMapper<CI, CO, HI, HO, TI, TO>
+    ): TreeMapperForLeavesAndCollections<CI, CO, HI, HO, TI, TO> {
         return new TreeMapperForLeavesAndCollections(
-            this.content, this.hint, newArrayMapper);
+            this.content, this.hint, this.tags, newArrayMapper);
     }
 
-    mapTree(tree: Tree<CI, HI>, shape: Shape): Tree<CO, HO> {
+    mapTree(tree: Tree<CI, HI, TI>, shape: Shape): Tree<CO, HO, TO> {
         return mapTree(tree, shape, [], this);
     }
 }
@@ -199,23 +219,24 @@ function identity<T>(x: T): T {
 /**
  * Return a new TreeMapper that will perform a no-op transformation on an input
  * tree. To make it useful, chain any combination of `setContentMapper`,
- * `setHintMapper`, and `setArrayMapper` to specify transformations for the
- * individual node types.
+ * `setHintMapper`, `setTagMapper`, and `setArrayMapper` to specify
+ * transformations for the individual node types.
  */
-function buildMapper<C, C, H, H>(): TreeMapperJustForLeaves<C, C, H, H> {
-    return new TreeMapperJustForLeaves(identity, identity);
+function buildMapper<C, C, H, H, T, T>(
+): TreeMapperJustForLeaves<C, C, H, H, T, T> {
+    return new TreeMapperJustForLeaves(identity, identity, identity);
 }
 
 /**
  * Copy the given tree, apply the corresponding transformation specified in the
  * TreeMapper to each node, and return the resulting tree.
  */
-function mapTree<CI, CO, HI, HO>(
-    tree: Tree<CI, HI>,
+function mapTree<CI, CO, HI, HO, TI, TO>(
+    tree: Tree<CI, HI, TI>,
     shape: Shape,
     path: Path,
-    mappers: TreeMapper<CI, CO, HI, HO>
-): Tree<CO, HO> {
+    mappers: TreeMapper<CI, CO, HI, HO, TI, TO>
+): Tree<CO, HO, TO> {
     // We trust the shape of the multi-item to match the shape provided at
     // runtime. Therefore, in each shape branch, we cast the node to `any` and
     // reinterpret it as the expected node type.
@@ -225,8 +246,11 @@ function mapTree<CI, CO, HI, HO>(
     } else if (shape.type === "hint") {
         const hint: HI = (tree: any);
         return mappers.hint(hint, shape, path);
+    } else if (shape.type === "tags") {
+        const tags: TI = (tree: any);
+        return mappers.tags(tags, shape, path);
     } else if (shape.type === "array") {
-        const array: ArrayNode<CI, HI> = (tree: any);
+        const array: ArrayNode<CI, HI, TI> = (tree: any);
 
         if (!Array.isArray(array)) {
             throw new Error(
@@ -234,14 +258,13 @@ function mapTree<CI, CO, HI, HO>(
                 `${["<root>"].concat(path).join(".")}. Expected array.`);
         }
 
-        // TODO(mdr): Flow fails if I inline the expression shape.elementShape?
         const elementShape = shape.elementShape;
-        const mappedElements: ArrayNode<CO, HO> =
+        const mappedElements: ArrayNode<CO, HO, TO> =
             array.map((inner, i) =>
                 mapTree(inner, elementShape, path.concat(i), mappers));
         return mappers.array(mappedElements, array, shape, path);
     } else if (shape.type === "object") {
-        const object: ObjectNode<CI, HI> = (tree: any);
+        const object: ObjectNode<CI, HI, TI> = (tree: any);
 
         if (object && typeof object !== "object") {
             throw new Error(
@@ -250,7 +273,6 @@ function mapTree<CI, CO, HI, HO>(
                 `"object" type.`);
         }
 
-        // TODO(mdr): Flow fails if I inline the expression shape.shape?
         const valueShapes = shape.shape;
         if (!valueShapes) {
             throw new Error(
@@ -259,7 +281,7 @@ function mapTree<CI, CO, HI, HO>(
         }
         const newObject = {};
         Object.keys(valueShapes).forEach(key => {
-            if (!object[key]) {
+            if (!(key in object)) {
                 throw new Error(
                     `Key "${key}" is missing from shape at path ` +
                     `${["<root>"].concat(path).join(".")}.`);
