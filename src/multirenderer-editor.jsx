@@ -16,8 +16,7 @@ const InlineIcon = require("./components/inline-icon.jsx");
 const JsonEditor = require("./json-editor.jsx");
 const SimpleButton = require("./simple-button.jsx");
 const {MultiRenderer} = require("./multi-items.js");
-const {buildEmptyItemTreeForShape, itemToTree} =
-    require("./multi-items/items.js");
+const {buildEmptyItemTreeForShape, itemToTree} = require("./multi-items/items.js");
 const {shapePropType} = require("./multi-items/prop-type-builders.js");
 
 const EDITOR_MODES = ["edit", "preview", "json"];

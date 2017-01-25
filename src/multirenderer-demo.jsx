@@ -7,8 +7,7 @@ const React = require("react");
 
 const MultiRendererEditor = require("./multirenderer-editor.jsx");
 const Util = require("./util.js");
-const {buildEmptyItemForShape, MultiRenderer, shapes} =
-    require("./multi-items.js");
+const {buildEmptyItemForShape, MultiRenderer, shapes} = require("./multi-items.js");
 
 const DemoLayout = React.createClass({
     propTypes: {
@@ -138,7 +137,7 @@ const MultiRendererDemo = React.createClass({
         this.setState(newState);
     },
 
-    _getItemHash: function() {
+    _getContentHash: function() {
         return Util.strongEncodeURIComponent(
             // TODO(emily): this.editor.serialize()
             JSON.stringify(this.state.item)
@@ -146,7 +145,7 @@ const MultiRendererDemo = React.createClass({
     },
 
     handlePermalink(e) {
-        window.location.hash = `content=${this._getItemHash()}`;
+        window.location.hash = `content=${this._getContentHash()}`;
         e.preventDefault();
     },
 
