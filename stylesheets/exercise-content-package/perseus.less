@@ -787,6 +787,7 @@
 }
 
 @satTopSpacingForTwoColumnLayout: 48px;
+@satTwoColumnLayoutSideMargin: 32px;
 
 // #sat-mission (below) matches when we're inside the SAT MVP product,
 // basically internal-only and in flux.
@@ -900,6 +901,7 @@
                         padding-top: @satTopSpacingForTwoColumnLayout;
                         padding-bottom: 22px;
                         padding-left: 46px;
+                        padding-right: @satTwoColumnLayoutSideMargin;
                     }
 
                     .perseus-widget-passage-container {
@@ -931,8 +933,8 @@
 
                 &:nth-child(2) {
                     .perseus-column-content {
-                        padding-left: 32px;
-                        padding-right: 32px;
+                        padding-left: @satTwoColumnLayoutSideMargin;
+                        padding-right: @satTwoColumnLayoutSideMargin;
                     }
 
                     .perseus-group {
