@@ -16,11 +16,11 @@ build: install
 	echo '/*! Perseus | http://github.com/Khan/perseus */' > $(PERSEUS_BUILD_JS)
 	echo "// commit `git rev-parse HEAD`" >> $(PERSEUS_BUILD_JS)
 	echo "// branch `git rev-parse --abbrev-ref HEAD`" >> $(PERSEUS_BUILD_JS)
-	./node_modules/.bin/browserify src/perseus.js -s Perseus -t reactiscriptsixify >> $(PERSEUS_BUILD_JS)
+	./node_modules/.bin/browserify src/perseus.js -s Perseus -t babelify >> $(PERSEUS_BUILD_JS)
 	./node_modules/.bin/lessc stylesheets/exercise-content-package/perseus.less $(PERSEUS_BUILD_CSS)
 
 server: install
-	./node_modules/.bin/beefy src/perseus.js test/test.js $(PORT) -- -s Perseus -t reactiscriptsixify -d
+	./node_modules/.bin/beefy src/perseus.js test/test.js $(PORT) -- -s Perseus -t babelify -d
 
 demo:
 	git checkout gh-pages

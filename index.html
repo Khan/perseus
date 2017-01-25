@@ -41,7 +41,8 @@ add hint button ends up touching the bottom of the page). -->
 <script src="lib/jquery.js"></script>
 <script src="lib/underscore.js"></script>
 <script src="lib/marked.js"></script>
-<script src="lib/react-with-addons.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-with-addons.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.js"></script>
 <script src="lib/rcss.js"></script>
 <script src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML-full&amp;delayStartupUntil=configured"></script>
 <script src="lib/katex/katex.js"></script>
@@ -74,7 +75,6 @@ add hint button ends up touching the bottom of the page). -->
             disable: function() {}
         }
     };
-    React.initializeTouchEvents(true);
 </script>
 
 <script src="ke/local-only/jed.js"></script>
@@ -203,8 +203,9 @@ Perseus.init({skipMathJax: false}).then(function() {
             }
         }
     });
-    editor = React.renderComponent(
-        Perseus.StatefulEditorPage(editorProps, null),
+    var StatefulEditorPage = React.createFactory(Perseus.StatefulEditorPage);
+    editor = ReactDOM.render(
+        StatefulEditorPage(editorProps, null),
         document.getElementById("perseus-container")
     );
     // Some hacks to make debugging nicer

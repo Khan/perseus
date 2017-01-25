@@ -2,12 +2,17 @@
   "name": "perseus",
   "version": "0.0.1",
   "scripts": {
-    "start": "./node_modules/.bin/beefy src/editor-page-shim.js test/test.js 9000 -- -t reactiscriptsixify -d",
+    "start": "./node_modules/.bin/beefy src/editor-page-shim.js test/test.js 9000 -- -t babelify -d",
     "test": "jest"
   },
   "devDependencies": {
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-react": "^6.22.0",
+    "babel-preset-stage-2": "^6.22.0",
+    "babelify": "^7.3.0",
     "beefy": "~0.6.0",
     "browserify": "^13.0.0",
+    "classnames": "2.2.5",
     "jest-cli": "~0.1.15",
     "jsdom": "^0.10.5",
     "less": "~1.7.0",
@@ -15,9 +20,7 @@
     "node-jsx": "^0.10.0",
     "react-components": "0.1.1",
     "react-tools": "0.10.0",
-    "reactiscriptsixify": "~0.8.2",
-    "requirejs": "~2.1.11",
-    "classnames": "2.2.5"
+    "requirejs": "~2.1.11"
   },
   "repository": {
     "type": "git",
