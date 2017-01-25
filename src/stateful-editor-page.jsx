@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var React = require('react');
 var EditorPage = require("./editor-page.jsx");
 
@@ -12,7 +10,7 @@ var EditorPage = require("./editor-page.jsx");
  */
 var StatefulEditorPage = React.createClass({
     render: function() {
-        return EditorPage(this.state);
+        return <EditorPage {...this.state} />;
     },
     getInitialState: function() {
         return _({}).extend(this.props, {

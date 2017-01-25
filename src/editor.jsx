@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var React = require('react');
 var PropCheckBox = require("./components/prop-check-box.jsx");
 var Util = require("./util.js");

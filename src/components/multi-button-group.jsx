@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var React = require('react');
 
 /* MultiButtonGroup is an aesthetically pleasing group of buttons,

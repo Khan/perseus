@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var React        = require('react');
 var Changeable   = require("../mixins/changeable.jsx");
 var JsonifyProps = require("../mixins/jsonify-props.jsx");
@@ -332,7 +330,7 @@ var MeasurerEditor = React.createClass({
     }
 });
 
-propUpgrades = {
+var propUpgrades = {
     1: (v0props) => {
         var v1props = _(v0props).chain()
             .omit("imageUrl", "imageTop", "imageLeft")

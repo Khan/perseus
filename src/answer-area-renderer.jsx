@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var React = require('react');
 var Renderer = require("./renderer.jsx");
 var QuestionParagraph = require("./question-paragraph.jsx");

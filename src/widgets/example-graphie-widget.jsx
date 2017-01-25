@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 /**
  * This is an example graphie-using widget
  *

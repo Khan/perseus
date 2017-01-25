@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var React = require('react');
 var AnswerAreaRenderer = require("./answer-area-renderer.jsx");
 var HintRenderer = require("./hint-renderer.jsx");

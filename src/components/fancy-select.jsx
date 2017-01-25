@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 /**
  * A <select> component rendered with classes instead of natively,
  * so that the classes may be styled/animated/magics

@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var diff = require("../../lib/jsdiff");
 var splitDiff = require("./split-diff.jsx");
 var stringArrayDiff = require("./string-array-diff.jsx");

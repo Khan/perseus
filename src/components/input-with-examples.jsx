@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var React = require('react');
 var Tooltip = require("react-components/tooltip");
 var ApiClassNames = require("../perseus-api.jsx").ClassNames;

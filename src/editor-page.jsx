@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var React = require('react');
 var CombinedHintsEditor = require("./hint-editor.jsx");
 var EnabledFeatures = require("./enabled-features.jsx");

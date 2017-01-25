@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var TextInput = React.createClass({
     propTypes: {
         value: React.PropTypes.string,

@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 /**
  * This is an iframe widget. It is used for rendering an iframe that
  *  then communicates its state via window.postMessage

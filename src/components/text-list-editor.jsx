@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var textWidthCache = {};
 function getTextWidth(text) {
     if (!textWidthCache[text]) {

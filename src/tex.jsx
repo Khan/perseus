@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 /**
  * For math rendered using MathJax. Use me like <TeX>2x + 3</TeX>.
  */

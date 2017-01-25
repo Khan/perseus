@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var React   = require("react");
 var InfoTip = require("react-components/info-tip");
 var Tooltip = require("react-components/tooltip");
