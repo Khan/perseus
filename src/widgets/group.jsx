@@ -2,6 +2,7 @@
 /* eslint-disable comma-dangle, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
+var classNames = require("classnames");
 var React = require("react");
 var _ = require("underscore");
 
@@ -77,9 +78,19 @@ var Group = React.createClass({
             }
         };
 
+        var score = this.refs.renderer && this.refs.renderer.score();
+        var isValid = score && score.type !== "invalid";
+        var isInvalid = score && score.type === "invalid";
+
         // TODO(mdr): Widgets inside this Renderer are not discoverable through
         //     the parent Renderer's `findWidgets` function.
-        return <div className="perseus-group">
+        return <div
+            className={classNames({
+                "perseus-group": true,
+                "perseus-group-valid-answer": isValid,
+                "perseus-group-invalid-answer": isInvalid,
+            })}
+        >
             {problemNumComponent}
             <Renderer
                 {...this.props}

@@ -968,17 +968,19 @@
         }
     }
 
-    .valid-answer {
+    .valid-answer-mixin() {
         input[type=text]:valid, input[type=number]:valid {
             border: 1px solid @satBlue;
             background: @satSelectedBackgroundColor;
+            color: initial;
 
             &:focus {
                 box-shadow: 0 0 10px fade(@satBlue, 80%);
             }
         }
     }
-    .invalid-answer {
+
+    .invalid-answer-mixin() {
         input[type=text]:valid, input[type=number]:valid {
             color: @satIncorrectColor;
             background-color: @satIncorrectBackgroundColor;
@@ -988,6 +990,37 @@
                 box-shadow: 0 0 10px fade(@satIncorrectBorderColor, 80%);
             }
         }
+    }
+
+    // If a textbox appears inside a Perseus group widget, then the group
+    // widget's validity should override the item's validity when styling that
+    // item.
+    //
+    // That is, if a group widget is valid, but the item as a whole is
+    // invalid, inputs inside the valid group widget should still render as
+    // valid.
+    //
+    // This is implemented as a mixin and mixed into .valid-answer and
+    // .invalid-answer, in order to ensure that there's no ambiguity as to
+    // which selector takes precedence. Additionally, this ensures that these
+    // styles will only be applied when validity is relevant to the user (i.e.
+    // not in review mode).
+    .perseus-group-validity-override() {
+        .perseus-group-valid-answer {
+            .valid-answer-mixin();
+        }
+        .perseus-group-invalid-answer {
+            .invalid-answer-mixin();
+        }
+    }
+
+    .valid-answer {
+        .valid-answer-mixin();
+        .perseus-group-validity-override();
+    }
+    .invalid-answer {
+        .invalid-answer-mixin();
+        .perseus-group-validity-override();
     }
 
     #sat-route-task, #sat-route-section {
