@@ -798,7 +798,14 @@
         margin-left: auto;
         margin-right: auto;
         width: @satContentWidth;
-
+        .perseus-input-with-label {
+            display: flex;
+            align-items: center;
+            .perseus-input-label {
+                font-weight: 600;
+                padding-right: 10px;
+            }
+        }
         .perseus-input-with-answer-blurb {
             // numeric-inputs widgets use labels whereas input-number widgets
             // use spans.

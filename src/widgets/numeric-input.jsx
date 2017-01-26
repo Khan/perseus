@@ -157,6 +157,19 @@ var NumericInput = React.createClass({
                     {input}
                     {answerBlurb}
                 </span>;
+            } else if (this.props.apiOptions.satStyling) {
+                // NOTE(amy): the input widgets themselves already have
+                // a default aria label of "Your Answer", so we hide this
+                // redundant label from screen-readers.
+                return <label
+                    className="perseus-input-with-label"
+                    aria-hidden="true"
+                >
+                    <span className="perseus-input-label">
+                        {i18n.i18nDoNotTranslate("Answer:")}
+                    </span>
+                    {input}
+                </label>;
             } else {
                 return input;
             }
