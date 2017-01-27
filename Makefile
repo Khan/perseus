@@ -19,7 +19,7 @@ build: install
 	./node_modules/.bin/browserify src/perseus.js -s Perseus -t babelify >> $(PERSEUS_BUILD_JS)
 	./node_modules/.bin/lessc stylesheets/exercise-content-package/perseus.less $(PERSEUS_BUILD_CSS)
 
-server: install
+server: 
 	./node_modules/.bin/beefy src/perseus.js test/test.js $(PORT) -- -s Perseus -t babelify -d
 
 demo:

@@ -41,8 +41,6 @@ add hint button ends up touching the bottom of the page). -->
 <script src="lib/jquery.js"></script>
 <script src="lib/underscore.js"></script>
 <script src="lib/marked.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-with-addons.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.js"></script>
 <script src="lib/rcss.js"></script>
 <script src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML-full&amp;delayStartupUntil=configured"></script>
 <script src="lib/katex/katex.js"></script>
@@ -50,7 +48,7 @@ add hint button ends up touching the bottom of the page). -->
 <script src="lib/kas.js"></script>
 
 <script>
-    var icu = {
+    window.icu = {
         getDecimalFormatSymbols: function() {
             return {
                 decimal_separator: ".",
@@ -59,13 +57,13 @@ add hint button ends up touching the bottom of the page). -->
             };
         }
     };
-    var KhanUtil = {
+    window.KhanUtil = {
         debugLog: function() {},
         localeToFixed: function(num, precision) {
             return num.toFixed(precision);
         }
     };
-    var Khan = {
+    window.Khan = {
         Util: KhanUtil,
         error: function() {},
         query: {debug: ""},
@@ -81,24 +79,25 @@ add hint button ends up touching the bottom of the page). -->
 <script src="ke/local-only/i18n.js"></script>
 <script src="ke/local-only/jquery.qtip.js"></script>
 <script src="ke/exercises-stub.js"></script>
-<script src="ke/local-only/require.js"></script>
+<script src="ke/utils/tex.js"></script>
+<script src="ke/utils/crc32.js"></script>
+<script src="ke/utils/tmpl.js"></script>
+<script src="ke/utils/answer-types.js"></script>
+<script src="ke/utils/raphael.js"></script>
+<script src="ke/utils/graphie.js"></script>
+<script src="ke/utils/knumber.js"></script>
+<script src="ke/utils/kvector.js"></script>
+<script src="ke/utils/kpoint.js"></script>
+<script src="ke/utils/kline.js"></script>
+<script src="ke/utils/kray.js"></script>
+<script src="ke/utils/interactive.js"></script>
+<script src="ke/utils/math.js"></script>
 
 <script>
-(function() {
-requirejs.config({
-    waitSeconds: 120
+$(function() {
+	initPerseus();
 });
-// Load khan-exercises modules, then perseus
-require(["ke-deps.js"], function() {
-    // pre built
-    require(["build/perseus-1.js"], initPerseus);
-    // pre built with source maps
-    // require(["build/perseus.debug.js"], initPerseus);
-    // built on demand
-    // require(["src/perseus.js"], initPerseus);
-});
-function initPerseus(Perseus) {
-window.Perseus = Perseus;
+function initPerseus() {
 var defaultQuestion = {
     "question": {
         "content": "[[☃ example-graphie-widget 1]]",
@@ -216,8 +215,8 @@ Perseus.init({skipMathJax: false}).then(function() {
     console.error(err);
 });
 }
-})();
 </script>
+<script src="build/perseus-1.js"></script>
 
 </body>
 </html>
