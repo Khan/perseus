@@ -1,5 +1,5 @@
 var React = require('react');
-var InfoTip = require("react-components/info-tip");
+var InfoTip = require("react-components/js/info-tip.jsx");
 var FancySelect = require("../components/fancy-select.jsx");
 var FancyOption = FancySelect.Option;
 

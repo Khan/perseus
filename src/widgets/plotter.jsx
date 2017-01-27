@@ -1,5 +1,5 @@
 var React = require('react');
-var InfoTip = require("react-components/info-tip");
+var InfoTip = require("react-components/js/info-tip.jsx");
 var NumberInput = require("../components/number-input.jsx");
 var TextListEditor = require("../components/text-list-editor.jsx");
 var RangeInput = require("../components/range-input.jsx");

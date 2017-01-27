@@ -1,5 +1,5 @@
-var BlurInput    = require("react-components/blur-input");
-var InfoTip      = require("react-components/info-tip");
+var BlurInput    = require("react-components/js/blur-input.jsx");
+var InfoTip      = require("react-components/js/info-tip.jsx");
 
 var Changeable   = require("../mixins/changeable.jsx");
 var JsonifyProps = require("../mixins/jsonify-props.jsx");

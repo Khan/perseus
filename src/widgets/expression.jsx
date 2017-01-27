@@ -1,6 +1,6 @@
 var React   = require("react");
-var InfoTip = require("react-components/info-tip");
-var Tooltip = require("react-components/tooltip");
+var InfoTip = require("react-components/js/info-tip.jsx");
+var Tooltip = require("react-components/js/tooltip.jsx");
 
 var Changeable   = require("../mixins/changeable.jsx");
 var JsonifyProps = require("../mixins/jsonify-props.jsx");
@@ -150,7 +150,7 @@ var Expression = React.createClass({
             </span>;
         }
     },
-    
+
     handleChange: function(newValue) {
         this.props.onChange({ value: Util.asc(newValue) });
     },
@@ -366,7 +366,7 @@ var ExpressionEditor = React.createClass({
                     chineseName = "其他";
             };
 
-            return <div> 
+            return <div>
              <label className={className} key={name}>
                 <input type="checkbox"
                        checked={checked}

@@ -1,13 +1,13 @@
 var React = require('react');
 var Changeable  = require("../mixins/changeable.jsx");
 
-var ButtonGroup = require("react-components/button-group");
-var InfoTip     = require("react-components/info-tip");
+var ButtonGroup = require("react-components/js/button-group.jsx");
+var InfoTip     = require("react-components/js/info-tip.jsx");
 var NumberInput = require("../components/number-input.jsx");
 var PropCheckBox = require("../components/prop-check-box.jsx");
 var RangeInput = require("../components/range-input.jsx");
 var Util = require("../util.js");
-var BlurInput = require("react-components/blur-input");
+var BlurInput = require("react-components/js/blur-input.jsx");
 
 var defaultBoxSize = 400;
 var defaultBackgroundImage = {
