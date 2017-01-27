@@ -76,7 +76,7 @@ webpackJsonpPerseus([1],[
 
 	var classNames = __webpack_require__(13);
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(82);
 
 	var WidgetJsonifyDeprecated = __webpack_require__(98);
 
@@ -86,17 +86,17 @@ webpackJsonpPerseus([1],[
 
 	var ApiOptions = __webpack_require__(18).Options;
 
-	var _require2 = __webpack_require__(85), iconCircle = _require2.iconCircle, iconCircleThin = _require2.iconCircleThin;
+	var _require2 = __webpack_require__(86), iconCircle = _require2.iconCircle, iconCircleThin = _require2.iconCircleThin;
 
-	var InlineIcon = __webpack_require__(82);
+	var InlineIcon = __webpack_require__(83);
 
 	var Renderer = __webpack_require__(8);
 
 	var Util = __webpack_require__(17);
 
-	var mediaQueries = __webpack_require__(35);
+	var mediaQueries = __webpack_require__(36);
 
-	var sharedStyles = __webpack_require__(36);
+	var sharedStyles = __webpack_require__(37);
 
 	var Categorizer = React.createClass({
 	    displayName: "Categorizer",
@@ -299,7 +299,7 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(82);
 
 	var updateQueryString = __webpack_require__(17).updateQueryString;
 
@@ -477,11 +477,11 @@ webpackJsonpPerseus([1],[
 
 	var ApiOptions = __webpack_require__(18).Options;
 
-	var InlineIcon = __webpack_require__(82);
+	var InlineIcon = __webpack_require__(83);
 
-	var styleConstants = __webpack_require__(37);
+	var styleConstants = __webpack_require__(38);
 
-	var _require2 = __webpack_require__(85), iconDropdownArrow = _require2.iconDropdownArrow;
+	var _require2 = __webpack_require__(86), iconDropdownArrow = _require2.iconDropdownArrow;
 
 	var captureScratchpadTouchStart = __webpack_require__(17).captureScratchpadTouchStart;
 
@@ -641,15 +641,15 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(82);
 
 	var PerseusApi = __webpack_require__(18);
 
 	var Renderer = __webpack_require__(8);
 
-	var mediaQueries = __webpack_require__(35);
+	var mediaQueries = __webpack_require__(36);
 
-	var styleConstants = __webpack_require__(37);
+	var styleConstants = __webpack_require__(38);
 
 	var defaultExplanationProps = {
 	    showPrompt: "Explain",
@@ -867,13 +867,13 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var Interactive2 = __webpack_require__(99);
+	var Interactive2 = __webpack_require__(100);
 
 	var SvgImage = __webpack_require__(33);
 
 	var Util = __webpack_require__(17);
 
-	var ButtonGroup = __webpack_require__(100);
+	var ButtonGroup = __webpack_require__(101);
 
 	/* Graphie and relevant components. */
 	var Graphie = __webpack_require__(88);
@@ -882,7 +882,7 @@ webpackJsonpPerseus([1],[
 
 	var MovableLine = Graphie.MovableLine;
 
-	var WrappedLine = __webpack_require__(101);
+	var WrappedLine = __webpack_require__(102);
 
 	var knumber = __webpack_require__(128).number;
 
@@ -890,18 +890,18 @@ webpackJsonpPerseus([1],[
 
 	var kpoint = __webpack_require__(128).point;
 
-	var KhanColors = __webpack_require__(102);
+	var KhanColors = __webpack_require__(103);
 
 	var _require = __webpack_require__(74), containerSizeClassPropType = _require.containerSizeClassPropType;
 
-	var _require2 = __webpack_require__(37), interactiveSizes = _require2.interactiveSizes;
+	var _require2 = __webpack_require__(38), interactiveSizes = _require2.interactiveSizes;
 
 	var _require3 = __webpack_require__(74), getInteractiveBoxFromSizeClass = _require3.getInteractiveBoxFromSizeClass;
 
 	/* Mixins. */
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(82);
 
-	var _require4 = __webpack_require__(115), GrapherUtil = _require4.GrapherUtil, typeToButton = _require4.typeToButton, functionForType = _require4.functionForType, DEFAULT_GRAPHER_PROPS = _require4.DEFAULT_GRAPHER_PROPS;
+	var _require4 = __webpack_require__(117), GrapherUtil = _require4.GrapherUtil, typeToButton = _require4.typeToButton, functionForType = _require4.functionForType, DEFAULT_GRAPHER_PROPS = _require4.DEFAULT_GRAPHER_PROPS;
 
 	function isFlipped(newCoord, oldCoord, line) {
 	    var CCW = function CCW(a, b, c) {
@@ -1323,17 +1323,17 @@ webpackJsonpPerseus([1],[
 
 	var ApiOptions = __webpack_require__(18).Options;
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(82);
 
-	var _require = __webpack_require__(85), iconOk = _require.iconOk, iconRemove = _require.iconRemove;
+	var _require = __webpack_require__(86), iconOk = _require.iconOk, iconRemove = _require.iconRemove;
 
-	var InlineIcon = __webpack_require__(82);
+	var InlineIcon = __webpack_require__(83);
 
 	var Renderer = __webpack_require__(8);
 
-	var GradedGroupAnswerBar = __webpack_require__(103);
+	var GradedGroupAnswerBar = __webpack_require__(99);
 
-	var _require2 = __webpack_require__(37), gray76 = _require2.gray76, phoneMargin = _require2.phoneMargin, negativePhoneMargin = _require2.negativePhoneMargin, tableBackgroundAccent = _require2.tableBackgroundAccent, kaGreen = _require2.kaGreen;
+	var _require2 = __webpack_require__(38), gray76 = _require2.gray76, phoneMargin = _require2.phoneMargin, negativePhoneMargin = _require2.negativePhoneMargin, tableBackgroundAccent = _require2.tableBackgroundAccent, kaGreen = _require2.kaGreen;
 
 	var _require3 = __webpack_require__(14), StyleSheet = _require3.StyleSheet, css = _require3.css;
 
@@ -1643,11 +1643,11 @@ webpackJsonpPerseus([1],[
 
 	var ApiOptions = __webpack_require__(18).Options;
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(82);
 
 	var GradedGroup = __webpack_require__(46).widget;
 
-	var _require2 = __webpack_require__(37), grayLight = _require2.grayLight, gray76 = _require2.gray76, tableBackgroundAccent = _require2.tableBackgroundAccent, kaGreen = _require2.kaGreen, phoneMargin = _require2.phoneMargin, negativePhoneMargin = _require2.negativePhoneMargin;
+	var _require2 = __webpack_require__(38), grayLight = _require2.grayLight, gray76 = _require2.gray76, tableBackgroundAccent = _require2.tableBackgroundAccent, kaGreen = _require2.kaGreen, phoneMargin = _require2.phoneMargin, negativePhoneMargin = _require2.negativePhoneMargin;
 
 	var Indicators = React.createClass({
 	    displayName: "Indicators",
@@ -1845,7 +1845,7 @@ webpackJsonpPerseus([1],[
 
 	var ApiOptions = __webpack_require__(18).Options;
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(82);
 
 	var Renderer = __webpack_require__(8);
 
@@ -2007,7 +2007,7 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(82);
 
 	var WidgetJsonifyDeprecated = __webpack_require__(98);
 
@@ -2176,11 +2176,11 @@ webpackJsonpPerseus([1],[
 
 	var ApiOptions = __webpack_require__(18).Options;
 
-	var _require2 = __webpack_require__(37), baseUnitPx = _require2.baseUnitPx;
+	var _require2 = __webpack_require__(38), baseUnitPx = _require2.baseUnitPx;
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(82);
 
-	var mediaQueries = __webpack_require__(35);
+	var mediaQueries = __webpack_require__(36);
 
 	var Renderer = __webpack_require__(8);
 
@@ -2436,7 +2436,7 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(82);
 
 	var Graphie = __webpack_require__(88);
 
@@ -2891,13 +2891,13 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var Graph = __webpack_require__(110);
+	var Graph = __webpack_require__(104);
 
-	var InfoTip = __webpack_require__(111);
+	var InfoTip = __webpack_require__(105);
 
-	var Interactive2 = __webpack_require__(99);
+	var Interactive2 = __webpack_require__(100);
 
-	var NumberInput = __webpack_require__(104);
+	var NumberInput = __webpack_require__(106);
 
 	var Util = __webpack_require__(17);
 
@@ -2905,15 +2905,15 @@ webpackJsonpPerseus([1],[
 
 	var kpoint = __webpack_require__(128).point;
 
-	var KhanColors = __webpack_require__(102);
+	var KhanColors = __webpack_require__(103);
 
-	var GraphUtils = __webpack_require__(109);
+	var GraphUtils = __webpack_require__(107);
 
-	var _require = __webpack_require__(37), interactiveSizes = _require.interactiveSizes;
+	var _require = __webpack_require__(38), interactiveSizes = _require.interactiveSizes;
 
 	var _require2 = __webpack_require__(74), containerSizeClassPropType = _require2.containerSizeClassPropType, getInteractiveBoxFromSizeClass = _require2.getInteractiveBoxFromSizeClass;
 
-	var WrappedLine = __webpack_require__(101);
+	var WrappedLine = __webpack_require__(102);
 
 	var DeprecationMixin = Util.DeprecationMixin;
 
@@ -4631,7 +4631,7 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(82);
 
 	var WidgetJsonifyDeprecated = __webpack_require__(98);
 
@@ -4942,23 +4942,23 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var NumberInput = __webpack_require__(104);
+	var NumberInput = __webpack_require__(106);
 
 	var Renderer = __webpack_require__(8);
 
-	var TextInput = __webpack_require__(105);
+	var TextInput = __webpack_require__(108);
 
-	var MathOutput = __webpack_require__(106);
+	var MathOutput = __webpack_require__(109);
 
-	var SimpleKeypadInput = __webpack_require__(76);
+	var SimpleKeypadInput = __webpack_require__(77);
 
 	var ApiOptions = __webpack_require__(18).Options;
 
-	var KhanAnswerTypes = __webpack_require__(73);
+	var KhanAnswerTypes = __webpack_require__(72);
 
-	var keypadElementPropType = __webpack_require__(86).propTypes.keypadElementPropType;
+	var keypadElementPropType = __webpack_require__(75).propTypes.keypadElementPropType;
 
-	var assert = __webpack_require__(107).assert;
+	var assert = __webpack_require__(110).assert;
 
 	var stringArrayOfSize = __webpack_require__(17).stringArrayOfSize;
 
@@ -5361,17 +5361,21 @@ webpackJsonpPerseus([1],[
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var React = __webpack_require__(11);
 
+	var _require = __webpack_require__(14), StyleSheet = _require.StyleSheet, css = _require.css;
+
 	var _ = __webpack_require__(10);
 
 	var Renderer = __webpack_require__(8);
 
-	var Sortable = __webpack_require__(108);
+	var Sortable = __webpack_require__(111);
 
 	var ApiOptions = __webpack_require__(18).Options;
 
 	var shuffle = __webpack_require__(17).shuffle;
 
 	var seededRNG = __webpack_require__(17).seededRNG;
+
+	var HACKY_CSS_CLASSNAME = "perseus-widget-matcher";
 
 	var Matcher = React.createClass({
 	    displayName: "Matcher",
@@ -5414,26 +5418,22 @@ webpackJsonpPerseus([1],[
 	            height: _.max([ this.state.leftHeight, this.state.rightHeight ])
 	        };
 	        var cellMarginPx = this.props.apiOptions.isMobile ? 8 : 5;
-	        return React.createElement("div", {
-	            className: "perseus-widget-matcher"
-	        }, showLabels && React.createElement("div", {
-	            className: "perseus-clearfix"
-	        }, React.createElement("div", {
-	            className: "column"
-	        }, React.createElement("div", {
-	            className: "column-label"
+	        return React.createElement("table", {
+	            className: css(styles.widget) + " " + HACKY_CSS_CLASSNAME
+	        }, React.createElement("tbody", null, showLabels && React.createElement("tr", {
+	            className: css(styles.row)
+	        }, React.createElement("th", {
+	            className: css(styles.column, styles.columnLabel)
 	        }, React.createElement(Renderer, {
 	            content: this.props.labels[0] || "..."
-	        }))), React.createElement("div", {
-	            className: "column"
-	        }, React.createElement("div", {
-	            className: "column-label"
+	        })), React.createElement("th", {
+	            className: css(styles.column, styles.columnRight, styles.columnLabel)
 	        }, React.createElement(Renderer, {
 	            content: this.props.labels[1] || "..."
-	        })))), React.createElement("div", {
-	            className: "perseus-clearfix"
-	        }, React.createElement("div", {
-	            className: "column"
+	        }))), React.createElement("tr", {
+	            className: css(styles.row)
+	        }, React.createElement("td", {
+	            className: css(styles.column)
 	        }, React.createElement(Sortable, {
 	            options: left,
 	            layout: "vertical",
@@ -5444,8 +5444,8 @@ webpackJsonpPerseus([1],[
 	            onChange: this.changeAndTrack,
 	            margin: cellMarginPx,
 	            ref: "left"
-	        })), React.createElement("div", {
-	            className: "column"
+	        })), React.createElement("td", {
+	            className: css(styles.column, styles.columnRight)
 	        }, React.createElement(Sortable, {
 	            options: right,
 	            layout: "vertical",
@@ -5455,7 +5455,7 @@ webpackJsonpPerseus([1],[
 	            onChange: this.changeAndTrack,
 	            margin: cellMarginPx,
 	            ref: "right"
-	        }))));
+	        })))));
 	    },
 	    changeAndTrack: function changeAndTrack(e) {
 	        this.props.onChange(e);
@@ -5496,6 +5496,37 @@ webpackJsonpPerseus([1],[
 	    }
 	});
 
+	var padding = 5;
+
+	var border = "1px solid #444";
+
+	var styles = StyleSheet.create({
+	    widget: {
+	        paddingTop: padding,
+	        maxWidth: "100%",
+	        // Need to override minWidth in CSS :(
+	        minWidth: "auto"
+	    },
+	    row: {
+	        // Need to override global rules in CSS :(
+	        border: 0
+	    },
+	    column: {
+	        // TODO(benkomalo): constraint to half width?
+	        padding: 0,
+	        border: 0
+	    },
+	    columnRight: {
+	        borderLeft: border
+	    },
+	    columnLabel: {
+	        fontWeight: "inherit",
+	        borderBottom: border,
+	        padding: "0 " + padding + "px " + padding + "px " + padding + "px",
+	        textAlign: "center"
+	    }
+	});
+
 	module.exports = {
 	    name: "matcher",
 	    displayName: "Two column matcher",
@@ -5519,7 +5550,7 @@ webpackJsonpPerseus([1],[
 
 	var ApiOptions = __webpack_require__(18).Options;
 
-	var GraphUtils = __webpack_require__(109);
+	var GraphUtils = __webpack_require__(107);
 
 	var defaultImage = {
 	    url: null,
@@ -5672,11 +5703,11 @@ webpackJsonpPerseus([1],[
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var React = __webpack_require__(11);
 
-	var draw = __webpack_require__(116);
+	var draw = __webpack_require__(118);
 
-	var _require = __webpack_require__(117), layout = _require.layout;
+	var _require = __webpack_require__(119), layout = _require.layout;
 
-	var SmilesParser = __webpack_require__(118);
+	var SmilesParser = __webpack_require__(120);
 
 	var parse = SmilesParser.parse;
 
@@ -5848,17 +5879,17 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(82);
 
-	var NumberInput = __webpack_require__(104);
+	var NumberInput = __webpack_require__(106);
 
-	var MathOutput = __webpack_require__(106);
+	var MathOutput = __webpack_require__(109);
 
-	var SimpleKeypadInput = __webpack_require__(76);
+	var SimpleKeypadInput = __webpack_require__(77);
 
 	var ApiOptions = __webpack_require__(18).Options;
 
-	var keypadElementPropType = __webpack_require__(86).propTypes.keypadElementPropType;
+	var keypadElementPropType = __webpack_require__(75).propTypes.keypadElementPropType;
 
 	var Graphie = __webpack_require__(88);
 
@@ -5868,15 +5899,15 @@ webpackJsonpPerseus([1],[
 
 	var knumber = __webpack_require__(128).number;
 
-	var KhanMath = __webpack_require__(79);
+	var KhanMath = __webpack_require__(80);
 
-	var KhanColors = __webpack_require__(102);
+	var KhanColors = __webpack_require__(103);
 
 	var bound = function bound(x, gt, lt) {
 	    return Math.min(Math.max(x, gt), lt);
 	};
 
-	var assert = __webpack_require__(107).assert;
+	var assert = __webpack_require__(110).assert;
 
 	var EN_DASH = "–";
 
@@ -6848,11 +6879,11 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(82);
 
 	var Renderer = __webpack_require__(8);
 
-	var PassageMarkdown = __webpack_require__(119);
+	var PassageMarkdown = __webpack_require__(121);
 
 	// A fake paragraph to measure the line height of the passage. In CSS we always
 	// set the line height to 22 pixels, but when using the browser zoom feature,
@@ -7633,7 +7664,7 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(82);
 
 	var WidgetJsonifyDeprecated = __webpack_require__(98);
 
@@ -7713,15 +7744,15 @@ webpackJsonpPerseus([1],[
 
 	var deepEq = __webpack_require__(17).deepEq;
 
-	var KhanMath = __webpack_require__(79);
+	var KhanMath = __webpack_require__(80);
 
-	var KhanColors = __webpack_require__(102);
+	var KhanColors = __webpack_require__(103);
 
-	var GraphUtils = __webpack_require__(109);
+	var GraphUtils = __webpack_require__(107);
 
-	var Interactive2 = __webpack_require__(99);
+	var Interactive2 = __webpack_require__(100);
 
-	var WrappedLine = __webpack_require__(101);
+	var WrappedLine = __webpack_require__(102);
 
 	var BAR = "bar", LINE = "line", PIC = "pic", HISTOGRAM = "histogram", DOTPLOT = "dotplot";
 
@@ -8564,11 +8595,11 @@ webpackJsonpPerseus([1],[
 
 	var ApiOptions = __webpack_require__(18).Options;
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(82);
 
-	var _require = __webpack_require__(85), iconOk = _require.iconOk;
+	var _require = __webpack_require__(86), iconOk = _require.iconOk;
 
-	var InlineIcon = __webpack_require__(82);
+	var InlineIcon = __webpack_require__(83);
 
 	var Renderer = __webpack_require__(8);
 
@@ -8695,7 +8726,7 @@ webpackJsonpPerseus([1],[
 	/* eslint-disable comma-dangle, indent, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp, space-unary-ops */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	/* globals $_, i18n */
-	var InfoTip = __webpack_require__(111);
+	var InfoTip = __webpack_require__(105);
 
 	var React = __webpack_require__(11);
 
@@ -8703,19 +8734,19 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(82);
 
 	var ApiOptions = __webpack_require__(18).Options;
 
-	var assert = __webpack_require__(107).assert;
+	var assert = __webpack_require__(110).assert;
 
 	var Graphie = __webpack_require__(88);
 
 	var Path = Graphie.Path, Arc = Graphie.Arc, Circle = Graphie.Circle, Label = Graphie.Label, Line = Graphie.Line, MovablePoint = Graphie.MovablePoint, MovableLine = Graphie.MovableLine;
 
-	var NumberInput = __webpack_require__(104);
+	var NumberInput = __webpack_require__(106);
 
-	var MathOutput = __webpack_require__(106);
+	var MathOutput = __webpack_require__(109);
 
 	var seededRNG = __webpack_require__(17).seededRNG;
 
@@ -8723,9 +8754,9 @@ webpackJsonpPerseus([1],[
 
 	var knumber = __webpack_require__(128).number;
 
-	var KhanColors = __webpack_require__(102);
+	var KhanColors = __webpack_require__(103);
 
-	var KhanMath = __webpack_require__(79);
+	var KhanMath = __webpack_require__(80);
 
 	var defaultBoxSize = 400;
 
@@ -9286,7 +9317,7 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var Sortable = __webpack_require__(108);
+	var Sortable = __webpack_require__(111);
 
 	var ApiOptions = __webpack_require__(18).Options;
 
@@ -9376,7 +9407,7 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var MathOutput = __webpack_require__(106);
+	var MathOutput = __webpack_require__(109);
 
 	var Renderer = __webpack_require__(8);
 
@@ -9384,9 +9415,9 @@ webpackJsonpPerseus([1],[
 
 	var ApiOptions = __webpack_require__(18).Options;
 
-	var KhanAnswerTypes = __webpack_require__(73);
+	var KhanAnswerTypes = __webpack_require__(72);
 
-	var assert = __webpack_require__(107).assert;
+	var assert = __webpack_require__(110).assert;
 
 	/* Input handling: Maps a (row, column) pair to a unique ref used by React,
 	 * and extracts (row, column) pairs from input paths, used to allow outsiders
@@ -9661,21 +9692,21 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var Graph = __webpack_require__(110);
+	var Graph = __webpack_require__(104);
 
-	var InlineIcon = __webpack_require__(82);
+	var InlineIcon = __webpack_require__(83);
 
-	var NumberInput = __webpack_require__(104);
+	var NumberInput = __webpack_require__(106);
 
-	var MathOutput = __webpack_require__(106);
+	var MathOutput = __webpack_require__(109);
 
 	var TeX = __webpack_require__(39);
 
-	var SimpleKeypadInput = __webpack_require__(76);
+	var SimpleKeypadInput = __webpack_require__(77);
 
 	var ApiOptions = __webpack_require__(18).Options;
 
-	var keypadElementPropType = __webpack_require__(86).propTypes.keypadElementPropType;
+	var keypadElementPropType = __webpack_require__(75).propTypes.keypadElementPropType;
 
 	var ROTATE_SNAP_DEGREES = 15;
 
@@ -9689,7 +9720,7 @@ webpackJsonpPerseus([1],[
 
 	var REFLECT_BUTTON_SIZE = 1;
 
-	var _require = __webpack_require__(85), iconPlus = _require.iconPlus, iconUndo = _require.iconUndo;
+	var _require = __webpack_require__(86), iconPlus = _require.iconPlus, iconUndo = _require.iconUndo;
 
 	var deepEq = __webpack_require__(17).deepEq;
 
@@ -9707,11 +9738,11 @@ webpackJsonpPerseus([1],[
 
 	var kline = __webpack_require__(128).line;
 
-	var KhanMath = __webpack_require__(79);
+	var KhanMath = __webpack_require__(80);
 
-	var KhanColors = __webpack_require__(102);
+	var KhanColors = __webpack_require__(103);
 
-	var assert = __webpack_require__(107).assert;
+	var assert = __webpack_require__(110).assert;
 
 	var defaultBoxSize = 400;
 
@@ -11677,9 +11708,9 @@ webpackJsonpPerseus([1],[
 
 	var ApiOptions = __webpack_require__(18).Options;
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(82);
 
-	var MathOutput = __webpack_require__(106);
+	var MathOutput = __webpack_require__(109);
 
 	var _require = __webpack_require__(112), SignificantFigures = _require.SignificantFigures, displaySigFigs = _require.displaySigFigs;
 
@@ -11915,7 +11946,7 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(82);
 
 	var FixedToResponsive = __webpack_require__(87);
 
@@ -12027,99 +12058,7 @@ webpackJsonpPerseus([1],[
 /* 96 */,
 /* 97 */,
 /* 98 */,
-/* 99 */,
-/* 100 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, indent, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var React = __webpack_require__(11);
-
-	var ReactDOM = __webpack_require__(12);
-
-	var _ = __webpack_require__(10);
-
-	var styles = __webpack_require__(130);
-
-	var css = __webpack_require__(14).css;
-
-	/* ButtonGroup is an aesthetically pleasing group of buttons.
-	 *
-	 * The class requires these properties:
-	 *   buttons - an array of objects with keys:
-	 *     "value": this is the value returned when the button is selected
-	 *     "content": this is the JSX shown within the button, typically a string
-	 *         that gets rendered as the button's display text
-	 *     "title": this is the title-text shown on hover
-	 *   onChange - a function that is provided with the updated value
-	 *     (which it then is responsible for updating)
-	 *
-	 * The class has these optional properties:
-	 *   value - the initial value of the button selected, defaults to null.
-	 *   allowEmpty - if false, exactly one button _must_ be selected; otherwise
-	 *     it defaults to true and _at most_ one button (0 or 1) may be selected.
-	 *
-	 * Requires stylesheets/perseus-admin-package/editor.less to look nice.
-	 */
-	var ButtonGroup = React.createClass({
-	    displayName: "ButtonGroup",
-	    propTypes: {
-	        value: React.PropTypes.any,
-	        buttons: React.PropTypes.arrayOf(React.PropTypes.shape({
-	            value: React.PropTypes.any.isRequired,
-	            content: React.PropTypes.node,
-	            title: React.PropTypes.string
-	        })).isRequired,
-	        onChange: React.PropTypes.func.isRequired,
-	        allowEmpty: React.PropTypes.bool
-	    },
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            value: null,
-	            allowEmpty: true
-	        };
-	    },
-	    render: function render() {
-	        var _this = this;
-	        var value = this.props.value;
-	        var buttons = _(this.props.buttons).map(function(button, i) {
-	            return React.createElement("button", {
-	                title: button.title,
-	                type: "button",
-	                id: "" + i,
-	                ref: "button" + i,
-	                key: "" + i,
-	                className: css(styles.button.buttonStyle, button.value === value && styles.button.selectedStyle),
-	                onClick: _this.toggleSelect.bind(_this, button.value)
-	            }, button.content || "" + button.value);
-	        });
-	        var outerStyle = {
-	            display: "inline-block"
-	        };
-	        return React.createElement("div", {
-	            style: outerStyle
-	        }, buttons);
-	    },
-	    focus: function focus() {
-	        ReactDOM.findDOMNode(this).focus();
-	        return true;
-	    },
-	    toggleSelect: function toggleSelect(newValue) {
-	        var value = this.props.value;
-	        this.props.allowEmpty ? // Select the new button or unselect if it's already selected
-	        this.props.onChange(value !== newValue ? newValue : null) : this.props.onChange(newValue);
-	    }
-	});
-
-	module.exports = ButtonGroup;
-
-/***/ },
-/* 101 */,
-/* 102 */,
-/* 103 */
+/* 99 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12140,11 +12079,11 @@ webpackJsonpPerseus([1],[
 
 	var ApiOptions = __webpack_require__(18).Options;
 
-	var InlineIcon = __webpack_require__(82);
+	var InlineIcon = __webpack_require__(83);
 
-	var _require = __webpack_require__(85), iconStar = _require.iconStar, iconTryAgain = _require.iconTryAgain;
+	var _require = __webpack_require__(86), iconStar = _require.iconStar, iconTryAgain = _require.iconTryAgain;
 
-	var _require2 = __webpack_require__(37), boldFontFamily = _require2.boldFontFamily, gray68 = _require2.gray68, gray76 = _require2.gray76, gray85 = _require2.gray85, gray95 = _require2.gray95, kaGreen = _require2.kaGreen, phoneMargin = _require2.phoneMargin, negativePhoneMargin = _require2.negativePhoneMargin;
+	var _require2 = __webpack_require__(38), boldFontFamily = _require2.boldFontFamily, gray68 = _require2.gray68, gray76 = _require2.gray76, gray85 = _require2.gray85, gray95 = _require2.gray95, kaGreen = _require2.kaGreen, phoneMargin = _require2.phoneMargin, negativePhoneMargin = _require2.negativePhoneMargin;
 
 	var ANSWER_BAR_STATES = {
 	    // Initial state before the question is answerable.  The user must complete
@@ -12283,610 +12222,99 @@ webpackJsonpPerseus([1],[
 	module.exports = GradedGroupAnswerBar;
 
 /***/ },
-/* 104 */
+/* 100 */,
+/* 101 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var _extends = Object.assign || function(target) {
-	    for (var i = 1; i < arguments.length; i++) {
-	        var source = arguments[i];
-	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
-	    }
-	    return target;
-	};
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, max-len, no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp */
+	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, indent, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var classNames = __webpack_require__(13);
-
 	var React = __webpack_require__(11);
 
 	var ReactDOM = __webpack_require__(12);
 
 	var _ = __webpack_require__(10);
 
-	var firstNumericalParse = __webpack_require__(17).firstNumericalParse;
+	var styles = __webpack_require__(134);
 
-	var captureScratchpadTouchStart = __webpack_require__(17).captureScratchpadTouchStart;
+	var css = __webpack_require__(14).css;
 
-	var knumber = __webpack_require__(128).number;
-
-	var KhanMath = __webpack_require__(79);
-
-	var toNumericString = KhanMath.toNumericString;
-
-	var getNumericFormat = KhanMath.getNumericFormat;
-
-	/* An input box that accepts only numeric strings
+	/* ButtonGroup is an aesthetically pleasing group of buttons.
 	 *
-	 * Calls onChange(value, format) for valid numbers.
-	 * Reverts to the current value onBlur or on [ENTER],
-	 *   but maintains the format (i.e. 3/2, 1 1/2, 150%)
-	 * Accepts empty input and sends it to onChange as null
-	 *   if no numeric placeholder is set.
-	 * If given a checkValidity function, will turn
-	 *   the background/outline red when invalid
-	 * If useArrowKeys is set to true, up/down arrows will
-	 *   increment/decrement integers
-	 * Optionally takes a size ("mini", "small", "normal")
+	 * The class requires these properties:
+	 *   buttons - an array of objects with keys:
+	 *     "value": this is the value returned when the button is selected
+	 *     "content": this is the JSX shown within the button, typically a string
+	 *         that gets rendered as the button's display text
+	 *     "title": this is the title-text shown on hover
+	 *   onChange - a function that is provided with the updated value
+	 *     (which it then is responsible for updating)
+	 *
+	 * The class has these optional properties:
+	 *   value - the initial value of the button selected, defaults to null.
+	 *   allowEmpty - if false, exactly one button _must_ be selected; otherwise
+	 *     it defaults to true and _at most_ one button (0 or 1) may be selected.
+	 *
+	 * Requires stylesheets/perseus-admin-package/editor.less to look nice.
 	 */
-	var NumberInput = React.createClass({
-	    displayName: "NumberInput",
+	var ButtonGroup = React.createClass({
+	    displayName: "ButtonGroup",
 	    propTypes: {
-	        value: React.PropTypes.number,
-	        format: React.PropTypes.string,
-	        placeholder: React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.number ]),
+	        value: React.PropTypes.any,
+	        buttons: React.PropTypes.arrayOf(React.PropTypes.shape({
+	            value: React.PropTypes.any.isRequired,
+	            content: React.PropTypes.node,
+	            title: React.PropTypes.string
+	        })).isRequired,
 	        onChange: React.PropTypes.func.isRequired,
-	        onFormatChange: React.PropTypes.func,
-	        checkValidity: React.PropTypes.func,
-	        size: React.PropTypes.string,
-	        label: React.PropTypes.oneOf([ "put your labels outside your inputs!" ])
+	        allowEmpty: React.PropTypes.bool
 	    },
 	    getDefaultProps: function getDefaultProps() {
 	        return {
 	            value: null,
-	            placeholder: null,
-	            format: null,
-	            onFormatChange: function onFormatChange() {
-	                return null;
-	            },
-	            checkValidity: function checkValidity() {
-	                return true;
-	            },
-	            useArrowKeys: false
-	        };
-	    },
-	    getInitialState: function getInitialState() {
-	        return {
-	            format: this.props.format
+	            allowEmpty: true
 	        };
 	    },
 	    render: function render() {
-	        var classes = classNames({
-	            "number-input": true,
-	            "invalid-input": !this._checkValidity(this.props.value),
-	            mini: "mini" === this.props.size,
-	            small: "small" === this.props.size,
-	            normal: "normal" === this.props.size
-	        });
-	        null != this.props.className && (classes = classes + " " + this.props.className);
-	        return React.createElement("input", _extends({}, this.props, {
-	            className: classes,
-	            type: "text",
-	            ref: "input",
-	            onChange: this._handleChange,
-	            onFocus: this._handleFocus,
-	            onBlur: this._handleBlur,
-	            onKeyPress: this._handleBlur,
-	            onKeyDown: this._onKeyDown,
-	            onTouchStart: captureScratchpadTouchStart,
-	            defaultValue: toNumericString(this.props.value, this.state.format),
-	            value: void 0
-	        }));
-	    },
-	    componentDidUpdate: function componentDidUpdate(prevProps) {
-	        knumber.equal(this.getValue(), this.props.value) || this._setValue(this.props.value, this.state.format);
-	    },
-	    /* Return the current "value" of this input
-	     * If empty, it returns the placeholder (if it is a number) or null
-	     */
-	    getValue: function getValue() {
-	        return this.parseInputValue(ReactDOM.findDOMNode(this.refs.input).value);
-	    },
-	    /* Return the current string value of this input */
-	    getStringValue: function getStringValue() {
-	        return ReactDOM.findDOMNode(this.refs.input).value.toString();
-	    },
-	    parseInputValue: function parseInputValue(value) {
-	        if ("" === value) {
-	            var placeholder = this.props.placeholder;
-	            return _.isFinite(placeholder) ? +placeholder : null;
-	        }
-	        var result = firstNumericalParse(value);
-	        return _.isFinite(result) ? result : this.props.value;
-	    },
-	    /* Set text input focus to this input */
-	    focus: function focus() {
-	        ReactDOM.findDOMNode(this.refs.input).focus();
-	        this._handleFocus();
-	    },
-	    blur: function blur() {
-	        ReactDOM.findDOMNode(this.refs.input).blur();
-	        this._handleBlur();
-	    },
-	    setSelectionRange: function setSelectionRange(selectionStart, selectionEnd) {
-	        ReactDOM.findDOMNode(this).setSelectionRange(selectionStart, selectionEnd);
-	    },
-	    getSelectionStart: function getSelectionStart() {
-	        return ReactDOM.findDOMNode(this).selectionStart;
-	    },
-	    getSelectionEnd: function getSelectionEnd() {
-	        return ReactDOM.findDOMNode(this).selectionEnd;
-	    },
-	    _checkValidity: function _checkValidity(value) {
-	        if (null == value) return true;
-	        var val = firstNumericalParse(value);
-	        var checkValidity = this.props.checkValidity;
-	        return _.isFinite(val) && checkValidity(val);
-	    },
-	    _handleChange: function _handleChange(e) {
-	        var text = e.target.value;
-	        var value = this.parseInputValue(text);
-	        var format = getNumericFormat(text);
-	        this.props.onChange(value);
-	        if (format) {
-	            this.props.onFormatChange(value, format);
-	            this.setState({
-	                format: format
-	            });
-	        }
-	    },
-	    _handleFocus: function _handleFocus() {
-	        this.props.onFocus && this.props.onFocus();
-	    },
-	    _handleBlur: function _handleBlur(e) {
-	        // Only continue on blur or "enter"
-	        if (e && "keypress" === e.type && 13 !== e.keyCode) return;
-	        this._setValue(this.props.value, this.state.format);
-	        this.props.onBlur && this.props.onBlur();
-	    },
-	    _onKeyDown: function _onKeyDown(e) {
-	        this.props.onKeyDown && this.props.onKeyDown(e);
-	        if (!this.props.useArrowKeys || !_.contains([ "ArrowUp", "ArrowDown" ], e.key)) return;
-	        var val = this.getValue();
-	        if (val !== Math.floor(val)) return;
-	        "ArrowUp" === e.key ? val += 1 : "ArrowDown" === e.key && (val -= 1);
-	        this._checkValidity(val) && this.props.onChange(val);
-	    },
-	    _setValue: function _setValue(val, format) {
-	        $(ReactDOM.findDOMNode(this.refs.input)).val(toNumericString(val, format));
-	    }
-	});
-
-	module.exports = NumberInput;
-
-/***/ },
-/* 105 */,
-/* 106 */,
-/* 107 */,
-/* 108 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, indent, max-len, no-irregular-whitespace, no-var, one-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var React = __webpack_require__(11);
-
-	var ReactDOM = __webpack_require__(12);
-
-	var _ = __webpack_require__(10);
-
-	var Util = __webpack_require__(17);
-
-	var Renderer = __webpack_require__(8);
-
-	var ApiClassNames = __webpack_require__(18).ClassNames;
-
-	var PREFIX = "perseus-sortable";
-
-	// A placeholder that appears in the sortable whenever an item is dragged.
-	var Placeholder = React.createClass({
-	    displayName: "Placeholder",
-	    propTypes: {
-	        width: React.PropTypes.number.isRequired,
-	        height: React.PropTypes.number.isRequired
-	    },
-	    render: function render() {
-	        var className = [ PREFIX + "-card", PREFIX + "-placeholder" ].join(" ");
-	        var style = {
-	            width: this.props.width,
-	            height: this.props.height
-	        };
-	        null != this.props.margin && (style.margin = this.props.margin);
-	        return React.createElement("li", {
-	            className: className,
-	            style: style
-	        });
-	    }
-	});
-
-	var STATIC = "static", DRAGGING = "dragging", ANIMATING = "animating", DISABLED = "disabled";
-
-	// A draggable item in the sortable. Can be in one of four states:
-	//     Static:    The item is not being interacted with.
-	//     Dragging:  The item is being dragged.
-	//     Animating: The item has been released, and is moving to its destination.
-	//     Disabled:  The item cannot be interacted with.
-	//
-	// Usual flow:      Static -> Dragging -> Animating -> Static
-	// [Dis|en]abling:  Static|Dragging|Animating -> Disabled -> Static
-	var Draggable = React.createClass({
-	    displayName: "Draggable",
-	    propTypes: {
-	        type: React.PropTypes.oneOf([ STATIC, DRAGGING, ANIMATING, DISABLED ]),
-	        content: React.PropTypes.string.isRequired,
-	        endPosition: React.PropTypes.object.isRequired,
-	        onRender: React.PropTypes.func.isRequired,
-	        onMouseDown: React.PropTypes.func.isRequired,
-	        onMouseMove: React.PropTypes.func.isRequired,
-	        onMouseUp: React.PropTypes.func.isRequired,
-	        onAnimationEnd: React.PropTypes.func.isRequired
-	    },
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            type: STATIC
-	        };
-	    },
-	    getInitialState: function getInitialState() {
-	        return {
-	            startPosition: {
-	                left: 0,
-	                top: 0
-	            },
-	            startMouse: {
-	                left: 0,
-	                top: 0
-	            },
-	            mouse: {
-	                left: 0,
-	                top: 0
-	            }
-	        };
-	    },
-	    componentDidMount: function componentDidMount() {
-	        this.isMouseMoveUpBound = false;
-	    },
-	    componentWillUnmount: function componentWillUnmount() {
-	        // Event handlers should be unbound before component unmounting, but
-	        // just in case...
-	        this.isMouseMoveUpBound && this.unbindMouseMoveUp();
-	    },
-	    getCurrentPosition: function getCurrentPosition() {
-	        return {
-	            left: this.state.startPosition.left + this.state.mouse.left - this.state.startMouse.left,
-	            top: this.state.startPosition.top + this.state.mouse.top - this.state.startMouse.top
-	        };
-	    },
-	    render: function render() {
-	        var className = [ PREFIX + "-card", PREFIX + "-draggable", PREFIX + "-" + this.props.type, ApiClassNames.INTERACTIVE ].join(" ");
-	        var style = {
-	            position: "static"
-	        };
-	        this.props.type !== DRAGGING && this.props.type !== ANIMATING || _.extend(style, {
-	            position: "absolute"
-	        }, this.getCurrentPosition());
-	        this.props.width && (style.width = this.props.width + 1);
-	        this.props.height && (style.height = this.props.height);
-	        null != this.props.margin && (style.margin = this.props.margin);
-	        return React.createElement("li", {
-	            className: className,
-	            style: style,
-	            onMouseDown: this.onMouseDown,
-	            onTouchStart: this.onMouseDown,
-	            onTouchMove: this.onMouseMove,
-	            onTouchEnd: this.onMouseUp,
-	            onTouchCancel: this.onMouseUp
-	        }, React.createElement(Renderer, {
-	            content: this.props.content,
-	            onRender: this.props.onRender
-	        }));
-	    },
-	    componentDidUpdate: function componentDidUpdate(prevProps) {
-	        if (this.props.type === prevProps.type) return;
-	        if (this.props.type === ANIMATING) {
-	            // Start animating
-	            var current = this.getCurrentPosition();
-	            var duration = 15 * Math.sqrt(Math.sqrt(Math.pow(this.props.endPosition.left - current.left, 2) + Math.pow(this.props.endPosition.top - current.top, 2)));
-	            $(ReactDOM.findDOMNode(this)).animate(this.props.endPosition, {
-	                duration: Math.max(duration, 1),
-	                // Animating -> Static
-	                complete: this.props.onAnimationEnd
-	            });
-	        } else this.props.type === STATIC && // Ensure that any animations are done
-	        $(ReactDOM.findDOMNode(this)).finish();
-	    },
-	    bindMouseMoveUp: function bindMouseMoveUp() {
-	        this.isMouseMoveUpBound = true;
-	        $(document).on("mousemove", this.onMouseMove);
-	        $(document).on("mouseup", this.onMouseUp);
-	    },
-	    unbindMouseMoveUp: function unbindMouseMoveUp() {
-	        this.isMouseMoveUpBound = false;
-	        $(document).off("mousemove", this.onMouseMove);
-	        $(document).off("mouseup", this.onMouseUp);
-	    },
-	    onMouseDown: function onMouseDown(event) {
-	        if (this.props.type !== STATIC) return;
-	        if (!(0 === event.button || null != event.touches && 1 === event.touches.length)) return;
-	        event.preventDefault();
-	        var loc = Util.extractPointerLocation(event);
-	        loc && this.setState({
-	            startPosition: $(ReactDOM.findDOMNode(this)).position(),
-	            startMouse: loc,
-	            mouse: loc
-	        }, function() {
-	            this.bindMouseMoveUp();
-	            // Static -> Dragging
-	            this.props.onMouseDown();
-	        });
-	    },
-	    onMouseMove: function onMouseMove(event) {
-	        if (this.props.type !== DRAGGING) return;
-	        event.preventDefault();
-	        var loc = Util.extractPointerLocation(event);
-	        loc && this.setState({
-	            mouse: loc
-	        }, this.props.onMouseMove);
-	    },
-	    onMouseUp: function onMouseUp(event) {
-	        if (this.props.type !== DRAGGING) return;
-	        event.preventDefault();
-	        var loc = Util.extractPointerLocation(event);
-	        if (loc) {
-	            this.unbindMouseMoveUp();
-	            // Dragging -> Animating
-	            this.props.onMouseUp();
-	        }
-	    }
-	});
-
-	var HORIZONTAL = "horizontal", VERTICAL = "vertical";
-
-	// The main sortable component.
-	var Sortable = React.createClass({
-	    displayName: "Sortable",
-	    propTypes: {
-	        options: React.PropTypes.array.isRequired,
-	        layout: React.PropTypes.oneOf([ HORIZONTAL, VERTICAL ]),
-	        padding: React.PropTypes.bool,
-	        disabled: React.PropTypes.bool,
-	        constraints: React.PropTypes.object,
-	        onMeasure: React.PropTypes.func,
-	        margin: React.PropTypes.number,
-	        onChange: React.PropTypes.func
-	    },
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            layout: HORIZONTAL,
-	            padding: true,
-	            disabled: false,
-	            constraints: {},
-	            onMeasure: function onMeasure() {},
-	            margin: 5,
-	            onChange: function onChange() {}
-	        };
-	    },
-	    getInitialState: function getInitialState() {
-	        return {
-	            items: this.itemsFromProps(this.props)
-	        };
-	    },
-	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        var prevProps = this.props;
-	        _.isEqual(nextProps.options, prevProps.options) ? nextProps.layout === prevProps.layout && nextProps.padding === prevProps.padding && nextProps.disabled === prevProps.disabled && _.isEqual(nextProps.constraints, prevProps.constraints) || // Clear item measurements
-	        this.setState({
-	            items: this.clearItemMeasurements(this.state.items)
-	        }) : // Regenerate items
-	        this.setState({
-	            items: this.itemsFromProps(nextProps)
-	        });
-	    },
-	    componentDidUpdate: function componentDidUpdate(prevProps) {
-	        // Measure items if their dimensions have been reset
-	        this.state.items.length && !this.state.items[0].width && this.measureItems();
-	    },
-	    itemsFromProps: function itemsFromProps(props) {
-	        var type = props.disabled ? DISABLED : STATIC;
-	        return _.map(props.options, function(option, i) {
-	            return {
-	                option: option,
-	                key: i,
-	                type: type,
-	                endPosition: {},
-	                width: 0,
-	                height: 0
-	            };
-	        });
-	    },
-	    clearItemMeasurements: function clearItemMeasurements(items) {
-	        return _.map(items, function(item) {
-	            return _.extend(item, {
-	                width: 0,
-	                height: 0
-	            });
-	        });
-	    },
-	    measureItems: function measureItems() {
 	        var _this = this;
-	        // Measure all items and cache what their dimensions should be, taking
-	        // into account constraints and the current layout. This allows syncing
-	        // widths and heights for pretty rows/columns. Note that dimensions are
-	        // explictly set on Draggables - this prevents them from changing size
-	        // or shape while being dragged.
-	        var items = _.clone(this.state.items);
-	        var $items = _.map(items, function(item) {
-	            return $(ReactDOM.findDOMNode(this.refs[item.key]));
-	        }, this);
-	        var widths = _.invoke($items, "outerWidth");
-	        var heights = _.invoke($items, "outerHeight");
-	        var constraints = this.props.constraints;
-	        var layout = this.props.layout;
-	        var syncWidth;
-	        constraints.width ? // Items must be at least as wide as the specified constraint
-	        syncWidth = _.max(widths.concat(constraints.width)) : layout === VERTICAL && (// Sync widths to get a clean column
-	        syncWidth = _.max(widths));
-	        var syncHeight;
-	        constraints.height ? // Items must be at least as high as the specified constraint
-	        syncHeight = _.max(heights.concat(constraints.height)) : layout === HORIZONTAL && (// Sync widths to get a clean row
-	        syncHeight = _.max(heights));
-	        items = _.map(items, function(item, i) {
-	            item.width = syncWidth || widths[i];
-	            item.height = syncHeight || heights[i];
-	            return item;
+	        var value = this.props.value;
+	        var buttons = _(this.props.buttons).map(function(button, i) {
+	            return React.createElement("button", {
+	                title: button.title,
+	                type: "button",
+	                id: "" + i,
+	                ref: "button" + i,
+	                key: "" + i,
+	                className: css(styles.button.buttonStyle, button.value === value && styles.button.selectedStyle),
+	                onClick: _this.toggleSelect.bind(_this, button.value)
+	            }, button.content || "" + button.value);
 	        });
-	        this.setState({
-	            items: items
-	        }, function() {
-	            _this.props.onMeasure({
-	                widths: widths,
-	                heights: heights
-	            });
-	        });
+	        var outerStyle = {
+	            display: "inline-block"
+	        };
+	        return React.createElement("div", {
+	            style: outerStyle
+	        }, buttons);
 	    },
-	    remeasureItems: _.debounce(function() {
-	        this.setState({
-	            // Clear item measurements
-	            items: this.clearItemMeasurements(this.state.items)
-	        }, this.measureItems);
-	    }, 20),
-	    render: function render() {
-	        var className = [ PREFIX, "layout-" + this.props.layout ].join(" ");
-	        var cards = [];
-	        className += this.props.padding ? "" : " unpadded";
-	        _.each(this.state.items, function(item, i, items) {
-	            var isLast = i === items.length - 1;
-	            var isStatic = item.type === STATIC || item.type === DISABLED;
-	            var margin;
-	            this.props.layout === HORIZONTAL ? margin = "0 " + this.props.margin + "px 0 0" : this.props.layout === VERTICAL && (margin = "0 0 " + this.props.margin + "px 0");
-	            cards.push(React.createElement(Draggable, {
-	                content: item.option,
-	                key: item.key,
-	                type: item.type,
-	                ref: item.key,
-	                width: item.width,
-	                height: item.height,
-	                margin: isLast && isStatic ? 0 : margin,
-	                endPosition: item.endPosition,
-	                onRender: this.remeasureItems,
-	                onMouseDown: this.onMouseDown.bind(this, item.key),
-	                onMouseMove: this.onMouseMove.bind(this, item.key),
-	                onMouseUp: this.onMouseUp.bind(this, item.key),
-	                onTouchMove: this.onMouseMove.bind(this, item.key),
-	                onTouchEnd: this.onMouseUp.bind(this, item.key),
-	                onTouchCancel: this.onMouseUp.bind(this, item.key),
-	                onAnimationEnd: this.onAnimationEnd.bind(this, item.key)
-	            }));
-	            item.type !== DRAGGING && item.type !== ANIMATING || cards.push(React.createElement(Placeholder, {
-	                key: "placeholder_" + item.key,
-	                ref: "placeholder_" + item.key,
-	                width: item.width,
-	                height: item.height,
-	                margin: isLast ? 0 : margin
-	            }));
-	        }, this);
-	        return React.createElement("ul", {
-	            className: className
-	        }, cards);
+	    focus: function focus() {
+	        ReactDOM.findDOMNode(this).focus();
+	        return true;
 	    },
-	    onMouseDown: function onMouseDown(key) {
-	        // Static -> Dragging
-	        var items = _.map(this.state.items, function(item) {
-	            item.key === key && (item.type = DRAGGING);
-	            return item;
-	        });
-	        this.setState({
-	            items: items
-	        });
-	    },
-	    onMouseMove: function onMouseMove(key) {
-	        // Dragging: Rearrange items based on draggable's position
-	        var $draggable = $(ReactDOM.findDOMNode(this.refs[key]));
-	        var $sortable = $(ReactDOM.findDOMNode(this));
-	        var items = _.clone(this.state.items);
-	        var item = _.findWhere(this.state.items, {
-	            key: key
-	        });
-	        var margin = this.props.margin;
-	        var currentIndex = _.indexOf(items, item);
-	        var newIndex = 0;
-	        items.splice(currentIndex, 1);
-	        if (this.props.layout === HORIZONTAL) {
-	            var midWidth = $draggable.offset().left - $sortable.offset().left;
-	            var sumWidth = 0;
-	            var cardWidth;
-	            _.each(items, function(item) {
-	                cardWidth = item.width;
-	                midWidth > sumWidth + cardWidth / 2 && (newIndex += 1);
-	                sumWidth += cardWidth + margin;
-	            });
-	        } else {
-	            var midHeight = $draggable.offset().top - $sortable.offset().top;
-	            var sumHeight = 0;
-	            var cardHeight;
-	            _.each(items, function(item) {
-	                cardHeight = item.height;
-	                midHeight > sumHeight + cardHeight / 2 && (newIndex += 1);
-	                sumHeight += cardHeight + margin;
-	            });
-	        }
-	        if (newIndex !== currentIndex) {
-	            items.splice(newIndex, 0, item);
-	            this.setState({
-	                items: items
-	            });
-	        }
-	    },
-	    onMouseUp: function onMouseUp(key) {
-	        // Dragging -> Animating
-	        var items = _.map(this.state.items, function(item) {
-	            if (item.key === key) {
-	                item.type = ANIMATING;
-	                item.endPosition = $(ReactDOM.findDOMNode(this.refs["placeholder_" + key])).position();
-	            }
-	            return item;
-	        }, this);
-	        this.setState({
-	            items: items
-	        });
-	        // HACK: We need to know *that* the widget changed, but currently it's
-	        // not set up in a nice way to tell us *how* it changed, since the
-	        // permutation of the items is stored in state.
-	        this.props.onChange({});
-	    },
-	    onAnimationEnd: function onAnimationEnd(key) {
-	        // Animating -> Static
-	        var items = _.map(this.state.items, function(item) {
-	            item.key === key && (item.type = STATIC);
-	            return item;
-	        });
-	        this.setState({
-	            items: items
-	        });
-	    },
-	    getOptions: function getOptions() {
-	        return _.pluck(this.state.items, "option");
+	    toggleSelect: function toggleSelect(newValue) {
+	        var value = this.props.value;
+	        this.props.allowEmpty ? // Select the new button or unselect if it's already selected
+	        this.props.onChange(value !== newValue ? newValue : null) : this.props.onChange(newValue);
 	    }
 	});
 
-	module.exports = Sortable;
+	module.exports = ButtonGroup;
 
 /***/ },
-/* 109 */,
-/* 110 */
+/* 102 */,
+/* 103 */,
+/* 104 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12902,9 +12330,9 @@ webpackJsonpPerseus([1],[
 
 	var Util = __webpack_require__(17);
 
-	var GraphUtils = __webpack_require__(109);
+	var GraphUtils = __webpack_require__(107);
 
-	var _require = __webpack_require__(37), interactiveSizes = _require.interactiveSizes;
+	var _require = __webpack_require__(38), interactiveSizes = _require.interactiveSizes;
 
 	var SvgImage = __webpack_require__(33);
 
@@ -13183,7 +12611,7 @@ webpackJsonpPerseus([1],[
 	module.exports = Graph;
 
 /***/ },
-/* 111 */
+/* 105 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -13196,7 +12624,7 @@ webpackJsonpPerseus([1],[
 	 */
 	var React = __webpack_require__(11);
 
-	var ReactComponentsInfoTip = __webpack_require__(138);
+	var ReactComponentsInfoTip = __webpack_require__(135);
 
 	var InfoTip = React.createClass({
 	    displayName: "InfoTip",
@@ -13217,6 +12645,680 @@ webpackJsonpPerseus([1],[
 	});
 
 	module.exports = InfoTip;
+
+/***/ },
+/* 106 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _extends = Object.assign || function(target) {
+	    for (var i = 1; i < arguments.length; i++) {
+	        var source = arguments[i];
+	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
+	    }
+	    return target;
+	};
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, max-len, no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+	var classNames = __webpack_require__(13);
+
+	var React = __webpack_require__(11);
+
+	var ReactDOM = __webpack_require__(12);
+
+	var _ = __webpack_require__(10);
+
+	var firstNumericalParse = __webpack_require__(17).firstNumericalParse;
+
+	var captureScratchpadTouchStart = __webpack_require__(17).captureScratchpadTouchStart;
+
+	var knumber = __webpack_require__(128).number;
+
+	var KhanMath = __webpack_require__(80);
+
+	var toNumericString = KhanMath.toNumericString;
+
+	var getNumericFormat = KhanMath.getNumericFormat;
+
+	/* An input box that accepts only numeric strings
+	 *
+	 * Calls onChange(value, format) for valid numbers.
+	 * Reverts to the current value onBlur or on [ENTER],
+	 *   but maintains the format (i.e. 3/2, 1 1/2, 150%)
+	 * Accepts empty input and sends it to onChange as null
+	 *   if no numeric placeholder is set.
+	 * If given a checkValidity function, will turn
+	 *   the background/outline red when invalid
+	 * If useArrowKeys is set to true, up/down arrows will
+	 *   increment/decrement integers
+	 * Optionally takes a size ("mini", "small", "normal")
+	 */
+	var NumberInput = React.createClass({
+	    displayName: "NumberInput",
+	    propTypes: {
+	        value: React.PropTypes.number,
+	        format: React.PropTypes.string,
+	        placeholder: React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.number ]),
+	        onChange: React.PropTypes.func.isRequired,
+	        onFormatChange: React.PropTypes.func,
+	        checkValidity: React.PropTypes.func,
+	        size: React.PropTypes.string,
+	        label: React.PropTypes.oneOf([ "put your labels outside your inputs!" ])
+	    },
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            value: null,
+	            placeholder: null,
+	            format: null,
+	            onFormatChange: function onFormatChange() {
+	                return null;
+	            },
+	            checkValidity: function checkValidity() {
+	                return true;
+	            },
+	            useArrowKeys: false
+	        };
+	    },
+	    getInitialState: function getInitialState() {
+	        return {
+	            format: this.props.format
+	        };
+	    },
+	    render: function render() {
+	        var classes = classNames({
+	            "number-input": true,
+	            "invalid-input": !this._checkValidity(this.props.value),
+	            mini: "mini" === this.props.size,
+	            small: "small" === this.props.size,
+	            normal: "normal" === this.props.size
+	        });
+	        null != this.props.className && (classes = classes + " " + this.props.className);
+	        return React.createElement("input", _extends({}, this.props, {
+	            className: classes,
+	            type: "text",
+	            ref: "input",
+	            onChange: this._handleChange,
+	            onFocus: this._handleFocus,
+	            onBlur: this._handleBlur,
+	            onKeyPress: this._handleBlur,
+	            onKeyDown: this._onKeyDown,
+	            onTouchStart: captureScratchpadTouchStart,
+	            defaultValue: toNumericString(this.props.value, this.state.format),
+	            value: void 0
+	        }));
+	    },
+	    componentDidUpdate: function componentDidUpdate(prevProps) {
+	        knumber.equal(this.getValue(), this.props.value) || this._setValue(this.props.value, this.state.format);
+	    },
+	    /* Return the current "value" of this input
+	     * If empty, it returns the placeholder (if it is a number) or null
+	     */
+	    getValue: function getValue() {
+	        return this.parseInputValue(ReactDOM.findDOMNode(this.refs.input).value);
+	    },
+	    /* Return the current string value of this input */
+	    getStringValue: function getStringValue() {
+	        return ReactDOM.findDOMNode(this.refs.input).value.toString();
+	    },
+	    parseInputValue: function parseInputValue(value) {
+	        if ("" === value) {
+	            var placeholder = this.props.placeholder;
+	            return _.isFinite(placeholder) ? +placeholder : null;
+	        }
+	        var result = firstNumericalParse(value);
+	        return _.isFinite(result) ? result : this.props.value;
+	    },
+	    /* Set text input focus to this input */
+	    focus: function focus() {
+	        ReactDOM.findDOMNode(this.refs.input).focus();
+	        this._handleFocus();
+	    },
+	    blur: function blur() {
+	        ReactDOM.findDOMNode(this.refs.input).blur();
+	        this._handleBlur();
+	    },
+	    setSelectionRange: function setSelectionRange(selectionStart, selectionEnd) {
+	        ReactDOM.findDOMNode(this).setSelectionRange(selectionStart, selectionEnd);
+	    },
+	    getSelectionStart: function getSelectionStart() {
+	        return ReactDOM.findDOMNode(this).selectionStart;
+	    },
+	    getSelectionEnd: function getSelectionEnd() {
+	        return ReactDOM.findDOMNode(this).selectionEnd;
+	    },
+	    _checkValidity: function _checkValidity(value) {
+	        if (null == value) return true;
+	        var val = firstNumericalParse(value);
+	        var checkValidity = this.props.checkValidity;
+	        return _.isFinite(val) && checkValidity(val);
+	    },
+	    _handleChange: function _handleChange(e) {
+	        var text = e.target.value;
+	        var value = this.parseInputValue(text);
+	        var format = getNumericFormat(text);
+	        this.props.onChange(value);
+	        if (format) {
+	            this.props.onFormatChange(value, format);
+	            this.setState({
+	                format: format
+	            });
+	        }
+	    },
+	    _handleFocus: function _handleFocus() {
+	        this.props.onFocus && this.props.onFocus();
+	    },
+	    _handleBlur: function _handleBlur(e) {
+	        // Only continue on blur or "enter"
+	        if (e && "keypress" === e.type && 13 !== e.keyCode) return;
+	        this._setValue(this.props.value, this.state.format);
+	        this.props.onBlur && this.props.onBlur();
+	    },
+	    _onKeyDown: function _onKeyDown(e) {
+	        this.props.onKeyDown && this.props.onKeyDown(e);
+	        if (!this.props.useArrowKeys || !_.contains([ "ArrowUp", "ArrowDown" ], e.key)) return;
+	        var val = this.getValue();
+	        if (val !== Math.floor(val)) return;
+	        "ArrowUp" === e.key ? val += 1 : "ArrowDown" === e.key && (val -= 1);
+	        this._checkValidity(val) && this.props.onChange(val);
+	    },
+	    _setValue: function _setValue(val, format) {
+	        $(ReactDOM.findDOMNode(this.refs.input)).val(toNumericString(val, format));
+	    }
+	});
+
+	module.exports = NumberInput;
+
+/***/ },
+/* 107 */,
+/* 108 */,
+/* 109 */,
+/* 110 */,
+/* 111 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, indent, max-len, no-irregular-whitespace, no-var, one-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+	var React = __webpack_require__(11);
+
+	var ReactDOM = __webpack_require__(12);
+
+	var _require = __webpack_require__(14), StyleSheet = _require.StyleSheet, css = _require.css;
+
+	var _ = __webpack_require__(10);
+
+	var Util = __webpack_require__(17);
+
+	var Renderer = __webpack_require__(8);
+
+	var ApiClassNames = __webpack_require__(18).ClassNames;
+
+	var HORIZONTAL = "horizontal";
+
+	var VERTICAL = "vertical";
+
+	var STATIC = "static";
+
+	var DRAGGING = "dragging";
+
+	var ANIMATING = "animating";
+
+	var DISABLED = "disabled";
+
+	// A placeholder that appears in the sortable whenever an item is dragged.
+	var Placeholder = React.createClass({
+	    displayName: "Placeholder",
+	    propTypes: {
+	        layout: React.PropTypes.oneOf([ HORIZONTAL, VERTICAL ]),
+	        width: React.PropTypes.number.isRequired,
+	        height: React.PropTypes.number.isRequired
+	    },
+	    render: function render() {
+	        var layout = this.props.layout;
+	        var className = css(styles.card, styles.placeholder, layout === HORIZONTAL && styles.horizontalCard);
+	        var style = {
+	            width: this.props.width,
+	            height: this.props.height
+	        };
+	        null != this.props.margin && (style.margin = this.props.margin);
+	        return React.createElement("li", {
+	            className: className,
+	            style: style
+	        });
+	    }
+	});
+
+	// A draggable item in the sortable. Can be in one of four states:
+	//     Static:    The item is not being interacted with.
+	//     Dragging:  The item is being dragged.
+	//     Animating: The item has been released, and is moving to its destination.
+	//     Disabled:  The item cannot be interacted with.
+	//
+	// Usual flow:      Static -> Dragging -> Animating -> Static
+	// [Dis|en]abling:  Static|Dragging|Animating -> Disabled -> Static
+	var Draggable = React.createClass({
+	    displayName: "Draggable",
+	    propTypes: {
+	        content: React.PropTypes.string.isRequired,
+	        endPosition: React.PropTypes.object.isRequired,
+	        includePadding: React.PropTypes.bool,
+	        layout: React.PropTypes.oneOf([ HORIZONTAL, VERTICAL ]),
+	        onAnimationEnd: React.PropTypes.func.isRequired,
+	        onMouseDown: React.PropTypes.func.isRequired,
+	        onMouseMove: React.PropTypes.func.isRequired,
+	        onMouseUp: React.PropTypes.func.isRequired,
+	        onRender: React.PropTypes.func.isRequired,
+	        type: React.PropTypes.oneOf([ STATIC, DRAGGING, ANIMATING, DISABLED ])
+	    },
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            includePadding: true,
+	            type: STATIC
+	        };
+	    },
+	    getInitialState: function getInitialState() {
+	        return {
+	            startPosition: {
+	                left: 0,
+	                top: 0
+	            },
+	            startMouse: {
+	                left: 0,
+	                top: 0
+	            },
+	            mouse: {
+	                left: 0,
+	                top: 0
+	            }
+	        };
+	    },
+	    componentDidMount: function componentDidMount() {
+	        this.isMouseMoveUpBound = false;
+	    },
+	    componentWillUnmount: function componentWillUnmount() {
+	        // Event handlers should be unbound before component unmounting, but
+	        // just in case...
+	        this.isMouseMoveUpBound && this.unbindMouseMoveUp();
+	    },
+	    getCurrentPosition: function getCurrentPosition() {
+	        return {
+	            left: this.state.startPosition.left + this.state.mouse.left - this.state.startMouse.left,
+	            top: this.state.startPosition.top + this.state.mouse.top - this.state.startMouse.top
+	        };
+	    },
+	    render: function render() {
+	        var _props = this.props, includePadding = _props.includePadding, layout = _props.layout, type = _props.type;
+	        // We need to keep backwards compatbility with rules specified directly
+	        // in CSS. Hence the hacky tacking on of manual classNames.
+	        // See sortable.less for details.
+	        var className = css(styles.card, styles.draggable, layout === HORIZONTAL && styles.horizontalCard, layout === VERTICAL && styles.verticalCard, type === DRAGGING && styles.dragging, type === ANIMATING && styles.animating, type === DISABLED && styles.disabled, !includePadding && styles.unpaddedCard) + " " + ApiClassNames.INTERACTIVE + " perseus-sortable-draggable";
+	        includePadding || (className += " perseus-sortable-draggable-unpadded");
+	        var style = {
+	            position: "static"
+	        };
+	        this.props.type !== DRAGGING && this.props.type !== ANIMATING || _.extend(style, {
+	            position: "absolute"
+	        }, this.getCurrentPosition());
+	        this.props.width && (style.width = this.props.width + 1);
+	        this.props.height && (style.height = this.props.height);
+	        null != this.props.margin && (style.margin = this.props.margin);
+	        return React.createElement("li", {
+	            className: className,
+	            style: style,
+	            onMouseDown: this.onMouseDown,
+	            onTouchStart: this.onMouseDown,
+	            onTouchMove: this.onMouseMove,
+	            onTouchEnd: this.onMouseUp,
+	            onTouchCancel: this.onMouseUp
+	        }, React.createElement(Renderer, {
+	            content: this.props.content,
+	            onRender: this.props.onRender
+	        }));
+	    },
+	    componentDidUpdate: function componentDidUpdate(prevProps) {
+	        if (this.props.type === prevProps.type) return;
+	        if (this.props.type === ANIMATING) {
+	            // Start animating
+	            var current = this.getCurrentPosition();
+	            var duration = 15 * Math.sqrt(Math.sqrt(Math.pow(this.props.endPosition.left - current.left, 2) + Math.pow(this.props.endPosition.top - current.top, 2)));
+	            $(ReactDOM.findDOMNode(this)).animate(this.props.endPosition, {
+	                duration: Math.max(duration, 1),
+	                // Animating -> Static
+	                complete: this.props.onAnimationEnd
+	            });
+	        } else this.props.type === STATIC && // Ensure that any animations are done
+	        $(ReactDOM.findDOMNode(this)).finish();
+	    },
+	    bindMouseMoveUp: function bindMouseMoveUp() {
+	        this.isMouseMoveUpBound = true;
+	        $(document).on("mousemove", this.onMouseMove);
+	        $(document).on("mouseup", this.onMouseUp);
+	    },
+	    unbindMouseMoveUp: function unbindMouseMoveUp() {
+	        this.isMouseMoveUpBound = false;
+	        $(document).off("mousemove", this.onMouseMove);
+	        $(document).off("mouseup", this.onMouseUp);
+	    },
+	    onMouseDown: function onMouseDown(event) {
+	        if (this.props.type !== STATIC) return;
+	        if (!(0 === event.button || null != event.touches && 1 === event.touches.length)) return;
+	        event.preventDefault();
+	        var loc = Util.extractPointerLocation(event);
+	        loc && this.setState({
+	            startPosition: $(ReactDOM.findDOMNode(this)).position(),
+	            startMouse: loc,
+	            mouse: loc
+	        }, function() {
+	            this.bindMouseMoveUp();
+	            // Static -> Dragging
+	            this.props.onMouseDown();
+	        });
+	    },
+	    onMouseMove: function onMouseMove(event) {
+	        if (this.props.type !== DRAGGING) return;
+	        event.preventDefault();
+	        var loc = Util.extractPointerLocation(event);
+	        loc && this.setState({
+	            mouse: loc
+	        }, this.props.onMouseMove);
+	    },
+	    onMouseUp: function onMouseUp(event) {
+	        if (this.props.type !== DRAGGING) return;
+	        event.preventDefault();
+	        var loc = Util.extractPointerLocation(event);
+	        if (loc) {
+	            this.unbindMouseMoveUp();
+	            // Dragging -> Animating
+	            this.props.onMouseUp();
+	        }
+	    }
+	});
+
+	// The main sortable component.
+	var Sortable = React.createClass({
+	    displayName: "Sortable",
+	    propTypes: {
+	        constraints: React.PropTypes.object,
+	        disabled: React.PropTypes.bool,
+	        layout: React.PropTypes.oneOf([ HORIZONTAL, VERTICAL ]),
+	        margin: React.PropTypes.number,
+	        onChange: React.PropTypes.func,
+	        onMeasure: React.PropTypes.func,
+	        options: React.PropTypes.array.isRequired,
+	        padding: React.PropTypes.bool
+	    },
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            layout: HORIZONTAL,
+	            padding: true,
+	            disabled: false,
+	            constraints: {},
+	            onMeasure: function onMeasure() {},
+	            margin: 5,
+	            onChange: function onChange() {}
+	        };
+	    },
+	    getInitialState: function getInitialState() {
+	        return {
+	            items: this.itemsFromProps(this.props)
+	        };
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        var prevProps = this.props;
+	        _.isEqual(nextProps.options, prevProps.options) ? nextProps.layout === prevProps.layout && nextProps.padding === prevProps.padding && nextProps.disabled === prevProps.disabled && _.isEqual(nextProps.constraints, prevProps.constraints) || // Clear item measurements
+	        this.setState({
+	            items: this.clearItemMeasurements(this.state.items)
+	        }) : // Regenerate items
+	        this.setState({
+	            items: this.itemsFromProps(nextProps)
+	        });
+	    },
+	    componentDidUpdate: function componentDidUpdate(prevProps) {
+	        // Measure items if their dimensions have been reset
+	        this.state.items.length && !this.state.items[0].width && this.measureItems();
+	    },
+	    itemsFromProps: function itemsFromProps(props) {
+	        var type = props.disabled ? DISABLED : STATIC;
+	        return _.map(props.options, function(option, i) {
+	            return {
+	                option: option,
+	                key: i,
+	                type: type,
+	                endPosition: {},
+	                width: 0,
+	                height: 0
+	            };
+	        });
+	    },
+	    clearItemMeasurements: function clearItemMeasurements(items) {
+	        return _.map(items, function(item) {
+	            return _.extend(item, {
+	                width: 0,
+	                height: 0
+	            });
+	        });
+	    },
+	    measureItems: function measureItems() {
+	        var _this = this;
+	        // Measure all items and cache what their dimensions should be, taking
+	        // into account constraints and the current layout. This allows syncing
+	        // widths and heights for pretty rows/columns. Note that dimensions are
+	        // explictly set on Draggables - this prevents them from changing size
+	        // or shape while being dragged.
+	        var items = _.clone(this.state.items);
+	        var $items = _.map(items, function(item) {
+	            return $(ReactDOM.findDOMNode(this.refs[item.key]));
+	        }, this);
+	        var widths = _.invoke($items, "outerWidth");
+	        var heights = _.invoke($items, "outerHeight");
+	        var constraints = this.props.constraints;
+	        var layout = this.props.layout;
+	        var syncWidth;
+	        constraints.width ? // Items must be at least as wide as the specified constraint
+	        syncWidth = _.max(widths.concat(constraints.width)) : layout === VERTICAL && (// Sync widths to get a clean column
+	        syncWidth = _.max(widths));
+	        var syncHeight;
+	        constraints.height ? // Items must be at least as high as the specified constraint
+	        syncHeight = _.max(heights.concat(constraints.height)) : layout === HORIZONTAL && (// Sync widths to get a clean row
+	        syncHeight = _.max(heights));
+	        items = _.map(items, function(item, i) {
+	            item.width = syncWidth || widths[i];
+	            item.height = syncHeight || heights[i];
+	            return item;
+	        });
+	        this.setState({
+	            items: items
+	        }, function() {
+	            _this.props.onMeasure({
+	                widths: widths,
+	                heights: heights
+	            });
+	        });
+	    },
+	    remeasureItems: _.debounce(function() {
+	        this.setState({
+	            // Clear item measurements
+	            items: this.clearItemMeasurements(this.state.items)
+	        }, this.measureItems);
+	    }, 20),
+	    render: function render() {
+	        var cards = [];
+	        var layout = this.props.layout;
+	        // We need to keep backwards compatbility with rules specified directly
+	        // in CSS. See sortable.less for details.
+	        var className = css(styles.sortable) + " perseus-sortable";
+	        _.each(this.state.items, function(item, i, items) {
+	            var isLast = i === items.length - 1;
+	            var isStatic = item.type === STATIC || item.type === DISABLED;
+	            var margin;
+	            this.props.layout === HORIZONTAL ? margin = "0 " + this.props.margin + "px 0 0" : this.props.layout === VERTICAL && (margin = "0 0 " + this.props.margin + "px 0");
+	            cards.push(React.createElement(Draggable, {
+	                content: item.option,
+	                key: item.key,
+	                type: item.type,
+	                ref: item.key,
+	                width: item.width,
+	                height: item.height,
+	                layout: layout,
+	                includePadding: this.props.padding,
+	                margin: isLast && isStatic ? 0 : margin,
+	                endPosition: item.endPosition,
+	                onRender: this.remeasureItems,
+	                onMouseDown: this.onMouseDown.bind(this, item.key),
+	                onMouseMove: this.onMouseMove.bind(this, item.key),
+	                onMouseUp: this.onMouseUp.bind(this, item.key),
+	                onTouchMove: this.onMouseMove.bind(this, item.key),
+	                onTouchEnd: this.onMouseUp.bind(this, item.key),
+	                onTouchCancel: this.onMouseUp.bind(this, item.key),
+	                onAnimationEnd: this.onAnimationEnd.bind(this, item.key)
+	            }));
+	            item.type !== DRAGGING && item.type !== ANIMATING || cards.push(React.createElement(Placeholder, {
+	                key: "placeholder_" + item.key,
+	                ref: "placeholder_" + item.key,
+	                width: item.width,
+	                height: item.height,
+	                layout: layout,
+	                margin: isLast ? 0 : margin
+	            }));
+	        }, this);
+	        return React.createElement("ul", {
+	            className: className
+	        }, cards);
+	    },
+	    onMouseDown: function onMouseDown(key) {
+	        // Static -> Dragging
+	        var items = _.map(this.state.items, function(item) {
+	            item.key === key && (item.type = DRAGGING);
+	            return item;
+	        });
+	        this.setState({
+	            items: items
+	        });
+	    },
+	    onMouseMove: function onMouseMove(key) {
+	        // Dragging: Rearrange items based on draggable's position
+	        var $draggable = $(ReactDOM.findDOMNode(this.refs[key]));
+	        var $sortable = $(ReactDOM.findDOMNode(this));
+	        var items = _.clone(this.state.items);
+	        var item = _.findWhere(this.state.items, {
+	            key: key
+	        });
+	        var margin = this.props.margin;
+	        var currentIndex = _.indexOf(items, item);
+	        var newIndex = 0;
+	        items.splice(currentIndex, 1);
+	        if (this.props.layout === HORIZONTAL) {
+	            var midWidth = $draggable.offset().left - $sortable.offset().left;
+	            var sumWidth = 0;
+	            var cardWidth;
+	            _.each(items, function(item) {
+	                cardWidth = item.width;
+	                midWidth > sumWidth + cardWidth / 2 && (newIndex += 1);
+	                sumWidth += cardWidth + margin;
+	            });
+	        } else {
+	            var midHeight = $draggable.offset().top - $sortable.offset().top;
+	            var sumHeight = 0;
+	            var cardHeight;
+	            _.each(items, function(item) {
+	                cardHeight = item.height;
+	                midHeight > sumHeight + cardHeight / 2 && (newIndex += 1);
+	                sumHeight += cardHeight + margin;
+	            });
+	        }
+	        if (newIndex !== currentIndex) {
+	            items.splice(newIndex, 0, item);
+	            this.setState({
+	                items: items
+	            });
+	        }
+	    },
+	    onMouseUp: function onMouseUp(key) {
+	        // Dragging -> Animating
+	        var items = _.map(this.state.items, function(item) {
+	            if (item.key === key) {
+	                item.type = ANIMATING;
+	                item.endPosition = $(ReactDOM.findDOMNode(this.refs["placeholder_" + key])).position();
+	            }
+	            return item;
+	        }, this);
+	        this.setState({
+	            items: items
+	        });
+	        // HACK: We need to know *that* the widget changed, but currently it's
+	        // not set up in a nice way to tell us *how* it changed, since the
+	        // permutation of the items is stored in state.
+	        this.props.onChange({});
+	    },
+	    onAnimationEnd: function onAnimationEnd(key) {
+	        // Animating -> Static
+	        var items = _.map(this.state.items, function(item) {
+	            item.key === key && (item.type = STATIC);
+	            return item;
+	        });
+	        this.setState({
+	            items: items
+	        });
+	    },
+	    getOptions: function getOptions() {
+	        return _.pluck(this.state.items, "option");
+	    }
+	});
+
+	var styles = StyleSheet.create({
+	    sortable: {
+	        boxSizing: "border-box",
+	        float: "left",
+	        padding: 0,
+	        margin: 0
+	    },
+	    card: {
+	        boxSizing: "border-box",
+	        background: "#fff",
+	        border: "1px solid #ddd",
+	        borderRadius: 4,
+	        cursor: "pointer",
+	        minWidth: 25,
+	        minHeight: 44,
+	        padding: 10,
+	        listStyleType: "none",
+	        userSelect: "none"
+	    },
+	    placeholder: {
+	        background: "#ddd",
+	        border: "1px solid #ccc"
+	    },
+	    draggable: {
+	        textAlign: "center"
+	    },
+	    horizontalCard: {
+	        float: "left",
+	        cursor: "ew-resize"
+	    },
+	    verticalCard: {
+	        maxWidth: "100%",
+	        cursor: "ns-resize"
+	    },
+	    unpaddedCard: {
+	        padding: 0
+	    },
+	    dragging: {
+	        background: "#ffedcd",
+	        opacity: "0.8"
+	    },
+	    disabled: {
+	        backgroundColor: "inherit",
+	        border: "1px solid transparent",
+	        cursor: "default"
+	    }
+	});
+
+	module.exports = Sortable;
 
 /***/ },
 /* 112 */
@@ -13625,7 +13727,9 @@ webpackJsonpPerseus([1],[
 /***/ },
 /* 113 */,
 /* 114 */,
-/* 115 */
+/* 115 */,
+/* 116 */,
+/* 117 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -14160,7 +14264,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 116 */
+/* 118 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -14334,7 +14438,7 @@ webpackJsonpPerseus([1],[
 	module.exports = draw;
 
 /***/ },
-/* 117 */
+/* 119 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -14648,7 +14752,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 118 */
+/* 120 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -14891,7 +14995,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 119 */
+/* 121 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -15223,8 +15327,6 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 120 */,
-/* 121 */,
 /* 122 */,
 /* 123 */,
 /* 124 */,
@@ -15233,7 +15335,11 @@ webpackJsonpPerseus([1],[
 /* 127 */,
 /* 128 */,
 /* 129 */,
-/* 130 */
+/* 130 */,
+/* 131 */,
+/* 132 */,
+/* 133 */,
+/* 134 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -15278,14 +15384,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 131 */,
-/* 132 */,
-/* 133 */,
-/* 134 */,
-/* 135 */,
-/* 136 */,
-/* 137 */,
-/* 138 */
+/* 135 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";

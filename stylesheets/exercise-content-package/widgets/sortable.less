@@ -89,53 +89,18 @@
     }
 }
 
+// TODO(benkomalo): ideally all of these would be removed as all of the other
+// sortable styles have been moved to inline styles using Aphrodite. However,
+// these are all hacky styles that reach down into descendents in ways that
+// they probably shouldn't, so Aphrodite doesn't support it. This will require
+// a larger refactoring to wire down options to nested `Renderer`s so they can
+// have their styling modified.
 .perseus-sortable {
-    // This should really be applied to individual items, but applying
-    // it here makes positioning simple
-    .perseus-interactive;
-
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    float: left;
-
-    // Override normal list styling
-    padding: 0 !important;
-
-    .perseus-sortable-card {
-        background-color: #fff;
-        border: 1px solid #ddd;
-
-        border-radius: 4px;
-        -moz-border-radius: 4px;
-        -webkit-border-radius: 4px;
-
-        box-sizing: border-box;
-        -moz-box-sizing: border-box;
-
-        cursor: pointer;
-
-        min-width: 25px;
-        min-height: 44px;
-        padding: 10px;
-
-        // Override normal list styling
-        list-style-type: none !important;
-
-        -webkit-user-select: none;
-        -khtml-user-select: none;
-        -moz-user-select: none;
-        -o-user-select: none;
-    }
-
-    .perseus-sortable-placeholder {
-        background: #ddd;
-        border: 1px solid #ccc;
+    div.paragraph {
+        margin: 0;
     }
 
     .perseus-sortable-draggable {
-        font-size: 0;
-        text-align: center;
-
         &:before {
             // Vertical-align, part 1
             content: "";
@@ -151,58 +116,11 @@
             max-width: 100%;
             vertical-align: middle;
         }
-
-        div.paragraph {
-            margin: 0;
-        }
-
-        &.perseus-sortable-static {
-            cursor: pointer;
-        }
-
-        &.perseus-sortable-static:hover {
-            .draggy-boxy-thing-hover();
-        }
-
-        &.perseus-sortable-dragging {
-            background-color: #ffedcd;
-            filter: opacity(0.8);
-            opacity: 0.8;
-        }
-
-        &.perseus-sortable-disabled {
-            background-color: inherit;
-            border: 1px solid transparent;
-            cursor: default;
-        }
     }
 
-    &.layout-horizontal {
-        .perseus-sortable-card {
-            float: left;
-        }
-
-        .perseus-sortable-dragging {
-            cursor: ew-resize;
-        }
-    }
-
-    &.layout-vertical {
-        &, .perseus-sortable-card {
-            max-width: 100%;
-        }
-
-        .perseus-sortable-dragging {
-            cursor: ns-resize;
-        }
-    }
-
-    &.unpadded {
-        .perseus-sortable-card {
-            padding: 0;
-            img {
-                vertical-align: bottom;
-            }
+    .perseus-sortable-draggable-unpadded {
+        img {
+            vertical-align: bottom;
         }
     }
 }

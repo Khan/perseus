@@ -75,7 +75,8 @@ const HintRenderer = React.createClass({
             {!apiOptions.isMobile && <span className="perseus-sr-only">
                 {i18n._("Hint #%(pos)s", {pos: pos + 1})}
             </span>}
-            {!apiOptions.isMobile && totalHints && pos != null && <span
+            {!apiOptions.isMobile && !apiOptions.satStyling &&
+            totalHints && pos != null && <span
                 className="perseus-hint-label"
                 style={{display: 'block'}}
             >

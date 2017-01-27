@@ -230,15 +230,24 @@ const Choice = React.createClass({
             },
 
             satPos: {
-                display: "block",
-                color: styleConstants.satBlue,
+                // These properties make sure that this element has the exact
+                // same size as `satPosBack` so that we can center things
+                // inside of it.
+                border: "2px solid transparent",
+                width: 25,
+                height: 25,
+                position: "absolute",
+                left: 1,
+                top: 1,
+
+                // Center contained items.
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+
                 fontFamily: styleConstants.boldFontFamily,
                 fontSize: 13,
-                textAlign: "center",
-                position: "absolute",
-                left: 0,
-                top: 7,
-                width: 32,
+                color: styleConstants.satBlue,
             },
 
             satPosChecked: {
