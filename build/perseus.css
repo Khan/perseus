@@ -1,5 +1,5 @@
 /* Perseus CSS
-// commit 347f9aeb171a332b43d5d6c74f90997528f80dd4
+// commit 357f1dab6d6aad4367559a535b8c36c682e2cfca
 // branch master
 // @generated
 */
@@ -2183,6 +2183,7 @@ body.mobile .framework-perseus table.perseus-widget-table-of-values.non-markdown
   padding-top: 48px;
   padding-bottom: 22px;
   padding-left: 46px;
+  padding-right: 32px;
 }
 #sat-mission .content-area > div.perseus-renderer-two-columns .perseus-column:nth-child(1) .perseus-widget-passage-container {
   position: relative;
@@ -2235,10 +2236,31 @@ body.mobile .framework-perseus table.perseus-widget-table-of-values.non-markdown
 #sat-mission .valid-answer input[type=number]:valid {
   border: 1px solid #0084ce;
   background: #e4f3f9;
+  color: initial;
 }
 #sat-mission .valid-answer input[type=text]:valid:focus,
 #sat-mission .valid-answer input[type=number]:valid:focus {
   box-shadow: 0 0 10px rgba(0, 132, 206, 0.8);
+}
+#sat-mission .valid-answer .perseus-group-valid-answer input[type=text]:valid,
+#sat-mission .valid-answer .perseus-group-valid-answer input[type=number]:valid {
+  border: 1px solid #0084ce;
+  background: #e4f3f9;
+  color: initial;
+}
+#sat-mission .valid-answer .perseus-group-valid-answer input[type=text]:valid:focus,
+#sat-mission .valid-answer .perseus-group-valid-answer input[type=number]:valid:focus {
+  box-shadow: 0 0 10px rgba(0, 132, 206, 0.8);
+}
+#sat-mission .valid-answer .perseus-group-invalid-answer input[type=text]:valid,
+#sat-mission .valid-answer .perseus-group-invalid-answer input[type=number]:valid {
+  color: #990000;
+  background-color: #f2ebeb;
+  border: solid 1px #cc5252;
+}
+#sat-mission .valid-answer .perseus-group-invalid-answer input[type=text]:valid:focus,
+#sat-mission .valid-answer .perseus-group-invalid-answer input[type=number]:valid:focus {
+  box-shadow: 0 0 10px rgba(204, 82, 82, 0.8);
 }
 #sat-mission .invalid-answer input[type=text]:valid,
 #sat-mission .invalid-answer input[type=number]:valid {
@@ -2248,6 +2270,26 @@ body.mobile .framework-perseus table.perseus-widget-table-of-values.non-markdown
 }
 #sat-mission .invalid-answer input[type=text]:valid:focus,
 #sat-mission .invalid-answer input[type=number]:valid:focus {
+  box-shadow: 0 0 10px rgba(204, 82, 82, 0.8);
+}
+#sat-mission .invalid-answer .perseus-group-valid-answer input[type=text]:valid,
+#sat-mission .invalid-answer .perseus-group-valid-answer input[type=number]:valid {
+  border: 1px solid #0084ce;
+  background: #e4f3f9;
+  color: initial;
+}
+#sat-mission .invalid-answer .perseus-group-valid-answer input[type=text]:valid:focus,
+#sat-mission .invalid-answer .perseus-group-valid-answer input[type=number]:valid:focus {
+  box-shadow: 0 0 10px rgba(0, 132, 206, 0.8);
+}
+#sat-mission .invalid-answer .perseus-group-invalid-answer input[type=text]:valid,
+#sat-mission .invalid-answer .perseus-group-invalid-answer input[type=number]:valid {
+  color: #990000;
+  background-color: #f2ebeb;
+  border: solid 1px #cc5252;
+}
+#sat-mission .invalid-answer .perseus-group-invalid-answer input[type=text]:valid:focus,
+#sat-mission .invalid-answer .perseus-group-invalid-answer input[type=number]:valid:focus {
   box-shadow: 0 0 10px rgba(204, 82, 82, 0.8);
 }
 #sat-mission #sat-route-task .content-area > .perseus-renderer-two-columns,
