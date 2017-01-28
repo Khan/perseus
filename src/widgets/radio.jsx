@@ -1,4 +1,6 @@
 var React = require('react');
+var classNames = require("classnames");
+
 var Changeable = require("../mixins/changeable.jsx");
 var ApiClassNames = require("../perseus-api.jsx").ClassNames;
 
@@ -13,8 +15,6 @@ var shuffle = require("../util.js").shuffle;
 var seededRNG = require("../util.js").seededRNG;
 var captureScratchpadTouchStart =
         require("../util.js").captureScratchpadTouchStart;
-
-var cx = React.addons.classSet;
 
 var BaseRadio = React.createClass({
     propTypes: {
@@ -52,7 +52,7 @@ var BaseRadio = React.createClass({
                 };
                 classSet[ApiClassNames.RADIO.OPTION] = true;
                 classSet[ApiClassNames.RADIO.SELECTED] = choice.checked;
-                var className = cx(classSet);
+                var className = classNames(classSet);
 
                 return <li className={className} key={i}><div>
                     <span className="checkbox">
@@ -327,7 +327,7 @@ var RadioEditor = React.createClass({
     render: function() {
         return <div>
             <div className="perseus-widget-row">
-            
+
                 <div className="perseus-widget-left-col">
                     <PropCheckBox label="多選題"
                                   labelAlignment="right"

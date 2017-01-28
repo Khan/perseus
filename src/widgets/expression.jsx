@@ -1,4 +1,6 @@
 var React   = require("react");
+var classNames = require("classnames");
+
 var InfoTip = require("react-components/js/info-tip.jsx");
 var Tooltip = require("react-components/js/tooltip.jsx");
 
@@ -14,7 +16,6 @@ var MathInput         = require("../components/math-input.jsx");
 var TeX               = require("../tex.jsx"); // OldExpression only
 var TexButtons        = require("../components/tex-buttons.jsx");
 
-var cx = React.addons.classSet;
 var EnabledFeatures = require("../enabled-features.jsx");
 var Util = require("../util.js");
 
@@ -127,7 +128,7 @@ var Expression = React.createClass({
                 </Tooltip>
             </span>;
 
-            var className = cx({
+            var className = classNames({
                 "perseus-widget-expression": true,
                 "show-error-tooltip": this.state.showErrorTooltip
             });

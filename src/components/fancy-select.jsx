@@ -13,6 +13,7 @@
  */
 
 var React = require("react");
+var classNames = require("classnames");
 
 // Hack to get around react descriptors not being renderable
 // in a new component after the first render. This is being
@@ -100,7 +101,7 @@ var FancySelect = React.createClass({
             value: this.props.value
         });
 
-        var selectBoxClassName = React.addons.classSet({
+        var selectBoxClassName = classNames({
             "fancy-select": true,
             active: this.state.active,
             closed: this.state.closed
@@ -130,7 +131,7 @@ var FancySelect = React.createClass({
                 return null;
             }
 
-            var className = React.addons.classSet({
+            var className = classNames({
                 "fancy-option": true,
                 active: this.state.active,
                 closed: this.state.closed,
@@ -155,7 +156,7 @@ var FancySelect = React.createClass({
             </li>;
         });
 
-        var optionsBoxClassName = React.addons.classSet({
+        var optionsBoxClassName = classNames({
             "fancy-select-options": true,
             active: this.state.active,
             closed: this.state.closed

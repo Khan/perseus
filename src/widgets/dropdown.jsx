@@ -1,4 +1,6 @@
 var React = require('react');
+var classNames = require("classnames");
+
 var InfoTip = require("react-components/js/info-tip.jsx");
 var FancySelect = require("../components/fancy-select.jsx");
 var FancyOption = FancySelect.Option;

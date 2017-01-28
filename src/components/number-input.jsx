@@ -1,4 +1,5 @@
 var React = require('react');
+var classNames = require("classnames");
 var firstNumericalParse = require("../util.js").firstNumericalParse;
 var captureScratchpadTouchStart =
         require("../util.js").captureScratchpadTouchStart;
@@ -51,9 +52,7 @@ var NumberInput = React.createClass({
     },
 
     render: function() {
-        cx = React.addons.classSet;
-
-        var classes = cx({
+        var classes = classNames({
             "number-input": true,
             "number-input-label": this.props.label != null,
             "invalid-input": !this._checkValidity(this.props.value),

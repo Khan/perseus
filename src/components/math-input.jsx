@@ -1,8 +1,9 @@
-// TODO(alex): Package MathQuill
-var MathQuill = window.MathQuill;
+var classNames = require("classnames");
 var React     = require("react");
 var _         = require("underscore");
-var cx        = React.addons.classSet;
+
+// TODO(alex): Package MathQuill
+var MathQuill = window.MathQuill;
 var PT = React.PropTypes;
 var TexButtons = require("./tex-buttons.jsx");
 
@@ -20,7 +21,7 @@ var MathInput = React.createClass({
     },
 
     render: function() {
-        var className = cx({
+        var className = classNames({
             "perseus-math-input": true,
 
             // mathquill usually adds these itself but react removes them when
