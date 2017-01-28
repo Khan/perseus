@@ -1,4 +1,6 @@
-/** @jsx React.DOM */
+var React = require("react");
+var _ = require("underscore");
+
 var assert = require("assert");
 
 var NumberInput = require("../number-input.jsx");

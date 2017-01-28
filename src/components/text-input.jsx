@@ -1,3 +1,4 @@
+var React = require("react");
 var TextInput = React.createClass({
     propTypes: {
         value: React.PropTypes.string,

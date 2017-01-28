@@ -6,6 +6,8 @@
  * This.change takes prop changes as parameters, and calls
  * this.props.onChange with the modified props.
  */
+var React = require("react");
+var _ = require("underscore");
 
 var WIDGET_PROP_BLACKLIST = require("./widget-prop-blacklist.jsx");
 

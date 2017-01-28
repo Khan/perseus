@@ -1,3 +1,6 @@
+var React = require("react");
+var _ = require("underscore");
+
 var textWidthCache = {};
 function getTextWidth(text) {
     if (!textWidthCache[text]) {
@@ -89,7 +92,7 @@ var TextListEditor = React.createClass({
                 items.splice(index, 1);
                 this.setState({items: items}, function() {
                     this.refs["input_" + focusIndex].getDOMNode().focus();
-                });                
+                });
             }
 
         // Deleting the last character in the second-to-last input removes it

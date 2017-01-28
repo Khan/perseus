@@ -1,3 +1,6 @@
+var React = require("react");
+var _ = require("underscore");
+
 var BlurInput    = require("react-components/js/blur-input.jsx");
 var InfoTip      = require("react-components/js/info-tip.jsx");
 
@@ -177,7 +180,7 @@ var ImageEditor = React.createClass({
 
         return <div className="perseus-widget-image">
             {imageSettings}
-            
+
         </div>;
     },
 
@@ -328,4 +331,3 @@ module.exports = {
     widget: ImageWidget,
     editor: ImageEditor
 };
-
