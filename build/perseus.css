@@ -1,5 +1,5 @@
 /* Perseus CSS
-// commit 357f1dab6d6aad4367559a535b8c36c682e2cfca
+// commit e7fbb9b30b88d4185749f6782123bb110da36c39
 // branch master
 // @generated
 */
@@ -2112,6 +2112,14 @@ body.mobile .framework-perseus table.perseus-widget-table-of-values.non-markdown
   margin-left: auto;
   margin-right: auto;
   width: 592px;
+}
+#sat-mission .content-area > div .perseus-input-with-label {
+  display: flex;
+  align-items: center;
+}
+#sat-mission .content-area > div .perseus-input-with-label .perseus-input-label {
+  font-weight: 600;
+  padding-right: 10px;
 }
 #sat-mission .content-area > div .perseus-input-with-answer-blurb > span,
 #sat-mission .content-area > div .perseus-input-with-answer-blurb > label {

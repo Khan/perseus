@@ -11708,7 +11708,7 @@ webpackJsonpPerseus([1],[
 	// terms of a certain type.
 	// TODO(joel): Allow sigfigs within a range rather than an exact expected
 	// value?
-	var lens = __webpack_require__(120);
+	var lens = __webpack_require__(117);
 
 	var React = __webpack_require__(11);
 
@@ -15014,7 +15014,7 @@ webpackJsonpPerseus([1],[
 	/* globals $_ */
 	var React = __webpack_require__(11);
 
-	var SimpleMarkdown = __webpack_require__(118);
+	var SimpleMarkdown = __webpack_require__(119);
 
 	var _ = __webpack_require__(10);
 
