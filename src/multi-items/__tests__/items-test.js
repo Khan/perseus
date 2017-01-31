@@ -98,6 +98,19 @@ describe("inferItemShape", () => {
         assert.equal(shapes.content, inferItemShape(item));
     });
 
+    // TODO(mdr): Remove #LegacyContentNode support.
+    it("infers a legacy content node's shape", () => {
+        const item = {
+            _multi: {
+                __type: "item",
+                content: "",
+                images: {},
+                widgets: {},
+            },
+        };
+        assert.equal(shapes.content, inferItemShape(item));
+    });
+
     it("infers a hint node's shape", () => {
         const item = buildEmptyItemForShape(shapes.hint);
         assert.equal(shapes.hint, inferItemShape(item));

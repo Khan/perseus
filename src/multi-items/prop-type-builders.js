@@ -60,7 +60,8 @@ function buildPropTypeForShape(shape: Shape) {
 function buildTreePropTypeForShape(shape: Shape) {
     if (shape.type === "content") {
         return React.PropTypes.shape({
-            __type: React.PropTypes.oneOf(["content"]).isRequired,
+            // TODO(mdr): Remove #LegacyContentNode support.
+            __type: React.PropTypes.oneOf(["content", "item"]).isRequired,
             content: React.PropTypes.string,
             images: React.PropTypes.objectOf(React.PropTypes.any),
             widgets: React.PropTypes.objectOf(React.PropTypes.any),

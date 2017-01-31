@@ -12,7 +12,16 @@
 import type {Tree, ArrayNode, ObjectNode} from "./tree-types.js";
 
 export type ContentNode = {
-    __type: "content",
+    // TODO(mdr): When we first drafted the multi-item feature, we named
+    //     content nodes "item" nodes, and later decided the term was
+    //     ambiguous and switched to "content". But we're temporarily keeping
+    //     support for the "item" string when inferring item shape, so that we
+    //     don't crash on multi-items we've already created - but all new
+    //     content nodes will be generated with the "content" string.
+    //
+    //     Code blocks that enable this legacy support are greppable with the
+    //     keyword #LegacyContentNode.
+    __type: "content" | "item",
     // Perseus has default values for these fields, so they're all optional.
     content?: ?string,
     images?: ?{[k: string]: any},
@@ -33,5 +42,5 @@ export type ItemObjectNode = ObjectNode<ContentNode, HintNode, TagsNode>;
 export type ItemTree = Tree<ContentNode, HintNode, TagsNode>;
 
 export type Item = {
-    _multi: any,
+    _multi: ItemTree,
 };

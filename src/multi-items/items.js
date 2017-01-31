@@ -128,7 +128,11 @@ function inferItemTreeShape(node: ItemTree): Shape {
             // and you shouldn't depend on it.
             return shapes.arrayOf(shapes.content);
         }
-    } else if (typeof node === "object" && node.__type === "content") {
+    } else if (
+        // TODO(mdr): Remove #LegacyContentNode support.
+        typeof node === "object" &&
+        (node.__type === "content" || node.__type === "item")
+    ) {
         return shapes.content;
     } else if (typeof node === "object" && node.__type === "hint") {
         return shapes.hint;
