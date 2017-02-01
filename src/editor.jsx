@@ -1,4 +1,6 @@
 var React = require('react');
+var ReactCreateFragment = require("react-addons-create-fragment");
+
 var PropCheckBox = require("./components/prop-check-box.jsx");
 var Util = require("./util.js");
 var Widgets = require("./widgets.js");
@@ -84,7 +86,7 @@ var WidgetEditor = React.createClass({
         );
         var type = upgradedWidgetInfo.type;
 
-        var cls = Widgets.getEditor(type);
+        var Editor2 = Widgets.getEditor(type);
 
         var isUngradedEnabled = (type === "transformer");
         var direction = this.state.showWidget ? "down" : "right";
@@ -103,10 +105,11 @@ var WidgetEditor = React.createClass({
             <div className={"perseus-widget-editor-content " +
                     (this.state.showWidget ? "enter" : "leave")}>
                 {isUngradedEnabled && gradedPropBox}
-                {cls(_.extend({
-                    ref: "widget",
-                    onChange: this._handleWidgetChange
-                }, upgradedWidgetInfo.options))}
+                <Editor2
+                    ref="widget"
+                    onChange={this._handleWidgetChange}
+                    {...upgradedWidgetInfo.options}
+                />
             </div>
         </div>;
     },
@@ -218,12 +221,13 @@ var Editor = React.createClass({
         if (!Widgets.getEditor(type)) {
             return;
         }
-        return WidgetEditor(_.extend({
-            ref: id,
-            id: id,
-            type: type,
-            onChange: this._handleWidgetEditorChange.bind(this, id)
-        }, this.props.widgets[id]));
+        return <WidgetEditor
+            ref={id}
+            id={id}
+            type={type}
+            onChange={this._handleWidgetEditorChange.bind(this, id)}
+            {...this.props.widgets[id]}
+        />;
     },
 
     _handleWidgetEditorChange: function(id, newProps, cb) {
@@ -353,7 +357,7 @@ var Editor = React.createClass({
                         {widgetsDropDown}
                         {templatesDropDown}
                     </div>
-                    {widgets}
+                    {ReactCreateFragment(widgets)}
                 </div>;
             }
         } else {

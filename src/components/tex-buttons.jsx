@@ -1,6 +1,5 @@
 var React     = require("react");
 var TeX       = require("react-components/js/tex.jsx");
-var clone     = React.addons.cloneWithProps;
 
 var prettyBig = { fontSize: "150%" };
 var slightlyBig = { fontSize: "120%" };

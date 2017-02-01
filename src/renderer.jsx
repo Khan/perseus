@@ -1,4 +1,6 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
+
 var TeX = require("./tex.jsx");
 var WidgetContainer = require("./widget-container.jsx");
 var Widgets = require("./widgets.js");
@@ -200,20 +202,20 @@ var Renderer = React.createClass({
 
                 return <WidgetContainer
                     shouldHighlight={shouldHighlight}>
-                    {cls(_.extend({}, widgetProps, {
-                            ref: id,
-                            widgetId: id,
-                            problemNum: this.props.problemNum,
-                            enabledFeatures: this.props.enabledFeatures,
-                            apiOptions: apiOptions,
-                            questionCompleted: this.props.questionCompleted,
-                            onFocus: _.partial(this._onWidgetFocus, id),
-                            onBlur: _.partial(this._onWidgetBlur, id),
-                            onChange: (newProps, cb) => {
-                                this._setWidgetProps(id, newProps, cb);
-                            }
-                        })
-                    )}
+                    <cls
+                        {...widgetProps}
+                        ref={id}
+                        widgetId={id}
+                        problemNum={this.props.problemNum}
+                        enabledFeatures={this.props.enabledFeatures}
+                        apiOptions={apiOptions}
+                        questionCompleted={this.props.questionCompleted}
+                        onFocus={_.partial(this._onWidgetFocus, id)}
+                        onBlur={_.partial(this._onWidgetBlur, id)}
+                        onChange={(newProps, cb) => {
+                            this._setWidgetProps(id, newProps, cb);
+                        }}
+                    />
                 </WidgetContainer>;
             }
         }
@@ -326,7 +328,7 @@ var Renderer = React.createClass({
         };
 
         var wrap = function(text) {
-            return <QuestionParagraph>
+            return <QuestionParagraph key="para-1">
                 {text}
             </QuestionParagraph>;
         };
@@ -357,7 +359,7 @@ var Renderer = React.createClass({
     handleRender: function() {
         var onRender = this.props.onRender;
 
-        var $images = $(this.getDOMNode()).find("img");
+        var $images = $(ReactDOM.findDOMNode(this)).find("img");
         var imageAttrs = this.props.images || {};
 
         // TODO(jack): Weave this into the rendering in markedReact by passing

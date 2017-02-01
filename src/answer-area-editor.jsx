@@ -19,22 +19,23 @@ var AnswerAreaEditor = React.createClass({
     },
 
     render: function() {
-        var cls;
+        var Editor2;
         if (this.props.type === "multiple") {
-            cls = Editor;
+            Editor2 = Editor;
         } else {
-            cls = Widgets.getEditor(this.props.type);
+            Editor2 = Widgets.getEditor(this.props.type);
         }
 
-        var editor = cls(_.extend({
-            ref: "editor",
-            placeholder: "This answer area is being deprecated. " +
-            "Please use the widgets in the question area for your answer.",
-            onChange: (newProps, cb) => {
+        var editor = <Editor2
+            ref="editor"
+            placeholder={"This answer area is being deprecated. " +
+            "Please use the widgets in the question area for your answer."}
+            onChange={(newProps, cb) => {
                 var options = _.extend({}, this.props.options, newProps);
                 this.props.onChange({options: options}, cb);
-            }
-        }, this.props.options));
+            }}
+            {...this.props.options}
+        />;
 
         return <div className="perseus-answer-editor">
             <div className="perseus-answer-options">
@@ -50,7 +51,7 @@ var AnswerAreaEditor = React.createClass({
             return this.refs.editor;
         } else {
             return undefined;
-        } 
+        }
     },
 
     toJSON: function(skipValidation) {

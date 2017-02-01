@@ -112,7 +112,7 @@ var Graphie = React.createClass({
     _setupGraphie: function() {
         this._removeMovables();
 
-        var graphieDiv = this.refs.graphieDiv.getDOMNode();
+        var graphieDiv = this.refs.graphieDiv;
         $(graphieDiv).empty();
         var graphie = this._graphie = createGraphie(graphieDiv);
 
@@ -177,23 +177,29 @@ var Graphie = React.createClass({
         // elements occurring afterwards. If this happens, we set
         // `areMovablesOutOfOrder` to true:
         var areMovablesOutOfOrder = false;
-        return nestedMap(children, (child) => {
-            if (!child) {
+        return nestedMap(children, (childDescriptor) => {
+            if (!childDescriptor) {
                 // Still increment the key to avoid cascading key changes
                 // on hiding/unhiding children, i.e. by using
                 // {someBoolean && <MovablePoint />}
                 options.nextKey++;
                 // preserve the null/undefined in the resulting array
-                return child;
+                return childDescriptor;
             }
 
+            // Instantiate the descriptor to turn it into a real Movable
+            var child = new childDescriptor.type(childDescriptor.props);
             assert(child instanceof GraphieMovable,
                 "All children of a Graphie component must be Graphie " +
                 "movables");
 
             // Give each child a key
-            var key = child.key() || ("_no_id_" + options.nextKey);
+            var keyProp = childDescriptor.key;
+            var key = (keyProp == null) ?
+                    ("_no_id_" + options.nextKey) :
+                    keyProp;
             options.nextKey++;
+            var ref = childDescriptor.ref;
 
             // We render our children first. This allows us to replace any
             // `movableProps` on our child with the on-screen movables
@@ -224,9 +230,10 @@ var Graphie = React.createClass({
 
                 // This generally is a bad idea, so warn about it if this
                 // is being caused by implicit keys
-                if (!child.key()) {
-                    if (typeof console !== "undefined" && console.warn) {
-                        console.warn("Replacing a <Graphie> child with a " +
+                if (keyProp == null) {
+                    if (typeof console !== "undefined" &&
+                            console.warn) { // @Nolint
+                        console.warn("Replacing a <Graphie> child with a " + // @Nolint
                                 "child of a different type. Please add keys " +
                                 "to your <Graphie> children");
                     }
@@ -241,6 +248,10 @@ var Graphie = React.createClass({
 
             if (areMovablesOutOfOrder) {
                 newMovables[key].toFront();
+            }
+
+            if (ref) {
+                this.movables[ref] = newMovables[key];
             }
 
             return newMovables[key];

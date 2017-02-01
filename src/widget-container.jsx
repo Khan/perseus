@@ -13,19 +13,19 @@ var WidgetContainer = React.createClass({
             "widget-nohighlight": !this.props.shouldHighlight,
         });
 
-        if (_.flatten([this.props.children.constructor]).length !== 1) {
-            throw new Error("WidgetContainer takes exactly one child.");
+        var widgetType = this.props.type;
+        if (widgetType == null) {
+            // Just give up on invalid widget types
+            return <div className={className} />;
         }
-
-        var widgetClass = this.props.children.constructor;
-        if (widgetClass.displayMode == null) {
+        if (widgetType.displayMode == null) {
             throw new Error("You didn't specify a displayMode in the " +
                           "statics for " + widgetClass.displayName + ".");
         }
 
         return <div className={className}
             style={{
-                display: widgetClass.displayMode
+                display: widgetType.displayMode
             }}>
             {this.props.children}
         </div>;

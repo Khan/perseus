@@ -110,19 +110,21 @@ var AnswerAreaRenderer = React.createClass({
             }
         );
 
-        return this.state.cls(_.extend({
-            ref: "widget",
-            problemNum: this.props.problemNum,
-            onChange: this.handleChangeRenderer,
-            onInteractWithWidget: this.props.onInteractWithWidget,
-            highlightedWidgets: this.props.highlightedWidgets,
-            enabledFeatures: _.extend({}, this.props.enabledFeatures, {
+        return <this.state.cls
+            ref="widget"
+            problemNum={this.props.problemNum}
+            onChange={this.handleChangeRenderer}
+            onInteractWithWidget={this.props.onInteractWithWidget}
+            highlightedWidgets={this.props.highlightedWidgets}
+            enabledFeatures={{...this.props.enabledFeatures,
                 // Hide answer area tooltip formats,
                 // the "Acceptable formats" box already works
                 toolTipFormats: false
-            }),
-            apiOptions: apiOptions
-        }, this.props.options, this.state.widget));
+            }}
+            apiOptions={apiOptions}
+            {...this.props.options}
+            {...this.state.widget}
+        />
     },
 
     renderSingle: function() {
@@ -266,11 +268,11 @@ var AnswerAreaRenderer = React.createClass({
 
         $("#examples-show").hide();
         if ($("#examples-show").data("qtip")) {
-            // This will warn about Jquery removing a node owned by React, 
-            // however React no longer owns that node. We created that node 
-            // using React, copied its html, passed it to qtip, and then 
-            // unmounted it from React. So it React thinks it is it's code 
-            // because it has a data-reactid, but qtip created it.      
+            // This will warn about Jquery removing a node owned by React,
+            // however React no longer owns that node. We created that node
+            // using React, copied its html, passed it to qtip, and then
+            // unmounted it from React. So it React thinks it is it's code
+            // because it has a data-reactid, but qtip created it.
             $("#examples-show").qtip("destroy", /* immediate */ true);
         }
 
@@ -303,7 +305,7 @@ var AnswerAreaRenderer = React.createClass({
                 hide: {delay: 0}
             });
 
-            // Now that qtip has been created with a copy of the react 
+            // Now that qtip has been created with a copy of the react
             // component's html, we no longer need to keep the react component.
             React.unmountComponentAtNode(this.$examples[0]);
             this.$examples.remove();

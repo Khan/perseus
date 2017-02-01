@@ -30,17 +30,13 @@ var ItemEditor = React.createClass({
             <div className="perseus-editor-row perseus-question-container">
                 <div className="perseus-editor-left-cell">
                     <div className="pod-title">Question</div>
-                    {Editor(_.extend({
-                        ref: "questionEditor",
-                        placeholder: "Type your question here...",
-                        className: "perseus-question-editor",
-                        imageUploader: this.props.imageUploader,
-                        onChange: (newProps, cb) => {
-                            var question = _.extend({},
-                                    this.props.question, newProps);
-                            this.updateProps({question: question}, cb);
-                        }
-                    }, this.props.question))}
+                    <Editor
+                        ref="questionEditor"
+                        placeholder="Type your question here..."
+                        className="perseus-question-editor"
+                        imageUploader={this.props.imageUploader}
+                        onChange={this.handleEditorChange}
+                        {...this.props.question} />
                 </div>
 
                 <div className="perseus-editor-right-cell">
@@ -56,14 +52,10 @@ var ItemEditor = React.createClass({
             <div className="perseus-editor-row perseus-answer-container">
                 <div className="perseus-editor-left-cell">
                     <div className="pod-title">Answer</div>
-                    {AnswerAreaEditor(_.extend({
-                        ref: "answerAreaEditor",
-                        onChange: (newProps, cb) => {
-                            var answerArea = _.extend({},
-                                    this.props.answerArea, newProps);
-                            this.updateProps({answerArea: answerArea}, cb);
-                        }
-                    }, this.props.answerArea))}
+                    <AnswerAreaEditor
+                        ref="answerAreaEditor"
+                        onChange={this.handleAnswerAreaChange}
+                        {...this.props.answerArea} />
                 </div>
 
                 <div className="perseus-editor-right-cell">
@@ -88,6 +80,16 @@ var ItemEditor = React.createClass({
                 </div>
             </div>
         </div>;
+    },
+
+    handleEditorChange: function(newProps, cb, silent) {
+        var question = _.extend({}, this.props.question, newProps);
+        this.updateProps({ question }, cb, silent);
+    },
+
+    handleAnswerAreaChange: function(newProps, cb, silent) {
+        var answerArea = _.extend({}, this.props.answerArea, newProps);
+        this.updateProps({ answerArea }, cb, silent);
     },
 
     toJSON: function(skipValidation) {

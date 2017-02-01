@@ -202,14 +202,11 @@ Perseus.init({skipMathJax: false}).then(function() {
             }
         }
     });
-    var StatefulEditorPage = React.createFactory(Perseus.StatefulEditorPage);
-    editor = ReactDOM.render(
-        StatefulEditorPage(editorProps, null),
-        document.getElementById("perseus-container")
+    editor = Perseus.render(
+        Perseus.StatefulEditorPage,
+        document.getElementById("perseus-container"),
+        editorProps
     );
-    // Some hacks to make debugging nicer
-    window.editorPage = editor.refs.editor;
-    window.itemRenderer = window.editorPage.renderer;
 }).then(function() {
 }, function(err) {
     console.error(err);

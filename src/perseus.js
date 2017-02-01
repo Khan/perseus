@@ -6,6 +6,7 @@ module.exports = {
     apiVersion:         version.apiVersion,
     itemDataVersion:    version.itemDataVersion,
     init:               require("./init.js"),
+    render:             require("./render.js"),
     AnswerAreaRenderer: require("./answer-area-renderer.jsx"),
     Editor:             require("./editor.jsx"),
     EditorPage:         require("./editor-page.jsx"),

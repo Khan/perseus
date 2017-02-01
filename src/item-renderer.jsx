@@ -1,4 +1,6 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
+
 var AnswerAreaRenderer = require("./answer-area-renderer.jsx");
 var HintRenderer = require("./hint-renderer.jsx");
 var Renderer = require("./renderer.jsx");
@@ -96,37 +98,38 @@ var ItemRenderer = React.createClass({
         // that have completely different places in the DOM, we have to do this
         // strangeness instead of relying on React's normal render() method.
         // TODO(alpert): Figure out how to clean this up somehow
-        this.questionRenderer = React.renderComponent(
-                Renderer(_.extend({
-                    problemNum: this.props.problemNum,
-                    onInteractWithWidget: this.handleInteractWithWidget,
-                    highlightedWidgets: this.state.questionHighlightedWidgets,
-                    enabledFeatures: enabledFeatures,
-                    apiOptions: apiOptions,
-                    questionCompleted: this.state.questionCompleted
-                }, this.props.item.question)),
+        this.questionRenderer = ReactDOM.render(
+                <Renderer
+                    problemNum={this.props.problemNum}
+                    onInteractWithWidget={this.handleInteractWithWidget}
+                    highlightedWidgets={this.state.questionHighlightedWidgets}
+                    enabledFeatures={enabledFeatures}
+                    apiOptions={apiOptions}
+                    questionCompleted={this.state.questionCompleted}
+                    {...this.props.item.question}
+                />,
                 document.querySelector(this.props.workAreaSelector));
 
-        this.answerAreaRenderer = React.renderComponent(
-                AnswerAreaRenderer({
-                    type: this.props.item.answerArea.type,
-                    options: this.props.item.answerArea.options,
-                    calculator: this.props.item.answerArea.calculator || false,
-                    problemNum: this.props.problemNum,
-                    onInteractWithWidget: this.handleInteractWithAnswerWidget,
-                    highlightedWidgets: this.state.answerHighlightedWidgets,
-                    enabledFeatures: enabledFeatures,
-                    apiOptions: apiOptions
-                }),
+        this.answerAreaRenderer = ReactDOM.render(
+                <AnswerAreaRenderer
+                    type={this.props.item.answerArea.type}
+                    options={this.props.item.answerArea.options}
+                    calculator={this.props.item.answerArea.calculator || false}
+                    problemNum={this.props.problemNum}
+                    onInteractWithWidget={this.handleInteractWithAnswerWidget}
+                    highlightedWidgets={this.state.answerHighlightedWidgets}
+                    enabledFeatures={enabledFeatures}
+                    apiOptions={apiOptions}
+                />,
                 document.querySelector(this.props.solutionAreaSelector));
 
-        this.hintsRenderer = React.renderComponent(
-                HintsRenderer({
-                    hints: this.props.item.hints,
-                    hintsVisible: this.state.hintsVisible,
-                    enabledFeatures: enabledFeatures,
-                    apiOptions: apiOptions
-                }),
+        this.hintsRenderer = ReactDOM.render(
+                <HintsRenderer
+                    hints={this.props.item.hints}
+                    hintsVisible={this.state.hintsVisible}
+                    enabledFeatures={enabledFeatures}
+                    apiOptions={apiOptions}
+                />,
                 document.querySelector(this.props.hintsAreaSelector));
     },
 
