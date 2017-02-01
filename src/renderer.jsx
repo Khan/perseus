@@ -200,25 +200,41 @@ var Renderer = React.createClass({
                     id
                 );
 
+
                 return <WidgetContainer
-                    shouldHighlight={shouldHighlight}>
-                    <cls
-                        {...widgetProps}
-                        ref={id}
-                        widgetId={id}
-                        problemNum={this.props.problemNum}
-                        enabledFeatures={this.props.enabledFeatures}
-                        apiOptions={apiOptions}
-                        questionCompleted={this.props.questionCompleted}
-                        onFocus={_.partial(this._onWidgetFocus, id)}
-                        onBlur={_.partial(this._onWidgetBlur, id)}
-                        onChange={(newProps, cb) => {
-                            this._setWidgetProps(id, newProps, cb);
-                        }}
-                    />
-                </WidgetContainer>;
+                    ref={"container:" + id}
+                    key={"container:" + id}
+                    type={cls}
+                    initialProps={this.getWidgetProps(id)}
+                    shouldHighlight={shouldHighlight}
+                />;
             }
         }
+    },
+
+    getApiOptions: function(props) {
+        return _.extend(
+            {},
+            ApiOptions.defaults,
+            props.apiOptions
+        );
+    },
+
+    getWidgetProps: function(id) {
+        var widgetProps = this.state.widgetProps[id] || {};
+        return _.extend({}, widgetProps, {
+            ref: id,
+            widgetId: id,
+            problemNum: this.props.problemNum,
+            enabledFeatures: this.props.enabledFeatures,
+            apiOptions: this.getApiOptions(this.props),
+            questionCompleted: this.props.questionCompleted,
+            onFocus: _.partial(this._onWidgetFocus, id),
+            onBlur: _.partial(this._onWidgetBlur, id),
+            onChange: (newProps, cb) => {
+                this._setWidgetProps(id, newProps, cb);
+            }
+        });
     },
 
     _onWidgetFocus: function(id, focusPath, element) {
@@ -328,7 +344,7 @@ var Renderer = React.createClass({
         };
 
         var wrap = function(text) {
-            return <QuestionParagraph key="para-1">
+            return <QuestionParagraph>
                 {text}
             </QuestionParagraph>;
         };
@@ -347,6 +363,7 @@ var Renderer = React.createClass({
             tokLevelCount--;
             return result;
         };
+        console.log(markdown);
 
         try {
             return <div>{markedReact(markdown)}</div>;

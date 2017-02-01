@@ -130,7 +130,17 @@ var AnswerAreaRenderer = React.createClass({
     renderSingle: function() {
         var shouldHighlight = _.contains(this.props.highlightedWidgets,
                                     SINGLE_ITEM_WIDGET_ID);
+        return <QuestionParagraph>
+            <WidgetContainer
+                ref="container"
+                key={this.props.type}
+                type={this.state.cls}
+                initialProps={this.getSingleWidgetProps()}
+                shouldHighlight={shouldHighlight} />
+        </QuestionParagraph>;
+    },
 
+    getSingleWidgetProps: function() {
         var editorProps = this.props.options;
         var transform = Widgets.getTransform(this.props.type);
         var apiOptions = _.extend(
@@ -171,25 +181,19 @@ var AnswerAreaRenderer = React.createClass({
             });
         };
 
-        return <QuestionParagraph>
-            <WidgetContainer
-                shouldHighlight={shouldHighlight} >
-                {this.state.cls(_.extend({
-                    ref: "widget",
-                    widgetId: SINGLE_ITEM_WIDGET_ID,
-                    problemNum: this.props.problemNum,
-                    onChange: this.handleChangeRenderer,
-                    enabledFeatures: _.extend({}, this.props.enabledFeatures, {
-                        // Hide answer area tooltip formats,
-                        // the "Acceptable formats" box already works
-                        toolTipFormats: false
-                    }),
-                    apiOptions: apiOptions,
-                    onFocus: onFocus,
-                    onBlur: onBlur
-                }, transform(editorProps), this.state.widget))}
-            </WidgetContainer>
-        </QuestionParagraph>;
+        return _.extend({
+            widgetId: SINGLE_ITEM_WIDGET_ID,
+            problemNum: this.props.problemNum,
+            onChange: this.handleChangeRenderer,
+            enabledFeatures: _.extend({}, this.props.enabledFeatures, {
+                // Hide answer area tooltip formats,
+                // the "Acceptable formats" box already works
+                toolTipFormats: false
+            }),
+            apiOptions: apiOptions,
+            onFocus: onFocus,
+            onBlur: onBlur
+        }, transform(editorProps), this.state.widget);
     },
 
     _setWidgetProps: function(widgetId, newProps, cb) {

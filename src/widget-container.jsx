@@ -4,6 +4,12 @@ var classNames = require("classnames");
 var WidgetContainer = React.createClass({
     propTypes: {
         shouldHighlight: React.PropTypes.bool,
+        type: React.PropTypes.func,
+        initialProps: React.PropTypes.object.isRequired,
+    },
+
+    getInitialState: function() {
+        return {widgetProps: this.props.initialProps};
     },
 
     render: function() {
@@ -13,21 +19,23 @@ var WidgetContainer = React.createClass({
             "widget-nohighlight": !this.props.shouldHighlight,
         });
 
-        var widgetType = this.props.type;
-        if (widgetType == null) {
+        var WidgetType = this.props.type;
+        console.log(WidgetType);
+        if (WidgetType == null) {
             // Just give up on invalid widget types
             return <div className={className} />;
         }
-        if (widgetType.displayMode == null) {
+
+        if (WidgetType.displayMode == null) {
             throw new Error("You didn't specify a displayMode in the " +
                           "statics for " + widgetClass.displayName + ".");
         }
 
         return <div className={className}
             style={{
-                display: widgetType.displayMode
+                display: WidgetType.displayMode
             }}>
-            {this.props.children}
+            <WidgetType ref="widget" />
         </div>;
     }
 });
