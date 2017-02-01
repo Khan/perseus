@@ -346,27 +346,29 @@ var RadioEditor = React.createClass({
                     var checkedClass = choice.correct ?
                         "correct" :
                         "incorrect";
-                    var editor = Editor({
-                        ref: "editor" + i,
-                        content: choice.content || "",
-                        widgetEnabled: false,
-                        placeholder: "請輸入選項內容",
-                        onChange: newProps => {
+                    var editor = <Editor
+                        ref={"editor" + i}
+                        content={choice.content || ""}
+                        widgetEnabled={false}
+                        placeholder={"請輸入選項內容"}
+                        onChange={newProps => {
                             if ("content" in newProps) {
                                 this.onContentChange(i, newProps.content);
                             }}
-                    });
-                    var clueEditor = Editor({
-                        ref: "clue-editor-" + i,
-                        content: choice.clue || "",
-                        widgetEnabled: false,
-                        placeholder: $._("為什麼這個選項 " +
-                            checkedClass + "?"),
-                        onChange: newProps => {
+                        }
+                    />;
+                    var clueEditor = <Editor
+                        ref={"clue-editor-" + i}
+                        content={choice.clue || ""}
+                        widgetEnabled={false}
+                        placeholder={$._("為什麼這個選項 " +
+                            checkedClass + "?")}
+                        onChange={newProps => {
                             if ("content" in newProps) {
                                 this.onClueChange(i, newProps.content);
                             }}
-                    });
+                        }
+                    />;
                     var deleteLink = <a href="#"
                             className="simple-button orange delete-choice"
                             title="Remove this choice"

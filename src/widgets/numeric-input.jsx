@@ -268,17 +268,17 @@ var NumericInputEditor = React.createClass({
         };
 
         var generateInputAnswerEditors = () => answers.map((answer, i) => {
-            var editor = Editor({
-                content: answer.message || "",
-                placeholder: "為什麼這個答案是" + answer.status + "?\t" +
-                    instructions[answer.status],
-                widgetEnabled: false,
-                onChange: (newProps) => {
+            var editor = <Editor
+                content={answer.message || ""}
+                placeholder={"為什麼這個答案是" + answer.status + "?\t" +
+                    instructions[answer.status]}
+                widgetEnabled={false}
+                onChange={(newProps) => {
                     if ("content" in newProps) {
                         this.updateAnswer(i, {message: newProps.content});
                     }
-                }
-            });
+                }}
+            />;
             return <div className="perseus-widget-row" key={i}>
                 <div className={"input-answer-editor-value-container" +
                     (answer.maxError ? " with-max-error" : "")}>
