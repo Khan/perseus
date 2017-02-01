@@ -410,7 +410,7 @@ var Editor = React.createClass({
 
     componentDidUpdate: function(prevProps) {
         // TODO(alpert): Maybe fix React so this isn't necessary
-        var textarea = this.refs.textarea.getDOMNode();
+        var textarea = this.refs.textarea;
         textarea.value = this.props.content;
 
         // This can't be in componentWillReceiveProps because that's happening
@@ -485,7 +485,7 @@ var Editor = React.createClass({
     },
 
     handleChange: function() {
-        var textarea = this.refs.textarea.getDOMNode();
+        var textarea = this.refs.textarea;
         this.props.onChange({content: textarea.value});
     },
 
@@ -588,12 +588,12 @@ var Editor = React.createClass({
     },
 
     focus: function() {
-        this.refs.textarea.getDOMNode().focus();
+        this.refs.textarea.focus();
     },
 
     focusAndMoveToEnd: function() {
         this.focus();
-        var textarea = this.refs.textarea.getDOMNode();
+        var textarea = this.refs.textarea;
         textarea.selectionStart = textarea.value.length;
         textarea.selectionEnd = textarea.value.length;
     }

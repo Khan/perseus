@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require("react-dom");
 
 /* MultiButtonGroup is an aesthetically pleasing group of buttons,
  * which allows multiple buttons to be selected at the same time.
@@ -48,7 +49,7 @@ var MultiButtonGroup = React.createClass({
     },
 
     focus: function() {
-        this.getDOMNode().focus();
+        ReactDOM.getDOMNode(this).focus();
         return true;
     },
 

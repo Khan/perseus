@@ -224,7 +224,7 @@ var Renderer = React.createClass({
     _onWidgetFocus: function(id, focusPath, element) {
         if (focusPath === undefined && element === undefined) {
             focusPath = [];
-            element = this.refs[id].getDOMNode();
+            element = this.refs[id];
         } else {
             if (!_.isArray(focusPath)) {
                 throw new Error(
@@ -448,12 +448,12 @@ var Renderer = React.createClass({
             if (_.isObject(focusResult)) {
                 // The result of focus was a {path, id} object itself
                 path = [id].concat(focusResult.path || []);
-                element = focusResult.element || this.refs[id].getDOMNode();
+                element = focusResult.element || this.refs[id];
             } else {
                 // The result of focus was true or the like; just
                 // construct a root focus object
                 path = [id];
-                element = this.refs[id].getDOMNode();
+                element = this.refs[id];
             }
 
             this._setCurrentFocus(path, element);
@@ -500,7 +500,7 @@ var Renderer = React.createClass({
                 // As far as I can tell, this is only an issue in the
                 // editor-page, so doing this shouldn't break clients hopefully
                 var element = this.refs[id] ?
-                        this.refs[id].getDOMNode() : null;
+                        this.refs[id] : null;
                 this._setCurrentFocus([id], element);
             }
         });

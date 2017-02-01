@@ -1,4 +1,6 @@
 var React = require("react");
+var ReactDOM = require("react-dom");
+
 var TextInput = React.createClass({
     propTypes: {
         value: React.PropTypes.string,
@@ -23,7 +25,7 @@ var TextInput = React.createClass({
     },
 
     focus: function() {
-        this.getDOMNode().focus();
+        ReactDOM.getDOMNode(this).focus();
     }
 });
 

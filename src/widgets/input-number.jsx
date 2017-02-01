@@ -126,7 +126,7 @@ var InputNumber = React.createClass({
 
     _handleFocus: function() {
         if (this.props.apiOptions.staticRender) {
-            this.props.onFocus([], this.refs.input.getDOMNode());
+            this.props.onFocus([], this.refs.input);
         } else {
             this.props.onFocus([], this.refs.input.getInputDOMNode());
         }
@@ -293,7 +293,7 @@ var InputNumberEditor = React.createClass({
     },
 
     focus: function() {
-        this.refs.input.getDOMNode().focus();
+        this.refs.input.focus();
         return true;
     },
 

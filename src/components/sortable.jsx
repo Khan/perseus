@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require("react-dom");
 
 var Util     = require("../util.js");
 var Renderer = require("../renderer.jsx");
@@ -142,14 +143,14 @@ var Draggable = React.createClass({
                 )
             );
 
-            $(this.getDOMNode()).animate(this.props.endPosition, {
+            $(ReactDOM.getDOMNode(this)).animate(this.props.endPosition, {
                 duration: Math.max(duration, 1),
                 // Animating -> Static
                 complete: this.props.onAnimationEnd
             });
         } else if (this.props.type === STATIC) {
             // Ensure that any animations are done
-            $(this.getDOMNode()).finish();
+            $(ReactDOM.getDOMNode(this)).finish();
         }
     },
 
@@ -180,7 +181,7 @@ var Draggable = React.createClass({
         var loc = Util.extractPointerLocation(event);
         if (loc) {
             this.setState({
-                startPosition: $(this.getDOMNode()).position(),
+                startPosition: $(ReactDOM.getDOMNode(this)).position(),
                 startMouse: loc,
                 mouse: loc
             }, function() {
@@ -318,7 +319,7 @@ var Sortable = React.createClass({
 
         var items = _.clone(this.state.items);
         var $items = _.map(items, function(item) {
-            return $(this.refs[item.key].getDOMNode());
+            return $(this.refs[item.key]);
         }, this);
 
         var widths = _.invoke($items, "outerWidth");
@@ -432,8 +433,8 @@ var Sortable = React.createClass({
 
     onMouseMove: function(key) {
         // Dragging: Rearrange items based on draggable's position
-        var $draggable = $(this.refs[key].getDOMNode());
-        var $sortable = $(this.getDOMNode());
+        var $draggable = $(this.refs[key]);
+        var $sortable = $(ReactDOM.getDOMNode(this));
         var items = _.clone(this.state.items);
         var item = _.findWhere(this.state.items, {key: key});
         var margin = this.props.margin;
@@ -481,7 +482,7 @@ var Sortable = React.createClass({
             if (item.key === key) {
                 item.type = ANIMATING;
                 item.endPosition = $(this.refs["placeholder_" + key]
-                                    .getDOMNode()).position();
+                                    ).position();
             }
             return item;
         }, this);

@@ -39,7 +39,7 @@ var Table = React.createClass({
         var self = this;
         return _.map(self.props.answers, function(answer, r) {
             return _.map(self.props.headers, function(header, c) {
-                return self.refs["answer" + r + "," + c].getDOMNode().value;
+                return self.refs["answer" + r + "," + c].value;
             });
         });
     },
@@ -55,7 +55,7 @@ var Table = React.createClass({
     },
 
     focus: function() {
-        this.refs["answer0,0"].getDOMNode().focus();
+        this.refs["answer0,0"].focus();
         return true;
     },
 
@@ -148,7 +148,7 @@ var TableEditor = React.createClass({
     },
 
     focus: function() {
-        this.refs.numberOfColumns.getDOMNode().focus();
+        this.refs.numberOfColumns.focus();
     },
 
     render: function() {
@@ -245,8 +245,8 @@ var TableEditor = React.createClass({
     },
 
     onSizeInput: function() {
-        var numRawRows = this.refs.numberOfRows.getDOMNode().value;
-        var numRawCols = this.refs.numberOfColumns.getDOMNode().value;
+        var numRawRows = this.refs.numberOfRows.value;
+        var numRawCols = this.refs.numberOfColumns.value;
         var rows = +numRawRows || 0;
         var cols = +numRawCols || 0;
         rows = Math.min(Math.max(1, rows), 30);
@@ -288,7 +288,7 @@ var TableEditor = React.createClass({
         var self = this;
         var answers = _(self.props.rows).times(function(r) {
             return _(self.props.columns).times(function(c) {
-                return self.refs["answer" + r + "," + c].getDOMNode().value;
+                return self.refs["answer" + r + "," + c].value;
             });
         });
         this.props.onChange({answers: answers});

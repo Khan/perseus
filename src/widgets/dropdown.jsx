@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require("react-dom");
 var classNames = require("classnames");
 
 var InfoTip = require("react-components/js/info-tip.jsx");
@@ -74,7 +75,7 @@ var Dropdown = React.createClass({
     },
 
     focus: function() {
-        this.getDOMNode().focus();
+        ReactDOM.getDOMNode(this).focus();
         return true;
     },
 
@@ -234,7 +235,7 @@ var DropdownEditor = React.createClass({
     },
 
     focus: function(i) {
-        this.refs["editor" + i].getDOMNode().focus();
+        this.refs["editor" + i].focus();
         return true;
     }
 });

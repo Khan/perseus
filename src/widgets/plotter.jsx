@@ -99,7 +99,7 @@ var Plotter = React.createClass({
     setupGraphie: function(prevState) {
         var self = this;
         self.shouldSetupGraphie = false;
-        var graphieDiv = self.refs.graphieDiv.getDOMNode();
+        var graphieDiv = self.refs.graphieDiv;
         $(graphieDiv).empty();
         var graphie = KhanUtil.createGraphie(graphieDiv);
 
@@ -880,7 +880,7 @@ var PlotterEditor = React.createClass({
         }
 
         if (categories) {
-            this.refs.categories.getDOMNode().value = categories.join(", ");
+            this.refs.categories.value = categories.join(", ");
         }
     },
 
@@ -931,7 +931,7 @@ var PlotterEditor = React.createClass({
             starting: _.map(this.props.starting, scale)
         });
 
-        this.refs.maxY.getDOMNode().value = maxY;
+        this.refs.maxY.value = maxY;
     },
 
     changeMax: function(e) {
@@ -969,7 +969,7 @@ var PlotterEditor = React.createClass({
 
         this.changeCategories(categories);
 
-        this.refs.categories.getDOMNode().value = categories.join(", ");
+        this.refs.categories.value = categories.join(", ");
     },
 
     toJSON: function(skipValidation) {

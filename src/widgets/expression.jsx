@@ -1,4 +1,5 @@
 var React   = require("react");
+var ReactDOM = require("react-dom");
 var classNames = require("classnames");
 
 var InfoTip = require("react-components/js/info-tip.jsx");
@@ -67,7 +68,7 @@ var Expression = React.createClass({
     },
 
     componentDidMount: function() {
-        var expression = this.getDOMNode();
+        var expression = ReactDOM.getDOMNode(this);
         this.setState({offsetLeft: expression.offsetLeft});
     },
 
@@ -158,7 +159,7 @@ var Expression = React.createClass({
 
     _handleFocus: function() {
         if (this.props.apiOptions.staticRender) {
-            this.props.onFocus([], this.refs.input.getDOMNode());
+            this.props.onFocus([], this.refs.input);
         } else {
             this.props.onFocus([], this.refs.input.getInputDOMNode());
         }

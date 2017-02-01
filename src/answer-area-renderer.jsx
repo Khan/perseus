@@ -152,7 +152,7 @@ var AnswerAreaRenderer = React.createClass({
             this._isFocused = true;
             apiOptions.onFocusChange({
                 path: [SINGLE_ITEM_WIDGET_ID].concat(path),
-                element: elem || this.refs.widget.getDOMNode()
+                element: elem || this.refs.widget
             }, {
                 // we're pretending we're a renderer, so if we got
                 // focus, we must not have had it before
@@ -167,7 +167,7 @@ var AnswerAreaRenderer = React.createClass({
                 element: null
             }, {
                 path: [SINGLE_ITEM_WIDGET_ID].concat(path),
-                element: elem || this.refs.widget.getDOMNode()
+                element: elem || this.refs.widget
             });
         };
 
@@ -228,7 +228,7 @@ var AnswerAreaRenderer = React.createClass({
                         path: [SINGLE_ITEM_WIDGET_ID],
                         // TODO(jack): Make this less hacky (call some magic
                         // getElement function or something):
-                        element: this.refs.widget.getDOMNode()
+                        element: this.refs.widget
                     }, {
                         // we're pretending we're a renderer, so if we got
                         // focus, we must not have had it before

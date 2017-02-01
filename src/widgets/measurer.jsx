@@ -91,7 +91,7 @@ var Measurer = React.createClass({
     },
 
     setupGraphie: function() {
-        var graphieDiv = this.refs.graphieDiv.getDOMNode();
+        var graphieDiv = this.refs.graphieDiv;
         $(graphieDiv).empty();
         var graphie = this.graphie = KhanUtil.currentGraph = KhanUtil.createGraphie(graphieDiv);
 

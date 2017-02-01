@@ -125,7 +125,7 @@ var BaseRadio = React.createClass({
     },
 
     focus: function(i) {
-        this.refs["radio" + (i || 0)].getDOMNode().focus();
+        this.refs["radio" + (i || 0)].focus();
         return true;
     }
 });

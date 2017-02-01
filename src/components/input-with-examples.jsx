@@ -149,7 +149,7 @@ var InputWithExamples = React.createClass({
     },
 
     getInputDOMNode: function() {
-        return this.refs.input.getDOMNode();
+        return this.refs.input;
     }
 });
 

@@ -59,7 +59,7 @@ var TeX = React.createClass({
 
         if (typeof Exercises === "undefined" || Exercises.useKatex) {
             try {
-                var katexHolder = this.refs.katex.getDOMNode();
+                var katexHolder = this.refs.katex;
                 katex.process(text, katexHolder);
                 onRender();
                 return;
@@ -84,7 +84,7 @@ var TeX = React.createClass({
         if (oldText !== newText) {
             if (typeof Exercises === "undefined" || Exercises.useKatex) {
                 try {
-                    var katexHolder = this.refs.katex.getDOMNode();
+                    var katexHolder = this.refs.katex;
                     katex.process(newText, katexHolder);
                     if (this.script) {
                         var jax = MathJax.Hub.getJaxFor(this.script);
@@ -103,7 +103,7 @@ var TeX = React.createClass({
                 }
             }
 
-            $(this.refs.katex.getDOMNode()).empty();
+            $(this.refs.katex).empty();
 
             if (this.script) {
                 var component = this;
@@ -127,7 +127,7 @@ var TeX = React.createClass({
         if (!this.script) {
             this.script = document.createElement("script");
             this.script.type = "math/tex";
-            this.refs.mathjax.getDOMNode().appendChild(this.script);
+            this.refs.mathjax.appendChild(this.script);
         }
         if ("text" in this.script) {
             // IE8, etc

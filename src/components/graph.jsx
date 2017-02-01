@@ -180,7 +180,7 @@ var Graph = React.createClass({
             return;
         }
 
-        var graphieDiv = this.refs.graphieDiv.getDOMNode();
+        var graphieDiv = this.refs.graphieDiv;
         $(graphieDiv).empty();
         var labels = this.props.labels;
         var range = this.props.range;
