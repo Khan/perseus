@@ -75,7 +75,10 @@ var NumericInput = React.createClass({
     },
 
     setAnswerFromJSON: function(answerData) {
-        this.props.onChange(answerData[0]);
+        if (answerData === undefined) {
+            answerData = {currentValue: ""};
+        }
+        this.props.onChange(answerData);
     },
 
     simpleValidate: function(rubric) {

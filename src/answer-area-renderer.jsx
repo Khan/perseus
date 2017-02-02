@@ -329,6 +329,19 @@ var AnswerAreaRenderer = React.createClass({
         this.refs.widget.focus();
     },
 
+    showGuess: function(answerData) {
+        if (answerData instanceof Array) {
+            // Answer area contains no widgets.
+            return
+        } else if (this.refs.widget.setAnswerFromJSON === undefined) {
+            // Target widget cannot show answer.
+            return 'no setAnswerFromJSON implemented for widgets in answer area.';
+        } else {
+            // Just show the given answer.
+            this.refs.widget.setAnswerFromJSON(answerData);
+        }
+    },
+
     guessAndScore: function() {
         // TODO(alpert): These should probably have the same signature...
         if (this.props.type === "multiple") {

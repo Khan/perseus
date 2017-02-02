@@ -514,12 +514,16 @@ var Renderer = React.createClass({
         }, () => focus);
     },
 
-    applyAnswers: function(answerData) {
-        _.map(this.widgetIds, function(id) {
-            if (id.indexOf('lights-puzzle') > -1 || id.indexOf('transformer') > -1 || id.indexOf('image') > -1) {
-                return 'no save ' + id +' widget'
+    showGuess: function(answerData) {
+        _.map(this.widgetIds, function(id, index) {
+            if (this.refs[id].setAnswerFromJSON === undefined) {
+                // Target widget cannot show answer.
+                return 'no setAnswerFromJSON implemented for ' + id + ' widget';
+            } else {
+                // Just show the given answer.
+                widgetAnswerData = answerData !== undefined ? answerData[0][index] : undefined;
+                this.refs[id].setAnswerFromJSON(widgetAnswerData);
             }
-            return this.refs[id].setAnswerFromJSON(answerData[0]);
         }, this);
     },
 

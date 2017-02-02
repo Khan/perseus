@@ -269,8 +269,13 @@ var ItemRenderer = React.createClass({
         return this.props.item.hints.length;
     },
 
-    applyAnswers: function(answerData) {
-        this.questionRenderer.applyAnswers(answerData);
+    showGuess: function(answerData) {
+        this.questionRenderer.showGuess(answerData);
+        if (answerData !== undefined && this.questionRenderer.widgetIds.length > 0) {
+            // Left answers for answer widgets only.
+            answerData = answerData[1];
+        }
+        this.answerAreaRenderer.showGuess(answerData);
     },
 
     scoreInput: function() {
