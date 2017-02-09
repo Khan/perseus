@@ -4,6 +4,7 @@
 
 var assert = require("assert");
 var React = require("react");
+var ReactDOMServer = require("react-dom/server");
 var _ = require("underscore");
 
 var PassageMarkdown = require("../passage-markdown.jsx");
@@ -33,8 +34,7 @@ const validateParse = (parsed, expected) => {
 
 var htmlThroughReact = function(parsed) {
     var output = PassageMarkdown.output(parsed);
-    // TODO(emily): Replace this with ReactDOMServer.
-    var rawHtml = React.renderToStaticMarkup(
+    var rawHtml = ReactDOMServer.renderToStaticMarkup(
         React.DOM.div(null, output)
     );
     var innerHtml = rawHtml

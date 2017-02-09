@@ -8,7 +8,7 @@ var ReactDOM = require("react-dom");
 const _ = require("underscore");
 
 var NumberInput = require("../number-input.jsx");
-var TestUtils = React.addons.TestUtils;
+var TestUtils = require("react-addons-test-utils");
 
 var STARTING_VALUE = 1;
 

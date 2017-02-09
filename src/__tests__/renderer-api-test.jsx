@@ -11,7 +11,7 @@ var assert = require("assert");
 var Renderer = require("../renderer.jsx");
 var ClassNames = require("../perseus-api.jsx").ClassNames;
 
-var TestUtils = React.addons.TestUtils;
+var TestUtils = require("react-addons-test-utils");
 var delayedPromise = require("../testutils/delayed-promise.jsx");
 
 // Items for testing!

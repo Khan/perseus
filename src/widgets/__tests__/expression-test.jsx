@@ -11,8 +11,7 @@ var Perseus = require("../../perseus.js");
 var React = require("react");
 var ReactDOM = require("react-dom");
 const _ = require("underscore");
-
-var TestUtils = React.addons.TestUtils;
+var TestUtils = require("react-addons-test-utils");
 var delayedPromise = require("../../testutils/delayed-promise.jsx");
 
 var expressionItem1 = {

@@ -5,6 +5,7 @@
 var assert = require("assert");
 var nodeUtil = require("util");
 var React = require("react");
+var ReactDOMServer = require("react-dom/server");
 var _ = require("underscore");
 
 var PerseusMarkdown = require("../perseus-markdown.jsx");
@@ -42,8 +43,7 @@ var validateParse = function(parsed, expected) {
 
 var htmlThroughReact = function(parsed) {
     var output = PerseusMarkdown.basicOutput(parsed);
-    // TODO(emily): Replace this with ReactDOMServer.
-    var rawHtml = React.renderToStaticMarkup(
+    var rawHtml = ReactDOMServer.renderToStaticMarkup(
         React.DOM.div(null, output)
     );
     var innerHtml = rawHtml

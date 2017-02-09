@@ -11,7 +11,7 @@ var React = require('react');
 const _ = require("underscore");
 var InputNumber = require("../input-number.jsx");
 
-var TestUtils = React.addons.TestUtils;
+var TestUtils = require("react-addons-test-utils");
 
 var transform = InputNumber.transform;
 

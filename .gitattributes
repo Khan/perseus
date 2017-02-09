@@ -1,1 +1,2 @@
 build/* -text -diff
+lib/* -text -diff

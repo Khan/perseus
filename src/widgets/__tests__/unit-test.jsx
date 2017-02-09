@@ -5,7 +5,7 @@
 var assert = require("assert");
 // var Perseus = require("../../perseus.js");
 
-// var TestUtils = React.addons.TestUtils;
+// var TestUtils = require("react-addons-test-utils");
 // var delayedPromise = require("../../testutils/delayed-promise.jsx");
 
 var { widget: UnitWidget, countSigfigs, sigfigPrint } = require("../unit.jsx");
