@@ -43,17 +43,22 @@ var Matcher = React.createClass({
     render: function() {
         // Use the same random() function to shuffle both columns sequentially
         var rng = seededRNG(this.props.problemNum);
-
         var left;
-        if (!this.props.orderMatters) {
-            // If the order doesn't matter, don't shuffle the left column
-            left = this.props.left;
-        } else {
-            left = shuffle(this.props.left, rng, /* ensurePermuted */ true);
+        var right;
+        // use random when init, but not in history!
+        if(this.props.right === undefined) {
+            if (!this.props.orderMatters) {
+                // If the order doesn't matter, don't shuffle the left column
+                left = this.props.left;
+            } else {
+                left = shuffle(this.props.left, rng, /* ensurePermuted */ true);
+            }
+            right = shuffle(this.props.right, rng, /* ensurePermuted */ true);
         }
-
-        var right = shuffle(this.props.right, rng, /* ensurePermuted */ true);
-
+        else {
+            left = this.props.left;        
+            right = this.props.right;
+        }
         var showLabels = _.any(this.props.labels);
         var constraints = {height: _.max([this.state.leftHeight,
             this.state.rightHeight])};
@@ -97,6 +102,10 @@ var Matcher = React.createClass({
     onMeasureRight: function(dimensions) {
         var height = _.max(dimensions.heights);
         this.setState({rightHeight: height});
+    },
+
+    setAnswerFromJSON: function(answerData) {
+        this.props.onChange(answerData);
     },
 
     toJSON: function(skipValidation) {
@@ -229,9 +238,11 @@ var MatcherEditor = React.createClass({
     }
 });
 
+
 module.exports = {
     name: "matcher",
     displayName: "Two column matcher/配對題",
+
     widget: Matcher,
     editor: MatcherEditor,
     hidden: false
