@@ -52,7 +52,8 @@ var Expression = React.createClass({
     getInitialState: function() {
         return {
             showErrorTooltip: false,
-            showErrorText: false
+            showErrorText: false,
+            offsetLeft: 0
         };
     },
 
@@ -64,6 +65,11 @@ var Expression = React.createClass({
             _.extend(options, icu.getDecimalFormatSymbols());
         }
         return KAS.parse(value, options);
+    },
+
+    componentDidMount: function() {
+        var expression = this.getDOMNode();
+        this.setState({offsetLeft: expression.offsetLeft});
     },
 
     render: function() {
@@ -128,6 +134,8 @@ var Expression = React.createClass({
                 "show-error-tooltip": this.state.showErrorTooltip
             });
 
+            var inEditor = window.location.pathname.indexOf("/questionpanel/perseus_editor/") >= 0;
+
             return <span className={className}>
                 <MathInput
                     ref="input"
@@ -137,7 +145,9 @@ var Expression = React.createClass({
                     buttonsVisible={this.props.buttonsVisible || "focused"}
                     buttonSets={this.props.buttonSets}
                     onFocus={this._handleFocus}
-                    onBlur={this._handleBlur} />
+                    onBlur={this._handleBlur}
+                    offsetLeft={this.state.offsetLeft}
+                    inEditor={inEditor} />
                 {this.state.showErrorTooltip && errorTooltip}
             </span>;
         }

@@ -1,6 +1,6 @@
 /*! Perseus | http://github.com/Khan/perseus */
-// commit 51e312e19cf51563c2ecf9487ce20b12a2272ef2
-// branch HEAD
+// commit d6aef6e2ec4bb548a158860885ed7b21c89d68ce
+// branch recover-user-attempts
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Perseus = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /*
 Software License Agreement (BSD License)
@@ -5769,6 +5769,7 @@ var MathInput = React.createClass({displayName: 'MathInput',
         onFocus: PT.func,
         onBlur: PT.func,
         buttonSets: TexButtons.buttonSetsType.isRequired,
+        offsetLeft: PT.number
     },
 
     render: function() {
@@ -5791,6 +5792,14 @@ var MathInput = React.createClass({displayName: 'MathInput',
                 sets:this.props.buttonSets} );
             button_height = (6 + 58 * this.props.buttonSets.length).toString() + "px";
         }
+        var button_left = "0px";
+        if(!this.props.inEditor){
+            if (this.props.offsetLeft >= 260){
+                button_left = "-240px";
+            } else if (this.props.offsetLeft > 130 && this.props.offsetLeft < 260){
+                button_left = "-120px";
+            }
+        }
 
         return React.DOM.div( {style:{display: "inline-block"}}, 
             React.DOM.div( {style:{display: 'inline-block'}}, 
@@ -5799,7 +5808,7 @@ var MathInput = React.createClass({displayName: 'MathInput',
                       onFocus:this.handleFocus,
                       onBlur:this.handleBlur} )
             ),
-            React.DOM.div( {style:{position: "relative", height: button_height}}, 
+            React.DOM.div( {style:{position: "relative", height: button_height, left: button_left}}, 
                 buttons
             )
         );
@@ -13707,7 +13716,8 @@ var Expression = React.createClass({displayName: 'Expression',
     getInitialState: function() {
         return {
             showErrorTooltip: false,
-            showErrorText: false
+            showErrorText: false,
+            offsetLeft: 0
         };
     },
 
@@ -13719,6 +13729,11 @@ var Expression = React.createClass({displayName: 'Expression',
             _.extend(options, icu.getDecimalFormatSymbols());
         }
         return KAS.parse(value, options);
+    },
+
+    componentDidMount: function() {
+        var expression = this.getDOMNode();
+        this.setState({offsetLeft: expression.offsetLeft});
     },
 
     render: function() {
@@ -13783,6 +13798,8 @@ var Expression = React.createClass({displayName: 'Expression',
                 "show-error-tooltip": this.state.showErrorTooltip
             });
 
+            var inEditor = window.location.pathname.indexOf("/questionpanel/perseus_editor/") >= 0;
+
             return React.DOM.span( {className:className}, 
                 MathInput(
                     {ref:"input",
@@ -13792,7 +13809,9 @@ var Expression = React.createClass({displayName: 'Expression',
                     buttonsVisible:this.props.buttonsVisible || "focused",
                     buttonSets:this.props.buttonSets,
                     onFocus:this._handleFocus,
-                    onBlur:this._handleBlur} ),
+                    onBlur:this._handleBlur,
+                    offsetLeft:this.state.offsetLeft,
+                    inEditor:inEditor} ),
                 this.state.showErrorTooltip && errorTooltip
             );
         }
