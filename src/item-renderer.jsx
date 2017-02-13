@@ -270,14 +270,28 @@ var ItemRenderer = React.createClass({
     },
 
     showGuess: function(answerData) {
-        this.questionRenderer.showGuess(answerData);
+        this.questionRenderer.showGuess(answerData)
         if (answerData !== undefined && this.questionRenderer.widgetIds.length > 0) {
             // Left answers for answer widgets only.
             answerData = answerData[1];
         }
         this.answerAreaRenderer.showGuess(answerData);
+        return ;
     },
-
+    undoneHistoryWidgets: function() {
+        var undoneHistoryWidgetsInAnswer = this.answerAreaRenderer.undoneHistoryWidgets();
+        var undoneHistoryWidgetsInQuestion = this.questionRenderer.undoneHistoryWidgets();
+        if (undoneHistoryWidgetsInAnswer || undoneHistoryWidgetsInQuestion)
+            return true;
+        return false;
+        for (var i in undoneHistoryWidgetsInAnswer)
+            if (i === true)
+                return true;
+        for (var i in undoneHistoryWidgetsInQuestion)
+            if (i === true)
+                return true;
+        return false;
+    },
     scoreInput: function() {
         var qGuessAndScore = this.questionRenderer.guessAndScore();
         var aGuessAndScore = this.answerAreaRenderer.guessAndScore();

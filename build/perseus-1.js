@@ -1,6 +1,6 @@
 /*! Perseus | http://github.com/Khan/perseus */
-// commit ac6c50d99bbcb6c3e39efea94a85a55a3a4f428f
-// branch recover-user-attempts
+// commit 51e312e19cf51563c2ecf9487ce20b12a2272ef2
+// branch HEAD
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Perseus = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /*
 Software License Agreement (BSD License)
@@ -4116,7 +4116,6 @@ var AnswerAreaRenderer = React.createClass({displayName: 'AnswerAreaRenderer',
     showGuess: function(answerData) {
         if (answerData instanceof Array) {
             // Answer area contains no widgets.
-            return
         } else if (this.refs.widget.setAnswerFromJSON === undefined) {
             // Target widget cannot show answer.
             return 'no setAnswerFromJSON implemented for widgets in answer area.';
@@ -4124,6 +4123,14 @@ var AnswerAreaRenderer = React.createClass({displayName: 'AnswerAreaRenderer',
             // Just show the given answer.
             this.refs.widget.setAnswerFromJSON(answerData);
         }
+    },
+
+    undoneHistoryWidgets: function(answerData) {
+        if (this.refs.widget.setAnswerFromJSON === undefined) {
+            console.log('no setAnswerFromJSON implemented for widgets in answer area.');
+            return true;
+        }
+        return false;
     },
 
     guessAndScore: function() {
@@ -10924,14 +10931,28 @@ var ItemRenderer = React.createClass({displayName: 'ItemRenderer',
     },
 
     showGuess: function(answerData) {
-        this.questionRenderer.showGuess(answerData);
+        this.questionRenderer.showGuess(answerData)
         if (answerData !== undefined && this.questionRenderer.widgetIds.length > 0) {
             // Left answers for answer widgets only.
             answerData = answerData[1];
         }
         this.answerAreaRenderer.showGuess(answerData);
+        return ;
     },
-
+    undoneHistoryWidgets: function() {
+        var undoneHistoryWidgetsInAnswer = this.answerAreaRenderer.undoneHistoryWidgets();
+        var undoneHistoryWidgetsInQuestion = this.questionRenderer.undoneHistoryWidgets();
+        if (undoneHistoryWidgetsInAnswer || undoneHistoryWidgetsInQuestion)
+            return true;
+        return false;
+        for (var i in undoneHistoryWidgetsInAnswer)
+            if (i === true)
+                return true;
+        for (var i in undoneHistoryWidgetsInQuestion)
+            if (i === true)
+                return true;
+        return false;
+    },
     scoreInput: function() {
         var qGuessAndScore = this.questionRenderer.guessAndScore();
         var aGuessAndScore = this.answerAreaRenderer.guessAndScore();
@@ -11720,16 +11741,27 @@ var Renderer = React.createClass({displayName: 'Renderer',
     },
 
     showGuess: function(answerData) {
-        _.map(this.widgetIds, function(id, index) {
+        return _.map(this.widgetIds, function(id, index) {
             if (this.refs[id].setAnswerFromJSON === undefined) {
                 // Target widget cannot show answer.
-                return 'no setAnswerFromJSON implemented for ' + id + ' widget';
+                return {showSuccess:false,err:'no setAnswerFromJSON implemented for ' + id + ' widget'};
             } else {
                 // Just show the given answer.
                 widgetAnswerData = answerData !== undefined ? answerData[0][index] : undefined;
                 this.refs[id].setAnswerFromJSON(widgetAnswerData);
+                return {showSuccess:true};
             }
         }, this);
+    },
+
+    undoneHistoryWidgets: function(answerData) {
+        _.map(this.widgetIds, function(id, index) {
+            if (this.refs[id].setAnswerFromJSON === undefined) {
+                console.log('no setAnswerFromJSON implemented for ' + id + ' widget');
+            return true;
+            }
+        }, this);
+        return false;
     },
 
     guessAndScore: function() {
@@ -12825,7 +12857,9 @@ var Categorizer = React.createClass({displayName: 'Categorizer',
             values: []
         };
     },
-
+    setAnswerFromJSON: function(answerData) {
+        this.props.onChange(answerData);
+    },
     getInitialState: function() {
         return {
             uniqueId: _.uniqueId("perseus_radio_")
@@ -13009,7 +13043,9 @@ var Dropdown = React.createClass({displayName: 'Dropdown',
             apiOptions: ApiOptions.defaults
         };
     },
-
+    setAnswerFromJSON: function(answerData) {
+        this.props.onChange({selected:answerData.value});
+    },
     render: function() {
         var choices = this.props.choices.slice();
 
@@ -16730,16 +16766,6 @@ var InteractiveGraph = React.createClass({displayName: 'InteractiveGraph',
         this.props.onChange({graph: graph});
     },
 
-    setAnswerFromJSON: function(answerData) {
-        if (answerData === undefined) {
-            answerData = {
-                type: this.props.graph.type,
-                coords: undefined
-            };
-        }
-        this.props.onChange({graph: answerData});
-    },
-
     toJSON: function() {
         return this.props.graph;
     },
@@ -17815,6 +17841,17 @@ var InteractiveNumberLine = React.createClass({displayName: 'InteractiveNumberLi
         }
     },
 
+    setAnswerFromJSON: function(answerData) {
+        if (answerData === undefined) {
+            answerData = this.getDefaultProps();
+        }
+        if (answerData.rel === "eq") {
+            answerData.rel = "ge";
+            answerData.isInequality = false;
+        }
+        this.props.onChange(answerData);
+    },
+
     toJSON: function() {
         return {
             pointX: this.props.pointX,
@@ -18495,17 +18532,22 @@ var Matcher = React.createClass({displayName: 'Matcher',
     render: function() {
         // Use the same random() function to shuffle both columns sequentially
         var rng = seededRNG(this.props.problemNum);
-
         var left;
-        if (!this.props.orderMatters) {
-            // If the order doesn't matter, don't shuffle the left column
-            left = this.props.left;
-        } else {
-            left = shuffle(this.props.left, rng, /* ensurePermuted */ true);
+        var right;
+        // use random when init, but not in history!
+        if(this.props.right === undefined) {
+            if (!this.props.orderMatters) {
+                // If the order doesn't matter, don't shuffle the left column
+                left = this.props.left;
+            } else {
+                left = shuffle(this.props.left, rng, /* ensurePermuted */ true);
+            }
+            right = shuffle(this.props.right, rng, /* ensurePermuted */ true);
         }
-
-        var right = shuffle(this.props.right, rng, /* ensurePermuted */ true);
-
+        else {
+            left = this.props.left;        
+            right = this.props.right;
+        }
         var showLabels = _.any(this.props.labels);
         var constraints = {height: _.max([this.state.leftHeight,
             this.state.rightHeight])};
@@ -18549,6 +18591,10 @@ var Matcher = React.createClass({displayName: 'Matcher',
     onMeasureRight: function(dimensions) {
         var height = _.max(dimensions.heights);
         this.setState({rightHeight: height});
+    },
+
+    setAnswerFromJSON: function(answerData) {
+        this.props.onChange(answerData);
     },
 
     toJSON: function(skipValidation) {
@@ -18681,9 +18727,11 @@ var MatcherEditor = React.createClass({displayName: 'MatcherEditor',
     }
 });
 
+
 module.exports = {
     name: "matcher",
     displayName: "Two column matcher/配對題",
+
     widget: Matcher,
     editor: MatcherEditor,
     hidden: false

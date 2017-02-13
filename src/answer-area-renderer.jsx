@@ -332,7 +332,6 @@ var AnswerAreaRenderer = React.createClass({
     showGuess: function(answerData) {
         if (answerData instanceof Array) {
             // Answer area contains no widgets.
-            return
         } else if (this.refs.widget.setAnswerFromJSON === undefined) {
             // Target widget cannot show answer.
             return 'no setAnswerFromJSON implemented for widgets in answer area.';
@@ -340,6 +339,14 @@ var AnswerAreaRenderer = React.createClass({
             // Just show the given answer.
             this.refs.widget.setAnswerFromJSON(answerData);
         }
+    },
+
+    undoneHistoryWidgets: function(answerData) {
+        if (this.refs.widget.setAnswerFromJSON === undefined) {
+            console.log('no setAnswerFromJSON implemented for widgets in answer area.');
+            return true;
+        }
+        return false;
     },
 
     guessAndScore: function() {
