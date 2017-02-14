@@ -34,7 +34,7 @@
     "requirejs": "~2.1.11",
     "uglify-js": "^2.6.2",
     "webpack": "~1.4.3",
-    "webpack-dev-server": "~1.6.5"
+    "webpack-dev-server": "^1.8.0"
   },
   "repository": {
     "type": "git",
