@@ -359,15 +359,15 @@ describe("passage markdown", () => {
                 "This is *some* __passage__ **text**\n\n" +
                 "This is paragraph 2",
                 '<div class="paragraph">' +
-                'This is ' +
-                '<em>some</em>' +
-                ' ' +
-                '<u>passage</u>' +
-                ' ' +
-                '<strong>text</strong>' +
+                '<span>This is </span>' +
+                '<em><span>some</span></em>' +
+                '<span> </span>' +
+                '<u><span>passage</span></u>' +
+                '<span> </span>' +
+                '<strong><span>text</span></strong>' +
                 '</div>' +
                 '<div class="paragraph">' +
-                'This is paragraph 2' +
+                '<span>This is paragraph 2</span>' +
                 '</div>'
             );
         });

@@ -337,7 +337,12 @@ var rules = {
     u: SimpleMarkdown.defaultRules.u,
     em: SimpleMarkdown.defaultRules.em,
     del: SimpleMarkdown.defaultRules.del,
-    text: SimpleMarkdown.defaultRules.text,
+    text: {
+        ...SimpleMarkdown.defaultRules.text,
+        react(node, output, state) {
+            return <span>{node.content}</span>;
+        },
+    },
 };
 
 var INITIAL_PARSE_STATE = {
