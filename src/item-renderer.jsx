@@ -270,6 +270,7 @@ var ItemRenderer = React.createClass({
     },
 
     showGuess: function(answerData) {
+        console.log("item answerData:",answerData);
         this.questionRenderer.showGuess(answerData)
         if (answerData !== undefined && this.questionRenderer.widgetIds.length > 0) {
             // Left answers for answer widgets only.

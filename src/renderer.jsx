@@ -515,13 +515,20 @@ var Renderer = React.createClass({
     },
 
     showGuess: function(answerData) {
+        console.log("showGuess ler");
+        if( !answerData )
+            return {};
         return _.map(this.widgetIds, function(id, index) {
             if (this.refs[id].setAnswerFromJSON === undefined) {
                 // Target widget cannot show answer.
                 return {showSuccess:false,err:'no setAnswerFromJSON implemented for ' + id + ' widget'};
             } else {
                 // Just show the given answer.
-                widgetAnswerData = answerData !== undefined ? answerData[0][index] : undefined;
+                if(answerData[0].length<=index) {
+                    console.log("some uunknown err!!!!!");
+                    return {};
+                }
+                widgetAnswerData = answerData[0][index];
                 this.refs[id].setAnswerFromJSON(widgetAnswerData);
                 return {showSuccess:true};
             }
