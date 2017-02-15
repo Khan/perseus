@@ -1,5 +1,5 @@
 /*! Perseus | http://github.com/Khan/perseus */
-// commit d6aef6e2ec4bb548a158860885ed7b21c89d68ce
+// commit c2908228abb7b59dfa19ccd37c9313f1fadd0f91
 // branch recover-user-attempts
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Perseus = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /*
@@ -4114,18 +4114,24 @@ var AnswerAreaRenderer = React.createClass({displayName: 'AnswerAreaRenderer',
     },
 
     showGuess: function(answerData) {
+        if( !answerData )
+            return;
         if (answerData instanceof Array) {
             // Answer area contains no widgets.
         } else if (this.refs.widget.setAnswerFromJSON === undefined) {
             // Target widget cannot show answer.
+            console.log("Target widget cannot show in answerarea",answerData);
             return 'no setAnswerFromJSON implemented for widgets in answer area.';
         } else {
+            console.log("Target widget show in answerarea")
             // Just show the given answer.
             this.refs.widget.setAnswerFromJSON(answerData);
         }
     },
 
     undoneHistoryWidgets: function(answerData) {
+        if(!answerData)
+            return false;
         if (this.refs.widget.setAnswerFromJSON === undefined) {
             console.log('no setAnswerFromJSON implemented for widgets in answer area.');
             return true;
@@ -11750,13 +11756,19 @@ var Renderer = React.createClass({displayName: 'Renderer',
     },
 
     showGuess: function(answerData) {
+        if( !answerData )
+            return {};
         return _.map(this.widgetIds, function(id, index) {
             if (this.refs[id].setAnswerFromJSON === undefined) {
                 // Target widget cannot show answer.
                 return {showSuccess:false,err:'no setAnswerFromJSON implemented for ' + id + ' widget'};
             } else {
                 // Just show the given answer.
-                widgetAnswerData = answerData !== undefined ? answerData[0][index] : undefined;
+                if(answerData[0].length<=index) {
+                    console.log("showGuess err");
+                    return {};
+                }
+                widgetAnswerData = answerData[0][index];
                 this.refs[id].setAnswerFromJSON(widgetAnswerData);
                 return {showSuccess:true};
             }

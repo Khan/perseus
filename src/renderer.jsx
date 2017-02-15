@@ -515,7 +515,6 @@ var Renderer = React.createClass({
     },
 
     showGuess: function(answerData) {
-        console.log("showGuess ler");
         if( !answerData )
             return {};
         return _.map(this.widgetIds, function(id, index) {
@@ -525,7 +524,7 @@ var Renderer = React.createClass({
             } else {
                 // Just show the given answer.
                 if(answerData[0].length<=index) {
-                    console.log("some uunknown err!!!!!");
+                    console.log("showGuess err");
                     return {};
                 }
                 widgetAnswerData = answerData[0][index];

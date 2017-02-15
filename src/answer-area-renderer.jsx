@@ -330,12 +330,9 @@ var AnswerAreaRenderer = React.createClass({
     },
 
     showGuess: function(answerData) {
-        // console.log("show ans1");
         if( !answerData )
             return;
-        // console.log("show ans2");
         if (answerData instanceof Array) {
-            // console.log("show ans3");
             // Answer area contains no widgets.
         } else if (this.refs.widget.setAnswerFromJSON === undefined) {
             // Target widget cannot show answer.
