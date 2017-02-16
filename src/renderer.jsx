@@ -344,7 +344,7 @@ var Renderer = React.createClass({
         };
 
         var wrap = function(text) {
-            return <QuestionParagraph>
+            return <QuestionParagraph key={Math.random()}>
                 {text}
             </QuestionParagraph>;
         };
@@ -363,7 +363,6 @@ var Renderer = React.createClass({
             tokLevelCount--;
             return result;
         };
-        console.log(markdown);
 
         try {
             return <div>{markedReact(markdown)}</div>;

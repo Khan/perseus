@@ -159,9 +159,9 @@ var Radio = React.createClass({
             }
             return {
                 // We need to make a copy, which _.pick does
-                content: Renderer(content),
+                content: <Renderer {...content} />,
                 checked: values[i],
-                clue: Renderer({content: choice.clue}),
+                clue: <Renderer content={choice.clue} />,
             };
         });
         choices = this.enforceOrdering(choices);

@@ -86,22 +86,23 @@ describe("widgets", function() {
     });
 
     xit("grades input-number", function() {
-        var component = React.renderComponent(Renderer({
-            content: "[[☃ input-number 1]]",
-            widgets: {
-                "input-number 1": {
-                    options: {
-                        value: "-42",
-                        simplify: "required",
-                        size: "normal",
-                        inexact: false,
-                        maxError: 0.1,
-                        answerType: "number"
-                    },
-                    type: "input-number"
-                }
-            }
-        }), fixture);
+        var component = ReactDOM.render(
+            <Renderer
+                content="[[☃ input-number 1]]"
+                widgets={{
+                    "input-number 1": {
+                        options: {
+                            value: "-42",
+                            simplify: "required",
+                            size: "normal",
+                            inexact: false,
+                            maxError: 0.1,
+                            answerType: "number"
+                        },
+                        type: "input-number"
+                    }
+                }}
+            />, fixture);
 
         testAnswer(component, "", "empty", "empty answer is empty");
         testAnswer(component, "123", "wrong", "wrong answer is wrong");
@@ -115,33 +116,34 @@ describe("widgets", function() {
     });
 
     xit("grades widget input-number multiple", function() {
-        var component = React.renderComponent(Renderer({
-            "content": "[[☃ input-number 1]]\n[[☃ input-number 2]]",
-            "widgets": {
-                "input-number 1": {
-                    "options": {
-                        "value": "7",
-                        "simplify": "required",
-                        "size": "normal",
-                        "inexact": false,
-                        "maxError": 0.1,
-                        "answerType": "number"
+        var component = ReactDOM.render(
+            <Renderer
+                content="[[☃ input-number 1]]\n[[☃ input-number 2]]"
+                widgets={{
+                    "input-number 1": {
+                        "options": {
+                            "value": "7",
+                            "simplify": "required",
+                            "size": "normal",
+                            "inexact": false,
+                            "maxError": 0.1,
+                            "answerType": "number"
+                        },
+                        "type": "input-number"
                     },
-                    "type": "input-number"
-                },
-                "input-number 2": {
-                    "options": {
-                        "value": "1.5",
-                        "simplify": "required",
-                        "size": "normal",
-                        "inexact": false,
-                        "maxError": 0.1,
-                        "answerType": "number"
-                    },
-                    "type": "input-number"
-                }
-            }
-        }), fixture);
+                    "input-number 2": {
+                        "options": {
+                            "value": "1.5",
+                            "simplify": "required",
+                            "size": "normal",
+                            "inexact": false,
+                            "maxError": 0.1,
+                            "answerType": "number"
+                        },
+                        "type": "input-number"
+                    }
+                }}
+            />, fixture);
 
         testMultipleAnswer(component, ["7", "3/2"], "right", "right answer is right");
         testMultipleAnswer(component, ["7", "1.5"], "right", "right answer is right");
@@ -160,33 +162,34 @@ describe("widgets", function() {
     });
 
     xit("grades widget input-number multiple simplify-enforced", 21, function() {
-        var component = React.renderComponent(Renderer({
-            "content": "[[☃ input-number 1]]\n[[☃ input-number 2]]",
-            "widgets": {
-                "input-number 1": {
-                    "options": {
-                        "value": "7",
-                        "simplify": "enforced",
-                        "size": "normal",
-                        "inexact": false,
-                        "maxError": 0.1,
-                        "answerType": "number"
+        var component = ReactDOM.render(
+            <Renderer
+                content="[[☃ input-number 1]]\n[[☃ input-number 2]]"
+                widgets={{
+                    "input-number 1": {
+                        "options": {
+                            "value": "7",
+                            "simplify": "enforced",
+                            "size": "normal",
+                            "inexact": false,
+                            "maxError": 0.1,
+                            "answerType": "number"
+                        },
+                        "type": "input-number"
                     },
-                    "type": "input-number"
-                },
-                "input-number 2": {
-                    "options": {
-                        "value": "1.5",
-                        "simplify": "enforced",
-                        "size": "normal",
-                        "inexact": false,
-                        "maxError": 0.1,
-                        "answerType": "number"
-                    },
-                    "type": "input-number"
-                }
-            }
-        }), fixture);
+                    "input-number 2": {
+                        "options": {
+                            "value": "1.5",
+                            "simplify": "enforced",
+                            "size": "normal",
+                            "inexact": false,
+                            "maxError": 0.1,
+                            "answerType": "number"
+                        },
+                        "type": "input-number"
+                    }
+                }}
+            />, fixture);
 
         testMultipleAnswer(component, ["7", "3/2"], "right", "right answer is right");
         testMultipleAnswer(component, ["7", "1.5"], "right", "right answer is right");

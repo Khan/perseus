@@ -11,7 +11,7 @@ var Table = React.createClass({
             <thead>
                 <tr>{
                     _.map(headers, function(header, i) {
-                        return <th key={i}>{Renderer({content: header})}</th>;
+                        return <th key={i}><Renderer content={header} /></th>;
                     })
                 }
                 </tr>

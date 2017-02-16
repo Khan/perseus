@@ -20,7 +20,6 @@ var WidgetContainer = React.createClass({
         });
 
         var WidgetType = this.props.type;
-        console.log(WidgetType);
         if (WidgetType == null) {
             // Just give up on invalid widget types
             return <div className={className} />;
@@ -35,7 +34,7 @@ var WidgetContainer = React.createClass({
             style={{
                 display: WidgetType.displayMode
             }}>
-            <WidgetType ref="widget" />
+            <WidgetType {...this.state.widgetProps} ref="widget" />
         </div>;
     }
 });
