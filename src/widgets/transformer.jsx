@@ -386,9 +386,8 @@ var Transformations = {
         },
         toTeX: function(transform) {
             // I18N: As in the command, "Translation by <3, 1>"
-            return <$_ vector={texFromVector(transform.vector)}>
-                平移向量 %(vector)s
-            </$_>;
+            return $_({vector: texFromVector(transform.vector)},
+                "平移向量 %(vector)s");
         },
         Input: React.createClass({
             getInitialState: function() {
@@ -428,9 +427,8 @@ var Transformations = {
                     <TeX>\rangle</TeX>
                 ];
                 return <div>
-                    <$_ vector={vector}>
-                        平移向量 %(vector)s
-                    </$_>
+                    {$_({vector: vector},
+                        "平移向量 %(vector)s")}
                 </div>;
             },
             value: function() {
@@ -480,10 +478,10 @@ var Transformations = {
             };
         },
         toTeX: function(transform) {
-            return <$_ degrees={texFromAngleDeg(transform.angleDeg)}
-                       point={texFromPoint(transform.center)}>
-                旋轉 %(degrees)s 度 (以 %(point)s 為中心)
-            </$_>;
+            return $_({
+                degrees: texFromAngleDeg(transform.angleDeg),
+                point: texFromPoint(transform.center)
+            }, "旋轉 %(degrees)s 度 (以 %(point)s 為中心)");
         },
         Input: React.createClass({
             getInitialState: function() {
@@ -539,9 +537,8 @@ var Transformations = {
                     DEGREE_SIGN
                 ];
                 // I18N: %(point)s must come before %(degrees)s in this phrase
-                var text = <$_ point={point} degrees={degrees}>
-                    Rotation about %(point)s by %(degrees)s
-                </$_>;
+                var text = $_({point, degrees},
+                    "Rotation about %(point)s by %(degrees)s");
 
                 return <div>{text}</div>;
             },
@@ -596,10 +593,10 @@ var Transformations = {
         toTeX: function(transform) {
             var point1 = transform.line[0];
             var point2 = transform.line[1];
-            return <$_ point1={texFromPoint(point1)}
-                       point2={texFromPoint(point2)}>
-                對應從 %(point1)s 至 %(point2)s 的線做鏡射
-            </$_>;
+            return $_({
+                point1: texFromPoint(point1),
+                point2: texFromPoint(point2)
+            }, "對應從 %(point1)s 至 %(point2)s 的線做鏡射");
         },
         Input: React.createClass({
             getInitialState: function() {
@@ -642,9 +639,8 @@ var Transformations = {
                     <TeX>)</TeX>
                 ];
                 return <div>
-                    <$_ point1={point1} point2={point2}>
-                        對應從 %(point1)s 至 %(point2)s 的線做鏡射
-                    </$_>
+                    {$_({point1, point2},
+                        "對應從 %(point1)s 至 %(point2)s 的線做鏡射")}
                 </div>;
             },
             changePoint: function(i, j, val) {
@@ -703,10 +699,10 @@ var Transformations = {
         },
         toTeX: function(transform) {
             var scaleString = stringFromFraction(transform.scale);
-            return <$_ scale={scaleString}
-                       point={texFromPoint(transform.center)}>
-                放大 %(scale)s 倍 (以 %(point)s 為中心)
-            </$_>;
+            return $_({
+                scale: scaleString,
+                point: texFromPoint(transform.center),
+            }, "放大 %(scale)s 倍 (以 %(point)s 為中心)");
         },
         Input: React.createClass({
             getInitialState: function() {
@@ -758,9 +754,8 @@ var Transformations = {
                             this.props.onChange();
                         }} />;
                 return <div>
-                    <$_ point={point} scale={scale}>
-                        Dilation about %(point)s by %(scale)s
-                    </$_>
+                    {$_({point, scale},
+                        "Dilation about %(point)s by %(scale)s")}
                 </div>;
             },
             value: function() {

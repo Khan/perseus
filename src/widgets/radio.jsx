@@ -39,7 +39,7 @@ var BaseRadio = React.createClass({
                 "above-scratchpad blank-background"}>
             {this.props.multipleSelect &&
                 <div className="instructions">
-                    <$_>請選擇所有正確的答案。</$_>
+                    {$._("請選擇所有正確的答案。")}
                 </div>}
             {this.props.choices.map(function(choice, i) {
 
