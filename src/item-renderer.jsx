@@ -257,8 +257,14 @@ var ItemRenderer = React.createClass({
                 document.querySelector(this.props.hintsAreaSelector));
     },
 
-    showHint: function() {
-        if (this.state.hintsVisible < this.getNumHints()) {
+    showHint: function(hintNum) {
+        if( hintNum ){
+            console.log("hintsVisible:",hintNum+1); 
+            this.setState({
+                hintsVisible: ( hintNum + 1 )
+            });
+        }
+        else if (this.state.hintsVisible < this.getNumHints()) {
             this.setState({
                 hintsVisible: this.state.hintsVisible + 1
             });
@@ -281,15 +287,9 @@ var ItemRenderer = React.createClass({
     undoneHistoryWidgets: function() {
         var undoneHistoryWidgetsInAnswer = this.answerAreaRenderer.undoneHistoryWidgets();
         var undoneHistoryWidgetsInQuestion = this.questionRenderer.undoneHistoryWidgets();
+
         if (undoneHistoryWidgetsInAnswer || undoneHistoryWidgetsInQuestion)
             return true;
-        return false;
-        for (var i in undoneHistoryWidgetsInAnswer)
-            if (i === true)
-                return true;
-        for (var i in undoneHistoryWidgetsInQuestion)
-            if (i === true)
-                return true;
         return false;
     },
     scoreInput: function() {

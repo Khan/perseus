@@ -46,19 +46,13 @@ var Matcher = React.createClass({
         var left;
         var right;
         // use random when init, but not in history!
-        if(this.props.right === undefined) {
-            if (!this.props.orderMatters) {
-                // If the order doesn't matter, don't shuffle the left column
-                left = this.props.left;
-            } else {
-                left = shuffle(this.props.left, rng, /* ensurePermuted */ true);
-            }
-            right = shuffle(this.props.right, rng, /* ensurePermuted */ true);
+        if (!this.props.orderMatters) {
+            // If the order doesn't matter, don't shuffle the left column
+            left = this.props.left;
+        } else {
+            left = shuffle(this.props.left, rng, /* ensurePermuted */ true);
         }
-        else {
-            left = this.props.left;        
-            right = this.props.right;
-        }
+        right = shuffle(this.props.right, rng, /* ensurePermuted */ true);
         var showLabels = _.any(this.props.labels);
         var constraints = {height: _.max([this.state.leftHeight,
             this.state.rightHeight])};
@@ -104,9 +98,9 @@ var Matcher = React.createClass({
         this.setState({rightHeight: height});
     },
 
-    setAnswerFromJSON: function(answerData) {
-        this.props.onChange(answerData);
-    },
+    // setAnswerFromJSON: function(answerData) {
+    //     this.props.onChange(answerData);
+    // },
 
     toJSON: function(skipValidation) {
         return {

@@ -535,13 +535,16 @@ var Renderer = React.createClass({
     },
 
     undoneHistoryWidgets: function(answerData) {
+        var r = false;
         _.map(this.widgetIds, function(id, index) {
             if (this.refs[id].setAnswerFromJSON === undefined) {
-                console.log('no setAnswerFromJSON implemented for ' + id + ' widget');
-            return true;
+                  r = true;
+                return true;
+            } else {
+                return false;
             }
         }, this);
-        return false;
+        return r;
     },
 
     guessAndScore: function() {

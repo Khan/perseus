@@ -1,5 +1,5 @@
 /*! Perseus | http://github.com/Khan/perseus */
-// commit c2908228abb7b59dfa19ccd37c9313f1fadd0f91
+// commit 0a2ce58ebaee5acaed61e7975f71d52c057cda88
 // branch recover-user-attempts
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Perseus = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /*
@@ -10933,8 +10933,14 @@ var ItemRenderer = React.createClass({displayName: 'ItemRenderer',
                 document.querySelector(this.props.hintsAreaSelector));
     },
 
-    showHint: function() {
-        if (this.state.hintsVisible < this.getNumHints()) {
+    showHint: function(hintNum) {
+        if( hintNum ){
+            console.log("hintsVisible:",hintNum+1); 
+            this.setState({
+                hintsVisible: ( hintNum + 1 )
+            });
+        }
+        else if (this.state.hintsVisible < this.getNumHints()) {
             this.setState({
                 hintsVisible: this.state.hintsVisible + 1
             });
@@ -10957,15 +10963,9 @@ var ItemRenderer = React.createClass({displayName: 'ItemRenderer',
     undoneHistoryWidgets: function() {
         var undoneHistoryWidgetsInAnswer = this.answerAreaRenderer.undoneHistoryWidgets();
         var undoneHistoryWidgetsInQuestion = this.questionRenderer.undoneHistoryWidgets();
+
         if (undoneHistoryWidgetsInAnswer || undoneHistoryWidgetsInQuestion)
             return true;
-        return false;
-        for (var i in undoneHistoryWidgetsInAnswer)
-            if (i === true)
-                return true;
-        for (var i in undoneHistoryWidgetsInQuestion)
-            if (i === true)
-                return true;
         return false;
     },
     scoreInput: function() {
@@ -11776,13 +11776,16 @@ var Renderer = React.createClass({displayName: 'Renderer',
     },
 
     undoneHistoryWidgets: function(answerData) {
+        var r = false;
         _.map(this.widgetIds, function(id, index) {
             if (this.refs[id].setAnswerFromJSON === undefined) {
-                console.log('no setAnswerFromJSON implemented for ' + id + ' widget');
-            return true;
+                  r = true;
+                return true;
+            } else {
+                return false;
             }
         }, this);
-        return false;
+        return r;
     },
 
     guessAndScore: function() {
@@ -18566,19 +18569,13 @@ var Matcher = React.createClass({displayName: 'Matcher',
         var left;
         var right;
         // use random when init, but not in history!
-        if(this.props.right === undefined) {
-            if (!this.props.orderMatters) {
-                // If the order doesn't matter, don't shuffle the left column
-                left = this.props.left;
-            } else {
-                left = shuffle(this.props.left, rng, /* ensurePermuted */ true);
-            }
-            right = shuffle(this.props.right, rng, /* ensurePermuted */ true);
+        if (!this.props.orderMatters) {
+            // If the order doesn't matter, don't shuffle the left column
+            left = this.props.left;
+        } else {
+            left = shuffle(this.props.left, rng, /* ensurePermuted */ true);
         }
-        else {
-            left = this.props.left;        
-            right = this.props.right;
-        }
+        right = shuffle(this.props.right, rng, /* ensurePermuted */ true);
         var showLabels = _.any(this.props.labels);
         var constraints = {height: _.max([this.state.leftHeight,
             this.state.rightHeight])};
@@ -18624,9 +18621,9 @@ var Matcher = React.createClass({displayName: 'Matcher',
         this.setState({rightHeight: height});
     },
 
-    setAnswerFromJSON: function(answerData) {
-        this.props.onChange(answerData);
-    },
+    // setAnswerFromJSON: function(answerData) {
+    //     this.props.onChange(answerData);
+    // },
 
     toJSON: function(skipValidation) {
         return {
