@@ -259,7 +259,6 @@ var ItemRenderer = React.createClass({
 
     showHint: function(hintNum) {
         if( hintNum ){
-            console.log("hintsVisible:",hintNum+1); 
             this.setState({
                 hintsVisible: ( hintNum + 1 )
             });
@@ -287,7 +286,9 @@ var ItemRenderer = React.createClass({
     undoneHistoryWidgets: function() {
         var undoneHistoryWidgetsInAnswer = this.answerAreaRenderer.undoneHistoryWidgets();
         var undoneHistoryWidgetsInQuestion = this.questionRenderer.undoneHistoryWidgets();
-
+        console.log("undoneHistoryWidgetsInAnswer:",undoneHistoryWidgetsInAnswer);
+        console.log("undoneHistoryWidgetsInQuestion:",undoneHistoryWidgetsInQuestion);
+        
         if (undoneHistoryWidgetsInAnswer || undoneHistoryWidgetsInQuestion)
             return true;
         return false;
