@@ -218,6 +218,13 @@ var Expression = React.createClass({
         return Expression.validate(this.toJSON(), rubric, onInputError);
     },
 
+    setAnswerFromJSON: function(answerData) {
+        if (answerData === undefined) {
+            answerData = {value: ""};
+        }
+        this.props.onChange(answerData);
+    },
+
     toJSON: function(skipValidation) {
         return {value: this.props.value};
     },

@@ -476,6 +476,17 @@ var NumberLine = React.createClass({
         graphie.line([center, 0], [left, 0], {arrows: "->"});
     },
 
+    setAnswerFromJSON: function(answerData) {
+        if (answerData === undefined) {
+            answerData = this.getDefaultProps();
+        }
+        if (answerData.rel === "eq") {
+            answerData.rel = "ge";
+            answerData.isInequality = false;
+        }
+        this.props.onChange(answerData);
+    },
+
     toJSON: function() {
         return {
             numLinePosition: this.props.numLinePosition,

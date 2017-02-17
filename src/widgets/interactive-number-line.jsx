@@ -273,6 +273,17 @@ var InteractiveNumberLine = React.createClass({
         }
     },
 
+    setAnswerFromJSON: function(answerData) {
+        if (answerData === undefined) {
+            answerData = this.getDefaultProps();
+        }
+        if (answerData.rel === "eq") {
+            answerData.rel = "ge";
+            answerData.isInequality = false;
+        }
+        this.props.onChange(answerData);
+    },
+
     toJSON: function() {
         return {
             pointX: this.props.pointX,

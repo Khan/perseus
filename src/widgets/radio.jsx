@@ -203,6 +203,18 @@ var Radio = React.createClass({
         });
     },
 
+    setAnswerFromJSON: function(answerData) {
+        if (answerData === undefined) {
+            renderedAnswerData = {values: undefined};
+        } else {
+            var renderedAnswerData = {'values': []};
+            for (var i = 0; i < this.props.choices.length; i++) {
+                renderedAnswerData['values'].push(answerData['values'][this.props.choices[i].originalIndex]);
+            }
+        }
+        this.props.onChange(renderedAnswerData);
+    },
+
     toJSON: function(skipValidation) {
         // Return checked inputs in the form {values: [bool]}. (Dear future
         // timeline implementers: this used to be {value: i} before multiple

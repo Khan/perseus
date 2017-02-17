@@ -163,6 +163,13 @@ var InputNumber = React.createClass({
         return true;
     },
 
+    setAnswerFromJSON: function(answerData) {
+        if (answerData === undefined) {
+            answerData = {currentValue: ""};
+        }
+        this.props.onChange(answerData);
+    },
+
     toJSON: function(skipValidation) {
         return {
             currentValue: this.props.currentValue

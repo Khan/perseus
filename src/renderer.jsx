@@ -514,6 +514,38 @@ var Renderer = React.createClass({
         }, () => focus);
     },
 
+    showGuess: function(answerData) {
+        if( !answerData )
+            return {};
+        return _.map(this.widgetIds, function(id, index) {
+            if (this.refs[id].setAnswerFromJSON === undefined) {
+                // Target widget cannot show answer.
+                return {showSuccess:false,err:'no setAnswerFromJSON implemented for ' + id + ' widget'};
+            } else {
+                // Just show the given answer.
+                if(answerData[0].length<=index) {
+                    console.log("showGuess err");
+                    return {};
+                }
+                widgetAnswerData = answerData[0][index];
+                this.refs[id].setAnswerFromJSON(widgetAnswerData);
+                return {showSuccess:true};
+            }
+        }, this);
+    },
+
+    canShowAllHistoryWidgets: function(answerData) {
+        var r = true;
+        _.map(this.widgetIds, function(id, index) {
+            if (this.refs[id].setAnswerFromJSON === undefined) {
+                if ( id !== 'image 1') {
+                  r = false;
+                }
+            }
+        }, this);
+        return r;
+    },
+
     guessAndScore: function() {
         var widgetProps = this.props.widgets;
         var onInputError = this.props.apiOptions.onInputError ||

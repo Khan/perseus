@@ -1,6 +1,6 @@
 /*! Perseus | http://github.com/Khan/perseus */
-// commit ffd9f90a81ec1f7ac6a5cca8dd38e88931a8c4dc
-// branch fixbug_math_input_is_hidden_by_answer_area
+// commit b364c00630574736c71927535c25d15db1f15d38
+// branch master
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Perseus = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /*
 Software License Agreement (BSD License)
@@ -4111,6 +4111,32 @@ var AnswerAreaRenderer = React.createClass({displayName: 'AnswerAreaRenderer',
 
     focus: function() {
         this.refs.widget.focus();
+    },
+
+    showGuess: function(answerData) {
+        if( !answerData )
+            return;
+        if (answerData instanceof Array) {
+            // Answer area contains no widgets.
+        } else if (this.refs.widget.setAnswerFromJSON === undefined) {
+            // Target widget cannot show answer.
+            console.log("Target widget cannot show in answerarea",answerData);
+            return 'no setAnswerFromJSON implemented for widgets in answer area.';
+        } else {
+            console.log("Target widget show in answerarea")
+            // Just show the given answer.
+            this.refs.widget.setAnswerFromJSON(answerData);
+        }
+    },
+
+    canShowAllHistoryWidgets: function(answerData) {
+        if(!answerData)
+            return true;
+        if (this.refs.widget.setAnswerFromJSON === undefined) {
+            console.log('no setAnswerFromJSON implemented for widgets in answer area.');
+            return false;
+        }
+        return true;
     },
 
     guessAndScore: function() {
@@ -10907,8 +10933,13 @@ var ItemRenderer = React.createClass({displayName: 'ItemRenderer',
                 document.querySelector(this.props.hintsAreaSelector));
     },
 
-    showHint: function() {
-        if (this.state.hintsVisible < this.getNumHints()) {
+    showHint: function(hintNum) {
+        if( hintNum ){
+            this.setState({
+                hintsVisible: ( hintNum + 1 )
+            });
+        }
+        else if (this.state.hintsVisible < this.getNumHints()) {
             this.setState({
                 hintsVisible: this.state.hintsVisible + 1
             });
@@ -10919,6 +10950,22 @@ var ItemRenderer = React.createClass({displayName: 'ItemRenderer',
         return this.props.item.hints.length;
     },
 
+    showGuess: function(answerData) {
+        this.questionRenderer.showGuess(answerData)
+        if (answerData !== undefined && this.questionRenderer.widgetIds.length > 0) {
+            // Left answers for answer widgets only.
+            answerData = answerData[1];
+        }
+        this.answerAreaRenderer.showGuess(answerData);
+        return ;
+    },
+    canShowAllHistoryWidgets: function() {
+        var canShowAllHistoryWidgetsInAnswer = this.answerAreaRenderer.canShowAllHistoryWidgets();
+        var canShowAllHistoryWidgetsInQuestion = this.questionRenderer.canShowAllHistoryWidgets();
+        if (canShowAllHistoryWidgetsInAnswer && canShowAllHistoryWidgetsInQuestion)
+            return true;
+        return false;
+    },
     scoreInput: function() {
         var qGuessAndScore = this.questionRenderer.guessAndScore();
         var aGuessAndScore = this.answerAreaRenderer.guessAndScore();
@@ -11704,6 +11751,38 @@ var Renderer = React.createClass({displayName: 'Renderer',
         this._setWidgetProps(inputWidgetId, {
             currentValue: String(newValue)
         }, function()  {return focus;});
+    },
+
+    showGuess: function(answerData) {
+        if( !answerData )
+            return {};
+        return _.map(this.widgetIds, function(id, index) {
+            if (this.refs[id].setAnswerFromJSON === undefined) {
+                // Target widget cannot show answer.
+                return {showSuccess:false,err:'no setAnswerFromJSON implemented for ' + id + ' widget'};
+            } else {
+                // Just show the given answer.
+                if(answerData[0].length<=index) {
+                    console.log("showGuess err");
+                    return {};
+                }
+                widgetAnswerData = answerData[0][index];
+                this.refs[id].setAnswerFromJSON(widgetAnswerData);
+                return {showSuccess:true};
+            }
+        }, this);
+    },
+
+    canShowAllHistoryWidgets: function(answerData) {
+        var r = true;
+        _.map(this.widgetIds, function(id, index) {
+            if (this.refs[id].setAnswerFromJSON === undefined) {
+                if ( id !== 'image 1') {
+                  r = false;
+                }
+            }
+        }, this);
+        return r;
     },
 
     guessAndScore: function() {
@@ -12799,7 +12878,9 @@ var Categorizer = React.createClass({displayName: 'Categorizer',
             values: []
         };
     },
-
+    setAnswerFromJSON: function(answerData) {
+        this.props.onChange(answerData);
+    },
     getInitialState: function() {
         return {
             uniqueId: _.uniqueId("perseus_radio_")
@@ -12983,7 +13064,9 @@ var Dropdown = React.createClass({displayName: 'Dropdown',
             apiOptions: ApiOptions.defaults
         };
     },
-
+    setAnswerFromJSON: function(answerData) {
+        this.props.onChange({selected:answerData.value});
+    },
     render: function() {
         var choices = this.props.choices.slice();
 
@@ -13809,6 +13892,13 @@ var Expression = React.createClass({displayName: 'Expression',
     simpleValidate: function(rubric, onInputError) {
         onInputError = onInputError || function() { };
         return Expression.validate(this.toJSON(), rubric, onInputError);
+    },
+
+    setAnswerFromJSON: function(answerData) {
+        if (answerData === undefined) {
+            answerData = {value: ""};
+        }
+        this.props.onChange(answerData);
     },
 
     toJSON: function(skipValidation) {
@@ -14844,6 +14934,13 @@ var InputNumber = React.createClass({displayName: 'InputNumber',
     focus: function() {
         this.refs.input.focus();
         return true;
+    },
+
+    setAnswerFromJSON: function(answerData) {
+        if (answerData === undefined) {
+            answerData = {currentValue: ""};
+        }
+        this.props.onChange(answerData);
     },
 
     toJSON: function(skipValidation) {
@@ -17775,6 +17872,17 @@ var InteractiveNumberLine = React.createClass({displayName: 'InteractiveNumberLi
         }
     },
 
+    setAnswerFromJSON: function(answerData) {
+        if (answerData === undefined) {
+            answerData = this.getDefaultProps();
+        }
+        if (answerData.rel === "eq") {
+            answerData.rel = "ge";
+            answerData.isInequality = false;
+        }
+        this.props.onChange(answerData);
+    },
+
     toJSON: function() {
         return {
             pointX: this.props.pointX,
@@ -19489,6 +19597,17 @@ var NumberLine = React.createClass({displayName: 'NumberLine',
         graphie.line([center, 0], [left, 0], {arrows: "->"});
     },
 
+    setAnswerFromJSON: function(answerData) {
+        if (answerData === undefined) {
+            answerData = this.getDefaultProps();
+        }
+        if (answerData.rel === "eq") {
+            answerData.rel = "ge";
+            answerData.isInequality = false;
+        }
+        this.props.onChange(answerData);
+    },
+
     toJSON: function() {
         return {
             numLinePosition: this.props.numLinePosition,
@@ -19936,6 +20055,13 @@ var NumericInput = React.createClass({displayName: 'NumericInput',
 
     toJSON: function(skipValidation) {
         return {currentValue: this.props.currentValue};
+    },
+
+    setAnswerFromJSON: function(answerData) {
+        if (answerData === undefined) {
+            answerData = {currentValue: ""};
+        }
+        this.props.onChange(answerData);
     },
 
     simpleValidate: function(rubric) {
@@ -22182,6 +22308,18 @@ var Radio = React.createClass({displayName: 'Radio',
         });
     },
 
+    setAnswerFromJSON: function(answerData) {
+        if (answerData === undefined) {
+            renderedAnswerData = {values: undefined};
+        } else {
+            var renderedAnswerData = {'values': []};
+            for (var i = 0; i < this.props.choices.length; i++) {
+                renderedAnswerData['values'].push(answerData['values'][this.props.choices[i].originalIndex]);
+            }
+        }
+        this.props.onChange(renderedAnswerData);
+    },
+
     toJSON: function(skipValidation) {
         // Return checked inputs in the form {values: [bool]}. (Dear future
         // timeline implementers: this used to be {value: i} before multiple
@@ -22571,6 +22709,35 @@ var Sorter = React.createClass({displayName: 'Sorter',
                 onChange:this.props.onChange,
                 ref:"sortable"} )
         );
+    },
+
+    setAnswerFromJSON: function(answerData) {
+        sortable = this.refs.sortable;
+        if (answerData === undefined) {
+            sortable.setState({
+                items: sortable.clearItemMeasurements(sortable.state.items)
+            });
+        } else {
+            items = sortable.state.items;
+            result = [];
+
+            answerData.options.forEach(function(key) {
+                var found = false;
+                items = items.filter(function(item) {
+                    if(!found && item['option'] == key) {
+                        result.push(item);
+                        found = true;
+                        return false;
+                    } else 
+                        return true;
+                })
+            });
+            sortable.setState({items: result});
+        }
+        // HACK: We need to know *that* the widget changed, but currently it's
+        // not set up in a nice way to tell us *how* it changed, since the
+        // permutation of the items is stored in state.
+        this.props.onChange({});
     },
 
     toJSON: function(skipValidation) {
