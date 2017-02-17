@@ -1,5 +1,5 @@
 /*! Perseus | http://github.com/Khan/perseus */
-// commit 6c3dcdcdb56643c68b0e1a8299be3cc04c79a1a5
+// commit 1fdc27716f7d0a2284760bb7048ac53b07a823c0
 // branch recover-user-attempts
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Perseus = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /*
@@ -4129,14 +4129,14 @@ var AnswerAreaRenderer = React.createClass({displayName: 'AnswerAreaRenderer',
         }
     },
 
-    undoneHistoryWidgets: function(answerData) {
+    canShowAllHistoryWidgets: function(answerData) {
         if(!answerData)
-            return false;
+            return true;
         if (this.refs.widget.setAnswerFromJSON === undefined) {
             console.log('no setAnswerFromJSON implemented for widgets in answer area.');
-            return true;
+            return false;
         }
-        return false;
+        return true;
     },
 
     guessAndScore: function() {
@@ -10959,13 +10959,10 @@ var ItemRenderer = React.createClass({displayName: 'ItemRenderer',
         this.answerAreaRenderer.showGuess(answerData);
         return ;
     },
-    undoneHistoryWidgets: function() {
-        var undoneHistoryWidgetsInAnswer = this.answerAreaRenderer.undoneHistoryWidgets();
-        var undoneHistoryWidgetsInQuestion = this.questionRenderer.undoneHistoryWidgets();
-        console.log("undoneHistoryWidgetsInAnswer:",undoneHistoryWidgetsInAnswer);
-        console.log("undoneHistoryWidgetsInQuestion:",undoneHistoryWidgetsInQuestion);
-        
-        if (undoneHistoryWidgetsInAnswer || undoneHistoryWidgetsInQuestion)
+    canShowAllHistoryWidgets: function() {
+        var canShowAllHistoryWidgetsInAnswer = this.answerAreaRenderer.canShowAllHistoryWidgets();
+        var canShowAllHistoryWidgetsInQuestion = this.questionRenderer.canShowAllHistoryWidgets();
+        if (canShowAllHistoryWidgetsInAnswer && canShowAllHistoryWidgetsInQuestion)
             return true;
         return false;
     },
@@ -11776,14 +11773,13 @@ var Renderer = React.createClass({displayName: 'Renderer',
         }, this);
     },
 
-    undoneHistoryWidgets: function(answerData) {
-        var r = false;
+    canShowAllHistoryWidgets: function(answerData) {
+        var r = true;
         _.map(this.widgetIds, function(id, index) {
             if (this.refs[id].setAnswerFromJSON === undefined) {
-                  r = true;
-                return true;
-            } else {
-                return false;
+                if ( id !== 'image 1') {
+                  r = false;
+                }
             }
         }, this);
         return r;
