@@ -345,14 +345,14 @@ var AnswerAreaRenderer = React.createClass({
         }
     },
 
-    undoneHistoryWidgets: function(answerData) {
+    canShowAllHistoryWidgets: function(answerData) {
         if(!answerData)
-            return false;
+            return true;
         if (this.refs.widget.setAnswerFromJSON === undefined) {
             console.log('no setAnswerFromJSON implemented for widgets in answer area.');
-            return true;
+            return false;
         }
-        return false;
+        return true;
     },
 
     guessAndScore: function() {

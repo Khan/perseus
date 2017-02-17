@@ -283,13 +283,10 @@ var ItemRenderer = React.createClass({
         this.answerAreaRenderer.showGuess(answerData);
         return ;
     },
-    undoneHistoryWidgets: function() {
-        var undoneHistoryWidgetsInAnswer = this.answerAreaRenderer.undoneHistoryWidgets();
-        var undoneHistoryWidgetsInQuestion = this.questionRenderer.undoneHistoryWidgets();
-        console.log("undoneHistoryWidgetsInAnswer:",undoneHistoryWidgetsInAnswer);
-        console.log("undoneHistoryWidgetsInQuestion:",undoneHistoryWidgetsInQuestion);
-        
-        if (undoneHistoryWidgetsInAnswer || undoneHistoryWidgetsInQuestion)
+    canShowAllHistoryWidgets: function() {
+        var canShowAllHistoryWidgetsInAnswer = this.answerAreaRenderer.canShowAllHistoryWidgets();
+        var canShowAllHistoryWidgetsInQuestion = this.questionRenderer.canShowAllHistoryWidgets();
+        if (canShowAllHistoryWidgetsInAnswer && canShowAllHistoryWidgetsInQuestion)
             return true;
         return false;
     },

@@ -534,14 +534,13 @@ var Renderer = React.createClass({
         }, this);
     },
 
-    undoneHistoryWidgets: function(answerData) {
-        var r = false;
+    canShowAllHistoryWidgets: function(answerData) {
+        var r = true;
         _.map(this.widgetIds, function(id, index) {
             if (this.refs[id].setAnswerFromJSON === undefined) {
-                  r = true;
-                return true;
-            } else {
-                return false;
+                if ( id !== 'image 1') {
+                  r = false;
+                }
             }
         }, this);
         return r;
