@@ -7,7 +7,6 @@ var NumberInput = require("../components/number-input.jsx");
 var PropCheckBox = require("../components/prop-check-box.jsx");
 var RangeInput = require("../components/range-input.jsx");
 var Util = require("../util.js");
-var BlurInput = require("react-components/js/blur-input.jsx");
 
 var defaultBoxSize = 400;
 var defaultBackgroundImage = {
@@ -54,7 +53,7 @@ var GraphSettings = React.createClass({
         };
     },
 
-    render: function() {console.table(this.props);
+    render: function() {
         return <div>
             <div className="graph-settings">
                 <div className="perseus-widget-row">
@@ -411,7 +410,8 @@ var GraphSettings = React.createClass({
         });
     },
 
-    changeBackgroundUrl: function(url) {
+    changeBackgroundUrl: function(e) {
+        var url = e.target.value;
         if (url) {
             if(this.props.backgroundImage.url != url){
                 var img = new Image();
