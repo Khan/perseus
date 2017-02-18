@@ -54,7 +54,7 @@ var GraphSettings = React.createClass({
         };
     },
 
-    render: function() {
+    render: function() {console.table(this.props);
         return <div>
             <div className="graph-settings">
                 <div className="perseus-widget-row">
@@ -119,8 +119,13 @@ var GraphSettings = React.createClass({
             <div className="image-settings">
                 <div>背景圖:</div>
                 <div>Url:{' '}
-                    <BlurInput  value={this.props.backgroundImage.url}
-                                onChange={this.changeBackgroundUrl}/>
+                    <input type="text"
+                            className="graph-settings-background-url"
+                            ref="bg-url"
+                            value={this.props.backgroundImage.url}
+                            onChange={this.changeBackgroundUrl}
+                            onKeyPress={this.changeBackgroundUrl}
+                            onBlur={this.changeBackgroundUrl} />
                     <InfoTip>
                         <p>請在圖形中增加圖片，或於欄中輸入圖片連結。</p>
                     </InfoTip>
@@ -213,8 +218,7 @@ var GraphSettings = React.createClass({
     },
 
     componentDidMount: function() {
-        var changeGraph = this.changeGraph;
-        this.changeGraph = _.debounce(changeGraph.bind(this), 300);
+        this.changeGraph = _.debounce(this.changeGraph, 300);
     },
 
 

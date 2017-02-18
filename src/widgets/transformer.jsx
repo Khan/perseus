@@ -322,12 +322,13 @@ var TransformOps = {
                     {TransformOps.toTeX(this.props.transform)}
                 </div>;
             } else if (this.props.mode === "interactive") {
-                var transformClass =
+                var TransformClass =
                         Transformations[this.props.transform.type].Input;
-                return transformClass(_.extend({
-                    ref: "transform",
-                    onChange: this.handleChange
-                }, this.props.transform));
+                return <TransformClass
+                    ref="transform"
+                    onChange={this.handleChange}
+                    {...this.props.transform}
+                    />;
             } else {
                 throw new Error("Invalid mode: " + this.props.mode);
             }
@@ -1346,7 +1347,7 @@ var TransformationsShapeEditor = React.createClass({
                 gridStep={this.props.graph.gridStep}
                 markings={this.props.graph.markings}
                 backgroundImage={this.props.graph.backgroundImage}
-                onNewGraphie={this.setupGraphie} />
+                onGraphieUpdated={this.setupGraphie} />
             <select
                     key="type-select"
                     value={this.getTypeString(this.props.shape.type)}
@@ -1632,7 +1633,7 @@ var Transformer = React.createClass({
                 backgroundImage={graph.backgroundImage}
                 showProtractor={graph.showProtractor}
                 showRuler={graph.showRuler}
-                onNewGraphie={this.setupGraphie} />
+                onGraphieUpdated={this.setupGraphie} />
 
             {!interactiveToolsMode && (
                 "Add transformations below:"
@@ -1656,6 +1657,10 @@ var Transformer = React.createClass({
             {!interactiveToolsMode && toolsBar}
 
         </div>;
+    },
+
+    componentDidMount: function() {
+        this.setupGraphie(this.graphie());
     },
 
     componentDidUpdate: function(prevProps) {
