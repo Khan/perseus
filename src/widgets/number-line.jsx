@@ -259,14 +259,16 @@ var NumberLine = React.createClass({
                 options={options}
                 setup={this._setupGraphie}>
             {this._renderTickControl(props)}
-            {TickMarks(_.pick(props, [
-                "range",
-                "numDivisions",
-                "labelTicks",
-                "labelStyle",
-                "labelRange",
-                "tickStep"
-            ]))}
+            <TickMarks
+                {..._.pick(props, [
+                    "range",
+                    "numDivisions",
+                    "labelTicks",
+                    "labelStyle",
+                    "labelRange",
+                    "tickStep"
+                ])}
+            />
             {this._renderInequality(props)}
             {this._renderNumberLinePoint(props)}
         </Graphie>;
@@ -277,7 +279,7 @@ var NumberLine = React.createClass({
         var right = props.range[1];
         var snapX = props.tickStep / props.snapDivisions;
 
-        x = bound(numLinePosition, left, right);
+        var x = bound(numLinePosition, left, right);
         x = left + knumber.roundTo(x - left, snapX);
         assert(_.isFinite(x));
         return x;
@@ -557,6 +559,7 @@ var NumberLineEditor = React.createClass({
         var snapDivisions = this.props.snapDivisions;
         var tickStep = this.props.tickStep;
         var isTickCtrl = this.props.isTickCtrl;
+        var step = 0;
 
         if (!isTickCtrl) {
             // this will help constrain the answer to what is reachable
