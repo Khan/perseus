@@ -80,20 +80,18 @@ var InputWithExamples = React.createClass({
         };
 
         var input = this.props.type === MATH ?
-            MathInput(_.extend({
-                convertDotToTimes: this.props.convertDotToTimes,
-            }, inputProps)) :
-            TextInput(_.extend({
-                autoCapitalize: "off",
-                autoComplete: "off",
-                autoCorrect: "off",
-                spellCheck: "false",
-                // HACK(jack): We make the input read-only if there is a
-                // this.props.interceptFocus function, so that the focus can
-                // be intercepted pre-focus for mobile, which doesn't want a
-                // keyboard to pop up. Hacky, I know
-                readOnly: this.props.interceptFocus != null,
-            }, inputProps));
+            <MathInput
+                convertDotToTimes={this.props.convertDotToTimes}
+                {...inputProps}
+            /> :
+            <TextInput
+                autoCapitalize="off"
+                autoComplete="off"
+                autoCorrect="off"
+                spellCheck="false"
+                readOnly={this.props.interceptFocus != null}
+                {...inputProps}
+            />;
 
         return <Tooltip
                 ref="tooltip"

@@ -17,7 +17,7 @@ var TextInput = React.createClass({
     },
 
     render: function() {
-        <input
+        return <input
             {...this.props}
             type="text"
             onChange={(e) => this.props.onChange(e.target.value)}

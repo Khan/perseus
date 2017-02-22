@@ -832,11 +832,10 @@ var PlotterEditor = React.createClass({
                     選用"答案值"編輯此題的圖表答案；選用"起始值"編輯此題作答前的圖表預設樣式。
                 </p></InfoTip>
             </div>
-            {this.transferPropsTo(
-                <Plotter
-                    starting={this.props[this.state.editing]}
-                    onChange={this.handlePlotterChange} />
-            )}
+            <Plotter
+                {...this.props}
+                starting={this.props[this.state.editing]}
+                onChange={this.handlePlotterChange} />
         </div>;
     },
 
