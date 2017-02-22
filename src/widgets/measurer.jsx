@@ -1,4 +1,5 @@
 var React        = require('react');
+var ReactDOM     = require("react-dom");
 var Changeable   = require("../mixins/changeable.jsx");
 var JsonifyProps = require("../mixins/jsonify-props.jsx");
 
@@ -91,7 +92,7 @@ var Measurer = React.createClass({
     },
 
     setupGraphie: function() {
-        var graphieDiv = this.refs.graphieDiv;
+        var graphieDiv = ReactDOM.findDOMNode(this.refs.graphieDiv);
         $(graphieDiv).empty();
         var graphie = this.graphie = KhanUtil.currentGraph = KhanUtil.createGraphie(graphieDiv);
 

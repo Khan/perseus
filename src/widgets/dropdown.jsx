@@ -235,7 +235,7 @@ var DropdownEditor = React.createClass({
     },
 
     focus: function(i) {
-        this.refs["editor" + i].focus();
+        ReactDOM.findDOMNode(this.refs["editor" + i]).focus();
         return true;
     }
 });

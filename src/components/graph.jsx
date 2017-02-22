@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require("react-dom");
 var Util = require("../util.js");
 
 var defaultBoxSize = 400;
@@ -180,7 +181,7 @@ var Graph = React.createClass({
             return;
         }
 
-        var graphieDiv = this.refs.graphieDiv;
+        var graphieDiv = ReactDOM.findDOMNode(this.refs.graphieDiv);
         $(graphieDiv).empty();
         var labels = this.props.labels;
         var range = this.props.range;

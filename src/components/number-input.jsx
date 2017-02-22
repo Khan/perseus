@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require("react-dom");
 var classNames = require("classnames");
 var firstNumericalParse = require("../util.js").firstNumericalParse;
 var captureScratchpadTouchStart =
@@ -95,7 +96,7 @@ var NumberInput = React.createClass({
      * If empty, it returns the placeholder (if it is a number) or null
      */
     getValue: function() {
-        return this.parseInputValue(this.refs.input.value);
+        return this.parseInputValue(ReactDOM.findDOMNode(this.refs.input).value);
     },
 
     parseInputValue: function(value) {
@@ -110,7 +111,7 @@ var NumberInput = React.createClass({
 
     /* Set text input focus to this input */
     focus: function() {
-        this.refs.input.focus();
+        ReactDOM.findDOMNode(this.refs.input).focus();
     },
 
     _checkValidity: function(value) {
@@ -168,7 +169,7 @@ var NumberInput = React.createClass({
     },
 
     _setValue: function(val, format) {
-        $(this.refs.input).val(toNumericString(val, format));
+        $(ReactDOM.findDOMNode(this.refs.input)).val(toNumericString(val, format));
     }
 });
 

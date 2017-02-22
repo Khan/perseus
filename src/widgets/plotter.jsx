@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require("react-dom");
 var InfoTip = require("react-components/js/info-tip.jsx");
 var NumberInput = require("../components/number-input.jsx");
 var TextListEditor = require("../components/text-list-editor.jsx");
@@ -99,7 +100,7 @@ var Plotter = React.createClass({
     setupGraphie: function(prevState) {
         var self = this;
         self.shouldSetupGraphie = false;
-        var graphieDiv = self.refs.graphieDiv;
+        var graphieDiv = ReactDOM.findDOMNode(self.refs.graphieDiv);
         $(graphieDiv).empty();
         var graphie = KhanUtil.createGraphie(graphieDiv);
 
@@ -879,7 +880,7 @@ var PlotterEditor = React.createClass({
         }
 
         if (categories) {
-            this.refs.categories.value = categories.join(", ");
+            ReactDOM.findDOMNode(this.refs.categories).value = categories.join(", ");
         }
     },
 
@@ -930,7 +931,7 @@ var PlotterEditor = React.createClass({
             starting: _.map(this.props.starting, scale)
         });
 
-        this.refs.maxY.value = maxY;
+        ReactDOM.findDOMNode(this.refs.maxY).value = maxY;
     },
 
     changeMax: function(e) {
@@ -968,7 +969,7 @@ var PlotterEditor = React.createClass({
 
         this.changeCategories(categories);
 
-        this.refs.categories.value = categories.join(", ");
+        ReactDOM.findDOMNode(this.refs.categories).value = categories.join(", ");
     },
 
     toJSON: function(skipValidation) {

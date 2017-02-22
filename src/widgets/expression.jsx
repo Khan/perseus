@@ -204,7 +204,7 @@ var Expression = React.createClass({
     },
 
     focus: function() {
-        this.refs.input.focus();
+        ReactDOM.findDOMNode(this.refs.input).focus();
         return true;
     },
 
@@ -481,7 +481,7 @@ var ExpressionEditor = React.createClass({
     },
 
     focus: function() {
-        this.refs.expression.focus();
+        ReactDOM.findDOMNode(this.refs.expression).focus();
         return true;
     }
 });

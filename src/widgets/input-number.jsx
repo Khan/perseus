@@ -1,4 +1,5 @@
 var React             = require('react');
+var ReactDOM          = require("react-dom");
 var BlurInput         = require("react-components/js/blur-input.jsx");
 var InfoTip           = require("react-components/js/info-tip.jsx");
 var Renderer          = require("../renderer.jsx");
@@ -157,7 +158,7 @@ var InputNumber = React.createClass({
     },
 
     focus: function() {
-        this.refs.input.focus();
+        ReactDOM.findDOMNode(this.refs.input).focus();
         return true;
     },
 
@@ -293,7 +294,7 @@ var InputNumberEditor = React.createClass({
     },
 
     focus: function() {
-        this.refs.input.focus();
+        ReactDOM.findDOMNode(this.refs.input).focus();
         return true;
     },
 

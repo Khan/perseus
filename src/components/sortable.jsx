@@ -319,7 +319,7 @@ var Sortable = React.createClass({
 
         var items = _.clone(this.state.items);
         var $items = _.map(items, function(item) {
-            return $(this.refs[item.key]);
+            return $(ReactDOM.findDOMNode(this.refs[item.key]));
         }, this);
 
         var widths = _.invoke($items, "outerWidth");
@@ -433,7 +433,7 @@ var Sortable = React.createClass({
 
     onMouseMove: function(key) {
         // Dragging: Rearrange items based on draggable's position
-        var $draggable = $(this.refs[key]);
+        var $draggable = $(ReactDOM.findDOMNode(this.refs[key]));
         var $sortable = $(ReactDOM.findDOMNode(this));
         var items = _.clone(this.state.items);
         var item = _.findWhere(this.state.items, {key: key});
@@ -481,8 +481,7 @@ var Sortable = React.createClass({
         var items = _.map(this.state.items, function(item) {
             if (item.key === key) {
                 item.type = ANIMATING;
-                item.endPosition = $(this.refs["placeholder_" + key]
-                                    ).position();
+                item.endPosition = $(ReactDOM.findDOMNode(this.refs["placeholder_" + key])).position();
             }
             return item;
         }, this);

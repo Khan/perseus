@@ -1,4 +1,5 @@
 var React = require("react");
+var ReactDOM = require("react-dom");
 var _ = require("underscore");
 
 var InfoTip      = require("react-components/js/info-tip.jsx");
@@ -104,7 +105,7 @@ var InteractiveNumberLine = React.createClass({
 
     componentDidUpdate: function() {
         // Use jQuery to remove so event handlers don't leak
-        var node = this.refs.graphieDiv;
+        var node = ReactDOM.findDOMNode(this.refs.graphieDiv);
         $(node).children().remove();
 
         this.addGraphie();
@@ -132,7 +133,7 @@ var InteractiveNumberLine = React.createClass({
     addGraphie: function() {
         var self = this;
         var graphie = this.graphie = KhanUtil.createGraphie(
-                this.refs.graphieDiv);
+                ReactDOM.findDOMNode(this.refs.graphieDiv));
         // Ensure a sane configuration to avoid infinite loops
         if (!this.isValid()) {
             return;
