@@ -68,7 +68,7 @@ var Expression = React.createClass({
     },
 
     componentDidMount: function() {
-        var expression = ReactDOM.getDOMNode(this);
+        var expression = ReactDOM.findDOMNode(this);
         this.setState({offsetLeft: expression.offsetLeft});
     },
 

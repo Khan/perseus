@@ -133,7 +133,7 @@ var Card = React.createClass({
                              this.props.startOffset.top, 2)
                 )
             );
-            $(ReactDOM.getDOMNode(this)).animate(
+            $(ReactDOM.findDOMNode(this)).animate(
                 this.props.animateTo, Math.max(ms, 1),
                 this.props.onAnimationEnd
             );

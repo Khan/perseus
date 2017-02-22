@@ -79,7 +79,7 @@ var MathInput = React.createClass({
     },
 
     handleMouseDown: function(event) {
-        var focused = ReactDOM.getDOMNode(this).contains(event.target);
+        var focused = ReactDOM.findDOMNode(this).contains(event.target);
         this.mouseDown = focused;
         if (!focused) {
             this.setState({ focused: false });

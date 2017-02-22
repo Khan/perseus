@@ -143,14 +143,14 @@ var Draggable = React.createClass({
                 )
             );
 
-            $(ReactDOM.getDOMNode(this)).animate(this.props.endPosition, {
+            $(ReactDOM.findDOMNode(this)).animate(this.props.endPosition, {
                 duration: Math.max(duration, 1),
                 // Animating -> Static
                 complete: this.props.onAnimationEnd
             });
         } else if (this.props.type === STATIC) {
             // Ensure that any animations are done
-            $(ReactDOM.getDOMNode(this)).finish();
+            $(ReactDOM.findDOMNode(this)).finish();
         }
     },
 
@@ -181,7 +181,7 @@ var Draggable = React.createClass({
         var loc = Util.extractPointerLocation(event);
         if (loc) {
             this.setState({
-                startPosition: $(ReactDOM.getDOMNode(this)).position(),
+                startPosition: $(ReactDOM.findDOMNode(this)).position(),
                 startMouse: loc,
                 mouse: loc
             }, function() {
@@ -434,7 +434,7 @@ var Sortable = React.createClass({
     onMouseMove: function(key) {
         // Dragging: Rearrange items based on draggable's position
         var $draggable = $(this.refs[key]);
-        var $sortable = $(ReactDOM.getDOMNode(this));
+        var $sortable = $(ReactDOM.findDOMNode(this));
         var items = _.clone(this.state.items);
         var item = _.findWhere(this.state.items, {key: key});
         var margin = this.props.margin;

@@ -49,7 +49,7 @@ var MultiButtonGroup = React.createClass({
     },
 
     focus: function() {
-        ReactDOM.getDOMNode(this).focus();
+        ReactDOM.findDOMNode(this).focus();
         return true;
     },
 
