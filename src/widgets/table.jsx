@@ -7,9 +7,11 @@ var ReactDOM = require("react-dom");
 var _ = require("underscore");
 
 var MathOutput = require("../components/math-output.jsx");
+const SimpleKeypadInput = require("../components/simple-keypad-input.jsx");
 var Renderer = require("../renderer.jsx");
 var Util = require("../util.js");
 
+const {keypadElementPropType} = require("../../math-input").propTypes;
 var ApiOptions = require("../perseus-api.jsx").Options;
 const KhanAnswerTypes = require("../util/answer-types.js");
 
@@ -55,6 +57,7 @@ var Table = React.createClass({
         // The editor to use when editableHeaders is enabled
         Editor: React.PropTypes.func,
         headers: React.PropTypes.arrayOf(React.PropTypes.string),
+        keypadElement: keypadElementPropType,
         trackInteraction: React.PropTypes.func.isRequired,
     },
 
@@ -87,11 +90,19 @@ var Table = React.createClass({
         var columns = this._getColumns();
         var headers = this.props.headers;
 
-        var InputComponent;
-        if (this.props.apiOptions.staticRender) {
+        let InputComponent;
+        let inputStyle;
+        if (this.props.apiOptions.customKeypad) {
+            InputComponent = SimpleKeypadInput;
+            // NOTE(charlie): This is intended to match the "width: 80px" in
+            // input in table.less. Those values should be kept in-sync.
+            inputStyle = {width: 80};
+        } else if (this.props.apiOptions.staticRender) {
             InputComponent = MathOutput;
+            inputStyle = {};
         } else {
             InputComponent = "input";
+            inputStyle = {};
         }
 
         return <table className="perseus-widget-table-of-values non-markdown">
@@ -128,6 +139,7 @@ var Table = React.createClass({
                                     ref={getRefForPath(getInputPath(r, c))}
                                     type="text"
                                     value={this.props.answers[r][c]}
+                                    keypadElement={this.props.keypadElement}
                                     disabled={this.props.apiOptions.readOnly}
                                     onFocus={_.partial(
                                         this._handleFocus, getInputPath(r, c)
@@ -137,7 +149,8 @@ var Table = React.createClass({
                                     )}
                                     onChange={
                                         _.partial(this.onValueChange, r, c)
-                                    } />
+                                    }
+                                    style={inputStyle}/>
                             </td>;
                         })
                     }</tr>;
@@ -151,9 +164,15 @@ var Table = React.createClass({
         return _.map(this.props.answers, _.clone);
     },
 
-    onValueChange: function(row, column, e) {
+    onValueChange: function(row, column, eventOrValue) {
         var answers = _.map(this.props.answers, _.clone);
-        answers[row][column] = e.target.value;
+
+        // If this is coming from an "input", the last argument will be an
+        // event. If it's coming from a SimpleKeypadInput, it'll be the value.
+        answers[row][column] = eventOrValue.target
+            ? eventOrValue.target.value
+            : eventOrValue;
+
         this.props.onChange({
             answers: answers
         });
@@ -188,7 +207,9 @@ var Table = React.createClass({
     focusInputPath: function(path) {
         var inputID = getRefForPath(path);
         var inputComponent = this.refs[inputID];
-        if (this.props.apiOptions.staticRender) {
+        if (this.props.apiOptions.customKeypad) {
+            inputComponent.focus();
+        } else if (this.props.apiOptions.staticRender) {
             inputComponent.focus();
         } else {
             ReactDOM.findDOMNode(inputComponent).focus();
@@ -198,7 +219,9 @@ var Table = React.createClass({
     blurInputPath: function(path) {
         var inputID = getRefForPath(path);
         var inputComponent = this.refs[inputID];
-        if (this.props.apiOptions.staticRender) {
+        if (this.props.apiOptions.customKeypad) {
+            inputComponent.blur();
+        } else if (this.props.apiOptions.staticRender) {
             inputComponent.blur();
         } else {
             ReactDOM.findDOMNode(inputComponent).blur();
