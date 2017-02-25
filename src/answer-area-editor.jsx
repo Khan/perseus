@@ -39,7 +39,7 @@ var AnswerAreaEditor = React.createClass({
 
         return <div className="perseus-answer-editor">
             <div className="perseus-answer-options">
-                {this.state.showSolutionArea && <div className={cls !== Editor ? "perseus-answer-widget" : ""}>
+                {this.state.showSolutionArea && <div className={Editor2 !== Editor ? "perseus-answer-widget" : ""}>
                     {editor}
                 </div>}
             </div>
