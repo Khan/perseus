@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
 
 var init = function(options) {
     _.defaults(options, {
@@ -11,7 +12,7 @@ var init = function(options) {
     markedReact.setOptions({
         sanitize: true,
         paragraphFn: function(text) {
-            return React.DOM.div(null, text);
+            return <div>{text}</div>;
         }
     });
 
@@ -35,5 +36,8 @@ var init = function(options) {
 
     return deferred;
 };
+
+window.React = React;
+window.ReactDOM = ReactDOM;
 
 module.exports = init;
