@@ -134,7 +134,7 @@ var AnswerAreaRenderer = React.createClass({
                                     SINGLE_ITEM_WIDGET_ID);
         return <QuestionParagraph>
             <WidgetContainer
-                ref="container"
+                ref="widget"
                 key={this.props.type}
                 type={this.state.cls}
                 initialProps={this.getSingleWidgetProps()}
