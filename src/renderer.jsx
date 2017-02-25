@@ -194,7 +194,6 @@ var Renderer = React.createClass({
 
                 var type = (widgetInfo || {}).type || implied_type;
                 var cls = Widgets.getWidget(type, this.props.enabledFeatures);
-                var widgetProps = this.state.widgetProps[id] || {};
                 var shouldHighlight = _.contains(
                     this.props.highlightedWidgets,
                     id

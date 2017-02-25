@@ -250,11 +250,11 @@ var ItemRenderer = React.createClass({
     },
 
     componentWillUnmount: function() {
-        React.unmountComponentAtNode(
+        ReactDOM.unmountComponentAtNode(
                 document.querySelector(this.props.workAreaSelector));
-        React.unmountComponentAtNode(
+        ReactDOM.unmountComponentAtNode(
                 document.querySelector(this.props.solutionAreaSelector));
-        React.unmountComponentAtNode(
+        ReactDOM.unmountComponentAtNode(
                 document.querySelector(this.props.hintsAreaSelector));
     },
 
