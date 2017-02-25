@@ -1,6 +1,6 @@
 /* Perseus CSS
-// commit 05457c289386020d926c3fbf57b883304f8ababa
-// branch fix-highlighting
+// commit b2c4059d40bde2a0d575dbef402dcc02591c7fe5
+// branch master
 // @generated
 */
 .perseus-sr-only {
@@ -1807,7 +1807,6 @@ body.sat-section .perseus-widget-passage {
 }
 .framework-perseus table.perseus-widget-table-of-values.non-markdown td {
   padding: 0px 5px;
-  text-align: right;
 }
 .framework-perseus table.perseus-widget-table-of-values.non-markdown tbody tr:first-child td {
   padding-top: 5px;
