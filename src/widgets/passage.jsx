@@ -563,7 +563,9 @@ const Passage = React.createClass({
      * the rawContents of the page.
      */
     adjustIndexforMarkdownAndWhitespace: function(index, textArray) {
-        for (let i=0; i<=index; i++) {
+        // Ensure we don't index outside the bounds of the textArray
+        const stopIter = Math.min(textArray.length - 1, index);
+        for (let i=0; i<=stopIter; i++) {
             const match = textArray[i].match(/^\s+$/) || [
                 "{highlighting.end}{highlighting.start}",
                 "{highlighting.end}",
