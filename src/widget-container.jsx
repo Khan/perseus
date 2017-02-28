@@ -27,7 +27,7 @@ var WidgetContainer = React.createClass({
 
         if (WidgetType.displayMode == null) {
             throw new Error("You didn't specify a displayMode in the " +
-                          "statics for " + widgetClass.displayName + ".");
+                          "statics for " + WidgetType.displayName + ".");
         }
 
         return <div className={className}
