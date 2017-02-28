@@ -201,8 +201,8 @@ var Renderer = React.createClass({
 
 
                 return <WidgetContainer
-                    ref={"container:" + id}
-                    key={"container:" + id}
+                    ref={id}
+                    key={id}
                     type={cls}
                     initialProps={this.getWidgetProps(id)}
                     shouldHighlight={shouldHighlight}
@@ -222,7 +222,6 @@ var Renderer = React.createClass({
     getWidgetProps: function(id) {
         var widgetProps = this.state.widgetProps[id] || {};
         return _.extend({}, widgetProps, {
-            ref: id,
             widgetId: id,
             problemNum: this.props.problemNum,
             enabledFeatures: this.props.enabledFeatures,
