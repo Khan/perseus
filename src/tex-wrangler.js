@@ -147,19 +147,25 @@ function modifyTex(tex) {
 
 /*
  * Parse a TeX expression into something interpretable by input-number.
- * The process is exclusively concerned with parsing fractions, i.e., \dfracs.
- * The basic algorithm splits on \dfracs and then recurs on the subsequent
- * "expressions", i.e., the {} pairs that follow \dfrac. The recursion is to
- * allow for nested \dfrac elements.
+ * The process is concerned with: (1) parsing fractions, i.e., \dfracs; and
+ * (2) removing backslash-escaping from certain characters (right now, only
+ * percent signs).
+ *
+ * The basic algorithm for handling \dfracs splits on \dfracs and then recurs
+ * on the subsequent "expressions", i.e., the {} pairs that follow \dfrac. The
+ * recursion is to allow for nested \dfrac elements.
+ *
+ * Backslash-escapes are removed with a simple search-and-replace.
  */
 function parseTex(tex) {
-    var handler = function(exp1, exp2) {
+    const handler = function(exp1, exp2) {
         return exp1 + "/" + exp2;
     };
-    return walkTex(tex, handler);
+    const texWithoutFracs = walkTex(tex, handler);
+    return texWithoutFracs.replace('\\%', '%');
 }
 
 module.exports = {
-    parseTex: parseTex,
-    modifyTex: modifyTex
+    parseTex,
+    modifyTex,
 };
