@@ -41,6 +41,10 @@ var WrappedLine = function(graphie, start, end, options) {
 
     // Add to appropriate graphie layer
     if (options.mouselayer) {
+        // Disable browser handling of all panning and zooming gestures on the
+        // movable wrapper so that when moved the browser does not scroll page
+        this.wrapper.style.touchAction = "none";
+
         this.graphie.addToMouseLayerWrapper(this.wrapper);
     } else {
         this.graphie.addToVisibleLayerWrapper(this.wrapper);
