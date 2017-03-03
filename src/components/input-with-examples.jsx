@@ -97,8 +97,6 @@ var InputWithExamples = React.createClass({
 
         // Add useful props required for MATH and TEXT modes
         _.extend(inputProps, {
-            buttonSet: this.props.buttonSet,
-            buttonsVisible: this.props.buttonsVisible,
             onChange: this.props.onChange,
             onTouchStart: captureScratchpadTouchStart
         });
@@ -106,6 +104,8 @@ var InputWithExamples = React.createClass({
         // And add final props that are MATH- and TEXT-specific
         if (this.props.type === MATH) {
             return _.extend({
+                buttonSet: this.props.buttonSet,
+                buttonsVisible: this.props.buttonsVisible,
                 convertDotToTimes: this.props.convertDotToTimes,
             }, inputProps);
         } else if (this.props.type === TEXT) {

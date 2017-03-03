@@ -25,11 +25,11 @@ var TextInput = React.createClass({
     },
 
     render: function() {
+        const {labelText, ...props} = this.props;
         return <input
-            {...this.props}
+            {...props}
             type="text"
-            disabled={this.props.disabled}
-            aria-label={this.props.labelText}
+            aria-label={labelText}
             onChange={(e) => this.props.onChange(e.target.value)} />;
     },
 
