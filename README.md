@@ -27,7 +27,9 @@ Both the `build` and the `server` make targets will run `npm install` but you ca
 
 Perseus makes a couple of assumptions about the environment that it's loaded
 into. Specifically, it expects the following libraries to be available on the
-global `window` object.
+global `window` object. (If any of them change in a backwards-incompatible way,
+you'll likely need to bump the Perseus major version -- see the "Versioning"
+section below.)
 
 - `React`
 - `_` (underscore)
@@ -45,6 +47,7 @@ Also, the following global variables are used, if present:
 - `MathQuill`
 - `Exercises`
 - `KhanUtil` (`localeToFixed` & `debugLog`)
+- `KaTeX`
 
 (See `src/perseus-env.js` and `src/demo-perseus.js`)
 
@@ -83,12 +86,16 @@ previous minor versions. For example, if a client begins using version 1.2,
 Perseus api versions 1.3 or 1.4 will work transparently, but Perseus api
 versions 1.0, 1.1, 2.0, or 2.2 will not work.
 
+### Mobile versioning
+
+The KA mobile apps are also clients of Perseus, and the way that Perseus is
+integrated into the apps requires that we enforce some additional versioning
+constraints. For specifics, check out the [Forge page](https://sites.google.com/a/khanacademy.org/forge/for-developers/perseus-versioning).
 
 ## Contributing
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md) for a walkthrough of how some
 of the Perseus code works and how to extend it.
-
 
 ## License
 
