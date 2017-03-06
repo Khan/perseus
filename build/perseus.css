@@ -1,5 +1,5 @@
 /* Perseus CSS
-// commit 13a8eab4374ad6c7147c14130f5313a8fb89a9b0
+// commit 95b9af340dfa8205e2d3f93859e187ef129f779f
 // branch master
 // @generated
 */
@@ -2526,5 +2526,11 @@ body.mobile .framework-perseus table.perseus-widget-table-of-values.non-markdown
     background: #78c008 !important;
     color: white !important;
     border-color: white !important;
+}
+
+// The keypad sets its own color styles for KaTeX elements that are rendered in
+// its keys, so prevent any external styling.
+.keypad-container .katex {
+    color: inherit !important;
 }
 
