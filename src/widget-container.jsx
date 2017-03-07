@@ -8,10 +8,6 @@ var WidgetContainer = React.createClass({
         initialProps: React.PropTypes.object.isRequired,
     },
 
-    getInitialState: function() {
-        return {widgetProps: this.props.initialProps};
-    },
-
     render: function() {
         var className = classNames({
             "perseus-widget-container": true,
@@ -34,7 +30,7 @@ var WidgetContainer = React.createClass({
             style={{
                 display: WidgetType.displayMode
             }}>
-            <WidgetType {...this.state.widgetProps} ref="widget" />
+            <WidgetType {...this.props.initialProps} ref="widget" />
         </div>;
     }
 });

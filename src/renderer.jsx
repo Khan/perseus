@@ -238,7 +238,7 @@ var Renderer = React.createClass({
     _onWidgetFocus: function(id, focusPath, element) {
         if (focusPath === undefined && element === undefined) {
             focusPath = [];
-            element = this.refs[id];
+            element = ReactDOM.findDOMNode(this.refs[id]);
         } else {
             if (!_.isArray(focusPath)) {
                 throw new Error(
@@ -342,13 +342,15 @@ var Renderer = React.createClass({
         };
 
         var wrap = function(text) {
-            return <QuestionParagraph key={Math.random()}>
+            tokCount++;
+            return <QuestionParagraph key={`${tokCount}`}>
                 {text}
             </QuestionParagraph>;
         };
 
         var tok = markedReact.Parser.prototype.tok;
         var tokLevelCount = 0;
+        var tokCount = 0;
         markedReact.Parser.prototype.tok = function() {
             tokLevelCount++;
             var result;
@@ -462,12 +464,12 @@ var Renderer = React.createClass({
             if (_.isObject(focusResult)) {
                 // The result of focus was a {path, id} object itself
                 path = [id].concat(focusResult.path || []);
-                element = focusResult.element || this.refs[id];
+                element = focusResult.element || ReactDOM.findDOMNode(this.refs[id]);
             } else {
                 // The result of focus was true or the like; just
                 // construct a root focus object
                 path = [id];
-                element = this.refs[id];
+                element = ReactDOM.findDOMNode(this.refs[id]);
             }
 
             this._setCurrentFocus(path, element);
@@ -513,8 +515,7 @@ var Renderer = React.createClass({
                 // TODO(jack): Figure out why this is happening and fix it
                 // As far as I can tell, this is only an issue in the
                 // editor-page, so doing this shouldn't break clients hopefully
-                var element = this.refs[id] ?
-                        this.refs[id] : null;
+                var element = this.refs[id] ? ReactDOM.findDOMNode(this.refs[id]) : null;
                 this._setCurrentFocus([id], element);
             }
         });
