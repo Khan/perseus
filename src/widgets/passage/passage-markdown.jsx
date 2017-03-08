@@ -340,7 +340,7 @@ var rules = {
     text: {
         ...SimpleMarkdown.defaultRules.text,
         react(node, output, state) {
-            return <span>{node.content}</span>;
+            return <span key={state.key}>{node.content}</span>;
         },
     },
 };

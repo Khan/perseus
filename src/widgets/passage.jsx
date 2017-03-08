@@ -643,7 +643,7 @@ const Passage = React.createClass({
                         Line
                     </span>;
                 } else {
-                    return <span>
+                    return <span key={lineN}>
                         {lineN + this.state.startLineNumbersAfter}
                     </span>;
                 }
