@@ -37,7 +37,7 @@ import type {Item, ContentNode, HintNode, TagsNode} from "./item-types.js";
 import type {Shape, ArrayShape} from "./shape-types.js";
 import type {Tree} from "./tree-types.js";
 import type {
-    TreeMapper, ContentMapper, HintMapper, ArrayMapper,
+    TreeMapper, ContentMapper, HintMapper,
 } from "./trees.js";
 
 const {StyleSheet, css} = require("aphrodite");
@@ -57,14 +57,16 @@ type Score = any;  // TODO(mdr)
 type SerializedState = any;  // TODO(mdr)
 type WidgetRef = any;  // TODO(mdr)
 
+type RendererProps = {};
+
 type ContentRendererElement = ReactElement;
 type HintRendererElement = ReactElement;
 type ContentRendererData = {
-    renderer: ContentRendererElement,
+    makeRenderer: (rendererProps: RendererProps) => ContentRendererElement,
     ref: ?Renderer,
 };
 type HintRendererData = {
-    renderer: HintRendererElement,
+    makeRenderer: (rendererProps: RendererProps) => HintRendererElement,
     ref: null,
     hint: Hint,
 };
@@ -80,27 +82,46 @@ type Props = {
     children: (tree: RendererTree) => ReactElement,
 };
 type State = {
-    // We cache the renderer elements and refs in `rendererDataTree`, and
-    // change them every time props changes. This isn't just a performance
+    // We cache functions to generate renderers and refs in `rendererDataTree`,
+    // and change them every time content changes. This isn't just a performance
     // optimization; see `_makeContentRendererData` for more discussion.
     rendererDataTree: ?RendererDataTree,
     // But, if traversing the tree fails, we store the Error in `renderError`.
     renderError: ?Error,
 };
 
+
+
 class MultiRenderer extends React.Component {
     /* eslint-disable react/sort-comp */
     // TODO(mdr): Update the linter to allow property type declarations here.
-    props: Props
-    state: State
-    /* eslint-enable react/sort-comp */
+    props: Props;
+    state: State;
+
+    rendererDataTreeMapper: TreeMapper<ContentNode, ContentRendererData,
+                                   HintNode, HintRendererData,
+                                   TagsNode, null>;
+    getRenderersMapper: TreeMapper<ContentRendererData, ContentRendererElement,
+                                   HintRendererData, HintRendererElement,
+                                   null, null>;
 
     constructor(props: Props) {
         super(props);
 
+        this.rendererDataTreeMapper = buildMapper()
+            .setContentMapper(c => this._makeContentRendererData(c))
+            .setHintMapper(h => this._makeHintRendererData(h))
+            .setTagsMapper(t => null);
+
+        this.getRenderersMapper = buildMapper()
+            .setContentMapper(c => this._getContentRenderer(c))
+            .setHintMapper(h => this._getHintRenderer(h))
+            .setArrayMapper(this._annotateRendererArray.bind(this));
+
         // Keep state in sync with props.
         this.state = this._tryMakeRendererState(this.props);
     }
+    /* eslint-enable react/sort-comp */
 
     componentWillReceiveProps(nextProps: Props) {
         // Keep state in sync with props.
@@ -138,7 +159,7 @@ class MultiRenderer extends React.Component {
      * Props that aren't directly used by the MultiRenderer are delegated to
      * the underlying Renderers.
      */
-    _getRendererProps() {
+    _getRendererProps(): RendererProps {
         /* eslint-disable no-unused-vars */
         // eslint is complaining that `item` and `children` are unused. I'm
         // explicitly pulling them out of `this.props` so I don't pass them to
@@ -167,9 +188,9 @@ class MultiRenderer extends React.Component {
         // HACK(mdr): Flow can't prove that this is a ContentRendererData,
         //     because of how we awkwardly construct it in order to obtain a
         //     circular reference. But it is, I promise.
-        const data: any = {renderer: null, ref: null};
-        data.renderer = <Renderer
-            {...this._getRendererProps()}
+        const data: any = {ref: null, makeRenderer: null};
+        data.makeRenderer = (rendererProps) => <Renderer
+            {...rendererProps}
             {...content}
             ref={e => data.ref = e}
             findExternalWidgets={
@@ -186,11 +207,14 @@ class MultiRenderer extends React.Component {
         // TODO(mdr): Once HintsRenderer supports inter-widget communication,
         //     give it a ref. Until then, leave the ref null forever, to avoid
         //     confusing the findWidgets functions.
-        const renderer = <HintsRenderer
-            {...this._getRendererProps()}
-            hints={[hint]}
-        />;
-        return {hint, renderer, ref: null};
+        return {
+            hint,
+            ref: null,
+            makeRenderer: (rendererProps) => <HintsRenderer
+                {...rendererProps}
+                hints={[hint]}
+            />,
+        };
     }
 
     /**
@@ -200,16 +224,7 @@ class MultiRenderer extends React.Component {
      */
     _makeRendererDataTree(item: Item, shape: Shape): RendererDataTree {
         const itemTree = itemToTree(item);
-        // NOTE(mdr): Flow has trouble inferring this type parameterization,
-        //     so we provide it explicitly.
-        const mapper:
-            TreeMapper<ContentNode, ContentRendererData, HintNode,
-                HintRendererData, TagsNode, null> =
-            buildMapper()
-            .setContentMapper(c => this._makeContentRendererData(c))
-            .setHintMapper(h => this._makeHintRendererData(h))
-            .setTagsMapper(t => null);
-        return mapper.mapTree(itemTree, shape);
+        return this.rendererDataTreeMapper.mapTree(itemTree, shape);
     }
 
     /**
@@ -248,7 +263,6 @@ class MultiRenderer extends React.Component {
     _mapRenderers<O>(
         leafMapper: ContentMapper<RendererData, O> &
             HintMapper<RendererData, O>,
-        arrayMapper: ?ArrayMapper<RendererData, O, RendererData, O, null, null>
     ): ?Tree<O, O, null> {
         const {rendererDataTree} = this.state;
 
@@ -256,12 +270,9 @@ class MultiRenderer extends React.Component {
             return null;
         }
 
-        let mapper = buildMapper()
+        const mapper = buildMapper()
             .setContentMapper(leafMapper)
             .setHintMapper(leafMapper);
-        if (arrayMapper) {
-            mapper = mapper.setArrayMapper(arrayMapper);
-        }
         return mapper.mapTree(rendererDataTree, this.props.shape);
     }
 
@@ -388,16 +399,33 @@ class MultiRenderer extends React.Component {
     }
 
     /**
+     * Generates an actual Renderer from a content node in the tree, by running
+     * the makeRenderer function with the current renderer props.
+     */
+    _getContentRenderer(
+        contentData: ContentRendererData
+    ): ContentRendererElement {
+        return contentData.makeRenderer(this._getRendererProps());
+    }
+
+    /**
+     * Generates an actual Renderer from a hint node in the tree, by running
+     * the makeRenderer function with the current renderer props.
+     */
+    _getHintRenderer(hintData: HintRendererData): HintRendererElement {
+        return hintData.makeRenderer(this._getRendererProps());
+    }
+
+    /**
      * Return a tree in the shape of the multi-item, with a Renderer at each
      * content node and a HintRenderer at each hint node.
      *
-     * Uses the elements already stored in state.
+     * This is generated by running each of the `makeRenderer` functions at the
+     * leaf nodes with the current value of the renderer props.
      */
     _getRenderers(): RendererTree {
-        return this._mapRenderers(
-            data => data.renderer,
-            (rs, rds, s, p) => this._annotateRendererArray(rs, rds, s, p)
-        );
+        return this.getRenderersMapper.mapTree(
+            this.state.rendererDataTree, this.props.shape);
     }
 
     render() {
