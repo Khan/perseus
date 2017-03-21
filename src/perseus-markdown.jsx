@@ -158,6 +158,13 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
                     <div className="sat-header-grafting-area"/>
 
                     <div className="perseus-column-content">
+                        {/* HACK(#sat) This is a cheap way to allow a custom
+                          * review-mode skill box to be displayed in SAT.
+                          * Don't write code outside of the SAT mission that
+                          * relies on this div because we are still telling
+                          * ourselves this will be cleaned up along with other
+                          * SAT technical debt. */}
+                        <div className="sat-skill-subscore-grafting-area"/>
                         {output(node.col2, state)}
                         {/* HACK(#sat) This is a cheap way to allow hints to be
                           * displayed in two-column items in the SAT mission.
