@@ -470,6 +470,7 @@ describe("perseus markdown", () => {
                 '<div class="perseus-column">' +
                 '<div class="sat-header-grafting-area"></div>' +
                 '<div class="perseus-column-content">' +
+                '<div class="sat-skill-subscore-grafting-area"></div>' +
                 '<div class="paragraph">col2</div>' +
                 '<div class="sat-grafting-area"></div>' +
                 '</div>' +
