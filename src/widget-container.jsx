@@ -6,6 +6,7 @@ const classNames = require('classnames');
 const React = require('react');
 const ReactDOM = require('react-dom');
 
+const {zIndexInteractiveComponent} = require('./styles/constants.js');
 const Widgets = require('./widgets.js');
 const {
     containerSizeClass,
@@ -86,9 +87,7 @@ const WidgetContainer = React.createClass({
             position: 'absolute',
             top: 0,
             left: 0,
-            // Since the zIndex is only relative to the nearest parent with a
-            // position:, scratchpads are still able to draw over this overlay.
-            zIndex: 100,
+            zIndex: zIndexInteractiveComponent,
         };
 
         // Note: if you add more props here, please consider whether or not
