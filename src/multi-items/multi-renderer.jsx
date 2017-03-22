@@ -37,7 +37,7 @@ import type {Item, ContentNode, HintNode, TagsNode} from "./item-types.js";
 import type {Shape, ArrayShape} from "./shape-types.js";
 import type {Tree} from "./tree-types.js";
 import type {
-    TreeMapper, ContentMapper, HintMapper,
+    TreeMapper, ContentMapper, HintMapper, Path,
 } from "./trees.js";
 
 const {StyleSheet, css} = require("aphrodite");
@@ -62,11 +62,11 @@ type RendererProps = {};
 type ContentRendererElement = ReactElement;
 type HintRendererElement = ReactElement;
 type ContentRendererData = {
-    makeRenderer: (rendererProps: RendererProps) => ContentRendererElement,
+    makeRenderer: () => ContentRendererElement,
     ref: ?Renderer,
 };
 type HintRendererData = {
-    makeRenderer: (rendererProps: RendererProps) => HintRendererElement,
+    makeRenderer: () => HintRendererElement,
     ref: null,
     hint: Hint,
 };
@@ -80,6 +80,8 @@ type Props = {
     item: Item,
     shape: Shape,
     children: (tree: RendererTree) => ReactElement,
+    serializedState?: ?SerializedStateTree,
+    onSerializedStateUpdated?: (state: SerializedStateTree) => void,
 };
 type State = {
     // We cache functions to generate renderers and refs in `rendererDataTree`,
@@ -109,13 +111,13 @@ class MultiRenderer extends React.Component {
         super(props);
 
         this.rendererDataTreeMapper = buildMapper()
-            .setContentMapper(c => this._makeContentRendererData(c))
+            .setContentMapper((c, _, p) => this._makeContentRendererData(c, p))
             .setHintMapper(h => this._makeHintRendererData(h))
             .setTagsMapper(t => null);
 
         this.getRenderersMapper = buildMapper()
-            .setContentMapper(c => this._getContentRenderer(c))
-            .setHintMapper(h => this._getHintRenderer(h))
+            .setContentMapper(c => c.makeRenderer())
+            .setHintMapper(h => h.makeRenderer())
             .setArrayMapper(this._annotateRendererArray.bind(this));
 
         // Keep state in sync with props.
@@ -155,6 +157,15 @@ class MultiRenderer extends React.Component {
         }
     }
 
+    _handleSerializedStateUpdated = () => {
+        const {onSerializedStateUpdated} = this.props;
+
+        if (onSerializedStateUpdated) {
+            onSerializedStateUpdated(
+                this.getSerializedState(this.props.serializedState));
+        }
+    }
+
     /**
      * Props that aren't directly used by the MultiRenderer are delegated to
      * the underlying Renderers.
@@ -168,8 +179,7 @@ class MultiRenderer extends React.Component {
             item,
             children,
             shape,
-            ...otherProps, // @Nolint(trailing comma): I'm so confused why it's
-                           // complaining about this, we want trailing commas..
+            ...otherProps
         } = this.props;
         /* eslint-enable no-unused-vars */
 
@@ -179,7 +189,9 @@ class MultiRenderer extends React.Component {
     /**
      * Construct a Renderer and a ref placeholder for the given ContentNode.
      */
-    _makeContentRendererData(content: ContentNode): ContentRendererData {
+    _makeContentRendererData(
+        content: ContentNode, path: Path,
+    ): ContentRendererData {
         // NOTE(emily): The `findExternalWidgets` function here is computed
         //     inline and thus changes each time we run this function. If it
         //     were to change every render, it would cause the Renderer to
@@ -189,12 +201,20 @@ class MultiRenderer extends React.Component {
         //     because of how we awkwardly construct it in order to obtain a
         //     circular reference. But it is, I promise.
         const data: any = {ref: null, makeRenderer: null};
-        data.makeRenderer = (rendererProps) => <Renderer
-            {...rendererProps}
+
+        const refFunc = e => data.ref = e;
+        const findExternalWidgets =
+            criterion => this._findWidgets(data, criterion);
+
+        data.makeRenderer = () => <Renderer
+            {...this._getRendererProps()}
             {...content}
-            ref={e => data.ref = e}
-            findExternalWidgets={
-                criterion => this._findWidgets(data, criterion)}
+            ref={refFunc}
+            findExternalWidgets={findExternalWidgets}
+            serializedState={this.props.serializedState
+                ? lens(this.props.serializedState).get(path)
+                : null}
+            onSerializedStateUpdated={this._handleSerializedStateUpdated}
         />;
         return data;
     }
@@ -210,8 +230,8 @@ class MultiRenderer extends React.Component {
         return {
             hint,
             ref: null,
-            makeRenderer: (rendererProps) => <HintsRenderer
-                {...rendererProps}
+            makeRenderer: () => <HintsRenderer
+                {...this._getRendererProps()}
                 hints={[hint]}
             />,
         };
@@ -326,14 +346,24 @@ class MultiRenderer extends React.Component {
     /**
      * Return a tree in the shape of the multi-item, with serialized state at
      * each of the content nodes and `null` at the other leaf nodes.
+     *
+     * If the lastSerializedState argument is supplied, this function will fill
+     * in the state of not-currently-rendered content and hint nodes with the
+     * values from the previous serialized state. If no lastSerializedState is
+     * supplied, `null` will be returned for not-currently-rendered content and
+     * hint nodes.
      */
-    getSerializedState(): SerializedStateTree {
-        return this._mapRenderers(data => {
-            if (!data.ref) {
+    getSerializedState(
+        lastSerializedState?: SerializedStateTree,
+    ): SerializedStateTree {
+        return this._mapRenderers((data, _, path) => {
+            if (data.ref) {
+                return data.ref.getSerializedState();
+            } else if (lastSerializedState) {
+                return lens(lastSerializedState).get(path);
+            } else {
                 return null;
             }
-
-            return data.ref.getSerializedState();
         });
     }
 
@@ -344,7 +374,7 @@ class MultiRenderer extends React.Component {
      */
     restoreSerializedState(
         serializedState: SerializedState,
-        callback: () => any,
+        callback?: () => any,
     ) {
         // We want to call our async callback only once all of the childrens'
         // callbacks have run. We add one to this counter before we call out to
@@ -399,29 +429,11 @@ class MultiRenderer extends React.Component {
     }
 
     /**
-     * Generates an actual Renderer from a content node in the tree, by running
-     * the makeRenderer function with the current renderer props.
-     */
-    _getContentRenderer(
-        contentData: ContentRendererData
-    ): ContentRendererElement {
-        return contentData.makeRenderer(this._getRendererProps());
-    }
-
-    /**
-     * Generates an actual Renderer from a hint node in the tree, by running
-     * the makeRenderer function with the current renderer props.
-     */
-    _getHintRenderer(hintData: HintRendererData): HintRendererElement {
-        return hintData.makeRenderer(this._getRendererProps());
-    }
-
-    /**
      * Return a tree in the shape of the multi-item, with a Renderer at each
      * content node and a HintRenderer at each hint node.
      *
      * This is generated by running each of the `makeRenderer` functions at the
-     * leaf nodes with the current value of the renderer props.
+     * leaf nodes.
      */
     _getRenderers(): RendererTree {
         return this.getRenderersMapper.mapTree(

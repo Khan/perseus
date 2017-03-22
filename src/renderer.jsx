@@ -178,6 +178,10 @@ var Renderer = React.createClass({
         problemNum: React.PropTypes.number,
         questionCompleted: React.PropTypes.bool,
         reviewMode: React.PropTypes.bool,
+
+        serializedState: React.PropTypes.any,
+        // Callback which is called when serialized state changes.
+        onSerializedStateUpdated: React.PropTypes.func,
     },
 
     getDefaultProps: function() {
@@ -198,6 +202,8 @@ var Renderer = React.createClass({
             findExternalWidgets: () => [],
             alwaysUpdate: false,
             reviewMode: false,
+            serializedState: null,
+            onSerializedStateUpdated: () => {},
         };
     },
 
@@ -211,6 +217,13 @@ var Renderer = React.createClass({
 
         this._rootNode = ReactDOM.findDOMNode(this);
         this._isMounted = true;
+
+        // TODO(emily): actually make the serializedState prop work like a
+        // controlled prop, instead of manually calling .restoreSerializedState
+        // at the right times.
+        if (this.props.serializedState) {
+            this.restoreSerializedState(this.props.serializedState);
+        }
     },
 
     componentWillReceiveProps: function(nextProps) {
@@ -274,6 +287,13 @@ var Renderer = React.createClass({
                 this.getWidgetProps(id)
             );
         });
+
+        if (
+            this.props.serializedState &&
+            !_.isEqual(this.props.serializedState, this.getSerializedState())
+        ) {
+            this.restoreSerializedState(this.props.serializedState);
+        }
     },
 
     componentWillUnmount: function() {
@@ -1259,6 +1279,7 @@ var Renderer = React.createClass({
         widgetProps[id] = _.extend({}, widgetProps[id], newProps);
         this.setState({widgetProps: widgetProps}, () => {
             var cbResult = cb && cb();
+            this.props.onSerializedStateUpdated();
             this.props.onInteractWithWidget(id);
             if (cbResult !== false) {
                 // TODO(jack): For some reason, some widgets don't always end
