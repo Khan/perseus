@@ -1,5 +1,21 @@
-webpackJsonpPerseus([1],Array(18).concat([
-/* 18 */
+webpackJsonpPerseus([1],[
+/* 0 */,
+/* 1 */,
+/* 2 */,
+/* 3 */,
+/* 4 */,
+/* 5 */,
+/* 6 */,
+/* 7 */,
+/* 8 */,
+/* 9 */,
+/* 10 */,
+/* 11 */,
+/* 12 */,
+/* 13 */,
+/* 14 */,
+/* 15 */,
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7,9 +23,13 @@ webpackJsonpPerseus([1],Array(18).concat([
 	/* globals __EDITOR__ */
 	// As new widgets get added here, please also make sure they get added in
 	// webapp perseus/traversal.py so they can be properly translated.
-	module.exports = [ [ __webpack_require__(46), false ], [ __webpack_require__(47), false ], [ __webpack_require__(48), false ], [ __webpack_require__(49), false ], [ __webpack_require__(50), false ], [ __webpack_require__(51), false ], [ __webpack_require__(52), false ], [ __webpack_require__(53), false ], [ __webpack_require__(54), false ], [ __webpack_require__(55), false ], [ __webpack_require__(56), false ], [ __webpack_require__(57), false ], [ __webpack_require__(58), false ], [ __webpack_require__(59), false ], [ __webpack_require__(60), false ], [ __webpack_require__(61), false ], [ __webpack_require__(62), false ], [ __webpack_require__(63), false ], [ __webpack_require__(64), false ], [ __webpack_require__(65), false ], [ __webpack_require__(66), false ], [ __webpack_require__(67), false ], [ __webpack_require__(68), false ], [ __webpack_require__(69), false ], [ __webpack_require__(70), false ], [ __webpack_require__(71), false ], [ __webpack_require__(72), false ], [ __webpack_require__(73), false ], [ __webpack_require__(74), false ], [ __webpack_require__(75), false ], [ __webpack_require__(76), false ], false, false, false ];
+	module.exports = [ [ __webpack_require__(44), false ], [ __webpack_require__(45), false ], [ __webpack_require__(46), false ], [ __webpack_require__(47), false ], [ __webpack_require__(48), false ], [ __webpack_require__(49), false ], [ __webpack_require__(50), false ], [ __webpack_require__(51), false ], [ __webpack_require__(52), false ], [ __webpack_require__(53), false ], [ __webpack_require__(54), false ], [ __webpack_require__(55), false ], [ __webpack_require__(56), false ], [ __webpack_require__(57), false ], [ __webpack_require__(58), false ], [ __webpack_require__(59), false ], [ __webpack_require__(60), false ], [ __webpack_require__(61), false ], [ __webpack_require__(62), false ], [ __webpack_require__(63), false ], [ __webpack_require__(64), false ], [ __webpack_require__(65), false ], [ __webpack_require__(66), false ], [ __webpack_require__(67), false ], [ __webpack_require__(68), false ], [ __webpack_require__(69), false ], [ __webpack_require__(70), false ], [ __webpack_require__(71), false ], [ __webpack_require__(72), false ], [ __webpack_require__(73), false ], [ __webpack_require__(74), false ], // These widgets are only used when testing things, so remove them in the
+	// non-editor bundle.
+	false, false, false ];
 
 /***/ },
+/* 17 */,
+/* 18 */,
 /* 19 */,
 /* 20 */,
 /* 21 */,
@@ -35,9 +55,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 /* 41 */,
 /* 42 */,
 /* 43 */,
-/* 44 */,
-/* 45 */,
-/* 46 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -67,9 +85,9 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var _ = __webpack_require__(10);
 
-	var ApiClassNames = __webpack_require__(17).ClassNames;
+	var ApiClassNames = __webpack_require__(18).ClassNames;
 
-	var ApiOptions = __webpack_require__(17).Options;
+	var ApiOptions = __webpack_require__(18).Options;
 
 	var _require2 = __webpack_require__(89), iconCircle = _require2.iconCircle, iconCircleThin = _require2.iconCircleThin;
 
@@ -77,7 +95,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var Renderer = __webpack_require__(8);
 
-	var Util = __webpack_require__(16);
+	var Util = __webpack_require__(17);
 
 	var mediaQueries = __webpack_require__(35);
 
@@ -164,7 +182,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	                        return e.stopPropagation();
 	                    }
 	                }), !isMobile && React.createElement("span", {
-	                    className: css(styles.responsiveSpan, styles.radioSpan, selected && styles.checkedRadioSpan, _this.props["static"] && selected && styles.staticCheckedRadioSpan)
+	                    className: css(styles.responsiveSpan, styles.radioSpan, selected && styles.checkedRadioSpan, _this.props.static && selected && styles.staticCheckedRadioSpan)
 	                }, selected ? React.createElement(InlineIcon, iconCircle) : React.createElement(InlineIcon, iconCircleThin))));
 	            }));
 	        })));
@@ -172,7 +190,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        // aphrodite.
 	        var extraClassNames = classNames({
 	            "categorizer-container": true,
-	            "static-mode": this.props["static"]
+	            "static-mode": this.props.static
 	        });
 	        var inlineStyles = this.props.apiOptions.isMobile ? [ styles.fullBleedContainer ] : [];
 	        return React.createElement("div", {
@@ -216,8 +234,8 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var styles = StyleSheet.create({
 	    fullBleedContainer: (_fullBleedContainer = {}, _fullBleedContainer[mediaQueries.mdOrSmaller] = {
-	        marginLeft: -pageMargin,
-	        marginRight: -pageMargin,
+	        marginLeft: -16,
+	        marginRight: -16,
 	        overflowX: "auto"
 	    }, _fullBleedContainer),
 	    header: {
@@ -261,7 +279,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 47 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -286,16 +304,14 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var Changeable = __webpack_require__(85);
 
-	var updateQueryString = __webpack_require__(16).updateQueryString;
+	var updateQueryString = __webpack_require__(17).updateQueryString;
 
 	var PADDING_WIDTH = 2;
 
 	var IS_KA_SITE = /khanacademy\.org/;
 
-	var KA_EMBED_URL = "https://{hostname}/computer-programming/program/{programID}/embedded?embed=yes&author=no";
-
 	function getUrlFromProgramID(programID) {
-	    var url = KA_EMBED_URL.replace("{programID}", programID);
+	    var url = "https://{hostname}/computer-programming/program/{programID}/embedded?embed=yes&author=no".replace("{programID}", programID);
 	    var currentHostname = document.location.hostname;
 	    var embedHostname = "www.khanacademy.org";
 	    IS_KA_SITE.test(currentHostname) && (embedHostname = currentHostname);
@@ -365,7 +381,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	            className = "perseus-scratchpad-editor";
 	        } else {
 	            url += "&editor=no";
-	            style.width = this.props.width + PADDING_WIDTH;
+	            style.width = this.props.width + 2;
 	            className = "perseus-scratchpad";
 	        }
 	        if (this.props.showButtons) {
@@ -432,7 +448,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 48 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -458,9 +474,9 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var _ = __webpack_require__(10);
 
-	var ApiClassNames = __webpack_require__(17).ClassNames;
+	var ApiClassNames = __webpack_require__(18).ClassNames;
 
-	var ApiOptions = __webpack_require__(17).Options;
+	var ApiOptions = __webpack_require__(18).Options;
 
 	var InlineIcon = __webpack_require__(86);
 
@@ -468,7 +484,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var _require2 = __webpack_require__(89), iconDropdownArrow = _require2.iconDropdownArrow;
 
-	var captureScratchpadTouchStart = __webpack_require__(16).captureScratchpadTouchStart;
+	var captureScratchpadTouchStart = __webpack_require__(17).captureScratchpadTouchStart;
 
 	var dropdownArrowSize = 24;
 
@@ -511,9 +527,9 @@ webpackJsonpPerseus([1],Array(18).concat([
 	            }, choice);
 	        })), React.createElement(InlineIcon, _extends({}, iconDropdownArrow, {
 	            style: {
-	                marginLeft: "-" + dropdownArrowSize + "px",
-	                height: dropdownArrowSize,
-	                width: dropdownArrowSize
+	                marginLeft: "-24px",
+	                height: 24,
+	                width: 24
 	            }
 	        })));
 	    },
@@ -547,10 +563,9 @@ webpackJsonpPerseus([1],Array(18).concat([
 	            type: "invalid",
 	            message: null
 	        };
-	        var correct = rubric.choices[selected - 1].correct;
 	        return {
 	            type: "points",
-	            earned: correct ? 1 : 0,
+	            earned: rubric.choices[selected - 1].correct ? 1 : 0,
 	            total: 1,
 	            message: null
 	        };
@@ -574,11 +589,11 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        borderRadius: 4,
 	        boxShadow: "none",
 	        fontFamily: styleConstants.baseFontFamily,
-	        padding: "9px " + (dropdownArrowSize + 1) + "px 9px 9px",
+	        padding: "9px 25px 9px 9px",
 	        ":focus": {
 	            outline: "none",
 	            border: "2px solid " + styleConstants.kaGreen,
-	            padding: "8px " + dropdownArrowSize + "px 8px 8px"
+	            padding: "8px 24px 8px 8px"
 	        },
 	        ":focus + svg": {
 	            color: "" + styleConstants.kaGreen
@@ -602,7 +617,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 49 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -628,7 +643,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var Changeable = __webpack_require__(85);
 
-	var PerseusApi = __webpack_require__(17);
+	var PerseusApi = __webpack_require__(18);
 
 	var Renderer = __webpack_require__(8);
 
@@ -690,7 +705,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	            style: {
 	                fill: backgroundColor
 	            },
-	            points: "0," + arrowHeight + " " + (arrowWidth + "," + arrowHeight + " ") + (arrowWidth / 2 + ",0")
+	            points: "0," + arrowHeight + " " + arrowWidth + "," + arrowHeight + " " + arrowWidth / 2 + ",0"
 	        }))) : React.createElement("div", {
 	            className: css(styles.linkContainer)
 	        }, React.createElement(Link, {
@@ -773,9 +788,9 @@ webpackJsonpPerseus([1],Array(18).concat([
 	    },
 	    contentExpanded: {
 	        borderLeft: "5px solid #ccc",
-	        marginLeft: -leftBorderSpacing,
-	        paddingLeft: leftBorderSpacing,
-	        paddingBottom: verticalContentPadding,
+	        marginLeft: -23,
+	        paddingLeft: 23,
+	        paddingBottom: 10,
 	        // Note: we still use arrow height as the vertical margin, even on
 	        // desktop when there is no arrow, but it's good enough.
 	        marginBottom: arrowHeight,
@@ -832,7 +847,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 50 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -856,7 +871,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var SvgImage = __webpack_require__(33);
 
-	var Util = __webpack_require__(16);
+	var Util = __webpack_require__(17);
 
 	var ButtonGroup = __webpack_require__(104);
 
@@ -926,7 +941,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        setDrawingAreaAvailable: React.PropTypes.func,
 	        showHairlines: React.PropTypes.func,
 	        showTooltips: React.PropTypes.bool,
-	        "static": React.PropTypes.bool
+	        static: React.PropTypes.bool
 	    }),
 	    getDefaultProps: function getDefaultProps() {
 	        return {
@@ -949,7 +964,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	            return React.createElement(MovablePoint, {
 	                key: i,
 	                coord: coord,
-	                "static": _this.props["static"],
+	                static: _this.props.static,
 	                constraints: [ Interactive2.MovablePoint.constraints.bound(), Interactive2.MovablePoint.constraints.snap(), function(coord) {
 	                    // Always enforce that this is a function
 	                    var isFunction = _.all(_this._coords(), function(otherCoord, j) {
@@ -1069,7 +1084,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	            return React.createElement(MovablePoint, {
 	                key: "asymptoteCoord-" + i,
 	                coord: coord,
-	                "static": true,
+	                static: true,
 	                draw: null,
 	                extendLine: true,
 	                showHairlines: _this2.props.showHairlines,
@@ -1092,7 +1107,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        markings: React.PropTypes.string,
 	        onChange: React.PropTypes.func,
 	        plot: React.PropTypes.any,
-	        "static": React.PropTypes.bool,
+	        static: React.PropTypes.bool,
 	        trackInteraction: React.PropTypes.func.isRequired
 	    },
 	    getDefaultProps: function getDefaultProps() {
@@ -1137,7 +1152,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	            model: type && functionForType(type),
 	            coords: coords,
 	            asymptote: asymptote,
-	            "static": this.props["static"],
+	            static: this.props.static,
 	            setDrawingAreaAvailable: this.props.apiOptions.setDrawingAreaAvailable,
 	            isMobile: this.props.apiOptions.isMobile,
 	            showTooltips: this.props.graph.showTooltips,
@@ -1283,7 +1298,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 51 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1306,7 +1321,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var _ = __webpack_require__(10);
 
-	var ApiOptions = __webpack_require__(17).Options;
+	var ApiOptions = __webpack_require__(18).Options;
 
 	var Changeable = __webpack_require__(85);
 
@@ -1490,8 +1505,8 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        })));
 	        var mobileClass = css(this.props.inGradedGroupSet ? styles.gradedGroupInSet : styles.gradedGroup);
 	        var classes = classNames((_classNames = {}, _classNames[mobileClass] = apiOptions.isMobile, 
-	        _classNames["perseus-graded-group"] = true, _classNames["answer-correct"] = apiOptions.isMobile ? false : this.state.status === GRADING_STATUSES.correct, 
-	        _classNames["answer-incorrect"] = apiOptions.isMobile ? false : this.state.status === GRADING_STATUSES.incorrect, 
+	        _classNames["perseus-graded-group"] = true, _classNames["answer-correct"] = !apiOptions.isMobile && this.state.status === GRADING_STATUSES.correct, 
+	        _classNames["answer-incorrect"] = !apiOptions.isMobile && this.state.status === GRADING_STATUSES.incorrect, 
 	        _classNames));
 	        var answerBarState = this.state.answerBarState;
 	        // Disabled widgets after the answer has been answered correctly to
@@ -1604,7 +1619,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	});
 
 /***/ },
-/* 52 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1626,11 +1641,11 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var _require = __webpack_require__(14), StyleSheet = _require.StyleSheet, css = _require.css;
 
-	var ApiOptions = __webpack_require__(17).Options;
+	var ApiOptions = __webpack_require__(18).Options;
 
 	var Changeable = __webpack_require__(85);
 
-	var GradedGroup = __webpack_require__(51).widget;
+	var GradedGroup = __webpack_require__(49).widget;
 
 	var _require2 = __webpack_require__(37), grayLight = _require2.grayLight, gray76 = _require2.gray76, tableBackgroundAccent = _require2.tableBackgroundAccent, kaGreen = _require2.kaGreen, phoneMargin = _require2.phoneMargin, negativePhoneMargin = _require2.negativePhoneMargin;
 
@@ -1707,8 +1722,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	    },
 	    handleNextQuestion: function handleNextQuestion() {
 	        var currentGroup = this.state.currentGroup;
-	        var numGroups = this.props.gradedGroups.length;
-	        currentGroup < numGroups - 1 && this.setState({
+	        currentGroup < this.props.gradedGroups.length - 1 && this.setState({
 	            currentGroup: currentGroup + 1
 	        });
 	    },
@@ -1808,7 +1822,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	});
 
 /***/ },
-/* 53 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1830,7 +1844,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var _ = __webpack_require__(10);
 
-	var ApiOptions = __webpack_require__(17).Options;
+	var ApiOptions = __webpack_require__(18).Options;
 
 	var Changeable = __webpack_require__(85);
 
@@ -1972,7 +1986,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 54 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2005,7 +2019,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var WidgetJsonifyDeprecated = __webpack_require__(102);
 
-	var updateQueryString = __webpack_require__(16).updateQueryString;
+	var updateQueryString = __webpack_require__(17).updateQueryString;
 
 	/* This renders the iframe and handles validation via window.postMessage */
 	var Iframe = React.createClass({
@@ -2138,7 +2152,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 55 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2168,7 +2182,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var _ = __webpack_require__(10);
 
-	var ApiOptions = __webpack_require__(17).Options;
+	var ApiOptions = __webpack_require__(18).Options;
 
 	var _require2 = __webpack_require__(37), baseUnitPx = _require2.baseUnitPx;
 
@@ -2242,10 +2256,10 @@ webpackJsonpPerseus([1],Array(18).concat([
 	    },
 	    getDefaultProps: function getDefaultProps() {
 	        return {
-	            alignment: DEFAULT_ALIGNMENT,
+	            alignment: "block",
 	            title: "",
 	            range: [ defaultRange, defaultRange ],
-	            box: [ defaultBoxSize, defaultBoxSize ],
+	            box: [ 400, 400 ],
 	            backgroundImage: defaultBackgroundImage,
 	            labels: [],
 	            alt: "",
@@ -2259,7 +2273,27 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        var backgroundImage = this.props.backgroundImage;
 	        backgroundImage.url && (image = React.createElement(SvgImage, {
 	            src: backgroundImage.url,
-	            alt: this.props.alt ? "" : void 0,
+	            alt: /* alt text is formatted in a sr-only
+	                   div next to the image, so we make
+	                   this empty here.
+	                   If there is no alt text at all,
+	                   we don't put an alt attribute on
+	                   the image, so that screen readers
+	                   know there's something they can't
+	                   read there :(.
+	                   NOTE: React <=0.13 (maybe later)
+	                   has a bug where it won't ever
+	                   remove an attribute, so if this
+	                   alt node is ever defined it's
+	                   not removed. This is sort of
+	                   dangerous, but we usually re-key
+	                   new renderers so that they're
+	                   rendered from scratch anyways,
+	                   so this shouldn't be a problem
+	                   in practice right now, although
+	                   it will exhibit weird behaviour
+	                   while editing. */
+	            this.props.alt ? "" : void 0,
 	            width: backgroundImage.width,
 	            height: backgroundImage.height,
 	            preloader: apiOptions.imagePreloader,
@@ -2383,14 +2417,14 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        var bgImage = props.backgroundImage;
 	        return !(bgImage && bgImage.url && !props.alt);
 	    },
-	    defaultAlignment: DEFAULT_ALIGNMENT,
+	    defaultAlignment: "block",
 	    supportedAlignments: editorAlignments,
 	    displayName: "Image",
 	    widget: ImageWidget
 	};
 
 /***/ },
-/* 56 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2663,9 +2697,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	                // TODO(eater): Would be nice if the constraint system
 	                // were more flexible.
 	                var constraints = [ function(coord) {
-	                    var coordX = Math.max(_this2._eval(element.options.constraintXMin), Math.min(_this2._eval(element.options.constraintXMax), coord[0]));
-	                    var coordY = Math.max(_this2._eval(element.options.constraintYMin), Math.min(_this2._eval(element.options.constraintYMax), coord[1]));
-	                    return [ coordX, coordY ];
+	                    return [ Math.max(_this2._eval(element.options.constraintXMin), Math.min(_this2._eval(element.options.constraintXMax), coord[0])), Math.max(_this2._eval(element.options.constraintYMin), Math.min(_this2._eval(element.options.constraintYMax), coord[1])) ];
 	                } ];
 	                "snap" === element.options.constraint ? constraints.push(MovablePoint.constraints.snap(element.options.snap)) : "x" === element.options.constraint ? constraints.push(function(coord) {
 	                    return [ _this2._eval(element.options.constraintFn, {
@@ -2694,9 +2726,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	                // TODO(eater): Don't duplicate this code from
 	                // movable-point above
 	                var constraints = [ function(coord) {
-	                    var coordX = Math.max(_this2._eval(element.options.constraintXMin), Math.min(_this2._eval(element.options.constraintXMax), coord[0]));
-	                    var coordY = Math.max(_this2._eval(element.options.constraintYMin), Math.min(_this2._eval(element.options.constraintYMax), coord[1]));
-	                    return [ coordX, coordY ];
+	                    return [ Math.max(_this2._eval(element.options.constraintXMin), Math.min(_this2._eval(element.options.constraintXMax), coord[0])), Math.max(_this2._eval(element.options.constraintYMin), Math.min(_this2._eval(element.options.constraintYMax), coord[1])) ];
 	                } ];
 	                "snap" === element.options.constraint ? constraints.push(MovablePoint.constraints.snap(element.options.snap)) : "x" === element.options.constraint ? constraints.push(function(coord) {
 	                    return [ _this2._eval(element.options.constraintFn, {
@@ -2718,14 +2748,14 @@ webpackJsonpPerseus([1],Array(18).concat([
 	                    foo_z: element.options.snap
 	                }, React.createElement(MovablePoint, {
 	                    coord: start,
-	                    "static": true,
+	                    static: true,
 	                    normalStyle: {
 	                        stroke: "none",
 	                        fill: "none"
 	                    }
 	                }), React.createElement(MovablePoint, {
 	                    coord: end,
-	                    "static": true,
+	                    static: true,
 	                    normalStyle: {
 	                        stroke: "none",
 	                        fill: "none"
@@ -2844,7 +2874,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 57 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2865,15 +2895,15 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var _ = __webpack_require__(10);
 
-	var Graph = __webpack_require__(112);
+	var Graph = __webpack_require__(108);
 
-	var InfoTip = __webpack_require__(113);
+	var InfoTip = __webpack_require__(109);
 
 	var Interactive2 = __webpack_require__(103);
 
-	var NumberInput = __webpack_require__(108);
+	var NumberInput = __webpack_require__(110);
 
-	var Util = __webpack_require__(16);
+	var Util = __webpack_require__(17);
 
 	var knumber = __webpack_require__(132).number;
 
@@ -2881,7 +2911,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var KhanColors = __webpack_require__(106);
 
-	var GraphUtils = __webpack_require__(114);
+	var GraphUtils = __webpack_require__(111);
 
 	var _require = __webpack_require__(37), interactiveSizes = _require.interactiveSizes;
 
@@ -3410,8 +3440,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	            });
 	            this.vertHairline.hide();
 	        }
-	        var type = this.props.graph.type;
-	        this["add" + capitalize(type) + "Controls"]();
+	        this["add" + capitalize(this.props.graph.type) + "Controls"]();
 	    },
 	    showHairlines: function showHairlines(point) {
 	        if (this.props.apiOptions.isMobile && "none" !== this.props.markings) {
@@ -3486,7 +3515,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        });
 	        var lineConfig = {
 	            points: points,
-	            "static": true,
+	            static: true,
 	            normalStyle: _extends({
 	                stroke: this.props.apiOptions.isMobile ? KhanColors.BLUE_C : KhanColors.INTERACTIVE
 	            }, this._lineStroke())
@@ -3700,7 +3729,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        var lines = this.lines = _.map(points, function(segmentPoints, segmentIndex) {
 	            return Interactive2.addMovableLine(graphie, {
 	                points: segmentPoints,
-	                "static": true,
+	                static: true,
 	                extendLine: true,
 	                normalStyle: {
 	                    stroke: segmentColors[segmentIndex]
@@ -3907,8 +3936,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	                    angles[rel(j)] = Math.round(angles[rel(j)]);
 	                });
 	                var getAngle = function getAngle(a, vertex, b) {
-	                    var angle = GraphUtils.findAngle(coords[rel(a)], coords[rel(b)], coords[rel(vertex)]);
-	                    return (angle + 360) % 360;
+	                    return (GraphUtils.findAngle(coords[rel(a)], coords[rel(b)], coords[rel(vertex)]) + 360) % 360;
 	                };
 	                var innerAngles = [ angles[rel(-1)] - getAngle(-2, -1, 1), angles[rel(1)] - getAngle(-1, 1, 2) ];
 	                innerAngles[2] = 180 - (innerAngles[0] + innerAngles[1]);
@@ -4034,7 +4062,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	            self.points = self.points.concat(points);
 	            var line = Interactive2.addMovableLine(graphie, {
 	                points: points,
-	                "static": false,
+	                static: false,
 	                constraints: [ Interactive2.MovableLine.constraints.bound(), Interactive2.MovableLine.constraints.snap() ],
 	                onMove: [ Interactive2.MovableLine.onMove.updatePoints, updateCoordProps ],
 	                normalStyle: _extends({
@@ -4188,10 +4216,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        var p3 = coords[2];
 	        var denom = (p1[0] - p2[0]) * (p1[0] - p3[0]) * (p2[0] - p3[0]);
 	        if (0 === denom) return;
-	        var a = (p3[0] * (p2[1] - p1[1]) + p2[0] * (p1[1] - p3[1]) + p1[0] * (p3[1] - p2[1])) / denom;
-	        var b = (p3[0] * p3[0] * (p1[1] - p2[1]) + p2[0] * p2[0] * (p3[1] - p1[1]) + p1[0] * p1[0] * (p2[1] - p3[1])) / denom;
-	        var c = (p2[0] * p3[0] * (p2[0] - p3[0]) * p1[1] + p3[0] * p1[0] * (p3[0] - p1[0]) * p2[1] + p1[0] * p2[0] * (p1[0] - p2[0]) * p3[1]) / denom;
-	        return [ a, b, c ];
+	        return [ (p3[0] * (p2[1] - p1[1]) + p2[0] * (p1[1] - p3[1]) + p1[0] * (p3[1] - p2[1])) / denom, (p3[0] * p3[0] * (p1[1] - p2[1]) + p2[0] * p2[0] * (p3[1] - p1[1]) + p1[0] * p1[0] * (p2[1] - p3[1])) / denom, (p2[0] * p3[0] * (p2[0] - p3[0]) * p1[1] + p3[0] * p1[0] * (p3[0] - p1[0]) * p2[1] + p1[0] * p2[0] * (p1[0] - p2[0]) * p3[1]) / denom ];
 	    },
 	    getSinusoidCoefficients: function getSinusoidCoefficients(coords) {
 	        // It's assumed that p1 is the root and p2 is the first peak
@@ -4200,9 +4225,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        // Resulting coefficients are canonical for this sine curve
 	        var amplitude = p2[1] - p1[1];
 	        var angularFrequency = Math.PI / (2 * (p2[0] - p1[0]));
-	        var phase = p1[0] * angularFrequency;
-	        var verticalOffset = p1[1];
-	        return [ amplitude, angularFrequency, phase, verticalOffset ];
+	        return [ amplitude, angularFrequency, p1[0] * angularFrequency, p1[1] ];
 	    },
 	    /**
 	     * @param {object} graph Like props.graph or props.correct
@@ -4344,9 +4367,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        });
 	    },
 	    getEquationString: function getEquationString(props) {
-	        var type = props.graph.type;
-	        var funcName = "get" + capitalize(type) + "EquationString";
-	        return InteractiveGraph[funcName](props);
+	        return InteractiveGraph["get" + capitalize(props.graph.type) + "EquationString"](props);
 	    },
 	    pointsFromNormalized: function pointsFromNormalized(props, coordsList, noSnap) {
 	        return _.map(coordsList, function(coords) {
@@ -4404,8 +4425,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        return "\n" + getLineEquation(coords[0][0], coords[0][1]) + "\n" + getLineEquation(coords[1][0], coords[1][1]) + "\n" + getLineIntersection(coords[0], coords[1]);
 	    },
 	    getPointEquationString: function getPointEquationString(props) {
-	        var coords = InteractiveGraph.getPointCoords(props.graph, props);
-	        return coords.map(function(coord) {
+	        return InteractiveGraph.getPointCoords(props.graph, props).map(function(coord) {
 	            return "(" + coord[0] + ", " + coord[1] + ")";
 	        }).join(", ");
 	    },
@@ -4433,8 +4453,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	    },
 	    getAngleEquationString: function getAngleEquationString(props) {
 	        var coords = InteractiveGraph.getAngleCoords(props.graph, props);
-	        var angle = GraphUtils.findAngle(coords[2], coords[0], coords[1]);
-	        return angle.toFixed(0) + "° angle at (" + coords[1].join(", ") + ")";
+	        return GraphUtils.findAngle(coords[2], coords[0], coords[1]).toFixed(0) + "° angle at (" + coords[1].join(", ") + ")";
 	    },
 	    validate: function validate(state, rubric, component) {
 	        // When nothing has moved, there will neither be coords nor the
@@ -4549,8 +4568,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	            var match;
 	            if ("congruent" === rubric.correct.match) {
 	                var angles = _.map([ guess, correct ], function(coords) {
-	                    var angle = GraphUtils.findAngle(coords[2], coords[0], coords[1]);
-	                    return (angle + 360) % 360;
+	                    return (GraphUtils.findAngle(coords[2], coords[0], coords[1]) + 360) % 360;
 	                });
 	                match = eq.apply(null, angles);
 	            } else /* exact */
@@ -4585,7 +4603,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 58 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4625,7 +4643,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var CELL_STYLE = {
 	    display: "table-cell",
-	    padding: CELL_PADDING
+	    padding: 5
 	};
 
 	var BASE_TILE_STYLE = {
@@ -4634,13 +4652,13 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 	var MOVE_COUNT_STYLE = {
-	    padding: CELL_PADDING,
+	    padding: 5,
 	    display: "inline-block"
 	};
 
 	var RESET_BUTTON_STYLE = {
-	    "float": "right",
-	    paddingRight: CELL_PADDING
+	    float: "right",
+	    paddingRight: 5
 	};
 
 	var MAIN_TILE_SIZE = 50;
@@ -4751,7 +4769,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	    return flipTilesPredicate(oldCells, function(y, x) {
 	        var offsetY = y - tileY;
 	        var offsetX = x - tileX;
-	        return Math.abs(offsetY) <= 1 && Math.abs(offsetX) <= 1 ? pattern[offsetY + 1][offsetX + 1] : false;
+	        return Math.abs(offsetY) <= 1 && Math.abs(offsetX) <= 1 && pattern[offsetY + 1][offsetX + 1];
 	    });
 	};
 
@@ -4777,11 +4795,11 @@ webpackJsonpPerseus([1],Array(18).concat([
 	    },
 	    render: function render() {
 	        var width = this._width();
-	        var tileSize = MAIN_TILE_SIZE;
-	        var pxWidth = width * (tileSize + 2 * CELL_PADDING);
+	        var tileSize = 50;
+	        var pxWidth = 60 * width;
 	        return React.createElement("div", null, React.createElement(TileGrid, {
 	            cells: this.props.cells,
-	            size: tileSize,
+	            size: 50,
 	            onChange: this._flipTile
 	        }), React.createElement("div", {
 	            style: {
@@ -4844,21 +4862,19 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	// grading function
 	var validate = function validate(rubric, state) {
-	    var empty = _.all(state.cells, function(row, y) {
+	    if (_.all(state.cells, function(row, y) {
 	        return _.all(row, function(cell, x) {
 	            return cell === rubric.startCells[y][x];
 	        });
-	    });
-	    if (empty) return {
+	    })) return {
 	        type: "invalid",
 	        message: i18n._("Click on the tiles to change the lights.")
 	    };
-	    var correct = _.all(state.cells, function(row) {
+	    return _.all(state.cells, function(row) {
 	        return _.all(row, function(cell) {
 	            return cell;
 	        });
-	    });
-	    return correct ? {
+	    }) ? {
 	        type: "points",
 	        earned: 1,
 	        total: 1,
@@ -4892,7 +4908,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 59 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4916,25 +4932,25 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var _ = __webpack_require__(10);
 
-	var NumberInput = __webpack_require__(108);
+	var NumberInput = __webpack_require__(110);
 
 	var Renderer = __webpack_require__(8);
 
-	var TextInput = __webpack_require__(109);
+	var TextInput = __webpack_require__(112);
 
-	var MathOutput = __webpack_require__(110);
+	var MathOutput = __webpack_require__(113);
 
 	var SimpleKeypadInput = __webpack_require__(80);
 
-	var ApiOptions = __webpack_require__(17).Options;
+	var ApiOptions = __webpack_require__(18).Options;
 
-	var KhanAnswerTypes = __webpack_require__(44);
+	var KhanAnswerTypes = __webpack_require__(75);
 
 	var keypadElementPropType = __webpack_require__(78).propTypes.keypadElementPropType;
 
-	var assert = __webpack_require__(111).assert;
+	var assert = __webpack_require__(114).assert;
 
-	var stringArrayOfSize = __webpack_require__(16).stringArrayOfSize;
+	var stringArrayOfSize = __webpack_require__(17).stringArrayOfSize;
 
 	// We store three sets of dimensions for the brackets, for our three types of
 	// inputs, which vary in formatting: (1) the "static" inputs rendered for the
@@ -4985,9 +5001,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 	var getRefForPath = function getRefForPath(path) {
-	    var row = getRowFromPath(path);
-	    var column = getColumnFromPath(path);
-	    return "answer" + row + "," + column;
+	    return "answer" + getRowFromPath(path) + "," + getColumnFromPath(path);
 	};
 
 	var getMatrixSize = function getMatrixSize(matrix) {
@@ -5057,7 +5071,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        var bracketOffset = (highlightedCol + 1) * (INPUT_WIDTH + 2 * INPUT_MARGIN);
 	        var className = classNames({
 	            "perseus-matrix": true,
-	            "static-mode": this.props["static"],
+	            "static-mode": this.props.static,
 	            "the-matrix": this.state.enterTheMatrix >= 5
 	        });
 	        return React.createElement("div", {
@@ -5325,7 +5339,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 60 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5343,11 +5357,11 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var Sortable = __webpack_require__(115);
 
-	var ApiOptions = __webpack_require__(17).Options;
+	var ApiOptions = __webpack_require__(18).Options;
 
-	var shuffle = __webpack_require__(16).shuffle;
+	var shuffle = __webpack_require__(17).shuffle;
 
-	var seededRNG = __webpack_require__(16).seededRNG;
+	var seededRNG = __webpack_require__(17).seededRNG;
 
 	var HACKY_CSS_CLASSNAME = "perseus-widget-matcher";
 
@@ -5460,10 +5474,9 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	_.extend(Matcher, {
 	    validate: function validate(state, rubric) {
-	        var correct = _.isEqual(state.left, rubric.left) && _.isEqual(state.right, rubric.right);
 	        return {
 	            type: "points",
-	            earned: correct ? 1 : 0,
+	            earned: _.isEqual(state.left, rubric.left) && _.isEqual(state.right, rubric.right) ? 1 : 0,
 	            total: 1,
 	            message: null
 	        };
@@ -5476,7 +5489,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var styles = StyleSheet.create({
 	    widget: {
-	        paddingTop: padding,
+	        paddingTop: 5,
 	        maxWidth: "100%",
 	        // Need to override minWidth in CSS :(
 	        minWidth: "auto"
@@ -5496,7 +5509,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	    columnLabel: {
 	        fontWeight: "inherit",
 	        borderBottom: border,
-	        padding: "0 " + padding + "px " + padding + "px " + padding + "px",
+	        padding: "0 5px 5px 5px",
 	        textAlign: "center"
 	    }
 	});
@@ -5508,7 +5521,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 61 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5522,9 +5535,9 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var _2 = __webpack_require__(10);
 
-	var ApiOptions = __webpack_require__(17).Options;
+	var ApiOptions = __webpack_require__(18).Options;
 
-	var GraphUtils = __webpack_require__(114);
+	var GraphUtils = __webpack_require__(111);
 
 	var defaultImage = {
 	    url: null,
@@ -5591,10 +5604,9 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        this.setupGraphie();
 	    },
 	    componentDidUpdate: function componentDidUpdate(prevProps) {
-	        var shouldSetupGraphie = _2.any([ "box", "showProtractor", "showRuler", "rulerLabel", "rulerTicks", "rulerPixels", "rulerLength" ], function(prop) {
+	        _2.any([ "box", "showProtractor", "showRuler", "rulerLabel", "rulerTicks", "rulerPixels", "rulerLength" ], function(prop) {
 	            return prevProps[prop] !== this.props[prop];
-	        }, this);
-	        shouldSetupGraphie && this.setupGraphie();
+	        }, this) && this.setupGraphie();
 	    },
 	    setupGraphie: function setupGraphie() {
 	        var graphieDiv = ReactDOM.findDOMNode(this.refs.graphieDiv);
@@ -5644,14 +5656,13 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var propUpgrades = {
 	    1: function _(v0props) {
-	        var v1props = _2(v0props).chain().omit("imageUrl", "imageTop", "imageLeft").extend({
+	        return _2(v0props).chain().omit("imageUrl", "imageTop", "imageLeft").extend({
 	            image: {
 	                url: v0props.imageUrl,
 	                top: v0props.imageTop,
 	                left: v0props.imageLeft
 	            }
 	        }).value();
-	        return v1props;
 	    }
 	};
 
@@ -5667,7 +5678,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 62 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5740,11 +5751,11 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        var ymin = Math.min.apply(Math, items.map(function(item) {
 	            return item.pos ? item.pos[1] : 1 / 0;
 	        }));
-	        var width = xmax - xmin + 2 * borderSize;
-	        var height = ymax - ymin + 2 * borderSize;
+	        var width = xmax - xmin + 60;
+	        var height = ymax - ymin + 60;
 	        canvas.width = width;
 	        canvas.height = height;
-	        return [ borderSize - xmin, borderSize - ymin ];
+	        return [ 30 - xmin, 30 - ymin ];
 	    },
 	    canvasRender: function canvasRender() {
 	        // Since canvas drawing happens only through an imperative API, we sync
@@ -5830,7 +5841,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 63 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5855,13 +5866,13 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var Changeable = __webpack_require__(85);
 
-	var NumberInput = __webpack_require__(108);
+	var NumberInput = __webpack_require__(110);
 
-	var MathOutput = __webpack_require__(110);
+	var MathOutput = __webpack_require__(113);
 
 	var SimpleKeypadInput = __webpack_require__(80);
 
-	var ApiOptions = __webpack_require__(17).Options;
+	var ApiOptions = __webpack_require__(18).Options;
 
 	var keypadElementPropType = __webpack_require__(78).propTypes.keypadElementPropType;
 
@@ -5881,7 +5892,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	    return Math.min(Math.max(x, gt), lt);
 	};
 
-	var assert = __webpack_require__(111).assert;
+	var assert = __webpack_require__(114).assert;
 
 	var EN_DASH = "–";
 
@@ -5912,8 +5923,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	}
 
 	function formatNonReduced(n, d, base) {
-	    var factor = Math.floor(base / d);
-	    return formatImproper(n * factor, base);
+	    return formatImproper(n * Math.floor(base / d), base);
 	}
 
 	var _label = function _label(graphie, labelStyle, pos, value, base) {
@@ -5964,8 +5974,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	    for (var _i = 0; _i <= props.numDivisions; _i++) {
 	        var _x = range[0] + _i * props.tickStep;
 	        results.push(graphie.line([ _x, -.2 ], [ _x, .2 ]));
-	        var labelTicks = props.labelTicks;
-	        (labelTicks || "decimal ticks" === props.labelStyle) && results.push(_label(graphie, props.labelStyle, _x, _x, base));
+	        (props.labelTicks || "decimal ticks" === props.labelStyle) && results.push(_label(graphie, props.labelStyle, _x, _x, base));
 	    }
 	    // Render the text labels
 	    results.push(graphie.style(props.isMobile ? {
@@ -6008,7 +6017,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        onChange: React.PropTypes.func.isRequired,
 	        apiOptions: ApiOptions.propTypes,
 	        keypadElement: keypadElementPropType,
-	        "static": React.PropTypes.bool,
+	        static: React.PropTypes.bool,
 	        showTooltips: React.PropTypes.bool,
 	        trackInteraction: React.PropTypes.func.isRequired
 	    }),
@@ -6051,7 +6060,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        // Don't allow a fraction for the number of divisions
 	        numDivisions = Math.round(numDivisions);
 	        // Don't allow negative numbers for the number of divisions
-	        numDivisions = numDivisions < 0 ? -1 * numDivisions : numDivisions;
+	        numDivisions = numDivisions < 0 ? numDivisions * -1 : numDivisions;
 	        // If the number of divisions isn't blank, update the number line
 	        if (numDivisions) {
 	            var nextProps = _.extend({}, this.props, {
@@ -6140,10 +6149,10 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        // In static mode the point's fill and stroke is blue to signify that
 	        // it can't be interacted with.
 	        var fill;
-	        fill = isOpen ? KhanColors._BACKGROUND : props["static"] ? KhanColors.DYNAMIC : KhanColors.INTERACTIVE;
+	        fill = isOpen ? KhanColors._BACKGROUND : props.static ? KhanColors.DYNAMIC : KhanColors.INTERACTIVE;
 	        var normalStyle = {
 	            fill: fill,
-	            stroke: props["static"] ? KhanColors.DYNAMIC : KhanColors.INTERACTIVE,
+	            stroke: props.static ? KhanColors.DYNAMIC : KhanColors.INTERACTIVE,
 	            "stroke-width": isOpen ? 3 : 1
 	        };
 	        var highlightStyle = {
@@ -6162,9 +6171,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	                // constrain-y
 	                return [ coord[0], prevCoord[1] ];
 	            }, function(coord, prevCoord) {
-	                // snap X
-	                var x = _this3.snapNumLinePosition(props, coord[0]);
-	                return [ x, coord[1] ];
+	                return [ _this3.snapNumLinePosition(props, coord[0]), coord[1] ];
 	            } ],
 	            normalStyle: normalStyle,
 	            highlightStyle: highlightStyle,
@@ -6196,12 +6203,11 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        var isGreater = _([ "ge", "gt" ]).contains(props.rel);
 	        var widthInPixels = 400;
 	        var range = props.range;
-	        var scale = (range[1] - range[0]) / widthInPixels;
-	        var buffer = horizontalPadding * scale;
+	        var scale = (range[1] - range[0]) / 400;
+	        var buffer = 30 * scale;
 	        var left = range[0] - buffer;
 	        var right = range[1] + buffer;
-	        var end = isGreater ? [ right, 0 ] : [ left, 0 ];
-	        return end;
+	        return isGreater ? [ right, 0 ] : [ left, 0 ];
 	    },
 	    _renderInequality: function _renderInequality(props) {
 	        if (props.isInequality) {
@@ -6224,17 +6230,17 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        // Ensure a sane configuration to avoid infinite loops
 	        if (!this.isValid()) return;
 	        // Position variables
-	        var widthInPixels = this.props.apiOptions.isMobile ? 288 - 2 * horizontalPadding : 400;
+	        var widthInPixels = this.props.apiOptions.isMobile ? 228 : 400;
 	        var range = options.range;
 	        var scale = (range[1] - range[0]) / widthInPixels;
-	        var buffer = horizontalPadding * scale;
+	        var buffer = 30 * scale;
 	        // Initiate the graphie without actually drawing anything
 	        var left = range[0] - buffer;
 	        var right = range[1] + buffer;
 	        var bottom = -1;
 	        var top = 1;
 	        graphie.init({
-	            range: [ [ left, right ], [ bottom, top ] ],
+	            range: [ [ left, right ], [ -1, 1 ] ],
 	            scale: [ 1 / scale, 40 ],
 	            isMobile: this.props.apiOptions.isMobile
 	        });
@@ -6260,7 +6266,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	    },
 	    render: function render() {
 	        var divisionRange = this.props.divisionRange;
-	        var divRangeString = divisionRange[0] + EN_DASH + divisionRange[1];
+	        var divRangeString = divisionRange[0] + "–" + divisionRange[1];
 	        var invalidNumDivisions = this.props.numDivisions < divisionRange[0] || this.props.numDivisions > divisionRange[1];
 	        var inequalityControls = React.createElement("div", null, React.createElement("input", {
 	            type: "button",
@@ -6298,7 +6304,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	            divRangeString: divRangeString
 	        }, "Please make sure the number of divisions is in the range %(divRangeString)s.")) : this._renderGraphie() : React.createElement("div", {
 	            className: "perseus-error"
-	        }, "Invalid number line configuration."), !this.props["static"] && this.props.isInequality && inequalityControls);
+	        }, "Invalid number line configuration."), !this.props.static && this.props.isInequality && inequalityControls);
 	    }
 	});
 
@@ -6374,7 +6380,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 64 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6390,9 +6396,9 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var Renderer = __webpack_require__(8);
 
-	var Util = __webpack_require__(16);
+	var Util = __webpack_require__(17);
 
-	var ApiClassNames = __webpack_require__(17).ClassNames;
+	var ApiClassNames = __webpack_require__(18).ClassNames;
 
 	var PlaceholderCard = React.createClass({
 	    displayName: "PlaceholderCard",
@@ -6786,10 +6792,9 @@ webpackJsonpPerseus([1],Array(18).concat([
 	            type: "invalid",
 	            message: null
 	        };
-	        var correct = _.isEqual(state.current, _.pluck(rubric.correctOptions, "content"));
 	        return {
 	            type: "points",
-	            earned: correct ? 1 : 0,
+	            earned: _.isEqual(state.current, _.pluck(rubric.correctOptions, "content")) ? 1 : 0,
 	            total: 1,
 	            message: null
 	        };
@@ -6803,7 +6808,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 65 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6918,7 +6923,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	            passageText: React.PropTypes.string,
 	            footnotes: React.PropTypes.string,
 	            showLineNumbers: React.PropTypes.bool,
-	            "static": React.PropTypes.bool
+	            static: React.PropTypes.bool
 	        })
 	    }),
 	    getDefaultProps: function getDefaultProps() {
@@ -6978,10 +6983,9 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        // this is left in for potential future development.
 	        section = section.replace(/\[Marker for question [0-9]+\]/g, " ");
 	        section = section.replace(/\[Sentence [0-9]+\]/g, " ");
-	        var sectionWordArray = section.split(/\s+/).filter(function(word) {
+	        return section.split(/\s+/).filter(function(word) {
 	            return word.length > 0;
-	        });
-	        return sectionWordArray.length;
+	        }).length;
 	    },
 	    /**
 	     * Compare two ranges according to their start word.
@@ -7114,7 +7118,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        if (!this.isInPassageText(node)) return null;
 	        var selectionNodeText = node.textContent;
 	        // Would prefer to use string.prototype.includes but it's not in IE 10.
-	        -1 !== punctuation.indexOf(selectionNodeText.charAt(0)) && (selectionNodeText = selectionNodeText.slice(1));
+	        punctuation.indexOf(selectionNodeText.charAt(0)) !== -1 && (selectionNodeText = selectionNodeText.slice(1));
 	        var index = this.charToWordOffset(offset, selectionNodeText);
 	        var priorText = "";
 	        var nodeText = "";
@@ -7124,11 +7128,10 @@ webpackJsonpPerseus([1],Array(18).concat([
 	                nodeText = node.textContent;
 	                var spacer = "";
 	                var lastChar = nodeText.charAt(nodeText.length - 1);
-	                var newSentence = -1 !== punctuation.indexOf(lastChar) || !node.nextSibling || "_" === lastChar && node.nextSibling.textContent.charAt(0).match(/[\w ]/);
 	                // HACK: Add space when nodes split at end of sentence. This
 	                // stops two words from successive paragraphs merging together.
 	                // Assumes paragraphs end with punctuation.
-	                newSentence && priorText.length > 0 && (spacer = " ");
+	                (punctuation.indexOf(lastChar) !== -1 || !node.nextSibling || "_" === lastChar && node.nextSibling.textContent.charAt(0).match(/[\w ]/)) && priorText.length > 0 && (spacer = " ");
 	                priorText = nodeText + spacer + priorText;
 	            }
 	            node = node.parentNode;
@@ -7298,8 +7301,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        // Ensure we don't index outside the bounds of the textArray
 	        var stopIter = Math.min(textArray.length - 1, index);
 	        for (var i = 0; i <= stopIter; i++) {
-	            var match = textArray[i].match(/^\s+$/) || [ "{highlighting.end}{highlighting.start}", "{highlighting.end}", "{highlighting.start}" ].includes(textArray[i]);
-	            match && index++;
+	            (textArray[i].match(/^\s+$/) || [ "{highlighting.end}{highlighting.start}", "{highlighting.end}", "{highlighting.start}" ].includes(textArray[i])) && index++;
 	        }
 	        return index;
 	    },
@@ -7472,18 +7474,16 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        var $renderer = $(ReactDOM.findDOMNode(this.refs.content));
 	        var contentsHeight = $renderer.height();
 	        var lineHeight = this._getLineHeight();
-	        var nLines = Math.round(contentsHeight / lineHeight);
-	        return nLines;
+	        return Math.round(contentsHeight / lineHeight);
 	    },
 	    _getInitialLineNumber: function _getInitialLineNumber() {
 	        var _this4 = this;
 	        var isPassageBeforeThisPassage = true;
-	        var passagesBeforeUs = this.props.findWidgets(function(id, widgetInfo) {
+	        return this.props.findWidgets(function(id, widgetInfo) {
 	            if ("passage" !== widgetInfo.type) return false;
 	            id === _this4.props.widgetId && (isPassageBeforeThisPassage = false);
 	            return isPassageBeforeThisPassage;
-	        });
-	        return passagesBeforeUs.map(function(passageWidget) {
+	        }).map(function(passageWidget) {
 	            return passageWidget.getLineCount();
 	        }).reduce(function(a, b) {
 	            return a + b;
@@ -7520,8 +7520,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	    },
 	    _hasFootnotes: function _hasFootnotes() {
 	        var rawContent = this.props.footnotes;
-	        var isEmpty = /^\s*$/.test(rawContent);
-	        return !isEmpty;
+	        return !/^\s*$/.test(rawContent);
 	    },
 	    _renderFootnotes: function _renderFootnotes() {
 	        var rawContent = this.props.footnotes;
@@ -7572,8 +7571,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        var $content = $(ReactDOM.findDOMNode(this.refs.content));
 	        var relativeVPos = absoluteVPos - $content.offset().top;
 	        var lineHeight = this._getLineHeight();
-	        var line = Math.round(relativeVPos / lineHeight);
-	        return line;
+	        return Math.round(relativeVPos / lineHeight);
 	    },
 	    _getRefContent: function _getRefContent(referenceNumber) {
 	        var refRef = PassageMarkdown.START_REF_PREFIX + referenceNumber;
@@ -7585,11 +7583,10 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        var refStartLine = this._getStartRefLineNumber(referenceNumber);
 	        var refEndLine = this._getEndRefLineNumber(referenceNumber);
 	        if (null == refStartLine || null == refEndLine) return null;
-	        var refContent = this._getRefContent(referenceNumber);
 	        return {
 	            startLine: refStartLine,
 	            endLine: refEndLine,
-	            content: refContent
+	            content: this._getRefContent(referenceNumber)
 	        };
 	    },
 	    getUserInput: function getUserInput() {
@@ -7621,8 +7618,8 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 66 */,
-/* 67 */
+/* 64 */,
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7704,7 +7701,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 68 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7718,15 +7715,15 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var _ = __webpack_require__(10);
 
-	var ApiClassNames = __webpack_require__(17).ClassNames;
+	var ApiClassNames = __webpack_require__(18).ClassNames;
 
-	var deepEq = __webpack_require__(16).deepEq;
+	var deepEq = __webpack_require__(17).deepEq;
 
 	var KhanMath = __webpack_require__(83);
 
 	var KhanColors = __webpack_require__(106);
 
-	var GraphUtils = __webpack_require__(114);
+	var GraphUtils = __webpack_require__(111);
 
 	var Interactive2 = __webpack_require__(103);
 
@@ -7747,7 +7744,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	    plotDimensions: React.PropTypes.arrayOf(React.PropTypes.number),
 	    labelInterval: React.PropTypes.number,
 	    starting: React.PropTypes.arrayOf(React.PropTypes.number),
-	    "static": React.PropTypes.bool
+	    static: React.PropTypes.bool
 	};
 
 	var Plotter = React.createClass({
@@ -7791,7 +7788,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        // was determined by eye-balling the layout.  :(
 	        var paddingForBottomLabel = 75;
 	        var style = {
-	            marginBottom: this.props.labels[0] ? paddingForBottomLabel : 0
+	            marginBottom: this.props.labels[0] ? 75 : 0
 	        };
 	        return React.createElement("div", {
 	            className: "perseus-widget-plotter graphie " + ApiClassNames.INTERACTIVE,
@@ -7872,12 +7869,12 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        // with the same padding as the others
 	        isDotplot && (padX /= 2);
 	        isMobile && isTiledPlot && 0 === self.props.labels[1].length && (padX = 0);
-	        isMobile ? c.scale = _.map([ [ c.dimX, padX ], [ c.dimY, padY ] ], // We multiply pad by 4 because we add 3*pad padding on the left
+	        c.scale = isMobile ? _.map([ [ c.dimX, padX ], [ c.dimY, padY ] ], // We multiply pad by 4 because we add 3*pad padding on the left
 	        // and 1*pad on the right
 	        function(_ref, i) {
 	            var dim = _ref[0], pad = _ref[1];
 	            return (plotDimensions[i] - 4 * pad) / dim;
-	        }) : c.scale = _.map([ c.dimX, c.dimY ], function(dim, i) {
+	        }) : _.map([ c.dimX, c.dimY ], function(dim, i) {
 	            return plotDimensions[i] / dim;
 	        });
 	        padX /= c.scale[0];
@@ -7989,7 +7986,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        var labelRotation = "translateX(-50%) translateX(5px) translateY(-50%) rotate(-45deg)";
 	        graphie.style({
 	            color: isMobile ? KhanColors.GRAY_G : "inherit",
-	            transform: isMobile && !mathyCategory ? labelRotation : "none",
+	            transform: isMobile && !mathyCategory ? "translateX(-50%) translateX(5px) translateY(-50%) rotate(-45deg)" : "none",
 	            transformOrigin: "100%"
 	        }, function() {
 	            return graphie.label([ x, isMobile ? -.5 : 0 ], category, "below", isTeX);
@@ -8115,9 +8112,9 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        }, function() {
 	            config.graph.dividers.push(graphie.path([ [ x - barHalfWidth, 0 ], [ x - barHalfWidth, config.scaleY ] ]));
 	        });
-	        if (isMobile) !function() {
+	        if (isMobile) {
 	            var snap = config.scaleY / self.props.snapsPerLine;
-	            config.graph.lines[i] = Interactive2.addMaybeMobileMovablePoint(_this, {
+	            config.graph.lines[i] = Interactive2.addMaybeMobileMovablePoint(this, {
 	                coord: [ x, startHeight ],
 	                constraints: [ function(coord, prev, options) {
 	                    return [ x, _this._clampValue(Math.round(coord[1] / snap) * snap, 0, config.dimY) ];
@@ -8150,7 +8147,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	            // points
 	            config.graph.lines[i].state.visibleShape.wrapper.style.zIndex = "1";
 	            self._maybeUpdateDragPrompt(self.state.values);
-	        }(); else {
+	        } else {
 	            config.graph.lines[i] = graphie.addMovableLineSegment({
 	                coordA: [ x - barHalfWidth, startHeight ],
 	                coordZ: [ x + barHalfWidth, startHeight ],
@@ -8161,7 +8158,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	                normalStyle: {
 	                    stroke: KhanColors.INTERACTIVE,
 	                    // Don't display graph handles in static mode
-	                    "stroke-width": this.props["static"] ? 0 : 4
+	                    "stroke-width": this.props.static ? 0 : 4
 	                }
 	            });
 	            config.graph.lines[i].onMove = function(dx, dy) {
@@ -8199,9 +8196,9 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        var c = config;
 	        var graphie = self.graphie;
 	        var x = i + (isMobile ? .4 : 1);
-	        if (isMobile) !function() {
+	        if (isMobile) {
 	            var snap = config.scaleY / self.props.snapsPerLine;
-	            c.graph.points[i] = Interactive2.addMaybeMobileMovablePoint(_this2, {
+	            c.graph.points[i] = Interactive2.addMaybeMobileMovablePoint(this, {
 	                coord: [ x, startHeight ],
 	                constraints: [ function(coord, prev, options) {
 	                    return [ x, _this2._clampValue(Math.round(coord[1] / snap) * snap, 0, config.dimY) ];
@@ -8232,7 +8229,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	                    "stroke-width": 2
 	                }
 	            }));
-	        }(); else {
+	        } else {
 	            c.graph.points[i] = graphie.addMovablePoint({
 	                coord: [ x, startHeight ],
 	                constraints: {
@@ -8299,8 +8296,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        var x = i + .5 + c.picPad;
 	        pics[i] = [];
 	        dotTicks[i] = [];
-	        var n = Math.round(c.dimY / c.scaleY) + 1;
-	        _(n).times(function(j) {
+	        _(Math.round(c.dimY / c.scaleY) + 1).times(function(j) {
 	            j -= 1;
 	            var midY = (j + .5) * c.scaleY;
 	            var leftX = x - c.picBoxWidth / 2;
@@ -8374,8 +8370,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	                var show = y <= values[i];
 	                if (self.props.type === DOTPLOT) {
 	                    var wasShown = y <= prevValues[i];
-	                    var wasJustShown = show && !wasShown;
-	                    wasJustShown && pic.animate({
+	                    show && !wasShown && pic.animate({
 	                        "stroke-width": 8
 	                    }, 75, function() {
 	                        return pic.animate({
@@ -8423,14 +8418,14 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 69 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	var React = __webpack_require__(11);
 
-	var Molecule = __webpack_require__(62).molecule;
+	var Molecule = __webpack_require__(60).molecule;
 
 	var Separator = React.createClass({
 	    displayName: "Separator",
@@ -8455,12 +8450,12 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        ctx.lineWidth = 1.2;
 	        ctx.lineCap = "round";
 	        var offset = 5;
-	        path.moveTo(offset, canvas.height / 2);
-	        path.lineTo(canvas.width - offset, canvas.height / 2);
-	        path.moveTo(canvas.width - 2 * offset, canvas.height / 2 - offset);
-	        path.lineTo(canvas.width - offset, canvas.height / 2);
-	        path.moveTo(canvas.width - 2 * offset, canvas.height / 2 + offset);
-	        path.lineTo(canvas.width - offset, canvas.height / 2);
+	        path.moveTo(5, canvas.height / 2);
+	        path.lineTo(canvas.width - 5, canvas.height / 2);
+	        path.moveTo(canvas.width - 10, canvas.height / 2 - 5);
+	        path.lineTo(canvas.width - 5, canvas.height / 2);
+	        path.moveTo(canvas.width - 10, canvas.height / 2 + 5);
+	        path.lineTo(canvas.width - 5, canvas.height / 2);
 	        ctx.stroke(path);
 	    },
 	    render: function render() {
@@ -8551,7 +8546,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 70 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8571,7 +8566,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var _ = __webpack_require__(10);
 
-	var ApiOptions = __webpack_require__(17).Options;
+	var ApiOptions = __webpack_require__(18).Options;
 
 	var Changeable = __webpack_require__(85);
 
@@ -8581,7 +8576,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var Renderer = __webpack_require__(8);
 
-	var Util = __webpack_require__(16);
+	var Util = __webpack_require__(17);
 
 	var Sequence = React.createClass({
 	    displayName: "Sequence",
@@ -8623,8 +8618,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        }).join("\n\n").value();
 	        var widgets = {};
 	        _.each(this.props.json, function(step, i) {
-	            var widgetId = "group " + i;
-	            widgets[widgetId] = {
+	            widgets["group " + i] = {
 	                type: "group",
 	                graded: true,
 	                version: {
@@ -8687,7 +8681,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 71 */
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8704,7 +8698,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	/* eslint-disable comma-dangle, indent, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp, space-unary-ops */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	/* globals $_, i18n */
-	var InfoTip = __webpack_require__(113);
+	var InfoTip = __webpack_require__(109);
 
 	var React = __webpack_require__(11);
 
@@ -8714,21 +8708,21 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var Changeable = __webpack_require__(85);
 
-	var ApiOptions = __webpack_require__(17).Options;
+	var ApiOptions = __webpack_require__(18).Options;
 
-	var assert = __webpack_require__(111).assert;
+	var assert = __webpack_require__(114).assert;
 
 	var Graphie = __webpack_require__(91);
 
 	var Path = Graphie.Path, Arc = Graphie.Arc, Circle = Graphie.Circle, Label = Graphie.Label, Line = Graphie.Line, MovablePoint = Graphie.MovablePoint, MovableLine = Graphie.MovableLine;
 
-	var NumberInput = __webpack_require__(108);
+	var NumberInput = __webpack_require__(110);
 
-	var MathOutput = __webpack_require__(110);
+	var MathOutput = __webpack_require__(113);
 
-	var seededRNG = __webpack_require__(16).seededRNG;
+	var seededRNG = __webpack_require__(17).seededRNG;
 
-	var Util = __webpack_require__(16);
+	var Util = __webpack_require__(17);
 
 	var knumber = __webpack_require__(132).number;
 
@@ -8755,7 +8749,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	            data: null,
 	            xAxisLabel: "Proportion (%)",
 	            yAxisLabel: "Number of times seen",
-	            box: [ defaultBoxSize, defaultBoxSize ]
+	            box: [ 400, 400 ]
 	        };
 	    },
 	    getInitialState: function getInitialState() {
@@ -8784,7 +8778,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        var invisiblePointForCoord = function invisiblePointForCoord(coord, i) {
 	            return React.createElement(MovablePoint, {
 	                key: i,
-	                "static": true,
+	                static: true,
 	                coord: coord,
 	                normalStyle: {
 	                    stroke: "none",
@@ -8812,15 +8806,15 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        // TODO(charlie): Find a better way around this.
 	        var epsilon = 1e-5;
 	        var radius = 20;
-	        var center = [ this.props.box[0] - 1.5 * radius, 1.5 * radius ];
+	        var center = [ this.props.box[0] - 30, 30 ];
 	        // Plot little circle
 	        var plotBelowCircle = function plotBelowCircle() {
 	            var options = {
 	                key: "below",
 	                center: center,
-	                radius: radius,
+	                radius: 20,
 	                startAngle: 0,
-	                endAngle: proportionBelow < 1 ? 360 * proportionBelow : 360 - epsilon,
+	                endAngle: proportionBelow < 1 ? 360 * proportionBelow : 360 - 1e-5,
 	                sector: 1 !== proportionBelow,
 	                unscaled: true,
 	                style: {
@@ -8834,8 +8828,8 @@ webpackJsonpPerseus([1],Array(18).concat([
 	            var options = {
 	                key: "above",
 	                center: center,
-	                radius: radius,
-	                startAngle: proportionBelow > 0 ? 360 * proportionBelow : epsilon,
+	                radius: 20,
+	                startAngle: proportionBelow > 0 ? 360 * proportionBelow : 1e-5,
 	                endAngle: 360,
 	                sector: 0 !== proportionBelow,
 	                unscaled: true,
@@ -8852,7 +8846,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        var plotLabel = function plotLabel() {
 	            var options = {
 	                key: "label",
-	                coord: [ center[0], center[1] + 1.5 * radius ],
+	                coord: [ center[0], center[1] + 30 ],
 	                text: numBelow + " of " + total + " results below " + formattedThreshold + "%",
 	                direction: "center",
 	                tex: false,
@@ -8882,7 +8876,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	                fill: isBelow ? KhanColors.LIGHT_RED : KhanColors.LIGHT_BLUE,
 	                stroke: isBelow ? KhanColors.RED : KhanColors.BLUE
 	            };
-	            var coords = [ [ i, 0 ], [ i, count ], [ i + barWidth, count ], [ i + barWidth, 0 ] ];
+	            var coords = [ [ i, 0 ], [ i, count ], [ i + 1, count ], [ i + 1, 0 ] ];
 	            return React.createElement(Path, {
 	                key: i,
 	                coords: coords,
@@ -8931,7 +8925,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        var xWidth = range[0][1] - range[0][0];
 	        var yWidth = range[1][1] - 0;
 	        var maxYAxisEntities = 20;
-	        var ySkip = Math.ceil(yWidth / maxYAxisEntities);
+	        var ySkip = Math.ceil(yWidth / 20);
 	        _.each(_.range(0, range[1][1], ySkip), function(y) {
 	            // If there's no data, we don't label the axes
 	            data && graphie.label([ range[0][0], y ], KhanMath.roundToApprox(y, 2), "left", /* isTeX */
@@ -8946,11 +8940,11 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        if (data) {
 	            // Plot the labels below the bars
 	            var maxXAxisEntities = 15;
-	            var xSkip = Math.ceil(xWidth / maxXAxisEntities);
+	            var xSkip = Math.ceil(xWidth / 15);
 	            _.each(_.range(range[0][0], range[0][1], xSkip), function(x) {
 	                graphie.label([ x, 0 ], knumber.round(x, 2), "below", true);
 	                var tickHeight = 8;
-	                graphie.line([ x, 0 ], [ x, -tickHeight / scale[1] ], {
+	                graphie.line([ x, 0 ], [ x, -8 / scale[1] ], {
 	                    stroke: "#000",
 	                    strokeWidth: 1
 	                });
@@ -8990,18 +8984,17 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        var firstIndex = _.indexOf(data, _.find(data, function(n) {
 	            return n > 0;
 	        }));
-	        var xMin = Math.max(0, firstIndex - padding);
+	        var xMin = Math.max(0, firstIndex - 10);
 	        var lastIndex = _.lastIndexOf(data, _.last(_.filter(data, function(n) {
 	            return n > 0;
 	        })));
-	        var xMax = Math.min(101, lastIndex + 1 + padding);
+	        var xMax = Math.min(101, lastIndex + 1 + 10);
 	        // The y-axis is bounded above by largest value, and below by 0.
 	        // However, the 'range' of the y-axis goes as low as -1 to allow
 	        // Graphie to draw ticks on the x-Axis that extend vertically below
 	        // y = 0.
 	        var yMin = -1;
-	        var yMax = _.max(data);
-	        return [ [ xMin, xMax ], [ yMin, yMax ] ];
+	        return [ [ xMin, xMax ], [ -1, _.max(data) ] ];
 	    },
 	    _getInitialThreshold: function _getInitialThreshold(range) {
 	        // We pick a pretty-looking threshold, 1/3 of the way along the axis
@@ -9172,7 +9165,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        }, cb);
 	    },
 	    handleSampleSizeChange: function handleSampleSizeChange(sampleSize, cb) {
-	        null != sampleSize && (sampleSize = Math.min(maxSampleSize, Math.max(0, Math.floor(sampleSize))));
+	        null != sampleSize && (sampleSize = Math.min(1e3, Math.max(0, Math.floor(sampleSize))));
 	        this.props.onChange({
 	            sampleSize: sampleSize
 	        }, cb);
@@ -9196,7 +9189,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	    generateData: function generateData(props) {
 	        var _this5 = this;
 	        props = props || this.props;
-	        var getSampleDistribution = function getSampleDistribution(sampleSize, numTrials, proportion) {
+	        return function getSampleDistribution(sampleSize, numTrials, proportion) {
 	            var draw = function draw() {
 	                return _this5.generateNumber() < proportion;
 	            };
@@ -9206,12 +9199,10 @@ webpackJsonpPerseus([1],Array(18).concat([
 	            _.times(numTrials, function() {
 	                var results = _.times(sampleSize, draw);
 	                var count = _.filter(results, _.identity).length;
-	                var normalizedCount = Math.floor(100 * count / sampleSize);
-	                sampleDistribution[normalizedCount]++;
+	                sampleDistribution[Math.floor(100 * count / sampleSize)]++;
 	            });
 	            return sampleDistribution;
-	        };
-	        return getSampleDistribution(props.sampleSize, props.numTrials, props.userProportion);
+	        }(props.sampleSize, props.numTrials, props.userProportion);
 	    },
 	    /* InputPath API */
 	    getInputPaths: function getInputPaths() {
@@ -9225,14 +9216,12 @@ webpackJsonpPerseus([1],Array(18).concat([
 	    focusInputPath: function focusInputPath(path) {
 	        assert(path.length > 0);
 	        var inputID = _.head(path);
-	        var inputComponent = this.refs[inputID];
-	        inputComponent.focus();
+	        this.refs[inputID].focus();
 	    },
 	    blurInputPath: function blurInputPath(path) {
 	        assert(path.length > 0);
 	        var inputID = _.head(path);
-	        var inputComponent = this.refs[inputID];
-	        inputComponent.blur();
+	        this.refs[inputID].blur();
 	    },
 	    getDOMNodeForPath: function getDOMNodeForPath(path) {
 	        assert(path.length > 0);
@@ -9246,9 +9235,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	    setInputValue: function setInputValue(path, newValue, cb) {
 	        assert(path.length > 0);
 	        var inputID = _.head(path);
-	        var capitalizedID = inputID.charAt(0).toUpperCase() + inputID.slice(1);
-	        var functionName = "handle" + capitalizedID + "Change";
-	        this[functionName](newValue, cb);
+	        this["handle" + (inputID.charAt(0).toUpperCase() + inputID.slice(1)) + "Change"](newValue, cb);
 	    },
 	    getUserInput: function getUserInput() {
 	        return null;
@@ -9283,7 +9270,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 72 */
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9297,9 +9284,9 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var Sortable = __webpack_require__(115);
 
-	var ApiOptions = __webpack_require__(17).Options;
+	var ApiOptions = __webpack_require__(18).Options;
 
-	var shuffle = __webpack_require__(16).shuffle;
+	var shuffle = __webpack_require__(17).shuffle;
 
 	var HORIZONTAL = "horizontal", VERTICAL = "vertical";
 
@@ -9354,10 +9341,9 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	_.extend(Sorter, {
 	    validate: function validate(state, rubric) {
-	        var correct = _.isEqual(state.options, rubric.correct);
 	        return {
 	            type: "points",
-	            earned: correct ? 1 : 0,
+	            earned: _.isEqual(state.options, rubric.correct) ? 1 : 0,
 	            total: 1,
 	            message: null
 	        };
@@ -9371,7 +9357,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 73 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9385,21 +9371,21 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var _ = __webpack_require__(10);
 
-	var MathOutput = __webpack_require__(110);
+	var MathOutput = __webpack_require__(113);
 
 	var SimpleKeypadInput = __webpack_require__(80);
 
 	var Renderer = __webpack_require__(8);
 
-	var Util = __webpack_require__(16);
+	var Util = __webpack_require__(17);
 
 	var keypadElementPropType = __webpack_require__(78).propTypes.keypadElementPropType;
 
-	var ApiOptions = __webpack_require__(17).Options;
+	var ApiOptions = __webpack_require__(18).Options;
 
-	var KhanAnswerTypes = __webpack_require__(44);
+	var KhanAnswerTypes = __webpack_require__(75);
 
-	var assert = __webpack_require__(111).assert;
+	var assert = __webpack_require__(114).assert;
 
 	/* Input handling: Maps a (row, column) pair to a unique ref used by React,
 	 * and extracts (row, column) pairs from input paths, used to allow outsiders
@@ -9425,9 +9411,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 	var getRefForPath = function getRefForPath(path) {
-	    var row = getRowFromPath(path);
-	    var column = getColumnFromPath(path);
-	    return "answer" + row + "," + column;
+	    return "answer" + getRowFromPath(path) + "," + getColumnFromPath(path);
 	};
 
 	var Table = React.createClass({
@@ -9444,15 +9428,15 @@ webpackJsonpPerseus([1],Array(18).concat([
 	    getDefaultProps: function getDefaultProps() {
 	        var defaultRows = 4;
 	        var defaultColumns = 1;
-	        var blankAnswers = _(defaultRows).times(function() {
-	            return Util.stringArrayOfSize(defaultColumns);
+	        var blankAnswers = _(4).times(function() {
+	            return Util.stringArrayOfSize(1);
 	        });
 	        return {
 	            apiOptions: ApiOptions.defaults,
 	            headers: [ "" ],
 	            editableHeaders: false,
-	            rows: defaultRows,
-	            columns: defaultColumns,
+	            rows: 4,
+	            columns: 1,
 	            answers: blankAnswers
 	        };
 	    },
@@ -9603,12 +9587,11 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        };
 	        var solution = filterNonEmpty(rubric.answers);
 	        var supplied = filterNonEmpty(state);
-	        var hasEmptyCell = _.some(supplied, function(row) {
+	        if (_.some(supplied, function(row) {
 	            return _.some(row, function(cell) {
 	                return "" === cell;
 	            });
-	        });
-	        if (hasEmptyCell || !supplied.length) return {
+	        }) || !supplied.length) return {
 	            type: "invalid",
 	            message: null
 	        };
@@ -9620,29 +9603,27 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        };
 	        var createValidator = KhanAnswerTypes.number.createValidatorFunctional;
 	        var message = null;
-	        var allCorrect = _.every(solution, function(rowSolution) {
-	            var i;
-	            for (i = 0; i < supplied.length; i++) {
-	                var rowSupplied = supplied[i];
-	                var correct = _.every(rowSupplied, function(cellSupplied, i) {
-	                    var cellSolution = rowSolution[i];
-	                    var validator = createValidator(cellSolution, {
-	                        simplify: true
-	                    });
-	                    var result = validator(cellSupplied);
-	                    result.message && (message = result.message);
-	                    return result.correct;
-	                });
-	                if (correct) {
-	                    supplied.splice(i, 1);
-	                    return true;
-	                }
-	            }
-	            return false;
-	        });
 	        return {
 	            type: "points",
-	            earned: allCorrect ? 1 : 0,
+	            earned: _.every(solution, function(rowSolution) {
+	                var i;
+	                for (i = 0; i < supplied.length; i++) {
+	                    var rowSupplied = supplied[i];
+	                    if (_.every(rowSupplied, function(cellSupplied, i) {
+	                        var cellSolution = rowSolution[i];
+	                        var validator = createValidator(cellSolution, {
+	                            simplify: true
+	                        });
+	                        var result = validator(cellSupplied);
+	                        result.message && (message = result.message);
+	                        return result.correct;
+	                    })) {
+	                        supplied.splice(i, 1);
+	                        return true;
+	                    }
+	                }
+	                return false;
+	            }) ? 1 : 0,
 	            total: 1,
 	            message: message
 	        };
@@ -9670,7 +9651,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 74 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9693,19 +9674,19 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var _ = __webpack_require__(10);
 
-	var Graph = __webpack_require__(112);
+	var Graph = __webpack_require__(108);
 
 	var InlineIcon = __webpack_require__(86);
 
-	var NumberInput = __webpack_require__(108);
+	var NumberInput = __webpack_require__(110);
 
-	var MathOutput = __webpack_require__(110);
+	var MathOutput = __webpack_require__(113);
 
 	var TeX = __webpack_require__(43);
 
 	var SimpleKeypadInput = __webpack_require__(80);
 
-	var ApiOptions = __webpack_require__(17).Options;
+	var ApiOptions = __webpack_require__(18).Options;
 
 	var keypadElementPropType = __webpack_require__(78).propTypes.keypadElementPropType;
 
@@ -9723,11 +9704,11 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var _require = __webpack_require__(89), iconPlus = _require.iconPlus, iconUndo = _require.iconUndo;
 
-	var deepEq = __webpack_require__(16).deepEq;
+	var deepEq = __webpack_require__(17).deepEq;
 
-	var getGridStep = __webpack_require__(16).getGridStep;
+	var getGridStep = __webpack_require__(17).getGridStep;
 
-	var captureScratchpadTouchStart = __webpack_require__(16).captureScratchpadTouchStart;
+	var captureScratchpadTouchStart = __webpack_require__(17).captureScratchpadTouchStart;
 
 	var knumber = __webpack_require__(132).number;
 
@@ -9743,7 +9724,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var KhanColors = __webpack_require__(106);
 
-	var assert = __webpack_require__(111).assert;
+	var assert = __webpack_require__(114).assert;
 
 	var defaultBoxSize = 400;
 
@@ -9778,13 +9759,12 @@ webpackJsonpPerseus([1],Array(18).concat([
 	    var labels = setProps.labels || [ "x", "y" ];
 	    var range = setProps.range || [ [ -10, 10 ], [ -10, 10 ] ];
 	    var step = setProps.step || [ 1, 1 ];
-	    var gridStep = setProps.gridStep || getGridStep(range, step, boxSize);
 	    return {
 	        box: [ boxSize, boxSize ],
 	        labels: labels,
 	        range: range,
 	        step: step,
-	        gridStep: gridStep,
+	        gridStep: setProps.gridStep || getGridStep(range, step, boxSize),
 	        valid: true,
 	        backgroundImage: defaultBackgroundImage,
 	        markings: "grid",
@@ -9865,8 +9845,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	function dilatePointFromCenter(point, dilationCenter, scale) {
 	    var pv = kvector.subtract(point, dilationCenter);
 	    var pvScaled = kvector.scale(pv, scale);
-	    var transformedPoint = kvector.add(dilationCenter, pvScaled);
-	    return transformedPoint;
+	    return kvector.add(dilationCenter, pvScaled);
 	}
 
 	// TODO(jack): i18nize this
@@ -9888,7 +9867,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	}
 
 	function texFromAngleDeg(angleDeg) {
-	    return stringFromDecimal(angleDeg) + DEGREE_SIGN;
+	    return stringFromDecimal(angleDeg) + "°";
 	}
 
 	function orderInsensitiveCoordsEqual(coords1, coords2) {
@@ -9998,7 +9977,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        },
 	        handleChange: _.debounce(function(callback) {
 	            this.props.onChange(this.value(), callback);
-	        }, RENDER_TRANSFORM_DELAY_IN_MS),
+	        }, 300),
 	        /* InputPath API: depending on the API call, this could involve simply
 	         * navigating to the right ref and calling the function on that
 	         * component, or threading the call down and returning the result. */
@@ -10129,10 +10108,8 @@ webpackJsonpPerseus([1],Array(18).concat([
 	                }, "Translation by %(vector)s"));
 	            },
 	            value: function value() {
-	                var x = this.refs.x.getValue();
-	                var y = this.refs.y.getValue();
 	                return {
-	                    vector: [ x, y ]
+	                    vector: [ this.refs.x.getValue(), this.refs.y.getValue() ]
 	                };
 	            },
 	            /* InputPath API */
@@ -10249,7 +10226,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	                    onFocus: _.partial(this.props.onFocus, "angleDeg"),
 	                    onBlur: _.partial(this.props.onBlur, "angleDeg"),
 	                    keypadElement: this.props.keypadElement
-	                }), DEGREE_SIGN ];
+	                }), "°" ];
 	                // I18N: %(point)s must come before %(degrees)s in this phrase
 	                var text = $_({
 	                    point: point,
@@ -10258,12 +10235,9 @@ webpackJsonpPerseus([1],Array(18).concat([
 	                return React.createElement("div", null, text);
 	            },
 	            value: function value() {
-	                var angleDeg = this.refs.angleDeg.getValue();
-	                var centerX = this.refs.centerX.getValue();
-	                var centerY = this.refs.centerY.getValue();
 	                return {
-	                    angleDeg: angleDeg,
-	                    center: [ centerX, centerY ]
+	                    angleDeg: this.refs.angleDeg.getValue(),
+	                    center: [ this.refs.centerX.getValue(), this.refs.centerY.getValue() ]
 	                };
 	            },
 	            /* InputPath API */
@@ -10384,12 +10358,8 @@ webpackJsonpPerseus([1],Array(18).concat([
 	                });
 	            },
 	            value: function value() {
-	                var x1 = this.refs.x1.getValue();
-	                var y1 = this.refs.y1.getValue();
-	                var x2 = this.refs.x2.getValue();
-	                var y2 = this.refs.y2.getValue();
 	                return {
-	                    line: [ [ x1, y1 ], [ x2, y2 ] ]
+	                    line: [ [ this.refs.x1.getValue(), this.refs.y1.getValue() ], [ this.refs.x2.getValue(), this.refs.y2.getValue() ] ]
 	                };
 	            },
 	            /* InputPath API */
@@ -10511,12 +10481,9 @@ webpackJsonpPerseus([1],Array(18).concat([
 	                }, "Dilation about %(point)s by %(scale)s"));
 	            },
 	            value: function value() {
-	                var scale = this.refs.scale.getValue();
-	                var x = this.refs.x.getValue();
-	                var y = this.refs.y.getValue();
 	                return {
-	                    scale: scale,
-	                    center: [ x, y ]
+	                    scale: this.refs.scale.getValue(),
+	                    center: [ this.refs.x.getValue(), this.refs.y.getValue() ]
 	                };
 	            },
 	            /* InputPath API */
@@ -10657,22 +10624,20 @@ webpackJsonpPerseus([1],Array(18).concat([
 	                return shape.getOptions ? shape.getOptions() : {};
 	            });
 	        };
-	        var toJSON = function toJSON() {
-	            var coords = _.map(points, function(pt) {
-	                return _.isArray(pt) ? pt : pt.coord;
-	            });
-	            return {
-	                type: types,
-	                coords: coords,
-	                options: getOptions()
-	            };
-	        };
 	        return {
 	            type: types,
 	            points: points,
 	            update: update,
 	            remove: remove,
-	            toJSON: toJSON,
+	            toJSON: function toJSON() {
+	                return {
+	                    type: types,
+	                    coords: _.map(points, function(pt) {
+	                        return _.isArray(pt) ? pt : pt.coord;
+	                    }),
+	                    options: getOptions()
+	                };
+	            },
 	            getOptions: getOptions
 	        };
 	    },
@@ -10702,8 +10667,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        });
 	    },
 	    _forType: function _forType(type) {
-	        var baseType = type.split("-")[0];
-	        return ShapeTypes[baseType];
+	        return ShapeTypes[type.split("-")[0]];
 	    },
 	    _mapTypes: function _mapTypes(types, points, func, context) {
 	        return _.map(types, function(type, i) {
@@ -10759,7 +10723,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	            // If this angle is not editable, it should always maintain
 	            // it's angle measure, even if it is reflected (causing the
 	            // clockwise-ness of the points to change)
-	            var shouldChangeReflexivity = options.editable ? null : false;
+	            var shouldChangeReflexivity = !!options.editable && null;
 	            var angle = graphie.addMovableAngle({
 	                angleLabel: "$deg0",
 	                fixed: true,
@@ -10999,7 +10963,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        // Fill in any missing value in this.props.graph
 	        // this can happen because the graph json doesn't include
 	        // box, for example
-	        var graph = _.extend(defaultGraphProps(this.props.graph, defaultBoxSize), this.props.graph);
+	        var graph = _.extend(defaultGraphProps(this.props.graph, 400), this.props.graph);
 	        var interactiveToolsMode = "interactive" === this.props.graphMode;
 	        var ToolsBarClass = interactiveToolsMode ? ToolsBar : AddTransformBar;
 	        // This style is applied inline because it is dependent on the
@@ -11054,7 +11018,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        this.shouldSetupGraphie(this.props, prevProps) ? this.refs.graph.reset() : deepEq(this.props.transformations, this.transformations) || this.setTransformations(this.props.transformations);
 	    },
 	    shouldSetupGraphie: function shouldSetupGraphie(nextProps, prevProps) {
-	        return deepEq(prevProps.starting, nextProps.starting) ? prevProps.graphMode !== nextProps.graphMode ? true : prevProps.listMode !== nextProps.listMode ? true : prevProps.drawSolutionShape !== nextProps.drawSolutionShape ? true : nextProps.drawSolutionShape && !deepEq(prevProps.correct.shape, nextProps.correct.shape) ? true : !deepEq(this.tools, nextProps.tools) : true;
+	        return !deepEq(prevProps.starting, nextProps.starting) || (prevProps.graphMode !== nextProps.graphMode || (prevProps.listMode !== nextProps.listMode || (prevProps.drawSolutionShape !== nextProps.drawSolutionShape || (!(!nextProps.drawSolutionShape || deepEq(prevProps.correct.shape, nextProps.correct.shape)) || !deepEq(this.tools, nextProps.tools)))));
 	    },
 	    graphie: function graphie() {
 	        return this.refs.graph.graphie();
@@ -11191,11 +11155,10 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        var origDirectionPolar = kvector.polarDegFromCart(kvector.subtract(messyCoords[0], messyCoords[1]));
 	        var directionPolar = [ 1, KhanMath.roundToNearest(45, origDirectionPolar[1]) ];
 	        var direction = kvector.cartFromPolarDeg(directionPolar);
-	        var coords = _.map([ -1, 1 ], function(directionCoefficient) {
-	            var coord = kvector.add(midpoint, kvector.scale(direction, directionCoefficient * this.scaleToCurrentRange(REFLECT_ROTATE_HANDLE_DIST)));
+	        return _.map([ -1, 1 ], function(directionCoefficient) {
+	            var coord = kvector.add(midpoint, kvector.scale(direction, directionCoefficient * this.scaleToCurrentRange(2)));
 	            return this.snapCoord(coord);
 	        }, this);
-	        return coords;
 	    },
 	    addReflectionTool: function addReflectionTool() {
 	        var options = this.props.tools.reflection;
@@ -11249,7 +11212,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        var reflectButton = graphie.addReflectButton({
 	            fixed: options.constraints.fixed,
 	            line: reflectLine,
-	            size: this.scaleToCurrentRange(REFLECT_BUTTON_SIZE),
+	            size: this.scaleToCurrentRange(1),
 	            onClick: function onClick() {
 	                self.doTransform({
 	                    type: "reflection",
@@ -11280,7 +11243,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	            // 90 degrees off of the line
 	            reflectRotateHandle = graphie.addRotateHandle({
 	                center: reflectButton,
-	                radius: this.scaleToCurrentRange(REFLECT_ROTATE_HANDLE_DIST),
+	                radius: this.scaleToCurrentRange(2),
 	                angleDeg: initRotateHandleAngle,
 	                width: this.scaleToCurrentRange(.24),
 	                hoverWidth: this.scaleToCurrentRange(.4),
@@ -11356,7 +11319,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        // cause rotations
 	        this.rotateHandle = graphie.addRotateHandle({
 	            center: this.rotatePoint,
-	            radius: this.scaleToCurrentRange(ROTATE_HANDLE_DIST),
+	            radius: this.scaleToCurrentRange(1.5),
 	            width: this.scaleToCurrentRange(.24),
 	            hoverWidth: this.scaleToCurrentRange(.4),
 	            onMove: function onMove(newAngle, oldAngle) {
@@ -11445,11 +11408,10 @@ webpackJsonpPerseus([1],Array(18).concat([
 	    getRotationTransformFromAngle: function getRotationTransformFromAngle(center, angleChanged) {
 	        angleChanged = (angleChanged + 360) % 360;
 	        angleChanged > 180 && (angleChanged -= 360);
-	        var roundedAngle = Math.round(angleChanged / ROTATE_SNAP_DEGREES) * ROTATE_SNAP_DEGREES;
 	        return {
 	            type: "rotation",
 	            center: center,
-	            angleDeg: roundedAngle
+	            angleDeg: 15 * Math.round(angleChanged / 15)
 	        };
 	    },
 	    // apply and save a transform
@@ -11677,7 +11639,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 75 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11697,7 +11659,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	// terms of a certain type.
 	// TODO(joel): Allow sigfigs within a range rather than an exact expected
 	// value?
-	var lens = __webpack_require__(116);
+	var lens = __webpack_require__(101);
 
 	var React = __webpack_require__(11);
 
@@ -11705,15 +11667,15 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var _ = __webpack_require__(10);
 
-	var ApiClassNames = __webpack_require__(17).ClassNames;
+	var ApiClassNames = __webpack_require__(18).ClassNames;
 
-	var ApiOptions = __webpack_require__(17).Options;
+	var ApiOptions = __webpack_require__(18).Options;
 
 	var Changeable = __webpack_require__(85);
 
-	var MathOutput = __webpack_require__(110);
+	var MathOutput = __webpack_require__(113);
 
-	var _require = __webpack_require__(117), SignificantFigures = _require.SignificantFigures, displaySigFigs = _require.displaySigFigs;
+	var _require = __webpack_require__(116), SignificantFigures = _require.SignificantFigures, displaySigFigs = _require.displaySigFigs;
 
 	var ALL = "all";
 
@@ -11726,7 +11688,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 	var sigfigPrint = function sigfigPrint(num, sigfigs) {
-	    return displaySigFigs(num, sigfigs, -MAX_SIGFIGS, false);
+	    return displaySigFigs(num, sigfigs, -10, false);
 	};
 
 	/* I just wrote this, but it's old by analogy to `OldExpression`, in that it's
@@ -11889,15 +11851,16 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        var kasCorrect;
 	        var guessUnit = primUnits(guess.expr.simplify());
 	        var answerUnit = primUnits(answer.simplify());
+	        // We're accepting all units - KAS does the hard work of figuring
+	        // out if the user's unit is equivalent to the author's unit.
 	        kasCorrect = rubric.accepting === ALL ? KAS.compare(guessUnit, answerUnit).equal : _(rubric.acceptingUnits).any(function(unit) {
 	            var thisAnswerUnit = primUnits(KAS.unitParse(unit).unit.simplify());
 	            return KAS.compare(thisAnswerUnit, guessUnit).equal;
 	        });
 	        if (!kasCorrect) var message = i18n._("Check your units.");
-	        var correct = kasCorrect && numericallyCorrect && sigfigsCorrect;
 	        return {
 	            type: "points",
-	            earned: correct ? 1 : 0,
+	            earned: kasCorrect && numericallyCorrect && sigfigsCorrect ? 1 : 0,
 	            total: 1,
 	            message: message
 	        };
@@ -11922,7 +11885,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 76 */
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11991,14 +11954,14 @@ webpackJsonpPerseus([1],Array(18).concat([
 	            url = url.replace("{hostname}", embedHostname);
 	        }
 	        return React.createElement(FixedToResponsive, {
-	            width: DEFAULT_WIDTH,
-	            height: DEFAULT_HEIGHT,
+	            width: 1280,
+	            height: 720,
 	            key: location + this.props.alignment
 	        }, React.createElement("iframe", {
 	            className: "perseus-video-widget",
 	            sandbox: "allow-same-origin allow-scripts",
-	            width: DEFAULT_WIDTH,
-	            height: DEFAULT_HEIGHT,
+	            width: 1280,
+	            height: 720,
 	            src: url,
 	            allowFullScreen: true
 	        }));
@@ -12030,6 +11993,8 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
+/* 75 */,
+/* 76 */,
 /* 77 */,
 /* 78 */,
 /* 79 */,
@@ -12084,7 +12049,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var ReactDOM = __webpack_require__(12);
 
-	var styles = __webpack_require__(137);
+	var styles = __webpack_require__(141);
 
 	var css = __webpack_require__(14).css;
 
@@ -12162,7 +12127,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	 */
 	var React = __webpack_require__(11);
 
-	var ApiOptions = __webpack_require__(17).Options;
+	var ApiOptions = __webpack_require__(18).Options;
 
 	var InlineIcon = __webpack_require__(86);
 
@@ -12285,7 +12250,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        borderRadius: 4,
 	        color: "white",
 	        fontFamily: boldFontFamily,
-	        fontSize: fontSize,
+	        fontSize: 17,
 	        border: "none"
 	    },
 	    tryAgainIcon: {
@@ -12298,7 +12263,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        flexDirection: "row",
 	        alignItems: "center",
 	        fontFamily: boldFontFamily,
-	        fontSize: fontSize
+	        fontSize: 17
 	    }
 	};
 
@@ -12312,194 +12277,6 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	"use strict";
 
-	var _extends = Object.assign || function(target) {
-	    for (var i = 1; i < arguments.length; i++) {
-	        var source = arguments[i];
-	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
-	    }
-	    return target;
-	};
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, max-len, no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var classNames = __webpack_require__(13);
-
-	var React = __webpack_require__(11);
-
-	var ReactDOM = __webpack_require__(12);
-
-	var _ = __webpack_require__(10);
-
-	var firstNumericalParse = __webpack_require__(16).firstNumericalParse;
-
-	var captureScratchpadTouchStart = __webpack_require__(16).captureScratchpadTouchStart;
-
-	var knumber = __webpack_require__(132).number;
-
-	var KhanMath = __webpack_require__(83);
-
-	var toNumericString = KhanMath.toNumericString;
-
-	var getNumericFormat = KhanMath.getNumericFormat;
-
-	/* An input box that accepts only numeric strings
-	 *
-	 * Calls onChange(value, format) for valid numbers.
-	 * Reverts to the current value onBlur or on [ENTER],
-	 *   but maintains the format (i.e. 3/2, 1 1/2, 150%)
-	 * Accepts empty input and sends it to onChange as null
-	 *   if no numeric placeholder is set.
-	 * If given a checkValidity function, will turn
-	 *   the background/outline red when invalid
-	 * If useArrowKeys is set to true, up/down arrows will
-	 *   increment/decrement integers
-	 * Optionally takes a size ("mini", "small", "normal")
-	 */
-	var NumberInput = React.createClass({
-	    displayName: "NumberInput",
-	    propTypes: {
-	        value: React.PropTypes.number,
-	        format: React.PropTypes.string,
-	        placeholder: React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.number ]),
-	        onChange: React.PropTypes.func.isRequired,
-	        onFormatChange: React.PropTypes.func,
-	        checkValidity: React.PropTypes.func,
-	        size: React.PropTypes.string,
-	        label: React.PropTypes.oneOf([ "put your labels outside your inputs!" ])
-	    },
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            value: null,
-	            placeholder: null,
-	            format: null,
-	            onFormatChange: function onFormatChange() {
-	                return null;
-	            },
-	            checkValidity: function checkValidity() {
-	                return true;
-	            },
-	            useArrowKeys: false
-	        };
-	    },
-	    getInitialState: function getInitialState() {
-	        return {
-	            format: this.props.format
-	        };
-	    },
-	    render: function render() {
-	        var classes = classNames({
-	            "number-input": true,
-	            "invalid-input": !this._checkValidity(this.props.value),
-	            mini: "mini" === this.props.size,
-	            small: "small" === this.props.size,
-	            normal: "normal" === this.props.size
-	        });
-	        null != this.props.className && (classes = classes + " " + this.props.className);
-	        return React.createElement("input", _extends({}, this.props, {
-	            className: classes,
-	            type: "text",
-	            ref: "input",
-	            onChange: this._handleChange,
-	            onFocus: this._handleFocus,
-	            onBlur: this._handleBlur,
-	            onKeyPress: this._handleBlur,
-	            onKeyDown: this._onKeyDown,
-	            onTouchStart: captureScratchpadTouchStart,
-	            defaultValue: toNumericString(this.props.value, this.state.format),
-	            value: void 0
-	        }));
-	    },
-	    componentDidUpdate: function componentDidUpdate(prevProps) {
-	        knumber.equal(this.getValue(), this.props.value) || this._setValue(this.props.value, this.state.format);
-	    },
-	    /* Return the current "value" of this input
-	     * If empty, it returns the placeholder (if it is a number) or null
-	     */
-	    getValue: function getValue() {
-	        return this.parseInputValue(ReactDOM.findDOMNode(this.refs.input).value);
-	    },
-	    /* Return the current string value of this input */
-	    getStringValue: function getStringValue() {
-	        return ReactDOM.findDOMNode(this.refs.input).value.toString();
-	    },
-	    parseInputValue: function parseInputValue(value) {
-	        if ("" === value) {
-	            var placeholder = this.props.placeholder;
-	            return _.isFinite(placeholder) ? +placeholder : null;
-	        }
-	        var result = firstNumericalParse(value);
-	        return _.isFinite(result) ? result : this.props.value;
-	    },
-	    /* Set text input focus to this input */
-	    focus: function focus() {
-	        ReactDOM.findDOMNode(this.refs.input).focus();
-	        this._handleFocus();
-	    },
-	    blur: function blur() {
-	        ReactDOM.findDOMNode(this.refs.input).blur();
-	        this._handleBlur();
-	    },
-	    setSelectionRange: function setSelectionRange(selectionStart, selectionEnd) {
-	        ReactDOM.findDOMNode(this).setSelectionRange(selectionStart, selectionEnd);
-	    },
-	    getSelectionStart: function getSelectionStart() {
-	        return ReactDOM.findDOMNode(this).selectionStart;
-	    },
-	    getSelectionEnd: function getSelectionEnd() {
-	        return ReactDOM.findDOMNode(this).selectionEnd;
-	    },
-	    _checkValidity: function _checkValidity(value) {
-	        if (null == value) return true;
-	        var val = firstNumericalParse(value);
-	        var checkValidity = this.props.checkValidity;
-	        return _.isFinite(val) && checkValidity(val);
-	    },
-	    _handleChange: function _handleChange(e) {
-	        var text = e.target.value;
-	        var value = this.parseInputValue(text);
-	        var format = getNumericFormat(text);
-	        this.props.onChange(value);
-	        if (format) {
-	            this.props.onFormatChange(value, format);
-	            this.setState({
-	                format: format
-	            });
-	        }
-	    },
-	    _handleFocus: function _handleFocus() {
-	        this.props.onFocus && this.props.onFocus();
-	    },
-	    _handleBlur: function _handleBlur(e) {
-	        // Only continue on blur or "enter"
-	        if (e && "keypress" === e.type && 13 !== e.keyCode) return;
-	        this._setValue(this.props.value, this.state.format);
-	        this.props.onBlur && this.props.onBlur();
-	    },
-	    _onKeyDown: function _onKeyDown(e) {
-	        this.props.onKeyDown && this.props.onKeyDown(e);
-	        if (!this.props.useArrowKeys || !_.contains([ "ArrowUp", "ArrowDown" ], e.key)) return;
-	        var val = this.getValue();
-	        if (val !== Math.floor(val)) return;
-	        "ArrowUp" === e.key ? val += 1 : "ArrowDown" === e.key && (val -= 1);
-	        this._checkValidity(val) && this.props.onChange(val);
-	    },
-	    _setValue: function _setValue(val, format) {
-	        $(ReactDOM.findDOMNode(this.refs.input)).val(toNumericString(val, format));
-	    }
-	});
-
-	module.exports = NumberInput;
-
-/***/ },
-/* 109 */,
-/* 110 */,
-/* 111 */,
-/* 112 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable brace-style, comma-dangle, no-redeclare, no-var, object-curly-spacing, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
@@ -12509,9 +12286,9 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var _ = __webpack_require__(10);
 
-	var Util = __webpack_require__(16);
+	var Util = __webpack_require__(17);
 
-	var GraphUtils = __webpack_require__(114);
+	var GraphUtils = __webpack_require__(111);
 
 	var _require = __webpack_require__(37), interactiveSizes = _require.interactiveSizes;
 
@@ -12712,7 +12489,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	            _.each(defaultInstructionsStyle, function(value, key) {
 	                $instructionsWrapper.css(key, value);
 	            });
-	            $instructionsWrapper.css("opacity", visible);
+	            $instructionsWrapper.css("opacity", .5);
 	            var $instructions = $("<span/>", {
 	                text: this.props.instructions
 	            });
@@ -12731,10 +12508,10 @@ webpackJsonpPerseus([1],Array(18).concat([
 	            this.props.onMouseDown(coord);
 	        }, this) : null;
 	        var onMouseOver = $instructionsWrapper ? function() {
-	            $instructionsWrapper && $instructionsWrapper.css("opacity", invisible);
+	            $instructionsWrapper && $instructionsWrapper.css("opacity", 0);
 	        } : null;
 	        var onMouseOut = $instructionsWrapper ? function() {
-	            $instructionsWrapper && $instructionsWrapper.css("opacity", visible);
+	            $instructionsWrapper && $instructionsWrapper.css("opacity", .5);
 	        } : null;
 	        graphie.addMouseLayer({
 	            onClick: this.props.onClick,
@@ -12792,7 +12569,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	module.exports = Graph;
 
 /***/ },
-/* 113 */
+/* 109 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12805,7 +12582,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	 */
 	var React = __webpack_require__(11);
 
-	var ReactComponentsInfoTip = __webpack_require__(140);
+	var ReactComponentsInfoTip = __webpack_require__(143);
 
 	var InfoTip = React.createClass({
 	    displayName: "InfoTip",
@@ -12828,6 +12605,194 @@ webpackJsonpPerseus([1],Array(18).concat([
 	module.exports = InfoTip;
 
 /***/ },
+/* 110 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _extends = Object.assign || function(target) {
+	    for (var i = 1; i < arguments.length; i++) {
+	        var source = arguments[i];
+	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
+	    }
+	    return target;
+	};
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, max-len, no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+	var classNames = __webpack_require__(13);
+
+	var React = __webpack_require__(11);
+
+	var ReactDOM = __webpack_require__(12);
+
+	var _ = __webpack_require__(10);
+
+	var firstNumericalParse = __webpack_require__(17).firstNumericalParse;
+
+	var captureScratchpadTouchStart = __webpack_require__(17).captureScratchpadTouchStart;
+
+	var knumber = __webpack_require__(132).number;
+
+	var KhanMath = __webpack_require__(83);
+
+	var toNumericString = KhanMath.toNumericString;
+
+	var getNumericFormat = KhanMath.getNumericFormat;
+
+	/* An input box that accepts only numeric strings
+	 *
+	 * Calls onChange(value, format) for valid numbers.
+	 * Reverts to the current value onBlur or on [ENTER],
+	 *   but maintains the format (i.e. 3/2, 1 1/2, 150%)
+	 * Accepts empty input and sends it to onChange as null
+	 *   if no numeric placeholder is set.
+	 * If given a checkValidity function, will turn
+	 *   the background/outline red when invalid
+	 * If useArrowKeys is set to true, up/down arrows will
+	 *   increment/decrement integers
+	 * Optionally takes a size ("mini", "small", "normal")
+	 */
+	var NumberInput = React.createClass({
+	    displayName: "NumberInput",
+	    propTypes: {
+	        value: React.PropTypes.number,
+	        format: React.PropTypes.string,
+	        placeholder: React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.number ]),
+	        onChange: React.PropTypes.func.isRequired,
+	        onFormatChange: React.PropTypes.func,
+	        checkValidity: React.PropTypes.func,
+	        size: React.PropTypes.string,
+	        label: React.PropTypes.oneOf([ "put your labels outside your inputs!" ])
+	    },
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            value: null,
+	            placeholder: null,
+	            format: null,
+	            onFormatChange: function onFormatChange() {
+	                return null;
+	            },
+	            checkValidity: function checkValidity() {
+	                return true;
+	            },
+	            useArrowKeys: false
+	        };
+	    },
+	    getInitialState: function getInitialState() {
+	        return {
+	            format: this.props.format
+	        };
+	    },
+	    render: function render() {
+	        var classes = classNames({
+	            "number-input": true,
+	            "invalid-input": !this._checkValidity(this.props.value),
+	            mini: "mini" === this.props.size,
+	            small: "small" === this.props.size,
+	            normal: "normal" === this.props.size
+	        });
+	        null != this.props.className && (classes = classes + " " + this.props.className);
+	        return React.createElement("input", _extends({}, this.props, {
+	            className: classes,
+	            type: "text",
+	            ref: "input",
+	            onChange: this._handleChange,
+	            onFocus: this._handleFocus,
+	            onBlur: this._handleBlur,
+	            onKeyPress: this._handleBlur,
+	            onKeyDown: this._onKeyDown,
+	            onTouchStart: captureScratchpadTouchStart,
+	            defaultValue: toNumericString(this.props.value, this.state.format),
+	            value: void 0
+	        }));
+	    },
+	    componentDidUpdate: function componentDidUpdate(prevProps) {
+	        knumber.equal(this.getValue(), this.props.value) || this._setValue(this.props.value, this.state.format);
+	    },
+	    /* Return the current "value" of this input
+	     * If empty, it returns the placeholder (if it is a number) or null
+	     */
+	    getValue: function getValue() {
+	        return this.parseInputValue(ReactDOM.findDOMNode(this.refs.input).value);
+	    },
+	    /* Return the current string value of this input */
+	    getStringValue: function getStringValue() {
+	        return ReactDOM.findDOMNode(this.refs.input).value.toString();
+	    },
+	    parseInputValue: function parseInputValue(value) {
+	        if ("" === value) {
+	            var placeholder = this.props.placeholder;
+	            return _.isFinite(placeholder) ? +placeholder : null;
+	        }
+	        var result = firstNumericalParse(value);
+	        return _.isFinite(result) ? result : this.props.value;
+	    },
+	    /* Set text input focus to this input */
+	    focus: function focus() {
+	        ReactDOM.findDOMNode(this.refs.input).focus();
+	        this._handleFocus();
+	    },
+	    blur: function blur() {
+	        ReactDOM.findDOMNode(this.refs.input).blur();
+	        this._handleBlur();
+	    },
+	    setSelectionRange: function setSelectionRange(selectionStart, selectionEnd) {
+	        ReactDOM.findDOMNode(this).setSelectionRange(selectionStart, selectionEnd);
+	    },
+	    getSelectionStart: function getSelectionStart() {
+	        return ReactDOM.findDOMNode(this).selectionStart;
+	    },
+	    getSelectionEnd: function getSelectionEnd() {
+	        return ReactDOM.findDOMNode(this).selectionEnd;
+	    },
+	    _checkValidity: function _checkValidity(value) {
+	        if (null == value) return true;
+	        var val = firstNumericalParse(value);
+	        var checkValidity = this.props.checkValidity;
+	        return _.isFinite(val) && checkValidity(val);
+	    },
+	    _handleChange: function _handleChange(e) {
+	        var text = e.target.value;
+	        var value = this.parseInputValue(text);
+	        var format = getNumericFormat(text);
+	        this.props.onChange(value);
+	        if (format) {
+	            this.props.onFormatChange(value, format);
+	            this.setState({
+	                format: format
+	            });
+	        }
+	    },
+	    _handleFocus: function _handleFocus() {
+	        this.props.onFocus && this.props.onFocus();
+	    },
+	    _handleBlur: function _handleBlur(e) {
+	        // Only continue on blur or "enter"
+	        if (e && "keypress" === e.type && 13 !== e.keyCode) return;
+	        this._setValue(this.props.value, this.state.format);
+	        this.props.onBlur && this.props.onBlur();
+	    },
+	    _onKeyDown: function _onKeyDown(e) {
+	        this.props.onKeyDown && this.props.onKeyDown(e);
+	        if (!this.props.useArrowKeys || !_.contains([ "ArrowUp", "ArrowDown" ], e.key)) return;
+	        var val = this.getValue();
+	        if (val !== Math.floor(val)) return;
+	        "ArrowUp" === e.key ? val += 1 : "ArrowDown" === e.key && (val -= 1);
+	        this._checkValidity(val) && this.props.onChange(val);
+	    },
+	    _setValue: function _setValue(val, format) {
+	        $(ReactDOM.findDOMNode(this.refs.input)).val(toNumericString(val, format));
+	    }
+	});
+
+	module.exports = NumberInput;
+
+/***/ },
+/* 111 */,
+/* 112 */,
+/* 113 */,
 /* 114 */,
 /* 115 */
 /***/ function(module, exports, __webpack_require__) {
@@ -12845,11 +12810,11 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var _ = __webpack_require__(10);
 
-	var Util = __webpack_require__(16);
+	var Util = __webpack_require__(17);
 
 	var Renderer = __webpack_require__(8);
 
-	var ApiClassNames = __webpack_require__(17).ClassNames;
+	var ApiClassNames = __webpack_require__(18).ClassNames;
 
 	var HORIZONTAL = "horizontal";
 
@@ -13023,8 +12988,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	    onMouseUp: function onMouseUp(event) {
 	        if (this.props.type !== DRAGGING) return;
 	        event.preventDefault();
-	        var loc = Util.extractPointerLocation(event);
-	        if (loc) {
+	        if (Util.extractPointerLocation(event)) {
 	            this.unbindMouseMoveUp();
 	            // Dragging -> Animating
 	            this.props.onMouseUp();
@@ -13266,7 +13230,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	var styles = StyleSheet.create({
 	    sortable: {
 	        boxSizing: "border-box",
-	        "float": "left",
+	        float: "left",
 	        padding: 0,
 	        margin: 0
 	    },
@@ -13290,7 +13254,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        textAlign: "center"
 	    },
 	    horizontalCard: {
-	        "float": "left",
+	        float: "left",
 	        cursor: "ew-resize"
 	    },
 	    verticalCard: {
@@ -13314,8 +13278,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	module.exports = Sortable;
 
 /***/ },
-/* 116 */,
-/* 117 */
+/* 116 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -13453,8 +13416,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	function trailingZeros(mantissa) {
 	    var zeros = 0;
 	    for (var i = mantissa.length - 1; i >= 0; i--) {
-	        var c = mantissa.charAt(i);
-	        if ("0" != c) return zeros;
+	        if ("0" != mantissa.charAt(i)) return zeros;
 	        zeros++;
 	    }
 	    return zeros;
@@ -13516,7 +13478,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	            beginning = false;
 	        }
 	    }
-	    return "" == all ? true : pos;
+	    return "" == all || pos;
 	}
 
 	/**
@@ -13719,6 +13681,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
+/* 117 */,
 /* 118 */,
 /* 119 */,
 /* 120 */,
@@ -13732,7 +13695,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var _ = __webpack_require__(10);
 
-	var Util = __webpack_require__(16);
+	var Util = __webpack_require__(17);
 
 	var Graphie = __webpack_require__(91);
 
@@ -13822,12 +13785,10 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        var num = p2[1] - p1[1];
 	        if (0 === denom) return;
 	        var m = num / denom;
-	        var b = p2[1] - m * p2[0];
-	        return [ m, b ];
+	        return [ m, p2[1] - m * p2[0] ];
 	    },
 	    getFunctionForCoeffs: function getFunctionForCoeffs(coeffs, x) {
-	        var m = coeffs[0], b = coeffs[1];
-	        return m * x + b;
+	        return coeffs[0] * x + coeffs[1];
 	    },
 	    getEquationString: function getEquationString(coords) {
 	        var coeffs = this.getCoefficients(coords);
@@ -13848,13 +13809,10 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        var k = p1[1];
 	        // Use these to calculate familiar a, b, c
 	        var a = (p2[1] - k) / ((p2[0] - h) * (p2[0] - h));
-	        var b = -2 * h * a;
-	        var c = a * h * h + k;
-	        return [ a, b, c ];
+	        return [ a, -2 * h * a, a * h * h + k ];
 	    },
 	    getFunctionForCoeffs: function getFunctionForCoeffs(coeffs, x) {
-	        var a = coeffs[0], b = coeffs[1], c = coeffs[2];
-	        return (a * x + b) * x + c;
+	        return (coeffs[0] * x + coeffs[1]) * x + coeffs[2];
 	    },
 	    getPropsForCoeffs: function getPropsForCoeffs(coeffs) {
 	        return {
@@ -13879,9 +13837,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        var p2 = coords[1];
 	        var a = p2[1] - p1[1];
 	        var b = Math.PI / (2 * (p2[0] - p1[0]));
-	        var c = p1[0] * b;
-	        var d = p1[1];
-	        return [ a, b, c, d ];
+	        return [ a, b, p1[0] * b, p1[1] ];
 	    },
 	    getFunctionForCoeffs: function getFunctionForCoeffs(coeffs, x) {
 	        var a = coeffs[0], b = coeffs[1], c = coeffs[2], d = coeffs[3];
@@ -13913,9 +13869,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        var p2 = coords[1];
 	        var a = p2[1] - p1[1];
 	        var b = Math.PI / (4 * (p2[0] - p1[0]));
-	        var c = p1[0] * b;
-	        var d = p1[1];
-	        return [ a, b, c, d ];
+	        return [ a, b, p1[0] * b, p1[1] ];
 	    },
 	    getFunctionForCoeffs: function getFunctionForCoeffs(coeffs, x) {
 	        var a = coeffs[0], b = coeffs[1], c = coeffs[2], d = coeffs[3];
@@ -13960,19 +13914,17 @@ webpackJsonpPerseus([1],Array(18).concat([
 	    },
 	    extraAsymptoteConstraint: function extraAsymptoteConstraint(newCoord, oldCoord, coords, asymptote, graph) {
 	        var y = newCoord[1];
-	        var isValid = _.all(coords, function(coord) {
+	        if (_.all(coords, function(coord) {
 	            return coord[1] > y;
 	        }) || _.all(coords, function(coord) {
 	            return coord[1] < y;
-	        });
-	        if (isValid) return [ oldCoord[0], y ];
+	        })) return [ oldCoord[0], y ];
 	        // Snap the asymptote as close as possible, i.e., if the user moves
 	        // the mouse really quickly into an invalid region
 	        var oldY = oldCoord[1];
-	        var wasBelow = _.all(coords, function(coord) {
+	        if (_.all(coords, function(coord) {
 	            return coord[1] > oldY;
-	        });
-	        if (wasBelow) {
+	        })) {
 	            var bottomMost = _.min(_.map(coords, function(coord) {
 	                return coord[1];
 	            }));
@@ -13989,8 +13941,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        var p2 = coords[1];
 	        var c = _.head(asymptote)[1];
 	        var b = Math.log((p1[1] - c) / (p2[1] - c)) / (p1[0] - p2[0]);
-	        var a = (p1[1] - c) / Math.exp(b * p1[0]);
-	        return [ a, b, c ];
+	        return [ (p1[1] - c) / Math.exp(b * p1[0]), b, c ];
 	    },
 	    getFunctionForCoeffs: function getFunctionForCoeffs(coeffs, x) {
 	        var a = coeffs[0], b = coeffs[1], c = coeffs[2];
@@ -14016,28 +13967,22 @@ webpackJsonpPerseus([1],Array(18).concat([
 	    },
 	    extraAsymptoteConstraint: function extraAsymptoteConstraint(newCoord, oldCoord, coords, asymptote, graph) {
 	        var x = newCoord[0];
-	        var isValid = _.all(coords, function(coord) {
+	        if (_.all(coords, function(coord) {
 	            return coord[0] > x;
 	        }) || _.all(coords, function(coord) {
 	            return coord[0] < x;
-	        });
-	        if (isValid) return [ x, oldCoord[1] ];
+	        })) return [ x, oldCoord[1] ];
 	        // Snap the asymptote as close as possible, i.e., if the user moves
 	        // the mouse really quickly into an invalid region
 	        var oldX = oldCoord[0];
-	        var wasLeft = _.all(coords, function(coord) {
+	        if (_.all(coords, function(coord) {
 	            return coord[0] > oldX;
-	        });
-	        if (wasLeft) {
-	            var leftMost = _.min(_.map(coords, function(coord) {
-	                return coord[0];
-	            }));
-	            return [ leftMost - graph.snapStep[0], oldCoord[1] ];
-	        }
-	        var rightMost = _.max(_.map(coords, function(coord) {
+	        })) return [ _.min(_.map(coords, function(coord) {
 	            return coord[0];
-	        }));
-	        return [ rightMost + graph.snapStep[0], oldCoord[1] ];
+	        })) - graph.snapStep[0], oldCoord[1] ];
+	        return [ _.max(_.map(coords, function(coord) {
+	            return coord[0];
+	        })) + graph.snapStep[0], oldCoord[1] ];
 	    },
 	    allowReflectOverAsymptote: true,
 	    getCoefficients: function getCoefficients(coords, asymptote) {
@@ -14051,8 +13996,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        var inverseCoeffs = Exponential.getCoefficients(_.map(coords, flip), _.map(asymptote, flip));
 	        var c = -inverseCoeffs[2] / inverseCoeffs[0];
 	        var b = 1 / inverseCoeffs[0];
-	        var a = 1 / inverseCoeffs[1];
-	        return [ a, b, c ];
+	        return [ 1 / inverseCoeffs[1], b, c ];
 	    },
 	    getFunctionForCoeffs: function getFunctionForCoeffs(coeffs, x, asymptote) {
 	        var a = coeffs[0], b = coeffs[1], c = coeffs[2];
@@ -14077,9 +14021,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        if (0 === denom) return;
 	        var m = Math.abs(num / denom);
 	        p2[1] < p1[1] && (m *= -1);
-	        var horizontalOffset = p1[0];
-	        var verticalOffset = p1[1];
-	        return [ m, horizontalOffset, verticalOffset ];
+	        return [ m, p1[0], p1[1] ];
 	    },
 	    getFunctionForCoeffs: function getFunctionForCoeffs(coeffs, x) {
 	        var m = coeffs[0], horizontalOffset = coeffs[1], verticalOffset = coeffs[2];
@@ -14144,9 +14086,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	    getEquationString: function getEquationString(props) {
 	        var plot = props.plot;
 	        if (plot.type && plot.coords) {
-	            var handler = functionForType(plot.type);
-	            var result = handler.getEquationString(plot.coords, plot.asymptote);
-	            return result || "";
+	            return functionForType(plot.type).getEquationString(plot.coords, plot.asymptote) || "";
 	        }
 	        return "";
 	    },
@@ -14209,10 +14149,9 @@ webpackJsonpPerseus([1],Array(18).concat([
 	    chooseType: _.first,
 	    getGridAndSnapSteps: function getGridAndSnapSteps(options, boxSize) {
 	        var gridStep = options.gridStep || Util.getGridStep(options.range, options.step, boxSize);
-	        var snapStep = options.snapStep || Util.snapStepFromGridStep(gridStep);
 	        return {
 	            gridStep: gridStep,
-	            snapStep: snapStep
+	            snapStep: options.snapStep || Util.snapStepFromGridStep(gridStep)
 	        };
 	    }
 	};
@@ -14545,7 +14484,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	    // TODO(colin): don't depend on the parser's indexing scheme and just track
 	    // this entirely in the layout engine.
 	    angle = parseInt(lastAtomIdx) % 2 !== 0 ? prevPositionedAtom.baseAngle - (baseAngleIncrement - angleIncrement * myIndex) : prevPositionedAtom.baseAngle + (baseAngleIncrement - angleIncrement * myIndex);
-	    var pos = polarAdd(prevPositionedAtom.pos, angle, bondLength);
+	    var pos = polarAdd(prevPositionedAtom.pos, angle, 30);
 	    atom.pos = pos;
 	    atom.baseAngle = angle;
 	    return {
@@ -14575,11 +14514,11 @@ webpackJsonpPerseus([1],Array(18).concat([
 	    var shrinkFactor = .25;
 	    var fromPos = [ fromAtom.pos[0], fromAtom.pos[1] ];
 	    var toPos = [ toAtom.pos[0], toAtom.pos[1] ];
-	    "C" !== fromAtom.symbol && (fromPos = [ toAtom.pos[0] - (1 - shrinkFactor) * (toAtom.pos[0] - fromAtom.pos[0]), toAtom.pos[1] - (1 - shrinkFactor) * (toAtom.pos[1] - fromAtom.pos[1]) ]);
+	    "C" !== fromAtom.symbol && (fromPos = [ toAtom.pos[0] - .75 * (toAtom.pos[0] - fromAtom.pos[0]), toAtom.pos[1] - .75 * (toAtom.pos[1] - fromAtom.pos[1]) ]);
 	    "C" !== toAtom.symbol && (// For carbon atoms, conventionally we don't draw any letter, so this
 	    // special cases drawing the bond lines all the way to the point where
 	    // they meet.
-	    toPos = [ fromAtom.pos[0] - (1 - shrinkFactor) * (fromAtom.pos[0] - toAtom.pos[0]), fromAtom.pos[1] - (1 - shrinkFactor) * (fromAtom.pos[1] - toAtom.pos[1]) ]);
+	    toPos = [ fromAtom.pos[0] - .75 * (fromAtom.pos[0] - toAtom.pos[0]), fromAtom.pos[1] - .75 * (fromAtom.pos[1] - toAtom.pos[1]) ]);
 	    return [ fromPos, toPos ];
 	}
 
@@ -14640,7 +14579,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	 */
 	function convertTree(atoms, bonds, tree) {
 	    if (null === tree) return [ atoms, bonds ];
-	    "atom" === tree.type && !function() {
+	    if ("atom" === tree.type) {
 	        var treeIdx = idxString(tree.idx);
 	        atoms[treeIdx] = {
 	            idx: treeIdx,
@@ -14658,7 +14597,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	            convertTree(atoms, bonds, b.to);
 	            atoms[toIdx].connections.push(treeIdx);
 	        });
-	    }();
+	    }
 	    return [ atoms, bonds ];
 	}
 
@@ -14730,8 +14669,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	    var converted = convertTree({}, [], tree);
 	    var atoms = converted[0];
 	    var bonds = converted[1];
-	    var outputs = atomLayoutHelper([], [ "1,0" ], atoms, bonds, rotationAngle);
-	    return bondLayoutHelper(outputs, atoms, bonds);
+	    return bondLayoutHelper(atomLayoutHelper([], [ "1,0" ], atoms, bonds, rotationAngle), atoms, bonds);
 	}
 
 	module.exports = {
@@ -14740,7 +14678,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	    // use.
 	    _atomLayout: atomLayout,
 	    _bondLayout: bondLayout,
-	    _bondLength: bondLength,
+	    _bondLength: 30,
 	    _convertTree: convertTree
 	};
 
@@ -14813,10 +14751,9 @@ webpackJsonpPerseus([1],Array(18).concat([
 	 *     path incremeneted.
 	 */
 	function _inc(obj, keylist) {
-	    var val = keylist.reduce(function(acc, elt) {
+	    return _mset(obj, keylist, keylist.reduce(function(acc, elt) {
 	        return acc[elt];
-	    }, obj);
-	    return _mset(obj, keylist, val + 1);
+	    }, obj) + 1);
 	}
 
 	function validate(smiles) {
@@ -14901,12 +14838,11 @@ webpackJsonpPerseus([1],Array(18).concat([
 	    var rest = null;
 	    if ("[" === smiles[0]) {
 	        var closingIdx = smiles.indexOf("]");
-	        if (-1 === closingIdx) return [ "", smiles ];
+	        if (closingIdx === -1) return [ "", smiles ];
 	        sym = smiles.slice(1, closingIdx);
 	        rest = smiles.slice(closingIdx + 1);
 	    } else {
-	        var match = atomRe.exec(smiles);
-	        sym = match[1];
+	        sym = atomRe.exec(smiles)[1];
 	        rest = smiles.slice(sym.length);
 	    }
 	    return [ sym, rest ];
@@ -15147,17 +15083,16 @@ webpackJsonpPerseus([1],Array(18).concat([
 	            var ref = state.lastRef + 1;
 	            state.lastRef = ref;
 	            state.currentRef.push(ref);
-	            var refContent = _parse2(// Curly quotes
-	            "(“" + capture[1] + "”)\n\n", _.defaults({
-	                // We don't want to parse refs while looking through
-	                // this refs contents. We definitely don't want
-	                // to make those refs into react refs on the
-	                // passage, for instance!
-	                useRefs: false
-	            }, INITIAL_PARSE_STATE));
 	            return {
 	                ref: ref,
-	                refContent: refContent
+	                refContent: _parse2(// Curly quotes
+	                "(“" + capture[1] + "”)\n\n", _.defaults({
+	                    // We don't want to parse refs while looking through
+	                    // this refs contents. We definitely don't want
+	                    // to make those refs into react refs on the
+	                    // passage, for instance!
+	                    useRefs: false
+	                }, INITIAL_PARSE_STATE))
 	            };
 	        },
 	        react: function react(node, output, state) {
@@ -15167,8 +15102,8 @@ webpackJsonpPerseus([1],Array(18).concat([
 	            // our state by the double-output here :).
 	            var refContent = output(node.refContent, {});
 	            return React.createElement(RefStart, {
-	                ref: START_REF_PREFIX + node.ref,
-	                key: START_REF_PREFIX + node.ref,
+	                ref: "start-ref-" + node.ref,
+	                key: "start-ref-" + node.ref,
 	                refContent: refContent
 	            });
 	        }
@@ -15180,15 +15115,14 @@ webpackJsonpPerseus([1],Array(18).concat([
 	            if (!state.useRefs) return {
 	                ref: null
 	            };
-	            var ref = state.currentRef.pop() || null;
 	            return {
-	                ref: ref
+	                ref: state.currentRef.pop() || null
 	            };
 	        },
 	        react: function react(node, output, state) {
 	            return null != node.ref ? React.createElement(RefEnd, {
-	                ref: END_REF_PREFIX + node.ref,
-	                key: END_REF_PREFIX + node.ref
+	                ref: "end-ref-" + node.ref,
+	                key: "end-ref-" + node.ref
 	            }) : null;
 	        }
 	    },
@@ -15321,15 +15255,14 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var parse = function parse(source, state) {
 	    state = state || {};
-	    var paragraphedSource = source + "\n\n";
-	    return builtParser(paragraphedSource, _.extend(state, INITIAL_PARSE_STATE));
+	    return builtParser(source + "\n\n", _.extend(state, INITIAL_PARSE_STATE));
 	};
 
 	module.exports = {
 	    parse: parse,
 	    output: SimpleMarkdown.reactFor(SimpleMarkdown.ruleOutput(rules, "react")),
-	    START_REF_PREFIX: START_REF_PREFIX,
-	    END_REF_PREFIX: END_REF_PREFIX,
+	    START_REF_PREFIX: "start-ref-",
+	    END_REF_PREFIX: "end-ref-",
 	    _rulesForTesting: rules
 	};
 
@@ -15345,7 +15278,11 @@ webpackJsonpPerseus([1],Array(18).concat([
 /* 134 */,
 /* 135 */,
 /* 136 */,
-/* 137 */
+/* 137 */,
+/* 138 */,
+/* 139 */,
+/* 140 */,
+/* 141 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -15389,9 +15326,8 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 138 */,
-/* 139 */,
-/* 140 */
+/* 142 */,
+/* 143 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -15503,4 +15439,4 @@ webpackJsonpPerseus([1],Array(18).concat([
 	module.exports = InfoTip;
 
 /***/ }
-]));
+]);

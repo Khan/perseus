@@ -160,20 +160,22 @@ const Util = {
         }
     },
 
-    keScoreFromPerseusScore: function(score, guess) {
+    keScoreFromPerseusScore: function(score, guess, state) {
         if (score.type === "points") {
             return {
                 empty: false,
                 correct: score.earned >= score.total,
                 message: score.message,
-                guess: guess
+                guess: guess,
+                state: state
             };
         } else if (score.type === "invalid") {
             return {
                 empty: true,
                 correct: false,
                 message: score.message,
-                guess: guess
+                guess: guess,
+                state: state
             };
         } else {
             throw new Error("Invalid score type: " + score.type);

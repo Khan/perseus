@@ -271,7 +271,11 @@ class MultiRenderer extends React.Component {
         }
 
         const [guess, score] = ref.guessAndScore();
-        return Util.keScoreFromPerseusScore(score, guess);
+        let state;
+        if (ref.getSerializedState) {
+            state = ref.getSerializedState();
+        }
+        return Util.keScoreFromPerseusScore(score, guess, state);
     }
 
     /**
@@ -289,9 +293,14 @@ class MultiRenderer extends React.Component {
      */
     score(): Score {
         const scores = [];
+        const state = [];
         const guess = this._mapRenderers(data => {
             if (!data.ref) {
                 return null;
+            }
+
+            if (data.ref.getSerializedState) {
+                state.push(data.ref.getSerializedState());
             }
 
             scores.push(data.ref.score());
@@ -300,7 +309,7 @@ class MultiRenderer extends React.Component {
 
         const combinedScore = scores.reduce(Util.combineScores);
 
-        return Util.keScoreFromPerseusScore(combinedScore, guess);
+        return Util.keScoreFromPerseusScore(combinedScore, guess, state);
     }
 
     /**

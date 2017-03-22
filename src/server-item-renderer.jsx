@@ -242,7 +242,8 @@ const ItemRenderer = React.createClass({
         //             analyzing ProblemLogs. If not, remove this layer.
         const maxCompatGuess = [guess, []];
 
-        const keScore = Util.keScoreFromPerseusScore(score, maxCompatGuess);
+        const keScore = Util.keScoreFromPerseusScore(score, maxCompatGuess,
+            this.questionRenderer.getSerializedState());
 
         const emptyQuestionAreaWidgets = this.questionRenderer.emptyWidgets();
 
@@ -270,8 +271,9 @@ const ItemRenderer = React.createClass({
     scoreWidgets: function() {
         const qScore = this.questionRenderer.scoreWidgets();
         const qGuess = this.questionRenderer.getUserInputForWidgets();
+        const state = this.questionRenderer.getSerializedState();
         return mapObject(qScore, (score, id) => {
-            return Util.keScoreFromPerseusScore(score, qGuess[id]);
+            return Util.keScoreFromPerseusScore(score, qGuess[id], state);
         });
     },
 
