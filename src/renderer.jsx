@@ -180,7 +180,8 @@ var Renderer = React.createClass({
         reviewMode: React.PropTypes.bool,
 
         serializedState: React.PropTypes.any,
-        // Callback which is called when serialized state changes.
+        // Callback which is called when serialized state changes with the new
+        // serialized state.
         onSerializedStateUpdated: React.PropTypes.func,
     },
 
@@ -451,16 +452,21 @@ var Renderer = React.createClass({
     *
     * The return value of this function can be sent to the
     * `restoreSerializedState` method to restore this state.
+    *
+    * If an instance of widgetProps is passed in, it generates the serialized
+    * state from that instead of the current widget props.
     */
-    getSerializedState: function() {
-        return mapObject(this.state.widgetProps, (props, widgetId) => {
-            var widget = this.getWidgetInstance(widgetId);
-            if (widget && widget.getSerializedState) {
-                return widget.getSerializedState();
-            } else {
-                return props;
-            }
-        });
+    getSerializedState: function(widgetProps) {
+        return mapObject(
+            widgetProps || this.state.widgetProps,
+            (props, widgetId) => {
+                var widget = this.getWidgetInstance(widgetId);
+                if (widget && widget.getSerializedState) {
+                    return widget.getSerializedState();
+                } else {
+                    return props;
+                }
+            });
     },
 
     restoreSerializedState: function(serializedState, callback) {
@@ -1277,9 +1283,10 @@ var Renderer = React.createClass({
     _setWidgetProps: function(id, newProps, cb) {
         var widgetProps = _.clone(this.state.widgetProps);
         widgetProps[id] = _.extend({}, widgetProps[id], newProps);
+        this.props.onSerializedStateUpdated(
+            this.getSerializedState(widgetProps));
         this.setState({widgetProps: widgetProps}, () => {
             var cbResult = cb && cb();
-            this.props.onSerializedStateUpdated();
             this.props.onInteractWithWidget(id);
             if (cbResult !== false) {
                 // TODO(jack): For some reason, some widgets don't always end

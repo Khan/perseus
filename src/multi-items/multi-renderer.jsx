@@ -157,12 +157,14 @@ class MultiRenderer extends React.Component {
         }
     }
 
-    _handleSerializedStateUpdated = () => {
+    _handleSerializedStateUpdated = (path: Path, newState: any) => {
         const {onSerializedStateUpdated} = this.props;
 
         if (onSerializedStateUpdated) {
+            const oldState = this._getSerializedState(
+                this.props.serializedState);
             onSerializedStateUpdated(
-                this.getSerializedState(this.props.serializedState));
+                lens(oldState).set(path, newState).freeze());
         }
     }
 
@@ -205,6 +207,8 @@ class MultiRenderer extends React.Component {
         const refFunc = e => data.ref = e;
         const findExternalWidgets =
             criterion => this._findWidgets(data, criterion);
+        const handleSerializedState = (state) =>
+            this._handleSerializedStateUpdated(path, state);
 
         data.makeRenderer = () => <Renderer
             {...this._getRendererProps()}
@@ -214,7 +218,7 @@ class MultiRenderer extends React.Component {
             serializedState={this.props.serializedState
                 ? lens(this.props.serializedState).get(path)
                 : null}
-            onSerializedStateUpdated={this._handleSerializedStateUpdated}
+            onSerializedStateUpdated={handleSerializedState}
         />;
         return data;
     }
@@ -353,7 +357,7 @@ class MultiRenderer extends React.Component {
      * supplied, `null` will be returned for not-currently-rendered content and
      * hint nodes.
      */
-    getSerializedState(
+    _getSerializedState(
         lastSerializedState?: SerializedStateTree,
     ): SerializedStateTree {
         return this._mapRenderers((data, _, path) => {
