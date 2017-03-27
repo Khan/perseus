@@ -78,16 +78,21 @@ const ToggleableRadioButton = React.createClass({
     },
 
     render: function() {
-        const inputProps = _.extend({}, this.props, {
-            type: "radio",
-            onChange: this.handleChange,
-            onClick: this.handleClick,
-            onKeyDown: this.handleKeyDown,
-            onKeyUp: this.handleKeyUp,
-            ref: this.props.inputRef,
-        });
+        const {
+            inputRef, // eslint-disable-line no-unused-vars
+            onChecked, // eslint-disable-line no-unused-vars
+            ...otherProps
+        } = this.props;
 
-        return <input {...inputProps} />;
+        return <input
+            {...otherProps}
+            type="radio"
+            onChange={this.handleChange}
+            onClick={this.handleClick}
+            onKeyDown={this.handleKeyDown}
+            onKeyUp={this.handleKeyUp}
+            ref={this.props.inputRef}
+        />;
     },
 });
 
