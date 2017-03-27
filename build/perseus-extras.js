@@ -85,9 +85,9 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var ApiClassNames = __webpack_require__(18).ClassNames;
+	var ApiClassNames = __webpack_require__(17).ClassNames;
 
-	var ApiOptions = __webpack_require__(18).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
 	var _require2 = __webpack_require__(89), iconCircle = _require2.iconCircle, iconCircleThin = _require2.iconCircleThin;
 
@@ -95,7 +95,7 @@ webpackJsonpPerseus([1],[
 
 	var Renderer = __webpack_require__(8);
 
-	var Util = __webpack_require__(17);
+	var Util = __webpack_require__(18);
 
 	var mediaQueries = __webpack_require__(35);
 
@@ -304,7 +304,7 @@ webpackJsonpPerseus([1],[
 
 	var Changeable = __webpack_require__(85);
 
-	var updateQueryString = __webpack_require__(17).updateQueryString;
+	var updateQueryString = __webpack_require__(18).updateQueryString;
 
 	var PADDING_WIDTH = 2;
 
@@ -476,9 +476,9 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var ApiClassNames = __webpack_require__(18).ClassNames;
+	var ApiClassNames = __webpack_require__(17).ClassNames;
 
-	var ApiOptions = __webpack_require__(18).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
 	var InlineIcon = __webpack_require__(86);
 
@@ -486,7 +486,7 @@ webpackJsonpPerseus([1],[
 
 	var _require2 = __webpack_require__(89), iconDropdownArrow = _require2.iconDropdownArrow;
 
-	var captureScratchpadTouchStart = __webpack_require__(17).captureScratchpadTouchStart;
+	var captureScratchpadTouchStart = __webpack_require__(18).captureScratchpadTouchStart;
 
 	var dropdownArrowSize = 24;
 
@@ -646,7 +646,7 @@ webpackJsonpPerseus([1],[
 
 	var Changeable = __webpack_require__(85);
 
-	var PerseusApi = __webpack_require__(18);
+	var PerseusApi = __webpack_require__(17);
 
 	var Renderer = __webpack_require__(8);
 
@@ -870,13 +870,13 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var Interactive2 = __webpack_require__(103);
+	var Interactive2 = __webpack_require__(102);
 
 	var SvgImage = __webpack_require__(33);
 
-	var Util = __webpack_require__(17);
+	var Util = __webpack_require__(18);
 
-	var ButtonGroup = __webpack_require__(104);
+	var ButtonGroup = __webpack_require__(103);
 
 	/* Graphie and relevant components. */
 	var Graphie = __webpack_require__(91);
@@ -885,7 +885,7 @@ webpackJsonpPerseus([1],[
 
 	var MovableLine = Graphie.MovableLine;
 
-	var WrappedLine = __webpack_require__(105);
+	var WrappedLine = __webpack_require__(104);
 
 	var knumber = __webpack_require__(132).number;
 
@@ -893,7 +893,7 @@ webpackJsonpPerseus([1],[
 
 	var kpoint = __webpack_require__(132).point;
 
-	var KhanColors = __webpack_require__(106);
+	var KhanColors = __webpack_require__(105);
 
 	var _require = __webpack_require__(77), containerSizeClassPropType = _require.containerSizeClassPropType;
 
@@ -1324,7 +1324,7 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var ApiOptions = __webpack_require__(18).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
 	var Changeable = __webpack_require__(85);
 
@@ -1334,7 +1334,7 @@ webpackJsonpPerseus([1],[
 
 	var Renderer = __webpack_require__(8);
 
-	var GradedGroupAnswerBar = __webpack_require__(102);
+	var GradedGroupAnswerBar = __webpack_require__(106);
 
 	var _require2 = __webpack_require__(37), gray76 = _require2.gray76, phoneMargin = _require2.phoneMargin, negativePhoneMargin = _require2.negativePhoneMargin, tableBackgroundAccent = _require2.tableBackgroundAccent, kaGreen = _require2.kaGreen;
 
@@ -1644,7 +1644,7 @@ webpackJsonpPerseus([1],[
 
 	var _require = __webpack_require__(14), StyleSheet = _require.StyleSheet, css = _require.css;
 
-	var ApiOptions = __webpack_require__(18).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
 	var Changeable = __webpack_require__(85);
 
@@ -1848,7 +1848,7 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var ApiOptions = __webpack_require__(18).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
 	var Changeable = __webpack_require__(85);
 
@@ -2023,7 +2023,7 @@ webpackJsonpPerseus([1],[
 
 	var WidgetJsonifyDeprecated = __webpack_require__(101);
 
-	var updateQueryString = __webpack_require__(17).updateQueryString;
+	var updateQueryString = __webpack_require__(18).updateQueryString;
 
 	/* This renders the iframe and handles validation via window.postMessage */
 	var Iframe = React.createClass({
@@ -2186,7 +2186,7 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var ApiOptions = __webpack_require__(18).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
 	var _require2 = __webpack_require__(37), baseUnitPx = _require2.baseUnitPx;
 
@@ -2907,17 +2907,17 @@ webpackJsonpPerseus([1],[
 
 	var InfoTip = __webpack_require__(114);
 
-	var Interactive2 = __webpack_require__(103);
+	var Interactive2 = __webpack_require__(102);
 
 	var NumberInput = __webpack_require__(108);
 
-	var Util = __webpack_require__(17);
+	var Util = __webpack_require__(18);
 
 	var knumber = __webpack_require__(132).number;
 
 	var kpoint = __webpack_require__(132).point;
 
-	var KhanColors = __webpack_require__(106);
+	var KhanColors = __webpack_require__(105);
 
 	var GraphUtils = __webpack_require__(112);
 
@@ -2925,7 +2925,7 @@ webpackJsonpPerseus([1],[
 
 	var _require2 = __webpack_require__(77), containerSizeClassPropType = _require2.containerSizeClassPropType, getInteractiveBoxFromSizeClass = _require2.getInteractiveBoxFromSizeClass;
 
-	var WrappedLine = __webpack_require__(105);
+	var WrappedLine = __webpack_require__(104);
 
 	var DeprecationMixin = Util.DeprecationMixin;
 
@@ -3684,7 +3684,7 @@ webpackJsonpPerseus([1],[
 	            radius: this.props.graph.radius || _.min(this.props.step),
 	            snapX: graphie.snap[0],
 	            snapY: graphie.snap[1],
-	            minRadius: 2 * minSnap,
+	            minRadius: minSnap,
 	            snapRadius: minSnap
 	        });
 	        $(circle).on("move", function() {
@@ -4964,15 +4964,15 @@ webpackJsonpPerseus([1],[
 
 	var SimpleKeypadInput = __webpack_require__(80);
 
-	var ApiOptions = __webpack_require__(18).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
-	var KhanAnswerTypes = __webpack_require__(75);
+	var KhanAnswerTypes = __webpack_require__(76);
 
 	var keypadElementPropType = __webpack_require__(78).propTypes.keypadElementPropType;
 
 	var assert = __webpack_require__(111).assert;
 
-	var stringArrayOfSize = __webpack_require__(17).stringArrayOfSize;
+	var stringArrayOfSize = __webpack_require__(18).stringArrayOfSize;
 
 	// We store three sets of dimensions for the brackets, for our three types of
 	// inputs, which vary in formatting: (1) the "static" inputs rendered for the
@@ -5381,11 +5381,11 @@ webpackJsonpPerseus([1],[
 
 	var Sortable = __webpack_require__(107);
 
-	var ApiOptions = __webpack_require__(18).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
-	var shuffle = __webpack_require__(17).shuffle;
+	var shuffle = __webpack_require__(18).shuffle;
 
-	var seededRNG = __webpack_require__(17).seededRNG;
+	var seededRNG = __webpack_require__(18).seededRNG;
 
 	var HACKY_CSS_CLASSNAME = "perseus-widget-matcher";
 
@@ -5560,7 +5560,7 @@ webpackJsonpPerseus([1],[
 
 	var _2 = __webpack_require__(10);
 
-	var ApiOptions = __webpack_require__(18).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
 	var GraphUtils = __webpack_require__(112);
 
@@ -5899,7 +5899,7 @@ webpackJsonpPerseus([1],[
 
 	var SimpleKeypadInput = __webpack_require__(80);
 
-	var ApiOptions = __webpack_require__(18).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
 	var keypadElementPropType = __webpack_require__(78).propTypes.keypadElementPropType;
 
@@ -5913,7 +5913,7 @@ webpackJsonpPerseus([1],[
 
 	var KhanMath = __webpack_require__(83);
 
-	var KhanColors = __webpack_require__(106);
+	var KhanColors = __webpack_require__(105);
 
 	var bound = function bound(x, gt, lt) {
 	    return Math.min(Math.max(x, gt), lt);
@@ -6428,9 +6428,9 @@ webpackJsonpPerseus([1],[
 
 	var Renderer = __webpack_require__(8);
 
-	var Util = __webpack_require__(17);
+	var Util = __webpack_require__(18);
 
-	var ApiClassNames = __webpack_require__(18).ClassNames;
+	var ApiClassNames = __webpack_require__(17).ClassNames;
 
 	var PlaceholderCard = React.createClass({
 	    displayName: "PlaceholderCard",
@@ -7756,19 +7756,19 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var ApiClassNames = __webpack_require__(18).ClassNames;
+	var ApiClassNames = __webpack_require__(17).ClassNames;
 
-	var deepEq = __webpack_require__(17).deepEq;
+	var deepEq = __webpack_require__(18).deepEq;
 
 	var KhanMath = __webpack_require__(83);
 
-	var KhanColors = __webpack_require__(106);
+	var KhanColors = __webpack_require__(105);
 
 	var GraphUtils = __webpack_require__(112);
 
-	var Interactive2 = __webpack_require__(103);
+	var Interactive2 = __webpack_require__(102);
 
-	var WrappedLine = __webpack_require__(105);
+	var WrappedLine = __webpack_require__(104);
 
 	var BAR = "bar", LINE = "line", PIC = "pic", HISTOGRAM = "histogram", DOTPLOT = "dotplot";
 
@@ -8609,7 +8609,7 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var ApiOptions = __webpack_require__(18).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
 	var Changeable = __webpack_require__(85);
 
@@ -8619,7 +8619,7 @@ webpackJsonpPerseus([1],[
 
 	var Renderer = __webpack_require__(8);
 
-	var Util = __webpack_require__(17);
+	var Util = __webpack_require__(18);
 
 	var Sequence = React.createClass({
 	    displayName: "Sequence",
@@ -8752,7 +8752,7 @@ webpackJsonpPerseus([1],[
 
 	var Changeable = __webpack_require__(85);
 
-	var ApiOptions = __webpack_require__(18).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
 	var assert = __webpack_require__(111).assert;
 
@@ -8764,13 +8764,13 @@ webpackJsonpPerseus([1],[
 
 	var MathOutput = __webpack_require__(110);
 
-	var seededRNG = __webpack_require__(17).seededRNG;
+	var seededRNG = __webpack_require__(18).seededRNG;
 
-	var Util = __webpack_require__(17);
+	var Util = __webpack_require__(18);
 
 	var knumber = __webpack_require__(132).number;
 
-	var KhanColors = __webpack_require__(106);
+	var KhanColors = __webpack_require__(105);
 
 	var KhanMath = __webpack_require__(83);
 
@@ -9335,9 +9335,9 @@ webpackJsonpPerseus([1],[
 
 	var Sortable = __webpack_require__(107);
 
-	var ApiOptions = __webpack_require__(18).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
-	var shuffle = __webpack_require__(17).shuffle;
+	var shuffle = __webpack_require__(18).shuffle;
 
 	var HORIZONTAL = "horizontal", VERTICAL = "vertical";
 
@@ -9429,13 +9429,13 @@ webpackJsonpPerseus([1],[
 
 	var Renderer = __webpack_require__(8);
 
-	var Util = __webpack_require__(17);
+	var Util = __webpack_require__(18);
 
 	var keypadElementPropType = __webpack_require__(78).propTypes.keypadElementPropType;
 
-	var ApiOptions = __webpack_require__(18).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
-	var KhanAnswerTypes = __webpack_require__(75);
+	var KhanAnswerTypes = __webpack_require__(76);
 
 	var assert = __webpack_require__(111).assert;
 
@@ -9743,7 +9743,7 @@ webpackJsonpPerseus([1],[
 
 	var SimpleKeypadInput = __webpack_require__(80);
 
-	var ApiOptions = __webpack_require__(18).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
 	var keypadElementPropType = __webpack_require__(78).propTypes.keypadElementPropType;
 
@@ -9761,11 +9761,11 @@ webpackJsonpPerseus([1],[
 
 	var _require = __webpack_require__(89), iconPlus = _require.iconPlus, iconUndo = _require.iconUndo;
 
-	var deepEq = __webpack_require__(17).deepEq;
+	var deepEq = __webpack_require__(18).deepEq;
 
-	var getGridStep = __webpack_require__(17).getGridStep;
+	var getGridStep = __webpack_require__(18).getGridStep;
 
-	var captureScratchpadTouchStart = __webpack_require__(17).captureScratchpadTouchStart;
+	var captureScratchpadTouchStart = __webpack_require__(18).captureScratchpadTouchStart;
 
 	var knumber = __webpack_require__(132).number;
 
@@ -9779,7 +9779,7 @@ webpackJsonpPerseus([1],[
 
 	var KhanMath = __webpack_require__(83);
 
-	var KhanColors = __webpack_require__(106);
+	var KhanColors = __webpack_require__(105);
 
 	var assert = __webpack_require__(111).assert;
 
@@ -11743,9 +11743,9 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var ApiClassNames = __webpack_require__(18).ClassNames;
+	var ApiClassNames = __webpack_require__(17).ClassNames;
 
-	var ApiOptions = __webpack_require__(18).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
 	var Changeable = __webpack_require__(85);
 
@@ -12097,7 +12097,94 @@ webpackJsonpPerseus([1],[
 /* 99 */,
 /* 100 */,
 /* 101 */,
-/* 102 */
+/* 102 */,
+/* 103 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/* ButtonGroup is an aesthetically pleasing group of buttons.
+	 *
+	 * The class requires these properties:
+	 *   buttons - an array of objects with keys:
+	 *     "value": this is the value returned when the button is selected
+	 *     "content": this is the JSX shown within the button, typically a string
+	 *         that gets rendered as the button's display text
+	 *     "title": this is the title-text shown on hover
+	 *   onChange - a function that is provided with the updated value
+	 *     (which it then is responsible for updating)
+	 *
+	 * The class has these optional properties:
+	 *   value - the initial value of the button selected, defaults to null.
+	 *   allowEmpty - if false, exactly one button _must_ be selected; otherwise
+	 *     it defaults to true and _at most_ one button (0 or 1) may be selected.
+	 *
+	 * Requires stylesheets/perseus-admin-package/editor.less to look nice.
+	 */
+	var React = __webpack_require__(11);
+
+	var ReactDOM = __webpack_require__(12);
+
+	var styles = __webpack_require__(137);
+
+	var css = __webpack_require__(14).css;
+
+	var ButtonGroup = React.createClass({
+	    displayName: "ButtonGroup",
+	    propTypes: {
+	        value: React.PropTypes.any,
+	        buttons: React.PropTypes.arrayOf(React.PropTypes.shape({
+	            value: React.PropTypes.any.isRequired,
+	            content: React.PropTypes.node,
+	            title: React.PropTypes.string
+	        })).isRequired,
+	        onChange: React.PropTypes.func.isRequired,
+	        allowEmpty: React.PropTypes.bool
+	    },
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            value: null,
+	            allowEmpty: true
+	        };
+	    },
+	    focus: function focus() {
+	        ReactDOM.findDOMNode(this).focus();
+	        return true;
+	    },
+	    toggleSelect: function toggleSelect(newValue) {
+	        var value = this.props.value;
+	        this.props.allowEmpty ? // Select the new button or unselect if it's already selected
+	        this.props.onChange(value !== newValue ? newValue : null) : this.props.onChange(newValue);
+	    },
+	    render: function render() {
+	        var _this = this;
+	        var value = this.props.value;
+	        var buttons = this.props.buttons.map(function(button, i) {
+	            return React.createElement("button", {
+	                title: button.title,
+	                type: "button",
+	                id: "" + i,
+	                ref: "button" + i,
+	                key: "" + i,
+	                className: css(styles.button.buttonStyle, button.value === value && styles.button.selectedStyle),
+	                onClick: _this.toggleSelect.bind(_this, button.value)
+	            }, button.content || "" + button.value);
+	        });
+	        var outerStyle = {
+	            display: "inline-block"
+	        };
+	        return React.createElement("div", {
+	            style: outerStyle
+	        }, buttons);
+	    }
+	});
+
+	module.exports = ButtonGroup;
+
+/***/ },
+/* 104 */,
+/* 105 */,
+/* 106 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12116,7 +12203,7 @@ webpackJsonpPerseus([1],[
 	 */
 	var React = __webpack_require__(11);
 
-	var ApiOptions = __webpack_require__(18).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
 	var InlineIcon = __webpack_require__(86);
 
@@ -12261,93 +12348,6 @@ webpackJsonpPerseus([1],[
 	module.exports = GradedGroupAnswerBar;
 
 /***/ },
-/* 103 */,
-/* 104 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/* ButtonGroup is an aesthetically pleasing group of buttons.
-	 *
-	 * The class requires these properties:
-	 *   buttons - an array of objects with keys:
-	 *     "value": this is the value returned when the button is selected
-	 *     "content": this is the JSX shown within the button, typically a string
-	 *         that gets rendered as the button's display text
-	 *     "title": this is the title-text shown on hover
-	 *   onChange - a function that is provided with the updated value
-	 *     (which it then is responsible for updating)
-	 *
-	 * The class has these optional properties:
-	 *   value - the initial value of the button selected, defaults to null.
-	 *   allowEmpty - if false, exactly one button _must_ be selected; otherwise
-	 *     it defaults to true and _at most_ one button (0 or 1) may be selected.
-	 *
-	 * Requires stylesheets/perseus-admin-package/editor.less to look nice.
-	 */
-	var React = __webpack_require__(11);
-
-	var ReactDOM = __webpack_require__(12);
-
-	var styles = __webpack_require__(133);
-
-	var css = __webpack_require__(14).css;
-
-	var ButtonGroup = React.createClass({
-	    displayName: "ButtonGroup",
-	    propTypes: {
-	        value: React.PropTypes.any,
-	        buttons: React.PropTypes.arrayOf(React.PropTypes.shape({
-	            value: React.PropTypes.any.isRequired,
-	            content: React.PropTypes.node,
-	            title: React.PropTypes.string
-	        })).isRequired,
-	        onChange: React.PropTypes.func.isRequired,
-	        allowEmpty: React.PropTypes.bool
-	    },
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            value: null,
-	            allowEmpty: true
-	        };
-	    },
-	    focus: function focus() {
-	        ReactDOM.findDOMNode(this).focus();
-	        return true;
-	    },
-	    toggleSelect: function toggleSelect(newValue) {
-	        var value = this.props.value;
-	        this.props.allowEmpty ? // Select the new button or unselect if it's already selected
-	        this.props.onChange(value !== newValue ? newValue : null) : this.props.onChange(newValue);
-	    },
-	    render: function render() {
-	        var _this = this;
-	        var value = this.props.value;
-	        var buttons = this.props.buttons.map(function(button, i) {
-	            return React.createElement("button", {
-	                title: button.title,
-	                type: "button",
-	                id: "" + i,
-	                ref: "button" + i,
-	                key: "" + i,
-	                className: css(styles.button.buttonStyle, button.value === value && styles.button.selectedStyle),
-	                onClick: _this.toggleSelect.bind(_this, button.value)
-	            }, button.content || "" + button.value);
-	        });
-	        var outerStyle = {
-	            display: "inline-block"
-	        };
-	        return React.createElement("div", {
-	            style: outerStyle
-	        }, buttons);
-	    }
-	});
-
-	module.exports = ButtonGroup;
-
-/***/ },
-/* 105 */,
-/* 106 */,
 /* 107 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -12364,11 +12364,11 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var Util = __webpack_require__(17);
+	var Util = __webpack_require__(18);
 
 	var Renderer = __webpack_require__(8);
 
-	var ApiClassNames = __webpack_require__(18).ClassNames;
+	var ApiClassNames = __webpack_require__(17).ClassNames;
 
 	var HORIZONTAL = "horizontal";
 
@@ -12857,9 +12857,9 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var firstNumericalParse = __webpack_require__(17).firstNumericalParse;
+	var firstNumericalParse = __webpack_require__(18).firstNumericalParse;
 
-	var captureScratchpadTouchStart = __webpack_require__(17).captureScratchpadTouchStart;
+	var captureScratchpadTouchStart = __webpack_require__(18).captureScratchpadTouchStart;
 
 	var knumber = __webpack_require__(132).number;
 
@@ -13036,7 +13036,7 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var Util = __webpack_require__(17);
+	var Util = __webpack_require__(18);
 
 	var GraphUtils = __webpack_require__(112);
 
@@ -13773,7 +13773,7 @@ webpackJsonpPerseus([1],[
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var _ = __webpack_require__(10);
 
-	var Util = __webpack_require__(17);
+	var Util = __webpack_require__(18);
 
 	var Graphie = __webpack_require__(91);
 
@@ -15383,7 +15383,11 @@ webpackJsonpPerseus([1],[
 /* 130 */,
 /* 131 */,
 /* 132 */,
-/* 133 */
+/* 133 */,
+/* 134 */,
+/* 135 */,
+/* 136 */,
+/* 137 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -15427,10 +15431,6 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 134 */,
-/* 135 */,
-/* 136 */,
-/* 137 */,
 /* 138 */,
 /* 139 */,
 /* 140 */,
