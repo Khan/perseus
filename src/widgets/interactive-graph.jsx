@@ -1076,7 +1076,7 @@ var InteractiveGraph = React.createClass({
             radius: this.props.graph.radius || _.min(this.props.step),
             snapX: graphie.snap[0],
             snapY: graphie.snap[1],
-            minRadius: minSnap * 2,
+            minRadius: minSnap,
             snapRadius: minSnap
         });
 

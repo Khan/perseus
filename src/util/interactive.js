@@ -843,10 +843,11 @@ _.extend(GraphUtils.Graphie.prototype, {
         if (movablePoint.visible && !movablePoint.constraints.fixed) {
             // the invisible shape in front of the point that gets mouse events
             if (!movablePoint.mouseTarget) {
-                const radii = graph.unscaleVector(24);
+                const radii = graph.unscaleVector(16);
                 const options = {
                     mouselayer: true,
                     padding: 0,
+                    disableMouseEventsOnWrapper: true,
                 };
                 movablePoint.mouseTarget = new WrappedEllipse(graph,
                     movablePoint.coord, radii, options);
@@ -2094,8 +2095,8 @@ _.extend(GraphUtils.Graphie.prototype, {
             circle.perim.remove();
         };
 
-        $(circle.perim[0]).css("cursor", "move");
-        $(circle.perim[0]).on(
+        $(circle.perim.node).css("cursor", "move");
+        $(circle.perim.node).on(
             "vmouseover vmouseout vmousedown", function(event) {
                 if (event.type === "vmouseover") {
                     circle.highlight = true;
