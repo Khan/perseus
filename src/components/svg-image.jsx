@@ -433,7 +433,7 @@ var SvgImage = React.createClass({
                 // without coordinates. They don't seem to have any content, so
                 // it seems fine to just ignore them (rather than error), but
                 // we should figure out why this is happening.
-                var label = graphie.label(
+                const label = graphie.label(
                     labelData.coordinates,
                     labelData.content,
                     labelData.alignment,
@@ -445,12 +445,25 @@ var SvgImage = React.createClass({
                 // TODO(alex): Dynamically resize font-size as well. This
                 // almost certainly means listening to throttled window.resize
                 // events.
-                var position = label.position();
-                var height = this.props.height * this.props.scale;
-                var width = this.props.width * this.props.scale;
+                const labelStyle = label[0].style;
+                let labelTop = this._tryGetPixels(labelStyle.top);
+                let labelLeft = this._tryGetPixels(labelStyle.left);
+                if (labelTop === null || labelLeft === null) {
+                    // Graphie labels are supposed to have an explicit position,
+                    // but to be on the safe side, let's fall back to using
+                    // jQuery's position(). The reason we're not always using
+                    // this is that in the presence of CSS transforms, it will
+                    // give the rendered position, which may be scaled and
+                    // not equal to the explicitly specified one.
+                    const labelPosition = label.position();
+                    labelTop = labelPosition.top;
+                    labelLeft = labelPosition.left;
+                }
+                const svgHeight = this.props.height * this.props.scale;
+                const svgWidth = this.props.width * this.props.scale;
                 label.css({
-                    top: position.top / height * 100 + '%',
-                    left: position.left / width * 100 + '%',
+                    top: labelTop / svgHeight * 100 + '%',
+                    left: labelLeft / svgWidth * 100 + '%',
                 });
 
                 // Add back the styles to each of the labels
@@ -459,6 +472,20 @@ var SvgImage = React.createClass({
                 });
             }
         });
+    },
+
+    // Try to parse a CSS value as pixels. Returns null if the parameter string
+    // does not contain a number followed by "px".
+    _tryGetPixels: function(value) {
+        value = value || "";
+        // While this doesn't check that there are no other alphabetical
+        // characters prior to "px", that should be taken care of by the DOM,
+        // which won't accept invalid units.
+        if (!value.endsWith("px")) {
+            return null;
+        }
+        // parseFloat() ignores trailing non-numerical characters.
+        return parseFloat(value) || null;
     },
 
     _handleZoomClick: function(e) {
