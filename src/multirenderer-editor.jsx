@@ -323,7 +323,9 @@ const ItemNodeContent = (props) => {
             apiOptions={apiOptions}
         />;
     } else {
-        return lens(renderers).get(path);
+        return <div className="framework-perseus">
+            {lens(renderers).get(path)}
+        </div>;
     }
 };
 ItemNodeContent.propTypes = nodePropTypes;
@@ -343,7 +345,9 @@ const HintNodeContent = (props) => {
             showMoveButtons={false}
         />;
     } else {
-        return lens(renderers).get(path);
+        return <div className="framework-perseus">
+            {lens(renderers).get(path)}
+        </div>;
     }
 };
 HintNodeContent.propTypes = nodePropTypes;
