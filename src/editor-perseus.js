@@ -2,7 +2,8 @@ const Perseus = require("./perseus.js");
 
 module.exports = {
     itemVersion:            require("./item-version"),
-    RevisionDiff:           require("./diffs/revision-diff.jsx"),
+    ItemDiff:               require("./diffs/item-diff.jsx"),
+    ArticleDiff:            require("./diffs/article-diff.jsx"),
     StatefulArticleEditor:  require("./stateful-article-editor.jsx"),
     StatefulEditorPage:     require("./stateful-editor-page.jsx"),
     ClassNames:             require("./perseus-api.jsx").ClassNames,

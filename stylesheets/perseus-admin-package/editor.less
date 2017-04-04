@@ -1308,3 +1308,117 @@
 .marvel-device.iphone6.silver:after {
   z-index: 1;
 }
+
+.perseus-diff {
+    @borderColor: #E4E4E4;
+    margin: 0 10px;
+
+    .diff-header {
+        font-size: 18px;
+        padding: 10px 0;
+        width: 50%;
+        display: inline-block;
+        &.collapsed {
+            font-size: 14px;
+            padding: 0px;
+        }
+    }
+
+    .diff-body {
+        border-top: 1px solid @borderColor;
+        border-bottom: 1px solid @borderColor;
+    }
+
+    .diff-row {
+        width: 50%;
+        white-space: pre-wrap;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        font-size: 14px;
+        padding-right: 20px;
+        padding-left: 10px;
+        overflow: hidden;
+        &.collapsed {
+            color: #888;
+            cursor: pointer;
+            &:hover {
+                color: #666;
+            }
+
+            &:active {
+                color: #444;
+            }
+        }
+
+        .diff-line {
+            margin-bottom: 20px;
+        }
+    }
+
+    .before {
+        float: left;
+        border-left: 1px solid @borderColor;
+    }
+
+    .after {
+        float: right;
+        border-right: 1px solid @borderColor;
+        border-left: 1px solid @borderColor;
+    }
+
+    .inner-value {
+        height: 100%;
+        padding: 3px;
+    }
+
+    .not-present {
+        display: none;
+    }
+
+    .blank-space {
+        visibility: hidden;
+    }
+
+
+    .added {
+        background-color: #EEFFEE;
+        &.dark {
+            background-color: #AAFFAA;
+        }
+    }
+
+    .removed {
+        background-color: #FFEEEE;
+        &.dark {
+            background-color: #FFAAAA;
+        }
+    }
+
+    .image {
+        display: inline-block;
+        margin-left: 20px;
+        margin-bottom: 10px;
+
+        &, > div, > img {
+            max-height: 300px;
+            max-width: 100%;
+        }
+    }
+
+    .image-unchanged {
+        border: 1px solid #AAAAAA;
+    }
+
+    .image-added {
+        border: 2px solid #AAFFAA;
+    }
+
+    .image-removed {
+        border: 2px solid #FFAAAA;
+    }
+
+    .diff-separator {
+        border-bottom: 1px dashed #444;
+        margin: 30px 0 10px 0;
+    }
+}

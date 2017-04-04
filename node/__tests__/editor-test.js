@@ -21,7 +21,8 @@ describe("No-editor-perseus", function() {
 
     it("doesn't expose editors and extra bits", function() {
         assert(!("Editor" in Perseus));
-        assert(!("RevisionDiff" in Perseus));
+        assert(!("ItemDiff" in Perseus));
+        assert(!("ArticleDiff" in Perseus));
         assert(!("i18n" in Perseus));
         assert(!("accessibility" in Perseus));
         assert(!("ViewportResizer" in Perseus));
@@ -72,7 +73,8 @@ describe("Editor-perseus", function() {
         assert.ok(EditorPerseus.init);
 
         assert.ok(EditorPerseus.Editor);
-        assert.ok(EditorPerseus.RevisionDiff);
+        assert.ok(EditorPerseus.ItemDiff);
+        assert.ok(EditorPerseus.ArticleDiff);
         assert.ok(EditorPerseus.i18n);
         assert.ok(EditorPerseus.accessibility);
         assert.ok(EditorPerseus.ViewportResizer);

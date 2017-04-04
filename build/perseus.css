@@ -1,6 +1,6 @@
 /* Perseus CSS
-// commit 2c9be6c891f78c7a100fd2fe4647f621b9ee3da1
-// branch master
+// commit bc6bf4f44e38ce7bcd0b58ee90e79fc8aaa8ffa3
+// branch better-diffs
 // @generated
 */
 .perseus-sr-only {
@@ -1851,90 +1851,6 @@ body.mobile .framework-perseus table.perseus-widget-table-of-values.non-markdown
 }
 .unit-editor > div {
   margin: 5px 0;
-}
-.perseus-diff {
-  margin: 0 10px;
-}
-.perseus-diff .diff-header {
-  font-size: 18px;
-  padding: 10px 0;
-  width: 50%;
-  display: inline-block;
-}
-.perseus-diff .diff-header.collapsed {
-  font-size: 14px;
-  padding: 0px;
-}
-.perseus-diff .diff-body {
-  border-top: 1px solid #e4e4e4;
-  border-bottom: 1px solid #e4e4e4;
-}
-.perseus-diff .diff-row {
-  width: 50%;
-  white-space: pre-wrap;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  font-size: 14px;
-  padding-right: 20px;
-  padding-left: 10px;
-  overflow: hidden;
-}
-.perseus-diff .diff-row.collapsed {
-  color: #888;
-  cursor: pointer;
-}
-.perseus-diff .diff-row.collapsed:hover {
-  color: #666;
-}
-.perseus-diff .diff-row.collapsed:active {
-  color: #444;
-}
-.perseus-diff .diff-row .diff-line {
-  margin-bottom: 20px;
-}
-.perseus-diff .before {
-  float: left;
-  border-left: 1px solid #e4e4e4;
-}
-.perseus-diff .after {
-  float: right;
-  border-right: 1px solid #e4e4e4;
-  border-left: 1px solid #e4e4e4;
-}
-.perseus-diff .inner-value {
-  height: 100%;
-  padding: 3px;
-}
-.perseus-diff .not-present {
-  display: none;
-}
-.perseus-diff .blank-space {
-  visibility: hidden;
-}
-.perseus-diff .added {
-  background-color: #EEFFEE;
-}
-.perseus-diff .added.dark {
-  background-color: #AAFFAA;
-}
-.perseus-diff .removed {
-  background-color: #FFEEEE;
-}
-.perseus-diff .removed.dark {
-  background-color: #FFAAAA;
-}
-.perseus-diff .image {
-  margin-left: 20px;
-  margin-bottom: 10px;
-}
-.perseus-diff .image-unchanged {
-  border: 1px solid #AAAAAA;
-}
-.perseus-diff .image-added {
-  border: 2px solid #AAFFAA;
-}
-.perseus-diff .image-removed {
-  border: 2px solid #FFAAAA;
 }
 .perseus-widget-container.widget-nohighlight {
   transition: all 0.15s;
