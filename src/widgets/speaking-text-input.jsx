@@ -14,7 +14,17 @@ var textInputStyle = {
 
 var TextInput = React.createClass({
     render: function() {
-        return <input style={textInputStyle} ref="input" value={this.props.value || ""} onChange={this.changeValue} onPaste={this.pasteValue} onKeyPress={this.keypressValue}/>;
+        return (
+            <input
+                type="text"
+                style={textInputStyle}
+                ref="input"
+                value={this.props.value || ""}
+                onChange={this.changeValue}
+                onPaste={this.pasteValue}
+                onKeyPress={this.keypressValue}
+            />
+        );
     },
 
     pasteValue: function(e) {
@@ -81,7 +91,7 @@ var SpeakingBtn = React.createClass({
         });
         return (
             <div style={inlineStyle}>
-                {this.recognition
+                {!!this.state.recognition
                     ? <button style={buttonStyle} onClick={this.startRecognizeOnClick} className="simple-button orange">
                         <i style={iconButtonStyle} className={btnIconCLass}></i>
                         </button>
@@ -95,18 +105,27 @@ var SpeakingBtn = React.createClass({
             </div>
         );
     },
-    //
+
+    shouldComponentUpdate: function(nextProps, nextState) {
+        return this.state.recognizing != nextState.recognizing
+            || this.state.status != nextState.status
+            || this.state.recognition != nextState.recognition;
+    },
 
     getInitialState: function() {
-        return {recognizing: false, status: ""}
+        return {
+            recognizing: false,
+            status: "",
+            recognition: null,
+        };
     },
 
     startRecognize: function() {
         if (this.state.recognizing == false) {
-            this.recognition.start();
+            this.state.recognition.start();
         }
         else{
-            this.recognition.stop();
+            this.state.recognition.stop();
         }
     },
 
@@ -123,7 +142,6 @@ var SpeakingBtn = React.createClass({
         e.preventDefault();
         return false;
     },
-
     componentWillMount: function() {
         var self = this;
         var os = self.getMobileOperatingSystem();
@@ -155,7 +173,7 @@ var SpeakingBtn = React.createClass({
                     }
                 }
             }
-            self.recognition = recognition;
+            self.setState({recognition});
         } else {
             if (os == 'iOS') {
                 self.setState({status: "點選上面的框框 用Siri語音輸入"});
