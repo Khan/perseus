@@ -201,8 +201,8 @@ var Renderer = React.createClass({
 
 
                 return <WidgetContainer
-                    ref={id}
-                    key={id}
+                    ref={"container:" + id}
+                    key={"container:" + id}
                     type={cls}
                     initialProps={this.getWidgetProps(id)}
                     shouldHighlight={shouldHighlight}
@@ -448,7 +448,7 @@ var Renderer = React.createClass({
         var focusResult;
         for (var i = 0; i < this.widgetIds.length; i++) {
             var widgetId = this.widgetIds[i];
-            var widget = this.refs[widgetId];
+            var widget = this.getWidgetInstance(widgetId);
             var widgetFocusResult = widget.focus && widget.focus();
             if (widgetFocusResult) {
                 id = widgetId;
@@ -464,12 +464,12 @@ var Renderer = React.createClass({
             if (_.isObject(focusResult)) {
                 // The result of focus was a {path, id} object itself
                 path = [id].concat(focusResult.path || []);
-                element = focusResult.element || ReactDOM.findDOMNode(this.refs[id]);
+                element = focusResult.element || ReactDOM.findDOMNode(this.getWidgetInstance(id));
             } else {
                 // The result of focus was true or the like; just
                 // construct a root focus object
                 path = [id];
-                element = ReactDOM.findDOMNode(this.refs[id]);
+                element = ReactDOM.findDOMNode(this.getWidgetInstance(id));
             }
 
             this._setCurrentFocus(path, element);
@@ -480,7 +480,7 @@ var Renderer = React.createClass({
     toJSON: function(skipValidation) {
         var state = {};
         _.each(this.props.widgets, function(props, id) {
-            var widget = this.refs[id];
+            var widget = this.getWidgetInstance(id);
             var s = widget.toJSON(skipValidation);
             if (!_.isEmpty(s)) {
                 state[id] = s;
@@ -492,7 +492,7 @@ var Renderer = React.createClass({
     emptyWidgets: function () {
         return _.filter(this.widgetIds, (id) => {
             var widgetProps = this.props.widgets[id];
-            var score = this.refs[id].simpleValidate(
+            var score = this.getWidgetInstance(id).simpleValidate(
                 widgetProps.options,
                 null
             );
@@ -515,7 +515,7 @@ var Renderer = React.createClass({
                 // TODO(jack): Figure out why this is happening and fix it
                 // As far as I can tell, this is only an issue in the
                 // editor-page, so doing this shouldn't break clients hopefully
-                var element = this.refs[id] ? ReactDOM.findDOMNode(this.refs[id]) : null;
+                var element = this.refs[id] ? ReactDOM.findDOMNode(this.getWidgetInstance(id)) : null;
                 this._setCurrentFocus([id], element);
             }
         });
@@ -529,6 +529,14 @@ var Renderer = React.createClass({
         }, () => focus);
     },
 
+    getWidgetInstance: function(id) {
+        var ref = this.refs["container:" + id];
+        if (!ref) {
+            return null;
+        }
+        return ref.getWidget();
+    },
+
     guessAndScore: function() {
         var widgetProps = this.props.widgets;
         var onInputError = this.props.apiOptions.onInputError ||
@@ -538,7 +546,7 @@ var Renderer = React.createClass({
             if (id.indexOf('lights-puzzle') > -1 || id.indexOf('transformer') > -1 || id.indexOf('image') > -1) {
                 return 'no save ' + id +' widget'
             }
-            return this.refs[id].toJSON();
+            return this.getWidgetInstance(id).toJSON();
         }, this);
 
         var totalScore = _.chain(this.widgetIds)
@@ -549,7 +557,7 @@ var Renderer = React.createClass({
                 })
                 .map(function(id) {
                     var props = widgetProps[id];
-                    var widget = this.refs[id];
+                    var widget = this.getWidgetInstance(id);
                     return widget.simpleValidate(props.options, onInputError);
                 }, this)
                 .reduce(Util.combineScores, Util.noScore)
@@ -559,7 +567,7 @@ var Renderer = React.createClass({
     },
 
     examples: function() {
-        var widgets = _.values(this.refs);
+        var widgets = this.widgetIds;
         var examples = _.compact(_.map(widgets, function(widget) {
             return widget.examples ? widget.examples() : null;
         }));

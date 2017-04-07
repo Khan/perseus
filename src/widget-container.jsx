@@ -32,7 +32,11 @@ var WidgetContainer = React.createClass({
             }}>
             <WidgetType {...this.props.initialProps} ref="widget" />
         </div>;
-    }
+    },
+
+    getWidget: function() {
+        return this.refs.widget;
+    },
 });
 
 module.exports = WidgetContainer;
