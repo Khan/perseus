@@ -52,6 +52,7 @@ const ItemRenderer = React.createClass({
         onShowZTable: RP.func,
 
         problemNum: RP.number,
+        reviewMode: React.PropTypes.bool,
         savedState: RP.any,
         workAreaSelector: RP.string,
     },
@@ -63,6 +64,7 @@ const ItemRenderer = React.createClass({
             hintsAreaSelector: "#hintsarea",
             initialHintsVisible: 0,
             workAreaSelector: "#workarea",
+            reviewMode: false,
         };
     },
 
@@ -145,6 +147,7 @@ const ItemRenderer = React.createClass({
                     highlightedWidgets={this.state.questionHighlightedWidgets}
                     apiOptions={apiOptions}
                     questionCompleted={this.state.questionCompleted}
+                    reviewMode={this.props.reviewMode}
                     savedState={this.props.savedState}
                     {...this.props.item.question}
                 />,

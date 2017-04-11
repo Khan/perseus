@@ -5,6 +5,8 @@
   *
   * This mounts an ItemRenderer, HintRenderer, or ArticleRenderer(s)
   * (depending on the content given) and applies mobile styling if necessary.
+  * NOTE(amy): The KA CMS preview relies on preview-frame.jsx in webapp's
+  * perseus-preview-package (which largely duplicates this logic)
   */
 
 const React = require('react');

@@ -3,6 +3,8 @@
  *
  * This is loaded inside the iframe, where it sets up the PreviewFrame component
  * that handles all communication between the iframe and its parent.
+ * NOTE(amy): The KA CMS preview relies on frame-exercise.jsx in webapp's
+ * perseus-preview-package (which largely duplicates this logic)
  */
 
 require('./perseus-env.js');
