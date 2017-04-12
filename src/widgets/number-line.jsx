@@ -48,7 +48,7 @@ function formatImproper(n, d) {
     if (d === 1) {
         return "" + n;
     } else {
-        return n + "/" + d;
+        return `\\dfrac{${n}}{${d}}`;
     }
 }
 
@@ -62,7 +62,7 @@ function formatMixed(n, d) {
     } else if (n - w * d === 0) {
         return "" + w;
     } else {
-        return w + "\\:" + formatImproper(n - w * d, d);
+        return w + formatImproper(n - w * d, d);
     }
 }
 
@@ -81,16 +81,16 @@ var _label = (graphie, labelStyle, pos, value, base) => {
             Math.round(value * 100) / 100, "center");
     } else if (labelStyle === "improper") {
         const frac = KhanMath.toFraction(value);
-        return graphie.label([pos, -0.53],
-                formatImproper(frac[0], frac[1]), "center");
+        return graphie.label([pos, -0.17],
+                formatImproper(frac[0], frac[1]), "below");
     } else if (labelStyle === "mixed") {
         const frac = KhanMath.toFraction(value);
-        return graphie.label([pos, -0.53],
-                formatMixed(frac[0], frac[1]), "center");
+        return graphie.label([pos, -0.17],
+                formatMixed(frac[0], frac[1]), "below");
     } else if (labelStyle === "non-reduced") {
         const frac = KhanMath.toFraction(value);
-        return graphie.label([pos, -0.53],
-                formatNonReduced(frac[0], frac[1], base), "center");
+        return graphie.label([pos, -0.17],
+                formatNonReduced(frac[0], frac[1], base), "below");
     }
 };
 
@@ -349,7 +349,12 @@ var NumberLine = React.createClass({
 
         return <Graphie
             ref="graphie"
-            box={[460, 80]}
+            // HACK(emily): We key this graphie on the label style because when
+            // the label style changes we want to resize the graphie, which
+            // isn't doable without throwing away the graphie and making a new
+            // one.
+            key={this.props.labelStyle}
+            box={[this.props.apiOptions.isMobile ? 288 : 460, 80]}
             options={options}
             onMouseDown={(coord) => {
                 this.refs.graphie.movables.numberLinePoint.grab(coord);
@@ -500,7 +505,12 @@ var NumberLine = React.createClass({
         // Initiate the graphie without actually drawing anything
         var left = range[0] - buffer;
         var right = range[1] + buffer;
-        var bottom = -1;
+
+        const hasFractionalLabels =
+            this.props.labelStyle === "improper" ||
+            this.props.labelStyle === "mixed" ||
+            this.props.labelStyle === "non-reduced";
+        var bottom = hasFractionalLabels ? -1.5 : -1;
         var top = 1;
 
         graphie.init({
