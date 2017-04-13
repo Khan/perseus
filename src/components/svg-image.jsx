@@ -181,7 +181,7 @@ function getUrlHash(url) {
 function defaultPreloader() {
     return React.DOM.span({
         style: {
-            background: "url(/images/throbber.gif) no-repeat",
+            background: "url(/images/spinner.gif) no-repeat",
             backgroundPosition: "center",
             width: "100%",
             height: "100%",

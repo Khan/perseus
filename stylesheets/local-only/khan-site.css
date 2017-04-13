@@ -10139,7 +10139,7 @@ legend + .control-group {
   display: none;
 }
 .page-search .ui-autocomplete-loading {
-  background-image: url(http://www.khanacademy.org/"/images/throbber.gif");
+  background-image: url(http://www.khanacademy.org/"/images/spinner.gif");
   background-repeat: no-repeat;
   background-position: 4px 5px;
 }

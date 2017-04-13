@@ -364,8 +364,8 @@ body.debug .graphie { outline: 1px dashed #fdd; }
 
 var, div.graphie { white-space: pre; }
 
-#throbber { position: relative; top: 4px; left: 4px; }
-#issue-throbber { position: relative; top: 3px; }
+#spinner { position: relative; top: 4px; left: 4px; }
+#issue-spinner { position: relative; top: 3px; }
 
 .exp input { vertical-align: super; font-size: 9px; height: 11px; }
 
@@ -598,7 +598,7 @@ html.exercise-browser {
 }
 
 /* TODO: Find a better way to display these. */
-.lite #throbber, .lite #check-answer-results {
+.lite #spinner, .lite #check-answer-results {
 	display: none !important;
 }
 
