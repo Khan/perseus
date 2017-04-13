@@ -2096,6 +2096,13 @@ _.extend(GraphUtils.Graphie.prototype, {
         };
 
         $(circle.perim.node).css("cursor", "move");
+
+        // Prevent the page from scrolling when we grab and drag the circle on
+        // a mobile device.
+        circle.perim.node.addEventListener("touchstart", function(event) {
+            event.preventDefault();
+        }, {passive: false});
+
         $(circle.perim.node).on(
             "vmouseover vmouseout vmousedown", function(event) {
                 if (event.type === "vmouseover") {
@@ -2623,10 +2630,16 @@ function Protractor(graph, center) {
 
     const r = graph.unscaleVector(180.5)[0];
     const imgPos = graph.scalePoint([this.cx - r, this.cy + r - graph.unscaleVector(10.5)[1]]);
-    this.set.push(graph.mouselayer.image(
+    const image = graph.mouselayer.image(
             "https://ka-perseus-graphie.s3.amazonaws.com/e9d032f2ab8b95979f674fbfa67056442ba1ff6a.png",
-            imgPos[0], imgPos[1], 360, 180));
+            imgPos[0], imgPos[1], 360, 180);
+    this.set.push(image);
 
+    // Prevent the page from scrolling when we grab and drag the image on a
+    // mobile device.
+    image.node.addEventListener("touchstart", function(event) {
+        event.preventDefault();
+    }, {passive: false});
 
     const arrowHelper = function(angle, pixelsFromEdge) {
         const scaledRadius = graph.scaleVector(r);
@@ -2666,6 +2679,7 @@ function Protractor(graph, center) {
 
     // Use a movablePoint for rotation
     this.rotateHandle = graph.addMovablePoint({
+        bounded: false,
         coord: [
             Math.sin(275 * Math.PI / 180) * (r + 0.5) + this.cx,
             Math.cos(275 * Math.PI / 180) * (r + 0.5) + this.cy,
@@ -2952,6 +2966,12 @@ function Ruler(graphie, options) {
         "stroke-width": 2,
     });
     set.push(mouseTarget);
+
+    // Prevent the page from scrolling when we grab and drag the ruler on a
+    // mobile device.
+    mouseTarget.node.addEventListener("touchstart", function(event) {
+        event.preventDefault();
+    }, {passive: false});
 
     const setNodes = $.map(set, function(el) { return el.node; });
     $(setNodes).css("cursor", "move");

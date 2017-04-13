@@ -563,6 +563,7 @@ const styles = StyleSheet.create({
         listStyleType: 'none',
 
         userSelect: 'none',
+        touchAction: "none",
     },
 
     placeholder: {
