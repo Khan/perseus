@@ -1,5 +1,5 @@
 /*! Perseus | http://github.com/Khan/perseus */
-// commit 24cef420813eda4b1eee4ee29164f491b2486e89
+// commit fa97583fd918ba1e209c063f9534c8c4a627c4ff
 // branch master
 // @generated
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -11,7 +11,7 @@
 		exports["Perseus"] = factory(require("underscore"), require("react"), require("react-dom"), require("classnames"), require("aphrodite"), require("jquery"), require("react-addons-pure-render-mixin"), require("react-addons-css-transition-group"));
 	else
 		root["Perseus"] = factory(root["underscore"], root["react"], root["react-dom"], root["classnames"], root["aphrodite"], root["jquery"], root["react-addons-pure-render-mixin"], root["react-addons-css-transition-group"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_11__, __WEBPACK_EXTERNAL_MODULE_12__, __WEBPACK_EXTERNAL_MODULE_13__, __WEBPACK_EXTERNAL_MODULE_14__, __WEBPACK_EXTERNAL_MODULE_15__, __WEBPACK_EXTERNAL_MODULE_16__, __WEBPACK_EXTERNAL_MODULE_100__, __WEBPACK_EXTERNAL_MODULE_214__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_11__, __WEBPACK_EXTERNAL_MODULE_12__, __WEBPACK_EXTERNAL_MODULE_13__, __WEBPACK_EXTERNAL_MODULE_14__, __WEBPACK_EXTERNAL_MODULE_15__, __WEBPACK_EXTERNAL_MODULE_16__, __WEBPACK_EXTERNAL_MODULE_100__, __WEBPACK_EXTERNAL_MODULE_210__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -1237,15 +1237,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var HintRenderer = __webpack_require__(20);
 
-	var SvgImage = __webpack_require__(34);
+	var SvgImage = __webpack_require__(38);
 
 	var ApiOptionsProps = __webpack_require__(32);
 
-	var mediaQueries = __webpack_require__(36);
+	var mediaQueries = __webpack_require__(40);
 
-	var sharedStyles = __webpack_require__(37);
+	var sharedStyles = __webpack_require__(41);
 
-	var _require2 = __webpack_require__(38), baseUnitPx = _require2.baseUnitPx, hintBorderWidth = _require2.hintBorderWidth, kaGreen = _require2.kaGreen, gray85 = _require2.gray85, gray17 = _require2.gray17;
+	var _require2 = __webpack_require__(42), baseUnitPx = _require2.baseUnitPx, hintBorderWidth = _require2.hintBorderWidth, kaGreen = _require2.kaGreen, gray85 = _require2.gray85, gray17 = _require2.gray17;
 
 	var HintsRenderer = React.createClass({
 	    displayName: "HintsRenderer",
@@ -1266,7 +1266,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    },
 	    _hintsVisible: function _hintsVisible() {
-	        return null == this.props.hintsVisible || -1 === this.props.hintsVisible ? this.props.hints.length : this.props.hintsVisible;
+	        return null == this.props.hintsVisible || this.props.hintsVisible === -1 ? this.props.hints.length : this.props.hintsVisible;
 	    },
 	    _cacheImagesInHint: function _cacheImagesInHint(hint) {
 	        _.each(hint.images, function(data, src) {
@@ -1466,7 +1466,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var QuestionParagraph = __webpack_require__(23);
 
-	var SvgImage = __webpack_require__(34);
+	var SvgImage = __webpack_require__(38);
 
 	var TeX = __webpack_require__(44);
 
@@ -1480,7 +1480,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ApiClassNames = __webpack_require__(19).ClassNames;
 
-	var Zoomable = __webpack_require__(35);
+	var Zoomable = __webpack_require__(39);
 
 	var Deferred = __webpack_require__(25);
 
@@ -1905,7 +1905,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // Convenience filters:
 	        // "interactive-graph 3" will give you [[interactive-graph 3]]
 	        // "interactive-graph" will give you all interactive-graphs
-	        if ("string" === typeof filterCriterion) if (-1 !== filterCriterion.indexOf(" ")) {
+	        if ("string" === typeof filterCriterion) if (filterCriterion.indexOf(" ") !== -1) {
 	            var widgetId = filterCriterion;
 	            filterFunc = function filterFunc(id, widgetInfo) {
 	                return id === widgetId;
@@ -1963,7 +1963,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    },
 	    shouldRenderJiptPlaceholder: function shouldRenderJiptPlaceholder(props, state) {
 	        // TODO(aria): Pass this in via webapp as an apiOption
-	        return "undefined" !== typeof KA && "en-pt" === KA.language && null == state.jiptContent && -1 !== props.content.indexOf("crwdns");
+	        return "undefined" !== typeof KA && "en-pt" === KA.language && null == state.jiptContent && props.content.indexOf("crwdns") !== -1;
 	    },
 	    replaceJiptContent: function replaceJiptContent(content, paragraphIndex) {
 	        if (null == paragraphIndex) // we're not translating paragraph-wise; replace the whole content
@@ -2709,13 +2709,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * `inferItemShape`, and `buildEmptyItemForShape`.
 	 * For more details, see `multi-items/items.js`.
 	 */
-	var _require = __webpack_require__(39), buildEmptyItemForShape = _require.buildEmptyItemForShape, findContentNodesInItem = _require.findContentNodesInItem, findHintNodesInItem = _require.findHintNodesInItem, inferItemShape = _require.inferItemShape;
+	var _require = __webpack_require__(34), buildEmptyItemForShape = _require.buildEmptyItemForShape, findContentNodesInItem = _require.findContentNodesInItem, findHintNodesInItem = _require.findHintNodesInItem, inferItemShape = _require.inferItemShape;
 
-	var MultiRenderer = __webpack_require__(40);
+	var MultiRenderer = __webpack_require__(35);
 
-	var _require2 = __webpack_require__(41), buildPropTypeForShape = _require2.buildPropTypeForShape;
+	var _require2 = __webpack_require__(36), buildPropTypeForShape = _require2.buildPropTypeForShape;
 
-	var shapes = __webpack_require__(42);
+	var shapes = __webpack_require__(37);
 
 	module.exports = {
 	    // Tools for rendering your multi-items
@@ -2790,7 +2790,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var _ = __webpack_require__(11);
 
-	var KhanAnswerTypes = __webpack_require__(77);
+	var KhanAnswerTypes = __webpack_require__(76);
 
 	var nestedMap = function nestedMap(children, func, context) {
 	    return _.isArray(children) ? _.map(children, function(child) {
@@ -3128,7 +3128,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    updateQueryString: function updateQueryString(uri, key, value) {
 	        value = encodeURIComponent(value);
 	        var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
-	        var separator = -1 !== uri.indexOf("?") ? "&" : "?";
+	        var separator = uri.indexOf("?") !== -1 ? "&" : "?";
 	        return uri.match(re) ? uri.replace(re, "$1" + key + "=" + value + "$2") : uri + separator + key + "=" + value;
 	    },
 	    /**
@@ -3245,7 +3245,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            } else callback(img.width, img.height);
 	        };
 	        // Require here to prevent recursive imports
-	        var SvgImage = __webpack_require__(34);
+	        var SvgImage = __webpack_require__(38);
 	        img.src = SvgImage.getRealImageUrl(url);
 	    },
 	    textarea: {
@@ -3326,7 +3326,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(12);
 
-	var StubTagEditor = __webpack_require__(76);
+	var StubTagEditor = __webpack_require__(77);
 
 	module.exports = {
 	    Options: {
@@ -3457,9 +3457,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ApiOptions = __webpack_require__(19).Options;
 
-	var mediaQueries = __webpack_require__(36);
+	var mediaQueries = __webpack_require__(40);
 
-	var _require2 = __webpack_require__(38), baseUnitPx = _require2.baseUnitPx, hintBorderWidth = _require2.hintBorderWidth, kaGreen = _require2.kaGreen, gray97 = _require2.gray97;
+	var _require2 = __webpack_require__(42), baseUnitPx = _require2.baseUnitPx, hintBorderWidth = _require2.hintBorderWidth, kaGreen = _require2.kaGreen, gray97 = _require2.gray97;
 
 	/* Renders just a hint preview */
 	var HintRenderer = React.createClass({
@@ -3970,7 +3970,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    // Base case: This is where we actually extract text content
 	    if (ast.content && _.isString(ast.content)) // Collapse whitespace within content unless it is code
 	    // Collapse whitespace within content unless it is code
-	    return -1 !== ast.type.toLowerCase().indexOf("code") ? [ "", ast.content, "" ] : [ ast.content.replace(/\s+/g, " ") ];
+	    return ast.type.toLowerCase().indexOf("code") !== -1 ? [ "", ast.content, "" ] : [ ast.content.replace(/\s+/g, " ") ];
 	    // Recurse through child AST nodes
 	    // Assumptions made:
 	    // 1) Child AST nodes are either direct properties or inside
@@ -4062,7 +4062,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ReactDOM = __webpack_require__(13);
 
-	var _require = __webpack_require__(38), zIndexInteractiveComponent = _require.zIndexInteractiveComponent;
+	var _require = __webpack_require__(42), zIndexInteractiveComponent = _require.zIndexInteractiveComponent;
 
 	var Widgets = __webpack_require__(2);
 
@@ -4336,7 +4336,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var PossibleAnswers = __webpack_require__(83);
 
-	var KhanAnswerTypes = __webpack_require__(77);
+	var KhanAnswerTypes = __webpack_require__(76);
 
 	var keypadElementPropType = __webpack_require__(79).propTypes.keypadElementPropType;
 
@@ -4605,7 +4605,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ApiOptions = __webpack_require__(19).Options;
 
-	var KhanAnswerTypes = __webpack_require__(77);
+	var KhanAnswerTypes = __webpack_require__(76);
 
 	var KhanMath = __webpack_require__(84);
 
@@ -4983,7 +4983,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ApiClassNames = __webpack_require__(19).ClassNames;
 
-	var KhanAnswerTypes = __webpack_require__(77);
+	var KhanAnswerTypes = __webpack_require__(76);
 
 	var InlineIcon = __webpack_require__(87);
 
@@ -5001,7 +5001,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require = __webpack_require__(90), iconExclamationSign = _require.iconExclamationSign;
 
-	var lens = __webpack_require__(102);
+	var lens = __webpack_require__(118);
 
 	var ERROR_MESSAGE = i18n._("Sorry, I don't understand that!");
 
@@ -5673,6 +5673,745 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
+	var _typeof = "function" === typeof Symbol && "symbol" === typeof Symbol.iterator ? function(obj) {
+	    return typeof obj;
+	} : function(obj) {
+	    return obj && "function" === typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+	};
+
+	var babelPluginFlowReactPropTypes_proptype_ItemObjectNode = __webpack_require__(91).babelPluginFlowReactPropTypes_proptype_ItemObjectNode || __webpack_require__(12).PropTypes.any;
+
+	/**
+	 * Utility functions for constructing and manipulating multi-items.
+	 *
+	 * These functions apply *specifically* to Items and ItemTrees - things that
+	 * actually semantically *are* multi-items. For more general functions for
+	 * traversing and manipulating *anything* shaped like a multi-item (like a
+	 * renderer tree or a score tree or, well, a multi-item), see trees.js.
+	 */
+	var babelPluginFlowReactPropTypes_proptype_ItemArrayNode = __webpack_require__(91).babelPluginFlowReactPropTypes_proptype_ItemArrayNode || __webpack_require__(12).PropTypes.any;
+
+	var babelPluginFlowReactPropTypes_proptype_TagsNode = __webpack_require__(91).babelPluginFlowReactPropTypes_proptype_TagsNode || __webpack_require__(12).PropTypes.any;
+
+	var babelPluginFlowReactPropTypes_proptype_HintNode = __webpack_require__(91).babelPluginFlowReactPropTypes_proptype_HintNode || __webpack_require__(12).PropTypes.any;
+
+	var babelPluginFlowReactPropTypes_proptype_ContentNode = __webpack_require__(91).babelPluginFlowReactPropTypes_proptype_ContentNode || __webpack_require__(12).PropTypes.any;
+
+	var babelPluginFlowReactPropTypes_proptype_ItemTree = __webpack_require__(91).babelPluginFlowReactPropTypes_proptype_ItemTree || __webpack_require__(12).PropTypes.any;
+
+	var babelPluginFlowReactPropTypes_proptype_Item = __webpack_require__(91).babelPluginFlowReactPropTypes_proptype_Item || __webpack_require__(12).PropTypes.any;
+
+	var babelPluginFlowReactPropTypes_proptype_Shape = __webpack_require__(92).babelPluginFlowReactPropTypes_proptype_Shape || __webpack_require__(12).PropTypes.any;
+
+	var _require = __webpack_require__(93), buildMapper = _require.buildMapper;
+
+	var shapes = __webpack_require__(37);
+
+	/**
+	 * Return a semantically empty ItemTree that conforms to the given shape.
+	 *
+	 * - An empty content node has an empty content string and no widgets/images.
+	 * - An empty hint node has an empty content string and no widgets/images.
+	 * - An empty array node has no elements.
+	 * - An empty object node has a semantically empty node for each of its keys.
+	 *   (That is, we recursively call buildEmptyItemTreeForShape for each key.)
+	 */
+	function buildEmptyItemTreeForShape(shape) {
+	    if ("content" === shape.type) return {
+	        __type: "content",
+	        content: "",
+	        images: {},
+	        widgets: {}
+	    };
+	    if ("hint" === shape.type) return {
+	        __type: "hint",
+	        replace: false,
+	        content: "",
+	        images: {},
+	        widgets: {}
+	    };
+	    if ("tags" === shape.type) return [];
+	    if ("array" === shape.type) return [];
+	    if ("object" === shape.type) {
+	        var valueShapes = shape.shape;
+	        var object = {};
+	        Object.keys(valueShapes).forEach(function(key) {
+	            object[key] = buildEmptyItemTreeForShape(valueShapes[key]);
+	        });
+	        return object;
+	    }
+	    throw new Error("unexpected shape type " + shape.type);
+	}
+
+	/**
+	 * Return a semantically empty Item that conforms to the given shape.
+	 *
+	 * - An empty content node has an empty content string and no widgets/images.
+	 * - An empty hint node has an empty content string and no widgets/images.
+	 * - An empty array node has no elements.
+	 * - An empty object node has a semantically empty node for each of its keys.
+	 *   (That is, we recursively call buildEmptyItemTreeForShape for each key.)
+	 */
+	function buildEmptyItemForShape(shape) {
+	    return treeToItem(buildEmptyItemTreeForShape(shape));
+	}
+
+	/**
+	 * Given an Item and its Shape, yield all of its content nodes to the callback.
+	 */
+	function findContentNodesInItem(item, shape, callback) {
+	    var itemTree = itemToTree(item);
+	    buildMapper().setContentMapper(callback).mapTree(itemTree, shape);
+	}
+
+	/**
+	 * Given an Item and its Shape, yield all of its hint nodes to the callback.
+	 */
+	function findHintNodesInItem(item, shape, callback) {
+	    var itemTree = itemToTree(item);
+	    buildMapper().setHintMapper(callback).mapTree(itemTree, shape);
+	}
+
+	/**
+	 * Given an ItemTree, return a Shape that it conforms to.
+	 *
+	 * The Shape might not be complete or correct Shape that this Item was designed
+	 * for. If you have access to the intended Shape, use that instead.
+	 */
+	function inferItemShape(item) {
+	    return inferItemTreeShape(itemToTree(item));
+	}
+
+	function inferItemTreeShape(node) {
+	    if (Array.isArray(node)) return node.length ? "string" === typeof node[0] ? shapes.tags : shapes.arrayOf(inferItemTreeShape(node[0])) : shapes.arrayOf(shapes.content);
+	    if (// TODO(mdr): Remove #LegacyContentNode support.
+	    "object" !== ("undefined" === typeof node ? "undefined" : _typeof(node)) || "content" !== node.__type && "item" !== node.__type) {
+	        if ("object" === ("undefined" === typeof node ? "undefined" : _typeof(node)) && "hint" === node.__type) return shapes.hint;
+	        if ("object" === ("undefined" === typeof node ? "undefined" : _typeof(node))) {
+	            var valueShapes = {};
+	            Object.keys(node).forEach(function(key) {
+	                // $FlowFixMe: Not sure why this property deref is an error.
+	                valueShapes[key] = inferItemTreeShape(node[key]);
+	            });
+	            return shapes.shape(valueShapes);
+	        }
+	        throw new Error("unexpected multi-item node " + JSON.stringify(node));
+	    }
+	    return shapes.content;
+	}
+
+	/**
+	 * Convert the given ItemTree to an Item, by wrapping it in the `_multi` key.
+	 */
+	function itemToTree(item) {
+	    return item._multi;
+	}
+
+	/**
+	 * Convert the given Item to an ItemTree, by unwrapping the `_multi` key.
+	 */
+	function treeToItem(node) {
+	    return {
+	        _multi: node
+	    };
+	}
+
+	module.exports = {
+	    buildEmptyItemTreeForShape: buildEmptyItemTreeForShape,
+	    buildEmptyItemForShape: buildEmptyItemForShape,
+	    findContentNodesInItem: findContentNodesInItem,
+	    findHintNodesInItem: findHintNodesInItem,
+	    inferItemShape: inferItemShape,
+	    itemToTree: itemToTree,
+	    treeToItem: treeToItem
+	};
+
+/***/ },
+/* 35 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _extends = Object.assign || function(target) {
+	    for (var i = 1; i < arguments.length; i++) {
+	        var source = arguments[i];
+	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
+	    }
+	    return target;
+	};
+
+	function _objectWithoutProperties(obj, keys) {
+	    var target = {};
+	    for (var i in obj) {
+	        if (keys.indexOf(i) >= 0) continue;
+	        if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
+	        target[i] = obj[i];
+	    }
+	    return target;
+	}
+
+	function _classCallCheck(instance, Constructor) {
+	    if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
+	}
+
+	function _possibleConstructorReturn(self, call) {
+	    if (!self) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	    return !call || "object" !== typeof call && "function" !== typeof call ? self : call;
+	}
+
+	function _inherits(subClass, superClass) {
+	    if ("function" !== typeof superClass && null !== superClass) throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+	    subClass.prototype = Object.create(superClass && superClass.prototype, {
+	        constructor: {
+	            value: subClass,
+	            enumerable: false,
+	            writable: true,
+	            configurable: true
+	        }
+	    });
+	    superClass && (Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass);
+	}
+
+	var babelPluginFlowReactPropTypes_proptype_TagsNode = __webpack_require__(91).babelPluginFlowReactPropTypes_proptype_TagsNode || __webpack_require__(12).PropTypes.any;
+
+	/**
+	 * Main entry point to the MultiRenderer render portion.
+	 *
+	 * This file exposes the `MultiRenderer` component which performs
+	 * multi-rendering. To multi-render a question, pass in the content of the item
+	 * to the `MultiRenderer` component as a props. Then, pass in a function which
+	 * takes an object of renderers (in the same structure as the content), and
+	 * return a render tree. The `MultiRenderer` component will allow you to
+	 * combine scores, serialized state, etc. without having to manually call on
+	 * each of the functions. It also handles inter-widgets requests between the
+	 * different renderers.
+	 *
+	 * Example:
+	 *
+	 *   item = {_multi: {
+	 *       left: <content data>,
+	 *       right: [<content data>, <content data>],
+	 *   }}
+	 *   shape = shapes.shape({
+	 *       left: shapes.content,
+	 *       right: shapes.arrayOf(shapes.content),
+	 *   })
+	 *
+	 *   <MultiRenderer item={item} shape={shape}>
+	 *       {({renderers}) =>
+	 *           <div>
+	 *               <div id="left">{renderers.left}</div>
+	 *               <ul id="right">
+	 *                   {renderers.right.map(r => <li>{r}</li>)}
+	 *               </ul>
+	 *           </div>
+	 *       }
+	 *   </MultiRenderer>
+	 */
+	var babelPluginFlowReactPropTypes_proptype_HintNode = __webpack_require__(91).babelPluginFlowReactPropTypes_proptype_HintNode || __webpack_require__(12).PropTypes.any;
+
+	var babelPluginFlowReactPropTypes_proptype_ContentNode = __webpack_require__(91).babelPluginFlowReactPropTypes_proptype_ContentNode || __webpack_require__(12).PropTypes.any;
+
+	var babelPluginFlowReactPropTypes_proptype_Item = __webpack_require__(91).babelPluginFlowReactPropTypes_proptype_Item || __webpack_require__(12).PropTypes.any;
+
+	var babelPluginFlowReactPropTypes_proptype_ArrayShape = __webpack_require__(92).babelPluginFlowReactPropTypes_proptype_ArrayShape || __webpack_require__(12).PropTypes.any;
+
+	var babelPluginFlowReactPropTypes_proptype_Shape = __webpack_require__(92).babelPluginFlowReactPropTypes_proptype_Shape || __webpack_require__(12).PropTypes.any;
+
+	var babelPluginFlowReactPropTypes_proptype_Tree = __webpack_require__(94).babelPluginFlowReactPropTypes_proptype_Tree || __webpack_require__(12).PropTypes.any;
+
+	var babelPluginFlowReactPropTypes_proptype_Path = __webpack_require__(93).babelPluginFlowReactPropTypes_proptype_Path || __webpack_require__(12).PropTypes.any;
+
+	var babelPluginFlowReactPropTypes_proptype_HintMapper = __webpack_require__(93).babelPluginFlowReactPropTypes_proptype_HintMapper || __webpack_require__(12).PropTypes.any;
+
+	var babelPluginFlowReactPropTypes_proptype_ContentMapper = __webpack_require__(93).babelPluginFlowReactPropTypes_proptype_ContentMapper || __webpack_require__(12).PropTypes.any;
+
+	var babelPluginFlowReactPropTypes_proptype_TreeMapper = __webpack_require__(93).babelPluginFlowReactPropTypes_proptype_TreeMapper || __webpack_require__(12).PropTypes.any;
+
+	var _require = __webpack_require__(15), StyleSheet = _require.StyleSheet, css = _require.css;
+
+	var lens = __webpack_require__(118);
+
+	var React = __webpack_require__(12);
+
+	var _require2 = __webpack_require__(34), itemToTree = _require2.itemToTree;
+
+	var HintsRenderer = __webpack_require__(8);
+
+	var Renderer = __webpack_require__(9);
+
+	var _require3 = __webpack_require__(93), buildMapper = _require3.buildMapper;
+
+	var Util = __webpack_require__(18);
+
+	// TODO(mdr)
+	// TODO(mdr)
+	// TODO(mdr)
+	// TODO(mdr)
+	// TODO(mdr)
+	// TODO(mdr)
+	var MultiRenderer = function(_React$Component) {
+	    _inherits(MultiRenderer, _React$Component);
+	    /* eslint-disable react/sort-comp */
+	    // TODO(mdr): Update the linter to allow property type declarations here.
+	    function MultiRenderer(props) {
+	        _classCallCheck(this, MultiRenderer);
+	        var _this = _possibleConstructorReturn(this, _React$Component.call(this, props));
+	        _this._handleSerializedStateUpdated = function(path, newState) {
+	            var onSerializedStateUpdated = _this.props.onSerializedStateUpdated;
+	            if (onSerializedStateUpdated) {
+	                var oldState = _this._getSerializedState(_this.props.serializedState);
+	                onSerializedStateUpdated(lens(oldState).set(path, newState).freeze());
+	            }
+	        };
+	        _this.rendererDataTreeMapper = buildMapper().setContentMapper(function(c, _, p) {
+	            return _this._makeContentRendererData(c, p);
+	        }).setHintMapper(function(h) {
+	            return _this._makeHintRendererData(h);
+	        }).setTagsMapper(function(t) {
+	            return null;
+	        });
+	        _this.getRenderersMapper = buildMapper().setContentMapper(function(c) {
+	            return c.makeRenderer();
+	        }).setHintMapper(function(h) {
+	            return h.makeRenderer();
+	        }).setArrayMapper(_this._annotateRendererArray.bind(_this));
+	        // Keep state in sync with props.
+	        _this.state = _this._tryMakeRendererState(_this.props);
+	        return _this;
+	    }
+	    /* eslint-enable react/sort-comp */
+	    MultiRenderer.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
+	        // Keep state in sync with props.
+	        nextProps.item !== this.props.item && this.setState(this._tryMakeRendererState(nextProps));
+	    };
+	    /**
+	     * Attempt to build a State that includes a renderer tree corresponding to
+	     * the item provided in props. On error, return a state with `renderError`
+	     * set instead.
+	     */
+	    MultiRenderer.prototype._tryMakeRendererState = function _tryMakeRendererState(props) {
+	        try {
+	            return {
+	                rendererDataTree: this._makeRendererDataTree(props.item, props.shape),
+	                renderError: null
+	            };
+	        } catch (e) {
+	            // NOTE(mdr): It's appropriate to log an error traceback in a
+	            //     caught error condition, and console.error is supported in
+	            //     all target browsers. Just do it, linter.
+	            // eslint-disable-next-line no-console
+	            console.error(e);
+	            return {
+	                rendererDataTree: null,
+	                renderError: e
+	            };
+	        }
+	    };
+	    /**
+	     * Props that aren't directly used by the MultiRenderer are delegated to
+	     * the underlying Renderers.
+	     */
+	    MultiRenderer.prototype._getRendererProps = function _getRendererProps() {
+	        /* eslint-disable no-unused-vars */
+	        // eslint is complaining that `item` and `children` are unused. I'm
+	        // explicitly pulling them out of `this.props` so I don't pass them to
+	        // `<Renderer>`. I'm not sure how else to do this.
+	        var _props = this.props, item = _props.item, children = _props.children, shape = _props.shape;
+	        /* eslint-enable no-unused-vars */
+	        return _objectWithoutProperties(_props, [ "item", "children", "shape" ]);
+	    };
+	    /**
+	     * Construct a Renderer and a ref placeholder for the given ContentNode.
+	     */
+	    MultiRenderer.prototype._makeContentRendererData = function _makeContentRendererData(content, path) {
+	        var _this2 = this;
+	        // NOTE(emily): The `findExternalWidgets` function here is computed
+	        //     inline and thus changes each time we run this function. If it
+	        //     were to change every render, it would cause the Renderer to
+	        //     re-render a lot more than is necessary. Don't re-compute this
+	        //     element unless it is necessary!
+	        // HACK(mdr): Flow can't prove that this is a ContentRendererData,
+	        //     because of how we awkwardly construct it in order to obtain a
+	        var data = {
+	            ref: null,
+	            makeRenderer: null
+	        };
+	        var refFunc = function refFunc(e) {
+	            return data.ref = e;
+	        };
+	        var findExternalWidgets = function findExternalWidgets(criterion) {
+	            return _this2._findWidgets(data, criterion);
+	        };
+	        var handleSerializedState = function handleSerializedState(state) {
+	            return _this2._handleSerializedStateUpdated(path, state);
+	        };
+	        data.makeRenderer = function() {
+	            return React.createElement(Renderer, _extends({}, _this2._getRendererProps(), content, {
+	                ref: refFunc,
+	                findExternalWidgets: findExternalWidgets,
+	                serializedState: _this2.props.serializedState ? lens(_this2.props.serializedState).get(path) : null,
+	                onSerializedStateUpdated: handleSerializedState
+	            }));
+	        };
+	        return data;
+	    };
+	    /**
+	     * Construct a Renderer for the given HintNode, and keep track of the hint
+	     * itself for future use, too.
+	     */
+	    MultiRenderer.prototype._makeHintRendererData = function _makeHintRendererData(hint) {
+	        var _this3 = this;
+	        // TODO(mdr): Once HintsRenderer supports inter-widget communication,
+	        //     give it a ref. Until then, leave the ref null forever, to avoid
+	        //     confusing the findWidgets functions.
+	        return {
+	            hint: hint,
+	            ref: null,
+	            makeRenderer: function makeRenderer() {
+	                return React.createElement(HintsRenderer, _extends({}, _this3._getRendererProps(), {
+	                    hints: [ hint ]
+	                }));
+	            }
+	        };
+	    };
+	    /**
+	     * Construct a tree of interconnected RendererDatas, corresponding to the
+	     * given item. Called in `_tryMakeRendererState`, in order to store this
+	     * tree in the component state.
+	     */
+	    MultiRenderer.prototype._makeRendererDataTree = function _makeRendererDataTree(item, shape) {
+	        var itemTree = itemToTree(item);
+	        return this.rendererDataTreeMapper.mapTree(itemTree, shape);
+	    };
+	    /**
+	     * Return all widgets that meet the given criterion, from all Renderers
+	     * except the Renderer that triggered this call.
+	     *
+	     * This function is provided to each Renderer's `findExternalWidgets` prop,
+	     * which enables widgets in different Renderers to discover each other and
+	     * communicate.
+	     */
+	    MultiRenderer.prototype._findWidgets = function _findWidgets(callingData, filterCriterion) {
+	        var results = [];
+	        this._mapRenderers(function(data) {
+	            callingData !== data && data.ref && results.push.apply(results, data.ref.findInternalWidgets(filterCriterion));
+	        });
+	        return results;
+	    };
+	    /**
+	     * Copy the renderer tree, apply the given transformation to the leaf nodes
+	     * and the optional given transformation to the array nodes, and return the
+	     * result.
+	     *
+	     * Used to provide structured data to the call site (the Renderer tree on
+	     * `render`, the Score tree on `getScores`, etc.), and to traverse the
+	     * renderer tree even when we disregard the output (like in
+	     * `_findWidgets`).
+	     */
+	    MultiRenderer.prototype._mapRenderers = function _mapRenderers(leafMapper) {
+	        var rendererDataTree = this.state.rendererDataTree;
+	        if (!rendererDataTree) return null;
+	        return buildMapper().setContentMapper(leafMapper).setHintMapper(leafMapper).mapTree(rendererDataTree, this.props.shape);
+	    };
+	    MultiRenderer.prototype._scoreFromRef = function _scoreFromRef(ref) {
+	        if (!ref) return null;
+	        var _ref$guessAndScore = ref.guessAndScore(), guess = _ref$guessAndScore[0], score = _ref$guessAndScore[1];
+	        var state = void 0;
+	        ref.getSerializedState && (state = ref.getSerializedState());
+	        return Util.keScoreFromPerseusScore(score, guess, state);
+	    };
+	    /**
+	     * Return a tree in the shape of the multi-item, with scores at each of
+	     * the content nodes and `null` at the other leaf nodes.
+	     */
+	    MultiRenderer.prototype.getScores = function getScores() {
+	        var _this4 = this;
+	        return this._mapRenderers(function(data) {
+	            return _this4._scoreFromRef(data.ref);
+	        });
+	    };
+	    /**
+	     * Return a single composite score for all rendered content nodes.
+	     * The `guess` is a tree in the shape of the multi-item, with an individual
+	     * guess at each content node and `null` at the other leaf nodes.
+	     */
+	    MultiRenderer.prototype.score = function score() {
+	        var scores = [];
+	        var state = [];
+	        var guess = this._mapRenderers(function(data) {
+	            if (!data.ref) return null;
+	            data.ref.getSerializedState && state.push(data.ref.getSerializedState());
+	            scores.push(data.ref.score());
+	            return data.ref.getUserInput();
+	        });
+	        var combinedScore = scores.reduce(Util.combineScores);
+	        return Util.keScoreFromPerseusScore(combinedScore, guess, state);
+	    };
+	    /**
+	     * Return a tree in the shape of the multi-item, with serialized state at
+	     * each of the content nodes and `null` at the other leaf nodes.
+	     *
+	     * If the lastSerializedState argument is supplied, this function will fill
+	     * in the state of not-currently-rendered content and hint nodes with the
+	     * values from the previous serialized state. If no lastSerializedState is
+	     * supplied, `null` will be returned for not-currently-rendered content and
+	     * hint nodes.
+	     */
+	    MultiRenderer.prototype._getSerializedState = function _getSerializedState(lastSerializedState) {
+	        return this._mapRenderers(function(data, _, path) {
+	            return data.ref ? data.ref.getSerializedState() : lastSerializedState ? lens(lastSerializedState).get(path) : null;
+	        });
+	    };
+	    /**
+	     * Given a tree in the shape of the multi-item, with serialized state at
+	     * each of the content nodes, restore each state to the corresponding
+	     * renderer if currently mounted.
+	     */
+	    MultiRenderer.prototype.restoreSerializedState = function restoreSerializedState(serializedState, callback) {
+	        // We want to call our async callback only once all of the childrens'
+	        // callbacks have run. We add one to this counter before we call out to
+	        // each renderer and decrement it when it runs our callback.
+	        var numCallbacks = 0;
+	        var countCallback = function countCallback() {
+	            numCallbacks--;
+	            callback && 0 === numCallbacks && callback();
+	        };
+	        this._mapRenderers(function(data, _, path) {
+	            if (!data.ref) return;
+	            var state = lens(serializedState).get(path);
+	            if (!state) return;
+	            numCallbacks++;
+	            data.ref.restoreSerializedState(state, countCallback);
+	        });
+	    };
+	    /**
+	     * Given an array of renderers, if it happens to be an array of *hint*
+	     * renderers, then attach a `firstN` method to the array, which allows the
+	     * layout to render the hints together in one HintsRenderer.
+	     */
+	    MultiRenderer.prototype._annotateRendererArray = function _annotateRendererArray(renderers, rendererDatas, shape) {
+	        var _this5 = this;
+	        if ("hint" === shape.elementShape.type) {
+	            // The shape says that these are HintRendererDatas, even though
+	            var hintRendererDatas = rendererDatas;
+	            renderers = [].concat(renderers);
+	            renderers.firstN = function(n) {
+	                return React.createElement(HintsRenderer, _extends({}, _this5._getRendererProps(), {
+	                    hints: hintRendererDatas.map(function(d) {
+	                        return d.hint;
+	                    }),
+	                    hintsVisible: n
+	                }));
+	            };
+	        }
+	        return renderers;
+	    };
+	    /**
+	     * Return a tree in the shape of the multi-item, with a Renderer at each
+	     * content node and a HintRenderer at each hint node.
+	     *
+	     * This is generated by running each of the `makeRenderer` functions at the
+	     * leaf nodes.
+	     */
+	    MultiRenderer.prototype._getRenderers = function _getRenderers() {
+	        return this.getRenderersMapper.mapTree(this.state.rendererDataTree, this.props.shape);
+	    };
+	    MultiRenderer.prototype.render = function render() {
+	        if (this.state.renderError) return React.createElement("div", {
+	            className: css(styles.error)
+	        }, "Error rendering: ", String(this.state.renderError));
+	        // Pass the renderer tree to the `children` function, which will
+	        // determine the actual content of this component.
+	        return this.props.children({
+	            renderers: this._getRenderers()
+	        });
+	    };
+	    return MultiRenderer;
+	}(React.Component);
+
+	MultiRenderer.propTypes = {
+	    item: babelPluginFlowReactPropTypes_proptype_Item,
+	    shape: babelPluginFlowReactPropTypes_proptype_Shape,
+	    children: __webpack_require__(12).PropTypes.func.isRequired,
+	    serializedState: babelPluginFlowReactPropTypes_proptype_Tree,
+	    onSerializedStateUpdated: __webpack_require__(12).PropTypes.func
+	};
+
+	var styles = StyleSheet.create({
+	    error: {
+	        color: "red"
+	    }
+	});
+
+	module.exports = MultiRenderer;
+
+/***/ },
+/* 36 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/**
+	 * Utility functions to build React PropTypes for multi-items and shapes.
+	 *
+	 * If you're writing new components, though, consider using the Item and Shape
+	 * Flow types instead.
+	 */
+	var React = __webpack_require__(12);
+
+	/**
+	 * A recursive PropType that accepts Shape objects, and rejects other objects.
+	 *
+	 * Usage: `propTypes: {shape: shapePropType}`.
+	 */
+	var babelPluginFlowReactPropTypes_proptype_Shape = __webpack_require__(92).babelPluginFlowReactPropTypes_proptype_Shape || __webpack_require__(12).PropTypes.any;
+
+	function shapePropType() {
+	    return React.PropTypes.oneOfType([ React.PropTypes.shape({
+	        type: React.PropTypes.oneOf([ "content" ]).isRequired
+	    }).isRequired, React.PropTypes.shape({
+	        type: React.PropTypes.oneOf([ "hint" ]).isRequired
+	    }).isRequired, React.PropTypes.shape({
+	        type: React.PropTypes.oneOf([ "tags" ]).isRequired
+	    }).isRequired, React.PropTypes.shape({
+	        type: React.PropTypes.oneOf([ "object" ]).isRequired,
+	        shape: React.PropTypes.objectOf(shapePropType)
+	    }).isRequired, React.PropTypes.shape({
+	        type: React.PropTypes.oneOf([ "array" ]).isRequired,
+	        elementShape: shapePropType
+	    }).isRequired ]).apply(void 0, arguments);
+	}
+
+	/**
+	 * Return a PropType that accepts Items of the given shape, and rejects other
+	 * objects.
+	 *
+	 * Usage: `propTypes: {item: buildPropTypeForShape(myShape)}`
+	 */
+	function buildPropTypeForShape(shape) {
+	    return React.PropTypes.oneOfType([ React.PropTypes.shape({
+	        _multi: buildTreePropTypeForShape(shape)
+	    }), React.PropTypes.oneOf([ null, void 0 ]) ]);
+	}
+
+	/**
+	 * Return a PropType that accepts ItemTrees of the given shape, and rejects
+	 * other objects.
+	 */
+	function buildTreePropTypeForShape(shape) {
+	    if ("content" === shape.type) return React.PropTypes.shape({
+	        // TODO(mdr): Remove #LegacyContentNode support.
+	        __type: React.PropTypes.oneOf([ "content", "item" ]).isRequired,
+	        content: React.PropTypes.string,
+	        images: React.PropTypes.objectOf(React.PropTypes.any),
+	        widgets: React.PropTypes.objectOf(React.PropTypes.any)
+	    });
+	    if ("hint" === shape.type) return React.PropTypes.shape({
+	        __type: React.PropTypes.oneOf([ "hint" ]).isRequired,
+	        content: React.PropTypes.string,
+	        images: React.PropTypes.objectOf(React.PropTypes.any),
+	        widgets: React.PropTypes.objectOf(React.PropTypes.any),
+	        replace: React.PropTypes.bool
+	    });
+	    if ("tags" === shape.type) return React.PropTypes.arrayOf(React.PropTypes.string.isRequired);
+	    if ("array" === shape.type) {
+	        var elementPropType = buildTreePropTypeForShape(shape.elementShape);
+	        return React.PropTypes.arrayOf(elementPropType.isRequired);
+	    }
+	    if ("object" === shape.type) {
+	        var valueShapes = shape.shape;
+	        var propTypeShape = {};
+	        Object.keys(valueShapes).forEach(function(key) {
+	            propTypeShape[key] = buildTreePropTypeForShape(valueShapes[key]).isRequired;
+	        });
+	        return React.PropTypes.shape(propTypeShape);
+	    }
+	    throw new Error("unexpected shape type " + shape.type);
+	}
+
+	module.exports = {
+	    shapePropType: shapePropType,
+	    buildPropTypeForShape: buildPropTypeForShape
+	};
+
+/***/ },
+/* 37 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/**
+	 * These tools allow you to construct arbirtary shapes, by combining simple
+	 * leaf shapes like `content` and `hint` into composite shapes like
+	 * `arrayOf(shape({question: content, hints: arrayOf(hint)}))`.
+	 */
+	var babelPluginFlowReactPropTypes_proptype_ObjectShape = __webpack_require__(92).babelPluginFlowReactPropTypes_proptype_ObjectShape || __webpack_require__(12).PropTypes.any;
+
+	/**
+	 * Utility functions for constructing and inferring multi-item shapes.
+	 *
+	 * A shape is an object that serves as a runtime type declaration: it specifies
+	 * a tree structure for a particular class of multi-item. See shape-types.js
+	 * for further discussion.
+	 *
+	 * This module allows you to construct arbitrary Shape trees, by combining
+	 * leaf node shapes like `content` and `hint` into composite shapes like
+	 * `arrayOf(shape({foo: content, bar: hint}))`.
+	 */
+	var babelPluginFlowReactPropTypes_proptype_ArrayShape = __webpack_require__(92).babelPluginFlowReactPropTypes_proptype_ArrayShape || __webpack_require__(12).PropTypes.any;
+
+	var babelPluginFlowReactPropTypes_proptype_TagsShape = __webpack_require__(92).babelPluginFlowReactPropTypes_proptype_TagsShape || __webpack_require__(12).PropTypes.any;
+
+	var babelPluginFlowReactPropTypes_proptype_HintShape = __webpack_require__(92).babelPluginFlowReactPropTypes_proptype_HintShape || __webpack_require__(12).PropTypes.any;
+
+	var babelPluginFlowReactPropTypes_proptype_ContentShape = __webpack_require__(92).babelPluginFlowReactPropTypes_proptype_ContentShape || __webpack_require__(12).PropTypes.any;
+
+	var babelPluginFlowReactPropTypes_proptype_Shape = __webpack_require__(92).babelPluginFlowReactPropTypes_proptype_Shape || __webpack_require__(12).PropTypes.any;
+
+	var contentShape = {
+	    type: "content"
+	};
+
+	var hintShape = {
+	    type: "hint"
+	};
+
+	var tagsShape = {
+	    type: "tags"
+	};
+
+	var buildArrayShape = function buildArrayShape(elementShape) {
+	    return {
+	        type: "array",
+	        elementShape: elementShape
+	    };
+	};
+
+	var buildObjectShape = function buildObjectShape(shape) {
+	    return {
+	        type: "object",
+	        shape: shape
+	    };
+	};
+
+	var hintsShape = buildArrayShape(hintShape);
+
+	module.exports = {
+	    content: contentShape,
+	    hint: hintShape,
+	    hints: hintsShape,
+	    tags: tagsShape,
+	    arrayOf: buildArrayShape,
+	    shape: buildObjectShape
+	};
+
+/***/ },
+/* 38 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable no-var */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
@@ -5685,15 +6424,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(11);
 
-	var FixedToResponsive = __webpack_require__(91);
+	var FixedToResponsive = __webpack_require__(95);
 
-	var Graphie = __webpack_require__(92);
+	var Graphie = __webpack_require__(96);
 
-	var ImageLoader = __webpack_require__(93);
+	var ImageLoader = __webpack_require__(97);
 
 	var Util = __webpack_require__(18);
 
-	var Zoom = __webpack_require__(94);
+	var Zoom = __webpack_require__(98);
 
 	// Minimum image width to make an image appear as zoomable.
 	var ZOOMABLE_THRESHOLD = 700;
@@ -6200,7 +6939,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = SvgImage;
 
 /***/ },
-/* 35 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6420,7 +7159,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Zoomable;
 
 /***/ },
-/* 36 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6438,7 +7177,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 *       },
 	 *   });
 	 */
-	var _require = __webpack_require__(38), pureXsMax = _require.pureXsMax, pureSmMin = _require.pureSmMin, pureSmMax = _require.pureSmMax, pureMdMin = _require.pureMdMin, pureMdMax = _require.pureMdMax, pureLgMin = _require.pureLgMin, pureLgMax = _require.pureLgMax, pureXlMin = _require.pureXlMin;
+	var _require = __webpack_require__(42), pureXsMax = _require.pureXsMax, pureSmMin = _require.pureSmMin, pureSmMax = _require.pureSmMax, pureMdMin = _require.pureMdMin, pureMdMax = _require.pureMdMax, pureLgMin = _require.pureLgMin, pureLgMax = _require.pureLgMax, pureXlMin = _require.pureXlMin;
 
 	module.exports = {
 	    xs: "@media screen and (max-width: " + pureXsMax + ")",
@@ -6455,7 +7194,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 37 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6467,9 +7206,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var _require = __webpack_require__(15), StyleSheet = _require.StyleSheet;
 
-	var mediaQueries = __webpack_require__(36);
+	var mediaQueries = __webpack_require__(40);
 
-	var _require2 = __webpack_require__(38), zIndexAboveScratchpad = _require2.zIndexAboveScratchpad, zIndexInteractiveComponent = _require2.zIndexInteractiveComponent, radioBorderColor = _require2.radioBorderColor, checkedColor = _require2.checkedColor, circleSize = _require2.circleSize;
+	var _require2 = __webpack_require__(42), zIndexAboveScratchpad = _require2.zIndexAboveScratchpad, zIndexInteractiveComponent = _require2.zIndexInteractiveComponent, radioBorderColor = _require2.radioBorderColor, checkedColor = _require2.checkedColor, circleSize = _require2.circleSize;
 
 	module.exports = StyleSheet.create({
 	    perseusInteractive: {
@@ -6543,7 +7282,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 38 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6648,745 +7387,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports.radioBorderColor = module.exports.gray76;
 
 	module.exports.checkedColor = module.exports.kaGreen;
-
-/***/ },
-/* 39 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _typeof = "function" === typeof Symbol && "symbol" === typeof Symbol.iterator ? function(obj) {
-	    return typeof obj;
-	} : function(obj) {
-	    return obj && "function" === typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-	};
-
-	var babelPluginFlowReactPropTypes_proptype_ItemObjectNode = __webpack_require__(95).babelPluginFlowReactPropTypes_proptype_ItemObjectNode || __webpack_require__(12).PropTypes.any;
-
-	/**
-	 * Utility functions for constructing and manipulating multi-items.
-	 *
-	 * These functions apply *specifically* to Items and ItemTrees - things that
-	 * actually semantically *are* multi-items. For more general functions for
-	 * traversing and manipulating *anything* shaped like a multi-item (like a
-	 * renderer tree or a score tree or, well, a multi-item), see trees.js.
-	 */
-	var babelPluginFlowReactPropTypes_proptype_ItemArrayNode = __webpack_require__(95).babelPluginFlowReactPropTypes_proptype_ItemArrayNode || __webpack_require__(12).PropTypes.any;
-
-	var babelPluginFlowReactPropTypes_proptype_TagsNode = __webpack_require__(95).babelPluginFlowReactPropTypes_proptype_TagsNode || __webpack_require__(12).PropTypes.any;
-
-	var babelPluginFlowReactPropTypes_proptype_HintNode = __webpack_require__(95).babelPluginFlowReactPropTypes_proptype_HintNode || __webpack_require__(12).PropTypes.any;
-
-	var babelPluginFlowReactPropTypes_proptype_ContentNode = __webpack_require__(95).babelPluginFlowReactPropTypes_proptype_ContentNode || __webpack_require__(12).PropTypes.any;
-
-	var babelPluginFlowReactPropTypes_proptype_ItemTree = __webpack_require__(95).babelPluginFlowReactPropTypes_proptype_ItemTree || __webpack_require__(12).PropTypes.any;
-
-	var babelPluginFlowReactPropTypes_proptype_Item = __webpack_require__(95).babelPluginFlowReactPropTypes_proptype_Item || __webpack_require__(12).PropTypes.any;
-
-	var babelPluginFlowReactPropTypes_proptype_Shape = __webpack_require__(96).babelPluginFlowReactPropTypes_proptype_Shape || __webpack_require__(12).PropTypes.any;
-
-	var _require = __webpack_require__(97), buildMapper = _require.buildMapper;
-
-	var shapes = __webpack_require__(42);
-
-	/**
-	 * Return a semantically empty ItemTree that conforms to the given shape.
-	 *
-	 * - An empty content node has an empty content string and no widgets/images.
-	 * - An empty hint node has an empty content string and no widgets/images.
-	 * - An empty array node has no elements.
-	 * - An empty object node has a semantically empty node for each of its keys.
-	 *   (That is, we recursively call buildEmptyItemTreeForShape for each key.)
-	 */
-	function buildEmptyItemTreeForShape(shape) {
-	    if ("content" === shape.type) return {
-	        __type: "content",
-	        content: "",
-	        images: {},
-	        widgets: {}
-	    };
-	    if ("hint" === shape.type) return {
-	        __type: "hint",
-	        replace: false,
-	        content: "",
-	        images: {},
-	        widgets: {}
-	    };
-	    if ("tags" === shape.type) return [];
-	    if ("array" === shape.type) return [];
-	    if ("object" === shape.type) {
-	        var valueShapes = shape.shape;
-	        var object = {};
-	        Object.keys(valueShapes).forEach(function(key) {
-	            object[key] = buildEmptyItemTreeForShape(valueShapes[key]);
-	        });
-	        return object;
-	    }
-	    throw new Error("unexpected shape type " + shape.type);
-	}
-
-	/**
-	 * Return a semantically empty Item that conforms to the given shape.
-	 *
-	 * - An empty content node has an empty content string and no widgets/images.
-	 * - An empty hint node has an empty content string and no widgets/images.
-	 * - An empty array node has no elements.
-	 * - An empty object node has a semantically empty node for each of its keys.
-	 *   (That is, we recursively call buildEmptyItemTreeForShape for each key.)
-	 */
-	function buildEmptyItemForShape(shape) {
-	    return treeToItem(buildEmptyItemTreeForShape(shape));
-	}
-
-	/**
-	 * Given an Item and its Shape, yield all of its content nodes to the callback.
-	 */
-	function findContentNodesInItem(item, shape, callback) {
-	    var itemTree = itemToTree(item);
-	    buildMapper().setContentMapper(callback).mapTree(itemTree, shape);
-	}
-
-	/**
-	 * Given an Item and its Shape, yield all of its hint nodes to the callback.
-	 */
-	function findHintNodesInItem(item, shape, callback) {
-	    var itemTree = itemToTree(item);
-	    buildMapper().setHintMapper(callback).mapTree(itemTree, shape);
-	}
-
-	/**
-	 * Given an ItemTree, return a Shape that it conforms to.
-	 *
-	 * The Shape might not be complete or correct Shape that this Item was designed
-	 * for. If you have access to the intended Shape, use that instead.
-	 */
-	function inferItemShape(item) {
-	    return inferItemTreeShape(itemToTree(item));
-	}
-
-	function inferItemTreeShape(node) {
-	    if (Array.isArray(node)) return node.length ? "string" === typeof node[0] ? shapes.tags : shapes.arrayOf(inferItemTreeShape(node[0])) : shapes.arrayOf(shapes.content);
-	    if (// TODO(mdr): Remove #LegacyContentNode support.
-	    "object" !== ("undefined" === typeof node ? "undefined" : _typeof(node)) || "content" !== node.__type && "item" !== node.__type) {
-	        if ("object" === ("undefined" === typeof node ? "undefined" : _typeof(node)) && "hint" === node.__type) return shapes.hint;
-	        if ("object" === ("undefined" === typeof node ? "undefined" : _typeof(node))) {
-	            var valueShapes = {};
-	            Object.keys(node).forEach(function(key) {
-	                // $FlowFixMe: Not sure why this property deref is an error.
-	                valueShapes[key] = inferItemTreeShape(node[key]);
-	            });
-	            return shapes.shape(valueShapes);
-	        }
-	        throw new Error("unexpected multi-item node " + JSON.stringify(node));
-	    }
-	    return shapes.content;
-	}
-
-	/**
-	 * Convert the given ItemTree to an Item, by wrapping it in the `_multi` key.
-	 */
-	function itemToTree(item) {
-	    return item._multi;
-	}
-
-	/**
-	 * Convert the given Item to an ItemTree, by unwrapping the `_multi` key.
-	 */
-	function treeToItem(node) {
-	    return {
-	        _multi: node
-	    };
-	}
-
-	module.exports = {
-	    buildEmptyItemTreeForShape: buildEmptyItemTreeForShape,
-	    buildEmptyItemForShape: buildEmptyItemForShape,
-	    findContentNodesInItem: findContentNodesInItem,
-	    findHintNodesInItem: findHintNodesInItem,
-	    inferItemShape: inferItemShape,
-	    itemToTree: itemToTree,
-	    treeToItem: treeToItem
-	};
-
-/***/ },
-/* 40 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _extends = Object.assign || function(target) {
-	    for (var i = 1; i < arguments.length; i++) {
-	        var source = arguments[i];
-	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
-	    }
-	    return target;
-	};
-
-	function _objectWithoutProperties(obj, keys) {
-	    var target = {};
-	    for (var i in obj) {
-	        if (keys.indexOf(i) >= 0) continue;
-	        if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
-	        target[i] = obj[i];
-	    }
-	    return target;
-	}
-
-	function _classCallCheck(instance, Constructor) {
-	    if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
-	}
-
-	function _possibleConstructorReturn(self, call) {
-	    if (!self) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-	    return !call || "object" !== typeof call && "function" !== typeof call ? self : call;
-	}
-
-	function _inherits(subClass, superClass) {
-	    if ("function" !== typeof superClass && null !== superClass) throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-	    subClass.prototype = Object.create(superClass && superClass.prototype, {
-	        constructor: {
-	            value: subClass,
-	            enumerable: false,
-	            writable: true,
-	            configurable: true
-	        }
-	    });
-	    superClass && (Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass);
-	}
-
-	var babelPluginFlowReactPropTypes_proptype_TagsNode = __webpack_require__(95).babelPluginFlowReactPropTypes_proptype_TagsNode || __webpack_require__(12).PropTypes.any;
-
-	/**
-	 * Main entry point to the MultiRenderer render portion.
-	 *
-	 * This file exposes the `MultiRenderer` component which performs
-	 * multi-rendering. To multi-render a question, pass in the content of the item
-	 * to the `MultiRenderer` component as a props. Then, pass in a function which
-	 * takes an object of renderers (in the same structure as the content), and
-	 * return a render tree. The `MultiRenderer` component will allow you to
-	 * combine scores, serialized state, etc. without having to manually call on
-	 * each of the functions. It also handles inter-widgets requests between the
-	 * different renderers.
-	 *
-	 * Example:
-	 *
-	 *   item = {_multi: {
-	 *       left: <content data>,
-	 *       right: [<content data>, <content data>],
-	 *   }}
-	 *   shape = shapes.shape({
-	 *       left: shapes.content,
-	 *       right: shapes.arrayOf(shapes.content),
-	 *   })
-	 *
-	 *   <MultiRenderer item={item} shape={shape}>
-	 *       {({renderers}) =>
-	 *           <div>
-	 *               <div id="left">{renderers.left}</div>
-	 *               <ul id="right">
-	 *                   {renderers.right.map(r => <li>{r}</li>)}
-	 *               </ul>
-	 *           </div>
-	 *       }
-	 *   </MultiRenderer>
-	 */
-	var babelPluginFlowReactPropTypes_proptype_HintNode = __webpack_require__(95).babelPluginFlowReactPropTypes_proptype_HintNode || __webpack_require__(12).PropTypes.any;
-
-	var babelPluginFlowReactPropTypes_proptype_ContentNode = __webpack_require__(95).babelPluginFlowReactPropTypes_proptype_ContentNode || __webpack_require__(12).PropTypes.any;
-
-	var babelPluginFlowReactPropTypes_proptype_Item = __webpack_require__(95).babelPluginFlowReactPropTypes_proptype_Item || __webpack_require__(12).PropTypes.any;
-
-	var babelPluginFlowReactPropTypes_proptype_ArrayShape = __webpack_require__(96).babelPluginFlowReactPropTypes_proptype_ArrayShape || __webpack_require__(12).PropTypes.any;
-
-	var babelPluginFlowReactPropTypes_proptype_Shape = __webpack_require__(96).babelPluginFlowReactPropTypes_proptype_Shape || __webpack_require__(12).PropTypes.any;
-
-	var babelPluginFlowReactPropTypes_proptype_Tree = __webpack_require__(98).babelPluginFlowReactPropTypes_proptype_Tree || __webpack_require__(12).PropTypes.any;
-
-	var babelPluginFlowReactPropTypes_proptype_Path = __webpack_require__(97).babelPluginFlowReactPropTypes_proptype_Path || __webpack_require__(12).PropTypes.any;
-
-	var babelPluginFlowReactPropTypes_proptype_HintMapper = __webpack_require__(97).babelPluginFlowReactPropTypes_proptype_HintMapper || __webpack_require__(12).PropTypes.any;
-
-	var babelPluginFlowReactPropTypes_proptype_ContentMapper = __webpack_require__(97).babelPluginFlowReactPropTypes_proptype_ContentMapper || __webpack_require__(12).PropTypes.any;
-
-	var babelPluginFlowReactPropTypes_proptype_TreeMapper = __webpack_require__(97).babelPluginFlowReactPropTypes_proptype_TreeMapper || __webpack_require__(12).PropTypes.any;
-
-	var _require = __webpack_require__(15), StyleSheet = _require.StyleSheet, css = _require.css;
-
-	var lens = __webpack_require__(102);
-
-	var React = __webpack_require__(12);
-
-	var _require2 = __webpack_require__(39), itemToTree = _require2.itemToTree;
-
-	var HintsRenderer = __webpack_require__(8);
-
-	var Renderer = __webpack_require__(9);
-
-	var _require3 = __webpack_require__(97), buildMapper = _require3.buildMapper;
-
-	var Util = __webpack_require__(18);
-
-	// TODO(mdr)
-	// TODO(mdr)
-	// TODO(mdr)
-	// TODO(mdr)
-	// TODO(mdr)
-	// TODO(mdr)
-	var MultiRenderer = function(_React$Component) {
-	    _inherits(MultiRenderer, _React$Component);
-	    /* eslint-disable react/sort-comp */
-	    // TODO(mdr): Update the linter to allow property type declarations here.
-	    function MultiRenderer(props) {
-	        _classCallCheck(this, MultiRenderer);
-	        var _this = _possibleConstructorReturn(this, _React$Component.call(this, props));
-	        _this._handleSerializedStateUpdated = function(path, newState) {
-	            var onSerializedStateUpdated = _this.props.onSerializedStateUpdated;
-	            if (onSerializedStateUpdated) {
-	                var oldState = _this._getSerializedState(_this.props.serializedState);
-	                onSerializedStateUpdated(lens(oldState).set(path, newState).freeze());
-	            }
-	        };
-	        _this.rendererDataTreeMapper = buildMapper().setContentMapper(function(c, _, p) {
-	            return _this._makeContentRendererData(c, p);
-	        }).setHintMapper(function(h) {
-	            return _this._makeHintRendererData(h);
-	        }).setTagsMapper(function(t) {
-	            return null;
-	        });
-	        _this.getRenderersMapper = buildMapper().setContentMapper(function(c) {
-	            return c.makeRenderer();
-	        }).setHintMapper(function(h) {
-	            return h.makeRenderer();
-	        }).setArrayMapper(_this._annotateRendererArray.bind(_this));
-	        // Keep state in sync with props.
-	        _this.state = _this._tryMakeRendererState(_this.props);
-	        return _this;
-	    }
-	    /* eslint-enable react/sort-comp */
-	    MultiRenderer.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
-	        // Keep state in sync with props.
-	        nextProps.item !== this.props.item && this.setState(this._tryMakeRendererState(nextProps));
-	    };
-	    /**
-	     * Attempt to build a State that includes a renderer tree corresponding to
-	     * the item provided in props. On error, return a state with `renderError`
-	     * set instead.
-	     */
-	    MultiRenderer.prototype._tryMakeRendererState = function _tryMakeRendererState(props) {
-	        try {
-	            return {
-	                rendererDataTree: this._makeRendererDataTree(props.item, props.shape),
-	                renderError: null
-	            };
-	        } catch (e) {
-	            // NOTE(mdr): It's appropriate to log an error traceback in a
-	            //     caught error condition, and console.error is supported in
-	            //     all target browsers. Just do it, linter.
-	            // eslint-disable-next-line no-console
-	            console.error(e);
-	            return {
-	                rendererDataTree: null,
-	                renderError: e
-	            };
-	        }
-	    };
-	    /**
-	     * Props that aren't directly used by the MultiRenderer are delegated to
-	     * the underlying Renderers.
-	     */
-	    MultiRenderer.prototype._getRendererProps = function _getRendererProps() {
-	        /* eslint-disable no-unused-vars */
-	        // eslint is complaining that `item` and `children` are unused. I'm
-	        // explicitly pulling them out of `this.props` so I don't pass them to
-	        // `<Renderer>`. I'm not sure how else to do this.
-	        var _props = this.props, item = _props.item, children = _props.children, shape = _props.shape;
-	        /* eslint-enable no-unused-vars */
-	        return _objectWithoutProperties(_props, [ "item", "children", "shape" ]);
-	    };
-	    /**
-	     * Construct a Renderer and a ref placeholder for the given ContentNode.
-	     */
-	    MultiRenderer.prototype._makeContentRendererData = function _makeContentRendererData(content, path) {
-	        var _this2 = this;
-	        // NOTE(emily): The `findExternalWidgets` function here is computed
-	        //     inline and thus changes each time we run this function. If it
-	        //     were to change every render, it would cause the Renderer to
-	        //     re-render a lot more than is necessary. Don't re-compute this
-	        //     element unless it is necessary!
-	        // HACK(mdr): Flow can't prove that this is a ContentRendererData,
-	        //     because of how we awkwardly construct it in order to obtain a
-	        var data = {
-	            ref: null,
-	            makeRenderer: null
-	        };
-	        var refFunc = function refFunc(e) {
-	            return data.ref = e;
-	        };
-	        var findExternalWidgets = function findExternalWidgets(criterion) {
-	            return _this2._findWidgets(data, criterion);
-	        };
-	        var handleSerializedState = function handleSerializedState(state) {
-	            return _this2._handleSerializedStateUpdated(path, state);
-	        };
-	        data.makeRenderer = function() {
-	            return React.createElement(Renderer, _extends({}, _this2._getRendererProps(), content, {
-	                ref: refFunc,
-	                findExternalWidgets: findExternalWidgets,
-	                serializedState: _this2.props.serializedState ? lens(_this2.props.serializedState).get(path) : null,
-	                onSerializedStateUpdated: handleSerializedState
-	            }));
-	        };
-	        return data;
-	    };
-	    /**
-	     * Construct a Renderer for the given HintNode, and keep track of the hint
-	     * itself for future use, too.
-	     */
-	    MultiRenderer.prototype._makeHintRendererData = function _makeHintRendererData(hint) {
-	        var _this3 = this;
-	        // TODO(mdr): Once HintsRenderer supports inter-widget communication,
-	        //     give it a ref. Until then, leave the ref null forever, to avoid
-	        //     confusing the findWidgets functions.
-	        return {
-	            hint: hint,
-	            ref: null,
-	            makeRenderer: function makeRenderer() {
-	                return React.createElement(HintsRenderer, _extends({}, _this3._getRendererProps(), {
-	                    hints: [ hint ]
-	                }));
-	            }
-	        };
-	    };
-	    /**
-	     * Construct a tree of interconnected RendererDatas, corresponding to the
-	     * given item. Called in `_tryMakeRendererState`, in order to store this
-	     * tree in the component state.
-	     */
-	    MultiRenderer.prototype._makeRendererDataTree = function _makeRendererDataTree(item, shape) {
-	        var itemTree = itemToTree(item);
-	        return this.rendererDataTreeMapper.mapTree(itemTree, shape);
-	    };
-	    /**
-	     * Return all widgets that meet the given criterion, from all Renderers
-	     * except the Renderer that triggered this call.
-	     *
-	     * This function is provided to each Renderer's `findExternalWidgets` prop,
-	     * which enables widgets in different Renderers to discover each other and
-	     * communicate.
-	     */
-	    MultiRenderer.prototype._findWidgets = function _findWidgets(callingData, filterCriterion) {
-	        var results = [];
-	        this._mapRenderers(function(data) {
-	            callingData !== data && data.ref && results.push.apply(results, data.ref.findInternalWidgets(filterCriterion));
-	        });
-	        return results;
-	    };
-	    /**
-	     * Copy the renderer tree, apply the given transformation to the leaf nodes
-	     * and the optional given transformation to the array nodes, and return the
-	     * result.
-	     *
-	     * Used to provide structured data to the call site (the Renderer tree on
-	     * `render`, the Score tree on `getScores`, etc.), and to traverse the
-	     * renderer tree even when we disregard the output (like in
-	     * `_findWidgets`).
-	     */
-	    MultiRenderer.prototype._mapRenderers = function _mapRenderers(leafMapper) {
-	        var rendererDataTree = this.state.rendererDataTree;
-	        if (!rendererDataTree) return null;
-	        return buildMapper().setContentMapper(leafMapper).setHintMapper(leafMapper).mapTree(rendererDataTree, this.props.shape);
-	    };
-	    MultiRenderer.prototype._scoreFromRef = function _scoreFromRef(ref) {
-	        if (!ref) return null;
-	        var _ref$guessAndScore = ref.guessAndScore(), guess = _ref$guessAndScore[0], score = _ref$guessAndScore[1];
-	        var state = void 0;
-	        ref.getSerializedState && (state = ref.getSerializedState());
-	        return Util.keScoreFromPerseusScore(score, guess, state);
-	    };
-	    /**
-	     * Return a tree in the shape of the multi-item, with scores at each of
-	     * the content nodes and `null` at the other leaf nodes.
-	     */
-	    MultiRenderer.prototype.getScores = function getScores() {
-	        var _this4 = this;
-	        return this._mapRenderers(function(data) {
-	            return _this4._scoreFromRef(data.ref);
-	        });
-	    };
-	    /**
-	     * Return a single composite score for all rendered content nodes.
-	     * The `guess` is a tree in the shape of the multi-item, with an individual
-	     * guess at each content node and `null` at the other leaf nodes.
-	     */
-	    MultiRenderer.prototype.score = function score() {
-	        var scores = [];
-	        var state = [];
-	        var guess = this._mapRenderers(function(data) {
-	            if (!data.ref) return null;
-	            data.ref.getSerializedState && state.push(data.ref.getSerializedState());
-	            scores.push(data.ref.score());
-	            return data.ref.getUserInput();
-	        });
-	        var combinedScore = scores.reduce(Util.combineScores);
-	        return Util.keScoreFromPerseusScore(combinedScore, guess, state);
-	    };
-	    /**
-	     * Return a tree in the shape of the multi-item, with serialized state at
-	     * each of the content nodes and `null` at the other leaf nodes.
-	     *
-	     * If the lastSerializedState argument is supplied, this function will fill
-	     * in the state of not-currently-rendered content and hint nodes with the
-	     * values from the previous serialized state. If no lastSerializedState is
-	     * supplied, `null` will be returned for not-currently-rendered content and
-	     * hint nodes.
-	     */
-	    MultiRenderer.prototype._getSerializedState = function _getSerializedState(lastSerializedState) {
-	        return this._mapRenderers(function(data, _, path) {
-	            return data.ref ? data.ref.getSerializedState() : lastSerializedState ? lens(lastSerializedState).get(path) : null;
-	        });
-	    };
-	    /**
-	     * Given a tree in the shape of the multi-item, with serialized state at
-	     * each of the content nodes, restore each state to the corresponding
-	     * renderer if currently mounted.
-	     */
-	    MultiRenderer.prototype.restoreSerializedState = function restoreSerializedState(serializedState, callback) {
-	        // We want to call our async callback only once all of the childrens'
-	        // callbacks have run. We add one to this counter before we call out to
-	        // each renderer and decrement it when it runs our callback.
-	        var numCallbacks = 0;
-	        var countCallback = function countCallback() {
-	            numCallbacks--;
-	            callback && 0 === numCallbacks && callback();
-	        };
-	        this._mapRenderers(function(data, _, path) {
-	            if (!data.ref) return;
-	            var state = lens(serializedState).get(path);
-	            if (!state) return;
-	            numCallbacks++;
-	            data.ref.restoreSerializedState(state, countCallback);
-	        });
-	    };
-	    /**
-	     * Given an array of renderers, if it happens to be an array of *hint*
-	     * renderers, then attach a `firstN` method to the array, which allows the
-	     * layout to render the hints together in one HintsRenderer.
-	     */
-	    MultiRenderer.prototype._annotateRendererArray = function _annotateRendererArray(renderers, rendererDatas, shape) {
-	        var _this5 = this;
-	        if ("hint" === shape.elementShape.type) {
-	            // The shape says that these are HintRendererDatas, even though
-	            var hintRendererDatas = rendererDatas;
-	            renderers = [].concat(renderers);
-	            renderers.firstN = function(n) {
-	                return React.createElement(HintsRenderer, _extends({}, _this5._getRendererProps(), {
-	                    hints: hintRendererDatas.map(function(d) {
-	                        return d.hint;
-	                    }),
-	                    hintsVisible: n
-	                }));
-	            };
-	        }
-	        return renderers;
-	    };
-	    /**
-	     * Return a tree in the shape of the multi-item, with a Renderer at each
-	     * content node and a HintRenderer at each hint node.
-	     *
-	     * This is generated by running each of the `makeRenderer` functions at the
-	     * leaf nodes.
-	     */
-	    MultiRenderer.prototype._getRenderers = function _getRenderers() {
-	        return this.getRenderersMapper.mapTree(this.state.rendererDataTree, this.props.shape);
-	    };
-	    MultiRenderer.prototype.render = function render() {
-	        if (this.state.renderError) return React.createElement("div", {
-	            className: css(styles.error)
-	        }, "Error rendering: ", String(this.state.renderError));
-	        // Pass the renderer tree to the `children` function, which will
-	        // determine the actual content of this component.
-	        return this.props.children({
-	            renderers: this._getRenderers()
-	        });
-	    };
-	    return MultiRenderer;
-	}(React.Component);
-
-	MultiRenderer.propTypes = {
-	    item: babelPluginFlowReactPropTypes_proptype_Item,
-	    shape: babelPluginFlowReactPropTypes_proptype_Shape,
-	    children: __webpack_require__(12).PropTypes.func.isRequired,
-	    serializedState: babelPluginFlowReactPropTypes_proptype_Tree,
-	    onSerializedStateUpdated: __webpack_require__(12).PropTypes.func
-	};
-
-	var styles = StyleSheet.create({
-	    error: {
-	        color: "red"
-	    }
-	});
-
-	module.exports = MultiRenderer;
-
-/***/ },
-/* 41 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/**
-	 * Utility functions to build React PropTypes for multi-items and shapes.
-	 *
-	 * If you're writing new components, though, consider using the Item and Shape
-	 * Flow types instead.
-	 */
-	var React = __webpack_require__(12);
-
-	/**
-	 * A recursive PropType that accepts Shape objects, and rejects other objects.
-	 *
-	 * Usage: `propTypes: {shape: shapePropType}`.
-	 */
-	var babelPluginFlowReactPropTypes_proptype_Shape = __webpack_require__(96).babelPluginFlowReactPropTypes_proptype_Shape || __webpack_require__(12).PropTypes.any;
-
-	function shapePropType() {
-	    return React.PropTypes.oneOfType([ React.PropTypes.shape({
-	        type: React.PropTypes.oneOf([ "content" ]).isRequired
-	    }).isRequired, React.PropTypes.shape({
-	        type: React.PropTypes.oneOf([ "hint" ]).isRequired
-	    }).isRequired, React.PropTypes.shape({
-	        type: React.PropTypes.oneOf([ "tags" ]).isRequired
-	    }).isRequired, React.PropTypes.shape({
-	        type: React.PropTypes.oneOf([ "object" ]).isRequired,
-	        shape: React.PropTypes.objectOf(shapePropType)
-	    }).isRequired, React.PropTypes.shape({
-	        type: React.PropTypes.oneOf([ "array" ]).isRequired,
-	        elementShape: shapePropType
-	    }).isRequired ]).apply(void 0, arguments);
-	}
-
-	/**
-	 * Return a PropType that accepts Items of the given shape, and rejects other
-	 * objects.
-	 *
-	 * Usage: `propTypes: {item: buildPropTypeForShape(myShape)}`
-	 */
-	function buildPropTypeForShape(shape) {
-	    return React.PropTypes.oneOfType([ React.PropTypes.shape({
-	        _multi: buildTreePropTypeForShape(shape)
-	    }), React.PropTypes.oneOf([ null, void 0 ]) ]);
-	}
-
-	/**
-	 * Return a PropType that accepts ItemTrees of the given shape, and rejects
-	 * other objects.
-	 */
-	function buildTreePropTypeForShape(shape) {
-	    if ("content" === shape.type) return React.PropTypes.shape({
-	        // TODO(mdr): Remove #LegacyContentNode support.
-	        __type: React.PropTypes.oneOf([ "content", "item" ]).isRequired,
-	        content: React.PropTypes.string,
-	        images: React.PropTypes.objectOf(React.PropTypes.any),
-	        widgets: React.PropTypes.objectOf(React.PropTypes.any)
-	    });
-	    if ("hint" === shape.type) return React.PropTypes.shape({
-	        __type: React.PropTypes.oneOf([ "hint" ]).isRequired,
-	        content: React.PropTypes.string,
-	        images: React.PropTypes.objectOf(React.PropTypes.any),
-	        widgets: React.PropTypes.objectOf(React.PropTypes.any),
-	        replace: React.PropTypes.bool
-	    });
-	    if ("tags" === shape.type) return React.PropTypes.arrayOf(React.PropTypes.string.isRequired);
-	    if ("array" === shape.type) {
-	        var elementPropType = buildTreePropTypeForShape(shape.elementShape);
-	        return React.PropTypes.arrayOf(elementPropType.isRequired);
-	    }
-	    if ("object" === shape.type) {
-	        var valueShapes = shape.shape;
-	        var propTypeShape = {};
-	        Object.keys(valueShapes).forEach(function(key) {
-	            propTypeShape[key] = buildTreePropTypeForShape(valueShapes[key]).isRequired;
-	        });
-	        return React.PropTypes.shape(propTypeShape);
-	    }
-	    throw new Error("unexpected shape type " + shape.type);
-	}
-
-	module.exports = {
-	    shapePropType: shapePropType,
-	    buildPropTypeForShape: buildPropTypeForShape
-	};
-
-/***/ },
-/* 42 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/**
-	 * These tools allow you to construct arbirtary shapes, by combining simple
-	 * leaf shapes like `content` and `hint` into composite shapes like
-	 * `arrayOf(shape({question: content, hints: arrayOf(hint)}))`.
-	 */
-	var babelPluginFlowReactPropTypes_proptype_ObjectShape = __webpack_require__(96).babelPluginFlowReactPropTypes_proptype_ObjectShape || __webpack_require__(12).PropTypes.any;
-
-	/**
-	 * Utility functions for constructing and inferring multi-item shapes.
-	 *
-	 * A shape is an object that serves as a runtime type declaration: it specifies
-	 * a tree structure for a particular class of multi-item. See shape-types.js
-	 * for further discussion.
-	 *
-	 * This module allows you to construct arbitrary Shape trees, by combining
-	 * leaf node shapes like `content` and `hint` into composite shapes like
-	 * `arrayOf(shape({foo: content, bar: hint}))`.
-	 */
-	var babelPluginFlowReactPropTypes_proptype_ArrayShape = __webpack_require__(96).babelPluginFlowReactPropTypes_proptype_ArrayShape || __webpack_require__(12).PropTypes.any;
-
-	var babelPluginFlowReactPropTypes_proptype_TagsShape = __webpack_require__(96).babelPluginFlowReactPropTypes_proptype_TagsShape || __webpack_require__(12).PropTypes.any;
-
-	var babelPluginFlowReactPropTypes_proptype_HintShape = __webpack_require__(96).babelPluginFlowReactPropTypes_proptype_HintShape || __webpack_require__(12).PropTypes.any;
-
-	var babelPluginFlowReactPropTypes_proptype_ContentShape = __webpack_require__(96).babelPluginFlowReactPropTypes_proptype_ContentShape || __webpack_require__(12).PropTypes.any;
-
-	var babelPluginFlowReactPropTypes_proptype_Shape = __webpack_require__(96).babelPluginFlowReactPropTypes_proptype_Shape || __webpack_require__(12).PropTypes.any;
-
-	var contentShape = {
-	    type: "content"
-	};
-
-	var hintShape = {
-	    type: "hint"
-	};
-
-	var tagsShape = {
-	    type: "tags"
-	};
-
-	var buildArrayShape = function buildArrayShape(elementShape) {
-	    return {
-	        type: "array",
-	        elementShape: elementShape
-	    };
-	};
-
-	var buildObjectShape = function buildObjectShape(shape) {
-	    return {
-	        type: "object",
-	        shape: shape
-	    };
-	};
-
-	var hintsShape = buildArrayShape(hintShape);
-
-	module.exports = {
-	    content: contentShape,
-	    hint: hintShape,
-	    hints: hintsShape,
-	    tags: tagsShape,
-	    arrayOf: buildArrayShape,
-	    shape: buildObjectShape
-	};
 
 /***/ },
 /* 43 */
@@ -7629,7 +7629,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Changeable = __webpack_require__(86);
 
-	var WidgetJsonifyDeprecated = __webpack_require__(103);
+	var WidgetJsonifyDeprecated = __webpack_require__(102);
 
 	var _ = __webpack_require__(11);
 
@@ -7645,9 +7645,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Util = __webpack_require__(18);
 
-	var mediaQueries = __webpack_require__(36);
+	var mediaQueries = __webpack_require__(40);
 
-	var sharedStyles = __webpack_require__(37);
+	var sharedStyles = __webpack_require__(41);
 
 	var Categorizer = React.createClass({
 	    displayName: "Categorizer",
@@ -8030,7 +8030,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var InlineIcon = __webpack_require__(87);
 
-	var styleConstants = __webpack_require__(38);
+	var styleConstants = __webpack_require__(42);
 
 	var _require2 = __webpack_require__(90), iconDropdownArrow = _require2.iconDropdownArrow;
 
@@ -8197,9 +8197,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Renderer = __webpack_require__(9);
 
-	var mediaQueries = __webpack_require__(36);
+	var mediaQueries = __webpack_require__(40);
 
-	var styleConstants = __webpack_require__(38);
+	var styleConstants = __webpack_require__(42);
 
 	var defaultExplanationProps = {
 	    showPrompt: "Explain",
@@ -8371,7 +8371,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        bottom: -(arrowHeight + 5),
 	        height: arrowHeight,
 	        left: "50%",
-	        marginLeft: -arrowWidth / 2,
+	        marginLeft: -(arrowWidth / 2),
 	        position: "absolute",
 	        width: arrowWidth
 	    }
@@ -8417,22 +8417,22 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(11);
 
-	var Interactive2 = __webpack_require__(104);
+	var Interactive2 = __webpack_require__(103);
 
-	var SvgImage = __webpack_require__(34);
+	var SvgImage = __webpack_require__(38);
 
 	var Util = __webpack_require__(18);
 
-	var ButtonGroup = __webpack_require__(105);
+	var ButtonGroup = __webpack_require__(104);
 
 	/* Graphie and relevant components. */
-	var Graphie = __webpack_require__(92);
+	var Graphie = __webpack_require__(96);
 
 	var MovablePoint = Graphie.MovablePoint;
 
 	var MovableLine = Graphie.MovableLine;
 
-	var WrappedLine = __webpack_require__(106);
+	var WrappedLine = __webpack_require__(105);
 
 	var knumber = __webpack_require__(133).number;
 
@@ -8440,18 +8440,18 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var kpoint = __webpack_require__(133).point;
 
-	var KhanColors = __webpack_require__(107);
+	var KhanColors = __webpack_require__(106);
 
 	var _require = __webpack_require__(78), containerSizeClassPropType = _require.containerSizeClassPropType;
 
-	var _require2 = __webpack_require__(38), interactiveSizes = _require2.interactiveSizes;
+	var _require2 = __webpack_require__(42), interactiveSizes = _require2.interactiveSizes;
 
 	var _require3 = __webpack_require__(78), getInteractiveBoxFromSizeClass = _require3.getInteractiveBoxFromSizeClass;
 
 	/* Mixins. */
 	var Changeable = __webpack_require__(86);
 
-	var _require4 = __webpack_require__(122), GrapherUtil = _require4.GrapherUtil, typeToButton = _require4.typeToButton, functionForType = _require4.functionForType, DEFAULT_GRAPHER_PROPS = _require4.DEFAULT_GRAPHER_PROPS;
+	var _require4 = __webpack_require__(121), GrapherUtil = _require4.GrapherUtil, typeToButton = _require4.typeToButton, functionForType = _require4.functionForType, DEFAULT_GRAPHER_PROPS = _require4.DEFAULT_GRAPHER_PROPS;
 
 	function isFlipped(newCoord, oldCoord, line) {
 	    var CCW = function CCW(a, b, c) {
@@ -8881,9 +8881,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Renderer = __webpack_require__(9);
 
-	var GradedGroupAnswerBar = __webpack_require__(108);
+	var GradedGroupAnswerBar = __webpack_require__(107);
 
-	var _require2 = __webpack_require__(38), gray76 = _require2.gray76, phoneMargin = _require2.phoneMargin, negativePhoneMargin = _require2.negativePhoneMargin, tableBackgroundAccent = _require2.tableBackgroundAccent, kaGreen = _require2.kaGreen;
+	var _require2 = __webpack_require__(42), gray76 = _require2.gray76, phoneMargin = _require2.phoneMargin, negativePhoneMargin = _require2.negativePhoneMargin, tableBackgroundAccent = _require2.tableBackgroundAccent, kaGreen = _require2.kaGreen;
 
 	var _require3 = __webpack_require__(15), StyleSheet = _require3.StyleSheet, css = _require3.css;
 
@@ -9197,7 +9197,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var GradedGroup = __webpack_require__(50).widget;
 
-	var _require2 = __webpack_require__(38), grayLight = _require2.grayLight, gray76 = _require2.gray76, tableBackgroundAccent = _require2.tableBackgroundAccent, kaGreen = _require2.kaGreen, phoneMargin = _require2.phoneMargin, negativePhoneMargin = _require2.negativePhoneMargin;
+	var _require2 = __webpack_require__(42), grayLight = _require2.grayLight, gray76 = _require2.gray76, tableBackgroundAccent = _require2.tableBackgroundAccent, kaGreen = _require2.kaGreen, phoneMargin = _require2.phoneMargin, negativePhoneMargin = _require2.negativePhoneMargin;
 
 	var Indicators = React.createClass({
 	    displayName: "Indicators",
@@ -9567,7 +9567,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Changeable = __webpack_require__(86);
 
-	var WidgetJsonifyDeprecated = __webpack_require__(103);
+	var WidgetJsonifyDeprecated = __webpack_require__(102);
 
 	var updateQueryString = __webpack_require__(18).updateQueryString;
 
@@ -9734,15 +9734,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ApiOptions = __webpack_require__(19).Options;
 
-	var _require2 = __webpack_require__(38), baseUnitPx = _require2.baseUnitPx;
+	var _require2 = __webpack_require__(42), baseUnitPx = _require2.baseUnitPx;
 
 	var Changeable = __webpack_require__(86);
 
-	var mediaQueries = __webpack_require__(36);
+	var mediaQueries = __webpack_require__(40);
 
 	var Renderer = __webpack_require__(9);
 
-	var SvgImage = __webpack_require__(34);
+	var SvgImage = __webpack_require__(38);
 
 	var defaultBoxSize = 400;
 
@@ -9996,7 +9996,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Changeable = __webpack_require__(86);
 
-	var Graphie = __webpack_require__(92);
+	var Graphie = __webpack_require__(96);
 
 	var Label = Graphie.Label;
 
@@ -10445,13 +10445,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(11);
 
-	var Graph = __webpack_require__(109);
+	var Graph = __webpack_require__(114);
 
-	var InfoTip = __webpack_require__(110);
+	var InfoTip = __webpack_require__(115);
 
-	var Interactive2 = __webpack_require__(104);
+	var Interactive2 = __webpack_require__(103);
 
-	var NumberInput = __webpack_require__(111);
+	var NumberInput = __webpack_require__(108);
 
 	var Util = __webpack_require__(18);
 
@@ -10459,15 +10459,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var kpoint = __webpack_require__(133).point;
 
-	var KhanColors = __webpack_require__(107);
+	var KhanColors = __webpack_require__(106);
 
 	var GraphUtils = __webpack_require__(112);
 
-	var _require = __webpack_require__(38), interactiveSizes = _require.interactiveSizes;
+	var _require = __webpack_require__(42), interactiveSizes = _require.interactiveSizes;
 
 	var _require2 = __webpack_require__(78), containerSizeClassPropType = _require2.containerSizeClassPropType, getInteractiveBoxFromSizeClass = _require2.getInteractiveBoxFromSizeClass;
 
-	var WrappedLine = __webpack_require__(106);
+	var WrappedLine = __webpack_require__(105);
 
 	var DeprecationMixin = Util.DeprecationMixin;
 
@@ -11969,7 +11969,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var graph = props.graph;
 	        // TODO(alpert): Don't duplicate
 	        var center = graph.center || [ 0, 0 ];
-	        return "center (" + center[0] + ", " + center[1] + "), radius " + (graph.radius || 2);
+	        var radius = graph.radius || 2;
+	        return "center (" + center[0] + ", " + center[1] + "), radius " + radius;
 	    },
 	    getLinearSystemEquationString: function getLinearSystemEquationString(props) {
 	        var coords = InteractiveGraph.getLinearSystemCoords(props.graph, props);
@@ -12176,7 +12177,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Changeable = __webpack_require__(86);
 
-	var WidgetJsonifyDeprecated = __webpack_require__(103);
+	var WidgetJsonifyDeprecated = __webpack_require__(102);
 
 	var MAX_SIZE = 8;
 
@@ -12483,23 +12484,23 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(11);
 
-	var NumberInput = __webpack_require__(111);
+	var NumberInput = __webpack_require__(108);
 
 	var Renderer = __webpack_require__(9);
 
-	var TextInput = __webpack_require__(113);
+	var TextInput = __webpack_require__(109);
 
-	var MathOutput = __webpack_require__(114);
+	var MathOutput = __webpack_require__(110);
 
 	var SimpleKeypadInput = __webpack_require__(81);
 
 	var ApiOptions = __webpack_require__(19).Options;
 
-	var KhanAnswerTypes = __webpack_require__(77);
+	var KhanAnswerTypes = __webpack_require__(76);
 
 	var keypadElementPropType = __webpack_require__(79).propTypes.keypadElementPropType;
 
-	var assert = __webpack_require__(115).assert;
+	var assert = __webpack_require__(111).assert;
 
 	var stringArrayOfSize = __webpack_require__(18).stringArrayOfSize;
 
@@ -12906,7 +12907,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Renderer = __webpack_require__(9);
 
-	var Sortable = __webpack_require__(116);
+	var Sortable = __webpack_require__(113);
 
 	var ApiOptions = __webpack_require__(19).Options;
 
@@ -13239,11 +13240,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var React = __webpack_require__(12);
 
-	var draw = __webpack_require__(123);
+	var draw = __webpack_require__(122);
 
-	var _require = __webpack_require__(124), layout = _require.layout;
+	var _require = __webpack_require__(123), layout = _require.layout;
 
-	var SmilesParser = __webpack_require__(125);
+	var SmilesParser = __webpack_require__(124);
 
 	var parse = SmilesParser.parse;
 
@@ -13291,10 +13292,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    },
 	    setCanvasBounds: function setCanvasBounds(canvas, items) {
 	        var xmax = Math.max.apply(Math, items.map(function(item) {
-	            return item.pos ? item.pos[0] : -1 / 0;
+	            return item.pos ? item.pos[0] : -(1 / 0);
 	        }));
 	        var ymax = Math.max.apply(Math, items.map(function(item) {
-	            return item.pos ? item.pos[1] : -1 / 0;
+	            return item.pos ? item.pos[1] : -(1 / 0);
 	        }));
 	        var xmin = Math.min.apply(Math, items.map(function(item) {
 	            return item.pos ? item.pos[0] : 1 / 0;
@@ -13417,9 +13418,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Changeable = __webpack_require__(86);
 
-	var NumberInput = __webpack_require__(111);
+	var NumberInput = __webpack_require__(108);
 
-	var MathOutput = __webpack_require__(114);
+	var MathOutput = __webpack_require__(110);
 
 	var SimpleKeypadInput = __webpack_require__(81);
 
@@ -13427,7 +13428,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var keypadElementPropType = __webpack_require__(79).propTypes.keypadElementPropType;
 
-	var Graphie = __webpack_require__(92);
+	var Graphie = __webpack_require__(96);
 
 	var MovablePoint = Graphie.MovablePoint;
 
@@ -13437,13 +13438,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var KhanMath = __webpack_require__(84);
 
-	var KhanColors = __webpack_require__(107);
+	var KhanColors = __webpack_require__(106);
 
 	var bound = function bound(x, gt, lt) {
 	    return Math.min(Math.max(x, gt), lt);
 	};
 
-	var assert = __webpack_require__(115).assert;
+	var assert = __webpack_require__(111).assert;
 
 	var EN_DASH = "–";
 
@@ -13464,13 +13465,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	function formatImproper(n, d) {
-	    return 1 === d ? "" + n : n + "/" + d;
+	    return 1 === d ? "" + n : "\\dfrac{" + n + "}{" + d + "}";
 	}
 
 	function formatMixed(n, d) {
 	    if (n < 0) return "-" + formatMixed(-n, d);
 	    var w = Math.floor(n / d);
-	    return 0 === w ? formatImproper(n, d) : n - w * d === 0 ? "" + w : w + "\\:" + formatImproper(n - w * d, d);
+	    return 0 === w ? formatImproper(n, d) : n - w * d === 0 ? "" + w : w + formatImproper(n - w * d, d);
 	}
 
 	function formatNonReduced(n, d, base) {
@@ -13484,15 +13485,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if ("decimal" === labelStyle || "decimal ticks" === labelStyle) return graphie.label([ pos, -.53 ], Math.round(100 * value) / 100, "center");
 	    if ("improper" === labelStyle) {
 	        var frac = KhanMath.toFraction(value);
-	        return graphie.label([ pos, -.53 ], formatImproper(frac[0], frac[1]), "center");
+	        return graphie.label([ pos, -.17 ], formatImproper(frac[0], frac[1]), "below");
 	    }
 	    if ("mixed" === labelStyle) {
 	        var _frac = KhanMath.toFraction(value);
-	        return graphie.label([ pos, -.53 ], formatMixed(_frac[0], _frac[1]), "center");
+	        return graphie.label([ pos, -.17 ], formatMixed(_frac[0], _frac[1]), "below");
 	    }
 	    if ("non-reduced" === labelStyle) {
 	        var _frac2 = KhanMath.toFraction(value);
-	        return graphie.label([ pos, -.53 ], formatNonReduced(_frac2[0], _frac2[1], base), "center");
+	        return graphie.label([ pos, -.17 ], formatNonReduced(_frac2[0], _frac2[1], base), "below");
 	    }
 	};
 
@@ -13611,7 +13612,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // Don't allow a fraction for the number of divisions
 	        numDivisions = Math.round(numDivisions);
 	        // Don't allow negative numbers for the number of divisions
-	        numDivisions = numDivisions < 0 ? -1 * numDivisions : numDivisions;
+	        numDivisions = numDivisions < 0 ? numDivisions * -1 : numDivisions;
 	        // If the number of divisions isn't blank, update the number line
 	        if (numDivisions) {
 	            var nextProps = _.extend({}, this.props, {
@@ -13673,7 +13674,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        });
 	        return React.createElement(Graphie, {
 	            ref: "graphie",
-	            box: [ 460, 80 ],
+	            key: this.props.labelStyle,
+	            box: [ this.props.apiOptions.isMobile ? 288 : 460, 80 ],
 	            options: options,
 	            onMouseDown: function onMouseDown(coord) {
 	                _this2.refs.graphie.movables.numberLinePoint.grab(coord);
@@ -13788,10 +13790,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // Initiate the graphie without actually drawing anything
 	        var left = range[0] - buffer;
 	        var right = range[1] + buffer;
-	        var bottom = -1;
+	        var hasFractionalLabels = "improper" === this.props.labelStyle || "mixed" === this.props.labelStyle || "non-reduced" === this.props.labelStyle;
+	        var bottom = hasFractionalLabels ? -1.5 : -1;
 	        var top = 1;
 	        graphie.init({
-	            range: [ [ left, right ], [ -1, 1 ] ],
+	            range: [ [ left, right ], [ bottom, 1 ] ],
 	            scale: [ 1 / scale, 40 ],
 	            isMobile: this.props.apiOptions.isMobile
 	        });
@@ -14425,7 +14428,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Renderer = __webpack_require__(9);
 
-	var PassageMarkdown = __webpack_require__(126);
+	var PassageMarkdown = __webpack_require__(125);
 
 	var babelPluginFlowReactPropTypes_proptype_ChangeableProps = __webpack_require__(86).babelPluginFlowReactPropTypes_proptype_ChangeableProps || __webpack_require__(12).PropTypes.any;
 
@@ -14756,7 +14759,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (!node || !this.isInPassageText(node)) return null;
 	        var selectionNodeText = node.textContent;
 	        // Would prefer to use string.prototype.includes but it's not in IE 10.
-	        -1 !== punctuation.indexOf(selectionNodeText.charAt(0)) && (selectionNodeText = selectionNodeText.slice(1));
+	        punctuation.indexOf(selectionNodeText.charAt(0)) !== -1 && (selectionNodeText = selectionNodeText.slice(1));
 	        var index = this.charToWordOffset(offset, selectionNodeText);
 	        var priorText = "";
 	        var nodeText = "";
@@ -14769,7 +14772,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                // HACK: Add space when nodes split at end of sentence. This
 	                // stops two words from successive paragraphs merging together.
 	                // Assumes paragraphs end with punctuation.
-	                (-1 !== punctuation.indexOf(lastChar) || !node.nextSibling || "_" === lastChar && node.nextSibling.textContent.charAt(0).match(/[\w ]/)) && priorText.length > 0 && (spacer = " ");
+	                (punctuation.indexOf(lastChar) !== -1 || !node.nextSibling || "_" === lastChar && node.nextSibling.textContent.charAt(0).match(/[\w ]/)) && priorText.length > 0 && (spacer = " ");
 	                priorText = nodeText + spacer + priorText;
 	            }
 	            node = node.parentNode;
@@ -15083,7 +15086,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }), PassageMarkdown.output(parsed));
 	    };
 	    Passage.prototype._hasFootnotes = function _hasFootnotes() {
-	        return !/^\s*$/.test(this.props.footnotes);
+	        var rawContent = this.props.footnotes;
+	        return !/^\s*$/.test(rawContent);
 	    };
 	    Passage.prototype._renderFootnotes = function _renderFootnotes() {
 	        var rawContent = this.props.footnotes;
@@ -15230,7 +15234,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var PerseusMarkdown = __webpack_require__(22);
 
-	var WidgetJsonifyDeprecated = __webpack_require__(103);
+	var WidgetJsonifyDeprecated = __webpack_require__(102);
 
 	var EN_DASH = "–";
 
@@ -15364,7 +15368,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Changeable = __webpack_require__(86);
 
-	var WidgetJsonifyDeprecated = __webpack_require__(103);
+	var WidgetJsonifyDeprecated = __webpack_require__(102);
 
 	var Renderer = __webpack_require__(9);
 
@@ -15444,13 +15448,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var KhanMath = __webpack_require__(84);
 
-	var KhanColors = __webpack_require__(107);
+	var KhanColors = __webpack_require__(106);
 
 	var GraphUtils = __webpack_require__(112);
 
-	var Interactive2 = __webpack_require__(104);
+	var Interactive2 = __webpack_require__(103);
 
-	var WrappedLine = __webpack_require__(106);
+	var WrappedLine = __webpack_require__(105);
 
 	var BAR = "bar", LINE = "line", PIC = "pic", HISTOGRAM = "histogram", DOTPLOT = "dotplot";
 
@@ -16017,6 +16021,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var pics = graphie.pics;
 	        var dotTicks = graphie.dotTicks;
 	        var x = i + .5 + c.picPad;
+	        // In order to make sure that manipulating the graph doesn't cause
+	        // dragging, we disable touch actions for the whole mouselayer.
+	        // TODO(emily): Figure out a way to turn of touch actions for only the
+	        // part of the widget that can be manipulated. Putting this style
+	        // directly on the rects below doesn't work.
+	        graphie.mouselayer.canvas.style.touchAction = "none";
 	        pics[i] = [];
 	        dotTicks[i] = [];
 	        var n = Math.round(c.dimY / c.scaleY) + 1;
@@ -16422,7 +16432,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* eslint-disable comma-dangle, indent, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp, space-unary-ops */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	/* globals $_, i18n */
-	var InfoTip = __webpack_require__(110);
+	var InfoTip = __webpack_require__(115);
 
 	var React = __webpack_require__(12);
 
@@ -16434,15 +16444,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ApiOptions = __webpack_require__(19).Options;
 
-	var assert = __webpack_require__(115).assert;
+	var assert = __webpack_require__(111).assert;
 
-	var Graphie = __webpack_require__(92);
+	var Graphie = __webpack_require__(96);
 
 	var Path = Graphie.Path, Arc = Graphie.Arc, Circle = Graphie.Circle, Label = Graphie.Label, Line = Graphie.Line, MovablePoint = Graphie.MovablePoint, MovableLine = Graphie.MovableLine;
 
-	var NumberInput = __webpack_require__(111);
+	var NumberInput = __webpack_require__(108);
 
-	var MathOutput = __webpack_require__(114);
+	var MathOutput = __webpack_require__(110);
 
 	var seededRNG = __webpack_require__(18).seededRNG;
 
@@ -16450,7 +16460,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var knumber = __webpack_require__(133).number;
 
-	var KhanColors = __webpack_require__(107);
+	var KhanColors = __webpack_require__(106);
 
 	var KhanMath = __webpack_require__(84);
 
@@ -17007,7 +17017,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(11);
 
-	var Sortable = __webpack_require__(116);
+	var Sortable = __webpack_require__(113);
 
 	var ApiOptions = __webpack_require__(19).Options;
 
@@ -17096,7 +17106,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(11);
 
-	var MathOutput = __webpack_require__(114);
+	var MathOutput = __webpack_require__(110);
 
 	var SimpleKeypadInput = __webpack_require__(81);
 
@@ -17108,9 +17118,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ApiOptions = __webpack_require__(19).Options;
 
-	var KhanAnswerTypes = __webpack_require__(77);
+	var KhanAnswerTypes = __webpack_require__(76);
 
-	var assert = __webpack_require__(115).assert;
+	var assert = __webpack_require__(111).assert;
 
 	/* Input handling: Maps a (row, column) pair to a unique ref used by React,
 	 * and extracts (row, column) pairs from input paths, used to allow outsiders
@@ -17399,13 +17409,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(11);
 
-	var Graph = __webpack_require__(109);
+	var Graph = __webpack_require__(114);
 
 	var InlineIcon = __webpack_require__(87);
 
-	var NumberInput = __webpack_require__(111);
+	var NumberInput = __webpack_require__(108);
 
-	var MathOutput = __webpack_require__(114);
+	var MathOutput = __webpack_require__(110);
 
 	var TeX = __webpack_require__(44);
 
@@ -17447,9 +17457,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var KhanMath = __webpack_require__(84);
 
-	var KhanColors = __webpack_require__(107);
+	var KhanColors = __webpack_require__(106);
 
-	var assert = __webpack_require__(115).assert;
+	var assert = __webpack_require__(111).assert;
 
 	var defaultBoxSize = 400;
 
@@ -19386,7 +19396,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// terms of a certain type.
 	// TODO(joel): Allow sigfigs within a range rather than an exact expected
 	// value?
-	var lens = __webpack_require__(102);
+	var lens = __webpack_require__(118);
 
 	var React = __webpack_require__(12);
 
@@ -19400,9 +19410,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Changeable = __webpack_require__(86);
 
-	var MathOutput = __webpack_require__(114);
+	var MathOutput = __webpack_require__(110);
 
-	var _require = __webpack_require__(117), SignificantFigures = _require.SignificantFigures, displaySigFigs = _require.displaySigFigs;
+	var _require = __webpack_require__(116), SignificantFigures = _require.SignificantFigures, displaySigFigs = _require.displaySigFigs;
 
 	var ALL = "all";
 
@@ -19637,7 +19647,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Changeable = __webpack_require__(86);
 
-	var FixedToResponsive = __webpack_require__(91);
+	var FixedToResponsive = __webpack_require__(95);
 
 	// Current default is 720p, based on the typical videos we upload currently
 	var DEFAULT_WIDTH = 1280;
@@ -19721,59 +19731,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 76 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/**
-	 * Stub Tag Editor.
-	 *
-	 * This is stupidly used by Perseus Zero because I didn't implement
-	 * the <TagEditor> for Perseus Zero (since everyone wants me to
-	 * delete it anyways).
-	 *
-	 * This is a small wrapper for a TextListEditor that allows us to
-	 * edit raw Tag ID strings in perseus zero (please don't use this).
-	 *
-	 * It also gives a nicer interface for the group metadata editor
-	 * in local demo mode.
-	 */
-	var React = __webpack_require__(12);
-
-	var TextListEditor = __webpack_require__(118);
-
-	var EMPTY_ARRAY = [];
-
-	var StubTagEditor = React.createClass({
-	    displayName: "StubTagEditor",
-	    propTypes: {
-	        value: React.PropTypes.arrayOf(React.PropTypes.string),
-	        onChange: React.PropTypes.func.isRequired,
-	        showTitle: React.PropTypes.bool.isRequired
-	    },
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            value: EMPTY_ARRAY,
-	            showTitle: true
-	        };
-	    },
-	    render: function render() {
-	        return React.createElement("div", null, this.props.showTitle && React.createElement("div", {
-	            style: {
-	                fontSize: 14
-	            }
-	        }, "Tags:"), React.createElement(TextListEditor, {
-	            options: this.props.value || EMPTY_ARRAY,
-	            layout: "vertical",
-	            onChange: this.props.onChange
-	        }));
-	    }
-	});
-
-	module.exports = StubTagEditor;
-
-/***/ },
-/* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -20297,6 +20254,59 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = KhanAnswerTypes;
 
 /***/ },
+/* 77 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/**
+	 * Stub Tag Editor.
+	 *
+	 * This is stupidly used by Perseus Zero because I didn't implement
+	 * the <TagEditor> for Perseus Zero (since everyone wants me to
+	 * delete it anyways).
+	 *
+	 * This is a small wrapper for a TextListEditor that allows us to
+	 * edit raw Tag ID strings in perseus zero (please don't use this).
+	 *
+	 * It also gives a nicer interface for the group metadata editor
+	 * in local demo mode.
+	 */
+	var React = __webpack_require__(12);
+
+	var TextListEditor = __webpack_require__(117);
+
+	var EMPTY_ARRAY = [];
+
+	var StubTagEditor = React.createClass({
+	    displayName: "StubTagEditor",
+	    propTypes: {
+	        value: React.PropTypes.arrayOf(React.PropTypes.string),
+	        onChange: React.PropTypes.func.isRequired,
+	        showTitle: React.PropTypes.bool.isRequired
+	    },
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            value: EMPTY_ARRAY,
+	            showTitle: true
+	        };
+	    },
+	    render: function render() {
+	        return React.createElement("div", null, this.props.showTitle && React.createElement("div", {
+	            style: {
+	                fontSize: 14
+	            }
+	        }, "Tags:"), React.createElement(TextListEditor, {
+	            options: this.props.value || EMPTY_ARRAY,
+	            layout: "vertical",
+	            onChange: this.props.onChange
+	        }));
+	    }
+	});
+
+	module.exports = StubTagEditor;
+
+/***/ },
 /* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -20305,7 +20315,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable object-curly-spacing */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var _require = __webpack_require__(38), interactiveSizes = _require.interactiveSizes;
+	var _require = __webpack_require__(42), interactiveSizes = _require.interactiveSizes;
 
 	// Note: these size cutoffs represent content-width cutoffs as
 	// specified in http://zpl.io/1mVmvU
@@ -20347,8 +20357,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * A single entry-point for all of the external-facing functionality.
 	 */
 	var components = {
-	    Keypad: __webpack_require__(129),
-	    KeypadInput: __webpack_require__(131)
+	    Keypad: __webpack_require__(127),
+	    KeypadInput: __webpack_require__(129)
 	};
 
 	var _require = __webpack_require__(120), KeypadTypes = _require.KeypadTypes;
@@ -20357,7 +20367,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    KeypadTypes: KeypadTypes
 	};
 
-	var _require2 = __webpack_require__(130), keypadConfigurationPropType = _require2.keypadConfigurationPropType, keypadElementPropType = _require2.keypadElementPropType;
+	var _require2 = __webpack_require__(128), keypadConfigurationPropType = _require2.keypadConfigurationPropType, keypadElementPropType = _require2.keypadElementPropType;
 
 	var propTypes = {
 	    keypadConfigurationPropType: keypadConfigurationPropType,
@@ -20391,9 +20401,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Renderer = __webpack_require__(9);
 
-	var TextInput = __webpack_require__(113);
+	var TextInput = __webpack_require__(109);
 
-	var MathOutput = __webpack_require__(114);
+	var MathOutput = __webpack_require__(110);
 
 	var captureScratchpadTouchStart = __webpack_require__(18).captureScratchpadTouchStart;
 
@@ -21333,7 +21343,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(11);
 
-	var WIDGET_PROP_BLACKLIST = __webpack_require__(121);
+	var WIDGET_PROP_BLACKLIST = __webpack_require__(126);
 
 	var USAGE = 'Usage:\n  this.change({propName: 5}, callback);\n  this.change("propName", 5, callback);\n  this.change("propName")';
 
@@ -22064,6 +22074,364 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
+	var babelPluginFlowReactPropTypes_proptype_ObjectNode = __webpack_require__(94).babelPluginFlowReactPropTypes_proptype_ObjectNode || __webpack_require__(12).PropTypes.any;
+
+	/**
+	 * Type definitions for multi-item types, including:
+	 *
+	 * - Item: A multi-item tree wrapped in a `_multi` key, to help us recognize it
+	 *         as a multi-item in other contexts and avoid misinterpreting its
+	 *         other properties.
+	 * - ItemTree: A multi-item without the `_multi` key. Conforms to the Tree
+	 *             interface, so it's compatible with our tree traversal functions.
+	 * - And the various types of nodes that compose a tree.
+	 */
+	var babelPluginFlowReactPropTypes_proptype_ArrayNode = __webpack_require__(94).babelPluginFlowReactPropTypes_proptype_ArrayNode || __webpack_require__(12).PropTypes.any;
+
+	var babelPluginFlowReactPropTypes_proptype_Tree = __webpack_require__(94).babelPluginFlowReactPropTypes_proptype_Tree || __webpack_require__(12).PropTypes.any;
+
+	Object.defineProperty(module.exports, "babelPluginFlowReactPropTypes_proptype_ContentNode", __webpack_require__(12).PropTypes.shape({
+	    __type: __webpack_require__(12).PropTypes.oneOf([ "content", "item" ]).isRequired,
+	    content: __webpack_require__(12).PropTypes.string,
+	    images: __webpack_require__(12).PropTypes.shape({}),
+	    widgets: __webpack_require__(12).PropTypes.shape({})
+	}));
+
+	Object.defineProperty(module.exports, "babelPluginFlowReactPropTypes_proptype_HintNode", __webpack_require__(12).PropTypes.shape({
+	    __type: __webpack_require__(12).PropTypes.oneOf([ "hint" ]).isRequired,
+	    content: __webpack_require__(12).PropTypes.string,
+	    images: __webpack_require__(12).PropTypes.shape({}),
+	    widgets: __webpack_require__(12).PropTypes.shape({}),
+	    replace: __webpack_require__(12).PropTypes.bool
+	}));
+
+	Object.defineProperty(module.exports, "babelPluginFlowReactPropTypes_proptype_Item", __webpack_require__(12).PropTypes.shape({
+	    _multi: __webpack_require__(12).PropTypes.any.isRequired
+	}));
+
+/***/ },
+/* 92 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(module.exports, "babelPluginFlowReactPropTypes_proptype_ContentShape", __webpack_require__(12).PropTypes.shape({
+	    type: __webpack_require__(12).PropTypes.oneOf([ "content" ]).isRequired
+	}));
+
+	/**
+	 * Type definitions for multi-item shapes.
+	 *
+	 * A shape is an object that serves as a runtime type declaration: it specifies
+	 * a tree structure for a particular class of multi-item.
+	 *
+	 * We use shapes instead static compile-time typing because the CMS needs to
+	 * understand the shape of our content library's multi-items at runtime, and
+	 * it's not always possible to infer the full shape from an example multi-item.
+	 *
+	 * Shapes also enable us to traverse a multi-item-shaped tree with confidence,
+	 * even when we can't infer the shape from the tree alone.
+	 *
+	 * We *could* go all-in on a more general library to make certain Flow types
+	 * runtime-inspectable, in order to DRY some things up, but that's probably a
+	 * big ol' infrastructural magic mess, and the narrower scope of Shapes makes
+	 * it easier to be confident that we've covered all cases rather than having to
+	 * deal with all possible Javascript types.
+	 */
+	Object.defineProperty(module.exports, "babelPluginFlowReactPropTypes_proptype_HintShape", __webpack_require__(12).PropTypes.shape({
+	    type: __webpack_require__(12).PropTypes.oneOf([ "hint" ]).isRequired
+	}));
+
+	Object.defineProperty(module.exports, "babelPluginFlowReactPropTypes_proptype_TagsShape", __webpack_require__(12).PropTypes.shape({
+	    type: __webpack_require__(12).PropTypes.oneOf([ "tags" ]).isRequired
+	}));
+
+	Object.defineProperty(module.exports, "babelPluginFlowReactPropTypes_proptype_ArrayShape", __webpack_require__(12).PropTypes.shape({
+	    type: __webpack_require__(12).PropTypes.oneOf([ "array" ]).isRequired,
+	    elementShape: __webpack_require__(12).PropTypes.any.isRequired
+	}));
+
+	Object.defineProperty(module.exports, "babelPluginFlowReactPropTypes_proptype_ObjectShape", __webpack_require__(12).PropTypes.shape({
+	    type: __webpack_require__(12).PropTypes.oneOf([ "object" ]).isRequired,
+	    shape: __webpack_require__(12).PropTypes.shape({}).isRequired
+	}));
+
+/***/ },
+/* 93 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _typeof = "function" === typeof Symbol && "symbol" === typeof Symbol.iterator ? function(obj) {
+	    return typeof obj;
+	} : function(obj) {
+	    return obj && "function" === typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+	};
+
+	function _classCallCheck(instance, Constructor) {
+	    if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
+	}
+
+	var babelPluginFlowReactPropTypes_proptype_ArrayShape = __webpack_require__(92).babelPluginFlowReactPropTypes_proptype_ArrayShape || __webpack_require__(12).PropTypes.any;
+
+	/**
+	 * Utility functions for manipulating multi-item-shaped trees.
+	 *
+	 * Multi-items are trees! But we also often have other trees that are shaped
+	 * like multi-items - for example, if we map a multi-item tree into a tree of
+	 * renderer info and state, and then map that again into a tree of just the
+	 * renderer nodes, like we do in MultiRenderer. See tree-types.js for further
+	 * discussion.
+	 *
+	 * These functions enable us to manipulate generic multi-item-shaped trees,
+	 * regardless of what type of data they contain at their leaves. You can use
+	 * the mapper functions to transform a tree into another tree of the same
+	 * shape, or to discover all the nodes of a particular type.
+	 *
+	 * We expose two simple mapper functions (mapContentNodes and mapHintNodes),
+	 * and also a more complex interface for creating a mapping over all of a
+	 * tree's node types simultaneously:
+	 *
+	 * `buildMapper()` returns a TreeMapper object that allows you to build your
+	 * mapper object one node type at a time. Then, you can execute your mapping by
+	 * calling the `mapTree` method.
+	 *
+	 * For example:
+	 *     const renderers = buildMapper()
+	 *         .setContentMapper(this.renderContentNode)
+	 *         .setHintMapper(this.renderHintNode)
+	 *         .setTagsMapper(this.renderTagsNode)
+	 *         .setArrayMapper(this.hideSkippedQuestions)
+	 *         .mapTree(tree, shape);
+	 *
+	 * This will copy the given tree, apply the given transformations to the
+	 * content, hint, and array nodes respectively, and return the resulting tree.
+	 *
+	 * For node types whose mappers aren't specified, we default to the identity
+	 * function. (This builder interface enables us to implement that default
+	 * behavior in a provably type-safe way, while not requiring the call site to
+	 * be aware of all the node types. Hooray!)
+	 *
+	 * The call to `setArrayMapper` must come last, because the array mapper's
+	 * argument types depend on the other mappers' types. See ArrayMapper for more
+	 * details.
+	 *
+	 * WARNING: These functions trust that the provided tree conforms to the
+	 * provided shape. If not, behavior is undefined and may not respect the type
+	 * signatures specified here.
+	 */
+	var babelPluginFlowReactPropTypes_proptype_TagsShape = __webpack_require__(92).babelPluginFlowReactPropTypes_proptype_TagsShape || __webpack_require__(12).PropTypes.any;
+
+	var babelPluginFlowReactPropTypes_proptype_HintShape = __webpack_require__(92).babelPluginFlowReactPropTypes_proptype_HintShape || __webpack_require__(12).PropTypes.any;
+
+	var babelPluginFlowReactPropTypes_proptype_ContentShape = __webpack_require__(92).babelPluginFlowReactPropTypes_proptype_ContentShape || __webpack_require__(12).PropTypes.any;
+
+	var babelPluginFlowReactPropTypes_proptype_Shape = __webpack_require__(92).babelPluginFlowReactPropTypes_proptype_Shape || __webpack_require__(12).PropTypes.any;
+
+	/**
+	 * The sequence of edges that lead to a particular node in a Tree.
+	 * Elements can be `string` to correspond to an ObjectNode key, or `number` to
+	 * correspond to an ArrayNode index.
+	 */
+	var babelPluginFlowReactPropTypes_proptype_ObjectNode = __webpack_require__(94).babelPluginFlowReactPropTypes_proptype_ObjectNode || __webpack_require__(12).PropTypes.any;
+
+	var babelPluginFlowReactPropTypes_proptype_ArrayNode = __webpack_require__(94).babelPluginFlowReactPropTypes_proptype_ArrayNode || __webpack_require__(12).PropTypes.any;
+
+	var babelPluginFlowReactPropTypes_proptype_Tree = __webpack_require__(94).babelPluginFlowReactPropTypes_proptype_Tree || __webpack_require__(12).PropTypes.any;
+
+	/**
+	 * These are function interfaces for mapping over various types of tree nodes.
+	 *
+	 * ArrayMapper is a bit more complicated than the leaf node mappers. It's
+	 * executed in the context of a `mapTree` call, after we've finished mapping
+	 * its child nodes, so the function has access to both the resulting array
+	 * (with mapped elements) and the original array (with the original untouched
+	 * elements).
+	 *
+	 * The ArrayMapper then has the opportunity to apply a final transformation to
+	 * the resulting array, like filtering certain elements or (in the hacky
+	 * MultiRenderer case) attaching a `renderHints` method to arrays of hint
+	 * renderers :)
+	 *
+	 * This is why `TreeMapper#setArrayMapper` must be called last: ArrayMapper's
+	 * types depend on the ContentMapper and HintMapper's types. And, since you can
+	 * only specify one mapper at a time in this builder interface (which is
+	 * necessary to provide default mappers in a type-safe way), you need your
+	 * dependencies to already be in place by the time you call `setArrayMapper`.
+	 * Otherwise, we'd have to set the ArrayMapper and *hope* that you *eventually*
+	 * provide a compatible ContentMapper and HintMapper, which is difficult to
+	 * prove at compile time.
+	 *
+	 * There's no ObjectMapper here, but not for any particular reason. We just
+	 * don't have a use case for it yet, so we haven't built it yet.
+	 */
+	/**
+	 * A TreeMapper is a collection of node mappers, which, together, compose the
+	 * behavior for mapping over an entire tree.
+	 *
+	 * This serves as the interface for the two TreeMapper classes, including both
+	 * the internal mapper properties that we care about, and the `mapTree`
+	 * function that the call site will use.
+	 */
+	/**
+	 * This is a TreeMapper that only has mappers specified for its leaf nodes; its
+	 * array mapper is the identity function.
+	 *
+	 * This is the TreeMapper initially returned by `buildMapper`. It allows you to
+	 * change the types of your ContentMapper and HintMapper, which is safe because
+	 * none of the other mappers that depend on those types (aka ArrayMapper) have
+	 * been specified yet. (Or, more specifically, the ArrayMapper is currently
+	 * `identity`, which can trivially vary with the ContentMapper and HintMapper's
+	 * types.)
+	 *
+	 * Once you call `setArrayMapper`, however, we move to the other class:
+	 * TreeMapperForLeavesAndCollections.
+	 */
+	var TreeMapperJustForLeaves = function() {
+	    function TreeMapperJustForLeaves(content, hint, tags) {
+	        _classCallCheck(this, TreeMapperJustForLeaves);
+	        this.content = content;
+	        this.hint = hint;
+	        this.tags = tags;
+	        this.array = identity;
+	    }
+	    TreeMapperJustForLeaves.prototype.setContentMapper = function setContentMapper(newContentMapper) {
+	        return new TreeMapperJustForLeaves(newContentMapper, this.hint, this.tags);
+	    };
+	    TreeMapperJustForLeaves.prototype.setHintMapper = function setHintMapper(newHintMapper) {
+	        return new TreeMapperJustForLeaves(this.content, newHintMapper, this.tags);
+	    };
+	    TreeMapperJustForLeaves.prototype.setTagsMapper = function setTagsMapper(newTagsMapper) {
+	        return new TreeMapperJustForLeaves(this.content, this.hint, newTagsMapper);
+	    };
+	    TreeMapperJustForLeaves.prototype.setArrayMapper = function setArrayMapper(newArrayMapper) {
+	        return new TreeMapperForLeavesAndCollections(this.content, this.hint, this.tags, newArrayMapper);
+	    };
+	    TreeMapperJustForLeaves.prototype.mapTree = function mapTree(tree, shape) {
+	        return _mapTree(tree, shape, [], this);
+	    };
+	    return TreeMapperJustForLeaves;
+	}();
+
+	/**
+	 * This is a TreeMapper that already has an ArrayMapper specified, so its
+	 * ContentMapper and HintMapper are now locked in.
+	 */
+	var TreeMapperForLeavesAndCollections = function() {
+	    function TreeMapperForLeavesAndCollections(content, hint, tags, array) {
+	        _classCallCheck(this, TreeMapperForLeavesAndCollections);
+	        this.content = content;
+	        this.hint = hint;
+	        this.tags = tags;
+	        this.array = array;
+	    }
+	    TreeMapperForLeavesAndCollections.prototype.setArrayMapper = function setArrayMapper(newArrayMapper) {
+	        return new TreeMapperForLeavesAndCollections(this.content, this.hint, this.tags, newArrayMapper);
+	    };
+	    TreeMapperForLeavesAndCollections.prototype.mapTree = function mapTree(tree, shape) {
+	        return _mapTree(tree, shape, [], this);
+	    };
+	    return TreeMapperForLeavesAndCollections;
+	}();
+
+	function identity(x) {
+	    return x;
+	}
+
+	/**
+	 * Return a new TreeMapper that will perform a no-op transformation on an input
+	 * tree. To make it useful, chain any combination of `setContentMapper`,
+	 * `setHintMapper`, `setTagMapper`, and `setArrayMapper` to specify
+	 * transformations for the individual node types.
+	 */
+	function buildMapper() {
+	    return new TreeMapperJustForLeaves(identity, identity, identity);
+	}
+
+	/**
+	 * Copy the given tree, apply the corresponding transformation specified in the
+	 * TreeMapper to each node, and return the resulting tree.
+	 */
+	function _mapTree(tree, shape, path, mappers) {
+	    // We trust the shape of the multi-item to match the shape provided at
+	    // runtime. Therefore, in each shape branch, we cast the node to `any` and
+	    // reinterpret it as the expected node type.
+	    if ("content" === shape.type) {
+	        var _content = tree;
+	        return mappers.content(_content, shape, path);
+	    }
+	    if ("hint" === shape.type) {
+	        var _hint = tree;
+	        return mappers.hint(_hint, shape, path);
+	    }
+	    if ("tags" === shape.type) {
+	        var _tags = tree;
+	        return mappers.tags(_tags, shape, path);
+	    }
+	    if ("array" === shape.type) {
+	        var _array = tree;
+	        if (!Array.isArray(_array)) throw new Error('Invalid object of type "' + ("undefined" === typeof _array ? "undefined" : _typeof(_array)) + '" found at path ' + [ "<root>" ].concat(path).join(".") + ". Expected array.");
+	        var elementShape = shape.elementShape;
+	        var mappedElements = _array.map(function(inner, i) {
+	            return _mapTree(inner, elementShape, path.concat(i), mappers);
+	        });
+	        return mappers.array(mappedElements, _array, shape, path);
+	    }
+	    if ("object" === shape.type) {
+	        var object = tree;
+	        if (object && "object" !== ("undefined" === typeof object ? "undefined" : _typeof(object))) throw new Error('Invalid object of type "' + ("undefined" === typeof object ? "undefined" : _typeof(object)) + '" found at path ' + [ "<root>" ].concat(path).join(".") + '. Expected "object" type.');
+	        var valueShapes = shape.shape;
+	        if (!valueShapes) throw new Error("Unexpected shape " + JSON.stringify(shape) + " at path " + [ "<root>" ].concat(path).join(".") + ".");
+	        var newObject = {};
+	        Object.keys(valueShapes).forEach(function(key) {
+	            if (!(key in object)) throw new Error('Key "' + key + '" is missing from shape at path ' + [ "<root>" ].concat(path).join(".") + ".");
+	            newObject[key] = _mapTree(object[key], valueShapes[key], path.concat(key), mappers);
+	        });
+	        return newObject;
+	    }
+	    throw new Error("unexpected shape type " + shape.type);
+	}
+
+	module.exports = {
+	    buildMapper: buildMapper
+	};
+
+/***/ },
+/* 94 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/**
+	 * Type definitions for generic trees that are shaped like multi-items.
+	 *
+	 * Multi-items are trees! But we also often have other trees that are shaped
+	 * like multi-items - for example, if we map a multi-item tree into a tree of
+	 * renderer info and state, and then map that again into a tree of just the
+	 * renderer nodes, like we do in MultiRenderer.
+	 *
+	 * Therefore, we provide the type Tree<C, H>, which represents a tree that's
+	 * shaped like a multi-item, but the data that lives at each type of leaf could
+	 * be anything.
+	 *
+	 * So, in a Tree<C, H>, content leaf nodes have type C, and hint leaf nodes
+	 * have type H. An ItemTree is a Tree<ContentNode, HintNode>.
+	 *
+	 * That is, we still preserve the distinction between node types, and thereby
+	 * enforce the Tree's adherence to some multi-item Shape, but we're flexible
+	 * about exactly what type of data the tree contains at its leaves.
+	 *
+	 * This enables us to write generic tree-traversal and tree-mapping functions,
+	 * as you'll see in trees.js.
+	 */
+	Object.defineProperty(module.exports, "babelPluginFlowReactPropTypes_proptype_ObjectNode", __webpack_require__(12).PropTypes.shape({}));
+
+/***/ },
+/* 95 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, no-trailing-spaces, no-var, object-curly-spacing, react/jsx-closing-bracket-location, react/prop-types */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
@@ -22086,7 +22454,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(12);
 
-	var _require = __webpack_require__(38), negativePhoneMargin = _require.negativePhoneMargin;
+	var _require = __webpack_require__(42), negativePhoneMargin = _require.negativePhoneMargin;
 
 	var MIN_VIEWPORT_HEIGHT = 480;
 
@@ -22178,7 +22546,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = FixedToResponsive;
 
 /***/ },
-/* 92 */
+/* 96 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -22192,9 +22560,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(11);
 
-	var GraphieClasses = __webpack_require__(127);
+	var GraphieClasses = __webpack_require__(131);
 
-	var Movables = __webpack_require__(128);
+	var Movables = __webpack_require__(132);
 
 	var GraphieMovable = GraphieClasses.GraphieMovable;
 
@@ -22202,7 +22570,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var nestedMap = __webpack_require__(18).nestedMap;
 
-	var assert = __webpack_require__(115).assert;
+	var assert = __webpack_require__(111).assert;
 
 	var GraphUtils = __webpack_require__(112);
 
@@ -22446,7 +22814,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Graphie;
 
 /***/ },
-/* 93 */
+/* 97 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -22560,7 +22928,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ImageLoader;
 
 /***/ },
-/* 94 */
+/* 98 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -22941,364 +23309,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.ZoomService = new ZoomService();
 
 /***/ },
-/* 95 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var babelPluginFlowReactPropTypes_proptype_ObjectNode = __webpack_require__(98).babelPluginFlowReactPropTypes_proptype_ObjectNode || __webpack_require__(12).PropTypes.any;
-
-	/**
-	 * Type definitions for multi-item types, including:
-	 *
-	 * - Item: A multi-item tree wrapped in a `_multi` key, to help us recognize it
-	 *         as a multi-item in other contexts and avoid misinterpreting its
-	 *         other properties.
-	 * - ItemTree: A multi-item without the `_multi` key. Conforms to the Tree
-	 *             interface, so it's compatible with our tree traversal functions.
-	 * - And the various types of nodes that compose a tree.
-	 */
-	var babelPluginFlowReactPropTypes_proptype_ArrayNode = __webpack_require__(98).babelPluginFlowReactPropTypes_proptype_ArrayNode || __webpack_require__(12).PropTypes.any;
-
-	var babelPluginFlowReactPropTypes_proptype_Tree = __webpack_require__(98).babelPluginFlowReactPropTypes_proptype_Tree || __webpack_require__(12).PropTypes.any;
-
-	Object.defineProperty(module.exports, "babelPluginFlowReactPropTypes_proptype_ContentNode", __webpack_require__(12).PropTypes.shape({
-	    __type: __webpack_require__(12).PropTypes.oneOf([ "content", "item" ]).isRequired,
-	    content: __webpack_require__(12).PropTypes.string,
-	    images: __webpack_require__(12).PropTypes.shape({}),
-	    widgets: __webpack_require__(12).PropTypes.shape({})
-	}));
-
-	Object.defineProperty(module.exports, "babelPluginFlowReactPropTypes_proptype_HintNode", __webpack_require__(12).PropTypes.shape({
-	    __type: __webpack_require__(12).PropTypes.oneOf([ "hint" ]).isRequired,
-	    content: __webpack_require__(12).PropTypes.string,
-	    images: __webpack_require__(12).PropTypes.shape({}),
-	    widgets: __webpack_require__(12).PropTypes.shape({}),
-	    replace: __webpack_require__(12).PropTypes.bool
-	}));
-
-	Object.defineProperty(module.exports, "babelPluginFlowReactPropTypes_proptype_Item", __webpack_require__(12).PropTypes.shape({
-	    _multi: __webpack_require__(12).PropTypes.any.isRequired
-	}));
-
-/***/ },
-/* 96 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(module.exports, "babelPluginFlowReactPropTypes_proptype_ContentShape", __webpack_require__(12).PropTypes.shape({
-	    type: __webpack_require__(12).PropTypes.oneOf([ "content" ]).isRequired
-	}));
-
-	/**
-	 * Type definitions for multi-item shapes.
-	 *
-	 * A shape is an object that serves as a runtime type declaration: it specifies
-	 * a tree structure for a particular class of multi-item.
-	 *
-	 * We use shapes instead static compile-time typing because the CMS needs to
-	 * understand the shape of our content library's multi-items at runtime, and
-	 * it's not always possible to infer the full shape from an example multi-item.
-	 *
-	 * Shapes also enable us to traverse a multi-item-shaped tree with confidence,
-	 * even when we can't infer the shape from the tree alone.
-	 *
-	 * We *could* go all-in on a more general library to make certain Flow types
-	 * runtime-inspectable, in order to DRY some things up, but that's probably a
-	 * big ol' infrastructural magic mess, and the narrower scope of Shapes makes
-	 * it easier to be confident that we've covered all cases rather than having to
-	 * deal with all possible Javascript types.
-	 */
-	Object.defineProperty(module.exports, "babelPluginFlowReactPropTypes_proptype_HintShape", __webpack_require__(12).PropTypes.shape({
-	    type: __webpack_require__(12).PropTypes.oneOf([ "hint" ]).isRequired
-	}));
-
-	Object.defineProperty(module.exports, "babelPluginFlowReactPropTypes_proptype_TagsShape", __webpack_require__(12).PropTypes.shape({
-	    type: __webpack_require__(12).PropTypes.oneOf([ "tags" ]).isRequired
-	}));
-
-	Object.defineProperty(module.exports, "babelPluginFlowReactPropTypes_proptype_ArrayShape", __webpack_require__(12).PropTypes.shape({
-	    type: __webpack_require__(12).PropTypes.oneOf([ "array" ]).isRequired,
-	    elementShape: __webpack_require__(12).PropTypes.any.isRequired
-	}));
-
-	Object.defineProperty(module.exports, "babelPluginFlowReactPropTypes_proptype_ObjectShape", __webpack_require__(12).PropTypes.shape({
-	    type: __webpack_require__(12).PropTypes.oneOf([ "object" ]).isRequired,
-	    shape: __webpack_require__(12).PropTypes.shape({}).isRequired
-	}));
-
-/***/ },
-/* 97 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _typeof = "function" === typeof Symbol && "symbol" === typeof Symbol.iterator ? function(obj) {
-	    return typeof obj;
-	} : function(obj) {
-	    return obj && "function" === typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-	};
-
-	function _classCallCheck(instance, Constructor) {
-	    if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
-	}
-
-	var babelPluginFlowReactPropTypes_proptype_ArrayShape = __webpack_require__(96).babelPluginFlowReactPropTypes_proptype_ArrayShape || __webpack_require__(12).PropTypes.any;
-
-	/**
-	 * Utility functions for manipulating multi-item-shaped trees.
-	 *
-	 * Multi-items are trees! But we also often have other trees that are shaped
-	 * like multi-items - for example, if we map a multi-item tree into a tree of
-	 * renderer info and state, and then map that again into a tree of just the
-	 * renderer nodes, like we do in MultiRenderer. See tree-types.js for further
-	 * discussion.
-	 *
-	 * These functions enable us to manipulate generic multi-item-shaped trees,
-	 * regardless of what type of data they contain at their leaves. You can use
-	 * the mapper functions to transform a tree into another tree of the same
-	 * shape, or to discover all the nodes of a particular type.
-	 *
-	 * We expose two simple mapper functions (mapContentNodes and mapHintNodes),
-	 * and also a more complex interface for creating a mapping over all of a
-	 * tree's node types simultaneously:
-	 *
-	 * `buildMapper()` returns a TreeMapper object that allows you to build your
-	 * mapper object one node type at a time. Then, you can execute your mapping by
-	 * calling the `mapTree` method.
-	 *
-	 * For example:
-	 *     const renderers = buildMapper()
-	 *         .setContentMapper(this.renderContentNode)
-	 *         .setHintMapper(this.renderHintNode)
-	 *         .setTagsMapper(this.renderTagsNode)
-	 *         .setArrayMapper(this.hideSkippedQuestions)
-	 *         .mapTree(tree, shape);
-	 *
-	 * This will copy the given tree, apply the given transformations to the
-	 * content, hint, and array nodes respectively, and return the resulting tree.
-	 *
-	 * For node types whose mappers aren't specified, we default to the identity
-	 * function. (This builder interface enables us to implement that default
-	 * behavior in a provably type-safe way, while not requiring the call site to
-	 * be aware of all the node types. Hooray!)
-	 *
-	 * The call to `setArrayMapper` must come last, because the array mapper's
-	 * argument types depend on the other mappers' types. See ArrayMapper for more
-	 * details.
-	 *
-	 * WARNING: These functions trust that the provided tree conforms to the
-	 * provided shape. If not, behavior is undefined and may not respect the type
-	 * signatures specified here.
-	 */
-	var babelPluginFlowReactPropTypes_proptype_TagsShape = __webpack_require__(96).babelPluginFlowReactPropTypes_proptype_TagsShape || __webpack_require__(12).PropTypes.any;
-
-	var babelPluginFlowReactPropTypes_proptype_HintShape = __webpack_require__(96).babelPluginFlowReactPropTypes_proptype_HintShape || __webpack_require__(12).PropTypes.any;
-
-	var babelPluginFlowReactPropTypes_proptype_ContentShape = __webpack_require__(96).babelPluginFlowReactPropTypes_proptype_ContentShape || __webpack_require__(12).PropTypes.any;
-
-	var babelPluginFlowReactPropTypes_proptype_Shape = __webpack_require__(96).babelPluginFlowReactPropTypes_proptype_Shape || __webpack_require__(12).PropTypes.any;
-
-	/**
-	 * The sequence of edges that lead to a particular node in a Tree.
-	 * Elements can be `string` to correspond to an ObjectNode key, or `number` to
-	 * correspond to an ArrayNode index.
-	 */
-	var babelPluginFlowReactPropTypes_proptype_ObjectNode = __webpack_require__(98).babelPluginFlowReactPropTypes_proptype_ObjectNode || __webpack_require__(12).PropTypes.any;
-
-	var babelPluginFlowReactPropTypes_proptype_ArrayNode = __webpack_require__(98).babelPluginFlowReactPropTypes_proptype_ArrayNode || __webpack_require__(12).PropTypes.any;
-
-	var babelPluginFlowReactPropTypes_proptype_Tree = __webpack_require__(98).babelPluginFlowReactPropTypes_proptype_Tree || __webpack_require__(12).PropTypes.any;
-
-	/**
-	 * These are function interfaces for mapping over various types of tree nodes.
-	 *
-	 * ArrayMapper is a bit more complicated than the leaf node mappers. It's
-	 * executed in the context of a `mapTree` call, after we've finished mapping
-	 * its child nodes, so the function has access to both the resulting array
-	 * (with mapped elements) and the original array (with the original untouched
-	 * elements).
-	 *
-	 * The ArrayMapper then has the opportunity to apply a final transformation to
-	 * the resulting array, like filtering certain elements or (in the hacky
-	 * MultiRenderer case) attaching a `renderHints` method to arrays of hint
-	 * renderers :)
-	 *
-	 * This is why `TreeMapper#setArrayMapper` must be called last: ArrayMapper's
-	 * types depend on the ContentMapper and HintMapper's types. And, since you can
-	 * only specify one mapper at a time in this builder interface (which is
-	 * necessary to provide default mappers in a type-safe way), you need your
-	 * dependencies to already be in place by the time you call `setArrayMapper`.
-	 * Otherwise, we'd have to set the ArrayMapper and *hope* that you *eventually*
-	 * provide a compatible ContentMapper and HintMapper, which is difficult to
-	 * prove at compile time.
-	 *
-	 * There's no ObjectMapper here, but not for any particular reason. We just
-	 * don't have a use case for it yet, so we haven't built it yet.
-	 */
-	/**
-	 * A TreeMapper is a collection of node mappers, which, together, compose the
-	 * behavior for mapping over an entire tree.
-	 *
-	 * This serves as the interface for the two TreeMapper classes, including both
-	 * the internal mapper properties that we care about, and the `mapTree`
-	 * function that the call site will use.
-	 */
-	/**
-	 * This is a TreeMapper that only has mappers specified for its leaf nodes; its
-	 * array mapper is the identity function.
-	 *
-	 * This is the TreeMapper initially returned by `buildMapper`. It allows you to
-	 * change the types of your ContentMapper and HintMapper, which is safe because
-	 * none of the other mappers that depend on those types (aka ArrayMapper) have
-	 * been specified yet. (Or, more specifically, the ArrayMapper is currently
-	 * `identity`, which can trivially vary with the ContentMapper and HintMapper's
-	 * types.)
-	 *
-	 * Once you call `setArrayMapper`, however, we move to the other class:
-	 * TreeMapperForLeavesAndCollections.
-	 */
-	var TreeMapperJustForLeaves = function() {
-	    function TreeMapperJustForLeaves(content, hint, tags) {
-	        _classCallCheck(this, TreeMapperJustForLeaves);
-	        this.content = content;
-	        this.hint = hint;
-	        this.tags = tags;
-	        this.array = identity;
-	    }
-	    TreeMapperJustForLeaves.prototype.setContentMapper = function setContentMapper(newContentMapper) {
-	        return new TreeMapperJustForLeaves(newContentMapper, this.hint, this.tags);
-	    };
-	    TreeMapperJustForLeaves.prototype.setHintMapper = function setHintMapper(newHintMapper) {
-	        return new TreeMapperJustForLeaves(this.content, newHintMapper, this.tags);
-	    };
-	    TreeMapperJustForLeaves.prototype.setTagsMapper = function setTagsMapper(newTagsMapper) {
-	        return new TreeMapperJustForLeaves(this.content, this.hint, newTagsMapper);
-	    };
-	    TreeMapperJustForLeaves.prototype.setArrayMapper = function setArrayMapper(newArrayMapper) {
-	        return new TreeMapperForLeavesAndCollections(this.content, this.hint, this.tags, newArrayMapper);
-	    };
-	    TreeMapperJustForLeaves.prototype.mapTree = function mapTree(tree, shape) {
-	        return _mapTree(tree, shape, [], this);
-	    };
-	    return TreeMapperJustForLeaves;
-	}();
-
-	/**
-	 * This is a TreeMapper that already has an ArrayMapper specified, so its
-	 * ContentMapper and HintMapper are now locked in.
-	 */
-	var TreeMapperForLeavesAndCollections = function() {
-	    function TreeMapperForLeavesAndCollections(content, hint, tags, array) {
-	        _classCallCheck(this, TreeMapperForLeavesAndCollections);
-	        this.content = content;
-	        this.hint = hint;
-	        this.tags = tags;
-	        this.array = array;
-	    }
-	    TreeMapperForLeavesAndCollections.prototype.setArrayMapper = function setArrayMapper(newArrayMapper) {
-	        return new TreeMapperForLeavesAndCollections(this.content, this.hint, this.tags, newArrayMapper);
-	    };
-	    TreeMapperForLeavesAndCollections.prototype.mapTree = function mapTree(tree, shape) {
-	        return _mapTree(tree, shape, [], this);
-	    };
-	    return TreeMapperForLeavesAndCollections;
-	}();
-
-	function identity(x) {
-	    return x;
-	}
-
-	/**
-	 * Return a new TreeMapper that will perform a no-op transformation on an input
-	 * tree. To make it useful, chain any combination of `setContentMapper`,
-	 * `setHintMapper`, `setTagMapper`, and `setArrayMapper` to specify
-	 * transformations for the individual node types.
-	 */
-	function buildMapper() {
-	    return new TreeMapperJustForLeaves(identity, identity, identity);
-	}
-
-	/**
-	 * Copy the given tree, apply the corresponding transformation specified in the
-	 * TreeMapper to each node, and return the resulting tree.
-	 */
-	function _mapTree(tree, shape, path, mappers) {
-	    // We trust the shape of the multi-item to match the shape provided at
-	    // runtime. Therefore, in each shape branch, we cast the node to `any` and
-	    // reinterpret it as the expected node type.
-	    if ("content" === shape.type) {
-	        var _content = tree;
-	        return mappers.content(_content, shape, path);
-	    }
-	    if ("hint" === shape.type) {
-	        var _hint = tree;
-	        return mappers.hint(_hint, shape, path);
-	    }
-	    if ("tags" === shape.type) {
-	        var _tags = tree;
-	        return mappers.tags(_tags, shape, path);
-	    }
-	    if ("array" === shape.type) {
-	        var _array = tree;
-	        if (!Array.isArray(_array)) throw new Error('Invalid object of type "' + ("undefined" === typeof _array ? "undefined" : _typeof(_array)) + '" found at path ' + [ "<root>" ].concat(path).join(".") + ". Expected array.");
-	        var elementShape = shape.elementShape;
-	        var mappedElements = _array.map(function(inner, i) {
-	            return _mapTree(inner, elementShape, path.concat(i), mappers);
-	        });
-	        return mappers.array(mappedElements, _array, shape, path);
-	    }
-	    if ("object" === shape.type) {
-	        var object = tree;
-	        if (object && "object" !== ("undefined" === typeof object ? "undefined" : _typeof(object))) throw new Error('Invalid object of type "' + ("undefined" === typeof object ? "undefined" : _typeof(object)) + '" found at path ' + [ "<root>" ].concat(path).join(".") + '. Expected "object" type.');
-	        var valueShapes = shape.shape;
-	        if (!valueShapes) throw new Error("Unexpected shape " + JSON.stringify(shape) + " at path " + [ "<root>" ].concat(path).join(".") + ".");
-	        var newObject = {};
-	        Object.keys(valueShapes).forEach(function(key) {
-	            if (!(key in object)) throw new Error('Key "' + key + '" is missing from shape at path ' + [ "<root>" ].concat(path).join(".") + ".");
-	            newObject[key] = _mapTree(object[key], valueShapes[key], path.concat(key), mappers);
-	        });
-	        return newObject;
-	    }
-	    throw new Error("unexpected shape type " + shape.type);
-	}
-
-	module.exports = {
-	    buildMapper: buildMapper
-	};
-
-/***/ },
-/* 98 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/**
-	 * Type definitions for generic trees that are shaped like multi-items.
-	 *
-	 * Multi-items are trees! But we also often have other trees that are shaped
-	 * like multi-items - for example, if we map a multi-item tree into a tree of
-	 * renderer info and state, and then map that again into a tree of just the
-	 * renderer nodes, like we do in MultiRenderer.
-	 *
-	 * Therefore, we provide the type Tree<C, H>, which represents a tree that's
-	 * shaped like a multi-item, but the data that lives at each type of leaf could
-	 * be anything.
-	 *
-	 * So, in a Tree<C, H>, content leaf nodes have type C, and hint leaf nodes
-	 * have type H. An ItemTree is a Tree<ContentNode, HintNode>.
-	 *
-	 * That is, we still preserve the distinction between node types, and thereby
-	 * enforce the Tree's adherence to some multi-item Shape, but we're flexible
-	 * about exactly what type of data the tree contains at its leaves.
-	 *
-	 * This enables us to write generic tree-traversal and tree-mapping functions,
-	 * as you'll see in trees.js.
-	 */
-	Object.defineProperty(module.exports, "babelPluginFlowReactPropTypes_proptype_ObjectNode", __webpack_require__(12).PropTypes.shape({}));
-
-/***/ },
 /* 99 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -23315,7 +23325,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Util = __webpack_require__(18);
 
-	var BaseRadio = __webpack_require__(132);
+	var BaseRadio = __webpack_require__(130);
 
 	var Radio = React.createClass({
 	    displayName: "Radio",
@@ -23886,152 +23896,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 102 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* TODO batch *all* mutations
-	 * idea: freeze / thaw implementations for all types
-	 * lens constructor thaws, freeze delegates to type's freeze
-	 */
-
-	var util = __webpack_require__(134);
-	    var clone = util.clone;
-	    var isObject = util.isObject;
-	    var merge = util.merge;
-
-	var arr = __webpack_require__(135);
-	var obj = __webpack_require__(136);
-	var str = __webpack_require__(137);
-
-	// equivalents, without requiring it
-	// find the implementation to use for a given object
-	var dispatch = function(x) {
-	    if (Array.isArray(x)) {
-	        return arr;
-	    } else if (isObject(x)) {
-	        return obj;
-	    } else if (typeof x === "string") {
-	        return str;
-	    }
-	};
-
-	// This is underscore with a different name
-	var lens = function(obj) {
-	    if (obj instanceof lens) {
-	        return obj;
-	    }
-
-	    if (!(this instanceof lens)) {
-	        return new lens(obj);
-	    }
-
-	    var ops = dispatch(obj);
-	    this._wrapped = ops.thaw ? ops.thaw(obj) : obj;
-	};
-
-	lens.prototype.freeze = function() {
-	    var obj = this._wrapped;
-	    var ops = dispatch(obj);
-
-	    return ops.freeze ? ops.freeze(obj) : obj;
-	};
-
-	lens.prototype.zoom = function(lensArr) {
-	    if (this._zoomStack === undefined) {
-	        this._zoomStack = [];
-	    }
-
-	    this._zoomStack.push({
-	        zoom: lensArr,
-	        wrapped: this._wrapped
-	    });
-	    this._wrapped = lens(this._wrapped).get(lensArr);
-
-	    return this;
-	};
-
-	lens.prototype.deZoom = function() {
-	    var frame = this._zoomStack.pop();
-	    this._wrapped = lens(frame.wrapped)
-	        .set(frame.zoom, this._wrapped)
-	        .freeze();
-
-	    return this;
-	};
-
-	lens.prototype.get = function(lensArr) {
-	    var obj = this._wrapped;
-
-	    for (var i = 0; i < lensArr.length; i++) {
-	        obj = dispatch(obj).get(obj, lensArr[i]);
-	    }
-
-	    return obj;
-	};
-
-	lens.prototype.mod = function(lensArr, f) {
-	    var obj = this._wrapped;
-	    var newObj = clone(obj);
-	    var ops = dispatch(obj);
-
-	    if (lensArr.length === 0) {
-	        this._wrapped = f(this._wrapped);
-	    } else if (lensArr.length === 1) {
-	        this._wrapped = ops.mod(newObj, lensArr[0], f);
-	    } else {
-	        var monocle = lensArr[0];
-	        var shortLens = lensArr.slice(1);
-
-	        // newObj = ops.mod(obj[monocle], shortLens, f);
-
-	        newObj[monocle] = lens(obj[monocle])
-	            .mod(shortLens, f)
-	            .freeze();
-	        this._wrapped = newObj;
-	    }
-
-	    return this;
-	};
-
-	// TODO - move to individual files
-	lens.prototype.merge = function(lensArr, props) {
-	    this._wrapped = lens(this._wrapped).mod(lensArr, function(oldProps) {
-	        return merge(oldProps, props);
-	    }).freeze();
-
-	    return this;
-	};
-
-	// Lens must have length >= 1 or there would be nothing to return
-	lens.prototype.del = function(lensArr) {
-	    var obj = this._wrapped;
-	    var ops = dispatch(obj);
-
-	    if (lensArr.length === 1) {
-	        this._wrapped = ops.del(obj, lensArr[0]);
-	    } else {
-	        var monocle = lensArr[0];
-	        var shortLens = lensArr.slice(1);
-	        var newObj = clone(obj);
-
-	        newObj[monocle] = lens(obj[monocle])
-	            .del(shortLens)
-	            .freeze();
-
-	        this._wrapped = newObj;
-	    }
-
-	    return this;
-	};
-
-	lens.prototype.set = function(lensArr, set) {
-	    return this.mod(lensArr, function() { return set; });
-	};
-
-	module.exports = lens;
-
-
-/***/ },
-/* 103 */
-/***/ function(module, exports, __webpack_require__) {
-
 	"use strict";
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -24041,7 +23905,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * just returns all the widget's props rather than picking out those which were
 	 * input by the user.
 	 */
-	var WIDGET_PROP_BLACKLIST = __webpack_require__(121);
+	var WIDGET_PROP_BLACKLIST = __webpack_require__(126);
 
 	var _ = __webpack_require__(11);
 
@@ -24055,7 +23919,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = WidgetJsonifyDeprecated;
 
 /***/ },
-/* 104 */
+/* 103 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -24071,15 +23935,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, no-var */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var Movable = __webpack_require__(139);
+	var Movable = __webpack_require__(134);
 
-	var MovablePoint = __webpack_require__(140);
+	var MovablePoint = __webpack_require__(135);
 
-	var MovableLine = __webpack_require__(141);
+	var MovableLine = __webpack_require__(136);
 
-	var MovablePolygon = __webpack_require__(142);
+	var MovablePolygon = __webpack_require__(137);
 
-	var KhanColors = __webpack_require__(107);
+	var KhanColors = __webpack_require__(106);
 
 	var Interactive2 = {
 	    MovablePoint: MovablePoint,
@@ -24129,7 +23993,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Interactive2;
 
 /***/ },
-/* 105 */
+/* 104 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -24156,7 +24020,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ReactDOM = __webpack_require__(13);
 
-	var styles = __webpack_require__(138);
+	var styles = __webpack_require__(139);
 
 	var css = __webpack_require__(15).css;
 
@@ -24213,7 +24077,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ButtonGroup;
 
 /***/ },
-/* 106 */
+/* 105 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -24223,9 +24087,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var _ = __webpack_require__(11);
 
-	var InteractiveUtil = __webpack_require__(115);
+	var InteractiveUtil = __webpack_require__(111);
 
-	var WrappedDefaults = __webpack_require__(143);
+	var WrappedDefaults = __webpack_require__(138);
 
 	var kpoint = __webpack_require__(133).point;
 
@@ -24288,7 +24152,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = WrappedLine;
 
 /***/ },
-/* 107 */
+/* 106 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -24391,7 +24255,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = KhanColors;
 
 /***/ },
-/* 108 */
+/* 107 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -24416,7 +24280,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require = __webpack_require__(90), iconStar = _require.iconStar, iconTryAgain = _require.iconTryAgain;
 
-	var _require2 = __webpack_require__(38), boldFontFamily = _require2.boldFontFamily, gray68 = _require2.gray68, gray76 = _require2.gray76, gray85 = _require2.gray85, gray95 = _require2.gray95, kaGreen = _require2.kaGreen, phoneMargin = _require2.phoneMargin, negativePhoneMargin = _require2.negativePhoneMargin;
+	var _require2 = __webpack_require__(42), boldFontFamily = _require2.boldFontFamily, gray68 = _require2.gray68, gray76 = _require2.gray76, gray85 = _require2.gray85, gray95 = _require2.gray95, kaGreen = _require2.kaGreen, phoneMargin = _require2.phoneMargin, negativePhoneMargin = _require2.negativePhoneMargin;
 
 	var ANSWER_BAR_STATES = {
 	    // Initial state before the question is answerable.  The user must complete
@@ -24555,340 +24419,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = GradedGroupAnswerBar;
 
 /***/ },
-/* 109 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable brace-style, comma-dangle, no-redeclare, no-var, object-curly-spacing, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var React = __webpack_require__(12);
-
-	var ReactDOM = __webpack_require__(13);
-
-	var _ = __webpack_require__(11);
-
-	var Util = __webpack_require__(18);
-
-	var GraphUtils = __webpack_require__(112);
-
-	var _require = __webpack_require__(38), interactiveSizes = _require.interactiveSizes;
-
-	var SvgImage = __webpack_require__(34);
-
-	var defaultBackgroundImage = {
-	    url: null
-	};
-
-	/* Style objects */
-	var defaultInstructionsStyle = {
-	    fontStyle: "italic",
-	    fontWeight: "bold",
-	    fontSize: "32px",
-	    width: "100%",
-	    height: "100%",
-	    textAlign: "center",
-	    backgroundColor: "white",
-	    position: "absolute",
-	    zIndex: 1,
-	    transition: "opacity .25s ease-in-out",
-	    "-moz-transition": "opacity .25s ease-in-out",
-	    "-webkit-transition": "opacity .25s ease-in-out"
-	};
-
-	var instructionsTextStyle = {
-	    position: "relative",
-	    top: "25%"
-	};
-
-	function numSteps(range, step) {
-	    return Math.floor((range[1] - range[0]) / step);
-	}
-
-	var Graph = React.createClass({
-	    displayName: "Graph",
-	    propTypes: {
-	        box: React.PropTypes.array.isRequired,
-	        labels: React.PropTypes.arrayOf(React.PropTypes.string),
-	        range: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.number)),
-	        step: React.PropTypes.arrayOf(React.PropTypes.number),
-	        gridStep: React.PropTypes.arrayOf(React.PropTypes.number),
-	        snapStep: React.PropTypes.arrayOf(React.PropTypes.number),
-	        markings: React.PropTypes.string,
-	        backgroundImage: React.PropTypes.shape({
-	            url: React.PropTypes.string
-	        }),
-	        showProtractor: React.PropTypes.bool,
-	        showRuler: React.PropTypes.bool,
-	        rulerLabel: React.PropTypes.string,
-	        rulerTicks: React.PropTypes.number,
-	        onGraphieUpdated: React.PropTypes.func,
-	        instructions: React.PropTypes.string,
-	        onClick: React.PropTypes.func,
-	        setDrawingAreaAvailable: React.PropTypes.func,
-	        isMobile: React.PropTypes.bool
-	    },
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            labels: [ "x", "y" ],
-	            range: [ [ -10, 10 ], [ -10, 10 ] ],
-	            step: [ 1, 1 ],
-	            gridStep: [ 1, 1 ],
-	            snapStep: [ .5, .5 ],
-	            markings: "graph",
-	            backgroundImage: defaultBackgroundImage,
-	            showProtractor: false,
-	            showRuler: false,
-	            rulerLabel: "",
-	            rulerTicks: 10,
-	            instructions: null,
-	            onGraphieUpdated: null,
-	            onClick: null,
-	            onMouseDown: null,
-	            isMobile: false
-	        };
-	    },
-	    render: function render() {
-	        var image;
-	        var imageData = this.props.backgroundImage;
-	        if (imageData.url) {
-	            var scale = this.props.box[0] / interactiveSizes.defaultBoxSize;
-	            image = React.createElement(SvgImage, {
-	                src: imageData.url,
-	                width: imageData.width,
-	                height: imageData.height,
-	                scale: scale,
-	                responsive: false
-	            });
-	        } else image = null;
-	        return React.createElement("div", {
-	            className: "graphie-container above-scratchpad",
-	            style: {
-	                width: this.props.box[0],
-	                height: this.props.box[1]
-	            },
-	            onMouseOut: this.onMouseOut,
-	            onMouseOver: this.onMouseOver,
-	            onClick: this.onClick
-	        }, image, React.createElement("div", {
-	            className: "graphie",
-	            ref: "graphieDiv"
-	        }));
-	    },
-	    componentDidMount: function componentDidMount() {
-	        this._setupGraphie(true);
-	    },
-	    componentDidUpdate: function componentDidUpdate() {
-	        // Only setupGraphie once per componentDidUpdate().
-	        // See explanation in setupGraphie().
-	        this._hasSetupGraphieThisUpdate = false;
-	        if (this._shouldSetupGraphie) {
-	            this._setupGraphie(false);
-	            this._shouldSetupGraphie = false;
-	        }
-	    },
-	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        var potentialChanges = [ "labels", "range", "step", "markings", "showProtractor", "showRuler", "rulerLabel", "rulerTicks", "gridStep", "snapStep" ];
-	        var self = this;
-	        _.each(potentialChanges, function(prop) {
-	            _.isEqual(self.props[prop], nextProps[prop]) || (self._shouldSetupGraphie = true);
-	        });
-	    },
-	    /* Reset the graphie canvas to its initial state
-	     *
-	     * Use when re-rendering the parent component and you need a blank
-	     * graphie.
-	     */
-	    reset: function reset() {
-	        this._setupGraphie(false);
-	    },
-	    graphie: function graphie() {
-	        return this._graphie;
-	    },
-	    pointsFromNormalized: function pointsFromNormalized(coordsList, noSnap) {
-	        var self = this;
-	        return _.map(coordsList, function(coords) {
-	            return _.map(coords, function(coord, i) {
-	                var range = self.props.range[i];
-	                if (noSnap) return range[0] + (range[1] - range[0]) * coord;
-	                var step = self.props.step[i];
-	                var nSteps = numSteps(range, step);
-	                var tick = Math.round(coord * nSteps);
-	                return range[0] + step * tick;
-	            });
-	        });
-	    },
-	    _setupGraphie: function _setupGraphie(initialMount) {
-	        // Only setupGraphie once per componentDidUpdate().
-	        // This prevents this component from rendering graphie
-	        // and then immediately re-render graphie because its
-	        // parent component asked it to. This will happen when
-	        // props on the parent and props on this component both
-	        // require graphie to be re-rendered.
-	        if (this._hasSetupGraphieThisUpdate) return;
-	        var graphieDiv = ReactDOM.findDOMNode(this.refs.graphieDiv);
-	        $(graphieDiv).empty();
-	        var labels = this.props.labels;
-	        var range = this.props.range;
-	        var graphie = this._graphie = GraphUtils.createGraphie(graphieDiv);
-	        var gridConfig = this._getGridConfig();
-	        graphie.snap = this.props.snapStep;
-	        if ("graph" === this.props.markings) {
-	            graphie.graphInit({
-	                range: range,
-	                scale: _.pluck(gridConfig, "scale"),
-	                axisArrows: "<->",
-	                labelFormat: function labelFormat(s) {
-	                    return "\\small{" + s + "}";
-	                },
-	                gridStep: this.props.gridStep,
-	                tickStep: _.pluck(gridConfig, "tickStep"),
-	                labelStep: 1,
-	                unityLabels: _.pluck(gridConfig, "unityLabel"),
-	                isMobile: this.props.isMobile
-	            });
-	            graphie.label([ 0, range[1][1] ], labels[1], this.props.isMobile ? "below right" : "above");
-	            graphie.label([ range[0][1], 0 ], labels[0], this.props.isMobile ? "above left" : "right");
-	        } else "grid" === this.props.markings ? graphie.graphInit({
-	            range: range,
-	            scale: _.pluck(gridConfig, "scale"),
-	            gridStep: this.props.gridStep,
-	            axes: false,
-	            ticks: false,
-	            labels: false,
-	            isMobile: this.props.isMobile
-	        }) : "none" === this.props.markings && graphie.init({
-	            range: range,
-	            scale: _.pluck(gridConfig, "scale"),
-	            isMobile: this.props.isMobile
-	        });
-	        // Add instructions just before mouse layer
-	        var visible = .5;
-	        var invisible = 0;
-	        var $instructionsWrapper;
-	        if (this.props.instructions) {
-	            var $instructionsWrapper = $("<div/>");
-	            _.each(defaultInstructionsStyle, function(value, key) {
-	                $instructionsWrapper.css(key, value);
-	            });
-	            $instructionsWrapper.css("opacity", .5);
-	            var $instructions = $("<span/>", {
-	                text: this.props.instructions
-	            });
-	            _.each(instructionsTextStyle, function(value, key) {
-	                $instructions.css(key, value);
-	            });
-	            $instructionsWrapper.append($instructions);
-	            $(graphieDiv).append($instructionsWrapper);
-	        } else $instructionsWrapper = void 0;
-	        // Add some handlers for instructions text (if necessary)
-	        var onMouseDown = $instructionsWrapper || this.props.onMouseDown ? _.bind(function(coord) {
-	            if ($instructionsWrapper) {
-	                $instructionsWrapper.remove();
-	                $instructionsWrapper = null;
-	            }
-	            this.props.onMouseDown(coord);
-	        }, this) : null;
-	        var onMouseOver = $instructionsWrapper ? function() {
-	            $instructionsWrapper && $instructionsWrapper.css("opacity", 0);
-	        } : null;
-	        var onMouseOut = $instructionsWrapper ? function() {
-	            $instructionsWrapper && $instructionsWrapper.css("opacity", .5);
-	        } : null;
-	        graphie.addMouseLayer({
-	            onClick: this.props.onClick,
-	            onMouseDown: onMouseDown,
-	            onMouseOver: onMouseOver,
-	            onMouseOut: onMouseOut,
-	            onMouseUp: this.props.onMouseUp,
-	            onMouseMove: this.props.onMouseMove,
-	            allowScratchpad: true,
-	            setDrawingAreaAvailable: this.props.setDrawingAreaAvailable
-	        });
-	        this._updateProtractor();
-	        this._updateRuler();
-	        // We set this flag before jumping into our callback
-	        // to avoid recursing if our callback calls reset() itself
-	        this._hasSetupGraphieThisUpdate = true;
-	        !initialMount && this.props.onGraphieUpdated && // Calling a parent callback in componentDidMount is bad and
-	        // results in hard-to-reason-about lifecycle problems (esp. with
-	        // refs), so we do it only on update and rely on the parent to
-	        // query for the graphie object on initial mount
-	        this.props.onGraphieUpdated(graphie);
-	    },
-	    _getGridConfig: function _getGridConfig() {
-	        var self = this;
-	        return _.map(self.props.step, function(step, i) {
-	            return Util.gridDimensionConfig(step, self.props.range[i], self.props.box[i], self.props.gridStep[i]);
-	        });
-	    },
-	    _updateProtractor: function _updateProtractor() {
-	        this.protractor && this.protractor.remove();
-	        if (this.props.showProtractor) {
-	            var coord = this.pointsFromNormalized([ [ .5, .05 ] ])[0];
-	            this.protractor = this._graphie.protractor(coord);
-	        }
-	    },
-	    _updateRuler: function _updateRuler() {
-	        this.ruler && this.ruler.remove();
-	        if (this.props.showRuler) {
-	            var coord = this.pointsFromNormalized([ [ .5, .25 ] ])[0];
-	            var extent = this._graphie.range[0][1] - this._graphie.range[0][0];
-	            this.ruler = this._graphie.ruler({
-	                center: coord,
-	                label: this.props.rulerLabel,
-	                pixelsPerUnit: this._graphie.scale[0],
-	                ticksPerUnit: this.props.rulerTicks,
-	                units: Math.round(.8 * extent)
-	            });
-	        }
-	    },
-	    toJSON: function toJSON() {
-	        return _.pick(this.props, "range", "step", "markings", "labels", "backgroundImage", "showProtractor", "showRuler", "rulerLabel", "rulerTicks", "gridStep", "snapStep");
-	    }
-	});
-
-	module.exports = Graph;
-
-/***/ },
-/* 110 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/**
-	 * A wrapper around react-components/info-tip.jsx that can be rendered on the
-	 * server without causing a checksum mismatch on the client.
-	 * (RCSS generates classnames with a randomSuffix, which ensures that any
-	 * two sets of generated classnames will not match.)
-	 */
-	var React = __webpack_require__(12);
-
-	var ReactComponentsInfoTip = __webpack_require__(144);
-
-	var InfoTip = React.createClass({
-	    displayName: "InfoTip",
-	    getInitialState: function getInitialState() {
-	        return {
-	            didMount: false
-	        };
-	    },
-	    componentDidMount: function componentDidMount() {
-	        /* eslint-disable react/no-did-mount-set-state */
-	        this.setState({
-	            didMount: true
-	        });
-	    },
-	    render: function render() {
-	        return this.state.didMount ? React.createElement(ReactComponentsInfoTip, this.props) : React.createElement("div", null);
-	    }
-	});
-
-	module.exports = InfoTip;
-
-/***/ },
-/* 111 */
+/* 108 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -25073,29 +24604,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = NumberInput;
 
 /***/ },
-/* 112 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/**
-	 * A wrapper around graphie.js and interactive.js to make sure interactive.js
-	 * is always required at the same time as graphie.js. This is because
-	 * interactive.js has side effects that are hard to see (it adds things to
-	 * `Graphie.prototype`), so someone might forget to require interactive.js.
-	 *
-	 * To use the utilities exported from interactive.js, require that file
-	 * itself.
-	 */
-	var GraphUtils = __webpack_require__(145);
-
-	__webpack_require__(146);
-
-	// For side effects
-	module.exports = GraphUtils;
-
-/***/ },
-/* 113 */
+/* 109 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -25179,7 +24688,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = TextInput;
 
 /***/ },
-/* 114 */
+/* 110 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -25287,7 +24796,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MathOutput;
 
 /***/ },
-/* 115 */
+/* 111 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -25300,7 +24809,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var _ = __webpack_require__(11);
 
-	var MovableHelperMethods = __webpack_require__(147);
+	var MovableHelperMethods = __webpack_require__(140);
 
 	/**
 	 * Compute the correct vendor-prefixed `transform`.
@@ -25401,7 +24910,29 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = InteractiveUtil;
 
 /***/ },
-/* 116 */
+/* 112 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/**
+	 * A wrapper around graphie.js and interactive.js to make sure interactive.js
+	 * is always required at the same time as graphie.js. This is because
+	 * interactive.js has side effects that are hard to see (it adds things to
+	 * `Graphie.prototype`), so someone might forget to require interactive.js.
+	 *
+	 * To use the utilities exported from interactive.js, require that file
+	 * itself.
+	 */
+	var GraphUtils = __webpack_require__(141);
+
+	__webpack_require__(142);
+
+	// For side effects
+	module.exports = GraphUtils;
+
+/***/ },
+/* 113 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -25851,7 +25382,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        minHeight: 44,
 	        padding: 10,
 	        listStyleType: "none",
-	        userSelect: "none"
+	        userSelect: "none",
+	        touchAction: "none"
 	    },
 	    placeholder: {
 	        background: "#ddd",
@@ -25885,7 +25417,340 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Sortable;
 
 /***/ },
-/* 117 */
+/* 114 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable brace-style, comma-dangle, no-redeclare, no-var, object-curly-spacing, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+	var React = __webpack_require__(12);
+
+	var ReactDOM = __webpack_require__(13);
+
+	var _ = __webpack_require__(11);
+
+	var Util = __webpack_require__(18);
+
+	var GraphUtils = __webpack_require__(112);
+
+	var _require = __webpack_require__(42), interactiveSizes = _require.interactiveSizes;
+
+	var SvgImage = __webpack_require__(38);
+
+	var defaultBackgroundImage = {
+	    url: null
+	};
+
+	/* Style objects */
+	var defaultInstructionsStyle = {
+	    fontStyle: "italic",
+	    fontWeight: "bold",
+	    fontSize: "32px",
+	    width: "100%",
+	    height: "100%",
+	    textAlign: "center",
+	    backgroundColor: "white",
+	    position: "absolute",
+	    zIndex: 1,
+	    transition: "opacity .25s ease-in-out",
+	    "-moz-transition": "opacity .25s ease-in-out",
+	    "-webkit-transition": "opacity .25s ease-in-out"
+	};
+
+	var instructionsTextStyle = {
+	    position: "relative",
+	    top: "25%"
+	};
+
+	function numSteps(range, step) {
+	    return Math.floor((range[1] - range[0]) / step);
+	}
+
+	var Graph = React.createClass({
+	    displayName: "Graph",
+	    propTypes: {
+	        box: React.PropTypes.array.isRequired,
+	        labels: React.PropTypes.arrayOf(React.PropTypes.string),
+	        range: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.number)),
+	        step: React.PropTypes.arrayOf(React.PropTypes.number),
+	        gridStep: React.PropTypes.arrayOf(React.PropTypes.number),
+	        snapStep: React.PropTypes.arrayOf(React.PropTypes.number),
+	        markings: React.PropTypes.string,
+	        backgroundImage: React.PropTypes.shape({
+	            url: React.PropTypes.string
+	        }),
+	        showProtractor: React.PropTypes.bool,
+	        showRuler: React.PropTypes.bool,
+	        rulerLabel: React.PropTypes.string,
+	        rulerTicks: React.PropTypes.number,
+	        onGraphieUpdated: React.PropTypes.func,
+	        instructions: React.PropTypes.string,
+	        onClick: React.PropTypes.func,
+	        setDrawingAreaAvailable: React.PropTypes.func,
+	        isMobile: React.PropTypes.bool
+	    },
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            labels: [ "x", "y" ],
+	            range: [ [ -10, 10 ], [ -10, 10 ] ],
+	            step: [ 1, 1 ],
+	            gridStep: [ 1, 1 ],
+	            snapStep: [ .5, .5 ],
+	            markings: "graph",
+	            backgroundImage: defaultBackgroundImage,
+	            showProtractor: false,
+	            showRuler: false,
+	            rulerLabel: "",
+	            rulerTicks: 10,
+	            instructions: null,
+	            onGraphieUpdated: null,
+	            onClick: null,
+	            onMouseDown: null,
+	            isMobile: false
+	        };
+	    },
+	    render: function render() {
+	        var image;
+	        var imageData = this.props.backgroundImage;
+	        if (imageData.url) {
+	            var scale = this.props.box[0] / interactiveSizes.defaultBoxSize;
+	            image = React.createElement(SvgImage, {
+	                src: imageData.url,
+	                width: imageData.width,
+	                height: imageData.height,
+	                scale: scale,
+	                responsive: false
+	            });
+	        } else image = null;
+	        return React.createElement("div", {
+	            className: "graphie-container above-scratchpad",
+	            style: {
+	                width: this.props.box[0],
+	                height: this.props.box[1]
+	            },
+	            onMouseOut: this.onMouseOut,
+	            onMouseOver: this.onMouseOver,
+	            onClick: this.onClick
+	        }, image, React.createElement("div", {
+	            className: "graphie",
+	            ref: "graphieDiv"
+	        }));
+	    },
+	    componentDidMount: function componentDidMount() {
+	        this._setupGraphie(true);
+	    },
+	    componentDidUpdate: function componentDidUpdate() {
+	        // Only setupGraphie once per componentDidUpdate().
+	        // See explanation in setupGraphie().
+	        this._hasSetupGraphieThisUpdate = false;
+	        if (this._shouldSetupGraphie) {
+	            this._setupGraphie(false);
+	            this._shouldSetupGraphie = false;
+	        }
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        var potentialChanges = [ "labels", "range", "step", "markings", "showProtractor", "showRuler", "rulerLabel", "rulerTicks", "gridStep", "snapStep" ];
+	        var self = this;
+	        _.each(potentialChanges, function(prop) {
+	            _.isEqual(self.props[prop], nextProps[prop]) || (self._shouldSetupGraphie = true);
+	        });
+	    },
+	    /* Reset the graphie canvas to its initial state
+	     *
+	     * Use when re-rendering the parent component and you need a blank
+	     * graphie.
+	     */
+	    reset: function reset() {
+	        this._setupGraphie(false);
+	    },
+	    graphie: function graphie() {
+	        return this._graphie;
+	    },
+	    pointsFromNormalized: function pointsFromNormalized(coordsList, noSnap) {
+	        var self = this;
+	        return _.map(coordsList, function(coords) {
+	            return _.map(coords, function(coord, i) {
+	                var range = self.props.range[i];
+	                if (noSnap) return range[0] + (range[1] - range[0]) * coord;
+	                var step = self.props.step[i];
+	                var nSteps = numSteps(range, step);
+	                var tick = Math.round(coord * nSteps);
+	                return range[0] + step * tick;
+	            });
+	        });
+	    },
+	    _setupGraphie: function _setupGraphie(initialMount) {
+	        // Only setupGraphie once per componentDidUpdate().
+	        // This prevents this component from rendering graphie
+	        // and then immediately re-render graphie because its
+	        // parent component asked it to. This will happen when
+	        // props on the parent and props on this component both
+	        // require graphie to be re-rendered.
+	        if (this._hasSetupGraphieThisUpdate) return;
+	        var graphieDiv = ReactDOM.findDOMNode(this.refs.graphieDiv);
+	        $(graphieDiv).empty();
+	        var labels = this.props.labels;
+	        var range = this.props.range;
+	        var graphie = this._graphie = GraphUtils.createGraphie(graphieDiv);
+	        var gridConfig = this._getGridConfig();
+	        graphie.snap = this.props.snapStep;
+	        if ("graph" === this.props.markings) {
+	            graphie.graphInit({
+	                range: range,
+	                scale: _.pluck(gridConfig, "scale"),
+	                axisArrows: "<->",
+	                labelFormat: function labelFormat(s) {
+	                    return "\\small{" + s + "}";
+	                },
+	                gridStep: this.props.gridStep,
+	                tickStep: _.pluck(gridConfig, "tickStep"),
+	                labelStep: 1,
+	                unityLabels: _.pluck(gridConfig, "unityLabel"),
+	                isMobile: this.props.isMobile
+	            });
+	            graphie.label([ 0, range[1][1] ], labels[1], this.props.isMobile ? "below right" : "above");
+	            graphie.label([ range[0][1], 0 ], labels[0], this.props.isMobile ? "above left" : "right");
+	        } else "grid" === this.props.markings ? graphie.graphInit({
+	            range: range,
+	            scale: _.pluck(gridConfig, "scale"),
+	            gridStep: this.props.gridStep,
+	            axes: false,
+	            ticks: false,
+	            labels: false,
+	            isMobile: this.props.isMobile
+	        }) : "none" === this.props.markings && graphie.init({
+	            range: range,
+	            scale: _.pluck(gridConfig, "scale"),
+	            isMobile: this.props.isMobile
+	        });
+	        // Add instructions just before mouse layer
+	        var visible = .5;
+	        var invisible = 0;
+	        var $instructionsWrapper;
+	        if (this.props.instructions) {
+	            var $instructionsWrapper = $("<div/>");
+	            _.each(defaultInstructionsStyle, function(value, key) {
+	                $instructionsWrapper.css(key, value);
+	            });
+	            $instructionsWrapper.css("opacity", .5);
+	            var $instructions = $("<span/>", {
+	                text: this.props.instructions
+	            });
+	            _.each(instructionsTextStyle, function(value, key) {
+	                $instructions.css(key, value);
+	            });
+	            $instructionsWrapper.append($instructions);
+	            $(graphieDiv).append($instructionsWrapper);
+	        } else $instructionsWrapper = void 0;
+	        // Add some handlers for instructions text (if necessary)
+	        var onMouseDown = $instructionsWrapper || this.props.onMouseDown ? _.bind(function(coord) {
+	            if ($instructionsWrapper) {
+	                $instructionsWrapper.remove();
+	                $instructionsWrapper = null;
+	            }
+	            this.props.onMouseDown(coord);
+	        }, this) : null;
+	        var onMouseOver = $instructionsWrapper ? function() {
+	            $instructionsWrapper && $instructionsWrapper.css("opacity", 0);
+	        } : null;
+	        var onMouseOut = $instructionsWrapper ? function() {
+	            $instructionsWrapper && $instructionsWrapper.css("opacity", .5);
+	        } : null;
+	        graphie.addMouseLayer({
+	            onClick: this.props.onClick,
+	            onMouseDown: onMouseDown,
+	            onMouseOver: onMouseOver,
+	            onMouseOut: onMouseOut,
+	            onMouseUp: this.props.onMouseUp,
+	            onMouseMove: this.props.onMouseMove,
+	            allowScratchpad: true,
+	            setDrawingAreaAvailable: this.props.setDrawingAreaAvailable
+	        });
+	        this._updateProtractor();
+	        this._updateRuler();
+	        // We set this flag before jumping into our callback
+	        // to avoid recursing if our callback calls reset() itself
+	        this._hasSetupGraphieThisUpdate = true;
+	        !initialMount && this.props.onGraphieUpdated && // Calling a parent callback in componentDidMount is bad and
+	        // results in hard-to-reason-about lifecycle problems (esp. with
+	        // refs), so we do it only on update and rely on the parent to
+	        // query for the graphie object on initial mount
+	        this.props.onGraphieUpdated(graphie);
+	    },
+	    _getGridConfig: function _getGridConfig() {
+	        var self = this;
+	        return _.map(self.props.step, function(step, i) {
+	            return Util.gridDimensionConfig(step, self.props.range[i], self.props.box[i], self.props.gridStep[i]);
+	        });
+	    },
+	    _updateProtractor: function _updateProtractor() {
+	        this.protractor && this.protractor.remove();
+	        if (this.props.showProtractor) {
+	            var coord = this.pointsFromNormalized([ [ .5, .05 ] ])[0];
+	            this.protractor = this._graphie.protractor(coord);
+	        }
+	    },
+	    _updateRuler: function _updateRuler() {
+	        this.ruler && this.ruler.remove();
+	        if (this.props.showRuler) {
+	            var coord = this.pointsFromNormalized([ [ .5, .25 ] ])[0];
+	            var extent = this._graphie.range[0][1] - this._graphie.range[0][0];
+	            this.ruler = this._graphie.ruler({
+	                center: coord,
+	                label: this.props.rulerLabel,
+	                pixelsPerUnit: this._graphie.scale[0],
+	                ticksPerUnit: this.props.rulerTicks,
+	                units: Math.round(.8 * extent)
+	            });
+	        }
+	    },
+	    toJSON: function toJSON() {
+	        return _.pick(this.props, "range", "step", "markings", "labels", "backgroundImage", "showProtractor", "showRuler", "rulerLabel", "rulerTicks", "gridStep", "snapStep");
+	    }
+	});
+
+	module.exports = Graph;
+
+/***/ },
+/* 115 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/**
+	 * A wrapper around react-components/info-tip.jsx that can be rendered on the
+	 * server without causing a checksum mismatch on the client.
+	 * (RCSS generates classnames with a randomSuffix, which ensures that any
+	 * two sets of generated classnames will not match.)
+	 */
+	var React = __webpack_require__(12);
+
+	var ReactComponentsInfoTip = __webpack_require__(143);
+
+	var InfoTip = React.createClass({
+	    displayName: "InfoTip",
+	    getInitialState: function getInitialState() {
+	        return {
+	            didMount: false
+	        };
+	    },
+	    componentDidMount: function componentDidMount() {
+	        /* eslint-disable react/no-did-mount-set-state */
+	        this.setState({
+	            didMount: true
+	        });
+	    },
+	    render: function render() {
+	        return this.state.didMount ? React.createElement(ReactComponentsInfoTip, this.props) : React.createElement("div", null);
+	    }
+	});
+
+	module.exports = InfoTip;
+
+/***/ },
+/* 116 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -26288,7 +26153,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 118 */
+/* 117 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -26409,6 +26274,152 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 	module.exports = TextListEditor;
+
+/***/ },
+/* 118 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO batch *all* mutations
+	 * idea: freeze / thaw implementations for all types
+	 * lens constructor thaws, freeze delegates to type's freeze
+	 */
+
+	var util = __webpack_require__(144);
+	    var clone = util.clone;
+	    var isObject = util.isObject;
+	    var merge = util.merge;
+
+	var arr = __webpack_require__(145);
+	var obj = __webpack_require__(146);
+	var str = __webpack_require__(147);
+
+	// equivalents, without requiring it
+	// find the implementation to use for a given object
+	var dispatch = function(x) {
+	    if (Array.isArray(x)) {
+	        return arr;
+	    } else if (isObject(x)) {
+	        return obj;
+	    } else if (typeof x === "string") {
+	        return str;
+	    }
+	};
+
+	// This is underscore with a different name
+	var lens = function(obj) {
+	    if (obj instanceof lens) {
+	        return obj;
+	    }
+
+	    if (!(this instanceof lens)) {
+	        return new lens(obj);
+	    }
+
+	    var ops = dispatch(obj);
+	    this._wrapped = ops.thaw ? ops.thaw(obj) : obj;
+	};
+
+	lens.prototype.freeze = function() {
+	    var obj = this._wrapped;
+	    var ops = dispatch(obj);
+
+	    return ops.freeze ? ops.freeze(obj) : obj;
+	};
+
+	lens.prototype.zoom = function(lensArr) {
+	    if (this._zoomStack === undefined) {
+	        this._zoomStack = [];
+	    }
+
+	    this._zoomStack.push({
+	        zoom: lensArr,
+	        wrapped: this._wrapped
+	    });
+	    this._wrapped = lens(this._wrapped).get(lensArr);
+
+	    return this;
+	};
+
+	lens.prototype.deZoom = function() {
+	    var frame = this._zoomStack.pop();
+	    this._wrapped = lens(frame.wrapped)
+	        .set(frame.zoom, this._wrapped)
+	        .freeze();
+
+	    return this;
+	};
+
+	lens.prototype.get = function(lensArr) {
+	    var obj = this._wrapped;
+
+	    for (var i = 0; i < lensArr.length; i++) {
+	        obj = dispatch(obj).get(obj, lensArr[i]);
+	    }
+
+	    return obj;
+	};
+
+	lens.prototype.mod = function(lensArr, f) {
+	    var obj = this._wrapped;
+	    var newObj = clone(obj);
+	    var ops = dispatch(obj);
+
+	    if (lensArr.length === 0) {
+	        this._wrapped = f(this._wrapped);
+	    } else if (lensArr.length === 1) {
+	        this._wrapped = ops.mod(newObj, lensArr[0], f);
+	    } else {
+	        var monocle = lensArr[0];
+	        var shortLens = lensArr.slice(1);
+
+	        // newObj = ops.mod(obj[monocle], shortLens, f);
+
+	        newObj[monocle] = lens(obj[monocle])
+	            .mod(shortLens, f)
+	            .freeze();
+	        this._wrapped = newObj;
+	    }
+
+	    return this;
+	};
+
+	// TODO - move to individual files
+	lens.prototype.merge = function(lensArr, props) {
+	    this._wrapped = lens(this._wrapped).mod(lensArr, function(oldProps) {
+	        return merge(oldProps, props);
+	    }).freeze();
+
+	    return this;
+	};
+
+	// Lens must have length >= 1 or there would be nothing to return
+	lens.prototype.del = function(lensArr) {
+	    var obj = this._wrapped;
+	    var ops = dispatch(obj);
+
+	    if (lensArr.length === 1) {
+	        this._wrapped = ops.del(obj, lensArr[0]);
+	    } else {
+	        var monocle = lensArr[0];
+	        var shortLens = lensArr.slice(1);
+	        var newObj = clone(obj);
+
+	        newObj[monocle] = lens(obj[monocle])
+	            .del(shortLens)
+	            .freeze();
+
+	        this._wrapped = newObj;
+	    }
+
+	    return this;
+	};
+
+	lens.prototype.set = function(lensArr, set) {
+	    return this.mod(lensArr, function() { return set; });
+	};
+
+	module.exports = lens;
+
 
 /***/ },
 /* 119 */
@@ -27869,32 +27880,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
-	/**
-	 * These are things that widgets should exclude when serializing themselves.
-	 *
-	 * The use of this list needs to die. Basically, there are codepaths that
-	 * blindly serialize the "props" of a widget so that it can pass around its
-	 * info. Unfortunately, props aren't guaranteed to be serializable, and
-	 * automatically serializing schemaless list of attributes causes issues (e.g.
-	 * circular JSON structures sometimes).
-	 *
-	 * This blacklists things that we know don't need to be serialized.
-	 */
-	module.exports = [ // standard props "added" by react
-	// (technically the renderer still adds them)
-	"key", "ref", // added by src/renderer.jsx
-	"containerSizeClass", "widgetId", "onChange", "problemNum", "apiOptions", "questionCompleted", "findWidgets", // added by src/editor.jsx, for widgets removing themselves
-	// this is soooo not the right place for this, but alas.
-	"onRemove", // also added by src/editor.jsx
-	"id", // Callbacks and items for interaction handling
-	"onBlur", "onFocus", "trackInteraction", "keypadElement" ];
-
-/***/ },
-/* 122 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable brace-style, comma-dangle, no-var, one-var, space-unary-ops */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
@@ -27902,7 +27887,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Util = __webpack_require__(18);
 
-	var Graphie = __webpack_require__(92);
+	var Graphie = __webpack_require__(96);
 
 	var Plot = Graphie.Plot;
 
@@ -28401,7 +28386,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 123 */
+/* 122 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -28575,7 +28560,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = draw;
 
 /***/ },
-/* 124 */
+/* 123 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -28888,7 +28873,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 125 */
+/* 124 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -29017,10 +29002,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // TODO(colin): this should just start at 0 all the time, and the
 	        // layout engine should figure out continuity.
 	        inBranchIdx = 0);
-	        return [ parse(rest, _extends({}, newCtx, {
+	        var parenCtx = _extends({}, newCtx, {
 	            idx: newCtx.idx.concat([ [ inBranchIdx, 0 ] ]),
 	            parens: newCtx.parens.concat("(")
-	        })) ].concat(parse(sliceFromMatchingCloseParen(rest, [ "(" ]), newCtx));
+	        });
+	        var parenExpr = parse(rest, parenCtx);
+	        var remainder = parse(sliceFromMatchingCloseParen(rest, [ "(" ]), newCtx);
+	        return [ parenExpr ].concat(remainder);
 	    }
 	    if (")" === firstChar) {
 	        if ("(" !== ctx.parens[ctx.parens.length - 1]) throw new ParseError("Mismatched parentheses");
@@ -29040,7 +29028,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var rest = null;
 	    if ("[" === smiles[0]) {
 	        var closingIdx = smiles.indexOf("]");
-	        if (-1 === closingIdx) return [ "", smiles ];
+	        if (closingIdx === -1) return [ "", smiles ];
 	        sym = smiles.slice(1, closingIdx);
 	        rest = smiles.slice(closingIdx + 1);
 	    } else {
@@ -29126,7 +29114,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 126 */
+/* 125 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -29469,389 +29457,33 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
+/* 126 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/**
+	 * These are things that widgets should exclude when serializing themselves.
+	 *
+	 * The use of this list needs to die. Basically, there are codepaths that
+	 * blindly serialize the "props" of a widget so that it can pass around its
+	 * info. Unfortunately, props aren't guaranteed to be serializable, and
+	 * automatically serializing schemaless list of attributes causes issues (e.g.
+	 * circular JSON structures sometimes).
+	 *
+	 * This blacklists things that we know don't need to be serialized.
+	 */
+	module.exports = [ // standard props "added" by react
+	// (technically the renderer still adds them)
+	"key", "ref", // added by src/renderer.jsx
+	"containerSizeClass", "widgetId", "onChange", "problemNum", "apiOptions", "questionCompleted", "findWidgets", // added by src/editor.jsx, for widgets removing themselves
+	// this is soooo not the right place for this, but alas.
+	"onRemove", // also added by src/editor.jsx
+	"id", // Callbacks and items for interaction handling
+	"onBlur", "onFocus", "trackInteraction", "keypadElement" ];
+
+/***/ },
 /* 127 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var Util = __webpack_require__(18);
-
-	var nestedMap = Util.nestedMap;
-
-	var deepEq = Util.deepEq;
-
-	var _ = __webpack_require__(11);
-
-	/**
-	 * A base class for all Graphie Movables
-	 *
-	 * Used for checking that all Graphie children are, in fact,
-	 * GraphieMovables
-	 */
-	function GraphieMovable(descriptor) {
-	    _.extend(this, descriptor);
-	}
-
-	var abstractMethod = function abstractMethod() {
-	    throw new Error("Abstract method! Must be implemented by Graphie Movable" + this.constructor.displayName);
-	};
-
-	_.extend(GraphieMovable.prototype, {
-	    movableProps: [],
-	    add: abstractMethod,
-	    modify: abstractMethod,
-	    remove: abstractMethod,
-	    toFront: function toFront() {}
-	});
-
-	/**
-	 * returns cloned props modified with `children: childrenArray`
-	 */
-	var rewriteProps = function rewriteProps(props, childrenArray) {
-	    // Clone the props and add `children:`
-	    // childrenArray is always an array here because this is only called
-	    // from createClass, which initializes childrenArray as _.rest(arguments)
-	    return _.extend({}, props, {
-	        children: _.filter(_.flatten(childrenArray), _.identity)
-	    });
-	};
-
-	/**
-	 * Create a custom GraphieMovable class
-	 */
-	var createClass = function createClass(spec) {
-	    var GraphieClass = function GraphieClass(props) {
-	        if (!(this instanceof GraphieClass)) throw new Error("Use createElement or JSX with graphie movables");
-	        this.props = rewriteProps(props, props.children || []);
-	        return this;
-	    };
-	    spec.displayName = spec.displayName || _.uniqueId("GraphieClass");
-	    // Add the displayName to the constructor for compatibility with
-	    // React's myDescriptor.constructor.displayName
-	    GraphieClass.displayName = spec.displayName;
-	    GraphieClass.prototype = new GraphieMovable(spec);
-	    GraphieClass.prototype.constructor = GraphieClass;
-	    return GraphieClass;
-	};
-
-	/**
-	 * Create a GraphieMovable class from a function that describes
-	 * how to add said class to a graphie, and returns an array of
-	 * `.remove()`able elements to be used when a remove() or
-	 * modify() is called.
-	 *
-	 * This convenience method creates an inefficient class, although
-	 * it does check for a difference in this.props and prevProps before
-	 * removing and re-adding itself.
-	 *
-	 * The primary benefit of this is being able to very easily create
-	 * a wrapper for old graphie code to make it interface with <Graphie>
-	 *
-	 * Commonly used elements should use the fully-fledged createClass
-	 * and implement an efficient modify() operation.
-	 */
-	var createSimpleClass = function createSimpleClass(addFunction) {
-	    return createClass({
-	        displayName: addFunction.name || _.uniqueId("GraphieSimpleClass"),
-	        movableProps: [ "children" ],
-	        add: function add(graphie) {
-	            this._elements = addFunction(graphie, this.props);
-	            this._prevProps = this.props;
-	        },
-	        modify: function modify(graphie) {
-	            if (!deepEq(this.props, this._prevProps)) {
-	                this.remove();
-	                this.add(graphie);
-	                this._prevProps = this.props;
-	                return "reordered";
-	            }
-	        },
-	        remove: function remove() {
-	            nestedMap(this._elements, function(elem) {
-	                elem && elem.remove();
-	            });
-	            this._elements = null;
-	            this._prevProps = null;
-	        },
-	        toFront: function toFront() {
-	            nestedMap(this._elements, function(elem) {
-	                _.isFunction(elem.toFront) && elem.toFront();
-	            });
-	        }
-	    });
-	};
-
-	module.exports = {
-	    GraphieMovable: GraphieMovable,
-	    createClass: createClass,
-	    createSimpleClass: createSimpleClass
-	};
-
-/***/ },
-/* 128 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _extends = Object.assign || function(target) {
-	    for (var i = 1; i < arguments.length; i++) {
-	        var source = arguments[i];
-	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
-	    }
-	    return target;
-	};
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-unused-vars, no-var, object-curly-spacing */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var _ = __webpack_require__(11);
-
-	var GraphieClasses = __webpack_require__(127);
-
-	var Interactive2 = __webpack_require__(104);
-
-	var InteractiveUtil = __webpack_require__(115);
-
-	var KhanColors = __webpack_require__(107);
-
-	var assert = InteractiveUtil.assert;
-
-	var MovablePoint = GraphieClasses.createClass({
-	    displayName: "MovablePoint",
-	    movableProps: [ "children" ],
-	    _getProps: function _getProps() {
-	        if (this.props.isMobile) {
-	            var isMobile = this.props.isMobile;
-	            // TODO(kevinb) precompute commonStyle and commonMobileStyle
-	            var commonStyle = isMobile ? {
-	                stroke: "#ffffff",
-	                "stroke-width": 3,
-	                fill: KhanColors.INTERACTIVE
-	            } : {
-	                stroke: KhanColors.INTERACTIVE,
-	                fill: KhanColors.INTERACTIVE
-	            };
-	            // TODO(kevinb) precompute normalStyle and normalMobileStyle
-	            var normalStyle = isMobile ? Object.assign(commonStyle, this.props.mobileStyleOverride || {}) : Object.assign(commonStyle, this.props.normalStyle);
-	            // TODO(kevinb) precompute highlightStyle and highlightMobileStyle
-	            var highlightStyle = isMobile ? _extends({}, commonStyle, {
-	                "stroke-width": 0,
-	                scale: .75
-	            }) : this.props.highlightStyle;
-	            var addedProps = Object.assign({
-	                normalStyle: normalStyle,
-	                highlightStyle: highlightStyle,
-	                shadow: isMobile,
-	                tooltip: isMobile && this.props.showTooltips
-	            }, isMobile ? {
-	                pointSize: 7
-	            } : {});
-	            return Object.assign(this.props, addedProps);
-	        }
-	        return this.props;
-	    },
-	    add: function add(graphie) {
-	        this.point = Interactive2.addMovablePoint(graphie, this._getProps());
-	    },
-	    modify: function modify() {
-	        this.point.modify(this._getProps());
-	    },
-	    remove: function remove() {
-	        this.point.remove();
-	    },
-	    toFront: function toFront() {
-	        this.point.toFront();
-	    },
-	    grab: function grab(coord) {
-	        this.point.grab(coord);
-	    }
-	});
-
-	// Include helper methods, such as MovablePoint.constrain.snap()
-	_.extend(MovablePoint, Interactive2.MovablePoint);
-
-	var MovableLine = GraphieClasses.createClass({
-	    displayName: "MovableLine",
-	    movableProps: [ "children" ],
-	    add: function add(graphie) {
-	        // Add MovablePoint children
-	        var points = _.pluck(this.props.children, "point");
-	        var props = _.extend({}, this.props, {
-	            points: points
-	        });
-	        this.line = Interactive2.addMovableLine(graphie, props);
-	    },
-	    modify: function modify() {
-	        // Add MovablePoint children
-	        var points = _.pluck(this.props.children, "point");
-	        var props = _.extend({}, this.props, {
-	            points: points
-	        });
-	        this.line.modify(props);
-	    },
-	    remove: function remove() {
-	        this.line.remove();
-	    },
-	    toFront: function toFront() {
-	        this.line.toFront();
-	    }
-	});
-
-	// Include helper methods, such as MovableLine.constrain.snap()
-	_.extend(MovableLine, Interactive2.MovableLine);
-
-	var Label = GraphieClasses.createSimpleClass(function(graphie, props) {
-	    var coord = props.coord;
-	    props.unscaled && (coord = graphie.unscalePoint(coord));
-	    return graphie.label(coord, props.text, props.direction, props.tex, props.style);
-	});
-
-	var Line = GraphieClasses.createClass({
-	    displayName: "Line",
-	    movableProps: [ "children" ],
-	    add: function add(graphie) {
-	        var props = this.props;
-	        this.graphie = graphie;
-	        this.line = this.graphie.line(props.start, props.end, props.style);
-	    },
-	    modify: function modify() {
-	        var props = this.props;
-	        var path = this.graphie.svgPath([ props.start, props.end ]);
-	        this.line.attr(_.extend({}, props.style, {
-	            path: path
-	        }));
-	    },
-	    remove: function remove() {
-	        this.line.remove();
-	    },
-	    toFront: function toFront() {
-	        this.line.toFront();
-	    }
-	});
-
-	var Parabola = GraphieClasses.createClass({
-	    displayName: "Parabola",
-	    movableProps: [ "children" ],
-	    add: function add(graphie) {
-	        var props = this.props;
-	        this.graphie = graphie;
-	        this.parabola = this.graphie.parabola(props.a, props.b, props.c, props.style);
-	    },
-	    modify: function modify() {
-	        var props = this.props;
-	        var path = this.graphie.svgParabolaPath(props.a, props.b, props.c);
-	        this.parabola.attr(_.extend({}, props.style, {
-	            path: path
-	        }));
-	    },
-	    remove: function remove() {
-	        this.parabola.remove();
-	    },
-	    toFront: function toFront() {
-	        this.parabola.toFront();
-	    }
-	});
-
-	var Sinusoid = GraphieClasses.createClass({
-	    displayName: "Sinusoid",
-	    movableProps: [ "children" ],
-	    add: function add(graphie) {
-	        var props = this.props;
-	        this.graphie = graphie;
-	        this.sinusoid = this.graphie.sinusoid(props.a, props.b, props.c, props.d, props.style);
-	    },
-	    modify: function modify() {
-	        var props = this.props;
-	        var path = this.graphie.svgSinusoidPath(props.a, props.b, props.c, props.d);
-	        this.sinusoid.attr(_.extend({}, props.style, {
-	            path: path
-	        }));
-	    },
-	    remove: function remove() {
-	        this.sinusoid.remove();
-	    },
-	    toFront: function toFront() {
-	        this.sinusoid.toFront();
-	    }
-	});
-
-	var Plot = GraphieClasses.createSimpleClass(function(graphie, props) {
-	    return graphie.plot(props.fn, props.range, props.style);
-	});
-
-	var PlotParametric = GraphieClasses.createSimpleClass(function(graphie, props) {
-	    return graphie.plotParametric(props.fn, props.range, props.style);
-	});
-
-	var Point = GraphieClasses.createSimpleClass(function(graphie, props) {
-	    return graphie.ellipse(props.coord, graphie.unscaleVector([ 4, 4 ]), {
-	        fill: props.color || KhanColors.BLACK,
-	        stroke: props.color || KhanColors.BLACK
-	    });
-	});
-
-	var Path = GraphieClasses.createClass({
-	    displayName: "Path",
-	    movableProps: [ "children" ],
-	    add: function add(graphie) {
-	        var props = this.props;
-	        this.graphie = graphie;
-	        this.path = this.graphie.path(props.coords, props.style);
-	    },
-	    modify: function modify() {
-	        var props = this.props;
-	        var path = this.graphie.svgPath(props.coords);
-	        this.path.attr({
-	            path: path
-	        });
-	    },
-	    remove: function remove() {
-	        this.path.remove();
-	    },
-	    toFront: function toFront() {
-	        this.path.toFront();
-	    }
-	});
-
-	var Arc = GraphieClasses.createSimpleClass(function(graphie, props) {
-	    var center = props.center;
-	    var radius = props.radius;
-	    if (props.unscaled) {
-	        center = graphie.unscalePoint(center);
-	        radius = graphie.unscaleVector(radius);
-	    }
-	    return graphie.arc(center, radius, props.startAngle, props.endAngle, props.sector, props.style);
-	});
-
-	var Circle = GraphieClasses.createSimpleClass(function(graphie, props) {
-	    return graphie.circle(props.center, props.radius, props.style);
-	});
-
-	var Rect = GraphieClasses.createSimpleClass(function(graphie, props) {
-	    return graphie.rect(props.x, props.y, props.width, props.height, props.style);
-	});
-
-	module.exports = {
-	    Arc: Arc,
-	    Circle: Circle,
-	    Label: Label,
-	    Line: Line,
-	    MovableLine: MovableLine,
-	    MovablePoint: MovablePoint,
-	    Parabola: Parabola,
-	    Path: Path,
-	    Plot: Plot,
-	    PlotParametric: PlotParametric,
-	    Point: Point,
-	    Sinusoid: Sinusoid,
-	    Rect: Rect
-	};
-
-/***/ },
-/* 129 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -29942,7 +29574,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ProvidedKeypad;
 
 /***/ },
-/* 130 */
+/* 128 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30031,7 +29663,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 131 */
+/* 129 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30063,7 +29695,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require3 = __webpack_require__(154), cursorHandleRadiusPx = _require3.cursorHandleRadiusPx, cursorHandleDistanceMultiplier = _require3.cursorHandleDistanceMultiplier, gray76 = _require3.gray76;
 
-	var _require4 = __webpack_require__(130), keypadElementPropType = _require4.keypadElementPropType;
+	var _require4 = __webpack_require__(128), keypadElementPropType = _require4.keypadElementPropType;
 
 	var _require5 = __webpack_require__(154), brightGreen = _require5.brightGreen, gray17 = _require5.gray17;
 
@@ -30676,7 +30308,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MathInput;
 
 /***/ },
-/* 132 */
+/* 130 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30701,11 +30333,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Renderer = __webpack_require__(9);
 
-	var sharedStyles = __webpack_require__(37);
+	var sharedStyles = __webpack_require__(41);
 
-	var styleConstants = __webpack_require__(38);
+	var styleConstants = __webpack_require__(42);
 
-	var mediaQueries = __webpack_require__(36);
+	var mediaQueries = __webpack_require__(40);
 
 	var captureScratchpadTouchStart = __webpack_require__(18).captureScratchpadTouchStart;
 
@@ -31001,7 +30633,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var clickHandler = null;
 	            this.props.editMode && (clickHandler = function clickHandler(e) {
 	                var choiceRef = _this.refs["radio" + i];
-	                -1 !== [ className, choice.content.className, ReactDOM.findDOMNode(choiceRef).className ].indexOf(e.target.className) && _this.checkOption(i, true);
+	                [ className, choice.content.className, ReactDOM.findDOMNode(choiceRef).className ].indexOf(e.target.className) !== -1 && _this.checkOption(i, true);
 	            });
 	            // TODO(mattdr): Index isn't a *good* choice of key here;
 	            // is there a better one? Can we use choice content
@@ -31027,6 +30659,388 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = BaseRadio;
 
 /***/ },
+/* 131 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+	var Util = __webpack_require__(18);
+
+	var nestedMap = Util.nestedMap;
+
+	var deepEq = Util.deepEq;
+
+	var _ = __webpack_require__(11);
+
+	/**
+	 * A base class for all Graphie Movables
+	 *
+	 * Used for checking that all Graphie children are, in fact,
+	 * GraphieMovables
+	 */
+	function GraphieMovable(descriptor) {
+	    _.extend(this, descriptor);
+	}
+
+	var abstractMethod = function abstractMethod() {
+	    throw new Error("Abstract method! Must be implemented by Graphie Movable" + this.constructor.displayName);
+	};
+
+	_.extend(GraphieMovable.prototype, {
+	    movableProps: [],
+	    add: abstractMethod,
+	    modify: abstractMethod,
+	    remove: abstractMethod,
+	    toFront: function toFront() {}
+	});
+
+	/**
+	 * returns cloned props modified with `children: childrenArray`
+	 */
+	var rewriteProps = function rewriteProps(props, childrenArray) {
+	    // Clone the props and add `children:`
+	    // childrenArray is always an array here because this is only called
+	    // from createClass, which initializes childrenArray as _.rest(arguments)
+	    return _.extend({}, props, {
+	        children: _.filter(_.flatten(childrenArray), _.identity)
+	    });
+	};
+
+	/**
+	 * Create a custom GraphieMovable class
+	 */
+	var createClass = function createClass(spec) {
+	    var GraphieClass = function GraphieClass(props) {
+	        if (!(this instanceof GraphieClass)) throw new Error("Use createElement or JSX with graphie movables");
+	        this.props = rewriteProps(props, props.children || []);
+	        return this;
+	    };
+	    spec.displayName = spec.displayName || _.uniqueId("GraphieClass");
+	    // Add the displayName to the constructor for compatibility with
+	    // React's myDescriptor.constructor.displayName
+	    GraphieClass.displayName = spec.displayName;
+	    GraphieClass.prototype = new GraphieMovable(spec);
+	    GraphieClass.prototype.constructor = GraphieClass;
+	    return GraphieClass;
+	};
+
+	/**
+	 * Create a GraphieMovable class from a function that describes
+	 * how to add said class to a graphie, and returns an array of
+	 * `.remove()`able elements to be used when a remove() or
+	 * modify() is called.
+	 *
+	 * This convenience method creates an inefficient class, although
+	 * it does check for a difference in this.props and prevProps before
+	 * removing and re-adding itself.
+	 *
+	 * The primary benefit of this is being able to very easily create
+	 * a wrapper for old graphie code to make it interface with <Graphie>
+	 *
+	 * Commonly used elements should use the fully-fledged createClass
+	 * and implement an efficient modify() operation.
+	 */
+	var createSimpleClass = function createSimpleClass(addFunction) {
+	    return createClass({
+	        displayName: addFunction.name || _.uniqueId("GraphieSimpleClass"),
+	        movableProps: [ "children" ],
+	        add: function add(graphie) {
+	            this._elements = addFunction(graphie, this.props);
+	            this._prevProps = this.props;
+	        },
+	        modify: function modify(graphie) {
+	            if (!deepEq(this.props, this._prevProps)) {
+	                this.remove();
+	                this.add(graphie);
+	                this._prevProps = this.props;
+	                return "reordered";
+	            }
+	        },
+	        remove: function remove() {
+	            nestedMap(this._elements, function(elem) {
+	                elem && elem.remove();
+	            });
+	            this._elements = null;
+	            this._prevProps = null;
+	        },
+	        toFront: function toFront() {
+	            nestedMap(this._elements, function(elem) {
+	                _.isFunction(elem.toFront) && elem.toFront();
+	            });
+	        }
+	    });
+	};
+
+	module.exports = {
+	    GraphieMovable: GraphieMovable,
+	    createClass: createClass,
+	    createSimpleClass: createSimpleClass
+	};
+
+/***/ },
+/* 132 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _extends = Object.assign || function(target) {
+	    for (var i = 1; i < arguments.length; i++) {
+	        var source = arguments[i];
+	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
+	    }
+	    return target;
+	};
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-unused-vars, no-var, object-curly-spacing */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+	var _ = __webpack_require__(11);
+
+	var GraphieClasses = __webpack_require__(131);
+
+	var Interactive2 = __webpack_require__(103);
+
+	var InteractiveUtil = __webpack_require__(111);
+
+	var KhanColors = __webpack_require__(106);
+
+	var assert = InteractiveUtil.assert;
+
+	var MovablePoint = GraphieClasses.createClass({
+	    displayName: "MovablePoint",
+	    movableProps: [ "children" ],
+	    _getProps: function _getProps() {
+	        if (this.props.isMobile) {
+	            var isMobile = this.props.isMobile;
+	            // TODO(kevinb) precompute commonStyle and commonMobileStyle
+	            var commonStyle = isMobile ? {
+	                stroke: "#ffffff",
+	                "stroke-width": 3,
+	                fill: KhanColors.INTERACTIVE
+	            } : {
+	                stroke: KhanColors.INTERACTIVE,
+	                fill: KhanColors.INTERACTIVE
+	            };
+	            // TODO(kevinb) precompute normalStyle and normalMobileStyle
+	            var normalStyle = isMobile ? Object.assign(commonStyle, this.props.mobileStyleOverride || {}) : Object.assign(commonStyle, this.props.normalStyle);
+	            // TODO(kevinb) precompute highlightStyle and highlightMobileStyle
+	            var highlightStyle = isMobile ? _extends({}, commonStyle, {
+	                "stroke-width": 0,
+	                scale: .75
+	            }) : this.props.highlightStyle;
+	            var addedProps = Object.assign({
+	                normalStyle: normalStyle,
+	                highlightStyle: highlightStyle,
+	                shadow: isMobile,
+	                tooltip: isMobile && this.props.showTooltips
+	            }, isMobile ? {
+	                pointSize: 7
+	            } : {});
+	            return Object.assign(this.props, addedProps);
+	        }
+	        return this.props;
+	    },
+	    add: function add(graphie) {
+	        this.point = Interactive2.addMovablePoint(graphie, this._getProps());
+	    },
+	    modify: function modify() {
+	        this.point.modify(this._getProps());
+	    },
+	    remove: function remove() {
+	        this.point.remove();
+	    },
+	    toFront: function toFront() {
+	        this.point.toFront();
+	    },
+	    grab: function grab(coord) {
+	        this.point.grab(coord);
+	    }
+	});
+
+	// Include helper methods, such as MovablePoint.constrain.snap()
+	_.extend(MovablePoint, Interactive2.MovablePoint);
+
+	var MovableLine = GraphieClasses.createClass({
+	    displayName: "MovableLine",
+	    movableProps: [ "children" ],
+	    add: function add(graphie) {
+	        // Add MovablePoint children
+	        var points = _.pluck(this.props.children, "point");
+	        var props = _.extend({}, this.props, {
+	            points: points
+	        });
+	        this.line = Interactive2.addMovableLine(graphie, props);
+	    },
+	    modify: function modify() {
+	        // Add MovablePoint children
+	        var points = _.pluck(this.props.children, "point");
+	        var props = _.extend({}, this.props, {
+	            points: points
+	        });
+	        this.line.modify(props);
+	    },
+	    remove: function remove() {
+	        this.line.remove();
+	    },
+	    toFront: function toFront() {
+	        this.line.toFront();
+	    }
+	});
+
+	// Include helper methods, such as MovableLine.constrain.snap()
+	_.extend(MovableLine, Interactive2.MovableLine);
+
+	var Label = GraphieClasses.createSimpleClass(function(graphie, props) {
+	    var coord = props.coord;
+	    props.unscaled && (coord = graphie.unscalePoint(coord));
+	    return graphie.label(coord, props.text, props.direction, props.tex, props.style);
+	});
+
+	var Line = GraphieClasses.createClass({
+	    displayName: "Line",
+	    movableProps: [ "children" ],
+	    add: function add(graphie) {
+	        var props = this.props;
+	        this.graphie = graphie;
+	        this.line = this.graphie.line(props.start, props.end, props.style);
+	    },
+	    modify: function modify() {
+	        var props = this.props;
+	        var path = this.graphie.svgPath([ props.start, props.end ]);
+	        this.line.attr(_.extend({}, props.style, {
+	            path: path
+	        }));
+	    },
+	    remove: function remove() {
+	        this.line.remove();
+	    },
+	    toFront: function toFront() {
+	        this.line.toFront();
+	    }
+	});
+
+	var Parabola = GraphieClasses.createClass({
+	    displayName: "Parabola",
+	    movableProps: [ "children" ],
+	    add: function add(graphie) {
+	        var props = this.props;
+	        this.graphie = graphie;
+	        this.parabola = this.graphie.parabola(props.a, props.b, props.c, props.style);
+	    },
+	    modify: function modify() {
+	        var props = this.props;
+	        var path = this.graphie.svgParabolaPath(props.a, props.b, props.c);
+	        this.parabola.attr(_.extend({}, props.style, {
+	            path: path
+	        }));
+	    },
+	    remove: function remove() {
+	        this.parabola.remove();
+	    },
+	    toFront: function toFront() {
+	        this.parabola.toFront();
+	    }
+	});
+
+	var Sinusoid = GraphieClasses.createClass({
+	    displayName: "Sinusoid",
+	    movableProps: [ "children" ],
+	    add: function add(graphie) {
+	        var props = this.props;
+	        this.graphie = graphie;
+	        this.sinusoid = this.graphie.sinusoid(props.a, props.b, props.c, props.d, props.style);
+	    },
+	    modify: function modify() {
+	        var props = this.props;
+	        var path = this.graphie.svgSinusoidPath(props.a, props.b, props.c, props.d);
+	        this.sinusoid.attr(_.extend({}, props.style, {
+	            path: path
+	        }));
+	    },
+	    remove: function remove() {
+	        this.sinusoid.remove();
+	    },
+	    toFront: function toFront() {
+	        this.sinusoid.toFront();
+	    }
+	});
+
+	var Plot = GraphieClasses.createSimpleClass(function(graphie, props) {
+	    return graphie.plot(props.fn, props.range, props.style);
+	});
+
+	var PlotParametric = GraphieClasses.createSimpleClass(function(graphie, props) {
+	    return graphie.plotParametric(props.fn, props.range, props.style);
+	});
+
+	var Point = GraphieClasses.createSimpleClass(function(graphie, props) {
+	    return graphie.ellipse(props.coord, graphie.unscaleVector([ 4, 4 ]), {
+	        fill: props.color || KhanColors.BLACK,
+	        stroke: props.color || KhanColors.BLACK
+	    });
+	});
+
+	var Path = GraphieClasses.createClass({
+	    displayName: "Path",
+	    movableProps: [ "children" ],
+	    add: function add(graphie) {
+	        var props = this.props;
+	        this.graphie = graphie;
+	        this.path = this.graphie.path(props.coords, props.style);
+	    },
+	    modify: function modify() {
+	        var props = this.props;
+	        var path = this.graphie.svgPath(props.coords);
+	        this.path.attr({
+	            path: path
+	        });
+	    },
+	    remove: function remove() {
+	        this.path.remove();
+	    },
+	    toFront: function toFront() {
+	        this.path.toFront();
+	    }
+	});
+
+	var Arc = GraphieClasses.createSimpleClass(function(graphie, props) {
+	    var center = props.center;
+	    var radius = props.radius;
+	    if (props.unscaled) {
+	        center = graphie.unscalePoint(center);
+	        radius = graphie.unscaleVector(radius);
+	    }
+	    return graphie.arc(center, radius, props.startAngle, props.endAngle, props.sector, props.style);
+	});
+
+	var Circle = GraphieClasses.createSimpleClass(function(graphie, props) {
+	    return graphie.circle(props.center, props.radius, props.style);
+	});
+
+	var Rect = GraphieClasses.createSimpleClass(function(graphie, props) {
+	    return graphie.rect(props.x, props.y, props.width, props.height, props.style);
+	});
+
+	module.exports = {
+	    Arc: Arc,
+	    Circle: Circle,
+	    Label: Label,
+	    Line: Line,
+	    MovableLine: MovableLine,
+	    MovablePoint: MovablePoint,
+	    Parabola: Parabola,
+	    Path: Path,
+	    Plot: Plot,
+	    PlotParametric: PlotParametric,
+	    Point: Point,
+	    Sinusoid: Sinusoid,
+	    Rect: Rect
+	};
+
+/***/ },
 /* 133 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -31041,194 +31055,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 134 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var isObject = function(obj) {
-	    return obj === Object(obj);;
-	}
-
-	var merge = function() {
-	    var obj = {};
-
-	    for (var i = 0; i < arguments.length; i++) {
-	        var source = arguments[i];
-	        if (source) {
-	            for (var prop in source) {
-	                obj[prop] = source[prop];
-	            }
-	        }
-	    }
-
-	    return obj;
-	};
-
-	var clone = function(obj) {
-	    if (!isObject(obj)) {
-	        return obj;
-	    }
-
-	    return Array.isArray(obj) ? obj.slice() : merge(obj);
-	};
-
-	module.exports = { isObject: isObject, merge: merge, clone: clone };
-
-
-/***/ },
-/* 135 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var get = function(arr, monocle) {
-	    return arr[monocle];
-	};
-
-	var set = function(arr, monocle, val) {
-	    var newArr = arr.splice();
-	    newArr[monocle] = val;
-	    return newArr;
-	};
-
-	var mod = function(arr, monocle, f) {
-	    var newArr = arr.slice();
-	    newArr[monocle] = f(arr[monocle]);
-	    return newArr;
-	};
-
-	var del = function(arr, monocle) {
-	    var newArr = arr.slice();
-	    newArr.splice(monocle, 1);
-	    return newArr;
-	};
-
-	/*
-	// Lens must point to a member of an array. We'll insert into that array.
-	lens.prototype.insertAt = function(lensArr, toInsert) {
-	    var obj = this._wrapped;
-
-	    var arrLens = lensArr.slice(0, -1);
-	    var arr = lens(obj).get(arrLens).slice(); // slice to copy
-
-	    var arrIdx = lensArr[lensArr.length-1];
-	    arr.splice(arrIdx, 0, toInsert);
-	    return lens(obj).set(arrLens, arr);
-	};
-
-	lens.prototype.insertBefore = lens.prototype.insertAt;
-	lens.prototype.insertAfter = function(lensArr, toInsert) {
-	    var newLens = lensArr.slice();
-	    newLens[newLens.length-1] += 1;
-	    return lens(this._wrapped).insertAt(newLens, toInsert);
-	};
-	*/
-
-	module.exports = { get: get, set: set, mod: mod, del: del };
-
-
-/***/ },
-/* 136 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var clone = __webpack_require__(134).clone;
-
-	var get = function(obj, monocle) {
-	    return obj[monocle];
-	};
-
-	var set = function(obj, monocle, val) {
-	    var newObj = clone(obj);
-	    newObj[monocle] = val;
-	    return newObj;
-	};
-
-	var mod = function(obj, monocle, f) {
-	    var newObj = clone(obj);
-	    newObj[monocle] = f(obj[monocle]);
-	    return newObj;
-	};
-
-	var del = function(obj, monocle) {
-	    var newObj = clone(obj);
-	    delete newObj[monocle];
-	    return newObj;
-	};
-
-	module.exports = { get: get, set: set, mod: mod, del: del };
-
-
-/***/ },
-/* 137 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var get = function(arr, monocle) {
-	    return arr[monocle];
-	};
-
-	var set = function(arr, monocle, val) {
-	    var newArr = arr.splice();
-	    newArr[monocle] = val;
-	    return newArr;
-	};
-
-	var mod = function(arr, monocle, f) {
-	    var newArr = arr.splice();
-	    newArr[monocle] = f(arr[monocle]);
-	    return newArr;
-	};
-
-	var del = function(arr, monocle) {
-	    var newArr = arr.slice();
-	    newArr.splice(monocle);
-	    return newArr;
-	};
-
-	module.exports = { get: get, set: set, mod: mod, del: del };
-
-
-/***/ },
-/* 138 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var StyleSheet = __webpack_require__(15).StyleSheet;
-
-	var button = StyleSheet.create({
-	    buttonStyle: {
-	        backgroundColor: "white",
-	        border: "1px solid #ccc",
-	        borderLeft: "0",
-	        cursor: "pointer",
-	        margin: "0",
-	        padding: "5px 10px",
-	        position: "relative",
-	        // for hover
-	        ":first-child": {
-	            borderLeft: "1px solid #ccc",
-	            borderTopLeftRadius: "3px",
-	            borderBottomLeftRadius: "3px"
-	        },
-	        ":last-child": {
-	            borderRight: "1px solid #ccc",
-	            borderTopRightRadius: "3px",
-	            borderBottomRightRadius: "3px"
-	        },
-	        ":hover": {
-	            backgroundColor: "#ccc"
-	        },
-	        ":focus": {
-	            zIndex: "2"
-	        }
-	    },
-	    selectedStyle: {
-	        backgroundColor: "#ddd"
-	    }
-	});
-
-	module.exports = {
-	    button: button
-	};
-
-/***/ },
-/* 139 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -31249,7 +31075,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var _ = __webpack_require__(11);
 
-	var InteractiveUtil = __webpack_require__(115);
+	var InteractiveUtil = __webpack_require__(111);
 
 	var normalizeOptions = InteractiveUtil.normalizeOptions;
 
@@ -31384,6 +31210,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    self.draw();
 	                });
 	            }
+	            // Prevent the page from scrolling when we grab and drag the
+	            // movable object on a mobile device.
+	            $mouseTarget[0].addEventListener("touchstart", function(event) {
+	                event.preventDefault();
+	            }, {
+	                passive: false
+	            });
 	            $mouseTarget.on("vmousedown", function(e) {
 	                if (0 !== e.which && 1 !== e.which) return;
 	                e.preventDefault();
@@ -31430,7 +31263,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Movable;
 
 /***/ },
-/* 140 */
+/* 135 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -31503,7 +31336,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var WrappedEllipse = __webpack_require__(166);
 
-	var InteractiveUtil = __webpack_require__(115);
+	var InteractiveUtil = __webpack_require__(111);
 
 	var objective_ = __webpack_require__(33);
 
@@ -31515,7 +31348,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var kvector = __webpack_require__(133).vector;
 
-	var KhanColors = __webpack_require__(107);
+	var KhanColors = __webpack_require__(106);
 
 	var processMath = __webpack_require__(167).processMath;
 
@@ -31884,7 +31717,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MovablePoint;
 
 /***/ },
-/* 141 */
+/* 136 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -31899,9 +31732,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var MovableLineOptions = __webpack_require__(168);
 
-	var WrappedLine = __webpack_require__(106);
+	var WrappedLine = __webpack_require__(105);
 
-	var InteractiveUtil = __webpack_require__(115);
+	var InteractiveUtil = __webpack_require__(111);
 
 	var objective_ = __webpack_require__(33);
 
@@ -31911,7 +31744,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var kvector = __webpack_require__(133).vector;
 
-	var KhanColors = __webpack_require__(107);
+	var KhanColors = __webpack_require__(106);
 
 	var FUNCTION_ARRAY_OPTIONS = [ "add", "draw", "remove", "onMoveStart", "constraints", "onMove", "onMoveEnd" ];
 
@@ -32114,7 +31947,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MovableLine;
 
 /***/ },
-/* 142 */
+/* 137 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -32132,7 +31965,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var MovablePolygonOptions = __webpack_require__(169);
 
-	var InteractiveUtil = __webpack_require__(115);
+	var InteractiveUtil = __webpack_require__(111);
 
 	var objective_ = __webpack_require__(33);
 
@@ -32140,7 +31973,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var normalizeOptions = InteractiveUtil.normalizeOptions;
 
-	var KhanColors = __webpack_require__(107);
+	var KhanColors = __webpack_require__(106);
 
 	var GraphUtils = __webpack_require__(112);
 
@@ -32382,7 +32215,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MovablePolygon;
 
 /***/ },
-/* 143 */
+/* 138 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -32395,7 +32228,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var _ = __webpack_require__(11);
 
-	var InteractiveUtil = __webpack_require__(115);
+	var InteractiveUtil = __webpack_require__(111);
 
 	var objective_ = __webpack_require__(33);
 
@@ -32452,119 +32285,179 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = WrappedDefaults;
 
 /***/ },
-/* 144 */
+/* 139 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var _require = __webpack_require__(15), StyleSheet = _require.StyleSheet, css = _require.css;
+	var StyleSheet = __webpack_require__(15).StyleSheet;
 
-	var React = __webpack_require__(12);
-
-	var colors = {
-	    grayLight: "#aaa",
-	    basicBorderColor: "#ccc",
-	    white: "#fff"
-	};
-
-	var triangleBeforeAfter = {
-	    borderBottom: "9px solid transparent",
-	    borderTop: "9px solid transparent",
-	    content: '" "',
-	    height: "0",
-	    position: "absolute",
-	    top: "0",
-	    width: "0"
-	};
-
-	var styles = StyleSheet.create({
-	    infoTip: {
-	        display: "inline-block",
-	        marginLeft: "5px",
-	        position: "relative"
-	    },
-	    infoTipContainer: {
-	        position: "absolute",
-	        top: "-12px",
-	        left: "22px",
-	        zIndex: "1000"
-	    },
-	    infoTipTriangle: {
-	        height: "10px",
-	        left: "0",
-	        position: "absolute",
-	        top: "8px",
-	        width: "0",
-	        zIndex: "1",
-	        ":before": Object.assign({}, triangleBeforeAfter, {
-	            borderRight: "9px solid #bbb",
-	            right: "0"
-	        }),
-	        ":after": Object.assign({}, triangleBeforeAfter, {
-	            borderRight: "9px solid " + colors.white,
-	            right: "-1px"
-	        })
-	    },
-	    verticalShadow: {
-	        border: "1px solid " + colors.basicBorderColor,
-	        boxShadow: "0 1px 3px " + colors.basicBorderColor,
-	        borderBottom: "1px solid " + colors.grayLight
-	    },
-	    infoTipContentContainer: {
-	        background: colors.white,
+	var button = StyleSheet.create({
+	    buttonStyle: {
+	        backgroundColor: "white",
+	        border: "1px solid #ccc",
+	        borderLeft: "0",
+	        cursor: "pointer",
+	        margin: "0",
 	        padding: "5px 10px",
-	        width: "240px"
+	        position: "relative",
+	        // for hover
+	        ":first-child": {
+	            borderLeft: "1px solid #ccc",
+	            borderTopLeftRadius: "3px",
+	            borderBottomLeftRadius: "3px"
+	        },
+	        ":last-child": {
+	            borderRight: "1px solid #ccc",
+	            borderTopRightRadius: "3px",
+	            borderBottomRightRadius: "3px"
+	        },
+	        ":hover": {
+	            backgroundColor: "#ccc"
+	        },
+	        ":focus": {
+	            zIndex: "2"
+	        }
+	    },
+	    selectedStyle: {
+	        backgroundColor: "#ddd"
 	    }
 	});
 
-	var questionMark = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA3NpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDIxIDc5LjE1NDkxMSwgMjAxMy8xMC8yOS0xMTo0NzoxNiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo2N2M3NTAxYS04YmVlLTQ0M2MtYmRiNS04OGM2N2IxN2NhYzEiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUJCRTk4Qjc4NjAwMTFFMzg3QUJDNEI4Mzk2QTRGQkQiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUJCRTk4QjY4NjAwMTFFMzg3QUJDNEI4Mzk2QTRGQkQiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NGE5ZDI0OTMtODk1NC00OGFkLTlhMTgtZDAwM2MwYWNjNDJlIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjY3Yzc1MDFhLThiZWUtNDQzYy1iZGI1LTg4YzY3YjE3Y2FjMSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pqm89uYAAADMSURBVHjaXJA9DoJAEIUH1M4TUHIFsCMGen9OwCGw1YRGW2ntKel0exsojHIBC0ouQAyUviFDstmXfNmZeS+zm7XSNCXRFiRgJf0bXIHixpbhGdxBBJYC1w/xaA424MhNEATkui71fU9KqfEU78UbD9PdbJRlOdae55GmhIP+1NV1TcMwkOM41DSNHvRtMhTHMRVFQW3b6mOLgx99kue5GRp/gIOZuZGvNpTNwjD8oliANU+qqqKu6/TQBdymN57AHjzBT+B6Jx79BRgAvc49kQA4yxgAAAAASUVORK5CYII=";
-
-	var InfoTip = React.createClass({
-	    displayName: "InfoTip",
-	    propTypes: {
-	        children: React.PropTypes.node
-	    },
-	    getInitialState: function getInitialState() {
-	        return {
-	            hover: false
-	        };
-	    },
-	    handleMouseEnter: function handleMouseEnter() {
-	        this.setState({
-	            hover: true
-	        });
-	    },
-	    handleMouseLeave: function handleMouseLeave() {
-	        this.setState({
-	            hover: false
-	        });
-	    },
-	    render: function render() {
-	        return React.createElement("div", {
-	            className: css(styles.infoTip)
-	        }, React.createElement("img", {
-	            width: 10,
-	            height: 10,
-	            src: questionMark,
-	            onMouseEnter: this.handleMouseEnter,
-	            onMouseLeave: this.handleMouseLeave
-	        }), React.createElement("div", {
-	            className: css(styles.infoTipContainer),
-	            style: {
-	                display: this.state.hover ? "block" : "none"
-	            }
-	        }, React.createElement("div", {
-	            className: css(styles.infoTipTriangle)
-	        }), React.createElement("div", {
-	            className: css(styles.verticalShadow, styles.infoTipContentContainer)
-	        }, this.props.children)));
-	    }
-	});
-
-	module.exports = InfoTip;
+	module.exports = {
+	    button: button
+	};
 
 /***/ },
-/* 145 */
+/* 140 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _extends = Object.assign || function(target) {
+	    for (var i = 1; i < arguments.length; i++) {
+	        var source = arguments[i];
+	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
+	    }
+	    return target;
+	};
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+	/**
+	 * MovableThing convenience methods
+	 *
+	 * Usually added to a Movable* class through
+	 * InteractiveUtils.addMovableHelperMethodsTo(), but these implementations
+	 * are simply for convenience.
+	 */
+	var _ = __webpack_require__(11);
+
+	var kpoint = __webpack_require__(133).point;
+
+	/* Local helper methods. */
+	function getKey(eventName, id) {
+	    return eventName + ":" + id;
+	}
+
+	function getEventName(key) {
+	    return key.split(":")[0];
+	}
+
+	var MovableHelperMethods = {
+	    /**
+	     * Fire an onSomething type event to all functions in listeners
+	     */
+	    _fireEvent: function _fireEvent(listeners, currentValue, previousValue) {
+	        _.invoke(listeners, "call", this, currentValue, previousValue);
+	    },
+	    /**
+	     * Combine the array of constraints functions
+	     * Returns either an [x, y] coordinate or false
+	     */
+	    _applyConstraints: function _applyConstraints(current, previous, extraOptions) {
+	        var _this = this;
+	        var skipRemaining = false;
+	        return _.reduce(this.state.constraints, function(memo, constraint) {
+	            // A move that has been cancelled won't be propagated to later
+	            // constraints calls
+	            if (false === memo) return false;
+	            if (skipRemaining) return memo;
+	            var result = constraint.call(_this, memo, previous, _extends({
+	                onSkipRemaining: function onSkipRemaining() {
+	                    skipRemaining = true;
+	                }
+	            }, extraOptions));
+	            if (false === result) // Returning false cancels the move
+	            return false;
+	            if (kpoint.is(result, 2)) // Returning a coord from constraints overrides the move
+	            return result;
+	            if (true === result || null == result) // Returning true or undefined allow the move to occur
+	            return memo;
+	            // Anything else is an error
+	            throw new Error("Constraint returned invalid result: " + result);
+	        }, current, this);
+	    },
+	    /**
+	     * Call all draw functions, and update our prevState for the next
+	     * draw function
+	     */
+	    draw: function draw() {
+	        var currState = this.cloneState();
+	        MovableHelperMethods._fireEvent.call(this, this.state.draw, currState, this.prevState);
+	        this.prevState = currState;
+	    },
+	    /**
+	     * Add a listener to any event: startMove, constraints, onMove, onMoveEnd,
+	     * etc. If a listener is already bound to the given eventName and id, then
+	     * it is overwritten by func.
+	     *
+	     * eventName: the string name of the event to listen to. one of:
+	     *   "onMoveStart", "onMove", "onMoveEnd", "draw", "remove"
+	     *
+	     * id: a string id that can be used to remove this event at a later time
+	     *   note: adding multiple listeners with the same id is undefined behavior
+	     *
+	     * func: the function to call when the event happens, which is called
+	     *   with the event's standard parameters [usually (coord, prevCoord) or
+	     *   (state, prevState)]
+	     */
+	    listen: function listen(eventName, id, func) {
+	        this._listenerMap = this._listenerMap || {};
+	        // If there's an existing handler, replace it by using its index in
+	        // `this.state[eventName]`; otherwise, add this handler to the end
+	        var key = getKey(eventName, id);
+	        var index = this._listenerMap[key] = this._listenerMap[key] || this.state[eventName].length;
+	        this.state[eventName][index] = func;
+	    },
+	    /**
+	     * Remove a previously added listener, by the id specified in the
+	     * corresponding listen() call
+	     *
+	     * If the given id has not been registered already, this is a no-op
+	     */
+	    unlisten: function unlisten(eventName, id) {
+	        this._listenerMap = this._listenerMap || {};
+	        var key = getKey(eventName, id);
+	        var index = this._listenerMap[key];
+	        if (void 0 !== index) {
+	            // Remove handler from list of event handlers and listenerMap
+	            this.state[eventName].splice(index, 1);
+	            delete this._listenerMap[key];
+	            // Re-index existing events: if they occur after `index`, decrement
+	            var keys = _.keys(this._listenerMap);
+	            _.each(keys, function(key) {
+	                getEventName(key) === eventName && this._listenerMap[key] > index && this._listenerMap[key]--;
+	            }, this);
+	        }
+	    }
+	};
+
+	module.exports = MovableHelperMethods;
+
+/***/ },
+/* 141 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -32603,7 +32496,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var processMath = __webpack_require__(167).processMath;
 
-	var KhanColors = __webpack_require__(107);
+	var KhanColors = __webpack_require__(106);
 
 	/* Convert cartesian coordinates [x, y] to polar coordinates [r,
 	 * theta], with theta in degrees, or in radians if angleInRadians is
@@ -33487,7 +33380,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = GraphUtils;
 
 /***/ },
-/* 146 */
+/* 142 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -33516,7 +33409,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	__webpack_require__(172);
 
 	/* global Raphael:false */
-	var GraphUtils = __webpack_require__(145);
+	var GraphUtils = __webpack_require__(141);
 
 	var kvector = __webpack_require__(133).vector;
 
@@ -33526,15 +33419,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var WrappedEllipse = __webpack_require__(166);
 
-	var WrappedLine = __webpack_require__(106);
+	var WrappedLine = __webpack_require__(105);
 
 	var WrappedPath = __webpack_require__(170);
 
 	var KhanMath = __webpack_require__(84);
 
-	var KhanColors = __webpack_require__(107);
+	var KhanColors = __webpack_require__(106);
 
-	var _require = __webpack_require__(115), getCanUse3dTransform = _require.getCanUse3dTransform;
+	var _require = __webpack_require__(111), getCanUse3dTransform = _require.getCanUse3dTransform;
 
 	function sum(array) {
 	    return _.reduce(array, function(memo, arg) {
@@ -33560,7 +33453,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function reverseVector(vector) {
 	    return _.map(vector, function(coord) {
-	        return -1 * coord;
+	        return coord * -1;
 	    });
 	}
 
@@ -35027,6 +34920,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	            circle.perim.remove();
 	        };
 	        $(circle.perim.node).css("cursor", "move");
+	        // Prevent the page from scrolling when we grab and drag the circle on
+	        // a mobile device.
+	        circle.perim.node.addEventListener("touchstart", function(event) {
+	            event.preventDefault();
+	        }, {
+	            passive: false
+	        });
 	        $(circle.perim.node).on("vmouseover vmouseout vmousedown", function(event) {
 	            if ("vmouseover" === event.type) {
 	                circle.highlight = true;
@@ -35344,7 +35244,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var pro = this;
 	    var r = graph.unscaleVector(180.5)[0];
 	    var imgPos = graph.scalePoint([ this.cx - r, this.cy + r - graph.unscaleVector(10.5)[1] ]);
-	    this.set.push(graph.mouselayer.image("https://ka-perseus-graphie.s3.amazonaws.com/e9d032f2ab8b95979f674fbfa67056442ba1ff6a.png", imgPos[0], imgPos[1], 360, 180));
+	    var image = graph.mouselayer.image("https://ka-perseus-graphie.s3.amazonaws.com/e9d032f2ab8b95979f674fbfa67056442ba1ff6a.png", imgPos[0], imgPos[1], 360, 180);
+	    this.set.push(image);
+	    // Prevent the page from scrolling when we grab and drag the image on a
+	    // mobile device.
+	    image.node.addEventListener("touchstart", function(event) {
+	        event.preventDefault();
+	    }, {
+	        passive: false
+	    });
 	    var arrowHelper = function arrowHelper(angle, pixelsFromEdge) {
 	        var scaledRadius = graph.scaleVector(r);
 	        scaledRadius[0] -= 16;
@@ -35364,6 +35272,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    });
 	    // Use a movablePoint for rotation
 	    this.rotateHandle = graph.addMovablePoint({
+	        bounded: false,
 	        coord: [ Math.sin(275 * Math.PI / 180) * (r + .5) + this.cx, Math.cos(275 * Math.PI / 180) * (r + .5) + this.cy ],
 	        onMove: function onMove(x, y) {
 	            var angle = 180 * Math.atan2(pro.centerPoint.coord[1] - y, pro.centerPoint.coord[0] - x) / Math.PI;
@@ -35601,6 +35510,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	        "stroke-width": 2
 	    });
 	    set.push(mouseTarget);
+	    // Prevent the page from scrolling when we grab and drag the ruler on a
+	    // mobile device.
+	    mouseTarget.node.addEventListener("touchstart", function(event) {
+	        event.preventDefault();
+	    }, {
+	        passive: false
+	    });
 	    var setNodes = $.map(set, function(el) {
 	        return el.node;
 	    });
@@ -35906,132 +35822,260 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = InteractiveUtils;
 
 /***/ },
-/* 147 */
+/* 143 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var _extends = Object.assign || function(target) {
-	    for (var i = 1; i < arguments.length; i++) {
-	        var source = arguments[i];
-	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
-	    }
-	    return target;
+	var _require = __webpack_require__(15), StyleSheet = _require.StyleSheet, css = _require.css;
+
+	var React = __webpack_require__(12);
+
+	var colors = {
+	    grayLight: "#aaa",
+	    basicBorderColor: "#ccc",
+	    white: "#fff"
 	};
 
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	/**
-	 * MovableThing convenience methods
-	 *
-	 * Usually added to a Movable* class through
-	 * InteractiveUtils.addMovableHelperMethodsTo(), but these implementations
-	 * are simply for convenience.
-	 */
-	var _ = __webpack_require__(11);
+	var triangleBeforeAfter = {
+	    borderBottom: "9px solid transparent",
+	    borderTop: "9px solid transparent",
+	    content: '" "',
+	    height: "0",
+	    position: "absolute",
+	    top: "0",
+	    width: "0"
+	};
 
-	var kpoint = __webpack_require__(133).point;
+	var styles = StyleSheet.create({
+	    infoTip: {
+	        display: "inline-block",
+	        marginLeft: "5px",
+	        position: "relative"
+	    },
+	    infoTipContainer: {
+	        position: "absolute",
+	        top: "-12px",
+	        left: "22px",
+	        zIndex: "1000"
+	    },
+	    infoTipTriangle: {
+	        height: "10px",
+	        left: "0",
+	        position: "absolute",
+	        top: "8px",
+	        width: "0",
+	        zIndex: "1",
+	        ":before": Object.assign({}, triangleBeforeAfter, {
+	            borderRight: "9px solid #bbb",
+	            right: "0"
+	        }),
+	        ":after": Object.assign({}, triangleBeforeAfter, {
+	            borderRight: "9px solid " + colors.white,
+	            right: "-1px"
+	        })
+	    },
+	    verticalShadow: {
+	        border: "1px solid " + colors.basicBorderColor,
+	        boxShadow: "0 1px 3px " + colors.basicBorderColor,
+	        borderBottom: "1px solid " + colors.grayLight
+	    },
+	    infoTipContentContainer: {
+	        background: colors.white,
+	        padding: "5px 10px",
+	        width: "240px"
+	    }
+	});
 
-	/* Local helper methods. */
-	function getKey(eventName, id) {
-	    return eventName + ":" + id;
+	var questionMark = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA3NpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDIxIDc5LjE1NDkxMSwgMjAxMy8xMC8yOS0xMTo0NzoxNiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo2N2M3NTAxYS04YmVlLTQ0M2MtYmRiNS04OGM2N2IxN2NhYzEiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUJCRTk4Qjc4NjAwMTFFMzg3QUJDNEI4Mzk2QTRGQkQiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUJCRTk4QjY4NjAwMTFFMzg3QUJDNEI4Mzk2QTRGQkQiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NGE5ZDI0OTMtODk1NC00OGFkLTlhMTgtZDAwM2MwYWNjNDJlIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjY3Yzc1MDFhLThiZWUtNDQzYy1iZGI1LTg4YzY3YjE3Y2FjMSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pqm89uYAAADMSURBVHjaXJA9DoJAEIUH1M4TUHIFsCMGen9OwCGw1YRGW2ntKel0exsojHIBC0ouQAyUviFDstmXfNmZeS+zm7XSNCXRFiRgJf0bXIHixpbhGdxBBJYC1w/xaA424MhNEATkui71fU9KqfEU78UbD9PdbJRlOdae55GmhIP+1NV1TcMwkOM41DSNHvRtMhTHMRVFQW3b6mOLgx99kue5GRp/gIOZuZGvNpTNwjD8oliANU+qqqKu6/TQBdymN57AHjzBT+B6Jx79BRgAvc49kQA4yxgAAAAASUVORK5CYII=";
+
+	var InfoTip = React.createClass({
+	    displayName: "InfoTip",
+	    propTypes: {
+	        children: React.PropTypes.node
+	    },
+	    getInitialState: function getInitialState() {
+	        return {
+	            hover: false
+	        };
+	    },
+	    handleMouseEnter: function handleMouseEnter() {
+	        this.setState({
+	            hover: true
+	        });
+	    },
+	    handleMouseLeave: function handleMouseLeave() {
+	        this.setState({
+	            hover: false
+	        });
+	    },
+	    render: function render() {
+	        return React.createElement("div", {
+	            className: css(styles.infoTip)
+	        }, React.createElement("img", {
+	            width: 10,
+	            height: 10,
+	            src: questionMark,
+	            onMouseEnter: this.handleMouseEnter,
+	            onMouseLeave: this.handleMouseLeave
+	        }), React.createElement("div", {
+	            className: css(styles.infoTipContainer),
+	            style: {
+	                display: this.state.hover ? "block" : "none"
+	            }
+	        }, React.createElement("div", {
+	            className: css(styles.infoTipTriangle)
+	        }), React.createElement("div", {
+	            className: css(styles.verticalShadow, styles.infoTipContentContainer)
+	        }, this.props.children)));
+	    }
+	});
+
+	module.exports = InfoTip;
+
+/***/ },
+/* 144 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var isObject = function(obj) {
+	    return obj === Object(obj);;
 	}
 
-	function getEventName(key) {
-	    return key.split(":")[0];
-	}
+	var merge = function() {
+	    var obj = {};
 
-	var MovableHelperMethods = {
-	    /**
-	     * Fire an onSomething type event to all functions in listeners
-	     */
-	    _fireEvent: function _fireEvent(listeners, currentValue, previousValue) {
-	        _.invoke(listeners, "call", this, currentValue, previousValue);
-	    },
-	    /**
-	     * Combine the array of constraints functions
-	     * Returns either an [x, y] coordinate or false
-	     */
-	    _applyConstraints: function _applyConstraints(current, previous, extraOptions) {
-	        var _this = this;
-	        var skipRemaining = false;
-	        return _.reduce(this.state.constraints, function(memo, constraint) {
-	            // A move that has been cancelled won't be propagated to later
-	            // constraints calls
-	            if (false === memo) return false;
-	            if (skipRemaining) return memo;
-	            var result = constraint.call(_this, memo, previous, _extends({
-	                onSkipRemaining: function onSkipRemaining() {
-	                    skipRemaining = true;
-	                }
-	            }, extraOptions));
-	            if (false === result) // Returning false cancels the move
-	            return false;
-	            if (kpoint.is(result, 2)) // Returning a coord from constraints overrides the move
-	            return result;
-	            if (true === result || null == result) // Returning true or undefined allow the move to occur
-	            return memo;
-	            // Anything else is an error
-	            throw new Error("Constraint returned invalid result: " + result);
-	        }, current, this);
-	    },
-	    /**
-	     * Call all draw functions, and update our prevState for the next
-	     * draw function
-	     */
-	    draw: function draw() {
-	        var currState = this.cloneState();
-	        MovableHelperMethods._fireEvent.call(this, this.state.draw, currState, this.prevState);
-	        this.prevState = currState;
-	    },
-	    /**
-	     * Add a listener to any event: startMove, constraints, onMove, onMoveEnd,
-	     * etc. If a listener is already bound to the given eventName and id, then
-	     * it is overwritten by func.
-	     *
-	     * eventName: the string name of the event to listen to. one of:
-	     *   "onMoveStart", "onMove", "onMoveEnd", "draw", "remove"
-	     *
-	     * id: a string id that can be used to remove this event at a later time
-	     *   note: adding multiple listeners with the same id is undefined behavior
-	     *
-	     * func: the function to call when the event happens, which is called
-	     *   with the event's standard parameters [usually (coord, prevCoord) or
-	     *   (state, prevState)]
-	     */
-	    listen: function listen(eventName, id, func) {
-	        this._listenerMap = this._listenerMap || {};
-	        // If there's an existing handler, replace it by using its index in
-	        // `this.state[eventName]`; otherwise, add this handler to the end
-	        var key = getKey(eventName, id);
-	        var index = this._listenerMap[key] = this._listenerMap[key] || this.state[eventName].length;
-	        this.state[eventName][index] = func;
-	    },
-	    /**
-	     * Remove a previously added listener, by the id specified in the
-	     * corresponding listen() call
-	     *
-	     * If the given id has not been registered already, this is a no-op
-	     */
-	    unlisten: function unlisten(eventName, id) {
-	        this._listenerMap = this._listenerMap || {};
-	        var key = getKey(eventName, id);
-	        var index = this._listenerMap[key];
-	        if (void 0 !== index) {
-	            // Remove handler from list of event handlers and listenerMap
-	            this.state[eventName].splice(index, 1);
-	            delete this._listenerMap[key];
-	            // Re-index existing events: if they occur after `index`, decrement
-	            var keys = _.keys(this._listenerMap);
-	            _.each(keys, function(key) {
-	                getEventName(key) === eventName && this._listenerMap[key] > index && this._listenerMap[key]--;
-	            }, this);
+	    for (var i = 0; i < arguments.length; i++) {
+	        var source = arguments[i];
+	        if (source) {
+	            for (var prop in source) {
+	                obj[prop] = source[prop];
+	            }
 	        }
 	    }
+
+	    return obj;
 	};
 
-	module.exports = MovableHelperMethods;
+	var clone = function(obj) {
+	    if (!isObject(obj)) {
+	        return obj;
+	    }
+
+	    return Array.isArray(obj) ? obj.slice() : merge(obj);
+	};
+
+	module.exports = { isObject: isObject, merge: merge, clone: clone };
+
+
+/***/ },
+/* 145 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var get = function(arr, monocle) {
+	    return arr[monocle];
+	};
+
+	var set = function(arr, monocle, val) {
+	    var newArr = arr.splice();
+	    newArr[monocle] = val;
+	    return newArr;
+	};
+
+	var mod = function(arr, monocle, f) {
+	    var newArr = arr.slice();
+	    newArr[monocle] = f(arr[monocle]);
+	    return newArr;
+	};
+
+	var del = function(arr, monocle) {
+	    var newArr = arr.slice();
+	    newArr.splice(monocle, 1);
+	    return newArr;
+	};
+
+	/*
+	// Lens must point to a member of an array. We'll insert into that array.
+	lens.prototype.insertAt = function(lensArr, toInsert) {
+	    var obj = this._wrapped;
+
+	    var arrLens = lensArr.slice(0, -1);
+	    var arr = lens(obj).get(arrLens).slice(); // slice to copy
+
+	    var arrIdx = lensArr[lensArr.length-1];
+	    arr.splice(arrIdx, 0, toInsert);
+	    return lens(obj).set(arrLens, arr);
+	};
+
+	lens.prototype.insertBefore = lens.prototype.insertAt;
+	lens.prototype.insertAfter = function(lensArr, toInsert) {
+	    var newLens = lensArr.slice();
+	    newLens[newLens.length-1] += 1;
+	    return lens(this._wrapped).insertAt(newLens, toInsert);
+	};
+	*/
+
+	module.exports = { get: get, set: set, mod: mod, del: del };
+
+
+/***/ },
+/* 146 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var clone = __webpack_require__(144).clone;
+
+	var get = function(obj, monocle) {
+	    return obj[monocle];
+	};
+
+	var set = function(obj, monocle, val) {
+	    var newObj = clone(obj);
+	    newObj[monocle] = val;
+	    return newObj;
+	};
+
+	var mod = function(obj, monocle, f) {
+	    var newObj = clone(obj);
+	    newObj[monocle] = f(obj[monocle]);
+	    return newObj;
+	};
+
+	var del = function(obj, monocle) {
+	    var newObj = clone(obj);
+	    delete newObj[monocle];
+	    return newObj;
+	};
+
+	module.exports = { get: get, set: set, mod: mod, del: del };
+
+
+/***/ },
+/* 147 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var get = function(arr, monocle) {
+	    return arr[monocle];
+	};
+
+	var set = function(arr, monocle, val) {
+	    var newArr = arr.splice();
+	    newArr[monocle] = val;
+	    return newArr;
+	};
+
+	var mod = function(arr, monocle, f) {
+	    var newArr = arr.splice();
+	    newArr[monocle] = f(arr[monocle]);
+	    return newArr;
+	};
+
+	var del = function(arr, monocle) {
+	    var newArr = arr.slice();
+	    newArr.splice(monocle);
+	    return newArr;
+	};
+
+	module.exports = { get: get, set: set, mod: mod, del: del };
+
 
 /***/ },
 /* 148 */
@@ -36102,7 +36146,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require4 = __webpack_require__(157), setPageSize = _require4.setPageSize;
 
-	var _require5 = __webpack_require__(130), keyIdPropType = _require5.keyIdPropType;
+	var _require5 = __webpack_require__(128), keyIdPropType = _require5.keyIdPropType;
 
 	var _require6 = __webpack_require__(120), KeypadTypes = _require6.KeypadTypes, LayoutModes = _require6.LayoutModes;
 
@@ -37362,11 +37406,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require2 = __webpack_require__(19), ClassNames = _require2.ClassNames;
 
-	var sharedStyles = __webpack_require__(37);
+	var sharedStyles = __webpack_require__(41);
 
-	var styleConstants = __webpack_require__(38);
+	var styleConstants = __webpack_require__(42);
 
-	var mediaQueries = __webpack_require__(36);
+	var mediaQueries = __webpack_require__(40);
 
 	var ToggleableRadioButton = __webpack_require__(180);
 
@@ -39227,9 +39271,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var _ = __webpack_require__(11);
 
-	var WrappedDefaults = __webpack_require__(143);
+	var WrappedDefaults = __webpack_require__(138);
 
-	var InteractiveUtil = __webpack_require__(115);
+	var InteractiveUtil = __webpack_require__(111);
 
 	var kvector = __webpack_require__(133).vector;
 
@@ -39371,7 +39415,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            $elem.attr("data-math-type", "mathjax");
 	            // Update the script tag, or add one if necessary
 	            script ? "text" in script ? // IE8, etc
-	            script.text = text : script.textContent = text : $mathjaxHolder.append("<script type='math/tex'>" + text.replace(/<\//g, "< /") + "<\/script>");
+	            script.text = text : script.textContent = text : $mathjaxHolder.append("<script type='math/tex'>" + text.replace(/<\//g, "< /") + "</script>");
 	            if ("undefined" !== typeof MathJax) {
 	                // Put the process, a debug log, and the callback into the
 	                // MathJax queue
@@ -39441,7 +39485,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var _ = __webpack_require__(11);
 
-	var WrappedLine = __webpack_require__(106);
+	var WrappedLine = __webpack_require__(105);
 
 	var WrappedPath = __webpack_require__(170);
 
@@ -39941,7 +39985,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var _ = __webpack_require__(11);
 
-	var WrappedDefaults = __webpack_require__(143);
+	var WrappedDefaults = __webpack_require__(138);
 
 	var DEFAULT_OPTIONS = {
 	    center: null,
@@ -44273,7 +44317,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var CursorContexts = __webpack_require__(148);
 
-	var _require5 = __webpack_require__(130), cursorContextPropType = _require5.cursorContextPropType;
+	var _require5 = __webpack_require__(128), cursorContextPropType = _require5.cursorContextPropType;
 
 	var KeyConfigs = __webpack_require__(156);
 
@@ -44431,7 +44475,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require6 = __webpack_require__(154), valueGrey = _require6.valueGrey, controlGrey = _require6.controlGrey;
 
-	var _require7 = __webpack_require__(130), cursorContextPropType = _require7.cursorContextPropType, keyIdPropType = _require7.keyIdPropType;
+	var _require7 = __webpack_require__(128), cursorContextPropType = _require7.cursorContextPropType, keyIdPropType = _require7.keyIdPropType;
 
 	var KeyConfigs = __webpack_require__(156);
 
@@ -45400,7 +45444,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Velocity is computed by smoothing linearly over the gestures that have
 	 * occurred in the last 100 milliseconds.
 	 */
-	var now = __webpack_require__(208);
+	var now = __webpack_require__(203);
 
 	var VelocityTracker = function() {
 	    function VelocityTracker(options) {
@@ -45661,7 +45705,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require = __webpack_require__(186), connect = _require.connect;
 
-	var _require2 = __webpack_require__(157), removeEcho = _require2.removeEcho;
+	var _require2 = __webpack_require__(157), _removeEcho = _require2.removeEcho;
 
 	var _require3 = __webpack_require__(159), View = _require3.View;
 
@@ -45669,7 +45713,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var PopoverManager = __webpack_require__(198);
 
-	var _require4 = __webpack_require__(130), echoPropType = _require4.echoPropType, popoverPropType = _require4.popoverPropType;
+	var _require4 = __webpack_require__(128), echoPropType = _require4.echoPropType, popoverPropType = _require4.popoverPropType;
 
 	var Keypad = React.createClass({
 	    displayName: "Keypad",
@@ -45766,17 +45810,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	    return {
-	        removeEcho: function(_removeEcho) {
-	            function removeEcho(_x) {
-	                return _removeEcho.apply(this, arguments);
-	            }
-	            removeEcho.toString = function() {
-	                return _removeEcho.toString();
-	            };
-	            return removeEcho;
-	        }(function(animationId) {
-	            dispatch(removeEcho(animationId));
-	        })
+	        removeEcho: function removeEcho(animationId) {
+	            dispatch(_removeEcho(animationId));
+	        }
 	    };
 	};
 
@@ -45819,13 +45855,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require2 = __webpack_require__(15), StyleSheet = _require2.StyleSheet;
 
-	var KeypadButton = __webpack_require__(199);
+	var KeypadButton = __webpack_require__(202);
 
 	var KeyConfigs = __webpack_require__(156);
 
 	var GestureManager = __webpack_require__(182);
 
-	var _require3 = __webpack_require__(130), bordersPropType = _require3.bordersPropType, keyIdPropType = _require3.keyIdPropType;
+	var _require3 = __webpack_require__(128), bordersPropType = _require3.bordersPropType, keyIdPropType = _require3.keyIdPropType;
 
 	var _require4 = __webpack_require__(120), KeyTypes = _require4.KeyTypes;
 
@@ -45943,9 +45979,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Keypad = __webpack_require__(187);
 
-	var ViewPager = __webpack_require__(200);
+	var ViewPager = __webpack_require__(199);
 
-	var PagerIndicator = __webpack_require__(201);
+	var PagerIndicator = __webpack_require__(200);
 
 	var _require3 = __webpack_require__(159), View = _require3.View;
 
@@ -46035,7 +46071,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(12);
 
-	var EmptyKeypadButton = __webpack_require__(202);
+	var EmptyKeypadButton = __webpack_require__(201);
 
 	var TouchableKeypadButton = __webpack_require__(188);
 
@@ -46045,7 +46081,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require = __webpack_require__(120), KeyTypes = _require.KeyTypes;
 
-	var _require2 = __webpack_require__(130), keyIdPropType = _require2.keyIdPropType;
+	var _require2 = __webpack_require__(128), keyIdPropType = _require2.keyIdPropType;
 
 	var ManyKeypadButton = React.createClass({
 	    displayName: "ManyKeypadButton",
@@ -46649,23 +46685,23 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports.compose = exports.applyMiddleware = exports.bindActionCreators = exports.combineReducers = exports.createStore = void 0;
 
-	var _createStore = __webpack_require__(203);
+	var _createStore = __webpack_require__(204);
 
 	var _createStore2 = _interopRequireDefault(_createStore);
 
-	var _combineReducers = __webpack_require__(204);
+	var _combineReducers = __webpack_require__(205);
 
 	var _combineReducers2 = _interopRequireDefault(_combineReducers);
 
-	var _bindActionCreators = __webpack_require__(205);
+	var _bindActionCreators = __webpack_require__(206);
 
 	var _bindActionCreators2 = _interopRequireDefault(_bindActionCreators);
 
-	var _applyMiddleware = __webpack_require__(206);
+	var _applyMiddleware = __webpack_require__(207);
 
 	var _applyMiddleware2 = _interopRequireDefault(_applyMiddleware);
 
-	var _compose = __webpack_require__(207);
+	var _compose = __webpack_require__(208);
 
 	var _compose2 = _interopRequireDefault(_compose);
 
@@ -46716,15 +46752,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react = __webpack_require__(12);
 
-	var _propTypes = __webpack_require__(219);
-
-	var _propTypes2 = _interopRequireDefault(_propTypes);
-
-	var _storeShape = __webpack_require__(210);
+	var _storeShape = __webpack_require__(211);
 
 	var _storeShape2 = _interopRequireDefault(_storeShape);
 
-	var _warning = __webpack_require__(211);
+	var _warning = __webpack_require__(212);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
@@ -46791,7 +46823,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	Provider.propTypes = {
 	    store: _storeShape2["default"].isRequired,
-	    children: _propTypes2["default"].element.isRequired
+	    children: _react.PropTypes.element.isRequired
 	};
 
 	Provider.childContextTypes = {
@@ -46824,31 +46856,31 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react = __webpack_require__(12);
 
-	var _storeShape = __webpack_require__(210);
+	var _storeShape = __webpack_require__(211);
 
 	var _storeShape2 = _interopRequireDefault(_storeShape);
 
-	var _shallowEqual = __webpack_require__(212);
+	var _shallowEqual = __webpack_require__(213);
 
 	var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
 
-	var _wrapActionCreators = __webpack_require__(213);
+	var _wrapActionCreators = __webpack_require__(214);
 
 	var _wrapActionCreators2 = _interopRequireDefault(_wrapActionCreators);
 
-	var _warning = __webpack_require__(211);
+	var _warning = __webpack_require__(212);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
-	var _isPlainObject = __webpack_require__(221);
+	var _isPlainObject = __webpack_require__(220);
 
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
-	var _hoistNonReactStatics = __webpack_require__(220);
+	var _hoistNonReactStatics = __webpack_require__(219);
 
 	var _hoistNonReactStatics2 = _interopRequireDefault(_hoistNonReactStatics);
 
-	var _invariant = __webpack_require__(222);
+	var _invariant = __webpack_require__(221);
 
 	var _invariant2 = _interopRequireDefault(_invariant);
 
@@ -47127,15 +47159,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(12);
 
-	var ReactCSSTransitionGroup = __webpack_require__(214);
+	var ReactCSSTransitionGroup = __webpack_require__(210);
 
-	var KeypadButton = __webpack_require__(199);
+	var KeypadButton = __webpack_require__(202);
 
 	var KeyConfigs = __webpack_require__(156);
 
 	var _require = __webpack_require__(120), KeyTypes = _require.KeyTypes, EchoAnimationTypes = _require.EchoAnimationTypes;
 
-	var _require2 = __webpack_require__(130), echoPropType = _require2.echoPropType, bordersPropType = _require2.bordersPropType, boundingBoxPropType = _require2.boundingBoxPropType, keyIdPropType = _require2.keyIdPropType;
+	var _require2 = __webpack_require__(128), echoPropType = _require2.echoPropType, bordersPropType = _require2.bordersPropType, boundingBoxPropType = _require2.boundingBoxPropType, keyIdPropType = _require2.keyIdPropType;
 
 	var zIndexes = __webpack_require__(176);
 
@@ -47275,13 +47307,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(12);
 
-	var ReactCSSTransitionGroup = __webpack_require__(214);
+	var ReactCSSTransitionGroup = __webpack_require__(210);
 
 	var KeyConfigs = __webpack_require__(156);
 
 	var MultiSymbolPopover = __webpack_require__(215);
 
-	var _require = __webpack_require__(130), boundingBoxPropType = _require.boundingBoxPropType, keyConfigPropType = _require.keyConfigPropType, popoverPropType = _require.popoverPropType;
+	var _require = __webpack_require__(128), boundingBoxPropType = _require.boundingBoxPropType, keyConfigPropType = _require.keyConfigPropType, popoverPropType = _require.popoverPropType;
 
 	// NOTE(charlie): These must be kept in sync with the transition durations and
 	// classnames specified in popover.css.
@@ -47349,6 +47381,299 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	/**
+	 * A view pager that allows for pagination in the horizontal direction.
+	 * Right now, there are a number of limitations built into the system. Namely:
+	 *  - It only supports pagination in the horizontal direction.
+	 *  - It supports exactly two pages.
+	 */
+	var React = __webpack_require__(12);
+
+	var _require = __webpack_require__(186), connect = _require.connect;
+
+	var _require2 = __webpack_require__(15), StyleSheet = _require2.StyleSheet;
+
+	var _require3 = __webpack_require__(159), View = _require3.View;
+
+	var _require4 = __webpack_require__(177), row = _require4.row;
+
+	var _require5 = __webpack_require__(128), childrenPropType = _require5.childrenPropType;
+
+	var _require6 = __webpack_require__(154), innerBorderColor = _require6.innerBorderColor, innerBorderStyle = _require6.innerBorderStyle, innerBorderWidthPx = _require6.innerBorderWidthPx;
+
+	var ViewPager = React.createClass({
+	    displayName: "ViewPager",
+	    propTypes: {
+	        // Whether the page should animate to its next specified position.
+	        animateToPosition: React.PropTypes.bool,
+	        children: childrenPropType,
+	        pageWidthPx: React.PropTypes.number.isRequired,
+	        translateX: React.PropTypes.number.isRequired
+	    },
+	    getInitialState: function getInitialState() {
+	        return {
+	            animationDurationMs: 0
+	        };
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(newProps) {
+	        // Compute the appropriate animation length, if the pager should
+	        // animate to its next position.
+	        var animationDurationMs = void 0;
+	        if (newProps.animateToPosition) {
+	            var finalTranslateX = newProps.translateX;
+	            var prevTranslateX = this.props.translateX;
+	            // We animate at a rate of 1 pixel per millisecond, and thus we can
+	            // use the displacement as the animation duration.
+	            animationDurationMs = Math.abs(finalTranslateX - prevTranslateX);
+	        } else animationDurationMs = 0;
+	        this.setState({
+	            animationDurationMs: animationDurationMs
+	        });
+	    },
+	    render: function render() {
+	        var _props = this.props, children = _props.children, pageWidthPx = _props.pageWidthPx, translateX = _props.translateX;
+	        var animationDurationMs = this.state.animationDurationMs;
+	        var pagerStyle = [ row, styles.twoPagePager ];
+	        var transform = {
+	            msTransform: "translate3d(" + translateX + "px, 0, 0)",
+	            WebkitTransform: "translate3d(" + translateX + "px, 0, 0)",
+	            transform: "translate3d(" + translateX + "px, 0, 0)"
+	        };
+	        var animate = animationDurationMs ? {
+	            msTransitionProperty: "transform",
+	            WebkitTransitionProperty: "transform",
+	            transitionProperty: "transform",
+	            msTransitionDuration: animationDurationMs + "ms",
+	            WebkitTransitionDuration: animationDurationMs + "ms",
+	            transitionDuration: animationDurationMs + "ms",
+	            msTransitionTimingFunction: "ease-out",
+	            WebkitTransitionTimingFunction: "ease-out",
+	            transitionTimingFunction: "ease-out"
+	        } : {};
+	        var dynamicPagerStyle = _extends({}, transform, animate);
+	        var dynamicPageStyle = {
+	            width: pageWidthPx
+	        };
+	        return React.createElement(View, {
+	            style: pagerStyle,
+	            dynamicStyle: dynamicPagerStyle
+	        }, React.createElement(View, {
+	            dynamicStyle: dynamicPageStyle
+	        }, children[0]), React.createElement(View, {
+	            style: styles.rightPage,
+	            dynamicStyle: dynamicPageStyle
+	        }, children[1]));
+	    }
+	});
+
+	var styles = StyleSheet.create({
+	    twoPagePager: {
+	        alignSelf: "flex-start",
+	        // Note: By default, <View> sets a `maxWidth` of 100% to fix some
+	        // Flexbox bugs. We have to override it to accommodate for our two
+	        // pages. The exact value here isn't super important, as long as it's
+	        // large enough to accommodate for two pages (so, 200%) and some
+	        // separators.
+	        maxWidth: "250%"
+	    },
+	    rightPage: {
+	        borderLeft: innerBorderWidthPx + "px " + innerBorderStyle + " " + innerBorderColor,
+	        boxSizing: "content-box"
+	    }
+	});
+
+	var mapStateToProps = function mapStateToProps(state) {
+	    var _state$pager = state.pager, animateToPosition = _state$pager.animateToPosition, currentPage = _state$pager.currentPage, dx = _state$pager.dx, pageWidthPx = _state$pager.pageWidthPx;
+	    return {
+	        animateToPosition: animateToPosition,
+	        pageWidthPx: pageWidthPx,
+	        translateX: -currentPage * (pageWidthPx + innerBorderWidthPx) + dx
+	    };
+	};
+
+	module.exports = connect(mapStateToProps)(ViewPager);
+
+/***/ },
+/* 200 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/**
+	 * A component that renders a view pager indicator, with a circular icon for
+	 * each page.
+	 */
+	var React = __webpack_require__(12);
+
+	var _require = __webpack_require__(15), StyleSheet = _require.StyleSheet;
+
+	var _require2 = __webpack_require__(159), View = _require2.View;
+
+	var _require3 = __webpack_require__(154), pageIndicatorHeightPx = _require3.pageIndicatorHeightPx, gray68 = _require3.gray68, gray85 = _require3.gray85;
+
+	var PagerIcon = React.createClass({
+	    displayName: "PagerIcon",
+	    propTypes: {
+	        active: React.PropTypes.bool,
+	        radiusPx: React.PropTypes.number
+	    },
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            active: false,
+	            radiusPx: 4
+	        };
+	    },
+	    render: function render() {
+	        var _props = this.props, active = _props.active, radiusPx = _props.radiusPx;
+	        var fillColor = active ? gray68 : gray85;
+	        return React.createElement("svg", {
+	            width: 2 * radiusPx,
+	            height: 2 * radiusPx
+	        }, React.createElement("circle", {
+	            cx: radiusPx,
+	            cy: radiusPx,
+	            r: radiusPx,
+	            fill: fillColor
+	        }));
+	    }
+	});
+
+	var PagerIndicator = React.createClass({
+	    displayName: "PagerIndicator",
+	    propTypes: {
+	        currentPage: React.PropTypes.number.isRequired,
+	        numPages: React.PropTypes.number.isRequired
+	    },
+	    render: function render() {
+	        var _props2 = this.props, currentPage = _props2.currentPage, numPages = _props2.numPages;
+	        var pagerIconRadiusPx = 4;
+	        // Collect the various indicator circles.
+	        var indicators = [];
+	        for (var i = 0; i < numPages; i++) indicators.push(React.createElement(PagerIcon, {
+	            key: i,
+	            active: i === currentPage,
+	            radiusPx: 4
+	        }));
+	        // Size the box that contains the icons to accommodate for proper
+	        // spacing, and let Flexbox take care of the details.
+	        var totalIconWidthPx = 8 * numPages;
+	        var totalSpacingWidthPx = 8 * (numPages - 1);
+	        var iconStripSize = {
+	            width: totalIconWidthPx + totalSpacingWidthPx
+	        };
+	        return React.createElement(View, {
+	            style: styles.indicatorStrip
+	        }, React.createElement(View, {
+	            style: styles.iconStrip,
+	            dynamicStyle: iconStripSize
+	        }, indicators));
+	    }
+	});
+
+	var styles = StyleSheet.create({
+	    indicatorStrip: {
+	        backgroundColor: "#F0F1F2",
+	        flexDirection: "row",
+	        justifyContent: "center",
+	        alignItems: "center",
+	        height: pageIndicatorHeightPx
+	    },
+	    iconStrip: {
+	        flexDirection: "row",
+	        justifyContent: "space-between"
+	    }
+	});
+
+	module.exports = PagerIndicator;
+
+/***/ },
+/* 201 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _extends = Object.assign || function(target) {
+	    for (var i = 1; i < arguments.length; i++) {
+	        var source = arguments[i];
+	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
+	    }
+	    return target;
+	};
+
+	function _objectWithoutProperties(obj, keys) {
+	    var target = {};
+	    for (var i in obj) {
+	        if (keys.indexOf(i) >= 0) continue;
+	        if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
+	        target[i] = obj[i];
+	    }
+	    return target;
+	}
+
+	/**
+	 * A keypad button containing no symbols and triggering no actions on click.
+	 */
+	var React = __webpack_require__(12);
+
+	var _require = __webpack_require__(186), connect = _require.connect;
+
+	var GestureManager = __webpack_require__(182);
+
+	var KeyConfigs = __webpack_require__(156);
+
+	var KeypadButton = __webpack_require__(202);
+
+	var EmptyKeypadButton = React.createClass({
+	    displayName: "EmptyKeypadButton",
+	    propTypes: {
+	        gestureManager: React.PropTypes.instanceOf(GestureManager)
+	    },
+	    render: function render() {
+	        var _props = this.props, gestureManager = _props.gestureManager, rest = _objectWithoutProperties(_props, [ "gestureManager" ]);
+	        // Register touch events on the button, but don't register its DOM node
+	        // or compute focus state or anything like that. We want the gesture
+	        // manager to know about touch events that start on empty buttons, but
+	        // we don't need it to know about their DOM nodes, as it doesn't need
+	        // to focus them or trigger presses.
+	        return React.createElement(KeypadButton, _extends({
+	            onTouchStart: function onTouchStart(evt) {
+	                return gestureManager.onTouchStart(evt);
+	            },
+	            onTouchEnd: function onTouchEnd(evt) {
+	                return gestureManager.onTouchEnd(evt);
+	            },
+	            onTouchMove: function onTouchMove(evt) {
+	                return gestureManager.onTouchMove(evt);
+	            },
+	            onTouchCancel: function onTouchCancel(evt) {
+	                return gestureManager.onTouchCancel(evt);
+	            }
+	        }, KeyConfigs.NOOP, rest));
+	    }
+	});
+
+	var mapStateToProps = function mapStateToProps(state) {
+	    return {
+	        gestureManager: state.gestures.gestureManager
+	    };
+	};
+
+	module.exports = connect(mapStateToProps)(EmptyKeypadButton);
+
+/***/ },
+/* 202 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _extends = Object.assign || function(target) {
+	    for (var i = 1; i < arguments.length; i++) {
+	        var source = arguments[i];
+	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
+	    }
+	    return target;
+	};
+
+	/**
 	 * A component that renders a keypad button.
 	 */
 	var React = __webpack_require__(12);
@@ -47371,7 +47696,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require5 = __webpack_require__(154), brightGreen = _require5.brightGreen, innerBorderColor = _require5.innerBorderColor, innerBorderStyle = _require5.innerBorderStyle, innerBorderWidthPx = _require5.innerBorderWidthPx, valueGrey = _require5.valueGrey, operatorGrey = _require5.operatorGrey, controlGrey = _require5.controlGrey, emptyGrey = _require5.emptyGrey;
 
-	var _require6 = __webpack_require__(130), bordersPropType = _require6.bordersPropType, iconPropType = _require6.iconPropType, keyConfigPropType = _require6.keyConfigPropType;
+	var _require6 = __webpack_require__(128), bordersPropType = _require6.bordersPropType, iconPropType = _require6.iconPropType, keyConfigPropType = _require6.keyConfigPropType;
 
 	var KeypadButton = React.createClass({
 	    displayName: "KeypadButton",
@@ -47494,8 +47819,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            backgroundStyle = null;
 	        }
 	        var borderStyle = [];
-	        -1 !== borders.indexOf(BorderDirections.LEFT) && borderStyle.push(styles.leftBorder);
-	        -1 !== borders.indexOf(BorderDirections.BOTTOM) && borderStyle.push(styles.bottomBorder);
+	        borders.indexOf(BorderDirections.LEFT) !== -1 && borderStyle.push(styles.leftBorder);
+	        borders.indexOf(BorderDirections.BOTTOM) !== -1 && borderStyle.push(styles.bottomBorder);
 	        return [ styles.buttonBase, backgroundStyle ].concat(borderStyle, [ type === KeyTypes.ECHO && styles.echo, this.buttonSizeStyle ], Array.isArray(style) ? style : [ style ]);
 	    },
 	    render: function render() {
@@ -47645,300 +47970,43 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = connect(mapStateToProps)(KeypadButton);
 
 /***/ },
-/* 200 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _extends = Object.assign || function(target) {
-	    for (var i = 1; i < arguments.length; i++) {
-	        var source = arguments[i];
-	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
-	    }
-	    return target;
-	};
-
-	/**
-	 * A view pager that allows for pagination in the horizontal direction.
-	 * Right now, there are a number of limitations built into the system. Namely:
-	 *  - It only supports pagination in the horizontal direction.
-	 *  - It supports exactly two pages.
-	 */
-	var React = __webpack_require__(12);
-
-	var _require = __webpack_require__(186), connect = _require.connect;
-
-	var _require2 = __webpack_require__(15), StyleSheet = _require2.StyleSheet;
-
-	var _require3 = __webpack_require__(159), View = _require3.View;
-
-	var _require4 = __webpack_require__(177), row = _require4.row;
-
-	var _require5 = __webpack_require__(130), childrenPropType = _require5.childrenPropType;
-
-	var _require6 = __webpack_require__(154), innerBorderColor = _require6.innerBorderColor, innerBorderStyle = _require6.innerBorderStyle, innerBorderWidthPx = _require6.innerBorderWidthPx;
-
-	var ViewPager = React.createClass({
-	    displayName: "ViewPager",
-	    propTypes: {
-	        // Whether the page should animate to its next specified position.
-	        animateToPosition: React.PropTypes.bool,
-	        children: childrenPropType,
-	        pageWidthPx: React.PropTypes.number.isRequired,
-	        translateX: React.PropTypes.number.isRequired
-	    },
-	    getInitialState: function getInitialState() {
-	        return {
-	            animationDurationMs: 0
-	        };
-	    },
-	    componentWillReceiveProps: function componentWillReceiveProps(newProps) {
-	        // Compute the appropriate animation length, if the pager should
-	        // animate to its next position.
-	        var animationDurationMs = void 0;
-	        if (newProps.animateToPosition) {
-	            var finalTranslateX = newProps.translateX;
-	            var prevTranslateX = this.props.translateX;
-	            // We animate at a rate of 1 pixel per millisecond, and thus we can
-	            // use the displacement as the animation duration.
-	            animationDurationMs = Math.abs(finalTranslateX - prevTranslateX);
-	        } else animationDurationMs = 0;
-	        this.setState({
-	            animationDurationMs: animationDurationMs
-	        });
-	    },
-	    render: function render() {
-	        var _props = this.props, children = _props.children, pageWidthPx = _props.pageWidthPx, translateX = _props.translateX;
-	        var animationDurationMs = this.state.animationDurationMs;
-	        var pagerStyle = [ row, styles.twoPagePager ];
-	        var transform = {
-	            msTransform: "translate3d(" + translateX + "px, 0, 0)",
-	            WebkitTransform: "translate3d(" + translateX + "px, 0, 0)",
-	            transform: "translate3d(" + translateX + "px, 0, 0)"
-	        };
-	        var animate = animationDurationMs ? {
-	            msTransitionProperty: "transform",
-	            WebkitTransitionProperty: "transform",
-	            transitionProperty: "transform",
-	            msTransitionDuration: animationDurationMs + "ms",
-	            WebkitTransitionDuration: animationDurationMs + "ms",
-	            transitionDuration: animationDurationMs + "ms",
-	            msTransitionTimingFunction: "ease-out",
-	            WebkitTransitionTimingFunction: "ease-out",
-	            transitionTimingFunction: "ease-out"
-	        } : {};
-	        var dynamicPagerStyle = _extends({}, transform, animate);
-	        var dynamicPageStyle = {
-	            width: pageWidthPx
-	        };
-	        return React.createElement(View, {
-	            style: pagerStyle,
-	            dynamicStyle: dynamicPagerStyle
-	        }, React.createElement(View, {
-	            dynamicStyle: dynamicPageStyle
-	        }, children[0]), React.createElement(View, {
-	            style: styles.rightPage,
-	            dynamicStyle: dynamicPageStyle
-	        }, children[1]));
-	    }
-	});
-
-	var styles = StyleSheet.create({
-	    twoPagePager: {
-	        alignSelf: "flex-start",
-	        // Note: By default, <View> sets a `maxWidth` of 100% to fix some
-	        // Flexbox bugs. We have to override it to accommodate for our two
-	        // pages. The exact value here isn't super important, as long as it's
-	        // large enough to accommodate for two pages (so, 200%) and some
-	        // separators.
-	        maxWidth: "250%"
-	    },
-	    rightPage: {
-	        borderLeft: innerBorderWidthPx + "px " + innerBorderStyle + " " + innerBorderColor,
-	        boxSizing: "content-box"
-	    }
-	});
-
-	var mapStateToProps = function mapStateToProps(state) {
-	    var _state$pager = state.pager, animateToPosition = _state$pager.animateToPosition, currentPage = _state$pager.currentPage, dx = _state$pager.dx, pageWidthPx = _state$pager.pageWidthPx;
-	    return {
-	        animateToPosition: animateToPosition,
-	        pageWidthPx: pageWidthPx,
-	        translateX: -currentPage * (pageWidthPx + innerBorderWidthPx) + dx
-	    };
-	};
-
-	module.exports = connect(mapStateToProps)(ViewPager);
-
-/***/ },
-/* 201 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/**
-	 * A component that renders a view pager indicator, with a circular icon for
-	 * each page.
-	 */
-	var React = __webpack_require__(12);
-
-	var _require = __webpack_require__(15), StyleSheet = _require.StyleSheet;
-
-	var _require2 = __webpack_require__(159), View = _require2.View;
-
-	var _require3 = __webpack_require__(154), pageIndicatorHeightPx = _require3.pageIndicatorHeightPx, gray68 = _require3.gray68, gray85 = _require3.gray85;
-
-	var PagerIcon = React.createClass({
-	    displayName: "PagerIcon",
-	    propTypes: {
-	        active: React.PropTypes.bool,
-	        radiusPx: React.PropTypes.number
-	    },
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            active: false,
-	            radiusPx: 4
-	        };
-	    },
-	    render: function render() {
-	        var _props = this.props, active = _props.active, radiusPx = _props.radiusPx;
-	        var fillColor = active ? gray68 : gray85;
-	        return React.createElement("svg", {
-	            width: 2 * radiusPx,
-	            height: 2 * radiusPx
-	        }, React.createElement("circle", {
-	            cx: radiusPx,
-	            cy: radiusPx,
-	            r: radiusPx,
-	            fill: fillColor
-	        }));
-	    }
-	});
-
-	var PagerIndicator = React.createClass({
-	    displayName: "PagerIndicator",
-	    propTypes: {
-	        currentPage: React.PropTypes.number.isRequired,
-	        numPages: React.PropTypes.number.isRequired
-	    },
-	    render: function render() {
-	        var _props2 = this.props, currentPage = _props2.currentPage, numPages = _props2.numPages;
-	        var pagerIconRadiusPx = 4;
-	        // Collect the various indicator circles.
-	        var indicators = [];
-	        for (var i = 0; i < numPages; i++) indicators.push(React.createElement(PagerIcon, {
-	            key: i,
-	            active: i === currentPage,
-	            radiusPx: 4
-	        }));
-	        // Size the box that contains the icons to accommodate for proper
-	        // spacing, and let Flexbox take care of the details.
-	        var totalIconWidthPx = 8 * numPages;
-	        var totalSpacingWidthPx = 8 * (numPages - 1);
-	        var iconStripSize = {
-	            width: totalIconWidthPx + totalSpacingWidthPx
-	        };
-	        return React.createElement(View, {
-	            style: styles.indicatorStrip
-	        }, React.createElement(View, {
-	            style: styles.iconStrip,
-	            dynamicStyle: iconStripSize
-	        }, indicators));
-	    }
-	});
-
-	var styles = StyleSheet.create({
-	    indicatorStrip: {
-	        backgroundColor: "#F0F1F2",
-	        flexDirection: "row",
-	        justifyContent: "center",
-	        alignItems: "center",
-	        height: pageIndicatorHeightPx
-	    },
-	    iconStrip: {
-	        flexDirection: "row",
-	        justifyContent: "space-between"
-	    }
-	});
-
-	module.exports = PagerIndicator;
-
-/***/ },
-/* 202 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _extends = Object.assign || function(target) {
-	    for (var i = 1; i < arguments.length; i++) {
-	        var source = arguments[i];
-	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
-	    }
-	    return target;
-	};
-
-	function _objectWithoutProperties(obj, keys) {
-	    var target = {};
-	    for (var i in obj) {
-	        if (keys.indexOf(i) >= 0) continue;
-	        if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
-	        target[i] = obj[i];
-	    }
-	    return target;
-	}
-
-	/**
-	 * A keypad button containing no symbols and triggering no actions on click.
-	 */
-	var React = __webpack_require__(12);
-
-	var _require = __webpack_require__(186), connect = _require.connect;
-
-	var GestureManager = __webpack_require__(182);
-
-	var KeyConfigs = __webpack_require__(156);
-
-	var KeypadButton = __webpack_require__(199);
-
-	var EmptyKeypadButton = React.createClass({
-	    displayName: "EmptyKeypadButton",
-	    propTypes: {
-	        gestureManager: React.PropTypes.instanceOf(GestureManager)
-	    },
-	    render: function render() {
-	        var _props = this.props, gestureManager = _props.gestureManager, rest = _objectWithoutProperties(_props, [ "gestureManager" ]);
-	        // Register touch events on the button, but don't register its DOM node
-	        // or compute focus state or anything like that. We want the gesture
-	        // manager to know about touch events that start on empty buttons, but
-	        // we don't need it to know about their DOM nodes, as it doesn't need
-	        // to focus them or trigger presses.
-	        return React.createElement(KeypadButton, _extends({
-	            onTouchStart: function onTouchStart(evt) {
-	                return gestureManager.onTouchStart(evt);
-	            },
-	            onTouchEnd: function onTouchEnd(evt) {
-	                return gestureManager.onTouchEnd(evt);
-	            },
-	            onTouchMove: function onTouchMove(evt) {
-	                return gestureManager.onTouchMove(evt);
-	            },
-	            onTouchCancel: function onTouchCancel(evt) {
-	                return gestureManager.onTouchCancel(evt);
-	            }
-	        }, KeyConfigs.NOOP, rest));
-	    }
-	});
-
-	var mapStateToProps = function mapStateToProps(state) {
-	    return {
-	        gestureManager: state.gestures.gestureManager
-	    };
-	};
-
-	module.exports = connect(mapStateToProps)(EmptyKeypadButton);
-
-/***/ },
 /* 203 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {"use strict";
+
+	// Generated by CoffeeScript 1.7.1
+	(function() {
+	    var getNanoSeconds, hrtime, loadTime;
+	    if ("undefined" !== typeof performance && null !== performance && performance.now) module.exports = function() {
+	        return performance.now();
+	    }; else if ("undefined" !== typeof process && null !== process && process.hrtime) {
+	        module.exports = function() {
+	            return (getNanoSeconds() - loadTime) / 1e6;
+	        };
+	        hrtime = process.hrtime;
+	        getNanoSeconds = function getNanoSeconds() {
+	            var hr;
+	            hr = hrtime();
+	            return 1e9 * hr[0] + hr[1];
+	        };
+	        loadTime = getNanoSeconds();
+	    } else if (Date.now) {
+	        module.exports = function() {
+	            return Date.now() - loadTime;
+	        };
+	        loadTime = Date.now();
+	    } else {
+	        module.exports = function() {
+	            return new Date().getTime() - loadTime;
+	        };
+	        loadTime = new Date().getTime();
+	    }
+	}).call(void 0);
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(225)))
+
+/***/ },
+/* 204 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -47955,7 +48023,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports["default"] = createStore;
 
-	var _isPlainObject = __webpack_require__(221);
+	var _isPlainObject = __webpack_require__(220);
 
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
@@ -48170,7 +48238,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 204 */
+/* 205 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -48179,9 +48247,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports["default"] = combineReducers;
 
-	var _createStore = __webpack_require__(203);
+	var _createStore = __webpack_require__(204);
 
-	var _isPlainObject = __webpack_require__(221);
+	var _isPlainObject = __webpack_require__(220);
 
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
@@ -48286,7 +48354,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 205 */
+/* 206 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -48342,7 +48410,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 206 */
+/* 207 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -48359,7 +48427,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports["default"] = applyMiddleware;
 
-	var _compose = __webpack_require__(207);
+	var _compose = __webpack_require__(208);
 
 	var _compose2 = _interopRequireDefault(_compose);
 
@@ -48410,7 +48478,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 207 */
+/* 208 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -48445,42 +48513,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 208 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {"use strict";
-
-	// Generated by CoffeeScript 1.7.1
-	(function() {
-	    var getNanoSeconds, hrtime, loadTime;
-	    if ("undefined" !== typeof performance && null !== performance && performance.now) module.exports = function() {
-	        return performance.now();
-	    }; else if ("undefined" !== typeof process && null !== process && process.hrtime) {
-	        module.exports = function() {
-	            return (getNanoSeconds() - loadTime) / 1e6;
-	        };
-	        hrtime = process.hrtime;
-	        getNanoSeconds = function getNanoSeconds() {
-	            var hr;
-	            hr = hrtime();
-	            return 1e9 * hr[0] + hr[1];
-	        };
-	        loadTime = getNanoSeconds();
-	    } else if (Date.now) {
-	        module.exports = function() {
-	            return Date.now() - loadTime;
-	        };
-	        loadTime = Date.now();
-	    } else {
-	        module.exports = function() {
-	            return new Date().getTime() - loadTime;
-	        };
-	        loadTime = new Date().getTime();
-	    }
-	}).call(void 0);
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(227)))
-
-/***/ },
 /* 209 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -48512,28 +48544,26 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 210 */
 /***/ function(module, exports, __webpack_require__) {
 
+	module.exports = __WEBPACK_EXTERNAL_MODULE_210__;
+
+/***/ },
+/* 211 */
+/***/ function(module, exports, __webpack_require__) {
+
 	"use strict";
 
 	exports.__esModule = true;
 
-	var _propTypes = __webpack_require__(219);
+	var _react = __webpack_require__(12);
 
-	var _propTypes2 = _interopRequireDefault(_propTypes);
-
-	function _interopRequireDefault(obj) {
-	    return obj && obj.__esModule ? obj : {
-	        default: obj
-	    };
-	}
-
-	exports["default"] = _propTypes2["default"].shape({
-	    subscribe: _propTypes2["default"].func.isRequired,
-	    dispatch: _propTypes2["default"].func.isRequired,
-	    getState: _propTypes2["default"].func.isRequired
+	exports["default"] = _react.PropTypes.shape({
+	    subscribe: _react.PropTypes.func.isRequired,
+	    dispatch: _react.PropTypes.func.isRequired,
+	    getState: _react.PropTypes.func.isRequired
 	});
 
 /***/ },
-/* 211 */
+/* 212 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -48561,7 +48591,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 212 */
+/* 213 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -48582,7 +48612,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 213 */
+/* 214 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -48600,12 +48630,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 214 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __WEBPACK_EXTERNAL_MODULE_214__;
-
-/***/ },
 /* 215 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -48620,7 +48644,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require2 = __webpack_require__(159), View = _require2.View;
 
-	var _require3 = __webpack_require__(130), keyConfigPropType = _require3.keyConfigPropType;
+	var _require3 = __webpack_require__(128), keyConfigPropType = _require3.keyConfigPropType;
 
 	var _require4 = __webpack_require__(120), BorderStyles = _require4.BorderStyles;
 
@@ -48680,15 +48704,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require = __webpack_require__(15), StyleSheet = _require.StyleSheet;
 
-	var MathIcon = __webpack_require__(223);
+	var MathIcon = __webpack_require__(222);
 
-	var SvgIcon = __webpack_require__(224);
+	var SvgIcon = __webpack_require__(223);
 
-	var TextIcon = __webpack_require__(225);
+	var TextIcon = __webpack_require__(224);
 
 	var _require2 = __webpack_require__(120), IconTypes = _require2.IconTypes;
 
-	var _require3 = __webpack_require__(130), iconPropType = _require3.iconPropType;
+	var _require3 = __webpack_require__(128), iconPropType = _require3.iconPropType;
 
 	var _require4 = __webpack_require__(154), gray25 = _require4.gray25;
 
@@ -48768,7 +48792,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require3 = __webpack_require__(120), IconTypes = _require3.IconTypes;
 
-	var _require4 = __webpack_require__(130), iconPropType = _require4.iconPropType;
+	var _require4 = __webpack_require__(128), iconPropType = _require4.iconPropType;
 
 	var _require5 = __webpack_require__(177), row = _require5.row, column = _require5.column, centered = _require5.centered, fullWidth = _require5.fullWidth;
 
@@ -48946,39 +48970,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 219 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
-
-	var _typeof = "function" === typeof Symbol && "symbol" === typeof Symbol.iterator ? function(obj) {
-	    return typeof obj;
-	} : function(obj) {
-	    return obj && "function" === typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-	};
-
-	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 */
-	if (false) {
-	    var REACT_ELEMENT_TYPE = "function" === typeof Symbol && Symbol.for && Symbol.for("react.element") || 60103;
-	    var isValidElement = function isValidElement(object) {
-	        return "object" === ("undefined" === typeof object ? "undefined" : _typeof(object)) && null !== object && object.$$typeof === REACT_ELEMENT_TYPE;
-	    };
-	    // By explicitly using `prop-types` you are opting into new development behavior.
-	    // http://fb.me/prop-types-in-prod
-	    var throwOnDirectAccess = true;
-	    module.exports = require("./factoryWithTypeCheckers")(isValidElement, throwOnDirectAccess);
-	} else // By explicitly using `prop-types` you are opting into new production behavior.
-	// http://fb.me/prop-types-in-prod
-	module.exports = __webpack_require__(228)();
-
-/***/ },
-/* 220 */
-/***/ function(module, exports, __webpack_require__) {
-
 	/**
 	 * Copyright 2015, Yahoo! Inc.
 	 * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
@@ -49021,12 +49012,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 221 */
+/* 220 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var baseGetTag = __webpack_require__(229), getPrototype = __webpack_require__(230), isObjectLike = __webpack_require__(231);
+	var baseGetTag = __webpack_require__(227), getPrototype = __webpack_require__(228), isObjectLike = __webpack_require__(229);
 
 	/** `Object#toString` result references. */
 	var objectTag = "[object Object]";
@@ -49082,7 +49073,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = isPlainObject;
 
 /***/ },
-/* 222 */
+/* 221 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -49126,7 +49117,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = invariant;
 
 /***/ },
-/* 223 */
+/* 222 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -49184,7 +49175,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MathIcon;
 
 /***/ },
-/* 224 */
+/* 223 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -49196,7 +49187,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ReactDOM = __webpack_require__(13);
 
-	var Iconography = __webpack_require__(232);
+	var Iconography = __webpack_require__(230);
 
 	var SvgIcon = React.createClass({
 	    displayName: "SvgIcon",
@@ -49229,7 +49220,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = SvgIcon;
 
 /***/ },
-/* 225 */
+/* 224 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -49276,15 +49267,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = TextIcon;
 
 /***/ },
-/* 226 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	module.exports = __webpack_require__(233);
-
-/***/ },
-/* 227 */
+/* 225 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// shim for using process in browser
@@ -49348,63 +49331,20 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 228 */
+/* 226 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 */
 	"use strict";
 
-	var emptyFunction = __webpack_require__(280);
-
-	var invariant = __webpack_require__(281);
-
-	module.exports = function() {
-	    // Important!
-	    // Keep this list in sync with production version in `./factoryWithTypeCheckers.js`.
-	    function shim() {
-	        invariant(false, "Calling PropTypes validators directly is not supported by the `prop-types` package. Use PropTypes.checkPropTypes() to call them. Read more at http://fb.me/use-check-prop-types");
-	    }
-	    shim.isRequired = shim;
-	    function getShim() {
-	        return shim;
-	    }
-	    var ReactPropTypes = {
-	        array: shim,
-	        bool: shim,
-	        func: shim,
-	        number: shim,
-	        object: shim,
-	        string: shim,
-	        symbol: shim,
-	        any: shim,
-	        arrayOf: getShim,
-	        element: shim,
-	        instanceOf: getShim,
-	        node: shim,
-	        objectOf: getShim,
-	        oneOf: getShim,
-	        oneOfType: getShim,
-	        shape: getShim
-	    };
-	    ReactPropTypes.checkPropTypes = emptyFunction;
-	    ReactPropTypes.PropTypes = ReactPropTypes;
-	    return ReactPropTypes;
-	};
+	module.exports = __webpack_require__(231);
 
 /***/ },
-/* 229 */
+/* 227 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var _Symbol = __webpack_require__(234), getRawTag = __webpack_require__(235), objectToString = __webpack_require__(236);
+	var _Symbol = __webpack_require__(233), getRawTag = __webpack_require__(234), objectToString = __webpack_require__(235);
 
 	/** `Object#toString` result references. */
 	var nullTag = "[object Null]", undefinedTag = "[object Undefined]";
@@ -49427,12 +49367,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = baseGetTag;
 
 /***/ },
-/* 230 */
+/* 228 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var overArg = __webpack_require__(237);
+	var overArg = __webpack_require__(232);
 
 	/** Built-in value references. */
 	var getPrototype = overArg(Object.getPrototypeOf, Object);
@@ -49440,7 +49380,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = getPrototype;
 
 /***/ },
-/* 231 */
+/* 229 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -49482,7 +49422,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = isObjectLike;
 
 /***/ },
-/* 232 */
+/* 230 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -49491,52 +49431,52 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * A directory of autogenerated icon components.
 	 */
 	module.exports = {
-	    COS: __webpack_require__(238),
-	    LOG: __webpack_require__(239),
-	    EQUAL: __webpack_require__(240),
-	    BACKSPACE: __webpack_require__(241),
-	    SQRT: __webpack_require__(242),
-	    EXP: __webpack_require__(243),
-	    NEQ: __webpack_require__(244),
-	    GEQ: __webpack_require__(245),
-	    LN: __webpack_require__(246),
-	    DISMISS: __webpack_require__(247),
-	    SIN: __webpack_require__(248),
-	    LT: __webpack_require__(249),
-	    CUBE_ROOT: __webpack_require__(250),
-	    PLUS: __webpack_require__(251),
-	    TAN: __webpack_require__(252),
-	    LEFT: __webpack_require__(253),
-	    UP: __webpack_require__(254),
-	    DOWN: __webpack_require__(255),
-	    LEFT_PAREN: __webpack_require__(256),
-	    RIGHT_PAREN: __webpack_require__(257),
-	    GT: __webpack_require__(258),
-	    DIVIDE: __webpack_require__(259),
-	    PERIOD: __webpack_require__(260),
-	    PERCENT: __webpack_require__(261),
-	    TIMES: __webpack_require__(262),
-	    EXP_3: __webpack_require__(263),
-	    EXP_2: __webpack_require__(264),
-	    RIGHT: __webpack_require__(265),
-	    CDOT: __webpack_require__(266),
-	    LOG_N: __webpack_require__(267),
-	    LEQ: __webpack_require__(268),
-	    MINUS: __webpack_require__(269),
-	    NEGATIVE: __webpack_require__(269),
-	    RADICAL: __webpack_require__(270),
-	    FRAC_INCLUSIVE: __webpack_require__(271),
-	    FRAC_EXCLUSIVE: __webpack_require__(272),
-	    JUMP_OUT_PARENTHESES: __webpack_require__(273),
-	    JUMP_OUT_EXPONENT: __webpack_require__(274),
-	    JUMP_OUT_BASE: __webpack_require__(275),
-	    JUMP_INTO_NUMERATOR: __webpack_require__(276),
-	    JUMP_OUT_NUMERATOR: __webpack_require__(277),
-	    JUMP_OUT_DENOMINATOR: __webpack_require__(278)
+	    COS: __webpack_require__(236),
+	    LOG: __webpack_require__(237),
+	    EQUAL: __webpack_require__(238),
+	    BACKSPACE: __webpack_require__(239),
+	    SQRT: __webpack_require__(240),
+	    EXP: __webpack_require__(241),
+	    NEQ: __webpack_require__(242),
+	    GEQ: __webpack_require__(243),
+	    LN: __webpack_require__(244),
+	    DISMISS: __webpack_require__(245),
+	    SIN: __webpack_require__(246),
+	    LT: __webpack_require__(247),
+	    CUBE_ROOT: __webpack_require__(248),
+	    PLUS: __webpack_require__(249),
+	    TAN: __webpack_require__(250),
+	    LEFT: __webpack_require__(251),
+	    UP: __webpack_require__(252),
+	    DOWN: __webpack_require__(253),
+	    LEFT_PAREN: __webpack_require__(254),
+	    RIGHT_PAREN: __webpack_require__(255),
+	    GT: __webpack_require__(256),
+	    DIVIDE: __webpack_require__(257),
+	    PERIOD: __webpack_require__(258),
+	    PERCENT: __webpack_require__(259),
+	    TIMES: __webpack_require__(260),
+	    EXP_3: __webpack_require__(261),
+	    EXP_2: __webpack_require__(262),
+	    RIGHT: __webpack_require__(263),
+	    CDOT: __webpack_require__(264),
+	    LOG_N: __webpack_require__(265),
+	    LEQ: __webpack_require__(266),
+	    MINUS: __webpack_require__(267),
+	    NEGATIVE: __webpack_require__(267),
+	    RADICAL: __webpack_require__(268),
+	    FRAC_INCLUSIVE: __webpack_require__(269),
+	    FRAC_EXCLUSIVE: __webpack_require__(270),
+	    JUMP_OUT_PARENTHESES: __webpack_require__(271),
+	    JUMP_OUT_EXPONENT: __webpack_require__(272),
+	    JUMP_OUT_BASE: __webpack_require__(273),
+	    JUMP_INTO_NUMERATOR: __webpack_require__(274),
+	    JUMP_OUT_NUMERATOR: __webpack_require__(275),
+	    JUMP_OUT_DENOMINATOR: __webpack_require__(276)
 	};
 
 /***/ },
-/* 233 */
+/* 231 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global, module) {"use strict";
@@ -49545,7 +49485,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: true
 	});
 
-	var _ponyfill = __webpack_require__(279);
+	var _ponyfill = __webpack_require__(277);
 
 	var _ponyfill2 = _interopRequireDefault(_ponyfill);
 
@@ -49563,15 +49503,37 @@ return /******/ (function(modules) { // webpackBootstrap
 	var result = (0, _ponyfill2["default"])(root);
 
 	exports["default"] = result;
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(284)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(281)(module)))
 
 /***/ },
-/* 234 */
+/* 232 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var root = __webpack_require__(282);
+	/**
+	 * Creates a unary function that invokes `func` with its argument transformed.
+	 *
+	 * @private
+	 * @param {Function} func The function to wrap.
+	 * @param {Function} transform The argument transform.
+	 * @returns {Function} Returns the new function.
+	 */
+	function overArg(func, transform) {
+	    return function(arg) {
+	        return func(transform(arg));
+	    };
+	}
+
+	module.exports = overArg;
+
+/***/ },
+/* 233 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var root = __webpack_require__(278);
 
 	/** Built-in value references. */
 	var _Symbol = root.Symbol;
@@ -49579,12 +49541,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = _Symbol;
 
 /***/ },
-/* 235 */
+/* 234 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var _Symbol = __webpack_require__(234);
+	var _Symbol = __webpack_require__(233);
 
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -49623,7 +49585,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = getRawTag;
 
 /***/ },
-/* 236 */
+/* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -49652,29 +49614,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = objectToString;
 
 /***/ },
-/* 237 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/**
-	 * Creates a unary function that invokes `func` with its argument transformed.
-	 *
-	 * @private
-	 * @param {Function} func The function to wrap.
-	 * @param {Function} transform The argument transform.
-	 * @returns {Function} Returns the new function.
-	 */
-	function overArg(func, transform) {
-	    return function(arg) {
-	        return func(transform(arg));
-	    };
-	}
-
-	module.exports = overArg;
-
-/***/ },
-/* 238 */
+/* 236 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -49715,7 +49655,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Cos;
 
 /***/ },
-/* 239 */
+/* 237 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -49753,7 +49693,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Log;
 
 /***/ },
-/* 240 */
+/* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -49797,7 +49737,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Equal;
 
 /***/ },
-/* 241 */
+/* 239 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -49835,7 +49775,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Backspace;
 
 /***/ },
-/* 242 */
+/* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -49876,7 +49816,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Sqrt;
 
 /***/ },
-/* 243 */
+/* 241 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -49914,7 +49854,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Exp;
 
 /***/ },
-/* 244 */
+/* 242 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -49958,7 +49898,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Neq;
 
 /***/ },
-/* 245 */
+/* 243 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -50002,7 +49942,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Geq;
 
 /***/ },
-/* 246 */
+/* 244 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -50040,7 +49980,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Ln;
 
 /***/ },
-/* 247 */
+/* 245 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -50075,7 +50015,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Dismiss;
 
 /***/ },
-/* 248 */
+/* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -50116,7 +50056,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Sin;
 
 /***/ },
-/* 249 */
+/* 247 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -50160,7 +50100,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Lt;
 
 /***/ },
-/* 250 */
+/* 248 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -50204,7 +50144,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = CubeRoot;
 
 /***/ },
-/* 251 */
+/* 249 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -50245,7 +50185,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Plus;
 
 /***/ },
-/* 252 */
+/* 250 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -50286,7 +50226,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Tan;
 
 /***/ },
-/* 253 */
+/* 251 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -50296,7 +50236,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(12);
 
-	var Arrow = __webpack_require__(283);
+	var Arrow = __webpack_require__(279);
 
 	var Left = function Left() {
 	    return React.createElement("svg", {
@@ -50309,7 +50249,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Left;
 
 /***/ },
-/* 254 */
+/* 252 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -50319,7 +50259,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(12);
 
-	var Arrow = __webpack_require__(283);
+	var Arrow = __webpack_require__(279);
 
 	var Up = function Up() {
 	    return React.createElement("svg", {
@@ -50334,7 +50274,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Up;
 
 /***/ },
-/* 255 */
+/* 253 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -50344,7 +50284,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(12);
 
-	var Arrow = __webpack_require__(283);
+	var Arrow = __webpack_require__(279);
 
 	var Down = function Down() {
 	    return React.createElement("svg", {
@@ -50359,7 +50299,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Down;
 
 /***/ },
-/* 256 */
+/* 254 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -50403,7 +50343,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = LeftParen;
 
 /***/ },
-/* 257 */
+/* 255 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -50447,7 +50387,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = RightParen;
 
 /***/ },
-/* 258 */
+/* 256 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -50491,7 +50431,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Gt;
 
 /***/ },
-/* 259 */
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -50542,7 +50482,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Divide;
 
 /***/ },
-/* 260 */
+/* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -50582,7 +50522,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Period;
 
 /***/ },
-/* 261 */
+/* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -50640,7 +50580,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Percent;
 
 /***/ },
-/* 262 */
+/* 260 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -50684,7 +50624,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Times;
 
 /***/ },
-/* 263 */
+/* 261 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -50722,7 +50662,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Exp3;
 
 /***/ },
-/* 264 */
+/* 262 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -50760,7 +50700,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Exp2;
 
 /***/ },
-/* 265 */
+/* 263 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -50770,7 +50710,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(12);
 
-	var Arrow = __webpack_require__(283);
+	var Arrow = __webpack_require__(279);
 
 	var Right = function Right() {
 	    return React.createElement("svg", {
@@ -50785,7 +50725,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Right;
 
 /***/ },
-/* 266 */
+/* 264 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -50830,7 +50770,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Cdot;
 
 /***/ },
-/* 267 */
+/* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -50868,7 +50808,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = LogN;
 
 /***/ },
-/* 268 */
+/* 266 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -50912,7 +50852,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Leq;
 
 /***/ },
-/* 269 */
+/* 267 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -50953,7 +50893,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Minus;
 
 /***/ },
-/* 270 */
+/* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -50997,7 +50937,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Radical;
 
 /***/ },
-/* 271 */
+/* 269 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -51050,7 +50990,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = FracInclusive;
 
 /***/ },
-/* 272 */
+/* 270 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -51103,7 +51043,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = FracExclusive;
 
 /***/ },
-/* 273 */
+/* 271 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -51147,7 +51087,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = JumpOutParentheses;
 
 /***/ },
-/* 274 */
+/* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -51188,7 +51128,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = JumpOutExponent;
 
 /***/ },
-/* 275 */
+/* 273 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -51229,7 +51169,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = JumpOutBase;
 
 /***/ },
-/* 276 */
+/* 274 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -51279,7 +51219,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = JumpIntoNumerator;
 
 /***/ },
-/* 277 */
+/* 275 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -51329,7 +51269,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = JumpOutNumerator;
 
 /***/ },
-/* 278 */
+/* 276 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -51377,7 +51317,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = JumpOutDenominator;
 
 /***/ },
-/* 279 */
+/* 277 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -51399,105 +51339,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 280 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * 
-	 */
-	function makeEmptyFunction(arg) {
-	    return function() {
-	        return arg;
-	    };
-	}
-
-	/**
-	 * This function accepts and discards inputs; it has no side effects. This is
-	 * primarily useful idiomatically for overridable function endpoints which
-	 * always need to be callable, since JS lacks a null-call idiom ala Cocoa.
-	 */
-	var emptyFunction = function emptyFunction() {};
-
-	emptyFunction.thatReturns = makeEmptyFunction;
-
-	emptyFunction.thatReturnsFalse = makeEmptyFunction(false);
-
-	emptyFunction.thatReturnsTrue = makeEmptyFunction(true);
-
-	emptyFunction.thatReturnsNull = makeEmptyFunction(null);
-
-	emptyFunction.thatReturnsThis = function() {
-	    return this;
-	};
-
-	emptyFunction.thatReturnsArgument = function(arg) {
-	    return arg;
-	};
-
-	module.exports = emptyFunction;
-
-/***/ },
-/* 281 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 */
-	"use strict";
-
-	/**
-	 * Use invariant() to assert state which your program assumes to be true.
-	 *
-	 * Provide sprintf-style format (only %s is supported) and arguments
-	 * to provide information about what broke and what you were
-	 * expecting.
-	 *
-	 * The invariant message will be stripped in production, but the invariant
-	 * will remain to ensure logic does not differ in production.
-	 */
-	var validateFormat = function validateFormat(format) {};
-
-	"production" !== ("production") && (validateFormat = function validateFormat(format) {
-	    if (void 0 === format) throw new Error("invariant requires an error message argument");
-	});
-
-	function invariant(condition, format, a, b, c, d, e, f) {
-	    validateFormat(format);
-	    if (!condition) {
-	        var error;
-	        if (void 0 === format) error = new Error("Minified exception occurred; use the non-minified dev environment for the full error message and additional helpful warnings."); else {
-	            var args = [ a, b, c, d, e, f ];
-	            var argIndex = 0;
-	            error = new Error(format.replace(/%s/g, function() {
-	                return args[argIndex++];
-	            }));
-	            error.name = "Invariant Violation";
-	        }
-	        error.framesToPop = 1;
-	        // we don't care about invariant's own frame
-	        throw error;
-	    }
-	}
-
-	module.exports = invariant;
-
-/***/ },
-/* 282 */
+/* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -51508,7 +51350,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return obj && "function" === typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
 	};
 
-	var freeGlobal = __webpack_require__(285);
+	var freeGlobal = __webpack_require__(280);
 
 	/** Detect free variable `self`. */
 	var freeSelf = "object" == ("undefined" === typeof self ? "undefined" : _typeof(self)) && self && self.Object === Object && self;
@@ -51519,7 +51361,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = root;
 
 /***/ },
-/* 283 */
+/* 279 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -51559,23 +51401,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Arrow;
 
 /***/ },
-/* 284 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = function(module) {
-		if(!module.webpackPolyfill) {
-			module.deprecate = function() {};
-			module.paths = [];
-			// module.parent = undefined by default
-			module.children = [];
-			module.webpackPolyfill = 1;
-		}
-		return module;
-	}
-
-
-/***/ },
-/* 285 */
+/* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {"use strict";
@@ -51591,6 +51417,22 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = freeGlobal;
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
+/***/ },
+/* 281 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = function(module) {
+		if(!module.webpackPolyfill) {
+			module.deprecate = function() {};
+			module.paths = [];
+			// module.parent = undefined by default
+			module.children = [];
+			module.webpackPolyfill = 1;
+		}
+		return module;
+	}
+
 
 /***/ }
 /******/ ])
