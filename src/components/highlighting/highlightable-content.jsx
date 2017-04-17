@@ -18,10 +18,10 @@ const {StyleSheet, css} = require("aphrodite");
 
 const HighlightsRenderer = require("./highlights-renderer.jsx");
 const WordIndexer = require("./word-indexer.jsx");
-const {createNewUniqueKey, deserializeHighlight, serializeHighlight} =
+const {addHighlight, deserializeHighlight, serializeHighlight} =
     require("./highlights.js");
 
-import type {SerializedHighlight, DOMRange} from "./types.js";
+import type {DOMHighlight, SerializedHighlight, DOMRange} from "./types.js";
 
 type HighlightableContentProps = {
     // The highlightable content itself. Highlights will be defined relative to
@@ -63,6 +63,18 @@ class HighlightableContent extends React.PureComponent {
     }
 
     /**
+     * Take the highlights from props, and deserialize them into DOMHighlights,
+     * according to the latest cache of word ranges.
+     */
+    _getDOMHighlights(): DOMHighlight[] {
+        const {serializedHighlights} = this.props;
+        const {wordRanges} = this.state;
+
+        return serializedHighlights.map(serializedHighlight =>
+            deserializeHighlight(serializedHighlight, wordRanges));
+    }
+
+    /**
      * Remove the given highlight from the list, and call our callback with the
      * new set of highlights.
      */
@@ -84,7 +96,6 @@ class HighlightableContent extends React.PureComponent {
      *     or else you'll end up with annoying overlapping highlights :P
      */
     _handleSelectionChange = () => {
-        const {serializedHighlights} = this.props;
         const {wordRanges} = this.state;
 
         // Get the current selection's range. If none, no action required.
@@ -97,31 +108,35 @@ class HighlightableContent extends React.PureComponent {
 
         // Even if a range exists, it might be a zero-width range that contains
         // no content - that's actually usually what happens when you click
-        // away to deselect text. This isn't strictly necessary, but, as an
-        // optimization, no action required if the selection is zero-width.
+        // away to deselect text. But, even though a zero-width range might
+        // intersect a word, we don't want to offer it as a highlight, because
+        // that would be confusing. No action required.
         if (selectionRange.collapsed) {
             return;
         }
 
-        // Create a new highlight over the selection's range, and attempt to
-        // serialize it. If it's not serializable (e.g. it doesn't contain any
-        // of the document's words, so can't be represented as a pair of word
-        // indexes), no action required.
-        const existingKeys = serializedHighlights.map(h => h.key);
-        const newHighlight = {
-            key: createNewUniqueKey(existingKeys),
+        // TODO(mdr): Existing highlights should probably be cached on the
+        //     component, since they only change when the props change, but
+        //     recomputing them on selection change might be expensive.
+        const newHighlights = addHighlight(this._getDOMHighlights(), {
             range: selectionRange,
-        };
-        const newSerializedHighlight =
-            serializeHighlight(newHighlight, wordRanges);
-        if (!newSerializedHighlight) {
+        });
+
+        // Serialize the new highlights, and check for nulls. If any are found,
+        // then our new highlight didn't serialize, and isn't actually valid
+        // (e.g. it isn't actually over any of the content's words), so return
+        // without firing any updates.
+        //
+        // Otherwise, since we've proven the list contains no empty values, we
+        // can safely cast to `SerializedHighlight[]`.
+        const maybeNewSerializedHighlights =
+            newHighlights.map(h => serializeHighlight(h, wordRanges));
+        if (maybeNewSerializedHighlights.some(sh => !sh)) {
             return;
         }
+        const newSerializedHighlights: SerializedHighlight[] =
+            (maybeNewSerializedHighlights: any[]);
 
-        // Add the new highlight to the list, and call our callback with the
-        // new set of highlights.
-        const newSerializedHighlights =
-            [...serializedHighlights, newSerializedHighlight];
         this.props.onSerializedHighlightsUpdate(newSerializedHighlights);
     }
 
@@ -134,14 +149,6 @@ class HighlightableContent extends React.PureComponent {
     }
 
     render() {
-        const {serializedHighlights} = this.props;
-        const {wordRanges} = this.state;
-
-        // Take the highlights from props, and deserialize them into
-        // DOMHighlights, according to the latest cache of word ranges.
-        const domHighlights = serializedHighlights.map(serializedHighlight =>
-            deserializeHighlight(serializedHighlight, wordRanges));
-
         return <div>
             <div className={css(styles.content)}>
                 <WordIndexer onWordsUpdate={this._handleWordsUpdate}>
@@ -150,7 +157,7 @@ class HighlightableContent extends React.PureComponent {
             </div>
             <div className={css(styles.highlights)}>
                 <HighlightsRenderer
-                    highlights={domHighlights}
+                    highlights={this._getDOMHighlights()}
                     onRemoveHighlight={this._handleRemoveHighlight}
                 />
             </div>

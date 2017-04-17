@@ -41,6 +41,42 @@ function compareRangeBoundaryPoints(
 }
 
 /**
+ * Given two Ranges, return a Range whose start point comes from A, and whose
+ * end point comes from B.
+ */
+function spanRanges(a: Range, b: Range): Range {
+    const range = a.cloneRange();
+    range.setEnd(b.endContainer, b.endOffset);
+    return range;
+}
+
+/**
+ * Given two Ranges, merge them: return the smallest range that contains all
+ * points contained in both A and B, and *only* points contained in both A and
+ * B (that is, A and B must intersect).
+ *
+ * If A and B do not intersect, no merged range exists; return null.
+ */
+function mergeRanges(a: Range, b: Range): ?Range {
+    // Two ranges do *not* intersect iff one ends before the other begins.
+    const rangesDoNotIntersect =
+        compareRangeBoundaryPoints(a, "end", b, "start") < 0 ||
+        compareRangeBoundaryPoints(b, "end", a, "start") < 0;
+    if (rangesDoNotIntersect) {
+        return null;
+    }
+
+    // Find the range with the earliest start point, and the range with the
+    // latest end point.
+    const starter =
+        compareRangeBoundaryPoints(a, "start", b, "start") < 0 ? a : b;
+    const ender =
+        compareRangeBoundaryPoints(a, "end", b, "end") > 0 ? a : b;
+
+    return spanRanges(starter, ender);
+}
+
+/**
  * Given a list of word ranges, and a selection range, binary search the list
  * and return the index of the goal word, or -1 if no satisfactory goal word
  * exists in the list.
@@ -203,4 +239,6 @@ function findFirstAndLastWordIndexes(
 
 module.exports = {
     findFirstAndLastWordIndexes,
+    mergeRanges,
+    spanRanges,
 };

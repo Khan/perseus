@@ -2,9 +2,44 @@
 /**
  * Utility functions for manipulating highlights.
  */
-const {findFirstAndLastWordIndexes} = require("./ranges.js");
+const {findFirstAndLastWordIndexes, mergeRanges, spanRanges} = require("./ranges.js");
 
 import type {DOMHighlight, SerializedHighlight, DOMRange} from "./types.js";
+
+/**
+ * Given a list of Highlights, return a new list that also includes the given
+ * Range as a new Highlight. If the Highlight intersects existing Highlights,
+ * the other Highlights are removed and their ranges are merged into the new
+ * Highlight.
+ */
+function addHighlight(
+    existingHighlights: DOMHighlight[],
+    newHighlightSpec: {range: DOMRange},
+): DOMHighlight[] {
+    let mergedRange = newHighlightSpec.range;
+    const highlightsThatWereNotMerged = existingHighlights.filter(h => {
+        const newMergedRange = mergeRanges(h.range, mergedRange);
+        if (newMergedRange) {
+            // This highlight's range was successfully merged into the new
+            // highlight. Update `mergedRange`, and return `false` to *not* add
+            // this to the list of not-merged highlights.
+            mergedRange = newMergedRange;
+            return false;
+        } else {
+            // This highlight's range can't be merged into the new highlight.
+            // Return `true` to add this to the list of not-merged highlights.
+            return true;
+        }
+    });
+
+    const existingKeys = highlightsThatWereNotMerged.map(h => h.key);
+    const newHighlight = {
+        key: createNewUniqueKey(existingKeys),
+        range: mergedRange,
+    };
+
+    return [...highlightsThatWereNotMerged, newHighlight];
+}
 
 /**
  * Given a list of keys, return a new unique key that is not in the list.
@@ -54,15 +89,9 @@ function deserializeHighlight(
             `must be 0–${wordRanges.length - 1} inclusive`);
     }
 
-    // Clone the first word's range, which sets the start position correctly.
-    const range = firstWord.cloneRange();
-
-    // Then, copy the end position into the new range.
-    range.setEnd(lastWord.endContainer, lastWord.endOffset);
-
     return {
         key: serializedHighlight.key,
-        range,
+        range: spanRanges(firstWord, lastWord),
     };
 }
 
@@ -94,7 +123,7 @@ function serializeHighlight(
 }
 
 module.exports = {
-    createNewUniqueKey,
+    addHighlight,
     deserializeHighlight,
     serializeHighlight,
 };
