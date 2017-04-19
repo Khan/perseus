@@ -159,14 +159,19 @@ class HighlightableContent extends React.PureComponent {
 }
 
 const styles = StyleSheet.create({
+    // We render content with z-index 1, and highlights with z-index 0, so that
+    // content will receive the browser's native pointer events. (Highlights
+    // have their own magic code to manage hover detection, despite being
+    // behind the content.)
+
     content: {
         position: "relative",
-        zIndex: 0,
+        zIndex: 1,
     },
 
     highlights: {
         position: "relative",
-        zIndex: 1,
+        zIndex: 0,
     },
 });
 

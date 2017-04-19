@@ -22,9 +22,22 @@ const {StyleSheet, css} = require("aphrodite");
 
 import type {DOMHighlight} from "./types.js";
 
+type Position = {
+    left: number,
+    top: number,
+};
+
+type Rect = Position & {
+    width: number,
+    height: number,
+};
+
 type SingleHighlightRendererProps = {
     // The DOMHighlight to render.
     highlight: DOMHighlight,
+
+    // The mouse's current position, relative to the viewport.
+    mouseClientPosition: ?Position,
 
     // This component's `offsetParent` element, which is the nearest ancestor
     // with `position: relative`. This will enable us to choose the correct
@@ -40,15 +53,58 @@ type SingleHighlightRendererProps = {
     onClick: (key: string) => mixed,
 };
 
+type SingleHighlightRendererState = {
+    // The set of rectangles that cover this highlight's content, relative to
+    // the offset parent. This cache is updated on mount and on changes to
+    // the `highlight` and `offsetParent` props.
+    cachedHighlightRects: Rect[],
+};
+
 class SingleHighlightRenderer extends React.PureComponent {
+    /* eslint-disable react/sort-comp */
     props: SingleHighlightRendererProps
+    state: SingleHighlightRendererState
+    /* eslint-enable react/sort-comp */
+
+    constructor(props: SingleHighlightRendererProps) {
+        super(props);
+
+        this.state = {cachedHighlightRects: this._getRects(props)};
+    }
+
+    componentDidMount() {
+        // HACK(mdr): We use mousedown rather than click to prevent shift-click
+        //     highlights from immediately removing themselves. A full click
+        //     event listener be more appropriate if we were planning to ship
+        //     this behavior, but:
+        // TODO(mdr): When we move to an Add/Remove Highlight tooltip instead,
+        //     remove this global click listener entirely.
+        window.addEventListener("mousedown", this._handleGlobalClick);
+    }
+
+    componentWillUnmount() {
+        // TODO(mdr): When we move to an Add/Remove Highlight tooltip instead,
+        //     remove this global click listener entirely.
+        window.removeEventListener("mousedown", this._handleGlobalClick);
+    }
+
+    componentWillReceiveProps(nextProps: SingleHighlightRendererProps) {
+        if (
+            this.props.highlight !== nextProps.highlight ||
+            this.props.offsetParent !== nextProps.offsetParent
+        ) {
+            this.setState({
+                cachedHighlightRects: this._getRects(nextProps),
+            });
+        }
+    }
 
     /**
      * Compute the set of rectangles that cover the highlighted content, with
      * coordinates relative to the offset parent. That way, we can use them
      * for CSS positioning.
      */
-    _getRects() {
+    _getRects(): Rect[] {
         const {highlight, offsetParent} = this.props;
 
         // Get the set of rectangles that covers the range, and the rectangle
@@ -62,10 +118,9 @@ class SingleHighlightRenderer extends React.PureComponent {
         //     system uses.
         //
         //     But it *does* mean it's unsafe to cache these rectangles, in
-        //     case the user scrolls at unexpected times. Instead, if you need
-        //     to cache something, you should cache the derived rectangles
-        //     that this function returns, because those will be stable
-        //     regardless of viewport scrolling.
+        //     case the user scrolls at unexpected times. Instead, we only
+        //     cache the derived rectangles that this function returns, because
+        //     those will be stable regardless of viewport scrolling.
         const domRects = highlight.range.getClientRects();
         const offsetParentRect = offsetParent.getBoundingClientRect();
 
@@ -81,20 +136,76 @@ class SingleHighlightRenderer extends React.PureComponent {
         return rects;
     }
 
-    // TODO(mdr): Remove this once we have a "Remove Highlight" tooltip.
-    _handleClick = () => {
-        this.props.onClick(this.props.highlight.key);
+    _handleGlobalClick = (e) => {
+        // TODO(mdr): When we move to an Add/Remove Highlight tooltip instead,
+        //     remove this global click listener entirely.
+        const mouseClientPosition = {
+            left: e.clientX,
+            top: e.clientY,
+        };
+
+        if (this._highlightIsHovered(mouseClientPosition)) {
+            this.props.onClick(this.props.highlight.key);
+        }
+    }
+
+    /**
+     * Return whether the given mouse position (coordinates relative to the
+     * viewport) is hovering over this highlight.
+     */
+    _highlightIsHovered(mouseClientPosition: ?Position): boolean {
+        const {offsetParent} = this.props;
+        const {cachedHighlightRects} = this.state;
+
+        if (!mouseClientPosition) {
+            return false;
+        }
+
+        // Convert the client-relative mouse coordinates to be relative to the
+        // offset parent. That way, we can compare them to the cached highlight
+        // rectangles.
+        const offsetParentRect = offsetParent.getBoundingClientRect();
+        const mouseOffsetPosition = {
+            left: mouseClientPosition.left - offsetParentRect.left,
+            top: mouseClientPosition.top - offsetParentRect.top,
+        };
+
+        return cachedHighlightRects.some(rect =>
+            this._rectIsHovered(rect, mouseOffsetPosition));
+    }
+
+    /**
+     * Return whether the given mouse position (coordinates relative to this
+     * component's offset parent) is hovering over the given rectangle
+     * (coordinates also relative to this component's offset parent).
+     */
+    _rectIsHovered(rect: Rect, mouseOffsetPosition: Position): boolean {
+        const PositionWithinRect = {
+            left: mouseOffsetPosition.left - rect.left,
+            top: mouseOffsetPosition.top - rect.top,
+        };
+
+        return 0 <= PositionWithinRect.left &&
+            PositionWithinRect.left < rect.width &&
+            0 <= PositionWithinRect.top &&
+            PositionWithinRect.top < rect.height;
     }
 
     render() {
-        const rects = this._getRects();
+        const highlightIsHovered =
+            this._highlightIsHovered(this.props.mouseClientPosition);
+        const rects = this.state.cachedHighlightRects;
 
-        return <div className={css(styles.highlight)}>
+        return <div
+            className={css(
+                styles.highlight,
+                highlightIsHovered && styles.hoveredHighlight,
+            )}
+        >
             {rects.map((rect, index) =>
                 <div
                     key={index}
                     className={css(styles.highlightRect)}
-                    onClick={this._handleClick}
                     style={{
                         width: rect.width,
                         height: rect.height,
@@ -113,15 +224,29 @@ type HighlightsRendererProps = {
     onRemoveHighlight: (highlightKey: string) => mixed,
 };
 
+type HighlightsRendererState = {
+    // The mouse's position relative to the viewport, as of the most recent
+    // global `mousemove` event. Passed to each `SingleHighlightRenderer` that
+    // this component renders.
+    mouseClientPosition: ?Position,
+};
+
 class HighlightsRenderer extends React.PureComponent {
     /* eslint-disable react/sort-comp */
     props: HighlightsRendererProps
+    state: HighlightsRendererState = {mouseClientPosition: null}
     _container: ?HTMLElement = null
     /* eslint-enable react/sort-comp */
 
     componentDidMount() {
+        window.addEventListener("mousemove", this._handleMouseMove);
+
         // This component renders twice on mount; see `render` for details.
         this.forceUpdate();
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener("mousemove", this._handleMouseMove);
     }
 
     /**
@@ -135,10 +260,23 @@ class HighlightsRenderer extends React.PureComponent {
             <SingleHighlightRenderer
                 key={highlight.key}
                 highlight={highlight}
+                mouseClientPosition={this.state.mouseClientPosition}
                 offsetParent={container.offsetParent}
                 onClick={this.props.onRemoveHighlight}
             />
         );
+    }
+
+    /**
+     * Update our state to track the mouse's new position.
+     */
+    _handleMouseMove = (e: MouseEvent) => {
+        this.setState({
+            mouseClientPosition: {
+                left: e.clientX,
+                top: e.clientY,
+            },
+        });
     }
 
     render() {
@@ -180,6 +318,11 @@ const styles = StyleSheet.create({
     //     robustness trick, it doesn't matter!
     highlight: {
         opacity: 0.4,
+    },
+
+    hoveredHighlight: {
+        // TODO(mdr): Just to demonstrate hovering.
+        opacity: 0.6,
     },
 
     highlightRect: {
