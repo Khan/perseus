@@ -28,6 +28,8 @@ const focusedStyleMixin = {
     zIndex: 1,
 };
 
+const responsiveCheckboxPadding = `17px 12px`;
+
 const Choice = React.createClass({
     propTypes: {
         // TODO(kevinb) use Options.propTypes from perseus-api.jsx
@@ -61,6 +63,11 @@ const Choice = React.createClass({
         styles: StyleSheet.create({
             pos: {
                 display: "none",
+            },
+
+            description: {
+                display: "inline-block",
+                width: "100%",
             },
 
             satDescription: {
@@ -203,6 +210,18 @@ const Choice = React.createClass({
                 display: "block",
             },
 
+            mobileClue: {
+                backgroundColor: "#fafafa",
+                padding: responsiveCheckboxPadding,
+                margin: "0 -1px -1px -1px",
+                borderRadius: 4,
+                width: "100%",
+            },
+
+            mobileClueSelected: {
+                margin: 0,
+            },
+
             satReviewClue: {
                 marginTop: 13,
                 marginLeft: 45,
@@ -217,12 +236,23 @@ const Choice = React.createClass({
                     WebkitTapHighlightColor: "transparent",
                     alignItems: "center",
                     display: "flex",
-                    padding: "17px 0",
                 },
             },
 
             satLabel: {
                 cursor: "pointer",
+            },
+
+            responsiveCheckbox: {
+                display: "inline-block",
+
+                [mediaQueries.lgOrSmaller]: {
+                    padding: responsiveCheckboxPadding,
+                },
+            },
+
+            checkboxCrossout: {
+                textDecoration: "line-through",
             },
         }),
     },
@@ -381,7 +411,8 @@ const Choice = React.createClass({
         const descriptionClassName = classNames("description",
             satCorrectChoice && "sat-correct",
             satIncorrectChecked && "sat-incorrect",
-            css(sat && this.state.isInputFocused
+            css(!sat && styles.description,
+                sat && this.state.isInputFocused
                     && styles.satDescriptionInputFocused,
                 sat && this.state.isInputActive
                     && styles.satDescriptionInputActive,
@@ -397,15 +428,42 @@ const Choice = React.createClass({
             css(sat && sharedStyles.perseusInteractive,
                 sat && styles.satCheckboxOptionContent);
 
+
+        const checkboxAndOptionClassName = classNames(
+            "checkbox-and-option",
+            css(
+                !sat && styles.responsiveCheckbox,
+                !sat && !correct && this.props.showClue
+                    && styles.checkboxCrossout,
+                !sat && this.props.checked && styles.responsiveCheckboxSelected
+            )
+        );
+
+        const clueClassName = classNames(
+            "perseus-radio-clue",
+            css(
+                styles.clue,
+                isMobile && styles.mobileClue,
+                isMobile && this.props.checked && styles.mobileClueSelected,
+                sat && styles.satReviewClue
+            )
+        );
+
         // In edit mode, we must allow selection of the contentEditable
         // element inside, therefore we cannot use a label, which makes
         // selection of anything inside automatically select the input
         // element instead
         const LabelOrDiv = this.props.editMode ? "div" : "label";
 
+        // We want to show the choices as dimmed out when the choices are
+        // disabled. However, we don't want to do this in the SAT product and
+        // we also don't want to do this when we're in review mode in the
+        // content library.
+        const showDimmed = !sat && !reviewMode && this.props.disabled;
+
         return <LabelOrDiv
             className={className}
-            style={{opacity: !sat && this.props.disabled ? 0.5 : 1.0}}
+            style={{opacity: showDimmed ? 0.5 : 1.0}}
         >
             {input}
             <div className={descriptionClassName}
@@ -413,7 +471,7 @@ const Choice = React.createClass({
                 onMouseUp={this.onInputMouseUp}
                 onMouseOut={this.onInputMouseOut}
             >
-                <div className="checkbox-and-option">
+                <div className={checkboxAndOptionClassName}>
                     <span className={checkboxContentClassName}>
                         {this.renderChoiceIcon()}
                     </span>
@@ -435,13 +493,7 @@ const Choice = React.createClass({
                     </span>
                 </div>
                 {this.props.showClue &&
-                    <div
-                        className={classNames(
-                            "perseus-radio-clue",
-                            css(styles.clue,
-                                reviewMode && styles.satReviewClue)
-                        )}
-                    >
+                    <div className={clueClassName}>
                         {this.props.clue}
                     </div>}
             </div>
