@@ -33,10 +33,12 @@ const ReactDOM = require("react-dom");
 const _ = require("underscore");
 const $ = require("jquery");
 
+const HighlightableContent = require("../components/highlighting/highlightable-content.jsx");
 const Renderer = require("../renderer.jsx");
 const PassageMarkdown = require("./passage/passage-markdown.jsx");
 
 import type {ChangeableProps} from "../mixins/changeable.jsx";
+import type {SerializedHighlight} from "../components/highlighting/types.js";
 
 declare var i18n: {
     _(format: string, args?: any): string,
@@ -161,6 +163,7 @@ class Passage extends React.Component {
         footnotes: "",
         showLineNumbers: true,
         highlightRanges: [],
+        highlights: [],
     };
 
     state: PassageState = {
@@ -214,9 +217,14 @@ class Passage extends React.Component {
     //     couldn't diagnose quickly. Reading passages and essay passages don't
     //     currently contain markers, though, so they're always supported!
     supportsHighlighting(): boolean {
+        // TODO(mdr): I'm disabling the old highlighting feature here. We
+        //     should actually remove it someday!
+        //     https://app.asana.com/0/277557989281705/318877243057038
+        return false;
+
         // HACK(davidpowell,mdr): If a passage contains question markers, the
         //     first one should be labeled #1, so just scan for marker #1.
-        return !(this.props.passageText.match(/\[\[1\]\]/));
+        // return !(this.props.passageText.match(/\[\[1\]\]/));
     }
 
     // If this is a reading passage and not in review mode, then the user can
@@ -740,6 +748,12 @@ class Passage extends React.Component {
         </span>;
     }
 
+    _handleSerializedHighlightsUpdate = (
+        serializedHighlights: SerializedHighlight[]
+    ) => {
+        this.props.onChange({highlights: serializedHighlights});
+    }
+
     /**
      * Line numbering
      *
@@ -948,10 +962,16 @@ class Passage extends React.Component {
     }
 
     _renderContent(parsed): React.Element<any> {
-        return <div ref="content">
-            <LineHeightMeasurer ref={e => this._lineHeightMeasurer = e} />
-            {PassageMarkdown.output(parsed)}
-        </div>;
+        return <HighlightableContent
+            onSerializedHighlightsUpdate={
+                this._handleSerializedHighlightsUpdate}
+            serializedHighlights={this.props.highlights}
+        >
+            <div ref="content">
+                <LineHeightMeasurer ref={e => this._lineHeightMeasurer = e} />
+                {PassageMarkdown.output(parsed)}
+            </div>
+        </HighlightableContent>;
     }
 
     _hasFootnotes(): boolean {
