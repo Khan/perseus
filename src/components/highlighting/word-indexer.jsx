@@ -59,6 +59,8 @@ class WordIndexer extends React.PureComponent {
         const treeWalker = container.ownerDocument.createTreeWalker(
             container,
             NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT,
+            () => NodeFilter.FILTER_ACCEPT,
+            false,
         );
 
         // Traverse the container's descendant text nodes in DOM order,
