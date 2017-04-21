@@ -303,6 +303,10 @@ const ItemRenderer = React.createClass({
         this.hintsRenderer.restoreSerializedState(state.hints, fireCallback);
     },
 
+    showRationalesForCurrentlySelectedChoices() {
+        this.questionRenderer.showRationalesForCurrentlySelectedChoices();
+    },
+
     render: function() {
         const apiOptions = {
             ...ApiOptions.defaults,

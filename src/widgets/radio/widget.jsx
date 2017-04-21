@@ -13,7 +13,15 @@ const BaseRadio = require("./base-radio.jsx");
 const Radio = React.createClass({
     propTypes: {
         apiOptions: BaseRadio.propTypes.apiOptions,
-        choices: BaseRadio.propTypes.choices,
+        choices: React.PropTypes.arrayOf(React.PropTypes.shape({
+            content: React.PropTypes.string.isRequired,
+            // Clues are called "rationales" in most other places but are left
+            // as "clue"s here to preserve legacy widget data.
+            clue: React.PropTypes.string.isRequired,
+            correct: React.PropTypes.bool,
+            isNoneOfTheAbove: React.PropTypes.bool,
+            originalIndex: React.PropTypes.number.isRequired,
+        }).isRequired).isRequired,
 
         deselectEnabled: React.PropTypes.bool,
         displayCount: React.PropTypes.any,
@@ -26,7 +34,10 @@ const Radio = React.createClass({
         questionCompleted: React.PropTypes.bool,
         reviewModeRubric: BaseRadio.propTypes.reviewModeRubric,
         trackInteraction: React.PropTypes.func.isRequired,
-        values: React.PropTypes.arrayOf(React.PropTypes.bool),
+        choiceStates: React.PropTypes.arrayOf(React.PropTypes.shape({
+            selected: React.PropTypes.bool,
+            rationaleShown: React.PropTypes.bool,
+        }).isRequired),
     },
 
     getDefaultProps: function() {
@@ -89,44 +100,61 @@ const Radio = React.createClass({
     },
 
     onCheckedChange: function(checked) {
-        this.props.onChange({
-            values: checked,
-        });
+        const {choiceStates, choices} = this.props;
+
+        if (choiceStates) {
+            const newStates = choiceStates.map((state, i) => ({
+                ...state,
+                selected: checked[i],
+            }));
+            this.props.onChange({
+                choiceStates: newStates,
+            });
+        } else {
+            this.props.onChange({
+                choiceStates: choices.map((_, i) => ({
+                    selected: checked[i],
+                    rationaleShown: false,
+                })),
+            });
+        }
+
         this.props.trackInteraction();
     },
 
     getUserInput: function() {
-        // Return checked inputs in the form {values: [bool]}. (Dear future
-        // timeline implementers: this used to be {value: i} before multiple
-        // select was added)
-        if (this.props.values) {
+        // Return checked inputs in the form {choicesSelected: [bool]}. (Dear
+        // future timeline implementers: this used to be {value: i} before
+        // multiple select was added)
+        if (this.props.choiceStates) {
             let noneOfTheAboveIndex = null;
             let noneOfTheAboveSelected = false;
 
-            const values = this.props.values.slice();
+            const choiceStates = this.props.choiceStates;
+            const choicesSelected = choiceStates.map(() => false);
 
-            for (let i = 0; i < this.props.values.length; i++) {
+            for (let i = 0; i < choicesSelected.length; i++) {
                 const index = this.props.choices[i].originalIndex;
-                values[index] = this.props.values[i];
+                choicesSelected[index] = choiceStates[i].selected;
 
                 if (this.props.choices[i].isNoneOfTheAbove) {
                     noneOfTheAboveIndex = index;
 
-                    if (values[i]) {
+                    if (choicesSelected[i]) {
                         noneOfTheAboveSelected = true;
                     }
                 }
             }
 
             return {
-                values: values,
-                noneOfTheAboveIndex: noneOfTheAboveIndex,
-                noneOfTheAboveSelected: noneOfTheAboveSelected,
+                choicesSelected,
+                noneOfTheAboveIndex,
+                noneOfTheAboveSelected,
             };
         } else {
             // Nothing checked
             return {
-                values: _.map(this.props.choices, () => false),
+                choicesSelected: _.map(this.props.choices, () => false),
             };
         }
     },
@@ -144,9 +172,30 @@ const Radio = React.createClass({
         return choices;
     },
 
+    /**
+     * Turn on rationale display for the currently selected choices. Note that
+     * this leaves rationales on for choices that are already showing
+     * rationales.
+     */
+    showRationalesForCurrentlySelectedChoices() {
+        if (this.props.choiceStates) {
+            const newStates = this.props.choiceStates.map(state => ({
+                ...state,
+                rationaleShown: state.selected || state.rationaleShown,
+            }));
+
+            this.props.onChange({
+                choiceStates: newStates,
+            });
+        }
+    },
+
     render: function() {
         let choices = this.props.choices;
-        const values = this.props.values || _.map(choices, () => false);
+        const choiceStates = this.props.choiceStates || _.map(choices, () => ({
+            selected: false,
+            rationaleShown: false,
+        }));
 
         choices = _.map(choices, (choice, i) => {
             const content = (choice.isNoneOfTheAbove && !choice.content) ?
@@ -155,11 +204,18 @@ const Radio = React.createClass({
                 // node (/renderable/fragment).
                 i18n._("None of the above") :
                 choice.content;
+
+            const {
+                selected,
+                rationaleShown,
+            } = choiceStates[i];
+
             return {
                 content: this._renderRenderer(content),
-                checked: values[i],
-                correct: this.props.questionCompleted && values[i],
-                clue: this._renderRenderer(choice.clue),
+                checked: selected,
+                correct: this.props.questionCompleted && selected,
+                rationale: this._renderRenderer(choice.clue),
+                showRationale: rationaleShown,
                 isNoneOfTheAbove: choice.isNoneOfTheAbove,
             };
         });
@@ -181,7 +237,7 @@ const Radio = React.createClass({
 
 _.extend(Radio, {
     validate: function(state, rubric) {
-        const numSelected = _.reduce(state.values, function(sum, selected) {
+        const numSelected = _.reduce(state.selectedChoices, (sum, selected) => {
             return sum + ((selected) ? 1 : 0);
         }, 0);
 
@@ -199,7 +255,7 @@ _.extend(Radio, {
             };
         } else {
             /* jshint -W018 */
-            const correct = _.all(state.values, function(selected, i) {
+            const correct = _.all(state.selectedChoices, function(selected, i) {
                 let isCorrect;
                 if (state.noneOfTheAboveIndex === i) {
                     isCorrect = _.all(rubric.choices, function(choice, j) {

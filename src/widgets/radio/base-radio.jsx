@@ -62,7 +62,8 @@ const ChoiceNoneAbove = React.createClass({
 const ChoicesType = React.PropTypes.arrayOf(React.PropTypes.shape({
     checked: React.PropTypes.bool,
     content: React.PropTypes.node,
-    clue: React.PropTypes.node,
+    rationale: React.PropTypes.node,
+    showRationale: React.PropTypes.bool,
     correct: React.PropTypes.bool,
     originalIndex: React.PropTypes.number,
     isNoneOfTheAbove: React.PropTypes.bool,
@@ -329,15 +330,10 @@ const BaseRadio = React.createClass({
                 </div>}
             <ul className={className}>
                 {this.props.choices.map(function(choice, i) {
-                    // True if we're in review mode and a clue (aka rationale)
-                    // is available. These are only used for SAT questions,
-                    // though there was historically an inconclusive AB test
-                    // that showed clues for other exercises.
-                    // (See content/targeted_clues_exercises.py for more)
-                    // TODO(marcia): Aria recommends bringing this logic up a
-                    // level, as with this.props.questionCompleted.
-                    const reviewModeClues = !!(rubric &&
-                                               rubric.choices[i].clue);
+                    // True if we're in review mode and a rationale
+                    // is available.
+                    const reviewModeRationales = !!(rubric &&
+                                               rubric.choices[i].rationale);
 
                     let Element = Choice;
                     const elementProps = {
@@ -346,13 +342,14 @@ const BaseRadio = React.createClass({
                         checked: choice.checked,
                         reviewMode: !!rubric,
                         correct: (rubric && rubric.choices[i].correct),
-                        clue: choice.clue,
+                        rationale: choice.rationale,
                         content: choice.content,
                         disabled: this.props.apiOptions.readOnly,
                         editMode: this.props.editMode,
                         groupName: this.state.radioGroupName,
                         isLastChoice: i === this.props.choices.length - 1,
-                        showClue: reviewModeClues,
+                        showRationale: reviewModeRationales ||
+                            choice.showRationale,
                         type: inputType,
                         pos: i,
                         deselectEnabled: this.deselectEnabled(),

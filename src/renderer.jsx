@@ -523,6 +523,19 @@ var Renderer = React.createClass({
     },
 
     /**
+     * Tell each of the radio widgets to show rationales for each of the
+     * currently selected choices inside of them.
+     */
+    showRationalesForCurrentlySelectedChoices() {
+        Object.keys(this.props.widgets).forEach(widgetId => {
+            const widget = this.getWidgetInstance(widgetId);
+            if (widget && widget.showRationalesForCurrentlySelectedChoices) {
+                widget.showRationalesForCurrentlySelectedChoices();
+            }
+        });
+    },
+
+    /**
      * Allows inter-widget communication.
      *
      * This function yields this Renderer's own internal widgets, and it's used

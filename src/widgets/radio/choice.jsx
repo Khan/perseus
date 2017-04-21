@@ -42,7 +42,7 @@ const Choice = React.createClass({
         }),
         checked: React.PropTypes.bool,
         className: React.PropTypes.string,
-        clue: React.PropTypes.node,
+        rationale: React.PropTypes.node,
         content: React.PropTypes.node,
         correct: React.PropTypes.bool,
         deselectEnabled: React.PropTypes.bool,
@@ -55,7 +55,7 @@ const Choice = React.createClass({
         // (so that we can display a nice little (A), (B), etc. next to it)
         pos: React.PropTypes.number,
         reviewMode: React.PropTypes.bool,
-        showClue: React.PropTypes.bool,
+        showRationale: React.PropTypes.bool,
         type: React.PropTypes.string,
     },
 
@@ -206,11 +206,11 @@ const Choice = React.createClass({
                 width: "auto",
             },
 
-            clue: {
+            rationale: {
                 display: "block",
             },
 
-            mobileClue: {
+            mobileRationale: {
                 backgroundColor: "#fafafa",
                 padding: responsiveCheckboxPadding,
                 margin: "0 -1px -1px -1px",
@@ -218,11 +218,11 @@ const Choice = React.createClass({
                 width: "100%",
             },
 
-            mobileClueSelected: {
+            mobileRationaleSelected: {
                 margin: 0,
             },
 
-            satReviewClue: {
+            satReviewRationale: {
                 marginTop: 13,
                 marginLeft: 45,
             },
@@ -263,7 +263,7 @@ const Choice = React.createClass({
             classSet: {},
             disabled: false,
             editMode: false,
-            showClue: false,
+            showRationale: false,
             type: 'radio',
             pos: 0,
         };
@@ -433,19 +433,19 @@ const Choice = React.createClass({
             "checkbox-and-option",
             css(
                 !sat && styles.responsiveCheckbox,
-                !sat && !correct && this.props.showClue
+                !sat && !correct && this.props.showRationale
                     && styles.checkboxCrossout,
                 !sat && this.props.checked && styles.responsiveCheckboxSelected
             )
         );
 
-        const clueClassName = classNames(
-            "perseus-radio-clue",
+        const rationaleClassName = classNames(
             css(
-                styles.clue,
-                isMobile && styles.mobileClue,
-                isMobile && this.props.checked && styles.mobileClueSelected,
-                sat && styles.satReviewClue
+                styles.rationale,
+                isMobile && styles.mobileRationale,
+                isMobile && this.props.checked &&
+                    styles.mobileRationaleSelected,
+                sat && styles.satReviewRationale
             )
         );
 
@@ -492,9 +492,9 @@ const Choice = React.createClass({
                         </div>
                     </span>
                 </div>
-                {this.props.showClue &&
-                    <div className={clueClassName}>
-                        {this.props.clue}
+                {this.props.showRationale &&
+                    <div className={rationaleClassName}>
+                        {this.props.rationale}
                     </div>}
             </div>
         </LabelOrDiv>;
