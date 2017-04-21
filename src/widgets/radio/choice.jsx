@@ -15,6 +15,7 @@ const styleConstants = require("../../styles/constants.js");
 const mediaQueries = require("../../styles/media-queries.js");
 
 const ToggleableRadioButton = require("./toggleable-radio-button.jsx");
+const ChoiceIcon = require("./choice-icon.jsx");
 
 
 const checkedColor = styleConstants.checkedColor;
@@ -200,64 +201,6 @@ const Choice = React.createClass({
                 width: "auto",
             },
 
-            satPosBack: {
-                display: "block",
-                borderRadius: 25,
-                border: `2px solid ${styleConstants.satBlue}`,
-                content: `''`,
-                height: 25,
-                width: 25,
-                position: "absolute",
-                top: 1,
-                left: 1,
-            },
-
-            satPosBackChecked: {
-                background: styleConstants.satBlue,
-            },
-
-            satPosBackCorrect: {
-                borderColor: styleConstants.satCorrectColor,
-            },
-
-            satPosBackCorrectChecked: {
-                background: styleConstants.satCorrectColor,
-            },
-
-            satPosBackIncorrectChecked: {
-                borderColor: styleConstants.satIncorrectColor,
-                background: styleConstants.satIncorrectColor,
-            },
-
-            satPos: {
-                // These properties make sure that this element has the exact
-                // same size as `satPosBack` so that we can center things
-                // inside of it.
-                border: "2px solid transparent",
-                width: 25,
-                height: 25,
-                position: "absolute",
-                left: 1,
-                top: 1,
-
-                // Center contained items.
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-
-                fontFamily: styleConstants.boldFontFamily,
-                fontSize: 13,
-                color: styleConstants.satBlue,
-            },
-
-            satPosChecked: {
-                color: '#fff',
-            },
-
-            satPosCorrect: {
-                color: styleConstants.satCorrectColor,
-            },
-
             clue: {
                 display: "block",
             },
@@ -343,36 +286,24 @@ const Choice = React.createClass({
         this._input = ref;
     },
 
+    renderChoiceIcon() {
+        // TODO(amy): for now, the only product using letter choice
+        // icons is SAT. However, eventualy use of letters may be a flag
+        // at the content level, distinct from the product styling.
+        let product = "sat";
+        const renderChoiceIcon = this.props.apiOptions.satStyling;
+        if (renderChoiceIcon) {
+            return <ChoiceIcon
+                pos={this.props.pos}
+                correct={this.props.correct}
+                checked={this.props.checked}
+                reviewMode={this.props.reviewMode}
+                product={product}
+            />;
+        }
+    },
+
     render: function() {
-        // NOTE(jeresig): This is not i18n appropriate and should probably be
-        // changed to a map of common options that are properly translated.
-        const letter = String.fromCharCode(65 + this.props.pos);
-
-        const a11yText = () => {
-            // If the option was checked we need to reveal more context about
-            // what the result was (correct/incorrect)
-            if (this.props.checked) {
-                if (typeof this.props.correct === "boolean") {
-                    if (this.props.correct) {
-                        return i18n._("(Choice %(letter)s, Checked, Correct)",
-                            {letter: letter});
-                    } else {
-                        return i18n._("(Choice %(letter)s, Checked, Incorrect)",
-                            {letter: letter});
-                    }
-                }
-
-                return i18n._("(Choice %(letter)s, Checked)", {letter: letter});
-
-            // If the option wasn't checked, but was correct, we need to tell
-            // the user that this was, in fact, the correct answer.
-            } else if (this.props.correct) {
-                return i18n._("(Choice %(letter)s, Correct Answer)",
-                    {letter: letter});
-            }
-
-            return i18n._("(Choice %(letter)s)", {letter: letter});
-        };
 
         const styles = Choice.styles;
         const sat = this.props.apiOptions.satStyling;
@@ -468,23 +399,6 @@ const Choice = React.createClass({
             css(sat && sharedStyles.perseusInteractive,
                 sat && styles.satCheckboxOptionContent);
 
-        const posBackClassName = "pos-back " +
-            css(styles.pos, sat && styles.satPosBack,
-                sat && (this.props.checked || this.state.isInputActive)
-                    && styles.satPosBackChecked,
-                sat && reviewMode && correct && styles.satPosBackCorrect,
-                sat && reviewMode && correct && checked
-                    && styles.satPosBackCorrectChecked,
-                sat && reviewMode && !correct && checked
-                    && styles.satPosBackIncorrectChecked);
-
-        const posClassName = "pos " +
-            css(styles.pos, sat && styles.satPos,
-                sat && correct && styles.satPosCorrect,
-                sat && (this.props.checked || this.state.isInputActive)
-                    && styles.satPosChecked);
-
-
         // In edit mode, we must allow selection of the contentEditable
         // element inside, therefore we cannot use a label, which makes
         // selection of anything inside automatically select the input
@@ -503,13 +417,7 @@ const Choice = React.createClass({
             >
                 <div className="checkbox-and-option">
                     <span className={checkboxContentClassName}>
-                        <div className={posBackClassName}/>
-                        <div className={posClassName}>
-                            <span className="perseus-sr-only">
-                                {a11yText()}
-                            </span>
-                            <span aria-hidden="true">{letter}</span>
-                        </div>
+                        {this.renderChoiceIcon()}
                     </span>
                     {/* A pseudo-label. <label> is slightly broken on iOS,
                         so this works around that. Unfortunately, it is
