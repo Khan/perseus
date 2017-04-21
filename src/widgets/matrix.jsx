@@ -8,19 +8,20 @@ var React = require("react");
 var ReactDOM = require("react-dom");
 var _ = require("underscore");
 
-var NumberInput = require("../components/number-input.jsx");
 var Renderer = require("../renderer.jsx");
 var TextInput = require("../components/text-input.jsx");
-var MathOutput = require("../components/math-output.jsx");
-const SimpleKeypadInput = require("../components/simple-keypad-input.jsx");
 
 var ApiOptions = require("../perseus-api.jsx").Options;
-const KhanAnswerTypes = require("../util/answer-types.js");
-const { keypadElementPropType } = require("../../math-input").propTypes;
+const KhanAnswerTypes = Khan.answerTypes;
 
 var assert = require("../interactive2/interactive-util.js").assert;
 var stringArrayOfSize = require("../util.js").stringArrayOfSize;
 
+var Changeable = require("../mixins/changeable.jsx");
+var JsonifyProps = require("../mixins/jsonify-props.jsx");
+
+var Editor = require("../editor.jsx");
+var RangeInput = require("../components/range-input.jsx");
 
 // We store three sets of dimensions for the brackets, for our three types of
 // inputs, which vary in formatting: (1) the "static" inputs rendered for the
@@ -39,12 +40,6 @@ var NORMAL_DIMENSIONS = {
     INPUT_MARGIN: 3,
     INPUT_HEIGHT: 30,
     INPUT_WIDTH: 40,
-};
-
-const KEYPAD_INPUT_DIMENSIONS = {
-    INPUT_MARGIN: 4,
-    INPUT_HEIGHT: 36,
-    INPUT_WIDTH: 64,
 };
 
 /* Input handling: Maps a (row, column) pair to a unique ref used by React,
@@ -114,7 +109,6 @@ var Matrix = React.createClass({
         cursorPosition: React.PropTypes.arrayOf(
             React.PropTypes.number
         ),
-        keypadElement: keypadElementPropType,
         matrixBoardSize: React.PropTypes.arrayOf(
             React.PropTypes.number
         ).isRequired,
@@ -149,14 +143,7 @@ var Matrix = React.createClass({
         // Set the input sizes through JS so we can control the size of the
         // brackets. (If we set them in CSS we won't know values until the
         // inputs are rendered.)
-        let dimensions;
-        if (this.props.apiOptions.customKeypad) {
-            dimensions = KEYPAD_INPUT_DIMENSIONS;
-        } else if (this.props.apiOptions.staticRender) {
-            dimensions = STATIC_INPUT_DIMENSIONS;
-        } else {
-            dimensions = NORMAL_DIMENSIONS;
-        }
+        let dimensions = NORMAL_DIMENSIONS;
         const { INPUT_MARGIN, INPUT_HEIGHT, INPUT_WIDTH } = dimensions;
 
         var matrixSize = getMatrixSize(this.props.answers);
@@ -253,32 +240,7 @@ var Matrix = React.createClass({
                                 }
                             };
 
-                            let MatrixInput;
-                            if (this.props.apiOptions.customKeypad) {
-                                const style = {
-                                    margin: INPUT_MARGIN,
-                                    minWidth: INPUT_WIDTH,
-                                    minHeight: INPUT_HEIGHT,
-                                    // Ensure that any borders are included in
-                                    // the provided width.
-                                    boxSizing: 'border-box',
-                                    backgroundColor: outside ? '#f3f3f3' :
-                                                               '#fff'
-                                };
-
-                                MatrixInput = <SimpleKeypadInput
-                                    {...inputProps}
-                                    style={style}
-                                    scrollable={true}
-                                    keypadElement={this.props.keypadElement}
-                                />;
-                            } else if (this.props.apiOptions.staticRender) {
-                                MatrixInput = <MathOutput {...inputProps} />;
-                            } else if (this.props.numericInput) {
-                                MatrixInput = <NumberInput {...inputProps} />;
-                            } else {
-                                MatrixInput = <TextInput {...inputProps} />;
-                            }
+                            let MatrixInput = <TextInput {...inputProps} />;
                             return <span
                                         key={col}
                                         className="matrix-input-field">
@@ -429,7 +391,11 @@ var Matrix = React.createClass({
 
     simpleValidate: function(rubric) {
         return Matrix.validate(this.getUserInput(), rubric);
-    }
+    },
+
+    statics: {
+        displayMode: "block"
+    },
 });
 
 _.extend(Matrix, {
@@ -517,10 +483,133 @@ var staticTransform = (editorProps) => {
     return widgetProps;
 };
 
+// Really large matrices will cause issues with question formatting, so we
+// have to cap it at some point.
+var MAX_BOARD_SIZE = 6;
+
+var getMatrixSize = function(matrix) {
+    var matrixSize = [1, 1];
+
+    // We need to find the widest row and tallest column to get the correct
+    // matrix size.
+    _(matrix).each((matrixRow, row) => {
+        var rowWidth = 0;
+        _(matrixRow).each((matrixCol, col) => {
+            if (matrixCol != null && matrixCol.toString().length) {
+                rowWidth = col + 1;
+            }
+        });
+
+        // Matrix width:
+        matrixSize[1] = Math.max(matrixSize[1], rowWidth);
+
+        // Matrix height:
+        if (rowWidth > 0) {
+            matrixSize[0] = Math.max(matrixSize[0], row + 1);
+        }
+    });
+    return matrixSize;
+};
+
+var MatrixEditor = React.createClass({
+    mixins: [Changeable, JsonifyProps],
+    propTypes: {
+        ...Changeable.propTypes,
+        matrixBoardSize: React.PropTypes.arrayOf(
+            React.PropTypes.number
+        ).isRequired,
+        answers: React.PropTypes.arrayOf(
+            React.PropTypes.arrayOf(
+                React.PropTypes.number
+            )
+        ),
+        prefix: React.PropTypes.string,
+        suffix: React.PropTypes.string,
+        cursorPosition: React.PropTypes.arrayOf(
+            React.PropTypes.number
+        )
+    },
+
+    getDefaultProps: function() {
+        return {
+            matrixBoardSize: [3, 3],
+            answers: [[]],
+            prefix: "",
+            suffix: "",
+            cursorPosition: [0, 0]
+        };
+    },
+
+    render: function() {
+        var matrixProps = _.extend({
+            numericInput: true,
+            onBlur: () => {},
+            onFocus: () => {},
+            trackInteraction: () => {},
+        }, this.props);
+        return <div className="perseus-matrix-editor">
+            <div className="perseus-widget-row">
+                {" "}Max matrix size:{" "}
+                <RangeInput
+                    value={this.props.matrixBoardSize}
+                    onChange={this.onMatrixBoardSizeChange}
+                    format={this.props.labelStyle}
+                    useArrowKeys={true} />
+            </div>
+            <div className="perseus-widget-row">
+                <Matrix {...matrixProps} />
+            </div>
+            <div className="perseus-widget-row">
+                {" "}Matrix prefix:{" "}
+                <Editor
+                    ref={"prefix"}
+                    apiOptions={this.props.apiOptions}
+                    content={this.props.prefix}
+                    widgetEnabled={false}
+                    onChange={(newProps) => {
+                        this.change({ prefix: newProps.content });
+                    }} />
+            </div>
+            <div className="perseus-widget-row">
+                {" "}Matrix suffix:{" "}
+                <Editor
+                    ref={"suffix"}
+                    apiOptions={this.props.apiOptions}
+                    content={this.props.suffix}
+                    widgetEnabled={false}
+                    onChange={(newProps) => {
+                        this.change({ suffix: newProps.content });
+                    }} />
+            </div>
+        </div>;
+    },
+
+    onMatrixBoardSizeChange: function (range) {
+        var matrixSize = getMatrixSize(this.props.answers);
+        if (range[0] !== null && range[1] !== null) {
+            range = [
+                Math.round(Math.min(Math.max(range[0], 1), MAX_BOARD_SIZE)),
+                Math.round(Math.min(Math.max(range[1], 1), MAX_BOARD_SIZE))
+            ];
+            var answers = _(Math.min(range[0], matrixSize[0])).times(row => {
+                return _(Math.min(range[1], matrixSize[1])).times(col => {
+                    return this.props.answers[row][col];
+                });
+            });
+            this.props.onChange({
+                matrixBoardSize: range,
+                answers: answers
+            });
+        }
+    },
+});
+
 module.exports = {
     name: "matrix",
-    displayName: "Matrix",
+    displayName: "Matrix/矩陣",
     widget: Matrix,
+    editor: MatrixEditor,
+    version: {major: 1, minor: 0},
     transform: propTransform,
     staticTransform: staticTransform,
 };
