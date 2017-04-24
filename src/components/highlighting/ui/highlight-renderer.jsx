@@ -1,38 +1,23 @@
 // @flow
 /**
- * This component, given a set of DOMHighlights, draws highlight rectangles in
- * the same absolute position as the highlighted content, as computed by the
- * range's `getClientRects` method.
- *
- * This file contains two tightly-coupled components:
- *   - `SingleHighlightRenderer`, which renders just one highlight.
- *   - `HighlightsRenderer`, which renders many highlights.
- *
- * `HighlightsRenderer` is exported, whereas `SingleHighlightRenderer` is local
- * to this file.
+ * This component, given a single DOMHighlight, draws highlight rectangles in
+ * the same absolute position as the highlighted content, as computed via
+ * `getClientRects`.
  *
  * TODO(mdr): Many things can affect the correct positioning of highlighting,
  *     and this component does not attempt to anticipate them. If we start
  *     using this highlighting library on content with a more dynamic layout,
  *     we should add a hook to allow the parent to `forceUpdate` the
- *     `HighlightsRenderer`.
+ *     `HighlightRenderer`.
  */
 const React = require("react");
 const {StyleSheet, css} = require("aphrodite");
 
-import type {DOMHighlight} from "./types.js";
+const {getRelativePosition} = require("./util.js");
 
-type Position = {
-    left: number,
-    top: number,
-};
+import type {DOMHighlight, Position, Rect, ZIndexes} from "./types.js";
 
-type Rect = Position & {
-    width: number,
-    height: number,
-};
-
-type SingleHighlightRendererProps = {
+type HighlightRendererProps = {
     // The DOMHighlight to render.
     highlight: DOMHighlight,
 
@@ -41,36 +26,32 @@ type SingleHighlightRendererProps = {
 
     // This component's `offsetParent` element, which is the nearest ancestor
     // with `position: relative`. This will enable us to choose the correct
-    // CSS coordinates to align this component with the target content.
-    //
-    // Provided by the parent as an optimization, since all
-    // SingleHighlightRenderers will have the same `offsetParent`.
+    // CSS coordinates to align highlights and tooltips with the target
+    // content.
     offsetParent: Element,
 
     // When this highlight is clicked, it calls this callback with the given
     // DOMHighlight's key as a parameter.
     // TODO(mdr): Remove this once we have a "Remove Highlight" tooltip.
     onClick: (key: string) => mixed,
+
+    // The z-indexes to use when rendering tooltips above content, and
+    // highlights below content.
+    zIndexes: ZIndexes,
 };
 
-type SingleHighlightRendererState = {
+type HighlightRendererState = {
     // The set of rectangles that cover this highlight's content, relative to
     // the offset parent. This cache is updated on mount and on changes to
     // the `highlight` and `offsetParent` props.
     cachedHighlightRects: Rect[],
 };
 
-class SingleHighlightRenderer extends React.PureComponent {
+class HighlightRenderer extends React.PureComponent {
     /* eslint-disable react/sort-comp */
-    props: SingleHighlightRendererProps
-    state: SingleHighlightRendererState
+    props: HighlightRendererProps
+    state: HighlightRendererState = {cachedHighlightRects: []}
     /* eslint-enable react/sort-comp */
-
-    constructor(props: SingleHighlightRendererProps) {
-        super(props);
-
-        this.state = {cachedHighlightRects: this._getRects(props)};
-    }
 
     componentDidMount() {
         // HACK(mdr): We use mousedown rather than click to prevent shift-click
@@ -88,7 +69,7 @@ class SingleHighlightRenderer extends React.PureComponent {
         window.removeEventListener("mousedown", this._handleGlobalClick);
     }
 
-    componentWillReceiveProps(nextProps: SingleHighlightRendererProps) {
+    componentWillReceiveProps(nextProps: HighlightRendererProps) {
         if (
             this.props.highlight !== nextProps.highlight ||
             this.props.offsetParent !== nextProps.offsetParent
@@ -127,16 +108,15 @@ class SingleHighlightRenderer extends React.PureComponent {
         // Recompute the rectangle's coordinates to be relative to the offset
         // parent, instead of relative to the viewport.
         const rects = Array.prototype.map.call(domRects, domRect => ({
+            ...getRelativePosition(domRect, offsetParentRect),
             width: domRect.width,
             height: domRect.height,
-            left: domRect.left - offsetParentRect.left,
-            top: domRect.top - offsetParentRect.top,
         }));
 
         return rects;
     }
 
-    _handleGlobalClick = (e) => {
+    _handleGlobalClick = (e: MouseEvent) => {
         // TODO(mdr): When we move to an Add/Remove Highlight tooltip instead,
         //     remove this global click listener entirely.
         const mouseClientPosition = {
@@ -154,21 +134,19 @@ class SingleHighlightRenderer extends React.PureComponent {
      * viewport) is hovering over this highlight.
      */
     _highlightIsHovered(mouseClientPosition: ?Position): boolean {
-        const {offsetParent} = this.props;
-        const {cachedHighlightRects} = this.state;
-
         if (!mouseClientPosition) {
             return false;
         }
+
+        const {offsetParent} = this.props;
+        const {cachedHighlightRects} = this.state;
 
         // Convert the client-relative mouse coordinates to be relative to the
         // offset parent. That way, we can compare them to the cached highlight
         // rectangles.
         const offsetParentRect = offsetParent.getBoundingClientRect();
-        const mouseOffsetPosition = {
-            left: mouseClientPosition.left - offsetParentRect.left,
-            top: mouseClientPosition.top - offsetParentRect.top,
-        };
+        const mouseOffsetPosition =
+            getRelativePosition(mouseClientPosition, offsetParentRect);
 
         return cachedHighlightRects.some(rect =>
             this._rectIsHovered(rect, mouseOffsetPosition));
@@ -180,15 +158,13 @@ class SingleHighlightRenderer extends React.PureComponent {
      * (coordinates also relative to this component's offset parent).
      */
     _rectIsHovered(rect: Rect, mouseOffsetPosition: Position): boolean {
-        const PositionWithinRect = {
-            left: mouseOffsetPosition.left - rect.left,
-            top: mouseOffsetPosition.top - rect.top,
-        };
+        const positionWithinRect =
+            getRelativePosition(mouseOffsetPosition, rect);
 
-        return 0 <= PositionWithinRect.left &&
-            PositionWithinRect.left < rect.width &&
-            0 <= PositionWithinRect.top &&
-            PositionWithinRect.top < rect.height;
+        return 0 <= positionWithinRect.left &&
+            positionWithinRect.left < rect.width &&
+            0 <= positionWithinRect.top &&
+            positionWithinRect.top < rect.height;
     }
 
     render() {
@@ -211,99 +187,13 @@ class SingleHighlightRenderer extends React.PureComponent {
                         height: rect.height,
                         top: rect.top,
                         left: rect.left,
+                        zIndex: this.props.zIndexes.belowContent,
                     }}
                 />
             )}
         </div>;
     }
 }
-
-
-type HighlightsRendererProps = {
-    highlights: DOMHighlight[],
-    onRemoveHighlight: (highlightKey: string) => mixed,
-};
-
-type HighlightsRendererState = {
-    // The mouse's position relative to the viewport, as of the most recent
-    // global `mousemove` event. Passed to each `SingleHighlightRenderer` that
-    // this component renders.
-    mouseClientPosition: ?Position,
-};
-
-class HighlightsRenderer extends React.PureComponent {
-    /* eslint-disable react/sort-comp */
-    props: HighlightsRendererProps
-    state: HighlightsRendererState = {mouseClientPosition: null}
-    _container: ?HTMLElement = null
-    /* eslint-enable react/sort-comp */
-
-    componentDidMount() {
-        window.addEventListener("mousemove", this._handleMouseMove);
-
-        // This component renders twice on mount; see `render` for details.
-        this.forceUpdate();
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener("mousemove", this._handleMouseMove);
-    }
-
-    /**
-     * Render a `SingleHighlightRenderer` for each of the given highlights.
-     *
-     * Accepts `this._container` as an argument, to prove to Flow that this
-     * function is only called when `this._container` is available.
-     */
-    renderHighlights(container: HTMLElement) {
-        return this.props.highlights.map(highlight =>
-            <SingleHighlightRenderer
-                key={highlight.key}
-                highlight={highlight}
-                mouseClientPosition={this.state.mouseClientPosition}
-                offsetParent={container.offsetParent}
-                onClick={this.props.onRemoveHighlight}
-            />
-        );
-    }
-
-    /**
-     * Update our state to track the mouse's new position.
-     */
-    _handleMouseMove = (e: MouseEvent) => {
-        this.setState({
-            mouseClientPosition: {
-                left: e.clientX,
-                top: e.clientY,
-            },
-        });
-    }
-
-    render() {
-        // When this component mounts, it actually renders twice: once on
-        // mount, then immediately again after mount. (We test whether we've
-        // mounted yet by testing our reference to `this._container`)
-        if (!this._container) {
-            // On mount, we just render the container, because we can't
-            // actually know the correct position for the highlights until we
-            // have a reference to the container element. This ref will be
-            // assigned after mount, and before our second update.
-            return <div
-                ref={container => this._container = container}
-            />;
-        } else {
-            // On the second render, and all subsequent updates, render the
-            // container *and* the given highlights, now that we have enough
-            // information to position them.
-            return <div
-                ref={container => this._container = container}
-            >
-                {this.renderHighlights(this._container)}
-            </div>;
-        }
-    }
-}
-
 
 const styles = StyleSheet.create({
     // NOTE(mdr): A clever trick here! Instead of assigning the opacity to the
@@ -314,10 +204,19 @@ const styles = StyleSheet.create({
     //     darker than the rest.
     //
     //     This especially matters because getClientRects sometimes returns
-    //     duplicate rects, and I don't know why - but, by doing this clever
-    //     robustness trick, it doesn't matter!
+    //     duplicate rects for text nodes and their wrapper elements - but,
+    //     this way, the overlap doesn't affect the visuals.
     highlight: {
         opacity: 0.4,
+
+        // NOTE(mdr): IE and Edge don't apply a non-positioned parent's opacity
+        //     to a positioned child. We therefore position the highlight to
+        //     be in the top left corner of the offset parent, which won't
+        //     disrupt calculations, but will lead to correct opacity behavior
+        //     on IE.
+        position: "absolute",
+        left: 0,
+        top: 0,
     },
 
     hoveredHighlight: {
@@ -331,5 +230,4 @@ const styles = StyleSheet.create({
     },
 });
 
-
-module.exports = HighlightsRenderer;
+module.exports = HighlightRenderer;
