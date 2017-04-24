@@ -199,7 +199,7 @@ class Passage extends React.Component {
 
     componentWillUnmount() {
         window.removeEventListener("mousedown", this.handleMouseDown);
-        window.removeEventlistener("resize", this._onResize);
+        window.removeEventListener("resize", this._onResize);
     }
 
     /**

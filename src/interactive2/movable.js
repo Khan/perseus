@@ -213,6 +213,12 @@ _.extend(Movable.prototype, {
                 });
             }
 
+            // Prevent the page from scrolling when we grab and drag the
+            // movable object on a mobile device.
+            $mouseTarget[0].addEventListener("touchstart", function(event) {
+                event.preventDefault();
+            }, {passive: false});
+
             $mouseTarget.on("vmousedown", function(e) {
                 if (e.which !== 0 && e.which !== 1) {
                     return;

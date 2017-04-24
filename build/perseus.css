@@ -1,5 +1,5 @@
 /* Perseus CSS
-// commit 0cb0462fdd2f20ea322feb65e6b837fc71523305
+// commit fa97583fd918ba1e209c063f9534c8c4a627c4ff
 // branch master
 // @generated
 */
@@ -1711,6 +1711,7 @@ body.sat-section .perseus-widget-passage {
   -moz-user-select: none;
   -o-user-select: none;
   cursor: pointer;
+  touch-action: none;
 }
 .draggy-boxy-thing .card.placeholder {
   background: #ddd;

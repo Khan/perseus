@@ -38,7 +38,7 @@ const ItemRenderer = React.createClass({
             question: RP.object,
         }).isRequired,
         problemNum: RP.number,
-        savedState: RP.any,
+        reviewMode: RP.bool,
     },
 
     getDefaultProps: function() {
@@ -317,7 +317,7 @@ const ItemRenderer = React.createClass({
             highlightedWidgets={this.state.questionHighlightedWidgets}
             apiOptions={apiOptions}
             questionCompleted={this.state.questionCompleted}
-            savedState={this.props.savedState}
+            reviewMode={this.props.reviewMode}
             ref={elem => this.questionRenderer = elem}
             {...this.props.item.question}
         />;

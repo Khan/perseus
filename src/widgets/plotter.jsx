@@ -825,6 +825,13 @@ var Plotter = React.createClass({
         var dotTicks = graphie.dotTicks;
         var x = i + 0.5 + c.picPad;
 
+        // In order to make sure that manipulating the graph doesn't cause
+        // dragging, we disable touch actions for the whole mouselayer.
+        // TODO(emily): Figure out a way to turn of touch actions for only the
+        // part of the widget that can be manipulated. Putting this style
+        // directly on the rects below doesn't work.
+        graphie.mouselayer.canvas.style.touchAction = "none";
+
         pics[i] = [];
         dotTicks[i] = [];
         var n = Math.round(c.dimY / c.scaleY) + 1;
