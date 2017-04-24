@@ -80,7 +80,7 @@ class HighlightingUI extends React.PureComponent {
                     highlight={highlight}
                     mouseClientPosition={this.state.mouseClientPosition}
                     offsetParent={this.props.offsetParent}
-                    onClick={this.props.onRemoveHighlight}
+                    onRemoveHighlight={this.props.onRemoveHighlight}
                     zIndexes={this.props.zIndexes}
                 />
             )}

@@ -5,25 +5,58 @@
 const React = require("react");
 const {StyleSheet, css} = require("aphrodite");
 
+const {getRelativePosition} = require("./util.js");
+
 import type {Position} from "./types.js";
 
 type HighlightTooltipProps = {
     label: string,
     onClick: () => mixed,
-    position: Position,
+    onMouseEnter?: ?(() => mixed),
+    onMouseLeave?: ?(() => mixed),
+
+    focusNode: Node,
+    focusOffset: number,
+    offsetParent: Element,
     zIndex: number,
 };
 
 class HighlightTooltip extends React.PureComponent {
     props: HighlightTooltipProps
 
+    _getPosition(): Position {
+        const {focusNode, focusOffset, offsetParent} = this.props;
+
+        // Get a range of *just* the focus point of the selection.
+        const focusRange = document.createRange();
+        focusRange.setStart(focusNode, focusOffset);
+        focusRange.setEnd(focusNode, focusOffset);
+
+        // Then, get the bounding box of the collapsed range. This will be a
+        // zero-width rectangle, but still have positioning information, which
+        // we can use the position the tooltip.
+        const focusRect = focusRange.getBoundingClientRect();
+
+        // Compute the desired position of the tooltip relative to the offset
+        // parent.
+        const offsetParentRect = offsetParent.getBoundingClientRect();
+        const focusPosition =
+            getRelativePosition(focusRect, offsetParentRect);
+
+        return focusPosition;
+    }
+
     render() {
+        const position = this._getPosition();
+
         return <div
             className={css(styles.tooltip)}
             onClick={this.props.onClick}
+            onMouseEnter={this.props.onMouseEnter}
+            onMouseLeave={this.props.onMouseLeave}
             style={{
-                left: this.props.position.left,
-                top: this.props.position.top,
+                left: position.left,
+                top: position.top,
                 zIndex: this.props.zIndex,
             }}
         >

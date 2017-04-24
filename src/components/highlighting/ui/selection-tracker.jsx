@@ -5,10 +5,9 @@
  */
 const React = require("react");
 
-const {getRelativePosition} = require("./util.js");
 const HighlightTooltip = require("./highlight-tooltip.jsx");
 
-import type {DOMRange, Position, ZIndexes} from "./types.js";
+import type {DOMRange, ZIndexes} from "./types.js";
 
 type SelectionTrackerProps = {
     // This component's `offsetParent` element, which is the nearest ancestor
@@ -41,7 +40,7 @@ type SelectionTrackerState = {
     selectionFocusOffset: ?number,
 };
 
-class SelectionTracker extends React.Component {
+class SelectionTracker extends React.PureComponent {
     /* eslint-disable react/sort-comp */
     props: SelectionTrackerProps
     state: SelectionTrackerState = {
@@ -65,40 +64,6 @@ class SelectionTracker extends React.Component {
             this._handleSelectionChange);
     }
 
-    shouldComponentUpdate(
-        nextProps: SelectionTrackerProps, nextState: SelectionTrackerState,
-    ): boolean {
-        const didHideTooltip = this.state.mouseState === "down-and-selecting";
-        const willHideTooltip = nextState.mouseState === "down-and-selecting";
-
-        // If we're currently hiding the tooltip, and still will be after the
-        // state change, there's nothing to update.
-        if (didHideTooltip && willHideTooltip) {
-            return false;
-        }
-
-        // But, if we're about to hide or un-hide the tooltip, definitely
-        // update.
-        if (didHideTooltip !== willHideTooltip) {
-            return true;
-        }
-
-        // A change in offset parent requires us to re-measure the tooltip.
-        if (nextProps.offsetParent !== this.props.offsetParent) {
-            return true;
-        }
-
-        // A change in focus position requires us to move the tooltip.
-        const sameFocusPosition =
-            nextState.selectionFocusNode === this.state.selectionFocusNode &&
-            nextState.selectionFocusOffset === this.state.selectionFocusOffset;
-        if (!sameFocusPosition) {
-            return true;
-        }
-
-        return false;
-    }
-
     /**
      * Get the current selection and non-collapsed range, if any.
      * Otherwise, if there is no current selection or it's collapsed, return
@@ -114,37 +79,6 @@ class SelectionTracker extends React.Component {
         }
 
         return null;
-    }
-
-    /**
-     * Get the position of the selection focus, relative to the offset parent.
-     * If there is no current selection focus, return null.
-     */
-    _getSelectionFocusPosition(): ?Position {
-        // Get the current selection focus. If none, render nothing.
-        const {selectionFocusNode, selectionFocusOffset} = this.state;
-        if (selectionFocusNode == null || selectionFocusOffset == null) {
-            return null;
-        }
-
-        // Get a range of *just* the focus point of the selection.
-        const selectionFocusRange = document.createRange();
-        selectionFocusRange.setStart(selectionFocusNode, selectionFocusOffset);
-        selectionFocusRange.setEnd(selectionFocusNode, selectionFocusOffset);
-
-        // Then, get the bounding box of the collapsed range. This will be a
-        // zero-width rectangle, but still have positioning information, which
-        // we can use the position the tooltip.
-        const selectionFocusRect = selectionFocusRange.getBoundingClientRect();
-
-        // Compute the desired position of the tooltip relative to the offset
-        // parent.
-        const offsetParentRect =
-            this.props.offsetParent.getBoundingClientRect();
-        const focusPosition =
-            getRelativePosition(selectionFocusRect, offsetParentRect);
-
-        return focusPosition;
     }
 
     /**
@@ -194,22 +128,29 @@ class SelectionTracker extends React.Component {
     }
 
     render() {
+        const {offsetParent, zIndexes} = this.props;
+        const {mouseState, selectionFocusNode, selectionFocusOffset} =
+            this.state;
+
         // If the user is still mouse-selecting some text, we don't want our
         // tooltip getting in the way, so render nothing.
-        if (this.state.mouseState === "down-and-selecting") {
+        if (mouseState === "down-and-selecting") {
             return null;
         }
 
-        const selectionFocusPosition = this._getSelectionFocusPosition();
-        if (!selectionFocusPosition) {
+        // If there's no selection focus, render nothing.
+        if (!selectionFocusNode || !selectionFocusOffset) {
             return null;
         }
 
         return <HighlightTooltip
             label="Add highlight"
             onClick={this._handleAddSelectionAsHighlight}
-            position={selectionFocusPosition}
-            zIndex={this.props.zIndexes.aboveContent}
+
+            focusNode={selectionFocusNode}
+            focusOffset={selectionFocusOffset}
+            offsetParent={offsetParent}
+            zIndex={zIndexes.aboveContent}
         />;
     }
 }

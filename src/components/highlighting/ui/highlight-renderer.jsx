@@ -2,7 +2,8 @@
 /**
  * This component, given a single DOMHighlight, draws highlight rectangles in
  * the same absolute position as the highlighted content, as computed via
- * `getClientRects`.
+ * `getClientRects`. On hover, renders a "Remove Highlight" tooltip that, when
+ * clicked, fires a callback to remove this highlight.
  *
  * TODO(mdr): Many things can affect the correct positioning of highlighting,
  *     and this component does not attempt to anticipate them. If we start
@@ -14,6 +15,7 @@ const React = require("react");
 const {StyleSheet, css} = require("aphrodite");
 
 const {getRelativePosition} = require("./util.js");
+const HighlightTooltip = require("./highlight-tooltip.jsx");
 
 import type {DOMHighlight, Position, Rect, ZIndexes} from "./types.js";
 
@@ -30,10 +32,9 @@ type HighlightRendererProps = {
     // content.
     offsetParent: Element,
 
-    // When this highlight is clicked, it calls this callback with the given
-    // DOMHighlight's key as a parameter.
-    // TODO(mdr): Remove this once we have a "Remove Highlight" tooltip.
-    onClick: (key: string) => mixed,
+    // A callback indicating that the user would like to remove this highlight.
+    // Called with the highlight's key.
+    onRemoveHighlight: (key: string) => mixed,
 
     // The z-indexes to use when rendering tooltips above content, and
     // highlights below content.
@@ -44,30 +45,32 @@ type HighlightRendererState = {
     // The set of rectangles that cover this highlight's content, relative to
     // the offset parent. This cache is updated on mount and on changes to
     // the `highlight` and `offsetParent` props.
+    //
+    // We perform this caching because we need to access the rectangles every
+    // time the user's mouse moves, in order to check the hover state, and
+    // recomputing them on every mousemove seems like it could be expensive on
+    // older devices (though tbf that's just a gut instinct, not the result of
+    // testing on older devices).
+    //
+    // For most caching in highlighting, we take advatange of `PureComponent`,
+    // and be mindful of the props we pass in. But this event happens on
+    // mousemove, not on receive-props or set-state, so `PureComponent` doesn't
+    // protect us from redundant work. We need to do it ourselves :/
     cachedHighlightRects: Rect[],
+
+    // Whether the "Remove Highlight" tooltip is currently hovered. We don't
+    // want to remove it while the user's mouse is over it!
+    tooltipIsHovered: boolean,
 };
 
 class HighlightRenderer extends React.PureComponent {
     /* eslint-disable react/sort-comp */
     props: HighlightRendererProps
-    state: HighlightRendererState = {cachedHighlightRects: []}
+    state: HighlightRendererState = {
+        cachedHighlightRects: [],
+        tooltipIsHovered: false,
+    }
     /* eslint-enable react/sort-comp */
-
-    componentDidMount() {
-        // HACK(mdr): We use mousedown rather than click to prevent shift-click
-        //     highlights from immediately removing themselves. A full click
-        //     event listener be more appropriate if we were planning to ship
-        //     this behavior, but:
-        // TODO(mdr): When we move to an Add/Remove Highlight tooltip instead,
-        //     remove this global click listener entirely.
-        window.addEventListener("mousedown", this._handleGlobalClick);
-    }
-
-    componentWillUnmount() {
-        // TODO(mdr): When we move to an Add/Remove Highlight tooltip instead,
-        //     remove this global click listener entirely.
-        window.removeEventListener("mousedown", this._handleGlobalClick);
-    }
 
     componentWillReceiveProps(nextProps: HighlightRendererProps) {
         if (
@@ -116,17 +119,16 @@ class HighlightRenderer extends React.PureComponent {
         return rects;
     }
 
-    _handleGlobalClick = (e: MouseEvent) => {
-        // TODO(mdr): When we move to an Add/Remove Highlight tooltip instead,
-        //     remove this global click listener entirely.
-        const mouseClientPosition = {
-            left: e.clientX,
-            top: e.clientY,
-        };
+    _handleRemoveHighlight = () => {
+        this.props.onRemoveHighlight(this.props.highlight.key);
+    }
 
-        if (this._highlightIsHovered(mouseClientPosition)) {
-            this.props.onClick(this.props.highlight.key);
-        }
+    _handleTooltipMouseEnter = () => {
+        this.setState({tooltipIsHovered: true});
+    }
+
+    _handleTooltipMouseLeave = () => {
+        this.setState({tooltipIsHovered: false});
     }
 
     /**
@@ -168,29 +170,37 @@ class HighlightRenderer extends React.PureComponent {
     }
 
     render() {
-        const highlightIsHovered =
+        const highlightIsHovered = this.state.tooltipIsHovered ||
             this._highlightIsHovered(this.props.mouseClientPosition);
         const rects = this.state.cachedHighlightRects;
 
-        return <div
-            className={css(
-                styles.highlight,
-                highlightIsHovered && styles.hoveredHighlight,
-            )}
-        >
-            {rects.map((rect, index) =>
-                <div
-                    key={index}
-                    className={css(styles.highlightRect)}
-                    style={{
-                        width: rect.width,
-                        height: rect.height,
-                        top: rect.top,
-                        left: rect.left,
-                        zIndex: this.props.zIndexes.belowContent,
-                    }}
-                />
-            )}
+        return <div>
+            <div className={css(styles.highlight)}>
+                {rects.map((rect, index) =>
+                    <div
+                        key={index}
+                        className={css(styles.highlightRect)}
+                        style={{
+                            width: rect.width,
+                            height: rect.height,
+                            top: rect.top,
+                            left: rect.left,
+                            zIndex: this.props.zIndexes.belowContent,
+                        }}
+                    />
+                )}
+            </div>
+            {highlightIsHovered && <HighlightTooltip
+                label="Remove highlight"
+                onClick={this._handleRemoveHighlight}
+                onMouseEnter={this._handleTooltipMouseEnter}
+                onMouseLeave={this._handleTooltipMouseLeave}
+
+                focusNode={this.props.highlight.range.endContainer}
+                focusOffset={this.props.highlight.range.endOffset}
+                offsetParent={this.props.offsetParent}
+                zIndex={this.props.zIndexes.aboveContent}
+            />}
         </div>;
     }
 }
@@ -217,11 +227,6 @@ const styles = StyleSheet.create({
         position: "absolute",
         left: 0,
         top: 0,
-    },
-
-    hoveredHighlight: {
-        // TODO(mdr): Just to demonstrate hovering.
-        opacity: 0.6,
     },
 
     highlightRect: {
