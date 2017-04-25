@@ -9,6 +9,13 @@ const {StyleSheet, css} = require("aphrodite");
 
 const styleConstants = require("../../styles/constants.js");
 
+// TODO(amy): figure out a better way to make flow recognize
+// the i18n global
+declare var i18n: {
+    _(text: string, interpolations?: {[k: string]: string}): string,
+};
+
+
 type ChoiceIconProps = {
     pos: number,
     checked: boolean,
@@ -51,7 +58,10 @@ class ChoiceIcon extends React.Component {
     // TODO(amy): figure out a better scheme for specifying these
     // styles that isn't such a pain to grok. See some neat ideas
     // from MDR in https://phabricator.khanacademy.org/D35249.
-    constructStyles(reviewMode, product, correct, checked) {
+    constructStyles(reviewMode: boolean,
+                    product: string,
+                    correct: ?boolean,
+                    checked: boolean) {
         let color;
         let backgroundColor;
         let borderColor;
