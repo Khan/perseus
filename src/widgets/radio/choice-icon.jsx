@@ -103,7 +103,7 @@ class ChoiceIcon extends React.Component {
                 borderColor = styleConstants.gtpBlue;
             }
         }
-        return {color, backgroundColor, borderColor}
+        return {color, backgroundColor, borderColor};
     }
 
     render() {

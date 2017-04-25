@@ -2,8 +2,6 @@
 /* eslint-disable object-curly-spacing */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-/* global i18n */
-
 const { StyleSheet, css } = require("aphrodite");
 const _ = require("underscore");
 const React = require('react');
@@ -290,7 +288,7 @@ const Choice = React.createClass({
         // TODO(amy): for now, the only product using letter choice
         // icons is SAT. However, eventualy use of letters may be a flag
         // at the content level, distinct from the product styling.
-        let product = "sat";
+        const product = "sat";
         const renderChoiceIcon = this.props.apiOptions.satStyling;
         if (renderChoiceIcon) {
             return <ChoiceIcon
