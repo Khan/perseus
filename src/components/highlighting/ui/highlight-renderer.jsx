@@ -22,6 +22,10 @@ const HighlightTooltip = require("./highlight-tooltip.jsx");
 import type {DOMHighlight, Position, Rect, ZIndexes} from "./types.js";
 
 type HighlightRendererProps = {
+    // Whether this highlight is user-editable. If false, the highlight is
+    // read-only.
+    editable: boolean,
+
     // The DOMHighlight to render.
     highlight: DOMHighlight,
 
@@ -171,9 +175,31 @@ class HighlightRenderer extends React.PureComponent {
             positionWithinRect.top < rect.height;
     }
 
+    /**
+     * Return whether the "Remove highlight" tooltip should be visible.
+     */
+    _shouldShowTooltip(): boolean {
+        // If the highlight is not editable, hide the tooltip.
+        if (!this.props.editable) {
+            return false;
+        }
+
+        // If the tooltip is hovered, continue to show it, even if the
+        // highlight is no longer hovered.
+        if (this.state.tooltipIsHovered) {
+            return true;
+        }
+
+        // If the highlight is hovered, show the tooltip.
+        if (this._highlightIsHovered(this.props.mouseClientPosition)) {
+            return true;
+        }
+
+        // Otherwise, hide the tooltip.
+        return false;
+    }
+
     render() {
-        const highlightIsHovered = this.state.tooltipIsHovered ||
-            this._highlightIsHovered(this.props.mouseClientPosition);
         const rects = this.state.cachedHighlightRects;
 
         return <div>
@@ -192,7 +218,7 @@ class HighlightRenderer extends React.PureComponent {
                     />
                 )}
             </div>
-            {highlightIsHovered && <HighlightTooltip
+            {this._shouldShowTooltip() && <HighlightTooltip
                 label={i18n._("Remove highlight")}
                 onClick={this._handleRemoveHighlight}
                 onMouseEnter={this._handleTooltipMouseEnter}

@@ -28,6 +28,10 @@ type HighlightableContentProps = {
     // the content specified here.
     children?: React.Element<any>,
 
+    // Whether the highlights are user-editable. If false, highlights are
+    // read-only.
+    editable: boolean,
+
     // When the user attempts to add/remove/update a highlight, this callback
     // will be called with a newly-updated full set of highlights that reflects
     // the user's intent.
@@ -120,6 +124,7 @@ class HighlightableContent extends React.PureComponent {
         >
             <div>
                 {this._container && <HighlightingUI
+                    editable={this.props.editable}
                     highlights={highlights}
                     offsetParent={this._container}
                     zIndexes={{

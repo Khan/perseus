@@ -985,10 +985,8 @@ class Passage extends React.Component {
         // If Highlighting Version 2 is enabled, wrap the content in a
         // `HighlightableContent` component. Otherwise, render it as-is.
         if (this.supportsHighlightingVersion2()) {
-            // TODO(mdr): Add a prop for read-only highlights, conditional on
-            //     canUpdateHighlightingVersion2().
-            //     https://app.asana.com/0/277557989281705/322451591895807
             return <HighlightableContent
+                editable={this.canUpdateHighlightingVersion2()}
                 onSerializedHighlightsUpdate={
                     this._handleSerializedHighlightsUpdate}
                 serializedHighlights={this.props.highlights}

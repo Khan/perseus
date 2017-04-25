@@ -18,6 +18,10 @@ const SelectionTracker = require("./selection-tracker.jsx");
 import type {DOMHighlight, DOMRange, Position, ZIndexes} from "./types.js";
 
 type HighlightingUIProps = {
+    // Whether the highlights are user-editable. If false, highlights are
+    // read-only.
+    editable: boolean,
+
     // A set of highlights to render.
     highlights: DOMHighlight[],
 
@@ -56,11 +60,19 @@ class HighlightingUI extends React.PureComponent {
     /* eslint-enable react/sort-comp */
 
     componentDidMount() {
-        window.addEventListener("mousemove", this._handleMouseMove);
+        const willListen = this._shouldListenToMouseMove(this.props);
+        this._updateMouseMoveListener(false, willListen);
+    }
+
+    componentWillReceiveProps(nextProps: HighlightingUIProps) {
+        const wasListening = this._shouldListenToMouseMove(this.props);
+        const willListen = this._shouldListenToMouseMove(nextProps);
+        this._updateMouseMoveListener(wasListening, willListen);
     }
 
     componentWillUnmount() {
-        window.removeEventListener("mousemove", this._handleMouseMove);
+        const wasListening = this._shouldListenToMouseMove(this.props);
+        this._updateMouseMoveListener(wasListening, false);
     }
 
     _handleMouseMove = (e: MouseEvent) => {
@@ -72,10 +84,41 @@ class HighlightingUI extends React.PureComponent {
         });
     }
 
+    _shouldListenToMouseMove(props: HighlightingUIProps): boolean {
+        // NOTE(mdr): As an optimization, we only listen to mousemove events in
+        //     editable mode, because hover events on highlights only affect
+        //     the "Remove highlight" tooltip. If our design needs change, this
+        //     behavior may need to change, too.
+        return props.editable;
+    }
+
+    /**
+     * Given whether we were previously listening to mousemove events, and
+     * whether we will now listen to mousemove events, add or remove the
+     * listener accordingly.
+     */
+    _updateMouseMoveListener(wasListening: boolean, willListen: boolean) {
+        if (!wasListening && willListen) {
+            window.addEventListener("mousemove", this._handleMouseMove);
+        } else if (wasListening && !willListen) {
+            window.removeEventListener("mousemove", this._handleMouseMove);
+
+            // Additionally, reset the mouse position. Our child components
+            // won't be checking `mouseClientPosition` when we're not
+            // listening, anyway, but this guards against errors where we
+            // re-enter listening mode and have stale coordinates stored in
+            // state.
+            this.setState({
+                mouseClientPosition: null,
+            });
+        }
+    }
+
     render() {
         return <div>
             {this.props.highlights.map(highlight =>
                 <HighlightRenderer
+                    editable={this.props.editable}
                     key={highlight.key}
                     highlight={highlight}
                     mouseClientPosition={this.state.mouseClientPosition}
@@ -84,14 +127,13 @@ class HighlightingUI extends React.PureComponent {
                     zIndexes={this.props.zIndexes}
                 />
             )}
-            <SelectionTracker
+            {this.props.editable && <SelectionTracker
                 offsetParent={this.props.offsetParent}
                 onAddHighlight={this.props.onAddHighlight}
                 zIndexes={this.props.zIndexes}
-            />
+            />}
         </div>;
     }
 }
-
 
 module.exports = HighlightingUI;
