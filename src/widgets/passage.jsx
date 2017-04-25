@@ -33,10 +33,12 @@ const ReactDOM = require("react-dom");
 const _ = require("underscore");
 const $ = require("jquery");
 
+const HighlightableContent = require("../components/highlighting/highlightable-content.jsx");
 const Renderer = require("../renderer.jsx");
 const PassageMarkdown = require("./passage/passage-markdown.jsx");
 
 import type {ChangeableProps} from "../mixins/changeable.jsx";
+import type {SerializedHighlight} from "../components/highlighting/types.js";
 
 declare var i18n: {
     _(format: string, args?: any): string,
@@ -102,6 +104,11 @@ const styles = StyleSheet.create({
 type Range = [number, number];
 
 type PassageProps = ChangeableProps & {
+    apiOptions: {
+        styling: {
+            highlightingVersion: 1 | 2,
+        },
+    },
     passageTitle: string,
     passageText: string,
     footnotes: string,
@@ -161,6 +168,7 @@ class Passage extends React.Component {
         footnotes: "",
         showLineNumbers: true,
         highlightRanges: [],
+        highlights: [],
     };
 
     state: PassageState = {
@@ -203,27 +211,42 @@ class Passage extends React.Component {
     }
 
     /**
-     * Highlighting
+     * Highlighting Version 1
      *
      * This group of functions supports the passage "highlighting" feature. It
      * works with word indices into the passage text and the DOM selection API.
+     *
+     * This feature is only enabled when the `highlightingVersion` prop is set
+     * to 1. Otherwise, all of this behavior is disabled, and we use new-style
+     * Highlighting Version 2 instead; see `_renderContent`.
      */
 
     // TODO(davidpowell,mdr): We punted on supporting passages that contain
     //     markers referenced in questions, because they caused bugs that we
     //     couldn't diagnose quickly. Reading passages and essay passages don't
     //     currently contain markers, though, so they're always supported!
-    supportsHighlighting(): boolean {
+    supportsHighlightingVersion1(): boolean {
         // HACK(davidpowell,mdr): If a passage contains question markers, the
         //     first one should be labeled #1, so just scan for marker #1.
-        return !(this.props.passageText.match(/\[\[1\]\]/));
+        return this.props.apiOptions.styling.highlightingVersion === 1 &&
+            !(this.props.passageText.match(/\[\[1\]\]/));
+    }
+
+    supportsHighlightingVersion2(): boolean {
+        return this.props.apiOptions.styling.highlightingVersion === 2;
     }
 
     // If this is a reading passage and not in review mode, then the user can
     // update the highlighting state. Otherwise, highlights will still render,
     // but in read-only mode.
-    canUpdateHighlighting(): boolean {
-        return !this.props.reviewModeRubric && this.supportsHighlighting();
+    canUpdateHighlightingVersion1(): boolean {
+        return !this.props.reviewModeRubric &&
+            this.supportsHighlightingVersion1();
+    }
+
+    canUpdateHighlightingVersion2(): boolean {
+        return !this.props.reviewModeRubric &&
+            this.supportsHighlightingVersion2();
     }
 
     /**
@@ -579,7 +602,7 @@ class Passage extends React.Component {
     handleMouseUp = (e: MouseEvent) => {
         const isHighlightTooltipShown = this.state.newHighlightRange ||
                                         this.state.selectedHighlightRange;
-        if (this.canUpdateHighlighting() && !isHighlightTooltipShown) {
+        if (this.canUpdateHighlightingVersion1() && !isHighlightTooltipShown) {
             // HACK - the height of the sat task title bar is 60px - subtracting
             // this in order to position the tooltip in the correct position on
             // the page. We can't use relative position of the passage as that
@@ -738,6 +761,12 @@ class Passage extends React.Component {
                 src='/images/perseus/remove-highlight.svg'
             />
         </span>;
+    }
+
+    _handleSerializedHighlightsUpdate = (
+        serializedHighlights: SerializedHighlight[]
+    ) => {
+        this.props.onChange({highlights: serializedHighlights});
     }
 
     /**
@@ -948,10 +977,27 @@ class Passage extends React.Component {
     }
 
     _renderContent(parsed): React.Element<any> {
-        return <div ref="content">
+        const content = <div ref="content">
             <LineHeightMeasurer ref={e => this._lineHeightMeasurer = e} />
             {PassageMarkdown.output(parsed)}
         </div>;
+
+        // If Highlighting Version 2 is enabled, wrap the content in a
+        // `HighlightableContent` component. Otherwise, render it as-is.
+        if (this.supportsHighlightingVersion2()) {
+            // TODO(mdr): Add a prop for read-only highlights, conditional on
+            //     canUpdateHighlightingVersion2().
+            //     https://app.asana.com/0/277557989281705/322451591895807
+            return <HighlightableContent
+                onSerializedHighlightsUpdate={
+                    this._handleSerializedHighlightsUpdate}
+                serializedHighlights={this.props.highlights}
+            >
+                {content}
+            </HighlightableContent>;
+        } else {
+            return content;
+        }
     }
 
     _hasFootnotes(): boolean {
@@ -1000,63 +1046,68 @@ class Passage extends React.Component {
         }
 
         let rawContent = this.props.passageText;
-        // For each highlighted passage, we (ephemerally) inject highlight
-        // markdown into the rawContent.
-        _.each(this.props.highlightRanges, function(highlightRange) {
-            rawContent = rawContent.replace(/\n +\n/g, "\n\n");
-            rawContent = rawContent.replace(/\r\n +\r\n/g, "\r\n\r\n");
-            const textArray = this.stringToArrayOfWords(rawContent);
-            const rangeStartIndex =
-                this.adjustIndexforMarkdownAndWhitespace(
-                    highlightRange[0], textArray);
-            const rangeEndIndex =
-                this.adjustIndexforMarkdownAndWhitespace(
-                    highlightRange[1], textArray);
+        if (this.supportsHighlightingVersion1()) {
+            // For each highlighted passage, we (ephemerally) inject highlight
+            // markdown into the rawContent.
+            _.each(this.props.highlightRanges, function(highlightRange) {
+                rawContent = rawContent.replace(/\n +\n/g, "\n\n");
+                rawContent = rawContent.replace(/\r\n +\r\n/g, "\r\n\r\n");
+                const textArray = this.stringToArrayOfWords(rawContent);
+                const rangeStartIndex =
+                    this.adjustIndexforMarkdownAndWhitespace(
+                        highlightRange[0], textArray);
+                const rangeEndIndex =
+                    this.adjustIndexforMarkdownAndWhitespace(
+                        highlightRange[1], textArray);
 
-            // Reassemble rawContent, with highlighter markdown included.
-            // Two big gotchas here:
-            // 1. Markdown does not support partially-overlapping markdown
-            // ranges, because it all needs to distill down into HTML (which is
-            // non-partially-overlapping). So we have to surround *each*
-            // individual word/space with its own highlighter markdown. The
-            // end result looks like a continuously-highlighted range though!
-            // 2. The fragments may contain other markdown text, so we need to
-            // define "word" carefully, so that *only* visible text is
-            // surrounded with highlighting markdown, while markdown text is
-            // ignored.
-            rawContent = (
-                textArray.slice(0, rangeStartIndex).join(" ") + " " +
-                textArray
-                    .slice(rangeStartIndex, rangeEndIndex + 1)
-                    .map(function(fragment) {
-                        // This fragment should contain all user-visible
-                        // characters, and no markdown characters!
-                        // TODO (davidpowell/mdr): Change regex to blacklist
-                        // markdown as oppose to whitelisting certain
-                        // characters.
-                        /* eslint-disable */
-                        const textRegex = new RegExp("[\\(\\)\\—\\-\\—\\-\\‑\\.\
-                                            \\[\\]\\+\\$\\?,!A-Za-z0-9\
-                                            \u00C0-\u017F:;'‘’\"“”=%<>\s]+");
-                        /* eslint-enabled */
-                        const highlightableMatch = (fragment.match(textRegex));
-                        if (highlightableMatch) {
-                            const matchStart = highlightableMatch.index;
-                            const matchEnd = (
-                                    matchStart + highlightableMatch[0].length);
-                            return (fragment.slice(0, matchStart) +
-                                    highlightStartText +
-                                    fragment.slice(matchStart, matchEnd) +
-                                    highlightEndText +
-                                    fragment.slice(matchEnd));
-                        } else {
-                            return fragment;
-                        }
-                    })
-                    .join(highlightStartText + " " + highlightEndText) +
-                " " +
-                textArray.slice(rangeEndIndex + 1).join(" "));
-        }, this);
+                // Reassemble rawContent, with highlighter markdown included.
+                // Two big gotchas here:
+                // 1. Markdown does not support partially-overlapping markdown
+                // ranges, because it all needs to distill down into HTML
+                // (which is non-partially-overlapping). So we have to surround
+                // *each* individual word/space with its own highlighter
+                // markdown. The end result looks like a
+                // continuously-highlighted range though!
+                // 2. The fragments may contain other markdown text, so we need
+                // to define "word" carefully, so that *only* visible text is
+                // surrounded with highlighting markdown, while markdown text
+                // is ignored.
+                rawContent = (
+                    textArray.slice(0, rangeStartIndex).join(" ") + " " +
+                    textArray
+                        .slice(rangeStartIndex, rangeEndIndex + 1)
+                        .map(function(fragment) {
+                            // This fragment should contain all user-visible
+                            // characters, and no markdown characters!
+                            // TODO (davidpowell/mdr): Change regex to
+                            // blacklist markdown as oppose to whitelisting
+                            // certain characters.
+                            /* eslint-disable */
+                            const textRegex = new RegExp(
+                                "[\\(\\)\\—\\-\\—\\-\\‑\\.\
+                                \\[\\]\\+\\$\\?,!A-Za-z0-9\
+                                \u00C0-\u017F:;'‘’\"“”=%<>\s]+");
+                            /* eslint-enabled */
+                            const highlightableMatch =
+                                fragment.match(textRegex);
+                            if (highlightableMatch) {
+                                const matchStart = highlightableMatch.index;
+                                const matchEnd =
+                                    matchStart + highlightableMatch[0].length;
+                                return (fragment.slice(0, matchStart) +
+                                        highlightStartText +
+                                        fragment.slice(matchStart, matchEnd) +
+                                        highlightEndText +
+                                        fragment.slice(matchEnd));
+                            } else {
+                                return fragment;
+                            }
+                        })
+                        .join(highlightStartText + " " + highlightEndText) +
+                    " " +
+                    textArray.slice(rangeEndIndex + 1).join(" "));
+            }, this);
+        }
 
         const parseState: PassageParseState = {
             firstSentenceRef: null,

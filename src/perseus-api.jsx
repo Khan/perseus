@@ -107,6 +107,34 @@ module.exports = {
 
             // Whether to use the Draft.js editor or the legacy textarea
             useDraftEditor: React.PropTypes.bool,
+
+            // Styling options that control the visual behavior of Perseus
+            // items.
+            // TODO(mdr): If we adopt this pattern, we'll need to think about
+            //     how to make individual `styling` options be optional, and
+            //     how to set their default values without overwriting provided
+            //     values. For now, though, you must either specify all fields
+            //     of `styling`, or omit the `styling` option entirely.
+            styling: React.PropTypes.shape({
+                // Which version of highlighting to use in the Passage widget.
+                //
+                // Version 1 was created for the SAT product, and is a bit
+                // buggy when it comes to selecting the right word. Its logic
+                // is directly integrated into the Passage widget.
+                //
+                // Version 2 was created for the new test prep product, with a
+                // new architecture that resolves the old bugs and has some
+                // extra visual polish, to boot. Its logic is encapsulated in
+                // src/components/highlighting, and is called from the Passage
+                // widget.
+                //
+                // TODO(mdr): The SAT product will switch to Version 2 by June
+                //     5, 2017, at which point there will be no more call sites
+                //     for highlighting version 1, and this option should be
+                //     removed.
+                //     https://app.asana.com/0/277557989281705/318877243057038
+                highlightingVersion: React.PropTypes.oneOf([1, 2]).isRequired,
+            }),
         }).isRequired,
 
         defaults: {
@@ -127,6 +155,9 @@ module.exports = {
             },
             setDrawingAreaAvailable: function() { },
             useDraftEditor: true,
+            styling: {
+                highlightingVersion: 1,
+            },
         },
     },
     ClassNames: {
