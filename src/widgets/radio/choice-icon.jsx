@@ -9,13 +9,6 @@ const {StyleSheet, css} = require("aphrodite");
 
 const styleConstants = require("../../styles/constants.js");
 
-// TODO(amy): figure out a better way to make flow recognize
-// the i18n global
-declare var i18n: {
-    _(text: string, interpolations?: {[k: string]: string}): string,
-};
-
-
 type ChoiceIconProps = {
     pos: number,
     checked: boolean,

@@ -17,6 +17,8 @@ const {StyleSheet, css} = require("aphrodite");
 const {getRelativePosition} = require("./util.js");
 const HighlightTooltip = require("./highlight-tooltip.jsx");
 
+/* global i18n */
+
 import type {DOMHighlight, Position, Rect, ZIndexes} from "./types.js";
 
 type HighlightRendererProps = {
@@ -191,7 +193,7 @@ class HighlightRenderer extends React.PureComponent {
                 )}
             </div>
             {highlightIsHovered && <HighlightTooltip
-                label="Remove highlight"
+                label={i18n._("Remove highlight")}
                 onClick={this._handleRemoveHighlight}
                 onMouseEnter={this._handleTooltipMouseEnter}
                 onMouseLeave={this._handleTooltipMouseLeave}

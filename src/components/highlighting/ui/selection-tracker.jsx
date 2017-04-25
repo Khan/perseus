@@ -7,6 +7,8 @@ const React = require("react");
 
 const HighlightTooltip = require("./highlight-tooltip.jsx");
 
+/* global i18n */
+
 import type {DOMRange, ZIndexes} from "./types.js";
 
 type SelectionTrackerProps = {
@@ -144,7 +146,7 @@ class SelectionTracker extends React.PureComponent {
         }
 
         return <HighlightTooltip
-            label="Add highlight"
+            label={i18n._("Add highlight")}
             onClick={this._handleAddSelectionAsHighlight}
 
             focusNode={selectionFocusNode}
