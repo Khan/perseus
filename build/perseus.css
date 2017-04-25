@@ -1,11 +1,12 @@
 /* Perseus CSS
-// commit 9608fb8dc118064483e506e13a5c45a213f4e0d3
+// commit 076f8c085708a52931a6f1a8786f1559a5262824
 // branch master
 // @generated
 */
 .perseus-sr-only {
   border: 0;
   clip: rect(0, 0, 0, 0);
+  font-size: 0;
   height: 1px;
   margin: -1px;
   overflow: hidden;

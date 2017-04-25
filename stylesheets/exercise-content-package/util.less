@@ -7,6 +7,15 @@
 .perseus-sr-only {
     border: 0;
     clip: rect(0,0,0,0);
+
+    // HACK(mdr): With a nonzero font size, our highlighting library's call to
+    //     `Range.prototype.getClientRects` will yield rectangles for the
+    //     hidden text nodes. The highlighting library should probably instead
+    //     be cleverer about detecting that the text is hidden, but, until
+    //     then, let's just make the text small so there are no extra
+    //     rectangles.
+    font-size: 0;
+
     height: 1px;
     margin: -1px;
     overflow: hidden;
