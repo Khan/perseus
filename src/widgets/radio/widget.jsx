@@ -29,8 +29,6 @@ const Radio = React.createClass({
         multipleSelect: React.PropTypes.bool,
         onChange: React.PropTypes.func.isRequired,
 
-        onePerLine: BaseRadio.propTypes.onePerLine,
-
         questionCompleted: React.PropTypes.bool,
         reviewModeRubric: BaseRadio.propTypes.reviewModeRubric,
         trackInteraction: React.PropTypes.func.isRequired,
@@ -224,7 +222,6 @@ const Radio = React.createClass({
         return <BaseRadio
             ref="baseRadio"
             labelWrap={true}
-            onePerLine={this.props.onePerLine}
             multipleSelect={this.props.multipleSelect}
             choices={choices}
             onCheckedChange={this.onCheckedChange}

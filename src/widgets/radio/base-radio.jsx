@@ -85,9 +85,6 @@ const BaseRadio = React.createClass({
         labelWrap: React.PropTypes.bool,
         multipleSelect: React.PropTypes.bool,
         onCheckedChange: React.PropTypes.func,
-        // NOTE(david): DEPRECATED - this is going away. We force one per line
-        //     on XOM and may release this more broadly.
-        onePerLine: React.PropTypes.bool,
         reviewModeRubric: React.PropTypes.shape({
             choices: ChoicesType,
         }),
@@ -162,14 +159,7 @@ const BaseRadio = React.createClass({
                         backgroundColor: styleConstants.grayLight,
                     },
                 },
-            },
 
-            // If showOnePerLine() is true then we need bottom borders one
-            // each item except for the last.  In the case where all items are
-            // in a single row, no border is necessary because the container,
-            // styled by responsiveRadioContainer on desktop, has top and
-            // bottom borders.
-            responsiveItemOnePerLine: {
                 ":not(:last-child)": {
                     borderBottom: `1px solid ${radioBorderColor}`,
                 },
@@ -219,7 +209,6 @@ const BaseRadio = React.createClass({
 
     getDefaultProps: function() {
         return {
-            onePerLine: true,
             editMode: false,
         };
     },
@@ -272,11 +261,6 @@ const BaseRadio = React.createClass({
                 i18n._("Select all that apply.") :
                 i18n._("Please choose from one of the following options.");
         }
-    },
-
-    showOnePerLine: function() {
-        // We want to force one-per-line layout on mobile.
-        return this.props.apiOptions.isMobile || this.props.onePerLine;
     },
 
     deselectEnabled: function() {
@@ -366,14 +350,11 @@ const BaseRadio = React.createClass({
                     const aphroditeClassName = (checked, isMobile) => {
                         return css(
                             styles.item,
-                            !this.showOnePerLine() && styles.inlineItem,
                             // SAT doesn't use the "responsive styling" as it
                             // conflicts with their theming.
                             !sat && (isMobile
                                 ? styles.responsiveMobileItem
                                 : styles.responsiveItem),
-                            !sat && !isMobile && this.showOnePerLine() &&
-                                styles.responsiveItemOnePerLine,
                             checked && isMobile &&
                                 styles.responsiveSelected,
                             sat && styles.satRadioOption,
@@ -391,7 +372,6 @@ const BaseRadio = React.createClass({
                         aphroditeClassName(choice.checked, isMobile),
                         // TODO(aria): Make test case for these API classNames
                         ApiClassNames.RADIO.OPTION,
-                        !this.showOnePerLine() && "inline",
                         choice.checked && ApiClassNames.RADIO.SELECTED,
                         (rubric && rubric.choices[i].correct &&
                             ApiClassNames.CORRECT

@@ -90,13 +90,6 @@ var RadioEditor = React.createClass({
         hasNoneOfTheAbove: React.PropTypes.bool,
         multipleSelect: React.PropTypes.bool,
 
-        // TODO(kevinb): DEPRECATED: On mobile, this is being ignored and the
-        // visible editor no longer exposes it for future content.  It is always
-        // true on mobile.  However, we keep it here for backwards compatibility
-        // with old content which has the flag set to false.  Eventually we will
-        // enable it on desktop for all content.
-        onePerLine: React.PropTypes.bool,
-
         // TODO(kevinb): DEPRECATED: This is be used to force deselectEnabled
         // behavior on mobile but not on desktop.  When enabled, the user can
         // deselect a radio input by tapping on it again.
@@ -112,7 +105,6 @@ var RadioEditor = React.createClass({
             randomize: false,
             hasNoneOfTheAbove: false,
             multipleSelect: false,
-            onePerLine: true,
             deselectEnabled: false,
         };
     },
@@ -138,7 +130,6 @@ var RadioEditor = React.createClass({
             <BaseRadio
                 ref="baseRadio"
                 multipleSelect={this.props.multipleSelect}
-                onePerLine={true}
                 editMode={true}
                 labelWrap={false}
                 apiOptions={this.props.apiOptions}
@@ -301,8 +292,7 @@ var RadioEditor = React.createClass({
 
     serialize: function() {
         return _.pick(this.props, "choices", "randomize", "multipleSelect",
-            "displayCount", "hasNoneOfTheAbove", "onePerLine",
-            "deselectEnabled");
+            "displayCount", "hasNoneOfTheAbove", "deselectEnabled");
     }
 });
 

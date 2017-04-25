@@ -46,7 +46,7 @@ var radioTransform = (editorProps, problemNum) => {
         (choice) => _.omit(choice, 'correct'));
 
     editorProps = _.extend({}, editorProps, { choices: choices });
-    return _.pick(editorProps, "choices", "hasNoneOfTheAbove", "onePerLine",
+    return _.pick(editorProps, "choices", "hasNoneOfTheAbove",
         "multipleSelect", "correctAnswer", "deselectEnabled");
 };
 
@@ -55,7 +55,7 @@ var staticTransform = (editorProps, problemNum) => {
     // The correct answers are the selected values in the rendered widget
     var selectedChoices = _.pluck(choices, "correct");
 
-    var selectedProps = _.pick(editorProps, "hasNoneOfTheAbove", "onePerLine",
+    var selectedProps = _.pick(editorProps, "hasNoneOfTheAbove",
         "multipleSelect", "correctAnswer", "deselectEnabled");
     var staticProps = _.extend({}, selectedProps, {
         choices: choices,
