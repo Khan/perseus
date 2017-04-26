@@ -34,7 +34,6 @@ var Expression = React.createClass({
         enabledFeatures: EnabledFeatures.propTypes,
         apiOptions: ApiOptions.propTypes,
         buttonSets: TexButtons.buttonSetsType,
-        easybuttons: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
@@ -46,6 +45,7 @@ var Expression = React.createClass({
             onBlur: function() { },
             enabledFeatures: EnabledFeatures.defaults,
             apiOptions: ApiOptions.defaults,
+            buttonSets: ["basic", "relations", "trig", "prealgebra"],
         };
     },
 
@@ -53,7 +53,6 @@ var Expression = React.createClass({
         return {
             showErrorTooltip: false,
             showErrorText: false,
-            offsetLeft: 0
         };
     },
 
@@ -67,24 +66,7 @@ var Expression = React.createClass({
         return KAS.parse(value, options);
     },
 
-    componentDidMount: function() {
-        var expression = ReactDOM.findDOMNode(this);
-        this.setState({offsetLeft: expression.offsetLeft});
-    },
-
     render: function() {
-        // for old questions without buttonSets, make buttonSets by easybuttons
-        if (!this.props.buttonSets)
-        {
-            if(!this.props.easybuttons) {
-                this.props.buttonSets = ["basic", "relations", "trig", "prealgebra"];
-            }
-            else {
-                this.props.buttonSets = ["basic"];
-            }
-            this.props.onChange;
-        }
-
         if (this.props.apiOptions.staticRender) {
             var style = {
                 borderRadius: "5px",
@@ -146,7 +128,6 @@ var Expression = React.createClass({
                     buttonSets={this.props.buttonSets}
                     onFocus={this._handleFocus}
                     onBlur={this._handleBlur}
-                    offsetLeft={this.state.offsetLeft}
                     inEditor={inEditor} />
                 {this.state.showErrorTooltip && errorTooltip}
             </span>;
@@ -277,7 +258,6 @@ var ExpressionEditor = React.createClass({
         times: React.PropTypes.bool,
         functions: React.PropTypes.arrayOf(React.PropTypes.string),
         buttonSets: TexButtons.buttonSetsType,
-        easybuttons: React.PropTypes.bool
     },
 
     getDefaultProps: function() {
@@ -287,7 +267,7 @@ var ExpressionEditor = React.createClass({
             simplify: false,
             times: true,
             functions: ["f", "g", "h"],
-            easybuttons: true
+            buttonSets: ["basic", "relations", "trig", "prealgebra"],
         };
     },
 
@@ -302,18 +282,6 @@ var ExpressionEditor = React.createClass({
     },
 
     render: function() {
-        // for editing old questions, make buttonSets by easybuttons
-        if (!this.props.buttonSets)
-        {
-            if(!this.props.easybuttons) {
-                this.props.buttonSets = ["basic", "relations", "trig", "prealgebra"];
-            }
-            else {
-                this.props.buttonSets = ["basic"];
-            }
-            this.props.onChange;
-        }
-
         var simplifyWarning = null;
         var shouldTryToParse = this.props.simplify && this.props.value !== "";
         if (shouldTryToParse) {
@@ -337,8 +305,6 @@ var ExpressionEditor = React.createClass({
             buttonsVisible: "never",
             buttonSets: this.props.buttonSets,
         };
-
-        var expression = this.state.isTex ? Expression : OldExpression;
 
         // checkboxes to choose which sets of input buttons are shown
         var buttonSetChoices = _(TexButtons.buttonSets).map((set, name) => {
@@ -384,7 +350,7 @@ var ExpressionEditor = React.createClass({
         return <div>
             <div><label>
                 正確答案:{' '}
-                {expression(expressionProps)}
+                <Expression {...expressionProps} />
             </label></div>
             {this.state.isTex && <TexButtons
                 className="math-input-buttons"
@@ -495,7 +461,7 @@ module.exports = {
     },
     editor: ExpressionEditor,
     transform: (editorProps) => {
-        return _.pick(editorProps, "times", "functions", "buttonSets", "easybuttons");
+        return _.pick(editorProps, "times", "functions", "buttonSets");
     },
     hidden: false
 };
