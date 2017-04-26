@@ -1,6 +1,3 @@
-/*! Perseus | http://github.com/Khan/perseus */
-// commit 770f218e03e4431266fb0e43934141d78a85e833
-// branch react-15
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Perseus = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
@@ -24886,7 +24883,7 @@ var AnswerAreaRenderer = React.createClass({
         if (this.props.type === "multiple") {
             return this.refs.widget.emptyWidgets();
         } else {
-            return Util.scoreIsEmpty(this.refs.widget.simpleValidate(this.props.options)) ? [SINGLE_ITEM_WIDGET_ID] : [];
+            return Util.scoreIsEmpty(this.getWidgetInstance().simpleValidate(this.props.options)) ? [SINGLE_ITEM_WIDGET_ID] : [];
         }
     },
 
@@ -25146,18 +25143,26 @@ var AnswerAreaRenderer = React.createClass({
         this.refs.widget.focus();
     },
 
+    getWidgetInstance: function getWidgetInstance() {
+        var ref = this.refs.widget;
+        if (!ref) {
+            return null;
+        }
+        return ref.getWidget();
+    },
+
     guessAndScore: function guessAndScore() {
         // TODO(alpert): These should probably have the same signature...
         if (this.props.type === "multiple") {
             return this.refs.widget.guessAndScore();
         } else {
-            var guess = this.refs.widget.toJSON();
+            var guess = this.getWidgetInstance().toJSON();
 
             var score;
             if (this.props.graded == null || this.props.graded) {
                 // props.graded is unset or true
                 // TODO(alpert): Separate out the rubric
-                score = this.refs.widget.simpleValidate(this.props.options);
+                score = this.getWidgetInstance().simpleValidate(this.props.options);
             } else {
                 score = Util.noScore;
             }
@@ -33330,7 +33335,7 @@ var TeX = React.createClass({
         if (typeof Exercises === "undefined" || Exercises.useKatex) {
             try {
                 var katexHolder = this.refs.katex;
-                katex.process(text, katexHolder);
+                katex.render(text, katexHolder);
                 onRender();
                 return;
             } catch (e) {
@@ -33355,7 +33360,7 @@ var TeX = React.createClass({
             if (typeof Exercises === "undefined" || Exercises.useKatex) {
                 try {
                     var katexHolder = this.refs.katex;
-                    katex.process(newText, katexHolder);
+                    katex.render(newText, katexHolder);
                     if (this.script) {
                         var jax = MathJax.Hub.getJaxFor(this.script);
                         if (jax) {

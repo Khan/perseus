@@ -58,7 +58,7 @@ var AnswerAreaRenderer = React.createClass({
             return this.refs.widget.emptyWidgets();
         } else {
             return Util.scoreIsEmpty(
-                this.refs.widget.simpleValidate(this.props.options)) ?
+                this.getWidgetInstance().simpleValidate(this.props.options)) ?
                 [SINGLE_ITEM_WIDGET_ID] : [];
         }
     },
@@ -335,18 +335,26 @@ var AnswerAreaRenderer = React.createClass({
         this.refs.widget.focus();
     },
 
+    getWidgetInstance: function() {
+        var ref = this.refs.widget;
+        if (!ref) {
+            return null;
+        }
+        return ref.getWidget();
+    },
+
     guessAndScore: function() {
         // TODO(alpert): These should probably have the same signature...
         if (this.props.type === "multiple") {
             return this.refs.widget.guessAndScore();
         } else {
-            var guess = this.refs.widget.toJSON();
+            var guess = this.getWidgetInstance().toJSON();
 
             var score;
             if (this.props.graded == null || this.props.graded) {
                 // props.graded is unset or true
                 // TODO(alpert): Separate out the rubric
-                score = this.refs.widget.simpleValidate(this.props.options);
+                score = this.getWidgetInstance().simpleValidate(this.props.options);
             } else {
                 score = Util.noScore;
             }
