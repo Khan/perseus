@@ -116,11 +116,15 @@ class HighlightRenderer extends React.PureComponent {
 
         // Recompute the rectangle's coordinates to be relative to the offset
         // parent, instead of relative to the viewport.
-        const rects = Array.prototype.map.call(domRects, domRect => ({
-            ...getRelativePosition(domRect, offsetParentRect),
-            width: domRect.width,
-            height: domRect.height,
-        }));
+        const rects = Array.prototype.map.call(domRects, domRect => {
+            const {left, top} = getRelativePosition(domRect, offsetParentRect);
+            return {
+                left,
+                top,
+                width: domRect.width,
+                height: domRect.height,
+            };
+        });
 
         return rects;
     }
@@ -209,6 +213,14 @@ class HighlightRenderer extends React.PureComponent {
                         key={index}
                         className={css(styles.highlightRect)}
                         style={{
+                            // NOTE(mdr): We apply `position: absolute` here
+                            //     rather than in Aphrodite styles, because
+                            //     Aphrodite styles are delayed. If this
+                            //     element temporarily has `position: static`,
+                            //     then it'll displace the content, and other
+                            //     highlights rendering during this update will
+                            //     measure the displaced content instead, oops!
+                            position: "absolute",
                             width: rect.width,
                             height: rect.height,
                             top: rect.top,
@@ -259,7 +271,6 @@ const styles = StyleSheet.create({
 
     highlightRect: {
         background: "#4c00ff", // testPrepBlue
-        position: "absolute",
     },
 });
 
