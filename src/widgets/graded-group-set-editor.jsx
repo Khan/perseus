@@ -1,5 +1,5 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 /* eslint-disable react/forbid-prop-types */
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 const React = require("react");
 const _ = require("underscore");

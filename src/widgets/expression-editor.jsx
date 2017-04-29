@@ -1,5 +1,5 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 /* eslint-disable comma-dangle, indent, no-var, object-curly-spacing, one-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp, space-infix-ops */
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");

@@ -1,5 +1,5 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 /* eslint-disable no-console, no-var, object-curly-spacing, space-in-parens */
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var assert = require("assert");

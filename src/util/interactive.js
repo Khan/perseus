@@ -1,8 +1,7 @@
-/* eslint-disable max-lines */
-
+/* eslint-disable brace-style, max-len, max-lines, object-curly-spacing */
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable brace-style, object-curly-spacing */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 
 /**
  * Interactive graphie utilities.
@@ -13,7 +12,6 @@
 
 // TODO(emily): This file breaks our line length limits like nobody's business.
 // Figure out how to fix that.
-/* eslint-disable max-len */
 const _ = require("underscore");
 
 require("../../lib/jquery.mobile.vmouse.js");

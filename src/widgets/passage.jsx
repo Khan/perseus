@@ -1,5 +1,8 @@
-// @Nolint(long file)
+/* eslint-disable max-lines */
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
 // @flow
+// @Nolint(long file)
 /**
  * Highlighting feature discoveries (davidpowell/mdr):
  * Inserting markdown into the raw contents of a passage to make a highlight

@@ -1,7 +1,9 @@
+/* eslint-disable no-console */
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
 /**
  * Demo for the multi-item multirenderer layout.
  */
-/* eslint-disable no-console */
 const {StyleSheet, css} = require("aphrodite");
 const React = require("react");
 

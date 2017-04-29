@@ -1,5 +1,5 @@
+/* eslint-disable comma-dangle, indent, max-len, no-irregular-whitespace, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, indent, max-len, no-irregular-whitespace, no-var, one-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');

@@ -1,8 +1,7 @@
-/* eslint-disable max-lines */
-
+/* eslint-disable brace-style, comma-dangle, indent, max-lines, no-redeclare, no-undef, no-unused-vars, no-var, object-curly-spacing, one-var, prefer-spread, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp, space-infix-ops */
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable brace-style, comma-dangle, indent, no-redeclare, no-undef, no-unused-vars, no-var, object-curly-spacing, one-var, prefer-spread, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp, space-infix-ops */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 
 
 var React = require('react');

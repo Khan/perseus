@@ -1,5 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
  * A version of the `math-input` subrepo's KeypadInput component that adheres to

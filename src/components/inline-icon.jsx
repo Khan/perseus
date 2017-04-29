@@ -1,3 +1,6 @@
+/* eslint-disable react/forbid-prop-types */
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
 /**
  * A stripped version of Icon.jsx from webapp. Takes an SVG icon and renders it
  * inline like Font Awesome did.
@@ -33,7 +36,6 @@ const InlineIcon = ({path, width, height, style = {}}) => <svg
     <path d={path} fill='currentColor' />
 </svg>;
 
-/* eslint-disable react/forbid-prop-types, react/jsx-sort-prop-types */
 InlineIcon.propTypes = {
     // An SVG path to render.
     path: React.PropTypes.string.isRequired,

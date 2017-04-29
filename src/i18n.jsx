@@ -1,6 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
  * Functions for extracting data from items for use in i18n.

@@ -1,5 +1,5 @@
+/* eslint-disable comma-dangle, indent, no-redeclare, no-unused-vars, no-var, object-curly-spacing, one-var, react/prop-types, react/sort-comp, space-before-function-paren */
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, indent, no-redeclare, no-unused-vars, no-var, object-curly-spacing, one-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp, space-before-function-paren */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");

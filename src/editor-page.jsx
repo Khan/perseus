@@ -1,5 +1,5 @@
+/* eslint-disable no-var, react/sort-comp */
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable array-bracket-spacing, no-var, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');

@@ -1,8 +1,7 @@
-/* eslint-disable max-lines */
-
+/* eslint-disable brace-style, max-lines, object-curly-spacing */
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable brace-style, object-curly-spacing */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 
 const kpoint = require("kmath").point;
 const kvector = require("kmath").vector;

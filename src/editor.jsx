@@ -1,8 +1,7 @@
-/* eslint-disable max-lines */
-
+/* eslint-disable brace-style, max-lines, no-console, no-var, object-curly-spacing, react/prop-types, react/sort-comp */
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable brace-style, no-console, no-var, object-curly-spacing, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 /* globals katex */
 
 var React = require('react');

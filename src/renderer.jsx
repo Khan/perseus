@@ -1,8 +1,7 @@
-/* eslint-disable max-lines */
-
+/* eslint-disable max-lines, no-var, object-curly-spacing */
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable array-bracket-spacing, no-var, object-curly-spacing */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 
 /*eslint-disable no-console */
 /* globals KA */
