@@ -26,6 +26,7 @@ const HintRenderer = React.createClass({
         lastRendered: React.PropTypes.bool,
         pos: React.PropTypes.number,
         totalHints: React.PropTypes.number,
+        findExternalWidgets: React.PropTypes.func,
     },
 
     getSerializedState: function() {
@@ -91,6 +92,7 @@ const HintRenderer = React.createClass({
                 content={hint.content || ""}
                 images={hint.images}
                 apiOptions={rendererApiOptions}
+                findExternalWidgets={this.props.findExternalWidgets}
             />
         </div>;
     },

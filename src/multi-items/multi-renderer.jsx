@@ -65,8 +65,11 @@ type ContentRendererData = {
     makeRenderer: () => ContentRendererElement,
     ref: ?Renderer,
 };
+type FindWidgetsFunc =
+    (criterion: FindWidgetsFilterCriterion) => Array<WidgetRef>;
 type HintRendererData = {
     makeRenderer: () => HintRendererElement,
+    findExternalWidgets: ?FindWidgetsFunc,
     ref: null,
     hint: Hint,
 };
@@ -231,11 +234,23 @@ class MultiRenderer extends React.Component {
         // TODO(mdr): Once HintsRenderer supports inter-widget communication,
         //     give it a ref. Until then, leave the ref null forever, to avoid
         //     confusing the findWidgets functions.
+        //
+        // NOTE(davidflanagan): As a partial step toward inter-widget
+        // communication we're going to pass a findExternalWidgets function
+        // (using a dummy data object). This allows passage-ref widgets in
+        // hints to use findWidget() to find the passage widgets they reference.
+        // Note that this is one-way only, however. It does not allow
+        // widgets in the question to find widgets in the hints, for example.
+        const findExternalWidgets =
+              criterion => this._findWidgets({}, criterion);
+
         return {
             hint,
+            findExternalWidgets, // _annotateRendererArray() needs this
             ref: null,
             makeRenderer: () => <HintsRenderer
                 {...this._getRendererProps()}
+                findExternalWidgets={findExternalWidgets}
                 hints={[hint]}
             />,
         };
@@ -425,6 +440,11 @@ class MultiRenderer extends React.Component {
             renderers = [...renderers];
             (renderers: any).firstN = (n) => <HintsRenderer
                 {...this._getRendererProps()}
+                findExternalWidgets={
+                    hintRendererDatas[0]
+                        ? hintRendererDatas[0].findExternalWidgets
+                        : undefined
+                }
                 hints={hintRendererDatas.map(d => d.hint)}
                 hintsVisible={n}
             />;
