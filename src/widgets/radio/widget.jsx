@@ -234,7 +234,7 @@ const Radio = React.createClass({
 
 _.extend(Radio, {
     validate: function(state, rubric) {
-        const numSelected = _.reduce(state.selectedChoices, (sum, selected) => {
+        const numSelected = _.reduce(state.choicesSelected, (sum, selected) => {
             return sum + ((selected) ? 1 : 0);
         }, 0);
 
@@ -252,7 +252,7 @@ _.extend(Radio, {
             };
         } else {
             /* jshint -W018 */
-            const correct = _.all(state.selectedChoices, function(selected, i) {
+            const correct = _.all(state.choicesSelected, function(selected, i) {
                 let isCorrect;
                 if (state.noneOfTheAboveIndex === i) {
                     isCorrect = _.all(rubric.choices, function(choice, j) {
