@@ -90,7 +90,7 @@ var NumericInput = React.createClass({
             var correct;
             var answerBlurb;
             var rubric = this.props.reviewModeRubric;
-            if (rubric) {
+            if (this.props.apiOptions.satStyling && rubric) {
                 var score = this.simpleValidate(rubric);
                 correct = score.type === "points" &&
                           score.earned === score.total;
