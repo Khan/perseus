@@ -97,7 +97,6 @@ var sampleOptions2 = {
                 "multipleSelect": false,
                 "displayCount": null,
                 "noneOfTheAbove": false,
-                "onePerLine": true,
                 "deselectEnabled": false,
             },
             "version": {
@@ -136,7 +135,6 @@ var sampleOptions2Upgraded = {
                 "multipleSelect": false,
                 "displayCount": null,
                 "hasNoneOfTheAbove": false,
-                "onePerLine": true,
                 "deselectEnabled": false,
             },
             "version": {
@@ -179,7 +177,6 @@ var sampleGroup = {
                             "multipleSelect": false,
                             "displayCount": null,
                             "noneOfTheAbove": false,
-                            "onePerLine": true,
                             "deselectEnabled": false,
                         },
                         "version": {
@@ -230,7 +227,6 @@ var sampleGroupUpgraded = {
                             "multipleSelect": false,
                             "displayCount": null,
                             "hasNoneOfTheAbove": false,
-                            "onePerLine": true,
                             "deselectEnabled": false,
                         },
                         "version": {
