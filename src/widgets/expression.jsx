@@ -45,7 +45,7 @@ var Expression = React.createClass({
             onBlur: function() { },
             enabledFeatures: EnabledFeatures.defaults,
             apiOptions: ApiOptions.defaults,
-            buttonSets: ["basic", "relations", "trig", "prealgebra"],
+            buttonSets: ["basic"],
         };
     },
 
@@ -267,7 +267,7 @@ var ExpressionEditor = React.createClass({
             simplify: false,
             times: true,
             functions: ["f", "g", "h"],
-            buttonSets: ["basic", "relations", "trig", "prealgebra"],
+            buttonSets: ["basic"],
         };
     },
 
