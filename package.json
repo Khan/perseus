@@ -6,6 +6,7 @@
     "test": "jest"
   },
   "devDependencies": {
+    "babel-jest": "^19.0.0",
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-react": "^6.22.0",
     "babel-preset-stage-2": "^6.22.0",
@@ -13,8 +14,8 @@
     "beefy": "~0.6.0",
     "browserify": "^13.0.0",
     "classnames": "2.2.5",
-    "jest-cli": "~0.1.15",
-    "jsdom": "^0.10.5",
+    "jest-cli": "^19.0.2",
+    "jsdom": "^7.0.0",
     "less": "~1.7.0",
     "mocha": "^1.19.0",
     "node-jsx": "^0.10.0",
@@ -27,14 +28,15 @@
     "url": "git@github.com:Khan/perseus.git"
   },
   "jest": {
-    "scriptPreprocessor": "jest/preprocessor.js",
-    "setupEnvScriptFile": "jest/environment.js",
-    "testFileExtensions": [
-      "js",
-      "jsx"
-    ],
-    "testPathDirs": [
+    "setupFiles": ["./jest/environment.js"],
+    "roots": [
       "src"
+    ],
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    },
+    "transformIgnorePatterns": [
+      "/node_modules/(?!react-components)"
     ],
     "unmockedModulePathPatterns": [
       ""
