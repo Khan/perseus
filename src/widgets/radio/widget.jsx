@@ -17,7 +17,7 @@ const Radio = React.createClass({
             content: React.PropTypes.string.isRequired,
             // Clues are called "rationales" in most other places but are left
             // as "clue"s here to preserve legacy widget data.
-            clue: React.PropTypes.string.isRequired,
+            clue: React.PropTypes.string,
             correct: React.PropTypes.bool,
             isNoneOfTheAbove: React.PropTypes.bool,
             originalIndex: React.PropTypes.number.isRequired,
@@ -212,6 +212,7 @@ const Radio = React.createClass({
                 content: this._renderRenderer(content),
                 checked: selected,
                 correct: this.props.questionCompleted && selected,
+                hasRationale: !!choice.clue,
                 rationale: this._renderRenderer(choice.clue),
                 showRationale: rationaleShown,
                 isNoneOfTheAbove: choice.isNoneOfTheAbove,

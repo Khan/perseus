@@ -63,6 +63,7 @@ const ChoicesType = React.PropTypes.arrayOf(React.PropTypes.shape({
     checked: React.PropTypes.bool,
     content: React.PropTypes.node,
     rationale: React.PropTypes.node,
+    hasRationale: React.PropTypes.bool,
     showRationale: React.PropTypes.bool,
     correct: React.PropTypes.bool,
     originalIndex: React.PropTypes.number,
@@ -316,8 +317,8 @@ const BaseRadio = React.createClass({
                 {this.props.choices.map(function(choice, i) {
                     // True if we're in review mode and a rationale
                     // is available.
-                    const reviewModeRationales = !!(rubric &&
-                                               rubric.choices[i].rationale);
+                    const reviewModeRationales =
+                        !!rubric && choice.hasRationale;
 
                     let Element = Choice;
                     const elementProps = {
@@ -325,7 +326,7 @@ const BaseRadio = React.createClass({
                         apiOptions: this.props.apiOptions,
                         checked: choice.checked,
                         reviewMode: !!rubric,
-                        correct: (rubric && rubric.choices[i].correct),
+                        correct: !!rubric && rubric.choices[i].correct,
                         rationale: choice.rationale,
                         content: choice.content,
                         disabled: this.props.apiOptions.readOnly,
