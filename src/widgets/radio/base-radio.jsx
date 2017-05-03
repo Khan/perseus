@@ -107,11 +107,9 @@ const BaseRadio = React.createClass({
             },
 
             responsiveRadioContainer: {
-                [mediaQueries.lgOrSmaller]: {
-                    borderBottom: `1px solid ${radioBorderColor}`,
-                    borderTop: `1px solid ${radioBorderColor}`,
-                    width: "auto",
-                },
+                borderBottom: `1px solid ${radioBorderColor}`,
+                borderTop: `1px solid ${radioBorderColor}`,
+                width: "auto",
                 [mediaQueries.smOrSmaller]: {
                     marginLeft: styleConstants.negativePhoneMargin,
                     marginRight: styleConstants.negativePhoneMargin,
@@ -119,9 +117,7 @@ const BaseRadio = React.createClass({
             },
 
             responsiveMobileRadioContainer: {
-                [mediaQueries.lgOrSmaller]: {
-                    width: "auto",
-                },
+                width: "auto",
             },
 
             satRadio: {
@@ -152,13 +148,11 @@ const BaseRadio = React.createClass({
             },
 
             responsiveItem: {
-                [mediaQueries.lgOrSmaller]: {
-                    marginLeft: 0,
-                    padding: 0,
+                marginLeft: 0,
+                padding: 0,
 
-                    ":active": {
-                        backgroundColor: styleConstants.grayLight,
-                    },
+                ":active": {
+                    backgroundColor: styleConstants.grayLight,
                 },
 
                 ":not(:last-child)": {
@@ -169,29 +163,25 @@ const BaseRadio = React.createClass({
             responsiveMobileItem: {
                 backgroundColor: '#FFFFFF',
 
-                [mediaQueries.lgOrSmaller]: {
-                    border: `1px solid ${radioBorderColor}`,
-                    borderRadius: "4px",
-                    margin: 0,
-                    minHeight: 48,
-                    padding: 1,
+                border: `1px solid ${radioBorderColor}`,
+                borderRadius: "4px",
+                margin: 0,
+                minHeight: 48,
+                padding: 1,
 
-                    ":active": {
-                        border: `2px solid ${radioBorderColor}`,
-                        padding: 0,
-                    },
+                ":active": {
+                    border: `2px solid ${radioBorderColor}`,
+                    padding: 0,
+                },
 
-                    ":not(:last-child)": {
-                        marginBottom: "16px",
-                    },
+                ":not(:last-child)": {
+                    marginBottom: "16px",
                 },
             },
 
             responsiveSelected: {
-                [mediaQueries.lgOrSmaller]: {
-                    border: `2px solid ${checkedColor}`,
-                    padding: 0,
-                },
+                border: `2px solid ${checkedColor}`,
+                padding: 0,
             },
 
             responsiveContainer: {
