@@ -1,6 +1,6 @@
 // Perseus Version File
-// commit b484f760a49c618df1a7f06d5538870598c6c87d
-// branch bump
+// commit 19ecc1865569670526bd4c99d87bc10282a60617
+// branch master
 // @generated
 /* eslint-disable comma-dangle */
 
