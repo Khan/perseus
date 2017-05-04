@@ -71,7 +71,6 @@ const ChoicesType = React.PropTypes.arrayOf(React.PropTypes.shape({
 }));
 
 const radioBorderColor = styleConstants.radioBorderColor;
-const checkedColor = styleConstants.checkedColor;
 
 const BaseRadio = React.createClass({
     propTypes: {
@@ -116,10 +115,6 @@ const BaseRadio = React.createClass({
                 },
             },
 
-            responsiveMobileRadioContainer: {
-                width: "auto",
-            },
-
             satRadio: {
                 background: "none",
                 marginLeft: 0,
@@ -158,30 +153,6 @@ const BaseRadio = React.createClass({
                 ":not(:last-child)": {
                     borderBottom: `1px solid ${radioBorderColor}`,
                 },
-            },
-
-            responsiveMobileItem: {
-                backgroundColor: '#FFFFFF',
-
-                border: `1px solid ${radioBorderColor}`,
-                borderRadius: "4px",
-                margin: 0,
-                minHeight: 48,
-                padding: 1,
-
-                ":active": {
-                    border: `2px solid ${radioBorderColor}`,
-                    padding: 0,
-                },
-
-                ":not(:last-child)": {
-                    marginBottom: "16px",
-                },
-            },
-
-            responsiveSelected: {
-                border: `2px solid ${checkedColor}`,
-                padding: 0,
             },
 
             responsiveContainer: {
@@ -276,13 +247,11 @@ const BaseRadio = React.createClass({
                 // With the responsive mobile styles, the individual items are
                 // spaced out vertically, and so we set the backgrounds on the
                 // items rather than the container.
-                !isMobile && sharedStyles.blankBackground,
+                sharedStyles.blankBackground,
                 styles.radio,
                 // SAT doesn't use the "responsive styling" as it conflicts
                 // with their custom theming.
-                !sat && (isMobile
-                    ? styles.responsiveMobileRadioContainer
-                    : styles.responsiveRadioContainer),
+                !sat && styles.responsiveRadioContainer,
                 sat && styles.satRadio
             )
         );
@@ -338,16 +307,12 @@ const BaseRadio = React.createClass({
                         _.extend(elementProps, {showContent: choice.correct});
                     }
 
-                    const aphroditeClassName = (checked, isMobile) => {
+                    const aphroditeClassName = (checked) => {
                         return css(
                             styles.item,
                             // SAT doesn't use the "responsive styling" as it
                             // conflicts with their theming.
-                            !sat && (isMobile
-                                ? styles.responsiveMobileItem
-                                : styles.responsiveItem),
-                            checked && isMobile &&
-                                styles.responsiveSelected,
+                            !sat && styles.responsiveItem,
                             sat && styles.satRadioOption,
                             sat && checked && styles.satRadioSelected,
                             sat && rubric && styles.satReviewRadioOption
@@ -357,10 +322,10 @@ const BaseRadio = React.createClass({
                     // HACK(abdulrahman): Preloads the selection-state
                     // css because of a bug that causes iOS to lag
                     // when selecting the button for the first time.
-                    aphroditeClassName(true, isMobile);
+                    aphroditeClassName(true);
 
                     const className = classNames(
-                        aphroditeClassName(choice.checked, isMobile),
+                        aphroditeClassName(choice.checked),
                         // TODO(aria): Make test case for these API classNames
                         ApiClassNames.RADIO.OPTION,
                         choice.checked && ApiClassNames.RADIO.SELECTED,

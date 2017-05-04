@@ -145,14 +145,6 @@ const Choice = React.createClass({
                 pointerEvents: "none",
             },
 
-            responsiveMobileRadioInput: {
-                // On phones and tablets, we hide the circular radio button
-                // itself, and instead, show a green border when the item is
-                // selected. This saves horizontal space for content on small
-                // screens.
-                display: "none",
-            },
-
             satRadioOptionContent: {
                 userSelect: 'text',
                 display: "block",
@@ -193,14 +185,6 @@ const Choice = React.createClass({
                 },
             },
 
-            responsiveMobileCheckboxInput: {
-                // On phones and tablets, we hide the circular radio button
-                // itself, and instead, show a green border when the item is
-                // selected. This saves horizontal space for content on small
-                // screens.
-                display: "none",
-            },
-
             satCheckboxOptionContent: {
                 position: "absolute",
                 display: "block",
@@ -213,16 +197,8 @@ const Choice = React.createClass({
                 display: "block",
             },
 
-            mobileRationale: {
-                backgroundColor: "#fafafa",
+            nonSatRationale: {
                 padding: responsiveCheckboxPadding,
-                margin: "0 -1px -1px -1px",
-                borderRadius: 4,
-                width: "100%",
-            },
-
-            mobileRationaleSelected: {
-                margin: 0,
             },
 
             satReviewRationale: {
@@ -362,12 +338,8 @@ const Choice = React.createClass({
                 sharedStyles.responsiveInput,
                 this.props.type === "radio" &&
                     !sat && sharedStyles.responsiveRadioInput,
-                this.props.type === "radio" && isMobile &&
-                    !sat && styles.responsiveMobileRadioInput,
                 this.props.type === "checkbox" &&
                     !sat && styles.responsiveCheckboxInput,
-                this.props.type === "checkbox" && isMobile &&
-                    !sat && styles.responsiveMobileCheckboxInput,
                 sat && this.props.type === "radio" &&
                     sharedStyles.perseusSrOnly,
                 sat && this.props.type === "checkbox" &&
@@ -440,9 +412,7 @@ const Choice = React.createClass({
         const rationaleClassName = classNames(
             css(
                 styles.rationale,
-                isMobile && styles.mobileRationale,
-                isMobile && this.props.checked &&
-                    styles.mobileRationaleSelected,
+                !sat && styles.nonSatRationale,
                 sat && styles.satReviewRationale
             )
         );
