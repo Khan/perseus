@@ -32,6 +32,8 @@ const Radio = React.createClass({
         questionCompleted: React.PropTypes.bool,
         reviewModeRubric: BaseRadio.propTypes.reviewModeRubric,
         trackInteraction: React.PropTypes.func.isRequired,
+        // values is the legacy choiceState data format
+        values: React.PropTypes.arrayOf(React.PropTypes.bool),
         choiceStates: React.PropTypes.arrayOf(React.PropTypes.shape({
             selected: React.PropTypes.bool,
             rationaleShown: React.PropTypes.bool,
@@ -98,6 +100,7 @@ const Radio = React.createClass({
     },
 
     onCheckedChange: function(checked) {
+
         const {choiceStates, choices} = this.props;
 
         if (choiceStates) {
@@ -149,6 +152,29 @@ const Radio = React.createClass({
                 noneOfTheAboveIndex,
                 noneOfTheAboveSelected,
             };
+        // Support legacy choiceState implementation
+        } else if (this.props.values) {
+            let noneOfTheAboveIndex = null;
+            let noneOfTheAboveSelected = false;
+
+            const values = this.props.values.slice();
+
+            for (let i = 0; i < this.props.values.length; i++) {
+                const index = this.props.choices[i].originalIndex;
+                values[index] = this.props.values[i];
+
+                if (this.props.choices[i].isNoneOfTheAbove) {
+                    noneOfTheAboveIndex = index;
+                    if (values[i]) {
+                        noneOfTheAboveSelected = true;
+                    }
+                }
+            }
+            return {
+                choicesSelected: values,
+                noneOfTheAboveIndex,
+                noneOfTheAboveSelected,
+            };
         } else {
             // Nothing checked
             return {
@@ -190,10 +216,21 @@ const Radio = React.createClass({
 
     render: function() {
         let choices = this.props.choices;
-        const choiceStates = this.props.choiceStates || _.map(choices, () => ({
-            selected: false,
-            rationaleShown: false,
-        }));
+        let choiceStates;
+        if (this.props.choiceStates) {
+            choiceStates = this.props.choiceStates;
+        } else if (this.props.values) {
+            // Support legacy choiceStates implementation
+            choiceStates = _.map(this.props.values, (val) => ({
+                selected: val,
+                rationaleShown: false,
+            }));
+        } else {
+            choiceStates = _.map(choices, () => ({
+                selected: false,
+                rationaleShown: false,
+            }));
+        }
 
         choices = _.map(choices, (choice, i) => {
             const content = (choice.isNoneOfTheAbove && !choice.content) ?
