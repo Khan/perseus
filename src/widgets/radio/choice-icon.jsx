@@ -8,14 +8,136 @@ const React = require('react');
 const {StyleSheet, css} = require("aphrodite");
 
 const styleConstants = require("../../styles/constants.js");
+const {iconCheck} = require("../../icon-paths.js");
+const InlineIcon = require("../../components/inline-icon.jsx");
+
+class SATChoiceIcon extends React.Component {
+    props: {
+        letter: string,
+        a11yText: string,
+        checked: boolean,
+        correct: ?boolean,
+        reviewMode: boolean,
+    };
+
+    // TODO(amy): figure out a better scheme for specifying these
+    // styles that isn't such a pain to grok. See some neat ideas
+    // from MDR in https://phabricator.khanacademy.org/D35249.
+    constructStyles(
+        reviewMode: boolean,
+        correct: ?boolean,
+        checked: boolean
+    ): {color: string, backgroundColor: ?string, borderColor: string} {
+        let backgroundColor;
+        let borderColor = styleConstants.satBlue;
+        let color = styleConstants.satBlue;
+        if (reviewMode) {
+            if (correct) {
+                borderColor = styleConstants.satCorrectColor;
+                color = checked
+                      ? styleConstants.white
+                      : styleConstants.satCorrectColor;
+                backgroundColor = checked
+                                ? styleConstants.satCorrectColor
+                                : styleConstants.white;
+            } else if (checked) {
+                borderColor = styleConstants.satIncorrectColor;
+                color = styleConstants.white;
+                backgroundColor = styleConstants.satIncorrectColor;
+            }
+        } else if (checked) {
+            color = styleConstants.white;
+            backgroundColor = styleConstants.satBlue;
+        }
+        return {color, backgroundColor, borderColor};
+    }
+
+    render() {
+        const {letter, a11yText, reviewMode, checked, correct} = this.props;
+        const {color, backgroundColor, borderColor} =
+            this.constructStyles(reviewMode, correct, checked);
+
+        return <div>
+            <div
+                className={css(styles.satCircle)}
+                style={{backgroundColor, borderColor}}
+            />
+            <div style={{color}} className={css(styles.letter)}>
+                <span className="perseus-sr-only">
+                    {a11yText}
+                </span>
+                <span aria-hidden="true">{letter}</span>
+            </div>
+        </div>;
+    }
+}
+
+class LibraryChoiceIcon extends React.Component {
+    props: {
+        letter: string,
+        a11yText: string,
+        checked: boolean,
+        pressed: boolean,
+        focused: boolean,
+        correct: ?boolean,
+        reviewMode: boolean,
+        showCorrectness: boolean,
+    };
+
+    getChoiceInner() {
+        const {letter, showCorrectness, correct} = this.props;
+
+        if (!showCorrectness) {
+            return letter;
+        } else if (correct) {
+            return <InlineIcon
+                {...iconCheck}
+                style={{
+                    position: "relative",
+                    top: -1,
+                }}
+            />;
+        } else {
+            return <div className={css(styles.libraryMinusIcon)} />;
+        }
+    }
+
+    render() {
+        const {
+            checked,
+            showCorrectness,
+            correct,
+            pressed,
+            focused,
+        } = this.props;
+
+        return <div
+            className={css(
+                styles.libraryCircle,
+                showCorrectness && correct && styles.libraryCircleCorrect,
+                checked && styles.libraryCircleSelected,
+                showCorrectness && !correct && styles.libraryCircleIncorrect,
+                showCorrectness && !correct && checked &&
+                    styles.libraryCircleIncorrectSelected,
+                !showCorrectness && pressed && styles.libraryCirclePressed,
+                focused && styles.libraryCircleFocused,
+            )}
+        >
+            {this.getChoiceInner()}
+        </div>;
+    }
+}
 
 type ChoiceIconProps = {
     pos: number,
     checked: boolean,
+    pressed: boolean,
+    focused: boolean,
     correct: ?boolean,
+    showCorrectness: boolean,
     // TODO(amy): if we go this "product" flag route, define this type
     // somewhere shared
-    product: "sat" | "gtp",
+    product: "sat" | "library",
     reviewMode: boolean,
 };
 class ChoiceIcon extends React.Component {
@@ -48,92 +170,46 @@ class ChoiceIcon extends React.Component {
         return i18n._("(Choice %(letter)s)", {letter: letter});
     }
 
-    // TODO(amy): figure out a better scheme for specifying these
-    // styles that isn't such a pain to grok. See some neat ideas
-    // from MDR in https://phabricator.khanacademy.org/D35249.
-    constructStyles(reviewMode: boolean,
-                    product: string,
-                    correct: ?boolean,
-                    checked: boolean) {
-        let color;
-        let backgroundColor;
-        let borderColor;
-        if (this.props.product === "sat") {
-            borderColor = styleConstants.satBlue;
-            color = styleConstants.satBlue;
-            if (reviewMode) {
-                if (correct) {
-                    borderColor = styleConstants.satCorrectColor;
-                    color = checked
-                          ? styleConstants.white
-                          : styleConstants.satCorrectColor;
-                    backgroundColor = checked
-                                    ? styleConstants.satCorrectColor
-                                    : styleConstants.white;
-                } else if (checked) {
-                    borderColor = styleConstants.satIncorrectColor;
-                    color = styleConstants.white;
-                    backgroundColor = styleConstants.satIncorrectColor;
-                }
-            } else if (checked) {
-                color = styleConstants.white;
-                backgroundColor = styleConstants.satBlue;
-            }
-            // TODO(amy): if gtp/sat stay this similar, consolidate the
-            // the styling logic.
-        } else if (this.props.product === "gtp") {
-            borderColor = styleConstants.gray41;
-            color = styleConstants.gray41;
-            if (reviewMode) {
-                if (correct) {
-                    // TODO(amy): update these colors when gtp
-                    // reviewMode styles have solidified
-                    borderColor = styleConstants.gtpCorrectColor;
-                    color = checked
-                          ? styleConstants.white
-                          : styleConstants.gtpCorrectColor;
-                    backgroundColor = checked
-                                    ? styleConstants.gtpCorrectColor
-                                    : styleConstants.white;
-                } else if (checked) {
-                    borderColor = styleConstants.gtpIncorrectColor;
-                    color = styleConstants.white;
-                    backgroundColor = styleConstants.gtpIncorrectColor;
-                }
-            } else if (checked) {
-                color = styleConstants.white;
-                backgroundColor = styleConstants.gtpBlue;
-                borderColor = styleConstants.gtpBlue;
-            }
-        }
-        return {color, backgroundColor, borderColor};
-    }
-
     render() {
-        const {reviewMode, checked, correct, product} = this.props;
+        const {
+            reviewMode,
+            checked,
+            correct,
+            product,
+            pos,
+            showCorrectness,
+            pressed,
+            focused,
+        } = this.props;
         // NOTE(jeresig): This is not i18n appropriate and should probably be
         // changed to a map of common options that are properly translated.
-        const letter = String.fromCharCode(65 + this.props.pos);
+        const letter = String.fromCharCode(65 + pos);
 
-        const {color, backgroundColor, borderColor} = this.constructStyles(
-            reviewMode, product, correct, checked);
-        return <div>
-            <div
-                className={css(styles.circle)}
-                style={{backgroundColor, borderColor}}
-            />
-            <div style={{color}} className={css(styles.letter)}>
-                <span className="perseus-sr-only">
-                    {this.a11yText(letter)}
-                </span>
-                <span aria-hidden="true">{letter}</span>
-            </div>
-        </div>;
+        if (product === "sat") {
+            return <SATChoiceIcon
+                letter={letter}
+                a11yText={this.a11yText(letter)}
+                reviewMode={reviewMode}
+                checked={checked}
+                correct={correct}
+            />;
+        } else {
+            return <LibraryChoiceIcon
+                letter={letter}
+                a11yText={this.a11yText(letter)}
+                reviewMode={reviewMode}
+                checked={checked}
+                pressed={pressed}
+                focused={focused}
+                correct={correct}
+                showCorrectness={showCorrectness}
+            />;
+        }
     }
 }
 
 const styles = StyleSheet.create({
-    circle: {
+    satCircle: {
         display: "block",
         borderRadius: 25,
         borderStyle: "solid",
@@ -145,6 +221,86 @@ const styles = StyleSheet.create({
         top: 1,
         left: 1,
     },
+
+    libraryCircle: {
+        // Make the circle
+        width: 24,
+        height: 24,
+        boxSizing: "border-box",
+        borderRadius: 24,
+        borderStyle: "solid",
+        borderWidth: 2,
+        borderColor: styleConstants.gray68,
+
+        // The default icons have letters in them. Style those letters.
+        fontFamily: styleConstants.boldFontFamily,
+        color: styleConstants.gray68,
+        fontSize: 12,
+
+        // Center the contents of the icon.
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        // HACK(emily): I don't know why adding this line height makes the text
+        // appear centered better than any other value, but it does. In
+        // particular, at large zoom levels this line height does almost
+        // nothing, but at the default size this shifts the letter down one
+        // pixel so it is much better centered.
+        lineHeight: "1px",
+    },
+
+    libraryCircleSelected: {
+        borderColor: styleConstants.kaGreen,
+        backgroundColor: styleConstants.kaGreen,
+        color: styleConstants.white,
+    },
+
+    libraryCircleCorrect: {
+        fontSize: 24,
+        borderColor: styleConstants.kaGreen,
+        color: styleConstants.kaGreen,
+    },
+
+    libraryCircleIncorrect: {
+        fontSize: 3,
+        borderColor: styleConstants.warning1,
+        color: styleConstants.warning1,
+    },
+
+    libraryCircleIncorrectSelected: {
+        backgroundColor: styleConstants.warning1,
+        color: styleConstants.white,
+    },
+
+    libraryCirclePressed: {
+        borderWidth: 2,
+        backgroundColor: styleConstants.white,
+        color: styleConstants.kaGreen,
+        borderColor: styleConstants.kaGreen,
+    },
+
+    libraryCircleFocused: {
+        position: "relative",
+
+        // Make a ring around the icon
+        "::after": {
+            content: '""',
+            position: "absolute",
+            left: -4,
+            right: -4,
+            top: -4,
+            bottom: -4,
+            borderRadius: "50%",
+            boxShadow: `0 0 0 2px ${styleConstants.kaGreen}`,
+        },
+    },
+
+    libraryMinusIcon: {
+        width: 10,
+        borderTopWidth: 2,
+        borderTopStyle: "solid",
+    },
+
     letter: {
         // These properties make sure that this element has the exact
         // same size as `circle` so that we can center things

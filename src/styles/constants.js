@@ -37,6 +37,9 @@ module.exports = {
     gray17: '#21242c',
     black: '#000000',
 
+    warning1: '#F86700',
+    warning3: '#C75300',
+
     // @pure-sm-min: 568px;
     pureSmMin: "568px",
     // @pure-md-min: 768px;

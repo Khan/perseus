@@ -101,6 +101,9 @@ const RendererDemo = React.createClass({
                     scratchpadEnabled: enabled,
                 });
             },
+            styling: {
+                radioStyleVersion: "final",
+            },
         };
 
         const rendererComponent = <ItemRenderer

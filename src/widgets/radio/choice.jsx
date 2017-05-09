@@ -305,20 +305,25 @@ const Choice = React.createClass({
     },
 
     renderChoiceIcon() {
-        // TODO(amy): for now, the only product using letter choice
-        // icons is SAT. However, eventualy use of letters may be a flag
-        // at the content level, distinct from the product styling.
-        const product = "sat";
-        const renderChoiceIcon = this.props.apiOptions.satStyling;
-        if (renderChoiceIcon) {
-            return <ChoiceIcon
-                pos={this.props.pos}
-                correct={this.props.correct}
-                checked={this.props.checked}
-                reviewMode={this.props.reviewMode}
-                product={product}
-            />;
+        const {radioStyleVersion} = this.props.apiOptions.styling;
+        const finalStyles = typeof radioStyleVersion === "undefined"
+            ? false
+            : radioStyleVersion === "final";
+
+        if (!finalStyles && !this.props.apiOptions.satStyling) {
+            return null;
         }
+
+        return <ChoiceIcon
+            pos={this.props.pos}
+            correct={this.props.correct}
+            pressed={this.state.isInputActive}
+            focused={this.state.isInputFocused}
+            checked={this.props.checked}
+            showCorrectness={this.props.showRationale}
+            reviewMode={this.props.reviewMode}
+            product={this.props.apiOptions.satStyling ? "sat" : "library"}
+        />;
     },
 
     render: function() {
@@ -326,6 +331,11 @@ const Choice = React.createClass({
         const styles = Choice.styles;
         const sat = this.props.apiOptions.satStyling;
         const isMobile = this.props.apiOptions.isMobile;
+
+        const {radioStyleVersion} = this.props.apiOptions.styling;
+        const finalStyles = typeof radioStyleVersion === "undefined"
+            ? false
+            : radioStyleVersion === "final";
 
         const className = classNames(
             this.props.className,
@@ -349,21 +359,19 @@ const Choice = React.createClass({
             onFocus: this.onInputFocus,
             onBlur: this.onInputBlur,
             className: css(
-                sharedStyles.perseusInteractive,
-                styles.input,
-                sharedStyles.responsiveInput,
-
                 // intermediate styles are not different for radio and
                 // checkbox, and have a separate active state.
-                !sat &&
+                !finalStyles && sharedStyles.perseusInteractive,
+                !finalStyles && styles.input,
+                !finalStyles && sharedStyles.responsiveInput,
+                !finalStyles && !sat &&
                     sharedStyles.responsiveRadioInput,
-                !sat && this.state.isInputActive &&
+                !finalStyles && !sat && this.state.isInputActive &&
                     sharedStyles.responsiveRadioInputActive,
 
-                sat && this.props.type === "radio" &&
-                    sharedStyles.perseusSrOnly,
-                sat && this.props.type === "checkbox" &&
-                    styles.satCheckboxInput,
+                finalStyles && sharedStyles.perseusSrOnly,
+
+                sat && sharedStyles.perseusSrOnly,
                 sat && this.props.reviewMode && styles.satReviewInput
             ),
         };
