@@ -41,7 +41,7 @@ const Renderer = require("../renderer.jsx");
 const PassageMarkdown = require("./passage/passage-markdown.jsx");
 
 import type {ChangeableProps} from "../mixins/changeable.jsx";
-import type {SerializedHighlight} from "../components/highlighting/types.js";
+import type {SerializedHighlightSet} from "../components/highlighting/types.js";
 
 declare var i18n: {
     _(format: string, args?: any): string,
@@ -171,7 +171,7 @@ class Passage extends React.Component {
         footnotes: "",
         showLineNumbers: true,
         highlightRanges: [],
-        highlights: [],
+        highlights: {},
     };
 
     state: PassageState = {
@@ -767,7 +767,7 @@ class Passage extends React.Component {
     }
 
     _handleSerializedHighlightsUpdate = (
-        serializedHighlights: SerializedHighlight[]
+        serializedHighlights: SerializedHighlightSet
     ) => {
         this.props.onChange({highlights: serializedHighlights});
     }

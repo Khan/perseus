@@ -4,7 +4,8 @@
  */
 const {findFirstAndLastWordIndexes, mergeRanges, spanRanges} = require("./ranges.js");
 
-import type {DOMHighlight, SerializedHighlight, DOMRange} from "./types.js";
+import type {DOMHighlight, DOMHighlightSet, SerializedHighlight, DOMRange}
+    from "./types.js";
 
 /**
  * Given a list of DOMHighlights, return a new list that also includes the
@@ -13,41 +14,47 @@ import type {DOMHighlight, SerializedHighlight, DOMRange} from "./types.js";
  * are merged into the new DOMHighlight.
  */
 function addHighlight(
-    existingHighlights: DOMHighlight[],
+    existingHighlights: DOMHighlightSet,
     newHighlight: DOMHighlight,
-): DOMHighlight[] {
+): DOMHighlightSet {
+    const newHighlights = {};
+
     // Merge the new highlight with any existing highlights that intersect it.
     let mergedDomRange = newHighlight.domRange;
     let mergedFirstWordIndex = newHighlight.firstWordIndex;
     let mergedLastWordIndex = newHighlight.lastWordIndex;
-    const highlightsThatWereNotMerged = existingHighlights.filter(h => {
+    for (const key of Object.keys(existingHighlights)) {
+        const h = existingHighlights[key];
         const newMergedDomRange = mergeRanges(h.domRange, mergedDomRange);
         if (newMergedDomRange) {
             // This highlight's range was successfully merged into the new
-            // highlight. Update `mergedDomRange`, and return `false` to *not*
-            // add this to the list of not-merged highlights.
+            // highlight. Update `mergedDomRange`, and *don't* add it to the
+            // new set of highlights.
             mergedDomRange = newMergedDomRange;
             mergedFirstWordIndex =
                 Math.min(h.firstWordIndex, mergedFirstWordIndex);
             mergedLastWordIndex =
                 Math.max(h.lastWordIndex, mergedLastWordIndex);
-            return false;
         } else {
             // This highlight's range can't be merged into the new highlight.
-            // Return `true` to add this to the list of not-merged highlights.
-            return true;
+            // Add it to the new set of highlights.
+            newHighlights[key] = h;
         }
-    });
+    }
 
-    const existingKeys = highlightsThatWereNotMerged.map(h => h.key);
     const newMergedHighlight = {
-        key: createNewUniqueKey(existingKeys), // TODO(mdr): remove
         firstWordIndex: mergedFirstWordIndex,
         lastWordIndex: mergedLastWordIndex,
         domRange: mergedDomRange,
     };
 
-    return [...highlightsThatWereNotMerged, newMergedHighlight];
+    // Add the newly-merged highlight to the set of highlights, under a new,
+    // unique key.
+    const existingKeys = Object.keys(newHighlights);
+    const newKey = createNewUniqueKey(existingKeys);
+    newHighlights[newKey] = newMergedHighlight;
+
+    return newHighlights;
 }
 
 /**
@@ -68,8 +75,6 @@ function buildHighlight(
     const firstWord = wordRanges[firstWordIndex];
     const lastWord = wordRanges[lastWordIndex];
     return {
-        key: "TODO(mdr)" + Math.random(),
-
         firstWordIndex,
         lastWordIndex,
         domRange: spanRanges(firstWord, lastWord),
@@ -127,7 +132,6 @@ function deserializeHighlight(
     }
 
     return {
-        key: serializedHighlight.key, // TODO(mdr): remove
         firstWordIndex,
         lastWordIndex,
         domRange: spanRanges(firstWord, lastWord),
@@ -141,7 +145,6 @@ function serializeHighlight(highlight: DOMHighlight): SerializedHighlight {
     const {firstWordIndex, lastWordIndex} = highlight;
 
     return {
-        key: highlight.key, // TODO(mdr): remove
         range: {
             type: "word-indexes",
             firstWordIndex,

@@ -15,7 +15,8 @@ const React = require("react");
 const HighlightRenderer = require("./highlight-renderer.jsx");
 const SelectionTracker = require("./selection-tracker.jsx");
 
-import type {DOMHighlight, DOMRange, Position, ZIndexes} from "./types.js";
+import type {DOMHighlight, DOMHighlightSet, DOMRange, Position, ZIndexes}
+    from "./types.js";
 
 type HighlightingUIProps = {
     // A function that builds a DOMHighlight from the given DOMRange, if
@@ -28,7 +29,7 @@ type HighlightingUIProps = {
     editable: boolean,
 
     // A set of highlights to render.
-    highlights: DOMHighlight[],
+    highlights: DOMHighlightSet,
 
     // This component's `offsetParent` element, which is the nearest ancestor
     // with `position: relative`. This will enable us to choose the correct
@@ -121,11 +122,12 @@ class HighlightingUI extends React.PureComponent {
 
     render() {
         return <div>
-            {this.props.highlights.map(highlight =>
+            {Object.keys(this.props.highlights).map(key =>
                 <HighlightRenderer
                     editable={this.props.editable}
-                    key={highlight.key}
-                    highlight={highlight}
+                    key={key}
+                    highlight={this.props.highlights[key]}
+                    highlightKey={key}
                     mouseClientPosition={this.state.mouseClientPosition}
                     offsetParent={this.props.offsetParent}
                     onRemoveHighlight={this.props.onRemoveHighlight}

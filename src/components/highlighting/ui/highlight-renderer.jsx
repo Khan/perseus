@@ -29,6 +29,9 @@ type HighlightRendererProps = {
     // The DOMHighlight to render.
     highlight: DOMHighlight,
 
+    // A unique key corresponding to the given `highlight`.
+    highlightKey: string,
+
     // The mouse's current position, relative to the viewport.
     mouseClientPosition: ?Position,
 
@@ -130,7 +133,7 @@ class HighlightRenderer extends React.PureComponent {
     }
 
     _handleRemoveHighlight = () => {
-        this.props.onRemoveHighlight(this.props.highlight.key);
+        this.props.onRemoveHighlight(this.props.highlightKey);
     }
 
     _handleTooltipMouseEnter = () => {

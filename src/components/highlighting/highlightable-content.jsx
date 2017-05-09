@@ -21,7 +21,8 @@ const WordIndexer = require("./word-indexer.jsx");
 const {addHighlight, buildHighlight, deserializeHighlight, serializeHighlight}
     = require("./highlights.js");
 
-import type {DOMHighlight, SerializedHighlight, DOMRange} from "./types.js";
+import type {DOMHighlight, DOMHighlightSet, SerializedHighlightSet, DOMRange}
+    from "./types.js";
 
 type HighlightableContentProps = {
     // The highlightable content itself. Highlights will be defined relative to
@@ -36,10 +37,10 @@ type HighlightableContentProps = {
     // will be called with a newly-updated full set of highlights that reflects
     // the user's intent.
     onSerializedHighlightsUpdate: (
-        serializedHighlights: SerializedHighlight[]) => mixed,
+        serializedHighlights: SerializedHighlightSet) => mixed,
 
     // The set of highlights to apply to the given content.
-    serializedHighlights: SerializedHighlight[],
+    serializedHighlights: SerializedHighlightSet,
 };
 
 type HighlightableContentState = {
@@ -65,23 +66,30 @@ class HighlightableContent extends React.PureComponent {
      * Take the highlights from props, and deserialize them into DOMHighlights,
      * according to the latest cache of word ranges.
      */
-    _getDOMHighlights(): DOMHighlight[] {
+    _getDOMHighlights(): DOMHighlightSet {
         const {serializedHighlights} = this.props;
         const {wordRanges} = this.state;
 
-        return serializedHighlights.map(serializedHighlight =>
-            deserializeHighlight(serializedHighlight, wordRanges));
+        const domHighlights = {};
+        for (const key of Object.keys(serializedHighlights)) {
+            domHighlights[key] =
+                deserializeHighlight(serializedHighlights[key], wordRanges);
+        }
+        return domHighlights;
     }
 
     /**
      * Add the given DOMHighlight to the current set.
      */
     _handleAddHighlight = (highlight: DOMHighlight) => {
-        const newHighlights =
+        const newDomHighlights =
             addHighlight(this._getDOMHighlights(), highlight);
 
-        const newSerializedHighlights =
-            newHighlights.map(h => serializeHighlight(h));
+        const newSerializedHighlights = {};
+        for (const key of Object.keys(newDomHighlights)) {
+            newSerializedHighlights[key] =
+                serializeHighlight(newDomHighlights[key]);
+        }
 
         this.props.onSerializedHighlightsUpdate(newSerializedHighlights);
     }
@@ -92,8 +100,8 @@ class HighlightableContent extends React.PureComponent {
      */
     _handleRemoveHighlight = (keyToRemove: string) => {
         const {serializedHighlights} = this.props;
-        const newSerializedHighlights =
-            serializedHighlights.filter(sh => sh.key !== keyToRemove);
+        const newSerializedHighlights = {...serializedHighlights};
+        delete newSerializedHighlights[keyToRemove];
         this.props.onSerializedHighlightsUpdate(newSerializedHighlights);
     }
 
