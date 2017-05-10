@@ -18,8 +18,8 @@ const {StyleSheet, css} = require("aphrodite");
 
 const HighlightingUI = require("./ui/highlighting-ui.jsx");
 const WordIndexer = require("./word-indexer.jsx");
-const {addHighlight, deserializeHighlight, serializeHighlight} =
-    require("./highlights.js");
+const {addHighlight, buildHighlight, deserializeHighlight, serializeHighlight}
+    = require("./highlights.js");
 
 import type {DOMHighlight, SerializedHighlight, DOMRange} from "./types.js";
 
@@ -49,13 +49,17 @@ type HighlightableContentState = {
 };
 
 class HighlightableContent extends React.PureComponent {
-    /* eslint-disable react/sort-comp */
+    // A reference to the mounted container div.
+    _container: ?HTMLElement
+
     props: HighlightableContentProps
     state: HighlightableContentState = {
         wordRanges: [],
     }
-    _container: ?HTMLElement
-    /* eslint-enable react/sort-comp */
+
+    _buildHighlight(highlightRange: DOMRange): ?DOMHighlight {
+        return buildHighlight(highlightRange, this.state.wordRanges);
+    }
 
     /**
      * Take the highlights from props, and deserialize them into DOMHighlights,
@@ -70,28 +74,14 @@ class HighlightableContent extends React.PureComponent {
     }
 
     /**
-     * Add a highlight over the given DOMRange.
+     * Add the given DOMHighlight to the current set.
      */
-    _handleAddHighlight = (range: DOMRange) => {
-        const {wordRanges} = this.state;
-
+    _handleAddHighlight = (highlight: DOMHighlight) => {
         const newHighlights =
-            addHighlight(this._getDOMHighlights(), {range});
+            addHighlight(this._getDOMHighlights(), highlight);
 
-        // Serialize the new highlights, and check for nulls. If any are found,
-        // then our new highlight didn't serialize, and isn't actually valid
-        // (e.g. it isn't actually over any of the content's words), so return
-        // without firing any updates.
-        //
-        // Otherwise, since we've proven the list contains no empty values, we
-        // can safely cast to `SerializedHighlight[]`.
-        const maybeNewSerializedHighlights =
-            newHighlights.map(h => serializeHighlight(h, wordRanges));
-        if (maybeNewSerializedHighlights.some(sh => !sh)) {
-            return;
-        }
-        const newSerializedHighlights: SerializedHighlight[] =
-            (maybeNewSerializedHighlights: any[]);
+        const newSerializedHighlights =
+            newHighlights.map(h => serializeHighlight(h));
 
         this.props.onSerializedHighlightsUpdate(newSerializedHighlights);
     }
@@ -118,12 +108,28 @@ class HighlightableContent extends React.PureComponent {
     render() {
         const highlights = this._getDOMHighlights();
 
+        // NOTE(mdr): This lambda is rebuilt every time this component updates,
+        //     so every update to HighlightableContent triggers an update in
+        //     the child HighlightingUI and SelectionTracker, even if the
+        //     behavior hasn't changed.
+        //
+        //     Over-updating is preferable to under-updating here, because some
+        //     updates in this component's props/state *do* affect
+        //     `buildHighlight`'s behavior, and *should* trigger an update.
+        //
+        //     A more performant approach would be to cache this function
+        //     object until its implicitly-bound inputs change. If profiling
+        //     leads us to implement such caching, this draft might be a good
+        //     starting point: https://phabricator.khanacademy.org/D35623?id=170698
+        const buildHighlight = (r: DOMRange) => this._buildHighlight(r);
+
         return <div
             className={css(styles.container)}
             ref={container => this._container = container}
         >
             <div>
                 {this._container && <HighlightingUI
+                    buildHighlight={buildHighlight}
                     editable={this.props.editable}
                     highlights={highlights}
                     offsetParent={this._container}

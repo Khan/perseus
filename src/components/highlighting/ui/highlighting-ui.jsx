@@ -18,6 +18,11 @@ const SelectionTracker = require("./selection-tracker.jsx");
 import type {DOMHighlight, DOMRange, Position, ZIndexes} from "./types.js";
 
 type HighlightingUIProps = {
+    // A function that builds a DOMHighlight from the given DOMRange, if
+    // possible. If it would not currently be valid to add a highlight over the
+    // given DOMRange, returns null.
+    buildHighlight: (range: DOMRange) => ?DOMHighlight,
+
     // Whether the highlights are user-editable. If false, highlights are
     // read-only.
     editable: boolean,
@@ -31,9 +36,9 @@ type HighlightingUIProps = {
     // content.
     offsetParent: Element,
 
-    // A callback indicating that the user would like to add a highlight over
-    // the given DOMRange.
-    onAddHighlight: (range: DOMRange) => mixed,
+    // A callback indicating that the user would like to add the given
+    // highlight to the current set of highlights.
+    onAddHighlight: (range: DOMHighlight) => mixed,
 
     // A callback indicating that the user would like to remove the highlight
     // with the given key.
@@ -128,6 +133,7 @@ class HighlightingUI extends React.PureComponent {
                 />
             )}
             {this.props.editable && <SelectionTracker
+                buildHighlight={this.props.buildHighlight}
                 offsetParent={this.props.offsetParent}
                 onAddHighlight={this.props.onAddHighlight}
                 zIndexes={this.props.zIndexes}

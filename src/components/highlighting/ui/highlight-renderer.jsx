@@ -111,7 +111,7 @@ class HighlightRenderer extends React.PureComponent {
         //     case the user scrolls at unexpected times. Instead, we only
         //     cache the derived rectangles that this function returns, because
         //     those will be stable regardless of viewport scrolling.
-        const domRects = highlight.range.getClientRects();
+        const domRects = highlight.domRange.getClientRects();
         const offsetParentRect = offsetParent.getBoundingClientRect();
 
         // Recompute the rectangle's coordinates to be relative to the offset
@@ -236,8 +236,8 @@ class HighlightRenderer extends React.PureComponent {
                 onMouseEnter={this._handleTooltipMouseEnter}
                 onMouseLeave={this._handleTooltipMouseLeave}
 
-                focusNode={this.props.highlight.range.endContainer}
-                focusOffset={this.props.highlight.range.endOffset}
+                focusNode={this.props.highlight.domRange.endContainer}
+                focusOffset={this.props.highlight.domRange.endOffset}
                 offsetParent={this.props.offsetParent}
                 zIndex={this.props.zIndexes.aboveContent}
             />}

@@ -9,17 +9,22 @@ const HighlightTooltip = require("./highlight-tooltip.jsx");
 
 /* global i18n */
 
-import type {DOMRange, ZIndexes} from "./types.js";
+import type {DOMHighlight, DOMRange, ZIndexes} from "./types.js";
 
 type SelectionTrackerProps = {
+    // A function that builds a DOMHighlight from the given DOMRange, if
+    // possible. If it would not currently be valid to add a highlight over the
+    // given DOMRange, returns null.
+    buildHighlight: (range: DOMRange) => ?DOMHighlight,
+
     // This component's `offsetParent` element, which is the nearest ancestor
     // with `position: relative`. This will enable us to choose the correct
     // CSS coordinates to align tooltips with the target content.
     offsetParent: Element,
 
-    // A callback indicating that the user would like to add a highlight over
-    // the given DOMRange.
-    onAddHighlight: (range: DOMRange) => mixed,
+    // A callback indicating that the user would like to add the given
+    // highlight to the current set of highlights.
+    onAddHighlight: (range: DOMHighlight) => mixed,
 
     // The z-indexes to use when rendering tooltips above content, and
     // highlights below content.
@@ -40,23 +45,35 @@ type SelectionTrackerState = {
     // `shouldComponentUpdate` checks.
     selectionFocusNode: ?Node,
     selectionFocusOffset: ?number,
+
+    // If the current selection maps to a valid new highlight, we cache the
+    // highlight object here.
+    proposedHighlight: ?DOMHighlight,
 };
 
 class SelectionTracker extends React.PureComponent {
-    /* eslint-disable react/sort-comp */
     props: SelectionTrackerProps
     state: SelectionTrackerState = {
         mouseState: "down",
         selectionFocusNode: null,
         selectionFocusOffset: null,
+        proposedHighlight: null,
     }
-    /* eslint-enable react/sort-comp */
 
     componentDidMount() {
         window.addEventListener("mousedown", this._handleMouseDown);
         window.addEventListener("mouseup", this._handleMouseUp);
         document.addEventListener("selectionchange",
             this._handleSelectionChange);
+    }
+
+    componentWillReceiveProps(nextProps: SelectionTrackerProps) {
+        if (this.props.buildHighlight !== nextProps.buildHighlight) {
+            // The highlight-building function changed, so the
+            // proposedHighlight we built with it might be different, or no
+            // longer be valid. Update accordingly.
+            this._updateSelection(nextProps.buildHighlight);
+        }
     }
 
     componentWillUnmount() {
@@ -87,32 +104,23 @@ class SelectionTracker extends React.PureComponent {
      * Add the currently-selected DOMRange as a highlight.
      */
     _handleAddSelectionAsHighlight = () => {
-        const selectionAndRange = this._getSelectionAndRange();
-        if (!selectionAndRange) {
+        const {proposedHighlight} = this.state;
+        if (!proposedHighlight) {
             return;
         }
 
-        this.props.onAddHighlight(selectionAndRange.range);
+        this.props.onAddHighlight(proposedHighlight);
 
         // Deselect the newly-highlighted text, by collapsing the selection
         // to the end of the range.
-        selectionAndRange.selection.collapseToEnd();
+        const selection = document.getSelection();
+        if (selection) {
+            selection.collapseToEnd();
+        }
     }
 
     _handleSelectionChange = () => {
-        const selectionAndRange = this._getSelectionAndRange();
-        if (selectionAndRange) {
-            const {selection} = selectionAndRange;
-            this.setState({
-                selectionFocusNode: selection.focusNode,
-                selectionFocusOffset: selection.focusOffset,
-            });
-        } else {
-            this.setState({
-                selectionFocusNode: null,
-                selectionFocusOffset: null,
-            });
-        }
+        this._updateSelection(this.props.buildHighlight);
 
         if (this.state.mouseState === "down") {
             this.setState({
@@ -129,14 +137,37 @@ class SelectionTracker extends React.PureComponent {
         this.setState({mouseState: "up"});
     }
 
+    _updateSelection(buildHighlight: (range: DOMRange) => ?DOMHighlight) {
+        const selectionAndRange = this._getSelectionAndRange();
+        if (selectionAndRange) {
+            const {selection, range} = selectionAndRange;
+            this.setState({
+                selectionFocusNode: selection.focusNode,
+                selectionFocusOffset: selection.focusOffset,
+                proposedHighlight: buildHighlight(range),
+            });
+        } else {
+            this.setState({
+                selectionFocusNode: null,
+                selectionFocusOffset: null,
+                proposedHighlight: null,
+            });
+        }
+    }
+
     render() {
         const {offsetParent, zIndexes} = this.props;
-        const {mouseState, selectionFocusNode, selectionFocusOffset} =
-            this.state;
+        const {mouseState, selectionFocusNode, selectionFocusOffset,
+            proposedHighlight} = this.state;
 
         // If the user is still mouse-selecting some text, we don't want our
         // tooltip getting in the way, so render nothing.
         if (mouseState === "down-and-selecting") {
+            return null;
+        }
+
+        // If there's no proposed highlight, render nothing.
+        if (!proposedHighlight) {
             return null;
         }
 

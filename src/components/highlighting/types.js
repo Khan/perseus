@@ -52,9 +52,11 @@ export type DOMHighlight = {
     // highlights.
     key: string,
 
-    // A range that specifies this highlight's target content, relative to the
-    // current DOM.
-    range: DOMRange,
+    // A range that specifies this highlight's target content, both in terms of
+    // the first and last word, and in terms of the DOM for caching purposes.
+    firstWordIndex: number,
+    lastWordIndex: number,
+    domRange: DOMRange,
 
     // TODO(mdr): Things like color will go here, too :)
 };
