@@ -20,7 +20,7 @@ build: install
 	./node_modules/.bin/lessc stylesheets/exercise-content-package/perseus.less $(PERSEUS_BUILD_CSS)
 
 server: 
-	./node_modules/.bin/beefy src/perseus.js test/test.js $(PORT) -- -s Perseus -t babelify -d
+	npm start
 
 demo:
 	git checkout gh-pages

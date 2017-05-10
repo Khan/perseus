@@ -2,7 +2,7 @@
   "name": "perseus",
   "version": "0.0.1",
   "scripts": {
-    "start": "./node_modules/.bin/beefy src/editor-page-shim.js test/test.js 9000 -- -t babelify -d",
+    "start": "beefy ${PORT:=9000}",
     "test": "jest"
   },
   "devDependencies": {
