@@ -19,7 +19,7 @@
     "less": "~1.7.0",
     "mocha": "^1.19.0",
     "node-jsx": "^0.10.0",
-    "react-components": "git+https://git@github.com/Khan/react-components.git#0de8388",
+    "react-components": "git+https://git@github.com/Khan/react-components.git#17f6657",
     "react-tools": "0.10.0",
     "requirejs": "~2.1.11"
   },
