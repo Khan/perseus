@@ -73,13 +73,11 @@ type HighlightRendererState = {
 };
 
 class HighlightRenderer extends React.PureComponent {
-    /* eslint-disable react/sort-comp */
     props: HighlightRendererProps
     state: HighlightRendererState = {
-        cachedHighlightRects: [],
+        cachedHighlightRects: this._computeRects(this.props),
         tooltipIsHovered: false,
     }
-    /* eslint-enable react/sort-comp */
 
     componentWillReceiveProps(nextProps: HighlightRendererProps) {
         if (
@@ -87,7 +85,7 @@ class HighlightRenderer extends React.PureComponent {
             this.props.offsetParent !== nextProps.offsetParent
         ) {
             this.setState({
-                cachedHighlightRects: this._getRects(nextProps),
+                cachedHighlightRects: this._computeRects(nextProps),
             });
         }
     }
@@ -97,7 +95,7 @@ class HighlightRenderer extends React.PureComponent {
      * coordinates relative to the offset parent. That way, we can use them
      * for CSS positioning.
      */
-    _getRects(): Rect[] {
+    _computeRects(): Rect[] {
         const {highlight, offsetParent} = this.props;
 
         // Get the set of rectangles that covers the range, and the rectangle

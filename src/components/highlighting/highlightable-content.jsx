@@ -33,6 +33,16 @@ type HighlightableContentProps = {
     // read-only.
     editable: boolean,
 
+    // Whether highlighting is currently enabled. If false, highlights are not
+    // visible and are read-only (regardless of the `editable` prop), and this
+    // component is effectively a no-op.
+    //
+    // NOTE(mdr): The purpose of the `enabled` prop, as opposed to, say, just
+    //     *not* wrapping the content, is to enable quick toggles between
+    //     enabled/disabled while maintaining the same component structure.
+    //     Forcing React to rebuild the entire component tree is not kind!
+    enabled: boolean,
+
     // When the user attempts to add/remove/update a highlight, this callback
     // will be called with a newly-updated full set of highlights that reflects
     // the user's intent.
@@ -136,7 +146,7 @@ class HighlightableContent extends React.PureComponent {
             ref={container => this._container = container}
         >
             <div>
-                {this._container && <HighlightingUI
+                {this.props.enabled && this._container && <HighlightingUI
                     buildHighlight={buildHighlight}
                     editable={this.props.editable}
                     highlights={highlights}
