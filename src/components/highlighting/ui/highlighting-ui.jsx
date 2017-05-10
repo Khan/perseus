@@ -13,10 +13,13 @@
 const React = require("react");
 
 const HighlightRenderer = require("./highlight-renderer.jsx");
+const HighlightTooltip = require("./highlight-tooltip.jsx");
 const SelectionTracker = require("./selection-tracker.jsx");
 
 import type {DOMHighlight, DOMHighlightSet, DOMRange, Position, ZIndexes}
     from "./types.js";
+
+/* global i18n */
 
 type HighlightingUIProps = {
     // A function that builds a DOMHighlight from the given DOMRange, if
@@ -66,36 +69,15 @@ class HighlightingUI extends React.PureComponent {
     /* eslint-enable react/sort-comp */
 
     componentDidMount() {
-        const willListen = this._shouldListenToMouseMove(this.props);
-        this._updateMouseMoveListener(false, willListen);
+        this._updateEditListeners(false, this.props.editable);
     }
 
     componentWillReceiveProps(nextProps: HighlightingUIProps) {
-        const wasListening = this._shouldListenToMouseMove(this.props);
-        const willListen = this._shouldListenToMouseMove(nextProps);
-        this._updateMouseMoveListener(wasListening, willListen);
+        this._updateEditListeners(this.props.editable, nextProps.editable);
     }
 
     componentWillUnmount() {
-        const wasListening = this._shouldListenToMouseMove(this.props);
-        this._updateMouseMoveListener(wasListening, false);
-    }
-
-    _handleMouseMove = (e: MouseEvent) => {
-        this.setState({
-            mouseClientPosition: {
-                left: e.clientX,
-                top: e.clientY,
-            },
-        });
-    }
-
-    _shouldListenToMouseMove(props: HighlightingUIProps): boolean {
-        // NOTE(mdr): As an optimization, we only listen to mousemove events in
-        //     editable mode, because hover events on highlights only affect
-        //     the "Remove highlight" tooltip. If our design needs change, this
-        //     behavior may need to change, too.
-        return props.editable;
+        this._updateEditListeners(this.props.editable, false);
     }
 
     /**
@@ -103,7 +85,7 @@ class HighlightingUI extends React.PureComponent {
      * whether we will now listen to mousemove events, add or remove the
      * listener accordingly.
      */
-    _updateMouseMoveListener(wasListening: boolean, willListen: boolean) {
+    _updateEditListeners(wasListening: boolean, willListen: boolean) {
         if (!wasListening && willListen) {
             window.addEventListener("mousemove", this._handleMouseMove);
         } else if (wasListening && !willListen) {
@@ -120,27 +102,65 @@ class HighlightingUI extends React.PureComponent {
         }
     }
 
+    _handleMouseMove = (e: MouseEvent) => {
+        this.setState({
+            mouseClientPosition: {
+                left: e.clientX,
+                top: e.clientY,
+            },
+        });
+    }
+
+    _handleAddHighlight(highlightToAdd: DOMHighlight) {
+        this.props.onAddHighlight(highlightToAdd);
+
+        // Deselect the newly-highlighted text, by collapsing the selection
+        // to the end of the range.
+        const selection = document.getSelection();
+        if (selection) {
+            selection.collapseToEnd();
+        }
+    }
+
     render() {
-        return <div>
-            {Object.keys(this.props.highlights).map(key =>
-                <HighlightRenderer
-                    editable={this.props.editable}
-                    key={key}
-                    highlight={this.props.highlights[key]}
-                    highlightKey={key}
-                    mouseClientPosition={this.state.mouseClientPosition}
-                    offsetParent={this.props.offsetParent}
-                    onRemoveHighlight={this.props.onRemoveHighlight}
-                    zIndexes={this.props.zIndexes}
-                />
-            )}
-            {this.props.editable && <SelectionTracker
-                buildHighlight={this.props.buildHighlight}
-                offsetParent={this.props.offsetParent}
-                onAddHighlight={this.props.onAddHighlight}
-                zIndexes={this.props.zIndexes}
-            />}
-        </div>;
+        return <SelectionTracker
+            buildHighlight={this.props.buildHighlight}
+            enabled={this.props.editable}
+        >
+            {(trackedSelection, userIsMouseSelecting) =>
+                <div>
+                    {Object.keys(this.props.highlights).map(key =>
+                        <HighlightRenderer
+                            editable={
+                                /* An existing highlight is editable when the
+                                 * component is in editable mode, and there's
+                                 * not a selection and "Add highlight" tooltip
+                                 * taking precedence over it. */
+                                this.props.editable && !trackedSelection}
+                            key={key}
+                            highlight={this.props.highlights[key]}
+                            highlightKey={key}
+                            mouseClientPosition={this.state.mouseClientPosition}
+                            offsetParent={this.props.offsetParent}
+                            onRemoveHighlight={this.props.onRemoveHighlight}
+                            zIndexes={this.props.zIndexes}
+                        />
+                    )}
+                    {trackedSelection && !userIsMouseSelecting &&
+                        <HighlightTooltip
+                            label={i18n._("Add highlight")}
+                            onClick={() => this._handleAddHighlight(
+                                trackedSelection.proposedHighlight)}
+
+                            focusNode={trackedSelection.focusNode}
+                            focusOffset={trackedSelection.focusOffset}
+                            offsetParent={this.props.offsetParent}
+                            zIndex={this.props.zIndexes.aboveContent}
+                        />
+                    }
+                </div>
+            }
+        </SelectionTracker>;
     }
 }
 

@@ -1,41 +1,12 @@
 // @flow
 /**
- * Tracks the user's current selection, and displays an Add Highlight tooltip
- * at the focus.
+ * TODO(mdr)
  */
 const React = require("react");
 
-const HighlightTooltip = require("./highlight-tooltip.jsx");
+import type {DOMHighlight, DOMRange} from "./types.js";
 
-/* global i18n */
-
-import type {DOMHighlight, DOMRange, ZIndexes} from "./types.js";
-
-type SelectionTrackerProps = {
-    // A function that builds a DOMHighlight from the given DOMRange, if
-    // possible. If it would not currently be valid to add a highlight over the
-    // given DOMRange, returns null.
-    buildHighlight: (range: DOMRange) => ?DOMHighlight,
-
-    // This component's `offsetParent` element, which is the nearest ancestor
-    // with `position: relative`. This will enable us to choose the correct
-    // CSS coordinates to align tooltips with the target content.
-    offsetParent: Element,
-
-    // A callback indicating that the user would like to add the given
-    // highlight to the current set of highlights.
-    onAddHighlight: (range: DOMHighlight) => mixed,
-
-    // The z-indexes to use when rendering tooltips above content, and
-    // highlights below content.
-    zIndexes: ZIndexes,
-};
-
-type SelectionTrackerState = {
-    // The current state of the mouse button. We distinguish between down,
-    // down and the selection has changed since going down, and up.
-    mouseState: "down" | "down-and-selecting" | "up",
-
+type TrackedSelection = {
     // The focus of the current selection - that is, the boundary point of the
     // selection that the user is dragging around.
     //
@@ -43,28 +14,50 @@ type SelectionTrackerState = {
     // this focus and range information and more, because the browser reuses
     // the global `Selection` object and mutates it, which breaks our
     // `shouldComponentUpdate` checks.
-    selectionFocusNode: ?Node,
-    selectionFocusOffset: ?number,
+    focusNode: Node,
+    focusOffset: number,
 
     // If the current selection maps to a valid new highlight, we cache the
     // highlight object here.
-    proposedHighlight: ?DOMHighlight,
+    proposedHighlight: DOMHighlight,
+};
+
+type SelectionTrackerProps = {
+    // A function that builds a DOMHighlight from the given DOMRange, if
+    // possible. If it would not currently be valid to add a highlight over the
+    // given DOMRange, returns null.
+    buildHighlight: (domRange: DOMRange) => ?DOMHighlight,
+
+    // The function-as-children pattern: passes the tracked selection, and
+    // whether the user is currently using their mouse to select, down the
+    // tree.
+    children?: (
+        trackedSelection: ?TrackedSelection,
+        userIsMouseSelecting: boolean,
+    ) => React.Element<any>,
+
+    // If false, will not track selections.
+    enabled: boolean,
+};
+
+type SelectionTrackerState = {
+    // The current state of the mouse button. We distinguish between down,
+    // down and the selection has changed since going down, and up.
+    mouseState: "down" | "down-and-selecting" | "up",
+
+    // The current TrackedSelection, if any.
+    trackedSelection: ?TrackedSelection,
 };
 
 class SelectionTracker extends React.PureComponent {
     props: SelectionTrackerProps
     state: SelectionTrackerState = {
-        mouseState: "down",
-        selectionFocusNode: null,
-        selectionFocusOffset: null,
-        proposedHighlight: null,
+        mouseState: "up",
+        trackedSelection: null,
     }
 
     componentDidMount() {
-        window.addEventListener("mousedown", this._handleMouseDown);
-        window.addEventListener("mouseup", this._handleMouseUp);
-        document.addEventListener("selectionchange",
-            this._handleSelectionChange);
+        this._updateListeners(false, this.props.enabled);
     }
 
     componentWillReceiveProps(nextProps: SelectionTrackerProps) {
@@ -72,28 +65,55 @@ class SelectionTracker extends React.PureComponent {
             // The highlight-building function changed, so the
             // proposedHighlight we built with it might be different, or no
             // longer be valid. Update accordingly.
-            this._updateSelection(nextProps.buildHighlight);
+            this._updateTrackedSelection(nextProps.buildHighlight);
         }
+
+        this._updateListeners(this.props.enabled, nextProps.enabled);
     }
 
     componentWillUnmount() {
-        window.removeEventListener("mousedown", this._handleMouseDown);
-        window.removeEventListener("mouseup", this._handleMouseUp);
-        document.removeEventListener("selectionchange",
-            this._handleSelectionChange);
+        this._updateListeners(this.props.enabled, false);
+    }
+
+    _updateListeners(wasListening: boolean, willListen: boolean) {
+        if (!wasListening && willListen) {
+            window.addEventListener("mousedown", this._handleMouseDown);
+            window.addEventListener("mouseup", this._handleMouseUp);
+            document.addEventListener("selectionchange",
+                this._handleSelectionChange);
+        } else if (wasListening && !willListen) {
+            window.removeEventListener("mousedown", this._handleMouseDown);
+            window.removeEventListener("mouseup", this._handleMouseUp);
+            document.removeEventListener("selectionchange",
+                this._handleSelectionChange);
+
+            // Additionally, reset the state, to guard against errors where we
+            // re-enter listening mode and have stale values stored.
+            this.setState({
+                mouseState: "up",
+                trackedSelection: null,
+            });
+        }
     }
 
     /**
-     * Get the current selection and non-collapsed range, if any.
+     * Get the current selection focus and range, if present and non-collapsed.
+     *
      * Otherwise, if there is no current selection or it's collapsed, return
      * null.
      */
-    _getSelectionAndRange(): ?{selection: Selection, range: DOMRange} {
+    _computeFocusAndRange(
+    ): ?{focusNode: Node, focusOffset: number, range: DOMRange} {
         const selection = document.getSelection();
         if (selection && selection.rangeCount > 0) {
             const range = selection.getRangeAt(0);
             if (!range.collapsed) {
-                return {selection, range};
+                // NOTE(mdr): The focus node is guaranteed to exist, because
+                //     there's a range, but the Flow type annotations for
+                //     Selection don't know that. Cast it ourselves.
+                const focusNode: Node = (selection.focusNode: any);
+                const focusOffset = selection.focusOffset;
+                return {focusNode, focusOffset, range};
             }
         }
 
@@ -101,26 +121,37 @@ class SelectionTracker extends React.PureComponent {
     }
 
     /**
-     * Add the currently-selected DOMRange as a highlight.
+     * Compute the current TrackedSelection from the document state.
      */
-    _handleAddSelectionAsHighlight = () => {
-        const {proposedHighlight} = this.state;
+    _computeTrackedSelection(
+        buildHighlight: (domRange: DOMRange) => ?DOMHighlight,
+    ): ?TrackedSelection {
+        const focusAndRange = this._computeFocusAndRange();
+        if (!focusAndRange) {
+            return null;
+        }
+
+        const {focusNode, focusOffset, range} = focusAndRange;
+        const proposedHighlight = buildHighlight(range);
         if (!proposedHighlight) {
-            return;
+            return null;
         }
 
-        this.props.onAddHighlight(proposedHighlight);
+        return {focusNode, focusOffset, proposedHighlight};
+    }
 
-        // Deselect the newly-highlighted text, by collapsing the selection
-        // to the end of the range.
-        const selection = document.getSelection();
-        if (selection) {
-            selection.collapseToEnd();
-        }
+    /**
+     * Update the TrackedSelection to reflect the document state.
+     */
+    _updateTrackedSelection(
+        buildHighlight: (domRange: DOMRange) => ?DOMHighlight,
+    ) {
+        const trackedSelection = this._computeTrackedSelection(buildHighlight);
+        this.setState({trackedSelection});
     }
 
     _handleSelectionChange = () => {
-        this._updateSelection(this.props.buildHighlight);
+        this._updateTrackedSelection(this.props.buildHighlight);
 
         if (this.state.mouseState === "down") {
             this.setState({
@@ -137,54 +168,13 @@ class SelectionTracker extends React.PureComponent {
         this.setState({mouseState: "up"});
     }
 
-    _updateSelection(buildHighlight: (range: DOMRange) => ?DOMHighlight) {
-        const selectionAndRange = this._getSelectionAndRange();
-        if (selectionAndRange) {
-            const {selection, range} = selectionAndRange;
-            this.setState({
-                selectionFocusNode: selection.focusNode,
-                selectionFocusOffset: selection.focusOffset,
-                proposedHighlight: buildHighlight(range),
-            });
-        } else {
-            this.setState({
-                selectionFocusNode: null,
-                selectionFocusOffset: null,
-                proposedHighlight: null,
-            });
-        }
-    }
-
     render() {
-        const {offsetParent, zIndexes} = this.props;
-        const {mouseState, selectionFocusNode, selectionFocusOffset,
-            proposedHighlight} = this.state;
+        const {mouseState, trackedSelection} = this.state;
+        const userIsMouseSelecting = mouseState === "down-and-selecting";
 
-        // If the user is still mouse-selecting some text, we don't want our
-        // tooltip getting in the way, so render nothing.
-        if (mouseState === "down-and-selecting") {
-            return null;
-        }
-
-        // If there's no proposed highlight, render nothing.
-        if (!proposedHighlight) {
-            return null;
-        }
-
-        // If there's no selection focus, render nothing.
-        if (!selectionFocusNode || !selectionFocusOffset) {
-            return null;
-        }
-
-        return <HighlightTooltip
-            label={i18n._("Add highlight")}
-            onClick={this._handleAddSelectionAsHighlight}
-
-            focusNode={selectionFocusNode}
-            focusOffset={selectionFocusOffset}
-            offsetParent={offsetParent}
-            zIndex={zIndexes.aboveContent}
-        />;
+        return this.props.children && <div>
+            {this.props.children(trackedSelection, userIsMouseSelecting)}
+        </div>;
     }
 }
 
