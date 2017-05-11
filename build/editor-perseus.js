@@ -1,5 +1,5 @@
 /*! Perseus with editors | http://github.com/Khan/perseus */
-// commit 7fd5b35ef94da9422e941976b31476af630a2d21
+// commit ffa46be967bda4f4d7e2ae75514a3990db304f79
 // branch master
 // @generated
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -11,7 +11,7 @@
 		exports["Perseus"] = factory(require("react"), require("underscore"), require("react-dom"), require("react-addons-create-fragment"), require("jquery"), require("aphrodite"), require("classnames"), require("react-addons-pure-render-mixin"), require("react-addons-css-transition-group"));
 	else
 		root["Perseus"] = factory(root["react"], root["underscore"], root["react-dom"], root["react-addons-create-fragment"], root["jquery"], root["aphrodite"], root["classnames"], root["react-addons-pure-render-mixin"], root["react-addons-css-transition-group"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_19__, __WEBPACK_EXTERNAL_MODULE_20__, __WEBPACK_EXTERNAL_MODULE_21__, __WEBPACK_EXTERNAL_MODULE_22__, __WEBPACK_EXTERNAL_MODULE_23__, __WEBPACK_EXTERNAL_MODULE_24__, __WEBPACK_EXTERNAL_MODULE_58__, __WEBPACK_EXTERNAL_MODULE_100__, __WEBPACK_EXTERNAL_MODULE_449__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_19__, __WEBPACK_EXTERNAL_MODULE_20__, __WEBPACK_EXTERNAL_MODULE_21__, __WEBPACK_EXTERNAL_MODULE_22__, __WEBPACK_EXTERNAL_MODULE_23__, __WEBPACK_EXTERNAL_MODULE_24__, __WEBPACK_EXTERNAL_MODULE_58__, __WEBPACK_EXTERNAL_MODULE_100__, __WEBPACK_EXTERNAL_MODULE_450__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -5195,7 +5195,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	// As new widgets get added here, please also make sure they get added in
 	// webapp perseus/traversal.py so they can be properly translated.
-	module.exports = [[__webpack_require__(82), true && __webpack_require__(89)], [__webpack_require__(83), true && __webpack_require__(84)], [__webpack_require__(85), true && __webpack_require__(86)], [__webpack_require__(87), true && __webpack_require__(88)]];
+	module.exports = [[__webpack_require__(83), true && __webpack_require__(90)], [__webpack_require__(84), true && __webpack_require__(85)], [__webpack_require__(86), true && __webpack_require__(87)], [__webpack_require__(88), true && __webpack_require__(89)]];
 
 /***/ },
 /* 27 */
@@ -5231,14 +5231,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    // lightweight fix that will get exercises working in our mobile apps
 	    // immediately.
 	    if (options.loadExtraWidgets === undefined || options.loadExtraWidgets) {
-	        (function () {
-	            var Widgets = __webpack_require__(25);
-	            !/*require.ensure*/(function (require) {
-	                var extraWidgets = __webpack_require__(62);
-	                Widgets.registerMany(extraWidgets);
-	                widgetsDeferred.resolve();
-	            }(__webpack_require__));
-	        })();
+	        var Widgets = __webpack_require__(25);
+	        !/*require.ensure*/(function (require) {
+	            var extraWidgets = __webpack_require__(63);
+	            Widgets.registerMany(extraWidgets);
+	            widgetsDeferred.resolve();
+	        }(__webpack_require__));
 	    } else {
 	        widgetsDeferred.resolve();
 	    }
@@ -5292,7 +5290,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ApiOptions = __webpack_require__(5).Options;
 	var ApiClassNames = __webpack_require__(5).ClassNames;
 	var Renderer = __webpack_require__(32);
-	var ProvideKeypad = __webpack_require__(63);
+	var ProvideKeypad = __webpack_require__(62);
 
 	var rendererProps = React.PropTypes.shape({
 	    content: React.PropTypes.string,
@@ -5346,8 +5344,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    },
 	    _setCurrentFocus: function _setCurrentFocus(newFocusPath) {
-	        var _this = this;
-
 	        var keypadElement = this.keypadElement();
 
 	        var prevFocusPath = this._currentFocus;
@@ -5358,16 +5354,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // input.
 	        var didFocusInput = false;
 	        if (this._currentFocus) {
-	            (function () {
-	                var _currentFocus = _this._currentFocus,
-	                    sectionRef = _currentFocus[0],
-	                    focusPath = _currentFocus.slice(1);
+	            var _currentFocus = this._currentFocus,
+	                sectionRef = _currentFocus[0],
+	                focusPath = _currentFocus.slice(1);
 
-	                var inputPaths = _this.refs[sectionRef].getInputPaths();
-	                didFocusInput = inputPaths.some(function (inputPath) {
-	                    return Util.inputPathsEqual(inputPath, focusPath);
-	                });
-	            })();
+	            var inputPaths = this.refs[sectionRef].getInputPaths();
+	            didFocusInput = inputPaths.some(function (inputPath) {
+	                return Util.inputPathsEqual(inputPath, focusPath);
+	            });
 	        }
 
 	        if (this.props.apiOptions.onFocusChange != null) {
@@ -5383,7 +5377,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    },
 	    _onRendererBlur: function _onRendererBlur(blurPath) {
-	        var _this2 = this;
+	        var _this = this;
 
 	        var blurringFocusPath = this._currentFocus;
 
@@ -5397,8 +5391,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // that nothing is focused, since if there were a focus change across
 	        // sections, we could receive the blur before the focus.
 	        setTimeout(function () {
-	            if (Util.inputPathsEqual(_this2._currentFocus, blurringFocusPath)) {
-	                _this2._setCurrentFocus(null);
+	            if (Util.inputPathsEqual(_this._currentFocus, blurringFocusPath)) {
+	                _this._setCurrentFocus(null);
 	            }
 	        });
 	    },
@@ -5416,7 +5410,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    },
 	    render: function render() {
 	        var _classNames,
-	            _this3 = this;
+	            _this2 = this;
 
 	        var apiOptions = _extends({}, ApiOptions.defaults, this.props.apiOptions, {
 	            isArticle: true
@@ -5438,13 +5432,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    ref: refForSection,
 	                    key: i,
 	                    key_: i,
-	                    keypadElement: _this3.keypadElement(),
+	                    keypadElement: _this2.keypadElement(),
 	                    apiOptions: _extends({}, apiOptions, {
 	                        onFocusChange: function onFocusChange(newFocusPath, oldFocusPath) {
 	                            // Prefix the paths with the relevant section, so as
 	                            // to allow us to distinguish between equivalently-
 	                            // named inputs across Renderers.
-	                            _this3._handleFocusChange(newFocusPath && [refForSection].concat(newFocusPath), oldFocusPath && [refForSection].concat(oldFocusPath));
+	                            _this2._handleFocusChange(newFocusPath && [refForSection].concat(newFocusPath), oldFocusPath && [refForSection].concat(oldFocusPath));
 	                        }
 	                    })
 	                }))
@@ -5480,10 +5474,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ApiOptions = __webpack_require__(5).Options;
 	var HintsRenderer = __webpack_require__(31);
 	var Renderer = __webpack_require__(32);
-	var ProvideKeypad = __webpack_require__(63);
+	var ProvideKeypad = __webpack_require__(62);
 	var Util = __webpack_require__(6);
 
-	var _require = __webpack_require__(90),
+	var _require = __webpack_require__(82),
 	    mapObject = _require.mapObject;
 
 	var RP = React.PropTypes;
@@ -5909,11 +5903,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ApiOptions = __webpack_require__(5).Options;
 	var HintsRenderer = __webpack_require__(31);
-	var ProvideKeypad = __webpack_require__(63);
+	var ProvideKeypad = __webpack_require__(62);
 	var Renderer = __webpack_require__(32);
 	var Util = __webpack_require__(6);
 
-	var _require2 = __webpack_require__(90),
+	var _require2 = __webpack_require__(82),
 	    mapObject = _require2.mapObject;
 
 	var RP = React.PropTypes;
@@ -6552,8 +6546,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	/* eslint-disable max-lines, no-var, object-curly-spacing */
@@ -6585,7 +6577,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var keypadElementPropType = __webpack_require__(177).propTypes.keypadElementPropType;
 
-	var _require = __webpack_require__(90),
+	var _require = __webpack_require__(82),
 	    mapObject = _require.mapObject,
 	    mapObjectFromArray = _require.mapObjectFromArray;
 
@@ -7383,156 +7375,148 @@ return /******/ (function(modules) { // webpackBootstrap
 	                return this.renderWidget(node.widgetType, node.id, state);
 	            }
 	        } else if (node.type === "blockMath") {
-	            var _ret = function () {
-	                // We render math here instead of in perseus-markdown.jsx
-	                // because we need to pass it our onRender callback.
-	                var deferred = new Deferred();
+	            // We render math here instead of in perseus-markdown.jsx
+	            // because we need to pass it our onRender callback.
+	            var deferred = new Deferred();
 
-	                var onRender = function onRender(node) {
-	                    _this8.props.onRender && _this8.props.onRender(node);
-
-	                    if (apiOptions.isMobile) {
-	                        // `onRender` only returns a node on the initial render.
-	                        if (node) {
-	                            var katex = node.querySelector(".katex");
-
-	                            // Though MathJax's visible elements should have been
-	                            // inserted into the DOM by now (and, thus, we should be
-	                            // able to query for .MathJax instead), we're not seeing
-	                            // that guarantee play out in practice. So we look for
-	                            // either .MathJax or the script tag that is inserted
-	                            // on initial render.
-	                            // TODO(charlie): This works, but feels very brittle.
-	                            // Figure out how we can call `onRender` only after the
-	                            // elements have been inserted into the DOM.
-	                            var mathjax = node.querySelector('script[type="math/tex"]') || node.querySelector(".MathJax");
-
-	                            if (katex) {
-	                                deferred.resolve();
-	                            } else if (mathjax) {
-	                                deferred.resolve();
-	                            } else {
-	                                throw new Error("No math present in Renderer");
-	                            }
-	                        }
-	                    }
-	                };
-
-	                var content = React.createElement(
-	                    TeX,
-	                    {
-	                        onRender: onRender,
-	                        onResourceLoaded: onRender
-	                    },
-	                    preprocessTex(node.content)
-	                );
-
-	                var innerStyle = {
-	                    // HACK(benkomalo): we only want horizontal scrolling, but
-	                    // overflowX: 'auto' causes a vertical scrolling scrollbar
-	                    // as well, despite the parent and child elements having
-	                    // the exact same height. Force it to not scroll by
-	                    // applying overflowY: 'hidden'
-	                    overflowX: 'auto',
-	                    overflowY: 'hidden',
-
-	                    // HACK(kevinb): overflowY: 'hidden' inadvertently clips the
-	                    // top and bottom of some fractions.  We add padding to the
-	                    // top and bottom to avoid the clipping and then correct for
-	                    // the padding by adding equal but opposite margins.
-	                    paddingTop: 10,
-	                    paddingBottom: 10,
-	                    marginTop: -10,
-	                    marginBottom: -10
-	                };
+	            var onRender = function onRender(node) {
+	                _this8.props.onRender && _this8.props.onRender(node);
 
 	                if (apiOptions.isMobile) {
-	                    // The style for the body of articles and exercises on mobile is
-	                    // to have a 16px margin.  When a user taps to zoom math we'd
-	                    // like the math to extend all the way to the edge of the page/
-	                    // To achieve this affect we nest the Zoomable component in two
-	                    // nested divs. The outer div has a negative margin to
-	                    // counteract the margin on main perseus container.  The inner
-	                    // div adds the margin back as padding so that when the math is
-	                    // scaled out it's inset from the edge of the page.  When the
-	                    // TeX component is full size it will extend to the edge of the
-	                    // page if it's larger than the page.
-	                    //
-	                    // TODO(kevinb) automatically determine the margin size
-	                    var margin = 16;
-	                    var outerStyle = {
-	                        marginLeft: -margin,
-	                        marginRight: -margin
-	                    };
-	                    var horizontalPadding = {
-	                        paddingLeft: margin,
-	                        paddingRight: margin
-	                    };
+	                    // `onRender` only returns a node on the initial render.
+	                    if (node) {
+	                        var katex = node.querySelector(".katex");
 
-	                    var computeMathBounds = function computeMathBounds(parentNode, parentBounds) {
-	                        var textElement = parentNode.querySelector('.katex-html') || parentNode.querySelector('.MathJax');
-	                        var textBounds = {
-	                            width: textElement.offsetWidth,
-	                            height: textElement.offsetHeight
-	                        };
+	                        // Though MathJax's visible elements should have been
+	                        // inserted into the DOM by now (and, thus, we should be
+	                        // able to query for .MathJax instead), we're not seeing
+	                        // that guarantee play out in practice. So we look for
+	                        // either .MathJax or the script tag that is inserted
+	                        // on initial render.
+	                        // TODO(charlie): This works, but feels very brittle.
+	                        // Figure out how we can call `onRender` only after the
+	                        // elements have been inserted into the DOM.
+	                        var mathjax = node.querySelector('script[type="math/tex"]') || node.querySelector(".MathJax");
 
-	                        // HACK(benkomalo): when measuring math content, note that
-	                        // sometimes it actually peeks outside of the
-	                        // container in some cases. Just be conservative and use
-	                        // the maximum value of the text and the parent. :(
-	                        return {
-	                            width: Math.max(parentBounds.width, textBounds.width),
-	                            height: Math.max(parentBounds.height, textBounds.height)
-	                        };
-	                    };
-
-	                    return {
-	                        v: React.createElement(
-	                            "div",
-	                            {
-	                                key: state.key,
-	                                className: "perseus-block-math",
-	                                style: outerStyle
-	                            },
-	                            React.createElement(
-	                                "div",
-	                                {
-	                                    className: "perseus-block-math-inner",
-	                                    style: _extends({}, innerStyle, horizontalPadding)
-	                                },
-	                                React.createElement(
-	                                    Zoomable,
-	                                    {
-	                                        readyToMeasureDeferred: deferred,
-	                                        computeChildBounds: computeMathBounds
-	                                    },
-	                                    content
-	                                )
-	                            )
-	                        )
-	                    };
-	                } else {
-	                    return {
-	                        v: React.createElement(
-	                            "div",
-	                            {
-	                                key: state.key,
-	                                className: "perseus-block-math"
-	                            },
-	                            React.createElement(
-	                                "div",
-	                                {
-	                                    className: "perseus-block-math-inner",
-	                                    style: innerStyle
-	                                },
-	                                content
-	                            )
-	                        )
-	                    };
+	                        if (katex) {
+	                            deferred.resolve();
+	                        } else if (mathjax) {
+	                            deferred.resolve();
+	                        } else {
+	                            throw new Error("No math present in Renderer");
+	                        }
+	                    }
 	                }
-	            }();
+	            };
 
-	            if ((typeof _ret === "undefined" ? "undefined" : _typeof(_ret)) === "object") return _ret.v;
+	            var content = React.createElement(
+	                TeX,
+	                {
+	                    onRender: onRender,
+	                    onResourceLoaded: onRender
+	                },
+	                preprocessTex(node.content)
+	            );
+
+	            var innerStyle = {
+	                // HACK(benkomalo): we only want horizontal scrolling, but
+	                // overflowX: 'auto' causes a vertical scrolling scrollbar
+	                // as well, despite the parent and child elements having
+	                // the exact same height. Force it to not scroll by
+	                // applying overflowY: 'hidden'
+	                overflowX: 'auto',
+	                overflowY: 'hidden',
+
+	                // HACK(kevinb): overflowY: 'hidden' inadvertently clips the
+	                // top and bottom of some fractions.  We add padding to the
+	                // top and bottom to avoid the clipping and then correct for
+	                // the padding by adding equal but opposite margins.
+	                paddingTop: 10,
+	                paddingBottom: 10,
+	                marginTop: -10,
+	                marginBottom: -10
+	            };
+
+	            if (apiOptions.isMobile) {
+	                // The style for the body of articles and exercises on mobile is
+	                // to have a 16px margin.  When a user taps to zoom math we'd
+	                // like the math to extend all the way to the edge of the page/
+	                // To achieve this affect we nest the Zoomable component in two
+	                // nested divs. The outer div has a negative margin to
+	                // counteract the margin on main perseus container.  The inner
+	                // div adds the margin back as padding so that when the math is
+	                // scaled out it's inset from the edge of the page.  When the
+	                // TeX component is full size it will extend to the edge of the
+	                // page if it's larger than the page.
+	                //
+	                // TODO(kevinb) automatically determine the margin size
+	                var margin = 16;
+	                var outerStyle = {
+	                    marginLeft: -margin,
+	                    marginRight: -margin
+	                };
+	                var horizontalPadding = {
+	                    paddingLeft: margin,
+	                    paddingRight: margin
+	                };
+
+	                var computeMathBounds = function computeMathBounds(parentNode, parentBounds) {
+	                    var textElement = parentNode.querySelector('.katex-html') || parentNode.querySelector('.MathJax');
+	                    var textBounds = {
+	                        width: textElement.offsetWidth,
+	                        height: textElement.offsetHeight
+	                    };
+
+	                    // HACK(benkomalo): when measuring math content, note that
+	                    // sometimes it actually peeks outside of the
+	                    // container in some cases. Just be conservative and use
+	                    // the maximum value of the text and the parent. :(
+	                    return {
+	                        width: Math.max(parentBounds.width, textBounds.width),
+	                        height: Math.max(parentBounds.height, textBounds.height)
+	                    };
+	                };
+
+	                return React.createElement(
+	                    "div",
+	                    {
+	                        key: state.key,
+	                        className: "perseus-block-math",
+	                        style: outerStyle
+	                    },
+	                    React.createElement(
+	                        "div",
+	                        {
+	                            className: "perseus-block-math-inner",
+	                            style: _extends({}, innerStyle, horizontalPadding)
+	                        },
+	                        React.createElement(
+	                            Zoomable,
+	                            {
+	                                readyToMeasureDeferred: deferred,
+	                                computeChildBounds: computeMathBounds
+	                            },
+	                            content
+	                        )
+	                    )
+	                );
+	            } else {
+	                return React.createElement(
+	                    "div",
+	                    {
+	                        key: state.key,
+	                        className: "perseus-block-math"
+	                    },
+	                    React.createElement(
+	                        "div",
+	                        {
+	                            className: "perseus-block-math-inner",
+	                            style: innerStyle
+	                        },
+	                        content
+	                    )
+	                );
+	            }
 	        } else if (node.type === "math") {
 	            // Replace uses of \begin{align}...\end{align} which KaTeX doesn't
 	            // support (yet) with \begin{aligned}...\end{aligned} which renders
@@ -7622,10 +7606,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	                return output;
 	            }
 
-	            var margin = 16;
-	            var outerStyle = {
-	                marginLeft: -margin,
-	                marginRight: -margin
+	            var _margin = 16;
+	            var _outerStyle = {
+	                marginLeft: -_margin,
+	                marginRight: -_margin
 	            };
 	            var _innerStyle = {
 	                paddingLeft: 0,
@@ -7646,7 +7630,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            // of tables?
 	            return React.createElement(
 	                "div",
-	                { style: outerStyle },
+	                { style: _outerStyle },
 	                wrappedOutput
 	            );
 	        } else {
@@ -8214,7 +8198,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	"use strict";
 
 	var basicWidgets = __webpack_require__(26);
-	var extraWidgets = __webpack_require__(62);
+	var extraWidgets = __webpack_require__(63);
 
 	module.exports = basicWidgets.concat(extraWidgets);
 
@@ -8553,6 +8537,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            imageLoaded: false,
 	            imageDimensions: null,
 	            dataLoaded: false,
+	            labelDataIsLocalized: false,
 	            labels: [],
 	            range: [[0, 0], [0, 0]]
 	        };
@@ -8610,7 +8595,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // and only make the jsonp calls once.
 	        if (labelDataCache[hash]) {
 	            if (labelDataCache[hash].loaded) {
-	                this.onDataLoaded(labelDataCache[hash].data);
+	                var _labelDataCache$hash = labelDataCache[hash],
+	                    data = _labelDataCache$hash.data,
+	                    localized = _labelDataCache$hash.localized;
+
+	                this.onDataLoaded(data, localized);
 	            } else {
 	                labelDataCache[hash].dataCallbacks.push(this.onDataLoaded);
 	            }
@@ -8618,7 +8607,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var cacheData = {
 	                loaded: false,
 	                dataCallbacks: [this.onDataLoaded],
-	                data: null
+	                data: null,
+	                localized: shouldUseLocalizedData()
 	            };
 
 	            labelDataCache[hash] = cacheData;
@@ -8631,7 +8621,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        cacheData.loaded = true;
 
 	                        _.each(cacheData.dataCallbacks, function (callback) {
-	                            callback(cacheData.data);
+	                            callback(cacheData.data, cacheData.localized);
 	                        });
 	                    },
 	                    error: errorCallback
@@ -8640,6 +8630,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            if (shouldUseLocalizedData()) {
 	                retrieveData(getLocalizedDataUrl(this.props.src), function (x, status, error) {
+	                    cacheData.localized = false;
+
 	                    // If there is isn't any localized data, fall back to
 	                    // the original, unlocalized data
 	                    retrieveData(getDataUrl(_this.props.src), function (x, status, error) {
@@ -8656,10 +8648,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    },
 
-	    onDataLoaded: function onDataLoaded(data) {
+	    onDataLoaded: function onDataLoaded(data, localized) {
 	        if (this.isMounted() && data.labels && data.range) {
 	            this.setState({
 	                dataLoaded: true,
+	                labelDataIsLocalized: localized,
 	                labels: data.labels,
 	                range: data.range
 	            });
@@ -8696,7 +8689,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var _this3 = this;
 
 	        _.map(options.labels, function (labelData) {
-	            if (shouldRenderJipt()) {
+	            if (shouldRenderJipt() && _this3.state.labelDataIsLocalized) {
+	                // If we're using JIPT translation and we got proper JIPT tags,
+	                // render the labels as plain text (so JIPT can find them) and
+	                // add some extra properties to the element so we can properly
+	                // re-render the label once it is replaced with translated
+	                // text.
 	                var elem = graphie.label(labelData.coordinates, labelData.content, labelData.alignment, false);
 
 	                $(elem).data("jipt-label-index", jiptLabels.length);
@@ -8705,44 +8703,42 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    useMath: labelData.typesetAsMath
 	                });
 	            } else if (labelData.coordinates) {
-	                (function () {
-	                    // Create labels from the data
-	                    // TODO(charlie): Some erroneous labels are being sent down
-	                    // without coordinates. They don't seem to have any content, so
-	                    // it seems fine to just ignore them (rather than error), but
-	                    // we should figure out why this is happening.
-	                    var label = graphie.label(labelData.coordinates, labelData.content, labelData.alignment, labelData.typesetAsMath, { "font-size": 100 * _this3.props.scale + "%" });
+	                // Create labels from the data
+	                // TODO(charlie): Some erroneous labels are being sent down
+	                // without coordinates. They don't seem to have any content, so
+	                // it seems fine to just ignore them (rather than error), but
+	                // we should figure out why this is happening.
+	                var label = graphie.label(labelData.coordinates, labelData.content, labelData.alignment, labelData.typesetAsMath, { "font-size": 100 * _this3.props.scale + "%" });
 
-	                    // Convert absolute positioning css from pixels to percentages
-	                    // TODO(alex): Dynamically resize font-size as well. This
-	                    // almost certainly means listening to throttled window.resize
-	                    // events.
-	                    var labelStyle = label[0].style;
-	                    var labelTop = _this3._tryGetPixels(labelStyle.top);
-	                    var labelLeft = _this3._tryGetPixels(labelStyle.left);
-	                    if (labelTop === null || labelLeft === null) {
-	                        // Graphie labels are supposed to have an explicit position,
-	                        // but to be on the safe side, let's fall back to using
-	                        // jQuery's position(). The reason we're not always using
-	                        // this is that in the presence of CSS transforms, it will
-	                        // give the rendered position, which may be scaled and
-	                        // not equal to the explicitly specified one.
-	                        var labelPosition = label.position();
-	                        labelTop = labelPosition.top;
-	                        labelLeft = labelPosition.left;
-	                    }
-	                    var svgHeight = _this3.props.height * _this3.props.scale;
-	                    var svgWidth = _this3.props.width * _this3.props.scale;
-	                    label.css({
-	                        top: labelTop / svgHeight * 100 + '%',
-	                        left: labelLeft / svgWidth * 100 + '%'
-	                    });
+	                // Convert absolute positioning css from pixels to percentages
+	                // TODO(alex): Dynamically resize font-size as well. This
+	                // almost certainly means listening to throttled window.resize
+	                // events.
+	                var labelStyle = label[0].style;
+	                var labelTop = _this3._tryGetPixels(labelStyle.top);
+	                var labelLeft = _this3._tryGetPixels(labelStyle.left);
+	                if (labelTop === null || labelLeft === null) {
+	                    // Graphie labels are supposed to have an explicit position,
+	                    // but to be on the safe side, let's fall back to using
+	                    // jQuery's position(). The reason we're not always using
+	                    // this is that in the presence of CSS transforms, it will
+	                    // give the rendered position, which may be scaled and
+	                    // not equal to the explicitly specified one.
+	                    var labelPosition = label.position();
+	                    labelTop = labelPosition.top;
+	                    labelLeft = labelPosition.left;
+	                }
+	                var svgHeight = _this3.props.height * _this3.props.scale;
+	                var svgWidth = _this3.props.width * _this3.props.scale;
+	                label.css({
+	                    top: labelTop / svgHeight * 100 + '%',
+	                    left: labelLeft / svgWidth * 100 + '%'
+	                });
 
-	                    // Add back the styles to each of the labels
-	                    _.each(labelData.style, function (styleValue, styleName) {
-	                        label.css(styleName, styleValue);
-	                    });
-	                })();
+	                // Add back the styles to each of the labels
+	                _.each(labelData.style, function (styleValue, styleName) {
+	                    label.css(styleName, styleValue);
+	                });
 	            }
 	        });
 	    },
@@ -8968,7 +8964,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(20);
 	// TODO(aria): Pull this out of interactive2 / replace with new _.mapObject
-	var objective_ = __webpack_require__(90);
+	var objective_ = __webpack_require__(82);
 
 	var Widgets = __webpack_require__(25);
 
@@ -10708,8 +10704,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    // has typed [[d, then presses tab, we should replace [[d
 	    // with the full [[ {emoji} dropdown 1 ]] text
 	    _handleTab: function _handleTab(e) {
-	        var _this7 = this;
-
 	        var _getDraftData5 = this._getDraftData(),
 	            contentState = _getDraftData5.contentState,
 	            selection = _getDraftData5.selection;
@@ -10728,25 +10722,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var text = currBlock.getText().substring(0, selection.getEndOffset());
 	        var match = text.match(partialWidgetRegex);
 	        if (match) {
-	            (function () {
-	                var partialName = match[1];
-	                var allWidgets = Widgets.getAllWidgetTypes();
-	                var matchingWidgets = allWidgets.filter(function (widget) {
-	                    return widget.substring(0, partialName.length) === partialName;
+	            var partialName = match[1];
+	            var allWidgets = Widgets.getAllWidgetTypes();
+	            var matchingWidgets = allWidgets.filter(function (widget) {
+	                return widget.substring(0, partialName.length) === partialName;
+	            });
+
+	            // If only one match is available, complete it
+	            if (matchingWidgets.length === 1) {
+	                var widgetType = matchingWidgets[0];
+	                var replacementArea = selection.merge({
+	                    anchorOffset: match.index
 	                });
 
-	                // If only one match is available, complete it
-	                if (matchingWidgets.length === 1) {
-	                    var widgetType = matchingWidgets[0];
-	                    var replacementArea = selection.merge({
-	                        anchorOffset: match.index
-	                    });
-
-	                    _this7._handleChange(_this7._insertNewWidget(widgetType, {
-	                        selection: replacementArea
-	                    }));
-	                }
-	            })();
+	                this._handleChange(this._insertNewWidget(widgetType, {
+	                    selection: replacementArea
+	                }));
+	            }
 	        }
 	        return true; // Say that we've handled the event, no other work needed
 	    },
@@ -10820,7 +10812,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    pastContentState: null,
 	    lastIdleCallback: null,
 	    _handleChange: function _handleChange(newState) {
-	        var _this8 = this;
+	        var _this7 = this;
 
 	        var state = _extends({}, this.state, newState);
 	        var widgets = state.widgets;
@@ -10842,7 +10834,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            // updating the parent involves iterating through them all
 	            clearTimeout(this.lastIdleCallback);
 	            this.lastIdleCallback = setTimeout(function () {
-	                return _this8._updateParent(newContent, widgets);
+	                return _this7._updateParent(newContent, widgets);
 	            }, UPDATE_PARENT_THROTTLE);
 	        }
 
@@ -10866,7 +10858,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.setState({ editorState: editorState }, callback);
 	    },
 	    render: function render() {
-	        var _this9 = this;
+	        var _this8 = this;
 
 	        return React.createElement(
 	            'div',
@@ -10880,11 +10872,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	            },
 	            React.createElement(Editor, {
 	                ref: function ref(e) {
-	                    return _this9.editor = e;
+	                    return _this8.editor = e;
 	                },
 	                editorState: this.state.editorState,
 	                onChange: function onChange(editorState) {
-	                    return _this9._handleChange({ editorState: editorState });
+	                    return _this8._handleChange({ editorState: editorState });
 	                },
 	                spellCheck: true,
 	                stripPastedStyles: true,
@@ -12949,18 +12941,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    } else if (shape.type === "array") {
 	        return [];
 	    } else if (shape.type === "object") {
-	        var _ret = function () {
-	            var valueShapes = shape.shape;
-	            var object = {};
-	            Object.keys(valueShapes).forEach(function (key) {
-	                object[key] = buildEmptyItemTreeForShape(valueShapes[key]);
-	            });
-	            return {
-	                v: object
-	            };
-	        }();
-
-	        if ((typeof _ret === "undefined" ? "undefined" : _typeof(_ret)) === "object") return _ret.v;
+	        var valueShapes = shape.shape;
+	        var object = {};
+	        Object.keys(valueShapes).forEach(function (key) {
+	            object[key] = buildEmptyItemTreeForShape(valueShapes[key]);
+	        });
+	        return object;
 	    } else {
 	        throw new Error("unexpected shape type " + shape.type);
 	    }
@@ -13032,18 +13018,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    } else if ((typeof node === "undefined" ? "undefined" : _typeof(node)) === "object" && node.__type === "hint") {
 	        return shapes.hint;
 	    } else if ((typeof node === "undefined" ? "undefined" : _typeof(node)) === "object") {
-	        var _ret2 = function () {
-	            var valueShapes = {};
-	            Object.keys(node).forEach(function (key) {
-	                // $FlowFixMe: Not sure why this property deref is an error.
-	                valueShapes[key] = inferItemTreeShape(node[key]);
-	            });
-	            return {
-	                v: shapes.shape(valueShapes)
-	            };
-	        }();
-
-	        if ((typeof _ret2 === "undefined" ? "undefined" : _typeof(_ret2)) === "object") return _ret2.v;
+	        var valueShapes = {};
+	        Object.keys(node).forEach(function (key) {
+	            // $FlowFixMe: Not sure why this property deref is an error.
+	            valueShapes[key] = inferItemTreeShape(node[key]);
+	        });
+	        return shapes.shape(valueShapes);
 	    } else {
 	        throw new Error("unexpected multi-item node " + JSON.stringify(node));
 	    }
@@ -13078,8 +13058,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	/**
 	 * Utility functions to build React PropTypes for multi-items and shapes.
@@ -13153,18 +13131,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var elementPropType = buildTreePropTypeForShape(shape.elementShape);
 	        return React.PropTypes.arrayOf(elementPropType.isRequired);
 	    } else if (shape.type === "object") {
-	        var _ret = function () {
-	            var valueShapes = shape.shape;
-	            var propTypeShape = {};
-	            Object.keys(valueShapes).forEach(function (key) {
-	                propTypeShape[key] = buildTreePropTypeForShape(valueShapes[key]).isRequired;
-	            });
-	            return {
-	                v: React.PropTypes.shape(propTypeShape)
-	            };
-	        }();
-
-	        if ((typeof _ret === "undefined" ? "undefined" : _typeof(_ret)) === "object") return _ret.v;
+	        var valueShapes = shape.shape;
+	        var propTypeShape = {};
+	        Object.keys(valueShapes).forEach(function (key) {
+	            propTypeShape[key] = buildTreePropTypeForShape(valueShapes[key]).isRequired;
+	        });
+	        return React.PropTypes.shape(propTypeShape);
 	    } else {
 	        throw new Error("unexpected shape type " + shape.type);
 	    }
@@ -13523,21 +13495,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
-	/* globals true */
-
-	// As new widgets get added here, please also make sure they get added in
-	// webapp perseus/traversal.py so they can be properly translated.
-	module.exports = [[__webpack_require__(106), true && __webpack_require__(107)], [__webpack_require__(108), true && __webpack_require__(109)], [__webpack_require__(110), true && __webpack_require__(111)], [__webpack_require__(112), true && __webpack_require__(113)], [__webpack_require__(114), true && __webpack_require__(115)], [__webpack_require__(116), true && __webpack_require__(117)], [__webpack_require__(118), true && __webpack_require__(119)], [__webpack_require__(120), true && __webpack_require__(121)], [__webpack_require__(122), true && __webpack_require__(123)], [__webpack_require__(124), true && __webpack_require__(125)], [__webpack_require__(126), true && __webpack_require__(127)], [__webpack_require__(128), true && __webpack_require__(129)], [__webpack_require__(130), true && __webpack_require__(131)], [__webpack_require__(132), true && __webpack_require__(133)], [__webpack_require__(134), true && __webpack_require__(135)], [__webpack_require__(136), true && __webpack_require__(137)], [__webpack_require__(138), true && __webpack_require__(139)], [__webpack_require__(140), true && __webpack_require__(141)], [__webpack_require__(142), true && __webpack_require__(143)], [__webpack_require__(144), true && __webpack_require__(145)], [__webpack_require__(146), true && __webpack_require__(147)], [__webpack_require__(148), true && __webpack_require__(149)], [__webpack_require__(150), true && __webpack_require__(151)], [__webpack_require__(152), true && __webpack_require__(153)], [__webpack_require__(154), true && __webpack_require__(155)], [__webpack_require__(156), true && __webpack_require__(157)], [__webpack_require__(158), true && __webpack_require__(159)], [__webpack_require__(160), true && __webpack_require__(161)], [__webpack_require__(162), true && __webpack_require__(163)], [__webpack_require__(164), true && __webpack_require__(165)], [__webpack_require__(166), true && __webpack_require__(167)],
-	// These widgets are only used when testing things, so remove them in the
-	// non-editor bundle.
-	true && [__webpack_require__(168), __webpack_require__(169)], true && [__webpack_require__(170), __webpack_require__(171)], true && [__webpack_require__(172), __webpack_require__(173)]];
-
-/***/ },
-/* 63 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
 	/* eslint-disable object-curly-spacing */
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
@@ -13616,6 +13573,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	module.exports = ProvideKeypad;
+
+/***/ },
+/* 63 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/* globals true */
+
+	// As new widgets get added here, please also make sure they get added in
+	// webapp perseus/traversal.py so they can be properly translated.
+	module.exports = [[__webpack_require__(106), true && __webpack_require__(107)], [__webpack_require__(108), true && __webpack_require__(109)], [__webpack_require__(110), true && __webpack_require__(111)], [__webpack_require__(112), true && __webpack_require__(113)], [__webpack_require__(114), true && __webpack_require__(115)], [__webpack_require__(116), true && __webpack_require__(117)], [__webpack_require__(118), true && __webpack_require__(119)], [__webpack_require__(120), true && __webpack_require__(121)], [__webpack_require__(122), true && __webpack_require__(123)], [__webpack_require__(124), true && __webpack_require__(125)], [__webpack_require__(126), true && __webpack_require__(127)], [__webpack_require__(128), true && __webpack_require__(129)], [__webpack_require__(130), true && __webpack_require__(131)], [__webpack_require__(132), true && __webpack_require__(133)], [__webpack_require__(134), true && __webpack_require__(135)], [__webpack_require__(136), true && __webpack_require__(137)], [__webpack_require__(138), true && __webpack_require__(139)], [__webpack_require__(140), true && __webpack_require__(141)], [__webpack_require__(142), true && __webpack_require__(143)], [__webpack_require__(144), true && __webpack_require__(145)], [__webpack_require__(146), true && __webpack_require__(147)], [__webpack_require__(148), true && __webpack_require__(149)], [__webpack_require__(150), true && __webpack_require__(151)], [__webpack_require__(152), true && __webpack_require__(153)], [__webpack_require__(154), true && __webpack_require__(155)], [__webpack_require__(156), true && __webpack_require__(157)], [__webpack_require__(158), true && __webpack_require__(159)], [__webpack_require__(160), true && __webpack_require__(161)], [__webpack_require__(162), true && __webpack_require__(163)], [__webpack_require__(164), true && __webpack_require__(165)], [__webpack_require__(166), true && __webpack_require__(167)],
+	// These widgets are only used when testing things, so remove them in the
+	// non-editor bundle.
+	true && [__webpack_require__(168), __webpack_require__(169)], true && [__webpack_require__(170), __webpack_require__(171)], true && [__webpack_require__(172), __webpack_require__(173)]];
 
 /***/ },
 /* 64 */
@@ -14183,20 +14155,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var _this5 = this;
 
 	        if (shape.elementShape.type === "hint") {
-	            (function () {
-	                // The shape says that these are HintRendererDatas, even though
-	                var hintRendererDatas = rendererDatas;
+	            // The shape says that these are HintRendererDatas, even though
+	            var hintRendererDatas = rendererDatas;
 
-	                renderers = [].concat(renderers);
-	                renderers.firstN = function (n) {
-	                    return React.createElement(HintsRenderer, _extends({}, _this5._getRendererProps(), {
-	                        hints: hintRendererDatas.map(function (d) {
-	                            return d.hint;
-	                        }),
-	                        hintsVisible: n
-	                    }));
-	                };
-	            })();
+	            renderers = [].concat(renderers);
+	            renderers.firstN = function (n) {
+	                return React.createElement(HintsRenderer, _extends({}, _this5._getRendererProps(), {
+	                    hints: hintRendererDatas.map(function (d) {
+	                        return d.hint;
+	                    }),
+	                    hintsVisible: n
+	                }));
+	            };
 	        }
 	        return renderers;
 	    };
@@ -16535,25 +16505,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (!selection) {
 	        blockMap = contentState.getBlockMap();
 	    } else {
-	        (function () {
-	            var blocks = _getBlocksForSelection(contentState, selection);
-	            blockMap = BlockMapBuilder.createFromArray(blocks);
+	        var blocks = _getBlocksForSelection(contentState, selection);
+	        blockMap = BlockMapBuilder.createFromArray(blocks);
 
-	            // Ensure that entities in the same block as the start/end of the
-	            // selection are not included if they are not fully contained
-	            // within the selection
-	            var startKey = selection.getStartKey();
-	            var endKey = selection.getEndKey();
-	            filter = function filter(key, start, end) {
-	                if (key === startKey && start < selection.getStartOffset()) {
-	                    return false;
-	                }
-	                if (key === endKey && end > selection.getEndOffset()) {
-	                    return false;
-	                }
-	                return true;
-	            };
-	        })();
+	        // Ensure that entities in the same block as the start/end of the
+	        // selection are not included if they are not fully contained
+	        // within the selection
+	        var startKey = selection.getStartKey();
+	        var endKey = selection.getEndKey();
+	        filter = function filter(key, start, end) {
+	            if (key === startKey && start < selection.getStartOffset()) {
+	                return false;
+	            }
+	            if (key === endKey && end > selection.getEndOffset()) {
+	                return false;
+	            }
+	            return true;
+	        };
 	    }
 
 	    var entities = [];
@@ -17048,6 +17016,87 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
+	/* eslint-disable comma-dangle, no-var */
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	/**
+	 * A work-in-progress of _ methods for objects.
+	 * That is, they take an object as a parameter,
+	 * and return an object instead of an array.
+	 *
+	 * TODO(aria): Move this out of interactive2
+	 */
+
+	var _ = __webpack_require__(20);
+
+	/**
+	 * Does a pluck on keys inside objects in an object
+	 *
+	 * Ex:
+	 * tools = {
+	 *     translation: {
+	 *         enabled: true
+	 *     },
+	 *     rotation: {
+	 *         enabled: false
+	 *     }
+	 * };
+	 * pluckObject(tools, "enabled") returns {
+	 *     translation: true
+	 *     rotation: false
+	 * }
+	 */
+	var pluck = function pluck(table, subKey) {
+	    return _.object(_.map(table, function (value, key) {
+	        return [key, value[subKey]];
+	    }));
+	};
+
+	/**
+	 * Maps an object to an object
+	 *
+	 * > mapObject({a: '1', b: '2'}, (value, key) => {
+	 *       return value + 1;
+	 *   });
+	 * {a: 2, b: 3}
+	 */
+	var mapObject = function mapObject(obj, lambda) {
+	    var result = {};
+	    _.each(_.keys(obj), function (key) {
+	        result[key] = lambda(obj[key], key);
+	    });
+	    return result;
+	};
+
+	/**
+	 * Maps an array to an object
+	 *
+	 * > mapObjectFromArray(['a', 'b'], function(elem) {
+	 *       return elem + elem;
+	 *   });
+	 * {a: 'aa', b: 'bb'}
+	 */
+	var mapObjectFromArray = function mapObjectFromArray(arr, lambda) {
+	    var result = {};
+	    _.each(arr, function (elem) {
+	        result[elem] = lambda(elem);
+	    });
+	    return result;
+	};
+
+	module.exports = {
+	    pluck: pluck,
+	    mapObject: mapObject,
+	    mapObjectFromArray: mapObjectFromArray
+	};
+
+/***/ },
+/* 83 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
 	/* eslint-disable no-var, object-curly-spacing */
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
@@ -17151,7 +17200,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 83 */
+/* 84 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -17463,7 +17512,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 84 */
+/* 85 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -17727,7 +17776,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = InputNumberEditor;
 
 /***/ },
-/* 85 */
+/* 86 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -18140,7 +18189,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 86 */
+/* 87 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -18683,7 +18732,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = NumericInputEditor;
 
 /***/ },
-/* 87 */
+/* 88 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -19292,7 +19341,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 88 */
+/* 89 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -19316,7 +19365,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var TeX = __webpack_require__(69); // OldExpression only
 	var TexButtons = __webpack_require__(197);
 
-	var Expression = __webpack_require__(87).Expression;
+	var Expression = __webpack_require__(88).Expression;
 
 	// An answer can be considered correct, wrong, or ungraded.
 	var CONSIDERED = ["correct", "wrong", "ungraded"];
@@ -19841,7 +19890,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ExpressionEditor;
 
 /***/ },
-/* 89 */
+/* 90 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -20171,87 +20220,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 	module.exports = RadioEditor;
-
-/***/ },
-/* 90 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/* eslint-disable comma-dangle, no-var */
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	/**
-	 * A work-in-progress of _ methods for objects.
-	 * That is, they take an object as a parameter,
-	 * and return an object instead of an array.
-	 *
-	 * TODO(aria): Move this out of interactive2
-	 */
-
-	var _ = __webpack_require__(20);
-
-	/**
-	 * Does a pluck on keys inside objects in an object
-	 *
-	 * Ex:
-	 * tools = {
-	 *     translation: {
-	 *         enabled: true
-	 *     },
-	 *     rotation: {
-	 *         enabled: false
-	 *     }
-	 * };
-	 * pluckObject(tools, "enabled") returns {
-	 *     translation: true
-	 *     rotation: false
-	 * }
-	 */
-	var pluck = function pluck(table, subKey) {
-	    return _.object(_.map(table, function (value, key) {
-	        return [key, value[subKey]];
-	    }));
-	};
-
-	/**
-	 * Maps an object to an object
-	 *
-	 * > mapObject({a: '1', b: '2'}, (value, key) => {
-	 *       return value + 1;
-	 *   });
-	 * {a: 2, b: 3}
-	 */
-	var mapObject = function mapObject(obj, lambda) {
-	    var result = {};
-	    _.each(_.keys(obj), function (key) {
-	        result[key] = lambda(obj[key], key);
-	    });
-	    return result;
-	};
-
-	/**
-	 * Maps an array to an object
-	 *
-	 * > mapObjectFromArray(['a', 'b'], function(elem) {
-	 *       return elem + elem;
-	 *   });
-	 * {a: 'aa', b: 'bb'}
-	 */
-	var mapObjectFromArray = function mapObjectFromArray(arr, lambda) {
-	    var result = {};
-	    _.each(arr, function (elem) {
-	        result[elem] = lambda(elem);
-	    });
-	    return result;
-	};
-
-	module.exports = {
-	    pluck: pluck,
-	    mapObject: mapObject,
-	    mapObjectFromArray: mapObjectFromArray
-	};
 
 /***/ },
 /* 91 */
@@ -20821,7 +20789,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	"use strict";
 
 	var _ = __webpack_require__(20);
-	var knumber = __webpack_require__(216).number;
+	var knumber = __webpack_require__(215).number;
 
 	var KhanMath = {
 	    // Simplify formulas before display
@@ -21376,49 +21344,37 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var _tags = tree;
 	        return mappers.tags(_tags, shape, path);
 	    } else if (shape.type === "array") {
-	        var _ret = function () {
-	            var array = tree;
+	        var _array = tree;
 
-	            if (!Array.isArray(array)) {
-	                throw new Error("Invalid object of type \"" + (typeof array === "undefined" ? "undefined" : _typeof(array)) + "\" found at path " + (["<root>"].concat(path).join(".") + ". Expected array."));
-	            }
+	        if (!Array.isArray(_array)) {
+	            throw new Error("Invalid object of type \"" + (typeof _array === "undefined" ? "undefined" : _typeof(_array)) + "\" found at path " + (["<root>"].concat(path).join(".") + ". Expected array."));
+	        }
 
-	            var elementShape = shape.elementShape;
-	            var mappedElements = array.map(function (inner, i) {
-	                return _mapTree(inner, elementShape, path.concat(i), mappers);
-	            });
-	            return {
-	                v: mappers.array(mappedElements, array, shape, path)
-	            };
-	        }();
-
-	        if ((typeof _ret === "undefined" ? "undefined" : _typeof(_ret)) === "object") return _ret.v;
+	        var elementShape = shape.elementShape;
+	        var mappedElements = _array.map(function (inner, i) {
+	            return _mapTree(inner, elementShape, path.concat(i), mappers);
+	        });
+	        return mappers.array(mappedElements, _array, shape, path);
 	    } else if (shape.type === "object") {
-	        var _ret2 = function () {
-	            var object = tree;
+	        var object = tree;
 
-	            if (object && (typeof object === "undefined" ? "undefined" : _typeof(object)) !== "object") {
-	                throw new Error("Invalid object of type \"" + (typeof object === "undefined" ? "undefined" : _typeof(object)) + "\" found at " + ("path " + ["<root>"].concat(path).join(".") + ". Expected ") + "\"object\" type.");
+	        if (object && (typeof object === "undefined" ? "undefined" : _typeof(object)) !== "object") {
+	            throw new Error("Invalid object of type \"" + (typeof object === "undefined" ? "undefined" : _typeof(object)) + "\" found at " + ("path " + ["<root>"].concat(path).join(".") + ". Expected ") + "\"object\" type.");
+	        }
+
+	        var valueShapes = shape.shape;
+	        if (!valueShapes) {
+	            throw new Error("Unexpected shape " + JSON.stringify(shape) + " at path " + (["<root>"].concat(path).join(".") + "."));
+	        }
+	        var newObject = {};
+	        Object.keys(valueShapes).forEach(function (key) {
+	            if (!(key in object)) {
+	                throw new Error("Key \"" + key + "\" is missing from shape at path " + (["<root>"].concat(path).join(".") + "."));
 	            }
 
-	            var valueShapes = shape.shape;
-	            if (!valueShapes) {
-	                throw new Error("Unexpected shape " + JSON.stringify(shape) + " at path " + (["<root>"].concat(path).join(".") + "."));
-	            }
-	            var newObject = {};
-	            Object.keys(valueShapes).forEach(function (key) {
-	                if (!(key in object)) {
-	                    throw new Error("Key \"" + key + "\" is missing from shape at path " + (["<root>"].concat(path).join(".") + "."));
-	                }
-
-	                newObject[key] = _mapTree(object[key], valueShapes[key], path.concat(key), mappers);
-	            });
-	            return {
-	                v: newObject
-	            };
-	        }();
-
-	        if ((typeof _ret2 === "undefined" ? "undefined" : _typeof(_ret2)) === "object") return _ret2.v;
+	            newObject[key] = _mapTree(object[key], valueShapes[key], path.concat(key), mappers);
+	        });
+	        return newObject;
 	    } else {
 	        throw new Error("unexpected shape type " + shape.type);
 	    }
@@ -23275,9 +23231,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var MovableLine = Graphie.MovableLine;
 	var WrappedLine = __webpack_require__(206);
 
-	var knumber = __webpack_require__(216).number;
-	var kvector = __webpack_require__(216).vector;
-	var kpoint = __webpack_require__(216).point;
+	var knumber = __webpack_require__(215).number;
+	var kvector = __webpack_require__(215).vector;
+	var kpoint = __webpack_require__(215).point;
 	var KhanColors = __webpack_require__(207);
 
 	var _require = __webpack_require__(176),
@@ -23294,7 +23250,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Changeable = __webpack_require__(190);
 
-	var _require4 = __webpack_require__(221),
+	var _require4 = __webpack_require__(220),
 	    GrapherUtil = _require4.GrapherUtil,
 	    typeToButton = _require4.typeToButton,
 	    functionForType = _require4.functionForType,
@@ -23790,13 +23746,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Changeable = __webpack_require__(190);
 
-	var GraphSettings = __webpack_require__(208);
+	var GraphSettings = __webpack_require__(209);
 	var InfoTip = __webpack_require__(80);
 	var MultiButtonGroup = __webpack_require__(192);
 
 	var Grapher = __webpack_require__(114).widget;
 
-	var _require = __webpack_require__(221),
+	var _require = __webpack_require__(220),
 	    GrapherUtil = _require.GrapherUtil,
 	    allTypes = _require.allTypes,
 	    typeToButton = _require.typeToButton,
@@ -23969,7 +23925,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var InlineIcon = __webpack_require__(40);
 	var Renderer = __webpack_require__(32);
-	var GradedGroupAnswerBar = __webpack_require__(209);
+	var GradedGroupAnswerBar = __webpack_require__(208);
 
 	var _require2 = __webpack_require__(93),
 	    gray76 = _require2.gray76,
@@ -26381,7 +26337,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Point = Graphie.Point;
 	var Rect = Graphie.Rect;
 
-	var kvector = __webpack_require__(216).vector;
+	var kvector = __webpack_require__(215).vector;
 
 	// Memoize KAS parsing
 	var KAShashFunc = function KAShashFunc(expr, options) {
@@ -26839,12 +26795,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Changeable = __webpack_require__(190);
 	var EditorJsonify = __webpack_require__(191);
 
-	var ArrowPicker = __webpack_require__(222);
-	var ColorPicker = __webpack_require__(223);
-	var ConstraintEditor = __webpack_require__(224);
-	var DashPicker = __webpack_require__(225);
-	var ElementContainer = __webpack_require__(226);
-	var GraphSettings = __webpack_require__(208);
+	var ArrowPicker = __webpack_require__(221);
+	var ColorPicker = __webpack_require__(222);
+	var ConstraintEditor = __webpack_require__(223);
+	var DashPicker = __webpack_require__(224);
+	var ElementContainer = __webpack_require__(225);
+	var GraphSettings = __webpack_require__(209);
 	var MathInput = __webpack_require__(196);
 	var NumberInput = __webpack_require__(193);
 	var TeX = __webpack_require__(69);
@@ -28309,8 +28265,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var NumberInput = __webpack_require__(193);
 	var Util = __webpack_require__(6);
 
-	var knumber = __webpack_require__(216).number;
-	var kpoint = __webpack_require__(216).point;
+	var knumber = __webpack_require__(215).number;
+	var kpoint = __webpack_require__(215).point;
 	var KhanColors = __webpack_require__(207);
 	var GraphUtils = __webpack_require__(181);
 
@@ -30640,7 +30596,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var DeprecationMixin = Util.DeprecationMixin;
 
-	var GraphSettings = __webpack_require__(208);
+	var GraphSettings = __webpack_require__(209);
 	var InfoTip = __webpack_require__(80);
 
 	var InteractiveGraph = __webpack_require__(128).widget;
@@ -33180,12 +33136,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(19);
 
-	var draw = __webpack_require__(227);
+	var draw = __webpack_require__(226);
 
-	var _require = __webpack_require__(228),
+	var _require = __webpack_require__(227),
 	    layout = _require.layout;
 
-	var SmilesParser = __webpack_require__(229);
+	var SmilesParser = __webpack_require__(228);
 
 	var parse = SmilesParser.parse;
 	var ParseError = SmilesParser.ParseError;
@@ -33464,7 +33420,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var MovablePoint = Graphie.MovablePoint;
 	var Line = Graphie.Line;
 
-	var knumber = __webpack_require__(216).number;
+	var knumber = __webpack_require__(215).number;
 	var KhanMath = __webpack_require__(96);
 	var KhanColors = __webpack_require__(207);
 
@@ -34159,7 +34115,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var PropCheckBox = __webpack_require__(43);
 	var RangeInput = __webpack_require__(210);
 
-	var knumber = __webpack_require__(216).number;
+	var knumber = __webpack_require__(215).number;
 	var bound = function bound(x, gt, lt) {
 	    return Math.min(Math.max(x, gt), lt);
 	};
@@ -35508,13 +35464,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(20);
 	var $ = __webpack_require__(23);
 
-	var HighlightableContent = __webpack_require__(230);
+	var HighlightableContent = __webpack_require__(229);
 	var Renderer = __webpack_require__(32);
-	var PassageMarkdown = __webpack_require__(232);
+	var PassageMarkdown = __webpack_require__(231);
 
 	var babelPluginFlowReactPropTypes_proptype_ChangeableProps = __webpack_require__(190).babelPluginFlowReactPropTypes_proptype_ChangeableProps || __webpack_require__(19).PropTypes.any;
 
-	var babelPluginFlowReactPropTypes_proptype_SerializedHighlight = __webpack_require__(231).babelPluginFlowReactPropTypes_proptype_SerializedHighlight || __webpack_require__(19).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_SerializedHighlightSet = __webpack_require__(230).babelPluginFlowReactPropTypes_proptype_SerializedHighlightSet || __webpack_require__(19).PropTypes.any;
 
 	// A fake paragraph to measure the line height of the passage. In CSS we always
 	// set the line height to 22 pixels, but when using the browser zoom feature,
@@ -35614,7 +35570,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            newHighlightRange: null,
 	            selectedHighlightRange: null,
 	            mouseX: null,
-	            mouseY: null
+	            mouseY: null,
+	            stylesAreApplied: false
 	        }, _this3.handleConfirmHighlightClick = function () {
 	            if (!_this3.state.newHighlightRange) {
 	                return;
@@ -35705,6 +35662,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }, 500);
 	        window.addEventListener("mousedown", this.handleMouseDown);
 	        window.addEventListener("resize", this._onResize);
+
+	        // Wait for Aphrodite styles (which are guaranteed to apply after one
+	        // tick), then set state.
+	        //
+	        // This flag is used to set the `enabled` prop of the
+	        // `HighlightableContent` component. That way, we only show highlights
+	        // once styles are ready, and they're measured with the correct
+	        // position.
+	        //
+	        // HACK(mdr): It's not really the Passage's Aphrodite styles that are
+	        //     causing bad measures, but more so the Khan Academy Test Prep
+	        //     app's Aphrodite styles. We would ideally instead offer the
+	        //     embedding application an API to signal that the app's layout has
+	        //     changed in a way that affects the Renderer... but, for now, just
+	        //     hardcode this hack into here.
+	        window.setTimeout(function () {
+	            _this4.setState({ stylesAreApplied: true });
+	        }, 0);
 	    };
 
 	    Passage.prototype.shouldComponentUpdate = function shouldComponentUpdate(nextProps, nextState) {
@@ -36426,30 +36401,31 @@ return /******/ (function(modules) { // webpackBootstrap
 	    Passage.prototype._renderContent = function _renderContent(parsed) {
 	        var _this6 = this;
 
-	        var content = React.createElement(
-	            "div",
-	            { ref: "content" },
-	            React.createElement(LineHeightMeasurer, { ref: function ref(e) {
-	                    return _this6._lineHeightMeasurer = e;
-	                } }),
-	            PassageMarkdown.output(parsed)
-	        );
+	        // If Highlighting Version 2 is enabled, set the enabled flag to true.
+	        // Otherwise, set the enabled flag to false, in which case the
+	        // HighlightableContent component won't actually apply highlighting.
+	        //
+	        // Additionally, wait until Aphrodite styles are applied before
+	        // enabling highlights, so that we measure the correct positions.
+	        var enabled = this.supportsHighlightingVersion2() && this.state.stylesAreApplied;
 
-	        // If Highlighting Version 2 is enabled, wrap the content in a
-	        // `HighlightableContent` component. Otherwise, render it as-is.
-	        if (this.supportsHighlightingVersion2()) {
-	            return React.createElement(
-	                HighlightableContent,
-	                {
-	                    editable: this.canUpdateHighlightingVersion2(),
-	                    onSerializedHighlightsUpdate: this._handleSerializedHighlightsUpdate,
-	                    serializedHighlights: this.props.highlights
-	                },
-	                content
-	            );
-	        } else {
-	            return content;
-	        }
+	        return React.createElement(
+	            HighlightableContent,
+	            {
+	                editable: this.canUpdateHighlightingVersion2(),
+	                enabled: enabled,
+	                onSerializedHighlightsUpdate: this._handleSerializedHighlightsUpdate,
+	                serializedHighlights: this.props.highlights
+	            },
+	            React.createElement(
+	                "div",
+	                { ref: "content" },
+	                React.createElement(LineHeightMeasurer, { ref: function ref(e) {
+	                        return _this6._lineHeightMeasurer = e;
+	                    } }),
+	                PassageMarkdown.output(parsed)
+	            )
+	        );
 	    };
 
 	    Passage.prototype._hasFootnotes = function _hasFootnotes() {
@@ -36619,7 +36595,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    footnotes: "",
 	    showLineNumbers: true,
 	    highlightRanges: [],
-	    highlights: []
+	    highlights: {}
 	};
 
 
@@ -37745,43 +37721,41 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 
 	        if (isMobile) {
-	            (function () {
-	                var snap = config.scaleY / self.props.snapsPerLine;
-	                config.graph.lines[i] = Interactive2.addMaybeMobileMovablePoint(_this, {
-	                    coord: [x, startHeight],
-	                    constraints: [function (coord, prev, options) {
-	                        return [x, _this._clampValue(Math.round(coord[1] / snap) * snap, 0, config.dimY)];
-	                    }],
-	                    onMoveStart: function onMoveStart() {
-	                        config.graph.bars[i].attr({
-	                            fill: KhanColors.INTERACTIVE
-	                        });
-	                    },
-	                    onMove: function onMove() {
-	                        var y = config.graph.lines[i].coord()[1];
+	            var snap = config.scaleY / self.props.snapsPerLine;
+	            config.graph.lines[i] = Interactive2.addMaybeMobileMovablePoint(this, {
+	                coord: [x, startHeight],
+	                constraints: [function (coord, prev, options) {
+	                    return [x, _this._clampValue(Math.round(coord[1] / snap) * snap, 0, config.dimY)];
+	                }],
+	                onMoveStart: function onMoveStart() {
+	                    config.graph.bars[i].attr({
+	                        fill: KhanColors.INTERACTIVE
+	                    });
+	                },
+	                onMove: function onMove() {
+	                    var y = config.graph.lines[i].coord()[1];
 
-	                        var values = _.clone(self.state.values);
-	                        values[i] = y;
-	                        self.setState({ values: values });
-	                        self.changeAndTrack({ values: values });
+	                    var values = _.clone(self.state.values);
+	                    values[i] = y;
+	                    self.setState({ values: values });
+	                    self.changeAndTrack({ values: values });
 
-	                        self._maybeUpdateDragPrompt(values);
+	                    self._maybeUpdateDragPrompt(values);
 
-	                        scaleBar(i, y);
-	                    },
-	                    onMoveEnd: function onMoveEnd() {
-	                        config.graph.bars[i].attr({
-	                            fill: KhanColors.BLUE_C
-	                        });
-	                    }
-	                });
+	                    scaleBar(i, y);
+	                },
+	                onMoveEnd: function onMoveEnd() {
+	                    config.graph.bars[i].attr({
+	                        fill: KhanColors.BLUE_C
+	                    });
+	                }
+	            });
 
-	                // We set the z-index to 1 here so that the hairlines cover up the
-	                // points
-	                config.graph.lines[i].state.visibleShape.wrapper.style.zIndex = "1";
+	            // We set the z-index to 1 here so that the hairlines cover up the
+	            // points
+	            config.graph.lines[i].state.visibleShape.wrapper.style.zIndex = "1";
 
-	                self._maybeUpdateDragPrompt(self.state.values);
-	            })();
+	            self._maybeUpdateDragPrompt(self.state.values);
 	        } else {
 	            config.graph.lines[i] = graphie.addMovableLineSegment({
 	                coordA: [x - barHalfWidth, startHeight],
@@ -37837,42 +37811,40 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var x = i + (isMobile ? 0.4 : 1);
 
 	        if (isMobile) {
-	            (function () {
-	                var snap = config.scaleY / self.props.snapsPerLine;
-	                c.graph.points[i] = Interactive2.addMaybeMobileMovablePoint(_this2, {
-	                    coord: [x, startHeight],
-	                    constraints: [function (coord, prev, options) {
-	                        return [x, _this2._clampValue(Math.round(coord[1] / snap) * snap, 0, config.dimY)];
-	                    }],
-	                    onMove: function onMove() {
-	                        var y = c.graph.points[i].coord()[1];
+	            var snap = config.scaleY / self.props.snapsPerLine;
+	            c.graph.points[i] = Interactive2.addMaybeMobileMovablePoint(this, {
+	                coord: [x, startHeight],
+	                constraints: [function (coord, prev, options) {
+	                    return [x, _this2._clampValue(Math.round(coord[1] / snap) * snap, 0, config.dimY)];
+	                }],
+	                onMove: function onMove() {
+	                    var y = c.graph.points[i].coord()[1];
 
-	                        var values = _.clone(self.state.values);
-	                        values[i] = y;
-	                        self.setState({ values: values });
-	                        self.changeAndTrack({ values: values });
+	                    var values = _.clone(self.state.values);
+	                    values[i] = y;
+	                    self.setState({ values: values });
+	                    self.changeAndTrack({ values: values });
 
-	                        self._maybeUpdateDragPrompt(values);
+	                    self._maybeUpdateDragPrompt(values);
+	                }
+	            });
+
+	            self._maybeUpdateDragPrompt(self.state.values);
+
+	            if (i > 0) {
+	                c.graph.lines[i] = Interactive2.addMovableLine(graphie, {
+	                    points: [c.graph.points[i - 1], c.graph.points[i]],
+	                    constraints: Interactive2.MovablePoint.constraints.fixed(),
+	                    normalStyle: {
+	                        stroke: KhanColors.BLUE_C,
+	                        "stroke-width": 2
+	                    },
+	                    highlightStyle: {
+	                        stroke: KhanColors.BLUE_C,
+	                        "stroke-width": 2
 	                    }
 	                });
-
-	                self._maybeUpdateDragPrompt(self.state.values);
-
-	                if (i > 0) {
-	                    c.graph.lines[i] = Interactive2.addMovableLine(graphie, {
-	                        points: [c.graph.points[i - 1], c.graph.points[i]],
-	                        constraints: Interactive2.MovablePoint.constraints.fixed(),
-	                        normalStyle: {
-	                            stroke: KhanColors.BLUE_C,
-	                            "stroke-width": 2
-	                        },
-	                        highlightStyle: {
-	                            stroke: KhanColors.BLUE_C,
-	                            "stroke-width": 2
-	                        }
-	                    });
-	                }
-	            })();
+	            }
 	        } else {
 	            c.graph.points[i] = graphie.addMovablePoint({
 	                coord: [x, startHeight],
@@ -38115,7 +38087,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Plotter = __webpack_require__(150).widget;
 
-	var knumber = __webpack_require__(216).number;
+	var knumber = __webpack_require__(215).number;
 
 	var BAR = "bar",
 	    LINE = "line",
@@ -39320,7 +39292,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var MathOutput = __webpack_require__(212);
 	var seededRNG = __webpack_require__(6).seededRNG;
 	var Util = __webpack_require__(6);
-	var knumber = __webpack_require__(216).number;
+	var knumber = __webpack_require__(215).number;
 	var KhanColors = __webpack_require__(207);
 	var KhanMath = __webpack_require__(96);
 
@@ -41037,11 +41009,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	var getGridStep = __webpack_require__(6).getGridStep;
 	var captureScratchpadTouchStart = __webpack_require__(6).captureScratchpadTouchStart;
 
-	var knumber = __webpack_require__(216).number;
-	var kvector = __webpack_require__(216).vector;
-	var kpoint = __webpack_require__(216).point;
-	var kray = __webpack_require__(216).ray;
-	var kline = __webpack_require__(216).line;
+	var knumber = __webpack_require__(215).number;
+	var kvector = __webpack_require__(215).vector;
+	var kpoint = __webpack_require__(215).point;
+	var kray = __webpack_require__(215).ray;
+	var kline = __webpack_require__(215).line;
 	var KhanMath = __webpack_require__(96);
 	var KhanColors = __webpack_require__(207);
 
@@ -43447,7 +43419,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ApiOptions = __webpack_require__(5).Options;
 
 	var Graph = __webpack_require__(211);
-	var GraphSettings = __webpack_require__(208);
+	var GraphSettings = __webpack_require__(209);
 	var InfoTip = __webpack_require__(80);
 	var PropCheckBox = __webpack_require__(43);
 
@@ -43455,11 +43427,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var deepEq = __webpack_require__(6).deepEq;
 	var getGridStep = __webpack_require__(6).getGridStep;
-	var kline = __webpack_require__(216).line;
-	var knumber = __webpack_require__(216).number;
-	var kpoint = __webpack_require__(216).point;
-	var kray = __webpack_require__(216).ray;
-	var kvector = __webpack_require__(216).vector;
+	var kline = __webpack_require__(215).line;
+	var knumber = __webpack_require__(215).number;
+	var kpoint = __webpack_require__(215).point;
+	var kray = __webpack_require__(215).ray;
+	var kvector = __webpack_require__(215).vector;
 	var KhanColors = __webpack_require__(207);
 
 	function arraySum(array) {
@@ -45306,8 +45278,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Graphie = __webpack_require__(75);
 	var MovablePoint = Graphie.MovablePoint;
 
-	var knumber = __webpack_require__(216).number;
-	var kpoint = __webpack_require__(216).point;
+	var knumber = __webpack_require__(215).number;
+	var kpoint = __webpack_require__(215).point;
 
 	/**
 	 * This is the widget's renderer. It shows up in the right column
@@ -46588,7 +46560,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    KeypadInput: __webpack_require__(235)
 	};
 
-	var _require = __webpack_require__(215),
+	var _require = __webpack_require__(216),
 	    KeypadTypes = _require.KeypadTypes;
 
 	var consts = { KeypadTypes: KeypadTypes };
@@ -49854,7 +49826,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var firstNumericalParse = __webpack_require__(6).firstNumericalParse;
 	var captureScratchpadTouchStart = __webpack_require__(6).captureScratchpadTouchStart;
-	var knumber = __webpack_require__(216).number;
+	var knumber = __webpack_require__(215).number;
 	var KhanMath = __webpack_require__(96);
 
 	var toNumericString = KhanMath.toNumericString;
@@ -51316,7 +51288,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var captureScratchpadTouchStart = __webpack_require__(6).captureScratchpadTouchStart;
 
-	var Choice = __webpack_require__(220);
+	var Choice = __webpack_require__(232);
 
 	var ChoiceNoneAbove = React.createClass({
 	    displayName: "ChoiceNoneAbove",
@@ -52340,10 +52312,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-	var Movable = __webpack_require__(260);
-	var MovablePoint = __webpack_require__(261);
-	var MovableLine = __webpack_require__(262);
-	var MovablePolygon = __webpack_require__(263);
+	var Movable = __webpack_require__(261);
+	var MovablePoint = __webpack_require__(262);
+	var MovableLine = __webpack_require__(263);
+	var MovablePolygon = __webpack_require__(264);
 
 	var KhanColors = __webpack_require__(207);
 
@@ -52410,9 +52382,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(20);
 	var InteractiveUtil = __webpack_require__(180);
-	var WrappedDefaults = __webpack_require__(264);
-	var kpoint = __webpack_require__(216).point;
-	var kvector = __webpack_require__(216).vector;
+	var WrappedDefaults = __webpack_require__(260);
+	var kpoint = __webpack_require__(215).point;
+	var kvector = __webpack_require__(215).vector;
 	var KhanMath = __webpack_require__(96);
 
 	var DEFAULT_OPTIONS = {
@@ -52583,6 +52555,210 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 208 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	/* globals i18n */
+	/**
+	 * Renders answer bar for mobile graded groups. [STATELESS]
+	 */
+	var React = __webpack_require__(19);
+
+	var ApiOptions = __webpack_require__(5).Options;
+	var InlineIcon = __webpack_require__(40);
+
+	var _require = __webpack_require__(39),
+	    iconStar = _require.iconStar,
+	    iconTryAgain = _require.iconTryAgain;
+
+	var _require2 = __webpack_require__(93),
+	    boldFontFamily = _require2.boldFontFamily,
+	    gray68 = _require2.gray68,
+	    gray76 = _require2.gray76,
+	    gray85 = _require2.gray85,
+	    gray95 = _require2.gray95,
+	    kaGreen = _require2.kaGreen,
+	    phoneMargin = _require2.phoneMargin,
+	    negativePhoneMargin = _require2.negativePhoneMargin;
+
+	var ANSWER_BAR_STATES = {
+	    // Initial state before the question is answerable.  The user must complete
+	    // each of the widgets before the answer bar becomes visible.
+	    HIDDEN: Symbol('HIDDEN'),
+
+	    // The 'Check' button is active whenever the question is answerable or any
+	    // of the input widgets have been modified after getting the answer wrong.
+	    ACTIVE: Symbol('ACTIVE'),
+
+	    // The 'Check' button is disabled and there is no message.  This occurs when
+	    // some of the widgets haven't been filled in after the has already become
+	    // visible.
+	    INACTIVE: Symbol('INACTIVE'),
+
+	    // This happens immediately after clicking 'Check' with a wrong answer.
+	    // The 'Check' button is disabled and the 'Try Again' message is displayed.
+	    INCORRECT: Symbol('INCORRECT'),
+
+	    // Final state.  This occurs after the user submits the correct answer.
+	    // The widgets in this grade-group are disabled.
+	    CORRECT: Symbol('CORRECT')
+	};
+
+	var GradedGroupAnswerBar = React.createClass({
+	    displayName: 'GradedGroupAnswerBar',
+
+	    propTypes: {
+	        // TODO(kevinb) update to oneOf once we update to 15.2
+	        answerBarState: React.PropTypes.any.isRequired,
+	        apiOptions: ApiOptions.propTypes,
+	        onCheckAnswer: React.PropTypes.func.isRequired,
+
+	        // The function to call when clicking "Next question" after correctly
+	        // answering one graded group out of a set. If this is null, the
+	        // "Next question" button will not appear.
+	        onNextQuestion: React.PropTypes.func
+	    },
+
+	    render: function render() {
+	        var _props = this.props,
+	            apiOptions = _props.apiOptions,
+	            answerBarState = _props.answerBarState,
+	            onCheckAnswer = _props.onCheckAnswer,
+	            onNextQuestion = _props.onNextQuestion;
+
+
+	        var answerBarStyle = _extends({}, styles.answerBar, {
+	            backgroundColor: answerBarState === ANSWER_BAR_STATES.CORRECT ? gray95 : 'white',
+	            // Center the "Correct!" message only when there's no next question
+	            justifyContent: answerBarState === ANSWER_BAR_STATES.CORRECT && !onNextQuestion ? 'center' : 'space-between'
+	        });
+
+	        var buttonStyle = _extends({}, styles.button, {
+	            // "Check" and "Next question" buttons should both be green
+	            backgroundColor: answerBarState === ANSWER_BAR_STATES.ACTIVE || answerBarState === ANSWER_BAR_STATES.CORRECT ? kaGreen : gray85
+	        });
+
+	        var textStyle = _extends({}, styles.text, {
+	            color: answerBarState === ANSWER_BAR_STATES.CORRECT ? kaGreen : gray68
+	        });
+
+	        var message = answerBarState === ANSWER_BAR_STATES.INCORRECT ? React.createElement(
+	            'span',
+	            { style: textStyle },
+	            React.createElement(
+	                'span',
+	                { style: styles.tryAgainIcon },
+	                React.createElement(InlineIcon, iconTryAgain)
+	            ),
+	            React.createElement(
+	                'span',
+	                { style: { marginLeft: 8 } },
+	                i18n._('Keep trying')
+	            )
+	        ) : React.createElement('span', null); // empty span keeps the button on the right side
+
+	        if (answerBarState !== ANSWER_BAR_STATES.CORRECT) {
+	            var buttonLabel = answerBarState === ANSWER_BAR_STATES.INCORRECT ? i18n._("Try again") : i18n._("Check");
+
+	            // Use <button> instead of <input> b/c iOS 9.3 on iPhone 6 renders
+	            // the <input> as a faded out green button instead of using our
+	            // styles.
+	            return React.createElement(
+	                'div',
+	                { style: answerBarStyle },
+	                message,
+	                React.createElement(
+	                    'button',
+	                    {
+	                        style: buttonStyle,
+	                        disabled: apiOptions.readOnly || answerBarState !== ANSWER_BAR_STATES.ACTIVE,
+	                        onClick: onCheckAnswer
+	                    },
+	                    buttonLabel
+	                )
+	            );
+	        } else {
+	            return React.createElement(
+	                'div',
+	                { style: answerBarStyle },
+	                React.createElement(
+	                    'span',
+	                    { style: textStyle },
+	                    React.createElement(
+	                        'span',
+	                        { style: { fontSize: 28, color: '#FFB300' } },
+	                        React.createElement(InlineIcon, _extends({}, iconStar, { style: { marginBottom: 5 } }))
+	                    ),
+	                    React.createElement(
+	                        'span',
+	                        { style: { marginLeft: 8 } },
+	                        i18n._("Correct!")
+	                    )
+	                ),
+	                onNextQuestion && React.createElement(
+	                    'button',
+	                    {
+	                        style: buttonStyle,
+	                        onClick: onNextQuestion
+	                    },
+	                    i18n._("Next question")
+	                )
+	            );
+	        }
+	    }
+	});
+
+	var fontSize = 17;
+
+	var styles = {
+	    answerBar: {
+	        display: 'flex',
+	        alignItems: 'center',
+	        height: 68, // so that we don't have calculate the vertical padding
+	        marginLeft: negativePhoneMargin,
+	        marginRight: negativePhoneMargin,
+	        marginBottom: negativePhoneMargin,
+	        marginTop: phoneMargin,
+	        paddingLeft: phoneMargin,
+	        paddingRight: 10,
+	        borderTop: '1px solid ' + gray76
+	    },
+
+	    // TODO(kevinb) figure out a way inject styles/components from webapp
+	    button: {
+	        height: 48,
+	        width: 143,
+	        borderRadius: 4,
+	        color: 'white',
+	        fontFamily: boldFontFamily,
+	        fontSize: fontSize,
+	        border: 'none'
+	    },
+
+	    tryAgainIcon: {
+	        fontSize: 28,
+	        color: '#63D9EA',
+	        transform: 'scale(-1,1) rotate(-268deg)'
+	    },
+
+	    text: {
+	        display: 'flex',
+	        flexDirection: 'row',
+	        alignItems: 'center',
+	        fontFamily: boldFontFamily,
+	        fontSize: fontSize
+	    }
+	};
+
+	GradedGroupAnswerBar.ANSWER_BAR_STATES = ANSWER_BAR_STATES;
+
+	module.exports = GradedGroupAnswerBar;
+
+/***/ },
+/* 209 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -53204,210 +53380,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 	module.exports = GraphSettings;
-
-/***/ },
-/* 209 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	/* globals i18n */
-	/**
-	 * Renders answer bar for mobile graded groups. [STATELESS]
-	 */
-	var React = __webpack_require__(19);
-
-	var ApiOptions = __webpack_require__(5).Options;
-	var InlineIcon = __webpack_require__(40);
-
-	var _require = __webpack_require__(39),
-	    iconStar = _require.iconStar,
-	    iconTryAgain = _require.iconTryAgain;
-
-	var _require2 = __webpack_require__(93),
-	    boldFontFamily = _require2.boldFontFamily,
-	    gray68 = _require2.gray68,
-	    gray76 = _require2.gray76,
-	    gray85 = _require2.gray85,
-	    gray95 = _require2.gray95,
-	    kaGreen = _require2.kaGreen,
-	    phoneMargin = _require2.phoneMargin,
-	    negativePhoneMargin = _require2.negativePhoneMargin;
-
-	var ANSWER_BAR_STATES = {
-	    // Initial state before the question is answerable.  The user must complete
-	    // each of the widgets before the answer bar becomes visible.
-	    HIDDEN: Symbol('HIDDEN'),
-
-	    // The 'Check' button is active whenever the question is answerable or any
-	    // of the input widgets have been modified after getting the answer wrong.
-	    ACTIVE: Symbol('ACTIVE'),
-
-	    // The 'Check' button is disabled and there is no message.  This occurs when
-	    // some of the widgets haven't been filled in after the has already become
-	    // visible.
-	    INACTIVE: Symbol('INACTIVE'),
-
-	    // This happens immediately after clicking 'Check' with a wrong answer.
-	    // The 'Check' button is disabled and the 'Try Again' message is displayed.
-	    INCORRECT: Symbol('INCORRECT'),
-
-	    // Final state.  This occurs after the user submits the correct answer.
-	    // The widgets in this grade-group are disabled.
-	    CORRECT: Symbol('CORRECT')
-	};
-
-	var GradedGroupAnswerBar = React.createClass({
-	    displayName: 'GradedGroupAnswerBar',
-
-	    propTypes: {
-	        // TODO(kevinb) update to oneOf once we update to 15.2
-	        answerBarState: React.PropTypes.any.isRequired,
-	        apiOptions: ApiOptions.propTypes,
-	        onCheckAnswer: React.PropTypes.func.isRequired,
-
-	        // The function to call when clicking "Next question" after correctly
-	        // answering one graded group out of a set. If this is null, the
-	        // "Next question" button will not appear.
-	        onNextQuestion: React.PropTypes.func
-	    },
-
-	    render: function render() {
-	        var _props = this.props,
-	            apiOptions = _props.apiOptions,
-	            answerBarState = _props.answerBarState,
-	            onCheckAnswer = _props.onCheckAnswer,
-	            onNextQuestion = _props.onNextQuestion;
-
-
-	        var answerBarStyle = _extends({}, styles.answerBar, {
-	            backgroundColor: answerBarState === ANSWER_BAR_STATES.CORRECT ? gray95 : 'white',
-	            // Center the "Correct!" message only when there's no next question
-	            justifyContent: answerBarState === ANSWER_BAR_STATES.CORRECT && !onNextQuestion ? 'center' : 'space-between'
-	        });
-
-	        var buttonStyle = _extends({}, styles.button, {
-	            // "Check" and "Next question" buttons should both be green
-	            backgroundColor: answerBarState === ANSWER_BAR_STATES.ACTIVE || answerBarState === ANSWER_BAR_STATES.CORRECT ? kaGreen : gray85
-	        });
-
-	        var textStyle = _extends({}, styles.text, {
-	            color: answerBarState === ANSWER_BAR_STATES.CORRECT ? kaGreen : gray68
-	        });
-
-	        var message = answerBarState === ANSWER_BAR_STATES.INCORRECT ? React.createElement(
-	            'span',
-	            { style: textStyle },
-	            React.createElement(
-	                'span',
-	                { style: styles.tryAgainIcon },
-	                React.createElement(InlineIcon, iconTryAgain)
-	            ),
-	            React.createElement(
-	                'span',
-	                { style: { marginLeft: 8 } },
-	                i18n._('Keep trying')
-	            )
-	        ) : React.createElement('span', null); // empty span keeps the button on the right side
-
-	        if (answerBarState !== ANSWER_BAR_STATES.CORRECT) {
-	            var buttonLabel = answerBarState === ANSWER_BAR_STATES.INCORRECT ? i18n._("Try again") : i18n._("Check");
-
-	            // Use <button> instead of <input> b/c iOS 9.3 on iPhone 6 renders
-	            // the <input> as a faded out green button instead of using our
-	            // styles.
-	            return React.createElement(
-	                'div',
-	                { style: answerBarStyle },
-	                message,
-	                React.createElement(
-	                    'button',
-	                    {
-	                        style: buttonStyle,
-	                        disabled: apiOptions.readOnly || answerBarState !== ANSWER_BAR_STATES.ACTIVE,
-	                        onClick: onCheckAnswer
-	                    },
-	                    buttonLabel
-	                )
-	            );
-	        } else {
-	            return React.createElement(
-	                'div',
-	                { style: answerBarStyle },
-	                React.createElement(
-	                    'span',
-	                    { style: textStyle },
-	                    React.createElement(
-	                        'span',
-	                        { style: { fontSize: 28, color: '#FFB300' } },
-	                        React.createElement(InlineIcon, _extends({}, iconStar, { style: { marginBottom: 5 } }))
-	                    ),
-	                    React.createElement(
-	                        'span',
-	                        { style: { marginLeft: 8 } },
-	                        i18n._("Correct!")
-	                    )
-	                ),
-	                onNextQuestion && React.createElement(
-	                    'button',
-	                    {
-	                        style: buttonStyle,
-	                        onClick: onNextQuestion
-	                    },
-	                    i18n._("Next question")
-	                )
-	            );
-	        }
-	    }
-	});
-
-	var fontSize = 17;
-
-	var styles = {
-	    answerBar: {
-	        display: 'flex',
-	        alignItems: 'center',
-	        height: 68, // so that we don't have calculate the vertical padding
-	        marginLeft: negativePhoneMargin,
-	        marginRight: negativePhoneMargin,
-	        marginBottom: negativePhoneMargin,
-	        marginTop: phoneMargin,
-	        paddingLeft: phoneMargin,
-	        paddingRight: 10,
-	        borderTop: '1px solid ' + gray76
-	    },
-
-	    // TODO(kevinb) figure out a way inject styles/components from webapp
-	    button: {
-	        height: 48,
-	        width: 143,
-	        borderRadius: 4,
-	        color: 'white',
-	        fontFamily: boldFontFamily,
-	        fontSize: fontSize,
-	        border: 'none'
-	    },
-
-	    tryAgainIcon: {
-	        fontSize: 28,
-	        color: '#63D9EA',
-	        transform: 'scale(-1,1) rotate(-268deg)'
-	    },
-
-	    text: {
-	        display: 'flex',
-	        flexDirection: 'row',
-	        alignItems: 'center',
-	        fontFamily: boldFontFamily,
-	        fontSize: fontSize
-	    }
-	};
-
-	GradedGroupAnswerBar.ANSWER_BAR_STATES = ANSWER_BAR_STATES;
-
-	module.exports = GradedGroupAnswerBar;
 
 /***/ },
 /* 210 */
@@ -55043,6 +55015,19 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 215 */
 /***/ function(module, exports, __webpack_require__) {
 
+	module.exports = {
+	    number: __webpack_require__(265),
+	    vector: __webpack_require__(266),
+	    point: __webpack_require__(267),
+	    line: __webpack_require__(268),
+	    ray: __webpack_require__(269),
+	};
+
+
+/***/ },
+/* 216 */
+/***/ function(module, exports, __webpack_require__) {
+
 	'use strict';
 
 	/**
@@ -55120,19 +55105,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 216 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = {
-	    number: __webpack_require__(265),
-	    vector: __webpack_require__(266),
-	    point: __webpack_require__(267),
-	    line: __webpack_require__(268),
-	    ray: __webpack_require__(269),
-	};
-
-
-/***/ },
 /* 217 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -55153,7 +55125,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 
 	var _ = __webpack_require__(20);
-	var kpoint = __webpack_require__(216).point;
+	var kpoint = __webpack_require__(215).point;
 
 	/* Local helper methods. */
 
@@ -55293,8 +55265,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-	var kpoint = __webpack_require__(216).point;
-	var kvector = __webpack_require__(216).vector;
+	var kpoint = __webpack_require__(215).point;
+	var kvector = __webpack_require__(215).vector;
 	var _ = __webpack_require__(20);
 
 	// Minify Raphael ourselves because IE8 has a problem with the 1.5.2 minified
@@ -56283,7 +56255,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    // - xLabelFormat: fn to format label string for x-axis
 	    // - smartLabelPositioning: true or false to ignore minus sign
 	    graphie.graphInit = function (options) {
-	        var _this = this;
 
 	        options = options || {};
 
@@ -56409,55 +56380,53 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        // draw tick marks
 	        if (ticks) {
-	            (function () {
-	                var halfWidthTicks = options.isMobile;
-	                _this.style({
-	                    stroke: options.isMobile ? KhanColors.GRAY_G : "#000000",
-	                    opacity: options.isMobile ? 1 : tickOpacity,
-	                    strokeWidth: 1
-	                }, function () {
+	            var halfWidthTicks = options.isMobile;
+	            this.style({
+	                stroke: options.isMobile ? KhanColors.GRAY_G : "#000000",
+	                opacity: options.isMobile ? 1 : tickOpacity,
+	                strokeWidth: 1
+	            }, function () {
 
-	                    // horizontal axis
-	                    var step = gridStep[0] * tickStep[0];
-	                    var len = tickLen[0] / scale[1];
-	                    var start = gridRange[0][0];
-	                    var stop = gridRange[0][1];
+	                // horizontal axis
+	                var step = gridStep[0] * tickStep[0];
+	                var len = tickLen[0] / scale[1];
+	                var start = gridRange[0][0];
+	                var stop = gridRange[0][1];
 
-	                    if (range[1][0] < 0 && range[1][1] > 0) {
-	                        for (var x = step + axisCenter[0]; x <= stop; x += step) {
-	                            if (x < stop || !axisArrows) {
-	                                this.line([x, -len + axisCenter[1]], [x, halfWidthTicks ? 0 : len + axisCenter[1]]);
-	                            }
-	                        }
-
-	                        for (var _x = -step + axisCenter[0]; _x >= start; _x -= step) {
-	                            if (_x > start || !axisArrows) {
-	                                this.line([_x, -len + axisCenter[1]], [_x, halfWidthTicks ? 0 : len + axisCenter[1]]);
-	                            }
+	                if (range[1][0] < 0 && range[1][1] > 0) {
+	                    for (var x = step + axisCenter[0]; x <= stop; x += step) {
+	                        if (x < stop || !axisArrows) {
+	                            this.line([x, -len + axisCenter[1]], [x, halfWidthTicks ? 0 : len + axisCenter[1]]);
 	                        }
 	                    }
 
-	                    // vertical axis
-	                    step = gridStep[1] * tickStep[1];
-	                    len = tickLen[1] / scale[0];
-	                    start = gridRange[1][0];
-	                    stop = gridRange[1][1];
-
-	                    if (range[0][0] < 0 && range[0][1] > 0) {
-	                        for (var y = step + axisCenter[1]; y <= stop; y += step) {
-	                            if (y < stop || !axisArrows) {
-	                                this.line([-len + axisCenter[0], y], [halfWidthTicks ? 0 : len + axisCenter[0], y]);
-	                            }
-	                        }
-
-	                        for (var _y = -step + axisCenter[1]; _y >= start; _y -= step) {
-	                            if (_y > start || !axisArrows) {
-	                                this.line([-len + axisCenter[0], _y], [halfWidthTicks ? 0 : len + axisCenter[0], _y]);
-	                            }
+	                    for (var _x = -step + axisCenter[0]; _x >= start; _x -= step) {
+	                        if (_x > start || !axisArrows) {
+	                            this.line([_x, -len + axisCenter[1]], [_x, halfWidthTicks ? 0 : len + axisCenter[1]]);
 	                        }
 	                    }
-	                });
-	            })();
+	                }
+
+	                // vertical axis
+	                step = gridStep[1] * tickStep[1];
+	                len = tickLen[1] / scale[0];
+	                start = gridRange[1][0];
+	                stop = gridRange[1][1];
+
+	                if (range[0][0] < 0 && range[0][1] > 0) {
+	                    for (var y = step + axisCenter[1]; y <= stop; y += step) {
+	                        if (y < stop || !axisArrows) {
+	                            this.line([-len + axisCenter[0], y], [halfWidthTicks ? 0 : len + axisCenter[0], y]);
+	                        }
+	                    }
+
+	                    for (var _y = -step + axisCenter[1]; _y >= start; _y -= step) {
+	                        if (_y > start || !axisArrows) {
+	                            this.line([-len + axisCenter[0], _y], [halfWidthTicks ? 0 : len + axisCenter[0], _y]);
+	                        }
+	                    }
+	                }
+	            });
 	        }
 
 	        // draw axis labels
@@ -56546,9 +56515,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/* global Raphael:false */
 	var GraphUtils = __webpack_require__(218);
-	var kvector = __webpack_require__(216).vector;
-	var kpoint = __webpack_require__(216).point;
-	var kline = __webpack_require__(216).line;
+	var kvector = __webpack_require__(215).vector;
+	var kpoint = __webpack_require__(215).point;
+	var kline = __webpack_require__(215).line;
 	var WrappedEllipse = __webpack_require__(273);
 	var WrappedLine = __webpack_require__(206);
 	var WrappedPath = __webpack_require__(274);
@@ -56634,52 +56603,50 @@ return /******/ (function(modules) { // webpackBootstrap
 	        graph.mouselayer = Raphael(graph.raphael.canvas.parentNode, graph.xpixels, graph.ypixels);
 	        $(graph.mouselayer.canvas).css("z-index", mouselayerZIndex);
 	        if (options.onClick || options.onMouseDown || options.onMouseMove || options.onMouseOver || options.onMouseOut) {
-	            (function () {
-	                var canvasClickTarget = graph.mouselayer.rect(0, 0, graph.xpixels, graph.ypixels).attr({
-	                    fill: "#000",
-	                    opacity: 0
-	                });
-	                var isClickingCanvas = false;
+	            var canvasClickTarget = graph.mouselayer.rect(0, 0, graph.xpixels, graph.ypixels).attr({
+	                fill: "#000",
+	                opacity: 0
+	            });
+	            var isClickingCanvas = false;
 
-	                $(graph.mouselayer.canvas).on("vmousedown", function (e) {
-	                    if (e.target === canvasClickTarget[0]) {
-	                        if (options.onMouseDown) {
-	                            options.onMouseDown(graph.getMouseCoord(e));
-	                        }
-	                        isClickingCanvas = true;
+	            $(graph.mouselayer.canvas).on("vmousedown", function (e) {
+	                if (e.target === canvasClickTarget[0]) {
+	                    if (options.onMouseDown) {
+	                        options.onMouseDown(graph.getMouseCoord(e));
+	                    }
+	                    isClickingCanvas = true;
 
-	                        if (options.onMouseMove) {
-	                            $(document).bind("vmousemove.mouseLayer", function (e) {
-	                                if (isClickingCanvas) {
-	                                    e.preventDefault();
-	                                    options.onMouseMove(graph.getMouseCoord(e));
-	                                }
-	                            });
-	                        }
-
-	                        $(document).bind("vmouseup.mouseLayer", function (e) {
-	                            $(document).unbind(".mouseLayer");
-
-	                            // Only register clicks that started on the canvas, and not
-	                            // on another mouseLayer target
-	                            if (isClickingCanvas && options.onClick) {
-	                                options.onClick(graph.getMouseCoord(e));
+	                    if (options.onMouseMove) {
+	                        $(document).bind("vmousemove.mouseLayer", function (e) {
+	                            if (isClickingCanvas) {
+	                                e.preventDefault();
+	                                options.onMouseMove(graph.getMouseCoord(e));
 	                            }
-	                            isClickingCanvas = false;
 	                        });
 	                    }
+
+	                    $(document).bind("vmouseup.mouseLayer", function (e) {
+	                        $(document).unbind(".mouseLayer");
+
+	                        // Only register clicks that started on the canvas, and not
+	                        // on another mouseLayer target
+	                        if (isClickingCanvas && options.onClick) {
+	                            options.onClick(graph.getMouseCoord(e));
+	                        }
+	                        isClickingCanvas = false;
+	                    });
+	                }
+	            });
+	            if (options.onMouseOver) {
+	                $(graph.mouselayer.canvas).on("vmouseover", function (e) {
+	                    options.onMouseOver(graph.getMouseCoord(e));
 	                });
-	                if (options.onMouseOver) {
-	                    $(graph.mouselayer.canvas).on("vmouseover", function (e) {
-	                        options.onMouseOver(graph.getMouseCoord(e));
-	                    });
-	                }
-	                if (options.onMouseOut) {
-	                    $(graph.mouselayer.canvas).on("vmouseout", function (e) {
-	                        options.onMouseOut(graph.getMouseCoord(e));
-	                    });
-	                }
-	            })();
+	            }
+	            if (options.onMouseOut) {
+	                $(graph.mouselayer.canvas).on("vmouseout", function (e) {
+	                    options.onMouseOut(graph.getMouseCoord(e));
+	                });
+	            }
 	        }
 	        if (!options.allowScratchpad) {
 	            options.setDrawingAreaAvailable(false);
@@ -56775,17 +56742,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var temp = [];
 
 	        if (Math.abs(angle - 90) < 1e-9 && options.showRightAngleMarker) {
-	            (function () {
-	                var v1 = addPoints(sVertex, scaledPolarDeg(sRadius, startAngle));
-	                var v2 = addPoints(sVertex, scaledPolarDeg(sRadius, endAngle));
+	            var v1 = addPoints(sVertex, scaledPolarDeg(sRadius, startAngle));
+	            var v2 = addPoints(sVertex, scaledPolarDeg(sRadius, endAngle));
 
-	                sRadius *= Math.SQRT2;
-	                var v3 = addPoints(sVertex, scaledPolarDeg(sRadius, halfAngle));
+	            sRadius *= Math.SQRT2;
+	            var v3 = addPoints(sVertex, scaledPolarDeg(sRadius, halfAngle));
 
-	                _.each([v1, v2], function (v) {
-	                    temp.push(graphie.scaledPath([v, v3], options.style));
-	                });
-	            })();
+	            _.each([v1, v2], function (v) {
+	                temp.push(graphie.scaledPath([v, v3], options.style));
+	            });
 	        } else {
 	            // Draw arcs
 	            _.times(options.numArcs, function (i) {
@@ -56849,64 +56814,60 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var sCumulativeOffset = 0;
 
 	        if (options.numTicks) {
-	            (function () {
-	                var n = options.numTicks;
+	            var n = options.numTicks;
 
-	                var sSpacing = 5;
-	                var sHeight = 5;
+	            var sSpacing = 5;
+	            var sHeight = 5;
 
-	                var style = _.extend({}, options.style, {
-	                    strokeWidth: 2
-	                });
+	            var style = _.extend({}, options.style, {
+	                strokeWidth: 2
+	            });
 
-	                _.times(n, function (i) {
-	                    var sOffset = sSpacing * (i - (n - 1) / 2);
+	            _.times(n, function (i) {
+	                var sOffset = sSpacing * (i - (n - 1) / 2);
 
-	                    var sOffsetVector = scaledPolarRad(sOffset, parallelAngle);
-	                    var sHeightVector = scaledPolarRad(sHeight, perpendicularAngle);
+	                var sOffsetVector = scaledPolarRad(sOffset, parallelAngle);
+	                var sHeightVector = scaledPolarRad(sHeight, perpendicularAngle);
 
-	                    var sPath = [addPoints(sMidpoint, sOffsetVector, sHeightVector), addPoints(sMidpoint, sOffsetVector, reverseVector(sHeightVector))];
+	                var sPath = [addPoints(sMidpoint, sOffsetVector, sHeightVector), addPoints(sMidpoint, sOffsetVector, reverseVector(sHeightVector))];
 
-	                    temp.push(graphie.scaledPath(sPath, style));
-	                });
+	                temp.push(graphie.scaledPath(sPath, style));
+	            });
 
-	                sCumulativeOffset += sSpacing * (n - 1) + 15;
-	            })();
+	            sCumulativeOffset += sSpacing * (n - 1) + 15;
 	        }
 
 	        if (options.numArrows) {
-	            (function () {
-	                var n = options.numArrows;
+	            var _n = options.numArrows;
 
-	                var start = [p1, p2].sort(function (a, b) {
-	                    if (a[1] === b[1]) {
-	                        return a[0] - b[0];
-	                    } else {
-	                        return a[1] - b[1];
-	                    }
-	                })[0];
-	                var sStart = graphie.scalePoint(start);
+	            var start = [p1, p2].sort(function (a, b) {
+	                if (a[1] === b[1]) {
+	                    return a[0] - b[0];
+	                } else {
+	                    return a[1] - b[1];
+	                }
+	            })[0];
+	            var sStart = graphie.scalePoint(start);
 
-	                var style = _.extend({}, options.style, {
-	                    arrows: "->",
-	                    strokeWidth: 2
-	                });
+	            var _style = _.extend({}, options.style, {
+	                arrows: "->",
+	                strokeWidth: 2
+	            });
 
-	                var sSpacing = 5;
+	            var _sSpacing = 5;
 
-	                _.times(n, function (i) {
-	                    var sOffset = sCumulativeOffset + sSpacing * i;
-	                    var sOffsetVector = scaledPolarRad(sOffset, parallelAngle);
+	            _.times(_n, function (i) {
+	                var sOffset = sCumulativeOffset + _sSpacing * i;
+	                var sOffsetVector = scaledPolarRad(sOffset, parallelAngle);
 
-	                    if (start !== p1) {
-	                        sOffsetVector = reverseVector(sOffsetVector);
-	                    }
+	                if (start !== p1) {
+	                    sOffsetVector = reverseVector(sOffsetVector);
+	                }
 
-	                    var sEnd = addPoints(sMidpoint, sOffsetVector);
+	                var sEnd = addPoints(sMidpoint, sOffsetVector);
 
-	                    temp.push(graphie.scaledPath([sStart, sEnd], style));
-	                });
-	            })();
+	                temp.push(graphie.scaledPath([sStart, sEnd], _style));
+	            });
 	        }
 
 	        var text = options.text;
@@ -57845,92 +57806,90 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        lineSegment.transform();
 	                    }
 	                } else if (event.type === "vmousedown" && (event.which === 1 || event.which === 0)) {
-	                    (function () {
+	                    event.preventDefault();
+	                    var coordX = (event.pageX - $(graph.raphael.canvas.parentNode).offset().left) / graph.scale[0] + graph.range[0][0];
+	                    var coordY = graph.range[1][1] - (event.pageY - $(graph.raphael.canvas.parentNode).offset().top) / graph.scale[1];
+	                    if (lineSegment.snapX > 0) {
+	                        coordX = Math.round(coordX / lineSegment.snapX) * lineSegment.snapX;
+	                    }
+	                    if (lineSegment.snapY > 0) {
+	                        coordY = Math.round(coordY / lineSegment.snapY) * lineSegment.snapY;
+	                    }
+	                    var mouseOffsetA = [lineSegment.coordA[0] - coordX, lineSegment.coordA[1] - coordY];
+	                    var mouseOffsetZ = [lineSegment.coordZ[0] - coordX, lineSegment.coordZ[1] - coordY];
+
+	                    var offsetLeft = -Math.min(graph.scaleVector(mouseOffsetA)[0], graph.scaleVector(mouseOffsetZ)[0]);
+	                    var offsetRight = Math.max(graph.scaleVector(mouseOffsetA)[0], graph.scaleVector(mouseOffsetZ)[0]);
+	                    var offsetTop = Math.max(graph.scaleVector(mouseOffsetA)[1], graph.scaleVector(mouseOffsetZ)[1]);
+	                    var offsetBottom = -Math.min(graph.scaleVector(mouseOffsetA)[1], graph.scaleVector(mouseOffsetZ)[1]);
+
+	                    $(document).bind("vmousemove.lineSegment vmouseup.lineSegment", function (event) {
 	                        event.preventDefault();
-	                        var coordX = (event.pageX - $(graph.raphael.canvas.parentNode).offset().left) / graph.scale[0] + graph.range[0][0];
-	                        var coordY = graph.range[1][1] - (event.pageY - $(graph.raphael.canvas.parentNode).offset().top) / graph.scale[1];
+	                        lineSegment.dragging = true;
+	                        dragging = true;
+
+	                        var mouseX = event.pageX - $(graph.raphael.canvas.parentNode).offset().left;
+	                        var mouseY = event.pageY - $(graph.raphael.canvas.parentNode).offset().top;
+	                        // no part of the line segment can go beyond 10 pixels from the edge
+	                        mouseX = Math.max(offsetLeft + 10, Math.min(graph.xpixels - 10 - offsetRight, mouseX));
+	                        mouseY = Math.max(offsetTop + 10, Math.min(graph.ypixels - 10 - offsetBottom, mouseY));
+
+	                        var coordX = mouseX / graph.scale[0] + graph.range[0][0];
+	                        var coordY = graph.range[1][1] - mouseY / graph.scale[1];
 	                        if (lineSegment.snapX > 0) {
 	                            coordX = Math.round(coordX / lineSegment.snapX) * lineSegment.snapX;
 	                        }
 	                        if (lineSegment.snapY > 0) {
 	                            coordY = Math.round(coordY / lineSegment.snapY) * lineSegment.snapY;
 	                        }
-	                        var mouseOffsetA = [lineSegment.coordA[0] - coordX, lineSegment.coordA[1] - coordY];
-	                        var mouseOffsetZ = [lineSegment.coordZ[0] - coordX, lineSegment.coordZ[1] - coordY];
 
-	                        var offsetLeft = -Math.min(graph.scaleVector(mouseOffsetA)[0], graph.scaleVector(mouseOffsetZ)[0]);
-	                        var offsetRight = Math.max(graph.scaleVector(mouseOffsetA)[0], graph.scaleVector(mouseOffsetZ)[0]);
-	                        var offsetTop = Math.max(graph.scaleVector(mouseOffsetA)[1], graph.scaleVector(mouseOffsetZ)[1]);
-	                        var offsetBottom = -Math.min(graph.scaleVector(mouseOffsetA)[1], graph.scaleVector(mouseOffsetZ)[1]);
-
-	                        $(document).bind("vmousemove.lineSegment vmouseup.lineSegment", function (event) {
-	                            event.preventDefault();
-	                            lineSegment.dragging = true;
-	                            dragging = true;
-
-	                            var mouseX = event.pageX - $(graph.raphael.canvas.parentNode).offset().left;
-	                            var mouseY = event.pageY - $(graph.raphael.canvas.parentNode).offset().top;
-	                            // no part of the line segment can go beyond 10 pixels from the edge
-	                            mouseX = Math.max(offsetLeft + 10, Math.min(graph.xpixels - 10 - offsetRight, mouseX));
-	                            mouseY = Math.max(offsetTop + 10, Math.min(graph.ypixels - 10 - offsetBottom, mouseY));
-
-	                            var coordX = mouseX / graph.scale[0] + graph.range[0][0];
-	                            var coordY = graph.range[1][1] - mouseY / graph.scale[1];
-	                            if (lineSegment.snapX > 0) {
-	                                coordX = Math.round(coordX / lineSegment.snapX) * lineSegment.snapX;
+	                        if (event.type === "vmousemove") {
+	                            if (lineSegment.constraints.constrainX) {
+	                                coordX = lineSegment.coordA[0] - mouseOffsetA[0];
 	                            }
-	                            if (lineSegment.snapY > 0) {
-	                                coordY = Math.round(coordY / lineSegment.snapY) * lineSegment.snapY;
+	                            if (lineSegment.constraints.constrainY) {
+	                                coordY = lineSegment.coordA[1] - mouseOffsetA[1];
+	                            }
+	                            var dX = coordX + mouseOffsetA[0] - lineSegment.coordA[0];
+	                            var dY = coordY + mouseOffsetA[1] - lineSegment.coordA[1];
+	                            lineSegment.coordA = [coordX + mouseOffsetA[0], coordY + mouseOffsetA[1]];
+	                            lineSegment.coordZ = [coordX + mouseOffsetZ[0], coordY + mouseOffsetZ[1]];
+	                            lineSegment.transform();
+
+	                            if (lineSegment.movePointsWithLine) {
+	                                // If the points are movablePoints, adjust
+	                                // their coordinates when the line itself is
+	                                // dragged
+	                                if (_typeof(lineSegment.pointA) === "object") {
+	                                    lineSegment.pointA.setCoord([lineSegment.pointA.coord[0] + dX, lineSegment.pointA.coord[1] + dY]);
+	                                }
+	                                if (_typeof(lineSegment.pointZ) === "object") {
+	                                    lineSegment.pointZ.setCoord([lineSegment.pointZ.coord[0] + dX, lineSegment.pointZ.coord[1] + dY]);
+	                                }
 	                            }
 
-	                            if (event.type === "vmousemove") {
-	                                if (lineSegment.constraints.constrainX) {
-	                                    coordX = lineSegment.coordA[0] - mouseOffsetA[0];
-	                                }
-	                                if (lineSegment.constraints.constrainY) {
-	                                    coordY = lineSegment.coordA[1] - mouseOffsetA[1];
-	                                }
-	                                var dX = coordX + mouseOffsetA[0] - lineSegment.coordA[0];
-	                                var dY = coordY + mouseOffsetA[1] - lineSegment.coordA[1];
-	                                lineSegment.coordA = [coordX + mouseOffsetA[0], coordY + mouseOffsetA[1]];
-	                                lineSegment.coordZ = [coordX + mouseOffsetZ[0], coordY + mouseOffsetZ[1]];
+	                            if (_.isFunction(lineSegment.onMove)) {
+	                                lineSegment.onMove(dX, dY);
+	                            }
+	                        } else if (event.type === "vmouseup") {
+	                            $(document).unbind(".lineSegment");
+	                            lineSegment.dragging = false;
+	                            dragging = false;
+	                            if (!lineSegment.highlight) {
+	                                lineSegment.visibleLine.animate(lineSegment.normalStyle, 50);
+	                                lineSegment.arrowStyle = _.extend({}, lineSegment.arrowStyle, {
+	                                    "color": lineSegment.normalStyle.stroke,
+	                                    "stroke": lineSegment.normalStyle.stroke
+	                                });
 	                                lineSegment.transform();
-
-	                                if (lineSegment.movePointsWithLine) {
-	                                    // If the points are movablePoints, adjust
-	                                    // their coordinates when the line itself is
-	                                    // dragged
-	                                    if (_typeof(lineSegment.pointA) === "object") {
-	                                        lineSegment.pointA.setCoord([lineSegment.pointA.coord[0] + dX, lineSegment.pointA.coord[1] + dY]);
-	                                    }
-	                                    if (_typeof(lineSegment.pointZ) === "object") {
-	                                        lineSegment.pointZ.setCoord([lineSegment.pointZ.coord[0] + dX, lineSegment.pointZ.coord[1] + dY]);
-	                                    }
-	                                }
-
-	                                if (_.isFunction(lineSegment.onMove)) {
-	                                    lineSegment.onMove(dX, dY);
-	                                }
-	                            } else if (event.type === "vmouseup") {
-	                                $(document).unbind(".lineSegment");
-	                                lineSegment.dragging = false;
-	                                dragging = false;
-	                                if (!lineSegment.highlight) {
-	                                    lineSegment.visibleLine.animate(lineSegment.normalStyle, 50);
-	                                    lineSegment.arrowStyle = _.extend({}, lineSegment.arrowStyle, {
-	                                        "color": lineSegment.normalStyle.stroke,
-	                                        "stroke": lineSegment.normalStyle.stroke
-	                                    });
-	                                    lineSegment.transform();
-	                                }
-	                                if (_.isFunction(lineSegment.onMoveEnd)) {
-	                                    lineSegment.onMoveEnd();
-	                                }
 	                            }
+	                            if (_.isFunction(lineSegment.onMoveEnd)) {
+	                                lineSegment.onMoveEnd();
+	                            }
+	                        }
 
-	                            $(lineSegment).trigger("move");
-	                        });
-	                    })();
+	                        $(lineSegment).trigger("move");
+	                    });
 	                }
 	            });
 	        }
@@ -58218,117 +58177,113 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        }
 	                    }
 	                } else if (event.type === "vmousedown" && (event.which === 1 || event.which === 0)) {
-	                    (function () {
+	                    event.preventDefault();
+
+	                    _.each(_.filter(polygon.points, isPoint), function (point) {
+	                        point.dragging = true;
+	                    });
+
+	                    var startX = (event.pageX - $(graphie.raphael.canvas.parentNode).offset().left) / graphie.scale[0] + graphie.range[0][0];
+	                    var startY = graphie.range[1][1] - (event.pageY - $(graphie.raphael.canvas.parentNode).offset().top) / graphie.scale[1];
+	                    if (polygon.snapX > 0) {
+	                        startX = Math.round(startX / polygon.snapX) * polygon.snapX;
+	                    }
+	                    if (polygon.snapY > 0) {
+	                        startY = Math.round(startY / polygon.snapY) * polygon.snapY;
+	                    }
+	                    var lastX = startX;
+	                    var lastY = startY;
+
+	                    var polygonCoords = polygon.coords.slice();
+
+	                    var offsetLeft = (startX - polygon.left) * graphie.scale[0];
+	                    var offsetRight = (polygon.right - startX) * graphie.scale[0];
+	                    var offsetTop = (polygon.top - startY) * graphie.scale[1];
+	                    var offsetBottom = (startY - polygon.bottom) * graphie.scale[1];
+
+	                    $(document).bind("vmousemove.polygon vmouseup.polygon", function (event) {
 	                        event.preventDefault();
 
-	                        _.each(_.filter(polygon.points, isPoint), function (point) {
-	                            point.dragging = true;
-	                        });
+	                        polygon.dragging = true;
+	                        dragging = true;
 
-	                        var startX = (event.pageX - $(graphie.raphael.canvas.parentNode).offset().left) / graphie.scale[0] + graphie.range[0][0];
-	                        var startY = graphie.range[1][1] - (event.pageY - $(graphie.raphael.canvas.parentNode).offset().top) / graphie.scale[1];
+	                        var mouseX = event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;
+	                        var mouseY = event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;
+
+	                        // no part of the polygon can go beyond 10 pixels from the edge
+	                        if (polygon.constrainToGraph) {
+	                            mouseX = Math.max(offsetLeft + 10, Math.min(graphie.xpixels - 10 - offsetRight, mouseX));
+	                            mouseY = Math.max(offsetTop + 10, Math.min(graphie.ypixels - 10 - offsetBottom, mouseY));
+	                        }
+
+	                        var currentX = mouseX / graphie.scale[0] + graphie.range[0][0];
+	                        var currentY = graphie.range[1][1] - mouseY / graphie.scale[1];
 	                        if (polygon.snapX > 0) {
-	                            startX = Math.round(startX / polygon.snapX) * polygon.snapX;
+	                            currentX = Math.round(currentX / polygon.snapX) * polygon.snapX;
 	                        }
 	                        if (polygon.snapY > 0) {
-	                            startY = Math.round(startY / polygon.snapY) * polygon.snapY;
+	                            currentY = Math.round(currentY / polygon.snapY) * polygon.snapY;
 	                        }
-	                        var lastX = startX;
-	                        var lastY = startY;
 
-	                        var polygonCoords = polygon.coords.slice();
+	                        if (event.type === "vmousemove") {
+	                            var dX = currentX - startX;
+	                            var dY = currentY - startY;
 
-	                        var offsetLeft = (startX - polygon.left) * graphie.scale[0];
-	                        var offsetRight = (polygon.right - startX) * graphie.scale[0];
-	                        var offsetTop = (polygon.top - startY) * graphie.scale[1];
-	                        var offsetBottom = (startY - polygon.bottom) * graphie.scale[1];
-
-	                        $(document).bind("vmousemove.polygon vmouseup.polygon", function (event) {
-	                            event.preventDefault();
-
-	                            polygon.dragging = true;
-	                            dragging = true;
-
-	                            var mouseX = event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;
-	                            var mouseY = event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;
-
-	                            // no part of the polygon can go beyond 10 pixels from the edge
-	                            if (polygon.constrainToGraph) {
-	                                mouseX = Math.max(offsetLeft + 10, Math.min(graphie.xpixels - 10 - offsetRight, mouseX));
-	                                mouseY = Math.max(offsetTop + 10, Math.min(graphie.ypixels - 10 - offsetBottom, mouseY));
+	                            var doMove = true;
+	                            if (_.isFunction(polygon.onMove)) {
+	                                var onMoveResult = polygon.onMove(dX, dY);
+	                                if (onMoveResult === false) {
+	                                    doMove = false;
+	                                } else if (_.isArray(onMoveResult)) {
+	                                    dX = onMoveResult[0];
+	                                    dY = onMoveResult[1];
+	                                    currentX = startX + dX;
+	                                    currentY = startY + dY;
+	                                }
 	                            }
 
-	                            var currentX = mouseX / graphie.scale[0] + graphie.range[0][0];
-	                            var currentY = graphie.range[1][1] - mouseY / graphie.scale[1];
-	                            if (polygon.snapX > 0) {
-	                                currentX = Math.round(currentX / polygon.snapX) * polygon.snapX;
-	                            }
-	                            if (polygon.snapY > 0) {
-	                                currentY = Math.round(currentY / polygon.snapY) * polygon.snapY;
-	                            }
+	                            var increment = function increment(i) {
+	                                return [polygonCoords[i][0] + dX, polygonCoords[i][1] + dY];
+	                            };
 
-	                            if (event.type === "vmousemove") {
-	                                (function () {
-	                                    var dX = currentX - startX;
-	                                    var dY = currentY - startY;
-
-	                                    var doMove = true;
-	                                    if (_.isFunction(polygon.onMove)) {
-	                                        var onMoveResult = polygon.onMove(dX, dY);
-	                                        if (onMoveResult === false) {
-	                                            doMove = false;
-	                                        } else if (_.isArray(onMoveResult)) {
-	                                            dX = onMoveResult[0];
-	                                            dY = onMoveResult[1];
-	                                            currentX = startX + dX;
-	                                            currentY = startY + dY;
-	                                        }
+	                            if (doMove) {
+	                                _.each(polygon.points, function (coordOrPoint, i) {
+	                                    if (isPoint(coordOrPoint)) {
+	                                        coordOrPoint.setCoord(increment(i));
+	                                    } else {
+	                                        polygon.points[i] = increment(i);
 	                                    }
-
-	                                    var increment = function increment(i) {
-	                                        return [polygonCoords[i][0] + dX, polygonCoords[i][1] + dY];
-	                                    };
-
-	                                    if (doMove) {
-	                                        _.each(polygon.points, function (coordOrPoint, i) {
-	                                            if (isPoint(coordOrPoint)) {
-	                                                coordOrPoint.setCoord(increment(i));
-	                                            } else {
-	                                                polygon.points[i] = increment(i);
-	                                            }
-	                                        });
-
-	                                        polygon.transform();
-
-	                                        $(polygon).trigger("move");
-
-	                                        lastX = currentX;
-	                                        lastY = currentY;
-	                                    }
-	                                })();
-	                            } else if (event.type === "vmouseup") {
-	                                $(document).unbind(".polygon");
-
-	                                var _points = _.filter(polygon.points, isPoint);
-	                                _.each(_points, function (point) {
-	                                    point.dragging = false;
 	                                });
 
-	                                polygon.dragging = false;
-	                                dragging = false;
-	                                if (!polygon.highlight) {
-	                                    polygon.visibleShape.animate(polygon.normalStyle, 50);
+	                                polygon.transform();
 
-	                                    _.each(_points, function (point) {
-	                                        point.visibleShape.animate(point.normalStyle, 50);
-	                                    });
-	                                }
-	                                if (_.isFunction(polygon.onMoveEnd)) {
-	                                    polygon.onMoveEnd(lastX - startX, lastY - startY);
-	                                }
+	                                $(polygon).trigger("move");
+
+	                                lastX = currentX;
+	                                lastY = currentY;
 	                            }
-	                        });
-	                    })();
+	                        } else if (event.type === "vmouseup") {
+	                            $(document).unbind(".polygon");
+
+	                            var _points = _.filter(polygon.points, isPoint);
+	                            _.each(_points, function (point) {
+	                                point.dragging = false;
+	                            });
+
+	                            polygon.dragging = false;
+	                            dragging = false;
+	                            if (!polygon.highlight) {
+	                                polygon.visibleShape.animate(polygon.normalStyle, 50);
+
+	                                _.each(_points, function (point) {
+	                                    point.visibleShape.animate(point.normalStyle, 50);
+	                                });
+	                            }
+	                            if (_.isFunction(polygon.onMoveEnd)) {
+	                                polygon.onMoveEnd(lastX - startX, lastY - startY);
+	                            }
+	                        }
+	                    });
 	                }
 	            });
 	        }
@@ -58543,45 +58498,43 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    circle.centerPoint.visibleShape.animate(circle.centerNormalStyle, 50);
 	                }
 	            } else if (event.type === "vmousedown" && (event.which === 1 || event.which === 0)) {
-	                (function () {
+	                event.preventDefault();
+	                circle.toFront();
+	                var startRadius = circle.radius;
+
+	                $(document).on("vmousemove vmouseup", function (event) {
 	                    event.preventDefault();
-	                    circle.toFront();
-	                    var startRadius = circle.radius;
+	                    circle.dragging = true;
+	                    dragging = true;
 
-	                    $(document).on("vmousemove vmouseup", function (event) {
-	                        event.preventDefault();
-	                        circle.dragging = true;
-	                        dragging = true;
+	                    if (event.type === "vmousemove") {
+	                        var coord = graphie.constrainToBounds(graphie.getMouseCoord(event), 10);
 
-	                        if (event.type === "vmousemove") {
-	                            var coord = graphie.constrainToBounds(graphie.getMouseCoord(event), 10);
-
-	                            var radius = GraphUtils.getDistance(circle.centerPoint.coord, coord);
-	                            radius = Math.max(circle.minRadius, Math.round(radius / circle.snapRadius) * circle.snapRadius);
-	                            var oldRadius = circle.radius;
-	                            var doResize = true;
-	                            if (circle.onResize) {
-	                                var onResizeResult = circle.onResize(radius, oldRadius);
-	                                if (_.isNumber(onResizeResult)) {
-	                                    radius = onResizeResult;
-	                                } else if (onResizeResult === false) {
-	                                    doResize = false;
-	                                }
-	                            }
-	                            if (doResize) {
-	                                circle.setRadius(radius);
-	                                $(circle).trigger("move");
-	                            }
-	                        } else if (event.type === "vmouseup") {
-	                            $(document).off("vmousemove vmouseup");
-	                            circle.dragging = false;
-	                            dragging = false;
-	                            if (circle.onResizeEnd) {
-	                                circle.onResizeEnd(circle.radius, startRadius);
+	                        var radius = GraphUtils.getDistance(circle.centerPoint.coord, coord);
+	                        radius = Math.max(circle.minRadius, Math.round(radius / circle.snapRadius) * circle.snapRadius);
+	                        var oldRadius = circle.radius;
+	                        var doResize = true;
+	                        if (circle.onResize) {
+	                            var onResizeResult = circle.onResize(radius, oldRadius);
+	                            if (_.isNumber(onResizeResult)) {
+	                                radius = onResizeResult;
+	                            } else if (onResizeResult === false) {
+	                                doResize = false;
 	                            }
 	                        }
-	                    });
-	                })();
+	                        if (doResize) {
+	                            circle.setRadius(radius);
+	                            $(circle).trigger("move");
+	                        }
+	                    } else if (event.type === "vmouseup") {
+	                        $(document).off("vmousemove vmouseup");
+	                        circle.dragging = false;
+	                        dragging = false;
+	                        if (circle.onResizeEnd) {
+	                            circle.onResizeEnd(circle.radius, startRadius);
+	                        }
+	                    }
+	                });
 	            }
 	        });
 
@@ -59634,458 +59587,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
-	var _responsiveCheckboxIn, _responsiveMobileChec, _responsiveLabel, _responsiveCheckbox;
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	/* eslint-disable object-curly-spacing */
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var _require = __webpack_require__(24),
-	    StyleSheet = _require.StyleSheet,
-	    css = _require.css;
-
-	var _ = __webpack_require__(20);
-	var React = __webpack_require__(19);
-	var classNames = __webpack_require__(58);
-
-	var _require2 = __webpack_require__(5),
-	    ClassNames = _require2.ClassNames;
-
-	var sharedStyles = __webpack_require__(92);
-	var styleConstants = __webpack_require__(93);
-	var mediaQueries = __webpack_require__(91);
-
-	var ToggleableRadioButton = __webpack_require__(275);
-	var ChoiceIcon = __webpack_require__(276);
-
-	var checkedColor = styleConstants.checkedColor;
-
-	var focusedStyleMixin = {
-	    backgroundColor: styleConstants.satSelectedBackgroundColor,
-	    borderTopColor: "transparent",
-	    borderBottomColor: "transparent",
-	    outline: "2px solid " + styleConstants.satBlue,
-	    // Render the outline higher than the next element's border
-	    zIndex: 1
-	};
-
-	var responsiveCheckboxPadding = "17px 12px";
-
-	var Choice = React.createClass({
-	    displayName: "Choice",
-
-	    propTypes: {
-	        // TODO(kevinb) use Options.propTypes from perseus-api.jsx
-	        // This change will also require make sure that item-renderer.jsx and
-	        // server-item-renderer.jsx have appropriate defaults for apiOptions
-	        // because many of the properties on Options.propTypes are required.
-	        apiOptions: React.PropTypes.shape({
-	            satStyling: React.PropTypes.bool,
-	            isMobile: React.PropTypes.bool
-	        }),
-	        checked: React.PropTypes.bool,
-	        className: React.PropTypes.string,
-	        rationale: React.PropTypes.node,
-	        content: React.PropTypes.node,
-	        correct: React.PropTypes.bool,
-	        deselectEnabled: React.PropTypes.bool,
-	        disabled: React.PropTypes.bool,
-	        editMode: React.PropTypes.bool,
-	        groupName: React.PropTypes.string,
-	        isLastChoice: React.PropTypes.bool, // Needed for border styling
-	        onChecked: React.PropTypes.func.isRequired,
-	        // This indicates the position of the choice relative to others
-	        // (so that we can display a nice little (A), (B), etc. next to it)
-	        pos: React.PropTypes.number,
-	        reviewMode: React.PropTypes.bool,
-	        showRationale: React.PropTypes.bool,
-	        type: React.PropTypes.string
-	    },
-
-	    statics: {
-	        styles: StyleSheet.create({
-	            pos: {
-	                display: "none"
-	            },
-
-	            description: {
-	                display: "inline-block",
-	                width: "100%"
-	            },
-
-	            satDescription: {
-	                display: "block",
-	                position: "relative",
-	                borderTop: "1px solid #ccc",
-	                boxSizing: "border-box",
-	                cursor: "pointer",
-	                marginLeft: 0,
-	                padding: "17px 14px",
-	                "::after": {
-	                    bottom: -1,
-	                    content: "\" \"",
-	                    height: 1,
-	                    left: 0,
-	                    position: "absolute",
-	                    width: "100%",
-	                    zIndex: 1
-	                }
-	            },
-
-	            satDescriptionLastChoice: {
-	                borderBottom: "1px solid #ccc"
-	            },
-
-	            satDescriptionInputFocused: _extends({}, focusedStyleMixin),
-
-	            satDescriptionInputActive: _extends({}, focusedStyleMixin, {
-	                backgroundColor: styleConstants.satActiveBackgroundColor
-	            }),
-
-	            satDescriptionCorrect: {
-	                color: styleConstants.satCorrectColor,
-	                ":focus": {
-	                    borderColor: styleConstants.satCorrectColor,
-	                    outlineColor: styleConstants.satCorrectColor
-	                }
-	            },
-
-	            satDescriptionCorrectChecked: {
-	                backgroundColor: styleConstants.satCorrectBackgroundColor,
-	                borderBottomColor: styleConstants.satCorrectBorderColor,
-	                borderTopColor: styleConstants.satCorrectBorderColor,
-	                ":after": {
-	                    backgroundColor: styleConstants.satCorrectBorderColor
-	                }
-	            },
-
-	            satDescriptionIncorrectChecked: {
-	                color: styleConstants.satIncorrectColor,
-	                backgroundColor: styleConstants.satIncorrectBackgroundColor,
-	                borderBottomColor: styleConstants.satIncorrectBorderColor,
-	                borderTopColor: styleConstants.satIncorrectBorderColor,
-	                ":after": {
-	                    backgroundColor: styleConstants.satIncorrectBorderColor
-	                },
-	                ":focus": {
-	                    borderColor: styleConstants.satIncorrectColor,
-	                    outlineColor: styleConstants.satIncorrectColor
-	                }
-	            },
-
-	            input: {
-	                display: "inline-block",
-	                width: 20,
-	                margin: 3,
-	                marginLeft: -20,
-	                marginRight: 0,
-	                float: "none"
-	            },
-
-	            satReviewInput: {
-	                pointerEvents: "none"
-	            },
-
-	            satRadioOptionContent: {
-	                userSelect: 'text',
-	                display: "block",
-	                marginLeft: 45,
-	                // Overriding here, not sure why typically set
-	                // to "cursor: default" in js
-	                cursor: "inherit"
-	            },
-
-	            satReviewRadioOptionContent: {
-	                fontWeight: "bold"
-	            },
-
-	            responsiveCheckboxInput: (_responsiveCheckboxIn = {}, _responsiveCheckboxIn[mediaQueries.lgOrSmaller] = {
-	                border: "none",
-	                borderRadius: 4,
-
-	                ":checked": {
-	                    backgroundColor: checkedColor,
-	                    boxShadow: "none"
-	                },
-
-	                // TODO(emily): Make aphrodite allow nested styles here so
-	                // this isn't as hacky.
-	                ":checked::before": {
-	                    display: "flex",
-	                    alignItems: "center",
-	                    justifyContent: "center",
-
-	                    // TODO(jared): replace with image
-	                    content: '"✓"',
-	                    color: "white",
-	                    fontFamily: "monospace",
-	                    fontSize: 17,
-
-	                    height: styleConstants.circleSize,
-	                    width: styleConstants.circleSize
-	                }
-	            }, _responsiveCheckboxIn),
-
-	            responsiveMobileCheckboxInput: (_responsiveMobileChec = {}, _responsiveMobileChec[mediaQueries.lgOrSmaller] = {
-	                display: "none"
-	            }, _responsiveMobileChec),
-
-	            satCheckboxOptionContent: {
-	                position: "absolute",
-	                display: "block",
-	                top: "50%",
-	                margin: "-16px 0 0 0",
-	                width: "auto"
-	            },
-
-	            rationale: {
-	                display: "block"
-	            },
-
-	            mobileRationale: {
-	                backgroundColor: "#fafafa",
-	                padding: responsiveCheckboxPadding,
-	                margin: "0 -1px -1px -1px",
-	                borderRadius: 4,
-	                width: "100%"
-	            },
-
-	            mobileRationaleSelected: {
-	                margin: 0
-	            },
-
-	            satReviewRationale: {
-	                marginTop: 13,
-	                marginLeft: 45
-	            },
-
-	            label: {
-	                display: "block"
-	            },
-
-	            responsiveLabel: (_responsiveLabel = {}, _responsiveLabel[mediaQueries.lgOrSmaller] = {
-	                WebkitTapHighlightColor: "transparent",
-	                alignItems: "center",
-	                display: "flex"
-	            }, _responsiveLabel),
-
-	            satLabel: {
-	                cursor: "pointer"
-	            },
-
-	            responsiveCheckbox: (_responsiveCheckbox = {
-	                display: "inline-block"
-
-	            }, _responsiveCheckbox[mediaQueries.lgOrSmaller] = {
-	                padding: responsiveCheckboxPadding
-	            }, _responsiveCheckbox),
-
-	            checkboxCrossout: {
-	                textDecoration: "line-through"
-	            }
-	        })
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            checked: false,
-	            classSet: {},
-	            disabled: false,
-	            editMode: false,
-	            showRationale: false,
-	            type: 'radio',
-	            pos: 0
-	        };
-	    },
-
-	    getInitialState: function getInitialState() {
-	        return {
-	            isInputFocused: false,
-	            isInputActive: false
-	        };
-	    },
-
-	    onInputFocus: function onInputFocus() {
-	        this.setState({ isInputFocused: true });
-	    },
-
-	    onInputBlur: function onInputBlur() {
-	        this.setState({ isInputFocused: false });
-	    },
-
-	    onInputMouseDown: function onInputMouseDown() {
-	        this.setState({ isInputActive: true });
-
-	        // Simulate Chrome's radio button behavior in all browsers: when the
-	        // mouse goes down or up, the radio button should become focused.
-	        // That way, the newly-selected answer becomes highlighted after click.
-	        if (this.props.apiOptions.satStyling && this._input) {
-	            this._input.focus();
-	        }
-	    },
-
-	    onInputMouseUp: function onInputMouseUp() {
-	        this.setState({ isInputActive: false });
-
-	        // Simulate Chrome's radio button behavior in all browsers: when the
-	        // mouse goes down or up, the radio button should become focused.
-	        // That way, the newly-selected answer becomes highlighted after click.
-	        if (this.props.apiOptions.satStyling && this._input) {
-	            this._input.focus();
-	        }
-	    },
-
-	    onInputMouseOut: function onInputMouseOut() {
-	        this.setState({ isInputActive: false });
-	    },
-
-	    inputRef: function inputRef(ref) {
-	        this._input = ref;
-	    },
-
-	    renderChoiceIcon: function renderChoiceIcon() {
-	        // TODO(amy): for now, the only product using letter choice
-	        // icons is SAT. However, eventualy use of letters may be a flag
-	        // at the content level, distinct from the product styling.
-	        var product = "sat";
-	        var renderChoiceIcon = this.props.apiOptions.satStyling;
-	        if (renderChoiceIcon) {
-	            return React.createElement(ChoiceIcon, {
-	                pos: this.props.pos,
-	                correct: this.props.correct,
-	                checked: this.props.checked,
-	                reviewMode: this.props.reviewMode,
-	                product: product
-	            });
-	        }
-	    },
-
-
-	    render: function render() {
-	        var _this = this;
-
-	        var styles = Choice.styles;
-	        var sat = this.props.apiOptions.satStyling;
-	        var isMobile = this.props.apiOptions.isMobile;
-
-	        var className = classNames(this.props.className, "checkbox-label", css(styles.label, isMobile && sharedStyles.disableTextSelection, !sat && styles.responsiveLabel, sat && styles.satLabel));
-
-	        // There's two different input components we could use (the builtin
-	        // input component, or the ToggleableRadioButton component). These are
-	        // the props that we will pass to either.
-	        var commonInputProps = {
-	            type: this.props.type,
-	            name: this.props.groupName,
-	            checked: this.props.checked,
-	            disabled: this.props.disabled,
-	            onFocus: this.onInputFocus,
-	            onBlur: this.onInputBlur,
-	            className: css(sharedStyles.perseusInteractive, styles.input, sharedStyles.responsiveInput, this.props.type === "radio" && !sat && sharedStyles.responsiveRadioInput, this.props.type === "radio" && isMobile && !sat && sharedStyles.responsiveMobileRadioInput, this.props.type === "checkbox" && !sat && styles.responsiveCheckboxInput, this.props.type === "checkbox" && isMobile && !sat && styles.responsiveMobileCheckboxInput, sat && this.props.type === "radio" && sharedStyles.perseusSrOnly, sat && this.props.type === "checkbox" && styles.satCheckboxInput, sat && this.props.reviewMode && styles.satReviewInput)
-	        };
-
-	        var input = null;
-	        if (this.props.type === "radio" && this.props.deselectEnabled) {
-	            // This is a special radio button that allows a user to deselect
-	            // it by merely clicking/selecting it again.
-	            input = React.createElement(ToggleableRadioButton, _extends({
-	                onChecked: this.props.onChecked,
-	                inputRef: this.inputRef
-	            }, commonInputProps));
-	        } else {
-	            input = React.createElement("input", _extends({
-	                onChange: function onChange(event) {
-	                    _this.props.onChecked(event.target.checked);
-	                },
-	                ref: this.inputRef
-	            }, commonInputProps));
-	        }
-
-	        var _props = this.props,
-	            reviewMode = _props.reviewMode,
-	            correct = _props.correct,
-	            checked = _props.checked,
-	            isLastChoice = _props.isLastChoice;
-	        // HACK: while most of the styling for rendering SAT items is handled
-	        // via aphrodite, we also need to assign normal CSS classnames here to
-	        // special-case the coloring of MathJax formulas (see .MathJax .math in
-	        // stylesheets/task-package/tasks.less)
-
-	        var satCorrectChoice = sat && reviewMode && correct;
-	        var satIncorrectChecked = sat && reviewMode && !correct && checked;
-	        var descriptionClassName = classNames("description", satCorrectChoice && "sat-correct", satIncorrectChecked && "sat-incorrect", css(!sat && styles.description, sat && this.state.isInputFocused && styles.satDescriptionInputFocused, sat && this.state.isInputActive && styles.satDescriptionInputActive, sat && styles.satDescription, satCorrectChoice && styles.satDescriptionCorrect, satCorrectChoice && checked && styles.satDescriptionCorrectChecked, satIncorrectChecked && styles.satDescriptionIncorrectChecked, sat && isLastChoice && styles.satDescriptionLastChoice));
-
-	        var checkboxContentClassName = "checkbox " + css(sat && sharedStyles.perseusInteractive, sat && styles.satCheckboxOptionContent);
-
-	        var checkboxAndOptionClassName = classNames("checkbox-and-option", css(!sat && styles.responsiveCheckbox, !sat && !correct && this.props.showRationale && styles.checkboxCrossout, !sat && this.props.checked && styles.responsiveCheckboxSelected));
-
-	        var rationaleClassName = classNames(css(styles.rationale, isMobile && styles.mobileRationale, isMobile && this.props.checked && styles.mobileRationaleSelected, sat && styles.satReviewRationale));
-
-	        // In edit mode, we must allow selection of the contentEditable
-	        // element inside, therefore we cannot use a label, which makes
-	        // selection of anything inside automatically select the input
-	        // element instead
-	        var LabelOrDiv = this.props.editMode ? "div" : "label";
-
-	        // We want to show the choices as dimmed out when the choices are
-	        // disabled. However, we don't want to do this in the SAT product and
-	        // we also don't want to do this when we're in review mode in the
-	        // content library.
-	        var showDimmed = !sat && !reviewMode && this.props.disabled;
-
-	        return React.createElement(
-	            LabelOrDiv,
-	            {
-	                className: className,
-	                style: { opacity: showDimmed ? 0.5 : 1.0 }
-	            },
-	            input,
-	            React.createElement(
-	                "div",
-	                { className: descriptionClassName,
-	                    onMouseDown: this.onInputMouseDown,
-	                    onMouseUp: this.onInputMouseUp,
-	                    onMouseOut: this.onInputMouseOut
-	                },
-	                React.createElement(
-	                    "div",
-	                    { className: checkboxAndOptionClassName },
-	                    React.createElement(
-	                        "span",
-	                        { className: checkboxContentClassName },
-	                        this.renderChoiceIcon()
-	                    ),
-	                    React.createElement(
-	                        "span",
-	                        { className: classNames(ClassNames.RADIO.OPTION_CONTENT, ClassNames.INTERACTIVE, css(sat && styles.satRadioOptionContent, sat && reviewMode && styles.satReviewRadioOptionContent)),
-	                            style: { cursor: "default" }
-	                        },
-	                        React.createElement(
-	                            "div",
-	                            null,
-	                            this.props.content
-	                        )
-	                    )
-	                ),
-	                this.props.showRationale && React.createElement(
-	                    "div",
-	                    { className: rationaleClassName },
-	                    this.props.rationale
-	                )
-	            )
-	        );
-	    }
-	});
-
-	module.exports = Choice;
-
-/***/ },
-/* 221 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
 	/* eslint-disable brace-style, comma-dangle, no-var, one-var, space-unary-ops */
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
@@ -60095,7 +59596,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Util = __webpack_require__(6);
 	var Graphie = __webpack_require__(75);
 	var Plot = Graphie.Plot;
-	var kpoint = __webpack_require__(216).point;
+	var kpoint = __webpack_require__(215).point;
 
 	var DEFAULT_BACKGROUND_IMAGE = {
 	    url: null
@@ -60761,7 +60262,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 222 */
+/* 221 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -60817,7 +60318,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ArrowPicker;
 
 /***/ },
-/* 223 */
+/* 222 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -60887,7 +60388,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ColorPicker;
 
 /***/ },
-/* 224 */
+/* 223 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -61100,7 +60601,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ConstraintEditor;
 
 /***/ },
-/* 225 */
+/* 224 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -61168,7 +60669,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = DashPicker;
 
 /***/ },
-/* 226 */
+/* 225 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -61278,7 +60779,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ElementContainer;
 
 /***/ },
-/* 227 */
+/* 226 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -61459,7 +60960,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = draw;
 
 /***/ },
-/* 228 */
+/* 227 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -61681,19 +61182,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return [atoms, bonds];
 	    }
 	    if (tree.type === "atom") {
-	        (function () {
-	            var treeIdx = idxString(tree.idx);
-	            atoms[treeIdx] = { idx: treeIdx, symbol: tree.symbol, connections: [] };
-	            if (tree.bonds) {
-	                tree.bonds.forEach(function (b) {
-	                    var toIdx = idxString(b.to.idx);
-	                    atoms[treeIdx].connections.push(toIdx);
-	                    bonds.push({ from: treeIdx, to: toIdx, bondType: b.bondType });
-	                    convertTree(atoms, bonds, b.to);
-	                    atoms[toIdx].connections.push(treeIdx);
-	                });
-	            }
-	        })();
+	        var treeIdx = idxString(tree.idx);
+	        atoms[treeIdx] = { idx: treeIdx, symbol: tree.symbol, connections: [] };
+	        if (tree.bonds) {
+	            tree.bonds.forEach(function (b) {
+	                var toIdx = idxString(b.to.idx);
+	                atoms[treeIdx].connections.push(toIdx);
+	                bonds.push({ from: treeIdx, to: toIdx, bondType: b.bondType });
+	                convertTree(atoms, bonds, b.to);
+	                atoms[toIdx].connections.push(treeIdx);
+	            });
+	        }
 	    }
 	    return [atoms, bonds];
 	}
@@ -61788,7 +61287,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 229 */
+/* 228 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -62075,10 +61574,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = { parse: parse, ParseError: ParseError };
 
 /***/ },
-/* 230 */
+/* 229 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -62107,18 +61608,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	    css = _require.css;
 
 	var HighlightingUI = __webpack_require__(316);
-	var WordIndexer = __webpack_require__(277);
+	var WordIndexer = __webpack_require__(275);
 
-	var _require2 = __webpack_require__(278),
+	var _require2 = __webpack_require__(276),
 	    addHighlight = _require2.addHighlight,
+	    buildHighlight = _require2.buildHighlight,
 	    deserializeHighlight = _require2.deserializeHighlight,
 	    serializeHighlight = _require2.serializeHighlight;
 
-	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(231).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(19).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(230).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(19).PropTypes.any;
 
-	var babelPluginFlowReactPropTypes_proptype_SerializedHighlight = __webpack_require__(231).babelPluginFlowReactPropTypes_proptype_SerializedHighlight || __webpack_require__(19).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_SerializedHighlightSet = __webpack_require__(230).babelPluginFlowReactPropTypes_proptype_SerializedHighlightSet || __webpack_require__(19).PropTypes.any;
 
-	var babelPluginFlowReactPropTypes_proptype_DOMHighlight = __webpack_require__(231).babelPluginFlowReactPropTypes_proptype_DOMHighlight || __webpack_require__(19).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_DOMHighlightSet = __webpack_require__(230).babelPluginFlowReactPropTypes_proptype_DOMHighlightSet || __webpack_require__(19).PropTypes.any;
+
+	var babelPluginFlowReactPropTypes_proptype_DOMHighlight = __webpack_require__(230).babelPluginFlowReactPropTypes_proptype_DOMHighlight || __webpack_require__(19).PropTypes.any;
 
 	var HighlightableContent = function (_React$PureComponent) {
 	    _inherits(HighlightableContent, _React$PureComponent);
@@ -62134,62 +61638,78 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        return _ret = (_temp = (_this = _possibleConstructorReturn(this, _React$PureComponent.call.apply(_React$PureComponent, [this].concat(args))), _this), _this.state = {
 	            wordRanges: []
-	        }, _this._handleAddHighlight = function (range) {
-	            var wordRanges = _this.state.wordRanges;
+	        }, _this._handleAddHighlight = function (highlight) {
+	            var newDomHighlights = addHighlight(_this._getDOMHighlights(), highlight);
 
+	            var newSerializedHighlights = {};
+	            for (var _iterator = Object.keys(newDomHighlights), _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
+	                var _ref;
 
-	            var newHighlights = addHighlight(_this._getDOMHighlights(), { range: range });
+	                if (_isArray) {
+	                    if (_i >= _iterator.length) break;
+	                    _ref = _iterator[_i++];
+	                } else {
+	                    _i = _iterator.next();
+	                    if (_i.done) break;
+	                    _ref = _i.value;
+	                }
 
-	            // Serialize the new highlights, and check for nulls. If any are found,
-	            // then our new highlight didn't serialize, and isn't actually valid
-	            // (e.g. it isn't actually over any of the content's words), so return
-	            // without firing any updates.
-	            //
-	            // Otherwise, since we've proven the list contains no empty values, we
-	            // can safely cast to `SerializedHighlight[]`.
-	            var maybeNewSerializedHighlights = newHighlights.map(function (h) {
-	                return serializeHighlight(h, wordRanges);
-	            });
-	            if (maybeNewSerializedHighlights.some(function (sh) {
-	                return !sh;
-	            })) {
-	                return;
+	                var key = _ref;
+
+	                newSerializedHighlights[key] = serializeHighlight(newDomHighlights[key]);
 	            }
-	            var newSerializedHighlights = maybeNewSerializedHighlights;
 
 	            _this.props.onSerializedHighlightsUpdate(newSerializedHighlights);
 	        }, _this._handleRemoveHighlight = function (keyToRemove) {
 	            var serializedHighlights = _this.props.serializedHighlights;
 
-	            var newSerializedHighlights = serializedHighlights.filter(function (sh) {
-	                return sh.key !== keyToRemove;
-	            });
+	            var newSerializedHighlights = _extends({}, serializedHighlights);
+	            delete newSerializedHighlights[keyToRemove];
 	            _this.props.onSerializedHighlightsUpdate(newSerializedHighlights);
 	        }, _this._handleWordsUpdate = function (wordRanges) {
 	            _this.setState({ wordRanges: wordRanges });
 	        }, _temp), _possibleConstructorReturn(_this, _ret);
 	    }
-	    /* eslint-disable react/sort-comp */
+	    // A reference to the mounted container div.
 
 
-	    /* eslint-enable react/sort-comp */
+	    HighlightableContent.prototype._buildHighlight = function _buildHighlight(highlightRange) {
+	        return buildHighlight(highlightRange, this.state.wordRanges);
+	    };
 
 	    /**
 	     * Take the highlights from props, and deserialize them into DOMHighlights,
 	     * according to the latest cache of word ranges.
 	     */
+
+
 	    HighlightableContent.prototype._getDOMHighlights = function _getDOMHighlights() {
 	        var serializedHighlights = this.props.serializedHighlights;
 	        var wordRanges = this.state.wordRanges;
 
 
-	        return serializedHighlights.map(function (serializedHighlight) {
-	            return deserializeHighlight(serializedHighlight, wordRanges);
-	        });
+	        var domHighlights = {};
+	        for (var _iterator2 = Object.keys(serializedHighlights), _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : _iterator2[Symbol.iterator]();;) {
+	            var _ref2;
+
+	            if (_isArray2) {
+	                if (_i2 >= _iterator2.length) break;
+	                _ref2 = _iterator2[_i2++];
+	            } else {
+	                _i2 = _iterator2.next();
+	                if (_i2.done) break;
+	                _ref2 = _i2.value;
+	            }
+
+	            var key = _ref2;
+
+	            domHighlights[key] = deserializeHighlight(serializedHighlights[key], wordRanges);
+	        }
+	        return domHighlights;
 	    };
 
 	    /**
-	     * Add a highlight over the given DOMRange.
+	     * Add the given DOMHighlight to the current set.
 	     */
 
 
@@ -62210,6 +61730,23 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        var highlights = this._getDOMHighlights();
 
+	        // NOTE(mdr): This lambda is rebuilt every time this component updates,
+	        //     so every update to HighlightableContent triggers an update in
+	        //     the child HighlightingUI and SelectionTracker, even if the
+	        //     behavior hasn't changed.
+	        //
+	        //     Over-updating is preferable to under-updating here, because some
+	        //     updates in this component's props/state *do* affect
+	        //     `buildHighlight`'s behavior, and *should* trigger an update.
+	        //
+	        //     A more performant approach would be to cache this function
+	        //     object until its implicitly-bound inputs change. If profiling
+	        //     leads us to implement such caching, this draft might be a good
+	        //     starting point: https://phabricator.khanacademy.org/D35623?id=170698
+	        var buildHighlight = function buildHighlight(r) {
+	            return _this2._buildHighlight(r);
+	        };
+
 	        return React.createElement(
 	            "div",
 	            {
@@ -62221,7 +61758,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            React.createElement(
 	                "div",
 	                null,
-	                this._container && React.createElement(HighlightingUI, {
+	                this.props.enabled && this._container && React.createElement(HighlightingUI, {
+	                    buildHighlight: buildHighlight,
 	                    editable: this.props.editable,
 	                    highlights: highlights,
 	                    offsetParent: this._container,
@@ -62255,8 +61793,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	HighlightableContent.propTypes = {
 	    children: __webpack_require__(19).PropTypes.any,
 	    editable: __webpack_require__(19).PropTypes.bool.isRequired,
+	    enabled: __webpack_require__(19).PropTypes.bool.isRequired,
 	    onSerializedHighlightsUpdate: __webpack_require__(19).PropTypes.func.isRequired,
-	    serializedHighlights: __webpack_require__(19).PropTypes.arrayOf(babelPluginFlowReactPropTypes_proptype_SerializedHighlight).isRequired
+	    serializedHighlights: babelPluginFlowReactPropTypes_proptype_SerializedHighlightSet
 	};
 
 
@@ -62295,7 +61834,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = HighlightableContent;
 
 /***/ },
-/* 231 */
+/* 230 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -62348,25 +61887,29 @@ return /******/ (function(modules) { // webpackBootstrap
 	 *     changed sufficiently radically.
 	 */
 
+	Object.defineProperty(module.exports, "babelPluginFlowReactPropTypes_proptype_DOMHighlight", __webpack_require__(19).PropTypes.shape({
+	  firstWordIndex: __webpack_require__(19).PropTypes.number.isRequired,
+	  lastWordIndex: __webpack_require__(19).PropTypes.number.isRequired,
+	  domRange: __webpack_require__(19).PropTypes.any.isRequired
+	}));
+
+
 	/**
 	 * A highlight, serialized into a DOM-independent format so that it can be
 	 * restored in subsequent browser sessions.
 	 */
-	Object.defineProperty(module.exports, "babelPluginFlowReactPropTypes_proptype_DOMHighlight", __webpack_require__(19).PropTypes.shape({
-	  key: __webpack_require__(19).PropTypes.string.isRequired,
-	  range: __webpack_require__(19).PropTypes.any.isRequired
-	}));
+	Object.defineProperty(module.exports, "babelPluginFlowReactPropTypes_proptype_DOMHighlightSet", __webpack_require__(19).PropTypes.shape({}));
 	Object.defineProperty(module.exports, "babelPluginFlowReactPropTypes_proptype_SerializedHighlight", __webpack_require__(19).PropTypes.shape({
-	  key: __webpack_require__(19).PropTypes.string.isRequired,
 	  range: __webpack_require__(19).PropTypes.shape({
 	    type: __webpack_require__(19).PropTypes.oneOf(["word-indexes"]).isRequired,
 	    firstWordIndex: __webpack_require__(19).PropTypes.number.isRequired,
 	    lastWordIndex: __webpack_require__(19).PropTypes.number.isRequired
 	  }).isRequired
 	}));
+	Object.defineProperty(module.exports, "babelPluginFlowReactPropTypes_proptype_SerializedHighlightSet", __webpack_require__(19).PropTypes.shape({}));
 
 /***/ },
-/* 232 */
+/* 231 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -62757,6 +62300,458 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
+/* 232 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _responsiveCheckboxIn, _responsiveMobileChec, _responsiveLabel, _responsiveCheckbox;
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	/* eslint-disable object-curly-spacing */
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var _require = __webpack_require__(24),
+	    StyleSheet = _require.StyleSheet,
+	    css = _require.css;
+
+	var _ = __webpack_require__(20);
+	var React = __webpack_require__(19);
+	var classNames = __webpack_require__(58);
+
+	var _require2 = __webpack_require__(5),
+	    ClassNames = _require2.ClassNames;
+
+	var sharedStyles = __webpack_require__(92);
+	var styleConstants = __webpack_require__(93);
+	var mediaQueries = __webpack_require__(91);
+
+	var ToggleableRadioButton = __webpack_require__(278);
+	var ChoiceIcon = __webpack_require__(279);
+
+	var checkedColor = styleConstants.checkedColor;
+
+	var focusedStyleMixin = {
+	    backgroundColor: styleConstants.satSelectedBackgroundColor,
+	    borderTopColor: "transparent",
+	    borderBottomColor: "transparent",
+	    outline: "2px solid " + styleConstants.satBlue,
+	    // Render the outline higher than the next element's border
+	    zIndex: 1
+	};
+
+	var responsiveCheckboxPadding = "17px 12px";
+
+	var Choice = React.createClass({
+	    displayName: "Choice",
+
+	    propTypes: {
+	        // TODO(kevinb) use Options.propTypes from perseus-api.jsx
+	        // This change will also require make sure that item-renderer.jsx and
+	        // server-item-renderer.jsx have appropriate defaults for apiOptions
+	        // because many of the properties on Options.propTypes are required.
+	        apiOptions: React.PropTypes.shape({
+	            satStyling: React.PropTypes.bool,
+	            isMobile: React.PropTypes.bool
+	        }),
+	        checked: React.PropTypes.bool,
+	        className: React.PropTypes.string,
+	        rationale: React.PropTypes.node,
+	        content: React.PropTypes.node,
+	        correct: React.PropTypes.bool,
+	        deselectEnabled: React.PropTypes.bool,
+	        disabled: React.PropTypes.bool,
+	        editMode: React.PropTypes.bool,
+	        groupName: React.PropTypes.string,
+	        isLastChoice: React.PropTypes.bool, // Needed for border styling
+	        onChecked: React.PropTypes.func.isRequired,
+	        // This indicates the position of the choice relative to others
+	        // (so that we can display a nice little (A), (B), etc. next to it)
+	        pos: React.PropTypes.number,
+	        reviewMode: React.PropTypes.bool,
+	        showRationale: React.PropTypes.bool,
+	        type: React.PropTypes.string
+	    },
+
+	    statics: {
+	        styles: StyleSheet.create({
+	            pos: {
+	                display: "none"
+	            },
+
+	            description: {
+	                display: "inline-block",
+	                width: "100%"
+	            },
+
+	            satDescription: {
+	                display: "block",
+	                position: "relative",
+	                borderTop: "1px solid #ccc",
+	                boxSizing: "border-box",
+	                cursor: "pointer",
+	                marginLeft: 0,
+	                padding: "17px 14px",
+	                "::after": {
+	                    bottom: -1,
+	                    content: "\" \"",
+	                    height: 1,
+	                    left: 0,
+	                    position: "absolute",
+	                    width: "100%",
+	                    zIndex: 1
+	                }
+	            },
+
+	            satDescriptionLastChoice: {
+	                borderBottom: "1px solid #ccc"
+	            },
+
+	            satDescriptionInputFocused: _extends({}, focusedStyleMixin),
+
+	            satDescriptionInputActive: _extends({}, focusedStyleMixin, {
+	                backgroundColor: styleConstants.satActiveBackgroundColor
+	            }),
+
+	            satDescriptionCorrect: {
+	                color: styleConstants.satCorrectColor,
+	                ":focus": {
+	                    borderColor: styleConstants.satCorrectColor,
+	                    outlineColor: styleConstants.satCorrectColor
+	                }
+	            },
+
+	            satDescriptionCorrectChecked: {
+	                backgroundColor: styleConstants.satCorrectBackgroundColor,
+	                borderBottomColor: styleConstants.satCorrectBorderColor,
+	                borderTopColor: styleConstants.satCorrectBorderColor,
+	                ":after": {
+	                    backgroundColor: styleConstants.satCorrectBorderColor
+	                }
+	            },
+
+	            satDescriptionIncorrectChecked: {
+	                color: styleConstants.satIncorrectColor,
+	                backgroundColor: styleConstants.satIncorrectBackgroundColor,
+	                borderBottomColor: styleConstants.satIncorrectBorderColor,
+	                borderTopColor: styleConstants.satIncorrectBorderColor,
+	                ":after": {
+	                    backgroundColor: styleConstants.satIncorrectBorderColor
+	                },
+	                ":focus": {
+	                    borderColor: styleConstants.satIncorrectColor,
+	                    outlineColor: styleConstants.satIncorrectColor
+	                }
+	            },
+
+	            input: {
+	                display: "inline-block",
+	                width: 20,
+	                margin: 3,
+	                marginLeft: -20,
+	                marginRight: 0,
+	                float: "none"
+	            },
+
+	            satReviewInput: {
+	                pointerEvents: "none"
+	            },
+
+	            satRadioOptionContent: {
+	                userSelect: 'text',
+	                display: "block",
+	                marginLeft: 45,
+	                // Overriding here, not sure why typically set
+	                // to "cursor: default" in js
+	                cursor: "inherit"
+	            },
+
+	            satReviewRadioOptionContent: {
+	                fontWeight: "bold"
+	            },
+
+	            responsiveCheckboxInput: (_responsiveCheckboxIn = {}, _responsiveCheckboxIn[mediaQueries.lgOrSmaller] = {
+	                border: "none",
+	                borderRadius: 4,
+
+	                ":checked": {
+	                    backgroundColor: checkedColor,
+	                    boxShadow: "none"
+	                },
+
+	                // TODO(emily): Make aphrodite allow nested styles here so
+	                // this isn't as hacky.
+	                ":checked::before": {
+	                    display: "flex",
+	                    alignItems: "center",
+	                    justifyContent: "center",
+
+	                    // TODO(jared): replace with image
+	                    content: '"✓"',
+	                    color: "white",
+	                    fontFamily: "monospace",
+	                    fontSize: 17,
+
+	                    height: styleConstants.circleSize,
+	                    width: styleConstants.circleSize
+	                }
+	            }, _responsiveCheckboxIn),
+
+	            responsiveMobileCheckboxInput: (_responsiveMobileChec = {}, _responsiveMobileChec[mediaQueries.lgOrSmaller] = {
+	                display: "none"
+	            }, _responsiveMobileChec),
+
+	            satCheckboxOptionContent: {
+	                position: "absolute",
+	                display: "block",
+	                top: "50%",
+	                margin: "-16px 0 0 0",
+	                width: "auto"
+	            },
+
+	            rationale: {
+	                display: "block"
+	            },
+
+	            mobileRationale: {
+	                backgroundColor: "#fafafa",
+	                padding: responsiveCheckboxPadding,
+	                margin: "0 -1px -1px -1px",
+	                borderRadius: 4,
+	                width: "100%"
+	            },
+
+	            mobileRationaleSelected: {
+	                margin: 0
+	            },
+
+	            satReviewRationale: {
+	                marginTop: 13,
+	                marginLeft: 45
+	            },
+
+	            label: {
+	                display: "block"
+	            },
+
+	            responsiveLabel: (_responsiveLabel = {}, _responsiveLabel[mediaQueries.lgOrSmaller] = {
+	                WebkitTapHighlightColor: "transparent",
+	                alignItems: "center",
+	                display: "flex"
+	            }, _responsiveLabel),
+
+	            satLabel: {
+	                cursor: "pointer"
+	            },
+
+	            responsiveCheckbox: (_responsiveCheckbox = {
+	                display: "inline-block"
+
+	            }, _responsiveCheckbox[mediaQueries.lgOrSmaller] = {
+	                padding: responsiveCheckboxPadding
+	            }, _responsiveCheckbox),
+
+	            checkboxCrossout: {
+	                textDecoration: "line-through"
+	            }
+	        })
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            checked: false,
+	            classSet: {},
+	            disabled: false,
+	            editMode: false,
+	            showRationale: false,
+	            type: 'radio',
+	            pos: 0
+	        };
+	    },
+
+	    getInitialState: function getInitialState() {
+	        return {
+	            isInputFocused: false,
+	            isInputActive: false
+	        };
+	    },
+
+	    onInputFocus: function onInputFocus() {
+	        this.setState({ isInputFocused: true });
+	    },
+
+	    onInputBlur: function onInputBlur() {
+	        this.setState({ isInputFocused: false });
+	    },
+
+	    onInputMouseDown: function onInputMouseDown() {
+	        this.setState({ isInputActive: true });
+
+	        // Simulate Chrome's radio button behavior in all browsers: when the
+	        // mouse goes down or up, the radio button should become focused.
+	        // That way, the newly-selected answer becomes highlighted after click.
+	        if (this.props.apiOptions.satStyling && this._input) {
+	            this._input.focus();
+	        }
+	    },
+
+	    onInputMouseUp: function onInputMouseUp() {
+	        this.setState({ isInputActive: false });
+
+	        // Simulate Chrome's radio button behavior in all browsers: when the
+	        // mouse goes down or up, the radio button should become focused.
+	        // That way, the newly-selected answer becomes highlighted after click.
+	        if (this.props.apiOptions.satStyling && this._input) {
+	            this._input.focus();
+	        }
+	    },
+
+	    onInputMouseOut: function onInputMouseOut() {
+	        this.setState({ isInputActive: false });
+	    },
+
+	    inputRef: function inputRef(ref) {
+	        this._input = ref;
+	    },
+
+	    renderChoiceIcon: function renderChoiceIcon() {
+	        // TODO(amy): for now, the only product using letter choice
+	        // icons is SAT. However, eventualy use of letters may be a flag
+	        // at the content level, distinct from the product styling.
+	        var product = "sat";
+	        var renderChoiceIcon = this.props.apiOptions.satStyling;
+	        if (renderChoiceIcon) {
+	            return React.createElement(ChoiceIcon, {
+	                pos: this.props.pos,
+	                correct: this.props.correct,
+	                checked: this.props.checked,
+	                reviewMode: this.props.reviewMode,
+	                product: product
+	            });
+	        }
+	    },
+
+
+	    render: function render() {
+	        var _this = this;
+
+	        var styles = Choice.styles;
+	        var sat = this.props.apiOptions.satStyling;
+	        var isMobile = this.props.apiOptions.isMobile;
+
+	        var className = classNames(this.props.className, "checkbox-label", css(styles.label, isMobile && sharedStyles.disableTextSelection, !sat && styles.responsiveLabel, sat && styles.satLabel));
+
+	        // There's two different input components we could use (the builtin
+	        // input component, or the ToggleableRadioButton component). These are
+	        // the props that we will pass to either.
+	        var commonInputProps = {
+	            type: this.props.type,
+	            name: this.props.groupName,
+	            checked: this.props.checked,
+	            disabled: this.props.disabled,
+	            onFocus: this.onInputFocus,
+	            onBlur: this.onInputBlur,
+	            className: css(sharedStyles.perseusInteractive, styles.input, sharedStyles.responsiveInput, this.props.type === "radio" && !sat && sharedStyles.responsiveRadioInput, this.props.type === "radio" && isMobile && !sat && sharedStyles.responsiveMobileRadioInput, this.props.type === "checkbox" && !sat && styles.responsiveCheckboxInput, this.props.type === "checkbox" && isMobile && !sat && styles.responsiveMobileCheckboxInput, sat && this.props.type === "radio" && sharedStyles.perseusSrOnly, sat && this.props.type === "checkbox" && styles.satCheckboxInput, sat && this.props.reviewMode && styles.satReviewInput)
+	        };
+
+	        var input = null;
+	        if (this.props.type === "radio" && this.props.deselectEnabled) {
+	            // This is a special radio button that allows a user to deselect
+	            // it by merely clicking/selecting it again.
+	            input = React.createElement(ToggleableRadioButton, _extends({
+	                onChecked: this.props.onChecked,
+	                inputRef: this.inputRef
+	            }, commonInputProps));
+	        } else {
+	            input = React.createElement("input", _extends({
+	                onChange: function onChange(event) {
+	                    _this.props.onChecked(event.target.checked);
+	                },
+	                ref: this.inputRef
+	            }, commonInputProps));
+	        }
+
+	        var _props = this.props,
+	            reviewMode = _props.reviewMode,
+	            correct = _props.correct,
+	            checked = _props.checked,
+	            isLastChoice = _props.isLastChoice;
+	        // HACK: while most of the styling for rendering SAT items is handled
+	        // via aphrodite, we also need to assign normal CSS classnames here to
+	        // special-case the coloring of MathJax formulas (see .MathJax .math in
+	        // stylesheets/task-package/tasks.less)
+
+	        var satCorrectChoice = sat && reviewMode && correct;
+	        var satIncorrectChecked = sat && reviewMode && !correct && checked;
+	        var descriptionClassName = classNames("description", satCorrectChoice && "sat-correct", satIncorrectChecked && "sat-incorrect", css(!sat && styles.description, sat && this.state.isInputFocused && styles.satDescriptionInputFocused, sat && this.state.isInputActive && styles.satDescriptionInputActive, sat && styles.satDescription, satCorrectChoice && styles.satDescriptionCorrect, satCorrectChoice && checked && styles.satDescriptionCorrectChecked, satIncorrectChecked && styles.satDescriptionIncorrectChecked, sat && isLastChoice && styles.satDescriptionLastChoice));
+
+	        var checkboxContentClassName = "checkbox " + css(sat && sharedStyles.perseusInteractive, sat && styles.satCheckboxOptionContent);
+
+	        var checkboxAndOptionClassName = classNames("checkbox-and-option", css(!sat && styles.responsiveCheckbox, !sat && !correct && this.props.showRationale && styles.checkboxCrossout, !sat && this.props.checked && styles.responsiveCheckboxSelected));
+
+	        var rationaleClassName = classNames(css(styles.rationale, isMobile && styles.mobileRationale, isMobile && this.props.checked && styles.mobileRationaleSelected, sat && styles.satReviewRationale));
+
+	        // In edit mode, we must allow selection of the contentEditable
+	        // element inside, therefore we cannot use a label, which makes
+	        // selection of anything inside automatically select the input
+	        // element instead
+	        var LabelOrDiv = this.props.editMode ? "div" : "label";
+
+	        // We want to show the choices as dimmed out when the choices are
+	        // disabled. However, we don't want to do this in the SAT product and
+	        // we also don't want to do this when we're in review mode in the
+	        // content library.
+	        var showDimmed = !sat && !reviewMode && this.props.disabled;
+
+	        return React.createElement(
+	            LabelOrDiv,
+	            {
+	                className: className,
+	                style: { opacity: showDimmed ? 0.5 : 1.0 }
+	            },
+	            input,
+	            React.createElement(
+	                "div",
+	                { className: descriptionClassName,
+	                    onMouseDown: this.onInputMouseDown,
+	                    onMouseUp: this.onInputMouseUp,
+	                    onMouseOut: this.onInputMouseOut
+	                },
+	                React.createElement(
+	                    "div",
+	                    { className: checkboxAndOptionClassName },
+	                    React.createElement(
+	                        "span",
+	                        { className: checkboxContentClassName },
+	                        this.renderChoiceIcon()
+	                    ),
+	                    React.createElement(
+	                        "span",
+	                        { className: classNames(ClassNames.RADIO.OPTION_CONTENT, ClassNames.INTERACTIVE, css(sat && styles.satRadioOptionContent, sat && reviewMode && styles.satReviewRadioOptionContent)),
+	                            style: { cursor: "default" }
+	                        },
+	                        React.createElement(
+	                            "div",
+	                            null,
+	                            this.props.content
+	                        )
+	                    )
+	                ),
+	                this.props.showRationale && React.createElement(
+	                    "div",
+	                    { className: rationaleClassName },
+	                    this.props.rationale
+	                )
+	            )
+	        );
+	    }
+	});
+
+	module.exports = Choice;
+
+/***/ },
 /* 233 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -62768,19 +62763,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(19);
 
-	var _require = __webpack_require__(382),
+	var _require = __webpack_require__(365),
 	    Provider = _require.Provider;
 
-	var KeypadContainer = __webpack_require__(280);
+	var KeypadContainer = __webpack_require__(277);
 
-	var _require2 = __webpack_require__(318),
+	var _require2 = __webpack_require__(317),
 	    activateKeypad = _require2.activateKeypad,
 	    dismissKeypad = _require2.dismissKeypad,
 	    configureKeypad = _require2.configureKeypad,
 	    _setCursor = _require2.setCursor,
 	    _setKeyHandler = _require2.setKeyHandler;
 
-	var createStore = __webpack_require__(319);
+	var createStore = __webpack_require__(318);
 
 	var ProvidedKeypad = React.createClass({
 	    displayName: 'ProvidedKeypad',
@@ -62860,10 +62855,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(19);
 
-	var KeyConfigs = __webpack_require__(317);
-	var CursorContexts = __webpack_require__(279);
+	var KeyConfigs = __webpack_require__(319);
+	var CursorContexts = __webpack_require__(280);
 
-	var _require = __webpack_require__(215),
+	var _require = __webpack_require__(216),
 	    BorderDirections = _require.BorderDirections,
 	    EchoAnimationTypes = _require.EchoAnimationTypes,
 	    IconTypes = _require.IconTypes,
@@ -64412,7 +64407,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(19);
 
-	var cx = __webpack_require__(364);
+	var cx = __webpack_require__(366);
 
 	var UL_WRAP = React.createElement('ul', { className: cx('public/DraftStyleDefault/ul') });
 	var OL_WRAP = React.createElement('ol', { className: cx('public/DraftStyleDefault/ol') });
@@ -64540,16 +64535,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	var EditorState = __webpack_require__(249);
 	var React = __webpack_require__(19);
 	var ReactDOM = __webpack_require__(21);
-	var Scroll = __webpack_require__(365);
-	var Style = __webpack_require__(366);
-	var UserAgent = __webpack_require__(367);
+	var Scroll = __webpack_require__(367);
+	var Style = __webpack_require__(368);
+	var UserAgent = __webpack_require__(369);
 
-	var cx = __webpack_require__(364);
-	var emptyFunction = __webpack_require__(368);
+	var cx = __webpack_require__(366);
+	var emptyFunction = __webpack_require__(370);
 	var generateRandomKey = __webpack_require__(256);
 	var getDefaultKeyBinding = __webpack_require__(257);
-	var nullthrows = __webpack_require__(369);
-	var getScrollPosition = __webpack_require__(370);
+	var nullthrows = __webpack_require__(371);
+	var getScrollPosition = __webpack_require__(372);
 
 	var isIE = UserAgent.isBrowser('IE');
 
@@ -64999,21 +64994,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var ContentBlock = __webpack_require__(240);
-	var DraftEditorLeaf = __webpack_require__(293);
-	var DraftOffsetKey = __webpack_require__(294);
+	var DraftEditorLeaf = __webpack_require__(303);
+	var DraftOffsetKey = __webpack_require__(304);
 	var React = __webpack_require__(19);
 	var ReactDOM = __webpack_require__(21);
-	var Scroll = __webpack_require__(365);
+	var Scroll = __webpack_require__(367);
 	var SelectionState = __webpack_require__(252);
-	var Style = __webpack_require__(366);
-	var UnicodeBidi = __webpack_require__(371);
-	var UnicodeBidiDirection = __webpack_require__(372);
+	var Style = __webpack_require__(368);
+	var UnicodeBidi = __webpack_require__(374);
+	var UnicodeBidiDirection = __webpack_require__(375);
 
-	var cx = __webpack_require__(364);
-	var getElementPosition = __webpack_require__(373);
-	var getScrollPosition = __webpack_require__(370);
-	var getViewportDimensions = __webpack_require__(374);
-	var nullthrows = __webpack_require__(369);
+	var cx = __webpack_require__(366);
+	var getElementPosition = __webpack_require__(376);
+	var getScrollPosition = __webpack_require__(372);
+	var getViewportDimensions = __webpack_require__(377);
+	var nullthrows = __webpack_require__(371);
 
 	var SCROLL_BUFFER = 10;
 
@@ -65214,22 +65209,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	var CharacterMetadata = __webpack_require__(238);
-	var ContentStateInlineStyle = __webpack_require__(295);
+	var ContentStateInlineStyle = __webpack_require__(293);
 
 	var _require = __webpack_require__(259);
 
 	var OrderedSet = _require.OrderedSet;
 
-	var applyEntityToContentState = __webpack_require__(296);
-	var getCharacterRemovalRange = __webpack_require__(297);
-	var getContentStateFragment = __webpack_require__(298);
-	var insertFragmentIntoContentState = __webpack_require__(299);
-	var insertTextIntoContentState = __webpack_require__(300);
-	var invariant = __webpack_require__(375);
-	var removeEntitiesAtEdges = __webpack_require__(301);
-	var removeRangeFromContentState = __webpack_require__(302);
-	var setBlockTypeForContentState = __webpack_require__(303);
-	var splitBlockInContentState = __webpack_require__(304);
+	var applyEntityToContentState = __webpack_require__(294);
+	var getCharacterRemovalRange = __webpack_require__(295);
+	var getContentStateFragment = __webpack_require__(296);
+	var insertFragmentIntoContentState = __webpack_require__(297);
+	var insertTextIntoContentState = __webpack_require__(298);
+	var invariant = __webpack_require__(373);
+	var removeEntitiesAtEdges = __webpack_require__(299);
+	var removeRangeFromContentState = __webpack_require__(300);
+	var setBlockTypeForContentState = __webpack_require__(301);
+	var splitBlockInContentState = __webpack_require__(302);
 
 	var DraftModifier = {
 	  replaceText: function replaceText(contentState, rangeToReplace, text, inlineStyle, entityKey) {
@@ -65336,7 +65331,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var DraftEntityInstance = __webpack_require__(248);
 	var Immutable = __webpack_require__(259);
 
-	var invariant = __webpack_require__(375);
+	var invariant = __webpack_require__(373);
 
 	var Map = Immutable.Map;
 
@@ -65516,9 +65511,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var BlockTree = __webpack_require__(305);
+	var BlockTree = __webpack_require__(313);
 	var ContentState = __webpack_require__(241);
-	var EditorBidiService = __webpack_require__(306);
+	var EditorBidiService = __webpack_require__(314);
 	var Immutable = __webpack_require__(259);
 	var SelectionState = __webpack_require__(252);
 
@@ -66098,7 +66093,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var UserAgent = __webpack_require__(367);
+	var UserAgent = __webpack_require__(369);
 
 	var isOSX = UserAgent.isPlatform('Mac OS X');
 
@@ -66147,8 +66142,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var EditorState = __webpack_require__(249);
 	var SelectionState = __webpack_require__(252);
 
-	var adjustBlockDepthForContentState = __webpack_require__(307);
-	var nullthrows = __webpack_require__(369);
+	var adjustBlockDepthForContentState = __webpack_require__(305);
+	var nullthrows = __webpack_require__(371);
 
 	var RichTextEditorUtil = {
 	  currentBlockContainsLink: function currentBlockContainsLink(editorState) {
@@ -66609,10 +66604,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	var DraftEntity = __webpack_require__(247);
-	var DraftStringKey = __webpack_require__(308);
+	var DraftStringKey = __webpack_require__(306);
 
-	var encodeEntityRanges = __webpack_require__(309);
-	var encodeInlineStyleRanges = __webpack_require__(310);
+	var encodeEntityRanges = __webpack_require__(307);
+	var encodeInlineStyleRanges = __webpack_require__(308);
 
 	function convertFromDraftStateToRaw(contentState) {
 	  var entityStorageKey = 0;
@@ -66690,12 +66685,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	var DefaultDraftBlockRenderMap = __webpack_require__(242);
 	var DraftEntity = __webpack_require__(247);
 	var Immutable = __webpack_require__(259);
-	var URI = __webpack_require__(376);
+	var URI = __webpack_require__(378);
 
 	var generateRandomKey = __webpack_require__(256);
-	var getSafeBodyFromHTML = __webpack_require__(314);
-	var invariant = __webpack_require__(375);
-	var nullthrows = __webpack_require__(369);
+	var getSafeBodyFromHTML = __webpack_require__(309);
+	var invariant = __webpack_require__(373);
+	var nullthrows = __webpack_require__(371);
 	var sanitizeDraftText = __webpack_require__(287);
 
 	var List = Immutable.List;
@@ -67115,9 +67110,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ContentState = __webpack_require__(241);
 	var DraftEntity = __webpack_require__(247);
 
-	var createCharacterList = __webpack_require__(311);
-	var decodeEntityRanges = __webpack_require__(312);
-	var decodeInlineStyleRanges = __webpack_require__(313);
+	var createCharacterList = __webpack_require__(310);
+	var decodeEntityRanges = __webpack_require__(311);
+	var decodeInlineStyleRanges = __webpack_require__(312);
 	var generateRandomKey = __webpack_require__(256);
 
 	function convertFromRawToDraftState(rawState) {
@@ -67221,8 +67216,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	var KeyBindingUtil = __webpack_require__(250);
-	var Keys = __webpack_require__(377);
-	var UserAgent = __webpack_require__(367);
+	var Keys = __webpack_require__(379);
+	var UserAgent = __webpack_require__(369);
 
 	var isOSX = UserAgent.isPlatform('Mac OS X');
 	var isWindows = UserAgent.isPlatform('Windows');
@@ -72372,6 +72367,86 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
+	/* eslint-disable comma-dangle, no-var, prefer-spread, space-before-function-paren */
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	/**
+	 * Default methods for a wrapped movable.
+	 */
+
+	var _ = __webpack_require__(20);
+	var InteractiveUtil = __webpack_require__(180);
+	var objective_ = __webpack_require__(82);
+	var kvector = __webpack_require__(215).vector;
+
+	/*
+	 * These functions, when called on the wrapped object, simply pass the
+	 * arguments to the underlying Raphael object.
+	 */
+	var PASS_TO_RAPHAEL = ["attr", "animate"];
+
+	var WrappedDefaults = _.extend({
+	    transform: function transform(transformation) {
+	        var prefixedTransform = InteractiveUtil.getPrefixedTransform();
+	        this.wrapper.style[prefixedTransform] = transformation;
+	    },
+
+	    toFront: function toFront() {
+	        var parentNode = this.wrapper.parentNode;
+	        // TODO(emily): Sometimes, we call `.remove()` but then hold a
+	        // reference to this object, and sometimes call `.toFront` on it.
+	        // Notably, this happens in the reflection transformation in the
+	        // Transformer widget. This is a hacky fix. Make this less bad.
+	        if (parentNode) {
+	            parentNode.appendChild(this.wrapper);
+	        }
+	    },
+
+	    toBack: function toBack() {
+	        var parentNode = this.wrapper.parentNode;
+	        if (parentNode.firstChild !== this.wrapper) {
+	            parentNode.insertBefore(this.wrapper, parentNode.firstChild);
+	        }
+	    },
+
+	    remove: function remove() {
+	        this.visibleShape.remove();
+	        $(this.wrapper).remove();
+	    },
+
+	    getMouseTarget: function getMouseTarget() {
+	        return this.visibleShape[0];
+	    },
+
+	    moveTo: function moveTo(point) {
+	        var delta = kvector.subtract(this.graphie.scalePoint(point), this.graphie.scalePoint(this.initialPoint));
+	        var do3dTransform = InteractiveUtil.getCanUse3dTransform();
+	        var transformation = "translateX(" + delta[0] + "px) " + "translateY(" + delta[1] + "px)" + (do3dTransform ? " translateZ(0)" : "");
+	        this.transform(transformation);
+	    },
+
+	    hide: function hide() {
+	        this.visibleShape.hide();
+	    },
+
+	    show: function show() {
+	        this.visibleShape.show();
+	    }
+	}, objective_.mapObjectFromArray(PASS_TO_RAPHAEL, function (attribute) {
+	    return function () {
+	        this.visibleShape[attribute].apply(this.visibleShape, arguments);
+	    };
+	}));
+
+	module.exports = WrappedDefaults;
+
+/***/ },
+/* 261 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
 	/* eslint-disable comma-dangle, no-redeclare, no-var */
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
@@ -72393,7 +72468,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var normalizeOptions = InteractiveUtil.normalizeOptions;
 
 	var assert = InteractiveUtil.assert;
-	var kpoint = __webpack_require__(216).point;
+	var kpoint = __webpack_require__(215).point;
 
 	// state parameters that should be converted into an array of
 	// functions
@@ -72627,7 +72702,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Movable;
 
 /***/ },
-/* 261 */
+/* 262 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -72694,12 +72769,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	var MovablePointOptions = __webpack_require__(321);
 	var WrappedEllipse = __webpack_require__(273);
 	var InteractiveUtil = __webpack_require__(180);
-	var objective_ = __webpack_require__(90);
+	var objective_ = __webpack_require__(82);
 	var assert = InteractiveUtil.assert;
 	var normalizeOptions = InteractiveUtil.normalizeOptions;
 
-	var kpoint = __webpack_require__(216).point;
-	var kvector = __webpack_require__(216).vector;
+	var kpoint = __webpack_require__(215).point;
+	var kvector = __webpack_require__(215).vector;
 	var KhanColors = __webpack_require__(207);
 	var processMath = __webpack_require__(271).processMath;
 
@@ -73183,7 +73258,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MovablePoint;
 
 /***/ },
-/* 262 */
+/* 263 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -73200,11 +73275,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	var MovableLineOptions = __webpack_require__(322);
 	var WrappedLine = __webpack_require__(206);
 	var InteractiveUtil = __webpack_require__(180);
-	var objective_ = __webpack_require__(90);
+	var objective_ = __webpack_require__(82);
 	var assert = InteractiveUtil.assert;
 	var normalizeOptions = InteractiveUtil.normalizeOptions;
 
-	var kvector = __webpack_require__(216).vector;
+	var kvector = __webpack_require__(215).vector;
 	var KhanColors = __webpack_require__(207);
 
 	var FUNCTION_ARRAY_OPTIONS = ["add", "draw", "remove", "onMoveStart", "constraints", "onMove", "onMoveEnd"];
@@ -73446,7 +73521,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MovableLine;
 
 /***/ },
-/* 263 */
+/* 264 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -73459,12 +73534,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Creates and adds a polygon to the graph that can be dragged around.
 	 * It allows constraints on its movement and draws when moves happen.
 	 */
-	var kvector = __webpack_require__(216).vector;
+	var kvector = __webpack_require__(215).vector;
 	var _ = __webpack_require__(20);
 
 	var MovablePolygonOptions = __webpack_require__(323);
 	var InteractiveUtil = __webpack_require__(180);
-	var objective_ = __webpack_require__(90);
+	var objective_ = __webpack_require__(82);
 	var assert = InteractiveUtil.assert;
 	var normalizeOptions = InteractiveUtil.normalizeOptions;
 	var KhanColors = __webpack_require__(207);
@@ -73761,86 +73836,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 	module.exports = MovablePolygon;
-
-/***/ },
-/* 264 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/* eslint-disable comma-dangle, no-var, prefer-spread, space-before-function-paren */
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	/**
-	 * Default methods for a wrapped movable.
-	 */
-
-	var _ = __webpack_require__(20);
-	var InteractiveUtil = __webpack_require__(180);
-	var objective_ = __webpack_require__(90);
-	var kvector = __webpack_require__(216).vector;
-
-	/*
-	 * These functions, when called on the wrapped object, simply pass the
-	 * arguments to the underlying Raphael object.
-	 */
-	var PASS_TO_RAPHAEL = ["attr", "animate"];
-
-	var WrappedDefaults = _.extend({
-	    transform: function transform(transformation) {
-	        var prefixedTransform = InteractiveUtil.getPrefixedTransform();
-	        this.wrapper.style[prefixedTransform] = transformation;
-	    },
-
-	    toFront: function toFront() {
-	        var parentNode = this.wrapper.parentNode;
-	        // TODO(emily): Sometimes, we call `.remove()` but then hold a
-	        // reference to this object, and sometimes call `.toFront` on it.
-	        // Notably, this happens in the reflection transformation in the
-	        // Transformer widget. This is a hacky fix. Make this less bad.
-	        if (parentNode) {
-	            parentNode.appendChild(this.wrapper);
-	        }
-	    },
-
-	    toBack: function toBack() {
-	        var parentNode = this.wrapper.parentNode;
-	        if (parentNode.firstChild !== this.wrapper) {
-	            parentNode.insertBefore(this.wrapper, parentNode.firstChild);
-	        }
-	    },
-
-	    remove: function remove() {
-	        this.visibleShape.remove();
-	        $(this.wrapper).remove();
-	    },
-
-	    getMouseTarget: function getMouseTarget() {
-	        return this.visibleShape[0];
-	    },
-
-	    moveTo: function moveTo(point) {
-	        var delta = kvector.subtract(this.graphie.scalePoint(point), this.graphie.scalePoint(this.initialPoint));
-	        var do3dTransform = InteractiveUtil.getCanUse3dTransform();
-	        var transformation = "translateX(" + delta[0] + "px) " + "translateY(" + delta[1] + "px)" + (do3dTransform ? " translateZ(0)" : "");
-	        this.transform(transformation);
-	    },
-
-	    hide: function hide() {
-	        this.visibleShape.hide();
-	    },
-
-	    show: function show() {
-	        this.visibleShape.show();
-	    }
-	}, objective_.mapObjectFromArray(PASS_TO_RAPHAEL, function (attribute) {
-	    return function () {
-	        this.visibleShape[attribute].apply(this.visibleShape, arguments);
-	    };
-	}));
-
-	module.exports = WrappedDefaults;
 
 /***/ },
 /* 265 */
@@ -78858,9 +78853,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var _ = __webpack_require__(20);
-	var WrappedDefaults = __webpack_require__(264);
+	var WrappedDefaults = __webpack_require__(260);
 	var InteractiveUtil = __webpack_require__(180);
-	var kvector = __webpack_require__(216).vector;
+	var kvector = __webpack_require__(215).vector;
 
 	var DEFAULT_OPTIONS = {
 	    maxScale: 1,
@@ -78925,7 +78920,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var _ = __webpack_require__(20);
-	var WrappedDefaults = __webpack_require__(264);
+	var WrappedDefaults = __webpack_require__(260);
 
 	var DEFAULT_OPTIONS = {
 	    center: null, // gets ignored in `graphie.fixedPath` if `null`
@@ -78967,310 +78962,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-	var React = __webpack_require__(19);
-	var _ = __webpack_require__(20);
-
-	/**
-	 * A radio button that can be unchecked by clicking it again.
-	 *
-	 * This component behaves much like a checkbox in that when you click it again
-	 * (or hit space bar or select it in some other way), it will become unchecked.
-	 * (Hopefully) it behaves exactly like a radio button in every other way though
-	 * (arrow keys can still be used to select it within a group for example).
-	 *
-	 * Here's a summary of which of our event handlers fire for each way to select
-	 * or deselect the button:
-	 *
-	 * - Clicking a button: handleClick, handleChange
-	 * - Pressing spacebar with button focussed: handleKeyDown, handleKeyUp (we
-	 *   suppress the default behavior of some browsers to synthesize a click event
-	 *   here).
-	 * - When radio button A is selected, pressing down arrow to select B:
-	 *   handleKeyDown (A), handleClick (B), handleChange (B), handleKeyUp (B)
-	 * - Clicking with mac screenreader: handleClick, handleChange
-	 */
-	var ToggleableRadioButton = React.createClass({
-	    displayName: "ToggleableRadioButton",
-
-	    propTypes: {
-	        // Whether the radio button should be checked or unchecked (this is a
-	        // controlled component).
-	        checked: React.PropTypes.bool.isRequired,
-
-	        // A ref function to attach to the <input> element.
-	        inputRef: React.PropTypes.func,
-
-	        // A function that will be called whenever the radio button is checked
-	        // or unchecked. It's possible for this to be called twice for a single
-	        // checking or unchecking.
-	        onChecked: React.PropTypes.func.isRequired
-	    },
-
-	    handleClick: function handleClick(event) {
-	        this.props.onChecked(!this.props.checked);
-
-	        // NOTE(johnsullivan): Preventing default would make sense to do here
-	        //     because we're fully controlling the state of the check box and
-	        //     don't really want it to be (un)checked accidently. React
-	        //     requires that we *don't* call preventDefault from the onClick or
-	        //     onChecked handlers of a controlled component though.
-	    },
-
-	    handleKeyUp: function handleKeyUp(event) {
-	        // Make hitting the spacebar with the element selected equivalent to
-	        // clicking it. Some browsers do this as part of the radio button's
-	        // default behavior, but since some browsers don't we normalize the
-	        // behavior here.
-	        if (event.key === " ") {
-	            this.props.onChecked(!this.props.checked);
-	            event.preventDefault();
-	        }
-	    },
-
-	    handleChange: function handleChange(event) {
-	        // If the checkbox is going from unchecked to checked, we'll handle it
-	        // here.
-	        // NOTE(johnsullivan): The onClick/onKeyUp handler most likely *also*
-	        //     handled this, but we're being defensive against browsers/devices
-	        //     that might not call those handlers like we'd expect. It's
-	        //     unclear to me whether this is strictly necessary.
-	        if (!this.props.checked && event.target.checked) {
-	            this.props.onChecked(true);
-	        }
-	    },
-
-	    handleKeyDown: function handleKeyDown(event) {
-	        // This is necessary in order to prevent IE9 from creating a duplicate
-	        // click event on the radio button when the space bar is hit.
-	        if (event.key === " ") {
-	            event.preventDefault();
-	        }
-	    },
-
-	    render: function render() {
-	        var _props = this.props,
-	            inputRef = _props.inputRef,
-	            onChecked = _props.onChecked,
-	            otherProps = _objectWithoutProperties(_props, ["inputRef", "onChecked"]);
-
-	        return React.createElement("input", _extends({}, otherProps, {
-	            type: "radio",
-	            onChange: this.handleChange,
-	            onClick: this.handleClick,
-	            onKeyDown: this.handleKeyDown,
-	            onKeyUp: this.handleKeyUp,
-	            ref: this.props.inputRef
-	        }));
-	    }
-	});
-
-	module.exports = ToggleableRadioButton;
-
-/***/ },
-/* 276 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	/* Component for rendering a letter icon in radio choice */
-
-	/* global i18n */
-
-	var React = __webpack_require__(19);
-
-	var _require = __webpack_require__(24),
-	    StyleSheet = _require.StyleSheet,
-	    css = _require.css;
-
-	var styleConstants = __webpack_require__(93);
-
-	var ChoiceIcon = function (_React$Component) {
-	    _inherits(ChoiceIcon, _React$Component);
-
-	    function ChoiceIcon() {
-	        _classCallCheck(this, ChoiceIcon);
-
-	        return _possibleConstructorReturn(this, _React$Component.apply(this, arguments));
-	    }
-
-	    ChoiceIcon.prototype.a11yText = function a11yText(letter) {
-	        // If the option was checked we need to reveal more context about
-	        // what the result was (correct/incorrect)
-	        if (this.props.checked) {
-	            if (typeof this.props.correct === "boolean") {
-	                if (this.props.correct) {
-	                    return i18n._("(Choice %(letter)s, Checked, Correct)", { letter: letter });
-	                } else {
-	                    return i18n._("(Choice %(letter)s, Checked, Incorrect)", { letter: letter });
-	                }
-	            }
-
-	            return i18n._("(Choice %(letter)s, Checked)", { letter: letter });
-
-	            // If the option wasn't checked, but was correct, we need to tell
-	            // the user that this was, in fact, the correct answer.
-	        } else if (this.props.correct) {
-	            return i18n._("(Choice %(letter)s, Correct Answer)", { letter: letter });
-	        }
-
-	        return i18n._("(Choice %(letter)s)", { letter: letter });
-	    };
-
-	    // TODO(amy): figure out a better scheme for specifying these
-	    // styles that isn't such a pain to grok. See some neat ideas
-	    // from MDR in https://phabricator.khanacademy.org/D35249.
-
-
-	    ChoiceIcon.prototype.constructStyles = function constructStyles(reviewMode, product, correct, checked) {
-	        var color = void 0;
-	        var backgroundColor = void 0;
-	        var borderColor = void 0;
-	        if (this.props.product === "sat") {
-	            borderColor = styleConstants.satBlue;
-	            color = styleConstants.satBlue;
-	            if (reviewMode) {
-	                if (correct) {
-	                    borderColor = styleConstants.satCorrectColor;
-	                    color = checked ? styleConstants.white : styleConstants.satCorrectColor;
-	                    backgroundColor = checked ? styleConstants.satCorrectColor : styleConstants.white;
-	                } else if (checked) {
-	                    borderColor = styleConstants.satIncorrectColor;
-	                    color = styleConstants.white;
-	                    backgroundColor = styleConstants.satIncorrectColor;
-	                }
-	            } else if (checked) {
-	                color = styleConstants.white;
-	                backgroundColor = styleConstants.satBlue;
-	            }
-	            // TODO(amy): if gtp/sat stay this similar, consolidate the
-	            // the styling logic.
-	        } else if (this.props.product === "gtp") {
-	            borderColor = styleConstants.gray41;
-	            color = styleConstants.gray41;
-	            if (reviewMode) {
-	                if (correct) {
-	                    // TODO(amy): update these colors when gtp
-	                    // reviewMode styles have solidified
-	                    borderColor = styleConstants.gtpCorrectColor;
-	                    color = checked ? styleConstants.white : styleConstants.gtpCorrectColor;
-	                    backgroundColor = checked ? styleConstants.gtpCorrectColor : styleConstants.white;
-	                } else if (checked) {
-	                    borderColor = styleConstants.gtpIncorrectColor;
-	                    color = styleConstants.white;
-	                    backgroundColor = styleConstants.gtpIncorrectColor;
-	                }
-	            } else if (checked) {
-	                color = styleConstants.white;
-	                backgroundColor = styleConstants.gtpBlue;
-	                borderColor = styleConstants.gtpBlue;
-	            }
-	        }
-	        return { color: color, backgroundColor: backgroundColor, borderColor: borderColor };
-	    };
-
-	    ChoiceIcon.prototype.render = function render() {
-	        var _props = this.props,
-	            reviewMode = _props.reviewMode,
-	            checked = _props.checked,
-	            correct = _props.correct,
-	            product = _props.product;
-	        // NOTE(jeresig): This is not i18n appropriate and should probably be
-	        // changed to a map of common options that are properly translated.
-
-	        var letter = String.fromCharCode(65 + this.props.pos);
-
-	        var _constructStyles = this.constructStyles(reviewMode, product, correct, checked),
-	            color = _constructStyles.color,
-	            backgroundColor = _constructStyles.backgroundColor,
-	            borderColor = _constructStyles.borderColor;
-
-	        return React.createElement(
-	            "div",
-	            null,
-	            React.createElement("div", {
-	                className: css(styles.circle),
-	                style: { backgroundColor: backgroundColor, borderColor: borderColor }
-	            }),
-	            React.createElement(
-	                "div",
-	                { style: { color: color }, className: css(styles.letter) },
-	                React.createElement(
-	                    "span",
-	                    { className: "perseus-sr-only" },
-	                    this.a11yText(letter)
-	                ),
-	                React.createElement(
-	                    "span",
-	                    { "aria-hidden": "true" },
-	                    letter
-	                )
-	            )
-	        );
-	    };
-
-	    return ChoiceIcon;
-	}(React.Component);
-
-	ChoiceIcon.propTypes = {
-	    pos: __webpack_require__(19).PropTypes.number.isRequired,
-	    checked: __webpack_require__(19).PropTypes.bool.isRequired,
-	    correct: __webpack_require__(19).PropTypes.bool,
-	    product: __webpack_require__(19).PropTypes.oneOf(["sat", "gtp"]).isRequired,
-	    reviewMode: __webpack_require__(19).PropTypes.bool.isRequired
-	};
-
-
-	var styles = StyleSheet.create({
-	    circle: {
-	        display: "block",
-	        borderRadius: 25,
-	        borderStyle: "solid",
-	        borderWidth: 2,
-	        content: "''",
-	        height: 25,
-	        width: 25,
-	        position: "absolute",
-	        top: 1,
-	        left: 1
-	    },
-	    letter: {
-	        // These properties make sure that this element has the exact
-	        // same size as `circle` so that we can center things
-	        // inside of it.
-	        border: "2px solid transparent",
-	        width: 25,
-	        height: 25,
-	        position: "absolute",
-	        left: 1,
-	        top: 1,
-
-	        // Center contained items.
-	        display: "flex",
-	        alignItems: "center",
-	        justifyContent: "center",
-
-	        fontFamily: styleConstants.boldFontFamily,
-	        fontSize: 13
-	    }
-	});
-	module.exports = ChoiceIcon;
-
-/***/ },
-/* 277 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -79292,7 +78983,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(19);
 
-	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(231).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(19).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(230).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(19).PropTypes.any;
 
 	var WordIndexer = function (_React$PureComponent) {
 	    _inherits(WordIndexer, _React$PureComponent);
@@ -79429,7 +79120,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = WordIndexer;
 
 /***/ },
-/* 278 */
+/* 276 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -79443,43 +79134,93 @@ return /******/ (function(modules) { // webpackBootstrap
 	    spanRanges = _require.spanRanges;
 
 	/**
-	 * Given a list of Highlights, return a new list that also includes the given
-	 * Range as a new Highlight. If the Highlight intersects existing Highlights,
-	 * the other Highlights are removed and their ranges are merged into the new
-	 * Highlight.
+	 * Given a list of DOMHighlights, return a new list that also includes the
+	 * given DOMRange as a new DOMHighlight. If the DOMHighlight intersects
+	 * existing DOMHighlights, the other Highlights are removed and their ranges
+	 * are merged into the new DOMHighlight.
 	 */
-	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(231).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(19).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(230).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(19).PropTypes.any;
 
-	var babelPluginFlowReactPropTypes_proptype_SerializedHighlight = __webpack_require__(231).babelPluginFlowReactPropTypes_proptype_SerializedHighlight || __webpack_require__(19).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_SerializedHighlight = __webpack_require__(230).babelPluginFlowReactPropTypes_proptype_SerializedHighlight || __webpack_require__(19).PropTypes.any;
 
-	var babelPluginFlowReactPropTypes_proptype_DOMHighlight = __webpack_require__(231).babelPluginFlowReactPropTypes_proptype_DOMHighlight || __webpack_require__(19).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_DOMHighlightSet = __webpack_require__(230).babelPluginFlowReactPropTypes_proptype_DOMHighlightSet || __webpack_require__(19).PropTypes.any;
 
-	function addHighlight(existingHighlights, newHighlightSpec) {
-	    var mergedRange = newHighlightSpec.range;
-	    var highlightsThatWereNotMerged = existingHighlights.filter(function (h) {
-	        var newMergedRange = mergeRanges(h.range, mergedRange);
-	        if (newMergedRange) {
+	var babelPluginFlowReactPropTypes_proptype_DOMHighlight = __webpack_require__(230).babelPluginFlowReactPropTypes_proptype_DOMHighlight || __webpack_require__(19).PropTypes.any;
+
+	function addHighlight(existingHighlights, newHighlight) {
+	    var newHighlights = {};
+
+	    // Merge the new highlight with any existing highlights that intersect it.
+	    var mergedDomRange = newHighlight.domRange;
+	    var mergedFirstWordIndex = newHighlight.firstWordIndex;
+	    var mergedLastWordIndex = newHighlight.lastWordIndex;
+	    for (var _iterator = Object.keys(existingHighlights), _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
+	        var _ref;
+
+	        if (_isArray) {
+	            if (_i >= _iterator.length) break;
+	            _ref = _iterator[_i++];
+	        } else {
+	            _i = _iterator.next();
+	            if (_i.done) break;
+	            _ref = _i.value;
+	        }
+
+	        var key = _ref;
+
+	        var h = existingHighlights[key];
+	        var newMergedDomRange = mergeRanges(h.domRange, mergedDomRange);
+	        if (newMergedDomRange) {
 	            // This highlight's range was successfully merged into the new
-	            // highlight. Update `mergedRange`, and return `false` to *not* add
-	            // this to the list of not-merged highlights.
-	            mergedRange = newMergedRange;
-	            return false;
+	            // highlight. Update `mergedDomRange`, and *don't* add it to the
+	            // new set of highlights.
+	            mergedDomRange = newMergedDomRange;
+	            mergedFirstWordIndex = Math.min(h.firstWordIndex, mergedFirstWordIndex);
+	            mergedLastWordIndex = Math.max(h.lastWordIndex, mergedLastWordIndex);
 	        } else {
 	            // This highlight's range can't be merged into the new highlight.
-	            // Return `true` to add this to the list of not-merged highlights.
-	            return true;
+	            // Add it to the new set of highlights.
+	            newHighlights[key] = h;
 	        }
-	    });
+	    }
 
-	    var existingKeys = highlightsThatWereNotMerged.map(function (h) {
-	        return h.key;
-	    });
-	    var newHighlight = {
-	        key: createNewUniqueKey(existingKeys),
-	        range: mergedRange
+	    var newMergedHighlight = {
+	        firstWordIndex: mergedFirstWordIndex,
+	        lastWordIndex: mergedLastWordIndex,
+	        domRange: mergedDomRange
 	    };
 
-	    return [].concat(highlightsThatWereNotMerged, [newHighlight]);
+	    // Add the newly-merged highlight to the set of highlights, under a new,
+	    // unique key.
+	    var existingKeys = Object.keys(newHighlights);
+	    var newKey = createNewUniqueKey(existingKeys);
+	    newHighlights[newKey] = newMergedHighlight;
+
+	    return newHighlights;
+	}
+
+	/**
+	 * Given a DOMRange and a list of word ranges, build a corresponding
+	 * DOMHighlight.
+	 *
+	 * If the DOMRange is not a valid highlight given the word ranges, return null.
+	 */
+	function buildHighlight(highlightRange, wordRanges) {
+	    var indexes = findFirstAndLastWordIndexes(highlightRange, wordRanges);
+	    if (!indexes) {
+	        return null;
+	    }
+
+	    var firstWordIndex = indexes[0],
+	        lastWordIndex = indexes[1];
+
+	    var firstWord = wordRanges[firstWordIndex];
+	    var lastWord = wordRanges[lastWordIndex];
+	    return {
+	        firstWordIndex: firstWordIndex,
+	        lastWordIndex: lastWordIndex,
+	        domRange: spanRanges(firstWord, lastWord)
+	    };
 	}
 
 	/**
@@ -79513,41 +79254,37 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * an error.
 	 */
 	function deserializeHighlight(serializedHighlight, wordRanges) {
-	    var firstWord = wordRanges[serializedHighlight.range.firstWordIndex];
+	    var _serializedHighlight$ = serializedHighlight.range,
+	        firstWordIndex = _serializedHighlight$.firstWordIndex,
+	        lastWordIndex = _serializedHighlight$.lastWordIndex;
+
+
+	    var firstWord = wordRanges[firstWordIndex];
 	    if (!firstWord) {
 	        throw new Error("first word index " + firstWord + " is out of bounds: " + ("must be 0\u2013" + (wordRanges.length - 1) + " inclusive"));
 	    }
 
-	    var lastWord = wordRanges[serializedHighlight.range.lastWordIndex];
+	    var lastWord = wordRanges[lastWordIndex];
 	    if (!lastWord) {
 	        throw new Error("last word index " + lastWord + " is out of bounds: " + ("must be 0\u2013" + (wordRanges.length - 1) + " inclusive"));
 	    }
 
 	    return {
-	        key: serializedHighlight.key,
-	        range: spanRanges(firstWord, lastWord)
+	        firstWordIndex: firstWordIndex,
+	        lastWordIndex: lastWordIndex,
+	        domRange: spanRanges(firstWord, lastWord)
 	    };
 	}
 
 	/**
-	 * Given a DOMHighlight and the current set of word ranges, return a
-	 * SerializedHighlight representing the given DOMHighlight.
-	 *
-	 * If the given DOMHighlight contains none of the given words, and therefore
-	 * can't be serialized, return null.
+	 * Return a SerializedHighlight representing the given DOMHighlight.
 	 */
-	function serializeHighlight(highlight, wordRanges) {
-	    var indexes = findFirstAndLastWordIndexes(highlight.range, wordRanges);
-	    if (!indexes) {
-	        return null;
-	    }
-
-	    var firstWordIndex = indexes[0],
-	        lastWordIndex = indexes[1];
+	function serializeHighlight(highlight) {
+	    var firstWordIndex = highlight.firstWordIndex,
+	        lastWordIndex = highlight.lastWordIndex;
 
 
 	    return {
-	        key: highlight.key,
 	        range: {
 	            type: "word-indexes",
 	            firstWordIndex: firstWordIndex,
@@ -79558,50 +79295,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = {
 	    addHighlight: addHighlight,
+	    buildHighlight: buildHighlight,
 	    deserializeHighlight: deserializeHighlight,
 	    serializeHighlight: serializeHighlight
 	};
 
 /***/ },
-/* 279 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	/**
-	 * Constants that define the various contexts in which a cursor can exist. The
-	 * active context is determined first by looking at the cursor's siblings (e.g.,
-	 * for the `BEFORE_FRACTION` context), and then at its direct parent. Though a
-	 * cursor could in theory be nested in multiple contexts, we only care about the
-	 * immediate context.
-	 *
-	 * TODO(charlie): Add a context to represent being inside of a radical. Right
-	 * now, we show the dismiss button rather than allowing the user to jump out of
-	 * the radical.
-	 */
-
-	module.exports = {
-	    // The cursor is not in any of the other viable contexts.
-	    NONE: 'NONE',
-	    // The cursor is within a set of parentheses.
-	    IN_PARENS: 'IN_PARENS',
-	    // The cursor is within a superscript (e.g., an exponent).
-	    IN_SUPER_SCRIPT: 'IN_SUPER_SCRIPT',
-	    // The cursor is within a subscript (e.g., the base of a custom logarithm).
-	    IN_SUB_SCRIPT: 'IN_SUB_SCRIPT',
-	    // The cursor is in the numerator of a fraction.
-	    IN_NUMERATOR: 'IN_NUMERATOR',
-	    // The cursor is in the denominator of a fraction.
-	    IN_DENOMINATOR: 'IN_DENOMINATOR',
-	    // The cursor is sitting before a fraction; that is, the cursor is within
-	    // what looks to be a mixed number preceding a fraction. This will only be
-	    // the case when the only math between the cursor and the fraction to its
-	    // write is non-leaf math (numbers and variables).
-	    BEFORE_FRACTION: 'BEFORE_FRACTION'
-	};
-
-/***/ },
-/* 280 */
+/* 277 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -79610,7 +79310,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(19);
 
-	var _require = __webpack_require__(382),
+	var _require = __webpack_require__(365),
 	    connect = _require.connect;
 
 	var _require2 = __webpack_require__(24),
@@ -79624,13 +79324,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	var NavigationPad = __webpack_require__(327);
 	var zIndexes = __webpack_require__(328);
 
-	var _require4 = __webpack_require__(318),
+	var _require4 = __webpack_require__(317),
 	    setPageSize = _require4.setPageSize;
 
 	var _require5 = __webpack_require__(234),
 	    keyIdPropType = _require5.keyIdPropType;
 
-	var _require6 = __webpack_require__(215),
+	var _require6 = __webpack_require__(216),
 	    KeypadTypes = _require6.KeypadTypes,
 	    LayoutModes = _require6.LayoutModes;
 
@@ -79906,6 +79606,348 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = connect(mapStateToProps, mapDispatchToProps)(KeypadContainer);
 
 /***/ },
+/* 278 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+	var React = __webpack_require__(19);
+	var _ = __webpack_require__(20);
+
+	/**
+	 * A radio button that can be unchecked by clicking it again.
+	 *
+	 * This component behaves much like a checkbox in that when you click it again
+	 * (or hit space bar or select it in some other way), it will become unchecked.
+	 * (Hopefully) it behaves exactly like a radio button in every other way though
+	 * (arrow keys can still be used to select it within a group for example).
+	 *
+	 * Here's a summary of which of our event handlers fire for each way to select
+	 * or deselect the button:
+	 *
+	 * - Clicking a button: handleClick, handleChange
+	 * - Pressing spacebar with button focussed: handleKeyDown, handleKeyUp (we
+	 *   suppress the default behavior of some browsers to synthesize a click event
+	 *   here).
+	 * - When radio button A is selected, pressing down arrow to select B:
+	 *   handleKeyDown (A), handleClick (B), handleChange (B), handleKeyUp (B)
+	 * - Clicking with mac screenreader: handleClick, handleChange
+	 */
+	var ToggleableRadioButton = React.createClass({
+	    displayName: "ToggleableRadioButton",
+
+	    propTypes: {
+	        // Whether the radio button should be checked or unchecked (this is a
+	        // controlled component).
+	        checked: React.PropTypes.bool.isRequired,
+
+	        // A ref function to attach to the <input> element.
+	        inputRef: React.PropTypes.func,
+
+	        // A function that will be called whenever the radio button is checked
+	        // or unchecked. It's possible for this to be called twice for a single
+	        // checking or unchecking.
+	        onChecked: React.PropTypes.func.isRequired
+	    },
+
+	    handleClick: function handleClick(event) {
+	        this.props.onChecked(!this.props.checked);
+
+	        // NOTE(johnsullivan): Preventing default would make sense to do here
+	        //     because we're fully controlling the state of the check box and
+	        //     don't really want it to be (un)checked accidently. React
+	        //     requires that we *don't* call preventDefault from the onClick or
+	        //     onChecked handlers of a controlled component though.
+	    },
+
+	    handleKeyUp: function handleKeyUp(event) {
+	        // Make hitting the spacebar with the element selected equivalent to
+	        // clicking it. Some browsers do this as part of the radio button's
+	        // default behavior, but since some browsers don't we normalize the
+	        // behavior here.
+	        if (event.key === " ") {
+	            this.props.onChecked(!this.props.checked);
+	            event.preventDefault();
+	        }
+	    },
+
+	    handleChange: function handleChange(event) {
+	        // If the checkbox is going from unchecked to checked, we'll handle it
+	        // here.
+	        // NOTE(johnsullivan): The onClick/onKeyUp handler most likely *also*
+	        //     handled this, but we're being defensive against browsers/devices
+	        //     that might not call those handlers like we'd expect. It's
+	        //     unclear to me whether this is strictly necessary.
+	        if (!this.props.checked && event.target.checked) {
+	            this.props.onChecked(true);
+	        }
+	    },
+
+	    handleKeyDown: function handleKeyDown(event) {
+	        // This is necessary in order to prevent IE9 from creating a duplicate
+	        // click event on the radio button when the space bar is hit.
+	        if (event.key === " ") {
+	            event.preventDefault();
+	        }
+	    },
+
+	    render: function render() {
+	        var _props = this.props,
+	            inputRef = _props.inputRef,
+	            onChecked = _props.onChecked,
+	            otherProps = _objectWithoutProperties(_props, ["inputRef", "onChecked"]);
+
+	        return React.createElement("input", _extends({}, otherProps, {
+	            type: "radio",
+	            onChange: this.handleChange,
+	            onClick: this.handleClick,
+	            onKeyDown: this.handleKeyDown,
+	            onKeyUp: this.handleKeyUp,
+	            ref: this.props.inputRef
+	        }));
+	    }
+	});
+
+	module.exports = ToggleableRadioButton;
+
+/***/ },
+/* 279 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	/* Component for rendering a letter icon in radio choice */
+
+	/* global i18n */
+
+	var React = __webpack_require__(19);
+
+	var _require = __webpack_require__(24),
+	    StyleSheet = _require.StyleSheet,
+	    css = _require.css;
+
+	var styleConstants = __webpack_require__(93);
+
+	var ChoiceIcon = function (_React$Component) {
+	    _inherits(ChoiceIcon, _React$Component);
+
+	    function ChoiceIcon() {
+	        _classCallCheck(this, ChoiceIcon);
+
+	        return _possibleConstructorReturn(this, _React$Component.apply(this, arguments));
+	    }
+
+	    ChoiceIcon.prototype.a11yText = function a11yText(letter) {
+	        // If the option was checked we need to reveal more context about
+	        // what the result was (correct/incorrect)
+	        if (this.props.checked) {
+	            if (typeof this.props.correct === "boolean") {
+	                if (this.props.correct) {
+	                    return i18n._("(Choice %(letter)s, Checked, Correct)", { letter: letter });
+	                } else {
+	                    return i18n._("(Choice %(letter)s, Checked, Incorrect)", { letter: letter });
+	                }
+	            }
+
+	            return i18n._("(Choice %(letter)s, Checked)", { letter: letter });
+
+	            // If the option wasn't checked, but was correct, we need to tell
+	            // the user that this was, in fact, the correct answer.
+	        } else if (this.props.correct) {
+	            return i18n._("(Choice %(letter)s, Correct Answer)", { letter: letter });
+	        }
+
+	        return i18n._("(Choice %(letter)s)", { letter: letter });
+	    };
+
+	    // TODO(amy): figure out a better scheme for specifying these
+	    // styles that isn't such a pain to grok. See some neat ideas
+	    // from MDR in https://phabricator.khanacademy.org/D35249.
+
+
+	    ChoiceIcon.prototype.constructStyles = function constructStyles(reviewMode, product, correct, checked) {
+	        var color = void 0;
+	        var backgroundColor = void 0;
+	        var borderColor = void 0;
+	        if (this.props.product === "sat") {
+	            borderColor = styleConstants.satBlue;
+	            color = styleConstants.satBlue;
+	            if (reviewMode) {
+	                if (correct) {
+	                    borderColor = styleConstants.satCorrectColor;
+	                    color = checked ? styleConstants.white : styleConstants.satCorrectColor;
+	                    backgroundColor = checked ? styleConstants.satCorrectColor : styleConstants.white;
+	                } else if (checked) {
+	                    borderColor = styleConstants.satIncorrectColor;
+	                    color = styleConstants.white;
+	                    backgroundColor = styleConstants.satIncorrectColor;
+	                }
+	            } else if (checked) {
+	                color = styleConstants.white;
+	                backgroundColor = styleConstants.satBlue;
+	            }
+	            // TODO(amy): if gtp/sat stay this similar, consolidate the
+	            // the styling logic.
+	        } else if (this.props.product === "gtp") {
+	            borderColor = styleConstants.gray41;
+	            color = styleConstants.gray41;
+	            if (reviewMode) {
+	                if (correct) {
+	                    // TODO(amy): update these colors when gtp
+	                    // reviewMode styles have solidified
+	                    borderColor = styleConstants.gtpCorrectColor;
+	                    color = checked ? styleConstants.white : styleConstants.gtpCorrectColor;
+	                    backgroundColor = checked ? styleConstants.gtpCorrectColor : styleConstants.white;
+	                } else if (checked) {
+	                    borderColor = styleConstants.gtpIncorrectColor;
+	                    color = styleConstants.white;
+	                    backgroundColor = styleConstants.gtpIncorrectColor;
+	                }
+	            } else if (checked) {
+	                color = styleConstants.white;
+	                backgroundColor = styleConstants.gtpBlue;
+	                borderColor = styleConstants.gtpBlue;
+	            }
+	        }
+	        return { color: color, backgroundColor: backgroundColor, borderColor: borderColor };
+	    };
+
+	    ChoiceIcon.prototype.render = function render() {
+	        var _props = this.props,
+	            reviewMode = _props.reviewMode,
+	            checked = _props.checked,
+	            correct = _props.correct,
+	            product = _props.product;
+	        // NOTE(jeresig): This is not i18n appropriate and should probably be
+	        // changed to a map of common options that are properly translated.
+
+	        var letter = String.fromCharCode(65 + this.props.pos);
+
+	        var _constructStyles = this.constructStyles(reviewMode, product, correct, checked),
+	            color = _constructStyles.color,
+	            backgroundColor = _constructStyles.backgroundColor,
+	            borderColor = _constructStyles.borderColor;
+
+	        return React.createElement(
+	            "div",
+	            null,
+	            React.createElement("div", {
+	                className: css(styles.circle),
+	                style: { backgroundColor: backgroundColor, borderColor: borderColor }
+	            }),
+	            React.createElement(
+	                "div",
+	                { style: { color: color }, className: css(styles.letter) },
+	                React.createElement(
+	                    "span",
+	                    { className: "perseus-sr-only" },
+	                    this.a11yText(letter)
+	                ),
+	                React.createElement(
+	                    "span",
+	                    { "aria-hidden": "true" },
+	                    letter
+	                )
+	            )
+	        );
+	    };
+
+	    return ChoiceIcon;
+	}(React.Component);
+
+	ChoiceIcon.propTypes = {
+	    pos: __webpack_require__(19).PropTypes.number.isRequired,
+	    checked: __webpack_require__(19).PropTypes.bool.isRequired,
+	    correct: __webpack_require__(19).PropTypes.bool,
+	    product: __webpack_require__(19).PropTypes.oneOf(["sat", "gtp"]).isRequired,
+	    reviewMode: __webpack_require__(19).PropTypes.bool.isRequired
+	};
+
+
+	var styles = StyleSheet.create({
+	    circle: {
+	        display: "block",
+	        borderRadius: 25,
+	        borderStyle: "solid",
+	        borderWidth: 2,
+	        content: "''",
+	        height: 25,
+	        width: 25,
+	        position: "absolute",
+	        top: 1,
+	        left: 1
+	    },
+	    letter: {
+	        // These properties make sure that this element has the exact
+	        // same size as `circle` so that we can center things
+	        // inside of it.
+	        border: "2px solid transparent",
+	        width: 25,
+	        height: 25,
+	        position: "absolute",
+	        left: 1,
+	        top: 1,
+
+	        // Center contained items.
+	        display: "flex",
+	        alignItems: "center",
+	        justifyContent: "center",
+
+	        fontFamily: styleConstants.boldFontFamily,
+	        fontSize: 13
+	    }
+	});
+	module.exports = ChoiceIcon;
+
+/***/ },
+/* 280 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/**
+	 * Constants that define the various contexts in which a cursor can exist. The
+	 * active context is determined first by looking at the cursor's siblings (e.g.,
+	 * for the `BEFORE_FRACTION` context), and then at its direct parent. Though a
+	 * cursor could in theory be nested in multiple contexts, we only care about the
+	 * immediate context.
+	 *
+	 * TODO(charlie): Add a context to represent being inside of a radical. Right
+	 * now, we show the dismiss button rather than allowing the user to jump out of
+	 * the radical.
+	 */
+
+	module.exports = {
+	    // The cursor is not in any of the other viable contexts.
+	    NONE: 'NONE',
+	    // The cursor is within a set of parentheses.
+	    IN_PARENS: 'IN_PARENS',
+	    // The cursor is within a superscript (e.g., an exponent).
+	    IN_SUPER_SCRIPT: 'IN_SUPER_SCRIPT',
+	    // The cursor is within a subscript (e.g., the base of a custom logarithm).
+	    IN_SUB_SCRIPT: 'IN_SUB_SCRIPT',
+	    // The cursor is in the numerator of a fraction.
+	    IN_NUMERATOR: 'IN_NUMERATOR',
+	    // The cursor is in the denominator of a fraction.
+	    IN_DENOMINATOR: 'IN_DENOMINATOR',
+	    // The cursor is sitting before a fraction; that is, the cursor is within
+	    // what looks to be a mixed number preceding a fraction. This will only be
+	    // the case when the only math between the cursor and the fraction to its
+	    // write is non-leaf math (numbers and variables).
+	    BEFORE_FRACTION: 'BEFORE_FRACTION'
+	};
+
+/***/ },
 /* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -80041,9 +80083,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var MathQuill = window.MathQuill;
 
 	var Keys = __webpack_require__(330);
-	var CursorContexts = __webpack_require__(279);
+	var CursorContexts = __webpack_require__(280);
 
-	var _require = __webpack_require__(215),
+	var _require = __webpack_require__(216),
 	    DecimalSeparators = _require.DecimalSeparators;
 
 	var _require2 = __webpack_require__(331),
@@ -81201,7 +81243,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var DraftModifier = __webpack_require__(246);
 	var EditorState = __webpack_require__(249);
-	var Keys = __webpack_require__(377);
+	var Keys = __webpack_require__(379);
 
 	var getEntityKeyForSelection = __webpack_require__(332);
 	var isSelectionAtLeafStart = __webpack_require__(333);
@@ -81379,13 +81421,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var DraftEditorBlock = __webpack_require__(245);
-	var DraftOffsetKey = __webpack_require__(294);
+	var DraftOffsetKey = __webpack_require__(304);
 	var EditorState = __webpack_require__(249);
 	var React = __webpack_require__(19);
 
-	var cx = __webpack_require__(364);
-	var joinClasses = __webpack_require__(378);
-	var nullthrows = __webpack_require__(369);
+	var cx = __webpack_require__(366);
+	var joinClasses = __webpack_require__(381);
+	var nullthrows = __webpack_require__(371);
 
 	/**
 	 * `DraftEditorContents` is the container component for all block components
@@ -81617,14 +81659,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	'use strict';
 
-	var DataTransfer = __webpack_require__(379);
+	var DataTransfer = __webpack_require__(380);
 	var DraftModifier = __webpack_require__(246);
 	var EditorState = __webpack_require__(249);
 
 	var findAncestorOffsetKey = __webpack_require__(334);
 	var getTextContentFromFiles = __webpack_require__(335);
 	var getUpdatedSelectionState = __webpack_require__(336);
-	var nullthrows = __webpack_require__(369);
+	var nullthrows = __webpack_require__(371);
 
 	function getSelectionForEvent(event, editorState) {
 	  var node = null;
@@ -81794,7 +81836,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(19);
 
-	var cx = __webpack_require__(364);
+	var cx = __webpack_require__(366);
 
 	/**
 	 * This component is responsible for rendering placeholder text for the
@@ -81858,6 +81900,788 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
+	 * @providesModule ContentStateInlineStyle
+	 * @typechecks
+	 * 
+	 */
+
+	'use strict';
+
+	var CharacterMetadata = __webpack_require__(238);
+
+	var _require = __webpack_require__(259);
+
+	var Map = _require.Map;
+
+	var ContentStateInlineStyle = {
+	  add: function add(contentState, selectionState, inlineStyle) {
+	    return modifyInlineStyle(contentState, selectionState, inlineStyle, true);
+	  },
+
+	  remove: function remove(contentState, selectionState, inlineStyle) {
+	    return modifyInlineStyle(contentState, selectionState, inlineStyle, false);
+	  }
+	};
+
+	function modifyInlineStyle(contentState, selectionState, inlineStyle, addOrRemove) {
+	  var blockMap = contentState.getBlockMap();
+	  var startKey = selectionState.getStartKey();
+	  var startOffset = selectionState.getStartOffset();
+	  var endKey = selectionState.getEndKey();
+	  var endOffset = selectionState.getEndOffset();
+
+	  var newBlocks = blockMap.skipUntil(function (_, k) {
+	    return k === startKey;
+	  }).takeUntil(function (_, k) {
+	    return k === endKey;
+	  }).concat(Map([[endKey, blockMap.get(endKey)]])).map(function (block, blockKey) {
+	    var sliceStart;
+	    var sliceEnd;
+
+	    if (startKey === endKey) {
+	      sliceStart = startOffset;
+	      sliceEnd = endOffset;
+	    } else {
+	      sliceStart = blockKey === startKey ? startOffset : 0;
+	      sliceEnd = blockKey === endKey ? endOffset : block.getLength();
+	    }
+
+	    var chars = block.getCharacterList();
+	    var current;
+	    while (sliceStart < sliceEnd) {
+	      current = chars.get(sliceStart);
+	      chars = chars.set(sliceStart, addOrRemove ? CharacterMetadata.applyStyle(current, inlineStyle) : CharacterMetadata.removeStyle(current, inlineStyle));
+	      sliceStart++;
+	    }
+
+	    return block.set('characterList', chars);
+	  });
+
+	  return contentState.merge({
+	    blockMap: blockMap.merge(newBlocks),
+	    selectionBefore: selectionState,
+	    selectionAfter: selectionState
+	  });
+	}
+
+	module.exports = ContentStateInlineStyle;
+
+/***/ },
+/* 294 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule applyEntityToContentState
+	 * @typechecks
+	 * 
+	 */
+
+	'use strict';
+
+	var Immutable = __webpack_require__(259);
+
+	var applyEntityToContentBlock = __webpack_require__(349);
+
+	function applyEntityToContentState(contentState, selectionState, entityKey) {
+	  var blockMap = contentState.getBlockMap();
+	  var startKey = selectionState.getStartKey();
+	  var startOffset = selectionState.getStartOffset();
+	  var endKey = selectionState.getEndKey();
+	  var endOffset = selectionState.getEndOffset();
+
+	  var newBlocks = blockMap.skipUntil(function (_, k) {
+	    return k === startKey;
+	  }).takeUntil(function (_, k) {
+	    return k === endKey;
+	  }).toOrderedMap().merge(Immutable.OrderedMap([[endKey, blockMap.get(endKey)]])).map(function (block, blockKey) {
+	    var sliceStart = blockKey === startKey ? startOffset : 0;
+	    var sliceEnd = blockKey === endKey ? endOffset : block.getLength();
+	    return applyEntityToContentBlock(block, sliceStart, sliceEnd, entityKey);
+	  });
+
+	  return contentState.merge({
+	    blockMap: blockMap.merge(newBlocks),
+	    selectionBefore: selectionState,
+	    selectionAfter: selectionState
+	  });
+	}
+
+	module.exports = applyEntityToContentState;
+
+/***/ },
+/* 295 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule getCharacterRemovalRange
+	 * @typechecks
+	 * 
+	 */
+
+	/**
+	 * Given a SelectionState and a removal direction, determine the entire range
+	 * that should be removed from a ContentState. This is based on any entities
+	 * within the target, with their `mutability` values taken into account.
+	 *
+	 * For instance, if we are attempting to remove part of an "immutable" entity
+	 * range, the entire entity must be removed. The returned `SelectionState`
+	 * will be adjusted accordingly.
+	 */
+	'use strict';
+
+	var DraftEntity = __webpack_require__(247);
+	var DraftEntitySegments = __webpack_require__(350);
+
+	var getRangesForDraftEntity = __webpack_require__(351);
+	var invariant = __webpack_require__(373);
+
+	function getCharacterRemovalRange(block, selectionState, direction) {
+	  var start = selectionState.getStartOffset();
+	  var end = selectionState.getEndOffset();
+	  var entityKey = block.getEntityAt(start);
+	  if (!entityKey) {
+	    return selectionState;
+	  }
+
+	  var entity = DraftEntity.get(entityKey);
+	  var mutability = entity.getMutability();
+
+	  // `MUTABLE` entities can just have the specified range of text removed
+	  // directly. No adjustments are needed.
+	  if (mutability === 'MUTABLE') {
+	    return selectionState;
+	  }
+
+	  // Find the entity range that overlaps with our removal range.
+	  var entityRanges = getRangesForDraftEntity(block, entityKey).filter(function (range) {
+	    return start < range.end && end > range.start;
+	  });
+
+	  !(entityRanges.length == 1) ? false ? invariant(false, 'There should only be one entity range within this removal range.') : invariant(false) : undefined;
+
+	  var entityRange = entityRanges[0];
+
+	  // For `IMMUTABLE` entity types, we will remove the entire entity range.
+	  if (mutability === 'IMMUTABLE') {
+	    return selectionState.merge({
+	      anchorOffset: entityRange.start,
+	      focusOffset: entityRange.end,
+	      isBackward: false
+	    });
+	  }
+
+	  // For `SEGMENTED` entity types, determine the appropriate segment to
+	  // remove.
+	  var removalRange = DraftEntitySegments.getRemovalRange(start, end, block.getText().slice(entityRange.start, entityRange.end), entityRange.start, direction);
+
+	  return selectionState.merge({
+	    anchorOffset: removalRange.start,
+	    focusOffset: removalRange.end,
+	    isBackward: false
+	  });
+	}
+
+	module.exports = getCharacterRemovalRange;
+
+/***/ },
+/* 296 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule getContentStateFragment
+	 * @typechecks
+	 * 
+	 */
+
+	'use strict';
+
+	var generateRandomKey = __webpack_require__(256);
+	var removeEntitiesAtEdges = __webpack_require__(299);
+
+	function getContentStateFragment(contentState, selectionState) {
+	  var startKey = selectionState.getStartKey();
+	  var startOffset = selectionState.getStartOffset();
+	  var endKey = selectionState.getEndKey();
+	  var endOffset = selectionState.getEndOffset();
+
+	  // Edge entities should be stripped to ensure that we don't preserve
+	  // invalid partial entities when the fragment is reused. We do, however,
+	  // preserve entities that are entirely within the selection range.
+	  var contentWithoutEdgeEntities = removeEntitiesAtEdges(contentState, selectionState);
+
+	  var blockMap = contentWithoutEdgeEntities.getBlockMap();
+	  var blockKeys = blockMap.keySeq();
+	  var startIndex = blockKeys.indexOf(startKey);
+	  var endIndex = blockKeys.indexOf(endKey) + 1;
+
+	  var slice = blockMap.slice(startIndex, endIndex).map(function (block, blockKey) {
+	    var newKey = generateRandomKey();
+
+	    var text = block.getText();
+	    var chars = block.getCharacterList();
+
+	    if (startKey === endKey) {
+	      return block.merge({
+	        key: newKey,
+	        text: text.slice(startOffset, endOffset),
+	        characterList: chars.slice(startOffset, endOffset)
+	      });
+	    }
+
+	    if (blockKey === startKey) {
+	      return block.merge({
+	        key: newKey,
+	        text: text.slice(startOffset),
+	        characterList: chars.slice(startOffset)
+	      });
+	    }
+
+	    if (blockKey === endKey) {
+	      return block.merge({
+	        key: newKey,
+	        text: text.slice(0, endOffset),
+	        characterList: chars.slice(0, endOffset)
+	      });
+	    }
+
+	    return block.set('key', newKey);
+	  });
+
+	  return slice.toOrderedMap();
+	}
+
+	module.exports = getContentStateFragment;
+
+/***/ },
+/* 297 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule insertFragmentIntoContentState
+	 * @typechecks
+	 * 
+	 */
+
+	'use strict';
+
+	var BlockMapBuilder = __webpack_require__(237);
+
+	var generateRandomKey = __webpack_require__(256);
+	var insertIntoList = __webpack_require__(352);
+	var invariant = __webpack_require__(373);
+
+	function insertFragmentIntoContentState(contentState, selectionState, fragment) {
+	  !selectionState.isCollapsed() ? false ? invariant(false, '`insertFragment` should only be called with a collapsed selection state.') : invariant(false) : undefined;
+
+	  var targetKey = selectionState.getStartKey();
+	  var targetOffset = selectionState.getStartOffset();
+
+	  var blockMap = contentState.getBlockMap();
+
+	  var fragmentSize = fragment.size;
+	  var finalKey;
+	  var finalOffset;
+
+	  if (fragmentSize === 1) {
+	    var targetBlock = blockMap.get(targetKey);
+	    var pastedBlock = fragment.first();
+	    var text = targetBlock.getText();
+	    var chars = targetBlock.getCharacterList();
+
+	    var newBlock = targetBlock.merge({
+	      text: text.slice(0, targetOffset) + pastedBlock.getText() + text.slice(targetOffset),
+	      characterList: insertIntoList(chars, pastedBlock.getCharacterList(), targetOffset)
+	    });
+
+	    blockMap = blockMap.set(targetKey, newBlock);
+
+	    finalKey = targetKey;
+	    finalOffset = targetOffset + pastedBlock.getText().length;
+
+	    return contentState.merge({
+	      blockMap: blockMap.set(targetKey, newBlock),
+	      selectionBefore: selectionState,
+	      selectionAfter: selectionState.merge({
+	        anchorKey: finalKey,
+	        anchorOffset: finalOffset,
+	        focusKey: finalKey,
+	        focusOffset: finalOffset,
+	        isBackward: false
+	      })
+	    });
+	  }
+
+	  var newBlockArr = [];
+
+	  contentState.getBlockMap().forEach(function (block, blockKey) {
+	    if (blockKey !== targetKey) {
+	      newBlockArr.push(block);
+	      return;
+	    }
+
+	    var text = block.getText();
+	    var chars = block.getCharacterList();
+
+	    // Modify head portion of block.
+	    var blockSize = text.length;
+	    var headText = text.slice(0, targetOffset);
+	    var headCharacters = chars.slice(0, targetOffset);
+	    var appendToHead = fragment.first();
+
+	    var modifiedHead = block.merge({
+	      text: headText + appendToHead.getText(),
+	      characterList: headCharacters.concat(appendToHead.getCharacterList())
+	    });
+
+	    newBlockArr.push(modifiedHead);
+
+	    // Insert fragment blocks after the head and before the tail.
+	    fragment.slice(1, fragmentSize - 1).forEach(function (fragmentBlock) {
+	      newBlockArr.push(fragmentBlock.set('key', generateRandomKey()));
+	    });
+
+	    // Modify tail portion of block.
+	    var tailText = text.slice(targetOffset, blockSize);
+	    var tailCharacters = chars.slice(targetOffset, blockSize);
+	    var prependToTail = fragment.last();
+	    finalKey = generateRandomKey();
+
+	    var modifiedTail = prependToTail.merge({
+	      key: finalKey,
+	      text: prependToTail.getText() + tailText,
+	      characterList: prependToTail.getCharacterList().concat(tailCharacters)
+	    });
+
+	    newBlockArr.push(modifiedTail);
+	  });
+
+	  finalOffset = fragment.last().getLength();
+
+	  return contentState.merge({
+	    blockMap: BlockMapBuilder.createFromArray(newBlockArr),
+	    selectionBefore: selectionState,
+	    selectionAfter: selectionState.merge({
+	      anchorKey: finalKey,
+	      anchorOffset: finalOffset,
+	      focusKey: finalKey,
+	      focusOffset: finalOffset,
+	      isBackward: false
+	    })
+	  });
+	}
+
+	module.exports = insertFragmentIntoContentState;
+
+/***/ },
+/* 298 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule insertTextIntoContentState
+	 * @typechecks
+	 * 
+	 */
+
+	'use strict';
+
+	var Immutable = __webpack_require__(259);
+
+	var insertIntoList = __webpack_require__(352);
+	var invariant = __webpack_require__(373);
+
+	var Repeat = Immutable.Repeat;
+
+	function insertTextIntoContentState(contentState, selectionState, text, characterMetadata) {
+	  !selectionState.isCollapsed() ? false ? invariant(false, '`insertText` should only be called with a collapsed range.') : invariant(false) : undefined;
+
+	  var len = text.length;
+	  if (!len) {
+	    return contentState;
+	  }
+
+	  var blockMap = contentState.getBlockMap();
+	  var key = selectionState.getStartKey();
+	  var offset = selectionState.getStartOffset();
+	  var block = blockMap.get(key);
+	  var blockText = block.getText();
+
+	  var newBlock = block.merge({
+	    text: blockText.slice(0, offset) + text + blockText.slice(offset, block.getLength()),
+	    characterList: insertIntoList(block.getCharacterList(), Repeat(characterMetadata, len).toList(), offset)
+	  });
+
+	  var newOffset = offset + len;
+
+	  return contentState.merge({
+	    blockMap: blockMap.set(key, newBlock),
+	    selectionAfter: selectionState.merge({
+	      anchorOffset: newOffset,
+	      focusOffset: newOffset
+	    })
+	  });
+	}
+
+	module.exports = insertTextIntoContentState;
+
+/***/ },
+/* 299 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule removeEntitiesAtEdges
+	 * 
+	 */
+
+	'use strict';
+
+	var CharacterMetadata = __webpack_require__(238);
+	var DraftEntity = __webpack_require__(247);
+
+	var findRangesImmutable = __webpack_require__(286);
+	var invariant = __webpack_require__(373);
+
+	function removeEntitiesAtEdges(contentState, selectionState) {
+	  var blockMap = contentState.getBlockMap();
+
+	  var updatedBlocks = {};
+
+	  var startKey = selectionState.getStartKey();
+	  var startOffset = selectionState.getStartOffset();
+	  var startBlock = blockMap.get(startKey);
+	  var updatedStart = removeForBlock(startBlock, startOffset);
+
+	  if (updatedStart !== startBlock) {
+	    updatedBlocks[startKey] = updatedStart;
+	  }
+
+	  var endKey = selectionState.getEndKey();
+	  var endOffset = selectionState.getEndOffset();
+	  var endBlock = blockMap.get(endKey);
+	  if (startKey === endKey) {
+	    endBlock = updatedStart;
+	  }
+
+	  var updatedEnd = removeForBlock(endBlock, endOffset);
+
+	  if (updatedEnd !== endBlock) {
+	    updatedBlocks[endKey] = updatedEnd;
+	  }
+
+	  if (!Object.keys(updatedBlocks).length) {
+	    return contentState.set('selectionAfter', selectionState);
+	  }
+
+	  return contentState.merge({
+	    blockMap: blockMap.merge(updatedBlocks),
+	    selectionAfter: selectionState
+	  });
+	}
+
+	function getRemovalRange(characters, key, offset) {
+	  var removalRange;
+	  findRangesImmutable(characters, function (a, b) {
+	    return a.getEntity() === b.getEntity();
+	  }, function (element) {
+	    return element.getEntity() === key;
+	  }, function (start, end) {
+	    if (start <= offset && end >= offset) {
+	      removalRange = { start: start, end: end };
+	    }
+	  });
+	  !(typeof removalRange === 'object') ? false ? invariant(false, 'Removal range must exist within character list.') : invariant(false) : undefined;
+	  return removalRange;
+	}
+
+	function removeForBlock(block, offset) {
+	  var chars = block.getCharacterList();
+	  var charBefore = offset > 0 ? chars.get(offset - 1) : undefined;
+	  var charAfter = offset < chars.count() ? chars.get(offset) : undefined;
+	  var entityBeforeCursor = charBefore ? charBefore.getEntity() : undefined;
+	  var entityAfterCursor = charAfter ? charAfter.getEntity() : undefined;
+
+	  if (entityAfterCursor && entityAfterCursor === entityBeforeCursor) {
+	    var entity = DraftEntity.get(entityAfterCursor);
+	    if (entity.getMutability() !== 'MUTABLE') {
+	      var _getRemovalRange = getRemovalRange(chars, entityAfterCursor, offset);
+
+	      var start = _getRemovalRange.start;
+	      var end = _getRemovalRange.end;
+
+	      var current;
+	      while (start < end) {
+	        current = chars.get(start);
+	        chars = chars.set(start, CharacterMetadata.applyEntity(current, null));
+	        start++;
+	      }
+	      return block.set('characterList', chars);
+	    }
+	  }
+
+	  return block;
+	}
+
+	module.exports = removeEntitiesAtEdges;
+
+/***/ },
+/* 300 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule removeRangeFromContentState
+	 * 
+	 */
+
+	'use strict';
+
+	var Immutable = __webpack_require__(259);
+
+	function removeRangeFromContentState(contentState, selectionState) {
+	  if (selectionState.isCollapsed()) {
+	    return contentState;
+	  }
+
+	  var blockMap = contentState.getBlockMap();
+	  var startKey = selectionState.getStartKey();
+	  var startOffset = selectionState.getStartOffset();
+	  var endKey = selectionState.getEndKey();
+	  var endOffset = selectionState.getEndOffset();
+
+	  var startBlock = blockMap.get(startKey);
+	  var endBlock = blockMap.get(endKey);
+	  var characterList;
+
+	  if (startBlock === endBlock) {
+	    characterList = removeFromList(startBlock.getCharacterList(), startOffset, endOffset);
+	  } else {
+	    characterList = startBlock.getCharacterList().slice(0, startOffset).concat(endBlock.getCharacterList().slice(endOffset));
+	  }
+
+	  var modifiedStart = startBlock.merge({
+	    text: startBlock.getText().slice(0, startOffset) + endBlock.getText().slice(endOffset),
+	    characterList: characterList
+	  });
+
+	  var newBlocks = blockMap.toSeq().skipUntil(function (_, k) {
+	    return k === startKey;
+	  }).takeUntil(function (_, k) {
+	    return k === endKey;
+	  }).concat(Immutable.Map([[endKey, null]])).map(function (_, k) {
+	    return k === startKey ? modifiedStart : null;
+	  });
+
+	  blockMap = blockMap.merge(newBlocks).filter(function (block) {
+	    return !!block;
+	  });
+
+	  return contentState.merge({
+	    blockMap: blockMap,
+	    selectionBefore: selectionState,
+	    selectionAfter: selectionState.merge({
+	      anchorKey: startKey,
+	      anchorOffset: startOffset,
+	      focusKey: startKey,
+	      focusOffset: startOffset,
+	      isBackward: false
+	    })
+	  });
+	}
+
+	/**
+	 * Maintain persistence for target list when removing characters on the
+	 * head and tail of the character list.
+	 */
+	function removeFromList(targetList, startOffset, endOffset) {
+	  if (startOffset === 0) {
+	    while (startOffset < endOffset) {
+	      targetList = targetList.shift();
+	      startOffset++;
+	    }
+	  } else if (endOffset === targetList.count()) {
+	    while (endOffset > startOffset) {
+	      targetList = targetList.pop();
+	      endOffset--;
+	    }
+	  } else {
+	    var head = targetList.slice(0, startOffset);
+	    var tail = targetList.slice(endOffset);
+	    targetList = head.concat(tail).toList();
+	  }
+	  return targetList;
+	}
+
+	module.exports = removeRangeFromContentState;
+
+/***/ },
+/* 301 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule setBlockTypeForContentState
+	 * @typechecks
+	 * 
+	 */
+
+	'use strict';
+
+	var Immutable = __webpack_require__(259);
+
+	function setBlockTypeForContentState(contentState, selectionState, blockType) {
+	  var startKey = selectionState.getStartKey();
+	  var endKey = selectionState.getEndKey();
+	  var blockMap = contentState.getBlockMap();
+	  var newBlocks = blockMap.toSeq().skipUntil(function (_, k) {
+	    return k === startKey;
+	  }).takeUntil(function (_, k) {
+	    return k === endKey;
+	  }).concat(Immutable.Map([[endKey, blockMap.get(endKey)]])).map(function (block) {
+	    return block.merge({ type: blockType, depth: 0 });
+	  });
+
+	  return contentState.merge({
+	    blockMap: blockMap.merge(newBlocks),
+	    selectionBefore: selectionState,
+	    selectionAfter: selectionState
+	  });
+	}
+
+	module.exports = setBlockTypeForContentState;
+
+/***/ },
+/* 302 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule splitBlockInContentState
+	 * @typechecks
+	 * 
+	 */
+
+	'use strict';
+
+	var generateRandomKey = __webpack_require__(256);
+	var invariant = __webpack_require__(373);
+
+	function splitBlockInContentState(contentState, selectionState) {
+	  !selectionState.isCollapsed() ? false ? invariant(false, 'Selection range must be collapsed.') : invariant(false) : undefined;
+
+	  var key = selectionState.getAnchorKey();
+	  var offset = selectionState.getAnchorOffset();
+	  var blockMap = contentState.getBlockMap();
+	  var blockToSplit = blockMap.get(key);
+
+	  var text = blockToSplit.getText();
+	  var chars = blockToSplit.getCharacterList();
+
+	  var blockAbove = blockToSplit.merge({
+	    text: text.slice(0, offset),
+	    characterList: chars.slice(0, offset)
+	  });
+
+	  var keyBelow = generateRandomKey();
+	  var blockBelow = blockAbove.merge({
+	    key: keyBelow,
+	    text: text.slice(offset),
+	    characterList: chars.slice(offset)
+	  });
+
+	  var blocksBefore = blockMap.toSeq().takeUntil(function (v) {
+	    return v === blockToSplit;
+	  });
+	  var blocksAfter = blockMap.toSeq().skipUntil(function (v) {
+	    return v === blockToSplit;
+	  }).rest();
+	  var newBlocks = blocksBefore.concat([[blockAbove.getKey(), blockAbove], [blockBelow.getKey(), blockBelow]], blocksAfter).toOrderedMap();
+
+	  return contentState.merge({
+	    blockMap: newBlocks,
+	    selectionBefore: selectionState,
+	    selectionAfter: selectionState.merge({
+	      anchorKey: keyBelow,
+	      anchorOffset: 0,
+	      focusKey: keyBelow,
+	      focusOffset: 0,
+	      isBackward: false
+	    })
+	  });
+	}
+
+	module.exports = splitBlockInContentState;
+
+/***/ },
+/* 303 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
 	 * @providesModule DraftEditorLeaf.react
 	 * @typechecks
 	 * 
@@ -81873,12 +82697,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var DraftEditorTextNode = __webpack_require__(349);
+	var DraftEditorTextNode = __webpack_require__(353);
 	var React = __webpack_require__(19);
 	var ReactDOM = __webpack_require__(21);
 	var SelectionState = __webpack_require__(252);
 
-	var setDraftEditorSelection = __webpack_require__(350);
+	var setDraftEditorSelection = __webpack_require__(354);
 
 	/**
 	 * All leaf nodes in the editor are spans with single text nodes. Leaf
@@ -82028,7 +82852,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// The full text to be rendered within this node.
 
 /***/ },
-/* 294 */
+/* 304 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -82074,7 +82898,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = DraftOffsetKey;
 
 /***/ },
-/* 295 */
+/* 305 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -82085,710 +82909,40 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 * @providesModule ContentStateInlineStyle
+	 * @providesModule adjustBlockDepthForContentState
 	 * @typechecks
 	 * 
 	 */
 
 	'use strict';
 
-	var CharacterMetadata = __webpack_require__(238);
-
-	var _require = __webpack_require__(259);
-
-	var Map = _require.Map;
-
-	var ContentStateInlineStyle = {
-	  add: function add(contentState, selectionState, inlineStyle) {
-	    return modifyInlineStyle(contentState, selectionState, inlineStyle, true);
-	  },
-
-	  remove: function remove(contentState, selectionState, inlineStyle) {
-	    return modifyInlineStyle(contentState, selectionState, inlineStyle, false);
-	  }
-	};
-
-	function modifyInlineStyle(contentState, selectionState, inlineStyle, addOrRemove) {
-	  var blockMap = contentState.getBlockMap();
+	function adjustBlockDepthForContentState(contentState, selectionState, adjustment, maxDepth) {
 	  var startKey = selectionState.getStartKey();
-	  var startOffset = selectionState.getStartOffset();
 	  var endKey = selectionState.getEndKey();
-	  var endOffset = selectionState.getEndOffset();
-
-	  var newBlocks = blockMap.skipUntil(function (_, k) {
+	  var blockMap = contentState.getBlockMap();
+	  var blocks = blockMap.toSeq().skipUntil(function (_, k) {
 	    return k === startKey;
 	  }).takeUntil(function (_, k) {
 	    return k === endKey;
-	  }).concat(Map([[endKey, blockMap.get(endKey)]])).map(function (block, blockKey) {
-	    var sliceStart;
-	    var sliceEnd;
-
-	    if (startKey === endKey) {
-	      sliceStart = startOffset;
-	      sliceEnd = endOffset;
-	    } else {
-	      sliceStart = blockKey === startKey ? startOffset : 0;
-	      sliceEnd = blockKey === endKey ? endOffset : block.getLength();
-	    }
-
-	    var chars = block.getCharacterList();
-	    var current;
-	    while (sliceStart < sliceEnd) {
-	      current = chars.get(sliceStart);
-	      chars = chars.set(sliceStart, addOrRemove ? CharacterMetadata.applyStyle(current, inlineStyle) : CharacterMetadata.removeStyle(current, inlineStyle));
-	      sliceStart++;
-	    }
-
-	    return block.set('characterList', chars);
+	  }).concat([[endKey, blockMap.get(endKey)]]).map(function (block) {
+	    var depth = block.getDepth() + adjustment;
+	    depth = Math.max(0, Math.min(depth, maxDepth));
+	    return block.set('depth', depth);
 	  });
 
-	  return contentState.merge({
-	    blockMap: blockMap.merge(newBlocks),
-	    selectionBefore: selectionState,
-	    selectionAfter: selectionState
-	  });
-	}
-
-	module.exports = ContentStateInlineStyle;
-
-/***/ },
-/* 296 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule applyEntityToContentState
-	 * @typechecks
-	 * 
-	 */
-
-	'use strict';
-
-	var Immutable = __webpack_require__(259);
-
-	var applyEntityToContentBlock = __webpack_require__(351);
-
-	function applyEntityToContentState(contentState, selectionState, entityKey) {
-	  var blockMap = contentState.getBlockMap();
-	  var startKey = selectionState.getStartKey();
-	  var startOffset = selectionState.getStartOffset();
-	  var endKey = selectionState.getEndKey();
-	  var endOffset = selectionState.getEndOffset();
-
-	  var newBlocks = blockMap.skipUntil(function (_, k) {
-	    return k === startKey;
-	  }).takeUntil(function (_, k) {
-	    return k === endKey;
-	  }).toOrderedMap().merge(Immutable.OrderedMap([[endKey, blockMap.get(endKey)]])).map(function (block, blockKey) {
-	    var sliceStart = blockKey === startKey ? startOffset : 0;
-	    var sliceEnd = blockKey === endKey ? endOffset : block.getLength();
-	    return applyEntityToContentBlock(block, sliceStart, sliceEnd, entityKey);
-	  });
-
-	  return contentState.merge({
-	    blockMap: blockMap.merge(newBlocks),
-	    selectionBefore: selectionState,
-	    selectionAfter: selectionState
-	  });
-	}
-
-	module.exports = applyEntityToContentState;
-
-/***/ },
-/* 297 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule getCharacterRemovalRange
-	 * @typechecks
-	 * 
-	 */
-
-	/**
-	 * Given a SelectionState and a removal direction, determine the entire range
-	 * that should be removed from a ContentState. This is based on any entities
-	 * within the target, with their `mutability` values taken into account.
-	 *
-	 * For instance, if we are attempting to remove part of an "immutable" entity
-	 * range, the entire entity must be removed. The returned `SelectionState`
-	 * will be adjusted accordingly.
-	 */
-	'use strict';
-
-	var DraftEntity = __webpack_require__(247);
-	var DraftEntitySegments = __webpack_require__(352);
-
-	var getRangesForDraftEntity = __webpack_require__(353);
-	var invariant = __webpack_require__(375);
-
-	function getCharacterRemovalRange(block, selectionState, direction) {
-	  var start = selectionState.getStartOffset();
-	  var end = selectionState.getEndOffset();
-	  var entityKey = block.getEntityAt(start);
-	  if (!entityKey) {
-	    return selectionState;
-	  }
-
-	  var entity = DraftEntity.get(entityKey);
-	  var mutability = entity.getMutability();
-
-	  // `MUTABLE` entities can just have the specified range of text removed
-	  // directly. No adjustments are needed.
-	  if (mutability === 'MUTABLE') {
-	    return selectionState;
-	  }
-
-	  // Find the entity range that overlaps with our removal range.
-	  var entityRanges = getRangesForDraftEntity(block, entityKey).filter(function (range) {
-	    return start < range.end && end > range.start;
-	  });
-
-	  !(entityRanges.length == 1) ? false ? invariant(false, 'There should only be one entity range within this removal range.') : invariant(false) : undefined;
-
-	  var entityRange = entityRanges[0];
-
-	  // For `IMMUTABLE` entity types, we will remove the entire entity range.
-	  if (mutability === 'IMMUTABLE') {
-	    return selectionState.merge({
-	      anchorOffset: entityRange.start,
-	      focusOffset: entityRange.end,
-	      isBackward: false
-	    });
-	  }
-
-	  // For `SEGMENTED` entity types, determine the appropriate segment to
-	  // remove.
-	  var removalRange = DraftEntitySegments.getRemovalRange(start, end, block.getText().slice(entityRange.start, entityRange.end), entityRange.start, direction);
-
-	  return selectionState.merge({
-	    anchorOffset: removalRange.start,
-	    focusOffset: removalRange.end,
-	    isBackward: false
-	  });
-	}
-
-	module.exports = getCharacterRemovalRange;
-
-/***/ },
-/* 298 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule getContentStateFragment
-	 * @typechecks
-	 * 
-	 */
-
-	'use strict';
-
-	var generateRandomKey = __webpack_require__(256);
-	var removeEntitiesAtEdges = __webpack_require__(301);
-
-	function getContentStateFragment(contentState, selectionState) {
-	  var startKey = selectionState.getStartKey();
-	  var startOffset = selectionState.getStartOffset();
-	  var endKey = selectionState.getEndKey();
-	  var endOffset = selectionState.getEndOffset();
-
-	  // Edge entities should be stripped to ensure that we don't preserve
-	  // invalid partial entities when the fragment is reused. We do, however,
-	  // preserve entities that are entirely within the selection range.
-	  var contentWithoutEdgeEntities = removeEntitiesAtEdges(contentState, selectionState);
-
-	  var blockMap = contentWithoutEdgeEntities.getBlockMap();
-	  var blockKeys = blockMap.keySeq();
-	  var startIndex = blockKeys.indexOf(startKey);
-	  var endIndex = blockKeys.indexOf(endKey) + 1;
-
-	  var slice = blockMap.slice(startIndex, endIndex).map(function (block, blockKey) {
-	    var newKey = generateRandomKey();
-
-	    var text = block.getText();
-	    var chars = block.getCharacterList();
-
-	    if (startKey === endKey) {
-	      return block.merge({
-	        key: newKey,
-	        text: text.slice(startOffset, endOffset),
-	        characterList: chars.slice(startOffset, endOffset)
-	      });
-	    }
-
-	    if (blockKey === startKey) {
-	      return block.merge({
-	        key: newKey,
-	        text: text.slice(startOffset),
-	        characterList: chars.slice(startOffset)
-	      });
-	    }
-
-	    if (blockKey === endKey) {
-	      return block.merge({
-	        key: newKey,
-	        text: text.slice(0, endOffset),
-	        characterList: chars.slice(0, endOffset)
-	      });
-	    }
-
-	    return block.set('key', newKey);
-	  });
-
-	  return slice.toOrderedMap();
-	}
-
-	module.exports = getContentStateFragment;
-
-/***/ },
-/* 299 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule insertFragmentIntoContentState
-	 * @typechecks
-	 * 
-	 */
-
-	'use strict';
-
-	var BlockMapBuilder = __webpack_require__(237);
-
-	var generateRandomKey = __webpack_require__(256);
-	var insertIntoList = __webpack_require__(354);
-	var invariant = __webpack_require__(375);
-
-	function insertFragmentIntoContentState(contentState, selectionState, fragment) {
-	  !selectionState.isCollapsed() ? false ? invariant(false, '`insertFragment` should only be called with a collapsed selection state.') : invariant(false) : undefined;
-
-	  var targetKey = selectionState.getStartKey();
-	  var targetOffset = selectionState.getStartOffset();
-
-	  var blockMap = contentState.getBlockMap();
-
-	  var fragmentSize = fragment.size;
-	  var finalKey;
-	  var finalOffset;
-
-	  if (fragmentSize === 1) {
-	    var targetBlock = blockMap.get(targetKey);
-	    var pastedBlock = fragment.first();
-	    var text = targetBlock.getText();
-	    var chars = targetBlock.getCharacterList();
-
-	    var newBlock = targetBlock.merge({
-	      text: text.slice(0, targetOffset) + pastedBlock.getText() + text.slice(targetOffset),
-	      characterList: insertIntoList(chars, pastedBlock.getCharacterList(), targetOffset)
-	    });
-
-	    blockMap = blockMap.set(targetKey, newBlock);
-
-	    finalKey = targetKey;
-	    finalOffset = targetOffset + pastedBlock.getText().length;
-
-	    return contentState.merge({
-	      blockMap: blockMap.set(targetKey, newBlock),
-	      selectionBefore: selectionState,
-	      selectionAfter: selectionState.merge({
-	        anchorKey: finalKey,
-	        anchorOffset: finalOffset,
-	        focusKey: finalKey,
-	        focusOffset: finalOffset,
-	        isBackward: false
-	      })
-	    });
-	  }
-
-	  var newBlockArr = [];
-
-	  contentState.getBlockMap().forEach(function (block, blockKey) {
-	    if (blockKey !== targetKey) {
-	      newBlockArr.push(block);
-	      return;
-	    }
-
-	    var text = block.getText();
-	    var chars = block.getCharacterList();
-
-	    // Modify head portion of block.
-	    var blockSize = text.length;
-	    var headText = text.slice(0, targetOffset);
-	    var headCharacters = chars.slice(0, targetOffset);
-	    var appendToHead = fragment.first();
-
-	    var modifiedHead = block.merge({
-	      text: headText + appendToHead.getText(),
-	      characterList: headCharacters.concat(appendToHead.getCharacterList())
-	    });
-
-	    newBlockArr.push(modifiedHead);
-
-	    // Insert fragment blocks after the head and before the tail.
-	    fragment.slice(1, fragmentSize - 1).forEach(function (fragmentBlock) {
-	      newBlockArr.push(fragmentBlock.set('key', generateRandomKey()));
-	    });
-
-	    // Modify tail portion of block.
-	    var tailText = text.slice(targetOffset, blockSize);
-	    var tailCharacters = chars.slice(targetOffset, blockSize);
-	    var prependToTail = fragment.last();
-	    finalKey = generateRandomKey();
-
-	    var modifiedTail = prependToTail.merge({
-	      key: finalKey,
-	      text: prependToTail.getText() + tailText,
-	      characterList: prependToTail.getCharacterList().concat(tailCharacters)
-	    });
-
-	    newBlockArr.push(modifiedTail);
-	  });
-
-	  finalOffset = fragment.last().getLength();
-
-	  return contentState.merge({
-	    blockMap: BlockMapBuilder.createFromArray(newBlockArr),
-	    selectionBefore: selectionState,
-	    selectionAfter: selectionState.merge({
-	      anchorKey: finalKey,
-	      anchorOffset: finalOffset,
-	      focusKey: finalKey,
-	      focusOffset: finalOffset,
-	      isBackward: false
-	    })
-	  });
-	}
-
-	module.exports = insertFragmentIntoContentState;
-
-/***/ },
-/* 300 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule insertTextIntoContentState
-	 * @typechecks
-	 * 
-	 */
-
-	'use strict';
-
-	var Immutable = __webpack_require__(259);
-
-	var insertIntoList = __webpack_require__(354);
-	var invariant = __webpack_require__(375);
-
-	var Repeat = Immutable.Repeat;
-
-	function insertTextIntoContentState(contentState, selectionState, text, characterMetadata) {
-	  !selectionState.isCollapsed() ? false ? invariant(false, '`insertText` should only be called with a collapsed range.') : invariant(false) : undefined;
-
-	  var len = text.length;
-	  if (!len) {
-	    return contentState;
-	  }
-
-	  var blockMap = contentState.getBlockMap();
-	  var key = selectionState.getStartKey();
-	  var offset = selectionState.getStartOffset();
-	  var block = blockMap.get(key);
-	  var blockText = block.getText();
-
-	  var newBlock = block.merge({
-	    text: blockText.slice(0, offset) + text + blockText.slice(offset, block.getLength()),
-	    characterList: insertIntoList(block.getCharacterList(), Repeat(characterMetadata, len).toList(), offset)
-	  });
-
-	  var newOffset = offset + len;
-
-	  return contentState.merge({
-	    blockMap: blockMap.set(key, newBlock),
-	    selectionAfter: selectionState.merge({
-	      anchorOffset: newOffset,
-	      focusOffset: newOffset
-	    })
-	  });
-	}
-
-	module.exports = insertTextIntoContentState;
-
-/***/ },
-/* 301 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule removeEntitiesAtEdges
-	 * 
-	 */
-
-	'use strict';
-
-	var CharacterMetadata = __webpack_require__(238);
-	var DraftEntity = __webpack_require__(247);
-
-	var findRangesImmutable = __webpack_require__(286);
-	var invariant = __webpack_require__(375);
-
-	function removeEntitiesAtEdges(contentState, selectionState) {
-	  var blockMap = contentState.getBlockMap();
-
-	  var updatedBlocks = {};
-
-	  var startKey = selectionState.getStartKey();
-	  var startOffset = selectionState.getStartOffset();
-	  var startBlock = blockMap.get(startKey);
-	  var updatedStart = removeForBlock(startBlock, startOffset);
-
-	  if (updatedStart !== startBlock) {
-	    updatedBlocks[startKey] = updatedStart;
-	  }
-
-	  var endKey = selectionState.getEndKey();
-	  var endOffset = selectionState.getEndOffset();
-	  var endBlock = blockMap.get(endKey);
-	  if (startKey === endKey) {
-	    endBlock = updatedStart;
-	  }
-
-	  var updatedEnd = removeForBlock(endBlock, endOffset);
-
-	  if (updatedEnd !== endBlock) {
-	    updatedBlocks[endKey] = updatedEnd;
-	  }
-
-	  if (!Object.keys(updatedBlocks).length) {
-	    return contentState.set('selectionAfter', selectionState);
-	  }
-
-	  return contentState.merge({
-	    blockMap: blockMap.merge(updatedBlocks),
-	    selectionAfter: selectionState
-	  });
-	}
-
-	function getRemovalRange(characters, key, offset) {
-	  var removalRange;
-	  findRangesImmutable(characters, function (a, b) {
-	    return a.getEntity() === b.getEntity();
-	  }, function (element) {
-	    return element.getEntity() === key;
-	  }, function (start, end) {
-	    if (start <= offset && end >= offset) {
-	      removalRange = { start: start, end: end };
-	    }
-	  });
-	  !(typeof removalRange === 'object') ? false ? invariant(false, 'Removal range must exist within character list.') : invariant(false) : undefined;
-	  return removalRange;
-	}
-
-	function removeForBlock(block, offset) {
-	  var chars = block.getCharacterList();
-	  var charBefore = offset > 0 ? chars.get(offset - 1) : undefined;
-	  var charAfter = offset < chars.count() ? chars.get(offset) : undefined;
-	  var entityBeforeCursor = charBefore ? charBefore.getEntity() : undefined;
-	  var entityAfterCursor = charAfter ? charAfter.getEntity() : undefined;
-
-	  if (entityAfterCursor && entityAfterCursor === entityBeforeCursor) {
-	    var entity = DraftEntity.get(entityAfterCursor);
-	    if (entity.getMutability() !== 'MUTABLE') {
-	      var _getRemovalRange = getRemovalRange(chars, entityAfterCursor, offset);
-
-	      var start = _getRemovalRange.start;
-	      var end = _getRemovalRange.end;
-
-	      var current;
-	      while (start < end) {
-	        current = chars.get(start);
-	        chars = chars.set(start, CharacterMetadata.applyEntity(current, null));
-	        start++;
-	      }
-	      return block.set('characterList', chars);
-	    }
-	  }
-
-	  return block;
-	}
-
-	module.exports = removeEntitiesAtEdges;
-
-/***/ },
-/* 302 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule removeRangeFromContentState
-	 * 
-	 */
-
-	'use strict';
-
-	var Immutable = __webpack_require__(259);
-
-	function removeRangeFromContentState(contentState, selectionState) {
-	  if (selectionState.isCollapsed()) {
-	    return contentState;
-	  }
-
-	  var blockMap = contentState.getBlockMap();
-	  var startKey = selectionState.getStartKey();
-	  var startOffset = selectionState.getStartOffset();
-	  var endKey = selectionState.getEndKey();
-	  var endOffset = selectionState.getEndOffset();
-
-	  var startBlock = blockMap.get(startKey);
-	  var endBlock = blockMap.get(endKey);
-	  var characterList;
-
-	  if (startBlock === endBlock) {
-	    characterList = removeFromList(startBlock.getCharacterList(), startOffset, endOffset);
-	  } else {
-	    characterList = startBlock.getCharacterList().slice(0, startOffset).concat(endBlock.getCharacterList().slice(endOffset));
-	  }
-
-	  var modifiedStart = startBlock.merge({
-	    text: startBlock.getText().slice(0, startOffset) + endBlock.getText().slice(endOffset),
-	    characterList: characterList
-	  });
-
-	  var newBlocks = blockMap.toSeq().skipUntil(function (_, k) {
-	    return k === startKey;
-	  }).takeUntil(function (_, k) {
-	    return k === endKey;
-	  }).concat(Immutable.Map([[endKey, null]])).map(function (_, k) {
-	    return k === startKey ? modifiedStart : null;
-	  });
-
-	  blockMap = blockMap.merge(newBlocks).filter(function (block) {
-	    return !!block;
-	  });
+	  blockMap = blockMap.merge(blocks);
 
 	  return contentState.merge({
 	    blockMap: blockMap,
 	    selectionBefore: selectionState,
-	    selectionAfter: selectionState.merge({
-	      anchorKey: startKey,
-	      anchorOffset: startOffset,
-	      focusKey: startKey,
-	      focusOffset: startOffset,
-	      isBackward: false
-	    })
-	  });
-	}
-
-	/**
-	 * Maintain persistence for target list when removing characters on the
-	 * head and tail of the character list.
-	 */
-	function removeFromList(targetList, startOffset, endOffset) {
-	  if (startOffset === 0) {
-	    while (startOffset < endOffset) {
-	      targetList = targetList.shift();
-	      startOffset++;
-	    }
-	  } else if (endOffset === targetList.count()) {
-	    while (endOffset > startOffset) {
-	      targetList = targetList.pop();
-	      endOffset--;
-	    }
-	  } else {
-	    var head = targetList.slice(0, startOffset);
-	    var tail = targetList.slice(endOffset);
-	    targetList = head.concat(tail).toList();
-	  }
-	  return targetList;
-	}
-
-	module.exports = removeRangeFromContentState;
-
-/***/ },
-/* 303 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule setBlockTypeForContentState
-	 * @typechecks
-	 * 
-	 */
-
-	'use strict';
-
-	var Immutable = __webpack_require__(259);
-
-	function setBlockTypeForContentState(contentState, selectionState, blockType) {
-	  var startKey = selectionState.getStartKey();
-	  var endKey = selectionState.getEndKey();
-	  var blockMap = contentState.getBlockMap();
-	  var newBlocks = blockMap.toSeq().skipUntil(function (_, k) {
-	    return k === startKey;
-	  }).takeUntil(function (_, k) {
-	    return k === endKey;
-	  }).concat(Immutable.Map([[endKey, blockMap.get(endKey)]])).map(function (block) {
-	    return block.merge({ type: blockType, depth: 0 });
-	  });
-
-	  return contentState.merge({
-	    blockMap: blockMap.merge(newBlocks),
-	    selectionBefore: selectionState,
 	    selectionAfter: selectionState
 	  });
 	}
 
-	module.exports = setBlockTypeForContentState;
+	module.exports = adjustBlockDepthForContentState;
 
 /***/ },
-/* 304 */
+/* 306 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -82799,64 +82953,312 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 * @providesModule splitBlockInContentState
+	 * @providesModule DraftStringKey
 	 * @typechecks
 	 * 
 	 */
 
 	'use strict';
 
-	var generateRandomKey = __webpack_require__(256);
-	var invariant = __webpack_require__(375);
+	var DraftStringKey = {
+	  stringify: function stringify(key) {
+	    return '_' + String(key);
+	  },
 
-	function splitBlockInContentState(contentState, selectionState) {
-	  !selectionState.isCollapsed() ? false ? invariant(false, 'Selection range must be collapsed.') : invariant(false) : undefined;
+	  unstringify: function unstringify(key) {
+	    return key.slice(1);
+	  }
+	};
 
-	  var key = selectionState.getAnchorKey();
-	  var offset = selectionState.getAnchorOffset();
-	  var blockMap = contentState.getBlockMap();
-	  var blockToSplit = blockMap.get(key);
-
-	  var text = blockToSplit.getText();
-	  var chars = blockToSplit.getCharacterList();
-
-	  var blockAbove = blockToSplit.merge({
-	    text: text.slice(0, offset),
-	    characterList: chars.slice(0, offset)
-	  });
-
-	  var keyBelow = generateRandomKey();
-	  var blockBelow = blockAbove.merge({
-	    key: keyBelow,
-	    text: text.slice(offset),
-	    characterList: chars.slice(offset)
-	  });
-
-	  var blocksBefore = blockMap.toSeq().takeUntil(function (v) {
-	    return v === blockToSplit;
-	  });
-	  var blocksAfter = blockMap.toSeq().skipUntil(function (v) {
-	    return v === blockToSplit;
-	  }).rest();
-	  var newBlocks = blocksBefore.concat([[blockAbove.getKey(), blockAbove], [blockBelow.getKey(), blockBelow]], blocksAfter).toOrderedMap();
-
-	  return contentState.merge({
-	    blockMap: newBlocks,
-	    selectionBefore: selectionState,
-	    selectionAfter: selectionState.merge({
-	      anchorKey: keyBelow,
-	      anchorOffset: 0,
-	      focusKey: keyBelow,
-	      focusOffset: 0,
-	      isBackward: false
-	    })
-	  });
-	}
-
-	module.exports = splitBlockInContentState;
+	module.exports = DraftStringKey;
 
 /***/ },
-/* 305 */
+/* 307 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule encodeEntityRanges
+	 * @typechecks
+	 * 
+	 */
+
+	'use strict';
+
+	var DraftStringKey = __webpack_require__(306);
+	var UnicodeUtils = __webpack_require__(382);
+
+	var strlen = UnicodeUtils.strlen;
+
+	/**
+	 * Convert to UTF-8 character counts for storage.
+	 */
+	function encodeEntityRanges(block, storageMap) {
+	  var encoded = [];
+	  block.findEntityRanges(function (character) {
+	    return !!character.getEntity();
+	  }, function ( /*number*/start, /*number*/end) {
+	    var text = block.getText();
+	    var key = block.getEntityAt(start);
+	    encoded.push({
+	      offset: strlen(text.slice(0, start)),
+	      length: strlen(text.slice(start, end)),
+	      // Encode the key as a number for range storage.
+	      key: Number(storageMap[DraftStringKey.stringify(key)])
+	    });
+	  });
+	  return encoded;
+	}
+
+	module.exports = encodeEntityRanges;
+
+/***/ },
+/* 308 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule encodeInlineStyleRanges
+	 * 
+	 */
+
+	'use strict';
+
+	var UnicodeUtils = __webpack_require__(382);
+
+	var findRangesImmutable = __webpack_require__(286);
+
+	var areEqual = function areEqual(a, b) {
+	  return a === b;
+	};
+	var isTruthy = function isTruthy(a) {
+	  return !!a;
+	};
+	var EMPTY_ARRAY = [];
+
+	/**
+	 * Helper function for getting encoded styles for each inline style. Convert
+	 * to UTF-8 character counts for storage.
+	 */
+	function getEncodedInlinesForType(block, styleList, styleToEncode) {
+	  var ranges = [];
+
+	  // Obtain an array with ranges for only the specified style.
+	  var filteredInlines = styleList.map(function (style) {
+	    return style.has(styleToEncode);
+	  }).toList();
+
+	  findRangesImmutable(filteredInlines, areEqual,
+	  // We only want to keep ranges with nonzero style values.
+	  isTruthy, function (start, end) {
+	    var text = block.getText();
+	    ranges.push({
+	      offset: UnicodeUtils.strlen(text.slice(0, start)),
+	      length: UnicodeUtils.strlen(text.slice(start, end)),
+	      style: styleToEncode
+	    });
+	  });
+
+	  return ranges;
+	}
+
+	/*
+	 * Retrieve the encoded arrays of inline styles, with each individual style
+	 * treated separately.
+	 */
+	function encodeInlineStyleRanges(block) {
+	  var styleList = block.getCharacterList().map(function (c) {
+	    return c.getStyle();
+	  }).toList();
+	  var ranges = styleList.flatten().toSet().map(function (style) {
+	    return getEncodedInlinesForType(block, styleList, style);
+	  });
+
+	  return Array.prototype.concat.apply(EMPTY_ARRAY, ranges.toJS());
+	}
+
+	module.exports = encodeInlineStyleRanges;
+
+/***/ },
+/* 309 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule getSafeBodyFromHTML
+	 * 
+	 */
+
+	'use strict';
+
+	var UserAgent = __webpack_require__(369);
+
+	var isOldIE = UserAgent.isBrowser('IE <= 9');
+
+	// Provides a dom node that will not execute scripts
+	// https://developer.mozilla.org/en-US/docs/Web/API/DOMImplementation.createHTMLDocument
+	// https://developer.mozilla.org/en-US/Add-ons/Code_snippets/HTML_to_DOM
+
+	function getSafeBodyFromHTML(html) {
+	  var doc;
+	  var root = null;
+	  // Provides a safe context
+	  if (!isOldIE && document.implementation && document.implementation.createHTMLDocument) {
+	    doc = document.implementation.createHTMLDocument('foo');
+	    doc.documentElement.innerHTML = html;
+	    root = doc.getElementsByTagName('body')[0];
+	  }
+	  return root;
+	}
+
+	module.exports = getSafeBodyFromHTML;
+
+/***/ },
+/* 310 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule createCharacterList
+	 * @typechecks
+	 * 
+	 */
+
+	'use strict';
+
+	var CharacterMetadata = __webpack_require__(238);
+	var Immutable = __webpack_require__(259);
+
+	var List = Immutable.List;
+
+	function createCharacterList(inlineStyles, entities) {
+	  var characterArray = inlineStyles.map(function (style, ii) {
+	    var entity = entities[ii];
+	    return CharacterMetadata.create({ style: style, entity: entity });
+	  });
+	  return List(characterArray);
+	}
+
+	module.exports = createCharacterList;
+
+/***/ },
+/* 311 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule decodeEntityRanges
+	 * @typechecks
+	 * 
+	 */
+
+	'use strict';
+
+	var UnicodeUtils = __webpack_require__(382);
+
+	var substr = UnicodeUtils.substr;
+
+	/**
+	 * Convert to native JavaScript string lengths to determine ranges.
+	 */
+	function decodeEntityRanges(text, ranges) {
+	  var entities = Array(text.length).fill(null);
+	  if (ranges) {
+	    ranges.forEach(function (range) {
+	      // Using Unicode-enabled substrings converted to JavaScript lengths,
+	      // fill the output array with entity keys.
+	      var start = substr(text, 0, range.offset).length;
+	      var end = start + substr(text, range.offset, range.length).length;
+	      for (var ii = start; ii < end; ii++) {
+	        entities[ii] = range.key;
+	      }
+	    });
+	  }
+	  return entities;
+	}
+
+	module.exports = decodeEntityRanges;
+
+/***/ },
+/* 312 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule decodeInlineStyleRanges
+	 * @typechecks
+	 * 
+	 */
+
+	'use strict';
+
+	var UnicodeUtils = __webpack_require__(382);
+
+	var _require = __webpack_require__(259);
+
+	var OrderedSet = _require.OrderedSet;
+	var substr = UnicodeUtils.substr;
+
+	var EMPTY_SET = OrderedSet();
+
+	/**
+	 * Convert to native JavaScript string lengths to determine ranges.
+	 */
+	function decodeInlineStyleRanges(text, ranges) {
+	  var styles = Array(text.length).fill(EMPTY_SET);
+	  if (ranges) {
+	    ranges.forEach(function ( /*object*/range) {
+	      var cursor = substr(text, 0, range.offset).length;
+	      var end = cursor + substr(text, range.offset, range.length).length;
+	      while (cursor < end) {
+	        styles[cursor] = styles[cursor].add(range.style);
+	        cursor++;
+	      }
+	    });
+	  }
+	  return styles;
+	}
+
+	module.exports = decodeInlineStyleRanges;
+
+/***/ },
+/* 313 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -82875,7 +83277,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Immutable = __webpack_require__(259);
 
-	var emptyFunction = __webpack_require__(368);
+	var emptyFunction = __webpack_require__(370);
 	var findRangesImmutable = __webpack_require__(286);
 
 	var List = Immutable.List;
@@ -82972,7 +83374,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = BlockTree;
 
 /***/ },
-/* 306 */
+/* 314 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -82991,9 +83393,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	var Immutable = __webpack_require__(259);
-	var UnicodeBidiService = __webpack_require__(380);
+	var UnicodeBidiService = __webpack_require__(383);
 
-	var nullthrows = __webpack_require__(369);
+	var nullthrows = __webpack_require__(371);
 
 	var OrderedMap = Immutable.OrderedMap;
 
@@ -83022,366 +83424,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	module.exports = EditorBidiService;
-
-/***/ },
-/* 307 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule adjustBlockDepthForContentState
-	 * @typechecks
-	 * 
-	 */
-
-	'use strict';
-
-	function adjustBlockDepthForContentState(contentState, selectionState, adjustment, maxDepth) {
-	  var startKey = selectionState.getStartKey();
-	  var endKey = selectionState.getEndKey();
-	  var blockMap = contentState.getBlockMap();
-	  var blocks = blockMap.toSeq().skipUntil(function (_, k) {
-	    return k === startKey;
-	  }).takeUntil(function (_, k) {
-	    return k === endKey;
-	  }).concat([[endKey, blockMap.get(endKey)]]).map(function (block) {
-	    var depth = block.getDepth() + adjustment;
-	    depth = Math.max(0, Math.min(depth, maxDepth));
-	    return block.set('depth', depth);
-	  });
-
-	  blockMap = blockMap.merge(blocks);
-
-	  return contentState.merge({
-	    blockMap: blockMap,
-	    selectionBefore: selectionState,
-	    selectionAfter: selectionState
-	  });
-	}
-
-	module.exports = adjustBlockDepthForContentState;
-
-/***/ },
-/* 308 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule DraftStringKey
-	 * @typechecks
-	 * 
-	 */
-
-	'use strict';
-
-	var DraftStringKey = {
-	  stringify: function stringify(key) {
-	    return '_' + String(key);
-	  },
-
-	  unstringify: function unstringify(key) {
-	    return key.slice(1);
-	  }
-	};
-
-	module.exports = DraftStringKey;
-
-/***/ },
-/* 309 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule encodeEntityRanges
-	 * @typechecks
-	 * 
-	 */
-
-	'use strict';
-
-	var DraftStringKey = __webpack_require__(308);
-	var UnicodeUtils = __webpack_require__(381);
-
-	var strlen = UnicodeUtils.strlen;
-
-	/**
-	 * Convert to UTF-8 character counts for storage.
-	 */
-	function encodeEntityRanges(block, storageMap) {
-	  var encoded = [];
-	  block.findEntityRanges(function (character) {
-	    return !!character.getEntity();
-	  }, function ( /*number*/start, /*number*/end) {
-	    var text = block.getText();
-	    var key = block.getEntityAt(start);
-	    encoded.push({
-	      offset: strlen(text.slice(0, start)),
-	      length: strlen(text.slice(start, end)),
-	      // Encode the key as a number for range storage.
-	      key: Number(storageMap[DraftStringKey.stringify(key)])
-	    });
-	  });
-	  return encoded;
-	}
-
-	module.exports = encodeEntityRanges;
-
-/***/ },
-/* 310 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule encodeInlineStyleRanges
-	 * 
-	 */
-
-	'use strict';
-
-	var UnicodeUtils = __webpack_require__(381);
-
-	var findRangesImmutable = __webpack_require__(286);
-
-	var areEqual = function areEqual(a, b) {
-	  return a === b;
-	};
-	var isTruthy = function isTruthy(a) {
-	  return !!a;
-	};
-	var EMPTY_ARRAY = [];
-
-	/**
-	 * Helper function for getting encoded styles for each inline style. Convert
-	 * to UTF-8 character counts for storage.
-	 */
-	function getEncodedInlinesForType(block, styleList, styleToEncode) {
-	  var ranges = [];
-
-	  // Obtain an array with ranges for only the specified style.
-	  var filteredInlines = styleList.map(function (style) {
-	    return style.has(styleToEncode);
-	  }).toList();
-
-	  findRangesImmutable(filteredInlines, areEqual,
-	  // We only want to keep ranges with nonzero style values.
-	  isTruthy, function (start, end) {
-	    var text = block.getText();
-	    ranges.push({
-	      offset: UnicodeUtils.strlen(text.slice(0, start)),
-	      length: UnicodeUtils.strlen(text.slice(start, end)),
-	      style: styleToEncode
-	    });
-	  });
-
-	  return ranges;
-	}
-
-	/*
-	 * Retrieve the encoded arrays of inline styles, with each individual style
-	 * treated separately.
-	 */
-	function encodeInlineStyleRanges(block) {
-	  var styleList = block.getCharacterList().map(function (c) {
-	    return c.getStyle();
-	  }).toList();
-	  var ranges = styleList.flatten().toSet().map(function (style) {
-	    return getEncodedInlinesForType(block, styleList, style);
-	  });
-
-	  return Array.prototype.concat.apply(EMPTY_ARRAY, ranges.toJS());
-	}
-
-	module.exports = encodeInlineStyleRanges;
-
-/***/ },
-/* 311 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule createCharacterList
-	 * @typechecks
-	 * 
-	 */
-
-	'use strict';
-
-	var CharacterMetadata = __webpack_require__(238);
-	var Immutable = __webpack_require__(259);
-
-	var List = Immutable.List;
-
-	function createCharacterList(inlineStyles, entities) {
-	  var characterArray = inlineStyles.map(function (style, ii) {
-	    var entity = entities[ii];
-	    return CharacterMetadata.create({ style: style, entity: entity });
-	  });
-	  return List(characterArray);
-	}
-
-	module.exports = createCharacterList;
-
-/***/ },
-/* 312 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule decodeEntityRanges
-	 * @typechecks
-	 * 
-	 */
-
-	'use strict';
-
-	var UnicodeUtils = __webpack_require__(381);
-
-	var substr = UnicodeUtils.substr;
-
-	/**
-	 * Convert to native JavaScript string lengths to determine ranges.
-	 */
-	function decodeEntityRanges(text, ranges) {
-	  var entities = Array(text.length).fill(null);
-	  if (ranges) {
-	    ranges.forEach(function (range) {
-	      // Using Unicode-enabled substrings converted to JavaScript lengths,
-	      // fill the output array with entity keys.
-	      var start = substr(text, 0, range.offset).length;
-	      var end = start + substr(text, range.offset, range.length).length;
-	      for (var ii = start; ii < end; ii++) {
-	        entities[ii] = range.key;
-	      }
-	    });
-	  }
-	  return entities;
-	}
-
-	module.exports = decodeEntityRanges;
-
-/***/ },
-/* 313 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule decodeInlineStyleRanges
-	 * @typechecks
-	 * 
-	 */
-
-	'use strict';
-
-	var UnicodeUtils = __webpack_require__(381);
-
-	var _require = __webpack_require__(259);
-
-	var OrderedSet = _require.OrderedSet;
-	var substr = UnicodeUtils.substr;
-
-	var EMPTY_SET = OrderedSet();
-
-	/**
-	 * Convert to native JavaScript string lengths to determine ranges.
-	 */
-	function decodeInlineStyleRanges(text, ranges) {
-	  var styles = Array(text.length).fill(EMPTY_SET);
-	  if (ranges) {
-	    ranges.forEach(function ( /*object*/range) {
-	      var cursor = substr(text, 0, range.offset).length;
-	      var end = cursor + substr(text, range.offset, range.length).length;
-	      while (cursor < end) {
-	        styles[cursor] = styles[cursor].add(range.style);
-	        cursor++;
-	      }
-	    });
-	  }
-	  return styles;
-	}
-
-	module.exports = decodeInlineStyleRanges;
-
-/***/ },
-/* 314 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule getSafeBodyFromHTML
-	 * 
-	 */
-
-	'use strict';
-
-	var UserAgent = __webpack_require__(367);
-
-	var isOldIE = UserAgent.isBrowser('IE <= 9');
-
-	// Provides a dom node that will not execute scripts
-	// https://developer.mozilla.org/en-US/docs/Web/API/DOMImplementation.createHTMLDocument
-	// https://developer.mozilla.org/en-US/Add-ons/Code_snippets/HTML_to_DOM
-
-	function getSafeBodyFromHTML(html) {
-	  var doc;
-	  var root = null;
-	  // Provides a safe context
-	  if (!isOldIE && document.implementation && document.implementation.createHTMLDocument) {
-	    doc = document.implementation.createHTMLDocument('foo');
-	    doc.documentElement.innerHTML = html;
-	    root = doc.getElementsByTagName('body')[0];
-	  }
-	  return root;
-	}
-
-	module.exports = getSafeBodyFromHTML;
 
 /***/ },
 /* 315 */
@@ -83476,90 +83518,37 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(19);
 
-	var HighlightRenderer = __webpack_require__(356);
-	var SelectionTracker = __webpack_require__(357);
+	var HighlightSetRenderer = __webpack_require__(356);
+	var HighlightTooltip = __webpack_require__(357);
+	var SelectionTracker = __webpack_require__(358);
 
-	var babelPluginFlowReactPropTypes_proptype_ZIndexes = __webpack_require__(358).babelPluginFlowReactPropTypes_proptype_ZIndexes || __webpack_require__(19).PropTypes.any;
+	/* global i18n */
 
-	var babelPluginFlowReactPropTypes_proptype_Position = __webpack_require__(358).babelPluginFlowReactPropTypes_proptype_Position || __webpack_require__(19).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_ZIndexes = __webpack_require__(359).babelPluginFlowReactPropTypes_proptype_ZIndexes || __webpack_require__(19).PropTypes.any;
 
-	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(358).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(19).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(359).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(19).PropTypes.any;
 
-	var babelPluginFlowReactPropTypes_proptype_DOMHighlight = __webpack_require__(358).babelPluginFlowReactPropTypes_proptype_DOMHighlight || __webpack_require__(19).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_DOMHighlightSet = __webpack_require__(359).babelPluginFlowReactPropTypes_proptype_DOMHighlightSet || __webpack_require__(19).PropTypes.any;
+
+	var babelPluginFlowReactPropTypes_proptype_DOMHighlight = __webpack_require__(359).babelPluginFlowReactPropTypes_proptype_DOMHighlight || __webpack_require__(19).PropTypes.any;
 
 	var HighlightingUI = function (_React$PureComponent) {
 	    _inherits(HighlightingUI, _React$PureComponent);
 
 	    function HighlightingUI() {
-	        var _temp, _this, _ret;
-
 	        _classCallCheck(this, HighlightingUI);
 
-	        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	            args[_key] = arguments[_key];
-	        }
-
-	        return _ret = (_temp = (_this = _possibleConstructorReturn(this, _React$PureComponent.call.apply(_React$PureComponent, [this].concat(args))), _this), _this.state = {
-	            mouseClientPosition: null
-	        }, _this._handleMouseMove = function (e) {
-	            _this.setState({
-	                mouseClientPosition: {
-	                    left: e.clientX,
-	                    top: e.clientY
-	                }
-	            });
-	        }, _temp), _possibleConstructorReturn(_this, _ret);
+	        return _possibleConstructorReturn(this, _React$PureComponent.apply(this, arguments));
 	    }
-	    /* eslint-disable react/sort-comp */
 
+	    HighlightingUI.prototype._handleAddHighlight = function _handleAddHighlight(highlightToAdd) {
+	        this.props.onAddHighlight(highlightToAdd);
 
-	    /* eslint-enable react/sort-comp */
-
-	    HighlightingUI.prototype.componentDidMount = function componentDidMount() {
-	        var willListen = this._shouldListenToMouseMove(this.props);
-	        this._updateMouseMoveListener(false, willListen);
-	    };
-
-	    HighlightingUI.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
-	        var wasListening = this._shouldListenToMouseMove(this.props);
-	        var willListen = this._shouldListenToMouseMove(nextProps);
-	        this._updateMouseMoveListener(wasListening, willListen);
-	    };
-
-	    HighlightingUI.prototype.componentWillUnmount = function componentWillUnmount() {
-	        var wasListening = this._shouldListenToMouseMove(this.props);
-	        this._updateMouseMoveListener(wasListening, false);
-	    };
-
-	    HighlightingUI.prototype._shouldListenToMouseMove = function _shouldListenToMouseMove(props) {
-	        // NOTE(mdr): As an optimization, we only listen to mousemove events in
-	        //     editable mode, because hover events on highlights only affect
-	        //     the "Remove highlight" tooltip. If our design needs change, this
-	        //     behavior may need to change, too.
-	        return props.editable;
-	    };
-
-	    /**
-	     * Given whether we were previously listening to mousemove events, and
-	     * whether we will now listen to mousemove events, add or remove the
-	     * listener accordingly.
-	     */
-
-
-	    HighlightingUI.prototype._updateMouseMoveListener = function _updateMouseMoveListener(wasListening, willListen) {
-	        if (!wasListening && willListen) {
-	            window.addEventListener("mousemove", this._handleMouseMove);
-	        } else if (wasListening && !willListen) {
-	            window.removeEventListener("mousemove", this._handleMouseMove);
-
-	            // Additionally, reset the mouse position. Our child components
-	            // won't be checking `mouseClientPosition` when we're not
-	            // listening, anyway, but this guards against errors where we
-	            // re-enter listening mode and have stale coordinates stored in
-	            // state.
-	            this.setState({
-	                mouseClientPosition: null
-	            });
+	        // Deselect the newly-highlighted text, by collapsing the selection
+	        // to the end of the range.
+	        var selection = document.getSelection();
+	        if (selection) {
+	            selection.collapseToEnd();
 	        }
 	    };
 
@@ -83567,24 +83556,40 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var _this2 = this;
 
 	        return React.createElement(
-	            "div",
-	            null,
-	            this.props.highlights.map(function (highlight) {
-	                return React.createElement(HighlightRenderer, {
-	                    editable: _this2.props.editable,
-	                    key: highlight.key,
-	                    highlight: highlight,
-	                    mouseClientPosition: _this2.state.mouseClientPosition,
-	                    offsetParent: _this2.props.offsetParent,
-	                    onRemoveHighlight: _this2.props.onRemoveHighlight,
-	                    zIndexes: _this2.props.zIndexes
-	                });
-	            }),
-	            this.props.editable && React.createElement(SelectionTracker, {
-	                offsetParent: this.props.offsetParent,
-	                onAddHighlight: this.props.onAddHighlight,
-	                zIndexes: this.props.zIndexes
-	            })
+	            SelectionTracker,
+	            {
+	                buildHighlight: this.props.buildHighlight,
+	                enabled: this.props.editable
+	            },
+	            function (trackedSelection, userIsMouseSelecting) {
+	                return React.createElement(
+	                    "div",
+	                    null,
+	                    React.createElement(HighlightSetRenderer, {
+	                        editable:
+	                        /* An existing highlight is editable when the
+	                         * component is in editable mode, and there's
+	                         * not a selection and "Add highlight" tooltip
+	                         * taking precedence over it. */
+	                        _this2.props.editable && !trackedSelection,
+	                        highlights: _this2.props.highlights,
+	                        offsetParent: _this2.props.offsetParent,
+	                        onRemoveHighlight: _this2.props.onRemoveHighlight,
+	                        zIndexes: _this2.props.zIndexes
+	                    }),
+	                    trackedSelection && !userIsMouseSelecting && React.createElement(HighlightTooltip, {
+	                        label: i18n._("Add highlight"),
+	                        onClick: function onClick() {
+	                            return _this2._handleAddHighlight(trackedSelection.proposedHighlight);
+	                        },
+
+	                        focusNode: trackedSelection.focusNode,
+	                        focusOffset: trackedSelection.focusOffset,
+	                        offsetParent: _this2.props.offsetParent,
+	                        zIndex: _this2.props.zIndexes.aboveContent
+	                    })
+	                );
+	            }
 	        );
 	    };
 
@@ -83592,8 +83597,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	}(React.PureComponent);
 
 	HighlightingUI.propTypes = {
+	    buildHighlight: __webpack_require__(19).PropTypes.func.isRequired,
 	    editable: __webpack_require__(19).PropTypes.bool.isRequired,
-	    highlights: __webpack_require__(19).PropTypes.arrayOf(babelPluginFlowReactPropTypes_proptype_DOMHighlight).isRequired,
+	    highlights: babelPluginFlowReactPropTypes_proptype_DOMHighlightSet,
 	    offsetParent: __webpack_require__(19).PropTypes.any.isRequired,
 	    onAddHighlight: __webpack_require__(19).PropTypes.func.isRequired,
 	    onRemoveHighlight: __webpack_require__(19).PropTypes.func.isRequired,
@@ -83605,310 +83611,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 317 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _KeyConfigs;
-
-	/**
-	 * This file contains configuration settings for the buttons in the keypad.
-	 */
-
-	/* globals i18n */
-
-	var Keys = __webpack_require__(330);
-
-	var _require = __webpack_require__(215),
-	    DecimalSeparators = _require.DecimalSeparators,
-	    IconTypes = _require.IconTypes,
-	    KeyTypes = _require.KeyTypes;
-
-	var _require2 = __webpack_require__(331),
-	    decimalSeparator = _require2.decimalSeparator;
-
-	var KeyConfigs = (_KeyConfigs = {}, _KeyConfigs[Keys.PLUS] = {
-	    type: KeyTypes.OPERATOR,
-	    // I18N: A label for a plus sign.
-	    ariaLabel: i18n._('Plus')
-	}, _KeyConfigs[Keys.MINUS] = {
-	    type: KeyTypes.OPERATOR,
-	    // I18N: A label for a minus sign.
-	    ariaLabel: i18n._('Minus')
-	}, _KeyConfigs[Keys.NEGATIVE] = {
-	    type: KeyTypes.VALUE,
-	    // I18N: A label for a minus sign.
-	    ariaLabel: i18n._('Negative')
-	}, _KeyConfigs[Keys.TIMES] = {
-	    type: KeyTypes.OPERATOR,
-	    // I18N: A label for a multiplication sign (represented with an 'x').
-	    ariaLabel: i18n._('Multiply')
-	}, _KeyConfigs[Keys.DIVIDE] = {
-	    type: KeyTypes.OPERATOR,
-	    // I18N: A label for a division sign.
-	    ariaLabel: i18n._('Divide')
-	}, _KeyConfigs[Keys.DECIMAL] = {
-	    type: KeyTypes.VALUE,
-	    // I18N: A label for a decimal symbol.
-	    ariaLabel: i18n._('Decimal'),
-	    icon: decimalSeparator === DecimalSeparators.COMMA ? {
-	        // TODO(charlie): Get an SVG icon for the comma, or verify with
-	        // design that the text-rendered version is acceptable.
-	        type: IconTypes.TEXT,
-	        data: ','
-	    } : {
-	        type: IconTypes.SVG,
-	        data: Keys.PERIOD
-	    }
-	}, _KeyConfigs[Keys.PERCENT] = {
-	    type: KeyTypes.OPERATOR,
-	    // I18N: A label for a percent sign.
-	    ariaLabel: i18n._('Percent')
-	}, _KeyConfigs[Keys.CDOT] = {
-	    type: KeyTypes.OPERATOR,
-	    // I18N: A label for a multiplication sign (represented as a dot).
-	    ariaLabel: i18n._('Multiply')
-	}, _KeyConfigs[Keys.EQUAL] = {
-	    type: KeyTypes.OPERATOR,
-	    ariaLabel: i18n._('Equals sign')
-	}, _KeyConfigs[Keys.NEQ] = {
-	    type: KeyTypes.OPERATOR,
-	    ariaLabel: i18n._('Not-equals sign')
-	}, _KeyConfigs[Keys.GT] = {
-	    type: KeyTypes.OPERATOR,
-	    // I18N: A label for a 'greater than' sign (represented as '>').
-	    ariaLabel: i18n._('Greater than sign')
-	}, _KeyConfigs[Keys.LT] = {
-	    type: KeyTypes.OPERATOR,
-	    // I18N: A label for a 'less than' sign (represented as '<').
-	    ariaLabel: i18n._('Less than sign')
-	}, _KeyConfigs[Keys.GEQ] = {
-	    type: KeyTypes.OPERATOR,
-	    ariaLabel: i18n._('Greater than or equal to sign')
-	}, _KeyConfigs[Keys.LEQ] = {
-	    type: KeyTypes.OPERATOR,
-	    ariaLabel: i18n._('Less than or equal to sign')
-	}, _KeyConfigs[Keys.FRAC_INCLUSIVE] = {
-	    type: KeyTypes.OPERATOR,
-	    // I18N: A label for a button that creates a new fraction and puts the
-	    // current expression in the numerator of that fraction.
-	    ariaLabel: i18n._('Fraction, with current expression in numerator')
-	}, _KeyConfigs[Keys.FRAC_EXCLUSIVE] = {
-	    type: KeyTypes.OPERATOR,
-	    // I18N: A label for a button that creates a new fraction next to the
-	    // cursor.
-	    ariaLabel: i18n._('Fraction, excluding the current expression')
-	}, _KeyConfigs[Keys.EXP] = {
-	    type: KeyTypes.OPERATOR,
-	    // I18N: A label for a button that will allow the user to input a custom
-	    // exponent.
-	    ariaLabel: i18n._('Custom exponent')
-	}, _KeyConfigs[Keys.EXP_2] = {
-	    type: KeyTypes.OPERATOR,
-	    // I18N: A label for a button that will square (take to the second
-	    // power) some math.
-	    ariaLabel: i18n._('Square')
-	}, _KeyConfigs[Keys.EXP_3] = {
-	    type: KeyTypes.OPERATOR,
-	    // I18N: A label for a button that will cube (take to the third power)
-	    // some math.
-	    ariaLabel: i18n._('Cube')
-	}, _KeyConfigs[Keys.SQRT] = {
-	    type: KeyTypes.OPERATOR,
-	    ariaLabel: i18n._('Square root')
-	}, _KeyConfigs[Keys.CUBE_ROOT] = {
-	    type: KeyTypes.OPERATOR,
-	    ariaLabel: i18n._('Cube root')
-	}, _KeyConfigs[Keys.RADICAL] = {
-	    type: KeyTypes.OPERATOR,
-	    ariaLabel: i18n._('Radical with custom root')
-	}, _KeyConfigs[Keys.LEFT_PAREN] = {
-	    type: KeyTypes.OPERATOR,
-	    ariaLabel: i18n._('Left parenthesis')
-	}, _KeyConfigs[Keys.RIGHT_PAREN] = {
-	    type: KeyTypes.OPERATOR,
-	    ariaLabel: i18n._('Right parenthesis')
-	}, _KeyConfigs[Keys.LN] = {
-	    type: KeyTypes.OPERATOR,
-	    ariaLabel: i18n._('Natural logarithm')
-	}, _KeyConfigs[Keys.LOG] = {
-	    type: KeyTypes.OPERATOR,
-	    ariaLabel: i18n._('Logarithm with base 10')
-	}, _KeyConfigs[Keys.LOG_N] = {
-	    type: KeyTypes.OPERATOR,
-	    ariaLabel: i18n._('Logarithm with custom base')
-	}, _KeyConfigs[Keys.SIN] = {
-	    type: KeyTypes.OPERATOR,
-	    ariaLabel: i18n._('Sine')
-	}, _KeyConfigs[Keys.COS] = {
-	    type: KeyTypes.OPERATOR,
-	    ariaLabel: i18n._('Cosine')
-	}, _KeyConfigs[Keys.TAN] = {
-	    type: KeyTypes.OPERATOR,
-	    ariaLabel: i18n._('Tangent')
-	}, _KeyConfigs[Keys.PI] = {
-	    type: KeyTypes.VALUE,
-	    ariaLabel: i18n._('Pi'),
-	    icon: {
-	        type: IconTypes.MATH,
-	        data: '\\pi'
-	    }
-	}, _KeyConfigs[Keys.THETA] = {
-	    type: KeyTypes.VALUE,
-	    ariaLabel: i18n._('Theta'),
-	    icon: {
-	        type: IconTypes.MATH,
-	        data: '\\theta'
-	    }
-	}, _KeyConfigs[Keys.NOOP] = {
-	    type: KeyTypes.EMPTY
-	}, _KeyConfigs[Keys.UP] = {
-	    type: KeyTypes.INPUT_NAVIGATION,
-	    ariaLabel: i18n._('Up arrow')
-	}, _KeyConfigs[Keys.RIGHT] = {
-	    type: KeyTypes.INPUT_NAVIGATION,
-	    ariaLabel: i18n._('Right arrow')
-	}, _KeyConfigs[Keys.DOWN] = {
-	    type: KeyTypes.INPUT_NAVIGATION,
-	    ariaLabel: i18n._('Down arrow')
-	}, _KeyConfigs[Keys.LEFT] = {
-	    type: KeyTypes.INPUT_NAVIGATION,
-	    ariaLabel: i18n._('Left arrow')
-	}, _KeyConfigs[Keys.JUMP_OUT_PARENTHESES] = {
-	    type: KeyTypes.INPUT_NAVIGATION,
-	    ariaLabel: i18n._('Navigate right out of a set of parentheses')
-	}, _KeyConfigs[Keys.JUMP_OUT_EXPONENT] = {
-	    type: KeyTypes.INPUT_NAVIGATION,
-	    ariaLabel: i18n._('Navigate right out of an exponent')
-	}, _KeyConfigs[Keys.JUMP_OUT_BASE] = {
-	    type: KeyTypes.INPUT_NAVIGATION,
-	    ariaLabel: i18n._('Navigate right out of a base')
-	}, _KeyConfigs[Keys.JUMP_INTO_NUMERATOR] = {
-	    type: KeyTypes.INPUT_NAVIGATION,
-	    ariaLabel: i18n._('Navigate right into the numerator of a fraction')
-	}, _KeyConfigs[Keys.JUMP_OUT_NUMERATOR] = {
-	    type: KeyTypes.INPUT_NAVIGATION,
-	    ariaLabel: i18n._('Navigate right out of the numerator and into the denominator')
-	}, _KeyConfigs[Keys.JUMP_OUT_DENOMINATOR] = {
-	    type: KeyTypes.INPUT_NAVIGATION,
-	    ariaLabel: i18n._('Navigate right out of the denominator of a fraction')
-	}, _KeyConfigs[Keys.BACKSPACE] = {
-	    type: KeyTypes.INPUT_NAVIGATION,
-	    // I18N: A label for a button that will delete some input.
-	    ariaLabel: i18n._('Delete')
-	}, _KeyConfigs[Keys.DISMISS] = {
-	    type: KeyTypes.KEYPAD_NAVIGATION,
-	    // I18N: A label for a button that will dismiss/hide a keypad.
-	    ariaLabel: i18n._('Dismiss')
-	}, _KeyConfigs);
-
-	// Add in any multi-function buttons. By default, these keys will mix in any
-	// configuration settings from their default child key (i.e., the first key in
-	// the `childKeyIds` array).
-	// TODO(charlie): Make the multi-function button's long-press interaction
-	// accessible.
-	KeyConfigs[Keys.FRAC_MULTI] = {
-	    childKeyIds: [Keys.FRAC_INCLUSIVE, Keys.FRAC_EXCLUSIVE]
-	};
-
-	// TODO(charlie): Use the numeral color for the 'Many' key.
-	KeyConfigs[Keys.MANY] = {
-	    type: KeyTypes.MANY
-	};
-
-	// Add in every numeral.
-	var NUMBERS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-	for (var _iterator = NUMBERS, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
-	    var _ref;
-
-	    if (_isArray) {
-	        if (_i >= _iterator.length) break;
-	        _ref = _iterator[_i++];
-	    } else {
-	        _i = _iterator.next();
-	        if (_i.done) break;
-	        _ref = _i.value;
-	    }
-
-	    var num = _ref;
-
-	    // TODO(charlie): Consider removing the SVG icons that we have for the
-	    // numeral keys. They can be rendered just as easily with text (though that
-	    // would mean that we'd be using text beyond the variable key).
-	    var textRepresentation = '' + num;
-	    KeyConfigs['NUM_' + num] = {
-	        type: KeyTypes.VALUE,
-	        ariaLabel: textRepresentation,
-	        icon: {
-	            type: IconTypes.TEXT,
-	            data: textRepresentation
-	        }
-	    };
-	}
-
-	// Add in every variable.
-	var LETTERS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-	for (var _iterator2 = LETTERS, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : _iterator2[Symbol.iterator]();;) {
-	    var _ref2;
-
-	    if (_isArray2) {
-	        if (_i2 >= _iterator2.length) break;
-	        _ref2 = _iterator2[_i2++];
-	    } else {
-	        _i2 = _iterator2.next();
-	        if (_i2.done) break;
-	        _ref2 = _i2.value;
-	    }
-
-	    var letter = _ref2;
-
-	    var lowerCaseVariable = letter.toLowerCase();
-	    var upperCaseVariable = letter.toUpperCase();
-
-	    var _arr = [lowerCaseVariable, upperCaseVariable];
-	    for (var _i4 = 0; _i4 < _arr.length; _i4++) {
-	        var _textRepresentation = _arr[_i4];
-	        KeyConfigs[_textRepresentation] = {
-	            type: KeyTypes.VALUE,
-	            ariaLabel: _textRepresentation,
-	            icon: {
-	                type: IconTypes.MATH,
-	                data: _textRepresentation
-	            }
-	        };
-	    }
-	}
-
-	for (var _iterator3 = Object.keys(KeyConfigs), _isArray3 = Array.isArray(_iterator3), _i3 = 0, _iterator3 = _isArray3 ? _iterator3 : _iterator3[Symbol.iterator]();;) {
-	    var _ref3;
-
-	    if (_isArray3) {
-	        if (_i3 >= _iterator3.length) break;
-	        _ref3 = _iterator3[_i3++];
-	    } else {
-	        _i3 = _iterator3.next();
-	        if (_i3.done) break;
-	        _ref3 = _i3.value;
-	    }
-
-	    var key = _ref3;
-
-	    KeyConfigs[key] = _extends({
-	        id: key,
-	        // Default to an SVG icon indexed by the key name.
-	        icon: {
-	            type: IconTypes.SVG,
-	            data: key
-	        }
-	    }, KeyConfigs[key]);
-	}
-
-	module.exports = KeyConfigs;
-
-/***/ },
-/* 318 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -83971,7 +83673,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 319 */
+/* 318 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -83980,14 +83682,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _keypadForType;
 
-	var Redux = __webpack_require__(420);
+	var Redux = __webpack_require__(411);
 
 	var _require = __webpack_require__(285),
 	    tabletCutoffPx = _require.tabletCutoffPx;
 
-	var computeLayoutParameters = __webpack_require__(359);
+	var computeLayoutParameters = __webpack_require__(360);
 
-	var _require2 = __webpack_require__(215),
+	var _require2 = __webpack_require__(216),
 	    DeviceOrientations = _require2.DeviceOrientations,
 	    DeviceTypes = _require2.DeviceTypes,
 	    EchoAnimationTypes = _require2.EchoAnimationTypes,
@@ -83996,10 +83698,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    LayoutModes = _require2.LayoutModes;
 
 	var Keys = __webpack_require__(330);
-	var KeyConfigs = __webpack_require__(317);
-	var CursorContexts = __webpack_require__(279);
-	var GestureManager = __webpack_require__(360);
-	var VelocityTracker = __webpack_require__(361);
+	var KeyConfigs = __webpack_require__(319);
+	var CursorContexts = __webpack_require__(280);
+	var GestureManager = __webpack_require__(361);
+	var VelocityTracker = __webpack_require__(362);
 
 	var FractionKeypad = __webpack_require__(325);
 	var ExpressionKeypad = __webpack_require__(326);
@@ -84446,6 +84148,310 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = createStore;
 
 /***/ },
+/* 319 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _KeyConfigs;
+
+	/**
+	 * This file contains configuration settings for the buttons in the keypad.
+	 */
+
+	/* globals i18n */
+
+	var Keys = __webpack_require__(330);
+
+	var _require = __webpack_require__(216),
+	    DecimalSeparators = _require.DecimalSeparators,
+	    IconTypes = _require.IconTypes,
+	    KeyTypes = _require.KeyTypes;
+
+	var _require2 = __webpack_require__(331),
+	    decimalSeparator = _require2.decimalSeparator;
+
+	var KeyConfigs = (_KeyConfigs = {}, _KeyConfigs[Keys.PLUS] = {
+	    type: KeyTypes.OPERATOR,
+	    // I18N: A label for a plus sign.
+	    ariaLabel: i18n._('Plus')
+	}, _KeyConfigs[Keys.MINUS] = {
+	    type: KeyTypes.OPERATOR,
+	    // I18N: A label for a minus sign.
+	    ariaLabel: i18n._('Minus')
+	}, _KeyConfigs[Keys.NEGATIVE] = {
+	    type: KeyTypes.VALUE,
+	    // I18N: A label for a minus sign.
+	    ariaLabel: i18n._('Negative')
+	}, _KeyConfigs[Keys.TIMES] = {
+	    type: KeyTypes.OPERATOR,
+	    // I18N: A label for a multiplication sign (represented with an 'x').
+	    ariaLabel: i18n._('Multiply')
+	}, _KeyConfigs[Keys.DIVIDE] = {
+	    type: KeyTypes.OPERATOR,
+	    // I18N: A label for a division sign.
+	    ariaLabel: i18n._('Divide')
+	}, _KeyConfigs[Keys.DECIMAL] = {
+	    type: KeyTypes.VALUE,
+	    // I18N: A label for a decimal symbol.
+	    ariaLabel: i18n._('Decimal'),
+	    icon: decimalSeparator === DecimalSeparators.COMMA ? {
+	        // TODO(charlie): Get an SVG icon for the comma, or verify with
+	        // design that the text-rendered version is acceptable.
+	        type: IconTypes.TEXT,
+	        data: ','
+	    } : {
+	        type: IconTypes.SVG,
+	        data: Keys.PERIOD
+	    }
+	}, _KeyConfigs[Keys.PERCENT] = {
+	    type: KeyTypes.OPERATOR,
+	    // I18N: A label for a percent sign.
+	    ariaLabel: i18n._('Percent')
+	}, _KeyConfigs[Keys.CDOT] = {
+	    type: KeyTypes.OPERATOR,
+	    // I18N: A label for a multiplication sign (represented as a dot).
+	    ariaLabel: i18n._('Multiply')
+	}, _KeyConfigs[Keys.EQUAL] = {
+	    type: KeyTypes.OPERATOR,
+	    ariaLabel: i18n._('Equals sign')
+	}, _KeyConfigs[Keys.NEQ] = {
+	    type: KeyTypes.OPERATOR,
+	    ariaLabel: i18n._('Not-equals sign')
+	}, _KeyConfigs[Keys.GT] = {
+	    type: KeyTypes.OPERATOR,
+	    // I18N: A label for a 'greater than' sign (represented as '>').
+	    ariaLabel: i18n._('Greater than sign')
+	}, _KeyConfigs[Keys.LT] = {
+	    type: KeyTypes.OPERATOR,
+	    // I18N: A label for a 'less than' sign (represented as '<').
+	    ariaLabel: i18n._('Less than sign')
+	}, _KeyConfigs[Keys.GEQ] = {
+	    type: KeyTypes.OPERATOR,
+	    ariaLabel: i18n._('Greater than or equal to sign')
+	}, _KeyConfigs[Keys.LEQ] = {
+	    type: KeyTypes.OPERATOR,
+	    ariaLabel: i18n._('Less than or equal to sign')
+	}, _KeyConfigs[Keys.FRAC_INCLUSIVE] = {
+	    type: KeyTypes.OPERATOR,
+	    // I18N: A label for a button that creates a new fraction and puts the
+	    // current expression in the numerator of that fraction.
+	    ariaLabel: i18n._('Fraction, with current expression in numerator')
+	}, _KeyConfigs[Keys.FRAC_EXCLUSIVE] = {
+	    type: KeyTypes.OPERATOR,
+	    // I18N: A label for a button that creates a new fraction next to the
+	    // cursor.
+	    ariaLabel: i18n._('Fraction, excluding the current expression')
+	}, _KeyConfigs[Keys.EXP] = {
+	    type: KeyTypes.OPERATOR,
+	    // I18N: A label for a button that will allow the user to input a custom
+	    // exponent.
+	    ariaLabel: i18n._('Custom exponent')
+	}, _KeyConfigs[Keys.EXP_2] = {
+	    type: KeyTypes.OPERATOR,
+	    // I18N: A label for a button that will square (take to the second
+	    // power) some math.
+	    ariaLabel: i18n._('Square')
+	}, _KeyConfigs[Keys.EXP_3] = {
+	    type: KeyTypes.OPERATOR,
+	    // I18N: A label for a button that will cube (take to the third power)
+	    // some math.
+	    ariaLabel: i18n._('Cube')
+	}, _KeyConfigs[Keys.SQRT] = {
+	    type: KeyTypes.OPERATOR,
+	    ariaLabel: i18n._('Square root')
+	}, _KeyConfigs[Keys.CUBE_ROOT] = {
+	    type: KeyTypes.OPERATOR,
+	    ariaLabel: i18n._('Cube root')
+	}, _KeyConfigs[Keys.RADICAL] = {
+	    type: KeyTypes.OPERATOR,
+	    ariaLabel: i18n._('Radical with custom root')
+	}, _KeyConfigs[Keys.LEFT_PAREN] = {
+	    type: KeyTypes.OPERATOR,
+	    ariaLabel: i18n._('Left parenthesis')
+	}, _KeyConfigs[Keys.RIGHT_PAREN] = {
+	    type: KeyTypes.OPERATOR,
+	    ariaLabel: i18n._('Right parenthesis')
+	}, _KeyConfigs[Keys.LN] = {
+	    type: KeyTypes.OPERATOR,
+	    ariaLabel: i18n._('Natural logarithm')
+	}, _KeyConfigs[Keys.LOG] = {
+	    type: KeyTypes.OPERATOR,
+	    ariaLabel: i18n._('Logarithm with base 10')
+	}, _KeyConfigs[Keys.LOG_N] = {
+	    type: KeyTypes.OPERATOR,
+	    ariaLabel: i18n._('Logarithm with custom base')
+	}, _KeyConfigs[Keys.SIN] = {
+	    type: KeyTypes.OPERATOR,
+	    ariaLabel: i18n._('Sine')
+	}, _KeyConfigs[Keys.COS] = {
+	    type: KeyTypes.OPERATOR,
+	    ariaLabel: i18n._('Cosine')
+	}, _KeyConfigs[Keys.TAN] = {
+	    type: KeyTypes.OPERATOR,
+	    ariaLabel: i18n._('Tangent')
+	}, _KeyConfigs[Keys.PI] = {
+	    type: KeyTypes.VALUE,
+	    ariaLabel: i18n._('Pi'),
+	    icon: {
+	        type: IconTypes.MATH,
+	        data: '\\pi'
+	    }
+	}, _KeyConfigs[Keys.THETA] = {
+	    type: KeyTypes.VALUE,
+	    ariaLabel: i18n._('Theta'),
+	    icon: {
+	        type: IconTypes.MATH,
+	        data: '\\theta'
+	    }
+	}, _KeyConfigs[Keys.NOOP] = {
+	    type: KeyTypes.EMPTY
+	}, _KeyConfigs[Keys.UP] = {
+	    type: KeyTypes.INPUT_NAVIGATION,
+	    ariaLabel: i18n._('Up arrow')
+	}, _KeyConfigs[Keys.RIGHT] = {
+	    type: KeyTypes.INPUT_NAVIGATION,
+	    ariaLabel: i18n._('Right arrow')
+	}, _KeyConfigs[Keys.DOWN] = {
+	    type: KeyTypes.INPUT_NAVIGATION,
+	    ariaLabel: i18n._('Down arrow')
+	}, _KeyConfigs[Keys.LEFT] = {
+	    type: KeyTypes.INPUT_NAVIGATION,
+	    ariaLabel: i18n._('Left arrow')
+	}, _KeyConfigs[Keys.JUMP_OUT_PARENTHESES] = {
+	    type: KeyTypes.INPUT_NAVIGATION,
+	    ariaLabel: i18n._('Navigate right out of a set of parentheses')
+	}, _KeyConfigs[Keys.JUMP_OUT_EXPONENT] = {
+	    type: KeyTypes.INPUT_NAVIGATION,
+	    ariaLabel: i18n._('Navigate right out of an exponent')
+	}, _KeyConfigs[Keys.JUMP_OUT_BASE] = {
+	    type: KeyTypes.INPUT_NAVIGATION,
+	    ariaLabel: i18n._('Navigate right out of a base')
+	}, _KeyConfigs[Keys.JUMP_INTO_NUMERATOR] = {
+	    type: KeyTypes.INPUT_NAVIGATION,
+	    ariaLabel: i18n._('Navigate right into the numerator of a fraction')
+	}, _KeyConfigs[Keys.JUMP_OUT_NUMERATOR] = {
+	    type: KeyTypes.INPUT_NAVIGATION,
+	    ariaLabel: i18n._('Navigate right out of the numerator and into the denominator')
+	}, _KeyConfigs[Keys.JUMP_OUT_DENOMINATOR] = {
+	    type: KeyTypes.INPUT_NAVIGATION,
+	    ariaLabel: i18n._('Navigate right out of the denominator of a fraction')
+	}, _KeyConfigs[Keys.BACKSPACE] = {
+	    type: KeyTypes.INPUT_NAVIGATION,
+	    // I18N: A label for a button that will delete some input.
+	    ariaLabel: i18n._('Delete')
+	}, _KeyConfigs[Keys.DISMISS] = {
+	    type: KeyTypes.KEYPAD_NAVIGATION,
+	    // I18N: A label for a button that will dismiss/hide a keypad.
+	    ariaLabel: i18n._('Dismiss')
+	}, _KeyConfigs);
+
+	// Add in any multi-function buttons. By default, these keys will mix in any
+	// configuration settings from their default child key (i.e., the first key in
+	// the `childKeyIds` array).
+	// TODO(charlie): Make the multi-function button's long-press interaction
+	// accessible.
+	KeyConfigs[Keys.FRAC_MULTI] = {
+	    childKeyIds: [Keys.FRAC_INCLUSIVE, Keys.FRAC_EXCLUSIVE]
+	};
+
+	// TODO(charlie): Use the numeral color for the 'Many' key.
+	KeyConfigs[Keys.MANY] = {
+	    type: KeyTypes.MANY
+	};
+
+	// Add in every numeral.
+	var NUMBERS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+	for (var _iterator = NUMBERS, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
+	    var _ref;
+
+	    if (_isArray) {
+	        if (_i >= _iterator.length) break;
+	        _ref = _iterator[_i++];
+	    } else {
+	        _i = _iterator.next();
+	        if (_i.done) break;
+	        _ref = _i.value;
+	    }
+
+	    var num = _ref;
+
+	    // TODO(charlie): Consider removing the SVG icons that we have for the
+	    // numeral keys. They can be rendered just as easily with text (though that
+	    // would mean that we'd be using text beyond the variable key).
+	    var textRepresentation = '' + num;
+	    KeyConfigs['NUM_' + num] = {
+	        type: KeyTypes.VALUE,
+	        ariaLabel: textRepresentation,
+	        icon: {
+	            type: IconTypes.TEXT,
+	            data: textRepresentation
+	        }
+	    };
+	}
+
+	// Add in every variable.
+	var LETTERS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+	for (var _iterator2 = LETTERS, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : _iterator2[Symbol.iterator]();;) {
+	    var _ref2;
+
+	    if (_isArray2) {
+	        if (_i2 >= _iterator2.length) break;
+	        _ref2 = _iterator2[_i2++];
+	    } else {
+	        _i2 = _iterator2.next();
+	        if (_i2.done) break;
+	        _ref2 = _i2.value;
+	    }
+
+	    var letter = _ref2;
+
+	    var lowerCaseVariable = letter.toLowerCase();
+	    var upperCaseVariable = letter.toUpperCase();
+
+	    var _arr = [lowerCaseVariable, upperCaseVariable];
+	    for (var _i4 = 0; _i4 < _arr.length; _i4++) {
+	        var _textRepresentation = _arr[_i4];
+	        KeyConfigs[_textRepresentation] = {
+	            type: KeyTypes.VALUE,
+	            ariaLabel: _textRepresentation,
+	            icon: {
+	                type: IconTypes.MATH,
+	                data: _textRepresentation
+	            }
+	        };
+	    }
+	}
+
+	for (var _iterator3 = Object.keys(KeyConfigs), _isArray3 = Array.isArray(_iterator3), _i3 = 0, _iterator3 = _isArray3 ? _iterator3 : _iterator3[Symbol.iterator]();;) {
+	    var _ref3;
+
+	    if (_isArray3) {
+	        if (_i3 >= _iterator3.length) break;
+	        _ref3 = _iterator3[_i3++];
+	    } else {
+	        _i3 = _iterator3.next();
+	        if (_i3.done) break;
+	        _ref3 = _i3.value;
+	    }
+
+	    var key = _ref3;
+
+	    KeyConfigs[key] = _extends({
+	        id: key,
+	        // Default to an SVG icon indexed by the key name.
+	        icon: {
+	            type: IconTypes.SVG,
+	            data: key
+	        }
+	    }, KeyConfigs[key]);
+	}
+
+	module.exports = KeyConfigs;
+
+/***/ },
 /* 320 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -84461,8 +84467,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 
 	module.exports = {
-	  Text: __webpack_require__(362),
-	  View: __webpack_require__(363)
+	  Text: __webpack_require__(363),
+	  View: __webpack_require__(364)
 	};
 
 /***/ },
@@ -84481,7 +84487,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(20);
 
 	var WrappedEllipse = __webpack_require__(273);
-	var kpoint = __webpack_require__(216).point;
+	var kpoint = __webpack_require__(215).point;
 
 	var add = {
 	    constrain: function constrain() {
@@ -84642,8 +84648,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(20);
 	var WrappedLine = __webpack_require__(206);
 	var WrappedPath = __webpack_require__(274);
-	var kvector = __webpack_require__(216).vector;
-	var kpoint = __webpack_require__(216).point;
+	var kvector = __webpack_require__(215).vector;
+	var kpoint = __webpack_require__(215).point;
 	var KhanMath = __webpack_require__(96);
 
 	/**
@@ -84952,8 +84958,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 
 	var _ = __webpack_require__(20);
-	var kpoint = __webpack_require__(216).point;
-	var kvector = __webpack_require__(216).vector;
+	var kpoint = __webpack_require__(215).point;
+	var kvector = __webpack_require__(215).vector;
 
 	function sum(array) {
 	    return _.reduce(array, function (memo, arg) {
@@ -85240,7 +85246,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 *     of the DOM's `compareBoundaryPoints` API, and to cover over a Flow bug
 	 *     documented here: https://github.com/facebook/flow/issues/3734.
 	 */
-	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(231).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(19).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(230).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(19).PropTypes.any;
 	/**
 	 * Utility functions for manipulating ranges of highlightable content.
 	 */
@@ -85468,29 +85474,29 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(19);
 
-	var _require = __webpack_require__(382),
+	var _require = __webpack_require__(365),
 	    connect = _require.connect;
 
 	var _require2 = __webpack_require__(320),
 	    View = _require2.View;
 
-	var Keypad = __webpack_require__(383);
-	var TouchableKeypadButton = __webpack_require__(384);
+	var Keypad = __webpack_require__(384);
+	var TouchableKeypadButton = __webpack_require__(385);
 
 	var _require3 = __webpack_require__(329),
 	    row = _require3.row,
 	    roundedTopLeft = _require3.roundedTopLeft,
 	    roundedTopRight = _require3.roundedTopRight;
 
-	var _require4 = __webpack_require__(215),
+	var _require4 = __webpack_require__(216),
 	    BorderStyles = _require4.BorderStyles;
 
-	var CursorContexts = __webpack_require__(279);
+	var CursorContexts = __webpack_require__(280);
 
 	var _require5 = __webpack_require__(234),
 	    cursorContextPropType = _require5.cursorContextPropType;
 
-	var KeyConfigs = __webpack_require__(317);
+	var KeyConfigs = __webpack_require__(319);
 
 	var FractionKeypad = React.createClass({
 	    displayName: 'FractionKeypad',
@@ -85670,7 +85676,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(19);
 
-	var _require = __webpack_require__(382),
+	var _require = __webpack_require__(365),
 	    connect = _require.connect;
 
 	var _require2 = __webpack_require__(24),
@@ -85679,9 +85685,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _require3 = __webpack_require__(320),
 	    View = _require3.View;
 
-	var TwoPageKeypad = __webpack_require__(385);
-	var ManyKeypadButton = __webpack_require__(386);
-	var TouchableKeypadButton = __webpack_require__(384);
+	var TwoPageKeypad = __webpack_require__(386);
+	var ManyKeypadButton = __webpack_require__(387);
+	var TouchableKeypadButton = __webpack_require__(385);
 
 	var _require4 = __webpack_require__(329),
 	    row = _require4.row,
@@ -85691,7 +85697,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    roundedTopLeft = _require4.roundedTopLeft,
 	    roundedTopRight = _require4.roundedTopRight;
 
-	var _require5 = __webpack_require__(215),
+	var _require5 = __webpack_require__(216),
 	    BorderStyles = _require5.BorderStyles;
 
 	var _require6 = __webpack_require__(285),
@@ -85702,8 +85708,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    cursorContextPropType = _require7.cursorContextPropType,
 	    keyIdPropType = _require7.keyIdPropType;
 
-	var KeyConfigs = __webpack_require__(317);
-	var CursorContexts = __webpack_require__(279);
+	var KeyConfigs = __webpack_require__(319);
+	var CursorContexts = __webpack_require__(280);
 
 	var ExpressionKeypad = React.createClass({
 	    displayName: 'ExpressionKeypad',
@@ -86031,7 +86037,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _require2 = __webpack_require__(320),
 	    View = _require2.View;
 
-	var TouchableKeypadButton = __webpack_require__(384);
+	var TouchableKeypadButton = __webpack_require__(385);
 
 	var _require3 = __webpack_require__(329),
 	    row = _require3.row,
@@ -86046,10 +86052,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    valueGrey = _require4.valueGrey,
 	    gray85 = _require4.gray85;
 
-	var _require5 = __webpack_require__(215),
+	var _require5 = __webpack_require__(216),
 	    BorderStyles = _require5.BorderStyles;
 
-	var KeyConfigs = __webpack_require__(317);
+	var KeyConfigs = __webpack_require__(319);
 
 	var NavigationPad = React.createClass({
 	    displayName: 'NavigationPad',
@@ -86319,7 +86325,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var _require = __webpack_require__(215),
+	var _require = __webpack_require__(216),
 	    DecimalSeparators = _require.DecimalSeparators;
 
 	// We expect `window.icu` to be exposed by the parent. When in doubt, we fall
@@ -86474,7 +86480,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var getSelectionOffsetKeyForNode = __webpack_require__(387);
+	var getSelectionOffsetKeyForNode = __webpack_require__(388);
 
 	/**
 	 * Get the key from the node's nearest offset-aware ancestor.
@@ -86591,9 +86597,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var DraftOffsetKey = __webpack_require__(294);
+	var DraftOffsetKey = __webpack_require__(304);
 
-	var nullthrows = __webpack_require__(369);
+	var nullthrows = __webpack_require__(371);
 
 	function getUpdatedSelectionState(editorState, anchorKey, anchorOffset, focusKey, focusOffset) {
 	  var selection = nullthrows(editorState.getSelection());
@@ -86678,14 +86684,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	// trigger quickfind.
 	'use strict';
 
-	var BlockTree = __webpack_require__(305);
+	var BlockTree = __webpack_require__(313);
 	var DraftModifier = __webpack_require__(246);
 	var EditorState = __webpack_require__(249);
-	var UserAgent = __webpack_require__(367);
+	var UserAgent = __webpack_require__(369);
 
 	var getEntityKeyForSelection = __webpack_require__(332);
 	var isSelectionAtLeafStart = __webpack_require__(333);
-	var nullthrows = __webpack_require__(369);
+	var nullthrows = __webpack_require__(371);
 
 	var FF_QUICKFIND_CHAR = '\'';
 	var FF_QUICKFIND_LINK_CHAR = '\/';
@@ -86795,9 +86801,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	var EditorState = __webpack_require__(249);
-	var UserAgent = __webpack_require__(367);
+	var UserAgent = __webpack_require__(369);
 
-	var getActiveElement = __webpack_require__(388);
+	var getActiveElement = __webpack_require__(389);
 
 	var isWebKit = UserAgent.isEngine('WebKit');
 
@@ -86876,7 +86882,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var getFragmentFromSelection = __webpack_require__(389);
+	var getFragmentFromSelection = __webpack_require__(390);
 
 	/**
 	 * If we have a selection, create a ContentState fragment and store
@@ -86918,10 +86924,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var DraftModifier = __webpack_require__(246);
 	var EditorState = __webpack_require__(249);
-	var Style = __webpack_require__(366);
+	var Style = __webpack_require__(368);
 
-	var getFragmentFromSelection = __webpack_require__(389);
-	var getScrollPosition = __webpack_require__(370);
+	var getFragmentFromSelection = __webpack_require__(390);
+	var getScrollPosition = __webpack_require__(372);
 
 	/**
 	 * On `cut` events, native behavior is allowed to occur so that the system
@@ -87093,13 +87099,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	var DraftModifier = __webpack_require__(246);
-	var DraftOffsetKey = __webpack_require__(294);
+	var DraftOffsetKey = __webpack_require__(304);
 	var EditorState = __webpack_require__(249);
 	var Entity = __webpack_require__(247);
-	var UserAgent = __webpack_require__(367);
+	var UserAgent = __webpack_require__(369);
 
 	var findAncestorOffsetKey = __webpack_require__(334);
-	var nullthrows = __webpack_require__(369);
+	var nullthrows = __webpack_require__(371);
 
 	var isGecko = UserAgent.isEngine('Gecko');
 
@@ -87242,20 +87248,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	var DraftModifier = __webpack_require__(246);
 	var EditorState = __webpack_require__(249);
 	var KeyBindingUtil = __webpack_require__(250);
-	var Keys = __webpack_require__(377);
-	var SecondaryClipboard = __webpack_require__(390);
-	var UserAgent = __webpack_require__(367);
+	var Keys = __webpack_require__(379);
+	var SecondaryClipboard = __webpack_require__(391);
+	var UserAgent = __webpack_require__(369);
 
-	var keyCommandBackspaceToStartOfLine = __webpack_require__(391);
-	var keyCommandBackspaceWord = __webpack_require__(392);
-	var keyCommandDeleteWord = __webpack_require__(393);
-	var keyCommandInsertNewline = __webpack_require__(394);
-	var keyCommandPlainBackspace = __webpack_require__(395);
-	var keyCommandPlainDelete = __webpack_require__(396);
-	var keyCommandMoveSelectionToEndOfBlock = __webpack_require__(397);
-	var keyCommandMoveSelectionToStartOfBlock = __webpack_require__(398);
-	var keyCommandTransposeCharacters = __webpack_require__(399);
-	var keyCommandUndo = __webpack_require__(400);
+	var keyCommandBackspaceToStartOfLine = __webpack_require__(392);
+	var keyCommandBackspaceWord = __webpack_require__(393);
+	var keyCommandDeleteWord = __webpack_require__(394);
+	var keyCommandInsertNewline = __webpack_require__(395);
+	var keyCommandPlainBackspace = __webpack_require__(396);
+	var keyCommandPlainDelete = __webpack_require__(397);
+	var keyCommandMoveSelectionToEndOfBlock = __webpack_require__(398);
+	var keyCommandMoveSelectionToStartOfBlock = __webpack_require__(399);
+	var keyCommandTransposeCharacters = __webpack_require__(400);
+	var keyCommandUndo = __webpack_require__(401);
 
 	var isOptionKeyCommand = KeyBindingUtil.isOptionKeyCommand;
 
@@ -87395,14 +87401,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var BlockMapBuilder = __webpack_require__(237);
 	var CharacterMetadata = __webpack_require__(238);
-	var DataTransfer = __webpack_require__(379);
+	var DataTransfer = __webpack_require__(380);
 	var DraftModifier = __webpack_require__(246);
-	var DraftPasteProcessor = __webpack_require__(401);
+	var DraftPasteProcessor = __webpack_require__(403);
 	var EditorState = __webpack_require__(249);
 
 	var getEntityKeyForSelection = __webpack_require__(332);
 	var getTextContentFromFiles = __webpack_require__(335);
-	var splitTextIntoTextBlocks = __webpack_require__(402);
+	var splitTextIntoTextBlocks = __webpack_require__(404);
 
 	function editOnPaste(e) {
 	  var _this = this;
@@ -87539,7 +87545,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var EditorState = __webpack_require__(249);
 	var ReactDOM = __webpack_require__(21);
 
-	var getDraftEditorSelection = __webpack_require__(403);
+	var getDraftEditorSelection = __webpack_require__(402);
 
 	function editOnSelect() {
 	  if (this._blockSelectEvents) {
@@ -87574,6 +87580,226 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
+	 * @providesModule applyEntityToContentBlock
+	 * @typechecks
+	 * 
+	 */
+
+	'use strict';
+
+	var CharacterMetadata = __webpack_require__(238);
+
+	function applyEntityToContentBlock(contentBlock, start, end, entityKey) {
+	  var characterList = contentBlock.getCharacterList();
+	  while (start < end) {
+	    characterList = characterList.set(start, CharacterMetadata.applyEntity(characterList.get(start), entityKey));
+	    start++;
+	  }
+	  return contentBlock.set('characterList', characterList);
+	}
+
+	module.exports = applyEntityToContentBlock;
+
+/***/ },
+/* 350 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule DraftEntitySegments
+	 * @typechecks
+	 * 
+	 */
+
+	/**
+	 * Identify the range to delete from a segmented entity.
+	 *
+	 * Rules:
+	 *
+	 *  Example: 'John F. Kennedy'
+	 *
+	 *   - Deletion from within any non-whitespace (i.e. ['John', 'F.', 'Kennedy'])
+	 *     will return the range of that text.
+	 *
+	 *       'John F. Kennedy' -> 'John F.'
+	 *                  ^
+	 *
+	 *   - Forward deletion of whitespace will remove the following section:
+	 *
+	 *       'John F. Kennedy' -> 'John Kennedy'
+	 *            ^
+	 *
+	 *   - Backward deletion of whitespace will remove the previous section:
+	 *
+	 *       'John F. Kennedy' -> 'F. Kennedy'
+	 *            ^
+	 */
+	'use strict';
+
+	var DraftEntitySegments = {
+	  getRemovalRange: function getRemovalRange(selectionStart, selectionEnd, text, entityStart, direction) {
+	    var segments = text.split(' ');
+	    segments = segments.map(function ( /*string*/segment, /*number*/ii) {
+	      if (direction === 'forward') {
+	        if (ii > 0) {
+	          return ' ' + segment;
+	        }
+	      } else if (ii < segments.length - 1) {
+	        return segment + ' ';
+	      }
+	      return segment;
+	    });
+
+	    var segmentStart = entityStart;
+	    var segmentEnd;
+	    var segment;
+	    var removalStart = null;
+	    var removalEnd = null;
+
+	    for (var jj = 0; jj < segments.length; jj++) {
+	      segment = segments[jj];
+	      segmentEnd = segmentStart + segment.length;
+
+	      // Our selection overlaps this segment.
+	      if (selectionStart < segmentEnd && segmentStart < selectionEnd) {
+	        if (removalStart !== null) {
+	          removalEnd = segmentEnd;
+	        } else {
+	          removalStart = segmentStart;
+	          removalEnd = segmentEnd;
+	        }
+	      } else if (removalStart !== null) {
+	        break;
+	      }
+
+	      segmentStart = segmentEnd;
+	    }
+
+	    var entityEnd = entityStart + text.length;
+	    var atStart = removalStart === entityStart;
+	    var atEnd = removalEnd === entityEnd;
+
+	    if (!atStart && atEnd || atStart && !atEnd) {
+	      if (direction === 'forward') {
+	        if (removalEnd !== entityEnd) {
+	          removalEnd++;
+	        }
+	      } else if (removalStart !== entityStart) {
+	        removalStart--;
+	      }
+	    }
+
+	    return {
+	      start: removalStart,
+	      end: removalEnd
+	    };
+	  }
+	};
+
+	module.exports = DraftEntitySegments;
+
+/***/ },
+/* 351 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule getRangesForDraftEntity
+	 * @typechecks
+	 * 
+	 */
+
+	/**
+	 * Obtain the start and end positions of the range that has the
+	 * specified entity applied to it.
+	 *
+	 * Entity keys are applied only to contiguous stretches of text, so this
+	 * method searches for the first instance of the entity key and returns
+	 * the subsequent range.
+	 */
+	'use strict';
+
+	var invariant = __webpack_require__(373);
+
+	function getRangesForDraftEntity(block, key) {
+	  var ranges = [];
+	  block.findEntityRanges(function (c) {
+	    return c.getEntity() === key;
+	  }, function (start, end) {
+	    ranges.push({ start: start, end: end });
+	  });
+
+	  !!!ranges.length ? false ? invariant(false, 'Entity key not found in this range.') : invariant(false) : undefined;
+
+	  return ranges;
+	}
+
+	module.exports = getRangesForDraftEntity;
+
+/***/ },
+/* 352 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule insertIntoList
+	 * 
+	 */
+
+	/**
+	 * Maintain persistence for target list when appending and prepending.
+	 */
+	'use strict';
+
+	function insertIntoList(targetList, toInsert, offset) {
+	  if (offset === targetList.count()) {
+	    toInsert.forEach(function (c) {
+	      targetList = targetList.push(c);
+	    });
+	  } else if (offset === 0) {
+	    toInsert.reverse().forEach(function (c) {
+	      targetList = targetList.unshift(c);
+	    });
+	  } else {
+	    var head = targetList.slice(0, offset);
+	    var tail = targetList.slice(offset);
+	    targetList = head.concat(toInsert, tail).toList();
+	  }
+	  return targetList;
+	}
+
+	module.exports = insertIntoList;
+
+/***/ },
+/* 353 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
 	 * @providesModule DraftEditorTextNode.react
 	 * @typechecks
 	 * 
@@ -87591,7 +87817,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(19);
 	var ReactDOM = __webpack_require__(21);
-	var UserAgent = __webpack_require__(367);
+	var UserAgent = __webpack_require__(369);
 
 	// In IE, spans with <br> tags render as two newlines. By rendering a span
 	// with only a newline character, we can be sure to render a single line.
@@ -87682,7 +87908,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = DraftEditorTextNode;
 
 /***/ },
-/* 350 */
+/* 354 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -87709,8 +87935,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	'use strict';
 
-	var containsNode = __webpack_require__(404);
-	var getActiveElement = __webpack_require__(388);
+	var containsNode = __webpack_require__(405);
+	var getActiveElement = __webpack_require__(389);
 
 	function setDraftEditorSelection(selectionState, node, blockKey, nodeStart, nodeEnd) {
 	  // It's possible that the editor has been removed from the DOM but
@@ -87821,226 +88047,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 351 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule applyEntityToContentBlock
-	 * @typechecks
-	 * 
-	 */
-
-	'use strict';
-
-	var CharacterMetadata = __webpack_require__(238);
-
-	function applyEntityToContentBlock(contentBlock, start, end, entityKey) {
-	  var characterList = contentBlock.getCharacterList();
-	  while (start < end) {
-	    characterList = characterList.set(start, CharacterMetadata.applyEntity(characterList.get(start), entityKey));
-	    start++;
-	  }
-	  return contentBlock.set('characterList', characterList);
-	}
-
-	module.exports = applyEntityToContentBlock;
-
-/***/ },
-/* 352 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule DraftEntitySegments
-	 * @typechecks
-	 * 
-	 */
-
-	/**
-	 * Identify the range to delete from a segmented entity.
-	 *
-	 * Rules:
-	 *
-	 *  Example: 'John F. Kennedy'
-	 *
-	 *   - Deletion from within any non-whitespace (i.e. ['John', 'F.', 'Kennedy'])
-	 *     will return the range of that text.
-	 *
-	 *       'John F. Kennedy' -> 'John F.'
-	 *                  ^
-	 *
-	 *   - Forward deletion of whitespace will remove the following section:
-	 *
-	 *       'John F. Kennedy' -> 'John Kennedy'
-	 *            ^
-	 *
-	 *   - Backward deletion of whitespace will remove the previous section:
-	 *
-	 *       'John F. Kennedy' -> 'F. Kennedy'
-	 *            ^
-	 */
-	'use strict';
-
-	var DraftEntitySegments = {
-	  getRemovalRange: function getRemovalRange(selectionStart, selectionEnd, text, entityStart, direction) {
-	    var segments = text.split(' ');
-	    segments = segments.map(function ( /*string*/segment, /*number*/ii) {
-	      if (direction === 'forward') {
-	        if (ii > 0) {
-	          return ' ' + segment;
-	        }
-	      } else if (ii < segments.length - 1) {
-	        return segment + ' ';
-	      }
-	      return segment;
-	    });
-
-	    var segmentStart = entityStart;
-	    var segmentEnd;
-	    var segment;
-	    var removalStart = null;
-	    var removalEnd = null;
-
-	    for (var jj = 0; jj < segments.length; jj++) {
-	      segment = segments[jj];
-	      segmentEnd = segmentStart + segment.length;
-
-	      // Our selection overlaps this segment.
-	      if (selectionStart < segmentEnd && segmentStart < selectionEnd) {
-	        if (removalStart !== null) {
-	          removalEnd = segmentEnd;
-	        } else {
-	          removalStart = segmentStart;
-	          removalEnd = segmentEnd;
-	        }
-	      } else if (removalStart !== null) {
-	        break;
-	      }
-
-	      segmentStart = segmentEnd;
-	    }
-
-	    var entityEnd = entityStart + text.length;
-	    var atStart = removalStart === entityStart;
-	    var atEnd = removalEnd === entityEnd;
-
-	    if (!atStart && atEnd || atStart && !atEnd) {
-	      if (direction === 'forward') {
-	        if (removalEnd !== entityEnd) {
-	          removalEnd++;
-	        }
-	      } else if (removalStart !== entityStart) {
-	        removalStart--;
-	      }
-	    }
-
-	    return {
-	      start: removalStart,
-	      end: removalEnd
-	    };
-	  }
-	};
-
-	module.exports = DraftEntitySegments;
-
-/***/ },
-/* 353 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule getRangesForDraftEntity
-	 * @typechecks
-	 * 
-	 */
-
-	/**
-	 * Obtain the start and end positions of the range that has the
-	 * specified entity applied to it.
-	 *
-	 * Entity keys are applied only to contiguous stretches of text, so this
-	 * method searches for the first instance of the entity key and returns
-	 * the subsequent range.
-	 */
-	'use strict';
-
-	var invariant = __webpack_require__(375);
-
-	function getRangesForDraftEntity(block, key) {
-	  var ranges = [];
-	  block.findEntityRanges(function (c) {
-	    return c.getEntity() === key;
-	  }, function (start, end) {
-	    ranges.push({ start: start, end: end });
-	  });
-
-	  !!!ranges.length ? false ? invariant(false, 'Entity key not found in this range.') : invariant(false) : undefined;
-
-	  return ranges;
-	}
-
-	module.exports = getRangesForDraftEntity;
-
-/***/ },
-/* 354 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule insertIntoList
-	 * 
-	 */
-
-	/**
-	 * Maintain persistence for target list when appending and prepending.
-	 */
-	'use strict';
-
-	function insertIntoList(targetList, toInsert, offset) {
-	  if (offset === targetList.count()) {
-	    toInsert.forEach(function (c) {
-	      targetList = targetList.push(c);
-	    });
-	  } else if (offset === 0) {
-	    toInsert.reverse().forEach(function (c) {
-	      targetList = targetList.unshift(c);
-	    });
-	  } else {
-	    var head = targetList.slice(0, offset);
-	    var tail = targetList.slice(offset);
-	    targetList = head.concat(toInsert, tail).toList();
-	  }
-	  return targetList;
-	}
-
-	module.exports = insertIntoList;
-
-/***/ },
 /* 355 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -88059,9 +88065,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var UserAgent = __webpack_require__(367);
+	var UserAgent = __webpack_require__(369);
 
-	var invariant = __webpack_require__(375);
+	var invariant = __webpack_require__(373);
 
 	var isChrome = UserAgent.isBrowser('Chrome');
 
@@ -88119,276 +88125,113 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	/**
-	 * This component, given a single DOMHighlight, draws highlight rectangles in
-	 * the same absolute position as the highlighted content, as computed via
-	 * `getClientRects`. On hover, renders a "Remove Highlight" tooltip that, when
-	 * clicked, fires a callback to remove this highlight.
-	 *
-	 * TODO(mdr): Many things can affect the correct positioning of highlighting,
-	 *     and this component does not attempt to anticipate them. If we start
-	 *     using this highlighting library on content with a more dynamic layout,
-	 *     we should add a hook to allow the parent to `forceUpdate` the
-	 *     `HighlightRenderer`.
+	 * Render a set of highlights. See HighlightRenderer for more details about how
+	 * each highlight is rendered.
 	 */
 	var React = __webpack_require__(19);
 
-	var _require = __webpack_require__(24),
-	    StyleSheet = _require.StyleSheet,
-	    css = _require.css;
+	var HighlightRenderer = __webpack_require__(406);
 
-	var _require2 = __webpack_require__(406),
-	    getRelativePosition = _require2.getRelativePosition;
+	var babelPluginFlowReactPropTypes_proptype_ZIndexes = __webpack_require__(359).babelPluginFlowReactPropTypes_proptype_ZIndexes || __webpack_require__(19).PropTypes.any;
 
-	var HighlightTooltip = __webpack_require__(405);
+	var babelPluginFlowReactPropTypes_proptype_Position = __webpack_require__(359).babelPluginFlowReactPropTypes_proptype_Position || __webpack_require__(19).PropTypes.any;
 
-	/* global i18n */
+	var babelPluginFlowReactPropTypes_proptype_DOMHighlightSet = __webpack_require__(359).babelPluginFlowReactPropTypes_proptype_DOMHighlightSet || __webpack_require__(19).PropTypes.any;
 
-	var babelPluginFlowReactPropTypes_proptype_ZIndexes = __webpack_require__(358).babelPluginFlowReactPropTypes_proptype_ZIndexes || __webpack_require__(19).PropTypes.any;
+	var HighlightSetRenderer = function (_React$Component) {
+	    _inherits(HighlightSetRenderer, _React$Component);
 
-	var babelPluginFlowReactPropTypes_proptype_Rect = __webpack_require__(358).babelPluginFlowReactPropTypes_proptype_Rect || __webpack_require__(19).PropTypes.any;
-
-	var babelPluginFlowReactPropTypes_proptype_Position = __webpack_require__(358).babelPluginFlowReactPropTypes_proptype_Position || __webpack_require__(19).PropTypes.any;
-
-	var babelPluginFlowReactPropTypes_proptype_DOMHighlight = __webpack_require__(358).babelPluginFlowReactPropTypes_proptype_DOMHighlight || __webpack_require__(19).PropTypes.any;
-
-	var HighlightRenderer = function (_React$PureComponent) {
-	    _inherits(HighlightRenderer, _React$PureComponent);
-
-	    function HighlightRenderer() {
+	    function HighlightSetRenderer() {
 	        var _temp, _this, _ret;
 
-	        _classCallCheck(this, HighlightRenderer);
+	        _classCallCheck(this, HighlightSetRenderer);
 
 	        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
 	            args[_key] = arguments[_key];
 	        }
 
-	        return _ret = (_temp = (_this = _possibleConstructorReturn(this, _React$PureComponent.call.apply(_React$PureComponent, [this].concat(args))), _this), _this.state = {
-	            cachedHighlightRects: [],
-	            tooltipIsHovered: false
-	        }, _this._handleRemoveHighlight = function () {
-	            _this.props.onRemoveHighlight(_this.props.highlight.key);
-	        }, _this._handleTooltipMouseEnter = function () {
-	            _this.setState({ tooltipIsHovered: true });
-	        }, _this._handleTooltipMouseLeave = function () {
-	            _this.setState({ tooltipIsHovered: false });
+	        return _ret = (_temp = (_this = _possibleConstructorReturn(this, _React$Component.call.apply(_React$Component, [this].concat(args))), _this), _this.state = {
+	            mouseClientPosition: null
+	        }, _this._handleMouseMove = function (e) {
+	            _this.setState({
+	                mouseClientPosition: {
+	                    left: e.clientX,
+	                    top: e.clientY
+	                }
+	            });
 	        }, _temp), _possibleConstructorReturn(_this, _ret);
 	    }
-	    /* eslint-disable react/sort-comp */
+
+	    HighlightSetRenderer.prototype.componentDidMount = function componentDidMount() {
+	        this._updateEditListeners(false, this.props.editable);
+	    };
+
+	    HighlightSetRenderer.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
+	        this._updateEditListeners(this.props.editable, nextProps.editable);
+	    };
+
+	    HighlightSetRenderer.prototype.componentWillUnmount = function componentWillUnmount() {
+	        this._updateEditListeners(this.props.editable, false);
+	    };
+
+	    /**
+	     * Given whether we were previously listening to mousemove events, and
+	     * whether we will now listen to mousemove events, add or remove the
+	     * listener accordingly.
+	     */
 
 
-	    /* eslint-enable react/sort-comp */
+	    HighlightSetRenderer.prototype._updateEditListeners = function _updateEditListeners(wasListening, willListen) {
+	        if (!wasListening && willListen) {
+	            window.addEventListener("mousemove", this._handleMouseMove);
+	        } else if (wasListening && !willListen) {
+	            window.removeEventListener("mousemove", this._handleMouseMove);
 
-	    HighlightRenderer.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
-	        if (this.props.highlight !== nextProps.highlight || this.props.offsetParent !== nextProps.offsetParent) {
+	            // Additionally, reset the mouse position. Our child components
+	            // won't be checking `mouseClientPosition` when we're not
+	            // listening, anyway, but this guards against errors where we
+	            // re-enter listening mode and have stale coordinates stored in
+	            // state.
 	            this.setState({
-	                cachedHighlightRects: this._getRects(nextProps)
+	                mouseClientPosition: null
 	            });
 	        }
 	    };
 
-	    /**
-	     * Compute the set of rectangles that cover the highlighted content, with
-	     * coordinates relative to the offset parent. That way, we can use them
-	     * for CSS positioning.
-	     */
-
-
-	    HighlightRenderer.prototype._getRects = function _getRects() {
-	        var _props = this.props,
-	            highlight = _props.highlight,
-	            offsetParent = _props.offsetParent;
-
-	        // Get the set of rectangles that covers the range, and the rectangle
-	        // that covers the offset parent.
-	        // NOTE(mdr): The rectangles returned by `getClientRects` and
-	        //     `getBoundingClientRect` are relative to the *viewport*, not the
-	        //     document.
-	        //
-	        //     This doesn't affect our computations, because the offset between
-	        //     two rectangles is the same, no matter what origin the coordinate
-	        //     system uses.
-	        //
-	        //     But it *does* mean it's unsafe to cache these rectangles, in
-	        //     case the user scrolls at unexpected times. Instead, we only
-	        //     cache the derived rectangles that this function returns, because
-	        //     those will be stable regardless of viewport scrolling.
-
-	        var domRects = highlight.range.getClientRects();
-	        var offsetParentRect = offsetParent.getBoundingClientRect();
-
-	        // Recompute the rectangle's coordinates to be relative to the offset
-	        // parent, instead of relative to the viewport.
-	        var rects = Array.prototype.map.call(domRects, function (domRect) {
-	            var _getRelativePosition = getRelativePosition(domRect, offsetParentRect),
-	                left = _getRelativePosition.left,
-	                top = _getRelativePosition.top;
-
-	            return {
-	                left: left,
-	                top: top,
-	                width: domRect.width,
-	                height: domRect.height
-	            };
-	        });
-
-	        return rects;
-	    };
-
-	    /**
-	     * Return whether the given mouse position (coordinates relative to the
-	     * viewport) is hovering over this highlight.
-	     */
-	    HighlightRenderer.prototype._highlightIsHovered = function _highlightIsHovered(mouseClientPosition) {
+	    HighlightSetRenderer.prototype.render = function render() {
 	        var _this2 = this;
-
-	        if (!mouseClientPosition) {
-	            return false;
-	        }
-
-	        var offsetParent = this.props.offsetParent;
-	        var cachedHighlightRects = this.state.cachedHighlightRects;
-
-	        // Convert the client-relative mouse coordinates to be relative to the
-	        // offset parent. That way, we can compare them to the cached highlight
-	        // rectangles.
-
-	        var offsetParentRect = offsetParent.getBoundingClientRect();
-	        var mouseOffsetPosition = getRelativePosition(mouseClientPosition, offsetParentRect);
-
-	        return cachedHighlightRects.some(function (rect) {
-	            return _this2._rectIsHovered(rect, mouseOffsetPosition);
-	        });
-	    };
-
-	    /**
-	     * Return whether the given mouse position (coordinates relative to this
-	     * component's offset parent) is hovering over the given rectangle
-	     * (coordinates also relative to this component's offset parent).
-	     */
-
-
-	    HighlightRenderer.prototype._rectIsHovered = function _rectIsHovered(rect, mouseOffsetPosition) {
-	        var positionWithinRect = getRelativePosition(mouseOffsetPosition, rect);
-
-	        return 0 <= positionWithinRect.left && positionWithinRect.left < rect.width && 0 <= positionWithinRect.top && positionWithinRect.top < rect.height;
-	    };
-
-	    /**
-	     * Return whether the "Remove highlight" tooltip should be visible.
-	     */
-
-
-	    HighlightRenderer.prototype._shouldShowTooltip = function _shouldShowTooltip() {
-	        // If the highlight is not editable, hide the tooltip.
-	        if (!this.props.editable) {
-	            return false;
-	        }
-
-	        // If the tooltip is hovered, continue to show it, even if the
-	        // highlight is no longer hovered.
-	        if (this.state.tooltipIsHovered) {
-	            return true;
-	        }
-
-	        // If the highlight is hovered, show the tooltip.
-	        if (this._highlightIsHovered(this.props.mouseClientPosition)) {
-	            return true;
-	        }
-
-	        // Otherwise, hide the tooltip.
-	        return false;
-	    };
-
-	    HighlightRenderer.prototype.render = function render() {
-	        var _this3 = this;
-
-	        var rects = this.state.cachedHighlightRects;
 
 	        return React.createElement(
 	            "div",
 	            null,
-	            React.createElement(
-	                "div",
-	                { className: css(styles.highlight) },
-	                rects.map(function (rect, index) {
-	                    return React.createElement("div", {
-	                        key: index,
-	                        className: css(styles.highlightRect),
-	                        style: {
-	                            // NOTE(mdr): We apply `position: absolute` here
-	                            //     rather than in Aphrodite styles, because
-	                            //     Aphrodite styles are delayed. If this
-	                            //     element temporarily has `position: static`,
-	                            //     then it'll displace the content, and other
-	                            //     highlights rendering during this update will
-	                            //     measure the displaced content instead, oops!
-	                            position: "absolute",
-	                            width: rect.width,
-	                            height: rect.height,
-	                            top: rect.top,
-	                            left: rect.left,
-	                            zIndex: _this3.props.zIndexes.belowContent
-	                        }
-	                    });
-	                })
-	            ),
-	            this._shouldShowTooltip() && React.createElement(HighlightTooltip, {
-	                label: i18n._("Remove highlight"),
-	                onClick: this._handleRemoveHighlight,
-	                onMouseEnter: this._handleTooltipMouseEnter,
-	                onMouseLeave: this._handleTooltipMouseLeave,
-
-	                focusNode: this.props.highlight.range.endContainer,
-	                focusOffset: this.props.highlight.range.endOffset,
-	                offsetParent: this.props.offsetParent,
-	                zIndex: this.props.zIndexes.aboveContent
+	            Object.keys(this.props.highlights).map(function (key) {
+	                return React.createElement(HighlightRenderer, {
+	                    editable: _this2.props.editable,
+	                    key: key,
+	                    highlight: _this2.props.highlights[key],
+	                    highlightKey: key,
+	                    mouseClientPosition: _this2.state.mouseClientPosition,
+	                    offsetParent: _this2.props.offsetParent,
+	                    onRemoveHighlight: _this2.props.onRemoveHighlight,
+	                    zIndexes: _this2.props.zIndexes
+	                });
 	            })
 	        );
 	    };
 
-	    return HighlightRenderer;
-	}(React.PureComponent);
+	    return HighlightSetRenderer;
+	}(React.Component);
 
-	HighlightRenderer.propTypes = {
+	HighlightSetRenderer.propTypes = {
 	    editable: __webpack_require__(19).PropTypes.bool.isRequired,
-	    highlight: babelPluginFlowReactPropTypes_proptype_DOMHighlight,
-	    mouseClientPosition: babelPluginFlowReactPropTypes_proptype_Position,
+	    highlights: babelPluginFlowReactPropTypes_proptype_DOMHighlightSet,
 	    offsetParent: __webpack_require__(19).PropTypes.any.isRequired,
 	    onRemoveHighlight: __webpack_require__(19).PropTypes.func.isRequired,
 	    zIndexes: babelPluginFlowReactPropTypes_proptype_ZIndexes
 	};
 
 
-	var styles = StyleSheet.create({
-	    // NOTE(mdr): A clever trick here! Instead of assigning the opacity to the
-	    //     individual rects, we assign it to the highlight. That way, if there
-	    //     are overlapping rects, the overlapping area is the same color as the
-	    //     rest of the highlighted area - whereas, if we had applied the
-	    //     opacity to each individual rect, the overlapping areas would be
-	    //     darker than the rest.
-	    //
-	    //     This especially matters because getClientRects sometimes returns
-	    //     duplicate rects for text nodes and their wrapper elements - but,
-	    //     this way, the overlap doesn't affect the visuals.
-	    highlight: {
-	        opacity: 0.4,
-
-	        // NOTE(mdr): IE and Edge don't apply a non-positioned parent's opacity
-	        //     to a positioned child. We therefore position the highlight to
-	        //     be in the top left corner of the offset parent, which won't
-	        //     disrupt calculations, but will lead to correct opacity behavior
-	        //     on IE.
-	        position: "absolute",
-	        left: 0,
-	        top: 0
-	    },
-
-	    highlightRect: {
-	        background: "#4c00ff" }
-	});
-
-	module.exports = HighlightRenderer;
+	module.exports = HighlightSetRenderer;
 
 /***/ },
 /* 357 */
@@ -88403,18 +88246,185 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	/**
-	 * Tracks the user's current selection, and displays an Add Highlight tooltip
-	 * at the focus.
+	 * A tooltip to point to the focus of a highlight.
 	 */
 	var React = __webpack_require__(19);
 
-	var HighlightTooltip = __webpack_require__(405);
+	var _require = __webpack_require__(24),
+	    StyleSheet = _require.StyleSheet,
+	    css = _require.css;
 
-	/* global i18n */
+	var _require2 = __webpack_require__(407),
+	    getRelativePosition = _require2.getRelativePosition;
 
-	var babelPluginFlowReactPropTypes_proptype_ZIndexes = __webpack_require__(358).babelPluginFlowReactPropTypes_proptype_ZIndexes || __webpack_require__(19).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_Position = __webpack_require__(359).babelPluginFlowReactPropTypes_proptype_Position || __webpack_require__(19).PropTypes.any;
 
-	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(358).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(19).PropTypes.any;
+	var HighlightTooltip = function (_React$PureComponent) {
+	    _inherits(HighlightTooltip, _React$PureComponent);
+
+	    function HighlightTooltip() {
+	        _classCallCheck(this, HighlightTooltip);
+
+	        return _possibleConstructorReturn(this, _React$PureComponent.apply(this, arguments));
+	    }
+
+	    HighlightTooltip.prototype._getPosition = function _getPosition() {
+	        var _props = this.props,
+	            focusNode = _props.focusNode,
+	            focusOffset = _props.focusOffset,
+	            offsetParent = _props.offsetParent;
+
+	        // Get a range of *just* the focus point of the selection.
+
+	        var focusRange = document.createRange();
+	        focusRange.setStart(focusNode, focusOffset);
+	        focusRange.setEnd(focusNode, focusOffset);
+
+	        // Then, get the bounding box of the collapsed range. This will be a
+	        // zero-width rectangle, but still have positioning information, which
+	        // we can use the position the tooltip.
+	        var focusRect = focusRange.getBoundingClientRect();
+
+	        // Compute the desired position of the tooltip relative to the offset
+	        // parent.
+	        var offsetParentRect = offsetParent.getBoundingClientRect();
+	        var focusPosition = getRelativePosition(focusRect, offsetParentRect);
+
+	        return focusPosition;
+	    };
+
+	    HighlightTooltip.prototype.render = function render() {
+	        var position = this._getPosition();
+
+	        return React.createElement(
+	            "div",
+	            {
+	                className: css(styles.tooltip),
+	                onClick: this.props.onClick,
+	                onMouseEnter: this.props.onMouseEnter,
+	                onMouseLeave: this.props.onMouseLeave,
+	                style: {
+	                    left: position.left,
+	                    top: position.top,
+	                    zIndex: this.props.zIndex
+	                }
+	            },
+	            React.createElement(
+	                "div",
+	                { className: css(styles.label) },
+	                this.props.label
+	            ),
+	            React.createElement("div", { className: css(styles.arrow) })
+	        );
+	    };
+
+	    return HighlightTooltip;
+	}(React.PureComponent);
+
+	HighlightTooltip.propTypes = {
+	    label: __webpack_require__(19).PropTypes.string.isRequired,
+	    onClick: __webpack_require__(19).PropTypes.func.isRequired,
+	    onMouseEnter: __webpack_require__(19).PropTypes.func,
+	    onMouseLeave: __webpack_require__(19).PropTypes.func,
+	    focusNode: __webpack_require__(19).PropTypes.any.isRequired,
+	    focusOffset: __webpack_require__(19).PropTypes.number.isRequired,
+	    offsetParent: __webpack_require__(19).PropTypes.any.isRequired,
+	    zIndex: __webpack_require__(19).PropTypes.number.isRequired
+	};
+
+
+	var styles = StyleSheet.create({
+	    tooltip: {
+	        // Positioning.
+	        //
+	        // Position the tooltip's *center-bottom* point at the left/top
+	        // coordinates, instead of the tooltip's top-left point, by translating
+	        // left by half the tooltip's width and up by the tooltip's full
+	        // height.
+	        //
+	        // `left`, `top`, and `zIndex` are specified via the `style` attribute.
+	        position: "absolute",
+	        transform: "translate(-50%, -100%)",
+
+	        // Cursor interaction.
+	        cursor: "pointer",
+	        userSelect: "none"
+	    },
+
+	    label: {
+	        // Box appearance.
+	        background: "#314453",
+	        borderRadius: 2,
+	        boxShadow: "0 1px 4px 0 rgba(97, 101, 105, 0.42)",
+	        padding: "8px 11px",
+
+	        // Text appearance.
+	        color: "white",
+	        fontSize: 12,
+	        lineHeight: 1.5,
+	        textAlign: "center"
+	    },
+
+	    // A 12px-width, 6px-height downward-facing arrow.
+	    //
+	    // Implemented by creating a box whose only content is its top, left, and
+	    // right borders. The joints between two borders are a diagonal line, so
+	    // the arrow element renders divided into these three areas:
+	    //
+	    // +-------+
+	    // |\ top /|
+	    // | \   / |
+	    // |  \ /  |
+	    // |L  v  R|
+	    // +-------+
+	    //
+	    // Therefore, if we color the top border, and make the left and right
+	    // borders transparent, we end up with a triangle!
+	    //
+	    // https://css-tricks.com/snippets/css/css-triangle/
+	    arrow: {
+	        // Make the inner dimensions of the box 0x0, so that its only content
+	        // is its top, left, and right borders.
+	        height: 0,
+	        width: 0,
+
+	        // The sum of our left and right border widths will be the width of our
+	        // triangle, so set them to 6px + 6px = 12px.
+	        borderLeft: "6px solid transparent",
+	        borderRight: "6px solid transparent",
+
+	        // The top border height will be the height of our triangle, so set it
+	        // to 6px.
+	        borderTop: "6px solid #314453",
+
+	        // Center the arrow within the tooltip container.
+	        margin: "0 auto"
+	    }
+	});
+
+	module.exports = HighlightTooltip;
+
+/***/ },
+/* 358 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	/**
+	 * Tracks the user's current selection, and exposes it to the subtree using the
+	 * function-as-children pattern.
+	 */
+	var React = __webpack_require__(19);
+
+	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(359).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(19).PropTypes.any;
+
+	var babelPluginFlowReactPropTypes_proptype_DOMHighlight = __webpack_require__(359).babelPluginFlowReactPropTypes_proptype_DOMHighlight || __webpack_require__(19).PropTypes.any;
 
 	var SelectionTracker = function (_React$PureComponent) {
 	    _inherits(SelectionTracker, _React$PureComponent);
@@ -88429,35 +88439,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 
 	        return _ret = (_temp = (_this = _possibleConstructorReturn(this, _React$PureComponent.call.apply(_React$PureComponent, [this].concat(args))), _this), _this.state = {
-	            mouseState: "down",
-	            selectionFocusNode: null,
-	            selectionFocusOffset: null
-	        }, _this._handleAddSelectionAsHighlight = function () {
-	            var selectionAndRange = _this._getSelectionAndRange();
-	            if (!selectionAndRange) {
-	                return;
-	            }
-
-	            _this.props.onAddHighlight(selectionAndRange.range);
-
-	            // Deselect the newly-highlighted text, by collapsing the selection
-	            // to the end of the range.
-	            selectionAndRange.selection.collapseToEnd();
+	            mouseState: "up",
+	            trackedSelection: null
 	        }, _this._handleSelectionChange = function () {
-	            var selectionAndRange = _this._getSelectionAndRange();
-	            if (selectionAndRange) {
-	                var selection = selectionAndRange.selection;
-
-	                _this.setState({
-	                    selectionFocusNode: selection.focusNode,
-	                    selectionFocusOffset: selection.focusOffset
-	                });
-	            } else {
-	                _this.setState({
-	                    selectionFocusNode: null,
-	                    selectionFocusOffset: null
-	                });
-	            }
+	            _this._updateTrackedSelection(_this.props.buildHighlight);
 
 	            if (_this.state.mouseState === "down") {
 	                _this.setState({
@@ -88470,36 +88455,63 @@ return /******/ (function(modules) { // webpackBootstrap
 	            _this.setState({ mouseState: "up" });
 	        }, _temp), _possibleConstructorReturn(_this, _ret);
 	    }
-	    /* eslint-disable react/sort-comp */
-
-
-	    /* eslint-enable react/sort-comp */
 
 	    SelectionTracker.prototype.componentDidMount = function componentDidMount() {
-	        window.addEventListener("mousedown", this._handleMouseDown);
-	        window.addEventListener("mouseup", this._handleMouseUp);
-	        document.addEventListener("selectionchange", this._handleSelectionChange);
+	        this._updateListeners(false, this.props.enabled);
+	    };
+
+	    SelectionTracker.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
+	        if (this.props.buildHighlight !== nextProps.buildHighlight) {
+	            // The highlight-building function changed, so the
+	            // proposedHighlight we built with it might be different, or no
+	            // longer be valid. Update accordingly.
+	            this._updateTrackedSelection(nextProps.buildHighlight);
+	        }
+
+	        this._updateListeners(this.props.enabled, nextProps.enabled);
 	    };
 
 	    SelectionTracker.prototype.componentWillUnmount = function componentWillUnmount() {
-	        window.removeEventListener("mousedown", this._handleMouseDown);
-	        window.removeEventListener("mouseup", this._handleMouseUp);
-	        document.removeEventListener("selectionchange", this._handleSelectionChange);
+	        this._updateListeners(this.props.enabled, false);
+	    };
+
+	    SelectionTracker.prototype._updateListeners = function _updateListeners(wasListening, willListen) {
+	        if (!wasListening && willListen) {
+	            window.addEventListener("mousedown", this._handleMouseDown);
+	            window.addEventListener("mouseup", this._handleMouseUp);
+	            document.addEventListener("selectionchange", this._handleSelectionChange);
+	        } else if (wasListening && !willListen) {
+	            window.removeEventListener("mousedown", this._handleMouseDown);
+	            window.removeEventListener("mouseup", this._handleMouseUp);
+	            document.removeEventListener("selectionchange", this._handleSelectionChange);
+
+	            // Additionally, reset the state, to guard against errors where we
+	            // re-enter listening mode and have stale values stored.
+	            this.setState({
+	                mouseState: "up",
+	                trackedSelection: null
+	            });
+	        }
 	    };
 
 	    /**
-	     * Get the current selection and non-collapsed range, if any.
+	     * Get the current selection focus and range, if present and non-collapsed.
+	     *
 	     * Otherwise, if there is no current selection or it's collapsed, return
 	     * null.
 	     */
 
 
-	    SelectionTracker.prototype._getSelectionAndRange = function _getSelectionAndRange() {
+	    SelectionTracker.prototype._computeFocusAndRange = function _computeFocusAndRange() {
 	        var selection = document.getSelection();
 	        if (selection && selection.rangeCount > 0) {
 	            var _range = selection.getRangeAt(0);
 	            if (!_range.collapsed) {
-	                return { selection: selection, range: _range };
+	                // NOTE(mdr): The focus node is guaranteed to exist, because
+	                //     there's a range, but the Flow type annotations for
+	                var _focusNode = selection.focusNode;
+	                var _focusOffset = selection.focusOffset;
+	                return { focusNode: _focusNode, focusOffset: _focusOffset, range: _range };
 	            }
 	        }
 
@@ -88507,67 +88519,79 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 
 	    /**
-	     * Add the currently-selected DOMRange as a highlight.
+	     * Compute the current TrackedSelection from the document state.
 	     */
 
 
+	    SelectionTracker.prototype._computeTrackedSelection = function _computeTrackedSelection(buildHighlight) {
+	        var focusAndRange = this._computeFocusAndRange();
+	        if (!focusAndRange) {
+	            return null;
+	        }
+
+	        var focusNode = focusAndRange.focusNode,
+	            focusOffset = focusAndRange.focusOffset,
+	            range = focusAndRange.range;
+
+	        var proposedHighlight = buildHighlight(range);
+	        if (!proposedHighlight) {
+	            return null;
+	        }
+
+	        return { focusNode: focusNode, focusOffset: focusOffset, proposedHighlight: proposedHighlight };
+	    };
+
+	    /**
+	     * Update the TrackedSelection to reflect the document state.
+	     */
+
+
+	    SelectionTracker.prototype._updateTrackedSelection = function _updateTrackedSelection(buildHighlight) {
+	        var trackedSelection = this._computeTrackedSelection(buildHighlight);
+	        this.setState({ trackedSelection: trackedSelection });
+	    };
+
 	    SelectionTracker.prototype.render = function render() {
-	        var _props = this.props,
-	            offsetParent = _props.offsetParent,
-	            zIndexes = _props.zIndexes;
 	        var _state = this.state,
 	            mouseState = _state.mouseState,
-	            selectionFocusNode = _state.selectionFocusNode,
-	            selectionFocusOffset = _state.selectionFocusOffset;
+	            trackedSelection = _state.trackedSelection;
 
-	        // If the user is still mouse-selecting some text, we don't want our
-	        // tooltip getting in the way, so render nothing.
+	        var userIsMouseSelecting = mouseState === "down-and-selecting";
 
-	        if (mouseState === "down-and-selecting") {
-	            return null;
-	        }
-
-	        // If there's no selection focus, render nothing.
-	        if (!selectionFocusNode || !selectionFocusOffset) {
-	            return null;
-	        }
-
-	        return React.createElement(HighlightTooltip, {
-	            label: i18n._("Add highlight"),
-	            onClick: this._handleAddSelectionAsHighlight,
-
-	            focusNode: selectionFocusNode,
-	            focusOffset: selectionFocusOffset,
-	            offsetParent: offsetParent,
-	            zIndex: zIndexes.aboveContent
-	        });
+	        return this.props.children && React.createElement(
+	            "div",
+	            null,
+	            this.props.children(trackedSelection, userIsMouseSelecting)
+	        );
 	    };
 
 	    return SelectionTracker;
 	}(React.PureComponent);
 
 	SelectionTracker.propTypes = {
-	    offsetParent: __webpack_require__(19).PropTypes.any.isRequired,
-	    onAddHighlight: __webpack_require__(19).PropTypes.func.isRequired,
-	    zIndexes: babelPluginFlowReactPropTypes_proptype_ZIndexes
+	    buildHighlight: __webpack_require__(19).PropTypes.func.isRequired,
+	    children: __webpack_require__(19).PropTypes.func,
+	    enabled: __webpack_require__(19).PropTypes.bool.isRequired
 	};
 
 
 	module.exports = SelectionTracker;
 
 /***/ },
-/* 358 */
+/* 359 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(231).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(19).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(230).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(19).PropTypes.any;
 
 	// Import the DOM-related types from the parent directory, and re-export them
 	// to the UI code.
 
 
-	var babelPluginFlowReactPropTypes_proptype_DOMHighlight = __webpack_require__(231).babelPluginFlowReactPropTypes_proptype_DOMHighlight || __webpack_require__(19).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_DOMHighlightSet = __webpack_require__(230).babelPluginFlowReactPropTypes_proptype_DOMHighlightSet || __webpack_require__(19).PropTypes.any;
+
+	var babelPluginFlowReactPropTypes_proptype_DOMHighlight = __webpack_require__(230).babelPluginFlowReactPropTypes_proptype_DOMHighlight || __webpack_require__(19).PropTypes.any;
 
 	Object.defineProperty(module.exports, "babelPluginFlowReactPropTypes_proptype_Position", __webpack_require__(19).PropTypes.shape({
 	    left: __webpack_require__(19).PropTypes.number.isRequired,
@@ -88579,7 +88603,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
-/* 359 */
+/* 360 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -88605,7 +88629,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * might need to be.
 	 */
 
-	var _require = __webpack_require__(215),
+	var _require = __webpack_require__(216),
 	    DeviceTypes = _require.DeviceTypes,
 	    DeviceOrientations = _require.DeviceOrientations,
 	    LayoutModes = _require.LayoutModes;
@@ -88727,7 +88751,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = computeLayoutParameters;
 
 /***/ },
-/* 360 */
+/* 361 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -88744,9 +88768,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * and links them together.
 	 */
 
-	var NodeManager = __webpack_require__(407);
-	var PopoverStateMachine = __webpack_require__(408);
-	var GestureStateMachine = __webpack_require__(409);
+	var NodeManager = __webpack_require__(408);
+	var PopoverStateMachine = __webpack_require__(409);
+	var GestureStateMachine = __webpack_require__(410);
 
 	var coordsForEvent = function coordsForEvent(evt) {
 	    return [evt.changedTouches[0].clientX, evt.changedTouches[0].clientY];
@@ -88984,7 +89008,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = GestureManager;
 
 /***/ },
-/* 361 */
+/* 362 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -89000,7 +89024,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * occurred in the last 100 milliseconds.
 	 */
 
-	var now = __webpack_require__(443);
+	var now = __webpack_require__(442);
 
 	var VelocityTracker = function () {
 	    function VelocityTracker(options) {
@@ -89080,7 +89104,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = VelocityTracker;
 
 /***/ },
-/* 362 */
+/* 363 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -89143,7 +89167,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Text;
 
 /***/ },
-/* 363 */
+/* 364 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -89235,7 +89259,31 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = View;
 
 /***/ },
-/* 364 */
+/* 365 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	exports.connect = exports.Provider = undefined;
+
+	var _Provider = __webpack_require__(422);
+
+	var _Provider2 = _interopRequireDefault(_Provider);
+
+	var _connect = __webpack_require__(423);
+
+	var _connect2 = _interopRequireDefault(_connect);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { "default": obj };
+	}
+
+	exports.Provider = _Provider2["default"];
+	exports.connect = _connect2["default"];
+
+/***/ },
+/* 366 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -89281,7 +89329,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = cx;
 
 /***/ },
-/* 365 */
+/* 367 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -89371,7 +89419,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Scroll;
 
 /***/ },
-/* 366 */
+/* 368 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -89387,7 +89435,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @typechecks
 	 */
 
-	var getStyleProperty = __webpack_require__(410);
+	var getStyleProperty = __webpack_require__(412);
 
 	/**
 	 * @param {DOMNode} element [description]
@@ -89425,13 +89473,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (!node) {
 	      return null;
 	    }
-	    while (node && node !== document.body) {
+	    var ownerDocument = node.ownerDocument;
+	    while (node && node !== ownerDocument.body) {
 	      if (_isNodeScrollable(node, 'overflow') || _isNodeScrollable(node, 'overflowY') || _isNodeScrollable(node, 'overflowX')) {
 	        return node;
 	      }
 	      node = node.parentNode;
 	    }
-	    return window;
+	    return ownerDocument.defaultView || ownerDocument.parentWindow;
 	  }
 
 	};
@@ -89439,7 +89488,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Style;
 
 /***/ },
-/* 367 */
+/* 369 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -89454,11 +89503,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var UserAgentData = __webpack_require__(411);
-	var VersionRange = __webpack_require__(412);
+	var UserAgentData = __webpack_require__(413);
+	var VersionRange = __webpack_require__(414);
 
-	var mapObject = __webpack_require__(413);
-	var memoizeStringOnly = __webpack_require__(414);
+	var mapObject = __webpack_require__(415);
+	var memoizeStringOnly = __webpack_require__(416);
 
 	/**
 	 * Checks to see whether `name` and `version` satisfy `query`.
@@ -89685,7 +89734,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = mapObject(UserAgent, memoizeStringOnly);
 
 /***/ },
-/* 368 */
+/* 370 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -89728,7 +89777,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = emptyFunction;
 
 /***/ },
-/* 369 */
+/* 371 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -89754,7 +89803,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = nullthrows;
 
 /***/ },
-/* 370 */
+/* 372 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -89770,8 +89819,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var getDocumentScrollElement = __webpack_require__(415);
-	var getUnboundedScrollPosition = __webpack_require__(416);
+	var getDocumentScrollElement = __webpack_require__(417);
+	var getUnboundedScrollPosition = __webpack_require__(418);
 
 	/**
 	 * Gets the scroll position of the supplied element or window.
@@ -89786,13 +89835,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @return {object} Map with `x` and `y` keys.
 	 */
 	function getScrollPosition(scrollable) {
-	  var documentScrollElement = getDocumentScrollElement();
-	  if (scrollable === window) {
+	  var documentScrollElement = getDocumentScrollElement(scrollable.ownerDocument || scrollable.document);
+	  if (scrollable.Window && scrollable instanceof scrollable.Window) {
 	    scrollable = documentScrollElement;
 	  }
 	  var scrollPosition = getUnboundedScrollPosition(scrollable);
 
-	  var viewport = scrollable === documentScrollElement ? document.documentElement : scrollable;
+	  var viewport = scrollable === documentScrollElement ? scrollable.ownerDocument.documentElement : scrollable;
 
 	  var xMax = scrollable.scrollWidth - viewport.clientWidth;
 	  var yMax = scrollable.scrollHeight - viewport.clientHeight;
@@ -89806,7 +89855,67 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = getScrollPosition;
 
 /***/ },
-/* 371 */
+/* 373 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 */
+
+	'use strict';
+
+	/**
+	 * Use invariant() to assert state which your program assumes to be true.
+	 *
+	 * Provide sprintf-style format (only %s is supported) and arguments
+	 * to provide information about what broke and what you were
+	 * expecting.
+	 *
+	 * The invariant message will be stripped in production, but the invariant
+	 * will remain to ensure logic does not differ in production.
+	 */
+
+	var validateFormat = function validateFormat(format) {};
+
+	if (false) {
+	  validateFormat = function validateFormat(format) {
+	    if (format === undefined) {
+	      throw new Error('invariant requires an error message argument');
+	    }
+	  };
+	}
+
+	function invariant(condition, format, a, b, c, d, e, f) {
+	  validateFormat(format);
+
+	  if (!condition) {
+	    var error;
+	    if (format === undefined) {
+	      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
+	    } else {
+	      var args = [a, b, c, d, e, f];
+	      var argIndex = 0;
+	      error = new Error(format.replace(/%s/g, function () {
+	        return args[argIndex++];
+	      }));
+	      error.name = 'Invariant Violation';
+	    }
+
+	    error.framesToPop = 1; // we don't care about invariant's own frame
+	    throw error;
+	  }
+	}
+
+	module.exports = invariant;
+
+/***/ },
+/* 374 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -89831,9 +89940,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var UnicodeBidiDirection = __webpack_require__(372);
+	var UnicodeBidiDirection = __webpack_require__(375);
 
-	var invariant = __webpack_require__(375);
+	var invariant = __webpack_require__(373);
 
 	/**
 	 * RegExp ranges of characters with a *Strong* Bidi_Class value.
@@ -89967,7 +90076,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = UnicodeBidi;
 
 /***/ },
-/* 372 */
+/* 375 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -89998,7 +90107,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var invariant = __webpack_require__(375);
+	var invariant = __webpack_require__(373);
 
 	var NEUTRAL = 'NEUTRAL'; // No strong direction
 	var LTR = 'LTR'; // Left-to-Right direction
@@ -90080,7 +90189,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = UnicodeBidiDirection;
 
 /***/ },
-/* 373 */
+/* 376 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -90096,7 +90205,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @typechecks
 	 */
 
-	var getElementRect = __webpack_require__(417);
+	var getElementRect = __webpack_require__(419);
 
 	/**
 	 * Gets an element's position in pixels relative to the viewport. The returned
@@ -90118,7 +90227,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = getElementPosition;
 
 /***/ },
-/* 374 */
+/* 377 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -90182,61 +90291,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = getViewportDimensions;
 
 /***/ },
-/* 375 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 */
-
-	'use strict';
-
-	/**
-	 * Use invariant() to assert state which your program assumes to be true.
-	 *
-	 * Provide sprintf-style format (only %s is supported) and arguments
-	 * to provide information about what broke and what you were
-	 * expecting.
-	 *
-	 * The invariant message will be stripped in production, but the invariant
-	 * will remain to ensure logic does not differ in production.
-	 */
-
-	function invariant(condition, format, a, b, c, d, e, f) {
-	  if (false) {
-	    if (format === undefined) {
-	      throw new Error('invariant requires an error message argument');
-	    }
-	  }
-
-	  if (!condition) {
-	    var error;
-	    if (format === undefined) {
-	      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
-	    } else {
-	      var args = [a, b, c, d, e, f];
-	      var argIndex = 0;
-	      error = new Error(format.replace(/%s/g, function () {
-	        return args[argIndex++];
-	      }));
-	      error.name = 'Invariant Violation';
-	    }
-
-	    error.framesToPop = 1; // we don't care about invariant's own frame
-	    throw error;
-	  }
-	}
-
-	module.exports = invariant;
-
-/***/ },
-/* 376 */
+/* 378 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -90271,7 +90326,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = URI;
 
 /***/ },
-/* 377 */
+/* 379 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -90312,51 +90367,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 378 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @typechecks static-only
-	 */
-
-	'use strict';
-
-	/**
-	 * Combines multiple className strings into one.
-	 * http://jsperf.com/joinclasses-args-vs-array
-	 *
-	 * @param {...?string} className
-	 * @return {string}
-	 */
-
-	function joinClasses(className /*, ... */) {
-	  if (!className) {
-	    className = '';
-	  }
-	  var nextClass = void 0;
-	  var argLength = arguments.length;
-	  if (argLength > 1) {
-	    for (var ii = 1; ii < argLength; ii++) {
-	      nextClass = arguments[ii];
-	      if (nextClass) {
-	        className = (className ? className + ' ' : '') + nextClass;
-	      }
-	    }
-	  }
-	  return className;
-	}
-
-	module.exports = joinClasses;
-
-/***/ },
-/* 379 */
+/* 380 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -90374,10 +90385,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @typechecks
 	 */
 
-	var PhotosMimeType = __webpack_require__(418);
+	var PhotosMimeType = __webpack_require__(420);
 
-	var createArrayFromMixed = __webpack_require__(419);
-	var emptyFunction = __webpack_require__(368);
+	var createArrayFromMixed = __webpack_require__(421);
+	var emptyFunction = __webpack_require__(370);
 
 	var CR_LF_REGEX = new RegExp('\r\n', 'g');
 	var LF_ONLY = '\n';
@@ -90582,7 +90593,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = DataTransfer;
 
 /***/ },
-/* 380 */
+/* 381 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -90593,101 +90604,40 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 * @typechecks
-	 * 
-	 */
-
-	/**
-	 * Stateful API for text direction detection
-	 *
-	 * This class can be used in applications where you need to detect the
-	 * direction of a sequence of text blocks, where each direction shall be used
-	 * as the fallback direction for the next one.
-	 *
-	 * NOTE: A default direction, if not provided, is set based on the global
-	 *       direction, as defined by `UnicodeBidiDirection`.
-	 *
-	 * == Example ==
-	 * ```
-	 * var UnicodeBidiService = require('UnicodeBidiService');
-	 *
-	 * var bidiService = new UnicodeBidiService();
-	 *
-	 * ...
-	 *
-	 * bidiService.reset();
-	 * for (var para in paragraphs) {
-	 *   var dir = bidiService.getDirection(para);
-	 *   ...
-	 * }
-	 * ```
-	 *
-	 * Part of our implementation of Unicode Bidirectional Algorithm (UBA)
-	 * Unicode Standard Annex #9 (UAX9)
-	 * http://www.unicode.org/reports/tr9/
+	 * @typechecks static-only
 	 */
 
 	'use strict';
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	/**
+	 * Combines multiple className strings into one.
+	 * http://jsperf.com/joinclasses-args-vs-array
+	 *
+	 * @param {...?string} className
+	 * @return {string}
+	 */
 
-	var UnicodeBidi = __webpack_require__(371);
-	var UnicodeBidiDirection = __webpack_require__(372);
-
-	var invariant = __webpack_require__(375);
-
-	var UnicodeBidiService = function () {
-
-	  /**
-	   * Stateful class for paragraph direction detection
-	   *
-	   * @param defaultDir  Default direction of the service
-	   */
-	  function UnicodeBidiService(defaultDir) {
-	    _classCallCheck(this, UnicodeBidiService);
-
-	    if (!defaultDir) {
-	      defaultDir = UnicodeBidiDirection.getGlobalDir();
-	    } else {
-	      !UnicodeBidiDirection.isStrong(defaultDir) ? false ? invariant(false, 'Default direction must be a strong direction (LTR or RTL)') : invariant(false) : void 0;
-	    }
-	    this._defaultDir = defaultDir;
-	    this.reset();
+	function joinClasses(className /*, ... */) {
+	  if (!className) {
+	    className = '';
 	  }
+	  var nextClass = void 0;
+	  var argLength = arguments.length;
+	  if (argLength > 1) {
+	    for (var ii = 1; ii < argLength; ii++) {
+	      nextClass = arguments[ii];
+	      if (nextClass) {
+	        className = (className ? className + ' ' : '') + nextClass;
+	      }
+	    }
+	  }
+	  return className;
+	}
 
-	  /**
-	   * Reset the internal state
-	   *
-	   * Instead of creating a new instance, you can just reset() your instance
-	   * everytime you start a new loop.
-	   */
-
-
-	  UnicodeBidiService.prototype.reset = function reset() {
-	    this._lastDir = this._defaultDir;
-	  };
-
-	  /**
-	   * Returns the direction of a block of text, and remembers it as the
-	   * fall-back direction for the next paragraph.
-	   *
-	   * @param str  A text block, e.g. paragraph, table cell, tag
-	   * @return     The resolved direction
-	   */
-
-
-	  UnicodeBidiService.prototype.getDirection = function getDirection(str) {
-	    this._lastDir = UnicodeBidi.getDirection(str, this._lastDir);
-	    return this._lastDir;
-	  };
-
-	  return UnicodeBidiService;
-	}();
-
-	module.exports = UnicodeBidiService;
+	module.exports = joinClasses;
 
 /***/ },
-/* 381 */
+/* 382 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -90714,7 +90664,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var invariant = __webpack_require__(375);
+	var invariant = __webpack_require__(373);
 
 	// These two ranges are consecutive so anything in [HIGH_START, LOW_END] is a
 	// surrogate code unit.
@@ -90906,31 +90856,112 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = UnicodeUtils;
 
 /***/ },
-/* 382 */
+/* 383 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @typechecks
+	 * 
+	 */
+
+	/**
+	 * Stateful API for text direction detection
+	 *
+	 * This class can be used in applications where you need to detect the
+	 * direction of a sequence of text blocks, where each direction shall be used
+	 * as the fallback direction for the next one.
+	 *
+	 * NOTE: A default direction, if not provided, is set based on the global
+	 *       direction, as defined by `UnicodeBidiDirection`.
+	 *
+	 * == Example ==
+	 * ```
+	 * var UnicodeBidiService = require('UnicodeBidiService');
+	 *
+	 * var bidiService = new UnicodeBidiService();
+	 *
+	 * ...
+	 *
+	 * bidiService.reset();
+	 * for (var para in paragraphs) {
+	 *   var dir = bidiService.getDirection(para);
+	 *   ...
+	 * }
+	 * ```
+	 *
+	 * Part of our implementation of Unicode Bidirectional Algorithm (UBA)
+	 * Unicode Standard Annex #9 (UAX9)
+	 * http://www.unicode.org/reports/tr9/
+	 */
 
 	'use strict';
 
-	exports.__esModule = true;
-	exports.connect = exports.Provider = undefined;
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	var _Provider = __webpack_require__(421);
+	var UnicodeBidi = __webpack_require__(374);
+	var UnicodeBidiDirection = __webpack_require__(375);
 
-	var _Provider2 = _interopRequireDefault(_Provider);
+	var invariant = __webpack_require__(373);
 
-	var _connect = __webpack_require__(422);
+	var UnicodeBidiService = function () {
 
-	var _connect2 = _interopRequireDefault(_connect);
+	  /**
+	   * Stateful class for paragraph direction detection
+	   *
+	   * @param defaultDir  Default direction of the service
+	   */
+	  function UnicodeBidiService(defaultDir) {
+	    _classCallCheck(this, UnicodeBidiService);
 
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { "default": obj };
-	}
+	    if (!defaultDir) {
+	      defaultDir = UnicodeBidiDirection.getGlobalDir();
+	    } else {
+	      !UnicodeBidiDirection.isStrong(defaultDir) ? false ? invariant(false, 'Default direction must be a strong direction (LTR or RTL)') : invariant(false) : void 0;
+	    }
+	    this._defaultDir = defaultDir;
+	    this.reset();
+	  }
 
-	exports.Provider = _Provider2["default"];
-	exports.connect = _connect2["default"];
+	  /**
+	   * Reset the internal state
+	   *
+	   * Instead of creating a new instance, you can just reset() your instance
+	   * everytime you start a new loop.
+	   */
+
+
+	  UnicodeBidiService.prototype.reset = function reset() {
+	    this._lastDir = this._defaultDir;
+	  };
+
+	  /**
+	   * Returns the direction of a block of text, and remembers it as the
+	   * fall-back direction for the next paragraph.
+	   *
+	   * @param str  A text block, e.g. paragraph, table cell, tag
+	   * @return     The resolved direction
+	   */
+
+
+	  UnicodeBidiService.prototype.getDirection = function getDirection(str) {
+	    this._lastDir = UnicodeBidi.getDirection(str, this._lastDir);
+	    return this._lastDir;
+	  };
+
+	  return UnicodeBidiService;
+	}();
+
+	module.exports = UnicodeBidiService;
 
 /***/ },
-/* 383 */
+/* 384 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -90947,17 +90978,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(19);
 	var ReactDOM = __webpack_require__(21);
 
-	var _require = __webpack_require__(382),
+	var _require = __webpack_require__(365),
 	    connect = _require.connect;
 
-	var _require2 = __webpack_require__(318),
+	var _require2 = __webpack_require__(317),
 	    _removeEcho = _require2.removeEcho;
 
 	var _require3 = __webpack_require__(320),
 	    View = _require3.View;
 
-	var EchoManager = __webpack_require__(423);
-	var PopoverManager = __webpack_require__(424);
+	var EchoManager = __webpack_require__(424);
+	var PopoverManager = __webpack_require__(425);
 
 	var _require4 = __webpack_require__(234),
 	    echoPropType = _require4.echoPropType,
@@ -91092,7 +91123,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = connect(mapStateToProps, mapDispatchToProps)(Keypad);
 
 /***/ },
-/* 384 */
+/* 385 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -91110,21 +91141,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(19);
 	var ReactDOM = __webpack_require__(21);
 
-	var _require = __webpack_require__(382),
+	var _require = __webpack_require__(365),
 	    connect = _require.connect;
 
 	var _require2 = __webpack_require__(24),
 	    StyleSheet = _require2.StyleSheet;
 
-	var KeypadButton = __webpack_require__(425);
-	var KeyConfigs = __webpack_require__(317);
-	var GestureManager = __webpack_require__(360);
+	var KeypadButton = __webpack_require__(426);
+	var KeyConfigs = __webpack_require__(319);
+	var GestureManager = __webpack_require__(361);
 
 	var _require3 = __webpack_require__(234),
 	    bordersPropType = _require3.bordersPropType,
 	    keyIdPropType = _require3.keyIdPropType;
 
-	var _require4 = __webpack_require__(215),
+	var _require4 = __webpack_require__(216),
 	    KeyTypes = _require4.KeyTypes;
 
 	var TouchableKeypadButton = React.createClass({
@@ -91253,7 +91284,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = connect(mapStateToProps)(TouchableKeypadButton);
 
 /***/ },
-/* 385 */
+/* 386 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -91264,15 +91295,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(19);
 
-	var _require = __webpack_require__(382),
+	var _require = __webpack_require__(365),
 	    connect = _require.connect;
 
 	var _require2 = __webpack_require__(24),
 	    StyleSheet = _require2.StyleSheet;
 
-	var Keypad = __webpack_require__(383);
-	var ViewPager = __webpack_require__(426);
-	var PagerIndicator = __webpack_require__(427);
+	var Keypad = __webpack_require__(384);
+	var ViewPager = __webpack_require__(428);
+	var PagerIndicator = __webpack_require__(429);
 
 	var _require3 = __webpack_require__(320),
 	    View = _require3.View;
@@ -91370,7 +91401,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = connect(mapStateToProps)(TwoPageKeypad);
 
 /***/ },
-/* 386 */
+/* 387 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -91386,13 +91417,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(19);
 
-	var EmptyKeypadButton = __webpack_require__(428);
-	var TouchableKeypadButton = __webpack_require__(384);
+	var EmptyKeypadButton = __webpack_require__(427);
+	var TouchableKeypadButton = __webpack_require__(385);
 
 	var Keys = __webpack_require__(330);
-	var KeyConfigs = __webpack_require__(317);
+	var KeyConfigs = __webpack_require__(319);
 
-	var _require = __webpack_require__(215),
+	var _require = __webpack_require__(216),
 	    KeyTypes = _require.KeyTypes;
 
 	var _require2 = __webpack_require__(234),
@@ -91434,7 +91465,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ManyKeypadButton;
 
 /***/ },
-/* 387 */
+/* 388 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -91462,10 +91493,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = getSelectionOffsetKeyForNode;
 
 /***/ },
-/* 388 */
+/* 389 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
 
 	/**
 	 * Copyright (c) 2013-present, Facebook, Inc.
@@ -91486,22 +91517,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	 *
 	 * The activeElement will be null only if the document or document body is not
 	 * yet defined.
+	 *
+	 * @param {?DOMDocument} doc Defaults to current document.
+	 * @return {?DOMElement}
 	 */
-	function getActiveElement() /*?DOMElement*/{
-	  if (typeof document === 'undefined') {
+	function getActiveElement(doc) /*?DOMElement*/{
+	  doc = doc || global.document;
+	  if (typeof doc === 'undefined') {
 	    return null;
 	  }
 	  try {
-	    return document.activeElement || document.body;
+	    return doc.activeElement || doc.body;
 	  } catch (e) {
-	    return document.body;
+	    return doc.body;
 	  }
 	}
 
 	module.exports = getActiveElement;
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 389 */
+/* 390 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -91518,7 +91554,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var getContentStateFragment = __webpack_require__(298);
+	var getContentStateFragment = __webpack_require__(296);
 
 	function getFragmentFromSelection(editorState) {
 	  var selectionState = editorState.getSelection();
@@ -91530,7 +91566,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = getFragmentFromSelection;
 
 /***/ },
-/* 390 */
+/* 391 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -91550,8 +91586,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var DraftModifier = __webpack_require__(246);
 	var EditorState = __webpack_require__(249);
 
-	var getContentStateFragment = __webpack_require__(298);
-	var nullthrows = __webpack_require__(369);
+	var getContentStateFragment = __webpack_require__(296);
+	var nullthrows = __webpack_require__(371);
 
 	var clipboard = null;
 
@@ -91604,7 +91640,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = SecondaryClipboard;
 
 /***/ },
-/* 391 */
+/* 392 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -91623,8 +91659,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var EditorState = __webpack_require__(249);
 
-	var expandRangeToStartOfLine = __webpack_require__(429);
-	var getDraftEditorSelectionWithNodes = __webpack_require__(430);
+	var expandRangeToStartOfLine = __webpack_require__(433);
+	var getDraftEditorSelectionWithNodes = __webpack_require__(434);
 	var moveSelectionBackward = __webpack_require__(431);
 	var removeTextWithStrategy = __webpack_require__(432);
 
@@ -91653,7 +91689,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 392 */
+/* 393 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -91670,7 +91706,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var DraftRemovableWord = __webpack_require__(433);
+	var DraftRemovableWord = __webpack_require__(430);
 	var EditorState = __webpack_require__(249);
 
 	var moveSelectionBackward = __webpack_require__(431);
@@ -91705,7 +91741,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = keyCommandBackspaceWord;
 
 /***/ },
-/* 393 */
+/* 394 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -91722,10 +91758,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var DraftRemovableWord = __webpack_require__(433);
+	var DraftRemovableWord = __webpack_require__(430);
 	var EditorState = __webpack_require__(249);
 
-	var moveSelectionForward = __webpack_require__(434);
+	var moveSelectionForward = __webpack_require__(435);
 	var removeTextWithStrategy = __webpack_require__(432);
 
 	/**
@@ -91755,7 +91791,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = keyCommandDeleteWord;
 
 /***/ },
-/* 394 */
+/* 395 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -91783,7 +91819,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = keyCommandInsertNewline;
 
 /***/ },
-/* 395 */
+/* 396 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -91801,7 +91837,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	var EditorState = __webpack_require__(249);
-	var UnicodeUtils = __webpack_require__(381);
+	var UnicodeUtils = __webpack_require__(382);
 
 	var moveSelectionBackward = __webpack_require__(431);
 	var removeTextWithStrategy = __webpack_require__(432);
@@ -91832,7 +91868,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = keyCommandPlainBackspace;
 
 /***/ },
-/* 396 */
+/* 397 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -91850,9 +91886,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	var EditorState = __webpack_require__(249);
-	var UnicodeUtils = __webpack_require__(381);
+	var UnicodeUtils = __webpack_require__(382);
 
-	var moveSelectionForward = __webpack_require__(434);
+	var moveSelectionForward = __webpack_require__(435);
 	var removeTextWithStrategy = __webpack_require__(432);
 
 	/**
@@ -91882,7 +91918,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = keyCommandPlainDelete;
 
 /***/ },
-/* 397 */
+/* 398 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -91924,7 +91960,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = keyCommandMoveSelectionToEndOfBlock;
 
 /***/ },
-/* 398 */
+/* 399 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -91966,7 +92002,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = keyCommandMoveSelectionToStartOfBlock;
 
 /***/ },
-/* 399 */
+/* 400 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -91986,7 +92022,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var DraftModifier = __webpack_require__(246);
 	var EditorState = __webpack_require__(249);
 
-	var getContentStateFragment = __webpack_require__(298);
+	var getContentStateFragment = __webpack_require__(296);
 
 	/**
 	 * Transpose the characters on either side of a collapsed cursor, or
@@ -92049,7 +92085,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = keyCommandTransposeCharacters;
 
 /***/ },
-/* 400 */
+/* 401 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -92102,7 +92138,49 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = keyCommandUndo;
 
 /***/ },
-/* 401 */
+/* 402 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(global) {/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule getDraftEditorSelection
+	 * @typechecks
+	 * 
+	 */
+
+	/**
+	 * Convert the current selection range to an anchor/focus pair of offset keys
+	 * and values that can be interpreted by components.
+	 */
+	'use strict';
+
+	var getDraftEditorSelectionWithNodes = __webpack_require__(434);
+
+	function getDraftEditorSelection(editorState, root) {
+	  var selection = global.getSelection();
+
+	  // No active selection.
+	  if (selection.rangeCount === 0) {
+	    return {
+	      selectionState: editorState.getSelection().set('hasFocus', false),
+	      needsRecovery: false
+	    };
+	  }
+
+	  return getDraftEditorSelectionWithNodes(editorState, root, selection.anchorNode, selection.anchorOffset, selection.focusNode, selection.focusOffset);
+	}
+
+	module.exports = getDraftEditorSelection;
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
+/***/ },
+/* 403 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -92126,7 +92204,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var convertFromHTMLtoContentBlocks = __webpack_require__(254);
 	var generateRandomKey = __webpack_require__(256);
-	var getSafeBodyFromHTML = __webpack_require__(314);
+	var getSafeBodyFromHTML = __webpack_require__(309);
 	var sanitizeDraftText = __webpack_require__(287);
 
 	var List = Immutable.List;
@@ -92153,7 +92231,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = DraftPasteProcessor;
 
 /***/ },
-/* 402 */
+/* 404 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -92179,49 +92257,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = splitTextIntoTextBlocks;
 
 /***/ },
-/* 403 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(global) {/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule getDraftEditorSelection
-	 * @typechecks
-	 * 
-	 */
-
-	/**
-	 * Convert the current selection range to an anchor/focus pair of offset keys
-	 * and values that can be interpreted by components.
-	 */
-	'use strict';
-
-	var getDraftEditorSelectionWithNodes = __webpack_require__(430);
-
-	function getDraftEditorSelection(editorState, root) {
-	  var selection = global.getSelection();
-
-	  // No active selection.
-	  if (selection.rangeCount === 0) {
-	    return {
-	      selectionState: editorState.getSelection().set('hasFocus', false),
-	      needsRecovery: false
-	    };
-	  }
-
-	  return getDraftEditorSelectionWithNodes(editorState, root, selection.anchorNode, selection.anchorOffset, selection.focusNode, selection.focusOffset);
-	}
-
-	module.exports = getDraftEditorSelection;
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
-
-/***/ },
-/* 404 */
+/* 405 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -92237,7 +92273,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * 
 	 */
 
-	var isTextNode = __webpack_require__(435);
+	var isTextNode = __webpack_require__(436);
 
 	/*eslint-disable no-bitwise */
 
@@ -92265,7 +92301,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = containsNode;
 
 /***/ },
-/* 405 */
+/* 406 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -92277,7 +92313,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	/**
-	 * A tooltip to point to the focus of a highlight.
+	 * This component, given a single DOMHighlight, draws highlight rectangles in
+	 * the same absolute position as the highlighted content, as computed via
+	 * `getClientRects`. On hover, renders a "Remove Highlight" tooltip that, when
+	 * clicked, fires a callback to remove this highlight.
+	 *
+	 * TODO(mdr): Many things can affect the correct positioning of highlighting,
+	 *     and this component does not attempt to anticipate them. If we start
+	 *     using this highlighting library on content with a more dynamic layout,
+	 *     we should add a hook to allow the parent to `forceUpdate` the
+	 *     `HighlightRenderer`.
 	 */
 	var React = __webpack_require__(19);
 
@@ -92285,158 +92330,259 @@ return /******/ (function(modules) { // webpackBootstrap
 	    StyleSheet = _require.StyleSheet,
 	    css = _require.css;
 
-	var _require2 = __webpack_require__(406),
+	var _require2 = __webpack_require__(407),
 	    getRelativePosition = _require2.getRelativePosition;
 
-	var babelPluginFlowReactPropTypes_proptype_Position = __webpack_require__(358).babelPluginFlowReactPropTypes_proptype_Position || __webpack_require__(19).PropTypes.any;
+	var HighlightTooltip = __webpack_require__(357);
 
-	var HighlightTooltip = function (_React$PureComponent) {
-	    _inherits(HighlightTooltip, _React$PureComponent);
+	/* global i18n */
 
-	    function HighlightTooltip() {
-	        _classCallCheck(this, HighlightTooltip);
+	var babelPluginFlowReactPropTypes_proptype_ZIndexes = __webpack_require__(359).babelPluginFlowReactPropTypes_proptype_ZIndexes || __webpack_require__(19).PropTypes.any;
 
-	        return _possibleConstructorReturn(this, _React$PureComponent.apply(this, arguments));
+	var babelPluginFlowReactPropTypes_proptype_Rect = __webpack_require__(359).babelPluginFlowReactPropTypes_proptype_Rect || __webpack_require__(19).PropTypes.any;
+
+	var babelPluginFlowReactPropTypes_proptype_Position = __webpack_require__(359).babelPluginFlowReactPropTypes_proptype_Position || __webpack_require__(19).PropTypes.any;
+
+	var babelPluginFlowReactPropTypes_proptype_DOMHighlight = __webpack_require__(359).babelPluginFlowReactPropTypes_proptype_DOMHighlight || __webpack_require__(19).PropTypes.any;
+
+	var HighlightRenderer = function (_React$PureComponent) {
+	    _inherits(HighlightRenderer, _React$PureComponent);
+
+	    function HighlightRenderer() {
+	        var _temp, _this, _ret;
+
+	        _classCallCheck(this, HighlightRenderer);
+
+	        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	            args[_key] = arguments[_key];
+	        }
+
+	        return _ret = (_temp = (_this = _possibleConstructorReturn(this, _React$PureComponent.call.apply(_React$PureComponent, [this].concat(args))), _this), _this.state = {
+	            cachedHighlightRects: _this._computeRects(_this.props),
+	            tooltipIsHovered: false
+	        }, _this._handleRemoveHighlight = function () {
+	            _this.props.onRemoveHighlight(_this.props.highlightKey);
+	        }, _this._handleTooltipMouseEnter = function () {
+	            _this.setState({ tooltipIsHovered: true });
+	        }, _this._handleTooltipMouseLeave = function () {
+	            _this.setState({ tooltipIsHovered: false });
+	        }, _temp), _possibleConstructorReturn(_this, _ret);
 	    }
 
-	    HighlightTooltip.prototype._getPosition = function _getPosition() {
-	        var _props = this.props,
-	            focusNode = _props.focusNode,
-	            focusOffset = _props.focusOffset,
-	            offsetParent = _props.offsetParent;
-
-	        // Get a range of *just* the focus point of the selection.
-
-	        var focusRange = document.createRange();
-	        focusRange.setStart(focusNode, focusOffset);
-	        focusRange.setEnd(focusNode, focusOffset);
-
-	        // Then, get the bounding box of the collapsed range. This will be a
-	        // zero-width rectangle, but still have positioning information, which
-	        // we can use the position the tooltip.
-	        var focusRect = focusRange.getBoundingClientRect();
-
-	        // Compute the desired position of the tooltip relative to the offset
-	        // parent.
-	        var offsetParentRect = offsetParent.getBoundingClientRect();
-	        var focusPosition = getRelativePosition(focusRect, offsetParentRect);
-
-	        return focusPosition;
+	    HighlightRenderer.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
+	        if (this.props.highlight !== nextProps.highlight || this.props.offsetParent !== nextProps.offsetParent) {
+	            this.setState({
+	                cachedHighlightRects: this._computeRects(nextProps)
+	            });
+	        }
 	    };
 
-	    HighlightTooltip.prototype.render = function render() {
-	        var position = this._getPosition();
+	    /**
+	     * Compute the set of rectangles that cover the highlighted content, with
+	     * coordinates relative to the offset parent. That way, we can use them
+	     * for CSS positioning.
+	     */
+
+
+	    HighlightRenderer.prototype._computeRects = function _computeRects() {
+	        var _props = this.props,
+	            highlight = _props.highlight,
+	            offsetParent = _props.offsetParent;
+
+	        // Get the set of rectangles that covers the range, and the rectangle
+	        // that covers the offset parent.
+	        // NOTE(mdr): The rectangles returned by `getClientRects` and
+	        //     `getBoundingClientRect` are relative to the *viewport*, not the
+	        //     document.
+	        //
+	        //     This doesn't affect our computations, because the offset between
+	        //     two rectangles is the same, no matter what origin the coordinate
+	        //     system uses.
+	        //
+	        //     But it *does* mean it's unsafe to cache these rectangles, in
+	        //     case the user scrolls at unexpected times. Instead, we only
+	        //     cache the derived rectangles that this function returns, because
+	        //     those will be stable regardless of viewport scrolling.
+
+	        var domRects = highlight.domRange.getClientRects();
+	        var offsetParentRect = offsetParent.getBoundingClientRect();
+
+	        // Recompute the rectangle's coordinates to be relative to the offset
+	        // parent, instead of relative to the viewport.
+	        var rects = Array.prototype.map.call(domRects, function (domRect) {
+	            var _getRelativePosition = getRelativePosition(domRect, offsetParentRect),
+	                left = _getRelativePosition.left,
+	                top = _getRelativePosition.top;
+
+	            return {
+	                left: left,
+	                top: top,
+	                width: domRect.width,
+	                height: domRect.height
+	            };
+	        });
+
+	        return rects;
+	    };
+
+	    /**
+	     * Return whether the given mouse position (coordinates relative to the
+	     * viewport) is hovering over this highlight.
+	     */
+	    HighlightRenderer.prototype._highlightIsHovered = function _highlightIsHovered(mouseClientPosition) {
+	        var _this2 = this;
+
+	        if (!mouseClientPosition) {
+	            return false;
+	        }
+
+	        var offsetParent = this.props.offsetParent;
+	        var cachedHighlightRects = this.state.cachedHighlightRects;
+
+	        // Convert the client-relative mouse coordinates to be relative to the
+	        // offset parent. That way, we can compare them to the cached highlight
+	        // rectangles.
+
+	        var offsetParentRect = offsetParent.getBoundingClientRect();
+	        var mouseOffsetPosition = getRelativePosition(mouseClientPosition, offsetParentRect);
+
+	        return cachedHighlightRects.some(function (rect) {
+	            return _this2._rectIsHovered(rect, mouseOffsetPosition);
+	        });
+	    };
+
+	    /**
+	     * Return whether the given mouse position (coordinates relative to this
+	     * component's offset parent) is hovering over the given rectangle
+	     * (coordinates also relative to this component's offset parent).
+	     */
+
+
+	    HighlightRenderer.prototype._rectIsHovered = function _rectIsHovered(rect, mouseOffsetPosition) {
+	        var positionWithinRect = getRelativePosition(mouseOffsetPosition, rect);
+
+	        return 0 <= positionWithinRect.left && positionWithinRect.left < rect.width && 0 <= positionWithinRect.top && positionWithinRect.top < rect.height;
+	    };
+
+	    /**
+	     * Return whether the "Remove highlight" tooltip should be visible.
+	     */
+
+
+	    HighlightRenderer.prototype._shouldShowTooltip = function _shouldShowTooltip() {
+	        // If the highlight is not editable, hide the tooltip.
+	        if (!this.props.editable) {
+	            return false;
+	        }
+
+	        // If the tooltip is hovered, continue to show it, even if the
+	        // highlight is no longer hovered.
+	        if (this.state.tooltipIsHovered) {
+	            return true;
+	        }
+
+	        // If the highlight is hovered, show the tooltip.
+	        if (this._highlightIsHovered(this.props.mouseClientPosition)) {
+	            return true;
+	        }
+
+	        // Otherwise, hide the tooltip.
+	        return false;
+	    };
+
+	    HighlightRenderer.prototype.render = function render() {
+	        var _this3 = this;
+
+	        var rects = this.state.cachedHighlightRects;
 
 	        return React.createElement(
 	            "div",
-	            {
-	                className: css(styles.tooltip),
-	                onClick: this.props.onClick,
-	                onMouseEnter: this.props.onMouseEnter,
-	                onMouseLeave: this.props.onMouseLeave,
-	                style: {
-	                    left: position.left,
-	                    top: position.top,
-	                    zIndex: this.props.zIndex
-	                }
-	            },
+	            null,
 	            React.createElement(
 	                "div",
-	                { className: css(styles.label) },
-	                this.props.label
+	                { className: css(styles.highlight) },
+	                rects.map(function (rect, index) {
+	                    return React.createElement("div", {
+	                        key: index,
+	                        className: css(styles.highlightRect),
+	                        style: {
+	                            // NOTE(mdr): We apply `position: absolute` here
+	                            //     rather than in Aphrodite styles, because
+	                            //     Aphrodite styles are delayed. If this
+	                            //     element temporarily has `position: static`,
+	                            //     then it'll displace the content, and other
+	                            //     highlights rendering during this update will
+	                            //     measure the displaced content instead, oops!
+	                            position: "absolute",
+	                            width: rect.width,
+	                            height: rect.height,
+	                            top: rect.top,
+	                            left: rect.left,
+	                            zIndex: _this3.props.zIndexes.belowContent
+	                        }
+	                    });
+	                })
 	            ),
-	            React.createElement("div", { className: css(styles.arrow) })
+	            this._shouldShowTooltip() && React.createElement(HighlightTooltip, {
+	                label: i18n._("Remove highlight"),
+	                onClick: this._handleRemoveHighlight,
+	                onMouseEnter: this._handleTooltipMouseEnter,
+	                onMouseLeave: this._handleTooltipMouseLeave,
+
+	                focusNode: this.props.highlight.domRange.endContainer,
+	                focusOffset: this.props.highlight.domRange.endOffset,
+	                offsetParent: this.props.offsetParent,
+	                zIndex: this.props.zIndexes.aboveContent
+	            })
 	        );
 	    };
 
-	    return HighlightTooltip;
+	    return HighlightRenderer;
 	}(React.PureComponent);
 
-	HighlightTooltip.propTypes = {
-	    label: __webpack_require__(19).PropTypes.string.isRequired,
-	    onClick: __webpack_require__(19).PropTypes.func.isRequired,
-	    onMouseEnter: __webpack_require__(19).PropTypes.func,
-	    onMouseLeave: __webpack_require__(19).PropTypes.func,
-	    focusNode: __webpack_require__(19).PropTypes.any.isRequired,
-	    focusOffset: __webpack_require__(19).PropTypes.number.isRequired,
+	HighlightRenderer.propTypes = {
+	    editable: __webpack_require__(19).PropTypes.bool.isRequired,
+	    highlight: babelPluginFlowReactPropTypes_proptype_DOMHighlight,
+	    highlightKey: __webpack_require__(19).PropTypes.string.isRequired,
+	    mouseClientPosition: babelPluginFlowReactPropTypes_proptype_Position,
 	    offsetParent: __webpack_require__(19).PropTypes.any.isRequired,
-	    zIndex: __webpack_require__(19).PropTypes.number.isRequired
+	    onRemoveHighlight: __webpack_require__(19).PropTypes.func.isRequired,
+	    zIndexes: babelPluginFlowReactPropTypes_proptype_ZIndexes
 	};
 
 
 	var styles = StyleSheet.create({
-	    tooltip: {
-	        // Positioning.
-	        //
-	        // Position the tooltip's *center-bottom* point at the left/top
-	        // coordinates, instead of the tooltip's top-left point, by translating
-	        // left by half the tooltip's width and up by the tooltip's full
-	        // height.
-	        //
-	        // `left`, `top`, and `zIndex` are specified via the `style` attribute.
+	    // NOTE(mdr): A clever trick here! Instead of assigning the opacity to the
+	    //     individual rects, we assign it to the highlight. That way, if there
+	    //     are overlapping rects, the overlapping area is the same color as the
+	    //     rest of the highlighted area - whereas, if we had applied the
+	    //     opacity to each individual rect, the overlapping areas would be
+	    //     darker than the rest.
+	    //
+	    //     This especially matters because getClientRects sometimes returns
+	    //     duplicate rects for text nodes and their wrapper elements - but,
+	    //     this way, the overlap doesn't affect the visuals.
+	    highlight: {
+	        opacity: 0.4,
+
+	        // NOTE(mdr): IE and Edge don't apply a non-positioned parent's opacity
+	        //     to a positioned child. We therefore position the highlight to
+	        //     be in the top left corner of the offset parent, which won't
+	        //     disrupt calculations, but will lead to correct opacity behavior
+	        //     on IE.
 	        position: "absolute",
-	        transform: "translate(-50%, -100%)",
-
-	        // Cursor interaction.
-	        cursor: "pointer",
-	        userSelect: "none"
+	        left: 0,
+	        top: 0
 	    },
 
-	    label: {
-	        // Box appearance.
-	        background: "#314453",
-	        borderRadius: 2,
-	        boxShadow: "0 1px 4px 0 rgba(97, 101, 105, 0.42)",
-	        padding: "8px 11px",
-
-	        // Text appearance.
-	        color: "white",
-	        fontSize: 12,
-	        lineHeight: 1.5,
-	        textAlign: "center"
-	    },
-
-	    // A 12px-width, 6px-height downward-facing arrow.
-	    //
-	    // Implemented by creating a box whose only content is its top, left, and
-	    // right borders. The joints between two borders are a diagonal line, so
-	    // the arrow element renders divided into these three areas:
-	    //
-	    // +-------+
-	    // |\ top /|
-	    // | \   / |
-	    // |  \ /  |
-	    // |L  v  R|
-	    // +-------+
-	    //
-	    // Therefore, if we color the top border, and make the left and right
-	    // borders transparent, we end up with a triangle!
-	    //
-	    // https://css-tricks.com/snippets/css/css-triangle/
-	    arrow: {
-	        // Make the inner dimensions of the box 0x0, so that its only content
-	        // is its top, left, and right borders.
-	        height: 0,
-	        width: 0,
-
-	        // The sum of our left and right border widths will be the width of our
-	        // triangle, so set them to 6px + 6px = 12px.
-	        borderLeft: "6px solid transparent",
-	        borderRight: "6px solid transparent",
-
-	        // The top border height will be the height of our triangle, so set it
-	        // to 6px.
-	        borderTop: "6px solid #314453",
-
-	        // Center the arrow within the tooltip container.
-	        margin: "0 auto"
-	    }
+	    highlightRect: {
+	        background: "#4c00ff" }
 	});
 
-	module.exports = HighlightTooltip;
+	module.exports = HighlightRenderer;
 
 /***/ },
-/* 406 */
+/* 407 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -92445,7 +92591,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Given two positions relative to the same origin, return `child`'s position
 	 * relative to `parent`'s position.
 	 */
-	var babelPluginFlowReactPropTypes_proptype_Position = __webpack_require__(358).babelPluginFlowReactPropTypes_proptype_Position || __webpack_require__(19).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_Position = __webpack_require__(359).babelPluginFlowReactPropTypes_proptype_Position || __webpack_require__(19).PropTypes.any;
 	/**
 	 * Utility functions for highlighting UI.
 	 */
@@ -92463,7 +92609,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 407 */
+/* 408 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -92632,7 +92778,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = NodeManager;
 
 /***/ },
-/* 408 */
+/* 409 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -92834,7 +92980,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = PopoverStateMachine;
 
 /***/ },
-/* 409 */
+/* 410 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -93154,7 +93300,60 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = GestureStateMachine;
 
 /***/ },
-/* 410 */
+/* 411 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	exports.compose = exports.applyMiddleware = exports.bindActionCreators = exports.combineReducers = exports.createStore = undefined;
+
+	var _createStore = __webpack_require__(437);
+
+	var _createStore2 = _interopRequireDefault(_createStore);
+
+	var _combineReducers = __webpack_require__(438);
+
+	var _combineReducers2 = _interopRequireDefault(_combineReducers);
+
+	var _bindActionCreators = __webpack_require__(439);
+
+	var _bindActionCreators2 = _interopRequireDefault(_bindActionCreators);
+
+	var _applyMiddleware = __webpack_require__(440);
+
+	var _applyMiddleware2 = _interopRequireDefault(_applyMiddleware);
+
+	var _compose = __webpack_require__(441);
+
+	var _compose2 = _interopRequireDefault(_compose);
+
+	var _warning = __webpack_require__(445);
+
+	var _warning2 = _interopRequireDefault(_warning);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { 'default': obj };
+	}
+
+	/*
+	* This is a dummy function to check if the function name has been altered by minification.
+	* If the function has been minified and NODE_ENV !== 'production', warn the user.
+	*/
+	function isCrushed() {}
+
+	if (false) {
+	  (0, _warning2['default'])('You are currently using minified code outside of NODE_ENV === \'production\'. ' + 'This means that you are running a slower development build of Redux. ' + 'You can use loose-envify (https://github.com/zertosh/loose-envify) for browserify ' + 'or DefinePlugin for webpack (http://stackoverflow.com/questions/30030031) ' + 'to ensure you have the correct code for your production build.');
+	}
+
+	exports.createStore = _createStore2['default'];
+	exports.combineReducers = _combineReducers2['default'];
+	exports.bindActionCreators = _bindActionCreators2['default'];
+	exports.applyMiddleware = _applyMiddleware2['default'];
+	exports.compose = _compose2['default'];
+
+/***/ },
+/* 412 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -93170,8 +93369,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @typechecks
 	 */
 
-	var camelize = __webpack_require__(436);
-	var hyphenate = __webpack_require__(437);
+	var camelize = __webpack_require__(443);
+	var hyphenate = __webpack_require__(444);
 
 	function asString(value) /*?string*/{
 	  return value == null ? value : String(value);
@@ -93212,7 +93411,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = getStyleProperty;
 
 /***/ },
-/* 411 */
+/* 413 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -93238,7 +93437,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var UAParser = __webpack_require__(457);
+	var UAParser = __webpack_require__(460);
 
 	var UNKNOWN = 'Unknown';
 
@@ -93299,7 +93498,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = uaData;
 
 /***/ },
-/* 412 */
+/* 414 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -93314,7 +93513,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var invariant = __webpack_require__(375);
+	var invariant = __webpack_require__(373);
 
 	var componentRegex = /\./;
 	var orRegex = /\|\|/;
@@ -93686,7 +93885,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = VersionRange;
 
 /***/ },
-/* 413 */
+/* 415 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -93741,7 +93940,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = mapObject;
 
 /***/ },
-/* 414 */
+/* 416 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -93775,7 +93974,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = memoizeStringOnly;
 
 /***/ },
-/* 415 */
+/* 417 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -93810,7 +94009,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = getDocumentScrollElement;
 
 /***/ },
-/* 416 */
+/* 418 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -93838,10 +94037,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 
 	function getUnboundedScrollPosition(scrollable) {
-	  if (scrollable === window) {
+	  if (scrollable.Window && scrollable instanceof scrollable.Window) {
 	    return {
-	      x: window.pageXOffset || document.documentElement.scrollLeft,
-	      y: window.pageYOffset || document.documentElement.scrollTop
+	      x: scrollable.pageXOffset || scrollable.document.documentElement.scrollLeft,
+	      y: scrollable.pageYOffset || scrollable.document.documentElement.scrollTop
 	    };
 	  }
 	  return {
@@ -93853,7 +94052,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = getUnboundedScrollPosition;
 
 /***/ },
-/* 417 */
+/* 419 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -93869,7 +94068,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @typechecks
 	 */
 
-	var containsNode = __webpack_require__(404);
+	var containsNode = __webpack_require__(405);
 
 	/**
 	 * Gets an element's bounding rect in pixels relative to the viewport.
@@ -93878,7 +94077,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @return {object}
 	 */
 	function getElementRect(elem) {
-	  var docElem = document.documentElement;
+	  var docElem = elem.ownerDocument.documentElement;
 
 	  // FF 2, Safari 3 and Opera 9.5- do not support getBoundingClientRect().
 	  // IE9- will throw if the element is not in the document.
@@ -93908,7 +94107,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = getElementRect;
 
 /***/ },
-/* 418 */
+/* 420 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -93941,7 +94140,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = PhotosMimeType;
 
 /***/ },
-/* 419 */
+/* 421 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -93957,7 +94156,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @typechecks
 	 */
 
-	var invariant = __webpack_require__(375);
+	var invariant = __webpack_require__(373);
 
 	/**
 	 * Convert array-like objects to arrays.
@@ -94072,60 +94271,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = createArrayFromMixed;
 
 /***/ },
-/* 420 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports.compose = exports.applyMiddleware = exports.bindActionCreators = exports.combineReducers = exports.createStore = undefined;
-
-	var _createStore = __webpack_require__(438);
-
-	var _createStore2 = _interopRequireDefault(_createStore);
-
-	var _combineReducers = __webpack_require__(439);
-
-	var _combineReducers2 = _interopRequireDefault(_combineReducers);
-
-	var _bindActionCreators = __webpack_require__(440);
-
-	var _bindActionCreators2 = _interopRequireDefault(_bindActionCreators);
-
-	var _applyMiddleware = __webpack_require__(441);
-
-	var _applyMiddleware2 = _interopRequireDefault(_applyMiddleware);
-
-	var _compose = __webpack_require__(442);
-
-	var _compose2 = _interopRequireDefault(_compose);
-
-	var _warning = __webpack_require__(444);
-
-	var _warning2 = _interopRequireDefault(_warning);
-
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { "default": obj };
-	}
-
-	/*
-	* This is a dummy function to check if the function name has been altered by minification.
-	* If the function has been minified and NODE_ENV !== 'production', warn the user.
-	*/
-	function isCrushed() {}
-
-	if (false) {
-	  (0, _warning2["default"])('You are currently using minified code outside of NODE_ENV === \'production\'. ' + 'This means that you are running a slower development build of Redux. ' + 'You can use loose-envify (https://github.com/zertosh/loose-envify) for browserify ' + 'or DefinePlugin for webpack (http://stackoverflow.com/questions/30030031) ' + 'to ensure you have the correct code for your production build.');
-	}
-
-	exports.createStore = _createStore2["default"];
-	exports.combineReducers = _combineReducers2["default"];
-	exports.bindActionCreators = _bindActionCreators2["default"];
-	exports.applyMiddleware = _applyMiddleware2["default"];
-	exports.compose = _compose2["default"];
-
-/***/ },
-/* 421 */
+/* 422 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -94137,11 +94283,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react = __webpack_require__(19);
 
-	var _storeShape = __webpack_require__(445);
+	var _storeShape = __webpack_require__(446);
 
 	var _storeShape2 = _interopRequireDefault(_storeShape);
 
-	var _warning = __webpack_require__(446);
+	var _warning = __webpack_require__(447);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
@@ -94194,9 +94340,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 
 	  Provider.prototype.render = function render() {
-	    var children = this.props.children;
-
-	    return _react.Children.only(children);
+	    return _react.Children.only(this.props.children);
 	  };
 
 	  return Provider;
@@ -94224,12 +94368,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 422 */
+/* 423 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+	exports.__esModule = true;
 
 	var _extends = Object.assign || function (target) {
 	  for (var i = 1; i < arguments.length; i++) {
@@ -94241,24 +94387,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }return target;
 	};
 
-	exports.__esModule = true;
 	exports["default"] = connect;
 
 	var _react = __webpack_require__(19);
 
-	var _storeShape = __webpack_require__(445);
+	var _storeShape = __webpack_require__(446);
 
 	var _storeShape2 = _interopRequireDefault(_storeShape);
 
-	var _shallowEqual = __webpack_require__(447);
+	var _shallowEqual = __webpack_require__(448);
 
 	var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
 
-	var _wrapActionCreators = __webpack_require__(448);
+	var _wrapActionCreators = __webpack_require__(449);
 
 	var _wrapActionCreators2 = _interopRequireDefault(_wrapActionCreators);
 
-	var _warning = __webpack_require__(446);
+	var _warning = __webpack_require__(447);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
@@ -94266,7 +94411,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
-	var _hoistNonReactStatics = __webpack_require__(456);
+	var _hoistNonReactStatics = __webpack_require__(457);
 
 	var _hoistNonReactStatics2 = _interopRequireDefault(_hoistNonReactStatics);
 
@@ -94324,12 +94469,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	var nextVersion = 0;
 
 	function connect(mapStateToProps, mapDispatchToProps, mergeProps) {
-	  var options = arguments.length <= 3 || arguments[3] === undefined ? {} : arguments[3];
+	  var options = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
 
 	  var shouldSubscribe = Boolean(mapStateToProps);
 	  var mapState = mapStateToProps || defaultMapStateToProps;
 
-	  var mapDispatch = undefined;
+	  var mapDispatch = void 0;
 	  if (typeof mapDispatchToProps === 'function') {
 	    mapDispatch = mapDispatchToProps;
 	  } else if (!mapDispatchToProps) {
@@ -94339,10 +94484,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 
 	  var finalMergeProps = mergeProps || defaultMergeProps;
-	  var _options$pure = options.pure;
-	  var pure = _options$pure === undefined ? true : _options$pure;
-	  var _options$withRef = options.withRef;
-	  var withRef = _options$withRef === undefined ? false : _options$withRef;
+	  var _options$pure = options.pure,
+	      pure = _options$pure === undefined ? true : _options$pure,
+	      _options$withRef = options.withRef,
+	      withRef = _options$withRef === undefined ? false : _options$withRef;
 
 	  var checkMergedEquals = pure && finalMergeProps !== defaultMergeProps;
 
@@ -94561,11 +94706,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	      };
 
 	      Connect.prototype.render = function render() {
-	        var haveOwnPropsChanged = this.haveOwnPropsChanged;
-	        var hasStoreStateChanged = this.hasStoreStateChanged;
-	        var haveStatePropsBeenPrecalculated = this.haveStatePropsBeenPrecalculated;
-	        var statePropsPrecalculationError = this.statePropsPrecalculationError;
-	        var renderedElement = this.renderedElement;
+	        var haveOwnPropsChanged = this.haveOwnPropsChanged,
+	            hasStoreStateChanged = this.hasStoreStateChanged,
+	            haveStatePropsBeenPrecalculated = this.haveStatePropsBeenPrecalculated,
+	            statePropsPrecalculationError = this.statePropsPrecalculationError,
+	            renderedElement = this.renderedElement;
 
 	        this.haveOwnPropsChanged = false;
 	        this.hasStoreStateChanged = false;
@@ -94646,7 +94791,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 423 */
+/* 424 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -94658,11 +94803,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 
 	var React = __webpack_require__(19);
-	var ReactCSSTransitionGroup = __webpack_require__(449);
-	var KeypadButton = __webpack_require__(425);
-	var KeyConfigs = __webpack_require__(317);
+	var ReactCSSTransitionGroup = __webpack_require__(450);
+	var KeypadButton = __webpack_require__(426);
+	var KeyConfigs = __webpack_require__(319);
 
-	var _require = __webpack_require__(215),
+	var _require = __webpack_require__(216),
 	    KeyTypes = _require.KeyTypes,
 	    EchoAnimationTypes = _require.EchoAnimationTypes;
 
@@ -94826,7 +94971,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = EchoManager;
 
 /***/ },
-/* 424 */
+/* 425 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -94839,10 +94984,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 
 	var React = __webpack_require__(19);
-	var ReactCSSTransitionGroup = __webpack_require__(449);
+	var ReactCSSTransitionGroup = __webpack_require__(450);
 
-	var KeyConfigs = __webpack_require__(317);
-	var MultiSymbolPopover = __webpack_require__(450);
+	var KeyConfigs = __webpack_require__(319);
+	var MultiSymbolPopover = __webpack_require__(451);
 
 	var _require = __webpack_require__(234),
 	    boundingBoxPropType = _require.boundingBoxPropType,
@@ -94917,7 +95062,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = PopoverManager;
 
 /***/ },
-/* 425 */
+/* 426 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -94931,7 +95076,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(19);
 	var PureRenderMixin = __webpack_require__(100);
 
-	var _require = __webpack_require__(382),
+	var _require = __webpack_require__(365),
 	    connect = _require.connect;
 
 	var _require2 = __webpack_require__(24),
@@ -94941,11 +95086,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _require3 = __webpack_require__(320),
 	    View = _require3.View;
 
-	var Icon = __webpack_require__(451);
-	var MultiSymbolGrid = __webpack_require__(452);
-	var CornerDecal = __webpack_require__(453);
+	var Icon = __webpack_require__(452);
+	var MultiSymbolGrid = __webpack_require__(453);
+	var CornerDecal = __webpack_require__(454);
 
-	var _require4 = __webpack_require__(215),
+	var _require4 = __webpack_require__(216),
 	    KeyTypes = _require4.KeyTypes,
 	    BorderDirections = _require4.BorderDirections,
 	    BorderStyles = _require4.BorderStyles;
@@ -95287,7 +95432,76 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = connect(mapStateToProps)(KeypadButton);
 
 /***/ },
-/* 426 */
+/* 427 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+	/**
+	 * A keypad button containing no symbols and triggering no actions on click.
+	 */
+
+	var React = __webpack_require__(19);
+
+	var _require = __webpack_require__(365),
+	    connect = _require.connect;
+
+	var GestureManager = __webpack_require__(361);
+	var KeyConfigs = __webpack_require__(319);
+	var KeypadButton = __webpack_require__(426);
+
+	var EmptyKeypadButton = React.createClass({
+	    displayName: 'EmptyKeypadButton',
+
+	    propTypes: {
+	        gestureManager: React.PropTypes.instanceOf(GestureManager)
+	    },
+
+	    render: function render() {
+	        var _props = this.props,
+	            gestureManager = _props.gestureManager,
+	            rest = _objectWithoutProperties(_props, ['gestureManager']);
+
+	        // Register touch events on the button, but don't register its DOM node
+	        // or compute focus state or anything like that. We want the gesture
+	        // manager to know about touch events that start on empty buttons, but
+	        // we don't need it to know about their DOM nodes, as it doesn't need
+	        // to focus them or trigger presses.
+
+
+	        return React.createElement(KeypadButton, _extends({
+	            onTouchStart: function onTouchStart(evt) {
+	                return gestureManager.onTouchStart(evt);
+	            },
+	            onTouchEnd: function onTouchEnd(evt) {
+	                return gestureManager.onTouchEnd(evt);
+	            },
+	            onTouchMove: function onTouchMove(evt) {
+	                return gestureManager.onTouchMove(evt);
+	            },
+	            onTouchCancel: function onTouchCancel(evt) {
+	                return gestureManager.onTouchCancel(evt);
+	            }
+	        }, KeyConfigs.NOOP, rest));
+	    }
+	});
+
+	var mapStateToProps = function mapStateToProps(state) {
+	    var gestures = state.gestures;
+
+	    return {
+	        gestureManager: gestures.gestureManager
+	    };
+	};
+
+	module.exports = connect(mapStateToProps)(EmptyKeypadButton);
+
+/***/ },
+/* 428 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -95303,7 +95517,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(19);
 
-	var _require = __webpack_require__(382),
+	var _require = __webpack_require__(365),
 	    connect = _require.connect;
 
 	var _require2 = __webpack_require__(24),
@@ -95440,7 +95654,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = connect(mapStateToProps)(ViewPager);
 
 /***/ },
-/* 427 */
+/* 429 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -95561,76 +95775,167 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = PagerIndicator;
 
 /***/ },
-/* 428 */
+/* 430 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule DraftRemovableWord
+	 * @typechecks
+	 * 
+	 */
 
 	'use strict';
 
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	var TokenizeUtil = __webpack_require__(455);
 
-	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+	var punctuation = TokenizeUtil.getPunctuation();
 
-	/**
-	 * A keypad button containing no symbols and triggering no actions on click.
-	 */
+	// The apostrophe and curly single quotes behave in a curious way: when
+	// surrounded on both sides by word characters, they behave as word chars; when
+	// either neighbor is punctuation or an end of the string, they behave as
+	// punctuation.
+	var CHAMELEON_CHARS = '[\'‘’]';
 
-	var React = __webpack_require__(19);
+	// Remove the underscore, which should count as part of the removable word. The
+	// "chameleon chars" also count as punctuation in this regex.
+	var WHITESPACE_AND_PUNCTUATION = '\\s|(?![_])' + punctuation;
 
-	var _require = __webpack_require__(382),
-	    connect = _require.connect;
+	var DELETE_STRING = '^' + '(?:' + WHITESPACE_AND_PUNCTUATION + ')*' + '(?:' + CHAMELEON_CHARS + '|(?!' + WHITESPACE_AND_PUNCTUATION + ').)*' + '(?:(?!' + WHITESPACE_AND_PUNCTUATION + ').)';
+	var DELETE_REGEX = new RegExp(DELETE_STRING);
 
-	var GestureManager = __webpack_require__(360);
-	var KeyConfigs = __webpack_require__(317);
-	var KeypadButton = __webpack_require__(425);
+	var BACKSPACE_STRING = '(?:(?!' + WHITESPACE_AND_PUNCTUATION + ').)' + '(?:' + CHAMELEON_CHARS + '|(?!' + WHITESPACE_AND_PUNCTUATION + ').)*' + '(?:' + WHITESPACE_AND_PUNCTUATION + ')*' + '$';
+	var BACKSPACE_REGEX = new RegExp(BACKSPACE_STRING);
 
-	var EmptyKeypadButton = React.createClass({
-	    displayName: 'EmptyKeypadButton',
+	function getRemovableWord(text, isBackward) {
+	  var matches = isBackward ? BACKSPACE_REGEX.exec(text) : DELETE_REGEX.exec(text);
+	  return matches ? matches[0] : text;
+	}
 
-	    propTypes: {
-	        gestureManager: React.PropTypes.instanceOf(GestureManager)
-	    },
+	var DraftRemovableWord = {
+	  getBackward: function getBackward(text) {
+	    return getRemovableWord(text, true);
+	  },
 
-	    render: function render() {
-	        var _props = this.props,
-	            gestureManager = _props.gestureManager,
-	            rest = _objectWithoutProperties(_props, ['gestureManager']);
-
-	        // Register touch events on the button, but don't register its DOM node
-	        // or compute focus state or anything like that. We want the gesture
-	        // manager to know about touch events that start on empty buttons, but
-	        // we don't need it to know about their DOM nodes, as it doesn't need
-	        // to focus them or trigger presses.
-
-
-	        return React.createElement(KeypadButton, _extends({
-	            onTouchStart: function onTouchStart(evt) {
-	                return gestureManager.onTouchStart(evt);
-	            },
-	            onTouchEnd: function onTouchEnd(evt) {
-	                return gestureManager.onTouchEnd(evt);
-	            },
-	            onTouchMove: function onTouchMove(evt) {
-	                return gestureManager.onTouchMove(evt);
-	            },
-	            onTouchCancel: function onTouchCancel(evt) {
-	                return gestureManager.onTouchCancel(evt);
-	            }
-	        }, KeyConfigs.NOOP, rest));
-	    }
-	});
-
-	var mapStateToProps = function mapStateToProps(state) {
-	    var gestures = state.gestures;
-
-	    return {
-	        gestureManager: gestures.gestureManager
-	    };
+	  getForward: function getForward(text) {
+	    return getRemovableWord(text, false);
+	  }
 	};
 
-	module.exports = connect(mapStateToProps)(EmptyKeypadButton);
+	module.exports = DraftRemovableWord;
 
 /***/ },
-/* 429 */
+/* 431 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule moveSelectionBackward
+	 * 
+	 */
+
+	/**
+	 * Given a collapsed selection, move the focus `maxDistance` backward within
+	 * the selected block. If the selection will go beyond the start of the block,
+	 * move focus to the end of the previous block, but no further.
+	 *
+	 * This function is not Unicode-aware, so surrogate pairs will be treated
+	 * as having length 2.
+	 */
+	'use strict';
+
+	function moveSelectionBackward(editorState, maxDistance) {
+	  var selection = editorState.getSelection();
+	  var content = editorState.getCurrentContent();
+	  var key = selection.getStartKey();
+	  var offset = selection.getStartOffset();
+
+	  var focusKey = key;
+	  var focusOffset = 0;
+
+	  if (maxDistance > offset) {
+	    var keyBefore = content.getKeyBefore(key);
+	    if (keyBefore == null) {
+	      focusKey = key;
+	    } else {
+	      focusKey = keyBefore;
+	      var blockBefore = content.getBlockForKey(keyBefore);
+	      focusOffset = blockBefore.getText().length;
+	    }
+	  } else {
+	    focusOffset = offset - maxDistance;
+	  }
+
+	  return selection.merge({
+	    focusKey: focusKey,
+	    focusOffset: focusOffset,
+	    isBackward: true
+	  });
+	}
+
+	module.exports = moveSelectionBackward;
+
+/***/ },
+/* 432 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule removeTextWithStrategy
+	 * 
+	 */
+
+	/**
+	 * For a collapsed selection state, remove text based on the specified strategy.
+	 * If the selection state is not collapsed, remove the entire selected range.
+	 */
+	'use strict';
+
+	var DraftModifier = __webpack_require__(246);
+
+	function removeTextWithStrategy(editorState, strategy, direction) {
+	  var selection = editorState.getSelection();
+	  var content = editorState.getCurrentContent();
+	  var target = selection;
+	  if (selection.isCollapsed()) {
+	    if (direction === 'forward') {
+	      if (editorState.isSelectionAtEndOfContent()) {
+	        return content;
+	      }
+	    } else if (editorState.isSelectionAtStartOfContent()) {
+	      return content;
+	    }
+
+	    target = strategy(editorState);
+	    if (target === selection) {
+	      return content;
+	    }
+	  }
+	  return DraftModifier.removeRange(content, target, direction);
+	}
+
+	module.exports = removeTextWithStrategy;
+
+/***/ },
+/* 433 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -95648,10 +95953,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var UnicodeUtils = __webpack_require__(381);
+	var UnicodeUtils = __webpack_require__(382);
 
 	var getRangeClientRects = __webpack_require__(355);
-	var invariant = __webpack_require__(375);
+	var invariant = __webpack_require__(373);
 
 	/**
 	 * Return the computed line height, in pixels, for the provided element.
@@ -95824,7 +96129,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = expandRangeToStartOfLine;
 
 /***/ },
-/* 430 */
+/* 434 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -95843,10 +96148,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	var findAncestorOffsetKey = __webpack_require__(334);
-	var getSelectionOffsetKeyForNode = __webpack_require__(387);
+	var getSelectionOffsetKeyForNode = __webpack_require__(388);
 	var getUpdatedSelectionState = __webpack_require__(336);
-	var invariant = __webpack_require__(375);
-	var nullthrows = __webpack_require__(369);
+	var invariant = __webpack_require__(373);
+	var nullthrows = __webpack_require__(371);
 
 	/**
 	 * Convert the current selection range to an anchor/focus pair of offset keys
@@ -96007,167 +96312,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = getDraftEditorSelectionWithNodes;
 
 /***/ },
-/* 431 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule moveSelectionBackward
-	 * 
-	 */
-
-	/**
-	 * Given a collapsed selection, move the focus `maxDistance` backward within
-	 * the selected block. If the selection will go beyond the start of the block,
-	 * move focus to the end of the previous block, but no further.
-	 *
-	 * This function is not Unicode-aware, so surrogate pairs will be treated
-	 * as having length 2.
-	 */
-	'use strict';
-
-	function moveSelectionBackward(editorState, maxDistance) {
-	  var selection = editorState.getSelection();
-	  var content = editorState.getCurrentContent();
-	  var key = selection.getStartKey();
-	  var offset = selection.getStartOffset();
-
-	  var focusKey = key;
-	  var focusOffset = 0;
-
-	  if (maxDistance > offset) {
-	    var keyBefore = content.getKeyBefore(key);
-	    if (keyBefore == null) {
-	      focusKey = key;
-	    } else {
-	      focusKey = keyBefore;
-	      var blockBefore = content.getBlockForKey(keyBefore);
-	      focusOffset = blockBefore.getText().length;
-	    }
-	  } else {
-	    focusOffset = offset - maxDistance;
-	  }
-
-	  return selection.merge({
-	    focusKey: focusKey,
-	    focusOffset: focusOffset,
-	    isBackward: true
-	  });
-	}
-
-	module.exports = moveSelectionBackward;
-
-/***/ },
-/* 432 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule removeTextWithStrategy
-	 * 
-	 */
-
-	/**
-	 * For a collapsed selection state, remove text based on the specified strategy.
-	 * If the selection state is not collapsed, remove the entire selected range.
-	 */
-	'use strict';
-
-	var DraftModifier = __webpack_require__(246);
-
-	function removeTextWithStrategy(editorState, strategy, direction) {
-	  var selection = editorState.getSelection();
-	  var content = editorState.getCurrentContent();
-	  var target = selection;
-	  if (selection.isCollapsed()) {
-	    if (direction === 'forward') {
-	      if (editorState.isSelectionAtEndOfContent()) {
-	        return content;
-	      }
-	    } else if (editorState.isSelectionAtStartOfContent()) {
-	      return content;
-	    }
-
-	    target = strategy(editorState);
-	    if (target === selection) {
-	      return content;
-	    }
-	  }
-	  return DraftModifier.removeRange(content, target, direction);
-	}
-
-	module.exports = removeTextWithStrategy;
-
-/***/ },
-/* 433 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule DraftRemovableWord
-	 * @typechecks
-	 * 
-	 */
-
-	'use strict';
-
-	var TokenizeUtil = __webpack_require__(454);
-
-	var punctuation = TokenizeUtil.getPunctuation();
-
-	// The apostrophe and curly single quotes behave in a curious way: when
-	// surrounded on both sides by word characters, they behave as word chars; when
-	// either neighbor is punctuation or an end of the string, they behave as
-	// punctuation.
-	var CHAMELEON_CHARS = '[\'‘’]';
-
-	// Remove the underscore, which should count as part of the removable word. The
-	// "chameleon chars" also count as punctuation in this regex.
-	var WHITESPACE_AND_PUNCTUATION = '\\s|(?![_])' + punctuation;
-
-	var DELETE_STRING = '^' + '(?:' + WHITESPACE_AND_PUNCTUATION + ')*' + '(?:' + CHAMELEON_CHARS + '|(?!' + WHITESPACE_AND_PUNCTUATION + ').)*' + '(?:(?!' + WHITESPACE_AND_PUNCTUATION + ').)';
-	var DELETE_REGEX = new RegExp(DELETE_STRING);
-
-	var BACKSPACE_STRING = '(?:(?!' + WHITESPACE_AND_PUNCTUATION + ').)' + '(?:' + CHAMELEON_CHARS + '|(?!' + WHITESPACE_AND_PUNCTUATION + ').)*' + '(?:' + WHITESPACE_AND_PUNCTUATION + ')*' + '$';
-	var BACKSPACE_REGEX = new RegExp(BACKSPACE_STRING);
-
-	function getRemovableWord(text, isBackward) {
-	  var matches = isBackward ? BACKSPACE_REGEX.exec(text) : DELETE_REGEX.exec(text);
-	  return matches ? matches[0] : text;
-	}
-
-	var DraftRemovableWord = {
-	  getBackward: function getBackward(text) {
-	    return getRemovableWord(text, true);
-	  },
-
-	  getForward: function getForward(text) {
-	    return getRemovableWord(text, false);
-	  }
-	};
-
-	module.exports = DraftRemovableWord;
-
-/***/ },
-/* 434 */
+/* 435 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -96216,7 +96361,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = moveSelectionForward;
 
 /***/ },
-/* 435 */
+/* 436 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -96232,7 +96377,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @typechecks
 	 */
 
-	var isNode = __webpack_require__(455);
+	var isNode = __webpack_require__(456);
 
 	/**
 	 * @param {*} object The object to check.
@@ -96245,80 +96390,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = isTextNode;
 
 /***/ },
-/* 436 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @typechecks
-	 */
-
-	var _hyphenPattern = /-(.)/g;
-
-	/**
-	 * Camelcases a hyphenated string, for example:
-	 *
-	 *   > camelize('background-color')
-	 *   < "backgroundColor"
-	 *
-	 * @param {string} string
-	 * @return {string}
-	 */
-	function camelize(string) {
-	  return string.replace(_hyphenPattern, function (_, character) {
-	    return character.toUpperCase();
-	  });
-	}
-
-	module.exports = camelize;
-
-/***/ },
 /* 437 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @typechecks
-	 */
-
-	var _uppercasePattern = /([A-Z])/g;
-
-	/**
-	 * Hyphenates a camelcased string, for example:
-	 *
-	 *   > hyphenate('backgroundColor')
-	 *   < "background-color"
-	 *
-	 * For CSS style names, use `hyphenateStyleName` instead which works properly
-	 * with all vendor prefixes, including `ms`.
-	 *
-	 * @param {string} string
-	 * @return {string}
-	 */
-	function hyphenate(string) {
-	  return string.replace(_uppercasePattern, '-$1').toLowerCase();
-	}
-
-	module.exports = hyphenate;
-
-/***/ },
-/* 438 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -96327,18 +96399,18 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports.__esModule = true;
 	exports.ActionTypes = undefined;
-	exports["default"] = createStore;
+	exports['default'] = createStore;
 
 	var _isPlainObject = __webpack_require__(458);
 
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
-	var _symbolObservable = __webpack_require__(463);
+	var _symbolObservable = __webpack_require__(464);
 
 	var _symbolObservable2 = _interopRequireDefault(_symbolObservable);
 
 	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { "default": obj };
+	  return obj && obj.__esModule ? obj : { 'default': obj };
 	}
 
 	/**
@@ -96362,7 +96434,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @param {Function} reducer A function that returns the next state tree, given
 	 * the current state tree and the action to handle.
 	 *
-	 * @param {any} [initialState] The initial state. You may optionally specify it
+	 * @param {any} [preloadedState] The initial state. You may optionally specify it
 	 * to hydrate the state from the server in universal apps, or to restore a
 	 * previously serialized user session.
 	 * If you use `combineReducers` to produce the root reducer function, this must be
@@ -96376,12 +96448,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @returns {Store} A Redux store that lets you read the state, dispatch actions
 	 * and subscribe to changes.
 	 */
-	function createStore(reducer, initialState, enhancer) {
+	function createStore(reducer, preloadedState, enhancer) {
 	  var _ref2;
 
-	  if (typeof initialState === 'function' && typeof enhancer === 'undefined') {
-	    enhancer = initialState;
-	    initialState = undefined;
+	  if (typeof preloadedState === 'function' && typeof enhancer === 'undefined') {
+	    enhancer = preloadedState;
+	    preloadedState = undefined;
 	  }
 
 	  if (typeof enhancer !== 'undefined') {
@@ -96389,7 +96461,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      throw new Error('Expected the enhancer to be a function.');
 	    }
 
-	    return enhancer(createStore)(reducer, initialState);
+	    return enhancer(createStore)(reducer, preloadedState);
 	  }
 
 	  if (typeof reducer !== 'function') {
@@ -96397,7 +96469,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 
 	  var currentReducer = reducer;
-	  var currentState = initialState;
+	  var currentState = preloadedState;
 	  var currentListeners = [];
 	  var nextListeners = currentListeners;
 	  var isDispatching = false;
@@ -96489,7 +96561,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	   * return something else (for example, a Promise you can await).
 	   */
 	  function dispatch(action) {
-	    if (!(0, _isPlainObject2["default"])(action)) {
+	    if (!(0, _isPlainObject2['default'])(action)) {
 	      throw new Error('Actions must be plain objects. ' + 'Use custom middleware for async actions.');
 	    }
 
@@ -96554,7 +96626,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	       * be used to unsubscribe the observable from the store, and prevent further
 	       * emission of values from the observable.
 	       */
-
 	      subscribe: function subscribe(observer) {
 	        if ((typeof observer === 'undefined' ? 'undefined' : _typeof(observer)) !== 'object') {
 	          throw new TypeError('Expected the observer to be an object.');
@@ -96570,7 +96641,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var unsubscribe = outerSubscribe(observeState);
 	        return { unsubscribe: unsubscribe };
 	      }
-	    }, _ref[_symbolObservable2["default"]] = function () {
+	    }, _ref[_symbolObservable2['default']] = function () {
 	      return this;
 	    }, _ref;
 	  }
@@ -96585,30 +96656,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	    subscribe: subscribe,
 	    getState: getState,
 	    replaceReducer: replaceReducer
-	  }, _ref2[_symbolObservable2["default"]] = observable, _ref2;
+	  }, _ref2[_symbolObservable2['default']] = observable, _ref2;
 	}
 
 /***/ },
-/* 439 */
+/* 438 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	exports.__esModule = true;
-	exports["default"] = combineReducers;
+	exports['default'] = combineReducers;
 
-	var _createStore = __webpack_require__(438);
+	var _createStore = __webpack_require__(437);
 
 	var _isPlainObject = __webpack_require__(458);
 
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
-	var _warning = __webpack_require__(444);
+	var _warning = __webpack_require__(445);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
 	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { "default": obj };
+	  return obj && obj.__esModule ? obj : { 'default': obj };
 	}
 
 	function getUndefinedStateErrorMessage(key, action) {
@@ -96618,20 +96689,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return 'Given action ' + actionName + ', reducer "' + key + '" returned undefined. ' + 'To ignore an action, you must explicitly return the previous state.';
 	}
 
-	function getUnexpectedStateShapeWarningMessage(inputState, reducers, action) {
+	function getUnexpectedStateShapeWarningMessage(inputState, reducers, action, unexpectedKeyCache) {
 	  var reducerKeys = Object.keys(reducers);
-	  var argumentName = action && action.type === _createStore.ActionTypes.INIT ? 'initialState argument passed to createStore' : 'previous state received by the reducer';
+	  var argumentName = action && action.type === _createStore.ActionTypes.INIT ? 'preloadedState argument passed to createStore' : 'previous state received by the reducer';
 
 	  if (reducerKeys.length === 0) {
 	    return 'Store does not have a valid reducer. Make sure the argument passed ' + 'to combineReducers is an object whose values are reducers.';
 	  }
 
-	  if (!(0, _isPlainObject2["default"])(inputState)) {
+	  if (!(0, _isPlainObject2['default'])(inputState)) {
 	    return 'The ' + argumentName + ' has unexpected type of "' + {}.toString.call(inputState).match(/\s([a-z|A-Z]+)/)[1] + '". Expected argument to be an object with the following ' + ('keys: "' + reducerKeys.join('", "') + '"');
 	  }
 
 	  var unexpectedKeys = Object.keys(inputState).filter(function (key) {
-	    return !reducers.hasOwnProperty(key);
+	    return !reducers.hasOwnProperty(key) && !unexpectedKeyCache[key];
+	  });
+
+	  unexpectedKeys.forEach(function (key) {
+	    unexpectedKeyCache[key] = true;
 	  });
 
 	  if (unexpectedKeys.length > 0) {
@@ -96676,11 +96751,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var finalReducers = {};
 	  for (var i = 0; i < reducerKeys.length; i++) {
 	    var key = reducerKeys[i];
+
+	    if (false) {
+	      if (typeof reducers[key] === 'undefined') {
+	        (0, _warning2['default'])('No reducer provided for key "' + key + '"');
+	      }
+	    }
+
 	    if (typeof reducers[key] === 'function') {
 	      finalReducers[key] = reducers[key];
 	    }
 	  }
 	  var finalReducerKeys = Object.keys(finalReducers);
+
+	  if (false) {
+	    var unexpectedKeyCache = {};
+	  }
 
 	  var sanityError;
 	  try {
@@ -96698,9 +96784,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    if (false) {
-	      var warningMessage = getUnexpectedStateShapeWarningMessage(state, finalReducers, action);
+	      var warningMessage = getUnexpectedStateShapeWarningMessage(state, finalReducers, action, unexpectedKeyCache);
 	      if (warningMessage) {
-	        (0, _warning2["default"])(warningMessage);
+	        (0, _warning2['default'])(warningMessage);
 	      }
 	    }
 
@@ -96723,7 +96809,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 440 */
+/* 439 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -96731,7 +96817,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	exports.__esModule = true;
-	exports["default"] = bindActionCreators;
+	exports['default'] = bindActionCreators;
 	function bindActionCreator(actionCreator, dispatch) {
 	  return function () {
 	    return dispatch(actionCreator.apply(undefined, arguments));
@@ -96781,7 +96867,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 441 */
+/* 440 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -96798,14 +96884,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }return target;
 	};
 
-	exports["default"] = applyMiddleware;
+	exports['default'] = applyMiddleware;
 
-	var _compose = __webpack_require__(442);
+	var _compose = __webpack_require__(441);
 
 	var _compose2 = _interopRequireDefault(_compose);
 
 	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { "default": obj };
+	  return obj && obj.__esModule ? obj : { 'default': obj };
 	}
 
 	/**
@@ -96830,8 +96916,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 
 	  return function (createStore) {
-	    return function (reducer, initialState, enhancer) {
-	      var store = createStore(reducer, initialState, enhancer);
+	    return function (reducer, preloadedState, enhancer) {
+	      var store = createStore(reducer, preloadedState, enhancer);
 	      var _dispatch = store.dispatch;
 	      var chain = [];
 
@@ -96844,7 +96930,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      chain = middlewares.map(function (middleware) {
 	        return middleware(middlewareAPI);
 	      });
-	      _dispatch = _compose2["default"].apply(undefined, chain)(store.dispatch);
+	      _dispatch = _compose2['default'].apply(undefined, chain)(store.dispatch);
 
 	      return _extends({}, store, {
 	        dispatch: _dispatch
@@ -96854,12 +96940,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 442 */
+/* 441 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	exports.__esModule = true;
 	exports["default"] = compose;
@@ -96883,25 +96967,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return function (arg) {
 	      return arg;
 	    };
-	  } else {
-	    var _ret = function () {
-	      var last = funcs[funcs.length - 1];
-	      var rest = funcs.slice(0, -1);
-	      return {
-	        v: function v() {
-	          return rest.reduceRight(function (composed, f) {
-	            return f(composed);
-	          }, last.apply(undefined, arguments));
-	        }
-	      };
-	    }();
-
-	    if ((typeof _ret === "undefined" ? "undefined" : _typeof(_ret)) === "object") return _ret.v;
 	  }
+
+	  if (funcs.length === 1) {
+	    return funcs[0];
+	  }
+
+	  var last = funcs[funcs.length - 1];
+	  var rest = funcs.slice(0, -1);
+	  return function () {
+	    return rest.reduceRight(function (composed, f) {
+	      return f(composed);
+	    }, last.apply(undefined, arguments));
+	  };
 	}
 
 /***/ },
-/* 443 */
+/* 442 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {"use strict";
@@ -96937,10 +97019,129 @@ return /******/ (function(modules) { // webpackBootstrap
 	    loadTime = new Date().getTime();
 	  }
 	}).call(undefined);
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(464)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(465)))
+
+/***/ },
+/* 443 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @typechecks
+	 */
+
+	var _hyphenPattern = /-(.)/g;
+
+	/**
+	 * Camelcases a hyphenated string, for example:
+	 *
+	 *   > camelize('background-color')
+	 *   < "backgroundColor"
+	 *
+	 * @param {string} string
+	 * @return {string}
+	 */
+	function camelize(string) {
+	  return string.replace(_hyphenPattern, function (_, character) {
+	    return character.toUpperCase();
+	  });
+	}
+
+	module.exports = camelize;
 
 /***/ },
 /* 444 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @typechecks
+	 */
+
+	var _uppercasePattern = /([A-Z])/g;
+
+	/**
+	 * Hyphenates a camelcased string, for example:
+	 *
+	 *   > hyphenate('backgroundColor')
+	 *   < "background-color"
+	 *
+	 * For CSS style names, use `hyphenateStyleName` instead which works properly
+	 * with all vendor prefixes, including `ms`.
+	 *
+	 * @param {string} string
+	 * @return {string}
+	 */
+	function hyphenate(string) {
+	  return string.replace(_uppercasePattern, '-$1').toLowerCase();
+	}
+
+	module.exports = hyphenate;
+
+/***/ },
+/* 445 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	exports['default'] = warning;
+	/**
+	 * Prints a warning in the console if it exists.
+	 *
+	 * @param {String} message The warning message.
+	 * @returns {void}
+	 */
+	function warning(message) {
+	  /* eslint-disable no-console */
+	  if (typeof console !== 'undefined' && typeof console.error === 'function') {
+	    console.error(message);
+	  }
+	  /* eslint-enable no-console */
+	  try {
+	    // This error was thrown as a convenience so that if you enable
+	    // "break on all exceptions" in your console,
+	    // it would pause the execution at this line.
+	    throw new Error(message);
+	    /* eslint-disable no-empty */
+	  } catch (e) {}
+	  /* eslint-enable no-empty */
+	}
+
+/***/ },
+/* 446 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
+
+	var _react = __webpack_require__(19);
+
+	exports["default"] = _react.PropTypes.shape({
+	  subscribe: _react.PropTypes.func.isRequired,
+	  dispatch: _react.PropTypes.func.isRequired,
+	  getState: _react.PropTypes.func.isRequired
+	});
+
+/***/ },
+/* 447 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -96970,52 +97171,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 445 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-
-	var _react = __webpack_require__(19);
-
-	exports["default"] = _react.PropTypes.shape({
-	  subscribe: _react.PropTypes.func.isRequired,
-	  dispatch: _react.PropTypes.func.isRequired,
-	  getState: _react.PropTypes.func.isRequired
-	});
-
-/***/ },
-/* 446 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports["default"] = warning;
-	/**
-	 * Prints a warning in the console if it exists.
-	 *
-	 * @param {String} message The warning message.
-	 * @returns {void}
-	 */
-	function warning(message) {
-	  /* eslint-disable no-console */
-	  if (typeof console !== 'undefined' && typeof console.error === 'function') {
-	    console.error(message);
-	  }
-	  /* eslint-enable no-console */
-	  try {
-	    // This error was thrown as a convenience so that you can use this stack
-	    // to find the callsite that caused this warning to fire.
-	    throw new Error(message);
-	    /* eslint-disable no-empty */
-	  } catch (e) {}
-	  /* eslint-enable no-empty */
-	}
-
-/***/ },
-/* 447 */
+/* 448 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -97046,7 +97202,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 448 */
+/* 449 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -97054,7 +97210,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.__esModule = true;
 	exports["default"] = wrapActionCreators;
 
-	var _redux = __webpack_require__(420);
+	var _redux = __webpack_require__(411);
 
 	function wrapActionCreators(actionCreators) {
 	  return function (dispatch) {
@@ -97063,13 +97219,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 449 */
+/* 450 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __WEBPACK_EXTERNAL_MODULE_449__;
+	module.exports = __WEBPACK_EXTERNAL_MODULE_450__;
 
 /***/ },
-/* 450 */
+/* 451 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -97089,7 +97245,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _require3 = __webpack_require__(234),
 	    keyConfigPropType = _require3.keyConfigPropType;
 
-	var _require4 = __webpack_require__(215),
+	var _require4 = __webpack_require__(216),
 	    BorderStyles = _require4.BorderStyles;
 
 	var zIndexes = __webpack_require__(328);
@@ -97107,7 +97263,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // TODO(charlie): We have to require this lazily because of a cyclic
 	        // dependence in our components.
 
-	        var TouchableKeypadButton = __webpack_require__(384);
+	        var TouchableKeypadButton = __webpack_require__(385);
 	        return React.createElement(
 	            View,
 	            { style: styles.container },
@@ -97141,7 +97297,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MultiSymbolPopover;
 
 /***/ },
-/* 451 */
+/* 452 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -97156,11 +97312,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _require = __webpack_require__(24),
 	    StyleSheet = _require.StyleSheet;
 
-	var MathIcon = __webpack_require__(460);
-	var SvgIcon = __webpack_require__(461);
-	var TextIcon = __webpack_require__(462);
+	var MathIcon = __webpack_require__(461);
+	var SvgIcon = __webpack_require__(462);
+	var TextIcon = __webpack_require__(463);
 
-	var _require2 = __webpack_require__(215),
+	var _require2 = __webpack_require__(216),
 	    IconTypes = _require2.IconTypes;
 
 	var _require3 = __webpack_require__(234),
@@ -97236,7 +97392,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Icon;
 
 /***/ },
-/* 452 */
+/* 453 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -97254,9 +97410,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _require2 = __webpack_require__(320),
 	    View = _require2.View;
 
-	var Icon = __webpack_require__(451);
+	var Icon = __webpack_require__(452);
 
-	var _require3 = __webpack_require__(215),
+	var _require3 = __webpack_require__(216),
 	    IconTypes = _require3.IconTypes;
 
 	var _require4 = __webpack_require__(234),
@@ -97431,7 +97587,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MultiSymbolGrid;
 
 /***/ },
-/* 453 */
+/* 454 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -97499,7 +97655,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = CornerDecal;
 
 /***/ },
-/* 454 */
+/* 455 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -97541,7 +97697,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 455 */
+/* 456 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -97562,13 +97718,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @return {boolean} Whether or not the object is a DOM node.
 	 */
 	function isNode(object) {
-	  return !!(object && (typeof Node === 'function' ? object instanceof Node : typeof object === 'object' && typeof object.nodeType === 'number' && typeof object.nodeName === 'string'));
+	  var doc = object ? object.ownerDocument || object : document;
+	  var defaultView = doc.defaultView || window;
+	  return !!(object && (typeof defaultView.Node === 'function' ? object instanceof defaultView.Node : typeof object === 'object' && typeof object.nodeType === 'number' && typeof object.nodeName === 'string'));
 	}
 
 	module.exports = isNode;
 
 /***/ },
-/* 456 */
+/* 457 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -97597,12 +97755,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	    arity: true
 	};
 
-	module.exports = function hoistNonReactStatics(targetComponent, sourceComponent) {
+	var isGetOwnPropertySymbolsAvailable = typeof Object.getOwnPropertySymbols === 'function';
+
+	module.exports = function hoistNonReactStatics(targetComponent, sourceComponent, customStatics) {
 	    if (typeof sourceComponent !== 'string') {
 	        // don't hoist over string (html) components
 	        var keys = Object.getOwnPropertyNames(sourceComponent);
+
+	        /* istanbul ignore else */
+	        if (isGetOwnPropertySymbolsAvailable) {
+	            keys = keys.concat(Object.getOwnPropertySymbols(sourceComponent));
+	        }
+
 	        for (var i = 0; i < keys.length; ++i) {
-	            if (!REACT_STATICS[keys[i]] && !KNOWN_STATICS[keys[i]]) {
+	            if (!REACT_STATICS[keys[i]] && !KNOWN_STATICS[keys[i]] && (!customStatics || !customStatics[keys[i]])) {
 	                try {
 	                    targetComponent[keys[i]] = sourceComponent[keys[i]];
 	                } catch (error) {}
@@ -97614,7 +97780,128 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 457 */
+/* 458 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var baseGetTag = __webpack_require__(466),
+	    getPrototype = __webpack_require__(467),
+	    isObjectLike = __webpack_require__(468);
+
+	/** `Object#toString` result references. */
+	var objectTag = '[object Object]';
+
+	/** Used for built-in method references. */
+	var funcProto = Function.prototype,
+	    objectProto = Object.prototype;
+
+	/** Used to resolve the decompiled source of functions. */
+	var funcToString = funcProto.toString;
+
+	/** Used to check objects for own properties. */
+	var hasOwnProperty = objectProto.hasOwnProperty;
+
+	/** Used to infer the `Object` constructor. */
+	var objectCtorString = funcToString.call(Object);
+
+	/**
+	 * Checks if `value` is a plain object, that is, an object created by the
+	 * `Object` constructor or one with a `[[Prototype]]` of `null`.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 0.8.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a plain object, else `false`.
+	 * @example
+	 *
+	 * function Foo() {
+	 *   this.a = 1;
+	 * }
+	 *
+	 * _.isPlainObject(new Foo);
+	 * // => false
+	 *
+	 * _.isPlainObject([1, 2, 3]);
+	 * // => false
+	 *
+	 * _.isPlainObject({ 'x': 0, 'y': 0 });
+	 * // => true
+	 *
+	 * _.isPlainObject(Object.create(null));
+	 * // => true
+	 */
+	function isPlainObject(value) {
+	  if (!isObjectLike(value) || baseGetTag(value) != objectTag) {
+	    return false;
+	  }
+	  var proto = getPrototype(value);
+	  if (proto === null) {
+	    return true;
+	  }
+	  var Ctor = hasOwnProperty.call(proto, 'constructor') && proto.constructor;
+	  return typeof Ctor == 'function' && Ctor instanceof Ctor && funcToString.call(Ctor) == objectCtorString;
+	}
+
+	module.exports = isPlainObject;
+
+/***/ },
+/* 459 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 */
+
+	'use strict';
+
+	/**
+	 * Use invariant() to assert state which your program assumes to be true.
+	 *
+	 * Provide sprintf-style format (only %s is supported) and arguments
+	 * to provide information about what broke and what you were
+	 * expecting.
+	 *
+	 * The invariant message will be stripped in production, but the invariant
+	 * will remain to ensure logic does not differ in production.
+	 */
+
+	var invariant = function invariant(condition, format, a, b, c, d, e, f) {
+	  if (false) {
+	    if (format === undefined) {
+	      throw new Error('invariant requires an error message argument');
+	    }
+	  }
+
+	  if (!condition) {
+	    var error;
+	    if (format === undefined) {
+	      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
+	    } else {
+	      var args = [a, b, c, d, e, f];
+	      var argIndex = 0;
+	      error = new Error(format.replace(/%s/g, function () {
+	        return args[argIndex++];
+	      }));
+	      error.name = 'Invariant Violation';
+	    }
+
+	    error.framesToPop = 1; // we don't care about invariant's own frame
+	    throw error;
+	  }
+	};
+
+	module.exports = invariant;
+
+/***/ },
+/* 460 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -98500,7 +98787,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        exports.UAParser = UAParser;
 	    } else {
 	        // requirejs env (optional)
-	        if ("function" === FUNC_TYPE && __webpack_require__(470)) {
+	        if ("function" === FUNC_TYPE && __webpack_require__(475)) {
 	            !(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
 	                return UAParser;
 	            }.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -98535,135 +98822,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 458 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var getPrototype = __webpack_require__(465),
-	    isHostObject = __webpack_require__(466),
-	    isObjectLike = __webpack_require__(467);
-
-	/** `Object#toString` result references. */
-	var objectTag = '[object Object]';
-
-	/** Used for built-in method references. */
-	var objectProto = Object.prototype;
-
-	/** Used to resolve the decompiled source of functions. */
-	var funcToString = Function.prototype.toString;
-
-	/** Used to check objects for own properties. */
-	var hasOwnProperty = objectProto.hasOwnProperty;
-
-	/** Used to infer the `Object` constructor. */
-	var objectCtorString = funcToString.call(Object);
-
-	/**
-	 * Used to resolve the
-	 * [`toStringTag`](http://ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring)
-	 * of values.
-	 */
-	var objectToString = objectProto.toString;
-
-	/**
-	 * Checks if `value` is a plain object, that is, an object created by the
-	 * `Object` constructor or one with a `[[Prototype]]` of `null`.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 0.8.0
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a plain object,
-	 *  else `false`.
-	 * @example
-	 *
-	 * function Foo() {
-	 *   this.a = 1;
-	 * }
-	 *
-	 * _.isPlainObject(new Foo);
-	 * // => false
-	 *
-	 * _.isPlainObject([1, 2, 3]);
-	 * // => false
-	 *
-	 * _.isPlainObject({ 'x': 0, 'y': 0 });
-	 * // => true
-	 *
-	 * _.isPlainObject(Object.create(null));
-	 * // => true
-	 */
-	function isPlainObject(value) {
-	  if (!isObjectLike(value) || objectToString.call(value) != objectTag || isHostObject(value)) {
-	    return false;
-	  }
-	  var proto = getPrototype(value);
-	  if (proto === null) {
-	    return true;
-	  }
-	  var Ctor = hasOwnProperty.call(proto, 'constructor') && proto.constructor;
-	  return typeof Ctor == 'function' && Ctor instanceof Ctor && funcToString.call(Ctor) == objectCtorString;
-	}
-
-	module.exports = isPlainObject;
-
-/***/ },
-/* 459 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 */
-
-	'use strict';
-
-	/**
-	 * Use invariant() to assert state which your program assumes to be true.
-	 *
-	 * Provide sprintf-style format (only %s is supported) and arguments
-	 * to provide information about what broke and what you were
-	 * expecting.
-	 *
-	 * The invariant message will be stripped in production, but the invariant
-	 * will remain to ensure logic does not differ in production.
-	 */
-
-	var invariant = function invariant(condition, format, a, b, c, d, e, f) {
-	  if (false) {
-	    if (format === undefined) {
-	      throw new Error('invariant requires an error message argument');
-	    }
-	  }
-
-	  if (!condition) {
-	    var error;
-	    if (format === undefined) {
-	      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
-	    } else {
-	      var args = [a, b, c, d, e, f];
-	      var argIndex = 0;
-	      error = new Error(format.replace(/%s/g, function () {
-	        return args[argIndex++];
-	      }));
-	      error.name = 'Invariant Violation';
-	    }
-
-	    error.framesToPop = 1; // we don't care about invariant's own frame
-	    throw error;
-	  }
-	};
-
-	module.exports = invariant;
-
-/***/ },
-/* 460 */
+/* 461 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -98734,7 +98893,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MathIcon;
 
 /***/ },
-/* 461 */
+/* 462 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -98746,7 +98905,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(19);
 	var ReactDOM = __webpack_require__(21);
 
-	var Iconography = __webpack_require__(468);
+	var Iconography = __webpack_require__(469);
 
 	var SvgIcon = React.createClass({
 	    displayName: 'SvgIcon',
@@ -98786,7 +98945,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = SvgIcon;
 
 /***/ },
-/* 462 */
+/* 463 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -98854,17 +99013,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = TextIcon;
 
 /***/ },
-/* 463 */
+/* 464 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(global) {/* global window */
 	'use strict';
 
-	module.exports = __webpack_require__(469)(global || window || undefined);
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+	module.exports = __webpack_require__(470);
 
 /***/ },
-/* 464 */
+/* 465 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// shim for using process in browser
@@ -98928,56 +99085,53 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 465 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/* Built-in method references for those with the same name as other `lodash` methods. */
-	var nativeGetPrototype = Object.getPrototypeOf;
-
-	/**
-	 * Gets the `[[Prototype]]` of `value`.
-	 *
-	 * @private
-	 * @param {*} value The value to query.
-	 * @returns {null|Object} Returns the `[[Prototype]]`.
-	 */
-	function getPrototype(value) {
-	  return nativeGetPrototype(Object(value));
-	}
-
-	module.exports = getPrototype;
-
-/***/ },
 /* 466 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
+	var _Symbol = __webpack_require__(471),
+	    getRawTag = __webpack_require__(472),
+	    objectToString = __webpack_require__(473);
+
+	/** `Object#toString` result references. */
+	var nullTag = '[object Null]',
+	    undefinedTag = '[object Undefined]';
+
+	/** Built-in value references. */
+	var symToStringTag = _Symbol ? _Symbol.toStringTag : undefined;
+
 	/**
-	 * Checks if `value` is a host object in IE < 9.
+	 * The base implementation of `getTag` without fallbacks for buggy environments.
 	 *
 	 * @private
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a host object, else `false`.
+	 * @param {*} value The value to query.
+	 * @returns {string} Returns the `toStringTag`.
 	 */
-	function isHostObject(value) {
-	  // Many host objects are `Object` objects that can coerce to strings
-	  // despite having improperly defined `toString` methods.
-	  var result = false;
-	  if (value != null && typeof value.toString != 'function') {
-	    try {
-	      result = !!(value + '');
-	    } catch (e) {}
-	  }
-	  return result;
+	function baseGetTag(value) {
+	    if (value == null) {
+	        return value === undefined ? undefinedTag : nullTag;
+	    }
+	    return symToStringTag && symToStringTag in Object(value) ? getRawTag(value) : objectToString(value);
 	}
 
-	module.exports = isHostObject;
+	module.exports = baseGetTag;
 
 /***/ },
 /* 467 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var overArg = __webpack_require__(474);
+
+	/** Built-in value references. */
+	var getPrototype = overArg(Object.getPrototypeOf, Object);
+
+	module.exports = getPrototype;
+
+/***/ },
+/* 468 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -99009,13 +99163,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * // => false
 	 */
 	function isObjectLike(value) {
-	  return !!value && (typeof value === 'undefined' ? 'undefined' : _typeof(value)) == 'object';
+	  return value != null && (typeof value === 'undefined' ? 'undefined' : _typeof(value)) == 'object';
 	}
 
 	module.exports = isObjectLike;
 
 /***/ },
-/* 468 */
+/* 469 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -99025,76 +99179,205 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 
 	module.exports = {
-	    COS: __webpack_require__(471),
-	    LOG: __webpack_require__(472),
-	    EQUAL: __webpack_require__(473),
-	    BACKSPACE: __webpack_require__(474),
-	    SQRT: __webpack_require__(475),
-	    EXP: __webpack_require__(476),
-	    NEQ: __webpack_require__(477),
-	    GEQ: __webpack_require__(478),
-	    LN: __webpack_require__(479),
-	    DISMISS: __webpack_require__(480),
-	    SIN: __webpack_require__(481),
-	    LT: __webpack_require__(482),
-	    CUBE_ROOT: __webpack_require__(483),
-	    PLUS: __webpack_require__(484),
-	    TAN: __webpack_require__(485),
-	    LEFT: __webpack_require__(486),
-	    UP: __webpack_require__(487),
-	    DOWN: __webpack_require__(488),
-	    LEFT_PAREN: __webpack_require__(489),
-	    RIGHT_PAREN: __webpack_require__(490),
-	    GT: __webpack_require__(491),
-	    DIVIDE: __webpack_require__(492),
-	    PERIOD: __webpack_require__(493),
-	    PERCENT: __webpack_require__(494),
-	    TIMES: __webpack_require__(495),
-	    EXP_3: __webpack_require__(496),
-	    EXP_2: __webpack_require__(497),
-	    RIGHT: __webpack_require__(498),
-	    CDOT: __webpack_require__(499),
-	    LOG_N: __webpack_require__(500),
-	    LEQ: __webpack_require__(501),
-	    MINUS: __webpack_require__(502),
-	    NEGATIVE: __webpack_require__(502),
-	    RADICAL: __webpack_require__(503),
-	    FRAC_INCLUSIVE: __webpack_require__(504),
-	    FRAC_EXCLUSIVE: __webpack_require__(505),
-	    JUMP_OUT_PARENTHESES: __webpack_require__(506),
-	    JUMP_OUT_EXPONENT: __webpack_require__(507),
-	    JUMP_OUT_BASE: __webpack_require__(508),
-	    JUMP_INTO_NUMERATOR: __webpack_require__(509),
-	    JUMP_OUT_NUMERATOR: __webpack_require__(510),
-	    JUMP_OUT_DENOMINATOR: __webpack_require__(511)
-	};
-
-/***/ },
-/* 469 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	module.exports = function symbolObservablePonyfill(root) {
-		var result;
-		var _Symbol = root.Symbol;
-
-		if (typeof _Symbol === 'function') {
-			if (_Symbol.observable) {
-				result = _Symbol.observable;
-			} else {
-				result = _Symbol('observable');
-				_Symbol.observable = result;
-			}
-		} else {
-			result = '@@observable';
-		}
-
-		return result;
+	    COS: __webpack_require__(476),
+	    LOG: __webpack_require__(477),
+	    EQUAL: __webpack_require__(478),
+	    BACKSPACE: __webpack_require__(479),
+	    SQRT: __webpack_require__(480),
+	    EXP: __webpack_require__(481),
+	    NEQ: __webpack_require__(482),
+	    GEQ: __webpack_require__(483),
+	    LN: __webpack_require__(484),
+	    DISMISS: __webpack_require__(485),
+	    SIN: __webpack_require__(486),
+	    LT: __webpack_require__(487),
+	    CUBE_ROOT: __webpack_require__(488),
+	    PLUS: __webpack_require__(489),
+	    TAN: __webpack_require__(490),
+	    LEFT: __webpack_require__(491),
+	    UP: __webpack_require__(492),
+	    DOWN: __webpack_require__(493),
+	    LEFT_PAREN: __webpack_require__(494),
+	    RIGHT_PAREN: __webpack_require__(495),
+	    GT: __webpack_require__(496),
+	    DIVIDE: __webpack_require__(497),
+	    PERIOD: __webpack_require__(498),
+	    PERCENT: __webpack_require__(499),
+	    TIMES: __webpack_require__(500),
+	    EXP_3: __webpack_require__(501),
+	    EXP_2: __webpack_require__(502),
+	    RIGHT: __webpack_require__(503),
+	    CDOT: __webpack_require__(504),
+	    LOG_N: __webpack_require__(505),
+	    LEQ: __webpack_require__(506),
+	    MINUS: __webpack_require__(507),
+	    NEGATIVE: __webpack_require__(507),
+	    RADICAL: __webpack_require__(508),
+	    FRAC_INCLUSIVE: __webpack_require__(509),
+	    FRAC_EXCLUSIVE: __webpack_require__(510),
+	    JUMP_OUT_PARENTHESES: __webpack_require__(511),
+	    JUMP_OUT_EXPONENT: __webpack_require__(512),
+	    JUMP_OUT_BASE: __webpack_require__(513),
+	    JUMP_INTO_NUMERATOR: __webpack_require__(514),
+	    JUMP_OUT_NUMERATOR: __webpack_require__(515),
+	    JUMP_OUT_DENOMINATOR: __webpack_require__(516)
 	};
 
 /***/ },
 /* 470 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(global, module) {'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _ponyfill = __webpack_require__(517);
+
+	var _ponyfill2 = _interopRequireDefault(_ponyfill);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { 'default': obj };
+	}
+
+	var root; /* global window */
+
+	if (typeof self !== 'undefined') {
+	  root = self;
+	} else if (typeof window !== 'undefined') {
+	  root = window;
+	} else if (typeof global !== 'undefined') {
+	  root = global;
+	} else if (true) {
+	  root = module;
+	} else {
+	  root = Function('return this')();
+	}
+
+	var result = (0, _ponyfill2['default'])(root);
+	exports['default'] = result;
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(518)(module)))
+
+/***/ },
+/* 471 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var root = __webpack_require__(519);
+
+	/** Built-in value references. */
+	var _Symbol = root.Symbol;
+
+	module.exports = _Symbol;
+
+/***/ },
+/* 472 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _Symbol = __webpack_require__(471);
+
+	/** Used for built-in method references. */
+	var objectProto = Object.prototype;
+
+	/** Used to check objects for own properties. */
+	var hasOwnProperty = objectProto.hasOwnProperty;
+
+	/**
+	 * Used to resolve the
+	 * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+	 * of values.
+	 */
+	var nativeObjectToString = objectProto.toString;
+
+	/** Built-in value references. */
+	var symToStringTag = _Symbol ? _Symbol.toStringTag : undefined;
+
+	/**
+	 * A specialized version of `baseGetTag` which ignores `Symbol.toStringTag` values.
+	 *
+	 * @private
+	 * @param {*} value The value to query.
+	 * @returns {string} Returns the raw `toStringTag`.
+	 */
+	function getRawTag(value) {
+	  var isOwn = hasOwnProperty.call(value, symToStringTag),
+	      tag = value[symToStringTag];
+
+	  try {
+	    value[symToStringTag] = undefined;
+	    var unmasked = true;
+	  } catch (e) {}
+
+	  var result = nativeObjectToString.call(value);
+	  if (unmasked) {
+	    if (isOwn) {
+	      value[symToStringTag] = tag;
+	    } else {
+	      delete value[symToStringTag];
+	    }
+	  }
+	  return result;
+	}
+
+	module.exports = getRawTag;
+
+/***/ },
+/* 473 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/** Used for built-in method references. */
+	var objectProto = Object.prototype;
+
+	/**
+	 * Used to resolve the
+	 * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+	 * of values.
+	 */
+	var nativeObjectToString = objectProto.toString;
+
+	/**
+	 * Converts `value` to a string using `Object.prototype.toString`.
+	 *
+	 * @private
+	 * @param {*} value The value to convert.
+	 * @returns {string} Returns the converted string.
+	 */
+	function objectToString(value) {
+	  return nativeObjectToString.call(value);
+	}
+
+	module.exports = objectToString;
+
+/***/ },
+/* 474 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/**
+	 * Creates a unary function that invokes `func` with its argument transformed.
+	 *
+	 * @private
+	 * @param {Function} func The function to wrap.
+	 * @param {Function} transform The argument transform.
+	 * @returns {Function} Returns the new function.
+	 */
+	function overArg(func, transform) {
+	  return function (arg) {
+	    return func(transform(arg));
+	  };
+	}
+
+	module.exports = overArg;
+
+/***/ },
+/* 475 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {module.exports = __webpack_amd_options__;
@@ -99102,7 +99385,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* WEBPACK VAR INJECTION */}.call(exports, {}))
 
 /***/ },
-/* 471 */
+/* 476 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -99139,7 +99422,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Cos;
 
 /***/ },
-/* 472 */
+/* 477 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -99175,7 +99458,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Log;
 
 /***/ },
-/* 473 */
+/* 478 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -99212,7 +99495,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Equal;
 
 /***/ },
-/* 474 */
+/* 479 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -99241,7 +99524,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Backspace;
 
 /***/ },
-/* 475 */
+/* 480 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -99277,7 +99560,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Sqrt;
 
 /***/ },
-/* 476 */
+/* 481 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -99313,7 +99596,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Exp;
 
 /***/ },
-/* 477 */
+/* 482 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -99350,7 +99633,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Neq;
 
 /***/ },
-/* 478 */
+/* 483 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -99387,7 +99670,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Geq;
 
 /***/ },
-/* 479 */
+/* 484 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -99423,7 +99706,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Ln;
 
 /***/ },
-/* 480 */
+/* 485 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -99451,7 +99734,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Dismiss;
 
 /***/ },
-/* 481 */
+/* 486 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -99488,7 +99771,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Sin;
 
 /***/ },
-/* 482 */
+/* 487 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -99525,7 +99808,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Lt;
 
 /***/ },
-/* 483 */
+/* 488 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -99562,7 +99845,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = CubeRoot;
 
 /***/ },
-/* 484 */
+/* 489 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -99598,7 +99881,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Plus;
 
 /***/ },
-/* 485 */
+/* 490 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -99635,7 +99918,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Tan;
 
 /***/ },
-/* 486 */
+/* 491 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -99645,7 +99928,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(19);
 
-	var Arrow = __webpack_require__(512);
+	var Arrow = __webpack_require__(520);
 
 	var Left = function Left() {
 	  return React.createElement(
@@ -99658,7 +99941,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Left;
 
 /***/ },
-/* 487 */
+/* 492 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -99668,7 +99951,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(19);
 
-	var Arrow = __webpack_require__(512);
+	var Arrow = __webpack_require__(520);
 
 	var Up = function Up() {
 	    return React.createElement(
@@ -99681,7 +99964,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Up;
 
 /***/ },
-/* 488 */
+/* 493 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -99691,7 +99974,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(19);
 
-	var Arrow = __webpack_require__(512);
+	var Arrow = __webpack_require__(520);
 
 	var Down = function Down() {
 	    return React.createElement(
@@ -99704,7 +99987,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Down;
 
 /***/ },
-/* 489 */
+/* 494 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -99741,7 +100024,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = LeftParen;
 
 /***/ },
-/* 490 */
+/* 495 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -99778,7 +100061,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = RightParen;
 
 /***/ },
-/* 491 */
+/* 496 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -99815,7 +100098,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Gt;
 
 /***/ },
-/* 492 */
+/* 497 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -99853,7 +100136,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Divide;
 
 /***/ },
-/* 493 */
+/* 498 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -99889,7 +100172,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Period;
 
 /***/ },
-/* 494 */
+/* 499 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -99932,7 +100215,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Percent;
 
 /***/ },
-/* 495 */
+/* 500 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -99969,7 +100252,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Times;
 
 /***/ },
-/* 496 */
+/* 501 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -100005,7 +100288,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Exp3;
 
 /***/ },
-/* 497 */
+/* 502 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -100041,7 +100324,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Exp2;
 
 /***/ },
-/* 498 */
+/* 503 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -100051,7 +100334,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(19);
 
-	var Arrow = __webpack_require__(512);
+	var Arrow = __webpack_require__(520);
 
 	var Right = function Right() {
 	    return React.createElement(
@@ -100064,7 +100347,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Right;
 
 /***/ },
-/* 499 */
+/* 504 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -100105,7 +100388,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Cdot;
 
 /***/ },
-/* 500 */
+/* 505 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -100141,7 +100424,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = LogN;
 
 /***/ },
-/* 501 */
+/* 506 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -100178,7 +100461,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Leq;
 
 /***/ },
-/* 502 */
+/* 507 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -100214,7 +100497,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Minus;
 
 /***/ },
-/* 503 */
+/* 508 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -100251,7 +100534,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Radical;
 
 /***/ },
-/* 504 */
+/* 509 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -100294,7 +100577,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = FracInclusive;
 
 /***/ },
-/* 505 */
+/* 510 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -100337,7 +100620,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = FracExclusive;
 
 /***/ },
-/* 506 */
+/* 511 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -100367,7 +100650,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = JumpOutParentheses;
 
 /***/ },
-/* 507 */
+/* 512 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -100397,7 +100680,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = JumpOutExponent;
 
 /***/ },
-/* 508 */
+/* 513 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -100427,7 +100710,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = JumpOutBase;
 
 /***/ },
-/* 509 */
+/* 514 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -100459,7 +100742,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = JumpIntoNumerator;
 
 /***/ },
-/* 510 */
+/* 515 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -100491,7 +100774,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = JumpOutNumerator;
 
 /***/ },
-/* 511 */
+/* 516 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -100523,7 +100806,69 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = JumpOutDenominator;
 
 /***/ },
-/* 512 */
+/* 517 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports['default'] = symbolObservablePonyfill;
+	function symbolObservablePonyfill(root) {
+		var result;
+		var _Symbol = root.Symbol;
+
+		if (typeof _Symbol === 'function') {
+			if (_Symbol.observable) {
+				result = _Symbol.observable;
+			} else {
+				result = _Symbol('observable');
+				_Symbol.observable = result;
+			}
+		} else {
+			result = '@@observable';
+		}
+
+		return result;
+	};
+
+/***/ },
+/* 518 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = function(module) {
+		if(!module.webpackPolyfill) {
+			module.deprecate = function() {};
+			module.paths = [];
+			// module.parent = undefined by default
+			module.children = [];
+			module.webpackPolyfill = 1;
+		}
+		return module;
+	}
+
+
+/***/ },
+/* 519 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+	var freeGlobal = __webpack_require__(521);
+
+	/** Detect free variable `self`. */
+	var freeSelf = (typeof self === 'undefined' ? 'undefined' : _typeof(self)) == 'object' && self && self.Object === Object && self;
+
+	/** Used as a reference to the global object. */
+	var root = freeGlobal || freeSelf || Function('return this')();
+
+	module.exports = root;
+
+/***/ },
+/* 520 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -100546,6 +100891,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	module.exports = Arrow;
+
+/***/ },
+/* 521 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+	/** Detect free variable `global` from Node.js. */
+	var freeGlobal = (typeof global === 'undefined' ? 'undefined' : _typeof(global)) == 'object' && global && global.Object === Object && global;
+
+	module.exports = freeGlobal;
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ }
 /******/ ])
