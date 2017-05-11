@@ -7,7 +7,7 @@ const React = require("react");
 
 import type {DOMHighlight, DOMRange} from "./types.js";
 
-type TrackedSelection = {
+export type TrackedSelection = {
     // The focus of the current selection - that is, the boundary point of the
     // selection that the user is dragging around.
     //
@@ -106,19 +106,21 @@ class SelectionTracker extends React.PureComponent {
     _computeFocusAndRange(
     ): ?{focusNode: Node, focusOffset: number, range: DOMRange} {
         const selection = document.getSelection();
-        if (selection && selection.rangeCount > 0) {
-            const range = selection.getRangeAt(0);
-            if (!range.collapsed) {
-                // NOTE(mdr): The focus node is guaranteed to exist, because
-                //     there's a range, but the Flow type annotations for
-                //     Selection don't know that. Cast it ourselves.
-                const focusNode: Node = (selection.focusNode: any);
-                const focusOffset = selection.focusOffset;
-                return {focusNode, focusOffset, range};
-            }
+        if (!selection || selection.rangeCount === 0) {
+            return null;
         }
 
-        return null;
+        const range = selection.getRangeAt(0);
+        if (range.collapsed) {
+            return null;
+        }
+
+        // NOTE(mdr): The focus node is guaranteed to exist, because
+        //     there's a range, but the Flow type annotations for
+        //     Selection don't know that. Cast it ourselves.
+        const focusNode: Node = (selection.focusNode: any);
+        const focusOffset = selection.focusOffset;
+        return {focusNode, focusOffset, range};
     }
 
     /**

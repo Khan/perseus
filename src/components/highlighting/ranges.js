@@ -41,28 +41,39 @@ function compareRangeBoundaryPoints(
 }
 
 /**
- * Given two Ranges, return a Range whose start point comes from A, and whose
- * end point comes from B.
+ * Given two DOMRanges, return a DOMRange whose start point comes from A, and
+ * whose end point comes from B.
  */
-function spanRanges(a: Range, b: Range): Range {
+function spanRanges(a: DOMRange, b: DOMRange): DOMRange {
     const range = a.cloneRange();
     range.setEnd(b.endContainer, b.endOffset);
     return range;
 }
 
 /**
- * Given two Ranges, merge them: return the smallest range that contains all
+ * Given two DOMRanges, return whether they intersect.
+ *
+ * We here treat ranges like closed intervals: the boundary points are
+ * considered to be included in the range, and, if a ends exactly where b
+ * starts, they are considered to intersect.
+ */
+function rangesIntersect(a: DOMRange, b: DOMRange): boolean {
+    // Two ranges do *not* intersect iff one ends before the other begins.
+    const rangesDoNotIntersect =
+        compareRangeBoundaryPoints(a, "end", b, "start") < 0 ||
+        compareRangeBoundaryPoints(b, "end", a, "start") < 0;
+    return !rangesDoNotIntersect;
+}
+
+/**
+ * Given two DOMRanges, merge them: return the smallest range that contains all
  * points contained in both A and B, and *only* points contained in both A and
  * B (that is, A and B must intersect).
  *
  * If A and B do not intersect, no merged range exists; return null.
  */
-function mergeRanges(a: Range, b: Range): ?Range {
-    // Two ranges do *not* intersect iff one ends before the other begins.
-    const rangesDoNotIntersect =
-        compareRangeBoundaryPoints(a, "end", b, "start") < 0 ||
-        compareRangeBoundaryPoints(b, "end", a, "start") < 0;
-    if (rangesDoNotIntersect) {
+function mergeRanges(a: DOMRange, b: DOMRange): ?DOMRange {
+    if (!rangesIntersect(a, b)) {
         return null;
     }
 
@@ -240,5 +251,6 @@ function findFirstAndLastWordIndexes(
 module.exports = {
     findFirstAndLastWordIndexes,
     mergeRanges,
+    rangesIntersect,
     spanRanges,
 };

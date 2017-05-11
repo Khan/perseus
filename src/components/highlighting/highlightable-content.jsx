@@ -60,8 +60,9 @@ type HighlightableContentState = {
 };
 
 class HighlightableContent extends React.PureComponent {
-    // A reference to the mounted container div.
+    // References to the mounted container and content divs.
     _container: ?HTMLElement
+    _content: ?HTMLElement
 
     props: HighlightableContentProps
     state: HighlightableContentState = {
@@ -146,24 +147,30 @@ class HighlightableContent extends React.PureComponent {
             ref={container => this._container = container}
         >
             <div>
-                {this.props.enabled && this._container && <HighlightingUI
-                    buildHighlight={buildHighlight}
-                    editable={this.props.editable}
-                    highlights={highlights}
-                    offsetParent={this._container}
-                    zIndexes={{
-                        // The content has a z-index of 1, so, to be above or
-                        // below the content, use z-index of 2 or 0,
-                        // respectively.
-                        aboveContent: 2,
-                        belowContent: 0,
-                    }}
+                {this.props.enabled && this._container && this._content &&
+                    <HighlightingUI
+                        buildHighlight={buildHighlight}
+                        contentNode={this._content}
+                        editable={this.props.editable}
+                        highlights={highlights}
+                        offsetParent={this._container}
+                        zIndexes={{
+                            // The content has a z-index of 1, so, to be above
+                            // or below the content, use z-index of 2 or 0,
+                            // respectively.
+                            aboveContent: 2,
+                            belowContent: 0,
+                        }}
 
-                    onAddHighlight={this._handleAddHighlight}
-                    onRemoveHighlight={this._handleRemoveHighlight}
-                />}
+                        onAddHighlight={this._handleAddHighlight}
+                        onRemoveHighlight={this._handleRemoveHighlight}
+                    />
+                }
             </div>
-            <div className={css(styles.content)}>
+            <div
+                className={css(styles.content)}
+                ref={content => this._content = content}
+            >
                 <WordIndexer onWordsUpdate={this._handleWordsUpdate}>
                     {this.props.children}
                 </WordIndexer>
