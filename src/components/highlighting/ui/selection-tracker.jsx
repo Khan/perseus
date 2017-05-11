@@ -1,6 +1,7 @@
 // @flow
 /**
- * TODO(mdr)
+ * Tracks the user's current selection, and exposes it to the subtree using the
+ * function-as-children pattern.
  */
 const React = require("react");
 
