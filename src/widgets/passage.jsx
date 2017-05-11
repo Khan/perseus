@@ -1006,7 +1006,7 @@ class Passage extends React.Component {
         //
         // Additionally, wait until Aphrodite styles are applied before
         // enabling highlights, so that we measure the correct positions.
-        const enabled = this.canUpdateHighlightingVersion2() &&
+        const enabled = this.supportsHighlightingVersion2() &&
             this.state.stylesAreApplied;
 
         return <HighlightableContent
