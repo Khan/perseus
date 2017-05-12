@@ -1696,18 +1696,14 @@ var Transformer = React.createClass({
         return this.refs.graph.graphie();
     },
 
-    setupGraphie: function() {
-        var self = this;
-
-        var graphie = this.graphie();
-
+    setupGraphie: function(graphie) {
         // A background image of our solution:
         if (this.props.drawSolutionShape &&
                 this.props.correct.shape &&
                 this.props.correct.shape.coords) {
             ShapeTypes.addShape(graphie, {
                 fixed: true,
-                shape: self.props.correct.shape,
+                shape: this.props.correct.shape,
                 normalStyle: {
                     stroke: KhanUtil.GRAY,
                     "stroke-dasharray": "",
