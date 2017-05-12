@@ -22,6 +22,9 @@ var Util = require("../util.js");
 
 var ERROR_MESSAGE = $._("Sorry, I don't understand that!");
 
+const BUTTON_SETS_EASY = ["basic"];
+const BUTTON_SETS_HARD = ["basic", "relations", "trig", "prealgebra"];
+
 // The new, MathQuill input expression widget
 var Expression = React.createClass({
     mixins: [Changeable],
@@ -452,16 +455,25 @@ var ExpressionEditor = React.createClass({
     }
 });
 
+const propUpgrades = {
+    1: (v0props) => {
+        var {easybuttons, ...props} = v0props;
+        if ('easybuttons' in v0props) {
+            props.buttonSets = easybuttons ? BUTTON_SETS_EASY : BUTTON_SETS_HARD;
+        }
+        return props;
+    }
+};
+
 module.exports = {
     name: "expression",
     displayName: "Expression/數學式",
-    getWidget: (enabledFeatures) => {
-        // Allow toggling between the two versions of the widget
-        return enabledFeatures.useMathQuill ? Expression : OldExpression;
-    },
+    widget: Expression,
     editor: ExpressionEditor,
+    version: {major: 1, minor: 0},
     transform: (editorProps) => {
         return _.pick(editorProps, "times", "functions", "buttonSets");
     },
-    hidden: false
+    hidden: false,
+    propUpgrades,
 };
