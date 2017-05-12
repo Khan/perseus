@@ -16,7 +16,7 @@
 }
 .above-scratchpad {
   position: relative;
-  z-index: 2;
+  z-index: 3;
 }
 .graphie.above-scratchpad,
 .graphie-container.above-scratchpad {
@@ -32,7 +32,7 @@
 .interactive-component,
 .interactive-component.above-scratchpad {
   position: relative;
-  z-index: 3;
+  z-index: 4;
 }
 #answercontent input[type=text].perseus-input-size-normal,
 #answercontent input[type=number].perseus-input-size-normal,
@@ -52,7 +52,7 @@
 .framework-perseus #problemarea input,
 .framework-perseus #problemarea button {
   position: relative;
-  z-index: 3;
+  z-index: 4;
 }
 .framework-perseus div.paragraph {
   font-size: 20px;
@@ -291,7 +291,7 @@
 }
 .perseus-widget-radio li span.checkbox {
   position: relative;
-  z-index: 3;
+  z-index: 4;
   display: inline-block;
   width: 20px;
   margin-left: -20px;
@@ -335,7 +335,7 @@ body.mobile .perseus-widget-radio .perseus-radio-option {
 }
 body.mobile .perseus-widget-radio span.checkbox {
   position: relative;
-  z-index: 3;
+  z-index: 4;
   margin-right: 26px;
   display: block;
   margin: 0;
@@ -479,7 +479,7 @@ body.mobile .perseus-widget-radio input[type=checkbox]:checked:before {
 .categorization-container .card.dragging {
   position: absolute;
   display: none;
-  z-index: 4;
+  z-index: 5;
   border-color: #ffa500;
   box-shadow: 0 0 4px #c78100;
   -moz-box-shadow: 0 0 4px #c78100;
@@ -516,7 +516,7 @@ body.mobile .perseus-widget-radio input[type=checkbox]:checked:before {
 }
 .categorizer-container label {
   position: relative;
-  z-index: 2;
+  z-index: 3;
 }
 .categorizer-container td.category {
   padding: 0;
@@ -616,7 +616,7 @@ body.mobile .perseus-widget-radio input[type=checkbox]:checked:before {
   border-radius: 40px;
   color: #358fa4;
   font: 700 23pt avenir, sans-serif;
-  z-index: 3;
+  z-index: 4;
   padding: 0 60px 0 35px;
   min-width: 40px;
   min-height: 40px;
@@ -647,7 +647,7 @@ body.mobile .perseus-widget-radio input[type=checkbox]:checked:before {
 .perseus-widget-dropdown .fancy-select-options {
   color: #358fa4;
   position: absolute;
-  z-index: 4;
+  z-index: 5;
   min-width: 100%;
   overflow-y: hidden;
 }
@@ -744,7 +744,7 @@ body.mobile .perseus-widget-radio input[type=checkbox]:checked:before {
 }
 .orderer .card-wrap {
   position: relative;
-  z-index: 3;
+  z-index: 4;
   margin-right: 4px;
   width: auto;
   float: left;
@@ -856,11 +856,11 @@ body.mobile .perseus-widget-radio input[type=checkbox]:checked:before {
 }
 .draggy-boxy-thing .cards-area {
   position: relative;
-  z-index: 2;
+  z-index: 3;
 }
 .draggy-boxy-thing .card {
   position: relative;
-  z-index: 3;
+  z-index: 4;
   background-color: #fff;
   border: 1px solid #b9b9b9;
   border-bottom-color: #939393;
@@ -919,7 +919,7 @@ body.mobile .perseus-widget-radio input[type=checkbox]:checked:before {
 }
 .perseus-sortable {
   position: relative;
-  z-index: 3;
+  z-index: 4;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   float: left;
@@ -1163,7 +1163,7 @@ body.mobile .perseus-widget-radio input[type=checkbox]:checked:before {
   left: -2px;
   position: absolute;
   top: -3px;
-  z-index: 5;
+  z-index: 6;
   width: 360px;
 }
 .tex-button {
