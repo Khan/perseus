@@ -2,7 +2,7 @@
 /**
  * Utility functions for manipulating highlights.
  */
-const {findFirstAndLastWordIndexes, mergeRanges, spanRanges} = require("./ranges.js");
+const {findFirstAndLastWordIndexes, unionRanges, spanRanges} = require("./ranges.js");
 
 import type {DOMHighlight, DOMHighlightSet, SerializedHighlight, DOMRange}
     from "./types.js";
@@ -25,7 +25,7 @@ function addHighlight(
     let mergedLastWordIndex = newHighlight.lastWordIndex;
     for (const key of Object.keys(existingHighlights)) {
         const h = existingHighlights[key];
-        const newMergedDomRange = mergeRanges(h.domRange, mergedDomRange);
+        const newMergedDomRange = unionRanges(h.domRange, mergedDomRange);
         if (newMergedDomRange) {
             // This highlight's range was successfully merged into the new
             // highlight. Update `mergedDomRange`, and *don't* add it to the

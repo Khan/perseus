@@ -14,7 +14,7 @@ const React = require("react");
 
 const HighlightSetRenderer = require("./highlight-set-renderer.jsx");
 const HighlightTooltip = require("./highlight-tooltip.jsx");
-const {rangesIntersect} = require("../ranges.js");
+const {rangesOverlap} = require("../ranges.js");
 const SelectionTracker = require("./selection-tracker.jsx");
 
 import type {DOMHighlight, DOMHighlightSet, DOMRange, ZIndexes}
@@ -92,7 +92,7 @@ class HighlightingUI extends React.PureComponent {
         // Determine whether the content range contains the focus, by checking
         // whether they intersect. Because the focus range is a single point,
         // intersection is equivalent to being fully contained.
-        const contentContainsFocus = rangesIntersect(contentRange, focusRange);
+        const contentContainsFocus = rangesOverlap(contentRange, focusRange);
 
         // If the content contains the focus, this is a valid selection. Some
         // parts of the range might go beyond the content, but that's okay; the

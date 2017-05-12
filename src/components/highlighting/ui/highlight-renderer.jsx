@@ -14,7 +14,8 @@
 const React = require("react");
 const {StyleSheet, css} = require("aphrodite");
 
-const {getRelativePosition} = require("./util.js");
+const {getClientRectsForTextInRange, getRelativePosition, getRelativeRect} =
+    require("./util.js");
 const HighlightTooltip = require("./highlight-tooltip.jsx");
 
 /* global i18n */
@@ -98,36 +99,14 @@ class HighlightRenderer extends React.PureComponent {
     _computeRects(): Rect[] {
         const {highlight, offsetParent} = this.props;
 
-        // Get the set of rectangles that covers the range, and the rectangle
-        // that covers the offset parent.
-        // NOTE(mdr): The rectangles returned by `getClientRects` and
-        //     `getBoundingClientRect` are relative to the *viewport*, not the
-        //     document.
-        //
-        //     This doesn't affect our computations, because the offset between
-        //     two rectangles is the same, no matter what origin the coordinate
-        //     system uses.
-        //
-        //     But it *does* mean it's unsafe to cache these rectangles, in
-        //     case the user scrolls at unexpected times. Instead, we only
-        //     cache the derived rectangles that this function returns, because
-        //     those will be stable regardless of viewport scrolling.
-        const domRects = highlight.domRange.getClientRects();
+        // Get the set of rectangles that covers the range's text, relative to
+        // the offset parent.
+        const clientRects = getClientRectsForTextInRange(highlight.domRange);
         const offsetParentRect = offsetParent.getBoundingClientRect();
+        const relativeRects =
+            clientRects.map(rect => getRelativeRect(rect, offsetParentRect));
 
-        // Recompute the rectangle's coordinates to be relative to the offset
-        // parent, instead of relative to the viewport.
-        const rects = Array.prototype.map.call(domRects, domRect => {
-            const {left, top} = getRelativePosition(domRect, offsetParentRect);
-            return {
-                left,
-                top,
-                width: domRect.width,
-                height: domRect.height,
-            };
-        });
-
-        return rects;
+        return relativeRects;
     }
 
     _handleRemoveHighlight = () => {
