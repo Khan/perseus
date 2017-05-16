@@ -78,7 +78,10 @@ const HintRenderer = React.createClass({
             {!apiOptions.isMobile && !apiOptions.satStyling &&
             totalHints && pos != null && <span
                 className="perseus-hint-label"
-                style={{display: 'block'}}
+                style={{
+                    display: 'block',
+                    color: apiOptions.hintProgressColor,
+                }}
             >
                 {`${pos + 1} / ${totalHints}`}
             </span>}

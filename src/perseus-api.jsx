@@ -136,6 +136,9 @@ module.exports = {
                 //     https://app.asana.com/0/277557989281705/318877243057038
                 highlightingVersion: React.PropTypes.oneOf([1, 2]).isRequired,
             }),
+
+            // The color used for the hint progress indicator (eg. 1 / 3)
+            hintProgressColor: React.PropTypes.string,
         }).isRequired,
 
         defaults: {
