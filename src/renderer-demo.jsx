@@ -210,6 +210,7 @@ const styles = StyleSheet.create({
         bottom: 0,
         right: 0,
         width: 80,
+        zIndex: 10000,
     },
     answerButtons: {
         margin: '0 -10px',

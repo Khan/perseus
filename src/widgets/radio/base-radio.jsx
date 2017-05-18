@@ -162,6 +162,19 @@ const BaseRadio = React.createClass({
                 },
             },
 
+            selectedItem: {
+                background: "white",
+            },
+
+            aboveBackdrop: {
+                position: "relative",
+                // HACK(emily): We want selected choices to show up above our
+                // exercise backdrop, but below the exercise footer and
+                // "feedback popover" that shows up. This z-index is carefully
+                // coordinated between here and webapp. :(
+                zIndex: 1062,
+            },
+
             responsiveContainer: {
                 overflow: "auto",
                 marginLeft: styleConstants.negativePhoneMargin,
@@ -251,10 +264,6 @@ const BaseRadio = React.createClass({
             "perseus-widget-radio",
             !this.props.editMode && "perseus-rendered-radio",
             css(
-                sharedStyles.aboveScratchpad,
-                // With the responsive mobile styles, the individual items are
-                // spaced out vertically, and so we set the backgrounds on the
-                // items rather than the container.
                 styles.radio,
                 // SAT doesn't use the "responsive styling" as it conflicts
                 // with their custom theming.
@@ -316,8 +325,11 @@ const BaseRadio = React.createClass({
 
                     const aphroditeClassName = (checked) => {
                         return css(
+                            sharedStyles.aboveScratchpad,
                             styles.item,
                             !sat && styles.responsiveItem,
+                            !sat && checked && styles.selectedItem,
+                            !sat && checked && styles.aboveBackdrop,
                             sat && styles.satRadioOption,
                             sat && checked && styles.satRadioSelected,
                             sat && rubric && styles.satReviewRadioOption
