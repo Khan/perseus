@@ -144,6 +144,12 @@ const HintsRenderer = React.createClass({
             hintsVisible > 0 &&
             hintsVisible < this.props.hints.length
         );
+        const showGetAnotherHintCopy = apiOptions.showExerciseStepCopy
+            ? i18n._("Show another step")
+            : i18n._("Get another hint");
+        const mobileHintCopy = apiOptions.showExerciseStepCopy
+            ? i18n._("Steps")
+            : i18n._("Hints");
 
         const classNames = classnames(
             this.props.className,
@@ -159,7 +165,7 @@ const HintsRenderer = React.createClass({
                         sharedStyles.responsiveLabel
                     )}
                 >
-                    {i18n._("Hints")}
+                    {mobileHintCopy}
                 </div>
             }
             {hints}
@@ -188,7 +194,7 @@ const HintsRenderer = React.createClass({
                       +
                     </span>
                     <span className={css(styles.getAnotherHintText)}>
-                        {i18n._("Get another hint")
+                        {showGetAnotherHintCopy
                         } ({hintsVisible}/{this.props.hints.length})
                     </span>
                 </button>}
