@@ -153,6 +153,9 @@ const HintsRenderer = React.createClass({
         } else {
             showGetAnotherHintCopy = i18n._("Get another hint");
         }
+        const hintRatioCopy = apiOptions.showExerciseStepCopy
+            ? `(${hintsVisible + 1}/${this.props.hints.length})`
+            : `(${hintsVisible}/${this.props.hints.length})`;
         const mobileHintCopy = apiOptions.showExerciseStepCopy
             ? i18n._("Steps")
             : i18n._("Hints");
@@ -200,8 +203,7 @@ const HintsRenderer = React.createClass({
                       +
                     </span>
                     <span className={css(styles.getAnotherHintText)}>
-                        {showGetAnotherHintCopy
-                        } ({hintsVisible + 1}/{this.props.hints.length})
+                        {showGetAnotherHintCopy} {hintRatioCopy}
                     </span>
                 </button>}
         </div>;
