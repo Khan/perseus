@@ -144,12 +144,14 @@ const HintsRenderer = React.createClass({
             hintsVisible > 0 &&
             hintsVisible < this.props.hints.length
         );
-        let showGetAnotherHintCopy = i18n._("Get another hint");
+        let showGetAnotherHintCopy;
         if (apiOptions.showExerciseStepCopy) {
             const isLastHint = this.props.hints.length - hintsVisible === 1;
             showGetAnotherHintCopy = isLastHint
                 ? i18n._("Show the last step")
-                : i18n._("Show another step");
+                : i18n._("Show the next step");
+        } else {
+            showGetAnotherHintCopy = i18n._("Get another hint");
         }
         const mobileHintCopy = apiOptions.showExerciseStepCopy
             ? i18n._("Steps")
