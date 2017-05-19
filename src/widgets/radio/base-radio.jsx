@@ -378,19 +378,27 @@ const BaseRadio = React.createClass({
                     // forces any clicks inside to select the input element)
                     // If its not a label, we must simulate that label behavior
                     // for items that are not the draft editor
+                    let listElem = null;
                     let clickHandler = null;
                     if (this.props.editMode) {
                         clickHandler = (e) => {
-                            const choiceRef = this.refs[`radio${i}`];
-                            const viableClassNames = [
-                                className,
-                                choice.content.className,
-                                ReactDOM.findDOMNode(choiceRef).className,
-                            ];
-                            if (viableClassNames
-                                    .indexOf(e.target.className) !== -1) {
-                                this.checkOption(i, true);
+                            // Traverse the parent nodes of the clicked element.
+                            let elem = e.target;
+                            while (elem && elem !== listElem) {
+                                // If the clicked element is inside of the
+                                // "content" part of the choice, it's probably
+                                // inside of the editors or delete button, so
+                                // bail out.
+                                if (elem.classList.contains(
+                                        ApiClassNames.RADIO.OPTION_CONTENT)) {
+                                    return;
+                                }
+                                elem = elem.parentNode;
                             }
+
+                            // Otherwise, it's outside of the editors, so
+                            // select that option.
+                            this.checkOption(i, !choice.checked);
                         };
                     }
 
@@ -399,7 +407,10 @@ const BaseRadio = React.createClass({
                     // somehow? Would changing our choice of key somehow break
                     // any voodoo happening inside a choice's child Renderers
                     // by changing when we mount/unmount?
-                    return <li className={className} key={i}
+                    return <li
+                        key={i}
+                        ref={e => listElem = e}
+                        className={className}
                         onClick={clickHandler}
                         onTouchStart={!this.props.labelWrap ?
                             null : captureScratchpadTouchStart
