@@ -317,6 +317,7 @@ const ItemRenderer = React.createClass({
             questionCompleted: false,
             questionHighlightedWidgets: withRemoved,
         });
+
         if (this.props.apiOptions.interactionCallback) {
             this.props.apiOptions.interactionCallback();
         }
@@ -423,6 +424,10 @@ const ItemRenderer = React.createClass({
         this.questionRenderer.restoreSerializedState(
             state.question, fireCallback);
         this.hintsRenderer.restoreSerializedState(state.hints, fireCallback);
+    },
+
+    showRationalesForCurrentlySelectedChoices() {
+        this.questionRenderer.showRationalesForCurrentlySelectedChoices();
     },
 
     render: function() {

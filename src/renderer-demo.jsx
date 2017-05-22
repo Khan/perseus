@@ -73,6 +73,7 @@ const RendererDemo = React.createClass({
     },
 
     checkAnswer: function() {
+        this.refs.itemRenderer.showRationalesForCurrentlySelectedChoices();
         this.setState({answer: this.refs.itemRenderer.scoreInput()});
     },
 
@@ -106,15 +107,17 @@ const RendererDemo = React.createClass({
             },
         };
 
+        const answer = this.state.answer;
+
         const rendererComponent = <ItemRenderer
             item={this.props.question}
             ref="itemRenderer"
             problemNum={this.props.problemNum}
             initialHintsVisible={0}
             apiOptions={apiOptions}
+            reviewMode={answer.correct}
         />;
 
-        const answer = this.state.answer;
         const showSmiley = !answer.empty && answer.correct;
         const answerButton = <div>
             <SimpleButton

@@ -39,6 +39,7 @@ const Radio = React.createClass({
         choiceStates: React.PropTypes.arrayOf(React.PropTypes.shape({
             selected: React.PropTypes.bool,
             rationaleShown: React.PropTypes.bool,
+            correctnessShown: React.PropTypes.bool,
         }).isRequired),
     },
 
@@ -119,6 +120,7 @@ const Radio = React.createClass({
                 choiceStates: choices.map((_, i) => ({
                     selected: checked[i],
                     rationaleShown: false,
+                    correctnessShown: false,
                 })),
             });
         }
@@ -229,6 +231,7 @@ const Radio = React.createClass({
                     // If the widget is correctly answered, show the rationale
                     // for all the choices
                     widgetCorrect),
+                correctnessShown: state.selected || state.correctnessShown,
             }));
 
             this.props.onChange(
@@ -270,16 +273,19 @@ const Radio = React.createClass({
             const {
                 selected,
                 rationaleShown,
+                correctnessShown,
             } = choiceStates[i];
 
             return {
                 content: this._renderRenderer(content),
                 checked: selected,
-                correct: this.props.questionCompleted && selected,
+                correct: choice.correct,
                 hasRationale: !!choice.clue,
                 rationale: this._renderRenderer(choice.clue),
                 showRationale: rationaleShown,
+                showCorrectness: correctnessShown,
                 isNoneOfTheAbove: choice.isNoneOfTheAbove,
+                revealNoneOfTheAbove: this.props.questionCompleted && selected,
             };
         });
         choices = this.enforceOrdering(choices);

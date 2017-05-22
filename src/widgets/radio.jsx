@@ -41,37 +41,30 @@ var _choiceTransform = (editorProps, problemNum) => {
     return _addNoneOfAbove(_maybeRandomize(choices));
 };
 
-var radioTransform = (editorProps, problemNum) => {
-    var choices = _.map(_choiceTransform(editorProps, problemNum),
-        (choice) => _.omit(choice, 'correct'));
-    var numCorrect = _.reduce(editorProps.choices,
-            function(memo, choice) {
-                return choice.correct ? memo + 1 : memo;
-            }, 0);
-    editorProps = _.extend({}, editorProps, {
-        choices: choices,
-        numCorrect: numCorrect,
-    });
-    return _.pick(editorProps, "choices", "numCorrect", "hasNoneOfTheAbove",
-        "multipleSelect", "correctAnswer", "deselectEnabled", "countChoices");
-};
+var transform = (editorProps, problemNum) => {
+    const choices = _choiceTransform(editorProps, problemNum);
 
-var staticTransform = (editorProps, problemNum) => {
-    var choices = _choiceTransform(editorProps, problemNum);
-    // The correct answers are the selected values in the rendered widget
-    var selectedChoices = _.pluck(choices, "correct");
-    var numCorrect = _.reduce(editorProps.choices,
+    const numCorrect = _.reduce(editorProps.choices,
             function(memo, choice) {
                 return choice.correct ? memo + 1 : memo;
             }, 0);
-    var selectedProps = _.pick(editorProps, "numCorrect", "hasNoneOfTheAbove",
-        "multipleSelect", "correctAnswer", "deselectEnabled", "countChoices");
-    var staticProps = _.extend({}, selectedProps, {
-        choices: choices,
-        numCorrect: numCorrect,
-        values: selectedChoices,
-    });
-    return staticProps;
+
+    const {
+        hasNoneOfTheAbove,
+        multipleSelect,
+        correctAnswer,
+        deselectEnabled,
+    } = editorProps;
+
+    return {
+        numCorrect,
+        hasNoneOfTheAbove,
+        multipleSelect,
+        correctAnswer,
+        deselectEnabled,
+        choices,
+        selectedChoices: _.pluck(choices, "correct"),
+    };
 };
 
 var propUpgrades = {
@@ -110,8 +103,8 @@ module.exports = {
     displayName: "Multiple choice",
     accessible: true,
     widget: Radio,
-    transform: radioTransform,
-    staticTransform: staticTransform,
+    transform: transform,
+    staticTransform: transform,
     version: { major: 1, minor: 0 },
     propUpgrades: propUpgrades,
 };

@@ -65,6 +65,7 @@ const ChoicesType = React.PropTypes.arrayOf(React.PropTypes.shape({
     rationale: React.PropTypes.node,
     hasRationale: React.PropTypes.bool,
     showRationale: React.PropTypes.bool,
+    showCorrectness: React.PropTypes.bool,
     correct: React.PropTypes.bool,
     originalIndex: React.PropTypes.number,
     isNoneOfTheAbove: React.PropTypes.bool,
@@ -241,6 +242,7 @@ const BaseRadio = React.createClass({
     render: function() {
         const inputType = this.props.multipleSelect ? "checkbox" : "radio";
         const rubric = this.props.reviewModeRubric;
+        const reviewMode = !!rubric;
 
         const styles = BaseRadio.styles;
         const sat = this.props.apiOptions.satStyling;
@@ -281,21 +283,20 @@ const BaseRadio = React.createClass({
                 </div>}
             <ul className={className}>
                 {this.props.choices.map(function(choice, i) {
-                    const reviewMode = !!rubric;
-
                     let Element = Choice;
                     const elementProps = {
                         ref: `radio${i}`,
                         apiOptions: this.props.apiOptions,
                         checked: choice.checked,
                         reviewMode,
-                        correct: reviewMode && rubric.choices[i].correct,
+                        correct: choice.correct,
                         rationale: choice.rationale,
                         content: choice.content,
                         disabled: this.props.apiOptions.readOnly,
                         editMode: this.props.editMode,
                         groupName: this.state.radioGroupName,
                         isLastChoice: i === this.props.choices.length - 1,
+                        showCorrectness: reviewMode || !!choice.showCorrectness,
                         showRationale: choice.hasRationale && (
                             reviewMode || choice.showRationale),
                         type: inputType,
@@ -308,7 +309,9 @@ const BaseRadio = React.createClass({
 
                     if (choice.isNoneOfTheAbove) {
                         Element = ChoiceNoneAbove;
-                        _.extend(elementProps, {showContent: choice.correct});
+                        _.extend(elementProps, {
+                            showContent: choice.revealNoneOfTheAbove,
+                        });
                     }
 
                     const aphroditeClassName = (checked) => {
@@ -331,10 +334,10 @@ const BaseRadio = React.createClass({
                         // TODO(aria): Make test case for these API classNames
                         ApiClassNames.RADIO.OPTION,
                         choice.checked && ApiClassNames.RADIO.SELECTED,
-                        (rubric && rubric.choices[i].correct &&
+                        (reviewMode && rubric.choices[i].correct &&
                             ApiClassNames.CORRECT
                         ),
-                        (rubric && !rubric.choices[i].correct &&
+                        (reviewMode && !rubric.choices[i].correct &&
                             ApiClassNames.INCORRECT
                         )
                     );

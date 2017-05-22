@@ -59,6 +59,7 @@ const Choice = React.createClass({
         pos: React.PropTypes.number,
         reviewMode: React.PropTypes.bool,
         showRationale: React.PropTypes.bool,
+        showCorrectness: React.PropTypes.bool,
         type: React.PropTypes.string,
     },
 
@@ -320,7 +321,7 @@ const Choice = React.createClass({
             pressed={this.state.isInputActive}
             focused={this.state.isInputFocused}
             checked={this.props.checked}
-            showCorrectness={this.props.showRationale}
+            showCorrectness={this.props.showCorrectness}
             reviewMode={this.props.reviewMode}
             product={this.props.apiOptions.satStyling ? "sat" : "library"}
         />;
