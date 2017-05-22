@@ -7,3 +7,6 @@ node_modules/*
 
 build/perseus.min.js
 perseus.sublime-workspace
+
+# Ignore emacs backup files
+*~

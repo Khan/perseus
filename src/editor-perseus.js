@@ -18,5 +18,6 @@ module.exports = {
     EditorPage:             require("./editor-page.jsx"),
     IframeContentRenderer:  require("./iframe-content-renderer.jsx"),
     MultiRendererEditor:    require("./multirenderer-editor.jsx"),
+    Gorgon:                 require("./gorgon/gorgon.js"),
     ...Perseus,
 };
