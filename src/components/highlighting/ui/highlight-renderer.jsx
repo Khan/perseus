@@ -187,7 +187,7 @@ class HighlightRenderer extends React.PureComponent {
         const rects = this.state.cachedHighlightRects;
 
         return <div>
-            <div className={css(styles.highlight)}>
+            <div>
                 {rects.map((rect, index) =>
                     <div
                         key={index}
@@ -226,31 +226,8 @@ class HighlightRenderer extends React.PureComponent {
 }
 
 const styles = StyleSheet.create({
-    // NOTE(mdr): A clever trick here! Instead of assigning the opacity to the
-    //     individual rects, we assign it to the highlight. That way, if there
-    //     are overlapping rects, the overlapping area is the same color as the
-    //     rest of the highlighted area - whereas, if we had applied the
-    //     opacity to each individual rect, the overlapping areas would be
-    //     darker than the rest.
-    //
-    //     This especially matters because getClientRects sometimes returns
-    //     duplicate rects for text nodes and their wrapper elements - but,
-    //     this way, the overlap doesn't affect the visuals.
-    highlight: {
-        opacity: 0.4,
-
-        // NOTE(mdr): IE and Edge don't apply a non-positioned parent's opacity
-        //     to a positioned child. We therefore position the highlight to
-        //     be in the top left corner of the offset parent, which won't
-        //     disrupt calculations, but will lead to correct opacity behavior
-        //     on IE.
-        position: "absolute",
-        left: 0,
-        top: 0,
-    },
-
     highlightRect: {
-        background: "#4c00ff", // testPrepBlue
+        background: "#fffabe", // highlighter yellow :)
     },
 });
 
