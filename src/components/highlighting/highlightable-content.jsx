@@ -18,10 +18,11 @@ const {StyleSheet, css} = require("aphrodite");
 
 const HighlightingUI = require("./ui/highlighting-ui.jsx");
 const WordIndexer = require("./word-indexer.jsx");
-const {addHighlight, deserializeHighlight, serializeHighlight} =
-    require("./highlights.js");
+const {addHighlight, buildHighlight, deserializeHighlight, serializeHighlight}
+    = require("./highlights.js");
 
-import type {DOMHighlight, SerializedHighlight, DOMRange} from "./types.js";
+import type {DOMHighlight, DOMHighlightSet, SerializedHighlightSet, DOMRange}
+    from "./types.js";
 
 type HighlightableContentProps = {
     // The highlightable content itself. Highlights will be defined relative to
@@ -32,14 +33,24 @@ type HighlightableContentProps = {
     // read-only.
     editable: boolean,
 
+    // Whether highlighting is currently enabled. If false, highlights are not
+    // visible and are read-only (regardless of the `editable` prop), and this
+    // component is effectively a no-op.
+    //
+    // NOTE(mdr): The purpose of the `enabled` prop, as opposed to, say, just
+    //     *not* wrapping the content, is to enable quick toggles between
+    //     enabled/disabled while maintaining the same component structure.
+    //     Forcing React to rebuild the entire component tree is not kind!
+    enabled: boolean,
+
     // When the user attempts to add/remove/update a highlight, this callback
     // will be called with a newly-updated full set of highlights that reflects
     // the user's intent.
     onSerializedHighlightsUpdate: (
-        serializedHighlights: SerializedHighlight[]) => mixed,
+        serializedHighlights: SerializedHighlightSet) => mixed,
 
     // The set of highlights to apply to the given content.
-    serializedHighlights: SerializedHighlight[],
+    serializedHighlights: SerializedHighlightSet,
 };
 
 type HighlightableContentState = {
@@ -49,49 +60,47 @@ type HighlightableContentState = {
 };
 
 class HighlightableContent extends React.PureComponent {
-    /* eslint-disable react/sort-comp */
+    // References to the mounted container and content divs.
+    _container: ?HTMLElement
+    _content: ?HTMLElement
+
     props: HighlightableContentProps
     state: HighlightableContentState = {
         wordRanges: [],
     }
-    _container: ?HTMLElement
-    /* eslint-enable react/sort-comp */
+
+    _buildHighlight(highlightRange: DOMRange): ?DOMHighlight {
+        return buildHighlight(highlightRange, this.state.wordRanges);
+    }
 
     /**
      * Take the highlights from props, and deserialize them into DOMHighlights,
      * according to the latest cache of word ranges.
      */
-    _getDOMHighlights(): DOMHighlight[] {
+    _getDOMHighlights(): DOMHighlightSet {
         const {serializedHighlights} = this.props;
         const {wordRanges} = this.state;
 
-        return serializedHighlights.map(serializedHighlight =>
-            deserializeHighlight(serializedHighlight, wordRanges));
+        const domHighlights = {};
+        for (const key of Object.keys(serializedHighlights)) {
+            domHighlights[key] =
+                deserializeHighlight(serializedHighlights[key], wordRanges);
+        }
+        return domHighlights;
     }
 
     /**
-     * Add a highlight over the given DOMRange.
+     * Add the given DOMHighlight to the current set.
      */
-    _handleAddHighlight = (range: DOMRange) => {
-        const {wordRanges} = this.state;
+    _handleAddHighlight = (highlight: DOMHighlight) => {
+        const newDomHighlights =
+            addHighlight(this._getDOMHighlights(), highlight);
 
-        const newHighlights =
-            addHighlight(this._getDOMHighlights(), {range});
-
-        // Serialize the new highlights, and check for nulls. If any are found,
-        // then our new highlight didn't serialize, and isn't actually valid
-        // (e.g. it isn't actually over any of the content's words), so return
-        // without firing any updates.
-        //
-        // Otherwise, since we've proven the list contains no empty values, we
-        // can safely cast to `SerializedHighlight[]`.
-        const maybeNewSerializedHighlights =
-            newHighlights.map(h => serializeHighlight(h, wordRanges));
-        if (maybeNewSerializedHighlights.some(sh => !sh)) {
-            return;
+        const newSerializedHighlights = {};
+        for (const key of Object.keys(newDomHighlights)) {
+            newSerializedHighlights[key] =
+                serializeHighlight(newDomHighlights[key]);
         }
-        const newSerializedHighlights: SerializedHighlight[] =
-            (maybeNewSerializedHighlights: any[]);
 
         this.props.onSerializedHighlightsUpdate(newSerializedHighlights);
     }
@@ -102,8 +111,8 @@ class HighlightableContent extends React.PureComponent {
      */
     _handleRemoveHighlight = (keyToRemove: string) => {
         const {serializedHighlights} = this.props;
-        const newSerializedHighlights =
-            serializedHighlights.filter(sh => sh.key !== keyToRemove);
+        const newSerializedHighlights = {...serializedHighlights};
+        delete newSerializedHighlights[keyToRemove];
         this.props.onSerializedHighlightsUpdate(newSerializedHighlights);
     }
 
@@ -118,28 +127,50 @@ class HighlightableContent extends React.PureComponent {
     render() {
         const highlights = this._getDOMHighlights();
 
+        // NOTE(mdr): This lambda is rebuilt every time this component updates,
+        //     so every update to HighlightableContent triggers an update in
+        //     the child HighlightingUI and SelectionTracker, even if the
+        //     behavior hasn't changed.
+        //
+        //     Over-updating is preferable to under-updating here, because some
+        //     updates in this component's props/state *do* affect
+        //     `buildHighlight`'s behavior, and *should* trigger an update.
+        //
+        //     A more performant approach would be to cache this function
+        //     object until its implicitly-bound inputs change. If profiling
+        //     leads us to implement such caching, this draft might be a good
+        //     starting point: https://phabricator.khanacademy.org/D35623?id=170698
+        const buildHighlight = (r: DOMRange) => this._buildHighlight(r);
+
         return <div
             className={css(styles.container)}
             ref={container => this._container = container}
         >
             <div>
-                {this._container && <HighlightingUI
-                    editable={this.props.editable}
-                    highlights={highlights}
-                    offsetParent={this._container}
-                    zIndexes={{
-                        // The content has a z-index of 1, so, to be above or
-                        // below the content, use z-index of 2 or 0,
-                        // respectively.
-                        aboveContent: 2,
-                        belowContent: 0,
-                    }}
+                {this.props.enabled && this._container && this._content &&
+                    <HighlightingUI
+                        buildHighlight={buildHighlight}
+                        contentNode={this._content}
+                        editable={this.props.editable}
+                        highlights={highlights}
+                        offsetParent={this._container}
+                        zIndexes={{
+                            // The content has a z-index of 1, so, to be above
+                            // or below the content, use z-index of 2 or 0,
+                            // respectively.
+                            aboveContent: 2,
+                            belowContent: 0,
+                        }}
 
-                    onAddHighlight={this._handleAddHighlight}
-                    onRemoveHighlight={this._handleRemoveHighlight}
-                />}
+                        onAddHighlight={this._handleAddHighlight}
+                        onRemoveHighlight={this._handleRemoveHighlight}
+                    />
+                }
             </div>
-            <div className={css(styles.content)}>
+            <div
+                className={css(styles.content)}
+                ref={content => this._content = content}
+            >
                 <WordIndexer onWordsUpdate={this._handleWordsUpdate}>
                     {this.props.children}
                 </WordIndexer>

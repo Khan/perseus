@@ -10,7 +10,6 @@ const classNames = require("classnames");
 const { ClassNames } = require("../../perseus-api.jsx");
 const sharedStyles = require("../../styles/shared.js");
 const styleConstants = require("../../styles/constants.js");
-const mediaQueries = require("../../styles/media-queries.js");
 
 const ToggleableRadioButton = require("./toggleable-radio-button.jsx");
 const ChoiceIcon = require("./choice-icon.jsx");
@@ -146,6 +145,14 @@ const Choice = React.createClass({
                 pointerEvents: "none",
             },
 
+            responsiveMobileRadioInput: {
+                // On phones and tablets, we hide the circular radio button
+                // itself, and instead, show a green border when the item is
+                // selected. This saves horizontal space for content on small
+                // screens.
+                display: "none",
+            },
+
             satRadioOptionContent: {
                 userSelect: 'text',
                 display: "block",
@@ -160,31 +167,29 @@ const Choice = React.createClass({
             },
 
             responsiveCheckboxInput: {
-                [mediaQueries.lgOrSmaller]: {
-                    border: "none",
-                    borderRadius: 4,
+                border: "none",
+                borderRadius: 4,
 
-                    ":checked": {
-                        backgroundColor: checkedColor,
-                        boxShadow: "none",
-                    },
+                ":checked": {
+                    backgroundColor: checkedColor,
+                    boxShadow: "none",
+                },
 
-                    // TODO(emily): Make aphrodite allow nested styles here so
-                    // this isn't as hacky.
-                    ":checked::before": {
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
+                // TODO(emily): Make aphrodite allow nested styles here so
+                // this isn't as hacky.
+                ":checked::before": {
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
 
-                        // TODO(jared): replace with image
-                        content: '"✓"',
-                        color: "white",
-                        fontFamily: "monospace",
-                        fontSize: 17,
+                    // TODO(jared): replace with image
+                    content: '"✓"',
+                    color: "white",
+                    fontFamily: "monospace",
+                    fontSize: 17,
 
-                        height: styleConstants.circleSize,
-                        width: styleConstants.circleSize,
-                    },
+                    height: styleConstants.circleSize,
+                    width: styleConstants.circleSize,
                 },
             },
 
@@ -193,9 +198,7 @@ const Choice = React.createClass({
                 // itself, and instead, show a green border when the item is
                 // selected. This saves horizontal space for content on small
                 // screens.
-                [mediaQueries.lgOrSmaller]: {
-                    display: "none",
-                },
+                display: "none",
             },
 
             satCheckboxOptionContent: {
@@ -232,11 +235,9 @@ const Choice = React.createClass({
             },
 
             responsiveLabel: {
-                [mediaQueries.lgOrSmaller]: {
-                    WebkitTapHighlightColor: "transparent",
-                    alignItems: "center",
-                    display: "flex",
-                },
+                WebkitTapHighlightColor: "transparent",
+                alignItems: "center",
+                display: "flex",
             },
 
             satLabel: {
@@ -245,10 +246,7 @@ const Choice = React.createClass({
 
             responsiveCheckbox: {
                 display: "inline-block",
-
-                [mediaQueries.lgOrSmaller]: {
-                    padding: responsiveCheckboxPadding,
-                },
+                padding: responsiveCheckboxPadding,
             },
 
             checkboxCrossout: {
@@ -365,7 +363,7 @@ const Choice = React.createClass({
                 this.props.type === "radio" &&
                     !sat && sharedStyles.responsiveRadioInput,
                 this.props.type === "radio" && isMobile &&
-                    !sat && sharedStyles.responsiveMobileRadioInput,
+                    !sat && styles.responsiveMobileRadioInput,
                 this.props.type === "checkbox" &&
                     !sat && styles.responsiveCheckboxInput,
                 this.props.type === "checkbox" && isMobile &&

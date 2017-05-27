@@ -2,43 +2,83 @@
 /**
  * Utility functions for manipulating highlights.
  */
-const {findFirstAndLastWordIndexes, mergeRanges, spanRanges} = require("./ranges.js");
+const {findFirstAndLastWordIndexes, unionRanges, spanRanges} = require("./ranges.js");
 
-import type {DOMHighlight, SerializedHighlight, DOMRange} from "./types.js";
+import type {DOMHighlight, DOMHighlightSet, SerializedHighlight, DOMRange}
+    from "./types.js";
 
 /**
- * Given a list of Highlights, return a new list that also includes the given
- * Range as a new Highlight. If the Highlight intersects existing Highlights,
- * the other Highlights are removed and their ranges are merged into the new
- * Highlight.
+ * Given a list of DOMHighlights, return a new list that also includes the
+ * given DOMRange as a new DOMHighlight. If the DOMHighlight intersects
+ * existing DOMHighlights, the other Highlights are removed and their ranges
+ * are merged into the new DOMHighlight.
  */
 function addHighlight(
-    existingHighlights: DOMHighlight[],
-    newHighlightSpec: {range: DOMRange},
-): DOMHighlight[] {
-    let mergedRange = newHighlightSpec.range;
-    const highlightsThatWereNotMerged = existingHighlights.filter(h => {
-        const newMergedRange = mergeRanges(h.range, mergedRange);
-        if (newMergedRange) {
+    existingHighlights: DOMHighlightSet,
+    newHighlight: DOMHighlight,
+): DOMHighlightSet {
+    const newHighlights = {};
+
+    // Merge the new highlight with any existing highlights that intersect it.
+    let mergedDomRange = newHighlight.domRange;
+    let mergedFirstWordIndex = newHighlight.firstWordIndex;
+    let mergedLastWordIndex = newHighlight.lastWordIndex;
+    for (const key of Object.keys(existingHighlights)) {
+        const h = existingHighlights[key];
+        const newMergedDomRange = unionRanges(h.domRange, mergedDomRange);
+        if (newMergedDomRange) {
             // This highlight's range was successfully merged into the new
-            // highlight. Update `mergedRange`, and return `false` to *not* add
-            // this to the list of not-merged highlights.
-            mergedRange = newMergedRange;
-            return false;
+            // highlight. Update `mergedDomRange`, and *don't* add it to the
+            // new set of highlights.
+            mergedDomRange = newMergedDomRange;
+            mergedFirstWordIndex =
+                Math.min(h.firstWordIndex, mergedFirstWordIndex);
+            mergedLastWordIndex =
+                Math.max(h.lastWordIndex, mergedLastWordIndex);
         } else {
             // This highlight's range can't be merged into the new highlight.
-            // Return `true` to add this to the list of not-merged highlights.
-            return true;
+            // Add it to the new set of highlights.
+            newHighlights[key] = h;
         }
-    });
+    }
 
-    const existingKeys = highlightsThatWereNotMerged.map(h => h.key);
-    const newHighlight = {
-        key: createNewUniqueKey(existingKeys),
-        range: mergedRange,
+    const newMergedHighlight = {
+        firstWordIndex: mergedFirstWordIndex,
+        lastWordIndex: mergedLastWordIndex,
+        domRange: mergedDomRange,
     };
 
-    return [...highlightsThatWereNotMerged, newHighlight];
+    // Add the newly-merged highlight to the set of highlights, under a new,
+    // unique key.
+    const existingKeys = Object.keys(newHighlights);
+    const newKey = createNewUniqueKey(existingKeys);
+    newHighlights[newKey] = newMergedHighlight;
+
+    return newHighlights;
+}
+
+/**
+ * Given a DOMRange and a list of word ranges, build a corresponding
+ * DOMHighlight.
+ *
+ * If the DOMRange is not a valid highlight given the word ranges, return null.
+ */
+function buildHighlight(
+    highlightRange: DOMRange, wordRanges: DOMRange[],
+): ?DOMHighlight {
+    const indexes = findFirstAndLastWordIndexes(highlightRange, wordRanges);
+    if (!indexes) {
+        return null;
+    }
+
+    const [firstWordIndex, lastWordIndex] = indexes;
+    const firstWord = wordRanges[firstWordIndex];
+    const lastWord = wordRanges[lastWordIndex];
+    return {
+        firstWordIndex,
+        lastWordIndex,
+        domRange: spanRanges(firstWord, lastWord),
+    };
 }
 
 /**
@@ -75,14 +115,16 @@ function deserializeHighlight(
     serializedHighlight: SerializedHighlight,
     wordRanges: DOMRange[],
 ): DOMHighlight {
-    const firstWord = wordRanges[serializedHighlight.range.firstWordIndex];
+    const {firstWordIndex, lastWordIndex} = serializedHighlight.range;
+
+    const firstWord = wordRanges[firstWordIndex];
     if (!firstWord) {
         throw new Error(
             `first word index ${firstWord} is out of bounds: ` +
             `must be 0–${wordRanges.length - 1} inclusive`);
     }
 
-    const lastWord = wordRanges[serializedHighlight.range.lastWordIndex];
+    const lastWord = wordRanges[lastWordIndex];
     if (!lastWord) {
         throw new Error(
             `last word index ${lastWord} is out of bounds: ` +
@@ -90,30 +132,19 @@ function deserializeHighlight(
     }
 
     return {
-        key: serializedHighlight.key,
-        range: spanRanges(firstWord, lastWord),
+        firstWordIndex,
+        lastWordIndex,
+        domRange: spanRanges(firstWord, lastWord),
     };
 }
 
 /**
- * Given a DOMHighlight and the current set of word ranges, return a
- * SerializedHighlight representing the given DOMHighlight.
- *
- * If the given DOMHighlight contains none of the given words, and therefore
- * can't be serialized, return null.
+ * Return a SerializedHighlight representing the given DOMHighlight.
  */
-function serializeHighlight(
-    highlight: DOMHighlight, wordRanges: DOMRange[]
-): ?SerializedHighlight {
-    const indexes = findFirstAndLastWordIndexes(highlight.range, wordRanges);
-    if (!indexes) {
-        return null;
-    }
-
-    const [firstWordIndex, lastWordIndex] = indexes;
+function serializeHighlight(highlight: DOMHighlight): SerializedHighlight {
+    const {firstWordIndex, lastWordIndex} = highlight;
 
     return {
-        key: highlight.key,
         range: {
             type: "word-indexes",
             firstWordIndex,
@@ -124,6 +155,7 @@ function serializeHighlight(
 
 module.exports = {
     addHighlight,
+    buildHighlight,
     deserializeHighlight,
     serializeHighlight,
 };

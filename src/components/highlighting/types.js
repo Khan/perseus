@@ -48,29 +48,25 @@ export type SerializedRange = {
  * being persisted.
  */
 export type DOMHighlight = {
-    // A key that uniquely identifies this highlight within some set of
-    // highlights.
-    key: string,
-
-    // A range that specifies this highlight's target content, relative to the
-    // current DOM.
-    range: DOMRange,
+    // A range that specifies this highlight's target content, both in terms of
+    // the first and last word, and in terms of the DOM for caching purposes.
+    firstWordIndex: number,
+    lastWordIndex: number,
+    domRange: DOMRange,
 
     // TODO(mdr): Things like color will go here, too :)
 };
+export type DOMHighlightSet = {[key: string]: DOMHighlight};
 
 /**
  * A highlight, serialized into a DOM-independent format so that it can be
  * restored in subsequent browser sessions.
  */
 export type SerializedHighlight = {
-    // A key that uniquely identifies this highlight within some set of
-    // highlights.
-    key: string,
-
     // A range that specifies this highlight's target content, in a
     // DOM-independent format.
     range: SerializedRange,
 
     // TODO(mdr): Things like color will go here, too :)
 };
+export type SerializedHighlightSet = {[key: string]: SerializedHighlight};

@@ -26,6 +26,7 @@ const HintRenderer = React.createClass({
         lastRendered: React.PropTypes.bool,
         pos: React.PropTypes.number,
         totalHints: React.PropTypes.number,
+        findExternalWidgets: React.PropTypes.func,
     },
 
     getSerializedState: function() {
@@ -78,7 +79,10 @@ const HintRenderer = React.createClass({
             {!apiOptions.isMobile && !apiOptions.satStyling &&
             totalHints && pos != null && <span
                 className="perseus-hint-label"
-                style={{display: 'block'}}
+                style={{
+                    display: 'block',
+                    color: apiOptions.hintProgressColor,
+                }}
             >
                 {`${pos + 1} / ${totalHints}`}
             </span>}
@@ -88,6 +92,7 @@ const HintRenderer = React.createClass({
                 content={hint.content || ""}
                 images={hint.images}
                 apiOptions={rendererApiOptions}
+                findExternalWidgets={this.props.findExternalWidgets}
             />
         </div>;
     },

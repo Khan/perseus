@@ -58,52 +58,37 @@ module.exports = StyleSheet.create({
     },
 
     responsiveInput: {
-        [mediaQueries.lgOrSmaller]: {
-            display: "inline-block",
-            WebkitAppearance: "none",
-            appearance: "none",
+        display: "inline-block",
+        WebkitAppearance: "none",
+        appearance: "none",
 
-            backgroundColor: "#fff",
+        backgroundColor: "#fff",
+        border: "2px solid #fff",
+        boxShadow: `0 0px 0px 1px ${radioBorderColor}`,
+        outline: "none",
+
+        boxSizing: "border-box",
+        flexShrink: 0,
+        marginBottom: 0,
+        marginLeft: 15,
+        marginRight: 15,
+        marginTop: 0,
+
+        height: circleSize,
+        width: circleSize,
+    },
+
+    responsiveRadioInput: {
+        borderRadius: "50%",
+
+        ":checked": {
+            backgroundColor: checkedColor,
             border: "2px solid #fff",
-            boxShadow: `0 0px 0px 1px ${radioBorderColor}`,
-            outline: "none",
-
-            boxSizing: "border-box",
-            flexShrink: 0,
-            marginBottom: 0,
-            marginLeft: 15,
-            marginRight: 15,
-            marginTop: 0,
+            borderRadius: "50%",
+            boxShadow: `0 0px 0px 2px ${checkedColor}`,
 
             height: circleSize,
             width: circleSize,
-        },
-    },
-
-    // TODO(kevinb) move to choice.jsx
-    responsiveRadioInput: {
-        [mediaQueries.lgOrSmaller]: {
-            borderRadius: "50%",
-
-            ":checked": {
-                backgroundColor: checkedColor,
-                border: "2px solid #fff",
-                borderRadius: "50%",
-                boxShadow: `0 0px 0px 2px ${checkedColor}`,
-
-                height: circleSize,
-                width: circleSize,
-            },
-        },
-    },
-
-    // TODO(kevinb) move to choice.jsx
-    responsiveMobileRadioInput: {
-        // On phones and tablets, we hide the circular radio button itself,
-        // and instead, show a green border when the item is selected. This
-        // saves horizontal space for content on small screens.
-        [mediaQueries.lgOrSmaller]: {
-            display: "none",
         },
     },
 

@@ -41,7 +41,7 @@ const Renderer = require("../renderer.jsx");
 const PassageMarkdown = require("./passage/passage-markdown.jsx");
 
 import type {ChangeableProps} from "../mixins/changeable.jsx";
-import type {SerializedHighlight} from "../components/highlighting/types.js";
+import type {SerializedHighlightSet} from "../components/highlighting/types.js";
 
 declare var i18n: {
     _(format: string, args?: any): string,
@@ -133,6 +133,7 @@ type PassageState = {
     selectedHighlightRange: ?Range,
     mouseX: ?number,
     mouseY: ?number,
+    stylesAreApplied: boolean,
 };
 
 // State kept track of by the PassageMarkdown parser.
@@ -171,7 +172,7 @@ class Passage extends React.Component {
         footnotes: "",
         showLineNumbers: true,
         highlightRanges: [],
-        highlights: [],
+        highlights: {},
     };
 
     state: PassageState = {
@@ -181,6 +182,7 @@ class Passage extends React.Component {
         selectedHighlightRange: null,
         mouseX: null,
         mouseY: null,
+        stylesAreApplied: false,
     };
     /* eslint-enable react/sort-comp */
 
@@ -197,6 +199,24 @@ class Passage extends React.Component {
         }, 500);
         window.addEventListener("mousedown", this.handleMouseDown);
         window.addEventListener("resize", this._onResize);
+
+        // Wait for Aphrodite styles (which are guaranteed to apply after one
+        // tick), then set state.
+        //
+        // This flag is used to set the `enabled` prop of the
+        // `HighlightableContent` component. That way, we only show highlights
+        // once styles are ready, and they're measured with the correct
+        // position.
+        //
+        // HACK(mdr): It's not really the Passage's Aphrodite styles that are
+        //     causing bad measures, but more so the Khan Academy Test Prep
+        //     app's Aphrodite styles. We would ideally instead offer the
+        //     embedding application an API to signal that the app's layout has
+        //     changed in a way that affects the Renderer... but, for now, just
+        //     hardcode this hack into here.
+        window.setTimeout(() => {
+            this.setState({stylesAreApplied: true});
+        }, 0);
     }
 
     shouldComponentUpdate(nextProps: PassageProps, nextState: PassageState) {
@@ -767,7 +787,7 @@ class Passage extends React.Component {
     }
 
     _handleSerializedHighlightsUpdate = (
-        serializedHighlights: SerializedHighlight[]
+        serializedHighlights: SerializedHighlightSet
     ) => {
         this.props.onChange({highlights: serializedHighlights});
     }
@@ -980,25 +1000,27 @@ class Passage extends React.Component {
     }
 
     _renderContent(parsed): React.Element<any> {
-        const content = <div ref="content">
-            <LineHeightMeasurer ref={e => this._lineHeightMeasurer = e} />
-            {PassageMarkdown.output(parsed)}
-        </div>;
+        // If Highlighting Version 2 is enabled, set the enabled flag to true.
+        // Otherwise, set the enabled flag to false, in which case the
+        // HighlightableContent component won't actually apply highlighting.
+        //
+        // Additionally, wait until Aphrodite styles are applied before
+        // enabling highlights, so that we measure the correct positions.
+        const enabled = this.supportsHighlightingVersion2() &&
+            this.state.stylesAreApplied;
 
-        // If Highlighting Version 2 is enabled, wrap the content in a
-        // `HighlightableContent` component. Otherwise, render it as-is.
-        if (this.supportsHighlightingVersion2()) {
-            return <HighlightableContent
-                editable={this.canUpdateHighlightingVersion2()}
-                onSerializedHighlightsUpdate={
-                    this._handleSerializedHighlightsUpdate}
-                serializedHighlights={this.props.highlights}
-            >
-                {content}
-            </HighlightableContent>;
-        } else {
-            return content;
-        }
+        return <HighlightableContent
+            editable={this.canUpdateHighlightingVersion2()}
+            enabled={enabled}
+            onSerializedHighlightsUpdate={
+                this._handleSerializedHighlightsUpdate}
+            serializedHighlights={this.props.highlights}
+        >
+            <div ref="content">
+                <LineHeightMeasurer ref={e => this._lineHeightMeasurer = e} />
+                {PassageMarkdown.output(parsed)}
+            </div>
+        </HighlightableContent>;
     }
 
     _hasFootnotes(): boolean {

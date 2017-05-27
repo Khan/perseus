@@ -263,6 +263,7 @@ var SvgImage = React.createClass({
             imageLoaded: false,
             imageDimensions: null,
             dataLoaded: false,
+            labelDataIsLocalized: false,
             labels: [],
             range: [[0, 0], [0, 0]],
         };
@@ -319,7 +320,8 @@ var SvgImage = React.createClass({
         // and only make the jsonp calls once.
         if (labelDataCache[hash]) {
             if (labelDataCache[hash].loaded) {
-                this.onDataLoaded(labelDataCache[hash].data);
+                const {data, localized} = labelDataCache[hash];
+                this.onDataLoaded(data, localized);
             } else {
                 labelDataCache[hash].dataCallbacks.push(this.onDataLoaded);
             }
@@ -328,6 +330,7 @@ var SvgImage = React.createClass({
                 loaded: false,
                 dataCallbacks: [this.onDataLoaded],
                 data: null,
+                localized: shouldUseLocalizedData(),
             };
 
             labelDataCache[hash] = cacheData;
@@ -340,7 +343,7 @@ var SvgImage = React.createClass({
                         cacheData.loaded = true;
 
                         _.each(cacheData.dataCallbacks, callback => {
-                            callback(cacheData.data);
+                            callback(cacheData.data, cacheData.localized);
                         });
                     },
                     error: errorCallback,
@@ -351,6 +354,8 @@ var SvgImage = React.createClass({
                 retrieveData(
                     getLocalizedDataUrl(this.props.src),
                     (x, status, error) => {
+                        cacheData.localized = false;
+
                         // If there is isn't any localized data, fall back to
                         // the original, unlocalized data
                         retrieveData(
@@ -378,10 +383,11 @@ var SvgImage = React.createClass({
         }
     },
 
-    onDataLoaded: function(data) {
+    onDataLoaded: function(data, localized) {
         if (this.isMounted() && data.labels && data.range) {
             this.setState({
                 dataLoaded: true,
+                labelDataIsLocalized: localized,
                 labels: data.labels,
                 range: data.range,
             });
@@ -414,7 +420,12 @@ var SvgImage = React.createClass({
 
     setupGraphie: function(graphie, options) {
         _.map(options.labels, (labelData) => {
-            if (shouldRenderJipt()) {
+            if (shouldRenderJipt() && this.state.labelDataIsLocalized) {
+                // If we're using JIPT translation and we got proper JIPT tags,
+                // render the labels as plain text (so JIPT can find them) and
+                // add some extra properties to the element so we can properly
+                // re-render the label once it is replaced with translated
+                // text.
                 var elem = graphie.label(
                     labelData.coordinates,
                     labelData.content,

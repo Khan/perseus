@@ -41,28 +41,59 @@ function compareRangeBoundaryPoints(
 }
 
 /**
- * Given two Ranges, return a Range whose start point comes from A, and whose
- * end point comes from B.
+ * Given two DOMRanges, return a DOMRange whose start point comes from A, and
+ * whose end point comes from B.
  */
-function spanRanges(a: Range, b: Range): Range {
+function spanRanges(a: DOMRange, b: DOMRange): DOMRange {
     const range = a.cloneRange();
     range.setEnd(b.endContainer, b.endOffset);
     return range;
 }
 
 /**
- * Given two Ranges, merge them: return the smallest range that contains all
- * points contained in both A and B, and *only* points contained in both A and
- * B (that is, A and B must intersect).
+ * Given two DOMRanges, return whether they overlap.
  *
- * If A and B do not intersect, no merged range exists; return null.
+ * We here treat ranges like closed intervals: the boundary points are
+ * considered to be included in the range, and, if a ends exactly where b
+ * starts, they are considered to overlap.
  */
-function mergeRanges(a: Range, b: Range): ?Range {
-    // Two ranges do *not* intersect iff one ends before the other begins.
-    const rangesDoNotIntersect =
+function rangesOverlap(a: DOMRange, b: DOMRange): boolean {
+    // Two ranges do *not* overlap iff one ends before the other begins.
+    const rangesDoNotOverlap =
         compareRangeBoundaryPoints(a, "end", b, "start") < 0 ||
         compareRangeBoundaryPoints(b, "end", a, "start") < 0;
-    if (rangesDoNotIntersect) {
+    return !rangesDoNotOverlap;
+}
+
+/**
+ * Given two DOMRanges, intersect them: return a range that contains all points
+ * that both A contains and B contains, and contains no other points.
+ *
+ * If A and B do not overlap, no intersection exists; return null.
+ */
+function intersectRanges(a: DOMRange, b: DOMRange): ?DOMRange {
+    if (!rangesOverlap(a, b)) {
+        return null;
+    }
+
+    // Find the range with the latest start point, and the range with the
+    // earliest end point.
+    const starter =
+        compareRangeBoundaryPoints(a, "start", b, "start") > 0 ? a : b;
+    const ender =
+        compareRangeBoundaryPoints(a, "end", b, "end") < 0 ? a : b;
+
+    return spanRanges(starter, ender);
+}
+
+/**
+ * Given two DOMRanges, union them: return a range that contains all points
+ * that either A contains or B contains, and contains no other points.
+ *
+ * If A and B do not overlap, no union exists; return null.
+ */
+function unionRanges(a: DOMRange, b: DOMRange): ?DOMRange {
+    if (!rangesOverlap(a, b)) {
         return null;
     }
 
@@ -239,6 +270,8 @@ function findFirstAndLastWordIndexes(
 
 module.exports = {
     findFirstAndLastWordIndexes,
-    mergeRanges,
+    rangesOverlap,
+    intersectRanges,
+    unionRanges,
     spanRanges,
 };

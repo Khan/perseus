@@ -12,18 +12,32 @@
  */
 const React = require("react");
 
-const HighlightRenderer = require("./highlight-renderer.jsx");
+const HighlightSetRenderer = require("./highlight-set-renderer.jsx");
+const HighlightTooltip = require("./highlight-tooltip.jsx");
+const {rangesOverlap} = require("../ranges.js");
 const SelectionTracker = require("./selection-tracker.jsx");
 
-import type {DOMHighlight, DOMRange, Position, ZIndexes} from "./types.js";
+import type {DOMHighlight, DOMHighlightSet, DOMRange, ZIndexes}
+    from "./types.js";
+import type {TrackedSelection} from "./selection-tracker.jsx";
+
+/* global i18n */
 
 type HighlightingUIProps = {
+    // A function that builds a DOMHighlight from the given DOMRange, if
+    // possible. If it would not currently be valid to add a highlight over the
+    // given DOMRange, returns null.
+    buildHighlight: (range: DOMRange) => ?DOMHighlight,
+
+    // A Node that contains the highlightable content.
+    contentNode: Node,
+
     // Whether the highlights are user-editable. If false, highlights are
     // read-only.
     editable: boolean,
 
     // A set of highlights to render.
-    highlights: DOMHighlight[],
+    highlights: DOMHighlightSet,
 
     // This component's `offsetParent` element, which is the nearest ancestor
     // with `position: relative`. This will enable us to choose the correct
@@ -31,9 +45,9 @@ type HighlightingUIProps = {
     // content.
     offsetParent: Element,
 
-    // A callback indicating that the user would like to add a highlight over
-    // the given DOMRange.
-    onAddHighlight: (range: DOMRange) => mixed,
+    // A callback indicating that the user would like to add the given
+    // highlight to the current set of highlights.
+    onAddHighlight: (range: DOMHighlight) => mixed,
 
     // A callback indicating that the user would like to remove the highlight
     // with the given key.
@@ -44,95 +58,88 @@ type HighlightingUIProps = {
     zIndexes: ZIndexes,
 };
 
-type HighlightingUIState = {
-    // The mouse's position relative to the viewport, as of the most recent
-    // global `mousemove` event. Passed to each `SingleHighlightRenderer` that
-    // this component renders.
-    mouseClientPosition: ?Position,
-};
-
 class HighlightingUI extends React.PureComponent {
-    /* eslint-disable react/sort-comp */
     props: HighlightingUIProps
-    state: HighlightingUIState = {
-        mouseClientPosition: null,
-    }
-    /* eslint-enable react/sort-comp */
 
-    componentDidMount() {
-        const willListen = this._shouldListenToMouseMove(this.props);
-        this._updateMouseMoveListener(false, willListen);
-    }
+    _handleAddHighlight(highlightToAdd: DOMHighlight) {
+        this.props.onAddHighlight(highlightToAdd);
 
-    componentWillReceiveProps(nextProps: HighlightingUIProps) {
-        const wasListening = this._shouldListenToMouseMove(this.props);
-        const willListen = this._shouldListenToMouseMove(nextProps);
-        this._updateMouseMoveListener(wasListening, willListen);
-    }
-
-    componentWillUnmount() {
-        const wasListening = this._shouldListenToMouseMove(this.props);
-        this._updateMouseMoveListener(wasListening, false);
-    }
-
-    _handleMouseMove = (e: MouseEvent) => {
-        this.setState({
-            mouseClientPosition: {
-                left: e.clientX,
-                top: e.clientY,
-            },
-        });
-    }
-
-    _shouldListenToMouseMove(props: HighlightingUIProps): boolean {
-        // NOTE(mdr): As an optimization, we only listen to mousemove events in
-        //     editable mode, because hover events on highlights only affect
-        //     the "Remove highlight" tooltip. If our design needs change, this
-        //     behavior may need to change, too.
-        return props.editable;
-    }
-
-    /**
-     * Given whether we were previously listening to mousemove events, and
-     * whether we will now listen to mousemove events, add or remove the
-     * listener accordingly.
-     */
-    _updateMouseMoveListener(wasListening: boolean, willListen: boolean) {
-        if (!wasListening && willListen) {
-            window.addEventListener("mousemove", this._handleMouseMove);
-        } else if (wasListening && !willListen) {
-            window.removeEventListener("mousemove", this._handleMouseMove);
-
-            // Additionally, reset the mouse position. Our child components
-            // won't be checking `mouseClientPosition` when we're not
-            // listening, anyway, but this guards against errors where we
-            // re-enter listening mode and have stale coordinates stored in
-            // state.
-            this.setState({
-                mouseClientPosition: null,
-            });
+        // Deselect the newly-highlighted text, by collapsing the selection
+        // to the end of the range.
+        const selection = document.getSelection();
+        if (selection) {
+            selection.collapseToEnd();
         }
     }
 
+    _selectionIsValid(trackedSelection: TrackedSelection): boolean {
+        if (!trackedSelection) {
+            return false;
+        }
+
+        const {contentNode} = this.props;
+
+        // Create a range over the content node.
+        const contentRange = new Range();
+        contentRange.selectNodeContents(contentNode);
+
+        // Create a range over the focus position.
+        const focusRange = new Range();
+        focusRange.setStart(
+            trackedSelection.focusNode, trackedSelection.focusOffset);
+        focusRange.collapse(true /* to start */);
+
+        // Determine whether the content range contains the focus, by checking
+        // whether they intersect. Because the focus range is a single point,
+        // intersection is equivalent to being fully contained.
+        const contentContainsFocus = rangesOverlap(contentRange, focusRange);
+
+        // If the content contains the focus, this is a valid selection. Some
+        // parts of the range might go beyond the content, but that's okay; the
+        // corresponding DOMHighlight is already trimmed to only contain valid
+        // words. We're just checking that the tooltip we render will be inside
+        // the content, because rendering a tooltip outside the content would
+        // be weird.
+        const selectionIsValid = contentContainsFocus;
+
+        return selectionIsValid;
+    }
+
     render() {
-        return <div>
-            {this.props.highlights.map(highlight =>
-                <HighlightRenderer
-                    editable={this.props.editable}
-                    key={highlight.key}
-                    highlight={highlight}
-                    mouseClientPosition={this.state.mouseClientPosition}
-                    offsetParent={this.props.offsetParent}
-                    onRemoveHighlight={this.props.onRemoveHighlight}
-                    zIndexes={this.props.zIndexes}
-                />
-            )}
-            {this.props.editable && <SelectionTracker
-                offsetParent={this.props.offsetParent}
-                onAddHighlight={this.props.onAddHighlight}
-                zIndexes={this.props.zIndexes}
-            />}
-        </div>;
+        return <SelectionTracker
+            buildHighlight={this.props.buildHighlight}
+            enabled={this.props.editable}
+        >
+            {(trackedSelection, userIsMouseSelecting) =>
+                <div>
+                    <HighlightSetRenderer
+                        editable={
+                            /* An existing highlight is editable when the
+                             * component is in editable mode, and there's no
+                             * selection in progress. */
+                            this.props.editable &&
+                                !this._selectionIsValid(trackedSelection)}
+                        highlights={this.props.highlights}
+                        offsetParent={this.props.offsetParent}
+                        onRemoveHighlight={this.props.onRemoveHighlight}
+                        zIndexes={this.props.zIndexes}
+                    />
+                    {this._selectionIsValid(trackedSelection) &&
+                        !userIsMouseSelecting &&
+                        <HighlightTooltip
+                            label={i18n._("Add highlight")}
+                            onClick={() => this._handleAddHighlight(
+                                trackedSelection.proposedHighlight)}
+
+                            focusNode={trackedSelection.focusNode}
+                            focusOffset={trackedSelection.focusOffset}
+                            offsetParent={this.props.offsetParent}
+                            zIndex={this.props.zIndexes.aboveContent}
+                        />
+                    }
+                </div>
+            }
+        </SelectionTracker>;
     }
 }
 

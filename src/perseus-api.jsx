@@ -52,6 +52,7 @@ module.exports = {
 
             answerableCallback: React.PropTypes.func,
             getAnotherHint: React.PropTypes.func,
+            showExerciseStepCopy: React.PropTypes.bool,
             interactionCallback: React.PropTypes.func,
 
             // A function that takes in the relative problem number (starts at
@@ -135,9 +136,13 @@ module.exports = {
                 //     https://app.asana.com/0/277557989281705/318877243057038
                 highlightingVersion: React.PropTypes.oneOf([1, 2]).isRequired,
             }),
+
+            // The color used for the hint progress indicator (eg. 1 / 3)
+            hintProgressColor: React.PropTypes.string,
         }).isRequired,
 
         defaults: {
+            showExerciseStepCopy: false,
             isArticle: false,
             isMobile: false,
             satStyling: false,
