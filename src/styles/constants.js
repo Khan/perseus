@@ -101,7 +101,8 @@ module.exports = {
         defaultBoxSizeSmall: 288,
     },
 
-    circleSize: 20,
+    circleSize: 24,
+    radioMarginWidth: 2,
 };
 
 module.exports.radioBorderColor = module.exports.gray76;

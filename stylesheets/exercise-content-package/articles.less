@@ -213,6 +213,50 @@
     }
 }
 
+// HACK(emily): This is a copy of a bunch of the mixins from the block of
+// styles down below. However, those styles are limited to mobile devices
+// only, so this block is for non-mobile devices.
+.framework-perseus:not(.perseus-article):not(.perseus-mobile) {
+    // Mixins
+    .text(@fontSize; @lineHeight; @color) {
+        font-family: inherit;
+        font-size: @fontSize;
+        line-height: @lineHeight;
+        color: @color;
+    }
+
+    // TODO(charlie): Pure defines XL as 1280px. However, Bibliotron and our new
+    // article styles define XL as 1200px. Replace this once we've migrated
+    // everything over to 1200px.
+    @desktop-width-min: 1200px;
+    @tablet-width-max: (@desktop-width-min - 1);
+
+    .choice-text(@choiceTextSize, @choiceLineHeight) {
+        .perseus-radio-option-content .perseus-renderer > .paragraph {
+            .text(@choiceTextSize, @choiceLineHeight, @gray17);
+
+            .paragraph {
+                .text(@choiceTextSize, @choiceLineHeight, @gray17);
+            }
+        }
+
+        .perseus-radio-rationale-content .perseus-renderer > .paragraph {
+            .text(@choiceTextSize, @choiceLineHeight, @gray68);
+
+            .paragraph {
+                .text(@choiceTextSize, @choiceLineHeight, @gray68);
+
+                .katex {
+                    color: @gray68;
+                }
+            }
+        }
+    }
+
+    // TODO(emily): Distinguish between the different screen widths here.
+    .choice-text(14px, 1.25);
+}
+
 // TODO(charlie): We're now applying the article typography styles to our
 // exercise content as well. We should remove the `.perseus-article` check and
 // merge these into `perseus.less`. However, we don't want to show them for
@@ -304,6 +348,28 @@
 
         table {
             .default-body-text;
+        }
+    }
+
+    .choice-text(@choiceTextSize, @choiceLineHeight) {
+        .perseus-radio-option-content .perseus-renderer > .paragraph {
+            .text(@choiceTextSize, @choiceLineHeight, @gray17);
+
+            .paragraph {
+                .text(@choiceTextSize, @choiceLineHeight, @gray17);
+            }
+        }
+
+        .perseus-radio-rationale-content .perseus-renderer > .paragraph {
+            .text(@choiceTextSize, @choiceLineHeight, @gray68);
+
+            .paragraph {
+                .text(@choiceTextSize, @choiceLineHeight, @gray68);
+
+                .katex {
+                    color: @gray68;
+                }
+            }
         }
     }
 
@@ -459,6 +525,7 @@
         .sub-heading(22px, 1.1, 0);
 
         .body-text(18px, 1.4);
+        .choice-text(16px, 1.25);
         // NOTE(charlie): The values used in this responsive caption sizing
         // should be kept in sync with the instructions text sizing in
         // base-radio.jsx.
@@ -478,6 +545,7 @@
         .sub-heading(28px, 1.1, 1);
 
         .body-text(20px, 1.5);
+        .choice-text(18px, 1.25);
         .image-caption(17px, 1.4);
 
         .math(30px, 1.3, 23px, 1.3);
@@ -494,6 +562,7 @@
         .sub-heading(30px, 1.1, 1);
 
         .body-text(22px, 1.4);
+        .choice-text(20px, 1.25);
         .image-caption(20px, 1.4);
 
         .math(30px, 1.3, 25px, 1.2);

@@ -10,6 +10,7 @@ const {
     radioBorderColor,
     checkedColor,
     circleSize,
+    radioMarginWidth,
 } = require("./constants.js");
 
 module.exports = StyleSheet.create({
@@ -62,6 +63,10 @@ module.exports = StyleSheet.create({
         WebkitAppearance: "none",
         appearance: "none",
 
+        "::-ms-check": {
+            display: "none",
+        },
+
         backgroundColor: "#fff",
         border: "2px solid #fff",
         boxShadow: `0 0px 0px 1px ${radioBorderColor}`,
@@ -69,13 +74,13 @@ module.exports = StyleSheet.create({
 
         boxSizing: "border-box",
         flexShrink: 0,
-        marginBottom: 0,
-        marginLeft: 15,
-        marginRight: 15,
-        marginTop: 0,
+        marginBottom: 1,
+        marginLeft: 1,
+        marginRight: 1,
+        marginTop: 1,
 
-        height: circleSize,
-        width: circleSize,
+        height: circleSize - 2,
+        width: circleSize - 2,
     },
 
     responsiveRadioInput: {
@@ -83,12 +88,37 @@ module.exports = StyleSheet.create({
 
         ":checked": {
             backgroundColor: checkedColor,
-            border: "2px solid #fff",
+            border: "none",
             borderRadius: "50%",
-            boxShadow: `0 0px 0px 2px ${checkedColor}`,
+            boxShadow: `inset 0px 0px 0px 2px white, ` +
+                `0 0px 0px 2px ${checkedColor}`,
 
-            height: circleSize,
-            width: circleSize,
+            marginTop: radioMarginWidth,
+            marginBottom: radioMarginWidth,
+            marginLeft: radioMarginWidth,
+            marginRight: radioMarginWidth,
+
+            height: circleSize - 2 * radioMarginWidth,
+            width: circleSize - 2 * radioMarginWidth,
+        },
+    },
+
+    responsiveRadioInputActive: {
+        backgroundColor: "#fff",
+        border: "2px solid #fff",
+        borderRadius: "50%",
+        boxShadow: `0 0px 0px 2px ${checkedColor}`,
+
+        marginTop: radioMarginWidth,
+        marginBottom: radioMarginWidth,
+        marginLeft: radioMarginWidth,
+        marginRight: radioMarginWidth,
+
+        height: circleSize - 2 * radioMarginWidth,
+        width: circleSize - 2 * radioMarginWidth,
+
+        ":checked": {
+            backgroundColor: "#fff",
         },
     },
 

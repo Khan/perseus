@@ -95,9 +95,11 @@ const BaseRadio = React.createClass({
             instructions: {
                 display: "block",
                 color: styleConstants.gray17,
+                fontSize: 16,
+                lineHeight: 1.25,
                 fontStyle: "normal",
                 fontWeight: "bold",
-                margin: "8px 0",
+                marginBottom: 16,
             },
 
             radio: {
@@ -145,10 +147,6 @@ const BaseRadio = React.createClass({
             responsiveItem: {
                 marginLeft: 0,
                 padding: 0,
-
-                ":active": {
-                    backgroundColor: styleConstants.grayLight,
-                },
 
                 ":not(:last-child)": {
                     borderBottom: `1px solid ${radioBorderColor}`,
@@ -244,10 +242,6 @@ const BaseRadio = React.createClass({
             !this.props.editMode && "perseus-rendered-radio",
             css(
                 sharedStyles.aboveScratchpad,
-                // With the responsive mobile styles, the individual items are
-                // spaced out vertically, and so we set the backgrounds on the
-                // items rather than the container.
-                sharedStyles.blankBackground,
                 styles.radio,
                 // SAT doesn't use the "responsive styling" as it conflicts
                 // with their custom theming.
@@ -257,7 +251,7 @@ const BaseRadio = React.createClass({
         );
 
         const instructionsClassName = 'instructions ' +
-            css(styles.instructions, sharedStyles.responsiveLabel);
+            css(styles.instructions);
         const instructions = this.getInstructionsText();
         const shouldShowInstructions = isMobile || this.props.multipleSelect;
 
@@ -274,26 +268,23 @@ const BaseRadio = React.createClass({
                 </div>}
             <ul className={className}>
                 {this.props.choices.map(function(choice, i) {
-                    // True if we're in review mode and a rationale
-                    // is available.
-                    const reviewModeRationales =
-                        !!rubric && choice.hasRationale;
+                    const reviewMode = !!rubric;
 
                     let Element = Choice;
                     const elementProps = {
                         ref: `radio${i}`,
                         apiOptions: this.props.apiOptions,
                         checked: choice.checked,
-                        reviewMode: !!rubric,
-                        correct: !!rubric && rubric.choices[i].correct,
+                        reviewMode,
+                        correct: reviewMode && rubric.choices[i].correct,
                         rationale: choice.rationale,
                         content: choice.content,
                         disabled: this.props.apiOptions.readOnly,
                         editMode: this.props.editMode,
                         groupName: this.state.radioGroupName,
                         isLastChoice: i === this.props.choices.length - 1,
-                        showRationale: reviewModeRationales ||
-                            choice.showRationale,
+                        showRationale: choice.hasRationale && (
+                            reviewMode || choice.showRationale),
                         type: inputType,
                         pos: i,
                         deselectEnabled: this.deselectEnabled(),

@@ -10,13 +10,10 @@ const classNames = require("classnames");
 const { ClassNames } = require("../../perseus-api.jsx");
 const sharedStyles = require("../../styles/shared.js");
 const styleConstants = require("../../styles/constants.js");
+const mediaQueries = require("../../styles/media-queries.js");
 
 const ToggleableRadioButton = require("./toggleable-radio-button.jsx");
 const ChoiceIcon = require("./choice-icon.jsx");
-
-
-const checkedColor = styleConstants.checkedColor;
-
 
 const focusedStyleMixin = {
     backgroundColor: styleConstants.satSelectedBackgroundColor,
@@ -27,7 +24,8 @@ const focusedStyleMixin = {
     zIndex: 1,
 };
 
-const responsiveCheckboxPadding = `17px 12px`;
+const responsiveCheckboxPadding = `16px 16px`;
+const responsiveCheckboxPaddingPhone = `12px 16px`;
 
 const Choice = React.createClass({
     propTypes: {
@@ -158,33 +156,6 @@ const Choice = React.createClass({
                 fontWeight: "bold",
             },
 
-            responsiveCheckboxInput: {
-                border: "none",
-                borderRadius: 4,
-
-                ":checked": {
-                    backgroundColor: checkedColor,
-                    boxShadow: "none",
-                },
-
-                // TODO(emily): Make aphrodite allow nested styles here so
-                // this isn't as hacky.
-                ":checked::before": {
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-
-                    // TODO(jared): replace with image
-                    content: '"✓"',
-                    color: "white",
-                    fontFamily: "monospace",
-                    fontSize: 17,
-
-                    height: styleConstants.circleSize,
-                    width: styleConstants.circleSize,
-                },
-            },
-
             satCheckboxOptionContent: {
                 position: "absolute",
                 display: "block",
@@ -193,12 +164,22 @@ const Choice = React.createClass({
                 width: "auto",
             },
 
+            choiceIconWrapper: {
+                display: "flex",
+                marginRight: 16,
+            },
+
             rationale: {
                 display: "block",
             },
 
             nonSatRationale: {
                 padding: responsiveCheckboxPadding,
+                paddingTop: 0,
+                marginLeft: 40,
+                [mediaQueries.smOrSmaller]: {
+                    padding: responsiveCheckboxPaddingPhone,
+                },
             },
 
             satReviewRationale: {
@@ -212,7 +193,6 @@ const Choice = React.createClass({
 
             responsiveLabel: {
                 WebkitTapHighlightColor: "transparent",
-                alignItems: "center",
                 display: "flex",
             },
 
@@ -221,12 +201,13 @@ const Choice = React.createClass({
             },
 
             responsiveCheckbox: {
-                display: "inline-block",
-                padding: responsiveCheckboxPadding,
-            },
+                display: "flex",
+                alignItems: "center",
 
-            checkboxCrossout: {
-                textDecoration: "line-through",
+                padding: responsiveCheckboxPadding,
+                [mediaQueries.smOrSmaller]: {
+                    padding: responsiveCheckboxPaddingPhone,
+                },
             },
         }),
     },
@@ -258,7 +239,11 @@ const Choice = React.createClass({
         this.setState({isInputFocused: false});
     },
 
-    onInputMouseDown: function() {
+    onInputMouseDown: function(e) {
+        if (e.type === "mousedown" && this.justFinishedTouch) {
+            return;
+        }
+
         this.setState({isInputActive: true});
 
         // Simulate Chrome's radio button behavior in all browsers: when the
@@ -269,7 +254,32 @@ const Choice = React.createClass({
         }
     },
 
-    onInputMouseUp: function() {
+    onInputMouseUp: function(e) {
+        if (e.type === "mouseup" && this.justFinishedTouch) {
+            return;
+        }
+
+        // NOTE(emily): We do some special handling here of touch events to
+        // make the "active" effect look better. In particular, when you click
+        // using touch events, we get a series of events going
+        // touchstart -> (delay) -> touchend -> mousedown -> mouseup -> click
+        // In order to make sure that we don't turn the active state of and on
+        // and off again during the touchend -> mousedown -> mouseup series, we
+        // set a flag (this.justFinishedTouch) after the touchend, and ignore
+        // the mousedown and mouseup events. Then, a little while later, we
+        // turn the flag off. Instead of turning the active state off right at
+        // the beginning, we wait for a little bit to sync it up better with
+        // the click event.
+        if (e.type === "touchend") {
+            this.justFinishedTouch = true;
+
+            setTimeout(() => {
+                this.setState({isInputActive: false});
+                this.justFinishedTouch = false;
+            }, 10);
+            return;
+        }
+
         this.setState({isInputActive: false});
 
         // Simulate Chrome's radio button behavior in all browsers: when the
@@ -336,10 +346,9 @@ const Choice = React.createClass({
                 sharedStyles.perseusInteractive,
                 styles.input,
                 sharedStyles.responsiveInput,
-                this.props.type === "radio" &&
-                    !sat && sharedStyles.responsiveRadioInput,
-                this.props.type === "checkbox" &&
-                    !sat && styles.responsiveCheckboxInput,
+                !sat && sharedStyles.responsiveRadioInput,
+                !sat && this.state.isInputActive &&
+                    sharedStyles.responsiveRadioInputActive,
                 sat && this.props.type === "radio" &&
                     sharedStyles.perseusSrOnly,
                 sat && this.props.type === "checkbox" &&
@@ -394,22 +403,26 @@ const Choice = React.createClass({
                     && styles.satDescriptionIncorrectChecked,
                 sat && isLastChoice && styles.satDescriptionLastChoice));
 
-        const checkboxContentClassName = "checkbox " +
-            css(sat && sharedStyles.perseusInteractive,
-                sat && styles.satCheckboxOptionContent);
+        const checkboxContentClassName = classNames(
+            "checkbox",
+            css(
+                sharedStyles.perseusInteractive,
+                !sat && styles.choiceIconWrapper,
+                sat && styles.satCheckboxOptionContent
+            )
+        );
 
 
         const checkboxAndOptionClassName = classNames(
             "checkbox-and-option",
             css(
                 !sat && styles.responsiveCheckbox,
-                !sat && !correct && this.props.showRationale
-                    && styles.checkboxCrossout,
                 !sat && this.props.checked && styles.responsiveCheckboxSelected
             )
         );
 
         const rationaleClassName = classNames(
+            "perseus-radio-rationale-content",
             css(
                 styles.rationale,
                 !sat && styles.nonSatRationale,
@@ -433,14 +446,16 @@ const Choice = React.createClass({
             className={className}
             style={{opacity: showDimmed ? 0.5 : 1.0}}
         >
-            {input}
             <div className={descriptionClassName}
                 onMouseDown={this.onInputMouseDown}
                 onMouseUp={this.onInputMouseUp}
                 onMouseOut={this.onInputMouseOut}
+                onTouchStart={this.onInputMouseDown}
+                onTouchEnd={this.onInputMouseUp}
             >
                 <div className={checkboxAndOptionClassName}>
                     <span className={checkboxContentClassName}>
+                        {input}
                         {this.renderChoiceIcon()}
                     </span>
                     {/* A pseudo-label. <label> is slightly broken on iOS,
