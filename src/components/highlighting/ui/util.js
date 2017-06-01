@@ -70,9 +70,7 @@ function addClientRectsForTextInNodeAndRange(
         // we're searching.
         const intersectedRange = intersectRanges(range, nodeContentsRange);
         if (intersectedRange) {
-            for (const rect of intersectedRange.getClientRects()) {
-                mutableRects.push(rect);
-            }
+            addClientRectsForText(node, intersectedRange, mutableRects);
         }
     } else if (node.nodeType === Node.ELEMENT_NODE) {
         // Don't bother deep-traversing a node that doesn't even overlap the
@@ -87,6 +85,61 @@ function addClientRectsForTextInNodeAndRange(
             //     we added to .perseus-sr-only.
             addClientRectsForTextInNodeAndRange(child, range, mutableRects);
         }
+    }
+}
+
+/**
+ * Given a DOMRange of text fully contained by the given `textNode`, compute
+ * rectangles that visually cover the range, and push them onto the given
+ * `mutableRects` array.
+ *
+ * This function adjusts the rectangles to the line height of the text, to
+ * match the visual behavior of native text selection, and remove annoying gaps
+ * between lines that disrupt hover behavior.
+ */
+function addClientRectsForText(
+    textNode: Node, textRange: DOMRange, mutableRects: Rect[],
+): void {
+    const parentElement = textNode.parentElement;
+    const computedStyle = window.getComputedStyle(parentElement);
+
+    // NOTE(mdr): I'm not sure how computed line height works in all contexts
+    //     in all browsers. It's valid to specify line height as a ratio,
+    //     relative to font size. Latest Chrome seems to transform this into a
+    //     px value, but maybe some browsers don't, so I'm being defensive here
+    //     and only using the computed line height if it's explicitly a px
+    //     value. We could also handle other browsers by computing font size
+    //     and doing the math ourselves, but let's punt that until we need it.
+    let lineHeight = null;
+    if (
+        typeof computedStyle.lineHeight === "string" &&
+        computedStyle.lineHeight.endsWith("px")
+    ) {
+        const parsedLineHeight = parseFloat(computedStyle.lineHeight);
+        if (!isNaN(parsedLineHeight)) {
+            lineHeight = parsedLineHeight;
+        }
+    }
+
+    const boundingRects = textRange.getClientRects();
+    for (const boundingRect of boundingRects) {
+        const rect: Rect = {
+            left: boundingRect.left,
+            top: boundingRect.top,
+            height: boundingRect.height,
+            width: boundingRect.width,
+        };
+
+        // Adjust the rectangle according to the text's line height. It should
+        // keep the same bottom coordinate, so the top coordinate will move
+        // accordingly.
+        if (lineHeight !== null) {
+            const heightIncrease = lineHeight - rect.height;
+            rect.top -= heightIncrease;
+            rect.height = lineHeight;
+        }
+
+        mutableRects.push(rect);
     }
 }
 
