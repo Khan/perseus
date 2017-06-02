@@ -2,7 +2,8 @@
 /**
  * Utility functions for manipulating highlights.
  */
-const {findFirstAndLastWordIndexes, unionRanges, spanRanges} = require("./ranges.js");
+const {findFirstAndLastWordIndexes, unionRanges, spanRanges, rangeIncludes} =
+    require("./ranges.js");
 
 import type {DOMHighlight, DOMHighlightSet, SerializedHighlight, DOMRange}
     from "./types.js";
@@ -64,9 +65,38 @@ function addHighlight(
  * If the DOMRange is not a valid highlight given the word ranges, return null.
  */
 function buildHighlight(
-    highlightRange: DOMRange, wordRanges: DOMRange[],
+    existingHighlights: DOMHighlightSet,
+    wordRanges: DOMRange[],
+    newHighlightRange: DOMRange,
 ): ?DOMHighlight {
-    const indexes = findFirstAndLastWordIndexes(highlightRange, wordRanges);
+    // If any existing highlight fully contains the new highlight range, it's
+    // redundant and therefore not valid to build this as a highlight.
+    // Return null.
+    //
+    // NOTE(mdr): Really, our goal is to determine whether the new range's
+    //     content is already fully highlighted, so you could imagine this
+    //     logic not catching the case where a range's contents are fully
+    //     highlighted, but by multiple ranges.
+    //
+    //     However, words aren't actually adjacent; they have spaces between
+    //     them. So, even if each word in the range is currently highlighted,
+    //     the space between a pair of words will only be highlighted if
+    //     they're included in the same highlight range.
+    //
+    //     Therefore, if this new range isn't fully contained by an existing
+    //     highlight, then there's at *least* an unhighlighted space within the
+    //     range. In that case, it makes sense to offer this as a new highlight
+    //     that, when added, will merge with the highlights that it intersects.
+    for (const key of Object.keys(existingHighlights)) {
+        const existingHighlightRange = existingHighlights[key].domRange;
+        if (rangeIncludes(existingHighlightRange, newHighlightRange)) {
+            return null;
+        }
+    }
+
+    // If the new highlight range doesn't span two words from the content, it's
+    // not valid to build this as a highlight. Return null.
+    const indexes = findFirstAndLastWordIndexes(newHighlightRange, wordRanges);
     if (!indexes) {
         return null;
     }

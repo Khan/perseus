@@ -66,6 +66,17 @@ function rangesOverlap(a: DOMRange, b: DOMRange): boolean {
 }
 
 /**
+ * Given two DOMRanges, return whether the first includes the second: whether
+ * all points that B contains are also contained by A.
+ */
+function rangeIncludes(a: DOMRange, b: DOMRange): boolean {
+    const rangeIsIncluded =
+        compareRangeBoundaryPoints(a, "start", b, "start") <= 0 &&
+        compareRangeBoundaryPoints(a, "end", b, "end") >= 0;
+    return rangeIsIncluded;
+}
+
+/**
  * Given two DOMRanges, intersect them: return a range that contains all points
  * that both A contains and B contains, and contains no other points.
  *
@@ -271,6 +282,7 @@ function findFirstAndLastWordIndexes(
 module.exports = {
     findFirstAndLastWordIndexes,
     rangesOverlap,
+    rangeIncludes,
     intersectRanges,
     unionRanges,
     spanRanges,

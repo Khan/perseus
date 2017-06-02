@@ -70,7 +70,11 @@ class HighlightableContent extends React.PureComponent {
     }
 
     _buildHighlight(highlightRange: DOMRange): ?DOMHighlight {
-        return buildHighlight(highlightRange, this.state.wordRanges);
+        // TODO(mdr): If _buildHighlight starts getting called more often, we
+        //     might want to cache the DOMHighlightSet instead of recomputing
+        //     it here.
+        return buildHighlight(
+            this._getDOMHighlights(), this.state.wordRanges, highlightRange);
     }
 
     /**
