@@ -1,5 +1,5 @@
 /* Perseus CSS
-// commit 45a5f8134aff36e0604c114e8c8f2d93315b90f1
+// commit 57c0ca9b8dc4292a4f3f1ecbb7091510201a6ed5
 // branch master
 // @generated
 */
@@ -1529,7 +1529,7 @@ body.mobile .perseus-matrix .math-output {
   position: relative;
 }
 .perseus-widget-passage-container .perseus-widget-passage div.paragraph {
-  font-family: Times, "Times New Roman", serif;
+  font-family: KaTeX_Main, Times, "Times New Roman", serif;
 }
 .perseus-widget-passage-container .katex {
   line-height: 20px;
