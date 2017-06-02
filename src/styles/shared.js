@@ -9,6 +9,7 @@ const {
     zIndexInteractiveComponent,
     radioBorderColor,
     checkedColor,
+    legacyCircleSize,
     circleSize,
     radioMarginWidth,
 } = require("./constants.js");
@@ -83,6 +84,15 @@ module.exports = StyleSheet.create({
         width: circleSize - 2,
     },
 
+    legacyResponsiveInput: {
+        marginBottom: 0,
+        marginLeft: 15,
+        marginRight: 15,
+        marginTop: 0,
+        height: legacyCircleSize,
+        width: legacyCircleSize,
+    },
+
     responsiveRadioInput: {
         borderRadius: "50%",
 
@@ -100,6 +110,17 @@ module.exports = StyleSheet.create({
 
             height: circleSize - 2 * radioMarginWidth,
             width: circleSize - 2 * radioMarginWidth,
+        },
+    },
+
+    legacyResponsiveRadioInput: {
+        ":checked": {
+            height: legacyCircleSize,
+            width: legacyCircleSize,
+            marginBottom: 0,
+            marginLeft: 15,
+            marginRight: 15,
+            marginTop: 0,
         },
     },
 

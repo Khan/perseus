@@ -15,6 +15,8 @@ const mediaQueries = require("../../styles/media-queries.js");
 const ToggleableRadioButton = require("./toggleable-radio-button.jsx");
 const ChoiceIcon = require("./choice-icon.jsx");
 
+const checkedColor = styleConstants.checkedColor;
+
 const focusedStyleMixin = {
     backgroundColor: styleConstants.satSelectedBackgroundColor,
     borderTopColor: "transparent",
@@ -24,8 +26,9 @@ const focusedStyleMixin = {
     zIndex: 1,
 };
 
-const responsiveCheckboxPadding = `16px 16px`;
-const responsiveCheckboxPaddingPhone = `12px 16px`;
+const legacyCheckboxPadding = `17px 12px`;
+const intermediateCheckboxPadding = `16px 16px`;
+const intermediateCheckboxPaddingPhone = `12px 16px`;
 
 const Choice = React.createClass({
     propTypes: {
@@ -36,6 +39,13 @@ const Choice = React.createClass({
         apiOptions: React.PropTypes.shape({
             satStyling: React.PropTypes.bool,
             isMobile: React.PropTypes.bool,
+            styling: React.PropTypes.shape({
+                radioStyleVersion: React.PropTypes.oneOf([
+                    "legacy",
+                    "intermediate",
+                    "final",
+                ]),
+            }),
         }),
         checked: React.PropTypes.bool,
         className: React.PropTypes.string,
@@ -143,6 +153,14 @@ const Choice = React.createClass({
                 pointerEvents: "none",
             },
 
+            legacyResponsiveMobileRadioInput: {
+                // On phones and tablets, we hide the circular radio button
+                // itself, and instead, show a green border when the item is
+                // selected. This saves horizontal space for content on small
+                // screens.
+                display: "none",
+            },
+
             satRadioOptionContent: {
                 userSelect: 'text',
                 display: "block",
@@ -154,6 +172,40 @@ const Choice = React.createClass({
 
             satReviewRadioOptionContent: {
                 fontWeight: "bold",
+            },
+
+            legacyResponsiveCheckboxInput: {
+                border: "none",
+                borderRadius: 4,
+
+                ":checked": {
+                    backgroundColor: checkedColor,
+                    boxShadow: "none",
+                },
+
+                // TODO(emily): Make aphrodite allow nested styles here so
+                // this isn't as hacky.
+                ":checked::before": {
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    // TODO(jared): replace with image
+                    content: '"✓"',
+                    color: "white",
+                    fontFamily: "monospace",
+                    fontSize: 17,
+
+                    height: styleConstants.legacyCircleSize,
+                    width: styleConstants.legacyCircleSize,
+                },
+            },
+
+            legacyResponsiveMobileCheckboxInput: {
+                // On phones and tablets, we hide the circular radio button
+                // itself, and instead, show a green border when the item is
+                // selected. This saves horizontal space for content on small
+                // screens.
+                display: "none",
             },
 
             satCheckboxOptionContent: {
@@ -174,11 +226,11 @@ const Choice = React.createClass({
             },
 
             nonSatRationale: {
-                padding: responsiveCheckboxPadding,
+                padding: intermediateCheckboxPadding,
                 paddingTop: 0,
                 marginLeft: 40,
                 [mediaQueries.smOrSmaller]: {
-                    padding: responsiveCheckboxPaddingPhone,
+                    padding: intermediateCheckboxPaddingPhone,
                 },
             },
 
@@ -196,17 +248,26 @@ const Choice = React.createClass({
                 display: "flex",
             },
 
+            legacyResponsiveLabel: {
+                alignItems: "center",
+            },
+
             satLabel: {
                 cursor: "pointer",
             },
 
-            responsiveCheckbox: {
+            legacyResponsiveCheckbox: {
+                display: "inline-block",
+                padding: legacyCheckboxPadding,
+            },
+
+            intermediateResponsiveCheckbox: {
                 display: "flex",
                 alignItems: "center",
 
-                padding: responsiveCheckboxPadding,
+                padding: intermediateCheckboxPadding,
                 [mediaQueries.smOrSmaller]: {
-                    padding: responsiveCheckboxPaddingPhone,
+                    padding: intermediateCheckboxPaddingPhone,
                 },
             },
         }),
@@ -321,6 +382,11 @@ const Choice = React.createClass({
         const sat = this.props.apiOptions.satStyling;
         const isMobile = this.props.apiOptions.isMobile;
 
+        const {radioStyleVersion} = this.props.apiOptions.styling;
+        const legacyStyles = radioStyleVersion == null
+            ? true
+            : radioStyleVersion === "legacy";
+
         const className = classNames(
             this.props.className,
             "checkbox-label",
@@ -328,6 +394,7 @@ const Choice = React.createClass({
                 styles.label,
                 isMobile && sharedStyles.disableTextSelection,
                 !sat && styles.responsiveLabel,
+                !sat && legacyStyles && styles.legacyResponsiveLabel,
                 sat && styles.satLabel
             )
         );
@@ -346,9 +413,27 @@ const Choice = React.createClass({
                 sharedStyles.perseusInteractive,
                 styles.input,
                 sharedStyles.responsiveInput,
-                !sat && sharedStyles.responsiveRadioInput,
-                !sat && this.state.isInputActive &&
+                legacyStyles && sharedStyles.legacyResponsiveInput,
+
+                // legacy styles are different for radio and checkbox
+                legacyStyles && this.props.type === "radio" &&
+                    !sat && sharedStyles.responsiveRadioInput,
+                legacyStyles && this.props.type === "radio" &&
+                    !sat && sharedStyles.legacyResponsiveRadioInput,
+                legacyStyles && this.props.type === "radio" && isMobile &&
+                    !sat && styles.legacyResponsiveMobileRadioInput,
+                legacyStyles && this.props.type === "checkbox" &&
+                    !sat && styles.legacyResponsiveCheckboxInput,
+                legacyStyles && this.props.type === "checkbox" && isMobile &&
+                    !sat && styles.legacyResponsiveMobileCheckboxInput,
+
+                // intermediate styles are not different for radio and
+                // checkbox, and have a separate active state.
+                !legacyStyles && !sat &&
+                    sharedStyles.responsiveRadioInput,
+                !legacyStyles && !sat && this.state.isInputActive &&
                     sharedStyles.responsiveRadioInputActive,
+
                 sat && this.props.type === "radio" &&
                     sharedStyles.perseusSrOnly,
                 sat && this.props.type === "checkbox" &&
@@ -407,7 +492,7 @@ const Choice = React.createClass({
             "checkbox",
             css(
                 sharedStyles.perseusInteractive,
-                !sat && styles.choiceIconWrapper,
+                !sat && !legacyStyles && styles.choiceIconWrapper,
                 sat && styles.satCheckboxOptionContent
             )
         );
@@ -416,16 +501,16 @@ const Choice = React.createClass({
         const checkboxAndOptionClassName = classNames(
             "checkbox-and-option",
             css(
-                !sat && styles.responsiveCheckbox,
-                !sat && this.props.checked && styles.responsiveCheckboxSelected
+                !sat && !legacyStyles && styles.intermediateResponsiveCheckbox,
+                !sat && legacyStyles && styles.legacyResponsiveCheckbox,
             )
         );
 
         const rationaleClassName = classNames(
-            "perseus-radio-rationale-content",
+            !legacyStyles && "perseus-radio-rationale-content",
             css(
                 styles.rationale,
-                !sat && styles.nonSatRationale,
+                !sat && !legacyStyles && styles.nonSatRationale,
                 sat && styles.satReviewRationale
             )
         );
@@ -446,6 +531,7 @@ const Choice = React.createClass({
             className={className}
             style={{opacity: showDimmed ? 0.5 : 1.0}}
         >
+            {legacyStyles && input}
             <div className={descriptionClassName}
                 onMouseDown={this.onInputMouseDown}
                 onMouseUp={this.onInputMouseUp}
@@ -455,7 +541,7 @@ const Choice = React.createClass({
             >
                 <div className={checkboxAndOptionClassName}>
                     <span className={checkboxContentClassName}>
-                        {input}
+                        {!legacyStyles && input}
                         {this.renderChoiceIcon()}
                     </span>
                     {/* A pseudo-label. <label> is slightly broken on iOS,
@@ -463,6 +549,7 @@ const Choice = React.createClass({
                         simplest to just work around that everywhere. */}
                     <span className={classNames(
                             ClassNames.RADIO.OPTION_CONTENT,
+                            !legacyStyles && "intermediate-style",
                             ClassNames.INTERACTIVE,
                             css(sat && styles.satRadioOptionContent,
                                 sat && reviewMode
