@@ -208,9 +208,13 @@ const Radio = React.createClass({
                 rationaleShown: state.selected || state.rationaleShown,
             }));
 
-            this.props.onChange({
-                choiceStates: newStates,
-            });
+            this.props.onChange(
+                {
+                    choiceStates: newStates,
+                },
+                null, // cb
+                true, // silent
+            );
         }
     },
 

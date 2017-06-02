@@ -439,8 +439,8 @@ var Renderer = React.createClass({
             onBlur: _.partial(this._onWidgetBlur, id),
             findWidgets: this.findWidgets,
             reviewModeRubric: reviewModeRubric,
-            onChange: (newProps, cb) => {
-                this._setWidgetProps(id, newProps, cb);
+            onChange: (newProps, cb, silent = false) => {
+                this._setWidgetProps(id, newProps, cb, silent);
             },
             trackInteraction: interactionTracker.track,
         };
@@ -1292,14 +1292,27 @@ var Renderer = React.createClass({
         });
     },
 
-    _setWidgetProps: function(id, newProps, cb) {
+    _setWidgetProps: function(
+        id: string,
+        newProps,
+        cb: Function,
+        // Widgets can call `onChange` with `silent` set to `true` to prevent
+        // interaction events from being triggered in listeners.
+        silent: boolean
+    ) {
         var widgetProps = _.clone(this.state.widgetProps);
         widgetProps[id] = _.extend({}, widgetProps[id], newProps);
-        this.props.onSerializedStateUpdated(
-            this.getSerializedState(widgetProps));
+
+        if (!silent) {
+            this.props.onSerializedStateUpdated(
+                this.getSerializedState(widgetProps));
+        }
+
         this.setState({widgetProps: widgetProps}, () => {
             var cbResult = cb && cb();
-            this.props.onInteractWithWidget(id);
+            if (!silent) {
+                this.props.onInteractWithWidget(id);
+            }
             if (cbResult !== false) {
                 // TODO(jack): For some reason, some widgets don't always end
                 // up in refs here, which is repro-able if you make an
