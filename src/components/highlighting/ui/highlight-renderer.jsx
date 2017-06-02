@@ -96,8 +96,8 @@ class HighlightRenderer extends React.PureComponent {
      * coordinates relative to the offset parent. That way, we can use them
      * for CSS positioning.
      */
-    _computeRects(): Rect[] {
-        const {highlight, offsetParent} = this.props;
+    _computeRects(props: HighlightRendererProps): Rect[] {
+        const {highlight, offsetParent} = props;
 
         // Get the set of rectangles that covers the range's text, relative to
         // the offset parent.
