@@ -121,7 +121,10 @@ function addClientRectsForText(
         }
     }
 
-    const boundingRects = textRange.getClientRects();
+    // NOTE(mdr): Safari returns a non-iterable `getClientRects` object, so
+    //     convert it to an array.
+    const boundingRects = Array.from(textRange.getClientRects());
+
     for (const boundingRect of boundingRects) {
         const rect: Rect = {
             left: boundingRect.left,

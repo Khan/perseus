@@ -35,7 +35,12 @@ class HighlightTooltip extends React.PureComponent {
         // Then, get the bounding box of the collapsed range. This will be a
         // zero-width rectangle, but still have positioning information, which
         // we can use the position the tooltip.
-        const focusRect = focusRange.getBoundingClientRect();
+        //
+        // NOTE(mdr): If we used getClientBoundingRect here instead, Safari
+        //     would return an unpositioned rect. But all tested browsers at
+        //     time of writing (latest Chrome, Firefox, Safari) return at least
+        //     one rectangle from getClientRects, and it's well-positioned.
+        const focusRect = focusRange.getClientRects()[0];
 
         // Compute the desired position of the tooltip relative to the offset
         // parent.
