@@ -25,6 +25,6 @@ _.each([
     require("./widgets/image.jsx"),
     require("./widgets/speaking-text-input.jsx"),
     require("./widgets/speaking-voice.jsx")
-], function(widget) {
-    Widgets.register(widget.name, _.omit(widget, "name"));
+], function({name, editor, ...widget}) {
+    Widgets.register(name, widget, editor);
 });
