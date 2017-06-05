@@ -79,7 +79,9 @@ function addClientRectsForTextInNodeAndRange(
             return;
         }
 
-        for (const child of node.childNodes) {
+        // NOTE(mdr): Safari returns a non-iterable `childNodes` object, so
+        //     convert it to an array.
+        for (const child of Array.from(node.childNodes)) {
             // TODO(mdr): If this parent has overflow: hidden, bound the child
             //     rects accordingly. This would allow us to remove the hack
             //     we added to .perseus-sr-only.
