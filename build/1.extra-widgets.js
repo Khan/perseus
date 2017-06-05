@@ -81,7 +81,7 @@ webpackJsonpPerseus([1],[
 
 	var Changeable = __webpack_require__(85);
 
-	var WidgetJsonifyDeprecated = __webpack_require__(101);
+	var WidgetJsonifyDeprecated = __webpack_require__(102);
 
 	var _ = __webpack_require__(10);
 
@@ -870,13 +870,13 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var Interactive2 = __webpack_require__(102);
+	var Interactive2 = __webpack_require__(103);
 
 	var SvgImage = __webpack_require__(33);
 
 	var Util = __webpack_require__(17);
 
-	var ButtonGroup = __webpack_require__(103);
+	var ButtonGroup = __webpack_require__(104);
 
 	/* Graphie and relevant components. */
 	var Graphie = __webpack_require__(91);
@@ -885,7 +885,7 @@ webpackJsonpPerseus([1],[
 
 	var MovableLine = Graphie.MovableLine;
 
-	var WrappedLine = __webpack_require__(104);
+	var WrappedLine = __webpack_require__(105);
 
 	var knumber = __webpack_require__(134).number;
 
@@ -893,7 +893,7 @@ webpackJsonpPerseus([1],[
 
 	var kpoint = __webpack_require__(134).point;
 
-	var KhanColors = __webpack_require__(105);
+	var KhanColors = __webpack_require__(106);
 
 	var _require = __webpack_require__(77), containerSizeClassPropType = _require.containerSizeClassPropType;
 
@@ -1334,7 +1334,7 @@ webpackJsonpPerseus([1],[
 
 	var Renderer = __webpack_require__(8);
 
-	var GradedGroupAnswerBar = __webpack_require__(106);
+	var GradedGroupAnswerBar = __webpack_require__(107);
 
 	var _require2 = __webpack_require__(37), gray76 = _require2.gray76, phoneMargin = _require2.phoneMargin, negativePhoneMargin = _require2.negativePhoneMargin, tableBackgroundAccent = _require2.tableBackgroundAccent, kaGreen = _require2.kaGreen;
 
@@ -2021,7 +2021,7 @@ webpackJsonpPerseus([1],[
 
 	var Changeable = __webpack_require__(85);
 
-	var WidgetJsonifyDeprecated = __webpack_require__(101);
+	var WidgetJsonifyDeprecated = __webpack_require__(102);
 
 	var updateQueryString = __webpack_require__(17).updateQueryString;
 
@@ -2902,13 +2902,13 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var Graph = __webpack_require__(107);
+	var Graph = __webpack_require__(108);
 
-	var InfoTip = __webpack_require__(108);
+	var InfoTip = __webpack_require__(109);
 
-	var Interactive2 = __webpack_require__(102);
+	var Interactive2 = __webpack_require__(103);
 
-	var NumberInput = __webpack_require__(109);
+	var NumberInput = __webpack_require__(110);
 
 	var Util = __webpack_require__(17);
 
@@ -2916,15 +2916,15 @@ webpackJsonpPerseus([1],[
 
 	var kpoint = __webpack_require__(134).point;
 
-	var KhanColors = __webpack_require__(105);
+	var KhanColors = __webpack_require__(106);
 
-	var GraphUtils = __webpack_require__(110);
+	var GraphUtils = __webpack_require__(111);
 
 	var _require = __webpack_require__(37), interactiveSizes = _require.interactiveSizes;
 
 	var _require2 = __webpack_require__(77), containerSizeClassPropType = _require2.containerSizeClassPropType, getInteractiveBoxFromSizeClass = _require2.getInteractiveBoxFromSizeClass;
 
-	var WrappedLine = __webpack_require__(104);
+	var WrappedLine = __webpack_require__(105);
 
 	var DeprecationMixin = Util.DeprecationMixin;
 
@@ -4644,7 +4644,7 @@ webpackJsonpPerseus([1],[
 
 	var Changeable = __webpack_require__(85);
 
-	var WidgetJsonifyDeprecated = __webpack_require__(101);
+	var WidgetJsonifyDeprecated = __webpack_require__(102);
 
 	var MAX_SIZE = 8;
 
@@ -4953,7 +4953,7 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var NumberInput = __webpack_require__(109);
+	var NumberInput = __webpack_require__(110);
 
 	var Renderer = __webpack_require__(8);
 
@@ -4965,7 +4965,7 @@ webpackJsonpPerseus([1],[
 
 	var ApiOptions = __webpack_require__(18).Options;
 
-	var KhanAnswerTypes = __webpack_require__(76);
+	var KhanAnswerTypes = __webpack_require__(75);
 
 	var keypadElementPropType = __webpack_require__(78).propTypes.keypadElementPropType;
 
@@ -5378,7 +5378,7 @@ webpackJsonpPerseus([1],[
 
 	var Renderer = __webpack_require__(8);
 
-	var Sortable = __webpack_require__(111);
+	var Sortable = __webpack_require__(115);
 
 	var ApiOptions = __webpack_require__(18).Options;
 
@@ -5561,7 +5561,7 @@ webpackJsonpPerseus([1],[
 
 	var ApiOptions = __webpack_require__(18).Options;
 
-	var GraphUtils = __webpack_require__(110);
+	var GraphUtils = __webpack_require__(111);
 
 	var defaultImage = {
 	    url: null,
@@ -5892,7 +5892,7 @@ webpackJsonpPerseus([1],[
 
 	var Changeable = __webpack_require__(85);
 
-	var NumberInput = __webpack_require__(109);
+	var NumberInput = __webpack_require__(110);
 
 	var MathOutput = __webpack_require__(113);
 
@@ -5912,7 +5912,7 @@ webpackJsonpPerseus([1],[
 
 	var KhanMath = __webpack_require__(83);
 
-	var KhanColors = __webpack_require__(105);
+	var KhanColors = __webpack_require__(106);
 
 	var bound = function bound(x, gt, lt) {
 	    return Math.min(Math.max(x, gt), lt);
@@ -7779,7 +7779,7 @@ webpackJsonpPerseus([1],[
 
 	var Changeable = __webpack_require__(85);
 
-	var WidgetJsonifyDeprecated = __webpack_require__(101);
+	var WidgetJsonifyDeprecated = __webpack_require__(102);
 
 	var Renderer = __webpack_require__(8);
 
@@ -7859,13 +7859,13 @@ webpackJsonpPerseus([1],[
 
 	var KhanMath = __webpack_require__(83);
 
-	var KhanColors = __webpack_require__(105);
+	var KhanColors = __webpack_require__(106);
 
-	var GraphUtils = __webpack_require__(110);
+	var GraphUtils = __webpack_require__(111);
 
-	var Interactive2 = __webpack_require__(102);
+	var Interactive2 = __webpack_require__(103);
 
-	var WrappedLine = __webpack_require__(104);
+	var WrappedLine = __webpack_require__(105);
 
 	var BAR = "bar", LINE = "line", PIC = "pic", HISTOGRAM = "histogram", DOTPLOT = "dotplot";
 
@@ -8845,7 +8845,7 @@ webpackJsonpPerseus([1],[
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	/* globals $_, i18n */
-	var InfoTip = __webpack_require__(108);
+	var InfoTip = __webpack_require__(109);
 
 	var React = __webpack_require__(11);
 
@@ -8863,7 +8863,7 @@ webpackJsonpPerseus([1],[
 
 	var Path = Graphie.Path, Arc = Graphie.Arc, Circle = Graphie.Circle, Label = Graphie.Label, Line = Graphie.Line, MovablePoint = Graphie.MovablePoint, MovableLine = Graphie.MovableLine;
 
-	var NumberInput = __webpack_require__(109);
+	var NumberInput = __webpack_require__(110);
 
 	var MathOutput = __webpack_require__(113);
 
@@ -8873,7 +8873,7 @@ webpackJsonpPerseus([1],[
 
 	var knumber = __webpack_require__(134).number;
 
-	var KhanColors = __webpack_require__(105);
+	var KhanColors = __webpack_require__(106);
 
 	var KhanMath = __webpack_require__(83);
 
@@ -9436,7 +9436,7 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var Sortable = __webpack_require__(111);
+	var Sortable = __webpack_require__(115);
 
 	var ApiOptions = __webpack_require__(18).Options;
 
@@ -9538,7 +9538,7 @@ webpackJsonpPerseus([1],[
 
 	var ApiOptions = __webpack_require__(18).Options;
 
-	var KhanAnswerTypes = __webpack_require__(76);
+	var KhanAnswerTypes = __webpack_require__(75);
 
 	var assert = __webpack_require__(114).assert;
 
@@ -9833,11 +9833,11 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var Graph = __webpack_require__(107);
+	var Graph = __webpack_require__(108);
 
 	var InlineIcon = __webpack_require__(86);
 
-	var NumberInput = __webpack_require__(109);
+	var NumberInput = __webpack_require__(110);
 
 	var MathOutput = __webpack_require__(113);
 
@@ -9881,7 +9881,7 @@ webpackJsonpPerseus([1],[
 
 	var KhanMath = __webpack_require__(83);
 
-	var KhanColors = __webpack_require__(105);
+	var KhanColors = __webpack_require__(106);
 
 	var assert = __webpack_require__(114).assert;
 
@@ -11837,7 +11837,7 @@ webpackJsonpPerseus([1],[
 	// terms of a certain type.
 	// TODO(joel): Allow sigfigs within a range rather than an exact expected
 	// value?
-	var lens = __webpack_require__(120);
+	var lens = __webpack_require__(101);
 
 	var React = __webpack_require__(11);
 
@@ -11853,7 +11853,7 @@ webpackJsonpPerseus([1],[
 
 	var MathOutput = __webpack_require__(113);
 
-	var _require = __webpack_require__(115), SignificantFigures = _require.SignificantFigures, displaySigFigs = _require.displaySigFigs;
+	var _require = __webpack_require__(116), SignificantFigures = _require.SignificantFigures, displaySigFigs = _require.displaySigFigs;
 
 	var ALL = "all";
 
@@ -12200,7 +12200,8 @@ webpackJsonpPerseus([1],[
 /* 100 */,
 /* 101 */,
 /* 102 */,
-/* 103 */
+/* 103 */,
+/* 104 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12227,7 +12228,7 @@ webpackJsonpPerseus([1],[
 
 	var ReactDOM = __webpack_require__(12);
 
-	var styles = __webpack_require__(139);
+	var styles = __webpack_require__(143);
 
 	var css = __webpack_require__(14).css;
 
@@ -12284,9 +12285,9 @@ webpackJsonpPerseus([1],[
 	module.exports = ButtonGroup;
 
 /***/ },
-/* 104 */,
 /* 105 */,
-/* 106 */
+/* 106 */,
+/* 107 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12450,7 +12451,7 @@ webpackJsonpPerseus([1],[
 	module.exports = GradedGroupAnswerBar;
 
 /***/ },
-/* 107 */
+/* 108 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12466,7 +12467,7 @@ webpackJsonpPerseus([1],[
 
 	var Util = __webpack_require__(17);
 
-	var GraphUtils = __webpack_require__(110);
+	var GraphUtils = __webpack_require__(111);
 
 	var _require = __webpack_require__(37), interactiveSizes = _require.interactiveSizes;
 
@@ -12747,7 +12748,7 @@ webpackJsonpPerseus([1],[
 	module.exports = Graph;
 
 /***/ },
-/* 108 */
+/* 109 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12760,7 +12761,7 @@ webpackJsonpPerseus([1],[
 	 */
 	var React = __webpack_require__(11);
 
-	var ReactComponentsInfoTip = __webpack_require__(141);
+	var ReactComponentsInfoTip = __webpack_require__(145);
 
 	var InfoTip = React.createClass({
 	    displayName: "InfoTip",
@@ -12783,7 +12784,7 @@ webpackJsonpPerseus([1],[
 	module.exports = InfoTip;
 
 /***/ },
-/* 109 */
+/* 110 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12968,8 +12969,11 @@ webpackJsonpPerseus([1],[
 	module.exports = NumberInput;
 
 /***/ },
-/* 110 */,
-/* 111 */
+/* 111 */,
+/* 112 */,
+/* 113 */,
+/* 114 */,
+/* 115 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -13455,10 +13459,7 @@ webpackJsonpPerseus([1],[
 	module.exports = Sortable;
 
 /***/ },
-/* 112 */,
-/* 113 */,
-/* 114 */,
-/* 115 */
+/* 116 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -13865,7 +13866,6 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 116 */,
 /* 117 */,
 /* 118 */,
 /* 119 */,
@@ -15466,7 +15466,7 @@ webpackJsonpPerseus([1],[
 	/* globals $_ */
 	var React = __webpack_require__(11);
 
-	var SimpleMarkdown = __webpack_require__(117);
+	var SimpleMarkdown = __webpack_require__(118);
 
 	var _ = __webpack_require__(10);
 
@@ -15804,7 +15804,11 @@ webpackJsonpPerseus([1],[
 /* 136 */,
 /* 137 */,
 /* 138 */,
-/* 139 */
+/* 139 */,
+/* 140 */,
+/* 141 */,
+/* 142 */,
+/* 143 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -15848,8 +15852,8 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 140 */,
-/* 141 */
+/* 144 */,
+/* 145 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -15961,10 +15965,6 @@ webpackJsonpPerseus([1],[
 	module.exports = InfoTip;
 
 /***/ },
-/* 142 */,
-/* 143 */,
-/* 144 */,
-/* 145 */,
 /* 146 */,
 /* 147 */,
 /* 148 */,
@@ -17462,7 +17462,9 @@ webpackJsonpPerseus([1],[
 	        // Don't bother deep-traversing a node that doesn't even overlap the
 	        // range we're searching.
 	        if (!rangesOverlap(range, nodeContentsRange)) return;
-	        for (var _iterator = node.childNodes, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator](); ;) {
+	        // NOTE(mdr): Safari returns a non-iterable `childNodes` object, so
+	        //     convert it to an array.
+	        for (var _iterator = Array.from(node.childNodes), _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator](); ;) {
 	            var _ref;
 	            if (_isArray) {
 	                if (_i >= _iterator.length) break;
