@@ -262,14 +262,22 @@ const BaseRadio = React.createClass({
     },
 
     getInstructionsText: function() {
-        if (this.props.apiOptions.isMobile) {
+        const {radioStyleVersion} = this.props.apiOptions.styling;
+
+        if (radioStyleVersion === "intermediate") {
             return this.props.multipleSelect ?
-                i18n._("Choose all answers that apply.") :
-                i18n._("Choose 1 answer.");
+                i18n._("Choose all answers that apply:") :
+                i18n._("Choose 1 answer:");
         } else {
-            return this.props.multipleSelect ?
-                i18n._("Select all that apply.") :
-                i18n._("Please choose from one of the following options.");
+            if (this.props.apiOptions.isMobile) {
+                return this.props.multipleSelect ?
+                    i18n._("Choose all answers that apply:") :
+                    i18n._("Choose 1 answer:");
+            } else {
+                return this.props.multipleSelect ?
+                    i18n._("Select all that apply.") :
+                    i18n._("Please choose from one of the following options.");
+            }
         }
     },
 
@@ -321,7 +329,11 @@ const BaseRadio = React.createClass({
             )
         );
         const instructions = this.getInstructionsText();
-        const shouldShowInstructions = isMobile || this.props.multipleSelect;
+        const shouldShowInstructions = legacyStyles
+            // Show instructions on mobile and multi-select in legacy styles
+            ? isMobile || this.props.multipleSelect
+            // Always show instructions in intermediate styles
+            : true;
 
         const responsiveClassName = css(styles.responsiveFieldset);
         const fieldset = <fieldset

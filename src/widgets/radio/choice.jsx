@@ -443,7 +443,10 @@ const Choice = React.createClass({
         };
 
         let input = null;
-        if (this.props.type === "radio" && this.props.deselectEnabled) {
+        if (
+            this.props.type === "radio" &&
+            (this.props.deselectEnabled || !legacyStyles)
+        ) {
             // This is a special radio button that allows a user to deselect
             // it by merely clicking/selecting it again.
             input = (
