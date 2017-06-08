@@ -627,6 +627,10 @@ var InteractiveGraph = React.createClass({
         </div>;
     },
 
+    componentDidMount: function() {
+        this.setGraphie(this.refs.graph.graphie());
+    },
+
     setGraphie: function(newGraphie) {
         this.graphie = newGraphie;
         this.setupGraphie();
