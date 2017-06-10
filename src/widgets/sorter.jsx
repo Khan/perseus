@@ -45,6 +45,35 @@ var Sorter = React.createClass({
         </div>;
     },
 
+    setAnswerFromJSON: function(answerData) {
+        sortable = this.refs.sortable;
+        if (answerData === undefined) {
+            sortable.setState({
+                items: sortable.clearItemMeasurements(sortable.state.items)
+            });
+        } else {
+            items = sortable.state.items;
+            result = [];
+
+            answerData.options.forEach(function(key) {
+                var found = false;
+                items = items.filter(function(item) {
+                    if(!found && item['option'] == key) {
+                        result.push(item);
+                        found = true;
+                        return false;
+                    } else 
+                        return true;
+                })
+            });
+            sortable.setState({items: result});
+        }
+        // HACK: We need to know *that* the widget changed, but currently it's
+        // not set up in a nice way to tell us *how* it changed, since the
+        // permutation of the items is stored in state.
+        this.props.onChange({});
+    },
+
     toJSON: function(skipValidation) {
         return {options: this.refs.sortable.getOptions()};
     },

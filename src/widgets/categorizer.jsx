@@ -29,7 +29,9 @@ var Categorizer = React.createClass({
             values: []
         };
     },
-
+    setAnswerFromJSON: function(answerData) {
+        this.props.onChange(answerData);
+    },
     getInitialState: function() {
         return {
             uniqueId: _.uniqueId("perseus_radio_")
