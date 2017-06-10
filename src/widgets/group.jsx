@@ -167,7 +167,11 @@ var Group = React.createClass({
 
     blurInputPath: function(path) {
         this.refs.renderer.blurPath(path);
-    }
+    },
+
+    showRationalesForCurrentlySelectedChoices() {
+        this.refs.renderer.showRationalesForCurrentlySelectedChoices();
+    },
 });
 
 var traverseChildWidgets = function(

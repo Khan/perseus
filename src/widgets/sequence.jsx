@@ -88,6 +88,8 @@ var Sequence = React.createClass({
         var step = parseInt(groupWidgetId.split(" ")[1]);
         if (step === this.state.visible - 1) {
             var widget = this.refs.renderer.getWidgetInstance("group " + step);
+
+            widget.showRationalesForCurrentlySelectedChoices();
             var score = widget.simpleValidate();
 
             if (score.type === "points" && score.total === score.earned) {

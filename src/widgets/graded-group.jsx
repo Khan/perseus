@@ -129,6 +129,7 @@ const GradedGroup = React.createClass({
     },
 
     _checkAnswer: function() {
+        this.refs.renderer.showRationalesForCurrentlySelectedChoices();
         const score = this.refs.renderer.score();
 
         let status;
