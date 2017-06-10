@@ -28,7 +28,9 @@
     "url": "git@github.com:Khan/perseus.git"
   },
   "jest": {
-    "setupFiles": ["./jest/environment.js"],
+    "setupFiles": [
+      "./jest/environment.js"
+    ],
     "roots": [
       "src"
     ],
@@ -43,6 +45,7 @@
     ]
   },
   "dependencies": {
+    "aphrodite": "^1.2.1",
     "classnames": "^2.2.5",
     "react": "^15.4.2",
     "react-addons-create-fragment": "^15.4.2",

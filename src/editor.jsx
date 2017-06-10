@@ -11,7 +11,7 @@ var DragTarget = require("react-components/js/drag-target.jsx");
 var rWidgetSplit = /(\[\[\u2603 [a-z-]+ [0-9]+\]\])/g;
 
 // widgets junyi can use now:
-var widgetsInEditor = ['image', 'categorizer', 'dropdown', 'expression',
+var widgetsInEditor = ['image', 'categorizer', 'dropdown', 'explanation', 'expression',
                       'input-number', 'interactive-graph', 'interactive-number-line',
                       'lights-puzzle', 'matrix', 'measurer', 'number-line',
                       'iframe', 'numeric-input', 'plotter',

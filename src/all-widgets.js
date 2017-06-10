@@ -5,6 +5,10 @@ _.each([
     require("./widgets/dropdown.jsx"),
     require("./widgets/example-widget.jsx"),
     require("./widgets/example-graphie-widget.jsx"),
+    [
+        require("./widgets/explanation.jsx"),
+        require("./widgets/explanation-editor.jsx")
+    ],
     require("./widgets/expression.jsx"),
     require("./widgets/iframe.jsx"),
     require("./widgets/input-number.jsx"),
@@ -25,6 +29,11 @@ _.each([
     require("./widgets/image.jsx"),
     require("./widgets/speaking-text-input.jsx"),
     require("./widgets/speaking-voice.jsx")
-], function({name, editor, ...widget}) {
+], function(_widget) {
+    if (Array.isArray(_widget)) {
+        var [{name, ...widget}, editor] = _widget;
+    } else {
+        var {name, editor, ...widget} = _widget;
+    }
     Widgets.register(name, widget, editor);
 });
