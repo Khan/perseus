@@ -9,6 +9,7 @@ PERSEUS_BUILD_CSS=build/perseus-$(API_VERSION_MAJOR).css
 help:
 	@echo "make server PORT=9000  # runs the perseus server"
 	@echo "make build             # compiles into $(PERSEUS_BUILD_JS) and $(PERSEUS_BUILD_CSS)"
+	@echo "make ke                # build symlink to khan-exercises"
 	@echo "make all               # build perseus into webapp"
 
 build: install
@@ -19,7 +20,7 @@ build: install
 	./node_modules/.bin/browserify src/perseus.js -s Perseus -t babelify >> $(PERSEUS_BUILD_JS)
 	./node_modules/.bin/lessc stylesheets/exercise-content-package/perseus.less $(PERSEUS_BUILD_CSS)
 
-server: 
+server: ke
 	npm start
 
 demo:
@@ -61,4 +62,7 @@ build/ke.js:
 
 jest: build/ke.js
 	./node_modules/.bin/jest
+
+ke:
+	ln -s ../../khan-exercises $@
 
