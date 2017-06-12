@@ -107,11 +107,6 @@ const styles = StyleSheet.create({
 type Range = [number, number];
 
 type PassageProps = ChangeableProps & {
-    apiOptions: {
-        styling: {
-            highlightingVersion: 1 | 2,
-        },
-    },
     passageTitle: string,
     passageText: string,
     footnotes: string,
@@ -239,24 +234,18 @@ class Passage extends React.Component {
      * This group of functions supports the passage "highlighting" feature. It
      * works with word indices into the passage text and the DOM selection API.
      *
-     * This feature is only enabled when the `highlightingVersion` prop is set
-     * to 1. Otherwise, all of this behavior is disabled, and we use new-style
-     * Highlighting Version 2 instead; see `_renderContent`.
+     * TODO(mdr): Because `supportsHighlightingVersion1()` now always returns
+     *     false, Highlighting Version 1 is now dead code that never runs.
+     *     It is scheduled to be removed.
+     *     https://app.asana.com/0/277557989281705/318877243057038
      */
 
-    // TODO(davidpowell,mdr): We punted on supporting passages that contain
-    //     markers referenced in questions, because they caused bugs that we
-    //     couldn't diagnose quickly. Reading passages and essay passages don't
-    //     currently contain markers, though, so they're always supported!
     supportsHighlightingVersion1(): boolean {
-        // HACK(davidpowell,mdr): If a passage contains question markers, the
-        //     first one should be labeled #1, so just scan for marker #1.
-        return this.props.apiOptions.styling.highlightingVersion === 1 &&
-            !(this.props.passageText.match(/\[\[1\]\]/));
+        return false;
     }
 
     supportsHighlightingVersion2(): boolean {
-        return this.props.apiOptions.styling.highlightingVersion === 2;
+        return true;
     }
 
     // If this is a reading passage and not in review mode, then the user can
