@@ -2,12 +2,19 @@
 /**
  * Render a set of highlights. See HighlightRenderer for more details about how
  * each highlight is rendered.
+ *
+ * This component manages the state of the "Remove highlight" tooltip. To
+ * determine the currently-hovered highlight, it calls the `isHovered` method
+ * on each HighlightRenderer.
  */
 const React = require("react");
 
 const HighlightRenderer = require("./highlight-renderer.jsx");
+const HighlightTooltip = require("./highlight-tooltip.jsx");
 
 import type {DOMHighlightSet, Position, ZIndexes} from "./types.js";
+
+/* global i18n */
 
 type HighlightSetRendererProps = {
     // Whether the highlights are user-editable. If false, highlights are
@@ -36,13 +43,21 @@ type HighlightSetRendererState = {
     // global `mousemove` event. Passed to each `SingleHighlightRenderer` that
     // this component renders.
     mouseClientPosition: ?Position,
+
+    // If the user is currently hovering over the "Remove highlight" tooltip,
+    // this field contains the key of the corresponding highlight.
+    hoveringTooltipFor: ?string,
 };
 
-class HighlightSetRenderer extends React.Component {
+class HighlightSetRenderer extends React.PureComponent {
     props: HighlightSetRendererProps
     state: HighlightSetRendererState = {
         mouseClientPosition: null,
+        hoveringTooltipFor: null,
     }
+
+    // eslint-disable-next-line react/sort-comp
+    _highlightRenderers: {[highlightKey: string]: HighlightRenderer} = {}
 
     componentDidMount() {
         this._updateEditListeners(false, this.props.editable);
@@ -50,6 +65,15 @@ class HighlightSetRenderer extends React.Component {
 
     componentWillReceiveProps(nextProps: HighlightSetRendererProps) {
         this._updateEditListeners(this.props.editable, nextProps.editable);
+
+        // If we were previously hovering over the tooltip for a highlight that
+        // has since been removed, reset the hover state accordingly.
+        if (
+            typeof this.state.hoveringTooltipFor === "string" &&
+            !(this.state.hoveringTooltipFor in nextProps.highlights)
+        ) {
+            this.setState({hoveringTooltipFor: null});
+        }
     }
 
     componentWillUnmount() {
@@ -87,10 +111,60 @@ class HighlightSetRenderer extends React.Component {
         });
     }
 
+    _getHoveredHighlightKey(): ?string {
+        // If we're hovering over the tooltip, the hovered highlight is the
+        // highlight that the tooltip is pointing to.
+        const {hoveringTooltipFor} = this.state;
+        if (typeof hoveringTooltipFor === "string") {
+            return hoveringTooltipFor;
+        }
+
+        // Otherwise, check each highlight renderer to see whether the current
+        // mouse position intersects any of the highlight rectangles.
+        const highlightKeys = Object.keys(this.props.highlights);
+        return highlightKeys.find(key => {
+            const highlightRenderer = this._highlightRenderers[key];
+            return highlightRenderer &&
+                highlightRenderer.isHovered(this.state.mouseClientPosition);
+        });
+    }
+
+    _renderTooltip() {
+        const hoveredHighlightKey = this._getHoveredHighlightKey();
+        if (typeof hoveredHighlightKey !== "string") {
+            return null;
+        }
+
+        const hoveredHighlight = this.props.highlights[hoveredHighlightKey];
+
+        return <HighlightTooltip
+            label={i18n._("Remove highlight")}
+
+            focusNode={hoveredHighlight.domRange.endContainer}
+            focusOffset={hoveredHighlight.domRange.endOffset}
+            offsetParent={this.props.offsetParent}
+            zIndex={this.props.zIndexes.aboveContent}
+
+            onClick={
+                () => this.props.onRemoveHighlight(hoveredHighlightKey)}
+            onMouseEnter={
+                () => this.setState({hoveringTooltipFor: hoveredHighlightKey})}
+            onMouseLeave={
+                () => this.setState({hoveringTooltipFor: null})}
+        />;
+    }
+
     render() {
         return <div>
             {Object.keys(this.props.highlights).map(key =>
                 <HighlightRenderer
+                    ref={r => {
+                        if (r) {
+                            this._highlightRenderers[key] = r;
+                        } else {
+                            delete this._highlightRenderers[key];
+                        }
+                    }}
                     editable={this.props.editable}
                     key={key}
                     highlight={this.props.highlights[key]}
@@ -101,6 +175,7 @@ class HighlightSetRenderer extends React.Component {
                     zIndexes={this.props.zIndexes}
                 />
             )}
+            {this.props.editable && this._renderTooltip()}
         </div>;
     }
 }
