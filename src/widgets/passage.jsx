@@ -1,34 +1,4 @@
-/* eslint-disable max-lines, react/sort-comp */
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
 // @flow
-// @Nolint(long file)
-/**
- * Highlighting feature discoveries (davidpowell/mdr):
- * Inserting markdown into the raw contents of a passage to make a highlight
- * causes several difficulties. As such, if we were to build a generalizable,
- * site-wide highlighting tool, it may be preferable to build it in such a way
- * that it works on arbitrary React trees - though this would be a significant
- * engineering task. The issues that using markdown caused were:
- *
- * 1) To avoid interaction issues with other markdown, individual words have to
- * be wrapped in markdown, as opposed to a whole highlighted section. In some
- * cases this may even need to be done on sub-sections of words. This causes
- * difficulty in wrapping the correct sub-sections in highlighting markdown,
- * whilst not wrapping other markdown, which would cause the other markdown to
- * be shown as raw (highlighted) text. The current attempt at this, in the
- * render method, is rather hacky.
- *
- * 2) In order to locate the position of a word in a passage, we have to count
- * all prior words in the text. Unfortunately, the passageText prop, from which
- * we start when we add the highlighting markdown, differs slightly from the
- * contents of the DOM tree, which we crawl to locate the position of the text
- * selection. For example, neither markdown nor new line characters appear when
- * crawling the DOM. There are also additional "_" characters that appear when
- * crawling the DOM which are not in the passageText prop. This results in lots
- * of edge case handling to avoid the wrong words from being highlighted (e.g an
- * off-by-one error).
- */
 
 const {StyleSheet, css} = require("aphrodite");
 const React = require("react");
@@ -103,15 +73,12 @@ const styles = StyleSheet.create({
     },
 });
 
-// A range of text denoted by start and end word indices.
-type Range = [number, number];
-
 type PassageProps = ChangeableProps & {
     passageTitle: string,
     passageText: string,
     footnotes: string,
     showLineNumbers: boolean,
-    highlightRanges: Range[],
+    highlights: SerializedHighlightSet,
     reviewModeRubric: {
         passageTitle: string,
         passageText: string,
@@ -119,15 +86,20 @@ type PassageProps = ChangeableProps & {
         showLineNumbers: boolean,
         static: boolean,
     },
+
+    // NOTE(mdr): An old version of the highlighting feature used a widget
+    //     state field named `highlightRanges` to save serialized highlights.
+    //     This version of highlighting was removed in D36490, but some old
+    //     serialized Perseus state might still contain references to
+    //     `highlightRanges`. So, do not add a new prop to this component named
+    //     `highlightRanges`, or else you might get data that's not in the
+    //     format you expect.
+    highlightRanges: any,
 };
 
 type PassageState = {
     nLines: ?number,
     startLineNumbersAfter: number,
-    newHighlightRange: ?Range,
-    selectedHighlightRange: ?Range,
-    mouseX: ?number,
-    mouseY: ?number,
     stylesAreApplied: boolean,
 };
 
@@ -135,16 +107,6 @@ type PassageState = {
 type PassageParseState = {
     firstQuestionRef: ?any,
     firstSentenceRef: ?any,
-};
-
-// Information about a Selection's indices, returned by `sortIndices`.
-type IndexInfo = {
-    selectionStartIndex: ?number,
-    selectionEndIndex: ?number,
-    startNode: ?Node,
-    endNode: ?Node,
-    startNodeOffset: number,
-    endNodeOffset: number,
 };
 
 // Information about a passage reference, used in inter-widgets.
@@ -155,7 +117,6 @@ type Reference = {
 };
 
 class Passage extends React.Component {
-    /* eslint-disable react/sort-comp */
     props: PassageProps;
 
     _onResize: () => {};
@@ -166,20 +127,14 @@ class Passage extends React.Component {
         passageText: "",
         footnotes: "",
         showLineNumbers: true,
-        highlightRanges: [],
         highlights: {},
     };
 
     state: PassageState = {
         nLines: null,
         startLineNumbersAfter: 0,
-        newHighlightRange: null,
-        selectedHighlightRange: null,
-        mouseX: null,
-        mouseY: null,
         stylesAreApplied: false,
     };
-    /* eslint-enable react/sort-comp */
 
     componentDidMount() {
         this._updateState();
@@ -192,7 +147,6 @@ class Passage extends React.Component {
             this._lineHeightMeasurer.forceMeasureLineHeight();
             this._updateState();
         }, 500);
-        window.addEventListener("mousedown", this.handleMouseDown);
         window.addEventListener("resize", this._onResize);
 
         // Wait for Aphrodite styles (which are guaranteed to apply after one
@@ -224,555 +178,7 @@ class Passage extends React.Component {
     }
 
     componentWillUnmount() {
-        window.removeEventListener("mousedown", this.handleMouseDown);
         window.removeEventListener("resize", this._onResize);
-    }
-
-    /**
-     * Highlighting Version 1
-     *
-     * This group of functions supports the passage "highlighting" feature. It
-     * works with word indices into the passage text and the DOM selection API.
-     *
-     * TODO(mdr): Because `supportsHighlightingVersion1()` now always returns
-     *     false, Highlighting Version 1 is now dead code that never runs.
-     *     It is scheduled to be removed.
-     *     https://app.asana.com/0/277557989281705/318877243057038
-     */
-
-    supportsHighlightingVersion1(): boolean {
-        return false;
-    }
-
-    supportsHighlightingVersion2(): boolean {
-        return true;
-    }
-
-    // If this is a reading passage and not in review mode, then the user can
-    // update the highlighting state. Otherwise, highlights will still render,
-    // but in read-only mode.
-    canUpdateHighlightingVersion1(): boolean {
-        return !this.props.reviewModeRubric &&
-            this.supportsHighlightingVersion1();
-    }
-
-    canUpdateHighlightingVersion2(): boolean {
-        return !this.props.reviewModeRubric &&
-            this.supportsHighlightingVersion2();
-    }
-
-    /**
-     * Returns the total number of words (or word fragments) in the given
-     * selection, based on the number of spaces.
-     */
-    wordsInSection(section: string): number {
-        // HACK (davidpowell): Sometimes the raw content of the page contains
-        // "end of sentence. _New sentence", the node seems to split after the
-        // underscore (e.g. "end of sentence. _" is in one node and "New
-        // sentence..." is in  another). This would lead to the underscore
-        // being counted as a seperate word due to the fact that the words in
-        // each node are counted separately. The line below is a hacky fix for
-        // this.
-        section = section.replace(/_+/g, "");
-        // Strip out markers from writing passages which are not in
-        // passage-text.
-        // Note: highlighting is currently disabled in writing passages but
-        // this is left in for potential future development.
-        section = section.replace(/\[Marker for question [0-9]+\]/g, " ");
-        section = section.replace(/\[Sentence [0-9]+\]/g, " ");
-        const sectionWordArray = section
-                                .split(/\s+/)
-                                .filter((word) => word.length > 0);
-        return sectionWordArray.length;
-    }
-
-    /**
-     * Compare two ranges according to their start word.
-     */
-    compareRanges(a: Range, b: Range): number {
-        if (a[0] < b[0]) {
-            return -1;
-        } else if (a[0] > b[0]) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
-
-    mergeOverlappingRanges(ranges: Range[]): Range[] {
-        const sorted = [...ranges].sort(this.compareRanges);
-        const merged = [];
-
-        for (const curr of sorted) {
-            const prev = merged[merged.length - 1];
-
-            if (prev && curr[0] <= prev[1]) {
-                // These ranges overlap; merge curr into prev.
-                merged[merged.length - 1] =
-                    [prev[0], Math.max(prev[1], curr[1])];
-            } else {
-                // These ranges don't overlap; start a new range with curr.
-                merged.push(curr);
-            }
-        }
-
-        return merged;
-    }
-
-    /**
-     *  Handle a selection by highlighting it (or glomming it to an existing
-     *  highlighted region).
-     */
-    addHighlightRange(range: Range) {
-        let newHighlightRanges = [...this.props.highlightRanges];
-        newHighlightRanges.push(range);
-        newHighlightRanges = this.mergeOverlappingRanges(newHighlightRanges);
-        this.props.onChange({highlightRanges: newHighlightRanges});
-
-        // HACK: Not sure why this is neccessary as setState should cause an
-        // update. However, highlighting often doesn't appear without it.
-        this.forceUpdate();
-    }
-
-    /**
-     * Returns true if the selection anchor is before the selection focus in
-     * the passage
-     */
-    isAnchorFirst(
-        anchorNode: any,
-        focusNode: any,
-        anchorOffset: number,
-        focusOffset: number,
-    ): boolean {
-        if (anchorNode === focusNode) {
-            // If the selection is contained in one node, does the anchor point
-            // come before the focus point?
-            return anchorOffset < focusOffset;
-        } else {
-            // If the selection spans multiple nodes, does anchorNode come
-            // before focusNode in the document?
-            return anchorNode.compareDocumentPosition(focusNode) === 4;
-        }
-    }
-
-    /**
-     * The anchor of a selection is where the user began their selection and
-     * the focus is where the user ended their selection. This function sorts
-     * the two into the order they are in a passage. For example, if a user
-     * makes their selection forwards the anchor will be the start and if they
-     * make it backwards, the focus will be the start.
-     */
-    sortIndices(selection: Selection): IndexInfo {
-        const anchorIndex = this.getSelectionIndex(selection, "anchor");
-        const focusIndex = this.getSelectionIndex(selection, "focus");
-        const anchorNode = selection.anchorNode;
-        const focusNode = selection.focusNode;
-        const anchorOffset = selection.anchorOffset;
-        const focusOffset = selection.focusOffset;
-        if (this.isAnchorFirst(
-                anchorNode, focusNode, anchorOffset, focusOffset)) {
-            return {
-                selectionStartIndex: anchorIndex,
-                selectionEndIndex: focusIndex,
-                startNode: anchorNode,
-                endNode: focusNode,
-                startNodeOffset: anchorOffset,
-                endNodeOffset: focusOffset,
-            };
-        } else {
-            return {
-                selectionStartIndex: focusIndex,
-                selectionEndIndex: anchorIndex,
-                startNode: focusNode,
-                endNode: anchorNode,
-                startNodeOffset: focusOffset,
-                endNodeOffset: anchorOffset,
-            };
-        }
-    }
-
-    /**
-     * Gets the range of a selection, returning an array of the form
-     * [selectionStartIndex, selectionEndIndex] where selectionStartIndex is the
-     * the index of the first word in the selection, with respect to the passage
-     * as a whole. Note that we are counting the indices in words and not
-     * characters.
-     */
-    getSelectionRange(selection: Selection): ?Range {
-        const selectionOrderObject = this.sortIndices(selection);
-        let {selectionStartIndex, selectionEndIndex} = selectionOrderObject;
-        const {startNode, endNode, startNodeOffset, endNodeOffset} =
-            selectionOrderObject;
-
-        if (
-            selectionStartIndex == null ||
-            selectionEndIndex == null ||
-            startNode == null ||
-            endNode == null
-        ) {
-            return null;
-        }
-
-        // Prevents selecting a space from highlighting both surrounding words.
-        // Using selection.toString() would be preferable but it is buggy in
-        // Chrome (08/2016). When selecting the last char of a line it adds a
-        // space.
-        if (startNode.textContent.charAt(startNodeOffset) === " " &&
-                selectionEndIndex > selectionStartIndex) {
-            selectionStartIndex += 1;
-        }
-        if (endNode.textContent.charAt(endNodeOffset - 1) === " " &&
-                selectionEndIndex > selectionStartIndex) {
-            selectionEndIndex -= 1;
-        }
-
-        return [selectionStartIndex, selectionEndIndex];
-    }
-
-    isInPassageText(node: Node): boolean {
-        let ancestor = node;
-        while (ancestor) {
-            if (ancestor.classList &&
-                    (ancestor.classList: any).contains("passage-text")) {
-
-                // Traverse up the tree to find first element. This is needed as
-                // Node.contains(otherNode) only works in IE if otherNode is an
-                // element.
-                let element = node;
-                while (element.nodeType !== 1) {
-                    element = node.parentNode;
-                }
-                return ancestor.contains(element);
-            }
-            ancestor = ancestor.parentNode;
-        }
-        return false;
-    }
-
-    /**
-     * Returns the index of either the anchor word or the focus word in the
-     * current selection.
-     */
-    getSelectionIndex(
-        selection: Selection,
-        nodeType: "anchor" | "focus"
-    ): ?number {
-        let node = null;
-        let offset = 0;
-
-        const punctuation = ".?;:!,\'\"";
-
-        if (nodeType === "anchor") {
-            node = selection.anchorNode;
-            offset = selection.anchorOffset;
-        } else {
-            node = selection.focusNode;
-            offset = selection.focusOffset;
-        }
-
-        if (!node || !this.isInPassageText(node)) {
-            return null;
-        }
-
-        let selectionNodeText = node.textContent;
-
-        // Would prefer to use string.prototype.includes but it's not in IE 10.
-        if (punctuation.indexOf(selectionNodeText.charAt(0)) !== -1) {
-            selectionNodeText = selectionNodeText.slice(1);
-        }
-
-        let index = this.charToWordOffset(offset, selectionNodeText);
-
-        let priorText = "";
-        let nodeText = "";
-        while (
-            node &&
-            !(node.classList &&
-              (node.classList: any).contains("passage-text"))
-        ) {
-            while (node.previousSibling) {
-                node = node.previousSibling;
-                nodeText = node.textContent;
-
-                let spacer = "";
-                const lastChar = nodeText.charAt(nodeText.length - 1);
-                const newSentence = (punctuation.indexOf(lastChar) !== -1) ||
-                    (!node.nextSibling) ||
-                    (lastChar === "_" &&
-                     node.nextSibling.textContent.charAt(0).match(/[\w ]/));
-
-                // HACK: Add space when nodes split at end of sentence. This
-                // stops two words from successive paragraphs merging together.
-                // Assumes paragraphs end with punctuation.
-                if (newSentence && priorText.length > 0) {
-                    spacer = " ";
-                }
-                priorText = nodeText + spacer + priorText;
-            }
-            node = node.parentNode;
-        }
-        // TODO (davidpowell): Rewrite this so that the number of prior words is
-        // calculated in one go. (As opposed to one call to charToWordOffset
-        // with the current node and another to wordsInSection with the combined
-        // text of all the previous nodes). There will be some non-trivial edge
-        // cases to consider (see other TODOs and HACKs).
-        index += this.wordsInSection(priorText);
-
-        // This subtracts one from the index if the end of the last node in
-        // priorText is the first word in a hyphenated pair. This is to stop
-        // them being double counted (in the offset index and the priorText
-        // index). A hyphenated pair is counted as one word when adding the
-        // highlight.
-        if ((priorText.charAt(priorText.length - 1) === "_" &&
-                !selectionNodeText.charAt(0).match(/[\w ]/))) {
-            index -= 1;
-        }
-
-        return index;
-    }
-
-    /**
-     * Given the index of a character within a block of text, return the index
-     * of the corresponding word.
-     */
-    charToWordOffset(offset: number, nodeText: string): number {
-        // Move the offset back to the previous space to exclude partial words.
-        while (offset > 0 && nodeText.charAt(offset - 1) !== " ") {
-            offset -= 1;
-        }
-        const beforeSelection = nodeText.substring(0, offset);
-        let wordOffset = this.wordsInSection(beforeSelection);
-
-        // HACK: Special case for if a selection starts on a space at the
-        // beginning of a node. This most frequently occurs when a user tries to
-        // start a highlight on the space after an existing highlight. This hack
-        // is neccessary due to the handling of spaces being stopped from
-        // highlighting the surrounding words in getSelectionRange not taking
-        // into account if it is the start of a new node.
-        if (nodeText.charAt(0) === " " && offset === 0) {
-            wordOffset -= 1;
-        }
-        return wordOffset;
-    }
-
-    /**
-     * Handle the current selection for highlighting purposes.
-     */
-    handleConfirmHighlightClick = () => {
-        if (!this.state.newHighlightRange) {
-            return;
-        }
-
-        this.addHighlightRange(this.state.newHighlightRange);
-        this.setState({newHighlightRange: null});
-        // Collapse selection after adding highlight to keep behaviour
-        // consistent. Without this, the selection sometimes changes to the
-        // already existing highlight when merging selections.
-        const selection = window.getSelection();
-        selection.collapse(selection.anchorNode, selection.anchorOffset);
-    }
-
-    /**
-     * Finds if there is already an exisiting highlight range that completely
-     * contains the current selected range and returns that existing range.
-     */
-    isHighlighted(selectedRange: Range): ?Range {
-        const currentHighlightRanges = this.props.highlightRanges;
-        for (const range of currentHighlightRanges) {
-            if (selectedRange[0] >= range[0] && selectedRange[1] <= range[1]) {
-                return range;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Resets newHighlightRange and selectedHighlightRange to null. This
-     * has the effect of dismissing any open tooltips when a user clicks
-     * elsewhere on the page.
-     */
-    handleMouseDown = (e: Event) => {
-        if (
-            !(e.target instanceof Element) ||
-            !e.target.getAttribute("data-highlighting-tooltip")
-        ) {
-            this.setState({
-                newHighlightRange: null,
-                selectedHighlightRange: null,
-            });
-        }
-    }
-
-    /**
-     * Handles all mouse up events on passage-widget-passage-container. There
-     * are 2 cases we care about here (in the order they are below):
-     * 1) A user has selected an existing highlight which they will then be
-     *    prompted to confirm that they wish to remove.
-     * 2) A user has made a new selection which they will then be prompted to
-     *    add as a new highlight.
-     */
-    handleMouseUp = (e: MouseEvent) => {
-        const isHighlightTooltipShown = this.state.newHighlightRange ||
-                                        this.state.selectedHighlightRange;
-        if (this.canUpdateHighlightingVersion1() && !isHighlightTooltipShown) {
-            // HACK - the height of the sat task title bar is 60px - subtracting
-            // this in order to position the tooltip in the correct position on
-            // the page. We can't use relative position of the passage as that
-            // requires putting the tooltip inside the passage which sometimes
-            // cuts off the edge.
-            this.setState({
-                mouseX: e.clientX,
-                mouseY: e.clientY - 60,
-            });
-            const selection = window.getSelection();
-            const selectionRange = this.getSelectionRange(selection);
-            if (selectionRange) {
-                const selectedHighlightRange =
-                    this.isHighlighted(selectionRange);
-
-                if (selectedHighlightRange) {
-                    this.setState({
-                        newHighlightRange: null,
-                        selectedHighlightRange: selectedHighlightRange,
-                    });
-                } else if (
-                    selection.toString() !== " " &&
-                    !selection.isCollapsed
-                ) {
-                    this.setState({
-                        newHighlightRange: selectionRange,
-                        selectedHighlightRange: null,
-                    });
-                }
-            }
-        }
-    }
-
-    /**
-     * Removes the currently-selected highlight region.
-     */
-    handleRemoveHighlightClick = () => {
-        if (!this.state.selectedHighlightRange) {
-            return;
-        }
-
-        const selectedHighlightRange = this.state.selectedHighlightRange;
-        const passageIndex = this.props.highlightRanges.findIndex(
-            (r) => r[0] === selectedHighlightRange[0] &&
-                   r[1] === selectedHighlightRange[1]);
-        const newHighlightRanges = [...this.props.highlightRanges];
-        newHighlightRanges.splice(passageIndex, 1);
-
-        this.setState({
-            selectedHighlightRange: null,
-        });
-
-        this.props.onChange({highlightRanges: newHighlightRanges});
-    }
-
-    /**
-     * Splits the rawContent into an array of words
-     */
-    stringToArrayOfWords(rawContent: string): string[] {
-        // First, we break rawContent apart into word-sized fragments. We
-        // need to be able to reassemble it later though, so we can't just
-        // blindly split on all whitespace characters! Instead, we split
-        // only on spaces, then manually split up those text fragments if
-        // they contain a non-space-whitespace character (e.g. a newline).
-        const words = rawContent.split(" ");
-        const nestedFragments = words.map(function(fragment) {
-            const whitespaceMatch = fragment.match(/\s+/);
-            if (whitespaceMatch) {
-                const whitespaceLastIndex = (
-                    // $FlowFixMe: matches have a numeric "index" property.
-                    whitespaceMatch.index +
-                    whitespaceMatch[0].length);
-                return [
-                    fragment.slice(0, whitespaceLastIndex),
-                    fragment.slice(whitespaceLastIndex),
-                ];
-            } else {
-                return [fragment];
-            }
-        });
-        // Flatten array (since it now contains nested fragments), and drop
-        // any empty fragments (which might result from multiple
-        // back-to-back spaces, which markdown will ignore anyway).
-        const fragments = [].concat(...nestedFragments);
-        return fragments.filter(fragment => fragment !== "");
-    }
-
-    /**
-     * Adjusts index of highlight to account for stray markdown or whitespace in
-     * the rawContents of the page.
-     */
-    adjustIndexforMarkdownAndWhitespace(
-        index: number,
-        textArray: string[]
-    ): number {
-        // Ensure we don't index outside the bounds of the textArray
-        const stopIter = Math.min(textArray.length - 1, index);
-        for (let i = 0; i <= stopIter; i++) {
-            const match = textArray[i].match(/^\s+$/) || [
-                "{highlighting.end}{highlighting.start}",
-                "{highlighting.end}",
-                "{highlighting.start}",
-            ].includes(textArray[i]);
-            if (match) {
-                index++;
-            }
-        }
-        return index;
-    }
-
-    renderAddHighlightTooltip(): ?React.Element<any> {
-        if (!this.state.mouseX || !this.state.mouseY) {
-            return null;
-        }
-
-        const positionX = `${this.state.mouseX}px`;
-        const positionY = `${this.state.mouseY}px`;
-        return <span
-            onClick={this.handleConfirmHighlightClick}
-            style={{position:'absolute', left: positionX, top: positionY}}
-        >
-            <img
-                data-highlighting-tooltip={true}
-                width="130"
-                height="44"
-                style={{
-                    position: 'absolute',
-                    top: "-54px",
-                    left: "-65px",
-                }}
-                src='/images/perseus/add-highlight.svg'
-            />
-        </span>;
-    }
-
-    renderRemoveHighlightTooltip(): ?React.Element<any> {
-        if (!this.state.mouseX || !this.state.mouseY) {
-            return null;
-        }
-
-        const positionX = `${this.state.mouseX}px`;
-        const positionY = `${this.state.mouseY}px`;
-        return <span
-            onClick={this.handleRemoveHighlightClick}
-            style={{position:'absolute', left: positionX, top: positionY}}
-        >
-            <img
-                data-highlighting-tooltip={true}
-                width="163"
-                height="44"
-                style={{
-                    position: 'absolute',
-                    top: '-54px',
-                    left: '-81px',
-                }}
-                src='/images/perseus/remove-highlight.svg'
-            />
-        </span>;
     }
 
     _handleSerializedHighlightsUpdate = (
@@ -943,6 +349,7 @@ class Passage extends React.Component {
         return Passage.validate(this.getUserInput(), rubric);
     }
 
+    /* eslint-disable react/sort-comp */
     static validate(state, rubric) {
         return {
             type: "points",
@@ -951,6 +358,7 @@ class Passage extends React.Component {
             message: null,
         };
     }
+    /* eslint-enable react/sort-comp */
 
     /**
      * Rendering
@@ -989,17 +397,15 @@ class Passage extends React.Component {
     }
 
     _renderContent(parsed): React.Element<any> {
-        // If Highlighting Version 2 is enabled, set the enabled flag to true.
-        // Otherwise, set the enabled flag to false, in which case the
-        // HighlightableContent component won't actually apply highlighting.
-        //
-        // Additionally, wait until Aphrodite styles are applied before
-        // enabling highlights, so that we measure the correct positions.
-        const enabled = this.supportsHighlightingVersion2() &&
-            this.state.stylesAreApplied;
+        // Wait until Aphrodite styles are applied before enabling highlights,
+        // so that we measure the correct positions.
+        const enabled = this.state.stylesAreApplied;
+
+        // Highlights are read-only in review mode.
+        const editable = !this.props.reviewModeRubric;
 
         return <HighlightableContent
-            editable={this.canUpdateHighlightingVersion2()}
+            editable={editable}
             enabled={enabled}
             onSerializedHighlightsUpdate={
                 this._handleSerializedHighlightsUpdate}
@@ -1049,92 +455,18 @@ class Passage extends React.Component {
             });
         }
 
-        let highlightStartText = "{highlighting.start}";
-        let highlightEndText = "{highlighting.end}";
-
-        if (this.props.reviewModeRubric) {
-            highlightStartText = "{review-highlighting.start}";
-            highlightEndText = "{review-highlighting.end}";
-        }
-
-        let rawContent = this.props.passageText;
-        if (this.supportsHighlightingVersion1()) {
-            // For each highlighted passage, we (ephemerally) inject highlight
-            // markdown into the rawContent.
-            _.each(this.props.highlightRanges, function(highlightRange) {
-                rawContent = rawContent.replace(/\n +\n/g, "\n\n");
-                rawContent = rawContent.replace(/\r\n +\r\n/g, "\r\n\r\n");
-                const textArray = this.stringToArrayOfWords(rawContent);
-                const rangeStartIndex =
-                    this.adjustIndexforMarkdownAndWhitespace(
-                        highlightRange[0], textArray);
-                const rangeEndIndex =
-                    this.adjustIndexforMarkdownAndWhitespace(
-                        highlightRange[1], textArray);
-
-                // Reassemble rawContent, with highlighter markdown included.
-                // Two big gotchas here:
-                // 1. Markdown does not support partially-overlapping markdown
-                // ranges, because it all needs to distill down into HTML
-                // (which is non-partially-overlapping). So we have to surround
-                // *each* individual word/space with its own highlighter
-                // markdown. The end result looks like a
-                // continuously-highlighted range though!
-                // 2. The fragments may contain other markdown text, so we need
-                // to define "word" carefully, so that *only* visible text is
-                // surrounded with highlighting markdown, while markdown text
-                // is ignored.
-                rawContent = (
-                    textArray.slice(0, rangeStartIndex).join(" ") + " " +
-                    textArray
-                        .slice(rangeStartIndex, rangeEndIndex + 1)
-                        .map(function(fragment) {
-                            // This fragment should contain all user-visible
-                            // characters, and no markdown characters!
-                            // TODO (davidpowell/mdr): Change regex to
-                            // blacklist markdown as oppose to whitelisting
-                            // certain characters.
-                            /* eslint-disable */
-                            const textRegex = new RegExp(
-                                "[\\(\\)\\—\\-\\—\\-\\‑\\.\
-                                \\[\\]\\+\\$\\?,!A-Za-z0-9\
-                                \u00C0-\u017F:;'‘’\"“”=%<>\s]+");
-                            /* eslint-enabled */
-                            const highlightableMatch =
-                                fragment.match(textRegex);
-                            if (highlightableMatch) {
-                                const matchStart = highlightableMatch.index;
-                                const matchEnd =
-                                    matchStart + highlightableMatch[0].length;
-                                return (fragment.slice(0, matchStart) +
-                                        highlightStartText +
-                                        fragment.slice(matchStart, matchEnd) +
-                                        highlightEndText +
-                                        fragment.slice(matchEnd));
-                            } else {
-                                return fragment;
-                            }
-                        })
-                        .join(highlightStartText + " " + highlightEndText) +
-                    " " +
-                    textArray.slice(rangeEndIndex + 1).join(" "));
-            }, this);
-        }
-
         const parseState: PassageParseState = {
             firstSentenceRef: null,
             firstQuestionRef: null,
         };
-        const parsedContent = PassageMarkdown.parse(rawContent, parseState);
+        const parsedContent =
+            PassageMarkdown.parse(this.props.passageText, parseState);
 
         // Check if the title has any non-empty text in it.
         const hasTitle = /\S/.test(this.props.passageTitle);
 
         return <div>
-            <div
-                onMouseUp={this.handleMouseUp}
-                className="perseus-widget-passage-container"
-            >
+            <div className="perseus-widget-passage-container">
                 {this._renderInstructions(parseState)}
                 <div className="perseus-widget-passage">
                     {hasTitle && <h3 className="passage-title">
@@ -1157,16 +489,13 @@ class Passage extends React.Component {
                         </h4>,
                         <div key="footnotes" className="footnotes">
                             {this._renderFootnotes()}
-                        </div>
+                        </div>,
                     ]}
                     <div className="perseus-sr-only">
                         {i18n._("End of reading passage.")}
                     </div>
                 </div>
             </div>
-            {this.state.newHighlightRange && this.renderAddHighlightTooltip()}
-            {this.state.selectedHighlightRange &&
-                this.renderRemoveHighlightTooltip()}
         </div>;
     }
 }
