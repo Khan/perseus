@@ -71,7 +71,6 @@ const ChoicesType = React.PropTypes.arrayOf(React.PropTypes.shape({
 }));
 
 const radioBorderColor = styleConstants.radioBorderColor;
-const checkedColor = styleConstants.checkedColor;
 
 const BaseRadio = React.createClass({
     propTypes: {
@@ -81,7 +80,6 @@ const BaseRadio = React.createClass({
             isMobile: React.PropTypes.bool,
             styling: React.PropTypes.shape({
                 radioStyleVersion: React.PropTypes.oneOf([
-                    "legacy",
                     "intermediate",
                     "final",
                 ]),
@@ -112,14 +110,6 @@ const BaseRadio = React.createClass({
                 marginBottom: 16,
             },
 
-            legacyInstructions: {
-                display: "block",
-                color: styleConstants.gray17,
-                fontStyle: "normal",
-                fontWeight: "bold",
-                margin: "8px 0",
-            },
-
             radio: {
                 // Avoid centering
                 width: "100%",
@@ -133,10 +123,6 @@ const BaseRadio = React.createClass({
                     marginLeft: styleConstants.negativePhoneMargin,
                     marginRight: styleConstants.negativePhoneMargin,
                 },
-            },
-
-            legacyResponsiveMobileRadioContainer: {
-                width: "auto",
             },
 
             satRadio: {
@@ -173,36 +159,6 @@ const BaseRadio = React.createClass({
                 ":not(:last-child)": {
                     borderBottom: `1px solid ${radioBorderColor}`,
                 },
-            },
-
-            legacyResponsiveItem: {
-                ":active": {
-                    backgroundColor: styleConstants.grayLight,
-                },
-            },
-
-            legacyResponsiveMobileItem: {
-                backgroundColor: '#FFFFFF',
-
-                border: `1px solid ${radioBorderColor}`,
-                borderRadius: "4px",
-                margin: 0,
-                minHeight: 48,
-                padding: 1,
-
-                ":active": {
-                    border: `2px solid ${radioBorderColor}`,
-                    padding: 0,
-                },
-
-                ":not(:last-child)": {
-                    marginBottom: "16px",
-                },
-            },
-
-            legacyResponsiveSelected: {
-                border: `2px solid ${checkedColor}`,
-                padding: 0,
             },
 
             responsiveContainer: {
@@ -264,30 +220,16 @@ const BaseRadio = React.createClass({
     },
 
     getInstructionsText: function() {
-        const {radioStyleVersion} = this.props.apiOptions.styling;
-
-        if (radioStyleVersion === "intermediate") {
-            return this.props.multipleSelect ?
-                i18n._("Choose all answers that apply:") :
-                i18n._("Choose 1 answer:");
-        } else {
-            if (this.props.apiOptions.isMobile) {
-                if (this.props.countChoices) {
-                    return i18n._("Choose %(numCorrect)s answers.",
-                        { numCorrect: this.props.numCorrect });
-                }
-                return this.props.multipleSelect ?
-                    i18n._("Choose all answers that apply:") :
-                    i18n._("Choose 1 answer:");
+        if (this.props.multipleSelect) {
+            if (this.props.countChoices) {
+                return i18n._(
+                    "Choose %(numCorrect)s answers:",
+                    {numCorrect: this.props.numCorrect});
             } else {
-                if (this.props.countChoices) {
-                    return i18n._("Select %(numCorrect)s of the following.",
-                        { numCorrect: this.props.numCorrect });
-                }
-                return this.props.multipleSelect ?
-                    i18n._("Select all that apply.") :
-                    i18n._("Please choose from one of the following options.");
+                return i18n._("Choose all answers that apply:");
             }
+        } else {
+            return i18n._("Choose 1 answer:");
         }
     },
 
@@ -303,13 +245,6 @@ const BaseRadio = React.createClass({
         const styles = BaseRadio.styles;
         const sat = this.props.apiOptions.satStyling;
 
-        const {radioStyleVersion} = this.props.apiOptions.styling;
-        const legacyStyles = radioStyleVersion == null
-            ? true
-            : radioStyleVersion === "legacy";
-
-        const isMobile = this.props.apiOptions.isMobile;
-
         const className = classNames(
             "perseus-widget-radio",
             !this.props.editMode && "perseus-rendered-radio",
@@ -318,32 +253,20 @@ const BaseRadio = React.createClass({
                 // With the responsive mobile styles, the individual items are
                 // spaced out vertically, and so we set the backgrounds on the
                 // items rather than the container.
-                legacyStyles && !isMobile && sharedStyles.blankBackground,
                 styles.radio,
                 // SAT doesn't use the "responsive styling" as it conflicts
                 // with their custom theming.
-                !legacyStyles && !sat && styles.responsiveRadioContainer,
-                legacyStyles && !sat && (isMobile
-                     ? styles.legacyResponsiveMobileRadioContainer
-                     : styles.responsiveRadioContainer),
+                !sat && styles.responsiveRadioContainer,
                 sat && styles.satRadio
             )
         );
 
         const instructionsClassName = classNames(
             'instructions',
-            css(
-                !legacyStyles && styles.instructions,
-                legacyStyles && styles.legacyInstructions,
-                legacyStyles && sharedStyles.responsiveLabel
-            )
+            css(styles.instructions)
         );
         const instructions = this.getInstructionsText();
-        const shouldShowInstructions = legacyStyles
-            // Show instructions on mobile and multi-select in legacy styles
-            ? isMobile || this.props.multipleSelect
-            // Always show instructions in intermediate styles
-            : true;
+        const shouldShowInstructions = !sat;
 
         const responsiveClassName = css(styles.responsiveFieldset);
         const fieldset = <fieldset
@@ -391,17 +314,7 @@ const BaseRadio = React.createClass({
                     const aphroditeClassName = (checked) => {
                         return css(
                             styles.item,
-
-                            !legacyStyles && !sat && styles.responsiveItem,
-                            !sat && legacyStyles && isMobile &&
-                                styles.legacyResponsiveMobileItem,
-                            !sat && legacyStyles && !isMobile &&
-                                styles.responsiveItem,
-                            !sat && legacyStyles && !isMobile &&
-                                styles.legacyResponsiveItem,
-                            legacyStyles && checked && isMobile &&
-                                styles.legacyResponsiveSelected,
-
+                            !sat && styles.responsiveItem,
                             sat && styles.satRadioOption,
                             sat && checked && styles.satRadioSelected,
                             sat && rubric && styles.satReviewRadioOption

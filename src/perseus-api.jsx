@@ -122,7 +122,7 @@ module.exports = {
                 //
                 // "legacy" was the version of the widget display after XOM but
                 // before we started adding MCR styles. It doesn't have support
-                // for rationales.
+                // for rationales. It has since been removed.
                 //
                 // "intermediate" is a design which adds several new additions
                 // to the "legacy" styles such as:
@@ -149,7 +149,6 @@ module.exports = {
                 //   callsites should have been switched to using the "final"
                 //   designs.
                 radioStyleVersion: React.PropTypes.oneOf([
-                    "legacy",
                     "intermediate",
                     "final",
                 ]),
@@ -179,7 +178,7 @@ module.exports = {
             setDrawingAreaAvailable: function() { },
             useDraftEditor: true,
             styling: {
-                radioStyleVersion: "legacy",
+                radioStyleVersion: "intermediate",
             },
         },
     },

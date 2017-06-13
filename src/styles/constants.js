@@ -101,7 +101,6 @@ module.exports = {
         defaultBoxSizeSmall: 288,
     },
 
-    legacyCircleSize: 20,
     circleSize: 24,
     radioMarginWidth: 2,
 };
