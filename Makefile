@@ -180,8 +180,13 @@ clean:
 lint:
 	ka-lint
 
+ifeq ("$(MATCH_TESTS)","")
 FIND_TESTS_1 := find -E src -type f -regex '.*/__tests__/.*\.jsx?'
 FIND_TESTS_2 := find src -type f -regex '.*/__tests__/.*\.jsx?'
+else
+FIND_TESTS_1 := find -E src -type f -regex '.*/__tests__/$(MATCH_TESTS)?'
+FIND_TESTS_2 := find src -type f -regex '.*/__tests__/$(MATCH_TESTS)?'
+endif
 
 ifneq ("$(shell $(FIND_TESTS_1) 2>/dev/null)","")
 FIND_TESTS := $(FIND_TESTS_1)
