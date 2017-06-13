@@ -118,7 +118,10 @@ var RadioEditor = React.createClass({
         }, 0);
         return <div>
             <div className="perseus-widget-row">
-
+                <a href="https://docs.google.com/document/d/1frZf7yrWVWb1n4tVjqlzqVUiv1pn4cZXbxgP62-JDBY/edit#heading=h.8ng1isya19nu" target="_blank">
+                    Multiple choice style guide
+                </a>
+                <br/>
                 <div className="perseus-widget-left-col">
                     <PropCheckBox label="Multiple selections"
                                   labelAlignment="right"

@@ -273,7 +273,7 @@ const BaseRadio = React.createClass({
         } else {
             if (this.props.apiOptions.isMobile) {
                 if (this.props.countChoices) {
-                    return i18n._("Choose %(numCorrect)s of the following.",
+                    return i18n._("Choose %(numCorrect)s answers.",
                         { numCorrect: this.props.numCorrect });
                 }
                 return this.props.multipleSelect ?

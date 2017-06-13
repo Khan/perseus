@@ -45,7 +45,6 @@ const Radio = React.createClass({
     getDefaultProps: function() {
         return {
             choices: [{}],
-            numCorrect: 0,
             displayCount: null,
             multipleSelect: false,
             countChoices: false,
@@ -137,6 +136,8 @@ const Radio = React.createClass({
 
             const choiceStates = this.props.choiceStates;
             const choicesSelected = choiceStates.map(() => false);
+            const countChoices = this.props.countChoices;
+            const numCorrect = this.props.numCorrect;
 
             for (let i = 0; i < choicesSelected.length; i++) {
                 const index = this.props.choices[i].originalIndex;
@@ -152,7 +153,9 @@ const Radio = React.createClass({
             }
 
             return {
+                countChoices,
                 choicesSelected,
+                numCorrect,
                 noneOfTheAboveIndex,
                 noneOfTheAboveSelected,
             };
@@ -162,6 +165,8 @@ const Radio = React.createClass({
             let noneOfTheAboveSelected = false;
 
             const values = this.props.values.slice();
+            const countChoices = this.props.countChoices;
+            const numCorrect = this.props.numCorrect;
 
             for (let i = 0; i < this.props.values.length; i++) {
                 const index = this.props.choices[i].originalIndex;
@@ -178,6 +183,8 @@ const Radio = React.createClass({
                 choicesSelected: values,
                 noneOfTheAboveIndex,
                 noneOfTheAboveSelected,
+                countChoices,
+                numCorrect,
             };
         } else {
             // Nothing checked
@@ -303,6 +310,14 @@ _.extend(Radio, {
                 type: "invalid",
                 message: null,
             };
+        } else if (state.countChoices) {
+            if (numSelected !== state.numCorrect) {
+                return {
+                    type: "invalid",
+                    message: i18n._(
+                        "Please choose the correct number of answers."),
+                };
+            }
         // If NOTA and some other answer are checked, ...
         } else if (state.noneOfTheAboveSelected && numSelected > 1) {
             return {
