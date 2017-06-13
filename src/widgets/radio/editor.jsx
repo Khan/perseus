@@ -89,6 +89,7 @@ var RadioEditor = React.createClass({
         randomize: React.PropTypes.bool,
         hasNoneOfTheAbove: React.PropTypes.bool,
         multipleSelect: React.PropTypes.bool,
+        countChoices: React.PropTypes.bool,
 
         // TODO(kevinb): DEPRECATED: This is be used to force deselectEnabled
         // behavior on mobile but not on desktop.  When enabled, the user can
@@ -105,11 +106,16 @@ var RadioEditor = React.createClass({
             randomize: false,
             hasNoneOfTheAbove: false,
             multipleSelect: false,
+            countChoices: false,
             deselectEnabled: false,
         };
     },
 
     render: function() {
+        var numCorrect = _.reduce(this.props.choices,
+                function(memo, choice) {
+            return choice.correct ? memo + 1 : memo;
+        }, 0);
         return <div>
             <div className="perseus-widget-row">
 
@@ -125,11 +131,20 @@ var RadioEditor = React.createClass({
                                   randomize={this.props.randomize}
                                   onChange={this.props.onChange} />
                 </div>
+                {this.props.multipleSelect &&
+                <div className="perseus-widget-left-col">
+                    <PropCheckBox label="Specify number correct"
+                                  labelAlignment="right"
+                                  countChoices={this.props.countChoices}
+                                  onChange={this.onCountChoicesChange} />
+                </div>}
             </div>
 
             <BaseRadio
                 ref="baseRadio"
                 multipleSelect={this.props.multipleSelect}
+                countChoices={this.props.countChoices}
+                numCorrect={numCorrect}
                 editMode={true}
                 labelWrap={false}
                 apiOptions={this.props.apiOptions}
@@ -188,12 +203,12 @@ var RadioEditor = React.createClass({
     onMultipleSelectChange: function(allowMultiple) {
         allowMultiple = allowMultiple.multipleSelect;
 
-        var numSelected = _.reduce(this.props.choices,
+        var numCorrect = _.reduce(this.props.choices,
                 function(memo, choice) {
             return choice.correct ? memo + 1 : memo;
         }, 0);
 
-        if (!allowMultiple && numSelected > 1) {
+        if (!allowMultiple && numCorrect > 1) {
             var choices = _.map(this.props.choices, function(choice) {
                 return _.defaults({
                     correct: false
@@ -211,6 +226,11 @@ var RadioEditor = React.createClass({
         }
     },
 
+    onCountChoicesChange: function(count) {
+        count = count.countChoices;
+        this.props.onChange({countChoices: count});
+    },
+
     onCheckedChange: function(checked) {
         var choices = _.map(this.props.choices, (choice, i) => {
             return _.extend({}, choice, {
@@ -219,6 +239,7 @@ var RadioEditor = React.createClass({
                         '' : choice.content,
             });
         });
+
         this.props.onChange({choices: choices});
     },
 
@@ -291,8 +312,9 @@ var RadioEditor = React.createClass({
     },
 
     serialize: function() {
-        return _.pick(this.props, "choices", "randomize", "multipleSelect",
-            "displayCount", "hasNoneOfTheAbove", "deselectEnabled");
+        return _.pick(this.props, "choices", "randomize",
+            "multipleSelect", "countChoices", "displayCount",
+            "hasNoneOfTheAbove", "deselectEnabled");
     }
 });
 

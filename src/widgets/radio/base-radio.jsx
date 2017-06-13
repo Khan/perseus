@@ -91,6 +91,8 @@ const BaseRadio = React.createClass({
         deselectEnabled: React.PropTypes.bool,
         editMode: React.PropTypes.bool,
         labelWrap: React.PropTypes.bool,
+        countChoices: React.PropTypes.bool,
+        numCorrect: React.PropTypes.number,
         multipleSelect: React.PropTypes.bool,
         onCheckedChange: React.PropTypes.func,
         reviewModeRubric: React.PropTypes.shape({
@@ -270,10 +272,18 @@ const BaseRadio = React.createClass({
                 i18n._("Choose 1 answer:");
         } else {
             if (this.props.apiOptions.isMobile) {
+                if (this.props.countChoices) {
+                    return i18n._("Choose %(numCorrect)s of the following.",
+                        { numCorrect: this.props.numCorrect });
+                }
                 return this.props.multipleSelect ?
                     i18n._("Choose all answers that apply:") :
                     i18n._("Choose 1 answer:");
             } else {
+                if (this.props.countChoices) {
+                    return i18n._("Select %(numCorrect)s of the following.",
+                        { numCorrect: this.props.numCorrect });
+                }
                 return this.props.multipleSelect ?
                     i18n._("Select all that apply.") :
                     i18n._("Please choose from one of the following options.");

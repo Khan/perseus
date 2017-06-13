@@ -44,21 +44,31 @@ var _choiceTransform = (editorProps, problemNum) => {
 var radioTransform = (editorProps, problemNum) => {
     var choices = _.map(_choiceTransform(editorProps, problemNum),
         (choice) => _.omit(choice, 'correct'));
-
-    editorProps = _.extend({}, editorProps, { choices: choices });
-    return _.pick(editorProps, "choices", "hasNoneOfTheAbove",
-        "multipleSelect", "correctAnswer", "deselectEnabled");
+    var numCorrect = _.reduce(editorProps.choices,
+            function(memo, choice) {
+                return choice.correct ? memo + 1 : memo;
+            }, 0);
+    editorProps = _.extend({}, editorProps, {
+        choices: choices,
+        numCorrect: numCorrect,
+    });
+    return _.pick(editorProps, "choices", "numCorrect", "hasNoneOfTheAbove",
+        "multipleSelect", "correctAnswer", "deselectEnabled", "countChoices");
 };
 
 var staticTransform = (editorProps, problemNum) => {
     var choices = _choiceTransform(editorProps, problemNum);
     // The correct answers are the selected values in the rendered widget
     var selectedChoices = _.pluck(choices, "correct");
-
-    var selectedProps = _.pick(editorProps, "hasNoneOfTheAbove",
-        "multipleSelect", "correctAnswer", "deselectEnabled");
+    var numCorrect = _.reduce(editorProps.choices,
+            function(memo, choice) {
+                return choice.correct ? memo + 1 : memo;
+            }, 0);
+    var selectedProps = _.pick(editorProps, "numCorrect", "hasNoneOfTheAbove",
+        "multipleSelect", "correctAnswer", "deselectEnabled", "countChoices");
     var staticProps = _.extend({}, selectedProps, {
         choices: choices,
+        numCorrect: numCorrect,
         values: selectedChoices,
     });
     return staticProps;

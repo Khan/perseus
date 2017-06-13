@@ -27,6 +27,8 @@ const Radio = React.createClass({
         displayCount: React.PropTypes.any,
         findWidgets: React.PropTypes.func,
         multipleSelect: React.PropTypes.bool,
+        countChoices: React.PropTypes.bool,
+        numCorrect: React.PropTypes.number,
         onChange: React.PropTypes.func.isRequired,
 
         questionCompleted: React.PropTypes.bool,
@@ -43,8 +45,10 @@ const Radio = React.createClass({
     getDefaultProps: function() {
         return {
             choices: [{}],
+            numCorrect: 0,
             displayCount: null,
             multipleSelect: false,
+            countChoices: false,
             deselectEnabled: false,
         };
     },
@@ -265,6 +269,8 @@ const Radio = React.createClass({
             ref="baseRadio"
             labelWrap={true}
             multipleSelect={this.props.multipleSelect}
+            countChoices={this.props.countChoices}
+            numCorrect={this.props.numCorrect}
             choices={choices}
             onCheckedChange={this.onCheckedChange}
             reviewModeRubric={this.props.reviewModeRubric}
