@@ -524,13 +524,15 @@ var Renderer = React.createClass({
 
     /**
      * Tell each of the radio widgets to show rationales for each of the
-     * currently selected choices inside of them.
+     * currently selected choices inside of them. If the widget is correct, it
+     * shows rationales for all of the choices.
      */
     showRationalesForCurrentlySelectedChoices() {
         Object.keys(this.props.widgets).forEach(widgetId => {
             const widget = this.getWidgetInstance(widgetId);
             if (widget && widget.showRationalesForCurrentlySelectedChoices) {
-                widget.showRationalesForCurrentlySelectedChoices();
+                widget.showRationalesForCurrentlySelectedChoices(
+                    this._getWidgetInfo(widgetId).options);
             }
         });
     },

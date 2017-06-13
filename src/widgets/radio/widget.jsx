@@ -205,11 +205,23 @@ const Radio = React.createClass({
      * this leaves rationales on for choices that are already showing
      * rationales.
      */
-    showRationalesForCurrentlySelectedChoices() {
+    showRationalesForCurrentlySelectedChoices(rubric) {
         if (this.props.choiceStates) {
+            const score = this.simpleValidate(rubric);
+            const widgetCorrect =
+                score.type === "points" &&
+                score.total === score.earned;
+
             const newStates = this.props.choiceStates.map(state => ({
                 ...state,
-                rationaleShown: state.selected || state.rationaleShown,
+                rationaleShown: (
+                    // If the choice is selected, show the rationale now
+                    state.selected ||
+                    // If the choice already had a rationale, keep it shown
+                    state.rationaleShown ||
+                    // If the widget is correctly answered, show the rationale
+                    // for all the choices
+                    widgetCorrect),
             }));
 
             this.props.onChange(
