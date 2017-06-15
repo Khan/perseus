@@ -301,7 +301,9 @@ const BaseRadio = React.createClass({
                         correct: choice.correct,
                         rationale: choice.rationale,
                         content: choice.content,
-                        disabled: this.props.apiOptions.readOnly,
+                        disabled: (
+                            this.props.apiOptions.readOnly ||
+                            choice.disabled),
                         editMode: this.props.editMode,
                         groupName: this.state.radioGroupName,
                         isLastChoice: i === this.props.choices.length - 1,

@@ -40,6 +40,7 @@ const Radio = React.createClass({
             selected: React.PropTypes.bool,
             rationaleShown: React.PropTypes.bool,
             correctnessShown: React.PropTypes.bool,
+            readOnly: React.PropTypes.bool,
         }).isRequired),
     },
 
@@ -121,6 +122,7 @@ const Radio = React.createClass({
                     selected: checked[i],
                     rationaleShown: false,
                     correctnessShown: false,
+                    readOnly: false,
                 })),
             });
         }
@@ -231,6 +233,10 @@ const Radio = React.createClass({
                     // If the widget is correctly answered, show the rationale
                     // for all the choices
                     widgetCorrect),
+                // We use the same behavior for the readOnly flag as for
+                // rationaleShown, but we keep it separate in case other
+                // behaviors want to disable choices without showing rationales.
+                readOnly: state.selected || state.readOnly || widgetCorrect,
                 correctnessShown: state.selected || state.correctnessShown,
             }));
 
@@ -240,6 +246,26 @@ const Radio = React.createClass({
                 },
                 null, // cb
                 true, // silent
+            );
+        }
+    },
+
+    /**
+     * Deselects any currently-selected choices that are not correct choices.
+     */
+    deselectIncorrectSelectedChoices() {
+        if (this.props.choiceStates) {
+            const newStates = this.props.choiceStates.map((state, i) => ({
+                ...state,
+                selected: state.selected && !!this.props.choices[i].correct,
+            }));
+
+            this.props.onChange(
+                {
+                    choiceStates: newStates,
+                },
+                null, // cb
+                false, // silent
             );
         }
     },
@@ -274,12 +300,14 @@ const Radio = React.createClass({
                 selected,
                 rationaleShown,
                 correctnessShown,
+                readOnly,
             } = choiceStates[i];
 
             return {
                 content: this._renderRenderer(content),
                 checked: selected,
                 correct: choice.correct,
+                disabled: readOnly,
                 hasRationale: !!choice.clue,
                 rationale: this._renderRenderer(choice.clue),
                 showRationale: rationaleShown,

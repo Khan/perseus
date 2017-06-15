@@ -525,7 +525,8 @@ var Renderer = React.createClass({
     /**
      * Tell each of the radio widgets to show rationales for each of the
      * currently selected choices inside of them. If the widget is correct, it
-     * shows rationales for all of the choices.
+     * shows rationales for all of the choices. This also disables interaction
+     * with the choices that we show rationales for.
      */
     showRationalesForCurrentlySelectedChoices() {
         Object.keys(this.props.widgets).forEach(widgetId => {
@@ -533,6 +534,21 @@ var Renderer = React.createClass({
             if (widget && widget.showRationalesForCurrentlySelectedChoices) {
                 widget.showRationalesForCurrentlySelectedChoices(
                     this._getWidgetInfo(widgetId).options);
+            }
+        });
+    },
+
+    /**
+     * Tells each of the radio widgets to deselect any of the incorrect choices
+     * that are currently selected (leaving correct choices still selected).
+     */
+    deselectIncorrectSelectedChoices() {
+        // TODO(emily): this has the exact same structure as
+        // showRationalesForCurrentlySelectedChoices above. Maybe DRY this up.
+        Object.keys(this.props.widgets).forEach(widgetId => {
+            const widget = this.getWidgetInstance(widgetId);
+            if (widget && widget.deselectIncorrectSelectedChoices) {
+                widget.deselectIncorrectSelectedChoices();
             }
         });
     },

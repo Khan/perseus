@@ -430,6 +430,10 @@ const ItemRenderer = React.createClass({
         this.questionRenderer.showRationalesForCurrentlySelectedChoices();
     },
 
+    deselectIncorrectSelectedChoices() {
+        this.questionRenderer.deselectIncorrectSelectedChoices();
+    },
+
     render: function() {
         return <div />;
     },

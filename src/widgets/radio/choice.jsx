@@ -42,6 +42,7 @@ const Choice = React.createClass({
                     "final",
                 ]),
             }),
+            readOnly: React.PropTypes.bool,
         }),
         checked: React.PropTypes.bool,
         className: React.PropTypes.string,
@@ -459,7 +460,10 @@ const Choice = React.createClass({
         // disabled. However, we don't want to do this in the SAT product and
         // we also don't want to do this when we're in review mode in the
         // content library.
-        const showDimmed = !sat && !reviewMode && this.props.disabled;
+        const showDimmed =
+            !sat &&
+            !reviewMode &&
+            this.props.apiOptions.readOnly;
 
         return <LabelOrDiv
             className={className}

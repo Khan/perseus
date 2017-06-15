@@ -74,7 +74,11 @@ const RendererDemo = React.createClass({
 
     checkAnswer: function() {
         this.refs.itemRenderer.showRationalesForCurrentlySelectedChoices();
-        this.setState({answer: this.refs.itemRenderer.scoreInput()});
+        this.setState({
+            answer: this.refs.itemRenderer.scoreInput(),
+        }, () => {
+            this.refs.itemRenderer.deselectIncorrectSelectedChoices();
+        });
     },
 
     takeHint: function() {
