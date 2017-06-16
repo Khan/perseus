@@ -14,6 +14,8 @@ help:
 
 build: install
 	mkdir -p build
+	# should be fixed by khan/react-components
+	sed -i -- 's/reactify/babelify/g' node_modules/react-components/package.json
 	echo '/*! Perseus | http://github.com/Khan/perseus */' > $(PERSEUS_BUILD_JS)
 	echo "// commit `git rev-parse HEAD`" >> $(PERSEUS_BUILD_JS)
 	echo "// branch `git rev-parse --abbrev-ref HEAD`" >> $(PERSEUS_BUILD_JS)
