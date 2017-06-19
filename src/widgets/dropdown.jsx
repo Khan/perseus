@@ -28,7 +28,9 @@ var Dropdown = React.createClass({
             apiOptions: ApiOptions.defaults
         };
     },
-
+    setAnswerFromJSON: function(answerData) {
+        this.props.onChange({selected:answerData.value});
+    },
     render: function() {
         var choices = this.props.choices.slice();
 

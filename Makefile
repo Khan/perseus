@@ -9,17 +9,20 @@ PERSEUS_BUILD_CSS=build/perseus-$(API_VERSION_MAJOR).css
 help:
 	@echo "make server PORT=9000  # runs the perseus server"
 	@echo "make build             # compiles into $(PERSEUS_BUILD_JS) and $(PERSEUS_BUILD_CSS)"
+	@echo "make ke                # build symlink to khan-exercises"
 	@echo "make all               # build perseus into webapp"
 
 build: install
 	mkdir -p build
+	# should be fixed by khan/react-components
+	sed -i -- 's/reactify/babelify/g' node_modules/react-components/package.json
 	echo '/*! Perseus | http://github.com/Khan/perseus */' > $(PERSEUS_BUILD_JS)
 	echo "// commit `git rev-parse HEAD`" >> $(PERSEUS_BUILD_JS)
 	echo "// branch `git rev-parse --abbrev-ref HEAD`" >> $(PERSEUS_BUILD_JS)
 	./node_modules/.bin/browserify src/perseus.js -s Perseus -t babelify >> $(PERSEUS_BUILD_JS)
 	./node_modules/.bin/lessc stylesheets/exercise-content-package/perseus.less $(PERSEUS_BUILD_CSS)
 
-server: 
+server: ke
 	npm start
 
 demo:
@@ -61,4 +64,7 @@ build/ke.js:
 
 jest: build/ke.js
 	./node_modules/.bin/jest
+
+ke:
+	ln -s ../../khan-exercises $@
 

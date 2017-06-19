@@ -101,7 +101,7 @@ var NumberInput = React.createClass({
 
     parseInputValue: function(value) {
         if (value === "") {
-            placeholder = this.props.placeholder;
+            var placeholder = this.props.placeholder;
             return _.isFinite(placeholder) ? +placeholder : null;
         } else {
             var result = firstNumericalParse(value);

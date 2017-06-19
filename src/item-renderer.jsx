@@ -258,8 +258,13 @@ var ItemRenderer = React.createClass({
                 document.querySelector(this.props.hintsAreaSelector));
     },
 
-    showHint: function() {
-        if (this.state.hintsVisible < this.getNumHints()) {
+    showHint: function(hintNum) {
+        if( hintNum ){
+            this.setState({
+                hintsVisible: ( hintNum + 1 )
+            });
+        }
+        else if (this.state.hintsVisible < this.getNumHints()) {
             this.setState({
                 hintsVisible: this.state.hintsVisible + 1
             });
@@ -270,6 +275,22 @@ var ItemRenderer = React.createClass({
         return this.props.item.hints.length;
     },
 
+    showGuess: function(answerData) {
+        this.questionRenderer.showGuess(answerData)
+        if (answerData !== undefined && this.questionRenderer.widgetIds.length > 0) {
+            // Left answers for answer widgets only.
+            answerData = answerData[1];
+        }
+        this.answerAreaRenderer.showGuess(answerData);
+        return ;
+    },
+    canShowAllHistoryWidgets: function() {
+        var canShowAllHistoryWidgetsInAnswer = this.answerAreaRenderer.canShowAllHistoryWidgets();
+        var canShowAllHistoryWidgetsInQuestion = this.questionRenderer.canShowAllHistoryWidgets();
+        if (canShowAllHistoryWidgetsInAnswer && canShowAllHistoryWidgetsInQuestion)
+            return true;
+        return false;
+    },
     scoreInput: function() {
         var qGuessAndScore = this.questionRenderer.guessAndScore();
         var aGuessAndScore = this.answerAreaRenderer.guessAndScore();

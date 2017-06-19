@@ -343,6 +343,32 @@ var AnswerAreaRenderer = React.createClass({
         return ref.getWidget();
     },
 
+    showGuess: function(answerData) {
+        if( !answerData )
+            return;
+        if (answerData instanceof Array) {
+            // Answer area contains no widgets.
+        } else if (this.refs.widget.setAnswerFromJSON === undefined) {
+            // Target widget cannot show answer.
+            console.log("Target widget cannot show in answerarea",answerData);
+            return 'no setAnswerFromJSON implemented for widgets in answer area.';
+        } else {
+            console.log("Target widget show in answerarea")
+            // Just show the given answer.
+            this.refs.widget.setAnswerFromJSON(answerData);
+        }
+    },
+
+    canShowAllHistoryWidgets: function(answerData) {
+        if(!answerData)
+            return true;
+        if (this.refs.widget.setAnswerFromJSON === undefined) {
+            console.log('no setAnswerFromJSON implemented for widgets in answer area.');
+            return false;
+        }
+        return true;
+    },
+
     guessAndScore: function() {
         // TODO(alpert): These should probably have the same signature...
         if (this.props.type === "multiple") {
