@@ -55,7 +55,7 @@ const ExplanationEditor = React.createClass({
                     apiOptions={this.props.apiOptions}
                     content={this.props.explanation}
                     widgets={this.props.widgets}
-                    widgetEnabled={true}
+                    widgetEnabled={false}
                     immutableWidgets={false}
                     onChange={(props) => {
                         var newProps = {};
