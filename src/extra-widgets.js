@@ -20,6 +20,10 @@ module.exports = [
         __EDITOR__ && require("./widgets/explanation-editor.jsx"),
     ],
     [
+        require("./widgets/definition.jsx"),
+        __EDITOR__ && require("./widgets/definition-editor.jsx"),
+    ],
+    [
         require("./widgets/grapher.jsx"),
         __EDITOR__ && require("./widgets/grapher-editor.jsx"),
     ],
