@@ -77,7 +77,7 @@ describe("Individual lint rules tests", () => {
 
     expectWarning(
         require("../rules/heading-title-case.js"),
-        "## This Heading is in Title Case"
+        "## This Heading is in Title Case and the but nor for Too"
     );
     expectPass(require("../rules/heading-title-case.js"), [
         "## This heading is in sentence case",

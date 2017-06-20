@@ -1,9 +1,9 @@
 import Rule from "../rule.js";
 
-// These are words that we would not expect to be capitalized even in
-// a title-case heading.
-// See http://blog.apastyle.org/apastyle/2012/03/title-case-and-sentence-case-capitalization-in-apa-style.html
-const littleWords = new Set(["and", "nor", "but", "the", "for"]);
+// These are 3-letter and longer words that we would not expect to be
+// capitalized even in a title-case heading.  See
+// http://blog.apastyle.org/apastyle/2012/03/title-case-and-sentence-case-capitalization-in-apa-style.html
+const littleWords = {and: true, nor: true, but: true, the: true, for: true};
 
 function isCapitalized(word) {
     const c = word[0];
@@ -45,7 +45,9 @@ module.exports = Rule.makeRule({
 
         // Remove the first word and the little words
         words.shift();
-        words = words.filter(w => w.length > 2 && !littleWords.has(w));
+        words = words.filter(
+            w => w.length > 2 && !littleWords.hasOwnProperty(w)
+        );
 
         // If there are at least 3 remaining words and all
         // are capitalized, then the heading is in title case.
