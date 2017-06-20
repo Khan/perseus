@@ -565,10 +565,9 @@ webpackJsonpPerseus([1],[
 	            type: "invalid",
 	            message: null
 	        };
-	        var correct = rubric.choices[selected - 1].correct;
 	        return {
 	            type: "points",
-	            earned: correct ? 1 : 0,
+	            earned: rubric.choices[selected - 1].correct ? 1 : 0,
 	            total: 1,
 	            message: null
 	        };
@@ -708,7 +707,7 @@ webpackJsonpPerseus([1],[
 	            style: {
 	                fill: backgroundColor
 	            },
-	            points: "0," + arrowHeight + " " + (arrowWidth + "," + arrowHeight + " ") + (arrowWidth / 2 + ",0")
+	            points: "0," + arrowHeight + " " + arrowWidth + "," + arrowHeight + " " + arrowWidth / 2 + ",0"
 	        }))) : React.createElement("div", {
 	            className: css(styles.linkContainer)
 	        }, React.createElement(Link, {
@@ -824,7 +823,7 @@ webpackJsonpPerseus([1],[
 	        bottom: -(arrowHeight + 5),
 	        height: arrowHeight,
 	        left: "50%",
-	        marginLeft: -(arrowWidth / 2),
+	        marginLeft: -arrowWidth / 2,
 	        position: "absolute",
 	        width: arrowWidth
 	    }
@@ -1725,8 +1724,7 @@ webpackJsonpPerseus([1],[
 	    },
 	    handleNextQuestion: function handleNextQuestion() {
 	        var currentGroup = this.state.currentGroup;
-	        var numGroups = this.props.gradedGroups.length;
-	        currentGroup < numGroups - 1 && this.setState({
+	        currentGroup < this.props.gradedGroups.length - 1 && this.setState({
 	            currentGroup: currentGroup + 1
 	        });
 	    },
@@ -2701,9 +2699,7 @@ webpackJsonpPerseus([1],[
 	                // TODO(eater): Would be nice if the constraint system
 	                // were more flexible.
 	                var constraints = [ function(coord) {
-	                    var coordX = Math.max(_this2._eval(element.options.constraintXMin), Math.min(_this2._eval(element.options.constraintXMax), coord[0]));
-	                    var coordY = Math.max(_this2._eval(element.options.constraintYMin), Math.min(_this2._eval(element.options.constraintYMax), coord[1]));
-	                    return [ coordX, coordY ];
+	                    return [ Math.max(_this2._eval(element.options.constraintXMin), Math.min(_this2._eval(element.options.constraintXMax), coord[0])), Math.max(_this2._eval(element.options.constraintYMin), Math.min(_this2._eval(element.options.constraintYMax), coord[1])) ];
 	                } ];
 	                "snap" === element.options.constraint ? constraints.push(MovablePoint.constraints.snap(element.options.snap)) : "x" === element.options.constraint ? constraints.push(function(coord) {
 	                    return [ _this2._eval(element.options.constraintFn, {
@@ -2732,9 +2728,7 @@ webpackJsonpPerseus([1],[
 	                // TODO(eater): Don't duplicate this code from
 	                // movable-point above
 	                var constraints = [ function(coord) {
-	                    var coordX = Math.max(_this2._eval(element.options.constraintXMin), Math.min(_this2._eval(element.options.constraintXMax), coord[0]));
-	                    var coordY = Math.max(_this2._eval(element.options.constraintYMin), Math.min(_this2._eval(element.options.constraintYMax), coord[1]));
-	                    return [ coordX, coordY ];
+	                    return [ Math.max(_this2._eval(element.options.constraintXMin), Math.min(_this2._eval(element.options.constraintXMax), coord[0])), Math.max(_this2._eval(element.options.constraintYMin), Math.min(_this2._eval(element.options.constraintYMax), coord[1])) ];
 	                } ];
 	                "snap" === element.options.constraint ? constraints.push(MovablePoint.constraints.snap(element.options.snap)) : "x" === element.options.constraint ? constraints.push(function(coord) {
 	                    return [ _this2._eval(element.options.constraintFn, {
@@ -3447,8 +3441,7 @@ webpackJsonpPerseus([1],[
 	            });
 	            this.vertHairline.hide();
 	        }
-	        var type = this.props.graph.type;
-	        this["add" + capitalize(type) + "Controls"]();
+	        this["add" + capitalize(this.props.graph.type) + "Controls"]();
 	    },
 	    showHairlines: function showHairlines(point) {
 	        if (this.props.apiOptions.isMobile && "none" !== this.props.markings) {
@@ -3944,8 +3937,7 @@ webpackJsonpPerseus([1],[
 	                    angles[rel(j)] = Math.round(angles[rel(j)]);
 	                });
 	                var getAngle = function getAngle(a, vertex, b) {
-	                    var angle = GraphUtils.findAngle(coords[rel(a)], coords[rel(b)], coords[rel(vertex)]);
-	                    return (angle + 360) % 360;
+	                    return (GraphUtils.findAngle(coords[rel(a)], coords[rel(b)], coords[rel(vertex)]) + 360) % 360;
 	                };
 	                var innerAngles = [ angles[rel(-1)] - getAngle(-2, -1, 1), angles[rel(1)] - getAngle(-1, 1, 2) ];
 	                innerAngles[2] = 180 - (innerAngles[0] + innerAngles[1]);
@@ -4225,10 +4217,7 @@ webpackJsonpPerseus([1],[
 	        var p3 = coords[2];
 	        var denom = (p1[0] - p2[0]) * (p1[0] - p3[0]) * (p2[0] - p3[0]);
 	        if (0 === denom) return;
-	        var a = (p3[0] * (p2[1] - p1[1]) + p2[0] * (p1[1] - p3[1]) + p1[0] * (p3[1] - p2[1])) / denom;
-	        var b = (p3[0] * p3[0] * (p1[1] - p2[1]) + p2[0] * p2[0] * (p3[1] - p1[1]) + p1[0] * p1[0] * (p2[1] - p3[1])) / denom;
-	        var c = (p2[0] * p3[0] * (p2[0] - p3[0]) * p1[1] + p3[0] * p1[0] * (p3[0] - p1[0]) * p2[1] + p1[0] * p2[0] * (p1[0] - p2[0]) * p3[1]) / denom;
-	        return [ a, b, c ];
+	        return [ (p3[0] * (p2[1] - p1[1]) + p2[0] * (p1[1] - p3[1]) + p1[0] * (p3[1] - p2[1])) / denom, (p3[0] * p3[0] * (p1[1] - p2[1]) + p2[0] * p2[0] * (p3[1] - p1[1]) + p1[0] * p1[0] * (p2[1] - p3[1])) / denom, (p2[0] * p3[0] * (p2[0] - p3[0]) * p1[1] + p3[0] * p1[0] * (p3[0] - p1[0]) * p2[1] + p1[0] * p2[0] * (p1[0] - p2[0]) * p3[1]) / denom ];
 	    },
 	    getSinusoidCoefficients: function getSinusoidCoefficients(coords) {
 	        // It's assumed that p1 is the root and p2 is the first peak
@@ -4237,9 +4226,7 @@ webpackJsonpPerseus([1],[
 	        // Resulting coefficients are canonical for this sine curve
 	        var amplitude = p2[1] - p1[1];
 	        var angularFrequency = Math.PI / (2 * (p2[0] - p1[0]));
-	        var phase = p1[0] * angularFrequency;
-	        var verticalOffset = p1[1];
-	        return [ amplitude, angularFrequency, phase, verticalOffset ];
+	        return [ amplitude, angularFrequency, p1[0] * angularFrequency, p1[1] ];
 	    },
 	    /**
 	     * @param {object} graph Like props.graph or props.correct
@@ -4433,16 +4420,14 @@ webpackJsonpPerseus([1],[
 	        var graph = props.graph;
 	        // TODO(alpert): Don't duplicate
 	        var center = graph.center || [ 0, 0 ];
-	        var radius = graph.radius || 2;
-	        return "center (" + center[0] + ", " + center[1] + "), radius " + radius;
+	        return "center (" + center[0] + ", " + center[1] + "), radius " + (graph.radius || 2);
 	    },
 	    getLinearSystemEquationString: function getLinearSystemEquationString(props) {
 	        var coords = InteractiveGraph.getLinearSystemCoords(props.graph, props);
 	        return "\n" + getLineEquation(coords[0][0], coords[0][1]) + "\n" + getLineEquation(coords[1][0], coords[1][1]) + "\n" + getLineIntersection(coords[0], coords[1]);
 	    },
 	    getPointEquationString: function getPointEquationString(props) {
-	        var coords = InteractiveGraph.getPointCoords(props.graph, props);
-	        return coords.map(function(coord) {
+	        return InteractiveGraph.getPointCoords(props.graph, props).map(function(coord) {
 	            return "(" + coord[0] + ", " + coord[1] + ")";
 	        }).join(", ");
 	    },
@@ -4459,7 +4444,7 @@ webpackJsonpPerseus([1],[
 	        var a = coords[0];
 	        var b = coords[1];
 	        var eq = InteractiveGraph.getLinearEquationString(props);
-	        eq += a[0] > b[0] ? " (for x <= " + a[0].toFixed(3) + ")" : a[0] < b[0] ? " (for x >= " + a[0].toFixed(3) + ")" : a[1] > b[1] ? " (for y <= " + a[1].toFixed(3) + ")" : " (for y >= " + a[1].toFixed(3) + ")";
+	        a[0] > b[0] ? eq += " (for x <= " + a[0].toFixed(3) + ")" : a[0] < b[0] ? eq += " (for x >= " + a[0].toFixed(3) + ")" : a[1] > b[1] ? eq += " (for y <= " + a[1].toFixed(3) + ")" : eq += " (for y >= " + a[1].toFixed(3) + ")";
 	        return eq;
 	    },
 	    getPolygonEquationString: function getPolygonEquationString(props) {
@@ -4470,8 +4455,7 @@ webpackJsonpPerseus([1],[
 	    },
 	    getAngleEquationString: function getAngleEquationString(props) {
 	        var coords = InteractiveGraph.getAngleCoords(props.graph, props);
-	        var angle = GraphUtils.findAngle(coords[2], coords[0], coords[1]);
-	        return angle.toFixed(0) + "° angle at (" + coords[1].join(", ") + ")";
+	        return GraphUtils.findAngle(coords[2], coords[0], coords[1]).toFixed(0) + "° angle at (" + coords[1].join(", ") + ")";
 	    },
 	    validate: function validate(state, rubric, component) {
 	        // When nothing has moved, there will neither be coords nor the
@@ -4586,8 +4570,7 @@ webpackJsonpPerseus([1],[
 	            var match;
 	            if ("congruent" === rubric.correct.match) {
 	                var angles = _.map([ guess, correct ], function(coords) {
-	                    var angle = GraphUtils.findAngle(coords[2], coords[0], coords[1]);
-	                    return (angle + 360) % 360;
+	                    return (GraphUtils.findAngle(coords[2], coords[0], coords[1]) + 360) % 360;
 	                });
 	                match = eq.apply(null, angles);
 	            } else /* exact */
@@ -4881,21 +4864,19 @@ webpackJsonpPerseus([1],[
 
 	// grading function
 	var validate = function validate(rubric, state) {
-	    var empty = _.all(state.cells, function(row, y) {
+	    if (_.all(state.cells, function(row, y) {
 	        return _.all(row, function(cell, x) {
 	            return cell === rubric.startCells[y][x];
 	        });
-	    });
-	    if (empty) return {
+	    })) return {
 	        type: "invalid",
 	        message: i18n._("Click on the tiles to change the lights.")
 	    };
-	    var correct = _.all(state.cells, function(row) {
+	    return _.all(state.cells, function(row) {
 	        return _.all(row, function(cell) {
 	            return cell;
 	        });
-	    });
-	    return correct ? {
+	    }) ? {
 	        type: "points",
 	        earned: 1,
 	        total: 1,
@@ -5022,9 +5003,7 @@ webpackJsonpPerseus([1],[
 	};
 
 	var getRefForPath = function getRefForPath(path) {
-	    var row = getRowFromPath(path);
-	    var column = getColumnFromPath(path);
-	    return "answer" + row + "," + column;
+	    return "answer" + getRowFromPath(path) + "," + getColumnFromPath(path);
 	};
 
 	var getMatrixSize = function getMatrixSize(matrix) {
@@ -5497,10 +5476,9 @@ webpackJsonpPerseus([1],[
 
 	_.extend(Matcher, {
 	    validate: function validate(state, rubric) {
-	        var correct = _.isEqual(state.left, rubric.left) && _.isEqual(state.right, rubric.right);
 	        return {
 	            type: "points",
-	            earned: correct ? 1 : 0,
+	            earned: _.isEqual(state.left, rubric.left) && _.isEqual(state.right, rubric.right) ? 1 : 0,
 	            total: 1,
 	            message: null
 	        };
@@ -5628,10 +5606,9 @@ webpackJsonpPerseus([1],[
 	        this.setupGraphie();
 	    },
 	    componentDidUpdate: function componentDidUpdate(prevProps) {
-	        var shouldSetupGraphie = _2.any([ "box", "showProtractor", "showRuler", "rulerLabel", "rulerTicks", "rulerPixels", "rulerLength" ], function(prop) {
+	        _2.any([ "box", "showProtractor", "showRuler", "rulerLabel", "rulerTicks", "rulerPixels", "rulerLength" ], function(prop) {
 	            return prevProps[prop] !== this.props[prop];
-	        }, this);
-	        shouldSetupGraphie && this.setupGraphie();
+	        }, this) && this.setupGraphie();
 	    },
 	    setupGraphie: function setupGraphie() {
 	        var graphieDiv = ReactDOM.findDOMNode(this.refs.graphieDiv);
@@ -5681,14 +5658,13 @@ webpackJsonpPerseus([1],[
 
 	var propUpgrades = {
 	    1: function _(v0props) {
-	        var v1props = _2(v0props).chain().omit("imageUrl", "imageTop", "imageLeft").extend({
+	        return _2(v0props).chain().omit("imageUrl", "imageTop", "imageLeft").extend({
 	            image: {
 	                url: v0props.imageUrl,
 	                top: v0props.imageTop,
 	                left: v0props.imageLeft
 	            }
 	        }).value();
-	        return v1props;
 	    }
 	};
 
@@ -5766,10 +5742,10 @@ webpackJsonpPerseus([1],[
 	    },
 	    setCanvasBounds: function setCanvasBounds(canvas, items) {
 	        var xmax = Math.max.apply(Math, items.map(function(item) {
-	            return item.pos ? item.pos[0] : -(1 / 0);
+	            return item.pos ? item.pos[0] : -1 / 0;
 	        }));
 	        var ymax = Math.max.apply(Math, items.map(function(item) {
-	            return item.pos ? item.pos[1] : -(1 / 0);
+	            return item.pos ? item.pos[1] : -1 / 0;
 	        }));
 	        var xmin = Math.min.apply(Math, items.map(function(item) {
 	            return item.pos ? item.pos[0] : 1 / 0;
@@ -5949,8 +5925,7 @@ webpackJsonpPerseus([1],[
 	}
 
 	function formatNonReduced(n, d, base) {
-	    var factor = Math.floor(base / d);
-	    return formatImproper(n * factor, base);
+	    return formatImproper(n * Math.floor(base / d), base);
 	}
 
 	var _label = function _label(graphie, labelStyle, pos, value, base) {
@@ -6001,8 +5976,7 @@ webpackJsonpPerseus([1],[
 	    for (var _i = 0; _i <= props.numDivisions; _i++) {
 	        var _x = range[0] + _i * props.tickStep;
 	        results.push(graphie.line([ _x, -.2 ], [ _x, .2 ]));
-	        var labelTicks = props.labelTicks;
-	        (labelTicks || "decimal ticks" === props.labelStyle) && results.push(_label(graphie, props.labelStyle, _x, _x, base));
+	        (props.labelTicks || "decimal ticks" === props.labelStyle) && results.push(_label(graphie, props.labelStyle, _x, _x, base));
 	    }
 	    // Render the text labels
 	    results.push(graphie.style(props.isMobile ? {
@@ -6088,7 +6062,7 @@ webpackJsonpPerseus([1],[
 	        // Don't allow a fraction for the number of divisions
 	        numDivisions = Math.round(numDivisions);
 	        // Don't allow negative numbers for the number of divisions
-	        numDivisions = numDivisions < 0 ? numDivisions * -1 : numDivisions;
+	        numDivisions = numDivisions < 0 ? -1 * numDivisions : numDivisions;
 	        // If the number of divisions isn't blank, update the number line
 	        if (numDivisions) {
 	            var nextProps = _.extend({}, this.props, {
@@ -6200,9 +6174,7 @@ webpackJsonpPerseus([1],[
 	                // constrain-y
 	                return [ coord[0], prevCoord[1] ];
 	            }, function(coord, prevCoord) {
-	                // snap X
-	                var x = _this3.snapNumLinePosition(props, coord[0]);
-	                return [ x, coord[1] ];
+	                return [ _this3.snapNumLinePosition(props, coord[0]), coord[1] ];
 	            } ],
 	            normalStyle: normalStyle,
 	            highlightStyle: highlightStyle,
@@ -6234,12 +6206,11 @@ webpackJsonpPerseus([1],[
 	        var isGreater = _([ "ge", "gt" ]).contains(props.rel);
 	        var widthInPixels = 400;
 	        var range = props.range;
-	        var scale = (range[1] - range[0]) / widthInPixels;
+	        var scale = (range[1] - range[0]) / 400;
 	        var buffer = horizontalPadding * scale;
 	        var left = range[0] - buffer;
 	        var right = range[1] + buffer;
-	        var end = isGreater ? [ right, 0 ] : [ left, 0 ];
-	        return end;
+	        return isGreater ? [ right, 0 ] : [ left, 0 ];
 	    },
 	    _renderInequality: function _renderInequality(props) {
 	        if (props.isInequality) {
@@ -6273,7 +6244,7 @@ webpackJsonpPerseus([1],[
 	        var bottom = hasFractionalLabels ? -1.5 : -1;
 	        var top = 1;
 	        graphie.init({
-	            range: [ [ left, right ], [ bottom, top ] ],
+	            range: [ [ left, right ], [ bottom, 1 ] ],
 	            scale: [ 1 / scale, 40 ],
 	            isMobile: this.props.apiOptions.isMobile
 	        });
@@ -6825,10 +6796,9 @@ webpackJsonpPerseus([1],[
 	            type: "invalid",
 	            message: null
 	        };
-	        var correct = _.isEqual(state.current, _.pluck(rubric.correctOptions, "content"));
 	        return {
 	            type: "points",
-	            earned: correct ? 1 : 0,
+	            earned: _.isEqual(state.current, _.pluck(rubric.correctOptions, "content")) ? 1 : 0,
 	            total: 1,
 	            message: null
 	        };
@@ -6869,36 +6839,6 @@ webpackJsonpPerseus([1],[
 	    superClass && (Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass);
 	}
 
-	/* eslint-disable max-lines, react/sort-comp */
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	// @Nolint(long file)
-	/**
-	 * Highlighting feature discoveries (davidpowell/mdr):
-	 * Inserting markdown into the raw contents of a passage to make a highlight
-	 * causes several difficulties. As such, if we were to build a generalizable,
-	 * site-wide highlighting tool, it may be preferable to build it in such a way
-	 * that it works on arbitrary React trees - though this would be a significant
-	 * engineering task. The issues that using markdown caused were:
-	 *
-	 * 1) To avoid interaction issues with other markdown, individual words have to
-	 * be wrapped in markdown, as opposed to a whole highlighted section. In some
-	 * cases this may even need to be done on sub-sections of words. This causes
-	 * difficulty in wrapping the correct sub-sections in highlighting markdown,
-	 * whilst not wrapping other markdown, which would cause the other markdown to
-	 * be shown as raw (highlighted) text. The current attempt at this, in the
-	 * render method, is rather hacky.
-	 *
-	 * 2) In order to locate the position of a word in a passage, we have to count
-	 * all prior words in the text. Unfortunately, the passageText prop, from which
-	 * we start when we add the highlighting markdown, differs slightly from the
-	 * contents of the DOM tree, which we crawl to locate the position of the text
-	 * selection. For example, neither markdown nor new line characters appear when
-	 * crawling the DOM. There are also additional "_" characters that appear when
-	 * crawling the DOM which are not in the passageText prop. This results in lots
-	 * of edge case handling to avoid the wrong words from being highlighted (e.g an
-	 * off-by-one error).
-	 */
 	var _require = __webpack_require__(14), StyleSheet = _require.StyleSheet, css = _require.css;
 
 	var React = __webpack_require__(11);
@@ -6969,9 +6909,7 @@ webpackJsonpPerseus([1],[
 	    }
 	});
 
-	// A range of text denoted by start and end word indices.
 	// State kept track of by the PassageMarkdown parser.
-	// Information about a Selection's indices, returned by `sortIndices`.
 	// Information about a passage reference, used in inter-widgets.
 	var Passage = function(_React$Component2) {
 	    _inherits(Passage, _React$Component2);
@@ -6983,74 +6921,13 @@ webpackJsonpPerseus([1],[
 	        _this3), _this3.state = {
 	            nLines: null,
 	            startLineNumbersAfter: 0,
-	            newHighlightRange: null,
-	            selectedHighlightRange: null,
-	            mouseX: null,
-	            mouseY: null,
 	            stylesAreApplied: false
-	        }, _this3.handleConfirmHighlightClick = function() {
-	            if (!_this3.state.newHighlightRange) return;
-	            _this3.addHighlightRange(_this3.state.newHighlightRange);
-	            _this3.setState({
-	                newHighlightRange: null
-	            });
-	            // Collapse selection after adding highlight to keep behaviour
-	            // consistent. Without this, the selection sometimes changes to the
-	            // already existing highlight when merging selections.
-	            var selection = window.getSelection();
-	            selection.collapse(selection.anchorNode, selection.anchorOffset);
-	        }, _this3.handleMouseDown = function(e) {
-	            e.target instanceof Element && e.target.getAttribute("data-highlighting-tooltip") || _this3.setState({
-	                newHighlightRange: null,
-	                selectedHighlightRange: null
-	            });
-	        }, _this3.handleMouseUp = function(e) {
-	            var isHighlightTooltipShown = _this3.state.newHighlightRange || _this3.state.selectedHighlightRange;
-	            if (_this3.canUpdateHighlightingVersion1() && !isHighlightTooltipShown) {
-	                // HACK - the height of the sat task title bar is 60px - subtracting
-	                // this in order to position the tooltip in the correct position on
-	                // the page. We can't use relative position of the passage as that
-	                // requires putting the tooltip inside the passage which sometimes
-	                // cuts off the edge.
-	                _this3.setState({
-	                    mouseX: e.clientX,
-	                    mouseY: e.clientY - 60
-	                });
-	                var selection = window.getSelection();
-	                var selectionRange = _this3.getSelectionRange(selection);
-	                if (selectionRange) {
-	                    var _selectedHighlightRange = _this3.isHighlighted(selectionRange);
-	                    _selectedHighlightRange ? _this3.setState({
-	                        newHighlightRange: null,
-	                        selectedHighlightRange: _selectedHighlightRange
-	                    }) : " " === selection.toString() || selection.isCollapsed || _this3.setState({
-	                        newHighlightRange: selectionRange,
-	                        selectedHighlightRange: null
-	                    });
-	                }
-	            }
-	        }, _this3.handleRemoveHighlightClick = function() {
-	            if (!_this3.state.selectedHighlightRange) return;
-	            var selectedHighlightRange = _this3.state.selectedHighlightRange;
-	            var passageIndex = _this3.props.highlightRanges.findIndex(function(r) {
-	                return r[0] === selectedHighlightRange[0] && r[1] === selectedHighlightRange[1];
-	            });
-	            var newHighlightRanges = [].concat(_this3.props.highlightRanges);
-	            newHighlightRanges.splice(passageIndex, 1);
-	            _this3.setState({
-	                selectedHighlightRange: null
-	            });
-	            _this3.props.onChange({
-	                highlightRanges: newHighlightRanges
-	            });
 	        }, _this3._handleSerializedHighlightsUpdate = function(serializedHighlights) {
 	            _this3.props.onChange({
 	                highlights: serializedHighlights
 	            });
 	        }, _temp), _possibleConstructorReturn(_this3, _ret);
 	    }
-	    /* eslint-disable react/sort-comp */
-	    /* eslint-enable react/sort-comp */
 	    Passage.prototype.componentDidMount = function componentDidMount() {
 	        var _this4 = this;
 	        this._updateState();
@@ -7062,7 +6939,6 @@ webpackJsonpPerseus([1],[
 	            _this4._lineHeightMeasurer.forceMeasureLineHeight();
 	            _this4._updateState();
 	        }, 500);
-	        window.addEventListener("mousedown", this.handleMouseDown);
 	        window.addEventListener("resize", this._onResize);
 	        // Wait for Aphrodite styles (which are guaranteed to apply after one
 	        // tick), then set state.
@@ -7091,368 +6967,7 @@ webpackJsonpPerseus([1],[
 	        this._updateState();
 	    };
 	    Passage.prototype.componentWillUnmount = function componentWillUnmount() {
-	        window.removeEventListener("mousedown", this.handleMouseDown);
 	        window.removeEventListener("resize", this._onResize);
-	    };
-	    /**
-	     * Highlighting Version 1
-	     *
-	     * This group of functions supports the passage "highlighting" feature. It
-	     * works with word indices into the passage text and the DOM selection API.
-	     *
-	     * TODO(mdr): Because `supportsHighlightingVersion1()` now always returns
-	     *     false, Highlighting Version 1 is now dead code that never runs.
-	     *     It is scheduled to be removed.
-	     *     https://app.asana.com/0/277557989281705/318877243057038
-	     */
-	    Passage.prototype.supportsHighlightingVersion1 = function supportsHighlightingVersion1() {
-	        return false;
-	    };
-	    Passage.prototype.supportsHighlightingVersion2 = function supportsHighlightingVersion2() {
-	        return true;
-	    };
-	    // If this is a reading passage and not in review mode, then the user can
-	    // update the highlighting state. Otherwise, highlights will still render,
-	    // but in read-only mode.
-	    Passage.prototype.canUpdateHighlightingVersion1 = function canUpdateHighlightingVersion1() {
-	        return !this.props.reviewModeRubric && this.supportsHighlightingVersion1();
-	    };
-	    Passage.prototype.canUpdateHighlightingVersion2 = function canUpdateHighlightingVersion2() {
-	        return !this.props.reviewModeRubric && this.supportsHighlightingVersion2();
-	    };
-	    /**
-	     * Returns the total number of words (or word fragments) in the given
-	     * selection, based on the number of spaces.
-	     */
-	    Passage.prototype.wordsInSection = function wordsInSection(section) {
-	        // HACK (davidpowell): Sometimes the raw content of the page contains
-	        // "end of sentence. _New sentence", the node seems to split after the
-	        // underscore (e.g. "end of sentence. _" is in one node and "New
-	        // sentence..." is in  another). This would lead to the underscore
-	        // being counted as a seperate word due to the fact that the words in
-	        // each node are counted separately. The line below is a hacky fix for
-	        // this.
-	        section = section.replace(/_+/g, "");
-	        // Strip out markers from writing passages which are not in
-	        // passage-text.
-	        // Note: highlighting is currently disabled in writing passages but
-	        // this is left in for potential future development.
-	        section = section.replace(/\[Marker for question [0-9]+\]/g, " ");
-	        section = section.replace(/\[Sentence [0-9]+\]/g, " ");
-	        var sectionWordArray = section.split(/\s+/).filter(function(word) {
-	            return word.length > 0;
-	        });
-	        return sectionWordArray.length;
-	    };
-	    /**
-	     * Compare two ranges according to their start word.
-	     */
-	    Passage.prototype.compareRanges = function compareRanges(a, b) {
-	        return a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0;
-	    };
-	    Passage.prototype.mergeOverlappingRanges = function mergeOverlappingRanges(ranges) {
-	        var sorted = [].concat(ranges).sort(this.compareRanges);
-	        var merged = [];
-	        for (var _iterator = sorted, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator](); ;) {
-	            var _ref;
-	            if (_isArray) {
-	                if (_i >= _iterator.length) break;
-	                _ref = _iterator[_i++];
-	            } else {
-	                _i = _iterator.next();
-	                if (_i.done) break;
-	                _ref = _i.value;
-	            }
-	            var curr = _ref;
-	            var prev = merged[merged.length - 1];
-	            prev && curr[0] <= prev[1] ? // These ranges overlap; merge curr into prev.
-	            merged[merged.length - 1] = [ prev[0], Math.max(prev[1], curr[1]) ] : // These ranges don't overlap; start a new range with curr.
-	            merged.push(curr);
-	        }
-	        return merged;
-	    };
-	    /**
-	     *  Handle a selection by highlighting it (or glomming it to an existing
-	     *  highlighted region).
-	     */
-	    Passage.prototype.addHighlightRange = function addHighlightRange(range) {
-	        var newHighlightRanges = [].concat(this.props.highlightRanges);
-	        newHighlightRanges.push(range);
-	        newHighlightRanges = this.mergeOverlappingRanges(newHighlightRanges);
-	        this.props.onChange({
-	            highlightRanges: newHighlightRanges
-	        });
-	        // HACK: Not sure why this is neccessary as setState should cause an
-	        // update. However, highlighting often doesn't appear without it.
-	        this.forceUpdate();
-	    };
-	    /**
-	     * Returns true if the selection anchor is before the selection focus in
-	     * the passage
-	     */
-	    Passage.prototype.isAnchorFirst = function isAnchorFirst(anchorNode, focusNode, anchorOffset, focusOffset) {
-	        return anchorNode === focusNode ? anchorOffset < focusOffset : 4 === anchorNode.compareDocumentPosition(focusNode);
-	    };
-	    /**
-	     * The anchor of a selection is where the user began their selection and
-	     * the focus is where the user ended their selection. This function sorts
-	     * the two into the order they are in a passage. For example, if a user
-	     * makes their selection forwards the anchor will be the start and if they
-	     * make it backwards, the focus will be the start.
-	     */
-	    Passage.prototype.sortIndices = function sortIndices(selection) {
-	        var anchorIndex = this.getSelectionIndex(selection, "anchor");
-	        var focusIndex = this.getSelectionIndex(selection, "focus");
-	        var anchorNode = selection.anchorNode;
-	        var focusNode = selection.focusNode;
-	        var anchorOffset = selection.anchorOffset;
-	        var focusOffset = selection.focusOffset;
-	        return this.isAnchorFirst(anchorNode, focusNode, anchorOffset, focusOffset) ? {
-	            selectionStartIndex: anchorIndex,
-	            selectionEndIndex: focusIndex,
-	            startNode: anchorNode,
-	            endNode: focusNode,
-	            startNodeOffset: anchorOffset,
-	            endNodeOffset: focusOffset
-	        } : {
-	            selectionStartIndex: focusIndex,
-	            selectionEndIndex: anchorIndex,
-	            startNode: focusNode,
-	            endNode: anchorNode,
-	            startNodeOffset: focusOffset,
-	            endNodeOffset: anchorOffset
-	        };
-	    };
-	    /**
-	     * Gets the range of a selection, returning an array of the form
-	     * [selectionStartIndex, selectionEndIndex] where selectionStartIndex is the
-	     * the index of the first word in the selection, with respect to the passage
-	     * as a whole. Note that we are counting the indices in words and not
-	     * characters.
-	     */
-	    Passage.prototype.getSelectionRange = function getSelectionRange(selection) {
-	        var selectionOrderObject = this.sortIndices(selection);
-	        var selectionStartIndex = selectionOrderObject.selectionStartIndex, selectionEndIndex = selectionOrderObject.selectionEndIndex;
-	        var startNode = selectionOrderObject.startNode, endNode = selectionOrderObject.endNode, startNodeOffset = selectionOrderObject.startNodeOffset, endNodeOffset = selectionOrderObject.endNodeOffset;
-	        if (null == selectionStartIndex || null == selectionEndIndex || null == startNode || null == endNode) return null;
-	        // Prevents selecting a space from highlighting both surrounding words.
-	        // Using selection.toString() would be preferable but it is buggy in
-	        // Chrome (08/2016). When selecting the last char of a line it adds a
-	        // space.
-	        " " === startNode.textContent.charAt(startNodeOffset) && selectionEndIndex > selectionStartIndex && (selectionStartIndex += 1);
-	        " " === endNode.textContent.charAt(endNodeOffset - 1) && selectionEndIndex > selectionStartIndex && (selectionEndIndex -= 1);
-	        return [ selectionStartIndex, selectionEndIndex ];
-	    };
-	    Passage.prototype.isInPassageText = function isInPassageText(node) {
-	        var ancestor = node;
-	        while (ancestor) {
-	            if (ancestor.classList && ancestor.classList.contains("passage-text")) {
-	                // Traverse up the tree to find first element. This is needed as
-	                // Node.contains(otherNode) only works in IE if otherNode is an
-	                // element.
-	                var element = node;
-	                while (1 !== element.nodeType) element = node.parentNode;
-	                return ancestor.contains(element);
-	            }
-	            ancestor = ancestor.parentNode;
-	        }
-	        return false;
-	    };
-	    /**
-	     * Returns the index of either the anchor word or the focus word in the
-	     * current selection.
-	     */
-	    Passage.prototype.getSelectionIndex = function getSelectionIndex(selection, nodeType) {
-	        var node = null;
-	        var offset = 0;
-	        var punctuation = ".?;:!,'\"";
-	        if ("anchor" === nodeType) {
-	            node = selection.anchorNode;
-	            offset = selection.anchorOffset;
-	        } else {
-	            node = selection.focusNode;
-	            offset = selection.focusOffset;
-	        }
-	        if (!node || !this.isInPassageText(node)) return null;
-	        var selectionNodeText = node.textContent;
-	        // Would prefer to use string.prototype.includes but it's not in IE 10.
-	        punctuation.indexOf(selectionNodeText.charAt(0)) !== -1 && (selectionNodeText = selectionNodeText.slice(1));
-	        var index = this.charToWordOffset(offset, selectionNodeText);
-	        var priorText = "";
-	        var nodeText = "";
-	        while (node && !(node.classList && node.classList.contains("passage-text"))) {
-	            while (node.previousSibling) {
-	                node = node.previousSibling;
-	                nodeText = node.textContent;
-	                var spacer = "";
-	                var lastChar = nodeText.charAt(nodeText.length - 1);
-	                var newSentence = punctuation.indexOf(lastChar) !== -1 || !node.nextSibling || "_" === lastChar && node.nextSibling.textContent.charAt(0).match(/[\w ]/);
-	                // HACK: Add space when nodes split at end of sentence. This
-	                // stops two words from successive paragraphs merging together.
-	                // Assumes paragraphs end with punctuation.
-	                newSentence && priorText.length > 0 && (spacer = " ");
-	                priorText = nodeText + spacer + priorText;
-	            }
-	            node = node.parentNode;
-	        }
-	        // TODO (davidpowell): Rewrite this so that the number of prior words is
-	        // calculated in one go. (As opposed to one call to charToWordOffset
-	        // with the current node and another to wordsInSection with the combined
-	        // text of all the previous nodes). There will be some non-trivial edge
-	        // cases to consider (see other TODOs and HACKs).
-	        index += this.wordsInSection(priorText);
-	        // This subtracts one from the index if the end of the last node in
-	        // priorText is the first word in a hyphenated pair. This is to stop
-	        // them being double counted (in the offset index and the priorText
-	        // index). A hyphenated pair is counted as one word when adding the
-	        // highlight.
-	        "_" !== priorText.charAt(priorText.length - 1) || selectionNodeText.charAt(0).match(/[\w ]/) || (index -= 1);
-	        return index;
-	    };
-	    /**
-	     * Given the index of a character within a block of text, return the index
-	     * of the corresponding word.
-	     */
-	    Passage.prototype.charToWordOffset = function charToWordOffset(offset, nodeText) {
-	        // Move the offset back to the previous space to exclude partial words.
-	        while (offset > 0 && " " !== nodeText.charAt(offset - 1)) offset -= 1;
-	        var beforeSelection = nodeText.substring(0, offset);
-	        var wordOffset = this.wordsInSection(beforeSelection);
-	        // HACK: Special case for if a selection starts on a space at the
-	        // beginning of a node. This most frequently occurs when a user tries to
-	        // start a highlight on the space after an existing highlight. This hack
-	        // is neccessary due to the handling of spaces being stopped from
-	        // highlighting the surrounding words in getSelectionRange not taking
-	        // into account if it is the start of a new node.
-	        " " === nodeText.charAt(0) && 0 === offset && (wordOffset -= 1);
-	        return wordOffset;
-	    };
-	    /**
-	     * Handle the current selection for highlighting purposes.
-	     */
-	    /**
-	     * Finds if there is already an exisiting highlight range that completely
-	     * contains the current selected range and returns that existing range.
-	     */
-	    Passage.prototype.isHighlighted = function isHighlighted(selectedRange) {
-	        var currentHighlightRanges = this.props.highlightRanges;
-	        for (var _iterator2 = currentHighlightRanges, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : _iterator2[Symbol.iterator](); ;) {
-	            var _ref2;
-	            if (_isArray2) {
-	                if (_i2 >= _iterator2.length) break;
-	                _ref2 = _iterator2[_i2++];
-	            } else {
-	                _i2 = _iterator2.next();
-	                if (_i2.done) break;
-	                _ref2 = _i2.value;
-	            }
-	            var range = _ref2;
-	            if (selectedRange[0] >= range[0] && selectedRange[1] <= range[1]) return range;
-	        }
-	        return null;
-	    };
-	    /**
-	     * Resets newHighlightRange and selectedHighlightRange to null. This
-	     * has the effect of dismissing any open tooltips when a user clicks
-	     * elsewhere on the page.
-	     */
-	    /**
-	     * Handles all mouse up events on passage-widget-passage-container. There
-	     * are 2 cases we care about here (in the order they are below):
-	     * 1) A user has selected an existing highlight which they will then be
-	     *    prompted to confirm that they wish to remove.
-	     * 2) A user has made a new selection which they will then be prompted to
-	     *    add as a new highlight.
-	     */
-	    /**
-	     * Removes the currently-selected highlight region.
-	     */
-	    /**
-	     * Splits the rawContent into an array of words
-	     */
-	    Passage.prototype.stringToArrayOfWords = function stringToArrayOfWords(rawContent) {
-	        var _ref3;
-	        // First, we break rawContent apart into word-sized fragments. We
-	        // need to be able to reassemble it later though, so we can't just
-	        // blindly split on all whitespace characters! Instead, we split
-	        // only on spaces, then manually split up those text fragments if
-	        // they contain a non-space-whitespace character (e.g. a newline).
-	        var words = rawContent.split(" ");
-	        var nestedFragments = words.map(function(fragment) {
-	            var whitespaceMatch = fragment.match(/\s+/);
-	            if (whitespaceMatch) {
-	                var whitespaceLastIndex = // $FlowFixMe: matches have a numeric "index" property.
-	                whitespaceMatch.index + whitespaceMatch[0].length;
-	                return [ fragment.slice(0, whitespaceLastIndex), fragment.slice(whitespaceLastIndex) ];
-	            }
-	            return [ fragment ];
-	        });
-	        // Flatten array (since it now contains nested fragments), and drop
-	        // any empty fragments (which might result from multiple
-	        // back-to-back spaces, which markdown will ignore anyway).
-	        var fragments = (_ref3 = []).concat.apply(_ref3, nestedFragments);
-	        return fragments.filter(function(fragment) {
-	            return "" !== fragment;
-	        });
-	    };
-	    /**
-	     * Adjusts index of highlight to account for stray markdown or whitespace in
-	     * the rawContents of the page.
-	     */
-	    Passage.prototype.adjustIndexforMarkdownAndWhitespace = function adjustIndexforMarkdownAndWhitespace(index, textArray) {
-	        // Ensure we don't index outside the bounds of the textArray
-	        var stopIter = Math.min(textArray.length - 1, index);
-	        for (var i = 0; i <= stopIter; i++) {
-	            var match = textArray[i].match(/^\s+$/) || [ "{highlighting.end}{highlighting.start}", "{highlighting.end}", "{highlighting.start}" ].includes(textArray[i]);
-	            match && index++;
-	        }
-	        return index;
-	    };
-	    Passage.prototype.renderAddHighlightTooltip = function renderAddHighlightTooltip() {
-	        if (!this.state.mouseX || !this.state.mouseY) return null;
-	        var positionX = this.state.mouseX + "px";
-	        var positionY = this.state.mouseY + "px";
-	        return React.createElement("span", {
-	            onClick: this.handleConfirmHighlightClick,
-	            style: {
-	                position: "absolute",
-	                left: positionX,
-	                top: positionY
-	            }
-	        }, React.createElement("img", {
-	            "data-highlighting-tooltip": true,
-	            width: "130",
-	            height: "44",
-	            style: {
-	                position: "absolute",
-	                top: "-54px",
-	                left: "-65px"
-	            },
-	            src: "/images/perseus/add-highlight.svg"
-	        }));
-	    };
-	    Passage.prototype.renderRemoveHighlightTooltip = function renderRemoveHighlightTooltip() {
-	        if (!this.state.mouseX || !this.state.mouseY) return null;
-	        var positionX = this.state.mouseX + "px";
-	        var positionY = this.state.mouseY + "px";
-	        return React.createElement("span", {
-	            onClick: this.handleRemoveHighlightClick,
-	            style: {
-	                position: "absolute",
-	                left: positionX,
-	                top: positionY
-	            }
-	        }, React.createElement("img", {
-	            "data-highlighting-tooltip": true,
-	            width: "163",
-	            height: "44",
-	            style: {
-	                position: "absolute",
-	                top: "-54px",
-	                left: "-81px"
-	            },
-	            src: "/images/perseus/remove-highlight.svg"
-	        }));
 	    };
 	    /**
 	     * Line numbering
@@ -7471,18 +6986,16 @@ webpackJsonpPerseus([1],[
 	        var $renderer = $(ReactDOM.findDOMNode(this.refs.content));
 	        var contentsHeight = $renderer.height();
 	        var lineHeight = this._getLineHeight();
-	        var nLines = Math.round(contentsHeight / lineHeight);
-	        return nLines;
+	        return Math.round(contentsHeight / lineHeight);
 	    };
 	    Passage.prototype._getInitialLineNumber = function _getInitialLineNumber() {
 	        var _this5 = this;
 	        var isPassageBeforeThisPassage = true;
-	        var passagesBeforeUs = this.props.findWidgets(function(id, widgetInfo) {
+	        return this.props.findWidgets(function(id, widgetInfo) {
 	            if ("passage" !== widgetInfo.type) return false;
 	            id === _this5.props.widgetId && (isPassageBeforeThisPassage = false);
 	            return isPassageBeforeThisPassage;
-	        });
-	        return passagesBeforeUs.map(function(passageWidget) {
+	        }).map(function(passageWidget) {
 	            return passageWidget.getLineCount();
 	        }).reduce(function(a, b) {
 	            return a + b;
@@ -7542,8 +7055,7 @@ webpackJsonpPerseus([1],[
 	        var $content = $(ReactDOM.findDOMNode(this.refs.content));
 	        var relativeVPos = absoluteVPos - $content.offset().top;
 	        var lineHeight = this._getLineHeight();
-	        var line = Math.round(relativeVPos / lineHeight);
-	        return line;
+	        return Math.round(relativeVPos / lineHeight);
 	    };
 	    Passage.prototype._getRefContent = function _getRefContent(referenceNumber) {
 	        var refRef = PassageMarkdown.START_REF_PREFIX + referenceNumber;
@@ -7555,11 +7067,10 @@ webpackJsonpPerseus([1],[
 	        var refStartLine = this._getStartRefLineNumber(referenceNumber);
 	        var refEndLine = this._getEndRefLineNumber(referenceNumber);
 	        if (null == refStartLine || null == refEndLine) return null;
-	        var refContent = this._getRefContent(referenceNumber);
 	        return {
 	            startLine: refStartLine,
 	            endLine: refEndLine,
-	            content: refContent
+	            content: this._getRefContent(referenceNumber)
 	        };
 	    };
 	    /**
@@ -7573,6 +7084,7 @@ webpackJsonpPerseus([1],[
 	    Passage.prototype.simpleValidate = function simpleValidate(rubric) {
 	        return Passage.validate(this.getUserInput(), rubric);
 	    };
+	    /* eslint-disable react/sort-comp */
 	    Passage.validate = function validate(state, rubric) {
 	        return {
 	            type: "points",
@@ -7581,6 +7093,7 @@ webpackJsonpPerseus([1],[
 	            message: null
 	        };
 	    };
+	    /* eslint-enable react/sort-comp */
 	    /**
 	     * Rendering
 	     *
@@ -7604,15 +7117,13 @@ webpackJsonpPerseus([1],[
 	    };
 	    Passage.prototype._renderContent = function _renderContent(parsed) {
 	        var _this6 = this;
-	        // If Highlighting Version 2 is enabled, set the enabled flag to true.
-	        // Otherwise, set the enabled flag to false, in which case the
-	        // HighlightableContent component won't actually apply highlighting.
-	        //
-	        // Additionally, wait until Aphrodite styles are applied before
-	        // enabling highlights, so that we measure the correct positions.
-	        var enabled = this.supportsHighlightingVersion2() && this.state.stylesAreApplied;
+	        // Wait until Aphrodite styles are applied before enabling highlights,
+	        // so that we measure the correct positions.
+	        var enabled = this.state.stylesAreApplied;
+	        // Highlights are read-only in review mode.
+	        var editable = !this.props.reviewModeRubric;
 	        return React.createElement(HighlightableContent, {
-	            editable: this.canUpdateHighlightingVersion2(),
+	            editable: editable,
 	            enabled: enabled,
 	            onSerializedHighlightsUpdate: this._handleSerializedHighlightsUpdate,
 	            serializedHighlights: this.props.highlights
@@ -7625,9 +7136,7 @@ webpackJsonpPerseus([1],[
 	        }), PassageMarkdown.output(parsed)));
 	    };
 	    Passage.prototype._hasFootnotes = function _hasFootnotes() {
-	        var rawContent = this.props.footnotes;
-	        var isEmpty = /^\s*$/.test(rawContent);
-	        return !isEmpty;
+	        return !/^\s*$/.test(this.props.footnotes);
 	    };
 	    Passage.prototype._renderFootnotes = function _renderFootnotes() {
 	        var rawContent = this.props.footnotes;
@@ -7651,60 +7160,14 @@ webpackJsonpPerseus([1],[
 	                key: lineN
 	            }, lineN + _this7.state.startLineNumbersAfter);
 	        }));
-	        var highlightStartText = "{highlighting.start}";
-	        var highlightEndText = "{highlighting.end}";
-	        if (this.props.reviewModeRubric) {
-	            highlightStartText = "{review-highlighting.start}";
-	            highlightEndText = "{review-highlighting.end}";
-	        }
-	        var rawContent = this.props.passageText;
-	        this.supportsHighlightingVersion1() && // For each highlighted passage, we (ephemerally) inject highlight
-	        // markdown into the rawContent.
-	        _.each(this.props.highlightRanges, function(highlightRange) {
-	            rawContent = rawContent.replace(/\n +\n/g, "\n\n");
-	            rawContent = rawContent.replace(/\r\n +\r\n/g, "\r\n\r\n");
-	            var textArray = this.stringToArrayOfWords(rawContent);
-	            var rangeStartIndex = this.adjustIndexforMarkdownAndWhitespace(highlightRange[0], textArray);
-	            var rangeEndIndex = this.adjustIndexforMarkdownAndWhitespace(highlightRange[1], textArray);
-	            // Reassemble rawContent, with highlighter markdown included.
-	            // Two big gotchas here:
-	            // 1. Markdown does not support partially-overlapping markdown
-	            // ranges, because it all needs to distill down into HTML
-	            // (which is non-partially-overlapping). So we have to surround
-	            // *each* individual word/space with its own highlighter
-	            // markdown. The end result looks like a
-	            // continuously-highlighted range though!
-	            // 2. The fragments may contain other markdown text, so we need
-	            // to define "word" carefully, so that *only* visible text is
-	            // surrounded with highlighting markdown, while markdown text
-	            // is ignored.
-	            rawContent = textArray.slice(0, rangeStartIndex).join(" ") + " " + textArray.slice(rangeStartIndex, rangeEndIndex + 1).map(function(fragment) {
-	                // This fragment should contain all user-visible
-	                // characters, and no markdown characters!
-	                // TODO (davidpowell/mdr): Change regex to
-	                // blacklist markdown as oppose to whitelisting
-	                // certain characters.
-	                /* eslint-disable */
-	                var textRegex = new RegExp("[\\(\\)\\—\\-\\—\\-\\‑\\.                                \\[\\]\\+\\$\\?,!A-Za-z0-9                                À-ſ:;'‘’\"“”=%<>s]+");
-	                /* eslint-enabled */
-	                var highlightableMatch = fragment.match(textRegex);
-	                if (highlightableMatch) {
-	                    var matchStart = highlightableMatch.index;
-	                    var matchEnd = matchStart + highlightableMatch[0].length;
-	                    return fragment.slice(0, matchStart) + highlightStartText + fragment.slice(matchStart, matchEnd) + highlightEndText + fragment.slice(matchEnd);
-	                }
-	                return fragment;
-	            }).join(highlightStartText + " " + highlightEndText) + " " + textArray.slice(rangeEndIndex + 1).join(" ");
-	        }, this);
 	        var parseState = {
 	            firstSentenceRef: null,
 	            firstQuestionRef: null
 	        };
-	        var parsedContent = PassageMarkdown.parse(rawContent, parseState);
+	        var parsedContent = PassageMarkdown.parse(this.props.passageText, parseState);
 	        // Check if the title has any non-empty text in it.
 	        var hasTitle = /\S/.test(this.props.passageTitle);
 	        return React.createElement("div", null, React.createElement("div", {
-	            onMouseUp: this.handleMouseUp,
 	            className: "perseus-widget-passage-container"
 	        }, this._renderInstructions(parseState), React.createElement("div", {
 	            className: "perseus-widget-passage"
@@ -7727,7 +7190,7 @@ webpackJsonpPerseus([1],[
 	            className: "footnotes"
 	        }, this._renderFootnotes()) ], React.createElement("div", {
 	            className: "perseus-sr-only"
-	        }, i18n._("End of reading passage.")))), this.state.newHighlightRange && this.renderAddHighlightTooltip(), this.state.selectedHighlightRange && this.renderRemoveHighlightTooltip());
+	        }, i18n._("End of reading passage.")))));
 	    };
 	    return Passage;
 	}(React.Component);
@@ -7737,7 +7200,6 @@ webpackJsonpPerseus([1],[
 	    passageText: "",
 	    footnotes: "",
 	    showLineNumbers: true,
-	    highlightRanges: [],
 	    highlights: {}
 	};
 
@@ -7921,7 +7383,7 @@ webpackJsonpPerseus([1],[
 	        // was determined by eye-balling the layout.  :(
 	        var paddingForBottomLabel = 75;
 	        var style = {
-	            marginBottom: this.props.labels[0] ? paddingForBottomLabel : 0
+	            marginBottom: this.props.labels[0] ? 75 : 0
 	        };
 	        return React.createElement("div", {
 	            className: "perseus-widget-plotter graphie " + ApiClassNames.INTERACTIVE,
@@ -8002,12 +7464,12 @@ webpackJsonpPerseus([1],[
 	        // with the same padding as the others
 	        isDotplot && (padX /= 2);
 	        isMobile && isTiledPlot && 0 === self.props.labels[1].length && (padX = 0);
-	        isMobile ? c.scale = _.map([ [ c.dimX, padX ], [ c.dimY, padY ] ], // We multiply pad by 4 because we add 3*pad padding on the left
+	        c.scale = isMobile ? _.map([ [ c.dimX, padX ], [ c.dimY, padY ] ], // We multiply pad by 4 because we add 3*pad padding on the left
 	        // and 1*pad on the right
 	        function(_ref, i) {
 	            var dim = _ref[0], pad = _ref[1];
 	            return (plotDimensions[i] - 4 * pad) / dim;
-	        }) : c.scale = _.map([ c.dimX, c.dimY ], function(dim, i) {
+	        }) : _.map([ c.dimX, c.dimY ], function(dim, i) {
 	            return plotDimensions[i] / dim;
 	        });
 	        padX /= c.scale[0];
@@ -8116,10 +7578,9 @@ webpackJsonpPerseus([1],[
 	            isTeX = true;
 	        }
 	        var hasXLabel = 0 !== this.props.labels[0].length;
-	        var labelRotation = "translateX(-50%) translateX(5px) translateY(-50%) rotate(-45deg)";
 	        graphie.style({
 	            color: isMobile ? KhanColors.GRAY_G : "inherit",
-	            transform: isMobile && !mathyCategory ? labelRotation : "none",
+	            transform: isMobile && !mathyCategory ? "translateX(-50%) translateX(5px) translateY(-50%) rotate(-45deg)" : "none",
 	            transformOrigin: "100%"
 	        }, function() {
 	            return graphie.label([ x, isMobile ? -.5 : 0 ], category, "below", isTeX);
@@ -8245,9 +7706,9 @@ webpackJsonpPerseus([1],[
 	        }, function() {
 	            config.graph.dividers.push(graphie.path([ [ x - barHalfWidth, 0 ], [ x - barHalfWidth, config.scaleY ] ]));
 	        });
-	        if (isMobile) !function() {
+	        if (isMobile) {
 	            var snap = config.scaleY / self.props.snapsPerLine;
-	            config.graph.lines[i] = Interactive2.addMaybeMobileMovablePoint(_this, {
+	            config.graph.lines[i] = Interactive2.addMaybeMobileMovablePoint(this, {
 	                coord: [ x, startHeight ],
 	                constraints: [ function(coord, prev, options) {
 	                    return [ x, _this._clampValue(Math.round(coord[1] / snap) * snap, 0, config.dimY) ];
@@ -8280,7 +7741,7 @@ webpackJsonpPerseus([1],[
 	            // points
 	            config.graph.lines[i].state.visibleShape.wrapper.style.zIndex = "1";
 	            self._maybeUpdateDragPrompt(self.state.values);
-	        }(); else {
+	        } else {
 	            config.graph.lines[i] = graphie.addMovableLineSegment({
 	                coordA: [ x - barHalfWidth, startHeight ],
 	                coordZ: [ x + barHalfWidth, startHeight ],
@@ -8329,9 +7790,9 @@ webpackJsonpPerseus([1],[
 	        var c = config;
 	        var graphie = self.graphie;
 	        var x = i + (isMobile ? .4 : 1);
-	        if (isMobile) !function() {
+	        if (isMobile) {
 	            var snap = config.scaleY / self.props.snapsPerLine;
-	            c.graph.points[i] = Interactive2.addMaybeMobileMovablePoint(_this2, {
+	            c.graph.points[i] = Interactive2.addMaybeMobileMovablePoint(this, {
 	                coord: [ x, startHeight ],
 	                constraints: [ function(coord, prev, options) {
 	                    return [ x, _this2._clampValue(Math.round(coord[1] / snap) * snap, 0, config.dimY) ];
@@ -8362,7 +7823,7 @@ webpackJsonpPerseus([1],[
 	                    "stroke-width": 2
 	                }
 	            }));
-	        }(); else {
+	        } else {
 	            c.graph.points[i] = graphie.addMovablePoint({
 	                coord: [ x, startHeight ],
 	                constraints: {
@@ -8510,8 +7971,7 @@ webpackJsonpPerseus([1],[
 	                var show = y <= values[i];
 	                if (self.props.type === DOTPLOT) {
 	                    var wasShown = y <= prevValues[i];
-	                    var wasJustShown = show && !wasShown;
-	                    wasJustShown && pic.animate({
+	                    show && !wasShown && pic.animate({
 	                        "stroke-width": 8
 	                    }, 75, function() {
 	                        return pic.animate({
@@ -8591,12 +8051,12 @@ webpackJsonpPerseus([1],[
 	        ctx.lineWidth = 1.2;
 	        ctx.lineCap = "round";
 	        var offset = 5;
-	        path.moveTo(offset, canvas.height / 2);
-	        path.lineTo(canvas.width - offset, canvas.height / 2);
-	        path.moveTo(canvas.width - 2 * offset, canvas.height / 2 - offset);
-	        path.lineTo(canvas.width - offset, canvas.height / 2);
-	        path.moveTo(canvas.width - 2 * offset, canvas.height / 2 + offset);
-	        path.lineTo(canvas.width - offset, canvas.height / 2);
+	        path.moveTo(5, canvas.height / 2);
+	        path.lineTo(canvas.width - 5, canvas.height / 2);
+	        path.moveTo(canvas.width - 10, canvas.height / 2 - 5);
+	        path.lineTo(canvas.width - 5, canvas.height / 2);
+	        path.moveTo(canvas.width - 10, canvas.height / 2 + 5);
+	        path.lineTo(canvas.width - 5, canvas.height / 2);
 	        ctx.stroke(path);
 	    },
 	    render: function render() {
@@ -8759,8 +8219,7 @@ webpackJsonpPerseus([1],[
 	        }).join("\n\n").value();
 	        var widgets = {};
 	        _.each(this.props.json, function(step, i) {
-	            var widgetId = "group " + i;
-	            widgets[widgetId] = {
+	            widgets["group " + i] = {
 	                type: "group",
 	                graded: true,
 	                version: {
@@ -8948,15 +8407,15 @@ webpackJsonpPerseus([1],[
 	        // TODO(charlie): Find a better way around this.
 	        var epsilon = 1e-5;
 	        var radius = 20;
-	        var center = [ this.props.box[0] - 1.5 * radius, 1.5 * radius ];
+	        var center = [ this.props.box[0] - 30, 30 ];
 	        // Plot little circle
 	        var plotBelowCircle = function plotBelowCircle() {
 	            var options = {
 	                key: "below",
 	                center: center,
-	                radius: radius,
+	                radius: 20,
 	                startAngle: 0,
-	                endAngle: proportionBelow < 1 ? 360 * proportionBelow : 360 - epsilon,
+	                endAngle: proportionBelow < 1 ? 360 * proportionBelow : 360 - 1e-5,
 	                sector: 1 !== proportionBelow,
 	                unscaled: true,
 	                style: {
@@ -8970,8 +8429,8 @@ webpackJsonpPerseus([1],[
 	            var options = {
 	                key: "above",
 	                center: center,
-	                radius: radius,
-	                startAngle: proportionBelow > 0 ? 360 * proportionBelow : epsilon,
+	                radius: 20,
+	                startAngle: proportionBelow > 0 ? 360 * proportionBelow : 1e-5,
 	                endAngle: 360,
 	                sector: 0 !== proportionBelow,
 	                unscaled: true,
@@ -8988,7 +8447,7 @@ webpackJsonpPerseus([1],[
 	        var plotLabel = function plotLabel() {
 	            var options = {
 	                key: "label",
-	                coord: [ center[0], center[1] + 1.5 * radius ],
+	                coord: [ center[0], center[1] + 30 ],
 	                text: numBelow + " of " + total + " results below " + formattedThreshold + "%",
 	                direction: "center",
 	                tex: false,
@@ -9018,7 +8477,7 @@ webpackJsonpPerseus([1],[
 	                fill: isBelow ? KhanColors.LIGHT_RED : KhanColors.LIGHT_BLUE,
 	                stroke: isBelow ? KhanColors.RED : KhanColors.BLUE
 	            };
-	            var coords = [ [ i, 0 ], [ i, count ], [ i + barWidth, count ], [ i + barWidth, 0 ] ];
+	            var coords = [ [ i, 0 ], [ i, count ], [ i + 1, count ], [ i + 1, 0 ] ];
 	            return React.createElement(Path, {
 	                key: i,
 	                coords: coords,
@@ -9067,7 +8526,7 @@ webpackJsonpPerseus([1],[
 	        var xWidth = range[0][1] - range[0][0];
 	        var yWidth = range[1][1] - 0;
 	        var maxYAxisEntities = 20;
-	        var ySkip = Math.ceil(yWidth / maxYAxisEntities);
+	        var ySkip = Math.ceil(yWidth / 20);
 	        _.each(_.range(0, range[1][1], ySkip), function(y) {
 	            // If there's no data, we don't label the axes
 	            data && graphie.label([ range[0][0], y ], KhanMath.roundToApprox(y, 2), "left", /* isTeX */
@@ -9082,11 +8541,11 @@ webpackJsonpPerseus([1],[
 	        if (data) {
 	            // Plot the labels below the bars
 	            var maxXAxisEntities = 15;
-	            var xSkip = Math.ceil(xWidth / maxXAxisEntities);
+	            var xSkip = Math.ceil(xWidth / 15);
 	            _.each(_.range(range[0][0], range[0][1], xSkip), function(x) {
 	                graphie.label([ x, 0 ], knumber.round(x, 2), "below", true);
 	                var tickHeight = 8;
-	                graphie.line([ x, 0 ], [ x, -tickHeight / scale[1] ], {
+	                graphie.line([ x, 0 ], [ x, -8 / scale[1] ], {
 	                    stroke: "#000",
 	                    strokeWidth: 1
 	                });
@@ -9126,18 +8585,17 @@ webpackJsonpPerseus([1],[
 	        var firstIndex = _.indexOf(data, _.find(data, function(n) {
 	            return n > 0;
 	        }));
-	        var xMin = Math.max(0, firstIndex - padding);
+	        var xMin = Math.max(0, firstIndex - 10);
 	        var lastIndex = _.lastIndexOf(data, _.last(_.filter(data, function(n) {
 	            return n > 0;
 	        })));
-	        var xMax = Math.min(101, lastIndex + 1 + padding);
+	        var xMax = Math.min(101, lastIndex + 1 + 10);
 	        // The y-axis is bounded above by largest value, and below by 0.
 	        // However, the 'range' of the y-axis goes as low as -1 to allow
 	        // Graphie to draw ticks on the x-Axis that extend vertically below
 	        // y = 0.
 	        var yMin = -1;
-	        var yMax = _.max(data);
-	        return [ [ xMin, xMax ], [ yMin, yMax ] ];
+	        return [ [ xMin, xMax ], [ -1, _.max(data) ] ];
 	    },
 	    _getInitialThreshold: function _getInitialThreshold(range) {
 	        // We pick a pretty-looking threshold, 1/3 of the way along the axis
@@ -9332,7 +8790,7 @@ webpackJsonpPerseus([1],[
 	    generateData: function generateData(props) {
 	        var _this5 = this;
 	        props = props || this.props;
-	        var getSampleDistribution = function getSampleDistribution(sampleSize, numTrials, proportion) {
+	        return function getSampleDistribution(sampleSize, numTrials, proportion) {
 	            var draw = function draw() {
 	                return _this5.generateNumber() < proportion;
 	            };
@@ -9346,8 +8804,7 @@ webpackJsonpPerseus([1],[
 	                sampleDistribution[normalizedCount]++;
 	            });
 	            return sampleDistribution;
-	        };
-	        return getSampleDistribution(props.sampleSize, props.numTrials, props.userProportion);
+	        }(props.sampleSize, props.numTrials, props.userProportion);
 	    },
 	    /* InputPath API */
 	    getInputPaths: function getInputPaths() {
@@ -9361,14 +8818,12 @@ webpackJsonpPerseus([1],[
 	    focusInputPath: function focusInputPath(path) {
 	        assert(path.length > 0);
 	        var inputID = _.head(path);
-	        var inputComponent = this.refs[inputID];
-	        inputComponent.focus();
+	        this.refs[inputID].focus();
 	    },
 	    blurInputPath: function blurInputPath(path) {
 	        assert(path.length > 0);
 	        var inputID = _.head(path);
-	        var inputComponent = this.refs[inputID];
-	        inputComponent.blur();
+	        this.refs[inputID].blur();
 	    },
 	    getDOMNodeForPath: function getDOMNodeForPath(path) {
 	        assert(path.length > 0);
@@ -9382,9 +8837,7 @@ webpackJsonpPerseus([1],[
 	    setInputValue: function setInputValue(path, newValue, cb) {
 	        assert(path.length > 0);
 	        var inputID = _.head(path);
-	        var capitalizedID = inputID.charAt(0).toUpperCase() + inputID.slice(1);
-	        var functionName = "handle" + capitalizedID + "Change";
-	        this[functionName](newValue, cb);
+	        this["handle" + (inputID.charAt(0).toUpperCase() + inputID.slice(1)) + "Change"](newValue, cb);
 	    },
 	    getUserInput: function getUserInput() {
 	        return null;
@@ -9490,10 +8943,9 @@ webpackJsonpPerseus([1],[
 
 	_.extend(Sorter, {
 	    validate: function validate(state, rubric) {
-	        var correct = _.isEqual(state.options, rubric.correct);
 	        return {
 	            type: "points",
-	            earned: correct ? 1 : 0,
+	            earned: _.isEqual(state.options, rubric.correct) ? 1 : 0,
 	            total: 1,
 	            message: null
 	        };
@@ -9561,9 +9013,7 @@ webpackJsonpPerseus([1],[
 	};
 
 	var getRefForPath = function getRefForPath(path) {
-	    var row = getRowFromPath(path);
-	    var column = getColumnFromPath(path);
-	    return "answer" + row + "," + column;
+	    return "answer" + getRowFromPath(path) + "," + getColumnFromPath(path);
 	};
 
 	var Table = React.createClass({
@@ -9580,15 +9030,15 @@ webpackJsonpPerseus([1],[
 	    getDefaultProps: function getDefaultProps() {
 	        var defaultRows = 4;
 	        var defaultColumns = 1;
-	        var blankAnswers = _(defaultRows).times(function() {
-	            return Util.stringArrayOfSize(defaultColumns);
+	        var blankAnswers = _(4).times(function() {
+	            return Util.stringArrayOfSize(1);
 	        });
 	        return {
 	            apiOptions: ApiOptions.defaults,
 	            headers: [ "" ],
 	            editableHeaders: false,
-	            rows: defaultRows,
-	            columns: defaultColumns,
+	            rows: 4,
+	            columns: 1,
 	            answers: blankAnswers
 	        };
 	    },
@@ -9739,12 +9189,11 @@ webpackJsonpPerseus([1],[
 	        };
 	        var solution = filterNonEmpty(rubric.answers);
 	        var supplied = filterNonEmpty(state);
-	        var hasEmptyCell = _.some(supplied, function(row) {
+	        if (_.some(supplied, function(row) {
 	            return _.some(row, function(cell) {
 	                return "" === cell;
 	            });
-	        });
-	        if (hasEmptyCell || !supplied.length) return {
+	        }) || !supplied.length) return {
 	            type: "invalid",
 	            message: null
 	        };
@@ -9756,29 +9205,27 @@ webpackJsonpPerseus([1],[
 	        };
 	        var createValidator = KhanAnswerTypes.number.createValidatorFunctional;
 	        var message = null;
-	        var allCorrect = _.every(solution, function(rowSolution) {
-	            var i;
-	            for (i = 0; i < supplied.length; i++) {
-	                var rowSupplied = supplied[i];
-	                var correct = _.every(rowSupplied, function(cellSupplied, i) {
-	                    var cellSolution = rowSolution[i];
-	                    var validator = createValidator(cellSolution, {
-	                        simplify: true
-	                    });
-	                    var result = validator(cellSupplied);
-	                    result.message && (message = result.message);
-	                    return result.correct;
-	                });
-	                if (correct) {
-	                    supplied.splice(i, 1);
-	                    return true;
-	                }
-	            }
-	            return false;
-	        });
 	        return {
 	            type: "points",
-	            earned: allCorrect ? 1 : 0,
+	            earned: _.every(solution, function(rowSolution) {
+	                var i;
+	                for (i = 0; i < supplied.length; i++) {
+	                    var rowSupplied = supplied[i];
+	                    if (_.every(rowSupplied, function(cellSupplied, i) {
+	                        var cellSolution = rowSolution[i];
+	                        var validator = createValidator(cellSolution, {
+	                            simplify: true
+	                        });
+	                        var result = validator(cellSupplied);
+	                        result.message && (message = result.message);
+	                        return result.correct;
+	                    })) {
+	                        supplied.splice(i, 1);
+	                        return true;
+	                    }
+	                }
+	                return false;
+	            }) ? 1 : 0,
 	            total: 1,
 	            message: message
 	        };
@@ -9913,13 +9360,12 @@ webpackJsonpPerseus([1],[
 	    var labels = setProps.labels || [ "x", "y" ];
 	    var range = setProps.range || [ [ -10, 10 ], [ -10, 10 ] ];
 	    var step = setProps.step || [ 1, 1 ];
-	    var gridStep = setProps.gridStep || getGridStep(range, step, boxSize);
 	    return {
 	        box: [ boxSize, boxSize ],
 	        labels: labels,
 	        range: range,
 	        step: step,
-	        gridStep: gridStep,
+	        gridStep: setProps.gridStep || getGridStep(range, step, boxSize),
 	        valid: true,
 	        backgroundImage: defaultBackgroundImage,
 	        markings: "grid",
@@ -10000,8 +9446,7 @@ webpackJsonpPerseus([1],[
 	function dilatePointFromCenter(point, dilationCenter, scale) {
 	    var pv = kvector.subtract(point, dilationCenter);
 	    var pvScaled = kvector.scale(pv, scale);
-	    var transformedPoint = kvector.add(dilationCenter, pvScaled);
-	    return transformedPoint;
+	    return kvector.add(dilationCenter, pvScaled);
 	}
 
 	// TODO(jack): i18nize this
@@ -10264,10 +9709,8 @@ webpackJsonpPerseus([1],[
 	                }, "Translation by %(vector)s"));
 	            },
 	            value: function value() {
-	                var x = this.refs.x.getValue();
-	                var y = this.refs.y.getValue();
 	                return {
-	                    vector: [ x, y ]
+	                    vector: [ this.refs.x.getValue(), this.refs.y.getValue() ]
 	                };
 	            },
 	            /* InputPath API */
@@ -10393,12 +9836,9 @@ webpackJsonpPerseus([1],[
 	                return React.createElement("div", null, text);
 	            },
 	            value: function value() {
-	                var angleDeg = this.refs.angleDeg.getValue();
-	                var centerX = this.refs.centerX.getValue();
-	                var centerY = this.refs.centerY.getValue();
 	                return {
-	                    angleDeg: angleDeg,
-	                    center: [ centerX, centerY ]
+	                    angleDeg: this.refs.angleDeg.getValue(),
+	                    center: [ this.refs.centerX.getValue(), this.refs.centerY.getValue() ]
 	                };
 	            },
 	            /* InputPath API */
@@ -10519,12 +9959,8 @@ webpackJsonpPerseus([1],[
 	                });
 	            },
 	            value: function value() {
-	                var x1 = this.refs.x1.getValue();
-	                var y1 = this.refs.y1.getValue();
-	                var x2 = this.refs.x2.getValue();
-	                var y2 = this.refs.y2.getValue();
 	                return {
-	                    line: [ [ x1, y1 ], [ x2, y2 ] ]
+	                    line: [ [ this.refs.x1.getValue(), this.refs.y1.getValue() ], [ this.refs.x2.getValue(), this.refs.y2.getValue() ] ]
 	                };
 	            },
 	            /* InputPath API */
@@ -10646,12 +10082,9 @@ webpackJsonpPerseus([1],[
 	                }, "Dilation about %(point)s by %(scale)s"));
 	            },
 	            value: function value() {
-	                var scale = this.refs.scale.getValue();
-	                var x = this.refs.x.getValue();
-	                var y = this.refs.y.getValue();
 	                return {
-	                    scale: scale,
-	                    center: [ x, y ]
+	                    scale: this.refs.scale.getValue(),
+	                    center: [ this.refs.x.getValue(), this.refs.y.getValue() ]
 	                };
 	            },
 	            /* InputPath API */
@@ -10792,22 +10225,21 @@ webpackJsonpPerseus([1],[
 	                return shape.getOptions ? shape.getOptions() : {};
 	            });
 	        };
-	        var toJSON = function toJSON() {
-	            var coords = _.map(points, function(pt) {
-	                return _.isArray(pt) ? pt : pt.coord;
-	            });
-	            return {
-	                type: types,
-	                coords: coords,
-	                options: getOptions()
-	            };
-	        };
 	        return {
 	            type: types,
 	            points: points,
 	            update: update,
 	            remove: remove,
-	            toJSON: toJSON,
+	            toJSON: function toJSON() {
+	                var coords = _.map(points, function(pt) {
+	                    return _.isArray(pt) ? pt : pt.coord;
+	                });
+	                return {
+	                    type: types,
+	                    coords: coords,
+	                    options: getOptions()
+	                };
+	            },
 	            getOptions: getOptions
 	        };
 	    },
@@ -11326,11 +10758,10 @@ webpackJsonpPerseus([1],[
 	        var origDirectionPolar = kvector.polarDegFromCart(kvector.subtract(messyCoords[0], messyCoords[1]));
 	        var directionPolar = [ 1, KhanMath.roundToNearest(45, origDirectionPolar[1]) ];
 	        var direction = kvector.cartFromPolarDeg(directionPolar);
-	        var coords = _.map([ -1, 1 ], function(directionCoefficient) {
+	        return _.map([ -1, 1 ], function(directionCoefficient) {
 	            var coord = kvector.add(midpoint, kvector.scale(direction, directionCoefficient * this.scaleToCurrentRange(REFLECT_ROTATE_HANDLE_DIST)));
 	            return this.snapCoord(coord);
 	        }, this);
-	        return coords;
 	    },
 	    addReflectionTool: function addReflectionTool() {
 	        var options = this.props.tools.reflection;
@@ -11580,11 +11011,10 @@ webpackJsonpPerseus([1],[
 	    getRotationTransformFromAngle: function getRotationTransformFromAngle(center, angleChanged) {
 	        angleChanged = (angleChanged + 360) % 360;
 	        angleChanged > 180 && (angleChanged -= 360);
-	        var roundedAngle = Math.round(angleChanged / ROTATE_SNAP_DEGREES) * ROTATE_SNAP_DEGREES;
 	        return {
 	            type: "rotation",
 	            center: center,
-	            angleDeg: roundedAngle
+	            angleDeg: Math.round(angleChanged / ROTATE_SNAP_DEGREES) * ROTATE_SNAP_DEGREES
 	        };
 	    },
 	    // apply and save a transform
@@ -12031,10 +11461,9 @@ webpackJsonpPerseus([1],[
 	            return KAS.compare(thisAnswerUnit, guessUnit).equal;
 	        });
 	        if (!kasCorrect) var message = i18n._("Check your units.");
-	        var correct = kasCorrect && numericallyCorrect && sigfigsCorrect;
 	        return {
 	            type: "points",
-	            earned: correct ? 1 : 0,
+	            earned: kasCorrect && numericallyCorrect && sigfigsCorrect ? 1 : 0,
 	            total: 1,
 	            message: message
 	        };
@@ -12222,7 +11651,7 @@ webpackJsonpPerseus([1],[
 
 	var ReactDOM = __webpack_require__(12);
 
-	var styles = __webpack_require__(139);
+	var styles = __webpack_require__(140);
 
 	var css = __webpack_require__(14).css;
 
@@ -12662,7 +12091,7 @@ webpackJsonpPerseus([1],[
 	            _.each(defaultInstructionsStyle, function(value, key) {
 	                $instructionsWrapper.css(key, value);
 	            });
-	            $instructionsWrapper.css("opacity", visible);
+	            $instructionsWrapper.css("opacity", .5);
 	            var $instructions = $("<span/>", {
 	                text: this.props.instructions
 	            });
@@ -12681,10 +12110,10 @@ webpackJsonpPerseus([1],[
 	            this.props.onMouseDown(coord);
 	        }, this) : null;
 	        var onMouseOver = $instructionsWrapper ? function() {
-	            $instructionsWrapper && $instructionsWrapper.css("opacity", invisible);
+	            $instructionsWrapper && $instructionsWrapper.css("opacity", 0);
 	        } : null;
 	        var onMouseOut = $instructionsWrapper ? function() {
-	            $instructionsWrapper && $instructionsWrapper.css("opacity", visible);
+	            $instructionsWrapper && $instructionsWrapper.css("opacity", .5);
 	        } : null;
 	        graphie.addMouseLayer({
 	            onClick: this.props.onClick,
@@ -13161,8 +12590,7 @@ webpackJsonpPerseus([1],[
 	    onMouseUp: function onMouseUp(event) {
 	        if (this.props.type !== DRAGGING) return;
 	        event.preventDefault();
-	        var loc = Util.extractPointerLocation(event);
-	        if (loc) {
+	        if (Util.extractPointerLocation(event)) {
 	            this.unbindMouseMoveUp();
 	            // Dragging -> Animating
 	            this.props.onMouseUp();
@@ -13594,8 +13022,7 @@ webpackJsonpPerseus([1],[
 	function trailingZeros(mantissa) {
 	    var zeros = 0;
 	    for (var i = mantissa.length - 1; i >= 0; i--) {
-	        var c = mantissa.charAt(i);
-	        if ("0" != c) return zeros;
+	        if ("0" != mantissa.charAt(i)) return zeros;
 	        zeros++;
 	    }
 	    return zeros;
@@ -13965,12 +13392,10 @@ webpackJsonpPerseus([1],[
 	        var num = p2[1] - p1[1];
 	        if (0 === denom) return;
 	        var m = num / denom;
-	        var b = p2[1] - m * p2[0];
-	        return [ m, b ];
+	        return [ m, p2[1] - m * p2[0] ];
 	    },
 	    getFunctionForCoeffs: function getFunctionForCoeffs(coeffs, x) {
-	        var m = coeffs[0], b = coeffs[1];
-	        return m * x + b;
+	        return coeffs[0] * x + coeffs[1];
 	    },
 	    getEquationString: function getEquationString(coords) {
 	        var coeffs = this.getCoefficients(coords);
@@ -13991,13 +13416,10 @@ webpackJsonpPerseus([1],[
 	        var k = p1[1];
 	        // Use these to calculate familiar a, b, c
 	        var a = (p2[1] - k) / ((p2[0] - h) * (p2[0] - h));
-	        var b = -2 * h * a;
-	        var c = a * h * h + k;
-	        return [ a, b, c ];
+	        return [ a, -2 * h * a, a * h * h + k ];
 	    },
 	    getFunctionForCoeffs: function getFunctionForCoeffs(coeffs, x) {
-	        var a = coeffs[0], b = coeffs[1], c = coeffs[2];
-	        return (a * x + b) * x + c;
+	        return (coeffs[0] * x + coeffs[1]) * x + coeffs[2];
 	    },
 	    getPropsForCoeffs: function getPropsForCoeffs(coeffs) {
 	        return {
@@ -14022,9 +13444,7 @@ webpackJsonpPerseus([1],[
 	        var p2 = coords[1];
 	        var a = p2[1] - p1[1];
 	        var b = Math.PI / (2 * (p2[0] - p1[0]));
-	        var c = p1[0] * b;
-	        var d = p1[1];
-	        return [ a, b, c, d ];
+	        return [ a, b, p1[0] * b, p1[1] ];
 	    },
 	    getFunctionForCoeffs: function getFunctionForCoeffs(coeffs, x) {
 	        var a = coeffs[0], b = coeffs[1], c = coeffs[2], d = coeffs[3];
@@ -14056,9 +13476,7 @@ webpackJsonpPerseus([1],[
 	        var p2 = coords[1];
 	        var a = p2[1] - p1[1];
 	        var b = Math.PI / (4 * (p2[0] - p1[0]));
-	        var c = p1[0] * b;
-	        var d = p1[1];
-	        return [ a, b, c, d ];
+	        return [ a, b, p1[0] * b, p1[1] ];
 	    },
 	    getFunctionForCoeffs: function getFunctionForCoeffs(coeffs, x) {
 	        var a = coeffs[0], b = coeffs[1], c = coeffs[2], d = coeffs[3];
@@ -14103,19 +13521,17 @@ webpackJsonpPerseus([1],[
 	    },
 	    extraAsymptoteConstraint: function extraAsymptoteConstraint(newCoord, oldCoord, coords, asymptote, graph) {
 	        var y = newCoord[1];
-	        var isValid = _.all(coords, function(coord) {
+	        if (_.all(coords, function(coord) {
 	            return coord[1] > y;
 	        }) || _.all(coords, function(coord) {
 	            return coord[1] < y;
-	        });
-	        if (isValid) return [ oldCoord[0], y ];
+	        })) return [ oldCoord[0], y ];
 	        // Snap the asymptote as close as possible, i.e., if the user moves
 	        // the mouse really quickly into an invalid region
 	        var oldY = oldCoord[1];
-	        var wasBelow = _.all(coords, function(coord) {
+	        if (_.all(coords, function(coord) {
 	            return coord[1] > oldY;
-	        });
-	        if (wasBelow) {
+	        })) {
 	            var bottomMost = _.min(_.map(coords, function(coord) {
 	                return coord[1];
 	            }));
@@ -14132,8 +13548,7 @@ webpackJsonpPerseus([1],[
 	        var p2 = coords[1];
 	        var c = _.head(asymptote)[1];
 	        var b = Math.log((p1[1] - c) / (p2[1] - c)) / (p1[0] - p2[0]);
-	        var a = (p1[1] - c) / Math.exp(b * p1[0]);
-	        return [ a, b, c ];
+	        return [ (p1[1] - c) / Math.exp(b * p1[0]), b, c ];
 	    },
 	    getFunctionForCoeffs: function getFunctionForCoeffs(coeffs, x) {
 	        var a = coeffs[0], b = coeffs[1], c = coeffs[2];
@@ -14159,28 +13574,22 @@ webpackJsonpPerseus([1],[
 	    },
 	    extraAsymptoteConstraint: function extraAsymptoteConstraint(newCoord, oldCoord, coords, asymptote, graph) {
 	        var x = newCoord[0];
-	        var isValid = _.all(coords, function(coord) {
+	        if (_.all(coords, function(coord) {
 	            return coord[0] > x;
 	        }) || _.all(coords, function(coord) {
 	            return coord[0] < x;
-	        });
-	        if (isValid) return [ x, oldCoord[1] ];
+	        })) return [ x, oldCoord[1] ];
 	        // Snap the asymptote as close as possible, i.e., if the user moves
 	        // the mouse really quickly into an invalid region
 	        var oldX = oldCoord[0];
-	        var wasLeft = _.all(coords, function(coord) {
+	        if (_.all(coords, function(coord) {
 	            return coord[0] > oldX;
-	        });
-	        if (wasLeft) {
-	            var leftMost = _.min(_.map(coords, function(coord) {
-	                return coord[0];
-	            }));
-	            return [ leftMost - graph.snapStep[0], oldCoord[1] ];
-	        }
-	        var rightMost = _.max(_.map(coords, function(coord) {
+	        })) return [ _.min(_.map(coords, function(coord) {
 	            return coord[0];
-	        }));
-	        return [ rightMost + graph.snapStep[0], oldCoord[1] ];
+	        })) - graph.snapStep[0], oldCoord[1] ];
+	        return [ _.max(_.map(coords, function(coord) {
+	            return coord[0];
+	        })) + graph.snapStep[0], oldCoord[1] ];
 	    },
 	    allowReflectOverAsymptote: true,
 	    getCoefficients: function getCoefficients(coords, asymptote) {
@@ -14194,8 +13603,7 @@ webpackJsonpPerseus([1],[
 	        var inverseCoeffs = Exponential.getCoefficients(_.map(coords, flip), _.map(asymptote, flip));
 	        var c = -inverseCoeffs[2] / inverseCoeffs[0];
 	        var b = 1 / inverseCoeffs[0];
-	        var a = 1 / inverseCoeffs[1];
-	        return [ a, b, c ];
+	        return [ 1 / inverseCoeffs[1], b, c ];
 	    },
 	    getFunctionForCoeffs: function getFunctionForCoeffs(coeffs, x, asymptote) {
 	        var a = coeffs[0], b = coeffs[1], c = coeffs[2];
@@ -14220,9 +13628,7 @@ webpackJsonpPerseus([1],[
 	        if (0 === denom) return;
 	        var m = Math.abs(num / denom);
 	        p2[1] < p1[1] && (m *= -1);
-	        var horizontalOffset = p1[0];
-	        var verticalOffset = p1[1];
-	        return [ m, horizontalOffset, verticalOffset ];
+	        return [ m, p1[0], p1[1] ];
 	    },
 	    getFunctionForCoeffs: function getFunctionForCoeffs(coeffs, x) {
 	        var m = coeffs[0], horizontalOffset = coeffs[1], verticalOffset = coeffs[2];
@@ -14287,9 +13693,7 @@ webpackJsonpPerseus([1],[
 	    getEquationString: function getEquationString(props) {
 	        var plot = props.plot;
 	        if (plot.type && plot.coords) {
-	            var handler = functionForType(plot.type);
-	            var result = handler.getEquationString(plot.coords, plot.asymptote);
-	            return result || "";
+	            return functionForType(plot.type).getEquationString(plot.coords, plot.asymptote) || "";
 	        }
 	        return "";
 	    },
@@ -14352,10 +13756,9 @@ webpackJsonpPerseus([1],[
 	    chooseType: _.first,
 	    getGridAndSnapSteps: function getGridAndSnapSteps(options, boxSize) {
 	        var gridStep = options.gridStep || Util.getGridStep(options.range, options.step, boxSize);
-	        var snapStep = options.snapStep || Util.snapStepFromGridStep(gridStep);
 	        return {
 	            gridStep: gridStep,
-	            snapStep: snapStep
+	            snapStep: options.snapStep || Util.snapStepFromGridStep(gridStep)
 	        };
 	    }
 	};
@@ -14718,11 +14121,11 @@ webpackJsonpPerseus([1],[
 	    var shrinkFactor = .25;
 	    var fromPos = [ fromAtom.pos[0], fromAtom.pos[1] ];
 	    var toPos = [ toAtom.pos[0], toAtom.pos[1] ];
-	    "C" !== fromAtom.symbol && (fromPos = [ toAtom.pos[0] - (1 - shrinkFactor) * (toAtom.pos[0] - fromAtom.pos[0]), toAtom.pos[1] - (1 - shrinkFactor) * (toAtom.pos[1] - fromAtom.pos[1]) ]);
+	    "C" !== fromAtom.symbol && (fromPos = [ toAtom.pos[0] - .75 * (toAtom.pos[0] - fromAtom.pos[0]), toAtom.pos[1] - .75 * (toAtom.pos[1] - fromAtom.pos[1]) ]);
 	    "C" !== toAtom.symbol && (// For carbon atoms, conventionally we don't draw any letter, so this
 	    // special cases drawing the bond lines all the way to the point where
 	    // they meet.
-	    toPos = [ fromAtom.pos[0] - (1 - shrinkFactor) * (fromAtom.pos[0] - toAtom.pos[0]), fromAtom.pos[1] - (1 - shrinkFactor) * (fromAtom.pos[1] - toAtom.pos[1]) ]);
+	    toPos = [ fromAtom.pos[0] - .75 * (fromAtom.pos[0] - toAtom.pos[0]), fromAtom.pos[1] - .75 * (fromAtom.pos[1] - toAtom.pos[1]) ]);
 	    return [ fromPos, toPos ];
 	}
 
@@ -14783,7 +14186,7 @@ webpackJsonpPerseus([1],[
 	 */
 	function convertTree(atoms, bonds, tree) {
 	    if (null === tree) return [ atoms, bonds ];
-	    "atom" === tree.type && !function() {
+	    if ("atom" === tree.type) {
 	        var treeIdx = idxString(tree.idx);
 	        atoms[treeIdx] = {
 	            idx: treeIdx,
@@ -14801,7 +14204,7 @@ webpackJsonpPerseus([1],[
 	            convertTree(atoms, bonds, b.to);
 	            atoms[toIdx].connections.push(treeIdx);
 	        });
-	    }();
+	    }
 	    return [ atoms, bonds ];
 	}
 
@@ -14873,8 +14276,7 @@ webpackJsonpPerseus([1],[
 	    var converted = convertTree({}, [], tree);
 	    var atoms = converted[0];
 	    var bonds = converted[1];
-	    var outputs = atomLayoutHelper([], [ "1,0" ], atoms, bonds, rotationAngle);
-	    return bondLayoutHelper(outputs, atoms, bonds);
+	    return bondLayoutHelper(atomLayoutHelper([], [ "1,0" ], atoms, bonds, rotationAngle), atoms, bonds);
 	}
 
 	module.exports = {
@@ -14956,10 +14358,9 @@ webpackJsonpPerseus([1],[
 	 *     path incremeneted.
 	 */
 	function _inc(obj, keylist) {
-	    var val = keylist.reduce(function(acc, elt) {
+	    return _mset(obj, keylist, keylist.reduce(function(acc, elt) {
 	        return acc[elt];
-	    }, obj);
-	    return _mset(obj, keylist, val + 1);
+	    }, obj) + 1);
 	}
 
 	function validate(smiles) {
@@ -15018,13 +14419,10 @@ webpackJsonpPerseus([1],[
 	        // TODO(colin): this should just start at 0 all the time, and the
 	        // layout engine should figure out continuity.
 	        inBranchIdx = 0);
-	        var parenCtx = _extends({}, newCtx, {
+	        return [ parse(rest, _extends({}, newCtx, {
 	            idx: newCtx.idx.concat([ [ inBranchIdx, 0 ] ]),
 	            parens: newCtx.parens.concat("(")
-	        });
-	        var parenExpr = parse(rest, parenCtx);
-	        var remainder = parse(sliceFromMatchingCloseParen(rest, [ "(" ]), newCtx);
-	        return [ parenExpr ].concat(remainder);
+	        })) ].concat(parse(sliceFromMatchingCloseParen(rest, [ "(" ]), newCtx));
 	    }
 	    if (")" === firstChar) {
 	        if ("(" !== ctx.parens[ctx.parens.length - 1]) throw new ParseError("Mismatched parentheses");
@@ -15044,12 +14442,11 @@ webpackJsonpPerseus([1],[
 	    var rest = null;
 	    if ("[" === smiles[0]) {
 	        var closingIdx = smiles.indexOf("]");
-	        if (closingIdx === -1) return [ "", smiles ];
+	        if (-1 === closingIdx) return [ "", smiles ];
 	        sym = smiles.slice(1, closingIdx);
 	        rest = smiles.slice(closingIdx + 1);
 	    } else {
-	        var match = atomRe.exec(smiles);
-	        sym = match[1];
+	        sym = atomRe.exec(smiles)[1];
 	        rest = smiles.slice(sym.length);
 	    }
 	    return [ sym, rest ];
@@ -15601,17 +14998,16 @@ webpackJsonpPerseus([1],[
 	            var ref = state.lastRef + 1;
 	            state.lastRef = ref;
 	            state.currentRef.push(ref);
-	            var refContent = _parse2(// Curly quotes
-	            "(“" + capture[1] + "”)\n\n", _.defaults({
-	                // We don't want to parse refs while looking through
-	                // this refs contents. We definitely don't want
-	                // to make those refs into react refs on the
-	                // passage, for instance!
-	                useRefs: false
-	            }, INITIAL_PARSE_STATE));
 	            return {
 	                ref: ref,
-	                refContent: refContent
+	                refContent: _parse2(// Curly quotes
+	                "(“" + capture[1] + "”)\n\n", _.defaults({
+	                    // We don't want to parse refs while looking through
+	                    // this refs contents. We definitely don't want
+	                    // to make those refs into react refs on the
+	                    // passage, for instance!
+	                    useRefs: false
+	                }, INITIAL_PARSE_STATE))
 	            };
 	        },
 	        react: function react(node, output, state) {
@@ -15634,9 +15030,8 @@ webpackJsonpPerseus([1],[
 	            if (!state.useRefs) return {
 	                ref: null
 	            };
-	            var ref = state.currentRef.pop() || null;
 	            return {
-	                ref: ref
+	                ref: state.currentRef.pop() || null
 	            };
 	        },
 	        react: function react(node, output, state) {
@@ -15775,8 +15170,7 @@ webpackJsonpPerseus([1],[
 
 	var parse = function parse(source, state) {
 	    state = state || {};
-	    var paragraphedSource = source + "\n\n";
-	    return builtParser(paragraphedSource, _.extend(state, INITIAL_PARSE_STATE));
+	    return builtParser(source + "\n\n", _.extend(state, INITIAL_PARSE_STATE));
 	};
 
 	module.exports = {
@@ -15799,7 +15193,8 @@ webpackJsonpPerseus([1],[
 /* 136 */,
 /* 137 */,
 /* 138 */,
-/* 139 */
+/* 139 */,
+/* 140 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -15843,7 +15238,6 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 140 */,
 /* 141 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -16174,11 +15568,7 @@ webpackJsonpPerseus([1],[
 	        lastWordIndex: mergedLastWordIndex,
 	        domRange: mergedDomRange
 	    };
-	    // Add the newly-merged highlight to the set of highlights, under a new,
-	    // unique key.
-	    var existingKeys = Object.keys(newHighlights);
-	    var newKey = createNewUniqueKey(existingKeys);
-	    newHighlights[newKey] = newMergedHighlight;
+	    newHighlights[createNewUniqueKey(Object.keys(newHighlights))] = newMergedHighlight;
 	    return newHighlights;
 	}
 
@@ -16264,9 +15654,9 @@ webpackJsonpPerseus([1],[
 	function deserializeHighlight(serializedHighlight, wordRanges) {
 	    var _serializedHighlight$ = serializedHighlight.range, firstWordIndex = _serializedHighlight$.firstWordIndex, lastWordIndex = _serializedHighlight$.lastWordIndex;
 	    var firstWord = wordRanges[firstWordIndex];
-	    if (!firstWord) throw new Error("first word index " + firstWord + " is out of bounds: " + ("must be 0–" + (wordRanges.length - 1) + " inclusive"));
+	    if (!firstWord) throw new Error("first word index " + firstWord + " is out of bounds: must be 0–" + (wordRanges.length - 1) + " inclusive");
 	    var lastWord = wordRanges[lastWordIndex];
-	    if (!lastWord) throw new Error("last word index " + lastWord + " is out of bounds: " + ("must be 0–" + (wordRanges.length - 1) + " inclusive"));
+	    if (!lastWord) throw new Error("last word index " + lastWord + " is out of bounds: must be 0–" + (wordRanges.length - 1) + " inclusive");
 	    return {
 	        firstWordIndex: firstWordIndex,
 	        lastWordIndex: lastWordIndex,
@@ -16278,12 +15668,11 @@ webpackJsonpPerseus([1],[
 	 * Return a SerializedHighlight representing the given DOMHighlight.
 	 */
 	function serializeHighlight(highlight) {
-	    var firstWordIndex = highlight.firstWordIndex, lastWordIndex = highlight.lastWordIndex;
 	    return {
 	        range: {
 	            type: "word-indexes",
-	            firstWordIndex: firstWordIndex,
-	            lastWordIndex: lastWordIndex
+	            firstWordIndex: highlight.firstWordIndex,
+	            lastWordIndex: highlight.lastWordIndex
 	        }
 	    };
 	}
@@ -16386,18 +15775,7 @@ webpackJsonpPerseus([1],[
 	        var focusRange = new Range();
 	        focusRange.setStart(trackedSelection.focusNode, trackedSelection.focusOffset);
 	        focusRange.collapse(true);
-	        // Determine whether the content range contains the focus, by checking
-	        // whether they intersect. Because the focus range is a single point,
-	        // intersection is equivalent to being fully contained.
-	        var contentContainsFocus = rangesOverlap(contentRange, focusRange);
-	        // If the content contains the focus, this is a valid selection. Some
-	        // parts of the range might go beyond the content, but that's okay; the
-	        // corresponding DOMHighlight is already trimmed to only contain valid
-	        // words. We're just checking that the tooltip we render will be inside
-	        // the content, because rendering a tooltip outside the content would
-	        // be weird.
-	        var selectionIsValid = contentContainsFocus;
-	        return selectionIsValid;
+	        return rangesOverlap(contentRange, focusRange);
 	    };
 	    HighlightingUI.prototype.render = function render() {
 	        var _this2 = this;
@@ -16505,9 +15883,7 @@ webpackJsonpPerseus([1],[
 	 * starts, they are considered to overlap.
 	 */
 	function rangesOverlap(a, b) {
-	    // Two ranges do *not* overlap iff one ends before the other begins.
-	    var rangesDoNotOverlap = compareRangeBoundaryPoints(a, "end", b, "start") < 0 || compareRangeBoundaryPoints(b, "end", a, "start") < 0;
-	    return !rangesDoNotOverlap;
+	    return !(compareRangeBoundaryPoints(a, "end", b, "start") < 0 || compareRangeBoundaryPoints(b, "end", a, "start") < 0);
 	}
 
 	/**
@@ -16515,8 +15891,7 @@ webpackJsonpPerseus([1],[
 	 * all points that B contains are also contained by A.
 	 */
 	function rangeIncludes(a, b) {
-	    var rangeIsIncluded = compareRangeBoundaryPoints(a, "start", b, "start") <= 0 && compareRangeBoundaryPoints(a, "end", b, "end") >= 0;
-	    return rangeIsIncluded;
+	    return compareRangeBoundaryPoints(a, "start", b, "start") <= 0 && compareRangeBoundaryPoints(a, "end", b, "end") >= 0;
 	}
 
 	/**
@@ -16527,11 +15902,7 @@ webpackJsonpPerseus([1],[
 	 */
 	function intersectRanges(a, b) {
 	    if (!rangesOverlap(a, b)) return null;
-	    // Find the range with the latest start point, and the range with the
-	    // earliest end point.
-	    var starter = compareRangeBoundaryPoints(a, "start", b, "start") > 0 ? a : b;
-	    var ender = compareRangeBoundaryPoints(a, "end", b, "end") < 0 ? a : b;
-	    return spanRanges(starter, ender);
+	    return spanRanges(compareRangeBoundaryPoints(a, "start", b, "start") > 0 ? a : b, compareRangeBoundaryPoints(a, "end", b, "end") < 0 ? a : b);
 	}
 
 	/**
@@ -16542,11 +15913,7 @@ webpackJsonpPerseus([1],[
 	 */
 	function unionRanges(a, b) {
 	    if (!rangesOverlap(a, b)) return null;
-	    // Find the range with the earliest start point, and the range with the
-	    // latest end point.
-	    var starter = compareRangeBoundaryPoints(a, "start", b, "start") < 0 ? a : b;
-	    var ender = compareRangeBoundaryPoints(a, "end", b, "end") > 0 ? a : b;
-	    return spanRanges(starter, ender);
+	    return spanRanges(compareRangeBoundaryPoints(a, "start", b, "start") < 0 ? a : b, compareRangeBoundaryPoints(a, "end", b, "end") > 0 ? a : b);
 	}
 
 	/**
@@ -16567,11 +15934,10 @@ webpackJsonpPerseus([1],[
 	    var iterationCount = 0;
 	    while (lowerBound <= upperBound) {
 	        iterationCount++;
-	        if (iterationCount > 2 * wordRanges.length) throw new Error("Assertion error: Binary search isn't terminating? " + ("lower=" + lowerBound + ", upper=" + upperBound));
+	        if (iterationCount > 2 * wordRanges.length) throw new Error("Assertion error: Binary search isn't terminating? lower=" + lowerBound + ", upper=" + upperBound);
 	        var mid = Math.floor((lowerBound + upperBound) / 2);
 	        if ("first" === goal) {
-	            var rangeComparison = compareRangeBoundaryPoints(wordRanges[mid], "end", selectionRange, "start");
-	            if (rangeComparison <= 0) // If this word's end point is before or equal to the
+	            if (compareRangeBoundaryPoints(wordRanges[mid], "end", selectionRange, "start") <= 0) // If this word's end point is before or equal to the
 	            // selection's start point, then this word is not a valid
 	            // candidate, nor are any of the words before it.
 	            //
@@ -16587,8 +15953,7 @@ webpackJsonpPerseus([1],[
 	                upperBound = mid - 1;
 	            }
 	        } else {
-	            var _rangeComparison = compareRangeBoundaryPoints(wordRanges[mid], "start", selectionRange, "end");
-	            if (_rangeComparison >= 0) // If this word's start point is after or equal to the
+	            if (compareRangeBoundaryPoints(wordRanges[mid], "start", selectionRange, "end") >= 0) // If this word's start point is after or equal to the
 	            // selection's end point, then this word is not a valid
 	            // candidate, nor are any of the words after it.
 	            //
@@ -16732,27 +16097,35 @@ webpackJsonpPerseus([1],[
 	/**
 	 * Render a set of highlights. See HighlightRenderer for more details about how
 	 * each highlight is rendered.
+	 *
+	 * This component manages the state of the "Remove highlight" tooltip. To
+	 * determine the currently-hovered highlight, it calls the `isHovered` method
+	 * on each HighlightRenderer.
 	 */
 	var React = __webpack_require__(11);
 
 	var HighlightRenderer = __webpack_require__(202);
 
+	var HighlightTooltip = __webpack_require__(188);
+
+	/* global i18n */
 	var babelPluginFlowReactPropTypes_proptype_ZIndexes = __webpack_require__(190).babelPluginFlowReactPropTypes_proptype_ZIndexes || __webpack_require__(11).PropTypes.any;
 
 	var babelPluginFlowReactPropTypes_proptype_Position = __webpack_require__(190).babelPluginFlowReactPropTypes_proptype_Position || __webpack_require__(11).PropTypes.any;
 
 	var babelPluginFlowReactPropTypes_proptype_DOMHighlightSet = __webpack_require__(190).babelPluginFlowReactPropTypes_proptype_DOMHighlightSet || __webpack_require__(11).PropTypes.any;
 
-	var HighlightSetRenderer = function(_React$Component) {
-	    _inherits(HighlightSetRenderer, _React$Component);
+	var HighlightSetRenderer = function(_React$PureComponent) {
+	    _inherits(HighlightSetRenderer, _React$PureComponent);
 	    function HighlightSetRenderer() {
 	        var _temp, _this, _ret;
 	        _classCallCheck(this, HighlightSetRenderer);
 	        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) args[_key] = arguments[_key];
-	        return _ret = (_temp = (_this = _possibleConstructorReturn(this, _React$Component.call.apply(_React$Component, [ this ].concat(args))), 
+	        return _ret = (_temp = (_this = _possibleConstructorReturn(this, _React$PureComponent.call.apply(_React$PureComponent, [ this ].concat(args))), 
 	        _this), _this.state = {
-	            mouseClientPosition: null
-	        }, _this._handleMouseMove = function(e) {
+	            mouseClientPosition: null,
+	            hoveringTooltipFor: null
+	        }, _this._highlightRenderers = {}, _this._handleMouseMove = function(e) {
 	            _this.setState({
 	                mouseClientPosition: {
 	                    left: e.clientX,
@@ -16761,11 +16134,17 @@ webpackJsonpPerseus([1],[
 	            });
 	        }, _temp), _possibleConstructorReturn(_this, _ret);
 	    }
+	    // eslint-disable-next-line react/sort-comp
 	    HighlightSetRenderer.prototype.componentDidMount = function componentDidMount() {
 	        this._updateEditListeners(false, this.props.editable);
 	    };
 	    HighlightSetRenderer.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
 	        this._updateEditListeners(this.props.editable, nextProps.editable);
+	        // If we were previously hovering over the tooltip for a highlight that
+	        // has since been removed, reset the hover state accordingly.
+	        "string" !== typeof this.state.hoveringTooltipFor || this.state.hoveringTooltipFor in nextProps.highlights || this.setState({
+	            hoveringTooltipFor: null
+	        });
 	    };
 	    HighlightSetRenderer.prototype.componentWillUnmount = function componentWillUnmount() {
 	        this._updateEditListeners(this.props.editable, false);
@@ -16788,23 +16167,63 @@ webpackJsonpPerseus([1],[
 	            });
 	        }
 	    };
-	    HighlightSetRenderer.prototype.render = function render() {
+	    HighlightSetRenderer.prototype._getHoveredHighlightKey = function _getHoveredHighlightKey() {
 	        var _this2 = this;
+	        // If we're hovering over the tooltip, the hovered highlight is the
+	        // highlight that the tooltip is pointing to.
+	        var hoveringTooltipFor = this.state.hoveringTooltipFor;
+	        if ("string" === typeof hoveringTooltipFor) return hoveringTooltipFor;
+	        return Object.keys(this.props.highlights).find(function(key) {
+	            var highlightRenderer = _this2._highlightRenderers[key];
+	            return highlightRenderer && highlightRenderer.isHovered(_this2.state.mouseClientPosition);
+	        });
+	    };
+	    HighlightSetRenderer.prototype._renderTooltip = function _renderTooltip() {
+	        var _this3 = this;
+	        var hoveredHighlightKey = this._getHoveredHighlightKey();
+	        if ("string" !== typeof hoveredHighlightKey) return null;
+	        var hoveredHighlight = this.props.highlights[hoveredHighlightKey];
+	        return React.createElement(HighlightTooltip, {
+	            label: i18n._("Remove highlight"),
+	            focusNode: hoveredHighlight.domRange.endContainer,
+	            focusOffset: hoveredHighlight.domRange.endOffset,
+	            offsetParent: this.props.offsetParent,
+	            zIndex: this.props.zIndexes.aboveContent,
+	            onClick: function onClick() {
+	                return _this3.props.onRemoveHighlight(hoveredHighlightKey);
+	            },
+	            onMouseEnter: function onMouseEnter() {
+	                return _this3.setState({
+	                    hoveringTooltipFor: hoveredHighlightKey
+	                });
+	            },
+	            onMouseLeave: function onMouseLeave() {
+	                return _this3.setState({
+	                    hoveringTooltipFor: null
+	                });
+	            }
+	        });
+	    };
+	    HighlightSetRenderer.prototype.render = function render() {
+	        var _this4 = this;
 	        return React.createElement("div", null, Object.keys(this.props.highlights).map(function(key) {
 	            return React.createElement(HighlightRenderer, {
-	                editable: _this2.props.editable,
+	                ref: function ref(r) {
+	                    r ? _this4._highlightRenderers[key] = r : delete _this4._highlightRenderers[key];
+	                },
+	                editable: _this4.props.editable,
 	                key: key,
-	                highlight: _this2.props.highlights[key],
+	                highlight: _this4.props.highlights[key],
 	                highlightKey: key,
-	                mouseClientPosition: _this2.state.mouseClientPosition,
-	                offsetParent: _this2.props.offsetParent,
-	                onRemoveHighlight: _this2.props.onRemoveHighlight,
-	                zIndexes: _this2.props.zIndexes
+	                mouseClientPosition: _this4.state.mouseClientPosition,
+	                offsetParent: _this4.props.offsetParent,
+	                onRemoveHighlight: _this4.props.onRemoveHighlight,
+	                zIndexes: _this4.props.zIndexes
 	            });
-	        }));
+	        }), this.props.editable && this._renderTooltip());
 	    };
 	    return HighlightSetRenderer;
-	}(React.Component);
+	}(React.PureComponent);
 
 	HighlightSetRenderer.propTypes = {
 	    editable: __webpack_require__(11).PropTypes.bool.isRequired,
@@ -16879,8 +16298,7 @@ webpackJsonpPerseus([1],[
 	        // Compute the desired position of the tooltip relative to the offset
 	        // parent.
 	        var offsetParentRect = offsetParent.getBoundingClientRect();
-	        var focusPosition = getRelativePosition(focusRect, offsetParentRect);
-	        return focusPosition;
+	        return getRelativePosition(focusRect, offsetParentRect);
 	    };
 	    HighlightTooltip.prototype.render = function render() {
 	        var position = this._getPosition();
@@ -17088,14 +16506,9 @@ webpackJsonpPerseus([1],[
 	        if (!selection || 0 === selection.rangeCount) return null;
 	        var range = selection.getRangeAt(0);
 	        if (range.collapsed) return null;
-	        // NOTE(mdr): The focus node is guaranteed to exist, because
-	        //     there's a range, but the Flow type annotations for
-	        //     Selection don't know that. Cast it ourselves.
-	        var focusNode = selection.focusNode;
-	        var focusOffset = selection.focusOffset;
 	        return {
-	            focusNode: focusNode,
-	            focusOffset: focusOffset,
+	            focusNode: selection.focusNode,
+	            focusOffset: selection.focusOffset,
 	            range: range
 	        };
 	    };
@@ -17375,8 +16788,7 @@ webpackJsonpPerseus([1],[
 	/**
 	 * This component, given a single DOMHighlight, draws highlight rectangles in
 	 * the same absolute position as the highlighted content, as computed via
-	 * `getClientRects`. On hover, renders a "Remove Highlight" tooltip that, when
-	 * clicked, fires a callback to remove this highlight.
+	 * `getClientRects`.
 	 *
 	 * TODO(mdr): Many things can affect the correct positioning of highlighting,
 	 *     and this component does not attempt to anticipate them. If we start
@@ -17390,9 +16802,6 @@ webpackJsonpPerseus([1],[
 
 	var _require2 = __webpack_require__(201), getClientRectsForTextInRange = _require2.getClientRectsForTextInRange, getRelativePosition = _require2.getRelativePosition, getRelativeRect = _require2.getRelativeRect;
 
-	var HighlightTooltip = __webpack_require__(188);
-
-	/* global i18n */
 	var babelPluginFlowReactPropTypes_proptype_ZIndexes = __webpack_require__(190).babelPluginFlowReactPropTypes_proptype_ZIndexes || __webpack_require__(11).PropTypes.any;
 
 	var babelPluginFlowReactPropTypes_proptype_Rect = __webpack_require__(190).babelPluginFlowReactPropTypes_proptype_Rect || __webpack_require__(11).PropTypes.any;
@@ -17411,16 +16820,6 @@ webpackJsonpPerseus([1],[
 	        _this), _this.state = {
 	            cachedHighlightRects: _this._computeRects(_this.props),
 	            tooltipIsHovered: false
-	        }, _this._handleRemoveHighlight = function() {
-	            _this.props.onRemoveHighlight(_this.props.highlightKey);
-	        }, _this._handleTooltipMouseEnter = function() {
-	            _this.setState({
-	                tooltipIsHovered: true
-	            });
-	        }, _this._handleTooltipMouseLeave = function() {
-	            _this.setState({
-	                tooltipIsHovered: false
-	            });
 	        }, _temp), _possibleConstructorReturn(_this, _ret);
 	    }
 	    HighlightRenderer.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
@@ -17439,16 +16838,24 @@ webpackJsonpPerseus([1],[
 	        // the offset parent.
 	        var clientRects = getClientRectsForTextInRange(highlight.domRange);
 	        var offsetParentRect = offsetParent.getBoundingClientRect();
-	        var relativeRects = clientRects.map(function(rect) {
+	        return clientRects.map(function(rect) {
 	            return getRelativeRect(rect, offsetParentRect);
 	        });
-	        return relativeRects;
+	    };
+	    /**
+	     * Return whether the given mouse position (coordinates relative to this
+	     * component's offset parent) is hovering over the given rectangle
+	     * (coordinates also relative to this component's offset parent).
+	     */
+	    HighlightRenderer.prototype._rectIsHovered = function _rectIsHovered(rect, mouseOffsetPosition) {
+	        var positionWithinRect = getRelativePosition(mouseOffsetPosition, rect);
+	        return 0 <= positionWithinRect.left && positionWithinRect.left < rect.width && 0 <= positionWithinRect.top && positionWithinRect.top < rect.height;
 	    };
 	    /**
 	     * Return whether the given mouse position (coordinates relative to the
 	     * viewport) is hovering over this highlight.
 	     */
-	    HighlightRenderer.prototype._highlightIsHovered = function _highlightIsHovered(mouseClientPosition) {
+	    HighlightRenderer.prototype.isHovered = function isHovered(mouseClientPosition) {
 	        var _this2 = this;
 	        if (!mouseClientPosition) return false;
 	        var offsetParent = this.props.offsetParent;
@@ -17462,33 +16869,10 @@ webpackJsonpPerseus([1],[
 	            return _this2._rectIsHovered(rect, mouseOffsetPosition);
 	        });
 	    };
-	    /**
-	     * Return whether the given mouse position (coordinates relative to this
-	     * component's offset parent) is hovering over the given rectangle
-	     * (coordinates also relative to this component's offset parent).
-	     */
-	    HighlightRenderer.prototype._rectIsHovered = function _rectIsHovered(rect, mouseOffsetPosition) {
-	        var positionWithinRect = getRelativePosition(mouseOffsetPosition, rect);
-	        return 0 <= positionWithinRect.left && positionWithinRect.left < rect.width && 0 <= positionWithinRect.top && positionWithinRect.top < rect.height;
-	    };
-	    /**
-	     * Return whether the "Remove highlight" tooltip should be visible.
-	     */
-	    HighlightRenderer.prototype._shouldShowTooltip = function _shouldShowTooltip() {
-	        // If the highlight is not editable, hide the tooltip.
-	        if (!this.props.editable) return false;
-	        // If the tooltip is hovered, continue to show it, even if the
-	        // highlight is no longer hovered.
-	        if (this.state.tooltipIsHovered) return true;
-	        // If the highlight is hovered, show the tooltip.
-	        if (this._highlightIsHovered(this.props.mouseClientPosition)) return true;
-	        // Otherwise, hide the tooltip.
-	        return false;
-	    };
 	    HighlightRenderer.prototype.render = function render() {
 	        var _this3 = this;
 	        var rects = this.state.cachedHighlightRects;
-	        return React.createElement("div", null, React.createElement("div", null, rects.map(function(rect, index) {
+	        return React.createElement("div", null, rects.map(function(rect, index) {
 	            return React.createElement("div", {
 	                key: index,
 	                className: css(styles.highlightRect),
@@ -17508,27 +16892,15 @@ webpackJsonpPerseus([1],[
 	                    zIndex: _this3.props.zIndexes.belowContent
 	                }
 	            });
-	        })), this._shouldShowTooltip() && React.createElement(HighlightTooltip, {
-	            label: i18n._("Remove highlight"),
-	            onClick: this._handleRemoveHighlight,
-	            onMouseEnter: this._handleTooltipMouseEnter,
-	            onMouseLeave: this._handleTooltipMouseLeave,
-	            focusNode: this.props.highlight.domRange.endContainer,
-	            focusOffset: this.props.highlight.domRange.endOffset,
-	            offsetParent: this.props.offsetParent,
-	            zIndex: this.props.zIndexes.aboveContent
 	        }));
 	    };
 	    return HighlightRenderer;
 	}(React.PureComponent);
 
 	HighlightRenderer.propTypes = {
-	    editable: __webpack_require__(11).PropTypes.bool.isRequired,
 	    highlight: babelPluginFlowReactPropTypes_proptype_DOMHighlight,
 	    highlightKey: __webpack_require__(11).PropTypes.string.isRequired,
-	    mouseClientPosition: babelPluginFlowReactPropTypes_proptype_Position,
 	    offsetParent: __webpack_require__(11).PropTypes.any.isRequired,
-	    onRemoveHighlight: __webpack_require__(11).PropTypes.func.isRequired,
 	    zIndexes: babelPluginFlowReactPropTypes_proptype_ZIndexes
 	};
 
