@@ -160,7 +160,6 @@ var ImageEditor = React.createClass({
     render: function() {
         var imageSettings = <div className="image-settings">
             <div>圖片網址:{' '}
-                <textarea value={this.props.backgroundImage.url} />
                 <BlurInput value={this.props.backgroundImage.url}
                            onChange={this.onUrlChange} />
                 <FileInput value={this.props.backgroundImage.name}
