@@ -98,6 +98,7 @@ var sampleOptions2 = {
                 "displayCount": null,
                 "noneOfTheAbove": false,
                 "deselectEnabled": false,
+                "countChoices": false,
             },
             "version": {
                 "major": 0,
@@ -136,6 +137,7 @@ var sampleOptions2Upgraded = {
                 "displayCount": null,
                 "hasNoneOfTheAbove": false,
                 "deselectEnabled": false,
+                "countChoices": false,
             },
             "version": {
                 "major": 1,
@@ -178,6 +180,7 @@ var sampleGroup = {
                             "displayCount": null,
                             "noneOfTheAbove": false,
                             "deselectEnabled": false,
+                            "countChoices": false,
                         },
                         "version": {
                             "major": 0,
@@ -228,6 +231,7 @@ var sampleGroupUpgraded = {
                             "displayCount": null,
                             "hasNoneOfTheAbove": false,
                             "deselectEnabled": false,
+                            "countChoices": false,
                         },
                         "version": {
                             "major": 1,
