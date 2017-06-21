@@ -95,6 +95,7 @@ type PassageProps = ChangeableProps & {
     //     `highlightRanges`, or else you might get data that's not in the
     //     format you expect.
     highlightRanges: any,
+    highlightLint: boolean,
 };
 
 type PassageState = {
@@ -128,6 +129,7 @@ class Passage extends React.Component {
         footnotes: "",
         showLineNumbers: true,
         highlights: {},
+        highlightLint: false,
     };
 
     state: PassageState = {
@@ -470,7 +472,10 @@ class Passage extends React.Component {
                 {this._renderInstructions(parseState)}
                 <div className="perseus-widget-passage">
                     {hasTitle && <h3 className="passage-title">
-                        <Renderer content={this.props.passageTitle} />
+                        <Renderer
+                            content={this.props.passageTitle}
+                            highlightLint={this.props.highlightLint}
+                        />
                     </h3>}
                     {lineNumbers &&
                         <div className="line-numbers" aria-hidden={true}>
@@ -508,4 +513,5 @@ module.exports = {
         return _.pick(editorProps, "passageTitle", "passageText", "footnotes",
             "showLineNumbers");
     },
+    isLintable: true,
 };

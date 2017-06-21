@@ -8,6 +8,7 @@ var _ = require("underscore");
 var SimpleMarkdown = require("simple-markdown");
 var TeX = require("react-components/tex.jsx");
 var Util = require("./util.js");
+const Lint = require("./components/lint.jsx");
 
 /**
  * This match function matches math in `$`s, such as:
@@ -417,7 +418,46 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
             }
         },
     }),
+    // The lint rule never actually matches anything.
+    // We check for lint after parsing, and, if we find any, we
+    // transform the tree to add lint nodes. This rule is here
+    // just for the react() function
+    lint: {
+        order: 1000,
+        match: (s) => null,
+        parse: (capture, parse, state) => ({}),
+        react: (node, output, state) => {
+            return <Lint
+                message={node.message}
+                ruleName={node.ruleName}
+                inline={isInline(node.content)}
+            >
+                {output(node.content, state)}
+            </Lint>;
+        },
+    },
 });
+
+
+// Return true if the specified parse tree node represents inline content
+// and false otherwise. We need this so that lint nodes can figure out whether
+// they should behave as an inline wrapper or a block wrapper
+function isInline(node) {
+    return !!(node && node.type && inlineNodeTypes.hasOwnProperty(node.type));
+}
+const inlineNodeTypes = {
+    text: true,
+    math: true,
+    unescapedDollar: true,
+    link: true,
+    img: true,
+    strong: true,
+    u: true,
+    em: true,
+    del: true,
+    code: true,
+};
+
 
 var builtParser = SimpleMarkdown.parserFor(rules);
 var parse = (source, state) => {

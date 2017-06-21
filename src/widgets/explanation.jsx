@@ -17,6 +17,7 @@ const defaultExplanationProps = {
     hidePrompt: "Hide explanation",
     explanation: "explanation goes here\n\nmore explanation",
     widgets: {},
+    highlightLint: false,
 };
 
 const Explanation = React.createClass({
@@ -28,6 +29,7 @@ const Explanation = React.createClass({
         showPrompt: React.PropTypes.string,
         trackInteraction: React.PropTypes.func.isRequired,
         widgets: React.PropTypes.object,
+        highlightLint: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
@@ -115,6 +117,7 @@ const Explanation = React.createClass({
                     apiOptions={this.props.apiOptions}
                     content={this.props.explanation}
                     widgets={this.props.widgets}
+                    highlightLint={this.props.highlightLint}
                 />
             </div>
         </div>;
@@ -256,5 +259,6 @@ module.exports = {
     displayName: "Explanation (for hints)",
     defaultAlignment: "inline",
     widget: Explanation,
-    transform: _.identity
+    transform: _.identity,
+    isLintable: true,
 };

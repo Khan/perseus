@@ -1,4 +1,3 @@
-
 "use strict";
 
 /**
@@ -36,12 +35,14 @@ const ArticleRenderer = React.createClass({
 
         // Whether to use the new Bibliotron styles for articles
         useNewStyles: React.PropTypes.bool,
+        highlightLint: React.PropTypes.bool,
     },
 
     getDefaultProps() {
         return {
             apiOptions: {},
             useNewStyles: false,
+            highlightLint: false,
         };
     },
 
@@ -184,6 +185,7 @@ const ArticleRenderer = React.createClass({
                             );
                         },
                     }}
+                    highlightLint={this.props.highlightLint}
                 />
             </div>;
         });

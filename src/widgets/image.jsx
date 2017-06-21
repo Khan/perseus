@@ -69,6 +69,7 @@ var ImageWidget = React.createClass({
 
         title: React.PropTypes.string,
         trackInteraction: React.PropTypes.func.isRequired,
+        highlightLint: React.PropTypes.bool,
     },
 
     statics: {
@@ -102,6 +103,7 @@ var ImageWidget = React.createClass({
             labels: [],
             alt: "",
             caption: "",
+            highlightLint: false,
         };
     },
 
@@ -158,6 +160,7 @@ var ImageWidget = React.createClass({
                 <Renderer
                     content={this.props.alt}
                     apiOptions={apiOptions}
+                    highlightLint={this.props.highlightLint}
                 />
             </span>;
         }
@@ -220,6 +223,7 @@ var ImageWidget = React.createClass({
                         <Renderer
                             content={title + this.props.caption}
                             apiOptions={apiOptions}
+                            highlightLint={this.props.highlightLint}
                         />
                     </div>
                 </div>;
@@ -240,6 +244,7 @@ var ImageWidget = React.createClass({
                     <Renderer
                         content={this.props.title}
                         apiOptions={apiOptions}
+                        highlightLint={this.props.highlightLint}
                     />
                 </div>;
             }
@@ -249,6 +254,7 @@ var ImageWidget = React.createClass({
                     <Renderer
                         content={this.props.caption}
                         apiOptions={apiOptions}
+                        highlightLint={this.props.highlightLint}
                     />
                 </div>;
             }
@@ -300,4 +306,5 @@ module.exports = {
     supportedAlignments: editorAlignments,
     displayName: "Image",
     widget: ImageWidget,
+    isLintable: true,
 };

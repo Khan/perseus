@@ -20,6 +20,7 @@ const InlineIcon = require("./components/inline-icon.jsx");
 const JsonEditor = require("./json-editor.jsx");
 const DeviceFramer = require("./components/device-framer.jsx");
 const IframeContentRenderer = require("./iframe-content-renderer.jsx");
+const HUD = require("./components/hud.jsx");
 
 const rendererProps = React.PropTypes.shape({
     content: React.PropTypes.string,
@@ -84,6 +85,12 @@ const ArticleEditor = React.createClass({
         };
     },
 
+    getInitialState: function() {
+        return {
+            highlightLint: true,
+        };
+    },
+
     componentDidUpdate: function() {
         if (this.props.mode === "preview") {
             this.refs["frame-all"].sendNewData({
@@ -115,6 +122,7 @@ const ArticleEditor = React.createClass({
             },
             json: section,
             useNewStyles: this.props.useNewStyles,
+            highlightLint: this.state.highlightLint,
         };
     },
 
@@ -218,6 +226,7 @@ const ArticleEditor = React.createClass({
                 ];
             })}
             {this._renderAddSection()}
+            {this._renderLinterHUD()}
         </div>;
     },
 
@@ -237,6 +246,18 @@ const ArticleEditor = React.createClass({
                 </a>
             </div>
         </div>;
+    },
+
+    _renderLinterHUD: function() {
+        return <HUD
+            message="Style warnings"
+            enabled={this.state.highlightLint}
+            onClick={() => {
+                this.setState({
+                    highlightLint: !this.state.highlightLint,
+                });
+            }}
+        />;
     },
 
     _renderIframePreview: function(i, nochrome) {

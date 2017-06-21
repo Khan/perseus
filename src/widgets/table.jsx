@@ -59,6 +59,7 @@ var Table = React.createClass({
         headers: React.PropTypes.arrayOf(React.PropTypes.string),
         keypadElement: keypadElementPropType,
         trackInteraction: React.PropTypes.func.isRequired,
+        highlightLint: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
@@ -74,6 +75,7 @@ var Table = React.createClass({
             rows: defaultRows,
             columns: defaultColumns,
             answers: blankAnswers,
+            highlightLint: false,
         };
     },
 
@@ -123,7 +125,10 @@ var Table = React.createClass({
                             </th>;
                         } else {
                             return <th key={i}>
-                                <Renderer content={header} />
+                                <Renderer
+                                    content={header}
+                                    highlightLint={this.props.highlightLint}
+                                />
                             </th>;
                         }
                     })
@@ -345,5 +350,6 @@ module.exports = {
     displayName: "Table of values",
     accessible: true,
     widget: Table,
-    transform: propTransform
+    transform: propTransform,
+    isLintable: true,
 };

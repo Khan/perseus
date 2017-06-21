@@ -27,6 +27,13 @@ const HintsRenderer = React.createClass({
         hints: React.PropTypes.arrayOf(React.PropTypes.any),
         hintsVisible: React.PropTypes.number,
         findExternalWidgets: React.PropTypes.func,
+        highlightLint: React.PropTypes.bool,
+    },
+
+    getDefaultProps: function() {
+        return {
+            highlightLint: false,
+        };
     },
 
     componentDidMount: function() {
@@ -132,6 +139,7 @@ const HintsRenderer = React.createClass({
                     key={"hintRenderer" + i}
                     apiOptions={apiOptions}
                     findExternalWidgets={this.props.findExternalWidgets}
+                    highlightLint={this.props.highlightLint}
                 />;
 
                 if (hint.replace && hints.length > 0) {

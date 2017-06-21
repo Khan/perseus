@@ -4,7 +4,7 @@
 
 const React = require("react");
 
-const {devices} = require("./constants.js");
+const constants = require("./constants.js");
 
 const SCREEN_SIZES = {
     phone: {
@@ -28,9 +28,9 @@ const DeviceFramer = React.createClass({
     propTypes: {
         children: React.PropTypes.element.isRequired,
         deviceType: React.PropTypes.oneOf([
-            devices.PHONE,
-            devices.TABLET,
-            devices.DESKTOP,
+            constants.devices.PHONE,
+            constants.devices.TABLET,
+            constants.devices.DESKTOP,
         ]).isRequired,
         // TODO(kevinb) rename to variableHeight
         nochrome: React.PropTypes.bool,
@@ -41,13 +41,16 @@ const DeviceFramer = React.createClass({
 
         if (this.props.nochrome) {
             // Render content inside a variable height iframe.  Used on the
-            // "edit" table of the content editor.
+            // "edit" table of the content editor. In this mode, PerseusFrame
+            // will draw the border and reserve space on the right for
+            // lint indicators.
             return <div>
                 <div
                     key="screen"
                     style={{
-                        border: "1px solid black",
-                        width: SCREEN_SIZES[deviceType].framedWidth,
+                        width: SCREEN_SIZES[deviceType].framedWidth +
+                            2 * constants.perseusFrameBorderWidth +
+                            constants.lintGutterWidth,
                     }}
                 >
                     <div>
@@ -59,6 +62,8 @@ const DeviceFramer = React.createClass({
             const scale = SCREEN_SIZES[deviceType].framedWidth /
                 SCREEN_SIZES[deviceType].width;
 
+            // In this mode we draw our own border and don't reserve
+            // space for a lint gutter.
             const screenStyle = {
                 backgroundColor: "white",
                 color: "black",

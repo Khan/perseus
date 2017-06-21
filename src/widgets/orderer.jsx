@@ -58,13 +58,15 @@ var Card = React.createClass({
         startMouse: PropTypes.position,
         startOffset: PropTypes.position,
         animateTo: PropTypes.position,
-        onAnimationEnd: React.PropTypes.func
+        onAnimationEnd: React.PropTypes.func,
+        highlightLint: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
         return {
             stack: false,
-            animating: false
+            animating: false,
+            highlightLint: false,
         };
     },
 
@@ -106,7 +108,10 @@ var Card = React.createClass({
                     onTouchEnd={this.onMouseUp}
                     onTouchCancel={this.onMouseUp}>
                 <div className={className.join(" ")}>
-                    <Renderer {...rendererProps} />
+                    <Renderer
+                        {...rendererProps}
+                        highlightLint={this.props.highlightLint}
+                    />
                 </div>
             </div>;
     },
@@ -211,6 +216,7 @@ var Orderer = React.createClass({
         layout: React.PropTypes.oneOf([HORIZONTAL, VERTICAL]),
         options: React.PropTypes.array,
         trackInteraction: React.PropTypes.func.isRequired,
+        highlightLint: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
@@ -219,7 +225,8 @@ var Orderer = React.createClass({
             options: [],
             correctOptions: [],
             height: NORMAL,
-            layout: HORIZONTAL
+            layout: HORIZONTAL,
+            highlightLint: false,
         };
     },
 
@@ -250,6 +257,7 @@ var Orderer = React.createClass({
                        onMouseUp={this.onRelease}
                        onMouseMove={this.onMouseMove}
                        key={this.state.dragKey || "draggingCard"}
+                       highlightLint={this.props.highlightLint}
                        />;
 
         // This is the card that is currently animating
@@ -262,6 +270,7 @@ var Orderer = React.createClass({
                        animateTo={this.state.animateTo}
                        onAnimationEnd={this.state.onAnimationEnd}
                        key={this.state.dragKey || "draggingCard"}
+                       highlightLint={this.props.highlightLint}
                        />;
 
         // This is the list of draggable, rearrangable cards
@@ -273,6 +282,7 @@ var Orderer = React.createClass({
                 content={opt.content}
                 width={opt.width}
                 key={opt.key}
+                highlightLint={this.props.highlightLint}
                 onMouseDown={(this.state.animating) ?
                     $.noop :
                     this.onClick.bind(null, "current", i)} />;
@@ -305,6 +315,7 @@ var Orderer = React.createClass({
                     content={opt.content}
                     stack={true}
                     key={i}
+                    highlightLint={this.props.highlightLint}
                     onMouseDown={(this.state.animating) ?
                         $.noop :
                         this.onClick.bind(null, "bank", i)}
@@ -543,4 +554,5 @@ module.exports = {
     name: "orderer",
     displayName: "Orderer",
     widget: Orderer,
+    isLintable: true,
 };

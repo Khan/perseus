@@ -27,6 +27,13 @@ const HintRenderer = React.createClass({
         pos: React.PropTypes.number,
         totalHints: React.PropTypes.number,
         findExternalWidgets: React.PropTypes.func,
+        highlightLint: React.PropTypes.bool,
+    },
+
+    getDefaultProps() {
+        return {
+            highlightLint: false,
+        };
     },
 
     getSerializedState: function() {
@@ -93,6 +100,7 @@ const HintRenderer = React.createClass({
                 images={hint.images}
                 apiOptions={rendererApiOptions}
                 findExternalWidgets={this.props.findExternalWidgets}
+                highlightLint={this.props.highlightLint}
             />
         </div>;
     },

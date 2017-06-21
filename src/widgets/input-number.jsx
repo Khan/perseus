@@ -89,6 +89,7 @@ var InputNumber = React.createClass({
         keypadElement: keypadElementPropType,
         reviewModeRubric: React.PropTypes.object,
         widgetId: React.PropTypes.string.isRequired,
+        highlightLint: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
@@ -96,7 +97,8 @@ var InputNumber = React.createClass({
             currentValue: "",
             size: "normal",
             answerType: "number",
-            apiOptions: ApiOptions.defaults
+            apiOptions: ApiOptions.defaults,
+            highlightLint: false,
         };
     },
 
@@ -160,6 +162,7 @@ var InputNumber = React.createClass({
                 onBlur={this._handleBlur}
                 id={this.props.widgetId}
                 disabled={this.props.apiOptions.readOnly}
+                highlightLint={this.props.highlightLint}
             />;
 
             if (answerBlurb) {
@@ -307,4 +310,5 @@ module.exports = {
     hidden: true,
     widget: InputNumber,
     transform: propTransform,
+    isLintable: true,
 };

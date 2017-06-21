@@ -12,6 +12,7 @@ var FixPassageRefs = require("./util/fix-passage-refs.jsx");
 var ItemEditor = require("./item-editor.jsx");
 var JsonEditor = require("./json-editor.jsx");
 var ViewportResizer = require("./components/viewport-resizer.jsx");
+const HUD = require("./components/hud.jsx");
 
 var EditorPage = React.createClass({
     propTypes: {
@@ -72,6 +73,7 @@ var EditorPage = React.createClass({
             ),
             gradeMessage: "",
             wasAnswered: false,
+            highlightLint: true,
         };
     },
 
@@ -126,6 +128,7 @@ var EditorPage = React.createClass({
                 apiOptions: deviceBasedApiOptions,
                 initialHintsVisible: 0,
                 device: this.props.previewDevice,
+                highlightLint: this.state.highlightLint,
             }).extend(
                 _(this.props).pick("workAreaSelector",
                                    "solutionAreaSelector",
@@ -211,6 +214,18 @@ var EditorPage = React.createClass({
                             this.props.onPreviewDeviceChange}
                     />
                 }
+
+                {!this.props.jsonMode &&
+                    <HUD
+                        message="Style warnings"
+                        enabled={this.state.highlightLint}
+                        onClick={() => {
+                            this.setState({
+                                highlightLint: !this.state.highlightLint,
+                            });
+                        }}
+                    />
+                }
             </div>
 
             {this.props.developerMode && this.props.jsonMode &&
@@ -249,6 +264,7 @@ var EditorPage = React.createClass({
                     deviceType={this.props.previewDevice}
                     apiOptions={deviceBasedApiOptions}
                     frameSource={this.props.frameSource}
+                    highlightLint={this.state.highlightLint}
                 />
             }
         </div>;

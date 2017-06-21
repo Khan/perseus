@@ -22,6 +22,7 @@ var Sequence = React.createClass({
             widgets: React.PropTypes.object,
         })),
         trackInteraction: React.PropTypes.func.isRequired,
+        highlightLint: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
@@ -30,7 +31,8 @@ var Sequence = React.createClass({
                 content: "",
                 widgets: {},
                 images: {},
-            }]
+            }],
+            highlightLint: false,
         };
     },
 
@@ -73,6 +75,7 @@ var Sequence = React.createClass({
                 widgets={widgets}
                 onInteractWithWidget={this._handleInteraction}
                 apiOptions={this.props.apiOptions}
+                highlightLint={this.props.highlightLint}
                 />
         </div>;
     },
@@ -120,4 +123,5 @@ module.exports = {
     widget: Sequence,
     traverseChildWidgets: traverseChildWidgets,
     tracking: "all",
+    isLintable: true,
 };

@@ -22,6 +22,7 @@ var Sorter = React.createClass({
         padding: React.PropTypes.bool,
         problemNum: React.PropTypes.number,
         trackInteraction: React.PropTypes.func.isRequired,
+        highlightLint: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
@@ -30,7 +31,8 @@ var Sorter = React.createClass({
             layout: HORIZONTAL,
             padding: true,
             problemNum: 0,
-            onChange: function() {}
+            onChange: function() {},
+            highlightLint: false,
         };
     },
 
@@ -50,6 +52,7 @@ var Sorter = React.createClass({
                 margin={marginPx}
                 padding={this.props.padding}
                 onChange={this.handleChange}
+                highlightLint={this.props.highlightLint}
                 ref="sortable"
             />
         </div>;
@@ -87,4 +90,5 @@ module.exports = {
     name: "sorter",
     displayName: "Sorter",
     widget: Sorter,
+    isLintable: true,
 };

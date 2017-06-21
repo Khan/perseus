@@ -73,6 +73,7 @@ const GradedGroup = React.createClass({
         title: React.PropTypes.string,
         trackInteraction: React.PropTypes.func.isRequired,
         widgets: React.PropTypes.object,
+        highlightLint: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
@@ -83,6 +84,7 @@ const GradedGroup = React.createClass({
             images: {},
             hint: null,
             hasHint: false,
+            highlightLint: false,
         };
     },
 
@@ -241,6 +243,7 @@ const GradedGroup = React.createClass({
                 ref="renderer"
                 apiOptions={{...apiOptions, readOnly}}
                 onInteractWithWidget={this._onInteractWithWidget}
+                highlightLint={this.props.highlightLint}
             />
             {!apiOptions.isMobile && icon && <div className="group-icon">
                 {icon}
@@ -276,6 +279,7 @@ const GradedGroup = React.createClass({
                         {...this.props.hint}
                         ref="hints-renderer"
                         apiOptions={apiOptions}
+                        highlightLint={this.props.highlightLint}
                     />
                 </div> :
                 <div
@@ -308,6 +312,7 @@ module.exports = {
     traverseChildWidgets: traverseChildWidgets,
     hidden: false,
     tracking: "all",
+    isLintable: true,
 };
 
 const styles = StyleSheet.create({

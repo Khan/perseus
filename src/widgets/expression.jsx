@@ -91,6 +91,7 @@ var Expression = React.createClass({
         trackInteraction: React.PropTypes.func.isRequired,
         value: React.PropTypes.string,
         widgetId: React.PropTypes.string.isRequired,
+        highlightLint: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
@@ -101,7 +102,8 @@ var Expression = React.createClass({
             buttonSets: ["basic", "trig", "prealgebra", "logarithms"],
             onFocus: function() { },
             onBlur: function() { },
-            apiOptions: ApiOptions.defaults
+            apiOptions: ApiOptions.defaults,
+            highlightLint: false,
         };
     },
 
@@ -158,6 +160,7 @@ var Expression = React.createClass({
                 onFocus={this._handleFocus}
                 onBlur={this._handleBlur}
                 id={this.props.widgetId}
+                highlightLint={this.props.highlightLint}
             />;
         } else {
             // TODO(alex): Style this tooltip to be more consistent with other
@@ -546,4 +549,5 @@ module.exports = {
 
     // For use by the editor
     Expression,
+    isLintable: true,
 };

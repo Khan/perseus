@@ -26,7 +26,16 @@ window.addEventListener("message", (event) => {
     if (typeof event.data === "string") {
         requestIframeData[event.data]();
     } else if (event.data.id) {
-        updateIframeHeight[event.data.id](event.data.height);
+        if (event.data.height !== undefined) {
+            updateIframeHeight[event.data.id](event.data.height);
+        } else if (event.data.lintWarnings) {
+            // This is a lint report being sent back from the linter.
+            // TODO:
+            // We'll want to display the number of warnings in the HUD.
+            // But for now, we just log it to the console
+            // eslint-disable-next-line no-console
+            console.log("LINTER REPORT", event.data.lintWarnings);
+        }
     }
 });
 
@@ -106,6 +115,16 @@ const IframeContentRenderer = React.createClass({
                 this.props.datasetValue;
         }
         this._frame.dataset.id = this.iframeID;
+
+        if (this.props.seamless) {
+            // The seamless prop is the same as the "nochrome" prop that
+            // gets passed to DeviceFramer. If it is set, then we're going
+            // to be displaying editor previews and want to leave some room
+            // for lint indicators in the right margin. We use the dataset
+            // as above to pass this information on to the perseus-frame
+            // component inside the iframe
+            this._frame.dataset.lintGutter = true;
+        }
 
         // To make sure the value of location.href inside the iframe is the
         // same as the location of the parent, we wait for the iframe to

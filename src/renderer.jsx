@@ -26,6 +26,8 @@ var Zoomable = require("./components/zoomable.jsx");
 var Deferred = require("./deferred.js");
 var preprocessTex = require("./util/katex-preprocess.js");
 
+const Gorgon = require("./gorgon/gorgon.js"); // The linter engine
+
 const { keypadElementPropType } = require("../math-input").propTypes;
 
 var { mapObject, mapObjectFromArray } = require("./interactive2/objective_.js");
@@ -182,6 +184,10 @@ var Renderer = React.createClass({
         // Callback which is called when serialized state changes with the new
         // serialized state.
         onSerializedStateUpdated: React.PropTypes.func,
+
+        // If highlightLint is true, then content will be passed to the
+        // linter and any warnings will be highlighted in the rendered output
+        highlightLint: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
@@ -204,6 +210,7 @@ var Renderer = React.createClass({
             reviewMode: false,
             serializedState: null,
             onSerializedStateUpdated: () => {},
+            highlightLint: false,
         };
     },
 
@@ -261,6 +268,7 @@ var Renderer = React.createClass({
         // componentWillUpdate and the reuseMarkdown attr?
         this.reuseMarkdown = !oldJipt && !newJipt &&
             oldContent === newContent &&
+            this.props.highlightLint === nextProps.highlightLint &&
                 // yes, this is identity array comparison, but these are passed
                 // in from state in the item-renderer, so they should be
                 // identity equal unless something changed, and it's expensive
@@ -395,6 +403,7 @@ var Renderer = React.createClass({
                 type={type}
                 initialProps={this.getWidgetProps(id)}
                 shouldHighlight={shouldHighlight}
+                highlightLint={this.props.highlightLint}
             />;
         } else {
             return null;
@@ -1580,6 +1589,7 @@ var Renderer = React.createClass({
         // state on this component to do this in a less hacky way.
         this._isTwoColumn = false;
 
+        // Parse the string of markdown to a parse tree
         var parsedMarkdown = PerseusMarkdown.parse(content, {
             // Recognize crowdin IDs while translating articles
             // (This should never be hit by exercises, though if you
@@ -1587,6 +1597,20 @@ var Renderer = React.createClass({
             // go for it.)
             isJipt: this.translationIndex != null,
         });
+
+        // Optionally apply the linter to the parse tree
+        if (this.props.highlightLint) {
+            // If highlightLint is true and lint is detected, this call
+            // will modify the parse tree by adding lint nodes that will
+            // serve to highlight the lint when rendered
+            const lintStartTime = Date.now();
+            const lintWarnings = Gorgon.runLinter(parsedMarkdown,
+                                                  this.props.highlightLint);
+            console.log("Linting took", Date.now() - lintStartTime,
+                        "milliseconds", lintWarnings);
+        }
+
+        // Render the linted markdown parse tree with React components
         var markdownContents = this.outputMarkdown(parsedMarkdown, {
             baseElements: apiOptions.baseElements,
         });

@@ -18,6 +18,13 @@ const WidgetContainer = React.createClass({
         shouldHighlight: React.PropTypes.bool.isRequired,
         type: React.PropTypes.string,
         initialProps: React.PropTypes.object.isRequired,
+        highlightLint: React.PropTypes.bool,
+    },
+
+    getDefaultProps() {
+        return {
+            highlightLint: false,
+        };
     },
 
     getInitialState: function() {
@@ -90,6 +97,16 @@ const WidgetContainer = React.createClass({
             zIndex: zIndexInteractiveComponent,
         };
 
+        // Some widgets may include strings of markdown that we may
+        // want to run the linter on. So if the widget is lintable,
+        // and we've been asked to highlight lint, pass that property
+        // on to the widget
+        const linterProps = {};
+        if (Widgets.isLintable(type)) {
+            linterProps.highlightLint = this.props.highlightLint;
+        }
+
+
         // Note: if you add more props here, please consider whether or not
         // it should be auto-serialized (e.g. used in scoreInput()). See
         // widget-jsonify-deprecated.jsx and widget-prop-blacklist.jsx
@@ -101,6 +118,7 @@ const WidgetContainer = React.createClass({
                 style={isStatic ? staticContainerStyles : {}}>
             <WidgetType
                 {...this.state.widgetProps}
+                {...linterProps}
                 containerSizeClass={this.state.sizeClass}
                 ref="widget"
             />

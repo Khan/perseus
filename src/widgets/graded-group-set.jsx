@@ -47,11 +47,13 @@ const GradedGroupSet = React.createClass({
         apiOptions: ApiOptions.propTypes,
         gradedGroups: React.PropTypes.array,
         trackInteraction: React.PropTypes.func.isRequired,
+        highlightLint: React.PropTypes.bool,
     },
 
     getDefaultProps() {
         return {
             gradedGroups: [],
+            highlightLint: false,
         };
     },
 
@@ -134,6 +136,7 @@ const GradedGroupSet = React.createClass({
                 inGradedGroupSet={true}
                 title={null}
                 onNextQuestion={handleNextQuestion}
+                highlightLint={this.props.highlightLint}
             />
         </div>;
     },
@@ -153,6 +156,7 @@ module.exports = {
     traverseChildWidgets: traverseChildWidgets,
     hidden: false,
     tracking: "all",
+    isLintable: true,
 };
 
 const styles = StyleSheet.create({

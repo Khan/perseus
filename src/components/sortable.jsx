@@ -64,12 +64,14 @@ const Draggable = React.createClass({
         onMouseUp: React.PropTypes.func.isRequired,
         onRender: React.PropTypes.func.isRequired,
         type: React.PropTypes.oneOf([STATIC, DRAGGING, ANIMATING, DISABLED]),
+        highlightLint: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
         return {
             includePadding: true,
-            type: STATIC
+            type: STATIC,
+            highlightLint: false,
         };
     },
 
@@ -152,6 +154,7 @@ const Draggable = React.createClass({
                     onTouchCancel={this.onMouseUp} >
             <Renderer
                 content={this.props.content}
+                highlightLint={this.props.highlightLint}
                 onRender={this.props.onRender} />
         </li>;
     },
@@ -263,6 +266,7 @@ const Sortable = React.createClass({
         onMeasure: React.PropTypes.func,
         options: React.PropTypes.array.isRequired,
         padding: React.PropTypes.bool,
+        highlightLint: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
@@ -273,7 +277,8 @@ const Sortable = React.createClass({
             constraints: {},
             onMeasure: function() {},
             margin: 5,
-            onChange: function() {}
+            onChange: function() {},
+            highlightLint: false,
         };
     },
 
@@ -420,6 +425,7 @@ const Sortable = React.createClass({
                     includePadding={this.props.padding}
                     margin={isLast && isStatic ? 0 : margin}
                     endPosition={item.endPosition}
+                    highlightLint={this.props.highlightLint}
                     onRender={this.remeasureItems}
                     onMouseDown={this.onMouseDown.bind(this, item.key)}
                     onMouseMove={this.onMouseMove.bind(this, item.key)}

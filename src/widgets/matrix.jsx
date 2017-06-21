@@ -121,6 +121,7 @@ var Matrix = React.createClass({
         prefix: React.PropTypes.string,
         suffix: React.PropTypes.string,
         trackInteraction: React.PropTypes.func.isRequired,
+        highlightLint: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
@@ -130,7 +131,8 @@ var Matrix = React.createClass({
             prefix: "",
             suffix: "",
             cursorPosition: [0, 0],
-            apiOptions: ApiOptions.defaults
+            apiOptions: ApiOptions.defaults,
+            highlightLint: false,
         };
     },
 
@@ -180,7 +182,10 @@ var Matrix = React.createClass({
 
         return <div className={className}>
             {this.props.prefix && <div className="matrix-prefix">
-                <Renderer content={this.props.prefix} />
+                <Renderer
+                    content={this.props.prefix}
+                    highlightLint={this.props.highlightLint}
+                />
             </div>}
             <div className="matrix-input">
                 <div
@@ -289,7 +294,10 @@ var Matrix = React.createClass({
                 })}
             </div>
             {this.props.suffix && <div className="matrix-suffix">
-                <Renderer content={this.props.suffix} />
+                <Renderer
+                    content={this.props.suffix}
+                    highlightLint={this.props.highlightLint}
+                />
             </div>}
         </div>;
     },
@@ -523,4 +531,5 @@ module.exports = {
     widget: Matrix,
     transform: propTransform,
     staticTransform: staticTransform,
+    isLintable: true,
 };

@@ -107,4 +107,5 @@ module.exports = {
     staticTransform: transform,
     version: { major: 1, minor: 0 },
     propUpgrades: propUpgrades,
+    isLintable: true,
 };

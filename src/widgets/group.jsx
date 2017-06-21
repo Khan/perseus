@@ -18,6 +18,7 @@ var Group = React.createClass({
         images: React.PropTypes.object,
         icon: React.PropTypes.object,
         reviewModeRubric: React.PropTypes.object,
+        highlightLint: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
@@ -25,7 +26,8 @@ var Group = React.createClass({
             content: "",
             widgets: {},
             images: {},
-            icon: null
+            icon: null,
+            highlightLint: false,
         };
     },
 
@@ -98,7 +100,9 @@ var Group = React.createClass({
                 apiOptions={apiOptions}
                 findExternalWidgets={this.props.findWidgets}
                 reviewMode={!!this.props.reviewModeRubric}
-                onInteractWithWidget={onInteractWithWidget} />
+                onInteractWithWidget={onInteractWithWidget}
+                highlightLint={this.props.highlightLint}
+            />
             {this.props.icon && <div className="group-icon">
                 {this.props.icon}
             </div>}
@@ -179,5 +183,6 @@ module.exports = {
     widget: Group,
     traverseChildWidgets: traverseChildWidgets,
     hidden: false,
+    isLintable: true,
 };
 

@@ -55,6 +55,7 @@ const ItemRenderer = React.createClass({
         reviewMode: React.PropTypes.bool,
         savedState: RP.any,
         workAreaSelector: RP.string,
+        highlightLint: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
@@ -65,6 +66,7 @@ const ItemRenderer = React.createClass({
             initialHintsVisible: 0,
             workAreaSelector: "#workarea",
             reviewMode: false,
+            highlightLint: false,
         };
     },
 
@@ -149,6 +151,7 @@ const ItemRenderer = React.createClass({
                     questionCompleted={this.state.questionCompleted}
                     reviewMode={this.props.reviewMode}
                     savedState={this.props.savedState}
+                    highlightLint={this.props.highlightLint}
                     {...this.props.item.question}
                 />,
                 document.querySelector(this.props.workAreaSelector));
@@ -158,6 +161,7 @@ const ItemRenderer = React.createClass({
                     hints={this.props.item.hints}
                     hintsVisible={this.state.hintsVisible}
                     apiOptions={apiOptions}
+                    highlightLint={this.props.highlightLint}
                 />,
                 document.querySelector(this.props.hintsAreaSelector));
 

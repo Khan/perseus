@@ -37,6 +37,7 @@ var InputWithExamples = React.createClass({
 
         // A unique string identifying this InputWithExamples
         id: React.PropTypes.string.isRequired,
+        highlightLint: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
@@ -46,6 +47,7 @@ var InputWithExamples = React.createClass({
             onFocus: function() { },
             onBlur: function() { },
             disabled: false,
+            highlightLint: false,
         };
     },
 
@@ -168,7 +170,10 @@ var InputWithExamples = React.createClass({
                 show={showExamples}>
             {input}
             <div id={this._getUniqueId()}>
-                <Renderer content={examplesContent} />
+                <Renderer
+                    content={examplesContent}
+                    highlightLint={this.props.highlightLint}
+                />
             </div>
         </Tooltip>;
     },

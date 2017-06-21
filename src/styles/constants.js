@@ -106,6 +106,10 @@ module.exports = {
 
     circleSize: 24,
     radioMarginWidth: 2,
+
+    warningColor: "#f86700",
+    warningColorHover: "#df5c00",
+    warningColorActive: "#c75300",
 };
 
 module.exports.radioBorderColor = module.exports.gray76;

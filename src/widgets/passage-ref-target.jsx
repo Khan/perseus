@@ -12,12 +12,14 @@ var Renderer = require("../renderer.jsx");
 var PassageRefTarget = React.createClass({
     propTypes: {
         ...Changeable.propTypes,
-        content: React.PropTypes.string
+        content: React.PropTypes.string,
+        highlightLint: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
         return {
-            content: ""
+            content: "",
+            highlightLint: false,
         };
     },
 
@@ -30,6 +32,7 @@ var PassageRefTarget = React.createClass({
             content={this.props.content}
             inline={true}
             apiOptions={this.props.apiOptions}
+            highlightLint={this.props.highlightLint}
             />;
     },
 
@@ -62,5 +65,6 @@ module.exports = {
     transform: (editorProps) => {
         return _.pick(editorProps, "content");
     },
-    version: {major: 0, minor: 0}
+    version: {major: 0, minor: 0},
+    isLintable: true,
 };

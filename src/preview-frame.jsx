@@ -120,41 +120,47 @@ const PreviewFrame = React.createClass({
             if (this.state.type === "question") {
                 return <div
                     className={perseusClass}
-                    style={this.props.isMobile ? {} : {margin: 30}}
+                    style={this.props.isMobile ? {} : {margin: "30px 0"}}
                     ref="container"
                 >
-                    <ItemRenderer {...updatedData} />
+                    <ItemRenderer
+                        {...updatedData}
+                        highlightLint={!!this.state.data.highlightLint}
+                    />
                     <div id="workarea" style={{marginLeft: 0}}/>
                     <div id="hintsarea"/>
                 </div>;
             } else if (this.state.type === "hint") {
                 return <div
                     className={perseusClass}
-                    style={this.props.isMobile ? {} : {margin: 30}}
+                    style={this.props.isMobile ? {} : {margin: "30px 0"}}
                     ref="container"
                 >
                     <HintRenderer
                         {...updatedData}
+                        highlightLint={!!this.state.data.highlightLint}
                     />
                 </div>;
             } else if (this.state.type === "article") {
                 return <div
                     className={perseusClass}
-                    style={this.props.isMobile ? {margin: 16} : {margin: 30}}
+                    style={this.props.isMobile ? {} : {margin: "30px 0"}}
                 >
                     <ArticleRenderer
                         {...updatedData}
+                        highlightLint={!!this.state.data.highlightLint}
                     />
                 </div>;
             } else if (this.state.type === "article-all") {
                 return <div
                     className={perseusClass}
-                    style={this.props.isMobile ? {margin: 16} : {margin: 30}}
+                    style={this.props.isMobile ? {} : {margin: "30px 0"}}
                 >
                     {updatedData.map((data, i) => {
                         return <ArticleRenderer
                             key={i}
                             {...data}
+                            highlightLint={!!this.state.data.highlightLint}
                         />;
                     })}
                 </div>;

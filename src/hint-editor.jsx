@@ -118,6 +118,13 @@ var CombinedHintEditor = React.createClass({
         deviceType: React.PropTypes.string.isRequired,
         frameSource: React.PropTypes.string.isRequired,
         imageUploader: React.PropTypes.func,
+        highlightLint: React.PropTypes.bool,
+    },
+
+    getDefaultProps: function() {
+        return {
+            highlightLint: false,
+        };
     },
 
     updatePreview: function() {
@@ -131,6 +138,7 @@ var CombinedHintEditor = React.createClass({
                 bold: shouldBold,
                 pos: this.props.pos,
                 apiOptions: this.props.apiOptions,
+                highlightLint: this.props.highlightLint,
             },
         });
     },
@@ -210,6 +218,7 @@ var CombinedHintsEditor = React.createClass({
         deviceType: React.PropTypes.string.isRequired,
         frameSource: React.PropTypes.string.isRequired,
         imageUploader: React.PropTypes.func,
+        highlightLint: React.PropTypes.bool,
     },
 
     statics: {
@@ -220,6 +229,7 @@ var CombinedHintsEditor = React.createClass({
         return {
             onChange: () => {},
             hints: [],
+            highlightLint: false,
         };
     },
 
@@ -239,7 +249,8 @@ var CombinedHintsEditor = React.createClass({
                         onMove={this.handleHintMove.bind(this, i)}
                         deviceType={this.props.deviceType}
                         apiOptions={this.props.apiOptions}
-                        frameSource={this.props.frameSource} />;
+                        frameSource={this.props.frameSource}
+                        highlightLint={this.props.highlightLint} />;
         }, this);
 
         return <div className="perseus-hints-editor perseus-editor-table">

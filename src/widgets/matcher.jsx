@@ -26,6 +26,7 @@ const Matcher = React.createClass({
         problemNum: React.PropTypes.number,
         right: React.PropTypes.array,
         trackInteraction: React.PropTypes.func.isRequired,
+        highlightLint: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
@@ -36,7 +37,8 @@ const Matcher = React.createClass({
             orderMatters: false,
             padding: true,
             problemNum: 0,
-            onChange: function() {}
+            onChange: function() {},
+            highlightLint: false,
         };
     },
 
@@ -76,6 +78,7 @@ const Matcher = React.createClass({
                         <th className={css(styles.column, styles.columnLabel)}>
                             <Renderer
                                 content={this.props.labels[0] || "..."}
+                                highlightLint={this.props.highlightLint}
                             />
                         </th>
                         <th className={css(
@@ -85,6 +88,7 @@ const Matcher = React.createClass({
                         >
                             <Renderer
                                 content={this.props.labels[1] || "..."}
+                                highlightLint={this.props.highlightLint}
                             />
                         </th>
                     </tr>
@@ -100,6 +104,7 @@ const Matcher = React.createClass({
                             onMeasure={this.onMeasureLeft}
                             onChange={this.changeAndTrack}
                             margin={cellMarginPx}
+                            highlightLint={this.props.highlightLint}
                             ref="left"
                         />
                     </td>
@@ -112,6 +117,7 @@ const Matcher = React.createClass({
                             onMeasure={this.onMeasureRight}
                             onChange={this.changeAndTrack}
                             margin={cellMarginPx}
+                            highlightLint={this.props.highlightLint}
                             ref="right"
                         />
                     </td>
@@ -200,4 +206,5 @@ module.exports = {
     name: "matcher",
     displayName: "Two column matcher",
     widget: Matcher,
+    isLintable: true,
 };

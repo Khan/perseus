@@ -32,13 +32,15 @@ const Categorizer = React.createClass({
         // Ordered list of correct answers, mapping items to categories thusly:
         //   values[<items_index>] == <categories_index>
         values: React.PropTypes.arrayOf(React.PropTypes.number),
+        highlightLint: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
         return {
             items: [],
             categories: [],
-            values: []
+            values: [],
+            highlightLint: false,
         };
     },
 
@@ -76,7 +78,10 @@ const Categorizer = React.createClass({
                     // remove categories or items in the middle. (If we later
                     // add that, this should be fixed.)
                     return <th className={css(styles.header)} key={i}>
-                        <Renderer content={category}/>
+                        <Renderer
+                            content={category}
+                            highlightLint={this.props.highlightLint}
+                        />
                     </th>;
                 })}
             </tr></thead>
@@ -85,7 +90,10 @@ const Categorizer = React.createClass({
                 var itemNum = indexedItem[1];
                 var uniqueId = self.state.uniqueId + "_" + itemNum;
                 return <tr key={itemNum}>
-                    <td><Renderer content={item}/></td>
+                    <td><Renderer
+                            content={item}
+                            highlightLint={this.props.highlightLint}
+                    /></td>
                     {_.range(self.props.categories.length).map(catNum => {
                         const selected = self.props.values[itemNum] === catNum;
                         return <td
@@ -249,4 +257,5 @@ module.exports = {
         return _.pick(editorProps,
             "items", "categories", "values", "randomizeItems");
     },
+    isLintable: true,
 };

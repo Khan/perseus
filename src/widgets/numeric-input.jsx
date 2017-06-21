@@ -60,6 +60,7 @@ var NumericInput = React.createClass({
         reviewModeRubric: React.PropTypes.object,
         trackInteraction: React.PropTypes.func.isRequired,
         widgetId: React.PropTypes.string.isRequired,
+        highlightLint: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
@@ -70,6 +71,7 @@ var NumericInput = React.createClass({
             coefficient: false,
             answerForms: [],
             labelText: "",
+            highlightLint: false,
         };
     },
 
@@ -150,6 +152,7 @@ var NumericInput = React.createClass({
                 onBlur={this._handleBlur}
                 id={this.props.widgetId}
                 disabled={this.props.apiOptions.readOnly}
+                highlightLint={this.props.highlightLint}
             />;
 
             if (answerBlurb) {
@@ -414,5 +417,6 @@ module.exports = {
     defaultAlignment: "inline-block",
     accessible: true,
     widget: NumericInput,
-    transform: propsTransform
+    transform: propsTransform,
+    isLintable: true,
 };
