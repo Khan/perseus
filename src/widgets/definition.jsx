@@ -27,7 +27,16 @@ const Definition = React.createClass({
     getInitialState: function() {
         return {
             expanded: false,
+            contentOffsetLeft: 0,
         };
+    },
+
+    componentDidMount: function() {
+        // need to wait for aphrodite styles to be rendered
+        // so they can accessed for measurements in positionContent
+        setTimeout(() => {
+            this._positionContent();
+        }, 0);
     },
 
     change(...args) {
@@ -53,6 +62,46 @@ const Definition = React.createClass({
             expanded: false,
         });
         this.props.trackInteraction();
+    },
+
+    /**
+    * This function positions the definition boxes so that the complete box
+    * is visible on the screen. If the word to be defined is too far to the
+    * right or left, the definition box cannot be centered (which is the
+    * default).
+    */
+    _positionContent: function() {
+        // container is the word to be defined
+        // content is the actual definition
+        const documentWidth = document.body.clientWidth;
+        const marginWidth =
+            this.container.parentElement.parentElement.offsetLeft;
+        const containerOffsetLeft = this.container.offsetLeft - marginWidth;
+        const containerWidth = this.container.offsetWidth;
+        const contentWidth = this.content.offsetWidth;
+        // calculate how far the arrow head is to the left
+        const arrowOffsetLeft = containerOffsetLeft + .5 * containerWidth;
+        // where the content box should be placed if not a literal edge case
+        const defaultLeft =
+            -.5 * contentWidth + .5 * containerWidth;
+        // calculate how far the arrow head is from the right
+        const arrowOffsetRight =
+            documentWidth - 2 * marginWidth - arrowOffsetLeft;
+
+        let contentLeft;
+
+        // left edge case
+        if (arrowOffsetLeft <= contentWidth / 2) {
+            contentLeft = containerWidth / 2 - arrowOffsetLeft;
+        // right edge case
+        } else if (arrowOffsetRight <= contentWidth / 2) {
+            contentLeft = defaultLeft + (arrowOffsetRight - .5 * contentWidth);
+        } else {
+            contentLeft = defaultLeft;
+        }
+        this.setState({
+            contentOffsetLeft: contentLeft,
+        });
     },
 
     render: function() {
@@ -114,8 +163,9 @@ const Definition = React.createClass({
                 style={{
                     height: this.state.expanded ? "auto" : 0,
                     overflow: this.state.expanded ? "visible" : "hidden",
+                    left: this.state.contentOffsetLeft,
                 }}
-                ref="content"
+                ref={e => this.content = e}
             >
                 <Renderer
                     apiOptions={this.props.apiOptions}
@@ -127,7 +177,7 @@ const Definition = React.createClass({
     },
 });
 
-const arrowWidth = 30;
+const arrowWidth = 28;
 const arrowHeight = 14;
 const backgroundColor = styleConstants.gray95;
 
@@ -142,8 +192,8 @@ const styles = StyleSheet.create({
     },
 
     definitionLink: {
-        color: '#007d96',
-        borderBottom: `dashed 1px #007d96`,
+        color: styleConstants.blue,
+        borderBottom: `dashed 1px ${styleConstants.blue}`,
         textDecoration: 'none',
 
         [mediaQueries.xl]: {
@@ -184,46 +234,23 @@ const styles = StyleSheet.create({
     },
 
     content: {
+        background: backgroundColor,
         position: 'absolute',
-        width: '250px',
-        left: '-65px',
-        zIndex: 10,
+        width: 200,
         transition: 'margin-top 0.1s',
+        paddingLeft: styleConstants.phoneMargin,
+        paddingRight: styleConstants.phoneMargin,
+        zIndex: 2,
     },
 
     contentExpanded: {
-        background: backgroundColor,
-        width: 200,
-
-        // TODO(benkomalo): this is to "full bleed" the background.
-        // The actual content padding differs depending on the host
-        // container, so this needs to be fixed eventually.
-        marginLeft: styleConstants.negativePhoneMargin,
-        marginRight: styleConstants.negativePhoneMargin,
-        paddingLeft: styleConstants.phoneMargin,
-        paddingRight: styleConstants.phoneMargin,
-        boxSizing: 'content-box',
         marginTop: arrowHeight,
     },
 
     contentExpandedMobile: {
-        boxSizing: 'content-box',
         paddingTop: 32,
         paddingBottom: 32,
         marginTop: arrowHeight,
-    },
-
-    contentMobile: {
-        background: backgroundColor,
-        width: 200,
-
-        // TODO(benkomalo): this is to "full bleed" the background.
-        // The actual content padding differs depending on the host
-        // container, so this needs to be fixed eventually.
-        marginLeft: styleConstants.negativePhoneMargin,
-        marginRight: styleConstants.negativePhoneMargin,
-        paddingLeft: styleConstants.phoneMargin,
-        paddingRight: styleConstants.phoneMargin,
     },
 
     disclosureArrow: {
@@ -238,6 +265,7 @@ const styles = StyleSheet.create({
         marginLeft: -(arrowWidth / 2),
         position: 'absolute',
         width: arrowWidth,
+        zIndex: 4, // so popovers appear on top
     },
 });
 
