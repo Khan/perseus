@@ -170,20 +170,45 @@ class ChoiceIcon extends React.Component {
         return i18n._("(Choice %(letter)s)", {letter: letter});
     }
 
+    getLetter() {
+        /* I18N: This is a list of single-character labels that will appear in
+         * front of multiple-choice options. For instance, a multiple-choice
+         * question with three options would display
+         *  (A) first option
+         *  (B) second option
+         *  (C) third option
+         * There must be spaces between each of the different characters. The
+         * characters will show up next to options in the order that they are
+         * listed here. Most multiple choice questions have 5 or fewer options.
+         */
+        const lettersString = i18n._(
+            "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z");
+
+        const letters = lettersString.split(" ");
+        const pos = this.props.pos;
+
+        if (pos < letters.length) {
+            // If the position we need is listed in the localized string, use
+            // that.
+            return letters[pos];
+        } else {
+            // If we're out of letters, give up and return a space.
+            return " ";
+        }
+    }
+
     render() {
         const {
             reviewMode,
             checked,
             correct,
             product,
-            pos,
             showCorrectness,
             pressed,
             focused,
         } = this.props;
-        // NOTE(jeresig): This is not i18n appropriate and should probably be
-        // changed to a map of common options that are properly translated.
-        const letter = String.fromCharCode(65 + pos);
+
+        const letter = this.getLetter();
 
         if (product === "sat") {
             return <SATChoiceIcon
@@ -233,7 +258,11 @@ const styles = StyleSheet.create({
         borderColor: styleConstants.gray68,
 
         // The default icons have letters in them. Style those letters.
-        fontFamily: styleConstants.boldFontFamily,
+        fontFamily: styleConstants.baseFontFamily,
+        // NOTE(emily): We explicitly set the font weight instead of using the
+        // "bold font family" so that characters which fall back to the default
+        // font get bolded too.
+        fontWeight: "bold",
         color: styleConstants.gray68,
         fontSize: 12,
 
