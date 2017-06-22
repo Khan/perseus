@@ -1,6 +1,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var classNames = require("classnames");
+var RadioImage = require("./image.jsx").editor;
 
 var Changeable = require("../mixins/changeable.jsx");
 var ApiClassNames = require("../perseus-api.jsx").ClassNames;
@@ -160,9 +161,8 @@ var Radio = React.createClass({
             }
             return {
                 // We need to make a copy, which _.pick does
-                content: <Renderer 
-                    content={choice.content}
-                    widgets={choice.widgets}/>,
+                widgets: <Renderer widgets={choice.widgets} />,
+                content: <Renderer {...content} />,
                 checked: values[i],
                 clue: <Renderer content={choice.clue} />,
             };
@@ -176,7 +176,7 @@ var Radio = React.createClass({
             multipleSelect={this.props.multipleSelect}
             showClues={this.state.showClues}
             choices={choices.map(function(choice) {
-                return _.pick(choice, "content", "checked", "clue");
+                return _.pick(choice, "content", "checked", "clue", "widgets");
             })}
             onCheckedChange={this.onCheckedChange} />;
     },
@@ -317,6 +317,7 @@ var RadioEditor = React.createClass({
 
     propTypes: {
         choices: React.PropTypes.arrayOf(React.PropTypes.shape({
+            widgets: React.PropTypes.object,
             content: React.PropTypes.string,
             clue: React.PropTypes.string,
             correct: React.PropTypes.bool
@@ -325,8 +326,7 @@ var RadioEditor = React.createClass({
         randomize: React.PropTypes.bool,
         noneOfTheAbove: React.PropTypes.bool,
         multipleSelect: React.PropTypes.bool,
-        onePerLine: React.PropTypes.bool,
-        widgets: React.PropTypes.object,
+        onePerLine: React.PropTypes.bool
     },
 
     getDefaultProps: function() {
@@ -365,15 +365,39 @@ var RadioEditor = React.createClass({
                     var editor = <Editor
                         ref={"editor" + i}
                         content={choice.content || ""}
+                        // widgets={choice.widgets || ""}
                         widgetEnabled={true}
-                        widgets={choice.widgets}
                         placeholder={"請輸入選項內容"}
                         onChange={newProps => {
-                            if ("content" in newProps || "widgets" in newProps) {
-                                this.onContentChange(i, newProps.content, newProps.widgets);
+                            if ("content" in newProps) {
+                                this.onContentChange(i, newProps.content);}
+                            // if ("widgets" in newProps) {
+                            //     this.onWidgetChange(i, newProps.content);}
                             }
+                        }
+                    />;
+                    var testeditor = <Editor
+                        ref={"test-editor" + i}
+                        // content={choice.widgets || ""}
+                        widgets={choice.widgets || ""}
+                        widgetEnabled={true}
+                        placeholder={"請輸入選項內容"}
+                        onChange={newProps => {
+                            if ("widgets" in newProps) {
+                                this.onWidgetChange(i, newProps.widgets);}
+                            // if ("widgets" in newProps) {
+                            //     this.onWidgetChange(i, newProps.content);}
                             }
-                            
+                        }
+                    />;                    
+                    var imageEditor = <RadioImage
+                        ref={"radio-image" + i}
+                        content={choice.image || ""}
+                        placeholder={"請插入圖片"}
+                        onChange={newProps => {
+                            if ("content" in newProps) {
+                                this.onImageChange(i, newProps.content);
+                            }}
                         }
                     />;
                     var clueEditor = <Editor
@@ -398,6 +422,12 @@ var RadioEditor = React.createClass({
                         content: <div className="choice-clue-editors">
                             <div className={"choice-editor " + checkedClass}>
                                 {editor}
+                            </div>
+                            <div className={"choice-editor " + checkedClass}>
+                                {testeditor}
+                            </div>                            
+                            <div className={"image-editor " + checkedClass}>
+                                {imageEditor}
                             </div>
                             {/* TODO(eater): Remove this condition after clues
                                             are fully launched. */}
@@ -457,19 +487,29 @@ var RadioEditor = React.createClass({
         this.props.onChange({choices: choices});
     },
 
-    onContentChange: function(choiceIndex, newContent, newWidgets) {
+    onContentChange: function(choiceIndex, newContent) {
         var choices = this.props.choices.slice();
-        if (newContent){
-            choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
-                content: newContent,
-            });
+        choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
+            content: newContent
+        });
+        this.props.onChange({choices: choices});
+    },
+
+    onImageChange: function(choiceIndex, newImage) {
+        var choices = this.props.choices.slice();
+        choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
+            image: newImage
+        });
+        if (newImage ==="") {
+            delete choices[choiceIndex].clue;
         }
-        if (newWidgets){
-            choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
-                widgets: newWidgets,
-            });
-        }
-        
+        this.props.onChange({choices: choices});
+    },
+    onWidgetChange: function(choiceIndex, newWidget) {
+        var choices = this.props.choices.slice();
+        choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
+            widgets: newWidget
+        });
         this.props.onChange({choices: choices});
     },
 
