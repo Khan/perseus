@@ -2093,7 +2093,51 @@ _.extend(GraphUtils.Graphie.prototype, {
             circle.perim.remove();
         };
 
-        $(circle.perim.node).css("cursor", "move");
+        // Define a set of axes using polar coordinates to specify
+        // which resizing cursor we want to show based on where the
+        // mouse position lies in relation to the circle's center.
+        // The first two columns in cursorAxes refer to the minimum
+        // and maximum angle values bounding a circle sector, and
+        // the third column refers to the cursor name that will be
+        // applied if the mouse position falls inside the given sector.
+        const cursorAxes = [
+            [Math.PI * -1.000, Math.PI * -0.875, "ew-resize"],
+            [Math.PI * -0.875, Math.PI * -0.625, "nesw-resize"],
+            [Math.PI * -0.625, Math.PI * -0.375, "ns-resize"],
+            [Math.PI * -0.375, Math.PI * -0.125, "nwse-resize"],
+            [Math.PI * -0.125, Math.PI * 0.125, "ew-resize"],
+            [Math.PI * 0.125, Math.PI * 0.375, "nesw-resize"],
+            [Math.PI * 0.375, Math.PI * 0.625, "ns-resize"],
+            [Math.PI * 0.625, Math.PI * 0.875, "nwse-resize"],
+            [Math.PI * 0.875, Math.PI * 1.000, "ew-resize"],
+        ];
+
+        // When the mouse moves along the circle's perimeter, we
+        // dynamically set a CSS rule to show the correct
+        // bidirectional cursor so a student knows they can resize
+        // our circle. To do this, we convert the x and y coordinates
+        // of the mouse position into polar coordinates and use the
+        // defined cursorAxes above to set our rule.
+        $(circle.perim.node).on(
+            "vmousemove", event => {
+                let [x, y] = this.getMouseCoord(event);
+
+                x -= circle.center[0];
+                y -= circle.center[1];
+
+                const theta = Math.atan2(y, x);
+
+                cursorAxes.forEach(function(axes) {
+                    const [min, max, cursorName] = axes;
+                    if (theta >= min && theta < max) {
+                        $(circle.perim.node).css("cursor", cursorName);
+                    }
+                });
+            }
+        );
+
+        // Set a default resizing-friendly cursor to be safe.
+        $(circle.perim.node).css("cursor", "nesw-resize");
 
         // Prevent the page from scrolling when we grab and drag the circle on
         // a mobile device.
