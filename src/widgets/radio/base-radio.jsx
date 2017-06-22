@@ -126,6 +126,14 @@ const BaseRadio = React.createClass({
                 },
             },
 
+            radioContainerFirstHighlighted: {
+                borderTop: `1px solid rgba(0, 0, 0, 0)`,
+            },
+
+            radioContainerLastHighlighted: {
+                borderBottom: `1px solid rgba(0, 0, 0, 0)`,
+            },
+
             satRadio: {
                 background: "none",
                 marginLeft: 0,
@@ -173,6 +181,21 @@ const BaseRadio = React.createClass({
                 // "feedback popover" that shows up. This z-index is carefully
                 // coordinated between here and webapp. :(
                 zIndex: 1062,
+            },
+
+            aboveBackdropMobile: {
+                boxShadow: "0 0 4px 0 rgba(0, 0, 0, 0.2)," +
+                    "0 0 2px 0 rgba(0, 0, 0, 0.1)",
+
+                ":not(:last-child)": {
+                    borderBottom: `1px solid rgba(0, 0, 0, 0)`,
+                },
+            },
+
+            nextHighlighted: {
+                ":not(:last-child)": {
+                    borderBottom: `1px solid rgba(0, 0, 0, 0)`,
+                },
             },
 
             responsiveContainer: {
@@ -260,6 +283,10 @@ const BaseRadio = React.createClass({
         const styles = BaseRadio.styles;
         const sat = this.props.apiOptions.satStyling;
 
+        const choices = this.props.choices;
+        const firstChoiceHighlighted = choices[0].highlighted;
+        const lastChoiceHighlighted = choices[choices.length - 1].highlighted;
+
         const className = classNames(
             "perseus-widget-radio",
             !this.props.editMode && "perseus-rendered-radio",
@@ -268,6 +295,12 @@ const BaseRadio = React.createClass({
                 // SAT doesn't use the "responsive styling" as it conflicts
                 // with their custom theming.
                 !sat && styles.responsiveRadioContainer,
+                !sat && firstChoiceHighlighted &&
+                    this.props.apiOptions.isMobile &&
+                    styles.radioContainerFirstHighlighted,
+                !sat && lastChoiceHighlighted &&
+                    this.props.apiOptions.isMobile &&
+                    styles.radioContainerLastHighlighted,
                 sat && styles.satRadio
             )
         );
@@ -325,13 +358,24 @@ const BaseRadio = React.createClass({
                         });
                     }
 
+                    const nextChoice = this.props.choices[i + 1];
+                    const nextChoiceHighlighted =
+                        !!nextChoice && nextChoice.highlighted;
+
                     const aphroditeClassName = (checked) => {
                         return css(
                             sharedStyles.aboveScratchpad,
                             styles.item,
                             !sat && styles.responsiveItem,
                             !sat && checked && styles.selectedItem,
-                            !sat && checked && styles.aboveBackdrop,
+                            !sat && checked && choice.highlighted &&
+                                styles.aboveBackdrop,
+                            !sat && checked && choice.highlighted &&
+                                this.props.apiOptions.isMobile &&
+                                styles.aboveBackdropMobile,
+                            !sat && nextChoiceHighlighted &&
+                                this.props.apiOptions.isMobile &&
+                                styles.nextHighlighted,
                             sat && styles.satRadioOption,
                             sat && checked && styles.satRadioSelected,
                             sat && rubric && styles.satReviewRadioOption

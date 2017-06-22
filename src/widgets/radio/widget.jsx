@@ -38,6 +38,8 @@ const Radio = React.createClass({
         values: React.PropTypes.arrayOf(React.PropTypes.bool),
         choiceStates: React.PropTypes.arrayOf(React.PropTypes.shape({
             selected: React.PropTypes.bool,
+            highlighted: React.PropTypes.bool,
+            previouslyHighlighted: React.PropTypes.bool,
             rationaleShown: React.PropTypes.bool,
             correctnessShown: React.PropTypes.bool,
             readOnly: React.PropTypes.bool,
@@ -120,6 +122,8 @@ const Radio = React.createClass({
             this.props.onChange({
                 choiceStates: choices.map((_, i) => ({
                     selected: checked[i],
+                    highlighted: false,
+                    previouslyHighlighted: false,
                     rationaleShown: false,
                     correctnessShown: false,
                     readOnly: false,
@@ -225,6 +229,10 @@ const Radio = React.createClass({
 
             const newStates = this.props.choiceStates.map(state => ({
                 ...state,
+                highlighted: state.selected && !state.previouslyHighlighted,
+                previouslyHighlighted:
+                    state.selected ||
+                    state.previouslyHighlighted,
                 rationaleShown: (
                     // If the choice is selected, show the rationale now
                     state.selected ||
@@ -258,6 +266,7 @@ const Radio = React.createClass({
             const newStates = this.props.choiceStates.map((state, i) => ({
                 ...state,
                 selected: state.selected && !!this.props.choices[i].correct,
+                highlighted: false,
             }));
 
             this.props.onChange(
@@ -279,12 +288,18 @@ const Radio = React.createClass({
             // Support legacy choiceStates implementation
             choiceStates = _.map(this.props.values, (val) => ({
                 selected: val,
+                readOnly: false,
+                highlighted: false,
                 rationaleShown: false,
+                correctnessShown: false,
             }));
         } else {
             choiceStates = _.map(choices, () => ({
                 selected: false,
+                readOnly: false,
+                highlighted: false,
                 rationaleShown: false,
+                correctnessShown: false,
             }));
         }
 
@@ -301,6 +316,7 @@ const Radio = React.createClass({
                 rationaleShown,
                 correctnessShown,
                 readOnly,
+                highlighted,
             } = choiceStates[i];
 
             return {
@@ -314,6 +330,7 @@ const Radio = React.createClass({
                 showCorrectness: correctnessShown,
                 isNoneOfTheAbove: choice.isNoneOfTheAbove,
                 revealNoneOfTheAbove: this.props.questionCompleted && selected,
+                highlighted,
             };
         });
         choices = this.enforceOrdering(choices);

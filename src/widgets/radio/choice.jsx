@@ -401,7 +401,12 @@ const Choice = React.createClass({
             );
         }
 
-        const {reviewMode, correct, checked, isLastChoice} = this.props;
+        const {
+            reviewMode,
+            correct,
+            checked,
+            isLastChoice,
+        } = this.props;
         // HACK: while most of the styling for rendering SAT items is handled
         // via aphrodite, we also need to assign normal CSS classnames here to
         // special-case the coloring of MathJax formulas (see .MathJax .math in
