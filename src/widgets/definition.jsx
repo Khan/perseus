@@ -43,7 +43,23 @@ const Definition = React.createClass({
         return Changeable.change.apply(this, args);
     },
 
+    close() {
+        this.setState({
+            expanded: false,
+        });
+    },
+
     _onClick: function() {
+        // close all other open definitions if opening definition
+        if (!this.state.expanded) {
+            const definitionWidgets = this.props.findWidgets("definition");
+            for (const widget of definitionWidgets) {
+                if (widget !== this) {
+                    widget.close();
+                }
+            }
+        }
+
         this.setState({
             expanded: !this.state.expanded,
         });
