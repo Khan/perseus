@@ -2,7 +2,6 @@ var React = require("react");
 var _ = require("underscore");
 
 var BlurInput    = require("react-components/js/blur-input.jsx");
-var FileInput    = require("react-components/js/file-input.jsx");
 var InfoTip      = require("react-components/js/info-tip.jsx");
 
 var Changeable   = require("../mixins/changeable.jsx");
@@ -162,8 +161,6 @@ var ImageEditor = React.createClass({
             <div>圖片網址:{' '}
                 <BlurInput value={this.props.backgroundImage.url}
                            onChange={this.onUrlChange} />
-                <FileInput value={this.props.backgroundImage.name}
-                           onChange={this.onUrlChange} />
                 <InfoTip>
                     <p>填入圖片的網址。例如，先上傳至 http://imgur.com ，貼上圖片網址 (Direct link)。</p>
                 </InfoTip>
@@ -175,7 +172,7 @@ var ImageEditor = React.createClass({
             </label>
             <div>寬度:{' '}
                 <BlurInput value={parseInt(this.props.box[0])}
-                           onChange={this.onWidthChange} />                          
+                           onChange={this.onWidthChange} />
                 <InfoTip>
                     <p>希望圖片顯示的寬度(px)，若要調整請先勾選"手動調整寬度"</p>
                 </InfoTip>
