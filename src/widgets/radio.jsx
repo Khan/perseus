@@ -317,7 +317,12 @@ var RadioEditor = React.createClass({
         choices: React.PropTypes.arrayOf(React.PropTypes.shape({
             content: React.PropTypes.string,
             clue: React.PropTypes.string,
-            correct: React.PropTypes.bool
+            correct: React.PropTypes.bool,
+            backgroundImage: React.PropTypes.shape({
+                url: React.PropTypes.string,
+                width: React.PropTypes.number,
+                height: React.PropTypes.number
+            })
         })),
         displayCount: React.PropTypes.number,
         randomize: React.PropTypes.bool,
@@ -328,7 +333,10 @@ var RadioEditor = React.createClass({
 
     getDefaultProps: function() {
         return {
-            choices: [{}, {}],
+            choices: [
+            {backgroundImage:{url:""}}, 
+            {backgroundImage:{url:""}}
+            ],
             displayCount: null,
             randomize: false,
             noneOfTheAbove: false,
@@ -359,6 +367,12 @@ var RadioEditor = React.createClass({
                     var checkedClass = choice.correct ?
                         "correct" :
                         "incorrect";
+
+                    var inputImage = <input
+                        type="file"
+                        content={choice.backgroundImage.url}
+                    />;
+
                     var editor = <Editor
                         ref={"editor" + i}
                         content={choice.content || ""}
@@ -393,6 +407,9 @@ var RadioEditor = React.createClass({
                             <div className={"choice-editor " + checkedClass}>
                                 {editor}
                             </div>
+                            <div className={"input-image " + checkedClass}>
+                                {inputImage}
+                            </div>                            
                             {/* TODO(eater): Remove this condition after clues
                                             are fully launched. */}
                             {(!window.KA || window.KA.allowEditingClues) &&
@@ -443,6 +460,40 @@ var RadioEditor = React.createClass({
             });
         }
     },
+
+    setUrl: function(url, width, height) {
+        if (!this.isMounted()) {
+            return;
+        }
+
+        var image = _.clone(this.props.backgroundImage);
+        image.url = url;
+        image.width = width;
+        image.height = height;
+        var box = [image.width, image.height];
+        this.props.onChange({
+            backgroundImage: image,
+            box: box,
+            useBoxSize: false
+        });
+    },
+
+    reloadImage: function(url) {
+        var img = new Image();
+        img.onload = function()  {return this.setUrl(url, img.width, img.height);}.bind(this);
+        img.src = url;
+    },
+
+    onUrlChange: function(url) {
+        if (url) {
+            if (this.props.backgroundImage.url != url) {
+                this.reloadImage(url);
+            }
+        } else {
+            this.setUrl(url, 0, 0);
+        }
+    },
+
 
     onCheckedChange: function(checked) {
         var choices = _.map(this.props.choices, function(choice, i) {
