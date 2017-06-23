@@ -2723,8 +2723,8 @@ function Protractor(graph, center) {
     this.rotateHandle = graph.addMovablePoint({
         bounded: false,
         coord: [
-            Math.sin(275 * Math.PI / 180) * (r + 0.5) + this.cx,
-            Math.cos(275 * Math.PI / 180) * (r + 0.5) + this.cy,
+            Math.sin(275 * Math.PI / 180) * r + this.cx,
+            Math.cos(275 * Math.PI / 180) * r + this.cy,
         ],
         onMove: function(x, y) {
             const angle = Math.atan2(pro.centerPoint.coord[1] - y, pro.centerPoint.coord[0] - x) * 180 / Math.PI;
@@ -2733,7 +2733,7 @@ function Protractor(graph, center) {
     });
 
     // Add a constraint so the point moves in a circle
-    this.rotateHandle.constraints.fixedDistance.dist = r + 0.5;
+    this.rotateHandle.constraints.fixedDistance.dist = r;
     this.rotateHandle.constraints.fixedDistance.point = this.centerPoint;
 
     // Remove the default dot added by the movablePoint since we have our double-arrow thing
@@ -2751,10 +2751,14 @@ function Protractor(graph, center) {
     const $mouseTarget = $(self.rotateHandle.mouseTarget.getMouseTarget());
     $mouseTarget.bind("vmousedown", function(event) {
         isDragging = true;
+        $mouseTarget.css("cursor", "-webkit-grabbing");
+        $mouseTarget.css("cursor", "grabbing");
         arrow.animate({ scale: 1.5, fill: KhanColors.INTERACTING }, 50);
 
         $(document).bind("vmouseup.rotateHandle", function(event) {
             isDragging = false;
+            $mouseTarget.css("cursor", "-webkit-grab");
+            $mouseTarget.css("cursor", "grab");
 
             if (!isHighlight()) {
                 arrow.animate({ scale: 1.0, fill: KhanColors.INTERACTIVE }, 50);
@@ -2778,6 +2782,8 @@ function Protractor(graph, center) {
     const setNodes = $.map(this.set, function(el) { return el.node; });
     this.makeTranslatable = function makeTranslatable() {
         $(setNodes).css("cursor", "move");
+        $mouseTarget.css("cursor", "-webkit-grab");
+        $mouseTarget.css("cursor", "grab");
 
         $(setNodes).bind("vmousedown", function(event) {
             event.preventDefault();
@@ -2808,7 +2814,6 @@ function Protractor(graph, center) {
             });
         });
     };
-
 
     this.rotation = 0;
 
@@ -2859,8 +2864,8 @@ function Protractor(graph, center) {
             step: function(now, fx) {
                 pro.rotate(now, true);
                 pro.rotateHandle.setCoord([
-                    Math.sin((now + 275) * Math.PI / 180) * (r + 0.5) + pro.centerPoint.coord[0],
-                    Math.cos((now + 275) * Math.PI / 180) * (r + 0.5) + pro.centerPoint.coord[1],
+                    Math.sin((now + 275) * Math.PI / 180) * r + pro.centerPoint.coord[0],
+                    Math.cos((now + 275) * Math.PI / 180) * r + pro.centerPoint.coord[1],
                 ]);
             },
         });
