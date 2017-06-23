@@ -370,7 +370,10 @@ var RadioEditor = React.createClass({
 
                     var inputImage = <input
                         type="file"
-                        content={choice.backgroundImage.url}
+                        content={choice.backgroundImage.url || ""}
+                        onChange={newProps => {
+                            this.onFileInputChange(i, newProps);
+                        }}
                     />;
 
                     var editor = <Editor
@@ -492,6 +495,27 @@ var RadioEditor = React.createClass({
         } else {
             this.setUrl(url, 0, 0);
         }
+    },
+
+    onFileInputChange: function(choiceIndex, newImage) {
+        
+        var file    = newImage.target.files[0]; 
+        var reader  = new FileReader();
+        var that = this;
+        reader.readAsDataURL(file);
+        reader.onloadend = function() {
+            // console.log('RESULT', reader.result);
+            // that.setState({value: reader.result});
+            // console.log("this is this %s", this);
+            // console.log("this is that %s", that);
+            // console.log(that.props);
+            var choices = that.props.choices.slice();
+            choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
+                content: "![](" + reader.result + ")"
+            });
+            that.props.onChange({choices: choices});
+        }
+
     },
 
 
