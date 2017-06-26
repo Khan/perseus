@@ -1,5 +1,5 @@
 /*! Perseus | http://github.com/Khan/perseus */
-// commit 604e0e1dae9592e89f5a20d0e03411c63b5b2944
+// commit 96e37a6618a36a761a5d0d45ee22d234ca272d4d
 // branch react-15
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Perseus = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
@@ -31582,7 +31582,7 @@ var DragTarget = require("react-components/js/drag-target.jsx");
 var rWidgetSplit = /(\[\[\u2603 [a-z-]+ [0-9]+\]\])/g;
 
 // widgets junyi can use now:
-var widgetsInEditor = ['image', 'categorizer', 'dropdown', 'explanation', 'expression', 'input-number', 'interactive-graph', 'interactive-number-line', 'lights-puzzle', 'matrix', 'measurer', 'number-line', 'iframe', 'numeric-input', 'plotter', 'radio', 'sorter', 'table', 'transformer', 'matcher', 'speaking-text-input', 'speaking-voice'];
+var widgetsInEditor = ['image', 'categorizer', 'dropdown', 'explanation', 'expression', 'input-number', 'interactive-graph', 'interactive-number-line', 'lights-puzzle', 'matrix', 'measurer', 'number-line', 'iframe', 'numeric-input', 'orderer', 'plotter', 'radio', 'sorter', 'table', 'transformer', 'matcher', 'speaking-text-input', 'speaking-voice'];
 
 var WidgetSelect = React.createClass({
     displayName: "WidgetSelect",
@@ -46012,7 +46012,7 @@ var Card = React.createClass({
         var loc = Util.extractPointerLocation(event);
         if (loc) {
             this.bindMouseMoveUp();
-            this.props.onMouseDown && this.props.onMouseDown(loc, this);
+            this.props.onMouseDown && this.props.onMouseDown(loc, ReactDOM.findDOMNode(this));
         }
     },
 
@@ -46196,7 +46196,7 @@ var Orderer = React.createClass({
     onRelease: function onRelease(loc) {
         var _this2 = this;
 
-        var draggable = this.refs.dragging;
+        var draggable = ReactDOM.findDOMNode(this.refs.dragging);
         if (draggable == null) {
             return;
         }
@@ -46239,13 +46239,13 @@ var Orderer = React.createClass({
             // one with the same content
             _.each(this.props.options, function (opt, i) {
                 if (opt.content === this.state.dragContent) {
-                    var card = this.refs["bank" + i];
+                    var card = ReactDOM.findDOMNode(this.refs["bank" + i]);
                     finalOffset = $(card).position();
                 }
             }, this);
         } else {
             // Otherwise, go to the position that the placeholder is at
-            finalOffset = $(this.refs.placeholder).position();
+            finalOffset = $(ReactDOM.findDOMNode(this.refs.placeholder)).position();
         }
 
         if (finalOffset == null) {
@@ -46265,7 +46265,7 @@ var Orderer = React.createClass({
     },
 
     onMouseMove: function onMouseMove(loc) {
-        var draggable = this.refs.dragging;
+        var draggable = ReactDOM.findDOMNode(this.refs.dragging);
         if (draggable == null) {
             return;
         }
@@ -46286,7 +46286,7 @@ var Orderer = React.createClass({
     findCorrectIndex: function findCorrectIndex(draggable, list) {
         // Find the correct index for a card given the current cards.
         var isHorizontal = this.props.layout === HORIZONTAL,
-            $dragList = $(this.refs.dragList),
+            $dragList = $(ReactDOM.findDOMNode(this.refs.dragList)),
             leftEdge = $dragList.offset().left,
             topEdge = $dragList.offset().top,
             midWidth = $(draggable).offset().left - leftEdge,
@@ -46297,7 +46297,7 @@ var Orderer = React.createClass({
 
         if (isHorizontal) {
             _.each(list, function (opt, i) {
-                var card = this.refs["sortable" + i];
+                var card = ReactDOM.findDOMNode(this.refs["sortable" + i]);
                 var outerWidth = $(card).outerWidth(true);
                 if (midWidth > sumWidth + outerWidth / 2) {
                     index += 1;
@@ -46306,7 +46306,7 @@ var Orderer = React.createClass({
             }, this);
         } else {
             _.each(list, function (opt, i) {
-                var card = this.refs["sortable" + i];
+                var card = ReactDOM.findDOMNode(this.refs["sortable" + i]);
                 var outerHeight = $(card).outerHeight(true);
                 if (midHeight > sumHeight + outerHeight / 2) {
                     index += 1;
@@ -46325,13 +46325,13 @@ var Orderer = React.createClass({
 
         var isHorizontal = this.props.layout === HORIZONTAL,
             $draggable = $(draggable),
-            $bank = $(this.refs.bank),
+            $bank = $(ReactDOM.findDOMNode(this.refs.bank)),
             draggableOffset = $draggable.offset(),
             bankOffset = $bank.offset(),
             draggableHeight = $draggable.outerHeight(true),
             bankHeight = $bank.outerHeight(true),
             bankWidth = $bank.outerWidth(true),
-            dragList = this.refs.dragList,
+            dragList = ReactDOM.findDOMNode(this.refs.dragList),
             dragListWidth = $(dragList).width(),
             draggableWidth = $draggable.outerWidth(true);
 
