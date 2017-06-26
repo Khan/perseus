@@ -1,5 +1,5 @@
 /*! Perseus | http://github.com/Khan/perseus */
-// commit 96e37a6618a36a761a5d0d45ee22d234ca272d4d
+// commit f51b85f3e8a4c9b11cb87b8992b2627505635ae5
 // branch react-15
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Perseus = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
@@ -26813,7 +26813,7 @@ function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in ob
 
 var Widgets = require("./widgets.js");
 
-_.each([require("./widgets/categorizer.jsx"), require("./widgets/dropdown.jsx"), require("./widgets/example-widget.jsx"), require("./widgets/example-graphie-widget.jsx"), [require("./widgets/explanation.jsx"), require("./widgets/explanation-editor.jsx")], require("./widgets/expression.jsx"), require("./widgets/iframe.jsx"), require("./widgets/input-number.jsx"), require("./widgets/interactive-graph.jsx"), require("./widgets/interactive-number-line.jsx"), require("./widgets/lights-puzzle.jsx"), require("./widgets/matcher.jsx"), require("./widgets/matrix.jsx"), require("./widgets/measurer.jsx"), require("./widgets/number-line.jsx"), require("./widgets/numeric-input.jsx"), require("./widgets/orderer.jsx"), require("./widgets/plotter.jsx"), require("./widgets/radio.jsx"), require("./widgets/sorter.jsx"), require("./widgets/table.jsx"), require("./widgets/transformer.jsx"), require("./widgets/image.jsx"), require("./widgets/speaking-text-input.jsx"), require("./widgets/speaking-voice.jsx")], function (_widget) {
+_.each([require("./widgets/categorizer.jsx"), require("./widgets/dropdown.jsx"), require("./widgets/example-graphie-widget.jsx"), [require("./widgets/explanation.jsx"), require("./widgets/explanation-editor.jsx")], require("./widgets/expression.jsx"), require("./widgets/iframe.jsx"), require("./widgets/image.jsx"), require("./widgets/input-number.jsx"), require("./widgets/interactive-graph.jsx"), require("./widgets/interactive-number-line.jsx"), require("./widgets/lights-puzzle.jsx"), require("./widgets/matcher.jsx"), require("./widgets/matrix.jsx"), require("./widgets/measurer.jsx"), [require("./widgets/molecule.jsx"), require("./widgets/molecule-editor.jsx")], require("./widgets/number-line.jsx"), require("./widgets/numeric-input.jsx"), require("./widgets/orderer.jsx"), require("./widgets/plotter.jsx"), require("./widgets/radio.jsx"), [require("./widgets/reaction-diagram.jsx"), require("./widgets/reaction-diagram-editor.jsx")], require("./widgets/sorter.jsx"), require("./widgets/table.jsx"), require("./widgets/transformer.jsx"), require("./widgets/speaking-text-input.jsx"), require("./widgets/speaking-voice.jsx")], function (_widget) {
     if (Array.isArray(_widget)) {
         var _widget2 = _slicedToArray(_widget, 2),
             _widget2$ = _widget2[0],
@@ -26828,7 +26828,7 @@ _.each([require("./widgets/categorizer.jsx"), require("./widgets/dropdown.jsx"),
     Widgets.register(name, widget, editor);
 });
 
-},{"./widgets.js":306,"./widgets/categorizer.jsx":307,"./widgets/dropdown.jsx":308,"./widgets/example-graphie-widget.jsx":309,"./widgets/example-widget.jsx":310,"./widgets/explanation-editor.jsx":311,"./widgets/explanation.jsx":312,"./widgets/expression.jsx":313,"./widgets/iframe.jsx":314,"./widgets/image.jsx":315,"./widgets/input-number.jsx":316,"./widgets/interactive-graph.jsx":317,"./widgets/interactive-number-line.jsx":318,"./widgets/lights-puzzle.jsx":319,"./widgets/matcher.jsx":320,"./widgets/matrix.jsx":321,"./widgets/measurer.jsx":322,"./widgets/number-line.jsx":323,"./widgets/numeric-input.jsx":324,"./widgets/orderer.jsx":325,"./widgets/plotter.jsx":326,"./widgets/radio.jsx":327,"./widgets/sorter.jsx":328,"./widgets/speaking-text-input.jsx":329,"./widgets/speaking-voice.jsx":330,"./widgets/table.jsx":331,"./widgets/transformer.jsx":332}],250:[function(require,module,exports){
+},{"./widgets.js":306,"./widgets/categorizer.jsx":307,"./widgets/dropdown.jsx":308,"./widgets/example-graphie-widget.jsx":309,"./widgets/explanation-editor.jsx":310,"./widgets/explanation.jsx":311,"./widgets/expression.jsx":312,"./widgets/iframe.jsx":313,"./widgets/image.jsx":314,"./widgets/input-number.jsx":315,"./widgets/interactive-graph.jsx":316,"./widgets/interactive-number-line.jsx":317,"./widgets/lights-puzzle.jsx":318,"./widgets/matcher.jsx":319,"./widgets/matrix.jsx":320,"./widgets/measurer.jsx":321,"./widgets/molecule-editor.jsx":322,"./widgets/molecule.jsx":323,"./widgets/number-line.jsx":327,"./widgets/numeric-input.jsx":328,"./widgets/orderer.jsx":329,"./widgets/plotter.jsx":330,"./widgets/radio.jsx":331,"./widgets/reaction-diagram-editor.jsx":332,"./widgets/reaction-diagram.jsx":333,"./widgets/sorter.jsx":334,"./widgets/speaking-text-input.jsx":335,"./widgets/speaking-voice.jsx":336,"./widgets/table.jsx":337,"./widgets/transformer.jsx":338}],250:[function(require,module,exports){
 "use strict";
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -31581,9 +31581,6 @@ var DragTarget = require("react-components/js/drag-target.jsx");
 // like [[snowman input-number 1]]
 var rWidgetSplit = /(\[\[\u2603 [a-z-]+ [0-9]+\]\])/g;
 
-// widgets junyi can use now:
-var widgetsInEditor = ['image', 'categorizer', 'dropdown', 'explanation', 'expression', 'input-number', 'interactive-graph', 'interactive-number-line', 'lights-puzzle', 'matrix', 'measurer', 'number-line', 'iframe', 'numeric-input', 'orderer', 'plotter', 'radio', 'sorter', 'table', 'transformer', 'matcher', 'speaking-text-input', 'speaking-voice'];
-
 var WidgetSelect = React.createClass({
     displayName: "WidgetSelect",
 
@@ -31604,9 +31601,9 @@ var WidgetSelect = React.createClass({
     },
     render: function render() {
         var widgets = Widgets.getPublicWidgets();
-        var junyiValidWidgets = _.pick(widgets, widgetsInEditor);
-        var orderedWidgetNames = _.sortBy(_.keys(junyiValidWidgets), function (name) {
-            return junyiValidWidgets[name].displayName;
+        //var junyiValidWidgets = _.pick(widgets, widgetsInEditor);
+        var orderedWidgetNames = _.sortBy(_.keys(widgets), function (name) {
+            return widgets[name].displayName;
         });
 
         return React.createElement(
@@ -36351,16 +36348,12 @@ var WidgetContainer = React.createClass({
             return React.createElement("div", { className: className });
         }
 
-        if (WidgetType.displayMode == null) {
-            throw new Error("You didn't specify a displayMode in the " + "statics for " + WidgetType.displayName + ".");
-        }
-
         return React.createElement(
             "div",
             { className: className,
-                style: {
+                style: WidgetType.displayMode ? {
                     display: WidgetType.displayMode
-                } },
+                } : {} },
             React.createElement(WidgetType, _extends({}, this.props.initialProps, { ref: "widget" }))
         );
     },
@@ -37232,202 +37225,12 @@ var ExampleGraphieWidgetEditor = React.createClass({
 module.exports = {
     name: "example-graphie-widget",
     displayName: "Example Graphie Widget",
-    hidden: false, // Hides this widget from the Perseus.Editor widget select
+    hidden: true, // Hides this widget from the Perseus.Editor widget select
     widget: ExampleGraphieWidget,
     editor: ExampleGraphieWidgetEditor
 };
 
 },{"../components/graphie.jsx":257,"../mixins/changeable.jsx":291,"../mixins/jsonify-props.jsx":292,"../util.js":303,"react":246}],310:[function(require,module,exports){
-"use strict";
-
-/**
- * This is a simple number-entry widget
- * It is not as powerful as number-input, but has a simpler, more
- * representative structure as an example widget, and is easier to
- * test new ideas on.
- *
- * TODO(jack): Add more comments
- */
-
-var React = require('react');
-var Changeable = require("../mixins/changeable.jsx");
-var JsonifyProps = require("../mixins/jsonify-props.jsx");
-
-var TextInput = React.createClass({
-    displayName: "TextInput",
-
-    render: function render() {
-        return React.createElement("input", {
-            ref: "input",
-            value: this.props.value || "",
-            onChange: this.changeValue });
-    },
-
-    focus: function focus() {
-        this.refs.input.focus();
-        return true;
-    },
-
-    changeValue: function changeValue(e) {
-        // Translating from the js event e to the value
-        // of the textbox to send to onChange
-        this.props.onChange(e.target.value);
-    },
-
-    statics: {
-        displayMode: "inline-block"
-    }
-});
-
-/**
- * This is the widget's renderer. It shows up in the right column
- * in test.html, and is what is visible to users, and where
- * users enter their answers.
- */
-var ExampleWidget = React.createClass({
-    displayName: "ExampleWidget",
-
-    propTypes: {
-        value: React.PropTypes.string
-    },
-
-    getDefaultProps: function getDefaultProps() {
-        return {
-            value: ""
-        };
-    },
-
-    /**
-     * Changeling creates this.change() to tell our parent to update our props
-     *
-     * JsonifyProps creates this.toJSON() which returns the state of the widget
-     * for checking the answer in simpleValidate
-     */
-    mixins: [Changeable, JsonifyProps],
-
-    render: function render() {
-        return React.createElement(TextInput, {
-            ref: "input",
-            value: this.props.value,
-            onChange: this.change("value") });
-    },
-
-    /**
-     * Widgets that are focusable should add a focus method that returns
-     * true if focusing succeeded. The first such widget found will be
-     * focused on page load.
-     */
-    focus: function focus() {
-        this.refs.input.focus();
-        return true;
-    },
-
-    /**
-     * simpleValidate is called for grading. Rubric is the result of calling
-     * toJSON() on the editor that created this widget.
-     *
-     * Should return an object representing the grading result, such as
-     * {
-     *     type: "points",
-     *     earned: 1,
-     *     total: 1,
-     *     message: null
-     * }
-     */
-    simpleValidate: function simpleValidate(rubric) {
-        return ExampleWidget.validate(this.toJSON(), rubric);
-    }
-});
-
-/**
- * This is the widget's grading function
- */
-_.extend(ExampleWidget, {
-    /**
-     * simpleValidate generally defers to this function
-     *
-     * state is usually the result of toJSON on the widget
-     * rubric is the result of calling toJSON() on the editor
-     */
-    validate: function validate(state, rubric) {
-        if (state.value === "") {
-            return {
-                type: "invalid",
-                message: "It looks like you haven't answered all of the " + "question yet."
-            };
-        } else if (state.value === rubric.correct) {
-            return {
-                type: "points",
-                earned: 1,
-                total: 1,
-                message: null
-            };
-        } else {
-            return {
-                type: "points",
-                earned: 0,
-                total: 1,
-                message: null
-            };
-        }
-    }
-});
-
-/**
- * This is the widget's editor. This is what shows up on the left side
- * of the screen in test.html. Only the question writer sees this.
- */
-var ExampleWidgetEditor = React.createClass({
-    displayName: "ExampleWidgetEditor",
-
-    mixins: [Changeable, JsonifyProps],
-
-    getDefaultProps: function getDefaultProps() {
-        return {
-            correct: ""
-        };
-    },
-
-    handleAnswerChange: function handleAnswerChange(event) {
-        this.change({
-            correct: event.target.value
-        });
-    },
-
-    render: function render() {
-        return React.createElement(
-            "div",
-            null,
-            React.createElement(
-                "label",
-                null,
-                "Correct answer:",
-                React.createElement("input", {
-                    value: this.props.correct,
-                    onChange: this.handleAnswerChange,
-                    ref: "input" })
-            )
-        );
-    },
-
-    focus: function focus() {
-        this.refs.input.focus();
-        return true;
-    }
-});
-
-/**
- * For this widget to work, we must require() this file in src/all-widgets.js
- */
-module.exports = {
-    name: "example-widget",
-    displayName: "Example Widget",
-    hidden: false, // Hides this widget from the Perseus.Editor widget select
-    widget: ExampleWidget,
-    editor: ExampleWidgetEditor
-};
-
-},{"../mixins/changeable.jsx":291,"../mixins/jsonify-props.jsx":292,"react":246}],311:[function(require,module,exports){
 "use strict";
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -37528,7 +37331,7 @@ var ExplanationEditor = React.createClass({
 
 module.exports = ExplanationEditor;
 
-},{"../components/text-input.jsx":266,"../editor.jsx":275,"../mixins/changeable.jsx":291,"../mixins/jsonify-props.jsx":292,"react":246,"underscore":248}],312:[function(require,module,exports){
+},{"../components/text-input.jsx":266,"../editor.jsx":275,"../mixins/changeable.jsx":291,"../mixins/jsonify-props.jsx":292,"react":246,"underscore":248}],311:[function(require,module,exports){
 "use strict";
 
 var _explanationLink, _mobileExplanationLin;
@@ -37796,7 +37599,7 @@ module.exports = {
     transform: _.identity
 };
 
-},{"../mixins/changeable.jsx":291,"../perseus-api.jsx":294,"../renderer.jsx":298,"../styles/constants.js":300,"../styles/media-queries.js":301,"aphrodite":5,"react":246,"underscore":248}],313:[function(require,module,exports){
+},{"../mixins/changeable.jsx":291,"../perseus-api.jsx":294,"../renderer.jsx":298,"../styles/constants.js":300,"../styles/media-queries.js":301,"aphrodite":5,"react":246,"underscore":248}],312:[function(require,module,exports){
 "use strict";
 
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
@@ -38353,7 +38156,7 @@ module.exports = {
     propUpgrades: propUpgrades
 };
 
-},{"../components/input-with-examples.jsx":258,"../components/math-input.jsx":259,"../components/prop-check-box.jsx":262,"../components/tex-buttons.jsx":265,"../enabled-features.jsx":276,"../mixins/changeable.jsx":291,"../mixins/jsonify-props.jsx":292,"../perseus-api.jsx":294,"../tex.jsx":302,"../util.js":303,"classnames":12,"react":246,"react-components/js/info-tip.jsx":68,"react-components/js/tooltip.jsx":72,"react-dom":95}],314:[function(require,module,exports){
+},{"../components/input-with-examples.jsx":258,"../components/math-input.jsx":259,"../components/prop-check-box.jsx":262,"../components/tex-buttons.jsx":265,"../enabled-features.jsx":276,"../mixins/changeable.jsx":291,"../mixins/jsonify-props.jsx":292,"../perseus-api.jsx":294,"../tex.jsx":302,"../util.js":303,"classnames":12,"react":246,"react-components/js/info-tip.jsx":68,"react-components/js/tooltip.jsx":72,"react-dom":95}],313:[function(require,module,exports){
 "use strict";
 
 /**
@@ -38627,7 +38430,7 @@ module.exports = {
     editor: IframeEditor
 };
 
-},{"../mixins/changeable.jsx":291,"../mixins/jsonify-props.jsx":292,"../util.js":303,"react":246,"react-components/js/blur-input.jsx":65}],315:[function(require,module,exports){
+},{"../mixins/changeable.jsx":291,"../mixins/jsonify-props.jsx":292,"../util.js":303,"react":246,"react-components/js/blur-input.jsx":65}],314:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -39005,7 +38808,7 @@ module.exports = {
     editor: ImageEditor
 };
 
-},{"../components/graphie.jsx":257,"../components/range-input.jsx":263,"../mixins/changeable.jsx":291,"../mixins/jsonify-props.jsx":292,"react":246,"react-components/js/blur-input.jsx":65,"react-components/js/info-tip.jsx":68,"underscore":248}],316:[function(require,module,exports){
+},{"../components/graphie.jsx":257,"../components/range-input.jsx":263,"../mixins/changeable.jsx":291,"../mixins/jsonify-props.jsx":292,"react":246,"react-components/js/blur-input.jsx":65,"react-components/js/info-tip.jsx":68,"underscore":248}],315:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -39376,7 +39179,7 @@ module.exports = {
     transform: propTransform
 };
 
-},{"../components/input-with-examples.jsx":258,"../enabled-features.jsx":276,"../perseus-api.jsx":294,"../renderer.jsx":298,"../tex.jsx":302,"../util.js":303,"react":246,"react-components/js/blur-input.jsx":65,"react-components/js/info-tip.jsx":68,"react-dom":95}],317:[function(require,module,exports){
+},{"../components/input-with-examples.jsx":258,"../enabled-features.jsx":276,"../perseus-api.jsx":294,"../renderer.jsx":298,"../tex.jsx":302,"../util.js":303,"react":246,"react-components/js/blur-input.jsx":65,"react-components/js/info-tip.jsx":68,"react-dom":95}],316:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -41933,7 +41736,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/graph-settings.jsx":253,"../components/graph.jsx":254,"../components/number-input.jsx":261,"../interactive2.js":280,"../util.js":303,"react":246,"react-components/js/info-tip.jsx":68}],318:[function(require,module,exports){
+},{"../components/graph-settings.jsx":253,"../components/graph.jsx":254,"../components/number-input.jsx":261,"../interactive2.js":280,"../util.js":303,"react":246,"react-components/js/info-tip.jsx":68}],317:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -42478,7 +42281,7 @@ module.exports = {
     editor: InteractiveNumberLineEditor
 };
 
-},{"../components/prop-check-box.jsx":262,"../util.js":303,"react":246,"react-components/js/info-tip.jsx":68,"react-dom":95,"underscore":248}],319:[function(require,module,exports){
+},{"../components/prop-check-box.jsx":262,"../util.js":303,"react":246,"react-components/js/info-tip.jsx":68,"react-dom":95,"underscore":248}],318:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -42954,7 +42757,7 @@ module.exports = {
     transform: transformProps
 };
 
-},{"../components/number-input.jsx":261,"../components/prop-check-box.jsx":262,"../mixins/changeable.jsx":291,"../mixins/jsonify-props.jsx":292,"react":246,"react-components/js/info-tip.jsx":68}],320:[function(require,module,exports){
+},{"../components/number-input.jsx":261,"../components/prop-check-box.jsx":262,"../mixins/changeable.jsx":291,"../mixins/jsonify-props.jsx":292,"react":246,"react-components/js/info-tip.jsx":68}],319:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -43253,7 +43056,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/prop-check-box.jsx":262,"../components/sortable.jsx":264,"../components/text-list-editor.jsx":267,"../renderer.jsx":298,"../util.js":303,"react":246,"react-components/js/info-tip.jsx":68}],321:[function(require,module,exports){
+},{"../components/prop-check-box.jsx":262,"../components/sortable.jsx":264,"../components/text-list-editor.jsx":267,"../renderer.jsx":298,"../util.js":303,"react":246,"react-components/js/info-tip.jsx":68}],320:[function(require,module,exports){
 "use strict";
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -43880,7 +43683,7 @@ module.exports = {
     staticTransform: staticTransform
 };
 
-},{"../components/range-input.jsx":263,"../components/text-input.jsx":266,"../editor.jsx":275,"../interactive2/interactive-util.js":281,"../mixins/changeable.jsx":291,"../mixins/jsonify-props.jsx":292,"../perseus-api.jsx":294,"../renderer.jsx":298,"../util.js":303,"classnames":12,"react":246,"react-dom":95,"underscore":248}],322:[function(require,module,exports){
+},{"../components/range-input.jsx":263,"../components/text-input.jsx":266,"../editor.jsx":275,"../interactive2/interactive-util.js":281,"../mixins/changeable.jsx":291,"../mixins/jsonify-props.jsx":292,"../perseus-api.jsx":294,"../renderer.jsx":298,"../util.js":303,"classnames":12,"react":246,"react-dom":95,"underscore":248}],321:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -44297,7 +44100,1056 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/number-input.jsx":261,"../components/prop-check-box.jsx":262,"../components/range-input.jsx":263,"../mixins/changeable.jsx":291,"../mixins/jsonify-props.jsx":292,"react":246,"react-components/js/info-tip.jsx":68,"react-dom":95}],323:[function(require,module,exports){
+},{"../components/number-input.jsx":261,"../components/prop-check-box.jsx":262,"../components/range-input.jsx":263,"../mixins/changeable.jsx":291,"../mixins/jsonify-props.jsx":292,"react":246,"react-components/js/info-tip.jsx":68,"react-dom":95}],322:[function(require,module,exports){
+"use strict";
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var React = require("react");
+
+var JsonifyProps = require("../mixins/jsonify-props.jsx");
+var Changeable = require("../mixins/changeable.jsx");
+var NumberInput = require("../components/number-input.jsx");
+var TextInput = require("../components/text-input.jsx");
+
+var MoleculeWidgetEditor = React.createClass({
+    displayName: "MoleculeWidgetEditor",
+
+    propTypes: _extends({}, Changeable.propTypes, {
+        rotationAngle: React.PropTypes.number,
+        smiles: React.PropTypes.string
+    }),
+
+    change: function change() {
+        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
+        }
+
+        return Changeable.change.apply(this, args);
+    },
+
+
+    updateMolecule: function updateMolecule(newValue) {
+        this.change({ smiles: newValue });
+    },
+
+    updateRotation: function updateRotation(newValue) {
+        this.change({ rotationAngle: newValue });
+    },
+
+    toJSON: function toJSON() {
+        return JsonifyProps.toJSON.call(this);
+    },
+
+
+    render: function render() {
+        return React.createElement(
+            "div",
+            null,
+            React.createElement(
+                "div",
+                null,
+                React.createElement(
+                    "label",
+                    null,
+                    "SMILES:\xA0",
+                    React.createElement(TextInput, {
+                        onChange: this.updateMolecule,
+                        value: this.props.smiles
+                    })
+                )
+            ),
+            React.createElement(
+                "div",
+                null,
+                React.createElement(
+                    "label",
+                    null,
+                    "Rotation (deg):\xA0",
+                    React.createElement(NumberInput, {
+                        onChange: this.updateRotation,
+                        value: this.props.rotationAngle
+                    })
+                )
+            )
+        );
+    }
+});
+
+module.exports = MoleculeWidgetEditor;
+
+},{"../components/number-input.jsx":261,"../components/text-input.jsx":266,"../mixins/changeable.jsx":291,"../mixins/jsonify-props.jsx":292,"react":246}],323:[function(require,module,exports){
+"use strict";
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable brace-style, object-curly-spacing */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+var React = require("react");
+
+var draw = require("./molecule/molecule-drawing.jsx");
+
+var _require = require("./molecule/molecule-layout.jsx"),
+    layout = _require.layout;
+
+var SmilesParser = require("./molecule/smiles-parser.jsx");
+
+var parse = SmilesParser.parse;
+var ParseError = SmilesParser.ParseError;
+
+var borderSize = 30;
+
+var Molecule = React.createClass({
+    displayName: "Molecule",
+
+    propTypes: {
+        id: React.PropTypes.string.isRequired,
+        rotationAngle: React.PropTypes.number,
+        smiles: React.PropTypes.string
+    },
+
+    getInitialState: function getInitialState() {
+        return { parsedSmiles: null, error: null };
+    },
+
+    componentWillMount: function componentWillMount() {
+        this.stateFromSmiles(this.props.smiles);
+    },
+
+    componentDidMount: function componentDidMount() {
+        this.canvasRender();
+    },
+
+    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+        this.stateFromSmiles(nextProps.smiles);
+    },
+
+    componentDidUpdate: function componentDidUpdate() {
+        this.canvasRender();
+    },
+
+    stateFromSmiles: function stateFromSmiles(smiles) {
+        try {
+            this.setState({
+                parsedSmiles: parse(smiles),
+                error: null
+            });
+        } catch (e) {
+            if (e instanceof ParseError) {
+                this.setState({ error: e.message });
+            } else {
+                throw e;
+            }
+        }
+    },
+
+    setCanvasBounds: function setCanvasBounds(canvas, items) {
+        var xmax = Math.max.apply(Math, _toConsumableArray(items.map(function (item) {
+            return item.pos ? item.pos[0] : -Infinity;
+        })));
+        var ymax = Math.max.apply(Math, _toConsumableArray(items.map(function (item) {
+            return item.pos ? item.pos[1] : -Infinity;
+        })));
+        var xmin = Math.min.apply(Math, _toConsumableArray(items.map(function (item) {
+            return item.pos ? item.pos[0] : Infinity;
+        })));
+        var ymin = Math.min.apply(Math, _toConsumableArray(items.map(function (item) {
+            return item.pos ? item.pos[1] : Infinity;
+        })));
+        var width = xmax - xmin + 2 * borderSize;
+        var height = ymax - ymin + 2 * borderSize;
+        canvas.width = width;
+        canvas.height = height;
+        return [borderSize - xmin, borderSize - ymin];
+    },
+
+    canvasRender: function canvasRender() {
+        // Since canvas drawing happens only through an imperative API, we sync
+        // up the component with the canvas here, which happens when the
+        // component mounts or updates.
+        if (!!this.state.error || !this.state.parsedSmiles) {
+            return;
+        }
+        var items = layout(this.state.parsedSmiles, this.props.rotationAngle);
+        var canvas = this.refs.canvas;
+        var translation = this.setCanvasBounds(canvas, items);
+        var ctx = canvas.getContext("2d");
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.save();
+        ctx.translate(translation[0], translation[1]);
+        draw(ctx, items);
+        ctx.restore();
+    },
+    render: function render() {
+        // TODO(colin): escape the punctuation in the SMILES alt text for
+        // screen readers?
+        var content = React.createElement(
+            "canvas",
+            {
+                className: "molecule-canvas",
+                id: this.props.id + "-molecule",
+                ref: "canvas"
+            },
+            "A molecular structure drawing.  SMILES notation:",
+            this.props.smiles,
+            "."
+        );
+        if (this.state.error) {
+            content = React.createElement(
+                "div",
+                { className: "error" },
+                this.state.error
+            );
+        }
+        return React.createElement(
+            "div",
+            { className: "molecule-canvas" },
+            content
+        );
+    }
+});
+
+var MoleculeWidget = React.createClass({
+    displayName: "MoleculeWidget",
+
+    propTypes: {
+        rotationAngle: React.PropTypes.number,
+        smiles: React.PropTypes.string,
+        widgetId: React.PropTypes.string
+    },
+
+    getDefaultProps: function getDefaultProps() {
+        return { rotationAngle: 0 };
+    },
+
+    simpleValidate: function simpleValidate() {
+        return { type: "points", earned: 0, total: 0, message: null };
+    },
+
+    getUserInput: function getUserInput() {
+        return [];
+    },
+
+    validate: function validate(state, rubric) {
+        // TODO(colin): this is here as part of the interface for a component.
+        // Figure out if there is something more appropriate that this should
+        // return.
+        return {
+            type: "points",
+            earned: 0,
+            total: 0,
+            message: null
+        };
+    },
+
+    render: function render() {
+        return React.createElement(Molecule, {
+            id: this.props.widgetId,
+            smiles: this.props.smiles,
+            rotationAngle: this.props.rotationAngle
+        });
+    }
+});
+
+module.exports = {
+    name: "molecule-renderer",
+    displayName: "Molecule renderer",
+    hidden: false,
+    widget: MoleculeWidget,
+    molecule: Molecule
+};
+
+},{"./molecule/molecule-drawing.jsx":324,"./molecule/molecule-layout.jsx":325,"./molecule/smiles-parser.jsx":326,"react":246}],324:[function(require,module,exports){
+"use strict";
+
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable brace-style */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+/**
+ * Draw some text into a 2D canvas drawing context.
+ *
+ * Args:
+ *     ctx: the 2D drawing context
+ *     item: the rendering instruction for the text.  Must look like: {
+ *         type: "text",
+ *         pos: [x, y],
+ *         value: "some text to draw",
+ *     }
+ *
+ */
+function drawText(ctx, item) {
+    if (item.value === null) {
+        return;
+    }
+    ctx.fillStyle = styles.fgColor;
+    ctx.font = styles.font;
+    ctx.fillText(item.value, item.pos[0] - styles.fontSizePx / 2 + 1, item.pos[1] + styles.fontSizePx / 2);
+}
+
+/**
+ * Draw a double line into a 2D canvas drawing context.
+ *
+ * Apparently the way you do this is to stroke an extra-wide line in the
+ * foreground color and then a smaller line in the background color. 5:3
+ * foreground:background width looks reasonable for drawing chemical bonds.
+ *
+ * Args:
+ *     ctx: the 2D drawing context
+ *     item: the rendering instruction for the line.  Must look like: {
+ *         type: "line:double",
+ *         startPos: [x, y],
+ *         endPos: [x, y],
+ *     }
+ */
+function drawDoubleLine(ctx, item) {
+    // Outer line that forms both of the bond lines.
+    var path = new Path2D();
+    ctx.lineWidth = 5 * styles.lineWidth;
+    ctx.strokeStyle = styles.fgColor;
+    path.moveTo(item.startPos[0], item.startPos[1]);
+    path.lineTo(item.endPos[0], item.endPos[1]);
+    ctx.stroke(path);
+
+    // Inner white line that separates the two bond lines.
+    path = new Path2D();
+    ctx.lineWidth = 3 * styles.lineWidth;
+    ctx.strokeStyle = styles.bgColor;
+    path.moveTo(item.startPos[0], item.startPos[1]);
+    path.lineTo(item.endPos[0], item.endPos[1]);
+    ctx.stroke(path);
+}
+
+/**
+ * Draw a triple line into a 2D canvas drawing context.
+ *
+ * Following the strategy for the double line, we stroke a very wide
+ * foreground-color line, then a medium background-color line, then a narrow
+ * foreground-color line.
+ *
+ * Args:
+ *     ctx: the 2D drawing context
+ *     item: the rendering instruction for the line.  Must look like: {
+ *         type: "line:triple",
+ *         startPos: [x, y],
+ *         endPos: [x, y],
+ *     }
+ */
+function drawTripleLine(ctx, item) {
+    // TODO(colin): consolidate duplicated code from the three line drawing
+    // functions.
+
+    // Outer line that will form the two outer bond lines.
+    var path = new Path2D();
+    ctx.lineWidth = 7 * styles.lineWidth;
+    ctx.strokeStyle = styles.fgColor;
+    path.moveTo(item.startPos[0], item.startPos[1]);
+    path.lineTo(item.endPos[0], item.endPos[1]);
+    ctx.stroke(path);
+
+    // Middle white line that separates the bonds
+    path = new Path2D();
+    ctx.lineWidth = 5 * styles.lineWidth;
+    ctx.strokeStyle = styles.bgColor;
+    path.moveTo(item.startPos[0], item.startPos[1]);
+    path.lineTo(item.endPos[0], item.endPos[1]);
+    ctx.stroke(path);
+
+    // Inner line that forms the middle bond line.
+    drawLine(ctx, item);
+}
+
+/**
+ * Draw a single line into a 2D canvas drawing context
+ *
+ * Args:
+ *     ctx: the 2D drawing context
+ *     item: the rendering instruction for the line.  Must look like: {
+ *         type: "line:single",
+ *         startPos: [x, y],
+ *         endPos: [x, y],
+ *     }
+ */
+function drawLine(ctx, item) {
+    var path = new Path2D();
+    ctx.lineWidth = styles.lineWidth;
+    ctx.strokeStyle = styles.fgColor;
+    path.moveTo(item.startPos[0], item.startPos[1]);
+    path.lineTo(item.endPos[0], item.endPos[1]);
+    ctx.stroke(path);
+}
+
+/**
+ * Lookup table that maps drawing instruction types to the functions that
+ * render them.
+ */
+var drawingFuncs = {
+    text: drawText,
+    "line:single": drawLine,
+    "line:double": drawDoubleLine,
+    "line:triple": drawTripleLine
+};
+
+/**
+ * Draw a single rendering instruction into a 2D canvas drawing context.
+ */
+function drawItem(ctx) {
+    return function (item) {
+        drawingFuncs[item.type](ctx, item);
+    };
+}
+
+/**
+ * Lookup table for drawing priorities.
+ *
+ * Types with lower priorities are drawn first.
+ */
+var ordering = {
+    "line:single": 0,
+    "line:double": 0,
+    "line:triple": 0,
+    text: 1
+};
+
+/**
+ * Sorting comparison function that orders rendering instructions according to
+ * their type's priority.
+ */
+function compareElements(item0, item1) {
+    return ordering[item0.type] - ordering[item1.type];
+}
+
+/**
+ * Draw an array of rendering instructions into a 2D canvas drawing context.
+ */
+function draw(ctx, items) {
+    items.sort(compareElements).forEach(drawItem(ctx));
+}
+
+var styles = {
+    bgColor: 'rgb(255, 255, 255)',
+    fgColor: 'rgb(0, 0, 0)',
+    fontSizePx: 12,
+    lineWidth: 1
+};
+
+styles.font = styles.fontSizePx + "px sans";
+
+module.exports = draw;
+
+},{}],325:[function(require,module,exports){
+"use strict";
+
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable brace-style */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+/**
+ * A molecule layout engine.
+ *
+ * This module transforms the SMILES syntax tree into a set of rendering
+ * instructions.  A rendering instruction is an object indicating what type of
+ * thing to render (e.g. text or line), where to render it, and any other style
+ * properties needed.
+ *
+ * For instance, an oxygen atom might be rendered as
+ * {type: "text", value: "O", pos: [0, 0], idx: "1,0"}
+ */
+
+// Default length of the bond.  This currently corresponds directly to pixels
+// in the renderer, but we may want this just to be arbitrary in the future.
+var bondLength = 30;
+
+/**
+ * Compute a coordinate by moving an angle and length from an origin point.
+ *
+ * Args:
+ *     origin: a list of the [x, y] coordinates of the origin
+ *     angle: an angle in degrees from the origin, following the typical
+ *         convention of +x axis = 0 degrees, +y axis = 90 degrees.
+ *     length: the distance to the new point
+ * Return:
+ *     a two-element list containing the [x, y] coordinates of the point.
+ */
+function polarAdd(origin, angle, length) {
+    var x = origin[0];
+    var y = origin[1];
+    return [x + Math.cos(angle * 2 * Math.PI / 360) * length, y + -1.0 * Math.sin(angle * 2 * Math.PI / 360) * length];
+}
+
+/**
+ * Compute the layout for a single atom.
+ *
+ * Args:
+ *     atom: the atom node for which layout is being created, as returned from
+ *         convertTree; the computed position of this atom is added to this
+ *         object in place, in addition to being returned in the layout
+ *         instruction.
+ *         TODO(colin): refactor so that we don't need to modify this in place
+ *     atoms: the list of all atoms, as returned from convertTree, used to
+ *         position this atom appropriately relative to its neighbors
+ *     bonds: the list of all bonds, as returned from convertTree, used to
+ *         determine the geometry based on bond type
+ *     rotationAngle: a constant rotation for the whole molecule (in degrees)
+ *
+ * Return:
+ *     a rendering instruction for the atom, containing a type (text), the text
+ *     to render, the position, and the atom index
+ */
+function atomLayout(atom, atoms, bonds, rotationAngle) {
+    var textValue = atom.symbol;
+    if (textValue === "C" && Object.keys(atoms).length !== 1) {
+        // By convention, don't render the C for carbon in a chain.
+        textValue = null;
+    }
+
+    if (atom.idx === "1,0") {
+        // The first atom is special-cased because there are no neighbors for
+        // relative positioning.
+        var _pos = [0, 0];
+        atom.pos = _pos;
+        // Conventionally, molecules are rendered where the first bond is not
+        // horizontal, but at a 30 degree angle, so subtract 30 degrees for the
+        // first atom's direction.
+        atom.baseAngle = -30 + rotationAngle;
+        return { type: "text", value: textValue, pos: _pos, idx: atom.idx };
+    }
+    // If we're an atom with any other index than the case just handled, we're
+    // guaranteed to have a neighbor who has a defined position.
+    var prevPositionedAtom = atoms[atom.connections.find(function (c) {
+        return atoms[c].pos;
+    })];
+
+    // Find this atom's index in the previous atom's connections
+    var myIndex = prevPositionedAtom.connections.indexOf(atom.idx);
+
+    var baseAngleIncrement = 60;
+    var angleIncrement = 120;
+    if (prevPositionedAtom.connections.length === 4) {
+        // By convention, if an atom has 4 bonds, we represent it with 90
+        // degree angles in 2D, even though it would have tetrahedral geometry
+        // with ~110 degree angles in 3D.
+        angleIncrement = 90;
+        baseAngleIncrement = 90;
+    } else if (bonds.find(function (bond) {
+        return bond.bondType === "triple" && bond.to === atom.idx;
+    }) || bonds.find(function (bond) {
+        return bond.bondType === "triple" && bond.to === prevPositionedAtom.idx;
+    })) {
+        // Triple bonds have a bond angle of 180 degrees, so don't change the
+        // direction in which we made the previous bond.
+        angleIncrement = 0;
+        baseAngleIncrement = 0;
+    }
+
+    var angle = 0;
+    var idxPath = prevPositionedAtom.idx.split(":");
+    var lastAtomIdx = idxPath[idxPath.length - 1].split(",")[0];
+
+    // Conventionally, a single chain of atoms is rendered as a zig-zag pattern
+    // with 120 degree angles.  This means we need to flip the angle every
+    // other atom.  The parser ensures that indices always alternate odd-even,
+    // including taking into account branch points.
+    // TODO(colin): don't depend on the parser's indexing scheme and just track
+    // this entirely in the layout engine.
+    if (parseInt(lastAtomIdx) % 2 !== 0) {
+        angle = prevPositionedAtom.baseAngle - (baseAngleIncrement - angleIncrement * myIndex);
+    } else {
+        angle = prevPositionedAtom.baseAngle + (baseAngleIncrement - angleIncrement * myIndex);
+    }
+
+    var pos = polarAdd(prevPositionedAtom.pos, angle, bondLength);
+
+    atom.pos = pos;
+    atom.baseAngle = angle;
+
+    return { type: "text", value: textValue, pos: pos, idx: atom.idx };
+}
+
+/**
+ * Get the start and end position for a bond connecting two atoms.
+ *
+ * If we have non-carbon atoms that render with explicit letters connected by a
+ * bond, we don't want the line for the bond to extend into the lettering for
+ * the atom.
+ *
+ * This function returns the start and end positions of the bond's line, taking
+ * into account that one or both end points might need to be moved to make room
+ * for text.
+ *
+ * TODO(colin): this makes assumptions about the relative sizes of the length
+ * of a bond and the text.  Think about alternate ways to represent this that
+ * might not have that problem.
+ */
+function maybeShrinkLines(fromAtom, toAtom) {
+    var shrinkFactor = 0.25;
+    var fromPos = [fromAtom.pos[0], fromAtom.pos[1]];
+    var toPos = [toAtom.pos[0], toAtom.pos[1]];
+    if (fromAtom.symbol !== "C") {
+        fromPos = [toAtom.pos[0] - (1 - shrinkFactor) * (toAtom.pos[0] - fromAtom.pos[0]), toAtom.pos[1] - (1 - shrinkFactor) * (toAtom.pos[1] - fromAtom.pos[1])];
+    }
+    if (toAtom.symbol !== "C") {
+        // For carbon atoms, conventionally we don't draw any letter, so this
+        // special cases drawing the bond lines all the way to the point where
+        // they meet.
+        toPos = [fromAtom.pos[0] - (1 - shrinkFactor) * (fromAtom.pos[0] - toAtom.pos[0]), fromAtom.pos[1] - (1 - shrinkFactor) * (fromAtom.pos[1] - toAtom.pos[1])];
+    }
+    return [fromPos, toPos];
+}
+
+/**
+ * Compute the layout for a bond between two atoms.
+ *
+ * Args:
+ *     bond: the bond node for which the layout is being computed, as returned
+ *         by convertTree
+ *     atoms: the list of all atoms returned by convertTree, which should
+ *         already have been processed for layout and thus have positions set
+ *
+ * Return:
+ *     a rendering instruction for the bond containing a type
+ *     (line:{single,double,triple}) and the line's endpoints
+ */
+function bondLayout(bond, atoms) {
+    var fromAtom = atoms[bond.from];
+    var toAtom = atoms[bond.to];
+    var startAndEndPos = maybeShrinkLines(fromAtom, toAtom);
+    return {
+        type: "line:" + bond.bondType,
+        startPos: startAndEndPos[0],
+        endPos: startAndEndPos[1]
+    };
+}
+
+/**
+ * Convert an array of atom indices to a single string unique identifier.
+ *
+ * For linear molecules, or for atoms in the main chain, this will just be the
+ * atom index, something like "0,1".  For branched molecules, however, we
+ * uniquely identify atoms by an array of atoms where the branching happened,
+ * followed by the index in the current branch (like ["0,1", "1,2", "1,1"]).
+ * This function just joins the parts with a colon so that we can have nice
+ * object keys that still track the series of branches to get to an atom, which
+ * is guaranteed to be a unique identifier.
+ *
+ */
+function idxString(idx) {
+    return idx.join(":");
+}
+
+/**
+ * Convert the parse tree output by the parser into an ordered list of atoms
+ * and bonds to render.
+ *
+ * Args:
+ *     atoms: the output list of atoms that we're in the process of building.
+ *         This should be the empty list if not being called recursively.
+ *     bonds: the output list of bonds that we're in the process of building.
+ *         This should be the empty list if not being called recursively.
+ *     tree: the parse tree generated by the SMILES parser module.
+ *
+ * Return:
+ *     the final value of atoms and bonds, which are lists of all the atom
+ *     nodes and bond nodes, respectively, that need to be rendered.
+ */
+function convertTree(atoms, bonds, tree) {
+    if (tree === null) {
+        return [atoms, bonds];
+    }
+    if (tree.type === "atom") {
+        var treeIdx = idxString(tree.idx);
+        atoms[treeIdx] = { idx: treeIdx, symbol: tree.symbol, connections: [] };
+        if (tree.bonds) {
+            tree.bonds.forEach(function (b) {
+                var toIdx = idxString(b.to.idx);
+                atoms[treeIdx].connections.push(toIdx);
+                bonds.push({ from: treeIdx, to: toIdx, bondType: b.bondType });
+                convertTree(atoms, bonds, b.to);
+                atoms[toIdx].connections.push(treeIdx);
+            });
+        }
+    }
+    return [atoms, bonds];
+}
+
+/**
+ * Recursively process the queue of atoms that need to have layout computed.
+ *
+ * Args:
+ *     outputs: the array of atom rendering instructions we're in the process
+ *         of building.  This should be the empty array if not being called
+ *         recursively.
+ *     atomProcessingQueue: the array of unique identifier strings (see the
+ *         comment for idxString for more information about these) of atoms
+ *         currently in line to be processed.  When not being called
+ *         recursively, this should be a array with a single element, the
+ *         unique identifier of the first atom in the structure ("1,0" in the
+ *         current scheme).
+ *     atoms: the array of all atom nodes to be rendered, as returned by
+ *         convertTree
+ *     bonds: the array of all bond nodes to be rendered, as returned by
+ *         convertTree
+ *
+ * Return:
+ *     an array of rendering instructions for all the atoms in the molecule
+ */
+function atomLayoutHelper(outputs, atomProcessingQueue, atoms, bonds, rotationAngle) {
+    if (atomProcessingQueue.length === 0) {
+        return outputs;
+    }
+
+    var queuedAtomIdx = atomProcessingQueue.shift();
+    var atom = atoms[queuedAtomIdx];
+    atom.connections.forEach(function (c) {
+        if (!atoms[c].pos) {
+            atomProcessingQueue.push(c);
+        }
+    });
+    return atomLayoutHelper(outputs.concat(atomLayout(atom, atoms, bonds, rotationAngle)), atomProcessingQueue, atoms, bonds, rotationAngle);
+}
+
+/**
+ * Recursively process the queue of bonds that need to have layout computed.
+ *
+ * Args:
+ *     outputs: the array of bond rendering instructions we're in the process
+ *         of building.  This should be the empty array or the array of all
+ *         atom rendering instructions if not being called recursively.
+ *     atoms: the array of all atom nodes to be rendered, as returned by
+ *         convertTree
+ *     bonds: the array of all bond nodes to be rendered, as returned by
+ *         convertTree
+ *
+ * Return:
+ *     an array of rendering instructions for all the bonds in the molecule
+ *     concatenated to the initial value of outputs
+ */
+function bondLayoutHelper(outputs, atoms, bonds) {
+    if (bonds.length === 0) {
+        return outputs;
+    }
+    return bondLayoutHelper(outputs.concat(bondLayout(bonds[0], atoms)), atoms, bonds.slice(1));
+}
+
+/**
+ * Compute an array of rendering instructions from the parse tree of a molecule.
+ *
+ * Args:
+ *     tree: the parse tree as returned by the SMILES parser module
+ *     rotationAngle: a global rotation (in degrees) to be applied to the whole
+ *         molecule; this is manually adjustable in the widget.
+ *
+ * Return:
+ *     an array of rendering instructions for all the atoms and bonds in the
+ *     molecule suitable for processing by the renderer
+ */
+function layout(tree, rotationAngle) {
+    var converted = convertTree({}, [], tree);
+    var atoms = converted[0];
+    var bonds = converted[1];
+    var outputs = atomLayoutHelper([], ["1,0"], atoms, bonds, rotationAngle);
+    return bondLayoutHelper(outputs, atoms, bonds);
+}
+
+module.exports = {
+    layout: layout,
+    // The remainder are exported for testing and are not intended for external
+    // use.
+    _atomLayout: atomLayout,
+    _bondLayout: bondLayout,
+    _bondLength: bondLength,
+    _convertTree: convertTree
+};
+
+},{}],326:[function(require,module,exports){
+"use strict";
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+// Regexp defining characters that are valid SMILES characters that this parser
+// can parse.  In addition to serving as a sort of validation, this also keeps
+// out unimplemented features (like cycles and stereochemistry), which use
+// additional characters.
+var smilesRe = new RegExp("^[A-Za-z\\[\\]()=#+-]*$");
+
+// Regexp defining what characters are valid as atom names.  This includes
+// common 1-character elements, Cl and Br for convenience, and the open
+// bracket, which can be used to include anything as an atom name.
+var atomRe = new RegExp("^(Cl|Br|[CONPSFBI]|\\[)");
+
+function ParseError(message) {
+    this.message = message;
+}
+
+/**
+ * Perform a functional update of a possibly nested object.
+ *
+ * Args:
+ *     obj: an object, will not be modified
+ *     keylist: a list of keys whose values will be updated in the object.
+ *         This represents a path to a value inside nested objects.  For
+ *         example, if keylist == ["a", "b", "c"], then a new object is
+ *         returned with obj["a"]["b"]["c"] updated.  Note that if any of the
+ *         keys is not already present, this will insert {} as a default value
+ *         for that key.
+ *     val: the new value to associate with the keypath
+ *
+ * Return: a new object, which is a shallow copy of the original with the value
+ *     at the specified keypath replaced.
+ */
+function _mset(obj, keylist, val) {
+    var k0 = keylist[0];
+    var rest = keylist.slice(1);
+    var newObj = void 0;
+    if (Array.isArray(obj)) {
+        newObj = [].concat(_toConsumableArray(obj));
+    } else {
+        newObj = _extends({}, obj || {});
+    }
+    var newVal = val;
+    if (rest.length > 0) {
+        newVal = _mset(newObj[k0], rest, val);
+    }
+    newObj[k0] = newVal;
+    return newObj;
+}
+
+/**
+ * Perform a functional increment of a value in a nested object.
+ *
+ * Args:
+ *     obj: an object; this will not be modified
+ *     keylist: a list of keys representing a path into a nested object.  (See
+ *         `_mset` for examples.)
+ *
+ * Return:
+ *     an object that is a shallow copy of obj, with the value at the specified
+ *     path incremeneted.
+ */
+function _inc(obj, keylist) {
+    var val = keylist.reduce(function (acc, elt) {
+        return acc[elt];
+    }, obj);
+
+    return _mset(obj, keylist, val + 1);
+}
+
+function validate(smiles) {
+    return smilesRe.test(smiles);
+}
+
+/**
+ * Parse a bond modifier character, updating the context object so that the
+ * next bond created has this modifier.
+ */
+function parseBondModifier(smiles, ctx) {
+    var firstChar = smiles[0];
+    var rest = smiles.slice(1);
+    if (firstChar === "=") {
+        return parse(rest, _mset(ctx, ["bond", "bondType"], "double"));
+    } else if (firstChar === "#") {
+        return parse(rest, _mset(ctx, ["bond", "bondType"], "triple"));
+    }
+    throw new ParseError("Invalid character: " + firstChar);
+}
+
+/**
+ * Slice the input string, removing a parenthesized expression.
+ * (Will handle nested parentheses.)
+ *
+ * parenStack should be a list containing any open parentheses already
+ * encountered.  (Usually, this will be ["("])
+ */
+function sliceFromMatchingCloseParen(smiles, parenStack) {
+    if (parenStack.length === 0) {
+        return smiles;
+    }
+
+    if (smiles === "") {
+        throw new ParseError("Mismatched parentheses");
+    }
+
+    var firstChar = smiles[0];
+    var rest = smiles.slice(1);
+
+    if (firstChar === "(") {
+        return sliceFromMatchingCloseParen(rest, parenStack.concat(firstChar));
+    }
+
+    if (firstChar === ")") {
+        return sliceFromMatchingCloseParen(rest, parenStack.slice(1));
+    }
+
+    return sliceFromMatchingCloseParen(rest, parenStack);
+}
+
+/**
+ * Parse a branch, as indicated by the presence of a parenthesized experession.
+ *
+ * This returns a list of all branches (including the continuation of the
+ * backbone) that should be added to the previous atom's bond list.
+ */
+function parseParenthesizedExpression(smiles, ctx) {
+    var firstChar = smiles[0];
+    var rest = smiles.slice(1);
+    if (firstChar === "(") {
+        var newCtx = _extends({}, ctx, { parens: ctx.parens + "(" });
+        // increment the branch index
+        newCtx = _inc(ctx, ["idx", ctx.idx.length - 1, 1]);
+
+        var inBranchIdx = -1;
+        if (ctx.idx[ctx.idx.length - 1][0] % 2 === 0) {
+            // HACK(colin): this is so that we preserve the odd/even series in
+            // indices in branches; the layout engine uses this to select
+            // angles, and if we don't do this, editing one part of a molecule
+            // can cause another to flop around oddly.
+            // TODO(colin): this should just start at 0 all the time, and the
+            // layout engine should figure out continuity.
+            inBranchIdx = 0;
+        }
+        var parenCtx = _extends({}, newCtx, {
+            idx: newCtx.idx.concat([[inBranchIdx, 0]]),
+            parens: newCtx.parens.concat("(")
+        });
+        var parenExpr = parse(rest, parenCtx);
+        var remainder = parse(sliceFromMatchingCloseParen(rest, ["("]), newCtx);
+        return [parenExpr].concat(remainder);
+    } else if (firstChar === ")") {
+        if (ctx.parens[ctx.parens.length - 1] !== "(") {
+            throw new ParseError("Mismatched parentheses");
+        }
+        return null;
+    } else {
+        throw new ParseError("Invalid bare character: " + firstChar);
+    }
+}
+
+/**
+ * Get the symbol of the next atom in the molecule.
+ *
+ * Return a 2-element list containing that symbol and the remainder of the
+ * molecule.
+ */
+function readAtomSymbol(smiles, _ctx) {
+    var sym = null;
+    var rest = null;
+    if (smiles[0] === "[") {
+        var closingIdx = smiles.indexOf("]");
+        if (closingIdx === -1) {
+            return ["", smiles];
+        }
+        sym = smiles.slice(1, closingIdx);
+        rest = smiles.slice(closingIdx + 1);
+    } else {
+        var match = atomRe.exec(smiles);
+        sym = match[1];
+        rest = smiles.slice(sym.length);
+    }
+
+    return [sym, rest];
+}
+
+/**
+ * Parse the next atom in the molecule, returning an atom object if this is the
+ * first atom in the molecule, or a bond object with this atom as the
+ * destination of the bond if this is not the first atom.
+ */
+function parseAtom(smiles, ctx) {
+    var symbolInfo = readAtomSymbol(smiles, ctx);
+    var atom = symbolInfo[0];
+    if (atom === "") {
+        return ["error", "Unable to parse bracketed atom."];
+    }
+    var rest = symbolInfo[1];
+
+    // Atoms are indexed by a list of two-element lists.  In each two-element
+    // list, the first element is the atom counter, and the second element is
+    // the branch counter.  Branches are 1-indexed so that the main chain of
+    // the molecule can be indicated by 0.  Atoms may be either 0- or
+    // 1-indexed, defaulting to 1, to maintain a alternating pattern of
+    // odd/even indices. So, for example, if an atom has a branch off the main
+    // chain, and its atom index is x, then the indices of atoms are:
+    //     Atom where branch occurs: [[x, 0]]
+    //     First atom in the branch: [[x, 1], [1, 0]]  (assuming x is even)
+    //     Next atom in the main chain: [[x + 1, 0]]
+
+    // increment the atom counter and reset the branch counter
+    var newCtx = _mset(ctx, ["idx", ctx.idx.length - 1], [1 + ctx.idx[ctx.idx.length - 1][0], 0]);
+    var restOfMolecule = parse(rest, _mset(newCtx, ["bond", "bondType"], "single"));
+    if (!Array.isArray(restOfMolecule) && !!restOfMolecule) {
+        //TODO(colin): fix this awkwardness.
+        restOfMolecule = [restOfMolecule];
+    }
+    var atomObj = {
+        type: "atom",
+        symbol: atom,
+        bonds: restOfMolecule,
+        idx: newCtx.idx
+    };
+    if (ctx.bond) {
+        return {
+            type: "bond",
+            bondType: ctx.bond.bondType,
+            to: atomObj
+        };
+    }
+    return atomObj;
+}
+
+function startsWithAtom(s) {
+    return atomRe.test(s);
+}
+
+function isModifierChar(s) {
+    return s === "=" || s === "#";
+}
+
+/**
+ * Parse a SMILES string to an internal tree representation.
+ *
+ * Args:
+ *   smiles [string]: a string representing the molecule.
+ *
+ * Returns: the parse tree (see top-of file docstring for details).
+ *
+ * Throws:
+ *     ParseError: if the input is not valid SMILES or contains features not
+ *         yet implemented.
+ */
+function parse(smiles, ctx) {
+    if (!validate(smiles)) {
+        throw new ParseError("Invalid input.");
+    }
+
+    if (!smiles || smiles.length === 0) {
+        return null;
+    }
+
+    if (startsWithAtom(smiles)) {
+        return parseAtom(smiles, ctx || {
+            idx: [[0, 0]],
+            parens: [],
+            stack: [],
+            bondModifiers: []
+        });
+    } else if (isModifierChar(smiles[0])) {
+        // TODO(colin): add a better error message in the case where the input
+        // is invalid and starts with a modifier character?
+        return parseBondModifier(smiles, ctx);
+    } else {
+        // TODO(colin): add additional cases for unimplemented bits of SMILES
+        // syntax.
+        return parseParenthesizedExpression(smiles, ctx);
+    }
+}
+
+module.exports = { parse: parse, ParseError: ParseError };
+
+},{}],327:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -45276,7 +46128,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/graphie.jsx":257,"../components/number-input.jsx":261,"../components/prop-check-box.jsx":262,"../components/range-input.jsx":263,"../interactive2.js":280,"../interactive2/interactive-util.js":281,"../mixins/changeable.jsx":291,"../mixins/jsonify-props.jsx":292,"../util.js":303,"react":246,"react-components/js/button-group.jsx":66,"react-components/js/info-tip.jsx":68}],324:[function(require,module,exports){
+},{"../components/graphie.jsx":257,"../components/number-input.jsx":261,"../components/prop-check-box.jsx":262,"../components/range-input.jsx":263,"../interactive2.js":280,"../interactive2/interactive-util.js":281,"../mixins/changeable.jsx":291,"../mixins/jsonify-props.jsx":292,"../util.js":303,"react":246,"react-components/js/button-group.jsx":66,"react-components/js/info-tip.jsx":68}],328:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -45836,7 +46688,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/input-with-examples.jsx":258,"../components/multi-button-group.jsx":260,"../components/number-input.jsx":261,"../components/prop-check-box.jsx":262,"../editor.jsx":275,"../mixins/changeable.jsx":291,"../mixins/jsonify-props.jsx":292,"../util.js":303,"react":246,"react-components/js/button-group.jsx":66,"react-components/js/info-tip.jsx":68,"underscore":248}],325:[function(require,module,exports){
+},{"../components/input-with-examples.jsx":258,"../components/multi-button-group.jsx":260,"../components/number-input.jsx":261,"../components/prop-check-box.jsx":262,"../editor.jsx":275,"../mixins/changeable.jsx":291,"../mixins/jsonify-props.jsx":292,"../util.js":303,"react":246,"react-components/js/button-group.jsx":66,"react-components/js/info-tip.jsx":68,"underscore":248}],329:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -46568,7 +47420,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/text-list-editor.jsx":267,"../renderer.jsx":298,"../util.js":303,"react":246,"react-components/js/info-tip.jsx":68,"react-dom":95}],326:[function(require,module,exports){
+},{"../components/text-list-editor.jsx":267,"../renderer.jsx":298,"../util.js":303,"react":246,"react-components/js/info-tip.jsx":68,"react-dom":95}],330:[function(require,module,exports){
 "use strict";
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -47621,7 +48473,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/number-input.jsx":261,"../components/range-input.jsx":263,"../components/text-list-editor.jsx":267,"../util.js":303,"react":246,"react-components/js/info-tip.jsx":68,"react-dom":95}],327:[function(require,module,exports){
+},{"../components/number-input.jsx":261,"../components/range-input.jsx":263,"../components/text-list-editor.jsx":267,"../util.js":303,"react":246,"react-components/js/info-tip.jsx":68,"react-dom":95}],331:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -48194,7 +49046,319 @@ module.exports = {
     transform: choiceTransform
 };
 
-},{"../components/prop-check-box.jsx":262,"../editor.jsx":275,"../mixins/changeable.jsx":291,"../perseus-api.jsx":294,"../renderer.jsx":298,"../util.js":303,"classnames":12,"react":246,"react-components/js/button-group.jsx":66,"react-components/js/info-tip.jsx":68,"react-dom":95}],328:[function(require,module,exports){
+},{"../components/prop-check-box.jsx":262,"../editor.jsx":275,"../mixins/changeable.jsx":291,"../perseus-api.jsx":294,"../renderer.jsx":298,"../util.js":303,"classnames":12,"react":246,"react-components/js/button-group.jsx":66,"react-components/js/info-tip.jsx":68,"react-dom":95}],332:[function(require,module,exports){
+"use strict";
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable brace-style, no-var */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+var React = require("react");
+
+var Changeable = require("../mixins/changeable.jsx");
+var JsonifyProps = require("../mixins/jsonify-props.jsx");
+
+var NumberInput = require("../components/number-input.jsx");
+var TextInput = require("../components/text-input.jsx");
+
+var ReactionDiagramWidgetEditor = React.createClass({
+    displayName: "ReactionDiagramWidgetEditor",
+
+    propTypes: _extends({}, Changeable.propTypes, {
+        rotationAngle: React.PropTypes.arrayOf(React.PropTypes.number),
+        separators: React.PropTypes.arrayOf(React.PropTypes.object),
+        smiles: React.PropTypes.arrayOf(React.PropTypes.string)
+    }),
+
+    getDefaultProps: function getDefaultProps() {
+        return {
+            smiles: ["", ""],
+            rotationAngle: [0, 0],
+            separators: [{ type: "right", topText: "", bottomText: "" }]
+        };
+    },
+
+    change: function change() {
+        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
+        }
+
+        return Changeable.change.apply(this, args);
+    },
+
+
+    updateMolecule: function updateMolecule(idx) {
+        return function (newValue) {
+            var newSmiles = [].concat(_toConsumableArray(this.props.smiles));
+            newSmiles[idx] = newValue;
+            this.change({ smiles: newSmiles });
+        }.bind(this);
+    },
+
+    updateRotation: function updateRotation(idx) {
+        return function (newValue) {
+            var newRot = [].concat(_toConsumableArray(this.props.rotationAngle));
+            newRot[idx] = newValue;
+            this.change({ rotationAngle: newRot });
+        }.bind(this);
+    },
+
+    updateSeparators: function updateSeparators(idx, propName) {
+        var _this = this;
+
+        return function (newValue) {
+            var newSep = _this.props.separators.map(function (sep) {
+                return _extends({}, sep);
+            });
+            newSep[idx][propName] = newValue;
+            _this.change({ separators: newSep });
+        };
+    },
+
+    toJSON: function toJSON() {
+        return JsonifyProps.toJSON.call(this);
+    },
+
+
+    render: function render() {
+        // TODO(colin): use styling instead of &nbsp hacks.
+        return React.createElement(
+            "div",
+            null,
+            React.createElement(
+                "div",
+                null,
+                React.createElement(
+                    "label",
+                    null,
+                    "LHS SMILES:\xA0",
+                    React.createElement(TextInput, {
+                        onChange: this.updateMolecule(0),
+                        value: this.props.smiles[0]
+                    })
+                )
+            ),
+            React.createElement(
+                "div",
+                null,
+                React.createElement(
+                    "label",
+                    null,
+                    "LHS Rotation (deg):\xA0",
+                    React.createElement(NumberInput, {
+                        onChange: this.updateRotation(0),
+                        value: this.props.rotationAngle[0]
+                    })
+                )
+            ),
+            React.createElement(
+                "div",
+                null,
+                React.createElement(
+                    "label",
+                    null,
+                    "RHS SMILES:\xA0",
+                    React.createElement(TextInput, {
+                        onChange: this.updateMolecule(1),
+                        value: this.props.smiles[1]
+                    })
+                )
+            ),
+            React.createElement(
+                "div",
+                null,
+                React.createElement(
+                    "label",
+                    null,
+                    "RHS Rotation (deg):\xA0",
+                    React.createElement(NumberInput, {
+                        onChange: this.updateRotation(1),
+                        value: this.props.rotationAngle[1]
+                    })
+                )
+            ),
+            React.createElement(
+                "div",
+                null,
+                React.createElement(
+                    "label",
+                    null,
+                    "Top of arrow text:\xA0",
+                    React.createElement(TextInput, {
+                        onChange: this.updateSeparators(0, "topText"),
+                        value: this.props.separators[0].topText
+                    })
+                )
+            ),
+            React.createElement(
+                "div",
+                null,
+                React.createElement(
+                    "label",
+                    null,
+                    "Bottom of arrow text:\xA0",
+                    React.createElement(TextInput, {
+                        onChange: this.updateSeparators(0, "bottomText"),
+                        value: this.props.separators[0].bottomText
+                    })
+                )
+            )
+        );
+    }
+});
+
+module.exports = ReactionDiagramWidgetEditor;
+
+},{"../components/number-input.jsx":261,"../components/text-input.jsx":266,"../mixins/changeable.jsx":291,"../mixins/jsonify-props.jsx":292,"react":246}],333:[function(require,module,exports){
+"use strict";
+
+var React = require("react");
+
+var Molecule = require("./molecule.jsx").molecule;
+
+var Separator = React.createClass({
+    displayName: "Separator",
+
+    propTypes: {
+        // TODO(colin): figure out and add shape.
+        data: React.PropTypes.any,
+        index: React.PropTypes.number
+    },
+
+    componentDidMount: function componentDidMount() {
+        this.drawArrow();
+    },
+
+    componentDidUpdate: function componentDidUpdate() {
+        this.drawArrow();
+    },
+
+    arrowLength: 100,
+
+    drawArrow: function drawArrow() {
+        var canvas = this.refs["arrowCanvas" + this.props.index];
+        var ctx = canvas.getContext("2d");
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        var path = new Path2D();
+        ctx.strokeStyle = "rgb(0,0,0)";
+        ctx.lineWidth = 1.2;
+        ctx.lineCap = "round";
+        var offset = 5;
+        path.moveTo(offset, canvas.height / 2);
+        path.lineTo(canvas.width - offset, canvas.height / 2);
+        path.moveTo(canvas.width - 2 * offset, canvas.height / 2 - offset);
+        path.lineTo(canvas.width - offset, canvas.height / 2);
+        path.moveTo(canvas.width - 2 * offset, canvas.height / 2 + offset);
+        path.lineTo(canvas.width - offset, canvas.height / 2);
+        ctx.stroke(path);
+    },
+
+    render: function render() {
+        return React.createElement(
+            "div",
+            { className: "arrow-container" },
+            React.createElement(
+                "div",
+                { className: "above-text" },
+                this.props.data.topText
+            ),
+            React.createElement(
+                "canvas",
+                {
+                    height: "30",
+                    id: "arrowCanvas" + this.props.index,
+                    ref: "arrowCanvas" + this.props.index,
+                    width: this.arrowLength
+                },
+                "Reaction arrow pointing to the right."
+            ),
+            React.createElement(
+                "div",
+                { className: "below-text" },
+                this.props.data.bottomText
+            )
+        );
+    }
+});
+
+var ReactionDiagramWidget = React.createClass({
+    displayName: "ReactionDiagramWidget",
+
+    propTypes: {
+        // TODO(colin): at the moment, these must be arrays of two elements;
+        // we're limited to a single reaction step.  At some point, add support
+        // for more steps in the reaction.
+        rotationAngle: React.PropTypes.arrayOf(React.PropTypes.number),
+        separators: React.PropTypes.arrayOf(React.PropTypes.object),
+        smiles: React.PropTypes.arrayOf(React.PropTypes.string),
+        widgetId: React.PropTypes.string
+    },
+
+    getDefaultProps: function getDefaultProps() {
+        return { smiles: [], rotationAngle: [], separators: [] };
+    },
+
+    simpleValidate: function simpleValidate() {
+        return { type: "points", earned: 0, total: 0, message: null };
+    },
+
+    getUserInput: function getUserInput() {
+        return [];
+    },
+
+    validate: function validate(state, rubric) {
+        // TODO(colin): this appears to be part of the perseus interface.
+        // Figure out if there's a more appropriate value to return.
+        return {
+            type: "points",
+            earned: 0,
+            total: 0,
+            message: null
+        };
+    },
+
+    focus: function focus() {
+        return true;
+    },
+
+    render: function render() {
+        var _this = this;
+
+        return React.createElement(
+            "div",
+            { className: "reaction", ref: "reaction" },
+            this.props.smiles.map(function (s, i) {
+                var id = _this.props.widgetId + "-" + i;
+                return React.createElement(
+                    "div",
+                    { key: id, className: "molecule-container" },
+                    React.createElement(Molecule, {
+                        id: id,
+                        rotationAngle: _this.props.rotationAngle[i],
+                        smiles: s
+                    }),
+                    i === _this.props.smiles.length - 1 ? null : React.createElement(Separator, {
+                        data: _this.props.separators[i],
+                        index: i
+                    })
+                );
+            })
+        );
+    }
+});
+
+module.exports = {
+    name: "reaction-diagram",
+    displayName: "Chemical reaction",
+    hidden: false,
+    widget: ReactionDiagramWidget
+};
+
+},{"./molecule.jsx":323,"react":246}],334:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -48416,7 +49580,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/prop-check-box.jsx":262,"../components/sortable.jsx":264,"../components/text-list-editor.jsx":267,"../util.js":303,"react":246,"react-components/js/info-tip.jsx":68}],329:[function(require,module,exports){
+},{"../components/prop-check-box.jsx":262,"../components/sortable.jsx":264,"../components/text-list-editor.jsx":267,"../util.js":303,"react":246,"react-components/js/info-tip.jsx":68}],335:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -48777,7 +49941,7 @@ module.exports = {
     editor: SpeakingTextInputEditor
 };
 
-},{"../mixins/changeable.jsx":291,"../mixins/jsonify-props.jsx":292,"classnames":12,"react":246}],330:[function(require,module,exports){
+},{"../mixins/changeable.jsx":291,"../mixins/jsonify-props.jsx":292,"classnames":12,"react":246}],336:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -49138,7 +50302,7 @@ module.exports = {
     editor: SpeakingVoiceEditor
 };
 
-},{"../../lib/responsivevoice.js":2,"../mixins/changeable.jsx":291,"../mixins/jsonify-props.jsx":292,"react":246}],331:[function(require,module,exports){
+},{"../../lib/responsivevoice.js":2,"../mixins/changeable.jsx":291,"../mixins/jsonify-props.jsx":292,"react":246}],337:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -49519,7 +50683,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../editor.jsx":275,"../renderer.jsx":298,"../util.js":303,"react":246,"react-components/js/info-tip.jsx":68,"react-dom":95}],332:[function(require,module,exports){
+},{"../editor.jsx":275,"../renderer.jsx":298,"../util.js":303,"react":246,"react-components/js/info-tip.jsx":68,"react-dom":95}],338:[function(require,module,exports){
 "use strict";
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
