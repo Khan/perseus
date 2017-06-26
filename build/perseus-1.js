@@ -1,5 +1,5 @@
 /*! Perseus | http://github.com/Khan/perseus */
-// commit f51b85f3e8a4c9b11cb87b8992b2627505635ae5
+// commit 50c6b5a19c8325294930eeea9827e6fa81f84ca0
 // branch react-15
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Perseus = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
@@ -37593,7 +37593,7 @@ _.extend(Explanation, {
 
 module.exports = {
     name: "explanation",
-    displayName: "Explanation (for hints)",
+    displayName: "Explanation/解釋",
     defaultAlignment: "inline",
     widget: Explanation,
     transform: _.identity
@@ -39173,7 +39173,7 @@ var propTransform = function propTransform(editorProps) {
 
 module.exports = {
     name: "input-number",
-    displayName: "Number text box",
+    displayName: "input-number/數值填充",
     widget: InputNumber,
     editor: InputNumberEditor,
     transform: propTransform
@@ -44355,7 +44355,7 @@ var MoleculeWidget = React.createClass({
 
 module.exports = {
     name: "molecule-renderer",
-    displayName: "Molecule renderer",
+    displayName: "Molecule renderer/分子式",
     hidden: false,
     widget: MoleculeWidget,
     molecule: Molecule
@@ -46681,7 +46681,7 @@ var propsTransform = function propsTransform(editorProps) {
 
 module.exports = {
     name: "numeric-input",
-    displayName: "Number text box (new)",
+    displayName: "numeric-input/進階數值填充",
     widget: NumericInput,
     editor: NumericInputEditor,
     transform: propsTransform,
@@ -49353,7 +49353,7 @@ var ReactionDiagramWidget = React.createClass({
 
 module.exports = {
     name: "reaction-diagram",
-    displayName: "Chemical reaction",
+    displayName: "Chemical reaction/化學反應式",
     hidden: false,
     widget: ReactionDiagramWidget
 };

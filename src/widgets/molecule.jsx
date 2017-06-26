@@ -152,7 +152,7 @@ const MoleculeWidget = React.createClass({
 
 module.exports = {
     name: "molecule-renderer",
-    displayName: "Molecule renderer",
+    displayName: "Molecule renderer/分子式",
     hidden: false,
     widget: MoleculeWidget,
     molecule: Molecule,
