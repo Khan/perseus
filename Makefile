@@ -48,7 +48,7 @@ $(PERSEUS_BUILD_JS): install
 	mkdir -p build
 	NOT_SLIM=1 NODE_ENV=production ./node_modules/.bin/webpack
 	mv $@ $@.tmp
-	echo '/*! Perseus | http://github.com/Khan/perseus */' > $@
+	echo '/*! Perseus | https://github.com/Khan/perseus */' > $@
 	$(call add_git_meta,$@)
 	cat $@.tmp >> $@
 	rm $@.tmp
@@ -57,7 +57,7 @@ $(PERSEUS_SLIM_JS): install
 	mkdir -p build
 	NODE_ENV=production ./node_modules/.bin/webpack
 	mv $@ $@.tmp
-	echo '/*! Perseus | http://github.com/Khan/perseus */' > $@
+	echo '/*! Perseus | https://github.com/Khan/perseus */' > $@
 	$(call add_git_meta,$@)
 	cat $@.tmp >> $@
 	rm $@.tmp
@@ -66,7 +66,7 @@ $(PERSEUS_NODE_BUILD_JS): install
 	mkdir -p build
 	NODE_ENV=production INCLUDE_EDITORS=true ./node_modules/.bin/webpack --config webpack.config.node-perseus.js
 	mv $@ $@.tmp
-	echo '/*! Nodeified Perseus | http://github.com/Khan/perseus */' > $@
+	echo '/*! Nodeified Perseus | https://github.com/Khan/perseus */' > $@
 	$(call add_git_meta,$@)
 	cat $@.tmp >> $@
 	rm $@.tmp
@@ -76,7 +76,7 @@ $(PERSEUS_DEMO_BUILD_JS): install
 	mkdir -p build
 	NODE_ENV=production INCLUDE_EDITORS=true ./node_modules/.bin/webpack --config webpack.config.demo-perseus.js
 	mv $@ $@.tmp
-	echo '/*! Demo perseus | http://github.com/Khan/perseus */' > $@
+	echo '/*! Demo perseus | https://github.com/Khan/perseus */' > $@
 	$(call add_git_meta,$@)
 	cat $@.tmp >> $@
 	rm $@.tmp
@@ -85,7 +85,7 @@ $(PERSEUS_EDITOR_BUILD_JS): install
 	mkdir -p build
 	NODE_ENV=production INCLUDE_EDITORS=true ./node_modules/.bin/webpack
 	mv $@ $@.tmp
-	echo '/*! Perseus with editors | http://github.com/Khan/perseus */' > $@
+	echo '/*! Perseus with editors | https://github.com/Khan/perseus */' > $@
 	$(call add_git_meta,$@)
 	cat $@.tmp >> $@
 	rm $@.tmp
@@ -94,7 +94,7 @@ $(PERSEUS_FRAME_BUILD_JS): install
 	mkdir -p build
 	NODE_ENV=production PERSEUS_FRAME=true ./node_modules/.bin/webpack
 	mv $@ $@.tmp
-	echo '/*! Perseus with editors for frame | http://github.com/Khan/perseus */' > $@
+	echo '/*! Perseus with editors for frame | https://github.com/Khan/perseus */' > $@
 	$(call add_git_meta,$@)
 	cat $@.tmp >> $@
 	rm $@.tmp
