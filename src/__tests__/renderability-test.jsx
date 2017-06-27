@@ -1,7 +1,3 @@
-/* eslint-disable object-curly-spacing */
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const assert = require("assert");
 const Renderability = require("../renderability.jsx");
 const PerseusItemVersion = require("../item-version.js");
@@ -364,11 +360,11 @@ describe("Renderability", () => {
 
         describe("A input-only version of perseus", () => {
             const inputOnlyPerseusVersion = {
-                '::renderer::': { major: 100, minor: 0 },
-                'group': { major: 100, minor: 0 },
-                'sequence': { major: 100, minor: 0 },
-                'input-number': { major: 100, minor: 0 },
-                'numeric-input': { major: 100, minor: 0 },
+                '::renderer::': {major: 100, minor: 0},
+                'group': {major: 100, minor: 0},
+                'sequence': {major: 100, minor: 0},
+                'input-number': {major: 100, minor: 0},
+                'numeric-input': {major: 100, minor: 0},
             };
 
             it("should be able to render no widgets", () => {

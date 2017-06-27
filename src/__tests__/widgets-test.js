@@ -1,14 +1,10 @@
-/* eslint-disable no-var */
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /* global beforeEach, notStrictEqual, strictEqual, xit */
 
-var _ = require("underscore");
-var React = require("react");
-var ReactDOM = require("react-dom");
+const _ = require("underscore");
+const React = require("react");
+const ReactDOM = require("react-dom");
 
-var fixture;
+let fixture;
 
 function translateScore(guessAndScore) {
     // Translate a guessAndScore from internal Perseus format to the
@@ -16,8 +12,8 @@ function translateScore(guessAndScore) {
     //
     // TODO(eater): Use the existance of these unit tests to
     //              convert eveything to The One True Format.
-    var guess = guessAndScore[0];
-    var score = guessAndScore[1];
+    const guess = guessAndScore[0];
+    const score = guessAndScore[1];
     if (score.type === "points") {
         return {
             empty: false,
@@ -42,8 +38,8 @@ function testAnswer(component, input, result, description) {
 
 function testMultipleAnswer(component, inputs, result, description) {
     _.chain($(fixture).find("input")).zip(inputs).each(function(args) {
-        var el = args[0];
-        var text = args[1];
+        const el = args[0];
+        const text = args[1];
         if (typeof text === "string") {
             $(el).val(text);
         } else {
@@ -54,7 +50,7 @@ function testMultipleAnswer(component, inputs, result, description) {
 }
 
 function checkAnswer(component, result, description) {
-    var answer = translateScore(component.guessAndScore());
+    const answer = translateScore(component.guessAndScore());
     if (result === "right") {
         strictEqual(answer.empty, false, `${description} - not empty`);
         strictEqual(answer.message, null, `${description} - no message`);
@@ -84,7 +80,7 @@ function checkAnswer(component, result, description) {
 
 
 describe("widgets", function() {
-    var Renderer;
+    let Renderer;
 
     beforeEach(function() {
         Renderer = React.createFactory(require("../renderer.jsx"));
@@ -92,7 +88,7 @@ describe("widgets", function() {
     });
 
     xit("grades input-number", function() {
-        var component = ReactDOM.render(Renderer({
+        const component = ReactDOM.render(Renderer({
             content: "[[☃ input-number 1]]",
             widgets: {
                 "input-number 1": {
@@ -126,7 +122,7 @@ describe("widgets", function() {
     });
 
     xit("grades widget input-number multiple", function() {
-        var component = ReactDOM.render(Renderer({
+        const component = ReactDOM.render(Renderer({
             "content": "[[☃ input-number 1]]\n[[☃ input-number 2]]",
             "widgets": {
                 "input-number 1": {
@@ -186,7 +182,7 @@ describe("widgets", function() {
 
     xit("grades widget input-number multiple simplify-enforced", 21,
         function() {
-            var component = ReactDOM.render(Renderer({
+            const component = ReactDOM.render(Renderer({
                 "content": "[[☃ input-number 1]]\n[[☃ input-number 2]]",
                 "widgets": {
                     "input-number 1": {

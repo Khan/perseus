@@ -1,18 +1,14 @@
-/* eslint-disable no-var */
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+const assert = require("assert");
+const _ = require("underscore");
 
-var assert = require("assert");
-var _ = require("underscore");
-
-var Traversal = require("../traversal.jsx");
+const Traversal = require("../traversal.jsx");
 const allWidgets = require("../all-widgets.js");
 const Widgets = require("../widgets.js");
 Widgets.registerMany(allWidgets);
 
-var traverse = Traversal.traverseRendererDeep;
+const traverse = Traversal.traverseRendererDeep;
 
-var missingOptions = {
+const missingOptions = {
     "content": "[[☃ radio 1]]\n\n",
     "images": {},
     "widgets": {
@@ -41,11 +37,11 @@ var missingOptions = {
     },
 };
 
-var clonedMissingOptions = JSON.parse(JSON.stringify(
+const clonedMissingOptions = JSON.parse(JSON.stringify(
     missingOptions
 ));
 
-var sampleOptions = {
+const sampleOptions = {
     "content": "[[☃ input-number 1]]",
     "images": {},
     "widgets": {
@@ -70,11 +66,11 @@ var sampleOptions = {
     },
 };
 
-var clonedSampleOptions = JSON.parse(JSON.stringify(
+const clonedSampleOptions = JSON.parse(JSON.stringify(
     sampleOptions
 ));
 
-var sampleOptions2 = {
+const sampleOptions2 = {
     "content": "[[☃ radio 1]]\n\n",
     "images": {},
     "widgets": {
@@ -109,11 +105,11 @@ var sampleOptions2 = {
     },
 };
 
-var clonedSampleOptions2 = JSON.parse(JSON.stringify(
+const clonedSampleOptions2 = JSON.parse(JSON.stringify(
     sampleOptions2
 ));
 
-var sampleOptions2Upgraded = {
+const sampleOptions2Upgraded = {
     "content": "[[☃ radio 1]]\n\n",
     "images": {},
     "widgets": {
@@ -148,7 +144,7 @@ var sampleOptions2Upgraded = {
     },
 };
 
-var sampleGroup = {
+const sampleGroup = {
     "content": "[[☃ group 1]]\n\n",
     "images": {},
     "widgets": {
@@ -199,7 +195,7 @@ var sampleGroup = {
     },
 };
 
-var sampleGroupUpgraded = {
+const sampleGroupUpgraded = {
     "content": "[[☃ group 1]]\n\n",
     "images": {},
     "widgets": {
@@ -251,11 +247,11 @@ var sampleGroupUpgraded = {
     },
 };
 
-var clonedSampleGroup = JSON.parse(JSON.stringify(
+const clonedSampleGroup = JSON.parse(JSON.stringify(
     sampleGroup
 ));
 
-var assertNonMutative = () => {
+const assertNonMutative = () => {
     assert.deepEqual(missingOptions, clonedMissingOptions);
     assert.deepEqual(sampleOptions, clonedSampleOptions);
     assert.deepEqual(sampleOptions2, clonedSampleOptions2);
@@ -264,7 +260,7 @@ var assertNonMutative = () => {
 
 describe("Traversal", () => {
     it("should call a root level content field", () => {
-        var readContent = null;
+        let readContent = null;
         traverse(sampleOptions, (content) => {
             assert(readContent === null, "Content was read multiple times :(");
             readContent = content;
@@ -275,7 +271,7 @@ describe("Traversal", () => {
     });
 
     it("should be able to modify root level content", () => {
-        var newOptions = traverse(sampleOptions, (content) => {
+        const newOptions = traverse(sampleOptions, (content) => {
             return "new content text";
         });
         assert.deepEqual(newOptions, _.extend({}, sampleOptions, {
@@ -285,7 +281,7 @@ describe("Traversal", () => {
     });
 
     it("should have access to widgets", () => {
-        var widgetMap = {};
+        const widgetMap = {};
         traverse(sampleOptions, null, (widgetInfo) => {
             widgetMap[widgetInfo.type] = (widgetMap[widgetInfo.type] || 0) + 1;
         });
@@ -296,7 +292,7 @@ describe("Traversal", () => {
     });
 
     it("should be able to modify widgetInfo", () => {
-        var newOptions = traverse(sampleOptions, null, (widgetInfo) => {
+        const newOptions = traverse(sampleOptions, null, (widgetInfo) => {
             return _.extend({}, widgetInfo, {
                 graded: false,
             });
@@ -313,7 +309,7 @@ describe("Traversal", () => {
     });
 
     it("should have access to modify full renderer options", () => {
-        var newOptions = traverse(sampleOptions, null, null, (options) => {
+        const newOptions = traverse(sampleOptions, null, null, (options) => {
             return _.extend({}, options, {
                 content: `${options.content}\n\nnew content!`,
             });
@@ -327,21 +323,21 @@ describe("Traversal", () => {
     });
 
     it("should upgrade widgets automagickally", () => {
-        var newOptions = traverse(sampleOptions2);
+        const newOptions = traverse(sampleOptions2);
         assert.deepEqual(newOptions, sampleOptions2Upgraded);
         assertNonMutative();
     });
 
     it("should use defaults for missing options when upgrading widgets",
         () => {
-            var newOptions = traverse(missingOptions);
+            const newOptions = traverse(missingOptions);
             assert.deepEqual(newOptions, sampleOptions2Upgraded);
             assertNonMutative();
         }
     );
 
     it("should be able to see group widgets", () => {
-        var widgetMap = {};
+        const widgetMap = {};
         traverse(sampleGroup, null, (widgetInfo) => {
             widgetMap[widgetInfo.type] = (widgetMap[widgetInfo.type] || 0) + 1;
         });
@@ -353,7 +349,7 @@ describe("Traversal", () => {
     });
 
     it("should see upgraded widgets inside groups", () => {
-        var sawRadio = false;
+        let sawRadio = false;
         traverse(sampleGroup, null, (widgetInfo) => {
             if (widgetInfo.type === "radio") {
                 assert.deepEqual(
@@ -368,13 +364,13 @@ describe("Traversal", () => {
     });
 
     it("should upgrade widgets in groups automagickally", () => {
-        var newGroup = traverse(sampleGroup);
+        const newGroup = traverse(sampleGroup);
         assert.deepEqual(newGroup, sampleGroupUpgraded);
         assertNonMutative();
     });
 
     it("should modify full renderer options inside of groups", () => {
-        var newOptions = traverse(sampleGroup, null, null, (options) => {
+        const newOptions = traverse(sampleGroup, null, null, (options) => {
             if (/radio/.test(options.content)) {
                 return _.extend({}, options, {
                     content: "Extra instructions\n\n" + options.content,
@@ -383,7 +379,7 @@ describe("Traversal", () => {
                 return undefined;
             }
         });
-        var newContent = newOptions.widgets["group 1"].options.content;
+        const newContent = newOptions.widgets["group 1"].options.content;
         assert.ok(
             /^Extra instructions/.test(newContent),
             "newContent was: " + newContent

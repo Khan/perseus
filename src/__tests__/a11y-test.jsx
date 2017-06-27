@@ -1,15 +1,11 @@
-/* eslint-disable no-var */
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const allWidgets = require("../all-widgets.js");
 const Widgets = require("../widgets.js");
 Widgets.registerMany(allWidgets);
 
-var assert = require("assert");
-var a11y = require("../a11y.js");
+const assert = require("assert");
+const a11y = require("../a11y.js");
 
-var noWidgets = {
+const noWidgets = {
     "question": {
         "content": "Hello, world!",
         "images": {},
@@ -25,7 +21,7 @@ var noWidgets = {
     "hints": [],
 };
 
-var oneAccessibleWidget = {
+const oneAccessibleWidget = {
     "question": {
         "content": "Hello, world!\n\n[[☃ radio 1]]",
         "images": {},
@@ -68,7 +64,7 @@ var oneAccessibleWidget = {
     "hints": [],
 };
 
-var oneInaccessibleWidget = {
+const oneInaccessibleWidget = {
     "question": {
         "content": "Hello, world!\n\n[[☃ radio 1]]\n\n[[☃ matrix 1]]\n\n",
         "images": {},
@@ -134,7 +130,7 @@ var oneInaccessibleWidget = {
     "hints": [],
 };
 
-var imageWithAltText = {
+const imageWithAltText = {
     "question": {
         "content": "hello\n\n[[☃ image 1]]\n\n",
         "images": {},
@@ -184,7 +180,7 @@ var imageWithAltText = {
     "hints": [],
 };
 
-var imageWithoutAltText = {
+const imageWithoutAltText = {
     "question": {
         "content": "hello\n\n[[☃ image 1]]\n\n",
         "images": {},
@@ -234,7 +230,7 @@ var imageWithoutAltText = {
     "hints": [],
 };
 
-var emptyImageWithoutAltText = {
+const emptyImageWithoutAltText = {
     "question": {
         "content": "hello\n\n[[☃ image 1]]\n\n",
         "images": {},
@@ -283,35 +279,35 @@ describe("a11y", () => {
     describe("violatingWidgets", () => {
         describe("Current Perseus Version", () => {
             it("should pass for no widgets", () => {
-                var result = a11y.violatingWidgets(noWidgets);
+                const result = a11y.violatingWidgets(noWidgets);
                 assert.strictEqual(result.length, 0);
             });
 
             it("should pass for accessible widgets", () => {
-                var result = a11y.violatingWidgets(oneAccessibleWidget);
+                const result = a11y.violatingWidgets(oneAccessibleWidget);
                 assert.strictEqual(result.length, 0);
             });
 
             it("should pick out out inaccessible widgets", () => {
                 // NOTE: when the matrix widget is accessible this will fail
-                var result = a11y.violatingWidgets(oneInaccessibleWidget);
+                const result = a11y.violatingWidgets(oneInaccessibleWidget);
                 assert.strictEqual(result.length, 1);
                 assert.strictEqual(result[0], "matrix");
             });
 
             it("should pass for images with alt text", () => {
-                var result = a11y.violatingWidgets(imageWithAltText);
+                const result = a11y.violatingWidgets(imageWithAltText);
                 assert.strictEqual(result.length, 0);
             });
 
             it("should pick out images without alt text", () => {
-                var result = a11y.violatingWidgets(imageWithoutAltText);
+                const result = a11y.violatingWidgets(imageWithoutAltText);
                 assert.strictEqual(result.length, 1);
                 assert.strictEqual(result[0], "image");
             });
 
             it("should ignore blank images", () => {
-                var result = a11y.violatingWidgets(emptyImageWithoutAltText);
+                const result = a11y.violatingWidgets(emptyImageWithoutAltText);
                 assert.strictEqual(result.length, 0);
             });
 
@@ -320,7 +316,7 @@ describe("a11y", () => {
                     __type: "content",
                     ...item.question,
                 });
-                var result = a11y.violatingWidgets({
+                const result = a11y.violatingWidgets({
                     _multi: {
                         sharedContext: decorateItem(oneInaccessibleWidget),
                         questions: [

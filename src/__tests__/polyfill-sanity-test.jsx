@@ -1,9 +1,4 @@
-/* eslint-disable no-var, semi */
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-
-var assert = require("assert");
+const assert = require("assert");
 
 describe("Polyfill Sanity Checks", () => {
     describe("Array", () => {
@@ -89,7 +84,7 @@ describe("Polyfill Sanity Checks", () => {
     describe("Iteration", () => {
         it("iterating over Object.values", () => {
             for (const v of Object.values({x:5, y:10})) {
-                assert(v)
+                assert(v);
             }
         });
 
