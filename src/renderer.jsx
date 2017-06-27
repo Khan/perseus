@@ -1318,15 +1318,24 @@ var Renderer = React.createClass({
         // interaction events from being triggered in listeners.
         silent: boolean
     ) {
-        var widgetProps = _.clone(this.state.widgetProps);
-        widgetProps[id] = _.extend({}, widgetProps[id], newProps);
+        this.setState(prevState => {
+            const widgetProps = {
+                ...prevState.widgetProps,
+                [id]: {
+                    ...prevState.widgetProps[id],
+                    ...newProps,
+                },
+            };
 
-        if (!silent) {
-            this.props.onSerializedStateUpdated(
-                this.getSerializedState(widgetProps));
-        }
+            if (!silent) {
+                this.props.onSerializedStateUpdated(
+                    this.getSerializedState(widgetProps));
+            }
 
-        this.setState({widgetProps: widgetProps}, () => {
+            return {
+                widgetProps,
+            };
+        }, () => {
             var cbResult = cb && cb();
             if (!silent) {
                 this.props.onInteractWithWidget(id);
