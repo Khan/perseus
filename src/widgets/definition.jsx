@@ -32,6 +32,7 @@ const Definition = React.createClass({
     },
 
     componentDidMount: function() {
+        document.addEventListener("click", this.handleClick);
         // need to wait for aphrodite styles to be rendered
         // so they can accessed for measurements in positionContent
         setTimeout(() => {
@@ -39,11 +40,33 @@ const Definition = React.createClass({
         }, 0);
     },
 
+    componentWillUnmount: function() {
+        document.removeEventListener("click", this.handleClick);
+    },
+
+    handleClick: function(event) {
+        let elem = event.target;
+        let shouldClose = true;
+        while (elem) {
+            // If the clicked element is outside the definition box
+            // close the definition box
+            if (elem === this.content || elem === this.container) {
+                shouldClose = false;
+                break;
+            }
+            elem = elem.parentNode;
+        }
+
+        if (shouldClose) {
+            this.close();
+        }
+    },
+
     change(...args) {
         return Changeable.change.apply(this, args);
     },
 
-    close() {
+    close: function() {
         this.setState({
             expanded: false,
         });
