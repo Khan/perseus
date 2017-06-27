@@ -1,5 +1,5 @@
 // Perseus Version File
-// commit dd91954299167faa6f4e1a696a0d3417fce0ae0b
+// commit e6cf411af84442baf6089b763ecf656d2a529fe9
 // branch master
 // @generated
 /* eslint-disable comma-dangle */
@@ -34,6 +34,10 @@ module.exports = {
         "minor": 0
     },
     "explanation": {
+        "major": 0,
+        "minor": 0
+    },
+    "definition": {
         "major": 0,
         "minor": 0
     },
