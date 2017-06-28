@@ -108,17 +108,13 @@ function shouldRenderJipt() {
 
 var specialChars = {
     // escaped: original
-    "\\a": "\u0007", // \a isn't valid javascript
-    "\\b": "\b",
     "\\t": "\t",
     "\\n": "\n",
-    "\\v": "\v",
-    "\\f": "\f",
     "\\r": "\r",
     "\\\\": "\\",
 };
 
-var rEscapedChars = /\\a|\\b|\\t|\\n|\\v|\\f|\\r|\\\\/g;
+var rEscapedChars = /\\t|\\n|\\r|\\\\/g;
 
 var jiptLabels = [];
 if (shouldRenderJipt()) {
