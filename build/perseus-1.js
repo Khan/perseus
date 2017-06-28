@@ -1,5 +1,5 @@
 /*! Perseus | http://github.com/Khan/perseus */
-// commit 7562c789067400aa8f2bac185f553df2778457cf
+// commit ae15748cc98ef568882bf6db8234425b228b60ef
 // branch react-15
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Perseus = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
@@ -44386,7 +44386,7 @@ function drawText(ctx, item) {
     }
     ctx.fillStyle = styles.fgColor;
     ctx.font = styles.font;
-    ctx.fillText(item.value, item.pos[0] - styles.fontSizePx / 2 + 1, item.pos[1] + styles.fontSizePx / 2);
+    ctx.fillText(item.value, item.pos[0] - styles.fontSizePx * item.value.length / 2 + 1, item.pos[1] + styles.fontSizePx / 2);
 }
 
 /**
@@ -44562,6 +44562,9 @@ module.exports = draw;
 // in the renderer, but we may want this just to be arbitrary in the future.
 var bondLength = 30;
 
+// hide carbon
+var hideC = false;
+
 /**
  * Compute a coordinate by moving an angle and length from an origin point.
  *
@@ -44600,7 +44603,7 @@ function polarAdd(origin, angle, length) {
  */
 function atomLayout(atom, atoms, bonds, rotationAngle) {
     var textValue = atom.symbol;
-    if (textValue === "C" && Object.keys(atoms).length !== 1) {
+    if (hideC && textValue === "C" && Object.keys(atoms).length !== 1) {
         // By convention, don't render the C for carbon in a chain.
         textValue = null;
     }
@@ -44687,10 +44690,10 @@ function maybeShrinkLines(fromAtom, toAtom) {
     var shrinkFactor = 0.25;
     var fromPos = [fromAtom.pos[0], fromAtom.pos[1]];
     var toPos = [toAtom.pos[0], toAtom.pos[1]];
-    if (fromAtom.symbol !== "C") {
+    if (!hideC || fromAtom.symbol !== "C") {
         fromPos = [toAtom.pos[0] - (1 - shrinkFactor) * (toAtom.pos[0] - fromAtom.pos[0]), toAtom.pos[1] - (1 - shrinkFactor) * (toAtom.pos[1] - fromAtom.pos[1])];
     }
-    if (toAtom.symbol !== "C") {
+    if (!hideC || toAtom.symbol !== "C") {
         // For carbon atoms, conventionally we don't draw any letter, so this
         // special cases drawing the bond lines all the way to the point where
         // they meet.
@@ -44879,7 +44882,7 @@ var smilesRe = new RegExp("^[A-Za-z\\[\\]()=#+-]*$");
 // Regexp defining what characters are valid as atom names.  This includes
 // common 1-character elements, Cl and Br for convenience, and the open
 // bracket, which can be used to include anything as an atom name.
-var atomRe = new RegExp("^(Cl|Br|[CONPSFBI]|\\[)");
+var atomRe = new RegExp("^(Cl|Br|OH|[CHONPSFBI]|\\[)");
 
 function ParseError(message) {
     this.message = message;

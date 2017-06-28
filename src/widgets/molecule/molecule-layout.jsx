@@ -18,6 +18,9 @@
 // in the renderer, but we may want this just to be arbitrary in the future.
 const bondLength = 30;
 
+// hide carbon
+const hideC = false;
+
 /**
  * Compute a coordinate by moving an angle and length from an origin point.
  *
@@ -59,7 +62,7 @@ function polarAdd(origin, angle, length) {
  */
 function atomLayout(atom, atoms, bonds, rotationAngle) {
     let textValue = atom.symbol;
-    if (textValue === "C" && (Object.keys(atoms).length !== 1)) {
+    if (hideC && textValue === "C" && (Object.keys(atoms).length !== 1)) {
         // By convention, don't render the C for carbon in a chain.
         textValue = null;
     }
@@ -148,14 +151,14 @@ function maybeShrinkLines(fromAtom, toAtom) {
     const shrinkFactor = 0.25;
     let fromPos = [fromAtom.pos[0], fromAtom.pos[1]];
     let toPos = [toAtom.pos[0], toAtom.pos[1]];
-    if (fromAtom.symbol !== "C") {
+    if (!hideC || fromAtom.symbol !== "C") {
         fromPos = [
             toAtom.pos[0] -
                 (1 - shrinkFactor) * (toAtom.pos[0] - fromAtom.pos[0]),
             toAtom.pos[1] -
                 (1 - shrinkFactor) * (toAtom.pos[1] - fromAtom.pos[1])];
     }
-    if (toAtom.symbol !== "C") {
+    if (!hideC || toAtom.symbol !== "C") {
         // For carbon atoms, conventionally we don't draw any letter, so this
         // special cases drawing the bond lines all the way to the point where
         // they meet.

@@ -18,7 +18,7 @@ function drawText(ctx, item) {
     if (item.value === null) { return; }
     ctx.fillStyle = styles.fgColor;
     ctx.font = styles.font;
-    ctx.fillText(item.value, item.pos[0] - styles.fontSizePx / 2 + 1,
+    ctx.fillText(item.value, item.pos[0] - styles.fontSizePx * item.value.length / 2 + 1,
                  item.pos[1] + styles.fontSizePx / 2);
 }
 

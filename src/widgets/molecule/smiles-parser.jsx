@@ -7,7 +7,7 @@ const smilesRe = new RegExp("^[A-Za-z\\[\\]()=#+-]*$");
 // Regexp defining what characters are valid as atom names.  This includes
 // common 1-character elements, Cl and Br for convenience, and the open
 // bracket, which can be used to include anything as an atom name.
-const atomRe = new RegExp("^(Cl|Br|[CONPSFBI]|\\[)");
+const atomRe = new RegExp("^(Cl|Br|OH|[CHONPSFBI]|\\[)");
 
 function ParseError(message) {
     this.message = message;
