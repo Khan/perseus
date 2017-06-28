@@ -238,6 +238,7 @@ function convertTree(atoms, bonds, tree) {
         atoms[treeIdx] = {idx: treeIdx, symbol: tree.symbol, connections: []};
         if (tree.bonds) {
             tree.bonds.forEach(function(b) {
+                if (b === null) return;
                 const toIdx = idxString(b.to.idx);
                 atoms[treeIdx].connections.push(toIdx);
                 bonds.push({from: treeIdx, to: toIdx, bondType: b.bondType});
