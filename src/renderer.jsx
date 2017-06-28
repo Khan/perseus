@@ -575,10 +575,11 @@ var Renderer = React.createClass({
                 function() { };
 
         var totalGuess = _.map(this.widgetIds, function(id) {
-            if (id.indexOf('lights-puzzle') > -1 || id.indexOf('transformer') > -1 || id.indexOf('image') > -1) {
+            if (widgetProps[id].graded === false || id.indexOf('lights-puzzle') > -1 || id.indexOf('transformer') > -1 || id.indexOf('image') > -1) {
                 return 'no save ' + id +' widget'
             }
-            return this.getWidgetInstance(id).toJSON();
+            const widget = this.getWidgetInstance(id);
+            return (widget.toJSON || widget.getUserInput || (() => ({})))();
         }, this);
 
         var totalScore = _.chain(this.widgetIds)

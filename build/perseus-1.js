@@ -1,5 +1,5 @@
 /*! Perseus | http://github.com/Khan/perseus */
-// commit 06c6d66351d28428d37f123b89421080b409b73b
+// commit 4af860f40a119ca16577154270678757e20c975c
 // branch react-15
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Perseus = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
@@ -35287,10 +35287,13 @@ var Renderer = React.createClass({
         var onInputError = this.props.apiOptions.onInputError || function () {};
 
         var totalGuess = _.map(this.widgetIds, function (id) {
-            if (id.indexOf('lights-puzzle') > -1 || id.indexOf('transformer') > -1 || id.indexOf('image') > -1) {
+            if (widgetProps[id].graded === false || id.indexOf('lights-puzzle') > -1 || id.indexOf('transformer') > -1 || id.indexOf('image') > -1) {
                 return 'no save ' + id + ' widget';
             }
-            return this.getWidgetInstance(id).toJSON();
+            var widget = this.getWidgetInstance(id);
+            return (widget.toJSON || widget.getUserInput || function () {
+                return {};
+            })();
         }, this);
 
         var totalScore = _.chain(this.widgetIds).filter(function (id) {
@@ -36475,11 +36478,13 @@ var Widgets = {
                 }
             }
         }
+        var graded = true;
+        if (widgetExports.graded != null) graded = widgetExports.graded;else if (oldWidgetInfo.graded != null) graded = oldWidgetInfo.graded;
 
         return _.extend({}, oldWidgetInfo, { // maintain other info, like type
             version: latestVersion,
             // Default graded to true (so null/undefined becomes true):
-            graded: oldWidgetInfo.graded != null ? oldWidgetInfo.graded : true,
+            graded: graded,
             options: newEditorProps
         });
     },
@@ -37595,6 +37600,7 @@ module.exports = {
     name: "explanation",
     displayName: "Explanation/解釋",
     defaultAlignment: "inline",
+    graded: false,
     widget: Explanation,
     transform: _.identity
 };
