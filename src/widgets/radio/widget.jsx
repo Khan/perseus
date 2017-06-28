@@ -322,10 +322,26 @@ const Radio = React.createClass({
                 highlighted,
             } = choiceStates[i];
 
+            const reviewChoice =
+                this.props.reviewModeRubric &&
+                this.props.reviewModeRubric.choices[i];
+
             return {
                 content: this._renderRenderer(content),
                 checked: selected,
-                correct: choice.correct,
+                // Current versions of the radio widget always pass in the
+                // "correct" value through the choices. Old serialized state
+                // for radio widgets doesn't have this though, so we have to
+                // pull the correctness out of the review mode rubric. This
+                // only works because all of the places we use
+                // `restoreSerializedState()` also turn on reviewMode, but is
+                // fine for now.
+                // TODO(emily): Come up with a more comprehensive way to solve
+                // this sort of "serialized state breaks when internal
+                // structure changes" problem.
+                correct: typeof choice.correct === "undefined"
+                    ? !!reviewChoice && reviewChoice.correct
+                    : choice.correct,
                 disabled: readOnly,
                 hasRationale: !!choice.clue,
                 rationale: this._renderRenderer(choice.clue),
