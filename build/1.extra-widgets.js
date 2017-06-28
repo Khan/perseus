@@ -571,9 +571,10 @@ webpackJsonpPerseus([1],[
 	            type: "invalid",
 	            message: null
 	        };
+	        var correct = rubric.choices[selected - 1].correct;
 	        return {
 	            type: "points",
-	            earned: rubric.choices[selected - 1].correct ? 1 : 0,
+	            earned: correct ? 1 : 0,
 	            total: 1,
 	            message: null
 	        };
@@ -715,7 +716,7 @@ webpackJsonpPerseus([1],[
 	            style: {
 	                fill: backgroundColor
 	            },
-	            points: "0," + arrowHeight + " " + arrowWidth + "," + arrowHeight + " " + arrowWidth / 2 + ",0"
+	            points: "0," + arrowHeight + " " + (arrowWidth + "," + arrowHeight + " ") + (arrowWidth / 2 + ",0")
 	        }))) : React.createElement("div", {
 	            className: css(styles.linkContainer)
 	        }, React.createElement(Link, {
@@ -832,7 +833,7 @@ webpackJsonpPerseus([1],[
 	        bottom: -(arrowHeight + 5),
 	        height: arrowHeight,
 	        left: "50%",
-	        marginLeft: -arrowWidth / 2,
+	        marginLeft: -(arrowWidth / 2),
 	        position: "absolute",
 	        width: arrowWidth
 	    }
@@ -1022,7 +1023,7 @@ webpackJsonpPerseus([1],[
 	            style: {
 	                fill: backgroundColor
 	            },
-	            points: "0," + arrowHeight + " " + arrowWidth + "," + arrowHeight + " " + arrowWidth / 2 + ",0"
+	            points: "0," + arrowHeight + " " + (arrowWidth + "," + arrowHeight + " ") + (arrowWidth / 2 + ",0")
 	        }))), React.createElement("div", {
 	            className: css(styles.content, isMobile && styles.contentMobile, this.state.expanded && expandedStyle),
 	            style: {
@@ -1109,7 +1110,7 @@ webpackJsonpPerseus([1],[
 	        bottom: -(arrowHeight + 5),
 	        height: arrowHeight,
 	        left: "50%",
-	        marginLeft: -arrowWidth / 2,
+	        marginLeft: -(arrowWidth / 2),
 	        position: "absolute",
 	        width: arrowWidth,
 	        zIndex: 4
@@ -1179,7 +1180,7 @@ webpackJsonpPerseus([1],[
 	/* Mixins. */
 	var Changeable = __webpack_require__(88);
 
-	var _require4 = __webpack_require__(127), GrapherUtil = _require4.GrapherUtil, typeToButton = _require4.typeToButton, functionForType = _require4.functionForType, DEFAULT_GRAPHER_PROPS = _require4.DEFAULT_GRAPHER_PROPS;
+	var _require4 = __webpack_require__(128), GrapherUtil = _require4.GrapherUtil, typeToButton = _require4.typeToButton, functionForType = _require4.functionForType, DEFAULT_GRAPHER_PROPS = _require4.DEFAULT_GRAPHER_PROPS;
 
 	function isFlipped(newCoord, oldCoord, line) {
 	    var CCW = function CCW(a, b, c) {
@@ -2007,7 +2008,8 @@ webpackJsonpPerseus([1],[
 	    },
 	    handleNextQuestion: function handleNextQuestion() {
 	        var currentGroup = this.state.currentGroup;
-	        currentGroup < this.props.gradedGroups.length - 1 && this.setState({
+	        var numGroups = this.props.gradedGroups.length;
+	        currentGroup < numGroups - 1 && this.setState({
 	            currentGroup: currentGroup + 1
 	        });
 	    },
@@ -2995,7 +2997,9 @@ webpackJsonpPerseus([1],[
 	                // TODO(eater): Would be nice if the constraint system
 	                // were more flexible.
 	                var constraints = [ function(coord) {
-	                    return [ Math.max(_this2._eval(element.options.constraintXMin), Math.min(_this2._eval(element.options.constraintXMax), coord[0])), Math.max(_this2._eval(element.options.constraintYMin), Math.min(_this2._eval(element.options.constraintYMax), coord[1])) ];
+	                    var coordX = Math.max(_this2._eval(element.options.constraintXMin), Math.min(_this2._eval(element.options.constraintXMax), coord[0]));
+	                    var coordY = Math.max(_this2._eval(element.options.constraintYMin), Math.min(_this2._eval(element.options.constraintYMax), coord[1]));
+	                    return [ coordX, coordY ];
 	                } ];
 	                "snap" === element.options.constraint ? constraints.push(MovablePoint.constraints.snap(element.options.snap)) : "x" === element.options.constraint ? constraints.push(function(coord) {
 	                    return [ _this2._eval(element.options.constraintFn, {
@@ -3024,7 +3028,9 @@ webpackJsonpPerseus([1],[
 	                // TODO(eater): Don't duplicate this code from
 	                // movable-point above
 	                var constraints = [ function(coord) {
-	                    return [ Math.max(_this2._eval(element.options.constraintXMin), Math.min(_this2._eval(element.options.constraintXMax), coord[0])), Math.max(_this2._eval(element.options.constraintYMin), Math.min(_this2._eval(element.options.constraintYMax), coord[1])) ];
+	                    var coordX = Math.max(_this2._eval(element.options.constraintXMin), Math.min(_this2._eval(element.options.constraintXMax), coord[0]));
+	                    var coordY = Math.max(_this2._eval(element.options.constraintYMin), Math.min(_this2._eval(element.options.constraintYMax), coord[1]));
+	                    return [ coordX, coordY ];
 	                } ];
 	                "snap" === element.options.constraint ? constraints.push(MovablePoint.constraints.snap(element.options.snap)) : "x" === element.options.constraint ? constraints.push(function(coord) {
 	                    return [ _this2._eval(element.options.constraintFn, {
@@ -3192,13 +3198,13 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var Graph = __webpack_require__(118);
+	var Graph = __webpack_require__(114);
 
-	var InfoTip = __webpack_require__(119);
+	var InfoTip = __webpack_require__(115);
 
 	var Interactive2 = __webpack_require__(109);
 
-	var NumberInput = __webpack_require__(114);
+	var NumberInput = __webpack_require__(116);
 
 	var Util = __webpack_require__(17);
 
@@ -3208,7 +3214,7 @@ webpackJsonpPerseus([1],[
 
 	var KhanColors = __webpack_require__(112);
 
-	var GraphUtils = __webpack_require__(120);
+	var GraphUtils = __webpack_require__(117);
 
 	var _require = __webpack_require__(37), interactiveSizes = _require.interactiveSizes;
 
@@ -3737,7 +3743,8 @@ webpackJsonpPerseus([1],[
 	            });
 	            this.vertHairline.hide();
 	        }
-	        this["add" + capitalize(this.props.graph.type) + "Controls"]();
+	        var type = this.props.graph.type;
+	        this["add" + capitalize(type) + "Controls"]();
 	    },
 	    showHairlines: function showHairlines(point) {
 	        if (this.props.apiOptions.isMobile && "none" !== this.props.markings) {
@@ -4233,7 +4240,8 @@ webpackJsonpPerseus([1],[
 	                    angles[rel(j)] = Math.round(angles[rel(j)]);
 	                });
 	                var getAngle = function getAngle(a, vertex, b) {
-	                    return (GraphUtils.findAngle(coords[rel(a)], coords[rel(b)], coords[rel(vertex)]) + 360) % 360;
+	                    var angle = GraphUtils.findAngle(coords[rel(a)], coords[rel(b)], coords[rel(vertex)]);
+	                    return (angle + 360) % 360;
 	                };
 	                var innerAngles = [ angles[rel(-1)] - getAngle(-2, -1, 1), angles[rel(1)] - getAngle(-1, 1, 2) ];
 	                innerAngles[2] = 180 - (innerAngles[0] + innerAngles[1]);
@@ -4513,7 +4521,10 @@ webpackJsonpPerseus([1],[
 	        var p3 = coords[2];
 	        var denom = (p1[0] - p2[0]) * (p1[0] - p3[0]) * (p2[0] - p3[0]);
 	        if (0 === denom) return;
-	        return [ (p3[0] * (p2[1] - p1[1]) + p2[0] * (p1[1] - p3[1]) + p1[0] * (p3[1] - p2[1])) / denom, (p3[0] * p3[0] * (p1[1] - p2[1]) + p2[0] * p2[0] * (p3[1] - p1[1]) + p1[0] * p1[0] * (p2[1] - p3[1])) / denom, (p2[0] * p3[0] * (p2[0] - p3[0]) * p1[1] + p3[0] * p1[0] * (p3[0] - p1[0]) * p2[1] + p1[0] * p2[0] * (p1[0] - p2[0]) * p3[1]) / denom ];
+	        var a = (p3[0] * (p2[1] - p1[1]) + p2[0] * (p1[1] - p3[1]) + p1[0] * (p3[1] - p2[1])) / denom;
+	        var b = (p3[0] * p3[0] * (p1[1] - p2[1]) + p2[0] * p2[0] * (p3[1] - p1[1]) + p1[0] * p1[0] * (p2[1] - p3[1])) / denom;
+	        var c = (p2[0] * p3[0] * (p2[0] - p3[0]) * p1[1] + p3[0] * p1[0] * (p3[0] - p1[0]) * p2[1] + p1[0] * p2[0] * (p1[0] - p2[0]) * p3[1]) / denom;
+	        return [ a, b, c ];
 	    },
 	    getSinusoidCoefficients: function getSinusoidCoefficients(coords) {
 	        // It's assumed that p1 is the root and p2 is the first peak
@@ -4522,7 +4533,9 @@ webpackJsonpPerseus([1],[
 	        // Resulting coefficients are canonical for this sine curve
 	        var amplitude = p2[1] - p1[1];
 	        var angularFrequency = Math.PI / (2 * (p2[0] - p1[0]));
-	        return [ amplitude, angularFrequency, p1[0] * angularFrequency, p1[1] ];
+	        var phase = p1[0] * angularFrequency;
+	        var verticalOffset = p1[1];
+	        return [ amplitude, angularFrequency, phase, verticalOffset ];
 	    },
 	    /**
 	     * @param {object} graph Like props.graph or props.correct
@@ -4716,14 +4729,16 @@ webpackJsonpPerseus([1],[
 	        var graph = props.graph;
 	        // TODO(alpert): Don't duplicate
 	        var center = graph.center || [ 0, 0 ];
-	        return "center (" + center[0] + ", " + center[1] + "), radius " + (graph.radius || 2);
+	        var radius = graph.radius || 2;
+	        return "center (" + center[0] + ", " + center[1] + "), radius " + radius;
 	    },
 	    getLinearSystemEquationString: function getLinearSystemEquationString(props) {
 	        var coords = InteractiveGraph.getLinearSystemCoords(props.graph, props);
 	        return "\n" + getLineEquation(coords[0][0], coords[0][1]) + "\n" + getLineEquation(coords[1][0], coords[1][1]) + "\n" + getLineIntersection(coords[0], coords[1]);
 	    },
 	    getPointEquationString: function getPointEquationString(props) {
-	        return InteractiveGraph.getPointCoords(props.graph, props).map(function(coord) {
+	        var coords = InteractiveGraph.getPointCoords(props.graph, props);
+	        return coords.map(function(coord) {
 	            return "(" + coord[0] + ", " + coord[1] + ")";
 	        }).join(", ");
 	    },
@@ -4740,7 +4755,7 @@ webpackJsonpPerseus([1],[
 	        var a = coords[0];
 	        var b = coords[1];
 	        var eq = InteractiveGraph.getLinearEquationString(props);
-	        a[0] > b[0] ? eq += " (for x <= " + a[0].toFixed(3) + ")" : a[0] < b[0] ? eq += " (for x >= " + a[0].toFixed(3) + ")" : a[1] > b[1] ? eq += " (for y <= " + a[1].toFixed(3) + ")" : eq += " (for y >= " + a[1].toFixed(3) + ")";
+	        eq += a[0] > b[0] ? " (for x <= " + a[0].toFixed(3) + ")" : a[0] < b[0] ? " (for x >= " + a[0].toFixed(3) + ")" : a[1] > b[1] ? " (for y <= " + a[1].toFixed(3) + ")" : " (for y >= " + a[1].toFixed(3) + ")";
 	        return eq;
 	    },
 	    getPolygonEquationString: function getPolygonEquationString(props) {
@@ -4751,7 +4766,8 @@ webpackJsonpPerseus([1],[
 	    },
 	    getAngleEquationString: function getAngleEquationString(props) {
 	        var coords = InteractiveGraph.getAngleCoords(props.graph, props);
-	        return GraphUtils.findAngle(coords[2], coords[0], coords[1]).toFixed(0) + "° angle at (" + coords[1].join(", ") + ")";
+	        var angle = GraphUtils.findAngle(coords[2], coords[0], coords[1]);
+	        return angle.toFixed(0) + "° angle at (" + coords[1].join(", ") + ")";
 	    },
 	    validate: function validate(state, rubric, component) {
 	        // When nothing has moved, there will neither be coords nor the
@@ -4866,7 +4882,8 @@ webpackJsonpPerseus([1],[
 	            var match;
 	            if ("congruent" === rubric.correct.match) {
 	                var angles = _.map([ guess, correct ], function(coords) {
-	                    return (GraphUtils.findAngle(coords[2], coords[0], coords[1]) + 360) % 360;
+	                    var angle = GraphUtils.findAngle(coords[2], coords[0], coords[1]);
+	                    return (angle + 360) % 360;
 	                });
 	                match = eq.apply(null, angles);
 	            } else /* exact */
@@ -5160,19 +5177,21 @@ webpackJsonpPerseus([1],[
 
 	// grading function
 	var validate = function validate(rubric, state) {
-	    if (_.all(state.cells, function(row, y) {
+	    var empty = _.all(state.cells, function(row, y) {
 	        return _.all(row, function(cell, x) {
 	            return cell === rubric.startCells[y][x];
 	        });
-	    })) return {
+	    });
+	    if (empty) return {
 	        type: "invalid",
 	        message: i18n._("Click on the tiles to change the lights.")
 	    };
-	    return _.all(state.cells, function(row) {
+	    var correct = _.all(state.cells, function(row) {
 	        return _.all(row, function(cell) {
 	            return cell;
 	        });
-	    }) ? {
+	    });
+	    return correct ? {
 	        type: "points",
 	        earned: 1,
 	        total: 1,
@@ -5230,13 +5249,13 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var NumberInput = __webpack_require__(114);
+	var NumberInput = __webpack_require__(116);
 
 	var Renderer = __webpack_require__(8);
 
-	var TextInput = __webpack_require__(115);
+	var TextInput = __webpack_require__(118);
 
-	var MathOutput = __webpack_require__(116);
+	var MathOutput = __webpack_require__(119);
 
 	var SimpleKeypadInput = __webpack_require__(83);
 
@@ -5246,7 +5265,7 @@ webpackJsonpPerseus([1],[
 
 	var keypadElementPropType = __webpack_require__(81).propTypes.keypadElementPropType;
 
-	var assert = __webpack_require__(117).assert;
+	var assert = __webpack_require__(120).assert;
 
 	var stringArrayOfSize = __webpack_require__(17).stringArrayOfSize;
 
@@ -5299,7 +5318,9 @@ webpackJsonpPerseus([1],[
 	};
 
 	var getRefForPath = function getRefForPath(path) {
-	    return "answer" + getRowFromPath(path) + "," + getColumnFromPath(path);
+	    var row = getRowFromPath(path);
+	    var column = getColumnFromPath(path);
+	    return "answer" + row + "," + column;
 	};
 
 	var getMatrixSize = function getMatrixSize(matrix) {
@@ -5783,9 +5804,10 @@ webpackJsonpPerseus([1],[
 
 	_.extend(Matcher, {
 	    validate: function validate(state, rubric) {
+	        var correct = _.isEqual(state.left, rubric.left) && _.isEqual(state.right, rubric.right);
 	        return {
 	            type: "points",
-	            earned: _.isEqual(state.left, rubric.left) && _.isEqual(state.right, rubric.right) ? 1 : 0,
+	            earned: correct ? 1 : 0,
 	            total: 1,
 	            message: null
 	        };
@@ -5847,7 +5869,7 @@ webpackJsonpPerseus([1],[
 
 	var ApiOptions = __webpack_require__(18).Options;
 
-	var GraphUtils = __webpack_require__(120);
+	var GraphUtils = __webpack_require__(117);
 
 	var defaultImage = {
 	    url: null,
@@ -5914,9 +5936,10 @@ webpackJsonpPerseus([1],[
 	        this.setupGraphie();
 	    },
 	    componentDidUpdate: function componentDidUpdate(prevProps) {
-	        _2.any([ "box", "showProtractor", "showRuler", "rulerLabel", "rulerTicks", "rulerPixels", "rulerLength" ], function(prop) {
+	        var shouldSetupGraphie = _2.any([ "box", "showProtractor", "showRuler", "rulerLabel", "rulerTicks", "rulerPixels", "rulerLength" ], function(prop) {
 	            return prevProps[prop] !== this.props[prop];
-	        }, this) && this.setupGraphie();
+	        }, this);
+	        shouldSetupGraphie && this.setupGraphie();
 	    },
 	    setupGraphie: function setupGraphie() {
 	        var graphieDiv = ReactDOM.findDOMNode(this.refs.graphieDiv);
@@ -5966,13 +5989,14 @@ webpackJsonpPerseus([1],[
 
 	var propUpgrades = {
 	    1: function _(v0props) {
-	        return _2(v0props).chain().omit("imageUrl", "imageTop", "imageLeft").extend({
+	        var v1props = _2(v0props).chain().omit("imageUrl", "imageTop", "imageLeft").extend({
 	            image: {
 	                url: v0props.imageUrl,
 	                top: v0props.imageTop,
 	                left: v0props.imageLeft
 	            }
 	        }).value();
+	        return v1props;
 	    }
 	};
 
@@ -5998,11 +6022,11 @@ webpackJsonpPerseus([1],[
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var React = __webpack_require__(11);
 
-	var draw = __webpack_require__(128);
+	var draw = __webpack_require__(132);
 
-	var _require = __webpack_require__(129), layout = _require.layout;
+	var _require = __webpack_require__(133), layout = _require.layout;
 
-	var SmilesParser = __webpack_require__(130);
+	var SmilesParser = __webpack_require__(134);
 
 	var parse = SmilesParser.parse;
 
@@ -6050,10 +6074,10 @@ webpackJsonpPerseus([1],[
 	    },
 	    setCanvasBounds: function setCanvasBounds(canvas, items) {
 	        var xmax = Math.max.apply(Math, items.map(function(item) {
-	            return item.pos ? item.pos[0] : -1 / 0;
+	            return item.pos ? item.pos[0] : -(1 / 0);
 	        }));
 	        var ymax = Math.max.apply(Math, items.map(function(item) {
-	            return item.pos ? item.pos[1] : -1 / 0;
+	            return item.pos ? item.pos[1] : -(1 / 0);
 	        }));
 	        var xmin = Math.min.apply(Math, items.map(function(item) {
 	            return item.pos ? item.pos[0] : 1 / 0;
@@ -6176,9 +6200,9 @@ webpackJsonpPerseus([1],[
 
 	var Changeable = __webpack_require__(88);
 
-	var NumberInput = __webpack_require__(114);
+	var NumberInput = __webpack_require__(116);
 
-	var MathOutput = __webpack_require__(116);
+	var MathOutput = __webpack_require__(119);
 
 	var SimpleKeypadInput = __webpack_require__(83);
 
@@ -6202,7 +6226,7 @@ webpackJsonpPerseus([1],[
 	    return Math.min(Math.max(x, gt), lt);
 	};
 
-	var assert = __webpack_require__(117).assert;
+	var assert = __webpack_require__(120).assert;
 
 	var EN_DASH = "–";
 
@@ -6233,7 +6257,8 @@ webpackJsonpPerseus([1],[
 	}
 
 	function formatNonReduced(n, d, base) {
-	    return formatImproper(n * Math.floor(base / d), base);
+	    var factor = Math.floor(base / d);
+	    return formatImproper(n * factor, base);
 	}
 
 	var _label = function _label(graphie, labelStyle, pos, value, base) {
@@ -6284,7 +6309,8 @@ webpackJsonpPerseus([1],[
 	    for (var _i = 0; _i <= props.numDivisions; _i++) {
 	        var _x = range[0] + _i * props.tickStep;
 	        results.push(graphie.line([ _x, -.2 ], [ _x, .2 ]));
-	        (props.labelTicks || "decimal ticks" === props.labelStyle) && results.push(_label(graphie, props.labelStyle, _x, _x, base));
+	        var labelTicks = props.labelTicks;
+	        (labelTicks || "decimal ticks" === props.labelStyle) && results.push(_label(graphie, props.labelStyle, _x, _x, base));
 	    }
 	    // Render the text labels
 	    results.push(graphie.style(props.isMobile ? {
@@ -6370,7 +6396,7 @@ webpackJsonpPerseus([1],[
 	        // Don't allow a fraction for the number of divisions
 	        numDivisions = Math.round(numDivisions);
 	        // Don't allow negative numbers for the number of divisions
-	        numDivisions = numDivisions < 0 ? -1 * numDivisions : numDivisions;
+	        numDivisions = numDivisions < 0 ? numDivisions * -1 : numDivisions;
 	        // If the number of divisions isn't blank, update the number line
 	        if (numDivisions) {
 	            var nextProps = _.extend({}, this.props, {
@@ -6482,7 +6508,9 @@ webpackJsonpPerseus([1],[
 	                // constrain-y
 	                return [ coord[0], prevCoord[1] ];
 	            }, function(coord, prevCoord) {
-	                return [ _this3.snapNumLinePosition(props, coord[0]), coord[1] ];
+	                // snap X
+	                var x = _this3.snapNumLinePosition(props, coord[0]);
+	                return [ x, coord[1] ];
 	            } ],
 	            normalStyle: normalStyle,
 	            highlightStyle: highlightStyle,
@@ -6514,11 +6542,12 @@ webpackJsonpPerseus([1],[
 	        var isGreater = _([ "ge", "gt" ]).contains(props.rel);
 	        var widthInPixels = 400;
 	        var range = props.range;
-	        var scale = (range[1] - range[0]) / 400;
+	        var scale = (range[1] - range[0]) / widthInPixels;
 	        var buffer = horizontalPadding * scale;
 	        var left = range[0] - buffer;
 	        var right = range[1] + buffer;
-	        return isGreater ? [ right, 0 ] : [ left, 0 ];
+	        var end = isGreater ? [ right, 0 ] : [ left, 0 ];
+	        return end;
 	    },
 	    _renderInequality: function _renderInequality(props) {
 	        if (props.isInequality) {
@@ -6552,7 +6581,7 @@ webpackJsonpPerseus([1],[
 	        var bottom = hasFractionalLabels ? -1.5 : -1;
 	        var top = 1;
 	        graphie.init({
-	            range: [ [ left, right ], [ bottom, 1 ] ],
+	            range: [ [ left, right ], [ bottom, top ] ],
 	            scale: [ 1 / scale, 40 ],
 	            isMobile: this.props.apiOptions.isMobile
 	        });
@@ -7122,9 +7151,10 @@ webpackJsonpPerseus([1],[
 	            type: "invalid",
 	            message: null
 	        };
+	        var correct = _.isEqual(state.current, _.pluck(rubric.correctOptions, "content"));
 	        return {
 	            type: "points",
-	            earned: _.isEqual(state.current, _.pluck(rubric.correctOptions, "content")) ? 1 : 0,
+	            earned: correct ? 1 : 0,
 	            total: 1,
 	            message: null
 	        };
@@ -7176,15 +7206,15 @@ webpackJsonpPerseus([1],[
 
 	var $ = __webpack_require__(15);
 
-	var HighlightableContent = __webpack_require__(131);
+	var HighlightableContent = __webpack_require__(129);
 
 	var Renderer = __webpack_require__(8);
 
-	var PassageMarkdown = __webpack_require__(133);
+	var PassageMarkdown = __webpack_require__(131);
 
 	var babelPluginFlowReactPropTypes_proptype_ChangeableProps = __webpack_require__(88).babelPluginFlowReactPropTypes_proptype_ChangeableProps || __webpack_require__(11).PropTypes.any;
 
-	var babelPluginFlowReactPropTypes_proptype_SerializedHighlightSet = __webpack_require__(132).babelPluginFlowReactPropTypes_proptype_SerializedHighlightSet || __webpack_require__(11).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_SerializedHighlightSet = __webpack_require__(130).babelPluginFlowReactPropTypes_proptype_SerializedHighlightSet || __webpack_require__(11).PropTypes.any;
 
 	// A fake paragraph to measure the line height of the passage. In CSS we always
 	// set the line height to 22 pixels, but when using the browser zoom feature,
@@ -7313,16 +7343,18 @@ webpackJsonpPerseus([1],[
 	        var $renderer = $(ReactDOM.findDOMNode(this.refs.content));
 	        var contentsHeight = $renderer.height();
 	        var lineHeight = this._getLineHeight();
-	        return Math.round(contentsHeight / lineHeight);
+	        var nLines = Math.round(contentsHeight / lineHeight);
+	        return nLines;
 	    };
 	    Passage.prototype._getInitialLineNumber = function _getInitialLineNumber() {
 	        var _this5 = this;
 	        var isPassageBeforeThisPassage = true;
-	        return this.props.findWidgets(function(id, widgetInfo) {
+	        var passagesBeforeUs = this.props.findWidgets(function(id, widgetInfo) {
 	            if ("passage" !== widgetInfo.type) return false;
 	            id === _this5.props.widgetId && (isPassageBeforeThisPassage = false);
 	            return isPassageBeforeThisPassage;
-	        }).map(function(passageWidget) {
+	        });
+	        return passagesBeforeUs.map(function(passageWidget) {
 	            return passageWidget.getLineCount();
 	        }).reduce(function(a, b) {
 	            return a + b;
@@ -7382,7 +7414,8 @@ webpackJsonpPerseus([1],[
 	        var $content = $(ReactDOM.findDOMNode(this.refs.content));
 	        var relativeVPos = absoluteVPos - $content.offset().top;
 	        var lineHeight = this._getLineHeight();
-	        return Math.round(relativeVPos / lineHeight);
+	        var line = Math.round(relativeVPos / lineHeight);
+	        return line;
 	    };
 	    Passage.prototype._getRefContent = function _getRefContent(referenceNumber) {
 	        var refRef = PassageMarkdown.START_REF_PREFIX + referenceNumber;
@@ -7394,10 +7427,11 @@ webpackJsonpPerseus([1],[
 	        var refStartLine = this._getStartRefLineNumber(referenceNumber);
 	        var refEndLine = this._getEndRefLineNumber(referenceNumber);
 	        if (null == refStartLine || null == refEndLine) return null;
+	        var refContent = this._getRefContent(referenceNumber);
 	        return {
 	            startLine: refStartLine,
 	            endLine: refEndLine,
-	            content: this._getRefContent(referenceNumber)
+	            content: refContent
 	        };
 	    };
 	    /**
@@ -7463,7 +7497,9 @@ webpackJsonpPerseus([1],[
 	        }), PassageMarkdown.output(parsed)));
 	    };
 	    Passage.prototype._hasFootnotes = function _hasFootnotes() {
-	        return !/^\s*$/.test(this.props.footnotes);
+	        var rawContent = this.props.footnotes;
+	        var isEmpty = /^\s*$/.test(rawContent);
+	        return !isEmpty;
 	    };
 	    Passage.prototype._renderFootnotes = function _renderFootnotes() {
 	        var rawContent = this.props.footnotes;
@@ -7652,7 +7688,7 @@ webpackJsonpPerseus([1],[
 
 	var KhanColors = __webpack_require__(112);
 
-	var GraphUtils = __webpack_require__(120);
+	var GraphUtils = __webpack_require__(117);
 
 	var Interactive2 = __webpack_require__(109);
 
@@ -7717,7 +7753,7 @@ webpackJsonpPerseus([1],[
 	        // was determined by eye-balling the layout.  :(
 	        var paddingForBottomLabel = 75;
 	        var style = {
-	            marginBottom: this.props.labels[0] ? 75 : 0
+	            marginBottom: this.props.labels[0] ? paddingForBottomLabel : 0
 	        };
 	        return React.createElement("div", {
 	            className: "perseus-widget-plotter graphie " + ApiClassNames.INTERACTIVE,
@@ -7798,12 +7834,12 @@ webpackJsonpPerseus([1],[
 	        // with the same padding as the others
 	        isDotplot && (padX /= 2);
 	        isMobile && isTiledPlot && 0 === self.props.labels[1].length && (padX = 0);
-	        c.scale = isMobile ? _.map([ [ c.dimX, padX ], [ c.dimY, padY ] ], // We multiply pad by 4 because we add 3*pad padding on the left
+	        isMobile ? c.scale = _.map([ [ c.dimX, padX ], [ c.dimY, padY ] ], // We multiply pad by 4 because we add 3*pad padding on the left
 	        // and 1*pad on the right
 	        function(_ref, i) {
 	            var dim = _ref[0], pad = _ref[1];
 	            return (plotDimensions[i] - 4 * pad) / dim;
-	        }) : _.map([ c.dimX, c.dimY ], function(dim, i) {
+	        }) : c.scale = _.map([ c.dimX, c.dimY ], function(dim, i) {
 	            return plotDimensions[i] / dim;
 	        });
 	        padX /= c.scale[0];
@@ -7912,9 +7948,10 @@ webpackJsonpPerseus([1],[
 	            isTeX = true;
 	        }
 	        var hasXLabel = 0 !== this.props.labels[0].length;
+	        var labelRotation = "translateX(-50%) translateX(5px) translateY(-50%) rotate(-45deg)";
 	        graphie.style({
 	            color: isMobile ? KhanColors.GRAY_G : "inherit",
-	            transform: isMobile && !mathyCategory ? "translateX(-50%) translateX(5px) translateY(-50%) rotate(-45deg)" : "none",
+	            transform: isMobile && !mathyCategory ? labelRotation : "none",
 	            transformOrigin: "100%"
 	        }, function() {
 	            return graphie.label([ x, isMobile ? -.5 : 0 ], category, "below", isTeX);
@@ -8305,7 +8342,8 @@ webpackJsonpPerseus([1],[
 	                var show = y <= values[i];
 	                if (self.props.type === DOTPLOT) {
 	                    var wasShown = y <= prevValues[i];
-	                    show && !wasShown && pic.animate({
+	                    var wasJustShown = show && !wasShown;
+	                    wasJustShown && pic.animate({
 	                        "stroke-width": 8
 	                    }, 75, function() {
 	                        return pic.animate({
@@ -8385,12 +8423,12 @@ webpackJsonpPerseus([1],[
 	        ctx.lineWidth = 1.2;
 	        ctx.lineCap = "round";
 	        var offset = 5;
-	        path.moveTo(5, canvas.height / 2);
-	        path.lineTo(canvas.width - 5, canvas.height / 2);
-	        path.moveTo(canvas.width - 10, canvas.height / 2 - 5);
-	        path.lineTo(canvas.width - 5, canvas.height / 2);
-	        path.moveTo(canvas.width - 10, canvas.height / 2 + 5);
-	        path.lineTo(canvas.width - 5, canvas.height / 2);
+	        path.moveTo(offset, canvas.height / 2);
+	        path.lineTo(canvas.width - offset, canvas.height / 2);
+	        path.moveTo(canvas.width - 2 * offset, canvas.height / 2 - offset);
+	        path.lineTo(canvas.width - offset, canvas.height / 2);
+	        path.moveTo(canvas.width - 2 * offset, canvas.height / 2 + offset);
+	        path.lineTo(canvas.width - offset, canvas.height / 2);
 	        ctx.stroke(path);
 	    },
 	    render: function render() {
@@ -8555,7 +8593,8 @@ webpackJsonpPerseus([1],[
 	        }).join("\n\n").value();
 	        var widgets = {};
 	        _.each(this.props.json, function(step, i) {
-	            widgets["group " + i] = {
+	            var widgetId = "group " + i;
+	            widgets[widgetId] = {
 	                type: "group",
 	                graded: true,
 	                version: {
@@ -8637,7 +8676,7 @@ webpackJsonpPerseus([1],[
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	/* globals $_, i18n */
-	var InfoTip = __webpack_require__(119);
+	var InfoTip = __webpack_require__(115);
 
 	var React = __webpack_require__(11);
 
@@ -8649,15 +8688,15 @@ webpackJsonpPerseus([1],[
 
 	var ApiOptions = __webpack_require__(18).Options;
 
-	var assert = __webpack_require__(117).assert;
+	var assert = __webpack_require__(120).assert;
 
 	var Graphie = __webpack_require__(94);
 
 	var Path = Graphie.Path, Arc = Graphie.Arc, Circle = Graphie.Circle, Label = Graphie.Label, Line = Graphie.Line, MovablePoint = Graphie.MovablePoint, MovableLine = Graphie.MovableLine;
 
-	var NumberInput = __webpack_require__(114);
+	var NumberInput = __webpack_require__(116);
 
-	var MathOutput = __webpack_require__(116);
+	var MathOutput = __webpack_require__(119);
 
 	var seededRNG = __webpack_require__(17).seededRNG;
 
@@ -8745,15 +8784,15 @@ webpackJsonpPerseus([1],[
 	        // TODO(charlie): Find a better way around this.
 	        var epsilon = 1e-5;
 	        var radius = 20;
-	        var center = [ this.props.box[0] - 30, 30 ];
+	        var center = [ this.props.box[0] - 1.5 * radius, 1.5 * radius ];
 	        // Plot little circle
 	        var plotBelowCircle = function plotBelowCircle() {
 	            var options = {
 	                key: "below",
 	                center: center,
-	                radius: 20,
+	                radius: radius,
 	                startAngle: 0,
-	                endAngle: proportionBelow < 1 ? 360 * proportionBelow : 360 - 1e-5,
+	                endAngle: proportionBelow < 1 ? 360 * proportionBelow : 360 - epsilon,
 	                sector: 1 !== proportionBelow,
 	                unscaled: true,
 	                style: {
@@ -8767,8 +8806,8 @@ webpackJsonpPerseus([1],[
 	            var options = {
 	                key: "above",
 	                center: center,
-	                radius: 20,
-	                startAngle: proportionBelow > 0 ? 360 * proportionBelow : 1e-5,
+	                radius: radius,
+	                startAngle: proportionBelow > 0 ? 360 * proportionBelow : epsilon,
 	                endAngle: 360,
 	                sector: 0 !== proportionBelow,
 	                unscaled: true,
@@ -8785,7 +8824,7 @@ webpackJsonpPerseus([1],[
 	        var plotLabel = function plotLabel() {
 	            var options = {
 	                key: "label",
-	                coord: [ center[0], center[1] + 30 ],
+	                coord: [ center[0], center[1] + 1.5 * radius ],
 	                text: numBelow + " of " + total + " results below " + formattedThreshold + "%",
 	                direction: "center",
 	                tex: false,
@@ -8815,7 +8854,7 @@ webpackJsonpPerseus([1],[
 	                fill: isBelow ? KhanColors.LIGHT_RED : KhanColors.LIGHT_BLUE,
 	                stroke: isBelow ? KhanColors.RED : KhanColors.BLUE
 	            };
-	            var coords = [ [ i, 0 ], [ i, count ], [ i + 1, count ], [ i + 1, 0 ] ];
+	            var coords = [ [ i, 0 ], [ i, count ], [ i + barWidth, count ], [ i + barWidth, 0 ] ];
 	            return React.createElement(Path, {
 	                key: i,
 	                coords: coords,
@@ -8864,7 +8903,7 @@ webpackJsonpPerseus([1],[
 	        var xWidth = range[0][1] - range[0][0];
 	        var yWidth = range[1][1] - 0;
 	        var maxYAxisEntities = 20;
-	        var ySkip = Math.ceil(yWidth / 20);
+	        var ySkip = Math.ceil(yWidth / maxYAxisEntities);
 	        _.each(_.range(0, range[1][1], ySkip), function(y) {
 	            // If there's no data, we don't label the axes
 	            data && graphie.label([ range[0][0], y ], KhanMath.roundToApprox(y, 2), "left", /* isTeX */
@@ -8879,11 +8918,11 @@ webpackJsonpPerseus([1],[
 	        if (data) {
 	            // Plot the labels below the bars
 	            var maxXAxisEntities = 15;
-	            var xSkip = Math.ceil(xWidth / 15);
+	            var xSkip = Math.ceil(xWidth / maxXAxisEntities);
 	            _.each(_.range(range[0][0], range[0][1], xSkip), function(x) {
 	                graphie.label([ x, 0 ], knumber.round(x, 2), "below", true);
 	                var tickHeight = 8;
-	                graphie.line([ x, 0 ], [ x, -8 / scale[1] ], {
+	                graphie.line([ x, 0 ], [ x, -tickHeight / scale[1] ], {
 	                    stroke: "#000",
 	                    strokeWidth: 1
 	                });
@@ -8923,17 +8962,18 @@ webpackJsonpPerseus([1],[
 	        var firstIndex = _.indexOf(data, _.find(data, function(n) {
 	            return n > 0;
 	        }));
-	        var xMin = Math.max(0, firstIndex - 10);
+	        var xMin = Math.max(0, firstIndex - padding);
 	        var lastIndex = _.lastIndexOf(data, _.last(_.filter(data, function(n) {
 	            return n > 0;
 	        })));
-	        var xMax = Math.min(101, lastIndex + 1 + 10);
+	        var xMax = Math.min(101, lastIndex + 1 + padding);
 	        // The y-axis is bounded above by largest value, and below by 0.
 	        // However, the 'range' of the y-axis goes as low as -1 to allow
 	        // Graphie to draw ticks on the x-Axis that extend vertically below
 	        // y = 0.
 	        var yMin = -1;
-	        return [ [ xMin, xMax ], [ -1, _.max(data) ] ];
+	        var yMax = _.max(data);
+	        return [ [ xMin, xMax ], [ yMin, yMax ] ];
 	    },
 	    _getInitialThreshold: function _getInitialThreshold(range) {
 	        // We pick a pretty-looking threshold, 1/3 of the way along the axis
@@ -9128,7 +9168,7 @@ webpackJsonpPerseus([1],[
 	    generateData: function generateData(props) {
 	        var _this5 = this;
 	        props = props || this.props;
-	        return function getSampleDistribution(sampleSize, numTrials, proportion) {
+	        var getSampleDistribution = function getSampleDistribution(sampleSize, numTrials, proportion) {
 	            var draw = function draw() {
 	                return _this5.generateNumber() < proportion;
 	            };
@@ -9142,7 +9182,8 @@ webpackJsonpPerseus([1],[
 	                sampleDistribution[normalizedCount]++;
 	            });
 	            return sampleDistribution;
-	        }(props.sampleSize, props.numTrials, props.userProportion);
+	        };
+	        return getSampleDistribution(props.sampleSize, props.numTrials, props.userProportion);
 	    },
 	    /* InputPath API */
 	    getInputPaths: function getInputPaths() {
@@ -9156,12 +9197,14 @@ webpackJsonpPerseus([1],[
 	    focusInputPath: function focusInputPath(path) {
 	        assert(path.length > 0);
 	        var inputID = _.head(path);
-	        this.refs[inputID].focus();
+	        var inputComponent = this.refs[inputID];
+	        inputComponent.focus();
 	    },
 	    blurInputPath: function blurInputPath(path) {
 	        assert(path.length > 0);
 	        var inputID = _.head(path);
-	        this.refs[inputID].blur();
+	        var inputComponent = this.refs[inputID];
+	        inputComponent.blur();
 	    },
 	    getDOMNodeForPath: function getDOMNodeForPath(path) {
 	        assert(path.length > 0);
@@ -9175,7 +9218,9 @@ webpackJsonpPerseus([1],[
 	    setInputValue: function setInputValue(path, newValue, cb) {
 	        assert(path.length > 0);
 	        var inputID = _.head(path);
-	        this["handle" + (inputID.charAt(0).toUpperCase() + inputID.slice(1)) + "Change"](newValue, cb);
+	        var capitalizedID = inputID.charAt(0).toUpperCase() + inputID.slice(1);
+	        var functionName = "handle" + capitalizedID + "Change";
+	        this[functionName](newValue, cb);
 	    },
 	    getUserInput: function getUserInput() {
 	        return null;
@@ -9284,9 +9329,10 @@ webpackJsonpPerseus([1],[
 
 	_.extend(Sorter, {
 	    validate: function validate(state, rubric) {
+	        var correct = _.isEqual(state.options, rubric.correct);
 	        return {
 	            type: "points",
-	            earned: _.isEqual(state.options, rubric.correct) ? 1 : 0,
+	            earned: correct ? 1 : 0,
 	            total: 1,
 	            message: null
 	        };
@@ -9315,7 +9361,7 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var MathOutput = __webpack_require__(116);
+	var MathOutput = __webpack_require__(119);
 
 	var SimpleKeypadInput = __webpack_require__(83);
 
@@ -9329,7 +9375,7 @@ webpackJsonpPerseus([1],[
 
 	var KhanAnswerTypes = __webpack_require__(77);
 
-	var assert = __webpack_require__(117).assert;
+	var assert = __webpack_require__(120).assert;
 
 	/* Input handling: Maps a (row, column) pair to a unique ref used by React,
 	 * and extracts (row, column) pairs from input paths, used to allow outsiders
@@ -9355,7 +9401,9 @@ webpackJsonpPerseus([1],[
 	};
 
 	var getRefForPath = function getRefForPath(path) {
-	    return "answer" + getRowFromPath(path) + "," + getColumnFromPath(path);
+	    var row = getRowFromPath(path);
+	    var column = getColumnFromPath(path);
+	    return "answer" + row + "," + column;
 	};
 
 	var Table = React.createClass({
@@ -9373,15 +9421,15 @@ webpackJsonpPerseus([1],[
 	    getDefaultProps: function getDefaultProps() {
 	        var defaultRows = 4;
 	        var defaultColumns = 1;
-	        var blankAnswers = _(4).times(function() {
-	            return Util.stringArrayOfSize(1);
+	        var blankAnswers = _(defaultRows).times(function() {
+	            return Util.stringArrayOfSize(defaultColumns);
 	        });
 	        return {
 	            apiOptions: ApiOptions.defaults,
 	            headers: [ "" ],
 	            editableHeaders: false,
-	            rows: 4,
-	            columns: 1,
+	            rows: defaultRows,
+	            columns: defaultColumns,
 	            answers: blankAnswers,
 	            highlightLint: false
 	        };
@@ -9534,11 +9582,12 @@ webpackJsonpPerseus([1],[
 	        };
 	        var solution = filterNonEmpty(rubric.answers);
 	        var supplied = filterNonEmpty(state);
-	        if (_.some(supplied, function(row) {
+	        var hasEmptyCell = _.some(supplied, function(row) {
 	            return _.some(row, function(cell) {
 	                return "" === cell;
 	            });
-	        }) || !supplied.length) return {
+	        });
+	        if (hasEmptyCell || !supplied.length) return {
 	            type: "invalid",
 	            message: null
 	        };
@@ -9550,27 +9599,29 @@ webpackJsonpPerseus([1],[
 	        };
 	        var createValidator = KhanAnswerTypes.number.createValidatorFunctional;
 	        var message = null;
+	        var allCorrect = _.every(solution, function(rowSolution) {
+	            var i;
+	            for (i = 0; i < supplied.length; i++) {
+	                var rowSupplied = supplied[i];
+	                var correct = _.every(rowSupplied, function(cellSupplied, i) {
+	                    var cellSolution = rowSolution[i];
+	                    var validator = createValidator(cellSolution, {
+	                        simplify: true
+	                    });
+	                    var result = validator(cellSupplied);
+	                    result.message && (message = result.message);
+	                    return result.correct;
+	                });
+	                if (correct) {
+	                    supplied.splice(i, 1);
+	                    return true;
+	                }
+	            }
+	            return false;
+	        });
 	        return {
 	            type: "points",
-	            earned: _.every(solution, function(rowSolution) {
-	                var i;
-	                for (i = 0; i < supplied.length; i++) {
-	                    var rowSupplied = supplied[i];
-	                    if (_.every(rowSupplied, function(cellSupplied, i) {
-	                        var cellSolution = rowSolution[i];
-	                        var validator = createValidator(cellSolution, {
-	                            simplify: true
-	                        });
-	                        var result = validator(cellSupplied);
-	                        result.message && (message = result.message);
-	                        return result.correct;
-	                    })) {
-	                        supplied.splice(i, 1);
-	                        return true;
-	                    }
-	                }
-	                return false;
-	            }) ? 1 : 0,
+	            earned: allCorrect ? 1 : 0,
 	            total: 1,
 	            message: message
 	        };
@@ -9621,13 +9672,13 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var Graph = __webpack_require__(118);
+	var Graph = __webpack_require__(114);
 
 	var InlineIcon = __webpack_require__(89);
 
-	var NumberInput = __webpack_require__(114);
+	var NumberInput = __webpack_require__(116);
 
-	var MathOutput = __webpack_require__(116);
+	var MathOutput = __webpack_require__(119);
 
 	var TeX = __webpack_require__(44);
 
@@ -9671,7 +9722,7 @@ webpackJsonpPerseus([1],[
 
 	var KhanColors = __webpack_require__(112);
 
-	var assert = __webpack_require__(117).assert;
+	var assert = __webpack_require__(120).assert;
 
 	var defaultBoxSize = 400;
 
@@ -9706,12 +9757,13 @@ webpackJsonpPerseus([1],[
 	    var labels = setProps.labels || [ "x", "y" ];
 	    var range = setProps.range || [ [ -10, 10 ], [ -10, 10 ] ];
 	    var step = setProps.step || [ 1, 1 ];
+	    var gridStep = setProps.gridStep || getGridStep(range, step, boxSize);
 	    return {
 	        box: [ boxSize, boxSize ],
 	        labels: labels,
 	        range: range,
 	        step: step,
-	        gridStep: setProps.gridStep || getGridStep(range, step, boxSize),
+	        gridStep: gridStep,
 	        valid: true,
 	        backgroundImage: defaultBackgroundImage,
 	        markings: "grid",
@@ -9792,7 +9844,8 @@ webpackJsonpPerseus([1],[
 	function dilatePointFromCenter(point, dilationCenter, scale) {
 	    var pv = kvector.subtract(point, dilationCenter);
 	    var pvScaled = kvector.scale(pv, scale);
-	    return kvector.add(dilationCenter, pvScaled);
+	    var transformedPoint = kvector.add(dilationCenter, pvScaled);
+	    return transformedPoint;
 	}
 
 	// TODO(jack): i18nize this
@@ -10055,8 +10108,10 @@ webpackJsonpPerseus([1],[
 	                }, "Translation by %(vector)s"));
 	            },
 	            value: function value() {
+	                var x = this.refs.x.getValue();
+	                var y = this.refs.y.getValue();
 	                return {
-	                    vector: [ this.refs.x.getValue(), this.refs.y.getValue() ]
+	                    vector: [ x, y ]
 	                };
 	            },
 	            /* InputPath API */
@@ -10182,9 +10237,12 @@ webpackJsonpPerseus([1],[
 	                return React.createElement("div", null, text);
 	            },
 	            value: function value() {
+	                var angleDeg = this.refs.angleDeg.getValue();
+	                var centerX = this.refs.centerX.getValue();
+	                var centerY = this.refs.centerY.getValue();
 	                return {
-	                    angleDeg: this.refs.angleDeg.getValue(),
-	                    center: [ this.refs.centerX.getValue(), this.refs.centerY.getValue() ]
+	                    angleDeg: angleDeg,
+	                    center: [ centerX, centerY ]
 	                };
 	            },
 	            /* InputPath API */
@@ -10305,8 +10363,12 @@ webpackJsonpPerseus([1],[
 	                });
 	            },
 	            value: function value() {
+	                var x1 = this.refs.x1.getValue();
+	                var y1 = this.refs.y1.getValue();
+	                var x2 = this.refs.x2.getValue();
+	                var y2 = this.refs.y2.getValue();
 	                return {
-	                    line: [ [ this.refs.x1.getValue(), this.refs.y1.getValue() ], [ this.refs.x2.getValue(), this.refs.y2.getValue() ] ]
+	                    line: [ [ x1, y1 ], [ x2, y2 ] ]
 	                };
 	            },
 	            /* InputPath API */
@@ -10428,9 +10490,12 @@ webpackJsonpPerseus([1],[
 	                }, "Dilation about %(point)s by %(scale)s"));
 	            },
 	            value: function value() {
+	                var scale = this.refs.scale.getValue();
+	                var x = this.refs.x.getValue();
+	                var y = this.refs.y.getValue();
 	                return {
-	                    scale: this.refs.scale.getValue(),
-	                    center: [ this.refs.x.getValue(), this.refs.y.getValue() ]
+	                    scale: scale,
+	                    center: [ x, y ]
 	                };
 	            },
 	            /* InputPath API */
@@ -10571,21 +10636,22 @@ webpackJsonpPerseus([1],[
 	                return shape.getOptions ? shape.getOptions() : {};
 	            });
 	        };
+	        var toJSON = function toJSON() {
+	            var coords = _.map(points, function(pt) {
+	                return _.isArray(pt) ? pt : pt.coord;
+	            });
+	            return {
+	                type: types,
+	                coords: coords,
+	                options: getOptions()
+	            };
+	        };
 	        return {
 	            type: types,
 	            points: points,
 	            update: update,
 	            remove: remove,
-	            toJSON: function toJSON() {
-	                var coords = _.map(points, function(pt) {
-	                    return _.isArray(pt) ? pt : pt.coord;
-	                });
-	                return {
-	                    type: types,
-	                    coords: coords,
-	                    options: getOptions()
-	                };
-	            },
+	            toJSON: toJSON,
 	            getOptions: getOptions
 	        };
 	    },
@@ -11104,10 +11170,11 @@ webpackJsonpPerseus([1],[
 	        var origDirectionPolar = kvector.polarDegFromCart(kvector.subtract(messyCoords[0], messyCoords[1]));
 	        var directionPolar = [ 1, KhanMath.roundToNearest(45, origDirectionPolar[1]) ];
 	        var direction = kvector.cartFromPolarDeg(directionPolar);
-	        return _.map([ -1, 1 ], function(directionCoefficient) {
+	        var coords = _.map([ -1, 1 ], function(directionCoefficient) {
 	            var coord = kvector.add(midpoint, kvector.scale(direction, directionCoefficient * this.scaleToCurrentRange(REFLECT_ROTATE_HANDLE_DIST)));
 	            return this.snapCoord(coord);
 	        }, this);
+	        return coords;
 	    },
 	    addReflectionTool: function addReflectionTool() {
 	        var options = this.props.tools.reflection;
@@ -11357,10 +11424,11 @@ webpackJsonpPerseus([1],[
 	    getRotationTransformFromAngle: function getRotationTransformFromAngle(center, angleChanged) {
 	        angleChanged = (angleChanged + 360) % 360;
 	        angleChanged > 180 && (angleChanged -= 360);
+	        var roundedAngle = Math.round(angleChanged / ROTATE_SNAP_DEGREES) * ROTATE_SNAP_DEGREES;
 	        return {
 	            type: "rotation",
 	            center: center,
-	            angleDeg: Math.round(angleChanged / ROTATE_SNAP_DEGREES) * ROTATE_SNAP_DEGREES
+	            angleDeg: roundedAngle
 	        };
 	    },
 	    // apply and save a transform
@@ -11608,7 +11676,7 @@ webpackJsonpPerseus([1],[
 	// terms of a certain type.
 	// TODO(joel): Allow sigfigs within a range rather than an exact expected
 	// value?
-	var lens = __webpack_require__(124);
+	var lens = __webpack_require__(125);
 
 	var React = __webpack_require__(11);
 
@@ -11622,7 +11690,7 @@ webpackJsonpPerseus([1],[
 
 	var Changeable = __webpack_require__(88);
 
-	var MathOutput = __webpack_require__(116);
+	var MathOutput = __webpack_require__(119);
 
 	var _require = __webpack_require__(122), SignificantFigures = _require.SignificantFigures, displaySigFigs = _require.displaySigFigs;
 
@@ -11807,9 +11875,10 @@ webpackJsonpPerseus([1],[
 	            return KAS.compare(thisAnswerUnit, guessUnit).equal;
 	        });
 	        if (!kasCorrect) var message = i18n._("Check your units.");
+	        var correct = kasCorrect && numericallyCorrect && sigfigsCorrect;
 	        return {
 	            type: "points",
-	            earned: kasCorrect && numericallyCorrect && sigfigsCorrect ? 1 : 0,
+	            earned: correct ? 1 : 0,
 	            total: 1,
 	            message: message
 	        };
@@ -12002,7 +12071,7 @@ webpackJsonpPerseus([1],[
 
 	var ReactDOM = __webpack_require__(12);
 
-	var styles = __webpack_require__(171);
+	var styles = __webpack_require__(170);
 
 	var css = __webpack_require__(14).css;
 
@@ -12230,194 +12299,6 @@ webpackJsonpPerseus([1],[
 
 	"use strict";
 
-	var _extends = Object.assign || function(target) {
-	    for (var i = 1; i < arguments.length; i++) {
-	        var source = arguments[i];
-	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
-	    }
-	    return target;
-	};
-
-	/* eslint-disable comma-dangle, max-len, no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp */
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var classNames = __webpack_require__(13);
-
-	var React = __webpack_require__(11);
-
-	var ReactDOM = __webpack_require__(12);
-
-	var _ = __webpack_require__(10);
-
-	var firstNumericalParse = __webpack_require__(17).firstNumericalParse;
-
-	var captureScratchpadTouchStart = __webpack_require__(17).captureScratchpadTouchStart;
-
-	var knumber = __webpack_require__(165).number;
-
-	var KhanMath = __webpack_require__(86);
-
-	var toNumericString = KhanMath.toNumericString;
-
-	var getNumericFormat = KhanMath.getNumericFormat;
-
-	/* An input box that accepts only numeric strings
-	 *
-	 * Calls onChange(value, format) for valid numbers.
-	 * Reverts to the current value onBlur or on [ENTER],
-	 *   but maintains the format (i.e. 3/2, 1 1/2, 150%)
-	 * Accepts empty input and sends it to onChange as null
-	 *   if no numeric placeholder is set.
-	 * If given a checkValidity function, will turn
-	 *   the background/outline red when invalid
-	 * If useArrowKeys is set to true, up/down arrows will
-	 *   increment/decrement integers
-	 * Optionally takes a size ("mini", "small", "normal")
-	 */
-	var NumberInput = React.createClass({
-	    displayName: "NumberInput",
-	    propTypes: {
-	        value: React.PropTypes.number,
-	        format: React.PropTypes.string,
-	        placeholder: React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.number ]),
-	        onChange: React.PropTypes.func.isRequired,
-	        onFormatChange: React.PropTypes.func,
-	        checkValidity: React.PropTypes.func,
-	        size: React.PropTypes.string,
-	        label: React.PropTypes.oneOf([ "put your labels outside your inputs!" ])
-	    },
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            value: null,
-	            placeholder: null,
-	            format: null,
-	            onFormatChange: function onFormatChange() {
-	                return null;
-	            },
-	            checkValidity: function checkValidity() {
-	                return true;
-	            },
-	            useArrowKeys: false
-	        };
-	    },
-	    getInitialState: function getInitialState() {
-	        return {
-	            format: this.props.format
-	        };
-	    },
-	    render: function render() {
-	        var classes = classNames({
-	            "number-input": true,
-	            "invalid-input": !this._checkValidity(this.props.value),
-	            mini: "mini" === this.props.size,
-	            small: "small" === this.props.size,
-	            normal: "normal" === this.props.size
-	        });
-	        null != this.props.className && (classes = classes + " " + this.props.className);
-	        return React.createElement("input", _extends({}, this.props, {
-	            className: classes,
-	            type: "text",
-	            ref: "input",
-	            onChange: this._handleChange,
-	            onFocus: this._handleFocus,
-	            onBlur: this._handleBlur,
-	            onKeyPress: this._handleBlur,
-	            onKeyDown: this._onKeyDown,
-	            onTouchStart: captureScratchpadTouchStart,
-	            defaultValue: toNumericString(this.props.value, this.state.format),
-	            value: void 0
-	        }));
-	    },
-	    componentDidUpdate: function componentDidUpdate(prevProps) {
-	        knumber.equal(this.getValue(), this.props.value) || this._setValue(this.props.value, this.state.format);
-	    },
-	    /* Return the current "value" of this input
-	     * If empty, it returns the placeholder (if it is a number) or null
-	     */
-	    getValue: function getValue() {
-	        return this.parseInputValue(ReactDOM.findDOMNode(this.refs.input).value);
-	    },
-	    /* Return the current string value of this input */
-	    getStringValue: function getStringValue() {
-	        return ReactDOM.findDOMNode(this.refs.input).value.toString();
-	    },
-	    parseInputValue: function parseInputValue(value) {
-	        if ("" === value) {
-	            var placeholder = this.props.placeholder;
-	            return _.isFinite(placeholder) ? +placeholder : null;
-	        }
-	        var result = firstNumericalParse(value);
-	        return _.isFinite(result) ? result : this.props.value;
-	    },
-	    /* Set text input focus to this input */
-	    focus: function focus() {
-	        ReactDOM.findDOMNode(this.refs.input).focus();
-	        this._handleFocus();
-	    },
-	    blur: function blur() {
-	        ReactDOM.findDOMNode(this.refs.input).blur();
-	        this._handleBlur();
-	    },
-	    setSelectionRange: function setSelectionRange(selectionStart, selectionEnd) {
-	        ReactDOM.findDOMNode(this).setSelectionRange(selectionStart, selectionEnd);
-	    },
-	    getSelectionStart: function getSelectionStart() {
-	        return ReactDOM.findDOMNode(this).selectionStart;
-	    },
-	    getSelectionEnd: function getSelectionEnd() {
-	        return ReactDOM.findDOMNode(this).selectionEnd;
-	    },
-	    _checkValidity: function _checkValidity(value) {
-	        if (null == value) return true;
-	        var val = firstNumericalParse(value);
-	        var checkValidity = this.props.checkValidity;
-	        return _.isFinite(val) && checkValidity(val);
-	    },
-	    _handleChange: function _handleChange(e) {
-	        var text = e.target.value;
-	        var value = this.parseInputValue(text);
-	        var format = getNumericFormat(text);
-	        this.props.onChange(value);
-	        if (format) {
-	            this.props.onFormatChange(value, format);
-	            this.setState({
-	                format: format
-	            });
-	        }
-	    },
-	    _handleFocus: function _handleFocus() {
-	        this.props.onFocus && this.props.onFocus();
-	    },
-	    _handleBlur: function _handleBlur(e) {
-	        // Only continue on blur or "enter"
-	        if (e && "keypress" === e.type && 13 !== e.keyCode) return;
-	        this._setValue(this.props.value, this.state.format);
-	        this.props.onBlur && this.props.onBlur();
-	    },
-	    _onKeyDown: function _onKeyDown(e) {
-	        this.props.onKeyDown && this.props.onKeyDown(e);
-	        if (!this.props.useArrowKeys || !_.contains([ "ArrowUp", "ArrowDown" ], e.key)) return;
-	        var val = this.getValue();
-	        if (val !== Math.floor(val)) return;
-	        "ArrowUp" === e.key ? val += 1 : "ArrowDown" === e.key && (val -= 1);
-	        this._checkValidity(val) && this.props.onChange(val);
-	    },
-	    _setValue: function _setValue(val, format) {
-	        $(ReactDOM.findDOMNode(this.refs.input)).val(toNumericString(val, format));
-	    }
-	});
-
-	module.exports = NumberInput;
-
-/***/ },
-/* 115 */,
-/* 116 */,
-/* 117 */,
-/* 118 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
 	/* eslint-disable brace-style, comma-dangle, no-redeclare, no-var, object-curly-spacing, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
@@ -12429,7 +12310,7 @@ webpackJsonpPerseus([1],[
 
 	var Util = __webpack_require__(17);
 
-	var GraphUtils = __webpack_require__(120);
+	var GraphUtils = __webpack_require__(117);
 
 	var _require = __webpack_require__(37), interactiveSizes = _require.interactiveSizes;
 
@@ -12630,7 +12511,7 @@ webpackJsonpPerseus([1],[
 	            _.each(defaultInstructionsStyle, function(value, key) {
 	                $instructionsWrapper.css(key, value);
 	            });
-	            $instructionsWrapper.css("opacity", .5);
+	            $instructionsWrapper.css("opacity", visible);
 	            var $instructions = $("<span/>", {
 	                text: this.props.instructions
 	            });
@@ -12649,10 +12530,10 @@ webpackJsonpPerseus([1],[
 	            this.props.onMouseDown(coord);
 	        }, this) : null;
 	        var onMouseOver = $instructionsWrapper ? function() {
-	            $instructionsWrapper && $instructionsWrapper.css("opacity", 0);
+	            $instructionsWrapper && $instructionsWrapper.css("opacity", invisible);
 	        } : null;
 	        var onMouseOut = $instructionsWrapper ? function() {
-	            $instructionsWrapper && $instructionsWrapper.css("opacity", .5);
+	            $instructionsWrapper && $instructionsWrapper.css("opacity", visible);
 	        } : null;
 	        graphie.addMouseLayer({
 	            onClick: this.props.onClick,
@@ -12710,7 +12591,7 @@ webpackJsonpPerseus([1],[
 	module.exports = Graph;
 
 /***/ },
-/* 119 */
+/* 115 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12723,7 +12604,7 @@ webpackJsonpPerseus([1],[
 	 */
 	var React = __webpack_require__(11);
 
-	var ReactComponentsInfoTip = __webpack_require__(173);
+	var ReactComponentsInfoTip = __webpack_require__(172);
 
 	var InfoTip = React.createClass({
 	    displayName: "InfoTip",
@@ -12746,6 +12627,194 @@ webpackJsonpPerseus([1],[
 	module.exports = InfoTip;
 
 /***/ },
+/* 116 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _extends = Object.assign || function(target) {
+	    for (var i = 1; i < arguments.length; i++) {
+	        var source = arguments[i];
+	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
+	    }
+	    return target;
+	};
+
+	/* eslint-disable comma-dangle, max-len, no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp */
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+	var classNames = __webpack_require__(13);
+
+	var React = __webpack_require__(11);
+
+	var ReactDOM = __webpack_require__(12);
+
+	var _ = __webpack_require__(10);
+
+	var firstNumericalParse = __webpack_require__(17).firstNumericalParse;
+
+	var captureScratchpadTouchStart = __webpack_require__(17).captureScratchpadTouchStart;
+
+	var knumber = __webpack_require__(165).number;
+
+	var KhanMath = __webpack_require__(86);
+
+	var toNumericString = KhanMath.toNumericString;
+
+	var getNumericFormat = KhanMath.getNumericFormat;
+
+	/* An input box that accepts only numeric strings
+	 *
+	 * Calls onChange(value, format) for valid numbers.
+	 * Reverts to the current value onBlur or on [ENTER],
+	 *   but maintains the format (i.e. 3/2, 1 1/2, 150%)
+	 * Accepts empty input and sends it to onChange as null
+	 *   if no numeric placeholder is set.
+	 * If given a checkValidity function, will turn
+	 *   the background/outline red when invalid
+	 * If useArrowKeys is set to true, up/down arrows will
+	 *   increment/decrement integers
+	 * Optionally takes a size ("mini", "small", "normal")
+	 */
+	var NumberInput = React.createClass({
+	    displayName: "NumberInput",
+	    propTypes: {
+	        value: React.PropTypes.number,
+	        format: React.PropTypes.string,
+	        placeholder: React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.number ]),
+	        onChange: React.PropTypes.func.isRequired,
+	        onFormatChange: React.PropTypes.func,
+	        checkValidity: React.PropTypes.func,
+	        size: React.PropTypes.string,
+	        label: React.PropTypes.oneOf([ "put your labels outside your inputs!" ])
+	    },
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            value: null,
+	            placeholder: null,
+	            format: null,
+	            onFormatChange: function onFormatChange() {
+	                return null;
+	            },
+	            checkValidity: function checkValidity() {
+	                return true;
+	            },
+	            useArrowKeys: false
+	        };
+	    },
+	    getInitialState: function getInitialState() {
+	        return {
+	            format: this.props.format
+	        };
+	    },
+	    render: function render() {
+	        var classes = classNames({
+	            "number-input": true,
+	            "invalid-input": !this._checkValidity(this.props.value),
+	            mini: "mini" === this.props.size,
+	            small: "small" === this.props.size,
+	            normal: "normal" === this.props.size
+	        });
+	        null != this.props.className && (classes = classes + " " + this.props.className);
+	        return React.createElement("input", _extends({}, this.props, {
+	            className: classes,
+	            type: "text",
+	            ref: "input",
+	            onChange: this._handleChange,
+	            onFocus: this._handleFocus,
+	            onBlur: this._handleBlur,
+	            onKeyPress: this._handleBlur,
+	            onKeyDown: this._onKeyDown,
+	            onTouchStart: captureScratchpadTouchStart,
+	            defaultValue: toNumericString(this.props.value, this.state.format),
+	            value: void 0
+	        }));
+	    },
+	    componentDidUpdate: function componentDidUpdate(prevProps) {
+	        knumber.equal(this.getValue(), this.props.value) || this._setValue(this.props.value, this.state.format);
+	    },
+	    /* Return the current "value" of this input
+	     * If empty, it returns the placeholder (if it is a number) or null
+	     */
+	    getValue: function getValue() {
+	        return this.parseInputValue(ReactDOM.findDOMNode(this.refs.input).value);
+	    },
+	    /* Return the current string value of this input */
+	    getStringValue: function getStringValue() {
+	        return ReactDOM.findDOMNode(this.refs.input).value.toString();
+	    },
+	    parseInputValue: function parseInputValue(value) {
+	        if ("" === value) {
+	            var placeholder = this.props.placeholder;
+	            return _.isFinite(placeholder) ? +placeholder : null;
+	        }
+	        var result = firstNumericalParse(value);
+	        return _.isFinite(result) ? result : this.props.value;
+	    },
+	    /* Set text input focus to this input */
+	    focus: function focus() {
+	        ReactDOM.findDOMNode(this.refs.input).focus();
+	        this._handleFocus();
+	    },
+	    blur: function blur() {
+	        ReactDOM.findDOMNode(this.refs.input).blur();
+	        this._handleBlur();
+	    },
+	    setSelectionRange: function setSelectionRange(selectionStart, selectionEnd) {
+	        ReactDOM.findDOMNode(this).setSelectionRange(selectionStart, selectionEnd);
+	    },
+	    getSelectionStart: function getSelectionStart() {
+	        return ReactDOM.findDOMNode(this).selectionStart;
+	    },
+	    getSelectionEnd: function getSelectionEnd() {
+	        return ReactDOM.findDOMNode(this).selectionEnd;
+	    },
+	    _checkValidity: function _checkValidity(value) {
+	        if (null == value) return true;
+	        var val = firstNumericalParse(value);
+	        var checkValidity = this.props.checkValidity;
+	        return _.isFinite(val) && checkValidity(val);
+	    },
+	    _handleChange: function _handleChange(e) {
+	        var text = e.target.value;
+	        var value = this.parseInputValue(text);
+	        var format = getNumericFormat(text);
+	        this.props.onChange(value);
+	        if (format) {
+	            this.props.onFormatChange(value, format);
+	            this.setState({
+	                format: format
+	            });
+	        }
+	    },
+	    _handleFocus: function _handleFocus() {
+	        this.props.onFocus && this.props.onFocus();
+	    },
+	    _handleBlur: function _handleBlur(e) {
+	        // Only continue on blur or "enter"
+	        if (e && "keypress" === e.type && 13 !== e.keyCode) return;
+	        this._setValue(this.props.value, this.state.format);
+	        this.props.onBlur && this.props.onBlur();
+	    },
+	    _onKeyDown: function _onKeyDown(e) {
+	        this.props.onKeyDown && this.props.onKeyDown(e);
+	        if (!this.props.useArrowKeys || !_.contains([ "ArrowUp", "ArrowDown" ], e.key)) return;
+	        var val = this.getValue();
+	        if (val !== Math.floor(val)) return;
+	        "ArrowUp" === e.key ? val += 1 : "ArrowDown" === e.key && (val -= 1);
+	        this._checkValidity(val) && this.props.onChange(val);
+	    },
+	    _setValue: function _setValue(val, format) {
+	        $(ReactDOM.findDOMNode(this.refs.input)).val(toNumericString(val, format));
+	    }
+	});
+
+	module.exports = NumberInput;
+
+/***/ },
+/* 117 */,
+/* 118 */,
+/* 119 */,
 /* 120 */,
 /* 121 */
 /***/ function(module, exports, __webpack_require__) {
@@ -12944,7 +13013,8 @@ webpackJsonpPerseus([1],[
 	    onMouseUp: function onMouseUp(event) {
 	        if (this.props.type !== DRAGGING) return;
 	        event.preventDefault();
-	        if (Util.extractPointerLocation(event)) {
+	        var loc = Util.extractPointerLocation(event);
+	        if (loc) {
 	            this.unbindMouseMoveUp();
 	            // Dragging -> Animating
 	            this.props.onMouseUp();
@@ -13379,7 +13449,8 @@ webpackJsonpPerseus([1],[
 	function trailingZeros(mantissa) {
 	    var zeros = 0;
 	    for (var i = mantissa.length - 1; i >= 0; i--) {
-	        if ("0" != mantissa.charAt(i)) return zeros;
+	        var c = mantissa.charAt(i);
+	        if ("0" != c) return zeros;
 	        zeros++;
 	    }
 	    return zeros;
@@ -13648,7 +13719,8 @@ webpackJsonpPerseus([1],[
 /* 124 */,
 /* 125 */,
 /* 126 */,
-/* 127 */
+/* 127 */,
+/* 128 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -13748,10 +13820,12 @@ webpackJsonpPerseus([1],[
 	        var num = p2[1] - p1[1];
 	        if (0 === denom) return;
 	        var m = num / denom;
-	        return [ m, p2[1] - m * p2[0] ];
+	        var b = p2[1] - m * p2[0];
+	        return [ m, b ];
 	    },
 	    getFunctionForCoeffs: function getFunctionForCoeffs(coeffs, x) {
-	        return coeffs[0] * x + coeffs[1];
+	        var m = coeffs[0], b = coeffs[1];
+	        return m * x + b;
 	    },
 	    getEquationString: function getEquationString(coords) {
 	        var coeffs = this.getCoefficients(coords);
@@ -13772,10 +13846,13 @@ webpackJsonpPerseus([1],[
 	        var k = p1[1];
 	        // Use these to calculate familiar a, b, c
 	        var a = (p2[1] - k) / ((p2[0] - h) * (p2[0] - h));
-	        return [ a, -2 * h * a, a * h * h + k ];
+	        var b = -2 * h * a;
+	        var c = a * h * h + k;
+	        return [ a, b, c ];
 	    },
 	    getFunctionForCoeffs: function getFunctionForCoeffs(coeffs, x) {
-	        return (coeffs[0] * x + coeffs[1]) * x + coeffs[2];
+	        var a = coeffs[0], b = coeffs[1], c = coeffs[2];
+	        return (a * x + b) * x + c;
 	    },
 	    getPropsForCoeffs: function getPropsForCoeffs(coeffs) {
 	        return {
@@ -13800,7 +13877,9 @@ webpackJsonpPerseus([1],[
 	        var p2 = coords[1];
 	        var a = p2[1] - p1[1];
 	        var b = Math.PI / (2 * (p2[0] - p1[0]));
-	        return [ a, b, p1[0] * b, p1[1] ];
+	        var c = p1[0] * b;
+	        var d = p1[1];
+	        return [ a, b, c, d ];
 	    },
 	    getFunctionForCoeffs: function getFunctionForCoeffs(coeffs, x) {
 	        var a = coeffs[0], b = coeffs[1], c = coeffs[2], d = coeffs[3];
@@ -13832,7 +13911,9 @@ webpackJsonpPerseus([1],[
 	        var p2 = coords[1];
 	        var a = p2[1] - p1[1];
 	        var b = Math.PI / (4 * (p2[0] - p1[0]));
-	        return [ a, b, p1[0] * b, p1[1] ];
+	        var c = p1[0] * b;
+	        var d = p1[1];
+	        return [ a, b, c, d ];
 	    },
 	    getFunctionForCoeffs: function getFunctionForCoeffs(coeffs, x) {
 	        var a = coeffs[0], b = coeffs[1], c = coeffs[2], d = coeffs[3];
@@ -13877,17 +13958,19 @@ webpackJsonpPerseus([1],[
 	    },
 	    extraAsymptoteConstraint: function extraAsymptoteConstraint(newCoord, oldCoord, coords, asymptote, graph) {
 	        var y = newCoord[1];
-	        if (_.all(coords, function(coord) {
+	        var isValid = _.all(coords, function(coord) {
 	            return coord[1] > y;
 	        }) || _.all(coords, function(coord) {
 	            return coord[1] < y;
-	        })) return [ oldCoord[0], y ];
+	        });
+	        if (isValid) return [ oldCoord[0], y ];
 	        // Snap the asymptote as close as possible, i.e., if the user moves
 	        // the mouse really quickly into an invalid region
 	        var oldY = oldCoord[1];
-	        if (_.all(coords, function(coord) {
+	        var wasBelow = _.all(coords, function(coord) {
 	            return coord[1] > oldY;
-	        })) {
+	        });
+	        if (wasBelow) {
 	            var bottomMost = _.min(_.map(coords, function(coord) {
 	                return coord[1];
 	            }));
@@ -13904,7 +13987,8 @@ webpackJsonpPerseus([1],[
 	        var p2 = coords[1];
 	        var c = _.head(asymptote)[1];
 	        var b = Math.log((p1[1] - c) / (p2[1] - c)) / (p1[0] - p2[0]);
-	        return [ (p1[1] - c) / Math.exp(b * p1[0]), b, c ];
+	        var a = (p1[1] - c) / Math.exp(b * p1[0]);
+	        return [ a, b, c ];
 	    },
 	    getFunctionForCoeffs: function getFunctionForCoeffs(coeffs, x) {
 	        var a = coeffs[0], b = coeffs[1], c = coeffs[2];
@@ -13930,22 +14014,28 @@ webpackJsonpPerseus([1],[
 	    },
 	    extraAsymptoteConstraint: function extraAsymptoteConstraint(newCoord, oldCoord, coords, asymptote, graph) {
 	        var x = newCoord[0];
-	        if (_.all(coords, function(coord) {
+	        var isValid = _.all(coords, function(coord) {
 	            return coord[0] > x;
 	        }) || _.all(coords, function(coord) {
 	            return coord[0] < x;
-	        })) return [ x, oldCoord[1] ];
+	        });
+	        if (isValid) return [ x, oldCoord[1] ];
 	        // Snap the asymptote as close as possible, i.e., if the user moves
 	        // the mouse really quickly into an invalid region
 	        var oldX = oldCoord[0];
-	        if (_.all(coords, function(coord) {
+	        var wasLeft = _.all(coords, function(coord) {
 	            return coord[0] > oldX;
-	        })) return [ _.min(_.map(coords, function(coord) {
+	        });
+	        if (wasLeft) {
+	            var leftMost = _.min(_.map(coords, function(coord) {
+	                return coord[0];
+	            }));
+	            return [ leftMost - graph.snapStep[0], oldCoord[1] ];
+	        }
+	        var rightMost = _.max(_.map(coords, function(coord) {
 	            return coord[0];
-	        })) - graph.snapStep[0], oldCoord[1] ];
-	        return [ _.max(_.map(coords, function(coord) {
-	            return coord[0];
-	        })) + graph.snapStep[0], oldCoord[1] ];
+	        }));
+	        return [ rightMost + graph.snapStep[0], oldCoord[1] ];
 	    },
 	    allowReflectOverAsymptote: true,
 	    getCoefficients: function getCoefficients(coords, asymptote) {
@@ -13959,7 +14049,8 @@ webpackJsonpPerseus([1],[
 	        var inverseCoeffs = Exponential.getCoefficients(_.map(coords, flip), _.map(asymptote, flip));
 	        var c = -inverseCoeffs[2] / inverseCoeffs[0];
 	        var b = 1 / inverseCoeffs[0];
-	        return [ 1 / inverseCoeffs[1], b, c ];
+	        var a = 1 / inverseCoeffs[1];
+	        return [ a, b, c ];
 	    },
 	    getFunctionForCoeffs: function getFunctionForCoeffs(coeffs, x, asymptote) {
 	        var a = coeffs[0], b = coeffs[1], c = coeffs[2];
@@ -13984,7 +14075,9 @@ webpackJsonpPerseus([1],[
 	        if (0 === denom) return;
 	        var m = Math.abs(num / denom);
 	        p2[1] < p1[1] && (m *= -1);
-	        return [ m, p1[0], p1[1] ];
+	        var horizontalOffset = p1[0];
+	        var verticalOffset = p1[1];
+	        return [ m, horizontalOffset, verticalOffset ];
 	    },
 	    getFunctionForCoeffs: function getFunctionForCoeffs(coeffs, x) {
 	        var m = coeffs[0], horizontalOffset = coeffs[1], verticalOffset = coeffs[2];
@@ -14049,7 +14142,9 @@ webpackJsonpPerseus([1],[
 	    getEquationString: function getEquationString(props) {
 	        var plot = props.plot;
 	        if (plot.type && plot.coords) {
-	            return functionForType(plot.type).getEquationString(plot.coords, plot.asymptote) || "";
+	            var handler = functionForType(plot.type);
+	            var result = handler.getEquationString(plot.coords, plot.asymptote);
+	            return result || "";
 	        }
 	        return "";
 	    },
@@ -14112,9 +14207,10 @@ webpackJsonpPerseus([1],[
 	    chooseType: _.first,
 	    getGridAndSnapSteps: function getGridAndSnapSteps(options, boxSize) {
 	        var gridStep = options.gridStep || Util.getGridStep(options.range, options.step, boxSize);
+	        var snapStep = options.snapStep || Util.snapStepFromGridStep(gridStep);
 	        return {
 	            gridStep: gridStep,
-	            snapStep: options.snapStep || Util.snapStepFromGridStep(gridStep)
+	            snapStep: snapStep
 	        };
 	    }
 	};
@@ -14159,7 +14255,664 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 128 */
+/* 129 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _extends = Object.assign || function(target) {
+	    for (var i = 1; i < arguments.length; i++) {
+	        var source = arguments[i];
+	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
+	    }
+	    return target;
+	};
+
+	function _classCallCheck(instance, Constructor) {
+	    if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
+	}
+
+	function _possibleConstructorReturn(self, call) {
+	    if (!self) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	    return !call || "object" !== typeof call && "function" !== typeof call ? self : call;
+	}
+
+	function _inherits(subClass, superClass) {
+	    if ("function" !== typeof superClass && null !== superClass) throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+	    subClass.prototype = Object.create(superClass && superClass.prototype, {
+	        constructor: {
+	            value: subClass,
+	            enumerable: false,
+	            writable: true,
+	            configurable: true
+	        }
+	    });
+	    superClass && (Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass);
+	}
+
+	/**
+	 * The entry point for highlighting!
+	 *
+	 * Given a content node and a set of serialized highlights, this component
+	 * renders the content with the given highlights applied. The content's DOM is
+	 * not modified by this process, so any content should be safe to pass to this
+	 * component.
+	 *
+	 * This component also renders controls for the user to add/remove/update
+	 * highlights. When the user does so, this component will update the full set
+	 * of highlights, serialize them, and call `onSerializedHighlightsUpdate` with
+	 * new set of serialized highlights, which you can then persist and send back
+	 * down to this component. Easy peasy!
+	 */
+	var React = __webpack_require__(11);
+
+	var _require = __webpack_require__(14), StyleSheet = _require.StyleSheet, css = _require.css;
+
+	var HighlightingUI = __webpack_require__(190);
+
+	var WordIndexer = __webpack_require__(180);
+
+	var _require2 = __webpack_require__(181), addHighlight = _require2.addHighlight, buildHighlight = _require2.buildHighlight, deserializeHighlight = _require2.deserializeHighlight, serializeHighlight = _require2.serializeHighlight;
+
+	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(130).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(11).PropTypes.any;
+
+	var babelPluginFlowReactPropTypes_proptype_SerializedHighlightSet = __webpack_require__(130).babelPluginFlowReactPropTypes_proptype_SerializedHighlightSet || __webpack_require__(11).PropTypes.any;
+
+	var babelPluginFlowReactPropTypes_proptype_DOMHighlightSet = __webpack_require__(130).babelPluginFlowReactPropTypes_proptype_DOMHighlightSet || __webpack_require__(11).PropTypes.any;
+
+	var babelPluginFlowReactPropTypes_proptype_DOMHighlight = __webpack_require__(130).babelPluginFlowReactPropTypes_proptype_DOMHighlight || __webpack_require__(11).PropTypes.any;
+
+	var HighlightableContent = function(_React$PureComponent) {
+	    _inherits(HighlightableContent, _React$PureComponent);
+	    function HighlightableContent() {
+	        var _temp, _this, _ret;
+	        _classCallCheck(this, HighlightableContent);
+	        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) args[_key] = arguments[_key];
+	        return _ret = (_temp = (_this = _possibleConstructorReturn(this, _React$PureComponent.call.apply(_React$PureComponent, [ this ].concat(args))), 
+	        _this), _this.state = {
+	            wordRanges: []
+	        }, _this._handleAddHighlight = function(highlight) {
+	            var newDomHighlights = addHighlight(_this._getDOMHighlights(), highlight);
+	            var newSerializedHighlights = {};
+	            for (var _iterator = Object.keys(newDomHighlights), _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator](); ;) {
+	                var _ref;
+	                if (_isArray) {
+	                    if (_i >= _iterator.length) break;
+	                    _ref = _iterator[_i++];
+	                } else {
+	                    _i = _iterator.next();
+	                    if (_i.done) break;
+	                    _ref = _i.value;
+	                }
+	                var key = _ref;
+	                newSerializedHighlights[key] = serializeHighlight(newDomHighlights[key]);
+	            }
+	            _this.props.onSerializedHighlightsUpdate(newSerializedHighlights);
+	        }, _this._handleRemoveHighlight = function(keyToRemove) {
+	            var serializedHighlights = _this.props.serializedHighlights;
+	            var newSerializedHighlights = _extends({}, serializedHighlights);
+	            delete newSerializedHighlights[keyToRemove];
+	            _this.props.onSerializedHighlightsUpdate(newSerializedHighlights);
+	        }, _this._handleWordsUpdate = function(wordRanges) {
+	            _this.setState({
+	                wordRanges: wordRanges
+	            });
+	        }, _temp), _possibleConstructorReturn(_this, _ret);
+	    }
+	    // References to the mounted container and content divs.
+	    HighlightableContent.prototype._buildHighlight = function _buildHighlight(highlightRange) {
+	        // TODO(mdr): If _buildHighlight starts getting called more often, we
+	        //     might want to cache the DOMHighlightSet instead of recomputing
+	        //     it here.
+	        return buildHighlight(this._getDOMHighlights(), this.state.wordRanges, highlightRange);
+	    };
+	    /**
+	     * Take the highlights from props, and deserialize them into DOMHighlights,
+	     * according to the latest cache of word ranges.
+	     */
+	    HighlightableContent.prototype._getDOMHighlights = function _getDOMHighlights() {
+	        var serializedHighlights = this.props.serializedHighlights;
+	        var wordRanges = this.state.wordRanges;
+	        var domHighlights = {};
+	        for (var _iterator2 = Object.keys(serializedHighlights), _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : _iterator2[Symbol.iterator](); ;) {
+	            var _ref2;
+	            if (_isArray2) {
+	                if (_i2 >= _iterator2.length) break;
+	                _ref2 = _iterator2[_i2++];
+	            } else {
+	                _i2 = _iterator2.next();
+	                if (_i2.done) break;
+	                _ref2 = _i2.value;
+	            }
+	            var key = _ref2;
+	            domHighlights[key] = deserializeHighlight(serializedHighlights[key], wordRanges);
+	        }
+	        return domHighlights;
+	    };
+	    /**
+	     * Add the given DOMHighlight to the current set.
+	     */
+	    /**
+	     * Remove the given highlight from the list, and call our callback with the
+	     * new set of highlights.
+	     */
+	    /**
+	     * When our WordIndexer sends us a new cache of word ranges, store it in
+	     * our component state.
+	     */
+	    HighlightableContent.prototype.render = function render() {
+	        var _this2 = this;
+	        var highlights = this._getDOMHighlights();
+	        // NOTE(mdr): This lambda is rebuilt every time this component updates,
+	        //     so every update to HighlightableContent triggers an update in
+	        //     the child HighlightingUI and SelectionTracker, even if the
+	        //     behavior hasn't changed.
+	        //
+	        //     Over-updating is preferable to under-updating here, because some
+	        //     updates in this component's props/state *do* affect
+	        //     `buildHighlight`'s behavior, and *should* trigger an update.
+	        //
+	        //     A more performant approach would be to cache this function
+	        //     object until its implicitly-bound inputs change. If profiling
+	        //     leads us to implement such caching, this draft might be a good
+	        //     starting point: https://phabricator.khanacademy.org/D35623?id=170698
+	        var buildHighlight = function buildHighlight(r) {
+	            return _this2._buildHighlight(r);
+	        };
+	        return React.createElement("div", {
+	            className: css(styles.container),
+	            ref: function ref(container) {
+	                return _this2._container = container;
+	            }
+	        }, React.createElement("div", null, this.props.enabled && this._container && this._content && React.createElement(HighlightingUI, {
+	            buildHighlight: buildHighlight,
+	            contentNode: this._content,
+	            editable: this.props.editable,
+	            highlights: highlights,
+	            offsetParent: this._container,
+	            zIndexes: {
+	                // The content has a z-index of 1, so, to be above
+	                // or below the content, use z-index of 2 or 0,
+	                // respectively.
+	                aboveContent: 2,
+	                belowContent: 0
+	            },
+	            onAddHighlight: this._handleAddHighlight,
+	            onRemoveHighlight: this._handleRemoveHighlight
+	        })), React.createElement("div", {
+	            className: css(styles.content),
+	            ref: function ref(content) {
+	                return _this2._content = content;
+	            }
+	        }, React.createElement(WordIndexer, {
+	            onWordsUpdate: this._handleWordsUpdate
+	        }, this.props.children)));
+	    };
+	    return HighlightableContent;
+	}(React.PureComponent);
+
+	HighlightableContent.propTypes = {
+	    children: __webpack_require__(11).PropTypes.any,
+	    editable: __webpack_require__(11).PropTypes.bool.isRequired,
+	    enabled: __webpack_require__(11).PropTypes.bool.isRequired,
+	    onSerializedHighlightsUpdate: __webpack_require__(11).PropTypes.func.isRequired,
+	    serializedHighlights: babelPluginFlowReactPropTypes_proptype_SerializedHighlightSet
+	};
+
+	var styles = StyleSheet.create({
+	    // We render content with z-index 1, and highlights with z-index 0, so that
+	    // content will receive the browser's native pointer events. (Highlights
+	    // have their own magic code to manage hover detection, despite being
+	    // behind the content.)
+	    container: {
+	        // Position the container and give it a z-index, to scope the z-indexes
+	        // inside by creating a stacking context.
+	        // https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context
+	        //
+	        // This way, content's z-index of 1, and highlights' z-index of 0, and
+	        // tooltips' z-index of 2 don't interact with anything external;
+	        // external UI will see `HighlightableContent` as a single flat layer
+	        // with a z-index of 0. This removes the need for us to coordinate our
+	        // choices of z-index with external UI.
+	        position: "relative",
+	        zIndex: 0
+	    },
+	    content: {
+	        // NOTE(mdr): Creating a stacking context for content of z-index 1 may
+	        //    be problematic if the content and external page want to
+	        //    interleave layers between each other, e.g., if the application UI
+	        //    wants to render something above some parts of our content, but
+	        //    below other parts. It's not relevant for the current Passage-only
+	        //    call site, but could be relevant someday…
+	        position: "relative",
+	        zIndex: 1
+	    }
+	});
+
+	module.exports = HighlightableContent;
+
+/***/ },
+/* 130 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/**
+	 * A highlight, defined relative to the current DOM.
+	 *
+	 * A DOMHighlight, by depending on DOMRange, is inherently coupled to a
+	 * particular DOM session, and must be serialized into a SerializedRange before
+	 * being persisted.
+	 */
+	/**
+	 * A range of highlightable content, defined relative to the current DOM.
+	 *
+	 * This is actually just the built-in DOM type Range, aliased for consistency
+	 * with DOMHighlight and SerializedHighlight.
+	 * https://developer.mozilla.org/en-US/docs/Web/API/Range
+	 *
+	 * A DOMRange is inherently coupled to a particular DOM session, and must be
+	 * serialized into a SerializedRange before being persisted.
+	 */
+	Object.defineProperty(module.exports, "babelPluginFlowReactPropTypes_proptype_SerializedRange", __webpack_require__(11).PropTypes.shape({
+	    type: __webpack_require__(11).PropTypes.oneOf([ "word-indexes" ]).isRequired,
+	    firstWordIndex: __webpack_require__(11).PropTypes.number.isRequired,
+	    lastWordIndex: __webpack_require__(11).PropTypes.number.isRequired
+	}));
+
+	/**
+	 * A range of highlightable content, serialized into a DOM-independent format
+	 * so that it can be restored in subsequent browser sessions.
+	 *
+	 * We currently serialize ranges by the index of the first highlighted word and
+	 * index of the last highlighted word, each with respect to the full body of
+	 * the highlightable content.
+	 *
+	 * TODO(mdr): Word index serialization is fragile in environments where the
+	 *     highlightable content is liable to change. Currently, our only call
+	 *     sites is the test prep app, which saves Perseus state against a
+	 *     particular *version* of a Perseus item, so it's impossible for the
+	 *     content to change - but, if we try to generalize further, we'll need to
+	 *     create new types of range serialization that are more robust to change.
+	 *     (Maybe some quoted text, and we scan the content for matches?)
+	 *
+	 *     Note, too, that changes to the definition of "word" are liable to break
+	 *     already-persisted word-index ranges, too. If we significantly change the
+	 *     definition, we should consider adding a versioning field here - even if
+	 *     we don't support *all* historical word implementations, we still might
+	 *     want to hide old highlights altogether if our word definition has
+	 *     changed sufficiently radically.
+	 */
+	Object.defineProperty(module.exports, "babelPluginFlowReactPropTypes_proptype_DOMHighlight", __webpack_require__(11).PropTypes.shape({
+	    firstWordIndex: __webpack_require__(11).PropTypes.number.isRequired,
+	    lastWordIndex: __webpack_require__(11).PropTypes.number.isRequired,
+	    domRange: __webpack_require__(11).PropTypes.any.isRequired
+	}));
+
+	/**
+	 * A highlight, serialized into a DOM-independent format so that it can be
+	 * restored in subsequent browser sessions.
+	 */
+	Object.defineProperty(module.exports, "babelPluginFlowReactPropTypes_proptype_DOMHighlightSet", __webpack_require__(11).PropTypes.shape({}));
+
+	Object.defineProperty(module.exports, "babelPluginFlowReactPropTypes_proptype_SerializedHighlight", __webpack_require__(11).PropTypes.shape({
+	    range: __webpack_require__(11).PropTypes.shape({
+	        type: __webpack_require__(11).PropTypes.oneOf([ "word-indexes" ]).isRequired,
+	        firstWordIndex: __webpack_require__(11).PropTypes.number.isRequired,
+	        lastWordIndex: __webpack_require__(11).PropTypes.number.isRequired
+	    }).isRequired
+	}));
+
+	Object.defineProperty(module.exports, "babelPluginFlowReactPropTypes_proptype_SerializedHighlightSet", __webpack_require__(11).PropTypes.shape({}));
+
+/***/ },
+/* 131 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _extends = Object.assign || function(target) {
+	    for (var i = 1; i < arguments.length; i++) {
+	        var source = arguments[i];
+	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
+	    }
+	    return target;
+	};
+
+	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+	/* globals $_ */
+	var React = __webpack_require__(11);
+
+	var SimpleMarkdown = __webpack_require__(124);
+
+	var _ = __webpack_require__(10);
+
+	var START_REF_PREFIX = "start-ref-";
+
+	var END_REF_PREFIX = "end-ref-";
+
+	var REF_STYLE = {
+	    display: "inline-block",
+	    width: 0,
+	    visibility: "hidden"
+	};
+
+	var LABEL_OUTER_STYLE = {
+	    // for some reason we need these to keep the nbsp from wrapping when the
+	    // inner circle/square is display: inline-block
+	    display: "inline",
+	    whiteSpace: "nowrap"
+	};
+
+	var SQUARE_LABEL_STYLE = {
+	    display: "inline-block",
+	    color: "rgb(255, 255, 255)",
+	    backgroundColor: "rgb(90, 90, 90)",
+	    paddingLeft: 10,
+	    paddingRight: 10,
+	    userSelect: "none",
+	    WebkitUserSelect: "none"
+	};
+
+	var CIRCLE_LABEL_STYLE = {
+	    display: "inline-block",
+	    color: "rgb(255, 255, 255)",
+	    backgroundColor: "rgb(90, 90, 90)",
+	    userSelect: "none",
+	    WebkitUserSelect: "none",
+	    width: 22,
+	    height: 22,
+	    borderRadius: "50%",
+	    textAlign: "center"
+	};
+
+	var RefStart = React.createClass({
+	    displayName: "RefStart",
+	    propTypes: {
+	        refContent: React.PropTypes.node.isRequired
+	    },
+	    render: function render() {
+	        return React.createElement("span", {
+	            style: REF_STYLE
+	        }, "_");
+	    },
+	    getRefContent: function getRefContent() {
+	        return this.props.refContent;
+	    }
+	});
+
+	var RefEnd = React.createClass({
+	    displayName: "RefEnd",
+	    render: function render() {
+	        return React.createElement("span", {
+	            style: REF_STYLE
+	        }, "_");
+	    }
+	});
+
+	var rules = {
+	    newline: SimpleMarkdown.defaultRules.newline,
+	    paragraph: SimpleMarkdown.defaultRules.paragraph,
+	    escape: SimpleMarkdown.defaultRules.escape,
+	    passageFootnote: {
+	        order: SimpleMarkdown.defaultRules.escape.order + .1,
+	        match: SimpleMarkdown.inlineRegex(/^\^/),
+	        parse: function parse(capture, _parse, state) {
+	            // if no footnotes have been seen, we're id 1. otherwise,
+	            // we're the next subsequent id
+	            var id = state.lastFootnote.id + 1;
+	            var footnote = {
+	                id: id,
+	                // our text is what to output. if there is only one footnote,
+	                // it's a *; otherwise it's a superscript number
+	                text: 1 === id ? "*" : "" + id
+	            };
+	            // If the previous footnote was a *, we need to adjust it to be
+	            // a number, since now we know there is more than one footnote
+	            "*" === state.lastFootnote.text && (state.lastFootnote.text = "" + state.lastFootnote.id);
+	            // and update our last footnote, + return.
+	            state.lastFootnote = footnote;
+	            return footnote;
+	        },
+	        react: function react(node, output, state) {
+	            return React.createElement("sup", {
+	                key: state.key
+	            }, node.text);
+	        }
+	    },
+	    refStart: {
+	        order: SimpleMarkdown.defaultRules.escape.order + .2,
+	        match: function match(source, state) {
+	            var capture = /^\{\{/.exec(source);
+	            if (capture) {
+	                // We need to do extra processing here to capture the
+	                // full text of the reference, which we include so that
+	                // we can use that information as a screenreader
+	                var closeIndex = 2;
+	                // start looking after the opening "{{"
+	                var refNestingLevel = 0;
+	                // Find the closing "}}" for our opening "{{"
+	                while (closeIndex < source.length) {
+	                    var token = source.slice(closeIndex, closeIndex + 2);
+	                    if ("{{" === token) {
+	                        refNestingLevel++;
+	                        // increment an extra character so we get the
+	                        // full 2-char token
+	                        closeIndex++;
+	                    } else if ("}}" === token) {
+	                        if (!(refNestingLevel > 0)) break;
+	                        refNestingLevel--;
+	                        // increment an extra character so we get the
+	                        // full 2-char token
+	                        closeIndex++;
+	                    }
+	                    closeIndex++;
+	                }
+	                var refText = source.slice(2, closeIndex);
+	                // A "magic" capture that matches the opening {{
+	                // but captures the full ref text internally :D
+	                return [ capture[0], refText ];
+	            }
+	            return null;
+	        },
+	        parse: function parse(capture, _parse2, state) {
+	            if (!state.useRefs) return {
+	                ref: null,
+	                refContent: null
+	            };
+	            var ref = state.lastRef + 1;
+	            state.lastRef = ref;
+	            state.currentRef.push(ref);
+	            var refContent = _parse2(// Curly quotes
+	            "(“" + capture[1] + "”)\n\n", _.defaults({
+	                // We don't want to parse refs while looking through
+	                // this refs contents. We definitely don't want
+	                // to make those refs into react refs on the
+	                // passage, for instance!
+	                useRefs: false
+	            }, INITIAL_PARSE_STATE));
+	            return {
+	                ref: ref,
+	                refContent: refContent
+	            };
+	        },
+	        react: function react(node, output, state) {
+	            if (null == node.ref) return null;
+	            // We don't pass state here because this is parsed
+	            // and output out-of-band. We don't want to affect
+	            // our state by the double-output here :).
+	            var refContent = output(node.refContent, {});
+	            return React.createElement(RefStart, {
+	                ref: START_REF_PREFIX + node.ref,
+	                key: START_REF_PREFIX + node.ref,
+	                refContent: refContent
+	            });
+	        }
+	    },
+	    refEnd: {
+	        order: SimpleMarkdown.defaultRules.escape.order + .3,
+	        match: SimpleMarkdown.inlineRegex(/^\}\}/),
+	        parse: function parse(capture, _parse3, state) {
+	            if (!state.useRefs) return {
+	                ref: null
+	            };
+	            var ref = state.currentRef.pop() || null;
+	            return {
+	                ref: ref
+	            };
+	        },
+	        react: function react(node, output, state) {
+	            return null != node.ref ? React.createElement(RefEnd, {
+	                ref: END_REF_PREFIX + node.ref,
+	                key: END_REF_PREFIX + node.ref
+	            }) : null;
+	        }
+	    },
+	    squareLabel: {
+	        order: SimpleMarkdown.defaultRules.escape.order + .4,
+	        match: SimpleMarkdown.inlineRegex(/^\[\[(\w+)\]\]( *)/),
+	        parse: function parse(capture, _parse4, state) {
+	            state.firstQuestionRef || (state.firstQuestionRef = capture[1]);
+	            return {
+	                content: capture[1],
+	                space: capture[2].length > 0
+	            };
+	        },
+	        react: function react(node, output, state) {
+	            return [ React.createElement("span", {
+	                key: "visual-square",
+	                className: "perseus-passage-square-label",
+	                style: LABEL_OUTER_STYLE,
+	                "aria-hidden": "true"
+	            }, React.createElement("span", {
+	                style: SQUARE_LABEL_STYLE
+	            }, node.content)), React.createElement("span", {
+	                key: "alt-text",
+	                className: "perseus-sr-only"
+	            }, $_({
+	                number: node.content
+	            }, "[Marker for question %(number)s]")), node.space ? " " : null ];
+	        }
+	    },
+	    circleLabel: {
+	        order: SimpleMarkdown.defaultRules.escape.order + .5,
+	        match: SimpleMarkdown.inlineRegex(/^\(\((\w+)\)\)( *)/),
+	        parse: function parse(capture, _parse5, state) {
+	            return {
+	                content: capture[1],
+	                space: capture[2].length > 0
+	            };
+	        },
+	        react: function react(node, output, state) {
+	            return [ React.createElement("span", {
+	                key: "visual-circle",
+	                className: "perseus-passage-circle-label",
+	                style: LABEL_OUTER_STYLE,
+	                "aria-hidden": true
+	            }, React.createElement("span", {
+	                style: CIRCLE_LABEL_STYLE
+	            }, node.content)), React.createElement("span", {
+	                key: "alt-text",
+	                className: "perseus-sr-only"
+	            }, $_({
+	                number: node.content
+	            }, "[Circle marker %(number)s]")), node.space ? " " : null ];
+	        }
+	    },
+	    squareBracketRef: {
+	        order: SimpleMarkdown.defaultRules.escape.order + .6,
+	        match: SimpleMarkdown.inlineRegex(/^\[(\d+)\]( *)/),
+	        parse: function parse(capture, _parse6, state) {
+	            state.firstSentenceRef || (state.firstSentenceRef = capture[1]);
+	            return {
+	                content: capture[1],
+	                space: capture[2].length > 0
+	            };
+	        },
+	        react: function react(node, output, state) {
+	            return [ React.createElement("span", {
+	                key: "visual-brackets",
+	                className: "perseus-passage-bracket-label",
+	                "aria-hidden": "true"
+	            }, "[", node.content, "]"), React.createElement("span", {
+	                key: "alt-text",
+	                className: "perseus-sr-only"
+	            }, $_({
+	                number: node.content
+	            }, "[Sentence %(number)s]")), node.space ? " " : null ];
+	        }
+	    },
+	    highlight: {
+	        order: SimpleMarkdown.defaultRules.escape.order + .7,
+	        match: SimpleMarkdown.inlineRegex(/^{highlighting.start}(.+?){highlighting.end}/),
+	        parse: function parse(capture, _parse7, state) {
+	            return {
+	                content: capture[1]
+	            };
+	        },
+	        react: function react(node, output, state) {
+	            return [ React.createElement("span", {
+	                className: "perseus-highlight"
+	            }, node.content) ];
+	        }
+	    },
+	    reviewHighlight: {
+	        order: SimpleMarkdown.defaultRules.escape.order + .7,
+	        match: SimpleMarkdown.inlineRegex(/^{review-highlighting.start}(.+?){review-highlighting.end}/),
+	        parse: function parse(capture, _parse8, state) {
+	            return {
+	                content: capture[1]
+	            };
+	        },
+	        react: function react(node, output, state) {
+	            return [ React.createElement("span", {
+	                className: "perseus-review-highlight"
+	            }, node.content) ];
+	        }
+	    },
+	    strong: SimpleMarkdown.defaultRules.strong,
+	    u: SimpleMarkdown.defaultRules.u,
+	    em: SimpleMarkdown.defaultRules.em,
+	    del: SimpleMarkdown.defaultRules.del,
+	    text: _extends({}, SimpleMarkdown.defaultRules.text, {
+	        react: function react(node, output, state) {
+	            return React.createElement("span", {
+	                key: state.key
+	            }, node.content);
+	        }
+	    })
+	};
+
+	var INITIAL_PARSE_STATE = {
+	    currentRef: [],
+	    useRefs: true,
+	    lastRef: 0,
+	    lastFootnote: {
+	        id: 0,
+	        text: ""
+	    }
+	};
+
+	var builtParser = SimpleMarkdown.parserFor(rules);
+
+	var parse = function parse(source, state) {
+	    state = state || {};
+	    var paragraphedSource = source + "\n\n";
+	    return builtParser(paragraphedSource, _.extend(state, INITIAL_PARSE_STATE));
+	};
+
+	module.exports = {
+	    parse: parse,
+	    output: SimpleMarkdown.reactFor(SimpleMarkdown.ruleOutput(rules, "react")),
+	    START_REF_PREFIX: START_REF_PREFIX,
+	    END_REF_PREFIX: END_REF_PREFIX,
+	    _rulesForTesting: rules
+	};
+
+/***/ },
+/* 132 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -14333,7 +15086,7 @@ webpackJsonpPerseus([1],[
 	module.exports = draw;
 
 /***/ },
-/* 129 */
+/* 133 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -14477,11 +15230,11 @@ webpackJsonpPerseus([1],[
 	    var shrinkFactor = .25;
 	    var fromPos = [ fromAtom.pos[0], fromAtom.pos[1] ];
 	    var toPos = [ toAtom.pos[0], toAtom.pos[1] ];
-	    "C" !== fromAtom.symbol && (fromPos = [ toAtom.pos[0] - .75 * (toAtom.pos[0] - fromAtom.pos[0]), toAtom.pos[1] - .75 * (toAtom.pos[1] - fromAtom.pos[1]) ]);
+	    "C" !== fromAtom.symbol && (fromPos = [ toAtom.pos[0] - (1 - shrinkFactor) * (toAtom.pos[0] - fromAtom.pos[0]), toAtom.pos[1] - (1 - shrinkFactor) * (toAtom.pos[1] - fromAtom.pos[1]) ]);
 	    "C" !== toAtom.symbol && (// For carbon atoms, conventionally we don't draw any letter, so this
 	    // special cases drawing the bond lines all the way to the point where
 	    // they meet.
-	    toPos = [ fromAtom.pos[0] - .75 * (fromAtom.pos[0] - toAtom.pos[0]), fromAtom.pos[1] - .75 * (fromAtom.pos[1] - toAtom.pos[1]) ]);
+	    toPos = [ fromAtom.pos[0] - (1 - shrinkFactor) * (fromAtom.pos[0] - toAtom.pos[0]), fromAtom.pos[1] - (1 - shrinkFactor) * (fromAtom.pos[1] - toAtom.pos[1]) ]);
 	    return [ fromPos, toPos ];
 	}
 
@@ -14632,7 +15385,8 @@ webpackJsonpPerseus([1],[
 	    var converted = convertTree({}, [], tree);
 	    var atoms = converted[0];
 	    var bonds = converted[1];
-	    return bondLayoutHelper(atomLayoutHelper([], [ "1,0" ], atoms, bonds, rotationAngle), atoms, bonds);
+	    var outputs = atomLayoutHelper([], [ "1,0" ], atoms, bonds, rotationAngle);
+	    return bondLayoutHelper(outputs, atoms, bonds);
 	}
 
 	module.exports = {
@@ -14646,7 +15400,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 130 */
+/* 134 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -14714,9 +15468,10 @@ webpackJsonpPerseus([1],[
 	 *     path incremeneted.
 	 */
 	function _inc(obj, keylist) {
-	    return _mset(obj, keylist, keylist.reduce(function(acc, elt) {
+	    var val = keylist.reduce(function(acc, elt) {
 	        return acc[elt];
-	    }, obj) + 1);
+	    }, obj);
+	    return _mset(obj, keylist, val + 1);
 	}
 
 	function validate(smiles) {
@@ -14775,10 +15530,13 @@ webpackJsonpPerseus([1],[
 	        // TODO(colin): this should just start at 0 all the time, and the
 	        // layout engine should figure out continuity.
 	        inBranchIdx = 0);
-	        return [ parse(rest, _extends({}, newCtx, {
+	        var parenCtx = _extends({}, newCtx, {
 	            idx: newCtx.idx.concat([ [ inBranchIdx, 0 ] ]),
 	            parens: newCtx.parens.concat("(")
-	        })) ].concat(parse(sliceFromMatchingCloseParen(rest, [ "(" ]), newCtx));
+	        });
+	        var parenExpr = parse(rest, parenCtx);
+	        var remainder = parse(sliceFromMatchingCloseParen(rest, [ "(" ]), newCtx);
+	        return [ parenExpr ].concat(remainder);
 	    }
 	    if (")" === firstChar) {
 	        if ("(" !== ctx.parens[ctx.parens.length - 1]) throw new ParseError("Mismatched parentheses");
@@ -14798,11 +15556,12 @@ webpackJsonpPerseus([1],[
 	    var rest = null;
 	    if ("[" === smiles[0]) {
 	        var closingIdx = smiles.indexOf("]");
-	        if (-1 === closingIdx) return [ "", smiles ];
+	        if (closingIdx === -1) return [ "", smiles ];
 	        sym = smiles.slice(1, closingIdx);
 	        rest = smiles.slice(closingIdx + 1);
 	    } else {
-	        sym = atomRe.exec(smiles)[1];
+	        var match = atomRe.exec(smiles);
+	        sym = match[1];
 	        rest = smiles.slice(sym.length);
 	    }
 	    return [ sym, rest ];
@@ -14884,661 +15643,6 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 131 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _extends = Object.assign || function(target) {
-	    for (var i = 1; i < arguments.length; i++) {
-	        var source = arguments[i];
-	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
-	    }
-	    return target;
-	};
-
-	function _classCallCheck(instance, Constructor) {
-	    if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
-	}
-
-	function _possibleConstructorReturn(self, call) {
-	    if (!self) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-	    return !call || "object" !== typeof call && "function" !== typeof call ? self : call;
-	}
-
-	function _inherits(subClass, superClass) {
-	    if ("function" !== typeof superClass && null !== superClass) throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-	    subClass.prototype = Object.create(superClass && superClass.prototype, {
-	        constructor: {
-	            value: subClass,
-	            enumerable: false,
-	            writable: true,
-	            configurable: true
-	        }
-	    });
-	    superClass && (Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass);
-	}
-
-	/**
-	 * The entry point for highlighting!
-	 *
-	 * Given a content node and a set of serialized highlights, this component
-	 * renders the content with the given highlights applied. The content's DOM is
-	 * not modified by this process, so any content should be safe to pass to this
-	 * component.
-	 *
-	 * This component also renders controls for the user to add/remove/update
-	 * highlights. When the user does so, this component will update the full set
-	 * of highlights, serialize them, and call `onSerializedHighlightsUpdate` with
-	 * new set of serialized highlights, which you can then persist and send back
-	 * down to this component. Easy peasy!
-	 */
-	var React = __webpack_require__(11);
-
-	var _require = __webpack_require__(14), StyleSheet = _require.StyleSheet, css = _require.css;
-
-	var HighlightingUI = __webpack_require__(190);
-
-	var WordIndexer = __webpack_require__(180);
-
-	var _require2 = __webpack_require__(181), addHighlight = _require2.addHighlight, buildHighlight = _require2.buildHighlight, deserializeHighlight = _require2.deserializeHighlight, serializeHighlight = _require2.serializeHighlight;
-
-	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(132).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(11).PropTypes.any;
-
-	var babelPluginFlowReactPropTypes_proptype_SerializedHighlightSet = __webpack_require__(132).babelPluginFlowReactPropTypes_proptype_SerializedHighlightSet || __webpack_require__(11).PropTypes.any;
-
-	var babelPluginFlowReactPropTypes_proptype_DOMHighlightSet = __webpack_require__(132).babelPluginFlowReactPropTypes_proptype_DOMHighlightSet || __webpack_require__(11).PropTypes.any;
-
-	var babelPluginFlowReactPropTypes_proptype_DOMHighlight = __webpack_require__(132).babelPluginFlowReactPropTypes_proptype_DOMHighlight || __webpack_require__(11).PropTypes.any;
-
-	var HighlightableContent = function(_React$PureComponent) {
-	    _inherits(HighlightableContent, _React$PureComponent);
-	    function HighlightableContent() {
-	        var _temp, _this, _ret;
-	        _classCallCheck(this, HighlightableContent);
-	        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) args[_key] = arguments[_key];
-	        return _ret = (_temp = (_this = _possibleConstructorReturn(this, _React$PureComponent.call.apply(_React$PureComponent, [ this ].concat(args))), 
-	        _this), _this.state = {
-	            wordRanges: []
-	        }, _this._handleAddHighlight = function(highlight) {
-	            var newDomHighlights = addHighlight(_this._getDOMHighlights(), highlight);
-	            var newSerializedHighlights = {};
-	            for (var _iterator = Object.keys(newDomHighlights), _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator](); ;) {
-	                var _ref;
-	                if (_isArray) {
-	                    if (_i >= _iterator.length) break;
-	                    _ref = _iterator[_i++];
-	                } else {
-	                    _i = _iterator.next();
-	                    if (_i.done) break;
-	                    _ref = _i.value;
-	                }
-	                var key = _ref;
-	                newSerializedHighlights[key] = serializeHighlight(newDomHighlights[key]);
-	            }
-	            _this.props.onSerializedHighlightsUpdate(newSerializedHighlights);
-	        }, _this._handleRemoveHighlight = function(keyToRemove) {
-	            var serializedHighlights = _this.props.serializedHighlights;
-	            var newSerializedHighlights = _extends({}, serializedHighlights);
-	            delete newSerializedHighlights[keyToRemove];
-	            _this.props.onSerializedHighlightsUpdate(newSerializedHighlights);
-	        }, _this._handleWordsUpdate = function(wordRanges) {
-	            _this.setState({
-	                wordRanges: wordRanges
-	            });
-	        }, _temp), _possibleConstructorReturn(_this, _ret);
-	    }
-	    // References to the mounted container and content divs.
-	    HighlightableContent.prototype._buildHighlight = function _buildHighlight(highlightRange) {
-	        // TODO(mdr): If _buildHighlight starts getting called more often, we
-	        //     might want to cache the DOMHighlightSet instead of recomputing
-	        //     it here.
-	        return buildHighlight(this._getDOMHighlights(), this.state.wordRanges, highlightRange);
-	    };
-	    /**
-	     * Take the highlights from props, and deserialize them into DOMHighlights,
-	     * according to the latest cache of word ranges.
-	     */
-	    HighlightableContent.prototype._getDOMHighlights = function _getDOMHighlights() {
-	        var serializedHighlights = this.props.serializedHighlights;
-	        var wordRanges = this.state.wordRanges;
-	        var domHighlights = {};
-	        for (var _iterator2 = Object.keys(serializedHighlights), _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : _iterator2[Symbol.iterator](); ;) {
-	            var _ref2;
-	            if (_isArray2) {
-	                if (_i2 >= _iterator2.length) break;
-	                _ref2 = _iterator2[_i2++];
-	            } else {
-	                _i2 = _iterator2.next();
-	                if (_i2.done) break;
-	                _ref2 = _i2.value;
-	            }
-	            var key = _ref2;
-	            domHighlights[key] = deserializeHighlight(serializedHighlights[key], wordRanges);
-	        }
-	        return domHighlights;
-	    };
-	    /**
-	     * Add the given DOMHighlight to the current set.
-	     */
-	    /**
-	     * Remove the given highlight from the list, and call our callback with the
-	     * new set of highlights.
-	     */
-	    /**
-	     * When our WordIndexer sends us a new cache of word ranges, store it in
-	     * our component state.
-	     */
-	    HighlightableContent.prototype.render = function render() {
-	        var _this2 = this;
-	        var highlights = this._getDOMHighlights();
-	        // NOTE(mdr): This lambda is rebuilt every time this component updates,
-	        //     so every update to HighlightableContent triggers an update in
-	        //     the child HighlightingUI and SelectionTracker, even if the
-	        //     behavior hasn't changed.
-	        //
-	        //     Over-updating is preferable to under-updating here, because some
-	        //     updates in this component's props/state *do* affect
-	        //     `buildHighlight`'s behavior, and *should* trigger an update.
-	        //
-	        //     A more performant approach would be to cache this function
-	        //     object until its implicitly-bound inputs change. If profiling
-	        //     leads us to implement such caching, this draft might be a good
-	        //     starting point: https://phabricator.khanacademy.org/D35623?id=170698
-	        var buildHighlight = function buildHighlight(r) {
-	            return _this2._buildHighlight(r);
-	        };
-	        return React.createElement("div", {
-	            className: css(styles.container),
-	            ref: function ref(container) {
-	                return _this2._container = container;
-	            }
-	        }, React.createElement("div", null, this.props.enabled && this._container && this._content && React.createElement(HighlightingUI, {
-	            buildHighlight: buildHighlight,
-	            contentNode: this._content,
-	            editable: this.props.editable,
-	            highlights: highlights,
-	            offsetParent: this._container,
-	            zIndexes: {
-	                // The content has a z-index of 1, so, to be above
-	                // or below the content, use z-index of 2 or 0,
-	                // respectively.
-	                aboveContent: 2,
-	                belowContent: 0
-	            },
-	            onAddHighlight: this._handleAddHighlight,
-	            onRemoveHighlight: this._handleRemoveHighlight
-	        })), React.createElement("div", {
-	            className: css(styles.content),
-	            ref: function ref(content) {
-	                return _this2._content = content;
-	            }
-	        }, React.createElement(WordIndexer, {
-	            onWordsUpdate: this._handleWordsUpdate
-	        }, this.props.children)));
-	    };
-	    return HighlightableContent;
-	}(React.PureComponent);
-
-	HighlightableContent.propTypes = {
-	    children: __webpack_require__(11).PropTypes.any,
-	    editable: __webpack_require__(11).PropTypes.bool.isRequired,
-	    enabled: __webpack_require__(11).PropTypes.bool.isRequired,
-	    onSerializedHighlightsUpdate: __webpack_require__(11).PropTypes.func.isRequired,
-	    serializedHighlights: babelPluginFlowReactPropTypes_proptype_SerializedHighlightSet
-	};
-
-	var styles = StyleSheet.create({
-	    // We render content with z-index 1, and highlights with z-index 0, so that
-	    // content will receive the browser's native pointer events. (Highlights
-	    // have their own magic code to manage hover detection, despite being
-	    // behind the content.)
-	    container: {
-	        // Position the container and give it a z-index, to scope the z-indexes
-	        // inside by creating a stacking context.
-	        // https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context
-	        //
-	        // This way, content's z-index of 1, and highlights' z-index of 0, and
-	        // tooltips' z-index of 2 don't interact with anything external;
-	        // external UI will see `HighlightableContent` as a single flat layer
-	        // with a z-index of 0. This removes the need for us to coordinate our
-	        // choices of z-index with external UI.
-	        position: "relative",
-	        zIndex: 0
-	    },
-	    content: {
-	        // NOTE(mdr): Creating a stacking context for content of z-index 1 may
-	        //    be problematic if the content and external page want to
-	        //    interleave layers between each other, e.g., if the application UI
-	        //    wants to render something above some parts of our content, but
-	        //    below other parts. It's not relevant for the current Passage-only
-	        //    call site, but could be relevant someday…
-	        position: "relative",
-	        zIndex: 1
-	    }
-	});
-
-	module.exports = HighlightableContent;
-
-/***/ },
-/* 132 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/**
-	 * A highlight, defined relative to the current DOM.
-	 *
-	 * A DOMHighlight, by depending on DOMRange, is inherently coupled to a
-	 * particular DOM session, and must be serialized into a SerializedRange before
-	 * being persisted.
-	 */
-	/**
-	 * A range of highlightable content, defined relative to the current DOM.
-	 *
-	 * This is actually just the built-in DOM type Range, aliased for consistency
-	 * with DOMHighlight and SerializedHighlight.
-	 * https://developer.mozilla.org/en-US/docs/Web/API/Range
-	 *
-	 * A DOMRange is inherently coupled to a particular DOM session, and must be
-	 * serialized into a SerializedRange before being persisted.
-	 */
-	Object.defineProperty(module.exports, "babelPluginFlowReactPropTypes_proptype_SerializedRange", __webpack_require__(11).PropTypes.shape({
-	    type: __webpack_require__(11).PropTypes.oneOf([ "word-indexes" ]).isRequired,
-	    firstWordIndex: __webpack_require__(11).PropTypes.number.isRequired,
-	    lastWordIndex: __webpack_require__(11).PropTypes.number.isRequired
-	}));
-
-	/**
-	 * A range of highlightable content, serialized into a DOM-independent format
-	 * so that it can be restored in subsequent browser sessions.
-	 *
-	 * We currently serialize ranges by the index of the first highlighted word and
-	 * index of the last highlighted word, each with respect to the full body of
-	 * the highlightable content.
-	 *
-	 * TODO(mdr): Word index serialization is fragile in environments where the
-	 *     highlightable content is liable to change. Currently, our only call
-	 *     sites is the test prep app, which saves Perseus state against a
-	 *     particular *version* of a Perseus item, so it's impossible for the
-	 *     content to change - but, if we try to generalize further, we'll need to
-	 *     create new types of range serialization that are more robust to change.
-	 *     (Maybe some quoted text, and we scan the content for matches?)
-	 *
-	 *     Note, too, that changes to the definition of "word" are liable to break
-	 *     already-persisted word-index ranges, too. If we significantly change the
-	 *     definition, we should consider adding a versioning field here - even if
-	 *     we don't support *all* historical word implementations, we still might
-	 *     want to hide old highlights altogether if our word definition has
-	 *     changed sufficiently radically.
-	 */
-	Object.defineProperty(module.exports, "babelPluginFlowReactPropTypes_proptype_DOMHighlight", __webpack_require__(11).PropTypes.shape({
-	    firstWordIndex: __webpack_require__(11).PropTypes.number.isRequired,
-	    lastWordIndex: __webpack_require__(11).PropTypes.number.isRequired,
-	    domRange: __webpack_require__(11).PropTypes.any.isRequired
-	}));
-
-	/**
-	 * A highlight, serialized into a DOM-independent format so that it can be
-	 * restored in subsequent browser sessions.
-	 */
-	Object.defineProperty(module.exports, "babelPluginFlowReactPropTypes_proptype_DOMHighlightSet", __webpack_require__(11).PropTypes.shape({}));
-
-	Object.defineProperty(module.exports, "babelPluginFlowReactPropTypes_proptype_SerializedHighlight", __webpack_require__(11).PropTypes.shape({
-	    range: __webpack_require__(11).PropTypes.shape({
-	        type: __webpack_require__(11).PropTypes.oneOf([ "word-indexes" ]).isRequired,
-	        firstWordIndex: __webpack_require__(11).PropTypes.number.isRequired,
-	        lastWordIndex: __webpack_require__(11).PropTypes.number.isRequired
-	    }).isRequired
-	}));
-
-	Object.defineProperty(module.exports, "babelPluginFlowReactPropTypes_proptype_SerializedHighlightSet", __webpack_require__(11).PropTypes.shape({}));
-
-/***/ },
-/* 133 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _extends = Object.assign || function(target) {
-	    for (var i = 1; i < arguments.length; i++) {
-	        var source = arguments[i];
-	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
-	    }
-	    return target;
-	};
-
-	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	/* globals $_ */
-	var React = __webpack_require__(11);
-
-	var SimpleMarkdown = __webpack_require__(125);
-
-	var _ = __webpack_require__(10);
-
-	var START_REF_PREFIX = "start-ref-";
-
-	var END_REF_PREFIX = "end-ref-";
-
-	var REF_STYLE = {
-	    display: "inline-block",
-	    width: 0,
-	    visibility: "hidden"
-	};
-
-	var LABEL_OUTER_STYLE = {
-	    // for some reason we need these to keep the nbsp from wrapping when the
-	    // inner circle/square is display: inline-block
-	    display: "inline",
-	    whiteSpace: "nowrap"
-	};
-
-	var SQUARE_LABEL_STYLE = {
-	    display: "inline-block",
-	    color: "rgb(255, 255, 255)",
-	    backgroundColor: "rgb(90, 90, 90)",
-	    paddingLeft: 10,
-	    paddingRight: 10,
-	    userSelect: "none",
-	    WebkitUserSelect: "none"
-	};
-
-	var CIRCLE_LABEL_STYLE = {
-	    display: "inline-block",
-	    color: "rgb(255, 255, 255)",
-	    backgroundColor: "rgb(90, 90, 90)",
-	    userSelect: "none",
-	    WebkitUserSelect: "none",
-	    width: 22,
-	    height: 22,
-	    borderRadius: "50%",
-	    textAlign: "center"
-	};
-
-	var RefStart = React.createClass({
-	    displayName: "RefStart",
-	    propTypes: {
-	        refContent: React.PropTypes.node.isRequired
-	    },
-	    render: function render() {
-	        return React.createElement("span", {
-	            style: REF_STYLE
-	        }, "_");
-	    },
-	    getRefContent: function getRefContent() {
-	        return this.props.refContent;
-	    }
-	});
-
-	var RefEnd = React.createClass({
-	    displayName: "RefEnd",
-	    render: function render() {
-	        return React.createElement("span", {
-	            style: REF_STYLE
-	        }, "_");
-	    }
-	});
-
-	var rules = {
-	    newline: SimpleMarkdown.defaultRules.newline,
-	    paragraph: SimpleMarkdown.defaultRules.paragraph,
-	    escape: SimpleMarkdown.defaultRules.escape,
-	    passageFootnote: {
-	        order: SimpleMarkdown.defaultRules.escape.order + .1,
-	        match: SimpleMarkdown.inlineRegex(/^\^/),
-	        parse: function parse(capture, _parse, state) {
-	            // if no footnotes have been seen, we're id 1. otherwise,
-	            // we're the next subsequent id
-	            var id = state.lastFootnote.id + 1;
-	            var footnote = {
-	                id: id,
-	                // our text is what to output. if there is only one footnote,
-	                // it's a *; otherwise it's a superscript number
-	                text: 1 === id ? "*" : "" + id
-	            };
-	            // If the previous footnote was a *, we need to adjust it to be
-	            // a number, since now we know there is more than one footnote
-	            "*" === state.lastFootnote.text && (state.lastFootnote.text = "" + state.lastFootnote.id);
-	            // and update our last footnote, + return.
-	            state.lastFootnote = footnote;
-	            return footnote;
-	        },
-	        react: function react(node, output, state) {
-	            return React.createElement("sup", {
-	                key: state.key
-	            }, node.text);
-	        }
-	    },
-	    refStart: {
-	        order: SimpleMarkdown.defaultRules.escape.order + .2,
-	        match: function match(source, state) {
-	            var capture = /^\{\{/.exec(source);
-	            if (capture) {
-	                // We need to do extra processing here to capture the
-	                // full text of the reference, which we include so that
-	                // we can use that information as a screenreader
-	                var closeIndex = 2;
-	                // start looking after the opening "{{"
-	                var refNestingLevel = 0;
-	                // Find the closing "}}" for our opening "{{"
-	                while (closeIndex < source.length) {
-	                    var token = source.slice(closeIndex, closeIndex + 2);
-	                    if ("{{" === token) {
-	                        refNestingLevel++;
-	                        // increment an extra character so we get the
-	                        // full 2-char token
-	                        closeIndex++;
-	                    } else if ("}}" === token) {
-	                        if (!(refNestingLevel > 0)) break;
-	                        refNestingLevel--;
-	                        // increment an extra character so we get the
-	                        // full 2-char token
-	                        closeIndex++;
-	                    }
-	                    closeIndex++;
-	                }
-	                var refText = source.slice(2, closeIndex);
-	                // A "magic" capture that matches the opening {{
-	                // but captures the full ref text internally :D
-	                return [ capture[0], refText ];
-	            }
-	            return null;
-	        },
-	        parse: function parse(capture, _parse2, state) {
-	            if (!state.useRefs) return {
-	                ref: null,
-	                refContent: null
-	            };
-	            var ref = state.lastRef + 1;
-	            state.lastRef = ref;
-	            state.currentRef.push(ref);
-	            return {
-	                ref: ref,
-	                refContent: _parse2(// Curly quotes
-	                "(“" + capture[1] + "”)\n\n", _.defaults({
-	                    // We don't want to parse refs while looking through
-	                    // this refs contents. We definitely don't want
-	                    // to make those refs into react refs on the
-	                    // passage, for instance!
-	                    useRefs: false
-	                }, INITIAL_PARSE_STATE))
-	            };
-	        },
-	        react: function react(node, output, state) {
-	            if (null == node.ref) return null;
-	            // We don't pass state here because this is parsed
-	            // and output out-of-band. We don't want to affect
-	            // our state by the double-output here :).
-	            var refContent = output(node.refContent, {});
-	            return React.createElement(RefStart, {
-	                ref: START_REF_PREFIX + node.ref,
-	                key: START_REF_PREFIX + node.ref,
-	                refContent: refContent
-	            });
-	        }
-	    },
-	    refEnd: {
-	        order: SimpleMarkdown.defaultRules.escape.order + .3,
-	        match: SimpleMarkdown.inlineRegex(/^\}\}/),
-	        parse: function parse(capture, _parse3, state) {
-	            if (!state.useRefs) return {
-	                ref: null
-	            };
-	            return {
-	                ref: state.currentRef.pop() || null
-	            };
-	        },
-	        react: function react(node, output, state) {
-	            return null != node.ref ? React.createElement(RefEnd, {
-	                ref: END_REF_PREFIX + node.ref,
-	                key: END_REF_PREFIX + node.ref
-	            }) : null;
-	        }
-	    },
-	    squareLabel: {
-	        order: SimpleMarkdown.defaultRules.escape.order + .4,
-	        match: SimpleMarkdown.inlineRegex(/^\[\[(\w+)\]\]( *)/),
-	        parse: function parse(capture, _parse4, state) {
-	            state.firstQuestionRef || (state.firstQuestionRef = capture[1]);
-	            return {
-	                content: capture[1],
-	                space: capture[2].length > 0
-	            };
-	        },
-	        react: function react(node, output, state) {
-	            return [ React.createElement("span", {
-	                key: "visual-square",
-	                className: "perseus-passage-square-label",
-	                style: LABEL_OUTER_STYLE,
-	                "aria-hidden": "true"
-	            }, React.createElement("span", {
-	                style: SQUARE_LABEL_STYLE
-	            }, node.content)), React.createElement("span", {
-	                key: "alt-text",
-	                className: "perseus-sr-only"
-	            }, $_({
-	                number: node.content
-	            }, "[Marker for question %(number)s]")), node.space ? " " : null ];
-	        }
-	    },
-	    circleLabel: {
-	        order: SimpleMarkdown.defaultRules.escape.order + .5,
-	        match: SimpleMarkdown.inlineRegex(/^\(\((\w+)\)\)( *)/),
-	        parse: function parse(capture, _parse5, state) {
-	            return {
-	                content: capture[1],
-	                space: capture[2].length > 0
-	            };
-	        },
-	        react: function react(node, output, state) {
-	            return [ React.createElement("span", {
-	                key: "visual-circle",
-	                className: "perseus-passage-circle-label",
-	                style: LABEL_OUTER_STYLE,
-	                "aria-hidden": true
-	            }, React.createElement("span", {
-	                style: CIRCLE_LABEL_STYLE
-	            }, node.content)), React.createElement("span", {
-	                key: "alt-text",
-	                className: "perseus-sr-only"
-	            }, $_({
-	                number: node.content
-	            }, "[Circle marker %(number)s]")), node.space ? " " : null ];
-	        }
-	    },
-	    squareBracketRef: {
-	        order: SimpleMarkdown.defaultRules.escape.order + .6,
-	        match: SimpleMarkdown.inlineRegex(/^\[(\d+)\]( *)/),
-	        parse: function parse(capture, _parse6, state) {
-	            state.firstSentenceRef || (state.firstSentenceRef = capture[1]);
-	            return {
-	                content: capture[1],
-	                space: capture[2].length > 0
-	            };
-	        },
-	        react: function react(node, output, state) {
-	            return [ React.createElement("span", {
-	                key: "visual-brackets",
-	                className: "perseus-passage-bracket-label",
-	                "aria-hidden": "true"
-	            }, "[", node.content, "]"), React.createElement("span", {
-	                key: "alt-text",
-	                className: "perseus-sr-only"
-	            }, $_({
-	                number: node.content
-	            }, "[Sentence %(number)s]")), node.space ? " " : null ];
-	        }
-	    },
-	    highlight: {
-	        order: SimpleMarkdown.defaultRules.escape.order + .7,
-	        match: SimpleMarkdown.inlineRegex(/^{highlighting.start}(.+?){highlighting.end}/),
-	        parse: function parse(capture, _parse7, state) {
-	            return {
-	                content: capture[1]
-	            };
-	        },
-	        react: function react(node, output, state) {
-	            return [ React.createElement("span", {
-	                className: "perseus-highlight"
-	            }, node.content) ];
-	        }
-	    },
-	    reviewHighlight: {
-	        order: SimpleMarkdown.defaultRules.escape.order + .7,
-	        match: SimpleMarkdown.inlineRegex(/^{review-highlighting.start}(.+?){review-highlighting.end}/),
-	        parse: function parse(capture, _parse8, state) {
-	            return {
-	                content: capture[1]
-	            };
-	        },
-	        react: function react(node, output, state) {
-	            return [ React.createElement("span", {
-	                className: "perseus-review-highlight"
-	            }, node.content) ];
-	        }
-	    },
-	    strong: SimpleMarkdown.defaultRules.strong,
-	    u: SimpleMarkdown.defaultRules.u,
-	    em: SimpleMarkdown.defaultRules.em,
-	    del: SimpleMarkdown.defaultRules.del,
-	    text: _extends({}, SimpleMarkdown.defaultRules.text, {
-	        react: function react(node, output, state) {
-	            return React.createElement("span", {
-	                key: state.key
-	            }, node.content);
-	        }
-	    })
-	};
-
-	var INITIAL_PARSE_STATE = {
-	    currentRef: [],
-	    useRefs: true,
-	    lastRef: 0,
-	    lastFootnote: {
-	        id: 0,
-	        text: ""
-	    }
-	};
-
-	var builtParser = SimpleMarkdown.parserFor(rules);
-
-	var parse = function parse(source, state) {
-	    state = state || {};
-	    return builtParser(source + "\n\n", _.extend(state, INITIAL_PARSE_STATE));
-	};
-
-	module.exports = {
-	    parse: parse,
-	    output: SimpleMarkdown.reactFor(SimpleMarkdown.ruleOutput(rules, "react")),
-	    START_REF_PREFIX: START_REF_PREFIX,
-	    END_REF_PREFIX: END_REF_PREFIX,
-	    _rulesForTesting: rules
-	};
-
-/***/ },
-/* 134 */,
 /* 135 */,
 /* 136 */,
 /* 137 */,
@@ -15574,8 +15678,7 @@ webpackJsonpPerseus([1],[
 /* 167 */,
 /* 168 */,
 /* 169 */,
-/* 170 */,
-/* 171 */
+/* 170 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -15619,8 +15722,8 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 172 */,
-/* 173 */
+/* 171 */,
+/* 172 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -15732,6 +15835,7 @@ webpackJsonpPerseus([1],[
 	module.exports = InfoTip;
 
 /***/ },
+/* 173 */,
 /* 174 */,
 /* 175 */,
 /* 176 */,
@@ -15780,7 +15884,7 @@ webpackJsonpPerseus([1],[
 	 */
 	var React = __webpack_require__(11);
 
-	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(132).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(11).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(130).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(11).PropTypes.any;
 
 	var WordIndexer = function(_React$PureComponent) {
 	    _inherits(WordIndexer, _React$PureComponent);
@@ -15906,13 +16010,13 @@ webpackJsonpPerseus([1],[
 	 * existing DOMHighlights, the other Highlights are removed and their ranges
 	 * are merged into the new DOMHighlight.
 	 */
-	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(132).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(11).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(130).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(11).PropTypes.any;
 
-	var babelPluginFlowReactPropTypes_proptype_SerializedHighlight = __webpack_require__(132).babelPluginFlowReactPropTypes_proptype_SerializedHighlight || __webpack_require__(11).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_SerializedHighlight = __webpack_require__(130).babelPluginFlowReactPropTypes_proptype_SerializedHighlight || __webpack_require__(11).PropTypes.any;
 
-	var babelPluginFlowReactPropTypes_proptype_DOMHighlightSet = __webpack_require__(132).babelPluginFlowReactPropTypes_proptype_DOMHighlightSet || __webpack_require__(11).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_DOMHighlightSet = __webpack_require__(130).babelPluginFlowReactPropTypes_proptype_DOMHighlightSet || __webpack_require__(11).PropTypes.any;
 
-	var babelPluginFlowReactPropTypes_proptype_DOMHighlight = __webpack_require__(132).babelPluginFlowReactPropTypes_proptype_DOMHighlight || __webpack_require__(11).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_DOMHighlight = __webpack_require__(130).babelPluginFlowReactPropTypes_proptype_DOMHighlight || __webpack_require__(11).PropTypes.any;
 
 	function addHighlight(existingHighlights, newHighlight) {
 	    var newHighlights = {};
@@ -15949,7 +16053,11 @@ webpackJsonpPerseus([1],[
 	        lastWordIndex: mergedLastWordIndex,
 	        domRange: mergedDomRange
 	    };
-	    newHighlights[createNewUniqueKey(Object.keys(newHighlights))] = newMergedHighlight;
+	    // Add the newly-merged highlight to the set of highlights, under a new,
+	    // unique key.
+	    var existingKeys = Object.keys(newHighlights);
+	    var newKey = createNewUniqueKey(existingKeys);
+	    newHighlights[newKey] = newMergedHighlight;
 	    return newHighlights;
 	}
 
@@ -16035,9 +16143,9 @@ webpackJsonpPerseus([1],[
 	function deserializeHighlight(serializedHighlight, wordRanges) {
 	    var _serializedHighlight$ = serializedHighlight.range, firstWordIndex = _serializedHighlight$.firstWordIndex, lastWordIndex = _serializedHighlight$.lastWordIndex;
 	    var firstWord = wordRanges[firstWordIndex];
-	    if (!firstWord) throw new Error("first word index " + firstWord + " is out of bounds: must be 0–" + (wordRanges.length - 1) + " inclusive");
+	    if (!firstWord) throw new Error("first word index " + firstWord + " is out of bounds: " + ("must be 0–" + (wordRanges.length - 1) + " inclusive"));
 	    var lastWord = wordRanges[lastWordIndex];
-	    if (!lastWord) throw new Error("last word index " + lastWord + " is out of bounds: must be 0–" + (wordRanges.length - 1) + " inclusive");
+	    if (!lastWord) throw new Error("last word index " + lastWord + " is out of bounds: " + ("must be 0–" + (wordRanges.length - 1) + " inclusive"));
 	    return {
 	        firstWordIndex: firstWordIndex,
 	        lastWordIndex: lastWordIndex,
@@ -16049,11 +16157,12 @@ webpackJsonpPerseus([1],[
 	 * Return a SerializedHighlight representing the given DOMHighlight.
 	 */
 	function serializeHighlight(highlight) {
+	    var firstWordIndex = highlight.firstWordIndex, lastWordIndex = highlight.lastWordIndex;
 	    return {
 	        range: {
 	            type: "word-indexes",
-	            firstWordIndex: highlight.firstWordIndex,
-	            lastWordIndex: highlight.lastWordIndex
+	            firstWordIndex: firstWordIndex,
+	            lastWordIndex: lastWordIndex
 	        }
 	    };
 	}
@@ -16156,7 +16265,18 @@ webpackJsonpPerseus([1],[
 	        var focusRange = new Range();
 	        focusRange.setStart(trackedSelection.focusNode, trackedSelection.focusOffset);
 	        focusRange.collapse(true);
-	        return rangesOverlap(contentRange, focusRange);
+	        // Determine whether the content range contains the focus, by checking
+	        // whether they intersect. Because the focus range is a single point,
+	        // intersection is equivalent to being fully contained.
+	        var contentContainsFocus = rangesOverlap(contentRange, focusRange);
+	        // If the content contains the focus, this is a valid selection. Some
+	        // parts of the range might go beyond the content, but that's okay; the
+	        // corresponding DOMHighlight is already trimmed to only contain valid
+	        // words. We're just checking that the tooltip we render will be inside
+	        // the content, because rendering a tooltip outside the content would
+	        // be weird.
+	        var selectionIsValid = contentContainsFocus;
+	        return selectionIsValid;
 	    };
 	    HighlightingUI.prototype.render = function render() {
 	        var _this2 = this;
@@ -16235,7 +16355,7 @@ webpackJsonpPerseus([1],[
 	 *     of the DOM's `compareBoundaryPoints` API, and to cover over a Flow bug
 	 *     documented here: https://github.com/facebook/flow/issues/3734.
 	 */
-	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(132).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(11).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(130).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(11).PropTypes.any;
 
 	/**
 	 * Utility functions for manipulating ranges of highlightable content.
@@ -16265,7 +16385,9 @@ webpackJsonpPerseus([1],[
 	 * starts, they are considered to overlap.
 	 */
 	function rangesOverlap(a, b) {
-	    return !(compareRangeBoundaryPoints(a, "end", b, "start") < 0 || compareRangeBoundaryPoints(b, "end", a, "start") < 0);
+	    // Two ranges do *not* overlap iff one ends before the other begins.
+	    var rangesDoNotOverlap = compareRangeBoundaryPoints(a, "end", b, "start") < 0 || compareRangeBoundaryPoints(b, "end", a, "start") < 0;
+	    return !rangesDoNotOverlap;
 	}
 
 	/**
@@ -16273,7 +16395,8 @@ webpackJsonpPerseus([1],[
 	 * all points that B contains are also contained by A.
 	 */
 	function rangeIncludes(a, b) {
-	    return compareRangeBoundaryPoints(a, "start", b, "start") <= 0 && compareRangeBoundaryPoints(a, "end", b, "end") >= 0;
+	    var rangeIsIncluded = compareRangeBoundaryPoints(a, "start", b, "start") <= 0 && compareRangeBoundaryPoints(a, "end", b, "end") >= 0;
+	    return rangeIsIncluded;
 	}
 
 	/**
@@ -16284,7 +16407,11 @@ webpackJsonpPerseus([1],[
 	 */
 	function intersectRanges(a, b) {
 	    if (!rangesOverlap(a, b)) return null;
-	    return spanRanges(compareRangeBoundaryPoints(a, "start", b, "start") > 0 ? a : b, compareRangeBoundaryPoints(a, "end", b, "end") < 0 ? a : b);
+	    // Find the range with the latest start point, and the range with the
+	    // earliest end point.
+	    var starter = compareRangeBoundaryPoints(a, "start", b, "start") > 0 ? a : b;
+	    var ender = compareRangeBoundaryPoints(a, "end", b, "end") < 0 ? a : b;
+	    return spanRanges(starter, ender);
 	}
 
 	/**
@@ -16295,7 +16422,11 @@ webpackJsonpPerseus([1],[
 	 */
 	function unionRanges(a, b) {
 	    if (!rangesOverlap(a, b)) return null;
-	    return spanRanges(compareRangeBoundaryPoints(a, "start", b, "start") < 0 ? a : b, compareRangeBoundaryPoints(a, "end", b, "end") > 0 ? a : b);
+	    // Find the range with the earliest start point, and the range with the
+	    // latest end point.
+	    var starter = compareRangeBoundaryPoints(a, "start", b, "start") < 0 ? a : b;
+	    var ender = compareRangeBoundaryPoints(a, "end", b, "end") > 0 ? a : b;
+	    return spanRanges(starter, ender);
 	}
 
 	/**
@@ -16316,10 +16447,11 @@ webpackJsonpPerseus([1],[
 	    var iterationCount = 0;
 	    while (lowerBound <= upperBound) {
 	        iterationCount++;
-	        if (iterationCount > 2 * wordRanges.length) throw new Error("Assertion error: Binary search isn't terminating? lower=" + lowerBound + ", upper=" + upperBound);
+	        if (iterationCount > 2 * wordRanges.length) throw new Error("Assertion error: Binary search isn't terminating? " + ("lower=" + lowerBound + ", upper=" + upperBound));
 	        var mid = Math.floor((lowerBound + upperBound) / 2);
 	        if ("first" === goal) {
-	            if (compareRangeBoundaryPoints(wordRanges[mid], "end", selectionRange, "start") <= 0) // If this word's end point is before or equal to the
+	            var rangeComparison = compareRangeBoundaryPoints(wordRanges[mid], "end", selectionRange, "start");
+	            if (rangeComparison <= 0) // If this word's end point is before or equal to the
 	            // selection's start point, then this word is not a valid
 	            // candidate, nor are any of the words before it.
 	            //
@@ -16335,7 +16467,8 @@ webpackJsonpPerseus([1],[
 	                upperBound = mid - 1;
 	            }
 	        } else {
-	            if (compareRangeBoundaryPoints(wordRanges[mid], "start", selectionRange, "end") >= 0) // If this word's start point is after or equal to the
+	            var _rangeComparison = compareRangeBoundaryPoints(wordRanges[mid], "start", selectionRange, "end");
+	            if (_rangeComparison >= 0) // If this word's start point is after or equal to the
 	            // selection's end point, then this word is not a valid
 	            // candidate, nor are any of the words after it.
 	            //
@@ -16486,7 +16619,7 @@ webpackJsonpPerseus([1],[
 	 */
 	var React = __webpack_require__(11);
 
-	var HighlightRenderer = __webpack_require__(233);
+	var HighlightRenderer = __webpack_require__(234);
 
 	var HighlightTooltip = __webpack_require__(220);
 
@@ -16555,7 +16688,10 @@ webpackJsonpPerseus([1],[
 	        // highlight that the tooltip is pointing to.
 	        var hoveringTooltipFor = this.state.hoveringTooltipFor;
 	        if ("string" === typeof hoveringTooltipFor) return hoveringTooltipFor;
-	        return Object.keys(this.props.highlights).find(function(key) {
+	        // Otherwise, check each highlight renderer to see whether the current
+	        // mouse position intersects any of the highlight rectangles.
+	        var highlightKeys = Object.keys(this.props.highlights);
+	        return highlightKeys.find(function(key) {
 	            var highlightRenderer = _this2._highlightRenderers[key];
 	            return highlightRenderer && highlightRenderer.isHovered(_this2.state.mouseClientPosition);
 	        });
@@ -16652,7 +16788,7 @@ webpackJsonpPerseus([1],[
 
 	var _require = __webpack_require__(14), StyleSheet = _require.StyleSheet, css = _require.css;
 
-	var _require2 = __webpack_require__(234), getRelativePosition = _require2.getRelativePosition;
+	var _require2 = __webpack_require__(233), getRelativePosition = _require2.getRelativePosition;
 
 	var babelPluginFlowReactPropTypes_proptype_Position = __webpack_require__(222).babelPluginFlowReactPropTypes_proptype_Position || __webpack_require__(11).PropTypes.any;
 
@@ -16680,7 +16816,8 @@ webpackJsonpPerseus([1],[
 	        // Compute the desired position of the tooltip relative to the offset
 	        // parent.
 	        var offsetParentRect = offsetParent.getBoundingClientRect();
-	        return getRelativePosition(focusRect, offsetParentRect);
+	        var focusPosition = getRelativePosition(focusRect, offsetParentRect);
+	        return focusPosition;
 	    };
 	    HighlightTooltip.prototype.render = function render() {
 	        var position = this._getPosition();
@@ -16888,9 +17025,14 @@ webpackJsonpPerseus([1],[
 	        if (!selection || 0 === selection.rangeCount) return null;
 	        var range = selection.getRangeAt(0);
 	        if (range.collapsed) return null;
+	        // NOTE(mdr): The focus node is guaranteed to exist, because
+	        //     there's a range, but the Flow type annotations for
+	        //     Selection don't know that. Cast it ourselves.
+	        var focusNode = selection.focusNode;
+	        var focusOffset = selection.focusOffset;
 	        return {
-	            focusNode: selection.focusNode,
-	            focusOffset: selection.focusOffset,
+	            focusNode: focusNode,
+	            focusOffset: focusOffset,
 	            range: range
 	        };
 	    };
@@ -16940,13 +17082,13 @@ webpackJsonpPerseus([1],[
 
 	"use strict";
 
-	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(132).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(11).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(130).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(11).PropTypes.any;
 
 	// Import the DOM-related types from the parent directory, and re-export them
 	// to the UI code.
-	var babelPluginFlowReactPropTypes_proptype_DOMHighlightSet = __webpack_require__(132).babelPluginFlowReactPropTypes_proptype_DOMHighlightSet || __webpack_require__(11).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_DOMHighlightSet = __webpack_require__(130).babelPluginFlowReactPropTypes_proptype_DOMHighlightSet || __webpack_require__(11).PropTypes.any;
 
-	var babelPluginFlowReactPropTypes_proptype_DOMHighlight = __webpack_require__(132).babelPluginFlowReactPropTypes_proptype_DOMHighlight || __webpack_require__(11).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_DOMHighlight = __webpack_require__(130).babelPluginFlowReactPropTypes_proptype_DOMHighlight || __webpack_require__(11).PropTypes.any;
 
 	Object.defineProperty(module.exports, "babelPluginFlowReactPropTypes_proptype_Position", __webpack_require__(11).PropTypes.shape({
 	    left: __webpack_require__(11).PropTypes.number.isRequired,
@@ -16970,161 +17112,6 @@ webpackJsonpPerseus([1],[
 /* 231 */,
 /* 232 */,
 /* 233 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	function _classCallCheck(instance, Constructor) {
-	    if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
-	}
-
-	function _possibleConstructorReturn(self, call) {
-	    if (!self) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-	    return !call || "object" !== typeof call && "function" !== typeof call ? self : call;
-	}
-
-	function _inherits(subClass, superClass) {
-	    if ("function" !== typeof superClass && null !== superClass) throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-	    subClass.prototype = Object.create(superClass && superClass.prototype, {
-	        constructor: {
-	            value: subClass,
-	            enumerable: false,
-	            writable: true,
-	            configurable: true
-	        }
-	    });
-	    superClass && (Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass);
-	}
-
-	/**
-	 * This component, given a single DOMHighlight, draws highlight rectangles in
-	 * the same absolute position as the highlighted content, as computed via
-	 * `getClientRects`.
-	 *
-	 * TODO(mdr): Many things can affect the correct positioning of highlighting,
-	 *     and this component does not attempt to anticipate them. If we start
-	 *     using this highlighting library on content with a more dynamic layout,
-	 *     we should add a hook to allow the parent to `forceUpdate` the
-	 *     `HighlightRenderer`.
-	 */
-	var React = __webpack_require__(11);
-
-	var _require = __webpack_require__(14), StyleSheet = _require.StyleSheet, css = _require.css;
-
-	var _require2 = __webpack_require__(234), getClientRectsForTextInRange = _require2.getClientRectsForTextInRange, getRelativePosition = _require2.getRelativePosition, getRelativeRect = _require2.getRelativeRect;
-
-	var babelPluginFlowReactPropTypes_proptype_ZIndexes = __webpack_require__(222).babelPluginFlowReactPropTypes_proptype_ZIndexes || __webpack_require__(11).PropTypes.any;
-
-	var babelPluginFlowReactPropTypes_proptype_Rect = __webpack_require__(222).babelPluginFlowReactPropTypes_proptype_Rect || __webpack_require__(11).PropTypes.any;
-
-	var babelPluginFlowReactPropTypes_proptype_Position = __webpack_require__(222).babelPluginFlowReactPropTypes_proptype_Position || __webpack_require__(11).PropTypes.any;
-
-	var babelPluginFlowReactPropTypes_proptype_DOMHighlight = __webpack_require__(222).babelPluginFlowReactPropTypes_proptype_DOMHighlight || __webpack_require__(11).PropTypes.any;
-
-	var HighlightRenderer = function(_React$PureComponent) {
-	    _inherits(HighlightRenderer, _React$PureComponent);
-	    function HighlightRenderer() {
-	        var _temp, _this, _ret;
-	        _classCallCheck(this, HighlightRenderer);
-	        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) args[_key] = arguments[_key];
-	        return _ret = (_temp = (_this = _possibleConstructorReturn(this, _React$PureComponent.call.apply(_React$PureComponent, [ this ].concat(args))), 
-	        _this), _this.state = {
-	            cachedHighlightRects: _this._computeRects(_this.props),
-	            tooltipIsHovered: false
-	        }, _temp), _possibleConstructorReturn(_this, _ret);
-	    }
-	    HighlightRenderer.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
-	        this.props.highlight === nextProps.highlight && this.props.offsetParent === nextProps.offsetParent || this.setState({
-	            cachedHighlightRects: this._computeRects(nextProps)
-	        });
-	    };
-	    /**
-	     * Compute the set of rectangles that cover the highlighted content, with
-	     * coordinates relative to the offset parent. That way, we can use them
-	     * for CSS positioning.
-	     */
-	    HighlightRenderer.prototype._computeRects = function _computeRects(props) {
-	        var highlight = props.highlight, offsetParent = props.offsetParent;
-	        // Get the set of rectangles that covers the range's text, relative to
-	        // the offset parent.
-	        var clientRects = getClientRectsForTextInRange(highlight.domRange);
-	        var offsetParentRect = offsetParent.getBoundingClientRect();
-	        return clientRects.map(function(rect) {
-	            return getRelativeRect(rect, offsetParentRect);
-	        });
-	    };
-	    /**
-	     * Return whether the given mouse position (coordinates relative to this
-	     * component's offset parent) is hovering over the given rectangle
-	     * (coordinates also relative to this component's offset parent).
-	     */
-	    HighlightRenderer.prototype._rectIsHovered = function _rectIsHovered(rect, mouseOffsetPosition) {
-	        var positionWithinRect = getRelativePosition(mouseOffsetPosition, rect);
-	        return 0 <= positionWithinRect.left && positionWithinRect.left < rect.width && 0 <= positionWithinRect.top && positionWithinRect.top < rect.height;
-	    };
-	    /**
-	     * Return whether the given mouse position (coordinates relative to the
-	     * viewport) is hovering over this highlight.
-	     */
-	    HighlightRenderer.prototype.isHovered = function isHovered(mouseClientPosition) {
-	        var _this2 = this;
-	        if (!mouseClientPosition) return false;
-	        var offsetParent = this.props.offsetParent;
-	        var cachedHighlightRects = this.state.cachedHighlightRects;
-	        // Convert the client-relative mouse coordinates to be relative to the
-	        // offset parent. That way, we can compare them to the cached highlight
-	        // rectangles.
-	        var offsetParentRect = offsetParent.getBoundingClientRect();
-	        var mouseOffsetPosition = getRelativePosition(mouseClientPosition, offsetParentRect);
-	        return cachedHighlightRects.some(function(rect) {
-	            return _this2._rectIsHovered(rect, mouseOffsetPosition);
-	        });
-	    };
-	    HighlightRenderer.prototype.render = function render() {
-	        var _this3 = this;
-	        var rects = this.state.cachedHighlightRects;
-	        return React.createElement("div", null, rects.map(function(rect, index) {
-	            return React.createElement("div", {
-	                key: index,
-	                className: css(styles.highlightRect),
-	                style: {
-	                    // NOTE(mdr): We apply `position: absolute` here
-	                    //     rather than in Aphrodite styles, because
-	                    //     Aphrodite styles are delayed. If this
-	                    //     element temporarily has `position: static`,
-	                    //     then it'll displace the content, and other
-	                    //     highlights rendering during this update will
-	                    //     measure the displaced content instead, oops!
-	                    position: "absolute",
-	                    width: rect.width,
-	                    height: rect.height,
-	                    top: rect.top,
-	                    left: rect.left,
-	                    zIndex: _this3.props.zIndexes.belowContent
-	                }
-	            });
-	        }));
-	    };
-	    return HighlightRenderer;
-	}(React.PureComponent);
-
-	HighlightRenderer.propTypes = {
-	    highlight: babelPluginFlowReactPropTypes_proptype_DOMHighlight,
-	    highlightKey: __webpack_require__(11).PropTypes.string.isRequired,
-	    offsetParent: __webpack_require__(11).PropTypes.any.isRequired,
-	    zIndexes: babelPluginFlowReactPropTypes_proptype_ZIndexes
-	};
-
-	var styles = StyleSheet.create({
-	    highlightRect: {
-	        background: "#fffabe"
-	    }
-	});
-
-	module.exports = HighlightRenderer;
-
-/***/ },
-/* 234 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -17293,6 +17280,162 @@ webpackJsonpPerseus([1],[
 	    getRelativePosition: getRelativePosition,
 	    getRelativeRect: getRelativeRect
 	};
+
+/***/ },
+/* 234 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	function _classCallCheck(instance, Constructor) {
+	    if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
+	}
+
+	function _possibleConstructorReturn(self, call) {
+	    if (!self) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	    return !call || "object" !== typeof call && "function" !== typeof call ? self : call;
+	}
+
+	function _inherits(subClass, superClass) {
+	    if ("function" !== typeof superClass && null !== superClass) throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+	    subClass.prototype = Object.create(superClass && superClass.prototype, {
+	        constructor: {
+	            value: subClass,
+	            enumerable: false,
+	            writable: true,
+	            configurable: true
+	        }
+	    });
+	    superClass && (Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass);
+	}
+
+	/**
+	 * This component, given a single DOMHighlight, draws highlight rectangles in
+	 * the same absolute position as the highlighted content, as computed via
+	 * `getClientRects`.
+	 *
+	 * TODO(mdr): Many things can affect the correct positioning of highlighting,
+	 *     and this component does not attempt to anticipate them. If we start
+	 *     using this highlighting library on content with a more dynamic layout,
+	 *     we should add a hook to allow the parent to `forceUpdate` the
+	 *     `HighlightRenderer`.
+	 */
+	var React = __webpack_require__(11);
+
+	var _require = __webpack_require__(14), StyleSheet = _require.StyleSheet, css = _require.css;
+
+	var _require2 = __webpack_require__(233), getClientRectsForTextInRange = _require2.getClientRectsForTextInRange, getRelativePosition = _require2.getRelativePosition, getRelativeRect = _require2.getRelativeRect;
+
+	var babelPluginFlowReactPropTypes_proptype_ZIndexes = __webpack_require__(222).babelPluginFlowReactPropTypes_proptype_ZIndexes || __webpack_require__(11).PropTypes.any;
+
+	var babelPluginFlowReactPropTypes_proptype_Rect = __webpack_require__(222).babelPluginFlowReactPropTypes_proptype_Rect || __webpack_require__(11).PropTypes.any;
+
+	var babelPluginFlowReactPropTypes_proptype_Position = __webpack_require__(222).babelPluginFlowReactPropTypes_proptype_Position || __webpack_require__(11).PropTypes.any;
+
+	var babelPluginFlowReactPropTypes_proptype_DOMHighlight = __webpack_require__(222).babelPluginFlowReactPropTypes_proptype_DOMHighlight || __webpack_require__(11).PropTypes.any;
+
+	var HighlightRenderer = function(_React$PureComponent) {
+	    _inherits(HighlightRenderer, _React$PureComponent);
+	    function HighlightRenderer() {
+	        var _temp, _this, _ret;
+	        _classCallCheck(this, HighlightRenderer);
+	        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) args[_key] = arguments[_key];
+	        return _ret = (_temp = (_this = _possibleConstructorReturn(this, _React$PureComponent.call.apply(_React$PureComponent, [ this ].concat(args))), 
+	        _this), _this.state = {
+	            cachedHighlightRects: _this._computeRects(_this.props),
+	            tooltipIsHovered: false
+	        }, _temp), _possibleConstructorReturn(_this, _ret);
+	    }
+	    HighlightRenderer.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
+	        this.props.highlight === nextProps.highlight && this.props.offsetParent === nextProps.offsetParent || this.setState({
+	            cachedHighlightRects: this._computeRects(nextProps)
+	        });
+	    };
+	    /**
+	     * Compute the set of rectangles that cover the highlighted content, with
+	     * coordinates relative to the offset parent. That way, we can use them
+	     * for CSS positioning.
+	     */
+	    HighlightRenderer.prototype._computeRects = function _computeRects(props) {
+	        var highlight = props.highlight, offsetParent = props.offsetParent;
+	        // Get the set of rectangles that covers the range's text, relative to
+	        // the offset parent.
+	        var clientRects = getClientRectsForTextInRange(highlight.domRange);
+	        var offsetParentRect = offsetParent.getBoundingClientRect();
+	        var relativeRects = clientRects.map(function(rect) {
+	            return getRelativeRect(rect, offsetParentRect);
+	        });
+	        return relativeRects;
+	    };
+	    /**
+	     * Return whether the given mouse position (coordinates relative to this
+	     * component's offset parent) is hovering over the given rectangle
+	     * (coordinates also relative to this component's offset parent).
+	     */
+	    HighlightRenderer.prototype._rectIsHovered = function _rectIsHovered(rect, mouseOffsetPosition) {
+	        var positionWithinRect = getRelativePosition(mouseOffsetPosition, rect);
+	        return 0 <= positionWithinRect.left && positionWithinRect.left < rect.width && 0 <= positionWithinRect.top && positionWithinRect.top < rect.height;
+	    };
+	    /**
+	     * Return whether the given mouse position (coordinates relative to the
+	     * viewport) is hovering over this highlight.
+	     */
+	    HighlightRenderer.prototype.isHovered = function isHovered(mouseClientPosition) {
+	        var _this2 = this;
+	        if (!mouseClientPosition) return false;
+	        var offsetParent = this.props.offsetParent;
+	        var cachedHighlightRects = this.state.cachedHighlightRects;
+	        // Convert the client-relative mouse coordinates to be relative to the
+	        // offset parent. That way, we can compare them to the cached highlight
+	        // rectangles.
+	        var offsetParentRect = offsetParent.getBoundingClientRect();
+	        var mouseOffsetPosition = getRelativePosition(mouseClientPosition, offsetParentRect);
+	        return cachedHighlightRects.some(function(rect) {
+	            return _this2._rectIsHovered(rect, mouseOffsetPosition);
+	        });
+	    };
+	    HighlightRenderer.prototype.render = function render() {
+	        var _this3 = this;
+	        var rects = this.state.cachedHighlightRects;
+	        return React.createElement("div", null, rects.map(function(rect, index) {
+	            return React.createElement("div", {
+	                key: index,
+	                className: css(styles.highlightRect),
+	                style: {
+	                    // NOTE(mdr): We apply `position: absolute` here
+	                    //     rather than in Aphrodite styles, because
+	                    //     Aphrodite styles are delayed. If this
+	                    //     element temporarily has `position: static`,
+	                    //     then it'll displace the content, and other
+	                    //     highlights rendering during this update will
+	                    //     measure the displaced content instead, oops!
+	                    position: "absolute",
+	                    width: rect.width,
+	                    height: rect.height,
+	                    top: rect.top,
+	                    left: rect.left,
+	                    zIndex: _this3.props.zIndexes.belowContent
+	                }
+	            });
+	        }));
+	    };
+	    return HighlightRenderer;
+	}(React.PureComponent);
+
+	HighlightRenderer.propTypes = {
+	    highlight: babelPluginFlowReactPropTypes_proptype_DOMHighlight,
+	    highlightKey: __webpack_require__(11).PropTypes.string.isRequired,
+	    offsetParent: __webpack_require__(11).PropTypes.any.isRequired,
+	    zIndexes: babelPluginFlowReactPropTypes_proptype_ZIndexes
+	};
+
+	var styles = StyleSheet.create({
+	    highlightRect: {
+	        background: "#fffabe"
+	    }
+	});
+
+	module.exports = HighlightRenderer;
 
 /***/ }
 ]);
