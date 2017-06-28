@@ -187,6 +187,7 @@ const Choice = React.createClass({
                 marginLeft: 40,
                 [mediaQueries.smOrSmaller]: {
                     padding: intermediateCheckboxPaddingPhone,
+                    paddingTop: 0,
                 },
             },
 
