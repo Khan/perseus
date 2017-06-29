@@ -28,7 +28,7 @@ module.exports = {
         `(max-width: ${pureMdMax})`,
     lg: `@media screen and (min-width: ${pureLgMin}) and ` +
         `(max-width: ${pureLgMax})`,
-    xl: `@media screen and (min-width: ${pureXlMin}))`,
+    xl: `@media screen and (min-width: ${pureXlMin})`,
 
     smOrSmaller: `@media screen and (max-width: ${pureSmMax})`,
     mdOrSmaller: `@media screen and (max-width: ${pureMdMax})`,

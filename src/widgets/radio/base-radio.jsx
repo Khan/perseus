@@ -104,11 +104,25 @@ const BaseRadio = React.createClass({
             instructions: {
                 display: "block",
                 color: styleConstants.gray17,
-                fontSize: 16,
+                fontSize: 14,
                 lineHeight: 1.25,
                 fontStyle: "normal",
                 fontWeight: "bold",
                 marginBottom: 16,
+            },
+
+            instructionsMobile: {
+                fontSize: 18,
+                [mediaQueries.smOrSmaller]: {
+                    fontSize: 16,
+                },
+                // TODO(emily): We want this to match choice text, which turns
+                // to 20px at min-width 1200px, but this media query is
+                // min-width 1280px because our media queries don't exactly
+                // match pure. Make those match up.
+                [mediaQueries.xl]: {
+                    fontSize: 20,
+                },
             },
 
             radio: {
@@ -283,6 +297,8 @@ const BaseRadio = React.createClass({
         const styles = BaseRadio.styles;
         const sat = this.props.apiOptions.satStyling;
 
+        const isMobile = this.props.apiOptions.isMobile;
+
         const choices = this.props.choices;
         const firstChoiceHighlighted = choices[0].highlighted;
         const lastChoiceHighlighted = choices[choices.length - 1].highlighted;
@@ -295,11 +311,9 @@ const BaseRadio = React.createClass({
                 // SAT doesn't use the "responsive styling" as it conflicts
                 // with their custom theming.
                 !sat && styles.responsiveRadioContainer,
-                !sat && firstChoiceHighlighted &&
-                    this.props.apiOptions.isMobile &&
+                !sat && firstChoiceHighlighted && isMobile &&
                     styles.radioContainerFirstHighlighted,
-                !sat && lastChoiceHighlighted &&
-                    this.props.apiOptions.isMobile &&
+                !sat && lastChoiceHighlighted && isMobile &&
                     styles.radioContainerLastHighlighted,
                 sat && styles.satRadio
             )
@@ -307,7 +321,10 @@ const BaseRadio = React.createClass({
 
         const instructionsClassName = classNames(
             'instructions',
-            css(styles.instructions)
+            css(
+                styles.instructions,
+                isMobile && styles.instructionsMobile
+            )
         );
         const instructions = this.getInstructionsText();
         const shouldShowInstructions = !sat;
