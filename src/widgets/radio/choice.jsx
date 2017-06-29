@@ -240,6 +240,14 @@ const Choice = React.createClass({
         };
     },
 
+    componentWillUpdate(nextProps) {
+        if (this.state.isInputFocused && nextProps.disabled) {
+            this.setState({
+                isInputFocused: false,
+            });
+        }
+    },
+
     onInputFocus: function() {
         this.setState({isInputFocused: true});
     },
