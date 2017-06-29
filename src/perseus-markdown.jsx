@@ -431,6 +431,7 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
                 message={node.message}
                 ruleName={node.ruleName}
                 inline={isInline(node.content)}
+                insideTable={node.insideTable}
             >
                 {output(node.content, state)}
             </Lint>;

@@ -33,6 +33,8 @@ const Lint = React.createClass({
         message: React.PropTypes.string.isRequired,
         // This is used as the fragment id (hash) in the URL of the link
         ruleName: React.PropTypes.string.isRequired,
+        // Lint warnings inside tables are handled specially
+        insideTable: React.PropTypes.bool.isRequired,
     },
 
     // Render the <a> element that holds the indicator icon and the tooltip
@@ -67,24 +69,42 @@ const Lint = React.createClass({
     // inline container and the link element that displays the indicator
     // and holds the tooltip.
     render: function() {
-        if (this.props.inline) {
-            return (
-                <span className={css(styles.lintContainer)}>
-                    {this.renderLink(styles.inlineHoverTarget)}
-                    <span>
+        if (this.props.insideTable) {
+            // If we're inside a table, then linty nodes just get
+            // a simple wrapper that allows them to be highlighted
+            if (this.props.inline) {
+                return (
+                    <span data-lint-inside-table="true">
                         {this.props.children}
                     </span>
-                </span>
-            );
-        } else {
-            return (
-                <div className={css(styles.lintContainer)}>
-                    {this.renderLink(styles.hoverTarget)}
-                    <div>
+                );
+            } else {
+                return (
+                    <div data-lint-inside-table="true">
                         {this.props.children}
                     </div>
-                </div>
-            );
+                );
+            }
+        } else {
+            if (this.props.inline) {
+                return (
+                    <span className={css(styles.lintContainer)}>
+                        {this.renderLink(styles.inlineHoverTarget)}
+                        <span>
+                            {this.props.children}
+                        </span>
+                    </span>
+                );
+            } else {
+                return (
+                    <div className={css(styles.lintContainer)}>
+                        {this.renderLink(styles.hoverTarget)}
+                        <div>
+                            {this.props.children}
+                        </div>
+                    </div>
+                );
+            }
         }
     },
 });
@@ -139,6 +159,18 @@ const styles = StyleSheet.create({
         // filter: invert(100%) if we want more visual change on hover here.
         ":hover ~ div": {
             outline: "1px solid " + constants.warningColor,
+        },
+
+        // If the div sibling is a table, then we may be displaying
+        // lint warnings about errors inside that table. In that case
+        // we want to highlight any linty descendants of the table
+        ":hover ~ div div[data-lint-inside-table]": {
+            outline: "1px solid " + constants.warningColor,
+        },
+
+        ":hover ~ div span[data-lint-inside-table]": {
+            backgroundColor: constants.warningColor,
+            color: constants.white,
         },
     },
 
