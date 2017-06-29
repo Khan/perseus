@@ -17,6 +17,8 @@ var seededRNG = require("../util.js").seededRNG;
 var captureScratchpadTouchStart =
         require("../util.js").captureScratchpadTouchStart;
 
+var defaultBoxSize = 400;
+var maxImageSize = 480;
 var BaseRadio = React.createClass({
     propTypes: {
         labelWrap: React.PropTypes.bool,
@@ -163,6 +165,8 @@ var Radio = React.createClass({
                 content: <Renderer {...content} />,
                 checked: values[i],
                 clue: <Renderer content={choice.clue} />,
+                useBoxSize: <Renderer content={choice.useBoxSize} />,
+                box: <Renderer content={choice.box} />,
             };
         });
         choices = this.enforceOrdering(choices);
@@ -174,7 +178,7 @@ var Radio = React.createClass({
             multipleSelect={this.props.multipleSelect}
             showClues={this.state.showClues}
             choices={choices.map(function(choice) {
-                return _.pick(choice, "content", "checked", "clue");
+                return _.pick(choice, "content", "checked", "clue", "useBoxSize", "box");
             })}
             onCheckedChange={this.onCheckedChange} />;
     },
@@ -318,11 +322,8 @@ var RadioEditor = React.createClass({
             content: React.PropTypes.string,
             clue: React.PropTypes.string,
             correct: React.PropTypes.bool,
-            backgroundImage: React.PropTypes.shape({
-                url: React.PropTypes.string,
-                width: React.PropTypes.number,
-                height: React.PropTypes.number
-            })
+            useBoxSize: React.PropTypes.bool,
+            box: React.PropTypes.arrayOf(React.PropTypes.number)
         })),
         displayCount: React.PropTypes.number,
         randomize: React.PropTypes.bool,
@@ -333,10 +334,15 @@ var RadioEditor = React.createClass({
 
     getDefaultProps: function() {
         return {
-            choices: [
-            {backgroundImage:{url:""}}, 
-            {backgroundImage:{url:""}}
-            ],
+            choices: 
+            [{
+                box: [defaultBoxSize, defaultBoxSize],
+                useBoxSize: false
+            }, 
+            {
+                box: [defaultBoxSize, defaultBoxSize],
+                useBoxSize: false
+            }],
             displayCount: null,
             randomize: false,
             noneOfTheAbove: false,
@@ -368,13 +374,28 @@ var RadioEditor = React.createClass({
                         "correct" :
                         "incorrect";
 
-                    var inputImage = <input
-                        type="file"
-                        content={choice.backgroundImage.url || ""}
-                        onChange={newProps => {
-                            this.onFileInputChange(i, newProps);
-                        }}
-                    />;
+                    var inputImage =
+                    <div>
+                         <input
+                            type="file"
+                            content={choice.content || ""}
+                            onChange={newProps => {
+                                this.onFileInputChange(i, newProps);
+                            }}
+                        />
+                        <br/>
+                        <label>
+                            <input type="checkbox"
+                                    checked={choice.useBoxSize}
+                                    onChange={this.toggleUseBoxSize(i)} />手動調整寬度，寬度上限480
+                        </label>
+                        <br/>
+                        <div>寬度:{' '}
+                            <input  type="number"
+                                    value={parseInt(choice.box[0])}
+                                    onChange={newProps => this.onWidthChange(i, newProps.target.value)} />
+                        </div>                        
+                    </div>;
 
                     var editor = <Editor
                         ref={"editor" + i}
@@ -518,6 +539,50 @@ var RadioEditor = React.createClass({
 
     },
 
+    toggleUseBoxSize: function(choiceIndex) {
+        var check_result = !this.props.choices[choiceIndex].useBoxSize
+        var choices = this.props.choices.slice();
+        choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
+            useBoxSize: check_result
+        });
+        this.props.onChange({choices: choices});
+        // this.props.onChange({choices: choices});        
+        // see this.props is choice or something else
+        // var useBoxSize = !this.props.choices[choiceIndex].useBoxSize;
+        // if (!useBoxSize) {
+        //     this.reloadImage(this.props.content);
+        // }
+        // this.props.choices[choiceIndex].useBoxSize = useBoxSize;
+        // this.props.onChange({choices: choices});
+        // this.props.onChange({
+        //     useBoxSize: useBoxSize
+        // });
+    },
+
+    onWidthChange: function(choiceIndex, newAlignment) {
+        image_w = parseInt(newAlignment) > maxImageSize ? maxImageSize:parseInt(newAlignment);
+        // see if wee can get base 64 image w and h and try to resize but now skip it first
+        // image_h = parseInt(newAlignment) > maxImageSize ? maxImageSize:parseInt(newAlignment);
+
+        var box = [image_w, image_w];
+        // this.props.choices[choiceIndex].box = box;
+
+        var choices = this.props.choices.slice();
+        choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
+            box: box
+        });    
+        this.props.onChange({box: box});
+        // this.props.onChange({choices: choices});
+        // var image = _.clone(this.props.choices[choiceIndex].backgroundImage);
+        // if (this.props.useBoxSize) {
+        //     var w_h_ratio = image.height / image.width;
+        //     image.width = parseInt(newAlignment) > maxImageSize ? maxImageSize:parseInt(newAlignment);
+        //     image.height = Math.round(image.width * w_h_ratio);
+        // }
+        // var box = [image.width, image.height];
+        // this.props.choices[choiceIndex].backgroundImage = image;
+        // this.props.choices[choiceIndex].box = box;
+    },
 
     onCheckedChange: function(checked) {
         var choices = _.map(this.props.choices, function(choice, i) {
