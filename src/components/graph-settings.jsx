@@ -1,12 +1,10 @@
-/* eslint-disable brace-style, comma-dangle, object-curly-spacing, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp, space-unary-ops */
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+/* eslint-disable react/forbid-prop-types */
 
-const React = require('react');
+const React = require("react");
 const ReactDOM = require("react-dom");
 const _ = require("underscore");
 
-const Changeable  = require("../mixins/changeable.jsx");
+const Changeable = require("../mixins/changeable.jsx");
 
 const ButtonGroup = require("react-components/button-group.jsx");
 const InfoTip = require("../components/info-tip.jsx");
@@ -15,12 +13,12 @@ const RangeInput = require("../components/range-input.jsx");
 const TeX = require("react-components/tex.jsx");
 const Util = require("../util.js");
 const KhanMath = require("../util/math.js");
-const { interactiveSizes } = require("../styles/constants.js");
+const {interactiveSizes} = require("../styles/constants.js");
 
 const defaultBackgroundImage = {
     url: null,
     width: 0,
-    height: 0
+    height: 0,
 };
 
 function numSteps(range, step) {
@@ -31,18 +29,25 @@ const GraphSettings = React.createClass({
     propTypes: {
         ...Changeable.propTypes,
         editableSettings: React.PropTypes.arrayOf(
-            React.PropTypes.oneOf(
-                ["canvas", "graph", "snap", "image", "measure"])),
+            React.PropTypes.oneOf([
+                "canvas",
+                "graph",
+                "snap",
+                "image",
+                "measure",
+            ])
+        ),
         box: React.PropTypes.arrayOf(React.PropTypes.number),
         labels: React.PropTypes.arrayOf(React.PropTypes.string),
-        range: React.PropTypes.arrayOf(React.PropTypes.arrayOf(
-            React.PropTypes.number)),
+        range: React.PropTypes.arrayOf(
+            React.PropTypes.arrayOf(React.PropTypes.number)
+        ),
         step: React.PropTypes.arrayOf(React.PropTypes.number),
         gridStep: React.PropTypes.arrayOf(React.PropTypes.number),
         snapStep: React.PropTypes.arrayOf(React.PropTypes.number),
         valid: React.PropTypes.oneOfType([
             React.PropTypes.bool,
-            React.PropTypes.string
+            React.PropTypes.string,
         ]),
         backgroundImage: React.PropTypes.object,
         markings: React.PropTypes.oneOf(["graph", "grid", "none"]),
@@ -50,7 +55,7 @@ const GraphSettings = React.createClass({
         showRuler: React.PropTypes.bool,
         showTooltips: React.PropTypes.bool,
         rulerLabel: React.PropTypes.string,
-        rulerTicks: React.PropTypes.number
+        rulerTicks: React.PropTypes.number,
     },
 
     getDefaultProps: function() {
@@ -72,7 +77,7 @@ const GraphSettings = React.createClass({
             showRuler: false,
             showTooltips: false,
             rulerLabel: "",
-            rulerTicks: 10
+            rulerTicks: 10,
         };
     },
 
@@ -80,224 +85,85 @@ const GraphSettings = React.createClass({
         return this.stateFromProps(this.props);
     },
 
+    componentDidMount: function() {
+        this.changeGraph = _.debounce(this.changeGraph, 300);
+    },
+
     componentWillReceiveProps: function(nextProps) {
         // Make sure that state updates when switching
         // between different items in a multi-item editor.
-        if (!_.isEqual(this.props.labels, nextProps.labels) ||
-                !_.isEqual(this.props.gridStep, nextProps.gridStep) ||
-                !_.isEqual(this.props.snapStep, nextProps.snapStep) ||
-                !_.isEqual(this.props.step, nextProps.step) ||
-                !_.isEqual(this.props.range, nextProps.range) ||
-                !_.isEqual(this.props.backgroundImage,
-                           nextProps.backgroundImage)) {
+        if (
+            !_.isEqual(this.props.labels, nextProps.labels) ||
+            !_.isEqual(this.props.gridStep, nextProps.gridStep) ||
+            !_.isEqual(this.props.snapStep, nextProps.snapStep) ||
+            !_.isEqual(this.props.step, nextProps.step) ||
+            !_.isEqual(this.props.range, nextProps.range) ||
+            !_.isEqual(this.props.backgroundImage, nextProps.backgroundImage)
+        ) {
             this.setState(this.stateFromProps(nextProps));
         }
-    },
-
-    stateFromProps: function(props) {
-        return {
-            labelsTextbox: props.labels,
-            gridStepTextbox: props.gridStep,
-            snapStepTextbox: props.snapStep,
-            stepTextbox: props.step,
-            rangeTextbox: props.range,
-            backgroundImage: _.clone(props.backgroundImage),
-        };
     },
 
     change(...args) {
         return Changeable.change.apply(this, args);
     },
 
-    render: function() {
-        const scale = [
-            KhanMath.roundTo(2,
-                Util.scaleFromExtent(this.props.range[0], this.props.box[0])),
-            KhanMath.roundTo(2,
-                Util.scaleFromExtent(this.props.range[1], this.props.box[1]))];
+    // TODO(aria): Make either a wrapper for standard events to work
+    // with this.change, or make these use some TextInput/NumberInput box
+    changeRulerLabel: function(e) {
+        this.change({rulerLabel: e.target.value});
+    },
 
-        return <div>
-            {_.contains(this.props.editableSettings, "canvas") &&
-            <div className="graph-settings">
-                <div className="perseus-widget-row">
-                    Canvas size (x,y pixels)
-                    <RangeInput
-                        value={this.props.box}
-                        onChange={(box) => { this.change({box: box}); }} />
-                </div>
-                <div className="perseus-widget-row">
-                    Scale (px per div): <TeX>{"(" + scale[0] + ", " +
-                        scale[1] + ")"}</TeX>
-                </div>
-            </div>}
+    changeRulerTicks: function(e) {
+        this.change({rulerTicks: +e.target.value});
+    },
 
-            {_.contains(this.props.editableSettings, "graph") &&
-            <div className="graph-settings">
-                <div className="perseus-widget-row">
-                    <div className="perseus-widget-left-col"> x Label
-                        <input  type="text"
-                                className="graph-settings-axis-label"
-                                ref="labels-0"
-                                onChange={(e) => this.changeLabel(0, e)}
-                                value={this.state.labelsTextbox[0]} />
-                    </div>
-                    <div className="perseus-widget-right-col">y Label
-                        <input  type="text"
-                                className="graph-settings-axis-label"
-                                ref="labels-1"
-                                onChange={(e) => this.changeLabel(1, e)}
-                                value={this.state.labelsTextbox[1]} />
-                    </div>
-                </div>
+    changeBackgroundUrl: function(e) {
+        // Only continue on blur or "enter"
+        if (e.type === "keypress" && e.key !== "Enter") {
+            return;
+        }
 
-                <div className="perseus-widget-row">
-                    <div className="perseus-widget-left-col">
-                        x Range
-                        <RangeInput
-                            value={this.state.rangeTextbox[0]}
-                            onChange={(vals) => this.changeRange(0, vals)} />
-                    </div>
-                    <div className="perseus-widget-right-col">
-                        y Range
-                        <RangeInput
-                            value={this.state.rangeTextbox[1]}
-                            onChange={(vals) => this.changeRange(1, vals)} />
-                    </div>
-                </div>
-                <div className="perseus-widget-row">
-                    <div className="perseus-widget-left-col">
-                        Tick Step
-                        <RangeInput value= {this.state.stepTextbox}
-                                    onChange = {this.changeStep} />
-                    </div>
-                    <div className="perseus-widget-right-col">
-                        Grid Step
-                        <RangeInput value= {this.state.gridStepTextbox}
-                                    onChange = {this.changeGridStep} />
-                    </div>
-                </div>
-                {_.contains(this.props.editableSettings, "snap") &&
-                <div className="perseus-widget-row">
-                    <div className="perseus-widget-left-col">
-                        Snap Step
-                        <RangeInput value= {this.state.snapStepTextbox}
-                                    onChange = {this.changeSnapStep} />
-                    </div>
-                </div>}
-                <div className="perseus-widget-row">
-                    <label>Markings:{' '} </label>
-                    <ButtonGroup value={this.props.markings}
-                        allowEmpty={false}
-                        buttons={[
-                            {value: "graph", content: "Graph"},
-                            {value: "grid", content: "Grid"},
-                            {value: "none", content: "None"}]}
-                        onChange={this.change("markings")} />
-                </div>
-                <div className="perseus-widget-left-col">
-                    <PropCheckBox label="Show tooltips"
-                                  showTooltips={this.props.showTooltips}
-                                  onChange={this.change} />
-                </div>
-            </div>}
+        const setUrl = (url, width, height) => {
+            const image = _.clone(this.props.backgroundImage);
+            image.url = url;
+            image.width = width;
+            image.height = height;
+            this.setState(
+                {
+                    backgroundImage: image,
+                },
+                this.changeGraph
+            );
+        };
 
-            {_.contains(this.props.editableSettings, "image") &&
-            <div className="image-settings">
-                <div>Background image:</div>
-                <div>Url:{' '}
-                    <input type="text"
-                            className="graph-settings-background-url"
-                            ref="bg-url"
-                            value={this.state.backgroundImage.url}
-                            onChange={(e) => {
-                                const image = _.clone(
-                                    this.props.backgroundImage);
-                                image.url = e.target.value;
-                                this.setState({backgroundImage: image});
-                            }}
-                            onKeyPress={this.changeBackgroundUrl}
-                            onBlur={this.changeBackgroundUrl} />
-                    <InfoTip>
-                        <p>Create an image in graphie, or use the "Add image"
-                        function to create a background.</p>
-                    </InfoTip>
-                </div>
-            </div>}
-
-            {_.contains(this.props.editableSettings, "measure") &&
-            <div className="misc-settings">
-                <div className="perseus-widget-row">
-                    <div className="perseus-widget-left-col">
-                        <PropCheckBox label="Show ruler"
-                            showRuler={this.props.showRuler}
-                            onChange={this.change} />
-                    </div>
-                    <div className="perseus-widget-right-col">
-                        <PropCheckBox label="Show protractor"
-                            showProtractor={this.props.showProtractor}
-                            onChange={this.change} />
-                    </div>
-                </div>
-                {this.props.showRuler && <div>
-                    <div>
-                        <label>
-                            {' '}Ruler label:{' '}
-                            <select
-                                onChange={this.changeRulerLabel}
-                                value={this.props.rulerLabel} >
-                                    <option value="">None</option>
-                                    <optgroup label="Metric">
-                                        {this.renderLabelChoices([
-                                            ["milimeters", "mm"],
-                                            ["centimeters", "cm"],
-                                            ["meters", "m"],
-                                            ["kilometers", "km"]
-                                        ])}
-                                    </optgroup>
-                                    <optgroup label="Imperial">
-                                        {this.renderLabelChoices([
-                                            ["inches", "in"],
-                                            ["feet", "ft"],
-                                            ["yards", "yd"],
-                                            ["miles", "mi"]
-                                        ])}
-                                    </optgroup>
-                            </select>
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            {' '}Ruler ticks:{' '}
-                            <select
-                                onChange={this.changeRulerTicks}
-                                value={this.props.rulerTicks} >
-                                    {_.map([1, 2, 4, 8, 10, 16], function(n) {
-                                        return <option value={n}>{n}</option>;
-                                    })}
-                            </select>
-                        </label>
-                    </div>
-                </div>}
-            </div>}
-        </div>;
+        const url = ReactDOM.findDOMNode(this.refs["bg-url"]).value;
+        if (url) {
+            Util.getImageSize(url, (width, height) => {
+                if (this.isMounted()) {
+                    setUrl(url, width, height);
+                }
+            });
+        } else {
+            setUrl(null, 0, 0);
+        }
     },
 
     renderLabelChoices: function(choices) {
         return _.map(choices, function(nameAndValue) {
-            return <option value={nameAndValue[1]}>{nameAndValue[0]}</option>;
+            return (
+                <option value={nameAndValue[1]}>
+                    {nameAndValue[0]}
+                </option>
+            );
         });
     },
-
-    componentDidMount: function() {
-        this.changeGraph = _.debounce(this.changeGraph, 300);
-    },
-
 
     validRange: function(range) {
         const numbers = _.every(range, function(num) {
             return _.isFinite(num);
         });
-        if (! numbers) {
+        if (!numbers) {
             return "Range must be a valid number";
         }
         if (range[0] >= range[1]) {
@@ -307,19 +173,27 @@ const GraphSettings = React.createClass({
     },
 
     validateStepValue: function(settings) {
-        const { step, range, name, minTicks, maxTicks } = settings;
+        const {step, range, name, minTicks, maxTicks} = settings;
 
-        if (! _.isFinite(step)) {
+        if (!_.isFinite(step)) {
             return name + " must be a valid number";
         }
         const nSteps = numSteps(range, step);
         if (nSteps < minTicks) {
-            return name + " is too large, there must be at least " +
-               minTicks + " ticks.";
+            return (
+                name +
+                " is too large, there must be at least " +
+                minTicks +
+                " ticks."
+            );
         }
         if (nSteps > maxTicks) {
-            return name + " is too small, there can be at most " +
-               maxTicks + " ticks.";
+            return (
+                name +
+                " is too small, there can be at most " +
+                maxTicks +
+                " ticks."
+            );
         }
         return true;
     },
@@ -330,7 +204,7 @@ const GraphSettings = React.createClass({
             range: range,
             name: "Snap step",
             minTicks: 5,
-            maxTicks: 60
+            maxTicks: 60,
         });
     },
 
@@ -340,7 +214,7 @@ const GraphSettings = React.createClass({
             range: range,
             name: "Grid step",
             minTicks: 3,
-            maxTicks: 60
+            maxTicks: 60,
         });
     },
 
@@ -350,7 +224,7 @@ const GraphSettings = React.createClass({
             range: range,
             name: "Step",
             minTicks: 3,
-            maxTicks: 20
+            maxTicks: 20,
         });
     },
 
@@ -411,7 +285,7 @@ const GraphSettings = React.createClass({
         const val = e.target.value;
         const labels = this.state.labelsTextbox.slice();
         labels[i] = val;
-        this.setState({ labelsTextbox: labels }, this.changeGraph);
+        this.setState({labelsTextbox: labels}, this.changeGraph);
     },
 
     changeRange: function(i, values) {
@@ -422,35 +296,39 @@ const GraphSettings = React.createClass({
         const snapStep = this.state.snapStepTextbox.slice();
         const scale = Util.scaleFromExtent(ranges[i], this.props.box[i]);
         if (this.validRange(ranges[i]) === true) {
-            step[i] = Util.tickStepFromExtent(
-                    ranges[i], this.props.box[i]);
+            step[i] = Util.tickStepFromExtent(ranges[i], this.props.box[i]);
             gridStep[i] = Util.gridStepFromTickStep(step[i], scale);
             snapStep[i] = gridStep[i] / 2;
         }
-        this.setState({
-            stepTextbox: step,
-            gridStepTextbox: gridStep,
-            snapStepTextbox: snapStep,
-            rangeTextbox: ranges
-        }, this.changeGraph);
+        this.setState(
+            {
+                stepTextbox: step,
+                gridStepTextbox: gridStep,
+                snapStepTextbox: snapStep,
+                rangeTextbox: ranges,
+            },
+            this.changeGraph
+        );
     },
 
     changeStep: function(step) {
-        this.setState({ stepTextbox: step }, this.changeGraph);
+        this.setState({stepTextbox: step}, this.changeGraph);
     },
 
     changeSnapStep: function(snapStep) {
-        this.setState({ snapStepTextbox: snapStep },
-                this.changeGraph);
+        this.setState({snapStepTextbox: snapStep}, this.changeGraph);
     },
 
     changeGridStep: function(gridStep) {
-        this.setState({
-            gridStepTextbox: gridStep,
-            snapStepTextbox: _.map(gridStep, function(step) {
-                return step / 2;
-            })
-        }, this.changeGraph);
+        this.setState(
+            {
+                gridStepTextbox: gridStep,
+                snapStepTextbox: _.map(gridStep, function(step) {
+                    return step / 2;
+                }),
+            },
+            this.changeGraph
+        );
     },
 
     changeGraph: function() {
@@ -468,10 +346,16 @@ const GraphSettings = React.createClass({
         //   a string -> the settings are invalid, and the explanation
         //               is contained in the string
         // TODO(aria): Refactor this to not be confusing
-        const validationResult = this.validateGraphSettings(range, step,
-                gridStep, snapStep, image);
+        const validationResult = this.validateGraphSettings(
+            range,
+            step,
+            gridStep,
+            snapStep,
+            image
+        );
 
-        if (validationResult === true) {  // either true or a string
+        if (validationResult === true) {
+            // either true or a string
             this.change({
                 valid: true,
                 labels: labels,
@@ -479,52 +363,236 @@ const GraphSettings = React.createClass({
                 step: step,
                 gridStep: gridStep,
                 snapStep: snapStep,
-                backgroundImage: image
+                backgroundImage: image,
             });
         } else {
             this.change({
-                valid: validationResult  // a string message, not false
+                valid: validationResult, // a string message, not false
             });
         }
     },
 
-    changeBackgroundUrl: function(e) {
-        // Only continue on blur or "enter"
-        if (e.type === "keypress" && e.key !== "Enter") {
-            return;
-        }
+    render: function() {
+        const scale = [
+            KhanMath.roundTo(
+                2,
+                Util.scaleFromExtent(this.props.range[0], this.props.box[0])
+            ),
+            KhanMath.roundTo(
+                2,
+                Util.scaleFromExtent(this.props.range[1], this.props.box[1])
+            ),
+        ];
 
-        const setUrl = (url, width, height) => {
-            const image = _.clone(this.props.backgroundImage);
-            image.url = url;
-            image.width = width;
-            image.height = height;
-            this.setState({
-                backgroundImage: image
-            }, this.changeGraph);
-        };
+        return (
+            <div>
+                {_.contains(this.props.editableSettings, "canvas") &&
+                    <div className="graph-settings">
+                        <div className="perseus-widget-row">
+                            Canvas size (x,y pixels)
+                            <RangeInput
+                                value={this.props.box}
+                                onChange={box => {
+                                    this.change({box: box});
+                                }}
+                            />
+                        </div>
+                        <div className="perseus-widget-row">
+                            Scale (px per div):{" "}
+                            <TeX>{"(" + scale[0] + ", " + scale[1] + ")"}</TeX>
+                        </div>
+                    </div>}
 
-        const url = ReactDOM.findDOMNode(this.refs["bg-url"]).value;
-        if (url) {
-            Util.getImageSize(url, (width, height) => {
-                if (this.isMounted()) {
-                    setUrl(url, width, height);
-                }
-            });
-        } else {
-            setUrl(null, 0, 0);
-        }
+                {_.contains(this.props.editableSettings, "graph") &&
+                    <div className="graph-settings">
+                        <div className="perseus-widget-row">
+                            <div className="perseus-widget-left-col">
+                                {" "}x Label
+                                <input
+                                    type="text"
+                                    className="graph-settings-axis-label"
+                                    ref="labels-0"
+                                    onChange={e => this.changeLabel(0, e)}
+                                    value={this.state.labelsTextbox[0]}
+                                />
+                            </div>
+                            <div className="perseus-widget-right-col">
+                                y Label
+                                <input
+                                    type="text"
+                                    className="graph-settings-axis-label"
+                                    ref="labels-1"
+                                    onChange={e => this.changeLabel(1, e)}
+                                    value={this.state.labelsTextbox[1]}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="perseus-widget-row">
+                            <div className="perseus-widget-left-col">
+                                x Range
+                                <RangeInput
+                                    value={this.state.rangeTextbox[0]}
+                                    onChange={vals => this.changeRange(0, vals)}
+                                />
+                            </div>
+                            <div className="perseus-widget-right-col">
+                                y Range
+                                <RangeInput
+                                    value={this.state.rangeTextbox[1]}
+                                    onChange={vals => this.changeRange(1, vals)}
+                                />
+                            </div>
+                        </div>
+                        <div className="perseus-widget-row">
+                            <div className="perseus-widget-left-col">
+                                Tick Step
+                                <RangeInput
+                                    value={this.state.stepTextbox}
+                                    onChange={this.changeStep}
+                                />
+                            </div>
+                            <div className="perseus-widget-right-col">
+                                Grid Step
+                                <RangeInput
+                                    value={this.state.gridStepTextbox}
+                                    onChange={this.changeGridStep}
+                                />
+                            </div>
+                        </div>
+                        {_.contains(this.props.editableSettings, "snap") &&
+                            <div className="perseus-widget-row">
+                                <div className="perseus-widget-left-col">
+                                    Snap Step
+                                    <RangeInput
+                                        value={this.state.snapStepTextbox}
+                                        onChange={this.changeSnapStep}
+                                    />
+                                </div>
+                            </div>}
+                        <div className="perseus-widget-row">
+                            <label>Markings: </label>
+                            <ButtonGroup
+                                value={this.props.markings}
+                                allowEmpty={false}
+                                buttons={[
+                                    {value: "graph", content: "Graph"},
+                                    {value: "grid", content: "Grid"},
+                                    {value: "none", content: "None"},
+                                ]}
+                                onChange={this.change("markings")}
+                            />
+                        </div>
+                        <div className="perseus-widget-left-col">
+                            <PropCheckBox
+                                label="Show tooltips"
+                                showTooltips={this.props.showTooltips}
+                                onChange={this.change}
+                            />
+                        </div>
+                    </div>}
+
+                {_.contains(this.props.editableSettings, "image") &&
+                    <div className="image-settings">
+                        <div>Background image:</div>
+                        <div>
+                            Url:{" "}
+                            <input
+                                type="text"
+                                className="graph-settings-background-url"
+                                ref="bg-url"
+                                value={this.state.backgroundImage.url}
+                                onChange={e => {
+                                    const image = _.clone(
+                                        this.props.backgroundImage
+                                    );
+                                    image.url = e.target.value;
+                                    this.setState({backgroundImage: image});
+                                }}
+                                onKeyPress={this.changeBackgroundUrl}
+                                onBlur={this.changeBackgroundUrl}
+                            />
+                            <InfoTip>
+                                <p>
+                                    Create an image in graphie, or use the "Add
+                                    image" function to create a background.
+                                </p>
+                            </InfoTip>
+                        </div>
+                    </div>}
+
+                {_.contains(this.props.editableSettings, "measure") &&
+                    <div className="misc-settings">
+                        <div className="perseus-widget-row">
+                            <div className="perseus-widget-left-col">
+                                <PropCheckBox
+                                    label="Show ruler"
+                                    showRuler={this.props.showRuler}
+                                    onChange={this.change}
+                                />
+                            </div>
+                            <div className="perseus-widget-right-col">
+                                <PropCheckBox
+                                    label="Show protractor"
+                                    showProtractor={this.props.showProtractor}
+                                    onChange={this.change}
+                                />
+                            </div>
+                        </div>
+                        {this.props.showRuler &&
+                            <div>
+                                <div>
+                                    <label>
+                                        {" "}Ruler label:{" "}
+                                        <select
+                                            onChange={this.changeRulerLabel}
+                                            value={this.props.rulerLabel}
+                                        >
+                                            <option value="">None</option>
+                                            <optgroup label="Metric">
+                                                {this.renderLabelChoices([
+                                                    ["milimeters", "mm"],
+                                                    ["centimeters", "cm"],
+                                                    ["meters", "m"],
+                                                    ["kilometers", "km"],
+                                                ])}
+                                            </optgroup>
+                                            <optgroup label="Imperial">
+                                                {this.renderLabelChoices([
+                                                    ["inches", "in"],
+                                                    ["feet", "ft"],
+                                                    ["yards", "yd"],
+                                                    ["miles", "mi"],
+                                                ])}
+                                            </optgroup>
+                                        </select>
+                                    </label>
+                                </div>
+                                <div>
+                                    <label>
+                                        {" "}Ruler ticks:{" "}
+                                        <select
+                                            onChange={this.changeRulerTicks}
+                                            value={this.props.rulerTicks}
+                                        >
+                                            {_.map(
+                                                [1, 2, 4, 8, 10, 16],
+                                                function(n) {
+                                                    return (
+                                                        <option value={n}>
+                                                            {n}
+                                                        </option>
+                                                    );
+                                                }
+                                            )}
+                                        </select>
+                                    </label>
+                                </div>
+                            </div>}
+                    </div>}
+            </div>
+        );
     },
-
-    // TODO(aria): Make either a wrapper for standard events to work
-    // with this.change, or make these use some TextInput/NumberInput box
-    changeRulerLabel: function(e) {
-        this.change({rulerLabel: e.target.value});
-    },
-
-    changeRulerTicks: function(e) {
-        this.change({rulerTicks: +e.target.value});
-    }
 });
 
 module.exports = GraphSettings;

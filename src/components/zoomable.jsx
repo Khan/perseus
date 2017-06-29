@@ -1,7 +1,3 @@
-/* eslint-disable object-curly-spacing */
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /**
  * Zooms child to fit with tap-to-zoom behavior.
  */
@@ -43,7 +39,7 @@ const Zoomable = React.createClass({
         return {
             animateHeight: false,
             readyToMeasureDeferred: deferred,
-            computeChildBounds: (parentNode) => {
+            computeChildBounds: parentNode => {
                 const firstChild = parentNode.firstElementChild;
 
                 return {
@@ -71,7 +67,7 @@ const Zoomable = React.createClass({
                 this.scaleChildToFit(false);
 
                 if (window.MutationObserver) {
-                    this._observer = new MutationObserver((mutations) => {
+                    this._observer = new MutationObserver(mutations => {
                         if (this.isMounted()) {
                             for (const mutation of mutations) {
                                 if (mutation.target !== this._node) {
@@ -84,7 +80,9 @@ const Zoomable = React.createClass({
                     });
 
                     this._observer.observe(this._node, {
-                        childList: true, subtree: true, attributes: true,
+                        childList: true,
+                        subtree: true,
+                        attributes: true,
                     });
                 }
                 window.addEventListener("resize", this.reset);
@@ -107,14 +105,17 @@ const Zoomable = React.createClass({
             return;
         }
         this._originalWidth = null;
-        this.setState({
-            visible: false,
-            compactHeight: null,
-            expandedHeight: null,
-            zoomed: true,
-        }, () => {
-            this.scaleChildToFit(false);
-        });
+        this.setState(
+            {
+                visible: false,
+                compactHeight: null,
+                expandedHeight: null,
+                zoomed: true,
+            },
+            () => {
+                this.scaleChildToFit(false);
+            }
+        );
     },
 
     stopPropagationIfZoomed(e) {
@@ -132,8 +133,10 @@ const Zoomable = React.createClass({
             width: this._node.offsetWidth,
             height: this._node.offsetHeight,
         };
-        const childBounds =
-            this.props.computeChildBounds(this._node, parentBounds);
+        const childBounds = this.props.computeChildBounds(
+            this._node,
+            parentBounds
+        );
 
         const childWidth = childBounds.width;
         const childHeight = childBounds.height;
@@ -182,58 +185,66 @@ const Zoomable = React.createClass({
 
     render() {
         const {
-            visible, scale, compactHeight, expandedHeight, zoomed,
+            visible,
+            scale,
+            compactHeight,
+            expandedHeight,
+            zoomed,
         } = this.state;
-        const { animateHeight } = this.props;
+        const {animateHeight} = this.props;
 
         const property = animateHeight
-                ? 'opacity transform height'
-                : 'opacity transform';
+            ? "opacity transform height"
+            : "opacity transform";
 
         // Since we're not using aphrodite, we have to prefix ourselves.
-        const transitionStyle = visible ? {
-            transitionProperty: property,
-            WebkitTransitionProperty: property,
-            msTransitionProperty: property,
-            transitionDuration: '0.3s',
-            WebkitTransitionDuration: '0.3s',
-            msTransitionDuration: '0.3s',
-            transitionTimingFunction: 'ease-out',
-            WebkitTransitionTimingfunction: 'ease-out',
-            msTransitionTmingFunction: 'ease-out',
-        } : {};
+        const transitionStyle = visible
+            ? {
+                transitionProperty: property,
+                WebkitTransitionProperty: property,
+                msTransitionProperty: property,
+                transitionDuration: "0.3s",
+                WebkitTransitionDuration: "0.3s",
+                msTransitionDuration: "0.3s",
+                transitionTimingFunction: "ease-out",
+                WebkitTransitionTimingfunction: "ease-out",
+                msTransitionTmingFunction: "ease-out",
+            }
+            : {};
 
         // Do a fancy little slide as we fade the contents in the first time.
-        const translateOffset = visible ? '' : ' translate(0, 8px)';
-        const transform =  zoomed
-                ? `scale(1, 1) ${translateOffset}`
-                : `scale(${scale}, ${scale}) ${translateOffset}`;
+        const translateOffset = visible ? "" : " translate(0, 8px)";
+        const transform = zoomed
+            ? `scale(1, 1) ${translateOffset}`
+            : `scale(${scale}, ${scale}) ${translateOffset}`;
 
         const style = {
-            display: 'block',
-            width: '100%',
+            display: "block",
+            width: "100%",
             height: zoomed ? expandedHeight : compactHeight,
             transform: transform,
             WebkitTransform: transform,
             msTransform: transform,
-            transformOrigin: '0 0',
-            WebkitTransformOrigin: '0 0',
-            msTransformOrigin: '0 0',
+            transformOrigin: "0 0",
+            WebkitTransformOrigin: "0 0",
+            msTransformOrigin: "0 0",
             opacity: visible ? 1 : 0,
-            WebkitTapHighlightColor: 'transparent',
+            WebkitTapHighlightColor: "transparent",
             ...transitionStyle,
         };
 
-        return <span
-            onClick={this.handleClick}
-            onClickCapture={this.handleClickIfZoomed}
-            onTouchCancelCapture={this.stopPropagationIfZoomed}
-            onTouchEndCapture={this.stopPropagationIfZoomed}
-            onTouchStartCapture={this.stopPropagationIfZoomed}
-            style={style}
-        >
-            {this.props.children}
-        </span>;
+        return (
+            <span
+                onClick={this.handleClick}
+                onClickCapture={this.handleClickIfZoomed}
+                onTouchCancelCapture={this.stopPropagationIfZoomed}
+                onTouchEndCapture={this.stopPropagationIfZoomed}
+                onTouchStartCapture={this.stopPropagationIfZoomed}
+                style={style}
+            >
+                {this.props.children}
+            </span>
+        );
     },
 });
 

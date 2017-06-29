@@ -1,21 +1,17 @@
-/* eslint-disable no-var */
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /* globals KA */
-var classNames = require("classnames");
-var React = require("react");
-var $ = require("jquery");
-var _ = require("underscore");
+const classNames = require("classnames");
+const React = require("react");
+const $ = require("jquery");
+const _ = require("underscore");
 
-var FixedToResponsive = require("../components/fixed-to-responsive.jsx");
-var Graphie = require("../components/graphie.jsx");
-var ImageLoader = require("../components/image-loader.jsx");
-var Util = require("../util.js");
-var Zoom = require("../zoom.js");
+const FixedToResponsive = require("../components/fixed-to-responsive.jsx");
+const Graphie = require("../components/graphie.jsx");
+const ImageLoader = require("../components/image-loader.jsx");
+const Util = require("../util.js");
+const Zoom = require("../zoom.js");
 
 // Minimum image width to make an image appear as zoomable.
-var ZOOMABLE_THRESHOLD = 700;
+const ZOOMABLE_THRESHOLD = 700;
 
 // The global cache of label data. Its format is:
 // {
@@ -27,19 +23,20 @@ var ZOOMABLE_THRESHOLD = 700;
 //   },
 //   ...
 // }
-var labelDataCache = {};
+const labelDataCache = {};
 
 // Write our own JSONP handler because all the other ones don't do things we
 // need.
-var doJSONP = function(url, options) {
-    options = _.extend({}, {
+const doJSONP = function(url, options) {
+    options = {
         callbackName: "callback",
         success: $.noop,
         error: $.noop,
-    }, options);
+        ...options,
+    };
 
     // Create the script
-    var script = document.createElement("script");
+    const script = document.createElement("script");
     script.setAttribute("async", "");
     script.setAttribute("src", url);
 
@@ -65,8 +62,8 @@ var doJSONP = function(url, options) {
     document.head.appendChild(script);
 };
 
-var svgLabelsRegex = /^web\+graphie\:/;
-var hashRegex = /\/([^/]+)$/;
+const svgLabelsRegex = /^web\+graphie\:/;
+const hashRegex = /\/([^/]+)$/;
 
 function isLabeledSVG(url) {
     return svgLabelsRegex.test(url);
@@ -83,7 +80,7 @@ function isImageProbablyPhotograph(imageUrl) {
 // appropriate suffixes to get the image and other data
 function getBaseUrl(url) {
     // Force HTTPS connection unless we're on HTTP, so that IE works.
-    var protocol = window.location.protocol === "http:" ? "http:" : "https:";
+    const protocol = window.location.protocol === "http:" ? "http:" : "https:";
 
     return url.replace(svgLabelsRegex, protocol);
 }
@@ -106,7 +103,7 @@ function shouldRenderJipt() {
     return typeof KA !== "undefined" && KA.language === "en-pt";
 }
 
-var specialChars = {
+const specialChars = {
     // escaped: original
     "\\t": "\t",
     "\\n": "\n",
@@ -114,33 +111,31 @@ var specialChars = {
     "\\\\": "\\",
 };
 
-var rEscapedChars = /\\t|\\n|\\r|\\\\/g;
+const rEscapedChars = /\\t|\\n|\\r|\\\\/g;
 
-var jiptLabels = [];
+const jiptLabels = [];
 if (shouldRenderJipt()) {
     if (!KA.jipt_dom_insert_checks) {
         KA.jipt_dom_insert_checks = [];
     }
 
     KA.jipt_dom_insert_checks.push(function(text, node, attribute) {
-        var index = $(node).data("jipt-label-index");
+        const index = $(node).data("jipt-label-index");
         if (node && typeof index !== "undefined") {
-            var {label, useMath} = jiptLabels[index];
+            const {label, useMath} = jiptLabels[index];
 
             label.text("");
 
-            text = text.replace(
-                rEscapedChars,
-                function(ch) {
-                    return specialChars[ch];
-                });
+            text = text.replace(rEscapedChars, function(ch) {
+                return specialChars[ch];
+            });
 
             if (useMath) {
-                var mathRegex = /^\$(.*)\$$/;
-                var match = text.match(mathRegex);
-                var mathText = match ?
-                        match[1] :
-                        "\\color{red}{\\text{Invalid Math}}";
+                const mathRegex = /^\$(.*)\$$/;
+                const match = text.match(mathRegex);
+                const mathText = match
+                    ? match[1]
+                    : "\\color{red}{\\text{Invalid Math}}";
                 label.processMath(mathText, true);
             } else {
                 label.processText(text);
@@ -154,13 +149,13 @@ if (shouldRenderJipt()) {
 
 // A regex to split at the last / of a URL, separating the base part from the
 // hash. This is used to create the localized label data URLs.
-var splitHashRegex = /\/(?=[^/]+$)/;
+const splitHashRegex = /\/(?=[^/]+$)/;
 
 function getLocalizedDataUrl(url) {
     if (typeof KA !== "undefined") {
         // Parse out the hash and base so that we can insert the locale
         // directory in the middle.
-        var [base, hash] = getBaseUrl(url).split(splitHashRegex);
+        const [base, hash] = getBaseUrl(url).split(splitHashRegex);
         return `${base}/${KA.language}/${hash}-data.json`;
     } else {
         return getDataUrl(url);
@@ -169,7 +164,7 @@ function getLocalizedDataUrl(url) {
 
 // Get the hash from the url, which is just the filename
 function getUrlHash(url) {
-    var match = url.match(hashRegex);
+    const match = url.match(hashRegex);
 
     return match && match[1];
 }
@@ -187,7 +182,7 @@ function defaultPreloader() {
     });
 }
 
-var SvgImage = React.createClass({
+const SvgImage = React.createClass({
     propTypes: {
         allowFullBleed: React.PropTypes.bool,
         alt: React.PropTypes.string,
@@ -290,15 +285,14 @@ var SvgImage = React.createClass({
             return false;
         }
 
-        var wasLoaded = this.isLoadedInState(this.state);
-        var nextLoaded = this.isLoadedInState(nextState);
+        const wasLoaded = this.isLoadedInState(this.state);
+        const nextLoaded = this.isLoadedInState(nextState);
 
         return wasLoaded !== nextLoaded;
     },
 
     componentDidUpdate: function() {
-        if (isLabeledSVG(this.props.src) &&
-            !this.isLoadedInState(this.state)) {
+        if (isLabeledSVG(this.props.src) && !this.isLoadedInState(this.state)) {
             this.loadResources();
         }
     },
@@ -309,7 +303,7 @@ var SvgImage = React.createClass({
     },
 
     loadResources: function() {
-        var hash = getUrlHash(this.props.src);
+        const hash = getUrlHash(this.props.src);
 
         // We can't make multiple jsonp calls to the same file because their
         // callbacks will collide with each other. Instead, we cache the data
@@ -322,7 +316,7 @@ var SvgImage = React.createClass({
                 labelDataCache[hash].dataCallbacks.push(this.onDataLoaded);
             }
         } else {
-            var cacheData = {
+            const cacheData = {
                 loaded: false,
                 dataCallbacks: [this.onDataLoaded],
                 data: null,
@@ -331,10 +325,10 @@ var SvgImage = React.createClass({
 
             labelDataCache[hash] = cacheData;
 
-            var retrieveData = (url, errorCallback) => {
+            const retrieveData = (url, errorCallback) => {
                 doJSONP(url, {
                     callbackName: "svgData" + hash,
-                    success: (data) => {
+                    success: data => {
                         cacheData.data = data;
                         cacheData.loaded = true;
 
@@ -357,24 +351,25 @@ var SvgImage = React.createClass({
                         retrieveData(
                             getDataUrl(this.props.src),
                             (x, status, error) => {
-                                console.error( // @Nolint
+                                 // eslint-disable-next-line no-console
+                                console.error(
                                     "Data load failed:",
-                                    getDataUrl(this.props.src), error
+                                    getDataUrl(this.props.src),
+                                    error
                                 );
                             }
                         );
                     }
                 );
             } else {
-                retrieveData(
-                    getDataUrl(this.props.src),
-                    (x, status, error) => {
-                        console.error( // @Nolint
-                            "Data load failed:",
-                            getDataUrl(this.props.src), error
-                        );
-                    }
-                );
+                retrieveData(getDataUrl(this.props.src), (x, status, error) => {
+                    // eslint-disable-next-line no-console
+                    console.error(
+                        "Data load failed:",
+                        getDataUrl(this.props.src),
+                        error
+                    );
+                });
             }
         }
     },
@@ -415,14 +410,14 @@ var SvgImage = React.createClass({
     },
 
     setupGraphie: function(graphie, options) {
-        _.map(options.labels, (labelData) => {
+        _.map(options.labels, labelData => {
             if (shouldRenderJipt() && this.state.labelDataIsLocalized) {
                 // If we're using JIPT translation and we got proper JIPT tags,
                 // render the labels as plain text (so JIPT can find them) and
                 // add some extra properties to the element so we can properly
                 // re-render the label once it is replaced with translated
                 // text.
-                var elem = graphie.label(
+                const elem = graphie.label(
                     labelData.coordinates,
                     labelData.content,
                     labelData.alignment,
@@ -445,7 +440,7 @@ var SvgImage = React.createClass({
                     labelData.content,
                     labelData.alignment,
                     labelData.typesetAsMath,
-                    {"font-size": (100 * this.props.scale) + "%"}
+                    {"font-size": 100 * this.props.scale + "%"}
                 );
 
                 // Convert absolute positioning css from pixels to percentages
@@ -469,8 +464,8 @@ var SvgImage = React.createClass({
                 const svgHeight = this.props.height * this.props.scale;
                 const svgWidth = this.props.width * this.props.scale;
                 label.css({
-                    top: labelTop / svgHeight * 100 + '%',
-                    left: labelLeft / svgWidth * 100 + '%',
+                    top: labelTop / svgHeight * 100 + "%",
+                    left: labelLeft / svgWidth * 100 + "%",
                 });
 
                 // Add back the styles to each of the labels
@@ -496,7 +491,7 @@ var SvgImage = React.createClass({
     },
 
     _handleZoomClick: function(e) {
-        var $image = $(e.target);
+        const $image = $(e.target);
 
         // It's possible that the image is already displayed at its
         // full size, but we don't really know that until we get a chance
@@ -507,10 +502,14 @@ var SvgImage = React.createClass({
         // already displayed as wide as possible, we may want to do
         // nothing in that case as well. Figuring this out correctly
         // likely required accounting for the image alignment and margins.
-        if ($image.width() < this.props.width ||
-                this.props.zoomToFullSizeOnMobile) {
-            Zoom.ZoomService.handleZoomClick(e,
-                    this.props.zoomToFullSizeOnMobile);
+        if (
+            $image.width() < this.props.width ||
+            this.props.zoomToFullSizeOnMobile
+        ) {
+            Zoom.ZoomService.handleZoomClick(
+                e,
+                this.props.zoomToFullSizeOnMobile
+            );
         }
         this.props.trackInteraction && this.props.trackInteraction();
     },
@@ -519,14 +518,15 @@ var SvgImage = React.createClass({
         const imageSrc = this.props.src;
 
         // Props to send to all images
-        var imageProps = {
+        const imageProps = {
             alt: this.props.alt,
             title: this.props.title,
         };
 
-        var width = this.props.width && this.props.width * this.props.scale;
-        var height = this.props.height && this.props.height * this.props.scale;
-        var dimensions = {
+        const width = this.props.width && this.props.width * this.props.scale;
+        const height =
+            this.props.height && this.props.height * this.props.scale;
+        const dimensions = {
             width: width,
             height: height,
         };
@@ -539,7 +539,7 @@ var SvgImage = React.createClass({
         // Matcher, etc.
         // TODO(alex): Make all of those image rendering locations aware of
         // width+height so that they too can render responsively.
-        var responsive = this.props.responsive && !!(width && height);
+        const responsive = this.props.responsive && !!(width && height);
 
         // An additional <Graphie /> may be inserted after the image/graphie
         // pair. Only used by the image widget, for its legacy labels support.
@@ -548,7 +548,7 @@ var SvgImage = React.createClass({
         // TODO(alex): Convert all existing uses of that to web+graphie. This
         // is tricky because web+graphie doesn't support labels on non-graphie
         // images.
-        var extraGraphie;
+        let extraGraphie;
         if (this.props.extraGraphie && this.props.extraGraphie.labels.length) {
             extraGraphie = (
                 <Graphie
@@ -564,17 +564,19 @@ var SvgImage = React.createClass({
 
         // If preloader is undefined, we use the default. If it's
         // null, there will be no preloader in use.
-        var preloaderBaseFunc = this.props.preloader === undefined ?
-            defaultPreloader : this.props.preloader;
+        const preloaderBaseFunc =
+            this.props.preloader === undefined
+                ? defaultPreloader
+                : this.props.preloader;
 
-        var preloader = preloaderBaseFunc ?
-            () => preloaderBaseFunc(dimensions) :
-            null;
+        const preloader = preloaderBaseFunc
+            ? () => preloaderBaseFunc(dimensions)
+            : null;
 
         // Just use a normal image if a normal image is provided
         if (!isLabeledSVG(imageSrc)) {
             if (responsive) {
-                var wrapperClasses = classNames({
+                const wrapperClasses = classNames({
                     zoomable: width > ZOOMABLE_THRESHOLD,
                     "svg-image": true,
                 });
@@ -587,8 +589,10 @@ var SvgImage = React.createClass({
                         width={width}
                         height={height}
                         constrainHeight={this.props.constrainHeight}
-                        allowFullBleed={this.props.allowFullBleed &&
-                            isImageProbablyPhotograph(imageSrc)}
+                        allowFullBleed={
+                            this.props.allowFullBleed &&
+                            isImageProbablyPhotograph(imageSrc)
+                        }
                     >
                         <ImageLoader
                             src={imageSrc}
@@ -612,15 +616,15 @@ var SvgImage = React.createClass({
             }
         }
 
-        var imageUrl = getSvgUrl(imageSrc);
+        const imageUrl = getSvgUrl(imageSrc);
 
-        var graphie;
+        let graphie;
         // Since we only want to do the graphie setup once, we only render the
         // graphie once everything is loaded
         if (this.isLoadedInState(this.state)) {
             // Use the provided width and height to size the graphie if
             // possible, otherwise use our own calculated size
-            var box;
+            let box;
             if (this.sizeProvided()) {
                 box = [width, height];
             } else {
@@ -630,7 +634,7 @@ var SvgImage = React.createClass({
                 ];
             }
 
-            var scale = [40 * this.props.scale, 40 * this.props.scale];
+            const scale = [40 * this.props.scale, 40 * this.props.scale];
 
             graphie = (
                 <Graphie
@@ -668,10 +672,7 @@ var SvgImage = React.createClass({
         } else {
             imageProps.style = dimensions;
             return (
-                <div
-                    className="unresponsive-svg-image"
-                    style={dimensions}
-                >
+                <div className="unresponsive-svg-image" style={dimensions}>
                     <ImageLoader
                         src={imageUrl}
                         onLoad={this.onImageLoad}
