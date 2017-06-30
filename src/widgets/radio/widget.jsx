@@ -39,7 +39,6 @@ const Radio = React.createClass({
         choiceStates: React.PropTypes.arrayOf(React.PropTypes.shape({
             selected: React.PropTypes.bool,
             highlighted: React.PropTypes.bool,
-            previouslyHighlighted: React.PropTypes.bool,
             rationaleShown: React.PropTypes.bool,
             correctnessShown: React.PropTypes.bool,
             readOnly: React.PropTypes.bool,
@@ -126,7 +125,6 @@ const Radio = React.createClass({
                 choiceStates: choices.map((_, i) => ({
                     selected: checked[i],
                     highlighted: false,
-                    previouslyHighlighted: false,
                     rationaleShown: false,
                     correctnessShown: false,
                     readOnly: false,
@@ -232,10 +230,7 @@ const Radio = React.createClass({
 
             const newStates = this.props.choiceStates.map(state => ({
                 ...state,
-                highlighted: state.selected && !state.previouslyHighlighted,
-                previouslyHighlighted:
-                    state.selected ||
-                    state.previouslyHighlighted,
+                highlighted: state.selected,
                 rationaleShown: (
                     // If the choice is selected, show the rationale now
                     state.selected ||
