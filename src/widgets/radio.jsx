@@ -396,6 +396,7 @@ var RadioEditor = React.createClass({
                         <br/>
                         <div>寬度:{' '}
                             <BlurInput
+                                    type="number"
                                     value={choice.box ? parseInt(choice.box[0]) : null}
                                     onChange={newProps => {
                                         this.onWidthChange(i, newProps)
@@ -529,17 +530,18 @@ var RadioEditor = React.createClass({
         
         var file    = newImage.target.files[0]; 
         var reader  = new FileReader();
+        var choices = this.props.choices.slice();
+        var i = new Image(); 
         var that = this;
         reader.readAsDataURL(file);
         reader.onloadend = function() {
-            // console.log('RESULT', reader.result);
-            // that.setState({value: reader.result});
-            // console.log("this is this %s", this);
-            // console.log("this is that %s", that);
-            // console.log(that.props);
-            var choices = that.props.choices.slice();
+            i.src = reader.result;
+            i.onload = function(){
+                choices[choiceIndex].box = [i.width, i.height];
+                console.log(choices[choiceIndex].box);
+            };
             choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
-                content: "![](" + reader.result + ")"
+                content: "![](" + reader.result + ")",
             });
             that.props.onChange({choices: choices});
         }
@@ -553,43 +555,46 @@ var RadioEditor = React.createClass({
         // choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
         //     useBoxSize: check_result
         // });
+        // if (!useBoxSize) {
+        //     this.reloadImage(this.props.content);
+        // }
         this.props.onChange({choices: choices});
         // this.props.onChange({choices: choices});        
         // see this.props is choice or something else
         // var useBoxSize = !this.props.choices[choiceIndex].useBoxSize;
-        // if (!useBoxSize) {
-        //     this.reloadImage(this.props.content);
-        // }
-        // this.props.choices[choiceIndex].useBoxSize = useBoxSize;
-        // this.props.onChange({choices: choices});
-        // this.props.onChange({
-        //     useBoxSize: useBoxSize
-        // });
     },
 
+    reloadImage: function(url) {
+        var img = new Image();
+        img.onload = function()  {return this.setUrl(url, img.width, img.height);}.bind(this);
+        img.src = url;
+    },    
+
     onWidthChange: function(choiceIndex, newAlignment) {
-        var image_w = parseInt(newAlignment) > maxImageSize ? maxImageSize:parseInt(newAlignment);
+        
         // see if wee can get base 64 image w and h and try to resize but now skip it first
         // image_h = parseInt(newAlignment) > maxImageSize ? maxImageSize:parseInt(newAlignment);
-
-        var box = [image_w, image_w];
-        // this.props.choices[choiceIndex].box = box;
-        this.props.choices[choiceIndex].box = box;
         var choices = this.props.choices.slice();
-        // choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
-        //     box: box
-        // });    
+        var choice = choices[choiceIndex];
+        var image_w = choice.box[0]; 
+        var image_h = choice.box[1];
+        if (choice.useBoxSize){
+            var w_h_ratio = image_h / image_w;
+            image_w = parseInt(newAlignment) > maxImageSize ? maxImageSize:parseInt(newAlignment); 
+            image_h = Math.round(image_w * w_h_ratio);
+        }
+        var box = [image_w, image_h];
+        choice.box = box;
         this.props.onChange({choices: choices});
-        // this.props.onChange({choices: choices});
-        // var image = _.clone(this.props.choices[choiceIndex].backgroundImage);
-        // if (this.props.useBoxSize) {
-        //     var w_h_ratio = image.height / image.width;
-        //     image.width = parseInt(newAlignment) > maxImageSize ? maxImageSize:parseInt(newAlignment);
-        //     image.height = Math.round(image.width * w_h_ratio);
-        // }
-        // var box = [image.width, image.height];
-        // this.props.choices[choiceIndex].backgroundImage = image;
-        // this.props.choices[choiceIndex].box = box;
+        console.log(choice.box);
+        // var uncut_url = choices[choiceIndex].content;
+        // var url = uncut_url.match(/\!\[\]\((.*)\)/);
+        // var i = new Image(); 
+        // i.src = choices[choiceIndex].content.match(/\!\[\]\((.*)\)/);
+        // i.onload = function(){
+        //     choices[choiceIndex].box = [i.width, i.height];
+        //     console.log(choices[choiceIndex].box);
+        // };        
     },
 
     onCheckedChange: function(checked) {
