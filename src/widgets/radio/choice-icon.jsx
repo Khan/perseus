@@ -8,7 +8,7 @@ const React = require('react');
 const {StyleSheet, css} = require("aphrodite");
 
 const styleConstants = require("../../styles/constants.js");
-const {iconCheck} = require("../../icon-paths.js");
+const {iconCheck, iconMinus} = require("../../icon-paths.js");
 const InlineIcon = require("../../components/inline-icon.jsx");
 
 class SATChoiceIcon extends React.Component {
@@ -98,7 +98,9 @@ class LibraryChoiceIcon extends React.Component {
                 }}
             />;
         } else {
-            return <div className={css(styles.libraryMinusIcon)} />;
+            return <InlineIcon
+                {...iconMinus}
+            />;
         }
     }
 
@@ -291,7 +293,7 @@ const styles = StyleSheet.create({
     },
 
     libraryCircleIncorrect: {
-        fontSize: 3,
+        fontSize: 24,
         borderColor: styleConstants.warning1,
         color: styleConstants.warning1,
     },
@@ -322,12 +324,6 @@ const styles = StyleSheet.create({
             borderRadius: "50%",
             boxShadow: `0 0 0 2px ${styleConstants.kaGreen}`,
         },
-    },
-
-    libraryMinusIcon: {
-        width: 10,
-        borderTopWidth: 2,
-        borderTopStyle: "solid",
     },
 
     letter: {
