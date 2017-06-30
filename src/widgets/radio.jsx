@@ -4,7 +4,7 @@ var classNames = require("classnames");
 
 var Changeable = require("../mixins/changeable.jsx");
 var ApiClassNames = require("../perseus-api.jsx").ClassNames;
-
+var BlurInput    = require("react-components/js/blur-input.jsx");
 var ButtonGroup = require("react-components/js/button-group.jsx");
 var Editor = require("../editor.jsx");
 var PropCheckBox = require("../components/prop-check-box.jsx");
@@ -136,7 +136,11 @@ var BaseRadio = React.createClass({
 var Radio = React.createClass({
     getDefaultProps: function() {
         return {
-            choices: [{}],
+            choices: 
+            [{
+                box: [defaultBoxSize, defaultBoxSize],
+                useBoxSize: false
+            }],
             displayCount: null,
             multipleSelect: false,
         };
@@ -387,14 +391,17 @@ var RadioEditor = React.createClass({
                         <label>
                             <input type="checkbox"
                                     checked={choice.useBoxSize}
-                                    onChange={this.toggleUseBoxSize(i)} />手動調整寬度，寬度上限480
+                                    onChange={() => this.toggleUseBoxSize(i)} />手動調整寬度，寬度上限480
                         </label>
                         <br/>
                         <div>寬度:{' '}
-                            <input  type="number"
-                                    value={parseInt(choice.box[0])}
-                                    onChange={newProps => this.onWidthChange(i, newProps.target.value)} />
-                        </div>                        
+                            <BlurInput
+                                    value={choice.box ? parseInt(choice.box[0]) : null}
+                                    onChange={newProps => {
+                                        this.onWidthChange(i, newProps)
+                                    }} />
+                                    
+                        </div>
                     </div>;
 
                     var editor = <Editor
@@ -540,11 +547,12 @@ var RadioEditor = React.createClass({
     },
 
     toggleUseBoxSize: function(choiceIndex) {
-        var check_result = !this.props.choices[choiceIndex].useBoxSize
+        var useBoxSize = !this.props.choices[choiceIndex].useBoxSize;
+        this.props.choices[choiceIndex].useBoxSize = useBoxSize;
         var choices = this.props.choices.slice();
-        choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
-            useBoxSize: check_result
-        });
+        // choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
+        //     useBoxSize: check_result
+        // });
         this.props.onChange({choices: choices});
         // this.props.onChange({choices: choices});        
         // see this.props is choice or something else
@@ -560,18 +568,18 @@ var RadioEditor = React.createClass({
     },
 
     onWidthChange: function(choiceIndex, newAlignment) {
-        image_w = parseInt(newAlignment) > maxImageSize ? maxImageSize:parseInt(newAlignment);
+        var image_w = parseInt(newAlignment) > maxImageSize ? maxImageSize:parseInt(newAlignment);
         // see if wee can get base 64 image w and h and try to resize but now skip it first
         // image_h = parseInt(newAlignment) > maxImageSize ? maxImageSize:parseInt(newAlignment);
 
         var box = [image_w, image_w];
         // this.props.choices[choiceIndex].box = box;
-
+        this.props.choices[choiceIndex].box = box;
         var choices = this.props.choices.slice();
-        choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
-            box: box
-        });    
-        this.props.onChange({box: box});
+        // choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
+        //     box: box
+        // });    
+        this.props.onChange({choices: choices});
         // this.props.onChange({choices: choices});
         // var image = _.clone(this.props.choices[choiceIndex].backgroundImage);
         // if (this.props.useBoxSize) {
@@ -621,7 +629,10 @@ var RadioEditor = React.createClass({
         e.preventDefault();
 
         var choices = this.props.choices;
-        this.props.onChange({choices: choices.concat([{}])}, () => {
+        this.props.onChange({choices: choices.concat([{
+            box: [defaultBoxSize, defaultBoxSize],
+            useBoxSize: false        
+        }])}, () => {
             this.refs["editor" + choices.length].focus();
         });
     },

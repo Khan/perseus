@@ -127,7 +127,6 @@ var WidgetEditor = React.createClass({
         // we could run into situations where we would send things like
         // { answerType: "decimal" } to our upgrade functions, without
         // the rest of the props representing the widget.
-        debugger;
         var currentWidgetInfo = _.extend({}, this.props, {
             options: this.refs.widget.toJSON(true)
         });
