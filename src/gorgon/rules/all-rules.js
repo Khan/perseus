@@ -28,4 +28,8 @@ module.exports = [
     require("./table-missing-cells.js"),
     require("./unescaped-dollar.js"),
     require("./widget-in-table.js"),
+    require("./profanity.js"),
+    require("./math-without-dollars.js"),
+    require("./unbalanced-code-delimiters.js"),
+    require("./image-spaces-around-urls.js"),
 ];

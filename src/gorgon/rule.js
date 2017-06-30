@@ -89,6 +89,30 @@
  *    Shorten it to 500 characters or fewer.`;
  *        },
  *    });
+ *
+ * Certain advanced lint rules need additional information about the content
+ * being linted in order to detect lint. For example, a rule to check for
+ * whitespace at the start and end of the URL for an image can't use the
+ * information in the node or content arguments because the markdown parser
+ * strips leading and trailing whitespace when parsing. (Nevertheless, these
+ * spaces have been a practical problem for our content translation process so
+ * in order to check for them, a lint rule needs access to the original
+ * unparsed source text. Similarly, there are various lint rules that check
+ * widget usage. For example, it is easy to write a lint rule to ensure that
+ * images have alt text for images encoded in markdown. But when images are
+ * added to our content via an image widget we also want to be able to check
+ * for alt text. In order to do this, the lint rule needs to be able to look
+ * widgets up by name in the widgets object associated with the parse tree.
+ *
+ * In order to support advanced linting rules like these, the check() method
+ * takes a context object as its optional fourth argument, and passes this
+ * object on to the lint function of each rule. Rules that require extra
+ * context should not assume that they will always get it, and should verify
+ * that the necessary context has been supplied before using it. Currently the
+ * "content" property of the context object is the unparsed source text if
+ * available, and the "widgets" property of the context object is the widget
+ * object associated with that content string in the JSON object that defines
+ * the Perseus article or exercise that is being linted.
  */
 
 // @flow
@@ -121,6 +145,8 @@ export type LintTesterReturnType = ?(
           end: number,
       });
 
+export type LintRuleContextObject = ?Object;
+
 // This is the type of the lint detection function that the Rule() constructor
 // expects as its fourth argument. It is passed the TraversalState object and
 // content string that were passed to check(), and is also passed the array of
@@ -131,7 +157,8 @@ export type LintTester = (
     state: TraversalState,
     content: string,
     selectorMatch: Array<TreeNode>,
-    patternMatch: PatternMatchType
+    patternMatch: PatternMatchType,
+    context: LintRuleContextObject
 ) => LintTesterReturnType;
 
 /**
@@ -190,7 +217,8 @@ export default class Rule {
     check(
         node: TreeNode,
         traversalState: TraversalState,
-        content: string
+        content: string,
+        context: LintRuleContextObject
     ): RuleCheckReturnType {
         // First, see if we match the selector.
         // If no selector was passed to the constructor, we use a
@@ -224,7 +252,8 @@ export default class Rule {
                 traversalState,
                 content,
                 selectorMatch,
-                patternMatch
+                patternMatch,
+                context
             );
 
             if (!error) {

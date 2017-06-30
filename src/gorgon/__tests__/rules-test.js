@@ -10,8 +10,27 @@ describe("Individual lint rules tests", () => {
         const tree = PerseusMarkdown.parse(markdown);
         const tt = new TreeTransformer(tree);
         const warnings = [];
+
+        // The markdown parser often outputs adjacent text nodes. We
+        // coalesce them before linting for efficiency and accuracy.
         tt.traverse((node, state, content) => {
-            const check = rule.check(node, state, content);
+            if (TreeTransformer.isTextNode(node)) {
+                let next = state.nextSibling();
+                while (TreeTransformer.isTextNode(next)) {
+                    node.content += next.content;
+                    state.removeNextSibling();
+                    next = state.nextSibling();
+                }
+            }
+        });
+
+        const context = {
+            content: markdown,
+            widgets: {},
+        };
+
+        tt.traverse((node, state, content) => {
+            const check = rule.check(node, state, content, context);
             if (check) {
                 warnings.push(check);
             }
@@ -327,6 +346,65 @@ describe("Individual lint rules tests", () => {
     expectPass(require("../rules/math-font-size"), [
         "$\\sqrt{x}$",
         "inline $\\sqrt{x}$ math",
+    ]);
+
+    expectWarning(require("../rules/profanity.js"), [
+        "Shit",
+        "taking a piss",
+        "He said 'Fuck that!'",
+        "cunt",
+        "cocksucker",
+        "motherfucker",
+    ]);
+    expectPass(require("../rules/profanity.js"), ["spit", "miss", "duck"]);
+
+    expectWarning(require("../rules/math-without-dollars.js"), [
+        "One half: \\frac{1}{2}!",
+        "\\Large{BIG}!",
+        "This looks like someone's ear: {",
+        "Here's the other ear: }. Weird!",
+    ]);
+    expectPass(require("../rules/math-without-dollars.js"), [
+        "One half: $\\frac{1}{2}$",
+        "$\\Large{BIG}$!",
+        "`{`",
+        "`\\frac{1}{2}`",
+        "``\\frac{1}{2}``",
+        "```\n\\frac{1}{2}\n```",
+        "~~~\n\\frac{1}{2}\n~~~",
+        "\n    \\frac{1}{2}\n    {\n    }\n",
+    ]);
+
+    expectWarning(require("../rules/unbalanced-code-delimiters.js"), [
+        "`code``",
+        "``code```",
+        "```code\n",
+        "~~~\ncode\n~~",
+    ]);
+    expectPass(require("../rules/unbalanced-code-delimiters.js"), [
+        "`code`",
+        "``code``",
+        "```code```",
+        "```\ncode\n```",
+        "~~~\ncode\n~~~",
+        "``co`de``",
+        "`co~de`",
+        "$`~$",
+    ]);
+
+    expectWarning(require("../rules/image-spaces-around-urls.js"), [
+        "![alternative]( http://example.com/image.jpg )",
+        "![alternative]( http://example.com/image.jpg)",
+        "![alternative](http://example.com/image.jpg )",
+        "![alternative](\thttp://example.com/image.jpg)",
+        "![alternative](http://example.com/image.jpg\t)",
+        "![alternative](\nhttp://example.com/image.jpg)",
+        "![alternative](http://example.com/image.jpg\n)",
+    ]);
+    expectPass(require("../rules/image-spaces-around-urls.js"), [
+        "![alternative](http://example.com/image.jpg)",
+        "![alternative](image.jpg)",
+        "![alternative](--image.jpg--)",
     ]);
 
     /*

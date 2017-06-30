@@ -1600,8 +1600,12 @@ var Renderer = React.createClass({
             // will modify the parse tree by adding lint nodes that will
             // serve to highlight the lint when rendered
             const lintStartTime = Date.now();
+            const context = {
+                content: this.props.content,
+                widgets: this.props.widgets,
+            };
             const lintWarnings = Gorgon.runLinter(parsedMarkdown,
-                                                  this.props.highlightLint);
+                                                  context, true);
             console.log("Linting took", Date.now() - lintStartTime,
                         "milliseconds", lintWarnings);
         }

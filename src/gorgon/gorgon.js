@@ -3,7 +3,8 @@ import TreeTransformer from "./tree-transformer.js";
 const allLintRules = require("./rules/all-rules.js");
 
 //
-// Run the Gorgon linter over the specified markdown parse tree, and
+// Run the Gorgon linter over the specified markdown parse tree,
+// with the specified context object, and
 // return a (possibly empty) array of lint warning objects.  If the
 // highlight argument is true, this function also modifies the parse
 // tree to add "lint" nodes that can be visually rendered,
@@ -11,12 +12,21 @@ const allLintRules = require("./rules/all-rules.js");
 // is an array of Rule objects specifying which lint rules should be
 // applied to this parse tree. When omitted, a default set of rules is used.
 //
+// The context object may have additional properties that some lint
+// rules require:
+//
+//   context.content is the source content string that was parsed to create
+//   the parse tree.
+//
+//   context.widgets is the widgets object associated
+//   with the content string
+//
 // TODO: to make this even more general, allow the first argument to be
 // a string and run the parser over it in that case? (but ignore highlight
 // in that case). This would allow the one function to be used for both
 // online linting and batch linting.
 //
-function runLinter(tree, highlight, rules) {
+function runLinter(tree, context, highlight, rules) {
     rules = rules || allLintRules;
     const warnings = [];
     const tt = new TreeTransformer(tree);
@@ -25,10 +35,11 @@ function runLinter(tree, highlight, rules) {
     // coalesce them before linting for efficiency and accuracy.
     tt.traverse((node, state, content) => {
         if (TreeTransformer.isTextNode(node)) {
-            const next = state.nextSibling();
-            if (TreeTransformer.isTextNode(next)) {
+            let next = state.nextSibling();
+            while (TreeTransformer.isTextNode(next)) {
                 node.content += next.content;
                 state.removeNextSibling();
+                next = state.nextSibling();
             }
         }
     });
@@ -59,31 +70,37 @@ function runLinter(tree, highlight, rules) {
     tt.traverse((node, state, content) => {
         const nodeWarnings = [];
         allLintRules.forEach(rule => {
-            const warning = rule.check(node, state, content);
+            const warning = rule.check(node, state, content, context);
             if (warning) {
+                // The start and end locations are relative to this
+                // particular node, and so are not generally very useful.
+                // TODO: When the markdown parser saves the node
+                // locations in the source string then we can add
+                // these numbers to that one and get and absolute
+                // character range that will be useful
                 if (warning.start || warning.end) {
                     warning.target = content.substring(
                         warning.start,
                         warning.end
                     );
                 }
-                // These are not useful anymore because they are
-                // relative to this individual node.
-                //
-                // TODO: When the markdown parser saves the node
-                // locations in the source string then we can add
-                // these numbers to that one and get and absolute
-                // character range that will be useful
-                delete warning.start;
-                delete warning.end;
 
                 // Add the warning to the list of all lint we've found
                 warnings.push(warning);
 
-                // And also to the list of warnings for this node
-                nodeWarnings.push(warning);
+                // If we're going to be highlighting lint, then we also
+                // need to keep track of warnings specific to this node.
+                if (highlight) {
+                    nodeWarnings.push(warning);
+                }
             }
         });
+
+        // If we're not highlighting lint in the tree, then we're done
+        // traversing this node.
+        if (!highlight) {
+            return;
+        }
 
         // If the node we are currently at is a table, and there was lint
         // inside the table, then we want to add that lint here
@@ -126,14 +143,86 @@ function runLinter(tree, highlight, rules) {
         // Note that even if we're inside a table, we still reparent the
         // linty node so that it can be highlighted. We just make a note
         // of whether this lint is inside a table or not.
-        if (highlight && nodeWarnings.length) {
-            state.replace({
-                type: "lint",
-                content: node,
-                message: nodeWarnings.map(w => w.message).join("\n\n"),
-                ruleName: nodeWarnings[0].rule,
-                insideTable: insideTable,
-            });
+        if (nodeWarnings.length) {
+            if (node.type !== "text" || nodeWarnings.length > 1) {
+                // If the linty node is not a text node, or if there is more
+                // than one warning on a text node, then reparent the entire
+                // node under a new lint node and put the warnings there.
+                state.replace({
+                    type: "lint",
+                    content: node,
+                    message: nodeWarnings.map(w => w.message).join("\n\n"),
+                    ruleName: nodeWarnings[0].rule,
+                    insideTable: insideTable,
+                });
+            } else {
+                //
+                // Otherwise, it is a single warning on a text node, and we
+                // only want to highlight the actual linty part of that string
+                // of text. So we want to replace the text node with (in the
+                // general case) three nodes:
+                //
+                // 1) A new text node that holds the non-linty prefix
+                //
+                // 2) A lint node that is the parent of a new text node
+                // that holds the linty part
+                //
+                // 3) A new text node that holds the non-linty suffix
+                //
+                // If the lint begins and/or ends at the boundaries of the
+                // original text node, then nodes 1 and/or 3 won't exist, of
+                // course.
+                //
+                // Note that we could generalize this to work with multple
+                // warnings on a text node as long as the warnings are
+                // non-overlapping. Hopefully, though, multiple warnings in a
+                // single text node will be rare in practice. Also, we don't
+                // have a good way to display multiple lint indicators on a
+                // single line, so keeping them combined in that case might
+                // be the best thing, anyway.
+                //
+                const content = node.content; // Text nodes have content
+                const warning = nodeWarnings[0]; // There is only one warning.
+                // These are the lint boundaries within the content
+                const start = warning.start || 0;
+                const end = warning.end || content.length;
+                const prefix = content.substring(0, start);
+                const lint = content.substring(start, end);
+                const suffix = content.substring(end);
+                const replacements = []; // What we'll replace the node with
+
+                // The prefix text node, if there is one
+                if (prefix) {
+                    replacements.push({
+                        type: "text",
+                        content: prefix,
+                    });
+                }
+
+                // The lint node wrapped around the linty text
+                replacements.push({
+                    type: "lint",
+                    content: {
+                        type: "text",
+                        content: lint,
+                    },
+                    message: warning.message,
+                    ruleName: warning.rule,
+                    insideTable: insideTable,
+                });
+
+                // The suffix node, if there is one
+                if (suffix) {
+                    replacements.push({
+                        type: "text",
+                        content: suffix,
+                    });
+                }
+
+                // Now replace the lint text node with the one to three
+                // nodes in the replacement array
+                state.replace(...replacements);
+            }
         }
     });
 
