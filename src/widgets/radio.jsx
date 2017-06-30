@@ -578,15 +578,26 @@ var RadioEditor = React.createClass({
         var choice = choices[choiceIndex];
         var image_w = choice.box[0]; 
         var image_h = choice.box[1];
+        var that = this;
         if (choice.useBoxSize){
             var w_h_ratio = image_h / image_w;
             image_w = parseInt(newAlignment) > maxImageSize ? maxImageSize:parseInt(newAlignment); 
             image_h = Math.round(image_w * w_h_ratio);
+            var box = [image_w, image_h];
+            choice.box = box;            
+            var resizeImage = new Image();
+            resizeImage.src = choice.content.match(/(!\[\])\((.*)\)/)[2];
+            resizeImage.onload = function() {
+                var newDataUri = newDataUri = that.imageToDataUri(this, image_w, image_h);
+                // throw resize uri back to content
+                var re = /(!\[\])\((.*)\)/
+                choice.content = choice.content.replace(re, "$1(" + newDataUri + ")");
+                that.onContentChange(choiceIndex, choice.content);
+            };            
         }
-        var box = [image_w, image_h];
-        choice.box = box;
-        this.props.onChange({choices: choices});
-        console.log(choice.box);
+
+        // that.props.onChange({choices: choices});
+        // console.log(choice.box);
         // var uncut_url = choices[choiceIndex].content;
         // var url = uncut_url.match(/\!\[\]\((.*)\)/);
         // var i = new Image(); 
@@ -596,6 +607,29 @@ var RadioEditor = React.createClass({
         //     console.log(choices[choiceIndex].box);
         // };        
     },
+
+    // var img = new Image;
+
+    // img.onload = resizeImage;
+    // img.src = originalDataUriHere;
+
+    imageToDataUri: function(img, width, height) {
+
+        // create an off-screen canvas
+        var canvas = document.createElement('canvas'),
+            ctx = canvas.getContext('2d');
+
+        // set its dimension to target size
+        canvas.width = width;
+        canvas.height = height;
+
+        // draw source image into the off-screen canvas:
+        ctx.drawImage(img, 0, 0, width, height);
+
+        // encode image to data-uri with base64 version of compressed image
+        return canvas.toDataURL();
+    },
+
 
     onCheckedChange: function(checked) {
         var choices = _.map(this.props.choices, function(choice, i) {
