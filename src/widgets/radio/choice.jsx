@@ -17,8 +17,6 @@ const ChoiceIcon = require("./choice-icon.jsx");
 
 const focusedStyleMixin = {
     backgroundColor: styleConstants.satSelectedBackgroundColor,
-    borderTopColor: "transparent",
-    borderBottomColor: "transparent",
     outline: `2px solid ${styleConstants.satBlue}`,
     // Render the outline higher than the next element's border
     zIndex: 1,
@@ -78,24 +76,10 @@ const Choice = React.createClass({
             satDescription: {
                 display: "block",
                 position: "relative",
-                borderTop: "1px solid #ccc",
                 boxSizing: "border-box",
                 cursor: "pointer",
                 marginLeft: 0,
                 padding: "17px 14px",
-                "::after": {
-                    bottom: -1,
-                    content: `" "`,
-                    height: 1,
-                    left: 0,
-                    position: "absolute",
-                    width: "100%",
-                    zIndex: 1,
-                },
-            },
-
-            satDescriptionLastChoice: {
-                borderBottom: "1px solid #ccc",
             },
 
             satDescriptionInputFocused: {
@@ -109,33 +93,15 @@ const Choice = React.createClass({
 
             satDescriptionCorrect: {
                 color: styleConstants.satCorrectColor,
-                ":focus": {
-                    borderColor: styleConstants.satCorrectColor,
-                    outlineColor: styleConstants.satCorrectColor,
-                },
             },
 
             satDescriptionCorrectChecked: {
                 backgroundColor: styleConstants.satCorrectBackgroundColor,
-                borderBottomColor: styleConstants.satCorrectBorderColor,
-                borderTopColor: styleConstants.satCorrectBorderColor,
-                ":after": {
-                    backgroundColor: styleConstants.satCorrectBorderColor,
-                },
             },
 
             satDescriptionIncorrectChecked: {
                 color: styleConstants.satIncorrectColor,
                 backgroundColor: styleConstants.satIncorrectBackgroundColor,
-                borderBottomColor: styleConstants.satIncorrectBorderColor,
-                borderTopColor: styleConstants.satIncorrectBorderColor,
-                ":after": {
-                    backgroundColor: styleConstants.satIncorrectBorderColor,
-                },
-                ":focus": {
-                    borderColor: styleConstants.satIncorrectColor,
-                    outlineColor: styleConstants.satIncorrectColor,
-                },
             },
 
             input: {

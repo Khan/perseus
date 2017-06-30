@@ -157,6 +157,32 @@ const BaseRadio = React.createClass({
             satRadioOption: {
                 margin: 0,
                 padding: 0,
+                borderBottom: `1px solid #ccc`,
+                ":first-child": {
+                    borderTop: `1px solid #ccc`,
+                },
+            },
+
+            satRadioOptionCorrect: {
+                borderBottomColor: styleConstants.satCorrectBorderColor,
+                ":first-child": {
+                    borderTopColor: styleConstants.satCorrectBorderColor,
+                },
+            },
+
+            satRadioOptionIncorrect: {
+                borderBottomColor: styleConstants.satIncorrectBorderColor,
+                ":first-child": {
+                    borderTopColor: styleConstants.satIncorrectBorderColor,
+                },
+            },
+
+            satRadioOptionNextCorrect: {
+                borderBottomColor: styleConstants.satCorrectBorderColor,
+            },
+
+            satRadioOptionNextIncorrect: {
+                borderBottomColor: styleConstants.satIncorrectBorderColor,
             },
 
             satReviewRadioOption: {
@@ -380,6 +406,13 @@ const BaseRadio = React.createClass({
                         !!nextChoice && nextChoice.highlighted;
 
                     const aphroditeClassName = (checked) => {
+                        // Whether or not to show correctness borders for this
+                        // choice and the next choice.
+                        const satShowCorrectness = sat && reviewMode && checked;
+                        const satShowCorrectnessNext =
+                            sat && reviewMode && nextChoice &&
+                            nextChoice.checked;
+
                         return css(
                             sharedStyles.aboveScratchpad,
                             styles.item,
@@ -394,7 +427,14 @@ const BaseRadio = React.createClass({
                                 this.props.apiOptions.isMobile &&
                                 styles.nextHighlighted,
                             sat && styles.satRadioOption,
-                            sat && checked && styles.satRadioSelected,
+                            satShowCorrectness && !choice.correct &&
+                                styles.satRadioOptionIncorrect,
+                            satShowCorrectness && choice.correct &&
+                                styles.satRadioOptionCorrect,
+                            satShowCorrectnessNext && !nextChoice.correct &&
+                                styles.satRadioOptionNextIncorrect,
+                            satShowCorrectnessNext && nextChoice.correct &&
+                                styles.satRadioOptionNextCorrect,
                             sat && rubric && styles.satReviewRadioOption
                         );
                     };
