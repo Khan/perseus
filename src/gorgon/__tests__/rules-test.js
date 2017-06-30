@@ -6,7 +6,7 @@ import TreeTransformer from "../tree-transformer.js";
 // Come back to this file convert the require() calls to imports
 
 describe("Individual lint rules tests", () => {
-    function testRule(rule, markdown) {
+    function testRule(rule, markdown, context) {
         const tree = PerseusMarkdown.parse(markdown);
         const tt = new TreeTransformer(tree);
         const warnings = [];
@@ -24,11 +24,14 @@ describe("Individual lint rules tests", () => {
             }
         });
 
-        const context = {
-            content: markdown,
-            widgets: {},
-        };
-
+        if (context) {
+            context.content = markdown;
+        } else {
+            context = {
+                content: markdown,
+                widgets: {},
+            };
+        }
         tt.traverse((node, state, content) => {
             const check = rule.check(node, state, content, context);
             if (check) {
@@ -39,7 +42,7 @@ describe("Individual lint rules tests", () => {
         return warnings.length === 0 ? null : warnings;
     }
 
-    function expectWarning(rule, strings) {
+    function expectWarning(rule, strings, context) {
         if (typeof strings === "string") {
             strings = [strings];
         }
@@ -47,14 +50,14 @@ describe("Individual lint rules tests", () => {
         it(`Rule ${rule.name} warns`, () => {
             for (const string of strings) {
                 assert.ok(
-                    testRule(rule, string) !== null,
+                    testRule(rule, string, context) !== null,
                     `Expected ${rule.name} to warn for:\n'${string}'`
                 );
             }
         });
     }
 
-    function expectPass(rule, strings) {
+    function expectPass(rule, strings, context) {
         if (typeof strings === "string") {
             strings = [strings];
         }
@@ -62,7 +65,7 @@ describe("Individual lint rules tests", () => {
         it(`Rule ${rule.name} passes`, () => {
             for (const string of strings) {
                 assert.ok(
-                    testRule(rule, string) === null,
+                    testRule(rule, string, context) === null,
                     `Expected ${rule.name} to pass for:\n'${string}'`
                 );
             }
@@ -406,6 +409,73 @@ describe("Individual lint rules tests", () => {
         "![alternative](image.jpg)",
         "![alternative](--image.jpg--)",
     ]);
+
+    // Warn for image widget with no alt text
+    expectWarning(require("../rules/image-widget.js"), "[[☃ image 1]]", {
+        widgets: {
+            "image 1": {
+                options: {},
+            },
+        },
+    });
+
+    // Warn for image widget with short alt text
+    expectWarning(require("../rules/image-widget.js"), "[[☃ image 1]]", {
+        widgets: {
+            "image 1": {
+                options: {
+                    alt: "1234567",
+                },
+            },
+        },
+    });
+
+    // Pass for image widget with long alt text
+    expectPass(require("../rules/image-widget.js"), "[[☃ image 1]]", {
+        widgets: {
+            "image 1": {
+                options: {
+                    alt: "1234567890",
+                },
+            },
+        },
+    });
+
+    // Warn for image widget with math in its caption
+    expectWarning(require("../rules/image-widget.js"), "[[☃ image 1]]", {
+        widgets: {
+            "image 1": {
+                options: {
+                    alt: "1234567890",
+                    caption: "Test: $x$",
+                },
+            },
+        },
+    });
+
+    // Pass for image widget with caption and no math
+    expectPass(require("../rules/image-widget.js"), "[[☃ image 1]]", {
+        widgets: {
+            "image 1": {
+                options: {
+                    alt: "1234567890",
+                    caption: "Test: x",
+                },
+            },
+        },
+    });
+
+    // Pass for image widget with escaped dollar in its caption
+    expectPass(require("../rules/image-widget.js"), "[[☃ image 1]]", {
+        widgets: {
+            "image 1": {
+                options: {
+                    alt: "1234567890",
+                    caption: "Test: \\$10",
+                },
+            },
+        },
+    });
 
     /*
     expectWarning(require("../rules/"), [

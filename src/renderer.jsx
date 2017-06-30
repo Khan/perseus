@@ -264,6 +264,10 @@ var Renderer = React.createClass({
         // componentWillUpdate and the reuseMarkdown attr?
         this.reuseMarkdown = !oldJipt && !newJipt &&
             oldContent === newContent &&
+            // If the content of widgets has changed, then we can't reuse
+            // the last render because we need to force the linter to rerun
+            this.props.widgets === nextProps.widgets &&
+            // If the linter is turned on or off, we have to rerender
             this.props.highlightLint === nextProps.highlightLint &&
                 // yes, this is identity array comparison, but these are passed
                 // in from state in the item-renderer, so they should be

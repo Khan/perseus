@@ -32,4 +32,5 @@ module.exports = [
     require("./math-without-dollars.js"),
     require("./unbalanced-code-delimiters.js"),
     require("./image-spaces-around-urls.js"),
+    require("./image-widget.js"),
 ];
