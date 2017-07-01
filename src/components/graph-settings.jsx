@@ -104,6 +104,17 @@ const GraphSettings = React.createClass({
         }
     },
 
+    stateFromProps: function(props) {
+        return {
+            labelsTextbox: props.labels,
+            gridStepTextbox: props.gridStep,
+            snapStepTextbox: props.snapStep,
+            stepTextbox: props.step,
+            rangeTextbox: props.range,
+            backgroundImage: _.clone(props.backgroundImage),
+        };
+    },
+
     change(...args) {
         return Changeable.change.apply(this, args);
     },
