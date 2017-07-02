@@ -406,6 +406,7 @@ var RadioEditor = React.createClass({
                     </div>;
 
                     var editor = <Editor
+                        className="content-editor"
                         ref={"editor" + i}
                         content={choice.content || ""}
                         widgetEnabled={false}
@@ -584,6 +585,7 @@ var RadioEditor = React.createClass({
             image_w = parseInt(newAlignment) > maxImageSize ? maxImageSize:parseInt(newAlignment); 
             image_h = Math.round(image_w * w_h_ratio);
             var box = [image_w, image_h];
+            console.log(document.getElementByClass('render-'+ this.props.widgetId + "-" + choiceIndex))
             choice.box = box;            
             var resizeImage = new Image();
             resizeImage.src = choice.content.match(/(!\[\])\((.*)\)/)[2];
