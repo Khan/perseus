@@ -1,5 +1,5 @@
 /*! Perseus | http://github.com/Khan/perseus */
-// commit 750b5a7ea1ddcd0856e9355a172027c241ed1799
+// commit 63637cff2ede2b3b0c6dbe907739a39d54e764eb
 // branch add-image-to-radio-widget
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Perseus = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
@@ -48021,10 +48021,6 @@ module.exports = {
 },{"../components/number-input.jsx":263,"../components/range-input.jsx":265,"../components/text-list-editor.jsx":269,"../util.js":305,"react":248,"react-components/js/info-tip.jsx":69,"react-dom":96}],329:[function(require,module,exports){
 'use strict';
 
-var _React$createClass;
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 var React = require('react');
 var ReactDOM = require('react-dom');
 var classNames = require("classnames");
@@ -48348,7 +48344,7 @@ _.extend(Radio, {
     }
 });
 
-var RadioEditor = React.createClass((_React$createClass = {
+var RadioEditor = React.createClass({
     displayName: 'RadioEditor',
 
     mixins: [Changeable],
@@ -48543,43 +48539,7 @@ var RadioEditor = React.createClass((_React$createClass = {
         }
     },
 
-    setUrl: function setUrl(url, width, height) {
-        if (!this.isMounted()) {
-            return;
-        }
-
-        var image = _.clone(this.props.backgroundImage);
-        image.url = url;
-        image.width = width;
-        image.height = height;
-        var box = [image.width, image.height];
-        this.props.onChange({
-            backgroundImage: image,
-            box: box,
-            useBoxSize: false
-        });
-    },
-
-    reloadImage: function reloadImage(url) {
-        var img = new Image();
-        img.onload = function () {
-            return this.setUrl(url, img.width, img.height);
-        }.bind(this);
-        img.src = url;
-    },
-
-    onUrlChange: function onUrlChange(url) {
-        if (url) {
-            if (this.props.backgroundImage.url != url) {
-                this.reloadImage(url);
-            }
-        } else {
-            this.setUrl(url, 0, 0);
-        }
-    },
-
     onFileInputChange: function onFileInputChange(choiceIndex, newImage) {
-
         var file = newImage.target.files[0];
         var reader = new FileReader();
         var choices = this.props.choices.slice();
@@ -48590,7 +48550,6 @@ var RadioEditor = React.createClass((_React$createClass = {
             i.src = reader.result;
             i.onload = function () {
                 choices[choiceIndex].box = [i.width, i.height];
-                console.log(choices[choiceIndex].box);
             };
             choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
                 content: "![](" + reader.result + ")"
@@ -48603,125 +48562,117 @@ var RadioEditor = React.createClass((_React$createClass = {
         var useBoxSize = !this.props.choices[choiceIndex].useBoxSize;
         this.props.choices[choiceIndex].useBoxSize = useBoxSize;
         var choices = this.props.choices.slice();
-        // choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
-        //     useBoxSize: check_result
-        // });
-        // if (!useBoxSize) {
-        //     this.reloadImage(this.props.content);
-        // }
         this.props.onChange({ choices: choices });
-        // this.props.onChange({choices: choices});        
-        // see this.props is choice or something else
-        // var useBoxSize = !this.props.choices[choiceIndex].useBoxSize;
+    },
+
+    onWidthChange: function onWidthChange(choiceIndex, newAlignment) {
+        var choices = this.props.choices.slice();
+        var choice = choices[choiceIndex];
+        var image_w = choice.box[0];
+        var image_h = choice.box[1];
+        var that = this;
+        if (choice.useBoxSize) {
+            var w_h_ratio = image_h / image_w;
+            image_w = parseInt(newAlignment) > maxImageSize ? maxImageSize : parseInt(newAlignment);
+            image_h = Math.round(image_w * w_h_ratio);
+            var box = [image_w, image_h];choice.box = box;
+            // base64 data can not resize unless it is read as a image file
+            // so what we do here is to make a image file and set base64 part of the content as src
+            var resizeImage = new Image();
+            resizeImage.src = choice.content.match(/(!\[\])\((.*)\)/)[2];
+            resizeImage.onload = function () {
+                var newDataUri = newDataUri = that.imageToDataUri(this, image_w, image_h);
+                // throw resize uri back to content
+                var re = /(!\[\])\((.*)\)/;
+                choice.content = choice.content.replace(re, "$1(" + newDataUri + ")");
+            };
+            resizeImage.onloadend = function () {
+                that.onContentChange(choiceIndex, choice.content);
+            };
+        }
+    },
+
+    imageToDataUri: function imageToDataUri(img, width, height) {
+
+        // create an off-screen canvas
+        var canvas = document.createElement('canvas'),
+            ctx = canvas.getContext('2d');
+
+        // set its dimension to target size
+        canvas.width = width;
+        canvas.height = height;
+
+        // draw source image into the off-screen canvas:
+        ctx.drawImage(img, 0, 0, width, height);
+
+        // encode image to data-uri with base64 version of compressed image
+        return canvas.toDataURL();
+    },
+
+    onCheckedChange: function onCheckedChange(checked) {
+        var choices = _.map(this.props.choices, function (choice, i) {
+            return _.extend({}, choice, { correct: checked[i] });
+        });
+        this.props.onChange({ choices: choices });
+    },
+
+    onContentChange: function onContentChange(choiceIndex, newContent) {
+        var choices = this.props.choices.slice();
+        choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
+            content: newContent
+        });
+        this.props.onChange({ choices: choices });
+    },
+
+    onClueChange: function onClueChange(choiceIndex, newClue) {
+        var choices = this.props.choices.slice();
+        choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
+            clue: newClue
+        });
+        if (newClue === "") {
+            delete choices[choiceIndex].clue;
+        }
+        this.props.onChange({ choices: choices });
+    },
+
+    onDelete: function onDelete(choiceIndex, e) {
+        e.preventDefault();
+        var choices = this.props.choices.slice();
+        choices.splice(choiceIndex, 1);
+        this.props.onChange({ choices: choices });
+    },
+
+    addChoice: function addChoice(e) {
+        var _this3 = this;
+
+        e.preventDefault();
+
+        var choices = this.props.choices;
+        this.props.onChange({ choices: choices.concat([{
+                box: [defaultBoxSize, defaultBoxSize],
+                useBoxSize: false
+            }]) }, function () {
+            _this3.refs["editor" + choices.length].focus();
+        });
+    },
+
+    setDisplayCount: function setDisplayCount(num) {
+        this.props.onChange({ displayCount: num });
+    },
+
+    focus: function focus() {
+        this.refs.editor0.focus();
+        return true;
+    },
+
+    toJSON: function toJSON(skipValidation) {
+        if (!skipValidation && !_.some(_.pluck(this.props.choices, "correct"))) {
+            alert("Warning: No choice is marked as correct.");
+        }
+
+        return _.pick(this.props, "choices", "randomize", "multipleSelect", "displayCount", "noneOfTheAbove", "onePerLine");
     }
-
-}, _defineProperty(_React$createClass, 'reloadImage', function reloadImage(url) {
-    var img = new Image();
-    img.onload = function () {
-        return this.setUrl(url, img.width, img.height);
-    }.bind(this);
-    img.src = url;
-}), _defineProperty(_React$createClass, 'onWidthChange', function onWidthChange(choiceIndex, newAlignment) {
-
-    // see if wee can get base 64 image w and h and try to resize but now skip it first
-    // image_h = parseInt(newAlignment) > maxImageSize ? maxImageSize:parseInt(newAlignment);
-    var choices = this.props.choices.slice();
-    var choice = choices[choiceIndex];
-    var image_w = choice.box[0];
-    var image_h = choice.box[1];
-    var that = this;
-    if (choice.useBoxSize) {
-        var w_h_ratio = image_h / image_w;
-        image_w = parseInt(newAlignment) > maxImageSize ? maxImageSize : parseInt(newAlignment);
-        image_h = Math.round(image_w * w_h_ratio);
-        var box = [image_w, image_h];
-        console.log(document.getElementByClass('render-' + this.props.widgetId + "-" + choiceIndex));
-        choice.box = box;
-        var resizeImage = new Image();
-        resizeImage.src = choice.content.match(/(!\[\])\((.*)\)/)[2];
-        resizeImage.onload = function () {
-            var newDataUri = newDataUri = that.imageToDataUri(this, image_w, image_h);
-            // throw resize uri back to content
-            var re = /(!\[\])\((.*)\)/;
-            choice.content = choice.content.replace(re, "$1(" + newDataUri + ")");
-            that.onContentChange(choiceIndex, choice.content);
-        };
-    }
-
-    // that.props.onChange({choices: choices});
-    // console.log(choice.box);
-    // var uncut_url = choices[choiceIndex].content;
-    // var url = uncut_url.match(/\!\[\]\((.*)\)/);
-    // var i = new Image(); 
-    // i.src = choices[choiceIndex].content.match(/\!\[\]\((.*)\)/);
-    // i.onload = function(){
-    //     choices[choiceIndex].box = [i.width, i.height];
-    //     console.log(choices[choiceIndex].box);
-    // };        
-}), _defineProperty(_React$createClass, 'imageToDataUri', function imageToDataUri(img, width, height) {
-
-    // create an off-screen canvas
-    var canvas = document.createElement('canvas'),
-        ctx = canvas.getContext('2d');
-
-    // set its dimension to target size
-    canvas.width = width;
-    canvas.height = height;
-
-    // draw source image into the off-screen canvas:
-    ctx.drawImage(img, 0, 0, width, height);
-
-    // encode image to data-uri with base64 version of compressed image
-    return canvas.toDataURL();
-}), _defineProperty(_React$createClass, 'onCheckedChange', function onCheckedChange(checked) {
-    var choices = _.map(this.props.choices, function (choice, i) {
-        return _.extend({}, choice, { correct: checked[i] });
-    });
-    this.props.onChange({ choices: choices });
-}), _defineProperty(_React$createClass, 'onContentChange', function onContentChange(choiceIndex, newContent) {
-    var choices = this.props.choices.slice();
-    choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
-        content: newContent
-    });
-    this.props.onChange({ choices: choices });
-}), _defineProperty(_React$createClass, 'onClueChange', function onClueChange(choiceIndex, newClue) {
-    var choices = this.props.choices.slice();
-    choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
-        clue: newClue
-    });
-    if (newClue === "") {
-        delete choices[choiceIndex].clue;
-    }
-    this.props.onChange({ choices: choices });
-}), _defineProperty(_React$createClass, 'onDelete', function onDelete(choiceIndex, e) {
-    e.preventDefault();
-    var choices = this.props.choices.slice();
-    choices.splice(choiceIndex, 1);
-    this.props.onChange({ choices: choices });
-}), _defineProperty(_React$createClass, 'addChoice', function addChoice(e) {
-    var _this3 = this;
-
-    e.preventDefault();
-
-    var choices = this.props.choices;
-    this.props.onChange({ choices: choices.concat([{
-            box: [defaultBoxSize, defaultBoxSize],
-            useBoxSize: false
-        }]) }, function () {
-        _this3.refs["editor" + choices.length].focus();
-    });
-}), _defineProperty(_React$createClass, 'setDisplayCount', function setDisplayCount(num) {
-    this.props.onChange({ displayCount: num });
-}), _defineProperty(_React$createClass, 'focus', function focus() {
-    this.refs.editor0.focus();
-    return true;
-}), _defineProperty(_React$createClass, 'toJSON', function toJSON(skipValidation) {
-    if (!skipValidation && !_.some(_.pluck(this.props.choices, "correct"))) {
-        alert("Warning: No choice is marked as correct.");
-    }
-
-    return _.pick(this.props, "choices", "randomize", "multipleSelect", "displayCount", "noneOfTheAbove", "onePerLine");
-}), _React$createClass));
+});
 
 var choiceTransform = function choiceTransform(editorProps) {
 

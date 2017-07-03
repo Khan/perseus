@@ -494,41 +494,7 @@ var RadioEditor = React.createClass({
         }
     },
 
-    setUrl: function(url, width, height) {
-        if (!this.isMounted()) {
-            return;
-        }
-
-        var image = _.clone(this.props.backgroundImage);
-        image.url = url;
-        image.width = width;
-        image.height = height;
-        var box = [image.width, image.height];
-        this.props.onChange({
-            backgroundImage: image,
-            box: box,
-            useBoxSize: false
-        });
-    },
-
-    reloadImage: function(url) {
-        var img = new Image();
-        img.onload = function()  {return this.setUrl(url, img.width, img.height);}.bind(this);
-        img.src = url;
-    },
-
-    onUrlChange: function(url) {
-        if (url) {
-            if (this.props.backgroundImage.url != url) {
-                this.reloadImage(url);
-            }
-        } else {
-            this.setUrl(url, 0, 0);
-        }
-    },
-
     onFileInputChange: function(choiceIndex, newImage) {
-        
         var file    = newImage.target.files[0]; 
         var reader  = new FileReader();
         var choices = this.props.choices.slice();
@@ -539,42 +505,22 @@ var RadioEditor = React.createClass({
             i.src = reader.result;
             i.onload = function(){
                 choices[choiceIndex].box = [i.width, i.height];
-                console.log(choices[choiceIndex].box);
             };
             choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
                 content: "![](" + reader.result + ")",
             });
             that.props.onChange({choices: choices});
         }
-
     },
 
     toggleUseBoxSize: function(choiceIndex) {
         var useBoxSize = !this.props.choices[choiceIndex].useBoxSize;
         this.props.choices[choiceIndex].useBoxSize = useBoxSize;
         var choices = this.props.choices.slice();
-        // choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
-        //     useBoxSize: check_result
-        // });
-        // if (!useBoxSize) {
-        //     this.reloadImage(this.props.content);
-        // }
         this.props.onChange({choices: choices});
-        // this.props.onChange({choices: choices});        
-        // see this.props is choice or something else
-        // var useBoxSize = !this.props.choices[choiceIndex].useBoxSize;
     },
 
-    reloadImage: function(url) {
-        var img = new Image();
-        img.onload = function()  {return this.setUrl(url, img.width, img.height);}.bind(this);
-        img.src = url;
-    },    
-
     onWidthChange: function(choiceIndex, newAlignment) {
-        
-        // see if wee can get base 64 image w and h and try to resize but now skip it first
-        // image_h = parseInt(newAlignment) > maxImageSize ? maxImageSize:parseInt(newAlignment);
         var choices = this.props.choices.slice();
         var choice = choices[choiceIndex];
         var image_w = choice.box[0]; 
@@ -584,9 +530,9 @@ var RadioEditor = React.createClass({
             var w_h_ratio = image_h / image_w;
             image_w = parseInt(newAlignment) > maxImageSize ? maxImageSize:parseInt(newAlignment); 
             image_h = Math.round(image_w * w_h_ratio);
-            var box = [image_w, image_h];
-            console.log(document.getElementByClass('render-'+ this.props.widgetId + "-" + choiceIndex))
-            choice.box = box;            
+            var box = [image_w, image_h];choice.box = box;
+            // base64 data can not resize unless it is read as a image file
+            // so what we do here is to make a image file and set base64 part of the content as src
             var resizeImage = new Image();
             resizeImage.src = choice.content.match(/(!\[\])\((.*)\)/)[2];
             resizeImage.onload = function() {
@@ -594,26 +540,9 @@ var RadioEditor = React.createClass({
                 // throw resize uri back to content
                 var re = /(!\[\])\((.*)\)/
                 choice.content = choice.content.replace(re, "$1(" + newDataUri + ")");
-                that.onContentChange(choiceIndex, choice.content);
-            };            
-        }
-
-        // that.props.onChange({choices: choices});
-        // console.log(choice.box);
-        // var uncut_url = choices[choiceIndex].content;
-        // var url = uncut_url.match(/\!\[\]\((.*)\)/);
-        // var i = new Image(); 
-        // i.src = choices[choiceIndex].content.match(/\!\[\]\((.*)\)/);
-        // i.onload = function(){
-        //     choices[choiceIndex].box = [i.width, i.height];
-        //     console.log(choices[choiceIndex].box);
-        // };        
+            }; 
+        }  
     },
-
-    // var img = new Image;
-
-    // img.onload = resizeImage;
-    // img.src = originalDataUriHere;
 
     imageToDataUri: function(img, width, height) {
 
@@ -631,7 +560,6 @@ var RadioEditor = React.createClass({
         // encode image to data-uri with base64 version of compressed image
         return canvas.toDataURL();
     },
-
 
     onCheckedChange: function(checked) {
         var choices = _.map(this.props.choices, function(choice, i) {
