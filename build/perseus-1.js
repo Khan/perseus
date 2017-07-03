@@ -1,5 +1,5 @@
 /*! Perseus | http://github.com/Khan/perseus */
-// commit 63637cff2ede2b3b0c6dbe907739a39d54e764eb
+// commit 445a85494c5b3cac45853f425a0950952f9e1943
 // branch add-image-to-radio-widget
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Perseus = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
@@ -48437,8 +48437,8 @@ var RadioEditor = React.createClass({
                             React.createElement(BlurInput, {
                                 type: 'number',
                                 value: choice.box ? parseInt(choice.box[0]) : null,
-                                onChange: function onChange(newProps) {
-                                    _this2.onWidthChange(i, newProps);
+                                onChange: function onChange(e) {
+                                    _this2.onWidthChange(e, i);
                                 } })
                         )
                     );
@@ -48565,17 +48565,19 @@ var RadioEditor = React.createClass({
         this.props.onChange({ choices: choices });
     },
 
-    onWidthChange: function onWidthChange(choiceIndex, newAlignment) {
+    onWidthChange: function onWidthChange(e, choiceIndex) {
         var choices = this.props.choices.slice();
         var choice = choices[choiceIndex];
+        // choice.box = parseInt(e.target.value);
         var image_w = choice.box[0];
         var image_h = choice.box[1];
         var that = this;
         if (choice.useBoxSize) {
             var w_h_ratio = image_h / image_w;
-            image_w = parseInt(newAlignment) > maxImageSize ? maxImageSize : parseInt(newAlignment);
+            image_w = parseInt(e) > maxImageSize ? maxImageSize : parseInt(e);
             image_h = Math.round(image_w * w_h_ratio);
-            var box = [image_w, image_h];choice.box = box;
+            var box = [image_w, image_h];
+            choice.box = box;
             // base64 data can not resize unless it is read as a image file
             // so what we do here is to make a image file and set base64 part of the content as src
             var resizeImage = new Image();
@@ -48585,9 +48587,7 @@ var RadioEditor = React.createClass({
                 // throw resize uri back to content
                 var re = /(!\[\])\((.*)\)/;
                 choice.content = choice.content.replace(re, "$1(" + newDataUri + ")");
-            };
-            resizeImage.onloadend = function () {
-                that.onContentChange(choiceIndex, choice.content);
+                this.props.onChange({ choices: choices });
             };
         }
     },

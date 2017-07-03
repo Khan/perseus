@@ -398,8 +398,8 @@ var RadioEditor = React.createClass({
                             <BlurInput
                                     type="number"
                                     value={choice.box ? parseInt(choice.box[0]) : null}
-                                    onChange={newProps => {
-                                        this.onWidthChange(i, newProps)
+                                    onChange={e => {
+                                        this.onWidthChange(e, i)
                                     }} />
                                     
                         </div>
@@ -520,17 +520,19 @@ var RadioEditor = React.createClass({
         this.props.onChange({choices: choices});
     },
 
-    onWidthChange: function(choiceIndex, newAlignment) {
+    onWidthChange: function(e, choiceIndex) {
         var choices = this.props.choices.slice();
         var choice = choices[choiceIndex];
+        // choice.box = parseInt(e.target.value);
         var image_w = choice.box[0]; 
         var image_h = choice.box[1];
         var that = this;
         if (choice.useBoxSize){
             var w_h_ratio = image_h / image_w;
-            image_w = parseInt(newAlignment) > maxImageSize ? maxImageSize:parseInt(newAlignment); 
+            image_w = parseInt(e) > maxImageSize ? maxImageSize:parseInt(e); 
             image_h = Math.round(image_w * w_h_ratio);
-            var box = [image_w, image_h];choice.box = box;
+            var box = [image_w, image_h];
+            choice.box = box;
             // base64 data can not resize unless it is read as a image file
             // so what we do here is to make a image file and set base64 part of the content as src
             var resizeImage = new Image();
@@ -540,6 +542,7 @@ var RadioEditor = React.createClass({
                 // throw resize uri back to content
                 var re = /(!\[\])\((.*)\)/
                 choice.content = choice.content.replace(re, "$1(" + newDataUri + ")");
+                this.props.onChange({choices: choices});
             }; 
         }  
     },
