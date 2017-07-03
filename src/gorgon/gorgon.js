@@ -241,8 +241,5 @@ function runLinter(tree, context, highlight, rules) {
 module.exports = {
     runLinter: runLinter,
     parse: PerseusMarkdown.parse,
-    TreeTransformer: TreeTransformer,
-    Selector: require("./selector.js"),
-    Rule: require("./rule.js"),
     rules: allLintRules,
 };
