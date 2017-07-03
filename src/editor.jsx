@@ -569,7 +569,7 @@ var Editor = React.createClass({
         var widgetIds = _.intersection(this.widgetIds, _.keys(this.refs));
 
         _.each(widgetIds, function(id) {
-            widgets[id] = this.refs[id].toJSON(skipValidation);
+            widgets[id] = this.getWidgetInstance(id).toJSON(skipValidation);
         }, this);
 
         return {

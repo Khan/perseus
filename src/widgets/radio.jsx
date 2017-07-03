@@ -204,7 +204,7 @@ var Radio = React.createClass({
 
     setAnswerFromJSON: function(answerData) {
         if (answerData === undefined) {
-            renderedAnswerData = {values: undefined};
+            var renderedAnswerData = {values: undefined};
         } else {
             var renderedAnswerData = {'values': []};
             for (var i = 0; i < this.props.choices.length; i++) {
