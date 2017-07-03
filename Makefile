@@ -7,12 +7,12 @@ PERSEUS_BUILD_JS=build/perseus-$(API_VERSION_MAJOR).js
 PERSEUS_BUILD_CSS=build/perseus-$(API_VERSION_MAJOR).css
 
 help:
-	@echo "make server PORT=9000  # runs the perseus server"
-	@echo "make build             # compiles into $(PERSEUS_BUILD_JS) and $(PERSEUS_BUILD_CSS)"
 	@echo "make ke                # build symlink to khan-exercises"
+	@echo "make build             # compiles into $(PERSEUS_BUILD_JS) and $(PERSEUS_BUILD_CSS)"
+	@echo "make server PORT=9000  # runs the perseus server"
 	@echo "make all               # build perseus into webapp"
 
-build: install
+build:
 	mkdir -p build
 	# should be fixed by khan/react-components
 	sed -i -- 's/reactify/babelify/g' node_modules/react-components/package.json
@@ -23,7 +23,7 @@ build: install
 	./node_modules/.bin/lessc stylesheets/exercise-content-package/perseus.less $(PERSEUS_BUILD_CSS)
 
 server: ke
-	npm start
+	php -S 0.0.0.0:$(PORT)
 
 demo:
 	git checkout gh-pages
