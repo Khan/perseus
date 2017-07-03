@@ -398,8 +398,8 @@ var RadioEditor = React.createClass({
                             <BlurInput
                                     type="number"
                                     value={choice.box ? parseInt(choice.box[0]) : null}
-                                    onChange={e => {
-                                        this.onWidthChange(e, i)
+                                    onChange={value => {
+                                        this.onWidthChange(value, i)
                                     }} />
                                     
                         </div>
@@ -520,16 +520,15 @@ var RadioEditor = React.createClass({
         this.props.onChange({choices: choices});
     },
 
-    onWidthChange: function(e, choiceIndex) {
+    onWidthChange: function(value, choiceIndex) {
         var choices = this.props.choices.slice();
-        var choice = choices[choiceIndex];
-        // choice.box = parseInt(e.target.value);
+        var choice = _.extend({}, choices[choiceIndex]);
         var image_w = choice.box[0]; 
         var image_h = choice.box[1];
         var that = this;
         if (choice.useBoxSize){
             var w_h_ratio = image_h / image_w;
-            image_w = parseInt(e) > maxImageSize ? maxImageSize:parseInt(e); 
+            image_w = parseInt(value) > maxImageSize ? maxImageSize:parseInt(value); 
             image_h = Math.round(image_w * w_h_ratio);
             var box = [image_w, image_h];
             choice.box = box;
@@ -542,7 +541,8 @@ var RadioEditor = React.createClass({
                 // throw resize uri back to content
                 var re = /(!\[\])\((.*)\)/
                 choice.content = choice.content.replace(re, "$1(" + newDataUri + ")");
-                this.props.onChange({choices: choices});
+                choices[choiceIndex] = choice;
+                that.props.onChange({choices: choices});
             }; 
         }  
     },
