@@ -69,7 +69,7 @@ function runLinter(tree, context, highlight, rules) {
     // lint violation at that node.
     tt.traverse((node, state, content) => {
         const nodeWarnings = [];
-        allLintRules.forEach(rule => {
+        rules.forEach(rule => {
             const warning = rule.check(node, state, content, context);
             if (warning) {
                 // The start and end locations are relative to this
