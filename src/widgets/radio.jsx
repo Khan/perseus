@@ -38,10 +38,6 @@ var BaseRadio = React.createClass({
 
         return <ul className={"perseus-widget-radio " +
                 "above-scratchpad"}>
-            {this.props.multipleSelect &&
-                <div className="instructions">
-                    {$._("請選擇所有正確的答案。")}
-                </div>}
             {this.props.choices.map(function(choice, i) {
 
                 var content = <div>
@@ -519,7 +515,7 @@ var choiceTransform = (editorProps) => {
     var addNoneOfAbove = function(array) {
         // Pick a random choice to replace with 'None of the above'
         if (!editorProps.randomize && editorProps.noneOfTheAbove) {
-            // Seed RNG with problemNum
+            // Seed NG with problemNum
             var rand = seededRNG(editorProps.problemNum)();
             var randomIndex = Math.floor(rand * array.length);
             var itemToBeReplaced = array[randomIndex];
