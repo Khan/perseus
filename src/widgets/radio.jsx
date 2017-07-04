@@ -584,15 +584,15 @@ var RadioEditor = React.createClass({
         choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
             content: newContent
         });
-        var mark_down_string_check = newContent.match(/(!\[\])\((.*)\)/)[2];
+        var mark_down_string_check = newContent.match(/(!\[\])\((.*)\)/);
         var that = this;
         if(mark_down_string_check){
             var i = new Image(); 
-            i.src = mark_down_string_check;
+            i.src = mark_down_string_check[2];
             i.onload = function(){
                 choices[choiceIndex]["box"] = [i.width, i.height];
                 that.props.onChange({choices: choices});
-            }
+            }            
         }
         this.props.onChange({choices: choices});
     },
