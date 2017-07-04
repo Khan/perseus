@@ -1,5 +1,5 @@
 /*! Perseus | http://github.com/Khan/perseus */
-// commit 6deea727027e4f17e6b7baf99b745eae3f003dd2
+// commit b75d2d467c4134dd745bfc3bc22589988b5a4e1e
 // branch add-image-to-radio-widget
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Perseus = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
@@ -48594,10 +48594,16 @@ var RadioEditor = React.createClass({
             image_h = Math.round(image_w * w_h_ratio);
             var box = [image_w, image_h];
             choice.box = box;
-            // base64 data can not resize unless it is read as a image file
-            // so what we do here is to make a image file and set base64 part of the content as src
             var resizeImage = new Image();
             resizeImage.src = choice.content.match(/(!\[\])\((.*)\)/)[2];
+            //skip http url, it is not able to resize
+            if (resizeImage.src[0] == "h") {
+                choices[choiceIndex] = choice;
+                that.props.onChange({ choices: choices });
+                return;
+            }
+            // base64 data can not resize unless it is read as a image file
+            // so what we do here is to make a image file and set base64 part of the content as src
             resizeImage.onload = function () {
                 var newDataUri = that.imageToDataUri(this, image_w, image_h);
                 // throw resize uri back to content
@@ -48638,6 +48644,16 @@ var RadioEditor = React.createClass({
         choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
             content: newContent
         });
+        var mark_down_string_check = newContent.match(/(!\[\])\((.*)\)/)[2];
+        var that = this;
+        if (mark_down_string_check) {
+            var i = new Image();
+            i.src = mark_down_string_check;
+            i.onload = function () {
+                choices[choiceIndex]["box"] = [i.width, i.height];
+                that.props.onChange({ choices: choices });
+            };
+        }
         this.props.onChange({ choices: choices });
     },
 

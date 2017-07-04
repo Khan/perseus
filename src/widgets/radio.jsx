@@ -534,10 +534,16 @@ var RadioEditor = React.createClass({
             image_h = Math.round(image_w * w_h_ratio);
             var box = [image_w, image_h];
             choice.box = box;
-            // base64 data can not resize unless it is read as a image file
-            // so what we do here is to make a image file and set base64 part of the content as src
             var resizeImage = new Image();
             resizeImage.src = choice.content.match(/(!\[\])\((.*)\)/)[2];
+            //skip http url, it is not able to resize
+            if (resizeImage.src[0] == "h"){
+                choices[choiceIndex] = choice;
+                that.props.onChange({choices: choices});
+                return;
+            }
+            // base64 data can not resize unless it is read as a image file
+            // so what we do here is to make a image file and set base64 part of the content as src
             resizeImage.onload = function() {
                 var newDataUri = that.imageToDataUri(this, image_w, image_h);
                 // throw resize uri back to content
@@ -578,6 +584,16 @@ var RadioEditor = React.createClass({
         choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
             content: newContent
         });
+        var mark_down_string_check = newContent.match(/(!\[\])\((.*)\)/)[2];
+        var that = this;
+        if(mark_down_string_check){
+            var i = new Image(); 
+            i.src = mark_down_string_check;
+            i.onload = function(){
+                choices[choiceIndex]["box"] = [i.width, i.height];
+                that.props.onChange({choices: choices});
+            }
+        }
         this.props.onChange({choices: choices});
     },
 
