@@ -397,11 +397,10 @@ var RadioEditor = React.createClass({
                         <div>寬度:{' '}
                             <BlurInput
                                     type="number"
-                                    value={choice.box ? parseInt(choice.box[0]) : 400}
+                                    value={ (choice.box) ? parseInt(choice.box[0]) : 400}
                                     onChange={value => {
-                                        this.onWidthChange(value, i)
+                                        this.onWidthChange(value, i);
                                     }} />
-                                    
                         </div>
                     </div>;
 
@@ -523,6 +522,9 @@ var RadioEditor = React.createClass({
     onWidthChange: function(value, choiceIndex) {
         var choices = this.props.choices.slice();
         var choice = _.extend({}, choices[choiceIndex]);
+        if (!choice.box){
+            return;
+        }
         var image_w = choice.box[0]; 
         var image_h = choice.box[1];
         var that = this;
