@@ -10,6 +10,7 @@ var _ = require("underscore");
 
 var Renderer = require("../renderer.jsx");
 var TextInput = require("../components/text-input.jsx");
+var NumberInput = require("../components/number-input.jsx");
 
 var ApiOptions = require("../perseus-api.jsx").Options;
 const KhanAnswerTypes = Khan.answerTypes;
@@ -240,7 +241,12 @@ var Matrix = React.createClass({
                                 }
                             };
 
-                            let MatrixInput = <TextInput {...inputProps} />;
+                            let MatrixInput;
+                            if (this.props.numericInput) {
+                                MatrixInput = <NumberInput {...inputProps} />;
+                            } else {
+                                MatrixInput = <TextInput {...inputProps} />;
+                            }
                             return <span
                                         key={col}
                                         className="matrix-input-field">
@@ -387,6 +393,10 @@ var Matrix = React.createClass({
         return {
             answers: this.props.answers
         };
+    },
+
+    setAnswerFromJSON: function(answers) {
+        this.props.onChange(answers);
     },
 
     simpleValidate: function(rubric) {
