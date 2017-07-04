@@ -338,11 +338,6 @@ var ImageEditor = React.createClass({
         var reader  = new FileReader();
         var that = this;
         reader.onloadend = function() {
-            // console.log('RESULT', reader.result);
-            // that.setState({value: reader.result});
-            console.log(that);
-            console.log(that.props);
-
             that.onUrlChange(reader.result);
         }
         reader.readAsDataURL(file);

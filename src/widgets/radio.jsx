@@ -397,7 +397,7 @@ var RadioEditor = React.createClass({
                         <div>寬度:{' '}
                             <BlurInput
                                     type="number"
-                                    value={choice.box ? parseInt(choice.box[0]) : null}
+                                    value={choice.box ? parseInt(choice.box[0]) : 400}
                                     onChange={value => {
                                         this.onWidthChange(value, i)
                                     }} />
@@ -500,17 +500,17 @@ var RadioEditor = React.createClass({
         var choices = this.props.choices.slice();
         var i = new Image(); 
         var that = this;
-        reader.readAsDataURL(file);
         reader.onloadend = function() {
             i.src = reader.result;
             i.onload = function(){
                 choices[choiceIndex].box = [i.width, i.height];
+                that.props.onChange({choices: choices});
             };
             choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
                 content: "![](" + reader.result + ")",
             });
-            that.props.onChange({choices: choices});
         }
+        reader.readAsDataURL(file);
     },
 
     toggleUseBoxSize: function(choiceIndex) {
@@ -537,7 +537,7 @@ var RadioEditor = React.createClass({
             var resizeImage = new Image();
             resizeImage.src = choice.content.match(/(!\[\])\((.*)\)/)[2];
             resizeImage.onload = function() {
-                var newDataUri = newDataUri = that.imageToDataUri(this, image_w, image_h);
+                var newDataUri = that.imageToDataUri(this, image_w, image_h);
                 // throw resize uri back to content
                 var re = /(!\[\])\((.*)\)/
                 choice.content = choice.content.replace(re, "$1(" + newDataUri + ")");

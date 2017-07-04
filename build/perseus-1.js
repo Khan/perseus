@@ -1,5 +1,5 @@
 /*! Perseus | http://github.com/Khan/perseus */
-// commit 28ba57d65c2f0b61d8a343d12e32955ee1844efe
+// commit 2e4ce403cbaa4ce76f1b31e8b472dcea0d8f0c66
 // branch add-image-to-radio-widget
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Perseus = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
@@ -39403,11 +39403,6 @@ var ImageEditor = React.createClass({
         var reader = new FileReader();
         var that = this;
         reader.onloadend = function () {
-            // console.log('RESULT', reader.result);
-            // that.setState({value: reader.result});
-            console.log(that);
-            console.log(that.props);
-
             that.onUrlChange(reader.result);
         };
         reader.readAsDataURL(file);
@@ -48455,7 +48450,7 @@ var RadioEditor = React.createClass({
                             ' ',
                             React.createElement(BlurInput, {
                                 type: 'number',
-                                value: choice.box ? parseInt(choice.box[0]) : null,
+                                value: choice.box ? parseInt(choice.box[0]) : 400,
                                 onChange: function onChange(value) {
                                     _this2.onWidthChange(value, i);
                                 } })
@@ -48564,17 +48559,17 @@ var RadioEditor = React.createClass({
         var choices = this.props.choices.slice();
         var i = new Image();
         var that = this;
-        reader.readAsDataURL(file);
         reader.onloadend = function () {
             i.src = reader.result;
             i.onload = function () {
                 choices[choiceIndex].box = [i.width, i.height];
+                that.props.onChange({ choices: choices });
             };
             choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
                 content: "![](" + reader.result + ")"
             });
-            that.props.onChange({ choices: choices });
         };
+        reader.readAsDataURL(file);
     },
 
     toggleUseBoxSize: function toggleUseBoxSize(choiceIndex) {
@@ -48601,7 +48596,7 @@ var RadioEditor = React.createClass({
             var resizeImage = new Image();
             resizeImage.src = choice.content.match(/(!\[\])\((.*)\)/)[2];
             resizeImage.onload = function () {
-                var newDataUri = newDataUri = that.imageToDataUri(this, image_w, image_h);
+                var newDataUri = that.imageToDataUri(this, image_w, image_h);
                 // throw resize uri back to content
                 var re = /(!\[\])\((.*)\)/;
                 choice.content = choice.content.replace(re, "$1(" + newDataUri + ")");
