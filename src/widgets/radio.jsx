@@ -52,6 +52,7 @@ var transform = (editorProps, problemNum) => {
     const {
         hasNoneOfTheAbove,
         multipleSelect,
+        countChoices,
         correctAnswer,
         deselectEnabled,
     } = editorProps;
@@ -60,6 +61,7 @@ var transform = (editorProps, problemNum) => {
         numCorrect,
         hasNoneOfTheAbove,
         multipleSelect,
+        countChoices,
         correctAnswer,
         deselectEnabled,
         choices,
