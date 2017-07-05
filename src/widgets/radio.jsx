@@ -17,8 +17,6 @@ var seededRNG = require("../util.js").seededRNG;
 var captureScratchpadTouchStart =
         require("../util.js").captureScratchpadTouchStart;
 
-var defaultBoxSize = 400;
-var maxImageSize = 480;
 var BaseRadio = React.createClass({
     propTypes: {
         labelWrap: React.PropTypes.bool,
@@ -137,10 +135,7 @@ var Radio = React.createClass({
     getDefaultProps: function() {
         return {
             choices: 
-            [{
-                box: [defaultBoxSize, defaultBoxSize],
-                useBoxSize: false
-            }],
+            [{}],
             displayCount: null,
             multipleSelect: false,
         };
@@ -169,8 +164,6 @@ var Radio = React.createClass({
                 content: <Renderer {...content} />,
                 checked: values[i],
                 clue: <Renderer content={choice.clue} />,
-                useBoxSize: <Renderer content={choice.useBoxSize} />,
-                box: <Renderer content={choice.box} />,
             };
         });
         choices = this.enforceOrdering(choices);
@@ -182,7 +175,7 @@ var Radio = React.createClass({
             multipleSelect={this.props.multipleSelect}
             showClues={this.state.showClues}
             choices={choices.map(function(choice) {
-                return _.pick(choice, "content", "checked", "clue", "useBoxSize", "box");
+                return _.pick(choice, "content", "checked", "clue");
             })}
             onCheckedChange={this.onCheckedChange} />;
     },
@@ -325,9 +318,7 @@ var RadioEditor = React.createClass({
         choices: React.PropTypes.arrayOf(React.PropTypes.shape({
             content: React.PropTypes.string,
             clue: React.PropTypes.string,
-            correct: React.PropTypes.bool,
-            useBoxSize: React.PropTypes.bool,
-            box: React.PropTypes.arrayOf(React.PropTypes.number)
+            correct: React.PropTypes.bool
         })),
         displayCount: React.PropTypes.number,
         randomize: React.PropTypes.bool,
@@ -339,14 +330,7 @@ var RadioEditor = React.createClass({
     getDefaultProps: function() {
         return {
             choices: 
-            [{
-                box: [defaultBoxSize, defaultBoxSize],
-                useBoxSize: false
-            }, 
-            {
-                box: [defaultBoxSize, defaultBoxSize],
-                useBoxSize: false
-            }],
+            [{},{}],
             displayCount: null,
             randomize: false,
             noneOfTheAbove: false,
@@ -387,21 +371,6 @@ var RadioEditor = React.createClass({
                                 this.onFileInputChange(i, newProps);
                             }}
                         />
-                        <br/>
-                        <label>
-                            <input type="checkbox"
-                                    checked={choice.useBoxSize}
-                                    onChange={() => this.toggleUseBoxSize(i)} />手動調整寬度，寬度上限480
-                        </label>
-                        <br/>
-                        <div>寬度:{' '}
-                            <BlurInput
-                                    type="number"
-                                    value={ (choice.box) ? parseInt(choice.box[0]) : 400}
-                                    onChange={value => {
-                                        this.onWidthChange(value, i);
-                                    }} />
-                        </div>
                     </div>;
 
                     var editor = <Editor
@@ -502,7 +471,6 @@ var RadioEditor = React.createClass({
         reader.onloadend = function() {
             i.src = reader.result;
             i.onload = function(){
-                choices[choiceIndex].box = [i.width, i.height];
                 that.props.onChange({choices: choices});
             };
             choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
@@ -510,66 +478,6 @@ var RadioEditor = React.createClass({
             });
         }
         reader.readAsDataURL(file);
-    },
-
-    toggleUseBoxSize: function(choiceIndex) {
-        var useBoxSize = !this.props.choices[choiceIndex].useBoxSize;
-        this.props.choices[choiceIndex].useBoxSize = useBoxSize;
-        var choices = this.props.choices.slice();
-        this.props.onChange({choices: choices});
-    },
-
-    onWidthChange: function(value, choiceIndex) {
-        var choices = this.props.choices.slice();
-        var choice = _.extend({}, choices[choiceIndex]);
-        if (!choice.box){
-            return;
-        }
-        var image_w = choice.box[0]; 
-        var image_h = choice.box[1];
-        var that = this;
-        if (choice.useBoxSize){
-            var w_h_ratio = image_h / image_w;
-            image_w = parseInt(value) > maxImageSize ? maxImageSize:parseInt(value); 
-            image_h = Math.round(image_w * w_h_ratio);
-            var box = [image_w, image_h];
-            choice.box = box;
-            var resizeImage = new Image();
-            resizeImage.src = choice.content.match(/(!\[\])\((.*)\)/)[2];
-            //skip http url, it is not able to resize
-            if (resizeImage.src[0] == "h"){
-                choices[choiceIndex] = choice;
-                that.props.onChange({choices: choices});
-                return;
-            }
-            // base64 data can not resize unless it is read as a image file
-            // so what we do here is to make a image file and set base64 part of the content as src
-            resizeImage.onload = function() {
-                var newDataUri = that.imageToDataUri(this, image_w, image_h);
-                // throw resize uri back to content
-                var re = /(!\[\])\((.*)\)/
-                choice.content = choice.content.replace(re, "$1(" + newDataUri + ")");
-                choices[choiceIndex] = choice;
-                that.props.onChange({choices: choices});
-            }; 
-        }  
-    },
-
-    imageToDataUri: function(img, width, height) {
-
-        // create an off-screen canvas
-        var canvas = document.createElement('canvas'),
-            ctx = canvas.getContext('2d');
-
-        // set its dimension to target size
-        canvas.width = width;
-        canvas.height = height;
-
-        // draw source image into the off-screen canvas:
-        ctx.drawImage(img, 0, 0, width, height);
-
-        // encode image to data-uri with base64 version of compressed image
-        return canvas.toDataURL();
     },
 
     onCheckedChange: function(checked) {
@@ -584,16 +492,6 @@ var RadioEditor = React.createClass({
         choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
             content: newContent
         });
-        var mark_down_string_check = newContent.match(/(!\[\])\((.*)\)/);
-        var that = this;
-        if(mark_down_string_check){
-            var i = new Image(); 
-            i.src = mark_down_string_check[2];
-            i.onload = function(){
-                choices[choiceIndex]["box"] = [i.width, i.height];
-                that.props.onChange({choices: choices});
-            }            
-        }
         this.props.onChange({choices: choices});
     },
 
@@ -619,10 +517,7 @@ var RadioEditor = React.createClass({
         e.preventDefault();
 
         var choices = this.props.choices;
-        this.props.onChange({choices: choices.concat([{
-            box: [defaultBoxSize, defaultBoxSize],
-            useBoxSize: false        
-        }])}, () => {
+        this.props.onChange({choices: choices.concat([{}])}, () => {
             this.refs["editor" + choices.length].focus();
         });
     },
