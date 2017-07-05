@@ -375,14 +375,12 @@ _.extend(Radio, {
                 type: "invalid",
                 message: null,
             };
-        } else if (state.countChoices) {
-            if (numSelected !== state.numCorrect) {
-                return {
-                    type: "invalid",
-                    message: i18n._(
-                        "Please choose the correct number of answers."),
-                };
-            }
+        } else if (state.countChoices && numSelected !== state.numCorrect) {
+            return {
+                type: "invalid",
+                message: i18n._(
+                    "Please choose the correct number of answers."),
+            };
         // If NOTA and some other answer are checked, ...
         } else if (state.noneOfTheAboveSelected && numSelected > 1) {
             return {
