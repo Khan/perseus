@@ -256,7 +256,7 @@ _.extend(Explanation, {
 
 module.exports = {
     name: "explanation",
-    displayName: "Explanation (for hints)",
+    displayName: "Explanation",
     defaultAlignment: "inline",
     widget: Explanation,
     transform: _.identity,

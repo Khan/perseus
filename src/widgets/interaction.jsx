@@ -509,4 +509,5 @@ module.exports = {
     displayName: "Interaction",
     widget: Interaction,
     transform: _.identity,
+    hidden: true,
 };

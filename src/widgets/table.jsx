@@ -351,5 +351,6 @@ module.exports = {
     accessible: true,
     widget: Table,
     transform: propTransform,
+    hidden: true,
     isLintable: true,
 };

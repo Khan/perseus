@@ -151,7 +151,7 @@ _.extend(PassageRef, {
 
 module.exports = {
     name: "passage-ref",
-    displayName: "PassageRef",
+    displayName: "PassageRef (SAT only)",
     defaultAlignment: "inline",
     widget: PassageRef,
     transform: (editorProps) => {

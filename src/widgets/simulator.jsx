@@ -717,5 +717,6 @@ module.exports = {
     name: "simulator",
     displayName: "Simulator",
     widget: Simulator,
-    transform: propTransform
+    transform: propTransform,
+    hidden: true,
 };

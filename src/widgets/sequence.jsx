@@ -125,5 +125,6 @@ module.exports = {
     widget: Sequence,
     traverseChildWidgets: traverseChildWidgets,
     tracking: "all",
+    hidden: true,
     isLintable: true,
 };

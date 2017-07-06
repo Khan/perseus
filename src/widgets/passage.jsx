@@ -507,7 +507,7 @@ class Passage extends React.Component {
 
 module.exports = {
     name: "passage",
-    displayName: "Passage",
+    displayName: "Passage (SAT only)",
     widget: Passage,
     transform: (editorProps: any) => {
         return _.pick(editorProps, "passageTitle", "passageText", "footnotes",

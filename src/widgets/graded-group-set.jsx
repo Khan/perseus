@@ -154,7 +154,7 @@ module.exports = {
     displayName: "Graded Group Set",
     widget: GradedGroupSet,
     traverseChildWidgets: traverseChildWidgets,
-    hidden: false,
+    hidden: true,
     tracking: "all",
     isLintable: true,
 };

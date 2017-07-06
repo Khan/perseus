@@ -183,10 +183,9 @@ var traverseChildWidgets = function(
 
 module.exports = {
     name: "group",
-    displayName: "Group",
+    displayName: "Group (SAT only)",
     widget: Group,
     traverseChildWidgets: traverseChildWidgets,
     hidden: false,
     isLintable: true,
 };
-

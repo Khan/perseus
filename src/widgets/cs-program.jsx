@@ -180,4 +180,5 @@ module.exports = {
     displayName: "CS Program",
     supportedAlignments: ["block", "full-width"],
     widget: CSProgram,
+    hidden: true,
 };

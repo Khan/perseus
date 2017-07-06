@@ -311,7 +311,7 @@ module.exports = {
     displayName: "Graded Group",
     widget: GradedGroup,
     traverseChildWidgets: traverseChildWidgets,
-    hidden: false,
+    hidden: true,
     tracking: "all",
     isLintable: true,
 };

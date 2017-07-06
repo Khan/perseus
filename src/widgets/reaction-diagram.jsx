@@ -116,6 +116,6 @@ const ReactionDiagramWidget = React.createClass({
 module.exports = {
     name: "reaction-diagram",
     displayName: "Chemical reaction",
-    hidden: false,
+    hidden: true,
     widget: ReactionDiagramWidget,
 };
