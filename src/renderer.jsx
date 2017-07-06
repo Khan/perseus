@@ -238,7 +238,7 @@ var Renderer = React.createClass({
     _onWidgetFocus: function(id, focusPath, element) {
         if (focusPath === undefined && element === undefined) {
             focusPath = [];
-            element = ReactDOM.findDOMNode(this.refs[id]);
+            element = ReactDOM.findDOMNode(this.getWidgetInstance(id));
         } else {
             if (!_.isArray(focusPath)) {
                 throw new Error(
@@ -515,7 +515,7 @@ var Renderer = React.createClass({
                 // TODO(jack): Figure out why this is happening and fix it
                 // As far as I can tell, this is only an issue in the
                 // editor-page, so doing this shouldn't break clients hopefully
-                var element = this.refs[id] ? ReactDOM.findDOMNode(this.getWidgetInstance(id)) : null;
+                var element = this.getWidgetInstance(id) ? ReactDOM.findDOMNode(this.getWidgetInstance(id)) : null;
                 this._setCurrentFocus([id], element);
             }
         });
@@ -541,7 +541,7 @@ var Renderer = React.createClass({
         if( !answerData )
             return {};
         return _.map(this.widgetIds, function(id, index) {
-            if (this.refs[id].setAnswerFromJSON === undefined) {
+            if (this.getWidgetInstance(id).setAnswerFromJSON === undefined) {
                 // Target widget cannot show answer.
                 return {showSuccess:false,err:'no setAnswerFromJSON implemented for ' + id + ' widget'};
             } else {
@@ -550,8 +550,8 @@ var Renderer = React.createClass({
                     console.log("showGuess err");
                     return {};
                 }
-                widgetAnswerData = answerData[0][index];
-                this.refs[id].setAnswerFromJSON(widgetAnswerData);
+                var widgetAnswerData = answerData[0][index];
+                this.getWidgetInstance(id).setAnswerFromJSON(widgetAnswerData);
                 return {showSuccess:true};
             }
         }, this);
@@ -560,7 +560,7 @@ var Renderer = React.createClass({
     canShowAllHistoryWidgets: function(answerData) {
         var r = true;
         _.map(this.widgetIds, function(id, index) {
-            if (this.refs[id].setAnswerFromJSON === undefined) {
+            if (this.getWidgetInstance(id).setAnswerFromJSON === undefined) {
                 if ( id !== 'image 1') {
                   r = false;
                 }
@@ -575,10 +575,11 @@ var Renderer = React.createClass({
                 function() { };
 
         var totalGuess = _.map(this.widgetIds, function(id) {
-            if (id.indexOf('lights-puzzle') > -1 || id.indexOf('transformer') > -1 || id.indexOf('image') > -1) {
+            if (widgetProps[id].graded === false || id.indexOf('lights-puzzle') > -1 || id.indexOf('transformer') > -1 || id.indexOf('image') > -1) {
                 return 'no save ' + id +' widget'
             }
-            return this.getWidgetInstance(id).toJSON();
+            const widget = this.getWidgetInstance(id);
+            return (widget.toJSON || widget.getUserInput || (() => ({})))();
         }, this);
 
         var totalScore = _.chain(this.widgetIds)

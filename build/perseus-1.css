@@ -574,7 +574,7 @@ body.mobile .perseus-widget-radio input[type=checkbox]:checked:before {
 }
 .framework-perseus table.perseus-widget-table-of-values.non-markdown {
   text-align: left;
-  margin: 20px auto 0;
+  margin: 20px 0 0;
   border-collapse: collapse;
 }
 .framework-perseus table.perseus-widget-table-of-values.non-markdown tr {
@@ -802,6 +802,30 @@ body.mobile .perseus-widget-radio input[type=checkbox]:checked:before {
 .orderer.layout-vertical .draggable-box .placeholder {
   box-sizing: border-box;
 }
+.perseus-widget-matcher .column {
+  float: left;
+  max-width: 50%;
+}
+.perseus-widget-matcher .column:first-child .column-label,
+.perseus-widget-matcher .column:first-child .perseus-sortable {
+  padding-right: 5px;
+}
+.perseus-widget-matcher .column + .column .column-label,
+.perseus-widget-matcher .column + .column .perseus-sortable {
+  border-left: 1px solid #444444;
+  padding-left: 5px;
+}
+.perseus-widget-matcher .column-label {
+  border-bottom: 1px solid #444444;
+  padding-bottom: 5px;
+  text-align: center;
+}
+.perseus-widget-matcher .column-label div.paragraph {
+  margin: 0;
+}
+.perseus-widget-matcher .perseus-sortable {
+  padding-top: 5px;
+}
 .perseus-matrix .matrix-prefix,
 .perseus-matrix .matrix-suffix {
   display: inline-block;
@@ -911,6 +935,38 @@ body.mobile .perseus-matrix .math-output {
 .perseus-widget-measurer-url {
   width: 70%;
 }
+.reaction {
+  display: table-row;
+}
+.reaction-aligned {
+  display: table-cell;
+  vertical-align: middle;
+}
+.molecule-container {
+  display: table-cell;
+  vertical-align: middle;
+  margin: 20px;
+}
+.molecule-canvas {
+  display: table-cell;
+  vertical-align: middle;
+}
+.arrow-container {
+  display: table-cell;
+  vertical-align: middle;
+}
+.above-text {
+  font-size: 0.8em;
+  margin-bottom: -1em;
+  min-height: 1.8em;
+  text-align: center;
+}
+.below-text {
+  font-size: 0.8em;
+  margin-top: -1.6em;
+  min-height: 1.8em;
+  text-align: center;
+}
 .perseus-widget-transformer .highlighted-tool-button {
   text-shadow: 1px 1px rgba(0, 0, 0, 0.25);
 }
@@ -926,30 +982,6 @@ body.mobile .perseus-matrix .math-output {
 }
 .perseus-widget-transformer .perseus-transformation-list input {
   width: 40px;
-}
-.perseus-widget-matcher .column {
-  float: left;
-  max-width: 50%;
-}
-.perseus-widget-matcher .column:first-child .column-label,
-.perseus-widget-matcher .column:first-child .perseus-sortable {
-  padding-right: 5px;
-}
-.perseus-widget-matcher .column + .column .column-label,
-.perseus-widget-matcher .column + .column .perseus-sortable {
-  border-left: 1px solid #444444;
-  padding-left: 5px;
-}
-.perseus-widget-matcher .column-label {
-  border-bottom: 1px solid #444444;
-  padding-bottom: 5px;
-  text-align: center;
-}
-.perseus-widget-matcher .column-label div.paragraph {
-  margin: 0;
-}
-.perseus-widget-matcher .perseus-sortable {
-  padding-top: 5px;
 }
 .draggy-boxy-thing .draggable-box,
 .draggy-boxy-thing .cards-area {

@@ -117,13 +117,14 @@ var Widgets = {
                 }
             }
         }
+        let graded = true;
+        if (widgetExports.graded != null) graded = widgetExports.graded;
+        else if (oldWidgetInfo.graded != null) graded = oldWidgetInfo.graded;
 
         return _.extend({}, oldWidgetInfo, {  // maintain other info, like type
             version: latestVersion,
             // Default graded to true (so null/undefined becomes true):
-            graded: (
-                (oldWidgetInfo.graded != null) ? oldWidgetInfo.graded : true
-            ),
+            graded,
             options: newEditorProps
         });
     },

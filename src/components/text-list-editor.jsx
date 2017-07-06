@@ -7,7 +7,7 @@ function getTextWidth(text) {
     if (!textWidthCache[text]) {
         // Hacky way to guess the width of an input box
         var $test = $("<span>").text(text).appendTo("body");
-        textWidthCache[text] = $test.width() + 5;
+        textWidthCache[text] = $test.width() + 20;
         $test.remove();
     }
     return textWidthCache[text];

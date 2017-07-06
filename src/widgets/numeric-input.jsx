@@ -442,7 +442,7 @@ var propsTransform = function(editorProps) {
 
 module.exports = {
     name: "numeric-input",
-    displayName: "Number text box (new)",
+    displayName: "numeric-input/進階數值填充",
     widget: NumericInput,
     editor: NumericInputEditor,
     transform: propsTransform,
