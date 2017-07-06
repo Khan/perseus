@@ -37,7 +37,7 @@ var BaseRadio = React.createClass({
         var inputType = this.props.multipleSelect ? "checkbox" : "radio";
 
         return <ul className={"perseus-widget-radio " +
-                "above-scratchpad blank-background"}>
+                "above-scratchpad"}>
             {this.props.multipleSelect &&
                 <div className="instructions">
                     {$._("請選擇所有正確的答案。")}
@@ -204,7 +204,7 @@ var Radio = React.createClass({
 
     setAnswerFromJSON: function(answerData) {
         if (answerData === undefined) {
-            renderedAnswerData = {values: undefined};
+            var renderedAnswerData = {values: undefined};
         } else {
             var renderedAnswerData = {'values': []};
             for (var i = 0; i < this.props.choices.length; i++) {

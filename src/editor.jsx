@@ -10,14 +10,6 @@ var DragTarget = require("react-components/js/drag-target.jsx");
 // like [[snowman input-number 1]]
 var rWidgetSplit = /(\[\[\u2603 [a-z-]+ [0-9]+\]\])/g;
 
-// widgets junyi can use now:
-var widgetsInEditor = ['image', 'categorizer', 'dropdown', 'explanation', 'expression',
-                      'input-number', 'interactive-graph', 'interactive-number-line',
-                      'lights-puzzle', 'matrix', 'measurer', 'number-line',
-                      'iframe', 'numeric-input', 'plotter',
-                      'radio', 'sorter', 'table', 'transformer', 'matcher',
-                      'speaking-text-input', 'speaking-voice'];
-
 var WidgetSelect = React.createClass({
     handleChange: function(e) {
         var widgetType = e.target.value;
@@ -36,9 +28,8 @@ var WidgetSelect = React.createClass({
     },
     render: function() {
         var widgets = Widgets.getPublicWidgets();
-        var junyiValidWidgets = _.pick(widgets, widgetsInEditor);
-        var orderedWidgetNames = _.sortBy(_.keys(junyiValidWidgets), (name) => {
-            return junyiValidWidgets[name].displayName;
+        var orderedWidgetNames = _.sortBy(_.keys(widgets), (name) => {
+            return widgets[name].displayName;
         });
 
         return <select onChange={this.handleChange}>
