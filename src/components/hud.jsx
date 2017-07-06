@@ -18,24 +18,28 @@ const HUD = React.createClass({
                 viewBox="0 0 24 24"
                 className={css(styles.icon)}
             >
+                <defs>
+                    <path
+                        id="a"
+                        d={
+                            "M7.401 10.035c-1.424.748-2.599 1.905-3.544 " +
+                            "3.48a1 1 0 0 1-1.714-1.03C4.325 8.849 7.652 7 " +
+                            "12 7c4.348 0 7.675 1.848 9.857 5.486a1 1 0 0 " +
+                            "1-1.714 1.028c-.945-1.574-2.12-2.73-3.544-" +
+                            "3.48a5 5 0 1 1-9.198 0zM12 15a3 3 0 1 0 0-6 3 3 " +
+                            "0 0 0 0 6z"
+                        }
+                    />
+                </defs>
                 <g fill="none" fillRule="evenodd">
                     <path fill="none" d="M0 0h24v24H0z" />
-                    <circle
-                        cx="12"
-                        cy="12"
-                        r="4"
-                        stroke="#FFF"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                    />
-                    <path
-                        stroke="#FFF"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M1 14c2-4 5.667-6 11-6s9 2 11 6"
-                    />
+                    <mask id="b" fill="#fff">
+                        <use href="#a" />
+                    </mask>
+                    <use fill="#fff" fillRule="nonzero" href="#a" />
+                    <g fill="#fff" mask="url(#b)">
+                        <path d="M0 0h24v24H0z" />
+                    </g>
                 </g>
             </svg>
         );
@@ -54,8 +58,18 @@ const HUD = React.createClass({
                     <path
                         id="a"
                         d={
-                            "M0 0h24v24H0V0zm3.793 6.207l14 14a1 1 0 0 0 " +
-                                "1.414-1.414l-14-14a1 1 0 0 0-1.414 1.414z"
+                            "M8.794 7.38C9.791 7.127 10.86 7 12 7c4.348 0 " +
+                                "7.675 1.848 9.857 5.486a1 1 0 0 1-1.714 " +
+                                "1.028c-.945-1.574-2.12-2.73-3.544-3.48.258." +
+                                "604.401 1.268.401 1.966 0 1.02-.305 " +
+                                "1.967-.828 2.757l2.535 2.536a1 1 0 0 " +
+                                "1-1.414 1.414l-12-12a1 1 0 0 1 " +
+                                "1.414-1.414L8.794 7.38zm5.914 5.913a3 3 0 0 " +
+                                "0-4.001-4.001l4 4.001zM6.072 8.486l2.976 " +
+                                "2.976a3 3 0 0 0 3.49 3.49l1.579 1.58A5 5 0 " +
+                                "0 1 7.4 10.035c-1.424.747-2.599 1.904-3.544 " +
+                                "3.478a1 1 0 0 1-1.714-1.028c1.049-1.75 " +
+                                "2.363-3.085 3.929-4z"
                         }
                     />
                 </defs>
@@ -64,31 +78,10 @@ const HUD = React.createClass({
                     <mask id="b" fill="#fff">
                         <use href="#a" />
                     </mask>
-                    <path
-                        stroke="#FFF"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M3 13c2-3.333 5-5 9-5s7 1.667 9 5"
-                        mask="url(#b)"
-                    />
-                    <circle
-                        cx="12"
-                        cy="12"
-                        r="4"
-                        stroke="#FFF"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        mask="url(#b)"
-                    />
-                    <path
-                        stroke="#FFF"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M5 5l14 14"
-                    />
+                    <use fill="#fff" fillRule="nonzero" href="#a" />
+                    <g fill="#fff" mask="url(#b)">
+                        <path d="M0 0h24v24H0z" />
+                    </g>
                 </g>
             </svg>
         );
