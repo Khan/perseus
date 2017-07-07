@@ -12,6 +12,7 @@ var _ = require("underscore");
 var classNames = require("classnames");
 
 var JiptParagraphs = require("./jipt-paragraphs.jsx");
+var {maybeUnescape} = require("./jipt-hack.jsx");
 var PerseusMarkdown = require("./perseus-markdown.jsx");
 var QuestionParagraph = require("./question-paragraph.jsx");
 var SvgImage = require("./components/svg-image.jsx");
@@ -32,15 +33,6 @@ const { keypadElementPropType } = require("../math-input").propTypes;
 
 var { mapObject, mapObjectFromArray } = require("./interactive2/objective_.js");
 
-var specialChars = {
-    // escaped: original
-    "\\t": "\t",
-    "\\n": "\n",
-    "\\r": "\r",
-    "\\\\": "\\",
-};
-
-var rEscapedChars = /\\t|\\n|\\r|\\\\/g;
 var rContainsNonWhitespace = /\S/;
 var rImageURL = /(web\+graphie|https):\/\/[^\s]*/;
 
@@ -72,12 +64,9 @@ if (typeof KA !== "undefined" && KA.language === "en-pt") {
                 // and insert anything
                 return false;
             }
-            // Jipt sends down the escaped translation, so we need to
+            // Jipt sometimes sends down the escaped translation, so we need to
             // unescape \\t to \t among other characters here
-            text = text.replace(
-                rEscapedChars,
-                (ch) => specialChars[ch]
-            );
+            text = maybeUnescape(text);
 
             component.replaceJiptContent(text, paragraphIndex);
 

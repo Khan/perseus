@@ -7,6 +7,7 @@ const _ = require("underscore");
 const FixedToResponsive = require("../components/fixed-to-responsive.jsx");
 const Graphie = require("../components/graphie.jsx");
 const ImageLoader = require("../components/image-loader.jsx");
+const {maybeUnescape} = require("../jipt-hack.jsx");
 const Util = require("../util.js");
 const Zoom = require("../zoom.js");
 
@@ -103,16 +104,6 @@ function shouldRenderJipt() {
     return typeof KA !== "undefined" && KA.language === "en-pt";
 }
 
-const specialChars = {
-    // escaped: original
-    "\\t": "\t",
-    "\\n": "\n",
-    "\\r": "\r",
-    "\\\\": "\\",
-};
-
-const rEscapedChars = /\\t|\\n|\\r|\\\\/g;
-
 const jiptLabels = [];
 if (shouldRenderJipt()) {
     if (!KA.jipt_dom_insert_checks) {
@@ -126,9 +117,7 @@ if (shouldRenderJipt()) {
 
             label.text("");
 
-            text = text.replace(rEscapedChars, function(ch) {
-                return specialChars[ch];
-            });
+            text = maybeUnescape(text);
 
             if (useMath) {
                 const mathRegex = /^\$(.*)\$$/;
