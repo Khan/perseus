@@ -815,8 +815,8 @@ var Editor = React.createClass({
                        "x &= 25 \\end{align}$";
         } else if (templateType === "piecewise") {
             template = "$f(x) = \\begin{cases}\n" +
-                       "7 & \\text{if $x=1$} \\\\\n" +
-                       "f(x-1)+5 & \\text{if $x > 1$}\n" +
+                       "7 & \\text{if }x=1 \\\\\n" +
+                       "f(x-1)+5 & \\text{if }x > 1\n" +
                        "\\end{cases}$";
         } else if (templateType === "allWidgets") {
             template = Widgets.getAllWidgetTypes()
