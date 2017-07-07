@@ -1,15 +1,12 @@
-/** @jsx React.DOM */
-
 var React = require('react');
 var Changeable  = require("../mixins/changeable.jsx");
 
-var ButtonGroup = require("react-components/button-group");
-var InfoTip     = require("react-components/info-tip");
+var ButtonGroup = require("react-components/js/button-group.jsx");
+var InfoTip     = require("react-components/js/info-tip.jsx");
 var NumberInput = require("../components/number-input.jsx");
 var PropCheckBox = require("../components/prop-check-box.jsx");
 var RangeInput = require("../components/range-input.jsx");
 var Util = require("../util.js");
-var BlurInput = require("react-components/blur-input");
 
 var defaultBoxSize = 400;
 var defaultBackgroundImage = {
@@ -121,8 +118,13 @@ var GraphSettings = React.createClass({
             <div className="image-settings">
                 <div>背景圖:</div>
                 <div>Url:{' '}
-                    <BlurInput  value={this.props.backgroundImage.url}
-                                onChange={this.changeBackgroundUrl}/>
+                    <input type="text"
+                            className="graph-settings-background-url"
+                            ref="bg-url"
+                            value={this.props.backgroundImage.url}
+                            onChange={this.changeBackgroundUrl}
+                            onKeyPress={this.changeBackgroundUrl}
+                            onBlur={this.changeBackgroundUrl} />
                     <InfoTip>
                         <p>請在圖形中增加圖片，或於欄中輸入圖片連結。</p>
                     </InfoTip>
@@ -215,8 +217,7 @@ var GraphSettings = React.createClass({
     },
 
     componentDidMount: function() {
-        var changeGraph = this.changeGraph;
-        this.changeGraph = _.debounce(changeGraph.bind(this), 300);
+        this.changeGraph = _.debounce(this.changeGraph, 300);
     },
 
 
@@ -409,7 +410,8 @@ var GraphSettings = React.createClass({
         });
     },
 
-    changeBackgroundUrl: function(url) {
+    changeBackgroundUrl: function(e) {
+        var url = e.target.value;
         if (url) {
             if(this.props.backgroundImage.url != url){
                 var img = new Image();

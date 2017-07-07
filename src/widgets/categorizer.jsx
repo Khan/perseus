@@ -1,4 +1,4 @@
-/** @jsx React.DOM */
+var React = require("react");
 
 var Changeable   = require("../mixins/changeable.jsx");
 var JsonifyProps = require("../mixins/jsonify-props.jsx");
@@ -183,4 +183,3 @@ module.exports = {
     },
     hidden: false
 };
-

@@ -1,4 +1,4 @@
-/** @jsx React.DOM */
+var React = require("react");
 var assert = require("assert");
 var Perseus = require("../perseus.js");
 var Renderer = Perseus.Renderer;
@@ -151,7 +151,7 @@ describe("Perseus API", function() {
                 }
             });
 
-            var input = renderer.getDOMNode().querySelector('input');
+            var input = renderer.querySelector('input');
 
             TestUtils.Simulate.focus(input);
 
@@ -165,7 +165,7 @@ describe("Perseus API", function() {
                 }
             });
 
-            var input = renderer.getDOMNode().querySelector('input');
+            var input = renderer.querySelector('input');
 
             TestUtils.Simulate.focus(input);
 
@@ -200,13 +200,13 @@ describe("Perseus API", function() {
 
                 var renderer = renderQuestionArea(inputNumber1Item);
 
-                var input = renderer.getDOMNode().querySelector('input');
+                var input = renderer.querySelector('input');
                 assert.strictEqual(
                     $(input).hasClass(Perseus.ClassNames.INPUT),
                     true
                 );
 
-                var perseusInput = renderer.getDOMNode().querySelector(
+                var perseusInput = renderer.querySelector(
                     ".perseus-input"
                 );
                 assert.strictEqual(input, perseusInput);
@@ -228,7 +228,7 @@ describe("Perseus API", function() {
                         renderer.setInputValue(widgetId, "5");
                     }
                 });
-                var input = renderer.getDOMNode().querySelector('input');
+                var input = renderer.querySelector('input');
 
                 assert.strictEqual(
                     $(input).hasClass(Perseus.ClassNames.FOCUSED),
@@ -264,7 +264,7 @@ describe("Perseus API", function() {
                 }
             });
 
-            var input = renderer.getDOMNode().querySelector('input');
+            var input = renderer.querySelector('input');
 
             callCount = 0;
             TestUtils.Simulate.focus(input);
@@ -308,7 +308,7 @@ describe("Perseus API", function() {
                 }
             });
 
-            var inputs = renderer.getDOMNode().querySelectorAll('input');
+            var inputs = renderer.querySelectorAll('input');
             var input1 = inputs[0];
             var input2 = inputs[1];
             TestUtils.Simulate.focus(input1);

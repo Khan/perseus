@@ -2,42 +2,53 @@
   "name": "perseus",
   "version": "0.0.1",
   "scripts": {
-    "start": "./node_modules/.bin/beefy src/editor-page-shim.js test/test.js 9000 -- -t reactiscriptsixify -d",
+    "dev": "browserify src/perseus.js -s Perseus -t babelify",
+    "build": "browserify src/perseus.js -s Perseus -t babelify -t envify -t uglifyify",
     "test": "jest"
   },
   "devDependencies": {
-    "beefy": "~0.6.0",
+    "babel-jest": "^19.0.0",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-react": "^6.22.0",
+    "babel-preset-stage-2": "^6.22.0",
+    "babelify": "^7.3.0",
     "browserify": "^13.0.0",
-    "jest-cli": "~0.1.15",
-    "jsdom": "^0.10.5",
+    "envify": "^4.0.0",
+    "jest-cli": "^19.0.2",
+    "jsdom": "^7.0.0",
     "less": "~1.7.0",
-    "mocha": "^1.19.0",
     "node-jsx": "^0.10.0",
-    "react-components": "0.1.1",
+    "react-components": "git+https://git@github.com/Khan/react-components.git#17f6657",
     "react-tools": "0.10.0",
-    "reactiscriptsixify": "~0.8.2",
-    "requirejs": "~2.1.11",
-    "classnames": "2.2.5"
+    "uglifyify": "^4.0.2"
   },
   "repository": {
     "type": "git",
     "url": "git@github.com:Khan/perseus.git"
   },
   "jest": {
-    "scriptPreprocessor": "jest/preprocessor.js",
-    "setupEnvScriptFile": "jest/environment.js",
-    "testFileExtensions": [
-      "js",
-      "jsx"
+    "setupFiles": [
+      "./jest/environment.js"
     ],
-    "testPathDirs": [
+    "roots": [
       "src"
+    ],
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    },
+    "transformIgnorePatterns": [
+      "/node_modules/(?!react-components)"
     ],
     "unmockedModulePathPatterns": [
       ""
     ]
   },
   "dependencies": {
-    "classnames": "^2.2.5"
+    "aphrodite": "^1.2.1",
+    "classnames": "^2.2.5",
+    "react": "^15.4.2",
+    "react-addons-create-fragment": "^15.4.2",
+    "react-addons-pure-render-mixin": "^15.4.2",
+    "react-dom": "^15.4.2"
   }
 }

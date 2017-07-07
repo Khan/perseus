@@ -2,25 +2,37 @@
 PORT=9000
 WEBAPP=../webapp
 
+NPM_BIN=$(shell npm bin)
 API_VERSION_MAJOR:=$(shell node node/echo-major-api-version.js)
 PERSEUS_BUILD_JS=build/perseus-$(API_VERSION_MAJOR).js
 PERSEUS_BUILD_CSS=build/perseus-$(API_VERSION_MAJOR).css
 
 help:
+	@echo "make dev               # (development) compiles into $(PERSEUS_BUILD_JS) and $(PERSEUS_BUILD_CSS)"
+	@echo "make build             # (production) compiles into $(PERSEUS_BUILD_JS) and $(PERSEUS_BUILD_CSS)"
 	@echo "make server PORT=9000  # runs the perseus server"
-	@echo "make build             # compiles into $(PERSEUS_BUILD_JS) and $(PERSEUS_BUILD_CSS)"
+	@echo "make ke                # build symlink to khan-exercises"
 	@echo "make all               # build perseus into webapp"
 
-build: install
-	mkdir -p build
-	echo '/*! Perseus | http://github.com/Khan/perseus */' > $(PERSEUS_BUILD_JS)
-	echo "// commit `git rev-parse HEAD`" >> $(PERSEUS_BUILD_JS)
-	echo "// branch `git rev-parse --abbrev-ref HEAD`" >> $(PERSEUS_BUILD_JS)
-	./node_modules/.bin/browserify src/perseus.js -s Perseus -t reactiscriptsixify >> $(PERSEUS_BUILD_JS)
-	./node_modules/.bin/lessc stylesheets/exercise-content-package/perseus.less $(PERSEUS_BUILD_CSS)
+dev: prebuild devjs buildcss
+build: prebuild buildjs buildcss
 
-server: install
-	./node_modules/.bin/beefy src/perseus.js test/test.js $(PORT) -- -s Perseus -t reactiscriptsixify -d
+devjs:
+	npm run dev -- -o $(PERSEUS_BUILD_JS)
+
+buildjs:
+	npm run build -- -o $(PERSEUS_BUILD_JS)
+
+buildcss:
+	$(NPM_BIN)/lessc stylesheets/exercise-content-package/perseus.less $(PERSEUS_BUILD_CSS)
+
+prebuild:
+	mkdir -p build
+	# should be fixed by khan/react-components
+	sed -i -- 's/reactify/babelify/g' node_modules/react-components/package.json
+
+server: ke
+	php -S 0.0.0.0:$(PORT)
 
 demo:
 	git checkout gh-pages
@@ -61,4 +73,7 @@ build/ke.js:
 
 jest: build/ke.js
 	./node_modules/.bin/jest
+
+ke:
+	ln -s ../../khan-exercises $@
 

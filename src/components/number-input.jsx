@@ -1,6 +1,6 @@
-/** @jsx React.DOM */
-
 var React = require('react');
+var ReactDOM = require("react-dom");
+var classNames = require("classnames");
 var firstNumericalParse = require("../util.js").firstNumericalParse;
 var captureScratchpadTouchStart =
         require("../util.js").captureScratchpadTouchStart;
@@ -53,9 +53,7 @@ var NumberInput = React.createClass({
     },
 
     render: function() {
-        cx = React.addons.classSet;
-
-        var classes = cx({
+        var classes = classNames({
             "number-input": true,
             "number-input-label": this.props.label != null,
             "invalid-input": !this._checkValidity(this.props.value),
@@ -67,18 +65,19 @@ var NumberInput = React.createClass({
             classes = [classes, this.props.className].join(" ");
         }
 
-        var input = React.DOM.input(_.extend({}, this.props, {
-            className: classes,
-            type: "text",
-            ref: "input",
-            onChange: this._handleChange,
-            onBlur: this._handleBlur,
-            onKeyPress: this._handleBlur,
-            onKeyDown: this._onKeyDown,
-            onTouchStart: captureScratchpadTouchStart,
-            defaultValue: toNumericString(this.props.value, this.state.format),
-            value: undefined
-        }));
+        var input = <input
+            {...this.props}
+            className={classes}
+            type="text"
+            ref="input"
+            onChange={this._handleChange}
+            onBlur={this._handleBlur}
+            onKeyPress={this._handleBlur}
+            onKeyDown={this._onKeyDown}
+            onTouchStart={captureScratchpadTouchStart}
+            defaultValue={toNumericString(this.props.value, this.state.format)}
+            value={undefined}
+        />;
 
         if (this.props.label) {
             return <label>{this.props.label}{input}</label>;
@@ -97,12 +96,12 @@ var NumberInput = React.createClass({
      * If empty, it returns the placeholder (if it is a number) or null
      */
     getValue: function() {
-        return this.parseInputValue(this.refs.input.getDOMNode().value);
+        return this.parseInputValue(ReactDOM.findDOMNode(this.refs.input).value);
     },
 
     parseInputValue: function(value) {
         if (value === "") {
-            placeholder = this.props.placeholder;
+            var placeholder = this.props.placeholder;
             return _.isFinite(placeholder) ? +placeholder : null;
         } else {
             var result = firstNumericalParse(value);
@@ -112,7 +111,7 @@ var NumberInput = React.createClass({
 
     /* Set text input focus to this input */
     focus: function() {
-        this.refs.input.getDOMNode().focus();
+        ReactDOM.findDOMNode(this.refs.input).focus();
     },
 
     _checkValidity: function(value) {
@@ -170,7 +169,7 @@ var NumberInput = React.createClass({
     },
 
     _setValue: function(val, format) {
-        $(this.refs.input.getDOMNode()).val(toNumericString(val, format));
+        $(ReactDOM.findDOMNode(this.refs.input)).val(toNumericString(val, format));
     }
 });
 

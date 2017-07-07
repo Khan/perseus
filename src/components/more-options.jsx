@@ -1,8 +1,7 @@
-/** @jsx React.DOM */
-
 /* A div that shows/hides its children.
  * (meant for use with editor widgets)
  */
+var React = require("react");
 
 var MoreOptions = React.createClass({
     getDefaultProps: function() {

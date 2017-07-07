@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 /**
  * A <select> component rendered with classes instead of natively,
  * so that the classes may be styled/animated/magics
@@ -15,32 +13,7 @@
  */
 
 var React = require("react");
-
-// Hack to get around react descriptors not being renderable
-// in a new component after the first render. This is being
-// fixed in react 0.11 with the separation of descriptors,
-// so we can probably remove these tricks then.
-// TODO(jack): Remove these once we upgrade to React 0.11
-var cloneWithProps = React.addons.cloneWithProps;
-
-var cloneSingle = (comp) => {
-    if (React.isValidComponent(comp)) {
-        return cloneWithProps(comp);
-    } else {
-        return comp;
-    }
-};
-
-var cloneRenderables = (children) => {
-    if (!children) {
-        return children;
-    } else if (_.isArray(children)) {
-        return _.map(children, cloneSingle);
-    } else {
-        return cloneSingle(children);
-    }
-};
-// END TODO
+var classNames = require("classnames");
 
 var FancyOption = (props /*, children... */) => {
     var children = _.rest(arguments);
@@ -93,7 +66,7 @@ var FancySelect = React.createClass({
             {_.map(children, (option) => {
                 return <div className="fancy-select-value-hidden"
                             style={{height: 0}}>
-                    {cloneRenderables(option.children)}
+                    {option.props.children}
                 </div>;
             })}
         </span>;
@@ -102,7 +75,7 @@ var FancySelect = React.createClass({
             value: this.props.value
         });
 
-        var selectBoxClassName = React.addons.classSet({
+        var selectBoxClassName = classNames({
             "fancy-select": true,
             active: this.state.active,
             closed: this.state.closed
@@ -116,7 +89,7 @@ var FancySelect = React.createClass({
                 <span
                         className="fancy-select-value"
                         style={{position: "absolute"}}>
-                    {cloneRenderables(selectedOption.children)}
+                    {selectedOption.props.children}
                 </span>
         </div>;
 
@@ -125,39 +98,39 @@ var FancySelect = React.createClass({
             // control whether they are displayed always, never, or when
             // active (the default). `true` is useful if you want to manage
             // visibility manually via css.
-            var visible = option.visible != null ?
-                    option.visible :
+            var visible = option.props.visible != null ?
+                    option.props.visible :
                     this.state.active;
             if (!visible) {
                 return null;
             }
 
-            var className = React.addons.classSet({
+            var className = classNames({
                 "fancy-option": true,
                 active: this.state.active,
                 closed: this.state.closed,
-                selected: option.value === this.props.value
+                selected: option.props.value === this.props.value
             });
-            if (option.className) {
-                className += " " + option.className;
+            if (option.props.className) {
+                className += " " + option.props.className;
             }
 
             return <li
                     className={className}
                     key={i}
-                    style={option.style}
+                    style={option.props.style}
                     onClick={() => {
-                        this.props.onChange(option.value, option);
+                        this.props.onChange(option.props.value, option);
                         this.setState({
                             active: false,
                             closed: true
                         });
                     }}>
-                {cloneRenderables(option.children)}
+                {option.props.children}
             </li>;
         });
 
-        var optionsBoxClassName = React.addons.classSet({
+        var optionsBoxClassName = classNames({
             "fancy-select-options": true,
             active: this.state.active,
             closed: this.state.closed

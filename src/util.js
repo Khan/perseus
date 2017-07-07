@@ -386,11 +386,10 @@ var Util = {
         } else if (_.isArray(x) || _.isArray(y)) {
             return false;
         } else if (_.isObject(x) && _.isObject(y)) {
-            return _.all(x, function(value, key) {
-                return Util.deepEq(y[key], value);
-            }) && _.all(y, function(value, key) {
-                return Util.deepEq(x[key], value);
-            });
+            return x === y || (
+                _.all(x, function(v, k) { return Util.deepEq(y[k], v); }) &&
+                _.all(y, function(v, k) { return Util.deepEq(x[k], v); })
+            );
         } else if (_.isObject(x) || _.isObject(y)) {
             return false;
         } else {
@@ -411,16 +410,16 @@ var Util = {
             a = /\+/g,  // Regex for replacing addition symbol with a space
             r = /([^&=]+)=?([^&]*)/g,
             d = function(s) { return decodeURIComponent(s.replace(a, " ")); };
-        
-        
+
+
         while (e = r.exec(query)) {
             urlParams[d(e[1])] = d(e[2]);
         }
-        
+
         return urlParams;
     },
 
-    /** 
+    /**
      * Query string adder
      * Works for URLs without #.
      * Original from:

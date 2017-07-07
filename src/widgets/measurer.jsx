@@ -1,10 +1,9 @@
-/** @jsx React.DOM */
-
 var React        = require('react');
+var ReactDOM     = require("react-dom");
 var Changeable   = require("../mixins/changeable.jsx");
 var JsonifyProps = require("../mixins/jsonify-props.jsx");
 
-var InfoTip       = require("react-components/info-tip");
+var InfoTip       = require("react-components/js/info-tip.jsx");
 var NumberInput   = require("../components/number-input.jsx");
 var PropCheckBox  = require("../components/prop-check-box.jsx");
 var RangeInput    = require("../components/range-input.jsx");
@@ -93,7 +92,7 @@ var Measurer = React.createClass({
     },
 
     setupGraphie: function() {
-        var graphieDiv = this.refs.graphieDiv.getDOMNode();
+        var graphieDiv = ReactDOM.findDOMNode(this.refs.graphieDiv);
         $(graphieDiv).empty();
         var graphie = this.graphie = KhanUtil.currentGraph = KhanUtil.createGraphie(graphieDiv);
 
@@ -332,7 +331,7 @@ var MeasurerEditor = React.createClass({
     }
 });
 
-propUpgrades = {
+var propUpgrades = {
     1: (v0props) => {
         var v1props = _(v0props).chain()
             .omit("imageUrl", "imageTop", "imageLeft")

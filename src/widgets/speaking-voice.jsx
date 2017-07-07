@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var React = require('react');
 var Changeable = require("../mixins/changeable.jsx");
 var JsonifyProps = require("../mixins/jsonify-props.jsx");
@@ -95,13 +93,17 @@ var SpeakingVoiceEditor = React.createClass({
             <div>
                 <label>
                     內容:
-                    <input value={this.state.voiceText} onChange={this.voiceTextChange} defaultValue={this.state.voiceText}/>
+                    <input
+                        type="text"
+                        value={this.state.voiceText}
+                        onChange={this.voiceTextChange}
+                    />
                 </label>
             </div>
             <div>
                 <label>
                     速度:
-                    <select value={this.state.rate} defaultValue={this.state.rate} onChange={this.rateChange}>
+                    <select value={this.state.rate} onChange={this.rateChange}>
                         <option value="0.1">0.1</option>
                         <option value="0.2">0.2</option>
                         <option value="0.3">0.3</option>
@@ -123,7 +125,7 @@ var SpeakingVoiceEditor = React.createClass({
             <div>
                 <label>
                     音調:
-                    <select value={this.state.pitch} defaultValue={this.state.pitch} onChange={this.pitchChange}>
+                    <select value={this.state.pitch} onChange={this.pitchChange}>
                         <option value="0">0</option>
                         <option value="0.1">0.1</option>
                         <option value="0.2">0.2</option>
@@ -151,7 +153,7 @@ var SpeakingVoiceEditor = React.createClass({
             <div>
                 <label>
                     語言:
-                    <select value={this.state.lang} defaultValue={this.state.lang} onChange={this.langChange}>
+                    <select value={this.state.lang} onChange={this.langChange}>
                         <option value="UK English Female">UK English Female</option>
                         <option value="UK English Male">UK English Male</option>
                         <option value="US English Female">US English Female</option>

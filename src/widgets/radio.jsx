@@ -1,22 +1,21 @@
-/** @jsx React.DOM */
-
 var React = require('react');
+var ReactDOM = require('react-dom');
+var classNames = require("classnames");
+
 var Changeable = require("../mixins/changeable.jsx");
 var ApiClassNames = require("../perseus-api.jsx").ClassNames;
 
-var ButtonGroup = require("react-components/button-group");
+var ButtonGroup = require("react-components/js/button-group.jsx");
 var Editor = require("../editor.jsx");
 var PropCheckBox = require("../components/prop-check-box.jsx");
 var Renderer = require("../renderer.jsx");
 
-var InfoTip = require("react-components/info-tip");
+var InfoTip = require("react-components/js/info-tip.jsx");
 
 var shuffle = require("../util.js").shuffle;
 var seededRNG = require("../util.js").seededRNG;
 var captureScratchpadTouchStart =
         require("../util.js").captureScratchpadTouchStart;
-
-var cx = React.addons.classSet;
 
 var BaseRadio = React.createClass({
     propTypes: {
@@ -38,10 +37,10 @@ var BaseRadio = React.createClass({
         var inputType = this.props.multipleSelect ? "checkbox" : "radio";
 
         return <ul className={"perseus-widget-radio " +
-                "above-scratchpad blank-background"}>
+                "above-scratchpad"}>
             {this.props.multipleSelect &&
                 <div className="instructions">
-                    <$_>請選擇所有正確的答案。</$_>
+                    {$._("請選擇所有正確的答案。")}
                 </div>}
             {this.props.choices.map(function(choice, i) {
 
@@ -54,7 +53,7 @@ var BaseRadio = React.createClass({
                 };
                 classSet[ApiClassNames.RADIO.OPTION] = true;
                 classSet[ApiClassNames.RADIO.SELECTED] = choice.checked;
-                var className = cx(classSet);
+                var className = classNames(classSet);
 
                 return <li className={className} key={i}><div>
                     <span className="checkbox">
@@ -127,7 +126,7 @@ var BaseRadio = React.createClass({
     },
 
     focus: function(i) {
-        this.refs["radio" + (i || 0)].getDOMNode().focus();
+        ReactDOM.findDOMNode(this.refs["radio" + (i || 0)]).focus();
         return true;
     }
 });
@@ -161,9 +160,9 @@ var Radio = React.createClass({
             }
             return {
                 // We need to make a copy, which _.pick does
-                content: Renderer(content),
+                content: <Renderer {...content} />,
                 checked: values[i],
-                clue: Renderer({content: choice.clue}),
+                clue: <Renderer content={choice.clue} />,
             };
         });
         choices = this.enforceOrdering(choices);
@@ -205,7 +204,7 @@ var Radio = React.createClass({
 
     setAnswerFromJSON: function(answerData) {
         if (answerData === undefined) {
-            renderedAnswerData = {values: undefined};
+            var renderedAnswerData = {values: undefined};
         } else {
             var renderedAnswerData = {'values': []};
             for (var i = 0; i < this.props.choices.length; i++) {
@@ -341,7 +340,7 @@ var RadioEditor = React.createClass({
     render: function() {
         return <div>
             <div className="perseus-widget-row">
-            
+
                 <div className="perseus-widget-left-col">
                     <PropCheckBox label="多選題"
                                   labelAlignment="right"
@@ -360,27 +359,29 @@ var RadioEditor = React.createClass({
                     var checkedClass = choice.correct ?
                         "correct" :
                         "incorrect";
-                    var editor = Editor({
-                        ref: "editor" + i,
-                        content: choice.content || "",
-                        widgetEnabled: false,
-                        placeholder: "請輸入選項內容",
-                        onChange: newProps => {
+                    var editor = <Editor
+                        ref={"editor" + i}
+                        content={choice.content || ""}
+                        widgetEnabled={false}
+                        placeholder={"請輸入選項內容"}
+                        onChange={newProps => {
                             if ("content" in newProps) {
                                 this.onContentChange(i, newProps.content);
                             }}
-                    });
-                    var clueEditor = Editor({
-                        ref: "clue-editor-" + i,
-                        content: choice.clue || "",
-                        widgetEnabled: false,
-                        placeholder: $._("為什麼這個選項 " +
-                            checkedClass + "?"),
-                        onChange: newProps => {
+                        }
+                    />;
+                    var clueEditor = <Editor
+                        ref={"clue-editor-" + i}
+                        content={choice.clue || ""}
+                        widgetEnabled={false}
+                        placeholder={$._("為什麼這個選項 " +
+                            checkedClass + "?")}
+                        onChange={newProps => {
                             if ("content" in newProps) {
                                 this.onClueChange(i, newProps.content);
                             }}
-                    });
+                        }
+                    />;
                     var deleteLink = <a href="#"
                             className="simple-button orange delete-choice"
                             title="Remove this choice"

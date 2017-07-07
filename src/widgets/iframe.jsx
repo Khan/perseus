@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 /**
  * This is an iframe widget. It is used for rendering an iframe that
  *  then communicates its state via window.postMessage
@@ -11,7 +9,7 @@
 
 var React = require("react");
 
-var BlurInput    = require("react-components/blur-input");
+var BlurInput    = require("react-components/js/blur-input.jsx");
 var Changeable = require("../mixins/changeable.jsx");
 var JsonifyProps = require("../mixins/jsonify-props.jsx");
 var updateQueryString = require("../util.js").updateQueryString;

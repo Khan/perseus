@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 /**
  * For math rendered using MathJax. Use me like <TeX>2x + 3</TeX>.
  */
@@ -60,8 +59,8 @@ var TeX = React.createClass({
 
         if (typeof Exercises === "undefined" || Exercises.useKatex) {
             try {
-                var katexHolder = this.refs.katex.getDOMNode();
-                katex.process(text, katexHolder);
+                var katexHolder = this.refs.katex;
+                katex.render(text, katexHolder);
                 onRender();
                 return;
             } catch (e) {
@@ -85,8 +84,8 @@ var TeX = React.createClass({
         if (oldText !== newText) {
             if (typeof Exercises === "undefined" || Exercises.useKatex) {
                 try {
-                    var katexHolder = this.refs.katex.getDOMNode();
-                    katex.process(newText, katexHolder);
+                    var katexHolder = this.refs.katex;
+                    katex.render(newText, katexHolder);
                     if (this.script) {
                         var jax = MathJax.Hub.getJaxFor(this.script);
                         if (jax) {
@@ -104,7 +103,7 @@ var TeX = React.createClass({
                 }
             }
 
-            $(this.refs.katex.getDOMNode()).empty();
+            $(this.refs.katex).empty();
 
             if (this.script) {
                 var component = this;
@@ -128,7 +127,7 @@ var TeX = React.createClass({
         if (!this.script) {
             this.script = document.createElement("script");
             this.script.type = "math/tex";
-            this.refs.mathjax.getDOMNode().appendChild(this.script);
+            this.refs.mathjax.appendChild(this.script);
         }
         if ("text" in this.script) {
             // IE8, etc

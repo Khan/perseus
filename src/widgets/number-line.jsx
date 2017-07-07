@@ -1,12 +1,10 @@
-/** @jsx React.DOM */
-
 var React = require('react');
 
 var Changeable   = require("../mixins/changeable.jsx");
 var JsonifyProps = require("../mixins/jsonify-props.jsx");
 
-var ButtonGroup  = require("react-components/button-group");
-var InfoTip      = require("react-components/info-tip");
+var ButtonGroup  = require("react-components/js/button-group.jsx");
+var InfoTip      = require("react-components/js/info-tip.jsx");
 var Interactive2 = require("../interactive2.js");
 var NumberInput  = require("../components/number-input.jsx");
 var PropCheckBox = require("../components/prop-check-box.jsx");
@@ -65,7 +63,7 @@ function formatNonReduced(n, d, base) {
     return formatImproper(n * factor, base);
 }
 
-_label = (graphie, labelStyle, pos, value, base) => {
+var _label = (graphie, labelStyle, pos, value, base) => {
     value = value || pos;
 
     // TODO(jack): Find out if any exercises have "decimal ticks" set,
@@ -88,7 +86,7 @@ _label = (graphie, labelStyle, pos, value, base) => {
     }
 };
 
-TickMarks = Graphie.createSimpleClass((graphie, props) => {
+var TickMarks = Graphie.createSimpleClass((graphie, props) => {
     // Avoid infinite loop
     if (!_.isFinite(props.tickStep) || props.tickStep <= 0) {
         return []; // this has screwed me for the last time!
@@ -261,14 +259,16 @@ var NumberLine = React.createClass({
                 options={options}
                 setup={this._setupGraphie}>
             {this._renderTickControl(props)}
-            {TickMarks(_.pick(props, [
-                "range",
-                "numDivisions",
-                "labelTicks",
-                "labelStyle",
-                "labelRange",
-                "tickStep"
-            ]))}
+            <TickMarks
+                {..._.pick(props, [
+                    "range",
+                    "numDivisions",
+                    "labelTicks",
+                    "labelStyle",
+                    "labelRange",
+                    "tickStep"
+                ])}
+            />
             {this._renderInequality(props)}
             {this._renderNumberLinePoint(props)}
         </Graphie>;
@@ -279,7 +279,7 @@ var NumberLine = React.createClass({
         var right = props.range[1];
         var snapX = props.tickStep / props.snapDivisions;
 
-        x = bound(numLinePosition, left, right);
+        var x = bound(numLinePosition, left, right);
         x = left + knumber.roundTo(x - left, snapX);
         assert(_.isFinite(x));
         return x;
@@ -570,6 +570,7 @@ var NumberLineEditor = React.createClass({
         var snapDivisions = this.props.snapDivisions;
         var tickStep = this.props.tickStep;
         var isTickCtrl = this.props.isTickCtrl;
+        var step = 0;
 
         if (!isTickCtrl) {
             // this will help constrain the answer to what is reachable
@@ -709,7 +710,7 @@ var NumberLineEditor = React.createClass({
                         placeholder={width / this.props.numDivisions}
                         useArrowKeys={true} />
                     <InfoTip><p>
-                    這控制刻度線的位置與數量，可以設定分割數量 (2 表示把整個範圍分割成兩半) 
+                    這控制刻度線的位置與數量，可以設定分割數量 (2 表示把整個範圍分割成兩半)
                     或者設定一刻度為多少 (相鄰兩刻度之間的距離)。設定其中一個另一個會自動更新為對應的值。 <br />
                     <strong>注意:</strong> 沒有特別檢查藍色的標籤是否會在黑色刻度線上，若不在刻度線上可能會讓使用者困惑。
                     </p></InfoTip></span>}

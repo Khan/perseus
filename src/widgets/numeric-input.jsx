@@ -1,13 +1,13 @@
-/** @jsx React.DOM */
-
 var React = require('react');
+var _ = require("underscore");
+
 var Changeable = require("../mixins/changeable.jsx");
 var JsonifyProps = require("../mixins/jsonify-props.jsx");
 
-var InfoTip = require("react-components/info-tip");
+var InfoTip = require("react-components/js/info-tip.jsx");
 var PropCheckBox = require("../components/prop-check-box.jsx");
 var NumberInput = require("../components/number-input.jsx");
-var ButtonGroup = require("react-components/button-group");
+var ButtonGroup = require("react-components/js/button-group.jsx");
 var MultiButtonGroup = require("../components/multi-button-group.jsx");
 var InputWithExamples = require("../components/input-with-examples.jsx");
 
@@ -275,17 +275,17 @@ var NumericInputEditor = React.createClass({
         };
 
         var generateInputAnswerEditors = () => answers.map((answer, i) => {
-            var editor = Editor({
-                content: answer.message || "",
-                placeholder: "為什麼這個答案是" + answer.status + "?\t" +
-                    instructions[answer.status],
-                widgetEnabled: false,
-                onChange: (newProps) => {
+            var editor = <Editor
+                content={answer.message || ""}
+                placeholder={"為什麼這個答案是" + answer.status + "?\t" +
+                    instructions[answer.status]}
+                widgetEnabled={false}
+                onChange={(newProps) => {
                     if ("content" in newProps) {
                         this.updateAnswer(i, {message: newProps.content});
                     }
-                }
-            });
+                }}
+            />;
             return <div className="perseus-widget-row" key={i}>
                 <div className={"input-answer-editor-value-container" +
                     (answer.maxError ? " with-max-error" : "")}>
@@ -442,7 +442,7 @@ var propsTransform = function(editorProps) {
 
 module.exports = {
     name: "numeric-input",
-    displayName: "Number text box (new)",
+    displayName: "numeric-input/進階數值填充",
     widget: NumericInput,
     editor: NumericInputEditor,
     transform: propsTransform,

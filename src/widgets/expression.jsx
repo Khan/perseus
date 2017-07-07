@@ -1,8 +1,9 @@
-/** @jsx React.DOM */
-
 var React   = require("react");
-var InfoTip = require("react-components/info-tip");
-var Tooltip = require("react-components/tooltip");
+var ReactDOM = require("react-dom");
+var classNames = require("classnames");
+
+var InfoTip = require("react-components/js/info-tip.jsx");
+var Tooltip = require("react-components/js/tooltip.jsx");
 
 var Changeable   = require("../mixins/changeable.jsx");
 var JsonifyProps = require("../mixins/jsonify-props.jsx");
@@ -16,11 +17,13 @@ var MathInput         = require("../components/math-input.jsx");
 var TeX               = require("../tex.jsx"); // OldExpression only
 var TexButtons        = require("../components/tex-buttons.jsx");
 
-var cx = React.addons.classSet;
 var EnabledFeatures = require("../enabled-features.jsx");
 var Util = require("../util.js");
 
 var ERROR_MESSAGE = $._("Sorry, I don't understand that!");
+
+const BUTTON_SETS_EASY = ["basic"];
+const BUTTON_SETS_HARD = ["basic", "relations", "trig", "prealgebra"];
 
 // The new, MathQuill input expression widget
 var Expression = React.createClass({
@@ -34,7 +37,6 @@ var Expression = React.createClass({
         enabledFeatures: EnabledFeatures.propTypes,
         apiOptions: ApiOptions.propTypes,
         buttonSets: TexButtons.buttonSetsType,
-        easybuttons: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
@@ -46,6 +48,7 @@ var Expression = React.createClass({
             onBlur: function() { },
             enabledFeatures: EnabledFeatures.defaults,
             apiOptions: ApiOptions.defaults,
+            buttonSets: ["basic"],
         };
     },
 
@@ -53,7 +56,6 @@ var Expression = React.createClass({
         return {
             showErrorTooltip: false,
             showErrorText: false,
-            offsetLeft: 0
         };
     },
 
@@ -67,24 +69,7 @@ var Expression = React.createClass({
         return KAS.parse(value, options);
     },
 
-    componentDidMount: function() {
-        var expression = this.getDOMNode();
-        this.setState({offsetLeft: expression.offsetLeft});
-    },
-
     render: function() {
-        // for old questions without buttonSets, make buttonSets by easybuttons
-        if (!this.props.buttonSets)
-        {
-            if(!this.props.easybuttons) {
-                this.props.buttonSets = ["basic", "relations", "trig", "prealgebra"];
-            }
-            else {
-                this.props.buttonSets = ["basic"];
-            }
-            this.props.onChange;
-        }
-
         if (this.props.apiOptions.staticRender) {
             var style = {
                 borderRadius: "5px",
@@ -129,7 +114,7 @@ var Expression = React.createClass({
                 </Tooltip>
             </span>;
 
-            var className = cx({
+            var className = classNames({
                 "perseus-widget-expression": true,
                 "show-error-tooltip": this.state.showErrorTooltip
             });
@@ -146,20 +131,19 @@ var Expression = React.createClass({
                     buttonSets={this.props.buttonSets}
                     onFocus={this._handleFocus}
                     onBlur={this._handleBlur}
-                    offsetLeft={this.state.offsetLeft}
                     inEditor={inEditor} />
                 {this.state.showErrorTooltip && errorTooltip}
             </span>;
         }
     },
-    
+
     handleChange: function(newValue) {
         this.props.onChange({ value: Util.asc(newValue) });
     },
 
     _handleFocus: function() {
         if (this.props.apiOptions.staticRender) {
-            this.props.onFocus([], this.refs.input.getDOMNode());
+            this.props.onFocus([], this.refs.input);
         } else {
             this.props.onFocus([], this.refs.input.getInputDOMNode());
         }
@@ -204,7 +188,7 @@ var Expression = React.createClass({
     },
 
     focus: function() {
-        this.refs.input.focus();
+        ReactDOM.findDOMNode(this.refs.input).focus();
         return true;
     },
 
@@ -284,7 +268,6 @@ var ExpressionEditor = React.createClass({
         times: React.PropTypes.bool,
         functions: React.PropTypes.arrayOf(React.PropTypes.string),
         buttonSets: TexButtons.buttonSetsType,
-        easybuttons: React.PropTypes.bool
     },
 
     getDefaultProps: function() {
@@ -294,7 +277,7 @@ var ExpressionEditor = React.createClass({
             simplify: false,
             times: true,
             functions: ["f", "g", "h"],
-            easybuttons: true
+            buttonSets: ["basic"],
         };
     },
 
@@ -309,18 +292,6 @@ var ExpressionEditor = React.createClass({
     },
 
     render: function() {
-        // for editing old questions, make buttonSets by easybuttons
-        if (!this.props.buttonSets)
-        {
-            if(!this.props.easybuttons) {
-                this.props.buttonSets = ["basic", "relations", "trig", "prealgebra"];
-            }
-            else {
-                this.props.buttonSets = ["basic"];
-            }
-            this.props.onChange;
-        }
-
         var simplifyWarning = null;
         var shouldTryToParse = this.props.simplify && this.props.value !== "";
         if (shouldTryToParse) {
@@ -344,8 +315,6 @@ var ExpressionEditor = React.createClass({
             buttonsVisible: "never",
             buttonSets: this.props.buttonSets,
         };
-
-        var expression = this.state.isTex ? Expression : OldExpression;
 
         // checkboxes to choose which sets of input buttons are shown
         var buttonSetChoices = _(TexButtons.buttonSets).map((set, name) => {
@@ -375,7 +344,7 @@ var ExpressionEditor = React.createClass({
                     chineseName = "其他";
             };
 
-            return <div> 
+            return <div>
              <label className={className} key={name}>
                 <input type="checkbox"
                        checked={checked}
@@ -391,7 +360,7 @@ var ExpressionEditor = React.createClass({
         return <div>
             <div><label>
                 正確答案:{' '}
-                {expression(expressionProps)}
+                <Expression {...expressionProps} />
             </label></div>
             {this.state.isTex && <TexButtons
                 className="math-input-buttons"
@@ -488,21 +457,30 @@ var ExpressionEditor = React.createClass({
     },
 
     focus: function() {
-        this.refs.expression.focus();
+        ReactDOM.findDOMNode(this.refs.expression).focus();
         return true;
     }
 });
 
+const propUpgrades = {
+    1: (v0props) => {
+        var {easybuttons, ...props} = v0props;
+        if ('easybuttons' in v0props) {
+            props.buttonSets = easybuttons ? BUTTON_SETS_EASY : BUTTON_SETS_HARD;
+        }
+        return props;
+    }
+};
+
 module.exports = {
     name: "expression",
     displayName: "Expression/數學式",
-    getWidget: (enabledFeatures) => {
-        // Allow toggling between the two versions of the widget
-        return enabledFeatures.useMathQuill ? Expression : OldExpression;
-    },
+    widget: Expression,
     editor: ExpressionEditor,
+    version: {major: 1, minor: 0},
     transform: (editorProps) => {
-        return _.pick(editorProps, "times", "functions", "buttonSets", "easybuttons");
+        return _.pick(editorProps, "times", "functions", "buttonSets");
     },
-    hidden: false
+    hidden: false,
+    propUpgrades,
 };

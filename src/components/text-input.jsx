@@ -1,4 +1,5 @@
-/** @jsx React.DOM */
+var React = require("react");
+var ReactDOM = require("react-dom");
 
 var TextInput = React.createClass({
     propTypes: {
@@ -6,24 +7,44 @@ var TextInput = React.createClass({
         onChange: React.PropTypes.func.isRequired,
         className: React.PropTypes.string,
         onFocus: React.PropTypes.func,
-        onBlur: React.PropTypes.func
+        onBlur: React.PropTypes.func,
+        disabled: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
         return {
-            value: ""
+            value: "",
+            disabled: false,
         };
     },
 
     render: function() {
-        return React.DOM.input(_.extend({}, this.props, {
-            type: "text",
-            onChange: (e) => this.props.onChange(e.target.value)
-        }));
+        return <input
+            {...this.props}
+            type="text"
+            disabled={this.props.disabled}
+            onChange={(e) => this.props.onChange(e.target.value)}
+        />;
     },
 
     focus: function() {
-        this.getDOMNode().focus();
+        ReactDOM.findDOMNode(this).focus();
+    },
+
+    getStringValue: function() {
+        return ReactDOM.findDOMNode(this).value.toString();
+    },
+
+    setSelectionRange: function(selectionStart, selectionEnd) {
+        ReactDOM.findDOMNode(this).setSelectionRange(selectionStart, selectionEnd);
+    },
+
+    getSelectionStart: function() {
+        return ReactDOM.findDOMNode(this).selectionStart;
+    },
+
+    getSelectionEnd: function() {
+        return ReactDOM.findDOMNode(this).selectionEnd;
     }
 });
 

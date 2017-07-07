@@ -1,4 +1,6 @@
-/** @jsx React.DOM */
+var React = require("react");
+var _ = require("underscore");
+
 var assert = require("assert");
 
 var NumberInput = require("../number-input.jsx");
@@ -20,7 +22,7 @@ describe("NumberInput", function() {
         }, extraProps);
 
         var node = TestUtils.renderIntoDocument(NumberInput(props));
-        TestUtils.Simulate.change(node.getDOMNode(), {target: {value: input}});
+        TestUtils.Simulate.change(node, {target: {value: input}});
         assert.deepEqual(newVal, result);
     };
 
@@ -55,7 +57,7 @@ describe("NumberInput", function() {
                 onChange={handleChange}
                 useArrowKeys={keysEnabled} />
             );
-        TestUtils.Simulate.keyDown(node.getDOMNode(), {key: key});
+        TestUtils.Simulate.keyDown(node, {key: key});
         assert.deepEqual(newVal, endingValue);
     };
 

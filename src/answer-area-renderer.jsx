@@ -1,6 +1,6 @@
-/** @jsx React.DOM */
-
 var React = require('react');
+var ReactDOM = require('react-dom');
+
 var Renderer = require("./renderer.jsx");
 var QuestionParagraph = require("./question-paragraph.jsx");
 var WidgetContainer = require("./widget-container.jsx");
@@ -58,7 +58,7 @@ var AnswerAreaRenderer = React.createClass({
             return this.refs.widget.emptyWidgets();
         } else {
             return Util.scoreIsEmpty(
-                this.refs.widget.simpleValidate(this.props.options)) ?
+                this.getWidgetInstance().simpleValidate(this.props.options)) ?
                 [SINGLE_ITEM_WIDGET_ID] : [];
         }
     },
@@ -112,25 +112,37 @@ var AnswerAreaRenderer = React.createClass({
             }
         );
 
-        return this.state.cls(_.extend({
-            ref: "widget",
-            problemNum: this.props.problemNum,
-            onChange: this.handleChangeRenderer,
-            onInteractWithWidget: this.props.onInteractWithWidget,
-            highlightedWidgets: this.props.highlightedWidgets,
-            enabledFeatures: _.extend({}, this.props.enabledFeatures, {
+        return <this.state.cls
+            ref="widget"
+            problemNum={this.props.problemNum}
+            onChange={this.handleChangeRenderer}
+            onInteractWithWidget={this.props.onInteractWithWidget}
+            highlightedWidgets={this.props.highlightedWidgets}
+            enabledFeatures={{...this.props.enabledFeatures,
                 // Hide answer area tooltip formats,
                 // the "Acceptable formats" box already works
                 toolTipFormats: false
-            }),
-            apiOptions: apiOptions
-        }, this.props.options, this.state.widget));
+            }}
+            apiOptions={apiOptions}
+            {...this.props.options}
+            {...this.state.widget}
+        />
     },
 
     renderSingle: function() {
         var shouldHighlight = _.contains(this.props.highlightedWidgets,
                                     SINGLE_ITEM_WIDGET_ID);
+        return <QuestionParagraph>
+            <WidgetContainer
+                ref="widget"
+                key={this.props.type}
+                type={this.state.cls}
+                initialProps={this.getSingleWidgetProps()}
+                shouldHighlight={shouldHighlight} />
+        </QuestionParagraph>;
+    },
 
+    getSingleWidgetProps: function() {
         var editorProps = this.props.options;
         var transform = Widgets.getTransform(this.props.type);
         var apiOptions = _.extend(
@@ -152,7 +164,7 @@ var AnswerAreaRenderer = React.createClass({
             this._isFocused = true;
             apiOptions.onFocusChange({
                 path: [SINGLE_ITEM_WIDGET_ID].concat(path),
-                element: elem || this.refs.widget.getDOMNode()
+                element: elem || this.refs.widget
             }, {
                 // we're pretending we're a renderer, so if we got
                 // focus, we must not have had it before
@@ -167,29 +179,23 @@ var AnswerAreaRenderer = React.createClass({
                 element: null
             }, {
                 path: [SINGLE_ITEM_WIDGET_ID].concat(path),
-                element: elem || this.refs.widget.getDOMNode()
+                element: elem || this.refs.widget
             });
         };
 
-        return <QuestionParagraph>
-            <WidgetContainer
-                shouldHighlight={shouldHighlight} >
-                {this.state.cls(_.extend({
-                    ref: "widget",
-                    widgetId: SINGLE_ITEM_WIDGET_ID,
-                    problemNum: this.props.problemNum,
-                    onChange: this.handleChangeRenderer,
-                    enabledFeatures: _.extend({}, this.props.enabledFeatures, {
-                        // Hide answer area tooltip formats,
-                        // the "Acceptable formats" box already works
-                        toolTipFormats: false
-                    }),
-                    apiOptions: apiOptions,
-                    onFocus: onFocus,
-                    onBlur: onBlur
-                }, transform(editorProps), this.state.widget))}
-            </WidgetContainer>
-        </QuestionParagraph>;
+        return _.extend({
+            widgetId: SINGLE_ITEM_WIDGET_ID,
+            problemNum: this.props.problemNum,
+            onChange: this.handleChangeRenderer,
+            enabledFeatures: _.extend({}, this.props.enabledFeatures, {
+                // Hide answer area tooltip formats,
+                // the "Acceptable formats" box already works
+                toolTipFormats: false
+            }),
+            apiOptions: apiOptions,
+            onFocus: onFocus,
+            onBlur: onBlur
+        }, transform(editorProps), this.state.widget);
     },
 
     _setWidgetProps: function(widgetId, newProps, cb) {
@@ -228,7 +234,7 @@ var AnswerAreaRenderer = React.createClass({
                         path: [SINGLE_ITEM_WIDGET_ID],
                         // TODO(jack): Make this less hacky (call some magic
                         // getElement function or something):
-                        element: this.refs.widget.getDOMNode()
+                        element: this.refs.widget
                     }, {
                         // we're pretending we're a renderer, so if we got
                         // focus, we must not have had it before
@@ -268,11 +274,11 @@ var AnswerAreaRenderer = React.createClass({
 
         $("#examples-show").hide();
         if ($("#examples-show").data("qtip")) {
-            // This will warn about Jquery removing a node owned by React, 
-            // however React no longer owns that node. We created that node 
-            // using React, copied its html, passed it to qtip, and then 
-            // unmounted it from React. So it React thinks it is it's code 
-            // because it has a data-reactid, but qtip created it.      
+            // This will warn about Jquery removing a node owned by React,
+            // however React no longer owns that node. We created that node
+            // using React, copied its html, passed it to qtip, and then
+            // unmounted it from React. So it React thinks it is it's code
+            // because it has a data-reactid, but qtip created it.
             $("#examples-show").qtip("destroy", /* immediate */ true);
         }
 
@@ -283,8 +289,8 @@ var AnswerAreaRenderer = React.createClass({
                 return "- " + example;
             }).join("\n");
 
-            React.renderComponent(
-                Renderer({content: content}),
+            ReactDOM.render(
+                <Renderer {...content} />,
                 this.$examples[0]);
 
             $("#examples-show").qtip({
@@ -305,7 +311,7 @@ var AnswerAreaRenderer = React.createClass({
                 hide: {delay: 0}
             });
 
-            // Now that qtip has been created with a copy of the react 
+            // Now that qtip has been created with a copy of the react
             // component's html, we no longer need to keep the react component.
             React.unmountComponentAtNode(this.$examples[0]);
             this.$examples.remove();
@@ -327,6 +333,14 @@ var AnswerAreaRenderer = React.createClass({
 
     focus: function() {
         this.refs.widget.focus();
+    },
+
+    getWidgetInstance: function() {
+        var ref = this.refs.widget;
+        if (!ref) {
+            return null;
+        }
+        return ref.getWidget();
     },
 
     showGuess: function(answerData) {
@@ -360,13 +374,13 @@ var AnswerAreaRenderer = React.createClass({
         if (this.props.type === "multiple") {
             return this.refs.widget.guessAndScore();
         } else {
-            var guess = this.refs.widget.toJSON();
+            var guess = this.getWidgetInstance().toJSON();
 
             var score;
             if (this.props.graded == null || this.props.graded) {
                 // props.graded is unset or true
                 // TODO(alpert): Separate out the rubric
-                score = this.refs.widget.simpleValidate(this.props.options);
+                score = this.getWidgetInstance().simpleValidate(this.props.options);
             } else {
                 score = Util.noScore;
             }

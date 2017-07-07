@@ -1,6 +1,6 @@
-/** @jsx React.DOM */
-
 var React = require('react');
+var ReactDOM = require('react-dom');
+
 var TeX = require("./tex.jsx");
 var WidgetContainer = require("./widget-container.jsx");
 var Widgets = require("./widgets.js");
@@ -194,37 +194,51 @@ var Renderer = React.createClass({
 
                 var type = (widgetInfo || {}).type || implied_type;
                 var cls = Widgets.getWidget(type, this.props.enabledFeatures);
-                var widgetProps = this.state.widgetProps[id] || {};
                 var shouldHighlight = _.contains(
                     this.props.highlightedWidgets,
                     id
                 );
 
+
                 return <WidgetContainer
-                    shouldHighlight={shouldHighlight}>
-                    {cls(_.extend({}, widgetProps, {
-                            ref: id,
-                            widgetId: id,
-                            problemNum: this.props.problemNum,
-                            enabledFeatures: this.props.enabledFeatures,
-                            apiOptions: apiOptions,
-                            questionCompleted: this.props.questionCompleted,
-                            onFocus: _.partial(this._onWidgetFocus, id),
-                            onBlur: _.partial(this._onWidgetBlur, id),
-                            onChange: (newProps, cb) => {
-                                this._setWidgetProps(id, newProps, cb);
-                            }
-                        })
-                    )}
-                </WidgetContainer>;
+                    ref={"container:" + id}
+                    key={"container:" + id}
+                    type={cls}
+                    initialProps={this.getWidgetProps(id)}
+                    shouldHighlight={shouldHighlight}
+                />;
             }
         }
+    },
+
+    getApiOptions: function(props) {
+        return _.extend(
+            {},
+            ApiOptions.defaults,
+            props.apiOptions
+        );
+    },
+
+    getWidgetProps: function(id) {
+        var widgetProps = this.state.widgetProps[id] || {};
+        return _.extend({}, widgetProps, {
+            widgetId: id,
+            problemNum: this.props.problemNum,
+            enabledFeatures: this.props.enabledFeatures,
+            apiOptions: this.getApiOptions(this.props),
+            questionCompleted: this.props.questionCompleted,
+            onFocus: _.partial(this._onWidgetFocus, id),
+            onBlur: _.partial(this._onWidgetBlur, id),
+            onChange: (newProps, cb) => {
+                this._setWidgetProps(id, newProps, cb);
+            }
+        });
     },
 
     _onWidgetFocus: function(id, focusPath, element) {
         if (focusPath === undefined && element === undefined) {
             focusPath = [];
-            element = this.refs[id].getDOMNode();
+            element = ReactDOM.findDOMNode(this.getWidgetInstance(id));
         } else {
             if (!_.isArray(focusPath)) {
                 throw new Error(
@@ -328,13 +342,15 @@ var Renderer = React.createClass({
         };
 
         var wrap = function(text) {
-            return <QuestionParagraph>
+            tokCount++;
+            return <QuestionParagraph key={`${tokCount}`}>
                 {text}
             </QuestionParagraph>;
         };
 
         var tok = markedReact.Parser.prototype.tok;
         var tokLevelCount = 0;
+        var tokCount = 0;
         markedReact.Parser.prototype.tok = function() {
             tokLevelCount++;
             var result;
@@ -359,7 +375,7 @@ var Renderer = React.createClass({
     handleRender: function() {
         var onRender = this.props.onRender;
 
-        var $images = $(this.getDOMNode()).find("img");
+        var $images = $(ReactDOM.findDOMNode(this)).find("img");
         var imageAttrs = this.props.images || {};
 
         // TODO(jack): Weave this into the rendering in markedReact by passing
@@ -432,7 +448,7 @@ var Renderer = React.createClass({
         var focusResult;
         for (var i = 0; i < this.widgetIds.length; i++) {
             var widgetId = this.widgetIds[i];
-            var widget = this.refs[widgetId];
+            var widget = this.getWidgetInstance(widgetId);
             var widgetFocusResult = widget.focus && widget.focus();
             if (widgetFocusResult) {
                 id = widgetId;
@@ -448,12 +464,12 @@ var Renderer = React.createClass({
             if (_.isObject(focusResult)) {
                 // The result of focus was a {path, id} object itself
                 path = [id].concat(focusResult.path || []);
-                element = focusResult.element || this.refs[id].getDOMNode();
+                element = focusResult.element || ReactDOM.findDOMNode(this.getWidgetInstance(id));
             } else {
                 // The result of focus was true or the like; just
                 // construct a root focus object
                 path = [id];
-                element = this.refs[id].getDOMNode();
+                element = ReactDOM.findDOMNode(this.getWidgetInstance(id));
             }
 
             this._setCurrentFocus(path, element);
@@ -464,7 +480,7 @@ var Renderer = React.createClass({
     toJSON: function(skipValidation) {
         var state = {};
         _.each(this.props.widgets, function(props, id) {
-            var widget = this.refs[id];
+            var widget = this.getWidgetInstance(id);
             var s = widget.toJSON(skipValidation);
             if (!_.isEmpty(s)) {
                 state[id] = s;
@@ -476,7 +492,7 @@ var Renderer = React.createClass({
     emptyWidgets: function () {
         return _.filter(this.widgetIds, (id) => {
             var widgetProps = this.props.widgets[id];
-            var score = this.refs[id].simpleValidate(
+            var score = this.getWidgetInstance(id).simpleValidate(
                 widgetProps.options,
                 null
             );
@@ -499,8 +515,7 @@ var Renderer = React.createClass({
                 // TODO(jack): Figure out why this is happening and fix it
                 // As far as I can tell, this is only an issue in the
                 // editor-page, so doing this shouldn't break clients hopefully
-                var element = this.refs[id] ?
-                        this.refs[id].getDOMNode() : null;
+                var element = this.getWidgetInstance(id) ? ReactDOM.findDOMNode(this.getWidgetInstance(id)) : null;
                 this._setCurrentFocus([id], element);
             }
         });
@@ -514,11 +529,19 @@ var Renderer = React.createClass({
         }, () => focus);
     },
 
+    getWidgetInstance: function(id) {
+        var ref = this.refs["container:" + id];
+        if (!ref) {
+            return null;
+        }
+        return ref.getWidget();
+    },
+
     showGuess: function(answerData) {
         if( !answerData )
             return {};
         return _.map(this.widgetIds, function(id, index) {
-            if (this.refs[id].setAnswerFromJSON === undefined) {
+            if (this.getWidgetInstance(id).setAnswerFromJSON === undefined) {
                 // Target widget cannot show answer.
                 return {showSuccess:false,err:'no setAnswerFromJSON implemented for ' + id + ' widget'};
             } else {
@@ -527,8 +550,8 @@ var Renderer = React.createClass({
                     console.log("showGuess err");
                     return {};
                 }
-                widgetAnswerData = answerData[0][index];
-                this.refs[id].setAnswerFromJSON(widgetAnswerData);
+                var widgetAnswerData = answerData[0][index];
+                this.getWidgetInstance(id).setAnswerFromJSON(widgetAnswerData);
                 return {showSuccess:true};
             }
         }, this);
@@ -537,7 +560,7 @@ var Renderer = React.createClass({
     canShowAllHistoryWidgets: function(answerData) {
         var r = true;
         _.map(this.widgetIds, function(id, index) {
-            if (this.refs[id].setAnswerFromJSON === undefined) {
+            if (this.getWidgetInstance(id).setAnswerFromJSON === undefined) {
                 if ( id !== 'image 1') {
                   r = false;
                 }
@@ -552,10 +575,11 @@ var Renderer = React.createClass({
                 function() { };
 
         var totalGuess = _.map(this.widgetIds, function(id) {
-            if (id.indexOf('lights-puzzle') > -1 || id.indexOf('transformer') > -1 || id.indexOf('image') > -1) {
+            if (widgetProps[id].graded === false || id.indexOf('lights-puzzle') > -1 || id.indexOf('transformer') > -1 || id.indexOf('image') > -1) {
                 return 'no save ' + id +' widget'
             }
-            return this.refs[id].toJSON();
+            const widget = this.getWidgetInstance(id);
+            return (widget.toJSON || widget.getUserInput || (() => ({})))();
         }, this);
 
         var totalScore = _.chain(this.widgetIds)
@@ -566,7 +590,7 @@ var Renderer = React.createClass({
                 })
                 .map(function(id) {
                     var props = widgetProps[id];
-                    var widget = this.refs[id];
+                    var widget = this.getWidgetInstance(id);
                     return widget.simpleValidate(props.options, onInputError);
                 }, this)
                 .reduce(Util.combineScores, Util.noScore)
@@ -576,7 +600,7 @@ var Renderer = React.createClass({
     },
 
     examples: function() {
-        var widgets = _.values(this.refs);
+        var widgets = this.widgetIds;
         var examples = _.compact(_.map(widgets, function(widget) {
             return widget.examples ? widget.examples() : null;
         }));

@@ -1,8 +1,6 @@
-/** @jsx React.DOM */
-
 var React = require('react');
 var Editor = require("./editor.jsx");
-var InfoTip = require("react-components/info-tip");
+var InfoTip = require("react-components/js/info-tip.jsx");
 var Widgets = require("./widgets.js");
 
 var WidgetsInAnswerAreaEditor = ['Image'];
@@ -21,26 +19,27 @@ var AnswerAreaEditor = React.createClass({
     },
 
     render: function() {
-        var cls;
+        var Editor2;
         if (this.props.type === "multiple") {
-            cls = Editor;
+            Editor2 = Editor;
         } else {
-            cls = Widgets.getEditor(this.props.type);
+            Editor2 = Widgets.getEditor(this.props.type);
         }
 
-        var editor = cls(_.extend({
-            ref: "editor",
-            placeholder: "This answer area is being deprecated. " +
-            "Please use the widgets in the question area for your answer.",
-            onChange: (newProps, cb) => {
+        var editor = <Editor2
+            ref="editor"
+            placeholder={"This answer area is being deprecated. " +
+            "Please use the widgets in the question area for your answer."}
+            onChange={(newProps, cb) => {
                 var options = _.extend({}, this.props.options, newProps);
                 this.props.onChange({options: options}, cb);
-            }
-        }, this.props.options));
+            }}
+            {...this.props.options}
+        />;
 
         return <div className="perseus-answer-editor">
             <div className="perseus-answer-options">
-                {this.state.showSolutionArea && <div className={cls !== Editor ? "perseus-answer-widget" : ""}>
+                {this.state.showSolutionArea && <div className={Editor2 !== Editor ? "perseus-answer-widget" : ""}>
                     {editor}
                 </div>}
             </div>
@@ -52,7 +51,7 @@ var AnswerAreaEditor = React.createClass({
             return this.refs.editor;
         } else {
             return undefined;
-        } 
+        }
     },
 
     toJSON: function(skipValidation) {

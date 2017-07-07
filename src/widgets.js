@@ -1,10 +1,12 @@
 var widgets = {};
+var editors = {};
 
 var Widgets = {
     // Widgets must be registered to avoid circular dependencies with the
     // core Editor and Renderer components.
-    register: function(name, data) {
-        widgets[name] = data;
+    register: function(name, widget, editor) {
+        widgets[name] = widget;
+        editors[name] = editor;
     },
 
     getWidget: function(name, enabledFeatures) {
@@ -23,7 +25,7 @@ var Widgets = {
     },
 
     getEditor: function(name) {
-        return _.has(widgets, name) ? widgets[name].editor : null;
+        return _.has(editors, name) ? editors[name] : null;
     },
 
     getTransform: function(name) {
@@ -115,13 +117,14 @@ var Widgets = {
                 }
             }
         }
+        let graded = true;
+        if (widgetExports.graded != null) graded = widgetExports.graded;
+        else if (oldWidgetInfo.graded != null) graded = oldWidgetInfo.graded;
 
         return _.extend({}, oldWidgetInfo, {  // maintain other info, like type
             version: latestVersion,
             // Default graded to true (so null/undefined becomes true):
-            graded: (
-                (oldWidgetInfo.graded != null) ? oldWidgetInfo.graded : true
-            ),
+            graded,
             options: newEditorProps
         });
     },

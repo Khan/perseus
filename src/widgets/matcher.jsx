@@ -1,7 +1,5 @@
-/** @jsx React.DOM */
-
 var React = require('react');
-var InfoTip        = require("react-components/info-tip");
+var InfoTip        = require("react-components/js/info-tip.jsx");
 var PropCheckBox   = require("../components/prop-check-box.jsx");
 var Renderer       = require("../renderer.jsx");
 var Sortable       = require("../components/sortable.jsx");

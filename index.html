@@ -7,8 +7,7 @@
 
 <link rel="stylesheet" type="text/css" href="ke/css/khan-site.css" />
 <link rel="stylesheet" type="text/css" href="ke/css/khan-exercise.css" />
-<link rel="stylesheet" type="text/css" href="lib/katex/fonts/fonts.css" />
-<link rel="stylesheet/less" type="text/css" href="lib/katex/katex.less" />
+<link rel="stylesheet" type="text/css" href="lib/katex/katex.css" />
 <link rel="stylesheet" type="text/css" href="lib/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="lib/mathquill/mathquill.css" />
 
@@ -41,15 +40,13 @@ add hint button ends up touching the bottom of the page). -->
 <script src="lib/jquery.js"></script>
 <script src="lib/underscore.js"></script>
 <script src="lib/marked.js"></script>
-<script src="lib/react-with-addons.js"></script>
 <script src="lib/rcss.js"></script>
-<script src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML-full&amp;delayStartupUntil=configured"></script>
 <script src="lib/katex/katex.js"></script>
 <script src="lib/mathquill/mathquill.js"></script>
 <script src="lib/kas.js"></script>
 
 <script>
-    var icu = {
+    window.icu = {
         getDecimalFormatSymbols: function() {
             return {
                 decimal_separator: ".",
@@ -58,13 +55,13 @@ add hint button ends up touching the bottom of the page). -->
             };
         }
     };
-    var KhanUtil = {
+    window.KhanUtil = {
         debugLog: function() {},
         localeToFixed: function(num, precision) {
             return num.toFixed(precision);
         }
     };
-    var Khan = {
+    window.Khan = {
         Util: KhanUtil,
         error: function() {},
         query: {debug: ""},
@@ -74,31 +71,32 @@ add hint button ends up touching the bottom of the page). -->
             disable: function() {}
         }
     };
-    React.initializeTouchEvents(true);
 </script>
 
 <script src="ke/local-only/jed.js"></script>
 <script src="ke/local-only/i18n.js"></script>
 <script src="ke/local-only/jquery.qtip.js"></script>
 <script src="ke/exercises-stub.js"></script>
-<script src="ke/local-only/require.js"></script>
+<script src="ke/utils/MathJax/2.1/MathJax.js?config=KAthJax-da9a7f53e588f3837b045a600e1dc440"></script>
+<script src="ke/utils/tex.js"></script>
+<script src="ke/utils/crc32.js"></script>
+<script src="ke/utils/tmpl.js"></script>
+<script src="ke/utils/answer-types.js"></script>
+<script src="ke/utils/raphael.js"></script>
+<script src="ke/utils/graphie.js"></script>
+<script src="ke/utils/knumber.js"></script>
+<script src="ke/utils/kvector.js"></script>
+<script src="ke/utils/kpoint.js"></script>
+<script src="ke/utils/kline.js"></script>
+<script src="ke/utils/kray.js"></script>
+<script src="ke/utils/interactive.js"></script>
+<script src="ke/utils/math.js"></script>
 
 <script>
-(function() {
-requirejs.config({
-    waitSeconds: 120
+$(function() {
+	initPerseus();
 });
-// Load khan-exercises modules, then perseus
-require(["ke-deps.js"], function() {
-    // pre built
-    require(["build/perseus-1.js"], initPerseus);
-    // pre built with source maps
-    // require(["build/perseus.debug.js"], initPerseus);
-    // built on demand
-    // require(["src/perseus.js"], initPerseus);
-});
-function initPerseus(Perseus) {
-window.Perseus = Perseus;
+function initPerseus() {
 var defaultQuestion = {
     "question": {
         "content": "[[☃ example-graphie-widget 1]]",
@@ -203,20 +201,18 @@ Perseus.init({skipMathJax: false}).then(function() {
             }
         }
     });
-    editor = React.renderComponent(
-        Perseus.StatefulEditorPage(editorProps, null),
-        document.getElementById("perseus-container")
+    editor = Perseus.render(
+        Perseus.StatefulEditorPage,
+        document.getElementById("perseus-container"),
+        editorProps
     );
-    // Some hacks to make debugging nicer
-    window.editorPage = editor.refs.editor;
-    window.itemRenderer = window.editorPage.renderer;
 }).then(function() {
 }, function(err) {
     console.error(err);
 });
 }
-})();
 </script>
+<script src="build/perseus-1.js"></script>
 
 </body>
 </html>

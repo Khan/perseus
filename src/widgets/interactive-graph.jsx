@@ -1,9 +1,7 @@
-/** @jsx React.DOM */
-
 var React         = require('react');
 var Graph         = require("../components/graph.jsx");
 var GraphSettings = require("../components/graph-settings.jsx");
-var InfoTip       = require("react-components/info-tip");
+var InfoTip       = require("react-components/js/info-tip.jsx");
 var Interactive2  = require("../interactive2.js");
 var NumberInput   = require("../components/number-input.jsx");
 var Util          = require("../util.js");
@@ -624,9 +622,13 @@ var InteractiveGraph = React.createClass({
                 rulerLabel={this.props.rulerLabel}
                 rulerTicks={this.props.rulerTicks}
                 onMouseDown={onMouseDown}
-                onNewGraphie={this.setGraphie} />
+                onGraphieUpdated={this.setGraphie} />
             {typeSelect}{extraOptions}
         </div>;
+    },
+
+    componentDidMount: function() {
+        this.setGraphie(this.refs.graph.graphie());
     },
 
     setGraphie: function(newGraphie) {
@@ -2364,7 +2366,7 @@ var InteractiveGraphEditor = React.createClass({
                     this.props.onChange({correct: correct});
                 }
             };
-            graph = InteractiveGraph(graphProps);
+            graph = <InteractiveGraph {...graphProps} />;
             equationString = InteractiveGraph.getEquationString(graphProps);
         } else {
             graph = <div>{this.props.valid}</div>;

@@ -1,9 +1,7 @@
-/** @jsx React.DOM */
-
 var React = require('react');
 var Graph         = require("../components/graph.jsx");
 var GraphSettings = require("../components/graph-settings.jsx");
-var InfoTip       = require("react-components/info-tip");
+var InfoTip       = require("react-components/js/info-tip.jsx");
 var NumberInput   = require("../components/number-input.jsx");
 var PropCheckBox  = require("../components/prop-check-box.jsx");
 var TeX           = require("../tex.jsx");
@@ -324,12 +322,13 @@ var TransformOps = {
                     {TransformOps.toTeX(this.props.transform)}
                 </div>;
             } else if (this.props.mode === "interactive") {
-                var transformClass =
+                var TransformClass =
                         Transformations[this.props.transform.type].Input;
-                return transformClass(_.extend({
-                    ref: "transform",
-                    onChange: this.handleChange
-                }, this.props.transform));
+                return <TransformClass
+                    ref="transform"
+                    onChange={this.handleChange}
+                    {...this.props.transform}
+                    />;
             } else {
                 throw new Error("Invalid mode: " + this.props.mode);
             }
@@ -388,9 +387,8 @@ var Transformations = {
         },
         toTeX: function(transform) {
             // I18N: As in the command, "Translation by <3, 1>"
-            return <$_ vector={texFromVector(transform.vector)}>
-                平移向量 %(vector)s
-            </$_>;
+            return $_({vector: texFromVector(transform.vector)},
+                "平移向量 %(vector)s");
         },
         Input: React.createClass({
             getInitialState: function() {
@@ -430,9 +428,8 @@ var Transformations = {
                     <TeX>\rangle</TeX>
                 ];
                 return <div>
-                    <$_ vector={vector}>
-                        平移向量 %(vector)s
-                    </$_>
+                    {$_({vector: vector},
+                        "平移向量 %(vector)s")}
                 </div>;
             },
             value: function() {
@@ -482,10 +479,10 @@ var Transformations = {
             };
         },
         toTeX: function(transform) {
-            return <$_ degrees={texFromAngleDeg(transform.angleDeg)}
-                       point={texFromPoint(transform.center)}>
-                旋轉 %(degrees)s 度 (以 %(point)s 為中心)
-            </$_>;
+            return $_({
+                degrees: texFromAngleDeg(transform.angleDeg),
+                point: texFromPoint(transform.center)
+            }, "旋轉 %(degrees)s 度 (以 %(point)s 為中心)");
         },
         Input: React.createClass({
             getInitialState: function() {
@@ -541,9 +538,8 @@ var Transformations = {
                     DEGREE_SIGN
                 ];
                 // I18N: %(point)s must come before %(degrees)s in this phrase
-                var text = <$_ point={point} degrees={degrees}>
-                    Rotation about %(point)s by %(degrees)s
-                </$_>;
+                var text = $_({point, degrees},
+                    "Rotation about %(point)s by %(degrees)s");
 
                 return <div>{text}</div>;
             },
@@ -598,10 +594,10 @@ var Transformations = {
         toTeX: function(transform) {
             var point1 = transform.line[0];
             var point2 = transform.line[1];
-            return <$_ point1={texFromPoint(point1)}
-                       point2={texFromPoint(point2)}>
-                對應從 %(point1)s 至 %(point2)s 的線做鏡射
-            </$_>;
+            return $_({
+                point1: texFromPoint(point1),
+                point2: texFromPoint(point2)
+            }, "對應從 %(point1)s 至 %(point2)s 的線做鏡射");
         },
         Input: React.createClass({
             getInitialState: function() {
@@ -644,9 +640,8 @@ var Transformations = {
                     <TeX>)</TeX>
                 ];
                 return <div>
-                    <$_ point1={point1} point2={point2}>
-                        對應從 %(point1)s 至 %(point2)s 的線做鏡射
-                    </$_>
+                    {$_({point1, point2},
+                        "對應從 %(point1)s 至 %(point2)s 的線做鏡射")}
                 </div>;
             },
             changePoint: function(i, j, val) {
@@ -705,10 +700,10 @@ var Transformations = {
         },
         toTeX: function(transform) {
             var scaleString = stringFromFraction(transform.scale);
-            return <$_ scale={scaleString}
-                       point={texFromPoint(transform.center)}>
-                放大 %(scale)s 倍 (以 %(point)s 為中心)
-            </$_>;
+            return $_({
+                scale: scaleString,
+                point: texFromPoint(transform.center),
+            }, "放大 %(scale)s 倍 (以 %(point)s 為中心)");
         },
         Input: React.createClass({
             getInitialState: function() {
@@ -760,9 +755,8 @@ var Transformations = {
                             this.props.onChange();
                         }} />;
                 return <div>
-                    <$_ point={point} scale={scale}>
-                        Dilation about %(point)s by %(scale)s
-                    </$_>
+                    {$_({point, scale},
+                        "Dilation about %(point)s by %(scale)s")}
                 </div>;
             },
             value: function() {
@@ -1353,7 +1347,7 @@ var TransformationsShapeEditor = React.createClass({
                 gridStep={this.props.graph.gridStep}
                 markings={this.props.graph.markings}
                 backgroundImage={this.props.graph.backgroundImage}
-                onNewGraphie={this.setupGraphie} />
+                onGraphieUpdated={this.setupGraphie} />
             <select
                     key="type-select"
                     value={this.getTypeString(this.props.shape.type)}
@@ -1639,7 +1633,7 @@ var Transformer = React.createClass({
                 backgroundImage={graph.backgroundImage}
                 showProtractor={graph.showProtractor}
                 showRuler={graph.showRuler}
-                onNewGraphie={this.setupGraphie} />
+                onGraphieUpdated={this.setupGraphie} />
 
             {!interactiveToolsMode && (
                 "Add transformations below:"
@@ -1663,6 +1657,10 @@ var Transformer = React.createClass({
             {!interactiveToolsMode && toolsBar}
 
         </div>;
+    },
+
+    componentDidMount: function() {
+        this.setupGraphie(this.graphie());
     },
 
     componentDidUpdate: function(prevProps) {
@@ -1698,18 +1696,14 @@ var Transformer = React.createClass({
         return this.refs.graph.graphie();
     },
 
-    setupGraphie: function() {
-        var self = this;
-
-        var graphie = this.graphie();
-
+    setupGraphie: function(graphie) {
         // A background image of our solution:
         if (this.props.drawSolutionShape &&
                 this.props.correct.shape &&
                 this.props.correct.shape.coords) {
             ShapeTypes.addShape(graphie, {
                 fixed: true,
-                shape: self.props.correct.shape,
+                shape: this.props.correct.shape,
                 normalStyle: {
                     stroke: KhanUtil.GRAY,
                     "stroke-dasharray": "",

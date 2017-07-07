@@ -1,6 +1,6 @@
-/** @jsx React.DOM */
-
 var React = require('react');
+var ReactDOM = require('react-dom');
+
 var CombinedHintsEditor = require("./hint-editor.jsx");
 var EnabledFeatures = require("./enabled-features.jsx");
 var ItemEditor = require("./item-editor.jsx");
@@ -240,8 +240,8 @@ var EditorPage = React.createClass({
                                "enabledFeatures")
         );
 
-        this.renderer = React.renderComponent(
-            ItemRenderer(rendererConfig),
+        this.renderer = ReactDOM.render(
+            <ItemRenderer {...rendererConfig} />,
             this.rendererMountNode,
             cb);
     },

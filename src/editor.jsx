@@ -1,21 +1,14 @@
-/** @jsx React.DOM */
-
 var React = require('react');
+var ReactDOM = require("react-dom");
+var ReactCreateFragment = require("react-addons-create-fragment");
+
 var PropCheckBox = require("./components/prop-check-box.jsx");
 var Util = require("./util.js");
 var Widgets = require("./widgets.js");
-var DragTarget = require("react-components/drag-target");
+var DragTarget = require("react-components/js/drag-target.jsx");
 
 // like [[snowman input-number 1]]
 var rWidgetSplit = /(\[\[\u2603 [a-z-]+ [0-9]+\]\])/g;
-
-// widgets junyi can use now:
-var widgetsInEditor = ['image', 'categorizer', 'dropdown', 'expression',
-                      'input-number', 'interactive-graph', 'interactive-number-line',
-                      'lights-puzzle', 'measurer', 'number-line',
-                      'iframe', 'numeric-input', 'plotter',
-                      'radio', 'sorter', 'table', 'transformer', 'matcher',
-                      'speaking-text-input', 'speaking-voice'];
 
 var WidgetSelect = React.createClass({
     handleChange: function(e) {
@@ -35,9 +28,8 @@ var WidgetSelect = React.createClass({
     },
     render: function() {
         var widgets = Widgets.getPublicWidgets();
-        var junyiValidWidgets = _.pick(widgets, widgetsInEditor);
-        var orderedWidgetNames = _.sortBy(_.keys(junyiValidWidgets), (name) => {
-            return junyiValidWidgets[name].displayName;
+        var orderedWidgetNames = _.sortBy(_.keys(widgets), (name) => {
+            return widgets[name].displayName;
         });
 
         return <select onChange={this.handleChange}>
@@ -86,7 +78,7 @@ var WidgetEditor = React.createClass({
         );
         var type = upgradedWidgetInfo.type;
 
-        var cls = Widgets.getEditor(type);
+        var Editor2 = Widgets.getEditor(type);
 
         var isUngradedEnabled = (type === "transformer");
         var direction = this.state.showWidget ? "down" : "right";
@@ -105,10 +97,11 @@ var WidgetEditor = React.createClass({
             <div className={"perseus-widget-editor-content " +
                     (this.state.showWidget ? "enter" : "leave")}>
                 {isUngradedEnabled && gradedPropBox}
-                {cls(_.extend({
-                    ref: "widget",
-                    onChange: this._handleWidgetChange
-                }, upgradedWidgetInfo.options))}
+                <Editor2
+                    ref="widget"
+                    onChange={this._handleWidgetChange}
+                    {...upgradedWidgetInfo.options}
+                />
             </div>
         </div>;
     },
@@ -220,12 +213,13 @@ var Editor = React.createClass({
         if (!Widgets.getEditor(type)) {
             return;
         }
-        return WidgetEditor(_.extend({
-            ref: id,
-            id: id,
-            type: type,
-            onChange: this._handleWidgetEditorChange.bind(this, id)
-        }, this.props.widgets[id]));
+        return <WidgetEditor
+            ref={id}
+            id={id}
+            type={type}
+            onChange={this._handleWidgetEditorChange.bind(this, id)}
+            {...this.props.widgets[id]}
+        />;
     },
 
     _handleWidgetEditorChange: function(id, newProps, cb) {
@@ -355,7 +349,7 @@ var Editor = React.createClass({
                         {widgetsDropDown}
                         {templatesDropDown}
                     </div>
-                    {widgets}
+                    {ReactCreateFragment(widgets)}
                 </div>;
             }
         } else {
@@ -408,7 +402,7 @@ var Editor = React.createClass({
 
     componentDidUpdate: function(prevProps) {
         // TODO(alpert): Maybe fix React so this isn't necessary
-        var textarea = this.refs.textarea.getDOMNode();
+        var textarea = ReactDOM.findDOMNode(this.refs.textarea);
         textarea.value = this.props.content;
 
         // This can't be in componentWillReceiveProps because that's happening
@@ -483,7 +477,7 @@ var Editor = React.createClass({
     },
 
     handleChange: function() {
-        var textarea = this.refs.textarea.getDOMNode();
+        var textarea = ReactDOM.findDOMNode(this.refs.textarea);
         this.props.onChange({content: textarea.value});
     },
 
@@ -586,12 +580,12 @@ var Editor = React.createClass({
     },
 
     focus: function() {
-        this.refs.textarea.getDOMNode().focus();
+        ReactDOM.findDOMNode(this.refs.textarea).focus();
     },
 
     focusAndMoveToEnd: function() {
         this.focus();
-        var textarea = this.refs.textarea.getDOMNode();
+        var textarea = ReactDOM.findDOMNode(this.refs.textarea);
         textarea.selectionStart = textarea.value.length;
         textarea.selectionEnd = textarea.value.length;
     }

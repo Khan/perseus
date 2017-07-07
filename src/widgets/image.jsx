@@ -1,7 +1,8 @@
-/** @jsx React.DOM */
+var React = require("react");
+var _ = require("underscore");
 
-var BlurInput    = require("react-components/blur-input");
-var InfoTip      = require("react-components/info-tip");
+var BlurInput    = require("react-components/js/blur-input.jsx");
+var InfoTip      = require("react-components/js/info-tip.jsx");
 
 var Changeable   = require("../mixins/changeable.jsx");
 var JsonifyProps = require("../mixins/jsonify-props.jsx");
@@ -139,9 +140,10 @@ var ImageEditor = React.createClass({
     mixins: [Changeable, JsonifyProps],
 
     componentDidMount: function() {
-        // If URL already provided on page load, should display image
-        var url = this.props.backgroundImage.url;
-        this.onUrlChange(url);
+        setTimeout(() => {
+            var url = this.props.backgroundImage.url;
+            this.onUrlChange(url);
+        }, 0);
     },
 
     getDefaultProps: function() {
@@ -179,7 +181,7 @@ var ImageEditor = React.createClass({
 
         return <div className="perseus-widget-image">
             {imageSettings}
-            
+
         </div>;
     },
 
@@ -289,6 +291,10 @@ var ImageEditor = React.createClass({
     },
 
     setUrl: function(url, width, height) {
+        if (!this.isMounted()) {
+            return;
+        }
+
         var image = _.clone(this.props.backgroundImage);
         image.url = url;
         image.width = width;
@@ -330,4 +336,3 @@ module.exports = {
     widget: ImageWidget,
     editor: ImageEditor
 };
-

@@ -1,11 +1,13 @@
-/** @jsx React.DOM */
+var React = require("react");
+var ReactDOM = require("react-dom");
+var _ = require("underscore");
 
 var textWidthCache = {};
 function getTextWidth(text) {
     if (!textWidthCache[text]) {
         // Hacky way to guess the width of an input box
         var $test = $("<span>").text(text).appendTo("body");
-        textWidthCache[text] = $test.width() + 5;
+        textWidthCache[text] = $test.width() + 20;
         $test.remove();
     }
     return textWidthCache[text];
@@ -86,12 +88,12 @@ var TextListEditor = React.createClass({
                     (index === 0 || items[focusIndex] !== "")) {
                 // ...except for the last one, iff it is the only empty
                 // input at the end.
-                this.refs["input_" + focusIndex].getDOMNode().focus();
+                ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
             } else {
                 items.splice(index, 1);
                 this.setState({items: items}, function() {
-                    this.refs["input_" + focusIndex].getDOMNode().focus();
-                });                
+                    ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
+                });
             }
 
         // Deleting the last character in the second-to-last input removes it
@@ -114,11 +116,11 @@ var TextListEditor = React.createClass({
 
             if (index === items.length - 2) {
                 // ...unless the empty input is just below.
-                this.refs["input_" + focusIndex].getDOMNode().focus();
+                ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
             } else {
                 items.splice(focusIndex, 0, "");
                 this.setState({items: items}, function() {
-                    this.refs["input_" + focusIndex].getDOMNode().focus();
+                    ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
                 });
             }
         }

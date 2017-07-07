@@ -1,8 +1,7 @@
-/** @jsx React.DOM */
-
 var React             = require('react');
-var BlurInput         = require("react-components/blur-input");
-var InfoTip           = require("react-components/info-tip");
+var ReactDOM          = require("react-dom");
+var BlurInput         = require("react-components/js/blur-input.jsx");
+var InfoTip           = require("react-components/js/info-tip.jsx");
 var Renderer          = require("../renderer.jsx");
 var TeX               = require("../tex.jsx");
 var InputWithExamples = require("../components/input-with-examples.jsx");
@@ -128,7 +127,7 @@ var InputNumber = React.createClass({
 
     _handleFocus: function() {
         if (this.props.apiOptions.staticRender) {
-            this.props.onFocus([], this.refs.input.getDOMNode());
+            this.props.onFocus([], this.refs.input);
         } else {
             this.props.onFocus([], this.refs.input.getInputDOMNode());
         }
@@ -159,7 +158,7 @@ var InputNumber = React.createClass({
     },
 
     focus: function() {
-        this.refs.input.focus();
+        ReactDOM.findDOMNode(this.refs.input).focus();
         return true;
     },
 
@@ -302,7 +301,7 @@ var InputNumberEditor = React.createClass({
     },
 
     focus: function() {
-        this.refs.input.getDOMNode().focus();
+        ReactDOM.findDOMNode(this.refs.input).focus();
         return true;
     },
 
@@ -319,7 +318,7 @@ var propTransform = (editorProps) => {
 
 module.exports = {
     name: "input-number",
-    displayName: "Number text box",
+    displayName: "input-number/數值填充",
     widget: InputNumber,
     editor: InputNumberEditor,
     transform: propTransform

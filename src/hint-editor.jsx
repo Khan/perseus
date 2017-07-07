@@ -1,13 +1,12 @@
-/** @jsx React.DOM */
-
 /* Collection of classes for rendering the hint editor area,
  * hint editor boxes, and hint previews
  */
 
 var React = require('react');
+var ReactDOM = require("react-dom");
 var Editor = require("./editor.jsx");
 var HintRenderer = require("./hint-renderer.jsx");
-var InfoTip = require("react-components/info-tip");
+var InfoTip = require("react-components/js/info-tip.jsx");
 
 /* Renders a hint editor box
  *
@@ -75,7 +74,7 @@ var HintEditor = React.createClass({
     },
 
     focus: function() {
-        this.refs.editor.focus();
+        ReactDOM.findDOMNode(this.refs.editor).focus();
     },
 
     toJSON: function(skipValidation) {
@@ -118,7 +117,7 @@ var CombinedHintEditor = React.createClass({
     },
 
     focus: function() {
-        this.refs.editor.focus();
+        ReactDOM.findDOMNode(this.refs.editor).focus();
     }
 });
 
@@ -189,7 +188,7 @@ var CombinedHintsEditor = React.createClass({
         var hint = hints.splice(i, 1)[0];
         hints.splice(i + dir, 0, hint);
         this.props.onChange({hints: hints}, () => {
-            this.refs["hintEditor" + (i + dir)].focus();
+            ReactDOM.findDOMNode(this.refs["hintEditor" + (i + dir)]).focus();
         });
     },
 
@@ -197,7 +196,7 @@ var CombinedHintsEditor = React.createClass({
         var hints = _(this.props.hints).clone().concat([{ content: "" }]);
         this.props.onChange({hints: hints}, () => {
             var i = hints.length - 1;
-            this.refs["hintEditor" + i].focus();
+            ReactDOM.findDOMNode(this.refs["hintEditor" + i]).focus();
         });
 
         // TODO(joel) - is this doing anything?

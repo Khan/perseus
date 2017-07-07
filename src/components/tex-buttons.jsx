@@ -1,8 +1,5 @@
-/** @jsx React.DOM */
-
 var React     = require("react");
-var TeX       = require("react-components/tex");
-var clone     = React.addons.cloneWithProps;
+var TeX       = require("react-components/js/tex.jsx");
 
 var prettyBig = { fontSize: "150%" };
 var slightlyBig = { fontSize: "120%" };
@@ -37,7 +34,7 @@ var basic = [
             var contents = input.latex();
             input.cmd("\\frac");
             }
-        
+
     ],
     () => [<TeX style={slightlyBig}>{"\\div"}</TeX>, "\\div"],
     () => [<TeX style={slightlyBig} key="eq">{"="}</TeX>, "="],
@@ -95,11 +92,11 @@ var TexButtons = React.createClass({
     },
 
     render: function() {
-        // sort this.props.sets component by key_index of buttonSets 
+        // sort this.props.sets component by key_index of buttonSets
         // var sortedButtonSets = _.sortBy(this.props.sets,
         //     (setName) => _.keys(buttonSets).indexOf(setName));
 
-        // make buttonSet(checked) by this.props.sets from buttonSets(template) 
+        // make buttonSet(checked) by this.props.sets from buttonSets(template)
         var buttonSet = _(this.props.sets).map(setName => buttonSets[setName]);
 
         var buttonRows = _(buttonSet).map(row => row.map(symbGen => {

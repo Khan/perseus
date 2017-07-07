@@ -26,22 +26,36 @@
  * These are css class names that will continue to preserve their
  * semantic meaning across the same perseus api major version.
  */
+var React = require("react");
+
 module.exports = {
     Options: {
         propTypes: React.PropTypes.shape({
+            isMobile: React.PropTypes.bool,
             fancyDropdowns: React.PropTypes.bool.isRequired,
             interceptInputFocus: React.PropTypes.func,
             onInputError: React.PropTypes.func.isRequired,
             onFocusChange: React.PropTypes.func.isRequired,
-            staticRender: React.PropTypes.bool.isRequired
+            staticRender: React.PropTypes.bool.isRequired,
+            readOnly: React.PropTypes.bool.isRequired,
+            baseElements: React.PropTypes.shape({
+                Link: React.PropTypes.func,
+            }),
         }).isRequired,
 
         defaults: {
+            isMobile: false,
             fancyDropdowns: false,
             interceptInputFocus: null,
             onInputError: function() { },
             onFocusChange: function() { },
-            staticRender: false
+            staticRender: false,
+            readOnly: false,
+            baseElements: {
+                Link: (props) => {
+                    return <a {...props} />;
+                },
+            },
         }
     },
     ClassNames: {
@@ -54,4 +68,3 @@ module.exports = {
         }
     }
 };
-
