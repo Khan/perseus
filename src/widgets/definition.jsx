@@ -28,6 +28,9 @@ const Definition = React.createClass({
         return {
             expanded: false,
             contentOffsetLeft: 0,
+            contentOffsetLeftMobile: 0,
+            contentWidth: 0,
+            contentWidthMobile: 0,
         };
     },
 
@@ -115,31 +118,16 @@ const Definition = React.createClass({
         const documentWidth = document.body.clientWidth;
         const marginWidth =
             this.container.parentElement.parentElement.offsetLeft;
-        const containerOffsetLeft = this.container.offsetLeft - marginWidth;
-        const containerWidth = this.container.offsetWidth;
-        const contentWidth = this.content.offsetWidth;
-        // calculate how far the arrow head is to the left
-        const arrowOffsetLeft = containerOffsetLeft + .5 * containerWidth;
-        // where the content box should be placed if not a literal edge case
-        const defaultLeft =
-            -.5 * contentWidth + .5 * containerWidth;
-        // calculate how far the arrow head is from the right
-        const arrowOffsetRight =
-            documentWidth - 2 * marginWidth - arrowOffsetLeft;
+        const contentWidth = documentWidth - 3 * marginWidth;
+        const contentWidthMobile = documentWidth;
+        const contentOffsetLeft = this.container.offsetLeft - marginWidth;
+        const contentOffsetLeftMobile = this.container.offsetLeft;
 
-        let contentLeft;
-
-        // left edge case
-        if (arrowOffsetLeft <= contentWidth / 2) {
-            contentLeft = containerWidth / 2 - arrowOffsetLeft;
-        // right edge case
-        } else if (arrowOffsetRight <= contentWidth / 2) {
-            contentLeft = defaultLeft + (arrowOffsetRight - .5 * contentWidth);
-        } else {
-            contentLeft = defaultLeft;
-        }
         this.setState({
-            contentOffsetLeft: contentLeft,
+            contentWidth: contentWidth,
+            contentWidthMobile: contentWidthMobile,
+            contentOffsetLeft: -contentOffsetLeft,
+            contentOffsetLeftMobile: -contentOffsetLeftMobile,
         });
     },
 
@@ -186,8 +174,30 @@ const Definition = React.createClass({
                 {link}
                 {this.state.expanded &&
                     <svg className={css(styles.disclosureArrow)}>
-                        <polygon
-                            style={{fill: backgroundColor}}
+                        <filter id="definition-widget-dropshadow" height="150%">
+                            <feOffset
+                                dx={dropShadowXOffset}
+                                dy={dropShadowYOffset}
+                                result="offsetblur"
+                            />
+                            <feGaussianBlur
+                                in="SourceAlpha"
+                                stdDeviation={dropShadowRadius / 2}
+                            />
+                            <feComponentTransfer>
+                                <feFuncA
+                                    type="linear"
+                                    slope={dropShadowOpacity}
+                                />
+                            </feComponentTransfer>
+                            <feMerge>
+                                <feMergeNode/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                        <polyline
+                            fill="white"
+                            filter="url(#definition-widget-dropshadow)"
                             points={`0,${arrowHeight} ` +
                                 `${arrowWidth},${arrowHeight} ` +
                                 `${arrowWidth / 2},0`}
@@ -202,7 +212,12 @@ const Definition = React.createClass({
                 style={{
                     height: this.state.expanded ? "auto" : 0,
                     overflow: this.state.expanded ? "visible" : "hidden",
-                    left: this.state.contentOffsetLeft,
+                    left: isMobile
+                        ? this.state.contentOffsetLeftMobile
+                        : this.state.contentOffsetLeft,
+                    width: isMobile
+                        ? this.state.contentWidthMobile
+                        : this.state.contentWidth,
                 }}
                 ref={e => this.content = e}
             >
@@ -216,9 +231,14 @@ const Definition = React.createClass({
     },
 });
 
+const dropShadowXOffset = 0;
+const dropShadowYOffset = 1;
+const dropShadowOpacity = 0.35;
+const dropShadowRadius = 4;
+
 const arrowWidth = 28;
 const arrowHeight = 14;
-const backgroundColor = styleConstants.gray95;
+const backgroundColor = styleConstants.white;
 
 const styles = StyleSheet.create({
     container: {
@@ -274,8 +294,9 @@ const styles = StyleSheet.create({
 
     content: {
         background: backgroundColor,
+        opacity: 0.95,
+        borderRadius: 1,
         position: 'absolute',
-        width: 200,
         transition: 'margin-top 0.1s',
         paddingLeft: styleConstants.phoneMargin,
         paddingRight: styleConstants.phoneMargin,
@@ -284,12 +305,16 @@ const styles = StyleSheet.create({
 
     contentExpanded: {
         marginTop: arrowHeight,
+        boxShadow: `0px 0px 4px ${styleConstants.gray85}`,
+        border: `solid 0.5px ${styleConstants.gray85}`,
     },
 
     contentExpandedMobile: {
         paddingTop: 32,
         paddingBottom: 32,
         marginTop: arrowHeight,
+        boxShadow: `0px 0px 4px ${styleConstants.gray85}`,
+        border: `solid 0.5px ${styleConstants.gray85}`,
     },
 
     disclosureArrow: {
@@ -298,7 +323,7 @@ const styles = StyleSheet.create({
         // seems to position it to the baseline? We put in a generous
         // fudge factor to position it down to be flush with the content box
         // below it.
-        bottom: -(arrowHeight + 5),
+        bottom: -(arrowHeight + 4),
         height: arrowHeight,
         left: '50%',
         marginLeft: -(arrowWidth / 2),

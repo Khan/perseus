@@ -17,8 +17,8 @@ const DefinitionEditor = React.createClass({
 
     getDefaultProps: function() {
         return {
-            togglePrompt: "define me",
-            definition: "definition goes here",
+            togglePrompt: "",
+            definition: "",
         };
     },
 
@@ -36,6 +36,7 @@ const DefinitionEditor = React.createClass({
                 Word to be defined: <TextInput
                     value={this.props.togglePrompt}
                     onChange={this.change("togglePrompt")}
+                    placeholder="define me"
                 />
             </label></div>
             <div className="perseus-widget-row">
@@ -43,6 +44,7 @@ const DefinitionEditor = React.createClass({
                     apiOptions={this.props.apiOptions}
                     content={this.props.definition}
                     widgetEnabled={false}
+                    placeholder="definition goes here"
                     onChange={(props) => {
                         const newProps = {};
                         if (_.has(props, "content")) {
