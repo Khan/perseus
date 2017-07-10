@@ -198,19 +198,21 @@ const Zoomable = React.createClass({
             : "opacity transform";
 
         // Since we're not using aphrodite, we have to prefix ourselves.
+        /* eslint-disable indent */
         const transitionStyle = visible
             ? {
-                transitionProperty: property,
-                WebkitTransitionProperty: property,
-                msTransitionProperty: property,
-                transitionDuration: "0.3s",
-                WebkitTransitionDuration: "0.3s",
-                msTransitionDuration: "0.3s",
-                transitionTimingFunction: "ease-out",
-                WebkitTransitionTimingfunction: "ease-out",
-                msTransitionTmingFunction: "ease-out",
-            }
+                  transitionProperty: property,
+                  WebkitTransitionProperty: property,
+                  msTransitionProperty: property,
+                  transitionDuration: "0.3s",
+                  WebkitTransitionDuration: "0.3s",
+                  msTransitionDuration: "0.3s",
+                  transitionTimingFunction: "ease-out",
+                  WebkitTransitionTimingfunction: "ease-out",
+                  msTransitionTmingFunction: "ease-out",
+              }
             : {};
+        /* eslint-enable indent */
 
         // Do a fancy little slide as we fade the contents in the first time.
         const translateOffset = visible ? "" : " translate(0, 8px)";

@@ -13,12 +13,11 @@ const React = require("react");
 const {PropTypes} = React;
 
 const Status = {
-    PENDING: 'pending',
-    LOADING: 'loading',
-    LOADED: 'loaded',
-    FAILED: 'failed',
+    PENDING: "pending",
+    LOADING: "loading",
+    LOADED: "loaded",
+    FAILED: "failed",
 };
-
 
 const ImageLoader = React.createClass({
     propTypes: {
@@ -71,7 +70,7 @@ const ImageLoader = React.createClass({
     },
 
     createLoader: function() {
-        this.destroyLoader();  // We can only have one loader at a time.
+        this.destroyLoader(); // We can only have one loader at a time.
 
         this.img = new Image();
         this.img.onload = this.handleLoad;

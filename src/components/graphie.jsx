@@ -1,24 +1,20 @@
-/* eslint-disable no-var */
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+const React = require("react");
+const ReactDOM = require("react-dom");
+const _ = require("underscore");
 
-var React = require("react");
-var ReactDOM = require("react-dom");
-var _ = require("underscore");
+const GraphieClasses = require("./graphie-classes.jsx");
+const Movables = require("./graphie-movables.jsx");
 
-var GraphieClasses = require("./graphie-classes.jsx");
-var Movables = require("./graphie-movables.jsx");
+const GraphieMovable = GraphieClasses.GraphieMovable;
 
-var GraphieMovable = GraphieClasses.GraphieMovable;
-
-var deepEq = require("../util.js").deepEq;
-var nestedMap = require("../util.js").nestedMap;
-var assert = require("../interactive2/interactive-util.js").assert;
+const deepEq = require("../util.js").deepEq;
+const nestedMap = require("../util.js").nestedMap;
+const assert = require("../interactive2/interactive-util.js").assert;
 
 const GraphUtils = require("../util/graph-utils.js");
-var createGraphie = GraphUtils.createGraphie;
+const createGraphie = GraphUtils.createGraphie;
 
-var Graphie = React.createClass({
+const Graphie = React.createClass({
     propTypes: {
         addMouseLayer: React.PropTypes.bool,
         box: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
@@ -65,16 +61,23 @@ var Graphie = React.createClass({
         // in that case would cause us to constantly re-setup graphie, which
         // would have horrible performance implications. In order to avoid
         // those, we just warn here.
-        if (this.props.setup !== prevProps.setup &&
-                window.console && window.console.warn) {
-            window.console.warn("<Graphie> was given a new setup function. " +
+        if (
+            this.props.setup !== prevProps.setup &&
+            window.console &&
+            window.console.warn
+        ) {
+            window.console.warn(
+                "<Graphie> was given a new setup function. " +
                     "This is a bad idea; please refactor your code to give " +
                     "the same setup function reference to <Graphie> on " +
-                    "every render.");
+                    "every render."
+            );
         }
-        if (!deepEq(this.props.options, prevProps.options) ||
-                !deepEq(this.props.box, prevProps.box) ||
-                !deepEq(this.props.range, prevProps.range)) {
+        if (
+            !deepEq(this.props.options, prevProps.options) ||
+            !deepEq(this.props.box, prevProps.box) ||
+            !deepEq(this.props.range, prevProps.range)
+        ) {
             this._setupGraphie();
         }
         this._updateMovables();
@@ -94,7 +97,7 @@ var Graphie = React.createClass({
 
     // bounds-checked range
     _range: function() {
-        return _.map(this.props.range, (dimRange) => {
+        return _.map(this.props.range, dimRange => {
             if (dimRange[0] >= dimRange[1]) {
                 return [-10, 10];
             } else {
@@ -104,7 +107,7 @@ var Graphie = React.createClass({
     },
 
     _box: function() {
-        return _.map(this.props.box, (pixelDim) => {
+        return _.map(this.props.box, pixelDim => {
             // 340 = default size in the editor. exact value
             // is arbitrary; this is just a safety check.
             return pixelDim > 0 ? pixelDim : 340;
@@ -112,10 +115,10 @@ var Graphie = React.createClass({
     },
 
     _scale: function() {
-        var box = this._box();
-        var range = this._range();
+        const box = this._box();
+        const range = this._range();
         return _.map(box, (pixelDim, i) => {
-            var unitDim = range[i][1] - range[i][0];
+            const unitDim = range[i][1] - range[i][0];
             return pixelDim / unitDim;
         });
     },
@@ -123,9 +126,9 @@ var Graphie = React.createClass({
     _setupGraphie: function() {
         this._removeMovables();
 
-        var graphieDiv = ReactDOM.findDOMNode(this.refs.graphieDiv);
+        const graphieDiv = ReactDOM.findDOMNode(this.refs.graphieDiv);
         $(graphieDiv).empty();
-        var graphie = this._graphie = createGraphie(graphieDiv);
+        const graphie = (this._graphie = createGraphie(graphieDiv));
 
         // This has to be called before addMouseLayer. You can re-init
         // with graphInit later if you prefer
@@ -151,14 +154,20 @@ var Graphie = React.createClass({
             // Overwrite fixed styles set in init()
             // TODO(alex): Either make this component always responsive by
             // itself, or always wrap it in other components so that it is.
-            $(graphieDiv).css({width: '100%', height: '100%'});
-            graphie.raphael.setSize('100%', '100%');
+            $(graphieDiv).css({width: "100%", height: "100%"});
+            graphie.raphael.setSize("100%", "100%");
         }
 
-        this.props.setup(graphie, _.extend({
-            range: this._range(),
-            scale: this._scale(),
-        }, this.props.options));
+        this.props.setup(
+            graphie,
+            _.extend(
+                {
+                    range: this._range(),
+                    scale: this._scale(),
+                },
+                this.props.options
+            )
+        );
     },
 
     _removeMovables: function() {
@@ -183,12 +192,12 @@ var Graphie = React.createClass({
         // we take `child.props` and give them to the already-existing
         // on-screen movable, and call `movable.modify()`
 
-        var graphie = options.graphie;
-        var oldMovables = options.oldMovables;
-        var newMovables = options.newMovables; /* output parameter */
+        const graphie = options.graphie;
+        const oldMovables = options.oldMovables;
+        const newMovables = options.newMovables; /* output parameter */
 
-        var renderChildren = (elem) => {
-            _.each(elem.movableProps, (prop) => {
+        const renderChildren = elem => {
+            _.each(elem.movableProps, prop => {
                 // Render the children, and save the results of that
                 // render to the appropriate props
                 elem.props[prop] = this._renderMovables(
@@ -204,8 +213,8 @@ var Graphie = React.createClass({
         // because if we have, then we need to call .toFront() on any svg
         // elements occurring afterwards. If this happens, we set
         // `areMovablesOutOfOrder` to true:
-        var areMovablesOutOfOrder = false;
-        return nestedMap(children, (childDescriptor) => {
+        let areMovablesOutOfOrder = false;
+        return nestedMap(children, childDescriptor => {
             if (!childDescriptor) {
                 // Still increment the key to avoid cascading key changes
                 // on hiding/unhiding children, i.e. by using
@@ -216,42 +225,40 @@ var Graphie = React.createClass({
             }
 
             // Instantiate the descriptor to turn it into a real Movable
-            var child = new childDescriptor.type(childDescriptor.props);
-            assert(child instanceof GraphieMovable,
+            const child = new childDescriptor.type(childDescriptor.props);
+            assert(
+                child instanceof GraphieMovable,
                 "All children of a Graphie component must be Graphie " +
-                "movables");
+                    "movables"
+            );
 
             // Give each child a key
-            var keyProp = childDescriptor.key;
-            var key = (keyProp == null) ?
-                    ("_no_id_" + options.nextKey) :
-                    keyProp;
+            const keyProp = childDescriptor.key;
+            const key = keyProp == null ? "_no_id_" + options.nextKey : keyProp;
             options.nextKey++;
-            var ref = childDescriptor.ref;
+            const ref = childDescriptor.ref;
 
             // We render our children first. This allows us to replace any
             // `movableProps` on our child with the on-screen movables
             // corresponding with those descriptors.
             renderChildren(child);
 
-            var prevMovable = oldMovables[key];
+            const prevMovable = oldMovables[key];
             if (!prevMovable) {
                 // We're creating a new child
                 child.add(graphie);
                 areMovablesOutOfOrder = true;
 
                 newMovables[key] = child;
-
             } else if (child.constructor === prevMovable.constructor) {
                 // We're updating an old child
                 prevMovable.props = child.props;
-                var modifyResult = prevMovable.modify(graphie);
+                const modifyResult = prevMovable.modify(graphie);
                 if (modifyResult === "reordered") {
                     areMovablesOutOfOrder = true;
                 }
 
                 newMovables[key] = prevMovable;
-
             } else {
                 // We're destroying an old child and replacing it
                 // with a new child of a different type
@@ -259,12 +266,15 @@ var Graphie = React.createClass({
                 // This generally is a bad idea, so warn about it if this
                 // is being caused by implicit keys
                 if (keyProp == null) {
-                    if (typeof console !== "undefined" &&
-                            console.warn) { // @Nolint
-                        console.warn("Replacing a <Graphie> child with a " + // @Nolint
+                    /* eslint-disable no-console */
+                    if (typeof console !== "undefined" && console.warn) {
+                        console.warn(
+                            "Replacing a <Graphie> child with a " +
                                 "child of a different type. Please add keys " +
-                                "to your <Graphie> children");
+                                "to your <Graphie> children"
+                        );
                     }
+                    /* eslint-enable no-console */
                 }
 
                 prevMovable.remove();
@@ -288,10 +298,10 @@ var Graphie = React.createClass({
 
     // Sort of like react diffing, but for movables
     _updateMovables: function() {
-        var graphie = this._graphie;
+        const graphie = this._graphie;
 
-        var oldMovables = this._movables;
-        var newMovables = {};
+        const oldMovables = this._movables;
+        const newMovables = {};
         this._movables = newMovables;
         this.movables = {};
 
@@ -311,9 +321,11 @@ var Graphie = React.createClass({
     },
 
     render: function() {
-        return <div className="graphie-container">
-            <div className="graphie" ref="graphieDiv" />
-        </div>;
+        return (
+            <div className="graphie-container">
+                <div className="graphie" ref="graphieDiv" />
+            </div>
+        );
     },
 });
 

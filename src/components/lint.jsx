@@ -44,21 +44,21 @@ const Lint = React.createClass({
             <a
                 href={
                     "https://khanacademy.org/r/linter-rules#" +
-                        this.props.ruleName
+                    this.props.ruleName
                 }
                 target="lint-help-window"
                 className={css(style)}
             >
                 <span className={css(styles.indicator)} />
                 <div className={css(styles.tooltip)}>
-                    {this.props.message.split("\n\n").map((m, i) => (
+                    {this.props.message.split("\n\n").map((m, i) =>
                         <p key={i} className={css(styles.tooltipParagraph)}>
                             <span className={css(styles.warning)}>
                                 Warning:{" "}
                             </span>
                             {m}
                         </p>
-                    ))}
+                    )}
                     <div className={css(styles.tail)} />
                 </div>
             </a>

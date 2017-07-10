@@ -1,25 +1,23 @@
-/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+/* eslint-disable react/sort-comp */
 
-var React = require('react');
-var Tooltip = require("react-components/tooltip.jsx");
-var _ = require("underscore");
+const React = require("react");
+const Tooltip = require("react-components/tooltip.jsx");
+const _ = require("underscore");
 
-var ApiClassNames = require("../perseus-api.jsx").ClassNames;
-var MathInput  = require("./math-input.jsx");
-var Renderer   = require("../renderer.jsx");
-var TextInput  = require("./text-input.jsx");
-var MathOutput = require("../components/math-output.jsx");
+const ApiClassNames = require("../perseus-api.jsx").ClassNames;
+const MathInput = require("./math-input.jsx");
+const Renderer = require("../renderer.jsx");
+const TextInput = require("./text-input.jsx");
+const MathOutput = require("../components/math-output.jsx");
 
-var captureScratchpadTouchStart =
-        require("../util.js").captureScratchpadTouchStart;
+const captureScratchpadTouchStart = require("../util.js")
+    .captureScratchpadTouchStart;
 
-var MATH = "math";
-var TEXT = "text";
-var TEX = "tex";
+const MATH = "math";
+const TEXT = "text";
+const TEX = "tex";
 
-var InputWithExamples = React.createClass({
+const InputWithExamples = React.createClass({
     propTypes: {
         type: React.PropTypes.oneOf([MATH, TEXT, TEX]),
         value: React.PropTypes.string,
@@ -29,7 +27,7 @@ var InputWithExamples = React.createClass({
         shouldShowExamples: React.PropTypes.bool,
         convertDotToTimes: React.PropTypes.bool,
         buttonSet: React.PropTypes.string,
-        buttonsVisible: React.PropTypes.oneOf(['always', 'never', 'focused']),
+        buttonsVisible: React.PropTypes.oneOf(["always", "never", "focused"]),
         labelText: React.PropTypes.string,
         onFocus: React.PropTypes.func,
         onBlur: React.PropTypes.func,
@@ -44,8 +42,8 @@ var InputWithExamples = React.createClass({
         return {
             type: TEXT,
             shouldShowExamples: true,
-            onFocus: function() { },
-            onBlur: function() { },
+            onFocus: function() {},
+            onBlur: function() {},
             disabled: false,
             highlightLint: false,
         };
@@ -59,7 +57,7 @@ var InputWithExamples = React.createClass({
     },
 
     _getUniqueId: function() {
-        return `input-with-examples-${btoa(this.props.id).replace(/=/g, '')}`;
+        return `input-with-examples-${btoa(this.props.id).replace(/=/g, "")}`;
     },
 
     _getInputClassName: function() {
@@ -70,7 +68,7 @@ var InputWithExamples = React.createClass({
         }
 
         // Otherwise, we need to add these INPUT and FOCUSED tags here.
-        var className = ApiClassNames.INPUT + " " + ApiClassNames.INTERACTIVE;
+        let className = ApiClassNames.INPUT + " " + ApiClassNames.INTERACTIVE;
         if (this.state.focused) {
             className += " " + ApiClassNames.FOCUSED;
         }
@@ -82,7 +80,7 @@ var InputWithExamples = React.createClass({
 
     _getPropsForInputType: function() {
         // Minimal set of props, used by each input type
-        var inputProps = {
+        const inputProps = {
             "aria-describedby": this._getUniqueId(),
             ref: "input",
             className: this._getInputClassName(),
@@ -100,23 +98,29 @@ var InputWithExamples = React.createClass({
         // Add useful props required for MATH and TEXT modes
         _.extend(inputProps, {
             onChange: this.props.onChange,
-            onTouchStart: captureScratchpadTouchStart
+            onTouchStart: captureScratchpadTouchStart,
         });
 
         // And add final props that are MATH- and TEXT-specific
         if (this.props.type === MATH) {
-            return _.extend({
-                buttonSet: this.props.buttonSet,
-                buttonsVisible: this.props.buttonsVisible,
-                convertDotToTimes: this.props.convertDotToTimes,
-            }, inputProps);
+            return _.extend(
+                {
+                    buttonSet: this.props.buttonSet,
+                    buttonsVisible: this.props.buttonsVisible,
+                    convertDotToTimes: this.props.convertDotToTimes,
+                },
+                inputProps
+            );
         } else if (this.props.type === TEXT) {
-            return _.extend({
-                autoCapitalize: "off",
-                autoComplete: "off",
-                autoCorrect: "off",
-                spellCheck: "false",
-            }, inputProps);
+            return _.extend(
+                {
+                    autoCapitalize: "off",
+                    autoComplete: "off",
+                    autoCorrect: "off",
+                    spellCheck: "false",
+                },
+                inputProps
+            );
         }
     },
 
@@ -137,13 +141,13 @@ var InputWithExamples = React.createClass({
     },
 
     _renderInput: function() {
-        var inputProps = this._getPropsForInputType();
-        var InputComponent = this._getComponentForInputType();
+        const inputProps = this._getPropsForInputType();
+        const InputComponent = this._getComponentForInputType();
         return <InputComponent {...inputProps} />;
     },
 
     render: function() {
-        var input = this._renderInput();
+        const input = this._renderInput();
 
         // Static rendering, which doesn't include the 'tooltip' logic that the
         // other types require, and is hence handled separately.
@@ -152,14 +156,15 @@ var InputWithExamples = React.createClass({
         }
 
         // Else, we need to be able to show examples
-        var examplesContent = _.map(this.props.examples, (example) => {
+        const examplesContent = _.map(this.props.examples, example => {
             return "- " + example;
         }).join("\n");
 
-        var showExamples = this.props.shouldShowExamples &&
-                this.state.showExamples;
+        const showExamples =
+            this.props.shouldShowExamples && this.state.showExamples;
 
-        return <Tooltip
+        return (
+            <Tooltip
                 ref="tooltip"
                 className="perseus-formats-tooltip preview-measure"
                 horizontalPosition="left"
@@ -167,22 +172,24 @@ var InputWithExamples = React.createClass({
                 verticalPosition="bottom"
                 arrowSize={10}
                 borderColor="#ccc"
-                show={showExamples}>
-            {input}
-            <div id={this._getUniqueId()}>
-                <Renderer
-                    content={examplesContent}
-                    highlightLint={this.props.highlightLint}
-                />
-            </div>
-        </Tooltip>;
+                show={showExamples}
+            >
+                {input}
+                <div id={this._getUniqueId()}>
+                    <Renderer
+                        content={examplesContent}
+                        highlightLint={this.props.highlightLint}
+                    />
+                </div>
+            </Tooltip>
+        );
     },
 
     _handleFocus: function() {
         this.props.onFocus();
         this.setState({
             focused: true,
-            showExamples: true
+            showExamples: true,
         });
     },
 
@@ -198,7 +205,7 @@ var InputWithExamples = React.createClass({
         this.props.onBlur();
         this.setState({
             focused: false,
-            showExamples: false
+            showExamples: false,
         });
     },
 
@@ -212,7 +219,7 @@ var InputWithExamples = React.createClass({
 
     handleChange: function(e) {
         this.props.onChange(e.target.value);
-    }
+    },
 });
 
 module.exports = InputWithExamples;

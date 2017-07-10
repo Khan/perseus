@@ -1,12 +1,10 @@
-/* eslint-disable comma-dangle, max-len, no-var, react/jsx-closing-bracket-location, react/sort-comp */
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+/* eslint-disable react/sort-comp */
 
-var React = require("react");
+const React = require("react");
 
-var ReactDOM = require("react-dom");
+const ReactDOM = require("react-dom");
 
-var TextInput = React.createClass({
+const TextInput = React.createClass({
     propTypes: {
         value: React.PropTypes.string,
         onChange: React.PropTypes.func.isRequired,
@@ -26,11 +24,14 @@ var TextInput = React.createClass({
 
     render: function() {
         const {labelText, ...props} = this.props;
-        return <input
-            {...props}
-            type="text"
-            aria-label={labelText}
-            onChange={(e) => this.props.onChange(e.target.value)} />;
+        return (
+            <input
+                {...props}
+                type="text"
+                aria-label={labelText}
+                onChange={e => this.props.onChange(e.target.value)}
+            />
+        );
     },
 
     focus: function() {
@@ -50,7 +51,10 @@ var TextInput = React.createClass({
     },
 
     setSelectionRange: function(selectionStart, selectionEnd) {
-        ReactDOM.findDOMNode(this).setSelectionRange(selectionStart, selectionEnd);
+        ReactDOM.findDOMNode(this).setSelectionRange(
+            selectionStart,
+            selectionEnd
+        );
     },
 
     getSelectionStart: function() {
@@ -59,8 +63,7 @@ var TextInput = React.createClass({
 
     getSelectionEnd: function() {
         return ReactDOM.findDOMNode(this).selectionEnd;
-    }
-
+    },
 });
 
 module.exports = TextInput;

@@ -44,22 +44,26 @@ const DeviceFramer = React.createClass({
             // "edit" table of the content editor. In this mode, PerseusFrame
             // will draw the border and reserve space on the right for
             // lint indicators.
-            return <div>
-                <div
-                    key="screen"
-                    style={{
-                        width: SCREEN_SIZES[deviceType].framedWidth +
-                            2 * constants.perseusFrameBorderWidth +
-                            constants.lintGutterWidth,
-                    }}
-                >
-                    <div>
-                        {this.props.children}
+            return (
+                <div>
+                    <div
+                        key="screen"
+                        style={{
+                            width:
+                                SCREEN_SIZES[deviceType].framedWidth +
+                                2 * constants.perseusFrameBorderWidth +
+                                constants.lintGutterWidth,
+                        }}
+                    >
+                        <div>
+                            {this.props.children}
+                        </div>
                     </div>
                 </div>
-            </div>;
+            );
         } else {
-            const scale = SCREEN_SIZES[deviceType].framedWidth /
+            const scale =
+                SCREEN_SIZES[deviceType].framedWidth /
                 SCREEN_SIZES[deviceType].width;
 
             // In this mode we draw our own border and don't reserve
@@ -75,13 +79,11 @@ const DeviceFramer = React.createClass({
                 zoom: scale,
             };
 
-            return <div
-                key="screen"
-                className="screen"
-                style={screenStyle}
-            >
-                {this.props.children}
-            </div>;
+            return (
+                <div key="screen" className="screen" style={screenStyle}>
+                    {this.props.children}
+                </div>
+            );
         }
     },
 });

@@ -1,11 +1,7 @@
-/* eslint-disable comma-dangle, no-var */
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-var Util = require("../util.js");
-var nestedMap = Util.nestedMap;
-var deepEq = Util.deepEq;
-var _ = require("underscore");
+const Util = require("../util.js");
+const nestedMap = Util.nestedMap;
+const deepEq = Util.deepEq;
+const _ = require("underscore");
 
 /**
  * A base class for all Graphie Movables
@@ -17,9 +13,11 @@ function GraphieMovable(descriptor) {
     _.extend(this, descriptor);
 }
 
-var abstractMethod = function() {
-    throw new Error("Abstract method! Must be implemented by Graphie Movable" +
-            this.constructor.displayName);
+const abstractMethod = function() {
+    throw new Error(
+        "Abstract method! Must be implemented by Graphie Movable" +
+            this.constructor.displayName
+    );
 };
 
 _.extend(GraphieMovable.prototype, {
@@ -27,28 +25,28 @@ _.extend(GraphieMovable.prototype, {
     add: abstractMethod,
     modify: abstractMethod,
     remove: abstractMethod,
-    toFront: function() { /* no op */ }
+    toFront: function() {
+        /* no op */
+    },
 });
-
 
 /**
  * returns cloned props modified with `children: childrenArray`
  */
-var rewriteProps = function(props, childrenArray) {
+const rewriteProps = function(props, childrenArray) {
     // Clone the props and add `children:`
     // childrenArray is always an array here because this is only called
     // from createClass, which initializes childrenArray as _.rest(arguments)
     return _.extend({}, props, {
-        children: _.filter(_.flatten(childrenArray), _.identity)
+        children: _.filter(_.flatten(childrenArray), _.identity),
     });
 };
-
 
 /**
  * Create a custom GraphieMovable class
  */
-var createClass = function(spec) {
-    var GraphieClass = function(props) {
+const createClass = function(spec) {
+    const GraphieClass = function(props) {
         if (!(this instanceof GraphieClass)) {
             throw new Error("Use createElement or JSX with graphie movables");
         }
@@ -68,7 +66,6 @@ var createClass = function(spec) {
     return GraphieClass;
 };
 
-
 /**
  * Create a GraphieMovable class from a function that describes
  * how to add said class to a graphie, and returns an array of
@@ -85,7 +82,7 @@ var createClass = function(spec) {
  * Commonly used elements should use the fully-fledged createClass
  * and implement an efficient modify() operation.
  */
-var createSimpleClass = function(addFunction) {
+const createSimpleClass = function(addFunction) {
     return createClass({
         displayName: addFunction.name || _.uniqueId("GraphieSimpleClass"),
         movableProps: ["children"],
@@ -105,7 +102,7 @@ var createSimpleClass = function(addFunction) {
         },
 
         remove: function() {
-            nestedMap(this._elements, (elem) => {
+            nestedMap(this._elements, elem => {
                 if (elem) {
                     elem.remove();
                 }
@@ -115,18 +112,17 @@ var createSimpleClass = function(addFunction) {
         },
 
         toFront: function() {
-            nestedMap(this._elements, (elem) => {
+            nestedMap(this._elements, elem => {
                 if (_.isFunction(elem.toFront)) {
                     elem.toFront();
                 }
             });
-        }
+        },
     });
 };
-
 
 module.exports = {
     GraphieMovable: GraphieMovable,
     createClass: createClass,
-    createSimpleClass: createSimpleClass
+    createSimpleClass: createSimpleClass,
 };

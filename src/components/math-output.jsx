@@ -1,44 +1,44 @@
-/* eslint-disable comma-dangle, max-len, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+/* eslint-disable react/sort-comp */
 
-var React         = require("react");
-var ReactDOM = require("react-dom");
+const React = require("react");
+const ReactDOM = require("react-dom");
 const _ = require("underscore");
-var TeX           = require("react-components/tex.jsx");
-var ApiClassNames = require("../perseus-api.jsx").ClassNames;
-var Tooltip       = require("react-components/tooltip.jsx");
-var ModifyTex     = require("../tex-wrangler.js").modifyTex;
+const TeX = require("react-components/tex.jsx");
+const ApiClassNames = require("../perseus-api.jsx").ClassNames;
+const ModifyTex = require("../tex-wrangler.js").modifyTex;
 
-var MathOutput = React.createClass({
+const MathOutput = React.createClass({
     propTypes: {
         value: React.PropTypes.oneOfType([
             React.PropTypes.string,
-            React.PropTypes.number
+            React.PropTypes.number,
         ]),
         className: React.PropTypes.string,
         labelText: React.PropTypes.string,
         onFocus: React.PropTypes.func,
-        onBlur: React.PropTypes.func
+        onBlur: React.PropTypes.func,
     },
 
     getDefaultProps: function() {
         return {
             value: "",
-            onFocus: function() { },
-            onBlur: function() { }
+            onFocus: function() {},
+            onBlur: function() {},
         };
     },
 
     getInitialState: function() {
         return {
             focused: false,
-            selectorNamespace: _.uniqueId("math-output")
+            selectorNamespace: _.uniqueId("math-output"),
         };
     },
 
     _getInputClassName: function() {
-        var className = "math-output " + ApiClassNames.INPUT + " " +
+        let className =
+            "math-output " +
+            ApiClassNames.INPUT +
+            " " +
             ApiClassNames.INTERACTIVE;
         if (this.state.focused) {
             className += " " + ApiClassNames.FOCUSED;
@@ -51,7 +51,7 @@ var MathOutput = React.createClass({
 
     _getDisplayValue: function(value) {
         // Cast from (potentially a) number to string
-        var displayText;
+        let displayText;
         if (value != null) {
             displayText = "" + value;
         } else {
@@ -61,21 +61,25 @@ var MathOutput = React.createClass({
     },
 
     render: function() {
-        var divStyle = {
-            textAlign: "center"
+        const divStyle = {
+            textAlign: "center",
         };
 
-        return <span ref="input"
+        return (
+            <span
+                ref="input"
                 className={this._getInputClassName()}
                 aria-label={this.props.labelText}
                 onMouseDown={this.focus}
-                onTouchStart={this.focus}>
-            <div style={divStyle}>
-                <TeX>
-                    {this._getDisplayValue(this.props.value)}
-                </TeX>
-            </div>
-        </span>;
+                onTouchStart={this.focus}
+            >
+                <div style={divStyle}>
+                    <TeX>
+                        {this._getDisplayValue(this.props.value)}
+                    </TeX>
+                </div>
+            </span>
+        );
     },
 
     getValue: function() {
@@ -87,7 +91,7 @@ var MathOutput = React.createClass({
             this.props.onFocus();
             this._bindBlurHandler();
             this.setState({
-                focused: true
+                focused: true,
             });
         }
     },
@@ -97,15 +101,17 @@ var MathOutput = React.createClass({
             this.props.onBlur();
             this._unbindBlurHandler();
             this.setState({
-                focused: false
+                focused: false,
             });
         }
     },
 
     _bindBlurHandler: function() {
-        $(document).bind("vclick." + this.state.selectorNamespace, (e) => {
+        $(document).bind("vclick." + this.state.selectorNamespace, e => {
             // Detect whether the target has our React DOM node as a parent
-            var $closestWidget = $(e.target).closest(ReactDOM.findDOMNode(this));
+            const $closestWidget = $(e.target).closest(
+                ReactDOM.findDOMNode(this)
+            );
             if (!$closestWidget.length) {
                 this.blur();
             }
@@ -118,7 +124,7 @@ var MathOutput = React.createClass({
 
     componentWillUnmount: function() {
         this._unbindBlurHandler();
-    }
+    },
 });
 
 module.exports = MathOutput;

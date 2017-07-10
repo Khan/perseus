@@ -1,4 +1,3 @@
-
 /**
  * A version of the `math-input` subrepo's KeypadInput component that adheres to
  * the same API as Perseus's  MathOuput and NumberInput, allowing it to be
@@ -9,7 +8,7 @@
  * interface to `math-input`'s MathInput component.
  */
 
-const React = require('react');
+const React = require("react");
 
 const {KeypadInput} = require("../../math-input").components;
 const {KeypadTypes} = require("../../math-input").consts;
@@ -44,25 +43,30 @@ const SimpleKeypadInput = React.createClass({
         // as the `KeypadInput` does not support `null` values.
         const {keypadElement, onFocus, value, ...rest} = this.props;
 
-        return <KeypadInput
-            ref="input"
-            keypadElement={keypadElement}
-            onFocus={() => {
-                if (keypadElement) {
-                    keypadElement.configure({
-                        keypadType: KeypadTypes.FRACTION,
-                    }, () => {
-                        if (this.isMounted()) {
-                            onFocus && onFocus();
-                        }
-                    });
-                } else {
-                    onFocus && onFocus();
-                }
-            }}
-            value={value == null ? "" : "" + value}
-            {...rest}
-        />;
+        return (
+            <KeypadInput
+                ref="input"
+                keypadElement={keypadElement}
+                onFocus={() => {
+                    if (keypadElement) {
+                        keypadElement.configure(
+                            {
+                                keypadType: KeypadTypes.FRACTION,
+                            },
+                            () => {
+                                if (this.isMounted()) {
+                                    onFocus && onFocus();
+                                }
+                            }
+                        );
+                    } else {
+                        onFocus && onFocus();
+                    }
+                }}
+                value={value == null ? "" : "" + value}
+                {...rest}
+            />
+        );
     },
 });
 

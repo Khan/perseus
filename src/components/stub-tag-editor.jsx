@@ -31,18 +31,21 @@ const StubTagEditor = React.createClass({
     },
 
     render: function() {
-        return <div>
-            {this.props.showTitle && <div style={{fontSize: 14}}>Tags:</div>}
-            {/* this is silly, but we have to `|| []` here because
+        return (
+            <div>
+                {this.props.showTitle &&
+                    <div style={{fontSize: 14}}>Tags:</div>}
+                {/* this is silly, but we have to `|| []` here because
                 we sometimes have the metadata set to null
                 (legacy saves, I think), which doesn't get defaulted
                 through defaultProps */}
-            <TextListEditor
-                options={this.props.value || EMPTY_ARRAY}
-                layout="vertical"
-                onChange={this.props.onChange}
-            />
-        </div>;
+                <TextListEditor
+                    options={this.props.value || EMPTY_ARRAY}
+                    layout="vertical"
+                    onChange={this.props.onChange}
+                />
+            </div>
+        );
     },
 });
 

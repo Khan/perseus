@@ -340,7 +340,7 @@ const SvgImage = React.createClass({
                         retrieveData(
                             getDataUrl(this.props.src),
                             (x, status, error) => {
-                                 // eslint-disable-next-line no-console
+                                // eslint-disable-next-line no-console
                                 console.error(
                                     "Data load failed:",
                                     getDataUrl(this.props.src),

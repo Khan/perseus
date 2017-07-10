@@ -1,25 +1,23 @@
-/* eslint-disable comma-dangle, max-len, no-var, object-curly-spacing, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+/* eslint-disable react/prop-types, react/sort-comp */
 
-var classNames = require("classnames");
-var React = require("react");
-var ReactDOM = require("react-dom");
-var _ = require("underscore");
+const classNames = require("classnames");
+const React = require("react");
+const ReactDOM = require("react-dom");
+const _ = require("underscore");
 
-var TexButtons = require("./tex-buttons.jsx");
+const TexButtons = require("./tex-buttons.jsx");
 
 // TODO(alex): Package MathQuill
-var MathQuill = window.MathQuill;
-var PT = React.PropTypes;
+const MathQuill = window.MathQuill;
+const PT = React.PropTypes;
 
 // A WYSIWYG math input that calls `onChange(LaTeX-string)`
-var MathInput = React.createClass({
+const MathInput = React.createClass({
     propTypes: {
         value: PT.string,
         onChange: PT.func.isRequired,
         convertDotToTimes: PT.bool,
-        buttonsVisible: PT.oneOf(['always', 'never', 'focused']),
+        buttonsVisible: PT.oneOf(["always", "never", "focused"]),
         buttonSets: TexButtons.buttonSetsType.isRequired,
         labelText: React.PropTypes.string,
         onFocus: PT.func,
@@ -27,40 +25,47 @@ var MathInput = React.createClass({
     },
 
     render: function() {
-        var className = classNames({
+        let className = classNames({
             "perseus-math-input": true,
 
             // mathquill usually adds these itself but react removes them when
             // updating the component.
             "mq-editable-field": true,
-            "mq-math-mode": true
+            "mq-math-mode": true,
         });
 
         if (this.props.className) {
             className = className + " " + this.props.className;
         }
 
-        var buttons = null;
+        let buttons = null;
         if (this._shouldShowButtons()) {
-            buttons = <TexButtons
-                sets={this.props.buttonSets}
-                className="math-input-buttons absolute"
-                convertDotToTimes={this.props.convertDotToTimes}
-                onInsert={this.insert} />;
+            buttons = (
+                <TexButtons
+                    sets={this.props.buttonSets}
+                    className="math-input-buttons absolute"
+                    convertDotToTimes={this.props.convertDotToTimes}
+                    onInsert={this.insert}
+                />
+            );
         }
 
-        return <div style={{display: "inline-block"}}>
-            <div style={{display: 'inline-block'}}>
-                <span className={className}
-                      ref="mathinput"
-                      aria-label={this.props.labelText}
-                      onFocus={this.handleFocus}
-                      onBlur={this.handleBlur} />
+        return (
+            <div style={{display: "inline-block"}}>
+                <div style={{display: "inline-block"}}>
+                    <span
+                        className={className}
+                        ref="mathinput"
+                        aria-label={this.props.labelText}
+                        onFocus={this.handleFocus}
+                        onBlur={this.handleBlur}
+                    />
+                </div>
+                <div style={{position: "relative"}}>
+                    {buttons}
+                </div>
             </div>
-            <div style={{position: "relative"}}>
-                {buttons}
-            </div>
-        </div>;
+        );
     },
 
     // handlers:
@@ -70,7 +75,7 @@ var MathInput = React.createClass({
     //   buttons div
 
     handleFocus: function() {
-        this.setState({ focused: true });
+        this.setState({focused: true});
         // TODO(joel) fix properly - we should probably allow onFocus handlers
         // to this property, but we need to work correctly with them.
         // if (this.props.onFocus) {
@@ -79,10 +84,10 @@ var MathInput = React.createClass({
     },
 
     handleMouseDown: function(event) {
-        var focused = ReactDOM.findDOMNode(this).contains(event.target);
+        const focused = ReactDOM.findDOMNode(this).contains(event.target);
         this.mouseDown = focused;
         if (!focused) {
-            this.setState({ focused: false });
+            this.setState({focused: false});
         }
     },
 
@@ -97,14 +102,14 @@ var MathInput = React.createClass({
 
     handleBlur: function() {
         if (!this.mouseDown) {
-            this.setState({ focused: false });
+            this.setState({focused: false});
         }
     },
 
     _shouldShowButtons: function() {
-        if (this.props.buttonsVisible === 'always') {
+        if (this.props.buttonsVisible === "always") {
             return true;
-        } else if (this.props.buttonsVisible === 'never') {
+        } else if (this.props.buttonsVisible === "never") {
             return false;
         } else {
             return this.state.focused;
@@ -115,19 +120,19 @@ var MathInput = React.createClass({
         return {
             value: "",
             convertDotToTimes: false,
-            buttonsVisible: 'focused'
+            buttonsVisible: "focused",
         };
     },
 
     getInitialState: function() {
-        return { focused: false };
+        return {focused: false};
     },
 
     insert: function(value) {
-        var input = this.mathField();
+        const input = this.mathField();
         if (_(value).isFunction()) {
             value(input);
-        } else if (value[0] === '\\') {
+        } else if (value[0] === "\\") {
             input.cmd(value).focus();
         } else {
             input.write(value).focus();
@@ -136,9 +141,10 @@ var MathInput = React.createClass({
     },
 
     mathField: function(options) {
-        // The MathQuill API is now "versioned" through its own "InterVer" system.
+        // The MathQuill API is now "versioned" through its own "InterVer"
+        // system.
         // See: https://github.com/mathquill/mathquill/pull/459
-        var MQ = MathQuill.getInterface(2);
+        const MQ = MathQuill.getInterface(2);
 
         // MathQuill.MathField takes a DOM node, MathQuill-ifies it if it's
         // seeing that node for the first time, then returns the associated
@@ -156,7 +162,7 @@ var MathInput = React.createClass({
         window.addEventListener("mousedown", this.handleMouseDown);
         window.addEventListener("mouseup", this.handleMouseUp);
 
-        var initialized = false;
+        let initialized = false;
 
         // Initialize MathQuill.MathField instance
         this.mathField({
@@ -169,8 +175,8 @@ var MathInput = React.createClass({
             // or (in)equalities.
             charsThatBreakOutOfSupSub: "+-*/=<>≠≤≥",
 
-            // Prevent excessive super/subscripts or fractions from being created
-            // without operands, e.g. when somebody holds down a key
+            // Prevent excessive super/subscripts or fractions from being
+            // created without operands, e.g. when somebody holds down a key
             supSubsRequireOperand: true,
 
             // The name of this option is somewhat misleading, as tabbing in
@@ -187,12 +193,12 @@ var MathInput = React.createClass({
             spaceBehavesLikeTab: true,
 
             handlers: {
-                edited: (mathField) => {
+                edited: mathField => {
                     // This handler is guaranteed to be called on change, but
                     // unlike React it sometimes generates false positives.
                     // One of these is on initialization (with an empty string
                     // value), so we have to guard against that below.
-                    var value = mathField.latex();
+                    let value = mathField.latex();
 
                     // Provide a MathQuill-compatible way to generate the
                     // not-equals sign without pasting unicode or typing TeX
@@ -209,10 +215,10 @@ var MathInput = React.createClass({
                         // We do this by modifying internal MathQuill state
                         // directly, instead of waiting for `.latex()` to be
                         // called in `componentDidUpdate()`.
-                        var left = mathField.__controller.cursor[MathQuill.L];
-                        if (left && left.ctrlSeq === '\\cdot ') {
+                        const left = mathField.__controller.cursor[MathQuill.L];
+                        if (left && left.ctrlSeq === "\\cdot ") {
                             mathField.__controller.backspace();
-                            mathField.cmd('\\times');
+                            mathField.cmd("\\times");
                         }
                     } else {
                         value = value.replace(/\\times/g, "\\cdot");
@@ -228,14 +234,14 @@ var MathInput = React.createClass({
                     // to manually trigger the usually automatic form submit.
                     $(ReactDOM.findDOMNode(this.refs.mathinput)).submit();
                 },
-                upOutOf: (mathField) => {
+                upOutOf: mathField => {
                     // This handler is called when the user presses the up
                     // arrow key, but there is nowhere in the expression to go
                     // up to (no numerator or exponent). For ease of use,
                     // interpret this as an attempt to create an exponent.
                     mathField.typedText("^");
-                }
-            }
+                },
+            },
         });
 
         // Ideally, we would be able to pass an initial value directly into
@@ -253,13 +259,13 @@ var MathInput = React.createClass({
 
     focus: function() {
         this.mathField().focus();
-        this.setState({ focused: true });
+        this.setState({focused: true});
     },
 
     blur: function() {
         this.mathField().blur();
-        this.setState({ focused: false });
-    }
+        this.setState({focused: false});
+    },
 });
 
 module.exports = MathInput;
