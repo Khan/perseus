@@ -495,9 +495,20 @@ var Orderer = React.createClass({
     },
 
     toJSON: function(skipValidation) {
-        return {current: _.map(this.props.current, function(v) {
-            return v.content;
-        })};
+        return {current: this.props.current.map((v) => v.content)};
+    },
+
+    setAnswerFromJSON: function(answerData) {
+        const opt_content = this.props.options.map(opt => opt.content);
+        let current = answerData.current.map((v) => {
+            const width = ReactDOM.findDOMNode(this.refs["bank" + opt_content.indexOf(v)]).clientWidth;
+            return {
+                key: _.uniqueId("perseus_draggable_card_"),
+                content: v,
+                width,
+            };
+        })
+        this.props.onChange({current});
     },
 
     simpleValidate: function(rubric) {

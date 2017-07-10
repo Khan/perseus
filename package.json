@@ -2,7 +2,8 @@
   "name": "perseus",
   "version": "0.0.1",
   "scripts": {
-    "start": "beefy ${PORT:=9000}",
+    "dev": "browserify src/perseus.js -s Perseus -t babelify",
+    "build": "browserify src/perseus.js -s Perseus -t babelify -t envify -t uglifyify",
     "test": "jest"
   },
   "devDependencies": {
@@ -11,17 +12,15 @@
     "babel-preset-react": "^6.22.0",
     "babel-preset-stage-2": "^6.22.0",
     "babelify": "^7.3.0",
-    "beefy": "~0.6.0",
     "browserify": "^13.0.0",
-    "classnames": "2.2.5",
+    "envify": "^4.0.0",
     "jest-cli": "^19.0.2",
     "jsdom": "^7.0.0",
     "less": "~1.7.0",
-    "mocha": "^1.19.0",
     "node-jsx": "^0.10.0",
     "react-components": "git+https://git@github.com/Khan/react-components.git#17f6657",
     "react-tools": "0.10.0",
-    "requirejs": "~2.1.11"
+    "uglifyify": "^4.0.2"
   },
   "repository": {
     "type": "git",
