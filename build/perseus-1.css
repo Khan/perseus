@@ -1243,14 +1243,16 @@ body.mobile .perseus-matrix .math-output {
   box-shadow: 0px 0px 9px 2px #ffa500;
   transition: all 0.15s;
 }
+.perseus-tooltip {
+  background: #fff;
+  padding: 5px 10px;
+  width: 300px;
+}
 .perseus-formats-tooltip {
   background: #fff;
   padding: 5px 10px;
   width: 300px;
   color: #777;
-}
-.perseus-formats-tooltip .paragraph {
-  font-size: 14px;
 }
 .framework-perseus .perseus-formats-tooltip .paragraph > ul {
   padding: 0;

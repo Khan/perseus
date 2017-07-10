@@ -366,10 +366,16 @@
     }
 }
 
-.perseus-formats-tooltip {
+// TODO(joel) - remove?
+.perseus-tooltip {
     background: #fff;
     padding: 5px 10px;
     width: 300px;
+}
+
+// CSS is evil; let's overwrite some styles. T_T
+.perseus-formats-tooltip {
+    .perseus-tooltip;
     color: #777;
 }
 
