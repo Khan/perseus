@@ -477,6 +477,17 @@ describe("Individual lint rules tests", () => {
         },
     });
 
+    expectWarning(require("../rules/double-spacing-after-terminal.js"), [
+        "Good times.  Great oldies.",
+        "End of the line!  ",
+        "You?  Me!",
+    ]);
+    expectPass(require("../rules/double-spacing-after-terminal.js"), [
+        "This is okay.",
+        "This is definitely okay. Yeah.",
+        "$a == 3.  125$",
+    ]);
+
     /*
     expectWarning(require("../rules/"), [
     ]);

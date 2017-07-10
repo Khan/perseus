@@ -6,6 +6,7 @@
 module.exports = [
     require("./blockquoted-math.js"),
     require("./blockquoted-widget.js"),
+    require("./double-spacing-after-terminal.js"),
     require("./heading-level-1.js"),
     require("./heading-level-skip.js"),
     require("./heading-sentence-case.js"),
