@@ -46686,7 +46686,7 @@ _.extend(NumericInput, {
 
             // Look through all other answers and if one matches either
             // precisely or approximately return the answer's message
-            match = _.find(otherAnswers, function (answer) {
+            var match = _.find(otherAnswers, function (answer) {
                 var validate = createValidator(answer);
                 return validate(state.currentValue).correct;
             });
