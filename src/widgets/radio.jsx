@@ -515,7 +515,7 @@ var choiceTransform = (editorProps) => {
     var addNoneOfAbove = function(array) {
         // Pick a random choice to replace with 'None of the above'
         if (!editorProps.randomize && editorProps.noneOfTheAbove) {
-            // Seed NG with problemNum
+            // Seed RNG with problemNum
             var rand = seededRNG(editorProps.problemNum)();
             var randomIndex = Math.floor(rand * array.length);
             var itemToBeReplaced = array[randomIndex];
