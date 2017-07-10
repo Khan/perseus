@@ -27,20 +27,17 @@ const Definition = React.createClass({
     getInitialState: function() {
         return {
             expanded: false,
+            belowScreen: false,
             contentOffsetLeft: 0,
             contentOffsetLeftMobile: 0,
             contentWidth: 0,
             contentWidthMobile: 0,
+            contentMarginTop: arrowHeight,
         };
     },
 
     componentDidMount: function() {
         document.addEventListener("click", this.handleClick);
-        // need to wait for aphrodite styles to be rendered
-        // so they can accessed for measurements in positionContent
-        setTimeout(() => {
-            this._positionContent();
-        }, 0);
     },
 
     componentWillUnmount: function() {
@@ -75,6 +72,55 @@ const Definition = React.createClass({
         });
     },
 
+    // check if the definition is fully visible on the bottom
+    _definitionBelowScreen: function() {
+        const windowBottom = window.innerHeight;
+        const bottom = this.container.getBoundingClientRect().bottom;
+        return bottom > windowBottom - this.content.offsetHeight;
+    },
+
+    // TODO(audrey): think of a better way to have the definition always appear
+    // on screen. Currently, the marginTop and absolute positions of the arrow
+    // and the definition div are adjusted. Could also consider having
+    // dynamic flipping.
+    _checkDefinitionPosition: function() {
+        // need to wait for aphrodite styles to be rendered
+        // so they can accessed for measurements in positionContent
+        setTimeout(() => {
+            this._positionContentHorizontally();
+            if (this._definitionBelowScreen()) {
+                this.setState({
+                    belowScreen: true,
+                }, this._positionContentVertically);
+            } else {
+                this.setState({
+                    belowScreen: false,
+                }, this._positionContentVertically);
+            }
+        }, 0);
+    },
+
+    /**
+    * This function sets the definition boxes' vertical positions depending
+    * on whether the definition should appear above or below. The positions
+    * are affected by how long the definition is.
+    */
+    _positionContentVertically: function() {
+        if (this.state.belowScreen) {
+            const contentHeight = this.content.offsetHeight;
+            // slight hack to better align the bottom of the arrow
+            // with the rest of the definition box
+            const contentMarginTop = -contentHeight - 2 * arrowHeight - 4;
+            this.setState({
+                contentMarginTop: contentMarginTop,
+            });
+        } else {
+            this.setState({
+                contentMarginTop: arrowHeight,
+            });
+        }
+    },
+
     _onClick: function() {
         // close all other open definitions if opening definition
         if (!this.state.expanded) {
@@ -88,14 +134,14 @@ const Definition = React.createClass({
 
         this.setState({
             expanded: !this.state.expanded,
-        });
+        }, this._checkDefinitionPosition);
         this.props.trackInteraction();
     },
 
     _onMouseOver: function() {
         this.setState({
             expanded: true,
-        });
+        }, this._checkDefinitionPosition);
         this.props.trackInteraction();
     },
 
@@ -107,19 +153,18 @@ const Definition = React.createClass({
     },
 
     /**
-    * This function positions the definition boxes so that the complete box
-    * is visible on the screen. If the word to be defined is too far to the
-    * right or left, the definition box cannot be centered (which is the
-    * default).
+    * This function sets the definition boxes' widths so that the complete box
+    * is visible on the screen and spans the entire width. It also makes sure
+    * the content is centered correctly.
     */
-    _positionContent: function() {
+    _positionContentHorizontally: function() {
         // container is the word to be defined
         // content is the actual definition
         const documentWidth = document.body.clientWidth;
         const marginWidth =
             this.container.parentElement.parentElement.offsetLeft;
         const contentWidth = documentWidth - 3 * marginWidth;
-        const contentWidthMobile = documentWidth;
+        const contentWidthMobile = documentWidth - 2 * marginWidth;
         const contentOffsetLeft = this.container.offsetLeft - marginWidth;
         const contentOffsetLeftMobile = this.container.offsetLeft;
 
@@ -166,6 +211,10 @@ const Definition = React.createClass({
             ? styles.contentExpandedMobile
             : styles.contentExpanded;
 
+        const arrowTransform = this.state.belowScreen
+            ? "scale(1, -1)"
+            : "scale(1, 1)";
+
         return <div
             className={css(styles.container)}
             ref={e => this.container = e}
@@ -173,7 +222,15 @@ const Definition = React.createClass({
             <div className={css(styles.linkContainer)}>
                 {link}
                 {this.state.expanded &&
-                    <svg className={css(styles.disclosureArrow)}>
+                    <svg className={css(styles.disclosureArrow)}
+                        ref={e => this.arrow = e}
+                        transform={arrowTransform}
+                        style={{
+                            bottom: this.state.expanded &&
+                                this.state.belowScreen
+                                ? "18px"
+                                : "-18px"}}
+                    >
                         <filter id="definition-widget-dropshadow" height="150%">
                             <feOffset
                                 dx={dropShadowXOffset}
@@ -218,6 +275,7 @@ const Definition = React.createClass({
                     width: isMobile
                         ? this.state.contentWidthMobile
                         : this.state.contentWidth,
+                    marginTop: this.state.contentMarginTop,
                 }}
                 ref={e => this.content = e}
             >
@@ -236,7 +294,7 @@ const dropShadowYOffset = 1;
 const dropShadowOpacity = 0.35;
 const dropShadowRadius = 4;
 
-const arrowWidth = 28;
+const arrowWidth = 20;
 const arrowHeight = 14;
 const backgroundColor = styleConstants.white;
 
@@ -304,7 +362,6 @@ const styles = StyleSheet.create({
     },
 
     contentExpanded: {
-        marginTop: arrowHeight,
         boxShadow: `0px 0px 4px ${styleConstants.gray85}`,
         border: `solid 0.5px ${styleConstants.gray85}`,
     },
@@ -312,7 +369,6 @@ const styles = StyleSheet.create({
     contentExpandedMobile: {
         paddingTop: 32,
         paddingBottom: 32,
-        marginTop: arrowHeight,
         boxShadow: `0px 0px 4px ${styleConstants.gray85}`,
         border: `solid 0.5px ${styleConstants.gray85}`,
     },
@@ -323,7 +379,6 @@ const styles = StyleSheet.create({
         // seems to position it to the baseline? We put in a generous
         // fudge factor to position it down to be flush with the content box
         // below it.
-        bottom: -(arrowHeight + 4),
         height: arrowHeight,
         left: '50%',
         marginLeft: -(arrowWidth / 2),
