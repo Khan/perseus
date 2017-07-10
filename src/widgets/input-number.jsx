@@ -47,33 +47,32 @@ var answerTypes = {
 };
 
 var formExamples = {
-    "integer": function(options) { return $._("an integer, like $6$"); },
+    "integer": function(options) { return $._("請輸入整數，格式：$6$。"); },
     "proper": function(options) {
         if (options.simplify === "optional") {
             return $._("真分數, 例 $1/2$ or $6/10$");
         } else {
-            return $._("最簡真分數, 例 $3/5$");
+            return $._("請輸入真分數，並化為最簡分數，格式：$3/5$。");
         }
     },
     "improper": function(options) {
         if (options.simplify === "optional") {
             return $._("假分數, 例 $10/7$ or $14/8$");
         } else {
-            return $._("最簡假分數, 例 $7/4$");
+            return $._("請輸入假分數，並化為最簡分數，格式：$7/4$。");
         }
     },
     "mixed": function(options) {
-        return $._("帶分數, 例 $1\\ 3/4$");
+        return $._("請輸入帶分數，並化為最簡分數，格式：$1\\ 3/4$。");
     },
     "decimal": function(options) {
-        return $._("精確的小數, 例 $0.75$");
+        return $._("請輸入小數，格式：$0.75$。");
     },
     "percent": function(options) {
-        return $._("a percent, like $12.34\\%$");
+        return $._("請輸入百分率，格式：$12.34\\%$。");
     },
     "pi": function(options) {
-        return $._("pi 的倍數, 例 $12\\ \\text{pi}$ or " +
-                "$2/3\\ \\text{pi}$");
+        return $._("請輸入π的倍數，格式：12pi、2/3pi 及 0.5pi。");
     }
 };
 
@@ -192,7 +191,7 @@ var InputNumber = React.createClass({
             return formExamples[form](this.props);
         }, this);
 
-        return [$._("**Acceptable Formats**")].concat(examples);
+        return [$._("**可接受的格式**")].concat(examples);
     },
 
     statics: {
