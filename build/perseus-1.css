@@ -1246,12 +1246,12 @@ body.mobile .perseus-matrix .math-output {
 .perseus-tooltip {
   background: #fff;
   padding: 5px 10px;
-  width: 240px;
+  width: 300px;
 }
 .perseus-formats-tooltip {
   background: #fff;
   padding: 5px 10px;
-  width: 240px;
+  width: 300px;
   color: #777;
 }
 .framework-perseus .perseus-formats-tooltip .paragraph > ul {

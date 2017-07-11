@@ -1,6 +1,3 @@
-/*! Perseus | http://github.com/Khan/perseus */
-// commit 315174c03976068e967b07aacdff1d5d61a3bbde
-// branch react-15
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Perseus = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
@@ -38538,7 +38535,7 @@ var propUpgrades = {
         var easybuttons = v0props.easybuttons,
             props = _objectWithoutProperties(v0props, ["easybuttons"]);
 
-        if ('easybuttons' in v0props) {
+        if (!('buttonSets' in v0props) && 'easybuttons' in v0props) {
             props.buttonSets = easybuttons ? BUTTON_SETS_EASY : BUTTON_SETS_HARD;
         }
         return props;
@@ -39263,33 +39260,33 @@ var answerTypes = {
 
 var formExamples = {
     "integer": function integer(options) {
-        return $._("an integer, like $6$");
+        return $._("請輸入整數，格式：$6$。");
     },
     "proper": function proper(options) {
         if (options.simplify === "optional") {
             return $._("真分數, 例 $1/2$ or $6/10$");
         } else {
-            return $._("最簡真分數, 例 $3/5$");
+            return $._("請輸入真分數，並化為最簡分數，格式：$3/5$。");
         }
     },
     "improper": function improper(options) {
         if (options.simplify === "optional") {
             return $._("假分數, 例 $10/7$ or $14/8$");
         } else {
-            return $._("最簡假分數, 例 $7/4$");
+            return $._("請輸入假分數，並化為最簡分數，格式：$7/4$。");
         }
     },
     "mixed": function mixed(options) {
-        return $._("帶分數, 例 $1\\ 3/4$");
+        return $._("請輸入帶分數，並化為最簡分數，格式：$1\\ 3/4$。");
     },
     "decimal": function decimal(options) {
-        return $._("精確的小數, 例 $0.75$");
+        return $._("請輸入小數，格式：$0.75$。");
     },
     "percent": function percent(options) {
-        return $._("a percent, like $12.34\\%$");
+        return $._("請輸入百分率，格式：$12.34\\%$。");
     },
     "pi": function pi(options) {
-        return $._("pi 的倍數, 例 $12\\ \\text{pi}$ or " + "$2/3\\ \\text{pi}$");
+        return $._("請輸入π的倍數，格式：12pi、2/3pi 及 0.5pi。");
     }
 };
 
@@ -39405,7 +39402,7 @@ var InputNumber = React.createClass({
             return formExamples[form](this.props);
         }, this);
 
-        return [$._("**Acceptable Formats**")].concat(examples);
+        return [$._("**可接受的格式**")].concat(examples);
     },
 
     statics: {
@@ -46689,7 +46686,7 @@ _.extend(NumericInput, {
 
             // Look through all other answers and if one matches either
             // precisely or approximately return the answer's message
-            match = _.find(otherAnswers, function (answer) {
+            var match = _.find(otherAnswers, function (answer) {
                 var validate = createValidator(answer);
                 return validate(state.currentValue).correct;
             });
