@@ -4,7 +4,7 @@ var classNames = require("classnames");
 
 var Changeable = require("../mixins/changeable.jsx");
 var ApiClassNames = require("../perseus-api.jsx").ClassNames;
-
+var BlurInput    = require("react-components/js/blur-input.jsx");
 var ButtonGroup = require("react-components/js/button-group.jsx");
 var Editor = require("../editor.jsx");
 var PropCheckBox = require("../components/prop-check-box.jsx");
@@ -134,7 +134,8 @@ var BaseRadio = React.createClass({
 var Radio = React.createClass({
     getDefaultProps: function() {
         return {
-            choices: [{}],
+            choices: 
+            [{}],
             displayCount: null,
             multipleSelect: false,
         };
@@ -328,7 +329,8 @@ var RadioEditor = React.createClass({
 
     getDefaultProps: function() {
         return {
-            choices: [{}, {}],
+            choices: 
+            [{},{}],
             displayCount: null,
             randomize: false,
             noneOfTheAbove: false,
@@ -359,7 +361,20 @@ var RadioEditor = React.createClass({
                     var checkedClass = choice.correct ?
                         "correct" :
                         "incorrect";
+
+                    var inputImage =
+                    <div>
+                         <input
+                            type="file"
+                            content={choice.content || ""}
+                            onChange={newProps => {
+                                this.onFileInputChange(i, newProps);
+                            }}
+                        />
+                    </div>;
+
                     var editor = <Editor
+                        className="content-editor"
                         ref={"editor" + i}
                         content={choice.content || ""}
                         widgetEnabled={false}
@@ -393,6 +408,9 @@ var RadioEditor = React.createClass({
                             <div className={"choice-editor " + checkedClass}>
                                 {editor}
                             </div>
+                            <div className={"input-image " + checkedClass}>
+                                {inputImage}
+                            </div>                            
                             {/* TODO(eater): Remove this condition after clues
                                             are fully launched. */}
                             {(!window.KA || window.KA.allowEditingClues) &&
@@ -442,6 +460,24 @@ var RadioEditor = React.createClass({
                 multipleSelect: allowMultiple
             });
         }
+    },
+
+    onFileInputChange: function(choiceIndex, newImage) {
+        var file    = newImage.target.files[0]; 
+        var reader  = new FileReader();
+        var choices = this.props.choices.slice();
+        var i = new Image(); 
+        var that = this;
+        reader.onloadend = function() {
+            i.src = reader.result;
+            i.onload = function(){
+                that.props.onChange({choices: choices});
+            };
+            choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
+                content: "![](" + reader.result + ")",
+            });
+        }
+        reader.readAsDataURL(file);
     },
 
     onCheckedChange: function(checked) {

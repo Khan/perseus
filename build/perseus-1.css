@@ -275,6 +275,12 @@
   float: none;
   margin: 3px;
 }
+.content-editor * {
+  max-height: 400px;
+}
+.content-editor .perseus-textarea-underlay {
+  overflow: hidden;
+}
 .perseus-widget-radio div,
 .perseus-widget-radio div > p {
   /* TODO(alpert): Find a better way of doing inline renderers */

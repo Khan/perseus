@@ -161,6 +161,10 @@ var ImageEditor = React.createClass({
             <div>圖片網址:{' '}
                 <BlurInput value={this.props.backgroundImage.url}
                            onChange={this.onUrlChange} />
+                <input
+                    type="file"
+                    onChange={this.onFileInputChange}
+                />
                 <InfoTip>
                     <p>填入圖片的網址。例如，先上傳至 http://imgur.com ，貼上圖片網址 (Direct link)。</p>
                 </InfoTip>
@@ -327,6 +331,16 @@ var ImageEditor = React.createClass({
         var range = this.props.range.slice();
         range[type] = newRange;
         this.props.onChange({range: range});
+    },
+
+    onFileInputChange: function(e) {
+        var file    = e.target.files[0]; 
+        var reader  = new FileReader();
+        var that = this;
+        reader.onloadend = function() {
+            that.onUrlChange(reader.result);
+        }
+        reader.readAsDataURL(file);
     },
 });
 
