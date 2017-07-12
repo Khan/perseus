@@ -465,7 +465,7 @@ var ExpressionEditor = React.createClass({
 const propUpgrades = {
     1: (v0props) => {
         var {easybuttons, ...props} = v0props;
-        if ('easybuttons' in v0props) {
+        if (!('buttonSets' in v0props) && 'easybuttons' in v0props) {
             props.buttonSets = easybuttons ? BUTTON_SETS_EASY : BUTTON_SETS_HARD;
         }
         return props;
