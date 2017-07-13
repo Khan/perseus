@@ -346,6 +346,7 @@ var ImageEditor = React.createClass({
 
 module.exports = {
     name: "image",
+    type: "B.圖片、外掛套件",
     displayName: "Image/圖片",
     widget: ImageWidget,
     editor: ImageEditor

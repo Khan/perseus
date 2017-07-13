@@ -616,6 +616,7 @@ var MatrixEditor = React.createClass({
 
 module.exports = {
     name: "matrix",
+    type: "D.互動題型",
     displayName: "Matrix/矩陣",
     widget: Matrix,
     editor: MatrixEditor,

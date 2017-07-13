@@ -229,6 +229,7 @@ var MatcherEditor = React.createClass({
 
 module.exports = {
     name: "matcher",
+    type: "C.進階題型",
     displayName: "Two column matcher/配對題",
     widget: Matcher,
     editor: MatcherEditor,

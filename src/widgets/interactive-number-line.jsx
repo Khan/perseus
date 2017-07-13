@@ -452,6 +452,7 @@ var InteractiveNumberLineEditor = React.createClass({
 
 module.exports = {
     name: "interactive-number-line",
+    type: "D.互動題型",
     displayName: "Interactive-number-line/互動式數線",
     hidden: false,
     widget: InteractiveNumberLine,

@@ -250,6 +250,7 @@ _.extend(Explanation, {
 
 module.exports = {
     name: "explanation",
+    type: "B.圖片、外掛套件",
     displayName: "Explanation/解釋",
     defaultAlignment: "inline",
     graded: false,

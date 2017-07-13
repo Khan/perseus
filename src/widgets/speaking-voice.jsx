@@ -166,6 +166,7 @@ var SpeakingVoiceEditor = React.createClass({
 
 module.exports = {
     name: "speaking-voice",
+    type: "F.英文",
     displayName: "English Text to Speech/英文發音工具",
     widget: SpeakingVoice,
     hidden: false,

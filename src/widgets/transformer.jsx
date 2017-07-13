@@ -2489,6 +2489,7 @@ var TransformerEditor = React.createClass({
 
 module.exports = {
     name: "transformer",
+    type: "D.互動題型",
     displayName: "Transformer/圖形變換",
     widget: Transformer,
     editor: TransformerEditor,

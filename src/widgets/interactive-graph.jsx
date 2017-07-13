@@ -2491,6 +2491,7 @@ var InteractiveGraphEditor = React.createClass({
 
 module.exports = {
     name: "interactive-graph",
+    type: "D.互動題型",
     displayName: "Interactive graph/互動式座標圖",
     widget: InteractiveGraph,
     editor: InteractiveGraphEditor,

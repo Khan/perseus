@@ -240,6 +240,7 @@ var IframeEditor = React.createClass({
 
 module.exports = {
     name: "iframe",
+    type: "B.圖片、外掛套件",
     displayName: "Iframe/外掛套件",
     widget: Iframe,
     // Let's not expose it to all content creators yet

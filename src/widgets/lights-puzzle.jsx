@@ -450,6 +450,7 @@ var transformProps = function(editorProps) {
 
 module.exports = {
     name: "lights-puzzle",
+    type: "D.互動題型",
     displayName: "Lights Puzzle/點燈謎題",
     hidden: false,
     widget: LightsPuzzle,

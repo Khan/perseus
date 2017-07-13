@@ -674,6 +674,7 @@ var OrdererEditor = React.createClass({
 
 module.exports = {
     name: "orderer",
+    type: "C.進階題型",
     displayName: "Orderer/卡片重組",
     widget: Orderer,
     editor: OrdererEditor,

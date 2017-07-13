@@ -251,6 +251,7 @@ var propTransform = (editorProps) => {
 
 module.exports = {
     name: "dropdown",
+    type: "A.基本題型",
     displayName: "Drop down/下拉式選單",
     widget: Dropdown,
     editor: DropdownEditor,

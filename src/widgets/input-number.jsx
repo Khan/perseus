@@ -317,7 +317,8 @@ var propTransform = (editorProps) => {
 
 module.exports = {
     name: "input-number",
-    displayName: "input-number/數值填充",
+    type: "A.基本題型",
+    displayName: "Input number/數值填充",
     widget: InputNumber,
     editor: InputNumberEditor,
     transform: propTransform

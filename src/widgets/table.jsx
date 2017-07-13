@@ -310,6 +310,7 @@ var TableEditor = React.createClass({
 
 module.exports = {
     name: "table",
+    type: "C.進階題型",
     displayName: "Table of values/表格",
     widget: Table,
     editor: TableEditor,

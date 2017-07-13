@@ -853,6 +853,7 @@ var NumberLineTransform = (editorProps) => {
 
 module.exports = {
     name: "number-line",
+    type: "D.互動題型",
     displayName: "Number line/數線",
     widget: NumberLine,
     editor: NumberLineEditor,

@@ -349,6 +349,7 @@ var propUpgrades = {
 
 module.exports = {
     name: "measurer",
+    type: "D.互動題型",
     displayName: "Measurer/直尺、量角器",
     widget: Measurer,
     editor: MeasurerEditor,

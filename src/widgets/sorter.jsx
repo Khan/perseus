@@ -170,6 +170,7 @@ var SorterEditor = React.createClass({
 
 module.exports = {
     name: "sorter",
+    type: "C.進階題型",
     displayName: "Sorter/排序",
     widget: Sorter,
     editor: SorterEditor,

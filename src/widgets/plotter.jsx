@@ -986,6 +986,7 @@ var PlotterEditor = React.createClass({
 
 module.exports = {
     name: "plotter",
+    type: "D.互動題型",
     displayName: "Plotter/統計圖",
     widget: Plotter,
     editor: PlotterEditor,

@@ -474,6 +474,7 @@ const propUpgrades = {
 
 module.exports = {
     name: "expression",
+    type: "A.基本題型",
     displayName: "Expression/數學式",
     widget: Expression,
     editor: ExpressionEditor,

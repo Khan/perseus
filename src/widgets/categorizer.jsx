@@ -175,6 +175,7 @@ var CategorizerEditor = React.createClass({
 
 module.exports = {
     name: "categorizer",
+    type: "C.進階題型",
     displayName: "Categorizer/分類器",
     widget: Categorizer,
     editor: CategorizerEditor,
