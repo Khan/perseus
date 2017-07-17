@@ -55,14 +55,6 @@ var captionAlignments = [
     "above left",
 ];
 
-function blankLabel() {
-    return {
-        content: "",
-        coordinates: [0, 0],
-        alignment: "center",
-    };
-}
-
 const ImageEditor = React.createClass({
     propTypes: {
         ...Changeable.propTypes,
@@ -90,8 +82,6 @@ const ImageEditor = React.createClass({
 
     getInitialState: function() {
         return {
-            showAdvancedSettings:
-                this.props.title.length > 0 || this.props.labels.length > 0,
             backgroundImageError: "",
         };
     },
@@ -141,75 +131,6 @@ const ImageEditor = React.createClass({
             </div>
         );
 
-        var advancedSettings = (
-            <div className="graph-settings">
-                <div>
-                    <label>
-                        Graphie X range:{" "}
-                        <RangeInput
-                            value={this.props.range[0]}
-                            onChange={_.partial(this.onRangeChange, 0)}
-                        />
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        Graphie Y range:{" "}
-                        <RangeInput
-                            value={this.props.range[1]}
-                            onChange={_.partial(this.onRangeChange, 1)}
-                        />
-                    </label>
-                </div>
-                <div className="add-label">
-                    <button onClick={this.addLabel}> Add a label </button>
-                </div>
-                {this.props.labels.length > 0 &&
-                    <table className="label-settings">
-                        <thead>
-                            <tr>
-                                <th>Coordinates</th>
-                                <th>Content</th>
-                                <th>Alignment</th>
-                                <th />
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {this.props.labels.map(this._renderRowForLabel)}
-                        </tbody>
-                    </table>}
-                <div>
-                    <label>
-                        <div>
-                            Title:
-                            <InfoTip>Appears above the image.</InfoTip>
-                        </div>
-                        <Editor
-                            apiOptions={this.props.apiOptions}
-                            content={this.props.title}
-                            onChange={props => {
-                                if (props.content != null) {
-                                    this.change("title", props.content);
-                                }
-                            }}
-                            widgetEnabled={false}
-                        />
-                    </label>
-                </div>
-            </div>
-        );
-
-        var showHideAdvancedSettings = (
-            <div>
-                <a href="#" onClick={this._toggleAdvancedSettings}>
-                    {this.state.showAdvancedSettings ? "Hide " : "Show "}
-                    advanced settings
-                </a>
-
-                {this.state.showAdvancedSettings && advancedSettings}
-            </div>
-        );
-
         var backgroundImageErrorText = (
             <div className="renderer-widget-error">
                 {this.state.backgroundImageError}
@@ -231,16 +152,8 @@ const ImageEditor = React.createClass({
                 </label>
 
                 {backgroundImage.url && imageSettings}
-                {backgroundImage.url && showHideAdvancedSettings}
             </div>
         );
-    },
-
-    _toggleAdvancedSettings: function(e) {
-        e.preventDefault();
-        this.setState({
-            showAdvancedSettings: !this.state.showAdvancedSettings,
-        });
     },
 
     _renderRowForLabel: function(label, i) {
@@ -291,16 +204,6 @@ const ImageEditor = React.createClass({
 
     change(...args) {
         return Changeable.change.apply(this, args);
-    },
-
-    addLabel: function(e) {
-        e.preventDefault();
-        var labels = this.props.labels.slice();
-        var label = blankLabel();
-        labels.push(label);
-        this.props.onChange({
-            labels: labels,
-        });
     },
 
     removeLabel: function(labelIndex, e) {
