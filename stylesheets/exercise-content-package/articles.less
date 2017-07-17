@@ -87,6 +87,15 @@
         .body-text;
         margin-bottom: @paragraphSpacing;
         margin-top: 0;
+
+        // Inline math should have the same font-size as the surrounding text.
+        // There is no wrapping element around .katex to indicate that it is
+        // inline, so we rely on the "actual paragraph" check above
+        // (a .paragraph that contains another .paragraph instead of a
+        // .perseus-block-math).
+        .katex {
+            font-size: 100%;
+        }
     }
     .perseus-renderer > .paragraph ul:not(.perseus-widget-radio) {
         .body-text;
