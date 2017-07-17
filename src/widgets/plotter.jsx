@@ -516,12 +516,17 @@ var Plotter = React.createClass({
         return Math.max(Math.min(v, max), min);
     },
 
-    _maybeUpdateDragPrompt: function(values) {
+    _maybeShowDragPrompt: function() {
         // The drag prompt is only added on certain types of plots.
         if (this.graphie.dragPrompt != null) {
-            const shouldDisplay = values.every(v => v === 0);
-            this.graphie.dragPrompt[0].style.display =
-                shouldDisplay ? "inline" : "none";
+            this.graphie.dragPrompt[0].style.display = "inline";
+        }
+    },
+
+    _maybeHideDragPrompt: function() {
+        // The drag prompt is only added on certain types of plots.
+        if (this.graphie.dragPrompt != null) {
+            this.graphie.dragPrompt[0].style.display = "none";
         }
     },
 
@@ -636,7 +641,7 @@ var Plotter = React.createClass({
                         self.setState({values: values});
                         self.changeAndTrack({values: values});
 
-                        self._maybeUpdateDragPrompt(values);
+                        self._maybeHideDragPrompt();
 
                         scaleBar(i, y);
                     },
@@ -651,7 +656,7 @@ var Plotter = React.createClass({
             // points
             config.graph.lines[i].state.visibleShape.wrapper.style.zIndex = "1";
 
-            self._maybeUpdateDragPrompt(self.state.values);
+            self._maybeShowDragPrompt();
         } else {
             config.graph.lines[i] = graphie.addMovableLineSegment({
                 coordA: [x - barHalfWidth, startHeight],
@@ -727,11 +732,11 @@ var Plotter = React.createClass({
                     self.setState({values: values});
                     self.changeAndTrack({values: values});
 
-                    self._maybeUpdateDragPrompt(values);
+                    self._maybeHideDragPrompt();
                 }
             });
 
-            self._maybeUpdateDragPrompt(self.state.values);
+            self._maybeShowDragPrompt();
 
             if (i > 0) {
                 c.graph.lines[i] = Interactive2.addMovableLine(graphie, {
