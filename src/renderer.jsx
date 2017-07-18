@@ -692,22 +692,31 @@ var Renderer = React.createClass({
                 jiptContent: content,
             });
         } else {
-            // Our "render the exact same QuestionParagraphs each time"
-            // strategy will fail if we allow translating a paragraph
-            // to more than one paragraph. This hack renders as a single
-            // paragraph and lets the translator know to not use \n\n,
-            // hopefully. We can't wait for linting because we can't
-            // safely render the node.
-            // TODO(aria): Check for the max number of backticks or tildes
-            // in the content, and just render a red code block of the
-            // content here instead?
-            if (/\S\n\s*\n\S/.test(content)) {
+            // This is the same regex we use in perseus/translate.py to find
+            // code blocks. We use it to count entire code blocks as
+            // paragraphs.
+            const codeFenceRegex =
+                /^\s*(`{3,}|~{3,})\s*(\S+)?\s*\n([\s\S]+?)\s*\1\s*$/;
+
+            if (codeFenceRegex.test(content)) {
+                // If a paragraph is a code block, we're going to treat it as a
+                // single paragraph even if it has double-newlines in it, so
+                // skip the next two checks.
+            } else if (/\S\n\s*\n\S/.test(content)) {
+                // Our "render the exact same QuestionParagraphs each time"
+                // strategy will fail if we allow translating a paragraph
+                // to more than one paragraph. This hack renders as a single
+                // paragraph and lets the translator know to not use \n\n,
+                // hopefully. We can't wait for linting because we can't
+                // safely render the node.
+                // TODO(aria): Check for the max number of backticks or tildes
+                // in the content, and just render a red code block of the
+                // content here instead?
                 content = "$\\large{\\red{\\text{Please translate each " +
                     "paragraph to a single paragraph.}}}$";
-            }
-            // We similarly can't have an all-whitespace paragraph, or
-            // we will parse it as the closing of the previous paragraph
-            if (/^\s*$/.test(content)) {
+            } else if (/^\s*$/.test(content)) {
+                // We similarly can't have an all-whitespace paragraph, or
+                // we will parse it as the closing of the previous paragraph
                 content = "$\\large{\\red{\\text{Translated paragraph is " +
                     "currently empty}}}$";
             }

@@ -9,9 +9,14 @@
 const SimpleMarkdown = require("simple-markdown");
 
 const arrayRules = {
+    fence: {
+        match: SimpleMarkdown.defaultRules.fence.match,
+        order: 1,
+        parse: (capture, state, parse) => capture[3],
+    },
     paragraph: {
         match: SimpleMarkdown.defaultRules.paragraph.match,
-        order: 1,
+        order: 2,
         parse: (capture, state, parse) => capture[1],
     },
 };
