@@ -1,4 +1,5 @@
 // @flow
+/* globals KA */
 
 const {StyleSheet, css} = require("aphrodite");
 const React = require("react");
@@ -142,6 +143,12 @@ class Passage extends React.Component {
         this._updateState();
 
         this._onResize = _.throttle(() => {
+            // If we're rendering JIPT text, we won't have line numbers or a
+            // line height measurer, so skip handling this resize.
+            if (this.shouldRenderJipt()) {
+                return;
+            }
+
             // Remeasure the line height on resize, because the only line
             // height changes we expect are subpixel changes when the user
             // zooms in/out, and the only way to listen for zoom events is to
@@ -198,6 +205,12 @@ class Passage extends React.Component {
      */
 
     _updateState() {
+        // If we're rendering JIPT text, we're not rendering line numbers so we
+        // don't need to update this state.
+        if (this.shouldRenderJipt()) {
+            return;
+        }
+
         this.setState({
             nLines: this._measureLines(),
             startLineNumbersAfter: this._getInitialLineNumber(),
@@ -398,6 +411,14 @@ class Passage extends React.Component {
         </div>;
     }
 
+    shouldRenderJipt() {
+        // Mostly copied from `renderer.jsx`. If we're doing JIPT, we want to
+        // render our content differently.
+        // $FlowFixMe KA is a global
+        return typeof KA !== "undefined" && KA.language === "en-pt" &&
+            this.props.passageText.indexOf('crwdns') !== -1;
+    }
+
     _renderContent(parsed): React.Element<any> {
         // Wait until Aphrodite styles are applied before enabling highlights,
         // so that we measure the correct positions.
@@ -486,7 +507,12 @@ class Passage extends React.Component {
                         {i18n._("Beginning of reading passage.")}
                     </h3>}
                     <div className="passage-text">
-                        {this._renderContent(parsedContent)}
+                        {this.shouldRenderJipt()
+                            // If we're in JIPT mode, just pass off our content
+                            // to a <Renderer /> which knows how to handle
+                            // rendering JIPT text.
+                            ? <Renderer content={this.props.passageText} />
+                            : this._renderContent(parsedContent)}
                     </div>
                     {this._hasFootnotes() && [
                         <h4 key="footnote-start" className="perseus-sr-only">
