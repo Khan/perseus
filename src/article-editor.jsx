@@ -99,7 +99,7 @@ const ArticleEditor = React.createClass({
                     return this._apiOptionsForSection(section);
                 }),
             });
-        } else {
+        } else if (this.props.mode === "edit") {
             this._sections().forEach((section, i) => {
                 this.refs["frame-" + i].sendNewData({
                     type: "article",
