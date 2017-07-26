@@ -44,6 +44,7 @@ const Radio = React.createClass({
             readOnly: React.PropTypes.bool,
         }).isRequired),
         highlightLint: React.PropTypes.bool,
+        static: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
@@ -280,7 +281,15 @@ const Radio = React.createClass({
     render: function() {
         let choices = this.props.choices;
         let choiceStates;
-        if (this.props.choiceStates) {
+        if (this.props.static) {
+            choiceStates = _.map(choices, (val) => ({
+                selected: val.correct,
+                readOnly: true,
+                highlighted: false,
+                rationaleShown: true,
+                correctnessShown: true,
+            }));
+        } else if (this.props.choiceStates) {
             choiceStates = this.props.choiceStates;
         } else if (this.props.values) {
             // Support legacy choiceStates implementation
