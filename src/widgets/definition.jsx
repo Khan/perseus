@@ -163,7 +163,7 @@ const Definition = React.createClass({
         const documentWidth = document.body.clientWidth;
         const marginWidth =
             this.container.parentElement.parentElement.offsetLeft;
-        const contentWidth = documentWidth - 3 * marginWidth;
+        const contentWidth = documentWidth - 4 * marginWidth;
         const contentWidthMobile = documentWidth - 2 * marginWidth;
         const contentOffsetLeft = this.container.offsetLeft - marginWidth;
         const contentOffsetLeftMobile = this.container.offsetLeft;
@@ -312,19 +312,6 @@ const styles = StyleSheet.create({
         color: styleConstants.blue,
         borderBottom: `dashed 1px ${styleConstants.blue}`,
         textDecoration: 'none',
-
-        [mediaQueries.xl]: {
-            fontSize: 20,
-            lineHeight: 1.1,
-        },
-        [mediaQueries.lgOrSmaller]: {
-            fontSize: 17,
-            lineHeight: 1.4,
-        },
-        [mediaQueries.smOrSmaller]: {
-            fontSize: 14,
-            lineHeight: 1.3,
-        },
     },
 
     mobileDefinitionLink: {

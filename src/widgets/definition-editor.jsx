@@ -32,6 +32,9 @@ const DefinitionEditor = React.createClass({
 
     render: function() {
         return <div className="perseus-widget-definition-editor">
+            <a href="https://docs.google.com/document/d/1udaPef4imOfTMhmLDlWq4SM0mxL0r3YHFZE-5J1uGfo" target="_blank">
+                    Definition style guide
+            </a>
             <div className="perseus-widget-row"><label>
                 Word to be defined: <TextInput
                     value={this.props.togglePrompt}
