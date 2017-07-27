@@ -308,10 +308,11 @@ const traverseChildWidgets = function(props, traverseRenderer) {
 
 module.exports = {
     name: "graded-group",
-    displayName: "Graded Group",
+    displayName: "Graded group (articles only)",
     widget: GradedGroup,
     traverseChildWidgets: traverseChildWidgets,
-    hidden: true,
+    // TODO(aasmund): This widget should be available for articles only
+    hidden: false,
     tracking: "all",
     isLintable: true,
 };
