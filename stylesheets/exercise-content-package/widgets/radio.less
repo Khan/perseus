@@ -9,7 +9,8 @@
         }
 
         // Multiple-choice rationales might contain several subsequent
-        // paragraphs, which need to have breaks in-between
+        // paragraphs, which need to have breaks in-between. Thus, we need
+        // to override the above `display: inline` rule.
         .perseus-radio-rationale-content > .perseus-renderer > .paragraph {
             display: block;
             margin: 0;
