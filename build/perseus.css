@@ -1,5 +1,5 @@
 /* Perseus CSS
-// commit bb663de76fc803c49d3fb177bebbf5410cd1ba4c
+// commit bcfeec25cd1d40dbbe43ebc929d9ed909cf0c9c7
 // branch master
 // @generated
 */
@@ -1754,6 +1754,13 @@ body.sat-section .perseus-widget-passage {
 .perseus-widget-radio.perseus-rendered-radio div > p {
   /* TODO(alpert): Find a better way of doing inline renderers */
   display: inline;
+}
+.perseus-widget-radio.perseus-rendered-radio .perseus-radio-rationale-content > .perseus-renderer > .paragraph {
+  display: block;
+  margin: 0;
+}
+.perseus-widget-radio.perseus-rendered-radio .perseus-radio-rationale-content > .perseus-renderer > .paragraph:not(:last-child) {
+  margin-bottom: 8px;
 }
 .perseus-widget-radio .unresponsive-svg-image div,
 .perseus-widget-radio .svg-image div {
