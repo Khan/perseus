@@ -151,10 +151,11 @@ const traverseChildWidgets = function(props, traverseRenderer) {
 
 module.exports = {
     name: "graded-group-set",
-    displayName: "Graded Group Set",
+    displayName: "Graded group set (articles only)",
     widget: GradedGroupSet,
     traverseChildWidgets: traverseChildWidgets,
-    hidden: true,
+    // TODO(michaelpolyak): This widget should be available for articles only
+    hidden: false,
     tracking: "all",
     isLintable: true,
 };
