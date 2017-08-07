@@ -82,6 +82,7 @@ class LibraryChoiceIcon extends React.Component {
         correct: ?boolean,
         reviewMode: boolean,
         showCorrectness: boolean,
+        primaryProductColor: string,
     };
 
     getChoiceInner() {
@@ -104,25 +105,66 @@ class LibraryChoiceIcon extends React.Component {
         }
     }
 
+    // Handle dynamic styling of the multiple choice icon. Most
+    // MC icon styles are constant, but we do allow the caller
+    // to specify the selected color, and thus must control styles
+    // related to the selected state dynamically.
+    getDynamicStyles() {
+        const {
+            checked,
+            showCorrectness,
+            pressed,
+            primaryProductColor,
+            correct,
+        } = this.props;
+        if (!showCorrectness && pressed) {
+            return {
+                borderColor: primaryProductColor,
+                color: primaryProductColor,
+                backgroundColor: styleConstants.white,
+            };
+        } else if (checked) {
+            // Note: kaGreen is not only the default product color,
+            // but also the "correctness" color
+            const bg = showCorrectness && correct
+                     ? styleConstants.kaGreen
+                     : primaryProductColor;
+            return {
+                color: styleConstants.white,
+                backgroundColor: bg,
+                borderColor: bg,
+            };
+        } else {
+            return {
+                borderColor: styleConstants.gray68,
+                color: styleConstants.gray68,
+            };
+        }
+    }
+
     render() {
         const {
             checked,
             showCorrectness,
             correct,
-            pressed,
             focused,
+            primaryProductColor,
         } = this.props;
-
+        // Hack(amy) styling the focus ring dynamically is tricky with
+        // the current implementation, so we show it only when usng
+        // the default primaryProductColor (kaGreen). I should probably
+        // make the focus circle be a directly-styled DOM element rather
+        // than psuedoelement, but punting for now.
+        const showFocusRing = primaryProductColor === styleConstants.kaGreen;
         return <div
+            style={this.getDynamicStyles()}
             className={css(
                 styles.libraryCircle,
                 showCorrectness && correct && styles.libraryCircleCorrect,
-                checked && styles.libraryCircleSelected,
                 showCorrectness && !correct && styles.libraryCircleIncorrect,
                 showCorrectness && !correct && checked &&
                     styles.libraryCircleIncorrectSelected,
-                !showCorrectness && pressed && styles.libraryCirclePressed,
-                focused && styles.libraryCircleFocused,
+                focused && showFocusRing && styles.libraryCircleFocused,
             )}
         >
             {this.getChoiceInner()}
@@ -140,11 +182,16 @@ type ChoiceIconProps = {
     // TODO(amy): if we go this "product" flag route, define this type
     // somewhere shared
     product: "sat" | "library",
+    primaryProductColor: string,
     reviewMode: boolean,
 };
 class ChoiceIcon extends React.Component {
 
     props: ChoiceIconProps
+
+    static defaultProps = {
+        primaryProductColor: styleConstants.kaGreen,
+    }
 
     a11yText(letter: string) {
         // If the option was checked we need to reveal more context about
@@ -208,6 +255,7 @@ class ChoiceIcon extends React.Component {
             showCorrectness,
             pressed,
             focused,
+            primaryProductColor,
         } = this.props;
 
         const letter = this.getLetter();
@@ -230,6 +278,7 @@ class ChoiceIcon extends React.Component {
                 focused={focused}
                 correct={correct}
                 showCorrectness={showCorrectness}
+                primaryProductColor={primaryProductColor}
             />;
         }
     }
@@ -257,7 +306,6 @@ const styles = StyleSheet.create({
         borderRadius: 24,
         borderStyle: "solid",
         borderWidth: 2,
-        borderColor: styleConstants.gray68,
 
         // The default icons have letters in them. Style those letters.
         fontFamily: styleConstants.baseFontFamily,
@@ -265,7 +313,6 @@ const styles = StyleSheet.create({
         // "bold font family" so that characters which fall back to the default
         // font get bolded too.
         fontWeight: "bold",
-        color: styleConstants.gray68,
         fontSize: 12,
 
         // Center the contents of the icon.
@@ -280,16 +327,8 @@ const styles = StyleSheet.create({
         lineHeight: "1px",
     },
 
-    libraryCircleSelected: {
-        borderColor: styleConstants.kaGreen,
-        backgroundColor: styleConstants.kaGreen,
-        color: styleConstants.white,
-    },
-
     libraryCircleCorrect: {
         fontSize: 24,
-        borderColor: styleConstants.kaGreen,
-        color: styleConstants.kaGreen,
     },
 
     libraryCircleIncorrect: {
@@ -301,13 +340,6 @@ const styles = StyleSheet.create({
     libraryCircleIncorrectSelected: {
         backgroundColor: styleConstants.warning1,
         color: styleConstants.white,
-    },
-
-    libraryCirclePressed: {
-        borderWidth: 2,
-        backgroundColor: styleConstants.white,
-        color: styleConstants.kaGreen,
-        borderColor: styleConstants.kaGreen,
     },
 
     libraryCircleFocused: {

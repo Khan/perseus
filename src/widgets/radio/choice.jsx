@@ -39,6 +39,7 @@ const Choice = React.createClass({
                     "intermediate",
                     "final",
                 ]),
+                primaryProductColor: React.PropTypes.string,
             }),
             readOnly: React.PropTypes.bool,
         }),
@@ -282,7 +283,9 @@ const Choice = React.createClass({
     },
 
     renderChoiceIcon() {
-        const {radioStyleVersion} = this.props.apiOptions.styling;
+        const {
+            radioStyleVersion,
+            primaryProductColor} = this.props.apiOptions.styling;
         const finalStyles = typeof radioStyleVersion === "undefined"
             ? false
             : radioStyleVersion === "final";
@@ -300,6 +303,7 @@ const Choice = React.createClass({
             showCorrectness={this.props.showCorrectness}
             reviewMode={this.props.reviewMode}
             product={this.props.apiOptions.satStyling ? "sat" : "library"}
+            primaryProductColor={primaryProductColor}
         />;
     },
 
