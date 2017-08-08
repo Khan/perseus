@@ -10,6 +10,8 @@ const Renderer = require("../renderer.jsx");
 
 const ApiClassNames = require("../perseus-api.jsx").ClassNames;
 
+const {linterContextProps, linterContextDefault} = require("../gorgon/proptypes.js");
+
 const HORIZONTAL = "horizontal";
 const VERTICAL = "vertical";
 
@@ -63,14 +65,14 @@ const Draggable = React.createClass({
         onMouseUp: React.PropTypes.func.isRequired,
         onRender: React.PropTypes.func.isRequired,
         type: React.PropTypes.oneOf([STATIC, DRAGGING, ANIMATING, DISABLED]),
-        highlightLint: React.PropTypes.bool,
+        linterContext: linterContextProps,
     },
 
     getDefaultProps: function() {
         return {
             includePadding: true,
             type: STATIC,
-            highlightLint: false,
+            linterContext: linterContextDefault,
         };
     },
 
@@ -161,7 +163,7 @@ const Draggable = React.createClass({
             >
                 <Renderer
                     content={this.props.content}
-                    highlightLint={this.props.highlightLint}
+                    linterContext={this.props.linterContext}
                     onRender={this.props.onRender}
                 />
             </li>
@@ -291,7 +293,7 @@ const Sortable = React.createClass({
         onMeasure: React.PropTypes.func,
         options: React.PropTypes.array.isRequired,
         padding: React.PropTypes.bool,
-        highlightLint: React.PropTypes.bool,
+        linterContext: linterContextProps,
     },
 
     getDefaultProps: function() {
@@ -303,7 +305,7 @@ const Sortable = React.createClass({
             onMeasure: function() {},
             margin: 5,
             onChange: function() {},
-            highlightLint: false,
+            linterContext: linterContextDefault,
         };
     },
 
@@ -455,7 +457,7 @@ const Sortable = React.createClass({
                         includePadding={this.props.padding}
                         margin={isLast && isStatic ? 0 : margin}
                         endPosition={item.endPosition}
-                        highlightLint={this.props.highlightLint}
+                        linterContext={this.props.linterContext}
                         onRender={this.remeasureItems}
                         onMouseDown={this.onMouseDown.bind(this, item.key)}
                         onMouseMove={this.onMouseMove.bind(this, item.key)}

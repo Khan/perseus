@@ -1,9 +1,8 @@
-/* eslint-disable max-lines, no-var, object-curly-spacing */
+/* eslint-disable max-lines, no-var */
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 
-/*eslint-disable no-console */
 /* globals KA */
 var $ = require("jquery");
 var React = require('react');
@@ -28,10 +27,11 @@ var Deferred = require("./deferred.js");
 var preprocessTex = require("./util/katex-preprocess.js");
 
 const Gorgon = require("./gorgon/gorgon.js"); // The linter engine
+const {linterContextProps, linterContextDefault} = require("./gorgon/proptypes.js");
 
-const { keypadElementPropType } = require("../math-input").propTypes;
+const {keypadElementPropType} = require("../math-input").propTypes;
 
-var { mapObject, mapObjectFromArray } = require("./interactive2/objective_.js");
+var {mapObject, mapObjectFromArray} = require("./interactive2/objective_.js");
 
 var rContainsNonWhitespace = /\S/;
 var rImageURL = /(web\+graphie|https):\/\/[^\s]*/;
@@ -170,9 +170,10 @@ var Renderer = React.createClass({
         // serialized state.
         onSerializedStateUpdated: React.PropTypes.func,
 
-        // If highlightLint is true, then content will be passed to the
-        // linter and any warnings will be highlighted in the rendered output
-        highlightLint: React.PropTypes.bool,
+        // If linterContext.highlightLint is true, then content will be passed
+        // to the linter and any warnings will be highlighted in the rendered
+        // output.
+        linterContext: linterContextProps,
     },
 
     getDefaultProps: function() {
@@ -195,12 +196,12 @@ var Renderer = React.createClass({
             reviewMode: false,
             serializedState: null,
             onSerializedStateUpdated: () => {},
-            highlightLint: false,
+            linterContext: linterContextDefault,
         };
     },
 
     getInitialState: function() {
-        return _.extend({ jiptContent: null }, this._getInitialWidgetState());
+        return _.extend({jiptContent: null}, this._getInitialWidgetState());
     },
 
     componentDidMount: function() {
@@ -257,10 +258,11 @@ var Renderer = React.createClass({
             // widgets have changed because we need for force the linter to
             // run when that happens. Note: don't do identity comparison here:
             // it can cause frequent re-renders that break MathJax somehow
-            (!this.props.highlightLint ||
+            (!this.props.linterContext.highlightLint ||
              _.isEqual(this.props.widgets, nextProps.widgets)) &&
             // If the linter is turned on or off, we have to rerender
-            this.props.highlightLint === nextProps.highlightLint &&
+            this.props.linterContext.highlightLint ===
+                    nextProps.linterContext.highlightLint &&
                 // yes, this is identity array comparison, but these are passed
                 // in from state in the item-renderer, so they should be
                 // identity equal unless something changed, and it's expensive
@@ -395,7 +397,7 @@ var Renderer = React.createClass({
                 type={type}
                 initialProps={this.getWidgetProps(id)}
                 shouldHighlight={shouldHighlight}
-                highlightLint={this.props.highlightLint}
+                linterContext={this.props.linterContext}
             />;
         } else {
             return null;
@@ -479,6 +481,7 @@ var Renderer = React.createClass({
         if (serializedWidgetIds.length !== widgetPropIds.length ||
                 _.intersection(serializedWidgetIds, widgetPropIds).length !==
                     serializedWidgetIds.length) {
+            // eslint-disable-next-line no-console
             console.error("Refusing to restore bad serialized state:",
                           serializedState, "Current props:",
                           this.state.widgetProps);
@@ -1600,19 +1603,15 @@ var Renderer = React.createClass({
         });
 
         // Optionally apply the linter to the parse tree
-        if (this.props.highlightLint) {
+        if (this.props.linterContext.highlightLint) {
             // If highlightLint is true and lint is detected, this call
             // will modify the parse tree by adding lint nodes that will
             // serve to highlight the lint when rendered
-            const lintStartTime = Date.now();
             const context = {
                 content: this.props.content,
                 widgets: this.props.widgets,
             };
-            const lintWarnings = Gorgon.runLinter(parsedMarkdown,
-                                                  context, true);
-            console.log("Linting took", Date.now() - lintStartTime,
-                        "milliseconds", lintWarnings);
+            Gorgon.runLinter(parsedMarkdown, context, true);
         }
 
         // Render the linted markdown parse tree with React components

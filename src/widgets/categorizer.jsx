@@ -18,6 +18,7 @@ const Renderer = require("../renderer.jsx");
 const Util = require("../util.js");
 const mediaQueries = require("../styles/media-queries.js");
 const sharedStyles = require("../styles/shared.js");
+const {linterContextProps, linterContextDefault} = require("../gorgon/proptypes.js");
 
 const Categorizer = React.createClass({
     propTypes: {
@@ -32,7 +33,7 @@ const Categorizer = React.createClass({
         // Ordered list of correct answers, mapping items to categories thusly:
         //   values[<items_index>] == <categories_index>
         values: React.PropTypes.arrayOf(React.PropTypes.number),
-        highlightLint: React.PropTypes.bool,
+        linterContext: linterContextProps,
     },
 
     getDefaultProps: function() {
@@ -40,7 +41,7 @@ const Categorizer = React.createClass({
             items: [],
             categories: [],
             values: [],
-            highlightLint: false,
+            linterContext: linterContextDefault,
         };
     },
 
@@ -80,7 +81,7 @@ const Categorizer = React.createClass({
                     return <th className={css(styles.header)} key={i}>
                         <Renderer
                             content={category}
-                            highlightLint={this.props.highlightLint}
+                            linterContext={this.props.linterContext}
                         />
                     </th>;
                 })}
@@ -92,7 +93,7 @@ const Categorizer = React.createClass({
                 return <tr key={itemNum}>
                     <td><Renderer
                             content={item}
-                            highlightLint={this.props.highlightLint}
+                            linterContext={this.props.linterContext}
                     /></td>
                     {_.range(self.props.categories.length).map(catNum => {
                         const selected = self.props.values[itemNum] === catNum;

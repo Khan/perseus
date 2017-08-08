@@ -18,6 +18,7 @@ var Changeable    = require("../mixins/changeable.jsx");
 const mediaQueries = require("../styles/media-queries.js");
 var Renderer     = require("../renderer.jsx");
 var SvgImage     = require("../components/svg-image.jsx");
+const {linterContextProps, linterContextDefault} = require("../gorgon/proptypes.js");
 
 var defaultBoxSize = 400;
 var defaultRange = [0, 10];
@@ -69,7 +70,7 @@ var ImageWidget = React.createClass({
 
         title: React.PropTypes.string,
         trackInteraction: React.PropTypes.func.isRequired,
-        highlightLint: React.PropTypes.bool,
+        linterContext: linterContextProps,
     },
 
     statics: {
@@ -103,7 +104,7 @@ var ImageWidget = React.createClass({
             labels: [],
             alt: "",
             caption: "",
-            highlightLint: false,
+            linterContext: linterContextDefault,
         };
     },
 
@@ -160,7 +161,7 @@ var ImageWidget = React.createClass({
                 <Renderer
                     content={this.props.alt}
                     apiOptions={apiOptions}
-                    highlightLint={this.props.highlightLint}
+                    linterContext={this.props.linterContext}
                 />
             </span>;
         }
@@ -223,7 +224,7 @@ var ImageWidget = React.createClass({
                         <Renderer
                             content={title + this.props.caption}
                             apiOptions={apiOptions}
-                            highlightLint={this.props.highlightLint}
+                            linterContext={this.props.linterContext}
                         />
                     </div>
                 </div>;
@@ -244,7 +245,7 @@ var ImageWidget = React.createClass({
                     <Renderer
                         content={this.props.title}
                         apiOptions={apiOptions}
-                        highlightLint={this.props.highlightLint}
+                        linterContext={this.props.linterContext}
                     />
                 </div>;
             }
@@ -254,7 +255,7 @@ var ImageWidget = React.createClass({
                     <Renderer
                         content={this.props.caption}
                         apiOptions={apiOptions}
-                        highlightLint={this.props.highlightLint}
+                        linterContext={this.props.linterContext}
                     />
                 </div>;
             }

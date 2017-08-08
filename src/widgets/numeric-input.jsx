@@ -17,6 +17,7 @@ var ApiOptions      = require("../perseus-api.jsx").Options;
 const KhanAnswerTypes = require("../util/answer-types.js");
 const KhanMath = require("../util/math.js");
 const { keypadElementPropType } = require("../../math-input").propTypes;
+const {linterContextProps, linterContextDefault} = require("../gorgon/proptypes.js");
 
 var answerFormButtons = [
     {title: "Integers", value: "integer", content: "6"},
@@ -60,7 +61,7 @@ var NumericInput = React.createClass({
         reviewModeRubric: React.PropTypes.object,
         trackInteraction: React.PropTypes.func.isRequired,
         widgetId: React.PropTypes.string.isRequired,
-        highlightLint: React.PropTypes.bool,
+        linterContext: linterContextProps,
     },
 
     getDefaultProps: function() {
@@ -71,7 +72,7 @@ var NumericInput = React.createClass({
             coefficient: false,
             answerForms: [],
             labelText: "",
-            highlightLint: false,
+            linterContext: linterContextDefault,
         };
     },
 
@@ -152,7 +153,7 @@ var NumericInput = React.createClass({
                 onBlur={this._handleBlur}
                 id={this.props.widgetId}
                 disabled={this.props.apiOptions.readOnly}
-                highlightLint={this.props.highlightLint}
+                linterContext={this.props.linterContext}
             />;
 
             if (answerBlurb) {

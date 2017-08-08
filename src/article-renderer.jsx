@@ -14,6 +14,7 @@ const ApiOptions = require("./perseus-api.jsx").Options;
 const ApiClassNames = require("./perseus-api.jsx").ClassNames;
 const Renderer = require("./renderer.jsx");
 const ProvideKeypad = require("./mixins/provide-keypad.jsx");
+const {linterContextProps, linterContextDefault} = require("./gorgon/proptypes.js");
 
 const rendererProps = React.PropTypes.shape({
     content: React.PropTypes.string,
@@ -35,14 +36,14 @@ const ArticleRenderer = React.createClass({
 
         // Whether to use the new Bibliotron styles for articles
         useNewStyles: React.PropTypes.bool,
-        highlightLint: React.PropTypes.bool,
+        linterContext: linterContextProps,
     },
 
     getDefaultProps() {
         return {
             apiOptions: {},
             useNewStyles: false,
-            highlightLint: false,
+            linterContext: linterContextDefault,
         };
     },
 
@@ -185,7 +186,7 @@ const ArticleRenderer = React.createClass({
                             );
                         },
                     }}
-                    highlightLint={this.props.highlightLint}
+                    linterContext={this.props.linterContext}
                 />
             </div>;
         });

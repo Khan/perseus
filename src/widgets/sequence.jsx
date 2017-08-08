@@ -11,6 +11,7 @@ const {iconOk} = require("../icon-paths.js");
 const InlineIcon = require("../components/inline-icon.jsx");
 var Renderer = require("../renderer.jsx");
 var Util = require("../util.js");
+const {linterContextProps, linterContextDefault} = require("../gorgon/proptypes.js");
 
 var Sequence = React.createClass({
     propTypes: {
@@ -22,7 +23,7 @@ var Sequence = React.createClass({
             widgets: React.PropTypes.object,
         })),
         trackInteraction: React.PropTypes.func.isRequired,
-        highlightLint: React.PropTypes.bool,
+        linterContext: linterContextProps,
     },
 
     getDefaultProps: function() {
@@ -32,7 +33,7 @@ var Sequence = React.createClass({
                 widgets: {},
                 images: {},
             }],
-            highlightLint: false,
+            linterContext: linterContextDefault,
         };
     },
 
@@ -75,7 +76,7 @@ var Sequence = React.createClass({
                 widgets={widgets}
                 onInteractWithWidget={this._handleInteraction}
                 apiOptions={this.props.apiOptions}
-                highlightLint={this.props.highlightLint}
+                linterContext={this.props.linterContext}
                 />
         </div>;
     },

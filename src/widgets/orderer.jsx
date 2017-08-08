@@ -11,6 +11,8 @@ var Util = require("../util.js");
 
 var ApiClassNames = require("../perseus-api.jsx").ClassNames;
 
+const {linterContextProps, linterContextDefault} = require("../gorgon/proptypes.js");
+
 var PlaceholderCard = React.createClass({
     propTypes: {
         width: React.PropTypes.number.isRequired,
@@ -59,14 +61,14 @@ var Card = React.createClass({
         startOffset: PropTypes.position,
         animateTo: PropTypes.position,
         onAnimationEnd: React.PropTypes.func,
-        highlightLint: React.PropTypes.bool,
+        linterContext: linterContextProps,
     },
 
     getDefaultProps: function() {
         return {
             stack: false,
             animating: false,
-            highlightLint: false,
+            linterContext: linterContextDefault,
         };
     },
 
@@ -110,7 +112,7 @@ var Card = React.createClass({
                 <div className={className.join(" ")}>
                     <Renderer
                         {...rendererProps}
-                        highlightLint={this.props.highlightLint}
+                        linterContext={this.props.linterContext}
                     />
                 </div>
             </div>;
@@ -216,7 +218,7 @@ var Orderer = React.createClass({
         layout: React.PropTypes.oneOf([HORIZONTAL, VERTICAL]),
         options: React.PropTypes.array,
         trackInteraction: React.PropTypes.func.isRequired,
-        highlightLint: React.PropTypes.bool,
+        linterContext: linterContextProps,
     },
 
     getDefaultProps: function() {
@@ -226,7 +228,7 @@ var Orderer = React.createClass({
             correctOptions: [],
             height: NORMAL,
             layout: HORIZONTAL,
-            highlightLint: false,
+            linterContext: linterContextDefault,
         };
     },
 
@@ -257,7 +259,7 @@ var Orderer = React.createClass({
                        onMouseUp={this.onRelease}
                        onMouseMove={this.onMouseMove}
                        key={this.state.dragKey || "draggingCard"}
-                       highlightLint={this.props.highlightLint}
+                       linterContext={this.props.linterContext}
                        />;
 
         // This is the card that is currently animating
@@ -270,7 +272,7 @@ var Orderer = React.createClass({
                        animateTo={this.state.animateTo}
                        onAnimationEnd={this.state.onAnimationEnd}
                        key={this.state.dragKey || "draggingCard"}
-                       highlightLint={this.props.highlightLint}
+                       linterContext={this.props.linterContext}
                        />;
 
         // This is the list of draggable, rearrangable cards
@@ -282,7 +284,7 @@ var Orderer = React.createClass({
                 content={opt.content}
                 width={opt.width}
                 key={opt.key}
-                highlightLint={this.props.highlightLint}
+                linterContext={this.props.linterContext}
                 onMouseDown={(this.state.animating) ?
                     $.noop :
                     this.onClick.bind(null, "current", i)} />;
@@ -315,7 +317,7 @@ var Orderer = React.createClass({
                     content={opt.content}
                     stack={true}
                     key={i}
-                    highlightLint={this.props.highlightLint}
+                    linterContext={this.props.linterContext}
                     onMouseDown={(this.state.animating) ?
                         $.noop :
                         this.onClick.bind(null, "bank", i)}

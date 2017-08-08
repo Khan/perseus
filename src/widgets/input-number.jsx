@@ -13,6 +13,7 @@ var ParseTex          = require("../tex-wrangler.js").parseTex;
 var PossibleAnswers = require("../components/possible-answers.jsx");
 const KhanAnswerTypes = require("../util/answer-types.js");
 const { keypadElementPropType } = require("../../math-input").propTypes;
+const {linterContextProps, linterContextDefault} = require("../gorgon/proptypes.js");
 
 var ApiClassNames = require("../perseus-api.jsx").ClassNames;
 var ApiOptions = require("../perseus-api.jsx").Options;
@@ -89,7 +90,7 @@ var InputNumber = React.createClass({
         keypadElement: keypadElementPropType,
         reviewModeRubric: React.PropTypes.object,
         widgetId: React.PropTypes.string.isRequired,
-        highlightLint: React.PropTypes.bool,
+        linterContext: linterContextProps,
     },
 
     getDefaultProps: function() {
@@ -98,7 +99,7 @@ var InputNumber = React.createClass({
             size: "normal",
             answerType: "number",
             apiOptions: ApiOptions.defaults,
-            highlightLint: false,
+            linterContext: linterContextDefault,
         };
     },
 
@@ -162,7 +163,7 @@ var InputNumber = React.createClass({
                 onBlur={this._handleBlur}
                 id={this.props.widgetId}
                 disabled={this.props.apiOptions.readOnly}
-                highlightLint={this.props.highlightLint}
+                linterContext={this.props.linterContext}
             />;
 
             if (answerBlurb) {

@@ -138,7 +138,9 @@ var CombinedHintEditor = React.createClass({
                 bold: shouldBold,
                 pos: this.props.pos,
                 apiOptions: this.props.apiOptions,
-                highlightLint: this.props.highlightLint,
+                linterContext: {
+                    highlightLint: this.props.highlightLint,
+                },
             },
         });
     },

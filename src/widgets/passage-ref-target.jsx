@@ -9,17 +9,19 @@ var Changeable   = require("../mixins/changeable.jsx");
 var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
 var Renderer = require("../renderer.jsx");
 
+const {linterContextProps, linterContextDefault} = require("../gorgon/proptypes.js");
+
 var PassageRefTarget = React.createClass({
     propTypes: {
         ...Changeable.propTypes,
         content: React.PropTypes.string,
-        highlightLint: React.PropTypes.bool,
+        linterContext: linterContextProps,
     },
 
     getDefaultProps: function() {
         return {
             content: "",
-            highlightLint: false,
+            linterContext: linterContextDefault,
         };
     },
 
@@ -32,7 +34,7 @@ var PassageRefTarget = React.createClass({
             content={this.props.content}
             inline={true}
             apiOptions={this.props.apiOptions}
-            highlightLint={this.props.highlightLint}
+            linterContext={this.props.linterContext}
             />;
     },
 

@@ -9,6 +9,7 @@ const ApiOptions = require("../perseus-api.jsx").Options;
 const Changeable   = require("../mixins/changeable.jsx");
 const GradedGroup = require("./graded-group.jsx").widget;
 const {grayLight, gray76, tableBackgroundAccent, kaGreen, phoneMargin, negativePhoneMargin} = require("../styles/constants.js");
+const {linterContextProps, linterContextDefault} = require("../gorgon/proptypes.js");
 
 const Indicators = React.createClass({
     propTypes: {
@@ -47,13 +48,13 @@ const GradedGroupSet = React.createClass({
         apiOptions: ApiOptions.propTypes,
         gradedGroups: React.PropTypes.array,
         trackInteraction: React.PropTypes.func.isRequired,
-        highlightLint: React.PropTypes.bool,
+        linterContext: linterContextProps,
     },
 
     getDefaultProps() {
         return {
             gradedGroups: [],
-            highlightLint: false,
+            linterContext: linterContextDefault,
         };
     },
 
@@ -136,7 +137,7 @@ const GradedGroupSet = React.createClass({
                 inGradedGroupSet={true}
                 title={null}
                 onNextQuestion={handleNextQuestion}
-                highlightLint={this.props.highlightLint}
+                linterContext={this.props.linterContext}
             />
         </div>;
     },

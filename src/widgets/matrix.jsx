@@ -21,6 +21,8 @@ const { keypadElementPropType } = require("../../math-input").propTypes;
 var assert = require("../interactive2/interactive-util.js").assert;
 var stringArrayOfSize = require("../util.js").stringArrayOfSize;
 
+const {linterContextProps, linterContextDefault} = require("../gorgon/proptypes.js");
+
 
 // We store three sets of dimensions for the brackets, for our three types of
 // inputs, which vary in formatting: (1) the "static" inputs rendered for the
@@ -121,7 +123,7 @@ var Matrix = React.createClass({
         prefix: React.PropTypes.string,
         suffix: React.PropTypes.string,
         trackInteraction: React.PropTypes.func.isRequired,
-        highlightLint: React.PropTypes.bool,
+        linterContext: linterContextProps,
     },
 
     getDefaultProps: function() {
@@ -132,7 +134,7 @@ var Matrix = React.createClass({
             suffix: "",
             cursorPosition: [0, 0],
             apiOptions: ApiOptions.defaults,
-            highlightLint: false,
+            linterContext: linterContextDefault,
         };
     },
 
@@ -184,7 +186,7 @@ var Matrix = React.createClass({
             {this.props.prefix && <div className="matrix-prefix">
                 <Renderer
                     content={this.props.prefix}
-                    highlightLint={this.props.highlightLint}
+                    linterContext={this.props.linterContext}
                 />
             </div>}
             <div className="matrix-input">
@@ -296,7 +298,7 @@ var Matrix = React.createClass({
             {this.props.suffix && <div className="matrix-suffix">
                 <Renderer
                     content={this.props.suffix}
-                    highlightLint={this.props.highlightLint}
+                    linterContext={this.props.linterContext}
                 />
             </div>}
         </div>;

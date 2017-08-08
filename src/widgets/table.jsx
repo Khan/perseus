@@ -14,6 +14,7 @@ var Util = require("../util.js");
 const {keypadElementPropType} = require("../../math-input").propTypes;
 var ApiOptions = require("../perseus-api.jsx").Options;
 const KhanAnswerTypes = require("../util/answer-types.js");
+const {linterContextProps, linterContextDefault} = require("../gorgon/proptypes.js");
 
 var assert = require("../interactive2/interactive-util.js").assert;
 
@@ -59,7 +60,7 @@ var Table = React.createClass({
         headers: React.PropTypes.arrayOf(React.PropTypes.string),
         keypadElement: keypadElementPropType,
         trackInteraction: React.PropTypes.func.isRequired,
-        highlightLint: React.PropTypes.bool,
+        linterContext: linterContextProps,
     },
 
     getDefaultProps: function() {
@@ -75,7 +76,7 @@ var Table = React.createClass({
             rows: defaultRows,
             columns: defaultColumns,
             answers: blankAnswers,
-            highlightLint: false,
+            linterContext: linterContextDefault,
         };
     },
 
@@ -127,7 +128,7 @@ var Table = React.createClass({
                             return <th key={i}>
                                 <Renderer
                                     content={header}
-                                    highlightLint={this.props.highlightLint}
+                                    linterContext={this.props.linterContext}
                                 />
                             </th>;
                         }

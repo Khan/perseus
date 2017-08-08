@@ -9,6 +9,7 @@ const MathInput = require("./math-input.jsx");
 const Renderer = require("../renderer.jsx");
 const TextInput = require("./text-input.jsx");
 const MathOutput = require("../components/math-output.jsx");
+const {linterContextProps, linterContextDefault} = require("../gorgon/proptypes.js");
 
 const captureScratchpadTouchStart = require("../util.js")
     .captureScratchpadTouchStart;
@@ -35,7 +36,7 @@ const InputWithExamples = React.createClass({
 
         // A unique string identifying this InputWithExamples
         id: React.PropTypes.string.isRequired,
-        highlightLint: React.PropTypes.bool,
+        linterContext: linterContextProps,
     },
 
     getDefaultProps: function() {
@@ -45,7 +46,7 @@ const InputWithExamples = React.createClass({
             onFocus: function() {},
             onBlur: function() {},
             disabled: false,
-            highlightLint: false,
+            linterContext: linterContextDefault,
         };
     },
 
@@ -178,7 +179,7 @@ const InputWithExamples = React.createClass({
                 <div id={this._getUniqueId()}>
                     <Renderer
                         content={examplesContent}
-                        highlightLint={this.props.highlightLint}
+                        linterContext={this.props.linterContext}
                     />
                 </div>
             </Tooltip>

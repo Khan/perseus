@@ -9,6 +9,7 @@ var Sortable = require("../components/sortable.jsx");
 
 const ApiOptions = require("../perseus-api.jsx").Options;
 var shuffle = require("../util.js").shuffle;
+const {linterContextProps, linterContextDefault} = require("../gorgon/proptypes.js");
 
 var HORIZONTAL = "horizontal",
     VERTICAL = "vertical";
@@ -22,7 +23,7 @@ var Sorter = React.createClass({
         padding: React.PropTypes.bool,
         problemNum: React.PropTypes.number,
         trackInteraction: React.PropTypes.func.isRequired,
-        highlightLint: React.PropTypes.bool,
+        linterContext: linterContextProps,
     },
 
     getDefaultProps: function() {
@@ -32,7 +33,7 @@ var Sorter = React.createClass({
             padding: true,
             problemNum: 0,
             onChange: function() {},
-            highlightLint: false,
+            linterContext: linterContextDefault,
         };
     },
 
@@ -52,7 +53,7 @@ var Sorter = React.createClass({
                 margin={marginPx}
                 padding={this.props.padding}
                 onChange={this.handleChange}
-                highlightLint={this.props.highlightLint}
+                linterContext={this.props.linterContext}
                 ref="sortable"
             />
         </div>;

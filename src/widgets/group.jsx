@@ -10,6 +10,8 @@ var ApiOptions = require("../perseus-api.jsx").Options;
 var Changeable   = require("../mixins/changeable.jsx");
 var Renderer = require("../renderer.jsx");
 
+const {linterContextProps, linterContextDefault} = require("../gorgon/proptypes.js");
+
 var Group = React.createClass({
     propTypes: {
         ...Changeable.propTypes,
@@ -18,7 +20,7 @@ var Group = React.createClass({
         images: React.PropTypes.object,
         icon: React.PropTypes.object,
         reviewModeRubric: React.PropTypes.object,
-        highlightLint: React.PropTypes.bool,
+        linterContext: linterContextProps,
     },
 
     getDefaultProps: function() {
@@ -27,7 +29,7 @@ var Group = React.createClass({
             widgets: {},
             images: {},
             icon: null,
-            highlightLint: false,
+            linterContext: linterContextDefault,
         };
     },
 
@@ -101,7 +103,7 @@ var Group = React.createClass({
                 findExternalWidgets={this.props.findWidgets}
                 reviewMode={!!this.props.reviewModeRubric}
                 onInteractWithWidget={onInteractWithWidget}
-                highlightLint={this.props.highlightLint}
+                linterContext={this.props.linterContext}
             />
             {this.props.icon && <div className="group-icon">
                 {this.props.icon}
