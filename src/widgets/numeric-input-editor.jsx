@@ -374,9 +374,6 @@ const NumericInputEditor = React.createClass({
         if (_.contains(_.pluck(this.props.answers, "value"), "")) {
             warnings.push("One or more answers is empty");
         }
-        if (this.props.labelText === "") {
-            warnings.push("No label is specified");
-        }
         this.props.answers.forEach((answer, i) => {
             var formatError = (answer.strict &&
                 (!answer.answerForms || answer.answerForms.length === 0));

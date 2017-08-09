@@ -843,22 +843,8 @@ var Editor = React.createClass({
             }
         });
 
-        var noAltImages = [];
-        PerseusMarkdown.traverseContent(parsed, (node) => {
-            if (node.type === "image" && !node.alt) {
-                var shortUrl = node.target.length < 9 ? node.target :
-                        node.target.slice(0, 3) + "..." +
-                        node.target.slice(-3);
-
-                noAltImages.push(
-                    "Image '" + node.target +
-                    "' doesn't have alt text: ![add alt text here](" +
-                    shortUrl + ")");
-            }
-        });
-
         var widgetIds = _.intersection(this.widgetIds, _.keys(this.refs));
-        var widgetWarnings = _(widgetIds)
+        var warnings = _(widgetIds)
             .chain()
             .map(id => {
                 var issuesFunc = this.refs[id].getSaveWarnings;
@@ -867,8 +853,6 @@ var Editor = React.createClass({
             })
             .flatten(true)
             .value();
-
-        var warnings = noAltImages.concat(widgetWarnings);
 
         if (unescapedDollarsExist) {
             warnings.unshift(
