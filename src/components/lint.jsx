@@ -20,6 +20,7 @@
  * to the left of where it belongs.  And if there is more
  **/
 const React = require("react");
+const ReactDOM = require("react-dom");
 const {StyleSheet, css} = require("aphrodite");
 const constants = require("../styles/constants.js");
 
@@ -37,9 +38,37 @@ const Lint = React.createClass({
         insideTable: React.PropTypes.bool.isRequired,
     },
 
+    getInitialState: function() {
+        return {
+            tooltipAbove: true,
+        };
+    },
+
+    componentDidMount: function() {
+        this._positionTimeout = window.setTimeout(this.getPosition);
+    },
+
+    componentWillUnmount: function() {
+        window.clearTimeout(this._positionTimeout);
+    },
+
+    // We can't call setState in componentDidMount without risking a render
+    // thrash, and we can't call getBoundingClientRect in render, so we
+    // borrow a timeout approach from learnstorm-dashboard.jsx and set our
+    // state once the component has mounted and we can get what we need.
+    getPosition: function() {
+        const rect = ReactDOM.findDOMNode(this).getBoundingClientRect();
+        // TODO(scottgrant): This is a magic number! We don't know the size
+        // of the tooltip at this point, so we're arbitrarily choosing a
+        // point at which to flip the tooltip's position.
+        this.setState({tooltipAbove: rect.top > 100});
+    },
+
     // Render the <a> element that holds the indicator icon and the tooltip
     // We pass different styles for the inline and block cases
     renderLink: function(style) {
+        const tooltipAbove = this.state.tooltipAbove;
+
         return (
             <a
                 href={
@@ -50,7 +79,11 @@ const Lint = React.createClass({
                 className={css(style)}
             >
                 <span className={css(styles.indicator)} />
-                <div className={css(styles.tooltip)}>
+                <div
+                    className={css(
+                        styles.tooltip, tooltipAbove && styles.tooltipAbove
+                    )}
+                >
                     {this.props.message.split("\n\n").map((m, i) =>
                         <p key={i} className={css(styles.tooltipParagraph)}>
                             <span className={css(styles.warning)}>
@@ -59,7 +92,11 @@ const Lint = React.createClass({
                             {m}
                         </p>
                     )}
-                    <div className={css(styles.tail)} />
+                    <div
+                        className={css(
+                            styles.tail, tooltipAbove && styles.tailAbove
+                        )}
+                    />
                 </div>
             </a>
         );
@@ -235,7 +272,6 @@ const styles = StyleSheet.create({
         // Absolute positioning relative to the lint indicator circle.
         position: "absolute",
         right: -12,
-        bottom: 32,
 
         // The tooltip is hidden by default; only displayed on hover
         display: "none",
@@ -253,6 +289,11 @@ const styles = StyleSheet.create({
         width: "320px",
         borderRadius: "4px",
     },
+    // If we're going to render the tooltip above the warning circle, we use
+    // the previous rules in tooltip, but change the position slightly.
+    tooltipAbove: {
+        bottom: 32,
+    },
 
     // We give the tooltip a little triangular "tail" that points down at
     // the lint indicator circle. This is inside the tooltip and positioned
@@ -260,14 +301,21 @@ const styles = StyleSheet.create({
     // the standard CSS trick for drawing triangles with a thick border.
     tail: {
         position: "absolute",
+        top: -12,
         right: 16,
-        bottom: -12,
         width: 0,
         height: 0,
+
         // This is the CSS triangle trick
         borderLeft: "8px solid transparent",
         borderRight: "8px solid transparent",
+        borderBottom: "12px solid " + constants.gray17,
+    },
+    tailAbove: {
+        bottom: -12,
+        borderBottom: "none",
         borderTop: "12px solid " + constants.gray17,
+        top: "auto",
     },
 
     // Each warning in the tooltip is its own <p>. They are 12 pixels from
