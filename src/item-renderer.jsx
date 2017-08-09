@@ -13,6 +13,7 @@ const ProvideKeypad = require("./mixins/provide-keypad.jsx");
 const Util = require("./util.js");
 
 const {mapObject} = require("./interactive2/objective_.js");
+const {linterContextProps, linterContextDefault} = require("./gorgon/proptypes.js");
 
 const RP = React.PropTypes;
 
@@ -55,7 +56,7 @@ const ItemRenderer = React.createClass({
         reviewMode: React.PropTypes.bool,
         savedState: RP.any,
         workAreaSelector: RP.string,
-        highlightLint: React.PropTypes.bool,
+        linterContext: linterContextProps,
     },
 
     getDefaultProps: function() {
@@ -66,7 +67,7 @@ const ItemRenderer = React.createClass({
             initialHintsVisible: 0,
             workAreaSelector: "#workarea",
             reviewMode: false,
-            highlightLint: false,
+            linterContext: linterContextDefault,
         };
     },
 
@@ -151,7 +152,7 @@ const ItemRenderer = React.createClass({
                     questionCompleted={this.state.questionCompleted}
                     reviewMode={this.props.reviewMode}
                     savedState={this.props.savedState}
-                    highlightLint={this.props.highlightLint}
+                    linterContext={this.props.linterContext}
                     {...this.props.item.question}
                 />,
                 document.querySelector(this.props.workAreaSelector));
@@ -161,7 +162,7 @@ const ItemRenderer = React.createClass({
                     hints={this.props.item.hints}
                     hintsVisible={this.state.hintsVisible}
                     apiOptions={apiOptions}
-                    highlightLint={this.props.highlightLint}
+                    linterContext={this.props.linterContext}
                 />,
                 document.querySelector(this.props.hintsAreaSelector));
 

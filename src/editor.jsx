@@ -1,4 +1,4 @@
-/* eslint-disable brace-style, max-lines, no-console, no-var, object-curly-spacing, react/prop-types, react/sort-comp */
+/* eslint-disable max-lines, no-console, no-var, react/prop-types, react/sort-comp */
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
@@ -481,7 +481,7 @@ var Editor = React.createClass({
             if (imageUrl) {
                 // TODO(joel) - relocate when the image upload dialog lands
                 var newContent = content + "\n\n![](" + imageUrl + ")";
-                this.props.onChange({ content: newContent });
+                this.props.onChange({content: newContent});
             }
 
             return;
@@ -516,10 +516,12 @@ var Editor = React.createClass({
                 // before the server returns.
                 content += "\n\n![](" + sentinel + ")";
 
-                return { file: file, sentinel: sentinel };
+                return {file: file, sentinel: sentinel};
             })
             .reject(_.isNull)
-            .tap(() => { this.props.onChange({ content: content }); })
+            .tap(() => {
+                this.props.onChange({content: content});
+            })
             .each(fileAndSentinel => {
                 this.props.imageUploader(fileAndSentinel.file, url => {
                     this.props.onChange({
@@ -1112,7 +1114,9 @@ var Editor = React.createClass({
             _.chain(this.props.widgets)
                 .keys()
                 .reject((id) => _.contains(widgetIds, id))
-                .each((id) => { widgets[id] = this.props.widgets[id]; });
+                .each((id) => {
+                    widgets[id] = this.props.widgets[id];
+                });
         }
 
         return {

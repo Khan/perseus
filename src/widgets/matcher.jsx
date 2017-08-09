@@ -12,6 +12,7 @@ const Sortable = require("../components/sortable.jsx");
 const ApiOptions = require("../perseus-api.jsx").Options;
 const shuffle = require("../util.js").shuffle;
 const seededRNG = require("../util.js").seededRNG;
+const {linterContextProps, linterContextDefault} = require("../gorgon/proptypes.js");
 
 const HACKY_CSS_CLASSNAME = 'perseus-widget-matcher';
 
@@ -26,7 +27,7 @@ const Matcher = React.createClass({
         problemNum: React.PropTypes.number,
         right: React.PropTypes.array,
         trackInteraction: React.PropTypes.func.isRequired,
-        highlightLint: React.PropTypes.bool,
+        linterContext: linterContextProps,
     },
 
     getDefaultProps: function() {
@@ -38,7 +39,7 @@ const Matcher = React.createClass({
             padding: true,
             problemNum: 0,
             onChange: function() {},
-            highlightLint: false,
+            linterContext: linterContextDefault,
         };
     },
 
@@ -78,7 +79,7 @@ const Matcher = React.createClass({
                         <th className={css(styles.column, styles.columnLabel)}>
                             <Renderer
                                 content={this.props.labels[0] || "..."}
-                                highlightLint={this.props.highlightLint}
+                                linterContext={this.props.linterContext}
                             />
                         </th>
                         <th className={css(
@@ -88,7 +89,7 @@ const Matcher = React.createClass({
                         >
                             <Renderer
                                 content={this.props.labels[1] || "..."}
-                                highlightLint={this.props.highlightLint}
+                                linterContext={this.props.linterContext}
                             />
                         </th>
                     </tr>
@@ -104,7 +105,7 @@ const Matcher = React.createClass({
                             onMeasure={this.onMeasureLeft}
                             onChange={this.changeAndTrack}
                             margin={cellMarginPx}
-                            highlightLint={this.props.highlightLint}
+                            linterContext={this.props.linterContext}
                             ref="left"
                         />
                     </td>
@@ -117,7 +118,7 @@ const Matcher = React.createClass({
                             onMeasure={this.onMeasureRight}
                             onChange={this.changeAndTrack}
                             margin={cellMarginPx}
-                            highlightLint={this.props.highlightLint}
+                            linterContext={this.props.linterContext}
                             ref="right"
                         />
                     </td>

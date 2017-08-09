@@ -1,7 +1,3 @@
-/* eslint-disable object-curly-spacing */
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 "use strict";
 
 /**
@@ -35,7 +31,7 @@ const SectionControlButton = React.createClass({
         title: React.PropTypes.string.isRequired,
     },
     render: function() {
-        const { icon, onClick, title } = this.props;
+        const {icon, onClick, title} = this.props;
         return <a
             href="#"
             className={
@@ -58,6 +54,7 @@ const SectionControlButton = React.createClass({
 const ArticleEditor = React.createClass({
     propTypes: {
         apiOptions: React.PropTypes.shape({}),
+        contentPaths: React.PropTypes.arrayOf(React.PropTypes.string),
         frameSource: React.PropTypes.string.isRequired,
         imageUploader: React.PropTypes.func,
         json: React.PropTypes.oneOfType([
@@ -77,6 +74,7 @@ const ArticleEditor = React.createClass({
 
     getDefaultProps: function() {
         return {
+            contentPaths: [],
             json: [{}],
             mode: "edit",
             screen: "desktop",
@@ -122,7 +120,10 @@ const ArticleEditor = React.createClass({
             },
             json: section,
             useNewStyles: this.props.useNewStyles,
-            highlightLint: this.state.highlightLint,
+            linterContext: {
+                highlightLint: this.state.highlightLint,
+                paths: this.props.contentPaths,
+            },
         };
     },
 

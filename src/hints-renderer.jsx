@@ -19,6 +19,7 @@ const {
     gray85,
     gray17,
 } = require("./styles/constants.js");
+const {linterContextProps, linterContextDefault} = require("./gorgon/proptypes.js");
 
 const HintsRenderer = React.createClass({
     propTypes: {
@@ -27,12 +28,12 @@ const HintsRenderer = React.createClass({
         hints: React.PropTypes.arrayOf(React.PropTypes.any),
         hintsVisible: React.PropTypes.number,
         findExternalWidgets: React.PropTypes.func,
-        highlightLint: React.PropTypes.bool,
+        linterContext: linterContextProps,
     },
 
     getDefaultProps: function() {
         return {
-            highlightLint: false,
+            linterContext: linterContextDefault,
         };
     },
 
@@ -139,7 +140,7 @@ const HintsRenderer = React.createClass({
                     key={"hintRenderer" + i}
                     apiOptions={apiOptions}
                     findExternalWidgets={this.props.findExternalWidgets}
-                    highlightLint={this.props.highlightLint}
+                    linterContext={this.props.linterContext}
                 />;
 
                 if (hint.replace && hints.length > 0) {

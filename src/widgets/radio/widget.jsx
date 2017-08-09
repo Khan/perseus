@@ -9,6 +9,8 @@ const Util = require("../../util.js");
 
 const BaseRadio = require("./base-radio.jsx");
 
+const {linterContextProps, linterContextDefault} = require("../../gorgon/proptypes.js");
+
 
 const Radio = React.createClass({
     propTypes: {
@@ -43,7 +45,7 @@ const Radio = React.createClass({
             correctnessShown: React.PropTypes.bool,
             readOnly: React.PropTypes.bool,
         }).isRequired),
-        highlightLint: React.PropTypes.bool,
+        linterContext: linterContextProps,
         static: React.PropTypes.bool,
     },
 
@@ -54,7 +56,7 @@ const Radio = React.createClass({
             multipleSelect: false,
             countChoices: false,
             deselectEnabled: false,
-            highlightLint: false,
+            linterContext: linterContextDefault,
         };
     },
 
@@ -101,7 +103,7 @@ const Radio = React.createClass({
             widgets={widgets}
             findExternalWidgets={this.props.findWidgets}
             alwaysUpdate={true}
-            highlightLint={this.props.highlightLint}
+            linterContext={this.props.linterContext}
         />;
     },
 

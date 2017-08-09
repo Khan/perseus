@@ -11,6 +11,8 @@ const HighlightableContent = require("../components/highlighting/highlightable-c
 const Renderer = require("../renderer.jsx");
 const PassageMarkdown = require("./passage/passage-markdown.jsx");
 
+const {linterContextDefault} = require("../gorgon/proptypes.js");
+
 import type {ChangeableProps} from "../mixins/changeable.jsx";
 import type {SerializedHighlightSet} from "../components/highlighting/types.js";
 
@@ -96,7 +98,8 @@ type PassageProps = ChangeableProps & {
     //     `highlightRanges`, or else you might get data that's not in the
     //     format you expect.
     highlightRanges: any,
-    highlightLint: boolean,
+    // TODO(scottgrant): Flow type for linter context object
+    linterContext: any,
 };
 
 type PassageState = {
@@ -130,7 +133,7 @@ class Passage extends React.Component {
         footnotes: "",
         showLineNumbers: true,
         highlights: {},
-        highlightLint: false,
+        linterContext: linterContextDefault,
     };
 
     state: PassageState = {
@@ -495,7 +498,7 @@ class Passage extends React.Component {
                     {hasTitle && <h3 className="passage-title">
                         <Renderer
                             content={this.props.passageTitle}
-                            highlightLint={this.props.highlightLint}
+                            linterContext={this.props.linterContext}
                         />
                     </h3>}
                     {lineNumbers &&

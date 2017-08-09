@@ -25,6 +25,7 @@ const {
     keypadElementPropType,
 } = require("../../math-input").propTypes;
 const {KeypadTypes} = require("../../math-input").consts;
+const {linterContextProps, linterContextDefault} = require("../gorgon/proptypes.js");
 
 const {iconExclamationSign} = require("../icon-paths.js");
 
@@ -91,7 +92,7 @@ var Expression = React.createClass({
         trackInteraction: React.PropTypes.func.isRequired,
         value: React.PropTypes.string,
         widgetId: React.PropTypes.string.isRequired,
-        highlightLint: React.PropTypes.bool,
+        linterContext: linterContextProps,
     },
 
     getDefaultProps: function() {
@@ -103,7 +104,7 @@ var Expression = React.createClass({
             onFocus: function() { },
             onBlur: function() { },
             apiOptions: ApiOptions.defaults,
-            highlightLint: false,
+            linterContext: linterContextDefault,
         };
     },
 
@@ -160,7 +161,7 @@ var Expression = React.createClass({
                 onFocus={this._handleFocus}
                 onBlur={this._handleBlur}
                 id={this.props.widgetId}
-                highlightLint={this.props.highlightLint}
+                linterContext={this.props.linterContext}
             />;
         } else {
             // TODO(alex): Style this tooltip to be more consistent with other

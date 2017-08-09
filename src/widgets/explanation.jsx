@@ -11,13 +11,14 @@ const PerseusApi = require("../perseus-api.jsx");
 const Renderer = require("../renderer.jsx");
 const mediaQueries = require("../styles/media-queries.js");
 const styleConstants = require("../styles/constants.js");
+const {linterContextProps, linterContextDefault} = require("../gorgon/proptypes.js");
 
 const defaultExplanationProps = {
     showPrompt: "Explain",
     hidePrompt: "Hide explanation",
     explanation: "explanation goes here\n\nmore explanation",
     widgets: {},
-    highlightLint: false,
+    linterContext: linterContextDefault,
 };
 
 const Explanation = React.createClass({
@@ -29,7 +30,7 @@ const Explanation = React.createClass({
         showPrompt: React.PropTypes.string,
         trackInteraction: React.PropTypes.func.isRequired,
         widgets: React.PropTypes.object,
-        highlightLint: React.PropTypes.bool,
+        linterContext: linterContextProps,
     },
 
     getDefaultProps: function() {
@@ -117,7 +118,7 @@ const Explanation = React.createClass({
                     apiOptions={this.props.apiOptions}
                     content={this.props.explanation}
                     widgets={this.props.widgets}
-                    highlightLint={this.props.highlightLint}
+                    linterContext={this.props.linterContext}
                 />
             </div>
         </div>;

@@ -1,5 +1,3 @@
- /* eslint-disable no-console */
-
  /**
   * Demonstrates the rendered result of a Perseus question within an iframe.
   *
@@ -117,6 +115,8 @@ const PreviewFrame = React.createClass({
                 (isExercise ? "bibliotron-exercise " : "bibliotron-article ") +
                 (this.props.isMobile ? "perseus-mobile" : "");
 
+            const linterContext = this.state.data.linterContext;
+
             if (this.state.type === "question") {
                 return <div
                     className={perseusClass}
@@ -125,7 +125,7 @@ const PreviewFrame = React.createClass({
                 >
                     <ItemRenderer
                         {...updatedData}
-                        highlightLint={!!this.state.data.highlightLint}
+                        linterContext={linterContext}
                     />
                     <div id="workarea" style={{marginLeft: 0}}/>
                     <div id="hintsarea"/>
@@ -138,7 +138,7 @@ const PreviewFrame = React.createClass({
                 >
                     <HintRenderer
                         {...updatedData}
-                        highlightLint={!!this.state.data.highlightLint}
+                        linterContext={linterContext}
                     />
                 </div>;
             } else if (this.state.type === "article") {
@@ -148,7 +148,7 @@ const PreviewFrame = React.createClass({
                 >
                     <ArticleRenderer
                         {...updatedData}
-                        highlightLint={!!this.state.data.highlightLint}
+                        linterContext={linterContext}
                     />
                 </div>;
             } else if (this.state.type === "article-all") {
@@ -160,7 +160,7 @@ const PreviewFrame = React.createClass({
                         return <ArticleRenderer
                             key={i}
                             {...data}
-                            highlightLint={!!this.state.data.highlightLint}
+                            linterContext={linterContext}
                         />;
                     })}
                 </div>;

@@ -14,6 +14,7 @@ const Renderer = require("../renderer.jsx");
 const GradedGroupAnswerBar = require("./graded-group-answer-bar.jsx");
 const {gray76, phoneMargin, negativePhoneMargin, tableBackgroundAccent, kaGreen} = require("../styles/constants.js");
 const {StyleSheet, css} = require("aphrodite");
+const {linterContextProps, linterContextDefault} = require("../gorgon/proptypes.js");
 
 // A Graded Group is more or less a Group widget that displays a check
 // answer button below the rendered content. When clicked, the widget grades
@@ -73,7 +74,7 @@ const GradedGroup = React.createClass({
         title: React.PropTypes.string,
         trackInteraction: React.PropTypes.func.isRequired,
         widgets: React.PropTypes.object,
-        highlightLint: React.PropTypes.bool,
+        linterContext: linterContextProps,
     },
 
     getDefaultProps: function() {
@@ -84,7 +85,7 @@ const GradedGroup = React.createClass({
             images: {},
             hint: null,
             hasHint: false,
-            highlightLint: false,
+            linterContext: linterContextDefault,
         };
     },
 
@@ -244,7 +245,7 @@ const GradedGroup = React.createClass({
                 ref="renderer"
                 apiOptions={{...apiOptions, readOnly}}
                 onInteractWithWidget={this._onInteractWithWidget}
-                highlightLint={this.props.highlightLint}
+                linterContext={this.props.linterContext}
             />
             {!apiOptions.isMobile && icon && <div className="group-icon">
                 {icon}
@@ -280,7 +281,7 @@ const GradedGroup = React.createClass({
                         {...this.props.hint}
                         ref="hints-renderer"
                         apiOptions={apiOptions}
-                        highlightLint={this.props.highlightLint}
+                        linterContext={this.props.linterContext}
                     />
                 </div> :
                 <div

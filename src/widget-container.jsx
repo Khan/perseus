@@ -12,18 +12,19 @@ const {
     containerSizeClass,
     getClassFromWidth,
 } = require('./util/sizing-utils.js');
+const {linterContextProps, linterContextDefault} = require("./gorgon/proptypes.js");
 
 const WidgetContainer = React.createClass({
     propTypes: {
         shouldHighlight: React.PropTypes.bool.isRequired,
         type: React.PropTypes.string,
         initialProps: React.PropTypes.object.isRequired,
-        highlightLint: React.PropTypes.bool,
+        linterContext: linterContextProps,
     },
 
     getDefaultProps() {
         return {
-            highlightLint: false,
+            linterContext: linterContextDefault,
         };
     },
 
@@ -100,12 +101,12 @@ const WidgetContainer = React.createClass({
         // Some widgets may include strings of markdown that we may
         // want to run the linter on. So if the widget is lintable,
         // and we've been asked to highlight lint, pass that property
-        // on to the widget
-        const linterProps = {};
-        if (Widgets.isLintable(type)) {
-            linterProps.highlightLint = this.props.highlightLint;
+        // on to the widget, and if the content is not lintable, make sure
+        // to default to false.
+        const linterContext = {...this.props.linterContext};
+        if (!Widgets.isLintable(type)) {
+            linterContext.highlightLint = false;
         }
-
 
         // Note: if you add more props here, please consider whether or not
         // it should be auto-serialized (e.g. used in scoreInput()). See
@@ -118,7 +119,7 @@ const WidgetContainer = React.createClass({
                 style={isStatic ? staticContainerStyles : {}}>
             <WidgetType
                 {...this.state.widgetProps}
-                {...linterProps}
+                linterContext={linterContext}
                 containerSizeClass={this.state.sizeClass}
                 ref="widget"
             />
