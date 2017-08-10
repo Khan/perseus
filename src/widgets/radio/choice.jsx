@@ -142,6 +142,10 @@ const Choice = React.createClass({
             choiceIconWrapper: {
                 display: "flex",
                 marginRight: 16,
+
+                // NOTE(mdr): Without this style, the bubbles shrink on iOS
+                //     when answer text gets long.
+                flexShrink: 0,
             },
 
             rationale: {
