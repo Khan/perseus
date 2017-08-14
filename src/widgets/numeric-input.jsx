@@ -6,6 +6,8 @@
 var classNames = require("classnames");
 var React = require('react');
 var _ = require("underscore");
+const {StyleSheet, css} = require("aphrodite");
+const styleConstants = require("../styles/constants.js");
 
 var InputWithExamples = require("../components/input-with-examples.jsx");
 const SimpleKeypadInput = require("../components/simple-keypad-input.jsx");
@@ -46,6 +48,8 @@ var formExamples = {
 var NumericInput = React.createClass({
     propTypes: {
         currentValue: React.PropTypes.string,
+        currentMultipleValues: React.PropTypes.arrayOf(
+            React.PropTypes.string),
         size: React.PropTypes.oneOf(["normal", "small"]),
         apiOptions: ApiOptions.propTypes,
         coefficient: React.PropTypes.bool,
@@ -62,126 +66,204 @@ var NumericInput = React.createClass({
         trackInteraction: React.PropTypes.func.isRequired,
         widgetId: React.PropTypes.string.isRequired,
         linterContext: linterContextProps,
+        multipleNumberInput: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
         return {
             currentValue: "",
+            currentMultipleValues: [],
             size: "normal",
             apiOptions: ApiOptions.defaults,
             coefficient: false,
             answerForms: [],
             labelText: "",
             linterContext: linterContextDefault,
+            multipleNumberInput: false,
         };
     },
 
+    getAnswerBlurb: function(rubric) {
+        var correct;
+        var answerBlurb;
+        if (this.props.apiOptions.satStyling && rubric) {
+            var score = this.simpleValidate(rubric);
+            correct = score.type === "points" &&
+                      score.earned === score.total;
+
+            if (!correct) {
+                var correctAnswers = _.filter(
+                    rubric.answers, answer => answer.status === "correct");
+                var answerStrings = _.map(correctAnswers, (answer) => {
+                    // Figure out how this answer is supposed to be
+                    // displayed
+                    var format = "decimal";
+                    if (answer.answerForms && answer.answerForms[0]) {
+                        // NOTE(johnsullivan): This isn't exactly ideal, but
+                        // it does behave well for all the currently known
+                        // problems. See D14742 for some discussion on
+                        // alternate strategies.
+                        format = answer.answerForms[0];
+                    }
+
+                    var answerString = KhanMath.toNumericString(
+                        answer.value, format);
+                    if (answer.maxError) {
+                        answerString += " \u00B1 " +
+                            KhanMath.toNumericString(answer.maxError,
+                                format);
+                    }
+                    return answerString;
+                });
+                answerBlurb = <PossibleAnswers answers={answerStrings} />;
+            }
+        }
+        return [answerBlurb, correct];
+    },
+
+    getClasses: function(correct, rubric) {
+        const classes = {};
+        classes["perseus-input-size-" + this.props.size] = true;
+        classes[ApiClassNames.CORRECT] =
+            rubric && correct && this.props.currentValue;
+        classes[ApiClassNames.INCORRECT] =
+            rubric && !correct && this.props.currentValue;
+        classes[ApiClassNames.UNANSWERED] = rubric &&
+            !this.props.currentValue;
+        return classes;
+    },
+
     render: function() {
-        if (this.props.apiOptions.customKeypad) {
-            // TODO(charlie): Support "Review Mode".
-            return <SimpleKeypadInput
-                ref="input"
-                value={this.props.currentValue}
-                keypadElement={this.props.keypadElement}
-                onChange={this.handleChange}
-                onFocus={this._handleFocus}
-                onBlur={this._handleBlur}
-            />;
-        } else {
-            // HACK(johnsullivan): Create a function with shared logic between
-            // this and InputNumber.
-            var correct;
-            var answerBlurb;
-            var rubric = this.props.reviewModeRubric;
-            if (this.props.apiOptions.satStyling && rubric) {
-                var score = this.simpleValidate(rubric);
-                correct = score.type === "points" &&
-                          score.earned === score.total;
+        const rubric = this.props.reviewModeRubric;
+        const answers = this.getAnswerBlurb(rubric);
+        const answerBlurb = answers[0];
+        const correct = answers[1];
+        const classes = this.getClasses(correct, rubric);
 
-                if (!correct) {
-                    var correctAnswers = _.filter(
-                        rubric.answers, answer => answer.status === "correct");
-                    var answerStrings = _.map(correctAnswers, (answer) => {
-                        // Figure out how this answer is supposed to be
-                        // displayed
-                        var format = "decimal";
-                        if (answer.answerForms && answer.answerForms[0]) {
-                            // NOTE(johnsullivan): This isn't exactly ideal, but
-                            // it does behave well for all the currently known
-                            // problems. See D14742 for some discussion on
-                            // alternate strategies.
-                            format = answer.answerForms[0];
-                        }
+        var labelText = this.props.labelText;
+        if (labelText == null || labelText === "") {
+            labelText = i18n._("Your answer:");
+        }
 
-                        var answerString = KhanMath.toNumericString(
-                            answer.value, format);
-                        if (answer.maxError) {
-                            answerString += " \u00B1 " +
-                                KhanMath.toNumericString(answer.maxError,
-                                    format);
-                        }
-                        return answerString;
-                    });
-                    answerBlurb = <PossibleAnswers answers={answerStrings} />;
-                }
-            }
-
-            var classes = {};
-            classes["perseus-input-size-" + this.props.size] = true;
-            classes[ApiClassNames.CORRECT] =
-                rubric && correct && this.props.currentValue;
-            classes[ApiClassNames.INCORRECT] =
-                rubric && !correct && this.props.currentValue;
-            classes[ApiClassNames.UNANSWERED] = rubric &&
-                !this.props.currentValue;
-
-            var labelText = this.props.labelText;
-            if (labelText == null || labelText === "") {
-                labelText = i18n._("Your answer:");
-            }
-
-            var input = <InputWithExamples
-                ref="input"
-                value={this.props.currentValue}
-                onChange={this.handleChange}
-                className={classNames(classes)}
-                labelText={labelText}
-                type={this._getInputType()}
-                examples={this.examples()}
-                shouldShowExamples={this.shouldShowExamples()}
-                onFocus={this._handleFocus}
-                onBlur={this._handleBlur}
-                id={this.props.widgetId}
-                disabled={this.props.apiOptions.readOnly}
-                linterContext={this.props.linterContext}
-            />;
-
-            if (answerBlurb) {
-                return <span className="perseus-input-with-answer-blurb">
-                    {input}
-                    {answerBlurb}
-                </span>;
-            } else if (this.props.apiOptions.satStyling) {
-                // NOTE(amy): the input widgets themselves already have
-                // a default aria label of "Your Answer", so we hide this
-                // redundant label from screen-readers.
-                return <label
-                    className="perseus-input-with-label"
-                    aria-hidden="true"
+        var input;
+        if (this.props.multipleNumberInput) {
+            const addInput = (
+                <div
+                    className={css(styles.addInputButton)}
+                    onClick={this._addInput}
                 >
-                    <span className="perseus-input-label">
-                        {i18n.i18nDoNotTranslate("Answer:")}
-                    </span>
-                    {input}
-                </label>;
+                    +
+                </div>
+            );
+            const removeInput = (
+                <div
+                    className={css(styles.addInputButton)}
+                    onClick={this._removeInput}
+                >
+                    -
+                </div>
+            );
+            input = <div>
+                Add answer
+                {addInput}
+                {this.props.currentMultipleValues.length > 0 && removeInput}
+                <br/>
+                {this.props.currentMultipleValues.length === 0 ?
+                    <div>No Solution</div> :
+                    this.props.currentMultipleValues.map((item, i) =>
+                        this.props.apiOptions.customKeypad ?
+                        <SimpleKeypadInput
+                            ref="input"
+                            key={i}
+                            value={this.props.currentMultipleValues[i]}
+                            keypadElement={this.props.keypadElement}
+                            onChange={
+                                evt => this.handleMultipleInputChange(i, evt)}
+                            onFocus={this._handleFocus}
+                            onBlur={this._handleBlur}
+                        /> :
+                        <InputWithExamples
+                            ref="input"
+                            key={i}
+                            value={this.props.currentMultipleValues[i]}
+                            onChange={
+                                evt => this.handleMultipleInputChange(i, evt)}
+                            className={classNames(classes)}
+                            labelText={labelText}
+                            type={this._getInputType()}
+                            examples={this.examples()}
+                            shouldShowExamples={this.shouldShowExamples()}
+                            onFocus={this._handleFocus}
+                            onBlur={this._handleBlur}
+                            id={this.props.widgetId}
+                            disabled={this.props.apiOptions.readOnly}
+                            highlightLint={this.props.highlightLint}
+                        />)}
+            </div>;
+        } else {
+            if (this.props.apiOptions.customKeypad) {
+                // TODO(charlie): Support "Review Mode".
+                return <SimpleKeypadInput
+                    ref="input"
+                    value={this.props.currentValue}
+                    keypadElement={this.props.keypadElement}
+                    onChange={this.handleChange}
+                    onFocus={this._handleFocus}
+                    onBlur={this._handleBlur}
+                />;
             } else {
-                return input;
+                input = <InputWithExamples
+                    ref="input"
+                    value={this.props.currentValue}
+                    onChange={this.handleChange}
+                    className={classNames(classes)}
+                    labelText={labelText}
+                    type={this._getInputType()}
+                    examples={this.examples()}
+                    shouldShowExamples={this.shouldShowExamples()}
+                    onFocus={this._handleFocus}
+                    onBlur={this._handleBlur}
+                    id={this.props.widgetId}
+                    disabled={this.props.apiOptions.readOnly}
+                    highlightLint={this.props.highlightLint}
+                />;
             }
+
+        }
+        if (answerBlurb) {
+            return <span className="perseus-input-with-answer-blurb">
+                {input}
+                {answerBlurb}
+            </span>;
+        } else if (this.props.apiOptions.satStyling) {
+            // NOTE(amy): the input widgets themselves already have
+            // a default aria label of "Your Answer", so we hide this
+            // redundant label from screen-readers.
+            return <label
+                className="perseus-input-with-label"
+                aria-hidden="true"
+            >
+                <span className="perseus-input-label">
+                    {i18n.i18nDoNotTranslate("Answer:")}
+                </span>
+                {input}
+            </label>;
+        } else {
+            return input;
         }
     },
 
     handleChange: function(newValue, cb) {
         this.props.onChange({ currentValue: newValue }, cb);
+        this.props.trackInteraction();
+    },
+
+    handleMultipleInputChange: function(index, newValue) {
+        const newValues = this.props.currentMultipleValues.slice();
+        newValues[index] = newValue;
+        this.props.onChange({
+            currentMultipleValues: newValues,
+        });
         this.props.trackInteraction();
     },
 
@@ -206,6 +288,22 @@ var NumericInput = React.createClass({
 
     _handleBlur: function() {
         this.props.onBlur([]);
+    },
+
+    _addInput: function() {
+        // Add a new blank value to the list of current values
+        this.props.onChange({
+            currentMultipleValues:
+                this.props.currentMultipleValues.concat([""])
+        });
+    },
+
+    _removeInput: function() {
+        const listLength = this.props.currentMultipleValues.length;
+        this.props.onChange({
+            currentMultipleValues:
+                this.props.currentMultipleValues.splice(0, listLength - 1)
+        });
     },
 
     focus: function() {
@@ -238,7 +336,13 @@ var NumericInput = React.createClass({
     },
 
     getUserInput: function() {
-        return {currentValue: this.props.currentValue};
+        const multiple = this.props.multipleNumberInput;
+        return {
+            multInput: multiple,
+            currentValue: multiple ?
+                this.props.currentMultipleValues :
+                this.props.currentValue
+        };
     },
 
     simpleValidate: function(rubric) {
@@ -300,62 +404,109 @@ _.extend(NumericInput, {
         // We may have received TeX; try to parse it before grading.
         // If `currentValue` is not TeX, this should be a no-op.
         var currentValue = ParseTex(state.currentValue);
-
-        // Look through all correct answers for one that matches either
-        // precisely or approximately and return the appropriate message:
-        // - if precise, return the message that the answer came with
-        // - if it needs to be simplified, etc., show that message
         var correctAnswers = _.where(rubric.answers, {status: "correct"});
-        var result = _.find(_.map(correctAnswers, (answer) => {
-            // The coefficient is an attribute of the widget
-            var localValue = currentValue;
-            if (rubric.coefficient) {
-                if (!localValue) {
-                    localValue = 1;
-                }
-                else if (localValue === "-") {
-                    localValue = -1;
-                }
+
+        if (state.multInput) {
+            // sort the answers and the solutions so they can be compared
+            var sortedInputs = currentValue.split(",").sort();
+            correctAnswers.sort((a, b) => {
+                return a.value > b.value ? 1 : -1;
+            });
+
+            // If the number of correct answers and user answers do not match
+            // return early that the answer is wrong
+            if (sortedInputs.length !== correctAnswers.length) {
+                return {
+                    type: "points",
+                    earned: 0,
+                    total: 1,
+                    message: "Incorrect number of answers"
+                };
             }
 
-            var validate = createValidator(answer);
-            return validate(localValue);
-        }), match => match.correct || match.empty);
+            // Look through all correct answers and make sure there is
+            // the correct user answer for each
+            var correct = true;
+            var message;
+            correctAnswers.forEach(function(answer, i) {
+                var localValue = sortedInputs[i];
+                if (rubric.coefficient) {
+                    if (!localValue) {
+                        localValue = 1;
+                    } else if (localValue === "-") {
+                        localValue = -1;
+                    }
+                }
+                var validate = createValidator(answer);
+                const status = validate(localValue);
+                correct = correct && status.correct;
+                if (status.message) {
+                    message = status.message;
+                }
+            });
 
-        if (!result) { // Otherwise, if the guess is not correct
-            var otherAnswers = ([]).concat(
-                _.where(rubric.answers, {status: "ungraded"}),
-                _.where(rubric.answers, {status: "wrong"})
-            );
-
-            // Look through all other answers and if one matches either
-            // precisely or approximately return the answer's message
-            const match = _.find(otherAnswers, (answer) => {
-                 var validate = createValidator(answer);
-                 return validate(currentValue).correct;
-             });
-            result = {
-                empty: match ? match.status === "ungraded" : false,
-                correct: match ? match.status === "correct" : false,
-                message: match ? match.message : null,
-                guess: currentValue
-            };
-        }
-
-        // TODO(eater): Seems silly to translate result to this invalid/points
-        // thing and immediately translate it back in ItemRenderer.scoreInput()
-        if (result.empty) {
-            return {
-                type: "invalid",
-                message: result.message
-            };
-        } else {
             return {
                 type: "points",
-                earned: result.correct ? 1 : 0,
+                earned: correct ? 1 : 0,
                 total: 1,
-                message: result.message
+                message: message
             };
+        } else {
+
+            // Look through all correct answers for one that matches either
+            // precisely or approximately and return the appropriate message:
+            // - if precise, return the message that the answer came with
+            // - if it needs to be simplified, etc., show that message
+            var result = _.find(_.map(correctAnswers, (answer) => {
+                // The coefficient is an attribute of the widget
+                var localValue = currentValue;
+                if (rubric.coefficient) {
+                    if (!localValue) {
+                        localValue = 1;
+                    } else if (localValue === "-") {
+                        localValue = -1;
+                    }
+                }
+                var validate = createValidator(answer);
+                return validate(localValue);
+            }), match => match.correct || match.empty);
+
+            if (!result) { // Otherwise, if the guess is not correct
+                var otherAnswers = ([]).concat(
+                    _.where(rubric.answers, {status: "ungraded"}),
+                    _.where(rubric.answers, {status: "wrong"})
+                );
+
+                // Look through all other answers and if one matches either
+                // precisely or approximately return the answer's message
+                const match = _.find(otherAnswers, (answer) => {
+                     var validate = createValidator(answer);
+                     return validate(currentValue).correct;
+                 });
+                result = {
+                    empty: match ? match.status === "ungraded" : false,
+                    correct: match ? match.status === "correct" : false,
+                    message: match ? match.message : null,
+                    guess: currentValue
+                };
+            }
+
+            // TODO(eater): Seems silly to translate result to this
+            // invalid/points thing and immediately translate it
+            // back in ItemRenderer.scoreInput()
+            if (result.empty) {
+                return {
+                    type: "invalid",
+                    message: result.message
+                };
+            } else {
+                return {
+                    type: "points",
+                    earned: result.correct ? 1 : 0,
+                    total: 1,
+                    message: result.message
+                };
+            }
         }
     }
 });
@@ -418,6 +569,24 @@ var propsTransform = function(editorProps) {
 
     return rendererProps;
 };
+
+const styles = StyleSheet.create({
+    addInputButton: {
+        cursor: "pointer",
+        display: "inline-block",
+        border: `2px solid ${styleConstants.kaGreen}`,
+        color: styleConstants.kaGreen,
+        fontSize: 20,
+        borderRadius: 15,
+        width: 26,
+        height: 26,
+        marginBottom: 7,
+        marginRight: 8,
+        marginLeft: 8,
+        textAlign: "center",
+        paddingTop: 2,
+    },
+});
 
 module.exports = {
     name: "numeric-input",
