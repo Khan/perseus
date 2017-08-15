@@ -4,6 +4,7 @@
 // be an auto-generated file with a script that updates it any time
 // we add a new rule?
 module.exports = [
+    require("./absolute-url.js"),
     require("./blockquoted-math.js"),
     require("./blockquoted-widget.js"),
     require("./double-spacing-after-terminal.js"),
@@ -15,7 +16,6 @@ module.exports = [
     require("./image-alt-text.js"),
     require("./image-in-table.js"),
     require("./link-click-here.js"),
-    require("./link-image-url.js"),
     require("./long-paragraph.js"),
     require("./math-adjacent.js"),
     require("./math-align-extra-break.js"),
