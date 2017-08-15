@@ -195,6 +195,10 @@ var NumericInput = React.createClass({
 
     _handleFocus: function() {
         this.props.onFocus([]);
+        // HACK(kevinb): We want to dismiss the feedback popover that webapp
+        // displays as soon as a user clicks in in the input field so we call
+        // interactionCallback directly.
+        this.props.apiOptions.interactionCallback();
     },
 
     _handleBlur: function() {
