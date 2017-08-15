@@ -121,6 +121,7 @@ const ArticleEditor = React.createClass({
             json: section,
             useNewStyles: this.props.useNewStyles,
             linterContext: {
+                contentType: 'article',
                 highlightLint: this.state.highlightLint,
                 paths: this.props.contentPaths,
             },

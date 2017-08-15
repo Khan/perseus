@@ -397,7 +397,9 @@ var Renderer = React.createClass({
                 type={type}
                 initialProps={this.getWidgetProps(id)}
                 shouldHighlight={shouldHighlight}
-                linterContext={this.props.linterContext}
+                linterContext={
+                    Gorgon.pushContextStack(this.props.linterContext, 'widget')
+                }
             />;
         } else {
             return null;
@@ -1610,7 +1612,9 @@ var Renderer = React.createClass({
             const context = {
                 content: this.props.content,
                 widgets: this.props.widgets,
+                ...this.props.linterContext,
             };
+
             Gorgon.runLinter(parsedMarkdown, context, true);
         }
 

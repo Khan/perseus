@@ -16,6 +16,7 @@ const {
     gray97,
 } = require("./styles/constants.js");
 
+const Gorgon = require("./gorgon/gorgon.js");
 const {linterContextProps, linterContextDefault} = require("./gorgon/proptypes.js");
 
 /* Renders just a hint preview */
@@ -102,7 +103,9 @@ const HintRenderer = React.createClass({
                 images={hint.images}
                 apiOptions={rendererApiOptions}
                 findExternalWidgets={this.props.findExternalWidgets}
-                linterContext={this.props.linterContext}
+                linterContext={
+                    Gorgon.pushContextStack(this.props.linterContext, 'hint')
+                }
             />
         </div>;
     },

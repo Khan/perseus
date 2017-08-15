@@ -488,6 +488,17 @@ describe("Individual lint rules tests", () => {
         "$a == 3.  125$",
     ]);
 
+    expectWarning(require("../rules/extra-content-spacing.js"), [
+        "There's extra spaces here.     ",
+        "There's extra spaces here    ",
+        "  ",
+    ]);
+    expectPass(require("../rules/extra-content-spacing"), [
+        "This is okay.",
+        "This is definitely okay. Yeah.",
+        "$a == 3.  125$",
+    ]);
+
     /*
     expectWarning(require("../rules/"), [
     ]);

@@ -12,6 +12,7 @@ const {
     containerSizeClass,
     getClassFromWidth,
 } = require('./util/sizing-utils.js');
+
 const {linterContextProps, linterContextDefault} = require("./gorgon/proptypes.js");
 
 const WidgetContainer = React.createClass({
@@ -103,7 +104,8 @@ const WidgetContainer = React.createClass({
         // and we've been asked to highlight lint, pass that property
         // on to the widget, and if the content is not lintable, make sure
         // to default to false.
-        const linterContext = {...this.props.linterContext};
+        const linterContext = this.props.linterContext;
+
         if (!Widgets.isLintable(type)) {
             linterContext.highlightLint = false;
         }

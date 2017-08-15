@@ -69,8 +69,24 @@ function runLinter(tree, context, highlight, rules) {
     // lint violation at that node.
     tt.traverse((node, state, content) => {
         const nodeWarnings = [];
-        rules.forEach(rule => {
-            const warning = rule.check(node, state, content, context);
+
+        // If our rule is only designed to be tested against a particular
+        // content type and we're not in that content type, we don't need to
+        // consider that rule.
+        const applicableRules = rules.filter(r => r.applies(context));
+
+        // Generate a stack so we can identify our position in the tree in
+        // lint rules
+        const stack = [...context.stack];
+        stack.push(node.type);
+
+        const nodeContext = {
+            ...context,
+            stack: stack.join('.'),
+        };
+
+        applicableRules.forEach(rule => {
+            const warning = rule.check(node, state, content, nodeContext);
             if (warning) {
                 // The start and end locations are relative to this
                 // particular node, and so are not generally very useful.
@@ -229,6 +245,14 @@ function runLinter(tree, context, highlight, rules) {
     return warnings;
 }
 
+function pushContextStack(context, name) {
+    const stack = context.stack || [];
+    return {
+        ...context,
+        stack: stack.concat(name),
+    };
+}
+
 //
 // TODO(davidflanagan):
 // Revisit these exports once we've got gorgon integrated into Perseus.
@@ -239,7 +263,8 @@ function runLinter(tree, context, highlight, rules) {
 // TODO(davidflanagan): switch from require to import
 //
 module.exports = {
-    runLinter: runLinter,
+    runLinter,
     parse: PerseusMarkdown.parse,
+    pushContextStack,
     rules: allLintRules,
 };

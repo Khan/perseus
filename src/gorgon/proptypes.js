@@ -4,11 +4,15 @@
 const React = require("react");
 
 export const linterContextProps = React.PropTypes.shape({
+    contentType: React.PropTypes.string,
     highlightLint: React.PropTypes.bool,
     paths: React.PropTypes.arrayOf(React.PropTypes.string),
+    stack: React.PropTypes.arrayOf(React.PropTypes.string),
 });
 
 export const linterContextDefault = {
+    contentType: '',
     highlightLint: false,
     paths: [],
+    stack: [],
 };

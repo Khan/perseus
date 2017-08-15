@@ -13,6 +13,8 @@ const ProvideKeypad = require("./mixins/provide-keypad.jsx");
 const Util = require("./util.js");
 
 const {mapObject} = require("./interactive2/objective_.js");
+
+const Gorgon = require("./gorgon/gorgon.js");
 const {linterContextProps, linterContextDefault} = require("./gorgon/proptypes.js");
 
 const RP = React.PropTypes;
@@ -152,7 +154,11 @@ const ItemRenderer = React.createClass({
                     questionCompleted={this.state.questionCompleted}
                     reviewMode={this.props.reviewMode}
                     savedState={this.props.savedState}
-                    linterContext={this.props.linterContext}
+                    linterContext={
+                        Gorgon.pushContextStack(
+                            this.props.linterContext, 'question'
+                        )
+                    }
                     {...this.props.item.question}
                 />,
                 document.querySelector(this.props.workAreaSelector));
@@ -162,7 +168,11 @@ const ItemRenderer = React.createClass({
                     hints={this.props.item.hints}
                     hintsVisible={this.state.hintsVisible}
                     apiOptions={apiOptions}
-                    linterContext={this.props.linterContext}
+                    linterContext={
+                        Gorgon.pushContextStack(
+                            this.props.linterContext, 'hints'
+                        )
+                    }
                 />,
                 document.querySelector(this.props.hintsAreaSelector));
 

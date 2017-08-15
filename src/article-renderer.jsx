@@ -14,6 +14,8 @@ const ApiOptions = require("./perseus-api.jsx").Options;
 const ApiClassNames = require("./perseus-api.jsx").ClassNames;
 const Renderer = require("./renderer.jsx");
 const ProvideKeypad = require("./mixins/provide-keypad.jsx");
+
+const Gorgon = require("./gorgon/gorgon.js");
 const {linterContextProps, linterContextDefault} = require("./gorgon/proptypes.js");
 
 const rendererProps = React.PropTypes.shape({
@@ -186,7 +188,11 @@ const ArticleRenderer = React.createClass({
                             );
                         },
                     }}
-                    linterContext={this.props.linterContext}
+                    linterContext={
+                        Gorgon.pushContextStack(
+                            this.props.linterContext, 'article'
+                        )
+                    }
                 />
             </div>;
         });

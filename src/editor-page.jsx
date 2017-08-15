@@ -129,7 +129,9 @@ var EditorPage = React.createClass({
                 initialHintsVisible: 0,
                 device: this.props.previewDevice,
                 linterContext: {
+                    contentType: 'exercise',
                     highlightLint: this.state.highlightLint,
+                    paths: this.props.contentPaths,
                 },
             }).extend(
                 _(this.props).pick("workAreaSelector",

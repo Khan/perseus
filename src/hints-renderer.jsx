@@ -19,6 +19,8 @@ const {
     gray85,
     gray17,
 } = require("./styles/constants.js");
+
+const Gorgon = require("./gorgon/gorgon.js");
 const {linterContextProps, linterContextDefault} = require("./gorgon/proptypes.js");
 
 const HintsRenderer = React.createClass({
@@ -140,7 +142,11 @@ const HintsRenderer = React.createClass({
                     key={"hintRenderer" + i}
                     apiOptions={apiOptions}
                     findExternalWidgets={this.props.findExternalWidgets}
-                    linterContext={this.props.linterContext}
+                    linterContext={
+                        Gorgon.pushContextStack(
+                            this.props.linterContext, 'hints[' + i + ']'
+                        )
+                    }
                 />;
 
                 if (hint.replace && hints.length > 0) {

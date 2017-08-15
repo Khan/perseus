@@ -139,7 +139,9 @@ var CombinedHintEditor = React.createClass({
                 pos: this.props.pos,
                 apiOptions: this.props.apiOptions,
                 linterContext: {
+                    contentType: 'hint',
                     highlightLint: this.props.highlightLint,
+                    paths: this.props.contentPaths,
                 },
             },
         });
