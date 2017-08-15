@@ -1,7 +1,3 @@
-/* eslint-disable comma-dangle, indent */
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /**
  * Calculates whether a perseus item is renderable by a specific
  * perseus-item-data version.
@@ -18,8 +14,9 @@ const {findContentNodesInItem, inferItemShape} = require("./multi-items.js");
 const Traversal = require("./traversal.jsx");
 const Widgets = require("./widgets.js");
 
-const isUpgradedWidgetInfoRenderableBy =
-        function(widgetInfo, widgetRendererVersion) {
+const isUpgradedWidgetInfoRenderableBy = function(
+    widgetInfo, widgetRendererVersion
+) {
     if (widgetRendererVersion == null) {
         // If the widget does not exist in this version, this will
         // be null, and that version of perseus cannot render the
@@ -59,8 +56,9 @@ const isRawWidgetInfoRenderableBy = function(widgetInfo,
     );
 };
 
-const isRendererContentRenderableBy =
-        function(rendererOptions, rendererContentVersion) {
+const isRendererContentRenderableBy = function(
+    rendererOptions, rendererContentVersion
+) {
     let isRenderable = true;
     Traversal.traverseRendererDeep(
         rendererOptions,
@@ -98,5 +96,5 @@ const isItemRenderableBy = function(itemData, rendererContentVersion) {
 };
 
 module.exports = {
-    isItemRenderableByVersion: isItemRenderableBy
+    isItemRenderableByVersion: isItemRenderableBy,
 };

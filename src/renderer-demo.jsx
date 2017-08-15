@@ -1,9 +1,3 @@
-/* eslint-disable object-curly-spacing */
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
- /* eslint-disable no-console */
-
  /**
   * Demonstrates the rendered result of a Perseus question
   *
@@ -12,7 +6,7 @@
   */
 
 const React = require('react');
-const { StyleSheet, css } = require('aphrodite');
+const {StyleSheet, css} = require('aphrodite');
 const ReactDOM = require('react-dom');
 
 const ApiClassNames = require("./perseus-api.jsx").ClassNames;
@@ -52,7 +46,7 @@ const RendererDemo = React.createClass({
     getInitialState: function() {
         return {
             // Matches ItemRenderer.showInput
-            answer: { empty: true, correct: null },
+            answer: {empty: true, correct: null},
             scratchpadEnabled: true,
             isMobile: navigator.userAgent.indexOf('Mobile') !== -1,
         };
@@ -69,7 +63,7 @@ const RendererDemo = React.createClass({
     },
 
     onScore: function() {
-        console.log(this.refs.itemRenderer.scoreInput());
+        console.log(this.refs.itemRenderer.scoreInput()); // eslint-disable-line no-console
     },
 
     checkAnswer: function() {

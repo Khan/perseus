@@ -1,6 +1,3 @@
-/* eslint-disable max-len */
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
 const {Component} = require('react');
 const ArticleDiff = require('./diffs/article-diff.jsx');
 
@@ -23,6 +20,7 @@ class ArticleDiffDemo extends Component {
     }
 }
 
+/* eslint-disable max-len */
 const before = [
     {
         "content": "**What kind of structure is highlighted in green in the diagram shown?**\n \n![](https://ka-perseus-graphie.s3.amazonaws.com/07dace481175322baa244b35d112968977d19da3.png)![](https://ka-perseus-graphie.s3.amazonaws.com/a10ab9f9b66982637bd1cf1e3cfe493562144e15.png)\n\nHow  many apples? [[☃ numeric-input 1]]\n\n[[☃ image 1]]\n\nWhat's the structure? [[☃ dropdown 1]]",

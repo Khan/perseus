@@ -1,6 +1,3 @@
-/* eslint-disable no-console */
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
 /**
  * Demonstrates the rendered result of a Perseus article
  */
@@ -42,11 +39,11 @@ const ArticleDemo = React.createClass({
     },
 
     serialize: function() {
-        console.log(JSON.stringify(this.refs.editor.serialize(), null, 4));
+        console.log(JSON.stringify(this.refs.editor.serialize(), null, 4)); // eslint-disable-line no-console
     },
 
     scorePreview: function() {
-        console.log(this.refs.editor.scorePreview());
+        console.log(this.refs.editor.scorePreview()); // eslint-disable-line no-console
     },
 
     _getContentHash: function() {
@@ -78,10 +75,10 @@ const ArticleDemo = React.createClass({
             apiOptions: {
                 customKeypad: isMobile,
                 onFocusChange: function(newPath, oldPath) {
-                    console.log("onFocusChange", newPath, oldPath);
+                    console.log("onFocusChange", newPath, oldPath); // eslint-disable-line no-console
                 },
                 trackInteraction: function(trackData) {
-                    console.log("Interaction with", trackData.type,
+                    console.log("Interaction with", trackData.type, // eslint-disable-line no-console
                            trackData);
                 },
                 isMobile,

@@ -1,7 +1,3 @@
-/* eslint-disable object-curly-spacing */
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 "use strict";
 
 /**
@@ -56,7 +52,7 @@ const StatefulArticleEditor = React.createClass({
     },
 
     render: function() {
-        const { mode, screen } = this.state;
+        const {mode, screen} = this.state;
         return <div>
             <div style={styles.controlBar}>
                 <span style={styles.controls}>
