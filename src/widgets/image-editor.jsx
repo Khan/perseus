@@ -383,16 +383,6 @@ const ImageEditor = React.createClass({
         this.props.onChange({range: range});
     },
 
-    getSaveWarnings: function() {
-        var warnings = [];
-
-        if (this.props.backgroundImage.url && !this.props.alt) {
-            warnings.push("No alt text");
-        }
-
-        return warnings;
-    },
-
     serialize() {
         return EditorJsonify.serialize.call(this);
     },
