@@ -194,7 +194,10 @@ var InputNumber = React.createClass({
         // HACK(kevinb): We want to dismiss the feedback popover that webapp
         // displays as soon as a user clicks in in the input field so we call
         // interactionCallback directly.
-        this.props.apiOptions.interactionCallback();
+        const {interactionCallback} = this.props.apiOptions;
+        if (interactionCallback) {
+            interactionCallback();
+        }
     },
 
     _handleBlur: function() {

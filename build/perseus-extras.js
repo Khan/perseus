@@ -74,35 +74,35 @@ webpackJsonpPerseus([1],[
 	/* eslint-disable comma-dangle, no-undef, no-var, object-curly-spacing, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var _require = __webpack_require__(14), StyleSheet = _require.StyleSheet, css = _require.css;
+	var _require = __webpack_require__(13), StyleSheet = _require.StyleSheet, css = _require.css;
 
 	var React = __webpack_require__(11);
 
-	var classNames = __webpack_require__(13);
+	var classNames = __webpack_require__(14);
 
-	var Changeable = __webpack_require__(90);
+	var Changeable = __webpack_require__(99);
 
 	var WidgetJsonifyDeprecated = __webpack_require__(108);
 
 	var _ = __webpack_require__(10);
 
-	var ApiClassNames = __webpack_require__(18).ClassNames;
+	var ApiClassNames = __webpack_require__(17).ClassNames;
 
-	var ApiOptions = __webpack_require__(18).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
-	var _require2 = __webpack_require__(94), iconCircle = _require2.iconCircle, iconCircleThin = _require2.iconCircleThin;
+	var _require2 = __webpack_require__(103), iconCircle = _require2.iconCircle, iconCircleThin = _require2.iconCircleThin;
 
-	var InlineIcon = __webpack_require__(91);
+	var InlineIcon = __webpack_require__(100);
 
 	var Renderer = __webpack_require__(8);
 
-	var Util = __webpack_require__(17);
+	var Util = __webpack_require__(18);
 
-	var mediaQueries = __webpack_require__(38);
+	var mediaQueries = __webpack_require__(34);
 
-	var sharedStyles = __webpack_require__(39);
+	var sharedStyles = __webpack_require__(35);
 
-	var _require3 = __webpack_require__(34), linterContextProps = _require3.linterContextProps, linterContextDefault = _require3.linterContextDefault;
+	var _require3 = __webpack_require__(31), linterContextProps = _require3.linterContextProps, linterContextDefault = _require3.linterContextDefault;
 
 	var Categorizer = React.createClass({
 	    displayName: "Categorizer",
@@ -310,9 +310,9 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var Changeable = __webpack_require__(90);
+	var Changeable = __webpack_require__(99);
 
-	var updateQueryString = __webpack_require__(17).updateQueryString;
+	var updateQueryString = __webpack_require__(18).updateQueryString;
 
 	var PADDING_WIDTH = 2;
 
@@ -475,9 +475,9 @@ webpackJsonpPerseus([1],[
 	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var _require = __webpack_require__(14), StyleSheet = _require.StyleSheet, css = _require.css;
+	var _require = __webpack_require__(13), StyleSheet = _require.StyleSheet, css = _require.css;
 
-	var classNames = __webpack_require__(13);
+	var classNames = __webpack_require__(14);
 
 	var React = __webpack_require__(11);
 
@@ -485,17 +485,17 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var ApiClassNames = __webpack_require__(18).ClassNames;
+	var ApiClassNames = __webpack_require__(17).ClassNames;
 
-	var ApiOptions = __webpack_require__(18).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
-	var InlineIcon = __webpack_require__(91);
+	var InlineIcon = __webpack_require__(100);
 
-	var styleConstants = __webpack_require__(40);
+	var styleConstants = __webpack_require__(36);
 
-	var _require2 = __webpack_require__(94), iconDropdownArrow = _require2.iconDropdownArrow;
+	var _require2 = __webpack_require__(103), iconDropdownArrow = _require2.iconDropdownArrow;
 
-	var captureScratchpadTouchStart = __webpack_require__(17).captureScratchpadTouchStart;
+	var captureScratchpadTouchStart = __webpack_require__(18).captureScratchpadTouchStart;
 
 	var dropdownArrowSize = 24;
 
@@ -647,23 +647,23 @@ webpackJsonpPerseus([1],[
 	/* eslint-disable comma-dangle, object-curly-spacing, react/forbid-prop-types, react/sort-comp */
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var _require = __webpack_require__(14), StyleSheet = _require.StyleSheet, css = _require.css;
+	var _require = __webpack_require__(13), StyleSheet = _require.StyleSheet, css = _require.css;
 
 	var React = __webpack_require__(11);
 
 	var _ = __webpack_require__(10);
 
-	var Changeable = __webpack_require__(90);
+	var Changeable = __webpack_require__(99);
 
-	var PerseusApi = __webpack_require__(18);
+	var PerseusApi = __webpack_require__(17);
 
 	var Renderer = __webpack_require__(8);
 
-	var mediaQueries = __webpack_require__(38);
+	var mediaQueries = __webpack_require__(34);
 
-	var styleConstants = __webpack_require__(40);
+	var styleConstants = __webpack_require__(36);
 
-	var _require2 = __webpack_require__(34), linterContextProps = _require2.linterContextProps, linterContextDefault = _require2.linterContextDefault;
+	var _require2 = __webpack_require__(31), linterContextProps = _require2.linterContextProps, linterContextDefault = _require2.linterContextDefault;
 
 	var defaultExplanationProps = {
 	    showPrompt: "Explain",
@@ -880,21 +880,21 @@ webpackJsonpPerseus([1],[
 	    return target;
 	};
 
-	var _require = __webpack_require__(14), StyleSheet = _require.StyleSheet, css = _require.css;
+	var _require = __webpack_require__(13), StyleSheet = _require.StyleSheet, css = _require.css;
 
 	var React = __webpack_require__(11);
 
 	var _ = __webpack_require__(10);
 
-	var Changeable = __webpack_require__(90);
+	var Changeable = __webpack_require__(99);
 
-	var PerseusApi = __webpack_require__(18);
+	var PerseusApi = __webpack_require__(17);
 
 	var Renderer = __webpack_require__(8);
 
-	var mediaQueries = __webpack_require__(38);
+	var mediaQueries = __webpack_require__(34);
 
-	var styleConstants = __webpack_require__(40);
+	var styleConstants = __webpack_require__(36);
 
 	var Definition = React.createClass({
 	    displayName: "Definition",
@@ -1230,14 +1230,14 @@ webpackJsonpPerseus([1],[
 
 	var Interactive2 = __webpack_require__(109);
 
-	var SvgImage = __webpack_require__(36);
+	var SvgImage = __webpack_require__(32);
 
-	var Util = __webpack_require__(17);
+	var Util = __webpack_require__(18);
 
 	var ButtonGroup = __webpack_require__(110);
 
 	/* Graphie and relevant components. */
-	var Graphie = __webpack_require__(97);
+	var Graphie = __webpack_require__(86);
 
 	var MovablePoint = Graphie.MovablePoint;
 
@@ -1255,14 +1255,14 @@ webpackJsonpPerseus([1],[
 
 	var _require = __webpack_require__(82), containerSizeClassPropType = _require.containerSizeClassPropType;
 
-	var _require2 = __webpack_require__(40), interactiveSizes = _require2.interactiveSizes;
+	var _require2 = __webpack_require__(36), interactiveSizes = _require2.interactiveSizes;
 
 	var _require3 = __webpack_require__(82), getInteractiveBoxFromSizeClass = _require3.getInteractiveBoxFromSizeClass;
 
 	/* Mixins. */
-	var Changeable = __webpack_require__(90);
+	var Changeable = __webpack_require__(99);
 
-	var _require4 = __webpack_require__(128), GrapherUtil = _require4.GrapherUtil, typeToButton = _require4.typeToButton, functionForType = _require4.functionForType, DEFAULT_GRAPHER_PROPS = _require4.DEFAULT_GRAPHER_PROPS;
+	var _require4 = __webpack_require__(127), GrapherUtil = _require4.GrapherUtil, typeToButton = _require4.typeToButton, functionForType = _require4.functionForType, DEFAULT_GRAPHER_PROPS = _require4.DEFAULT_GRAPHER_PROPS;
 
 	function isFlipped(newCoord, oldCoord, line) {
 	    var CCW = function CCW(a, b, c) {
@@ -1676,29 +1676,29 @@ webpackJsonpPerseus([1],[
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	/* globals i18n */
-	var classNames = __webpack_require__(13);
+	var classNames = __webpack_require__(14);
 
 	var React = __webpack_require__(11);
 
 	var _ = __webpack_require__(10);
 
-	var ApiOptions = __webpack_require__(18).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
-	var Changeable = __webpack_require__(90);
+	var Changeable = __webpack_require__(99);
 
-	var _require = __webpack_require__(94), iconOk = _require.iconOk, iconRemove = _require.iconRemove;
+	var _require = __webpack_require__(103), iconOk = _require.iconOk, iconRemove = _require.iconRemove;
 
-	var InlineIcon = __webpack_require__(91);
+	var InlineIcon = __webpack_require__(100);
 
 	var Renderer = __webpack_require__(8);
 
 	var GradedGroupAnswerBar = __webpack_require__(113);
 
-	var _require2 = __webpack_require__(40), gray76 = _require2.gray76, phoneMargin = _require2.phoneMargin, negativePhoneMargin = _require2.negativePhoneMargin, tableBackgroundAccent = _require2.tableBackgroundAccent, kaGreen = _require2.kaGreen;
+	var _require2 = __webpack_require__(36), gray76 = _require2.gray76, phoneMargin = _require2.phoneMargin, negativePhoneMargin = _require2.negativePhoneMargin, tableBackgroundAccent = _require2.tableBackgroundAccent, kaGreen = _require2.kaGreen;
 
-	var _require3 = __webpack_require__(14), StyleSheet = _require3.StyleSheet, css = _require3.css;
+	var _require3 = __webpack_require__(13), StyleSheet = _require3.StyleSheet, css = _require3.css;
 
-	var _require4 = __webpack_require__(34), linterContextProps = _require4.linterContextProps, linterContextDefault = _require4.linterContextDefault;
+	var _require4 = __webpack_require__(31), linterContextProps = _require4.linterContextProps, linterContextDefault = _require4.linterContextDefault;
 
 	// A Graded Group is more or less a Group widget that displays a check
 	// answer button below the rendered content. When clicked, the widget grades
@@ -2009,17 +2009,17 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var _require = __webpack_require__(14), StyleSheet = _require.StyleSheet, css = _require.css;
+	var _require = __webpack_require__(13), StyleSheet = _require.StyleSheet, css = _require.css;
 
-	var ApiOptions = __webpack_require__(18).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
-	var Changeable = __webpack_require__(90);
+	var Changeable = __webpack_require__(99);
 
 	var GradedGroup = __webpack_require__(53).widget;
 
-	var _require2 = __webpack_require__(40), grayLight = _require2.grayLight, gray76 = _require2.gray76, tableBackgroundAccent = _require2.tableBackgroundAccent, kaGreen = _require2.kaGreen, phoneMargin = _require2.phoneMargin, negativePhoneMargin = _require2.negativePhoneMargin;
+	var _require2 = __webpack_require__(36), grayLight = _require2.grayLight, gray76 = _require2.gray76, tableBackgroundAccent = _require2.tableBackgroundAccent, kaGreen = _require2.kaGreen, phoneMargin = _require2.phoneMargin, negativePhoneMargin = _require2.negativePhoneMargin;
 
-	var _require3 = __webpack_require__(34), linterContextProps = _require3.linterContextProps, linterContextDefault = _require3.linterContextDefault;
+	var _require3 = __webpack_require__(31), linterContextProps = _require3.linterContextProps, linterContextDefault = _require3.linterContextDefault;
 
 	var Indicators = React.createClass({
 	    displayName: "Indicators",
@@ -2216,19 +2216,19 @@ webpackJsonpPerseus([1],[
 	/* eslint-disable comma-dangle, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/sort-comp */
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var classNames = __webpack_require__(13);
+	var classNames = __webpack_require__(14);
 
 	var React = __webpack_require__(11);
 
 	var _ = __webpack_require__(10);
 
-	var ApiOptions = __webpack_require__(18).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
-	var Changeable = __webpack_require__(90);
+	var Changeable = __webpack_require__(99);
 
 	var Renderer = __webpack_require__(8);
 
-	var _require = __webpack_require__(34), linterContextProps = _require.linterContextProps, linterContextDefault = _require.linterContextDefault;
+	var _require = __webpack_require__(31), linterContextProps = _require.linterContextProps, linterContextDefault = _require.linterContextDefault;
 
 	var Group = React.createClass({
 	    displayName: "Group",
@@ -2402,11 +2402,11 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var Changeable = __webpack_require__(90);
+	var Changeable = __webpack_require__(99);
 
 	var WidgetJsonifyDeprecated = __webpack_require__(108);
 
-	var updateQueryString = __webpack_require__(17).updateQueryString;
+	var updateQueryString = __webpack_require__(18).updateQueryString;
 
 	/* This renders the iframe and handles validation via window.postMessage */
 	var Iframe = React.createClass({
@@ -2561,27 +2561,27 @@ webpackJsonpPerseus([1],[
 	/*eslint-disable react/sort-comp, react/jsx-indent-props, react/prop-types,
 	    react/jsx-closing-bracket-location
 	*/
-	var classNames = __webpack_require__(13);
+	var classNames = __webpack_require__(14);
 
-	var _require = __webpack_require__(14), StyleSheet = _require.StyleSheet, css = _require.css;
+	var _require = __webpack_require__(13), StyleSheet = _require.StyleSheet, css = _require.css;
 
 	var React = __webpack_require__(11);
 
 	var _ = __webpack_require__(10);
 
-	var ApiOptions = __webpack_require__(18).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
-	var _require2 = __webpack_require__(40), baseUnitPx = _require2.baseUnitPx;
+	var _require2 = __webpack_require__(36), baseUnitPx = _require2.baseUnitPx;
 
-	var Changeable = __webpack_require__(90);
+	var Changeable = __webpack_require__(99);
 
-	var mediaQueries = __webpack_require__(38);
+	var mediaQueries = __webpack_require__(34);
 
 	var Renderer = __webpack_require__(8);
 
-	var SvgImage = __webpack_require__(36);
+	var SvgImage = __webpack_require__(32);
 
-	var _require3 = __webpack_require__(34), linterContextProps = _require3.linterContextProps, linterContextDefault = _require3.linterContextDefault;
+	var _require3 = __webpack_require__(31), linterContextProps = _require3.linterContextProps, linterContextDefault = _require3.linterContextDefault;
 
 	var defaultBoxSize = 400;
 
@@ -2820,9 +2820,9 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var Changeable = __webpack_require__(90);
+	var Changeable = __webpack_require__(99);
 
-	var Graphie = __webpack_require__(97);
+	var Graphie = __webpack_require__(86);
 
 	var Label = Graphie.Label;
 
@@ -3283,7 +3283,7 @@ webpackJsonpPerseus([1],[
 
 	var NumberInput = __webpack_require__(116);
 
-	var Util = __webpack_require__(17);
+	var Util = __webpack_require__(18);
 
 	var knumber = __webpack_require__(172).number;
 
@@ -3293,7 +3293,7 @@ webpackJsonpPerseus([1],[
 
 	var GraphUtils = __webpack_require__(117);
 
-	var _require = __webpack_require__(40), interactiveSizes = _require.interactiveSizes;
+	var _require = __webpack_require__(36), interactiveSizes = _require.interactiveSizes;
 
 	var _require2 = __webpack_require__(82), containerSizeClassPropType = _require2.containerSizeClassPropType, getInteractiveBoxFromSizeClass = _require2.getInteractiveBoxFromSizeClass;
 
@@ -5015,7 +5015,7 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var Changeable = __webpack_require__(90);
+	var Changeable = __webpack_require__(99);
 
 	var WidgetJsonifyDeprecated = __webpack_require__(108);
 
@@ -5318,7 +5318,7 @@ webpackJsonpPerseus([1],[
 	/* eslint-disable comma-dangle, max-len, no-undef, no-var, object-curly-spacing, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp, space-before-function-paren */
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var classNames = __webpack_require__(13);
+	var classNames = __webpack_require__(14);
 
 	var React = __webpack_require__(11);
 
@@ -5334,9 +5334,9 @@ webpackJsonpPerseus([1],[
 
 	var MathOutput = __webpack_require__(119);
 
-	var SimpleKeypadInput = __webpack_require__(85);
+	var SimpleKeypadInput = __webpack_require__(94);
 
-	var ApiOptions = __webpack_require__(18).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
 	var KhanAnswerTypes = __webpack_require__(80);
 
@@ -5344,9 +5344,9 @@ webpackJsonpPerseus([1],[
 
 	var assert = __webpack_require__(120).assert;
 
-	var stringArrayOfSize = __webpack_require__(17).stringArrayOfSize;
+	var stringArrayOfSize = __webpack_require__(18).stringArrayOfSize;
 
-	var _require = __webpack_require__(34), linterContextProps = _require.linterContextProps, linterContextDefault = _require.linterContextDefault;
+	var _require = __webpack_require__(31), linterContextProps = _require.linterContextProps, linterContextDefault = _require.linterContextDefault;
 
 	// We store three sets of dimensions for the brackets, for our three types of
 	// inputs, which vary in formatting: (1) the "static" inputs rendered for the
@@ -5752,7 +5752,7 @@ webpackJsonpPerseus([1],[
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var React = __webpack_require__(11);
 
-	var _require = __webpack_require__(14), StyleSheet = _require.StyleSheet, css = _require.css;
+	var _require = __webpack_require__(13), StyleSheet = _require.StyleSheet, css = _require.css;
 
 	var _ = __webpack_require__(10);
 
@@ -5760,13 +5760,13 @@ webpackJsonpPerseus([1],[
 
 	var Sortable = __webpack_require__(121);
 
-	var ApiOptions = __webpack_require__(18).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
-	var shuffle = __webpack_require__(17).shuffle;
+	var shuffle = __webpack_require__(18).shuffle;
 
-	var seededRNG = __webpack_require__(17).seededRNG;
+	var seededRNG = __webpack_require__(18).seededRNG;
 
-	var _require2 = __webpack_require__(34), linterContextProps = _require2.linterContextProps, linterContextDefault = _require2.linterContextDefault;
+	var _require2 = __webpack_require__(31), linterContextProps = _require2.linterContextProps, linterContextDefault = _require2.linterContextDefault;
 
 	var HACKY_CSS_CLASSNAME = "perseus-widget-matcher";
 
@@ -5948,7 +5948,7 @@ webpackJsonpPerseus([1],[
 
 	var _2 = __webpack_require__(10);
 
-	var ApiOptions = __webpack_require__(18).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
 	var GraphUtils = __webpack_require__(117);
 
@@ -6103,11 +6103,11 @@ webpackJsonpPerseus([1],[
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var React = __webpack_require__(11);
 
-	var draw = __webpack_require__(129);
+	var draw = __webpack_require__(128);
 
-	var _require = __webpack_require__(130), layout = _require.layout;
+	var _require = __webpack_require__(129), layout = _require.layout;
 
-	var SmilesParser = __webpack_require__(131);
+	var SmilesParser = __webpack_require__(130);
 
 	var parse = SmilesParser.parse;
 
@@ -6279,19 +6279,19 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var Changeable = __webpack_require__(90);
+	var Changeable = __webpack_require__(99);
 
 	var NumberInput = __webpack_require__(116);
 
 	var MathOutput = __webpack_require__(119);
 
-	var SimpleKeypadInput = __webpack_require__(85);
+	var SimpleKeypadInput = __webpack_require__(94);
 
-	var ApiOptions = __webpack_require__(18).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
 	var keypadElementPropType = __webpack_require__(83).propTypes.keypadElementPropType;
 
-	var Graphie = __webpack_require__(97);
+	var Graphie = __webpack_require__(86);
 
 	var MovablePoint = Graphie.MovablePoint;
 
@@ -6299,7 +6299,7 @@ webpackJsonpPerseus([1],[
 
 	var knumber = __webpack_require__(172).number;
 
-	var KhanMath = __webpack_require__(88);
+	var KhanMath = __webpack_require__(97);
 
 	var KhanColors = __webpack_require__(112);
 
@@ -6826,11 +6826,11 @@ webpackJsonpPerseus([1],[
 
 	var Renderer = __webpack_require__(8);
 
-	var Util = __webpack_require__(17);
+	var Util = __webpack_require__(18);
 
-	var ApiClassNames = __webpack_require__(18).ClassNames;
+	var ApiClassNames = __webpack_require__(17).ClassNames;
 
-	var _require = __webpack_require__(34), linterContextProps = _require.linterContextProps, linterContextDefault = _require.linterContextDefault;
+	var _require = __webpack_require__(31), linterContextProps = _require.linterContextProps, linterContextDefault = _require.linterContextDefault;
 
 	var PlaceholderCard = React.createClass({
 	    displayName: "PlaceholderCard",
@@ -7280,7 +7280,7 @@ webpackJsonpPerseus([1],[
 	}
 
 	/* globals KA */
-	var _require = __webpack_require__(14), StyleSheet = _require.StyleSheet, css = _require.css;
+	var _require = __webpack_require__(13), StyleSheet = _require.StyleSheet, css = _require.css;
 
 	var React = __webpack_require__(11);
 
@@ -7290,17 +7290,17 @@ webpackJsonpPerseus([1],[
 
 	var $ = __webpack_require__(15);
 
-	var HighlightableContent = __webpack_require__(132);
+	var HighlightableContent = __webpack_require__(131);
 
 	var Renderer = __webpack_require__(8);
 
-	var PassageMarkdown = __webpack_require__(134);
+	var PassageMarkdown = __webpack_require__(133);
 
-	var _require2 = __webpack_require__(34), linterContextDefault = _require2.linterContextDefault;
+	var _require2 = __webpack_require__(31), linterContextDefault = _require2.linterContextDefault;
 
-	var babelPluginFlowReactPropTypes_proptype_ChangeableProps = __webpack_require__(90).babelPluginFlowReactPropTypes_proptype_ChangeableProps || __webpack_require__(11).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_ChangeableProps = __webpack_require__(99).babelPluginFlowReactPropTypes_proptype_ChangeableProps || __webpack_require__(11).PropTypes.any;
 
-	var babelPluginFlowReactPropTypes_proptype_SerializedHighlightSet = __webpack_require__(133).babelPluginFlowReactPropTypes_proptype_SerializedHighlightSet || __webpack_require__(11).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_SerializedHighlightSet = __webpack_require__(132).babelPluginFlowReactPropTypes_proptype_SerializedHighlightSet || __webpack_require__(11).PropTypes.any;
 
 	// A fake paragraph to measure the line height of the passage. In CSS we always
 	// set the line height to 22 pixels, but when using the browser zoom feature,
@@ -7700,13 +7700,13 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var Changeable = __webpack_require__(90);
+	var Changeable = __webpack_require__(99);
 
 	var WidgetJsonifyDeprecated = __webpack_require__(108);
 
 	var Renderer = __webpack_require__(8);
 
-	var _require = __webpack_require__(34), linterContextProps = _require.linterContextProps, linterContextDefault = _require.linterContextDefault;
+	var _require = __webpack_require__(31), linterContextProps = _require.linterContextProps, linterContextDefault = _require.linterContextDefault;
 
 	var PassageRefTarget = React.createClass({
 	    displayName: "PassageRefTarget",
@@ -7782,11 +7782,11 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var ApiClassNames = __webpack_require__(18).ClassNames;
+	var ApiClassNames = __webpack_require__(17).ClassNames;
 
-	var deepEq = __webpack_require__(17).deepEq;
+	var deepEq = __webpack_require__(18).deepEq;
 
-	var KhanMath = __webpack_require__(88);
+	var KhanMath = __webpack_require__(97);
 
 	var KhanColors = __webpack_require__(112);
 
@@ -8640,19 +8640,19 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var ApiOptions = __webpack_require__(18).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
-	var Changeable = __webpack_require__(90);
+	var Changeable = __webpack_require__(99);
 
-	var _require = __webpack_require__(94), iconOk = _require.iconOk;
+	var _require = __webpack_require__(103), iconOk = _require.iconOk;
 
-	var InlineIcon = __webpack_require__(91);
+	var InlineIcon = __webpack_require__(100);
 
 	var Renderer = __webpack_require__(8);
 
-	var Util = __webpack_require__(17);
+	var Util = __webpack_require__(18);
 
-	var _require2 = __webpack_require__(34), linterContextProps = _require2.linterContextProps, linterContextDefault = _require2.linterContextDefault;
+	var _require2 = __webpack_require__(31), linterContextProps = _require2.linterContextProps, linterContextDefault = _require2.linterContextDefault;
 
 	var Sequence = React.createClass({
 	    displayName: "Sequence",
@@ -8789,13 +8789,13 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var Changeable = __webpack_require__(90);
+	var Changeable = __webpack_require__(99);
 
-	var ApiOptions = __webpack_require__(18).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
 	var assert = __webpack_require__(120).assert;
 
-	var Graphie = __webpack_require__(97);
+	var Graphie = __webpack_require__(86);
 
 	var Path = Graphie.Path, Arc = Graphie.Arc, Circle = Graphie.Circle, Label = Graphie.Label, Line = Graphie.Line, MovablePoint = Graphie.MovablePoint, MovableLine = Graphie.MovableLine;
 
@@ -8803,15 +8803,15 @@ webpackJsonpPerseus([1],[
 
 	var MathOutput = __webpack_require__(119);
 
-	var seededRNG = __webpack_require__(17).seededRNG;
+	var seededRNG = __webpack_require__(18).seededRNG;
 
-	var Util = __webpack_require__(17);
+	var Util = __webpack_require__(18);
 
 	var knumber = __webpack_require__(172).number;
 
 	var KhanColors = __webpack_require__(112);
 
-	var KhanMath = __webpack_require__(88);
+	var KhanMath = __webpack_require__(97);
 
 	var defaultBoxSize = 400;
 
@@ -9375,11 +9375,11 @@ webpackJsonpPerseus([1],[
 
 	var Sortable = __webpack_require__(121);
 
-	var ApiOptions = __webpack_require__(18).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
-	var shuffle = __webpack_require__(17).shuffle;
+	var shuffle = __webpack_require__(18).shuffle;
 
-	var _require = __webpack_require__(34), linterContextProps = _require.linterContextProps, linterContextDefault = _require.linterContextDefault;
+	var _require = __webpack_require__(31), linterContextProps = _require.linterContextProps, linterContextDefault = _require.linterContextDefault;
 
 	var HORIZONTAL = "horizontal", VERTICAL = "vertical";
 
@@ -9471,19 +9471,19 @@ webpackJsonpPerseus([1],[
 
 	var MathOutput = __webpack_require__(119);
 
-	var SimpleKeypadInput = __webpack_require__(85);
+	var SimpleKeypadInput = __webpack_require__(94);
 
 	var Renderer = __webpack_require__(8);
 
-	var Util = __webpack_require__(17);
+	var Util = __webpack_require__(18);
 
 	var keypadElementPropType = __webpack_require__(83).propTypes.keypadElementPropType;
 
-	var ApiOptions = __webpack_require__(18).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
 	var KhanAnswerTypes = __webpack_require__(80);
 
-	var _require = __webpack_require__(34), linterContextProps = _require.linterContextProps, linterContextDefault = _require.linterContextDefault;
+	var _require = __webpack_require__(31), linterContextProps = _require.linterContextProps, linterContextDefault = _require.linterContextDefault;
 
 	var assert = __webpack_require__(120).assert;
 
@@ -9785,7 +9785,7 @@ webpackJsonpPerseus([1],[
 
 	var Graph = __webpack_require__(114);
 
-	var InlineIcon = __webpack_require__(91);
+	var InlineIcon = __webpack_require__(100);
 
 	var NumberInput = __webpack_require__(116);
 
@@ -9793,9 +9793,9 @@ webpackJsonpPerseus([1],[
 
 	var TeX = __webpack_require__(46);
 
-	var SimpleKeypadInput = __webpack_require__(85);
+	var SimpleKeypadInput = __webpack_require__(94);
 
-	var ApiOptions = __webpack_require__(18).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
 	var keypadElementPropType = __webpack_require__(83).propTypes.keypadElementPropType;
 
@@ -9811,13 +9811,13 @@ webpackJsonpPerseus([1],[
 
 	var REFLECT_BUTTON_SIZE = 1;
 
-	var _require = __webpack_require__(94), iconPlus = _require.iconPlus, iconUndo = _require.iconUndo;
+	var _require = __webpack_require__(103), iconPlus = _require.iconPlus, iconUndo = _require.iconUndo;
 
-	var deepEq = __webpack_require__(17).deepEq;
+	var deepEq = __webpack_require__(18).deepEq;
 
-	var getGridStep = __webpack_require__(17).getGridStep;
+	var getGridStep = __webpack_require__(18).getGridStep;
 
-	var captureScratchpadTouchStart = __webpack_require__(17).captureScratchpadTouchStart;
+	var captureScratchpadTouchStart = __webpack_require__(18).captureScratchpadTouchStart;
 
 	var knumber = __webpack_require__(172).number;
 
@@ -9829,7 +9829,7 @@ webpackJsonpPerseus([1],[
 
 	var kline = __webpack_require__(172).line;
 
-	var KhanMath = __webpack_require__(88);
+	var KhanMath = __webpack_require__(97);
 
 	var KhanColors = __webpack_require__(112);
 
@@ -11787,7 +11787,7 @@ webpackJsonpPerseus([1],[
 	// terms of a certain type.
 	// TODO(joel): Allow sigfigs within a range rather than an exact expected
 	// value?
-	var lens = __webpack_require__(124);
+	var lens = __webpack_require__(125);
 
 	var React = __webpack_require__(11);
 
@@ -11795,11 +11795,11 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var ApiClassNames = __webpack_require__(18).ClassNames;
+	var ApiClassNames = __webpack_require__(17).ClassNames;
 
-	var ApiOptions = __webpack_require__(18).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
-	var Changeable = __webpack_require__(90);
+	var Changeable = __webpack_require__(99);
 
 	var MathOutput = __webpack_require__(119);
 
@@ -12035,9 +12035,9 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var Changeable = __webpack_require__(90);
+	var Changeable = __webpack_require__(99);
 
-	var FixedToResponsive = __webpack_require__(96);
+	var FixedToResponsive = __webpack_require__(85);
 
 	// Current default is 720p, based on the typical videos we upload currently
 	var DEFAULT_WIDTH = 1280;
@@ -12178,9 +12178,9 @@ webpackJsonpPerseus([1],[
 
 	var ReactDOM = __webpack_require__(12);
 
-	var styles = __webpack_require__(178);
+	var styles = __webpack_require__(182);
 
-	var css = __webpack_require__(14).css;
+	var css = __webpack_require__(13).css;
 
 	var ButtonGroup = React.createClass({
 	    displayName: "ButtonGroup",
@@ -12256,13 +12256,13 @@ webpackJsonpPerseus([1],[
 	 */
 	var React = __webpack_require__(11);
 
-	var ApiOptions = __webpack_require__(18).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
-	var InlineIcon = __webpack_require__(91);
+	var InlineIcon = __webpack_require__(100);
 
-	var _require = __webpack_require__(94), iconStar = _require.iconStar, iconTryAgain = _require.iconTryAgain;
+	var _require = __webpack_require__(103), iconStar = _require.iconStar, iconTryAgain = _require.iconTryAgain;
 
-	var _require2 = __webpack_require__(40), boldFontFamily = _require2.boldFontFamily, gray68 = _require2.gray68, gray76 = _require2.gray76, gray85 = _require2.gray85, gray95 = _require2.gray95, kaGreen = _require2.kaGreen, phoneMargin = _require2.phoneMargin, negativePhoneMargin = _require2.negativePhoneMargin;
+	var _require2 = __webpack_require__(36), boldFontFamily = _require2.boldFontFamily, gray68 = _require2.gray68, gray76 = _require2.gray76, gray85 = _require2.gray85, gray95 = _require2.gray95, kaGreen = _require2.kaGreen, phoneMargin = _require2.phoneMargin, negativePhoneMargin = _require2.negativePhoneMargin;
 
 	var ANSWER_BAR_STATES = {
 	    // Initial state before the question is answerable.  The user must complete
@@ -12413,13 +12413,13 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var Util = __webpack_require__(17);
+	var Util = __webpack_require__(18);
 
 	var GraphUtils = __webpack_require__(117);
 
-	var _require = __webpack_require__(40), interactiveSizes = _require.interactiveSizes;
+	var _require = __webpack_require__(36), interactiveSizes = _require.interactiveSizes;
 
-	var SvgImage = __webpack_require__(36);
+	var SvgImage = __webpack_require__(32);
 
 	var defaultBackgroundImage = {
 	    url: null
@@ -12712,7 +12712,7 @@ webpackJsonpPerseus([1],[
 	 */
 	var React = __webpack_require__(11);
 
-	var ReactComponentsInfoTip = __webpack_require__(179);
+	var ReactComponentsInfoTip = __webpack_require__(178);
 
 	var InfoTip = React.createClass({
 	    displayName: "InfoTip",
@@ -12749,7 +12749,7 @@ webpackJsonpPerseus([1],[
 	};
 
 	/* eslint-disable react/prop-types, react/sort-comp */
-	var classNames = __webpack_require__(13);
+	var classNames = __webpack_require__(14);
 
 	var React = __webpack_require__(11);
 
@@ -12757,13 +12757,13 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(10);
 
-	var firstNumericalParse = __webpack_require__(17).firstNumericalParse;
+	var firstNumericalParse = __webpack_require__(18).firstNumericalParse;
 
-	var captureScratchpadTouchStart = __webpack_require__(17).captureScratchpadTouchStart;
+	var captureScratchpadTouchStart = __webpack_require__(18).captureScratchpadTouchStart;
 
 	var knumber = __webpack_require__(172).number;
 
-	var KhanMath = __webpack_require__(88);
+	var KhanMath = __webpack_require__(97);
 
 	var toNumericString = KhanMath.toNumericString;
 
@@ -12932,19 +12932,19 @@ webpackJsonpPerseus([1],[
 
 	var ReactDOM = __webpack_require__(12);
 
-	var _require = __webpack_require__(14), StyleSheet = _require.StyleSheet, css = _require.css;
+	var _require = __webpack_require__(13), StyleSheet = _require.StyleSheet, css = _require.css;
 
 	var _ = __webpack_require__(10);
 
-	var Util = __webpack_require__(17);
+	var Util = __webpack_require__(18);
 
 	var Renderer = __webpack_require__(8);
 
-	var ApiClassNames = __webpack_require__(18).ClassNames;
+	var ApiClassNames = __webpack_require__(17).ClassNames;
 
-	var Gorgon = __webpack_require__(33);
+	var Gorgon = __webpack_require__(30);
 
-	var _require2 = __webpack_require__(34), linterContextProps = _require2.linterContextProps, linterContextDefault = _require2.linterContextDefault;
+	var _require2 = __webpack_require__(31), linterContextProps = _require2.linterContextProps, linterContextDefault = _require2.linterContextDefault;
 
 	var HORIZONTAL = "horizontal";
 
@@ -13827,8 +13827,7 @@ webpackJsonpPerseus([1],[
 /* 124 */,
 /* 125 */,
 /* 126 */,
-/* 127 */,
-/* 128 */
+/* 127 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -13838,9 +13837,9 @@ webpackJsonpPerseus([1],[
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var _ = __webpack_require__(10);
 
-	var Util = __webpack_require__(17);
+	var Util = __webpack_require__(18);
 
-	var Graphie = __webpack_require__(97);
+	var Graphie = __webpack_require__(86);
 
 	var Plot = Graphie.Plot;
 
@@ -14363,7 +14362,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 129 */
+/* 128 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -14537,7 +14536,7 @@ webpackJsonpPerseus([1],[
 	module.exports = draw;
 
 /***/ },
-/* 130 */
+/* 129 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -14851,7 +14850,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 131 */
+/* 130 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -15094,7 +15093,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 132 */
+/* 131 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -15145,21 +15144,21 @@ webpackJsonpPerseus([1],[
 	 */
 	var React = __webpack_require__(11);
 
-	var _require = __webpack_require__(14), StyleSheet = _require.StyleSheet, css = _require.css;
+	var _require = __webpack_require__(13), StyleSheet = _require.StyleSheet, css = _require.css;
 
-	var HighlightingUI = __webpack_require__(197);
+	var HighlightingUI = __webpack_require__(196);
 
 	var WordIndexer = __webpack_require__(187);
 
 	var _require2 = __webpack_require__(188), addHighlight = _require2.addHighlight, buildHighlight = _require2.buildHighlight, deserializeHighlight = _require2.deserializeHighlight, serializeHighlight = _require2.serializeHighlight;
 
-	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(133).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(11).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(132).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(11).PropTypes.any;
 
-	var babelPluginFlowReactPropTypes_proptype_SerializedHighlightSet = __webpack_require__(133).babelPluginFlowReactPropTypes_proptype_SerializedHighlightSet || __webpack_require__(11).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_SerializedHighlightSet = __webpack_require__(132).babelPluginFlowReactPropTypes_proptype_SerializedHighlightSet || __webpack_require__(11).PropTypes.any;
 
-	var babelPluginFlowReactPropTypes_proptype_DOMHighlightSet = __webpack_require__(133).babelPluginFlowReactPropTypes_proptype_DOMHighlightSet || __webpack_require__(11).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_DOMHighlightSet = __webpack_require__(132).babelPluginFlowReactPropTypes_proptype_DOMHighlightSet || __webpack_require__(11).PropTypes.any;
 
-	var babelPluginFlowReactPropTypes_proptype_DOMHighlight = __webpack_require__(133).babelPluginFlowReactPropTypes_proptype_DOMHighlight || __webpack_require__(11).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_DOMHighlight = __webpack_require__(132).babelPluginFlowReactPropTypes_proptype_DOMHighlight || __webpack_require__(11).PropTypes.any;
 
 	var HighlightableContent = function(_React$PureComponent) {
 	    _inherits(HighlightableContent, _React$PureComponent);
@@ -15331,7 +15330,7 @@ webpackJsonpPerseus([1],[
 	module.exports = HighlightableContent;
 
 /***/ },
-/* 133 */
+/* 132 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -15405,7 +15404,7 @@ webpackJsonpPerseus([1],[
 	Object.defineProperty(module.exports, "babelPluginFlowReactPropTypes_proptype_SerializedHighlightSet", __webpack_require__(11).PropTypes.shape({}));
 
 /***/ },
-/* 134 */
+/* 133 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -15424,7 +15423,7 @@ webpackJsonpPerseus([1],[
 	/* globals $_ */
 	var React = __webpack_require__(11);
 
-	var SimpleMarkdown = __webpack_require__(125);
+	var SimpleMarkdown = __webpack_require__(124);
 
 	var _ = __webpack_require__(10);
 
@@ -15751,6 +15750,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
+/* 134 */,
 /* 135 */,
 /* 136 */,
 /* 137 */,
@@ -15799,51 +15799,7 @@ webpackJsonpPerseus([1],[
 
 	"use strict";
 
-	var StyleSheet = __webpack_require__(14).StyleSheet;
-
-	var button = StyleSheet.create({
-	    buttonStyle: {
-	        backgroundColor: "white",
-	        border: "1px solid #ccc",
-	        borderLeft: "0",
-	        cursor: "pointer",
-	        margin: "0",
-	        padding: "5px 10px",
-	        position: "relative",
-	        // for hover
-	        ":first-child": {
-	            borderLeft: "1px solid #ccc",
-	            borderTopLeftRadius: "3px",
-	            borderBottomLeftRadius: "3px"
-	        },
-	        ":last-child": {
-	            borderRight: "1px solid #ccc",
-	            borderTopRightRadius: "3px",
-	            borderBottomRightRadius: "3px"
-	        },
-	        ":hover": {
-	            backgroundColor: "#ccc"
-	        },
-	        ":focus": {
-	            zIndex: "2"
-	        }
-	    },
-	    selectedStyle: {
-	        backgroundColor: "#ddd"
-	    }
-	});
-
-	module.exports = {
-	    button: button
-	};
-
-/***/ },
-/* 179 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _require = __webpack_require__(14), StyleSheet = _require.StyleSheet, css = _require.css;
+	var _require = __webpack_require__(13), StyleSheet = _require.StyleSheet, css = _require.css;
 
 	var React = __webpack_require__(11);
 
@@ -15950,9 +15906,53 @@ webpackJsonpPerseus([1],[
 	module.exports = InfoTip;
 
 /***/ },
+/* 179 */,
 /* 180 */,
 /* 181 */,
-/* 182 */,
+/* 182 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var StyleSheet = __webpack_require__(13).StyleSheet;
+
+	var button = StyleSheet.create({
+	    buttonStyle: {
+	        backgroundColor: "white",
+	        border: "1px solid #ccc",
+	        borderLeft: "0",
+	        cursor: "pointer",
+	        margin: "0",
+	        padding: "5px 10px",
+	        position: "relative",
+	        // for hover
+	        ":first-child": {
+	            borderLeft: "1px solid #ccc",
+	            borderTopLeftRadius: "3px",
+	            borderBottomLeftRadius: "3px"
+	        },
+	        ":last-child": {
+	            borderRight: "1px solid #ccc",
+	            borderTopRightRadius: "3px",
+	            borderBottomRightRadius: "3px"
+	        },
+	        ":hover": {
+	            backgroundColor: "#ccc"
+	        },
+	        ":focus": {
+	            zIndex: "2"
+	        }
+	    },
+	    selectedStyle: {
+	        backgroundColor: "#ddd"
+	    }
+	});
+
+	module.exports = {
+	    button: button
+	};
+
+/***/ },
 /* 183 */,
 /* 184 */,
 /* 185 */,
@@ -15999,7 +15999,7 @@ webpackJsonpPerseus([1],[
 	 */
 	var React = __webpack_require__(11);
 
-	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(133).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(11).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(132).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(11).PropTypes.any;
 
 	var WordIndexer = function(_React$PureComponent) {
 	    _inherits(WordIndexer, _React$PureComponent);
@@ -16125,13 +16125,13 @@ webpackJsonpPerseus([1],[
 	 * existing DOMHighlights, the other Highlights are removed and their ranges
 	 * are merged into the new DOMHighlight.
 	 */
-	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(133).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(11).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(132).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(11).PropTypes.any;
 
-	var babelPluginFlowReactPropTypes_proptype_SerializedHighlight = __webpack_require__(133).babelPluginFlowReactPropTypes_proptype_SerializedHighlight || __webpack_require__(11).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_SerializedHighlight = __webpack_require__(132).babelPluginFlowReactPropTypes_proptype_SerializedHighlight || __webpack_require__(11).PropTypes.any;
 
-	var babelPluginFlowReactPropTypes_proptype_DOMHighlightSet = __webpack_require__(133).babelPluginFlowReactPropTypes_proptype_DOMHighlightSet || __webpack_require__(11).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_DOMHighlightSet = __webpack_require__(132).babelPluginFlowReactPropTypes_proptype_DOMHighlightSet || __webpack_require__(11).PropTypes.any;
 
-	var babelPluginFlowReactPropTypes_proptype_DOMHighlight = __webpack_require__(133).babelPluginFlowReactPropTypes_proptype_DOMHighlight || __webpack_require__(11).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_DOMHighlight = __webpack_require__(132).babelPluginFlowReactPropTypes_proptype_DOMHighlight || __webpack_require__(11).PropTypes.any;
 
 	function addHighlight(existingHighlights, newHighlight) {
 	    var newHighlights = {};
@@ -16297,8 +16297,7 @@ webpackJsonpPerseus([1],[
 /* 193 */,
 /* 194 */,
 /* 195 */,
-/* 196 */,
-/* 197 */
+/* 196 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -16338,24 +16337,24 @@ webpackJsonpPerseus([1],[
 	 */
 	var React = __webpack_require__(11);
 
-	var HighlightSetRenderer = __webpack_require__(227);
+	var HighlightSetRenderer = __webpack_require__(225);
 
-	var HighlightTooltip = __webpack_require__(228);
+	var HighlightTooltip = __webpack_require__(226);
 
 	var _require = __webpack_require__(217), rangesOverlap = _require.rangesOverlap;
 
-	var SelectionTracker = __webpack_require__(229);
+	var SelectionTracker = __webpack_require__(227);
 
-	var babelPluginFlowReactPropTypes_proptype_ZIndexes = __webpack_require__(230).babelPluginFlowReactPropTypes_proptype_ZIndexes || __webpack_require__(11).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_ZIndexes = __webpack_require__(228).babelPluginFlowReactPropTypes_proptype_ZIndexes || __webpack_require__(11).PropTypes.any;
 
-	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(230).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(11).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(228).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(11).PropTypes.any;
 
-	var babelPluginFlowReactPropTypes_proptype_DOMHighlightSet = __webpack_require__(230).babelPluginFlowReactPropTypes_proptype_DOMHighlightSet || __webpack_require__(11).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_DOMHighlightSet = __webpack_require__(228).babelPluginFlowReactPropTypes_proptype_DOMHighlightSet || __webpack_require__(11).PropTypes.any;
 
-	var babelPluginFlowReactPropTypes_proptype_DOMHighlight = __webpack_require__(230).babelPluginFlowReactPropTypes_proptype_DOMHighlight || __webpack_require__(11).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_DOMHighlight = __webpack_require__(228).babelPluginFlowReactPropTypes_proptype_DOMHighlight || __webpack_require__(11).PropTypes.any;
 
 	/* global i18n */
-	var babelPluginFlowReactPropTypes_proptype_TrackedSelection = __webpack_require__(229).babelPluginFlowReactPropTypes_proptype_TrackedSelection || __webpack_require__(11).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_TrackedSelection = __webpack_require__(227).babelPluginFlowReactPropTypes_proptype_TrackedSelection || __webpack_require__(11).PropTypes.any;
 
 	var HighlightingUI = function(_React$PureComponent) {
 	    _inherits(HighlightingUI, _React$PureComponent);
@@ -16437,6 +16436,7 @@ webpackJsonpPerseus([1],[
 	module.exports = HighlightingUI;
 
 /***/ },
+/* 197 */,
 /* 198 */,
 /* 199 */,
 /* 200 */,
@@ -16471,7 +16471,7 @@ webpackJsonpPerseus([1],[
 	 *     of the DOM's `compareBoundaryPoints` API, and to cover over a Flow bug
 	 *     documented here: https://github.com/facebook/flow/issues/3734.
 	 */
-	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(133).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(11).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(132).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(11).PropTypes.any;
 
 	/**
 	 * Utility functions for manipulating ranges of highlightable content.
@@ -16695,9 +16695,7 @@ webpackJsonpPerseus([1],[
 /* 222 */,
 /* 223 */,
 /* 224 */,
-/* 225 */,
-/* 226 */,
-/* 227 */
+/* 225 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -16736,14 +16734,14 @@ webpackJsonpPerseus([1],[
 
 	var HighlightRenderer = __webpack_require__(242);
 
-	var HighlightTooltip = __webpack_require__(228);
+	var HighlightTooltip = __webpack_require__(226);
 
 	/* global i18n */
-	var babelPluginFlowReactPropTypes_proptype_ZIndexes = __webpack_require__(230).babelPluginFlowReactPropTypes_proptype_ZIndexes || __webpack_require__(11).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_ZIndexes = __webpack_require__(228).babelPluginFlowReactPropTypes_proptype_ZIndexes || __webpack_require__(11).PropTypes.any;
 
-	var babelPluginFlowReactPropTypes_proptype_Position = __webpack_require__(230).babelPluginFlowReactPropTypes_proptype_Position || __webpack_require__(11).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_Position = __webpack_require__(228).babelPluginFlowReactPropTypes_proptype_Position || __webpack_require__(11).PropTypes.any;
 
-	var babelPluginFlowReactPropTypes_proptype_DOMHighlightSet = __webpack_require__(230).babelPluginFlowReactPropTypes_proptype_DOMHighlightSet || __webpack_require__(11).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_DOMHighlightSet = __webpack_require__(228).babelPluginFlowReactPropTypes_proptype_DOMHighlightSet || __webpack_require__(11).PropTypes.any;
 
 	var HighlightSetRenderer = function(_React$PureComponent) {
 	    _inherits(HighlightSetRenderer, _React$PureComponent);
@@ -16869,7 +16867,7 @@ webpackJsonpPerseus([1],[
 	module.exports = HighlightSetRenderer;
 
 /***/ },
-/* 228 */
+/* 226 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -16901,11 +16899,11 @@ webpackJsonpPerseus([1],[
 	 */
 	var React = __webpack_require__(11);
 
-	var _require = __webpack_require__(14), StyleSheet = _require.StyleSheet, css = _require.css;
+	var _require = __webpack_require__(13), StyleSheet = _require.StyleSheet, css = _require.css;
 
 	var _require2 = __webpack_require__(243), getRelativePosition = _require2.getRelativePosition;
 
-	var babelPluginFlowReactPropTypes_proptype_Position = __webpack_require__(230).babelPluginFlowReactPropTypes_proptype_Position || __webpack_require__(11).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_Position = __webpack_require__(228).babelPluginFlowReactPropTypes_proptype_Position || __webpack_require__(11).PropTypes.any;
 
 	var HighlightTooltip = function(_React$PureComponent) {
 	    _inherits(HighlightTooltip, _React$PureComponent);
@@ -17031,7 +17029,7 @@ webpackJsonpPerseus([1],[
 	module.exports = HighlightTooltip;
 
 /***/ },
-/* 229 */
+/* 227 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -17064,9 +17062,9 @@ webpackJsonpPerseus([1],[
 	 */
 	var React = __webpack_require__(11);
 
-	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(230).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(11).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(228).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(11).PropTypes.any;
 
-	var babelPluginFlowReactPropTypes_proptype_DOMHighlight = __webpack_require__(230).babelPluginFlowReactPropTypes_proptype_DOMHighlight || __webpack_require__(11).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_DOMHighlight = __webpack_require__(228).babelPluginFlowReactPropTypes_proptype_DOMHighlight || __webpack_require__(11).PropTypes.any;
 
 	Object.defineProperty(module.exports, "babelPluginFlowReactPropTypes_proptype_TrackedSelection", __webpack_require__(11).PropTypes.shape({
 	    focusNode: __webpack_require__(11).PropTypes.any.isRequired,
@@ -17192,18 +17190,18 @@ webpackJsonpPerseus([1],[
 	module.exports = SelectionTracker;
 
 /***/ },
-/* 230 */
+/* 228 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(133).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(11).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(132).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(11).PropTypes.any;
 
 	// Import the DOM-related types from the parent directory, and re-export them
 	// to the UI code.
-	var babelPluginFlowReactPropTypes_proptype_DOMHighlightSet = __webpack_require__(133).babelPluginFlowReactPropTypes_proptype_DOMHighlightSet || __webpack_require__(11).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_DOMHighlightSet = __webpack_require__(132).babelPluginFlowReactPropTypes_proptype_DOMHighlightSet || __webpack_require__(11).PropTypes.any;
 
-	var babelPluginFlowReactPropTypes_proptype_DOMHighlight = __webpack_require__(133).babelPluginFlowReactPropTypes_proptype_DOMHighlight || __webpack_require__(11).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_DOMHighlight = __webpack_require__(132).babelPluginFlowReactPropTypes_proptype_DOMHighlight || __webpack_require__(11).PropTypes.any;
 
 	Object.defineProperty(module.exports, "babelPluginFlowReactPropTypes_proptype_Position", __webpack_require__(11).PropTypes.shape({
 	    left: __webpack_require__(11).PropTypes.number.isRequired,
@@ -17216,6 +17214,8 @@ webpackJsonpPerseus([1],[
 	}));
 
 /***/ },
+/* 229 */,
+/* 230 */,
 /* 231 */,
 /* 232 */,
 /* 233 */,
@@ -17267,17 +17267,17 @@ webpackJsonpPerseus([1],[
 	 */
 	var React = __webpack_require__(11);
 
-	var _require = __webpack_require__(14), StyleSheet = _require.StyleSheet, css = _require.css;
+	var _require = __webpack_require__(13), StyleSheet = _require.StyleSheet, css = _require.css;
 
 	var _require2 = __webpack_require__(243), getClientRectsForTextInRange = _require2.getClientRectsForTextInRange, getRelativePosition = _require2.getRelativePosition, getRelativeRect = _require2.getRelativeRect;
 
-	var babelPluginFlowReactPropTypes_proptype_ZIndexes = __webpack_require__(230).babelPluginFlowReactPropTypes_proptype_ZIndexes || __webpack_require__(11).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_ZIndexes = __webpack_require__(228).babelPluginFlowReactPropTypes_proptype_ZIndexes || __webpack_require__(11).PropTypes.any;
 
-	var babelPluginFlowReactPropTypes_proptype_Rect = __webpack_require__(230).babelPluginFlowReactPropTypes_proptype_Rect || __webpack_require__(11).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_Rect = __webpack_require__(228).babelPluginFlowReactPropTypes_proptype_Rect || __webpack_require__(11).PropTypes.any;
 
-	var babelPluginFlowReactPropTypes_proptype_Position = __webpack_require__(230).babelPluginFlowReactPropTypes_proptype_Position || __webpack_require__(11).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_Position = __webpack_require__(228).babelPluginFlowReactPropTypes_proptype_Position || __webpack_require__(11).PropTypes.any;
 
-	var babelPluginFlowReactPropTypes_proptype_DOMHighlight = __webpack_require__(230).babelPluginFlowReactPropTypes_proptype_DOMHighlight || __webpack_require__(11).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_DOMHighlight = __webpack_require__(228).babelPluginFlowReactPropTypes_proptype_DOMHighlight || __webpack_require__(11).PropTypes.any;
 
 	var HighlightRenderer = function(_React$PureComponent) {
 	    _inherits(HighlightRenderer, _React$PureComponent);
@@ -17396,14 +17396,14 @@ webpackJsonpPerseus([1],[
 	    return target;
 	};
 
-	var babelPluginFlowReactPropTypes_proptype_Rect = __webpack_require__(230).babelPluginFlowReactPropTypes_proptype_Rect || __webpack_require__(11).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_Rect = __webpack_require__(228).babelPluginFlowReactPropTypes_proptype_Rect || __webpack_require__(11).PropTypes.any;
 
 	/**
 	 * Utility functions for highlighting UI.
 	 */
-	var babelPluginFlowReactPropTypes_proptype_Position = __webpack_require__(230).babelPluginFlowReactPropTypes_proptype_Position || __webpack_require__(11).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_Position = __webpack_require__(228).babelPluginFlowReactPropTypes_proptype_Position || __webpack_require__(11).PropTypes.any;
 
-	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(230).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(11).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(228).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(11).PropTypes.any;
 
 	var _require = __webpack_require__(217), rangesOverlap = _require.rangesOverlap, intersectRanges = _require.intersectRanges;
 
