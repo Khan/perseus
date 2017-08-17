@@ -1,42 +1,38 @@
-/* eslint-disable brace-style, comma-dangle, no-var */
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /**
  * A library of options to pass to add/draw/remove/constraints
  */
-var _ = require("underscore");
+const _ = require("underscore");
 
-var WrappedEllipse = require("./wrapped-ellipse.js");
-var kpoint = require("kmath").point;
+const WrappedEllipse = require("./wrapped-ellipse.js");
+const kpoint = require("kmath").point;
 
-var add = {
+const add = {
     constrain: function() {
         this.constrain();
-    }
+    },
 };
 
 add.standard = [add.constrain];
 
 
-var modify = {
+const modify = {
     draw: function() {
         this.draw();
-    }
+    },
 };
 
 modify.standard = [modify.draw];
 
 
-var draw = {
+const draw = {
     basic: function(state, prevState) {
-        var graphie = this.graphie;
+        const graphie = this.graphie;
         if (!this.state.visibleShape) {
-            var radii = [
+            const radii = [
                 this.pointSize() / graphie.scale[0],
-                this.pointSize() / graphie.scale[1]
+                this.pointSize() / graphie.scale[1],
             ];
-            var options = {
+            const options = {
                 maxScale: Math.max(
                     this.highlightStyle().scale, this.normalStyle().scale),
                 // Add in 10px of padding to avoid clipping at the edges.
@@ -77,27 +73,29 @@ var draw = {
                 50
             );
         }
-    }
+    },
 };
 
 draw.standard = [draw.basic, draw.highlight];
 
 
-var remove = {
+const remove = {
     basic: function() {
         if (this.state.visibleShape) {
             this.state.visibleShape.remove();
             this.state.visibleShape = null;
         }
-    }
+    },
 };
 
 remove.standard = remove.basic;
 
 
-var constraints = {
+const constraints = {
     fixed: function() {
-        return function() { return false; };
+        return function() {
+            return false;
+        };
     },
 
     snap: function(snap) {
@@ -119,7 +117,7 @@ var constraints = {
             }
         }
         return function(coord, prev, options) {
-            var graphie = this.graphie;
+            const graphie = this.graphie;
             range = range || graphie.range;
 
             if (snap === undefined) {
@@ -128,12 +126,12 @@ var constraints = {
 
             let lower = graphie.unscalePoint([
                 paddingPx,
-                graphie.ypixels - paddingPx
+                graphie.ypixels - paddingPx,
             ]);
 
             let upper = graphie.unscalePoint([
                 graphie.xpixels - paddingPx,
-                paddingPx
+                paddingPx,
             ]);
 
             if (snap) {
@@ -156,7 +154,7 @@ var constraints = {
 
             return [coordX, coordY];
         };
-    }
+    },
 };
 
 constraints.standard = null;
@@ -171,5 +169,5 @@ module.exports = {
     constraints: constraints,
     onMove: {standard: null},
     onMoveEnd: {standard: null},
-    onClick: {standard: null}
+    onClick: {standard: null},
 };

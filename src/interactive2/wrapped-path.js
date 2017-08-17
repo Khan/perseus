@@ -1,17 +1,13 @@
-/* eslint-disable comma-dangle, no-var */
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+const _ = require("underscore");
+const WrappedDefaults = require("./wrapped-defaults.js");
 
-var _ = require("underscore");
-var WrappedDefaults = require("./wrapped-defaults.js");
-
-var DEFAULT_OPTIONS = {
+const DEFAULT_OPTIONS = {
     center: null, // gets ignored in `graphie.fixedPath` if `null`
     createPath: null, // gets defaulted in `graphie.fixedPath` if `null`
-    mouselayer: false
+    mouselayer: false,
 };
 
-var WrappedPath = function(graphie, points, options) {
+const WrappedPath = function(graphie, points, options) {
     options = _.extend({}, DEFAULT_OPTIONS, options);
 
     // Add `wrapper` and `visibleShape`
@@ -21,7 +17,7 @@ var WrappedPath = function(graphie, points, options) {
     // Add remaining properties
     _.extend(this, {
         graphie: graphie,
-        initialPoint: graphie.scalePoint(_.head(points))
+        initialPoint: graphie.scalePoint(_.head(points)),
     });
 
     // Add to appropriate graphie layer

@@ -1,7 +1,3 @@
-/* eslint-disable comma-dangle, no-redeclare, no-var */
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /**
  * Movable
  *
@@ -13,17 +9,17 @@
  * let this class handle all of the virtual mouse events, and then
  * take appropriate action in onMoveStart, onMove, onMoveEnd
  */
-var _ = require("underscore");
+const _ = require("underscore");
 
-var InteractiveUtil = require("./interactive-util.js");
-var normalizeOptions = InteractiveUtil.normalizeOptions;
+const InteractiveUtil = require("./interactive-util.js");
+const normalizeOptions = InteractiveUtil.normalizeOptions;
 
-var assert = InteractiveUtil.assert;
-var kpoint = require("kmath").point;
+const assert = InteractiveUtil.assert;
+const kpoint = require("kmath").point;
 
 // state parameters that should be converted into an array of
 // functions
-var FUNCTION_ARRAY_OPTIONS = [
+const FUNCTION_ARRAY_OPTIONS = [
     "add",
     "modify",
     "draw",
@@ -31,7 +27,7 @@ var FUNCTION_ARRAY_OPTIONS = [
     "onMoveStart",
     "onMove",
     "onMoveEnd",
-    "onClick"
+    "onClick",
 ];
 
 // Default "props" and "state". Both are added to this.state and
@@ -40,24 +36,24 @@ var FUNCTION_ARRAY_OPTIONS = [
 // while those in DEFAULT_STATE persist and are not updated.
 // Things that the user might want to change should be on "props",
 // while things used to render the movable should be on "state".
-var DEFAULT_PROPS = {
-    cursor: null
+const DEFAULT_PROPS = {
+    cursor: null,
 };
-var DEFAULT_STATE = {
+const DEFAULT_STATE = {
     added: false,
     isHovering: false,
     isMouseOver: false,
     isDragging: false,
-    mouseTarget: null
+    mouseTarget: null,
 };
 
-var Movable = function(graphie, options) {
+const Movable = function(graphie, options) {
     _.extend(this, {
         graphie: graphie,
         state: {
             // Set here because this must be unique for each instance
-            id: _.uniqueId("movable")
-        }
+            id: _.uniqueId("movable"),
+        },
     });
 
     // We only set DEFAULT_STATE once, here
@@ -86,7 +82,7 @@ _.extend(Movable.prototype, {
             onMoveStart: [],
             onMove: [],
             onMoveEnd: [],
-            onClick: []
+            onClick: [],
 
         // We only update props here, because we want things on state to
         // be persistent, and updated appropriately in modify()
@@ -108,26 +104,26 @@ _.extend(Movable.prototype, {
      */
     grab: function(coord) {
         assert(kpoint.is(coord));
-        var self = this;
-        var graphie = self.graphie;
-        var state = self.state;
+        const self = this;
+        const graphie = self.graphie;
+        const state = self.state;
 
         state.isHovering = true;
         state.isDragging = true;
         graphie.isDragging = true;
 
-        var startMouseCoord = coord;
-        var prevMouseCoord = startMouseCoord;
+        const startMouseCoord = coord;
+        let prevMouseCoord = startMouseCoord;
         self._fireEvent(
             state.onMoveStart,
             startMouseCoord,
             startMouseCoord
         );
 
-        var moveHandler = function(e) {
+        const moveHandler = function(e) {
             e.preventDefault();
 
-            var mouseCoord = graphie.getMouseCoord(e);
+            const mouseCoord = graphie.getMouseCoord(e);
             self._fireEvent(
                 state.onMove,
                 mouseCoord,
@@ -137,7 +133,7 @@ _.extend(Movable.prototype, {
             prevMouseCoord = mouseCoord;
         };
 
-        var upHandler = function(e) {
+        const upHandler = function(e) {
             $(document).unbind("vmousemove", moveHandler);
             $(document).unbind("vmouseup", upHandler);
             if (state.isHovering) {
@@ -169,25 +165,25 @@ _.extend(Movable.prototype, {
      * Analogous to React.js's setProps
      */
     update: function(options) {
-        var self = this;
-        var graphie = self.graphie;
+        const self = this;
+        const graphie = self.graphie;
 
-        var prevState = self.cloneState();
-        var state = _.extend(
+        const prevState = self.cloneState();
+        const state = _.extend(
             self.state,
             normalizeOptions(FUNCTION_ARRAY_OPTIONS, options)
         );
 
         // the invisible shape in front of the point that gets mouse events
         if (state.mouseTarget && !prevState.mouseTarget) {
-            var $mouseTarget;
+            let $mouseTarget;
             if (state.mouseTarget.getMouseTarget) {
                 $mouseTarget = $(state.mouseTarget.getMouseTarget());
             } else {
                 $mouseTarget = $(state.mouseTarget[0]);
             }
 
-            var isMouse = !('ontouchstart' in window);
+            const isMouse = !('ontouchstart' in window);
 
             if (isMouse) {
                 $mouseTarget.on("vmouseover", function() {
@@ -225,13 +221,13 @@ _.extend(Movable.prototype, {
                 }
                 e.preventDefault();
 
-                var mouseCoord = graphie.getMouseCoord(e);
+                const mouseCoord = graphie.getMouseCoord(e);
                 self.grab(mouseCoord);
             });
         }
 
         if (state.mouseTarget && state.cursor !== undefined) {
-            var $mouseTarget;
+            let $mouseTarget;
             if (state.mouseTarget.getMouseTarget) {
                 $mouseTarget = $(state.mouseTarget.getMouseTarget());
             } else {
@@ -279,7 +275,7 @@ _.extend(Movable.prototype, {
         if (this.state.mouseTarget) {
             this.state.mouseTarget.toFront();
         }
-    }
+    },
 });
 
 module.exports = Movable;

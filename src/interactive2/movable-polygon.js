@@ -1,25 +1,21 @@
-/* eslint-disable comma-dangle, max-len, no-var */
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /**
  * Creates and adds a polygon to the graph that can be dragged around.
  * It allows constraints on its movement and draws when moves happen.
  */
-var kvector = require("kmath").vector;
-var _ = require("underscore");
+const kvector = require("kmath").vector;
+const _ = require("underscore");
 
-var MovablePolygonOptions = require("./movable-polygon-options.js");
-var InteractiveUtil = require("./interactive-util.js");
-var objective_ = require("./objective_.js");
-var assert = InteractiveUtil.assert;
-var normalizeOptions = InteractiveUtil.normalizeOptions;
+const MovablePolygonOptions = require("./movable-polygon-options.js");
+const InteractiveUtil = require("./interactive-util.js");
+const objective_ = require("./objective_.js");
+const assert = InteractiveUtil.assert;
+const normalizeOptions = InteractiveUtil.normalizeOptions;
 const KhanColors = require("../util/colors.js");
 const GraphUtils = require("../util/graph-utils.js");
 
 // State parameters that should be converted into an array of
 // functions
-var FUNCTION_ARRAY_OPTIONS = _.keys(MovablePolygonOptions);
+const FUNCTION_ARRAY_OPTIONS = _.keys(MovablePolygonOptions);
 
 // Default "props" and "state". Both are added to this.state and
 // receive magic getter methods (this.points() etc).
@@ -27,7 +23,7 @@ var FUNCTION_ARRAY_OPTIONS = _.keys(MovablePolygonOptions);
 // while those in DEFAULT_STATE persist and are not updated.
 // Things that the user might want to change should be on "props",
 // while things used to render the point should be on "state".
-var DEFAULT_PROPS = {
+const DEFAULT_PROPS = {
     points: null,
     angleLabels: [],
     showRightAngleMarkers: [],
@@ -41,16 +37,16 @@ var DEFAULT_PROPS = {
     cursor: "move",
     normalStyle: null,    // turned into an object in this.modify
     highlightStyle: null, // likewise
-    labelStyle: null      // likewise
+    labelStyle: null,     // likewise
 };
-var DEFAULT_STATE = {
+const DEFAULT_STATE = {
     added: false,
     hasMoved: false,
     visibleShape: null,
-    mouseTarget: null
+    mouseTarget: null,
 };
 
-var MovablePolygon = function(graphie, movable, options) {
+const MovablePolygon = function(graphie, movable, options) {
     assert(graphie != null);
     assert(options != null);
 
@@ -59,8 +55,8 @@ var MovablePolygon = function(graphie, movable, options) {
         movable: movable,
         state: {
             // Set here because this must be unique for each instance
-            id: _.uniqueId("movablePolygon")
-        }
+            id: _.uniqueId("movablePolygon"),
+        },
     });
 
     // We only set DEFAULT_STATE once, here
@@ -115,9 +111,9 @@ _.extend(MovablePolygon.prototype, {
      * Analogous to React.js's setProps
      */
     update: function(options) {
-        var self = this;
-        var graphie = self.graphie;
-        var state = _.extend(
+        const self = this;
+        const graphie = self.graphie;
+        const state = _.extend(
             self.state,
             normalizeOptions(FUNCTION_ARRAY_OPTIONS, options)
         );
@@ -127,26 +123,26 @@ _.extend(MovablePolygon.prototype, {
         // We use _.extend instead of _.defaults because we don't want
         // to modify the passed-in copy (especially if it's from
         // DEFAULT_PROPS/STATE!)
-        var normalColor = (state.static) ? KhanColors.DYNAMIC :
+        const normalColor = (state.static) ? KhanColors.DYNAMIC :
                                            KhanColors.INTERACTIVE;
         state.normalStyle = _.extend({}, state.normalStyle, {
             "stroke-width": 2,
             "fill-opacity": 0,
             "fill": normalColor,
-            "stroke": normalColor
+            "stroke": normalColor,
         }, options.normalStyle);
 
         state.highlightStyle = _.extend({}, {
             "stroke": KhanColors.INTERACTING,
             "stroke-width": 2,
             "fill": KhanColors.INTERACTING,
-            "fill-opacity": 0.05
+            "fill-opacity": 0.05,
         }, state.highlightStyle);
 
         state.labelStyle = _.extend({}, {
             "stroke": KhanColors.DYNAMIC,
             "stroke-width": 1,
-            "color": KhanColors.DYNAMIC
+            "color": KhanColors.DYNAMIC,
         }, state.labelStyle);
 
         if (!state.static) {
@@ -177,16 +173,20 @@ _.extend(MovablePolygon.prototype, {
                 );
             },
             onMove: function(mouseCoord, prevMouseCoord) {
-                var delta = kvector.subtract(mouseCoord, prevMouseCoord);
+                const delta = kvector.subtract(mouseCoord, prevMouseCoord);
                 self._totalDelta = kvector.add(self._totalDelta, delta);
-                var refCoord = kvector.add(self._initialRefCoord, self._totalDelta);
+                let refCoord = kvector.add(
+                    self._initialRefCoord, self._totalDelta
+                );
 
                 refCoord = self._applyConstraints(refCoord, self._prevRefCoord);
                 if (refCoord === false) {
                     return;
                 }
 
-                self._fireEvent(self.state.onMove, refCoord, self._prevRefCoord);
+                self._fireEvent(
+                    self.state.onMove, refCoord, self._prevRefCoord
+                );
                 self._prevRefCoord = refCoord;
             },
             onMoveEnd: function() {
@@ -217,10 +217,10 @@ _.extend(MovablePolygon.prototype, {
     },
 
     path: function(state) {
-        var graphie = this.graphie;
+        const graphie = this.graphie;
         state = state || this.state;
 
-        var coords = _.map(state.points, function(point) {
+        let coords = _.map(state.points, function(point) {
             return graphie.scalePoint(point.coord());
         });
 
@@ -275,8 +275,8 @@ _.extend(MovablePolygon.prototype, {
             return;
         }
 
-        var prevRefCoord = this.coord(0);
-        var refCoord = this._applyConstraints(prevRefCoord, prevRefCoord);
+        const prevRefCoord = this.coord(0);
+        const refCoord = this._applyConstraints(prevRefCoord, prevRefCoord);
         if (refCoord !== false) {
             this._fireEvent(this.state.onMove, refCoord, prevRefCoord);
         }
@@ -321,7 +321,7 @@ _.extend(MovablePolygon.prototype, {
 
     mouseTarget: function() {
         return this.movable.mouseTarget();
-    }
+    },
 });
 
 module.exports = MovablePolygon;
