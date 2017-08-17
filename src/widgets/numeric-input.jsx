@@ -22,6 +22,8 @@ const {
     linterContextProps,
     linterContextDefault,
 } = require("../gorgon/proptypes.js");
+const {iconDropdownArrow} = require("../icon-paths.js");
+const InlineIcon = require("../components/inline-icon.jsx");
 
 var answerFormButtons = [
     {title: "Integers", value: "integer", content: "6"},
@@ -81,7 +83,9 @@ var NumericInput = React.createClass({
     getDefaultProps: function() {
         return {
             currentValue: "",
-            currentMultipleValues: [],
+            // currentMultipleValues has an empty string, because if finite
+            // solutions is chosen, there must be at least 1 answer
+            currentMultipleValues: [""],
             size: "normal",
             apiOptions: ApiOptions.defaults,
             coefficient: false,
@@ -89,6 +93,16 @@ var NumericInput = React.createClass({
             labelText: "",
             linterContext: linterContextDefault,
             multipleNumberInput: false,
+        };
+    },
+
+    getInitialState: function() {
+        return {
+            // dropdown option: either no-solutions or finite-solutions
+            numSolutions: "no-solutions",
+            // keeps track of the other set of values when switching
+            // between 0 and finite solutions
+            previousValues: [""],
         };
     },
 
@@ -156,85 +170,96 @@ var NumericInput = React.createClass({
             labelText = i18n._("Your answer:");
         }
 
+        var selectClasses = classNames({
+            "perseus-widget-dropdown": true,
+        });
+
+        const dropdown = <div>
+            <select
+                onChange={this.handleNumSolutionsChange}
+                className={selectClasses +
+                    " " + css(styles.dropdown) +
+                    " " + ApiClassNames.INTERACTIVE}
+                value={this.state.numSolutions}
+            >
+                <option value="no-solutions">
+                    {i18n._("0 solutions")}
+                </option>
+                <option value="finite-solutions">
+                    {i18n._("Finite solutions")}
+                </option>
+            </select>
+            <InlineIcon
+                {...iconDropdownArrow}
+                style={{
+                    marginLeft: -24,
+                    height: 24,
+                    width: 24,
+                }}
+            />
+        </div>;
+
         var input;
         if (this.props.multipleNumberInput) {
-            const addInput = (
-                <div
-                    className={css(styles.addInputButton)}
-                    onClick={this._addInput}
-                >
-                    +
-                </div>
-            );
-            const removeInput = (
-                <div
-                    className={css(styles.addInputButton)}
-                    onClick={this._removeInput}
-                >
-                    -
-                </div>
-            );
-            input = (
-                <div>
-                    Add answer
+            if (this.state.numSolutions === "no-solutions") {
+                return dropdown;
+            } else {
+                const addInput = (
+                    <div
+                        className={css(styles.addInputButton)}
+                        onClick={this._addInput}
+                    >
+                        +
+                    </div>
+                );
+
+                input = <div>
+                    {this.props.currentMultipleValues.map((item, i) =>
+                        <div
+                            key={i}
+                            className={css(styles.numberInputContainer)}
+                        >
+                            {i > 0 && <div
+                                className={css(styles.removeInputButton)}
+                                onClick={evt => this._removeInput(i, evt)}
+                                aria-label="Remove this answer"
+                            >
+                                    -
+                                </div>
+                            }
+                            {this.props.apiOptions.customKeypad ?
+                            <SimpleKeypadInput
+                                ref="input"
+                                value={this.props.currentMultipleValues[i]}
+                                keypadElement={this.props.keypadElement}
+                                onChange={
+                                    e => this.handleMultipleInputChange(i, e)}
+                                onFocus={this._handleFocus}
+                                onBlur={this._handleBlur}
+                            /> :
+                            <InputWithExamples
+                                ref="input"
+                                value={this.props.currentMultipleValues[i]}
+                                onChange={
+                                    e => this.handleMultipleInputChange(i, e)}
+                                className={classNames(
+                                    classes, css(styles.numberInput))}
+                                labelText={labelText}
+                                type={this._getInputType()}
+                                examples={this.examples()}
+                                shouldShowExamples={this.shouldShowExamples()}
+                                onFocus={this._handleFocus}
+                                onBlur={this._handleBlur}
+                                id={this.props.widgetId}
+                                disabled={this.props.apiOptions.readOnly}
+                                highlightLint={this.props.highlightLint}
+                            />}
+                        </div>)
+                    }
                     {addInput}
-                    {this.props.currentMultipleValues.length > 0 && removeInput}
-                    <br />
-                    {this.props.currentMultipleValues.length === 0
-                        ? <div>No Solution</div>
-                        : this.props.currentMultipleValues.map(
-                              (item, i) =>
-                                  this.props.apiOptions.customKeypad
-                                      ? <SimpleKeypadInput
-                                          ref="input"
-                                          key={i}
-                                          value={
-                                              this.props
-                                                  .currentMultipleValues[i]
-                                          }
-                                          keypadElement={
-                                              this.props.keypadElement
-                                          }
-                                          onChange={evt =>
-                                              this.handleMultipleInputChange(
-                                                  i,
-                                                  evt
-                                              )}
-                                          onFocus={this._handleFocus}
-                                          onBlur={this._handleBlur}
-                                      />
-                                      : <InputWithExamples
-                                          ref="input"
-                                          key={i}
-                                          value={
-                                              this.props
-                                                  .currentMultipleValues[i]
-                                          }
-                                          onChange={evt =>
-                                              this.handleMultipleInputChange(
-                                                  i,
-                                                  evt
-                                              )}
-                                          className={classNames(classes)}
-                                          labelText={labelText}
-                                          type={this._getInputType()}
-                                          examples={this.examples()}
-                                          shouldShowExamples={
-                                              this.shouldShowExamples()
-                                          }
-                                          onFocus={this._handleFocus}
-                                          onBlur={this._handleBlur}
-                                          id={this.props.widgetId}
-                                          disabled={
-                                              this.props.apiOptions.readOnly
-                                          }
-                                          highlightLint={
-                                              this.props.highlightLint
-                                          }
-                                      />
-                          )}
-                </div>
-            );
+                    Add answer
+                </div>;
+            }
         } else {
             if (this.props.apiOptions.customKeypad) {
                 // TODO(charlie): Support "Review Mode".
@@ -268,27 +293,32 @@ var NumericInput = React.createClass({
                 );
             }
         }
+
         if (answerBlurb) {
-            return (
-                <span className="perseus-input-with-answer-blurb">
-                    {input}
-                    {answerBlurb}
-                </span>
-            );
+            return <span className="perseus-input-with-answer-blurb">
+                {dropdown}
+                {input}
+                {answerBlurb}
+            </span>;
         } else if (this.props.apiOptions.satStyling) {
             // NOTE(amy): the input widgets themselves already have
             // a default aria label of "Your Answer", so we hide this
             // redundant label from screen-readers.
-            return (
-                <label className="perseus-input-with-label" aria-hidden="true">
-                    <span className="perseus-input-label">
-                        {i18n.i18nDoNotTranslate("Answer:")}
-                    </span>
-                    {input}
-                </label>
-            );
+            return <label
+                className="perseus-input-with-label"
+                aria-hidden="true"
+            >
+                <span className="perseus-input-label">
+                    {i18n.i18nDoNotTranslate("Answer:")}
+                </span>
+                {dropdown}
+                {input}
+            </label>;
         } else {
-            return input;
+            return <div>
+                {dropdown}
+                {input}
+            </div>;
         }
     },
 
@@ -304,6 +334,31 @@ var NumericInput = React.createClass({
             currentMultipleValues: newValues,
         });
         this.props.trackInteraction();
+    },
+
+    handleNumSolutionsChange: function(event) {
+        const newValue = event.target.value;
+        this.setState({numSolutions: newValue});
+
+        // Saves the values the user entered when switching between no
+        // solutions and finite solutions, however, we also correctly update
+        // the answer that is to be graded
+        if (newValue === "no-solutions") {
+            this.setState({
+                previousValues: this.props.currentMultipleValues,
+            });
+            this.props.onChange({
+                currentMultipleValues: [],
+            });
+
+        } else {
+            this.props.onChange({
+                currentMultipleValues: this.state.previousValues,
+            });
+            this.setState({
+                previousValues: [],
+            });
+        }
     },
 
     _getInputType: function() {
@@ -338,13 +393,12 @@ var NumericInput = React.createClass({
         });
     },
 
-    _removeInput: function() {
-        const listLength = this.props.currentMultipleValues.length;
+    _removeInput: function(i, event) {
+        const length = this.props.currentMultipleValues.length;
+        const newValues = this.props.currentMultipleValues.slice(0, i).concat(
+            this.props.currentMultipleValues.slice(i + 1, length));
         this.props.onChange({
-            currentMultipleValues: this.props.currentMultipleValues.splice(
-                0,
-                listLength - 1
-            ),
+            currentMultipleValues: newValues,
         });
     },
 
@@ -626,16 +680,82 @@ const styles = StyleSheet.create({
         cursor: "pointer",
         display: "inline-block",
         border: `2px solid ${styleConstants.kaGreen}`,
-        color: styleConstants.kaGreen,
+        backgroundColor: styleConstants.kaGreen,
+        color: styleConstants.white,
         fontSize: 20,
         borderRadius: 15,
-        width: 26,
-        height: 26,
+        width: 18,
+        height: 18,
         marginBottom: 7,
         marginRight: 8,
-        marginLeft: 8,
+        marginTop: 3,
         textAlign: "center",
-        paddingTop: 2,
+        paddingTop: 1,
+    },
+
+    removeInputButton: {
+        cursor: "pointer",
+        display: "inline-block",
+        border: `2px solid ${styleConstants.red}`,
+        backgroundColor: styleConstants.red,
+        color: styleConstants.white,
+        fontSize: 20,
+        borderRadius: 15,
+        width: 18,
+        height: 18,
+        marginBottom: 7,
+        marginRight: 8,
+        marginTop: 4,
+        textAlign: "center",
+    },
+
+    dropdown: {
+        width: 250,
+        marginBottom: 10,
+        appearance: 'none',
+        backgroundColor: 'transparent',
+        border: `1px solid ${styleConstants.gray76}`,
+        borderRadius: 4,
+        boxShadow: 'none',
+        fontFamily: styleConstants.baseFontFamily,
+        padding: `9px 25px 9px 9px`,
+
+        ':focus': {
+            outline: 'none',
+            border: `2px solid ${styleConstants.kaGreen}`,
+            padding: `8px 25px 8px 8px`,
+        },
+
+        ':focus + svg': {
+            color: `${styleConstants.kaGreen}`,
+        },
+
+        ':disabled': {
+            color: styleConstants.gray68,
+        },
+
+        ':disabled + svg' : {
+            color: styleConstants.gray68,
+        },
+    },
+
+    numberInput: {
+        float: "right",
+        width: 170,
+        marginBottom: 10,
+        border: `1px solid ${styleConstants.gray76}`,
+        borderRadius: 4,
+        padding: `9px 25px 9px 9px`,
+
+        ':focus': {
+            outline: 'none',
+            border: `2px solid ${styleConstants.kaGreen}`,
+            padding: `8px 25px 8px 8px`,
+        },
+    },
+
+    numberInputContainer: {
+        display: "flex",
     },
 });
 
