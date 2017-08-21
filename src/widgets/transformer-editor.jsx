@@ -897,7 +897,8 @@ var TransformerEditor = React.createClass({
     changeTransformer: function(changes, callback) {
         if (changes.transformations) {
             changes.correct = {
-                transformations: changes.transformations
+                ...this.props.correct,
+                transformations: changes.transformations,
             };
             delete changes.transformations;
         }
