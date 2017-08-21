@@ -72,6 +72,14 @@ const Definition = React.createClass({
         });
     },
 
+    getUserInput: function() {
+        return {};
+    },
+
+    simpleValidate: function(rubric) {
+        return Definition.validate(this.getUserInput(), rubric);
+    },
+
     // check if the definition is fully visible on the bottom
     _definitionBelowScreen: function() {
         const windowBottom = window.innerHeight;
@@ -163,8 +171,8 @@ const Definition = React.createClass({
         const documentWidth = document.body.clientWidth;
         const marginWidth =
             this.container.parentElement.parentElement.offsetLeft;
-        const contentWidth = documentWidth - 4 * marginWidth;
-        const contentWidthMobile = documentWidth - 2 * marginWidth;
+        const contentWidth = documentWidth - 2 * marginWidth;
+        const contentWidthMobile = documentWidth - marginWidth;
         const contentOffsetLeft = this.container.offsetLeft - marginWidth;
         const contentOffsetLeftMobile = this.container.offsetLeft;
 
@@ -372,6 +380,17 @@ const styles = StyleSheet.create({
         position: 'absolute',
         width: arrowWidth,
         zIndex: 4, // so popovers appear on top
+    },
+});
+
+_.extend(Definition, {
+    validate: function(state, rubric) {
+        return {
+            type: "points",
+            earned: 0,
+            total: 0,
+            message: null,
+        };
     },
 });
 
