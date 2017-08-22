@@ -1492,8 +1492,7 @@ var ToolsBar = React.createClass({
                     onClick={this.props.onUndoClick}
                     onTouchStart={captureScratchpadTouchStart}>
                 <InlineIcon {...iconUndo} />
-                {" "}
-                Undo
+                {" " + i18n._("Undo")}
             </button>
             <div className="clear"/>
         </div>;
@@ -1540,8 +1539,7 @@ var AddTransformBar = React.createClass({
                     disabled={this.props.apiOptions.readOnly}
                     onTouchStart={captureScratchpadTouchStart}>
                 <InlineIcon {...iconUndo} />
-                {" "}
-                Undo
+                {" " + i18n._("Undo")}
             </button>
             <div className="clear"/>
         </div>;
