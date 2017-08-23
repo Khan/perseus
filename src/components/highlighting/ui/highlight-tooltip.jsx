@@ -24,7 +24,7 @@ type HighlightTooltipProps = {
 class HighlightTooltip extends React.PureComponent {
     props: HighlightTooltipProps
 
-    _getPosition(): Position {
+    _getPosition(): ?Position {
         const {focusNode, focusOffset, offsetParent} = this.props;
 
         // Get a range of *just* the focus point of the selection.
@@ -42,6 +42,21 @@ class HighlightTooltip extends React.PureComponent {
         //     one rectangle from getClientRects, and it's well-positioned.
         const focusRect = focusRange.getClientRects()[0];
 
+        // NOTE(mdr): ...except in the case where the focus is between two
+        //     paragraphs, in which case the focus range has no client rects?
+        //     Not sure why, or in what browsers (only noticed in Chrome 60),
+        //     but let's catch that case and bail out.
+        // TODO(mdr): Instead, we should somehow walk back the range until we
+        //     find an appropriate position for the tooltip. Sounds tricky!
+        if (!focusRect) {
+            // eslint-disable-next-line no-console
+            console.warn(
+                "[Highlighting] Known bug: Could not determine the focus " +
+                "position, so did not show an \"Add Highlight\" tooltip. " +
+                "https://app.asana.com/0/329800276300868/413878480039713");
+            return null;
+        }
+
         // Compute the desired position of the tooltip relative to the offset
         // parent.
         const offsetParentRect = offsetParent.getBoundingClientRect();
@@ -53,6 +68,9 @@ class HighlightTooltip extends React.PureComponent {
 
     render() {
         const position = this._getPosition();
+        if (!position) {
+            return null;
+        }
 
         return <div
             className={css(styles.tooltip)}
