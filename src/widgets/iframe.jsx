@@ -19,7 +19,6 @@ var Changeable = require("../mixins/changeable.jsx");
 var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
 var updateQueryString = require("../util.js").updateQueryString;
 
-
 /* This renders the iframe and handles validation via window.postMessage */
 var Iframe = React.createClass({
     propTypes: {
@@ -28,7 +27,7 @@ var Iframe = React.createClass({
         height: React.PropTypes.string,
         url: React.PropTypes.string,
         settings: React.PropTypes.array,
-        status: React.PropTypes.oneOf(['incomplete', 'incorrect', 'correct']),
+        status: React.PropTypes.oneOf(["incomplete", "incorrect", "correct"]),
         message: React.PropTypes.string,
         allowFullScreen: React.PropTypes.bool,
     },
@@ -61,10 +60,10 @@ var Iframe = React.createClass({
             return;
         }
 
-        var status = (data.testsPassed ? "correct" : "incorrect");
+        var status = data.testsPassed ? "correct" : "incorrect";
         this.change({
             status: status,
-            message: data.message
+            message: data.message,
         });
     },
     componentDidMount: function() {
@@ -78,14 +77,16 @@ var Iframe = React.createClass({
     render: function() {
         var style = {
             width: this.props.width,
-            height: this.props.height
+            height: this.props.height,
         };
         var url = this.props.url;
 
         // If the URL doesnt start with http, it must be a program ID
         if (url && url.length && url.indexOf("http") !== 0) {
-            url = "https://www.khanacademy.org/computer-programming/program/" + url +
-                    "/embedded?buttons=no&embed=yes&editor=no&author=no";
+            url =
+                "https://www.khanacademy.org/computer-programming/program/" +
+                url +
+                "/embedded?buttons=no&embed=yes&editor=no&author=no";
             url = updateQueryString(url, "width", this.props.width);
             url = updateQueryString(url, "height", this.props.height);
             // Origin is used by output.js in deciding to send messages
@@ -99,14 +100,17 @@ var Iframe = React.createClass({
                 // Internal URLs should be rewritten to point at zero.ka.org,
                 // unless they already do so
                 if (!url.match(/zero.khanacademy.org/)) {
-                    url = url.replace('khanacademy.org',
-                                      'zero.khanacademy.org');
+                    url = url.replace(
+                        "khanacademy.org",
+                        "zero.khanacademy.org"
+                    );
                 }
             } else {
                 // External URLs should be rewritten to point at a warning
                 // interstitial
-                url = ('/zero/external-link?context=iframe&url=' +
-                            encodeURIComponent(url));
+                url =
+                    "/zero/external-link?context=iframe&url=" +
+                    encodeURIComponent(url);
             }
         }
 
@@ -126,9 +130,14 @@ var Iframe = React.createClass({
         //  that we need. This makes it a bit safer in case some content
         //  creator "went wild".
         // http://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/
-        return <iframe sandbox="allow-same-origin allow-scripts"
-                       style={style} src={url}
-                       allowFullScreen={this.props.allowFullScreen} />;
+        return (
+            <iframe
+                sandbox="allow-same-origin allow-scripts"
+                style={style}
+                src={url}
+                allowFullScreen={this.props.allowFullScreen}
+            />
+        );
     },
 
     change(...args) {
@@ -137,9 +146,8 @@ var Iframe = React.createClass({
 
     simpleValidate: function(rubric) {
         return Iframe.validate(this.getUserInput(), rubric);
-    }
+    },
 });
-
 
 /**
  * This is the widget's grading function
@@ -153,22 +161,22 @@ _.extend(Iframe, {
                 type: "points",
                 earned: 1,
                 total: 1,
-                message: state.message || null
+                message: state.message || null,
             };
         } else if (state.status === "incorrect") {
             return {
                 type: "points",
                 earned: 0,
                 total: 1,
-                message: state.message || null
+                message: state.message || null,
             };
         } else {
             return {
                 type: "invalid",
-                message: "Keep going, you're not there yet!"
+                message: "Keep going, you're not there yet!",
             };
         }
-    }
+    },
 });
 
 module.exports = {

@@ -27,11 +27,15 @@ const init = function(options) {
     // immediately.
     if (options.loadExtraWidgets === undefined || options.loadExtraWidgets) {
         const Widgets = require("./widgets.js");
-        require.ensure([], require => {
-            const extraWidgets = require("./extra-widgets.js");
-            Widgets.registerMany(extraWidgets);
-            widgetsDeferred.resolve();
-        }, "extra-widgets");
+        require.ensure(
+            [],
+            require => {
+                const extraWidgets = require("./extra-widgets.js");
+                Widgets.registerMany(extraWidgets);
+                widgetsDeferred.resolve();
+            },
+            "extra-widgets"
+        );
     } else {
         widgetsDeferred.resolve();
     }

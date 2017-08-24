@@ -6,7 +6,7 @@
  * This allows this component to be used in server-rendering of a perseus
  * exercise.
  */
-const React = require('react');
+const React = require("react");
 const ReactDOM = require("react-dom");
 const _ = require("underscore");
 const {StyleSheet, css} = require("aphrodite");
@@ -43,7 +43,7 @@ const ItemRenderer = React.createClass({
 
     getDefaultProps: function() {
         return {
-            apiOptions: {},  // a deep default is done in `this.update()`
+            apiOptions: {}, // a deep default is done in `this.update()`
         };
     },
 
@@ -69,7 +69,7 @@ const ItemRenderer = React.createClass({
     componentDidUpdate: function() {
         if (this.props.apiOptions.answerableCallback) {
             const isAnswerable =
-            this.questionRenderer.emptyWidgets().length === 0;
+                this.questionRenderer.emptyWidgets().length === 0;
             this.props.apiOptions.answerableCallback(isAnswerable);
         }
     },
@@ -105,7 +105,8 @@ const ItemRenderer = React.createClass({
 
         // Determine whether the newly focused path represents an input.
         const inputPaths = this.getInputPaths();
-        const didFocusInput = this._currentFocus &&
+        const didFocusInput =
+            this._currentFocus &&
             inputPaths.some(inputPath => {
                 return Util.inputPathsEqual(inputPath, this._currentFocus);
             });
@@ -114,7 +115,8 @@ const ItemRenderer = React.createClass({
             this.props.apiOptions.onFocusChange(
                 this._currentFocus,
                 prevFocus,
-                didFocusInput && keypadElement &&
+                didFocusInput &&
+                    keypadElement &&
                     ReactDOM.findDOMNode(keypadElement)
             );
         }
@@ -155,11 +157,7 @@ const ItemRenderer = React.createClass({
      * for the whole answer area (if the answer area is a single widget).
      */
     _setWidgetProps: function(widgetId, newProps, callback) {
-        this.questionRenderer._setWidgetProps(
-            widgetId,
-            newProps,
-            callback
-        );
+        this.questionRenderer._setWidgetProps(widgetId, newProps, callback);
     },
 
     _handleAPICall: function(functionName, path) {
@@ -171,23 +169,23 @@ const ItemRenderer = React.createClass({
     },
 
     setInputValue: function(path, newValue, focus) {
-        return this._handleAPICall('setInputValue', path, newValue, focus);
+        return this._handleAPICall("setInputValue", path, newValue, focus);
     },
 
     focusPath: function(path) {
-        return this._handleAPICall('focusPath', path);
+        return this._handleAPICall("focusPath", path);
     },
 
     blurPath: function(path) {
-        return this._handleAPICall('blurPath', path);
+        return this._handleAPICall("blurPath", path);
     },
 
     getDOMNodeForPath: function(path) {
-        return this._handleAPICall('getDOMNodeForPath', path);
+        return this._handleAPICall("getDOMNodeForPath", path);
     },
 
     getGrammarTypeForPath: function(path) {
-        return this._handleAPICall('getGrammarTypeForPath', path);
+        return this._handleAPICall("getGrammarTypeForPath", path);
     },
 
     getInputPaths: function() {
@@ -196,8 +194,10 @@ const ItemRenderer = React.createClass({
     },
 
     handleInteractWithWidget: function(widgetId) {
-        const withRemoved = _.difference(this.state.questionHighlightedWidgets,
-                                       [widgetId]);
+        const withRemoved = _.difference(
+            this.state.questionHighlightedWidgets,
+            [widgetId]
+        );
         this.setState({
             questionCompleted: false,
             questionHighlightedWidgets: withRemoved,
@@ -242,8 +242,11 @@ const ItemRenderer = React.createClass({
         //             analyzing ProblemLogs. If not, remove this layer.
         const maxCompatGuess = [guess, []];
 
-        const keScore = Util.keScoreFromPerseusScore(score, maxCompatGuess,
-            this.questionRenderer.getSerializedState());
+        const keScore = Util.keScoreFromPerseusScore(
+            score,
+            maxCompatGuess,
+            this.questionRenderer.getSerializedState()
+        );
 
         const emptyQuestionAreaWidgets = this.questionRenderer.emptyWidgets();
 
@@ -299,7 +302,9 @@ const ItemRenderer = React.createClass({
         };
 
         this.questionRenderer.restoreSerializedState(
-            state.question, fireCallback);
+            state.question,
+            fireCallback
+        );
         this.hintsRenderer.restoreSerializedState(state.hints, fireCallback);
     },
 
@@ -318,41 +323,47 @@ const ItemRenderer = React.createClass({
             onFocusChange: this._handleFocusChange,
         };
 
-        const questionRenderer = <Renderer
-            keypadElement={this.keypadElement()}
-            problemNum={this.props.problemNum}
-            onInteractWithWidget={this.handleInteractWithWidget}
-            highlightedWidgets={this.state.questionHighlightedWidgets}
-            apiOptions={apiOptions}
-            questionCompleted={this.state.questionCompleted}
-            reviewMode={this.props.reviewMode}
-            ref={elem => this.questionRenderer = elem}
-            {...this.props.item.question}
-        />;
+        const questionRenderer = (
+            <Renderer
+                keypadElement={this.keypadElement()}
+                problemNum={this.props.problemNum}
+                onInteractWithWidget={this.handleInteractWithWidget}
+                highlightedWidgets={this.state.questionHighlightedWidgets}
+                apiOptions={apiOptions}
+                questionCompleted={this.state.questionCompleted}
+                reviewMode={this.props.reviewMode}
+                ref={elem => (this.questionRenderer = elem)}
+                {...this.props.item.question}
+            />
+        );
 
-        const hintsRenderer = <HintsRenderer
-            hints={this.props.item.hints}
-            hintsVisible={this.props.hintsVisible}
-            apiOptions={apiOptions}
-            ref={elem => this.hintsRenderer = elem}
-        />;
+        const hintsRenderer = (
+            <HintsRenderer
+                hints={this.props.item.hints}
+                hintsVisible={this.props.hintsVisible}
+                apiOptions={apiOptions}
+                ref={elem => (this.hintsRenderer = elem)}
+            />
+        );
 
-        return <div>
+        return (
             <div>
-                {questionRenderer}
+                <div>
+                    {questionRenderer}
+                </div>
+                <div
+                    className={
+                        // Avoid adding any horizontal padding when applying the
+                        // mobile hint styles, which are flush to the left.
+                        // NOTE(charlie): We may still want to apply this
+                        // padding for desktop exercises.
+                        !apiOptions.isMobile && css(styles.hintsContainer)
+                    }
+                >
+                    {hintsRenderer}
+                </div>
             </div>
-            <div
-                className={
-                    // Avoid adding any horizontal padding when applying the
-                    // mobile hint styles, which are flush to the left.
-                    // NOTE(charlie): We may still want to apply this padding
-                    // for desktop exercises.
-                    !apiOptions.isMobile && css(styles.hintsContainer)
-                }
-            >
-                {hintsRenderer}
-            </div>
-        </div>;
+        );
     },
 });
 

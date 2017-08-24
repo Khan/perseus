@@ -1,4 +1,4 @@
-const React = require('react');
+const React = require("react");
 
 module.exports = {
     propTypes: React.PropTypes.shape({}).isRequired,

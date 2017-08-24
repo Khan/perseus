@@ -85,11 +85,14 @@ const KhanAnswerTypes = {
         defaultForms: "integer, proper, improper, mixed, decimal",
         createValidatorFunctional: function(predicate, options) {
             // Extract the options from the given solution object
-            options = _.extend({
-                simplify: "required",
-                ratio: false,
-                forms: KhanAnswerTypes.predicate.defaultForms,
-            }, options);
+            options = _.extend(
+                {
+                    simplify: "required",
+                    ratio: false,
+                    forms: KhanAnswerTypes.predicate.defaultForms,
+                },
+                options
+            );
             let acceptableForms;
             // this is maintaining backwards compatibility
             // TODO(merlob) fix all places that depend on this, then delete
@@ -124,31 +127,34 @@ const KhanAnswerTypes = {
                 text = text
                     // Replace unicode minus sign with hyphen
                     .replace(/\u2212/, "-")
-
                     // Remove space after +, -
                     .replace(/([+-])\s+/g, "$1")
-
                     // Remove leading/trailing whitespace
                     .replace(/(^\s*)|(\s*$)/gi, "");
 
-                    // Extract numerator and denominator
+                // Extract numerator and denominator
                 const match = text.match(/^([+-]?\d+)\s*\/\s*([+-]?\d+)$/);
                 const parsedInt = parseInt(text, 10);
                 if (match) {
                     const num = parseFloat(match[1]);
                     const denom = parseFloat(match[2]);
-                    const simplified = denom > 0 &&
+                    const simplified =
+                        denom > 0 &&
                         (options.ratio || match[2] !== "1") &&
                         KhanMath.getGCD(num, denom) === 1;
-                    return [{
-                        value: num / denom,
-                        exact: simplified,
-                    }];
+                    return [
+                        {
+                            value: num / denom,
+                            exact: simplified,
+                        },
+                    ];
                 } else if (!isNaN(parsedInt) && "" + parsedInt === text) {
-                    return [{
-                        value: parsedInt,
-                        exact: true,
-                    }];
+                    return [
+                        {
+                            value: parsedInt,
+                            exact: true,
+                        },
+                    ];
                 }
 
                 return [];
@@ -172,10 +178,12 @@ const KhanAnswerTypes = {
                     // integer.
                     const decimal = forms.decimal(text);
                     const rounded = forms.decimal(text, 1);
-                    if ((decimal[0].value != null &&
+                    if (
+                        (decimal[0].value != null &&
                             decimal[0].value === rounded[0].value) ||
-                            (decimal[1].value != null &&
-                            decimal[1].value === rounded[1].value)) {
+                        (decimal[1].value != null &&
+                            decimal[1].value === rounded[1].value)
+                    ) {
                         return decimal;
                     }
                     return [];
@@ -216,58 +224,87 @@ const KhanAnswerTypes = {
                     // - pi
                     // (Note: we also support \pi (for TeX), p, tau (and \tau,
                     // and t), pau.)
-                    if ((match = text.match(
+                    if (
+                        (match = text.match(
                             /^([+-]?)\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i
-                    ))) {
-                        possibilities = [{
-                            value: parseFloat(match[1] + "1"),
-                            exact: true,
-                        }];
+                        ))
+                    ) {
+                        possibilities = [
+                            {
+                                value: parseFloat(match[1] + "1"),
+                                exact: true,
+                            },
+                        ];
 
-                    // 5 / 6 pi
-                    } else if ((match = text.match(/^([+-]?\s*\d+\s*(?:\/\s*[+-]?\s*\d+)?)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i))) { // @Nolint
+                        // 5 / 6 pi
+                    } else if (
+                        (match = text.match(
+                            /^([+-]?\s*\d+\s*(?:\/\s*[+-]?\s*\d+)?)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i // eslint-disable-line max-len
+                        ))
+                    ) {
                         possibilities = fractionTransformer(match[1]);
 
-                    // 4 5 / 6 pi
-                    } else if ((match = text.match(/^([+-]?)\s*(\d+)\s*([+-]?\d+)\s*\/\s*([+-]?\d+)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i))) { // @Nolint
+                        // 4 5 / 6 pi
+                    } else if (
+                        (match = text.match(
+                            /^([+-]?)\s*(\d+)\s*([+-]?\d+)\s*\/\s*([+-]?\d+)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i // eslint-disable-line max-len
+                        ))
+                    ) {
                         const sign = parseFloat(match[1] + "1");
                         const integ = parseFloat(match[2]);
                         const num = parseFloat(match[3]);
                         const denom = parseFloat(match[4]);
-                        const simplified = num < denom &&
-                            KhanMath.getGCD(num, denom) === 1;
+                        const simplified =
+                            num < denom && KhanMath.getGCD(num, denom) === 1;
 
-                        possibilities = [{
-                            value: sign * (integ + num / denom),
-                            exact: simplified,
-                        }];
+                        possibilities = [
+                            {
+                                value: sign * (integ + num / denom),
+                                exact: simplified,
+                            },
+                        ];
 
-                    // 5 pi / 6
-                    } else if ((match = text.match(/^([+-]?\s*\d+)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)\s*(?:\/\s*([+-]?\s*\d+))?$/i))) { // @Nolint
+                        // 5 pi / 6
+                    } else if (
+                        (match = text.match(
+                            /^([+-]?\s*\d+)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)\s*(?:\/\s*([+-]?\s*\d+))?$/i // eslint-disable-line max-len
+                        ))
+                    ) {
                         possibilities = fractionTransformer(
-                            match[1] + "/" + match[3]);
+                            match[1] + "/" + match[3]
+                        );
 
-                    // - pi / 4
-                    } else if ((match = text.match(/^([+-]?)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)\s*(?:\/\s*([+-]?\d+))?$/i))) { // @Nolint
+                        // - pi / 4
+                    } else if (
+                        (match = text.match(
+                            /^([+-]?)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)\s*(?:\/\s*([+-]?\d+))?$/i // eslint-disable-line max-len
+                        ))
+                    ) {
                         possibilities = fractionTransformer(
-                            match[1] + "1/" + match[3]);
+                            match[1] + "1/" + match[3]
+                        );
 
-                    // 0
+                        // 0
                     } else if (text === "0") {
-                        possibilities = [{ value: 0, exact: true }];
+                        possibilities = [{value: 0, exact: true}];
 
-                    // 0.5 pi (fallback)
-                    } else if ((match = text.match(
-                        /^(.+)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i
-                    ))) {
+                        // 0.5 pi (fallback)
+                    } else if (
+                        (match = text.match(
+                            /^(.+)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i // eslint-disable-line max-len
+                        ))
+                    ) {
                         possibilities = forms.decimal(match[1]);
                     } else {
                         possibilities = _.reduce(
                             KhanAnswerTypes.predicate.defaultForms.split(
-                                    /\s*,\s*/),
+                                /\s*,\s*/
+                            ),
                             function(memo, form) {
                                 return memo.concat(forms[form](text));
-                            }, []);
+                            },
+                            []
+                        );
 
                         // If the answer is a floating point number that's
                         // near a multiple of pi, mark is as being possibly
@@ -282,8 +319,8 @@ const KhanAnswerTypes = {
                         const number = parseFloat(text);
                         if (!isNaN(number) && number !== parseInt(text)) {
                             const piMult = Math.PI / 12;
-                            const roundedNumber = (piMult *
-                                                   Math.round(number / piMult));
+                            const roundedNumber =
+                                piMult * Math.round(number / piMult);
                             if (Math.abs(number - roundedNumber) < 0.01) {
                                 approximatesPi = true;
                             }
@@ -324,9 +361,9 @@ const KhanAnswerTypes = {
                     text = text.replace(/\u2212/, "-");
 
                     if (text === "") {
-                        possibilities = [{ value: 1, exact: true }];
+                        possibilities = [{value: 1, exact: true}];
                     } else if (text === "-") {
-                        possibilities = [{ value: -1, exact: true }];
+                        possibilities = [{value: -1, exact: true}];
                     }
                     return possibilities;
                 },
@@ -343,7 +380,7 @@ const KhanAnswerTypes = {
                     if ((match = text.match(/^log\s*(\S+)\s*$/i))) {
                         possibilities = forms.decimal(match[1]);
                     } else if (text === "0") {
-                        possibilities = [{ value: 0, exact: true }];
+                        possibilities = [{value: 0, exact: true}];
                     }
                     return possibilities;
                 },
@@ -354,7 +391,7 @@ const KhanAnswerTypes = {
                     // store whether or not there is a percent sign
                     let hasPercentSign = false;
 
-                    if (text.indexOf("%") === (text.length - 1)) {
+                    if (text.indexOf("%") === text.length - 1) {
                         text = $.trim(text.substring(0, text.length - 1));
                         hasPercentSign = true;
                     }
@@ -372,10 +409,8 @@ const KhanAnswerTypes = {
                     const match = text
                         // Replace unicode minus sign with hyphen
                         .replace(/\u2212/, "-")
-
                         // Remove space after +, -
                         .replace(/([+-])\s+/g, "$1")
-
                         // Extract integer, numerator and denominator
                         .match(/^([+-]?)(\d+)\s+(\d+)\s*\/\s*(\d+)$/);
 
@@ -384,13 +419,15 @@ const KhanAnswerTypes = {
                         const integ = parseFloat(match[2]);
                         const num = parseFloat(match[3]);
                         const denom = parseFloat(match[4]);
-                        const simplified = num < denom &&
-                            KhanMath.getGCD(num, denom) === 1;
+                        const simplified =
+                            num < denom && KhanMath.getGCD(num, denom) === 1;
 
-                        return [{
-                            value: sign * (integ + num / denom),
-                            exact: simplified,
-                        }];
+                        return [
+                            {
+                                value: sign * (integ + num / denom),
+                                exact: simplified,
+                            },
+                        ];
                     }
 
                     return [];
@@ -418,7 +455,9 @@ const KhanAnswerTypes = {
                             // Extract integer, numerator and denominator. If
                             // commas or spaces are used, they must be in the
                             // "correct" places
-                            .match(/^([+-]?(?:\d{1,3}(?:[, ]?\d{3})*\.?|\d{0,3}(?:[, ]?\d{3})*\.(?:\d{3}[, ]?)*\d{1,3}))$/); // @Nolint
+                            .match(
+                                /^([+-]?(?:\d{1,3}(?:[, ]?\d{3})*\.?|\d{0,3}(?:[, ]?\d{3})*\.(?:\d{3}[, ]?)*\d{1,3}))$/ // eslint-disable-line max-len
+                            );
 
                         // You can't start a number with `0,`, to prevent us
                         // interpeting '0.342' as correct for '342'
@@ -437,14 +476,14 @@ const KhanAnswerTypes = {
 
                     const commas = function(text) {
                         text = text.replace(/([\.,])/g, function(_, c) {
-                            return (c === "." ? "," : ".");
+                            return c === "." ? "," : ".";
                         });
                         return normal(text);
                     };
 
                     return [
-                        { value: normal(text), exact: true },
-                        { value: commas(text), exact: true },
+                        {value: normal(text), exact: true},
+                        {value: commas(text), exact: true},
                     ];
                 },
             };
@@ -492,26 +531,31 @@ const KhanAnswerTypes = {
                                 score.message = i18n._(
                                     "Your answer is almost correct, " +
                                         "but it is missing a " +
-                                        "<code>\\%</code> at the end.");
+                                        "<code>\\%</code> at the end."
+                                );
                             } else {
                                 if (options.simplify !== "enforced") {
                                     score.empty = true;
                                 }
                                 score.message = i18n._(
                                     "Your answer is almost correct, " +
-                                        "but it needs to be simplified.");
+                                        "but it needs to be simplified."
+                                );
                             }
 
                             return false;
-                        } else if (piApprox &&
-                                   predicate(val, Math.abs(val * 0.001))) {
+                        } else if (
+                            piApprox &&
+                            predicate(val, Math.abs(val * 0.001))
+                        ) {
                             score.empty = true;
                             score.message = i18n._(
                                 "Your answer is close, but you may " +
                                     "have approximated pi. Enter your " +
                                     "answer as a multiple of pi, like " +
                                     "<code>12\\ \\text{pi}</code> or " +
-                                    "<code>2/3\\ \\text{pi}</code>");
+                                    "<code>2/3\\ \\text{pi}</code>"
+                            );
                         }
                     }
                 });
@@ -532,7 +576,8 @@ const KhanAnswerTypes = {
                         score.message = i18n._(
                             "We could not understand your " +
                                 "answer. Please check your answer for extra " +
-                                "text or symbols.");
+                                "text or symbols."
+                        );
                         return score;
                     }
                 }
@@ -562,8 +607,8 @@ const KhanAnswerTypes = {
         },
         createValidatorFunctional: function(correct, options) {
             return KhanAnswerTypes.predicate.createValidatorFunctional(
-                ...KhanAnswerTypes.number.convertToPredicate(
-                    correct, options));
+                ...KhanAnswerTypes.number.convertToPredicate(correct, options)
+            );
         },
     },
 
@@ -621,11 +666,17 @@ const KhanAnswerTypes = {
         parseSolution: function(solutionString, options) {
             let solution = KAS.parse(solutionString, options);
             if (!solution.parsed) {
-                throw new Error("The provided solution (" + solutionString +
-                    ") didn't parse.");
+                throw new Error(
+                    "The provided solution (" +
+                        solutionString +
+                        ") didn't parse."
+                );
             } else if (options.simplified && !solution.expr.isSimplified()) {
-                throw new Error("The provided solution (" + solutionString +
-                    ") isn't fully expanded and simplified.");
+                throw new Error(
+                    "The provided solution (" +
+                        solutionString +
+                        ") isn't fully expanded and simplified."
+                );
             } else {
                 solution = solution.expr;
             }
@@ -656,9 +707,11 @@ const KhanAnswerTypes = {
 
                 // Solution will need to be parsed again if we're creating
                 // this from a multiple question type
-                if (typeof solution === 'string') {
+                if (typeof solution === "string") {
                     solution = KhanAnswerTypes.expression.parseSolution(
-                        solution, options);
+                        solution,
+                        options
+                    );
                 }
 
                 const result = KAS.compare(answer.expr, solution, options);
@@ -672,20 +725,28 @@ const KhanAnswerTypes = {
                 } else {
                     // Replace x with * and see if it would have been correct
                     const answerX = KAS.parse(
-                        guess.replace(/[xX]/g, "*"), options);
+                        guess.replace(/[xX]/g, "*"),
+                        options
+                    );
                     if (answerX.parsed) {
                         const resultX = KAS.compare(
-                            answerX.expr, solution, options);
+                            answerX.expr,
+                            solution,
+                            options
+                        );
                         if (resultX.equal) {
                             score.empty = true;
-                            score.message = "I'm a computer. I only " +
-                                    "understand multiplication if you use an " +
-                                    "asterisk (*) as the multiplication sign.";
+                            score.message =
+                                "I'm a computer. I only " +
+                                "understand multiplication if you use an " +
+                                "asterisk (*) as the multiplication sign.";
                         } else if (resultX.message) {
-                            score.message = resultX.message + " Also, " +
-                                    "I'm a computer. I only " +
-                                    "understand multiplication if you use an " +
-                                    "asterisk (*) as the multiplication sign.";
+                            score.message =
+                                resultX.message +
+                                " Also, " +
+                                "I'm a computer. I only " +
+                                "understand multiplication if you use an " +
+                                "asterisk (*) as the multiplication sign.";
                         }
                     }
                 }

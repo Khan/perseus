@@ -2,7 +2,7 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-const React = require('react');
+const React = require("react");
 const ReactDOM = require("react-dom");
 const _ = require("underscore");
 
@@ -15,7 +15,10 @@ const Util = require("./util.js");
 const {mapObject} = require("./interactive2/objective_.js");
 
 const Gorgon = require("./gorgon/gorgon.js");
-const {linterContextProps, linterContextDefault} = require("./gorgon/proptypes.js");
+const {
+    linterContextProps,
+    linterContextDefault,
+} = require("./gorgon/proptypes.js");
 
 const RP = React.PropTypes;
 
@@ -63,7 +66,7 @@ const ItemRenderer = React.createClass({
 
     getDefaultProps: function() {
         return {
-            apiOptions: {},  // defaults are set in `this.update()`
+            apiOptions: {}, // defaults are set in `this.update()`
             controlPeripherals: true,
             hintsAreaSelector: "#hintsarea",
             initialHintsVisible: 0,
@@ -84,8 +87,10 @@ const ItemRenderer = React.createClass({
 
     componentDidMount: function() {
         ProvideKeypad.componentDidMount.call(this);
-        if (this.props.controlPeripherals &&
-                this.props.apiOptions.setDrawingAreaAvailable) {
+        if (
+            this.props.controlPeripherals &&
+            this.props.apiOptions.setDrawingAreaAvailable
+        ) {
             this.props.apiOptions.setDrawingAreaAvailable(true);
         }
         this._currentFocus = null;
@@ -105,9 +110,11 @@ const ItemRenderer = React.createClass({
     componentWillUnmount: function() {
         ProvideKeypad.componentWillUnmount.call(this);
         ReactDOM.unmountComponentAtNode(
-                document.querySelector(this.props.workAreaSelector));
+            document.querySelector(this.props.workAreaSelector)
+        );
         ReactDOM.unmountComponentAtNode(
-                document.querySelector(this.props.hintsAreaSelector));
+            document.querySelector(this.props.hintsAreaSelector)
+        );
 
         if (this.props.controlPeripherals) {
             var answerArea = this.props.item.answerArea || {};
@@ -145,42 +152,43 @@ const ItemRenderer = React.createClass({
         // strangeness instead of relying on React's normal render() method.
         // TODO(alpert): Figure out how to clean this up somehow
         this.questionRenderer = ReactDOM.render(
-                <Renderer
-                    keypadElement={this.keypadElement()}
-                    problemNum={this.props.problemNum}
-                    onInteractWithWidget={this.handleInteractWithWidget}
-                    highlightedWidgets={this.state.questionHighlightedWidgets}
-                    apiOptions={apiOptions}
-                    questionCompleted={this.state.questionCompleted}
-                    reviewMode={this.props.reviewMode}
-                    savedState={this.props.savedState}
-                    linterContext={
-                        Gorgon.pushContextStack(
-                            this.props.linterContext, 'question'
-                        )
-                    }
-                    {...this.props.item.question}
-                />,
-                document.querySelector(this.props.workAreaSelector));
+            <Renderer
+                keypadElement={this.keypadElement()}
+                problemNum={this.props.problemNum}
+                onInteractWithWidget={this.handleInteractWithWidget}
+                highlightedWidgets={this.state.questionHighlightedWidgets}
+                apiOptions={apiOptions}
+                questionCompleted={this.state.questionCompleted}
+                reviewMode={this.props.reviewMode}
+                savedState={this.props.savedState}
+                linterContext={Gorgon.pushContextStack(
+                    this.props.linterContext,
+                    "question"
+                )}
+                {...this.props.item.question}
+            />,
+            document.querySelector(this.props.workAreaSelector)
+        );
 
         this.hintsRenderer = ReactDOM.render(
-                <HintsRenderer
-                    hints={this.props.item.hints}
-                    hintsVisible={this.state.hintsVisible}
-                    apiOptions={apiOptions}
-                    linterContext={
-                        Gorgon.pushContextStack(
-                            this.props.linterContext, 'hints'
-                        )
-                    }
-                />,
-                document.querySelector(this.props.hintsAreaSelector));
+            <HintsRenderer
+                hints={this.props.item.hints}
+                hintsVisible={this.state.hintsVisible}
+                apiOptions={apiOptions}
+                linterContext={Gorgon.pushContextStack(
+                    this.props.linterContext,
+                    "hints"
+                )}
+            />,
+            document.querySelector(this.props.hintsAreaSelector)
+        );
 
         var answerArea = this.props.item.answerArea || {};
         if (this.props.controlPeripherals) {
             $("#calculator").toggle(answerArea.calculator || false);
             $(".periodic-table-info-box").toggle(
-                answerArea.periodicTable || false);
+                answerArea.periodicTable || false
+            );
             $(".z-table-info-box").toggle(answerArea.zTable || false);
             $(".t-table-info-box").toggle(answerArea.tTable || false);
             $(".chi2-table-info-box").toggle(answerArea.chi2Table || false);
@@ -233,7 +241,8 @@ const ItemRenderer = React.createClass({
 
         // Determine whether the newly focused path represents an input.
         const inputPaths = this.getInputPaths();
-        const didFocusInput = this._currentFocus &&
+        const didFocusInput =
+            this._currentFocus &&
             inputPaths.some(inputPath => {
                 return Util.inputPathsEqual(inputPath, this._currentFocus);
             });
@@ -242,7 +251,8 @@ const ItemRenderer = React.createClass({
             this.props.apiOptions.onFocusChange(
                 this._currentFocus,
                 prevFocus,
-                didFocusInput && keypadElement &&
+                didFocusInput &&
+                    keypadElement &&
                     ReactDOM.findDOMNode(keypadElement)
             );
         }
@@ -282,11 +292,7 @@ const ItemRenderer = React.createClass({
      * for the whole answer area (if the answer area is a single widget).
      */
     _setWidgetProps: function(widgetId, newProps, callback) {
-        this.questionRenderer._setWidgetProps(
-            widgetId,
-            newProps,
-            callback
-        );
+        this.questionRenderer._setWidgetProps(widgetId, newProps, callback);
     },
 
     _handleAPICall: function(functionName, path) {
@@ -301,23 +307,23 @@ const ItemRenderer = React.createClass({
     },
 
     setInputValue: function(path, newValue, focus) {
-        return this._handleAPICall('setInputValue', path, newValue, focus);
+        return this._handleAPICall("setInputValue", path, newValue, focus);
     },
 
     focusPath: function(path) {
-        return this._handleAPICall('focusPath', path);
+        return this._handleAPICall("focusPath", path);
     },
 
     blurPath: function(path) {
-        return this._handleAPICall('blurPath', path);
+        return this._handleAPICall("blurPath", path);
     },
 
     getDOMNodeForPath: function(path) {
-        return this._handleAPICall('getDOMNodeForPath', path);
+        return this._handleAPICall("getDOMNodeForPath", path);
     },
 
     getGrammarTypeForPath: function(path) {
-        return this._handleAPICall('getGrammarTypeForPath', path);
+        return this._handleAPICall("getGrammarTypeForPath", path);
     },
 
     getInputPaths: function() {
@@ -326,8 +332,9 @@ const ItemRenderer = React.createClass({
     },
 
     handleInteractWithWidget: function(widgetId) {
-        var withRemoved = _.difference(this.state.questionHighlightedWidgets,
-                                       [widgetId]);
+        var withRemoved = _.difference(this.state.questionHighlightedWidgets, [
+            widgetId,
+        ]);
         this.setState({
             questionCompleted: false,
             questionHighlightedWidgets: withRemoved,
@@ -380,8 +387,11 @@ const ItemRenderer = React.createClass({
         //             analyzing ProblemLogs. If not, remove this layer.
         var maxCompatGuess = [guess, []];
 
-        var keScore = Util.keScoreFromPerseusScore(score, maxCompatGuess,
-            this.questionRenderer.getSerializedState());
+        var keScore = Util.keScoreFromPerseusScore(
+            score,
+            maxCompatGuess,
+            this.questionRenderer.getSerializedState()
+        );
 
         var emptyQuestionAreaWidgets = this.questionRenderer.emptyWidgets();
 
@@ -437,7 +447,9 @@ const ItemRenderer = React.createClass({
         };
 
         this.questionRenderer.restoreSerializedState(
-            state.question, fireCallback);
+            state.question,
+            fireCallback
+        );
         this.hintsRenderer.restoreSerializedState(state.hints, fireCallback);
     },
 

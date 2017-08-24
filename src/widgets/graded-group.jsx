@@ -7,14 +7,23 @@ const React = require("react");
 const _ = require("underscore");
 
 const ApiOptions = require("../perseus-api.jsx").Options;
-const Changeable   = require("../mixins/changeable.jsx");
+const Changeable = require("../mixins/changeable.jsx");
 const {iconOk, iconRemove} = require("../icon-paths.js");
 const InlineIcon = require("../components/inline-icon.jsx");
 const Renderer = require("../renderer.jsx");
 const GradedGroupAnswerBar = require("./graded-group-answer-bar.jsx");
-const {gray76, phoneMargin, negativePhoneMargin, tableBackgroundAccent, kaGreen} = require("../styles/constants.js");
+const {
+    gray76,
+    phoneMargin,
+    negativePhoneMargin,
+    tableBackgroundAccent,
+    kaGreen,
+} = require("../styles/constants.js");
 const {StyleSheet, css} = require("aphrodite");
-const {linterContextProps, linterContextDefault} = require("../gorgon/proptypes.js");
+const {
+    linterContextProps,
+    linterContextDefault,
+} = require("../gorgon/proptypes.js");
 
 // A Graded Group is more or less a Group widget that displays a check
 // answer button below the rendered content. When clicked, the widget grades
@@ -22,10 +31,10 @@ const {linterContextProps, linterContextDefault} = require("../gorgon/proptypes.
 // correct or not.
 
 const GRADING_STATUSES = {
-    ungraded: 'ungraded',
-    correct: 'correct',
-    incorrect: 'incorrect',
-    invalid: 'invalid',
+    ungraded: "ungraded",
+    correct: "correct",
+    incorrect: "incorrect",
+    invalid: "invalid",
 };
 
 const ANSWER_BAR_STATES = GradedGroupAnswerBar.ANSWER_BAR_STATES;
@@ -51,7 +60,8 @@ const getNextState = (currentState, answerable) => {
 
 // Prepended to all invalid messages to make the widget messages a bit clearer
 const INVALID_MESSAGE_PREFIX = "We couldn't grade your answer.";
-const DEFAULT_INVALID_MESSAGE = "It looks like you left something blank or " +
+const DEFAULT_INVALID_MESSAGE =
+    "It looks like you left something blank or " +
     "entered in an invalid answer.";
 
 const GradedGroup = React.createClass({
@@ -136,23 +146,27 @@ const GradedGroup = React.createClass({
         let status;
         let message;
         if (score.type === "points") {
-            status = score.total === score.earned ?
-                GRADING_STATUSES.correct : GRADING_STATUSES.incorrect;
+            status =
+                score.total === score.earned
+                    ? GRADING_STATUSES.correct
+                    : GRADING_STATUSES.incorrect;
             message = score.message || "";
-        } else { // score.type is "invalid"
+        } else {
+            // score.type is "invalid"
             status = GRADING_STATUSES.invalid;
-            message = score.message ?
-                `${INVALID_MESSAGE_PREFIX} ${score.message}` :
-                `${INVALID_MESSAGE_PREFIX} ${DEFAULT_INVALID_MESSAGE}`;
+            message = score.message
+                ? `${INVALID_MESSAGE_PREFIX} ${score.message}`
+                : `${INVALID_MESSAGE_PREFIX} ${DEFAULT_INVALID_MESSAGE}`;
         }
 
         this.setState({
             status: status,
             message: message,
             // TODO(kevinb) handle 'invalid' status
-            answerBarState: status === 'correct'
-                ? ANSWER_BAR_STATES.CORRECT
-                : ANSWER_BAR_STATES.INCORRECT,
+            answerBarState:
+                status === "correct"
+                    ? ANSWER_BAR_STATES.CORRECT
+                    : ANSWER_BAR_STATES.INCORRECT,
         });
 
         this.props.trackInteraction({
@@ -212,8 +226,9 @@ const GradedGroup = React.createClass({
             icon = <InlineIcon {...iconRemove} style={{color: "#ff5454"}} />;
         }
 
-        const mobileClass = this.props.inGradedGroupSet ?
-            css(styles.gradedGroupInSet) : css(styles.gradedGroup);
+        const mobileClass = this.props.inGradedGroupSet
+            ? css(styles.gradedGroupInSet)
+            : css(styles.gradedGroup);
 
         const classes = classNames({
             [mobileClass]: apiOptions.isMobile,
@@ -232,74 +247,85 @@ const GradedGroup = React.createClass({
         // prevent a situation where the answer has been marked correct but
         // looks incorrect because a user has modified it afterwards.
         const isCorrect = answerBarState === ANSWER_BAR_STATES.CORRECT;
-        const readOnly = apiOptions.readOnly ||
-            (apiOptions.isMobile && isCorrect);
+        const readOnly =
+            apiOptions.readOnly || (apiOptions.isMobile && isCorrect);
 
-        return <div className={classes}>
-            {!!this.props.title &&
-                <div className={css(styles.title)}>
-                    {this.props.title}
-                </div>}
-            <Renderer
-                {...this.props}
-                ref="renderer"
-                apiOptions={{...apiOptions, readOnly}}
-                onInteractWithWidget={this._onInteractWithWidget}
-                linterContext={this.props.linterContext}
-            />
-            {!apiOptions.isMobile && icon && <div className="group-icon">
-                {icon}
-            </div>}
-            {!apiOptions.isMobile && <p>{this.state.message}</p>}
-            {!apiOptions.isMobile && <input
-                type="button"
-                value={i18n._("Check")}
-                className="simple-button"
-                disabled={this.props.apiOptions.readOnly}
-                onClick={this._checkAnswer}
-            />}
-            {!apiOptions.isMobile && isCorrect && this.props.onNextQuestion &&
-            <input
-                type="button"
-                value={i18n._("Next question")}
-                className="simple-button"
-                disabled={this.props.apiOptions.readOnly}
-                onClick={this.props.onNextQuestion}
-                style={{marginLeft: 5}}
-            />}
+        return (
+            <div className={classes}>
+                {!!this.props.title &&
+                    <div className={css(styles.title)}>
+                        {this.props.title}
+                    </div>}
+                <Renderer
+                    {...this.props}
+                    ref="renderer"
+                    apiOptions={{...apiOptions, readOnly}}
+                    onInteractWithWidget={this._onInteractWithWidget}
+                    linterContext={this.props.linterContext}
+                />
+                {!apiOptions.isMobile &&
+                    icon &&
+                    <div className="group-icon">
+                        {icon}
+                    </div>}
+                {!apiOptions.isMobile &&
+                    <p>
+                        {this.state.message}
+                    </p>}
+                {!apiOptions.isMobile &&
+                    <input
+                        type="button"
+                        value={i18n._("Check")}
+                        className="simple-button"
+                        disabled={this.props.apiOptions.readOnly}
+                        onClick={this._checkAnswer}
+                    />}
+                {!apiOptions.isMobile &&
+                    isCorrect &&
+                    this.props.onNextQuestion &&
+                    <input
+                        type="button"
+                        value={i18n._("Next question")}
+                        className="simple-button"
+                        disabled={this.props.apiOptions.readOnly}
+                        onClick={this.props.onNextQuestion}
+                        style={{marginLeft: 5}}
+                    />}
 
-            {this.props.hint && this.props.hint.content &&
-             (this.state.showHint ?
-                <div>
-                    <div
-                        className={css(styles.explanationTitle)}
-                        onClick={() => this.setState({showHint: false})}
-                    >
-                        {i18n._("Hide explanation")}
-                    </div>
-                    <Renderer
-                        {...this.props.hint}
-                        ref="hints-renderer"
+                {this.props.hint &&
+                    this.props.hint.content &&
+                    (this.state.showHint
+                        ? <div>
+                              <div
+                                  className={css(styles.explanationTitle)}
+                                  onClick={() =>
+                                      this.setState({showHint: false})}
+                              >
+                                  {i18n._("Hide explanation")}
+                              </div>
+                              <Renderer
+                                  {...this.props.hint}
+                                  ref="hints-renderer"
+                                  apiOptions={apiOptions}
+                                  linterContext={this.props.linterContext}
+                              />
+                          </div>
+                        : <div
+                            onClick={() => this.setState({showHint: true})}
+                            className={css(styles.showHintLink)}
+                        >
+                            {i18n._("Explain")}
+                        </div>)}
+                {apiOptions.isMobile &&
+                    answerBarState !== ANSWER_BAR_STATES.HIDDEN &&
+                    <GradedGroupAnswerBar
                         apiOptions={apiOptions}
-                        linterContext={this.props.linterContext}
-                    />
-                </div> :
-                <div
-                    onClick={() => this.setState({showHint: true})}
-                    className={css(styles.showHintLink)}
-                >
-                    {i18n._("Explain")}
-                </div>
-            )}
-            {apiOptions.isMobile &&
-                answerBarState !== ANSWER_BAR_STATES.HIDDEN &&
-                <GradedGroupAnswerBar
-                    apiOptions={apiOptions}
-                    answerBarState={answerBarState}
-                    onCheckAnswer={this._checkAnswer}
-                    onNextQuestion={this.props.onNextQuestion}
-                />}
-        </div>;
+                        answerBarState={answerBarState}
+                        onCheckAnswer={this._checkAnswer}
+                        onNextQuestion={this.props.onNextQuestion}
+                    />}
+            </div>
+        );
     },
 });
 
@@ -335,27 +361,27 @@ const styles = StyleSheet.create({
         paddingLeft: phoneMargin,
         paddingRight: phoneMargin,
         paddingTop: 10,
-        width: 'auto',
+        width: "auto",
     },
 
     showHintLink: {
         marginTop: 20,
         color: kaGreen,
-        cursor: 'pointer',
+        cursor: "pointer",
     },
 
     explanationTitle: {
         marginTop: 20,
         color: kaGreen,
         marginBottom: 10,
-        cursor: 'pointer',
+        cursor: "pointer",
     },
 
     title: {
         fontSize: 12,
         color: gray76,
-        textTransform: 'uppercase',
+        textTransform: "uppercase",
         marginBottom: 11,
-        letterSpacing: .8,
+        letterSpacing: 0.8,
     },
 });

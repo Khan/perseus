@@ -2,14 +2,14 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-const React = require('react');
+const React = require("react");
 const ReactDOM = require("react-dom");
 const _ = require("underscore");
 
 const Util = require("../util.js");
 
 const InfoTip = require("../components/info-tip.jsx");
-const NumberInput  = require("../components/number-input.jsx");
+const NumberInput = require("../components/number-input.jsx");
 const Editor = require("../editor.jsx");
 
 const Table = require("./table.jsx").widget;
@@ -20,10 +20,8 @@ const TableEditor = React.createClass({
         columns: React.PropTypes.number,
         headers: React.PropTypes.arrayOf(React.PropTypes.string),
         answers: React.PropTypes.arrayOf(
-            React.PropTypes.arrayOf(
-                React.PropTypes.string
-            )
-        )
+            React.PropTypes.arrayOf(React.PropTypes.string)
+        ),
     },
 
     getDefaultProps: function() {
@@ -36,7 +34,7 @@ const TableEditor = React.createClass({
             headers: [""],
             rows: defaultRows,
             columns: defaultColumns,
-            answers: blankAnswers
+            answers: blankAnswers,
         };
     },
 
@@ -47,7 +45,11 @@ const TableEditor = React.createClass({
     render: function() {
         var tableProps = _.pick(
             this.props,
-            "headers", "answers", "onChange", "apiOptions");
+            "headers",
+            "answers",
+            "onChange",
+            "apiOptions"
+        );
         _.extend(tableProps, {
             editableHeaders: true,
             Editor,
@@ -56,50 +58,53 @@ const TableEditor = React.createClass({
             trackInteraction: () => {},
         });
 
-        return <div>
-            <div className="perseus-widget-row">
-                <label>
-                    Number of columns:
-                    {" "}
-                    <NumberInput
-                        ref="numberOfColumns"
-                        value={this.props.columns}
-                        onChange={(val) => {
-                            if (val) {
-                                this.onSizeInput(this.props.rows, val);
-                            }
-                        }}
-                        useArrowKeys={true} />
-                </label>
-            </div>
-            <div className="perseus-widget-row">
-                <label>
-                    Number of rows:
-                    {" "}
-                    <NumberInput
-                        ref="numberOfRows"
-                        value={this.props.rows}
-                        onChange={(val) => {
-                            if (val) {
-                                this.onSizeInput(val, this.props.columns);
-                            }
-                        }}
-                        useArrowKeys={true} />
-                </label>
-            </div>
+        return (
             <div>
-                {' '}Table of answers:{' '}
-                <InfoTip>
-                    <p>The student has to fill out all cells in the
-                    table.  For partially filled tables create a table
-                    using the template, and insert text input boxes
-                    as desired.</p>
-                </InfoTip>
+                <div className="perseus-widget-row">
+                    <label>
+                        Number of columns:{" "}
+                        <NumberInput
+                            ref="numberOfColumns"
+                            value={this.props.columns}
+                            onChange={val => {
+                                if (val) {
+                                    this.onSizeInput(this.props.rows, val);
+                                }
+                            }}
+                            useArrowKeys={true}
+                        />
+                    </label>
+                </div>
+                <div className="perseus-widget-row">
+                    <label>
+                        Number of rows:{" "}
+                        <NumberInput
+                            ref="numberOfRows"
+                            value={this.props.rows}
+                            onChange={val => {
+                                if (val) {
+                                    this.onSizeInput(val, this.props.columns);
+                                }
+                            }}
+                            useArrowKeys={true}
+                        />
+                    </label>
+                </div>
+                <div>
+                    {" "}Table of answers:{" "}
+                    <InfoTip>
+                        <p>
+                            The student has to fill out all cells in the table.
+                            For partially filled tables create a table using the
+                            template, and insert text input boxes as desired.
+                        </p>
+                    </InfoTip>
+                </div>
+                <div>
+                    <Table {...tableProps} />
+                </div>
             </div>
-            <div>
-                <Table {...tableProps} />
-            </div>
-        </div>;
+        );
     },
 
     onSizeInput: function(numRawRows, numRawColumns) {
@@ -139,7 +144,7 @@ const TableEditor = React.createClass({
             rows: rows,
             columns: columns,
             answers: answers,
-            headers: headers
+            headers: headers,
         });
     },
 
@@ -147,9 +152,9 @@ const TableEditor = React.createClass({
         var json = _.pick(this.props, "headers", "rows", "columns");
 
         return _.extend({}, json, {
-            answers: _.map(this.props.answers, _.clone)
+            answers: _.map(this.props.answers, _.clone),
         });
-    }
+    },
 });
 
 module.exports = TableEditor;

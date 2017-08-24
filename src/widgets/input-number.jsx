@@ -2,18 +2,20 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-
 var classNames = require("classnames");
-var React = require('react');
+var React = require("react");
 var _ = require("underscore");
 
 var InputWithExamples = require("../components/input-with-examples.jsx");
 const SimpleKeypadInput = require("../components/simple-keypad-input.jsx");
-var ParseTex          = require("../tex-wrangler.js").parseTex;
+var ParseTex = require("../tex-wrangler.js").parseTex;
 var PossibleAnswers = require("../components/possible-answers.jsx");
 const KhanAnswerTypes = require("../util/answer-types.js");
-const { keypadElementPropType } = require("../../math-input").propTypes;
-const {linterContextProps, linterContextDefault} = require("../gorgon/proptypes.js");
+const {keypadElementPropType} = require("../../math-input").propTypes;
+const {
+    linterContextProps,
+    linterContextDefault,
+} = require("../gorgon/proptypes.js");
 
 var ApiClassNames = require("../perseus-api.jsx").ClassNames;
 var ApiOptions = require("../perseus-api.jsx").Options;
@@ -21,66 +23,71 @@ var ApiOptions = require("../perseus-api.jsx").Options;
 var answerTypes = {
     number: {
         name: "Numbers",
-        forms: "integer, decimal, proper, improper, mixed"
+        forms: "integer, decimal, proper, improper, mixed",
     },
     decimal: {
         name: "Decimals",
-        forms: "decimal"
+        forms: "decimal",
     },
     integer: {
         name: "Integers",
-        forms: "integer"
+        forms: "integer",
     },
     rational: {
         name: "Fractions and mixed numbers",
-        forms: "integer, proper, improper, mixed"
+        forms: "integer, proper, improper, mixed",
     },
     improper: {
         name: "Improper numbers (no mixed)",
-        forms: "integer, proper, improper"
+        forms: "integer, proper, improper",
     },
     mixed: {
         name: "Mixed numbers (no improper)",
-        forms: "integer, proper, mixed"
+        forms: "integer, proper, mixed",
     },
     percent: {
         name: "Numbers or percents",
-        forms: "integer, decimal, proper, improper, mixed, percent"
+        forms: "integer, decimal, proper, improper, mixed, percent",
     },
     pi: {
-        name: "Numbers with pi", forms: "pi"
-    }
+        name: "Numbers with pi",
+        forms: "pi",
+    },
 };
 
 var formExamples = {
-    "integer": function(options) { return i18n._("an integer, like $6$"); },
-    "proper": function(options) {
+    integer: function(options) {
+        return i18n._("an integer, like $6$");
+    },
+    proper: function(options) {
         if (options.simplify === "optional") {
             return i18n._("a *proper* fraction, like $1/2$ or $6/10$");
         } else {
             return i18n._("a *simplified proper* fraction, like $3/5$");
         }
     },
-    "improper": function(options) {
+    improper: function(options) {
         if (options.simplify === "optional") {
             return i18n._("an *improper* fraction, like $10/7$ or $14/8$");
         } else {
             return i18n._("a *simplified improper* fraction, like $7/4$");
         }
     },
-    "mixed": function(options) {
+    mixed: function(options) {
         return i18n._("a mixed number, like $1\\ 3/4$");
     },
-    "decimal": function(options) {
+    decimal: function(options) {
         return i18n._("an *exact* decimal, like $0.75$");
     },
-    "percent": function(options) {
+    percent: function(options) {
         return i18n._("a percent, like $12.34\\%$");
     },
-    "pi": function(options) {
-        return i18n._("a multiple of pi, like $12\\ \\text{pi}$ or " +
-                "$2/3\\ \\text{pi}$");
-    }
+    pi: function(options) {
+        return i18n._(
+            "a multiple of pi, like $12\\ \\text{pi}$ or " +
+                "$2/3\\ \\text{pi}$"
+        );
+    },
 };
 
 var InputNumber = React.createClass({
@@ -104,21 +111,25 @@ var InputNumber = React.createClass({
     },
 
     shouldShowExamples: function() {
-        return this.props.answerType !== "number" &&
-            !this.props.apiOptions.staticRender;
+        return (
+            this.props.answerType !== "number" &&
+            !this.props.apiOptions.staticRender
+        );
     },
 
     render: function() {
         if (this.props.apiOptions.customKeypad) {
             // TODO(charlie): Support "Review Mode".
-            return <SimpleKeypadInput
-                ref="input"
-                value={this.props.currentValue}
-                keypadElement={this.props.keypadElement}
-                onChange={this.handleChange}
-                onFocus={this._handleFocus}
-                onBlur={this._handleBlur}
-            />;
+            return (
+                <SimpleKeypadInput
+                    ref="input"
+                    value={this.props.currentValue}
+                    keypadElement={this.props.keypadElement}
+                    onChange={this.handleChange}
+                    onFocus={this._handleFocus}
+                    onBlur={this._handleBlur}
+                />
+            );
         } else {
             // HACK(johnsullivan): Create a function with shared logic between
             // this and NumericInput.
@@ -127,8 +138,8 @@ var InputNumber = React.createClass({
             var answerBlurb = null;
             if (this.props.apiOptions.satStyling && rubric) {
                 var score = this.simpleValidate(rubric);
-                correct = score.type === "points" &&
-                              score.earned === score.total;
+                correct =
+                    score.type === "points" && score.earned === score.total;
 
                 if (!correct) {
                     // TODO(johnsullivan): Make this a little more
@@ -151,26 +162,30 @@ var InputNumber = React.createClass({
             classes[ApiClassNames.UNANSWERED] =
                 rubric && !this.props.currentValue;
 
-            var input = <InputWithExamples
-                ref="input"
-                value={this.props.currentValue}
-                onChange={this.handleChange}
-                className={classNames(classes)}
-                type={this._getInputType()}
-                examples={this.examples()}
-                shouldShowExamples={this.shouldShowExamples()}
-                onFocus={this._handleFocus}
-                onBlur={this._handleBlur}
-                id={this.props.widgetId}
-                disabled={this.props.apiOptions.readOnly}
-                linterContext={this.props.linterContext}
-            />;
+            var input = (
+                <InputWithExamples
+                    ref="input"
+                    value={this.props.currentValue}
+                    onChange={this.handleChange}
+                    className={classNames(classes)}
+                    type={this._getInputType()}
+                    examples={this.examples()}
+                    shouldShowExamples={this.shouldShowExamples()}
+                    onFocus={this._handleFocus}
+                    onBlur={this._handleBlur}
+                    id={this.props.widgetId}
+                    disabled={this.props.apiOptions.readOnly}
+                    linterContext={this.props.linterContext}
+                />
+            );
 
             if (answerBlurb) {
-                return <span className="perseus-input-with-answer-blurb">
-                    {input}
-                    {answerBlurb}
-                </span>;
+                return (
+                    <span className="perseus-input-with-answer-blurb">
+                        {input}
+                        {answerBlurb}
+                    </span>
+                );
             } else {
                 return input;
             }
@@ -178,7 +193,7 @@ var InputNumber = React.createClass({
     },
 
     handleChange: function(newValue, cb) {
-        this.props.onChange({ currentValue: newValue }, cb);
+        this.props.onChange({currentValue: newValue}, cb);
     },
 
     _getInputType: function() {
@@ -228,36 +243,39 @@ var InputNumber = React.createClass({
     },
 
     setInputValue: function(path, newValue, cb) {
-        this.props.onChange({
-            currentValue: newValue
-        }, cb);
+        this.props.onChange(
+            {
+                currentValue: newValue,
+            },
+            cb
+        );
     },
 
     getUserInput: function() {
         return {
-            currentValue: this.props.currentValue
+            currentValue: this.props.currentValue,
         };
     },
 
     simpleValidate: function(rubric, onInputError) {
-        onInputError = onInputError || function() { };
-        return InputNumber.validate(
-            this.getUserInput(),
-            rubric,
-            onInputError
-        );
+        onInputError = onInputError || function() {};
+        return InputNumber.validate(this.getUserInput(), rubric, onInputError);
     },
 
     examples: function() {
         var type = this.props.answerType;
         var forms = answerTypes[type].forms.split(/\s*,\s*/);
 
-        var examples = _.map(forms, function(form) {
-            return formExamples[form](this.props);
-        }, this);
+        var examples = _.map(
+            forms,
+            function(form) {
+                return formExamples[form](this.props);
+            },
+            this
+        );
 
         return [i18n._("**Your answer should be** ")].concat(examples);
-    }
+    },
 });
 
 _.extend(InputNumber, {
@@ -266,12 +284,14 @@ _.extend(InputNumber, {
             rubric.answerType = "number";
         }
         var val = KhanAnswerTypes.number.createValidatorFunctional(
-            rubric.value, {
+            rubric.value,
+            {
                 simplify: rubric.simplify,
                 inexact: rubric.inexact || undefined,
                 maxError: rubric.maxError,
-                forms: answerTypes[rubric.answerType].forms
-            });
+                forms: answerTypes[rubric.answerType].forms,
+            }
+        );
 
         // We may have received TeX; try to parse it before grading.
         // If `currentValue` is not TeX, this should be a no-op.
@@ -289,21 +309,21 @@ _.extend(InputNumber, {
             );
             return {
                 type: "invalid",
-                message: (apiResult === false) ? null : result.message
+                message: apiResult === false ? null : result.message,
             };
         } else {
             return {
                 type: "points",
                 earned: result.correct ? 1 : 0,
                 total: 1,
-                message: result.message
+                message: result.message,
             };
         }
-    }
+    },
 });
 
-var propTransform = (editorProps) => {
-    const { simplify, size, answerType } = editorProps;
+var propTransform = editorProps => {
+    const {simplify, size, answerType} = editorProps;
     return {
         simplify,
         size,

@@ -6,20 +6,17 @@ var React = require("react");
 const _ = require("underscore");
 
 var JsonEditor = React.createClass({
-
     getInitialState: function() {
         return {
             currentValue: JSON.stringify(this.props.value, null, 4),
-            valid: true
+            valid: true,
         };
     },
 
     componentWillReceiveProps: function(nextProps) {
-        var shouldReplaceContent = !this.state.valid ||
-            !_.isEqual(
-                nextProps.value,
-                JSON.parse(this.state.currentValue)
-            );
+        var shouldReplaceContent =
+            !this.state.valid ||
+            !_.isEqual(nextProps.value, JSON.parse(this.state.currentValue));
 
         if (shouldReplaceContent) {
             this.setState(this.getInitialState());
@@ -27,15 +24,18 @@ var JsonEditor = React.createClass({
     },
 
     render: function() {
-        var classes = "perseus-json-editor " +
-            (this.state.valid ? "valid" : "invalid");
+        var classes =
+            "perseus-json-editor " + (this.state.valid ? "valid" : "invalid");
 
-        return <textarea
-            className={classes}
-            value={this.state.currentValue}
-            onChange={this.handleChange}
-            onKeyDown={this.handleKeyDown}
-            onBlur={this.handleBlur} />;
+        return (
+            <textarea
+                className={classes}
+                value={this.state.currentValue}
+                onChange={this.handleChange}
+                onKeyDown={this.handleKeyDown}
+                onBlur={this.handleBlur}
+            />
+        );
     },
 
     handleKeyDown: function(e) {
@@ -46,7 +46,7 @@ var JsonEditor = React.createClass({
             var v = e.target.value;
             var textBefore = v.substring(0, cursorPos);
             var textAfter = v.substring(cursorPos, v.length);
-            e.target.value = textBefore+ "    " +textAfter;
+            e.target.value = textBefore + "    " + textAfter;
             e.target.selectionStart = textBefore.length + 4;
             e.target.selectionEnd = textBefore.length + 4;
 
@@ -66,16 +66,19 @@ var JsonEditor = React.createClass({
             // This callback unfortunately causes multiple renders,
             // but seems to be necessary to avoid componentWillReceiveProps
             // being called before setState has gone through
-            this.setState({
-                currentValue: nextString,
-                valid: true
-            }, function() {
-                this.props.onChange(json);
-            });
+            this.setState(
+                {
+                    currentValue: nextString,
+                    valid: true,
+                },
+                function() {
+                    this.props.onChange(json);
+                }
+            );
         } catch (ex) {
             this.setState({
                 currentValue: nextString,
-                valid: false
+                valid: false,
             });
         }
     },
@@ -93,19 +96,22 @@ var JsonEditor = React.createClass({
             // This callback unfortunately causes multiple renders,
             // but seems to be necessary to avoid componentWillReceiveProps
             // being called before setState has gone through
-            this.setState({
-                currentValue: JSON.stringify(json, null, 4),
-                valid: true
-            }, function() {
-                this.props.onChange(json);
-            });
+            this.setState(
+                {
+                    currentValue: JSON.stringify(json, null, 4),
+                    valid: true,
+                },
+                function() {
+                    this.props.onChange(json);
+                }
+            );
         } catch (ex) {
             this.setState({
                 currentValue: JSON.stringify(this.props.value, null, 4),
-                valid: true
+                valid: true,
             });
         }
-    }
+    },
 });
 
 module.exports = JsonEditor;

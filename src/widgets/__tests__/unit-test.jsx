@@ -8,7 +8,7 @@ var assert = require("assert");
 // var TestUtils = require("react-addons-test-utils");
 // var delayedPromise = require("../../testutils/delayed-promise.jsx");
 
-var { widget: UnitWidget, countSigfigs, sigfigPrint } = require("../unit.jsx");
+var {widget: UnitWidget, countSigfigs, sigfigPrint} = require("../unit.jsx");
 
 describe("countSigfigs", () => {
     it("gets a few simple cases right", () => {

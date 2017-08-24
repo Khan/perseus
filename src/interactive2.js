@@ -25,31 +25,41 @@ const Interactive2 = {
     addMaybeMobileMovablePoint: function(widget, extraProps) {
         const isMobile = widget.props.apiOptions.isMobile;
 
-        const commonStyle = isMobile ? {
-            stroke: "#ffffff",
-            "stroke-width": 3,
-            fill: KhanColors.INTERACTIVE,
-        } : {
-            stroke: KhanColors.INTERACTIVE,
-            fill: KhanColors.INTERACTIVE,
-        };
+        const commonStyle = isMobile
+            ? {
+                stroke: "#ffffff",
+                "stroke-width": 3,
+                fill: KhanColors.INTERACTIVE,
+            }
+            : {
+                stroke: KhanColors.INTERACTIVE,
+                fill: KhanColors.INTERACTIVE,
+            };
 
         const normalStyle = Object.assign(commonStyle, extraProps.normalStyle);
 
-        const highlightStyle = Object.assign(isMobile ? {
-            ...commonStyle,
-            "stroke-width": 0,
-            scale: 0.75,
-        } : {}, extraProps.highlightStyle);
+        const highlightStyle = Object.assign(
+            isMobile
+                ? {
+                    ...commonStyle,
+                    "stroke-width": 0,
+                    scale: 0.75,
+                }
+                : {},
+            extraProps.highlightStyle
+        );
 
-        const props = Object.assign({
-            normalStyle: normalStyle,
-            highlightStyle: highlightStyle,
-            shadow: isMobile,
-            tooltip: isMobile && widget.props.showTooltips,
-            showHairlines: widget.showHairlines,
-            hideHairlines: widget.hideHairlines,
-        }, isMobile ? {pointSize: 7} : {});
+        const props = Object.assign(
+            {
+                normalStyle: normalStyle,
+                highlightStyle: highlightStyle,
+                shadow: isMobile,
+                tooltip: isMobile && widget.props.showTooltips,
+                showHairlines: widget.showHairlines,
+                hideHairlines: widget.hideHairlines,
+            },
+            isMobile ? {pointSize: 7} : {}
+        );
 
         return Interactive2.addMovablePoint(
             widget.graphie,

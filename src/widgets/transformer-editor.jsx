@@ -2,15 +2,15 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-const React = require('react');
+const React = require("react");
 const _ = require("underscore");
 
 const ApiOptions = require("../perseus-api.jsx").Options;
 
-const Graph         = require("../components/graph.jsx");
+const Graph = require("../components/graph.jsx");
 const GraphSettings = require("../components/graph-settings.jsx");
-const InfoTip       = require("../components/info-tip.jsx");
-const PropCheckBox  = require("../components/prop-check-box.jsx");
+const InfoTip = require("../components/info-tip.jsx");
+const PropCheckBox = require("../components/prop-check-box.jsx");
 
 const Transformer = require("./transformer.jsx").widget;
 
@@ -24,11 +24,17 @@ const kvector = require("kmath").vector;
 const KhanColors = require("../util/colors.js");
 
 function arraySum(array) {
-    return _.reduce(array, function(memo, arg) { return memo + arg; }, 0);
+    return _.reduce(
+        array,
+        function(memo, arg) {
+            return memo + arg;
+        },
+        0
+    );
 }
 
 var defaultBackgroundImage = {
-    url: null
+    url: null,
 };
 
 /* Scales a distance from the default range of
@@ -47,10 +53,12 @@ function scaleToRange(dist, range) {
 function orderInsensitiveCoordsEqual(coords1, coords2) {
     coords1 = _.clone(coords1).sort(kpoint.compare);
     coords2 = _.clone(coords2).sort(kpoint.compare);
-    return _.all(_.map(coords1, function(coord1, i) {
-        var coord2 = coords2[i];
-        return kpoint.equal(coord1, coord2);
-    }));
+    return _.all(
+        _.map(coords1, function(coord1, i) {
+            var coord2 = coords2[i];
+            return kpoint.equal(coord1, coord2);
+        })
+    );
 }
 
 var defaultGraphProps = function(setProps, boxSize) {
@@ -58,8 +66,7 @@ var defaultGraphProps = function(setProps, boxSize) {
     var labels = setProps.labels || ["x", "y"];
     var range = setProps.range || [[-10, 10], [-10, 10]];
     var step = setProps.step || [1, 1];
-    var gridStep = setProps.gridStep ||
-               getGridStep(range, step, boxSize);
+    var gridStep = setProps.gridStep || getGridStep(range, step, boxSize);
     return {
         box: [boxSize, boxSize],
         labels: labels,
@@ -69,7 +76,7 @@ var defaultGraphProps = function(setProps, boxSize) {
         valid: true,
         backgroundImage: defaultBackgroundImage,
         markings: "grid",
-        showProtractor: false
+        showProtractor: false,
     };
 };
 
@@ -83,32 +90,32 @@ var defaultTransformerProps = {
         translation: {
             enabled: true,
             required: false,
-            constraints: {}
+            constraints: {},
         },
         rotation: {
             enabled: true,
             required: false,
             constraints: {
-                fixed: false
+                fixed: false,
             },
-            coord: [1, 6]
+            coord: [1, 6],
         },
         reflection: {
             enabled: true,
             required: false,
             constraints: {
-                fixed: false
+                fixed: false,
             },
-            coords: [[2, -4], [2, 2]]
+            coords: [[2, -4], [2, 2]],
         },
         dilation: {
             enabled: true,
             required: false,
             constraints: {
-                fixed: false
+                fixed: false,
             },
-            coord: [6, 6]
-        }
+            coord: [6, 6],
+        },
     },
     drawSolutionShape: true,
     starting: {
@@ -116,133 +123,138 @@ var defaultTransformerProps = {
             type: "polygon-3",
             coords: [[2, 2], [2, 6], [7, 2]],
         },
-        transformations: []
+        transformations: [],
     },
     correct: {
         shape: {
             type: "polygon-3",
             coords: [[2, 2], [2, 6], [7, 2]],
         },
-        transformations: []
-    }
+        transformations: [],
+    },
 };
 
 const ToolSettings = React.createClass({
     getDefaultProps: function() {
         return {
-            allowFixed: true
+            allowFixed: true,
         };
     },
 
     render: function() {
-        return <div>
-            {this.props.name}:{' '}
-            {" "}
-            <PropCheckBox
-                label="enabled:"
-                enabled={this.props.settings.enabled}
-                onChange={this.props.onChange} />
-            {" "}
-            {this.props.settings.enabled &&
+        return (
+            <div>
+                {this.props.name}: {" "}
                 <PropCheckBox
-                    label="required:"
-                    required={this.props.settings.required}
-                    onChange={this.props.onChange} />
-            }
-            {this.props.settings.enabled &&
-                <InfoTip>
-                    'Required' will only grade the answer as correct if the
-                    student has used at least one such transformation.
-                </InfoTip>
-            }
-            {" "}
-            {this.props.allowFixed && this.props.settings.enabled &&
-                <PropCheckBox
-                    label="fixed:"
-                    fixed={this.props.settings.constraints.fixed}
-                    onChange={this.changeConstraints} />
-            }
-            {this.props.allowFixed && this.props.settings.enabled &&
-                <InfoTip>
-                    Enable 'fixed' to prevent the student from repositioning
-                    the tool. The tool will appear in the position at which it
-                    is placed in the editor below.
-                </InfoTip>
-            }
-        </div>;
+                    label="enabled:"
+                    enabled={this.props.settings.enabled}
+                    onChange={this.props.onChange}
+                />{" "}
+                {this.props.settings.enabled &&
+                    <PropCheckBox
+                        label="required:"
+                        required={this.props.settings.required}
+                        onChange={this.props.onChange}
+                    />}
+                {this.props.settings.enabled &&
+                    <InfoTip>
+                        'Required' will only grade the answer as correct if the
+                        student has used at least one such transformation.
+                    </InfoTip>}{" "}
+                {this.props.allowFixed &&
+                    this.props.settings.enabled &&
+                    <PropCheckBox
+                        label="fixed:"
+                        fixed={this.props.settings.constraints.fixed}
+                        onChange={this.changeConstraints}
+                    />}
+                {this.props.allowFixed &&
+                    this.props.settings.enabled &&
+                    <InfoTip>
+                        Enable 'fixed' to prevent the student from repositioning
+                        the tool. The tool will appear in the position at which
+                        it is placed in the editor below.
+                    </InfoTip>}
+            </div>
+        );
     },
 
     changeConstraints: function(changed) {
         var newConstraints = _.extend({}, this.props.constraints, changed);
         this.props.onChange({
-            constraints: newConstraints
+            constraints: newConstraints,
         });
-    }
+    },
 });
 
 var TransformationExplorerSettings = React.createClass({
     render: function() {
-
-        return <div className="transformer-settings">
-            <div>
-                {' '}Mode:{' '}
-                <select value={this.getMode()}
-                        onChange={this.changeMode}>
-                    <option value="interactive,dynamic">
-                        {' '}Exploration with text{' '}
-                    </option>
-                    <option value="interactive,static">
-                        {' '}Exploration without text{' '}
-                    </option>
-                    <option value="dynamic,interactive">
-                        {' '}Formal with movement{' '}
-                    </option>
-                    <option value="static,interactive">
-                        {' '}Formal without movement{' '}
-                    </option>
-                </select>
-                <InfoTip>
-                    <ul>
-                        <li>
-                            <b>Exploration:</b> Students create
-                            transformations with tools on the graph.{' '}
-                        </li>
-                        <li>
-                            <b>Formal with movement:</b> Students specify
-                            transformations mathematically in the
-                            transformation list. Graph shows the results of
-                            these transformations.{' '}
-                        </li>
-                        <li>
-                            <b>Formal without movement:</b> Students specify
-                            transformations mathematically in the
-                            transformation list. Graph does not update.{' '}
-                        </li>
-                    </ul>
-                </InfoTip>
-            </div>
-            <ToolSettings
+        return (
+            <div className="transformer-settings">
+                <div>
+                    {" "}Mode:{" "}
+                    <select value={this.getMode()} onChange={this.changeMode}>
+                        <option value="interactive,dynamic">
+                            {" "}Exploration with text{" "}
+                        </option>
+                        <option value="interactive,static">
+                            {" "}Exploration without text{" "}
+                        </option>
+                        <option value="dynamic,interactive">
+                            {" "}Formal with movement{" "}
+                        </option>
+                        <option value="static,interactive">
+                            {" "}Formal without movement{" "}
+                        </option>
+                    </select>
+                    <InfoTip>
+                        <ul>
+                            <li>
+                                <b>Exploration:</b> Students create
+                                transformations with tools on the graph.{" "}
+                            </li>
+                            <li>
+                                <b>Formal with movement:</b> Students specify
+                                transformations mathematically in the
+                                transformation list. Graph shows the results of
+                                these transformations.{" "}
+                            </li>
+                            <li>
+                                <b>Formal without movement:</b> Students specify
+                                transformations mathematically in the
+                                transformation list. Graph does not update.{" "}
+                            </li>
+                        </ul>
+                    </InfoTip>
+                </div>
+                <ToolSettings
                     name="Translations"
                     settings={this.props.tools.translation}
                     allowFixed={false}
-                    onChange={this.changeHandlerFor("translation")} />
-            <ToolSettings
+                    onChange={this.changeHandlerFor("translation")}
+                />
+                <ToolSettings
                     name="Rotations"
                     settings={this.props.tools.rotation}
-                    onChange={this.changeHandlerFor("rotation")} />
-            <ToolSettings
+                    onChange={this.changeHandlerFor("rotation")}
+                />
+                <ToolSettings
                     name="Reflections"
                     settings={this.props.tools.reflection}
-                    onChange={this.changeHandlerFor("reflection")} />
-            <ToolSettings
+                    onChange={this.changeHandlerFor("reflection")}
+                />
+                <ToolSettings
                     name="Dilations"
                     settings={this.props.tools.dilation}
-                    onChange={this.changeHandlerFor("dilation")} />
-            <PropCheckBox
+                    onChange={this.changeHandlerFor("dilation")}
+                />
+                <PropCheckBox
                     label="Draw Solution:"
                     drawSolutionShape={this.props.drawSolutionShape}
-                    onChange={this.props.onChange} />
-        </div>;
+                    onChange={this.props.onChange}
+                />
+            </div>
+        );
     },
 
     getMode: function() {
@@ -255,29 +267,31 @@ var TransformationExplorerSettings = React.createClass({
 
         this.props.onChange({
             graphMode: modes[0],
-            listMode: modes[1]
+            listMode: modes[1],
         });
     },
 
     changeHandlerFor: function(toolName) {
         return change => {
             var newTools = _.clone(this.props.tools);
-            newTools[toolName] = _.extend({}, this.props.tools[toolName],
-                    change);
+            newTools[toolName] = _.extend(
+                {},
+                this.props.tools[toolName],
+                change
+            );
 
             this.props.onChange({
-                tools: newTools
+                tools: newTools,
             });
         };
-    }
+    },
 });
 var ShapeTypes = {
     getPointCountForType: function(type) {
         var splitType = type.split("-");
         if (splitType[0] === "polygon") {
             return splitType[1] || 3;
-        } else if (splitType[0] === "line" ||
-                splitType[0] === "lineSegment") {
+        } else if (splitType[0] === "line" || splitType[0] === "lineSegment") {
             return 2;
         } else if (splitType[0] === "angle") {
             return 3;
@@ -290,9 +304,12 @@ var ShapeTypes = {
 
     addMovableShape: function(graphie, options) {
         if (options.editable && options.translatable) {
-            throw new Error("It doesn't make sense to have a movable shape " +
+            throw new Error(
+                "It doesn't make sense to have a movable shape " +
                     "where you can stretch the points and translate them " +
-                    "simultaneously. options: " + JSON.stringify(options));
+                    "simultaneously. options: " +
+                    JSON.stringify(options)
+            );
         }
 
         var shape;
@@ -307,18 +324,14 @@ var ShapeTypes = {
                     isMoving = true;
                 }
 
-                var moveVector = kvector.subtract(
-                    [x, y],
-                    currentPoint.coord
-                );
+                var moveVector = kvector.subtract([x, y], currentPoint.coord);
 
                 // Translate from (x, y) semantics to (dX, dY) semantics
                 // This is more useful for translations on multiple points,
                 // where we care about how the points moved, not where any
                 // individual point ended up
                 if (options.onMove) {
-                    moveVector = options.onMove(moveVector[0],
-                            moveVector[1]);
+                    moveVector = options.onMove(moveVector[0], moveVector[1]);
                 }
 
                 // Perform a translation on all points in this shape when
@@ -329,10 +342,9 @@ var ShapeTypes = {
                         // movablePoint class, so only translate the other
                         // points
                         if (point !== currentPoint) {
-                            point.setCoord(kvector.add(
-                                point.coord,
-                                moveVector
-                            ));
+                            point.setCoord(
+                                kvector.add(point.coord, moveVector)
+                            );
                         }
                     });
                 }
@@ -342,10 +354,7 @@ var ShapeTypes = {
                 // "bouncy" as they are updated with currentPoint at the
                 // current mouse coordinate (oldCoord), rather than newCoord
                 var oldCoord = currentPoint.coord;
-                var newCoord = kvector.add(
-                    currentPoint.coord,
-                    moveVector
-                );
+                var newCoord = kvector.add(currentPoint.coord, moveVector);
                 // Temporarily change our coordinate so that
                 // shape.update() sees the new coordinate
                 currentPoint.coord = newCoord;
@@ -380,14 +389,14 @@ var ShapeTypes = {
                 normalStyle: options.normalPointStyle,
                 highlightStyle: options.highlightPointStyle,
                 constraints: {
-                    fixed: !options.translatable && !options.editable
+                    fixed: !options.translatable && !options.editable,
                 },
                 visible: options.showPoints,
-                snapX: options.snap && options.snap[0] || 0,
-                snapY: options.snap && options.snap[1] || 0,
+                snapX: (options.snap && options.snap[0]) || 0,
+                snapY: (options.snap && options.snap[1]) || 0,
                 bounded: false, // Don't bound it when placing it on the graph
                 onMove: onMove,
-                onMoveEnd: onMoveEnd
+                onMoveEnd: onMoveEnd,
             });
 
             // Bound it when moving
@@ -412,11 +421,14 @@ var ShapeTypes = {
         points = points || options.shape.coords;
 
         var types = ShapeTypes._typesOf(options.shape);
-        var typeOptions = options.shape.options ||
-                ShapeTypes.defaultOptions(types);
+        var typeOptions =
+            options.shape.options || ShapeTypes.defaultOptions(types);
 
-        var shapes = ShapeTypes._mapTypes(types, points,
-                function(type, points, i) {
+        var shapes = ShapeTypes._mapTypes(types, points, function(
+            type,
+            points,
+            i
+        ) {
             var shapeOptions = _.extend({}, options, typeOptions[i]);
             return ShapeTypes._addType(graphie, type, points, shapeOptions);
         });
@@ -452,7 +464,7 @@ var ShapeTypes = {
             return {
                 type: types,
                 coords: coords,
-                options: getOptions()
+                options: getOptions(),
             };
         };
 
@@ -462,7 +474,7 @@ var ShapeTypes = {
             update: update,
             remove: remove,
             toJSON: toJSON,
-            getOptions: getOptions
+            getOptions: getOptions,
         };
     },
 
@@ -472,20 +484,28 @@ var ShapeTypes = {
         if (types1.length !== types2.length) {
             return false;
         }
-        var shapes1 = ShapeTypes._mapTypes(types1, shape1.coords,
-                ShapeTypes._combine);
-        var shapes2 = ShapeTypes._mapTypes(types2, shape2.coords,
-                ShapeTypes._combine);
-        return _.all(_.map(shapes1, function(partialShape1, i) {
-            var partialShape2 = shapes2[i];
-            if (partialShape1.type !== partialShape2.type) {
-                return false;
-            }
-            return ShapeTypes._forType(partialShape1.type).equal(
-                partialShape1.coords,
-                partialShape2.coords
-            );
-        }));
+        var shapes1 = ShapeTypes._mapTypes(
+            types1,
+            shape1.coords,
+            ShapeTypes._combine
+        );
+        var shapes2 = ShapeTypes._mapTypes(
+            types2,
+            shape2.coords,
+            ShapeTypes._combine
+        );
+        return _.all(
+            _.map(shapes1, function(partialShape1, i) {
+                var partialShape2 = shapes2[i];
+                if (partialShape1.type !== partialShape2.type) {
+                    return false;
+                }
+                return ShapeTypes._forType(partialShape1.type).equal(
+                    partialShape1.coords,
+                    partialShape2.coords
+                );
+            })
+        );
     },
 
     _typesOf: function(shape) {
@@ -524,37 +544,42 @@ var ShapeTypes = {
     },
 
     _addType: function(graphie, type, points, options) {
-        var lineCoords = _.isArray(points[0]) ? {
-            coordA: points[0],
-            coordZ: points[1],
-        } : {
-            pointA: points[0],
-            pointZ: points[1],
-        };
+        var lineCoords = _.isArray(points[0])
+            ? {
+                  coordA: points[0],
+                  coordZ: points[1],
+              }
+            : {
+                  pointA: points[0],
+                  pointZ: points[1],
+              };
 
         type = type.split("-")[0];
         if (type === "polygon") {
-            var polygon = graphie.addMovablePolygon(_.extend({}, options, {
-                fixed: !options.editable,
-                snapX: options.snap && options.snap[0] || 0,
-                snapY: options.snap && options.snap[1] || 0,
-                points: points,
-                constrainToGraph: false
-            }));
+            var polygon = graphie.addMovablePolygon(
+                _.extend({}, options, {
+                    fixed: !options.editable,
+                    snapX: (options.snap && options.snap[0]) || 0,
+                    snapY: (options.snap && options.snap[1]) || 0,
+                    points: points,
+                    constrainToGraph: false,
+                })
+            );
             return {
                 update: polygon.transform.bind(polygon),
-                remove: polygon.remove.bind(polygon)
+                remove: polygon.remove.bind(polygon),
             };
         } else if (type === "line" || type === "lineSegment") {
             var line = graphie.addMovableLineSegment(
-                    _.extend({}, options, lineCoords, {
-                movePointsWithLine: true,
-                fixed: true,
-                constraints: {
-                    fixed: true
-                },
-                extendLine: (type === "line")
-            }));
+                _.extend({}, options, lineCoords, {
+                    movePointsWithLine: true,
+                    fixed: true,
+                    constraints: {
+                        fixed: true,
+                    },
+                    extendLine: type === "line",
+                })
+            );
 
             // TODO(jack): Hide points on uneditable lines when translation
             // is a vector.
@@ -562,7 +587,7 @@ var ShapeTypes = {
             // translation handle for the line.
             return {
                 update: line.transform.bind(line, true),
-                remove: line.remove.bind(line)
+                remove: line.remove.bind(line),
             };
         } else if (type === "angle") {
             // If this angle is editable, we want to be able to make angles
@@ -577,7 +602,7 @@ var ShapeTypes = {
                 fixed: true,
                 points: points,
                 normalStyle: options.normalStyle,
-                reflex: options.reflex
+                reflex: options.reflex,
             });
 
             // Hide non-vertex points on uneditable angles
@@ -590,24 +615,31 @@ var ShapeTypes = {
                 remove: angle.remove.bind(angle),
                 getOptions: function() {
                     return {
-                        reflex: angle.isReflex()
+                        reflex: angle.isReflex(),
                     };
-                }
+                },
             };
         } else if (type === "circle") {
             var perimeter = {
                 // temporary object for the first removal
-                remove: _.identity
+                remove: _.identity,
             };
             var redrawPerim = function() {
                 var coord0 = points[0].coord || points[0];
                 var coord1 = points[1].coord || points[1];
                 var radius = kpoint.distanceToPoint(coord0, coord1);
                 perimeter.remove();
-                perimeter = graphie.circle(coord0, radius, _.extend({
-                    stroke: KhanColors.DYNAMIC,
-                    "stroke-width": 2,
-                }, options.normalStyle));
+                perimeter = graphie.circle(
+                    coord0,
+                    radius,
+                    _.extend(
+                        {
+                            stroke: KhanColors.DYNAMIC,
+                            "stroke-width": 2,
+                        },
+                        options.normalStyle
+                    )
+                );
             };
 
             redrawPerim();
@@ -621,13 +653,13 @@ var ShapeTypes = {
                     // Not _.bind because the remove function changes
                     // when the perimeter is redrawn
                     perimeter.remove();
-                }
+                },
             };
         } else if (type === "point") {
             // do nothing
             return {
                 update: null,
-                remove: null
+                remove: null,
             };
         } else {
             throw new Error("Invalid shape type " + type);
@@ -637,20 +669,20 @@ var ShapeTypes = {
     _combine: function(type, coords) {
         return {
             type: type,
-            coords: coords
+            coords: coords,
         };
     },
 
     polygon: {
-        equal: orderInsensitiveCoordsEqual
+        equal: orderInsensitiveCoordsEqual,
     },
 
     line: {
-        equal: kline.equal
+        equal: kline.equal,
     },
 
     lineSegment: {
-        equal: orderInsensitiveCoordsEqual
+        equal: orderInsensitiveCoordsEqual,
     },
 
     angle: {
@@ -664,65 +696,70 @@ var ShapeTypes = {
             var line2_0 = [points2[1], points2[0]];
             var line2_2 = [points2[1], points2[2]];
 
-            var equalUnflipped = kray.equal(line1_0, line2_0) &&
-                    kray.equal(line1_2, line2_2);
-            var equalFlipped = kray.equal(line1_0, line2_2) &&
-                    kray.equal(line1_2, line2_0);
+            var equalUnflipped =
+                kray.equal(line1_0, line2_0) && kray.equal(line1_2, line2_2);
+            var equalFlipped =
+                kray.equal(line1_0, line2_2) && kray.equal(line1_2, line2_0);
 
             return equalUnflipped || equalFlipped;
         },
 
         defaultOptions: {
-            reflex: false
-        }
+            reflex: false,
+        },
     },
 
     circle: {
         equal: function(points1, points2) {
             var radius1 = kpoint.distanceToPoint(points1[0], points1[1]);
             var radius2 = kpoint.distanceToPoint(points2[0], points2[1]);
-            return kpoint.equal(points1[0], points2[0]) &&
-                knumber.equal(radius1, radius2);
-        }
+            return (
+                kpoint.equal(points1[0], points2[0]) &&
+                knumber.equal(radius1, radius2)
+            );
+        },
     },
 
     point: {
-        equal: kpoint.equal
-    }
+        equal: kpoint.equal,
+    },
 };
 
 var TransformationsShapeEditor = React.createClass({
     render: function() {
-        return <div>
-            <Graph
-                ref="graph"
-                box={this.props.graph.box}
-                range={this.props.graph.range}
-                labels={this.props.graph.labels}
-                step={this.props.graph.step}
-                gridStep={this.props.graph.gridStep}
-                markings={this.props.graph.markings}
-                backgroundImage={this.props.graph.backgroundImage}
-                onGraphieUpdated={this.setupGraphie}
-            />
-            <select
+        return (
+            <div>
+                <Graph
+                    ref="graph"
+                    box={this.props.graph.box}
+                    range={this.props.graph.range}
+                    labels={this.props.graph.labels}
+                    step={this.props.graph.step}
+                    gridStep={this.props.graph.gridStep}
+                    markings={this.props.graph.markings}
+                    backgroundImage={this.props.graph.backgroundImage}
+                    onGraphieUpdated={this.setupGraphie}
+                />
+                <select
                     key="type-select"
                     value={this.getTypeString(this.props.shape.type)}
-                    onChange={this.changeType} >
-                <option value="polygon-3">Triangle</option>
-                <option value="polygon-4">Quadrilateral</option>
-                <option value="polygon-5">Pentagon</option>
-                <option value="polygon-6">Hexagon</option>
-                <option value="line">Line</option>
-                <option value="line,line">2 lines</option>
-                <option value="lineSegment">Line segment</option>
-                <option value="lineSegment,lineSegment">
-                    {' '}2 line segments{' '}
-                </option>
-                <option value="angle">Angle</option>
-                <option value="circle">Circle</option>
-            </select>
-        </div>;
+                    onChange={this.changeType}
+                >
+                    <option value="polygon-3">Triangle</option>
+                    <option value="polygon-4">Quadrilateral</option>
+                    <option value="polygon-5">Pentagon</option>
+                    <option value="polygon-6">Hexagon</option>
+                    <option value="line">Line</option>
+                    <option value="line,line">2 lines</option>
+                    <option value="lineSegment">Line segment</option>
+                    <option value="lineSegment,lineSegment">
+                        {" "}2 line segments{" "}
+                    </option>
+                    <option value="angle">Angle</option>
+                    <option value="circle">Circle</option>
+                </select>
+            </div>
+        );
     },
 
     /* Return the option string for a given type */
@@ -742,24 +779,22 @@ var TransformationsShapeEditor = React.createClass({
      */
     changeType: function(e) {
         var types = String(e.target.value).split(",");
-        var pointCount = arraySum(_.map(
-                types,
-                ShapeTypes.getPointCountForType
-        ));
+        var pointCount = arraySum(
+            _.map(types, ShapeTypes.getPointCountForType)
+        );
 
         var radius = scaleToRange(4, this.refs.graph.props.range);
         var offset = (1 / 2 - 1 / pointCount) * 180;
         var coords = _.times(pointCount, function(i) {
-            return kpoint.rotateDeg([radius, 0],
-                360 * i / pointCount + offset);
+            return kpoint.rotateDeg([radius, 0], 360 * i / pointCount + offset);
         });
 
         this.props.onChange({
             shape: {
                 type: types,
                 coords: coords,
-                options: ShapeTypes.defaultOptions(types)
-            }
+                options: ShapeTypes.defaultOptions(types),
+            },
         });
     },
 
@@ -775,7 +810,7 @@ var TransformationsShapeEditor = React.createClass({
 
     updateCoords: function() {
         this.props.onChange({
-            shape: this.shape.toJSON()
+            shape: this.shape.toJSON(),
         });
     },
 
@@ -784,10 +819,9 @@ var TransformationsShapeEditor = React.createClass({
             editable: true,
             snap: graphie.snap,
             shape: this.props.shape,
-            onMoveEnd: this.updateCoords
+            onMoveEnd: this.updateCoords,
         });
     },
-
 });
 
 var TransformerEditor = React.createClass({
@@ -802,86 +836,94 @@ var TransformerEditor = React.createClass({
         // this can happen because the graph json doesn't include
         // box, for example
         var graph = _.extend(
-                defaultGraphProps(this.props.graph, 340),
-                this.props.graph
+            defaultGraphProps(this.props.graph, 340),
+            this.props.graph
         );
 
-        return <div>
+        return (
             <div>
-                <PropCheckBox
-                    label="Grade empty answers as wrong:"
+                <div>
+                    <PropCheckBox
+                        label="Grade empty answers as wrong:"
+                        gradeEmpty={this.props.gradeEmpty}
+                        onChange={this.props.onChange}
+                    />
+                    <InfoTip>
+                        <p>
+                            We generally do not grade empty answers. This
+                            usually works well, but sometimes can result in
+                            giving away part of an answer in a multi-part
+                            question.
+                        </p>
+                        <p>
+                            If this is a multi-part question (there is another
+                            widget), you probably want to enable this option.
+                            Otherwise, you should leave it disabled.
+                        </p>
+                        <p>Confused? Talk to Elizabeth.</p>
+                    </InfoTip>
+                </div>
+                <div>Graph settings:</div>
+                <GraphSettings
+                    box={graph.box}
+                    labels={graph.labels}
+                    range={graph.range}
+                    step={graph.step}
+                    gridStep={graph.gridStep}
+                    valid={graph.valid}
+                    backgroundImage={graph.backgroundImage}
+                    markings={graph.markings}
+                    showProtractor={graph.showProtractor}
+                    onChange={this.changeGraph}
+                />
+                <div>Transformation settings:</div>
+                <TransformationExplorerSettings
+                    ref="transformationSettings"
+                    graphMode={this.props.graphMode}
+                    listMode={this.props.listMode}
+                    tools={this.props.tools}
+                    drawSolutionShape={this.props.drawSolutionShape}
+                    onChange={this.props.onChange}
+                />
+                <div>Starting location:</div>
+                <TransformationsShapeEditor
+                    ref="shapeEditor"
+                    graph={graph}
+                    shape={this.props.starting.shape}
+                    onChange={this.changeStarting}
+                    setDrawingAreaAvailable={
+                        this.props.apiOptions.setDrawingAreaAvailable
+                    }
+                />
+                <div>Solution transformations:</div>
+                <Transformer
+                    ref="explorer"
+                    graph={graph}
+                    graphMode={this.props.graphMode}
+                    listMode={this.props.listMode}
                     gradeEmpty={this.props.gradeEmpty}
-                    onChange={this.props.onChange} />
-                <InfoTip>
-                    <p>
-                        We generally do not grade empty answers. This usually
-                        works well, but sometimes can result in giving away
-                        part of an answer in a multi-part question.
-                    </p>
-                    <p>
-                        If this is a multi-part question (there is another
-                        widget), you probably want to enable this option.
-                        Otherwise, you should leave it disabled.
-                    </p>
-                    <p>
-                        Confused? Talk to Elizabeth.
-                    </p>
-                </InfoTip>
+                    tools={this.props.tools}
+                    drawSolutionShape={this.props.drawSolutionShape}
+                    starting={this.props.starting}
+                    correct={this.props.starting}
+                    transformations={this.props.correct.transformations}
+                    onChange={this.changeTransformer}
+                    trackInteraction={() => {}}
+                />
             </div>
-            <div>Graph settings:</div>
-            <GraphSettings
-                box={graph.box}
-                labels={graph.labels}
-                range={graph.range}
-                step={graph.step}
-                gridStep={graph.gridStep}
-                valid={graph.valid}
-                backgroundImage={graph.backgroundImage}
-                markings={graph.markings}
-                showProtractor={graph.showProtractor}
-                onChange={this.changeGraph} />
-            <div>Transformation settings:</div>
-            <TransformationExplorerSettings
-                ref="transformationSettings"
-                graphMode={this.props.graphMode}
-                listMode={this.props.listMode}
-                tools={this.props.tools}
-                drawSolutionShape={this.props.drawSolutionShape}
-                onChange={this.props.onChange} />
-            <div>Starting location:</div>
-            <TransformationsShapeEditor
-                ref="shapeEditor"
-                graph={graph}
-                shape={this.props.starting.shape}
-                onChange={this.changeStarting}
-                setDrawingAreaAvailable={
-                    this.props.apiOptions.setDrawingAreaAvailable}
-            />
-            <div>Solution transformations:</div>
-            <Transformer
-                ref="explorer"
-                graph={graph}
-                graphMode={this.props.graphMode}
-                listMode={this.props.listMode}
-                gradeEmpty={this.props.gradeEmpty}
-                tools={this.props.tools}
-                drawSolutionShape={this.props.drawSolutionShape}
-                starting={this.props.starting}
-                correct={this.props.starting}
-                transformations={this.props.correct.transformations}
-                onChange={this.changeTransformer}
-                trackInteraction={() => {}}
-            />
-        </div>;
+        );
     },
 
     // propagate a props change on our graph settings to
     // this.props.graph
     changeGraph: function(graphChanges, callback) {
         var newGraph = _.extend({}, this.props.graph, graphChanges);
-        this.props.onChange({
-            graph: newGraph
-        }, callback);
+        this.props.onChange(
+            {
+                graph: newGraph,
+            },
+            callback
+        );
     },
 
     // propagate a props change on our starting graph to
@@ -889,7 +931,7 @@ var TransformerEditor = React.createClass({
     changeStarting: function(startingChanges) {
         var newStarting = _.extend({}, this.props.starting, startingChanges);
         this.props.onChange({
-            starting: newStarting
+            starting: newStarting,
         });
     },
 
@@ -910,7 +952,7 @@ var TransformerEditor = React.createClass({
         json.correct = json.answer;
         delete json.answer;
         return json;
-    }
+    },
 });
 
 module.exports = TransformerEditor;

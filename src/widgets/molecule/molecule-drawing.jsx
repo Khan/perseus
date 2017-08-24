@@ -15,13 +15,17 @@
  *
  */
 function drawText(ctx, item) {
-    if (item.value === null) { return; }
+    if (item.value === null) {
+        return;
+    }
     ctx.fillStyle = styles.fgColor;
     ctx.font = styles.font;
-    ctx.fillText(item.value, item.pos[0] - styles.fontSizePx / 2 + 1,
-                 item.pos[1] + styles.fontSizePx / 2);
+    ctx.fillText(
+        item.value,
+        item.pos[0] - styles.fontSizePx / 2 + 1,
+        item.pos[1] + styles.fontSizePx / 2
+    );
 }
-
 
 /**
  * Draw a double line into a 2D canvas drawing context.
@@ -55,7 +59,6 @@ function drawDoubleLine(ctx, item) {
     path.lineTo(item.endPos[0], item.endPos[1]);
     ctx.stroke(path);
 }
-
 
 /**
  * Draw a triple line into a 2D canvas drawing context.
@@ -116,7 +119,6 @@ function drawLine(ctx, item) {
     ctx.stroke(path);
 }
 
-
 /**
  * Lookup table that maps drawing instruction types to the functions that
  * render them.
@@ -132,7 +134,9 @@ const drawingFuncs = {
  * Draw a single rendering instruction into a 2D canvas drawing context.
  */
 function drawItem(ctx) {
-    return function(item) { drawingFuncs[item.type](ctx, item); };
+    return function(item) {
+        drawingFuncs[item.type](ctx, item);
+    };
 }
 
 /**
@@ -162,10 +166,9 @@ function draw(ctx, items) {
     items.sort(compareElements).forEach(drawItem(ctx));
 }
 
-
 const styles = {
-    bgColor: 'rgb(255, 255, 255)',
-    fgColor: 'rgb(0, 0, 0)',
+    bgColor: "rgb(255, 255, 255)",
+    fgColor: "rgb(0, 0, 0)",
     fontSizePx: 12,
     lineWidth: 1,
 };

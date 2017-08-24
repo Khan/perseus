@@ -2,9 +2,8 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-
 var classNames = require("classnames");
-var React = require('react');
+var React = require("react");
 var _ = require("underscore");
 const {StyleSheet, css} = require("aphrodite");
 const styleConstants = require("../styles/constants.js");
@@ -14,52 +13,62 @@ const SimpleKeypadInput = require("../components/simple-keypad-input.jsx");
 var ParseTex = require("../tex-wrangler.js").parseTex;
 var PossibleAnswers = require("../components/possible-answers.jsx");
 
-var ApiClassNames   = require("../perseus-api.jsx").ClassNames;
-var ApiOptions      = require("../perseus-api.jsx").Options;
+var ApiClassNames = require("../perseus-api.jsx").ClassNames;
+var ApiOptions = require("../perseus-api.jsx").Options;
 const KhanAnswerTypes = require("../util/answer-types.js");
 const KhanMath = require("../util/math.js");
-const { keypadElementPropType } = require("../../math-input").propTypes;
-const {linterContextProps, linterContextDefault} = require("../gorgon/proptypes.js");
+const {keypadElementPropType} = require("../../math-input").propTypes;
+const {
+    linterContextProps,
+    linterContextDefault,
+} = require("../gorgon/proptypes.js");
 
 var answerFormButtons = [
     {title: "Integers", value: "integer", content: "6"},
     {title: "Decimals", value: "decimal", content: "0.75"},
     {title: "Proper fractions", value: "proper", content: "\u2157"},
-    {title: "Improper fractions", value: "improper",
-        content: "\u2077\u2044\u2084"},
+    {
+        title: "Improper fractions",
+        value: "improper",
+        content: "\u2077\u2044\u2084",
+    },
     {title: "Mixed numbers", value: "mixed", content: "1\u00BE"},
-    {title: "Numbers with \u03C0", value: "pi", content: "\u03C0"}
+    {title: "Numbers with \u03C0", value: "pi", content: "\u03C0"},
 ];
 
 var formExamples = {
-    "integer": () => i18n._("an integer, like $6$"),
-    "proper": (form) => form.simplify === "optional" ?
-        i18n._("a *proper* fraction, like $1/2$ or $6/10$") :
-        i18n._("a *simplified proper* fraction, like $3/5$"),
-    "improper": (form) => form.simplify === "optional" ?
-        i18n._("an *improper* fraction, like $10/7$ or $14/8$") :
-        i18n._("a *simplified improper* fraction, like $7/4$"),
-    "mixed": () => i18n._("a mixed number, like $1\\ 3/4$"),
-    "decimal": () => i18n._("an *exact* decimal, like $0.75$"),
-    "pi": () => i18n._("a multiple of pi, like $12\\ \\text{pi}$ or " +
-                "$2/3\\ \\text{pi}$")
+    integer: () => i18n._("an integer, like $6$"),
+    proper: form =>
+        form.simplify === "optional"
+            ? i18n._("a *proper* fraction, like $1/2$ or $6/10$")
+            : i18n._("a *simplified proper* fraction, like $3/5$"),
+    improper: form =>
+        form.simplify === "optional"
+            ? i18n._("an *improper* fraction, like $10/7$ or $14/8$")
+            : i18n._("a *simplified improper* fraction, like $7/4$"),
+    mixed: () => i18n._("a mixed number, like $1\\ 3/4$"),
+    decimal: () => i18n._("an *exact* decimal, like $0.75$"),
+    pi: () =>
+        i18n._(
+            "a multiple of pi, like $12\\ \\text{pi}$ or " +
+                "$2/3\\ \\text{pi}$"
+        ),
 };
 
 var NumericInput = React.createClass({
     propTypes: {
         currentValue: React.PropTypes.string,
-        currentMultipleValues: React.PropTypes.arrayOf(
-            React.PropTypes.string),
+        currentMultipleValues: React.PropTypes.arrayOf(React.PropTypes.string),
         size: React.PropTypes.oneOf(["normal", "small"]),
         apiOptions: ApiOptions.propTypes,
         coefficient: React.PropTypes.bool,
-        answerForms: React.PropTypes.arrayOf(React.PropTypes.shape({
-            name: React.PropTypes.string.isRequired,
-            simplify: React.PropTypes.oneOf([
-                "required",
-                "optional"
-            ]).isRequired,
-        })),
+        answerForms: React.PropTypes.arrayOf(
+            React.PropTypes.shape({
+                name: React.PropTypes.string.isRequired,
+                simplify: React.PropTypes.oneOf(["required", "optional"])
+                    .isRequired,
+            })
+        ),
         keypadElement: keypadElementPropType,
         labelText: React.PropTypes.string,
         reviewModeRubric: React.PropTypes.object,
@@ -88,13 +97,14 @@ var NumericInput = React.createClass({
         var answerBlurb;
         if (this.props.apiOptions.satStyling && rubric) {
             var score = this.simpleValidate(rubric);
-            correct = score.type === "points" &&
-                      score.earned === score.total;
+            correct = score.type === "points" && score.earned === score.total;
 
             if (!correct) {
                 var correctAnswers = _.filter(
-                    rubric.answers, answer => answer.status === "correct");
-                var answerStrings = _.map(correctAnswers, (answer) => {
+                    rubric.answers,
+                    answer => answer.status === "correct"
+                );
+                var answerStrings = _.map(correctAnswers, answer => {
                     // Figure out how this answer is supposed to be
                     // displayed
                     var format = "decimal";
@@ -107,11 +117,13 @@ var NumericInput = React.createClass({
                     }
 
                     var answerString = KhanMath.toNumericString(
-                        answer.value, format);
+                        answer.value,
+                        format
+                    );
                     if (answer.maxError) {
-                        answerString += " \u00B1 " +
-                            KhanMath.toNumericString(answer.maxError,
-                                format);
+                        answerString +=
+                            " \u00B1 " +
+                            KhanMath.toNumericString(answer.maxError, format);
                     }
                     return answerString;
                 });
@@ -128,8 +140,7 @@ var NumericInput = React.createClass({
             rubric && correct && this.props.currentValue;
         classes[ApiClassNames.INCORRECT] =
             rubric && !correct && this.props.currentValue;
-        classes[ApiClassNames.UNANSWERED] = rubric &&
-            !this.props.currentValue;
+        classes[ApiClassNames.UNANSWERED] = rubric && !this.props.currentValue;
         return classes;
     },
 
@@ -163,98 +174,126 @@ var NumericInput = React.createClass({
                     -
                 </div>
             );
-            input = <div>
-                Add answer
-                {addInput}
-                {this.props.currentMultipleValues.length > 0 && removeInput}
-                <br/>
-                {this.props.currentMultipleValues.length === 0 ?
-                    <div>No Solution</div> :
-                    this.props.currentMultipleValues.map((item, i) =>
-                        this.props.apiOptions.customKeypad ?
-                        <SimpleKeypadInput
-                            ref="input"
-                            key={i}
-                            value={this.props.currentMultipleValues[i]}
-                            keypadElement={this.props.keypadElement}
-                            onChange={
-                                evt => this.handleMultipleInputChange(i, evt)}
-                            onFocus={this._handleFocus}
-                            onBlur={this._handleBlur}
-                        /> :
-                        <InputWithExamples
-                            ref="input"
-                            key={i}
-                            value={this.props.currentMultipleValues[i]}
-                            onChange={
-                                evt => this.handleMultipleInputChange(i, evt)}
-                            className={classNames(classes)}
-                            labelText={labelText}
-                            type={this._getInputType()}
-                            examples={this.examples()}
-                            shouldShowExamples={this.shouldShowExamples()}
-                            onFocus={this._handleFocus}
-                            onBlur={this._handleBlur}
-                            id={this.props.widgetId}
-                            disabled={this.props.apiOptions.readOnly}
-                            highlightLint={this.props.highlightLint}
-                        />)}
-            </div>;
+            input = (
+                <div>
+                    Add answer
+                    {addInput}
+                    {this.props.currentMultipleValues.length > 0 && removeInput}
+                    <br />
+                    {this.props.currentMultipleValues.length === 0
+                        ? <div>No Solution</div>
+                        : this.props.currentMultipleValues.map(
+                              (item, i) =>
+                                  this.props.apiOptions.customKeypad
+                                      ? <SimpleKeypadInput
+                                          ref="input"
+                                          key={i}
+                                          value={
+                                              this.props
+                                                  .currentMultipleValues[i]
+                                          }
+                                          keypadElement={
+                                              this.props.keypadElement
+                                          }
+                                          onChange={evt =>
+                                              this.handleMultipleInputChange(
+                                                  i,
+                                                  evt
+                                              )}
+                                          onFocus={this._handleFocus}
+                                          onBlur={this._handleBlur}
+                                      />
+                                      : <InputWithExamples
+                                          ref="input"
+                                          key={i}
+                                          value={
+                                              this.props
+                                                  .currentMultipleValues[i]
+                                          }
+                                          onChange={evt =>
+                                              this.handleMultipleInputChange(
+                                                  i,
+                                                  evt
+                                              )}
+                                          className={classNames(classes)}
+                                          labelText={labelText}
+                                          type={this._getInputType()}
+                                          examples={this.examples()}
+                                          shouldShowExamples={
+                                              this.shouldShowExamples()
+                                          }
+                                          onFocus={this._handleFocus}
+                                          onBlur={this._handleBlur}
+                                          id={this.props.widgetId}
+                                          disabled={
+                                              this.props.apiOptions.readOnly
+                                          }
+                                          highlightLint={
+                                              this.props.highlightLint
+                                          }
+                                      />
+                          )}
+                </div>
+            );
         } else {
             if (this.props.apiOptions.customKeypad) {
                 // TODO(charlie): Support "Review Mode".
-                return <SimpleKeypadInput
-                    ref="input"
-                    value={this.props.currentValue}
-                    keypadElement={this.props.keypadElement}
-                    onChange={this.handleChange}
-                    onFocus={this._handleFocus}
-                    onBlur={this._handleBlur}
-                />;
+                return (
+                    <SimpleKeypadInput
+                        ref="input"
+                        value={this.props.currentValue}
+                        keypadElement={this.props.keypadElement}
+                        onChange={this.handleChange}
+                        onFocus={this._handleFocus}
+                        onBlur={this._handleBlur}
+                    />
+                );
             } else {
-                input = <InputWithExamples
-                    ref="input"
-                    value={this.props.currentValue}
-                    onChange={this.handleChange}
-                    className={classNames(classes)}
-                    labelText={labelText}
-                    type={this._getInputType()}
-                    examples={this.examples()}
-                    shouldShowExamples={this.shouldShowExamples()}
-                    onFocus={this._handleFocus}
-                    onBlur={this._handleBlur}
-                    id={this.props.widgetId}
-                    disabled={this.props.apiOptions.readOnly}
-                    highlightLint={this.props.highlightLint}
-                />;
+                input = (
+                    <InputWithExamples
+                        ref="input"
+                        value={this.props.currentValue}
+                        onChange={this.handleChange}
+                        className={classNames(classes)}
+                        labelText={labelText}
+                        type={this._getInputType()}
+                        examples={this.examples()}
+                        shouldShowExamples={this.shouldShowExamples()}
+                        onFocus={this._handleFocus}
+                        onBlur={this._handleBlur}
+                        id={this.props.widgetId}
+                        disabled={this.props.apiOptions.readOnly}
+                        highlightLint={this.props.highlightLint}
+                    />
+                );
             }
-
         }
         if (answerBlurb) {
-            return <span className="perseus-input-with-answer-blurb">
-                {input}
-                {answerBlurb}
-            </span>;
+            return (
+                <span className="perseus-input-with-answer-blurb">
+                    {input}
+                    {answerBlurb}
+                </span>
+            );
         } else if (this.props.apiOptions.satStyling) {
             // NOTE(amy): the input widgets themselves already have
             // a default aria label of "Your Answer", so we hide this
             // redundant label from screen-readers.
-            return <label
-                className="perseus-input-with-label"
-                aria-hidden="true"
-            >
-                <span className="perseus-input-label">
-                    {i18n.i18nDoNotTranslate("Answer:")}
-                </span>
-                {input}
-            </label>;
+            return (
+                <label className="perseus-input-with-label" aria-hidden="true">
+                    <span className="perseus-input-label">
+                        {i18n.i18nDoNotTranslate("Answer:")}
+                    </span>
+                    {input}
+                </label>
+            );
         } else {
             return input;
         }
     },
 
     handleChange: function(newValue, cb) {
-        this.props.onChange({ currentValue: newValue }, cb);
+        this.props.onChange({currentValue: newValue}, cb);
         this.props.trackInteraction();
     },
 
@@ -293,16 +332,19 @@ var NumericInput = React.createClass({
     _addInput: function() {
         // Add a new blank value to the list of current values
         this.props.onChange({
-            currentMultipleValues:
-                this.props.currentMultipleValues.concat([""])
+            currentMultipleValues: this.props.currentMultipleValues.concat([
+                "",
+            ]),
         });
     },
 
     _removeInput: function() {
         const listLength = this.props.currentMultipleValues.length;
         this.props.onChange({
-            currentMultipleValues:
-                this.props.currentMultipleValues.splice(0, listLength - 1)
+            currentMultipleValues: this.props.currentMultipleValues.splice(
+                0,
+                listLength - 1
+            ),
         });
     },
 
@@ -330,18 +372,21 @@ var NumericInput = React.createClass({
     },
 
     setInputValue: function(path, newValue, cb) {
-        this.props.onChange({
-            currentValue: newValue
-        }, cb);
+        this.props.onChange(
+            {
+                currentValue: newValue,
+            },
+            cb
+        );
     },
 
     getUserInput: function() {
         const multiple = this.props.multipleNumberInput;
         return {
             multInput: multiple,
-            currentValue: multiple ?
-                this.props.currentMultipleValues :
-                this.props.currentValue
+            currentValue: multiple
+                ? this.props.currentMultipleValues
+                : this.props.currentValue,
         };
     },
 
@@ -354,26 +399,26 @@ var NumericInput = React.createClass({
         // To check if all answer forms are accepted, we must first
         // find the *names* of all accepted forms, and see if they are
         // all present, ignoring duplicates
-        var answerFormNames = _.uniq(this.props.answerForms.map(
-            (form) => form.name
-        ));
-        var allFormsAccepted = answerFormNames.length >=
-                _.size(formExamples);
+        var answerFormNames = _.uniq(
+            this.props.answerForms.map(form => form.name)
+        );
+        var allFormsAccepted = answerFormNames.length >= _.size(formExamples);
         return !noFormsAccepted && !allFormsAccepted;
     },
 
     examples: function() {
         // if the set of specified forms are empty, allow all forms
-        var forms = this.props.answerForms.length !== 0 ?
-                        this.props.answerForms :
-                        _.map(_.keys(formExamples), (name) => {
-                            return {
-                                name: name,
-                                simplify: "required"
-                            };
-                        });
+        var forms =
+            this.props.answerForms.length !== 0
+                ? this.props.answerForms
+                : _.map(_.keys(formExamples), name => {
+                      return {
+                          name: name,
+                          simplify: "required",
+                      };
+                  });
 
-        var examples = _.map(forms, (form) => {
+        var examples = _.map(forms, form => {
             return formExamples[form.name](form);
         });
         // Ensure no duplicate tooltip text from simplified and unsimplified
@@ -381,24 +426,26 @@ var NumericInput = React.createClass({
         examples = _.uniq(examples);
 
         return [i18n._("**Your answer should be** ")].concat(examples);
-    }
+    },
 });
 
 _.extend(NumericInput, {
     validate: function(state, rubric) {
         var allAnswerForms = _.pluck(answerFormButtons, "value");
 
-        var createValidator = (answer) =>
-            KhanAnswerTypes.number.createValidatorFunctional(
-                answer.value, {
-                    message: answer.message,
-                    simplify: answer.status === "correct" ?
-                        answer.simplify : "optional",
-                    inexact: true, // TODO(merlob) backfill / delete
-                    maxError: answer.maxError,
-                    forms: (answer.strict && answer.answerForms &&
-                            answer.answerForms.length !== 0) ?
-                            answer.answerForms : allAnswerForms
+        var createValidator = answer =>
+            KhanAnswerTypes.number.createValidatorFunctional(answer.value, {
+                message: answer.message,
+                simplify:
+                    answer.status === "correct" ? answer.simplify : "optional",
+                inexact: true, // TODO(merlob) backfill / delete
+                maxError: answer.maxError,
+                forms:
+                    answer.strict &&
+                    answer.answerForms &&
+                    answer.answerForms.length !== 0
+                        ? answer.answerForms
+                        : allAnswerForms,
             });
 
         // We may have received TeX; try to parse it before grading.
@@ -420,7 +467,7 @@ _.extend(NumericInput, {
                     type: "points",
                     earned: 0,
                     total: 1,
-                    message: "Incorrect number of answers"
+                    message: "Incorrect number of answers",
                 };
             }
 
@@ -449,45 +496,48 @@ _.extend(NumericInput, {
                 type: "points",
                 earned: correct ? 1 : 0,
                 total: 1,
-                message: message
+                message: message,
             };
         } else {
-
             // Look through all correct answers for one that matches either
             // precisely or approximately and return the appropriate message:
             // - if precise, return the message that the answer came with
             // - if it needs to be simplified, etc., show that message
-            var result = _.find(_.map(correctAnswers, (answer) => {
-                // The coefficient is an attribute of the widget
-                var localValue = currentValue;
-                if (rubric.coefficient) {
-                    if (!localValue) {
-                        localValue = 1;
-                    } else if (localValue === "-") {
-                        localValue = -1;
+            var result = _.find(
+                _.map(correctAnswers, answer => {
+                    // The coefficient is an attribute of the widget
+                    var localValue = currentValue;
+                    if (rubric.coefficient) {
+                        if (!localValue) {
+                            localValue = 1;
+                        } else if (localValue === "-") {
+                            localValue = -1;
+                        }
                     }
-                }
-                var validate = createValidator(answer);
-                return validate(localValue);
-            }), match => match.correct || match.empty);
+                    var validate = createValidator(answer);
+                    return validate(localValue);
+                }),
+                match => match.correct || match.empty
+            );
 
-            if (!result) { // Otherwise, if the guess is not correct
-                var otherAnswers = ([]).concat(
+            if (!result) {
+                // Otherwise, if the guess is not correct
+                var otherAnswers = [].concat(
                     _.where(rubric.answers, {status: "ungraded"}),
                     _.where(rubric.answers, {status: "wrong"})
                 );
 
                 // Look through all other answers and if one matches either
                 // precisely or approximately return the answer's message
-                const match = _.find(otherAnswers, (answer) => {
-                     var validate = createValidator(answer);
-                     return validate(currentValue).correct;
-                 });
+                const match = _.find(otherAnswers, answer => {
+                    var validate = createValidator(answer);
+                    return validate(currentValue).correct;
+                });
                 result = {
                     empty: match ? match.status === "ungraded" : false,
                     correct: match ? match.status === "correct" : false,
                     message: match ? match.message : null,
-                    guess: currentValue
+                    guess: currentValue,
                 };
             }
 
@@ -497,18 +547,18 @@ _.extend(NumericInput, {
             if (result.empty) {
                 return {
                     type: "invalid",
-                    message: result.message
+                    message: result.message,
                 };
             } else {
                 return {
                     type: "points",
                     earned: result.correct ? 1 : 0,
                     total: 1,
-                    message: result.message
+                    message: result.message,
                 };
             }
         }
-    }
+    },
 });
 
 // TODO(thomas): Currently we receive a list of lists of acceptable answer types
@@ -526,16 +576,20 @@ var unionAnswerForms = function(answerFormsList) {
     // two elements are equal, and returns a list of unique elements. This is
     // just a helper function here, but works generally.
     var uniqueBy = function(list, iteratee) {
-        return _.reduce(list, (uniqueList, element) => {
-            // For each element, decide whether it's already in the list of
-            // unique items.
-            var inList = _.find(uniqueList, iteratee.bind(null, element));
-            if (inList) {
-                return uniqueList;
-            } else {
-                return uniqueList.concat([element]);
-            }
-        }, []);
+        return _.reduce(
+            list,
+            (uniqueList, element) => {
+                // For each element, decide whether it's already in the list of
+                // unique items.
+                var inList = _.find(uniqueList, iteratee.bind(null, element));
+                if (inList) {
+                    return uniqueList;
+                } else {
+                    return uniqueList.concat([element]);
+                }
+            },
+            []
+        );
     };
 
     // Pull out all of the forms from the different lists.
@@ -543,29 +597,26 @@ var unionAnswerForms = function(answerFormsList) {
     // Pull out the unique forms using uniqueBy.
     var uniqueForms = uniqueBy(allForms, _.isEqual);
     // Sort them by the order they appear in the `formExamples` list.
-    return _.sortBy(uniqueForms, (form) => {
+    return _.sortBy(uniqueForms, form => {
         return _.keys(formExamples).indexOf(form.name);
     });
 };
 
 var propsTransform = function(editorProps) {
-    var rendererProps = _.extend(
-        _.omit(editorProps, "answers"),
-        {
-            answerForms: unionAnswerForms(
-                // Pull out the name of each form and whether that form has
-                // required simplification.
-                _.map(editorProps.answers, (answer) => {
-                    return _.map(answer.answerForms, (form) => {
-                        return {
-                            simplify: answer.simplify,
-                            name: form
-                        };
-                    });
-                })
-            )
-        }
-    );
+    var rendererProps = _.extend(_.omit(editorProps, "answers"), {
+        answerForms: unionAnswerForms(
+            // Pull out the name of each form and whether that form has
+            // required simplification.
+            _.map(editorProps.answers, answer => {
+                return _.map(answer.answerForms, form => {
+                    return {
+                        simplify: answer.simplify,
+                        name: form,
+                    };
+                });
+            })
+        ),
+    });
 
     return rendererProps;
 };

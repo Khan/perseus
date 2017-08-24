@@ -8,17 +8,20 @@
 */
 
 var classNames = require("classnames");
-const { StyleSheet, css } = require("aphrodite");
+const {StyleSheet, css} = require("aphrodite");
 var React = require("react");
 var _ = require("underscore");
 
-var ApiOptions   = require("../perseus-api.jsx").Options;
-const { baseUnitPx } = require("../styles/constants.js");
-var Changeable    = require("../mixins/changeable.jsx");
+var ApiOptions = require("../perseus-api.jsx").Options;
+const {baseUnitPx} = require("../styles/constants.js");
+var Changeable = require("../mixins/changeable.jsx");
 const mediaQueries = require("../styles/media-queries.js");
-var Renderer     = require("../renderer.jsx");
-var SvgImage     = require("../components/svg-image.jsx");
-const {linterContextProps, linterContextDefault} = require("../gorgon/proptypes.js");
+var Renderer = require("../renderer.jsx");
+var SvgImage = require("../components/svg-image.jsx");
+const {
+    linterContextProps,
+    linterContextDefault,
+} = require("../gorgon/proptypes.js");
 
 var defaultBoxSize = 400;
 var defaultRange = [0, 10];
@@ -31,8 +34,12 @@ var defaultBackgroundImage = {
 // NOTE(david): 2016-07-20: This widget supports the 4 alignments specified
 //     below, but we want to phase out the floating alignments in the next few
 //     weeks. So, we remove the float options from the editor interface.
-const supportedAlignments = ["block", "float-left", "float-right",
-    "full-width"];
+const supportedAlignments = [
+    "block",
+    "float-left",
+    "float-right",
+    "full-width",
+];
 const editorAlignments = ["block", "full-width"];
 
 const DEFAULT_ALIGNMENT = "block";
@@ -116,10 +123,11 @@ var ImageWidget = React.createClass({
         var backgroundImage = this.props.backgroundImage;
 
         if (backgroundImage.url) {
-            image = <SvgImage
-                        src={backgroundImage.url}
-                        alt={
-                            /* alt text is formatted in a sr-only
+            image = (
+                <SvgImage
+                    src={backgroundImage.url}
+                    alt={
+                        /* alt text is formatted in a sr-only
                                div next to the image, so we make
                                this empty here.
                                If there is no alt text at all,
@@ -139,31 +147,34 @@ var ImageWidget = React.createClass({
                                in practice right now, although
                                it will exhibit weird behaviour
                                while editing. */
-                            this.props.alt ? "" : undefined
-                        }
-                        width={backgroundImage.width}
-                        height={backgroundImage.height}
-                        preloader={apiOptions.imagePreloader}
-                        extraGraphie={{
-                            box: this.props.box,
-                            range: this.props.range,
-                            labels: this.props.labels,
-                        }}
-                        trackInteraction={this.props.trackInteraction}
-                        zoomToFullSizeOnMobile={apiOptions.isMobile}
-                        constrainHeight={apiOptions.isMobile}
-                        allowFullBleed={apiOptions.isMobile}
-            />;
+                        this.props.alt ? "" : undefined
+                    }
+                    width={backgroundImage.width}
+                    height={backgroundImage.height}
+                    preloader={apiOptions.imagePreloader}
+                    extraGraphie={{
+                        box: this.props.box,
+                        range: this.props.range,
+                        labels: this.props.labels,
+                    }}
+                    trackInteraction={this.props.trackInteraction}
+                    zoomToFullSizeOnMobile={apiOptions.isMobile}
+                    constrainHeight={apiOptions.isMobile}
+                    allowFullBleed={apiOptions.isMobile}
+                />
+            );
         }
 
         if (this.props.alt) {
-            alt = <span className="perseus-sr-only">
-                <Renderer
-                    content={this.props.alt}
-                    apiOptions={apiOptions}
-                    linterContext={this.props.linterContext}
-                />
-            </span>;
+            alt = (
+                <span className="perseus-sr-only">
+                    <Renderer
+                        content={this.props.alt}
+                        apiOptions={apiOptions}
+                        linterContext={this.props.linterContext}
+                    />
+                </span>
+            );
         }
 
         // For mobile we combine an image's title and caption.
@@ -207,65 +218,74 @@ var ImageWidget = React.createClass({
                 // TODO(david): If caption is only 1 line long, center-align
                 //     the text.
                 const alignment = this.props.alignment;
-                const isImageFullWidth = (
-                    alignment === "block" || alignment === "full-width");
+                const isImageFullWidth =
+                    alignment === "block" || alignment === "full-width";
 
                 // This minWidth takes precedence over minWidth applied via
                 // Aphrodite.
-                const minWidth = isImageFullWidth ? null : '0 !important';
+                const minWidth = isImageFullWidth ? null : "0 !important";
 
-                titleAndCaption = <div className={className}>
-                    <div
-                        className={css(ImageWidget.styles.caption)}
-                        style={{
-                            minWidth: minWidth,
-                        }}
-                    >
-                        <Renderer
-                            content={title + this.props.caption}
-                            apiOptions={apiOptions}
-                            linterContext={this.props.linterContext}
-                        />
+                titleAndCaption = (
+                    <div className={className}>
+                        <div
+                            className={css(ImageWidget.styles.caption)}
+                            style={{
+                                minWidth: minWidth,
+                            }}
+                        >
+                            <Renderer
+                                content={title + this.props.caption}
+                                apiOptions={apiOptions}
+                                linterContext={this.props.linterContext}
+                            />
+                        </div>
                     </div>
-                </div>;
+                );
             }
 
-            return <div className="perseus-image-widget">
-                {image}
-                {alt}
-                {titleAndCaption}
-            </div>;
-
+            return (
+                <div className="perseus-image-widget">
+                    {image}
+                    {alt}
+                    {titleAndCaption}
+                </div>
+            );
         } else {
             var title;
             var caption;
 
             if (this.props.title) {
-                title = <div className="perseus-image-title">
-                    <Renderer
-                        content={this.props.title}
-                        apiOptions={apiOptions}
-                        linterContext={this.props.linterContext}
-                    />
-                </div>;
+                title = (
+                    <div className="perseus-image-title">
+                        <Renderer
+                            content={this.props.title}
+                            apiOptions={apiOptions}
+                            linterContext={this.props.linterContext}
+                        />
+                    </div>
+                );
             }
 
             if (this.props.caption) {
-                caption = <div className="perseus-image-caption">
-                    <Renderer
-                        content={this.props.caption}
-                        apiOptions={apiOptions}
-                        linterContext={this.props.linterContext}
-                    />
-                </div>;
+                caption = (
+                    <div className="perseus-image-caption">
+                        <Renderer
+                            content={this.props.caption}
+                            apiOptions={apiOptions}
+                            linterContext={this.props.linterContext}
+                        />
+                    </div>
+                );
             }
 
-            return <div className="perseus-image-widget">
-                {title}
-                {image}
-                {alt}
-                {caption}
-            </div>;
+            return (
+                <div className="perseus-image-widget">
+                    {title}
+                    {image}
+                    {alt}
+                    {caption}
+                </div>
+            );
         }
     },
 
@@ -299,7 +319,7 @@ module.exports = {
     name: "image",
     // This widget's accessibility depends on its contents: if the image has
     // has a background but no alt text, it is not accessible
-    accessible: (props) => {
+    accessible: props => {
         var bgImage = props.backgroundImage;
         return !(bgImage && bgImage.url && !props.alt);
     },

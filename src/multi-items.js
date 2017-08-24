@@ -51,7 +51,9 @@
  * For more details, see `multi-items/items.js`.
  */
 const {
-    buildEmptyItemForShape, findContentNodesInItem, findHintNodesInItem,
+    buildEmptyItemForShape,
+    findContentNodesInItem,
+    findHintNodesInItem,
     inferItemShape,
 } = require("./multi-items/items.js");
 const MultiRenderer = require("./multi-items/multi-renderer.jsx");

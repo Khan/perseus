@@ -15,8 +15,9 @@ var updateQueryString = require("../util.js").updateQueryString;
 var PADDING_WIDTH = 2;
 
 var IS_KA_SITE = /khanacademy\.org/;
-var KA_EMBED_URL = "https://{hostname}/computer-programming/program/" +
-        "{programID}/embedded?embed=yes&author=no";
+var KA_EMBED_URL =
+    "https://{hostname}/computer-programming/program/" +
+    "{programID}/embedded?embed=yes&author=no";
 
 function getUrlFromProgramID(programID) {
     var url = KA_EMBED_URL.replace("{programID}", programID);
@@ -31,7 +32,6 @@ function getUrlFromProgramID(programID) {
 /* This renders the scratchpad in an iframe and handles validation via
  * window.postMessage */
 var CSProgram = React.createClass({
-
     propTypes: {
         ...Changeable.propTypes,
         programID: React.PropTypes.string,
@@ -40,7 +40,7 @@ var CSProgram = React.createClass({
         settings: React.PropTypes.array,
         showEditor: React.PropTypes.bool,
         showButtons: React.PropTypes.bool,
-        status: React.PropTypes.oneOf(['incomplete', 'incorrect', 'correct']),
+        status: React.PropTypes.oneOf(["incomplete", "incorrect", "correct"]),
         message: React.PropTypes.string,
     },
 
@@ -69,10 +69,10 @@ var CSProgram = React.createClass({
             return;
         }
 
-        var status = (data.testsPassed ? "correct" : "incorrect");
+        var status = data.testsPassed ? "correct" : "incorrect";
         this.change({
             status: status,
-            message: data.message
+            message: data.message,
         });
     },
 
@@ -90,13 +90,13 @@ var CSProgram = React.createClass({
 
     render: function() {
         if (!this.props.programID) {
-            return <div/>;
+            return <div />;
         }
 
         var url = getUrlFromProgramID(this.props.programID);
         var className;
         var style = {
-            height: this.props.height
+            height: this.props.height,
         };
 
         if (this.props.showEditor) {
@@ -132,18 +132,25 @@ var CSProgram = React.createClass({
         //  that we need. This makes it a bit safer in case some content
         //  creator "went wild".
         // http://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/
-        return <iframe sandbox="allow-popups allow-same-origin allow-scripts"
-                       src={url}
-                       style={style}
-                       className={className}
-                       allowFullScreen={true} />;
+        return (
+            <iframe
+                sandbox="allow-popups allow-same-origin allow-scripts"
+                src={url}
+                style={style}
+                className={className}
+                allowFullScreen={true}
+            />
+        );
     },
 
     simpleValidate: function(rubric) {
-        return CSProgram.validate({
-            status: this.props.status,
-            message: this.props.message
-        }, rubric);
+        return CSProgram.validate(
+            {
+                status: this.props.status,
+                message: this.props.message,
+            },
+            rubric
+        );
     },
 
     statics: {
@@ -156,22 +163,22 @@ var CSProgram = React.createClass({
                     type: "points",
                     earned: 1,
                     total: 1,
-                    message: state.message || null
+                    message: state.message || null,
                 };
             } else if (state.status === "incorrect") {
                 return {
                     type: "points",
                     earned: 0,
                     total: 1,
-                    message: state.message || null
+                    message: state.message || null,
                 };
             } else {
                 return {
                     type: "invalid",
-                    message: "Keep going, you're not there yet!"
+                    message: "Keep going, you're not there yet!",
                 };
             }
-        }
+        },
     },
 });
 

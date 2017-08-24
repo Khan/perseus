@@ -8,7 +8,7 @@
  * TODO(jack): Add more comments
  */
 
-var React = require('react');
+var React = require("react");
 var _ = require("underscore");
 
 var ApiOptions = require("../perseus-api.jsx").Options;
@@ -50,8 +50,8 @@ var ExampleGraphieWidget = React.createClass({
                 valid: true,
                 backgroundImage: null,
                 markings: "grid",
-                showProtractor: false
-            }
+                showProtractor: false,
+            },
         };
     },
 
@@ -60,24 +60,28 @@ var ExampleGraphieWidget = React.createClass({
     },
 
     render: function() {
-        return <Graphie
-            ref="graphie"
-            box={this.props.graph.box}
-            range={this.props.graph.range}
-            options={this.props.graph}
-            setup={this.setupGraphie}
-            setDrawingAreaAvailable={
-                this.props.apiOptions.setDrawingAreaAvailable}
-        >
-            <MovablePoint
+        return (
+            <Graphie
+                ref="graphie"
+                box={this.props.graph.box}
+                range={this.props.graph.range}
+                options={this.props.graph}
+                setup={this.setupGraphie}
+                setDrawingAreaAvailable={
+                    this.props.apiOptions.setDrawingAreaAvailable
+                }
+            >
+                <MovablePoint
                     pointSize={5}
                     coord={this.props.coord || [0, 0]}
                     constraints={[
                         MovablePoint.constraints.snap(),
-                        MovablePoint.constraints.bound()
+                        MovablePoint.constraints.bound(),
                     ]}
-                    onMove={this.movePoint} />
-        </Graphie>;
+                    onMove={this.movePoint}
+                />
+            </Graphie>
+        );
     },
 
     change(...args) {
@@ -86,17 +90,18 @@ var ExampleGraphieWidget = React.createClass({
 
     movePoint: function(newCoord) {
         this.change({
-            coord: newCoord
+            coord: newCoord,
         });
     },
 
     _getGridConfig: function(options) {
         return _.map(options.step, function(step, i) {
             return Util.gridDimensionConfig(
-                    step,
-                    options.range[i],
-                    options.box[i],
-                    options.gridStep[i]);
+                step,
+                options.range[i],
+                options.box[i],
+                options.gridStep[i]
+            );
         });
     },
 
@@ -106,20 +111,21 @@ var ExampleGraphieWidget = React.createClass({
             range: options.range,
             scale: _.pluck(gridConfig, "scale"),
             axisArrows: "<->",
-            labelFormat: function(s) { return "\\small{" + s + "}"; },
+            labelFormat: function(s) {
+                return "\\small{" + s + "}";
+            },
             gridStep: options.gridStep,
             tickStep: _.pluck(gridConfig, "tickStep"),
             labelStep: 1,
-            unityLabels: _.pluck(gridConfig, "unityLabel")
+            unityLabels: _.pluck(gridConfig, "unityLabel"),
         });
         graphie.label([0, options.range[1][1]], options.labels[1], "above");
     },
 
     simpleValidate: function(rubric) {
         return ExampleGraphieWidget.validate(this.getUserInput(), rubric);
-    }
+    },
 });
-
 
 /**
  * This is the widget's grading function
@@ -129,24 +135,24 @@ _.extend(ExampleGraphieWidget, {
         if (state.coord == null) {
             return {
                 type: "invalid",
-                message: null
+                message: null,
             };
         } else if (kpoint.equal(state.coord, rubric.correct)) {
             return {
                 type: "points",
                 earned: 1,
                 total: 1,
-                message: null
+                message: null,
             };
         } else {
             return {
                 type: "points",
                 earned: 0,
                 total: 1,
-                message: null
+                message: null,
             };
         }
-    }
+    },
 });
 
 /**
@@ -156,6 +162,6 @@ _.extend(ExampleGraphieWidget, {
 module.exports = {
     name: "example-graphie-widget",
     displayName: "Example Graphie Widget",
-    hidden: true,   // Hides this widget from the Perseus.Editor widget select
+    hidden: true, // Hides this widget from the Perseus.Editor widget select
     widget: ExampleGraphieWidget,
 };

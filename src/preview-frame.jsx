@@ -1,4 +1,4 @@
- /**
+/**
   * Demonstrates the rendered result of a Perseus question within an iframe.
   *
   * This mounts an ItemRenderer, HintRenderer, or ArticleRenderer(s)
@@ -7,12 +7,12 @@
   * perseus-preview-package (which largely duplicates this logic)
   */
 
-const React = require('react');
+const React = require("react");
 
-const ItemRenderer = require('./item-renderer.jsx');
-const HintRenderer = require('./hint-renderer.jsx');
-const ArticleRenderer = require('./article-renderer.jsx');
-const TouchEmulator = require('../lib/touch-emulator.js');
+const ItemRenderer = require("./item-renderer.jsx");
+const HintRenderer = require("./hint-renderer.jsx");
+const ArticleRenderer = require("./article-renderer.jsx");
+const TouchEmulator = require("../lib/touch-emulator.js");
 
 const PreviewFrame = React.createClass({
     propTypes: {
@@ -24,7 +24,7 @@ const PreviewFrame = React.createClass({
     },
 
     componentDidMount: function() {
-        window.addEventListener("message", (event) => {
+        window.addEventListener("message", event => {
             const data = window.parent.iframeDataStore[event.data];
 
             if (data) {
@@ -33,7 +33,9 @@ const PreviewFrame = React.createClass({
         });
 
         window.parent.postMessage(
-            window.frameElement.getAttribute("data-id"), "*");
+            window.frameElement.getAttribute("data-id"),
+            "*"
+        );
 
         this._updateParentWithHeight();
 
@@ -47,7 +49,9 @@ const PreviewFrame = React.createClass({
             });
 
             this._observer.observe(document.getElementById("measured"), {
-                childList: true, subtree: true, attributes: true,
+                childList: true,
+                subtree: true,
+                attributes: true,
             });
         }
 
@@ -85,20 +89,24 @@ const PreviewFrame = React.createClass({
 
     _updateParentWithHeight: function() {
         let lowest = 0;
-        ["#content-container", ".preview-measure"].forEach((selector) => {
-            Array.from(document.querySelectorAll(selector)).forEach(
-                (element) => {
-                    lowest = Math.max(lowest,
-                                      element.getBoundingClientRect().bottom);
-                });
+        ["#content-container", ".preview-measure"].forEach(selector => {
+            Array.from(document.querySelectorAll(selector)).forEach(element => {
+                lowest = Math.max(
+                    lowest,
+                    element.getBoundingClientRect().bottom
+                );
+            });
         });
 
         const bottomMargin = 30;
 
-        window.parent.postMessage({
-            id: window.frameElement.getAttribute("data-id"),
-            height: lowest + bottomMargin,
-        }, "*");
+        window.parent.postMessage(
+            {
+                id: window.frameElement.getAttribute("data-id"),
+                height: lowest + bottomMargin,
+            },
+            "*"
+        );
     },
 
     render: function() {
@@ -108,70 +116,80 @@ const PreviewFrame = React.createClass({
                 hintsAreaSelector: "#hintsarea",
             });
 
-            const isExercise = this.state.type === "question" ||
-                this.state.type === "hint";
+            const isExercise =
+                this.state.type === "question" || this.state.type === "hint";
 
-            const perseusClass = "framework-perseus fonts-loaded " +
+            const perseusClass =
+                "framework-perseus fonts-loaded " +
                 (isExercise ? "bibliotron-exercise " : "bibliotron-article ") +
                 (this.props.isMobile ? "perseus-mobile" : "");
 
             const linterContext = this.state.data.linterContext;
 
             if (this.state.type === "question") {
-                return <div
-                    className={perseusClass}
-                    style={this.props.isMobile ? {} : {margin: "30px 0"}}
-                    ref="container"
-                >
-                    <ItemRenderer
-                        {...updatedData}
-                        linterContext={linterContext}
-                    />
-                    <div id="workarea" style={{marginLeft: 0}}/>
-                    <div id="hintsarea"/>
-                </div>;
-            } else if (this.state.type === "hint") {
-                return <div
-                    className={perseusClass}
-                    style={this.props.isMobile ? {} : {margin: "30px 0"}}
-                    ref="container"
-                >
-                    <HintRenderer
-                        {...updatedData}
-                        linterContext={linterContext}
-                    />
-                </div>;
-            } else if (this.state.type === "article") {
-                return <div
-                    className={perseusClass}
-                    style={this.props.isMobile ? {} : {margin: "30px 0"}}
-                >
-                    <ArticleRenderer
-                        {...updatedData}
-                        linterContext={linterContext}
-                    />
-                </div>;
-            } else if (this.state.type === "article-all") {
-                return <div
-                    className={perseusClass}
-                    style={this.props.isMobile ? {} : {margin: "30px 0"}}
-                >
-                    {updatedData.map((data, i) => {
-                        return <ArticleRenderer
-                            key={i}
-                            {...data}
+                return (
+                    <div
+                        className={perseusClass}
+                        style={this.props.isMobile ? {} : {margin: "30px 0"}}
+                        ref="container"
+                    >
+                        <ItemRenderer
+                            {...updatedData}
                             linterContext={linterContext}
-                        />;
-                    })}
-                </div>;
+                        />
+                        <div id="workarea" style={{marginLeft: 0}} />
+                        <div id="hintsarea" />
+                    </div>
+                );
+            } else if (this.state.type === "hint") {
+                return (
+                    <div
+                        className={perseusClass}
+                        style={this.props.isMobile ? {} : {margin: "30px 0"}}
+                        ref="container"
+                    >
+                        <HintRenderer
+                            {...updatedData}
+                            linterContext={linterContext}
+                        />
+                    </div>
+                );
+            } else if (this.state.type === "article") {
+                return (
+                    <div
+                        className={perseusClass}
+                        style={this.props.isMobile ? {} : {margin: "30px 0"}}
+                    >
+                        <ArticleRenderer
+                            {...updatedData}
+                            linterContext={linterContext}
+                        />
+                    </div>
+                );
+            } else if (this.state.type === "article-all") {
+                return (
+                    <div
+                        className={perseusClass}
+                        style={this.props.isMobile ? {} : {margin: "30px 0"}}
+                    >
+                        {updatedData.map((data, i) => {
+                            return (
+                                <ArticleRenderer
+                                    key={i}
+                                    {...data}
+                                    linterContext={linterContext}
+                                />
+                            );
+                        })}
+                    </div>
+                );
             } else {
-                return <div/>;
+                return <div />;
             }
         } else {
-            return <div/>;
+            return <div />;
         }
     },
 });
-
 
 module.exports = PreviewFrame;

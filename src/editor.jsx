@@ -4,16 +4,15 @@
 
 /* globals katex */
 
-var React = require('react');
+var React = require("react");
 var ReactDOM = require("react-dom");
 var ReactCreateFragment = require("react-addons-create-fragment");
-var $ = require('jquery');
+var $ = require("jquery");
 var _ = require("underscore");
 
 var ApiOptions = require("./perseus-api.jsx").Options;
 var DragTarget = require("react-components/drag-target.jsx");
-var {iconChevronDown, iconChevronRight, iconTrash} =
-    require("./icon-paths.js");
+var {iconChevronDown, iconChevronRight, iconTrash} = require("./icon-paths.js");
 var InlineIcon = require("./components/inline-icon.jsx");
 var KatexErrorView = require("./katex-error-view.jsx");
 var PerseusMarkdown = require("./perseus-markdown.jsx");
@@ -22,7 +21,6 @@ var Util = require("./util.js");
 var Widgets = require("./widgets.js");
 var preprocessTex = require("./util/katex-preprocess.js");
 
-
 var PerseusEditor = require("./perseus-editor.jsx");
 
 var WIDGET_PROP_BLACKLIST = require("./mixins/widget-prop-blacklist.jsx");
@@ -30,23 +28,25 @@ var WIDGET_PROP_BLACKLIST = require("./mixins/widget-prop-blacklist.jsx");
 // like [[snowman input-number 1]]
 var widgetPlaceholder = "[[\u2603 {id}]]";
 var widgetRegExp = "(\\[\\[\u2603 {id}\\]\\])";
-var rWidgetSplit = new RegExp(widgetRegExp.replace('{id}', '[a-z-]+ [0-9]+'),
-                              'g');
+var rWidgetSplit = new RegExp(
+    widgetRegExp.replace("{id}", "[a-z-]+ [0-9]+"),
+    "g"
+);
 
-var shortcutRegexp = /^\[\[([a-z\-]+)$/;// like [[nu, [[int, etc
+var shortcutRegexp = /^\[\[([a-z\-]+)$/; // like [[nu, [[int, etc
 
 var ENDS_WITH_A_PARAGRAPH = /(?:\n{2,}|^\n*)$/;
 var TRAILING_NEWLINES = /(\n*)$/;
 var LEADING_NEWLINES = /^(\n*)/;
 
-var commafyInteger = (n) => {
+var commafyInteger = n => {
     var str = n.toString();
     if (str.length >= 5) {
         str = str.replace(/(\d)(?=(\d{3})+$)/g, "$1{,}");
     }
     return str;
 };
-var makeEndWithAParagraphIfNecessary = (content) => {
+var makeEndWithAParagraphIfNecessary = content => {
     if (!ENDS_WITH_A_PARAGRAPH.test(content)) {
         var newlines = TRAILING_NEWLINES.exec(content)[1];
         return content + "\n\n".slice(0, 2 - newlines.length);
@@ -54,7 +54,7 @@ var makeEndWithAParagraphIfNecessary = (content) => {
         return content;
     }
 };
-var makeStartWithAParagraphAlways = (content) => {
+var makeStartWithAParagraphAlways = content => {
     var newlines = LEADING_NEWLINES.exec(content)[1];
     return "\n\n".slice(0, 2 - newlines.length) + content;
 };
@@ -78,19 +78,25 @@ var WidgetSelect = React.createClass({
 
     render: function() {
         var widgets = Widgets.getPublicWidgets();
-        var orderedWidgetNames = _.sortBy(_.keys(widgets), (name) => {
+        var orderedWidgetNames = _.sortBy(_.keys(widgets), name => {
             return widgets[name].displayName;
         });
         var addWidgetString = "Add a widget\u2026";
-        return <select value="" onChange={this.handleChange}>
-            <option value="">{addWidgetString}</option>
-            <option disabled>--</option>
-            {_.map(orderedWidgetNames, (name) => {
-                return <option key={name} value={name}>
-                    {widgets[name].displayName}
-                </option>;
-            })}
-        </select>;
+        return (
+            <select value="" onChange={this.handleChange}>
+                <option value="">
+                    {addWidgetString}
+                </option>
+                <option disabled>--</option>
+                {_.map(orderedWidgetNames, name => {
+                    return (
+                        <option key={name} value={name}>
+                            {widgets[name].displayName}
+                        </option>
+                    );
+                })}
+            </select>
+        );
     },
 });
 
@@ -177,86 +183,97 @@ var WidgetEditor = React.createClass({
         var Ed = Widgets.getEditor(widgetInfo.type);
         var supportedAlignments;
         if (this.props.apiOptions.showAlignmentOptions) {
-            supportedAlignments =
-                Widgets.getSupportedAlignments(widgetInfo.type);
+            supportedAlignments = Widgets.getSupportedAlignments(
+                widgetInfo.type
+            );
         } else {
             supportedAlignments = ["default"];
         }
 
         var supportsStaticMode = Widgets.supportsStaticMode(widgetInfo.type);
 
-        var isUngradedEnabled = (widgetInfo.type === "transformer");
-        var gradedPropBox = <PropCheckBox
-            label="Graded:"
-            graded={widgetInfo.graded}
-            onChange={this.props.onChange}
-        />;
+        var isUngradedEnabled = widgetInfo.type === "transformer";
+        var gradedPropBox = (
+            <PropCheckBox
+                label="Graded:"
+                graded={widgetInfo.graded}
+                onChange={this.props.onChange}
+            />
+        );
 
-        return <div className="perseus-widget-editor">
-            <div
-                className={"perseus-widget-editor-title " +
-                    (this.state.showWidget ? "open" : "closed")}
-            >
-                <a
-                    className="perseus-widget-editor-title-id"
-                    href="#"
-                    onClick={this._toggleWidget}
-                >
-                    {this.props.id}
-                    {this.state.showWidget
-                        ? <InlineIcon {...iconChevronDown} />
-                        : <InlineIcon {...iconChevronRight} />
-                    }
-                </a>
-
-                {supportsStaticMode &&
-                    <input
-                        type="button"
-                        onClick={this._toggleStatic}
-                        className="simple-button--small"
-                        value={widgetInfo.static ?
-                            "Unset as static" : "Set as static"}
-                    />
-                }
-                {supportedAlignments.length > 1 &&
-                    <select
-                        className="alignment"
-                        value={widgetInfo.alignment}
-                        onChange={this._handleAlignmentChange}
-                    >
-                        {supportedAlignments.map((alignment) =>
-                            <option key={alignment}>{alignment}</option>
-                        )}
-                    </select>
-                }
-                <a
-                    href="#"
+        return (
+            <div className="perseus-widget-editor">
+                <div
                     className={
+                        "perseus-widget-editor-title " +
+                        (this.state.showWidget ? "open" : "closed")
+                    }
+                >
+                    <a
+                        className="perseus-widget-editor-title-id"
+                        href="#"
+                        onClick={this._toggleWidget}
+                    >
+                        {this.props.id}
+                        {this.state.showWidget
+                            ? <InlineIcon {...iconChevronDown} />
+                            : <InlineIcon {...iconChevronRight} />}
+                    </a>
+
+                    {supportsStaticMode &&
+                        <input
+                            type="button"
+                            onClick={this._toggleStatic}
+                            className="simple-button--small"
+                            value={
+                                widgetInfo.static
+                                    ? "Unset as static"
+                                    : "Set as static"
+                            }
+                        />}
+                    {supportedAlignments.length > 1 &&
+                        <select
+                            className="alignment"
+                            value={widgetInfo.alignment}
+                            onChange={this._handleAlignmentChange}
+                        >
+                            {supportedAlignments.map(alignment =>
+                                <option key={alignment}>
+                                    {alignment}
+                                </option>
+                            )}
+                        </select>}
+                    <a
+                        href="#"
+                        className={
                             "remove-widget " +
                             "simple-button simple-button--small orange"
                         }
-                    onClick={(e) => {
-                        e.preventDefault();
-                        this.props.onRemove();
-                    }}
+                        onClick={e => {
+                            e.preventDefault();
+                            this.props.onRemove();
+                        }}
+                    >
+                        <InlineIcon {...iconTrash} />
+                    </a>
+                </div>
+                <div
+                    className={
+                        "perseus-widget-editor-content " +
+                        (this.state.showWidget ? "enter" : "leave")
+                    }
                 >
-                    <InlineIcon {...iconTrash} />
-                </a>
+                    {isUngradedEnabled && gradedPropBox}
+                    <Ed
+                        ref="widget"
+                        onChange={this._handleWidgetChange}
+                        static={widgetInfo.static}
+                        apiOptions={this.props.apiOptions}
+                        {...widgetInfo.options}
+                    />
+                </div>
             </div>
-            <div
-                className={"perseus-widget-editor-content " +
-                    (this.state.showWidget ? "enter" : "leave")}
-            >
-                {isUngradedEnabled && gradedPropBox}
-                <Ed
-                    ref="widget"
-                    onChange={this._handleWidgetChange}
-                    static={widgetInfo.static}
-                    apiOptions={this.props.apiOptions}
-                    {...widgetInfo.options}
-                />
-            </div>
-        </div>;
+        );
     },
 
     getSaveWarnings: function() {
@@ -301,7 +318,7 @@ var IMAGE_REGEX = /!\[[^\]]*\]\(([^\s\)]+)[^\)]*\)/g;
  */
 var allMatches = function(regex, str) {
     var result = [];
-    while (true) { // @Nolint
+    while (true) { // eslint-disable-line no-constant-condition
         var match = regex.exec(str);
         if (!match) {
             break;
@@ -316,12 +333,8 @@ var allMatches = function(regex, str) {
  * markdown.
  */
 var imageUrlsFromContent = function(content) {
-    return _.map(
-        allMatches(IMAGE_REGEX, content),
-        (capture) => capture[1]
-    );
+    return _.map(allMatches(IMAGE_REGEX, content), capture => capture[1]);
 };
-
 
 /**
  * NOTE: This Editor class contains a ton of legacy logic which is not used,
@@ -365,15 +378,17 @@ var Editor = React.createClass({
         if (!Widgets.getEditor(type)) {
             return;
         }
-        return <WidgetEditor
-            ref={id}
-            id={id}
-            type={type}
-            onChange={this._handleWidgetEditorChange.bind(this, id)}
-            onRemove={this._handleWidgetEditorRemove.bind(this, id)}
-            apiOptions={this.props.apiOptions}
-            {...this.props.widgets[id]}
-        />;
+        return (
+            <WidgetEditor
+                ref={id}
+                id={id}
+                type={type}
+                onChange={this._handleWidgetEditorChange.bind(this, id)}
+                onRemove={this._handleWidgetEditorRemove.bind(this, id)}
+                apiOptions={this.props.apiOptions}
+                {...this.props.widgets[id]}
+            />
+        );
     },
 
     _handleWidgetEditorChange: function(id, newProps, cb, silent) {
@@ -390,8 +405,8 @@ var Editor = React.createClass({
         if (this.props.apiOptions.useDraftEditor) {
             textarea.removeWidget(id);
         } else {
-            const re = new RegExp(widgetRegExp.replace('{id}', id), 'gm');
-            this.props.onChange({content: textarea.value.replace(re, '')});
+            const re = new RegExp(widgetRegExp.replace("{id}", id), "gm");
+            this.props.onChange({content: textarea.value.replace(re, "")});
         }
     },
 
@@ -411,11 +426,11 @@ var Editor = React.createClass({
         // This could get weird in the case of multiple images with the same
         // URL, if you've changed the backing image size, but given graphie
         // hashes it's probably an edge case.
-        var newImageUrls = _.filter(imageUrls, (url) => !images[url]);
+        var newImageUrls = _.filter(imageUrls, url => !images[url]);
 
         // TODO(jack): Q promises would make this nicer and only
         // fire once.
-        _.each(newImageUrls, (url) => {
+        _.each(newImageUrls, url => {
             Util.getImageSize(url, (width, height) => {
                 // We keep modifying the same image object rather than a new
                 // copy from this.props because all changes here are additive.
@@ -432,7 +447,7 @@ var Editor = React.createClass({
                         images: _.clone(images),
                     },
                     null, // callback
-                    true  // silent
+                    true // silent
                 );
             });
         });
@@ -446,8 +461,8 @@ var Editor = React.createClass({
 
         if (!this.props.apiOptions.useDraftEditor) {
             $(ReactDOM.findDOMNode(this.refs.textarea))
-            .on('copy cut', this._maybeCopyWidgets)
-            .on('paste', this._maybePasteWidgets);
+                .on("copy cut", this._maybeCopyWidgets)
+                .on("paste", this._maybePasteWidgets);
         }
     },
 
@@ -507,7 +522,7 @@ var Editor = React.createClass({
         _(files)
             .chain()
             .map(function(file) {
-                if (!file.type.match('image.*')) {
+                if (!file.type.match("image.*")) {
                     return null;
                 }
 
@@ -526,7 +541,9 @@ var Editor = React.createClass({
                 this.props.imageUploader(fileAndSentinel.file, url => {
                     this.props.onChange({
                         content: this.props.content.replace(
-                            fileAndSentinel.sentinel, url),
+                            fileAndSentinel.sentinel,
+                            url
+                        ),
                     });
                 });
             });
@@ -549,7 +566,7 @@ var Editor = React.createClass({
             if (matches != null) {
                 var text = matches[1];
                 var widgets = Widgets.getAllWidgetTypes();
-                var matchingWidgets = _.filter(widgets, (name) => {
+                var matchingWidgets = _.filter(widgets, name => {
                     return name.substring(0, text.length) === text;
                 });
 
@@ -580,7 +597,7 @@ var Editor = React.createClass({
             textarea.selectionEnd
         );
 
-        var widgetNames = _.map(selectedText.match(rWidgetSplit), (syntax) => {
+        var widgetNames = _.map(selectedText.match(rWidgetSplit), syntax => {
             return Util.rWidgetParts.exec(syntax)[1];
         });
 
@@ -589,8 +606,7 @@ var Editor = React.createClass({
         localStorage.perseusLastCopiedText = selectedText;
         localStorage.perseusLastCopiedWidgets = JSON.stringify(widgetData);
 
-        console.log(
-            `Widgets copied: ${localStorage.perseusLastCopiedWidgets}`);
+        console.log(`Widgets copied: ${localStorage.perseusLastCopiedWidgets}`);
     },
 
     _maybePasteWidgets: function(e) {
@@ -602,7 +618,7 @@ var Editor = React.createClass({
 
         var widgetJSON = localStorage.perseusLastCopiedWidgets;
         var lastCopiedText = localStorage.perseusLastCopiedText;
-        var textToBePasted = e.originalEvent.clipboardData.getData('text');
+        var textToBePasted = e.originalEvent.clipboardData.getData("text");
 
         // Only intercept if we have widget data to paste and the user is
         // pasting something originally from Perseus.
@@ -627,12 +643,14 @@ var Editor = React.createClass({
             var newWidgets = _.extend(safeWidgetData, this.props.widgets);
 
             // Use safe widget name map to construct new text
-            var safeText = lastCopiedText.replace(rWidgetSplit, (syntax) => {
+            var safeText = lastCopiedText.replace(rWidgetSplit, syntax => {
                 var match = Util.rWidgetParts.exec(syntax);
                 var completeWidget = match[0];
                 var widget = match[1];
                 return completeWidget.replace(
-                    widget, safeWidgetMapping[widget]);
+                    widget,
+                    safeWidgetMapping[widget]
+                );
             });
 
             // Add pasted text to previous content, replacing selected text to
@@ -644,12 +662,14 @@ var Editor = React.createClass({
                 safeText +
                 this.props.content.substr(textarea.selectionEnd);
 
-            this.props.onChange({content: newContent, widgets: newWidgets},
+            this.props.onChange(
+                {content: newContent, widgets: newWidgets},
                 () => {
                     var expectedCursorPosition =
                         selectionStart + safeText.length;
                     Util.textarea.moveCursor(textarea, expectedCursorPosition);
-                });
+                }
+            );
         }
     },
 
@@ -663,20 +683,21 @@ var Editor = React.createClass({
         // { "image 1": "image 3", "image 2": "image 4" }
 
         // List of widgets about to be pasted as [[name, number], ...]
-        var widgets = _.keys(widgetData).map((name) => name.split(' '));
-        var widgetTypes = _.uniq(widgets.map((widget) => widget[0]));
+        var widgets = _.keys(widgetData).map(name => name.split(" "));
+        var widgetTypes = _.uniq(widgets.map(widget => widget[0]));
 
         // List of existing widgets as [[name, number], ...]
-        var existingWidgets = _.keys(this.props.widgets)
-            .map((name) => name.split(' '));
+        var existingWidgets = _.keys(this.props.widgets).map(name =>
+            name.split(" ")
+        );
 
         // Mapping of widget type to a safe (non-conflicting) number
         // eg. { "image": 2, "dropdown": 1 }
         var safeWidgetNums = {};
-        _.each(widgetTypes, (type) => {
+        _.each(widgetTypes, type => {
             safeWidgetNums[type] = _.chain(existingWidgets)
-                .filter((existingWidget) => existingWidget[0] === type)
-                .map((existingWidget) => +existingWidget[1] + 1)
+                .filter(existingWidget => existingWidget[0] === type)
+                .map(existingWidget => +existingWidget[1] + 1)
                 .max()
                 .value();
             // If there are no existing widgets _.max returns -Infinity
@@ -685,12 +706,13 @@ var Editor = React.createClass({
 
         // Construct mapping, incrementing the vals in safeWidgetNums as we go
         var safeWidgetMapping = {};
-        _.each(widgets, (widget) => {
-            var widgetName = widget.join(' ');
+        _.each(widgets, widget => {
+            var widgetName = widget.join(" ");
             var widgetType = widget[0];
 
-            safeWidgetMapping[widgetName] =
-                `${widgetType} ${safeWidgetNums[widgetType]}`;
+            safeWidgetMapping[widgetName] = `${widgetType} ${safeWidgetNums[
+                widgetType
+            ]}`;
             safeWidgetNums[widgetType]++;
         });
 
@@ -703,21 +725,25 @@ var Editor = React.createClass({
         // Note: we have to use _.map here instead of Array::map
         // because the results of a .match might be null if no
         // widgets were found.
-        var allWidgetIds = _.map(oldContent.match(rWidgetSplit), (syntax) => {
+        var allWidgetIds = _.map(oldContent.match(rWidgetSplit), syntax => {
             var match = Util.rWidgetParts.exec(syntax);
             var type = match[2];
             var num = +match[3];
             return [type, num];
         });
 
-        var widgetNum = _.reduce(allWidgetIds, (currentNum, otherId) => {
-            var [otherType, otherNum] = otherId;
-            if (otherType === widgetType) {
-                return Math.max(otherNum + 1, currentNum);
-            } else {
-                return currentNum;
-            }
-        }, 1);
+        var widgetNum = _.reduce(
+            allWidgetIds,
+            (currentNum, otherId) => {
+                var [otherType, otherNum] = otherId;
+                if (otherType === widgetType) {
+                    return Math.max(otherNum + 1, currentNum);
+                } else {
+                    return currentNum;
+                }
+            },
+            1
+        );
 
         var id = widgetType + " " + widgetNum;
         var widgetContent = widgetPlaceholder.replace("{id}", id);
@@ -728,12 +754,12 @@ var Editor = React.createClass({
         var prelude = oldContent.slice(0, cursorRange[0]);
         var postlude = oldContent.slice(cursorRange[1]);
 
-        var newPrelude = isBlock ?
-            makeEndWithAParagraphIfNecessary(prelude) :
-            prelude;
-        var newPostlude = isBlock ?
-            makeStartWithAParagraphAlways(postlude) :
-            postlude;
+        var newPrelude = isBlock
+            ? makeEndWithAParagraphIfNecessary(prelude)
+            : prelude;
+        var newPostlude = isBlock
+            ? makeStartWithAParagraphAlways(postlude)
+            : postlude;
 
         var newContent = newPrelude + widgetContent + newPostlude;
 
@@ -747,17 +773,20 @@ var Editor = React.createClass({
             version: Widgets.getVersion(widgetType),
         };
 
-        this.props.onChange({
-            content: newContent,
-            widgets: newWidgets,
-        }, function() {
-            Util.textarea.moveCursor(
-                textarea,
-                // We want to put the cursor after the widget
-                // and after any added newlines
-                newContent.length - postlude.length
-            );
-        });
+        this.props.onChange(
+            {
+                content: newContent,
+                widgets: newWidgets,
+            },
+            function() {
+                Util.textarea.moveCursor(
+                    textarea,
+                    // We want to put the cursor after the widget
+                    // and after any added newlines
+                    newContent.length - postlude.length
+                );
+            }
+        );
     },
 
     _addWidget: function(widgetType) {
@@ -799,31 +828,35 @@ var Editor = React.createClass({
 
         var template;
         if (templateType === "table") {
-            template = "header 1 | header 2 | header 3\n" +
-                       "- | - | -\n" +
-                       "data 1 | data 2 | data 3\n" +
-                       "data 4 | data 5 | data 6\n" +
-                       "data 7 | data 8 | data 9";
+            template =
+                "header 1 | header 2 | header 3\n" +
+                "- | - | -\n" +
+                "data 1 | data 2 | data 3\n" +
+                "data 4 | data 5 | data 6\n" +
+                "data 7 | data 8 | data 9";
         } else if (templateType === "titledTable") {
-            template = "|| **Table title** ||\n" +
-                       "header 1 | header 2 | header 3\n" +
-                       "- | - | -\n" +
-                       "data 1 | data 2 | data 3\n" +
-                       "data 4 | data 5 | data 6\n" +
-                       "data 7 | data 8 | data 9";
+            template =
+                "|| **Table title** ||\n" +
+                "header 1 | header 2 | header 3\n" +
+                "- | - | -\n" +
+                "data 1 | data 2 | data 3\n" +
+                "data 4 | data 5 | data 6\n" +
+                "data 7 | data 8 | data 9";
         } else if (templateType === "alignment") {
-            template = "$\\begin{align} x+5 &= 30 \\\\\n" +
-                       "x+5-5 &= 30-5 \\\\\n" +
-                       "x &= 25 \\end{align}$";
+            template =
+                "$\\begin{align} x+5 &= 30 \\\\\n" +
+                "x+5-5 &= 30-5 \\\\\n" +
+                "x &= 25 \\end{align}$";
         } else if (templateType === "piecewise") {
-            template = "$f(x) = \\begin{cases}\n" +
-                       "7 & \\text{if }x=1 \\\\\n" +
-                       "f(x-1)+5 & \\text{if }x > 1\n" +
-                       "\\end{cases}$";
+            template =
+                "$f(x) = \\begin{cases}\n" +
+                "7 & \\text{if }x=1 \\\\\n" +
+                "f(x-1)+5 & \\text{if }x > 1\n" +
+                "\\end{cases}$";
         } else if (templateType === "allWidgets") {
             template = Widgets.getAllWidgetTypes()
-                              .map(type => `[[${Util.snowman} ${type} 1]]`)
-                              .join("\n\n");
+                .map(type => `[[${Util.snowman} ${type} 1]]`)
+                .join("\n\n");
         } else {
             throw new Error("Invalid template type: " + templateType);
         }
@@ -837,7 +870,7 @@ var Editor = React.createClass({
         var parsed = PerseusMarkdown.parse(this.props.content);
         var unescapedDollarsExist = false;
 
-        PerseusMarkdown.traverseContent(parsed, (node) => {
+        PerseusMarkdown.traverseContent(parsed, node => {
             if (node.type === "unescapedDollar") {
                 unescapedDollarsExist = true;
             }
@@ -849,7 +882,7 @@ var Editor = React.createClass({
             .map(id => {
                 var issuesFunc = this.refs[id].getSaveWarnings;
                 var issues = issuesFunc ? issuesFunc() : [];
-                return _.map(issues, (issue) => (id + ": " + issue));
+                return _.map(issues, issue => id + ": " + issue);
             })
             .flatten(true)
             .value();
@@ -857,8 +890,8 @@ var Editor = React.createClass({
         if (unescapedDollarsExist) {
             warnings.unshift(
                 "This content is UNTRANSLATABLE because there are" +
-                ' "unescaped" $ signs outside of math expressions.' +
-                " Please substitute $ -> \\$ where appropriate."
+                    ' "unescaped" $ signs outside of math expressions.' +
+                    " Please substitute $ -> \\$ where appropriate."
             );
         }
 
@@ -889,13 +922,20 @@ var Editor = React.createClass({
         if (this.props.showWordCount) {
             var numChars = PerseusMarkdown.characterCount(this.props.content);
             var numWords = Math.floor(numChars / 6);
-            wordCountDisplay = <span
-                className="perseus-editor-word-count"
-                title={'~' + commafyInteger(numWords) + ' words (' +
-                             commafyInteger(numChars) + ' characters)'}
-            >
-                {commafyInteger(numWords)}
-            </span>;
+            wordCountDisplay = (
+                <span
+                    className="perseus-editor-word-count"
+                    title={
+                        "~" +
+                        commafyInteger(numWords) +
+                        " words (" +
+                        commafyInteger(numChars) +
+                        " characters)"
+                    }
+                >
+                    {commafyInteger(numWords)}
+                </span>
+            );
         }
 
         if (this.props.widgetEnabled) {
@@ -910,8 +950,8 @@ var Editor = React.createClass({
 
                     const ast = PerseusMarkdown.parse(pieces[i]);
 
-                    PerseusMarkdown.traverseContent(ast, (node) => {
-                        if (node.type === 'math' || node.type === 'blockMath') {
+                    PerseusMarkdown.traverseContent(ast, node => {
+                        if (node.type === "math" || node.type === "blockMath") {
                             const content = preprocessTex(node.content);
                             try {
                                 katex.renderToString(content);
@@ -923,7 +963,6 @@ var Editor = React.createClass({
                             }
                         }
                     });
-
                 } else {
                     // Widget reference
                     var match = Util.rWidgetParts.exec(pieces[i]);
@@ -942,11 +981,15 @@ var Editor = React.createClass({
                     var duplicate = id in widgets;
 
                     widgets[id] = this.getWidgetEditor(id, type);
-                    var classes = (duplicate || !widgets[id] ? "error " : "") +
-                            (selected ? "selected " : "");
+                    var classes =
+                        (duplicate || !widgets[id] ? "error " : "") +
+                        (selected ? "selected " : "");
                     var key = duplicate ? i : id;
                     underlayPieces.push(
-                            <b className={classes} key={key}>{pieces[i]}</b>);
+                        <b className={classes} key={key}>
+                            {pieces[i]}
+                        </b>
+                    );
                 }
             }
 
@@ -964,32 +1007,39 @@ var Editor = React.createClass({
             // }, this);
 
             this.widgetIds = _.keys(widgets);
-            widgetsDropDown = <WidgetSelect
-                ref="widgetSelect"
-                onChange={this._addWidget}
-            />;
+            widgetsDropDown = (
+                <WidgetSelect ref="widgetSelect" onChange={this._addWidget} />
+            );
 
             var insertTemplateString = "Insert template\u2026";
-            templatesDropDown = <select onChange={this.addTemplate}>
-                <option value="">{insertTemplateString}</option>
-                <option disabled>--</option>
-                <option value="table">Table</option>
-                <option value="titledTable">Titled table</option>
-                <option value="alignment">Aligned equations</option>
-                <option value="piecewise">Piecewise function</option>
-                <option disabled>--</option>
-                <option value="allWidgets">All widgets (for testing)</option>
-            </select>;
+            templatesDropDown = (
+                <select onChange={this.addTemplate}>
+                    <option value="">
+                        {insertTemplateString}
+                    </option>
+                    <option disabled>--</option>
+                    <option value="table">Table</option>
+                    <option value="titledTable">Titled table</option>
+                    <option value="alignment">Aligned equations</option>
+                    <option value="piecewise">Piecewise function</option>
+                    <option disabled>--</option>
+                    <option value="allWidgets">
+                        All widgets (for testing)
+                    </option>
+                </select>
+            );
 
             if (!this.props.immutableWidgets) {
-                widgetsAndTemplates = <div className="perseus-editor-widgets">
-                    <div className="perseus-editor-widgets-selectors">
-                        {widgetsDropDown}
-                        {templatesDropDown}
-                        {wordCountDisplay}
+                widgetsAndTemplates = (
+                    <div className="perseus-editor-widgets">
+                        <div className="perseus-editor-widgets-selectors">
+                            {widgetsDropDown}
+                            {templatesDropDown}
+                            {wordCountDisplay}
+                        </div>
+                        {ReactCreateFragment(widgets)}
                     </div>
-                    {ReactCreateFragment(widgets)}
-                </div>;
+                );
                 // Prevent word count from being displayed elsewhere
                 wordCountDisplay = null;
             }
@@ -999,7 +1049,7 @@ var Editor = React.createClass({
 
         // Without this, the underlay isn't the proper size when the text ends
         // with a newline.
-        underlayPieces.push(<br key="end"/>);
+        underlayPieces.push(<br key="end" />);
 
         var completeTextarea = [
             <div
@@ -1021,61 +1071,75 @@ var Editor = React.createClass({
         ];
 
         if (this.props.apiOptions.useDraftEditor) {
-            completeTextarea = <PerseusEditor
-                ref="textarea"
-                onChange={this.props.onChange}
-                content={this.props.content}
-                placeholder={this.props.placeholder}
-                initialWidgets={this.props.widgets}
-                imageUploader={this.props.imageUploader}
-                widgetEnabled={this.props.widgetEnabled}
-            />;
+            completeTextarea = (
+                <PerseusEditor
+                    ref="textarea"
+                    onChange={this.props.onChange}
+                    content={this.props.content}
+                    placeholder={this.props.placeholder}
+                    initialWidgets={this.props.widgets}
+                    imageUploader={this.props.imageUploader}
+                    widgetEnabled={this.props.widgetEnabled}
+                />
+            );
         }
         var textareaWrapper;
         if (this.props.imageUploader) {
-            textareaWrapper = <DragTarget
-                onDrop={this.handleDrop}
-                className="perseus-textarea-pair"
-            >
-                {completeTextarea}
-            </DragTarget>;
+            textareaWrapper = (
+                <DragTarget
+                    onDrop={this.handleDrop}
+                    className="perseus-textarea-pair"
+                >
+                    {completeTextarea}
+                </DragTarget>
+            );
         } else {
-            textareaWrapper = <div className="perseus-textarea-pair">
-                {completeTextarea}
-            </div>;
+            textareaWrapper = (
+                <div className="perseus-textarea-pair">
+                    {completeTextarea}
+                </div>
+            );
         }
 
         var contentWithoutWidgets = this.props.content.replace(
-            /\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]/g, '');
+            /\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]/g,
+            ""
+        );
         var noPrompt = contentWithoutWidgets.trim().length === 0;
-        var noWidgets =
-            !/\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]/g.test(this.props.content);
+        var noWidgets = !/\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]/g.test(
+            this.props.content
+        );
 
         var warningStyle = {
-            borderTop: 'none',
+            borderTop: "none",
             padding: 4,
-            backgroundColor: 'pink',
+            backgroundColor: "pink",
         };
 
-        return <div
-            className={"perseus-single-editor " + (this.props.className || "")}
-        >
-            {textareaWrapper}
-            {katexErrorList.length > 0 &&
-                <KatexErrorView errorList={katexErrorList}/>}
-            {this.props.warnNoPrompt && noPrompt &&
-                <div style={warningStyle}>
-                    Graded Groups should contain a prompt
-                </div>}
-            {this.props.warnNoWidgets && noWidgets &&
-                <div style={warningStyle}>
-                    Graded Groups should contain at least one widget
-                </div>}
-            {wordCountDisplay}
-            {widgetsAndTemplates}
-        </div>;
+        return (
+            <div
+                className={
+                    "perseus-single-editor " + (this.props.className || "")
+                }
+            >
+                {textareaWrapper}
+                {katexErrorList.length > 0 &&
+                    <KatexErrorView errorList={katexErrorList} />}
+                {this.props.warnNoPrompt &&
+                    noPrompt &&
+                    <div style={warningStyle}>
+                        Graded Groups should contain a prompt
+                    </div>}
+                {this.props.warnNoWidgets &&
+                    noWidgets &&
+                    <div style={warningStyle}>
+                        Graded Groups should contain at least one widget
+                    </div>}
+                {wordCountDisplay}
+                {widgetsAndTemplates}
+            </div>
+        );
     },
-
 
     serialize: function(options) {
         // need to serialize the widgets since the state might not be
@@ -1097,8 +1161,8 @@ var Editor = React.createClass({
         if (options && options.keepDeletedWidgets) {
             _.chain(this.props.widgets)
                 .keys()
-                .reject((id) => _.contains(widgetIds, id))
-                .each((id) => {
+                .reject(id => _.contains(widgetIds, id))
+                .each(id => {
                     widgets[id] = this.props.widgets[id];
                 });
         }

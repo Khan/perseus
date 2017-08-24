@@ -7,7 +7,7 @@
  */
 
 var assert = require("assert");
-var React = require('react');
+var React = require("react");
 const _ = require("underscore");
 var InputNumber = require("../input-number.jsx");
 
@@ -23,7 +23,7 @@ describe("input-number", function() {
             size: "normal",
             inexact: false,
             maxError: 0.1,
-            answerType: "number"
+            answerType: "number",
         };
         var widgetProps = transform(editorProps);
         assert.strictEqual(_.has(widgetProps, "value"), false);

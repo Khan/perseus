@@ -2,7 +2,7 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var React = require('react');
+var React = require("react");
 var _ = require("underscore");
 
 var ApiOptions = require("./perseus-api.jsx").Options;
@@ -38,67 +38,66 @@ var ItemEditor = React.createClass({
     },
 
     render: function() {
-        const isMobile = this.props.deviceType === "phone" ||
+        const isMobile =
+            this.props.deviceType === "phone" ||
             this.props.deviceType === "tablet";
-        return <div className="perseus-editor-table">
-            <div className="perseus-editor-row perseus-question-container">
-                <div className="perseus-editor-left-cell">
-                    <div className="pod-title">Question</div>
-                    <Editor
-                        ref="questionEditor"
-                        placeholder="Type your question here..."
-                        className="perseus-question-editor"
-                        imageUploader={this.props.imageUploader}
-                        onChange={this.handleEditorChange}
-                        apiOptions={this.props.apiOptions}
-                        showWordCount={true}
-                        {...this.props.question}
-                    />
+        return (
+            <div className="perseus-editor-table">
+                <div className="perseus-editor-row perseus-question-container">
+                    <div className="perseus-editor-left-cell">
+                        <div className="pod-title">Question</div>
+                        <Editor
+                            ref="questionEditor"
+                            placeholder="Type your question here..."
+                            className="perseus-question-editor"
+                            imageUploader={this.props.imageUploader}
+                            onChange={this.handleEditorChange}
+                            apiOptions={this.props.apiOptions}
+                            showWordCount={true}
+                            {...this.props.question}
+                        />
+                    </div>
+
+                    <div className="perseus-editor-right-cell">
+                        <div id="problemarea">
+                            <DeviceFramer
+                                deviceType={this.props.deviceType}
+                                nochrome={true}
+                            >
+                                <IframeContentRenderer
+                                    ref="frame"
+                                    key={this.props.deviceType}
+                                    content={this.props.frameSource}
+                                    datasetKey="mobile"
+                                    datasetValue={isMobile}
+                                    seamless={true}
+                                />
+                            </DeviceFramer>
+                            <div
+                                id="hintsarea"
+                                className="hintsarea"
+                                style={{display: "none"}}
+                            />
+                        </div>
+                    </div>
                 </div>
 
-                <div
-                    className="perseus-editor-right-cell"
-                >
-                    <div id="problemarea">
-                        <DeviceFramer
-                            deviceType={this.props.deviceType}
-                            nochrome={true}
-                        >
-                            <IframeContentRenderer
-                                ref="frame"
-                                key={this.props.deviceType}
-                                content={this.props.frameSource}
-                                datasetKey="mobile"
-                                datasetValue={isMobile}
-                                seamless={true}
-                            />
-                        </DeviceFramer>
-                        <div
-                            id="hintsarea"
-                            className="hintsarea"
-                            style={{display: "none"}}
+                <div className="perseus-editor-row perseus-answer-container">
+                    <div className="perseus-editor-left-cell">
+                        <div className="pod-title">Question extras</div>
+                        <ItemExtrasEditor
+                            ref="itemExtrasEditor"
+                            onChange={this.handleItemExtrasChange}
+                            {...this.props.answerArea}
                         />
+                    </div>
+
+                    <div className="perseus-editor-right-cell">
+                        <div id="answer_area" />
                     </div>
                 </div>
             </div>
-
-            <div className="perseus-editor-row perseus-answer-container">
-                <div className="perseus-editor-left-cell">
-                    <div className="pod-title">Question extras</div>
-                    <ItemExtrasEditor
-                        ref="itemExtrasEditor"
-                        onChange={this.handleItemExtrasChange}
-                        {...this.props.answerArea}
-                    />
-                </div>
-
-                <div
-                    className="perseus-editor-right-cell"
-                >
-                    <div id="answer_area" />
-                </div>
-            </div>
-        </div>;
+        );
     },
 
     triggerPreviewUpdate: function(newData) {
@@ -107,12 +106,12 @@ var ItemEditor = React.createClass({
 
     handleEditorChange: function(newProps, cb, silent) {
         var question = _.extend({}, this.props.question, newProps);
-        this.updateProps({ question }, cb, silent);
+        this.updateProps({question}, cb, silent);
     },
 
     handleItemExtrasChange: function(newProps, cb, silent) {
         var answerArea = _.extend({}, this.props.answerArea, newProps);
-        this.updateProps({ answerArea }, cb, silent);
+        this.updateProps({answerArea}, cb, silent);
     },
 
     getSaveWarnings: function() {

@@ -20,4 +20,3 @@ module.exports = [
         __EDITOR__ && require("./widgets/expression-editor.jsx"),
     ],
 ];
-

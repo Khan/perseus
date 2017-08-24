@@ -15,123 +15,109 @@ var TestUtils = require("react-addons-test-utils");
 var delayedPromise = require("../../testutils/delayed-promise.jsx");
 
 var expressionItem1 = {
-    "question": {
-        "content": "[[☃ expression 1]]",
-        "images": {},
-        "widgets": {
+    question: {
+        content: "[[☃ expression 1]]",
+        images: {},
+        widgets: {
             "expression 1": {
-                "type": "expression",
-                "graded": true,
-                "options": {
-                    "value": "2^{-2}-3",
-                    "form": false,
-                    "simplify": false,
-                    "times": false,
-                    "buttonSets": [
-                        "basic"
-                    ],
-                    "functions": [
-                        "f",
-                        "g",
-                        "h"
-                    ],
-                    "buttonsVisible": "never"
+                type: "expression",
+                graded: true,
+                options: {
+                    value: "2^{-2}-3",
+                    form: false,
+                    simplify: false,
+                    times: false,
+                    buttonSets: ["basic"],
+                    functions: ["f", "g", "h"],
+                    buttonsVisible: "never",
                 },
-                "version": {
-                    "major": 0,
-                    "minor": 1
-                }
-            }
-        }
+                version: {
+                    major: 0,
+                    minor: 1,
+                },
+            },
+        },
     },
-    "answerArea": {
-        "calculator": false
+    answerArea: {
+        calculator: false,
     },
-    "itemDataVersion": {
-        "major": 0,
-        "minor": 1
+    itemDataVersion: {
+        major: 0,
+        minor: 1,
     },
-    "hints": []
+    hints: [],
 };
 
 var expressionItem2 = lens(expressionItem1)
     .set(["question", "widgets", "expression 1", "options"], {
-        "answerForms": [
+        answerForms: [
             {
-                "considered": "correct",
-                "form": false,
-                "simplify": false,
-                "value": "123-x"
+                considered: "correct",
+                form: false,
+                simplify: false,
+                value: "123-x",
             },
             {
-                "considered": "correct",
-                "form": false,
-                "simplify": false,
-                "value": "x-123"
-            }
+                considered: "correct",
+                form: false,
+                simplify: false,
+                value: "x-123",
+            },
         ],
-        "times": false,
-        "buttonSets": ["basic"],
-        "functions": [
-            "f",
-            "g",
-            "h"
-        ],
+        times: false,
+        buttonSets: ["basic"],
+        functions: ["f", "g", "h"],
     })
     .set(["question", "widgets", "expression 1", "version"], {
-        "major": 1,
-        "minor": 0
+        major: 1,
+        minor: 0,
     })
     .freeze();
 
 var expressionItem3 = lens(expressionItem1)
     .set(["question", "widgets", "expression 1", "options"], {
-        "answerForms": [
+        answerForms: [
             {
-                "considered": "ungraded",
-                "form": false,
-                "simplify": false,
-                "value": "1"
+                considered: "ungraded",
+                form: false,
+                simplify: false,
+                value: "1",
             },
             {
-                "considered": "incorrect",
-                "form": false,
-                "simplify": false,
-                "value": "2"
+                considered: "incorrect",
+                form: false,
+                simplify: false,
+                value: "2",
             },
             {
-                "considered": "correct",
-                "form": false,
-                "simplify": false,
-                "value": "3"
-            }
+                considered: "correct",
+                form: false,
+                simplify: false,
+                value: "3",
+            },
         ],
-        "times": false,
-        "buttonSets": ["basic"],
-        "functions": [
-            "f",
-            "g",
-            "h"
-        ],
+        times: false,
+        buttonSets: ["basic"],
+        functions: ["f", "g", "h"],
     })
     .set(["question", "widgets", "expression 1", "version"], {
-        "major": 1,
-        "minor": 0
+        major: 1,
+        minor: 0,
     })
     .freeze();
 
 var expressionItem4 = lens(expressionItem3)
     .zoom(["question", "widgets", "expression 1", "options", "answerForms"])
-        .merge([0], {
-            "value": "\\left(x+2\\right)\\left(x-2\\right)",
-            "form": true,
-            "considered": "incorrect"
-        })
-        .merge([1], {
-            "value": "x^2-4",
-            "considered": "correct"
-        })
-        .del([2])
+    .merge([0], {
+        value: "\\left(x+2\\right)\\left(x-2\\right)",
+        form: true,
+        considered: "incorrect",
+    })
+    .merge([1], {
+        value: "x^2-4",
+        considered: "correct",
+    })
+    .del([2])
     .deZoom()
     .freeze();
 
@@ -144,7 +130,7 @@ var renderQuestionArea = function(item, apiOptions) {
             widgets={item.question.widgets}
             problemNum={0}
             apiOptions={apiOptions}
-            />
+        />
     );
     return renderer;
 };
@@ -217,16 +203,14 @@ describe("Expression Widget", function() {
     });
 
     describe("fallthrough", function() {
-        it("should grade answers which don't match anything as wrong",
-            function() {
-                return makeRender(expressionItem2).then(renderer => {
-                    mathQuillInput(renderer, "500");
-                    var score = renderer.guessAndScore()[1];
-                    assert.strictEqual(score.type, "points");
-                    assert.strictEqual(score.earned, 0);
-                });
-            }
-        );
+        it("should grade answers which don't match anything as wrong", function() { // eslint-disable-line max-len
+            return makeRender(expressionItem2).then(renderer => {
+                mathQuillInput(renderer, "500");
+                var score = renderer.guessAndScore()[1];
+                assert.strictEqual(score.type, "points");
+                assert.strictEqual(score.earned, 0);
+            });
+        });
     });
 
     describe("multiple answers", function() {
@@ -235,21 +219,22 @@ describe("Expression Widget", function() {
 
             // TODO(joel) - clear input instead of making a new renderer every
             // time!
-            return makeRender(expressionItem2).then(renderer => {
-                // FIRST ANSWER
-                mathQuillInput(renderer, "x-123");
-                var score = renderer.guessAndScore()[1];
-                assert.strictEqual(score.type, "points");
-                assert.strictEqual(score.earned, score.total);
-            })
-            .then(() => makeRender(expressionItem2))
-            .then(renderer => {
-                // SECOND ANSWER
-                mathQuillInput(renderer, "123-x");
-                var score = renderer.guessAndScore()[1];
-                assert.strictEqual(score.type, "points");
-                assert.strictEqual(score.earned, score.total);
-            });
+            return makeRender(expressionItem2)
+                .then(renderer => {
+                    // FIRST ANSWER
+                    mathQuillInput(renderer, "x-123");
+                    var score = renderer.guessAndScore()[1];
+                    assert.strictEqual(score.type, "points");
+                    assert.strictEqual(score.earned, score.total);
+                })
+                .then(() => makeRender(expressionItem2))
+                .then(renderer => {
+                    // SECOND ANSWER
+                    mathQuillInput(renderer, "123-x");
+                    var score = renderer.guessAndScore()[1];
+                    assert.strictEqual(score.type, "points");
+                    assert.strictEqual(score.earned, score.total);
+                });
         });
 
         it("should match from top to bottom", function() {
@@ -267,31 +252,28 @@ describe("Expression Widget", function() {
 
             // check that the ungraded one matches first and returns *invalid*
             return makeRender(expressionItem3)
-            .then(renderer => {
-                mathQuillInput(renderer, "1");
-                var score = renderer.guessAndScore()[1];
-                assert.strictEqual(score.type, "invalid");
-            })
-            .then(() => makeRender(expressionItem3))
-            .then(renderer => {
-
-                // now check that the incorrect one matches and returns no
-                // points
-                mathQuillInput(renderer, "2");
-                var score = renderer.guessAndScore()[1];
-                assert.strictEqual(score.type, "points");
-                assert.strictEqual(score.earned, 0);
-
-            })
-            .then(() => makeRender(expressionItem3))
-            .then(renderer => {
-
-                // finally check that the correct one matches with points
-                mathQuillInput(renderer, "3");
-                var score = renderer.guessAndScore()[1];
-                assert.strictEqual(score.type, "points");
-                assert.strictEqual(score.earned, score.total);
-            });
+                .then(renderer => {
+                    mathQuillInput(renderer, "1");
+                    var score = renderer.guessAndScore()[1];
+                    assert.strictEqual(score.type, "invalid");
+                })
+                .then(() => makeRender(expressionItem3))
+                .then(renderer => {
+                    // now check that the incorrect one matches and returns no
+                    // points
+                    mathQuillInput(renderer, "2");
+                    var score = renderer.guessAndScore()[1];
+                    assert.strictEqual(score.type, "points");
+                    assert.strictEqual(score.earned, 0);
+                })
+                .then(() => makeRender(expressionItem3))
+                .then(renderer => {
+                    // finally check that the correct one matches with points
+                    mathQuillInput(renderer, "3");
+                    var score = renderer.guessAndScore()[1];
+                    assert.strictEqual(score.type, "points");
+                    assert.strictEqual(score.earned, score.total);
+                });
         });
 
         it("should fall through exact forms", function() {
@@ -315,20 +297,19 @@ describe("Expression Widget", function() {
 
             // check that the specific one matches
             return makeRender(expressionItem4)
-            .then(renderer => {
-                mathQuillInput(renderer, specificWrong);
-                var score = renderer.guessAndScore()[1];
-                assert.strictEqual(score.type, "points");
-                assert.strictEqual(score.earned, 0);
-
-            })
-            .then(() => makeRender(expressionItem4))
-            .then(renderer => {
-                mathQuillInput(renderer, correct);
-                var score = renderer.guessAndScore()[1];
-                assert.strictEqual(score.type, "points");
-                assert.strictEqual(score.earned, score.total);
-            });
+                .then(renderer => {
+                    mathQuillInput(renderer, specificWrong);
+                    var score = renderer.guessAndScore()[1];
+                    assert.strictEqual(score.type, "points");
+                    assert.strictEqual(score.earned, 0);
+                })
+                .then(() => makeRender(expressionItem4))
+                .then(renderer => {
+                    mathQuillInput(renderer, correct);
+                    var score = renderer.guessAndScore()[1];
+                    assert.strictEqual(score.type, "points");
+                    assert.strictEqual(score.earned, score.total);
+                });
         });
     });
 });

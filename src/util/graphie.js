@@ -2,7 +2,6 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-
 const kpoint = require("kmath").point;
 const kvector = require("kmath").vector;
 const _ = require("underscore");
@@ -90,15 +89,17 @@ const GraphUtils = {
             }
             return (180 + Math.atan2(-y, -x) * 180 / Math.PI + 360) % 360;
         } else {
-            return GraphUtils.findAngle(point1, vertex) -
-                GraphUtils.findAngle(point2, vertex);
+            return (
+                GraphUtils.findAngle(point1, vertex) -
+                GraphUtils.findAngle(point2, vertex)
+            );
         }
     },
 
     graphs: {},
 };
 
-const Graphie = GraphUtils.Graphie = function() {};
+const Graphie = (GraphUtils.Graphie = function() {});
 
 _.extend(Graphie.prototype, {
     cartToPolar: cartToPolar,
@@ -106,14 +107,14 @@ _.extend(Graphie.prototype, {
 });
 
 const labelDirections = {
-    "center": [-0.5, -0.5],
-    "above": [-0.5, -1.0],
+    center: [-0.5, -0.5],
+    above: [-0.5, -1.0],
     "above right": [0.0, -1.0],
-    "right": [0.0, -0.5],
+    right: [0.0, -0.5],
     "below right": [0.0, 0.0],
-    "below": [-0.5, 0.0],
+    below: [-0.5, 0.0],
     "below left": [-1.0, 0.0],
-    "left": [-1.0, -0.5],
+    left: [-1.0, -0.5],
     "above left": [-1.0, -1.0],
 };
 
@@ -132,7 +133,7 @@ GraphUtils.createGraphie = function(el) {
     // Set up some reasonable defaults
     let currentStyle = {
         "stroke-width": 2,
-        "fill": "none",
+        fill: "none",
     };
 
     const scaleVector = function(point) {
@@ -184,11 +185,12 @@ GraphUtils.createGraphie = function(el) {
 
             const scale = Math.min(
                 size[0] / 2 / Math.abs(x),
-                size[1] / 2 / Math.abs(y));
+                size[1] / 2 / Math.abs(y)
+            );
 
             $span.css({
-                marginLeft: (-size[0] / 2) + x * scale,
-                marginTop: (-size[1] / 2) - y * scale,
+                marginLeft: -size[0] / 2 + x * scale,
+                marginTop: -size[1] / 2 - y * scale,
             });
         } else {
             const multipliers = labelDirections[direction || "center"];
@@ -205,8 +207,12 @@ GraphUtils.createGraphie = function(el) {
                 return "z";
             } else {
                 const scaled = alreadyScaled ? point : scalePoint(point);
-                return (i === 0 ? "M" : "L") +
-                    KhanMath.bound(scaled[0]) + " " + KhanMath.bound(scaled[1]);
+                return (
+                    (i === 0 ? "M" : "L") +
+                    KhanMath.bound(scaled[0]) +
+                    " " +
+                    KhanMath.bound(scaled[1])
+                );
             }
         }).join("");
     };
@@ -250,8 +256,20 @@ GraphUtils.createGraphie = function(el) {
         // Scale and bound
         const points = _.map([left, control, right], scalePoint);
         const values = _.map(_.flatten(points), KhanMath.bound);
-        return "M" + values[0] + "," + values[1] + " Q" + values[2] + "," +
-            values[3] + " " + values[4] + "," + values[5];
+        return (
+            "M" +
+            values[0] +
+            "," +
+            values[1] +
+            " Q" +
+            values[2] +
+            "," +
+            values[3] +
+            " " +
+            values[4] +
+            "," +
+            values[5]
+        );
     };
 
     const svgSinusoidPath = function(a, b, c, d) {
@@ -302,13 +320,37 @@ GraphUtils.createGraphie = function(el) {
 
         // First portion of path is special-case, requiring move-to ('M')
         let coords = coordsForOffset(initial, 0);
-        let path = "M" + coords[0][0] + "," + coords[0][1] + " C" +
-            coords[1][0] + "," + coords[1][1] + " " + coords[2][0] + "," +
-            coords[2][1] + " " + coords[3][0] + "," + coords[3][1];
+        let path =
+            "M" +
+            coords[0][0] +
+            "," +
+            coords[0][1] +
+            " C" +
+            coords[1][0] +
+            "," +
+            coords[1][1] +
+            " " +
+            coords[2][0] +
+            "," +
+            coords[2][1] +
+            " " +
+            coords[3][0] +
+            "," +
+            coords[3][1];
         for (let i = 1; i < numQuarterPeriods; i++) {
             coords = coordsForOffset(initial, i);
-            path += " C" + coords[1][0] + "," + coords[1][1] + " " +
-                coords[2][0] + "," + coords[2][1] + " " + coords[3][0] + "," +
+            path +=
+                " C" +
+                coords[1][0] +
+                "," +
+                coords[1][1] +
+                " " +
+                coords[2][0] +
+                "," +
+                coords[2][1] +
+                " " +
+                coords[3][0] +
+                "," +
                 coords[3][1];
         }
 
@@ -342,25 +384,26 @@ GraphUtils.createGraphie = function(el) {
 
                 return {
                     "clip-rect": scalePoint(point)
-                        .concat(scaleVector(size)).join(" "),
+                        .concat(scaleVector(size))
+                        .join(" "),
                 };
             },
 
             strokeWidth: function(val) {
-                return { "stroke-width": parseFloat(val) };
+                return {"stroke-width": parseFloat(val)};
             },
 
             rx: function(val) {
-                return { rx: scaleVector([val, 0])[0] };
+                return {rx: scaleVector([val, 0])[0]};
             },
 
             ry: function(val) {
-                return { ry: scaleVector([0, val])[1] };
+                return {ry: scaleVector([0, val])[1]};
             },
 
             r: function(val) {
                 const scaled = scaleVector([val, val]);
-                return { rx: scaled[0], ry: scaled[1] };
+                return {rx: scaled[0], ry: scaled[1]};
             },
         };
 
@@ -371,7 +414,8 @@ GraphUtils.createGraphie = function(el) {
             if (typeof transformer === "function") {
                 $.extend(processed, transformer(value));
             } else {
-                const dasherized = key.replace(/([A-Z]+)([A-Z][a-z])/g, "$1-$2")
+                const dasherized = key
+                    .replace(/([A-Z]+)([A-Z][a-z])/g, "$1-$2")
                     .replace(/([a-z\d])([A-Z])/g, "$1-$2")
                     .toLowerCase();
                 processed[dasherized] = value;
@@ -385,20 +429,25 @@ GraphUtils.createGraphie = function(el) {
         const type = path.constructor.prototype;
 
         if (type === Raphael.el) {
-            if (path.type === "path" &&
-                    typeof path.arrowheadsDrawn === "undefined") {
+            if (
+                path.type === "path" &&
+                typeof path.arrowheadsDrawn === "undefined"
+            ) {
                 const w = path.attr("stroke-width");
                 const s = 0.6 + 0.4 * w;
                 const l = path.getTotalLength();
                 const set = raphael.set();
-                const head = raphael.path(graphie.isMobile ?
-                    "M-4,4 C-4,4 -0.25,0 -0.25,0 C-0.25,0 -4,-4 -4,-4" :
-                    "M-3 4 C-2.75 2.5 0 0.25 0.75 0C0 -0.25 -2.75 -2.5 -3 -4");
+                const head = raphael.path(
+                    graphie.isMobile
+                        ? "M-4,4 C-4,4 -0.25,0 -0.25,0 C-0.25,0 -4,-4 -4,-4"
+                        : "M-3 4 C-2.75 2.5 0 0.25 0.75 0C0 -0.25 -2.75 -2.5 -3 -4" // eslint-disable-line max-len
+                );
                 const end = path.getPointAtLength(l - 0.4);
                 const almostTheEnd = path.getPointAtLength(l - 0.75 * s);
-                const angle = Math.atan2(
-                    end.y - almostTheEnd.y,
-                    end.x - almostTheEnd.x) * 180 / Math.PI;
+                const angle =
+                    Math.atan2(end.y - almostTheEnd.y, end.x - almostTheEnd.x) *
+                    180 /
+                    Math.PI;
                 const attrs = path.attr();
                 delete attrs.path;
 
@@ -409,9 +458,11 @@ GraphUtils.createGraphie = function(el) {
 
                 // For some unknown reason 0 doesn't work for the rotation
                 // origin so we use a tiny number.
-                head.rotate(angle, graphie.isMobile ? 1e-5 : 0.75, 0)
+                head
+                    .rotate(angle, graphie.isMobile ? 1e-5 : 0.75, 0)
                     .scale(s, s, 0.75, 0)
-                    .translate(almostTheEnd.x, almostTheEnd.y).attr(attrs)
+                    .translate(almostTheEnd.x, almostTheEnd.y)
+                    .attr(attrs)
                     .attr({
                         "stroke-linejoin": "round",
                         "stroke-linecap": "round",
@@ -433,7 +484,8 @@ GraphUtils.createGraphie = function(el) {
     const drawingTools = {
         circle: function(center, radius) {
             return raphael.ellipse(
-                ...scalePoint(center).concat(scaleVector([radius, radius])));
+                ...scalePoint(center).concat(scaleVector([radius, radius]))
+            );
         },
 
         // (x, y) is coordinate of bottom left corner
@@ -452,7 +504,8 @@ GraphUtils.createGraphie = function(el) {
 
         ellipse: function(center, radii) {
             return raphael.ellipse(
-                ...scalePoint(center).concat(scaleVector(radii)));
+                ...scalePoint(center).concat(scaleVector(radii))
+            );
         },
 
         fixedEllipse: function(center, radii, maxScale, padding) {
@@ -514,13 +567,16 @@ GraphUtils.createGraphie = function(el) {
                 ((endAngle - startAngle) % 360 + 360) % 360 > 180;
 
             return raphael.path(
-                "M" + startPoint.join(" ") +
-                "A" + radii.join(" ") +
+                "M" +
+                startPoint.join(" ") +
+                "A" +
+                radii.join(" ") +
                 " 0 " + // ellipse rotation
                 (largeAngle ? 1 : 0) +
                 " 0 " + // sweep flag
-                endPoint.join(" ") +
-                (sector ? "L" + cent.join(" ") + "z" : ""));
+                    endPoint.join(" ") +
+                    (sector ? "L" + cent.join(" ") + "z" : "")
+            );
         },
 
         path: function(points) {
@@ -549,17 +605,14 @@ GraphUtils.createGraphie = function(el) {
             // Apply padding and offset to points
             points = _.map(points, function(point) {
                 return kvector.add(
-                    kvector.subtract(
-                        point,
-                        extraOffset
-                    ),
+                    kvector.subtract(point, extraOffset),
                     kvector.scale(padding, 0.5)
                 );
             });
 
             // Calculate <div> dimensions
-            const width = (pathRight - pathLeft) + padding[0];
-            const height = (pathBottom - pathTop) + padding[1];
+            const width = pathRight - pathLeft + padding[0];
+            const height = pathBottom - pathTop + padding[1];
             const left = extraOffset[0] - padding[0] / 2;
             const top = extraOffset[1] - padding[1] / 2;
 
@@ -572,8 +625,12 @@ GraphUtils.createGraphie = function(el) {
                 left: left + "px",
                 top: top + "px",
                 // If user specified a center, set it
-                transformOrigin: center ? (width / 2 + center[0]) + "px " +
-                    (height / 2 + center[1]) + "px"
+                transformOrigin: center
+                    ? width / 2 +
+                      center[0] +
+                      "px " +
+                      (height / 2 + center[1]) +
+                      "px"
                     : null,
             });
 
@@ -626,17 +683,11 @@ GraphUtils.createGraphie = function(el) {
 
             // Apply padding and offset to start, end points
             start = kvector.add(
-                kvector.subtract(
-                    start,
-                    extraOffset
-                ),
+                kvector.subtract(start, extraOffset),
                 kvector.scale(padding, 0.5)
             );
             end = kvector.add(
-                kvector.subtract(
-                    end,
-                    extraOffset
-                ),
+                kvector.subtract(end, extraOffset),
                 kvector.scale(padding, 0.5)
             );
 
@@ -663,8 +714,16 @@ GraphUtils.createGraphie = function(el) {
             const localRaphael = Raphael(wrapper, width, height);
 
             // Calculate path
-            const path = "M" + start[0] + " " + start[1] + " " +
-                       "L" + end[0] + " " + end[1];
+            const path =
+                "M" +
+                start[0] +
+                " " +
+                start[1] +
+                " " +
+                "L" +
+                end[0] +
+                " " +
+                end[1];
             const visibleShape = localRaphael.path(path);
             visibleShape.graphiePath = [start, end];
 
@@ -697,7 +756,7 @@ GraphUtils.createGraphie = function(el) {
         },
 
         label: function(point, text, direction, latex) {
-            latex = (typeof latex === "undefined") || latex;
+            latex = typeof latex === "undefined" || latex;
 
             const $span = $("<span>").addClass("graphie-label");
 
@@ -706,10 +765,12 @@ GraphUtils.createGraphie = function(el) {
             // TODO(alpert): Isn't currentStyle applied afterwards
             // automatically since this is a 'drawing tool'?
             $span
-                .css($.extend({}, currentStyle, {
-                    position: "absolute",
-                    padding: (pad != null ? pad : 7) + "px",
-                }))
+                .css(
+                    $.extend({}, currentStyle, {
+                        position: "absolute",
+                        padding: (pad != null ? pad : 7) + "px",
+                    })
+                )
                 .data("labelDirection", direction)
                 .appendTo(el);
 
@@ -756,20 +817,24 @@ GraphUtils.createGraphie = function(el) {
             // between two arbitrary parametrics functions over an interval,
             // as the method assumes that fn and fn2 are both of the form
             // fn(t) = (t, fn'(t)) for some initial fn'.
-            fn2 = fn2 || function(t) { return [t, 0]; };
+            fn2 =
+                fn2 ||
+                function(t) {
+                    return [t, 0];
+                };
 
             // We truncate to 500,000, since anything bigger causes
             // overflow in the firefox svg renderer.  This is safe
             // since 500,000 is outside the viewport anyway.  We
             // write these functions the way we do to handle undefined.
-            const clipper = (xy) => {
+            const clipper = xy => {
                 if (Math.abs(xy[1]) > 500000) {
                     return [xy[0], Math.min(Math.max(xy[1], -500000), 500000)];
                 }
                 return xy;
             };
-            const clippedFn = (x) => clipper(fn(x));
-            const clippedFn2 = (x) => clipper(fn2(x));
+            const clippedFn = x => clipper(fn(x));
+            const clippedFn2 = x => clipper(fn2(x));
 
             if (!currentStyle.strokeLinejoin) {
                 currentStyle.strokeLinejoin = "round";
@@ -787,8 +852,10 @@ GraphUtils.createGraphie = function(el) {
 
             const paths = raphael.set();
             let points = [];
-            let lastDiff = GraphUtils.coordDiff(clippedFn(min),
-                                                clippedFn2(min));
+            let lastDiff = GraphUtils.coordDiff(
+                clippedFn(min),
+                clippedFn2(min)
+            );
 
             let lastFlip = min;
             for (let t = min; t <= max; t += step) {
@@ -801,10 +868,10 @@ GraphUtils.createGraphie = function(el) {
                 if (
                     // if there is an asymptote here, meaning that the graph
                     // switches signs and has a large difference
-                    ((diff[1] < 0) !== (lastDiff[1] < 0)) &&
-                        Math.abs(diff[1] - lastDiff[1]) > 2 * yScale ||
-                        // or the function is undefined
-                        isNaN(diff[1])
+                    (diff[1] < 0 !== lastDiff[1] < 0 &&
+                        Math.abs(diff[1] - lastDiff[1]) > 2 * yScale) ||
+                    // or the function is undefined
+                    isNaN(diff[1])
                 ) {
                     // split the path at this point, and draw it
                     if (shade) {
@@ -869,26 +936,39 @@ GraphUtils.createGraphie = function(el) {
                         "Can't shade area between functions with swapped axes."
                     );
                 }
-                return this.plotParametric(function(y) {
-                    return [fn(y), y];
-                }, range, shade);
+                return this.plotParametric(
+                    function(y) {
+                        return [fn(y), y];
+                    },
+                    range,
+                    shade
+                );
             } else {
                 if (fn2) {
                     if (shade) {
-                        return this.plotParametric(function(x) {
-                            return [x, fn(x)];
-                        }, range, shade, function(x) {
-                            return [x, fn2(x)];
-                        });
+                        return this.plotParametric(
+                            function(x) {
+                                return [x, fn(x)];
+                            },
+                            range,
+                            shade,
+                            function(x) {
+                                return [x, fn2(x)];
+                            }
+                        );
                     } else {
                         throw new Error(
                             "fn2 should only be set when 'shade' is True."
                         );
                     }
                 }
-                return this.plotParametric(function(x) {
-                    return [x, fn(x)];
-                }, range, shade);
+                return this.plotParametric(
+                    function(x) {
+                        return [x, fn(x)];
+                    },
+                    range,
+                    shade
+                );
             }
         },
 
@@ -951,11 +1031,11 @@ GraphUtils.createGraphie = function(el) {
             for (let t = min; t <= max; t += step) {
                 const funcVal = fn(t);
 
-                if (((funcVal < 0) !== (lastVal < 0)) &&
-                        Math.abs(funcVal - lastVal) > 2 * yScale) {
-                    asymptotes.push(
-                        this.line([t, yScale], [t, -yScale])
-                    );
+                if (
+                    funcVal < 0 !== lastVal < 0 &&
+                    Math.abs(funcVal - lastVal) > 2 * yScale
+                ) {
+                    asymptotes.push(this.line([t, yScale], [t, -yScale]));
                 }
 
                 lastVal = funcVal;
@@ -971,7 +1051,7 @@ GraphUtils.createGraphie = function(el) {
 
         init: function(options) {
             let scale = options.scale || [40, 40];
-            scale = (typeof scale === "number" ? [scale, scale] : scale);
+            scale = typeof scale === "number" ? [scale, scale] : scale;
 
             xScale = scale[0];
             yScale = scale[1];
@@ -988,8 +1068,8 @@ GraphUtils.createGraphie = function(el) {
             raphael.setSize(w, h);
 
             $(el).css({
-                "width": w,
-                "height": h,
+                width: w,
+                height: h,
             });
 
             this.range = options.range;
@@ -1068,7 +1148,6 @@ GraphUtils.createGraphie = function(el) {
         };
     });
 
-
     // Initializes graphie settings for a graph and draws the basic graph
     // features (axes, grid, tick marks, and axis labels)
     // Options expected are:
@@ -1083,15 +1162,16 @@ GraphUtils.createGraphie = function(el) {
     // - xLabelFormat: fn to format label string for x-axis
     // - smartLabelPositioning: true or false to ignore minus sign
     graphie.graphInit = function(options) {
-
         options = options || {};
 
         $.each(options, function(prop, val) {
-
             // allow options to be specified by a single number for shorthand if
             // the horizontal and vertical components are the same
-            if (!prop.match(/.*Opacity$/) && prop !== "range" &&
-                typeof val === "number") {
+            if (
+                !prop.match(/.*Opacity$/) &&
+                prop !== "range" &&
+                typeof val === "number"
+            ) {
                 options[prop] = [val, val];
             }
 
@@ -1106,7 +1186,6 @@ GraphUtils.createGraphie = function(el) {
                     options[prop] = [[-val, val], [-val, val]];
                 }
             }
-
         });
 
         const range = options.range || [[-10, 10], [-10, 10]];
@@ -1122,8 +1201,8 @@ GraphUtils.createGraphie = function(el) {
             Math.min(Math.max(range[0][0], 0), range[0][1]),
             Math.min(Math.max(range[1][0], 0), range[1][1]),
         ];
-        const axisLabels = options.axisLabels != null ?
-            options.axisLabels : false;
+        const axisLabels =
+            options.axisLabels != null ? options.axisLabels : false;
         const ticks = options.ticks != null ? options.ticks : true;
         const tickStep = options.tickStep || [2, 2];
         const tickLen = options.tickLen || [5, 5];
@@ -1132,11 +1211,17 @@ GraphUtils.createGraphie = function(el) {
         const labelStep = options.labelStep || [1, 1];
         const labelOpacity = options.labelOpacity || 1.0;
         let unityLabels = options.unityLabels || false;
-        const labelFormat = options.labelFormat || function(a) { return a; };
+        const labelFormat =
+            options.labelFormat ||
+            function(a) {
+                return a;
+            };
         let xLabelFormat = options.xLabelFormat || labelFormat;
         let yLabelFormat = options.yLabelFormat || labelFormat;
-        const smartLabelPositioning = options.smartLabelPositioning != null ?
-              options.smartLabelPositioning : true;
+        const smartLabelPositioning =
+            options.smartLabelPositioning != null
+                ? options.smartLabelPositioning
+                : true;
         const realRange = [
             [
                 range[0][0] - (range[0][0] > 0 ? 1 : 0),
@@ -1181,195 +1266,267 @@ GraphUtils.createGraphie = function(el) {
 
         // draw axes
         if (axes) {
-
             // this is a slight hack until <-> arrowheads work
             if (axisArrows === "<->" || axisArrows === true) {
-                this.style({
-                    stroke: options.isMobile ? KhanColors.GRAY_G : "#000000",
-                    opacity: options.isMobile ? 1 : axisOpacity,
-                    strokeWidth: options.isMobile ? 1 : 2,
-                    arrows: "->",
-                }, function() {
-                    if (range[1][0] < 0 && range[1][1] > 0) {
+                this.style(
+                    {
+                        stroke: options.isMobile
+                            ? KhanColors.GRAY_G
+                            : "#000000",
+                        opacity: options.isMobile ? 1 : axisOpacity,
+                        strokeWidth: options.isMobile ? 1 : 2,
+                        arrows: "->",
+                    },
+                    function() {
+                        if (range[1][0] < 0 && range[1][1] > 0) {
+                            this.path([
+                                axisCenter,
+                                [gridRange[0][0], axisCenter[1]],
+                            ]);
+                            this.path([
+                                axisCenter,
+                                [gridRange[0][1], axisCenter[1]],
+                            ]);
+                        }
+                        if (range[0][0] < 0 && range[0][1] > 0) {
+                            this.path([
+                                axisCenter,
+                                [axisCenter[0], gridRange[1][0]],
+                            ]);
+                            this.path([
+                                axisCenter,
+                                [axisCenter[0], gridRange[1][1]],
+                            ]);
+                        }
+                    }
+                );
+
+                // also, we don't support "<-" arrows yet, but why you
+                // would want that on your graph is beyond me.
+            } else if (axisArrows === "->" || axisArrows === "") {
+                this.style(
+                    {
+                        stroke: "#000000",
+                        opacity: axisOpacity,
+                        strokeWidth: 2,
+                        arrows: axisArrows,
+                    },
+                    function() {
                         this.path([
-                            axisCenter,
                             [gridRange[0][0], axisCenter[1]],
-                        ]);
-                        this.path([
-                            axisCenter,
                             [gridRange[0][1], axisCenter[1]],
                         ]);
-                    }
-                    if (range[0][0] < 0 && range[0][1] > 0) {
                         this.path([
-                            axisCenter,
                             [axisCenter[0], gridRange[1][0]],
-                        ]);
-                        this.path([
-                            axisCenter,
                             [axisCenter[0], gridRange[1][1]],
                         ]);
                     }
-                });
-
-            // also, we don't support "<-" arrows yet, but why you
-            // would want that on your graph is beyond me.
-            } else if (axisArrows === "->" || axisArrows === "") {
-                this.style({
-                    stroke: "#000000",
-                    opacity: axisOpacity,
-                    strokeWidth: 2,
-                    arrows: axisArrows,
-                }, function() {
-                    this.path([
-                        [gridRange[0][0], axisCenter[1]],
-                        [gridRange[0][1], axisCenter[1]],
-                    ]);
-                    this.path([
-                        [axisCenter[0], gridRange[1][0]],
-                        [axisCenter[0], gridRange[1][1]],
-                    ]);
-                });
-
+                );
             }
 
             if (axisLabels && axisLabels.length === 2) {
                 this.label(
-                    [gridRange[0][1], axisCenter[1]], axisLabels[0], "right");
+                    [gridRange[0][1], axisCenter[1]],
+                    axisLabels[0],
+                    "right"
+                );
                 this.label(
-                    [axisCenter[0], gridRange[1][1]], axisLabels[1], "above");
+                    [axisCenter[0], gridRange[1][1]],
+                    axisLabels[1],
+                    "above"
+                );
             }
-
         }
 
         // draw tick marks
         if (ticks) {
             const halfWidthTicks = options.isMobile;
-            this.style({
-                stroke: options.isMobile ? KhanColors.GRAY_G : "#000000",
-                opacity: options.isMobile ? 1 : tickOpacity,
-                strokeWidth: 1,
-            }, function() {
+            this.style(
+                {
+                    stroke: options.isMobile ? KhanColors.GRAY_G : "#000000",
+                    opacity: options.isMobile ? 1 : tickOpacity,
+                    strokeWidth: 1,
+                },
+                function() {
+                    // horizontal axis
+                    let step = gridStep[0] * tickStep[0];
+                    let len = tickLen[0] / scale[1];
+                    let start = gridRange[0][0];
+                    let stop = gridRange[0][1];
 
-                // horizontal axis
-                let step = gridStep[0] * tickStep[0];
-                let len = tickLen[0] / scale[1];
-                let start = gridRange[0][0];
-                let stop = gridRange[0][1];
+                    if (range[1][0] < 0 && range[1][1] > 0) {
+                        for (
+                            let x = step + axisCenter[0];
+                            x <= stop;
+                            x += step
+                        ) {
+                            if (x < stop || !axisArrows) {
+                                this.line(
+                                    [x, -len + axisCenter[1]],
+                                    [
+                                        x,
+                                        halfWidthTicks
+                                            ? 0
+                                            : len + axisCenter[1],
+                                    ]
+                                );
+                            }
+                        }
 
-                if (range[1][0] < 0 && range[1][1] > 0) {
-                    for (let x = step + axisCenter[0]; x <= stop; x += step) {
-                        if (x < stop || !axisArrows) {
-                            this.line(
-                                [x, -len + axisCenter[1]],
-                                [x, halfWidthTicks ? 0 : len + axisCenter[1]]
-                            );
+                        for (
+                            let x = -step + axisCenter[0];
+                            x >= start;
+                            x -= step
+                        ) {
+                            if (x > start || !axisArrows) {
+                                this.line(
+                                    [x, -len + axisCenter[1]],
+                                    [
+                                        x,
+                                        halfWidthTicks
+                                            ? 0
+                                            : len + axisCenter[1],
+                                    ]
+                                );
+                            }
                         }
                     }
 
-                    for (let x = -step + axisCenter[0]; x >= start; x -= step) {
-                        if (x > start || !axisArrows) {
-                            this.line(
-                                [x, -len + axisCenter[1]],
-                                [x, halfWidthTicks ? 0 : len + axisCenter[1]]
-                            );
+                    // vertical axis
+                    step = gridStep[1] * tickStep[1];
+                    len = tickLen[1] / scale[0];
+                    start = gridRange[1][0];
+                    stop = gridRange[1][1];
+
+                    if (range[0][0] < 0 && range[0][1] > 0) {
+                        for (
+                            let y = step + axisCenter[1];
+                            y <= stop;
+                            y += step
+                        ) {
+                            if (y < stop || !axisArrows) {
+                                this.line(
+                                    [-len + axisCenter[0], y],
+                                    [
+                                        halfWidthTicks
+                                            ? 0
+                                            : len + axisCenter[0],
+                                        y,
+                                    ]
+                                );
+                            }
+                        }
+
+                        for (
+                            let y = -step + axisCenter[1];
+                            y >= start;
+                            y -= step
+                        ) {
+                            if (y > start || !axisArrows) {
+                                this.line(
+                                    [-len + axisCenter[0], y],
+                                    [
+                                        halfWidthTicks
+                                            ? 0
+                                            : len + axisCenter[0],
+                                        y,
+                                    ]
+                                );
+                            }
                         }
                     }
                 }
-
-                // vertical axis
-                step = gridStep[1] * tickStep[1];
-                len = tickLen[1] / scale[0];
-                start = gridRange[1][0];
-                stop = gridRange[1][1];
-
-                if (range[0][0] < 0 && range[0][1] > 0) {
-                    for (let y = step + axisCenter[1]; y <= stop; y += step) {
-                        if (y < stop || !axisArrows) {
-                            this.line(
-                                [-len + axisCenter[0], y],
-                                [halfWidthTicks ? 0 : len + axisCenter[0], y]
-                            );
-                        }
-                    }
-
-                    for (let y = -step + axisCenter[1]; y >= start; y -= step) {
-                        if (y > start || !axisArrows) {
-                            this.line(
-                                [-len + axisCenter[0], y],
-                                [halfWidthTicks ? 0 : len + axisCenter[0], y]
-                            );
-                        }
-                    }
-                }
-
-            });
+            );
         }
 
         // draw axis labels
         if (labels) {
-            this.style({
-                stroke: options.isMobile ? KhanColors.GRAY_G : "#000000",
-                opacity: options.isMobile ? 1 : labelOpacity,
-            }, function() {
+            this.style(
+                {
+                    stroke: options.isMobile ? KhanColors.GRAY_G : "#000000",
+                    opacity: options.isMobile ? 1 : labelOpacity,
+                },
+                function() {
+                    // horizontal axis
+                    let step = gridStep[0] * tickStep[0] * labelStep[0];
+                    let start = gridRange[0][0];
+                    let stop = gridRange[0][1];
+                    const xAxisPosition = axisCenter[0] < 0 ? "above" : "below";
+                    const yAxisPosition = axisCenter[0] < 0 ? "right" : "left";
+                    const xShowZero =
+                        axisCenter[0] === 0 && axisCenter[1] !== 0;
+                    const yShowZero =
+                        axisCenter[0] !== 0 && axisCenter[1] === 0;
+                    const axisOffCenter =
+                        axisCenter[0] !== 0 || axisCenter[1] !== 0;
+                    const showUnityX = unityLabels[0] || axisOffCenter;
+                    const showUnityY = unityLabels[1] || axisOffCenter;
 
-                // horizontal axis
-                let step = gridStep[0] * tickStep[0] * labelStep[0];
-                let start = gridRange[0][0];
-                let stop = gridRange[0][1];
-                const xAxisPosition = (axisCenter[0] < 0) ? "above" : "below";
-                const yAxisPosition = (axisCenter[0] < 0) ? "right" : "left";
-                const xShowZero = axisCenter[0] === 0 && axisCenter[1] !== 0;
-                const yShowZero = axisCenter[0] !== 0 && axisCenter[1] === 0;
-                const axisOffCenter = axisCenter[0] !== 0 ||
-                    axisCenter[1] !== 0;
-                const showUnityX = unityLabels[0] || axisOffCenter;
-                const showUnityY = unityLabels[1] || axisOffCenter;
+                    // positive x-axis
+                    for (
+                        let x = (xShowZero ? 0 : step) + axisCenter[0];
+                        x <= stop;
+                        x += step
+                    ) {
+                        if (x < stop || !axisArrows) {
+                            this.label(
+                                [x, axisCenter[1]],
+                                xLabelFormat(x),
+                                xAxisPosition
+                            );
+                        }
+                    }
 
-                // positive x-axis
-                for (let x = (xShowZero ? 0 : step) + axisCenter[0];
-                     x <= stop;
-                     x += step) {
-                    if (x < stop || !axisArrows) {
-                        this.label(
-                            [x, axisCenter[1]], xLabelFormat(x), xAxisPosition);
+                    // negative x-axis
+                    for (
+                        let x = -step * (showUnityX ? 1 : 2) + axisCenter[0];
+                        x >= start;
+                        x -= step
+                    ) {
+                        if (x > start || !axisArrows) {
+                            this.label(
+                                [x, axisCenter[1]],
+                                xLabelFormat(x),
+                                xAxisPosition
+                            );
+                        }
+                    }
+
+                    step = gridStep[1] * tickStep[1] * labelStep[1];
+                    start = gridRange[1][0];
+                    stop = gridRange[1][1];
+
+                    // positive y-axis
+                    for (
+                        let y = (yShowZero ? 0 : step) + axisCenter[1];
+                        y <= stop;
+                        y += step
+                    ) {
+                        if (y < stop || !axisArrows) {
+                            this.label(
+                                [axisCenter[0], y],
+                                yLabelFormat(y),
+                                yAxisPosition
+                            );
+                        }
+                    }
+
+                    // negative y-axis
+                    for (
+                        let y = -step * (showUnityY ? 1 : 2) + axisCenter[1];
+                        y >= start;
+                        y -= step
+                    ) {
+                        if (y > start || !axisArrows) {
+                            this.label(
+                                [axisCenter[0], y],
+                                yLabelFormat(y),
+                                yAxisPosition
+                            );
+                        }
                     }
                 }
-
-                // negative x-axis
-                for (let x = -step * (showUnityX ? 1 : 2) + axisCenter[0];
-                     x >= start;
-                     x -= step) {
-                    if (x > start || !axisArrows) {
-                        this.label(
-                            [x, axisCenter[1]], xLabelFormat(x), xAxisPosition);
-                    }
-                }
-
-                step = gridStep[1] * tickStep[1] * labelStep[1];
-                start = gridRange[1][0];
-                stop = gridRange[1][1];
-
-                // positive y-axis
-                for (let y = (yShowZero ? 0 : step) + axisCenter[1];
-                     y <= stop;
-                     y += step) {
-                    if (y < stop || !axisArrows) {
-                        this.label(
-                            [axisCenter[0], y], yLabelFormat(y), yAxisPosition);
-                    }
-                }
-
-                // negative y-axis
-                for (let y = -step * (showUnityY ? 1 : 2) + axisCenter[1];
-                     y >= start;
-                     y -= step) {
-                    if (y > start || !axisArrows) {
-                        this.label(
-                            [axisCenter[0], y], yLabelFormat(y), yAxisPosition);
-                    }
-                }
-            });
+            );
         }
     };
 

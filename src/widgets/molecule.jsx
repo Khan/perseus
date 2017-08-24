@@ -4,7 +4,6 @@
 
 const React = require("react");
 
-
 const draw = require("./molecule/molecule-drawing.jsx");
 const {layout} = require("./molecule/molecule-layout.jsx");
 const SmilesParser = require("./molecule/smiles-parser.jsx");
@@ -22,7 +21,7 @@ const Molecule = React.createClass({
     },
 
     getInitialState: function() {
-        return { parsedSmiles: null, error: null };
+        return {parsedSmiles: null, error: null};
     },
 
     componentWillMount: function() {
@@ -57,18 +56,18 @@ const Molecule = React.createClass({
     },
 
     setCanvasBounds: function(canvas, items) {
-        const xmax = Math.max(...items.map((item) =>
-            item.pos ? item.pos[0] : -Infinity
-        ));
-        const ymax = Math.max(...items.map((item) =>
-            item.pos ? item.pos[1] : -Infinity
-        ));
-        const xmin = Math.min(...items.map((item) =>
-            item.pos ? item.pos[0] : Infinity
-        ));
-        const ymin = Math.min(...items.map((item) =>
-            item.pos ? item.pos[1] : Infinity
-        ));
+        const xmax = Math.max(
+            ...items.map(item => (item.pos ? item.pos[0] : -Infinity))
+        );
+        const ymax = Math.max(
+            ...items.map(item => (item.pos ? item.pos[1] : -Infinity))
+        );
+        const xmin = Math.min(
+            ...items.map(item => (item.pos ? item.pos[0] : Infinity))
+        );
+        const ymin = Math.min(
+            ...items.map(item => (item.pos ? item.pos[1] : Infinity))
+        );
         const width = xmax - xmin + 2 * borderSize;
         const height = ymax - ymin + 2 * borderSize;
         canvas.width = width;
@@ -80,7 +79,9 @@ const Molecule = React.createClass({
         // Since canvas drawing happens only through an imperative API, we sync
         // up the component with the canvas here, which happens when the
         // component mounts or updates.
-        if (!!this.state.error || !this.state.parsedSmiles) { return; }
+        if (!!this.state.error || !this.state.parsedSmiles) {
+            return;
+        }
         const items = layout(this.state.parsedSmiles, this.props.rotationAngle);
         const canvas = this.refs.canvas;
         const translation = this.setCanvasBounds(canvas, items);
@@ -94,21 +95,30 @@ const Molecule = React.createClass({
     render: function() {
         // TODO(colin): escape the punctuation in the SMILES alt text for
         // screen readers?
-        let content = <canvas
-            className="molecule-canvas"
-            id={this.props.id + "-molecule"}
-            ref="canvas"
-        >
-            A molecular structure drawing.  SMILES notation:
-            {this.props.smiles}.
-        </canvas>;
+        let content = (
+            <canvas
+                className="molecule-canvas"
+                id={this.props.id + "-molecule"}
+                ref="canvas"
+            >
+                A molecular structure drawing. SMILES notation:
+                {this.props.smiles}.
+            </canvas>
+        );
         if (this.state.error) {
-            content = <div className="error">{this.state.error}</div>;
+            content = (
+                <div className="error">
+                    {this.state.error}
+                </div>
+            );
         }
-        return <div className="molecule-canvas">{content}</div>;
+        return (
+            <div className="molecule-canvas">
+                {content}
+            </div>
+        );
     },
 });
-
 
 const MoleculeWidget = React.createClass({
     propTypes: {
@@ -142,11 +152,13 @@ const MoleculeWidget = React.createClass({
     },
 
     render: function() {
-        return <Molecule
-            id={this.props.widgetId}
-            smiles={this.props.smiles}
-            rotationAngle={this.props.rotationAngle}
-        />;
+        return (
+            <Molecule
+                id={this.props.widgetId}
+                smiles={this.props.smiles}
+                rotationAngle={this.props.rotationAngle}
+            />
+        );
     },
 });
 

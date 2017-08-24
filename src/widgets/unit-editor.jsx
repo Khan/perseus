@@ -23,7 +23,6 @@ const ALL = "all";
 const SOME = "some";
 const MAX_SIGFIGS = 10;
 
-
 var sigfigPrint = function(num, sigfigs) {
     return displaySigFigs(num, sigfigs, -MAX_SIGFIGS, false);
 };
@@ -42,21 +41,27 @@ var UnitExample = React.createClass({
     render: function() {
         var icon;
         if (this.state.valid) {
-            icon = <span>
-                <span className="unit-example-okay">
-                    <InlineIcon {...iconOk} />
+            icon = (
+                <span>
+                    <span className="unit-example-okay">
+                        <InlineIcon {...iconOk} />
+                    </span>
+                    {this.state.solvedExample}
                 </span>
-                {this.state.solvedExample}
-            </span>;
+            );
         } else {
-            icon = <span className="unit-example-not-okay">
-                <InlineIcon {...iconRemove} />
-            </span>;
+            icon = (
+                <span className="unit-example-not-okay">
+                    <InlineIcon {...iconRemove} />
+                </span>
+            );
         }
 
-        return <div>
-            {icon} {this.props.name}
-        </div>;
+        return (
+            <div>
+                {icon} {this.props.name}
+            </div>
+        );
     },
 
     componentWillReceiveProps: function(nextProps) {
@@ -67,7 +72,7 @@ var UnitExample = React.createClass({
         this._checkValidity(this.props);
     },
 
-    _checkValidity: function({ name, original, sigfigs }) {
+    _checkValidity: function({name, original, sigfigs}) {
         var parseResult = KAS.unitParse(name);
         var solvedExample = "";
 
@@ -76,12 +81,8 @@ var UnitExample = React.createClass({
 
         if (parseResult.parsed && original) {
             var x = new KAS.Var("x");
-            var { unit } = parseResult;
-            var equality = new KAS.Eq(
-                original,
-                "=",
-                new KAS.Mul(x, unit)
-            );
+            var {unit} = parseResult;
+            var equality = new KAS.Eq(original, "=", new KAS.Mul(x, unit));
             try {
                 var answer = equality.solveLinearEquationForVariable(x);
 
@@ -92,10 +93,7 @@ var UnitExample = React.createClass({
                 // places.
                 solvedExample = sigfigPrint(answer.eval(), sigfigs);
 
-                valid = KAS.compare(
-                    primUnits(original),
-                    primUnits(unit)
-                ).equal;
+                valid = KAS.compare(primUnits(original), primUnits(unit)).equal;
             } catch (e) {
                 valid = false;
             }
@@ -123,78 +121,90 @@ const UnitInputEditor = React.createClass({
         return {
             value: "5x10^5 kg m / s^2",
             accepting: ALL,
-            sigfigs: 3
+            sigfigs: 3,
         };
     },
 
     render: function() {
-        var { acceptingUnits, accepting } = this.props;
+        var {acceptingUnits, accepting} = this.props;
         acceptingUnits = acceptingUnits || [];
         var acceptingElem = null;
         if (accepting === SOME) {
             var unitsArr = acceptingUnits.map((name, i) =>
-                <UnitExample name={name}
-                             original={this.original || null}
-                             sigfigs={this.props.sigfigs}
-                             key={i} />
+                <UnitExample
+                    name={name}
+                    original={this.original || null}
+                    sigfigs={this.props.sigfigs}
+                    key={i}
+                />
             );
 
-            acceptingElem = <div>
-                <input
-                    type="text"
-                    defaultValue={acceptingUnits.join(", ")}
-                    onChange={this.handleAcceptingUnitsChange}
-                />
-                {" "}(comma-separated)
-                {unitsArr}
-            </div>;
+            acceptingElem = (
+                <div>
+                    <input
+                        type="text"
+                        defaultValue={acceptingUnits.join(", ")}
+                        onChange={this.handleAcceptingUnitsChange}
+                    />{" "}
+                    (comma-separated)
+                    {unitsArr}
+                </div>
+            );
         }
 
-        return <div className="unit-editor">
-            <div>
-                <input value={this.props.value}
-                       className="unit-editor-canonical"
-                       onBlur={this._handleBlur}
-                       onKeyPress={this._handleBlur}
-                       onChange={this.onChange} />
-                {" "}
-                {this.parsed
-                    ? <span className="unit-example-okay">
-                        <InlineIcon {...iconOk} />
-                    </span>
-                    : <span className="unit-example-not-okay">
-                        <InlineIcon {...iconRemove} />
-                    </span>
-                }
-            </div>
+        return (
+            <div className="unit-editor">
+                <div>
+                    <input
+                        value={this.props.value}
+                        className="unit-editor-canonical"
+                        onBlur={this._handleBlur}
+                        onKeyPress={this._handleBlur}
+                        onChange={this.onChange}
+                    />{" "}
+                    {this.parsed
+                        ? <span className="unit-example-okay">
+                              <InlineIcon {...iconOk} />
+                          </span>
+                        : <span className="unit-example-not-okay">
+                              <InlineIcon {...iconRemove} />
+                          </span>}
+                </div>
 
-            <div>
-                Significant Figures:{" "}
-                <NumberInput value={this.props.sigfigs}
-                             onChange={this.handleSigfigChange}
-                             checkValidity={this._checkSigfigValidity}
-                             useArrowKeys />
-            </div>
+                <div>
+                    Significant Figures:{" "}
+                    <NumberInput
+                        value={this.props.sigfigs}
+                        onChange={this.handleSigfigChange}
+                        checkValidity={this._checkSigfigValidity}
+                        useArrowKeys
+                    />
+                </div>
 
-            <div>
-                <label>
-                    <input type="radio"
-                           name={this.groupId}
-                           onChange={() => this._setAccepting(ALL)}
-                           checked={this.props.accepting === ALL} />
-                    {" Any equivalent unit "}
-                </label>
-                <label>
-                    <input type="radio"
-                           name={this.groupId}
-                           onChange={() => this._setAccepting(SOME)}
-                           checked={this.props.accepting === SOME} />
-                    {" Only these units "}
-                </label>
-            </div>
+                <div>
+                    <label>
+                        <input
+                            type="radio"
+                            name={this.groupId}
+                            onChange={() => this._setAccepting(ALL)}
+                            checked={this.props.accepting === ALL}
+                        />
+                        {" Any equivalent unit "}
+                    </label>
+                    <label>
+                        <input
+                            type="radio"
+                            name={this.groupId}
+                            onChange={() => this._setAccepting(SOME)}
+                            checked={this.props.accepting === SOME}
+                        />
+                        {" Only these units "}
+                    </label>
+                </div>
 
-            {acceptingElem}
-        </div>;
+                {acceptingElem}
+            </div>
+        );
     },
 
     change(...args) {
@@ -206,11 +216,11 @@ const UnitInputEditor = React.createClass({
             .split(",")
             .map(str => str.trim())
             .filter(str => str !== "");
-        this.change({ acceptingUnits });
+        this.change({acceptingUnits});
     },
 
     handleSigfigChange: function(sigfigs) {
-        this.change({ sigfigs });
+        this.change({sigfigs});
     },
 
     _checkSigfigValidity: function(sigfigs) {
@@ -218,7 +228,7 @@ const UnitInputEditor = React.createClass({
     },
 
     _setAccepting: function(val) {
-        this.change({ accepting: val });
+        this.change({accepting: val});
     },
 
     componentWillMount: function() {
@@ -244,11 +254,11 @@ const UnitInputEditor = React.createClass({
     },
 
     onChange: function(event) {
-        this.props.onChange({ value: event.target.value });
+        this.props.onChange({value: event.target.value});
     },
 
     getSaveWarnings: function() {
-        var { value, accepting, acceptingUnits } = this.props;
+        var {value, accepting, acceptingUnits} = this.props;
         var warnings = [];
 
         var tryParse = KAS.unitParse(value);

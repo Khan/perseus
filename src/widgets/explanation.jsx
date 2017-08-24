@@ -2,7 +2,7 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-const { StyleSheet, css } = require("aphrodite");
+const {StyleSheet, css} = require("aphrodite");
 const React = require("react");
 const _ = require("underscore");
 
@@ -11,7 +11,10 @@ const PerseusApi = require("../perseus-api.jsx");
 const Renderer = require("../renderer.jsx");
 const mediaQueries = require("../styles/media-queries.js");
 const styleConstants = require("../styles/constants.js");
-const {linterContextProps, linterContextDefault} = require("../gorgon/proptypes.js");
+const {
+    linterContextProps,
+    linterContextDefault,
+} = require("../gorgon/proptypes.js");
 
 const defaultExplanationProps = {
     showPrompt: "Explain",
@@ -49,7 +52,7 @@ const Explanation = React.createClass({
 
     _onClick: function() {
         this.setState({
-            expanded: !this.state.expanded
+            expanded: !this.state.expanded,
         });
         this.props.trackInteraction();
     },
@@ -58,70 +61,80 @@ const Explanation = React.createClass({
         const {Link} = this.props.apiOptions.baseElements;
         const {readOnly, isMobile} = this.props.apiOptions;
 
-        const linkAnchor = this.state.expanded ?
-                this.props.hidePrompt : this.props.showPrompt;
+        const linkAnchor = this.state.expanded
+            ? this.props.hidePrompt
+            : this.props.showPrompt;
 
         let linkContainer;
 
-        const href = readOnly ? null : 'javascript:void(0)';
+        const href = readOnly ? null : "javascript:void(0)";
         const onClick = readOnly ? null : this._onClick;
 
         if (isMobile) {
-            linkContainer = <div className={css(styles.linkContainer)}>
-                <a
-                    className={css(styles.mobileExplanationLink)}
-                    href={href}
-                    onClick={onClick}
-                >
-                    {linkAnchor}
-                </a>
-                {this.state.expanded &&
-                    <svg className={css(styles.disclosureArrow)}>
-                        <polygon
-                            style={{fill: backgroundColor}}
-                            points={`0,${arrowHeight} ` +
-                                `${arrowWidth},${arrowHeight} ` +
-                                `${arrowWidth / 2},0`}
-                        />
-                    </svg>}
-            </div>;
+            linkContainer = (
+                <div className={css(styles.linkContainer)}>
+                    <a
+                        className={css(styles.mobileExplanationLink)}
+                        href={href}
+                        onClick={onClick}
+                    >
+                        {linkAnchor}
+                    </a>
+                    {this.state.expanded &&
+                        <svg className={css(styles.disclosureArrow)}>
+                            <polygon
+                                style={{fill: backgroundColor}}
+                                points={
+                                    `0,${arrowHeight} ` +
+                                    `${arrowWidth},${arrowHeight} ` +
+                                    `${arrowWidth / 2},0`
+                                }
+                            />
+                        </svg>}
+                </div>
+            );
         } else {
-            linkContainer = <div className={css(styles.linkContainer)}>
-                <Link
-                    className={css(styles.explanationLink)}
-                    href={href}
-                    onClick={onClick}
-                >
-                    {`[${linkAnchor}]`}
-                </Link>
-            </div>;
+            linkContainer = (
+                <div className={css(styles.linkContainer)}>
+                    <Link
+                        className={css(styles.explanationLink)}
+                        href={href}
+                        onClick={onClick}
+                    >
+                        {`[${linkAnchor}]`}
+                    </Link>
+                </div>
+            );
         }
 
         const expandedStyle = isMobile
             ? styles.contentExpandedMobile
             : styles.contentExpanded;
 
-        return <div className={css(styles.container)}>
-            {linkContainer}
-            <div className={css(
-                    styles.content,
-                    isMobile && styles.contentMobile,
-                    this.state.expanded && expandedStyle
-                )}
-                style={{
-                    height: this.state.expanded ? "auto" : 0,
-                    overflow: this.state.expanded ? "visible" : "hidden"
-                }}
-                ref="content"
-            >
-                <Renderer
-                    apiOptions={this.props.apiOptions}
-                    content={this.props.explanation}
-                    widgets={this.props.widgets}
-                    linterContext={this.props.linterContext}
-                />
+        return (
+            <div className={css(styles.container)}>
+                {linkContainer}
+                <div
+                    className={css(
+                        styles.content,
+                        isMobile && styles.contentMobile,
+                        this.state.expanded && expandedStyle
+                    )}
+                    style={{
+                        height: this.state.expanded ? "auto" : 0,
+                        overflow: this.state.expanded ? "visible" : "hidden",
+                    }}
+                    ref="content"
+                >
+                    <Renderer
+                        apiOptions={this.props.apiOptions}
+                        content={this.props.explanation}
+                        widgets={this.props.widgets}
+                        linterContext={this.props.linterContext}
+                    />
+                </div>
             </div>
-        </div>;
+        );
     },
 
     getUserInput: function() {
@@ -130,9 +143,8 @@ const Explanation = React.createClass({
 
     simpleValidate: function(rubric) {
         return Explanation.validate(this.getUserInput(), rubric);
-    }
+    },
 });
-
 
 const leftBorderSpacing = 23;
 const verticalContentPadding = 10;
@@ -143,17 +155,17 @@ const backgroundColor = styleConstants.gray95;
 
 const styles = StyleSheet.create({
     container: {
-        display: 'inline',
-        position: 'relative',
+        display: "inline",
+        position: "relative",
     },
 
     linkContainer: {
-        display: 'inline-block',
+        display: "inline-block",
     },
 
     explanationLink: {
-        fontStyle: 'italic',
-        color: '#007d96',
+        fontStyle: "italic",
+        color: "#007d96",
 
         [mediaQueries.xl]: {
             fontSize: 20,
@@ -172,7 +184,7 @@ const styles = StyleSheet.create({
     mobileExplanationLink: {
         color: styleConstants.kaGreen,
         borderBottom: `dashed 1px ${styleConstants.kaGreen}`,
-        textDecoration: 'none',
+        textDecoration: "none",
 
         // TODO(benkomalo): these should be pulled in from common typography
         // shared files so we have a single place where the type hierarchy is
@@ -193,12 +205,12 @@ const styles = StyleSheet.create({
     },
 
     content: {
-        position: 'relative',
-        transition: 'margin-top 0.1s',
+        position: "relative",
+        transition: "margin-top 0.1s",
     },
 
     contentExpanded: {
-        borderLeft: '5px solid #ccc',
+        borderLeft: "5px solid #ccc",
         marginLeft: -leftBorderSpacing,
         paddingLeft: leftBorderSpacing,
 
@@ -211,7 +223,7 @@ const styles = StyleSheet.create({
     },
 
     contentExpandedMobile: {
-        boxSizing: 'content-box',
+        boxSizing: "content-box",
         paddingTop: 32,
         paddingBottom: 32,
         marginTop: arrowHeight,
@@ -237,9 +249,9 @@ const styles = StyleSheet.create({
         // below it.
         bottom: -(arrowHeight + 5),
         height: arrowHeight,
-        left: '50%',
+        left: "50%",
         marginLeft: -(arrowWidth / 2),
-        position: 'absolute',
+        position: "absolute",
         width: arrowWidth,
     },
 });
@@ -250,9 +262,9 @@ _.extend(Explanation, {
             type: "points",
             earned: 0,
             total: 0,
-            message: null
+            message: null,
         };
-    }
+    },
 });
 
 module.exports = {

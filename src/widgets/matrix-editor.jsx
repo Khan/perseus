@@ -44,19 +44,14 @@ var getMatrixSize = function(matrix) {
 var MatrixEditor = React.createClass({
     propTypes: {
         ...Changeable.propTypes,
-        matrixBoardSize: React.PropTypes.arrayOf(
-            React.PropTypes.number
-        ).isRequired,
+        matrixBoardSize: React.PropTypes.arrayOf(React.PropTypes.number)
+            .isRequired,
         answers: React.PropTypes.arrayOf(
-            React.PropTypes.arrayOf(
-                React.PropTypes.number
-            )
+            React.PropTypes.arrayOf(React.PropTypes.number)
         ),
         prefix: React.PropTypes.string,
         suffix: React.PropTypes.string,
-        cursorPosition: React.PropTypes.arrayOf(
-            React.PropTypes.number
-        )
+        cursorPosition: React.PropTypes.arrayOf(React.PropTypes.number),
     },
 
     getDefaultProps: function() {
@@ -65,64 +60,72 @@ var MatrixEditor = React.createClass({
             answers: [[]],
             prefix: "",
             suffix: "",
-            cursorPosition: [0, 0]
+            cursorPosition: [0, 0],
         };
     },
 
     render: function() {
-        var matrixProps = _.extend({
-            numericInput: true,
-            onBlur: () => {},
-            onFocus: () => {},
-            trackInteraction: () => {},
-        }, this.props);
-        return <div className="perseus-matrix-editor">
-            <div className="perseus-widget-row">
-                {" "}Max matrix size:{" "}
-                <RangeInput
-                    value={this.props.matrixBoardSize}
-                    onChange={this.onMatrixBoardSizeChange}
-                    format={this.props.labelStyle}
-                    useArrowKeys={true} />
+        var matrixProps = _.extend(
+            {
+                numericInput: true,
+                onBlur: () => {},
+                onFocus: () => {},
+                trackInteraction: () => {},
+            },
+            this.props
+        );
+        return (
+            <div className="perseus-matrix-editor">
+                <div className="perseus-widget-row">
+                    {" "}Max matrix size:{" "}
+                    <RangeInput
+                        value={this.props.matrixBoardSize}
+                        onChange={this.onMatrixBoardSizeChange}
+                        format={this.props.labelStyle}
+                        useArrowKeys={true}
+                    />
+                </div>
+                <div className="perseus-widget-row">
+                    <Matrix {...matrixProps} />
+                </div>
+                <div className="perseus-widget-row">
+                    {" "}Matrix prefix:{" "}
+                    <Editor
+                        ref={"prefix"}
+                        apiOptions={this.props.apiOptions}
+                        content={this.props.prefix}
+                        widgetEnabled={false}
+                        onChange={newProps => {
+                            this.change({prefix: newProps.content});
+                        }}
+                    />
+                </div>
+                <div className="perseus-widget-row">
+                    {" "}Matrix suffix:{" "}
+                    <Editor
+                        ref={"suffix"}
+                        apiOptions={this.props.apiOptions}
+                        content={this.props.suffix}
+                        widgetEnabled={false}
+                        onChange={newProps => {
+                            this.change({suffix: newProps.content});
+                        }}
+                    />
+                </div>
             </div>
-            <div className="perseus-widget-row">
-                <Matrix {...matrixProps} />
-            </div>
-            <div className="perseus-widget-row">
-                {" "}Matrix prefix:{" "}
-                <Editor
-                    ref={"prefix"}
-                    apiOptions={this.props.apiOptions}
-                    content={this.props.prefix}
-                    widgetEnabled={false}
-                    onChange={(newProps) => {
-                        this.change({ prefix: newProps.content });
-                    }} />
-            </div>
-            <div className="perseus-widget-row">
-                {" "}Matrix suffix:{" "}
-                <Editor
-                    ref={"suffix"}
-                    apiOptions={this.props.apiOptions}
-                    content={this.props.suffix}
-                    widgetEnabled={false}
-                    onChange={(newProps) => {
-                        this.change({ suffix: newProps.content });
-                    }} />
-            </div>
-        </div>;
+        );
     },
 
     change(...args) {
         return Changeable.change.apply(this, args);
     },
 
-    onMatrixBoardSizeChange: function (range) {
+    onMatrixBoardSizeChange: function(range) {
         var matrixSize = getMatrixSize(this.props.answers);
         if (range[0] !== null && range[1] !== null) {
             range = [
                 Math.round(Math.min(Math.max(range[0], 1), MAX_BOARD_SIZE)),
-                Math.round(Math.min(Math.max(range[1], 1), MAX_BOARD_SIZE))
+                Math.round(Math.min(Math.max(range[1], 1), MAX_BOARD_SIZE)),
             ];
             var answers = _(Math.min(range[0], matrixSize[0])).times(row => {
                 return _(Math.min(range[1], matrixSize[1])).times(col => {
@@ -131,7 +134,7 @@ var MatrixEditor = React.createClass({
             });
             this.props.onChange({
                 matrixBoardSize: range,
-                answers: answers
+                answers: answers,
             });
         }
     },

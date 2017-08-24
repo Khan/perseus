@@ -7,10 +7,13 @@ var React = require("react");
 var _ = require("underscore");
 
 var ApiOptions = require("../perseus-api.jsx").Options;
-var Changeable   = require("../mixins/changeable.jsx");
+var Changeable = require("../mixins/changeable.jsx");
 var Renderer = require("../renderer.jsx");
 
-const {linterContextProps, linterContextDefault} = require("../gorgon/proptypes.js");
+const {
+    linterContextProps,
+    linterContextDefault,
+} = require("../gorgon/proptypes.js");
 
 var Group = React.createClass({
     propTypes: {
@@ -55,7 +58,7 @@ var Group = React.createClass({
                     if (newFocus) {
                         this.props.onFocus(newFocus);
                     }
-                }
+                },
             }
         );
 
@@ -69,14 +72,16 @@ var Group = React.createClass({
         // really we should have a more unidirectional flow. TODO(marcia): fix.
         var number = _.indexOf(this.props.findWidgets("group"), this);
         var problemNumComponent = this.props.apiOptions.groupAnnotator(
-            number, this.props.widgetId);
+            number,
+            this.props.widgetId
+        );
 
         // This is a little strange because the id of the widget that actually
         // changed is going to be lost in favor of the group widget's id. The
         // widgets prop also wasn't actually changed, and this only serves to
         // alert our renderer (our parent) of the fact that some interaction
         // has occurred.
-        var onInteractWithWidget = (id) => {
+        var onInteractWithWidget = id => {
             if (this.refs.renderer) {
                 this.change("widgets", this.refs.renderer.props.widgets);
             }
@@ -88,27 +93,30 @@ var Group = React.createClass({
 
         // TODO(mdr): Widgets inside this Renderer are not discoverable through
         //     the parent Renderer's `findWidgets` function.
-        return <div
-            className={classNames({
-                "perseus-group": true,
-                "perseus-group-valid-answer": isValid,
-                "perseus-group-invalid-answer": isInvalid,
-            })}
-        >
-            {problemNumComponent}
-            <Renderer
-                {...this.props}
-                ref="renderer"
-                apiOptions={apiOptions}
-                findExternalWidgets={this.props.findWidgets}
-                reviewMode={!!this.props.reviewModeRubric}
-                onInteractWithWidget={onInteractWithWidget}
-                linterContext={this.props.linterContext}
-            />
-            {this.props.icon && <div className="group-icon">
-                {this.props.icon}
-            </div>}
-        </div>;
+        return (
+            <div
+                className={classNames({
+                    "perseus-group": true,
+                    "perseus-group-valid-answer": isValid,
+                    "perseus-group-invalid-answer": isInvalid,
+                })}
+            >
+                {problemNumComponent}
+                <Renderer
+                    {...this.props}
+                    ref="renderer"
+                    apiOptions={apiOptions}
+                    findExternalWidgets={this.props.findWidgets}
+                    reviewMode={!!this.props.reviewModeRubric}
+                    onInteractWithWidget={onInteractWithWidget}
+                    linterContext={this.props.linterContext}
+                />
+                {this.props.icon &&
+                    <div className="group-icon">
+                        {this.props.icon}
+                    </div>}
+            </div>
+        );
     },
 
     change(...args) {
@@ -176,10 +184,7 @@ var Group = React.createClass({
     },
 });
 
-var traverseChildWidgets = function(
-        props,
-        traverseRenderer) {
-
+var traverseChildWidgets = function(props, traverseRenderer) {
     return _.extend({}, props, traverseRenderer(props));
 };
 

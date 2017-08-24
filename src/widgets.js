@@ -49,9 +49,9 @@ var Widgets = {
     },
 
     getTransform: function(name) {
-        return _.has(widgets, name) ?
-            widgets[name].transform || _.identity :
-            null;
+        return _.has(widgets, name)
+            ? widgets[name].transform || _.identity
+            : null;
     },
 
     getVersion: function(name) {
@@ -73,9 +73,12 @@ var Widgets = {
 
     getPublicWidgets: function() {
         // TODO(alex): Update underscore.js so that _.pick can take a function.
-        return _.pick(widgets, _.reject(_.keys(widgets), function(name) {
-            return widgets[name].hidden;
-        }));
+        return _.pick(
+            widgets,
+            _.reject(_.keys(widgets), function(name) {
+                return widgets[name].hidden;
+            })
+        );
     },
 
     isAccessible: function(widgetInfo) {
@@ -111,9 +114,11 @@ var Widgets = {
         // If the widget version is later than what we understand (major
         // version is higher than latest, or major versions are equal and minor
         // version is higher than latest), don't perform any upgrades.
-        if (initialVersion.major > latestVersion.major ||
-                (initialVersion.major === latestVersion.major &&
-                 initialVersion.minor > latestVersion.minor)) {
+        if (
+            initialVersion.major > latestVersion.major ||
+            (initialVersion.major === latestVersion.major &&
+                initialVersion.minor > latestVersion.minor)
+        ) {
             return oldWidgetInfo;
         }
 
@@ -129,7 +134,6 @@ var Widgets = {
         // Mostly, we'd rather not run upgrade functions on props that are
         // not complete.
         if (_.keys(newEditorProps).length !== 0) {
-
             // We loop through all the versions after the current version of
             // the loaded widget, up to and including the latest version of the
             // loaded widget, and run the upgrade function to bring our loaded
@@ -137,24 +141,32 @@ var Widgets = {
             // There is a little subtlety here in that we call
             // upgradePropsMap[1] to upgrade *to* version 1,
             // (not from version 1).
-            for (var nextVersion = initialVersion.major + 1;
-                    nextVersion <= latestVersion.major;
-                    nextVersion++) {
-
+            for (
+                var nextVersion = initialVersion.major + 1;
+                nextVersion <= latestVersion.major;
+                nextVersion++
+            ) {
                 if (upgradePropsMap[nextVersion]) {
                     newEditorProps = upgradePropsMap[nextVersion](
                         newEditorProps
                     );
-
-                } else if ((typeof console !== 'undefined') && console.warn) {
+                } else if (typeof console !== "undefined" && console.warn) {
                     // This is a warning because it is unlikely to be hit in
                     // local testing, and a warning is slightly less scary in
                     // prod than a `throw new Error`
                     console.warn(
-                        "No upgrade found for widget `" + type + "` from " +
-                        "major version `" + (nextVersion - 1) + "` to " +
-                        "major version `" + nextVersion + "` found. This " +
-                        "is necessary to render this `" + type + "` correctly."
+                        "No upgrade found for widget `" +
+                            type +
+                            "` from " +
+                            "major version `" +
+                            (nextVersion - 1) +
+                            "` to " +
+                            "major version `" +
+                            nextVersion +
+                            "` found. This " +
+                            "is necessary to render this `" +
+                            type +
+                            "` correctly."
                     );
                     // But try to keep going anyways (yolo!)
                     // (Throwing an error here would just break the page
@@ -187,13 +199,12 @@ var Widgets = {
             widgetStatic = DEFAULT_STATIC;
         }
 
-        return _.extend({}, oldWidgetInfo, {  // maintain other info, like type
+        return _.extend({}, oldWidgetInfo, {
+            // maintain other info, like type
             // After upgrading we guarantee that the version is up-to-date
             version: latestVersion,
             // Default graded to true (so null/undefined becomes true):
-            graded: (
-                (oldWidgetInfo.graded != null) ? oldWidgetInfo.graded : true
-            ),
+            graded: oldWidgetInfo.graded != null ? oldWidgetInfo.graded : true,
             alignment: alignment,
             static: widgetStatic,
             options: newEditorProps,
@@ -224,10 +235,7 @@ var Widgets = {
         return transform(widgetInfo.options, problemNum);
     },
 
-    traverseChildWidgets: function(
-            widgetInfo,
-            traverseRenderer) {
-
+    traverseChildWidgets: function(widgetInfo, traverseRenderer) {
         if (!traverseRenderer) {
             throw new Error("traverseRenderer must be provided, but was not");
         }
@@ -265,8 +273,10 @@ var Widgets = {
      */
     getSupportedAlignments: function(type) {
         var widgetInfo = widgets[type];
-        return (widgetInfo && widgetInfo.supportedAlignments) ||
-            DEFAULT_SUPPORTED_ALIGNMENTS;
+        return (
+            (widgetInfo && widgetInfo.supportedAlignments) ||
+            DEFAULT_SUPPORTED_ALIGNMENTS
+        );
     },
 
     /**
@@ -307,25 +317,36 @@ var Widgets = {
      * invalid.
      */
     // TODO(alex): Change this to run as a testcase (vs. being run at runtime)
-    validateAlignments: function () {
-        _.each(widgets, function (widgetInfo) {
-            if (widgetInfo.defaultAlignment &&
-                !_.contains(Widgets.validAlignments,
-                            widgetInfo.defaultAlignment)) {
-                throw new Error("Widget '" + widgetInfo.displayName +
-                    "' has an invalid defaultAlignment value: " +
-                    widgetInfo.defaultAlignment);
+    validateAlignments: function() {
+        _.each(widgets, function(widgetInfo) {
+            if (
+                widgetInfo.defaultAlignment &&
+                !_.contains(
+                    Widgets.validAlignments,
+                    widgetInfo.defaultAlignment
+                )
+            ) {
+                throw new Error(
+                    "Widget '" +
+                        widgetInfo.displayName +
+                        "' has an invalid defaultAlignment value: " +
+                        widgetInfo.defaultAlignment
+                );
             }
 
             if (widgetInfo.supportedAlignments) {
                 var unknownAlignments = _.difference(
-                     widgetInfo.supportedAlignments,
-                     Widgets.validAlignments);
+                    widgetInfo.supportedAlignments,
+                    Widgets.validAlignments
+                );
 
                 if (unknownAlignments.length) {
-                    throw new Error("Widget '" + widgetInfo.displayName +
-                        "' has an invalid value for supportedAlignments: " +
-                        unknownAlignments.join(" "));
+                    throw new Error(
+                        "Widget '" +
+                            widgetInfo.displayName +
+                            "' has an invalid value for supportedAlignments: " +
+                            unknownAlignments.join(" ")
+                    );
                 }
             }
         });

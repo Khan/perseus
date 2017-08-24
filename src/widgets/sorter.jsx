@@ -2,14 +2,17 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var React = require('react');
+var React = require("react");
 var _ = require("underscore");
 
 var Sortable = require("../components/sortable.jsx");
 
 const ApiOptions = require("../perseus-api.jsx").Options;
 var shuffle = require("../util.js").shuffle;
-const {linterContextProps, linterContextDefault} = require("../gorgon/proptypes.js");
+const {
+    linterContextProps,
+    linterContextDefault,
+} = require("../gorgon/proptypes.js");
 
 var HORIZONTAL = "horizontal",
     VERTICAL = "vertical";
@@ -46,17 +49,19 @@ var Sorter = React.createClass({
 
         const marginPx = this.props.apiOptions.isMobile ? 8 : 5;
 
-        return <div className="perseus-widget-sorter perseus-clearfix">
-            <Sortable
-                options={options}
-                layout={this.props.layout}
-                margin={marginPx}
-                padding={this.props.padding}
-                onChange={this.handleChange}
-                linterContext={this.props.linterContext}
-                ref="sortable"
-            />
-        </div>;
+        return (
+            <div className="perseus-widget-sorter perseus-clearfix">
+                <Sortable
+                    options={options}
+                    layout={this.props.layout}
+                    margin={marginPx}
+                    padding={this.props.padding}
+                    onChange={this.handleChange}
+                    linterContext={this.props.linterContext}
+                    ref="sortable"
+                />
+            </div>
+        );
     },
 
     handleChange: function(e) {
@@ -70,9 +75,8 @@ var Sorter = React.createClass({
 
     simpleValidate: function(rubric) {
         return Sorter.validate(this.getUserInput(), rubric);
-    }
+    },
 });
-
 
 _.extend(Sorter, {
     validate: function(state, rubric) {
@@ -82,9 +86,9 @@ _.extend(Sorter, {
             type: "points",
             earned: correct ? 1 : 0,
             total: 1,
-            message: null
+            message: null,
         };
-    }
+    },
 });
 
 module.exports = {

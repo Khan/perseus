@@ -16,7 +16,10 @@ const Renderer = require("./renderer.jsx");
 const ProvideKeypad = require("./mixins/provide-keypad.jsx");
 
 const Gorgon = require("./gorgon/gorgon.js");
-const {linterContextProps, linterContextDefault} = require("./gorgon/proptypes.js");
+const {
+    linterContextProps,
+    linterContextDefault,
+} = require("./gorgon/proptypes.js");
 
 const rendererProps = React.PropTypes.shape({
     content: React.PropTypes.string,
@@ -102,7 +105,8 @@ const ArticleRenderer = React.createClass({
             this.props.apiOptions.onFocusChange(
                 this._currentFocus,
                 prevFocusPath,
-                didFocusInput && keypadElement &&
+                didFocusInput &&
+                    keypadElement &&
                     ReactDOM.findDOMNode(keypadElement)
             );
         }
@@ -143,9 +147,9 @@ const ArticleRenderer = React.createClass({
     },
 
     _sections() {
-        return Array.isArray(this.props.json) ?
-            this.props.json :
-            [this.props.json];
+        return Array.isArray(this.props.json)
+            ? this.props.json
+            : [this.props.json];
     },
 
     render() {
@@ -167,39 +171,42 @@ const ArticleRenderer = React.createClass({
         // TODO(alex): Add mobile api functions and pass them down here
         const sections = this._sections().map((section, i) => {
             const refForSection = `section-${i}`;
-            return <div key={i} className="clearfix">
-                <Renderer
-                    {...section}
-                    ref={refForSection}
-                    key={i}
-                    key_={i}
-                    keypadElement={this.keypadElement()}
-                    apiOptions={{
-                        ...apiOptions,
-                        onFocusChange: (newFocusPath, oldFocusPath) => {
-                            // Prefix the paths with the relevant section, so as
-                            // to allow us to distinguish between equivalently-
-                            // named inputs across Renderers.
-                            this._handleFocusChange(
-                                newFocusPath &&
-                                    [refForSection].concat(newFocusPath),
-                                oldFocusPath &&
-                                    [refForSection].concat(oldFocusPath)
-                            );
-                        },
-                    }}
-                    linterContext={
-                        Gorgon.pushContextStack(
-                            this.props.linterContext, 'article'
-                        )
-                    }
-                />
-            </div>;
+            return (
+                <div key={i} className="clearfix">
+                    <Renderer
+                        {...section}
+                        ref={refForSection}
+                        key={i}
+                        key_={i}
+                        keypadElement={this.keypadElement()}
+                        apiOptions={{
+                            ...apiOptions,
+                            onFocusChange: (newFocusPath, oldFocusPath) => {
+                                // Prefix the paths with the relevant section,
+                                // so as to allow us to distinguish between
+                                // equivalently-named inputs across Renderers.
+                                this._handleFocusChange(
+                                    newFocusPath &&
+                                        [refForSection].concat(newFocusPath),
+                                    oldFocusPath &&
+                                        [refForSection].concat(oldFocusPath)
+                                );
+                            },
+                        }}
+                        linterContext={Gorgon.pushContextStack(
+                            this.props.linterContext,
+                            "article"
+                        )}
+                    />
+                </div>
+            );
         });
 
-        return <div className={classes}>
-            {sections}
-        </div>;
+        return (
+            <div className={classes}>
+                {sections}
+            </div>
+        );
     },
 });
 

@@ -12,15 +12,11 @@ const Widgets = require("./widgets.js");
 // Iterate over a single Perseus renderer, mutating `widgets` by appending
 // violating widget types discovered in this item.
 function traverseRenderer(itemData, widgets) {
-    Traversal.traverseRendererDeep(
-        itemData,
-        null,
-        function(info) {
-            if (info.type && !Widgets.isAccessible(info)) {
-                widgets.push(info.type);
-            }
+    Traversal.traverseRendererDeep(itemData, null, function(info) {
+        if (info.type && !Widgets.isAccessible(info)) {
+            widgets.push(info.type);
         }
-    );
+    });
 }
 
 module.exports = {
@@ -36,8 +32,9 @@ module.exports = {
 
         if (itemData._multi) {
             const shape = inferItemShape(itemData);
-            findContentNodesInItem(itemData, shape,
-                content => traverseRenderer(content, widgets));
+            findContentNodesInItem(itemData, shape, content =>
+                traverseRenderer(content, widgets)
+            );
         } else {
             traverseRenderer(itemData.question, widgets);
         }

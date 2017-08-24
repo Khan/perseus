@@ -29,26 +29,30 @@ const MoleculeWidgetEditor = React.createClass({
     },
 
     render: function() {
-        return <div>
+        return (
             <div>
-                {/* TODO(colin): instead of nbsp hacks, use styles to get the
-                    spacing right. */}
-                <label>SMILES:&nbsp;
-                    <TextInput
-                        onChange={this.updateMolecule}
-                        value={this.props.smiles}
-                    />
-                </label>
+                <div>
+                    {/* TODO(colin): instead of nbsp hacks, use styles to get
+                    the spacing right. */}
+                    <label>
+                        SMILES:&nbsp;
+                        <TextInput
+                            onChange={this.updateMolecule}
+                            value={this.props.smiles}
+                        />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        Rotation (deg):&nbsp;
+                        <NumberInput
+                            onChange={this.updateRotation}
+                            value={this.props.rotationAngle}
+                        />
+                    </label>
+                </div>
             </div>
-            <div>
-                <label>Rotation (deg):&nbsp;
-                    <NumberInput
-                        onChange={this.updateRotation}
-                        value={this.props.rotationAngle}
-                    />
-                </label>
-            </div>
-        </div>;
+        );
     },
 });
 

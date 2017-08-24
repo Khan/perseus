@@ -31,8 +31,9 @@ const GradedGroupSetEditor = React.createClass({
     },
 
     getSaveWarnings() {
-        return [].concat(...this._editors.map(
-            editor => editor.getSaveWarnings()));
+        return [].concat(
+            ...this._editors.map(editor => editor.getSaveWarnings())
+        );
     },
 
     serialize() {
@@ -45,43 +46,48 @@ const GradedGroupSetEditor = React.createClass({
         if (!this.props.gradedGroups) {
             return null;
         }
-        return this.props.gradedGroups.map((group, i) => (
+        return this.props.gradedGroups.map((group, i) =>
             <GradedGroupEditor
                 key={i}
-                ref={el => this._editors[i] = el}
+                ref={el => (this._editors[i] = el)}
                 {...group}
                 apiOptions={this.props.apiOptions}
                 widgetEnabled={true}
                 immutableWidgets={false}
-                onChange={data => this.change(
-                    "gradedGroups",
-                    setArrayItem(this.props.gradedGroups, i, {
-                        ...this.props.gradedGroups[i],
-                        ...data,
-                    })
-                )}
+                onChange={data =>
+                    this.change(
+                        "gradedGroups",
+                        setArrayItem(this.props.gradedGroups, i, {
+                            ...this.props.gradedGroups[i],
+                            ...data,
+                        })
+                    )}
             />
-        ));
+        );
     },
 
     addGroup() {
         const groups = this.props.gradedGroups || [];
-        this.change("gradedGroups", groups.concat([
-            GradedGroupEditor.getDefaultProps()]));
+        this.change(
+            "gradedGroups",
+            groups.concat([GradedGroupEditor.getDefaultProps()])
+        );
     },
 
     render() {
-        return <div className="perseus-group-editor">
-            {this.renderGroups()}
-            <button onClick={this.addGroup}>
-                Add group
-            </button>
-        </div>;
+        return (
+            <div className="perseus-group-editor">
+                {this.renderGroups()}
+                <button onClick={this.addGroup}>Add group</button>
+            </div>
+        );
     },
 });
 
-const setArrayItem = (list, i, value) => (
-    [...list.slice(0, i), value, ...list.slice(i + 1)]
-);
+const setArrayItem = (list, i, value) => [
+    ...list.slice(0, i),
+    value,
+    ...list.slice(i + 1),
+];
 
 module.exports = GradedGroupSetEditor;

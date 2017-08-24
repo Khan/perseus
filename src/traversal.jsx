@@ -23,12 +23,13 @@ var objective_ = require("./interactive2/objective_.js");
 
 var Widgets = require("./widgets.js");
 
-var noop = function() { };
+var noop = function() {};
 
 var deepCallbackFor = function(
-        contentCallback,
-        widgetCallback,
-        optionsCallback) {
+    contentCallback,
+    widgetCallback,
+    optionsCallback
+) {
     var deepCallback = function(widgetInfo, widgetId) {
         // This doesn't modify the widget info if the widget info
         // is at a later version than is supported, which is important
@@ -54,11 +55,13 @@ var deepCallbackFor = function(
         // I think once we use react class defaultProps instead of relying
         // on getDefaultProps, this will become easier.
         var newWidgetInfo;
-        if (latestVersion && (
-                upgradedWidgetInfo.version.major === latestVersion.major)) {
+        if (
+            latestVersion &&
+            upgradedWidgetInfo.version.major === latestVersion.major
+        ) {
             newWidgetInfo = Widgets.traverseChildWidgets(
                 upgradedWidgetInfo,
-                (rendererOptions) => {
+                rendererOptions => {
                     return traverseRenderer(
                         rendererOptions,
                         contentCallback,
@@ -83,11 +86,11 @@ var deepCallbackFor = function(
 };
 
 var traverseRenderer = function(
-        rendererOptions,
-        contentCallback,
-        deepWidgetCallback,
-        optionsCallback) {
-
+    rendererOptions,
+    contentCallback,
+    deepWidgetCallback,
+    optionsCallback
+) {
     var newContent = rendererOptions.content;
     if (rendererOptions.content != null) {
         var modifiedContent = contentCallback(rendererOptions.content);
@@ -96,7 +99,8 @@ var traverseRenderer = function(
         }
     }
 
-    var newWidgets = objective_.mapObject(rendererOptions.widgets || {},
+    var newWidgets = objective_.mapObject(
+        rendererOptions.widgets || {},
         function(widgetInfo, widgetId) {
             // Widgets without info or a type are empty widgets, and
             // should always be renderable. It's also annoying to write
@@ -122,11 +126,11 @@ var traverseRenderer = function(
 };
 
 var traverseRendererDeep = function(
-        rendererOptions,
-        contentCallback,
-        widgetCallback,
-        optionsCallback) {
-
+    rendererOptions,
+    contentCallback,
+    widgetCallback,
+    optionsCallback
+) {
     contentCallback = contentCallback || noop;
     widgetCallback = widgetCallback || noop;
     optionsCallback = optionsCallback || noop;
@@ -142,4 +146,3 @@ var traverseRendererDeep = function(
 module.exports = {
     traverseRendererDeep: traverseRendererDeep,
 };
-

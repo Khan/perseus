@@ -11,21 +11,21 @@ var Util = require("../util.js");
 var ButtonGroup = require("react-components/button-group.jsx");
 
 /* Graphie and relevant components. */
-var Graphie      = require("../components/graphie.jsx");
+var Graphie = require("../components/graphie.jsx");
 var MovablePoint = Graphie.MovablePoint;
-var MovableLine  = Graphie.MovableLine;
+var MovableLine = Graphie.MovableLine;
 const WrappedLine = require("../interactive2/wrapped-line.js");
 
 var knumber = require("kmath").number;
 var kvector = require("kmath").vector;
 var kpoint = require("kmath").point;
 const KhanColors = require("../util/colors.js");
-const { containerSizeClassPropType } = require("../util/sizing-utils.js");
-const { interactiveSizes } = require("../styles/constants.js");
-const { getInteractiveBoxFromSizeClass } = require("../util/sizing-utils.js");
+const {containerSizeClassPropType} = require("../util/sizing-utils.js");
+const {interactiveSizes} = require("../styles/constants.js");
+const {getInteractiveBoxFromSizeClass} = require("../util/sizing-utils.js");
 
 /* Mixins. */
-var Changeable   = require("../mixins/changeable.jsx");
+var Changeable = require("../mixins/changeable.jsx");
 
 const {
     GrapherUtil,
@@ -38,13 +38,15 @@ function isFlipped(newCoord, oldCoord, line) {
     var CCW = (a, b, c) => {
         return (b[0] - a[0]) * (c[1] - a[1]) - (c[0] - a[0]) * (b[1] - a[1]);
     };
-    return (CCW(line[0], line[1], oldCoord) > 0) !==
-        (CCW(line[0], line[1], newCoord) > 0);
+    return (
+        CCW(line[0], line[1], oldCoord) > 0 !==
+        CCW(line[0], line[1], newCoord) > 0
+    );
 }
 
 /* Styles */
 var typeSelectorStyle = {
-    padding: "5px 5px"
+    padding: "5px 5px",
 };
 
 /* Graphing interface. */
@@ -54,9 +56,14 @@ var FunctionGrapher = React.createClass({
         // model's default whenever they're not provided (if there's a model)
         props = props || this.props;
         var graph = props.graph;
-        var defaultModelCoords = props.model &&
-            GrapherUtil.maybePointsFromNormalized(props.model.defaultCoords,
-                graph.range, graph.step, graph.snapStep);
+        var defaultModelCoords =
+            props.model &&
+            GrapherUtil.maybePointsFromNormalized(
+                props.model.defaultCoords,
+                graph.range,
+                graph.step,
+                graph.snapStep
+            );
         return props.coords || defaultModelCoords || null;
     },
 
@@ -84,7 +91,7 @@ var FunctionGrapher = React.createClass({
         return {
             graph: {
                 range: [[-10, 10], [-10, 10]],
-                step: [1, 1]
+                step: [1, 1],
             },
             coords: null,
             asymptote: null,
@@ -98,67 +105,84 @@ var FunctionGrapher = React.createClass({
 
     render: function() {
         var pointForCoord = (coord, i) => {
-            return <MovablePoint
-                key={i}
-                coord={coord}
-                static={this.props.static}
-                constraints={[
-                    Interactive2.MovablePoint.constraints.bound(),
-                    Interactive2.MovablePoint.constraints.snap(),
-                    (coord) => {
-                        // Always enforce that this is a function
-                        var isFunction = _.all(this._coords(),
-                            (otherCoord, j) => {
-                                return i === j  || !otherCoord ||
-                                    !knumber.equal(coord[0], otherCoord[0]);
-                            });
+            return (
+                <MovablePoint
+                    key={i}
+                    coord={coord}
+                    static={this.props.static}
+                    constraints={[
+                        Interactive2.MovablePoint.constraints.bound(),
+                        Interactive2.MovablePoint.constraints.snap(),
+                        coord => {
+                            // Always enforce that this is a function
+                            var isFunction = _.all(
+                                this._coords(),
+                                (otherCoord, j) => {
+                                    return (
+                                        i === j ||
+                                        !otherCoord ||
+                                        !knumber.equal(coord[0], otherCoord[0])
+                                    );
+                                }
+                            );
 
-                        // Evaluate this criteria before per-point constraints
-                        if (!isFunction) {
-                            return false;
-                        }
+                            // Evaluate this criteria before per-point
+                            // constraints
+                            if (!isFunction) {
+                                return false;
+                            }
 
-                        // Specific functions have extra per-point constraints
-                        if (this.props.model &&
-                                this.props.model.extraCoordConstraint) {
-                            var extraConstraint =
-                                this.props.model.extraCoordConstraint;
-                            // Calculat resulting coords and verify that
-                            // they're valid for this graph
-                            var proposedCoords = _.clone(this._coords());
-                            var oldCoord = _.clone(proposedCoords[i]);
-                            proposedCoords[i] = coord;
-                            return extraConstraint(coord, oldCoord,
-                                proposedCoords, this._asymptote(),
-                                this.props.graph);
-                        }
+                            // Specific functions have extra per-point
+                            // constraints
+                            if (
+                                this.props.model &&
+                                this.props.model.extraCoordConstraint
+                            ) {
+                                var extraConstraint = this.props.model
+                                    .extraCoordConstraint;
+                                // Calculat resulting coords and verify that
+                                // they're valid for this graph
+                                var proposedCoords = _.clone(this._coords());
+                                var oldCoord = _.clone(proposedCoords[i]);
+                                proposedCoords[i] = coord;
+                                return extraConstraint(
+                                    coord,
+                                    oldCoord,
+                                    proposedCoords,
+                                    this._asymptote(),
+                                    this.props.graph
+                                );
+                            }
 
-                        return isFunction;
-                    }
-                ]}
-                onMove={(newCoord, oldCoord) => {
-                    var coords;
-                    // Reflect over asymptote, if allowed
-                    var asymptote = this._asymptote();
-                    if (asymptote &&
+                            return isFunction;
+                        },
+                    ]}
+                    onMove={(newCoord, oldCoord) => {
+                        var coords;
+                        // Reflect over asymptote, if allowed
+                        var asymptote = this._asymptote();
+                        if (
+                            asymptote &&
                             this.props.model.allowReflectOverAsymptote &&
-                            isFlipped(newCoord, oldCoord, asymptote)) {
-                        coords = _.map(this._coords(), (coord) => {
-                            return kpoint.reflectOverLine(coord, asymptote);
+                            isFlipped(newCoord, oldCoord, asymptote)
+                        ) {
+                            coords = _.map(this._coords(), coord => {
+                                return kpoint.reflectOverLine(coord, asymptote);
+                            });
+                        } else {
+                            coords = _.clone(this._coords());
+                        }
+                        coords[i] = newCoord;
+                        this.props.onChange({
+                            coords: coords,
                         });
-                    } else {
-                        coords = _.clone(this._coords());
-                    }
-                    coords[i] = newCoord;
-                    this.props.onChange({
-                        coords: coords
-                    });
-                }}
-                showHairlines={this.props.showHairlines}
-                hideHairlines={this.props.hideHairlines}
-                showTooltips={this.props.showTooltips}
-                isMobile={this.props.isMobile}
-            />;
+                    }}
+                    showHairlines={this.props.showHairlines}
+                    hideHairlines={this.props.hideHairlines}
+                    showTooltips={this.props.showTooltips}
+                    isMobile={this.props.isMobile}
+                />
+            );
         };
         var points = _.map(this._coords(), pointForCoord);
         var box = this.props.graph.box;
@@ -167,44 +191,55 @@ var FunctionGrapher = React.createClass({
         var image = null;
         if (imageDescription.url) {
             var scale = box[0] / interactiveSizes.defaultBoxSize;
-            image = <SvgImage src={imageDescription.url}
-                              width={imageDescription.width}
-                              height={imageDescription.height}
-                              scale={scale} />;
+            image = (
+                <SvgImage
+                    src={imageDescription.url}
+                    width={imageDescription.width}
+                    height={imageDescription.height}
+                    scale={scale}
+                />
+            );
         }
 
-        return <div
-                    className={"perseus-widget " + "perseus-widget-grapher"}
-                    style={{
-                        width: box[0],
-                        height: this.props.flexibleType ? "auto" : box[1],
-                        boxSizing: "initial"
-                    }}>
+        return (
+            <div
+                className={"perseus-widget " + "perseus-widget-grapher"}
+                style={{
+                    width: box[0],
+                    height: this.props.flexibleType ? "auto" : box[1],
+                    boxSizing: "initial",
+                }}
+            >
                 <div
                     className="graphie-container above-scratchpad"
                     style={{
                         width: box[0],
-                        height: box[1]
-                    }}>
-                {image}
-                <Graphie
-                    {...this.props.graph}
-                    setDrawingAreaAvailable={this.props.setDrawingAreaAvailable}
+                        height: box[1],
+                    }}
                 >
-                    {this.props.model && this.renderPlot()}
-                    {this.props.model && this.renderAsymptote()}
-                    {this.props.model && points}
-                </Graphie>
+                    {image}
+                    <Graphie
+                        {...this.props.graph}
+                        setDrawingAreaAvailable={
+                            this.props.setDrawingAreaAvailable
+                        }
+                    >
+                        {this.props.model && this.renderPlot()}
+                        {this.props.model && this.renderAsymptote()}
+                        {this.props.model && points}
+                    </Graphie>
+                </div>
             </div>
-        </div>;
+        );
     },
 
     renderPlot: function() {
         var model = this.props.model;
         var xRange = this.props.graph.range[0];
         var style = {
-            stroke: this.props.isMobile ? KhanColors.BLUE_C :
-                KhanColors.DYNAMIC,
+            stroke: this.props.isMobile
+                ? KhanColors.BLUE_C
+                : KhanColors.DYNAMIC,
             ...(this.props.isMobile ? {"stroke-width": 3} : {}),
         };
 
@@ -214,11 +249,14 @@ var FunctionGrapher = React.createClass({
         }
 
         var functionProps = model.getPropsForCoeffs(coeffs, xRange);
-        return <model.Movable
-                    {...functionProps}
-                    key={this.props.model.url}
-                    range={xRange}
-                    style={style} />;
+        return (
+            <model.Movable
+                {...functionProps}
+                key={this.props.model.url}
+                range={xRange}
+                style={style}
+            />
+        );
     },
 
     renderAsymptote: function() {
@@ -226,34 +264,47 @@ var FunctionGrapher = React.createClass({
         var graph = this.props.graph;
         var asymptote = this._asymptote();
         var dashed = {
-            strokeDasharray: "- "
+            strokeDasharray: "- ",
         };
-        return asymptote &&
-            <MovableLine onMove={(newCoord, oldCoord) => {
-                // Calculate and apply displacement
-                var delta = kvector.subtract(newCoord, oldCoord);
-                var newAsymptote = _.map(this._asymptote(), (coord) =>
-                    kvector.add(coord, delta));
-                this.props.onChange({
-                    asymptote: newAsymptote
-                });
-            }} constraints={[
-                Interactive2.MovableLine.constraints.bound(),
-                Interactive2.MovableLine.constraints.snap(),
-                (newCoord, oldCoord) => {
-                    // Calculate and apply proposed displacement
+        return (
+            asymptote &&
+            <MovableLine
+                onMove={(newCoord, oldCoord) => {
+                    // Calculate and apply displacement
                     var delta = kvector.subtract(newCoord, oldCoord);
-                    var proposedAsymptote = _.map(this._asymptote(), (coord) =>
-                        kvector.add(coord, delta));
-                    // Verify that resulting asymptote is valid for graph
-                    if (model.extraAsymptoteConstraint) {
-                        return model.extraAsymptoteConstraint(newCoord,
-                            oldCoord, this._coords(), proposedAsymptote,
-                            graph);
-                    }
-                    return true;
-            }]} normalStyle={dashed}
-                highlightStyle={dashed}>
+                    var newAsymptote = _.map(this._asymptote(), coord =>
+                        kvector.add(coord, delta)
+                    );
+                    this.props.onChange({
+                        asymptote: newAsymptote,
+                    });
+                }}
+                constraints={[
+                    Interactive2.MovableLine.constraints.bound(),
+                    Interactive2.MovableLine.constraints.snap(),
+                    (newCoord, oldCoord) => {
+                        // Calculate and apply proposed displacement
+                        var delta = kvector.subtract(newCoord, oldCoord);
+                        var proposedAsymptote = _.map(
+                            this._asymptote(),
+                            coord => kvector.add(coord, delta)
+                        );
+                        // Verify that resulting asymptote is valid for graph
+                        if (model.extraAsymptoteConstraint) {
+                            return model.extraAsymptoteConstraint(
+                                newCoord,
+                                oldCoord,
+                                this._coords(),
+                                proposedAsymptote,
+                                graph
+                            );
+                        }
+                        return true;
+                    },
+                ]}
+                normalStyle={dashed}
+                highlightStyle={dashed}
+            >
                 {_.map(asymptote, (coord, i) =>
                     <MovablePoint
                         key={`asymptoteCoord-${i}`}
@@ -267,8 +318,9 @@ var FunctionGrapher = React.createClass({
                         isMobile={this.props.isMobile}
                     />
                 )}
-        </MovableLine>;
-    }
+            </MovableLine>
+        );
+    },
 });
 
 /* Widget and editor. */
@@ -294,17 +346,20 @@ var Grapher = React.createClass({
         var coords = this.props.plot.coords;
         var asymptote = this.props.plot.asymptote;
 
-        var typeSelector = <div style={typeSelectorStyle}
-                className="above-scratchpad">
-            <ButtonGroup
-                value={type}
-                allowEmpty={true}
-                buttons={_.map(this.props.availableTypes, typeToButton)}
-                onChange={this.handleActiveTypeChange} />
-        </div>;
+        var typeSelector = (
+            <div style={typeSelectorStyle} className="above-scratchpad">
+                <ButtonGroup
+                    value={type}
+                    allowEmpty={true}
+                    buttons={_.map(this.props.availableTypes, typeToButton)}
+                    onChange={this.handleActiveTypeChange}
+                />
+            </div>
+        );
 
         const box = getInteractiveBoxFromSizeClass(
-                this.props.containerSizeClass);
+            this.props.containerSizeClass
+        );
 
         // Calculate additional graph properties so that the same values are
         // passed in to both FunctionGrapher and Graphie.
@@ -330,51 +385,57 @@ var Grapher = React.createClass({
                 snapStep: options.snapStep,
                 backgroundImage: options.backgroundImage,
                 options: options,
-                setup: this._setupGraphie
+                setup: this._setupGraphie,
             },
             onChange: this.handlePlotChanges,
             model: type && functionForType(type),
             coords: coords,
             asymptote: asymptote,
             static: this.props.static,
-            setDrawingAreaAvailable:
-                this.props.apiOptions.setDrawingAreaAvailable,
+            setDrawingAreaAvailable: this.props.apiOptions
+                .setDrawingAreaAvailable,
             isMobile: this.props.apiOptions.isMobile,
             showTooltips: this.props.graph.showTooltips,
             showHairlines: this.showHairlines,
             hideHairlines: this.hideHairlines,
         };
 
-        return <div>
-            <FunctionGrapher {...grapherProps} />
-            {this.props.availableTypes.length > 1 && typeSelector}
-        </div>;
+        return (
+            <div>
+                <FunctionGrapher {...grapherProps} />
+                {this.props.availableTypes.length > 1 && typeSelector}
+            </div>
+        );
     },
 
     handlePlotChanges: function(newPlot) {
         var plot = _.extend({}, this.props.plot, newPlot);
         this.props.onChange({
-            plot: plot
+            plot: plot,
         });
         this.props.trackInteraction();
     },
 
     handleActiveTypeChange: function(newType) {
         var graph = this.props.graph;
-        var plot = _.extend({}, this.props.plot,
-            GrapherUtil.defaultPlotProps(newType, graph));
+        var plot = _.extend(
+            {},
+            this.props.plot,
+            GrapherUtil.defaultPlotProps(newType, graph)
+        );
         this.props.onChange({
-            plot: plot
+            plot: plot,
         });
     },
 
     _getGridConfig: function(options) {
         return _.map(options.step, function(step, i) {
             return Util.gridDimensionConfig(
-                    step,
-                    options.range[i],
-                    options.box[i],
-                    options.gridStep[i]);
+                step,
+                options.range[i],
+                options.box[i],
+                options.gridStep[i]
+            );
         });
     },
 
@@ -398,21 +459,32 @@ var Grapher = React.createClass({
                 range: options.range,
                 scale: _.pluck(options.gridConfig, "scale"),
                 axisArrows: "<->",
-                labelFormat: function(s) { return "\\small{" + s + "}"; },
+                labelFormat: function(s) {
+                    return "\\small{" + s + "}";
+                },
                 gridStep: options.gridStep,
                 snapStep: options.snapStep,
                 tickStep: isMobile
                     ? this._calculateMobileTickStep(
-                        options.gridStep, options.step, options.range)
+                          options.gridStep,
+                          options.step,
+                          options.range
+                      )
                     : _.pluck(options.gridConfig, "tickStep"),
                 labelStep: 1,
                 unityLabels: _.pluck(options.gridConfig, "unityLabel"),
                 isMobile: isMobile,
             });
-            graphie.label([0, options.range[1][1]], options.labels[1],
-                isMobile ? "below right" : "above");
-            graphie.label([options.range[0][1], 0], options.labels[0],
-                isMobile ? "above left" : "right");
+            graphie.label(
+                [0, options.range[1][1]],
+                options.labels[1],
+                isMobile ? "below right" : "above"
+            );
+            graphie.label(
+                [options.range[0][1], 0],
+                options.labels[0],
+                isMobile ? "above left" : "right"
+            );
         } else if (options.markings === "grid") {
             graphie.graphInit({
                 range: options.range,
@@ -426,7 +498,7 @@ var Grapher = React.createClass({
         } else if (options.markings === "none") {
             graphie.init({
                 range: options.range,
-                scale: _.pluck(options.gridConfig, "scale")
+                scale: _.pluck(options.gridConfig, "scale"),
             });
         }
 
@@ -437,15 +509,23 @@ var Grapher = React.createClass({
                 },
             };
 
-            this.horizHairline =
-                new WrappedLine(graphie, [0, 0], [0, 0], hairlineStyle);
+            this.horizHairline = new WrappedLine(
+                graphie,
+                [0, 0],
+                [0, 0],
+                hairlineStyle
+            );
             this.horizHairline.attr({
                 stroke: KhanColors.INTERACTIVE,
             });
             this.horizHairline.hide();
 
-            this.vertHairline =
-                new WrappedLine(graphie, [0, 0], [0, 0], hairlineStyle);
+            this.vertHairline = new WrappedLine(
+                graphie,
+                [0, 0],
+                [0, 0],
+                hairlineStyle
+            );
             this.vertHairline.attr({
                 stroke: KhanColors.INTERACTIVE,
             });
@@ -454,8 +534,7 @@ var Grapher = React.createClass({
     },
 
     showHairlines: function(point) {
-        if (this.props.apiOptions.isMobile &&
-            this.props.markings !== "none") {
+        if (this.props.apiOptions.isMobile && this.props.markings !== "none") {
             // Hairlines are already initialized when the graph is loaded, so
             // here we just move them to the updated location and make them
             // visible.
@@ -490,13 +569,13 @@ var Grapher = React.createClass({
         return this.props.plot;
     },
 
-    focus: $.noop
+    focus: $.noop,
 });
 
-var propTransform = (editorProps) => {
+var propTransform = editorProps => {
     var widgetProps = {
         availableTypes: editorProps.availableTypes,
-        graph: editorProps.graph
+        graph: editorProps.graph,
     };
 
     // If there's only one type, the graph type is deterministic
@@ -511,7 +590,7 @@ var propTransform = (editorProps) => {
 
 // Note that in addition to the standard staticTransform, in static
 // mode we set static=true for the graph's handles in FunctionGrapher.
-var staticTransform = (editorProps) => {
+var staticTransform = editorProps => {
     return _.extend({}, propTransform(editorProps), {
         // Don't display graph type choices if we're in static mode
         availableTypes: [editorProps.correct.type],

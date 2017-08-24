@@ -369,9 +369,9 @@ const LATEX_MACROS = LATEX_MACROS_LIST.reduce(function(result, macro) {
 // We also expect that Unicode characters are never represented
 // by their \u escape sequence.
 const ESCAPE_SEQUENCES = {
-    "n": "\n",
-    "r": "\r",
-    "t": "\t",
+    n: "\n",
+    r: "\r",
+    t: "\t",
     "\\": "\\",
 };
 
@@ -380,7 +380,7 @@ const ESCAPE_SEQUENCES = {
 // unescaping such a token. See the comment at the top of the file for details.
 const getLatexLevel = function(text) {
     let backslashCount = 0;
-    while (backslashCount < text.length && text[backslashCount] === '\\') {
+    while (backslashCount < text.length && text[backslashCount] === "\\") {
         backslashCount++;
     }
     if (backslashCount === 0) {
@@ -406,7 +406,7 @@ const tryUnescape = function(text) {
     let result = "";
     while (i < text.length) {
         const c = text[i];
-        if (c === '\\') {
+        if (c === "\\") {
             i += 1;
             if (i === text.length) {
                 return null; // Odd number of backslashes - not unescapable

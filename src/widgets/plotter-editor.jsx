@@ -36,16 +36,18 @@ function padArray(array, n, value) {
 const editorDefaults = {
     scaleY: 1,
     maxY: 10,
-    snapsPerLine: 2
+    snapsPerLine: 2,
 };
 
 const widgetPropTypes = {
     type: React.PropTypes.oneOf([BAR, LINE, PIC, HISTOGRAM, DOTPLOT]),
     labels: React.PropTypes.arrayOf(React.PropTypes.string),
-    categories: React.PropTypes.arrayOf(React.PropTypes.oneOfType([
-        React.PropTypes.number,
-        React.PropTypes.string
-    ])),
+    categories: React.PropTypes.arrayOf(
+        React.PropTypes.oneOfType([
+            React.PropTypes.number,
+            React.PropTypes.string,
+        ])
+    ),
 
     scaleY: React.PropTypes.number,
     maxY: React.PropTypes.number,
@@ -63,12 +65,12 @@ const widgetPropTypes = {
     onChange: React.PropTypes.func,
 };
 
-var formatNumber = (num) => "$" + knumber.round(num, 2) + "$";
+var formatNumber = num => "$" + knumber.round(num, 2) + "$";
 
 const PlotterEditor = React.createClass({
     propTypes: widgetPropTypes,
 
-    getDefaultProps: function () {
+    getDefaultProps: function() {
         return _.extend({}, editorDefaults, {
             correct: [1],
             starting: [1],
@@ -82,7 +84,7 @@ const PlotterEditor = React.createClass({
             picUrl: Khan.imageBase + "badges/earth-small.png",
 
             plotDimensions: [275, 200],
-            labelInterval: 1
+            labelInterval: 1,
         });
     },
 
@@ -93,7 +95,7 @@ const PlotterEditor = React.createClass({
             loadedUrl: null,
             minX: null,
             maxX: null,
-            tickStep: null
+            tickStep: null,
         };
     },
 
@@ -112,203 +114,262 @@ const PlotterEditor = React.createClass({
             pic.onload = () => {
                 this.setState({
                     pic: pic,
-                    loadedUrl: url
+                    loadedUrl: url,
                 });
             };
         }
     },
 
     render: function() {
-        var setFromScale = _.contains([LINE, HISTOGRAM, DOTPLOT],
-                                      this.props.type);
+        var setFromScale = _.contains(
+            [LINE, HISTOGRAM, DOTPLOT],
+            this.props.type
+        );
         var canChangeSnaps = !_.contains([PIC, DOTPLOT], this.props.type);
         var props = {
             trackInteraction: () => {},
             ...this.props,
         };
 
-        return <div className="perseus-widget-plotter-editor">
-            <div>
-                Chart type:{' '}
-                {_.map([BAR, LINE, PIC, HISTOGRAM, DOTPLOT], function(type) {
-                    return <label key={type}>
-                        <input
-                            type="radio"
-                            name="chart-type"
-                            checked={this.props.type === type}
-                            onChange={_.partial(this.changeType, type)} />
-                        {type}
-                    </label>;
-                }, this)}
-            </div>
-            <div>
-                Labels:{' '}
-                {_.map(["x", "y"], function(axis, i) {
-                    return <label key={axis}>
-                        {axis + ":"}
-                        <input
-                            type="text"
-                            onChange={_.partial(this.changeLabel, i)}
-                            defaultValue={this.props.labels[i]} />
-                    </label>;
-                }, this)}
-            </div>
+        return (
+            <div className="perseus-widget-plotter-editor">
+                <div>
+                    Chart type:{" "}
+                    {_.map(
+                        [BAR, LINE, PIC, HISTOGRAM, DOTPLOT],
+                        function(type) {
+                            return (
+                                <label key={type}>
+                                    <input
+                                        type="radio"
+                                        name="chart-type"
+                                        checked={this.props.type === type}
+                                        onChange={_.partial(
+                                            this.changeType,
+                                            type
+                                        )}
+                                    />
+                                    {type}
+                                </label>
+                            );
+                        },
+                        this
+                    )}
+                </div>
+                <div>
+                    Labels:{" "}
+                    {_.map(
+                        ["x", "y"],
+                        function(axis, i) {
+                            return (
+                                <label key={axis}>
+                                    {axis + ":"}
+                                    <input
+                                        type="text"
+                                        onChange={_.partial(
+                                            this.changeLabel,
+                                            i
+                                        )}
+                                        defaultValue={this.props.labels[i]}
+                                    />
+                                </label>
+                            );
+                        },
+                        this
+                    )}
+                </div>
 
-            {setFromScale && <div className="set-from-scale-box">
-                <span className="categories-title">
-                    Set Categories From Scale
-                </span>
+                {setFromScale &&
+                    <div className="set-from-scale-box">
+                        <span className="categories-title">
+                            Set Categories From Scale
+                        </span>
+                        <div>
+                            <label>
+                                Tick Step:{" "}
+                                <NumberInput
+                                    placeholder={1}
+                                    useArrowKeys={true}
+                                    value={this.state.tickStep}
+                                    onChange={this.handleChangeTickStep}
+                                />
+                            </label>
+                            <InfoTip>
+                                <p>The difference between adjacent ticks.</p>
+                            </InfoTip>
+                        </div>
+                        <div>
+                            <label>
+                                Range:{" "}
+                                <RangeInput
+                                    placeholder={[0, 10]}
+                                    useArrowKeys={true}
+                                    value={[this.state.minX, this.state.maxX]}
+                                    onChange={this.handleChangeRange}
+                                />
+                            </label>
+                        </div>
+                        <div>
+                            <button onClick={this.setCategoriesFromScale}>
+                                Set Categories{" "}
+                            </button>
+                        </div>
+                    </div>}
                 <div>
                     <label>
-                        Tick Step:{' '}
+                        Label Interval:{" "}
                         <NumberInput
-                            placeholder={1}
                             useArrowKeys={true}
-                            value={this.state.tickStep}
-                            onChange={this.handleChangeTickStep} />
+                            value={this.props.labelInterval}
+                            onChange={this.changeLabelInterval}
+                        />
                     </label>
                     <InfoTip>
-                        <p>The difference between adjacent ticks.</p>
+                        <p>
+                            Which ticks to display the labels for. For instance,
+                            setting this to "4" will only show every 4th label
+                            (plus the last one)
+                        </p>
                     </InfoTip>
                 </div>
+                {this.props.type === PIC &&
+                    <div>
+                        <label>
+                            Picture:{" "}
+                            <BlurInput
+                                className="pic-url"
+                                value={this.props.picUrl}
+                                onChange={this.changePicUrl}
+                            />
+                            <InfoTip>
+                                <p>
+                                    Use the default picture of Earth, or insert
+                                    the URL for a different picture using the
+                                    "Add image" function.
+                                </p>
+                            </InfoTip>
+                        </label>
+                        {this.state.pic &&
+                            this.state.pic.width !== this.state.pic.height &&
+                            <p className="warning">
+                                <b>Warning</b>: You are using a picture which is
+                                not square. This means the image will get
+                                distorted. You should probably crop it to be
+                                square.
+                            </p>}
+                    </div>}
                 <div>
                     <label>
-                        Range:{' '}
-                        <RangeInput
-                            placeholder={[0, 10]}
-                            useArrowKeys={true}
-                            value={[this.state.minX, this.state.maxX]}
-                            onChange={this.handleChangeRange} />
+                        Categories:{" "}
+                        <TextListEditor
+                            ref="categories"
+                            layout="horizontal"
+                            options={this.props.categories}
+                            onChange={this.changeCategories}
+                        />
                     </label>
                 </div>
                 <div>
-                    <button onClick={this.setCategoriesFromScale}>
-                        Set Categories{' '}
-                    </button>
-                </div>
-            </div>}
-            <div>
-                <label>
-                    Label Interval:{' '}
-                    <NumberInput
-                        useArrowKeys={true}
-                        value={this.props.labelInterval}
-                        onChange={this.changeLabelInterval} />
-                </label>
-                <InfoTip>
-                    <p>Which ticks to display the labels for. For instance,
-                    setting this to "4" will only show every 4th label (plus
-                    the last one)</p>
-                </InfoTip>
-            </div>
-            {this.props.type === PIC && <div>
-                <label>
-                    Picture:{' '}
-                    <BlurInput
-                        className="pic-url"
-                        value={this.props.picUrl}
-                        onChange={this.changePicUrl} />
-                <InfoTip>
-                    <p>Use the default picture of Earth, or insert the URL for
-                    a different picture using the "Add image" function.</p>
-                </InfoTip>
-                </label>
-                {this.state.pic &&
-                    this.state.pic.width !== this.state.pic.height &&
-                    <p className="warning">
-                        <b>Warning</b>: You are using a picture which is not
-                        square.  This means the image will get distorted. You
-                        should probably crop it to be square.
-                    </p>}
-            </div>}
-            <div>
-                <label>
-                    Categories:{' '}
-                    <TextListEditor
-                        ref="categories"
-                        layout="horizontal"
-                        options={this.props.categories}
-                        onChange={this.changeCategories} />
-                </label>
-            </div>
-            <div>
-                <label>
-                    Scale (y):{' '}
-                    <input
-                        type="text"
-                        onChange={this.changeScale}
-                        defaultValue={this.props.scaleY} />
-                </label>
-            </div>
-            <div>
-                <label>
-                    Max y:{' '}
-                    <input
-                        type="text"
-                        ref="maxY"
-                        onChange={this.changeMax}
-                        defaultValue={this.props.maxY} />
-                </label>
-            </div>
-            {canChangeSnaps && <div>
-                <label>
-                    Snaps per line:{' '}
-                    <input
-                        type="text"
-                        onChange={this.changeSnaps}
-                        defaultValue={this.props.snapsPerLine} />
-                </label>
-                <InfoTip>
-                    <p>Creates the specified number of divisions between the
-                    horizontal lines. Fewer snaps between lines makes the graph
-                    easier for the student to create correctly.</p>
-                </InfoTip>
-            </div>}
-            <div>
-                Editing values:{' '}
-                {_.map(["correct", "starting"], function(editing) {
-                    return <label key={editing}>
+                    <label>
+                        Scale (y):{" "}
                         <input
-                            type="radio"
-                            name="editing"
-                            checked={this.state.editing === editing}
-                            onChange={_.partial(this.changeEditing, editing)}/>
-                        {editing}
-                    </label>;
-                }, this)}
-                <InfoTip><p>
-                    Use this toggle to switch between editing the correct
-                    answer (what the student will be graded on) and the
-                    starting values (what the student will see plotted when
-                    they start the problem). Note: These cannot be the same.
-                </p><p>
-                    In static mode, the starting values are rendered out to the
-                    displayed widget.
-                </p></InfoTip>
+                            type="text"
+                            onChange={this.changeScale}
+                            defaultValue={this.props.scaleY}
+                        />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        Max y:{" "}
+                        <input
+                            type="text"
+                            ref="maxY"
+                            onChange={this.changeMax}
+                            defaultValue={this.props.maxY}
+                        />
+                    </label>
+                </div>
+                {canChangeSnaps &&
+                    <div>
+                        <label>
+                            Snaps per line:{" "}
+                            <input
+                                type="text"
+                                onChange={this.changeSnaps}
+                                defaultValue={this.props.snapsPerLine}
+                            />
+                        </label>
+                        <InfoTip>
+                            <p>
+                                Creates the specified number of divisions
+                                between the horizontal lines. Fewer snaps
+                                between lines makes the graph easier for the
+                                student to create correctly.
+                            </p>
+                        </InfoTip>
+                    </div>}
+                <div>
+                    Editing values:{" "}
+                    {_.map(
+                        ["correct", "starting"],
+                        function(editing) {
+                            return (
+                                <label key={editing}>
+                                    <input
+                                        type="radio"
+                                        name="editing"
+                                        checked={this.state.editing === editing}
+                                        onChange={_.partial(
+                                            this.changeEditing,
+                                            editing
+                                        )}
+                                    />
+                                    {editing}
+                                </label>
+                            );
+                        },
+                        this
+                    )}
+                    <InfoTip>
+                        <p>
+                            Use this toggle to switch between editing the
+                            correct answer (what the student will be graded on)
+                            and the starting values (what the student will see
+                            plotted when they start the problem). Note: These
+                            cannot be the same.
+                        </p>
+                        <p>
+                            In static mode, the starting values are rendered out
+                            to the displayed widget.
+                        </p>
+                    </InfoTip>
+                </div>
+                <Plotter
+                    {...props}
+                    starting={this.props[this.state.editing]}
+                    onChange={this.handlePlotterChange}
+                />
             </div>
-            <Plotter
-                {...props}
-                starting={this.props[this.state.editing]}
-                onChange={this.handlePlotterChange} />
-        </div>;
+        );
     },
 
     handleChangeTickStep: function(value) {
         this.setState({
-            tickStep: value
+            tickStep: value,
         });
     },
 
     handleChangeRange: function(newValue) {
         this.setState({
             minX: newValue[0],
-            maxX: newValue[1]
+            maxX: newValue[1],
         });
     },
 
     changeLabelInterval: function(value) {
         this.props.onChange({
-            labelInterval: value
+            labelInterval: value,
         });
     },
 
@@ -333,7 +394,9 @@ const PlotterEditor = React.createClass({
         }
 
         if (categories) {
-            ReactDOM.findDOMNode(this.refs.categories).value = categories.join(", ");
+            ReactDOM.findDOMNode(this.refs.categories).value = categories.join(
+                ", "
+            );
         }
     },
 
@@ -363,7 +426,7 @@ const PlotterEditor = React.createClass({
         this.props.onChange({
             categories: categories,
             correct: padArray(this.props.correct, n, value),
-            starting: padArray(this.props.starting, n, value)
+            starting: padArray(this.props.starting, n, value),
         });
     },
 
@@ -381,7 +444,7 @@ const PlotterEditor = React.createClass({
             scaleY: newScale,
             maxY: maxY,
             correct: _.map(this.props.correct, scale),
-            starting: _.map(this.props.starting, scale)
+            starting: _.map(this.props.starting, scale),
         });
 
         ReactDOM.findDOMNode(this.refs.maxY).value = maxY;
@@ -389,13 +452,13 @@ const PlotterEditor = React.createClass({
 
     changeMax: function(e) {
         this.props.onChange({
-            maxY: +e.target.value || editorDefaults.maxY
+            maxY: +e.target.value || editorDefaults.maxY,
         });
     },
 
     changeSnaps: function(e) {
         this.props.onChange({
-            snapsPerLine: +e.target.value || editorDefaults.snapsPerLine
+            snapsPerLine: +e.target.value || editorDefaults.snapsPerLine,
         });
     },
 
@@ -417,24 +480,36 @@ const PlotterEditor = React.createClass({
             categories = _.range(scale, length + scale, scale);
         }
 
-        categories = _.map(categories, (num) => num + min);
+        categories = _.map(categories, num => num + min);
         categories = _.map(categories, formatNumber);
 
         this.changeCategories(categories);
 
-        ReactDOM.findDOMNode(this.refs.categories).value = categories.join(", ");
+        ReactDOM.findDOMNode(this.refs.categories).value = categories.join(
+            ", "
+        );
     },
 
     serialize: function() {
-        var json = _.pick(this.props, "correct", "starting", "type", "labels",
-            "categories", "scaleY", "maxY", "snapsPerLine", "labelInterval");
+        var json = _.pick(
+            this.props,
+            "correct",
+            "starting",
+            "type",
+            "labels",
+            "categories",
+            "scaleY",
+            "maxY",
+            "snapsPerLine",
+            "labelInterval"
+        );
 
         if (this.props.type === PIC) {
             json.picUrl = this.props.picUrl;
         }
 
         return json;
-    }
+    },
 });
 
 module.exports = PlotterEditor;

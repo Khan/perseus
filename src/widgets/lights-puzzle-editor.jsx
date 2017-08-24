@@ -19,37 +19,33 @@ var CELL_PADDING = 5;
 
 var TABLE_STYLE = {
     display: "table",
-    tableLayout: "fixed"
+    tableLayout: "fixed",
 };
 
 var ROW_STYLE = {
-    display: "table-row"
+    display: "table-row",
 };
 
 var CELL_STYLE = {
     display: "table-cell",
-    padding: CELL_PADDING
+    padding: CELL_PADDING,
 };
 
 var BASE_TILE_STYLE = {
     borderRadius: 10,
-    cursor: "pointer"
+    cursor: "pointer",
 };
 
 var PATTERNS = {
     plus: () => [
         [false, true, false],
-        [true,  true, true ],
-        [false, true, false]
+        [true, true, true],
+        [false, true, false],
     ],
-    x: () => [
-        [true,  false, true ],
-        [false, true,  false],
-        [true,  false, true ]
-    ],
-    "plus/x": (iter) => {
-        return (iter % 2) ? PATTERNS.x() : PATTERNS.plus();
-    }
+    x: () => [[true, false, true], [false, true, false], [true, false, true]],
+    "plus/x": iter => {
+        return iter % 2 ? PATTERNS.x() : PATTERNS.plus();
+    },
 };
 
 /**
@@ -76,7 +72,7 @@ var flipTilesPredicate = (oldCells, predicate) => {
 var Tile = React.createClass({
     propTypes: {
         value: React.PropTypes.bool.isRequired,
-        size: React.PropTypes.number.isRequired
+        size: React.PropTypes.number.isRequired,
     },
 
     render: function() {
@@ -84,11 +80,9 @@ var Tile = React.createClass({
         var style = _.extend({}, BASE_TILE_STYLE, {
             width: this.props.size,
             height: this.props.size,
-            backgroundColor: color
+            backgroundColor: color,
         });
-        return <div
-            style={style}
-            onClick={this._flip} />;
+        return <div style={style} onClick={this._flip} />;
     },
 
     _flip: function() {
@@ -102,25 +96,35 @@ var TileGrid = React.createClass({
         cells: React.PropTypes.arrayOf(
             React.PropTypes.arrayOf(React.PropTypes.bool)
         ).isRequired,
-        size: React.PropTypes.number.isRequired
+        size: React.PropTypes.number.isRequired,
     },
 
     render: function() {
-        return <div style={TABLE_STYLE} className="no-select">
-            {_.map(this.props.cells, (row, y) => {
-                return <div key={y} style={ROW_STYLE}>
-                    {_.map(row, (cell, x) => {
-                        return <div key={x} style={CELL_STYLE}>
-                            <Tile
-                                value={cell}
-                                size={this.props.size}
-                                onChange={_.partial(this.props.onChange, y, x)}
-                                />
-                        </div>;
-                    })}
-                </div>;
-            })}
-        </div>;
+        return (
+            <div style={TABLE_STYLE} className="no-select">
+                {_.map(this.props.cells, (row, y) => {
+                    return (
+                        <div key={y} style={ROW_STYLE}>
+                            {_.map(row, (cell, x) => {
+                                return (
+                                    <div key={x} style={CELL_STYLE}>
+                                        <Tile
+                                            value={cell}
+                                            size={this.props.size}
+                                            onChange={_.partial(
+                                                this.props.onChange,
+                                                y,
+                                                x
+                                            )}
+                                        />
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    );
+                })}
+            </div>
+        );
     },
 });
 
@@ -132,7 +136,7 @@ const LightsPuzzleEditor = React.createClass({
             React.PropTypes.arrayOf(React.PropTypes.bool)
         ),
         flipPattern: React.PropTypes.string.isRequired,
-        gradeIncompleteAsWrong: React.PropTypes.bool.isRequired
+        gradeIncompleteAsWrong: React.PropTypes.bool.isRequired,
     },
 
     getDefaultProps: function() {
@@ -140,10 +144,10 @@ const LightsPuzzleEditor = React.createClass({
             startCells: [
                 [false, false, false],
                 [false, false, false],
-                [false, false, false]
+                [false, false, false],
             ],
             flipPattern: "plus",
-            gradeIncompleteAsWrong: false
+            gradeIncompleteAsWrong: false,
         };
     },
 
@@ -164,52 +168,60 @@ const LightsPuzzleEditor = React.createClass({
     },
 
     render: function() {
-        return <div>
+        return (
             <div>
-                Width:
-                <NumberInput
-                    value={this._width()}
-                    placeholder={5}
-                    onChange={this._changeWidth} />
-                {", "}
-                Height:
-                <NumberInput
-                    value={this._height()}
-                    placeholder={5}
-                    onChange={this._changeHeight} />
-            </div>
-            <div>
-                Flip pattern:
-                <select
+                <div>
+                    Width:
+                    <NumberInput
+                        value={this._width()}
+                        placeholder={5}
+                        onChange={this._changeWidth}
+                    />
+                    {", "}
+                    Height:
+                    <NumberInput
+                        value={this._height()}
+                        placeholder={5}
+                        onChange={this._changeHeight}
+                    />
+                </div>
+                <div>
+                    Flip pattern:
+                    <select
                         value={this.props.flipPattern}
-                        onChange={this._handlePatternChange}>
-                    {_.map(_.keys(PATTERNS), (pattern, i) => {
-                        return <option value={pattern} key={i}>
-                            {pattern}
-                        </option>;
-                    })}
-                </select>
-            </div>
-            <div>
-                Grade incomplete puzzles as wrong:
-                {" "}
-                <PropCheckBox
-                    gradeIncompleteAsWrong={this.props.gradeIncompleteAsWrong}
-                    onChange={this.props.onChange} />
+                        onChange={this._handlePatternChange}
+                    >
+                        {_.map(_.keys(PATTERNS), (pattern, i) => {
+                            return (
+                                <option value={pattern} key={i}>
+                                    {pattern}
+                                </option>
+                            );
+                        })}
+                    </select>
+                </div>
+                <div>
+                    Grade incomplete puzzles as wrong:{" "}
+                    <PropCheckBox
+                        gradeIncompleteAsWrong={
+                            this.props.gradeIncompleteAsWrong
+                        }
+                        onChange={this.props.onChange}
+                    />
                     <InfoTip>
                         By default, incomplete puzzles are graded as empty.
                     </InfoTip>
                 </div>
-            <div>
-                Starting configuration:
+                <div>Starting configuration:</div>
+                <div style={{overflowX: "auto"}}>
+                    <TileGrid
+                        cells={this.props.startCells}
+                        size={50}
+                        onChange={this._switchTile}
+                    />
+                </div>
             </div>
-            <div style={{overflowX: "auto"}}>
-                <TileGrid
-                    cells={this.props.startCells}
-                    size={50}
-                    onChange={this._switchTile} />
-            </div>
-        </div>;
+        );
     },
 
     _handlePatternChange: function(e) {
@@ -227,11 +239,12 @@ const LightsPuzzleEditor = React.createClass({
     },
 
     _truncateCells: function(newWidth, newHeight) {
-        var newCells = _.times(newHeight, (y) => {
-            return _.times(newWidth, (x) => {
+        var newCells = _.times(newHeight, y => {
+            return _.times(newWidth, x => {
                 // explicitly cast the result to a boolean with !!
-                return !!(this.props.startCells[y] &&
-                        this.props.startCells[y][x]);
+                return !!(
+                    this.props.startCells[y] && this.props.startCells[y][x]
+                );
             });
         });
 

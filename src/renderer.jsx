@@ -2,10 +2,9 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-
 /* globals KA */
 var $ = require("jquery");
-var React = require('react');
+var React = require("react");
 var ReactDOM = require("react-dom");
 var _ = require("underscore");
 var classNames = require("classnames");
@@ -27,7 +26,10 @@ var Deferred = require("./deferred.js");
 var preprocessTex = require("./util/katex-preprocess.js");
 
 const Gorgon = require("./gorgon/gorgon.js"); // The linter engine
-const {linterContextProps, linterContextDefault} = require("./gorgon/proptypes.js");
+const {
+    linterContextProps,
+    linterContextDefault,
+} = require("./gorgon/proptypes.js");
 
 const {keypadElementPropType} = require("../math-input").propTypes;
 
@@ -37,7 +39,6 @@ var rContainsNonWhitespace = /\S/;
 var rImageURL = /(web\+graphie|https):\/\/[^\s]*/;
 
 const noopOnRender = () => {};
-
 
 if (typeof KA !== "undefined" && KA.language === "en-pt") {
     // When using crowdin's jipt (Just in place translation), we need to keep a
@@ -80,11 +81,7 @@ if (typeof KA !== "undefined" && KA.language === "en-pt") {
     });
 }
 
-var SHOULD_CLEAR_WIDGETS_PROP_LIST = [
-    "content",
-    "problemNum",
-    "widgets",
-];
+var SHOULD_CLEAR_WIDGETS_PROP_LIST = ["content", "problemNum", "widgets"];
 
 // Check if one focus path / id path is a prefix of another
 // The focus path null will never be a prefix of any non-null
@@ -220,8 +217,12 @@ var Renderer = React.createClass({
     },
 
     componentWillReceiveProps: function(nextProps) {
-        if (!_.isEqual(_.pick(this.props, SHOULD_CLEAR_WIDGETS_PROP_LIST),
-                _.pick(nextProps, SHOULD_CLEAR_WIDGETS_PROP_LIST))) {
+        if (
+            !_.isEqual(
+                _.pick(this.props, SHOULD_CLEAR_WIDGETS_PROP_LIST),
+                _.pick(nextProps, SHOULD_CLEAR_WIDGETS_PROP_LIST)
+            )
+        ) {
             this.setState(this._getInitialWidgetState(nextProps));
         }
     },
@@ -252,26 +253,28 @@ var Renderer = React.createClass({
         // TODO(jared): This seems to be a perfect overlap with
         // "shouldComponentUpdate" -- can we just remove this
         // componentWillUpdate and the reuseMarkdown attr?
-        this.reuseMarkdown = !oldJipt && !newJipt &&
+        this.reuseMarkdown =
+            !oldJipt &&
+            !newJipt &&
             oldContent === newContent &&
             // If we are running the linter then we need to know when
             // widgets have changed because we need for force the linter to
             // run when that happens. Note: don't do identity comparison here:
             // it can cause frequent re-renders that break MathJax somehow
             (!this.props.linterContext.highlightLint ||
-             _.isEqual(this.props.widgets, nextProps.widgets)) &&
+                _.isEqual(this.props.widgets, nextProps.widgets)) &&
             // If the linter is turned on or off, we have to rerender
             this.props.linterContext.highlightLint ===
-                    nextProps.linterContext.highlightLint &&
-                // yes, this is identity array comparison, but these are passed
-                // in from state in the item-renderer, so they should be
-                // identity equal unless something changed, and it's expensive
-                // to loop through them to look for differences.
-                // Technically, we could reuse the markdown when this changes,
-                // but to do that we'd have to do more expensive checking of
-                // whether a widget should be highlighted in the common case
-                // where this array hasn't changed, so we just redo the whole
-                // render if this changed
+                nextProps.linterContext.highlightLint &&
+            // yes, this is identity array comparison, but these are passed
+            // in from state in the item-renderer, so they should be
+            // identity equal unless something changed, and it's expensive
+            // to loop through them to look for differences.
+            // Technically, we could reuse the markdown when this changes,
+            // but to do that we'd have to do more expensive checking of
+            // whether a widget should be highlighted in the common case
+            // where this array hasn't changed, so we just redo the whole
+            // render if this changed
             oldHighlightedWidgets === newHighlightedWidgets;
     },
 
@@ -283,11 +286,9 @@ var Renderer = React.createClass({
         // WidgetContainers don't update their widgets' props when
         // they are re-rendered, so even if they've been
         // re-rendered we need to call these methods on them.
-        _.each(this.widgetIds, (id) => {
+        _.each(this.widgetIds, id => {
             var container = this.refs["container:" + id];
-            container.replaceWidgetProps(
-                this.getWidgetProps(id)
-            );
+            container.replaceWidgetProps(this.getWidgetProps(id));
         });
 
         if (
@@ -348,7 +349,7 @@ var Renderer = React.createClass({
     },
 
     _getAllWidgetsStartProps: function(allWidgetInfo, props) {
-        return mapObject(allWidgetInfo, (editorProps) => {
+        return mapObject(allWidgetInfo, editorProps => {
             return Widgets.getRendererPropsForWidgetInfo(
                 editorProps,
                 props.problemNum
@@ -369,8 +370,10 @@ var Renderer = React.createClass({
     },
 
     _getWidgetInfo: function(widgetId) {
-        return this.state.widgetInfo[widgetId] ||
-            this._getDefaultWidgetInfo(widgetId);
+        return (
+            this.state.widgetInfo[widgetId] ||
+            this._getDefaultWidgetInfo(widgetId)
+        );
     },
 
     renderWidget: function(impliedType, id, state) {
@@ -381,26 +384,25 @@ var Renderer = React.createClass({
         }
 
         if (widgetInfo || this.props.ignoreMissingWidgets) {
-
             var type = (widgetInfo && widgetInfo.type) || impliedType;
-            var shouldHighlight = _.contains(
-                this.props.highlightedWidgets,
-                id
-            );
+            var shouldHighlight = _.contains(this.props.highlightedWidgets, id);
 
             // By this point we should have no duplicates, which are
             // filtered out in this.render(), so we shouldn't have to
             // worry about using this widget key and ref:
-            return <WidgetContainer
-                ref={"container:" + id}
-                key={"container:" + id}
-                type={type}
-                initialProps={this.getWidgetProps(id)}
-                shouldHighlight={shouldHighlight}
-                linterContext={
-                    Gorgon.pushContextStack(this.props.linterContext, 'widget')
-                }
-            />;
+            return (
+                <WidgetContainer
+                    ref={"container:" + id}
+                    key={"container:" + id}
+                    type={type}
+                    initialProps={this.getWidgetProps(id)}
+                    shouldHighlight={shouldHighlight}
+                    linterContext={Gorgon.pushContextStack(
+                        this.props.linterContext,
+                        "widget"
+                    )}
+                />
+            );
         } else {
             return null;
         }
@@ -424,10 +426,14 @@ var Renderer = React.createClass({
 
         let interactionTracker = this._interactionTrackers[id];
         if (!interactionTracker) {
-            interactionTracker = this._interactionTrackers[id] =
-                new InteractionTracker(apiOptions.trackInteraction,
-                    widgetInfo && widgetInfo.type, id,
-                Widgets.getTracking(widgetInfo && widgetInfo.type));
+            interactionTracker = this._interactionTrackers[
+                id
+            ] = new InteractionTracker(
+                apiOptions.trackInteraction,
+                widgetInfo && widgetInfo.type,
+                id,
+                Widgets.getTracking(widgetInfo && widgetInfo.type)
+            );
         }
 
         return {
@@ -470,7 +476,8 @@ var Renderer = React.createClass({
                 } else {
                     return props;
                 }
-            });
+            }
+        );
     },
 
     restoreSerializedState: function(serializedState, callback) {
@@ -480,13 +487,18 @@ var Renderer = React.createClass({
         var widgetPropIds = _.keys(this.state.widgetProps);
 
         // If the two lists of IDs match (ignoring order)
-        if (serializedWidgetIds.length !== widgetPropIds.length ||
-                _.intersection(serializedWidgetIds, widgetPropIds).length !==
-                    serializedWidgetIds.length) {
+        if (
+            serializedWidgetIds.length !== widgetPropIds.length ||
+            _.intersection(serializedWidgetIds, widgetPropIds).length !==
+                serializedWidgetIds.length
+        ) {
             // eslint-disable-next-line no-console
-            console.error("Refusing to restore bad serialized state:",
-                          serializedState, "Current props:",
-                          this.state.widgetProps);
+            console.error(
+                "Refusing to restore bad serialized state:",
+                serializedState,
+                "Current props:",
+                this.state.widgetProps
+            );
             return;
         }
 
@@ -501,31 +513,36 @@ var Renderer = React.createClass({
             }
         };
 
-        this.setState({
-            widgetProps: mapObject(serializedState, (props, widgetId) => {
-                var widget = this.getWidgetInstance(widgetId);
-                if (widget && widget.restoreSerializedState) {
-                    // Note that we probably can't call
-                    // `this.change()/this.props.onChange()` in this
-                    // function, so we take the return value and use
-                    // that as props if necessary so that
-                    // `restoreSerializedState` in a widget can
-                    // change the props as well as state.
-                    // If a widget has no props to change, it can
-                    // safely return null.
-                    ++numCallbacks;
-                    var restoreResult =
-                        widget.restoreSerializedState(props, fireCallback);
-                    return _.extend(
-                        {},
-                        this.state.widgetProps[widgetId],
-                        restoreResult
-                    );
-                } else {
-                    return props;
-                }
-            }),
-        }, fireCallback);
+        this.setState(
+            {
+                widgetProps: mapObject(serializedState, (props, widgetId) => {
+                    var widget = this.getWidgetInstance(widgetId);
+                    if (widget && widget.restoreSerializedState) {
+                        // Note that we probably can't call
+                        // `this.change()/this.props.onChange()` in this
+                        // function, so we take the return value and use
+                        // that as props if necessary so that
+                        // `restoreSerializedState` in a widget can
+                        // change the props as well as state.
+                        // If a widget has no props to change, it can
+                        // safely return null.
+                        ++numCallbacks;
+                        var restoreResult = widget.restoreSerializedState(
+                            props,
+                            fireCallback
+                        );
+                        return _.extend(
+                            {},
+                            this.state.widgetProps[widgetId],
+                            restoreResult
+                        );
+                    } else {
+                        return props;
+                    }
+                }),
+            },
+            fireCallback
+        );
     },
 
     /**
@@ -539,7 +556,8 @@ var Renderer = React.createClass({
             const widget = this.getWidgetInstance(widgetId);
             if (widget && widget.showRationalesForCurrentlySelectedChoices) {
                 widget.showRationalesForCurrentlySelectedChoices(
-                    this._getWidgetInfo(widgetId).options);
+                    this._getWidgetInfo(widgetId).options
+                );
             }
         });
     },
@@ -596,7 +614,7 @@ var Renderer = React.createClass({
         // "interactive-graph 3" will give you [[interactive-graph 3]]
         // "interactive-graph" will give you all interactive-graphs
         if (typeof filterCriterion === "string") {
-            if (filterCriterion.indexOf(' ') !== -1) {
+            if (filterCriterion.indexOf(" ") !== -1) {
                 var widgetId = filterCriterion;
                 filterFunc = (id, widgetInfo) => id === widgetId;
             } else {
@@ -609,11 +627,13 @@ var Renderer = React.createClass({
             filterFunc = filterCriterion;
         }
 
-        var results = this.widgetIds.filter((id) => {
-            var widgetInfo = this._getWidgetInfo(id);
-            var widget = this.getWidgetInstance(id);
-            return filterFunc(id, widgetInfo, widget);
-        }).map(this.getWidgetInstance);
+        var results = this.widgetIds
+            .filter(id => {
+                var widgetInfo = this._getWidgetInfo(id);
+                var widget = this.getWidgetInstance(id);
+                return filterFunc(id, widgetInfo, widget);
+            })
+            .map(this.getWidgetInstance);
 
         return results;
     },
@@ -648,7 +668,8 @@ var Renderer = React.createClass({
             if (!_.isArray(focusPath)) {
                 throw new Error(
                     "widget props.onFocus focusPath must be an Array, " +
-                    "but was" + JSON.stringify(focusPath)
+                        "but was" +
+                        JSON.stringify(focusPath)
                 );
             }
         }
@@ -683,9 +704,12 @@ var Renderer = React.createClass({
 
     shouldRenderJiptPlaceholder: function(props, state) {
         // TODO(aria): Pass this in via webapp as an apiOption
-        return typeof KA !== "undefined" && KA.language === "en-pt" &&
-                    state.jiptContent == null &&
-                    props.content.indexOf('crwdns') !== -1;
+        return (
+            typeof KA !== "undefined" &&
+            KA.language === "en-pt" &&
+            state.jiptContent == null &&
+            props.content.indexOf("crwdns") !== -1
+        );
     },
 
     replaceJiptContent: function(content, paragraphIndex) {
@@ -700,8 +724,7 @@ var Renderer = React.createClass({
             // This is the same regex we use in perseus/translate.py to find
             // code blocks. We use it to count entire code blocks as
             // paragraphs.
-            const codeFenceRegex =
-                /^\s*(`{3,}|~{3,})\s*(\S+)?\s*\n([\s\S]+?)\s*\1\s*$/;
+            const codeFenceRegex = /^\s*(`{3,}|~{3,})\s*(\S+)?\s*\n([\s\S]+?)\s*\1\s*$/; // eslint-disable-line max-len
 
             if (codeFenceRegex.test(content)) {
                 // If a paragraph is a code block, we're going to treat it as a
@@ -717,12 +740,14 @@ var Renderer = React.createClass({
                 // TODO(aria): Check for the max number of backticks or tildes
                 // in the content, and just render a red code block of the
                 // content here instead?
-                content = "$\\large{\\red{\\text{Please translate each " +
+                content =
+                    "$\\large{\\red{\\text{Please translate each " +
                     "paragraph to a single paragraph.}}}$";
             } else if (/^\s*$/.test(content)) {
                 // We similarly can't have an all-whitespace paragraph, or
                 // we will parse it as the closing of the previous paragraph
-                content = "$\\large{\\red{\\text{Translated paragraph is " +
+                content =
+                    "$\\large{\\red{\\text{Translated paragraph is " +
                     "currently empty}}}$";
             }
             // Split the paragraphs; we have to use getContent() in case
@@ -755,7 +780,7 @@ var Renderer = React.createClass({
                 state.key = i;
                 state.paragraphIndex = i;
                 var nodeOut = this.outputMarkdown(ast[i], state);
-                var isString = (typeof nodeOut === "string");
+                var isString = typeof nodeOut === "string";
                 if (isString && lastWasString) {
                     result[result.length - 1] += nodeOut;
                 } else {
@@ -793,22 +818,23 @@ var Renderer = React.createClass({
             } else {
                 className = classNames({
                     "perseus-paragraph-centered": !this._foundTextNodes,
-                    "perseus-paragraph-full-width": (
-                        // There is only one node being rendered,
-                        // and it's a full-width widget.
-                        state.foundFullWidth && ast.content.length === 1
-                    ),
+                    // There is only one node being rendered,
+                    // and it's a full-width widget.
+                    "perseus-paragraph-full-width":
+                        state.foundFullWidth && ast.content.length === 1,
                 });
             }
 
-            return <QuestionParagraph
-                key={state.key}
-                className={className}
-                translationIndex={this.translationIndex}
-                paragraphIndex={state.paragraphIndex}
-            >
-                {output}
-            </QuestionParagraph>;
+            return (
+                <QuestionParagraph
+                    key={state.key}
+                    className={className}
+                    translationIndex={this.translationIndex}
+                    paragraphIndex={state.paragraphIndex}
+                >
+                    {output}
+                </QuestionParagraph>
+            );
         }
     },
 
@@ -826,7 +852,7 @@ var Renderer = React.createClass({
             for (var i = 0; i < ast.length; i++) {
                 state.key = i;
                 var nodeOut = this.outputNested(ast[i], state);
-                var isString = (typeof nodeOut === "string");
+                var isString = typeof nodeOut === "string";
                 if (isString && lastWasString) {
                     result[result.length - 1] += nodeOut;
                 } else {
@@ -865,21 +891,21 @@ var Renderer = React.createClass({
                 // reasons). Instead we just notify the
                 // hopefully-content-creator that they need to change the
                 // widget id.
-                return <span key={state.key} className="renderer-widget-error">
-                    Widget [[{'\u2603'} {node.id}]] already exists.
-                </span>;
-
+                return (
+                    <span key={state.key} className="renderer-widget-error">
+                        Widget [[{"\u2603"} {node.id}]] already exists.
+                    </span>
+                );
             } else {
                 this.widgetIds.push(node.id);
                 return this.renderWidget(node.widgetType, node.id, state);
             }
-
         } else if (node.type === "blockMath") {
             // We render math here instead of in perseus-markdown.jsx
             // because we need to pass it our onRender callback.
             const deferred = new Deferred();
 
-            const onRender = (node) => {
+            const onRender = node => {
                 this.props.onRender && this.props.onRender(node);
 
                 if (apiOptions.isMobile) {
@@ -896,9 +922,9 @@ var Renderer = React.createClass({
                         // TODO(charlie): This works, but feels very brittle.
                         // Figure out how we can call `onRender` only after the
                         // elements have been inserted into the DOM.
-                        const mathjax = node.querySelector(
-                            'script[type="math/tex"]'
-                        ) || node.querySelector(".MathJax");
+                        const mathjax =
+                            node.querySelector('script[type="math/tex"]') ||
+                            node.querySelector(".MathJax");
 
                         if (katex) {
                             deferred.resolve();
@@ -911,12 +937,11 @@ var Renderer = React.createClass({
                 }
             };
 
-            const content = <TeX
-                onRender={onRender}
-                onResourceLoaded={onRender}
-            >
-                {preprocessTex(node.content)}
-            </TeX>;
+            const content = (
+                <TeX onRender={onRender} onResourceLoaded={onRender}>
+                    {preprocessTex(node.content)}
+                </TeX>
+            );
 
             const innerStyle = {
                 // HACK(benkomalo): we only want horizontal scrolling, but
@@ -924,8 +949,8 @@ var Renderer = React.createClass({
                 // as well, despite the parent and child elements having
                 // the exact same height. Force it to not scroll by
                 // applying overflowY: 'hidden'
-                overflowX: 'auto',
-                overflowY: 'hidden',
+                overflowX: "auto",
+                overflowY: "hidden",
 
                 // HACK(kevinb): overflowY: 'hidden' inadvertently clips the
                 // top and bottom of some fractions.  We add padding to the
@@ -962,8 +987,8 @@ var Renderer = React.createClass({
 
                 const computeMathBounds = (parentNode, parentBounds) => {
                     const textElement =
-                            parentNode.querySelector('.katex-html') ||
-                            parentNode.querySelector('.MathJax');
+                        parentNode.querySelector(".katex-html") ||
+                        parentNode.querySelector(".MathJax");
                     const textBounds = {
                         width: textElement.offsetWidth,
                         height: textElement.offsetHeight,
@@ -974,73 +999,75 @@ var Renderer = React.createClass({
                     // container in some cases. Just be conservative and use
                     // the maximum value of the text and the parent. :(
                     return {
-                        width: Math.max(
-                                parentBounds.width, textBounds.width),
+                        width: Math.max(parentBounds.width, textBounds.width),
                         height: Math.max(
-                                parentBounds.height, textBounds.height),
+                            parentBounds.height,
+                            textBounds.height
+                        ),
                     };
                 };
 
-                return <div
-                    key={state.key}
-                    className="perseus-block-math"
-                    style={outerStyle}
-                >
+                return (
                     <div
-                        className="perseus-block-math-inner"
-                        style={{...innerStyle, ...horizontalPadding}}
+                        key={state.key}
+                        className="perseus-block-math"
+                        style={outerStyle}
                     >
-                        <Zoomable
-                            readyToMeasureDeferred={deferred}
-                            computeChildBounds={computeMathBounds}
+                        <div
+                            className="perseus-block-math-inner"
+                            style={{...innerStyle, ...horizontalPadding}}
+                        >
+                            <Zoomable
+                                readyToMeasureDeferred={deferred}
+                                computeChildBounds={computeMathBounds}
+                            >
+                                {content}
+                            </Zoomable>
+                        </div>
+                    </div>
+                );
+            } else {
+                return (
+                    <div key={state.key} className="perseus-block-math">
+                        <div
+                            className="perseus-block-math-inner"
+                            style={innerStyle}
                         >
                             {content}
-                        </Zoomable>
+                        </div>
                     </div>
-                </div>;
-            } else {
-                return <div
-                    key={state.key}
-                    className="perseus-block-math"
-                >
-                    <div
-                        className="perseus-block-math-inner"
-                        style={innerStyle}
-                    >
-                        {content}
-                    </div>
-                </div>;
+                );
             }
-
         } else if (node.type === "math") {
             // Replace uses of \begin{align}...\end{align} which KaTeX doesn't
             // support (yet) with \begin{aligned}...\end{aligned} which renders
             // the same is supported by KaTeX.  It does the same for align*.
             // TODO(kevinb) update content to use aligned instead of align.
-            const tex = node.content.replace(/\{align[*]?\}/g, '{aligned}');
+            const tex = node.content.replace(/\{align[*]?\}/g, "{aligned}");
 
             // We render math here instead of in perseus-markdown.jsx
             // because we need to pass it our onRender callback.
-            return <span
-                key={state.key}
-                style={{
-                    // If math is directly next to text, don't let it
-                    // wrap to the next line
-                    "whiteSpace": "nowrap",
-                }}
-            >
-                {/* We add extra empty spans around the math to make it not
-                    wrap (I don't know why this works, but it does) */}
-                <span />
-                <TeX
-                    onRender={this.props.onRender}
-                    onResourceLoaded={this.props.onRender}
+            return (
+                <span
+                    key={state.key}
+                    style={{
+                        // If math is directly next to text, don't let it
+                        // wrap to the next line
+                        whiteSpace: "nowrap",
+                    }}
                 >
-                    {tex}
-                </TeX>
-                <span />
-            </span>;
-
+                    {/* We add extra empty spans around the math to make it not
+                    wrap (I don't know why this works, but it does) */}
+                    <span />
+                    <TeX
+                        onRender={this.props.onRender}
+                        onResourceLoaded={this.props.onRender}
+                    >
+                        {tex}
+                    </TeX>
+                    <span />
+                </span>
+            );
         } else if (node.type === "image") {
             if (imagePlaceholder) {
                 return imagePlaceholder;
@@ -1051,9 +1078,9 @@ var Renderer = React.createClass({
 
             // We do a _.has check here to avoid weird things like
             // 'toString' or '__proto__' as a url.
-            var extraAttrs = (_.has(this.props.images, node.target)) ?
-                this.props.images[node.target] :
-                null;
+            var extraAttrs = _.has(this.props.images, node.target)
+                ? this.props.images[node.target]
+                : null;
 
             // The width of a table column is determined by the widest table
             // cell within that column, but responsive images constrain
@@ -1063,18 +1090,20 @@ var Renderer = React.createClass({
             // TODO(alex): Make tables themselves responsive.
             var responsive = !state.inTable;
 
-            return <SvgImage
-                key={state.key}
-                src={PerseusMarkdown.sanitizeUrl(node.target)}
-                alt={node.alt}
-                title={node.title}
-                responsive={responsive}
-                onUpdate={this.props.onRender}
-                zoomToFullSizeOnMobile={
-                    apiOptions.isMobile && apiOptions.isArticle}
-                {...extraAttrs}
-            />;
-
+            return (
+                <SvgImage
+                    key={state.key}
+                    src={PerseusMarkdown.sanitizeUrl(node.target)}
+                    alt={node.alt}
+                    title={node.title}
+                    responsive={responsive}
+                    onUpdate={this.props.onRender}
+                    zoomToFullSizeOnMobile={
+                        apiOptions.isMobile && apiOptions.isArticle
+                    }
+                    {...extraAttrs}
+                />
+            );
         } else if (node.type === "columns") {
             // Note that we have two columns. This is so we can put
             // a className on the outer renderer content for SAT.
@@ -1083,7 +1112,6 @@ var Renderer = React.createClass({
             this._isTwoColumn = true;
             // but then render normally:
             return PerseusMarkdown.ruleOutput(node, nestedOutput, state);
-
         } else if (node.type === "text") {
             if (rContainsNonWhitespace.test(node.content)) {
                 this._foundTextNodes = true;
@@ -1097,11 +1125,13 @@ var Renderer = React.createClass({
             } else {
                 return node.content;
             }
-
         } else if (node.type === "table" || node.type === "titledTable") {
             state.inTable = true;
             const output = PerseusMarkdown.ruleOutput(
-                    node, nestedOutput, state);
+                node,
+                nestedOutput,
+                state
+            );
             state.inTable = false;
 
             if (!apiOptions.isMobile) {
@@ -1118,16 +1148,21 @@ var Renderer = React.createClass({
                 paddingRight: 0,
             };
 
-            const wrappedOutput =
-                <div style={{...innerStyle, overflowX: 'auto'}}>
-                    <Zoomable animateHeight={true}>{output}</Zoomable>
-                </div>;
+            const wrappedOutput = (
+                <div style={{...innerStyle, overflowX: "auto"}}>
+                    <Zoomable animateHeight={true}>
+                        {output}
+                    </Zoomable>
+                </div>
+            );
 
             // TODO(benkomalo): how should we deal with tappable items inside
             // of tables?
-            return <div style={outerStyle}>
-                {wrappedOutput}
-            </div>;
+            return (
+                <div style={outerStyle}>
+                    {wrappedOutput}
+                </div>
+            );
         } else {
             // If it's a "normal" or "simple" markdown node, just
             // output it using its output rule.
@@ -1179,10 +1214,7 @@ var Renderer = React.createClass({
 
             this._currentFocus = path;
             if (apiOptions.onFocusChange != null) {
-                apiOptions.onFocusChange(
-                    this._currentFocus,
-                    prevFocus
-                );
+                apiOptions.onFocusChange(this._currentFocus, prevFocus);
             }
         }
     },
@@ -1244,14 +1276,14 @@ var Renderer = React.createClass({
 
     getInputPaths: function() {
         var inputPaths = [];
-        _.each(this.widgetIds, (widgetId) => {
+        _.each(this.widgetIds, widgetId => {
             var widget = this.getWidgetInstance(widgetId);
             if (widget.getInputPaths) {
                 // Grab all input paths and add widgetID to the front
                 var widgetInputPaths = widget.getInputPaths();
                 // Prefix paths with their widgetID and add to collective
                 // list of paths.
-                _.each(widgetInputPaths, (inputPath) => {
+                _.each(widgetInputPaths, inputPath => {
                     var relativeInputPath = [widgetId].concat(inputPath);
                     inputPaths.push(relativeInputPath);
                 });
@@ -1304,18 +1336,22 @@ var Renderer = React.createClass({
 
     serialize: function() {
         var state = {};
-        _.each(this.state.widgetInfo, function(info, id) {
-            var widget = this.getWidgetInstance(id);
-            var s = widget.serialize();
-            if (!_.isEmpty(s)) {
-                state[id] = s;
-            }
-        }, this);
+        _.each(
+            this.state.widgetInfo,
+            function(info, id) {
+                var widget = this.getWidgetInstance(id);
+                var s = widget.serialize();
+                if (!_.isEmpty(s)) {
+                    state[id] = s;
+                }
+            },
+            this
+        );
         return state;
     },
 
     emptyWidgets: function() {
-        return _.filter(this.widgetIds, (id) => {
+        return _.filter(this.widgetIds, id => {
             var widgetInfo = this._getWidgetInfo(id);
             var score = this.getWidgetInstance(id).simpleValidate(
                 widgetInfo.options,
@@ -1333,40 +1369,46 @@ var Renderer = React.createClass({
         // interaction events from being triggered in listeners.
         silent: boolean
     ) {
-        this.setState(prevState => {
-            const widgetProps = {
-                ...prevState.widgetProps,
-                [id]: {
-                    ...prevState.widgetProps[id],
-                    ...newProps,
-                },
-            };
+        this.setState(
+            prevState => {
+                const widgetProps = {
+                    ...prevState.widgetProps,
+                    [id]: {
+                        ...prevState.widgetProps[id],
+                        ...newProps,
+                    },
+                };
 
-            if (!silent) {
-                this.props.onSerializedStateUpdated(
-                    this.getSerializedState(widgetProps));
-            }
+                if (!silent) {
+                    this.props.onSerializedStateUpdated(
+                        this.getSerializedState(widgetProps)
+                    );
+                }
 
-            return {
-                widgetProps,
-            };
-        }, () => {
-            var cbResult = cb && cb();
-            if (!silent) {
-                this.props.onInteractWithWidget(id);
+                return {
+                    widgetProps,
+                };
+            },
+            () => {
+                var cbResult = cb && cb();
+                if (!silent) {
+                    this.props.onInteractWithWidget(id);
+                }
+                if (cbResult !== false) {
+                    // TODO(jack): For some reason, some widgets don't always
+                    // end up in refs here, which is repro-able if you make an
+                    // [[ orderer 1 ]] and copy-paste this, then change it to
+                    // be an [[ orderer 2 ]]. The resulting Renderer ends up
+                    // with an "orderer 2" ref but not an "orderer 1" ref.
+                    // @_@??
+                    // TODO(jack): Figure out why this is happening and fix it
+                    // As far as I can tell, this is only an issue in the
+                    // editor-page, so doing this shouldn't break clients
+                    // hopefully
+                    this._setCurrentFocus([id]);
+                }
             }
-            if (cbResult !== false) {
-                // TODO(jack): For some reason, some widgets don't always end
-                // up in refs here, which is repro-able if you make an
-                // [[ orderer 1 ]] and copy-paste this, then change it to be
-                // an [[ orderer 2 ]]. The resulting Renderer ends up with
-                // an "orderer 2" ref but not an "orderer 1" ref. @_@??
-                // TODO(jack): Figure out why this is happening and fix it
-                // As far as I can tell, this is only an issue in the
-                // editor-page, so doing this shouldn't break clients hopefully
-                this._setCurrentFocus([id]);
-            }
-        });
+        );
     },
 
     setInputValue: function(path, newValue, focus) {
@@ -1382,7 +1424,7 @@ var Renderer = React.createClass({
      * Returns an array of the widget `.getUserInput()` results
      */
     getUserInput: function() {
-        return _.map(this.widgetIds, (id) => {
+        return _.map(this.widgetIds, id => {
             return this.getWidgetInstance(id).getUserInput();
         });
     },
@@ -1427,16 +1469,17 @@ var Renderer = React.createClass({
      */
     getAllWidgetIds: function() {
         // Recursively builds our result
-        return _.map(this.getWidgetIds(), (id) => {
+        return _.map(this.getWidgetIds(), id => {
             var groupPrefix = "group";
-            if (id.substring(0, groupPrefix.length) === groupPrefix &&
-                    this.getWidgetInstance(id)) {
+            if (
+                id.substring(0, groupPrefix.length) === groupPrefix &&
+                this.getWidgetInstance(id)
+            ) {
                 return {
                     id: id,
-                    children:
-                        this.getWidgetInstance(id)
-                            .getRenderer()
-                            .getAllWidgetIds(),
+                    children: this.getWidgetInstance(id)
+                        .getRenderer()
+                        .getAllWidgetIds(),
                 };
             }
 
@@ -1450,7 +1493,7 @@ var Renderer = React.createClass({
      * a map from widgetId to userInput.
      */
     getUserInputForWidgets: function() {
-        return mapObjectFromArray(this.widgetIds, (id) => {
+        return mapObjectFromArray(this.widgetIds, id => {
             return this.getWidgetInstance(id).getUserInput();
         });
     },
@@ -1462,25 +1505,26 @@ var Renderer = React.createClass({
      */
     scoreWidgets: function() {
         var widgetProps = this.state.widgetInfo;
-        var onInputError = this.getApiOptions().onInputError ||
-                function() { };
+        var onInputError = this.getApiOptions().onInputError || function() {};
 
-        var gradedWidgetIds = _.filter(this.widgetIds, (id) => {
+        var gradedWidgetIds = _.filter(this.widgetIds, id => {
             var props = widgetProps[id];
             // props.graded is unset or true
             return props.graded == null || props.graded;
         });
 
         var widgetScores = {};
-        _.each(gradedWidgetIds, (id) => {
+        _.each(gradedWidgetIds, id => {
             var props = widgetProps[id];
             var widget = this.getWidgetInstance(id);
             if (!widget) {
                 // This can occur if the widget has not yet been rendered
                 return;
             }
-            widgetScores[id] = widget.simpleValidate(props.options,
-                                                      onInputError);
+            widgetScores[id] = widget.simpleValidate(
+                props.options,
+                onInputError
+            );
         });
 
         return widgetScores;
@@ -1509,9 +1553,11 @@ var Renderer = React.createClass({
 
     examples: function() {
         var widgets = this.widgetIds;
-        var examples = _.compact(_.map(widgets, function(widget) {
-            return widget.examples ? widget.examples() : null;
-        }));
+        var examples = _.compact(
+            _.map(widgets, function(widget) {
+                return widget.examples ? widget.examples() : null;
+            })
+        );
 
         // no widgets with examples
         if (!examples.length) {
@@ -1577,11 +1623,11 @@ var Renderer = React.createClass({
                 // Persues.TranslationComponent registry so that when jipt
                 // calls its before_dom_insert we can lookup this component by
                 // this attribute and render the text with markdown.
-                return <div
-                    data-perseus-component-index={this.translationIndex}
-                >
-                    {content}
-                </div>;
+                return (
+                    <div data-perseus-component-index={this.translationIndex}>
+                        {content}
+                    </div>
+                );
             }
         }
 
@@ -1629,9 +1675,11 @@ var Renderer = React.createClass({
             [ApiClassNames.TWO_COLUMN_RENDERER]: this._isTwoColumn,
         });
 
-        this.lastRenderedMarkdown = <div className={className}>
-            {markdownContents}
-        </div>;
+        this.lastRenderedMarkdown = (
+            <div className={className}>
+                {markdownContents}
+            </div>
+        );
         return this.lastRenderedMarkdown;
     },
 });

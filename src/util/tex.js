@@ -89,8 +89,10 @@ module.exports = {
                         const jax = MathJax.Hub.getJaxFor(script);
                         if (jax) {
                             const e = jax.SourceElement();
-                            if (e.previousSibling &&
-                                    e.previousSibling.className) {
+                            if (
+                                e.previousSibling &&
+                                e.previousSibling.className
+                            ) {
                                 jax.Remove();
                             }
                         }
@@ -119,8 +121,11 @@ module.exports = {
             $elem.attr("data-math-type", "mathjax");
             // Update the script tag, or add one if necessary
             if (!script) {
-                $mathjaxHolder.append("<script type='math/tex'>" +
-                        text.replace(/<\//g, "< /") + "</script>");
+                $mathjaxHolder.append(
+                    "<script type='math/tex'>" +
+                        text.replace(/<\//g, "< /") +
+                        "</script>"
+                );
             } else {
                 if ("text" in script) {
                     // IE8, etc
@@ -132,11 +137,15 @@ module.exports = {
             if (typeof MathJax !== "undefined") {
                 // Put the process, a debug log, and the callback into the
                 // MathJax queue
-                MathJax.Hub.Queue(["Reprocess", MathJax.Hub,
-                    $mathjaxHolder[0]]);
+                MathJax.Hub.Queue([
+                    "Reprocess",
+                    MathJax.Hub,
+                    $mathjaxHolder[0],
+                ]);
                 MathJax.Hub.Queue(function() {
-                    KhanUtil.debugLog("MathJax done typesetting (" + text +
-                            ")");
+                    KhanUtil.debugLog(
+                        "MathJax done typesetting (" + text + ")"
+                    );
                 });
                 if (callback) {
                     MathJax.Hub.Queue(function() {

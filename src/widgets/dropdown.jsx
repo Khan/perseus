@@ -4,7 +4,7 @@
 
 const {StyleSheet, css} = require("aphrodite");
 const classNames = require("classnames");
-const React = require('react');
+const React = require("react");
 const ReactDOM = require("react-dom");
 const _ = require("underscore");
 
@@ -14,8 +14,8 @@ const InlineIcon = require("../components/inline-icon.jsx");
 const styleConstants = require("../styles/constants.js");
 
 const {iconDropdownArrow} = require("../icon-paths.js");
-const captureScratchpadTouchStart =
-        require("../util.js").captureScratchpadTouchStart;
+const captureScratchpadTouchStart = require("../util.js")
+    .captureScratchpadTouchStart;
 
 const dropdownArrowSize = 24;
 
@@ -34,7 +34,7 @@ const Dropdown = React.createClass({
             choices: [],
             selected: 0,
             placeholder: "",
-            apiOptions: ApiOptions.defaults
+            apiOptions: ApiOptions.defaults,
         };
     },
 
@@ -45,35 +45,42 @@ const Dropdown = React.createClass({
             "perseus-widget-dropdown": true,
         });
 
-        return <div>
+        return (
+            <div>
                 <select
                     onChange={this._handleChangeEvent}
                     onTouchStart={captureScratchpadTouchStart}
-                    className={selectClasses +
-                        " " + css(styles.dropdown) +
-                        " " + ApiClassNames.INTERACTIVE}
+                    className={
+                        selectClasses +
+                        " " +
+                        css(styles.dropdown) +
+                        " " +
+                        ApiClassNames.INTERACTIVE
+                    }
                     disabled={this.props.apiOptions.readOnly}
-                    value={this.props.selected}>
-                <option value={0} disabled>
-                    {this.props.placeholder}
-                </option>
-                {choices.map((choice, i) => {
-                    return <option
-                            key={"" + (i + 1)}
-                            value={i + 1}>
-                        {choice}
-                    </option>;
-                })}
-            </select>
-            <InlineIcon
-                {...iconDropdownArrow}
-                style={{
-                    marginLeft: `-${dropdownArrowSize}px`,
-                    height: dropdownArrowSize,
-                    width: dropdownArrowSize,
-                }}
-            />
-        </div>;
+                    value={this.props.selected}
+                >
+                    <option value={0} disabled>
+                        {this.props.placeholder}
+                    </option>
+                    {choices.map((choice, i) => {
+                        return (
+                            <option key={"" + (i + 1)} value={i + 1}>
+                                {choice}
+                            </option>
+                        );
+                    })}
+                </select>
+                <InlineIcon
+                    {...iconDropdownArrow}
+                    style={{
+                        marginLeft: `-${dropdownArrowSize}px`,
+                        height: dropdownArrowSize,
+                        width: dropdownArrowSize,
+                    }}
+                />
+            </div>
+        );
     },
 
     focus: function() {
@@ -96,7 +103,7 @@ const Dropdown = React.createClass({
 
     simpleValidate: function(rubric) {
         return Dropdown.validate(this.getUserInput(), rubric);
-    }
+    },
 });
 
 _.extend(Dropdown, {
@@ -105,7 +112,7 @@ _.extend(Dropdown, {
         if (selected === 0) {
             return {
                 type: "invalid",
-                message: null
+                message: null,
             };
         } else {
             var correct = rubric.choices[selected - 1].correct;
@@ -113,44 +120,44 @@ _.extend(Dropdown, {
                 type: "points",
                 earned: correct ? 1 : 0,
                 total: 1,
-                message: null
+                message: null,
             };
         }
-    }
+    },
 });
 
-var propTransform = (editorProps) => {
+var propTransform = editorProps => {
     return {
         placeholder: editorProps.placeholder,
-        choices: _.map(editorProps.choices, (choice) => choice.content)
+        choices: _.map(editorProps.choices, choice => choice.content),
     };
 };
 
 const styles = StyleSheet.create({
     dropdown: {
-        appearance: 'none',
-        backgroundColor: 'transparent',
+        appearance: "none",
+        backgroundColor: "transparent",
         border: `1px solid ${styleConstants.gray76}`,
         borderRadius: 4,
-        boxShadow: 'none',
+        boxShadow: "none",
         fontFamily: styleConstants.baseFontFamily,
         padding: `9px ${dropdownArrowSize + 1}px 9px 9px`,
 
-        ':focus': {
-            outline: 'none',
+        ":focus": {
+            outline: "none",
             border: `2px solid ${styleConstants.kaGreen}`,
             padding: `8px ${dropdownArrowSize}px 8px 8px`,
         },
 
-        ':focus + svg': {
+        ":focus + svg": {
             color: `${styleConstants.kaGreen}`,
         },
 
-        ':disabled': {
+        ":disabled": {
             color: styleConstants.gray68,
         },
 
-        ':disabled + svg' : {
+        ":disabled + svg": {
             color: styleConstants.gray68,
         },
     },
@@ -162,5 +169,5 @@ module.exports = {
     defaultAlignment: "inline-block",
     accessible: true,
     widget: Dropdown,
-    transform: propTransform
+    transform: propTransform,
 };

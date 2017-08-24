@@ -12,7 +12,7 @@ var END_REF_PREFIX = "end-ref-";
 var REF_STYLE = {
     display: "inline-block",
     width: 0,
-    visibility: "hidden"
+    visibility: "hidden",
 };
 
 var LABEL_OUTER_STYLE = {
@@ -69,7 +69,7 @@ var rules = {
     paragraph: SimpleMarkdown.defaultRules.paragraph,
     escape: SimpleMarkdown.defaultRules.escape,
     passageFootnote: {
-        order: SimpleMarkdown.defaultRules.escape.order + .1,
+        order: SimpleMarkdown.defaultRules.escape.order + 0.1,
         match: SimpleMarkdown.inlineRegex(/^\^/),
         parse: (capture, parse, state) => {
             // if no footnotes have been seen, we're id 1. otherwise,
@@ -79,7 +79,7 @@ var rules = {
                 id: id,
                 // our text is what to output. if there is only one footnote,
                 // it's a *; otherwise it's a superscript number
-                text: id === 1 ? "*" : ("" + id)
+                text: id === 1 ? "*" : "" + id,
             };
 
             // If the previous footnote was a *, we need to adjust it to be
@@ -93,11 +93,15 @@ var rules = {
             return footnote;
         },
         react: (node, output, state) => {
-            return <sup key={state.key}>{node.text}</sup>;
-        }
+            return (
+                <sup key={state.key}>
+                    {node.text}
+                </sup>
+            );
+        },
     },
     refStart: {
-        order: SimpleMarkdown.defaultRules.escape.order + .2,
+        order: SimpleMarkdown.defaultRules.escape.order + 0.2,
         match: function(source, state) {
             var capture = /^\{\{/.exec(source);
             if (capture) {
@@ -132,10 +136,7 @@ var rules = {
 
                 // A "magic" capture that matches the opening {{
                 // but captures the full ref text internally :D
-                return [
-                    capture[0],
-                    refText
-                ];
+                return [capture[0], refText];
             } else {
                 return null;
             }
@@ -155,13 +156,16 @@ var rules = {
             var refContent = parse(
                 // Curly quotes
                 "(\u201C" + capture[1] + "\u201D)\n\n",
-                _.defaults({
-                    // We don't want to parse refs while looking through
-                    // this refs contents. We definitely don't want
-                    // to make those refs into react refs on the
-                    // passage, for instance!
-                    useRefs: false,
-                }, INITIAL_PARSE_STATE)
+                _.defaults(
+                    {
+                        // We don't want to parse refs while looking through
+                        // this refs contents. We definitely don't want
+                        // to make those refs into react refs on the
+                        // passage, for instance!
+                        useRefs: false,
+                    },
+                    INITIAL_PARSE_STATE
+                )
             );
 
             return {
@@ -178,14 +182,17 @@ var rules = {
             // and output out-of-band. We don't want to affect
             // our state by the double-output here :).
             var refContent = output(node.refContent, {});
-            return <RefStart
-                ref={START_REF_PREFIX + node.ref}
-                key={START_REF_PREFIX + node.ref}
-                refContent={refContent} />;
-        }
+            return (
+                <RefStart
+                    ref={START_REF_PREFIX + node.ref}
+                    key={START_REF_PREFIX + node.ref}
+                    refContent={refContent}
+                />
+            );
+        },
     },
     refEnd: {
-        order: SimpleMarkdown.defaultRules.escape.order + .3,
+        order: SimpleMarkdown.defaultRules.escape.order + 0.3,
         match: SimpleMarkdown.inlineRegex(/^\}\}/),
         parse: (capture, parse, state) => {
             if (!state.useRefs) {
@@ -196,24 +203,27 @@ var rules = {
 
             var ref = state.currentRef.pop() || null;
             return {
-                ref: ref
+                ref: ref,
             };
         },
         react: (node, output, state) => {
             if (node.ref != null) {
-                return <RefEnd
+                return (
+                    <RefEnd
                         ref={END_REF_PREFIX + node.ref}
-                        key={END_REF_PREFIX + node.ref} />;
+                        key={END_REF_PREFIX + node.ref}
+                    />
+                );
             } else {
                 // if we didn't have a matching start reference, or
                 // we aren't parsing refs for this pass (we do this
                 // inside of refContent), don't output a ref
                 return null;
             }
-        }
+        },
     },
     squareLabel: {
-        order: SimpleMarkdown.defaultRules.escape.order + .4,
+        order: SimpleMarkdown.defaultRules.escape.order + 0.4,
         match: SimpleMarkdown.inlineRegex(/^\[\[(\w+)\]\]( *)/),
         parse: (capture, parse, state) => {
             if (!state.firstQuestionRef) {
@@ -227,24 +237,27 @@ var rules = {
         react: (node, output, state) => {
             return [
                 <span
-                        key="visual-square"
-                        className="perseus-passage-square-label"
-                        style={LABEL_OUTER_STYLE}
-                        aria-hidden="true">
+                    key="visual-square"
+                    className="perseus-passage-square-label"
+                    style={LABEL_OUTER_STYLE}
+                    aria-hidden="true"
+                >
                     <span style={SQUARE_LABEL_STYLE}>
                         {node.content}
                     </span>
                 </span>,
                 <span key="alt-text" className="perseus-sr-only">
-                    {$_({number: node.content},
-                        "[Marker for question %(number)s]")}
+                    {$_(
+                        {number: node.content},
+                        "[Marker for question %(number)s]"
+                    )}
                 </span>,
-                (node.space ? "\u00A0" : null)
+                node.space ? "\u00A0" : null,
             ];
-        }
+        },
     },
     circleLabel: {
-        order: SimpleMarkdown.defaultRules.escape.order + .5,
+        order: SimpleMarkdown.defaultRules.escape.order + 0.5,
         match: SimpleMarkdown.inlineRegex(/^\(\((\w+)\)\)( *)/),
         parse: (capture, parse, state) => {
             return {
@@ -255,24 +268,24 @@ var rules = {
         react: (node, output, state) => {
             return [
                 <span
-                        key="visual-circle"
-                        className="perseus-passage-circle-label"
-                        style={LABEL_OUTER_STYLE}
-                        aria-hidden={true}>
+                    key="visual-circle"
+                    className="perseus-passage-circle-label"
+                    style={LABEL_OUTER_STYLE}
+                    aria-hidden={true}
+                >
                     <span style={CIRCLE_LABEL_STYLE}>
                         {node.content}
                     </span>
                 </span>,
                 <span key="alt-text" className="perseus-sr-only">
-                    {$_({number: node.content},
-                        "[Circle marker %(number)s]")}
+                    {$_({number: node.content}, "[Circle marker %(number)s]")}
                 </span>,
-                (node.space ? "\u00A0" : null)
+                node.space ? "\u00A0" : null,
             ];
-        }
+        },
     },
     squareBracketRef: {
-        order: SimpleMarkdown.defaultRules.escape.order + .6,
+        order: SimpleMarkdown.defaultRules.escape.order + 0.6,
         match: SimpleMarkdown.inlineRegex(/^\[(\d+)\]( *)/),
         parse: (capture, parse, state) => {
             if (!state.firstSentenceRef) {
@@ -286,23 +299,24 @@ var rules = {
         react: (node, output, state) => {
             return [
                 <span
-                        key="visual-brackets"
-                        className="perseus-passage-bracket-label"
-                        aria-hidden="true">
+                    key="visual-brackets"
+                    className="perseus-passage-bracket-label"
+                    aria-hidden="true"
+                >
                     [{node.content}]
                 </span>,
                 <span key="alt-text" className="perseus-sr-only">
-                    {$_({number: node.content},
-                        "[Sentence %(number)s]")}
+                    {$_({number: node.content}, "[Sentence %(number)s]")}
                 </span>,
-                (node.space ? "\u00A0" : null)
+                node.space ? "\u00A0" : null,
             ];
-        }
+        },
     },
     highlight: {
-        order: SimpleMarkdown.defaultRules.escape.order + .7,
+        order: SimpleMarkdown.defaultRules.escape.order + 0.7,
         match: SimpleMarkdown.inlineRegex(
-                /^{highlighting.start}(.+?){highlighting.end}/),
+            /^{highlighting.start}(.+?){highlighting.end}/
+        ),
         parse: (capture, parse, state) => {
             return {
                 content: capture[1],
@@ -314,12 +328,13 @@ var rules = {
                     {node.content}
                 </span>,
             ];
-        }
+        },
     },
     reviewHighlight: {
-        order: SimpleMarkdown.defaultRules.escape.order + .7,
+        order: SimpleMarkdown.defaultRules.escape.order + 0.7,
         match: SimpleMarkdown.inlineRegex(
-                /^{review-highlighting.start}(.+?){review-highlighting.end}/),
+            /^{review-highlighting.start}(.+?){review-highlighting.end}/
+        ),
         parse: (capture, parse, state) => {
             return {
                 content: capture[1],
@@ -331,7 +346,7 @@ var rules = {
                     {node.content}
                 </span>,
             ];
-        }
+        },
     },
     strong: SimpleMarkdown.defaultRules.strong,
     u: SimpleMarkdown.defaultRules.u,
@@ -340,7 +355,11 @@ var rules = {
     text: {
         ...SimpleMarkdown.defaultRules.text,
         react(node, output, state) {
-            return <span key={state.key}>{node.content}</span>;
+            return (
+                <span key={state.key}>
+                    {node.content}
+                </span>
+            );
         },
     },
 };
@@ -349,16 +368,13 @@ var INITIAL_PARSE_STATE = {
     currentRef: [],
     useRefs: true,
     lastRef: 0,
-    lastFootnote: {id: 0, text: ""}
+    lastFootnote: {id: 0, text: ""},
 };
 var builtParser = SimpleMarkdown.parserFor(rules);
 var parse = (source, state) => {
     state = state || {};
     var paragraphedSource = source + "\n\n";
-    return builtParser(
-        paragraphedSource,
-        _.extend(state, INITIAL_PARSE_STATE)
-    );
+    return builtParser(paragraphedSource, _.extend(state, INITIAL_PARSE_STATE));
 };
 
 module.exports = {

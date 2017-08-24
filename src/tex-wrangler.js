@@ -7,7 +7,7 @@
  * curly brackets.
  */
 
- /*
+/*
   * Find the index at which an expression ends, i.e., has an unmatched
   * closing curly bracket. This method assumes that we start with a non-open
   * bracket character and end when we've seen more left than right brackets
@@ -20,9 +20,9 @@ function findEndpoint(tex, currentIndex) {
     for (var i = currentIndex, len = tex.length; i < len; i++) {
         var c = tex[i];
 
-        if (c === '{') {
+        if (c === "{") {
             bracketDepth++;
-        } else if (c === '}') {
+        } else if (c === "}") {
             bracketDepth--;
         }
 
@@ -35,14 +35,13 @@ function findEndpoint(tex, currentIndex) {
     return tex.length;
 }
 
-
 /*
  * Parses an individual set of curly brackets into TeX.
  */
 function parseNextExpression(tex, currentIndex, handler) {
     // Find the first '{' and grab subsequent TeX
     // Ex) tex: '{3}{7}', and we want the '3'
-    var openBracketIndex = tex.indexOf('{', currentIndex);
+    var openBracketIndex = tex.indexOf("{", currentIndex);
     var nextExpIndex = openBracketIndex + 1;
 
     // Truncate to only contain remaining TeX
@@ -52,10 +51,9 @@ function parseNextExpression(tex, currentIndex, handler) {
 
     return {
         endpoint: endpoint,
-        expression: parsedExp
+        expression: parsedExp,
     };
 }
-
 
 function getNextFracIndex(tex, currentIndex) {
     var dfrac = "\\dfrac";
@@ -75,7 +73,6 @@ function getNextFracIndex(tex, currentIndex) {
     }
 }
 
-
 function walkTex(tex, handler) {
     // Ex) tex: '2 \dfrac {3}{7}'
     var parsedString = "";
@@ -94,14 +91,18 @@ function walkTex(tex, handler) {
         // Parse first expression and move index past it
         // Ex) firstParsedExpression.expression: '3'
         var firstParsedExpression = parseNextExpression(
-            tex, currentIndex, handler
+            tex,
+            currentIndex,
+            handler
         );
         currentIndex = firstParsedExpression.endpoint + 1;
 
         // Parse second expression
         // Ex) secondParsedExpression.expression: '7'
         var secondParsedExpression = parseNextExpression(
-            tex, currentIndex, handler
+            tex,
+            currentIndex,
+            handler
         );
         currentIndex = secondParsedExpression.endpoint + 1;
 
@@ -111,8 +112,10 @@ function walkTex(tex, handler) {
         }
 
         // Apply a custom handler based on the parsed subexpressions
-        parsedString += handler(firstParsedExpression.expression,
-            secondParsedExpression.expression);
+        parsedString += handler(
+            firstParsedExpression.expression,
+            secondParsedExpression.expression
+        );
 
         // Find next DFrac, relative to currentIndex
         nextFrac = getNextFracIndex(tex, currentIndex);
@@ -162,7 +165,7 @@ function parseTex(tex) {
         return exp1 + "/" + exp2;
     };
     const texWithoutFracs = walkTex(tex, handler);
-    return texWithoutFracs.replace('\\%', '%');
+    return texWithoutFracs.replace("\\%", "%");
 }
 
 module.exports = {

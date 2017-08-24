@@ -29,7 +29,6 @@ function getSlugFromUrl(url) {
  * This is the main editor for this widget, to specify all the options.
  */
 const VideoEditor = React.createClass({
-
     propTypes: {
         ...Changeable.propTypes,
         location: React.PropTypes.string,
@@ -55,20 +54,23 @@ const VideoEditor = React.createClass({
     },
 
     render: function() {
-        return <div>
-            <label>URL or KA Video Slug:{' '}
-                <BlurInput
-                    name="location"
-                    value={this.props.location}
-                    style={{width: 290}}
-                    onChange={this._handleUrlChange}
-                />
-                <InfoTip>
-                    You can paste any URL here. KA video URLs will
-                    be converted to just the slug.
-                </InfoTip>
-            </label>
-        </div>;
+        return (
+            <div>
+                <label>
+                    URL or KA Video Slug:{" "}
+                    <BlurInput
+                        name="location"
+                        value={this.props.location}
+                        style={{width: 290}}
+                        onChange={this._handleUrlChange}
+                    />
+                    <InfoTip>
+                        You can paste any URL here. KA video URLs will be
+                        converted to just the slug.
+                    </InfoTip>
+                </label>
+            </div>
+        );
     },
 });
 

@@ -1,4 +1,4 @@
-/* eslint-disable comma-dangle, indent, no-redeclare, no-unused-vars, no-var, object-curly-spacing, one-var, react/prop-types, react/sort-comp, space-before-function-paren */
+/* eslint-disable comma-dangle, indent, max-lines, no-redeclare, no-unused-vars, no-var, object-curly-spacing, one-var, react/prop-types, react/sort-comp, space-before-function-paren */
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
@@ -12,7 +12,7 @@ var deepEq = require("../util.js").deepEq;
 const KhanMath = require("../util/math.js");
 const KhanColors = require("../util/colors.js");
 const GraphUtils = require("../util/graph-utils.js");
-const Interactive2  = require("../interactive2.js");
+const Interactive2 = require("../interactive2.js");
 const WrappedLine = require("../interactive2/wrapped-line.js");
 
 var BAR = "bar",
@@ -24,10 +24,12 @@ var BAR = "bar",
 const widgetPropTypes = {
     type: React.PropTypes.oneOf([BAR, LINE, PIC, HISTOGRAM, DOTPLOT]),
     labels: React.PropTypes.arrayOf(React.PropTypes.string),
-    categories: React.PropTypes.arrayOf(React.PropTypes.oneOfType([
-        React.PropTypes.number,
-        React.PropTypes.string
-    ])),
+    categories: React.PropTypes.arrayOf(
+        React.PropTypes.oneOfType([
+            React.PropTypes.number,
+            React.PropTypes.string,
+        ])
+    ),
 
     scaleY: React.PropTypes.number,
     maxY: React.PropTypes.number,
@@ -51,7 +53,7 @@ var Plotter = React.createClass({
         // ...widgetPropTypes,
     },
 
-    getDefaultProps: function () {
+    getDefaultProps: function() {
         return {
             type: BAR,
             labels: ["", ""],
@@ -66,7 +68,7 @@ var Plotter = React.createClass({
             picUrl: "",
 
             plotDimensions: [380, 300],
-            labelInterval: 1
+            labelInterval: 1,
         };
     },
 
@@ -95,12 +97,16 @@ var Plotter = React.createClass({
             marginBottom: this.props.labels[0] ? paddingForBottomLabel : 0,
         };
 
-        return <div
-            className={"perseus-widget-plotter graphie " +
-                ApiClassNames.INTERACTIVE}
-            ref="graphieDiv"
-            style={style}
-        />;
+        return (
+            <div
+                className={
+                    "perseus-widget-plotter graphie " +
+                    ApiClassNames.INTERACTIVE
+                }
+                ref="graphieDiv"
+                style={style}
+            />
+        );
     },
 
     componentDidUpdate: function(prevProps, prevState) {
@@ -114,15 +120,30 @@ var Plotter = React.createClass({
     },
 
     componentWillReceiveProps: function(nextProps) {
-        var props = ["type", "labels", "categories", "scaleY", "maxY",
-            "snapsPerLine", "picUrl", "labelInterval", "static"];
+        var props = [
+            "type",
+            "labels",
+            "categories",
+            "scaleY",
+            "maxY",
+            "snapsPerLine",
+            "picUrl",
+            "labelInterval",
+            "static",
+        ];
 
-        this.shouldSetupGraphie = _.any(props, function (prop) {
-            return !_.isEqual(this.props[prop], nextProps[prop]);
-        }, this);
+        this.shouldSetupGraphie = _.any(
+            props,
+            function(prop) {
+                return !_.isEqual(this.props[prop], nextProps[prop]);
+            },
+            this
+        );
 
-        if (!_.isEqual(this.props.starting, nextProps.starting) &&
-            !_.isEqual(this.state.values, nextProps.starting)) {
+        if (
+            !_.isEqual(this.props.starting, nextProps.starting) &&
+            !_.isEqual(this.state.values, nextProps.starting)
+        ) {
             this.shouldSetupGraphie = true;
             this.setState({values: nextProps.starting});
         }
@@ -159,12 +180,11 @@ var Plotter = React.createClass({
             lines: [],
             bars: [],
             points: [],
-            dividers: []
+            dividers: [],
         };
         c.scaleY = self.props.scaleY;
         c.dimX = self.props.categories.length;
-        var plotDimensions = isMobile ? [288, 336] :
-            self.props.plotDimensions;
+        var plotDimensions = isMobile ? [288, 336] : self.props.plotDimensions;
         if (isLine) {
             // Subtracting 0.2 makes line have equal padding on each side
             c.dimX += isMobile ? -0.2 : 1;
@@ -189,8 +209,8 @@ var Plotter = React.createClass({
         }
 
         if (isDotplot) {
-            c.picBoxHeight = this.DOT_PLOT_POINT_SIZE() * 2 +
-                this.DOT_PLOT_POINT_PADDING();
+            c.picBoxHeight =
+                this.DOT_PLOT_POINT_SIZE() * 2 + this.DOT_PLOT_POINT_PADDING();
         }
 
         c.dimY = Math.ceil(self.props.maxY / c.scaleY) * c.scaleY;
@@ -199,7 +219,7 @@ var Plotter = React.createClass({
         var padY = 25;
 
         if ((isBar || isLine) && isMobile) {
-            padX = (self.props.labels[1].length !== 0) ? 17 : 11;
+            padX = self.props.labels[1].length !== 0 ? 17 : 11;
         }
 
         // Since dotplot doesn't have an axis along the left it looks weird
@@ -213,10 +233,11 @@ var Plotter = React.createClass({
         }
 
         if (isMobile) {
-            c.scale = _.map([[c.dimX, padX], [c.dimY, padY]],
+            c.scale = _.map(
+                [[c.dimX, padX], [c.dimY, padY]],
                 // We multiply pad by 4 because we add 3*pad padding on the left
                 // and 1*pad on the right
-                ([dim, pad], i) => (plotDimensions[i] - (pad * 4)) / dim
+                ([dim, pad], i) => (plotDimensions[i] - pad * 4) / dim
             );
         } else {
             c.scale = _.map([c.dimX, c.dimY], function(dim, i) {
@@ -238,8 +259,8 @@ var Plotter = React.createClass({
         });
         graphie.addMouseLayer({
             allowScratchpad: true,
-            setDrawingAreaAvailable:
-                this.props.apiOptions.setDrawingAreaAvailable,
+            setDrawingAreaAvailable: this.props.apiOptions
+                .setDrawingAreaAvailable,
         });
 
         if (!isTiledPlot) {
@@ -260,15 +281,19 @@ var Plotter = React.createClass({
                     },
                     function() {
                         graphie.line([0, y], [c.dimX, y]);
-                    });
+                    }
+                );
             }
         }
 
         if ((isBar || isLine) && isMobile) {
-            self.graphie.dragPrompt = graphie.label(
-                [c.dimX / 2, c.dimY / 2],
-                "Drag handles to make graph",
-                "center", false)
+            self.graphie.dragPrompt = graphie
+                .label(
+                    [c.dimX / 2, c.dimY / 2],
+                    "Drag handles to make graph",
+                    "center",
+                    false
+                )
                 .css("font-weight", "bold")
                 .css("color", KhanColors.KA_GREEN)
                 .css("display", "none");
@@ -277,10 +302,13 @@ var Plotter = React.createClass({
         self.setupCategories(config);
 
         if (isTiledPlot && isMobile) {
-            self.graphie.dotPrompt = graphie.label(
-                [c.dimX / 2, c.dimY / 2],
-                "Tap to add points",
-                "center", false)
+            self.graphie.dotPrompt = graphie
+                .label(
+                    [c.dimX / 2, c.dimY / 2],
+                    "Tap to add points",
+                    "center",
+                    false
+                )
                 .css("font-weight", "bold")
                 .css("color", KhanColors.KA_GREEN)
                 .css("display", "none");
@@ -302,10 +330,11 @@ var Plotter = React.createClass({
                                 stroke: isMobile ? KhanColors.GRAY_G : "#000",
                                 strokeWidth: isMobile ? 1 : 2,
                             },
-                            () => graphie.line(
-                                [isMobile ? 0 : 0.5, 0],
-                                [c.dimX - (isMobile ? 0 : 0.5), 0]
-                            )
+                            () =>
+                                graphie.line(
+                                    [isMobile ? 0 : 0.5, 0],
+                                    [c.dimX - (isMobile ? 0 : 0.5), 0]
+                                )
                         );
                     } else {
                         graphie.line([0, 0], [c.dimX, 0]);
@@ -314,8 +343,9 @@ var Plotter = React.createClass({
                         if (self.props.labels[1].length !== 0 || !isMobile) {
                             graphie.style(
                                 {
-                                    stroke: isMobile ?
-                                        KhanColors.GRAY_G : "#000",
+                                    stroke: isMobile
+                                        ? KhanColors.GRAY_G
+                                        : "#000",
                                     strokeWidth: isMobile ? 1 : 2,
                                 },
                                 () => graphie.line([0, 0], [0, c.dimY])
@@ -329,10 +359,11 @@ var Plotter = React.createClass({
                             stroke: isMobile ? KhanColors.GRAY_G : "#000",
                             strokeWidth: isMobile ? 1 : 2,
                         },
-                        () => graphie.line(
-                            [isMobile ? -padX * 3 : 0, 0],
-                            [c.dimX + (isMobile ? padX : 0), 0]
-                        )
+                        () =>
+                            graphie.line(
+                                [isMobile ? -padX * 3 : 0, 0],
+                                [c.dimX + (isMobile ? padX : 0), 0]
+                            )
                     );
 
                     if (!((isBar || isLine) && isMobile)) {
@@ -345,43 +376,48 @@ var Plotter = React.createClass({
                         );
                     }
                 }
-            });
+            }
+        );
 
-        graphie.label([c.dimX / 2,
-                       isMobile ? (-padY * 3) : (-35 / c.scale[1])],
-            self.props.labels[0],
-            isMobile ? "above" : "below", false)
+        graphie
+            .label(
+                [c.dimX / 2, isMobile ? -padY * 3 : -35 / c.scale[1]],
+                self.props.labels[0],
+                isMobile ? "above" : "below",
+                false
+            )
             .css("font-weight", "bold")
             .css("color", isMobile && KhanColors.GRAY_F);
 
-        graphie.label([(isMobile ? -35 : -60) / c.scale[0], c.dimY / 2],
-            self.props.labels[1],
-            "center", false)
+        graphie
+            .label(
+                [(isMobile ? -35 : -60) / c.scale[0], c.dimY / 2],
+                self.props.labels[1],
+                "center",
+                false
+            )
             .css("font-weight", "bold")
             .css("color", isMobile && KhanColors.GRAY_F)
             .addClass("rotate");
 
         if (this.props.apiOptions.isMobile) {
-            this.horizHairline =
-                new WrappedLine(this.graphie, [0, 0], [0, 0], {
-                    normalStyle: {
-                        strokeWidth: 1
-                    }
-                });
+            this.horizHairline = new WrappedLine(this.graphie, [0, 0], [0, 0], {
+                normalStyle: {
+                    strokeWidth: 1,
+                },
+            });
 
             this.horizHairline.attr({
                 stroke: KhanColors.INTERACTIVE,
             });
             this.horizHairline.hide();
 
-            this.hairlineRange =
-                [[0, c.dimX], [0, c.dimY]];
+            this.hairlineRange = [[0, c.dimX], [0, c.dimY]];
         }
     },
 
     showHairlines: function(point) {
-        if (this.props.apiOptions.isMobile &&
-            this.props.markings !== "none") {
+        if (this.props.apiOptions.isMobile && this.props.markings !== "none") {
             // Hairlines are already initialized when the graph is loaded, so
             // here we just move them to the updated location and make them
             // visible.
@@ -400,33 +436,38 @@ var Plotter = React.createClass({
         }
     },
 
-	labelCategory: function(x, category) {
+    labelCategory: function(x, category) {
         const isMobile = this.props.apiOptions.isMobile;
 
-		var graphie = this.graphie;
-		category = category + "";
-		var isTeX = false;
-		var mathyCategory = category.match(/^\$(.*)\$$/);
-		if (mathyCategory) {
-			category = mathyCategory[1];
-			isTeX = true;
-		}
+        var graphie = this.graphie;
+        category = category + "";
+        var isTeX = false;
+        var mathyCategory = category.match(/^\$(.*)\$$/);
+        if (mathyCategory) {
+            category = mathyCategory[1];
+            isTeX = true;
+        }
 
-		const hasXLabel = this.props.labels[0].length !== 0;
+        const hasXLabel = this.props.labels[0].length !== 0;
 
-		const labelRotation = "translateX(-50%) translateX(5px) " +
+        const labelRotation =
+            "translateX(-50%) translateX(5px) " +
             "translateY(-50%) rotate(-45deg)";
-		graphie.style(
+        graphie.style(
             {
                 color: isMobile ? KhanColors.GRAY_G : "inherit",
-                transform: (isMobile && !mathyCategory) ?
-                    labelRotation : "none",
+                transform: isMobile && !mathyCategory ? labelRotation : "none",
                 transformOrigin: "100%",
             },
-            () => graphie.label(
-                [x, isMobile ? -0.5 : 0], category, "below", isTeX)
+            () =>
+                graphie.label(
+                    [x, isMobile ? -0.5 : 0],
+                    category,
+                    "below",
+                    isTeX
+                )
         );
-	},
+    },
 
     setupCategories: function(config) {
         var self = this;
@@ -442,7 +483,7 @@ var Plotter = React.createClass({
                     index: i,
                     startHeight: self.state.values[i],
                     config: config,
-                    isHistogram: true
+                    isHistogram: true,
                 });
             });
 
@@ -452,16 +493,19 @@ var Plotter = React.createClass({
 
                 self.labelCategory(x, category);
                 var tickHeight = 6 / c.scale[1];
-                graphie.style({
-                    stroke: "#000",
-                    strokeWidth: isMobile ? 1 : 2,
-                    opacity: 1.0
-                }, function() {
-                    graphie.line([x, -tickHeight], [x, 0]);
-                });
+                graphie.style(
+                    {
+                        stroke: "#000",
+                        strokeWidth: isMobile ? 1 : 2,
+                        opacity: 1.0,
+                    },
+                    function() {
+                        graphie.line([x, -tickHeight], [x, 0]);
+                    }
+                );
             });
         } else {
-            _.each(self.props.categories, function (category, i) {
+            _.each(self.props.categories, function(category, i) {
                 var startHeight = self.state.values[i];
                 var x;
 
@@ -470,7 +514,7 @@ var Plotter = React.createClass({
                         index: i,
                         startHeight: startHeight,
                         config: config,
-                        isHistogram: false
+                        isHistogram: false,
                     });
                 } else if (self.props.type === LINE) {
                     x = self.setupLine(i, startHeight, config);
@@ -491,8 +535,10 @@ var Plotter = React.createClass({
                     // Dotplot lets you specify to only show labels every 'n'
                     // ticks. It also looks nicer if it makes the labelled
                     // ticks a bit bigger.
-                    if (i % self.props.labelInterval === 0 ||
-                            i === self.props.categories.length - 1) {
+                    if (
+                        i % self.props.labelInterval === 0 ||
+                        i === self.props.categories.length - 1
+                    ) {
                         self.labelCategory(x, category);
                         tickStart *= 1.5;
                         tickEnd *= 1.5;
@@ -501,13 +547,16 @@ var Plotter = React.createClass({
                     self.labelCategory(x, category);
                 }
 
-                graphie.style({
-                    stroke: isMobile ? KhanColors.GRAY_G : "#000",
-                    strokeWidth: isMobile ? 1 : 2,
-                    opacity: 1.0,
-                }, function() {
-                    graphie.line([x, tickStart], [x, tickEnd]);
-                });
+                graphie.style(
+                    {
+                        stroke: isMobile ? KhanColors.GRAY_G : "#000",
+                        strokeWidth: isMobile ? 1 : 2,
+                        opacity: 1.0,
+                    },
+                    function() {
+                        graphie.line([x, tickStart], [x, tickEnd]);
+                    }
+                );
             });
         }
     },
@@ -545,7 +594,7 @@ var Plotter = React.createClass({
         if (isHistogram) {
             x = 0.5 + i * config.barWidth + barHalfWidth;
         } else {
-            x = (isMobile ? barHalfWidth : (0.5 + config.barPad)) + i;
+            x = (isMobile ? barHalfWidth : 0.5 + config.barPad) + i;
         }
 
         /**
@@ -558,9 +607,11 @@ var Plotter = React.createClass({
 
             // Scale filled bucket (bar)
             config.graph.bars[i].scale(
-                    1,
-                    Math.max(isMobile ? 0.2 : 0.01, height / config.scaleY),
-                    center[0], center[1]);
+                1,
+                Math.max(isMobile ? 0.2 : 0.01, height / config.scaleY),
+                center[0],
+                center[1]
+            );
 
             if (isHistogram) {
                 // Scale dividers between buckets
@@ -570,87 +621,104 @@ var Plotter = React.createClass({
                 if (leftDivider) {
                     var divHeight = Math.min(self.state.values[i - 1], height);
                     leftDivider.scale(
-                        1, Math.max(0.01, divHeight / config.scaleY),
-                        center[0], center[1]);
+                        1,
+                        Math.max(0.01, divHeight / config.scaleY),
+                        center[0],
+                        center[1]
+                    );
                 }
 
                 if (rightDivider) {
                     var divHeight = Math.min(self.state.values[i + 1], height);
                     rightDivider.scale(
-                        1, Math.max(0.01, divHeight / config.scaleY),
-                        center[0], center[1]
+                        1,
+                        Math.max(0.01, divHeight / config.scaleY),
+                        center[0],
+                        center[1]
                     );
                 }
             }
         };
 
-        graphie.style({
-            stroke: "none",
-            fill: isMobile ? KhanColors.BLUE_C : KhanColors.LIGHT_BLUE,
-            opacity: 1.0,
-        }, function() {
-            config.graph.bars[i] = graphie.path([
-                [x - barHalfWidth, 0],
-                [x - barHalfWidth, config.scaleY],
-                [x + barHalfWidth, config.scaleY],
-                [x + barHalfWidth, 0],
-                [x - barHalfWidth, 0]
-            ]);
-        });
+        graphie.style(
+            {
+                stroke: "none",
+                fill: isMobile ? KhanColors.BLUE_C : KhanColors.LIGHT_BLUE,
+                opacity: 1.0,
+            },
+            function() {
+                config.graph.bars[i] = graphie.path([
+                    [x - barHalfWidth, 0],
+                    [x - barHalfWidth, config.scaleY],
+                    [x + barHalfWidth, config.scaleY],
+                    [x + barHalfWidth, 0],
+                    [x - barHalfWidth, 0],
+                ]);
+            }
+        );
 
         if (isHistogram) {
             if (i > 0) {
                 // Don't draw a divider to the left of the first bucket
-                graphie.style({
-                    stroke: "#000", strokeWidth: 1, opacity: 0.3
-                }, function() {
-                    config.graph.dividers.push(graphie.path([
-                        [x - barHalfWidth, 0],
-                        [x - barHalfWidth, config.scaleY]
-                    ]));
-                });
+                graphie.style(
+                    {
+                        stroke: "#000",
+                        strokeWidth: 1,
+                        opacity: 0.3,
+                    },
+                    function() {
+                        config.graph.dividers.push(
+                            graphie.path([
+                                [x - barHalfWidth, 0],
+                                [x - barHalfWidth, config.scaleY],
+                            ])
+                        );
+                    }
+                );
             }
         }
 
         if (isMobile) {
             const snap = config.scaleY / self.props.snapsPerLine;
-            config.graph.lines[i] =
-                Interactive2.addMaybeMobileMovablePoint(this, {
-                    coord: [x, startHeight],
-                    constraints: [
-                        (coord, prev, options) => {
-                            return [
-                                x,
-                                this._clampValue(
-                                    Math.round(coord[1] / snap) * snap,
-                                    0, config.dimY
-                                )
-                            ];
-                        }
-                    ],
-                    onMoveStart: function() {
-                        config.graph.bars[i].attr({
-                            fill: KhanColors.INTERACTIVE,
-                        });
+            config.graph.lines[
+                i
+            ] = Interactive2.addMaybeMobileMovablePoint(this, {
+                coord: [x, startHeight],
+                constraints: [
+                    (coord, prev, options) => {
+                        return [
+                            x,
+                            this._clampValue(
+                                Math.round(coord[1] / snap) * snap,
+                                0,
+                                config.dimY
+                            ),
+                        ];
                     },
-                    onMove: function() {
-                        const y = config.graph.lines[i].coord()[1];
+                ],
+                onMoveStart: function() {
+                    config.graph.bars[i].attr({
+                        fill: KhanColors.INTERACTIVE,
+                    });
+                },
+                onMove: function() {
+                    const y = config.graph.lines[i].coord()[1];
 
-                        var values = _.clone(self.state.values);
-                        values[i] = y;
-                        self.setState({values: values});
-                        self.changeAndTrack({values: values});
+                    var values = _.clone(self.state.values);
+                    values[i] = y;
+                    self.setState({values: values});
+                    self.changeAndTrack({values: values});
 
-                        self._maybeHideDragPrompt();
+                    self._maybeHideDragPrompt();
 
-                        scaleBar(i, y);
-                    },
-                    onMoveEnd: function() {
-                        config.graph.bars[i].attr({
-                            fill: KhanColors.BLUE_C,
-                        });
-                    },
-                });
+                    scaleBar(i, y);
+                },
+                onMoveEnd: function() {
+                    config.graph.bars[i].attr({
+                        fill: KhanColors.BLUE_C,
+                    });
+                },
+            });
 
             // We set the z-index to 1 here so that the hairlines cover up the
             // points
@@ -663,10 +731,10 @@ var Plotter = React.createClass({
                 coordZ: [x + barHalfWidth, startHeight],
                 snapY: config.scaleY / self.props.snapsPerLine,
                 constraints: {
-                    constrainX: true
+                    constrainX: true,
                 },
                 normalStyle: {
-                    "stroke": KhanColors.INTERACTIVE,
+                    stroke: KhanColors.INTERACTIVE,
                     // Don't display graph handles in static mode
                     "stroke-width": this.props.static ? 0 : 4,
                 },
@@ -685,7 +753,7 @@ var Plotter = React.createClass({
                 var values = _.clone(self.state.values);
                 values[i] = y;
                 self.setState({values: values});
-                self.changeAndTrack({ values: values });
+                self.changeAndTrack({values: values});
 
                 scaleBar(i, y);
             };
@@ -719,10 +787,11 @@ var Plotter = React.createClass({
                             x,
                             this._clampValue(
                                 Math.round(coord[1] / snap) * snap,
-                                0, config.dimY
-                            )
+                                0,
+                                config.dimY
+                            ),
                         ];
-                    }
+                    },
                 ],
                 onMove: function() {
                     const y = c.graph.points[i].coord()[1];
@@ -733,7 +802,7 @@ var Plotter = React.createClass({
                     self.changeAndTrack({values: values});
 
                     self._maybeHideDragPrompt();
-                }
+                },
             });
 
             self._maybeShowDragPrompt();
@@ -744,23 +813,23 @@ var Plotter = React.createClass({
                     constraints: Interactive2.MovablePoint.constraints.fixed(),
                     normalStyle: {
                         stroke: KhanColors.BLUE_C,
-                        "stroke-width": 2
+                        "stroke-width": 2,
                     },
                     highlightStyle: {
                         stroke: KhanColors.BLUE_C,
-                        "stroke-width": 2
-                    }
+                        "stroke-width": 2,
+                    },
                 });
             }
         } else {
             c.graph.points[i] = graphie.addMovablePoint({
                 coord: [x, startHeight],
                 constraints: {
-                    constrainX: true
+                    constrainX: true,
                 },
                 normalStyle: {
                     fill: KhanColors.INTERACTIVE,
-                    stroke: KhanColors.INTERACTIVE
+                    stroke: KhanColors.INTERACTIVE,
                 },
                 snapY: c.scaleY / self.props.snapsPerLine,
             });
@@ -778,12 +847,12 @@ var Plotter = React.createClass({
                     pointA: c.graph.points[i - 1],
                     pointZ: c.graph.points[i],
                     constraints: {
-                        fixed: true
+                        fixed: true,
                     },
                     normalStyle: {
                         stroke: "#9ab8ed",
-                        "stroke-width": 2
-                    }
+                        "stroke-width": 2,
+                    },
                 });
             }
         }
@@ -796,15 +865,17 @@ var Plotter = React.createClass({
         const isMobile = this.props.apiOptions.isMobile;
 
         return this.setupTiledPlot(i, isMobile ? 0.5 : 1, config, (x, y) => {
-            return graphie.ellipse([x, y],
-                 [
-                     this.DOT_PLOT_POINT_SIZE() / graphie.scale[0],
-                     this.DOT_PLOT_POINT_SIZE() / graphie.scale[1]
-                 ],
-                 {
+            return graphie.ellipse(
+                [x, y],
+                [
+                    this.DOT_PLOT_POINT_SIZE() / graphie.scale[0],
+                    this.DOT_PLOT_POINT_SIZE() / graphie.scale[1],
+                ],
+                {
                     fill: KhanColors.INTERACTIVE,
-                    stroke: KhanColors.INTERACTIVE
-                 });
+                    stroke: KhanColors.INTERACTIVE,
+                }
+            );
         });
     },
 
@@ -814,11 +885,12 @@ var Plotter = React.createClass({
             var scaledCenter = graphie.scalePoint([x, y]);
             var size = this.props.picSize;
             return graphie.raphael.image(
-                    this.props.picUrl,
-                    scaledCenter[0] - size / 2,
-                    scaledCenter[1] - size / 2,
-                    size,
-                    size);
+                this.props.picUrl,
+                scaledCenter[0] - size / 2,
+                scaledCenter[1] - size / 2,
+                size,
+                size
+            );
         });
     },
 
@@ -847,7 +919,11 @@ var Plotter = React.createClass({
             var topY = midY + 0.5 * c.scaleY;
             var coord = graphie.scalePoint([leftX, topY + bottomMargin]);
             var mouseRect = graphie.mouselayer.rect(
-                    coord[0], coord[1], c.picBoxWidthPx, c.picBoxHeight);
+                coord[0],
+                coord[1],
+                c.picBoxWidthPx,
+                c.picBoxHeight
+            );
             $(mouseRect[0])
                 .css({fill: "#000", opacity: 0.0, cursor: "pointer"})
                 .on("vmousedown", function(e) {
@@ -869,8 +945,10 @@ var Plotter = React.createClass({
                         // Calculate top coord from j value, but don't let them
                         // go below j = -1, which is equivalent to having '0'
                         // on the dot plot (due to weird indexing).
-                        var newJ = Math.max(-1,
-                            Math.floor(adjustedCoord / c.scaleY));
+                        var newJ = Math.max(
+                            -1,
+                            Math.floor(adjustedCoord / c.scaleY)
+                        );
                         var newMidY = (newJ + 0.5) * c.scaleY;
                         var newTopY = newMidY + 0.5 * c.scaleY;
                         self.setPicHeight(self.whichPicClicked, newTopY);
@@ -882,15 +960,17 @@ var Plotter = React.createClass({
                 return;
             }
             pics[i][j] = createImage(x, midY + bottomMargin);
-            dotTicks[i][j] = graphie.ellipse([x, midY + bottomMargin],
+            dotTicks[i][j] = graphie.ellipse(
+                [x, midY + bottomMargin],
                 [
                     self.DOT_TICK_POINT_SIZE() / graphie.scale[0],
-                    self.DOT_TICK_POINT_SIZE() / graphie.scale[1]
+                    self.DOT_TICK_POINT_SIZE() / graphie.scale[1],
                 ],
                 {
                     fill: "#dee1e3",
-                    stroke: "#dee1e3"
-                });
+                    stroke: "#dee1e3",
+                }
+            );
         });
         return x;
     },
@@ -900,7 +980,7 @@ var Plotter = React.createClass({
         values[i] = y;
         this.drawPicHeights(values, this.state.values);
         this.setState({values: values});
-        this.changeAndTrack({ values: values });
+        this.changeAndTrack({values: values});
     },
 
     changeAndTrack: function(data) {
@@ -917,8 +997,9 @@ var Plotter = React.createClass({
 
         if (isMobile) {
             const shouldDisplay = values.every(v => v === 0);
-            graphie.dotPrompt[0].style.display =
-                shouldDisplay ? "inline" : "none";
+            graphie.dotPrompt[0].style.display = shouldDisplay
+                ? "inline"
+                : "none";
         }
 
         _.each(pics, function(ps, i) {
@@ -930,17 +1011,25 @@ var Plotter = React.createClass({
                     var wasShown = y <= prevValues[i];
                     var wasJustShown = show && !wasShown;
                     if (wasJustShown) {
-                        pic.animate({
-                            "stroke-width": 8
-                        }, 75, () => pic.animate({
-                                "stroke-width": 2
-                            }, 75));
+                        pic.animate(
+                            {
+                                "stroke-width": 8,
+                            },
+                            75,
+                            () =>
+                                pic.animate(
+                                    {
+                                        "stroke-width": 2,
+                                    },
+                                    75
+                                )
+                        );
                     }
                 }
                 $(pic[0]).css({display: show ? "inline" : "none"});
 
                 graphie.dotTicks[i][j][0].style.display =
-                    (show || !isMobile) ? "none" : "inline";
+                    show || !isMobile ? "none" : "inline";
             });
         });
     },
@@ -951,25 +1040,25 @@ var Plotter = React.createClass({
 
     simpleValidate: function(rubric) {
         return Plotter.validate(this.getUserInput(), rubric);
-    }
+    },
 });
 
 _.extend(Plotter, {
-    validate: function (guess, rubric) {
+    validate: function(guess, rubric) {
         if (deepEq(guess, rubric.starting)) {
             return {
                 type: "invalid",
-                message: null
+                message: null,
             };
         } else {
             return {
                 type: "points",
                 earned: deepEq(guess, rubric.correct) ? 1 : 0,
                 total: 1,
-                message: null
+                message: null,
             };
         }
-    }
+    },
 });
 
 // We don't need to change any of the original props for static mode

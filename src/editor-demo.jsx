@@ -1,30 +1,30 @@
- /**
+/**
   * Demonstrates the main Perseus editor
   *
   * This is ran by demo-perseus.js and handles adding debugger
   * buttons and their event listeners above a StatefulEditorPage
   */
 
-const React = require('react');
-const StatefulEditorPage = require('./stateful-editor-page.jsx');
-const EditorPage = require('./editor-page.jsx');
-const Util = require('./util.js');
-const Renderability = require('./renderability.jsx');
+const React = require("react");
+const StatefulEditorPage = require("./stateful-editor-page.jsx");
+const EditorPage = require("./editor-page.jsx");
+const Util = require("./util.js");
+const Renderability = require("./renderability.jsx");
 
 const defaultQuestion = {
-    "question": {
-        "content": "",
-        "images": {},
-        "widgets": {},
+    question: {
+        content: "",
+        images: {},
+        widgets: {},
     },
-    "answerArea": {
-        "calculator": false,
+    answerArea: {
+        calculator: false,
     },
-    "itemDataVersion": {
-        "major": 0,
-        "minor": 1,
+    itemDataVersion: {
+        major: 0,
+        minor: 1,
     },
-    "hints": [],
+    hints: [],
 };
 
 const EditorDemo = React.createClass({
@@ -74,7 +74,8 @@ const EditorDemo = React.createClass({
 
     viewRendered: function(e) {
         const link = document.createElement("a");
-        link.href = window.location.pathname +
+        link.href =
+            window.location.pathname +
             `?renderer#content=${this._getContentHash()}`;
         link.target = "_blank";
         link.click();
@@ -86,16 +87,18 @@ const EditorDemo = React.createClass({
         // print whether or not this item consists only of
         // input-numbers and numeric-inputs.
         // just for versioning testing
-        console.log(Renderability.isItemRenderableByVersion( // eslint-disable-line no-console
-            this.refs.editor.serialize(),
-            {
-                '::renderer::': {major: 100, minor: 0},
-                'group': {major: 100, minor: 0},
-                'sequence': {major: 100, minor: 0},
-                'input-number': {major: 100, minor: 0},
-                'numeric-input': {major: 100, minor: 0},
-            }
-        ));
+        console.log( // eslint-disable-line no-console
+            Renderability.isItemRenderableByVersion(
+                this.refs.editor.serialize(),
+                {
+                    "::renderer::": {major: 100, minor: 0},
+                    group: {major: 100, minor: 0},
+                    sequence: {major: 100, minor: 0},
+                    "input-number": {major: 100, minor: 0},
+                    "numeric-input": {major: 100, minor: 0},
+                }
+            )
+        );
     },
 
     saveWarnings: function(e) {
@@ -112,8 +115,11 @@ const EditorDemo = React.createClass({
             problemNum: this.props.problemNum,
             developerMode: true,
             imageUploader: function(image, callback) {
-                setTimeout(callback, 1000,
-                    "https://cdn.kastatic.org/images/khan-logo-vertical-transparent.png"); // eslint-disable-line max-len
+                setTimeout(
+                    callback,
+                    1000,
+                    "https://cdn.kastatic.org/images/khan-logo-vertical-transparent.png"
+                ); // eslint-disable-line max-len
             },
             apiOptions: {
                 onFocusChange: function(newPath, oldPath) {
@@ -121,14 +127,14 @@ const EditorDemo = React.createClass({
                 },
                 customKeypad: isMobile,
                 isMobile,
-                setDrawingAreaAvailable: (enabled) => {
+                setDrawingAreaAvailable: enabled => {
                     this.setState({
                         scratchpadEnabled: enabled,
                     });
                 },
             },
             componentClass: EditorPage,
-            onPreviewDeviceChange: (deviceType) => {
+            onPreviewDeviceChange: deviceType => {
                 this.setState({deviceType});
             },
             previewDevice: deviceType,
@@ -186,23 +192,23 @@ const EditorDemo = React.createClass({
         return (
             <div id="perseus-index">
                 <div className="extras">
-                    <button onClick={this.serialize}>serialize</button>{' '}
-                    <button onClick={this.scorePreview}>score</button>{' '}
-                    <button onClick={this.permalink}>permalink</button>{' '}
+                    <button onClick={this.serialize}>serialize</button>{" "}
+                    <button onClick={this.scorePreview}>score</button>{" "}
+                    <button onClick={this.permalink}>permalink</button>{" "}
                     <button onClick={this.viewRendered}>
                         view rendered
-                    </button>{' '}
+                    </button>{" "}
                     <button onClick={this.inputVersion}>
                         contains only inputs?
-                    </button>{' '}
+                    </button>{" "}
                     <button onClick={this.saveWarnings}>
                         save warnings
-                    </button>{' '}
-                    <span>Seed:{this.props.problemNum} </span>{' '}
+                    </button>{" "}
+                    <span>Seed:{this.props.problemNum} </span>{" "}
                     <span>
                         Scratchpad:{this.state.scratchpadEnabled
-                            ? 'enabled'
-                            : 'disabled'}
+                            ? "enabled"
+                            : "disabled"}
                     </span>
                 </div>
                 <StatefulEditorPage

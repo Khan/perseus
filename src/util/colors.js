@@ -84,7 +84,7 @@ const KhanColors = {
     // Don't actually use _BACKGROUND! Make things transparent instead. The
     // background color used in exercises is subject to change at the whim
     // of any redesigns.
-    _BACKGROUND: "#FDFDFD",  // TODO(eater): Get rid of this altogether.
+    _BACKGROUND: "#FDFDFD", // TODO(eater): Get rid of this altogether.
 };
 
 KhanColors.INTERACTING = KhanColors.KA_GREEN;

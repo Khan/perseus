@@ -2,11 +2,10 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-
 const React = require("react");
 const _ = require("underscore");
 
-const Changeable   = require("../mixins/changeable.jsx");
+const Changeable = require("../mixins/changeable.jsx");
 const EditorJsonify = require("../mixins/editor-jsonify.jsx");
 
 const ArrowPicker = require("./interaction/arrow-picker.jsx");
@@ -56,29 +55,33 @@ const PointEditor = React.createClass({
     },
 
     render: function() {
-        return <div className="graph-settings">
-            <div className="perseus-widget-row">
-                Coordinate: <TeX>\Large(</TeX><MathInput
-                    buttonSets={[]}
-                    buttonsVisible={"never"}
-                    value={this.props.coordX}
-                    onChange={this.change("coordX")}
-                />
-                <TeX>,</TeX> <MathInput
-                    buttonSets={[]}
-                    buttonsVisible={"never"}
-                    value={this.props.coordY}
-                    onChange={this.change("coordY")}
-                />
-                <TeX>\Large)</TeX>
+        return (
+            <div className="graph-settings">
+                <div className="perseus-widget-row">
+                    Coordinate: <TeX>\Large(</TeX>
+                    <MathInput
+                        buttonSets={[]}
+                        buttonsVisible={"never"}
+                        value={this.props.coordX}
+                        onChange={this.change("coordX")}
+                    />
+                    <TeX>,</TeX>{" "}
+                    <MathInput
+                        buttonSets={[]}
+                        buttonsVisible={"never"}
+                        value={this.props.coordY}
+                        onChange={this.change("coordY")}
+                    />
+                    <TeX>\Large)</TeX>
+                </div>
+                <div className="perseus-widget-row">
+                    <ColorPicker
+                        value={this.props.color}
+                        onChange={this.change("color")}
+                    />
+                </div>
             </div>
-            <div className="perseus-widget-row">
-                <ColorPicker
-                    value={this.props.color}
-                    onChange={this.change("color")}
-                />
-            </div>
-        </div>;
+        );
     },
 
     change(...args) {
@@ -89,7 +92,6 @@ const PointEditor = React.createClass({
         return EditorJsonify.serialize.call(this);
     },
 });
-
 
 //
 // Editor for non-interactive line segments
@@ -123,62 +125,71 @@ var LineEditor = React.createClass({
     },
 
     render: function() {
-        return <div className="graph-settings">
-            <div className="perseus-widget-row">
-                Start: <TeX>\Large(</TeX><MathInput
-                    buttonSets={[]}
-                    buttonsVisible={"never"}
-                    value={this.props.startX}
-                    onChange={this.change("startX")}
-                />
-                <TeX>,</TeX> <MathInput
-                    buttonSets={[]}
-                    buttonsVisible={"never"}
-                    value={this.props.startY}
-                    onChange={this.change("startY")}
-                />
-                <TeX>\Large)</TeX>
-            </div>
-            <div className="perseus-widget-row">
-                End: <TeX>\Large(</TeX><MathInput
-                    buttonSets={[]}
-                    buttonsVisible={"never"}
-                    value={this.props.endX}
-                    onChange={this.change("endX")}
-                />
-                <TeX>,</TeX> <MathInput
-                    buttonSets={[]}
-                    buttonsVisible={"never"}
-                    value={this.props.endY}
-                    onChange={this.change("endY")}
-                />
-                <TeX>\Large)</TeX>
-            </div>
-            <div className="perseus-widget-row">
-                <ColorPicker
-                    value={this.props.color}
-                    onChange={this.change("color")}
-                />
-            </div>
-            <div className="perseus-widget-row">
-                <DashPicker
-                    value={this.props.strokeDasharray}
-                    onChange={this.change("strokeDasharray")} />
-                &nbsp; &nbsp;
-                <ArrowPicker
-                    value={this.props.arrows}
-                    onChange={this.change("arrows")}
-                />
-            </div>
-            <div className="perseus-widget-row">
-                <div className="perseus-widget-left-col">
-                    Width: <NumberInput
-                        value={this.props.strokeWidth}
-                        placeholder={2}
-                        onChange={this.change("strokeWidth")}/>
+        return (
+            <div className="graph-settings">
+                <div className="perseus-widget-row">
+                    Start: <TeX>\Large(</TeX>
+                    <MathInput
+                        buttonSets={[]}
+                        buttonsVisible={"never"}
+                        value={this.props.startX}
+                        onChange={this.change("startX")}
+                    />
+                    <TeX>,</TeX>{" "}
+                    <MathInput
+                        buttonSets={[]}
+                        buttonsVisible={"never"}
+                        value={this.props.startY}
+                        onChange={this.change("startY")}
+                    />
+                    <TeX>\Large)</TeX>
+                </div>
+                <div className="perseus-widget-row">
+                    End: <TeX>\Large(</TeX>
+                    <MathInput
+                        buttonSets={[]}
+                        buttonsVisible={"never"}
+                        value={this.props.endX}
+                        onChange={this.change("endX")}
+                    />
+                    <TeX>,</TeX>{" "}
+                    <MathInput
+                        buttonSets={[]}
+                        buttonsVisible={"never"}
+                        value={this.props.endY}
+                        onChange={this.change("endY")}
+                    />
+                    <TeX>\Large)</TeX>
+                </div>
+                <div className="perseus-widget-row">
+                    <ColorPicker
+                        value={this.props.color}
+                        onChange={this.change("color")}
+                    />
+                </div>
+                <div className="perseus-widget-row">
+                    <DashPicker
+                        value={this.props.strokeDasharray}
+                        onChange={this.change("strokeDasharray")}
+                    />
+                    &nbsp; &nbsp;
+                    <ArrowPicker
+                        value={this.props.arrows}
+                        onChange={this.change("arrows")}
+                    />
+                </div>
+                <div className="perseus-widget-row">
+                    <div className="perseus-widget-left-col">
+                        Width:{" "}
+                        <NumberInput
+                            value={this.props.strokeWidth}
+                            placeholder={2}
+                            onChange={this.change("strokeWidth")}
+                        />
+                    </div>
                 </div>
             </div>
-        </div>;
+        );
     },
 
     change(...args) {
@@ -189,7 +200,6 @@ var LineEditor = React.createClass({
         return EditorJsonify.serialize.call(this);
     },
 });
-
 
 //
 // Editor for interactive movable points
@@ -222,31 +232,36 @@ var MovablePointEditor = React.createClass({
     },
 
     render: function() {
-        return <div className="graph-settings">
-            <div className="perseus-widget-row">
-                Start: <TeX>\Large(</TeX><MathInput
-                    buttonSets={[]}
-                    buttonsVisible={"never"}
-                    value={this.props.startX}
-                    onChange={this.change("startX")}
-                />
-                <TeX>,</TeX> <MathInput
-                    buttonSets={[]}
-                    buttonsVisible={"never"}
-                    value={this.props.startY}
-                    onChange={this.change("startY")}
-                />
-                <TeX>\Large)</TeX>
+        return (
+            <div className="graph-settings">
+                <div className="perseus-widget-row">
+                    Start: <TeX>\Large(</TeX>
+                    <MathInput
+                        buttonSets={[]}
+                        buttonsVisible={"never"}
+                        value={this.props.startX}
+                        onChange={this.change("startX")}
+                    />
+                    <TeX>,</TeX>{" "}
+                    <MathInput
+                        buttonSets={[]}
+                        buttonsVisible={"never"}
+                        value={this.props.startY}
+                        onChange={this.change("startY")}
+                    />
+                    <TeX>\Large)</TeX>
+                </div>
+                <div className="perseus-widget-row">
+                    Update <TeX>(x_n, y_n)</TeX> for <TeX>n =</TeX>{" "}
+                    <NumberInput
+                        value={this.props.varSubscript}
+                        placeholder={0}
+                        onChange={this.change("varSubscript")}
+                    />
+                </div>
+                <ConstraintEditor {...this.props} />
             </div>
-            <div className="perseus-widget-row">
-                Update <TeX>(x_n, y_n)</TeX> for <TeX>n =</TeX> <NumberInput
-                    value={this.props.varSubscript}
-                    placeholder={0}
-                    onChange={this.change("varSubscript")}
-                />
-            </div>
-            <ConstraintEditor {...this.props} />
-        </div>;
+        );
     },
 
     change(...args) {
@@ -257,7 +272,6 @@ var MovablePointEditor = React.createClass({
         return EditorJsonify.serialize.call(this);
     },
 });
-
 
 //
 // Editor for interactive movable line segments
@@ -294,57 +308,65 @@ var MovableLineEditor = React.createClass({
     },
 
     render: function() {
-        return <div className="graph-settings">
-            Initial position:
-            <div className="perseus-widget-row">
-                Start: <TeX>\Large(</TeX><MathInput
-                    buttonSets={[]}
-                    buttonsVisible={"never"}
-                    value={this.props.startX}
-                    onChange={this.change("startX")}
-                />
-                <TeX>,</TeX> <MathInput
-                    buttonSets={[]}
-                    buttonsVisible={"never"}
-                    value={this.props.startY}
-                    onChange={this.change("startY")}
-                />
-                <TeX>\Large)</TeX>
-            </div>
-            <div className="perseus-widget-row">
-                End: <TeX>\Large(</TeX><MathInput
-                    buttonSets={[]}
-                    buttonsVisible={"never"}
-                    value={this.props.endX}
-                    onChange={this.change("endX")}
-                />
-                <TeX>,</TeX> <MathInput
-                    buttonSets={[]}
-                    buttonsVisible={"never"}
-                    value={this.props.endY}
-                    onChange={this.change("endY")}
-                />
-                <TeX>\Large)</TeX>
-            </div>
-            <div className="perseus-widget-row">
-                Start updates <TeX>(x_n, y_n)</TeX> for <TeX>n =</TeX>
+        return (
+            <div className="graph-settings">
+                Initial position:
+                <div className="perseus-widget-row">
+                    Start: <TeX>\Large(</TeX>
+                    <MathInput
+                        buttonSets={[]}
+                        buttonsVisible={"never"}
+                        value={this.props.startX}
+                        onChange={this.change("startX")}
+                    />
+                    <TeX>,</TeX>{" "}
+                    <MathInput
+                        buttonSets={[]}
+                        buttonsVisible={"never"}
+                        value={this.props.startY}
+                        onChange={this.change("startY")}
+                    />
+                    <TeX>\Large)</TeX>
+                </div>
+                <div className="perseus-widget-row">
+                    End: <TeX>\Large(</TeX>
+                    <MathInput
+                        buttonSets={[]}
+                        buttonsVisible={"never"}
+                        value={this.props.endX}
+                        onChange={this.change("endX")}
+                    />
+                    <TeX>,</TeX>{" "}
+                    <MathInput
+                        buttonSets={[]}
+                        buttonsVisible={"never"}
+                        value={this.props.endY}
+                        onChange={this.change("endY")}
+                    />
+                    <TeX>\Large)</TeX>
+                </div>
+                <div className="perseus-widget-row">
+                    Start updates <TeX>(x_n, y_n)</TeX> for <TeX>n =</TeX>
                     <NumberInput
                         value={this.props.startSubscript}
                         placeholder={0}
-                        onChange={this.change("startSubscript")}/>
-            </div>
-            <div className="perseus-widget-row">
-                End updates <TeX>(x_m, y_m)</TeX> for <TeX>m =</TeX>
+                        onChange={this.change("startSubscript")}
+                    />
+                </div>
+                <div className="perseus-widget-row">
+                    End updates <TeX>(x_m, y_m)</TeX> for <TeX>m =</TeX>
                     <NumberInput
                         value={this.props.endSubscript}
                         placeholder={0}
-                        onChange={this.change("endSubscript")}/>
+                        onChange={this.change("endSubscript")}
+                    />
+                </div>
+                <div className="perseus-widget-row">
+                    All constraints are applied to the start point.
+                </div>
+                <ConstraintEditor {...this.props} />
             </div>
-            <div className="perseus-widget-row">
-                All constraints are applied to the start point.
-            </div>
-            <ConstraintEditor {...this.props} />
-        </div>;
+        );
     },
 
     change(...args) {
@@ -355,7 +377,6 @@ var MovableLineEditor = React.createClass({
         return EditorJsonify.serialize.call(this);
     },
 });
-
 
 //
 // Editor for function plots
@@ -385,50 +406,58 @@ var FunctionEditor = React.createClass({
     },
 
     render: function() {
-        return <div className="graph-settings">
-            <div className="perseus-widget-row">
-                <TeX>{this.props.funcName + "(x)="}</TeX> <MathInput
-                    buttonSets={[]}
-                    buttonsVisible={"never"}
-                    value={this.props.value}
-                    onChange={this.change("value")}
-                />
-            </div>
-            <div className="perseus-widget-row">
-                Range: <TeX>\Large(</TeX><MathInput
-                    buttonSets={[]}
-                    buttonsVisible={"never"}
-                    value={this.props.rangeMin}
-                    onChange={this.change("rangeMin")}
-                />
-                <TeX>,</TeX> <MathInput
-                    buttonSets={[]}
-                    buttonsVisible={"never"}
-                    value={this.props.rangeMax}
-                    onChange={this.change("rangeMax")}
-                />
-                <TeX>\Large)</TeX>
-            </div>
-            <div className="perseus-widget-row">
-                <ColorPicker
-                    value={this.props.color}
-                    onChange={this.change("color")}
-                />
-            </div>
-            <div className="perseus-widget-row">
-                <DashPicker
-                    value={this.props.strokeDasharray}
-                    onChange={this.change("strokeDasharray")} />
-            </div>
-            <div className="perseus-widget-row">
-                <div className="perseus-widget-left-col">
-                    Width: <NumberInput
-                        value={this.props.strokeWidth}
-                        placeholder={2}
-                        onChange={this.change("strokeWidth")}/>
+        return (
+            <div className="graph-settings">
+                <div className="perseus-widget-row">
+                    <TeX>{this.props.funcName + "(x)="}</TeX>{" "}
+                    <MathInput
+                        buttonSets={[]}
+                        buttonsVisible={"never"}
+                        value={this.props.value}
+                        onChange={this.change("value")}
+                    />
+                </div>
+                <div className="perseus-widget-row">
+                    Range: <TeX>\Large(</TeX>
+                    <MathInput
+                        buttonSets={[]}
+                        buttonsVisible={"never"}
+                        value={this.props.rangeMin}
+                        onChange={this.change("rangeMin")}
+                    />
+                    <TeX>,</TeX>{" "}
+                    <MathInput
+                        buttonSets={[]}
+                        buttonsVisible={"never"}
+                        value={this.props.rangeMax}
+                        onChange={this.change("rangeMax")}
+                    />
+                    <TeX>\Large)</TeX>
+                </div>
+                <div className="perseus-widget-row">
+                    <ColorPicker
+                        value={this.props.color}
+                        onChange={this.change("color")}
+                    />
+                </div>
+                <div className="perseus-widget-row">
+                    <DashPicker
+                        value={this.props.strokeDasharray}
+                        onChange={this.change("strokeDasharray")}
+                    />
+                </div>
+                <div className="perseus-widget-row">
+                    <div className="perseus-widget-left-col">
+                        Width:{" "}
+                        <NumberInput
+                            value={this.props.strokeWidth}
+                            placeholder={2}
+                            onChange={this.change("strokeWidth")}
+                        />
+                    </div>
                 </div>
             </div>
-        </div>;
+        );
     },
 
     change(...args) {
@@ -439,7 +468,6 @@ var FunctionEditor = React.createClass({
         return EditorJsonify.serialize.call(this);
     },
 });
-
 
 //
 // Editor for parametric plots
@@ -471,58 +499,67 @@ var ParametricEditor = React.createClass({
     },
 
     render: function() {
-        return <div className="graph-settings">
-            <div className="perseus-widget-row">
-                <TeX>X(t) =</TeX> <MathInput
-                    buttonSets={[]}
-                    buttonsVisible={"never"}
-                    value={this.props.x}
-                    onChange={this.change("x")}
-                />
-            </div>
-            <div className="perseus-widget-row">
-                <TeX>Y(t) =</TeX> <MathInput
-                    buttonSets={[]}
-                    buttonsVisible={"never"}
-                    value={this.props.y}
-                    onChange={this.change("y")}
-                />
-            </div>
-            <div className="perseus-widget-row">
-                Range: <TeX>\Large(</TeX><MathInput
-                    buttonSets={[]}
-                    buttonsVisible={"never"}
-                    value={this.props.rangeMin}
-                    onChange={this.change("rangeMin")}
-                />
-                <TeX>,</TeX> <MathInput
-                    buttonSets={[]}
-                    buttonsVisible={"never"}
-                    value={this.props.rangeMax}
-                    onChange={this.change("rangeMax")}
-                />
-                <TeX>\Large)</TeX>
-            </div>
-            <div className="perseus-widget-row">
-                <ColorPicker
-                    value={this.props.color}
-                    onChange={this.change("color")}
-                />
-            </div>
-            <div className="perseus-widget-row">
-                <DashPicker
-                    value={this.props.strokeDasharray}
-                    onChange={this.change("strokeDasharray")} />
-            </div>
-            <div className="perseus-widget-row">
-                <div className="perseus-widget-left-col">
-                    Width: <NumberInput
-                        value={this.props.strokeWidth}
-                        placeholder={2}
-                        onChange={this.change("strokeWidth")}/>
+        return (
+            <div className="graph-settings">
+                <div className="perseus-widget-row">
+                    <TeX>X(t) =</TeX>{" "}
+                    <MathInput
+                        buttonSets={[]}
+                        buttonsVisible={"never"}
+                        value={this.props.x}
+                        onChange={this.change("x")}
+                    />
+                </div>
+                <div className="perseus-widget-row">
+                    <TeX>Y(t) =</TeX>{" "}
+                    <MathInput
+                        buttonSets={[]}
+                        buttonsVisible={"never"}
+                        value={this.props.y}
+                        onChange={this.change("y")}
+                    />
+                </div>
+                <div className="perseus-widget-row">
+                    Range: <TeX>\Large(</TeX>
+                    <MathInput
+                        buttonSets={[]}
+                        buttonsVisible={"never"}
+                        value={this.props.rangeMin}
+                        onChange={this.change("rangeMin")}
+                    />
+                    <TeX>,</TeX>{" "}
+                    <MathInput
+                        buttonSets={[]}
+                        buttonsVisible={"never"}
+                        value={this.props.rangeMax}
+                        onChange={this.change("rangeMax")}
+                    />
+                    <TeX>\Large)</TeX>
+                </div>
+                <div className="perseus-widget-row">
+                    <ColorPicker
+                        value={this.props.color}
+                        onChange={this.change("color")}
+                    />
+                </div>
+                <div className="perseus-widget-row">
+                    <DashPicker
+                        value={this.props.strokeDasharray}
+                        onChange={this.change("strokeDasharray")}
+                    />
+                </div>
+                <div className="perseus-widget-row">
+                    <div className="perseus-widget-left-col">
+                        Width:{" "}
+                        <NumberInput
+                            value={this.props.strokeWidth}
+                            placeholder={2}
+                            onChange={this.change("strokeWidth")}
+                        />
+                    </div>
                 </div>
             </div>
-        </div>;
+        );
     },
 
     change(...args) {
@@ -533,7 +570,6 @@ var ParametricEditor = React.createClass({
         return EditorJsonify.serialize.call(this);
     },
 });
-
 
 //
 // Editor for labels
@@ -560,38 +596,42 @@ var LabelEditor = React.createClass({
     },
 
     render: function() {
-        return <div className="graph-settings">
-            <div className="perseus-widget-row">
-                <TextInput
-                    value={this.props.label}
-                    onChange={this.change("label")}
-                    style={{
-                        width: "100%",
-                    }}
-                />
+        return (
+            <div className="graph-settings">
+                <div className="perseus-widget-row">
+                    <TextInput
+                        value={this.props.label}
+                        onChange={this.change("label")}
+                        style={{
+                            width: "100%",
+                        }}
+                    />
+                </div>
+                <div className="perseus-widget-row">
+                    Location: <TeX>\Large(</TeX>
+                    <MathInput
+                        buttonSets={[]}
+                        buttonsVisible={"never"}
+                        value={this.props.coordX}
+                        onChange={this.change("coordX")}
+                    />
+                    <TeX>,</TeX>{" "}
+                    <MathInput
+                        buttonSets={[]}
+                        buttonsVisible={"never"}
+                        value={this.props.coordY}
+                        onChange={this.change("coordY")}
+                    />
+                    <TeX>\Large)</TeX>
+                </div>
+                <div className="perseus-widget-row">
+                    <ColorPicker
+                        value={this.props.color}
+                        onChange={this.change("color")}
+                    />
+                </div>
             </div>
-            <div className="perseus-widget-row">
-                Location: <TeX>\Large(</TeX><MathInput
-                    buttonSets={[]}
-                    buttonsVisible={"never"}
-                    value={this.props.coordX}
-                    onChange={this.change("coordX")}
-                />
-                <TeX>,</TeX> <MathInput
-                    buttonSets={[]}
-                    buttonsVisible={"never"}
-                    value={this.props.coordY}
-                    onChange={this.change("coordY")}
-                />
-                <TeX>\Large)</TeX>
-            </div>
-            <div className="perseus-widget-row">
-                <ColorPicker
-                    value={this.props.color}
-                    onChange={this.change("color")}
-                />
-            </div>
-        </div>;
+        );
     },
 
     change(...args) {
@@ -602,7 +642,6 @@ var LabelEditor = React.createClass({
         return EditorJsonify.serialize.call(this);
     },
 });
-
 
 //
 // Editor for rectangles
@@ -630,49 +669,55 @@ var RectangleEditor = React.createClass({
     },
 
     render: function() {
-        return <div className="graph-settings">
-            <div className="perseus-widget-row">
-                Bottom left: <TeX>\Large(</TeX><MathInput
-                    buttonSets={[]}
-                    buttonsVisible={"never"}
-                    value={this.props.coordX}
-                    onChange={this.change("coordX")}
-                />
-                <TeX>,</TeX> <MathInput
-                    buttonSets={[]}
-                    buttonsVisible={"never"}
-                    value={this.props.coordY}
-                    onChange={this.change("coordY")}
-                />
-                <TeX>\Large)</TeX>
+        return (
+            <div className="graph-settings">
+                <div className="perseus-widget-row">
+                    Bottom left: <TeX>\Large(</TeX>
+                    <MathInput
+                        buttonSets={[]}
+                        buttonsVisible={"never"}
+                        value={this.props.coordX}
+                        onChange={this.change("coordX")}
+                    />
+                    <TeX>,</TeX>{" "}
+                    <MathInput
+                        buttonSets={[]}
+                        buttonsVisible={"never"}
+                        value={this.props.coordY}
+                        onChange={this.change("coordY")}
+                    />
+                    <TeX>\Large)</TeX>
+                </div>
+                <div className="perseus-widget-row">
+                    Width:{" "}
+                    <MathInput
+                        buttonSets={[]}
+                        buttonsVisible={"never"}
+                        value={this.props.width}
+                        onChange={this.change("width")}
+                    />
+                </div>
+                <div className="perseus-widget-row">
+                    Height:{" "}
+                    <MathInput
+                        buttonSets={[]}
+                        buttonsVisible={"never"}
+                        value={this.props.height}
+                        onChange={this.change("height")}
+                    />
+                </div>
+                <div className="perseus-widget-row">
+                    <ColorPicker
+                        value={this.props.color}
+                        lightColors={true}
+                        onChange={this.change("color")}
+                    />
+                </div>
+                <div className="perseus-widget-row">
+                    You want a border? Sorry, draw your own.
+                </div>
             </div>
-            <div className="perseus-widget-row">
-                Width: <MathInput
-                    buttonSets={[]}
-                    buttonsVisible={"never"}
-                    value={this.props.width}
-                    onChange={this.change("width")}
-                />
-            </div>
-            <div className="perseus-widget-row">
-                Height: <MathInput
-                    buttonSets={[]}
-                    buttonsVisible={"never"}
-                    value={this.props.height}
-                    onChange={this.change("height")}
-                />
-            </div>
-            <div className="perseus-widget-row">
-                <ColorPicker
-                    value={this.props.color}
-                    lightColors={true}
-                    onChange={this.change("color")}
-                />
-            </div>
-            <div className="perseus-widget-row">
-                You want a border? Sorry, draw your own.
-            </div>
-        </div>;
+        );
     },
 
     change(...args) {
@@ -711,17 +756,29 @@ var InteractionEditor = React.createClass({
     },
 
     _getAllVarSubscripts: function(elements) {
-        return _.map(_.where(elements, {type: "movable-point"}),
-            (element) => element.options.varSubscript).concat(
-            _.map(_.where(elements, {type: "movable-line"}),
-            (element) => element.options.startSubscript)).concat(
-            _.map(_.where(elements, {type: "movable-line"}),
-            (element) => element.options.endSubscript));
+        return _.map(
+            _.where(elements, {type: "movable-point"}),
+            element => element.options.varSubscript
+        )
+            .concat(
+                _.map(
+                    _.where(elements, {type: "movable-line"}),
+                    element => element.options.startSubscript
+                )
+            )
+            .concat(
+                _.map(
+                    _.where(elements, {type: "movable-line"}),
+                    element => element.options.endSubscript
+                )
+            );
     },
 
     _getAllFunctionNames: function(elements) {
-        return _.map(_.where(elements, {type: "function"}),
-            (element) => element.options.funcName);
+        return _.map(
+            _.where(elements, {type: "function"}),
+            element => element.options.funcName
+        );
     },
 
     _updateGraphProps: function(newProps) {
@@ -742,24 +799,28 @@ var InteractionEditor = React.createClass({
         e.target.value = "";
         var newElement = {
             type: elementType,
-            key: elementType + "-" +
-                (Math.random() * 0xffffff << 0).toString(16),
-            options: elementType === "point" ?
-                        _.clone(PointEditor.defaultProps) :
-                        elementType === "line" ?
-                        _.clone(LineEditor.defaultProps) :
-                        elementType === "movable-point" ?
-                        _.clone(MovablePointEditor.defaultProps) :
-                        elementType === "movable-line" ?
-                        _.clone(MovableLineEditor.defaultProps) :
-                        elementType === "function" ?
-                        _.clone(FunctionEditor.defaultProps) :
-                        elementType === "parametric" ?
-                        _.clone(ParametricEditor.defaultProps) :
-                        elementType === "label" ?
-                        _.clone(LabelEditor.defaultProps) :
-                        elementType === "rectangle" ?
-                        _.clone(RectangleEditor.defaultProps) : {},
+            key:
+                elementType +
+                "-" +
+                ((Math.random() * 0xffffff) << 0).toString(16),
+            options:
+                elementType === "point"
+                    ? _.clone(PointEditor.defaultProps)
+                    : elementType === "line"
+                      ? _.clone(LineEditor.defaultProps)
+                      : elementType === "movable-point"
+                        ? _.clone(MovablePointEditor.defaultProps)
+                        : elementType === "movable-line"
+                          ? _.clone(MovableLineEditor.defaultProps)
+                          : elementType === "function"
+                            ? _.clone(FunctionEditor.defaultProps)
+                            : elementType === "parametric"
+                              ? _.clone(ParametricEditor.defaultProps)
+                              : elementType === "label"
+                                ? _.clone(LabelEditor.defaultProps)
+                                : elementType === "rectangle"
+                                  ? _.clone(RectangleEditor.defaultProps)
+                                  : {},
         };
 
         var nextSubscript;
@@ -775,11 +836,16 @@ var InteractionEditor = React.createClass({
         } else if (elementType === "function") {
             // TODO(eater): The 22nd function added will be {(x) since '{'
             // comes after 'z'
-            var nextLetter = String.fromCharCode(_.max([_.max(_.map(
-                this.state.usedFunctionNames, function(c) {
-                    return c.charCodeAt(0);
-                })),
-                "e".charCodeAt(0)]) + 1);
+            var nextLetter = String.fromCharCode(
+                _.max([
+                    _.max(
+                        _.map(this.state.usedFunctionNames, function(c) {
+                            return c.charCodeAt(0);
+                        })
+                    ),
+                    "e".charCodeAt(0),
+                ]) + 1
+            );
             newElement.options.funcName = nextLetter;
         }
         this.change({
@@ -811,236 +877,448 @@ var InteractionEditor = React.createClass({
     },
 
     render: function() {
-        return <div className="perseus-widget-interaction-editor">
-            <ElementContainer
-                    title="Grid settings"
-            >
-                <GraphSettings
-                    editableSettings={["canvas", "graph"]}
-                    box={this.props.graph.box}
-                    labels={this.props.graph.labels}
-                    range={this.props.graph.range}
-                    step={this.props.graph.tickStep}
-                    gridStep={this.props.graph.gridStep}
-                    markings={this.props.graph.markings}
-                    onChange={this._updateGraphProps}
-                />
-                {(this.props.graph.valid !== true) && <div>
-                    {this.props.graph.valid}
-                </div>}
-            </ElementContainer>
-            {_.map(this.props.elements, function(element, n) {
-                if (element.type === "movable-point") {
-                    return <ElementContainer
-                            title={<span>Movable point <TeX>
-                                    {"(x_{" + element.options.varSubscript +
-                                    "}, y_{" + element.options.varSubscript +
-                                    "})"}</TeX>
-                                </span>}
-                            onUp={n === 0 ?
-                                null : this._moveElementUp.bind(this, n)}
-                            onDown={n === this.props.elements.length - 1 ?
-                                null : this._moveElementDown.bind(this, n)}
-                            onDelete={this._deleteElement.bind(this, n)}
-                            key={element.key}
-                    >
-                        <MovablePointEditor
-                            {...element.options}
-                            onChange={(newProps) => {
-                                var elements = JSON.parse(JSON.stringify(
-                                    this.props.elements));
-                                _.extend(elements[n].options, newProps);
-                                this.change({elements: elements});
-                            }}
-                        />
-                    </ElementContainer>;
-                } else if (element.type === "movable-line") {
-                    return <ElementContainer
-                            title={<span>Movable line <TeX>
-                                    {"(x_{" + element.options.startSubscript +
-                                    "}, y_{" + element.options.startSubscript +
-                                    "})"}</TeX> to <TeX>
-                                    {"(x_{" + element.options.endSubscript +
-                                    "}, y_{" + element.options.endSubscript +
-                                    "})"}</TeX>
-                                </span>}
-                            onUp={n === 0 ?
-                                null : this._moveElementUp.bind(this, n)}
-                            onDown={n === this.props.elements.length - 1 ?
-                                null : this._moveElementDown.bind(this, n)}
-                            onDelete={this._deleteElement.bind(this, n)}
-                            key={element.key}
-                    >
-                        <MovableLineEditor
-                            {...element.options}
-                            onChange={(newProps) => {
-                                var elements = JSON.parse(JSON.stringify(
-                                    this.props.elements));
-                                _.extend(elements[n].options, newProps);
-                                this.change({elements: elements});
-                            }}
-                        />
-                    </ElementContainer>;
-                } else if (element.type === "point") {
-                    return <ElementContainer
-                            title={<span>Point <TeX>
-                                    {"(" + element.options.coordX +
-                                    ", " + element.options.coordY +
-                                    ")"}</TeX>
-                                </span>}
-                            onUp={n === 0 ?
-                                null : this._moveElementUp.bind(this, n)}
-                            onDown={n === this.props.elements.length - 1 ?
-                                null : this._moveElementDown.bind(this, n)}
-                            onDelete={this._deleteElement.bind(this, n)}
-                            key={element.key}
-                    >
-                        <PointEditor
-                            {...element.options}
-                            onChange={(newProps) => {
-                                var elements = JSON.parse(JSON.stringify(
-                                    this.props.elements));
-                                _.extend(elements[n].options, newProps);
-                                this.change({elements: elements});
-                            }}
-                        />
-                    </ElementContainer>;
-                } else if (element.type === "line") {
-                    return <ElementContainer
-                            title={<span>Line <TeX>
-                                    {"(" + element.options.startX +
-                                    ", " + element.options.startY +
-                                    ")"}</TeX> to <TeX>
-                                    {"(" + element.options.endX +
-                                    ", " + element.options.endY +
-                                    ")"}</TeX>
-                                </span>}
-                            onUp={n === 0 ?
-                                null : this._moveElementUp.bind(this, n)}
-                            onDown={n === this.props.elements.length - 1 ?
-                                null : this._moveElementDown.bind(this, n)}
-                            onDelete={this._deleteElement.bind(this, n)}
-                            key={element.key}
-                    >
-                        <LineEditor
-                            {...element.options}
-                            onChange={(newProps) => {
-                                var elements = JSON.parse(JSON.stringify(
-                                    this.props.elements));
-                                _.extend(elements[n].options, newProps);
-                                this.change({elements: elements});
-                            }}
-                        />
-                    </ElementContainer>;
-                } else if (element.type === "function") {
-                    return <ElementContainer
-                            title={<span>Function <TeX>{
-                                element.options.funcName + "(x) = " +
-                                element.options.value
-                            }</TeX></span>}
-                            onUp={n === 0 ?
-                                null : this._moveElementUp.bind(this, n)}
-                            onDown={n === this.props.elements.length - 1 ?
-                                null : this._moveElementDown.bind(this, n)}
-                            onDelete={this._deleteElement}
-                            key={element.key}
-                    >
-                        <FunctionEditor
-                            {...element.options}
-                            onChange={(newProps) => {
-                                var elements = JSON.parse(JSON.stringify(
-                                    this.props.elements));
-                                _.extend(elements[n].options, newProps);
-                                this.change({elements: elements});
-                            }}
-                        />
-                    </ElementContainer>;
-                } else if (element.type === "parametric") {
-                    return <ElementContainer
-                            title={<span>Parametric</span>}
-                            onUp={n === 0 ?
-                                null : this._moveElementUp.bind(this, n)}
-                            onDown={n === this.props.elements.length - 1 ?
-                                null : this._moveElementDown.bind(this, n)}
-                            onDelete={this._deleteElement}
-                            key={element.key}
-                    >
-                        <ParametricEditor
-                            {...element.options}
-                            onChange={(newProps) => {
-                                var elements = JSON.parse(JSON.stringify(
-                                    this.props.elements));
-                                _.extend(elements[n].options, newProps);
-                                this.change({elements: elements});
-                            }}
-                        />
-                    </ElementContainer>;
-                } else if (element.type === "label") {
-                    return <ElementContainer
-                            title={<span>Label <TeX>
-                                {element.options.label}</TeX> </span>}
-                            onUp={n === 0 ?
-                                null : this._moveElementUp.bind(this, n)}
-                            onDown={n === this.props.elements.length - 1 ?
-                                null : this._moveElementDown.bind(this, n)}
-                            onDelete={this._deleteElement}
-                            key={element.key}
-                    >
-                        <LabelEditor
-                            {...element.options}
-                            onChange={(newProps) => {
-                                var elements = JSON.parse(JSON.stringify(
-                                    this.props.elements));
-                                _.extend(elements[n].options, newProps);
-                                this.change({elements: elements});
-                            }}
-                        />
-                    </ElementContainer>;
-                } else if (element.type === "rectangle") {
-                    return <ElementContainer
-                            title={<span>Rectangle <TeX>{"(" +
-                                element.options.coordX + ", " +
-                                element.options.coordY + ")"}</TeX>
-                                &nbsp;&mdash;&nbsp;
-                                <TeX>{element.options.width + " \\times " +
-                                element.options.height}</TeX>
-                                </span>}
-                            onUp={n === 0 ?
-                                null : this._moveElementUp.bind(this, n)}
-                            onDown={n === this.props.elements.length - 1 ?
-                                null : this._moveElementDown.bind(this, n)}
-                            onDelete={this._deleteElement}
-                            key={element.key}
-                    >
-                        <RectangleEditor
-                            {...element.options}
-                            onChange={(newProps) => {
-                                var elements = JSON.parse(JSON.stringify(
-                                    this.props.elements));
-                                _.extend(elements[n].options, newProps);
-                                this.change({elements: elements});
-                            }}
-                        />
-                    </ElementContainer>;
-                }
-            }, this)}
-            <div className="perseus-widget-interaction-editor-select-element">
-                <select onChange={this._addNewElement}>
-                    <option value="">Add an element{"\u2026"}</option>
-                    <option disabled>--</option>
-                    <option value="point">Point</option>
-                    <option value="line">Line segment</option>
-                    <option value="function">Function plot</option>
-                    <option value="parametric">Parametric plot</option>
-                    <option value="label">Label</option>
-                    <option value="rectangle">Rectangle</option>
-                    <option value="movable-point">
-                        &#x2605; Movable point</option>
-                    <option value="movable-line">
-                        &#x2605; Movable line segment</option>
-                </select>
+        /* eslint-disable max-len */
+        return (
+            <div className="perseus-widget-interaction-editor">
+                <ElementContainer title="Grid settings">
+                    <GraphSettings
+                        editableSettings={["canvas", "graph"]}
+                        box={this.props.graph.box}
+                        labels={this.props.graph.labels}
+                        range={this.props.graph.range}
+                        step={this.props.graph.tickStep}
+                        gridStep={this.props.graph.gridStep}
+                        markings={this.props.graph.markings}
+                        onChange={this._updateGraphProps}
+                    />
+                    {this.props.graph.valid !== true &&
+                        <div>
+                            {this.props.graph.valid}
+                        </div>}
+                </ElementContainer>
+                {_.map(
+                    this.props.elements,
+                    function(element, n) {
+                        if (element.type === "movable-point") {
+                            return (
+                                <ElementContainer
+                                    title={
+                                        <span>
+                                            Movable point{" "}
+                                            <TeX>
+                                                {"(x_{" +
+                                                    element.options
+                                                        .varSubscript +
+                                                    "}, y_{" +
+                                                    element.options
+                                                        .varSubscript +
+                                                    "})"}
+                                            </TeX>
+                                        </span>
+                                    }
+                                    onUp={
+                                        n === 0
+                                            ? null
+                                            : this._moveElementUp.bind(this, n)
+                                    }
+                                    onDown={
+                                        n === this.props.elements.length - 1
+                                            ? null
+                                            : this._moveElementDown.bind(
+                                                  this,
+                                                  n
+                                              )
+                                    }
+                                    onDelete={this._deleteElement.bind(this, n)}
+                                    key={element.key}
+                                >
+                                    <MovablePointEditor
+                                        {...element.options}
+                                        onChange={newProps => {
+                                            var elements = JSON.parse(
+                                                JSON.stringify(
+                                                    this.props.elements
+                                                )
+                                            );
+                                            _.extend(
+                                                elements[n].options,
+                                                newProps
+                                            );
+                                            this.change({elements: elements});
+                                        }}
+                                    />
+                                </ElementContainer>
+                            );
+                        } else if (element.type === "movable-line") {
+                            return (
+                                <ElementContainer
+                                    title={
+                                        <span>
+                                            Movable line{" "}
+                                            <TeX>
+                                                {"(x_{" +
+                                                    element.options
+                                                        .startSubscript +
+                                                    "}, y_{" +
+                                                    element.options
+                                                        .startSubscript +
+                                                    "})"}
+                                            </TeX>{" "}
+                                            to{" "}
+                                            <TeX>
+                                                {"(x_{" +
+                                                    element.options
+                                                        .endSubscript +
+                                                    "}, y_{" +
+                                                    element.options
+                                                        .endSubscript +
+                                                    "})"}
+                                            </TeX>
+                                        </span>
+                                    }
+                                    onUp={
+                                        n === 0
+                                            ? null
+                                            : this._moveElementUp.bind(this, n)
+                                    }
+                                    onDown={
+                                        n === this.props.elements.length - 1
+                                            ? null
+                                            : this._moveElementDown.bind(
+                                                  this,
+                                                  n
+                                              )
+                                    }
+                                    onDelete={this._deleteElement.bind(this, n)}
+                                    key={element.key}
+                                >
+                                    <MovableLineEditor
+                                        {...element.options}
+                                        onChange={newProps => {
+                                            var elements = JSON.parse(
+                                                JSON.stringify(
+                                                    this.props.elements
+                                                )
+                                            );
+                                            _.extend(
+                                                elements[n].options,
+                                                newProps
+                                            );
+                                            this.change({elements: elements});
+                                        }}
+                                    />
+                                </ElementContainer>
+                            );
+                        } else if (element.type === "point") {
+                            return (
+                                <ElementContainer
+                                    title={
+                                        <span>
+                                            Point{" "}
+                                            <TeX>
+                                                {"(" +
+                                                    element.options.coordX +
+                                                    ", " +
+                                                    element.options.coordY +
+                                                    ")"}
+                                            </TeX>
+                                        </span>
+                                    }
+                                    onUp={
+                                        n === 0
+                                            ? null
+                                            : this._moveElementUp.bind(this, n)
+                                    }
+                                    onDown={
+                                        n === this.props.elements.length - 1
+                                            ? null
+                                            : this._moveElementDown.bind(
+                                                  this,
+                                                  n
+                                              )
+                                    }
+                                    onDelete={this._deleteElement.bind(this, n)}
+                                    key={element.key}
+                                >
+                                    <PointEditor
+                                        {...element.options}
+                                        onChange={newProps => {
+                                            var elements = JSON.parse(
+                                                JSON.stringify(
+                                                    this.props.elements
+                                                )
+                                            );
+                                            _.extend(
+                                                elements[n].options,
+                                                newProps
+                                            );
+                                            this.change({elements: elements});
+                                        }}
+                                    />
+                                </ElementContainer>
+                            );
+                        } else if (element.type === "line") {
+                            return (
+                                <ElementContainer
+                                    title={
+                                        <span>
+                                            Line{" "}
+                                            <TeX>
+                                                {"(" +
+                                                    element.options.startX +
+                                                    ", " +
+                                                    element.options.startY +
+                                                    ")"}
+                                            </TeX>{" "}
+                                            to{" "}
+                                            <TeX>
+                                                {"(" +
+                                                    element.options.endX +
+                                                    ", " +
+                                                    element.options.endY +
+                                                    ")"}
+                                            </TeX>
+                                        </span>
+                                    }
+                                    onUp={
+                                        n === 0
+                                            ? null
+                                            : this._moveElementUp.bind(this, n)
+                                    }
+                                    onDown={
+                                        n === this.props.elements.length - 1
+                                            ? null
+                                            : this._moveElementDown.bind(
+                                                  this,
+                                                  n
+                                              )
+                                    }
+                                    onDelete={this._deleteElement.bind(this, n)}
+                                    key={element.key}
+                                >
+                                    <LineEditor
+                                        {...element.options}
+                                        onChange={newProps => {
+                                            var elements = JSON.parse(
+                                                JSON.stringify(
+                                                    this.props.elements
+                                                )
+                                            );
+                                            _.extend(
+                                                elements[n].options,
+                                                newProps
+                                            );
+                                            this.change({elements: elements});
+                                        }}
+                                    />
+                                </ElementContainer>
+                            );
+                        } else if (element.type === "function") {
+                            return (
+                                <ElementContainer
+                                    title={
+                                        <span>
+                                            Function{" "}
+                                            <TeX>
+                                                {element.options.funcName +
+                                                    "(x) = " +
+                                                    element.options.value}
+                                            </TeX>
+                                        </span>
+                                    }
+                                    onUp={
+                                        n === 0
+                                            ? null
+                                            : this._moveElementUp.bind(this, n)
+                                    }
+                                    onDown={
+                                        n === this.props.elements.length - 1
+                                            ? null
+                                            : this._moveElementDown.bind(
+                                                  this,
+                                                  n
+                                              )
+                                    }
+                                    onDelete={this._deleteElement}
+                                    key={element.key}
+                                >
+                                    <FunctionEditor
+                                        {...element.options}
+                                        onChange={newProps => {
+                                            var elements = JSON.parse(
+                                                JSON.stringify(
+                                                    this.props.elements
+                                                )
+                                            );
+                                            _.extend(
+                                                elements[n].options,
+                                                newProps
+                                            );
+                                            this.change({elements: elements});
+                                        }}
+                                    />
+                                </ElementContainer>
+                            );
+                        } else if (element.type === "parametric") {
+                            return (
+                                <ElementContainer
+                                    title={<span>Parametric</span>}
+                                    onUp={
+                                        n === 0
+                                            ? null
+                                            : this._moveElementUp.bind(this, n)
+                                    }
+                                    onDown={
+                                        n === this.props.elements.length - 1
+                                            ? null
+                                            : this._moveElementDown.bind(
+                                                  this,
+                                                  n
+                                              )
+                                    }
+                                    onDelete={this._deleteElement}
+                                    key={element.key}
+                                >
+                                    <ParametricEditor
+                                        {...element.options}
+                                        onChange={newProps => {
+                                            var elements = JSON.parse(
+                                                JSON.stringify(
+                                                    this.props.elements
+                                                )
+                                            );
+                                            _.extend(
+                                                elements[n].options,
+                                                newProps
+                                            );
+                                            this.change({elements: elements});
+                                        }}
+                                    />
+                                </ElementContainer>
+                            );
+                        } else if (element.type === "label") {
+                            return (
+                                <ElementContainer
+                                    title={
+                                        <span>
+                                            Label{" "}
+                                            <TeX>{element.options.label}</TeX>{" "}
+                                        </span>
+                                    }
+                                    onUp={
+                                        n === 0
+                                            ? null
+                                            : this._moveElementUp.bind(this, n)
+                                    }
+                                    onDown={
+                                        n === this.props.elements.length - 1
+                                            ? null
+                                            : this._moveElementDown.bind(
+                                                  this,
+                                                  n
+                                              )
+                                    }
+                                    onDelete={this._deleteElement}
+                                    key={element.key}
+                                >
+                                    <LabelEditor
+                                        {...element.options}
+                                        onChange={newProps => {
+                                            var elements = JSON.parse(
+                                                JSON.stringify(
+                                                    this.props.elements
+                                                )
+                                            );
+                                            _.extend(
+                                                elements[n].options,
+                                                newProps
+                                            );
+                                            this.change({elements: elements});
+                                        }}
+                                    />
+                                </ElementContainer>
+                            );
+                        } else if (element.type === "rectangle") {
+                            return (
+                                <ElementContainer
+                                    title={
+                                        <span>
+                                            Rectangle{" "}
+                                            <TeX>
+                                                {"(" +
+                                                    element.options.coordX +
+                                                    ", " +
+                                                    element.options.coordY +
+                                                    ")"}
+                                            </TeX>
+                                            &nbsp;&mdash;&nbsp;
+                                            <TeX>
+                                                {element.options.width +
+                                                    " \\times " +
+                                                    element.options.height}
+                                            </TeX>
+                                        </span>
+                                    }
+                                    onUp={
+                                        n === 0
+                                            ? null
+                                            : this._moveElementUp.bind(this, n)
+                                    }
+                                    onDown={
+                                        n === this.props.elements.length - 1
+                                            ? null
+                                            : this._moveElementDown.bind(
+                                                  this,
+                                                  n
+                                              )
+                                    }
+                                    onDelete={this._deleteElement}
+                                    key={element.key}
+                                >
+                                    <RectangleEditor
+                                        {...element.options}
+                                        onChange={newProps => {
+                                            var elements = JSON.parse(
+                                                JSON.stringify(
+                                                    this.props.elements
+                                                )
+                                            );
+                                            _.extend(
+                                                elements[n].options,
+                                                newProps
+                                            );
+                                            this.change({elements: elements});
+                                        }}
+                                    />
+                                </ElementContainer>
+                            );
+                        }
+                    },
+                    this
+                )}
+                <div className="perseus-widget-interaction-editor-select-element">
+                    <select onChange={this._addNewElement}>
+                        <option value="">
+                            Add an element{"\u2026"}
+                        </option>
+                        <option disabled>--</option>
+                        <option value="point">Point</option>
+                        <option value="line">Line segment</option>
+                        <option value="function">Function plot</option>
+                        <option value="parametric">Parametric plot</option>
+                        <option value="label">Label</option>
+                        <option value="rectangle">Rectangle</option>
+                        <option value="movable-point">
+                            &#x2605; Movable point
+                        </option>
+                        <option value="movable-line">
+                            &#x2605; Movable line segment
+                        </option>
+                    </select>
+                </div>
             </div>
-        </div>;
+        );
+        /* eslint-enable max-len */
     },
 
     serialize() {

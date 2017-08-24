@@ -6,10 +6,20 @@ const _ = require("underscore");
 const {StyleSheet, css} = require("aphrodite");
 
 const ApiOptions = require("../perseus-api.jsx").Options;
-const Changeable   = require("../mixins/changeable.jsx");
+const Changeable = require("../mixins/changeable.jsx");
 const GradedGroup = require("./graded-group.jsx").widget;
-const {grayLight, gray76, tableBackgroundAccent, kaGreen, phoneMargin, negativePhoneMargin} = require("../styles/constants.js");
-const {linterContextProps, linterContextDefault} = require("../gorgon/proptypes.js");
+const {
+    grayLight,
+    gray76,
+    tableBackgroundAccent,
+    kaGreen,
+    phoneMargin,
+    negativePhoneMargin,
+} = require("../styles/constants.js");
+const {
+    linterContextProps,
+    linterContextDefault,
+} = require("../gorgon/proptypes.js");
 
 const Indicators = React.createClass({
     propTypes: {
@@ -113,33 +123,37 @@ const GradedGroupSet = React.createClass({
         }
 
         const numGroups = this.props.gradedGroups.length;
-        const handleNextQuestion = this.state.currentGroup < numGroups - 1 ?
-            this.handleNextQuestion : null;
+        const handleNextQuestion =
+            this.state.currentGroup < numGroups - 1
+                ? this.handleNextQuestion
+                : null;
 
-        return <div className={css(styles.container)}>
-            <div className={css(styles.top)}>
-                <div className={css(styles.title)}>
-                    {currentGroup.title}
+        return (
+            <div className={css(styles.container)}>
+                <div className={css(styles.top)}>
+                    <div className={css(styles.title)}>
+                        {currentGroup.title}
+                    </div>
+                    <div className={css(styles.spacer)} />
+                    <Indicators
+                        numGroups={numGroups}
+                        currentGroup={this.state.currentGroup}
+                        onChangeCurrentGroup={currentGroup =>
+                            this.setState({currentGroup})}
+                    />
                 </div>
-                <div className={css(styles.spacer)} />
-                <Indicators
-                    numGroups={numGroups}
-                    currentGroup={this.state.currentGroup}
-                    onChangeCurrentGroup={
-                        currentGroup => this.setState({currentGroup})}
+                <GradedGroup
+                    key={this.state.currentGroup}
+                    ref={comp => (this._childGroup = comp)}
+                    {...this.props}
+                    {...currentGroup}
+                    inGradedGroupSet={true}
+                    title={null}
+                    onNextQuestion={handleNextQuestion}
+                    linterContext={this.props.linterContext}
                 />
             </div>
-            <GradedGroup
-                key={this.state.currentGroup}
-                ref={comp => this._childGroup = comp}
-                {...this.props}
-                {...currentGroup}
-                inGradedGroupSet={true}
-                title={null}
-                onNextQuestion={handleNextQuestion}
-                linterContext={this.props.linterContext}
-            />
-        </div>;
+        );
     },
 });
 
@@ -163,8 +177,8 @@ module.exports = {
 
 const styles = StyleSheet.create({
     top: {
-        display: 'flex',
-        flexDirection: 'row',
+        display: "flex",
+        flexDirection: "row",
     },
     spacer: {
         flex: 1,
@@ -173,14 +187,14 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 12,
         color: gray76,
-        textTransform: 'uppercase',
+        textTransform: "uppercase",
         marginBottom: 11,
-        letterSpacing: .8,
+        letterSpacing: 0.8,
     },
 
     indicatorContainer: {
-        display: 'flex',
-        flexDirection: 'row',
+        display: "flex",
+        flexDirection: "row",
     },
 
     indicator: {
@@ -189,7 +203,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         backgroundColor: grayLight,
         marginLeft: 5,
-        cursor: 'pointer',
+        cursor: "pointer",
     },
 
     selectedIndicator: {
@@ -206,6 +220,6 @@ const styles = StyleSheet.create({
         paddingLeft: phoneMargin,
         paddingRight: phoneMargin,
         paddingTop: 10,
-        width: 'auto',
+        width: "auto",
     },
 });
