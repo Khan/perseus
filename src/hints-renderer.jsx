@@ -161,8 +161,7 @@ const HintsRenderer = React.createClass({
         const showGetAnotherHint =
             apiOptions.getAnotherHint &&
             hintsVisible > 0 &&
-            hintsVisible < this.props.hints.length
-        );
+            hintsVisible < this.props.hints.length;
         const hintRatioCopy = `(${hintsVisible}/${this.props.hints.length})`;
 
         const classNames = classnames(
