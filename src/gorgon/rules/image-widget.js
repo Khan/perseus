@@ -8,6 +8,7 @@ import Rule from "../rule.js";
 // problem at a time.
 module.exports = Rule.makeRule({
     name: "image-widget",
+    severity: Rule.Severity.BULK_WARNING,
     selector: "widget",
     lint: function(state, content, nodes, match, context) {
         // This rule only looks at image widgets

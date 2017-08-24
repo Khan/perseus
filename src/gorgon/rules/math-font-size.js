@@ -2,6 +2,7 @@ import Rule from "../rule.js";
 
 module.exports = Rule.makeRule({
     name: "math-font-size",
+    severity: Rule.Severity.GUIDELINE,
     selector: "math, blockMath",
     // eslint-disable-next-line max-len
     pattern: /\\(tiny|Tiny|small|large|Large|LARGE|huge|Huge|scriptsize|normalsize)\s*{/,

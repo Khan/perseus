@@ -450,6 +450,7 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
                     ruleName={node.ruleName}
                     inline={isInline(node.content)}
                     insideTable={node.insideTable}
+                    severity={node.severity}
                 >
                     {output(node.content, state)}
                 </Lint>

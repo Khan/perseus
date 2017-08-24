@@ -12,6 +12,7 @@ function isCapitalized(word) {
 
 module.exports = Rule.makeRule({
     name: "heading-title-case",
+    severity: Rule.Severity.GUIDELINE,
     selector: "heading",
     pattern: /[^\s:]\s+[A-Z]+[a-z]/,
     locale: "en",

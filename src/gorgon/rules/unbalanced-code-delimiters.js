@@ -6,6 +6,7 @@ import Rule from "../rule.js";
 // apply inside $$ or ``.
 module.exports = Rule.makeRule({
     name: "unbalanced-code-delimiters",
+    severity: Rule.Severity.ERROR,
     pattern: /[`~]+/,
     message: `Unbalanced code delimiters:
 code blocks should begin and end with the same type and number of delimiters`,

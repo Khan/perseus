@@ -2,6 +2,7 @@ import Rule from "../rule.js";
 
 module.exports = Rule.makeRule({
     name: "image-alt-text",
+    severity: Rule.Severity.BULK_WARNING,
     selector: "image",
     lint: function(state, content, nodes, match) {
         const image = nodes[0];

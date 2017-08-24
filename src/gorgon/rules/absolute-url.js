@@ -3,6 +3,7 @@ import {getHostname} from "./lint-utils.js";
 
 module.exports = Rule.makeRule({
     name: "absolute-url",
+    severity: Rule.Severity.GUIDELINE,
     selector: "link, image",
     lint: function(state, content, nodes, match) {
         const url = nodes[0].target;

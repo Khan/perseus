@@ -8,9 +8,9 @@
  * an error message, and the start and end positions within the node's content
  * string of the lint.
  *
- * A Gorgon lint rule consists of a name, a selector, a pattern (RegExp) and
- * two functions. The check() method uses the selector, pattern, and functions
- * as follows:
+ * A Gorgon lint rule consists of a name, a severity, a selector, a pattern
+ * (RegExp) and two functions. The check() method uses the selector, pattern,
+ * and functions as follows:
  *
  * - First, when determining which rules to apply to a particular piece of
  *   content, each rule can specify an optional function provided in the fifth
@@ -46,7 +46,7 @@
  *   properties. The value of the `rule` property is the name of the rule,
  *   which is useful for error reporting purposes.
  *
- * The name, selector, pattern and function arguments to the Rule()
+ * The name, severity, selector, pattern and function arguments to the Rule()
  * constructor are optional, but you may not omit both the selector and the
  * pattern. If you do not specify a selector, a default selector that matches
  * any node of type "text" will be used. If you do not specify a pattern, then
@@ -181,6 +181,7 @@ export type AppliesTester = (
  */
 export default class Rule {
     name: string; // The name of the rule
+    severity: number; // The severity of the rule
     selector: Selector; // The specified selector or the DEFAULT_SELECTOR
     pattern: ?RegExp; // A regular expression if one was specified
     lint: LintTester; // The lint-testing function or a default
@@ -192,6 +193,7 @@ export default class Rule {
     // this constructor and its arguments
     constructor(
         name: ?string,
+        severity: ?number,
         selector: ?Selector,
         pattern: ?RegExp,
         lint: LintTester | string,
@@ -202,6 +204,7 @@ export default class Rule {
         }
 
         this.name = name || "unnamed rule";
+        this.severity = severity || Rule.Severity.BULK_WARNING;
         this.selector = selector || Rule.DEFAULT_SELECTOR;
         this.pattern = pattern || null;
 
@@ -225,6 +228,7 @@ export default class Rule {
     static makeRule(options: Object) {
         return new Rule(
             options.name,
+            options.severity,
             options.selector ? Selector.parse(options.selector) : null,
             Rule.makePattern(options.pattern),
             options.lint || options.message,
@@ -284,6 +288,7 @@ export default class Rule {
                 // applies to the entire content of the node and return it.
                 return {
                     rule: this.name,
+                    severity: this.severity,
                     message: error,
                     start: 0,
                     end: content.length,
@@ -293,6 +298,7 @@ export default class Rule {
                 // add the rule name to the message, start and end.
                 return {
                     rule: this.name,
+                    severity: this.severity,
                     message: error.message,
                     start: error.start,
                     end: error.end,
@@ -379,6 +385,14 @@ ${e.stack}`,
         result.input = input;
         return result;
     }
+
+    static Severity = {
+        ERROR: 1,
+        WARNING: 2,
+        GUIDELINE: 3,
+        BULK_WARNING: 4,
+    }
+
 }
 
 Rule.DEFAULT_SELECTOR = Selector.parse("text");

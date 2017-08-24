@@ -1,6 +1,9 @@
 import PerseusMarkdown from "../perseus-markdown.jsx";
+import Rule from "./rule.js";
 import TreeTransformer from "./tree-transformer.js";
-const allLintRules = require("./rules/all-rules.js");
+
+const allLintRules = require("./rules/all-rules.js")
+    .filter(r => r.severity < Rule.Severity.BULK_WARNING);
 
 //
 // Run the Gorgon linter over the specified markdown parse tree,
@@ -160,6 +163,10 @@ function runLinter(tree, context, highlight, rules) {
         // linty node so that it can be highlighted. We just make a note
         // of whether this lint is inside a table or not.
         if (nodeWarnings.length) {
+            nodeWarnings.sort((a, b) => {
+                return a.severity - b.severity;
+            });
+
             if (node.type !== "text" || nodeWarnings.length > 1) {
                 // If the linty node is not a text node, or if there is more
                 // than one warning on a text node, then reparent the entire
@@ -170,6 +177,7 @@ function runLinter(tree, context, highlight, rules) {
                     message: nodeWarnings.map(w => w.message).join("\n\n"),
                     ruleName: nodeWarnings[0].rule,
                     insideTable: insideTable,
+                    severity: nodeWarnings[0].severity,
                 });
             } else {
                 //
@@ -225,6 +233,7 @@ function runLinter(tree, context, highlight, rules) {
                     message: warning.message,
                     ruleName: warning.rule,
                     insideTable: insideTable,
+                    severity: warning.severity,
                 });
 
                 // The suffix node, if there is one

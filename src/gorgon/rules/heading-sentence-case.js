@@ -2,6 +2,7 @@ import Rule from "../rule.js";
 
 module.exports = Rule.makeRule({
     name: "heading-sentence-case",
+    severity: Rule.Severity.GUIDELINE,
     selector: "heading",
     pattern: /^\W*[a-z]/, // first letter is lowercase
     message: `First letter is lowercase:
