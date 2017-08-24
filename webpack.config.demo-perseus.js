@@ -5,7 +5,7 @@ module.exports = {
     },
     output: {
         path: "./build",
-        publicPath: "/build/",
+        publicPath: "build/",
         filename: "[name].js",
     },
     devServer: {
