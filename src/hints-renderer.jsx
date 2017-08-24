@@ -161,22 +161,9 @@ const HintsRenderer = React.createClass({
         const showGetAnotherHint =
             apiOptions.getAnotherHint &&
             hintsVisible > 0 &&
-            hintsVisible < this.props.hints.length;
-        let showGetAnotherHintCopy;
-        if (apiOptions.showExerciseStepCopy) {
-            const isLastHint = this.props.hints.length - hintsVisible === 1;
-            showGetAnotherHintCopy = isLastHint
-                ? i18n._("Show the last step")
-                : i18n._("Show the next step");
-        } else {
-            showGetAnotherHintCopy = i18n._("Get another hint");
-        }
-        const hintRatioCopy = apiOptions.showExerciseStepCopy
-            ? `(${hintsVisible + 1}/${this.props.hints.length})`
-            : `(${hintsVisible}/${this.props.hints.length})`;
-        const mobileHintCopy = apiOptions.showExerciseStepCopy
-            ? i18n._("Steps")
-            : i18n._("Hints");
+            hintsVisible < this.props.hints.length
+        );
+        const hintRatioCopy = `(${hintsVisible}/${this.props.hints.length})`;
 
         const classNames = classnames(
             this.props.className,
@@ -195,7 +182,7 @@ const HintsRenderer = React.createClass({
                             sharedStyles.responsiveLabel
                         )}
                     >
-                        {mobileHintCopy}
+                        {i18n._("Hints")}
                     </div>}
                 {hints}
                 {showGetAnotherHint &&
@@ -223,7 +210,7 @@ const HintsRenderer = React.createClass({
                             +
                         </span>
                         <span className={css(styles.getAnotherHintText)}>
-                            {showGetAnotherHintCopy} {hintRatioCopy}
+                            {i18n._("Get another hint")} {hintRatioCopy}
                         </span>
                     </button>}
             </div>

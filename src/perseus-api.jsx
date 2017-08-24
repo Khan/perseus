@@ -52,7 +52,6 @@ module.exports = {
 
             answerableCallback: React.PropTypes.func,
             getAnotherHint: React.PropTypes.func,
-            showExerciseStepCopy: React.PropTypes.bool,
             interactionCallback: React.PropTypes.func,
 
             // A function that takes in the relative problem number (starts at
@@ -159,7 +158,6 @@ module.exports = {
         }).isRequired,
 
         defaults: {
-            showExerciseStepCopy: false,
             isArticle: false,
             isMobile: false,
             satStyling: false,
