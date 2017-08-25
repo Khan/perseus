@@ -296,7 +296,7 @@ var NumericInput = React.createClass({
 
         if (answerBlurb) {
             return <span className="perseus-input-with-answer-blurb">
-                {dropdown}
+                {this.props.multipleNumberInput && dropdown}
                 {input}
                 {answerBlurb}
             </span>;
@@ -311,12 +311,12 @@ var NumericInput = React.createClass({
                 <span className="perseus-input-label">
                     {i18n.i18nDoNotTranslate("Answer:")}
                 </span>
-                {dropdown}
+                {this.props.multipleNumberInput && dropdown}
                 {input}
             </label>;
         } else {
             return <div>
-                {dropdown}
+                {this.props.multipleNumberInput && dropdown}
                 {input}
             </div>;
         }
