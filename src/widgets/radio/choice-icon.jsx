@@ -16,7 +16,7 @@ class SATChoiceIcon extends React.Component {
         letter: string,
         a11yText: string,
         checked: boolean,
-        correct: ?boolean,
+        correct: boolean,
         reviewMode: boolean,
     };
 
@@ -25,7 +25,7 @@ class SATChoiceIcon extends React.Component {
     // from MDR in https://phabricator.khanacademy.org/D35249.
     constructStyles(
         reviewMode: boolean,
-        correct: ?boolean,
+        correct: boolean,
         checked: boolean
     ): {color: string, backgroundColor: ?string, borderColor: string} {
         let backgroundColor;
@@ -191,7 +191,7 @@ type ChoiceIconProps = {
     checked: boolean,
     pressed: boolean,
     focused: boolean,
-    correct: ?boolean,
+    correct: boolean,
     showCorrectness: boolean,
     // TODO(amy): if we go this "product" flag route, define this type
     // somewhere shared
@@ -210,7 +210,7 @@ class ChoiceIcon extends React.Component {
         // If the option was checked we need to reveal more context about
         // what the result was (correct/incorrect)
         if (this.props.checked) {
-            if (typeof this.props.correct === "boolean") {
+            if (this.props.showCorrectness) {
                 if (this.props.correct) {
                     return i18n._("(Choice %(letter)s, Checked, Correct)", {
                         letter: letter,
@@ -226,7 +226,7 @@ class ChoiceIcon extends React.Component {
 
             // If the option wasn't checked, but was correct, we need to tell
             // the user that this was, in fact, the correct answer.
-        } else if (this.props.correct) {
+        } else if (this.props.showCorrectness && this.props.correct) {
             return i18n._("(Choice %(letter)s, Correct Answer)", {
                 letter: letter,
             });
