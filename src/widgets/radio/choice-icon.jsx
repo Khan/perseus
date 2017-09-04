@@ -10,6 +10,7 @@ const {StyleSheet, css} = require("aphrodite");
 const styleConstants = require("../../styles/constants.js");
 const {iconCheck, iconMinus} = require("../../icon-paths.js");
 const InlineIcon = require("../../components/inline-icon.jsx");
+const FocusRing = require("./focus-ring.jsx");
 
 class SATChoiceIcon extends React.Component {
     props: {
@@ -158,13 +159,7 @@ class LibraryChoiceIcon extends React.Component {
             focused,
             primaryProductColor,
         } = this.props;
-        // Hack(amy) styling the focus ring dynamically is tricky with
-        // the current implementation, so we show it only when usng
-        // the default primaryProductColor (kaGreen). I should probably
-        // make the focus circle be a directly-styled DOM element rather
-        // than psuedoelement, but punting for now.
-        const showFocusRing = primaryProductColor === styleConstants.kaGreen;
-        return (
+        return (<FocusRing color={primaryProductColor} visible={focused}>
             <div
                 style={this.getDynamicStyles()}
                 className={css(
@@ -177,12 +172,11 @@ class LibraryChoiceIcon extends React.Component {
                         !correct &&
                         checked &&
                         styles.libraryCircleIncorrectSelected,
-                    focused && showFocusRing && styles.libraryCircleFocused
                 )}
             >
                 {this.getChoiceInner()}
             </div>
-        );
+        </FocusRing>);
     }
 }
 
@@ -363,22 +357,6 @@ const styles = StyleSheet.create({
         color: styleConstants.white,
     },
 
-    libraryCircleFocused: {
-        position: "relative",
-
-        // Make a ring around the icon
-        "::after": {
-            content: '""',
-            position: "absolute",
-            left: -4,
-            right: -4,
-            top: -4,
-            bottom: -4,
-            borderRadius: "50%",
-            boxShadow: `0 0 0 2px ${styleConstants.kaGreen}`,
-        },
-    },
-
     letter: {
         // These properties make sure that this element has the exact
         // same size as `circle` so that we can center things
@@ -399,4 +377,5 @@ const styles = StyleSheet.create({
         fontSize: 13,
     },
 });
+
 module.exports = ChoiceIcon;
