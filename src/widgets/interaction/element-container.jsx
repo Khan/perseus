@@ -12,7 +12,7 @@ const {
     iconCircleArrowUp,
     iconTrash,
 } = require("../../icon-paths.js");
-const InlineIcon   = require("../../components/inline-icon.jsx");
+const InlineIcon = require("../../components/inline-icon.jsx");
 
 type ElementContainerProps = {
     children: React.Element<*> | React.Element<*>[],
@@ -27,7 +27,7 @@ class ElementContainer extends React.Component {
     static defaultProps = {
         initiallyVisible: false,
         title: "More",
-    }
+    };
 
     constructor(props: ElementContainerProps) {
         super(props);
@@ -39,54 +39,58 @@ class ElementContainer extends React.Component {
 
     state: {
         show: boolean,
-    }
+    };
 
-    props: ElementContainerProps
+    props: ElementContainerProps;
 
     toggle = (e: SyntheticEvent) => {
         e.preventDefault();
         this.setState({show: !this.state.show});
-    }
+    };
 
     render() {
-        return <div className="perseus-interaction-element">
-            <a href="#" className={"perseus-interaction-element-title " +
-                (this.state.show ? "open" : "closed")}
-                onClick={this.toggle}
-            >
-                {this.state.show
-                    ? <InlineIcon {...iconChevronDown} />
-                    : <InlineIcon {...iconChevronRight} />
-                }
-                {this.props.title}
-            </a>
-            <div className={"perseus-interaction-element-content " +
-                    (this.state.show ? "enter" : "leave")}
-            >
-                {this.props.children}
-                {(this.props.onUp != null ||
-                    this.props.onDown != null ||
-                    this.props.onDelete != null) &&
-                    <div className={"edit-controls"}>
-                        {(this.props.onUp != null) && <button
-                            onClick={this.props.onUp}
-                        >
-                            <InlineIcon {...iconCircleArrowUp} />
-                        </button>}
-                        {(this.props.onDown != null) && <button
-                            onClick={this.props.onDown}
-                        >
-                            <InlineIcon {...iconCircleArrowDown} />
-                        </button>}
-                        {(this.props.onDelete != null) && <button
-                            onClick={this.props.onDelete}
-                        >
-                            <InlineIcon {...iconTrash} />
-                        </button>}
-                    </div>
-                }
+        return (
+            <div className="perseus-interaction-element">
+                <a
+                    href="#"
+                    className={
+                        "perseus-interaction-element-title " +
+                        (this.state.show ? "open" : "closed")
+                    }
+                    onClick={this.toggle}
+                >
+                    {this.state.show
+                        ? <InlineIcon {...iconChevronDown} />
+                        : <InlineIcon {...iconChevronRight} />}
+                    {this.props.title}
+                </a>
+                <div
+                    className={
+                        "perseus-interaction-element-content " +
+                        (this.state.show ? "enter" : "leave")
+                    }
+                >
+                    {this.props.children}
+                    {(this.props.onUp != null ||
+                        this.props.onDown != null ||
+                        this.props.onDelete != null) &&
+                        <div className={"edit-controls"}>
+                            {this.props.onUp != null &&
+                                <button onClick={this.props.onUp}>
+                                    <InlineIcon {...iconCircleArrowUp} />
+                                </button>}
+                            {this.props.onDown != null &&
+                                <button onClick={this.props.onDown}>
+                                    <InlineIcon {...iconCircleArrowDown} />
+                                </button>}
+                            {this.props.onDelete != null &&
+                                <button onClick={this.props.onDelete}>
+                                    <InlineIcon {...iconTrash} />
+                                </button>}
+                        </div>}
+                </div>
             </div>
-        </div>;
+        );
     }
 }
 

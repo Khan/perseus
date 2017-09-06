@@ -146,4 +146,3 @@ module.exports = [
         require("./widgets/simple-markdown-tester-editor.jsx"),
     ],
 ];
-

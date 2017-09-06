@@ -2,6 +2,7 @@ import Rule from "../rule.js";
 
 module.exports = Rule.makeRule({
     name: "heading-level-skip",
+    severity: Rule.Severity.WARNING,
     selector: "heading ~ heading",
     lint: function(state, content, nodes, match) {
         const currentHeading = nodes[1];

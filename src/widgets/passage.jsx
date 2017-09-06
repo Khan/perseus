@@ -53,17 +53,14 @@ class LineHeightMeasurer extends React.Component {
     }
 
     render() {
-        return <div
-            className={css(styles.measurer)}
-        >
-            <div>
-                <div
-                    ref={(e) => this.$body = $(e)}
-                    className="paragraph"
-                />
-                <div ref={(e) => this.$end = $(e)} />
+        return (
+            <div className={css(styles.measurer)}>
+                <div>
+                    <div ref={e => (this.$body = $(e))} className="paragraph" />
+                    <div ref={e => (this.$end = $(e))} />
+                </div>
             </div>
-        </div>;
+        );
     }
 }
 
@@ -181,8 +178,10 @@ class Passage extends React.Component {
     }
 
     shouldComponentUpdate(nextProps: PassageProps, nextState: PassageState) {
-        return !_.isEqual(this.props, nextProps) ||
-            !_.isEqual(this.state, nextState);
+        return (
+            !_.isEqual(this.props, nextProps) ||
+            !_.isEqual(this.state, nextState)
+        );
     }
 
     componentDidUpdate() {
@@ -197,7 +196,7 @@ class Passage extends React.Component {
         serializedHighlights: SerializedHighlightSet
     ) => {
         this.props.onChange({highlights: serializedHighlights});
-    }
+    };
 
     /**
      * Line numbering
@@ -240,9 +239,11 @@ class Passage extends React.Component {
             return isPassageBeforeThisPassage;
         });
 
-        return passagesBeforeUs.map((passageWidget) => {
-            return passageWidget.getLineCount();
-        }).reduce((a, b) => a + b, 0);
+        return passagesBeforeUs
+            .map(passageWidget => {
+                return passageWidget.getLineCount();
+            })
+            .reduce((a, b) => a + b, 0);
     }
 
     _getLineHeight(): number {
@@ -283,8 +284,11 @@ class Passage extends React.Component {
         }
         const vPos = $refText.offset().top;
 
-        return this.state.startLineNumbersAfter + 1 +
-            this._convertPosToLineNumber(vPos);
+        return (
+            this.state.startLineNumbersAfter +
+            1 +
+            this._convertPosToLineNumber(vPos)
+        );
     }
 
     _getEndRefLineNumber(referenceNumber: number): ?number {
@@ -392,7 +396,8 @@ class Passage extends React.Component {
         if (firstQuestionNumber) {
             instructions += i18n._(
                 "The symbol %(questionSymbol)s indicates that question " +
-                "%(questionNumber)s references this portion of the passage.",
+                    "%(questionNumber)s references this portion of the " +
+                    "passage.",
                 {
                     questionSymbol: "[[" + firstQuestionNumber + "]]",
                     questionNumber: firstQuestionNumber,
@@ -402,24 +407,29 @@ class Passage extends React.Component {
         if (firstSentenceRef) {
             instructions += i18n._(
                 " The symbol %(sentenceSymbol)s indicates that the " +
-                "following sentence is referenced in a question.",
+                    "following sentence is referenced in a question.",
                 {
                     sentenceSymbol: "[" + firstSentenceRef + "]",
                 }
             );
         }
         const parsedInstructions = PassageMarkdown.parse(instructions);
-        return <div className="perseus-widget-passage-instructions">
-            {PassageMarkdown.output(parsedInstructions)}
-        </div>;
+        return (
+            <div className="perseus-widget-passage-instructions">
+                {PassageMarkdown.output(parsedInstructions)}
+            </div>
+        );
     }
 
     shouldRenderJipt() {
         // Mostly copied from `renderer.jsx`. If we're doing JIPT, we want to
         // render our content differently.
-        // $FlowFixMe KA is a global
-        return typeof KA !== "undefined" && KA.language === "en-pt" &&
-            this.props.passageText.indexOf('crwdns') !== -1;
+        return (
+            // $FlowFixMe KA is a global
+            typeof KA !== "undefined" &&
+            KA.language === "en-pt" &&
+            this.props.passageText.indexOf("crwdns") !== -1
+        );
     }
 
     _renderContent(parsed): React.Element<any> {
@@ -430,18 +440,23 @@ class Passage extends React.Component {
         // Highlights are read-only in review mode.
         const editable = !this.props.reviewModeRubric;
 
-        return <HighlightableContent
-            editable={editable}
-            enabled={enabled}
-            onSerializedHighlightsUpdate={
-                this._handleSerializedHighlightsUpdate}
-            serializedHighlights={this.props.highlights}
-        >
-            <div ref="content">
-                <LineHeightMeasurer ref={e => this._lineHeightMeasurer = e} />
-                {PassageMarkdown.output(parsed)}
-            </div>
-        </HighlightableContent>;
+        return (
+            <HighlightableContent
+                editable={editable}
+                enabled={enabled}
+                onSerializedHighlightsUpdate={
+                    this._handleSerializedHighlightsUpdate
+                }
+                serializedHighlights={this.props.highlights}
+            >
+                <div ref="content">
+                    <LineHeightMeasurer
+                        ref={e => (this._lineHeightMeasurer = e)}
+                    />
+                    {PassageMarkdown.output(parsed)}
+                </div>
+            </HighlightableContent>
+        );
     }
 
     _hasFootnotes(): boolean {
@@ -465,18 +480,19 @@ class Passage extends React.Component {
             // lineN + this.state.startLineNumbersAfter, where
             // startLineNumbersAfter is the sum of all line numbers
             // in earlier passages.
-            lineNumbers = _.range(1, nLines + 1).map((lineN) => {
+            lineNumbers = _.range(1, nLines + 1).map(lineN => {
                 if (lineN === 4 && nLines > 4) {
-                    return <span
-                        key="line-marker"
-                        className="line-marker"
-                    >
-                        Line
-                    </span>;
+                    return (
+                        <span key="line-marker" className="line-marker">
+                            Line
+                        </span>
+                    );
                 } else {
-                    return <span key={lineN}>
-                        {lineN + this.state.startLineNumbersAfter}
-                    </span>;
+                    return (
+                        <span key={lineN}>
+                            {lineN + this.state.startLineNumbersAfter}
+                        </span>
+                    );
                 }
             });
         }
@@ -485,52 +501,62 @@ class Passage extends React.Component {
             firstSentenceRef: null,
             firstQuestionRef: null,
         };
-        const parsedContent =
-            PassageMarkdown.parse(this.props.passageText, parseState);
+        const parsedContent = PassageMarkdown.parse(
+            this.props.passageText,
+            parseState
+        );
 
         // Check if the title has any non-empty text in it.
         const hasTitle = /\S/.test(this.props.passageTitle);
 
-        return <div>
-            <div className="perseus-widget-passage-container">
-                {this._renderInstructions(parseState)}
-                <div className="perseus-widget-passage">
-                    {hasTitle && <h3 className="passage-title">
-                        <Renderer
-                            content={this.props.passageTitle}
-                            linterContext={this.props.linterContext}
-                        />
-                    </h3>}
-                    {lineNumbers &&
-                        <div className="line-numbers" aria-hidden={true}>
-                            {lineNumbers}
+        return (
+            <div>
+                <div className="perseus-widget-passage-container">
+                    {this._renderInstructions(parseState)}
+                    <div className="perseus-widget-passage">
+                        {hasTitle &&
+                            <h3 className="passage-title">
+                                <Renderer
+                                    content={this.props.passageTitle}
+                                    linterContext={this.props.linterContext}
+                                />
+                            </h3>}
+                        {lineNumbers &&
+                            <div className="line-numbers" aria-hidden={true}>
+                                {lineNumbers}
+                            </div>}
+                        {!hasTitle &&
+                            <h3 className="perseus-sr-only">
+                                {i18n._("Beginning of reading passage.")}
+                            </h3>}
+                        <div className="passage-text">
+                            {this.shouldRenderJipt()
+                                ? // If we're in JIPT mode, just pass off our
+                                  // content to a <Renderer /> which knows how
+                                  // to handle rendering JIPT text.
+                                  <Renderer content={this.props.passageText} />
+                                : this._renderContent(parsedContent)}
                         </div>
-                    }
-                    {!hasTitle && <h3 className="perseus-sr-only">
-                        {i18n._("Beginning of reading passage.")}
-                    </h3>}
-                    <div className="passage-text">
-                        {this.shouldRenderJipt()
-                            // If we're in JIPT mode, just pass off our content
-                            // to a <Renderer /> which knows how to handle
-                            // rendering JIPT text.
-                            ? <Renderer content={this.props.passageText} />
-                            : this._renderContent(parsedContent)}
-                    </div>
-                    {this._hasFootnotes() && [
-                        <h4 key="footnote-start" className="perseus-sr-only">
-                            {i18n._("Beginning of reading passage footnotes.")}
-                        </h4>,
-                        <div key="footnotes" className="footnotes">
-                            {this._renderFootnotes()}
-                        </div>,
-                    ]}
-                    <div className="perseus-sr-only">
-                        {i18n._("End of reading passage.")}
+                        {this._hasFootnotes() && [
+                            <h4
+                                key="footnote-start"
+                                className="perseus-sr-only"
+                            >
+                                {i18n._(
+                                    "Beginning of reading passage footnotes."
+                                )}
+                            </h4>,
+                            <div key="footnotes" className="footnotes">
+                                {this._renderFootnotes()}
+                            </div>,
+                        ]}
+                        <div className="perseus-sr-only">
+                            {i18n._("End of reading passage.")}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>;
+        );
     }
 }
 
@@ -539,8 +565,13 @@ module.exports = {
     displayName: "Passage (SAT only)",
     widget: Passage,
     transform: (editorProps: any) => {
-        return _.pick(editorProps, "passageTitle", "passageText", "footnotes",
-            "showLineNumbers");
+        return _.pick(
+            editorProps,
+            "passageTitle",
+            "passageText",
+            "footnotes",
+            "showLineNumbers"
+        );
     },
     isLintable: true,
 };

@@ -2,7 +2,7 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var React = require('react');
+var React = require("react");
 var ReactDOM = require("react-dom");
 var _ = require("underscore");
 
@@ -14,7 +14,10 @@ var Util = require("../util.js");
 const {keypadElementPropType} = require("../../math-input").propTypes;
 var ApiOptions = require("../perseus-api.jsx").Options;
 const KhanAnswerTypes = require("../util/answer-types.js");
-const {linterContextProps, linterContextDefault} = require("../gorgon/proptypes.js");
+const {
+    linterContextProps,
+    linterContextDefault,
+} = require("../gorgon/proptypes.js");
 
 var assert = require("../interactive2/interactive-util.js").assert;
 
@@ -50,9 +53,7 @@ var getRefForPath = function(path) {
 var Table = React.createClass({
     propTypes: {
         answers: React.PropTypes.arrayOf(
-            React.PropTypes.arrayOf(
-                React.PropTypes.string
-            )
+            React.PropTypes.arrayOf(React.PropTypes.string)
         ),
         editableHeaders: React.PropTypes.bool,
         // The editor to use when editableHeaders is enabled
@@ -108,62 +109,85 @@ var Table = React.createClass({
             inputStyle = {};
         }
 
-        return <table className="perseus-widget-table-of-values non-markdown">
-            <thead>
-                <tr>{
-                    _.map(headers, (header, i) => {
-                        if (this.props.editableHeaders) {
-                            return <th key={i}>
-                                <this.props.Editor
-                                    ref={"columnHeader" + i}
-                                    apiOptions={this.props.apiOptions}
-                                    content={header}
-                                    widgetEnabled={false}
-                                    onChange={
-                                        _.partial(this.onHeaderChange, i)
-                                    }
-                                />
-                            </th>;
-                        } else {
-                            return <th key={i}>
-                                <Renderer
-                                    content={header}
-                                    linterContext={this.props.linterContext}
-                                />
-                            </th>;
-                        }
-                    })
-                }
-                </tr>
-            </thead>
-            <tbody>{
-                _(rows).times(r => {
-                    return <tr key={r}>{
-                        _(columns).times((c) => {
-                            return <td key={c}>
-                                <InputComponent
-                                    ref={getRefForPath(getInputPath(r, c))}
-                                    type="text"
-                                    value={this.props.answers[r][c]}
-                                    keypadElement={this.props.keypadElement}
-                                    disabled={this.props.apiOptions.readOnly}
-                                    onFocus={_.partial(
-                                        this._handleFocus, getInputPath(r, c)
-                                    )}
-                                    onBlur={_.partial(
-                                        this._handleBlur, getInputPath(r, c)
-                                    )}
-                                    onChange={
-                                        _.partial(this.onValueChange, r, c)
-                                    }
-                                    style={inputStyle}/>
-                            </td>;
-                        })
-                    }</tr>;
-                })
-            }
-            </tbody>
-        </table>;
+        return (
+            <table className="perseus-widget-table-of-values non-markdown">
+                <thead>
+                    <tr>
+                        {_.map(headers, (header, i) => {
+                            if (this.props.editableHeaders) {
+                                return (
+                                    <th key={i}>
+                                        <this.props.Editor
+                                            ref={"columnHeader" + i}
+                                            apiOptions={this.props.apiOptions}
+                                            content={header}
+                                            widgetEnabled={false}
+                                            onChange={_.partial(
+                                                this.onHeaderChange,
+                                                i
+                                            )}
+                                        />
+                                    </th>
+                                );
+                            } else {
+                                return (
+                                    <th key={i}>
+                                        <Renderer
+                                            content={header}
+                                            linterContext={
+                                                this.props.linterContext
+                                            }
+                                        />
+                                    </th>
+                                );
+                            }
+                        })}
+                    </tr>
+                </thead>
+                <tbody>
+                    {_(rows).times(r => {
+                        return (
+                            <tr key={r}>
+                                {_(columns).times(c => {
+                                    return (
+                                        <td key={c}>
+                                            <InputComponent
+                                                ref={getRefForPath(
+                                                    getInputPath(r, c)
+                                                )}
+                                                type="text"
+                                                value={this.props.answers[r][c]}
+                                                keypadElement={
+                                                    this.props.keypadElement
+                                                }
+                                                disabled={
+                                                    this.props.apiOptions
+                                                        .readOnly
+                                                }
+                                                onFocus={_.partial(
+                                                    this._handleFocus,
+                                                    getInputPath(r, c)
+                                                )}
+                                                onBlur={_.partial(
+                                                    this._handleBlur,
+                                                    getInputPath(r, c)
+                                                )}
+                                                onChange={_.partial(
+                                                    this.onValueChange,
+                                                    r,
+                                                    c
+                                                )}
+                                                style={inputStyle}
+                                            />
+                                        </td>
+                                    );
+                                })}
+                            </tr>
+                        );
+                    })}
+                </tbody>
+            </table>
+        );
     },
 
     getUserInput: function() {
@@ -180,7 +204,7 @@ var Table = React.createClass({
             : eventOrValue;
 
         this.props.onChange({
-            answers: answers
+            answers: answers,
         });
         this.props.trackInteraction();
     },
@@ -189,7 +213,7 @@ var Table = React.createClass({
         var headers = this.props.headers.slice();
         headers[index] = e.content;
         this.props.onChange({
-            headers: headers
+            headers: headers,
         });
     },
 
@@ -263,17 +287,19 @@ var Table = React.createClass({
 
         var answers = _.map(this.props.answers, _.clone);
         answers[row][column] = newValue;
-        this.props.onChange({
-            answers: answers
-        }, cb);
-    }
+        this.props.onChange(
+            {
+                answers: answers,
+            },
+            cb
+        );
+    },
 });
 
 _.extend(Table, {
     validate: function(state, rubric) {
-        var filterNonEmpty = function (table) {
-            return _.filter(table, function (row) {
-
+        var filterNonEmpty = function(table) {
+            return _.filter(table, function(row) {
                 // Check if row has a cell that is nonempty
                 return _.some(row, _.identity);
             });
@@ -288,7 +314,7 @@ _.extend(Table, {
         if (hasEmptyCell || !supplied.length) {
             return {
                 type: "invalid",
-                message: null
+                message: null,
             };
         }
         if (supplied.length !== solution.length) {
@@ -296,22 +322,20 @@ _.extend(Table, {
                 type: "points",
                 earned: 0,
                 total: 1,
-                message: null
+                message: null,
             };
         }
-        var createValidator = KhanAnswerTypes
-                                  .number.createValidatorFunctional;
+        var createValidator = KhanAnswerTypes.number.createValidatorFunctional;
         var message = null;
-        var allCorrect = _.every(solution, function (rowSolution) {
+        var allCorrect = _.every(solution, function(rowSolution) {
             var i;
             for (i = 0; i < supplied.length; i++) {
                 var rowSupplied = supplied[i];
-                var correct = _.every(rowSupplied, function (cellSupplied, i) {
+                var correct = _.every(rowSupplied, function(cellSupplied, i) {
                     var cellSolution = rowSolution[i];
-                    var validator = createValidator(
-                            cellSolution, {
-                                simplify: true
-                            });
+                    var validator = createValidator(cellSolution, {
+                        simplify: true,
+                    });
                     var result = validator(cellSupplied);
                     if (result.message) {
                         message = result.message;
@@ -329,12 +353,12 @@ _.extend(Table, {
             type: "points",
             earned: allCorrect ? 1 : 0,
             total: 1,
-            message: message
+            message: message,
         };
-    }
+    },
 });
 
-var propTransform = (editorProps) => {
+var propTransform = editorProps => {
     // Remove answers before passing to widget
     var rows = editorProps.answers.length;
     var columns = editorProps.answers[0].length;
@@ -342,7 +366,7 @@ var propTransform = (editorProps) => {
         return Util.stringArrayOfSize(columns);
     });
     return _.extend({}, editorProps, {
-        answers: blankAnswers
+        answers: blankAnswers,
     });
 };
 

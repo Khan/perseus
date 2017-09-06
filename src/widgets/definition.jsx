@@ -72,6 +72,14 @@ const Definition = React.createClass({
         });
     },
 
+    getUserInput: function() {
+        return {};
+    },
+
+    simpleValidate: function(rubric) {
+        return Definition.validate(this.getUserInput(), rubric);
+    },
+
     // check if the definition is fully visible on the bottom
     _definitionBelowScreen: function() {
         const windowBottom = window.innerHeight;
@@ -89,13 +97,19 @@ const Definition = React.createClass({
         setTimeout(() => {
             this._positionContentHorizontally();
             if (this._definitionBelowScreen()) {
-                this.setState({
-                    belowScreen: true,
-                }, this._positionContentVertically);
+                this.setState(
+                    {
+                        belowScreen: true,
+                    },
+                    this._positionContentVertically
+                );
             } else {
-                this.setState({
-                    belowScreen: false,
-                }, this._positionContentVertically);
+                this.setState(
+                    {
+                        belowScreen: false,
+                    },
+                    this._positionContentVertically
+                );
             }
         }, 0);
     },
@@ -132,16 +146,22 @@ const Definition = React.createClass({
             }
         }
 
-        this.setState({
-            expanded: !this.state.expanded,
-        }, this._checkDefinitionPosition);
+        this.setState(
+            {
+                expanded: !this.state.expanded,
+            },
+            this._checkDefinitionPosition
+        );
         this.props.trackInteraction();
     },
 
     _onMouseOver: function() {
-        this.setState({
-            expanded: true,
-        }, this._checkDefinitionPosition);
+        this.setState(
+            {
+                expanded: true,
+            },
+            this._checkDefinitionPosition
+        );
         this.props.trackInteraction();
     },
 
@@ -161,10 +181,10 @@ const Definition = React.createClass({
         // container is the word to be defined
         // content is the actual definition
         const documentWidth = document.body.clientWidth;
-        const marginWidth =
-            this.container.parentElement.parentElement.offsetLeft;
-        const contentWidth = documentWidth - 4 * marginWidth;
-        const contentWidthMobile = documentWidth - 2 * marginWidth;
+        const marginWidth = this.container.parentElement.parentElement
+            .offsetLeft;
+        const contentWidth = documentWidth - 2 * marginWidth;
+        const contentWidthMobile = documentWidth - marginWidth;
         const contentOffsetLeft = this.container.offsetLeft - marginWidth;
         const contentOffsetLeftMobile = this.container.offsetLeft;
 
@@ -183,28 +203,32 @@ const Definition = React.createClass({
 
         let link;
 
-        const href = readOnly ? null : 'javascript:void(0)';
+        const href = readOnly ? null : "javascript:void(0)";
         const onClick = readOnly ? null : this._onClick;
         const onMouseOver = this._onMouseOver;
         const onMouseOut = this._onMouseOut;
 
         if (isMobile) {
-            link = <a
-                className={css(styles.mobileDefinitionLink)}
-                href={href}
-                onClick={onClick}
-            >
+            link = (
+                <a
+                    className={css(styles.mobileDefinitionLink)}
+                    href={href}
+                    onClick={onClick}
+                >
                     {linkAnchor}
-                </a>;
+                </a>
+            );
         } else {
-            link = <a
-                className={css(styles.definitionLink)}
-                href={href}
-                onMouseOver={onMouseOver}
-                onMouseOut={onMouseOut}
-            >
+            link = (
+                <a
+                    className={css(styles.definitionLink)}
+                    href={href}
+                    onMouseOver={onMouseOver}
+                    onMouseOut={onMouseOut}
+                >
                     {linkAnchor}
-                </a>;
+                </a>
+            );
         }
 
         const expandedStyle = isMobile
@@ -215,77 +239,88 @@ const Definition = React.createClass({
             ? "scale(1, -1)"
             : "scale(1, 1)";
 
-        return <div
-            className={css(styles.container)}
-            ref={e => this.container = e}
-        >
-            <div className={css(styles.linkContainer)}>
-                {link}
-                {this.state.expanded &&
-                    <svg className={css(styles.disclosureArrow)}
-                        ref={e => this.arrow = e}
-                        transform={arrowTransform}
-                        style={{
-                            bottom: this.state.expanded &&
-                                this.state.belowScreen
-                                ? "18px"
-                                : "-18px"}}
-                    >
-                        <filter id="definition-widget-dropshadow" height="150%">
-                            <feOffset
-                                dx={dropShadowXOffset}
-                                dy={dropShadowYOffset}
-                                result="offsetblur"
-                            />
-                            <feGaussianBlur
-                                in="SourceAlpha"
-                                stdDeviation={dropShadowRadius / 2}
-                            />
-                            <feComponentTransfer>
-                                <feFuncA
-                                    type="linear"
-                                    slope={dropShadowOpacity}
-                                />
-                            </feComponentTransfer>
-                            <feMerge>
-                                <feMergeNode/>
-                                <feMergeNode in="SourceGraphic"/>
-                            </feMerge>
-                        </filter>
-                        <polyline
-                            fill="white"
-                            filter="url(#definition-widget-dropshadow)"
-                            points={`0,${arrowHeight} ` +
-                                `${arrowWidth},${arrowHeight} ` +
-                                `${arrowWidth / 2},0`}
-                        />
-                    </svg>}
-            </div>
-            <div className={css(
-                    styles.content,
-                    isMobile && styles.contentMobile,
-                    this.state.expanded && expandedStyle
-                )}
-                style={{
-                    height: this.state.expanded ? "auto" : 0,
-                    overflow: this.state.expanded ? "visible" : "hidden",
-                    left: isMobile
-                        ? this.state.contentOffsetLeftMobile
-                        : this.state.contentOffsetLeft,
-                    width: isMobile
-                        ? this.state.contentWidthMobile
-                        : this.state.contentWidth,
-                    marginTop: this.state.contentMarginTop,
-                }}
-                ref={e => this.content = e}
+        return (
+            <div
+                className={css(styles.container)}
+                ref={e => (this.container = e)}
             >
-                <Renderer
-                    apiOptions={this.props.apiOptions}
-                    content={this.props.definition}
-                    widgets={this.props.widgets}
-                />
+                <div className={css(styles.linkContainer)}>
+                    {link}
+                    {this.state.expanded &&
+                        <svg
+                            className={css(styles.disclosureArrow)}
+                            ref={e => (this.arrow = e)}
+                            transform={arrowTransform}
+                            style={{
+                                bottom:
+                                    this.state.expanded &&
+                                    this.state.belowScreen
+                                        ? "18px"
+                                        : "-18px",
+                            }}
+                        >
+                            <filter
+                                id="definition-widget-dropshadow"
+                                height="150%"
+                            >
+                                <feOffset
+                                    dx={dropShadowXOffset}
+                                    dy={dropShadowYOffset}
+                                    result="offsetblur"
+                                />
+                                <feGaussianBlur
+                                    in="SourceAlpha"
+                                    stdDeviation={dropShadowRadius / 2}
+                                />
+                                <feComponentTransfer>
+                                    <feFuncA
+                                        type="linear"
+                                        slope={dropShadowOpacity}
+                                    />
+                                </feComponentTransfer>
+                                <feMerge>
+                                    <feMergeNode />
+                                    <feMergeNode in="SourceGraphic" />
+                                </feMerge>
+                            </filter>
+                            <polyline
+                                fill="white"
+                                filter="url(#definition-widget-dropshadow)"
+                                points={
+                                    `0,${arrowHeight} ` +
+                                    `${arrowWidth},${arrowHeight} ` +
+                                    `${arrowWidth / 2},0`
+                                }
+                            />
+                        </svg>}
+                </div>
+                <div
+                    className={css(
+                        styles.content,
+                        isMobile && styles.contentMobile,
+                        this.state.expanded && expandedStyle
+                    )}
+                    style={{
+                        height: this.state.expanded ? "auto" : 0,
+                        overflow: this.state.expanded ? "visible" : "hidden",
+                        left: isMobile
+                            ? this.state.contentOffsetLeftMobile
+                            : this.state.contentOffsetLeft,
+                        width: isMobile
+                            ? this.state.contentWidthMobile
+                            : this.state.contentWidth,
+                        marginTop: this.state.contentMarginTop,
+                    }}
+                    ref={e => (this.content = e)}
+                >
+                    <Renderer
+                        apiOptions={this.props.apiOptions}
+                        content={this.props.definition}
+                        widgets={this.props.widgets}
+                    />
+                </div>
             </div>
-        </div>;
+        );
     },
 });
 
@@ -300,24 +335,24 @@ const backgroundColor = styleConstants.white;
 
 const styles = StyleSheet.create({
     container: {
-        display: 'inline',
-        position: 'relative',
+        display: "inline",
+        position: "relative",
     },
 
     linkContainer: {
-        display: 'inline-block',
+        display: "inline-block",
     },
 
     definitionLink: {
         color: styleConstants.blue,
         borderBottom: `dashed 1px ${styleConstants.blue}`,
-        textDecoration: 'none',
+        textDecoration: "none",
     },
 
     mobileDefinitionLink: {
         color: styleConstants.kaGreen,
         borderBottom: `dashed 1px ${styleConstants.kaGreen}`,
-        textDecoration: 'none',
+        textDecoration: "none",
 
         // TODO(benkomalo): these should be pulled in from common typography
         // shared files so we have a single place where the type hierarchy is
@@ -341,8 +376,8 @@ const styles = StyleSheet.create({
         background: backgroundColor,
         opacity: 0.95,
         borderRadius: 1,
-        position: 'absolute',
-        transition: 'margin-top 0.1s',
+        position: "absolute",
+        transition: "margin-top 0.1s",
         paddingLeft: styleConstants.phoneMargin,
         paddingRight: styleConstants.phoneMargin,
         zIndex: 2,
@@ -367,11 +402,22 @@ const styles = StyleSheet.create({
         // fudge factor to position it down to be flush with the content box
         // below it.
         height: arrowHeight,
-        left: '50%',
+        left: "50%",
         marginLeft: -(arrowWidth / 2),
-        position: 'absolute',
+        position: "absolute",
         width: arrowWidth,
         zIndex: 4, // so popovers appear on top
+    },
+});
+
+_.extend(Definition, {
+    validate: function(state, rubric) {
+        return {
+            type: "points",
+            earned: 0,
+            total: 0,
+            message: null,
+        };
     },
 });
 

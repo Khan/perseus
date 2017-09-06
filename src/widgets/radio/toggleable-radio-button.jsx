@@ -1,6 +1,5 @@
-const React = require('react');
+const React = require("react");
 const _ = require("underscore");
-
 
 /**
  * A radio button that can be unchecked by clicking it again.
@@ -84,15 +83,17 @@ const ToggleableRadioButton = React.createClass({
             ...otherProps
         } = this.props;
 
-        return <input
-            {...otherProps}
-            type="radio"
-            onChange={this.handleChange}
-            onClick={this.handleClick}
-            onKeyDown={this.handleKeyDown}
-            onKeyUp={this.handleKeyUp}
-            ref={this.props.inputRef}
-        />;
+        return (
+            <input
+                {...otherProps}
+                type="radio"
+                onChange={this.handleChange}
+                onClick={this.handleClick}
+                onKeyDown={this.handleKeyDown}
+                onKeyUp={this.handleKeyUp}
+                ref={this.props.inputRef}
+            />
+        );
     },
 });
 

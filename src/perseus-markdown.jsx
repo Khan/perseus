@@ -71,9 +71,7 @@ var mathMatcher = (source, state, isBlock) => {
             // This also handles the case of escaping `$`s or
             // braces `\{`
             index++;
-
         } else if (braceLevel <= 0 && character === "$") {
-
             var endIndex = index + 1;
             if (isBlock) {
                 // Look for two trailing newlines after the closing `$`
@@ -94,15 +92,11 @@ var mathMatcher = (source, state, isBlock) => {
                 ];
             }
             return null;
-
         } else if (character === "{") {
             braceLevel++;
-
         } else if (character === "}") {
             braceLevel--;
-
-        } else if (character === "\n" &&
-                source[index - 1] === "\n") {
+        } else if (character === "\n" && source[index - 1] === "\n") {
             // This is a weird case we supported in the old
             // math implementation--double newlines break
             // math. I'm preserving it for now because content
@@ -122,11 +116,11 @@ var blockMathMatch = (source, state) => mathMatcher(source, state, true);
 
 var TITLED_TABLE_REGEX = new RegExp(
     "^\\|\\| +(.*) +\\|\\| *\\n" +
-    "(" +
-    // The simple-markdown nptable regex, without
-    // the leading `^`
-    SimpleMarkdown.defaultRules.nptable.match.regex.source.substring(1) +
-    ")"
+        "(" +
+        // The simple-markdown nptable regex, without
+        // the leading `^`
+        SimpleMarkdown.defaultRules.nptable.match.regex.source.substring(1) +
+        ")"
 );
 
 var crowdinJiptMatcher = SimpleMarkdown.blockRegex(/^(crwdns.*)\n\s*\n/);
@@ -143,40 +137,45 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
             };
         },
         react: (node, output, state) => {
-            return <div className="perseus-two-columns" key={state.key}>
-                <div className="perseus-column">
-                    <div className="perseus-column-content">
-                        {output(node.col1, state)}
+            return (
+                <div className="perseus-two-columns" key={state.key}>
+                    <div className="perseus-column">
+                        <div className="perseus-column-content">
+                            {output(node.col1, state)}
+                        </div>
                     </div>
-                </div>
-                <div className="perseus-column">
-                    {/* HACK(#sat) This is a cheap way to allow a custom header
-                      * to be displayed in two-column items in the SAT mission.
+                    <div className="perseus-column">
+                        {/* HACK(#sat) This is a cheap way to allow a custom
+                      * header to be displayed in two-column items in the SAT
+                      * mission.
                       * The header will be rendered into this div. Do not write
                       * code outside of the SAT mission that relies on this
                       * because this will be cleaned up with other SAT
                       * technical debt. */}
-                    <div className="sat-header-grafting-area"/>
+                        <div className="sat-header-grafting-area" />
 
-                    <div className="perseus-column-content">
-                        {/* HACK(#sat) This is a cheap way to allow a custom
-                          * review-mode skill box to be displayed in SAT.
+                        <div className="perseus-column-content">
+                            {/* HACK(#sat) This is a cheap way to allow a
+                          * custom review-mode skill box to be displayed in
+                          * SAT.
                           * Don't write code outside of the SAT mission that
                           * relies on this div because we are still telling
                           * ourselves this will be cleaned up along with other
                           * SAT technical debt. */}
-                        <div className="sat-skill-subscore-grafting-area"/>
-                        {output(node.col2, state)}
-                        {/* HACK(#sat) This is a cheap way to allow hints to be
-                          * displayed in two-column items in the SAT mission.
+                            <div className="sat-skill-subscore-grafting-area" />
+                            {output(node.col2, state)}
+                            {/* HACK(#sat) This is a cheap way to allow hints
+                          * to be displayed in two-column items in the SAT
+                          * mission.
                           * The hint renderer will be rendered into this div.
                           * Do not write code outside of the SAT mission that
                           * relies on this because this will be cleaned up with
                           * other SAT technical debt. */}
-                        <div className="sat-grafting-area"/>
+                            <div className="sat-grafting-area" />
+                        </div>
                     </div>
                 </div>
-            </div>;
+            );
         },
     },
     // Match paragraphs consisting solely of crowdin IDs
@@ -200,7 +199,7 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
                 return null;
             }
         },
-        parse: (capture, parse, state) => ({ id: capture[1] }),
+        parse: (capture, parse, state) => ({id: capture[1]}),
         react: (node, output, state) => node.id,
     },
     // This is pretty much horrible, but we have a regex here to capture an
@@ -234,34 +233,33 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
             if (!node.table) {
                 contents = "//invalid table//";
             } else {
-                const tableOutput =
-                    SimpleMarkdown.defaultRules.table.react(
-                        node.table,
-                        output,
-                        state
-                    );
+                const tableOutput = SimpleMarkdown.defaultRules.table.react(
+                    node.table,
+                    output,
+                    state
+                );
 
-                const caption = <caption
-                    key="caption"
-                    className="perseus-table-title"
-                >
-                    {output(node.title, state)}
-                </caption>;
+                const caption = (
+                    <caption key="caption" className="perseus-table-title">
+                        {output(node.title, state)}
+                    </caption>
+                );
 
                 // Splice the caption into the table's children with the
                 // caption as the first child.
-                contents = React.cloneElement(
-                    tableOutput,
-                    null,
-                    [caption, ...tableOutput.props.children]
-                );
+                contents = React.cloneElement(tableOutput, null, [
+                    caption,
+                    ...tableOutput.props.children,
+                ]);
             }
 
             // Note: if the DOM structure changes, edit the Zoomable wrapper
             // in src/renderer.jsx.
-            return <div className="perseus-titled-table" key={state.key}>
-                {contents}
-            </div>;
+            return (
+                <div className="perseus-titled-table" key={state.key}>
+                    {contents}
+                </div>
+            );
         },
     },
     widget: {
@@ -277,9 +275,11 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
             // The actual output is handled in the renderer, where
             // we know the current widget props/state. This is
             // just a stub for testing.
-            return <em key={state.key}>
-                [Widget: {node.id}]
-            </em>;
+            return (
+                <em key={state.key}>
+                    [Widget: {node.id}]
+                </em>
+            );
         },
     },
     blockMath: {
@@ -294,7 +294,11 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
             // The actual output is handled in the renderer, because
             // it needs to pass in an `onRender` callback prop. This
             // is just a stub for testing.
-            return <TeX key={state.key}>{node.content}</TeX>;
+            return (
+                <TeX key={state.key}>
+                    {node.content}
+                </TeX>
+            );
         },
     },
     math: {
@@ -309,7 +313,11 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
             // The actual output is handled in the renderer, because
             // it needs to pass in an `onRender` callback prop. This
             // is just a stub for testing.
-            return <TeX key={state.key}>{node.content}</TeX>;
+            return (
+                <TeX key={state.key}>
+                    {node.content}
+                </TeX>
+            );
         },
     },
     unescapedDollar: {
@@ -358,8 +366,11 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
     // element, if necessary.
     link: _.extend({}, SimpleMarkdown.defaultRules.link, {
         react: function(node, output, state) {
-            const link = SimpleMarkdown.defaultRules.link.react(node, output,
-                                                                state);
+            const link = SimpleMarkdown.defaultRules.link.react(
+                node,
+                output,
+                state
+            );
 
             let href = link.props.href;
 
@@ -368,15 +379,16 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
             if (typeof KA !== "undefined" && KA.isZeroRated) {
                 if (href.match(/https?:\/\/[^\/]*khanacademy.org/)) {
                     href = href.replace(
-                        'khanacademy.org', 'zero.khanacademy.org'
+                        "khanacademy.org",
+                        "zero.khanacademy.org"
                     );
                 } else {
-                    href = '/zero/external-link?url=' +
-                        encodeURIComponent(href);
+                    href =
+                        "/zero/external-link?url=" + encodeURIComponent(href);
                 }
             }
 
-            const newProps = { ...link.props, href };
+            const newProps = {...link.props, href};
 
             if (state.baseElements && state.baseElements.Link) {
                 return state.baseElements.Link(newProps);
@@ -390,12 +402,14 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
             // ideally this should be a different rule, with only an
             // output function, but right now that breaks the parser.
             if (node.lang === "alt") {
-                return <div
-                    key={state.key}
-                    className="perseus-markdown-alt perseus-sr-only"
-                >
-                    {output(node.content, state)}
-                </div>;
+                return (
+                    <div
+                        key={state.key}
+                        className="perseus-markdown-alt perseus-sr-only"
+                    >
+                        {output(node.content, state)}
+                    </div>
+                );
             } else {
                 return SimpleMarkdown.defaultRules.codeBlock.react(
                     node,
@@ -414,7 +428,10 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
                 return null;
             } else {
                 return SimpleMarkdown.defaultRules.list.match(
-                    source, state, prevCapture);
+                    source,
+                    state,
+                    prevCapture
+                );
             }
         },
     }),
@@ -424,21 +441,23 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
     // just for the react() function
     lint: {
         order: 1000,
-        match: (s) => null,
+        match: s => null,
         parse: (capture, parse, state) => ({}),
         react: (node, output, state) => {
-            return <Lint
-                message={node.message}
-                ruleName={node.ruleName}
-                inline={isInline(node.content)}
-                insideTable={node.insideTable}
-            >
-                {output(node.content, state)}
-            </Lint>;
+            return (
+                <Lint
+                    message={node.message}
+                    ruleName={node.ruleName}
+                    inline={isInline(node.content)}
+                    insideTable={node.insideTable}
+                    severity={node.severity}
+                >
+                    {output(node.content, state)}
+                </Lint>
+            );
         },
     },
 });
-
 
 // Return true if the specified parse tree node represents inline content
 // and false otherwise. We need this so that lint nodes can figure out whether
@@ -459,21 +478,14 @@ const inlineNodeTypes = {
     code: true,
 };
 
-
 var builtParser = SimpleMarkdown.parserFor(rules);
 var parse = (source, state) => {
     var paragraphedSource = source + "\n\n";
 
-    return builtParser(paragraphedSource, _.extend(
-        { inline: false },
-        state
-    ));
+    return builtParser(paragraphedSource, _.extend({inline: false}, state));
 };
 var inlineParser = (source, state) => {
-    return builtParser(source, _.extend(
-        { inline: true },
-        state
-    ));
+    return builtParser(source, _.extend({inline: true}, state));
 };
 
 /**
@@ -482,7 +494,7 @@ var inlineParser = (source, state) => {
  */
 var traverseContent = (ast, cb) => {
     if (_.isArray(ast)) {
-        _.each(ast, (node) => traverseContent(node, cb));
+        _.each(ast, node => traverseContent(node, cb));
     } else if (_.isObject(ast)) {
         cb(ast);
         if (ast.type === "table") {
@@ -505,7 +517,7 @@ var traverseContent = (ast, cb) => {
  * Pull out text content from a Perseus Markdown AST.
  * Returns an array of strings.
  */
-var getContent = (ast) => {
+var getContent = ast => {
     // Simplify logic by dealing with a single AST node at a time
     if (_.isArray(ast)) {
         return _.flatten(_.map(ast, getContent));
@@ -514,12 +526,12 @@ var getContent = (ast) => {
     // Base case: This is where we actually extract text content
     if (ast.content && _.isString(ast.content)) {
         // Collapse whitespace within content unless it is code
-        if (ast.type.toLowerCase().indexOf('code') !== -1) {
+        if (ast.type.toLowerCase().indexOf("code") !== -1) {
             // In case this is the sole child of a paragraph,
             // prevent whitespace from being trimmed later
-            return ['', ast.content, ''];
+            return ["", ast.content, ""];
         } else {
-            return [ast.content.replace(/\s+/g, ' ')];
+            return [ast.content.replace(/\s+/g, " ")];
         }
     }
 
@@ -531,18 +543,18 @@ var getContent = (ast) => {
     var children = _.chain(ast)
         .values()
         .flatten()
-        .filter((object) => object != null && _.has(object, 'type'))
+        .filter(object => object != null && _.has(object, "type"))
         .value();
 
     if (!children.length) {
         return [];
     } else {
         var nestedContent = getContent(children);
-        if (ast.type === 'paragraph' && nestedContent.length) {
+        if (ast.type === "paragraph" && nestedContent.length) {
             // Trim whitespace before or after a paragraph
-            nestedContent[0] = nestedContent[0].replace(/^\s+/, '');
+            nestedContent[0] = nestedContent[0].replace(/^\s+/, "");
             var last = nestedContent.length - 1;
-            nestedContent[last] = nestedContent[last].replace(/\s+$/, '');
+            nestedContent[last] = nestedContent[last].replace(/\s+$/, "");
         }
         return nestedContent;
     }
@@ -552,9 +564,9 @@ var getContent = (ast) => {
  * Count the number of characters in Perseus Markdown source.
  * Markdown markup and widget references are ignored.
  */
-var characterCount = (source) => {
+var characterCount = source => {
     var ast = parse(source);
-    var content = getContent(ast).join('');
+    var content = getContent(ast).join("");
     return content.length;
 };
 

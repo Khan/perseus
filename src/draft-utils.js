@@ -35,33 +35,34 @@ const {
     Modifier,
     SelectionState,
     genKey,
-} = require('draft-js');
+} = require("draft-js");
 
-const {List} = require('immutable');
-
+const {List} = require("immutable");
 
 // This provides sensible defaults for editorState, contentState, and selection.
 // This means that if I wanted to insert text at the current cursor location,
 // I could just pass in editorState, but if I wanted it to insert text at a
 // custom location, I would just pass in a selection as well
-const _fillData = (draftData) => {
+const _fillData = draftData => {
     const {editorState, contentState, selection} = draftData;
     const newData = {};
     newData.editorState = editorState || null;
-    newData.contentState = contentState
-                            || (editorState && editorState.getCurrentContent())
-                            || null;
-    newData.selection = selection
-                        || (editorState && editorState.getSelection())
-                        || (contentState && contentState.getSelectionAfter())
-                        || null;
+    newData.contentState =
+        contentState ||
+        (editorState && editorState.getCurrentContent()) ||
+        null;
+    newData.selection =
+        selection ||
+        (editorState && editorState.getSelection()) ||
+        (contentState && contentState.getSelectionAfter()) ||
+        null;
     return newData;
 };
 
 // Draft.js bugs currently emerge when the editor doesn't have focus.  This
 // avoids those by ensuring that the editor state always assumes it is focused
-const _createEmptySelection = (block) => {
-    return SelectionState.createEmpty(block.getKey()).set('hasFocus', true);
+const _createEmptySelection = block => {
+    return SelectionState.createEmpty(block.getKey()).set("hasFocus", true);
 };
 
 function regexStrategy(contentBlock, callback, regex, selectionFromMatch) {
@@ -111,7 +112,7 @@ function replaceSelection(draftData, text, entity = null) {
         newData.editorState = EditorState.push(
             data.editorState,
             newData.contentState,
-            'insert-characters'
+            "insert-characters"
         );
     }
 
@@ -124,14 +125,14 @@ function deleteSelection(draftData) {
     newData.contentState = Modifier.removeRange(
         data.contentState,
         data.selection,
-        'backward'
+        "backward"
     );
 
     if (data.editorState) {
         newData.editorState = EditorState.push(
             data.editorState,
             newData.contentState,
-            'remove-range'
+            "remove-range"
         );
     }
 
@@ -144,9 +145,11 @@ const _getBlocksForSelection = (contentState, selection) => {
     const endKey = selection.getEndKey();
     const pastEndKey = contentState.getKeyAfter(endKey);
 
-    for (let blockKey = startKey;
-            blockKey !== pastEndKey;
-            blockKey = contentState.getKeyAfter(blockKey)) {
+    for (
+        let blockKey = startKey;
+        blockKey !== pastEndKey;
+        blockKey = contentState.getKeyAfter(blockKey)
+    ) {
         blocks.push(contentState.getBlockForKey(blockKey));
     }
 
@@ -202,10 +205,11 @@ function findEntity(contentState, filter) {
     const blocks = contentState.getBlocksAsArray();
 
     let selection = null;
-    blocks.some((block) => {
+    blocks.some(block => {
         block.findEntityRanges(
-            char => char.getEntity() !== null
-                    && filter(Entity.get(char.getEntity())),
+            char =>
+                char.getEntity() !== null &&
+                filter(Entity.get(char.getEntity())),
             (start, end) => {
                 const base = _createEmptySelection(block);
                 selection = base.merge({
@@ -241,7 +245,7 @@ function insertText(draftData, rawText, sanitizer = () => null) {
     const charData = CharacterMetadata.create();
 
     // Create an array of ContentBlock objects, one for each line
-    const contentBlocks = textLines.map((textLine) => {
+    const contentBlocks = textLines.map(textLine => {
         // Styles and entities in draft.js are applied per character, therefore
         // each block uses a list, where each element corresponds to a single
         // character.
@@ -256,7 +260,7 @@ function insertText(draftData, rawText, sanitizer = () => null) {
         return new ContentBlock({
             key: genKey(),
             text: text,
-            type: 'unstyled',
+            type: "unstyled",
             characterList: List(characterList),
         });
     });
@@ -272,7 +276,7 @@ function insertText(draftData, rawText, sanitizer = () => null) {
         newData.editorState = EditorState.push(
             data.editorState,
             newData.contentState,
-            'insert-fragment'
+            "insert-fragment"
         );
     }
 
@@ -295,17 +299,19 @@ const _canEditOffset = (block, offset) => {
     }
     const leftKey = block.getEntityAt(offset - 1);
     const rightKey = block.getEntityAt(offset);
-    const isImmutableEntity = rightKey ?
-                                Entity.get(rightKey).mutability === 'IMMUTABLE'
-                                : false; // false if not an entity at all
-    return !(isImmutableEntity && (leftKey === rightKey));
+    const isImmutableEntity = rightKey
+        ? Entity.get(rightKey).mutability === "IMMUTABLE"
+        : false; // false if not an entity at all
+    return !(isImmutableEntity && leftKey === rightKey);
 };
 
 const _getSkippedOffset = (contentBlock, startOffset, step) => {
     let currOffset = startOffset;
-    while (currOffset > 0
-           && currOffset < contentBlock.getLength()
-           && !_canEditOffset(contentBlock, currOffset)) {
+    while (
+        currOffset > 0 &&
+        currOffset < contentBlock.getLength() &&
+        !_canEditOffset(contentBlock, currOffset)
+    ) {
         currOffset += step;
     }
     return currOffset;
@@ -326,9 +332,11 @@ function snapSelectionOutsideEntities(draftData, prevSelection) {
     // moves from non-entity to entity, it should skip over the entity.
     const focusDiff = focusOffset - prevSelection.getFocusOffset();
     const isSameBlock = selection.getFocusKey() === prevSelection.getFocusKey();
-    if (isSameBlock
-            && Math.abs(focusDiff) === 1
-            && !_canEditOffset(focusBlock, focusOffset)) {
+    if (
+        isSameBlock &&
+        Math.abs(focusDiff) === 1 &&
+        !_canEditOffset(focusBlock, focusOffset)
+    ) {
         focusOffset = _getSkippedOffset(focusBlock, focusOffset, focusDiff);
     }
 
@@ -342,7 +350,8 @@ function snapSelectionOutsideEntities(draftData, prevSelection) {
 
     const newData = {contentState};
     newData.selection = selection.merge({
-        focusOffset, anchorOffset,
+        focusOffset,
+        anchorOffset,
     });
 
     if (editorState) {
@@ -398,7 +407,7 @@ function toggleDecoration(draftData, decoration) {
     let allSurrounded = true;
     let decorated = data.contentState;
     let undecorated = data.contentState;
-    blocks.forEach((block) => {
+    blocks.forEach(block => {
         let leftOffset = 0;
         let rightOffset = block.getLength();
         if (block.getKey() === selection.getStartKey()) {
@@ -415,19 +424,29 @@ function toggleDecoration(draftData, decoration) {
 
         // Check if we are undecorating
         const selectedStr = block.getText().substring(leftOffset, rightOffset);
-        if (!allSurrounded
-                || !selectedStr.endsWith(decoration)
-                || !selectedStr.startsWith(decoration)) {
+        if (
+            !allSurrounded ||
+            !selectedStr.endsWith(decoration) ||
+            !selectedStr.startsWith(decoration)
+        ) {
             allSurrounded = false;
         } else {
             undecorated = _clearSurrounding(
-                undecorated, block, leftOffset, rightOffset, decoration
+                undecorated,
+                block,
+                leftOffset,
+                rightOffset,
+                decoration
             );
         }
 
         // Decorate the decorated version
         decorated = _surroundWithText(
-            decorated, block, leftOffset, rightOffset, decoration
+            decorated,
+            block,
+            leftOffset,
+            rightOffset,
+            decoration
         );
     });
 
@@ -441,12 +460,13 @@ function toggleDecoration(draftData, decoration) {
         newData.editorState = EditorState.push(
             data.editorState,
             newData.contentState,
-            allSurrounded ? 'remove-range' : 'insert-characters'
+            allSurrounded ? "remove-range" : "insert-characters"
         );
 
         // Shift the selection to deal with the added/removed characters
         let newEndOffset = selection.getEndOffset();
-        if (newEndOffset > 0) { // If not ending on an empty block (no-ops)
+        if (newEndOffset > 0) {
+            // If not ending on an empty block (no-ops)
             const change = allSurrounded ? -2 : 2;
             newEndOffset += change * decoration.length;
         }
@@ -479,4 +499,3 @@ module.exports = {
     snapSelectionOutsideEntities,
     toggleDecoration,
 };
-

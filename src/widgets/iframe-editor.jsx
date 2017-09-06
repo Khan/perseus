@@ -8,8 +8,8 @@ const _ = require("underscore");
 const Changeable = require("../mixins/changeable.jsx");
 const EditorJsonify = require("../mixins/editor-jsonify.jsx");
 
-const BlurInput    = require("react-components/blur-input.jsx");
-const PropCheckBox  = require("../components/prop-check-box.jsx");
+const BlurInput = require("react-components/blur-input.jsx");
+const PropCheckBox = require("../components/prop-check-box.jsx");
 
 /**
  * This is used for editing a name/value pair.
@@ -18,13 +18,13 @@ const PairEditor = React.createClass({
     propTypes: {
         ...Changeable.propTypes,
         name: React.PropTypes.string,
-        value: React.PropTypes.string
+        value: React.PropTypes.string,
     },
 
     getDefaultProps: function() {
         return {
-            name:  "",
-            value: ""
+            name: "",
+            value: "",
         };
     },
 
@@ -33,16 +33,24 @@ const PairEditor = React.createClass({
     },
 
     render: function() {
-        return <fieldset>
-            <label>Name:
-                <BlurInput value={this.props.name}
-                           onChange={this.change("name")} />
-            </label>
-            <label>Value:
-                <BlurInput value={this.props.value}
-                           onChange={this.change("value")} />
-            </label>
-        </fieldset>;
+        return (
+            <fieldset>
+                <label>
+                    Name:
+                    <BlurInput
+                        value={this.props.name}
+                        onChange={this.change("name")}
+                    />
+                </label>
+                <label>
+                    Value:
+                    <BlurInput
+                        value={this.props.value}
+                        onChange={this.change("value")}
+                    />
+                </label>
+            </fieldset>
+        );
     },
 
     serialize() {
@@ -56,20 +64,30 @@ const PairEditor = React.createClass({
 var PairsEditor = React.createClass({
     propTypes: {
         ...Changeable.propTypes,
-        pairs: React.PropTypes.arrayOf(React.PropTypes.shape({
-            name: React.PropTypes.string,
-            value: React.PropTypes.string,
-        })).isRequired,
+        pairs: React.PropTypes.arrayOf(
+            React.PropTypes.shape({
+                name: React.PropTypes.string,
+                value: React.PropTypes.string,
+            })
+        ).isRequired,
     },
 
     render: function() {
         var editors = _.map(this.props.pairs, (pair, i) => {
-            return <PairEditor key={i} name={pair.name} value={pair.value}
-                               onChange={this.handlePairChange.bind(this, i)}/>;
+            return (
+                <PairEditor
+                    key={i}
+                    name={pair.name}
+                    value={pair.value}
+                    onChange={this.handlePairChange.bind(this, i)}
+                />
+            );
         });
-        return <div>
-            {editors}
-        </div>;
+        return (
+            <div>
+                {editors}
+            </div>
+        );
     },
 
     change(...args) {
@@ -81,7 +99,7 @@ var PairsEditor = React.createClass({
         var pairs = this.props.pairs.slice();
         pairs[pairIndex] = pair;
 
-        var lastPair = pairs[pairs.length-1];
+        var lastPair = pairs[pairs.length - 1];
         if (lastPair.name && lastPair.value) {
             pairs.push({name: "", value: ""});
         }
@@ -116,37 +134,53 @@ var IframeEditor = React.createClass({
     },
 
     render: function() {
-        return <div>
-            <div style={{fontWeight: "bold", textAlign: "center"}} >
-                This widget is deprecated! <br />
-                Try using the Video or CS Program widgets instead.
+        return (
+            <div>
+                <div style={{fontWeight: "bold", textAlign: "center"}}>
+                    This widget is deprecated! <br />
+                    Try using the Video or CS Program widgets instead.
+                </div>
+                <label>
+                    Url or Program ID:
+                    <BlurInput
+                        name="url"
+                        value={this.props.url}
+                        onChange={this.change("url")}
+                    />
+                </label>
+                <br />
+                <label>
+                    Settings:
+                    <PairsEditor
+                        name="settings"
+                        pairs={this.props.settings}
+                        onChange={this.handleSettingsChange}
+                    />
+                </label>
+                <br />
+                <label>
+                    Width:
+                    <BlurInput
+                        name="width"
+                        value={this.props.width}
+                        onChange={this.change("width")}
+                    />
+                </label>
+                <label>
+                    Height:
+                    <BlurInput
+                        name="height"
+                        value={this.props.height}
+                        onChange={this.change("height")}
+                    />
+                </label>
+                <PropCheckBox
+                    label="Allow full screen"
+                    allowFullScreen={this.props.allowFullScreen}
+                    onChange={this.props.onChange}
+                />
             </div>
-            <label>Url or Program ID:
-                <BlurInput name="url"
-                           value={this.props.url}
-                           onChange={this.change("url")} />
-            </label>
-            <br/>
-            <label>Settings:
-                <PairsEditor name="settings"
-                           pairs={this.props.settings}
-                           onChange={this.handleSettingsChange} />
-            </label>
-            <br/>
-            <label>Width:
-                <BlurInput name="width"
-                           value={this.props.width}
-                           onChange={this.change("width")} />
-            </label>
-            <label>Height:
-                <BlurInput name="height"
-                           value={this.props.height}
-                           onChange={this.change("height")} />
-            </label>
-            <PropCheckBox label="Allow full screen"
-                allowFullScreen={this.props.allowFullScreen}
-                onChange={this.props.onChange} />
-        </div>;
+        );
     },
 
     handleSettingsChange: function(settings) {

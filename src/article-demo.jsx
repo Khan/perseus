@@ -1,20 +1,19 @@
-/* eslint-disable no-console */
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
 /**
  * Demonstrates the rendered result of a Perseus article
  */
 
-const React = require('react');
-const ArticleEditor = require('./article-editor.jsx');
-const StatefulArticleEditor = require('./stateful-article-editor.jsx');
-const Util = require('./util.js');
+const React = require("react");
+const ArticleEditor = require("./article-editor.jsx");
+const StatefulArticleEditor = require("./stateful-article-editor.jsx");
+const Util = require("./util.js");
 
-const defaultArticle = [{
-    "content": "",
-    "images": {},
-    "widgets": {},
-}];
+const defaultArticle = [
+    {
+        content: "",
+        images: {},
+        widgets: {},
+    },
+];
 
 const ArticleDemo = React.createClass({
     propTypes: {
@@ -29,24 +28,24 @@ const ArticleDemo = React.createClass({
 
     getInitialState: function() {
         return {
-            isMobile: navigator.userAgent.indexOf('Mobile') !== -1,
+            isMobile: navigator.userAgent.indexOf("Mobile") !== -1,
         };
     },
 
     componentDidMount: function() {
-        window.addEventListener('resize', this._handleResize);
+        window.addEventListener("resize", this._handleResize);
     },
 
     componentWillUnmount: function() {
-        window.removeEventListener('resize', this._handleResize);
+        window.removeEventListener("resize", this._handleResize);
     },
 
     serialize: function() {
-        console.log(JSON.stringify(this.refs.editor.serialize(), null, 4));
+        console.log(JSON.stringify(this.refs.editor.serialize(), null, 4)); // eslint-disable-line no-console
     },
 
     scorePreview: function() {
-        console.log(this.refs.editor.scorePreview());
+        console.log(this.refs.editor.scorePreview()); // eslint-disable-line no-console
     },
 
     _getContentHash: function() {
@@ -61,7 +60,7 @@ const ArticleDemo = React.createClass({
     },
 
     _handleResize() {
-        const isMobile = navigator.userAgent.indexOf('Mobile') !== -1;
+        const isMobile = navigator.userAgent.indexOf("Mobile") !== -1;
         if (this.state.isMobile !== isMobile) {
             this.setState({isMobile});
         }
@@ -78,11 +77,14 @@ const ArticleDemo = React.createClass({
             apiOptions: {
                 customKeypad: isMobile,
                 onFocusChange: function(newPath, oldPath) {
-                    console.log("onFocusChange", newPath, oldPath);
+                    console.log("onFocusChange", newPath, oldPath); // eslint-disable-line no-console
                 },
                 trackInteraction: function(trackData) {
-                    console.log("Interaction with", trackData.type,
-                           trackData);
+                    console.log( // eslint-disable-line no-console
+                        "Interaction with",
+                        trackData.type,
+                        trackData
+                    );
                 },
                 isMobile,
             },
@@ -133,7 +135,6 @@ const ArticleDemo = React.createClass({
                 </body>
             </html>`,
             /* eslint-enable max-len */
-
         };
     },
 
@@ -141,9 +142,9 @@ const ArticleDemo = React.createClass({
         return (
             <div id="perseus-index">
                 <div id="extras">
-                    <button onClick={this.serialize}>serialize</button>{' '}
-                    <button onClick={this.scorePreview}>score</button>{' '}
-                    <button onClick={this.permalink}>permalink</button>{' '}
+                    <button onClick={this.serialize}>serialize</button>{" "}
+                    <button onClick={this.scorePreview}>score</button>{" "}
+                    <button onClick={this.permalink}>permalink</button>{" "}
                 </div>
                 <div style={{margin: 20}}>
                     <StatefulArticleEditor

@@ -74,7 +74,7 @@ $(PERSEUS_NODE_BUILD_JS): install
 
 $(PERSEUS_DEMO_BUILD_JS): install
 	mkdir -p build
-	NODE_ENV=production INCLUDE_EDITORS=true ./node_modules/.bin/webpack --config webpack.config.demo-perseus.js
+	INCLUDE_EDITORS=true ./node_modules/.bin/webpack --config webpack.config.demo-perseus.js
 	mv $@ $@.tmp
 	echo '/*! Demo perseus | https://github.com/Khan/perseus */' > $@
 	$(call add_git_meta,$@)
@@ -125,11 +125,13 @@ demo:
 	git fetch origin
 	git checkout -B gh-pages origin/gh-pages
 	git reset --hard origin/master
+	# Build the demo bundle
 	make build/demo-perseus.js
-	git add -f build/demo-perseus.js
-	git config user.name "Emily Eisenberg" # Git requires an author for the commit
-	git config user.email "emily@khanacademy.org"
-	git commit -nm 'demo update'
+	# Add the newly built files
+	git add build/
+	# Remove symlinks that don't work on github pages
+	git rm -f fonts/Proxima-Nova-*
+	git commit -m 'Update the demo page' --author "Tracy Travis <jenkins+manual@khanacademy.org>"
 	git checkout origin/master
 	# We now need to push using a specific SSH key, which is authorized to edit the repository
 	ssh-agent bash -c 'ssh-add travis_deploy_rsa; git push -f git@github.com:Khan/perseus.git gh-pages:gh-pages'

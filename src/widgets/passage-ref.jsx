@@ -6,7 +6,7 @@
 var React = require("react");
 var _ = require("underscore");
 
-var Changeable   = require("../mixins/changeable.jsx");
+var Changeable = require("../mixins/changeable.jsx");
 var PerseusMarkdown = require("../perseus-markdown.jsx");
 var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
 
@@ -36,8 +36,10 @@ var PassageRef = React.createClass({
     },
 
     shouldComponentUpdate: function(nextProps, nextState) {
-        return !_.isEqual(this.props, nextProps) ||
-            !_.isEqual(this.state, nextState);
+        return (
+            !_.isEqual(this.props, nextProps) ||
+            !_.isEqual(this.state, nextState)
+        );
     },
 
     getUserInput: function() {
@@ -48,15 +50,22 @@ var PassageRef = React.createClass({
         var lineRange = this.state.lineRange;
         var lineRangeOutput;
         if (!lineRange) {
-            lineRangeOutput = $_({lineRange: `?${EN_DASH}?`},
-                "lines %(lineRange)s");
+            lineRangeOutput = $_(
+                {lineRange: `?${EN_DASH}?`},
+                "lines %(lineRange)s"
+            );
         } else if (lineRange[0] === lineRange[1]) {
-            lineRangeOutput = $_({lineNumber: lineRange[0]},
-                "line %(lineNumber)s");
+            lineRangeOutput = $_(
+                {lineNumber: lineRange[0]},
+                "line %(lineNumber)s"
+            );
         } else {
-            lineRangeOutput = $_({
-                lineRange: lineRange[0] + EN_DASH + lineRange[1]
-            }, "lines %(lineRange)s");
+            lineRangeOutput = $_(
+                {
+                    lineRange: lineRange[0] + EN_DASH + lineRange[1],
+                },
+                "lines %(lineRange)s"
+            );
         }
 
         var summaryOutput;
@@ -64,26 +73,28 @@ var PassageRef = React.createClass({
             var summaryTree = PerseusMarkdown.parseInline(
                 this.props.summaryText
             );
-            summaryOutput = <span aria-hidden={true}>
-                {" "}
-                {/* curly quotes */}
-                (&ldquo;
-                {PerseusMarkdown.basicOutput(summaryTree)}
-                &rdquo;)
-            </span>;
+            summaryOutput = (
+                <span aria-hidden={true}>
+                    {" "}{/* curly quotes */}
+                    (&ldquo;
+                    {PerseusMarkdown.basicOutput(summaryTree)}
+                    &rdquo;)
+                </span>
+            );
         } else {
             summaryOutput = null;
         }
 
-        return <span>
-            {lineRangeOutput}
-            {summaryOutput}
-            {lineRange &&
-                <div className="perseus-sr-only">
-                    {this.state.content}
-                </div>
-            }
-        </span>;
+        return (
+            <span>
+                {lineRangeOutput}
+                {summaryOutput}
+                {lineRange &&
+                    <div className="perseus-sr-only">
+                        {this.state.content}
+                    </div>}
+            </span>
+        );
     },
 
     change(...args) {
@@ -111,7 +122,8 @@ var PassageRef = React.createClass({
 
     _updateRange: function() {
         var passage = this.props.findWidgets(
-                "passage " + this.props.passageNumber)[0];
+            "passage " + this.props.passageNumber
+        )[0];
 
         var refInfo = null;
         if (passage) {
@@ -127,7 +139,7 @@ var PassageRef = React.createClass({
             } else {
                 this.setState({
                     lineRange: null,
-                    content: null
+                    content: null,
                 });
             }
         }
@@ -135,7 +147,7 @@ var PassageRef = React.createClass({
 
     simpleValidate: function(rubric) {
         return PassageRef.validate(this.getUserInput(), rubric);
-    }
+    },
 });
 
 _.extend(PassageRef, {
@@ -144,9 +156,9 @@ _.extend(PassageRef, {
             type: "points",
             earned: 0,
             total: 0,
-            message: null
+            message: null,
         };
-    }
+    },
 });
 
 module.exports = {
@@ -154,12 +166,13 @@ module.exports = {
     displayName: "PassageRef (SAT only)",
     defaultAlignment: "inline",
     widget: PassageRef,
-    transform: (editorProps) => {
-        return _.pick(editorProps,
+    transform: editorProps => {
+        return _.pick(
+            editorProps,
             "passageNumber",
             "referenceNumber",
             "summaryText"
         );
     },
-    version: {major: 0, minor: 1}
+    version: {major: 0, minor: 1},
 };

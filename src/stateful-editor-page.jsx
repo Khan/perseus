@@ -2,7 +2,7 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var React = require('react');
+var React = require("react");
 var _ = require("underscore");
 
 var EditorPage = require("./editor-page.jsx");
@@ -15,14 +15,13 @@ var EditorPage = require("./editor-page.jsx");
  * query them with serialize.
  */
 var StatefulEditorPage = React.createClass({
-
     propTypes: {
-        componentClass: React.PropTypes.func
+        componentClass: React.PropTypes.func,
     },
 
     getDefaultProps: function() {
         return {
-            componentClass: EditorPage
+            componentClass: EditorPage,
         };
     },
 
@@ -31,9 +30,9 @@ var StatefulEditorPage = React.createClass({
     },
 
     getInitialState: function() {
-        return _({}).extend(_.omit(this.props, 'componentClass'), {
+        return _({}).extend(_.omit(this.props, "componentClass"), {
             onChange: this.handleChange,
-            ref: "editor"
+            ref: "editor",
         });
     },
 
@@ -42,14 +41,16 @@ var StatefulEditorPage = React.createClass({
     // need to update the state here.
     // (This component is currently re-rendered by the "Add image" button.)
     componentWillReceiveProps: function(nextProps) {
-        this.setState(_(nextProps).pick(
-            "apiOptions",
-            "imageUploader",
-            "developerMode",
-            "problemNum",
-            "previewDevice",
-            "frameSource"
-        ));
+        this.setState(
+            _(nextProps).pick(
+                "apiOptions",
+                "imageUploader",
+                "developerMode",
+                "problemNum",
+                "previewDevice",
+                "frameSource"
+            )
+        );
     },
 
     getSaveWarnings: function() {
@@ -68,7 +69,7 @@ var StatefulEditorPage = React.createClass({
 
     scorePreview: function() {
         return this.refs.editor.scorePreview();
-    }
+    },
 });
 
 module.exports = StatefulEditorPage;

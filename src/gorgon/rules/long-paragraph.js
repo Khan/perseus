@@ -2,6 +2,7 @@ import Rule from "../rule.js";
 
 module.exports = Rule.makeRule({
     name: "long-paragraph",
+    severity: Rule.Severity.GUIDELINE,
     selector: "paragraph",
     pattern: /^.{501,}/,
     lint: function(state, content, nodes, match) {

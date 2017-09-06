@@ -2,22 +2,20 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-
-
-var React = require('react');
+var React = require("react");
 var _ = require("underscore");
 
-var Graph         = require("../components/graph.jsx");
-var InfoTip       = require("../components/info-tip.jsx");
-var Interactive2  = require("../interactive2.js");
-var NumberInput   = require("../components/number-input.jsx");
-var Util          = require("../util.js");
+var Graph = require("../components/graph.jsx");
+var InfoTip = require("../components/info-tip.jsx");
+var Interactive2 = require("../interactive2.js");
+var NumberInput = require("../components/number-input.jsx");
+var Util = require("../util.js");
 
 var knumber = require("kmath").number;
 var kpoint = require("kmath").point;
 const KhanColors = require("../util/colors.js");
 const GraphUtils = require("../util/graph-utils.js");
-const { interactiveSizes } = require("../styles/constants.js");
+const {interactiveSizes} = require("../styles/constants.js");
 const {
     containerSizeClassPropType,
     getInteractiveBoxFromSizeClass,
@@ -26,11 +24,11 @@ const WrappedLine = require("../interactive2/wrapped-line.js");
 
 var DeprecationMixin = Util.DeprecationMixin;
 
-
-var TRASH_ICON_URI = 'https://ka-perseus-graphie.s3.amazonaws.com/b1452c0d79fd0f7ff4c3af9488474a0a0decb361.png';
+var TRASH_ICON_URI =
+    "https://ka-perseus-graphie.s3.amazonaws.com/b1452c0d79fd0f7ff4c3af9488474a0a0decb361.png";
 
 var defaultBackgroundImage = {
-    url: null
+    url: null,
 };
 
 var eq = Util.eq;
@@ -59,13 +57,17 @@ function sign(val) {
 
 // default to defaultValue if actual is null or undefined
 function defaultVal(actual, defaultValue) {
-    return (actual == null) ? defaultValue : actual;
+    return actual == null ? defaultValue : actual;
 }
 
 // Given rect bounding points A and B, whether point C is inside the rect
 function pointInRect(a, b, c) {
-    return (c[0] <= Math.max(a[0], b[0]) && c[0] >= Math.min(a[0], b[0]) &&
-            c[1] <= Math.max(a[1], b[1]) && c[1] >= Math.min(a[1], b[1]));
+    return (
+        c[0] <= Math.max(a[0], b[0]) &&
+        c[0] >= Math.min(a[0], b[0]) &&
+        c[1] <= Math.max(a[1], b[1]) &&
+        c[1] >= Math.min(a[1], b[1])
+    );
 }
 
 // Whether line segment AB intersects line segment CD
@@ -75,15 +77,17 @@ function intersects(ab, cd) {
         [ab[0], ab[1], cd[0]],
         [ab[0], ab[1], cd[1]],
         [cd[0], cd[1], ab[0]],
-        [cd[0], cd[1], ab[1]]
+        [cd[0], cd[1], ab[1]],
     ];
 
     var orientations = _.map(triplets, function(triplet) {
         return sign(ccw.apply(null, triplet));
     });
 
-    if (orientations[0] !== orientations[1] &&
-        orientations[2] !== orientations[3]) {
+    if (
+        orientations[0] !== orientations[1] &&
+        orientations[2] !== orientations[3]
+    ) {
         return true;
     }
 
@@ -103,15 +107,25 @@ function vector(a, b) {
 }
 
 function magnitude(v) {
-    return Math.sqrt(_.reduce(v, function(memo, el) {
-        return memo + Math.pow(el, 2);
-    }, 0));
+    return Math.sqrt(
+        _.reduce(
+            v,
+            function(memo, el) {
+                return memo + Math.pow(el, 2);
+            },
+            0
+        )
+    );
 }
 
 function dotProduct(a, b) {
-    return _.reduce(_.zip(a, b), function(memo, pair) {
-        return memo + pair[0] * pair[1];
-    }, 0);
+    return _.reduce(
+        _.zip(a, b),
+        function(memo, pair) {
+            return memo + pair[0] * pair[1];
+        },
+        0
+    );
 }
 
 function sideLengths(coords) {
@@ -132,7 +146,13 @@ function angleMeasures(coords) {
         return sign(ccw.apply(null, triplet)) > 0 ? raw : -raw;
     });
 
-    var sum = _.reduce(offsets, function(memo, arg) { return memo + arg; }, 0);
+    var sum = _.reduce(
+        offsets,
+        function(memo, arg) {
+            return memo + arg;
+        },
+        0
+    );
 
     return _.map(offsets, function(offset) {
         return sum > 0 ? Math.PI - offset : Math.PI + offset;
@@ -240,7 +260,7 @@ function canonicalSineCoefficients(coeffs) {
 
 // e.g. rotate([1, 2, 3]) -> [2, 3, 1]
 function rotate(array, n) {
-    n = (typeof n === "undefined") ? 1 : (n % array.length);
+    n = typeof n === "undefined" ? 1 : n % array.length;
     return array.slice(n).concat(array.slice(0, n));
 }
 
@@ -254,8 +274,7 @@ function getLineEquation(first, second) {
     if (eq(first[0], second[0])) {
         return "x = " + first[0].toFixed(3);
     } else {
-        var m = (second[1] - first[1]) /
-                (second[0] - first[0]);
+        var m = (second[1] - first[1]) / (second[0] - first[0]);
         var b = first[1] - m * first[0];
         return "y = " + m.toFixed(3) + "x + " + b.toFixed(3);
     }
@@ -278,10 +297,14 @@ function getLineIntersection(firstPoints, secondPoints) {
     if (Math.abs(determinant) < 1e-9) {
         return "Lines are parallel";
     } else {
-        var x = ((x1 * y2 - y1 * x2) * (x3 - x4) -
-                 (x1 - x2) * (x3 * y4 - y3 * x4)) / determinant;
-        var y = ((x1 * y2 - y1 * x2) * (y3 - y4) -
-                 (y1 - y2) * (x3 * y4 - y3 * x4)) / determinant;
+        var x =
+            ((x1 * y2 - y1 * x2) * (x3 - x4) -
+                (x1 - x2) * (x3 * y4 - y3 * x4)) /
+            determinant;
+        var y =
+            ((x1 * y2 - y1 * x2) * (y3 - y4) -
+                (y1 - y2) * (x3 * y4 - y3 * x4)) /
+            determinant;
         return "Intersection: (" + x.toFixed(3) + ", " + y.toFixed(3) + ")";
     }
 }
@@ -293,9 +316,8 @@ function numSteps(range, step) {
 var deprecatedProps = {
     showGraph: function(props) {
         return {markings: props.showGraph ? "graph" : "none"};
-    }
+    },
 };
-
 
 var InteractiveGraph = React.createClass({
     propTypes: {
@@ -305,7 +327,7 @@ var InteractiveGraph = React.createClass({
 
     getInitialState: function() {
         return {
-            shouldShowInstructions: this._getShouldShowInstructions()
+            shouldShowInstructions: this._getShouldShowInstructions(),
         };
     },
 
@@ -322,8 +344,8 @@ var InteractiveGraph = React.createClass({
             rulerLabel: "",
             rulerTicks: 10,
             graph: {
-                type: "linear"
-            }
+                type: "linear",
+            },
         };
     },
 
@@ -335,26 +357,29 @@ var InteractiveGraph = React.createClass({
 
     _getShouldShowInstructions: function(props) {
         props = props || this.props;
-        return this.isClickToAddPoints(props) && (
-            props.graph.coords == null || props.graph.coords.length === 0
+        return (
+            this.isClickToAddPoints(props) &&
+            (props.graph.coords == null || props.graph.coords.length === 0)
         );
     },
 
     componentDidUpdate: function(prevProps, prevState) {
         var oldType = prevProps.graph.type;
         var newType = this.props.graph.type;
-        if (oldType !== newType ||
-                prevProps.graph.allowReflexAngles !==
-                    this.props.graph.allowReflexAngles ||
-                prevProps.graph.angleOffsetDeg !==
-                    this.props.graph.angleOffsetDeg ||
-                prevProps.graph.numPoints !== this.props.graph.numPoints ||
-                prevProps.graph.numSides !== this.props.graph.numSides ||
-                prevProps.graph.numSegments !== this.props.graph.numSegments ||
-                prevProps.graph.showAngles !== this.props.graph.showAngles ||
-                prevProps.graph.showSides !== this.props.graph.showSides ||
-                prevProps.graph.snapTo !== this.props.graph.snapTo ||
-                prevProps.graph.snapDegrees !== this.props.graph.snapDegrees) {
+        if (
+            oldType !== newType ||
+            prevProps.graph.allowReflexAngles !==
+                this.props.graph.allowReflexAngles ||
+            prevProps.graph.angleOffsetDeg !==
+                this.props.graph.angleOffsetDeg ||
+            prevProps.graph.numPoints !== this.props.graph.numPoints ||
+            prevProps.graph.numSides !== this.props.graph.numSides ||
+            prevProps.graph.numSegments !== this.props.graph.numSegments ||
+            prevProps.graph.showAngles !== this.props.graph.showAngles ||
+            prevProps.graph.showSides !== this.props.graph.showSides ||
+            prevProps.graph.snapTo !== this.props.graph.snapTo ||
+            prevProps.graph.snapDegrees !== this.props.graph.snapDegrees
+        ) {
             this["remove" + capitalize(oldType) + "Controls"]();
             this["add" + capitalize(newType) + "Controls"]();
         }
@@ -367,28 +392,32 @@ var InteractiveGraph = React.createClass({
         var typeSelect;
         var extraOptions;
         if (this.props.flexibleType) {
-            typeSelect = <select
+            typeSelect = (
+                <select
                     value={this.props.graph.type}
                     onChange={e => {
                         var type = e.target.value;
                         this.onChange({
-                            graph: {type: type}
+                            graph: {type: type},
                         });
-                    }}>
-                <option value="linear">Linear function</option>
-                <option value="quadratic">Quadratic function</option>
-                <option value="sinusoid">Sinusoid function</option>
-                <option value="circle">Circle</option>
-                <option value="point">Point(s)</option>
-                <option value="linear-system">Linear System</option>
-                <option value="polygon">Polygon</option>
-                <option value="segment">Line Segment(s)</option>
-                <option value="ray">Ray</option>
-                <option value="angle">Angle</option>
-            </select>;
+                    }}
+                >
+                    <option value="linear">Linear function</option>
+                    <option value="quadratic">Quadratic function</option>
+                    <option value="sinusoid">Sinusoid function</option>
+                    <option value="circle">Circle</option>
+                    <option value="point">Point(s)</option>
+                    <option value="linear-system">Linear System</option>
+                    <option value="polygon">Polygon</option>
+                    <option value="segment">Line Segment(s)</option>
+                    <option value="ray">Ray</option>
+                    <option value="angle">Angle</option>
+                </select>
+            );
 
             if (this.props.graph.type === "point") {
-                extraOptions = <select
+                extraOptions = (
+                    <select
                         key="point-select"
                         value={this.props.graph.numPoints || 1}
                         onChange={e => {
@@ -398,99 +427,129 @@ var InteractiveGraph = React.createClass({
                                 graph: {
                                     type: "point",
                                     numPoints: num,
-                                    coords: null
-                                }
-                            });
-                        }}>
-                    {_.map(_.range(1, 7), function(n) {
-                        return <option value={n}>
-                            {n} point{n > 1 && "s"}
-                        </option>;
-                    })}
-                    <option value={UNLIMITED}>unlimited</option>
-                </select>;
-            } else if (this.props.graph.type === "polygon") {
-                extraOptions = <div>
-                    <div>
-                        <select
-                            key="polygon-select"
-                            value={this.props.graph.numSides || 3}
-                            onChange={e => {
-                                // Convert numbers, leave UNLIMITED intact:
-                                var num = +e.target.value || e.target.value;
-                                var graph = _.extend({}, this.props.graph, {
-                                    numSides: num,
                                     coords: null,
-                                    snapTo: "grid" // reset the snap for
-                                                   // UNLIMITED, which only
-                                                   // supports "grid"
-                                });
-                                this.onChange({graph: graph});
-                            }}>
-                            {_.map(_.range(3, 13), function(n) {
-                                return <option value={n}>{n} sides</option>;
-                            })}
-                            <option value={UNLIMITED}>unlimited sides</option>
-                        </select>
-                    </div>
+                                },
+                            });
+                        }}
+                    >
+                        {_.map(_.range(1, 7), function(n) {
+                            return (
+                                <option value={n}>
+                                    {n} point{n > 1 && "s"}
+                                </option>
+                            );
+                        })}
+                        <option value={UNLIMITED}>unlimited</option>
+                    </select>
+                );
+            } else if (this.props.graph.type === "polygon") {
+                extraOptions = (
                     <div>
-                        <label> Snap to{' '}
+                        <div>
                             <select
-                                key="polygon-snap"
-                                value={this.props.graph.snapTo}
+                                key="polygon-select"
+                                value={this.props.graph.numSides || 3}
                                 onChange={e => {
-                                    var graph = _.extend({},
-                                        this.props.graph,
-                                        {
-                                            snapTo: e.target.value,
-                                            coords: null
-                                        });
+                                    // Convert numbers, leave UNLIMITED intact:
+                                    var num = +e.target.value || e.target.value;
+                                    var graph = _.extend({}, this.props.graph, {
+                                        numSides: num,
+                                        coords: null,
+                                        snapTo: "grid", // reset the snap for
+                                        // UNLIMITED, which only
+                                        // supports "grid"
+                                    });
                                     this.onChange({graph: graph});
-                                }}>
-                                <option value="grid">grid</option>
-                                {(this.props.graph.numSides !== UNLIMITED) && [
-                                    <option value="angles">
-                                        {' '}interior angles{' '}
-                                    </option>,
-                                    <option value="sides">
-                                        {' '}side measures{' '}
-                                    </option>
-                                ]}
+                                }}
+                            >
+                                {_.map(_.range(3, 13), function(n) {
+                                    return (
+                                        <option value={n}>
+                                            {n} sides
+                                        </option>
+                                    );
+                                })}
+                                <option value={UNLIMITED}>
+                                    unlimited sides
+                                </option>
                             </select>
-                        </label>
-                        <InfoTip>
-                            <p>These options affect the movement of the vertex
-                            points. The grid option will guide the points to
-                            the nearest half step along the grid.</p>
-
-                            <p>The interior angle and side measure options
-                            guide the points to the nearest whole angle or
-                            side</p> measure respectively.{' '}
-                        </InfoTip>
+                        </div>
+                        <div>
+                            <label>
+                                {" "}Snap to{" "}
+                                <select
+                                    key="polygon-snap"
+                                    value={this.props.graph.snapTo}
+                                    onChange={e => {
+                                        var graph = _.extend(
+                                            {},
+                                            this.props.graph,
+                                            {
+                                                snapTo: e.target.value,
+                                                coords: null,
+                                            }
+                                        );
+                                        this.onChange({graph: graph});
+                                    }}
+                                >
+                                    <option value="grid">grid</option>
+                                    {this.props.graph.numSides !==
+                                        UNLIMITED && [
+                                        <option value="angles">
+                                            {" "}interior angles{" "}
+                                        </option>,
+                                        <option value="sides">
+                                            {" "}side measures{" "}
+                                        </option>,
+                                    ]}
+                                </select>
+                            </label>
+                            <InfoTip>
+                                <p>
+                                    These options affect the movement of the
+                                    vertex points. The grid option will guide
+                                    the points to the nearest half step along
+                                    the grid.
+                                </p>
+                                <p>
+                                    The interior angle and side measure options
+                                    guide the points to the nearest whole angle
+                                    or side
+                                </p>{" "}
+                                measure respectively.{" "}
+                            </InfoTip>
+                        </div>
+                        <div>
+                            <label>
+                                Show angle measures:{" "}
+                                <input
+                                    type="checkbox"
+                                    checked={this.props.graph.showAngles}
+                                    onChange={this.toggleShowAngles}
+                                />
+                            </label>
+                            <InfoTip>
+                                <p>Displays the interior angle measures.</p>
+                            </InfoTip>
+                        </div>
+                        <div>
+                            <label>
+                                Show side measures:{" "}
+                                <input
+                                    type="checkbox"
+                                    checked={this.props.graph.showSides}
+                                    onChange={this.toggleShowSides}
+                                />
+                            </label>
+                            <InfoTip>
+                                <p>Displays the side lengths.</p>
+                            </InfoTip>
+                        </div>
                     </div>
-                    <div>
-                        <label>Show angle measures:{' '}
-                            <input type="checkbox"
-                                checked={this.props.graph.showAngles}
-                                onChange={this.toggleShowAngles} />
-                        </label>
-                        <InfoTip>
-                            <p>Displays the interior angle measures.</p>
-                        </InfoTip>
-                    </div>
-                    <div>
-                        <label>Show side measures:{' '}
-                            <input type="checkbox"
-                                checked={this.props.graph.showSides}
-                                onChange={this.toggleShowSides} />
-                        </label>
-                        <InfoTip>
-                            <p>Displays the side lengths.</p>
-                        </InfoTip>
-                    </div>
-                </div>;
+                );
             } else if (this.props.graph.type === "segment") {
-                extraOptions = <select
+                extraOptions = (
+                    <select
                         key="segment-select"
                         value={this.props.graph.numSegments || 1}
                         onChange={e => {
@@ -499,98 +558,125 @@ var InteractiveGraph = React.createClass({
                                 graph: {
                                     type: "segment",
                                     numSegments: num,
-                                    coords: null
-                                }
+                                    coords: null,
+                                },
                             });
-                        }}>
-                    {_.map(_.range(1, 7), function(n) {
-                        return <option value={n}>
-                            {n} segment{n > 1 && "s"}
-                        </option>;
-                    })}
-                </select>;
+                        }}
+                    >
+                        {_.map(_.range(1, 7), function(n) {
+                            return (
+                                <option value={n}>
+                                    {n} segment{n > 1 && "s"}
+                                </option>
+                            );
+                        })}
+                    </select>
+                );
             } else if (this.props.graph.type === "angle") {
                 var allowReflexAngles = defaultVal(
                     this.props.graph.allowReflexAngles,
                     true
                 );
-                extraOptions = <div>
+                extraOptions = (
                     <div>
-                        <label>Show angle measure:{' '}
-                            <input type="checkbox"
-                                checked={this.props.graph.showAngles}
-                                onChange={this.toggleShowAngles} />
-                        </label>
+                        <div>
+                            <label>
+                                Show angle measure:{" "}
+                                <input
+                                    type="checkbox"
+                                    checked={this.props.graph.showAngles}
+                                    onChange={this.toggleShowAngles}
+                                />
+                            </label>
+                        </div>
+                        <div>
+                            <label>
+                                Allow reflex angles:{" "}
+                                <input
+                                    type="checkbox"
+                                    checked={allowReflexAngles}
+                                    onChange={newVal => {
+                                        this.onChange({
+                                            graph: _.extend(
+                                                {},
+                                                this.props.graph,
+                                                {
+                                                    allowReflexAngles: !allowReflexAngles, // eslint-disable-line max-len
+                                                    coords: null,
+                                                }
+                                            ),
+                                        });
+                                    }}
+                                />
+                            </label>
+                            <InfoTip>
+                                <p>
+                                    Reflex angles are angles with a measure
+                                    greater than 180 degrees.
+                                </p>
+                                <p>By default, these should remain enabled.</p>
+                            </InfoTip>
+                        </div>
+                        <div>
+                            <label>
+                                Snap to increments of{" "}
+                                <NumberInput
+                                    key="degree-snap"
+                                    placeholder={1}
+                                    value={this.props.graph.snapDegrees}
+                                    onChange={newVal => {
+                                        this.onChange({
+                                            graph: _.extend(
+                                                {},
+                                                this.props.graph,
+                                                {
+                                                    snapDegrees: Math.abs(
+                                                        newVal
+                                                    ),
+                                                    coords: null,
+                                                }
+                                            ),
+                                        });
+                                    }}
+                                />{" "}
+                                degrees{" "}
+                            </label>
+                        </div>
+                        <div>
+                            <label>
+                                {" "}With an offset of{" "}
+                                <NumberInput
+                                    key="angle-offset"
+                                    placeholder={0}
+                                    value={this.props.graph.angleOffsetDeg}
+                                    onChange={newVal => {
+                                        this.onChange({
+                                            graph: _.extend(
+                                                {},
+                                                this.props.graph,
+                                                {
+                                                    angleOffsetDeg: newVal,
+                                                    coords: null,
+                                                }
+                                            ),
+                                        });
+                                    }}
+                                />{" "}
+                                degrees{" "}
+                            </label>
+                        </div>
                     </div>
-                    <div>
-                        <label>Allow reflex angles:{' '}
-                            <input type="checkbox"
-                                checked={allowReflexAngles}
-                                onChange={newVal => {
-                                    this.onChange({
-                                        graph: _.extend({}, this.props.graph, {
-                                            allowReflexAngles:
-                                                    !allowReflexAngles,
-                                            coords: null
-                                        })
-                                    });
-                                }} />
-                        </label>
-                        <InfoTip>
-                            <p>
-                                Reflex angles are angles with a measure
-                                greater than 180 degrees.
-                            </p>
-                            <p>
-                                By default, these should remain enabled.
-                            </p>
-                        </InfoTip>
-                    </div>
-                    <div>
-                        <label>Snap to increments of{' '}
-                            <NumberInput
-                                key="degree-snap"
-                                placeholder={1}
-                                value={this.props.graph.snapDegrees}
-                                onChange={newVal => {
-                                    this.onChange({
-                                        graph: _.extend({}, this.props.graph, {
-                                            snapDegrees: Math.abs(newVal),
-                                            coords: null
-                                        })
-                                    });
-                                }} />
-                            {' '}degrees{' '}
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            {' '}With an offset of{' '}
-                            <NumberInput
-                                key="angle-offset"
-                                placeholder={0}
-                                value={this.props.graph.angleOffsetDeg}
-                                onChange={newVal => {
-                                    this.onChange({
-                                        graph: _.extend({}, this.props.graph, {
-                                            angleOffsetDeg: newVal,
-                                            coords: null
-                                        })
-                                    });
-                                }} />
-                            {' '}degrees{' '}
-                        </label>
-                    </div>
-                </div>;
+                );
             }
         }
 
         const box = getInteractiveBoxFromSizeClass(
-                this.props.containerSizeClass);
+            this.props.containerSizeClass
+        );
 
         var instructions;
         if (this.isClickToAddPoints() && this.state.shouldShowInstructions) {
-            if  (this.props.graph.type === "point") {
+            if (this.props.graph.type === "point") {
                 instructions = i18n._("Click to add points");
             } else if (this.props.graph.type === "polygon") {
                 instructions = i18n._("Click to add vertices");
@@ -599,50 +685,60 @@ var InteractiveGraph = React.createClass({
             instructions = undefined;
         }
 
-        var onMouseDown = this.isClickToAddPoints() ?
-            this.handleAddPointsMouseDown :
-            null;
+        var onMouseDown = this.isClickToAddPoints()
+            ? this.handleAddPointsMouseDown
+            : null;
 
-        var gridStep = this.props.gridStep || Util.getGridStep(
-                this.props.range,
-                this.props.step,
-                box[0]
-        );
-        var snapStep = this.props.snapStep || Util.snapStepFromGridStep(
-            gridStep
-        );
+        var gridStep =
+            this.props.gridStep ||
+            Util.getGridStep(this.props.range, this.props.step, box[0]);
+        var snapStep =
+            this.props.snapStep || Util.snapStepFromGridStep(gridStep);
 
         const isMobile = this.props.apiOptions.isMobile;
-        return <div className={"perseus-widget " +
-                    "perseus-widget-interactive-graph"}
-                    style={{
-                        width: box[0],
-                        height: this.props.flexibleType ? "auto" : box[1]
-                    }}>
-            <Graph
-                instructions={instructions}
-                ref="graph"
-                box={box}
-                labels={this.props.labels}
-                range={this.props.range}
-                step={isMobile ? Util.constrainedTickStepsFromTickSteps(
-                    this.props.step, this.props.range) : this.props.step}
-                gridStep={gridStep}
-                snapStep={snapStep}
-                markings={this.props.markings}
-                backgroundImage={this.props.backgroundImage}
-                showProtractor={this.props.showProtractor}
-                showRuler={this.props.showRuler}
-                rulerLabel={this.props.rulerLabel}
-                rulerTicks={this.props.rulerTicks}
-                onMouseDown={onMouseDown}
-                onGraphieUpdated={this.setGraphie}
-                setDrawingAreaAvailable={
-                    this.props.apiOptions.setDrawingAreaAvailable}
-                isMobile={isMobile}
-            />
-            {typeSelect}{extraOptions}
-        </div>;
+        return (
+            <div
+                className={
+                    "perseus-widget " + "perseus-widget-interactive-graph"
+                }
+                style={{
+                    width: box[0],
+                    height: this.props.flexibleType ? "auto" : box[1],
+                }}
+            >
+                <Graph
+                    instructions={instructions}
+                    ref="graph"
+                    box={box}
+                    labels={this.props.labels}
+                    range={this.props.range}
+                    step={
+                        isMobile
+                            ? Util.constrainedTickStepsFromTickSteps(
+                                  this.props.step,
+                                  this.props.range
+                              )
+                            : this.props.step
+                    }
+                    gridStep={gridStep}
+                    snapStep={snapStep}
+                    markings={this.props.markings}
+                    backgroundImage={this.props.backgroundImage}
+                    showProtractor={this.props.showProtractor}
+                    showRuler={this.props.showRuler}
+                    rulerLabel={this.props.rulerLabel}
+                    rulerTicks={this.props.rulerTicks}
+                    onMouseDown={onMouseDown}
+                    onGraphieUpdated={this.setGraphie}
+                    setDrawingAreaAvailable={
+                        this.props.apiOptions.setDrawingAreaAvailable
+                    }
+                    isMobile={isMobile}
+                />
+                {typeSelect}
+                {extraOptions}
+            </div>
+        );
     },
 
     componentDidMount: function() {
@@ -658,8 +754,10 @@ var InteractiveGraph = React.createClass({
         // This function should only be called when this.isClickToAddPoints()
         // is true
         if (!this.isClickToAddPoints()) {
-            throw new Error("handleAddPointsClick should not be registered" +
-                "when isClickToAddPoints() is false");
+            throw new Error(
+                "handleAddPointsClick should not be registered" +
+                    "when isClickToAddPoints() is false"
+            );
         }
         if (!this.isCoordInTrash(coord)) {
             var point;
@@ -699,7 +797,7 @@ var InteractiveGraph = React.createClass({
             }
 
             this.setState({
-                shouldShowInstructions: false
+                shouldShowInstructions: false,
             });
         }
     },
@@ -718,23 +816,21 @@ var InteractiveGraph = React.createClass({
         }
 
         if (this.props.apiOptions.isMobile) {
-            this.horizHairline =
-                new WrappedLine(this.graphie, [0, 0], [0, 0], {
-                    normalStyle: {
-                        strokeWidth: 1
-                    }
-                });
+            this.horizHairline = new WrappedLine(this.graphie, [0, 0], [0, 0], {
+                normalStyle: {
+                    strokeWidth: 1,
+                },
+            });
             this.horizHairline.attr({
                 stroke: KhanColors.INTERACTIVE,
             });
             this.horizHairline.hide();
 
-            this.vertHairline =
-                new WrappedLine(this.graphie, [0, 0], [0, 0], {
-                    normalStyle: {
-                        strokeWidth: 1
-                    }
-                });
+            this.vertHairline = new WrappedLine(this.graphie, [0, 0], [0, 0], {
+                normalStyle: {
+                    strokeWidth: 1,
+                },
+            });
             this.vertHairline.attr({
                 stroke: KhanColors.INTERACTIVE,
             });
@@ -746,8 +842,7 @@ var InteractiveGraph = React.createClass({
     },
 
     showHairlines: function(point) {
-        if (this.props.apiOptions.isMobile &&
-            this.props.markings !== "none") {
+        if (this.props.apiOptions.isMobile && this.props.markings !== "none") {
             // Hairlines are already initialized when the graph is loaded, so
             // here we just move them to the updated location and make them
             // visible.
@@ -786,7 +881,8 @@ var InteractiveGraph = React.createClass({
             // Only if trash tooltips are not being used, we initialize the old
             // trash can area.
             if (!this.trashCan) {
-                this.trashCan = graphie.raphael.image(TRASH_ICON_URI,
+                this.trashCan = graphie.raphael.image(
+                    TRASH_ICON_URI,
                     graphie.xpixels - 40,
                     graphie.ypixels - 40,
                     40,
@@ -794,7 +890,7 @@ var InteractiveGraph = React.createClass({
                 );
             }
             this.trashCan.attr({
-                opacity: opacity
+                opacity: opacity,
             });
         }
     },
@@ -803,24 +899,30 @@ var InteractiveGraph = React.createClass({
         if (this.isClickToAddPoints() !== this.isClickToAddPoints(nextProps)) {
             this.shouldResetGraphie = true;
             this.setState({
-                shouldShowInstructions:
-                        this._getShouldShowInstructions(nextProps)
+                shouldShowInstructions: this._getShouldShowInstructions(
+                    nextProps
+                ),
             });
         }
 
-        if (this.props.backgroundImage.url !== nextProps.backgroundImage.url ||
-                this.props.backgroundImage !== nextProps.backgroundImage ||
-                this.props.containerSizeClass !== nextProps.containerSizeClass) { // @Nolint
+        if (
+            this.props.backgroundImage.url !== nextProps.backgroundImage.url ||
+            this.props.backgroundImage !== nextProps.backgroundImage ||
+            this.props.containerSizeClass !== nextProps.containerSizeClass
+        ) {
+            // @Nolint
             this.shouldResetGraphie = true;
         }
     },
 
     isClickToAddPoints: function(props) {
         props = props || this.props;
-        return (props.graph.type === "point" &&
+        return (
+            (props.graph.type === "point" &&
                 props.graph.numPoints === UNLIMITED) ||
-               (props.graph.type === "polygon" &&
-                props.graph.numSides === UNLIMITED);
+            (props.graph.type === "polygon" &&
+                props.graph.numSides === UNLIMITED)
+        );
     },
 
     _lineStroke: function() {
@@ -835,29 +937,30 @@ var InteractiveGraph = React.createClass({
             self.props
         );
 
-        var points = self.points = _.map(coords, (coord) => {
+        var points = (self.points = _.map(coords, coord => {
             return Interactive2.addMaybeMobileMovablePoint(this, {
                 coord: coord,
                 constraints: [
                     Interactive2.MovablePoint.constraints.bound(),
-                    Interactive2.MovablePoint.constraints.snap()
+                    Interactive2.MovablePoint.constraints.snap(),
                 ],
                 onMove: () => {
                     var graph = _.extend({}, self.props.graph, {
-                        coords: _.invoke(points, "coord")
+                        coords: _.invoke(points, "coord"),
                     });
                     self.onChange({graph: graph});
-                }
+                },
             });
-        });
+        }));
 
         var lineConfig = {
             points: points,
             static: true,
             normalStyle: {
-                stroke: this.props.apiOptions.isMobile ?
-                    KhanColors.BLUE_C : KhanColors.INTERACTIVE,
-                ...(this._lineStroke()),
+                stroke: this.props.apiOptions.isMobile
+                    ? KhanColors.BLUE_C
+                    : KhanColors.INTERACTIVE,
+                ...this._lineStroke(),
             },
         };
 
@@ -867,16 +970,16 @@ var InteractiveGraph = React.createClass({
             lineConfig.extendRay = true;
         }
 
-        var line = self.line = Interactive2.addMovableLine(
+        var line = (self.line = Interactive2.addMovableLine(
             graphie,
             lineConfig
-        );
+        ));
 
         // A and B can't be in the same place
-        points[0].listen("constraints", "isLine", (coord) => {
+        points[0].listen("constraints", "isLine", coord => {
             return !kpoint.equal(coord, points[1].coord());
         });
-        points[1].listen("constraints", "isLine", (coord) => {
+        points[1].listen("constraints", "isLine", coord => {
             return !kpoint.equal(coord, points[0].coord());
         });
     },
@@ -906,7 +1009,7 @@ var InteractiveGraph = React.createClass({
         var pointC;
         var onMoveHandler = () => {
             var graph = _.extend({}, this.props.graph, {
-                coords: [pointA.coord(), pointB.coord(), pointC.coord()]
+                coords: [pointA.coord(), pointB.coord(), pointC.coord()],
             });
             this.onChange({graph: graph});
             this.updateQuadratic();
@@ -917,12 +1020,15 @@ var InteractiveGraph = React.createClass({
             constraints: [
                 Interactive2.MovablePoint.constraints.bound(),
                 Interactive2.MovablePoint.constraints.snap(),
-                (coord) => {
-                    return !pointA || (coord[0] !== pointB.coord()[0] &&
-                                coord[0] !== pointC.coord()[0]);
-                }
+                coord => {
+                    return (
+                        !pointA ||
+                        (coord[0] !== pointB.coord()[0] &&
+                            coord[0] !== pointC.coord()[0])
+                    );
+                },
             ],
-            onMove: onMoveHandler
+            onMove: onMoveHandler,
         });
 
         pointB = this.pointB = Interactive2.addMaybeMobileMovablePoint(this, {
@@ -930,12 +1036,15 @@ var InteractiveGraph = React.createClass({
             constraints: [
                 Interactive2.MovablePoint.constraints.bound(),
                 Interactive2.MovablePoint.constraints.snap(),
-                (coord) => {
-                    return !pointB || (coord[0] !== pointA.coord()[0] &&
-                                coord[0] !== pointC.coord()[0]);
-                }
+                coord => {
+                    return (
+                        !pointB ||
+                        (coord[0] !== pointA.coord()[0] &&
+                            coord[0] !== pointC.coord()[0])
+                    );
+                },
             ],
-            onMove: onMoveHandler
+            onMove: onMoveHandler,
         });
 
         pointC = this.pointC = Interactive2.addMaybeMobileMovablePoint(this, {
@@ -943,12 +1052,15 @@ var InteractiveGraph = React.createClass({
             constraints: [
                 Interactive2.MovablePoint.constraints.bound(),
                 Interactive2.MovablePoint.constraints.snap(),
-                (coord) => {
-                    return !pointC || (coord[0] !== pointA.coord()[0] &&
-                                coord[0] !== pointB.coord()[0]);
-                }
+                coord => {
+                    return (
+                        !pointC ||
+                        (coord[0] !== pointA.coord()[0] &&
+                            coord[0] !== pointB.coord()[0])
+                    );
+                },
             ],
-            onMove: onMoveHandler
+            onMove: onMoveHandler,
         });
 
         this.updateQuadratic();
@@ -956,24 +1068,28 @@ var InteractiveGraph = React.createClass({
 
     updateQuadratic: function() {
         var coeffs = InteractiveGraph.getCurrentQuadraticCoefficients(
-                this.props);
+            this.props
+        );
         if (!coeffs) {
             return;
         }
 
         // Extract coefficients the parabola
-        var a = coeffs[0], b = coeffs[1], c = coeffs[2];
+        var a = coeffs[0],
+            b = coeffs[1],
+            c = coeffs[2];
 
         // Plot and style
         if (this.parabola) {
             var path = this.graphie.svgParabolaPath(a, b, c);
-            this.parabola.attr({ path: path });
+            this.parabola.attr({path: path});
         } else {
             this.parabola = this.graphie.parabola(a, b, c);
             this.parabola.attr({
-                stroke: this.props.apiOptions.isMobile ?
-                    KhanColors.BLUE_C : KhanColors.DYNAMIC,
-                ...(this._lineStroke()),
+                stroke: this.props.apiOptions.isMobile
+                    ? KhanColors.BLUE_C
+                    : KhanColors.DYNAMIC,
+                ...this._lineStroke(),
             });
             this.parabola.toBack();
         }
@@ -1000,7 +1116,7 @@ var InteractiveGraph = React.createClass({
         var pointB;
         var onMoveHandler = () => {
             var graph = _.extend({}, this.props.graph, {
-                coords: [pointA.coord(), pointB.coord()]
+                coords: [pointA.coord(), pointB.coord()],
             });
             this.onChange({graph: graph});
             this.updateSinusoid();
@@ -1011,11 +1127,11 @@ var InteractiveGraph = React.createClass({
             constraints: [
                 Interactive2.MovablePoint.constraints.bound(),
                 Interactive2.MovablePoint.constraints.snap(),
-                (coord) => {
+                coord => {
                     return !pointA || coord[0] !== pointB.coord()[0];
-                }
+                },
             ],
-            onMove: onMoveHandler
+            onMove: onMoveHandler,
         });
 
         pointB = this.pointB = Interactive2.addMaybeMobileMovablePoint(this, {
@@ -1023,11 +1139,11 @@ var InteractiveGraph = React.createClass({
             constraints: [
                 Interactive2.MovablePoint.constraints.bound(),
                 Interactive2.MovablePoint.constraints.snap(),
-                (coord) => {
+                coord => {
                     return !pointA || coord[0] !== pointA.coord()[0];
-                }
+                },
             ],
-            onMove: onMoveHandler
+            onMove: onMoveHandler,
         });
 
         this.updateSinusoid();
@@ -1035,23 +1151,28 @@ var InteractiveGraph = React.createClass({
 
     updateSinusoid: function() {
         var coeffs = InteractiveGraph.getCurrentSinusoidCoefficients(
-                this.props);
+            this.props
+        );
         if (!coeffs) {
             return;
         }
 
-        var a = coeffs[0], b = coeffs[1], c = coeffs[2], d = coeffs[3];
+        var a = coeffs[0],
+            b = coeffs[1],
+            c = coeffs[2],
+            d = coeffs[3];
 
         // Plot and style
         if (this.sinusoid) {
             var path = this.graphie.svgSinusoidPath(a, b, c, d);
-            this.sinusoid.attr({ path: path });
+            this.sinusoid.attr({path: path});
         } else {
             this.sinusoid = this.graphie.sinusoid(a, b, c, d);
             this.sinusoid.attr({
-                stroke: this.props.apiOptions.isMobile ?
-                    KhanColors.BLUE_C : KhanColors.DYNAMIC,
-                ...(this._lineStroke()),
+                stroke: this.props.apiOptions.isMobile
+                    ? KhanColors.BLUE_C
+                    : KhanColors.DYNAMIC,
+                ...this._lineStroke(),
             });
             this.sinusoid.toBack();
         }
@@ -1070,19 +1191,19 @@ var InteractiveGraph = React.createClass({
         var graphie = this.graphie;
         var minSnap = _.min(graphie.snap);
 
-        var circle = this.circle = graphie.addCircleGraph({
+        var circle = (this.circle = graphie.addCircleGraph({
             center: this.props.graph.center || [0, 0],
             radius: this.props.graph.radius || _.min(this.props.step),
             snapX: graphie.snap[0],
             snapY: graphie.snap[1],
             minRadius: minSnap,
-            snapRadius: minSnap
-        });
+            snapRadius: minSnap,
+        }));
 
         $(circle).on("move", () => {
             var graph = _.extend({}, this.props.graph, {
                 center: circle.center,
-                radius: circle.radius
+                radius: circle.radius,
             });
             this.onChange({graph: graph});
         });
@@ -1094,66 +1215,71 @@ var InteractiveGraph = React.createClass({
 
     addLinearSystemControls: function() {
         var graphie = this.graphie;
-        var coords = InteractiveGraph.getLinearSystemCoords(this.props.graph,
-            this.props);
+        var coords = InteractiveGraph.getLinearSystemCoords(
+            this.props.graph,
+            this.props
+        );
 
         var segmentColors = [KhanColors.INTERACTIVE, KhanColors.GREEN];
-        var points = this.points = _.map(coords,
-                (segmentCoords, segmentIndex) => {
-            var segmentPoints = _.map(segmentCoords, (coord, i) => {
-                return Interactive2.addMaybeMobileMovablePoint(this, {
-                    coord: coord,
-                    constraints: [
-                        Interactive2.MovablePoint.constraints.bound(),
-                        Interactive2.MovablePoint.constraints.snap(),
-                        (coord) => {
-                            if (!segmentPoints) {
-                                // points hasn't been defined yet because
-                                // we're still creating them
-                                return;
-                            }
-                            return !kpoint.equal(
-                                coord,
-                                segmentPoints[1 - i].coord()
-                            );
-                        }
-                    ],
-                    onMove: () => {
-                        var graph = _.extend({}, this.props.graph, {
-                            coords: _.map(
-                                this.points,
-                                (segment) => _.invoke(segment, "coord")
-                            )
-                        });
-                        this.onChange({graph: graph});
-                    },
-                    normalStyle: {
-                        fill: segmentColors[segmentIndex]
-                    },
-                    highlightStyle: {
-                        fill: segmentColors[segmentIndex]
-                    }
+        var points = (this.points = _.map(
+            coords,
+            (segmentCoords, segmentIndex) => {
+                var segmentPoints = _.map(segmentCoords, (coord, i) => {
+                    return Interactive2.addMaybeMobileMovablePoint(this, {
+                        coord: coord,
+                        constraints: [
+                            Interactive2.MovablePoint.constraints.bound(),
+                            Interactive2.MovablePoint.constraints.snap(),
+                            coord => {
+                                if (!segmentPoints) {
+                                    // points hasn't been defined yet because
+                                    // we're still creating them
+                                    return;
+                                }
+                                return !kpoint.equal(
+                                    coord,
+                                    segmentPoints[1 - i].coord()
+                                );
+                            },
+                        ],
+                        onMove: () => {
+                            var graph = _.extend({}, this.props.graph, {
+                                coords: _.map(this.points, segment =>
+                                    _.invoke(segment, "coord")
+                                ),
+                            });
+                            this.onChange({graph: graph});
+                        },
+                        normalStyle: {
+                            fill: segmentColors[segmentIndex],
+                        },
+                        highlightStyle: {
+                            fill: segmentColors[segmentIndex],
+                        },
+                    });
                 });
-            });
-            return segmentPoints;
-        });
+                return segmentPoints;
+            }
+        ));
 
-        var lines = this.lines = _.map(points,
-                (segmentPoints, segmentIndex) => {
-            return Interactive2.addMovableLine(graphie, {
-                points: segmentPoints,
-                static: true,
-                extendLine: true,
-                normalStyle: {
-                    stroke: segmentColors[segmentIndex]
-                }
-            });
-        });
+        var lines = (this.lines = _.map(
+            points,
+            (segmentPoints, segmentIndex) => {
+                return Interactive2.addMovableLine(graphie, {
+                    points: segmentPoints,
+                    static: true,
+                    extendLine: true,
+                    normalStyle: {
+                        stroke: segmentColors[segmentIndex],
+                    },
+                });
+            }
+        ));
     },
 
     removeLinearSystemControls: function() {
         _.invoke(this.lines, "remove");
-        _.map(this.points, (segment) => _.invoke(segment, "remove"));
+        _.map(this.points, segment => _.invoke(segment, "remove"));
     },
 
     isCoordInTrash: function(coord) {
@@ -1163,8 +1289,10 @@ var InteractiveGraph = React.createClass({
 
         var graphie = this.graphie;
         var screenPoint = graphie.scalePoint(coord);
-        return screenPoint[0] >= graphie.xpixels - 40 &&
-                screenPoint[1] >= graphie.ypixels - 40;
+        return (
+            screenPoint[0] >= graphie.xpixels - 40 &&
+            screenPoint[1] >= graphie.ypixels - 40
+        );
     },
 
     createPointForPointsType: function(coord, i) {
@@ -1195,10 +1323,9 @@ var InteractiveGraph = React.createClass({
                     // MovablePoint.constraints.avoid
                     // default that lets you do things like this
                     return _.all(self.points, function(pt) {
-                        return point === pt ||
-                            !kpoint.equal(coord, pt.coord());
+                        return point === pt || !kpoint.equal(coord, pt.coord());
                     });
-                }
+                },
             ],
             onMoveStart: function() {
                 if (self.isClickToAddPoints()) {
@@ -1217,8 +1344,9 @@ var InteractiveGraph = React.createClass({
                     self.setTrashCanVisibility(0.5);
                 }
             },
-            ...(this.props.apiOptions.isMobile && self.isClickToAddPoints() ?
-                {onRemove: remove} : {}),
+            ...(this.props.apiOptions.isMobile && self.isClickToAddPoints()
+                ? {onRemove: remove}
+                : {}),
         });
 
         return point;
@@ -1241,14 +1369,16 @@ var InteractiveGraph = React.createClass({
         var graphie = this.graphie;
 
         // TODO(alex): check against "grid" instead, use constants
-        var snapToGrid = !_.contains(["angles", "sides"],
-            this.props.graph.snapTo);
+        var snapToGrid = !_.contains(
+            ["angles", "sides"],
+            this.props.graph.snapTo
+        );
 
         // Index relative to current point -> absolute index
         // NOTE: This does not work when isClickToAddPoints() == true,
         // as `i` can be changed by dragging a point to the trash
         // Currently this function is only called when !isClickToAddPoints()
-        var rel = (j) => {
+        var rel = j => {
             return (i + j + this.points.length) % this.points.length;
         };
 
@@ -1271,23 +1401,17 @@ var InteractiveGraph = React.createClass({
             setTimeout(point.remove.bind(point), 0);
         };
 
-        var onMoveEndHandler = (coord) => {
+        var onMoveEndHandler = coord => {
             if (this.isClickToAddPoints()) {
                 if (this.isCoordInTrash(coord)) {
                     remove();
-                } else if (this.points.length > 1 && ((
-                            point === this.points[0] &&
-                            kpoint.equal(
-                                coord,
-                                _.last(this.points).coord()
-                            )
-                        ) || (
-                            point === _.last(this.points) &&
-                            kpoint.equal(
-                                coord,
-                                this.points[0].coord()
-                            )
-                        ))) {
+                } else if (
+                    this.points.length > 1 &&
+                    ((point === this.points[0] &&
+                        kpoint.equal(coord, _.last(this.points).coord())) ||
+                        (point === _.last(this.points) &&
+                            kpoint.equal(coord, this.points[0].coord())))
+                ) {
                     // If the user clicked and dragged a point over endpoint,
                     // join the them
                     var pointToRemove = this.points.pop();
@@ -1303,14 +1427,12 @@ var InteractiveGraph = React.createClass({
                     // wait to do this until we're not inside of
                     // said point's onMoveEnd method so state is
                     // consistent throughout the method call
-                    setTimeout(pointToRemove.remove.bind(
-                        pointToRemove), 0);
+                    setTimeout(pointToRemove.remove.bind(pointToRemove), 0);
                 } else {
                     // If the user clicked and dragged a point over any other
                     // existing point, fix shape
                     var shouldRemove = _.any(this.points, function(pt) {
-                        return pt !== point && kpoint.equal(
-                            pt.coord(), coord);
+                        return pt !== point && kpoint.equal(pt.coord(), coord);
                     });
                     if (shouldRemove) {
                         this.removePoint(point);
@@ -1337,13 +1459,14 @@ var InteractiveGraph = React.createClass({
                         //  * and our polygon is not closed,
                         //  * and we can close it (we need at least 3 points),
                         // then close it
-                        if ((point === this.points[0] ||
+                        if (
+                            (point === this.points[0] ||
                                 point === _.last(this.points)) &&
-                                !point.hasMoved() &&
-                                !point.state.isInitialMove &&
-                                !this.polygon.closed() &&
-                                this.points.length > 2) {
-
+                            !point.hasMoved() &&
+                            !point.state.isInitialMove &&
+                            !this.polygon.closed() &&
+                            this.points.length > 2
+                        ) {
                             this.polygon.update({closed: true});
                             this.updatePolygon();
 
@@ -1362,7 +1485,7 @@ var InteractiveGraph = React.createClass({
             point.state.isInitialMove = false;
         };
 
-        var graphConstraint = (coord) => {
+        var graphConstraint = coord => {
             // These constraints are all relative to the other points, so if
             // we're creating the initial points and haven't added any others
             // to the graph, we can't enforce them.
@@ -1378,9 +1501,11 @@ var InteractiveGraph = React.createClass({
             // have already violated these constraints
             if (!this.isClickToAddPoints()) {
                 // Polygons can't have consecutive collinear points
-                if (collinear(coords[rel(-2)], coords[rel(-1)], coords[i]) ||
-                    collinear(coords[rel(-1)], coords[i],  coords[rel(1)]) ||
-                    collinear(coords[i],  coords[rel(1)],  coords[rel(2)])) {
+                if (
+                    collinear(coords[rel(-2)], coords[rel(-1)], coords[i]) ||
+                    collinear(coords[rel(-1)], coords[i], coords[rel(1)]) ||
+                    collinear(coords[i], coords[rel(1)], coords[rel(2)])
+                ) {
                     return false;
                 }
 
@@ -1391,8 +1516,12 @@ var InteractiveGraph = React.createClass({
                     // testing whether adjacent segments intersect any others
                     for (var j = -1; j <= 0; j++) {
                         var segment = segments[rel(j)];
-                        var others = _.without(segments,
-                            segment, segments[rel(j-1)], segments[rel(j+1)]);
+                        var others = _.without(
+                            segments,
+                            segment,
+                            segments[rel(j - 1)],
+                            segments[rel(j + 1)]
+                        );
 
                         for (var k = 0; k < others.length; k++) {
                             var other = others[k];
@@ -1404,8 +1533,10 @@ var InteractiveGraph = React.createClass({
                 }
             }
 
-            if (this.props.graph.snapTo === "angles" &&
-                    this.points.length > 2) {
+            if (
+                this.props.graph.snapTo === "angles" &&
+                this.points.length > 2
+            ) {
                 // Snap to whole degree interior angles
 
                 var angles = _.map(angleMeasures(coords), function(rad) {
@@ -1418,77 +1549,92 @@ var InteractiveGraph = React.createClass({
 
                 var getAngle = function(a, vertex, b) {
                     var angle = GraphUtils.findAngle(
-                        coords[rel(a)], coords[rel(b)], coords[rel(vertex)]
+                        coords[rel(a)],
+                        coords[rel(b)],
+                        coords[rel(vertex)]
                     );
                     return (angle + 360) % 360;
                 };
 
                 var innerAngles = [
                     angles[rel(-1)] - getAngle(-2, -1, 1),
-                    angles[rel(1)] - getAngle(-1, 1, 2)
+                    angles[rel(1)] - getAngle(-1, 1, 2),
                 ];
                 innerAngles[2] = 180 - (innerAngles[0] + innerAngles[1]);
 
                 // Avoid degenerate triangles
-                if (_.any(innerAngles, function(angle) {
-                            return leq(angle, 1);
-                        })) {
+                if (
+                    _.any(innerAngles, function(angle) {
+                        return leq(angle, 1);
+                    })
+                ) {
                     return false;
                 }
 
-                var knownSide = magnitude(vector(coords[rel(-1)],
-                    coords[rel(1)]));
+                var knownSide = magnitude(
+                    vector(coords[rel(-1)], coords[rel(1)])
+                );
 
-                var onLeft = sign(ccw(
-                    coords[rel(-1)], coords[rel(1)], coords[i]
-                )) === 1;
+                var onLeft =
+                    sign(ccw(coords[rel(-1)], coords[rel(1)], coords[i])) === 1;
 
                 // Solve for side by using the law of sines
-                var side = Math.sin(innerAngles[1] * Math.PI / 180) /
-                    Math.sin(innerAngles[2] * Math.PI / 180) * knownSide;
+                var side =
+                    Math.sin(innerAngles[1] * Math.PI / 180) /
+                    Math.sin(innerAngles[2] * Math.PI / 180) *
+                    knownSide;
 
-                var outerAngle = GraphUtils.findAngle(coords[rel(1)],
-                    coords[rel(-1)]);
+                var outerAngle = GraphUtils.findAngle(
+                    coords[rel(1)],
+                    coords[rel(-1)]
+                );
 
                 var offset = this.graphie.polar(
                     side,
-                    outerAngle + (onLeft? 1 : -1) * innerAngles[0]
+                    outerAngle + (onLeft ? 1 : -1) * innerAngles[0]
                 );
 
                 return this.graphie.addPoints(coords[rel(-1)], offset);
-            } else if (this.props.graph.snapTo === "sides" &&
-                    this.points.length > 1) {
+            } else if (
+                this.props.graph.snapTo === "sides" &&
+                this.points.length > 1
+            ) {
                 // Snap to whole unit side measures
 
-                var sides = _.map([
-                    [coords[rel(-1)], coords[i]],
-                    [coords[i], coords[rel(1)]],
-                    [coords[rel(-1)], coords[rel(1)]]
-                ], function(coords) {
-                    return magnitude(vector.apply(null, coords));
-                });
+                var sides = _.map(
+                    [
+                        [coords[rel(-1)], coords[i]],
+                        [coords[i], coords[rel(1)]],
+                        [coords[rel(-1)], coords[rel(1)]],
+                    ],
+                    function(coords) {
+                        return magnitude(vector.apply(null, coords));
+                    }
+                );
 
                 _.each([0, 1], function(j) {
                     sides[j] = Math.round(sides[j]);
                 });
 
                 // Avoid degenerate triangles
-                if (leq(sides[1] + sides[2], sides[0]) ||
-                        leq(sides[0] + sides[2], sides[1]) ||
-                        leq(sides[0] + sides[1], sides[2])) {
+                if (
+                    leq(sides[1] + sides[2], sides[0]) ||
+                    leq(sides[0] + sides[2], sides[1]) ||
+                    leq(sides[0] + sides[1], sides[2])
+                ) {
                     return false;
                 }
 
                 // Solve for angle by using the law of cosines
-                var innerAngle = lawOfCosines(sides[0],
-                    sides[2], sides[1]);
+                var innerAngle = lawOfCosines(sides[0], sides[2], sides[1]);
 
-                var outerAngle = GraphUtils.findAngle(coords[rel(1)],
-                    coords[rel(-1)]);
+                var outerAngle = GraphUtils.findAngle(
+                    coords[rel(1)],
+                    coords[rel(-1)]
+                );
 
-                var onLeft = sign(ccw(
-                    coords[rel(-1)], coords[rel(1)], coords[i]
-                )) === 1;
+                var onLeft =
+                    sign(ccw(coords[rel(-1)], coords[rel(1)], coords[i])) === 1;
 
                 var offset = this.graphie.polar(
                     sides[0],
@@ -1506,9 +1652,10 @@ var InteractiveGraph = React.createClass({
             coord: coord,
             constraints: [
                 Interactive2.MovablePoint.constraints.bound(),
-                snapToGrid ? Interactive2.MovablePoint.constraints.snap() :
-                             null,
-                graphConstraint
+                snapToGrid
+                    ? Interactive2.MovablePoint.constraints.snap()
+                    : null,
+                graphConstraint,
             ],
             onMoveStart: () => {
                 if (this.isClickToAddPoints()) {
@@ -1521,8 +1668,9 @@ var InteractiveGraph = React.createClass({
                 }
             },
             onMoveEnd: onMoveEndHandler,
-            ...(this.props.apiOptions.isMobile &&
-                this.isClickToAddPoints() ? {onRemove: remove} : {}),
+            ...(this.props.apiOptions.isMobile && this.isClickToAddPoints()
+                ? {onRemove: remove}
+                : {}),
         });
         point.state.isInitialMove = true;
 
@@ -1535,14 +1683,14 @@ var InteractiveGraph = React.createClass({
             // Interactive2.MovablePoint's with .coord()
             coords: _.map(this.points, function(point) {
                 return _.result(point, "coord");
-            })
+            }),
         });
         this.onChange({graph: graph});
     },
 
     clearCoords: function() {
         var graph = _.extend({}, this.props.graph, {
-            coords: null
+            coords: null,
         });
         this.onChange({graph: graph});
     },
@@ -1583,64 +1731,73 @@ var InteractiveGraph = React.createClass({
             this.props
         );
 
-        const createPoint = (options) =>
+        const createPoint = options =>
             Interactive2.addMaybeMobileMovablePoint(this, options);
 
         this.points = [];
-        this.lines = _.map(coords, function(segment, i) {
-            var updateCoordProps = function() {
-                var graph = _.extend({}, self.props.graph, {
-                    coords: _.invoke(self.lines, "coords")
-                });
-                self.onChange({graph: graph});
-            };
+        this.lines = _.map(
+            coords,
+            function(segment, i) {
+                var updateCoordProps = function() {
+                    var graph = _.extend({}, self.props.graph, {
+                        coords: _.invoke(self.lines, "coords"),
+                    });
+                    self.onChange({graph: graph});
+                };
 
-            var points = _.map(segment, function(coord, i) {
-                return createPoint({
-                    coord: coord,
+                var points = _.map(segment, function(coord, i) {
+                    return createPoint({
+                        coord: coord,
+                        constraints: [
+                            Interactive2.MovablePoint.constraints.bound(),
+                            Interactive2.MovablePoint.constraints.snap(),
+                            coord => {
+                                if (!points) {
+                                    // points hasn't been defined yet because
+                                    // we're still creating them
+                                    return;
+                                }
+                                return !kpoint.equal(
+                                    coord,
+                                    points[1 - i].coord()
+                                );
+                            },
+                        ],
+                        onMove: updateCoordProps,
+                    });
+                });
+
+                self.points = self.points.concat(points);
+                var line = Interactive2.addMovableLine(graphie, {
+                    points: points,
+                    static: false,
                     constraints: [
-                        Interactive2.MovablePoint.constraints.bound(),
-                        Interactive2.MovablePoint.constraints.snap(),
-                        (coord) => {
-                            if (!points) {
-                                // points hasn't been defined yet because
-                                // we're still creating them
-                                return;
-                            }
-                            return !kpoint.equal(coord, points[1 - i].coord());
-                        }
+                        Interactive2.MovableLine.constraints.bound(),
+                        Interactive2.MovableLine.constraints.snap(),
                     ],
-                    onMove: updateCoordProps
+                    onMove: [
+                        Interactive2.MovableLine.onMove.updatePoints,
+                        updateCoordProps,
+                    ],
+                    normalStyle: {
+                        stroke: this.props.apiOptions.isMobile
+                            ? KhanColors.BLUE_C
+                            : KhanColors.INTERACTIVE,
+                        ...this._lineStroke(),
+                    },
+                    highlightStyle: {
+                        stroke: this.props.apiOptions.isMobile
+                            ? KhanColors.BLUE_C
+                            : KhanColors.INTERACTING,
+                        ...this._lineStroke(),
+                    },
                 });
-            });
+                _.invoke(points, "toFront");
 
-            self.points = self.points.concat(points);
-            var line = Interactive2.addMovableLine(graphie, {
-                points: points,
-                static: false,
-                constraints: [
-                    Interactive2.MovableLine.constraints.bound(),
-                    Interactive2.MovableLine.constraints.snap()
-                ],
-                onMove: [
-                    Interactive2.MovableLine.onMove.updatePoints,
-                    updateCoordProps
-                ],
-                normalStyle: {
-                    stroke: this.props.apiOptions.isMobile ?
-                        KhanColors.BLUE_C : KhanColors.INTERACTIVE,
-                    ...(this._lineStroke()),
-                },
-                highlightStyle: {
-                    stroke: this.props.apiOptions.isMobile ?
-                        KhanColors.BLUE_C : KhanColors.INTERACTING,
-                    ...(this._lineStroke()),
-                }
-            });
-            _.invoke(points, "toFront");
-
-            return line;
-        }, this);
+                return line;
+            },
+            this
+        );
     },
 
     removeSegmentControls: function() {
@@ -1685,51 +1842,73 @@ var InteractiveGraph = React.createClass({
         var n = this.points.length;
 
         // TODO(alex): check against "grid" instead, use constants
-        var snapToGrid = !_.contains(["angles", "sides"],
-            this.props.graph.snapTo);
+        var snapToGrid = !_.contains(
+            ["angles", "sides"],
+            this.props.graph.snapTo
+        );
 
-        var angleLabels = _.times(n, function(i) {
-            if (!this.props.graph.showAngles ||
-                    (!closed && (i === 0 || i === n - 1))) {
-                return "";
-            } else if (this.props.graph.snapTo === "angles") {
-                return "$deg0";
-            } else {
-                return "$deg1";
-            }
-        }, this);
+        var angleLabels = _.times(
+            n,
+            function(i) {
+                if (
+                    !this.props.graph.showAngles ||
+                    (!closed && (i === 0 || i === n - 1))
+                ) {
+                    return "";
+                } else if (this.props.graph.snapTo === "angles") {
+                    return "$deg0";
+                } else {
+                    return "$deg1";
+                }
+            },
+            this
+        );
 
-        var showRightAngleMarkers = _.times(n, function(i) {
-            return closed || (i !== 0 && i !== n - 1);
-        }, this);
+        var showRightAngleMarkers = _.times(
+            n,
+            function(i) {
+                return closed || (i !== 0 && i !== n - 1);
+            },
+            this
+        );
 
-        var numArcs = _.times(n, function(i) {
-            if (this.props.graph.showAngles &&
-                    (closed || (i !== 0 && i !== n - 1))) {
-                return 1;
-            } else {
-                return 0;
-            }
-        }, this);
+        var numArcs = _.times(
+            n,
+            function(i) {
+                if (
+                    this.props.graph.showAngles &&
+                    (closed || (i !== 0 && i !== n - 1))
+                ) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            },
+            this
+        );
 
-        var sideLabels = _.times(n, function(i) {
-            if (!this.props.graph.showSides ||
-                (!closed && i === n - 1)) {
-                return "";
-            } else if (this.props.graph.snapTo === "sides") {
-                return "$len0";
-            } else {
-                return "$len1";
-            }
-        }, this);
+        var sideLabels = _.times(
+            n,
+            function(i) {
+                if (!this.props.graph.showSides || (!closed && i === n - 1)) {
+                    return "";
+                } else if (this.props.graph.snapTo === "sides") {
+                    return "$len0";
+                } else {
+                    return "$len1";
+                }
+            },
+            this
+        );
 
         if (this.polygon == null) {
             var self = this;
             self.polygon = Interactive2.addMovablePolygon(graphie, {
                 constraints: [
                     Interactive2.MovablePolygon.constraints.bound(),
-                    snapToGrid ? Interactive2.MovablePolygon.constraints.snap()
-                               : null
+                    snapToGrid
+                        ? Interactive2.MovablePolygon.constraints.snap()
+                        : null,
                 ],
                 closed: closed,
                 points: self.points,
@@ -1743,13 +1922,14 @@ var InteractiveGraph = React.createClass({
                         if (this.closed()) {
                             self.updateCoordsFromPoints();
                         }
-                    }
+                    },
                 ],
                 normalStyle: {
-                    stroke: this.props.apiOptions.isMobile ?
-                        KhanColors.BLUE_C : KhanColors.INTERACTIVE,
-                    ...(this._lineStroke()),
-                }
+                    stroke: this.props.apiOptions.isMobile
+                        ? KhanColors.BLUE_C
+                        : KhanColors.INTERACTIVE,
+                    ...this._lineStroke(),
+                },
             });
         } else {
             // We only need to pass in the properties that might've changed
@@ -1759,7 +1939,7 @@ var InteractiveGraph = React.createClass({
                 angleLabels: angleLabels,
                 showRightAngleMarkers: showRightAngleMarkers,
                 numArcs: numArcs,
-                sideLabels: sideLabels
+                sideLabels: sideLabels,
             });
         }
     },
@@ -1779,16 +1959,23 @@ var InteractiveGraph = React.createClass({
 
         // The vertex snaps to the grid, but the rays don't...
         this.points = _.map(coords, function(coord, i) {
-            return graphie.addMovablePoint(_.extend({
-                coord: coord,
-                normalStyle: {
-                    stroke: KhanColors.INTERACTIVE,
-                    fill: KhanColors.INTERACTIVE
-                }
-            }, i === 1 ? {
-                snapX: graphie.snap[0],
-                snapY: graphie.snap[1]
-            } : {}));
+            return graphie.addMovablePoint(
+                _.extend(
+                    {
+                        coord: coord,
+                        normalStyle: {
+                            stroke: KhanColors.INTERACTIVE,
+                            fill: KhanColors.INTERACTIVE,
+                        },
+                    },
+                    i === 1
+                        ? {
+                              snapX: graphie.snap[0],
+                              snapY: graphie.snap[1],
+                          }
+                        : {}
+                )
+            );
         });
 
         // ...they snap to whole-degree angles from the vertex.
@@ -1798,12 +1985,12 @@ var InteractiveGraph = React.createClass({
             snapOffsetDeg: this.props.graph.angleOffsetDeg || 0,
             angleLabel: this.props.graph.showAngles ? "$deg0" : "",
             pushOut: 2,
-            allowReflex: defaultVal(this.props.graph.allowReflexAngles, true)
+            allowReflex: defaultVal(this.props.graph.allowReflexAngles, true),
         });
 
         $(this.angle).on("move", () => {
             var graph = _.extend({}, this.props.graph, {
-                coords: this.angle.getClockwiseCoords()
+                coords: this.angle.getClockwiseCoords(),
             });
             this.onChange({graph: graph});
         });
@@ -1816,14 +2003,14 @@ var InteractiveGraph = React.createClass({
 
     toggleShowAngles: function() {
         var graph = _.extend({}, this.props.graph, {
-            showAngles: !this.props.graph.showAngles
+            showAngles: !this.props.graph.showAngles,
         });
         this.onChange({graph: graph});
     },
 
     toggleShowSides: function() {
         var graph = _.extend({}, this.props.graph, {
-            showSides: !this.props.graph.showSides
+            showSides: !this.props.graph.showSides,
         });
         this.onChange({graph: graph});
     },
@@ -1836,9 +2023,8 @@ var InteractiveGraph = React.createClass({
         return InteractiveGraph.validate(this.getUserInput(), rubric, this);
     },
 
-    focus: $.noop
+    focus: $.noop,
 });
-
 
 _.extend(InteractiveGraph, {
     getQuadraticCoefficients: function(coords) {
@@ -1850,15 +2036,21 @@ _.extend(InteractiveGraph, {
         if (denom === 0) {
             return;
         }
-        var a = (p3[0] * (p2[1] - p1[1]) +
-                 p2[0] * (p1[1] - p3[1]) +
-                 p1[0] * (p3[1] - p2[1])) / denom;
-        var b = ((p3[0] * p3[0]) * (p1[1] - p2[1]) +
-                 (p2[0] * p2[0]) * (p3[1] - p1[1]) +
-                 (p1[0] * p1[0]) * (p2[1] - p3[1])) / denom;
-        var c = (p2[0] * p3[0] * (p2[0] - p3[0]) * p1[1] +
-                 p3[0] * p1[0] * (p3[0] - p1[0]) * p2[1] +
-                 p1[0] * p2[0] * (p1[0] - p2[0]) * p3[1]) / denom;
+        var a =
+            (p3[0] * (p2[1] - p1[1]) +
+                p2[0] * (p1[1] - p3[1]) +
+                p1[0] * (p3[1] - p2[1])) /
+            denom;
+        var b =
+            (p3[0] * p3[0] * (p1[1] - p2[1]) +
+                p2[0] * p2[0] * (p3[1] - p1[1]) +
+                p1[0] * p1[0] * (p2[1] - p3[1])) /
+            denom;
+        var c =
+            (p2[0] * p3[0] * (p2[0] - p3[0]) * p1[1] +
+                p3[0] * p1[0] * (p3[0] - p1[0]) * p2[1] +
+                p1[0] * p2[0] * (p1[0] - p2[0]) * p3[1]) /
+            denom;
         return [a, b, c];
     },
 
@@ -1868,7 +2060,7 @@ _.extend(InteractiveGraph, {
         var p2 = coords[1];
 
         // Resulting coefficients are canonical for this sine curve
-        var amplitude = (p2[1] - p1[1]);
+        var amplitude = p2[1] - p1[1];
         var angularFrequency = Math.PI / (2 * (p2[0] - p1[0]));
         var phase = p1[0] * angularFrequency;
         var verticalOffset = p1[1];
@@ -1876,18 +2068,17 @@ _.extend(InteractiveGraph, {
         return [amplitude, angularFrequency, phase, verticalOffset];
     },
 
-
     /**
      * @param {object} graph Like props.graph or props.correct
      * @param {object} props of an InteractiveGraph instance
      */
     getLineCoords: function(graph, props) {
-        return graph.coords || InteractiveGraph.pointsFromNormalized(
-            props,
-            [
+        return (
+            graph.coords ||
+            InteractiveGraph.pointsFromNormalized(props, [
                 [0.25, 0.75],
-                [0.75, 0.75]
-            ]
+                [0.75, 0.75],
+            ])
         );
     },
 
@@ -1920,8 +2111,14 @@ _.extend(InteractiveGraph, {
                     coords = [[-6, 0], [-3, 0], [0, 0], [3, 0], [6, 0]];
                     break;
                 case 6:
-                    coords = [[-5, 0], [-3, 0], [-1, 0], [1, 0], [3, 0],
-                              [5, 0]];
+                    coords = [
+                        [-5, 0],
+                        [-3, 0],
+                        [-1, 0],
+                        [1, 0],
+                        [3, 0],
+                        [5, 0],
+                    ];
                     break;
                 case UNLIMITED:
                     coords = [];
@@ -1942,13 +2139,15 @@ _.extend(InteractiveGraph, {
      * @param {object} props of an InteractiveGraph instance
      */
     getLinearSystemCoords: function(graph, props) {
-        return graph.coords ||
-            _.map([
-                [[0.25, 0.75], [0.75, 0.75]],
-                [[0.25, 0.25], [0.75, 0.25]]
-            ], (coords) => {
-                return InteractiveGraph.pointsFromNormalized(props, coords);
-            });
+        return (
+            graph.coords ||
+            _.map(
+                [[[0.25, 0.75], [0.75, 0.75]], [[0.25, 0.25], [0.75, 0.25]]],
+                coords => {
+                    return InteractiveGraph.pointsFromNormalized(props, coords);
+                }
+            )
+        );
     },
 
     /**
@@ -1971,13 +2170,13 @@ _.extend(InteractiveGraph, {
 
             // TODO(alex): Generalize this to more than just triangles so that
             // all polygons have whole number side lengths if snapping to sides
-            var radius = graph.snapTo === "sides" ? Math.sqrt(3) / 3 * 7: 4;
+            var radius = graph.snapTo === "sides" ? Math.sqrt(3) / 3 * 7 : 4;
 
             // Generate coords of a regular polygon with n sides
             coords = _.times(n, function(i) {
                 return [
                     radius * Math.cos(i * angle + offset),
-                    radius * Math.sin(i * angle + offset)
+                    radius * Math.sin(i * angle + offset),
                 ];
             });
         }
@@ -1986,8 +2185,11 @@ _.extend(InteractiveGraph, {
         coords = InteractiveGraph.normalizeCoords(coords, range);
 
         var snapToGrid = !_.contains(["angles", "sides"], graph.snapTo);
-        coords = InteractiveGraph.pointsFromNormalized(props, coords,
-            /* noSnap */ !snapToGrid);
+        coords = InteractiveGraph.pointsFromNormalized(
+            props,
+            coords,
+            /* noSnap */ !snapToGrid
+        );
 
         return coords;
     },
@@ -2009,7 +2211,7 @@ _.extend(InteractiveGraph, {
             3: [5, 0, -5],
             4: [6, 2, -2, -6],
             5: [6, 3, 0, -3, -6],
-            6: [5, 3, 1, -1, -3, -5]
+            6: [5, 3, 1, -1, -3, -5],
         }[n];
         var range = [[-10, 10], [-10, 10]];
 
@@ -2040,8 +2242,8 @@ _.extend(InteractiveGraph, {
         var offset = (graph.angleOffsetDeg || 0) * Math.PI / 180;
 
         coords = InteractiveGraph.pointsFromNormalized(props, [
-            [0.85, 0.50],
-            [0.5, 0.50]
+            [0.85, 0.5],
+            [0.5, 0.5],
         ]);
 
         var radius = magnitude(vector.apply(null, coords));
@@ -2049,13 +2251,13 @@ _.extend(InteractiveGraph, {
         // Adjust the lower point by angleOffsetDeg degrees
         coords[0] = [
             coords[1][0] + radius * Math.cos(offset),
-            coords[1][1] + radius * Math.sin(offset)
+            coords[1][1] + radius * Math.sin(offset),
         ];
         // Position the upper point angle radians from the
         // lower point
         coords[2] = [
             coords[1][0] + radius * Math.cos(angle + offset),
-            coords[1][1] + radius * Math.sin(angle + offset)
+            coords[1][1] + radius * Math.sin(angle + offset),
         ];
 
         return coords;
@@ -2065,7 +2267,7 @@ _.extend(InteractiveGraph, {
         return _.map(coordsList, function(coords) {
             return _.map(coords, function(coord, i) {
                 var extent = range[i][1] - range[i][0];
-                return ((coord + range[i][1]) / extent);
+                return (coord + range[i][1]) / extent;
             });
         });
     },
@@ -2097,8 +2299,8 @@ _.extend(InteractiveGraph, {
         if (eq(coords[0][0], coords[1][0])) {
             return "x = " + coords[0][0].toFixed(3);
         } else {
-            var m = (coords[1][1] - coords[0][1]) /
-                    (coords[1][0] - coords[0][0]);
+            var m =
+                (coords[1][1] - coords[0][1]) / (coords[1][0] - coords[0][0]);
             var b = coords[0][1] - m * coords[0][0];
             if (eq(m, 0)) {
                 return "y = " + b.toFixed(3);
@@ -2110,8 +2312,9 @@ _.extend(InteractiveGraph, {
 
     getCurrentQuadraticCoefficients: function(props) {
         // TODO(alpert): Don't duplicate
-        var coords = props.graph.coords ||
-                InteractiveGraph.defaultQuadraticCoords(props);
+        var coords =
+            props.graph.coords ||
+            InteractiveGraph.defaultQuadraticCoords(props);
         return InteractiveGraph.getQuadraticCoefficients(coords);
     },
 
@@ -2121,31 +2324,40 @@ _.extend(InteractiveGraph, {
     },
 
     getQuadraticEquationString: function(props) {
-        var coeffs = InteractiveGraph.getCurrentQuadraticCoefficients(
-                props);
-        return "y = " + coeffs[0].toFixed(3) + "x^2 + " +
-                        coeffs[1].toFixed(3) + "x + " +
-                        coeffs[2].toFixed(3);
+        var coeffs = InteractiveGraph.getCurrentQuadraticCoefficients(props);
+        return (
+            "y = " +
+            coeffs[0].toFixed(3) +
+            "x^2 + " +
+            coeffs[1].toFixed(3) +
+            "x + " +
+            coeffs[2].toFixed(3)
+        );
     },
 
     getCurrentSinusoidCoefficients: function(props) {
-        var coords = props.graph.coords ||
-                InteractiveGraph.defaultSinusoidCoords(props);
+        var coords =
+            props.graph.coords || InteractiveGraph.defaultSinusoidCoords(props);
         return InteractiveGraph.getSinusoidCoefficients(coords);
     },
 
     defaultSinusoidCoords: function(props) {
-        var coords = [[0.5, 0.5], [0.65, 0.60]];
+        var coords = [[0.5, 0.5], [0.65, 0.6]];
         return InteractiveGraph.pointsFromNormalized(props, coords);
     },
 
     getSinusoidEquationString: function(props) {
-        var coeffs = InteractiveGraph.getCurrentSinusoidCoefficients(
-                props);
-        return "y = " + coeffs[0].toFixed(3) + "sin(" +
-                        coeffs[1].toFixed(3) + "x - " +
-                        coeffs[2].toFixed(3) + ") + " +
-                        coeffs[3].toFixed(3);
+        var coeffs = InteractiveGraph.getCurrentSinusoidCoefficients(props);
+        return (
+            "y = " +
+            coeffs[0].toFixed(3) +
+            "sin(" +
+            coeffs[1].toFixed(3) +
+            "x - " +
+            coeffs[2].toFixed(3) +
+            ") + " +
+            coeffs[3].toFixed(3)
+        );
     },
 
     getCircleEquationString: function(props) {
@@ -2153,39 +2365,42 @@ _.extend(InteractiveGraph, {
         // TODO(alpert): Don't duplicate
         var center = graph.center || [0, 0];
         var radius = graph.radius || 2;
-        return "center (" + center[0] + ", " + center[1] + "), radius " +
-                radius;
+        return (
+            "center (" + center[0] + ", " + center[1] + "), radius " + radius
+        );
     },
 
     getLinearSystemEquationString: function(props) {
-        var coords = InteractiveGraph.getLinearSystemCoords(
-            props.graph,
-            props
-        );
-        return "\n" +
+        var coords = InteractiveGraph.getLinearSystemCoords(props.graph, props);
+        return (
+            "\n" +
             getLineEquation(coords[0][0], coords[0][1]) +
             "\n" +
             getLineEquation(coords[1][0], coords[1][1]) +
             "\n" +
-            getLineIntersection(coords[0], coords[1]);
+            getLineIntersection(coords[0], coords[1])
+        );
     },
 
     getPointEquationString: function(props) {
         var coords = InteractiveGraph.getPointCoords(props.graph, props);
-        return coords.map(function(coord) {
-            return "(" + coord[0] + ", " + coord[1] + ")";
-        }).join(", ");
+        return coords
+            .map(function(coord) {
+                return "(" + coord[0] + ", " + coord[1] + ")";
+            })
+            .join(", ");
     },
 
     getSegmentEquationString: function(props) {
-        var segments = InteractiveGraph.getSegmentCoords(props.graph,
-            props);
+        var segments = InteractiveGraph.getSegmentCoords(props.graph, props);
         return _.map(segments, function(segment) {
-            return "[" +
+            return (
+                "[" +
                 _.map(segment, function(coord) {
                     return "(" + coord.join(", ") + ")";
                 }).join(" ") +
-            "]";
+                "]"
+            );
         }).join(" ");
     },
 
@@ -2209,10 +2424,7 @@ _.extend(InteractiveGraph, {
     },
 
     getPolygonEquationString: function(props) {
-        var coords = InteractiveGraph.getPolygonCoords(
-            props.graph,
-            props
-        );
+        var coords = InteractiveGraph.getPolygonCoords(props.graph, props);
         return _.map(coords, function(coord) {
             return "(" + coord.join(", ") + ")";
         }).join(" ");
@@ -2221,8 +2433,13 @@ _.extend(InteractiveGraph, {
     getAngleEquationString: function(props) {
         var coords = InteractiveGraph.getAngleCoords(props.graph, props);
         var angle = GraphUtils.findAngle(coords[2], coords[0], coords[1]);
-        return angle.toFixed(0) + "\u00B0 angle" +
-                " at (" + coords[1].join(", ") + ")";
+        return (
+            angle.toFixed(0) +
+            "\u00B0 angle" +
+            " at (" +
+            coords[1].join(", ") +
+            ")"
+        );
     },
 
     validate: function(state, rubric, component) {
@@ -2237,84 +2454,91 @@ _.extend(InteractiveGraph, {
                 var correct = rubric.correct.coords;
                 // If both of the guess points are on the correct line, it's
                 // correct.
-                if (collinear(correct[0], correct[1], guess[0]) &&
-                        collinear(correct[0], correct[1], guess[1])) {
+                if (
+                    collinear(correct[0], correct[1], guess[0]) &&
+                    collinear(correct[0], correct[1], guess[1])
+                ) {
                     return {
                         type: "points",
                         earned: 1,
                         total: 1,
-                        message: null
+                        message: null,
                     };
                 }
             } else if (state.type === "linear-system") {
                 var guess = state.coords;
                 var correct = rubric.correct.coords;
 
-                if ((
-                        collinear(correct[0][0], correct[0][1], guess[0][0]) &&
+                if (
+                    (collinear(correct[0][0], correct[0][1], guess[0][0]) &&
                         collinear(correct[0][0], correct[0][1], guess[0][1]) &&
                         collinear(correct[1][0], correct[1][1], guess[1][0]) &&
-                        collinear(correct[1][0], correct[1][1], guess[1][1])
-                    ) || (
-                        collinear(correct[0][0], correct[0][1], guess[1][0]) &&
+                        collinear(correct[1][0], correct[1][1], guess[1][1])) ||
+                    (collinear(correct[0][0], correct[0][1], guess[1][0]) &&
                         collinear(correct[0][0], correct[0][1], guess[1][1]) &&
                         collinear(correct[1][0], correct[1][1], guess[0][0]) &&
-                        collinear(correct[1][0], correct[1][1], guess[0][1])
-                    )) {
+                        collinear(correct[1][0], correct[1][1], guess[0][1]))
+                ) {
                     return {
                         type: "points",
                         earned: 1,
                         total: 1,
-                        message: null
+                        message: null,
                     };
                 }
-
             } else if (state.type === "quadratic") {
                 // If the parabola coefficients match, it's correct.
                 var guessCoeffs = this.getQuadraticCoefficients(state.coords);
                 var correctCoeffs = this.getQuadraticCoefficients(
-                        rubric.correct.coords);
+                    rubric.correct.coords
+                );
                 if (deepEq(guessCoeffs, correctCoeffs)) {
                     return {
                         type: "points",
                         earned: 1,
                         total: 1,
-                        message: null
+                        message: null,
                     };
                 }
             } else if (state.type === "sinusoid") {
-                var guessCoeffs = this.getSinusoidCoefficients(
-                    state.coords);
+                var guessCoeffs = this.getSinusoidCoefficients(state.coords);
                 var correctCoeffs = this.getSinusoidCoefficients(
-                        rubric.correct.coords);
+                    rubric.correct.coords
+                );
 
                 var canonicalGuessCoeffs = canonicalSineCoefficients(
-                                                guessCoeffs);
+                    guessCoeffs
+                );
                 var canonicalCorrectCoeffs = canonicalSineCoefficients(
-                                                correctCoeffs);
+                    correctCoeffs
+                );
                 // If the canonical coefficients match, it's correct.
                 if (deepEq(canonicalGuessCoeffs, canonicalCorrectCoeffs)) {
                     return {
                         type: "points",
                         earned: 1,
                         total: 1,
-                        message: null
+                        message: null,
                     };
                 }
             } else if (state.type === "circle") {
-                if (deepEq(state.center, rubric.correct.center) &&
-                        eq(state.radius, rubric.correct.radius)) {
+                if (
+                    deepEq(state.center, rubric.correct.center) &&
+                    eq(state.radius, rubric.correct.radius)
+                ) {
                     return {
                         type: "points",
                         earned: 1,
                         total: 1,
-                        message: null
+                        message: null,
                     };
                 }
             } else if (state.type === "point") {
                 var guess = state.coords;
                 var correct = InteractiveGraph.getPointCoords(
-                        rubric.correct, component);
+                    rubric.correct,
+                    component
+                );
                 guess = guess.slice();
                 correct = correct.slice();
                 // Everything's already rounded so we shouldn't need to do an
@@ -2328,7 +2552,7 @@ _.extend(InteractiveGraph, {
                         type: "points",
                         earned: 1,
                         total: 1,
-                        message: null
+                        message: null,
                     };
                 }
             } else if (state.type === "polygon") {
@@ -2342,7 +2566,8 @@ _.extend(InteractiveGraph, {
                     match = similar(guess, correct, knumber.DEFAULT_TOLERANCE);
                 } else if (rubric.correct.match === "approx") {
                     match = similar(guess, correct, 0.1);
-                } else { /* exact */
+                } else {
+                    /* exact */
                     guess.sort();
                     correct.sort();
                     match = deepEq(guess, correct);
@@ -2353,7 +2578,7 @@ _.extend(InteractiveGraph, {
                         type: "points",
                         earned: 1,
                         total: 1,
-                        message: null
+                        message: null,
                     };
                 }
             } else if (state.type === "segment") {
@@ -2366,19 +2591,21 @@ _.extend(InteractiveGraph, {
                         type: "points",
                         earned: 1,
                         total: 1,
-                        message: null
+                        message: null,
                     };
                 }
             } else if (state.type === "ray") {
                 var guess = state.coords;
                 var correct = rubric.correct.coords;
-                if (deepEq(guess[0], correct[0]) &&
-                        collinear(correct[0], correct[1], guess[1])) {
+                if (
+                    deepEq(guess[0], correct[0]) &&
+                    collinear(correct[0], correct[1], guess[1])
+                ) {
                     return {
                         type: "points",
                         earned: 1,
                         total: 1,
-                        message: null
+                        message: null,
                     };
                 }
             } else if (state.type === "angle") {
@@ -2389,14 +2616,19 @@ _.extend(InteractiveGraph, {
                 if (rubric.correct.match === "congruent") {
                     var angles = _.map([guess, correct], function(coords) {
                         var angle = GraphUtils.findAngle(
-                            coords[2], coords[0], coords[1]);
+                            coords[2],
+                            coords[0],
+                            coords[1]
+                        );
                         return (angle + 360) % 360;
                     });
                     match = eq.apply(null, angles);
-                } else { /* exact */
-                    match = deepEq(guess[1], correct[1]) &&
-                            collinear(correct[1], correct[0], guess[0]) &&
-                            collinear(correct[1], correct[2], guess[2]);
+                } else {
+                    /* exact */
+                    match =
+                        deepEq(guess[1], correct[1]) &&
+                        collinear(correct[1], correct[0], guess[0]) &&
+                        collinear(correct[1], correct[2], guess[2]);
                 }
 
                 if (match) {
@@ -2404,7 +2636,7 @@ _.extend(InteractiveGraph, {
                         type: "points",
                         earned: 1,
                         total: 1,
-                        message: null
+                        message: null,
                     };
                 }
             }
@@ -2416,17 +2648,17 @@ _.extend(InteractiveGraph, {
             // We're where we started.
             return {
                 type: "invalid",
-                message: null
+                message: null,
             };
         } else {
             return {
                 type: "points",
                 earned: 0,
                 total: 1,
-                message: null
+                message: null,
             };
         }
-    }
+    },
 });
 
 module.exports = {

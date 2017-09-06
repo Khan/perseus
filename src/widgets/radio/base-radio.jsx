@@ -4,9 +4,9 @@
 
 /* global i18n */
 
-const { StyleSheet, css } = require("aphrodite");
+const {StyleSheet, css} = require("aphrodite");
 const classNames = require("classnames");
-const React = require('react');
+const React = require("react");
 const ReactDOM = require("react-dom");
 const _ = require("underscore");
 
@@ -16,10 +16,8 @@ const sharedStyles = require("../../styles/shared.js");
 const styleConstants = require("../../styles/constants.js");
 const mediaQueries = require("../../styles/media-queries.js");
 
-
-const captureScratchpadTouchStart =
-        require("../../util.js").captureScratchpadTouchStart;
-
+const captureScratchpadTouchStart = require("../../util.js")
+    .captureScratchpadTouchStart;
 
 const Choice = require("./choice.jsx");
 
@@ -39,37 +37,38 @@ const ChoiceNoneAbove = React.createClass({
     render: function() {
         const choiceProps = _.extend({}, this.props, {
             className: classNames(this.props.className, "none-of-above"),
-            content: (this.props.showContent ?
-                this.props.content :
-                // We use a Renderer here because that is how
-                // `this.props.content` is wrapped otherwise.
-                // We pass in a key here so that we avoid a semi-spurious
-                // react warning when we render this in the same place
-                // as the previous choice content renderer.
-                // Note this destroys state, but since all we're doing
-                // is outputting "None of the above", that is okay.
-                <Renderer
-                    key="noneOfTheAboveRenderer"
-                    content={i18n._("None of the above")}
-                />
-            ),
+            content: this.props.showContent
+                ? this.props.content
+                : // We use a Renderer here because that is how
+                  // `this.props.content` is wrapped otherwise.
+                  // We pass in a key here so that we avoid a semi-spurious
+                  // react warning when we render this in the same place
+                  // as the previous choice content renderer.
+                  // Note this destroys state, but since all we're doing
+                  // is outputting "None of the above", that is okay.
+                  <Renderer
+                      key="noneOfTheAboveRenderer"
+                      content={i18n._("None of the above")}
+                  />,
         });
 
         return <Choice {...choiceProps} />;
     },
 });
 
-const ChoicesType = React.PropTypes.arrayOf(React.PropTypes.shape({
-    checked: React.PropTypes.bool,
-    content: React.PropTypes.node,
-    rationale: React.PropTypes.node,
-    hasRationale: React.PropTypes.bool,
-    showRationale: React.PropTypes.bool,
-    showCorrectness: React.PropTypes.bool,
-    correct: React.PropTypes.bool,
-    originalIndex: React.PropTypes.number,
-    isNoneOfTheAbove: React.PropTypes.bool,
-}));
+const ChoicesType = React.PropTypes.arrayOf(
+    React.PropTypes.shape({
+        checked: React.PropTypes.bool,
+        content: React.PropTypes.node,
+        rationale: React.PropTypes.node,
+        hasRationale: React.PropTypes.bool,
+        showRationale: React.PropTypes.bool,
+        showCorrectness: React.PropTypes.bool,
+        correct: React.PropTypes.bool,
+        originalIndex: React.PropTypes.number,
+        isNoneOfTheAbove: React.PropTypes.bool,
+    })
+);
 
 const radioBorderColor = styleConstants.radioBorderColor;
 
@@ -224,7 +223,8 @@ const BaseRadio = React.createClass({
             },
 
             aboveBackdropMobile: {
-                boxShadow: "0 0 4px 0 rgba(0, 0, 0, 0.2)," +
+                boxShadow:
+                    "0 0 4px 0 rgba(0, 0, 0, 0.2)," +
                     "0 0 2px 0 rgba(0, 0, 0, 0.1)",
 
                 ":not(:last-child)": {
@@ -275,7 +275,7 @@ const BaseRadio = React.createClass({
             // When multipleSelect is on, clicking an index toggles the
             // selection of just that index.
             newChecked = _.map(this.props.choices, (choice, i) => {
-                return (i === radioIndex) ? shouldBeChecked : choice.checked;
+                return i === radioIndex ? shouldBeChecked : choice.checked;
             });
         } else {
             // When multipleSelect is turned off we always unselect everything
@@ -299,9 +299,9 @@ const BaseRadio = React.createClass({
     getInstructionsText: function() {
         if (this.props.multipleSelect) {
             if (this.props.countChoices) {
-                return i18n._(
-                    "Choose %(numCorrect)s answers:",
-                    {numCorrect: this.props.numCorrect});
+                return i18n._("Choose %(numCorrect)s answers:", {
+                    numCorrect: this.props.numCorrect,
+                });
             } else {
                 return i18n._("Choose all answers that apply:");
             }
@@ -337,184 +337,211 @@ const BaseRadio = React.createClass({
                 // SAT doesn't use the "responsive styling" as it conflicts
                 // with their custom theming.
                 !sat && styles.responsiveRadioContainer,
-                !sat && firstChoiceHighlighted && isMobile &&
+                !sat &&
+                    firstChoiceHighlighted &&
+                    isMobile &&
                     styles.radioContainerFirstHighlighted,
-                !sat && lastChoiceHighlighted && isMobile &&
+                !sat &&
+                    lastChoiceHighlighted &&
+                    isMobile &&
                     styles.radioContainerLastHighlighted,
                 sat && styles.satRadio
             )
         );
 
         const instructionsClassName = classNames(
-            'instructions',
-            css(
-                styles.instructions,
-                isMobile && styles.instructionsMobile
-            )
+            "instructions",
+            css(styles.instructions, isMobile && styles.instructionsMobile)
         );
         const instructions = this.getInstructionsText();
         const shouldShowInstructions = !sat;
 
         const responsiveClassName = css(styles.responsiveFieldset);
-        const fieldset = <fieldset
-            className={`perseus-widget-radio-fieldset ${responsiveClassName}`}
-        >
-            <legend className="perseus-sr-only">
-                {instructions}
-            </legend>
-            {shouldShowInstructions &&
-                <div className={instructionsClassName}>
+        const fieldset = (
+            <fieldset
+                className={`perseus-widget-radio-fieldset ${responsiveClassName}`} // eslint-disable-line max-len
+            >
+                <legend className="perseus-sr-only">
                     {instructions}
-                </div>}
-            <ul className={className}>
-                {this.props.choices.map(function(choice, i) {
-                    let Element = Choice;
-                    const elementProps = {
-                        ref: `radio${i}`,
-                        apiOptions: this.props.apiOptions,
-                        checked: choice.checked,
-                        reviewMode,
-                        correct: choice.correct,
-                        rationale: choice.rationale,
-                        content: choice.content,
-                        disabled: (
-                            this.props.apiOptions.readOnly ||
-                            choice.disabled),
-                        editMode: this.props.editMode,
-                        groupName: this.state.radioGroupName,
-                        isLastChoice: i === this.props.choices.length - 1,
-                        showCorrectness: reviewMode || !!choice.showCorrectness,
-                        showRationale: choice.hasRationale && (
-                            reviewMode || choice.showRationale),
-                        type: inputType,
-                        pos: i,
-                        deselectEnabled: this.deselectEnabled(),
-                        onChecked: (checked) => {
-                            this.checkOption(i, checked);
-                        },
-                    };
-
-                    if (choice.isNoneOfTheAbove) {
-                        Element = ChoiceNoneAbove;
-                        _.extend(elementProps, {
-                            showContent: choice.revealNoneOfTheAbove,
-                        });
-                    }
-
-                    const nextChoice = this.props.choices[i + 1];
-                    const nextChoiceHighlighted =
-                        !!nextChoice && nextChoice.highlighted;
-
-                    const aphroditeClassName = (checked) => {
-                        // Whether or not to show correctness borders for this
-                        // choice and the next choice.
-                        const satShowCorrectness = sat && reviewMode && checked;
-                        const satShowCorrectnessNext =
-                            sat && reviewMode && nextChoice &&
-                            nextChoice.checked;
-
-                        return css(
-                            sharedStyles.aboveScratchpad,
-                            styles.item,
-                            !sat && styles.responsiveItem,
-                            !sat && checked && styles.selectedItem,
-                            !sat && checked && choice.highlighted &&
-                                styles.aboveBackdrop,
-                            !sat && checked && choice.highlighted &&
-                                this.props.apiOptions.isMobile &&
-                                styles.aboveBackdropMobile,
-                            !sat && nextChoiceHighlighted &&
-                                this.props.apiOptions.isMobile &&
-                                styles.nextHighlighted,
-                            sat && styles.satRadioOption,
-                            satShowCorrectness && !choice.correct &&
-                                styles.satRadioOptionIncorrect,
-                            satShowCorrectness && choice.correct &&
-                                styles.satRadioOptionCorrect,
-                            satShowCorrectnessNext && !nextChoice.correct &&
-                                styles.satRadioOptionNextIncorrect,
-                            satShowCorrectnessNext && nextChoice.correct &&
-                                styles.satRadioOptionNextCorrect,
-                            sat && rubric && styles.satReviewRadioOption
-                        );
-                    };
-
-                    // HACK(abdulrahman): Preloads the selection-state
-                    // css because of a bug that causes iOS to lag
-                    // when selecting the button for the first time.
-                    aphroditeClassName(true);
-
-                    const className = classNames(
-                        aphroditeClassName(choice.checked),
-                        // TODO(aria): Make test case for these API classNames
-                        ApiClassNames.RADIO.OPTION,
-                        choice.checked && ApiClassNames.RADIO.SELECTED,
-                        (reviewMode && rubric.choices[i].correct &&
-                            ApiClassNames.CORRECT
-                        ),
-                        (reviewMode && !rubric.choices[i].correct &&
-                            ApiClassNames.INCORRECT
-                        )
-                    );
-
-
-                    // In edit mode, the Choice renders a Div in order to allow
-                    // for the contentEditable area to be selected (label
-                    // forces any clicks inside to select the input element)
-                    // If its not a label, we must simulate that label behavior
-                    // for items that are not the draft editor
-                    let listElem = null;
-                    let clickHandler = null;
-                    if (this.props.editMode) {
-                        clickHandler = (e) => {
-                            // Traverse the parent nodes of the clicked element.
-                            let elem = e.target;
-                            while (elem && elem !== listElem) {
-                                // If the clicked element is inside of the
-                                // "content" part of the choice, it's probably
-                                // inside of the editors or delete button, so
-                                // bail out.
-                                if (elem.classList.contains(
-                                        ApiClassNames.RADIO.OPTION_CONTENT)) {
-                                    return;
-                                }
-                                elem = elem.parentNode;
-                            }
-
-                            // Otherwise, it's outside of the editors, so
-                            // select that option.
-                            this.checkOption(i, !choice.checked);
+                </legend>
+                {shouldShowInstructions &&
+                    <div className={instructionsClassName}>
+                        {instructions}
+                    </div>}
+                <ul className={className}>
+                    {this.props.choices.map(function(choice, i) {
+                        let Element = Choice;
+                        const elementProps = {
+                            ref: `radio${i}`,
+                            apiOptions: this.props.apiOptions,
+                            checked: choice.checked,
+                            reviewMode,
+                            correct: choice.correct,
+                            rationale: choice.rationale,
+                            content: choice.content,
+                            disabled:
+                                this.props.apiOptions.readOnly ||
+                                choice.disabled,
+                            editMode: this.props.editMode,
+                            groupName: this.state.radioGroupName,
+                            isLastChoice: i === this.props.choices.length - 1,
+                            showCorrectness:
+                                reviewMode || !!choice.showCorrectness,
+                            showRationale:
+                                choice.hasRationale &&
+                                (reviewMode || choice.showRationale),
+                            type: inputType,
+                            pos: i,
+                            deselectEnabled: this.deselectEnabled(),
+                            onChecked: checked => {
+                                this.checkOption(i, checked);
+                            },
                         };
-                    }
 
-                    // TODO(mattdr): Index isn't a *good* choice of key here;
-                    // is there a better one? Can we use choice content
-                    // somehow? Would changing our choice of key somehow break
-                    // any voodoo happening inside a choice's child Renderers
-                    // by changing when we mount/unmount?
-                    return <li
-                        key={i}
-                        ref={e => listElem = e}
-                        className={className}
-                        onClick={clickHandler}
-                        onTouchStart={!this.props.labelWrap ?
-                            null : captureScratchpadTouchStart
+                        if (choice.isNoneOfTheAbove) {
+                            Element = ChoiceNoneAbove;
+                            _.extend(elementProps, {
+                                showContent: choice.revealNoneOfTheAbove,
+                            });
                         }
-                    >
-                        <Element {...elementProps} />
-                    </li>;
-                }, this)}
-            </ul>
-        </fieldset>;
+
+                        const nextChoice = this.props.choices[i + 1];
+                        const nextChoiceHighlighted =
+                            !!nextChoice && nextChoice.highlighted;
+
+                        const aphroditeClassName = checked => {
+                            // Whether or not to show correctness borders
+                            // for this choice and the next choice.
+                            const satShowCorrectness =
+                                sat && reviewMode && checked;
+                            const satShowCorrectnessNext =
+                                sat &&
+                                reviewMode &&
+                                nextChoice &&
+                                nextChoice.checked;
+
+                            return css(
+                                sharedStyles.aboveScratchpad,
+                                styles.item,
+                                !sat && styles.responsiveItem,
+                                !sat && checked && styles.selectedItem,
+                                !sat &&
+                                    checked &&
+                                    choice.highlighted &&
+                                    styles.aboveBackdrop,
+                                !sat &&
+                                    checked &&
+                                    choice.highlighted &&
+                                    this.props.apiOptions.isMobile &&
+                                    styles.aboveBackdropMobile,
+                                !sat &&
+                                    nextChoiceHighlighted &&
+                                    this.props.apiOptions.isMobile &&
+                                    styles.nextHighlighted,
+                                sat && styles.satRadioOption,
+                                satShowCorrectness &&
+                                    !choice.correct &&
+                                    styles.satRadioOptionIncorrect,
+                                satShowCorrectness &&
+                                    choice.correct &&
+                                    styles.satRadioOptionCorrect,
+                                satShowCorrectnessNext &&
+                                    !nextChoice.correct &&
+                                    styles.satRadioOptionNextIncorrect,
+                                satShowCorrectnessNext &&
+                                    nextChoice.correct &&
+                                    styles.satRadioOptionNextCorrect,
+                                sat && rubric && styles.satReviewRadioOption
+                            );
+                        };
+
+                        // HACK(abdulrahman): Preloads the selection-state
+                        // css because of a bug that causes iOS to lag
+                        // when selecting the button for the first time.
+                        aphroditeClassName(true);
+
+                        const className = classNames(
+                            aphroditeClassName(choice.checked),
+                            // TODO(aria): Make test case for these API
+                            // classNames
+                            ApiClassNames.RADIO.OPTION,
+                            choice.checked && ApiClassNames.RADIO.SELECTED,
+                            reviewMode &&
+                                rubric.choices[i].correct &&
+                                ApiClassNames.CORRECT,
+                            reviewMode &&
+                                !rubric.choices[i].correct &&
+                                ApiClassNames.INCORRECT
+                        );
+
+                        // In edit mode, the Choice renders a Div in order to
+                        // allow for the contentEditable area to be selected
+                        // (label forces any clicks inside to select the input
+                        // element) If its not a label, we must simulate that
+                        // label behavior for items that are not the draft
+                        // editor
+                        let listElem = null;
+                        let clickHandler = null;
+                        if (this.props.editMode) {
+                            clickHandler = e => {
+                                // Traverse the parent nodes of the clicked
+                                // element.
+                                let elem = e.target;
+                                while (elem && elem !== listElem) {
+                                    // If the clicked element is inside of the
+                                    // "content" part of the choice, it's
+                                    // probably inside of the editors or delete
+                                    // button, so bail out.
+                                    if (
+                                        elem.classList.contains(
+                                            ApiClassNames.RADIO.OPTION_CONTENT
+                                        )
+                                    ) {
+                                        return;
+                                    }
+                                    elem = elem.parentNode;
+                                }
+
+                                // Otherwise, it's outside of the editors, so
+                                // select that option.
+                                this.checkOption(i, !choice.checked);
+                            };
+                        }
+
+                        // TODO(mattdr): Index isn't a *good* choice of key
+                        // here; is there a better one? Can we use choice
+                        // content somehow? Would changing our choice of key
+                        // somehow break any voodoo happening inside a
+                        // choice's child Renderers by changing when we
+                        // mount/unmount?
+                        return (
+                            <li
+                                key={i}
+                                ref={e => (listElem = e)}
+                                className={className}
+                                onClick={clickHandler}
+                                onTouchStart={
+                                    !this.props.labelWrap
+                                        ? null
+                                        : captureScratchpadTouchStart
+                                }
+                            >
+                                <Element {...elementProps} />
+                            </li>
+                        );
+                    }, this)}
+                </ul>
+            </fieldset>
+        );
 
         // Allow for horizontal scrolling if content is too wide, which may be
         // an issue especially on phones.
         // This is disabled in SAT, since it conflicts with their theming.
-        return <div
-            className={css(!sat && styles.responsiveContainer)}
-        >
-            {fieldset}
-        </div>;
+        return (
+            <div className={css(!sat && styles.responsiveContainer)}>
+                {fieldset}
+            </div>
+        );
     },
 });
 

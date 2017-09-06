@@ -25,24 +25,23 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 
-
 // CSS TRANSITION SUPPORT (Shoutout: http://www.modernizr.com/)
 // ============================================================
 
 function transitionEnd() {
-    var el = document.createElement('bootstrap');
+    var el = document.createElement("bootstrap");
 
     var transEndEventNames = {
-        WebkitTransition: 'webkitTransitionEnd',
-        MozTransition: 'transitionend',
-        OTransition: 'oTransitionEnd otransitionend',
-        transition: 'transitionend',
+        WebkitTransition: "webkitTransitionEnd",
+        MozTransition: "transitionend",
+        OTransition: "oTransitionEnd otransitionend",
+        transition: "transitionend",
     };
 
     for (var name in transEndEventNames) {
         if (el.style[name] !== undefined) {
             return {
-                end: transEndEventNames[name]
+                end: transEndEventNames[name],
             };
         }
     }
@@ -54,7 +53,7 @@ function transitionEnd() {
 $.fn.emulateTransitionEnd = function(duration) {
     var called = false;
     var $el = this;
-    $(this).one('bsTransitionEnd', function() {
+    $(this).one("bsTransitionEnd", function() {
         called = true;
     });
     var callback = function() {
@@ -97,9 +96,9 @@ function changeViewportTag(contentString, callback) {
 
     const viewport = document.querySelector("meta[name=viewport]");
     if (viewport) {
-        viewport.setAttribute('content', contentString);
+        viewport.setAttribute("content", contentString);
     } else {
-        $('head').append(`<meta name="viewport" content="${contentString}">`);
+        $("head").append(`<meta name="viewport" content="${contentString}">`);
     }
 
     // Hacky way to get the page to take the changes
@@ -123,18 +122,14 @@ function changeViewportTag(contentString, callback) {
 /**
  * The zoom service
  */
-function ZoomService() {
-}
+function ZoomService() {}
 
 ZoomService.prototype._initialize = function(enableMobilePinch) {
     // Check to see if the service is already initialized
     if (this._$document) {
         return;
     }
-    this._activeZoom =
-        this._initialScrollPosition =
-        this._initialTouchPosition =
-        this._touchMoveListener = null;
+    this._activeZoom = this._initialScrollPosition = this._initialTouchPosition = this._touchMoveListener = null;
 
     this._$document = $(document);
     this._$window = $(window);
@@ -149,20 +144,22 @@ ZoomService.prototype.handleZoomClick = function(e, enableMobilePinch) {
     this._initialize(enableMobilePinch);
     var target = e.target;
 
-    if (!target || target.tagName !== 'IMG') {
+    if (!target || target.tagName !== "IMG") {
         return;
     }
 
-    if (this._$body.hasClass('zoom-overlay-open')) {
+    if (this._$body.hasClass("zoom-overlay-open")) {
         return;
     }
 
     if (e.metaKey || e.ctrlKey) {
-        return window.open(e.target.src, '_blank');
+        return window.open(e.target.src, "_blank");
     }
 
-    if (!enableMobilePinch &&
-            target.width >= window.innerWidth - Zoom.getOffset()) {
+    if (
+        !enableMobilePinch &&
+        target.width >= window.innerWidth - Zoom.getOffset()
+    ) {
         return;
     }
 
@@ -178,23 +175,24 @@ ZoomService.prototype.handleZoomClick = function(e, enableMobilePinch) {
     if (enableMobilePinch) {
         // Disable zoom out by setting minimum scale of 1 on the viewport tag.
         changeViewportTag(
-            'width=device-width, initial-scale=1, minimum-scale=1',
-            () => this._zoom(target));
+            "width=device-width, initial-scale=1, minimum-scale=1",
+            () => this._zoom(target)
+        );
     } else {
         this._zoom(target);
     }
 
     if (!enableMobilePinch) {
         // todo(fat): probably worth throttling this
-        this._$window.on('scroll.zoom', $.proxy(this._scrollHandler, this));
+        this._$window.on("scroll.zoom", $.proxy(this._scrollHandler, this));
 
-        this._$document.on('keyup.zoom', $.proxy(this._keyHandler, this));
-        this._$document.on('touchstart.zoom', $.proxy(this._touchStart, this));
+        this._$document.on("keyup.zoom", $.proxy(this._keyHandler, this));
+        this._$document.on("touchstart.zoom", $.proxy(this._touchStart, this));
     }
 
     // we use a capturing phase here to prevent unintended js events
     // sadly no useCapture in jquery api (http://bugs.jquery.com/ticket/14953)
-    document.addEventListener('click', this._boundClick, true);
+    document.addEventListener("click", this._boundClick, true);
 
     e.stopPropagation();
 };
@@ -228,10 +226,10 @@ ZoomService.prototype._activeZoomClose = function(forceDispose) {
 };
 
 ZoomService.prototype._disposeActiveZoom = function() {
-    this._$window.off('.zoom');
-    this._$document.off('.zoom');
+    this._$window.off(".zoom");
+    this._$document.off(".zoom");
 
-    document.removeEventListener('click', this._boundClick, true);
+    document.removeEventListener("click", this._boundClick, true);
 
     this._activeZoom = null;
 };
@@ -262,26 +260,27 @@ ZoomService.prototype._touchStart = function(e) {
     // Our jQuery doesn't include `touches` in its event
     // TODO(kevindangoor) Remove `originalEvent` once jQuery is updated
     this._initialTouchPosition = e.originalEvent.touches[0].pageY;
-    $(e.target).on('touchmove.zoom', $.proxy(this._touchMove, this));
+    $(e.target).on("touchmove.zoom", $.proxy(this._touchMove, this));
 };
 
 ZoomService.prototype._touchMove = function(e) {
     // Our jQuery doesn't include `touches` in its event
     // TODO(kevindangoor) Remove `originalEvent` once jQuery is updated
-    if (Math.abs(e.originalEvent.touches[0].pageY - this._initialTouchPosition) > 10) {
+    if (
+        Math.abs(
+            e.originalEvent.touches[0].pageY - this._initialTouchPosition
+        ) > 10
+    ) {
         this._activeZoomClose();
-        $(e.target).off('touchmove.zoom');
+        $(e.target).off("touchmove.zoom");
     }
 };
-
 
 /**
  * The zoom object
  */
 function Zoom(img, enableMobilePinch) {
-    this._fullHeight =
-        this._fullWidth =
-        this._overlay = null;
+    this._fullHeight = this._fullWidth = this._overlay = null;
 
     this._targetImage = img;
     this._enableMobilePinch = enableMobilePinch;
@@ -303,7 +302,7 @@ Zoom.prototype.getOffset = function() {
 };
 
 Zoom.prototype.zoomImage = function() {
-    var img = document.createElement('img');
+    var img = document.createElement("img");
     var $zoomedImage = $(img);
 
     img.onload = function() {
@@ -313,7 +312,7 @@ Zoom.prototype.zoomImage = function() {
         this._fullWidth = Number(img.width);
 
         // Set up our image to mirror the current image on the document.
-        var imageOffset = this._imageOffset = $(this._targetImage).offset();
+        var imageOffset = (this._imageOffset = $(this._targetImage).offset());
 
         // Position the image using viewport-fixed coordinates so that it is
         // exactly over the image on the document.
@@ -321,8 +320,8 @@ Zoom.prototype.zoomImage = function() {
         // Said another way ... get the coordinates of the image relative to
         // the viewport, and use those to position our new image (which is
         // absolutely positioned within a full-bleed fixed-position container).
-        var left = this._left = imageOffset.left - $(window).scrollLeft();
-        var top = this._top = imageOffset.top - $(window).scrollTop();
+        var left = (this._left = imageOffset.left - $(window).scrollLeft());
+        var top = (this._top = imageOffset.top - $(window).scrollTop());
 
         $zoomedImage.css({
             left: left,
@@ -340,17 +339,15 @@ Zoom.prototype.zoomImage = function() {
 };
 
 Zoom.prototype._zoomOriginal = function() {
-    this.$zoomedImage
-        .addClass('zoom-img')
-        .attr('data-action', 'zoom-out');
+    this.$zoomedImage.addClass("zoom-img").attr("data-action", "zoom-out");
     $(this._targetImage).css("visibility", "hidden");
 
-    this._backdrop = document.createElement('div');
-    this._backdrop.className = 'zoom-backdrop';
+    this._backdrop = document.createElement("div");
+    this._backdrop.className = "zoom-backdrop";
     document.body.appendChild(this._backdrop);
 
-    this._overlay = document.createElement('div');
-    this._overlay.className = 'zoom-overlay';
+    this._overlay = document.createElement("div");
+    this._overlay.className = "zoom-overlay";
 
     document.body.appendChild(this._overlay);
     this._overlay.appendChild(this.$zoomedImage[0]);
@@ -362,38 +359,37 @@ Zoom.prototype._zoomOriginal = function() {
 Zoom.prototype._calculateZoom = function() {
     const originalFullImageWidth = this._fullWidth;
     const originalFullImageHeight = this._fullHeight;
-    const viewportHeight = (window.innerHeight - this.getOffset());
-    const viewportWidth = (window.innerWidth - this.getOffset());
+    const viewportHeight = window.innerHeight - this.getOffset();
+    const viewportWidth = window.innerWidth - this.getOffset();
 
     const maxScaleFactor = originalFullImageWidth / this._targetImage.width;
 
     // Zoom to fit the viewport.
-    const imageAspectRatio =
-        originalFullImageWidth / originalFullImageHeight;
+    const imageAspectRatio = originalFullImageWidth / originalFullImageHeight;
     const viewportAspectRatio = viewportWidth / viewportHeight;
 
-    if (originalFullImageWidth < viewportWidth &&
-            originalFullImageHeight < viewportHeight) {
+    if (
+        originalFullImageWidth < viewportWidth &&
+        originalFullImageHeight < viewportHeight
+    ) {
         this._imgScaleFactor = maxScaleFactor;
-
     } else if (imageAspectRatio < viewportAspectRatio) {
-        this._imgScaleFactor = (viewportHeight / originalFullImageHeight) *
-            maxScaleFactor;
-
+        this._imgScaleFactor =
+            viewportHeight / originalFullImageHeight * maxScaleFactor;
     } else {
-        this._imgScaleFactor = (viewportWidth / originalFullImageWidth) *
-            maxScaleFactor;
+        this._imgScaleFactor =
+            viewportWidth / originalFullImageWidth * maxScaleFactor;
     }
 };
 
 Zoom.prototype._triggerAnimation = function() {
-    var viewportY = $(window).scrollTop() + (window.innerHeight / 2);
-    var viewportX = $(window).scrollLeft() + (window.innerWidth / 2);
+    var viewportY = $(window).scrollTop() + window.innerHeight / 2;
+    var viewportX = $(window).scrollLeft() + window.innerWidth / 2;
 
     var scaleFactor = this._imgScaleFactor;
 
-    var imageCenterY = this._imageOffset.top + (this._targetImage.height / 2);
-    var imageCenterX = this._imageOffset.left + (this._targetImage.width / 2);
+    var imageCenterY = this._imageOffset.top + this._targetImage.height / 2;
+    var imageCenterX = this._imageOffset.left + this._targetImage.width / 2;
 
     this._translateY = (viewportY - imageCenterY) / scaleFactor;
     this._translateX = (viewportX - imageCenterX) / scaleFactor;
@@ -408,11 +404,11 @@ Zoom.prototype._triggerAnimation = function() {
         .css({
             transform: this._zoomedInTransformString,
         })
-        .addClass('zoom-transition')
+        .addClass("zoom-transition")
         .one($.support.transition.end, $.proxy(this._onZoomInFinish, this))
         .emulateTransitionEnd(300);
 
-    this._$body.addClass('zoom-overlay-open');
+    this._$body.addClass("zoom-overlay-open");
 };
 
 Zoom.prototype._onZoomInFinish = function() {
@@ -457,18 +453,18 @@ Zoom.prototype._onZoomInFinish = function() {
             marginLeft: marginLeft,
             marginTop: marginTop,
             top: top,
-            transform: '',
+            transform: "",
             width: width,
         })
-        .removeClass('zoom-transition');
+        .removeClass("zoom-transition");
 
     $(this._overlay).scrollLeft(scrollLeft).scrollTop(scrollTop);
 };
 
 Zoom.prototype.close = function() {
     this._$body
-        .removeClass('zoom-overlay-open')
-        .addClass('zoom-overlay-transitioning');
+        .removeClass("zoom-overlay-open")
+        .addClass("zoom-overlay-transitioning");
 
     // Upon closing the image, zoom it back out. Do this by first re-applying the
     // zoomed-in transform and resetting the CSS top/left + margins to what it
@@ -487,7 +483,7 @@ Zoom.prototype.close = function() {
             transform: this._zoomedInTransformString,
             width: this._targetImage.width,
         })
-        .removeClass('zoom-transition');
+        .removeClass("zoom-transition");
 
     $(this._overlay).scrollLeft(0).scrollTop(0);
 
@@ -498,11 +494,11 @@ Zoom.prototype.close = function() {
     setTimeout(() => {
         this.$zoomedImage
             .css({
-                transform: 'scale(1)',
+                transform: "scale(1)",
             })
-            .addClass('zoom-transition')
-           .one($.support.transition.end, $.proxy(this.dispose, this))
-           .emulateTransitionEnd(300);
+            .addClass("zoom-transition")
+            .one($.support.transition.end, $.proxy(this.dispose, this))
+            .emulateTransitionEnd(300);
     }, 10);
 };
 
@@ -514,9 +510,9 @@ Zoom.prototype.dispose = function() {
         this._overlay.parentNode.removeChild(this._overlay);
         this._backdrop.parentNode.removeChild(this._backdrop);
 
-        this._$body.removeClass('zoom-overlay-transitioning');
+        this._$body.removeClass("zoom-overlay-transitioning");
     }
-    $(this._targetImage).css('visibility', 'visible');
+    $(this._targetImage).css("visibility", "visible");
 };
 
 exports.ZoomService = new ZoomService();

@@ -1,6 +1,6 @@
 /* global i18n */
 
-const React = require('react');
+const React = require("react");
 const _ = require("underscore");
 
 const Renderer = require("../../renderer.jsx");
@@ -9,21 +9,25 @@ const Util = require("../../util.js");
 
 const BaseRadio = require("./base-radio.jsx");
 
-const {linterContextProps, linterContextDefault} = require("../../gorgon/proptypes.js");
-
+const {
+    linterContextProps,
+    linterContextDefault,
+} = require("../../gorgon/proptypes.js");
 
 const Radio = React.createClass({
     propTypes: {
         apiOptions: BaseRadio.propTypes.apiOptions,
-        choices: React.PropTypes.arrayOf(React.PropTypes.shape({
-            content: React.PropTypes.string.isRequired,
-            // Clues are called "rationales" in most other places but are left
-            // as "clue"s here to preserve legacy widget data.
-            clue: React.PropTypes.string,
-            correct: React.PropTypes.bool,
-            isNoneOfTheAbove: React.PropTypes.bool,
-            originalIndex: React.PropTypes.number.isRequired,
-        }).isRequired).isRequired,
+        choices: React.PropTypes.arrayOf(
+            React.PropTypes.shape({
+                content: React.PropTypes.string.isRequired,
+                // Clues are called "rationales" in most other places but are
+                // left as "clue"s here to preserve legacy widget data.
+                clue: React.PropTypes.string,
+                correct: React.PropTypes.bool,
+                isNoneOfTheAbove: React.PropTypes.bool,
+                originalIndex: React.PropTypes.number.isRequired,
+            }).isRequired
+        ).isRequired,
 
         deselectEnabled: React.PropTypes.bool,
         displayCount: React.PropTypes.any,
@@ -38,13 +42,15 @@ const Radio = React.createClass({
         trackInteraction: React.PropTypes.func.isRequired,
         // values is the legacy choiceState data format
         values: React.PropTypes.arrayOf(React.PropTypes.bool),
-        choiceStates: React.PropTypes.arrayOf(React.PropTypes.shape({
-            selected: React.PropTypes.bool,
-            highlighted: React.PropTypes.bool,
-            rationaleShown: React.PropTypes.bool,
-            correctnessShown: React.PropTypes.bool,
-            readOnly: React.PropTypes.bool,
-        }).isRequired),
+        choiceStates: React.PropTypes.arrayOf(
+            React.PropTypes.shape({
+                selected: React.PropTypes.bool,
+                highlighted: React.PropTypes.bool,
+                rationaleShown: React.PropTypes.bool,
+                correctnessShown: React.PropTypes.bool,
+                readOnly: React.PropTypes.bool,
+            }).isRequired
+        ),
         linterContext: linterContextProps,
         static: React.PropTypes.bool,
     },
@@ -97,14 +103,16 @@ const Radio = React.createClass({
         // "None of the above", that is okay.
         // TODO(mdr): Widgets inside this Renderer are not discoverable through
         //     the parent Renderer's `findWidgets` function.
-        return <Renderer
-            key="choiceContentRenderer"
-            content={modContent}
-            widgets={widgets}
-            findExternalWidgets={this.props.findWidgets}
-            alwaysUpdate={true}
-            linterContext={this.props.linterContext}
-        />;
+        return (
+            <Renderer
+                key="choiceContentRenderer"
+                content={modContent}
+                widgets={widgets}
+                findExternalWidgets={this.props.findWidgets}
+                alwaysUpdate={true}
+                linterContext={this.props.linterContext}
+            />
+        );
     },
 
     focus: function(i) {
@@ -112,7 +120,6 @@ const Radio = React.createClass({
     },
 
     onCheckedChange: function(checked) {
-
         const {choiceStates, choices} = this.props;
 
         if (choiceStates) {
@@ -171,7 +178,7 @@ const Radio = React.createClass({
                 noneOfTheAboveIndex,
                 noneOfTheAboveSelected,
             };
-        // Support legacy choiceState implementation
+            // Support legacy choiceState implementation
         } else if (this.props.values) {
             let noneOfTheAboveIndex = null;
             let noneOfTheAboveSelected = false;
@@ -212,9 +219,11 @@ const Radio = React.createClass({
 
     enforceOrdering: function(choices) {
         const content = _.pluck(choices, "content");
-        if (_.isEqual(content, [i18n._("False"), i18n._("True")]) ||
-            _.isEqual(content, [i18n._("No"), i18n._("Yes")])) {
-            return ([choices[1]]).concat([choices[0]]);
+        if (
+            _.isEqual(content, [i18n._("False"), i18n._("True")]) ||
+            _.isEqual(content, [i18n._("No"), i18n._("Yes")])
+        ) {
+            return [choices[1]].concat([choices[0]]);
         }
         return choices;
     },
@@ -228,20 +237,19 @@ const Radio = React.createClass({
         if (this.props.choiceStates) {
             const score = this.simpleValidate(rubric);
             const widgetCorrect =
-                score.type === "points" &&
-                score.total === score.earned;
+                score.type === "points" && score.total === score.earned;
 
             const newStates = this.props.choiceStates.map(state => ({
                 ...state,
                 highlighted: state.selected,
-                rationaleShown: (
-                    // If the choice is selected, show the rationale now
+                // If the choice is selected, show the rationale now
+                rationaleShown:
                     state.selected ||
                     // If the choice already had a rationale, keep it shown
                     state.rationaleShown ||
                     // If the widget is correctly answered, show the rationale
                     // for all the choices
-                    widgetCorrect),
+                    widgetCorrect,
                 // We use the same behavior for the readOnly flag as for
                 // rationaleShown, but we keep it separate in case other
                 // behaviors want to disable choices without showing rationales.
@@ -254,7 +262,7 @@ const Radio = React.createClass({
                     choiceStates: newStates,
                 },
                 null, // cb
-                true, // silent
+                true // silent
             );
         }
     },
@@ -275,7 +283,7 @@ const Radio = React.createClass({
                     choiceStates: newStates,
                 },
                 null, // cb
-                false, // silent
+                false // silent
             );
         }
     },
@@ -284,7 +292,7 @@ const Radio = React.createClass({
         let choices = this.props.choices;
         let choiceStates;
         if (this.props.static) {
-            choiceStates = _.map(choices, (val) => ({
+            choiceStates = _.map(choices, val => ({
                 selected: val.correct,
                 readOnly: true,
                 highlighted: false,
@@ -295,7 +303,7 @@ const Radio = React.createClass({
             choiceStates = this.props.choiceStates;
         } else if (this.props.values) {
             // Support legacy choiceStates implementation
-            choiceStates = _.map(this.props.values, (val) => ({
+            choiceStates = _.map(this.props.values, val => ({
                 selected: val,
                 readOnly: false,
                 highlighted: false,
@@ -313,12 +321,13 @@ const Radio = React.createClass({
         }
 
         choices = _.map(choices, (choice, i) => {
-            const content = (choice.isNoneOfTheAbove && !choice.content) ?
-                // we use i18n._ instead of $_ here because the content
-                // sent to a renderer needs to be a string, not a react
-                // node (/renderable/fragment).
-                i18n._("None of the above") :
-                choice.content;
+            const content =
+                choice.isNoneOfTheAbove && !choice.content
+                    ? // we use i18n._ instead of $_ here because the content
+                      // sent to a renderer needs to be a string, not a react
+                      // node (/renderable/fragment).
+                      i18n._("None of the above")
+                    : choice.content;
 
             const {
                 selected,
@@ -345,9 +354,10 @@ const Radio = React.createClass({
                 // TODO(emily): Come up with a more comprehensive way to solve
                 // this sort of "serialized state breaks when internal
                 // structure changes" problem.
-                correct: typeof choice.correct === "undefined"
-                    ? !!reviewChoice && reviewChoice.correct
-                    : choice.correct,
+                correct:
+                    typeof choice.correct === "undefined"
+                        ? !!reviewChoice && reviewChoice.correct
+                        : choice.correct,
                 disabled: readOnly,
                 hasRationale: !!choice.clue,
                 rationale: this._renderRenderer(choice.clue),
@@ -360,26 +370,32 @@ const Radio = React.createClass({
         });
         choices = this.enforceOrdering(choices);
 
-        return <BaseRadio
-            ref="baseRadio"
-            labelWrap={true}
-            multipleSelect={this.props.multipleSelect}
-            countChoices={this.props.countChoices}
-            numCorrect={this.props.numCorrect}
-            choices={choices}
-            onCheckedChange={this.onCheckedChange}
-            reviewModeRubric={this.props.reviewModeRubric}
-            deselectEnabled={this.props.deselectEnabled}
-            apiOptions={this.props.apiOptions}
-        />;
+        return (
+            <BaseRadio
+                ref="baseRadio"
+                labelWrap={true}
+                multipleSelect={this.props.multipleSelect}
+                countChoices={this.props.countChoices}
+                numCorrect={this.props.numCorrect}
+                choices={choices}
+                onCheckedChange={this.onCheckedChange}
+                reviewModeRubric={this.props.reviewModeRubric}
+                deselectEnabled={this.props.deselectEnabled}
+                apiOptions={this.props.apiOptions}
+            />
+        );
     },
 });
 
 _.extend(Radio, {
     validate: function(state, rubric) {
-        const numSelected = _.reduce(state.choicesSelected, (sum, selected) => {
-            return sum + ((selected) ? 1 : 0);
-        }, 0);
+        const numSelected = _.reduce(
+            state.choicesSelected,
+            (sum, selected) => {
+                return sum + (selected ? 1 : 0);
+            },
+            0
+        );
 
         if (numSelected === 0) {
             return {
@@ -389,15 +405,16 @@ _.extend(Radio, {
         } else if (state.countChoices && numSelected !== state.numCorrect) {
             return {
                 type: "invalid",
-                message: i18n._(
-                    "Please choose the correct number of answers."),
+                message: i18n._("Please choose the correct number of answers."),
             };
-        // If NOTA and some other answer are checked, ...
+            // If NOTA and some other answer are checked, ...
         } else if (state.noneOfTheAboveSelected && numSelected > 1) {
             return {
                 type: "invalid",
-                message: i18n._("'None of the above' may not be selected " +
-                                    "when other answers are selected."),
+                message: i18n._(
+                    "'None of the above' may not be selected " +
+                        "when other answers are selected."
+                ),
             };
         } else {
             /* jshint -W018 */

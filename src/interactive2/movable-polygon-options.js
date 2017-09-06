@@ -1,53 +1,52 @@
-/* eslint-disable brace-style, comma-dangle, indent, no-var, object-curly-spacing, one-var */
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /**
  * A library of options to pass to add/draw/remove/constraints
  */
 
 const _ = require("underscore");
-var kpoint = require("kmath").point;
-var kvector = require("kmath").vector;
+const kpoint = require("kmath").point;
+const kvector = require("kmath").vector;
 
 function sum(array) {
-    return _.reduce(array, function(memo, arg) { return memo + arg; }, 0);
+    return _.reduce(array, function(memo, arg) {
+        return memo + arg;
+    }, 0);
 }
 
 function clockwise(points) {
-    var segments = _.zip(points, points.slice(1).concat(points.slice(0, 1)));
-    var areas = _.map(segments, function(segment) {
-        var p1 = segment[0], p2 = segment[1];
+    const segments = _.zip(points, points.slice(1).concat(points.slice(0, 1)));
+    const areas = _.map(segments, function(segment) {
+        const p1 = segment[0];
+        const p2 = segment[1];
         return (p2[0] - p1[0]) * (p2[1] + p1[1]);
     });
     return sum(areas) > 0;
 }
 
-var add = {
+const add = {
     constrain: function() {
         this.constrain();
     },
 
     pointsToFront: function(state) {
         _.invoke(state.points, "toFront");
-    }
+    },
 };
 
 add.standard = [add.constrain, add.pointsToFront];
 
-var modify = {
+const modify = {
     draw: function() {
         this.draw();
-    }
+    },
 };
 
 modify.standard = [modify.draw];
 
 
-var draw = {
+const draw = {
     basic: function(state, prevState) {
-        var graphie = this.graphie;
-        var path = this.path(state);
+        const graphie = this.graphie;
+        const path = this.path(state);
 
         if (!this.state.visibleShape) {
             this.state.visibleShape = graphie.raphael.path(path);
@@ -57,9 +56,9 @@ var draw = {
                 !_.isEqual(state.normalStyle, prevState.normalStyle)) {
             this.state.visibleShape.attr(this.normalStyle());
         }
-        this.state.visibleShape.attr({ path: path });
+        this.state.visibleShape.attr({path: path});
         if (this.mouseTarget()) {
-            this.mouseTarget().attr({ path: path });
+            this.mouseTarget().attr({path: path});
         }
     },
 
@@ -67,12 +66,12 @@ var draw = {
      * extra movables, e.g., for the arcs drawn at labeled angles. These extra
      * movables are stored in the label cache. */
     labels: function(state, prevState) {
-        var graphie = this.graphie;
-        var self = this;
+        const graphie = this.graphie;
+        const self = this;
 
-        var coords = _.invoke(state.points, "coord");
-        var isClockwise = clockwise(coords);
-        var n = coords.length;
+        const coords = _.invoke(state.points, "coord");
+        const isClockwise = clockwise(coords);
+        const n = coords.length;
 
         // graphie.labelAngle and similar methods attempt to re-use the label
         // provided, which will have been stored on state._labeledAngles.
@@ -94,10 +93,11 @@ var draw = {
                         state.angleLabels.length,
                         state.showRightAngleMarkers.length),
                     function() {
-                        return graphie.label([0, 0], "", "center",
-                            state.labelStyle);
-                        }
-                    );
+                        return graphie.label(
+                            [0, 0], "", "center", state.labelStyle
+                        );
+                    }
+                );
             }
 
             _.each(self.state._labeledAngles, function(label, i) {
@@ -110,7 +110,7 @@ var draw = {
                     showRightAngleMarker: state.showRightAngleMarkers[i],
                     numArcs: state.numArcs[i],
                     clockwise: isClockwise,
-                    style: state.labelStyle
+                    style: state.labelStyle,
                 }));
             });
         }
@@ -136,7 +136,7 @@ var draw = {
                     numArrows: state.numArrows[i],
                     numTicks: state.numTicks[i],
                     clockwise: isClockwise,
-                    style: state.labelStyle
+                    style: state.labelStyle,
                 }));
             });
         }
@@ -161,7 +161,7 @@ var draw = {
                     label: label,
                     text: state.vertexLabels[i],
                     clockwise: isClockwise,
-                    style: state.labelStyle
+                    style: state.labelStyle,
                 }));
             });
         }
@@ -182,20 +182,20 @@ var draw = {
                 50
             );
         }
-    }
+    },
 };
 
 draw.standard = [draw.basic, draw.labels, draw.highlight];
 
 
-var remove = {
+const remove = {
     basic: function() {
         if (this.state.visibleShape) {
             this.state.visibleShape.remove();
         }
     },
     labels: function() {
-        var labels = [this.state._labeledSides, this.state._labeledVertices,
+        const labels = [this.state._labeledSides, this.state._labeledVertices,
             this.state._labeledAngles, this.state._labelCache];
 
         _.each(labels, function(labelType) {
@@ -203,15 +203,17 @@ var remove = {
                 _.invoke(labelType, "remove");
             }
         });
-    }
+    },
 };
 
 remove.standard = [remove.basic, remove.labels];
 
 
-var constraints = {
+const constraints = {
     fixed: function() {
-        return function() { return false; };
+        return function() {
+            return false;
+        };
     },
 
     snap: function(snap) {
@@ -233,9 +235,9 @@ var constraints = {
             }
         }
         return function(coord, prevCoord) {
-            var graphie = this.graphie;
-            var delta = kvector.subtract(coord, prevCoord);
-            var range = range || graphie.range;
+            const graphie = this.graphie;
+            const delta = kvector.subtract(coord, prevCoord);
+            const range = range || graphie.range;
             // A null snap means no snap; an undefined snap means
             // default to graphie's
             if (snap === undefined) {
@@ -243,13 +245,13 @@ var constraints = {
             }
 
             // Calculate the bounds for both points
-            var absoluteLower = graphie.unscalePoint([
+            let absoluteLower = graphie.unscalePoint([
                 paddingPx,
-                graphie.ypixels - paddingPx
+                graphie.ypixels - paddingPx,
             ]);
-            var absoluteUpper = graphie.unscalePoint([
+            let absoluteUpper = graphie.unscalePoint([
                 graphie.xpixels - paddingPx,
-                paddingPx
+                paddingPx,
             ]);
             if (snap) {
                 absoluteLower = kpoint.ceilTo(absoluteLower, snap);
@@ -257,40 +259,47 @@ var constraints = {
             }
 
             // Calculate the bounds for the delta.
-            var deltaBounds = _.map(this.coords(), function(coord, i) {
-                var max = kvector.subtract(absoluteUpper, coord);
-                var min = kvector.subtract(absoluteLower, coord);
+            const deltaBounds = _.map(this.coords(), function(coord, i) {
+                const max = kvector.subtract(absoluteUpper, coord);
+                const min = kvector.subtract(absoluteLower, coord);
                 return [min, max];
             });
 
             // bound the delta by the calculated bounds
-            var boundedDelta = _.reduce(deltaBounds,
-                    function(delta, bound) {
-                var lower = bound[0];
-                var upper = bound[1];
-                var deltaX = Math.max(lower[0], Math.min(upper[0], delta[0]));
-                var deltaY = Math.max(lower[1], Math.min(upper[1], delta[1]));
-                return [deltaX, deltaY];
-            }, delta);
+            const boundedDelta = _.reduce(
+                deltaBounds,
+                function(delta, bound) {
+                    const lower = bound[0];
+                    const upper = bound[1];
+                    const deltaX = Math.max(
+                        lower[0], Math.min(upper[0], delta[0])
+                    );
+                    const deltaY = Math.max(
+                        lower[1], Math.min(upper[1], delta[1])
+                    );
+                    return [deltaX, deltaY];
+                },
+                delta
+            );
 
             return kvector.add(prevCoord, boundedDelta);
         };
-    }
+    },
 };
 
 constraints.standard = null;
 
 
-var onMove = {
+const onMove = {
     updatePoints: function(coord, prevCoord) {
-        var actualDelta = kvector.subtract(coord, prevCoord);
+        const actualDelta = kvector.subtract(coord, prevCoord);
         _.each(this.state.points, function(point) {
             point.setCoord(kvector.add(
                 point.coord(),
                 actualDelta
             ));
         });
-    }
+    },
 };
 
 onMove.standard = null;
@@ -306,5 +315,5 @@ module.exports = {
     constraints: constraints,
     onMove: onMove,
     onMoveEnd: {standard: null},
-    onClick: {standard: null}
+    onClick: {standard: null},
 };

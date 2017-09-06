@@ -2,6 +2,7 @@ import Rule from "../rule.js";
 
 module.exports = Rule.makeRule({
     name: "math-starts-with-space",
+    severity: Rule.Severity.GUIDELINE,
     selector: "math, blockMath",
     pattern: /^\s*(~|\\qquad|\\quad|\\,|\\;|\\:|\\ |\\!|\\enspace|\\phantom)/,
     message: `Math starts with space:

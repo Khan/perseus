@@ -1,6 +1,9 @@
 import PerseusMarkdown from "../perseus-markdown.jsx";
+import Rule from "./rule.js";
 import TreeTransformer from "./tree-transformer.js";
-const allLintRules = require("./rules/all-rules.js");
+
+const allLintRules = require("./rules/all-rules.js")
+    .filter(r => r.severity < Rule.Severity.BULK_WARNING);
 
 //
 // Run the Gorgon linter over the specified markdown parse tree,
@@ -69,8 +72,24 @@ function runLinter(tree, context, highlight, rules) {
     // lint violation at that node.
     tt.traverse((node, state, content) => {
         const nodeWarnings = [];
-        rules.forEach(rule => {
-            const warning = rule.check(node, state, content, context);
+
+        // If our rule is only designed to be tested against a particular
+        // content type and we're not in that content type, we don't need to
+        // consider that rule.
+        const applicableRules = rules.filter(r => r.applies(context));
+
+        // Generate a stack so we can identify our position in the tree in
+        // lint rules
+        const stack = [...context.stack];
+        stack.push(node.type);
+
+        const nodeContext = {
+            ...context,
+            stack: stack.join('.'),
+        };
+
+        applicableRules.forEach(rule => {
+            const warning = rule.check(node, state, content, nodeContext);
             if (warning) {
                 // The start and end locations are relative to this
                 // particular node, and so are not generally very useful.
@@ -144,6 +163,10 @@ function runLinter(tree, context, highlight, rules) {
         // linty node so that it can be highlighted. We just make a note
         // of whether this lint is inside a table or not.
         if (nodeWarnings.length) {
+            nodeWarnings.sort((a, b) => {
+                return a.severity - b.severity;
+            });
+
             if (node.type !== "text" || nodeWarnings.length > 1) {
                 // If the linty node is not a text node, or if there is more
                 // than one warning on a text node, then reparent the entire
@@ -154,6 +177,7 @@ function runLinter(tree, context, highlight, rules) {
                     message: nodeWarnings.map(w => w.message).join("\n\n"),
                     ruleName: nodeWarnings[0].rule,
                     insideTable: insideTable,
+                    severity: nodeWarnings[0].severity,
                 });
             } else {
                 //
@@ -209,6 +233,7 @@ function runLinter(tree, context, highlight, rules) {
                     message: warning.message,
                     ruleName: warning.rule,
                     insideTable: insideTable,
+                    severity: warning.severity,
                 });
 
                 // The suffix node, if there is one
@@ -229,6 +254,14 @@ function runLinter(tree, context, highlight, rules) {
     return warnings;
 }
 
+function pushContextStack(context, name) {
+    const stack = context.stack || [];
+    return {
+        ...context,
+        stack: stack.concat(name),
+    };
+}
+
 //
 // TODO(davidflanagan):
 // Revisit these exports once we've got gorgon integrated into Perseus.
@@ -239,7 +272,8 @@ function runLinter(tree, context, highlight, rules) {
 // TODO(davidflanagan): switch from require to import
 //
 module.exports = {
-    runLinter: runLinter,
+    runLinter,
     parse: PerseusMarkdown.parse,
+    pushContextStack,
     rules: allLintRules,
 };

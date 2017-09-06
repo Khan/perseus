@@ -46,7 +46,6 @@ function _mset(obj, keylist, val) {
     return newObj;
 }
 
-
 /**
  * Perform a functional increment of a value in a nested object.
  *
@@ -64,14 +63,12 @@ function _inc(obj, keylist) {
         return acc[elt];
     }, obj);
 
-    return  _mset(obj, keylist, val + 1);
+    return _mset(obj, keylist, val + 1);
 }
-
 
 function validate(smiles) {
     return smilesRe.test(smiles);
 }
-
 
 /**
  * Parse a bond modifier character, updating the context object so that the
@@ -87,7 +84,6 @@ function parseBondModifier(smiles, ctx) {
     }
     throw new ParseError("Invalid character: " + firstChar);
 }
-
 
 /**
  * Slice the input string, removing a parenthesized expression.
@@ -112,13 +108,12 @@ function sliceFromMatchingCloseParen(smiles, parenStack) {
         return sliceFromMatchingCloseParen(rest, parenStack.concat(firstChar));
     }
 
-    if (firstChar ===  ")") {
+    if (firstChar === ")") {
         return sliceFromMatchingCloseParen(rest, parenStack.slice(1));
     }
 
     return sliceFromMatchingCloseParen(rest, parenStack);
 }
-
 
 /**
  * Parse a branch, as indicated by the presence of a parenthesized experession.
@@ -151,7 +146,9 @@ function parseParenthesizedExpression(smiles, ctx) {
         };
         const parenExpr = parse(rest, parenCtx);
         const remainder = parse(
-            sliceFromMatchingCloseParen(rest, ["("]), newCtx);
+            sliceFromMatchingCloseParen(rest, ["("]),
+            newCtx
+        );
         return [parenExpr].concat(remainder);
     } else if (firstChar === ")") {
         if (ctx.parens[ctx.parens.length - 1] !== "(") {
@@ -162,7 +159,6 @@ function parseParenthesizedExpression(smiles, ctx) {
         throw new ParseError("Invalid bare character: " + firstChar);
     }
 }
-
 
 /**
  * Get the symbol of the next atom in the molecule.
@@ -189,7 +185,6 @@ function readAtomSymbol(smiles, _ctx) {
     return [sym, rest];
 }
 
-
 /**
  * Parse the next atom in the molecule, returning an atom object if this is the
  * first atom in the molecule, or a bond object with this atom as the
@@ -215,10 +210,15 @@ function parseAtom(smiles, ctx) {
     //     Next atom in the main chain: [[x + 1, 0]]
 
     // increment the atom counter and reset the branch counter
-    const newCtx = _mset(ctx, ["idx", ctx.idx.length - 1],
-                         [1 + ctx.idx[ctx.idx.length - 1][0], 0]);
+    const newCtx = _mset(
+        ctx,
+        ["idx", ctx.idx.length - 1],
+        [1 + ctx.idx[ctx.idx.length - 1][0], 0]
+    );
     let restOfMolecule = parse(
-        rest, _mset(newCtx, ["bond", "bondType"], "single"));
+        rest,
+        _mset(newCtx, ["bond", "bondType"], "single")
+    );
     if (!Array.isArray(restOfMolecule) && !!restOfMolecule) {
         //TODO(colin): fix this awkwardness.
         restOfMolecule = [restOfMolecule];
@@ -269,12 +269,15 @@ function parse(smiles, ctx) {
     }
 
     if (startsWithAtom(smiles)) {
-        return parseAtom(smiles, ctx || {
-            idx: [[0, 0]],
-            parens: [],
-            stack: [],
-            bondModifiers: [],
-        });
+        return parseAtom(
+            smiles,
+            ctx || {
+                idx: [[0, 0]],
+                parens: [],
+                stack: [],
+                bondModifiers: [],
+            }
+        );
     } else if (isModifierChar(smiles[0])) {
         // TODO(colin): add a better error message in the case where the input
         // is invalid and starts with a modifier character?

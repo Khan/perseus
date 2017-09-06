@@ -2,8 +2,7 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-
-var React = require('react');
+var React = require("react");
 var _ = require("underscore");
 
 var Changeable = require("../mixins/changeable.jsx");
@@ -16,31 +15,31 @@ var CELL_PADDING = 5;
 
 var TABLE_STYLE = {
     display: "table",
-    tableLayout: "fixed"
+    tableLayout: "fixed",
 };
 
 var ROW_STYLE = {
-    display: "table-row"
+    display: "table-row",
 };
 
 var CELL_STYLE = {
     display: "table-cell",
-    padding: CELL_PADDING
+    padding: CELL_PADDING,
 };
 
 var BASE_TILE_STYLE = {
     borderRadius: 10,
-    cursor: "pointer"
+    cursor: "pointer",
 };
 
 var MOVE_COUNT_STYLE = {
     padding: CELL_PADDING,
-    display: "inline-block"
+    display: "inline-block",
 };
 
 var RESET_BUTTON_STYLE = {
-    "float": "right",
-    paddingRight: CELL_PADDING
+    float: "right",
+    paddingRight: CELL_PADDING,
 };
 
 var MAIN_TILE_SIZE = 50;
@@ -54,8 +53,8 @@ var mapCells = (cells, func) => {
 };
 
 var genCells = (height, width, func) => {
-    return _.times(height, (y) => {
-        return _.times(width, (x) => {
+    return _.times(height, y => {
+        return _.times(width, x => {
             return func(y, x);
         });
     });
@@ -64,19 +63,14 @@ var genCells = (height, width, func) => {
 var PATTERNS = {
     plus: () => [
         [false, true, false],
-        [true,  true, true ],
-        [false, true, false]
+        [true, true, true],
+        [false, true, false],
     ],
-    x: () => [
-        [true,  false, true ],
-        [false, true,  false],
-        [true,  false, true ]
-    ],
-    "plus/x": (iter) => {
-        return (iter % 2) ? PATTERNS.x() : PATTERNS.plus();
-    }
+    x: () => [[true, false, true], [false, true, false], [true, false, true]],
+    "plus/x": iter => {
+        return iter % 2 ? PATTERNS.x() : PATTERNS.plus();
+    },
 };
-
 
 /**
  * Clamps value to an integer in the range [min, max]
@@ -92,7 +86,7 @@ var clampToInt = function(value, min, max) {
 var Tile = React.createClass({
     propTypes: {
         value: React.PropTypes.bool.isRequired,
-        size: React.PropTypes.number.isRequired
+        size: React.PropTypes.number.isRequired,
     },
 
     render: function() {
@@ -100,11 +94,9 @@ var Tile = React.createClass({
         var style = _.extend({}, BASE_TILE_STYLE, {
             width: this.props.size,
             height: this.props.size,
-            backgroundColor: color
+            backgroundColor: color,
         });
-        return <div
-            style={style}
-            onClick={this._flip} />;
+        return <div style={style} onClick={this._flip} />;
     },
 
     _flip: function() {
@@ -118,25 +110,35 @@ var TileGrid = React.createClass({
         cells: React.PropTypes.arrayOf(
             React.PropTypes.arrayOf(React.PropTypes.bool)
         ).isRequired,
-        size: React.PropTypes.number.isRequired
+        size: React.PropTypes.number.isRequired,
     },
 
     render: function() {
-        return <div style={TABLE_STYLE} className="no-select">
-            {_.map(this.props.cells, (row, y) => {
-                return <div key={y} style={ROW_STYLE}>
-                    {_.map(row, (cell, x) => {
-                        return <div key={x} style={CELL_STYLE}>
-                            <Tile
-                                value={cell}
-                                size={this.props.size}
-                                onChange={_.partial(this.props.onChange, y, x)}
-                                />
-                        </div>;
-                    })}
-                </div>;
-            })}
-        </div>;
+        return (
+            <div style={TABLE_STYLE} className="no-select">
+                {_.map(this.props.cells, (row, y) => {
+                    return (
+                        <div key={y} style={ROW_STYLE}>
+                            {_.map(row, (cell, x) => {
+                                return (
+                                    <div key={x} style={CELL_STYLE}>
+                                        <Tile
+                                            value={cell}
+                                            size={this.props.size}
+                                            onChange={_.partial(
+                                                this.props.onChange,
+                                                y,
+                                                x
+                                            )}
+                                        />
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    );
+                })}
+            </div>
+        );
     },
 });
 
@@ -173,7 +175,7 @@ var LightsPuzzle = React.createClass({
             React.PropTypes.arrayOf(React.PropTypes.bool)
         ),
         flipPattern: React.PropTypes.string.isRequired,
-        moveCount: React.PropTypes.number.isRequired
+        moveCount: React.PropTypes.number.isRequired,
     },
 
     getDefaultProps: function() {
@@ -181,15 +183,15 @@ var LightsPuzzle = React.createClass({
             cells: [
                 [false, false, false],
                 [false, false, false],
-                [false, false, false]
+                [false, false, false],
             ],
             startCells: [
                 [false, false, false],
                 [false, false, false],
-                [false, false, false]
+                [false, false, false],
             ],
             flipPattern: "plus",
-            moveCount: 0
+            moveCount: 0,
         };
     },
 
@@ -201,25 +203,29 @@ var LightsPuzzle = React.createClass({
         var width = this._width();
         var tileSize = MAIN_TILE_SIZE;
         var pxWidth = width * (tileSize + 2 * CELL_PADDING);
-        return <div>
-            <TileGrid
-                cells={this.props.cells}
-                size={tileSize}
-                onChange={this._flipTile} />
-            <div style={{width: pxWidth}}>
-                <div style={MOVE_COUNT_STYLE}>
-                    Moves: {this.props.moveCount}
+        return (
+            <div>
+                <TileGrid
+                    cells={this.props.cells}
+                    size={tileSize}
+                    onChange={this._flipTile}
+                />
+                <div style={{width: pxWidth}}>
+                    <div style={MOVE_COUNT_STYLE}>
+                        Moves: {this.props.moveCount}
+                    </div>
+                    <div style={RESET_BUTTON_STYLE}>
+                        <input
+                            type="button"
+                            value="Reset"
+                            onClick={this._reset}
+                            className="simple-button"
+                        />
+                    </div>
                 </div>
-                <div style={RESET_BUTTON_STYLE}>
-                <input
-                    type="button"
-                    value="Reset"
-                    onClick={this._reset}
-                    className="simple-button" />
-                </div>
+                <div className="clearfix" />
             </div>
-            <div className="clearfix" />
-        </div>;
+        );
     },
 
     change(...args) {
@@ -269,20 +275,20 @@ var LightsPuzzle = React.createClass({
 
         this.change({
             cells: newCells,
-            moveCount: this.props.moveCount + 1
+            moveCount: this.props.moveCount + 1,
         });
     },
 
     _reset: function() {
         this.change({
             cells: this.props.startCells,
-            moveCount: 0
+            moveCount: 0,
         });
     },
 
     simpleValidate: function(rubric) {
         return validate(rubric, this.getUserInput());
-    }
+    },
 });
 
 // grading function
@@ -295,12 +301,12 @@ var validate = function(rubric, state) {
     if (empty) {
         return {
             type: "invalid",
-            message: i18n._("Click on the tiles to change the lights.")
+            message: i18n._("Click on the tiles to change the lights."),
         };
     }
 
-    var correct = _.all(state.cells, (row) => {
-        return _.all(row, (cell) => {
+    var correct = _.all(state.cells, row => {
+        return _.all(row, cell => {
             return cell;
         });
     });
@@ -310,19 +316,19 @@ var validate = function(rubric, state) {
             type: "points",
             earned: 1,
             total: 1,
-            message: null
+            message: null,
         };
     } else if (rubric.gradeIncompleteAsWrong) {
         return {
             type: "points",
             earned: 0,
             total: 1,
-            message: null
+            message: null,
         };
     } else {
         return {
             type: "invalid",
-            message: i18n._("You must turn on all of the lights to continue.")
+            message: i18n._("You must turn on all of the lights to continue."),
         };
     }
 };
@@ -332,7 +338,7 @@ var transformProps = function(editorProps) {
     return {
         cells: editorProps.startCells,
         startCells: editorProps.startCells,
-        flipPattern: editorProps.flipPattern
+        flipPattern: editorProps.flipPattern,
     };
 };
 
@@ -341,5 +347,5 @@ module.exports = {
     displayName: "Lights Puzzle",
     hidden: true,
     widget: LightsPuzzle,
-    transform: transformProps
+    transform: transformProps,
 };

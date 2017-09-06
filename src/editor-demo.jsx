@@ -1,36 +1,30 @@
-/* eslint-disable object-curly-spacing */
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
- /* eslint-disable max-len, no-console */
-
- /**
+/**
   * Demonstrates the main Perseus editor
   *
   * This is ran by demo-perseus.js and handles adding debugger
   * buttons and their event listeners above a StatefulEditorPage
   */
 
-const React = require('react');
-const StatefulEditorPage = require('./stateful-editor-page.jsx');
-const EditorPage = require('./editor-page.jsx');
-const Util = require('./util.js');
-const Renderability = require('./renderability.jsx');
+const React = require("react");
+const StatefulEditorPage = require("./stateful-editor-page.jsx");
+const EditorPage = require("./editor-page.jsx");
+const Util = require("./util.js");
+const Renderability = require("./renderability.jsx");
 
 const defaultQuestion = {
-    "question": {
-        "content": "",
-        "images": {},
-        "widgets": {},
+    question: {
+        content: "",
+        images: {},
+        widgets: {},
     },
-    "answerArea": {
-        "calculator": false,
+    answerArea: {
+        calculator: false,
     },
-    "itemDataVersion": {
-        "major": 0,
-        "minor": 1,
+    itemDataVersion: {
+        major: 0,
+        minor: 1,
     },
-    "hints": [],
+    hints: [],
 };
 
 const EditorDemo = React.createClass({
@@ -60,15 +54,17 @@ const EditorDemo = React.createClass({
     },
 
     serialize: function() {
-        console.log(JSON.stringify(this.refs.editor.serialize(), null, 4));
+        console.log(JSON.stringify(this.refs.editor.serialize(), null, 4)); // eslint-disable-line no-console
     },
 
     scorePreview: function() {
-        console.log(this.refs.editor.scorePreview());
+        console.log(this.refs.editor.scorePreview()); // eslint-disable-line no-console
     },
 
     _getContentHash: function() {
-        return Util.strongEncodeURIComponent(JSON.stringify(this.refs.editor.serialize()));
+        return Util.strongEncodeURIComponent(
+            JSON.stringify(this.refs.editor.serialize())
+        );
     },
 
     permalink: function(e) {
@@ -78,7 +74,9 @@ const EditorDemo = React.createClass({
 
     viewRendered: function(e) {
         const link = document.createElement("a");
-        link.href = window.location.pathname + "?renderer#content=" + this._getContentHash();
+        link.href =
+            window.location.pathname +
+            `?renderer#content=${this._getContentHash()}`;
         link.target = "_blank";
         link.click();
         e.preventDefault();
@@ -89,21 +87,23 @@ const EditorDemo = React.createClass({
         // print whether or not this item consists only of
         // input-numbers and numeric-inputs.
         // just for versioning testing
-        console.log(Renderability.isItemRenderableByVersion(
-            this.refs.editor.serialize(),
-            {
-                '::renderer::': { major: 100, minor: 0 },
-                'group': { major: 100, minor: 0 },
-                'sequence': { major: 100, minor: 0 },
-                'input-number': { major: 100, minor: 0 },
-                'numeric-input': { major: 100, minor: 0 },
-            }
-        ));
+        console.log( // eslint-disable-line no-console
+            Renderability.isItemRenderableByVersion(
+                this.refs.editor.serialize(),
+                {
+                    "::renderer::": {major: 100, minor: 0},
+                    group: {major: 100, minor: 0},
+                    sequence: {major: 100, minor: 0},
+                    "input-number": {major: 100, minor: 0},
+                    "numeric-input": {major: 100, minor: 0},
+                }
+            )
+        );
     },
 
     saveWarnings: function(e) {
         e.preventDefault();
-        console.log(this.refs.editor.getSaveWarnings());
+        console.log(this.refs.editor.getSaveWarnings()); // eslint-disable-line no-console
     },
 
     getEditorProps() {
@@ -115,37 +115,30 @@ const EditorDemo = React.createClass({
             problemNum: this.props.problemNum,
             developerMode: true,
             imageUploader: function(image, callback) {
-                setTimeout(callback, 1000, "https://cdn.kastatic.org/images/khan-logo-vertical-transparent.png");
+                setTimeout(
+                    callback,
+                    1000,
+                    "https://cdn.kastatic.org/images/khan-logo-vertical-transparent.png"
+                ); // eslint-disable-line max-len
             },
             apiOptions: {
-                // onInputError: function() {
-                //     let args = Array.from(arguments);
-                //     console.log.apply(console, ["onInputError:"].concat(args));
-                //     return true;
-                // },
-                // interceptInputFocus: function() {
-                //     let args = Array.from(arguments);
-                //     console.log.apply(console, ["interceptInputFocus:"].concat(args));
-                //     return;
-                // },
                 onFocusChange: function(newPath, oldPath) {
-                    console.log("onFocusChange", newPath, oldPath);
+                    console.log("onFocusChange", newPath, oldPath); // eslint-disable-line no-console
                 },
-                // staticRender: true,
-                // readOnly: true,
                 customKeypad: isMobile,
                 isMobile,
-                setDrawingAreaAvailable: (enabled) => {
+                setDrawingAreaAvailable: enabled => {
                     this.setState({
                         scratchpadEnabled: enabled,
                     });
                 },
             },
             componentClass: EditorPage,
-            onPreviewDeviceChange: (deviceType) => {
+            onPreviewDeviceChange: deviceType => {
                 this.setState({deviceType});
             },
             previewDevice: deviceType,
+            /* eslint-disable max-len */
             frameSource: `<!DOCTYPE html>
                 <html>
                 <head>
@@ -189,6 +182,7 @@ const EditorDemo = React.createClass({
                     <script src="build/frame-perseus.js"></script>
                 </body>
             </html>`,
+            /* eslint-enable max-len */
         };
     },
 
@@ -198,16 +192,30 @@ const EditorDemo = React.createClass({
         return (
             <div id="perseus-index">
                 <div className="extras">
-                    <button onClick={this.serialize}>serialize</button>{' '}
-                    <button onClick={this.scorePreview}>score</button>{' '}
-                    <button onClick={this.permalink}>permalink</button>{' '}
-                    <button onClick={this.viewRendered}>view rendered</button>{' '}
-                    <button onClick={this.inputVersion}>contains only inputs?</button>{' '}
-                    <button onClick={this.saveWarnings}>save warnings</button>{' '}
-                    <span>Seed:{this.props.problemNum} </span>{' '}
-                    <span>Scratchpad:{this.state.scratchpadEnabled ? 'enabled' : 'disabled'}</span>
+                    <button onClick={this.serialize}>serialize</button>{" "}
+                    <button onClick={this.scorePreview}>score</button>{" "}
+                    <button onClick={this.permalink}>permalink</button>{" "}
+                    <button onClick={this.viewRendered}>
+                        view rendered
+                    </button>{" "}
+                    <button onClick={this.inputVersion}>
+                        contains only inputs?
+                    </button>{" "}
+                    <button onClick={this.saveWarnings}>
+                        save warnings
+                    </button>{" "}
+                    <span>Seed:{this.props.problemNum} </span>{" "}
+                    <span>
+                        Scratchpad:{this.state.scratchpadEnabled
+                            ? "enabled"
+                            : "disabled"}
+                    </span>
                 </div>
-                <StatefulEditorPage key={this.props.question} ref="editor" {...editorProps}/>
+                <StatefulEditorPage
+                    key={this.props.question}
+                    ref="editor"
+                    {...editorProps}
+                />
             </div>
         );
     },

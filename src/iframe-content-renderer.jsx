@@ -12,7 +12,7 @@
  * send the current data.
  */
 
-const React = require('react');
+const React = require("react");
 
 let nextIframeID = 0;
 const requestIframeData = {};
@@ -22,7 +22,7 @@ window.iframeDataStore = {};
 // This is called once after Perseus is loaded and the iframe
 // is ready to render content, then twice a second afterwards
 // to capture the result of animations.
-window.addEventListener("message", (event) => {
+window.addEventListener("message", event => {
     if (typeof event.data === "string") {
         requestIframeData[event.data]();
     } else if (event.data.id) {
@@ -64,7 +64,7 @@ const IframeContentRenderer = React.createClass({
             this.sendNewData(this._lastData);
         };
 
-        updateIframeHeight[this.iframeID] = (height) => {
+        updateIframeHeight[this.iframeID] = height => {
             this._lastHeight = height;
             if (this.isMounted() && this.props.seamless) {
                 this.refs.container.style.height = height + "px";
@@ -73,9 +73,11 @@ const IframeContentRenderer = React.createClass({
     },
 
     shouldComponentUpdate: function(nextProps) {
-        return nextProps.content !== this.props.content
-            || nextProps.datasetValue !== this.props.datasetValue
-            || nextProps.seamless !== this.props.seamless;
+        return (
+            nextProps.content !== this.props.content ||
+            nextProps.datasetValue !== this.props.datasetValue ||
+            nextProps.seamless !== this.props.seamless
+        );
     },
 
     componentDidUpdate: function(prevProps) {
@@ -85,8 +87,10 @@ const IframeContentRenderer = React.createClass({
             this.refs.container.style.height = this._lastHeight + "px";
         }
 
-        if (prevProps.content !== this.props.content ||
-            prevProps.datasetValue !== this.props.datasetValue) {
+        if (
+            prevProps.content !== this.props.content ||
+            prevProps.datasetValue !== this.props.datasetValue
+        ) {
             // Not just a change in seamless
             this._prepareFrame();
         }
@@ -111,8 +115,9 @@ const IframeContentRenderer = React.createClass({
             // If the user has specified a data-* attribute to place on the
             // iframe, we set it here. Right now, this is used to
             // communicate if the iframe should be enabling touch emulation.
-            this._frame.dataset[this.props.datasetKey] =
-                this.props.datasetValue;
+            this._frame.dataset[
+                this.props.datasetKey
+            ] = this.props.datasetValue;
         }
         this._frame.dataset.id = this.iframeID;
 
@@ -161,10 +166,7 @@ const IframeContentRenderer = React.createClass({
     },
 
     render: function() {
-        return <div
-            ref="container"
-            style={{width: "100%", height: "100%"}}
-        />;
+        return <div ref="container" style={{width: "100%", height: "100%"}} />;
     },
 });
 

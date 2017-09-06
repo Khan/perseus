@@ -38,18 +38,24 @@ const Separator = React.createClass({
     },
 
     render: function() {
-        return <div className="arrow-container">
-            <div className="above-text">{this.props.data.topText}</div>
-            <canvas
-                height="30"
-                id={"arrowCanvas" + this.props.index}
-                ref={"arrowCanvas" + this.props.index}
-                width={this.arrowLength}
-            >
-                Reaction arrow pointing to the right.
-            </canvas>
-        <div className="below-text">{this.props.data.bottomText}</div>
-        </div>;
+        return (
+            <div className="arrow-container">
+                <div className="above-text">
+                    {this.props.data.topText}
+                </div>
+                <canvas
+                    height="30"
+                    id={"arrowCanvas" + this.props.index}
+                    ref={"arrowCanvas" + this.props.index}
+                    width={this.arrowLength}
+                >
+                    Reaction arrow pointing to the right.
+                </canvas>
+                <div className="below-text">
+                    {this.props.data.bottomText}
+                </div>
+            </div>
+        );
     },
 });
 
@@ -92,24 +98,28 @@ const ReactionDiagramWidget = React.createClass({
     },
 
     render: function() {
-        return <div className="reaction" ref="reaction">
-            {this.props.smiles.map((s, i) => {
-                const id = this.props.widgetId + "-" + i;
-                return <div key={id} className="molecule-container">
-                    <Molecule
-                        id={id}
-                        rotationAngle={this.props.rotationAngle[i]}
-                        smiles={s}
-                    />
-                    {i === this.props.smiles.length - 1 ?
-                     null :
-                     <Separator
-                         data={this.props.separators[i]}
-                         index={i}
-                     />}
-                </div>;
-            })}
-        </div>;
+        return (
+            <div className="reaction" ref="reaction">
+                {this.props.smiles.map((s, i) => {
+                    const id = this.props.widgetId + "-" + i;
+                    return (
+                        <div key={id} className="molecule-container">
+                            <Molecule
+                                id={id}
+                                rotationAngle={this.props.rotationAngle[i]}
+                                smiles={s}
+                            />
+                            {i === this.props.smiles.length - 1
+                                ? null
+                                : <Separator
+                                    data={this.props.separators[i]}
+                                    index={i}
+                                />}
+                        </div>
+                    );
+                })}
+            </div>
+        );
     },
 });
 

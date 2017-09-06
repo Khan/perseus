@@ -1,8 +1,7 @@
-
-const React = require('react');
+const React = require("react");
 const ReactDOM = require("react-dom");
 const {StyleSheet, css} = require("aphrodite");
-const classnames = require('classnames');
+const classnames = require("classnames");
 const _ = require("underscore");
 const i18n = window.i18n;
 
@@ -19,7 +18,12 @@ const {
     gray85,
     gray17,
 } = require("./styles/constants.js");
-const {linterContextProps, linterContextDefault} = require("./gorgon/proptypes.js");
+
+const Gorgon = require("./gorgon/gorgon.js");
+const {
+    linterContextProps,
+    linterContextDefault,
+} = require("./gorgon/proptypes.js");
 
 const HintsRenderer = React.createClass({
     propTypes: {
@@ -42,8 +46,10 @@ const HintsRenderer = React.createClass({
     },
 
     componentDidUpdate: function(prevProps, prevState) {
-        if (!_.isEqual(prevProps.hints, this.props.hints) ||
-            prevProps.hintsVisible !== this.props.hintsVisible) {
+        if (
+            !_.isEqual(prevProps.hints, this.props.hints) ||
+            prevProps.hintsVisible !== this.props.hintsVisible
+        ) {
             this._cacheHintImages();
         }
 
@@ -55,8 +61,7 @@ const HintsRenderer = React.createClass({
     },
 
     _hintsVisible: function() {
-        if (this.props.hintsVisible == null ||
-                this.props.hintsVisible === -1) {
+        if (this.props.hintsVisible == null || this.props.hintsVisible === -1) {
             return this.props.hints.length;
         } else {
             return this.props.hintsVisible;
@@ -85,7 +90,7 @@ const HintsRenderer = React.createClass({
     },
 
     getSerializedState: function() {
-        return _.times(this._hintsVisible(), (i) => {
+        return _.times(this._hintsVisible(), i => {
             return this.refs["hintRenderer" + i].getSerializedState();
         });
     },
@@ -123,14 +128,13 @@ const HintsRenderer = React.createClass({
         const apiOptions = this.getApiOptions();
         const hintsVisible = this._hintsVisible();
         const hints = [];
-        this.props.hints
-            .slice(0, hintsVisible)
-            .forEach((hint, i) => {
-                const lastHint = i === this.props.hints.length - 1 &&
-                    !(/\*\*/).test(hint.content);
-                const lastRendered = i === hintsVisible - 1;
+        this.props.hints.slice(0, hintsVisible).forEach((hint, i) => {
+            const lastHint =
+                i === this.props.hints.length - 1 && !/\*\*/.test(hint.content);
+            const lastRendered = i === hintsVisible - 1;
 
-                const renderer = <HintRenderer
+            const renderer = (
+                <HintRenderer
                     lastHint={lastHint}
                     lastRendered={lastRendered}
                     hint={hint}
@@ -140,84 +144,76 @@ const HintsRenderer = React.createClass({
                     key={"hintRenderer" + i}
                     apiOptions={apiOptions}
                     findExternalWidgets={this.props.findExternalWidgets}
-                    linterContext={this.props.linterContext}
-                />;
+                    linterContext={Gorgon.pushContextStack(
+                        this.props.linterContext,
+                        "hints[" + i + "]"
+                    )}
+                />
+            );
 
-                if (hint.replace && hints.length > 0) {
-                    hints[hints.length - 1] = renderer;
-                } else {
-                    hints.push(renderer);
-                }
-            });
+            if (hint.replace && hints.length > 0) {
+                hints[hints.length - 1] = renderer;
+            } else {
+                hints.push(renderer);
+            }
+        });
 
-        const showGetAnotherHint = (
+        const showGetAnotherHint =
             apiOptions.getAnotherHint &&
             hintsVisible > 0 &&
-            hintsVisible < this.props.hints.length
-        );
-        let showGetAnotherHintCopy;
-        if (apiOptions.showExerciseStepCopy) {
-            const isLastHint = this.props.hints.length - hintsVisible === 1;
-            showGetAnotherHintCopy = isLastHint
-                ? i18n._("Show the last step")
-                : i18n._("Show the next step");
-        } else {
-            showGetAnotherHintCopy = i18n._("Get another hint");
-        }
-        const hintRatioCopy = apiOptions.showExerciseStepCopy
-            ? `(${hintsVisible + 1}/${this.props.hints.length})`
-            : `(${hintsVisible}/${this.props.hints.length})`;
-        const mobileHintCopy = apiOptions.showExerciseStepCopy
-            ? i18n._("Steps")
-            : i18n._("Hints");
+            hintsVisible < this.props.hints.length;
+        const hintRatioCopy = `(${hintsVisible}/${this.props.hints.length})`;
 
         const classNames = classnames(
             this.props.className,
-            apiOptions.isMobile && hintsVisible > 0 &&
+            apiOptions.isMobile &&
+                hintsVisible > 0 &&
                 css(styles.mobileHintStylesHintsRenderer)
         );
 
-        return <div className={classNames}>
-            {apiOptions.isMobile && hintsVisible > 0 &&
-                <div
-                    className={css(
-                        styles.mobileHintStylesHintTitle,
-                        sharedStyles.responsiveLabel
-                    )}
-                >
-                    {mobileHintCopy}
-                </div>
-            }
-            {hints}
-            {showGetAnotherHint &&
-                <button
-                    rel="button"
-                    className={css(
-                        styles.linkButton,
-                        styles.getAnotherHintButton,
-                        apiOptions.isMobile &&
-                            styles.mobileHintStylesGetAnotherHintButton
-                    )}
-                    onClick={evt => {
-                        evt.preventDefault();
-                        evt.stopPropagation();
-                        apiOptions.getAnotherHint();
-                    }}
-                >
-                    <span
+        return (
+            <div className={classNames}>
+                {apiOptions.isMobile &&
+                    hintsVisible > 0 &&
+                    <div
                         className={css(
-                            styles.plusText,
-                            apiOptions.isMobile &&
-                                styles.mobileHintStylesPlusText
+                            styles.mobileHintStylesHintTitle,
+                            sharedStyles.responsiveLabel
                         )}
                     >
-                      +
-                    </span>
-                    <span className={css(styles.getAnotherHintText)}>
-                        {showGetAnotherHintCopy} {hintRatioCopy}
-                    </span>
-                </button>}
-        </div>;
+                        {i18n._("Hints")}
+                    </div>}
+                {hints}
+                {showGetAnotherHint &&
+                    <button
+                        rel="button"
+                        className={css(
+                            styles.linkButton,
+                            styles.getAnotherHintButton,
+                            apiOptions.isMobile &&
+                                styles.mobileHintStylesGetAnotherHintButton
+                        )}
+                        onClick={evt => {
+                            evt.preventDefault();
+                            evt.stopPropagation();
+                            apiOptions.getAnotherHint();
+                        }}
+                    >
+                        <span
+                            className={css(
+                                styles.plusText,
+                                apiOptions.isMobile &&
+                                    styles.mobileHintStylesPlusText
+                            )}
+                        >
+                            +
+                        </span>
+                        <span className={css(styles.getAnotherHintText)}>
+                            {i18n._("Get another hint")} {hintRatioCopy}
+                        </span>
+                    </button>}
+            </div>
+        );
     },
 });
 
@@ -229,20 +225,20 @@ const styles = StyleSheet.create({
     },
 
     linkButton: {
-        cursor: 'pointer',
-        border: 'none',
-        backgroundColor: 'transparent',
-        fontSize: '100%',
-        fontFamily: 'inherit',
-        fontWeight: 'bold',
+        cursor: "pointer",
+        border: "none",
+        backgroundColor: "transparent",
+        fontSize: "100%",
+        fontFamily: "inherit",
+        fontWeight: "bold",
         color: kaGreen,
         padding: 0,
-        position: 'relative',
+        position: "relative",
     },
 
     plusText: {
         fontSize: 20,
-        position: 'absolute',
+        position: "absolute",
         top: -3,
         left: 0,
     },
@@ -255,23 +251,23 @@ const styles = StyleSheet.create({
         border: `solid ${gray85}`,
         borderWidth: "1px 0 0 0",
 
-        position: 'relative',
-        ':before': {
+        position: "relative",
+        ":before": {
             content: '""',
-            display: 'table',
-            clear: 'both',
+            display: "table",
+            clear: "both",
         },
-        ':after': {
+        ":after": {
             content: '""',
-            display: 'table',
-            clear: 'both',
+            display: "table",
+            clear: "both",
         },
     },
 
     mobileHintStylesHintTitle: {
-        fontFamily: 'inherit',
-        fontStyle: 'normal',
-        fontWeight: 'bold',
+        fontFamily: "inherit",
+        fontStyle: "normal",
+        fontWeight: "bold",
         color: gray17,
 
         paddingTop: baseUnitPx,

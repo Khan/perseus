@@ -59,7 +59,7 @@ function polarAdd(origin, angle, length) {
  */
 function atomLayout(atom, atoms, bonds, rotationAngle) {
     let textValue = atom.symbol;
-    if (textValue === "C" && (Object.keys(atoms).length !== 1)) {
+    if (textValue === "C" && Object.keys(atoms).length !== 1) {
         // By convention, don't render the C for carbon in a chain.
         textValue = null;
     }
@@ -77,8 +77,12 @@ function atomLayout(atom, atoms, bonds, rotationAngle) {
     }
     // If we're an atom with any other index than the case just handled, we're
     // guaranteed to have a neighbor who has a defined position.
-    const prevPositionedAtom = atoms[
-        atom.connections.find(function(c) { return atoms[c].pos; })];
+    const prevPositionedAtom =
+        atoms[
+            atom.connections.find(function(c) {
+                return atoms[c].pos;
+            })
+        ];
 
     // Find this atom's index in the previous atom's connections
     const myIndex = prevPositionedAtom.connections.indexOf(atom.idx);
@@ -91,10 +95,15 @@ function atomLayout(atom, atoms, bonds, rotationAngle) {
         // with ~110 degree angles in 3D.
         angleIncrement = 90;
         baseAngleIncrement = 90;
-    } else if (bonds.find((bond) => (bond.bondType === "triple" &&
-                                     bond.to === atom.idx)) ||
-               bonds.find((bond) => (bond.bondType === "triple" &&
-                                     bond.to === prevPositionedAtom.idx))) {
+    } else if (
+        bonds.find(
+            bond => bond.bondType === "triple" && bond.to === atom.idx
+        ) ||
+        bonds.find(
+            bond =>
+                bond.bondType === "triple" && bond.to === prevPositionedAtom.idx
+        )
+    ) {
         // Triple bonds have a bond angle of 180 degrees, so don't change the
         // direction in which we made the previous bond.
         angleIncrement = 0;
@@ -112,11 +121,13 @@ function atomLayout(atom, atoms, bonds, rotationAngle) {
     // TODO(colin): don't depend on the parser's indexing scheme and just track
     // this entirely in the layout engine.
     if (parseInt(lastAtomIdx) % 2 !== 0) {
-        angle = prevPositionedAtom.baseAngle - (
-            baseAngleIncrement - angleIncrement * myIndex);
+        angle =
+            prevPositionedAtom.baseAngle -
+            (baseAngleIncrement - angleIncrement * myIndex);
     } else {
-        angle = prevPositionedAtom.baseAngle + (
-            baseAngleIncrement - angleIncrement * myIndex);
+        angle =
+            prevPositionedAtom.baseAngle +
+            (baseAngleIncrement - angleIncrement * myIndex);
     }
 
     const pos = polarAdd(prevPositionedAtom.pos, angle, bondLength);
@@ -125,9 +136,7 @@ function atomLayout(atom, atoms, bonds, rotationAngle) {
     atom.baseAngle = angle;
 
     return {type: "text", value: textValue, pos: pos, idx: atom.idx};
-
 }
-
 
 /**
  * Get the start and end position for a bond connecting two atoms.
@@ -153,7 +162,8 @@ function maybeShrinkLines(fromAtom, toAtom) {
             toAtom.pos[0] -
                 (1 - shrinkFactor) * (toAtom.pos[0] - fromAtom.pos[0]),
             toAtom.pos[1] -
-                (1 - shrinkFactor) * (toAtom.pos[1] - fromAtom.pos[1])];
+                (1 - shrinkFactor) * (toAtom.pos[1] - fromAtom.pos[1]),
+        ];
     }
     if (toAtom.symbol !== "C") {
         // For carbon atoms, conventionally we don't draw any letter, so this
@@ -163,11 +173,11 @@ function maybeShrinkLines(fromAtom, toAtom) {
             fromAtom.pos[0] -
                 (1 - shrinkFactor) * (fromAtom.pos[0] - toAtom.pos[0]),
             fromAtom.pos[1] -
-                (1 - shrinkFactor) * (fromAtom.pos[1] - toAtom.pos[1])];
+                (1 - shrinkFactor) * (fromAtom.pos[1] - toAtom.pos[1]),
+        ];
     }
     return [fromPos, toPos];
 }
-
 
 /**
  * Compute the layout for a bond between two atoms.
@@ -193,7 +203,6 @@ function bondLayout(bond, atoms) {
     };
 }
 
-
 /**
  * Convert an array of atom indices to a single string unique identifier.
  *
@@ -209,7 +218,6 @@ function bondLayout(bond, atoms) {
 function idxString(idx) {
     return idx.join(":");
 }
-
 
 /**
  * Convert the parse tree output by the parser into an ordered list of atoms
@@ -246,7 +254,6 @@ function convertTree(atoms, bonds, tree) {
     return [atoms, bonds];
 }
 
-
 /**
  * Recursively process the queue of atoms that need to have layout computed.
  *
@@ -268,8 +275,13 @@ function convertTree(atoms, bonds, tree) {
  * Return:
  *     an array of rendering instructions for all the atoms in the molecule
  */
-function atomLayoutHelper(outputs, atomProcessingQueue, atoms, bonds,
-                          rotationAngle) {
+function atomLayoutHelper(
+    outputs,
+    atomProcessingQueue,
+    atoms,
+    bonds,
+    rotationAngle
+) {
     if (atomProcessingQueue.length === 0) {
         return outputs;
     }
@@ -283,7 +295,11 @@ function atomLayoutHelper(outputs, atomProcessingQueue, atoms, bonds,
     });
     return atomLayoutHelper(
         outputs.concat(atomLayout(atom, atoms, bonds, rotationAngle)),
-        atomProcessingQueue, atoms, bonds, rotationAngle);
+        atomProcessingQueue,
+        atoms,
+        bonds,
+        rotationAngle
+    );
 }
 
 /**
@@ -306,8 +322,11 @@ function bondLayoutHelper(outputs, atoms, bonds) {
     if (bonds.length === 0) {
         return outputs;
     }
-    return bondLayoutHelper(outputs.concat(bondLayout(bonds[0], atoms)),
-                            atoms, bonds.slice(1));
+    return bondLayoutHelper(
+        outputs.concat(bondLayout(bonds[0], atoms)),
+        atoms,
+        bonds.slice(1)
+    );
 }
 
 /**

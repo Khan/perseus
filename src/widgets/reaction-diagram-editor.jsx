@@ -47,9 +47,10 @@ var ReactionDiagramWidgetEditor = React.createClass({
     },
 
     updateSeparators: function(idx, propName) {
-        return (newValue) => {
-            const newSep = this.props.separators.map(
-                sep => {return {...sep};});
+        return newValue => {
+            const newSep = this.props.separators.map(sep => {
+                return {...sep};
+            });
             newSep[idx][propName] = newValue;
             this.change({separators: newSep});
         };
@@ -61,57 +62,64 @@ var ReactionDiagramWidgetEditor = React.createClass({
 
     render: function() {
         // TODO(colin): use styling instead of &nbsp hacks.
-        return <div>
-        <div>
-            <label>LHS SMILES:&nbsp;
-                <TextInput
-                    onChange={this.updateMolecule(0)}
-                    value={this.props.smiles[0]}
-                />
-            </label>
-        </div>
-        <div>
-            <label>LHS Rotation (deg):&nbsp;
-                <NumberInput
-                    onChange={this.updateRotation(0)}
-                    value={this.props.rotationAngle[0]}
-                />
-            </label>
-        </div>
-        <div>
-            <label>RHS SMILES:&nbsp;
-                <TextInput
-                    onChange={this.updateMolecule(1)}
-                    value={this.props.smiles[1]}
-                />
-            </label>
-        </div>
-        <div>
-            <label>RHS Rotation (deg):&nbsp;
-                <NumberInput
-                    onChange={this.updateRotation(1)}
-                    value={this.props.rotationAngle[1]}
-                />
-            </label>
-        </div>
-        <div>
-            <label>Top of arrow text:&nbsp;
-                <TextInput
-                    onChange={this.updateSeparators(0, "topText")}
-                    value={this.props.separators[0].topText}
-                />
-            </label>
-        </div>
-        <div>
-            <label>Bottom of arrow text:&nbsp;
-                <TextInput
-                    onChange={this.updateSeparators(0, "bottomText")}
-                    value={this.props.separators[0].bottomText}
-                />
-            </label>
-        </div>
-
-        </div>;
+        return (
+            <div>
+                <div>
+                    <label>
+                        LHS SMILES:&nbsp;
+                        <TextInput
+                            onChange={this.updateMolecule(0)}
+                            value={this.props.smiles[0]}
+                        />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        LHS Rotation (deg):&nbsp;
+                        <NumberInput
+                            onChange={this.updateRotation(0)}
+                            value={this.props.rotationAngle[0]}
+                        />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        RHS SMILES:&nbsp;
+                        <TextInput
+                            onChange={this.updateMolecule(1)}
+                            value={this.props.smiles[1]}
+                        />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        RHS Rotation (deg):&nbsp;
+                        <NumberInput
+                            onChange={this.updateRotation(1)}
+                            value={this.props.rotationAngle[1]}
+                        />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        Top of arrow text:&nbsp;
+                        <TextInput
+                            onChange={this.updateSeparators(0, "topText")}
+                            value={this.props.separators[0].topText}
+                        />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        Bottom of arrow text:&nbsp;
+                        <TextInput
+                            onChange={this.updateSeparators(0, "bottomText")}
+                            value={this.props.separators[0].bottomText}
+                        />
+                    </label>
+                </div>
+            </div>
+        );
     },
 });
 

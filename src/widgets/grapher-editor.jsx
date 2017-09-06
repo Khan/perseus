@@ -5,10 +5,10 @@
 const React = require("react");
 const _ = require("underscore");
 
-const Changeable   = require("../mixins/changeable.jsx");
+const Changeable = require("../mixins/changeable.jsx");
 
-const GraphSettings    = require("../components/graph-settings.jsx");
-const InfoTip          = require("../components/info-tip.jsx");
+const GraphSettings = require("../components/graph-settings.jsx");
+const InfoTip = require("../components/info-tip.jsx");
 const MultiButtonGroup = require("react-components/multi-button-group.jsx");
 
 const Grapher = require("./grapher.jsx").widget;
@@ -32,7 +32,7 @@ const GrapherEditor = React.createClass({
         return {
             correct: DEFAULT_GRAPHER_PROPS.plot,
             graph: DEFAULT_GRAPHER_PROPS.graph,
-            availableTypes: DEFAULT_GRAPHER_PROPS.availableTypes
+            availableTypes: DEFAULT_GRAPHER_PROPS.availableTypes,
         };
     },
 
@@ -62,52 +62,64 @@ const GrapherEditor = React.createClass({
                 trackInteraction: function() {},
             };
 
-            graph = <Grapher
-                {...graphProps}
-                apiOptions={this.props.apiOptions}
-                containerSizeClass={sizeClass}
-            />;
+            graph = (
+                <Grapher
+                    {...graphProps}
+                    apiOptions={this.props.apiOptions}
+                    containerSizeClass={sizeClass}
+                />
+            );
             equationString = GrapherUtil.getEquationString(graphProps);
         } else {
-            graph = <div className="perseus-error">
-                {this.props.graph.valid}
-            </div>;
+            graph = (
+                <div className="perseus-error">
+                    {this.props.graph.valid}
+                </div>
+            );
         }
 
-        return <div>
-            <div>Correct answer{' '}
-                <InfoTip>
-                    <p>Graph the correct answer in the graph below and ensure
-                    the equation or point coordinates displayed represent the
-                    correct answer.</p>
-                </InfoTip>
-                {' '}: {equationString}</div>
+        return (
+            <div>
+                <div>
+                    Correct answer{" "}
+                    <InfoTip>
+                        <p>
+                            Graph the correct answer in the graph below and
+                            ensure the equation or point coordinates displayed
+                            represent the correct answer.
+                        </p>
+                    </InfoTip>{" "}
+                    : {equationString}
+                </div>
 
-            <GraphSettings
-                editableSettings={["graph", "snap", "image"]}
-                box={getInteractiveBoxFromSizeClass(sizeClass)}
-                range={this.props.graph.range}
-                labels={this.props.graph.labels}
-                step={this.props.graph.step}
-                gridStep={this.props.graph.gridStep}
-                snapStep={this.props.graph.snapStep}
-                valid={this.props.graph.valid}
-                backgroundImage={this.props.graph.backgroundImage}
-                markings={this.props.graph.markings}
-                rulerLabel={this.props.graph.rulerLabel}
-                rulerTicks={this.props.graph.rulerTicks}
-                showTooltips={this.props.graph.showTooltips}
-                onChange={this.change("graph")} />
-            <div className="perseus-widget-row">
-                <label>Available functions:{' '} </label>
-                <MultiButtonGroup
-                    allowEmpty={false}
-                    values={this.props.availableTypes}
-                    buttons={_.map(allTypes, typeToButton)}
-                    onChange={this.handleAvailableTypesChange} />
+                <GraphSettings
+                    editableSettings={["graph", "snap", "image"]}
+                    box={getInteractiveBoxFromSizeClass(sizeClass)}
+                    range={this.props.graph.range}
+                    labels={this.props.graph.labels}
+                    step={this.props.graph.step}
+                    gridStep={this.props.graph.gridStep}
+                    snapStep={this.props.graph.snapStep}
+                    valid={this.props.graph.valid}
+                    backgroundImage={this.props.graph.backgroundImage}
+                    markings={this.props.graph.markings}
+                    rulerLabel={this.props.graph.rulerLabel}
+                    rulerTicks={this.props.graph.rulerTicks}
+                    showTooltips={this.props.graph.showTooltips}
+                    onChange={this.change("graph")}
+                />
+                <div className="perseus-widget-row">
+                    <label>Available functions:  </label>
+                    <MultiButtonGroup
+                        allowEmpty={false}
+                        values={this.props.availableTypes}
+                        buttons={_.map(allTypes, typeToButton)}
+                        onChange={this.handleAvailableTypesChange}
+                    />
+                </div>
+                {graph}
             </div>
-            {graph}
-        </div>;
+        );
     },
 
     handleAvailableTypesChange: function(newAvailableTypes) {
@@ -122,16 +134,16 @@ const GrapherEditor = React.createClass({
         }
         this.props.onChange({
             availableTypes: newAvailableTypes,
-            correct: correct
+            correct: correct,
         });
     },
 
     serialize: function() {
         return _.chain(this.props)
-                .pick("correct", "availableTypes")
-                .extend({ graph: _.omit(this.props.graph, "box") })
-                .value();
-    }
+            .pick("correct", "availableTypes")
+            .extend({graph: _.omit(this.props.graph, "box")})
+            .value();
+    },
 });
 
 module.exports = GrapherEditor;

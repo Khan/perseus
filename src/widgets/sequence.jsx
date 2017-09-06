@@ -6,40 +6,47 @@ var React = require("react");
 var _ = require("underscore");
 
 var ApiOptions = require("../perseus-api.jsx").Options;
-var Changeable   = require("../mixins/changeable.jsx");
+var Changeable = require("../mixins/changeable.jsx");
 const {iconOk} = require("../icon-paths.js");
 const InlineIcon = require("../components/inline-icon.jsx");
 var Renderer = require("../renderer.jsx");
 var Util = require("../util.js");
-const {linterContextProps, linterContextDefault} = require("../gorgon/proptypes.js");
+const {
+    linterContextProps,
+    linterContextDefault,
+} = require("../gorgon/proptypes.js");
 
 var Sequence = React.createClass({
     propTypes: {
         ...Changeable.propTypes,
         apiOptions: ApiOptions.propTypes,
-        json:  React.PropTypes.arrayOf(React.PropTypes.shape({
-            content: React.PropTypes.string,
-            images: React.PropTypes.object,
-            widgets: React.PropTypes.object,
-        })),
+        json: React.PropTypes.arrayOf(
+            React.PropTypes.shape({
+                content: React.PropTypes.string,
+                images: React.PropTypes.object,
+                widgets: React.PropTypes.object,
+            })
+        ),
         trackInteraction: React.PropTypes.func.isRequired,
         linterContext: linterContextProps,
     },
 
     getDefaultProps: function() {
         return {
-            json: [{
-                content: "",
-                widgets: {},
-                images: {},
-            }],
+            json: [
+                {
+                    content: "",
+                    widgets: {},
+                    images: {},
+                },
+            ],
             linterContext: linterContextDefault,
         };
     },
 
     getInitialState: function() {
         return {
-            visible: 1
+            visible: 1,
         };
     },
 
@@ -51,10 +58,10 @@ var Sequence = React.createClass({
         var icon = <InlineIcon {...iconOk} style={{color: "green"}} />;
 
         var content = _.chain(this.props.json)
-                .first(this.state.visible)
-                .map((step, i) => `[[${Util.snowman} group ${i}]]`)
-                .join("\n\n")
-                .value();
+            .first(this.state.visible)
+            .map((step, i) => `[[${Util.snowman} group ${i}]]`)
+            .join("\n\n")
+            .value();
 
         var widgets = {};
         _.each(this.props.json, (step, i) => {
@@ -64,21 +71,23 @@ var Sequence = React.createClass({
                 graded: true,
                 version: {major: 0, minor: 0},
                 options: _.extend({}, step, {
-                    icon: i < this.state.visible - 1 ? icon : null
-                })
+                    icon: i < this.state.visible - 1 ? icon : null,
+                }),
             };
         });
 
-        return <div className="perseus-sequence">
-            <Renderer
-                ref="renderer"
-                content={content}
-                widgets={widgets}
-                onInteractWithWidget={this._handleInteraction}
-                apiOptions={this.props.apiOptions}
-                linterContext={this.props.linterContext}
+        return (
+            <div className="perseus-sequence">
+                <Renderer
+                    ref="renderer"
+                    content={content}
+                    widgets={widgets}
+                    onInteractWithWidget={this._handleInteraction}
+                    apiOptions={this.props.apiOptions}
+                    linterContext={this.props.linterContext}
                 />
-        </div>;
+            </div>
+        );
     },
 
     change(...args) {
@@ -95,25 +104,22 @@ var Sequence = React.createClass({
 
             if (score.type === "points" && score.total === score.earned) {
                 this.setState({
-                    visible: this.state.visible + 1
+                    visible: this.state.visible + 1,
                 });
                 this.props.trackInteraction({
                     visible: this.state.visible + 1,
                 });
             }
         }
-    }
+    },
 });
 
-var traverseChildWidgets = function(
-        props,
-        traverseRenderer) {
-
+var traverseChildWidgets = function(props, traverseRenderer) {
     var oldJson = props.json;
     if (!_.isArray(oldJson)) {
         oldJson = [oldJson];
     }
-    var json = _.map(oldJson, (rendererOptions) => {
+    var json = _.map(oldJson, rendererOptions => {
         return traverseRenderer(rendererOptions);
     });
 

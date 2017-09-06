@@ -4,11 +4,12 @@ const knumber = require("kmath").number;
 const KhanMath = {
     // Simplify formulas before display
     cleanMath: function(expr) {
-        return typeof expr === "string" ?
-            expr.replace(/\+\s*-/g, "- ")
-                .replace(/-\s*-/g, "+ ")
-                .replace(/\^1/g, "") :
-            expr;
+        return typeof expr === "string"
+            ? expr
+                  .replace(/\+\s*-/g, "- ")
+                  .replace(/-\s*-/g, "+ ")
+                  .replace(/\^1/g, "")
+            : expr;
     },
 
     // Bound a number by 1e-6 and 1e20 to avoid exponents after toString
@@ -59,8 +60,33 @@ const KhanMath = {
         }
     },
 
-    primes: [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43,
-        47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97],
+    primes: [
+        2,
+        3,
+        5,
+        7,
+        11,
+        13,
+        17,
+        19,
+        23,
+        29,
+        31,
+        37,
+        41,
+        43,
+        47,
+        53,
+        59,
+        61,
+        67,
+        71,
+        73,
+        79,
+        83,
+        89,
+        97,
+    ],
 
     isPrime: function(n) {
         if (n <= 1) {
@@ -70,7 +96,7 @@ const KhanMath = {
                 return Math.abs(p - n) <= 0.5;
             }).length;
         } else {
-            if (n <= 1 || n > 2 && n % 2 === 0) {
+            if (n <= 1 || (n > 2 && n % 2 === 0)) {
                 return false;
             } else {
                 for (let i = 3, sqrt = Math.sqrt(n); i <= sqrt; i += 2) {
@@ -82,7 +108,6 @@ const KhanMath = {
 
             return true;
         }
-
     },
 
     getPrimeFactorization: function(number) {
@@ -156,13 +181,14 @@ const KhanMath = {
 
         if (decimal < 0 || decimal > 1) {
             let fract = decimal % 1;
-            fract += (fract < 0 ? 1 : 0);
+            fract += fract < 0 ? 1 : 0;
 
             const nd = KhanMath.toFraction(fract, tolerance);
             nd[0] += Math.round(decimal - fract) * nd[1];
             return nd;
-        } else if (Math.abs(Math.round(Number(decimal)) - decimal) <=
-                tolerance) {
+        } else if (
+            Math.abs(Math.round(Number(decimal)) - decimal) <= tolerance
+        ) {
             return [Math.round(decimal), 1];
         } else {
             let loN = 0;
@@ -172,7 +198,7 @@ const KhanMath = {
             let midN = 1;
             let midD = 2;
 
-            while (true) { // @Nolint(constant condition)
+            while (true) { // eslint-disable-line no-constant-condition
                 if (Math.abs(Number(midN / midD) - decimal) <= tolerance) {
                     return [midN, midD];
                 } else if (midN / midD < decimal) {
@@ -202,8 +228,9 @@ const KhanMath = {
         }
         const fraction = text.match(/^[+-]?(\d+)\s*\/\s*(\d+)$/);
         if (fraction) {
-            return parseFloat(fraction[1]) > parseFloat(fraction[2]) ?
-                    "improper" : "proper";
+            return parseFloat(fraction[1]) > parseFloat(fraction[2])
+                ? "improper"
+                : "proper";
         } else if (text.replace(/[,. ]/g, "").match(/^\d+$/)) {
             return "decimal";
         } else if (text.match(/(pi?|\u03c0|t(?:au)?|\u03c4|pau)/)) {
@@ -212,7 +239,6 @@ const KhanMath = {
             return null;
         }
     },
-
 
     // Returns a string of the number in a specified format
     toNumericString: function(number, format) {
@@ -233,8 +259,12 @@ const KhanMath = {
             if (knumber.isInteger(numerator)) {
                 const sign = number < 0 ? "-" : "";
                 const pi = "\u03C0";
-                return sign + (numerator === 1 ? "" : numerator) + pi +
-                    (denominator === 1 ? "" : "/" + denominator);
+                return (
+                    sign +
+                    (numerator === 1 ? "" : numerator) +
+                    pi +
+                    (denominator === 1 ? "" : "/" + denominator)
+                );
             }
         }
 
@@ -248,8 +278,13 @@ const KhanMath = {
             } else if (format === "mixed") {
                 const modulus = numerator % denominator;
                 const integer = (numerator - modulus) / denominator;
-                return sign + (integer ? integer + " " : "") +
-                        modulus + "/" + denominator;
+                return (
+                    sign +
+                    (integer ? integer + " " : "") +
+                    modulus +
+                    "/" +
+                    denominator
+                );
             } // otherwise proper, improper, or fraction
             return sign + numerator + "/" + denominator;
         }

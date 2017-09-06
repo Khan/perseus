@@ -6,7 +6,7 @@
  * hint editor boxes, and hint previews
  */
 
-var React = require('react');
+var React = require("react");
 var _ = require("underscore");
 
 var Editor = require("./editor.jsx");
@@ -14,8 +14,12 @@ var InfoTip = require("./components/info-tip.jsx");
 var DeviceFramer = require("./components/device-framer.jsx");
 
 const ApiOptions = require("./perseus-api.jsx").Options;
-const {iconCircleArrowDown, iconCircleArrowUp, iconPlus, iconTrash} =
-    require("./icon-paths.js");
+const {
+    iconCircleArrowDown,
+    iconCircleArrowUp,
+    iconPlus,
+    iconTrash,
+} = require("./icon-paths.js");
 const InlineIcon = require("./components/inline-icon.jsx");
 const IframeContentRenderer = require("./iframe-content-renderer.jsx");
 
@@ -48,13 +52,15 @@ var HintEditor = React.createClass({
     },
 
     handleChange: function(e) {
-        this.props.onChange({replace:e.target.checked});
+        this.props.onChange({replace: e.target.checked});
     },
 
     render: function() {
-        return <div className={"perseus-hint-editor " + this.props.className}>
-            {this.props.showTitle && <div className="pod-title">Hint</div>}
-            <Editor ref="editor"
+        return (
+            <div className={"perseus-hint-editor " + this.props.className}>
+                {this.props.showTitle && <div className="pod-title">Hint</div>}
+                <Editor
+                    ref="editor"
                     apiOptions={this.props.apiOptions}
                     widgets={this.props.widgets}
                     content={this.props.content}
@@ -62,39 +68,50 @@ var HintEditor = React.createClass({
                     replace={this.props.replace}
                     placeholder="Type your hint here..."
                     imageUploader={this.props.imageUploader}
-                    onChange={this.props.onChange} />
-            <div className="hint-controls-container clearfix">
-                {this.props.showMoveButtons && <span className="reorder-hints">
-                    <button type="button"
-                            className={this.props.isLast ? "hidden" : ""}
-                            onClick={_.partial(this.props.onMove, 1)}>
-                        <InlineIcon {...iconCircleArrowDown} />
-                    </button>
-                    {' '}
-                    <button type="button"
-                            className={this.props.isFirst ? "hidden" : ""}
-                            onClick={_.partial(this.props.onMove, -1)}>
-                        <InlineIcon {...iconCircleArrowUp} />
-                    </button>
-                    {' '}
-                    {this.props.isLast &&
-                    <InfoTip>
-                        <p>The last hint is automatically bolded.</p>
-                    </InfoTip>}
-                </span>}
-                <input type="checkbox"
-                       checked={this.props.replace}
-                       onChange={this.handleChange}
+                    onChange={this.props.onChange}
                 />
-                Replace previous hint
-                {this.props.showRemoveButton && <button type="button"
-                        className="remove-hint simple-button orange"
-                        onClick={this.props.onRemove}>
-                    <InlineIcon {...iconTrash} />
-                    Remove this hint{' '}
-                </button>}
+                <div className="hint-controls-container clearfix">
+                    {this.props.showMoveButtons &&
+                        <span className="reorder-hints">
+                            <button
+                                type="button"
+                                className={this.props.isLast ? "hidden" : ""}
+                                onClick={_.partial(this.props.onMove, 1)}
+                            >
+                                <InlineIcon {...iconCircleArrowDown} />
+                            </button>{" "}
+                            <button
+                                type="button"
+                                className={this.props.isFirst ? "hidden" : ""}
+                                onClick={_.partial(this.props.onMove, -1)}
+                            >
+                                <InlineIcon {...iconCircleArrowUp} />
+                            </button>{" "}
+                            {this.props.isLast &&
+                                <InfoTip>
+                                    <p>
+                                        The last hint is automatically bolded.
+                                    </p>
+                                </InfoTip>}
+                        </span>}
+                    <input
+                        type="checkbox"
+                        checked={this.props.replace}
+                        onChange={this.handleChange}
+                    />
+                    Replace previous hint
+                    {this.props.showRemoveButton &&
+                        <button
+                            type="button"
+                            className="remove-hint simple-button orange"
+                            onClick={this.props.onRemove}
+                        >
+                            <InlineIcon {...iconTrash} />
+                            Remove this hint{" "}
+                        </button>}
+                </div>
             </div>
-        </div>;
+        );
     },
 
     focus: function() {
@@ -109,7 +126,6 @@ var HintEditor = React.createClass({
         return this.refs.editor.serialize(options);
     },
 });
-
 
 /* A single hint-row containing a hint editor and preview */
 var CombinedHintEditor = React.createClass({
@@ -128,8 +144,8 @@ var CombinedHintEditor = React.createClass({
     },
 
     updatePreview: function() {
-        const shouldBold = this.props.isLast &&
-                         !(/\*\*/).test(this.props.hint.content);
+        const shouldBold =
+            this.props.isLast && !/\*\*/.test(this.props.hint.content);
 
         this.refs.frame.sendNewData({
             type: "hint",
@@ -139,7 +155,9 @@ var CombinedHintEditor = React.createClass({
                 pos: this.props.pos,
                 apiOptions: this.props.apiOptions,
                 linterContext: {
+                    contentType: "hint",
                     highlightLint: this.props.highlightLint,
+                    paths: this.props.contentPaths,
                 },
             },
         });
@@ -154,43 +172,47 @@ var CombinedHintEditor = React.createClass({
     },
 
     render: function() {
-        const isMobile = this.props.deviceType === "phone" ||
+        const isMobile =
+            this.props.deviceType === "phone" ||
             this.props.deviceType === "tablet";
-        return <div className={"perseus-combined-hint-editor " +
-                    "perseus-editor-row"}>
-            <div className="perseus-editor-left-cell">
-                <HintEditor
-                    ref="editor"
-                    isFirst={this.props.isFirst}
-                    isLast={this.props.isLast}
-                    widgets={this.props.hint.widgets}
-                    content={this.props.hint.content}
-                    images={this.props.hint.images}
-                    replace={this.props.hint.replace}
-                    imageUploader={this.props.imageUploader}
-                    onChange={this.props.onChange}
-                    onRemove={this.props.onRemove}
-                    onMove={this.props.onMove}
-                    apiOptions={this.props.apiOptions}
-                />
-            </div>
+        return (
             <div
-                className="perseus-editor-right-cell"
+                className={
+                    "perseus-combined-hint-editor " + "perseus-editor-row"
+                }
             >
-                <DeviceFramer
-                    deviceType={this.props.deviceType}
-                    nochrome={true}
-                >
-                    <IframeContentRenderer
-                        ref="frame"
-                        content={this.props.frameSource}
-                        datasetKey="mobile"
-                        datasetValue={isMobile}
-                        seamless={true}
+                <div className="perseus-editor-left-cell">
+                    <HintEditor
+                        ref="editor"
+                        isFirst={this.props.isFirst}
+                        isLast={this.props.isLast}
+                        widgets={this.props.hint.widgets}
+                        content={this.props.hint.content}
+                        images={this.props.hint.images}
+                        replace={this.props.hint.replace}
+                        imageUploader={this.props.imageUploader}
+                        onChange={this.props.onChange}
+                        onRemove={this.props.onRemove}
+                        onMove={this.props.onMove}
+                        apiOptions={this.props.apiOptions}
                     />
-                </DeviceFramer>
+                </div>
+                <div className="perseus-editor-right-cell">
+                    <DeviceFramer
+                        deviceType={this.props.deviceType}
+                        nochrome={true}
+                    >
+                        <IframeContentRenderer
+                            ref="frame"
+                            content={this.props.frameSource}
+                            datasetKey="mobile"
+                            datasetValue={isMobile}
+                            seamless={true}
+                        />
+                    </DeviceFramer>
+                </div>
             </div>
-        </div>;
+        );
     },
 
     getSaveWarnings: function() {
@@ -205,7 +227,6 @@ var CombinedHintEditor = React.createClass({
         this.refs.editor.focus();
     },
 });
-
 
 /* The entire hints editing/preview area
  *
@@ -237,8 +258,11 @@ var CombinedHintsEditor = React.createClass({
 
     render: function() {
         var hints = this.props.hints;
-        var hintElems = _.map(hints, function(hint, i) {
-            return <CombinedHintEditor
+        var hintElems = _.map(
+            hints,
+            function(hint, i) {
+                return (
+                    <CombinedHintEditor
                         ref={"hintEditor" + i}
                         key={"hintEditor" + i}
                         isFirst={i === 0}
@@ -252,22 +276,31 @@ var CombinedHintsEditor = React.createClass({
                         deviceType={this.props.deviceType}
                         apiOptions={this.props.apiOptions}
                         frameSource={this.props.frameSource}
-                        highlightLint={this.props.highlightLint} />;
-        }, this);
+                        highlightLint={this.props.highlightLint}
+                    />
+                );
+            },
+            this
+        );
 
-        return <div className="perseus-hints-editor perseus-editor-table">
-            {hintElems}
-            <div className="perseus-editor-row">
-                <div className="add-hint-container perseus-editor-left-cell">
-                <button type="button"
-                        className="add-hint simple-button orange"
-                        onClick={this.addHint}>
-                    <InlineIcon {...iconPlus} />
-                    {' '}Add a hint
-                </button>
+        /* eslint-disable max-len */
+        return (
+            <div className="perseus-hints-editor perseus-editor-table">
+                {hintElems}
+                <div className="perseus-editor-row">
+                    <div className="add-hint-container perseus-editor-left-cell">
+                        <button
+                            type="button"
+                            className="add-hint simple-button orange"
+                            onClick={this.addHint}
+                        >
+                            <InlineIcon {...iconPlus} /> Add a hint
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>;
+        );
+        /* eslint-enable max-len */
     },
 
     handleHintChange: function(i, newProps, cb, silent) {
@@ -298,7 +331,7 @@ var CombinedHintsEditor = React.createClass({
     },
 
     addHint: function() {
-        var hints = _(this.props.hints).clone().concat([{ content: "" }]);
+        var hints = _(this.props.hints).clone().concat([{content: ""}]);
         this.props.onChange({hints: hints}, () => {
             var i = hints.length - 1;
             this.refs["hintEditor" + i].focus();
@@ -310,7 +343,8 @@ var CombinedHintsEditor = React.createClass({
             .map((hint, i) => {
                 return _.map(
                     this.refs["hintEditor" + i].getSaveWarnings(),
-                    (issue) => ("Hint " + (i + 1) + ": " + issue));
+                    issue => "Hint " + (i + 1) + ": " + issue
+                );
             })
             .flatten(true)
             .value();

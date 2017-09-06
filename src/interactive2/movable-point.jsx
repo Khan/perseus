@@ -1,7 +1,3 @@
-/* eslint-disable comma-dangle, no-redeclare, no-var */
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /**
  * Creates and adds a point to the graph that can be dragged around.
  * It allows constraints on its movement and draws when moves happen.
@@ -53,17 +49,17 @@
  *   remove:
  *     removes the point from graphie
  */
-var _ = require("underscore");
+const _ = require("underscore");
 
-var MovablePointOptions = require("./movable-point-options.js");
-var WrappedEllipse = require("./wrapped-ellipse.js");
-var InteractiveUtil = require("./interactive-util.js");
-var objective_ = require("./objective_.js");
-var assert = InteractiveUtil.assert;
-var normalizeOptions = InteractiveUtil.normalizeOptions;
+const MovablePointOptions = require("./movable-point-options.js");
+const WrappedEllipse = require("./wrapped-ellipse.js");
+const InteractiveUtil = require("./interactive-util.js");
+const objective_ = require("./objective_.js");
+const assert = InteractiveUtil.assert;
+const normalizeOptions = InteractiveUtil.normalizeOptions;
 
-var kpoint = require("kmath").point;
-var kvector = require("kmath").vector;
+const kpoint = require("kmath").point;
+const kvector = require("kmath").vector;
 const KhanColors = require("../util/colors.js");
 const processMath = require("../util/tex.js").processMath;
 const {iconTrash} = require("../icon-paths.js");
@@ -74,7 +70,7 @@ const InlineIcon = require("../components/inline-icon.jsx");
 
 // State parameters that should be converted into an array of
 // functions
-var FUNCTION_ARRAY_OPTIONS = _.keys(MovablePointOptions);
+const FUNCTION_ARRAY_OPTIONS = _.keys(MovablePointOptions);
 
 // Default "props" and "state". Both are added to this.state and
 // receive magic getter methods (this.coord() etc).
@@ -82,7 +78,7 @@ var FUNCTION_ARRAY_OPTIONS = _.keys(MovablePointOptions);
 // while those in DEFAULT_STATE persist and are not updated.
 // Things that the user might want to change should be on "props",
 // while things used to render the point should be on "state".
-var DEFAULT_PROPS = {
+const DEFAULT_PROPS = {
     coord: [0, 0],
     pointSize: 4,
     static: false,
@@ -92,7 +88,7 @@ var DEFAULT_PROPS = {
     shadow: false,
     tooltip: false,
 };
-var DEFAULT_STATE = {
+const DEFAULT_STATE = {
     added: false,
     hasMoved: false,
     visibleShape: null,
@@ -103,14 +99,14 @@ var DEFAULT_STATE = {
 
 const tooltipResetFunctions = [];
 
-var MovablePoint = function(graphie, movable, options) {
+const MovablePoint = function(graphie, movable, options) {
     _.extend(this, {
         graphie: graphie,
         movable: movable,
         state: {
             // Set here because this must be unique for each instance
-            id: _.uniqueId("movablePoint")
-        }
+            id: _.uniqueId("movablePoint"),
+        },
     });
 
     // We only set DEFAULT_STATE once, here
@@ -212,9 +208,9 @@ _.extend(MovablePoint.prototype, {
      * Analogous to React.js's setProps
      */
     update: function(options) {
-        var self = this;
-        var graphie = self.graphie;
-        var state = _.extend(
+        const self = this;
+        const graphie = self.graphie;
+        const state = _.extend(
             self.state,
             normalizeOptions(FUNCTION_ARRAY_OPTIONS, options)
         );
@@ -226,26 +222,26 @@ _.extend(MovablePoint.prototype, {
         // We use _.extend instead of _.defaults because we don't want
         // to modify the passed-in copy (especially if it's from
         // DEFAULT_PROPS/STATE!)
-        var normalColor = (state.static) ? KhanColors.DYNAMIC
+        const normalColor = (state.static) ? KhanColors.DYNAMIC
                                          : KhanColors.INTERACTIVE;
         state.normalStyle = _.extend({
             fill: normalColor,
             stroke: normalColor,
-            scale: 1
+            scale: 1,
         }, state.normalStyle);
 
         state.highlightStyle = _.extend({
             fill: KhanColors.INTERACTING,
             stroke: KhanColors.INTERACTING,
-            scale: 2
+            scale: 2,
         }, state.highlightStyle);
 
         if (!state.static) {
             // the invisible shape in front of the point that gets mouse events
             if (!state.mouseTarget) {
-                var center = self.state.coord;
-                var radii = graphie.unscaleVector(24);
-                var options = {
+                const center = self.state.coord;
+                const radii = graphie.unscaleVector(24);
+                const options = {
                     mouselayer: true,
                     padding: 0,
                 };
@@ -263,7 +259,7 @@ _.extend(MovablePoint.prototype, {
                                     position: "static",
                                     color: KhanColors.INTERACTIVE,
                                     marginLeft: 9,
-                                    marginRight: 9
+                                    marginRight: 9,
                                 }}
                                 />
                             </span>,
@@ -423,7 +419,7 @@ _.extend(MovablePoint.prototype, {
                 state.hasMoved = false;
                 state.touchOffset = null;
                 self.draw();
-            }
+            },
         }));
 
         // Trigger an add event if this hasn't been added before
@@ -453,7 +449,7 @@ _.extend(MovablePoint.prototype, {
     },
 
     constrain: function() {
-        var result = this._applyConstraints(this.coord(), this.coord());
+        const result = this._applyConstraints(this.coord(), this.coord());
         if (kpoint.is(result)) {
             this.setCoord(result);
         }
@@ -468,7 +464,7 @@ _.extend(MovablePoint.prototype, {
 
     setCoordConstrained: function(coord) {
         assert(kpoint.is(coord, 2));
-        var result = this._applyConstraints(coord, this.coord());
+        const result = this._applyConstraints(coord, this.coord());
         if (result !== false) {
             this.state.coord = _.clone(result);
             this.draw();
@@ -482,14 +478,14 @@ _.extend(MovablePoint.prototype, {
         // providing custom constraints on where the point can be moved.
         // By returning array [x, y], the move can be overridden
 
-        var state = this.state;
+        const state = this.state;
 
         this.state.outOfBounds = false;
-        var result = this._applyConstraints(coord, state.coord,
+        const result = this._applyConstraints(coord, state.coord,
             state.onRemove ? {
                 onOutOfBounds: () => {
                     this.state.outOfBounds = true;
-                }
+                },
             } : {});
 
         if (result === false) {
@@ -498,7 +494,7 @@ _.extend(MovablePoint.prototype, {
             coord = result;
         }
         if (!kpoint.equal(coord, state.coord)) {
-            var prevCoord = state.coord;
+            const prevCoord = state.coord;
             state.coord = coord;
             state.hasMoved = true;
             this._fireEvent(state.onMove, state.coord, prevCoord);
@@ -554,7 +550,7 @@ _.extend(MovablePoint.prototype, {
 
         this.movable.grab(coord);
         this.moveTo(coord);
-    }
+    },
 });
 
 module.exports = MovablePoint;

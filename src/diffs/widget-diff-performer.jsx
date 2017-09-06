@@ -1,18 +1,14 @@
-/* eslint-disable comma-dangle, no-var */
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const _ = require("underscore");
 
-var UNCHANGED = "unchanged";
-var CHANGED = "changed";
-var ADDED = "added";
-var REMOVED = "removed";
+const UNCHANGED = "unchanged";
+const CHANGED = "changed";
+const ADDED = "added";
+const REMOVED = "removed";
 
 // For values which do not have further values nested within them (strings,
 // numbers, and booleans)
-var valueEntry = function(before, after, key) {
-    var status;
+const valueEntry = function(before, after, key) {
+    let status;
     if (before === after) {
         status = UNCHANGED;
     } else if (before === undefined) {
@@ -28,27 +24,27 @@ var valueEntry = function(before, after, key) {
         before: JSON.stringify(before),
         children: [],
         key: key,
-        status: status
+        status: status,
     };
 };
 
 // For values which require a more granular diff (objects and arrays)
-var objectEntry = function(before, after, key) {
-    var beforeKeys = (_.isObject(before)) ? _(before).keys() : [];
-    var afterKeys = (_.isObject(after)) ? _(after).keys() : [];
-    var keys = _.union(beforeKeys, afterKeys);
+const objectEntry = function(before, after, key) {
+    const beforeKeys = _.isObject(before) ? _(before).keys() : [];
+    const afterKeys = _.isObject(after) ? _(after).keys() : [];
+    const keys = _.union(beforeKeys, afterKeys);
 
-    var children = _.map(keys, function(key) {
+    const children = _.map(keys, function(key) {
         return performDiff((before || {})[key], (after || {})[key], key);
     });
 
-    var status;
+    let status;
     if (before === undefined) {
         status = ADDED;
     } else if (after === undefined) {
         status = REMOVED;
     } else {
-        var changed = _.any(children, function(child) {
+        const changed = _.any(children, function(child) {
             return child.status !== UNCHANGED;
         });
         status = changed ? CHANGED : UNCHANGED;
@@ -59,11 +55,11 @@ var objectEntry = function(before, after, key) {
         before: "",
         children: children,
         key: key,
-        status: status
+        status: status,
     };
 };
 
-var performDiff = function(before, after, /* optional */ key) {
+const performDiff = function(before, after, /* optional */ key) {
     if (typeof before === "object" || typeof after === "object") {
         return objectEntry(before, after, key);
     } else {

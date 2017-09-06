@@ -2,6 +2,7 @@ import Rule from "../rule.js";
 
 module.exports = Rule.makeRule({
     name: "image-spaces-around-urls",
+    severity: Rule.Severity.ERROR,
     selector: "image",
     lint: function(state, content, nodes, match, context) {
         const image = nodes[0];

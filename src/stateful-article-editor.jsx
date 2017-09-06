@@ -1,7 +1,3 @@
-/* eslint-disable object-curly-spacing */
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 "use strict";
 
 /**
@@ -13,7 +9,7 @@
  * can query them with serialize.
  */
 
-const React = require('react');
+const React = require("react");
 const _ = require("underscore");
 
 const ArticleEditor = require("./article-editor.jsx");
@@ -56,66 +52,86 @@ const StatefulArticleEditor = React.createClass({
     },
 
     render: function() {
-        const { mode, screen } = this.state;
-        return <div>
-            <div style={styles.controlBar}>
-                <span style={styles.controls}>
-                    Mode:{" "}
-                    <span
-                        onClick={() => this.setState({mode: "edit"})}
-                        style={mode === "edit" ?
-                            styles.controlSelected : styles.control}
-                    >
-                        EDIT
+        const {mode, screen} = this.state;
+        return (
+            <div>
+                <div style={styles.controlBar}>
+                    <span style={styles.controls}>
+                        Mode:{" "}
+                        <span
+                            onClick={() => this.setState({mode: "edit"})}
+                            style={
+                                mode === "edit"
+                                    ? styles.controlSelected
+                                    : styles.control
+                            }
+                        >
+                            EDIT
+                        </span>
+                        {" | "}
+                        <span
+                            onClick={() => this.setState({mode: "preview"})}
+                            style={
+                                mode === "preview"
+                                    ? styles.controlSelected
+                                    : styles.control
+                            }
+                        >
+                            PREVIEW
+                        </span>
+                        {" | "}
+                        <span
+                            onClick={() => this.setState({mode: "json"})}
+                            style={
+                                mode === "json"
+                                    ? styles.controlSelected
+                                    : styles.control
+                            }
+                        >
+                            JSON
+                        </span>
                     </span>
-                    {" | "}
-                    <span
-                        onClick={() => this.setState({mode: "preview"})}
-                        style={mode === "preview" ?
-                            styles.controlSelected : styles.control}
-                    >
-                        PREVIEW
+                    <span style={styles.controls}>
+                        Screen:{" "}
+                        <span
+                            onClick={() => this.setState({screen: "phone"})}
+                            style={
+                                screen === "phone"
+                                    ? styles.controlSelected
+                                    : styles.control
+                            }
+                        >
+                            PHONE
+                        </span>
+                        {" | "}
+                        <span
+                            onClick={() => this.setState({screen: "tablet"})}
+                            style={
+                                screen === "tablet"
+                                    ? styles.controlSelected
+                                    : styles.control
+                            }
+                        >
+                            TABLET
+                        </span>
+                        {" | "}
+                        <span
+                            onClick={() => this.setState({screen: "desktop"})}
+                            style={
+                                screen === "desktop"
+                                    ? styles.controlSelected
+                                    : styles.control
+                            }
+                        >
+                            DESKTOP
+                        </span>
                     </span>
-                    {" | "}
-                    <span
-                        onClick={() => this.setState({mode: "json"})}
-                        style={mode === "json" ?
-                            styles.controlSelected : styles.control}
-                    >
-                        JSON
-                    </span>
-                </span>
-                <span style={styles.controls}>
-                    Screen:{" "}
-                    <span
-                        onClick={() => this.setState({screen: "phone"})}
-                        style={screen === "phone" ?
-                            styles.controlSelected : styles.control}
-                    >
-                        PHONE
-                    </span>
-                    {" | "}
-                    <span
-                        onClick={() => this.setState({screen: "tablet"})}
-                        style={screen === "tablet" ?
-                            styles.controlSelected : styles.control}
-                    >
-                        TABLET
-                    </span>
-                    {" | "}
-                    <span
-                        onClick={() => this.setState({screen: "desktop"})}
-                        style={screen === "desktop" ?
-                            styles.controlSelected : styles.control}
-                    >
-                        DESKTOP
-                    </span>
-                </span>
+                </div>
+                <div style={styles.editor}>
+                    <ArticleEditor {...this.state} />
+                </div>
             </div>
-            <div style={styles.editor}>
-                <ArticleEditor {...this.state} />
-            </div>
-        </div>;
+        );
     },
 });
 

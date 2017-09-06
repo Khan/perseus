@@ -4,7 +4,7 @@
 
 /* global i18n */
 
-const React = require('react');
+const React = require("react");
 const {StyleSheet, css} = require("aphrodite");
 
 const styleConstants = require("../../styles/constants.js");
@@ -16,7 +16,7 @@ class SATChoiceIcon extends React.Component {
         letter: string,
         a11yText: string,
         checked: boolean,
-        correct: ?boolean,
+        correct: boolean,
         reviewMode: boolean,
     };
 
@@ -25,7 +25,7 @@ class SATChoiceIcon extends React.Component {
     // from MDR in https://phabricator.khanacademy.org/D35249.
     constructStyles(
         reviewMode: boolean,
-        correct: ?boolean,
+        correct: boolean,
         checked: boolean
     ): {color: string, backgroundColor: ?string, borderColor: string} {
         let backgroundColor;
@@ -35,11 +35,11 @@ class SATChoiceIcon extends React.Component {
             if (correct) {
                 borderColor = styleConstants.satCorrectColor;
                 color = checked
-                      ? styleConstants.white
-                      : styleConstants.satCorrectColor;
+                    ? styleConstants.white
+                    : styleConstants.satCorrectColor;
                 backgroundColor = checked
-                                ? styleConstants.satCorrectColor
-                                : styleConstants.white;
+                    ? styleConstants.satCorrectColor
+                    : styleConstants.white;
             } else if (checked) {
                 borderColor = styleConstants.satIncorrectColor;
                 color = styleConstants.white;
@@ -54,21 +54,28 @@ class SATChoiceIcon extends React.Component {
 
     render() {
         const {letter, a11yText, reviewMode, checked, correct} = this.props;
-        const {color, backgroundColor, borderColor} =
-            this.constructStyles(reviewMode, correct, checked);
+        const {color, backgroundColor, borderColor} = this.constructStyles(
+            reviewMode,
+            correct,
+            checked
+        );
 
-        return <div>
-            <div
-                className={css(styles.satCircle)}
-                style={{backgroundColor, borderColor}}
-            />
-            <div style={{color}} className={css(styles.letter)}>
-                <span className="perseus-sr-only">
-                    {a11yText}
-                </span>
-                <span aria-hidden="true">{letter}</span>
+        return (
+            <div>
+                <div
+                    className={css(styles.satCircle)}
+                    style={{backgroundColor, borderColor}}
+                />
+                <div style={{color}} className={css(styles.letter)}>
+                    <span className="perseus-sr-only">
+                        {a11yText}
+                    </span>
+                    <span aria-hidden="true">
+                        {letter}
+                    </span>
+                </div>
             </div>
-        </div>;
+        );
     }
 }
 
@@ -91,17 +98,17 @@ class LibraryChoiceIcon extends React.Component {
         if (!showCorrectness) {
             return letter;
         } else if (correct) {
-            return <InlineIcon
-                {...iconCheck}
-                style={{
-                    position: "relative",
-                    top: -1,
-                }}
-            />;
+            return (
+                <InlineIcon
+                    {...iconCheck}
+                    style={{
+                        position: "relative",
+                        top: -1,
+                    }}
+                />
+            );
         } else {
-            return <InlineIcon
-                {...iconMinus}
-            />;
+            return <InlineIcon {...iconMinus} />;
         }
     }
 
@@ -126,9 +133,10 @@ class LibraryChoiceIcon extends React.Component {
         } else if (checked) {
             // Note: kaGreen is not only the default product color,
             // but also the "correctness" color
-            const bg = showCorrectness && correct
-                     ? styleConstants.kaGreen
-                     : primaryProductColor;
+            const bg =
+                showCorrectness && correct
+                    ? styleConstants.kaGreen
+                    : primaryProductColor;
             return {
                 color: styleConstants.white,
                 backgroundColor: bg,
@@ -156,19 +164,25 @@ class LibraryChoiceIcon extends React.Component {
         // make the focus circle be a directly-styled DOM element rather
         // than psuedoelement, but punting for now.
         const showFocusRing = primaryProductColor === styleConstants.kaGreen;
-        return <div
-            style={this.getDynamicStyles()}
-            className={css(
-                styles.libraryCircle,
-                showCorrectness && correct && styles.libraryCircleCorrect,
-                showCorrectness && !correct && styles.libraryCircleIncorrect,
-                showCorrectness && !correct && checked &&
-                    styles.libraryCircleIncorrectSelected,
-                focused && showFocusRing && styles.libraryCircleFocused,
-            )}
-        >
-            {this.getChoiceInner()}
-        </div>;
+        return (
+            <div
+                style={this.getDynamicStyles()}
+                className={css(
+                    styles.libraryCircle,
+                    showCorrectness && correct && styles.libraryCircleCorrect,
+                    showCorrectness &&
+                        !correct &&
+                        styles.libraryCircleIncorrect,
+                    showCorrectness &&
+                        !correct &&
+                        checked &&
+                        styles.libraryCircleIncorrectSelected,
+                    focused && showFocusRing && styles.libraryCircleFocused
+                )}
+            >
+                {this.getChoiceInner()}
+            </div>
+        );
     }
 }
 
@@ -177,7 +191,7 @@ type ChoiceIconProps = {
     checked: boolean,
     pressed: boolean,
     focused: boolean,
-    correct: ?boolean,
+    correct: boolean,
     showCorrectness: boolean,
     // TODO(amy): if we go this "product" flag route, define this type
     // somewhere shared
@@ -186,24 +200,25 @@ type ChoiceIconProps = {
     reviewMode: boolean,
 };
 class ChoiceIcon extends React.Component {
-
-    props: ChoiceIconProps
+    props: ChoiceIconProps;
 
     static defaultProps = {
         primaryProductColor: styleConstants.kaGreen,
-    }
+    };
 
     a11yText(letter: string) {
         // If the option was checked we need to reveal more context about
         // what the result was (correct/incorrect)
         if (this.props.checked) {
-            if (typeof this.props.correct === "boolean") {
+            if (this.props.showCorrectness) {
                 if (this.props.correct) {
-                    return i18n._("(Choice %(letter)s, Checked, Correct)",
-                                  {letter: letter});
+                    return i18n._("(Choice %(letter)s, Checked, Correct)", {
+                        letter: letter,
+                    });
                 } else {
-                    return i18n._("(Choice %(letter)s, Checked, Incorrect)",
-                                  {letter: letter});
+                    return i18n._("(Choice %(letter)s, Checked, Incorrect)", {
+                        letter: letter,
+                    });
                 }
             }
 
@@ -211,9 +226,10 @@ class ChoiceIcon extends React.Component {
 
             // If the option wasn't checked, but was correct, we need to tell
             // the user that this was, in fact, the correct answer.
-        } else if (this.props.correct) {
-            return i18n._("(Choice %(letter)s, Correct Answer)",
-                          {letter: letter});
+        } else if (this.props.showCorrectness && this.props.correct) {
+            return i18n._("(Choice %(letter)s, Correct Answer)", {
+                letter: letter,
+            });
         }
 
         return i18n._("(Choice %(letter)s)", {letter: letter});
@@ -231,7 +247,8 @@ class ChoiceIcon extends React.Component {
          * listed here. Most multiple choice questions have 5 or fewer options.
          */
         const lettersString = i18n._(
-            "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z");
+            "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z"
+        );
 
         const letters = lettersString.split(" ");
         const pos = this.props.pos;
@@ -261,25 +278,29 @@ class ChoiceIcon extends React.Component {
         const letter = this.getLetter();
 
         if (product === "sat") {
-            return <SATChoiceIcon
-                letter={letter}
-                a11yText={this.a11yText(letter)}
-                reviewMode={reviewMode}
-                checked={checked}
-                correct={correct}
-            />;
+            return (
+                <SATChoiceIcon
+                    letter={letter}
+                    a11yText={this.a11yText(letter)}
+                    reviewMode={reviewMode}
+                    checked={checked}
+                    correct={correct}
+                />
+            );
         } else {
-            return <LibraryChoiceIcon
-                letter={letter}
-                a11yText={this.a11yText(letter)}
-                reviewMode={reviewMode}
-                checked={checked}
-                pressed={pressed}
-                focused={focused}
-                correct={correct}
-                showCorrectness={showCorrectness}
-                primaryProductColor={primaryProductColor}
-            />;
+            return (
+                <LibraryChoiceIcon
+                    letter={letter}
+                    a11yText={this.a11yText(letter)}
+                    reviewMode={reviewMode}
+                    checked={checked}
+                    pressed={pressed}
+                    focused={focused}
+                    correct={correct}
+                    showCorrectness={showCorrectness}
+                    primaryProductColor={primaryProductColor}
+                />
+            );
         }
     }
 }

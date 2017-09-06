@@ -9,6 +9,8 @@ const MathInput = require("./math-input.jsx");
 const Renderer = require("../renderer.jsx");
 const TextInput = require("./text-input.jsx");
 const MathOutput = require("../components/math-output.jsx");
+
+const Gorgon = require("../gorgon/gorgon.js");
 const {linterContextProps, linterContextDefault} = require("../gorgon/proptypes.js");
 
 const captureScratchpadTouchStart = require("../util.js")
@@ -179,7 +181,11 @@ const InputWithExamples = React.createClass({
                 <div id={this._getUniqueId()}>
                     <Renderer
                         content={examplesContent}
-                        linterContext={this.props.linterContext}
+                        linterContext={
+                            Gorgon.pushContextStack(
+                                this.props.linterContext, 'input-with-examples'
+                            )
+                        }
                     />
                 </div>
             </Tooltip>

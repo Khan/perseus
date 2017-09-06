@@ -10,6 +10,7 @@ const Renderer = require("../renderer.jsx");
 
 const ApiClassNames = require("../perseus-api.jsx").ClassNames;
 
+const Gorgon = require("../gorgon/gorgon.js");
 const {linterContextProps, linterContextDefault} = require("../gorgon/proptypes.js");
 
 const HORIZONTAL = "horizontal";
@@ -163,7 +164,11 @@ const Draggable = React.createClass({
             >
                 <Renderer
                     content={this.props.content}
-                    linterContext={this.props.linterContext}
+                    linterContext={
+                        Gorgon.pushContextStack(
+                            this.props.linterContext, 'draggable'
+                        )
+                    }
                     onRender={this.props.onRender}
                 />
             </li>
@@ -457,7 +462,11 @@ const Sortable = React.createClass({
                         includePadding={this.props.padding}
                         margin={isLast && isStatic ? 0 : margin}
                         endPosition={item.endPosition}
-                        linterContext={this.props.linterContext}
+                        linterContext={
+                            Gorgon.pushContextStack(
+                                this.props.linterContext, 'sortable'
+                            )
+                        }
                         onRender={this.remeasureItems}
                         onMouseDown={this.onMouseDown.bind(this, item.key)}
                         onMouseMove={this.onMouseMove.bind(this, item.key)}

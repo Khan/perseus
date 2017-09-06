@@ -1,11 +1,13 @@
-
 /**
  * Functions for extracting data from items for use in i18n.
  */
 const _ = require("underscore");
 
-const {findContentNodesInItem, findHintNodesInItem, inferItemShape} =
-    require("./multi-items.js");
+const {
+    findContentNodesInItem,
+    findHintNodesInItem,
+    inferItemShape,
+} = require("./multi-items.js");
 const traversal = require("./traversal.jsx");
 const PerseusMarkdown = require("./perseus-markdown.jsx");
 
@@ -98,22 +100,20 @@ function widgetCallback(widgetInfo, images) {
     }
 }
 
-
 function findImagesInRenderers(renderers) {
     const images = [];
 
-    _.each(renderers, (renderer) => {
+    _.each(renderers, renderer => {
         traversal.traverseRendererDeep(
             renderer,
-            (content) => {
+            content => {
                 findImagesInContent(content, images);
             },
-            (widget) => widgetCallback(widget, images)
+            widget => widgetCallback(widget, images)
         );
     });
 
     return images;
-
 }
 
 // Calls findImagesInContent on all of the different content areas for
@@ -122,10 +122,8 @@ function findImagesInItemData(itemData) {
     let renderers = [];
     if (itemData._multi) {
         const shape = inferItemShape(itemData);
-        findContentNodesInItem(
-            itemData, shape, node => renderers.push(node));
-        findHintNodesInItem(
-            itemData, shape, node => renderers.push(node));
+        findContentNodesInItem(itemData, shape, node => renderers.push(node));
+        findHintNodesInItem(itemData, shape, node => renderers.push(node));
     } else {
         renderers = [itemData.question, ...itemData.hints];
     }
@@ -137,7 +135,6 @@ function findImagesInItemData(itemData) {
 function findImagesInArticles(perseusContent) {
     return findImagesInRenderers(perseusContent);
 }
-
 
 module.exports = {
     findImagesInArticles: findImagesInArticles,

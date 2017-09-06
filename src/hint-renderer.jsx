@@ -1,7 +1,6 @@
-
-const React = require('react');
+const React = require("react");
 const {StyleSheet, css} = require("aphrodite");
-const classnames = require('classnames');
+const classnames = require("classnames");
 const i18n = window.i18n;
 
 const Renderer = require("./renderer.jsx");
@@ -16,7 +15,11 @@ const {
     gray97,
 } = require("./styles/constants.js");
 
-const {linterContextProps, linterContextDefault} = require("./gorgon/proptypes.js");
+const Gorgon = require("./gorgon/gorgon.js");
+const {
+    linterContextProps,
+    linterContextDefault,
+} = require("./gorgon/proptypes.js");
 
 /* Renders just a hint preview */
 const HintRenderer = React.createClass({
@@ -60,11 +63,11 @@ const HintRenderer = React.createClass({
         const {isMobile} = apiOptions;
 
         const classNames = classnames(
-            !isMobile && 'perseus-hint-renderer',
+            !isMobile && "perseus-hint-renderer",
             isMobile && css(styles.newHint),
             isMobile && lastRendered && css(styles.lastRenderedNewHint),
-            lastHint && 'last-hint',
-            lastRendered && 'last-rendered',
+            lastHint && "last-hint",
+            lastRendered && "last-rendered",
             className
         );
 
@@ -81,30 +84,39 @@ const HintRenderer = React.createClass({
             staticRender: false,
         };
 
-        return <div className={classNames} tabIndex="-1">
-            {!apiOptions.isMobile && <span className="perseus-sr-only">
-                {i18n._("Hint #%(pos)s", {pos: pos + 1})}
-            </span>}
-            {!apiOptions.isMobile && !apiOptions.satStyling &&
-            totalHints && pos != null && <span
-                className="perseus-hint-label"
-                style={{
-                    display: 'block',
-                    color: apiOptions.hintProgressColor,
-                }}
-            >
-                {`${pos + 1} / ${totalHints}`}
-            </span>}
-            <Renderer
-                ref="renderer"
-                widgets={hint.widgets}
-                content={hint.content || ""}
-                images={hint.images}
-                apiOptions={rendererApiOptions}
-                findExternalWidgets={this.props.findExternalWidgets}
-                linterContext={this.props.linterContext}
-            />
-        </div>;
+        return (
+            <div className={classNames} tabIndex="-1">
+                {!apiOptions.isMobile &&
+                    <span className="perseus-sr-only">
+                        {i18n._("Hint #%(pos)s", {pos: pos + 1})}
+                    </span>}
+                {!apiOptions.isMobile &&
+                    !apiOptions.satStyling &&
+                    totalHints &&
+                    pos != null &&
+                    <span
+                        className="perseus-hint-label"
+                        style={{
+                            display: "block",
+                            color: apiOptions.hintProgressColor,
+                        }}
+                    >
+                        {`${pos + 1} / ${totalHints}`}
+                    </span>}
+                <Renderer
+                    ref="renderer"
+                    widgets={hint.widgets}
+                    content={hint.content || ""}
+                    images={hint.images}
+                    apiOptions={rendererApiOptions}
+                    findExternalWidgets={this.props.findExternalWidgets}
+                    linterContext={Gorgon.pushContextStack(
+                        this.props.linterContext,
+                        "hint"
+                    )}
+                />
+            </div>
+        );
     },
 });
 
@@ -113,7 +125,7 @@ const styles = StyleSheet.create({
         marginBottom: 1.5 * baseUnitPx,
 
         borderLeftColor: gray97,
-        borderLeftStyle: 'solid',
+        borderLeftStyle: "solid",
         borderLeftWidth: hintBorderWidth,
 
         // Only apply left-padding on tablets, to avoid being flush with the
@@ -127,8 +139,8 @@ const styles = StyleSheet.create({
             paddingLeft: 0,
         },
 
-        ':focus': {
-            outline: 'none',
+        ":focus": {
+            outline: "none",
         },
     },
 

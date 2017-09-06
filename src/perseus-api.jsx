@@ -52,7 +52,6 @@ module.exports = {
 
             answerableCallback: React.PropTypes.func,
             getAnotherHint: React.PropTypes.func,
-            showExerciseStepCopy: React.PropTypes.bool,
             interactionCallback: React.PropTypes.func,
 
             // A function that takes in the relative problem number (starts at
@@ -159,23 +158,24 @@ module.exports = {
         }).isRequired,
 
         defaults: {
-            showExerciseStepCopy: false,
             isArticle: false,
             isMobile: false,
             satStyling: false,
-            onInputError: function() { },
-            onFocusChange: function() { },
+            onInputError: function() {},
+            onFocusChange: function() {},
             staticRender: false,
             GroupMetadataEditor: StubTagEditor,
             showAlignmentOptions: false,
             readOnly: false,
-            groupAnnotator: function() { return null; },
+            groupAnnotator: function() {
+                return null;
+            },
             baseElements: {
-                Link: (props) => {
+                Link: props => {
                     return <a {...props} />;
                 },
             },
-            setDrawingAreaAvailable: function() { },
+            setDrawingAreaAvailable: function() {},
             useDraftEditor: true,
             styling: {
                 radioStyleVersion: "intermediate",

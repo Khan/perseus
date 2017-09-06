@@ -10,7 +10,7 @@ var EditorJsonify = require("../mixins/editor-jsonify.jsx");
 
 var BlurInput = require("react-components/blur-input.jsx");
 var InfoTip = require("../components/info-tip.jsx");
-var PropCheckBox  = require("../components/prop-check-box.jsx");
+var PropCheckBox = require("../components/prop-check-box.jsx");
 
 var DEFAULT_WIDTH = 400;
 var DEFAULT_HEIGHT = 400;
@@ -22,13 +22,13 @@ var PairEditor = React.createClass({
     propTypes: {
         ...Changeable.propTypes,
         name: React.PropTypes.string,
-        value: React.PropTypes.string
+        value: React.PropTypes.string,
     },
 
     getDefaultProps: function() {
         return {
-            name:  "",
-            value: ""
+            name: "",
+            value: "",
         };
     },
 
@@ -37,16 +37,24 @@ var PairEditor = React.createClass({
     },
 
     render: function() {
-        return <fieldset className="pair-editor">
-                <label>Name:{" "}
-                    <BlurInput value={this.props.name}
-                           onChange={this.change("name")} />
+        return (
+            <fieldset className="pair-editor">
+                <label>
+                    Name:{" "}
+                    <BlurInput
+                        value={this.props.name}
+                        onChange={this.change("name")}
+                    />
                 </label>
-                <label> Value:{" "}
-                    <BlurInput value={this.props.value}
-                           onChange={this.change("value")} />
+                <label>
+                    {" "}Value:{" "}
+                    <BlurInput
+                        value={this.props.value}
+                        onChange={this.change("value")}
+                    />
                 </label>
-            </fieldset>;
+            </fieldset>
+        );
     },
 
     serialize() {
@@ -60,20 +68,30 @@ var PairEditor = React.createClass({
 var PairsEditor = React.createClass({
     propTypes: {
         ...Changeable.propTypes,
-        pairs: React.PropTypes.arrayOf(React.PropTypes.shape({
-            name: React.PropTypes.string,
-            value: React.PropTypes.string
-        })).isRequired
+        pairs: React.PropTypes.arrayOf(
+            React.PropTypes.shape({
+                name: React.PropTypes.string,
+                value: React.PropTypes.string,
+            })
+        ).isRequired,
     },
 
     render: function() {
         var editors = _.map(this.props.pairs, (pair, i) => {
-            return <PairEditor key={i} name={pair.name} value={pair.value}
-                     onChange={this.handlePairChange.bind(this, i)}/>;
+            return (
+                <PairEditor
+                    key={i}
+                    name={pair.name}
+                    value={pair.value}
+                    onChange={this.handlePairChange.bind(this, i)}
+                />
+            );
         });
-        return <div>
-            {editors}
-            </div>;
+        return (
+            <div>
+                {editors}
+            </div>
+        );
     },
 
     change(...args) {
@@ -85,7 +103,7 @@ var PairsEditor = React.createClass({
         var pairs = this.props.pairs.slice();
         pairs[pairIndex] = pair;
 
-        var lastPair = pairs[pairs.length-1];
+        var lastPair = pairs[pairs.length - 1];
         if (lastPair.name && lastPair.value) {
             pairs.push({name: "", value: ""});
         }
@@ -133,37 +151,47 @@ var CSProgramEditor = React.createClass({
     },
 
     render: function() {
-        return <div>
-            <label>Url or Program ID:{" "}
-                <BlurInput name="programID"
-                           value={this.props.programID}
-                           onChange={this._handleProgramIDChange} />
-            </label>
-            <br/>
-            <PropCheckBox
-                label="Show Editor"
-                showEditor={this.props.showEditor}
-                onChange={this.props.onChange} />
-            <InfoTip>
-                If you show the editor, you should use the "full-width"
-                alignment to make room for the width of the editor.
-            </InfoTip>
-            <br/>
-            <PropCheckBox
-                label="Show Buttons"
-                showButtons={this.props.showButtons}
-                onChange={this.props.onChange} />
-            <br/>
-            <label>Settings:
-                <PairsEditor name="settings"
-                           pairs={this.props.settings}
-                           onChange={this._handleSettingsChange} />
+        return (
+            <div>
+                <label>
+                    Url or Program ID:{" "}
+                    <BlurInput
+                        name="programID"
+                        value={this.props.programID}
+                        onChange={this._handleProgramIDChange}
+                    />
+                </label>
+                <br />
+                <PropCheckBox
+                    label="Show Editor"
+                    showEditor={this.props.showEditor}
+                    onChange={this.props.onChange}
+                />
                 <InfoTip>
-                    Settings that you add here are available to the program
-                    as an object returned by <code>Program.settings()</code>
+                    If you show the editor, you should use the "full-width"
+                    alignment to make room for the width of the editor.
                 </InfoTip>
-            </label>
-        </div>;
+                <br />
+                <PropCheckBox
+                    label="Show Buttons"
+                    showButtons={this.props.showButtons}
+                    onChange={this.props.onChange}
+                />
+                <br />
+                <label>
+                    Settings:
+                    <PairsEditor
+                        name="settings"
+                        pairs={this.props.settings}
+                        onChange={this._handleSettingsChange}
+                    />
+                    <InfoTip>
+                        Settings that you add here are available to the program
+                        as an object returned by <code>Program.settings()</code>
+                    </InfoTip>
+                </label>
+            </div>
+        );
     },
 
     change(...args) {
@@ -174,12 +202,13 @@ var CSProgramEditor = React.createClass({
         this.change({settings: settings.pairs});
     },
 
-    _handleProgramIDChange: function (programID) {
+    _handleProgramIDChange: function(programID) {
         programID = isolateProgramID(programID);
 
-        $.getJSON("https://www.khanacademy.org/api/internal/scratchpads/" +
-            programID)
-            .done((programInfo) => {
+        $.getJSON(
+            "https://www.khanacademy.org/api/internal/scratchpads/" + programID
+        )
+            .done(programInfo => {
                 this.change({
                     width: programInfo.width,
                     height: programInfo.height,
@@ -187,8 +216,10 @@ var CSProgramEditor = React.createClass({
                 });
             })
             .fail((jqxhr, textStatus, error) => {
-                console.error("Error retrieving scratchpad info for " +
-                    "program ID ", programID);
+                console.error(
+                    "Error retrieving scratchpad info for " + "program ID ",
+                    programID
+                );
                 console.error(textStatus + ", " + error);
                 this.change({
                     width: DEFAULT_WIDTH,

@@ -2,17 +2,21 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-const classNames = require('classnames');
-const React = require('react');
-const ReactDOM = require('react-dom');
+const classNames = require("classnames");
+const React = require("react");
+const ReactDOM = require("react-dom");
 
-const {zIndexInteractiveComponent} = require('./styles/constants.js');
-const Widgets = require('./widgets.js');
+const {zIndexInteractiveComponent} = require("./styles/constants.js");
+const Widgets = require("./widgets.js");
 const {
     containerSizeClass,
     getClassFromWidth,
-} = require('./util/sizing-utils.js');
-const {linterContextProps, linterContextDefault} = require("./gorgon/proptypes.js");
+} = require("./util/sizing-utils.js");
+
+const {
+    linterContextProps,
+    linterContextDefault,
+} = require("./gorgon/proptypes.js");
 
 const WidgetContainer = React.createClass({
     propTypes: {
@@ -86,13 +90,13 @@ const WidgetContainer = React.createClass({
         // Ideally widgets themselves should know how to prevent interaction.
         const isStatic = this.state.widgetProps.static || apiOptions.readOnly;
         const staticContainerStyles = {
-            position: 'relative',
-            overflow: 'visible',
+            position: "relative",
+            overflow: "visible",
         };
         const staticOverlayStyles = {
-            width: '100%',
-            height: '100%',
-            position: 'absolute',
+            width: "100%",
+            height: "100%",
+            position: "absolute",
             top: 0,
             left: 0,
             zIndex: zIndexInteractiveComponent,
@@ -103,7 +107,8 @@ const WidgetContainer = React.createClass({
         // and we've been asked to highlight lint, pass that property
         // on to the widget, and if the content is not lintable, make sure
         // to default to false.
-        const linterContext = {...this.props.linterContext};
+        const linterContext = this.props.linterContext;
+
         if (!Widgets.isLintable(type)) {
             linterContext.highlightLint = false;
         }
@@ -115,23 +120,27 @@ const WidgetContainer = React.createClass({
         // We default to an empty object for style instead of null
         // because of a strange bug where the static styles aren't applied
         // after toggling static mode.
-        return <div className={className}
-                style={isStatic ? staticContainerStyles : {}}>
-            <WidgetType
-                {...this.state.widgetProps}
-                linterContext={linterContext}
-                containerSizeClass={this.state.sizeClass}
-                ref="widget"
-            />
-            {isStatic && <div style={staticOverlayStyles} />}
-        </div>;
+        return (
+            <div
+                className={className}
+                style={isStatic ? staticContainerStyles : {}}
+            >
+                <WidgetType
+                    {...this.state.widgetProps}
+                    linterContext={linterContext}
+                    containerSizeClass={this.state.sizeClass}
+                    ref="widget"
+                />
+                {isStatic && <div style={staticOverlayStyles} />}
+            </div>
+        );
     },
 
     componentWillReceiveProps: function(nextProps) {
         if (this.props.type !== nextProps.type) {
             throw new Error(
                 "WidgetContainer can't change widget type; set a different " +
-                "key instead to recreate the container."
+                    "key instead to recreate the container."
             );
         }
     },
@@ -151,7 +160,7 @@ const WidgetContainer = React.createClass({
 
     replaceWidgetProps: function(newWidgetProps) {
         this.setState({widgetProps: newWidgetProps});
-    }
+    },
 });
 
 module.exports = WidgetContainer;

@@ -5,11 +5,14 @@
 var React = require("react");
 var _ = require("underscore");
 
-var Changeable   = require("../mixins/changeable.jsx");
+var Changeable = require("../mixins/changeable.jsx");
 var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
 var Renderer = require("../renderer.jsx");
 
-const {linterContextProps, linterContextDefault} = require("../gorgon/proptypes.js");
+const {
+    linterContextProps,
+    linterContextDefault,
+} = require("../gorgon/proptypes.js");
 
 var PassageRefTarget = React.createClass({
     propTypes: {
@@ -30,12 +33,14 @@ var PassageRefTarget = React.createClass({
     },
 
     render: function() {
-        return <Renderer
-            content={this.props.content}
-            inline={true}
-            apiOptions={this.props.apiOptions}
-            linterContext={this.props.linterContext}
-            />;
+        return (
+            <Renderer
+                content={this.props.content}
+                inline={true}
+                apiOptions={this.props.apiOptions}
+                linterContext={this.props.linterContext}
+            />
+        );
     },
 
     change(...args) {
@@ -44,7 +49,7 @@ var PassageRefTarget = React.createClass({
 
     simpleValidate: function(rubric) {
         return PassageRefTarget.validate(this.getUserInput(), rubric);
-    }
+    },
 });
 
 _.extend(PassageRefTarget, {
@@ -53,9 +58,9 @@ _.extend(PassageRefTarget, {
             type: "points",
             earned: 0,
             total: 0,
-            message: null
+            message: null,
         };
-    }
+    },
 });
 
 module.exports = {
@@ -64,7 +69,7 @@ module.exports = {
     defaultAlignment: "inline",
     widget: PassageRefTarget,
     hidden: true,
-    transform: (editorProps) => {
+    transform: editorProps => {
         return _.pick(editorProps, "content");
     },
     version: {major: 0, minor: 0},

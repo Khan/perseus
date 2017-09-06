@@ -16,7 +16,10 @@ const InlineIcon = require("./components/inline-icon.jsx");
 const JsonEditor = require("./json-editor.jsx");
 const SimpleButton = require("./simple-button.jsx");
 const {MultiRenderer} = require("./multi-items.js");
-const {buildEmptyItemTreeForShape, itemToTree} = require("./multi-items/items.js");
+const {
+    buildEmptyItemTreeForShape,
+    itemToTree,
+} = require("./multi-items/items.js");
 const {shapePropType} = require("./multi-items/prop-type-builders.js");
 
 const EDITOR_MODES = ["edit", "preview", "json"];
@@ -42,17 +45,19 @@ const ModeDropdown = React.createClass({
     },
 
     render: function() {
-        return <label>
-            Mode:{" "}
-            <select
-                value={this.props.currentMode}
-                onChange={this._handleSelectMode}
-            >
-                <option value="edit">Edit</option>
-                <option value="preview">Preview</option>
-                <option value="json">Dev-only JSON</option>
-            </select>
-        </label>;
+        return (
+            <label>
+                Mode:{" "}
+                <select
+                    value={this.props.currentMode}
+                    onChange={this._handleSelectMode}
+                >
+                    <option value="edit">Edit</option>
+                    <option value="preview">Preview</option>
+                    <option value="json">Dev-only JSON</option>
+                </select>
+            </label>
+        );
     },
 });
 
@@ -62,7 +67,7 @@ const ModeDropdown = React.createClass({
  */
 function camelCaseToHuman(str) {
     // Decapitalize the capital letters, and add a space before each.
-    return str.replace(/[A-Z]/g, (s) => " " + s.toLowerCase());
+    return str.replace(/[A-Z]/g, s => " " + s.toLowerCase());
 }
 
 /**
@@ -111,10 +116,12 @@ Header.propTypes = {
 const nodePropTypes = {
     shape: shapePropType,
     data: React.PropTypes.any.isRequired,
-    path: React.PropTypes.arrayOf(React.PropTypes.oneOfType([
-        React.PropTypes.string.isRequired,
-        React.PropTypes.number.isRequired,
-    ])).isRequired,
+    path: React.PropTypes.arrayOf(
+        React.PropTypes.oneOfType([
+            React.PropTypes.string.isRequired,
+            React.PropTypes.number.isRequired,
+        ])
+    ).isRequired,
     actions: React.PropTypes.shape({
         addArrayElement: React.PropTypes.func.isRequired,
         mergeValueAtPath: React.PropTypes.func.isRequired,
@@ -123,7 +130,7 @@ const nodePropTypes = {
         moveArrayElementUp: React.PropTypes.func.isRequired,
         removeArrayElement: React.PropTypes.func.isRequired,
     }).isRequired,
-    apiOptions: React.PropTypes.any.isRequired,  // TODO(mdr): real proptype?
+    apiOptions: React.PropTypes.any.isRequired, // TODO(mdr): real proptype?
 
     // For the left-hand column, we use edit mode and leave renderers empty.
     // For the right-hand column, we use preview mode and provide renderers
@@ -146,9 +153,15 @@ const nodePropTypes = {
  * content. Container nodes, like arrays and objects, render a header above
  * their content.
  */
-const NodeContainer = (props) => {
+const NodeContainer = props => {
     const {
-        shape, data, path, actions, name: givenName, controls, mode,
+        shape,
+        data,
+        path,
+        actions,
+        name: givenName,
+        controls,
+        mode,
         ...otherProps
     } = props;
 
@@ -163,24 +176,26 @@ const NodeContainer = (props) => {
         Container = LeafContainer;
     }
 
-    return <Container
-        key={path.join(".")}
-        name={name}
-        controls={controls}
-        path={path}
-        shape={shape}
-        actions={actions}
-        mode={mode}
-    >
-        <NodeContent
-            {...otherProps}
-            shape={shape}
-            data={data}
+    return (
+        <Container
+            key={path.join(".")}
+            name={name}
+            controls={controls}
             path={path}
+            shape={shape}
             actions={actions}
             mode={mode}
-        />
-    </Container>;
+        >
+            <NodeContent
+                {...otherProps}
+                shape={shape}
+                data={data}
+                path={path}
+                actions={actions}
+                mode={mode}
+            />
+        </Container>
+    );
 };
 NodeContainer.propTypes = {
     ...nodePropTypes,
@@ -188,33 +203,36 @@ NodeContainer.propTypes = {
 };
 
 const LeafContainer = ({name, controls, children, path, mode, shape}) => {
-    return <div className={css(styles.container)}>
-        {/* In edit mode, render a cute pod for the editor. */}
-        {mode === "edit" &&
-            <div className={"pod-title " + css(styles.containerHeader)}>
-                <div className={css(styles.containerTitle)}>
-                    {capitalize(name)}
-                </div>
-                {controls}
-            </div>
-        }
-        {/* In preview mode, render a simple header above the preview. */}
-        {mode === "preview" &&
-         (shape.type === "content" || shape.type === "hint") &&
-            <div
-                className={css(styles.containerHeader, styles.collectionHeader)}
-            >
-                <Header
-                    depth={path.length}
-                    className={css(styles.containerTitle)}
+    return (
+        <div className={css(styles.container)}>
+            {/* In edit mode, render a cute pod for the editor. */}
+            {mode === "edit" &&
+                <div className={"pod-title " + css(styles.containerHeader)}>
+                    <div className={css(styles.containerTitle)}>
+                        {capitalize(name)}
+                    </div>
+                    {controls}
+                </div>}
+            {/* In preview mode, render a simple header above the preview. */}
+            {mode === "preview" &&
+                (shape.type === "content" || shape.type === "hint") &&
+                <div
+                    className={css(
+                        styles.containerHeader,
+                        styles.collectionHeader
+                    )}
                 >
-                    {capitalize(name)}
-                </Header>
-                {controls}
-            </div>
-        }
-        {children}
-    </div>;
+                    <Header
+                        depth={path.length}
+                        className={css(styles.containerTitle)}
+                    >
+                        {capitalize(name)}
+                    </Header>
+                    {controls}
+                </div>}
+            {children}
+        </div>
+    );
 };
 LeafContainer.propTypes = {
     name: React.PropTypes.string,
@@ -225,27 +243,34 @@ LeafContainer.propTypes = {
     shape: shapePropType,
 };
 
-const ArrayContainer = (props) => {
+const ArrayContainer = props => {
     const {name, controls, children, path, shape, actions, mode} = props;
-    return <div className={css(styles.container)}>
-        {controls &&
-            <div
-                className={css(styles.containerHeader, styles.collectionHeader)}
-            >
-                {controls}
+    return (
+        <div className={css(styles.container)}>
+            {controls &&
+                <div
+                    className={css(
+                        styles.containerHeader,
+                        styles.collectionHeader
+                    )}
+                >
+                    {controls}
+                </div>}
+            <div>
+                {children}
             </div>
-        }
-        <div>{children}</div>
-        {mode === "edit" && <div>
-            <a
-                href="javascript:void 0"
-                onClick={() =>
-                    actions.addArrayElement(path, shape.elementShape)}
-            >
-                Add a {pluralToSingular(name)}
-            </a>
-        </div>}
-    </div>;
+            {mode === "edit" &&
+                <div>
+                    <a
+                        href="javascript:void 0"
+                        onClick={() =>
+                            actions.addArrayElement(path, shape.elementShape)}
+                    >
+                        Add a {pluralToSingular(name)}
+                    </a>
+                </div>}
+        </div>
+    );
 };
 ArrayContainer.propTypes = {
     name: React.PropTypes.string,
@@ -260,24 +285,28 @@ ArrayContainer.propTypes = {
 };
 
 const ObjectContainer = ({name, controls, children, path}) => {
-    return <div className={css(styles.container)}>
-        {(name || controls) &&
-            <div
-                className={css(styles.containerHeader, styles.collectionHeader)}
-            >
-                <Header
-                    depth={path.length}
-                    className={css(styles.containerTitle)}
+    return (
+        <div className={css(styles.container)}>
+            {(name || controls) &&
+                <div
+                    className={css(
+                        styles.containerHeader,
+                        styles.collectionHeader
+                    )}
                 >
-                    {capitalize(name)}
-                </Header>
-                {controls}
+                    <Header
+                        depth={path.length}
+                        className={css(styles.containerTitle)}
+                    >
+                        {capitalize(name)}
+                    </Header>
+                    {controls}
+                </div>}
+            <div className={css(path.length > 0 && styles.contentIndent)}>
+                {children}
             </div>
-        }
-        <div className={css(path.length > 0 && styles.contentIndent)}>
-            {children}
         </div>
-    </div>;
+    );
 };
 ObjectContainer.propTypes = {
     name: React.PropTypes.string,
@@ -295,7 +324,7 @@ ObjectContainer.propTypes = {
  * iterates over the child nodes, and outputs `NodeContainer` for
  * each of them. The two functions are mutually recursive.
  */
-const NodeContent = (props) => {
+const NodeContent = props => {
     const {shape} = props;
 
     if (shape.type === "content") {
@@ -312,65 +341,73 @@ const NodeContent = (props) => {
 };
 NodeContent.propTypes = nodePropTypes;
 
-const ItemNodeContent = (props) => {
+const ItemNodeContent = props => {
     const {data, path, actions, apiOptions, mode, renderers} = props;
 
     if (mode === "edit") {
-        return <Editor
-            {...data}
-            onChange={
-                newVal => actions.mergeValueAtPath(path, newVal)}
-            apiOptions={apiOptions}
-        />;
+        return (
+            <Editor
+                {...data}
+                onChange={newVal => actions.mergeValueAtPath(path, newVal)}
+                apiOptions={apiOptions}
+            />
+        );
     } else {
-        return <div className="framework-perseus">
-            {lens(renderers).get(path)}
-        </div>;
+        return (
+            <div className="framework-perseus">
+                {lens(renderers).get(path)}
+            </div>
+        );
     }
 };
 ItemNodeContent.propTypes = nodePropTypes;
 
-const HintNodeContent = (props) => {
+const HintNodeContent = props => {
     const {data, path, actions, apiOptions, mode, renderers} = props;
 
     if (mode === "edit") {
-        return <HintEditor
-            {...data}
-            className={css(styles.hintEditor)}
-            onChange={
-                newVal => actions.mergeValueAtPath(path, newVal)}
-            apiOptions={apiOptions}
-            showTitle={false}
-            showRemoveButton={false}
-            showMoveButtons={false}
-        />;
+        return (
+            <HintEditor
+                {...data}
+                className={css(styles.hintEditor)}
+                onChange={newVal => actions.mergeValueAtPath(path, newVal)}
+                apiOptions={apiOptions}
+                showTitle={false}
+                showRemoveButton={false}
+                showMoveButtons={false}
+            />
+        );
     } else {
-        return <div className="framework-perseus">
-            {lens(renderers).get(path)}
-        </div>;
+        return (
+            <div className="framework-perseus">
+                {lens(renderers).get(path)}
+            </div>
+        );
     }
 };
 HintNodeContent.propTypes = nodePropTypes;
 
-const TagsNodeContent = (props) => {
+const TagsNodeContent = props => {
     const {data, path, actions, apiOptions, mode} = props;
     const {GroupMetadataEditor} = apiOptions;
 
     if (mode === "edit") {
-        return <div className={css(styles.tagsEditor)}>
-            <GroupMetadataEditor
-                value={data}
-                onChange={newVal => actions.setValueAtPath(path, newVal)}
-                showTitle={false}
-            />
-        </div>;
+        return (
+            <div className={css(styles.tagsEditor)}>
+                <GroupMetadataEditor
+                    value={data}
+                    onChange={newVal => actions.setValueAtPath(path, newVal)}
+                    showTitle={false}
+                />
+            </div>
+        );
     } else {
         return <div />;
     }
 };
 TagsNodeContent.propTypes = nodePropTypes;
 
-const ArrayNodeContent = (props) => {
+const ArrayNodeContent = props => {
     const {shape, data, path, actions, mode, ...otherProps} = props;
 
     const collectionName = camelCaseToHuman(path[path.length - 1]);
@@ -381,75 +418,86 @@ const ArrayNodeContent = (props) => {
 
     const children = data.map((subdata, i) => {
         const subpath = path.concat(i);
-        const controls = mode !== "edit" ? null : [
-            i > 0 && <div
-                key="moveArrayElementUp"
-                className={css(styles.control)}
-            >
-                <SimpleButton
-                    color="orange"
-                    title="Move up"
-                    onClick={() =>
-                        actions.moveArrayElementUp(subpath)}
-                >
-                    <div className={css(styles.verticalFlip)}>
-                        <InlineIcon {...iconChevronDown} />
-                    </div>
-                </SimpleButton>
-            </div>,
-            i < data.length - 1 && <div
-                key="moveArrayElementDown"
-                className={css(styles.control)}
-            >
-                <SimpleButton
-                    color="orange"
-                    title="Move down"
-                    onClick={() =>
-                        actions.moveArrayElementDown(subpath)}
-                >
-                    <InlineIcon {...iconChevronDown} />
-                </SimpleButton>
-            </div>,
+        const controls =
+            mode !== "edit"
+                ? null
+                : [
+                    i > 0 &&
+                          <div
+                              key="moveArrayElementUp"
+                              className={css(styles.control)}
+                          >
+                              <SimpleButton
+                                  color="orange"
+                                  title="Move up"
+                                  onClick={() =>
+                                      actions.moveArrayElementUp(subpath)}
+                              >
+                                  <div className={css(styles.verticalFlip)}>
+                                      <InlineIcon {...iconChevronDown} />
+                                  </div>
+                              </SimpleButton>
+                          </div>,
+                    i < data.length - 1 &&
+                          <div
+                              key="moveArrayElementDown"
+                              className={css(styles.control)}
+                          >
+                              <SimpleButton
+                                  color="orange"
+                                  title="Move down"
+                                  onClick={() =>
+                                      actions.moveArrayElementDown(subpath)}
+                              >
+                                  <InlineIcon {...iconChevronDown} />
+                              </SimpleButton>
+                          </div>,
+                    <div
+                        key="removeArrayElement"
+                        className={css(styles.control)}
+                    >
+                        <SimpleButton
+                            color="orange"
+                            title="Delete"
+                            onClick={() =>
+                                actions.removeArrayElement(subpath)}
+                        >
+                            <InlineIcon {...iconTrash} />
+                        </SimpleButton>
+                    </div>,
+                ];
+        return (
             <div
-                key="removeArrayElement"
-                className={css(styles.control)}
-            >
-                <SimpleButton
-                    color="orange"
-                    title="Delete"
-                    onClick={() =>
-                        actions.removeArrayElement(subpath)}
-                >
-                    <InlineIcon {...iconTrash} />
-                </SimpleButton>
-            </div>,
-        ];
-        return <div
-            key={i}
-            className={css(
-                styles.arrayElement,
-                !elementIsLeaf && styles.arrayElementAndNotLeaf
-            )}
-        >
-            <NodeContainer
-                {...otherProps}
                 key={i}
-                shape={shape.elementShape}
-                data={subdata}
-                path={subpath}
-                actions={actions}
-                name={`${elementName} ${i + 1}`}
-                controls={controls}
-                mode={mode}
-            />
-        </div>;
+                className={css(
+                    styles.arrayElement,
+                    !elementIsLeaf && styles.arrayElementAndNotLeaf
+                )}
+            >
+                <NodeContainer
+                    {...otherProps}
+                    key={i}
+                    shape={shape.elementShape}
+                    data={subdata}
+                    path={subpath}
+                    actions={actions}
+                    name={`${elementName} ${i + 1}`}
+                    controls={controls}
+                    mode={mode}
+                />
+            </div>
+        );
     });
 
-    return <div>{children}</div>;
+    return (
+        <div>
+            {children}
+        </div>
+    );
 };
 ArrayNodeContent.propTypes = nodePropTypes;
 
-const ObjectNodeContent = (props) => {
+const ObjectNodeContent = props => {
     const {shape, data, path, ...otherProps} = props;
 
     // Object iteration order should automatically match the order in which the
@@ -466,7 +514,11 @@ const ObjectNodeContent = (props) => {
         </div>
     );
 
-    return <div>{children}</div>;
+    return (
+        <div>
+            {children}
+        </div>
+    );
 };
 ObjectNodeContent.propTypes = nodePropTypes;
 
@@ -485,35 +537,41 @@ const MultiRendererEditor = React.createClass({
     _renderLayout() {
         const {Layout, apiOptions, item} = this.props;
 
-        return <Layout
-            ref={e => this.layout = e}
-            item={item}
-            apiOptions={apiOptions}
-        />;
+        return (
+            <Layout
+                ref={e => (this.layout = e)}
+                item={item}
+                apiOptions={apiOptions}
+            />
+        );
     },
 
     _renderJson() {
-        return <div>
-            <ModeDropdown
-                currentMode={this.props.editorMode}
-                onChange={editorMode => this.props.onChange({editorMode})}
-            />
-            <JsonEditor
-                multiLine
-                value={this.props.item}
-                onChange={item => this.props.onChange({item})}
-            />
-        </div>;
+        return (
+            <div>
+                <ModeDropdown
+                    currentMode={this.props.editorMode}
+                    onChange={editorMode => this.props.onChange({editorMode})}
+                />
+                <JsonEditor
+                    multiLine
+                    value={this.props.item}
+                    onChange={item => this.props.onChange({item})}
+                />
+            </div>
+        );
     },
 
     _renderPreview() {
-        return <div>
-            <ModeDropdown
-                currentMode={this.props.editorMode}
-                onChange={editorMode => this.props.onChange({editorMode})}
-            />
-            {this._renderLayout()}
-        </div>;
+        return (
+            <div>
+                <ModeDropdown
+                    currentMode={this.props.editorMode}
+                    onChange={editorMode => this.props.onChange({editorMode})}
+                />
+                {this._renderLayout()}
+            </div>
+        );
     },
 
     mergeValueAtPath(path, newValue) {
@@ -526,15 +584,12 @@ const MultiRendererEditor = React.createClass({
 
     setValueAtPath(path, newValue) {
         this.props.onChange({
-            item: lens(this.props.item)
-                .set(multiPath(path), newValue)
-                .freeze(),
+            item: lens(this.props.item).set(multiPath(path), newValue).freeze(),
         });
     },
 
     addArrayElement(path, shape) {
-        const currentLength = lens(this.props.item)
-            .get(multiPath(path)).length;
+        const currentLength = lens(this.props.item).get(multiPath(path)).length;
         const newElementPath = path.concat(currentLength);
         const newValue = buildEmptyItemTreeForShape(shape);
         this.props.onChange({
@@ -559,7 +614,8 @@ const MultiRendererEditor = React.createClass({
 
         const element = lens(this.props.item).get(multiPath(path));
         const nextElement = lens(this.props.item).get(
-            multiPath(nextElementPath));
+            multiPath(nextElementPath)
+        );
 
         this.props.onChange({
             item: lens(this.props.item)
@@ -586,51 +642,56 @@ const MultiRendererEditor = React.createClass({
         const item = this.props.item;
         const itemShape = this.props.Layout.shape;
 
-        const treeEditor = <NodeContainer
-            mode="edit"
-            shape={itemShape}
-            data={itemToTree(item)}
-            path={[]}
-            actions={this}
-            apiOptions={apiOptions}
-        />;
-
-        const treePreview = <MultiRenderer
-            item={item}
-            shape={itemShape}
-            apiOptions={apiOptions}
-        >
-            {({renderers}) =>
-                <NodeContainer
-                    mode="preview"
-                    shape={itemShape}
-                    data={itemToTree(item)}
-                    path={[]}
-                    actions={this}
-                    apiOptions={apiOptions}
-                    renderers={renderers}
-                />
-            }
-        </MultiRenderer>;
-
-        return <div>
-            <ModeDropdown
-                currentMode={this.props.editorMode}
-                onChange={editorMode => this.props.onChange({editorMode})}
+        const treeEditor = (
+            <NodeContainer
+                mode="edit"
+                shape={itemShape}
+                data={itemToTree(item)}
+                path={[]}
+                actions={this}
+                apiOptions={apiOptions}
             />
-            <div className={"perseus-editor-table " + css(styles.editor)}>
-                <div className="perseus-editor-row">
-                    <div className="perseus-editor-left-cell">
-                        {treeEditor}
-                    </div>
-                    <div className="perseus-editor-right-cell">
-                        <div className={css(styles.treePreview)}>
-                            {treePreview}
+        );
+
+        const treePreview = (
+            <MultiRenderer
+                item={item}
+                shape={itemShape}
+                apiOptions={apiOptions}
+            >
+                {({renderers}) =>
+                    <NodeContainer
+                        mode="preview"
+                        shape={itemShape}
+                        data={itemToTree(item)}
+                        path={[]}
+                        actions={this}
+                        apiOptions={apiOptions}
+                        renderers={renderers}
+                    />}
+            </MultiRenderer>
+        );
+
+        return (
+            <div>
+                <ModeDropdown
+                    currentMode={this.props.editorMode}
+                    onChange={editorMode => this.props.onChange({editorMode})}
+                />
+                <div className={"perseus-editor-table " + css(styles.editor)}>
+                    <div className="perseus-editor-row">
+                        <div className="perseus-editor-left-cell">
+                            {treeEditor}
+                        </div>
+                        <div className="perseus-editor-right-cell">
+                            <div className={css(styles.treePreview)}>
+                                {treePreview}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>;
+        );
     },
 
     score() {
@@ -653,23 +714,31 @@ const MultiRendererEditor = React.createClass({
 
     _renderContent() {
         switch (this.props.editorMode) {
-            case "json": return this._renderJson();
-            case "preview": return this._renderPreview();
-            case "edit": return this._renderEdit();
+            case "json":
+                return this._renderJson();
+            case "preview":
+                return this._renderPreview();
+            case "edit":
+                return this._renderEdit();
             default:
-                return <ModeDropdown
-                    currentMode={this.props.editorMode}
-                    onChange={editorMode => this.props.onChange({
-                        editorMode,
-                    })}
-                />;
+                return (
+                    <ModeDropdown
+                        currentMode={this.props.editorMode}
+                        onChange={editorMode =>
+                            this.props.onChange({
+                                editorMode,
+                            })}
+                    />
+                );
         }
     },
 
     render() {
-        return <div id="perseus">
-            {this._renderContent()}
-        </div>;
+        return (
+            <div id="perseus">
+                {this._renderContent()}
+            </div>
+        );
     },
 });
 

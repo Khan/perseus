@@ -170,7 +170,7 @@ describe("Individual lint rules tests", () => {
         "[click to activate this link here](http://google.com)",
     ]);
 
-    expectWarning(require("../rules/link-image-url.js"), [
+    expectWarning(require("../rules/absolute-url.js"), [
         // Warn about absolute khanacademy.org urls
         "[target](http://khanacademy.org/about)",
         "[target](https://khanacademy.org/about)",
@@ -181,27 +181,19 @@ describe("Individual lint rules tests", () => {
         "[target](//www.khanacademy.org/about)",
         "[target](//www.khanacademy.org/about)",
 
-        // Warn about URLs to non-ka sites
-        "[target](https://google.com/)",
-        "[target](https://s3.amazonaws.com/)",
-        "[target](https://mykhanacademy.org/)",
-        "[target](https://khanacademy.org:81/)",
-        "[target](https://sal@khanacademy.org/)",
-
         // We should get the same warnings for images
         "![alt text](http://khanacademy.org/about)",
         "![alt text](https://www.khanacademy.org/about)",
         "![alt text](https://es.khanacademy.org/about)",
-        "![alt text](https://google.com/)",
-        "![alt text](https://s3.amazonaws.com/)",
     ]);
-    expectPass(require("../rules/link-image-url.js"), [
+    expectPass(require("../rules/absolute-url.js"), [
         "[target](/about)", // relative URLs okay
         "[target](https://kasandbox.org/path)",
         "[target](https://fastly.kastatic.org/path)",
         "[target](https://cdn.kastatic.org/path)",
         "[target](https://ka-perseus-images.s3.amazonaws.com/path)",
         "[target](https://KA-youtube-converted.s3.amazonaws.com)",
+
         // Same warnings for images
         "![alt text](/about)",
         "![alt text](https://cdn.kastatic.org/path)",
@@ -483,6 +475,17 @@ describe("Individual lint rules tests", () => {
         "You?  Me!",
     ]);
     expectPass(require("../rules/double-spacing-after-terminal.js"), [
+        "This is okay.",
+        "This is definitely okay. Yeah.",
+        "$a == 3.  125$",
+    ]);
+
+    expectWarning(require("../rules/extra-content-spacing.js"), [
+        "There's extra spaces here.     ",
+        "There's extra spaces here    ",
+        "  ",
+    ]);
+    expectPass(require("../rules/extra-content-spacing"), [
         "This is okay.",
         "This is definitely okay. Yeah.",
         "$a == 3.  125$",

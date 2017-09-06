@@ -1,7 +1,3 @@
-/* eslint-disable comma-dangle, no-var */
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /**
  * MovableThing convenience methods
  *
@@ -10,8 +6,8 @@
  * are simply for convenience.
  */
 
-var _ = require("underscore");
-var kpoint = require("kmath").point;
+const _ = require("underscore");
+const kpoint = require("kmath").point;
 
 /* Local helper methods. */
 
@@ -23,7 +19,7 @@ function getEventName(key) {
     return key.split(":")[0];
 }
 
-var MovableHelperMethods = {
+const MovableHelperMethods = {
     /**
      * Fire an onSomething type event to all functions in listeners
      */
@@ -49,11 +45,11 @@ var MovableHelperMethods = {
                 return memo;
             }
 
-            var result = constraint.call(this, memo, previous, {
+            const result = constraint.call(this, memo, previous, {
                 onSkipRemaining: () => {
                     skipRemaining = true;
                 },
-                ...extraOptions
+                ...extraOptions,
             });
 
             if (result === false) {
@@ -80,7 +76,7 @@ var MovableHelperMethods = {
      * draw function
      */
     draw: function() {
-        var currState = this.cloneState();
+        const currState = this.cloneState();
         MovableHelperMethods._fireEvent.call(this,
             this.state.draw,
             currState,
@@ -109,8 +105,8 @@ var MovableHelperMethods = {
 
         // If there's an existing handler, replace it by using its index in
         // `this.state[eventName]`; otherwise, add this handler to the end
-        var key = getKey(eventName, id);
-        var index = this._listenerMap[key] =
+        const key = getKey(eventName, id);
+        const index = this._listenerMap[key] =
                 this._listenerMap[key] || this.state[eventName].length;
         this.state[eventName][index] = func;
     },
@@ -124,15 +120,15 @@ var MovableHelperMethods = {
     unlisten: function(eventName, id) {
         this._listenerMap = this._listenerMap || {};
 
-        var key = getKey(eventName, id);
-        var index = this._listenerMap[key];
+        const key = getKey(eventName, id);
+        const index = this._listenerMap[key];
         if (index !== undefined) {
             // Remove handler from list of event handlers and listenerMap
             this.state[eventName].splice(index, 1);
             delete this._listenerMap[key];
 
             // Re-index existing events: if they occur after `index`, decrement
-            var keys = _.keys(this._listenerMap);
+            const keys = _.keys(this._listenerMap);
             _.each(keys, function(key) {
                 if (getEventName(key) === eventName &&
                         this._listenerMap[key] > index) {
@@ -140,7 +136,7 @@ var MovableHelperMethods = {
                 }
             }, this);
         }
-    }
+    },
 };
 
 module.exports = MovableHelperMethods;

@@ -1,7 +1,7 @@
 install: make install
 # This decrypts the github deploy key (the encrypted_*_key is stored on Travis)
 before_script: openssl aes-256-cbc -K $encrypted_be637d43ba05_key -iv $encrypted_be637d43ba05_iv -in travis_deploy_rsa.enc -out travis_deploy_rsa -d && chmod 400 travis_deploy_rsa
-script: make
+script: make test
 after_success: '[ "$TRAVIS_PULL_REQUEST" == "false" -a "$TRAVIS_BRANCH" == "master" ] && make demo'
 notifications:
   on_success: change
@@ -14,4 +14,4 @@ notifications:
       secure: X+bv+k3GVaVyzFqlFkX14hWEuJIjM/ylcY7Dbe3gwTX3ozKF1wAF0N1Ui7JStrVSoq+7hDSDDef4+VsgGauY2Erv0+K4xKgmmbR2gIWb14IiCOM3GNyv1hKqSgmyBj5MJCZbVB+OrvC/erdfpbtqsCPpmuvMLcuiFz5W4QJD+ZY=
 language: node_js
 node_js:
-  - "4.1"
+  - "5"

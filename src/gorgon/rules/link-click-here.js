@@ -2,6 +2,7 @@ import Rule from "../rule.js";
 
 module.exports = Rule.makeRule({
     name: "link-click-here",
+    severity: Rule.Severity.WARNING,
     selector: "link",
     pattern: /click here/i,
     message: `Inappropriate link text:

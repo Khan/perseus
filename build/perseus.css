@@ -1,5 +1,5 @@
 /* Perseus CSS
-// commit d7840f386ed83c070a6fc85c49d424f72f6b9469
+// commit e849e02cf62168567baa70f1b5813d8a431d8056
 // branch master
 // @generated
 */
@@ -1697,10 +1697,13 @@ body.mobile .perseus-matrix .math-output {
   font-size: 12px;
   font-style: italic;
   font-weight: 600;
-  left: -40px;
   position: absolute;
   text-align: right;
-  width: 25px;
+  max-height: 100%;
+  overflow: hidden;
+  padding-right: 12px;
+  left: -52px;
+  width: 37px;
 }
 .perseus-widget-passage-container .line-numbers span {
   display: block;

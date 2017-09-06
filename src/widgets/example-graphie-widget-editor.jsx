@@ -2,7 +2,7 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var React = require('react');
+var React = require("react");
 
 var Changeable = require("../mixins/changeable.jsx");
 var EditorJsonify = require("../mixins/editor-jsonify.jsx");
@@ -30,20 +30,22 @@ var ExampleGraphieWidgetEditor = React.createClass({
                 valid: true,
                 backgroundImage: null,
                 markings: "grid",
-                showProtractor: false
-            }
+                showProtractor: false,
+            },
         };
     },
 
     render: function() {
-        return <div>
-            <ExampleGraphieWidget
-                graph={this.props.graph}
-                coord={this.props.correct}
-                onChange={this.handleChange}
-                apiOptions={this.props.apiOptions}
-            />
-        </div>;
+        return (
+            <div>
+                <ExampleGraphieWidget
+                    graph={this.props.graph}
+                    coord={this.props.correct}
+                    onChange={this.handleChange}
+                    apiOptions={this.props.apiOptions}
+                />
+            </div>
+        );
     },
 
     change(...args) {
@@ -53,7 +55,7 @@ var ExampleGraphieWidgetEditor = React.createClass({
     handleChange: function(newProps) {
         if (newProps.coord) {
             this.change({
-                correct: newProps.coord
+                correct: newProps.coord,
             });
         }
     },

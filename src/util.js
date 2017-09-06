@@ -22,18 +22,21 @@ const Util = {
      */
     inputPathsEqual(a, b) {
         if (a == null || b == null) {
-            return (a == null) === (b == null);
+            return a == null === (b == null);
         }
 
-        return a.length === b.length && a.every((item, index) => {
-            return b[index] === item;
-        });
+        return (
+            a.length === b.length &&
+            a.every((item, index) => {
+                return b[index] === item;
+            })
+        );
     },
 
     nestedMap: nestedMap,
 
     rWidgetParts: /^\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]$/,
-    rWidgetRule:  /^\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]/,
+    rWidgetRule: /^\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]/,
     rTypeFromWidgetId: /^([a-z-]+) ([0-9]+)$/,
     snowman: "\u2603",
 
@@ -41,7 +44,7 @@ const Util = {
         type: "points",
         earned: 0,
         total: 0,
-        message: null
+        message: null,
     },
 
     seededRNG: function(seed) {
@@ -50,13 +53,13 @@ const Util = {
         return function() {
             // Robert Jenkins' 32 bit integer hash function.
             var seed = randomSeed;
-            seed = ((seed + 0x7ed55d16) + (seed << 12)) & 0xffffffff;
-            seed = ((seed ^ 0xc761c23c) ^ (seed >>> 19)) & 0xffffffff;
-            seed = ((seed + 0x165667b1) + (seed << 5)) & 0xffffffff;
+            seed = (seed + 0x7ed55d16 + (seed << 12)) & 0xffffffff;
+            seed = (seed ^ 0xc761c23c ^ (seed >>> 19)) & 0xffffffff;
+            seed = (seed + 0x165667b1 + (seed << 5)) & 0xffffffff;
             seed = ((seed + 0xd3a2646c) ^ (seed << 9)) & 0xffffffff;
-            seed = ((seed + 0xfd7046c5) + (seed << 3)) & 0xffffffff;
-            seed = ((seed ^ 0xb55a4f09) ^ (seed >>> 16)) & 0xffffffff;
-            return (randomSeed = (seed & 0xfffffff)) / 0x10000000;
+            seed = (seed + 0xfd7046c5 + (seed << 3)) & 0xffffffff;
+            seed = (seed ^ 0xb55a4f09 ^ (seed >>> 16)) & 0xffffffff;
+            return (randomSeed = seed & 0xfffffff) / 0x10000000;
         };
     },
 
@@ -68,9 +71,12 @@ const Util = {
         var shuffled = _.clone(array);
 
         // Handle edge cases (input array is empty or uniform)
-        if (!shuffled.length || _.all(shuffled, function(value) {
-                                    return _.isEqual(value, shuffled[0]);
-                                })) {
+        if (
+            !shuffled.length ||
+            _.all(shuffled, function(value) {
+                return _.isEqual(value, shuffled[0]);
+            })
+        ) {
             return shuffled;
         }
 
@@ -96,24 +102,26 @@ const Util = {
     },
 
     // In IE8, split doesn't work right. Implement it ourselves.
-    split: "x".split(/(.)/g).length ?
-        function(str, r) { return str.split(r); } :
-        function(str, r) {
-            // Based on Steven Levithan's MIT-licensed split, available at
-            // http://blog.stevenlevithan.com/archives/cross-browser-split
-            var output = [];
-            var lastIndex = r.lastIndex = 0;
-            var match;
+    split: "x".split(/(.)/g).length
+        ? function(str, r) {
+              return str.split(r);
+          }
+        : function(str, r) {
+              // Based on Steven Levithan's MIT-licensed split, available at
+              // http://blog.stevenlevithan.com/archives/cross-browser-split
+              var output = [];
+              var lastIndex = (r.lastIndex = 0);
+              var match;
 
-            while ((match = r.exec(str))) {
-                output.push(str.slice(lastIndex, match.index));
-                output.push.apply(output, match.slice(1));
-                lastIndex = match.index + match[0].length;
-            }
+              while ((match = r.exec(str))) {
+                  output.push(str.slice(lastIndex, match.index));
+                  output.push.apply(output, match.slice(1));
+                  lastIndex = match.index + match[0].length;
+              }
 
-            output.push(str.slice(lastIndex));
-            return output;
-        },
+              output.push(str.slice(lastIndex));
+              return output;
+          },
 
     /**
      * Given two score objects for two different widgets, combine them so that
@@ -123,8 +131,11 @@ const Util = {
         var message;
 
         if (scoreA.type === "points" && scoreB.type === "points") {
-            if (scoreA.message && scoreB.message &&
-                    scoreA.message !== scoreB.message) {
+            if (
+                scoreA.message &&
+                scoreB.message &&
+                scoreA.message !== scoreB.message
+            ) {
                 // TODO(alpert): Figure out how to combine messages usefully
                 message = null;
             } else {
@@ -135,18 +146,18 @@ const Util = {
                 type: "points",
                 earned: scoreA.earned + scoreB.earned,
                 total: scoreA.total + scoreB.total,
-                message: message
+                message: message,
             };
-
         } else if (scoreA.type === "points" && scoreB.type === "invalid") {
             return scoreB;
-
         } else if (scoreA.type === "invalid" && scoreB.type === "points") {
             return scoreA;
-
         } else if (scoreA.type === "invalid" && scoreB.type === "invalid") {
-            if (scoreA.message && scoreB.message &&
-                    scoreA.message !== scoreB.message) {
+            if (
+                scoreA.message &&
+                scoreB.message &&
+                scoreA.message !== scoreB.message
+            ) {
                 // TODO(alpert): Figure out how to combine messages usefully
                 message = null;
             } else {
@@ -155,7 +166,7 @@ const Util = {
 
             return {
                 type: "invalid",
-                message: message
+                message: message,
             };
         }
     },
@@ -167,7 +178,7 @@ const Util = {
                 correct: score.earned >= score.total,
                 message: score.message,
                 guess: guess,
-                state: state
+                state: state,
             };
         } else if (score.type === "invalid") {
             return {
@@ -175,7 +186,7 @@ const Util = {
                 correct: false,
                 message: score.message,
                 guess: guess,
-                state: state
+                state: state,
             };
         } else {
             throw new Error("Invalid score type: " + score.type);
@@ -192,12 +203,14 @@ const Util = {
         var val = KhanAnswerTypes.predicate.createValidatorFunctional(
             function(ans) {
                 first = ans;
-                return true;  /* break */
-            }, {
+                return true; /* break */
+            },
+            {
                 simplify: "optional",
                 inexact: true,
-                forms: "integer, proper, improper, pi, log, mixed, decimal"
-            });
+                forms: "integer, proper, improper, pi, log, mixed, decimal",
+            }
+        );
 
         val(text);
         return first;
@@ -224,15 +237,19 @@ const Util = {
      *      unityLabel: true
      * };
      */
-    gridDimensionConfig: function(absTickStep, extent, dimensionConstraint,
-                                     gridStep) {
+    gridDimensionConfig: function(
+        absTickStep,
+        extent,
+        dimensionConstraint,
+        gridStep
+    ) {
         var scale = Util.scaleFromExtent(extent, dimensionConstraint);
         var stepPx = absTickStep * scale;
         var unityLabel = stepPx > 30;
         return {
             scale: scale,
             tickStep: absTickStep / gridStep,
-            unityLabel: unityLabel
+            unityLabel: unityLabel,
         };
     },
 
@@ -254,7 +271,9 @@ const Util = {
     },
 
     snapStepFromGridStep: function(gridStep) {
-        return _.map(gridStep, function(step) { return step / 2; });
+        return _.map(gridStep, function(step) {
+            return step / 2;
+        });
     },
 
     /**
@@ -283,11 +302,11 @@ const Util = {
         if (15 < span && span <= 20) {
             tickFactor = 23;
 
-        // triple digit or decimal
+            // triple digit or decimal
         } else if (span > 100 || span < 5) {
             tickFactor = 10;
 
-        // double digit
+            // double digit
         } else {
             tickFactor = 16;
         }
@@ -336,7 +355,10 @@ const Util = {
      *      tickStepFromNumTicks(50, 6) // returns 10
      */
     tickStepFromNumTicks: function(span, numTicks) {
-        var step = Math.pow(10, Math.floor(Math.log(span / numTicks) / Math.LN10));
+        var step = Math.pow(
+            10,
+            Math.floor(Math.log(span / numTicks) / Math.LN10)
+        );
         var err = numTicks / span * step;
 
         // Filter ticks to get closer to the desired count.
@@ -396,11 +418,15 @@ const Util = {
         componentWillMount: function() {
             var newProps = {};
 
-            _.each(this.deprecatedProps, function(func, prop) {
-                if (_.has(this.props, prop)) {
-                    _.extend(newProps, func(this.props));
-                }
-            }, this);
+            _.each(
+                this.deprecatedProps,
+                function(func, prop) {
+                    if (_.has(this.props, prop)) {
+                        _.extend(newProps, func(this.props));
+                    }
+                },
+                this
+            );
 
             if (!_.isEmpty(newProps)) {
                 // Set new props directly so that widget renders correctly
@@ -412,7 +438,7 @@ const Util = {
                 // back down again.
                 setTimeout(this.props.onChange, 0, newProps);
             }
-        }
+        },
     },
 
     /**
@@ -447,9 +473,14 @@ const Util = {
         } else if (_.isFunction(x) || _.isFunction(y)) {
             return false;
         } else if (_.isObject(x) && _.isObject(y)) {
-            return x === y || (
-                _.all(x, function(v, k) { return Util.deepEq(y[k], v); }) &&
-                _.all(y, function(v, k) { return Util.deepEq(x[k], v); })
+            return (
+                x === y ||
+                (_.all(x, function(v, k) {
+                    return Util.deepEq(y[k], v);
+                }) &&
+                    _.all(y, function(v, k) {
+                        return Util.deepEq(x[k], v);
+                    }))
             );
         } else if (_.isObject(x) || _.isObject(y)) {
             return false;
@@ -468,9 +499,11 @@ const Util = {
         query = query || window.location.search.substring(1);
         var urlParams = {},
             e,
-            a = /\+/g,  // Regex for replacing addition symbol with a space
+            a = /\+/g, // Regex for replacing addition symbol with a space
             r = /([^&=]+)=?([^&]*)/g,
-            d = function(s) { return decodeURIComponent(s.replace(a, " ")); };
+            d = function(s) {
+                return decodeURIComponent(s.replace(a, " "));
+            };
 
         while ((e = r.exec(query))) {
             urlParams[d(e[1])] = d(e[2]);
@@ -488,9 +521,9 @@ const Util = {
     updateQueryString: function(uri, key, value) {
         value = encodeURIComponent(value);
         var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
-        var separator = uri.indexOf('?') !== -1 ? "&" : "?";
+        var separator = uri.indexOf("?") !== -1 ? "&" : "?";
         if (uri.match(re)) {
-            return uri.replace(re, '$1' + key + "=" + value + '$2');
+            return uri.replace(re, "$1" + key + "=" + value + "$2");
         } else {
             return uri + separator + key + "=" + value;
         }
@@ -506,11 +539,13 @@ const Util = {
      * CC-BY-SA 2.5 license.
      */
     strongEncodeURIComponent: function(str) {
-        return encodeURIComponent(str)
-            // Note that although RFC3986 reserves "!", RFC5987 does not,
-            // so we do not need to escape it
-            .replace(/['()!]/g, window.escape) // i.e., %27 %28 %29
-            .replace(/\*/g, '%2A');
+        return (
+            encodeURIComponent(str)
+                // Note that although RFC3986 reserves "!", RFC5987 does not,
+                // so we do not need to escape it
+                .replace(/['()!]/g, window.escape) // i.e., %27 %28 %29
+                .replace(/\*/g, "%2A")
+        );
     },
 
     // There are certain widgets where we don't want to provide the "answered"
@@ -546,8 +581,10 @@ const Util = {
         //  in every widget), so it's hard to change now. We assume that
         //  anything with a "message" is not truly empty, and one of the
         //  latter two cases for now.
-        return score.type === "invalid" &&
-            (!score.message || score.message.length === 0);
+        return (
+            score.type === "invalid" &&
+            (!score.message || score.message.length === 0)
+        );
     },
 
     /**
@@ -562,13 +599,13 @@ const Util = {
 
     touchHandlers: {
         pointerDown: false,
-        currentTouchIdentifier: null
+        currentTouchIdentifier: null,
     },
 
     resetTouchHandlers: function() {
         _.extend(Util.touchHandlers, {
             pointerDown: false,
-            currentTouchIdentifier: null
+            currentTouchIdentifier: null,
         });
     },
 
@@ -578,10 +615,14 @@ const Util = {
         if (Util.touchHandlers.pointerDown) {
             // Look for the touch matching the one we're tracking; ignore others
             if (Util.touchHandlers.currentTouchIdentifier != null) {
-                var len = event.changedTouches ? event.changedTouches.length : 0;
+                var len = event.changedTouches
+                    ? event.changedTouches.length
+                    : 0;
                 for (var i = 0; i < len; i++) {
-                    if (event.changedTouches[i].identifier ===
-                            Util.touchHandlers.currentTouchIdentifier) {
+                    if (
+                        event.changedTouches[i].identifier ===
+                        Util.touchHandlers.currentTouchIdentifier
+                    ) {
                         touchOrEvent = event.changedTouches[i];
                     }
                 }
@@ -590,7 +631,7 @@ const Util = {
             }
 
             var isEndish =
-                    event.type === "touchend" || event.type === "touchcancel";
+                event.type === "touchend" || event.type === "touchcancel";
             if (touchOrEvent && isEndish) {
                 Util.touchHandlers.pointerDown = false;
                 Util.touchHandlers.currentTouchIdentifier = null;
@@ -600,7 +641,8 @@ const Util = {
             Util.touchHandlers.pointerDown = true;
             if (event.changedTouches) {
                 touchOrEvent = event.changedTouches[0];
-                Util.touchHandlers.currentTouchIdentifier = touchOrEvent.identifier;
+                Util.touchHandlers.currentTouchIdentifier =
+                    touchOrEvent.identifier;
             } else {
                 touchOrEvent = event;
             }
@@ -609,7 +651,7 @@ const Util = {
         if (touchOrEvent) {
             return {
                 left: touchOrEvent.pageX,
-                top: touchOrEvent.pageY
+                top: touchOrEvent.pageY,
             };
         }
     },
@@ -648,7 +690,6 @@ const Util = {
     },
 
     textarea: {
-
         /**
          * Gets the word right before where the textarea cursor is
          *
@@ -659,14 +700,18 @@ const Util = {
             var text = textarea.value;
 
             var endPos = textarea.selectionStart - 1;
-            var startPos = Math.max(text.lastIndexOf("\n", endPos), text.lastIndexOf(' ', endPos)) + 1;
+            var startPos =
+                Math.max(
+                    text.lastIndexOf("\n", endPos),
+                    text.lastIndexOf(" ", endPos)
+                ) + 1;
 
             return {
                 string: text.substring(startPos, endPos + 1),
                 pos: {
                     start: startPos,
-                    end: endPos
-                }
+                    end: endPos,
+                },
             };
         },
 
@@ -679,8 +724,8 @@ const Util = {
         moveCursor: function(textarea, pos) {
             textarea.selectionStart = pos;
             textarea.selectionEnd = pos;
-        }
-    }
+        },
+    },
 };
 
 Util.random = Util.seededRNG(new Date().getTime() & 0xffffffff);

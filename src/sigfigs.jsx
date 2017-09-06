@@ -25,7 +25,7 @@
  *
  * @param s A string representation of a floating point.
  */
-function SignificantFigures(s){
+function SignificantFigures(s) {
     this.order = parseOrder(s);
     this.mantissa = parseMantissa(s);
     this.positive = parseSign(s);
@@ -51,7 +51,7 @@ function SignificantFigures(s){
      *
      * @return an integer representing the least significant decimal place.
      */
-    this.sigDecs = ((this.order) - this.mantissa.length);
+    this.sigDecs = this.order - this.mantissa.length;
 }
 
 /**
@@ -69,7 +69,7 @@ function SignificantFigures(s){
  * @param scientific true iff scientific notation should always be used.
  * @return a string of this object formatted correctly.
  */
-function displaySigFigs(f, sigFigs, sigDecs, scientific){
+function displaySigFigs(f, sigFigs, sigDecs, scientific) {
     var s = "" + f;
     var order = parseOrder(s);
     var mantissa = parseMantissa(s);
@@ -77,84 +77,89 @@ function displaySigFigs(f, sigFigs, sigDecs, scientific){
     var add;
     var decAdd;
     var sigAdd;
-    var zeroScientific=false;
-    if (f == 0 || mantissa=="" || mantissa=="0"){
+    var zeroScientific = false;
+    if (f == 0 || mantissa == "" || mantissa == "0") {
         mantissa = "";
-        for (i=0; i<sigFigs; i++){
+        for (i = 0; i < sigFigs; i++) {
             mantissa += "0";
         }
         order = sigFigs + sigDecs;
-        if (sigDecs < 0 && -sigDecs >= sigFigs){
+        if (sigDecs < 0 && -sigDecs >= sigFigs) {
             zeroScientific = true;
         }
     } else {
-        decAdd = ((order - mantissa.length) - sigDecs);
+        decAdd = order - mantissa.length - sigDecs;
         sigAdd = sigFigs - mantissa.length;
         add = Math.min(sigAdd, decAdd);
-        if (add < 0){
+        if (add < 0) {
             var rounded = round(mantissa, -add);
-            if (rounded.length > mantissa.length + add){
+            if (rounded.length > mantissa.length + add) {
                 order++;
-                if (decAdd > sigAdd){
-                	rounded = round(rounded, 1);
+                if (decAdd > sigAdd) {
+                    rounded = round(rounded, 1);
                 }
             }
-            mantissa=rounded;
-        } else if (add > 0){
-            for (i=0; i<add; i++){
-                mantissa += '0';
+            mantissa = rounded;
+        } else if (add > 0) {
+            for (i = 0; i < add; i++) {
+                mantissa += "0";
             }
         }
-        if (mantissa=="" || mantissa=="0"){
+        if (mantissa == "" || mantissa == "0") {
             mantissa = "0";
             positive = true;
             order = 1 + sigDecs;
-            if (order != 0){
+            if (order != 0) {
                 zeroScientific = true;
             }
         }
     }
-    var useScientific = (scientific || mantissa.length > 20 || order > 4 || order < -2 ||
-		    (order - mantissa.length > 0 && trailingZeros(mantissa) > 0) || zeroScientific);
+    var useScientific =
+        scientific ||
+        mantissa.length > 20 ||
+        order > 4 ||
+        order < -2 ||
+        (order - mantissa.length > 0 && trailingZeros(mantissa) > 0) ||
+        zeroScientific;
     var returnVal = "";
-    if (!positive){
+    if (!positive) {
         returnVal += "-";
     }
     if (useScientific) {
         returnVal += mantissa.charAt(0);
-        if (mantissa.length > 1){
-            returnVal += '.' + mantissa.substring(1, mantissa.length);
+        if (mantissa.length > 1) {
+            returnVal += "." + mantissa.substring(1, mantissa.length);
         }
-        if (order-1!=0){
-			returnVal += " x 10^" + (order-1);
+        if (order - 1 != 0) {
+            returnVal += " x 10^" + (order - 1);
         }
     } else {
         var wholePart = "";
         var fractPart = "";
         var needDot = true;
-        if (order > 0){
-            if (mantissa.length > order){
+        if (order > 0) {
+            if (mantissa.length > order) {
                 wholePart = mantissa.substring(0, order);
                 fractPart = mantissa.substring(order, mantissa.length);
             } else {
                 wholePart = mantissa;
-                needDot = (trailingZeros(mantissa) != 0);
-                for(var i=0; i<order-mantissa.length; i++){
+                needDot = trailingZeros(mantissa) != 0;
+                for (var i = 0; i < order - mantissa.length; i++) {
                     wholePart += "0";
                 }
             }
-		} else {
-            for(i=0; i<-order; i++){
+        } else {
+            for (i = 0; i < -order; i++) {
                 fractPart += "0";
-			}
-            fractPart += mantissa
+            }
+            fractPart += mantissa;
         }
-        returnVal += (
-            (wholePart==""?"0":wholePart) + (needDot?".":"") + fractPart
-
-        );
+        returnVal +=
+            (wholePart == "" ? "0" : wholePart) +
+            (needDot ? "." : "") +
+            fractPart;
     }
-    return (returnVal);
+    return returnVal;
 }
 
 /**
@@ -162,11 +167,11 @@ function displaySigFigs(f, sigFigs, sigDecs, scientific){
  *
  * @return the number of trailing zeros
  */
-function trailingZeros(mantissa){
+function trailingZeros(mantissa) {
     var zeros = 0;
-    for (var i=mantissa.length-1; i>=0; i--){
-    	var c = mantissa.charAt(i);
-        if (c=='0'){
+    for (var i = mantissa.length - 1; i >= 0; i--) {
+        var c = mantissa.charAt(i);
+        if (c == "0") {
             zeros++;
         } else {
             return zeros;
@@ -182,7 +187,7 @@ function trailingZeros(mantissa){
  * @param s the string representation of a floating point.
  * @return true iff this is a positive number
  */
-function parseSign(s){
+function parseSign(s) {
     var beginning = true;
     var seenDot = false;
     var seenSomething = false;
@@ -192,29 +197,29 @@ function parseSign(s){
     var decPlaces = 0;
     var totalDecs = 0;
     var pos = true;
-	for (var i=0; i<s.length; i++){
+    for (var i = 0; i < s.length; i++) {
         var c = s.charAt(i);
-        if (c>='1' && c<='9'){
+        if (c >= "1" && c <= "9") {
             all += zeros + c;
             zeros = "";
             seenSomething = true;
-            if (!seenDot){
+            if (!seenDot) {
                 totalDecs++;
                 decPlaces++;
             }
             beginning = false;
-        } else if (c=='0'){
-            if (seenDot){
-                if (seenSomething){
+        } else if (c == "0") {
+            if (seenDot) {
+                if (seenSomething) {
                     all += zeros + c;
                     zeros = "";
                 } else {
                     leadZeros += c;
                     decPlaces--;
-				}
+                }
             } else {
                 totalDecs++;
-                if (seenSomething){
+                if (seenSomething) {
                     leadZeros += c;
                     decPlaces++;
                     zeros += c;
@@ -222,27 +227,27 @@ function parseSign(s){
                     leadZeros += c;
                 }
             }
-            beginning = false
-		} else if (!seenDot && c=='.'){
+            beginning = false;
+        } else if (!seenDot && c == ".") {
             all += zeros;
             zeros = "";
-            seenDot=true;
+            seenDot = true;
             beginning = false;
-		} else if (c=='e' || c=='E' && i+1<s.length){
-            var raised = parseInt(s.substring(i+1, s.length));
+        } else if (c == "e" || (c == "E" && i + 1 < s.length)) {
+            var raised = parseInt(s.substring(i + 1, s.length));
             decPlaces += raised;
             totalDecs += raised;
             i = s.length;
-        } else if (beginning && (c=='+' || c=='-')){
-            if (c=='-'){
+        } else if (beginning && (c == "+" || c == "-")) {
+            if (c == "-") {
                 pos = !pos;
             }
-		}
+        }
     }
-    if (all == ""){
-        return(true);
+    if (all == "") {
+        return true;
     } else {
-        return(pos);
+        return pos;
     }
 }
 
@@ -253,7 +258,7 @@ function parseSign(s){
  * @param s the string representation of a floating point.
  * @return the mantissa of this number.
  */
-function parseMantissa(s){
+function parseMantissa(s) {
     var beginning = true;
     var seenDot = false;
     var seenSomething = false;
@@ -263,29 +268,29 @@ function parseMantissa(s){
     var decPlaces = 0;
     var totalDecs = 0;
     var pos = true;
-	for (var i=0; i<s.length; i++){
+    for (var i = 0; i < s.length; i++) {
         var c = s.charAt(i);
-        if (c>='1' && c<='9'){
+        if (c >= "1" && c <= "9") {
             all += zeros + c;
             zeros = "";
             seenSomething = true;
-            if (!seenDot){
+            if (!seenDot) {
                 totalDecs++;
                 decPlaces++;
             }
             beginning = false;
-        } else if (c=='0'){
-            if (seenDot){
-                if (seenSomething){
+        } else if (c == "0") {
+            if (seenDot) {
+                if (seenSomething) {
                     all += zeros + c;
                     zeros = "";
                 } else {
                     leadZeros += c;
                     decPlaces--;
-				}
+                }
             } else {
                 totalDecs++;
-                if (seenSomething){
+                if (seenSomething) {
                     leadZeros += c;
                     decPlaces++;
                     zeros += c;
@@ -294,23 +299,23 @@ function parseMantissa(s){
                 }
             }
             beginning = false;
-		} else if (!seenDot && c=='.'){
+        } else if (!seenDot && c == ".") {
             all += zeros;
             zeros = "";
-            seenDot=true;
+            seenDot = true;
             beginning = false;
-		} else if (c=='e' || c=='E' && i+1<s.length){
-            var raised = parseInt(s.substring(i+1, s.length));
+        } else if (c == "e" || (c == "E" && i + 1 < s.length)) {
+            var raised = parseInt(s.substring(i + 1, s.length));
             decPlaces += raised;
             totalDecs += raised;
             i = s.length;
-        } else if (beginning && (c=='+' || c=='-')){
-            if (c=='-'){
+        } else if (beginning && (c == "+" || c == "-")) {
+            if (c == "-") {
                 pos = !pos;
             }
-		}
+        }
     }
-    if (all == ""){
+    if (all == "") {
         return leadZeros;
     } else {
         return all;
@@ -324,7 +329,7 @@ function parseMantissa(s){
  * @param s the string representation of a floating point.
  * @return (integer) the number after the e.
  */
-function parseOrder(s){
+function parseOrder(s) {
     var beginning = true;
     var seenDot = false;
     var seenSomething = false;
@@ -334,29 +339,29 @@ function parseOrder(s){
     var decPlaces = 0;
     var totalDecs = 0;
     var pos = true;
-	for (var i=0; i<s.length; i++){
+    for (var i = 0; i < s.length; i++) {
         var c = s.charAt(i);
-        if (c>='1' && c<='9'){
+        if (c >= "1" && c <= "9") {
             all += zeros + c;
             zeros = "";
             seenSomething = true;
-            if (!seenDot){
+            if (!seenDot) {
                 totalDecs++;
                 decPlaces++;
             }
             beginning = false;
-        } else if (c=='0'){
-            if (seenDot){
-                if (seenSomething){
+        } else if (c == "0") {
+            if (seenDot) {
+                if (seenSomething) {
                     all += zeros + c;
                     zeros = "";
                 } else {
                     leadZeros += c;
                     decPlaces--;
-				}
+                }
             } else {
                 totalDecs++;
-                if (seenSomething){
+                if (seenSomething) {
                     leadZeros += c;
                     decPlaces++;
                     zeros += c;
@@ -364,27 +369,27 @@ function parseOrder(s){
                     leadZeros += c;
                 }
             }
-            beginning = false
-		} else if (!seenDot && c=='.'){
+            beginning = false;
+        } else if (!seenDot && c == ".") {
             all += zeros;
             zeros = "";
-            seenDot=true;
+            seenDot = true;
             beginning = false;
-		} else if (c=='e' || c=='E' && i+1<s.length){
-            var raised = parseInt(s.substring(i+1, s.length));
+        } else if (c == "e" || (c == "E" && i + 1 < s.length)) {
+            var raised = parseInt(s.substring(i + 1, s.length));
             decPlaces += raised;
             totalDecs += raised;
             i = s.length;
-        } else if (beginning && (c=='+' || c=='-')){
-            if (c=='-'){
+        } else if (beginning && (c == "+" || c == "-")) {
+            if (c == "-") {
                 pos = !pos;
             }
-		}
+        }
     }
-    if (all == ""){
+    if (all == "") {
         return totalDecs;
     } else {
-    	return decPlaces;
+        return decPlaces;
     }
 }
 
@@ -402,46 +407,64 @@ function parseOrder(s){
  * @param digits A number of digits to remove
  * @return A string represted the rounded version of mantissa
  */
-function round(mantissa, digits){
+function round(mantissa, digits) {
     var last = mantissa.length - digits - 1;
-    if (last < 0){
-        return("");
-    } else if (last >= mantissa.length -1){
-        return(mantissa);
-	} else {
-    	var nextToLast = mantissa.charAt(last+1);
+    if (last < 0) {
+        return "";
+    } else if (last >= mantissa.length - 1) {
+        return mantissa;
+    } else {
+        var nextToLast = mantissa.charAt(last + 1);
         var lastChar = mantissa.charAt(last);
         var roundUp = false;
-        if (nextToLast > '5') {
+        if (nextToLast > "5") {
             roundUp = true;
-        } else if (nextToLast == '5') {
-            for (var j=last+2; j<mantissa.length; j++){
-                if(mantissa.charAt(j) != '0'){
+        } else if (nextToLast == "5") {
+            for (var j = last + 2; j < mantissa.length; j++) {
+                if (mantissa.charAt(j) != "0") {
                     roundUp = true;
                 }
             }
-            if (lastChar % 2 == 1){
+            if (lastChar % 2 == 1) {
                 roundUp = true;
             }
         }
         var result = "";
-        for (var i=last; i>=0; i--){
+        for (var i = last; i >= 0; i--) {
             var c = mantissa.charAt(i);
-            if (roundUp){
+            if (roundUp) {
                 var nextChar;
-                if (c == '9'){
-                    nextChar = '0';
+                if (c == "9") {
+                    nextChar = "0";
                 } else {
-                    switch (c){
-                        case '0': nextChar='1'; break;
-                        case '1': nextChar='2'; break;
-                        case '2': nextChar='3'; break;
-                        case '3': nextChar='4'; break;
-                        case '4': nextChar='5'; break;
-                        case '5': nextChar='6'; break;
-                        case '6': nextChar='7'; break;
-                        case '7': nextChar='8'; break;
-                        case '8': nextChar='9'; break;
+                    switch (c) {
+                        case "0":
+                            nextChar = "1";
+                            break;
+                        case "1":
+                            nextChar = "2";
+                            break;
+                        case "2":
+                            nextChar = "3";
+                            break;
+                        case "3":
+                            nextChar = "4";
+                            break;
+                        case "4":
+                            nextChar = "5";
+                            break;
+                        case "5":
+                            nextChar = "6";
+                            break;
+                        case "6":
+                            nextChar = "7";
+                            break;
+                        case "7":
+                            nextChar = "8";
+                            break;
+                        case "8":
+                            nextChar = "9";
+                            break;
                     }
                     roundUp = false;
                 }
@@ -450,10 +473,10 @@ function round(mantissa, digits){
                 result = c + result;
             }
         }
-        if (roundUp){
-            result = '1' + result;
+        if (roundUp) {
+            result = "1" + result;
         }
-        return(result);
+        return result;
     }
 }
 

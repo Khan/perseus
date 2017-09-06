@@ -1,7 +1,3 @@
-/* eslint-disable comma-dangle, indent */
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /**
  * Calculates whether a perseus item is renderable by a specific
  * perseus-item-data version.
@@ -18,8 +14,10 @@ const {findContentNodesInItem, inferItemShape} = require("./multi-items.js");
 const Traversal = require("./traversal.jsx");
 const Widgets = require("./widgets.js");
 
-const isUpgradedWidgetInfoRenderableBy =
-        function(widgetInfo, widgetRendererVersion) {
+const isUpgradedWidgetInfoRenderableBy = function(
+    widgetInfo,
+    widgetRendererVersion
+) {
     if (widgetRendererVersion == null) {
         // If the widget does not exist in this version, this will
         // be null, and that version of perseus cannot render the
@@ -41,8 +39,10 @@ const isUpgradedWidgetInfoRenderableBy =
     }
 };
 
-const isRawWidgetInfoRenderableBy = function(widgetInfo,
-        rendererContentVersion) {
+const isRawWidgetInfoRenderableBy = function(
+    widgetInfo,
+    rendererContentVersion
+) {
     // Empty/non-existant widgets are always safe to render
     if (widgetInfo == null || widgetInfo.type == null) {
         return true;
@@ -59,19 +59,16 @@ const isRawWidgetInfoRenderableBy = function(widgetInfo,
     );
 };
 
-const isRendererContentRenderableBy =
-        function(rendererOptions, rendererContentVersion) {
+const isRendererContentRenderableBy = function(
+    rendererOptions,
+    rendererContentVersion
+) {
     let isRenderable = true;
-    Traversal.traverseRendererDeep(
-        rendererOptions,
-        null,
-        function(widgetInfo) {
-            isRenderable = isRenderable && isRawWidgetInfoRenderableBy(
-                widgetInfo,
-                rendererContentVersion
-            );
-        }
-    );
+    Traversal.traverseRendererDeep(rendererOptions, null, function(widgetInfo) {
+        isRenderable =
+            isRenderable &&
+            isRawWidgetInfoRenderableBy(widgetInfo, rendererContentVersion);
+    });
     return isRenderable;
 };
 
@@ -85,7 +82,9 @@ const isItemRenderableBy = function(itemData, rendererContentVersion) {
         let isRenderable = true;
         findContentNodesInItem(itemData, shape, node => {
             const nodeIsRenderable = isRendererContentRenderableBy(
-                node, rendererContentVersion);
+                node,
+                rendererContentVersion
+            );
             if (!nodeIsRenderable) {
                 isRenderable = false;
             }
@@ -93,10 +92,12 @@ const isItemRenderableBy = function(itemData, rendererContentVersion) {
         return isRenderable;
     } else {
         return isRendererContentRenderableBy(
-            itemData.question, rendererContentVersion);
+            itemData.question,
+            rendererContentVersion
+        );
     }
 };
 
 module.exports = {
-    isItemRenderableByVersion: isItemRenderableBy
+    isItemRenderableByVersion: isItemRenderableBy,
 };

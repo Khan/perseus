@@ -12,7 +12,7 @@ var Changeable = require("../mixins/changeable.jsx");
 var InfoTip = require("../components/info-tip.jsx");
 var PropCheckBox = require("../components/prop-check-box.jsx");
 var SortableArea = require("react-components/sortable.jsx");
-var TeX = require("react-components/tex.jsx");// OldExpression only
+var TeX = require("react-components/tex.jsx"); // OldExpression only
 var TexButtons = require("../components/tex-buttons.jsx");
 
 var Expression = require("./expression.jsx").Expression;
@@ -24,7 +24,7 @@ var answerFormType = React.PropTypes.shape({
     considered: React.PropTypes.oneOf(CONSIDERED).isRequired,
     value: React.PropTypes.string.isRequired,
     form: React.PropTypes.bool.isRequired,
-    simplify: React.PropTypes.bool.isRequired
+    simplify: React.PropTypes.bool.isRequired,
 });
 
 // Pick a key that isn't currently used by an answer in answerForms
@@ -53,7 +53,7 @@ var ExpressionEditor = React.createClass({
         answerForms: React.PropTypes.arrayOf(answerFormType),
         times: React.PropTypes.bool,
         buttonSets: TexButtons.buttonSetsType,
-        functions: React.PropTypes.arrayOf(React.PropTypes.string)
+        functions: React.PropTypes.arrayOf(React.PropTypes.string),
     },
 
     getDefaultProps: function() {
@@ -61,7 +61,7 @@ var ExpressionEditor = React.createClass({
             answerForms: [],
             times: false,
             buttonSets: ["basic"],
-            functions: ["f", "g", "h"]
+            functions: ["f", "g", "h"],
         };
     },
 
@@ -78,14 +78,16 @@ var ExpressionEditor = React.createClass({
             isTex = true;
         } else {
             isTex = _(this.props.answerForms).any(form => {
-                var { value } = form;
+                var {value} = form;
                 // only TeX has backslashes and curly braces
-                return _.indexOf(value, "\\") !== -1 ||
-                       _.indexOf(value, "{")  !== -1;
+                return (
+                    _.indexOf(value, "\\") !== -1 ||
+                    _.indexOf(value, "{") !== -1
+                );
             });
         }
 
-        return { isTex };
+        return {isTex};
     },
 
     change(...args) {
@@ -96,22 +98,22 @@ var ExpressionEditor = React.createClass({
         var answerOptions = this.props.answerForms
             .map((obj, ix) => {
                 var expressionProps = {
-                        // note we're using
-                        // *this.props*.{times,functions,buttonSets} since each
-                        // answer area has the same settings for those
-                        times: this.props.times,
-                        functions: this.props.functions,
-                        buttonSets: this.props.buttonSets,
+                    // note we're using
+                    // *this.props*.{times,functions,buttonSets} since each
+                    // answer area has the same settings for those
+                    times: this.props.times,
+                    functions: this.props.functions,
+                    buttonSets: this.props.buttonSets,
 
-                        buttonsVisible: "focused",
-                        form: obj.form,
-                        simplify: obj.simplify,
-                        value: obj.value,
+                    buttonsVisible: "focused",
+                    form: obj.form,
+                    simplify: obj.simplify,
+                    value: obj.value,
 
-                        onChange: props => this.updateForm(ix, props),
-                        trackInteraction: () => {},
+                    onChange: props => this.updateForm(ix, props),
+                    trackInteraction: () => {},
 
-                        widgetId: this.props.widgetId + "-" + ix,
+                    widgetId: this.props.widgetId + "-" + ix,
                 };
 
                 return lens(obj)
@@ -119,15 +121,19 @@ var ExpressionEditor = React.createClass({
                         draggable: true,
                         onChange: props => this.updateForm(ix, props),
                         onDelete: () => this.handleRemoveForm(ix),
-                        expressionProps: expressionProps
+                        expressionProps: expressionProps,
                     })
                     .freeze();
             })
             .map(obj => <AnswerOption {...obj} />);
 
-        var sortable = <SortableArea components={answerOptions}
-                                     onReorder={this.handleReorder}
-                                     className="answer-options-list" />;
+        var sortable = (
+            <SortableArea
+                components={answerOptions}
+                onReorder={this.handleReorder}
+                className="answer-options-list"
+            />
+        );
 
         // checkboxes to choose which sets of input buttons are shown
         var buttonSetChoices = _(TexButtons.buttonSets).map((set, name) => {
@@ -135,95 +141,120 @@ var ExpressionEditor = React.createClass({
             // and float left.
             var isFirst = name === "basic";
             var checked = _.contains(this.props.buttonSets, name) || isFirst;
-            var className = isFirst ?
-                "button-set-label-float" :
-                "button-set-label";
-            return <label className={className} key={name}>
-                <input type="checkbox"
-                       checked={checked}
-                       disabled={isFirst}
-                       onChange={() => this.handleButtonSet(name)} />
-                {name}
-            </label>;
+            var className = isFirst
+                ? "button-set-label-float"
+                : "button-set-label";
+            return (
+                <label className={className} key={name}>
+                    <input
+                        type="checkbox"
+                        checked={checked}
+                        disabled={isFirst}
+                        onChange={() => this.handleButtonSet(name)}
+                    />
+                    {name}
+                </label>
+            );
         });
 
-        buttonSetChoices.splice(1, 1, <label key="show-div">
-            <input type="checkbox"
-                   onChange={this.handleToggleDiv} />
-            <span className="show-div-button">
-                show <TeX>\div</TeX> button
-            </span>
-        </label>);
+        buttonSetChoices.splice(
+            1,
+            1,
+            <label key="show-div">
+                <input type="checkbox" onChange={this.handleToggleDiv} />
+                <span className="show-div-button">
+                    show <TeX>\div</TeX> button
+                </span>
+            </label>
+        );
 
-        return <div className="perseus-widget-expression-editor">
-            <h3 className="expression-editor-h3">Global Options</h3>
+        return (
+            <div className="perseus-widget-expression-editor">
+                <h3 className="expression-editor-h3">Global Options</h3>
 
-            <div>
-                <PropCheckBox
-                    times={this.props.times}
-                    onChange={this.props.onChange}
-                    labelAlignment="right"
-                    label="Use × for rendering multiplication instead of a
-                        center dot." />
-                <InfoTip>
-                    <p>For pre-algebra problems this option displays
-                    multiplication as \times instead of \cdot in both the
-                    rendered output and the acceptable formats examples.</p>
-                </InfoTip>
-            </div>
+                <div>
+                    <PropCheckBox
+                        times={this.props.times}
+                        onChange={this.props.onChange}
+                        labelAlignment="right"
+                        label="Use × for rendering multiplication instead of a
+                        center dot."
+                    />
+                    <InfoTip>
+                        <p>
+                            For pre-algebra problems this option displays
+                            multiplication as \times instead of \cdot in both
+                            the rendered output and the acceptable formats
+                            examples.
+                        </p>
+                    </InfoTip>
+                </div>
 
-            <div>
-                <label>
-                {"Function variables: "}
-                <input type="text"
-                    defaultValue={this.props.functions.join(" ")}
-                    onChange={this.handleFunctions} />
-                </label>
-                <InfoTip><p>
-                    Single-letter variables listed here will be
-                    interpreted as functions. This let us know that f(x) means
-                    "f of x" and not "f times x".
-                </p></InfoTip>
-            </div>
+                <div>
+                    <label>
+                        {"Function variables: "}
+                        <input
+                            type="text"
+                            defaultValue={this.props.functions.join(" ")}
+                            onChange={this.handleFunctions}
+                        />
+                    </label>
+                    <InfoTip>
+                        <p>
+                            Single-letter variables listed here will be
+                            interpreted as functions. This let us know that f(x)
+                            means "f of x" and not "f times x".
+                        </p>
+                    </InfoTip>
+                </div>
 
-            <div>
-                <div>Button sets:</div>
-                {buttonSetChoices}
-            </div>
+                <div>
+                    <div>Button sets:</div>
+                    {buttonSetChoices}
+                </div>
 
-            {this.state.isTex && <TexButtons
-                className="math-input-buttons"
-                sets={this.props.buttonSets}
-                convertDotToTimes={this.props.times}
-                onInsert={this.handleTexInsert} />}
+                {this.state.isTex &&
+                    <TexButtons
+                        className="math-input-buttons"
+                        sets={this.props.buttonSets}
+                        convertDotToTimes={this.props.times}
+                        onInsert={this.handleTexInsert}
+                    />}
 
-            <h3 className="expression-editor-h3">Answers</h3>
+                <h3 className="expression-editor-h3">Answers</h3>
 
-            <p style={{margin: "4px 0"}}>
-                student responses area matched against these from top to bottom
-            </p>
+                <p style={{margin: "4px 0"}}>
+                    student responses area matched against these from top to
+                    bottom
+                </p>
 
-            {sortable}
+                {sortable}
 
-            <div>
-                <button className="simple-button orange"
+                <div>
+                    <button
+                        className="simple-button orange"
                         style={{fontSize: 13}}
                         onClick={this.newAnswer}
-                        type="button">
-                    Add new answer
-                </button>
+                        type="button"
+                    >
+                        Add new answer
+                    </button>
+                </div>
             </div>
-
-        </div>;
+        );
     },
 
     serialize: function() {
-        var formSerializables = ["value", "form", "simplify", "considered",
+        var formSerializables = [
+            "value",
+            "form",
+            "simplify",
+            "considered",
             // it's a little weird to serialize the react key, but saves some
             // effort reconstructing them when this item is loaded later.
-            "key"];
-        var serializables = ["answerForms", "buttonSets", "functions",
-            "times"];
+            "key",
+        ];
+        var serializables = ["answerForms", "buttonSets", "functions", "times"];
 
         var answerForms = this.props.answerForms.map(form => {
             return _(form).pick(formSerializables);
@@ -241,7 +272,6 @@ var ExpressionEditor = React.createClass({
         if (this.props.answerForms.length === 0) {
             issues.push("No answers specified");
         } else {
-
             var hasCorrect = !!_(this.props.answerForms).find(form => {
                 return form.considered === "correct";
             });
@@ -251,17 +281,20 @@ var ExpressionEditor = React.createClass({
 
             _(this.props.answerForms).each((form, ix) => {
                 if (this.props.value === "") {
-                    issues.push(`Answer ${ix+1} is empty`);
+                    issues.push(`Answer ${ix + 1} is empty`);
                 } else {
                     // note we're not using icu for content creators
                     var expression = KAS.parse(form.value);
                     if (!expression.parsed) {
                         issues.push(`Couldn't parse ${form.value}`);
-                    } else if (form.simplify &&
-                               !expression.expr.isSimplified()) {
+                    } else if (
+                        form.simplify &&
+                        !expression.expr.isSimplified()
+                    ) {
                         issues.push(
                             `${form.value} isn't simplified, but is required" +
-                            " to be`);
+                            " to be`
+                        );
                     }
                 }
             });
@@ -277,7 +310,7 @@ var ExpressionEditor = React.createClass({
 
     _newEmptyAnswerForm: function() {
         return {
-            considered: 'correct',
+            considered: "correct",
             form: false,
 
             // note: the key means "n-th form created" - not "form in
@@ -292,13 +325,13 @@ var ExpressionEditor = React.createClass({
     newAnswer: function() {
         var answerForms = this.props.answerForms.slice();
         answerForms.push(this._newEmptyAnswerForm());
-        this.change({ answerForms });
+        this.change({answerForms});
     },
 
     handleRemoveForm: function(i) {
         var answerForms = this.props.answerForms.slice();
         answerForms.splice(i, 1);
-        this.change({ answerForms });
+        this.change({answerForms});
     },
 
     // called when the options (including the expression itself) to an answer
@@ -308,18 +341,22 @@ var ExpressionEditor = React.createClass({
             .merge([i], props)
             .freeze();
 
-        this.change({ answerForms });
+        this.change({answerForms});
     },
 
     handleReorder: function(components) {
         var answerForms = _(components).map(component => {
-            var form = _(component.props)
-                .pick("considered", "form", "simplify", "value");
+            var form = _(component.props).pick(
+                "considered",
+                "form",
+                "simplify",
+                "value"
+            );
             form.key = component.key;
             return form;
         });
 
-        this.change({ answerForms });
+        this.change({answerForms});
     },
 
     // called when the selected buttonset changes
@@ -329,11 +366,13 @@ var ExpressionEditor = React.createClass({
         // Filter to preserve order - using .union and .difference would always
         // move the last added button set to the end.
         var buttonSets = _(buttonSetNames).filter(set => {
-            return _(this.props.buttonSets).contains(set) !==
-                   (set === changingName);
+            return (
+                _(this.props.buttonSets).contains(set) !==
+                (set === changingName)
+            );
         });
 
-        this.props.onChange({ buttonSets });
+        this.props.onChange({buttonSets});
     },
 
     handleToggleDiv: function() {
@@ -367,7 +406,7 @@ var ExpressionEditor = React.createClass({
         var newProps = {};
         newProps.functions = _.compact(e.target.value.split(/[ ,]+/));
         this.props.onChange(newProps);
-    }
+    },
 });
 
 // Find the next element in arr after val, wrapping around to the first.
@@ -390,15 +429,15 @@ var AnswerOption = React.createClass({
         simplify: React.PropTypes.bool.isRequired,
 
         onChange: React.PropTypes.func.isRequired,
-        onDelete: React.PropTypes.func.isRequired
+        onDelete: React.PropTypes.func.isRequired,
     },
 
     getInitialState: function() {
-        return { deleteFocused: false };
+        return {deleteFocused: false};
     },
 
     handleDeleteBlur: function() {
-        this.setState({ deleteFocused: false });
+        this.setState({deleteFocused: false});
     },
 
     change(...args) {
@@ -408,75 +447,87 @@ var AnswerOption = React.createClass({
     render: function() {
         var removeButton = null;
         if (this.state.deleteFocused) {
-            removeButton = <button type="button"
-                                   className="simple-button orange"
-                                   onClick={this.handleImSure}
-                                   onBlur={this.handleDeleteBlur}>
-                                I'm sure!
-                           </button>;
+            removeButton = (
+                <button
+                    type="button"
+                    className="simple-button orange"
+                    onClick={this.handleImSure}
+                    onBlur={this.handleDeleteBlur}
+                >
+                    I'm sure!
+                </button>
+            );
         } else {
-            removeButton = <button type="button"
-                                   className="simple-button orange"
-                                   onClick={this.handleDelete}>
-                                Delete
-                           </button>;
+            removeButton = (
+                <button
+                    type="button"
+                    className="simple-button orange"
+                    onClick={this.handleDelete}
+                >
+                    Delete
+                </button>
+            );
         }
 
-        return <div className="expression-answer-option">
+        return (
+            <div className="expression-answer-option">
+                <div className="answer-handle" />
 
-            <div className="answer-handle" />
+                <div className="answer-body">
+                    <div className="answer-considered">
+                        <div
+                            onClick={this.toggleConsidered}
+                            className={"answer-status " + this.props.considered}
+                        >
+                            {this.props.considered}
+                        </div>
 
-            <div className="answer-body">
-
-                <div className="answer-considered">
-                    <div onClick={this.toggleConsidered}
-                         className={"answer-status " + this.props.considered}>
-                        {this.props.considered}
+                        <div className="answer-expression">
+                            <Expression {...this.props.expressionProps} />
+                        </div>
                     </div>
 
-                    <div className="answer-expression">
-                        <Expression {...this.props.expressionProps} />
+                    <div className="answer-option">
+                        <PropCheckBox
+                            form={this.props.form}
+                            onChange={this.props.onChange}
+                            labelAlignment="right"
+                            label="Answer expression must have the same form."
+                        />
+                        <InfoTip>
+                            <p>
+                                The student's answer must be in the same form.
+                                Commutativity and excess negative signs are
+                                ignored.
+                            </p>
+                        </InfoTip>
                     </div>
-                </div>
 
-                <div className="answer-option">
-                    <PropCheckBox
-                        form={this.props.form}
-                        onChange={this.props.onChange}
-                        labelAlignment="right"
-                        label="Answer expression must have the same form." />
-                    <InfoTip>
-                        <p>
-                            The student's answer must be in the same form.
-                            Commutativity and excess negative signs are
-                            ignored.
-                        </p>
-                    </InfoTip>
-                </div>
-
-                <div className="answer-option">
-                    <PropCheckBox
-                        simplify={this.props.simplify}
-                        onChange={this.props.onChange}
-                        labelAlignment="right"
-                        label="Answer expression must be fully expanded and
-                            simplified." />
-                    <InfoTip>
-                        <p>
-                            The student's answer must be fully expanded and
-                            simplified. Answering this equation (x^2+2x+1) with
-                            this factored equation (x+1)^2 will render this
-                            response "Your answer is not fully expanded and
+                    <div className="answer-option">
+                        <PropCheckBox
+                            simplify={this.props.simplify}
+                            onChange={this.props.onChange}
+                            labelAlignment="right"
+                            label="Answer expression must be fully expanded and
                             simplified."
-                        </p>
-                    </InfoTip>
+                        />
+                        <InfoTip>
+                            <p>
+                                The student's answer must be fully expanded and
+                                simplified. Answering this equation (x^2+2x+1)
+                                with this factored equation (x+1)^2 will render
+                                this response "Your answer is not fully expanded
+                                and simplified."
+                            </p>
+                        </InfoTip>
+                    </div>
+
+                    <div className="remove-container">
+                        {removeButton}
+                    </div>
                 </div>
-
-                <div className="remove-container">{removeButton}</div>
-
             </div>
-
-        </div>;
+        );
     },
 
     handleImSure: function() {
@@ -484,12 +535,12 @@ var AnswerOption = React.createClass({
     },
 
     handleDelete: function() {
-        this.setState({ deleteFocused: true });
+        this.setState({deleteFocused: true});
     },
 
     toggleConsidered: function() {
         var newVal = findNextIn(CONSIDERED, this.props.considered);
-        this.change({ considered: newVal });
+        this.change({considered: newVal});
     },
 });
 

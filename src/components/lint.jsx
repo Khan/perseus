@@ -36,6 +36,9 @@ const Lint = React.createClass({
         ruleName: React.PropTypes.string.isRequired,
         // Lint warnings inside tables are handled specially
         insideTable: React.PropTypes.bool.isRequired,
+        // How important this lint message is for the editor. Severity goes
+        // from 1 (indicating an error) to 4 (offline reporting only)
+        severity: React.PropTypes.number,
     },
 
     getInitialState: function() {
@@ -69,6 +72,15 @@ const Lint = React.createClass({
     renderLink: function(style) {
         const tooltipAbove = this.state.tooltipAbove;
 
+        let severityStyle;
+        if (this.props.severity === 1) {
+            severityStyle = styles.indicatorError;
+        } else if (this.props.severity ===  2) {
+            severityStyle = styles.indicatorWarning;
+        } else {
+            severityStyle = styles.indicatorGuideline;
+        }
+
         return (
             <a
                 href={
@@ -78,7 +90,7 @@ const Lint = React.createClass({
                 target="lint-help-window"
                 className={css(style)}
             >
-                <span className={css(styles.indicator)} />
+                <span className={css(styles.indicator, severityStyle)} />
                 <div
                     className={css(
                         styles.tooltip, tooltipAbove && styles.tooltipAbove
@@ -255,16 +267,21 @@ const styles = StyleSheet.create({
     },
 
     // This is the class for the lint indicator in the margin.
-    // It is an orangish circle 8px in diameter. If, in the future
-    // we add lint errors to the existing warnings, we'll use a different
-    // color to distinguish errors from warnings.
     indicator: {
         display: "block", // Marked up with span, but displayed as a block
-        backgroundColor: constants.warningColor,
         borderRadius: 4,
         height: 8,
         width: 8,
         margin: 8,
+    },
+    indicatorError: {
+        backgroundColor: '#be2612',
+    },
+    indicatorWarning: {
+        backgroundColor: '#f86700',
+    },
+    indicatorGuideline: {
+        backgroundColor: '#ffbe26',
     },
 
     // These are the styles for the tooltip
@@ -329,6 +346,7 @@ const styles = StyleSheet.create({
         color: constants.warningColor,
         fontFamily: constants.boldFontFamily,
     },
+
 });
 
 module.exports = Lint;

@@ -1,4 +1,15 @@
 {
-    "presets": ["es2015-loose", "react", "stage-1"],
-    "plugins": ["flow-react-proptypes"]
+    "presets": [
+        ["es2015", {"loose": true, "modules": false}],
+        "react",
+        "stage-2"
+    ],
+    "plugins": [
+        "flow-react-proptypes",
+        "syntax-trailing-function-commas",
+        ["transform-es2015-modules-commonjs", {
+            "allowTopLevelThis": true,
+            "strict": false
+        }]
+    ]
 }

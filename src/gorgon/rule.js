@@ -8,11 +8,16 @@
  * an error message, and the start and end positions within the node's content
  * string of the lint.
  *
- * A Gorgon lint rule consists of a name, a selector, a pattern (RegExp) and
- * a function. The check() method uses the selector, pattern, and function as
- * follows:
+ * A Gorgon lint rule consists of a name, a severity, a selector, a pattern
+ * (RegExp) and two functions. The check() method uses the selector, pattern,
+ * and functions as follows:
  *
- * - First, check() tests whether the node currently being traversed matches
+ * - First, when determining which rules to apply to a particular piece of
+ *   content, each rule can specify an optional function provided in the fifth
+ *   parameter to evaluate whether or not we should be applying this rule.
+ *   If the function returns false, we don't use the rule on this content.
+ *
+ * - Next, check() tests whether the node currently being traversed matches
  *   the selector. If it does not, then the rule does not apply at this node
  *   and there is no lint and check() returns null.
  *
@@ -41,7 +46,7 @@
  *   properties. The value of the `rule` property is the name of the rule,
  *   which is useful for error reporting purposes.
  *
- * The name, selector, pattern and function arguments to the Rule()
+ * The name, severity, selector, pattern and function arguments to the Rule()
  * constructor are optional, but you may not omit both the selector and the
  * pattern. If you do not specify a selector, a default selector that matches
  * any node of type "text" will be used. If you do not specify a pattern, then
@@ -50,7 +55,8 @@
  * constructor, then you must pass an error message string instead. If you do
  * this, you'll get a default function that unconditionally returns an object
  * that includes the error message and the start and end indexes of the
- * portion of the content string that matched the pattern.
+ * portion of the content string that matched the pattern. If you don't pass a
+ * function in the fifth parameter, the rule will be applied in any context.
  *
  * One of the design goals of this Rule class is to allow simple lint rules to
  * be described in JSON files without any JavaScript code. So in addition to
@@ -161,15 +167,25 @@ export type LintTester = (
     context: LintRuleContextObject
 ) => LintTesterReturnType;
 
+// An optional check to verify whether or not a particular rule should
+// be checked by context. For example, some rules only apply in exercises,
+// and should never be applied to articles. Defaults to true, so if we
+// omit the applies function in a rule, it'll be tested everywhere.
+export type AppliesTester = (
+    context: LintRuleContextObject
+) => boolean;
+
 /**
  * A Rule object describes a Gorgon lint rule. See the comment at the top of
  * this file for detailed description.
  */
 export default class Rule {
     name: string; // The name of the rule
+    severity: number; // The severity of the rule
     selector: Selector; // The specified selector or the DEFAULT_SELECTOR
     pattern: ?RegExp; // A regular expression if one was specified
     lint: LintTester; // The lint-testing function or a default
+    applies: AppliesTester; // Checks to see if we should apply a rule or not
     message: ?string; // The error message for use with the default function
     static DEFAULT_SELECTOR: Selector;
 
@@ -177,15 +193,18 @@ export default class Rule {
     // this constructor and its arguments
     constructor(
         name: ?string,
+        severity: ?number,
         selector: ?Selector,
         pattern: ?RegExp,
-        lint: LintTester | string
+        lint: LintTester | string,
+        applies: AppliesTester
     ) {
         if (!selector && !pattern) {
             throw new Error("Lint rules must have a selector or pattern");
         }
 
         this.name = name || "unnamed rule";
+        this.severity = severity || Rule.Severity.BULK_WARNING;
         this.selector = selector || Rule.DEFAULT_SELECTOR;
         this.pattern = pattern || null;
 
@@ -198,6 +217,10 @@ export default class Rule {
             this.lint = this._defaultLintFunction;
             this.message = lint;
         }
+
+        this.applies = applies || function() {
+            return true;
+        };
     }
 
     // A factory method for use with rules described in JSON files
@@ -205,9 +228,11 @@ export default class Rule {
     static makeRule(options: Object) {
         return new Rule(
             options.name,
+            options.severity,
             options.selector ? Selector.parse(options.selector) : null,
             Rule.makePattern(options.pattern),
-            options.lint || options.message
+            options.lint || options.message,
+            options.applies
         );
     }
 
@@ -263,6 +288,7 @@ export default class Rule {
                 // applies to the entire content of the node and return it.
                 return {
                     rule: this.name,
+                    severity: this.severity,
                     message: error,
                     start: 0,
                     end: content.length,
@@ -272,6 +298,7 @@ export default class Rule {
                 // add the rule name to the message, start and end.
                 return {
                     rule: this.name,
+                    severity: this.severity,
                     message: error.message,
                     start: error.start,
                     end: error.end,
@@ -358,6 +385,14 @@ ${e.stack}`,
         result.input = input;
         return result;
     }
+
+    static Severity = {
+        ERROR: 1,
+        WARNING: 2,
+        GUIDELINE: 3,
+        BULK_WARNING: 4,
+    }
+
 }
 
 Rule.DEFAULT_SELECTOR = Selector.parse("text");

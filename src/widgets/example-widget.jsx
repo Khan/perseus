@@ -11,16 +11,19 @@
  * TODO(jack): Add more comments
  */
 
-var React = require('react');
+var React = require("react");
 var Changeable = require("../mixins/changeable.jsx");
 var _ = require("underscore");
 
 var TextInput = React.createClass({
     render: function() {
-        return <input
-            ref="input"
-            value={this.props.value || ""}
-            onChange={this.changeValue} />;
+        return (
+            <input
+                ref="input"
+                value={this.props.value || ""}
+                onChange={this.changeValue}
+            />
+        );
     },
 
     focus: function() {
@@ -32,7 +35,7 @@ var TextInput = React.createClass({
         // Translating from the js event e to the value
         // of the textbox to send to onChange
         this.props.onChange(e.target.value);
-    }
+    },
 });
 
 /**
@@ -43,12 +46,12 @@ var TextInput = React.createClass({
 var ExampleWidget = React.createClass({
     propTypes: {
         ...Changeable.propTypes,
-        value: React.PropTypes.string
+        value: React.PropTypes.string,
     },
 
     getDefaultProps: function() {
         return {
-            value: ""
+            value: "",
         };
     },
 
@@ -60,10 +63,13 @@ var ExampleWidget = React.createClass({
     },
 
     render: function() {
-        return <TextInput
-            ref="input"
-            value={this.props.value}
-            onChange={this.change("value")} />;
+        return (
+            <TextInput
+                ref="input"
+                value={this.props.value}
+                onChange={this.change("value")}
+            />
+        );
     },
 
     getUserInput: function() {
@@ -94,9 +100,8 @@ var ExampleWidget = React.createClass({
      */
     simpleValidate: function(rubric) {
         return ExampleWidget.validate(this.getUserInput(), rubric);
-    }
+    },
 });
-
 
 /**
  * This is the widget's grading function
@@ -112,25 +117,26 @@ _.extend(ExampleWidget, {
         if (value === "") {
             return {
                 type: "invalid",
-                message: "It looks like you haven't answered all of the " +
-                    "question yet."
+                message:
+                    "It looks like you haven't answered all of the " +
+                    "question yet.",
             };
         } else if (value === rubric.correct) {
             return {
                 type: "points",
                 earned: 1,
                 total: 1,
-                message: null
+                message: null,
             };
         } else {
             return {
                 type: "points",
                 earned: 0,
                 total: 1,
-                message: null
+                message: null,
             };
         }
-    }
+    },
 });
 
 /**
@@ -144,6 +150,6 @@ module.exports = {
     // for the component wrapping this one.
     defaultAlignment: "inline-block",
 
-    hidden: true,   // Hides this widget from the Perseus.Editor widget select
+    hidden: true, // Hides this widget from the Perseus.Editor widget select
     widget: ExampleWidget,
 };

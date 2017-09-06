@@ -2,7 +2,6 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-
 // TODO(joel): teach KAS how to accept an answer only if it's expressed in
 // terms of a certain type.
 // TODO(joel): Allow sigfigs within a range rather than an exact expected
@@ -16,8 +15,8 @@ var _ = require("underscore");
 var ApiClassNames = require("../perseus-api.jsx").ClassNames;
 var ApiOptions = require("../perseus-api.jsx").Options;
 var Changeable = require("../mixins/changeable.jsx");
-var MathOutput   = require("../components/math-output.jsx");
-var { SignificantFigures, displaySigFigs } = require("../sigfigs.jsx");
+var MathOutput = require("../components/math-output.jsx");
+var {SignificantFigures, displaySigFigs} = require("../sigfigs.jsx");
 
 var ALL = "all";
 var SOME = "some";
@@ -54,9 +53,9 @@ var OldUnitInput = React.createClass({
 
     // TODO(joel) think about showing the error buddy
     render: function() {
-        var inputType = this.props.apiOptions.staticRender ?
-                React.createFactory(MathOutput) :
-                React.DOM.input;
+        var inputType = this.props.apiOptions.staticRender
+            ? React.createFactory(MathOutput)
+            : React.DOM.input;
         var input = inputType({
             onChange: this.handleChange,
             ref: "input",
@@ -66,14 +65,14 @@ var OldUnitInput = React.createClass({
             onBlur: this.handleBlur,
         });
 
-        return <div className="old-unit-input">
-            {input}
-            <div ref="error"
-                 className="error"
-                 style={{display: "none"}}>
-                {i18n._("I don't understand that")}
+        return (
+            <div className="old-unit-input">
+                {input}
+                <div ref="error" className="error" style={{display: "none"}}>
+                    {i18n._("I don't understand that")}
+                </div>
             </div>
-        </div>;
+        );
     },
 
     _errorTimeout: null,
@@ -85,15 +84,17 @@ var OldUnitInput = React.createClass({
 
         var $error = $(ReactDOM.findDOMNode(this.refs.error));
         if (!$error.is(":visible")) {
-            $error.css({ top: 50, opacity: 0.1 }).show()
-                .animate({ top: 0, opacity: 1.0 }, 300);
+            $error
+                .css({top: 50, opacity: 0.1})
+                .show()
+                .animate({top: 0, opacity: 1.0}, 300);
         }
     },
 
     _hideError: function() {
         var $error = $(ReactDOM.findDOMNode(this.refs.error));
         if ($error.is(":visible")) {
-            $error.animate({ top: 50, opacity: 0.1 }, 300, function() {
+            $error.animate({top: 50, opacity: 0.1}, 300, function() {
                 $(this).hide();
             });
         }
@@ -126,7 +127,7 @@ var OldUnitInput = React.createClass({
 
     handleChange: function(event) {
         this._hideError();
-        this.props.onChange({ value: event.target.value });
+        this.props.onChange({value: event.target.value});
     },
 
     simpleValidate: function(rubric, onInputError) {
@@ -159,9 +160,12 @@ var OldUnitInput = React.createClass({
     },
 
     setInputValue: function(path, newValue, cb) {
-        this.props.onChange({
-            value: newValue
-        }, cb);
+        this.props.onChange(
+            {
+                value: newValue,
+            },
+            cb
+        );
     },
 
     getDOMNodeForPath: function() {
@@ -186,7 +190,7 @@ _.extend(OldUnitInput, {
         var answer = KAS.unitParse(rubric.value).expr;
         var guess = KAS.unitParse(state);
         if (!guess.parsed) {
-            return  {
+            return {
                 type: "invalid",
                 message: i18n._("I couldn't understand those units."),
             };
@@ -240,10 +244,7 @@ _.extend(OldUnitInput, {
         if (rubric.accepting === ALL) {
             // We're accepting all units - KAS does the hard work of figuring
             // out if the user's unit is equivalent to the author's unit.
-            kasCorrect = KAS.compare(
-                guessUnit,
-                answerUnit
-            ).equal;
+            kasCorrect = KAS.compare(guessUnit, answerUnit).equal;
         } else {
             // Are any of the accepted units the same as what the user entered?
             kasCorrect = _(rubric.acceptingUnits).any(unit => {
@@ -270,7 +271,7 @@ _.extend(OldUnitInput, {
             total: 1,
             message,
         };
-    }
+    },
 });
 
 module.exports = {
@@ -279,7 +280,7 @@ module.exports = {
     defaultAlignment: "inline-block",
     widget: OldUnitInput,
     transform: x => lens(x).del(["value"]).freeze(),
-    version: { major: 0, minor: 1 },
+    version: {major: 0, minor: 1},
     countSigfigs,
     sigfigPrint,
     hidden: true,

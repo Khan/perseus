@@ -2,12 +2,12 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-const { StyleSheet, css } = require("aphrodite");
+const {StyleSheet, css} = require("aphrodite");
 const _ = require("underscore");
-const React = require('react');
+const React = require("react");
 const classNames = require("classnames");
 
-const { ClassNames } = require("../../perseus-api.jsx");
+const {ClassNames} = require("../../perseus-api.jsx");
 const sharedStyles = require("../../styles/shared.js");
 const styleConstants = require("../../styles/constants.js");
 const mediaQueries = require("../../styles/media-queries.js");
@@ -119,7 +119,7 @@ const Choice = React.createClass({
             },
 
             satRadioOptionContent: {
-                userSelect: 'text',
+                userSelect: "text",
                 display: "block",
                 marginLeft: 45,
                 // Overriding here, not sure why typically set
@@ -199,7 +199,7 @@ const Choice = React.createClass({
             disabled: false,
             editMode: false,
             showRationale: false,
-            type: 'radio',
+            type: "radio",
             pos: 0,
         };
     },
@@ -289,38 +289,42 @@ const Choice = React.createClass({
     renderChoiceIcon() {
         const {
             radioStyleVersion,
-            primaryProductColor} = this.props.apiOptions.styling;
-        const finalStyles = typeof radioStyleVersion === "undefined"
-            ? false
-            : radioStyleVersion === "final";
+            primaryProductColor,
+        } = this.props.apiOptions.styling;
+        const finalStyles =
+            typeof radioStyleVersion === "undefined"
+                ? false
+                : radioStyleVersion === "final";
 
         if (!finalStyles && !this.props.apiOptions.satStyling) {
             return null;
         }
 
-        return <ChoiceIcon
-            pos={this.props.pos}
-            correct={this.props.correct}
-            pressed={this.state.isInputActive}
-            focused={this.state.isInputFocused}
-            checked={this.props.checked}
-            showCorrectness={this.props.showCorrectness}
-            reviewMode={this.props.reviewMode}
-            product={this.props.apiOptions.satStyling ? "sat" : "library"}
-            primaryProductColor={primaryProductColor}
-        />;
+        return (
+            <ChoiceIcon
+                pos={this.props.pos}
+                correct={this.props.correct}
+                pressed={this.state.isInputActive}
+                focused={this.state.isInputFocused}
+                checked={this.props.checked}
+                showCorrectness={this.props.showCorrectness}
+                reviewMode={this.props.reviewMode}
+                product={this.props.apiOptions.satStyling ? "sat" : "library"}
+                primaryProductColor={primaryProductColor}
+            />
+        );
     },
 
     render: function() {
-
         const styles = Choice.styles;
         const sat = this.props.apiOptions.satStyling;
         const isMobile = this.props.apiOptions.isMobile;
 
         const {radioStyleVersion} = this.props.apiOptions.styling;
-        const finalStyles = typeof radioStyleVersion === "undefined"
-            ? false
-            : radioStyleVersion === "final";
+        const finalStyles =
+            typeof radioStyleVersion === "undefined"
+                ? false
+                : radioStyleVersion === "final";
 
         const className = classNames(
             this.props.className,
@@ -349,13 +353,12 @@ const Choice = React.createClass({
                 !finalStyles && sharedStyles.perseusInteractive,
                 !finalStyles && styles.input,
                 !finalStyles && sharedStyles.responsiveInput,
-                !finalStyles && !sat &&
-                    sharedStyles.responsiveRadioInput,
-                !finalStyles && !sat && this.state.isInputActive &&
+                !finalStyles && !sat && sharedStyles.responsiveRadioInput,
+                !finalStyles &&
+                    !sat &&
+                    this.state.isInputActive &&
                     sharedStyles.responsiveRadioInputActive,
-
                 finalStyles && sharedStyles.perseusSrOnly,
-
                 sat && sharedStyles.perseusSrOnly,
                 sat && this.props.reviewMode && styles.satReviewInput
             ),
@@ -375,7 +378,7 @@ const Choice = React.createClass({
         } else {
             input = (
                 <input
-                    onChange={(event) => {
+                    onChange={event => {
                         this.props.onChecked(event.target.checked);
                     }}
                     ref={this.inputRef}
@@ -384,33 +387,34 @@ const Choice = React.createClass({
             );
         }
 
-        const {
-            reviewMode,
-            correct,
-            checked,
-            isLastChoice,
-        } = this.props;
+        const {reviewMode, correct, checked, isLastChoice} = this.props;
         // HACK: while most of the styling for rendering SAT items is handled
         // via aphrodite, we also need to assign normal CSS classnames here to
         // special-case the coloring of MathJax formulas (see .MathJax .math in
         // stylesheets/task-package/tasks.less)
         const satCorrectChoice = sat && reviewMode && correct;
-        const satIncorrectChecked =  sat && reviewMode && !correct && checked;
-        const descriptionClassName = classNames("description",
+        const satIncorrectChecked = sat && reviewMode && !correct && checked;
+        const descriptionClassName = classNames(
+            "description",
             satCorrectChoice && "sat-correct",
             satIncorrectChecked && "sat-incorrect",
-            css(!sat && styles.description,
-                sat && this.state.isInputFocused
-                    && styles.satDescriptionInputFocused,
-                sat && this.state.isInputActive
-                    && styles.satDescriptionInputActive,
+            css(
+                !sat && styles.description,
+                sat &&
+                    this.state.isInputFocused &&
+                    styles.satDescriptionInputFocused,
+                sat &&
+                    this.state.isInputActive &&
+                    styles.satDescriptionInputActive,
                 sat && styles.satDescription,
                 satCorrectChoice && styles.satDescriptionCorrect,
-                satCorrectChoice && checked
-                    && styles.satDescriptionCorrectChecked,
-                satIncorrectChecked
-                    && styles.satDescriptionIncorrectChecked,
-                sat && isLastChoice && styles.satDescriptionLastChoice));
+                satCorrectChoice &&
+                    checked &&
+                    styles.satDescriptionCorrectChecked,
+                satIncorrectChecked && styles.satDescriptionIncorrectChecked,
+                sat && isLastChoice && styles.satDescriptionLastChoice
+            )
+        );
 
         const checkboxContentClassName = classNames(
             "checkbox",
@@ -421,12 +425,9 @@ const Choice = React.createClass({
             )
         );
 
-
         const checkboxAndOptionClassName = classNames(
             "checkbox-and-option",
-            css(
-                !sat && styles.intermediateResponsiveCheckbox,
-            )
+            css(!sat && styles.intermediateResponsiveCheckbox)
         );
 
         const rationaleClassName = classNames(
@@ -449,49 +450,54 @@ const Choice = React.createClass({
         // we also don't want to do this when we're in review mode in the
         // content library.
         const showDimmed =
-            !sat &&
-            !reviewMode &&
-            this.props.apiOptions.readOnly;
+            !sat && !reviewMode && this.props.apiOptions.readOnly;
 
-        return <LabelOrDiv
-            className={className}
-            style={{opacity: showDimmed ? 0.5 : 1.0}}
-        >
-            <div className={descriptionClassName}
-                onMouseDown={this.onInputMouseDown}
-                onMouseUp={this.onInputMouseUp}
-                onMouseOut={this.onInputMouseOut}
-                onTouchStart={this.onInputMouseDown}
-                onTouchEnd={this.onInputMouseUp}
+        return (
+            <LabelOrDiv
+                className={className}
+                style={{opacity: showDimmed ? 0.5 : 1.0}}
             >
-                <div className={checkboxAndOptionClassName}>
-                    <span className={checkboxContentClassName}>
-                        {input}
-                        {this.renderChoiceIcon()}
-                    </span>
-                    {/* A pseudo-label. <label> is slightly broken on iOS,
+                <div
+                    className={descriptionClassName}
+                    onMouseDown={this.onInputMouseDown}
+                    onMouseUp={this.onInputMouseUp}
+                    onMouseOut={this.onInputMouseOut}
+                    onTouchStart={this.onInputMouseDown}
+                    onTouchEnd={this.onInputMouseUp}
+                >
+                    <div className={checkboxAndOptionClassName}>
+                        <span className={checkboxContentClassName}>
+                            {input}
+                            {this.renderChoiceIcon()}
+                        </span>
+                        {/* A pseudo-label. <label> is slightly broken on iOS,
                         so this works around that. Unfortunately, it is
                         simplest to just work around that everywhere. */}
-                    <span className={classNames(
-                            ClassNames.RADIO.OPTION_CONTENT,
-                            ClassNames.INTERACTIVE,
-                            css(sat && styles.satRadioOptionContent,
-                                sat && reviewMode
-                                    && styles.satReviewRadioOptionContent)
-                        )}
-                        style={{ cursor: "default" }}
-                    >
-                        <div>
-                            {this.props.content}
-                        </div>
-                    </span>
+                        <span
+                            className={classNames(
+                                ClassNames.RADIO.OPTION_CONTENT,
+                                ClassNames.INTERACTIVE,
+                                css(
+                                    sat && styles.satRadioOptionContent,
+                                    sat &&
+                                        reviewMode &&
+                                        styles.satReviewRadioOptionContent
+                                )
+                            )}
+                            style={{cursor: "default"}}
+                        >
+                            <div>
+                                {this.props.content}
+                            </div>
+                        </span>
+                    </div>
+                    {this.props.showRationale &&
+                        <div className={rationaleClassName}>
+                            {this.props.rationale}
+                        </div>}
                 </div>
-                {this.props.showRationale &&
-                    <div className={rationaleClassName}>
-                        {this.props.rationale}
-                    </div>}
-            </div>
-        </LabelOrDiv>;
+            </LabelOrDiv>
+        );
     },
 });
 

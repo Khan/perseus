@@ -2,7 +2,7 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var React = require('react');
+var React = require("react");
 var _ = require("underscore");
 
 var Changeable = require("../mixins/changeable.jsx");
@@ -14,12 +14,12 @@ var mdOutput = PerseusMarkdown.basicOutput;
 var SimpleMarkdownTester = React.createClass({
     propTypes: {
         ...Changeable.propTypes,
-        value: React.PropTypes.string
+        value: React.PropTypes.string,
     },
 
     getDefaultProps: function() {
         return {
-            value: ""
+            value: "",
         };
     },
 
@@ -34,9 +34,11 @@ var SimpleMarkdownTester = React.createClass({
     render: function() {
         var parsed = mdParse(this.props.value);
         var output = mdOutput(parsed);
-        return <div>
-            {output}
-        </div>;
+        return (
+            <div>
+                {output}
+            </div>
+        );
     },
 
     /**
@@ -63,9 +65,8 @@ var SimpleMarkdownTester = React.createClass({
      */
     simpleValidate: function(rubric) {
         return SimpleMarkdownTester.validate(this.toJSON(), rubric);
-    }
+    },
 });
-
 
 /**
  * This is the widget's grading function
@@ -82,9 +83,9 @@ _.extend(SimpleMarkdownTester, {
             type: "points",
             earned: 0,
             total: 0,
-            message: null
+            message: null,
         };
-    }
+    },
 });
 
 /**
@@ -93,7 +94,7 @@ _.extend(SimpleMarkdownTester, {
 module.exports = {
     name: "simple-markdown-tester",
     displayName: "Simple Markdown Tester",
-    hidden: true,   // Hides this widget from the Perseus.Editor widget select
+    hidden: true, // Hides this widget from the Perseus.Editor widget select
     widget: SimpleMarkdownTester,
-    transform: _.identity
+    transform: _.identity,
 };

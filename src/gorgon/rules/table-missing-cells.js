@@ -2,6 +2,7 @@ import Rule from "../rule.js";
 
 module.exports = Rule.makeRule({
     name: "table-missing-cells",
+    severity: Rule.Severity.WARNING,
     selector: "table",
     lint: function(state, content, nodes, match) {
         const table = nodes[0];

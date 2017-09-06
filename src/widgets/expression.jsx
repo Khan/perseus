@@ -2,7 +2,6 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-
 var classNames = require("classnames");
 var React = require("react");
 var ReactDOM = require("react-dom");
@@ -19,13 +18,16 @@ const InlineIcon = require("../components/inline-icon.jsx");
 var InputWithExamples = require("../components/input-with-examples.jsx");
 var MathInput = require("../components/math-input.jsx");
 var TexButtons = require("../components/tex-buttons.jsx");
-const { KeypadInput } = require("../../math-input").components;
+const {KeypadInput} = require("../../math-input").components;
 const {
     keypadConfigurationPropType,
     keypadElementPropType,
 } = require("../../math-input").propTypes;
 const {KeypadTypes} = require("../../math-input").consts;
-const {linterContextProps, linterContextDefault} = require("../gorgon/proptypes.js");
+const {
+    linterContextProps,
+    linterContextDefault,
+} = require("../gorgon/proptypes.js");
 
 const {iconExclamationSign} = require("../icon-paths.js");
 
@@ -42,14 +44,17 @@ var NO_ANSWERS_WARNING = [
     "Put something in there",
     "won't you please?",
     "A few digits will do -",
-    "might I suggest some threes?"
-    ].join("\n");
-var NO_CORRECT_ANSWERS_WARNING = "This question is probably going to be too " +
+    "might I suggest some threes?",
+].join("\n");
+var NO_CORRECT_ANSWERS_WARNING =
+    "This question is probably going to be too " +
     "hard because the expression has no correct answer.";
 var SIMPLIFY_WARNING = str => {
-    return `"${str}" is required to be simplified but is not considered ` +
+    return (
+        `"${str}" is required to be simplified but is not considered ` +
         "simplified by our fancy computer algebra system. This will be " +
-        "graded as incorrect.";
+        "graded as incorrect."
+    );
 };
 var PARSE_WARNING = str => `"${str}" <- you sure that's math?`;
 var NOT_SPECIFIED_WARNING = ix => {
@@ -84,7 +89,7 @@ var Expression = React.createClass({
         ...Changeable.propTypes,
         apiOptions: ApiOptions.propTypes,
         buttonSets: TexButtons.buttonSetsType,
-        buttonsVisible: React.PropTypes.oneOf(['always', 'never', 'focused']),
+        buttonsVisible: React.PropTypes.oneOf(["always", "never", "focused"]),
         functions: React.PropTypes.arrayOf(React.PropTypes.string),
         keypadConfiguration: keypadConfigurationPropType,
         keypadElement: keypadElementPropType,
@@ -101,8 +106,8 @@ var Expression = React.createClass({
             times: false,
             functions: [],
             buttonSets: ["basic", "trig", "prealgebra", "logarithms"],
-            onFocus: function() { },
-            onBlur: function() { },
+            onFocus: function() {},
+            onBlur: function() {},
             apiOptions: ApiOptions.defaults,
             linterContext: linterContextDefault,
         };
@@ -111,7 +116,7 @@ var Expression = React.createClass({
     getInitialState: function() {
         return {
             showErrorTooltip: false,
-            showErrorText: false
+            showErrorText: false,
         };
     },
 
@@ -131,91 +136,102 @@ var Expression = React.createClass({
 
     render: function() {
         if (this.props.apiOptions.customKeypad) {
-            return <KeypadInput
-                ref="input"
-                value={this.props.value}
-                keypadElement={this.props.keypadElement}
-                onChange={this.changeAndTrack}
-                onFocus={() => {
-                    this.props.keypadElement.configure(
-                        this.props.keypadConfiguration, () => {
-                            if (this.isMounted()) {
-                                this._handleFocus();
+            return (
+                <KeypadInput
+                    ref="input"
+                    value={this.props.value}
+                    keypadElement={this.props.keypadElement}
+                    onChange={this.changeAndTrack}
+                    onFocus={() => {
+                        this.props.keypadElement.configure(
+                            this.props.keypadConfiguration,
+                            () => {
+                                if (this.isMounted()) {
+                                    this._handleFocus();
+                                }
                             }
-                        }
-                    );
-                }}
-                onBlur={this._handleBlur}
-            />;
+                        );
+                    }}
+                    onBlur={this._handleBlur}
+                />
+            );
         } else if (this.props.apiOptions.staticRender) {
             // To make things slightly easier, we just use an InputWithExamples
             // component to handle the static rendering, which is the same
             // component used by InputNumber and NumericInput
-            return <InputWithExamples
-                ref="input"
-                value={this.props.value}
-                type={"tex"}
-                examples={[]}
-                shouldShowExamples={false}
-                onChange={this.changeAndTrack}
-                onFocus={this._handleFocus}
-                onBlur={this._handleBlur}
-                id={this.props.widgetId}
-                linterContext={this.props.linterContext}
-            />;
+            return (
+                <InputWithExamples
+                    ref="input"
+                    value={this.props.value}
+                    type={"tex"}
+                    examples={[]}
+                    shouldShowExamples={false}
+                    onChange={this.changeAndTrack}
+                    onFocus={this._handleFocus}
+                    onBlur={this._handleBlur}
+                    id={this.props.widgetId}
+                    linterContext={this.props.linterContext}
+                />
+            );
         } else {
             // TODO(alex): Style this tooltip to be more consistent with other
             // tooltips on the site; align to left middle (once possible)
-            var errorTooltip = <span className="error-tooltip">
-                <Tooltip
+            var errorTooltip = (
+                <span className="error-tooltip">
+                    <Tooltip
                         className="error-text-container"
                         horizontalPosition="right"
                         horizontalAlign="left"
                         verticalPosition="top"
                         arrowSize={10}
                         borderColor="#fcc335"
-                        show={this.state.showErrorText} >
-                    <span
-                        className="error-icon"
-                        onMouseEnter={() => {
-                            this.setState({showErrorText: true});
-                        }}
-                        onMouseLeave={() => {
-                            this.setState({showErrorText: false});
-                        }}
-                        onClick={() => {
-                            // TODO(alex): Better error feedback for mobile
-                            this.setState({
-                                showErrorText: !this.state.showErrorText
-                            });
-                        }}
+                        show={this.state.showErrorText}
                     >
-                        <InlineIcon {...iconExclamationSign} />
-                    </span>
-                    <div className="error-text">
-                        {ERROR_MESSAGE}
-                    </div>
-                </Tooltip>
-            </span>;
+                        <span
+                            className="error-icon"
+                            onMouseEnter={() => {
+                                this.setState({showErrorText: true});
+                            }}
+                            onMouseLeave={() => {
+                                this.setState({showErrorText: false});
+                            }}
+                            onClick={() => {
+                                // TODO(alex): Better error feedback for mobile
+                                this.setState({
+                                    showErrorText: !this.state.showErrorText,
+                                });
+                            }}
+                        >
+                            <InlineIcon {...iconExclamationSign} />
+                        </span>
+                        <div className="error-text">
+                            {ERROR_MESSAGE}
+                        </div>
+                    </Tooltip>
+                </span>
+            );
 
             var className = classNames({
                 "perseus-widget-expression": true,
-                "show-error-tooltip": this.state.showErrorTooltip
+                "show-error-tooltip": this.state.showErrorTooltip,
             });
 
-            return <span className={className}>
-                <MathInput
-                    ref="input"
-                    className={ApiClassNames.INTERACTIVE}
-                    value={this.props.value}
-                    onChange={this.changeAndTrack}
-                    convertDotToTimes={this.props.times}
-                    buttonsVisible={this.props.buttonsVisible || "focused"}
-                    buttonSets={this.props.buttonSets}
-                    onFocus={this._handleFocus}
-                    onBlur={this._handleBlur} />
-                {this.state.showErrorTooltip && errorTooltip}
-            </span>;
+            return (
+                <span className={className}>
+                    <MathInput
+                        ref="input"
+                        className={ApiClassNames.INTERACTIVE}
+                        value={this.props.value}
+                        onChange={this.changeAndTrack}
+                        convertDotToTimes={this.props.times}
+                        buttonsVisible={this.props.buttonsVisible || "focused"}
+                        buttonSets={this.props.buttonSets}
+                        onFocus={this._handleFocus}
+                        onBlur={this._handleBlur}
+                    />
+                    {this.state.showErrorTooltip && errorTooltip}
+                </span>
+            );
         }
     },
 
@@ -239,9 +255,10 @@ var Expression = React.createClass({
     // Clear any errors if this parse succeeds, show an error within a second
     // if it fails.
     componentWillReceiveProps: function(nextProps) {
-        if (!_.isEqual(this.props.value, nextProps.value) ||
-            !_.isEqual(this.props.functions, nextProps.functions)) {
-
+        if (
+            !_.isEqual(this.props.value, nextProps.value) ||
+            !_.isEqual(this.props.functions, nextProps.functions)
+        ) {
             clearTimeout(this.errorTimeout);
 
             if (this.parse(nextProps.value, nextProps).parsed) {
@@ -303,9 +320,12 @@ var Expression = React.createClass({
     },
 
     setInputValue: function(path, newValue, cb) {
-        this.props.onChange({
-            value: newValue
-        }, cb);
+        this.props.onChange(
+            {
+                value: newValue,
+            },
+            cb
+        );
     },
 
     getAcceptableFormatsForInputPath: function() {
@@ -318,9 +338,9 @@ var Expression = React.createClass({
     },
 
     simpleValidate: function(rubric, onInputError) {
-        onInputError = onInputError || function() { };
+        onInputError = onInputError || function() {};
         return Expression.validate(this.getUserInput(), rubric, onInputError);
-    }
+    },
 });
 
 /* Content creators input a list of answers which are matched from top to
@@ -357,7 +377,7 @@ _.extend(Expression, {
                 KAS.parse(answer.value, rubric).expr,
                 _({}).extend(options, {
                     simplify: answer.simplify,
-                    form: answer.form
+                    form: answer.form,
                 })
             );
         };
@@ -387,7 +407,7 @@ _.extend(Expression, {
                 // If everything graded as empty, it's invalid.
                 return {
                     type: "invalid",
-                    message: null
+                    message: null,
                 };
             } else {
                 // We fell through all the possibilities and we're not empty,
@@ -395,11 +415,11 @@ _.extend(Expression, {
                 return {
                     type: "points",
                     earned: 0,
-                    total: 1
+                    total: 1,
                 };
             }
 
-        // we matched an ungraded answer - return "invalid"
+            // we matched an ungraded answer - return "invalid"
         } else if (matchingAnswer.considered === "ungraded") {
             var apiResult = onInputError(
                 null, // reserved for some widget identifier
@@ -408,13 +428,12 @@ _.extend(Expression, {
             );
             return {
                 type: "invalid",
-                message: apiResult === false ? null : message
+                message: apiResult === false ? null : message,
             };
 
-        // The user's input matched one of the answers - is it correct or
-        // incorrect?
+            // The user's input matched one of the answers - is it correct or
+            // incorrect?
         } else {
-
             // TODO(eater): Seems silly to translate result to this
             // invalid/points thing and immediately translate it back in
             // ItemRenderer.scoreInput()
@@ -422,10 +441,10 @@ _.extend(Expression, {
                 type: "points",
                 earned: matchingAnswer.considered === "correct" ? 1 : 0,
                 total: 1,
-                message: message
+                message: message,
             };
         }
-    }
+    },
 });
 
 /**
@@ -439,7 +458,7 @@ _.extend(Expression, {
  *       to be included as keys on the keypad. These are scraped from the answer
  *       forms.
  */
-const keypadConfigurationForProps = (props) => {
+const keypadConfigurationForProps = props => {
     // Always use the Expression keypad, regardless of the button sets that have
     // been enabled.
     const keypadType = KeypadTypes.EXPRESSION;
@@ -455,9 +474,9 @@ const keypadConfigurationForProps = (props) => {
             // The keypad expects Greek letters to be capitalized (e.g., it
             // requires `PI` instead of `pi`). Right now, it only supports Pi
             // and Theta, so we special-case.
-            const isGreek = symbol => symbol === 'pi' || symbol === 'theta';
-            const toKey = symbol => isGreek(symbol) ? symbol.toUpperCase()
-                                                    : symbol;
+            const isGreek = symbol => symbol === "pi" || symbol === "theta";
+            const toKey = symbol =>
+                isGreek(symbol) ? symbol.toUpperCase() : symbol;
 
             for (const variable of expr.getVars()) {
                 uniqueExtraVariables[toKey(variable)] = true;
@@ -483,7 +502,7 @@ const keypadConfigurationForProps = (props) => {
         extraKeys.push("PI");
     }
 
-    return { keypadType, extraKeys };
+    return {keypadType, extraKeys};
 };
 
 /*
@@ -514,20 +533,22 @@ const keypadConfigurationForProps = (props) => {
  */
 
 var propUpgrades = {
-    1: (v0props) => ({
+    1: v0props => ({
         times: v0props.times,
         buttonSets: v0props.buttonSets,
         functions: v0props.functions,
         buttonsVisible: v0props.buttonsVisible,
 
-        answerForms: [{
-            considered: "correct",
-            form: v0props.form,
-            simplify: v0props.simplify,
-            value: v0props.value,
-            key: 0,
-        }]
-    })
+        answerForms: [
+            {
+                considered: "correct",
+                form: v0props.form,
+                simplify: v0props.simplify,
+                value: v0props.value,
+                key: 0,
+            },
+        ],
+    }),
 };
 
 module.exports = {
@@ -535,8 +556,8 @@ module.exports = {
     displayName: "Expression / Equation",
     defaultAlignment: "inline-block",
     widget: Expression,
-    transform: (editorProps) => {
-        const { times, functions, buttonSets, buttonsVisible } = editorProps;
+    transform: editorProps => {
+        const {times, functions, buttonSets, buttonsVisible} = editorProps;
         return {
             keypadConfiguration: keypadConfigurationForProps(editorProps),
             times,
@@ -545,7 +566,7 @@ module.exports = {
             buttonsVisible,
         };
     },
-    version: { major: 1, minor: 0 },
+    version: {major: 1, minor: 0},
     propUpgrades: propUpgrades,
 
     // For use by the editor

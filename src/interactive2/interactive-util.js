@@ -1,25 +1,21 @@
-/* eslint-disable comma-dangle, no-var */
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /**
  * Utility functions for writing Interactive2 movablethings
  */
 
-var _ = require("underscore");
-var MovableHelperMethods = require("./movable-helper-methods.js");
+const _ = require("underscore");
+const MovableHelperMethods = require("./movable-helper-methods.js");
 
 /**
  * Compute the correct vendor-prefixed `transform`.
  */
-var prefixedTransform = null;
+let prefixedTransform = null;
 function computePrefixedTransform() {
     // Temporary element for testing prefix validity
-    var el = document.createElement("div");
+    const el = document.createElement("div");
 
-    var prefixes = ["transform", "msTransform", "MozTransform",
+    const prefixes = ["transform", "msTransform", "MozTransform",
         "WebkitTransform", "OTransform"];
-    var correctPrefix = null;
+    let correctPrefix = null;
     _.each(prefixes, function(prefix) {
         if (typeof el.style[prefix] !== 'undefined') {
             correctPrefix = prefix;
@@ -32,17 +28,17 @@ function computePrefixedTransform() {
  * Compute whether the browser can use 3d transforms by trying to use the
  * translateZ transformation.
  */
-var canUse3dTransform = null;
+let canUse3dTransform = null;
 function computeCanUse3dTransform() {
-    var el = document.createElement("div");
+    const el = document.createElement("div");
 
-    var prefix = InteractiveUtil.getPrefixedTransform();
+    const prefix = InteractiveUtil.getPrefixedTransform();
 
     el.style[prefix] = "translateZ(0px)";
     return !!el.style[prefix];
 }
 
-var InteractiveUtil = {
+const InteractiveUtil = {
     assert: function(isTrue, message) {
         if (!isTrue) {
             throw new Error("Assertion Error" +
@@ -96,14 +92,14 @@ var InteractiveUtil = {
         // (and maybe be a function on MovableHelperMethods to get access
         // to this.state), which would also be nicer because we could
         // normalizeOptions once in this.modify
-        var result = _.clone(options);
+        const result = _.clone(options);
         _.each(arrayOptionNames, function(eventName) {
-            var funcOrArray = options[eventName];
+            const funcOrArray = options[eventName];
             // Only propagate values which were set; not present values
             // shouldn't be added to options because we'd like them to
             // fall through to defaults
             if (funcOrArray !== undefined) {
-                var funcArray = InteractiveUtil.arrayify(funcOrArray);
+                const funcArray = InteractiveUtil.arrayify(funcOrArray);
                 result[eventName] = funcArray;
             }
         });
@@ -127,7 +123,7 @@ var InteractiveUtil = {
             canUse3dTransform = computeCanUse3dTransform();
         }
         return canUse3dTransform;
-    }
+    },
 };
 
 module.exports = InteractiveUtil;

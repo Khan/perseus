@@ -34,7 +34,7 @@ var _choiceTransform = (editorProps, problemNum) => {
     // Add meta-information to choices
     var choices = editorProps.choices.slice();
     choices = _.map(choices, (choice, i) => {
-        return _.extend({}, choice, { originalIndex: i });
+        return _.extend({}, choice, {originalIndex: i});
     });
 
     // Randomize and add 'None of the above'
@@ -44,10 +44,13 @@ var _choiceTransform = (editorProps, problemNum) => {
 var transform = (editorProps, problemNum) => {
     const choices = _choiceTransform(editorProps, problemNum);
 
-    const numCorrect = _.reduce(editorProps.choices,
-            function(memo, choice) {
-                return choice.correct ? memo + 1 : memo;
-            }, 0);
+    const numCorrect = _.reduce(
+        editorProps.choices,
+        function(memo, choice) {
+            return choice.correct ? memo + 1 : memo;
+        },
+        0
+    );
 
     const {
         hasNoneOfTheAbove,
@@ -70,14 +73,13 @@ var transform = (editorProps, problemNum) => {
 };
 
 var propUpgrades = {
-    1: (v0props) => {
+    1: v0props => {
         var choices;
         var hasNoneOfTheAbove;
 
         if (!v0props.noneOfTheAbove) {
             choices = v0props.choices;
             hasNoneOfTheAbove = false;
-
         } else {
             choices = _.clone(v0props.choices);
             var noneOfTheAboveIndex = _.random(0, v0props.choices.length - 1);
@@ -107,7 +109,7 @@ module.exports = {
     widget: Radio,
     transform: transform,
     staticTransform: transform,
-    version: { major: 1, minor: 0 },
+    version: {major: 1, minor: 0},
     propUpgrades: propUpgrades,
     isLintable: true,
 };

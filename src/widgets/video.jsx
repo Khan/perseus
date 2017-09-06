@@ -16,11 +16,10 @@ var FixedToResponsive = require("../components/fixed-to-responsive.jsx");
 var DEFAULT_WIDTH = 1280;
 var DEFAULT_HEIGHT = 720;
 
-var KA_EMBED = "https://{hostname}/embed_video?slug={slug}" +
-               "&internal_video_only=1";
+var KA_EMBED =
+    "https://{hostname}/embed_video?slug={slug}" + "&internal_video_only=1";
 var IS_URL = /^https?:\/\//;
 var IS_KA_SITE = /khanacademy\.org/;
-
 
 /**
  * Video renderer.
@@ -47,7 +46,7 @@ var Video = React.createClass({
     render: function() {
         var location = this.props.location;
         if (!location) {
-            return <div/>;
+            return <div />;
         }
 
         var url;
@@ -64,25 +63,26 @@ var Video = React.createClass({
             url = url.replace("{hostname}", embedHostname);
         }
 
-        return <FixedToResponsive // @Nolint this is fine, the linter is wrong
-            width={DEFAULT_WIDTH}
-            height={DEFAULT_HEIGHT}
-            // The key is here for the benefit of the editor, to ensure that
-            // any changes cause a re-rendering of the frame.
-            key={location + this.props.alignment}
-        >
-            <iframe
-                className="perseus-video-widget"
-                sandbox="allow-same-origin allow-scripts"
+        return (
+            <FixedToResponsive // @Nolint this is fine, the linter is wrong
                 width={DEFAULT_WIDTH}
                 height={DEFAULT_HEIGHT}
-                src={url}
-                allowFullScreen={true}
-            />
-        </FixedToResponsive>;
+                // The key is here for the benefit of the editor, to ensure that
+                // any changes cause a re-rendering of the frame.
+                key={location + this.props.alignment}
+            >
+                <iframe
+                    className="perseus-video-widget"
+                    sandbox="allow-same-origin allow-scripts"
+                    width={DEFAULT_WIDTH}
+                    height={DEFAULT_HEIGHT}
+                    src={url}
+                    allowFullScreen={true}
+                />
+            </FixedToResponsive>
+        );
     },
 });
-
 
 /**
  * This is the widget's grading function.
