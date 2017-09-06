@@ -27,6 +27,26 @@ var answerFormType = React.PropTypes.shape({
     simplify: React.PropTypes.bool.isRequired,
 });
 
+// Pick a key that isn't currently used by an answer in answerForms
+var _makeNewKey = (answerForms) => {
+  // first note all the currently used keys in an array, used like a map :3
+  // note that this automatically updates the array's length property to
+  // be one past the largest key.
+  var usedKeys = [];
+  answerForms.forEach((ans) => { usedKeys[ans.key] = true; });
+  
+  // then scan through the array to find the first unused (undefined) key
+  for (var i = 0; i < usedKeys.length; i++) {
+    if (!usedKeys[i]) {
+      return i;
+    }
+  }
+
+  // if we didn't find a key, make one bigger than all the other keys,
+  // since that's how the length property is defined to work on arrays
+  return usedKeys.length;
+};
+
 var ExpressionEditor = React.createClass({
     propTypes: {
         ...Changeable.propTypes,
@@ -295,7 +315,7 @@ var ExpressionEditor = React.createClass({
 
             // note: the key means "n-th form created" - not "form in
             // position n" and will stay the same for the life of this form
-            key: this.props.answerForms.length,
+            key: _makeNewKey(this.props.answerForms),
 
             simplify: false,
             value: "",
@@ -309,7 +329,8 @@ var ExpressionEditor = React.createClass({
     },
 
     handleRemoveForm: function(i) {
-        var answerForms = this.props.answerForms.slice(0, -1);
+        var answerForms = this.props.answerForms.slice();
+        answerForms.splice(i, 1);
         this.change({answerForms});
     },
 
