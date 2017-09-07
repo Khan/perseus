@@ -128,13 +128,20 @@ var CSProgram = React.createClass({
             url = updateQueryString(url, "settings", JSON.stringify(settings));
         }
 
+        var sandboxOptions = [
+            "allow-popups",
+            "allow-same-origin",
+            "allow-scripts",
+            "allow-top-navigation",
+        ].join(' ');
+
         // We sandbox the iframe so that we whitelist only the functionality
         //  that we need. This makes it a bit safer in case some content
         //  creator "went wild".
         // http://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/
         return (
             <iframe
-                sandbox="allow-popups allow-same-origin allow-scripts"
+                sandbox={sandboxOptions}
                 src={url}
                 style={style}
                 className={className}
