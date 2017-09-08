@@ -457,8 +457,9 @@
 
     // Shared styles
 
-    // Wipe out any margins set by legacy styles (e.g., in `perseus.less`).
-    div.paragraph {
+    // Wipe out any margins set by legacy styles (e.g., in `perseus.less`),
+    // unless paragraph is inside a blockquote.
+    :not(blockquote) > div.paragraph {
         margin: 0;
     }
 
