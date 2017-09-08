@@ -19,5 +19,6 @@ module.exports = {
     IframeContentRenderer: require("./iframe-content-renderer.jsx"),
     MultiRendererEditor: require("./multirenderer-editor.jsx"),
     Gorgon: require("./gorgon/gorgon.js"),
+    JiptHack: require("./jipt-hack.jsx"),
     ...Perseus,
 };

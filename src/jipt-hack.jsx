@@ -1,10 +1,10 @@
 /*
     We are currently in a situation where Crowdin adds extra backslashes
-    to some strings, but not all. Luckily, after a bugfix that is expected
-    for the week of 6/12/17, we will no longer see JIPT's partial unescaping
-    of some escaped strings. This will allow us to use a heuristic to determine
-    with a high probability whether a string is escaped or not, and thus
-    whether to unescape it or not in our `before_dom_insert()` JIPT hook.
+    to some strings, but not all. However, we can trust that an individual
+    string is in its entirety either escaped or not. This will allow us to use
+    a heuristic to determine with a high probability whether a string is
+    escaped or not, and thus whether to unescape it or not in
+    our `before_dom_insert()` JIPT hook.
 
     TODO(aasmund): Delete this file when we have converted all our strings
     to the new, unescaped Crowdin format. Calls to `maybeUnescape()` should
@@ -426,6 +426,11 @@ const tryUnescape = function(text) {
 };
 
 const shouldUnescape = function(text) {
+    // - If there are no backslashes in the text, (un)escaping will have
+    //   no effect, so we can't tell whether this string has been escaped
+    //   by Crowdin. However, in order to help Manticore detect situations
+    //   where the translation is escaped and the source string isn't,
+    //   we will declare such strings not to be escaped.
     // - For each token that might be LaTeX:
     //   - Try to unescape it. If that fails, we can say for certain
     //     that `text` is not escaped.
@@ -440,6 +445,9 @@ const shouldUnescape = function(text) {
     //   the unescaped version if there's a tie (because most of our strings
     //   are currently in the "old Crowdin style", meaning that they
     //   are escaped).
+    if (text.indexOf("\\") < 0) {
+        return false;
+    }
     let levelSumOriginal = 0;
     let levelSumUnescaped = 0;
     let anyInvalidLatexInOriginal = false;
@@ -469,6 +477,7 @@ const shouldUnescape = function(text) {
     return levelSumUnescaped >= levelSumOriginal;
 };
 
+// Unescape the given string if it seems to be escaped.
 const maybeUnescape = function(text) {
     if (shouldUnescape(text)) {
         return tryUnescape(text);
@@ -477,4 +486,27 @@ const maybeUnescape = function(text) {
     }
 };
 
-module.exports = {maybeUnescape};
+// Unescape both of the given strings if the first one seems to be escaped.
+// This is necessary because some Crowdin string pairs have a mismatch in
+// their escaping: the source is new-style (not escaped), while the translation
+// is old-style (escaped). Such strings will give an error in the translation
+// download job, so we must ensure that they also give an error in the frontend.
+// We do this by retaining the mismatch in their escaping, instead of giving
+// them individual unescaping treatments.
+const maybeUnescapeAccordingToSource = function(source, translation) {
+    if (shouldUnescape(source)) {
+        // Note: We have not yet seen a situation where the source string is
+        // escaped and the translation is unescaped, so we choose not to care
+        // about that here. If it does happen, the second element in the
+        // returned array might be null.
+        return [tryUnescape(source), tryUnescape(translation)];
+    } else {
+        return [source, translation];
+    }
+};
+
+module.exports = {
+    maybeUnescape,
+    maybeUnescapeAccordingToSource,
+    shouldUnescape,
+};

@@ -24,7 +24,15 @@ window.iframeDataStore = {};
 // to capture the result of animations.
 window.addEventListener("message", event => {
     if (typeof event.data === "string") {
-        requestIframeData[event.data]();
+        // In Perseus, we expect the callback to exist, as it is added by
+        // `IframeContentRenderer.componentDidMount()`. Unfortunately, this
+        // event listener also gets added in Manticore (since we include Perseus
+        // from there), and Crowdin fires its own "message" events. So we'll
+        // just have to ignore the event when we can't find the callback.
+        const callback = requestIframeData[event.data];
+        if (callback) {
+            callback();
+        }
     } else if (event.data.id) {
         if (event.data.height !== undefined) {
             updateIframeHeight[event.data.id](event.data.height);

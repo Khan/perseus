@@ -1,6 +1,6 @@
 const assert = require("assert");
 
-const {maybeUnescape} = require("../jipt-hack.jsx");
+const {maybeUnescape, maybeUnescapeAccordingToSource, shouldUnescape} = require("../jipt-hack.jsx");
 
 const assertShouldKeepOriginal = function(text) {
     assert.equal(maybeUnescape(text), text);
@@ -89,5 +89,51 @@ describe("maybeUnescape", () => {
         // This is another no-win, but shouldn't happen after Crowdin has
         // fixed their bug
         assertShouldKeepOriginal("\\\\blue4\\blue2");
+    });
+});
+
+
+describe("maybeUnescapeAccordingToSource", () => {
+    it("should not unescape when neither string is escaped", () => {
+        const result = maybeUnescapeAccordingToSource(
+            "We know that $x\\neq y$", "Vi vet at $x\\neq y$");
+        assert.deepEqual(
+            ["We know that $x\\neq y$", "Vi vet at $x\\neq y$"], result);
+    });
+    it("should not unescape when source is not escaped " +
+            "but translation is", () => {
+        const result = maybeUnescapeAccordingToSource(
+            "We know that $x\\neq y$", "Vi vet at $x\\\\neq y$");
+        assert.deepEqual(
+            ["We know that $x\\neq y$", "Vi vet at $x\\\\neq y$"], result);
+    });
+    it("should unescape when both strings are escaped ", () => {
+        const result = maybeUnescapeAccordingToSource(
+            "We know that $x\\\\neq y$", "Vi vet at $x\\\\neq y$");
+        assert.deepEqual(
+            ["We know that $x\\neq y$", "Vi vet at $x\\neq y$"], result);
+    });
+    // This is a weird behavior, but we expect this situation not to happen
+    it("should unescape when source is escaped but translation is not", () => {
+        const result = maybeUnescapeAccordingToSource(
+            "We know that $x\\\\neq y$", "Vi vet at $x\\neq y$");
+        assert.deepEqual(
+            ["We know that $x\\neq y$", "Vi vet at $x\neq y$"], result);
+    });
+});
+
+// This function is implicitly tested via the tests for `maybeUnescape()`.
+// However, it is important for Manticore that it declares strings without
+// backslashes as not needing unescaping, and we can't tell from the outcome of
+// `maybeUnescape()` what such strings are classified as.
+describe("shouldUnescape", () => {
+    it("should return false for empty string", () => {
+        assert.equal(shouldUnescape(""), false);
+    });
+    it("should return false for string without backslashes", () => {
+        assert.equal(shouldUnescape("x"), false);
+        assert.equal(shouldUnescape("$x$"), false);
+        assert.equal(shouldUnescape("Welcome to Khan Academy!"), false);
+        assert.equal(shouldUnescape("Multiple\nlines\r\nand a\ttab"), false);
     });
 });
