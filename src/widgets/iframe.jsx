@@ -132,7 +132,7 @@ var Iframe = React.createClass({
         // http://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/
         return (
             <iframe
-                sandbox="allow-same-origin allow-scripts"
+                sandbox="allow-same-origin allow-scripts allow-top-navigation"
                 style={style}
                 src={url}
                 allowFullScreen={this.props.allowFullScreen}
