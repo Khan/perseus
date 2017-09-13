@@ -275,41 +275,5 @@ describe("Expression Widget", function() {
                     assert.strictEqual(score.earned, score.total);
                 });
         });
-
-        it("should fall through exact forms", function() {
-            var specificWrong = "(x+2)(x-2)";
-            var correct = "x^2-4";
-            /* We're checking that, though the two forms are equivalent, the
-             * first *is not* counted as correct because that specific form is
-             * checked first and graded incorrect.
-             *
-             * The rules look like this:
-             *
-             *     value: (x+2)(x-2)
-             *     form: true
-             *     considered: incorrect
-             *
-             *     value: x^2-4
-             *     form: false
-             *     considered: correct
-             *
-             */
-
-            // check that the specific one matches
-            return makeRender(expressionItem4)
-                .then(renderer => {
-                    mathQuillInput(renderer, specificWrong);
-                    var score = renderer.guessAndScore()[1];
-                    assert.strictEqual(score.type, "points");
-                    assert.strictEqual(score.earned, 0);
-                })
-                .then(() => makeRender(expressionItem4))
-                .then(renderer => {
-                    mathQuillInput(renderer, correct);
-                    var score = renderer.guessAndScore()[1];
-                    assert.strictEqual(score.type, "points");
-                    assert.strictEqual(score.earned, score.total);
-                });
-        });
     });
 });
