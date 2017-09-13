@@ -1,5 +1,5 @@
 /* Perseus CSS
-// commit 48cbabd84c542d620bbddb497b38fc1341706ef2
+// commit 88c32defb8739d1ac426265009a0a8dc8f05c690
 // branch master
 // @generated
 */
@@ -226,8 +226,8 @@
 .framework-perseus:not(.perseus-article):not(.perseus-mobile) .perseus-radio-rationale-content .perseus-renderer > .paragraph .paragraph .katex {
   color: #888d93;
 }
-.bibliotron-article.framework-perseus.perseus-article.perseus-mobile div.paragraph,
-.framework-perseus:not(.perseus-article).perseus-mobile div.paragraph {
+.bibliotron-article.framework-perseus.perseus-article.perseus-mobile :not(blockquote) > div.paragraph,
+.framework-perseus:not(.perseus-article).perseus-mobile :not(blockquote) > div.paragraph {
   margin: 0;
 }
 .bibliotron-article.framework-perseus.perseus-article.perseus-mobile .perseus-renderer > .paragraph,
