@@ -6,6 +6,7 @@
  */
 const {StyleSheet, css} = require("aphrodite");
 const React = require("react");
+const ReactDOM = require("react-dom");
 const lens = require("../hubble/index.js");
 
 const ApiOptions = require("./perseus-api.jsx").Options;
@@ -135,7 +136,6 @@ const nodePropTypes = {
     // For the left-hand column, we use edit mode and leave renderers empty.
     // For the right-hand column, we use preview mode and provide renderers
     // via a MultiRenderer.
-    mode: React.PropTypes.oneOf(["edit", "preview"]).isRequired,
     renderers: React.PropTypes.any,
 };
 
@@ -161,7 +161,6 @@ const NodeContainer = props => {
         actions,
         name: givenName,
         controls,
-        mode,
         ...otherProps
     } = props;
 
@@ -184,7 +183,6 @@ const NodeContainer = props => {
             path={path}
             shape={shape}
             actions={actions}
-            mode={mode}
         >
             <NodeContent
                 {...otherProps}
@@ -192,7 +190,6 @@ const NodeContainer = props => {
                 data={data}
                 path={path}
                 actions={actions}
-                mode={mode}
             />
         </Container>
     );
@@ -202,34 +199,34 @@ NodeContainer.propTypes = {
     controls: React.PropTypes.arrayOf(React.PropTypes.node),
 };
 
-const LeafContainer = ({name, controls, children, path, mode, shape}) => {
+const LeafContainer = ({name, controls, children, path, shape}) => {
+    const hasPreviewHeading = shape.type === "content" || shape.type === "hint";
+    const previewHeading = hasPreviewHeading &&
+        <div className={css(styles.containerHeader)}>
+            <Header
+                depth={path.length}
+                className={css(styles.containerTitle)}
+            >
+                {capitalize(name)}
+            </Header>
+        </div>;
     return (
         <div className={css(styles.container)}>
-            {/* In edit mode, render a cute pod for the editor. */}
-            {mode === "edit" &&
-                <div className={"pod-title " + css(styles.containerHeader)}>
-                    <div className={css(styles.containerTitle)}>
-                        {capitalize(name)}
+            <span
+                className={css(styles.row, styles.rowHeading)}
+            >
+                <div className={css(styles.columnLeft)}>
+                    <div className={"pod-title " + css(styles.containerHeader)}>
+                        <div className={css(styles.containerTitle)}>
+                            {capitalize(name)}
+                        </div>
+                        {controls}
                     </div>
-                    {controls}
-                </div>}
-            {/* In preview mode, render a simple header above the preview. */}
-            {mode === "preview" &&
-                (shape.type === "content" || shape.type === "hint") &&
-                <div
-                    className={css(
-                        styles.containerHeader,
-                        styles.collectionHeader
-                    )}
-                >
-                    <Header
-                        depth={path.length}
-                        className={css(styles.containerTitle)}
-                    >
-                        {capitalize(name)}
-                    </Header>
-                    {controls}
-                </div>}
+                </div>
+                <div className={css(styles.columnRight)}>
+                    {previewHeading}
+                </div>
+            </span>
             {children}
         </div>
     );
@@ -239,19 +236,18 @@ LeafContainer.propTypes = {
     controls: React.PropTypes.node,
     children: React.PropTypes.node,
     path: React.PropTypes.arrayOf(React.PropTypes.any).isRequired,
-    mode: React.PropTypes.oneOf(["edit", "preview"]).isRequired,
     shape: shapePropType,
 };
 
 const ArrayContainer = props => {
-    const {name, controls, children, path, shape, actions, mode} = props;
+    const {name, controls, children, path, shape, actions} = props;
     return (
         <div className={css(styles.container)}>
             {controls &&
                 <div
                     className={css(
+                        styles.columnLeft,
                         styles.containerHeader,
-                        styles.collectionHeader
                     )}
                 >
                     {controls}
@@ -259,16 +255,15 @@ const ArrayContainer = props => {
             <div>
                 {children}
             </div>
-            {mode === "edit" &&
-                <div>
-                    <a
-                        href="javascript:void 0"
-                        onClick={() =>
-                            actions.addArrayElement(path, shape.elementShape)}
-                    >
-                        Add a {pluralToSingular(name)}
-                    </a>
-                </div>}
+            <div className={css(styles.columnLeft)}>
+                <a
+                    href="javascript:void 0"
+                    onClick={() =>
+                        actions.addArrayElement(path, shape.elementShape)}
+                >
+                    Add a {pluralToSingular(name)}
+                </a>
+            </div>
         </div>
     );
 };
@@ -281,27 +276,48 @@ ArrayContainer.propTypes = {
     actions: React.PropTypes.shape({
         addArrayElement: React.PropTypes.func.isRequired,
     }).isRequired,
-    mode: React.PropTypes.oneOf(["edit", "preview"]).isRequired,
 };
 
 const ObjectContainer = ({name, controls, children, path}) => {
+    const headingEditor = <div
+        className={css(
+            styles.containerHeader,
+        )}
+    >
+        <Header
+            depth={path.length}
+            className={css(styles.containerTitle)}
+        >
+            {capitalize(name)}
+        </Header>
+        {controls}
+    </div>;
+    const headingPreview = (name || controls) && (
+        <div
+            className={css(
+                styles.containerHeader,
+                styles.previewCollectionHeader
+            )}
+        >
+            <Header
+                depth={path.length}
+                className={css(styles.containerTitle)}
+            >
+                {capitalize(name)}
+            </Header>
+        </div>
+    );
+    const hasBothHeadings = headingEditor && headingPreview;
     return (
         <div className={css(styles.container)}>
-            {(name || controls) &&
-                <div
-                    className={css(
-                        styles.containerHeader,
-                        styles.collectionHeader
-                    )}
-                >
-                    <Header
-                        depth={path.length}
-                        className={css(styles.containerTitle)}
-                    >
-                        {capitalize(name)}
-                    </Header>
-                    {controls}
-                </div>}
+            {hasBothHeadings && <span className={css(styles.row)}>
+                <div className={css(styles.columnLeft)}>
+                    {headingEditor}
+                </div>
+                <div className={css(styles.columnRight)}>
+                    {headingPreview}
+                </div>
+            </span>}
             <div className={css(path.length > 0 && styles.contentIndent)}>
                 {children}
             </div>
@@ -341,74 +357,136 @@ const NodeContent = props => {
 };
 NodeContent.propTypes = nodePropTypes;
 
-const ItemNodeContent = props => {
-    const {data, path, actions, apiOptions, mode, renderers} = props;
+/**
+ * HOC that adds a "sticky" prop to the wrapped component that is true
+ * when the rendered component is taller than the window. Since sticky content
+ * can be somewhat distracting, we'd like to avoid it when not useful. This
+ * HOC is useful for only making content sticky when useful.
+ *
+ * It does so by polling the height and comparing it to the window height.
+ */
+function withStickiness(Component) {
+    return class StickyComponent extends React.Component {
+        state = {
+            sticky: false,
+        };
 
-    if (mode === "edit") {
-        return (
-            <Editor
-                {...data}
-                onChange={newVal => actions.mergeValueAtPath(path, newVal)}
-                apiOptions={apiOptions}
-            />
-        );
-    } else {
-        return (
-            <div className="framework-perseus">
-                {lens(renderers).get(path)}
+        componentDidMount() {
+            this.stickynessTimer = setInterval(this.updateStickiness, 1000);
+            this.updateStickiness();
+        }
+
+        componentWillUnmount() {
+            clearInterval(this.stickynessTimer);
+        }
+
+        updateStickiness = () => {
+            const domNode = ReactDOM.findDOMNode(this);
+            const height = domNode.offsetHeight;
+            const windowHeight = window.innerHeight;
+            const sticky = height > windowHeight;
+            if (sticky !== this.state.sticky) {
+                this.setState({
+                    sticky,
+                });
+            }
+        }
+
+        render() {
+            return <Component sticky={this.state.sticky} {...this.props} />;
+        }
+    };
+}
+
+const ItemNodeContent = withStickiness(props => {
+    const {data, path, actions, apiOptions, renderers, sticky} = props;
+
+    const preview = (
+        <div className="framework-perseus">
+            {lens(renderers).get(path)}
+        </div>
+    );
+
+    return (
+        <span>
+            <div className={css(styles.row)}>
+                <div className={css(styles.columnLeft)}>
+                    <div className={css(sticky && styles.sticky)}>
+                        <Editor
+                            {...data}
+                            onChange={newVal => actions.mergeValueAtPath(
+                                path, newVal)}
+                            apiOptions={apiOptions}
+                        />
+                    </div>
+                </div>
+                <div className={css(styles.columnRight)}>
+                    <div className={css(sticky && styles.sticky)}>
+                        {preview}
+                    </div>
+                </div>
             </div>
-        );
-    }
-};
+        </span>
+    );
+});
 ItemNodeContent.propTypes = nodePropTypes;
 
-const HintNodeContent = props => {
-    const {data, path, actions, apiOptions, mode, renderers} = props;
+const HintNodeContent = withStickiness(props => {
+    const {data, path, actions, apiOptions, renderers, sticky} = props;
 
-    if (mode === "edit") {
-        return (
-            <HintEditor
-                {...data}
-                className={css(styles.hintEditor)}
-                onChange={newVal => actions.mergeValueAtPath(path, newVal)}
-                apiOptions={apiOptions}
-                showTitle={false}
-                showRemoveButton={false}
-                showMoveButtons={false}
-            />
-        );
-    } else {
-        return (
-            <div className="framework-perseus">
-                {lens(renderers).get(path)}
+    const preview = (
+        <div className="framework-perseus">
+            {lens(renderers).get(path)}
+        </div>
+    );
+
+    return (
+        <div className={css(styles.row)}>
+            <div className={css(styles.columnLeft)}>
+                <div className={css(sticky && styles.sticky)}>
+                    <HintEditor
+                        {...data}
+                        className={css(styles.hintEditor)}
+                        onChange={newVal => actions.mergeValueAtPath(
+                            path, newVal)}
+                        apiOptions={apiOptions}
+                        showTitle={false}
+                        showRemoveButton={false}
+                        showMoveButtons={false}
+                    />
+                </div>
             </div>
-        );
-    }
-};
+            <div className={css(styles.columnRight)}>
+                <div className={css(sticky && styles.sticky)}>
+                    {preview}
+                </div>
+            </div>
+        </div>
+    );
+});
 HintNodeContent.propTypes = nodePropTypes;
 
 const TagsNodeContent = props => {
-    const {data, path, actions, apiOptions, mode} = props;
+    const {data, path, actions, apiOptions} = props;
     const {GroupMetadataEditor} = apiOptions;
 
-    if (mode === "edit") {
-        return (
+    return (
+        <div className={css(styles.columnLeft)}>
             <div className={css(styles.tagsEditor)}>
                 <GroupMetadataEditor
                     value={data}
-                    onChange={newVal => actions.setValueAtPath(path, newVal)}
+                    onChange={newVal => actions.setValueAtPath(
+                        path, newVal)}
                     showTitle={false}
                 />
             </div>
-        );
-    } else {
-        return <div />;
-    }
+        </div>
+    );
 };
 TagsNodeContent.propTypes = nodePropTypes;
 
 const ArrayNodeContent = props => {
-    const {shape, data, path, actions, mode, ...otherProps} = props;
+    const {shape, data, path, actions, ...otherProps} = props;
 
     const collectionName = camelCaseToHuman(path[path.length - 1]);
     const elementName = pluralToSingular(collectionName);
@@ -418,54 +496,51 @@ const ArrayNodeContent = props => {
 
     const children = data.map((subdata, i) => {
         const subpath = path.concat(i);
-        const controls =
-            mode !== "edit"
-                ? null
-                : [
-                    i > 0 &&
-                          <div
-                              key="moveArrayElementUp"
-                              className={css(styles.control)}
-                          >
-                              <SimpleButton
-                                  color="orange"
-                                  title="Move up"
-                                  onClick={() =>
-                                      actions.moveArrayElementUp(subpath)}
-                              >
-                                  <div className={css(styles.verticalFlip)}>
-                                      <InlineIcon {...iconChevronDown} />
-                                  </div>
-                              </SimpleButton>
-                          </div>,
-                    i < data.length - 1 &&
-                          <div
-                              key="moveArrayElementDown"
-                              className={css(styles.control)}
-                          >
-                              <SimpleButton
-                                  color="orange"
-                                  title="Move down"
-                                  onClick={() =>
-                                      actions.moveArrayElementDown(subpath)}
-                              >
-                                  <InlineIcon {...iconChevronDown} />
-                              </SimpleButton>
-                          </div>,
+        const controls = [
+            i > 0 &&
                     <div
-                        key="removeArrayElement"
+                        key="moveArrayElementUp"
                         className={css(styles.control)}
                     >
                         <SimpleButton
                             color="orange"
-                            title="Delete"
+                            title="Move up"
                             onClick={() =>
-                                actions.removeArrayElement(subpath)}
+                                actions.moveArrayElementUp(subpath)}
                         >
-                            <InlineIcon {...iconTrash} />
+                            <div className={css(styles.verticalFlip)}>
+                                <InlineIcon {...iconChevronDown} />
+                            </div>
                         </SimpleButton>
                     </div>,
-                ];
+            i < data.length - 1 &&
+                    <div
+                        key="moveArrayElementDown"
+                        className={css(styles.control)}
+                    >
+                        <SimpleButton
+                            color="orange"
+                            title="Move down"
+                            onClick={() =>
+                                actions.moveArrayElementDown(subpath)}
+                        >
+                            <InlineIcon {...iconChevronDown} />
+                        </SimpleButton>
+                    </div>,
+            <div
+                key="removeArrayElement"
+                className={css(styles.control)}
+            >
+                <SimpleButton
+                    color="orange"
+                    title="Delete"
+                    onClick={() =>
+                        actions.removeArrayElement(subpath)}
+                >
+                    <InlineIcon {...iconTrash} />
+                </SimpleButton>
+            </div>,
+        ];
         return (
             <div
                 key={i}
@@ -483,7 +558,6 @@ const ArrayNodeContent = props => {
                     actions={actions}
                     name={`${elementName} ${i + 1}`}
                     controls={controls}
-                    mode={mode}
                 />
             </div>
         );
@@ -642,54 +716,29 @@ const MultiRendererEditor = React.createClass({
         const item = this.props.item;
         const itemShape = this.props.Layout.shape;
 
-        const treeEditor = (
-            <NodeContainer
-                mode="edit"
-                shape={itemShape}
-                data={itemToTree(item)}
-                path={[]}
-                actions={this}
-                apiOptions={apiOptions}
-            />
-        );
-
-        const treePreview = (
-            <MultiRenderer
-                item={item}
-                shape={itemShape}
-                apiOptions={apiOptions}
-            >
-                {({renderers}) =>
-                    <NodeContainer
-                        mode="preview"
-                        shape={itemShape}
-                        data={itemToTree(item)}
-                        path={[]}
-                        actions={this}
-                        apiOptions={apiOptions}
-                        renderers={renderers}
-                    />}
-            </MultiRenderer>
-        );
-
         return (
-            <div>
+            <div className="perseus-multirenderer-editor">
                 <ModeDropdown
                     currentMode={this.props.editorMode}
                     onChange={editorMode => this.props.onChange({editorMode})}
                 />
-                <div className={"perseus-editor-table " + css(styles.editor)}>
-                    <div className="perseus-editor-row">
-                        <div className="perseus-editor-left-cell">
-                            {treeEditor}
-                        </div>
-                        <div className="perseus-editor-right-cell">
-                            <div className={css(styles.treePreview)}>
-                                {treePreview}
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+                <MultiRenderer
+                    item={item}
+                    shape={itemShape}
+                    apiOptions={apiOptions}
+                >
+                    {({renderers}) =>
+                        <NodeContainer
+                            mode="edit"
+                            shape={itemShape}
+                            data={itemToTree(item)}
+                            path={[]}
+                            actions={this}
+                            apiOptions={apiOptions}
+                            renderers={renderers}
+                        />}
+                </MultiRenderer>
             </div>
         );
     },
@@ -765,7 +814,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
     },
 
-    collectionHeader: {
+    previewCollectionHeader: {
         marginBottom: 16,
     },
 
@@ -803,6 +852,55 @@ const styles = StyleSheet.create({
     tagsEditor: {
         border: "1px solid #ddd",
         padding: "5px 10px",
+    },
+
+    /**
+     * A row contains a fixed width editor and a preview that expands as
+     * needed.
+     */
+    row: {
+        display: "flex",
+        position: "relative",
+    },
+
+    /**
+     * The editor.
+     */
+    columnLeft: {
+        width: 360,
+        marginRight: 30,
+        // so that the `position: absolute` of line markers are positioned
+        // relative to this.
+        position: "relative",
+    },
+
+    /**
+     * The preview.
+     */
+    columnRight: {
+        flex: 1,
+        marginLeft: 30,
+        position: "relative",
+    },
+
+    /**
+     * Sticks to just under the heading.
+     */
+    sticky: {
+        position: "sticky",
+        top: 33,  // height of the cute pod for the editor
+    },
+
+    /**
+     * Used for sticky headings.
+     */
+    rowHeading: {
+        position: "sticky",
+        backgroundColor: "white",
+        // TODO(joshuan): Make this less arbitrary. It should be higher than
+        // perseus content.
+        zIndex: 101,
+        top: -1,
     },
 });
 
