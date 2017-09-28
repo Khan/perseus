@@ -126,6 +126,7 @@ var IframeEditor = React.createClass({
             width: "400",
             height: "400",
             allowFullScreen: false,
+            allowTopNavigation: false,
         };
     },
 
@@ -177,6 +178,12 @@ var IframeEditor = React.createClass({
                 <PropCheckBox
                     label="Allow full screen"
                     allowFullScreen={this.props.allowFullScreen}
+                    onChange={this.props.onChange}
+                />
+                <br />
+                <PropCheckBox
+                    label="Allow iframe content to redirect the page"
+                    allowTopNavigation={this.props.allowTopNavigation}
                     onChange={this.props.onChange}
                 />
             </div>

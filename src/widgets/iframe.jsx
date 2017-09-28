@@ -30,6 +30,7 @@ var Iframe = React.createClass({
         status: React.PropTypes.oneOf(["incomplete", "incorrect", "correct"]),
         message: React.PropTypes.string,
         allowFullScreen: React.PropTypes.bool,
+        allowTopNavigation: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
@@ -38,6 +39,7 @@ var Iframe = React.createClass({
             // optional message
             message: null,
             allowFullScreen: false,
+            allowTopNavigation: false,
         };
     },
 
@@ -126,13 +128,25 @@ var Iframe = React.createClass({
             url = updateQueryString(url, "settings", JSON.stringify(settings));
         }
 
+        let sandboxProperties = "allow-same-origin allow-scripts";
+        // TODO(scottgrant): This line is an intentional hack to retain the
+        // allow-top-navigation sandbox property. Once our LearnStorm articles
+        // have this value checked and published, this line should be removed
+        // and replaced with the conditional check below that is commented out.
+        // We don't want to break LearnStorm badges, so this will be a two-part
+        // deploy.
+        sandboxProperties += " allow-top-navigation";
+        // if (this.props.allowTopNavigation === true) {
+        //     sandboxProperties += " allow-top-navigation";
+        // }
+
         // We sandbox the iframe so that we whitelist only the functionality
         //  that we need. This makes it a bit safer in case some content
         //  creator "went wild".
         // http://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/
         return (
             <iframe
-                sandbox="allow-same-origin allow-scripts allow-top-navigation"
+                sandbox={sandboxProperties}
                 style={style}
                 src={url}
                 allowFullScreen={this.props.allowFullScreen}
