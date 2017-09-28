@@ -25,14 +25,11 @@ class FocusRing extends React.Component {
     }
 
     render() {
-        const borderStyle = this.props.visible ? "solid" : "none";
-        // If there is no visible border, we make the padding the same
-        // size as the border + padding would be.
-        const padding = (this.props.visible) ? 2 : 4;
+        const borderColor = this.props.visible
+                          ? this.props.color
+                          : "transparent";
         const style = {
-            padding,
-            borderColor: this.props.color,
-            borderStyle,
+            borderColor: borderColor,
         };
         return <span className={css(styles.ring)} style={style}>
             {this.props.children}
@@ -46,6 +43,8 @@ const styles = StyleSheet.create({
         display: "inline-block",
         borderRadius: "50%",
         borderWidth: 2,
+        padding: 2,
+        borderStyle: "solid",
     },
 });
 

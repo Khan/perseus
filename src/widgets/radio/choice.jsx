@@ -141,7 +141,7 @@ const Choice = React.createClass({
 
             choiceIconWrapper: {
                 display: "flex",
-                marginRight: 16,
+                marginRight: 12,
 
                 // NOTE(mdr): Without this style, the bubbles shrink on iOS
                 //     when answer text gets long.
@@ -155,7 +155,7 @@ const Choice = React.createClass({
             nonSatRationale: {
                 padding: intermediateCheckboxPadding,
                 paddingTop: 0,
-                marginLeft: 40,
+                marginLeft: 44,
                 [mediaQueries.smOrSmaller]: {
                     padding: intermediateCheckboxPaddingPhone,
                     paddingTop: 0,
