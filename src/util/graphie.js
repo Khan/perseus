@@ -118,6 +118,19 @@ const labelDirections = {
     "above left": [-1.0, -1.0],
 };
 
+/**
+ * Safari applies some SVG-specific styles to things that are not SVGs, so we
+ * need to exclude those styles from things that are not SVGs.
+ *
+ * To see this behavior in action, open https://codepen.io/anon/pen/zENEoa in
+ * Safari.
+ *
+ * Usage `$.extend({}, someStyles, SVG_SPECIFIC_STYLE_MASK)`
+ */
+const SVG_SPECIFIC_STYLE_MASK = {
+    "stroke-width": null,
+};
+
 GraphUtils.createGraphie = function(el) {
     let xScale = 40;
     let yScale = 40;
@@ -762,11 +775,9 @@ GraphUtils.createGraphie = function(el) {
 
             const pad = currentStyle["label-distance"];
 
-            // TODO(alpert): Isn't currentStyle applied afterwards
-            // automatically since this is a 'drawing tool'?
             $span
                 .css(
-                    $.extend({}, currentStyle, {
+                    $.extend({}, {
                         position: "absolute",
                         padding: (pad != null ? pad : 7) + "px",
                     })
@@ -1140,7 +1151,9 @@ GraphUtils.createGraphie = function(el) {
                     result = addArrowheads(result);
                 }
             } else if (result instanceof $) {
-                result.css(currentStyle);
+                // We assume that if it's not a Raphael element/set, it
+                // does not contain SVG.
+                result.css({...currentStyle, ...SVG_SPECIFIC_STYLE_MASK});
             }
 
             currentStyle = oldStyle;
