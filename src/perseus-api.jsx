@@ -176,9 +176,9 @@ module.exports = {
                 },
             },
             setDrawingAreaAvailable: function() {},
-            useDraftEditor: true,
+            useDraftEditor: false,
             styling: {
-                radioStyleVersion: "intermediate",
+                radioStyleVersion: "final",
             },
         },
     },
