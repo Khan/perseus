@@ -14,8 +14,6 @@ const InlineIcon = require("../components/inline-icon.jsx");
 const styleConstants = require("../styles/constants.js");
 
 const {iconDropdownArrow} = require("../icon-paths.js");
-const captureScratchpadTouchStart = require("../util.js")
-    .captureScratchpadTouchStart;
 
 const dropdownArrowSize = 24;
 
@@ -49,10 +47,20 @@ const Dropdown = React.createClass({
             <div>
                 <select
                     onChange={this._handleChangeEvent}
-                    onTouchStart={captureScratchpadTouchStart}
+                    onClick={e => {
+                        e.stopPropagation();
+                        e.target.focus();
+                    }}
+                    onTouchStart={e => {
+                        e.stopPropagation();
+                        e.target.focus();
+                    }}
                     className={
                         selectClasses +
-                        " " +
+                        // This makes it so that mobile's fastclick doesn't
+                        // interfere & call `.focus` when we're inside of a
+                        // zoomable table.
+                        " nofastclick " +
                         css(styles.dropdown) +
                         " " +
                         ApiClassNames.INTERACTIVE
