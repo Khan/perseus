@@ -56,6 +56,7 @@ const Choice = React.createClass({
         onChecked: React.PropTypes.func.isRequired,
         // This indicates the position of the choice relative to others
         // (so that we can display a nice little (A), (B), etc. next to it)
+        // Also used to generate an id for each input.
         pos: React.PropTypes.number,
         reviewMode: React.PropTypes.bool,
         showRationale: React.PropTypes.bool,
@@ -343,6 +344,7 @@ const Choice = React.createClass({
         const commonInputProps = {
             type: this.props.type,
             name: this.props.groupName,
+            id: `${this.props.groupName}-choice-${this.props.pos}`,
             checked: this.props.checked,
             disabled: this.props.disabled,
             onFocus: this.onInputFocus,
@@ -454,6 +456,7 @@ const Choice = React.createClass({
 
         return (
             <LabelOrDiv
+                htmlFor={!this.props.editMode && commonInputProps.id}
                 className={className}
                 style={{opacity: showDimmed ? 0.5 : 1.0}}
             >
