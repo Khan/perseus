@@ -477,9 +477,8 @@ const BaseRadio = React.createClass({
                         // In edit mode, the Choice renders a Div in order to
                         // allow for the contentEditable area to be selected
                         // (label forces any clicks inside to select the input
-                        // element) If its not a label, we must simulate that
-                        // label behavior for items that are not the draft
-                        // editor
+                        // element) We have to add some extra behavior to make
+                        // sure that we can still check the choice.
                         let listElem = null;
                         let clickHandler = null;
                         if (this.props.editMode) {
@@ -489,22 +488,16 @@ const BaseRadio = React.createClass({
                                 let elem = e.target;
                                 while (elem && elem !== listElem) {
                                     // If the clicked element is inside of the
-                                    // "content" part of the choice, it's
-                                    // probably inside of the editors or delete
-                                    // button, so bail out.
+                                    // radio icon, then we want to trigger the
+                                    // check by flipping the choice of the icon.
                                     if (
-                                        elem.classList.contains(
-                                            ApiClassNames.RADIO.OPTION_CONTENT
-                                        )
+                                        elem.getAttribute("data-is-radio-icon")
                                     ) {
+                                        this.checkOption(i, !choice.checked);
                                         return;
                                     }
                                     elem = elem.parentNode;
                                 }
-
-                                // Otherwise, it's outside of the editors, so
-                                // select that option.
-                                this.checkOption(i, !choice.checked);
                             };
                         }
 

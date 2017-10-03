@@ -173,6 +173,9 @@ class LibraryChoiceIcon extends React.Component {
                         checked &&
                         styles.libraryCircleIncorrectSelected,
                 )}
+                // used in BaseRadio to check if we actually clicked on the
+                // radio icon
+                data-is-radio-icon={true}
             >
                 {this.getChoiceInner()}
             </div>
