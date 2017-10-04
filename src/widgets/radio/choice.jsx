@@ -14,6 +14,7 @@ const mediaQueries = require("../../styles/media-queries.js");
 
 const ToggleableRadioButton = require("./toggleable-radio-button.jsx");
 const ChoiceIcon = require("./choice-icon.jsx");
+const OptionStatus = require("./option-status.jsx");
 
 const focusedStyleMixin = {
     backgroundColor: styleConstants.satSelectedBackgroundColor,
@@ -149,6 +150,10 @@ const Choice = React.createClass({
                 flexShrink: 0,
             },
 
+            optionStatusContainer: {
+                display: "block",
+            },
+
             rationale: {
                 display: "block",
             },
@@ -189,6 +194,9 @@ const Choice = React.createClass({
                 [mediaQueries.smOrSmaller]: {
                     padding: intermediateCheckboxPaddingPhone,
                 },
+            },
+            intermediateResponsiveCheckboxReview: {
+                alignItems: 'flex-start',
             },
         }),
     },
@@ -285,6 +293,18 @@ const Choice = React.createClass({
 
     inputRef: function(ref) {
         this._input = ref;
+    },
+
+    renderOptionStatus() {
+        const {correct, checked, reviewMode} = this.props;
+        // Option status is shown only in review mode, and excluded for SAT
+        if (!reviewMode && this.props.apiOptions.satStyling) {
+            return;
+        }
+        return <OptionStatus
+            checked={checked}
+            correct={correct}
+        />;
     },
 
     renderChoiceIcon() {
@@ -429,7 +449,9 @@ const Choice = React.createClass({
 
         const checkboxAndOptionClassName = classNames(
             "checkbox-and-option",
-            css(!sat && styles.intermediateResponsiveCheckbox)
+            css(!sat && styles.intermediateResponsiveCheckbox,
+                !sat && reviewMode &&
+                styles.intermediateResponsiveCheckboxReview)
         );
 
         const rationaleClassName = classNames(
@@ -489,6 +511,9 @@ const Choice = React.createClass({
                             )}
                             style={{cursor: "default"}}
                         >
+                            <div className={css(styles.optionStatusContainer)}>
+                                {this.renderOptionStatus()}
+                            </div>
                             <div>
                                 {this.props.content}
                             </div>
