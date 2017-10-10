@@ -20,7 +20,7 @@ const StatefulArticleEditor = React.createClass({
             mode: "edit",
             onChange: this.handleChange,
             ref: "editor",
-            screen: "desktop",
+            screen: "phone",
         });
     },
 

@@ -91,7 +91,15 @@ const ArticleEditor = React.createClass({
         };
     },
 
+    componentDidMount: function() {
+        this._updatePreviewFrames();
+    },
+
     componentDidUpdate: function() {
+        this._updatePreviewFrames();
+    },
+
+    _updatePreviewFrames: function() {
         if (this.props.mode === "preview") {
             this.refs["frame-all"].sendNewData({
                 type: "article-all",

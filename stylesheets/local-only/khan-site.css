@@ -3651,9 +3651,6 @@ body {
   height: 100%;
 }
 body {
-  overflow-y: scroll;
-}
-body {
   font-family: 'Proxima Nova', 'Helvetica', 'Corbel', sans-serif;
   font-size: 14px;
   margin: 0;

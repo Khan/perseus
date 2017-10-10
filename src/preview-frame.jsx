@@ -111,10 +111,15 @@ const PreviewFrame = React.createClass({
 
     render: function() {
         if (this.state.data) {
-            const updatedData = Object.assign(this.state.data, {
+            const updatedData = {
+                ...this.state.data,
                 workAreaSelector: "#workarea",
                 hintsAreaSelector: "#hintsarea",
-            });
+                apiOptions: {
+                    ...this.state.data.apiOptions,
+                    isMobile: this.props.isMobile,
+                },
+            };
 
             const isExercise =
                 this.state.type === "question" || this.state.type === "hint";
