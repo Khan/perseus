@@ -145,16 +145,12 @@
     font: inherit;
     height: 100%;
     left: 0;
+    overflow: hidden;
     padding: @editorPadding;
     position: absolute;
     resize: none;
     top: 0;
     width: 100%;
-
-    /* for Firefox, this helps. it seems that the underlay is still 1px off and
-    I'm not really sure why. not too noticeable if we're just setting the
-    background color though. */
-    margin: 0;
 }
 
 .perseus-widget-row {

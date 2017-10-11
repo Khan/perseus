@@ -1,3 +1,4 @@
+// eslint-disable-line max-lines
 /**
  * Editor for a multi-item question.
  *
@@ -393,12 +394,112 @@ function withStickiness(Component) {
         }
 
         render() {
-            return <Component sticky={this.state.sticky} {...this.props} />;
+            return <Component
+                sticky={this.state.sticky}
+                {...this.props}
+            />;
         }
     };
 }
 
-const ItemNodeContent = withStickiness(props => {
+function getChromeVersion() {
+    const raw = navigator.userAgent.match(/Chrom(e|ium)\/([0-9]+)\./);
+    return raw ? parseInt(raw[2], 10) : null;
+}
+
+/**
+ * HOC that makes a textareas in sticky components temporarily fixed when
+ * editing in Blink browsers.
+ *
+ * This workaround is necessary because Chrome incorrectly calculates how to
+ * scroll "position: sticky" containers to ensure the textarea's cursor is
+ * visible in by calculating offsets as if they were "position: relative".
+ *
+ * This will be resolved once Chrome 62 is released.
+ *   https://bugs.chromium.org/p/chromium/issues/detail?id=702936
+ *
+ * TODO(joshuan): Remove this after December 2017.
+ */
+function withChromeHack(Component) {
+    return class ChromeHack extends React.Component {
+        props: {
+            sticky: boolean,
+            actions: any,
+        }
+        _detached = false;
+        _reattachTimer = null;
+
+        render() {
+            const chromeVersion = getChromeVersion();
+            const requiresHack = chromeVersion && chromeVersion < 62;
+            const isSticky = this.props.sticky;
+
+            if (!requiresHack || !isSticky) {
+                return <Component {...this.props} />;
+            }
+
+            // We indiscriminately make all textareas fixed whenever anything
+            // changes.
+            const actions = {...this.props.actions};
+            actions.mergeValueAtPath = (...args) => {
+                this.props.actions.mergeValueAtPath(...args);
+                this.detach();
+            };
+
+            return <Component
+                {...this.props}
+                actions={actions}
+            />;
+        }
+
+        getTextAreas = () => {
+            return ReactDOM.findDOMNode(this).querySelectorAll("textarea");
+        }
+
+        /**
+         * Removes all textareas from the container
+         */
+        detach = () => {
+            this.getTextAreas().forEach(textarea => {
+                if (textarea !== document.activeElement) {
+                    return;
+                }
+                if (!this._detached) {
+                    const r = textarea.getBoundingClientRect();
+                    const style = textarea.style;
+                    style.setProperty("position", "fixed", "important");
+                    style.setProperty("top", `${r.y}px`, "important");
+                    style.setProperty("left", `${r.x}px`, "important");
+                    style.setProperty("width", `${r.width}px`, "important");
+                    style.setProperty("height", `${r.height}px`, "important");
+                    style.setProperty("z-index", "1", "important");
+                    style.setProperty("height", `${r.height}px`, "important");
+
+                    if (this._reattachTimer) {
+                        clearTimeout(this._reattachTimer);
+                    }
+                }
+            });
+            this._detached = true;
+            this._reattachTimer = setTimeout(this.reattach, 1000);
+        };
+        reattach = () => {
+            this.getTextAreas().forEach(textarea => {
+                const style = textarea.style;
+
+                style.removeProperty("position");
+                style.removeProperty("top");
+                style.removeProperty("left");
+                style.removeProperty("width");
+                style.removeProperty("z-index");
+                style.removeProperty("height");
+            });
+            this._detached = false;
+        }
+    }
+}
+
+const ItemNodeContent = withStickiness(withChromeHack(props => {
     const {data, path, actions, apiOptions, renderers, sticky} = props;
 
     const preview = (
@@ -428,10 +529,10 @@ const ItemNodeContent = withStickiness(props => {
             </div>
         </span>
     );
-});
+}));
 ItemNodeContent.propTypes = nodePropTypes;
 
-const HintNodeContent = withStickiness(props => {
+const HintNodeContent = withStickiness(withChromeHack(props => {
     const {data, path, actions, apiOptions, renderers, sticky} = props;
 
     const preview = (
@@ -463,7 +564,7 @@ const HintNodeContent = withStickiness(props => {
             </div>
         </div>
     );
-});
+}));
 HintNodeContent.propTypes = nodePropTypes;
 
 const TagsNodeContent = props => {
@@ -897,6 +998,7 @@ const styles = StyleSheet.create({
     rowHeading: {
         position: "sticky",
         backgroundColor: "white",
+        width: "100%",
         // TODO(joshuan): Make this less arbitrary. It should be higher than
         // perseus content.
         zIndex: 101,
