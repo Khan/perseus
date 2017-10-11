@@ -298,7 +298,7 @@ const Choice = React.createClass({
     renderOptionStatus() {
         const {correct, checked, reviewMode} = this.props;
         // Option status is shown only in review mode, and excluded for SAT
-        if (!reviewMode && this.props.apiOptions.satStyling) {
+        if (!reviewMode || this.props.apiOptions.satStyling) {
             return;
         }
         return <OptionStatus
