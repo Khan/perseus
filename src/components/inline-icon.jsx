@@ -26,13 +26,16 @@
  */
 const React = require("react");
 
-const InlineIcon = ({path, width, height, style = {}}) =>
+const InlineIcon = ({path, width, height, style = {}, title}) =>
     <svg
+        role="img"
+        aria-hidden={!title}
         style={{verticalAlign: "middle", ...style}}
         width={`${width / height}em`}
         height="1em"
         viewBox={`0 0 ${width} ${height}`}
     >
+        {!!title && <title>{title}</title>}
         <path d={path} fill="currentColor" />
     </svg>;
 
@@ -46,6 +49,10 @@ InlineIcon.propTypes = {
     width: React.PropTypes.number.isRequired,
 
     style: React.PropTypes.object,
+
+    // A11y description for this icon. If absent, icon is marked
+    // aria-hidden=true
+    title: React.PropTypes.string,
 };
 /* eslint-enable react/jsx-sort-prop-types */
 
