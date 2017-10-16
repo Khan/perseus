@@ -30,6 +30,7 @@ const {
     linterContextProps,
     linterContextDefault,
 } = require("./gorgon/proptypes.js");
+import NotGorgon from "./not-gorgon.js"; // The i18n linter
 
 const {keypadElementPropType} = require("../math-input").propTypes;
 
@@ -198,7 +199,17 @@ var Renderer = React.createClass({
     },
 
     getInitialState: function() {
-        return _.extend({jiptContent: null}, this._getInitialWidgetState());
+        return _.extend({
+            jiptContent: null,
+            // The i18n linter.
+            // TODO(joshuan): If this becomes an ES6 class, move to a
+            // member variable.
+            notGorgon: new NotGorgon(),
+            // NotGorgon is async and currently does not contain a location.
+            // This is a list of error strings NotGorgon detected on its last
+            // run.
+            notGorgonLintErrors: [],
+        }, this._getInitialWidgetState());
     },
 
     componentDidMount: function() {
@@ -214,6 +225,12 @@ var Renderer = React.createClass({
         if (this.props.serializedState) {
             this.restoreSerializedState(this.props.serializedState);
         }
+
+        // Get i18n lint errors asynchronously. If there are lint errors,
+        // this component will be rerendered.
+        this.state.notGorgon.runLinter(
+            this.props.content,
+            this.handleNotGorgonLintErrors);
     },
 
     componentWillReceiveProps: function(nextProps) {
@@ -257,6 +274,8 @@ var Renderer = React.createClass({
             !oldJipt &&
             !newJipt &&
             oldContent === newContent &&
+            _.isEqual(this.state.notGorgonLintErrors,
+                nextState.notGorgonLintErrors),
             // If we are running the linter then we need to know when
             // widgets have changed because we need for force the linter to
             // run when that happens. Note: don't do identity comparison here:
@@ -297,6 +316,12 @@ var Renderer = React.createClass({
         ) {
             this.restoreSerializedState(this.props.serializedState);
         }
+
+        // Get i18n lint errors asynchronously. If lint errors have changed
+        // since the last run, this component will be rerendered.
+        this.state.notGorgon.runLinter(
+            this.props.content,
+            this.handleNotGorgonLintErrors);
     },
 
     componentWillUnmount: function() {
@@ -312,6 +337,8 @@ var Renderer = React.createClass({
         if (this.translationIndex != null) {
             window.PerseusTranslationComponents[this.translationIndex] = null;
         }
+
+        this.state.notGorgon.destroy();
 
         this._isMounted = false;
     },
@@ -1577,6 +1604,17 @@ var Renderer = React.createClass({
         return examples[0];
     },
 
+    // NotGorgon callback
+    handleNotGorgonLintErrors: function(lintErrors) {
+        if (!this._isMounted) {
+            return;
+        }
+
+        this.setState({
+            notGorgonLintErrors: lintErrors,
+        });
+    },
+
     render: function() {
         const apiOptions = this.getApiOptions();
 
@@ -1662,6 +1700,11 @@ var Renderer = React.createClass({
             };
 
             Gorgon.runLinter(parsedMarkdown, context, true);
+
+            // Apply the lint errors from the last NotGorgon run.
+            // TODO(joshuan): Support overlapping dots.
+            this.state.notGorgon.applyLintErrors(parsedMarkdown,
+                this.state.notGorgonLintErrors);
         }
 
         // Render the linted markdown parse tree with React components
