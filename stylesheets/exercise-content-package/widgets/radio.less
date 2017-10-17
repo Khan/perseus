@@ -11,8 +11,11 @@
         // Multiple-choice rationales might contain several subsequent
         // paragraphs, which need to have breaks in-between. Thus, we need
         // to override the above `display: inline` rule.
+        // We use "display: table" instead of "display: block" to make the
+        // width of the element the width of the content. This makes
+        // lint dots better positioned.
         .perseus-radio-rationale-content > .perseus-renderer > .paragraph {
-            display: block;
+            display: table;
             margin: 0;
 
             &:not(:last-child) {

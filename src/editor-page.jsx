@@ -136,6 +136,7 @@ var EditorPage = React.createClass({
                     highlightLint: this.state.highlightLint,
                     paths: this.props.contentPaths,
                 },
+                reviewMode: true,
             }).extend(
                 _(this.props).pick(
                     "workAreaSelector",
