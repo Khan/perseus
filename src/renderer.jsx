@@ -226,11 +226,13 @@ var Renderer = React.createClass({
             this.restoreSerializedState(this.props.serializedState);
         }
 
-        // Get i18n lint errors asynchronously. If there are lint errors,
-        // this component will be rerendered.
-        this.state.notGorgon.runLinter(
-            this.props.content,
-            this.handleNotGorgonLintErrors);
+        if (this.props.linterContext.highlightLint) {
+            // Get i18n lint errors asynchronously. If there are lint errors,
+            // this component will be rerendered.
+            this.state.notGorgon.runLinter(
+                this.props.content,
+                this.handleNotGorgonLintErrors);
+        }
     },
 
     componentWillReceiveProps: function(nextProps) {
@@ -317,11 +319,13 @@ var Renderer = React.createClass({
             this.restoreSerializedState(this.props.serializedState);
         }
 
-        // Get i18n lint errors asynchronously. If lint errors have changed
-        // since the last run, this component will be rerendered.
-        this.state.notGorgon.runLinter(
-            this.props.content,
-            this.handleNotGorgonLintErrors);
+        if (this.props.linterContext.highlightLint) {
+            // Get i18n lint errors asynchronously. If lint errors have changed
+            // since the last run, this component will be rerendered.
+            this.state.notGorgon.runLinter(
+                this.props.content,
+                this.handleNotGorgonLintErrors);
+        }
     },
 
     componentWillUnmount: function() {
