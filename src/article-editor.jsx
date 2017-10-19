@@ -390,6 +390,24 @@ const ArticleEditor = React.createClass({
         }
     },
 
+    /**
+     * Returns an array, with one element be section.
+     * Each element is an array of lint warnings present in that section.
+     *
+     * This function can currently only be called in edit mode.
+     */
+    getSaveWarnings: function(): Array<Array<string>> {
+        if (this.props.mode !== "edit") {
+            // TODO(joshuan): We should be able to get save warnings in
+            // preview mode.
+            throw new Error("Cannot only get save warnings in edit mode.");
+        }
+
+        return this._sections().map((section, i) => {
+            return this.refs["editor" + i].getSaveWarnings();
+        });
+    },
+
     render: function() {
         return (
             <div className="framework-perseus perseus-article-editor">
