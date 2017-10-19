@@ -1,3 +1,7 @@
+/*! Perseus | https://github.com/Khan/perseus */
+// commit d9ffae121412f16db872af3a5ea3a426f9f29e72
+// branch master
+// @generated
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory(require("underscore"), require("react"), require("react-dom"), require("classnames"), require("aphrodite"), require("jquery"), require("react-addons-pure-render-mixin"), require("react-addons-css-transition-group"));
@@ -107,7 +111,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/**
 	 * Main entry point
 	 */
-	var version = __webpack_require__(20);
+	var version = __webpack_require__(27);
 
 	var Widgets = __webpack_require__(1);
 
@@ -478,19 +482,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var classNames = __webpack_require__(13);
 
-	var Util = __webpack_require__(17);
+	var Util = __webpack_require__(18);
 
-	var ApiOptions = __webpack_require__(18).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
-	var ApiClassNames = __webpack_require__(18).ClassNames;
+	var ApiClassNames = __webpack_require__(17).ClassNames;
 
 	var Renderer = __webpack_require__(8);
 
 	var ProvideKeypad = __webpack_require__(32);
 
-	var Gorgon = __webpack_require__(34);
+	var Gorgon = __webpack_require__(35);
 
-	var _require = __webpack_require__(35), linterContextProps = _require.linterContextProps, linterContextDefault = _require.linterContextDefault;
+	var _require = __webpack_require__(36), linterContextProps = _require.linterContextProps, linterContextDefault = _require.linterContextDefault;
 
 	var rendererProps = React.PropTypes.shape({
 	    content: React.PropTypes.string,
@@ -638,7 +642,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(10);
 
-	var ApiOptions = __webpack_require__(18).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
 	var HintsRenderer = __webpack_require__(7);
 
@@ -646,13 +650,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ProvideKeypad = __webpack_require__(32);
 
-	var Util = __webpack_require__(17);
+	var Util = __webpack_require__(18);
 
-	var _require = __webpack_require__(36), mapObject = _require.mapObject;
+	var _require = __webpack_require__(34), mapObject = _require.mapObject;
 
-	var Gorgon = __webpack_require__(34);
+	var Gorgon = __webpack_require__(35);
 
-	var _require2 = __webpack_require__(35), linterContextProps = _require2.linterContextProps, linterContextDefault = _require2.linterContextDefault;
+	var _require2 = __webpack_require__(36), linterContextProps = _require2.linterContextProps, linterContextDefault = _require2.linterContextDefault;
 
 	var RP = React.PropTypes;
 
@@ -988,7 +992,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require = __webpack_require__(14), StyleSheet = _require.StyleSheet, css = _require.css;
 
-	var ApiOptions = __webpack_require__(18).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
 	var HintsRenderer = __webpack_require__(7);
 
@@ -996,9 +1000,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Renderer = __webpack_require__(8);
 
-	var Util = __webpack_require__(17);
+	var Util = __webpack_require__(18);
 
-	var _require2 = __webpack_require__(36), mapObject = _require2.mapObject;
+	var _require2 = __webpack_require__(34), mapObject = _require2.mapObject;
 
 	var RP = React.PropTypes;
 
@@ -1281,21 +1285,21 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var i18n = window.i18n;
 
-	var HintRenderer = __webpack_require__(19);
+	var HintRenderer = __webpack_require__(26);
 
 	var SvgImage = __webpack_require__(37);
 
 	var ApiOptionsProps = __webpack_require__(33);
 
-	var mediaQueries = __webpack_require__(39);
+	var mediaQueries = __webpack_require__(40);
 
-	var sharedStyles = __webpack_require__(40);
+	var sharedStyles = __webpack_require__(41);
 
-	var _require2 = __webpack_require__(41), baseUnitPx = _require2.baseUnitPx, hintBorderWidth = _require2.hintBorderWidth, kaGreen = _require2.kaGreen, gray85 = _require2.gray85, gray17 = _require2.gray17;
+	var _require2 = __webpack_require__(42), baseUnitPx = _require2.baseUnitPx, hintBorderWidth = _require2.hintBorderWidth, kaGreen = _require2.kaGreen, gray85 = _require2.gray85, gray17 = _require2.gray17;
 
-	var Gorgon = __webpack_require__(34);
+	var Gorgon = __webpack_require__(35);
 
-	var _require3 = __webpack_require__(35), linterContextProps = _require3.linterContextProps, linterContextDefault = _require3.linterContextDefault;
+	var _require3 = __webpack_require__(36), linterContextProps = _require3.linterContextProps, linterContextDefault = _require3.linterContextDefault;
 
 	var HintsRenderer = React.createClass({
 	    displayName: "HintsRenderer",
@@ -1502,7 +1506,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return target;
 	};
 
-	var _notGorgon = __webpack_require__(21);
+	var _notGorgon = __webpack_require__(19);
 
 	var _notGorgon2 = _interopRequireDefault(_notGorgon);
 
@@ -1526,43 +1530,43 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var classNames = __webpack_require__(13);
 
-	var JiptParagraphs = __webpack_require__(22);
+	var JiptParagraphs = __webpack_require__(20);
 
-	var _require = __webpack_require__(23), maybeUnescape = _require.maybeUnescape;
+	var _require = __webpack_require__(21), maybeUnescape = _require.maybeUnescape;
 
-	var PerseusMarkdown = __webpack_require__(24);
+	var PerseusMarkdown = __webpack_require__(22);
 
-	var QuestionParagraph = __webpack_require__(25);
+	var QuestionParagraph = __webpack_require__(23);
 
 	var SvgImage = __webpack_require__(37);
 
 	var TeX = __webpack_require__(47);
 
-	var WidgetContainer = __webpack_require__(26);
+	var WidgetContainer = __webpack_require__(24);
 
 	var Widgets = __webpack_require__(1);
 
-	var Util = __webpack_require__(17);
+	var Util = __webpack_require__(18);
 
 	var ApiOptionsProps = __webpack_require__(33);
 
-	var ApiClassNames = __webpack_require__(18).ClassNames;
+	var ApiClassNames = __webpack_require__(17).ClassNames;
 
 	var Zoomable = __webpack_require__(38);
 
-	var Deferred = __webpack_require__(27);
+	var Deferred = __webpack_require__(25);
 
-	var preprocessTex = __webpack_require__(46);
+	var preprocessTex = __webpack_require__(39);
 
-	var Gorgon = __webpack_require__(34);
+	var Gorgon = __webpack_require__(35);
 
 	// The linter engine
-	var _require2 = __webpack_require__(35), linterContextProps = _require2.linterContextProps, linterContextDefault = _require2.linterContextDefault;
+	var _require2 = __webpack_require__(36), linterContextProps = _require2.linterContextProps, linterContextDefault = _require2.linterContextDefault;
 
 	// The i18n linter
 	var keypadElementPropType = __webpack_require__(84).propTypes.keypadElementPropType;
 
-	var _require3 = __webpack_require__(36), mapObject = _require3.mapObject, mapObjectFromArray = _require3.mapObjectFromArray;
+	var _require3 = __webpack_require__(34), mapObject = _require3.mapObject, mapObjectFromArray = _require3.mapObjectFromArray;
 
 	var rContainsNonWhitespace = /\S/;
 
@@ -2848,13 +2852,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * `inferItemShape`, and `buildEmptyItemForShape`.
 	 * For more details, see `multi-items/items.js`.
 	 */
-	var _require = __webpack_require__(42), buildEmptyItemForShape = _require.buildEmptyItemForShape, findContentNodesInItem = _require.findContentNodesInItem, findHintNodesInItem = _require.findHintNodesInItem, inferItemShape = _require.inferItemShape;
+	var _require = __webpack_require__(43), buildEmptyItemForShape = _require.buildEmptyItemForShape, findContentNodesInItem = _require.findContentNodesInItem, findHintNodesInItem = _require.findHintNodesInItem, inferItemShape = _require.inferItemShape;
 
-	var MultiRenderer = __webpack_require__(43);
+	var MultiRenderer = __webpack_require__(44);
 
-	var _require2 = __webpack_require__(44), buildPropTypeForShape = _require2.buildPropTypeForShape;
+	var _require2 = __webpack_require__(45), buildPropTypeForShape = _require2.buildPropTypeForShape;
 
-	var shapes = __webpack_require__(45);
+	var shapes = __webpack_require__(46);
 
 	module.exports = {
 	    // Tools for rendering your multi-items
@@ -2910,12 +2914,201 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/* eslint-disable brace-style */
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+	/**
+	 * [Most of] the Perseus client API.
+	 *
+	 * If making a change to this file, or otherwise to the perseus
+	 * API, you should increment:
+	 *  * the perseus api major version if it is a breaking change
+	 *  * the perseus api minor version if it is an additive-only change
+	 *  * nothing if it is purely a bug fix.
+	 *
+	 * Callbacks passed to Renderer/ItemRenderer:
+	 *  * onInputError:
+	 *    Called when there is an error grading a widget
+	 *  * onFocusChange: (newFocusPath, oldFocusPath, keypadDOMNode)
+	 *    Called when the user focus changes. The first two parameters are `path`
+	 *    arrays uniquely identifying the respect inputs. The third parameter,
+	 *    `keypadDOMNode`, is the DOM node of the custom keypad, or `null` if the
+	 *    keypad is disabled, which can be used by clients to accommodate for the
+	 *    appearance of the keypad on the screen.
+	 *    When focus changes to or from nothing being selected, `path` will be null.
+	 *  * interactionCallback: Called when the user interacts with a widget.
+	 *  * answerableCallback: Called with the current `answerability` of the
+	 *    problem, e.g. whether all required fields have input.
+	 *  * getAnotherHint: If provided, a button is rendered at the bottom of the
+	 *    hints (only when at least one hint has been shown, and not all hints
+	 *    have been shown) allowing the user to take another hint. This function
+	 *    is then called when the user clicks the button.
+	 *
+	 * Stable CSS ClassNames:
+	 * These are css class names that will continue to preserve their
+	 * semantic meaning across the same perseus api major version.
+	 */
+	var React = __webpack_require__(11);
+
+	var StubTagEditor = __webpack_require__(80);
+
+	module.exports = {
+	    Options: {
+	        propTypes: React.PropTypes.shape({
+	            isArticle: React.PropTypes.bool.isRequired,
+	            satStyling: React.PropTypes.bool.isRequired,
+	            onInputError: React.PropTypes.func.isRequired,
+	            onFocusChange: React.PropTypes.func.isRequired,
+	            staticRender: React.PropTypes.bool.isRequired,
+	            GroupMetadataEditor: React.PropTypes.func.isRequired,
+	            showAlignmentOptions: React.PropTypes.bool.isRequired,
+	            readOnly: React.PropTypes.bool.isRequired,
+	            answerableCallback: React.PropTypes.func,
+	            getAnotherHint: React.PropTypes.func,
+	            interactionCallback: React.PropTypes.func,
+	            // A function that takes in the relative problem number (starts at
+	            // 0 and is incremented for each group widget), and the ID of the
+	            // group widget, then returns a react component that will be added
+	            // immediately above the renderer in the group widget. If the
+	            // function returns null, no annotation will be added.
+	            groupAnnotator: React.PropTypes.func.isRequired,
+	            // If imagePlaceholder or widgetPlaceholder are set, perseus will
+	            // render the placeholder instead of the image or widget node.
+	            imagePlaceholder: React.PropTypes.node,
+	            widgetPlaceholder: React.PropTypes.node,
+	            // Base React elements that can be used in place of the standard DOM
+	            // DOM elements. For example, when provided, <Link /> will be used
+	            // in place of <a />. This allows clients to provide pre-styled
+	            // components or components with custom behavior.
+	            baseElements: React.PropTypes.shape({
+	                // The <Link /> component provided here must adhere to the same
+	                // interface as React's base <a /> component.
+	                Link: React.PropTypes.func
+	            }),
+	            // Function that takes dimensions and returns a React component
+	            // to display while an image is loading
+	            imagePreloader: React.PropTypes.func,
+	            // Function that takes an object argument. The object should
+	            // include type and id, both strings, at least and can optionally
+	            // include a boolean "correct" value. This is used for keeping
+	            // track of widget interactions.
+	            trackInteraction: React.PropTypes.func,
+	            // A boolean that indicates whether or not a custom keypad is
+	            // being used.  For mobile web this will be the ProvidedKeypad
+	            // component.  In this situation we use the MathInput component
+	            // from the math-input repo instead of the existing perseus math
+	            // input components.
+	            // TODO(charlie): Make this mutually exclusive with `staticRender`.
+	            // Internally, we defer to `customKeypad` over `staticRender`, but
+	            // they should really be represented as an enum or some other data
+	            // structure that forbids them both being enabled at once.
+	            customKeypad: React.PropTypes.bool,
+	            // Indicates whether or not to use mobile styling.
+	            isMobile: React.PropTypes.bool,
+	            // A function, called with a bool indicating whether use of the
+	            // drawing area (scratchpad) should be allowed/disallowed.
+	            // Previously handled by `Khan.scratchpad.enable/disable`
+	            setDrawingAreaAvailable: React.PropTypes.func,
+	            // Whether to use the Draft.js editor or the legacy textarea
+	            useDraftEditor: React.PropTypes.bool,
+	            // Styling options that control the visual behavior of Perseus
+	            // items.
+	            // TODO(mdr): If we adopt this pattern, we'll need to think about
+	            //     how to make individual `styling` options be optional, and
+	            //     how to set their default values without overwriting provided
+	            //     values. For now, though, you must either specify all fields
+	            //     of `styling`, or omit the `styling` option entirely.
+	            styling: React.PropTypes.shape({
+	                // Which version of radio widget styles to use in non-SAT
+	                // contexts.
+	                //
+	                // "legacy" was the version of the widget display after XOM but
+	                // before we started adding MCR styles. It doesn't have support
+	                // for rationales. It has since been removed.
+	                //
+	                // "intermediate" is a design which adds several new additions
+	                // to the "legacy" styles such as:
+	                //  1. Using the XOM "desktop" styles (with a visible check icon
+	                //     and lines in between choices) on mobile devices.
+	                //  2. Designs for rationales
+	                //  3. Using the single-select styles for multi-select styles
+	                //
+	                // "final" is a design which will build off of the
+	                // "intermediate" designs and adds some improved designs as well
+	                // as:
+	                //  1. a/b/c/d/etc. letters inside of the prompt check box
+	                //  2. New iconography and styles to indicate choice correctness
+	                //
+	                // The "legacy" and "intermediate" designs will be A/B tested
+	                // against each other to ensure that its changes don't cause
+	                // problems due to the new designs. Once the "intermediate"
+	                // designs are finished, they will be A/B tested against the
+	                // "final" designs.
+	                //
+	                // If no flag is provided, "legacy" styles will be shown.
+	                //
+	                // TODO(emily): Remove this by Aug 1, 2017, at which point all
+	                //   callsites should have been switched to using the "final"
+	                //   designs.
+	                radioStyleVersion: React.PropTypes.oneOf([ "intermediate", "final" ])
+	            }),
+	            // The color used for the hint progress indicator (eg. 1 / 3)
+	            hintProgressColor: React.PropTypes.string
+	        }).isRequired,
+	        defaults: {
+	            isArticle: false,
+	            isMobile: false,
+	            satStyling: false,
+	            onInputError: function onInputError() {},
+	            onFocusChange: function onFocusChange() {},
+	            staticRender: false,
+	            GroupMetadataEditor: StubTagEditor,
+	            showAlignmentOptions: false,
+	            readOnly: false,
+	            groupAnnotator: function groupAnnotator() {
+	                return null;
+	            },
+	            baseElements: {
+	                Link: function Link(props) {
+	                    return React.createElement("a", props);
+	                }
+	            },
+	            setDrawingAreaAvailable: function setDrawingAreaAvailable() {},
+	            useDraftEditor: false,
+	            styling: {
+	                radioStyleVersion: "final"
+	            }
+	        }
+	    },
+	    ClassNames: {
+	        RENDERER: "perseus-renderer",
+	        TWO_COLUMN_RENDERER: "perseus-renderer-two-columns",
+	        RESPONSIVE_RENDERER: "perseus-renderer-responsive",
+	        INPUT: "perseus-input",
+	        FOCUSED: "perseus-focused",
+	        RADIO: {
+	            OPTION: "perseus-radio-option",
+	            SELECTED: "perseus-radio-selected",
+	            OPTION_CONTENT: "perseus-radio-option-content"
+	        },
+	        INTERACTIVE: "perseus-interactive",
+	        CORRECT: "perseus-correct",
+	        INCORRECT: "perseus-incorrect",
+	        UNANSWERED: "perseus-unanswered",
+	        MOBILE: "perseus-mobile"
+	    }
+	};
+
+/***/ },
+/* 18 */
+/***/ function(module, exports, __webpack_require__) {
+
 	/* eslint-disable brace-style, comma-dangle, indent, max-len, no-var, one-var, prefer-spread */
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var _ = __webpack_require__(10);
 
-	var KhanAnswerTypes = __webpack_require__(80);
+	var KhanAnswerTypes = __webpack_require__(81);
 
 	var nestedMap = function nestedMap(children, func, context) {
 	    return _.isArray(children) ? _.map(children, function(child) {
@@ -3410,322 +3603,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Util;
 
 /***/ },
-/* 18 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* eslint-disable brace-style */
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	/**
-	 * [Most of] the Perseus client API.
-	 *
-	 * If making a change to this file, or otherwise to the perseus
-	 * API, you should increment:
-	 *  * the perseus api major version if it is a breaking change
-	 *  * the perseus api minor version if it is an additive-only change
-	 *  * nothing if it is purely a bug fix.
-	 *
-	 * Callbacks passed to Renderer/ItemRenderer:
-	 *  * onInputError:
-	 *    Called when there is an error grading a widget
-	 *  * onFocusChange: (newFocusPath, oldFocusPath, keypadDOMNode)
-	 *    Called when the user focus changes. The first two parameters are `path`
-	 *    arrays uniquely identifying the respect inputs. The third parameter,
-	 *    `keypadDOMNode`, is the DOM node of the custom keypad, or `null` if the
-	 *    keypad is disabled, which can be used by clients to accommodate for the
-	 *    appearance of the keypad on the screen.
-	 *    When focus changes to or from nothing being selected, `path` will be null.
-	 *  * interactionCallback: Called when the user interacts with a widget.
-	 *  * answerableCallback: Called with the current `answerability` of the
-	 *    problem, e.g. whether all required fields have input.
-	 *  * getAnotherHint: If provided, a button is rendered at the bottom of the
-	 *    hints (only when at least one hint has been shown, and not all hints
-	 *    have been shown) allowing the user to take another hint. This function
-	 *    is then called when the user clicks the button.
-	 *
-	 * Stable CSS ClassNames:
-	 * These are css class names that will continue to preserve their
-	 * semantic meaning across the same perseus api major version.
-	 */
-	var React = __webpack_require__(11);
-
-	var StubTagEditor = __webpack_require__(81);
-
-	module.exports = {
-	    Options: {
-	        propTypes: React.PropTypes.shape({
-	            isArticle: React.PropTypes.bool.isRequired,
-	            satStyling: React.PropTypes.bool.isRequired,
-	            onInputError: React.PropTypes.func.isRequired,
-	            onFocusChange: React.PropTypes.func.isRequired,
-	            staticRender: React.PropTypes.bool.isRequired,
-	            GroupMetadataEditor: React.PropTypes.func.isRequired,
-	            showAlignmentOptions: React.PropTypes.bool.isRequired,
-	            readOnly: React.PropTypes.bool.isRequired,
-	            answerableCallback: React.PropTypes.func,
-	            getAnotherHint: React.PropTypes.func,
-	            interactionCallback: React.PropTypes.func,
-	            // A function that takes in the relative problem number (starts at
-	            // 0 and is incremented for each group widget), and the ID of the
-	            // group widget, then returns a react component that will be added
-	            // immediately above the renderer in the group widget. If the
-	            // function returns null, no annotation will be added.
-	            groupAnnotator: React.PropTypes.func.isRequired,
-	            // If imagePlaceholder or widgetPlaceholder are set, perseus will
-	            // render the placeholder instead of the image or widget node.
-	            imagePlaceholder: React.PropTypes.node,
-	            widgetPlaceholder: React.PropTypes.node,
-	            // Base React elements that can be used in place of the standard DOM
-	            // DOM elements. For example, when provided, <Link /> will be used
-	            // in place of <a />. This allows clients to provide pre-styled
-	            // components or components with custom behavior.
-	            baseElements: React.PropTypes.shape({
-	                // The <Link /> component provided here must adhere to the same
-	                // interface as React's base <a /> component.
-	                Link: React.PropTypes.func
-	            }),
-	            // Function that takes dimensions and returns a React component
-	            // to display while an image is loading
-	            imagePreloader: React.PropTypes.func,
-	            // Function that takes an object argument. The object should
-	            // include type and id, both strings, at least and can optionally
-	            // include a boolean "correct" value. This is used for keeping
-	            // track of widget interactions.
-	            trackInteraction: React.PropTypes.func,
-	            // A boolean that indicates whether or not a custom keypad is
-	            // being used.  For mobile web this will be the ProvidedKeypad
-	            // component.  In this situation we use the MathInput component
-	            // from the math-input repo instead of the existing perseus math
-	            // input components.
-	            // TODO(charlie): Make this mutually exclusive with `staticRender`.
-	            // Internally, we defer to `customKeypad` over `staticRender`, but
-	            // they should really be represented as an enum or some other data
-	            // structure that forbids them both being enabled at once.
-	            customKeypad: React.PropTypes.bool,
-	            // Indicates whether or not to use mobile styling.
-	            isMobile: React.PropTypes.bool,
-	            // A function, called with a bool indicating whether use of the
-	            // drawing area (scratchpad) should be allowed/disallowed.
-	            // Previously handled by `Khan.scratchpad.enable/disable`
-	            setDrawingAreaAvailable: React.PropTypes.func,
-	            // Whether to use the Draft.js editor or the legacy textarea
-	            useDraftEditor: React.PropTypes.bool,
-	            // Styling options that control the visual behavior of Perseus
-	            // items.
-	            // TODO(mdr): If we adopt this pattern, we'll need to think about
-	            //     how to make individual `styling` options be optional, and
-	            //     how to set their default values without overwriting provided
-	            //     values. For now, though, you must either specify all fields
-	            //     of `styling`, or omit the `styling` option entirely.
-	            styling: React.PropTypes.shape({
-	                // Which version of radio widget styles to use in non-SAT
-	                // contexts.
-	                //
-	                // "legacy" was the version of the widget display after XOM but
-	                // before we started adding MCR styles. It doesn't have support
-	                // for rationales. It has since been removed.
-	                //
-	                // "intermediate" is a design which adds several new additions
-	                // to the "legacy" styles such as:
-	                //  1. Using the XOM "desktop" styles (with a visible check icon
-	                //     and lines in between choices) on mobile devices.
-	                //  2. Designs for rationales
-	                //  3. Using the single-select styles for multi-select styles
-	                //
-	                // "final" is a design which will build off of the
-	                // "intermediate" designs and adds some improved designs as well
-	                // as:
-	                //  1. a/b/c/d/etc. letters inside of the prompt check box
-	                //  2. New iconography and styles to indicate choice correctness
-	                //
-	                // The "legacy" and "intermediate" designs will be A/B tested
-	                // against each other to ensure that its changes don't cause
-	                // problems due to the new designs. Once the "intermediate"
-	                // designs are finished, they will be A/B tested against the
-	                // "final" designs.
-	                //
-	                // If no flag is provided, "legacy" styles will be shown.
-	                //
-	                // TODO(emily): Remove this by Aug 1, 2017, at which point all
-	                //   callsites should have been switched to using the "final"
-	                //   designs.
-	                radioStyleVersion: React.PropTypes.oneOf([ "intermediate", "final" ])
-	            }),
-	            // The color used for the hint progress indicator (eg. 1 / 3)
-	            hintProgressColor: React.PropTypes.string
-	        }).isRequired,
-	        defaults: {
-	            isArticle: false,
-	            isMobile: false,
-	            satStyling: false,
-	            onInputError: function onInputError() {},
-	            onFocusChange: function onFocusChange() {},
-	            staticRender: false,
-	            GroupMetadataEditor: StubTagEditor,
-	            showAlignmentOptions: false,
-	            readOnly: false,
-	            groupAnnotator: function groupAnnotator() {
-	                return null;
-	            },
-	            baseElements: {
-	                Link: function Link(props) {
-	                    return React.createElement("a", props);
-	                }
-	            },
-	            setDrawingAreaAvailable: function setDrawingAreaAvailable() {},
-	            useDraftEditor: false,
-	            styling: {
-	                radioStyleVersion: "final"
-	            }
-	        }
-	    },
-	    ClassNames: {
-	        RENDERER: "perseus-renderer",
-	        TWO_COLUMN_RENDERER: "perseus-renderer-two-columns",
-	        RESPONSIVE_RENDERER: "perseus-renderer-responsive",
-	        INPUT: "perseus-input",
-	        FOCUSED: "perseus-focused",
-	        RADIO: {
-	            OPTION: "perseus-radio-option",
-	            SELECTED: "perseus-radio-selected",
-	            OPTION_CONTENT: "perseus-radio-option-content"
-	        },
-	        INTERACTIVE: "perseus-interactive",
-	        CORRECT: "perseus-correct",
-	        INCORRECT: "perseus-incorrect",
-	        UNANSWERED: "perseus-unanswered",
-	        MOBILE: "perseus-mobile"
-	    }
-	};
-
-/***/ },
 /* 19 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _newHint;
-
-	var _extends = Object.assign || function(target) {
-	    for (var i = 1; i < arguments.length; i++) {
-	        var source = arguments[i];
-	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
-	    }
-	    return target;
-	};
-
-	var React = __webpack_require__(11);
-
-	var _require = __webpack_require__(14), StyleSheet = _require.StyleSheet, css = _require.css;
-
-	var classnames = __webpack_require__(13);
-
-	var i18n = window.i18n;
-
-	var Renderer = __webpack_require__(8);
-
-	var ApiOptions = __webpack_require__(18).Options;
-
-	var mediaQueries = __webpack_require__(39);
-
-	var _require2 = __webpack_require__(41), baseUnitPx = _require2.baseUnitPx, hintBorderWidth = _require2.hintBorderWidth, kaGreen = _require2.kaGreen, gray97 = _require2.gray97;
-
-	var Gorgon = __webpack_require__(34);
-
-	var _require3 = __webpack_require__(35), linterContextProps = _require3.linterContextProps, linterContextDefault = _require3.linterContextDefault;
-
-	/* Renders just a hint preview */
-	var HintRenderer = React.createClass({
-	    displayName: "HintRenderer",
-	    propTypes: {
-	        apiOptions: ApiOptions.propTypes,
-	        className: React.PropTypes.string,
-	        hint: React.PropTypes.any,
-	        lastHint: React.PropTypes.bool,
-	        lastRendered: React.PropTypes.bool,
-	        pos: React.PropTypes.number,
-	        totalHints: React.PropTypes.number,
-	        findExternalWidgets: React.PropTypes.func,
-	        linterContext: linterContextProps
-	    },
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            linterContext: linterContextDefault
-	        };
-	    },
-	    getSerializedState: function getSerializedState() {
-	        return this.refs.renderer.getSerializedState();
-	    },
-	    restoreSerializedState: function restoreSerializedState(state, callback) {
-	        this.refs.renderer.restoreSerializedState(state, callback);
-	    },
-	    render: function render() {
-	        var _props = this.props, apiOptions = _props.apiOptions, className = _props.className, hint = _props.hint, lastHint = _props.lastHint, lastRendered = _props.lastRendered, pos = _props.pos, totalHints = _props.totalHints;
-	        var isMobile = apiOptions.isMobile;
-	        var classNames = classnames(!isMobile && "perseus-hint-renderer", isMobile && css(styles.newHint), isMobile && lastRendered && css(styles.lastRenderedNewHint), lastHint && "last-hint", lastRendered && "last-rendered", className);
-	        // TODO(charlie): Allowing `staticRender` here would require that we
-	        // extend `HintsRenderer` and `HintRenderer` to implement the full
-	        // "input' API, so that clients could access the static inputs. Allowing
-	        // `customKeypad` would require that we extend `ItemRenderer` to support
-	        // nested inputs in the `HintsRenderer`. For now, we disable these
-	        // options. Instead, clients will get standard <input/> elements, which
-	        // aren't nice to use on mobile, but are at least usable.
-	        var rendererApiOptions = _extends({}, apiOptions, {
-	            customKeypad: false,
-	            staticRender: false
-	        });
-	        return React.createElement("div", {
-	            className: classNames,
-	            tabIndex: "-1"
-	        }, !apiOptions.isMobile && React.createElement("span", {
-	            className: "perseus-sr-only"
-	        }, i18n._("Hint #%(pos)s", {
-	            pos: pos + 1
-	        })), !apiOptions.isMobile && !apiOptions.satStyling && totalHints && null != pos && React.createElement("span", {
-	            className: "perseus-hint-label",
-	            style: {
-	                display: "block",
-	                color: apiOptions.hintProgressColor
-	            }
-	        }, pos + 1 + " / " + totalHints), React.createElement(Renderer, {
-	            ref: "renderer",
-	            widgets: hint.widgets,
-	            content: hint.content || "",
-	            images: hint.images,
-	            apiOptions: rendererApiOptions,
-	            findExternalWidgets: this.props.findExternalWidgets,
-	            linterContext: Gorgon.pushContextStack(this.props.linterContext, "hint")
-	        }));
-	    }
-	});
-
-	var styles = StyleSheet.create({
-	    newHint: (_newHint = {
-	        marginBottom: 1.5 * baseUnitPx,
-	        borderLeftColor: gray97,
-	        borderLeftStyle: "solid",
-	        borderLeftWidth: hintBorderWidth
-	    }, _newHint[mediaQueries.lgOrSmaller] = {
-	        paddingLeft: baseUnitPx
-	    }, _newHint[mediaQueries.smOrSmaller] = {
-	        paddingLeft: 0
-	    }, _newHint[":focus"] = {
-	        outline: "none"
-	    }, _newHint),
-	    lastRenderedNewHint: {
-	        marginBottom: 0,
-	        borderLeftColor: kaGreen
-	    }
-	});
-
-	module.exports = HintRenderer;
-
-/***/ },
-/* 20 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = {"apiVersion":{"major":10,"minor":2},"itemDataVersion":{"major":0,"minor":1}}
-
-/***/ },
-/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	Object.defineProperty(exports, "__esModule", {
@@ -3842,13 +3720,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = NotGorgon;
 
 /***/ },
-/* 22 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Paragraph parsing/splitting for article jipt i18n
 	 */
-	var SimpleMarkdown = __webpack_require__(127);
+	var SimpleMarkdown = __webpack_require__(126);
 
 	var arrayRules = {
 	    fence: {
@@ -3891,7 +3769,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 23 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -4064,7 +3942,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 24 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function(target) {
@@ -4081,11 +3959,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* globals KA */
 	var _ = __webpack_require__(10);
 
-	var SimpleMarkdown = __webpack_require__(127);
+	var SimpleMarkdown = __webpack_require__(126);
 
 	var TeX = __webpack_require__(47);
 
-	var Util = __webpack_require__(17);
+	var Util = __webpack_require__(18);
 
 	var Lint = __webpack_require__(82);
 
@@ -4534,7 +4412,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 25 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types */
@@ -4559,7 +4437,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = QuestionParagraph;
 
 /***/ },
-/* 26 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function(target) {
@@ -4579,13 +4457,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ReactDOM = __webpack_require__(12);
 
-	var _require = __webpack_require__(41), zIndexInteractiveComponent = _require.zIndexInteractiveComponent;
+	var _require = __webpack_require__(42), zIndexInteractiveComponent = _require.zIndexInteractiveComponent;
 
 	var Widgets = __webpack_require__(1);
 
 	var _require2 = __webpack_require__(83), containerSizeClass = _require2.containerSizeClass, getClassFromWidth = _require2.getClassFromWidth;
 
-	var _require3 = __webpack_require__(35), linterContextProps = _require3.linterContextProps, linterContextDefault = _require3.linterContextDefault;
+	var _require3 = __webpack_require__(36), linterContextProps = _require3.linterContextProps, linterContextDefault = _require3.linterContextDefault;
 
 	var WidgetContainer = React.createClass({
 	    displayName: "WidgetContainer",
@@ -4701,7 +4579,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = WidgetContainer;
 
 /***/ },
-/* 27 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	function _classCallCheck(instance, Constructor) {
@@ -4729,6 +4607,132 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Deferred;
 
 /***/ },
+/* 26 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _newHint;
+
+	var _extends = Object.assign || function(target) {
+	    for (var i = 1; i < arguments.length; i++) {
+	        var source = arguments[i];
+	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
+	    }
+	    return target;
+	};
+
+	var React = __webpack_require__(11);
+
+	var _require = __webpack_require__(14), StyleSheet = _require.StyleSheet, css = _require.css;
+
+	var classnames = __webpack_require__(13);
+
+	var i18n = window.i18n;
+
+	var Renderer = __webpack_require__(8);
+
+	var ApiOptions = __webpack_require__(17).Options;
+
+	var mediaQueries = __webpack_require__(40);
+
+	var _require2 = __webpack_require__(42), baseUnitPx = _require2.baseUnitPx, hintBorderWidth = _require2.hintBorderWidth, kaGreen = _require2.kaGreen, gray97 = _require2.gray97;
+
+	var Gorgon = __webpack_require__(35);
+
+	var _require3 = __webpack_require__(36), linterContextProps = _require3.linterContextProps, linterContextDefault = _require3.linterContextDefault;
+
+	/* Renders just a hint preview */
+	var HintRenderer = React.createClass({
+	    displayName: "HintRenderer",
+	    propTypes: {
+	        apiOptions: ApiOptions.propTypes,
+	        className: React.PropTypes.string,
+	        hint: React.PropTypes.any,
+	        lastHint: React.PropTypes.bool,
+	        lastRendered: React.PropTypes.bool,
+	        pos: React.PropTypes.number,
+	        totalHints: React.PropTypes.number,
+	        findExternalWidgets: React.PropTypes.func,
+	        linterContext: linterContextProps
+	    },
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            linterContext: linterContextDefault
+	        };
+	    },
+	    getSerializedState: function getSerializedState() {
+	        return this.refs.renderer.getSerializedState();
+	    },
+	    restoreSerializedState: function restoreSerializedState(state, callback) {
+	        this.refs.renderer.restoreSerializedState(state, callback);
+	    },
+	    render: function render() {
+	        var _props = this.props, apiOptions = _props.apiOptions, className = _props.className, hint = _props.hint, lastHint = _props.lastHint, lastRendered = _props.lastRendered, pos = _props.pos, totalHints = _props.totalHints;
+	        var isMobile = apiOptions.isMobile;
+	        var classNames = classnames(!isMobile && "perseus-hint-renderer", isMobile && css(styles.newHint), isMobile && lastRendered && css(styles.lastRenderedNewHint), lastHint && "last-hint", lastRendered && "last-rendered", className);
+	        // TODO(charlie): Allowing `staticRender` here would require that we
+	        // extend `HintsRenderer` and `HintRenderer` to implement the full
+	        // "input' API, so that clients could access the static inputs. Allowing
+	        // `customKeypad` would require that we extend `ItemRenderer` to support
+	        // nested inputs in the `HintsRenderer`. For now, we disable these
+	        // options. Instead, clients will get standard <input/> elements, which
+	        // aren't nice to use on mobile, but are at least usable.
+	        var rendererApiOptions = _extends({}, apiOptions, {
+	            customKeypad: false,
+	            staticRender: false
+	        });
+	        return React.createElement("div", {
+	            className: classNames,
+	            tabIndex: "-1"
+	        }, !apiOptions.isMobile && React.createElement("span", {
+	            className: "perseus-sr-only"
+	        }, i18n._("Hint #%(pos)s", {
+	            pos: pos + 1
+	        })), !apiOptions.isMobile && !apiOptions.satStyling && totalHints && null != pos && React.createElement("span", {
+	            className: "perseus-hint-label",
+	            style: {
+	                display: "block",
+	                color: apiOptions.hintProgressColor
+	            }
+	        }, pos + 1 + " / " + totalHints), React.createElement(Renderer, {
+	            ref: "renderer",
+	            widgets: hint.widgets,
+	            content: hint.content || "",
+	            images: hint.images,
+	            apiOptions: rendererApiOptions,
+	            findExternalWidgets: this.props.findExternalWidgets,
+	            linterContext: Gorgon.pushContextStack(this.props.linterContext, "hint")
+	        }));
+	    }
+	});
+
+	var styles = StyleSheet.create({
+	    newHint: (_newHint = {
+	        marginBottom: 1.5 * baseUnitPx,
+	        borderLeftColor: gray97,
+	        borderLeftStyle: "solid",
+	        borderLeftWidth: hintBorderWidth
+	    }, _newHint[mediaQueries.lgOrSmaller] = {
+	        paddingLeft: baseUnitPx
+	    }, _newHint[mediaQueries.smOrSmaller] = {
+	        paddingLeft: 0
+	    }, _newHint[":focus"] = {
+	        outline: "none"
+	    }, _newHint),
+	    lastRenderedNewHint: {
+	        marginBottom: 0,
+	        borderLeftColor: kaGreen
+	    }
+	});
+
+	module.exports = HintRenderer;
+
+/***/ },
+/* 27 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = {"apiVersion":{"major":10,"minor":2},"itemDataVersion":{"major":0,"minor":1}}
+
+/***/ },
 /* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -4737,7 +4741,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var _2 = __webpack_require__(10);
 
-	var shuffle = __webpack_require__(17).shuffle;
+	var shuffle = __webpack_require__(18).shuffle;
 
 	var Radio = __webpack_require__(106);
 
@@ -4844,15 +4848,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var PossibleAnswers = __webpack_require__(88);
 
-	var KhanAnswerTypes = __webpack_require__(80);
+	var KhanAnswerTypes = __webpack_require__(81);
 
 	var keypadElementPropType = __webpack_require__(84).propTypes.keypadElementPropType;
 
-	var _require = __webpack_require__(35), linterContextProps = _require.linterContextProps, linterContextDefault = _require.linterContextDefault;
+	var _require = __webpack_require__(36), linterContextProps = _require.linterContextProps, linterContextDefault = _require.linterContextDefault;
 
-	var ApiClassNames = __webpack_require__(18).ClassNames;
+	var ApiClassNames = __webpack_require__(17).ClassNames;
 
-	var ApiOptions = __webpack_require__(18).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
 	var answerTypes = {
 	    number: {
@@ -5120,7 +5124,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require = __webpack_require__(14), StyleSheet = _require.StyleSheet, css = _require.css;
 
-	var styleConstants = __webpack_require__(41);
+	var styleConstants = __webpack_require__(42);
 
 	var InputWithExamples = __webpack_require__(85);
 
@@ -5130,17 +5134,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var PossibleAnswers = __webpack_require__(88);
 
-	var ApiClassNames = __webpack_require__(18).ClassNames;
+	var ApiClassNames = __webpack_require__(17).ClassNames;
 
-	var ApiOptions = __webpack_require__(18).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
-	var KhanAnswerTypes = __webpack_require__(80);
+	var KhanAnswerTypes = __webpack_require__(81);
 
 	var KhanMath = __webpack_require__(89);
 
 	var keypadElementPropType = __webpack_require__(84).propTypes.keypadElementPropType;
 
-	var _require2 = __webpack_require__(35), linterContextProps = _require2.linterContextProps, linterContextDefault = _require2.linterContextDefault;
+	var _require2 = __webpack_require__(36), linterContextProps = _require2.linterContextProps, linterContextDefault = _require2.linterContextDefault;
 
 	var _require3 = __webpack_require__(90), iconDropdownArrow = _require3.iconDropdownArrow;
 
@@ -5762,15 +5766,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(10);
 
-	var ApiOptions = __webpack_require__(18).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
 	var Changeable = __webpack_require__(93);
 
-	var ApiOptions = __webpack_require__(18).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
-	var ApiClassNames = __webpack_require__(18).ClassNames;
+	var ApiClassNames = __webpack_require__(17).ClassNames;
 
-	var KhanAnswerTypes = __webpack_require__(80);
+	var KhanAnswerTypes = __webpack_require__(81);
 
 	var InlineIcon = __webpack_require__(91);
 
@@ -5786,11 +5790,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var KeypadTypes = __webpack_require__(84).consts.KeypadTypes;
 
-	var _require = __webpack_require__(35), linterContextProps = _require.linterContextProps, linterContextDefault = _require.linterContextDefault;
+	var _require = __webpack_require__(36), linterContextProps = _require.linterContextProps, linterContextDefault = _require.linterContextDefault;
 
 	var _require2 = __webpack_require__(90), iconExclamationSign = _require2.iconExclamationSign;
 
-	var lens = __webpack_require__(125);
+	var lens = __webpack_require__(127);
 
 	var ERROR_MESSAGE = i18n._("Sorry, I don't understand that!");
 
@@ -6355,7 +6359,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(11);
 
-	var ApiOptions = __webpack_require__(18).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
 	var ApiOptionsProps = {
 	    propTypes: {
@@ -6378,6 +6382,80 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/**
+	 * A work-in-progress of _ methods for objects.
+	 * That is, they take an object as a parameter,
+	 * and return an object instead of an array.
+	 *
+	 * TODO(aria): Move this out of interactive2
+	 */
+	var _ = __webpack_require__(10);
+
+	/**
+	 * Does a pluck on keys inside objects in an object
+	 *
+	 * Ex:
+	 * tools = {
+	 *     translation: {
+	 *         enabled: true
+	 *     },
+	 *     rotation: {
+	 *         enabled: false
+	 *     }
+	 * };
+	 * pluckObject(tools, "enabled") returns {
+	 *     translation: true
+	 *     rotation: false
+	 * }
+	 */
+	var pluck = function pluck(table, subKey) {
+	    return _.object(_.map(table, function(value, key) {
+	        return [ key, value[subKey] ];
+	    }));
+	};
+
+	/**
+	 * Maps an object to an object
+	 *
+	 * > mapObject({a: '1', b: '2'}, (value, key) => {
+	 *       return value + 1;
+	 *   });
+	 * {a: 2, b: 3}
+	 */
+	var mapObject = function mapObject(obj, lambda) {
+	    var result = {};
+	    _.each(_.keys(obj), function(key) {
+	        result[key] = lambda(obj[key], key);
+	    });
+	    return result;
+	};
+
+	/**
+	 * Maps an array to an object
+	 *
+	 * > mapObjectFromArray(['a', 'b'], function(elem) {
+	 *       return elem + elem;
+	 *   });
+	 * {a: 'aa', b: 'bb'}
+	 */
+	var mapObjectFromArray = function mapObjectFromArray(arr, lambda) {
+	    var result = {};
+	    _.each(arr, function(elem) {
+	        result[elem] = lambda(elem);
+	    });
+	    return result;
+	};
+
+	module.exports = {
+	    pluck: pluck,
+	    mapObject: mapObject,
+	    mapObjectFromArray: mapObjectFromArray
+	};
+
+/***/ },
+/* 35 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var _extends = Object.assign || function(target) {
 	    for (var i = 1; i < arguments.length; i++) {
 	        var source = arguments[i];
@@ -6386,7 +6464,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return target;
 	};
 
-	var _perseusMarkdown = __webpack_require__(24);
+	var _perseusMarkdown = __webpack_require__(22);
 
 	var _perseusMarkdown2 = _interopRequireDefault(_perseusMarkdown);
 
@@ -6651,7 +6729,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 35 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	Object.defineProperty(exports, "__esModule", {
@@ -6674,80 +6752,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    highlightLint: false,
 	    paths: [],
 	    stack: []
-	};
-
-/***/ },
-/* 36 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * A work-in-progress of _ methods for objects.
-	 * That is, they take an object as a parameter,
-	 * and return an object instead of an array.
-	 *
-	 * TODO(aria): Move this out of interactive2
-	 */
-	var _ = __webpack_require__(10);
-
-	/**
-	 * Does a pluck on keys inside objects in an object
-	 *
-	 * Ex:
-	 * tools = {
-	 *     translation: {
-	 *         enabled: true
-	 *     },
-	 *     rotation: {
-	 *         enabled: false
-	 *     }
-	 * };
-	 * pluckObject(tools, "enabled") returns {
-	 *     translation: true
-	 *     rotation: false
-	 * }
-	 */
-	var pluck = function pluck(table, subKey) {
-	    return _.object(_.map(table, function(value, key) {
-	        return [ key, value[subKey] ];
-	    }));
-	};
-
-	/**
-	 * Maps an object to an object
-	 *
-	 * > mapObject({a: '1', b: '2'}, (value, key) => {
-	 *       return value + 1;
-	 *   });
-	 * {a: 2, b: 3}
-	 */
-	var mapObject = function mapObject(obj, lambda) {
-	    var result = {};
-	    _.each(_.keys(obj), function(key) {
-	        result[key] = lambda(obj[key], key);
-	    });
-	    return result;
-	};
-
-	/**
-	 * Maps an array to an object
-	 *
-	 * > mapObjectFromArray(['a', 'b'], function(elem) {
-	 *       return elem + elem;
-	 *   });
-	 * {a: 'aa', b: 'bb'}
-	 */
-	var mapObjectFromArray = function mapObjectFromArray(arr, lambda) {
-	    var result = {};
-	    _.each(arr, function(elem) {
-	        result[elem] = lambda(elem);
-	    });
-	    return result;
-	};
-
-	module.exports = {
-	    pluck: pluck,
-	    mapObject: mapObject,
-	    mapObjectFromArray: mapObjectFromArray
 	};
 
 /***/ },
@@ -6777,9 +6781,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ImageLoader = __webpack_require__(100);
 
-	var _require = __webpack_require__(23), maybeUnescape = _require.maybeUnescape;
+	var _require = __webpack_require__(21), maybeUnescape = _require.maybeUnescape;
 
-	var Util = __webpack_require__(17);
+	var Util = __webpack_require__(18);
 
 	var Zoom = __webpack_require__(101);
 
@@ -7301,7 +7305,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ReactDOM = __webpack_require__(12);
 
-	var Deferred = __webpack_require__(27);
+	var Deferred = __webpack_require__(25);
 
 	var Zoomable = React.createClass({
 	    displayName: "Zoomable",
@@ -7504,6 +7508,18 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
+	 * Preprocess TeX code to convert things that KaTeX doesn't know how to handle
+	 * to things is does.
+	 */
+	module.exports = function(texCode) {
+	    return texCode.replace(/\{align[*]?\}/g, "{aligned}").replace(/[\u00a0]/g, " ");
+	};
+
+/***/ },
+/* 40 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
 	 * A default set of media queries to use for different screen sizes. Based on
 	 * the breakpoints from purecss.
 	 *
@@ -7516,7 +7532,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 *       },
 	 *   });
 	 */
-	var _require = __webpack_require__(41), pureXsMax = _require.pureXsMax, pureSmMin = _require.pureSmMin, pureSmMax = _require.pureSmMax, pureMdMin = _require.pureMdMin, pureMdMax = _require.pureMdMax, pureLgMin = _require.pureLgMin, pureLgMax = _require.pureLgMax, pureXlMin = _require.pureXlMin;
+	var _require = __webpack_require__(42), pureXsMax = _require.pureXsMax, pureSmMin = _require.pureSmMin, pureSmMax = _require.pureSmMax, pureMdMin = _require.pureMdMin, pureMdMax = _require.pureMdMax, pureLgMin = _require.pureLgMin, pureLgMax = _require.pureLgMax, pureXlMin = _require.pureXlMin;
 
 	module.exports = {
 	    xs: "@media screen and (max-width: " + pureXsMax + ")",
@@ -7533,7 +7549,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 40 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _responsiveLabel;
@@ -7543,9 +7559,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var _require = __webpack_require__(14), StyleSheet = _require.StyleSheet;
 
-	var mediaQueries = __webpack_require__(39);
+	var mediaQueries = __webpack_require__(40);
 
-	var _require2 = __webpack_require__(41), zIndexAboveScratchpad = _require2.zIndexAboveScratchpad, zIndexInteractiveComponent = _require2.zIndexInteractiveComponent, radioBorderColor = _require2.radioBorderColor, checkedColor = _require2.checkedColor, circleSize = _require2.circleSize, radioMarginWidth = _require2.radioMarginWidth;
+	var _require2 = __webpack_require__(42), zIndexAboveScratchpad = _require2.zIndexAboveScratchpad, zIndexInteractiveComponent = _require2.zIndexInteractiveComponent, radioBorderColor = _require2.radioBorderColor, checkedColor = _require2.checkedColor, circleSize = _require2.circleSize, radioMarginWidth = _require2.radioMarginWidth;
 
 	module.exports = StyleSheet.create({
 	    perseusInteractive: {
@@ -7636,7 +7652,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 41 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Generated by running:
@@ -7750,7 +7766,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports.checkedColor = module.exports.kaGreen;
 
 /***/ },
-/* 42 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _typeof = "function" === typeof Symbol && "symbol" === typeof Symbol.iterator ? function(obj) {
@@ -7785,7 +7801,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require = __webpack_require__(104), buildMapper = _require.buildMapper;
 
-	var shapes = __webpack_require__(45);
+	var shapes = __webpack_require__(46);
 
 	/**
 	 * Return a semantically empty ItemTree that conforms to the given shape.
@@ -7907,7 +7923,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 43 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function(target) {
@@ -8008,11 +8024,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require = __webpack_require__(14), StyleSheet = _require.StyleSheet, css = _require.css;
 
-	var lens = __webpack_require__(125);
+	var lens = __webpack_require__(127);
 
 	var React = __webpack_require__(11);
 
-	var _require2 = __webpack_require__(42), itemToTree = _require2.itemToTree;
+	var _require2 = __webpack_require__(43), itemToTree = _require2.itemToTree;
 
 	var HintsRenderer = __webpack_require__(7);
 
@@ -8020,7 +8036,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require3 = __webpack_require__(104), buildMapper = _require3.buildMapper;
 
-	var Util = __webpack_require__(17);
+	var Util = __webpack_require__(18);
 
 	// TODO(mdr)
 	// TODO(mdr)
@@ -8339,7 +8355,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MultiRenderer;
 
 /***/ },
-/* 44 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -8426,7 +8442,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 45 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -8492,18 +8508,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    tags: tagsShape,
 	    arrayOf: buildArrayShape,
 	    shape: buildObjectShape
-	};
-
-/***/ },
-/* 46 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Preprocess TeX code to convert things that KaTeX doesn't know how to handle
-	 * to things is does.
-	 */
-	module.exports = function(texCode) {
-	    return texCode.replace(/\{align[*]?\}/g, "{aligned}").replace(/[\u00a0]/g, " ");
 	};
 
 /***/ },
@@ -8749,7 +8753,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Changeable = __webpack_require__(93);
 
-	var PerseusMarkdown = __webpack_require__(24);
+	var PerseusMarkdown = __webpack_require__(22);
 
 	var WidgetJsonifyDeprecated = __webpack_require__(110);
 
@@ -8874,6 +8878,57 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 78 */,
 /* 79 */,
 /* 80 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Stub Tag Editor.
+	 *
+	 * This is stupidly used by Perseus Zero because I didn't implement
+	 * the <TagEditor> for Perseus Zero (since everyone wants me to
+	 * delete it anyways).
+	 *
+	 * This is a small wrapper for a TextListEditor that allows us to
+	 * edit raw Tag ID strings in perseus zero (please don't use this).
+	 *
+	 * It also gives a nicer interface for the group metadata editor
+	 * in local demo mode.
+	 */
+	var React = __webpack_require__(11);
+
+	var TextListEditor = __webpack_require__(125);
+
+	var EMPTY_ARRAY = [];
+
+	var StubTagEditor = React.createClass({
+	    displayName: "StubTagEditor",
+	    propTypes: {
+	        value: React.PropTypes.arrayOf(React.PropTypes.string),
+	        onChange: React.PropTypes.func.isRequired,
+	        showTitle: React.PropTypes.bool.isRequired
+	    },
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            value: EMPTY_ARRAY,
+	            showTitle: true
+	        };
+	    },
+	    render: function render() {
+	        return React.createElement("div", null, this.props.showTitle && React.createElement("div", {
+	            style: {
+	                fontSize: 14
+	            }
+	        }, "Tags:"), React.createElement(TextListEditor, {
+	            options: this.props.value || EMPTY_ARRAY,
+	            layout: "vertical",
+	            onChange: this.props.onChange
+	        }));
+	    }
+	});
+
+	module.exports = StubTagEditor;
+
+/***/ },
+/* 81 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* eslint-disable object-curly-spacing */
@@ -9390,57 +9445,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = KhanAnswerTypes;
 
 /***/ },
-/* 81 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Stub Tag Editor.
-	 *
-	 * This is stupidly used by Perseus Zero because I didn't implement
-	 * the <TagEditor> for Perseus Zero (since everyone wants me to
-	 * delete it anyways).
-	 *
-	 * This is a small wrapper for a TextListEditor that allows us to
-	 * edit raw Tag ID strings in perseus zero (please don't use this).
-	 *
-	 * It also gives a nicer interface for the group metadata editor
-	 * in local demo mode.
-	 */
-	var React = __webpack_require__(11);
-
-	var TextListEditor = __webpack_require__(126);
-
-	var EMPTY_ARRAY = [];
-
-	var StubTagEditor = React.createClass({
-	    displayName: "StubTagEditor",
-	    propTypes: {
-	        value: React.PropTypes.arrayOf(React.PropTypes.string),
-	        onChange: React.PropTypes.func.isRequired,
-	        showTitle: React.PropTypes.bool.isRequired
-	    },
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            value: EMPTY_ARRAY,
-	            showTitle: true
-	        };
-	    },
-	    render: function render() {
-	        return React.createElement("div", null, this.props.showTitle && React.createElement("div", {
-	            style: {
-	                fontSize: 14
-	            }
-	        }, "Tags:"), React.createElement(TextListEditor, {
-	            options: this.props.value || EMPTY_ARRAY,
-	            layout: "vertical",
-	            onChange: this.props.onChange
-	        }));
-	    }
-	});
-
-	module.exports = StubTagEditor;
-
-/***/ },
 /* 82 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -9471,7 +9475,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require = __webpack_require__(14), StyleSheet = _require.StyleSheet, css = _require.css;
 
-	var constants = __webpack_require__(41);
+	var constants = __webpack_require__(42);
 
 	var Lint = React.createClass({
 	    displayName: "Lint",
@@ -9733,7 +9737,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* eslint-disable object-curly-spacing */
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var _require = __webpack_require__(41), interactiveSizes = _require.interactiveSizes;
+	var _require = __webpack_require__(42), interactiveSizes = _require.interactiveSizes;
 
 	// Note: these size cutoffs represent content-width cutoffs as
 	// specified in http://zpl.io/1mVmvU
@@ -9807,7 +9811,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(10);
 
-	var ApiClassNames = __webpack_require__(18).ClassNames;
+	var ApiClassNames = __webpack_require__(17).ClassNames;
 
 	var MathInput = __webpack_require__(94);
 
@@ -9817,11 +9821,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var MathOutput = __webpack_require__(121);
 
-	var Gorgon = __webpack_require__(34);
+	var Gorgon = __webpack_require__(35);
 
-	var _require = __webpack_require__(35), linterContextProps = _require.linterContextProps, linterContextDefault = _require.linterContextDefault;
+	var _require = __webpack_require__(36), linterContextProps = _require.linterContextProps, linterContextDefault = _require.linterContextDefault;
 
-	var captureScratchpadTouchStart = __webpack_require__(17).captureScratchpadTouchStart;
+	var captureScratchpadTouchStart = __webpack_require__(18).captureScratchpadTouchStart;
 
 	var MATH = "math";
 
@@ -10935,7 +10939,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(10);
 
-	var WIDGET_PROP_BLACKLIST = __webpack_require__(136);
+	var WIDGET_PROP_BLACKLIST = __webpack_require__(129);
 
 	var USAGE = 'Usage:\n  this.change({propName: 5}, callback);\n  this.change("propName", 5, callback);\n  this.change("propName")';
 
@@ -12259,7 +12263,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(11);
 
-	var _require = __webpack_require__(41), negativePhoneMargin = _require.negativePhoneMargin;
+	var _require = __webpack_require__(42), negativePhoneMargin = _require.negativePhoneMargin;
 
 	var MIN_VIEWPORT_HEIGHT = 480;
 
@@ -12366,9 +12370,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var GraphieMovable = GraphieClasses.GraphieMovable;
 
-	var deepEq = __webpack_require__(17).deepEq;
+	var deepEq = __webpack_require__(18).deepEq;
 
-	var nestedMap = __webpack_require__(17).nestedMap;
+	var nestedMap = __webpack_require__(18).nestedMap;
 
 	var assert = __webpack_require__(122).assert;
 
@@ -13476,11 +13480,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var PassageRef = __webpack_require__(69);
 
-	var Util = __webpack_require__(17);
+	var Util = __webpack_require__(18);
 
 	var BaseRadio = __webpack_require__(143);
 
-	var _require = __webpack_require__(35), linterContextProps = _require.linterContextProps, linterContextDefault = _require.linterContextDefault;
+	var _require = __webpack_require__(36), linterContextProps = _require.linterContextProps, linterContextDefault = _require.linterContextDefault;
 
 	var Radio = React.createClass({
 	    displayName: "Radio",
@@ -14230,7 +14234,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * just returns all the widget's props rather than picking out those which were
 	 * input by the user.
 	 */
-	var WIDGET_PROP_BLACKLIST = __webpack_require__(136);
+	var WIDGET_PROP_BLACKLIST = __webpack_require__(129);
 
 	var _ = __webpack_require__(10);
 
@@ -14501,9 +14505,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * To use the utilities exported from interactive.js, require that file
 	 * itself.
 	 */
-	var GraphUtils = __webpack_require__(183);
+	var GraphUtils = __webpack_require__(182);
 
-	__webpack_require__(184);
+	__webpack_require__(183);
 
 	// For side effects
 	module.exports = GraphUtils;
@@ -14601,7 +14605,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var TeX = __webpack_require__(47);
 
-	var ApiClassNames = __webpack_require__(18).ClassNames;
+	var ApiClassNames = __webpack_require__(17).ClassNames;
 
 	var ModifyTex = __webpack_require__(87).modifyTex;
 
@@ -14805,152 +14809,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 125 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* TODO batch *all* mutations
-	 * idea: freeze / thaw implementations for all types
-	 * lens constructor thaws, freeze delegates to type's freeze
-	 */
-
-	var util = __webpack_require__(186);
-	    var clone = util.clone;
-	    var isObject = util.isObject;
-	    var merge = util.merge;
-
-	var arr = __webpack_require__(187);
-	var obj = __webpack_require__(188);
-	var str = __webpack_require__(189);
-
-	// equivalents, without requiring it
-	// find the implementation to use for a given object
-	var dispatch = function(x) {
-	    if (Array.isArray(x)) {
-	        return arr;
-	    } else if (isObject(x)) {
-	        return obj;
-	    } else if (typeof x === "string") {
-	        return str;
-	    }
-	};
-
-	// This is underscore with a different name
-	var lens = function(obj) {
-	    if (obj instanceof lens) {
-	        return obj;
-	    }
-
-	    if (!(this instanceof lens)) {
-	        return new lens(obj);
-	    }
-
-	    var ops = dispatch(obj);
-	    this._wrapped = ops.thaw ? ops.thaw(obj) : obj;
-	};
-
-	lens.prototype.freeze = function() {
-	    var obj = this._wrapped;
-	    var ops = dispatch(obj);
-
-	    return ops.freeze ? ops.freeze(obj) : obj;
-	};
-
-	lens.prototype.zoom = function(lensArr) {
-	    if (this._zoomStack === undefined) {
-	        this._zoomStack = [];
-	    }
-
-	    this._zoomStack.push({
-	        zoom: lensArr,
-	        wrapped: this._wrapped
-	    });
-	    this._wrapped = lens(this._wrapped).get(lensArr);
-
-	    return this;
-	};
-
-	lens.prototype.deZoom = function() {
-	    var frame = this._zoomStack.pop();
-	    this._wrapped = lens(frame.wrapped)
-	        .set(frame.zoom, this._wrapped)
-	        .freeze();
-
-	    return this;
-	};
-
-	lens.prototype.get = function(lensArr) {
-	    var obj = this._wrapped;
-
-	    for (var i = 0; i < lensArr.length; i++) {
-	        obj = dispatch(obj).get(obj, lensArr[i]);
-	    }
-
-	    return obj;
-	};
-
-	lens.prototype.mod = function(lensArr, f) {
-	    var obj = this._wrapped;
-	    var newObj = clone(obj);
-	    var ops = dispatch(obj);
-
-	    if (lensArr.length === 0) {
-	        this._wrapped = f(this._wrapped);
-	    } else if (lensArr.length === 1) {
-	        this._wrapped = ops.mod(newObj, lensArr[0], f);
-	    } else {
-	        var monocle = lensArr[0];
-	        var shortLens = lensArr.slice(1);
-
-	        // newObj = ops.mod(obj[monocle], shortLens, f);
-
-	        newObj[monocle] = lens(obj[monocle])
-	            .mod(shortLens, f)
-	            .freeze();
-	        this._wrapped = newObj;
-	    }
-
-	    return this;
-	};
-
-	// TODO - move to individual files
-	lens.prototype.merge = function(lensArr, props) {
-	    this._wrapped = lens(this._wrapped).mod(lensArr, function(oldProps) {
-	        return merge(oldProps, props);
-	    }).freeze();
-
-	    return this;
-	};
-
-	// Lens must have length >= 1 or there would be nothing to return
-	lens.prototype.del = function(lensArr) {
-	    var obj = this._wrapped;
-	    var ops = dispatch(obj);
-
-	    if (lensArr.length === 1) {
-	        this._wrapped = ops.del(obj, lensArr[0]);
-	    } else {
-	        var monocle = lensArr[0];
-	        var shortLens = lensArr.slice(1);
-	        var newObj = clone(obj);
-
-	        newObj[monocle] = lens(obj[monocle])
-	            .del(shortLens)
-	            .freeze();
-
-	        this._wrapped = newObj;
-	    }
-
-	    return this;
-	};
-
-	lens.prototype.set = function(lensArr, set) {
-	    return this.mod(lensArr, function() { return set; });
-	};
-
-	module.exports = lens;
-
-
-/***/ },
-/* 126 */
-/***/ function(module, exports, __webpack_require__) {
-
 	/* eslint-disable react/forbid-prop-types, react/sort-comp */
 	var React = __webpack_require__(11);
 
@@ -15067,7 +14925,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = TextListEditor;
 
 /***/ },
-/* 127 */
+/* 126 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/* @flow */
@@ -16449,6 +16307,152 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
+/* 127 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO batch *all* mutations
+	 * idea: freeze / thaw implementations for all types
+	 * lens constructor thaws, freeze delegates to type's freeze
+	 */
+
+	var util = __webpack_require__(186);
+	    var clone = util.clone;
+	    var isObject = util.isObject;
+	    var merge = util.merge;
+
+	var arr = __webpack_require__(187);
+	var obj = __webpack_require__(188);
+	var str = __webpack_require__(189);
+
+	// equivalents, without requiring it
+	// find the implementation to use for a given object
+	var dispatch = function(x) {
+	    if (Array.isArray(x)) {
+	        return arr;
+	    } else if (isObject(x)) {
+	        return obj;
+	    } else if (typeof x === "string") {
+	        return str;
+	    }
+	};
+
+	// This is underscore with a different name
+	var lens = function(obj) {
+	    if (obj instanceof lens) {
+	        return obj;
+	    }
+
+	    if (!(this instanceof lens)) {
+	        return new lens(obj);
+	    }
+
+	    var ops = dispatch(obj);
+	    this._wrapped = ops.thaw ? ops.thaw(obj) : obj;
+	};
+
+	lens.prototype.freeze = function() {
+	    var obj = this._wrapped;
+	    var ops = dispatch(obj);
+
+	    return ops.freeze ? ops.freeze(obj) : obj;
+	};
+
+	lens.prototype.zoom = function(lensArr) {
+	    if (this._zoomStack === undefined) {
+	        this._zoomStack = [];
+	    }
+
+	    this._zoomStack.push({
+	        zoom: lensArr,
+	        wrapped: this._wrapped
+	    });
+	    this._wrapped = lens(this._wrapped).get(lensArr);
+
+	    return this;
+	};
+
+	lens.prototype.deZoom = function() {
+	    var frame = this._zoomStack.pop();
+	    this._wrapped = lens(frame.wrapped)
+	        .set(frame.zoom, this._wrapped)
+	        .freeze();
+
+	    return this;
+	};
+
+	lens.prototype.get = function(lensArr) {
+	    var obj = this._wrapped;
+
+	    for (var i = 0; i < lensArr.length; i++) {
+	        obj = dispatch(obj).get(obj, lensArr[i]);
+	    }
+
+	    return obj;
+	};
+
+	lens.prototype.mod = function(lensArr, f) {
+	    var obj = this._wrapped;
+	    var newObj = clone(obj);
+	    var ops = dispatch(obj);
+
+	    if (lensArr.length === 0) {
+	        this._wrapped = f(this._wrapped);
+	    } else if (lensArr.length === 1) {
+	        this._wrapped = ops.mod(newObj, lensArr[0], f);
+	    } else {
+	        var monocle = lensArr[0];
+	        var shortLens = lensArr.slice(1);
+
+	        // newObj = ops.mod(obj[monocle], shortLens, f);
+
+	        newObj[monocle] = lens(obj[monocle])
+	            .mod(shortLens, f)
+	            .freeze();
+	        this._wrapped = newObj;
+	    }
+
+	    return this;
+	};
+
+	// TODO - move to individual files
+	lens.prototype.merge = function(lensArr, props) {
+	    this._wrapped = lens(this._wrapped).mod(lensArr, function(oldProps) {
+	        return merge(oldProps, props);
+	    }).freeze();
+
+	    return this;
+	};
+
+	// Lens must have length >= 1 or there would be nothing to return
+	lens.prototype.del = function(lensArr) {
+	    var obj = this._wrapped;
+	    var ops = dispatch(obj);
+
+	    if (lensArr.length === 1) {
+	        this._wrapped = ops.del(obj, lensArr[0]);
+	    } else {
+	        var monocle = lensArr[0];
+	        var shortLens = lensArr.slice(1);
+	        var newObj = clone(obj);
+
+	        newObj[monocle] = lens(obj[monocle])
+	            .del(shortLens)
+	            .freeze();
+
+	        this._wrapped = newObj;
+	    }
+
+	    return this;
+	};
+
+	lens.prototype.set = function(lensArr, set) {
+	    return this.mod(lensArr, function() { return set; });
+	};
+
+	module.exports = lens;
+
+
+/***/ },
 /* 128 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -16518,14 +16522,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 129 */,
-/* 130 */,
-/* 131 */,
-/* 132 */,
-/* 133 */,
-/* 134 */,
-/* 135 */,
-/* 136 */
+/* 129 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -16549,6 +16546,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	"onBlur", "onFocus", "trackInteraction", "keypadElement" ];
 
 /***/ },
+/* 130 */,
+/* 131 */,
+/* 132 */,
+/* 133 */,
+/* 134 */,
+/* 135 */,
+/* 136 */,
 /* 137 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -17057,7 +17061,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 138 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Util = __webpack_require__(17);
+	var Util = __webpack_require__(18);
 
 	var nestedMap = Util.nestedMap;
 
@@ -18298,17 +18302,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(10);
 
-	var ApiClassNames = __webpack_require__(18).ClassNames;
+	var ApiClassNames = __webpack_require__(17).ClassNames;
 
 	var Renderer = __webpack_require__(8);
 
-	var sharedStyles = __webpack_require__(40);
+	var sharedStyles = __webpack_require__(41);
 
-	var styleConstants = __webpack_require__(41);
+	var styleConstants = __webpack_require__(42);
 
-	var mediaQueries = __webpack_require__(39);
+	var mediaQueries = __webpack_require__(40);
 
-	var captureScratchpadTouchStart = __webpack_require__(17).captureScratchpadTouchStart;
+	var captureScratchpadTouchStart = __webpack_require__(18).captureScratchpadTouchStart;
 
 	var Choice = __webpack_require__(199);
 
@@ -19743,7 +19747,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var InteractiveUtil = __webpack_require__(122);
 
-	var objective_ = __webpack_require__(36);
+	var objective_ = __webpack_require__(34);
 
 	var assert = InteractiveUtil.assert;
 
@@ -20136,7 +20140,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var InteractiveUtil = __webpack_require__(122);
 
-	var objective_ = __webpack_require__(36);
+	var objective_ = __webpack_require__(34);
 
 	var assert = InteractiveUtil.assert;
 
@@ -20362,7 +20366,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var InteractiveUtil = __webpack_require__(122);
 
-	var objective_ = __webpack_require__(36);
+	var objective_ = __webpack_require__(34);
 
 	var assert = InteractiveUtil.assert;
 
@@ -20621,7 +20625,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var InteractiveUtil = __webpack_require__(122);
 
-	var objective_ = __webpack_require__(36);
+	var objective_ = __webpack_require__(34);
 
 	var kvector = __webpack_require__(175).vector;
 
@@ -20677,8 +20681,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = WrappedDefaults;
 
 /***/ },
-/* 182 */,
-/* 183 */
+/* 182 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function(target) {
@@ -21611,7 +21614,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = GraphUtils;
 
 /***/ },
-/* 184 */
+/* 183 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _typeof = "function" === typeof Symbol && "symbol" === typeof Symbol.iterator ? function(obj) {
@@ -21634,7 +21637,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	__webpack_require__(218);
 
 	/* global Raphael:false */
-	var GraphUtils = __webpack_require__(183);
+	var GraphUtils = __webpack_require__(182);
 
 	var kvector = __webpack_require__(175).vector;
 
@@ -24090,6 +24093,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = InteractiveUtils;
 
 /***/ },
+/* 184 */,
 /* 185 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -25716,13 +25720,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var classNames = __webpack_require__(13);
 
-	var _require2 = __webpack_require__(18), ClassNames = _require2.ClassNames;
+	var _require2 = __webpack_require__(17), ClassNames = _require2.ClassNames;
 
-	var sharedStyles = __webpack_require__(40);
+	var sharedStyles = __webpack_require__(41);
 
-	var styleConstants = __webpack_require__(41);
+	var styleConstants = __webpack_require__(42);
 
-	var mediaQueries = __webpack_require__(39);
+	var mediaQueries = __webpack_require__(40);
 
 	var ToggleableRadioButton = __webpack_require__(227);
 
@@ -32637,9 +32641,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require2 = __webpack_require__(205), View = _require2.View;
 
-	var Keypad = __webpack_require__(240);
+	var Keypad = __webpack_require__(243);
 
-	var TouchableKeypadButton = __webpack_require__(241);
+	var TouchableKeypadButton = __webpack_require__(242);
 
 	var _require3 = __webpack_require__(224), row = _require3.row, roundedTopLeft = _require3.roundedTopLeft, roundedTopRight = _require3.roundedTopRight;
 
@@ -32821,11 +32825,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require3 = __webpack_require__(205), View = _require3.View;
 
-	var TwoPageKeypad = __webpack_require__(242);
+	var TwoPageKeypad = __webpack_require__(240);
 
-	var ManyKeypadButton = __webpack_require__(243);
+	var ManyKeypadButton = __webpack_require__(241);
 
-	var TouchableKeypadButton = __webpack_require__(241);
+	var TouchableKeypadButton = __webpack_require__(242);
 
 	var _require4 = __webpack_require__(224), row = _require4.row, column = _require4.column, oneColumn = _require4.oneColumn, fullWidth = _require4.fullWidth, roundedTopLeft = _require4.roundedTopLeft, roundedTopRight = _require4.roundedTopRight;
 
@@ -33113,7 +33117,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require2 = __webpack_require__(205), View = _require2.View;
 
-	var TouchableKeypadButton = __webpack_require__(241);
+	var TouchableKeypadButton = __webpack_require__(242);
 
 	var _require3 = __webpack_require__(224), row = _require3.row, column = _require3.column, centered = _require3.centered, stretch = _require3.stretch, roundedTopLeft = _require3.roundedTopLeft;
 
@@ -33510,7 +33514,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require = __webpack_require__(14), StyleSheet = _require.StyleSheet, css = _require.css;
 
-	var styleConstants = __webpack_require__(41);
+	var styleConstants = __webpack_require__(42);
 
 	var _require2 = __webpack_require__(90), iconCheck = _require2.iconCheck, iconMinus = _require2.iconMinus;
 
@@ -33840,7 +33844,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require = __webpack_require__(14), StyleSheet = _require.StyleSheet, css = _require.css;
 
-	var styleConstants = __webpack_require__(41);
+	var styleConstants = __webpack_require__(42);
 
 	var OptionStatus = function(_React$Component) {
 	    _inherits(OptionStatus, _React$Component);
@@ -34238,7 +34242,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Velocity is computed by smoothing linearly over the gestures that have
 	 * occurred in the last 100 milliseconds.
 	 */
-	var now = __webpack_require__(264);
+	var now = __webpack_require__(259);
 
 	var VelocityTracker = function() {
 	    function VelocityTracker(options) {
@@ -34520,6 +34524,379 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
+	function _classCallCheck(instance, Constructor) {
+	    if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
+	}
+
+	function _possibleConstructorReturn(self, call) {
+	    if (!self) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	    return !call || "object" !== typeof call && "function" !== typeof call ? self : call;
+	}
+
+	function _inherits(subClass, superClass) {
+	    if ("function" !== typeof superClass && null !== superClass) throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+	    subClass.prototype = Object.create(superClass && superClass.prototype, {
+	        constructor: {
+	            value: subClass,
+	            enumerable: false,
+	            writable: true,
+	            configurable: true
+	        }
+	    });
+	    superClass && (Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass);
+	}
+
+	/**
+	 * A keypad with two pages of keys.
+	 */
+	var React = __webpack_require__(11);
+
+	var _require = __webpack_require__(239), connect = _require.connect;
+
+	var _require2 = __webpack_require__(14), StyleSheet = _require2.StyleSheet;
+
+	var Keypad = __webpack_require__(243);
+
+	var ViewPager = __webpack_require__(253);
+
+	var PagerIndicator = __webpack_require__(254);
+
+	var _require3 = __webpack_require__(205), View = _require3.View;
+
+	var _require4 = __webpack_require__(224), column = _require4.column, row = _require4.row, fullWidth = _require4.fullWidth;
+
+	var _require5 = __webpack_require__(198), innerBorderColor = _require5.innerBorderColor, innerBorderStyle = _require5.innerBorderStyle, innerBorderWidthPx = _require5.innerBorderWidthPx, gray85 = _require5.gray85;
+
+	var TwoPageKeypad = function(_React$Component) {
+	    _inherits(TwoPageKeypad, _React$Component);
+	    function TwoPageKeypad() {
+	        _classCallCheck(this, TwoPageKeypad);
+	        return _possibleConstructorReturn(this, _React$Component.apply(this, arguments));
+	    }
+	    TwoPageKeypad.prototype.render = function render() {
+	        var _props = this.props, currentPage = _props.currentPage, leftPage = _props.leftPage, paginationEnabled = _props.paginationEnabled, rightPage = _props.rightPage;
+	        return paginationEnabled ? React.createElement(Keypad, {
+	            style: [ column, styles.keypad ]
+	        }, React.createElement(PagerIndicator, {
+	            numPages: 2,
+	            currentPage: currentPage
+	        }), React.createElement(View, {
+	            style: styles.borderTop
+	        }, React.createElement(ViewPager, null, leftPage, rightPage))) : React.createElement(Keypad, {
+	            style: styles.keypad
+	        }, React.createElement(View, {
+	            style: row
+	        }, React.createElement(View, {
+	            style: fullWidth
+	        }, leftPage), React.createElement(View, {
+	            style: [ styles.borderLeft, fullWidth ]
+	        }, rightPage)));
+	    };
+	    return TwoPageKeypad;
+	}(React.Component);
+
+	TwoPageKeypad.propTypes = {
+	    currentPage: React.PropTypes.oneOf([ 0, 1 ]).isRequired,
+	    leftPage: React.PropTypes.node.isRequired,
+	    paginationEnabled: React.PropTypes.bool.isRequired,
+	    rightPage: React.PropTypes.node.isRequired
+	};
+
+	var styles = StyleSheet.create({
+	    keypad: {
+	        // Set the background to light grey, so that when the user drags the
+	        // keypad pages past the edges, there's a grey backdrop.
+	        backgroundColor: gray85
+	    },
+	    borderTop: {
+	        borderTop: innerBorderWidthPx + "px " + innerBorderStyle + " " + innerBorderColor
+	    },
+	    borderLeft: {
+	        borderLeft: innerBorderWidthPx + "px " + innerBorderStyle + " " + innerBorderColor,
+	        boxSizing: "content-box"
+	    }
+	});
+
+	var mapStateToProps = function mapStateToProps(state) {
+	    return {
+	        paginationEnabled: state.layout.paginationEnabled
+	    };
+	};
+
+	module.exports = connect(mapStateToProps)(TwoPageKeypad);
+
+/***/ },
+/* 241 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _extends = Object.assign || function(target) {
+	    for (var i = 1; i < arguments.length; i++) {
+	        var source = arguments[i];
+	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
+	    }
+	    return target;
+	};
+
+	function _objectWithoutProperties(obj, keys) {
+	    var target = {};
+	    for (var i in obj) {
+	        if (keys.indexOf(i) >= 0) continue;
+	        if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
+	        target[i] = obj[i];
+	    }
+	    return target;
+	}
+
+	function _classCallCheck(instance, Constructor) {
+	    if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
+	}
+
+	function _possibleConstructorReturn(self, call) {
+	    if (!self) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	    return !call || "object" !== typeof call && "function" !== typeof call ? self : call;
+	}
+
+	function _inherits(subClass, superClass) {
+	    if ("function" !== typeof superClass && null !== superClass) throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+	    subClass.prototype = Object.create(superClass && superClass.prototype, {
+	        constructor: {
+	            value: subClass,
+	            enumerable: false,
+	            writable: true,
+	            configurable: true
+	        }
+	    });
+	    superClass && (Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass);
+	}
+
+	/**
+	 * A keypad button that displays an arbitrary number of symbols, with no
+	 * 'default' symbol.
+	 */
+	var React = __webpack_require__(11);
+
+	var EmptyKeypadButton = __webpack_require__(255);
+
+	var TouchableKeypadButton = __webpack_require__(242);
+
+	var Keys = __webpack_require__(225);
+
+	var KeyConfigs = __webpack_require__(204);
+
+	var _require = __webpack_require__(128), KeyTypes = _require.KeyTypes;
+
+	var _require2 = __webpack_require__(141), keyIdPropType = _require2.keyIdPropType;
+
+	var ManyKeypadButton = function(_React$Component) {
+	    _inherits(ManyKeypadButton, _React$Component);
+	    function ManyKeypadButton() {
+	        _classCallCheck(this, ManyKeypadButton);
+	        return _possibleConstructorReturn(this, _React$Component.apply(this, arguments));
+	    }
+	    ManyKeypadButton.prototype.render = function render() {
+	        var _props = this.props, keys = _props.keys, rest = _objectWithoutProperties(_props, [ "keys" ]);
+	        // If we have no extra symbols, render an empty button. If we have just
+	        // one, render a standard button. Otherwise, capture them all in a
+	        // single button.
+	        if (0 === keys.length) return React.createElement(EmptyKeypadButton, rest);
+	        if (1 === keys.length) {
+	            var keyConfig = KeyConfigs[keys[0]];
+	            return React.createElement(TouchableKeypadButton, _extends({
+	                keyConfig: keyConfig
+	            }, rest));
+	        }
+	        var _keyConfig = {
+	            id: Keys.MANY,
+	            type: KeyTypes.MANY,
+	            childKeyIds: keys
+	        };
+	        return React.createElement(TouchableKeypadButton, _extends({
+	            keyConfig: _keyConfig
+	        }, rest));
+	    };
+	    return ManyKeypadButton;
+	}(React.Component);
+
+	ManyKeypadButton.propTypes = {
+	    keys: React.PropTypes.arrayOf(keyIdPropType).isRequired
+	};
+
+	module.exports = ManyKeypadButton;
+
+/***/ },
+/* 242 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _extends = Object.assign || function(target) {
+	    for (var i = 1; i < arguments.length; i++) {
+	        var source = arguments[i];
+	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
+	    }
+	    return target;
+	};
+
+	function _objectWithoutProperties(obj, keys) {
+	    var target = {};
+	    for (var i in obj) {
+	        if (keys.indexOf(i) >= 0) continue;
+	        if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
+	        target[i] = obj[i];
+	    }
+	    return target;
+	}
+
+	function _classCallCheck(instance, Constructor) {
+	    if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
+	}
+
+	function _possibleConstructorReturn(self, call) {
+	    if (!self) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	    return !call || "object" !== typeof call && "function" !== typeof call ? self : call;
+	}
+
+	function _inherits(subClass, superClass) {
+	    if ("function" !== typeof superClass && null !== superClass) throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+	    subClass.prototype = Object.create(superClass && superClass.prototype, {
+	        constructor: {
+	            value: subClass,
+	            enumerable: false,
+	            writable: true,
+	            configurable: true
+	        }
+	    });
+	    superClass && (Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass);
+	}
+
+	/**
+	 * A touchable wrapper around the base KeypadButton component. This button is
+	 * responsible for keeping our button ID system (which will be used to handle
+	 * touch events globally) opaque to the KeypadButton.
+	 */
+	var React = __webpack_require__(11);
+
+	var ReactDOM = __webpack_require__(12);
+
+	var _require = __webpack_require__(239), connect = _require.connect;
+
+	var _require2 = __webpack_require__(14), StyleSheet = _require2.StyleSheet;
+
+	var KeypadButton = __webpack_require__(256);
+
+	var KeyConfigs = __webpack_require__(204);
+
+	var GestureManager = __webpack_require__(235);
+
+	var _require3 = __webpack_require__(141), bordersPropType = _require3.bordersPropType, keyIdPropType = _require3.keyIdPropType;
+
+	var _require4 = __webpack_require__(128), KeyTypes = _require4.KeyTypes;
+
+	var TouchableKeypadButton = function(_React$Component) {
+	    _inherits(TouchableKeypadButton, _React$Component);
+	    function TouchableKeypadButton() {
+	        _classCallCheck(this, TouchableKeypadButton);
+	        return _possibleConstructorReturn(this, _React$Component.apply(this, arguments));
+	    }
+	    TouchableKeypadButton.prototype.shouldComponentUpdate = function shouldComponentUpdate(newProps) {
+	        // We take advantage of a few different properties of our key
+	        // configuration system. Namely, we know that the other props flow
+	        // directly from the ID, and thus don't need to be checked. If a key has
+	        // a custom style, we bail out (this should be rare).
+	        return newProps.id !== this.props.id || newProps.gestureManager !== this.props.gestureManager || newProps.focused !== this.props.focused || newProps.disabled !== this.props.disabled || newProps.popoverEnabled !== this.props.popoverEnabled || newProps.type !== this.props.type || !!newProps.style;
+	    };
+	    TouchableKeypadButton.prototype.componentWillUnmount = function componentWillUnmount() {
+	        var _props = this.props, gestureManager = _props.gestureManager, id = _props.id;
+	        gestureManager.unregisterDOMNode(id);
+	    };
+	    TouchableKeypadButton.prototype.render = function render() {
+	        var _props2 = this.props, borders = _props2.borders, childKeyIds = _props2.childKeyIds, disabled = _props2.disabled, gestureManager = _props2.gestureManager, id = _props2.id, style = _props2.style, rest = _objectWithoutProperties(_props2, [ "borders", "childKeyIds", "disabled", "gestureManager", "id", "style" ]);
+	        // Only bind the relevant event handlers if the key is enabled.
+	        var eventHandlers = disabled ? {
+	            onTouchStart: function onTouchStart(evt) {
+	                return evt.preventDefault();
+	            }
+	        } : {
+	            onTouchStart: function onTouchStart(evt) {
+	                return gestureManager.onTouchStart(evt, id);
+	            },
+	            onTouchEnd: function onTouchEnd(evt) {
+	                return gestureManager.onTouchEnd(evt);
+	            },
+	            onTouchMove: function onTouchMove(evt) {
+	                return gestureManager.onTouchMove(evt);
+	            },
+	            onTouchCancel: function onTouchCancel(evt) {
+	                return gestureManager.onTouchCancel(evt);
+	            }
+	        };
+	        var styleWithAddons = [].concat(Array.isArray(style) ? style : [ style ], [ styles.preventScrolls ]);
+	        return React.createElement(KeypadButton, _extends({
+	            ref: function ref(node) {
+	                return gestureManager.registerDOMNode(id, ReactDOM.findDOMNode(node), childKeyIds, borders);
+	            },
+	            borders: borders,
+	            disabled: disabled,
+	            style: styleWithAddons
+	        }, eventHandlers, rest));
+	    };
+	    return TouchableKeypadButton;
+	}(React.Component);
+
+	TouchableKeypadButton.propTypes = {
+	    borders: bordersPropType,
+	    childKeyIds: React.PropTypes.arrayOf(keyIdPropType),
+	    disabled: React.PropTypes.bool,
+	    focused: React.PropTypes.bool,
+	    gestureManager: React.PropTypes.instanceOf(GestureManager),
+	    id: keyIdPropType.isRequired,
+	    popoverEnabled: React.PropTypes.bool,
+	    style: React.PropTypes.any,
+	    type: React.PropTypes.oneOf(Object.keys(KeyTypes)).isRequired
+	};
+
+	var extractProps = function extractProps(keyConfig) {
+	    return {
+	        ariaLabel: keyConfig.ariaLabel,
+	        icon: keyConfig.icon,
+	        type: keyConfig.type
+	    };
+	};
+
+	var mapStateToProps = function mapStateToProps(state, ownProps) {
+	    var gestures = state.gestures;
+	    var keyConfig = ownProps.keyConfig, rest = _objectWithoutProperties(ownProps, [ "keyConfig" ]);
+	    var id = keyConfig.id, childKeyIds = keyConfig.childKeyIds, type = keyConfig.type;
+	    var childKeys = childKeyIds && childKeyIds.map(function(id) {
+	        return KeyConfigs[id];
+	    });
+	    // Override with the default child props, if the key is a multi-symbol key
+	    // (but not a many-symbol key, which operates under different rules).
+	    var useFirstChildProps = type !== KeyTypes.MANY && childKeys && childKeys.length > 0;
+	    return _extends({}, rest, {
+	        childKeyIds: childKeyIds,
+	        gestureManager: gestures.gestureManager,
+	        id: id,
+	        // Add in some gesture state.
+	        focused: gestures.focus === id,
+	        popoverEnabled: gestures.popover && gestures.popover.parentId === id,
+	        // Pass down the child keys and any extracted props.
+	        childKeys: childKeys
+	    }, extractProps(useFirstChildProps ? childKeys[0] : keyConfig));
+	};
+
+	var styles = StyleSheet.create({
+	    preventScrolls: {
+	        // Touch events that start in the touchable buttons shouldn't be
+	        // allowed to produce page scrolls.
+	        touchAction: "none"
+	    }
+	});
+
+	module.exports = connect(mapStateToProps)(TouchableKeypadButton);
+
+/***/ },
+/* 243 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var _extends = Object.assign || function(target) {
 	    for (var i = 1; i < arguments.length; i++) {
 	        var source = arguments[i];
@@ -34574,9 +34951,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require3 = __webpack_require__(205), View = _require3.View;
 
-	var EchoManager = __webpack_require__(253);
+	var EchoManager = __webpack_require__(257);
 
-	var PopoverManager = __webpack_require__(254);
+	var PopoverManager = __webpack_require__(258);
 
 	var _require4 = __webpack_require__(141), echoPropType = _require4.echoPropType, popoverPropType = _require4.popoverPropType;
 
@@ -34699,379 +35076,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = connect(mapStateToProps, mapDispatchToProps)(Keypad);
 
 /***/ },
-/* 241 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _extends = Object.assign || function(target) {
-	    for (var i = 1; i < arguments.length; i++) {
-	        var source = arguments[i];
-	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
-	    }
-	    return target;
-	};
-
-	function _objectWithoutProperties(obj, keys) {
-	    var target = {};
-	    for (var i in obj) {
-	        if (keys.indexOf(i) >= 0) continue;
-	        if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
-	        target[i] = obj[i];
-	    }
-	    return target;
-	}
-
-	function _classCallCheck(instance, Constructor) {
-	    if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
-	}
-
-	function _possibleConstructorReturn(self, call) {
-	    if (!self) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-	    return !call || "object" !== typeof call && "function" !== typeof call ? self : call;
-	}
-
-	function _inherits(subClass, superClass) {
-	    if ("function" !== typeof superClass && null !== superClass) throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-	    subClass.prototype = Object.create(superClass && superClass.prototype, {
-	        constructor: {
-	            value: subClass,
-	            enumerable: false,
-	            writable: true,
-	            configurable: true
-	        }
-	    });
-	    superClass && (Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass);
-	}
-
-	/**
-	 * A touchable wrapper around the base KeypadButton component. This button is
-	 * responsible for keeping our button ID system (which will be used to handle
-	 * touch events globally) opaque to the KeypadButton.
-	 */
-	var React = __webpack_require__(11);
-
-	var ReactDOM = __webpack_require__(12);
-
-	var _require = __webpack_require__(239), connect = _require.connect;
-
-	var _require2 = __webpack_require__(14), StyleSheet = _require2.StyleSheet;
-
-	var KeypadButton = __webpack_require__(255);
-
-	var KeyConfigs = __webpack_require__(204);
-
-	var GestureManager = __webpack_require__(235);
-
-	var _require3 = __webpack_require__(141), bordersPropType = _require3.bordersPropType, keyIdPropType = _require3.keyIdPropType;
-
-	var _require4 = __webpack_require__(128), KeyTypes = _require4.KeyTypes;
-
-	var TouchableKeypadButton = function(_React$Component) {
-	    _inherits(TouchableKeypadButton, _React$Component);
-	    function TouchableKeypadButton() {
-	        _classCallCheck(this, TouchableKeypadButton);
-	        return _possibleConstructorReturn(this, _React$Component.apply(this, arguments));
-	    }
-	    TouchableKeypadButton.prototype.shouldComponentUpdate = function shouldComponentUpdate(newProps) {
-	        // We take advantage of a few different properties of our key
-	        // configuration system. Namely, we know that the other props flow
-	        // directly from the ID, and thus don't need to be checked. If a key has
-	        // a custom style, we bail out (this should be rare).
-	        return newProps.id !== this.props.id || newProps.gestureManager !== this.props.gestureManager || newProps.focused !== this.props.focused || newProps.disabled !== this.props.disabled || newProps.popoverEnabled !== this.props.popoverEnabled || newProps.type !== this.props.type || !!newProps.style;
-	    };
-	    TouchableKeypadButton.prototype.componentWillUnmount = function componentWillUnmount() {
-	        var _props = this.props, gestureManager = _props.gestureManager, id = _props.id;
-	        gestureManager.unregisterDOMNode(id);
-	    };
-	    TouchableKeypadButton.prototype.render = function render() {
-	        var _props2 = this.props, borders = _props2.borders, childKeyIds = _props2.childKeyIds, disabled = _props2.disabled, gestureManager = _props2.gestureManager, id = _props2.id, style = _props2.style, rest = _objectWithoutProperties(_props2, [ "borders", "childKeyIds", "disabled", "gestureManager", "id", "style" ]);
-	        // Only bind the relevant event handlers if the key is enabled.
-	        var eventHandlers = disabled ? {
-	            onTouchStart: function onTouchStart(evt) {
-	                return evt.preventDefault();
-	            }
-	        } : {
-	            onTouchStart: function onTouchStart(evt) {
-	                return gestureManager.onTouchStart(evt, id);
-	            },
-	            onTouchEnd: function onTouchEnd(evt) {
-	                return gestureManager.onTouchEnd(evt);
-	            },
-	            onTouchMove: function onTouchMove(evt) {
-	                return gestureManager.onTouchMove(evt);
-	            },
-	            onTouchCancel: function onTouchCancel(evt) {
-	                return gestureManager.onTouchCancel(evt);
-	            }
-	        };
-	        var styleWithAddons = [].concat(Array.isArray(style) ? style : [ style ], [ styles.preventScrolls ]);
-	        return React.createElement(KeypadButton, _extends({
-	            ref: function ref(node) {
-	                return gestureManager.registerDOMNode(id, ReactDOM.findDOMNode(node), childKeyIds, borders);
-	            },
-	            borders: borders,
-	            disabled: disabled,
-	            style: styleWithAddons
-	        }, eventHandlers, rest));
-	    };
-	    return TouchableKeypadButton;
-	}(React.Component);
-
-	TouchableKeypadButton.propTypes = {
-	    borders: bordersPropType,
-	    childKeyIds: React.PropTypes.arrayOf(keyIdPropType),
-	    disabled: React.PropTypes.bool,
-	    focused: React.PropTypes.bool,
-	    gestureManager: React.PropTypes.instanceOf(GestureManager),
-	    id: keyIdPropType.isRequired,
-	    popoverEnabled: React.PropTypes.bool,
-	    style: React.PropTypes.any,
-	    type: React.PropTypes.oneOf(Object.keys(KeyTypes)).isRequired
-	};
-
-	var extractProps = function extractProps(keyConfig) {
-	    return {
-	        ariaLabel: keyConfig.ariaLabel,
-	        icon: keyConfig.icon,
-	        type: keyConfig.type
-	    };
-	};
-
-	var mapStateToProps = function mapStateToProps(state, ownProps) {
-	    var gestures = state.gestures;
-	    var keyConfig = ownProps.keyConfig, rest = _objectWithoutProperties(ownProps, [ "keyConfig" ]);
-	    var id = keyConfig.id, childKeyIds = keyConfig.childKeyIds, type = keyConfig.type;
-	    var childKeys = childKeyIds && childKeyIds.map(function(id) {
-	        return KeyConfigs[id];
-	    });
-	    // Override with the default child props, if the key is a multi-symbol key
-	    // (but not a many-symbol key, which operates under different rules).
-	    var useFirstChildProps = type !== KeyTypes.MANY && childKeys && childKeys.length > 0;
-	    return _extends({}, rest, {
-	        childKeyIds: childKeyIds,
-	        gestureManager: gestures.gestureManager,
-	        id: id,
-	        // Add in some gesture state.
-	        focused: gestures.focus === id,
-	        popoverEnabled: gestures.popover && gestures.popover.parentId === id,
-	        // Pass down the child keys and any extracted props.
-	        childKeys: childKeys
-	    }, extractProps(useFirstChildProps ? childKeys[0] : keyConfig));
-	};
-
-	var styles = StyleSheet.create({
-	    preventScrolls: {
-	        // Touch events that start in the touchable buttons shouldn't be
-	        // allowed to produce page scrolls.
-	        touchAction: "none"
-	    }
-	});
-
-	module.exports = connect(mapStateToProps)(TouchableKeypadButton);
-
-/***/ },
-/* 242 */
-/***/ function(module, exports, __webpack_require__) {
-
-	function _classCallCheck(instance, Constructor) {
-	    if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
-	}
-
-	function _possibleConstructorReturn(self, call) {
-	    if (!self) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-	    return !call || "object" !== typeof call && "function" !== typeof call ? self : call;
-	}
-
-	function _inherits(subClass, superClass) {
-	    if ("function" !== typeof superClass && null !== superClass) throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-	    subClass.prototype = Object.create(superClass && superClass.prototype, {
-	        constructor: {
-	            value: subClass,
-	            enumerable: false,
-	            writable: true,
-	            configurable: true
-	        }
-	    });
-	    superClass && (Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass);
-	}
-
-	/**
-	 * A keypad with two pages of keys.
-	 */
-	var React = __webpack_require__(11);
-
-	var _require = __webpack_require__(239), connect = _require.connect;
-
-	var _require2 = __webpack_require__(14), StyleSheet = _require2.StyleSheet;
-
-	var Keypad = __webpack_require__(240);
-
-	var ViewPager = __webpack_require__(256);
-
-	var PagerIndicator = __webpack_require__(257);
-
-	var _require3 = __webpack_require__(205), View = _require3.View;
-
-	var _require4 = __webpack_require__(224), column = _require4.column, row = _require4.row, fullWidth = _require4.fullWidth;
-
-	var _require5 = __webpack_require__(198), innerBorderColor = _require5.innerBorderColor, innerBorderStyle = _require5.innerBorderStyle, innerBorderWidthPx = _require5.innerBorderWidthPx, gray85 = _require5.gray85;
-
-	var TwoPageKeypad = function(_React$Component) {
-	    _inherits(TwoPageKeypad, _React$Component);
-	    function TwoPageKeypad() {
-	        _classCallCheck(this, TwoPageKeypad);
-	        return _possibleConstructorReturn(this, _React$Component.apply(this, arguments));
-	    }
-	    TwoPageKeypad.prototype.render = function render() {
-	        var _props = this.props, currentPage = _props.currentPage, leftPage = _props.leftPage, paginationEnabled = _props.paginationEnabled, rightPage = _props.rightPage;
-	        return paginationEnabled ? React.createElement(Keypad, {
-	            style: [ column, styles.keypad ]
-	        }, React.createElement(PagerIndicator, {
-	            numPages: 2,
-	            currentPage: currentPage
-	        }), React.createElement(View, {
-	            style: styles.borderTop
-	        }, React.createElement(ViewPager, null, leftPage, rightPage))) : React.createElement(Keypad, {
-	            style: styles.keypad
-	        }, React.createElement(View, {
-	            style: row
-	        }, React.createElement(View, {
-	            style: fullWidth
-	        }, leftPage), React.createElement(View, {
-	            style: [ styles.borderLeft, fullWidth ]
-	        }, rightPage)));
-	    };
-	    return TwoPageKeypad;
-	}(React.Component);
-
-	TwoPageKeypad.propTypes = {
-	    currentPage: React.PropTypes.oneOf([ 0, 1 ]).isRequired,
-	    leftPage: React.PropTypes.node.isRequired,
-	    paginationEnabled: React.PropTypes.bool.isRequired,
-	    rightPage: React.PropTypes.node.isRequired
-	};
-
-	var styles = StyleSheet.create({
-	    keypad: {
-	        // Set the background to light grey, so that when the user drags the
-	        // keypad pages past the edges, there's a grey backdrop.
-	        backgroundColor: gray85
-	    },
-	    borderTop: {
-	        borderTop: innerBorderWidthPx + "px " + innerBorderStyle + " " + innerBorderColor
-	    },
-	    borderLeft: {
-	        borderLeft: innerBorderWidthPx + "px " + innerBorderStyle + " " + innerBorderColor,
-	        boxSizing: "content-box"
-	    }
-	});
-
-	var mapStateToProps = function mapStateToProps(state) {
-	    return {
-	        paginationEnabled: state.layout.paginationEnabled
-	    };
-	};
-
-	module.exports = connect(mapStateToProps)(TwoPageKeypad);
-
-/***/ },
-/* 243 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _extends = Object.assign || function(target) {
-	    for (var i = 1; i < arguments.length; i++) {
-	        var source = arguments[i];
-	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
-	    }
-	    return target;
-	};
-
-	function _objectWithoutProperties(obj, keys) {
-	    var target = {};
-	    for (var i in obj) {
-	        if (keys.indexOf(i) >= 0) continue;
-	        if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
-	        target[i] = obj[i];
-	    }
-	    return target;
-	}
-
-	function _classCallCheck(instance, Constructor) {
-	    if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
-	}
-
-	function _possibleConstructorReturn(self, call) {
-	    if (!self) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-	    return !call || "object" !== typeof call && "function" !== typeof call ? self : call;
-	}
-
-	function _inherits(subClass, superClass) {
-	    if ("function" !== typeof superClass && null !== superClass) throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-	    subClass.prototype = Object.create(superClass && superClass.prototype, {
-	        constructor: {
-	            value: subClass,
-	            enumerable: false,
-	            writable: true,
-	            configurable: true
-	        }
-	    });
-	    superClass && (Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass);
-	}
-
-	/**
-	 * A keypad button that displays an arbitrary number of symbols, with no
-	 * 'default' symbol.
-	 */
-	var React = __webpack_require__(11);
-
-	var EmptyKeypadButton = __webpack_require__(258);
-
-	var TouchableKeypadButton = __webpack_require__(241);
-
-	var Keys = __webpack_require__(225);
-
-	var KeyConfigs = __webpack_require__(204);
-
-	var _require = __webpack_require__(128), KeyTypes = _require.KeyTypes;
-
-	var _require2 = __webpack_require__(141), keyIdPropType = _require2.keyIdPropType;
-
-	var ManyKeypadButton = function(_React$Component) {
-	    _inherits(ManyKeypadButton, _React$Component);
-	    function ManyKeypadButton() {
-	        _classCallCheck(this, ManyKeypadButton);
-	        return _possibleConstructorReturn(this, _React$Component.apply(this, arguments));
-	    }
-	    ManyKeypadButton.prototype.render = function render() {
-	        var _props = this.props, keys = _props.keys, rest = _objectWithoutProperties(_props, [ "keys" ]);
-	        // If we have no extra symbols, render an empty button. If we have just
-	        // one, render a standard button. Otherwise, capture them all in a
-	        // single button.
-	        if (0 === keys.length) return React.createElement(EmptyKeypadButton, rest);
-	        if (1 === keys.length) {
-	            var keyConfig = KeyConfigs[keys[0]];
-	            return React.createElement(TouchableKeypadButton, _extends({
-	                keyConfig: keyConfig
-	            }, rest));
-	        }
-	        var _keyConfig = {
-	            id: Keys.MANY,
-	            type: KeyTypes.MANY,
-	            childKeyIds: keys
-	        };
-	        return React.createElement(TouchableKeypadButton, _extends({
-	            keyConfig: _keyConfig
-	        }, rest));
-	    };
-	    return ManyKeypadButton;
-	}(React.Component);
-
-	ManyKeypadButton.propTypes = {
-	    keys: React.PropTypes.arrayOf(keyIdPropType).isRequired
-	};
-
-	module.exports = ManyKeypadButton;
-
-/***/ },
 /* 244 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -35104,7 +35108,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require = __webpack_require__(14), StyleSheet = _require.StyleSheet, css = _require.css;
 
-	var styleConstants = __webpack_require__(41);
+	var styleConstants = __webpack_require__(42);
 
 	var FocusRing = function(_React$Component) {
 	    _inherits(FocusRing, _React$Component);
@@ -35717,23 +35721,23 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports.compose = exports.applyMiddleware = exports.bindActionCreators = exports.combineReducers = exports.createStore = void 0;
 
-	var _createStore = __webpack_require__(259);
+	var _createStore = __webpack_require__(260);
 
 	var _createStore2 = _interopRequireDefault(_createStore);
 
-	var _combineReducers = __webpack_require__(260);
+	var _combineReducers = __webpack_require__(261);
 
 	var _combineReducers2 = _interopRequireDefault(_combineReducers);
 
-	var _bindActionCreators = __webpack_require__(261);
+	var _bindActionCreators = __webpack_require__(262);
 
 	var _bindActionCreators2 = _interopRequireDefault(_bindActionCreators);
 
-	var _applyMiddleware = __webpack_require__(262);
+	var _applyMiddleware = __webpack_require__(263);
 
 	var _applyMiddleware2 = _interopRequireDefault(_applyMiddleware);
 
-	var _compose = __webpack_require__(263);
+	var _compose = __webpack_require__(264);
 
 	var _compose2 = _interopRequireDefault(_compose);
 
@@ -36211,163 +36215,126 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	/**
-	 * A component that renders and animates the selection state effect effect.
+	 * A view pager that allows for pagination in the horizontal direction.
+	 * Right now, there are a number of limitations built into the system. Namely:
+	 *  - It only supports pagination in the horizontal direction.
+	 *  - It supports exactly two pages.
 	 */
 	var React = __webpack_require__(11);
 
-	var ReactCSSTransitionGroup = __webpack_require__(270);
+	var _require = __webpack_require__(239), connect = _require.connect;
 
-	var KeypadButton = __webpack_require__(255);
+	var _require2 = __webpack_require__(14), StyleSheet = _require2.StyleSheet;
 
-	var KeyConfigs = __webpack_require__(204);
+	var _require3 = __webpack_require__(205), View = _require3.View;
 
-	var _require = __webpack_require__(128), KeyTypes = _require.KeyTypes, EchoAnimationTypes = _require.EchoAnimationTypes;
+	var _require4 = __webpack_require__(224), row = _require4.row;
 
-	var _require2 = __webpack_require__(141), echoPropType = _require2.echoPropType, bordersPropType = _require2.bordersPropType, boundingBoxPropType = _require2.boundingBoxPropType, keyIdPropType = _require2.keyIdPropType;
+	var _require5 = __webpack_require__(141), childrenPropType = _require5.childrenPropType;
 
-	var zIndexes = __webpack_require__(223);
+	var _require6 = __webpack_require__(198), innerBorderColor = _require6.innerBorderColor, innerBorderStyle = _require6.innerBorderStyle, innerBorderWidthPx = _require6.innerBorderWidthPx;
 
-	var Echo = function(_React$Component) {
-	    _inherits(Echo, _React$Component);
-	    function Echo() {
-	        _classCallCheck(this, Echo);
-	        return _possibleConstructorReturn(this, _React$Component.apply(this, arguments));
-	    }
-	    Echo.prototype.componentDidMount = function componentDidMount() {
-	        // NOTE(charlie): This is somewhat unfortunate, as the component is
-	        // encoding information about its own animation, of which it should be
-	        // ignorant. However, there doesn't seem to be a cleaner way to make
-	        // this happen, and at least here, all the animation context is
-	        // colocated in this file.
-	        var _props = this.props, animationDurationMs = _props.animationDurationMs, onAnimationFinish = _props.onAnimationFinish;
-	        setTimeout(function() {
-	            return onAnimationFinish();
-	        }, animationDurationMs);
-	    };
-	    Echo.prototype.render = function render() {
-	        var _props2 = this.props, borders = _props2.borders, id = _props2.id, initialBounds = _props2.initialBounds;
-	        var icon = KeyConfigs[id].icon;
-	        var containerStyle = _extends({
-	            zIndex: zIndexes.echo,
-	            position: "absolute",
-	            pointerEvents: "none"
-	        }, initialBounds);
-	        // NOTE(charlie): In some browsers, Aphrodite doesn't seem to flush its
-	        // styles quickly enough, so there's a flickering effect on the first
-	        // animation. Thus, it's much safer to do the styles purely inline.
-	        // <View> makes this difficult because some of its defaults, which are
-	        // applied via StyleSheet, will override our inlines.
-	        return React.createElement("div", {
-	            style: containerStyle
-	        }, React.createElement(KeypadButton, {
-	            name: id,
-	            icon: icon,
-	            type: KeyTypes.ECHO,
-	            borders: borders
-	        }));
-	    };
-	    return Echo;
-	}(React.Component);
-
-	Echo.propTypes = {
-	    animationDurationMs: React.PropTypes.number.isRequired,
-	    borders: bordersPropType,
-	    id: keyIdPropType.isRequired,
-	    initialBounds: boundingBoxPropType.isRequired,
-	    onAnimationFinish: React.PropTypes.func.isRequired
-	};
-
-	var EchoManager = function(_React$Component2) {
-	    _inherits(EchoManager, _React$Component2);
-	    function EchoManager() {
-	        var _temp, _this2, _ret;
-	        _classCallCheck(this, EchoManager);
+	var ViewPager = function(_React$Component) {
+	    _inherits(ViewPager, _React$Component);
+	    function ViewPager() {
+	        var _temp, _this, _ret;
+	        _classCallCheck(this, ViewPager);
 	        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) args[_key] = arguments[_key];
-	        return _ret = (_temp = (_this2 = _possibleConstructorReturn(this, _React$Component2.call.apply(_React$Component2, [ this ].concat(args))), 
-	        _this2), _this2._animationConfigForType = function(animationType) {
-	            // NOTE(charlie): These must be kept in sync with the transition
-	            // durations and classnames specified in echo.css.
-	            var animationDurationMs = void 0;
-	            var animationTransitionName = void 0;
-	            switch (animationType) {
-	              case EchoAnimationTypes.SLIDE_AND_FADE:
-	                animationDurationMs = 400;
-	                animationTransitionName = "echo-slide-and-fade";
-	                break;
-
-	              case EchoAnimationTypes.FADE_ONLY:
-	                animationDurationMs = 300;
-	                animationTransitionName = "echo-fade-only";
-	                break;
-
-	              case EchoAnimationTypes.LONG_FADE_ONLY:
-	                animationDurationMs = 400;
-	                animationTransitionName = "echo-long-fade-only";
-	                break;
-
-	              default:
-	                throw new Error("Invalid echo animation type:", animationType);
-	            }
-	            return {
-	                animationDurationMs: animationDurationMs,
-	                animationTransitionName: animationTransitionName
-	            };
-	        }, _temp), _possibleConstructorReturn(_this2, _ret);
+	        return _ret = (_temp = (_this = _possibleConstructorReturn(this, _React$Component.call.apply(_React$Component, [ this ].concat(args))), 
+	        _this), _this.state = {
+	            animationDurationMs: 0
+	        }, _temp), _possibleConstructorReturn(_this, _ret);
 	    }
-	    EchoManager.prototype.render = function render() {
-	        var _this3 = this;
-	        var _props3 = this.props, echoes = _props3.echoes, _onAnimationFinish = _props3.onAnimationFinish;
-	        return React.createElement("span", null, Object.keys(EchoAnimationTypes).map(function(animationType) {
-	            // Collect the relevant parameters for the animation type, and
-	            // filter for the appropriate echoes.
-	            var _animationConfigForTy = _this3._animationConfigForType(animationType), animationDurationMs = _animationConfigForTy.animationDurationMs, animationTransitionName = _animationConfigForTy.animationTransitionName;
-	            var echoesForType = echoes.filter(function(echo) {
-	                return echo.animationType === animationType;
-	            });
-	            // TODO(charlie): Manage this animation with Aphrodite styles.
-	            // Right now, there's a bug in the autoprefixer that breaks CSS
-	            // transitions on mobile Safari.
-	            // See: https://github.com/Khan/aphrodite/issues/68.
-	            // As such, we have to do this with a stylesheet.
-	            return React.createElement(ReactCSSTransitionGroup, {
-	                transitionName: animationTransitionName,
-	                transitionEnter: true,
-	                transitionLeave: false,
-	                transitionEnterTimeout: animationDurationMs,
-	                key: animationType
-	            }, echoesForType.map(function(echo) {
-	                var animationId = echo.animationId;
-	                return React.createElement(Echo, _extends({
-	                    key: animationId,
-	                    animationDurationMs: animationDurationMs,
-	                    onAnimationFinish: function onAnimationFinish() {
-	                        return _onAnimationFinish(animationId);
-	                    }
-	                }, echo));
-	            }));
-	        }));
+	    ViewPager.prototype.componentWillReceiveProps = function componentWillReceiveProps(newProps) {
+	        // Compute the appropriate animation length, if the pager should
+	        // animate to its next position.
+	        var animationDurationMs = void 0;
+	        if (newProps.animateToPosition) {
+	            var finalTranslateX = newProps.translateX;
+	            var prevTranslateX = this.props.translateX;
+	            // We animate at a rate of 1 pixel per millisecond, and thus we can
+	            // use the displacement as the animation duration.
+	            animationDurationMs = Math.abs(finalTranslateX - prevTranslateX);
+	        } else animationDurationMs = 0;
+	        this.setState({
+	            animationDurationMs: animationDurationMs
+	        });
 	    };
-	    return EchoManager;
+	    ViewPager.prototype.render = function render() {
+	        var _props = this.props, children = _props.children, pageWidthPx = _props.pageWidthPx, translateX = _props.translateX;
+	        var animationDurationMs = this.state.animationDurationMs;
+	        var pagerStyle = [ row, styles.twoPagePager ];
+	        var transform = {
+	            msTransform: "translate3d(" + translateX + "px, 0, 0)",
+	            WebkitTransform: "translate3d(" + translateX + "px, 0, 0)",
+	            transform: "translate3d(" + translateX + "px, 0, 0)"
+	        };
+	        var animate = animationDurationMs ? {
+	            msTransitionProperty: "transform",
+	            WebkitTransitionProperty: "transform",
+	            transitionProperty: "transform",
+	            msTransitionDuration: animationDurationMs + "ms",
+	            WebkitTransitionDuration: animationDurationMs + "ms",
+	            transitionDuration: animationDurationMs + "ms",
+	            msTransitionTimingFunction: "ease-out",
+	            WebkitTransitionTimingFunction: "ease-out",
+	            transitionTimingFunction: "ease-out"
+	        } : {};
+	        var dynamicPagerStyle = _extends({}, transform, animate);
+	        var dynamicPageStyle = {
+	            width: pageWidthPx
+	        };
+	        return React.createElement(View, {
+	            style: pagerStyle,
+	            dynamicStyle: dynamicPagerStyle
+	        }, React.createElement(View, {
+	            dynamicStyle: dynamicPageStyle
+	        }, children[0]), React.createElement(View, {
+	            style: styles.rightPage,
+	            dynamicStyle: dynamicPageStyle
+	        }, children[1]));
+	    };
+	    return ViewPager;
 	}(React.Component);
 
-	EchoManager.propTypes = {
-	    echoes: React.PropTypes.arrayOf(echoPropType),
-	    onAnimationFinish: React.PropTypes.func.isRequired
+	ViewPager.propTypes = {
+	    // Whether the page should animate to its next specified position.
+	    animateToPosition: React.PropTypes.bool,
+	    children: childrenPropType,
+	    pageWidthPx: React.PropTypes.number.isRequired,
+	    translateX: React.PropTypes.number.isRequired
 	};
 
-	module.exports = EchoManager;
+	var styles = StyleSheet.create({
+	    twoPagePager: {
+	        alignSelf: "flex-start",
+	        // Note: By default, <View> sets a `maxWidth` of 100% to fix some
+	        // Flexbox bugs. We have to override it to accommodate for our two
+	        // pages. The exact value here isn't super important, as long as it's
+	        // large enough to accommodate for two pages (so, 200%) and some
+	        // separators.
+	        maxWidth: "250%"
+	    },
+	    rightPage: {
+	        borderLeft: innerBorderWidthPx + "px " + innerBorderStyle + " " + innerBorderColor,
+	        boxSizing: "content-box"
+	    }
+	});
+
+	var mapStateToProps = function mapStateToProps(state) {
+	    var _state$pager = state.pager, animateToPosition = _state$pager.animateToPosition, currentPage = _state$pager.currentPage, dx = _state$pager.dx, pageWidthPx = _state$pager.pageWidthPx;
+	    return {
+	        animateToPosition: animateToPosition,
+	        pageWidthPx: pageWidthPx,
+	        translateX: -currentPage * (pageWidthPx + innerBorderWidthPx) + dx
+	    };
+	};
+
+	module.exports = connect(mapStateToProps)(ViewPager);
 
 /***/ },
 /* 254 */
 /***/ function(module, exports, __webpack_require__) {
-
-	var _extends = Object.assign || function(target) {
-	    for (var i = 1; i < arguments.length; i++) {
-	        var source = arguments[i];
-	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
-	    }
-	    return target;
-	};
 
 	function _classCallCheck(instance, Constructor) {
 	    if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
@@ -36392,84 +36359,205 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	/**
-	 * A component that renders and animates the popovers that appear over the
-	 * multi-functional keys.
+	 * A component that renders a view pager indicator, with a circular icon for
+	 * each page.
 	 */
 	var React = __webpack_require__(11);
 
-	var ReactCSSTransitionGroup = __webpack_require__(270);
+	var _require = __webpack_require__(14), StyleSheet = _require.StyleSheet;
 
-	var KeyConfigs = __webpack_require__(204);
+	var _require2 = __webpack_require__(205), View = _require2.View;
 
-	var MultiSymbolPopover = __webpack_require__(271);
+	var _require3 = __webpack_require__(198), pageIndicatorHeightPx = _require3.pageIndicatorHeightPx, gray68 = _require3.gray68, gray85 = _require3.gray85;
 
-	var _require = __webpack_require__(141), boundingBoxPropType = _require.boundingBoxPropType, keyConfigPropType = _require.keyConfigPropType, popoverPropType = _require.popoverPropType;
-
-	// NOTE(charlie): These must be kept in sync with the transition durations and
-	// classnames specified in popover.less.
-	var animationTransitionName = "popover";
-
-	var animationDurationMs = 200;
-
-	// A container component used to position a popover absolutely at a specific
-	// position.
-	var PopoverContainer = function(_React$Component) {
-	    _inherits(PopoverContainer, _React$Component);
-	    function PopoverContainer() {
-	        _classCallCheck(this, PopoverContainer);
+	var PagerIcon = function(_React$Component) {
+	    _inherits(PagerIcon, _React$Component);
+	    function PagerIcon() {
+	        _classCallCheck(this, PagerIcon);
 	        return _possibleConstructorReturn(this, _React$Component.apply(this, arguments));
 	    }
-	    PopoverContainer.prototype.render = function render() {
-	        var _props = this.props, bounds = _props.bounds, childKeys = _props.childKeys;
-	        var containerStyle = _extends({
-	            position: "absolute"
-	        }, bounds);
-	        return React.createElement("div", {
-	            style: containerStyle
-	        }, React.createElement(MultiSymbolPopover, {
-	            keys: childKeys
+	    PagerIcon.prototype.render = function render() {
+	        var _props = this.props, active = _props.active, radiusPx = _props.radiusPx;
+	        var fillColor = active ? gray68 : gray85;
+	        return React.createElement("svg", {
+	            width: 2 * radiusPx,
+	            height: 2 * radiusPx
+	        }, React.createElement("circle", {
+	            cx: radiusPx,
+	            cy: radiusPx,
+	            r: radiusPx,
+	            fill: fillColor
 	        }));
 	    };
-	    return PopoverContainer;
+	    return PagerIcon;
 	}(React.Component);
 
-	PopoverContainer.propTypes = {
-	    bounds: boundingBoxPropType.isRequired,
-	    childKeys: React.PropTypes.arrayOf(keyConfigPropType).isRequired
+	PagerIcon.propTypes = {
+	    active: React.PropTypes.bool,
+	    radiusPx: React.PropTypes.number
 	};
 
-	var PopoverManager = function(_React$Component2) {
-	    _inherits(PopoverManager, _React$Component2);
-	    function PopoverManager() {
-	        _classCallCheck(this, PopoverManager);
+	PagerIcon.defaultProps = {
+	    active: false,
+	    radiusPx: 4
+	};
+
+	var PagerIndicator = function(_React$Component2) {
+	    _inherits(PagerIndicator, _React$Component2);
+	    function PagerIndicator() {
+	        _classCallCheck(this, PagerIndicator);
 	        return _possibleConstructorReturn(this, _React$Component2.apply(this, arguments));
 	    }
-	    PopoverManager.prototype.render = function render() {
-	        var popover = this.props.popover;
-	        return React.createElement(ReactCSSTransitionGroup, {
-	            transitionName: animationTransitionName,
-	            transitionEnter: true,
-	            transitionLeave: false,
-	            transitionEnterTimeout: animationDurationMs
-	        }, popover && React.createElement(PopoverContainer, {
-	            key: popover.childKeyIds[0],
-	            bounds: popover.bounds,
-	            childKeys: popover.childKeyIds.map(function(id) {
-	                return KeyConfigs[id];
-	            })
+	    PagerIndicator.prototype.render = function render() {
+	        var _props2 = this.props, currentPage = _props2.currentPage, numPages = _props2.numPages;
+	        var pagerIconRadiusPx = 4;
+	        // Collect the various indicator circles.
+	        var indicators = [];
+	        for (var i = 0; i < numPages; i++) indicators.push(React.createElement(PagerIcon, {
+	            key: i,
+	            active: i === currentPage,
+	            radiusPx: 4
 	        }));
+	        // Size the box that contains the icons to accommodate for proper
+	        // spacing, and let Flexbox take care of the details.
+	        var totalIconWidthPx = 8 * numPages;
+	        var totalSpacingWidthPx = 8 * (numPages - 1);
+	        var iconStripSize = {
+	            width: totalIconWidthPx + totalSpacingWidthPx
+	        };
+	        return React.createElement(View, {
+	            style: styles.indicatorStrip
+	        }, React.createElement(View, {
+	            style: styles.iconStrip,
+	            dynamicStyle: iconStripSize
+	        }, indicators));
 	    };
-	    return PopoverManager;
+	    return PagerIndicator;
 	}(React.Component);
 
-	PopoverManager.propTypes = {
-	    popover: popoverPropType
+	PagerIndicator.propTypes = {
+	    currentPage: React.PropTypes.number.isRequired,
+	    numPages: React.PropTypes.number.isRequired
 	};
 
-	module.exports = PopoverManager;
+	var styles = StyleSheet.create({
+	    indicatorStrip: {
+	        backgroundColor: "#F0F1F2",
+	        flexDirection: "row",
+	        justifyContent: "center",
+	        alignItems: "center",
+	        height: pageIndicatorHeightPx
+	    },
+	    iconStrip: {
+	        flexDirection: "row",
+	        justifyContent: "space-between"
+	    }
+	});
+
+	module.exports = PagerIndicator;
 
 /***/ },
 /* 255 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _extends = Object.assign || function(target) {
+	    for (var i = 1; i < arguments.length; i++) {
+	        var source = arguments[i];
+	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
+	    }
+	    return target;
+	};
+
+	function _objectWithoutProperties(obj, keys) {
+	    var target = {};
+	    for (var i in obj) {
+	        if (keys.indexOf(i) >= 0) continue;
+	        if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
+	        target[i] = obj[i];
+	    }
+	    return target;
+	}
+
+	function _classCallCheck(instance, Constructor) {
+	    if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
+	}
+
+	function _possibleConstructorReturn(self, call) {
+	    if (!self) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	    return !call || "object" !== typeof call && "function" !== typeof call ? self : call;
+	}
+
+	function _inherits(subClass, superClass) {
+	    if ("function" !== typeof superClass && null !== superClass) throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+	    subClass.prototype = Object.create(superClass && superClass.prototype, {
+	        constructor: {
+	            value: subClass,
+	            enumerable: false,
+	            writable: true,
+	            configurable: true
+	        }
+	    });
+	    superClass && (Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass);
+	}
+
+	/**
+	 * A keypad button containing no symbols and triggering no actions on click.
+	 */
+	var React = __webpack_require__(11);
+
+	var _require = __webpack_require__(239), connect = _require.connect;
+
+	var GestureManager = __webpack_require__(235);
+
+	var KeyConfigs = __webpack_require__(204);
+
+	var KeypadButton = __webpack_require__(256);
+
+	var EmptyKeypadButton = function(_React$Component) {
+	    _inherits(EmptyKeypadButton, _React$Component);
+	    function EmptyKeypadButton() {
+	        _classCallCheck(this, EmptyKeypadButton);
+	        return _possibleConstructorReturn(this, _React$Component.apply(this, arguments));
+	    }
+	    EmptyKeypadButton.prototype.render = function render() {
+	        var _props = this.props, gestureManager = _props.gestureManager, rest = _objectWithoutProperties(_props, [ "gestureManager" ]);
+	        // Register touch events on the button, but don't register its DOM node
+	        // or compute focus state or anything like that. We want the gesture
+	        // manager to know about touch events that start on empty buttons, but
+	        // we don't need it to know about their DOM nodes, as it doesn't need
+	        // to focus them or trigger presses.
+	        return React.createElement(KeypadButton, _extends({
+	            onTouchStart: function onTouchStart(evt) {
+	                return gestureManager.onTouchStart(evt);
+	            },
+	            onTouchEnd: function onTouchEnd(evt) {
+	                return gestureManager.onTouchEnd(evt);
+	            },
+	            onTouchMove: function onTouchMove(evt) {
+	                return gestureManager.onTouchMove(evt);
+	            },
+	            onTouchCancel: function onTouchCancel(evt) {
+	                return gestureManager.onTouchCancel(evt);
+	            }
+	        }, KeyConfigs.NOOP, rest));
+	    };
+	    return EmptyKeypadButton;
+	}(React.Component);
+
+	EmptyKeypadButton.propTypes = {
+	    gestureManager: React.PropTypes.instanceOf(GestureManager)
+	};
+
+	var mapStateToProps = function mapStateToProps(state) {
+	    return {
+	        gestureManager: state.gestures.gestureManager
+	    };
+	};
+
+	module.exports = connect(mapStateToProps)(EmptyKeypadButton);
+
+/***/ },
+/* 256 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function(target) {
@@ -36513,11 +36601,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require3 = __webpack_require__(205), View = _require3.View;
 
-	var Icon = __webpack_require__(272);
+	var Icon = __webpack_require__(271);
 
-	var MultiSymbolGrid = __webpack_require__(273);
+	var MultiSymbolGrid = __webpack_require__(272);
 
-	var CornerDecal = __webpack_require__(274);
+	var CornerDecal = __webpack_require__(273);
 
 	var _require4 = __webpack_require__(128), KeyTypes = _require4.KeyTypes, BorderDirections = _require4.BorderDirections, BorderStyles = _require4.BorderStyles;
 
@@ -36801,7 +36889,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = connect(mapStateToProps)(KeypadButton);
 
 /***/ },
-/* 256 */
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function(target) {
@@ -36835,246 +36923,151 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	/**
-	 * A view pager that allows for pagination in the horizontal direction.
-	 * Right now, there are a number of limitations built into the system. Namely:
-	 *  - It only supports pagination in the horizontal direction.
-	 *  - It supports exactly two pages.
+	 * A component that renders and animates the selection state effect effect.
 	 */
 	var React = __webpack_require__(11);
 
-	var _require = __webpack_require__(239), connect = _require.connect;
+	var ReactCSSTransitionGroup = __webpack_require__(270);
 
-	var _require2 = __webpack_require__(14), StyleSheet = _require2.StyleSheet;
+	var KeypadButton = __webpack_require__(256);
 
-	var _require3 = __webpack_require__(205), View = _require3.View;
+	var KeyConfigs = __webpack_require__(204);
 
-	var _require4 = __webpack_require__(224), row = _require4.row;
+	var _require = __webpack_require__(128), KeyTypes = _require.KeyTypes, EchoAnimationTypes = _require.EchoAnimationTypes;
 
-	var _require5 = __webpack_require__(141), childrenPropType = _require5.childrenPropType;
+	var _require2 = __webpack_require__(141), echoPropType = _require2.echoPropType, bordersPropType = _require2.bordersPropType, boundingBoxPropType = _require2.boundingBoxPropType, keyIdPropType = _require2.keyIdPropType;
 
-	var _require6 = __webpack_require__(198), innerBorderColor = _require6.innerBorderColor, innerBorderStyle = _require6.innerBorderStyle, innerBorderWidthPx = _require6.innerBorderWidthPx;
+	var zIndexes = __webpack_require__(223);
 
-	var ViewPager = function(_React$Component) {
-	    _inherits(ViewPager, _React$Component);
-	    function ViewPager() {
-	        var _temp, _this, _ret;
-	        _classCallCheck(this, ViewPager);
-	        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) args[_key] = arguments[_key];
-	        return _ret = (_temp = (_this = _possibleConstructorReturn(this, _React$Component.call.apply(_React$Component, [ this ].concat(args))), 
-	        _this), _this.state = {
-	            animationDurationMs: 0
-	        }, _temp), _possibleConstructorReturn(_this, _ret);
-	    }
-	    ViewPager.prototype.componentWillReceiveProps = function componentWillReceiveProps(newProps) {
-	        // Compute the appropriate animation length, if the pager should
-	        // animate to its next position.
-	        var animationDurationMs = void 0;
-	        if (newProps.animateToPosition) {
-	            var finalTranslateX = newProps.translateX;
-	            var prevTranslateX = this.props.translateX;
-	            // We animate at a rate of 1 pixel per millisecond, and thus we can
-	            // use the displacement as the animation duration.
-	            animationDurationMs = Math.abs(finalTranslateX - prevTranslateX);
-	        } else animationDurationMs = 0;
-	        this.setState({
-	            animationDurationMs: animationDurationMs
-	        });
-	    };
-	    ViewPager.prototype.render = function render() {
-	        var _props = this.props, children = _props.children, pageWidthPx = _props.pageWidthPx, translateX = _props.translateX;
-	        var animationDurationMs = this.state.animationDurationMs;
-	        var pagerStyle = [ row, styles.twoPagePager ];
-	        var transform = {
-	            msTransform: "translate3d(" + translateX + "px, 0, 0)",
-	            WebkitTransform: "translate3d(" + translateX + "px, 0, 0)",
-	            transform: "translate3d(" + translateX + "px, 0, 0)"
-	        };
-	        var animate = animationDurationMs ? {
-	            msTransitionProperty: "transform",
-	            WebkitTransitionProperty: "transform",
-	            transitionProperty: "transform",
-	            msTransitionDuration: animationDurationMs + "ms",
-	            WebkitTransitionDuration: animationDurationMs + "ms",
-	            transitionDuration: animationDurationMs + "ms",
-	            msTransitionTimingFunction: "ease-out",
-	            WebkitTransitionTimingFunction: "ease-out",
-	            transitionTimingFunction: "ease-out"
-	        } : {};
-	        var dynamicPagerStyle = _extends({}, transform, animate);
-	        var dynamicPageStyle = {
-	            width: pageWidthPx
-	        };
-	        return React.createElement(View, {
-	            style: pagerStyle,
-	            dynamicStyle: dynamicPagerStyle
-	        }, React.createElement(View, {
-	            dynamicStyle: dynamicPageStyle
-	        }, children[0]), React.createElement(View, {
-	            style: styles.rightPage,
-	            dynamicStyle: dynamicPageStyle
-	        }, children[1]));
-	    };
-	    return ViewPager;
-	}(React.Component);
-
-	ViewPager.propTypes = {
-	    // Whether the page should animate to its next specified position.
-	    animateToPosition: React.PropTypes.bool,
-	    children: childrenPropType,
-	    pageWidthPx: React.PropTypes.number.isRequired,
-	    translateX: React.PropTypes.number.isRequired
-	};
-
-	var styles = StyleSheet.create({
-	    twoPagePager: {
-	        alignSelf: "flex-start",
-	        // Note: By default, <View> sets a `maxWidth` of 100% to fix some
-	        // Flexbox bugs. We have to override it to accommodate for our two
-	        // pages. The exact value here isn't super important, as long as it's
-	        // large enough to accommodate for two pages (so, 200%) and some
-	        // separators.
-	        maxWidth: "250%"
-	    },
-	    rightPage: {
-	        borderLeft: innerBorderWidthPx + "px " + innerBorderStyle + " " + innerBorderColor,
-	        boxSizing: "content-box"
-	    }
-	});
-
-	var mapStateToProps = function mapStateToProps(state) {
-	    var _state$pager = state.pager, animateToPosition = _state$pager.animateToPosition, currentPage = _state$pager.currentPage, dx = _state$pager.dx, pageWidthPx = _state$pager.pageWidthPx;
-	    return {
-	        animateToPosition: animateToPosition,
-	        pageWidthPx: pageWidthPx,
-	        translateX: -currentPage * (pageWidthPx + innerBorderWidthPx) + dx
-	    };
-	};
-
-	module.exports = connect(mapStateToProps)(ViewPager);
-
-/***/ },
-/* 257 */
-/***/ function(module, exports, __webpack_require__) {
-
-	function _classCallCheck(instance, Constructor) {
-	    if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
-	}
-
-	function _possibleConstructorReturn(self, call) {
-	    if (!self) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-	    return !call || "object" !== typeof call && "function" !== typeof call ? self : call;
-	}
-
-	function _inherits(subClass, superClass) {
-	    if ("function" !== typeof superClass && null !== superClass) throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-	    subClass.prototype = Object.create(superClass && superClass.prototype, {
-	        constructor: {
-	            value: subClass,
-	            enumerable: false,
-	            writable: true,
-	            configurable: true
-	        }
-	    });
-	    superClass && (Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass);
-	}
-
-	/**
-	 * A component that renders a view pager indicator, with a circular icon for
-	 * each page.
-	 */
-	var React = __webpack_require__(11);
-
-	var _require = __webpack_require__(14), StyleSheet = _require.StyleSheet;
-
-	var _require2 = __webpack_require__(205), View = _require2.View;
-
-	var _require3 = __webpack_require__(198), pageIndicatorHeightPx = _require3.pageIndicatorHeightPx, gray68 = _require3.gray68, gray85 = _require3.gray85;
-
-	var PagerIcon = function(_React$Component) {
-	    _inherits(PagerIcon, _React$Component);
-	    function PagerIcon() {
-	        _classCallCheck(this, PagerIcon);
+	var Echo = function(_React$Component) {
+	    _inherits(Echo, _React$Component);
+	    function Echo() {
+	        _classCallCheck(this, Echo);
 	        return _possibleConstructorReturn(this, _React$Component.apply(this, arguments));
 	    }
-	    PagerIcon.prototype.render = function render() {
-	        var _props = this.props, active = _props.active, radiusPx = _props.radiusPx;
-	        var fillColor = active ? gray68 : gray85;
-	        return React.createElement("svg", {
-	            width: 2 * radiusPx,
-	            height: 2 * radiusPx
-	        }, React.createElement("circle", {
-	            cx: radiusPx,
-	            cy: radiusPx,
-	            r: radiusPx,
-	            fill: fillColor
+	    Echo.prototype.componentDidMount = function componentDidMount() {
+	        // NOTE(charlie): This is somewhat unfortunate, as the component is
+	        // encoding information about its own animation, of which it should be
+	        // ignorant. However, there doesn't seem to be a cleaner way to make
+	        // this happen, and at least here, all the animation context is
+	        // colocated in this file.
+	        var _props = this.props, animationDurationMs = _props.animationDurationMs, onAnimationFinish = _props.onAnimationFinish;
+	        setTimeout(function() {
+	            return onAnimationFinish();
+	        }, animationDurationMs);
+	    };
+	    Echo.prototype.render = function render() {
+	        var _props2 = this.props, borders = _props2.borders, id = _props2.id, initialBounds = _props2.initialBounds;
+	        var icon = KeyConfigs[id].icon;
+	        var containerStyle = _extends({
+	            zIndex: zIndexes.echo,
+	            position: "absolute",
+	            pointerEvents: "none"
+	        }, initialBounds);
+	        // NOTE(charlie): In some browsers, Aphrodite doesn't seem to flush its
+	        // styles quickly enough, so there's a flickering effect on the first
+	        // animation. Thus, it's much safer to do the styles purely inline.
+	        // <View> makes this difficult because some of its defaults, which are
+	        // applied via StyleSheet, will override our inlines.
+	        return React.createElement("div", {
+	            style: containerStyle
+	        }, React.createElement(KeypadButton, {
+	            name: id,
+	            icon: icon,
+	            type: KeyTypes.ECHO,
+	            borders: borders
 	        }));
 	    };
-	    return PagerIcon;
+	    return Echo;
 	}(React.Component);
 
-	PagerIcon.propTypes = {
-	    active: React.PropTypes.bool,
-	    radiusPx: React.PropTypes.number
+	Echo.propTypes = {
+	    animationDurationMs: React.PropTypes.number.isRequired,
+	    borders: bordersPropType,
+	    id: keyIdPropType.isRequired,
+	    initialBounds: boundingBoxPropType.isRequired,
+	    onAnimationFinish: React.PropTypes.func.isRequired
 	};
 
-	PagerIcon.defaultProps = {
-	    active: false,
-	    radiusPx: 4
-	};
+	var EchoManager = function(_React$Component2) {
+	    _inherits(EchoManager, _React$Component2);
+	    function EchoManager() {
+	        var _temp, _this2, _ret;
+	        _classCallCheck(this, EchoManager);
+	        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) args[_key] = arguments[_key];
+	        return _ret = (_temp = (_this2 = _possibleConstructorReturn(this, _React$Component2.call.apply(_React$Component2, [ this ].concat(args))), 
+	        _this2), _this2._animationConfigForType = function(animationType) {
+	            // NOTE(charlie): These must be kept in sync with the transition
+	            // durations and classnames specified in echo.css.
+	            var animationDurationMs = void 0;
+	            var animationTransitionName = void 0;
+	            switch (animationType) {
+	              case EchoAnimationTypes.SLIDE_AND_FADE:
+	                animationDurationMs = 400;
+	                animationTransitionName = "echo-slide-and-fade";
+	                break;
 
-	var PagerIndicator = function(_React$Component2) {
-	    _inherits(PagerIndicator, _React$Component2);
-	    function PagerIndicator() {
-	        _classCallCheck(this, PagerIndicator);
-	        return _possibleConstructorReturn(this, _React$Component2.apply(this, arguments));
+	              case EchoAnimationTypes.FADE_ONLY:
+	                animationDurationMs = 300;
+	                animationTransitionName = "echo-fade-only";
+	                break;
+
+	              case EchoAnimationTypes.LONG_FADE_ONLY:
+	                animationDurationMs = 400;
+	                animationTransitionName = "echo-long-fade-only";
+	                break;
+
+	              default:
+	                throw new Error("Invalid echo animation type:", animationType);
+	            }
+	            return {
+	                animationDurationMs: animationDurationMs,
+	                animationTransitionName: animationTransitionName
+	            };
+	        }, _temp), _possibleConstructorReturn(_this2, _ret);
 	    }
-	    PagerIndicator.prototype.render = function render() {
-	        var _props2 = this.props, currentPage = _props2.currentPage, numPages = _props2.numPages;
-	        var pagerIconRadiusPx = 4;
-	        // Collect the various indicator circles.
-	        var indicators = [];
-	        for (var i = 0; i < numPages; i++) indicators.push(React.createElement(PagerIcon, {
-	            key: i,
-	            active: i === currentPage,
-	            radiusPx: 4
+	    EchoManager.prototype.render = function render() {
+	        var _this3 = this;
+	        var _props3 = this.props, echoes = _props3.echoes, _onAnimationFinish = _props3.onAnimationFinish;
+	        return React.createElement("span", null, Object.keys(EchoAnimationTypes).map(function(animationType) {
+	            // Collect the relevant parameters for the animation type, and
+	            // filter for the appropriate echoes.
+	            var _animationConfigForTy = _this3._animationConfigForType(animationType), animationDurationMs = _animationConfigForTy.animationDurationMs, animationTransitionName = _animationConfigForTy.animationTransitionName;
+	            var echoesForType = echoes.filter(function(echo) {
+	                return echo.animationType === animationType;
+	            });
+	            // TODO(charlie): Manage this animation with Aphrodite styles.
+	            // Right now, there's a bug in the autoprefixer that breaks CSS
+	            // transitions on mobile Safari.
+	            // See: https://github.com/Khan/aphrodite/issues/68.
+	            // As such, we have to do this with a stylesheet.
+	            return React.createElement(ReactCSSTransitionGroup, {
+	                transitionName: animationTransitionName,
+	                transitionEnter: true,
+	                transitionLeave: false,
+	                transitionEnterTimeout: animationDurationMs,
+	                key: animationType
+	            }, echoesForType.map(function(echo) {
+	                var animationId = echo.animationId;
+	                return React.createElement(Echo, _extends({
+	                    key: animationId,
+	                    animationDurationMs: animationDurationMs,
+	                    onAnimationFinish: function onAnimationFinish() {
+	                        return _onAnimationFinish(animationId);
+	                    }
+	                }, echo));
+	            }));
 	        }));
-	        // Size the box that contains the icons to accommodate for proper
-	        // spacing, and let Flexbox take care of the details.
-	        var totalIconWidthPx = 8 * numPages;
-	        var totalSpacingWidthPx = 8 * (numPages - 1);
-	        var iconStripSize = {
-	            width: totalIconWidthPx + totalSpacingWidthPx
-	        };
-	        return React.createElement(View, {
-	            style: styles.indicatorStrip
-	        }, React.createElement(View, {
-	            style: styles.iconStrip,
-	            dynamicStyle: iconStripSize
-	        }, indicators));
 	    };
-	    return PagerIndicator;
+	    return EchoManager;
 	}(React.Component);
 
-	PagerIndicator.propTypes = {
-	    currentPage: React.PropTypes.number.isRequired,
-	    numPages: React.PropTypes.number.isRequired
+	EchoManager.propTypes = {
+	    echoes: React.PropTypes.arrayOf(echoPropType),
+	    onAnimationFinish: React.PropTypes.func.isRequired
 	};
 
-	var styles = StyleSheet.create({
-	    indicatorStrip: {
-	        backgroundColor: "#F0F1F2",
-	        flexDirection: "row",
-	        justifyContent: "center",
-	        alignItems: "center",
-	        height: pageIndicatorHeightPx
-	    },
-	    iconStrip: {
-	        flexDirection: "row",
-	        justifyContent: "space-between"
-	    }
-	});
-
-	module.exports = PagerIndicator;
+	module.exports = EchoManager;
 
 /***/ },
 /* 258 */
@@ -37088,16 +37081,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return target;
 	};
 
-	function _objectWithoutProperties(obj, keys) {
-	    var target = {};
-	    for (var i in obj) {
-	        if (keys.indexOf(i) >= 0) continue;
-	        if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
-	        target[i] = obj[i];
-	    }
-	    return target;
-	}
-
 	function _classCallCheck(instance, Constructor) {
 	    if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
 	}
@@ -37121,63 +37104,118 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	/**
-	 * A keypad button containing no symbols and triggering no actions on click.
+	 * A component that renders and animates the popovers that appear over the
+	 * multi-functional keys.
 	 */
 	var React = __webpack_require__(11);
 
-	var _require = __webpack_require__(239), connect = _require.connect;
-
-	var GestureManager = __webpack_require__(235);
+	var ReactCSSTransitionGroup = __webpack_require__(270);
 
 	var KeyConfigs = __webpack_require__(204);
 
-	var KeypadButton = __webpack_require__(255);
+	var MultiSymbolPopover = __webpack_require__(274);
 
-	var EmptyKeypadButton = function(_React$Component) {
-	    _inherits(EmptyKeypadButton, _React$Component);
-	    function EmptyKeypadButton() {
-	        _classCallCheck(this, EmptyKeypadButton);
+	var _require = __webpack_require__(141), boundingBoxPropType = _require.boundingBoxPropType, keyConfigPropType = _require.keyConfigPropType, popoverPropType = _require.popoverPropType;
+
+	// NOTE(charlie): These must be kept in sync with the transition durations and
+	// classnames specified in popover.less.
+	var animationTransitionName = "popover";
+
+	var animationDurationMs = 200;
+
+	// A container component used to position a popover absolutely at a specific
+	// position.
+	var PopoverContainer = function(_React$Component) {
+	    _inherits(PopoverContainer, _React$Component);
+	    function PopoverContainer() {
+	        _classCallCheck(this, PopoverContainer);
 	        return _possibleConstructorReturn(this, _React$Component.apply(this, arguments));
 	    }
-	    EmptyKeypadButton.prototype.render = function render() {
-	        var _props = this.props, gestureManager = _props.gestureManager, rest = _objectWithoutProperties(_props, [ "gestureManager" ]);
-	        // Register touch events on the button, but don't register its DOM node
-	        // or compute focus state or anything like that. We want the gesture
-	        // manager to know about touch events that start on empty buttons, but
-	        // we don't need it to know about their DOM nodes, as it doesn't need
-	        // to focus them or trigger presses.
-	        return React.createElement(KeypadButton, _extends({
-	            onTouchStart: function onTouchStart(evt) {
-	                return gestureManager.onTouchStart(evt);
-	            },
-	            onTouchEnd: function onTouchEnd(evt) {
-	                return gestureManager.onTouchEnd(evt);
-	            },
-	            onTouchMove: function onTouchMove(evt) {
-	                return gestureManager.onTouchMove(evt);
-	            },
-	            onTouchCancel: function onTouchCancel(evt) {
-	                return gestureManager.onTouchCancel(evt);
-	            }
-	        }, KeyConfigs.NOOP, rest));
+	    PopoverContainer.prototype.render = function render() {
+	        var _props = this.props, bounds = _props.bounds, childKeys = _props.childKeys;
+	        var containerStyle = _extends({
+	            position: "absolute"
+	        }, bounds);
+	        return React.createElement("div", {
+	            style: containerStyle
+	        }, React.createElement(MultiSymbolPopover, {
+	            keys: childKeys
+	        }));
 	    };
-	    return EmptyKeypadButton;
+	    return PopoverContainer;
 	}(React.Component);
 
-	EmptyKeypadButton.propTypes = {
-	    gestureManager: React.PropTypes.instanceOf(GestureManager)
+	PopoverContainer.propTypes = {
+	    bounds: boundingBoxPropType.isRequired,
+	    childKeys: React.PropTypes.arrayOf(keyConfigPropType).isRequired
 	};
 
-	var mapStateToProps = function mapStateToProps(state) {
-	    return {
-	        gestureManager: state.gestures.gestureManager
+	var PopoverManager = function(_React$Component2) {
+	    _inherits(PopoverManager, _React$Component2);
+	    function PopoverManager() {
+	        _classCallCheck(this, PopoverManager);
+	        return _possibleConstructorReturn(this, _React$Component2.apply(this, arguments));
+	    }
+	    PopoverManager.prototype.render = function render() {
+	        var popover = this.props.popover;
+	        return React.createElement(ReactCSSTransitionGroup, {
+	            transitionName: animationTransitionName,
+	            transitionEnter: true,
+	            transitionLeave: false,
+	            transitionEnterTimeout: animationDurationMs
+	        }, popover && React.createElement(PopoverContainer, {
+	            key: popover.childKeyIds[0],
+	            bounds: popover.bounds,
+	            childKeys: popover.childKeyIds.map(function(id) {
+	                return KeyConfigs[id];
+	            })
+	        }));
 	    };
+	    return PopoverManager;
+	}(React.Component);
+
+	PopoverManager.propTypes = {
+	    popover: popoverPropType
 	};
 
-	module.exports = connect(mapStateToProps)(EmptyKeypadButton);
+	module.exports = PopoverManager;
 
 /***/ },
 /* 259 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {// Generated by CoffeeScript 1.7.1
+	(function() {
+	    var getNanoSeconds, hrtime, loadTime;
+	    if ("undefined" !== typeof performance && null !== performance && performance.now) module.exports = function() {
+	        return performance.now();
+	    }; else if ("undefined" !== typeof process && null !== process && process.hrtime) {
+	        module.exports = function() {
+	            return (getNanoSeconds() - loadTime) / 1e6;
+	        };
+	        hrtime = process.hrtime;
+	        getNanoSeconds = function getNanoSeconds() {
+	            var hr;
+	            hr = hrtime();
+	            return 1e9 * hr[0] + hr[1];
+	        };
+	        loadTime = getNanoSeconds();
+	    } else if (Date.now) {
+	        module.exports = function() {
+	            return Date.now() - loadTime;
+	        };
+	        loadTime = Date.now();
+	    } else {
+	        module.exports = function() {
+	            return new Date().getTime() - loadTime;
+	        };
+	        loadTime = new Date().getTime();
+	    }
+	}).call(this);
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(284)))
+
+/***/ },
+/* 260 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -37386,7 +37424,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 260 */
+/* 261 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -37395,7 +37433,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports["default"] = combineReducers;
 
-	var _createStore = __webpack_require__(259);
+	var _createStore = __webpack_require__(260);
 
 	var _isPlainObject = __webpack_require__(277);
 
@@ -37503,7 +37541,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 261 */
+/* 262 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -37559,7 +37597,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 262 */
+/* 263 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -37576,7 +37614,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports["default"] = applyMiddleware;
 
-	var _compose = __webpack_require__(263);
+	var _compose = __webpack_require__(264);
 
 	var _compose2 = _interopRequireDefault(_compose);
 
@@ -37627,7 +37665,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 263 */
+/* 264 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -37658,40 +37696,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	        };
 	    });
 	}
-
-/***/ },
-/* 264 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {// Generated by CoffeeScript 1.7.1
-	(function() {
-	    var getNanoSeconds, hrtime, loadTime;
-	    if ("undefined" !== typeof performance && null !== performance && performance.now) module.exports = function() {
-	        return performance.now();
-	    }; else if ("undefined" !== typeof process && null !== process && process.hrtime) {
-	        module.exports = function() {
-	            return (getNanoSeconds() - loadTime) / 1e6;
-	        };
-	        hrtime = process.hrtime;
-	        getNanoSeconds = function getNanoSeconds() {
-	            var hr;
-	            hr = hrtime();
-	            return 1e9 * hr[0] + hr[1];
-	        };
-	        loadTime = getNanoSeconds();
-	    } else if (Date.now) {
-	        module.exports = function() {
-	            return Date.now() - loadTime;
-	        };
-	        loadTime = Date.now();
-	    } else {
-	        module.exports = function() {
-	            return new Date().getTime() - loadTime;
-	        };
-	        loadTime = new Date().getTime();
-	    }
-	}).call(this);
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(283)))
 
 /***/ },
 /* 265 */
@@ -37845,92 +37849,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	/**
-	 * A popover that renders a set of keys floating above the page.
-	 */
-	var React = __webpack_require__(11);
-
-	var _require = __webpack_require__(14), StyleSheet = _require.StyleSheet;
-
-	var _require2 = __webpack_require__(205), View = _require2.View;
-
-	var _require3 = __webpack_require__(141), keyConfigPropType = _require3.keyConfigPropType;
-
-	var _require4 = __webpack_require__(128), BorderStyles = _require4.BorderStyles;
-
-	var zIndexes = __webpack_require__(223);
-
-	var MultiSymbolPopover = function(_React$Component) {
-	    _inherits(MultiSymbolPopover, _React$Component);
-	    function MultiSymbolPopover() {
-	        _classCallCheck(this, MultiSymbolPopover);
-	        return _possibleConstructorReturn(this, _React$Component.apply(this, arguments));
-	    }
-	    MultiSymbolPopover.prototype.render = function render() {
-	        var keys = this.props.keys;
-	        // TODO(charlie): We have to require this lazily because of a cyclic
-	        // dependence in our components.
-	        var TouchableKeypadButton = __webpack_require__(241);
-	        return React.createElement(View, {
-	            style: styles.container
-	        }, keys.map(function(key) {
-	            return React.createElement(TouchableKeypadButton, {
-	                key: key.id,
-	                keyConfig: key,
-	                borders: BorderStyles.NONE
-	            });
-	        }));
-	    };
-	    return MultiSymbolPopover;
-	}(React.Component);
-
-	MultiSymbolPopover.propTypes = {
-	    keys: React.PropTypes.arrayOf(keyConfigPropType)
-	};
-
-	var styles = StyleSheet.create({
-	    container: {
-	        flexDirection: "column-reverse",
-	        position: "relative",
-	        width: "100%",
-	        borderRadius: 2,
-	        boxShadow: "0 2px 6px rgba(0, 0, 0, 0.3)",
-	        zIndex: zIndexes.popover
-	    },
-	    popoverButton: {
-	        backgroundColor: "#FFF",
-	        borderWidth: 0
-	    }
-	});
-
-	module.exports = MultiSymbolPopover;
-
-/***/ },
-/* 272 */
-/***/ function(module, exports, __webpack_require__) {
-
-	function _classCallCheck(instance, Constructor) {
-	    if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
-	}
-
-	function _possibleConstructorReturn(self, call) {
-	    if (!self) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-	    return !call || "object" !== typeof call && "function" !== typeof call ? self : call;
-	}
-
-	function _inherits(subClass, superClass) {
-	    if ("function" !== typeof superClass && null !== superClass) throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-	    subClass.prototype = Object.create(superClass && superClass.prototype, {
-	        constructor: {
-	            value: subClass,
-	            enumerable: false,
-	            writable: true,
-	            configurable: true
-	        }
-	    });
-	    superClass && (Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass);
-	}
-
-	/**
 	 * A component that renders an icon for a symbol with the given name.
 	 */
 	var React = __webpack_require__(11);
@@ -38011,7 +37929,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Icon;
 
 /***/ },
-/* 273 */
+/* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
 	function _classCallCheck(instance, Constructor) {
@@ -38046,7 +37964,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require2 = __webpack_require__(205), View = _require2.View;
 
-	var Icon = __webpack_require__(272);
+	var Icon = __webpack_require__(271);
 
 	var _require3 = __webpack_require__(128), IconTypes = _require3.IconTypes;
 
@@ -38178,7 +38096,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MultiSymbolGrid;
 
 /***/ },
-/* 274 */
+/* 273 */
 /***/ function(module, exports, __webpack_require__) {
 
 	function _classCallCheck(instance, Constructor) {
@@ -38257,6 +38175,92 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = CornerDecal;
 
 /***/ },
+/* 274 */
+/***/ function(module, exports, __webpack_require__) {
+
+	function _classCallCheck(instance, Constructor) {
+	    if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
+	}
+
+	function _possibleConstructorReturn(self, call) {
+	    if (!self) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	    return !call || "object" !== typeof call && "function" !== typeof call ? self : call;
+	}
+
+	function _inherits(subClass, superClass) {
+	    if ("function" !== typeof superClass && null !== superClass) throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+	    subClass.prototype = Object.create(superClass && superClass.prototype, {
+	        constructor: {
+	            value: subClass,
+	            enumerable: false,
+	            writable: true,
+	            configurable: true
+	        }
+	    });
+	    superClass && (Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass);
+	}
+
+	/**
+	 * A popover that renders a set of keys floating above the page.
+	 */
+	var React = __webpack_require__(11);
+
+	var _require = __webpack_require__(14), StyleSheet = _require.StyleSheet;
+
+	var _require2 = __webpack_require__(205), View = _require2.View;
+
+	var _require3 = __webpack_require__(141), keyConfigPropType = _require3.keyConfigPropType;
+
+	var _require4 = __webpack_require__(128), BorderStyles = _require4.BorderStyles;
+
+	var zIndexes = __webpack_require__(223);
+
+	var MultiSymbolPopover = function(_React$Component) {
+	    _inherits(MultiSymbolPopover, _React$Component);
+	    function MultiSymbolPopover() {
+	        _classCallCheck(this, MultiSymbolPopover);
+	        return _possibleConstructorReturn(this, _React$Component.apply(this, arguments));
+	    }
+	    MultiSymbolPopover.prototype.render = function render() {
+	        var keys = this.props.keys;
+	        // TODO(charlie): We have to require this lazily because of a cyclic
+	        // dependence in our components.
+	        var TouchableKeypadButton = __webpack_require__(242);
+	        return React.createElement(View, {
+	            style: styles.container
+	        }, keys.map(function(key) {
+	            return React.createElement(TouchableKeypadButton, {
+	                key: key.id,
+	                keyConfig: key,
+	                borders: BorderStyles.NONE
+	            });
+	        }));
+	    };
+	    return MultiSymbolPopover;
+	}(React.Component);
+
+	MultiSymbolPopover.propTypes = {
+	    keys: React.PropTypes.arrayOf(keyConfigPropType)
+	};
+
+	var styles = StyleSheet.create({
+	    container: {
+	        flexDirection: "column-reverse",
+	        position: "relative",
+	        width: "100%",
+	        borderRadius: 2,
+	        boxShadow: "0 2px 6px rgba(0, 0, 0, 0.3)",
+	        zIndex: zIndexes.popover
+	    },
+	    popoverButton: {
+	        backgroundColor: "#FFF",
+	        borderWidth: 0
+	    }
+	});
+
+	module.exports = MultiSymbolPopover;
+
+/***/ },
 /* 275 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -38283,7 +38287,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    module.exports = require("./factoryWithTypeCheckers")(isValidElement, throwOnDirectAccess);
 	} else // By explicitly using `prop-types` you are opting into new production behavior.
 	// http://fb.me/prop-types-in-prod
-	module.exports = __webpack_require__(284)();
+	module.exports = __webpack_require__(283)();
 
 /***/ },
 /* 276 */
@@ -38658,6 +38662,60 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 *
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
+	 */
+	"use strict";
+
+	var emptyFunction = __webpack_require__(336);
+
+	var invariant = __webpack_require__(337);
+
+	var ReactPropTypesSecret = __webpack_require__(290);
+
+	module.exports = function() {
+	    function shim(props, propName, componentName, location, propFullName, secret) {
+	        if (secret === ReactPropTypesSecret) // It is still safe when called from React.
+	        return;
+	        invariant(false, "Calling PropTypes validators directly is not supported by the `prop-types` package. Use PropTypes.checkPropTypes() to call them. Read more at http://fb.me/use-check-prop-types");
+	    }
+	    shim.isRequired = shim;
+	    function getShim() {
+	        return shim;
+	    }
+	    // Important!
+	    // Keep this list in sync with production version in `./factoryWithTypeCheckers.js`.
+	    var ReactPropTypes = {
+	        array: shim,
+	        bool: shim,
+	        func: shim,
+	        number: shim,
+	        object: shim,
+	        string: shim,
+	        symbol: shim,
+	        any: shim,
+	        arrayOf: getShim,
+	        element: shim,
+	        instanceOf: getShim,
+	        node: shim,
+	        objectOf: getShim,
+	        oneOf: getShim,
+	        oneOfType: getShim,
+	        shape: getShim,
+	        exact: getShim
+	    };
+	    ReactPropTypes.checkPropTypes = emptyFunction;
+	    ReactPropTypes.PropTypes = ReactPropTypes;
+	    return ReactPropTypes;
+	};
+
+/***/ },
+/* 284 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// shim for using process in browser
 
 	var process = module.exports = {};
@@ -38719,64 +38777,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 284 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 *
-	 * This source code is licensed under the MIT license found in the
-	 * LICENSE file in the root directory of this source tree.
-	 */
-	"use strict";
-
-	var emptyFunction = __webpack_require__(337);
-
-	var invariant = __webpack_require__(338);
-
-	var ReactPropTypesSecret = __webpack_require__(290);
-
-	module.exports = function() {
-	    function shim(props, propName, componentName, location, propFullName, secret) {
-	        if (secret === ReactPropTypesSecret) // It is still safe when called from React.
-	        return;
-	        invariant(false, "Calling PropTypes validators directly is not supported by the `prop-types` package. Use PropTypes.checkPropTypes() to call them. Read more at http://fb.me/use-check-prop-types");
-	    }
-	    shim.isRequired = shim;
-	    function getShim() {
-	        return shim;
-	    }
-	    // Important!
-	    // Keep this list in sync with production version in `./factoryWithTypeCheckers.js`.
-	    var ReactPropTypes = {
-	        array: shim,
-	        bool: shim,
-	        func: shim,
-	        number: shim,
-	        object: shim,
-	        string: shim,
-	        symbol: shim,
-	        any: shim,
-	        arrayOf: getShim,
-	        element: shim,
-	        instanceOf: getShim,
-	        node: shim,
-	        objectOf: getShim,
-	        oneOf: getShim,
-	        oneOfType: getShim,
-	        shape: getShim,
-	        exact: getShim
-	    };
-	    ReactPropTypes.checkPropTypes = emptyFunction;
-	    ReactPropTypes.PropTypes = ReactPropTypes;
-	    return ReactPropTypes;
-	};
-
-/***/ },
 /* 285 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _Symbol = __webpack_require__(291), getRawTag = __webpack_require__(292), objectToString = __webpack_require__(293);
+	var _Symbol = __webpack_require__(292), getRawTag = __webpack_require__(293), objectToString = __webpack_require__(294);
 
 	/** `Object#toString` result references. */
 	var nullTag = "[object Null]", undefinedTag = "[object Undefined]";
@@ -38802,7 +38806,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 286 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var overArg = __webpack_require__(294);
+	var overArg = __webpack_require__(291);
 
 	/** Built-in value references. */
 	var getPrototype = overArg(Object.getPrototypeOf, Object);
@@ -38911,7 +38915,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: true
 	});
 
-	var _ponyfill = __webpack_require__(336);
+	var _ponyfill = __webpack_require__(338);
 
 	var _ponyfill2 = _interopRequireDefault(_ponyfill);
 
@@ -38951,6 +38955,26 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 291 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/**
+	 * Creates a unary function that invokes `func` with its argument transformed.
+	 *
+	 * @private
+	 * @param {Function} func The function to wrap.
+	 * @param {Function} transform The argument transform.
+	 * @returns {Function} Returns the new function.
+	 */
+	function overArg(func, transform) {
+	    return function(arg) {
+	        return func(transform(arg));
+	    };
+	}
+
+	module.exports = overArg;
+
+/***/ },
+/* 292 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var root = __webpack_require__(339);
 
 	/** Built-in value references. */
@@ -38959,10 +38983,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = _Symbol;
 
 /***/ },
-/* 292 */
+/* 293 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _Symbol = __webpack_require__(291);
+	var _Symbol = __webpack_require__(292);
 
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -39001,7 +39025,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = getRawTag;
 
 /***/ },
-/* 293 */
+/* 294 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/** Used for built-in method references. */
@@ -39026,26 +39050,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	module.exports = objectToString;
-
-/***/ },
-/* 294 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Creates a unary function that invokes `func` with its argument transformed.
-	 *
-	 * @private
-	 * @param {Function} func The function to wrap.
-	 * @param {Function} transform The argument transform.
-	 * @returns {Function} Returns the new function.
-	 */
-	function overArg(func, transform) {
-	    return function(arg) {
-	        return func(transform(arg));
-	    };
-	}
-
-	module.exports = overArg;
 
 /***/ },
 /* 295 */
@@ -41486,28 +41490,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	exports["default"] = symbolObservablePonyfill;
-
-	function symbolObservablePonyfill(root) {
-	    var result;
-	    var _Symbol = root.Symbol;
-	    if ("function" === typeof _Symbol) if (_Symbol.observable) result = _Symbol.observable; else {
-	        result = _Symbol("observable");
-	        _Symbol.observable = result;
-	    } else result = "@@observable";
-	    return result;
-	}
-
-/***/ },
-/* 337 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
 	/**
 	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
@@ -41548,7 +41530,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = emptyFunction;
 
 /***/ },
-/* 338 */
+/* 337 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -41595,6 +41577,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	module.exports = invariant;
+
+/***/ },
+/* 338 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	exports["default"] = symbolObservablePonyfill;
+
+	function symbolObservablePonyfill(root) {
+	    var result;
+	    var _Symbol = root.Symbol;
+	    if ("function" === typeof _Symbol) if (_Symbol.observable) result = _Symbol.observable; else {
+	        result = _Symbol("observable");
+	        _Symbol.observable = result;
+	    } else result = "@@observable";
+	    return result;
+	}
 
 /***/ },
 /* 339 */

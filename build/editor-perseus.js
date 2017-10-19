@@ -1,3 +1,7 @@
+/*! Perseus with editors | https://github.com/Khan/perseus */
+// commit d9ffae121412f16db872af3a5ea3a426f9f29e72
+// branch master
+// @generated
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory(require("react"), require("underscore"), require("react-dom"), require("react-addons-create-fragment"), require("jquery"), require("aphrodite"), require("classnames"), require("react-addons-pure-render-mixin"), require("react-addons-css-transition-group"));
@@ -87,31 +91,31 @@ return /******/ (function(modules) { // webpackBootstrap
 	/**
 	 * Main entry point
 	 */
-	var version = __webpack_require__(89);
+	var version = __webpack_require__(87);
 
-	var Widgets = __webpack_require__(28);
-	var basicWidgets = __webpack_require__(29);
+	var Widgets = __webpack_require__(27);
+	var basicWidgets = __webpack_require__(28);
 	Widgets.registerMany(basicWidgets);
 
 	module.exports = {
 	    apiVersion: version.apiVersion,
 	    itemDataVersion: version.itemDataVersion,
-	    init: __webpack_require__(30),
-	    ArticleRenderer: __webpack_require__(31),
-	    ItemRenderer: __webpack_require__(32),
-	    ServerItemRenderer: __webpack_require__(33),
-	    HintsRenderer: __webpack_require__(34),
-	    Renderer: __webpack_require__(35),
-	    MultiItems: __webpack_require__(36)
+	    init: __webpack_require__(29),
+	    ArticleRenderer: __webpack_require__(30),
+	    ItemRenderer: __webpack_require__(31),
+	    ServerItemRenderer: __webpack_require__(32),
+	    HintsRenderer: __webpack_require__(33),
+	    Renderer: __webpack_require__(34),
+	    MultiItems: __webpack_require__(35)
 	};
 
 /***/ },
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var allWidgets = __webpack_require__(27);
-	var Widgets = __webpack_require__(28);
-	var Version = __webpack_require__(89);
+	var allWidgets = __webpack_require__(36);
+	var Widgets = __webpack_require__(27);
+	var Version = __webpack_require__(87);
 
 	Widgets.registerMany(allWidgets);
 
@@ -586,7 +590,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var _ = __webpack_require__(22);
-	var KhanAnswerTypes = __webpack_require__(54);
+	var KhanAnswerTypes = __webpack_require__(53);
 
 	var nestedMap = function nestedMap(children, func, context) {
 	    if (_.isArray(children)) {
@@ -1282,12 +1286,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(22);
 
-	var _require = __webpack_require__(36),
+	var _require = __webpack_require__(35),
 	    findContentNodesInItem = _require.findContentNodesInItem,
 	    inferItemShape = _require.inferItemShape;
 
 	var Traversal = __webpack_require__(39);
-	var Widgets = __webpack_require__(28);
+	var Widgets = __webpack_require__(27);
 
 	var isUpgradedWidgetInfoRenderableBy = function isUpgradedWidgetInfoRenderableBy(widgetInfo, widgetRendererVersion) {
 	    if (widgetRendererVersion == null) {
@@ -1366,12 +1370,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(22);
 
-	var _require = __webpack_require__(36),
+	var _require = __webpack_require__(35),
 	    findContentNodesInItem = _require.findContentNodesInItem,
 	    inferItemShape = _require.inferItemShape;
 
 	var Traversal = __webpack_require__(39);
-	var Widgets = __webpack_require__(28);
+	var Widgets = __webpack_require__(27);
 
 	// Iterate over a single Perseus renderer, mutating `widgets` by appending
 	// violating widget types discovered in this item.
@@ -1417,7 +1421,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var _ = __webpack_require__(22);
 
-	var _require = __webpack_require__(36),
+	var _require = __webpack_require__(35),
 	    findContentNodesInItem = _require.findContentNodesInItem,
 	    findHintNodesInItem = _require.findHintNodesInItem,
 	    inferItemShape = _require.inferItemShape;
@@ -2006,16 +2010,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	    iconTrash = _require.iconTrash;
 
 	var InlineIcon = __webpack_require__(42);
-	var KatexErrorView = __webpack_require__(47);
+	var KatexErrorView = __webpack_require__(45);
 	var PerseusMarkdown = __webpack_require__(40);
-	var PropCheckBox = __webpack_require__(48);
+	var PropCheckBox = __webpack_require__(46);
 	var Util = __webpack_require__(6);
-	var Widgets = __webpack_require__(28);
-	var preprocessTex = __webpack_require__(56);
+	var Widgets = __webpack_require__(27);
+	var preprocessTex = __webpack_require__(54);
 
-	var PerseusEditor = __webpack_require__(49);
+	var PerseusEditor = __webpack_require__(47);
 
-	var WIDGET_PROP_BLACKLIST = __webpack_require__(58);
+	var WIDGET_PROP_BLACKLIST = __webpack_require__(57);
 
 	// like [[snowman input-number 1]]
 	var widgetPlaceholder = "[[\u2603 {id}]]";
@@ -3146,10 +3150,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(22);
 
 	var ApiClassNames = __webpack_require__(5).ClassNames;
-	var ApiOptionsProps = __webpack_require__(57);
-	var CombinedHintsEditor = __webpack_require__(45);
+	var ApiOptionsProps = __webpack_require__(58);
+	var CombinedHintsEditor = __webpack_require__(48);
 	var FixPassageRefs = __webpack_require__(55);
-	var ItemEditor = __webpack_require__(46);
+	var ItemEditor = __webpack_require__(49);
 	var JsonEditor = __webpack_require__(43);
 	var ViewportResizer = __webpack_require__(18);
 	var HUD = __webpack_require__(44);
@@ -3637,7 +3641,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ApiOptions = __webpack_require__(5).Options;
 	var Editor = __webpack_require__(11);
 
-	var _require2 = __webpack_require__(45),
+	var _require2 = __webpack_require__(48),
 	    HintEditor = _require2.HintEditor;
 
 	var _require3 = __webpack_require__(41),
@@ -3648,7 +3652,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var JsonEditor = __webpack_require__(43);
 	var SimpleButton = __webpack_require__(50);
 
-	var _require4 = __webpack_require__(36),
+	var _require4 = __webpack_require__(35),
 	    MultiRenderer = _require4.MultiRenderer;
 
 	var _require5 = __webpack_require__(59),
@@ -5155,7 +5159,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ButtonGroup = __webpack_require__(66);
 
-	var _require = __webpack_require__(53),
+	var _require = __webpack_require__(56),
 	    devices = _require.devices;
 
 	var _require2 = __webpack_require__(41),
@@ -5231,7 +5235,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(21);
 
-	var constants = __webpack_require__(53);
+	var constants = __webpack_require__(56);
 
 	var SCREEN_SIZES = {
 	    phone: {
@@ -5654,15 +5658,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var basicWidgets = __webpack_require__(29);
-	var extraWidgets = __webpack_require__(68);
-
-	module.exports = basicWidgets.concat(extraWidgets);
-
-/***/ },
-/* 28 */
-/***/ function(module, exports, __webpack_require__) {
-
 	/* eslint-disable no-console, no-var, space-before-function-paren */
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
@@ -6008,7 +6003,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Widgets;
 
 /***/ },
-/* 29 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* globals true */
@@ -6018,7 +6013,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = [[__webpack_require__(91), true && __webpack_require__(98)], [__webpack_require__(92), true && __webpack_require__(93)], [__webpack_require__(94), true && __webpack_require__(95)], [__webpack_require__(96), true && __webpack_require__(97)]];
 
 /***/ },
-/* 30 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -6049,7 +6044,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    // lightweight fix that will get exercises working in our mobile apps
 	    // immediately.
 	    if (options.loadExtraWidgets === undefined || options.loadExtraWidgets) {
-	        var Widgets = __webpack_require__(28);
+	        var Widgets = __webpack_require__(27);
 	        !/*require.ensure*/(function (require) {
 	            var extraWidgets = __webpack_require__(68);
 	            Widgets.registerMany(extraWidgets);
@@ -6087,7 +6082,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = init;
 
 /***/ },
-/* 31 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6106,7 +6101,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Util = __webpack_require__(6);
 	var ApiOptions = __webpack_require__(5).Options;
 	var ApiClassNames = __webpack_require__(5).ClassNames;
-	var Renderer = __webpack_require__(35);
+	var Renderer = __webpack_require__(34);
 	var ProvideKeypad = __webpack_require__(69);
 
 	var Gorgon = __webpack_require__(20);
@@ -6282,7 +6277,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ArticleRenderer;
 
 /***/ },
-/* 32 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -6296,8 +6291,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(22);
 
 	var ApiOptions = __webpack_require__(5).Options;
-	var HintsRenderer = __webpack_require__(34);
-	var Renderer = __webpack_require__(35);
+	var HintsRenderer = __webpack_require__(33);
+	var Renderer = __webpack_require__(34);
 	var ProvideKeypad = __webpack_require__(69);
 	var Util = __webpack_require__(6);
 
@@ -6721,7 +6716,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ItemRenderer;
 
 /***/ },
-/* 33 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -6743,9 +6738,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    css = _require.css;
 
 	var ApiOptions = __webpack_require__(5).Options;
-	var HintsRenderer = __webpack_require__(34);
+	var HintsRenderer = __webpack_require__(33);
 	var ProvideKeypad = __webpack_require__(69);
-	var Renderer = __webpack_require__(35);
+	var Renderer = __webpack_require__(34);
 	var Util = __webpack_require__(6);
 
 	var _require2 = __webpack_require__(99),
@@ -7095,7 +7090,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ItemRenderer;
 
 /***/ },
-/* 34 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _mobileHintStylesHint, _mobileHintStylesGetA, _mobileHintStylesPlus;
@@ -7115,7 +7110,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var HintRenderer = __webpack_require__(71);
 	var SvgImage = __webpack_require__(38);
-	var ApiOptionsProps = __webpack_require__(57);
+	var ApiOptionsProps = __webpack_require__(58);
 
 	var mediaQueries = __webpack_require__(100);
 	var sharedStyles = __webpack_require__(101);
@@ -7398,12 +7393,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = HintsRenderer;
 
 /***/ },
-/* 35 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-	var _notGorgon = __webpack_require__(72);
+	var _notGorgon = __webpack_require__(74);
 
 	var _notGorgon2 = _interopRequireDefault(_notGorgon);
 
@@ -7420,24 +7415,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(22);
 	var classNames = __webpack_require__(64);
 
-	var JiptParagraphs = __webpack_require__(73);
+	var JiptParagraphs = __webpack_require__(75);
 
 	var _require = __webpack_require__(15),
 	    maybeUnescape = _require.maybeUnescape;
 
 	var PerseusMarkdown = __webpack_require__(40);
-	var QuestionParagraph = __webpack_require__(74);
+	var QuestionParagraph = __webpack_require__(76);
 	var SvgImage = __webpack_require__(38);
-	var TeX = __webpack_require__(75);
-	var WidgetContainer = __webpack_require__(76);
-	var Widgets = __webpack_require__(28);
+	var TeX = __webpack_require__(77);
+	var WidgetContainer = __webpack_require__(78);
+	var Widgets = __webpack_require__(27);
 
 	var Util = __webpack_require__(6);
-	var ApiOptionsProps = __webpack_require__(57);
+	var ApiOptionsProps = __webpack_require__(58);
 	var ApiClassNames = __webpack_require__(5).ClassNames;
-	var Zoomable = __webpack_require__(77);
-	var Deferred = __webpack_require__(78);
-	var preprocessTex = __webpack_require__(56);
+	var Zoomable = __webpack_require__(79);
+	var Deferred = __webpack_require__(80);
+	var preprocessTex = __webpack_require__(54);
 
 	var Gorgon = __webpack_require__(20); // The linter engine
 
@@ -7447,7 +7442,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	// The i18n linter
 
-	var keypadElementPropType = __webpack_require__(219).propTypes.keypadElementPropType;
+	var keypadElementPropType = __webpack_require__(220).propTypes.keypadElementPropType;
 
 	var _require3 = __webpack_require__(99),
 	    mapObject = _require3.mapObject,
@@ -9069,7 +9064,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Renderer;
 
 /***/ },
-/* 36 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -9130,12 +9125,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    findHintNodesInItem = _require.findHintNodesInItem,
 	    inferItemShape = _require.inferItemShape;
 
-	var MultiRenderer = __webpack_require__(79);
+	var MultiRenderer = __webpack_require__(72);
 
 	var _require2 = __webpack_require__(60),
 	    buildPropTypeForShape = _require2.buildPropTypeForShape;
 
-	var shapes = __webpack_require__(80);
+	var shapes = __webpack_require__(73);
 
 	module.exports = {
 	    // Tools for rendering your multi-items
@@ -9151,6 +9146,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	    findHintNodesInItem: findHintNodesInItem,
 	    inferItemShape: inferItemShape
 	};
+
+/***/ },
+/* 36 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var basicWidgets = __webpack_require__(28);
+	var extraWidgets = __webpack_require__(68);
+
+	module.exports = basicWidgets.concat(extraWidgets);
 
 /***/ },
 /* 37 */
@@ -9893,7 +9897,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// TODO(aria): Pull this out of interactive2 / replace with new _.mapObject
 	var objective_ = __webpack_require__(99);
 
-	var Widgets = __webpack_require__(28);
+	var Widgets = __webpack_require__(27);
 
 	var noop = function noop() {};
 
@@ -9999,7 +10003,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(22);
 
 	var SimpleMarkdown = __webpack_require__(225);
-	var TeX = __webpack_require__(75);
+	var TeX = __webpack_require__(77);
 	var Util = __webpack_require__(6);
 	var Lint = __webpack_require__(86);
 
@@ -11024,562 +11028,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* eslint-disable no-var, object-curly-spacing, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	/* Collection of classes for rendering the hint editor area,
-	 * hint editor boxes, and hint previews
-	 */
-
-	var React = __webpack_require__(21);
-	var _ = __webpack_require__(22);
-
-	var Editor = __webpack_require__(11);
-	var InfoTip = __webpack_require__(87);
-	var DeviceFramer = __webpack_require__(19);
-
-	var ApiOptions = __webpack_require__(5).Options;
-
-	var _require = __webpack_require__(41),
-	    iconCircleArrowDown = _require.iconCircleArrowDown,
-	    iconCircleArrowUp = _require.iconCircleArrowUp,
-	    iconPlus = _require.iconPlus,
-	    iconTrash = _require.iconTrash;
-
-	var InlineIcon = __webpack_require__(42);
-	var IframeContentRenderer = __webpack_require__(13);
-
-	/* Renders a hint editor box
-	 *
-	 * This includes:
-	 *  ~ A "Hint" title
-	 *  ~ the textarea for the hint
-	 *  ~ the "remove this hint" box
-	 *  ~ the move hint up/down arrows
-	 */
-	var HintEditor = React.createClass({
-	    displayName: "HintEditor",
-
-	    propTypes: {
-	        apiOptions: ApiOptions.propTypes,
-	        className: React.PropTypes.string,
-	        imageUploader: React.PropTypes.func,
-	        showMoveButtons: React.PropTypes.bool,
-	        showRemoveButton: React.PropTypes.bool,
-	        showTitle: React.PropTypes.bool
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            content: "",
-	            replace: false,
-	            showMoveButtons: true,
-	            showTitle: true,
-	            showRemoveButton: true
-	        };
-	    },
-
-	    handleChange: function handleChange(e) {
-	        this.props.onChange({ replace: e.target.checked });
-	    },
-
-	    render: function render() {
-	        return React.createElement(
-	            "div",
-	            { className: "perseus-hint-editor " + this.props.className },
-	            this.props.showTitle && React.createElement(
-	                "div",
-	                { className: "pod-title" },
-	                "Hint"
-	            ),
-	            React.createElement(Editor, {
-	                ref: "editor",
-	                apiOptions: this.props.apiOptions,
-	                widgets: this.props.widgets,
-	                content: this.props.content,
-	                images: this.props.images,
-	                replace: this.props.replace,
-	                placeholder: "Type your hint here...",
-	                imageUploader: this.props.imageUploader,
-	                onChange: this.props.onChange
-	            }),
-	            React.createElement(
-	                "div",
-	                { className: "hint-controls-container clearfix" },
-	                this.props.showMoveButtons && React.createElement(
-	                    "span",
-	                    { className: "reorder-hints" },
-	                    React.createElement(
-	                        "button",
-	                        {
-	                            type: "button",
-	                            className: this.props.isLast ? "hidden" : "",
-	                            onClick: _.partial(this.props.onMove, 1)
-	                        },
-	                        React.createElement(InlineIcon, iconCircleArrowDown)
-	                    ),
-	                    " ",
-	                    React.createElement(
-	                        "button",
-	                        {
-	                            type: "button",
-	                            className: this.props.isFirst ? "hidden" : "",
-	                            onClick: _.partial(this.props.onMove, -1)
-	                        },
-	                        React.createElement(InlineIcon, iconCircleArrowUp)
-	                    ),
-	                    " ",
-	                    this.props.isLast && React.createElement(
-	                        InfoTip,
-	                        null,
-	                        React.createElement(
-	                            "p",
-	                            null,
-	                            "The last hint is automatically bolded."
-	                        )
-	                    )
-	                ),
-	                React.createElement("input", {
-	                    type: "checkbox",
-	                    checked: this.props.replace,
-	                    onChange: this.handleChange
-	                }),
-	                "Replace previous hint",
-	                this.props.showRemoveButton && React.createElement(
-	                    "button",
-	                    {
-	                        type: "button",
-	                        className: "remove-hint simple-button orange",
-	                        onClick: this.props.onRemove
-	                    },
-	                    React.createElement(InlineIcon, iconTrash),
-	                    "Remove this hint",
-	                    " "
-	                )
-	            )
-	        );
-	    },
-
-	    focus: function focus() {
-	        this.refs.editor.focus();
-	    },
-
-	    getSaveWarnings: function getSaveWarnings() {
-	        return this.refs.editor.getSaveWarnings();
-	    },
-
-	    serialize: function serialize(options) {
-	        return this.refs.editor.serialize(options);
-	    }
-	});
-
-	/* A single hint-row containing a hint editor and preview */
-	var CombinedHintEditor = React.createClass({
-	    displayName: "CombinedHintEditor",
-
-	    propTypes: {
-	        apiOptions: ApiOptions.propTypes,
-	        deviceType: React.PropTypes.string.isRequired,
-	        frameSource: React.PropTypes.string.isRequired,
-	        imageUploader: React.PropTypes.func,
-	        highlightLint: React.PropTypes.bool
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            highlightLint: false
-	        };
-	    },
-
-	    updatePreview: function updatePreview() {
-	        var shouldBold = this.props.isLast && !/\*\*/.test(this.props.hint.content);
-
-	        this.refs.frame.sendNewData({
-	            type: "hint",
-	            data: {
-	                hint: this.props.hint,
-	                bold: shouldBold,
-	                pos: this.props.pos,
-	                apiOptions: this.props.apiOptions,
-	                linterContext: {
-	                    contentType: "hint",
-	                    highlightLint: this.props.highlightLint,
-	                    paths: this.props.contentPaths
-	                }
-	            }
-	        });
-	    },
-
-	    componentDidMount: function componentDidMount() {
-	        this.updatePreview();
-	    },
-
-	    componentDidUpdate: function componentDidUpdate() {
-	        this.updatePreview();
-	    },
-
-	    render: function render() {
-	        var isMobile = this.props.deviceType === "phone" || this.props.deviceType === "tablet";
-	        return React.createElement(
-	            "div",
-	            {
-	                className: "perseus-combined-hint-editor " + "perseus-editor-row"
-	            },
-	            React.createElement(
-	                "div",
-	                { className: "perseus-editor-left-cell" },
-	                React.createElement(HintEditor, {
-	                    ref: "editor",
-	                    isFirst: this.props.isFirst,
-	                    isLast: this.props.isLast,
-	                    widgets: this.props.hint.widgets,
-	                    content: this.props.hint.content,
-	                    images: this.props.hint.images,
-	                    replace: this.props.hint.replace,
-	                    imageUploader: this.props.imageUploader,
-	                    onChange: this.props.onChange,
-	                    onRemove: this.props.onRemove,
-	                    onMove: this.props.onMove,
-	                    apiOptions: this.props.apiOptions
-	                })
-	            ),
-	            React.createElement(
-	                "div",
-	                { className: "perseus-editor-right-cell" },
-	                React.createElement(
-	                    DeviceFramer,
-	                    {
-	                        deviceType: this.props.deviceType,
-	                        nochrome: true
-	                    },
-	                    React.createElement(IframeContentRenderer, {
-	                        ref: "frame",
-	                        content: this.props.frameSource,
-	                        datasetKey: "mobile",
-	                        datasetValue: isMobile,
-	                        seamless: true
-	                    })
-	                )
-	            )
-	        );
-	    },
-
-	    getSaveWarnings: function getSaveWarnings() {
-	        return this.refs.editor.getSaveWarnings();
-	    },
-
-	    serialize: function serialize(options) {
-	        return this.refs.editor.serialize(options);
-	    },
-
-	    focus: function focus() {
-	        this.refs.editor.focus();
-	    }
-	});
-
-	/* The entire hints editing/preview area
-	 *
-	 * Includes:
-	 *  ~ All the hint edit boxes, move and remove buttons
-	 *  ~ All the hint previews
-	 *  ~ The "add a hint" button
-	 */
-	var CombinedHintsEditor = React.createClass({
-	    displayName: "CombinedHintsEditor",
-
-	    propTypes: {
-	        apiOptions: ApiOptions.propTypes,
-	        deviceType: React.PropTypes.string.isRequired,
-	        frameSource: React.PropTypes.string.isRequired,
-	        imageUploader: React.PropTypes.func,
-	        highlightLint: React.PropTypes.bool
-	    },
-
-	    statics: {
-	        HintEditor: HintEditor
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            onChange: function onChange() {},
-	            hints: [],
-	            highlightLint: false
-	        };
-	    },
-
-	    render: function render() {
-	        var hints = this.props.hints;
-	        var hintElems = _.map(hints, function (hint, i) {
-	            return React.createElement(CombinedHintEditor, {
-	                ref: "hintEditor" + i,
-	                key: "hintEditor" + i,
-	                isFirst: i === 0,
-	                isLast: i + 1 === hints.length,
-	                hint: hint,
-	                pos: i,
-	                imageUploader: this.props.imageUploader,
-	                onChange: this.handleHintChange.bind(this, i),
-	                onRemove: this.handleHintRemove.bind(this, i),
-	                onMove: this.handleHintMove.bind(this, i),
-	                deviceType: this.props.deviceType,
-	                apiOptions: this.props.apiOptions,
-	                frameSource: this.props.frameSource,
-	                highlightLint: this.props.highlightLint
-	            });
-	        }, this);
-
-	        /* eslint-disable max-len */
-	        return React.createElement(
-	            "div",
-	            { className: "perseus-hints-editor perseus-editor-table" },
-	            hintElems,
-	            React.createElement(
-	                "div",
-	                { className: "perseus-editor-row" },
-	                React.createElement(
-	                    "div",
-	                    { className: "add-hint-container perseus-editor-left-cell" },
-	                    React.createElement(
-	                        "button",
-	                        {
-	                            type: "button",
-	                            className: "add-hint simple-button orange",
-	                            onClick: this.addHint
-	                        },
-	                        React.createElement(InlineIcon, iconPlus),
-	                        " Add a hint"
-	                    )
-	                )
-	            )
-	        );
-	        /* eslint-enable max-len */
-	    },
-
-	    handleHintChange: function handleHintChange(i, newProps, cb, silent) {
-	        // TODO(joel) - lens
-	        var hints = _(this.props.hints).clone();
-	        hints[i] = _.extend({}, this.serializeHint(i, { keepDeletedWidgets: true }), newProps);
-
-	        this.props.onChange({ hints: hints }, cb, silent);
-	    },
-
-	    handleHintRemove: function handleHintRemove(i) {
-	        var hints = _(this.props.hints).clone();
-	        hints.splice(i, 1);
-	        this.props.onChange({ hints: hints });
-	    },
-
-	    handleHintMove: function handleHintMove(i, dir) {
-	        var _this = this;
-
-	        var hints = _(this.props.hints).clone();
-	        var hint = hints.splice(i, 1)[0];
-	        hints.splice(i + dir, 0, hint);
-	        this.props.onChange({ hints: hints }, function () {
-	            _this.refs["hintEditor" + (i + dir)].focus();
-	        });
-	    },
-
-	    addHint: function addHint() {
-	        var _this2 = this;
-
-	        var hints = _(this.props.hints).clone().concat([{ content: "" }]);
-	        this.props.onChange({ hints: hints }, function () {
-	            var i = hints.length - 1;
-	            _this2.refs["hintEditor" + i].focus();
-	        });
-	    },
-
-	    getSaveWarnings: function getSaveWarnings() {
-	        var _this3 = this;
-
-	        return _.chain(this.props.hints).map(function (hint, i) {
-	            return _.map(_this3.refs["hintEditor" + i].getSaveWarnings(), function (issue) {
-	                return "Hint " + (i + 1) + ": " + issue;
-	            });
-	        }).flatten(true).value();
-	    },
-
-	    serialize: function serialize(options) {
-	        var _this4 = this;
-
-	        return this.props.hints.map(function (hint, i) {
-	            return _this4.serializeHint(i, options);
-	        });
-	    },
-
-	    serializeHint: function serializeHint(index, options) {
-	        return this.refs["hintEditor" + index].serialize(options);
-	    }
-	});
-
-	module.exports = CombinedHintsEditor;
-
-/***/ },
-/* 46 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	/* eslint-disable no-var, object-curly-spacing, react/prop-types, react/sort-comp */
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var React = __webpack_require__(21);
-	var _ = __webpack_require__(22);
-
-	var ApiOptions = __webpack_require__(5).Options;
-	var Editor = __webpack_require__(11);
-	var ItemExtrasEditor = __webpack_require__(88);
-	var DeviceFramer = __webpack_require__(19);
-	var ITEM_DATA_VERSION = __webpack_require__(89).itemDataVersion;
-	var IframeContentRenderer = __webpack_require__(13);
-
-	var ItemEditor = React.createClass({
-	    displayName: "ItemEditor",
-
-	    propTypes: {
-	        apiOptions: ApiOptions.propTypes,
-	        deviceType: React.PropTypes.string,
-	        frameSource: React.PropTypes.string.isRequired,
-	        gradeMessage: React.PropTypes.string,
-	        imageUploader: React.PropTypes.func,
-	        wasAnswered: React.PropTypes.bool
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            onChange: function onChange() {},
-	            question: {},
-	            answerArea: {}
-	        };
-	    },
-
-	    // Notify the parent that the question or answer area has been updated.
-	    updateProps: function updateProps(newProps, cb, silent) {
-	        var props = _(this.props).pick("question", "answerArea");
-
-	        this.props.onChange(_(props).extend(newProps), cb, silent);
-	    },
-
-	    render: function render() {
-	        var isMobile = this.props.deviceType === "phone" || this.props.deviceType === "tablet";
-	        return React.createElement(
-	            "div",
-	            { className: "perseus-editor-table" },
-	            React.createElement(
-	                "div",
-	                { className: "perseus-editor-row perseus-question-container" },
-	                React.createElement(
-	                    "div",
-	                    { className: "perseus-editor-left-cell" },
-	                    React.createElement(
-	                        "div",
-	                        { className: "pod-title" },
-	                        "Question"
-	                    ),
-	                    React.createElement(Editor, _extends({
-	                        ref: "questionEditor",
-	                        placeholder: "Type your question here...",
-	                        className: "perseus-question-editor",
-	                        imageUploader: this.props.imageUploader,
-	                        onChange: this.handleEditorChange,
-	                        apiOptions: this.props.apiOptions,
-	                        showWordCount: true
-	                    }, this.props.question))
-	                ),
-	                React.createElement(
-	                    "div",
-	                    { className: "perseus-editor-right-cell" },
-	                    React.createElement(
-	                        "div",
-	                        { id: "problemarea" },
-	                        React.createElement(
-	                            DeviceFramer,
-	                            {
-	                                deviceType: this.props.deviceType,
-	                                nochrome: true
-	                            },
-	                            React.createElement(IframeContentRenderer, {
-	                                ref: "frame",
-	                                key: this.props.deviceType,
-	                                content: this.props.frameSource,
-	                                datasetKey: "mobile",
-	                                datasetValue: isMobile,
-	                                seamless: true
-	                            })
-	                        ),
-	                        React.createElement("div", {
-	                            id: "hintsarea",
-	                            className: "hintsarea",
-	                            style: { display: "none" }
-	                        })
-	                    )
-	                )
-	            ),
-	            React.createElement(
-	                "div",
-	                { className: "perseus-editor-row perseus-answer-container" },
-	                React.createElement(
-	                    "div",
-	                    { className: "perseus-editor-left-cell" },
-	                    React.createElement(
-	                        "div",
-	                        { className: "pod-title" },
-	                        "Question extras"
-	                    ),
-	                    React.createElement(ItemExtrasEditor, _extends({
-	                        ref: "itemExtrasEditor",
-	                        onChange: this.handleItemExtrasChange
-	                    }, this.props.answerArea))
-	                ),
-	                React.createElement(
-	                    "div",
-	                    { className: "perseus-editor-right-cell" },
-	                    React.createElement("div", { id: "answer_area" })
-	                )
-	            )
-	        );
-	    },
-
-	    triggerPreviewUpdate: function triggerPreviewUpdate(newData) {
-	        this.refs.frame.sendNewData(newData);
-	    },
-
-	    handleEditorChange: function handleEditorChange(newProps, cb, silent) {
-	        var question = _.extend({}, this.props.question, newProps);
-	        this.updateProps({ question: question }, cb, silent);
-	    },
-
-	    handleItemExtrasChange: function handleItemExtrasChange(newProps, cb, silent) {
-	        var answerArea = _.extend({}, this.props.answerArea, newProps);
-	        this.updateProps({ answerArea: answerArea }, cb, silent);
-	    },
-
-	    getSaveWarnings: function getSaveWarnings() {
-	        return this.refs.questionEditor.getSaveWarnings();
-	    },
-
-	    serialize: function serialize(options) {
-	        return {
-	            question: this.refs.questionEditor.serialize(options),
-	            answerArea: this.refs.itemExtrasEditor.serialize(options),
-	            itemDataVersion: ITEM_DATA_VERSION
-	        };
-	    },
-
-	    focus: function focus() {
-	        this.questionEditor.focus();
-	    }
-	});
-
-	module.exports = ItemEditor;
-
-/***/ },
-/* 47 */
-/***/ function(module, exports, __webpack_require__) {
-
 	/**
 	 * Displays a collapsable list of KaTeX rendering errors.
 	 */
@@ -11676,7 +11124,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = KatexErrorView;
 
 /***/ },
-/* 48 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* eslint-disable react/prop-types, react/sort-comp */
@@ -11747,7 +11195,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = PropCheckBox;
 
 /***/ },
-/* 49 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -11791,8 +11239,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    getDefaultKeyBinding = _require.getDefaultKeyBinding,
 	    KeyBindingUtil = _require.KeyBindingUtil;
 
-	var Widgets = __webpack_require__(28);
-	var DraftUtils = __webpack_require__(90);
+	var Widgets = __webpack_require__(27);
+	var DraftUtils = __webpack_require__(88);
 
 	// This controls the minimum time between when updates for the parent
 	// component are generated.  The best time for this number sort of depends
@@ -12594,6 +12042,562 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = PerseusEditor;
 
 /***/ },
+/* 48 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* eslint-disable no-var, object-curly-spacing, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	/* Collection of classes for rendering the hint editor area,
+	 * hint editor boxes, and hint previews
+	 */
+
+	var React = __webpack_require__(21);
+	var _ = __webpack_require__(22);
+
+	var Editor = __webpack_require__(11);
+	var InfoTip = __webpack_require__(89);
+	var DeviceFramer = __webpack_require__(19);
+
+	var ApiOptions = __webpack_require__(5).Options;
+
+	var _require = __webpack_require__(41),
+	    iconCircleArrowDown = _require.iconCircleArrowDown,
+	    iconCircleArrowUp = _require.iconCircleArrowUp,
+	    iconPlus = _require.iconPlus,
+	    iconTrash = _require.iconTrash;
+
+	var InlineIcon = __webpack_require__(42);
+	var IframeContentRenderer = __webpack_require__(13);
+
+	/* Renders a hint editor box
+	 *
+	 * This includes:
+	 *  ~ A "Hint" title
+	 *  ~ the textarea for the hint
+	 *  ~ the "remove this hint" box
+	 *  ~ the move hint up/down arrows
+	 */
+	var HintEditor = React.createClass({
+	    displayName: "HintEditor",
+
+	    propTypes: {
+	        apiOptions: ApiOptions.propTypes,
+	        className: React.PropTypes.string,
+	        imageUploader: React.PropTypes.func,
+	        showMoveButtons: React.PropTypes.bool,
+	        showRemoveButton: React.PropTypes.bool,
+	        showTitle: React.PropTypes.bool
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            content: "",
+	            replace: false,
+	            showMoveButtons: true,
+	            showTitle: true,
+	            showRemoveButton: true
+	        };
+	    },
+
+	    handleChange: function handleChange(e) {
+	        this.props.onChange({ replace: e.target.checked });
+	    },
+
+	    render: function render() {
+	        return React.createElement(
+	            "div",
+	            { className: "perseus-hint-editor " + this.props.className },
+	            this.props.showTitle && React.createElement(
+	                "div",
+	                { className: "pod-title" },
+	                "Hint"
+	            ),
+	            React.createElement(Editor, {
+	                ref: "editor",
+	                apiOptions: this.props.apiOptions,
+	                widgets: this.props.widgets,
+	                content: this.props.content,
+	                images: this.props.images,
+	                replace: this.props.replace,
+	                placeholder: "Type your hint here...",
+	                imageUploader: this.props.imageUploader,
+	                onChange: this.props.onChange
+	            }),
+	            React.createElement(
+	                "div",
+	                { className: "hint-controls-container clearfix" },
+	                this.props.showMoveButtons && React.createElement(
+	                    "span",
+	                    { className: "reorder-hints" },
+	                    React.createElement(
+	                        "button",
+	                        {
+	                            type: "button",
+	                            className: this.props.isLast ? "hidden" : "",
+	                            onClick: _.partial(this.props.onMove, 1)
+	                        },
+	                        React.createElement(InlineIcon, iconCircleArrowDown)
+	                    ),
+	                    " ",
+	                    React.createElement(
+	                        "button",
+	                        {
+	                            type: "button",
+	                            className: this.props.isFirst ? "hidden" : "",
+	                            onClick: _.partial(this.props.onMove, -1)
+	                        },
+	                        React.createElement(InlineIcon, iconCircleArrowUp)
+	                    ),
+	                    " ",
+	                    this.props.isLast && React.createElement(
+	                        InfoTip,
+	                        null,
+	                        React.createElement(
+	                            "p",
+	                            null,
+	                            "The last hint is automatically bolded."
+	                        )
+	                    )
+	                ),
+	                React.createElement("input", {
+	                    type: "checkbox",
+	                    checked: this.props.replace,
+	                    onChange: this.handleChange
+	                }),
+	                "Replace previous hint",
+	                this.props.showRemoveButton && React.createElement(
+	                    "button",
+	                    {
+	                        type: "button",
+	                        className: "remove-hint simple-button orange",
+	                        onClick: this.props.onRemove
+	                    },
+	                    React.createElement(InlineIcon, iconTrash),
+	                    "Remove this hint",
+	                    " "
+	                )
+	            )
+	        );
+	    },
+
+	    focus: function focus() {
+	        this.refs.editor.focus();
+	    },
+
+	    getSaveWarnings: function getSaveWarnings() {
+	        return this.refs.editor.getSaveWarnings();
+	    },
+
+	    serialize: function serialize(options) {
+	        return this.refs.editor.serialize(options);
+	    }
+	});
+
+	/* A single hint-row containing a hint editor and preview */
+	var CombinedHintEditor = React.createClass({
+	    displayName: "CombinedHintEditor",
+
+	    propTypes: {
+	        apiOptions: ApiOptions.propTypes,
+	        deviceType: React.PropTypes.string.isRequired,
+	        frameSource: React.PropTypes.string.isRequired,
+	        imageUploader: React.PropTypes.func,
+	        highlightLint: React.PropTypes.bool
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            highlightLint: false
+	        };
+	    },
+
+	    updatePreview: function updatePreview() {
+	        var shouldBold = this.props.isLast && !/\*\*/.test(this.props.hint.content);
+
+	        this.refs.frame.sendNewData({
+	            type: "hint",
+	            data: {
+	                hint: this.props.hint,
+	                bold: shouldBold,
+	                pos: this.props.pos,
+	                apiOptions: this.props.apiOptions,
+	                linterContext: {
+	                    contentType: "hint",
+	                    highlightLint: this.props.highlightLint,
+	                    paths: this.props.contentPaths
+	                }
+	            }
+	        });
+	    },
+
+	    componentDidMount: function componentDidMount() {
+	        this.updatePreview();
+	    },
+
+	    componentDidUpdate: function componentDidUpdate() {
+	        this.updatePreview();
+	    },
+
+	    render: function render() {
+	        var isMobile = this.props.deviceType === "phone" || this.props.deviceType === "tablet";
+	        return React.createElement(
+	            "div",
+	            {
+	                className: "perseus-combined-hint-editor " + "perseus-editor-row"
+	            },
+	            React.createElement(
+	                "div",
+	                { className: "perseus-editor-left-cell" },
+	                React.createElement(HintEditor, {
+	                    ref: "editor",
+	                    isFirst: this.props.isFirst,
+	                    isLast: this.props.isLast,
+	                    widgets: this.props.hint.widgets,
+	                    content: this.props.hint.content,
+	                    images: this.props.hint.images,
+	                    replace: this.props.hint.replace,
+	                    imageUploader: this.props.imageUploader,
+	                    onChange: this.props.onChange,
+	                    onRemove: this.props.onRemove,
+	                    onMove: this.props.onMove,
+	                    apiOptions: this.props.apiOptions
+	                })
+	            ),
+	            React.createElement(
+	                "div",
+	                { className: "perseus-editor-right-cell" },
+	                React.createElement(
+	                    DeviceFramer,
+	                    {
+	                        deviceType: this.props.deviceType,
+	                        nochrome: true
+	                    },
+	                    React.createElement(IframeContentRenderer, {
+	                        ref: "frame",
+	                        content: this.props.frameSource,
+	                        datasetKey: "mobile",
+	                        datasetValue: isMobile,
+	                        seamless: true
+	                    })
+	                )
+	            )
+	        );
+	    },
+
+	    getSaveWarnings: function getSaveWarnings() {
+	        return this.refs.editor.getSaveWarnings();
+	    },
+
+	    serialize: function serialize(options) {
+	        return this.refs.editor.serialize(options);
+	    },
+
+	    focus: function focus() {
+	        this.refs.editor.focus();
+	    }
+	});
+
+	/* The entire hints editing/preview area
+	 *
+	 * Includes:
+	 *  ~ All the hint edit boxes, move and remove buttons
+	 *  ~ All the hint previews
+	 *  ~ The "add a hint" button
+	 */
+	var CombinedHintsEditor = React.createClass({
+	    displayName: "CombinedHintsEditor",
+
+	    propTypes: {
+	        apiOptions: ApiOptions.propTypes,
+	        deviceType: React.PropTypes.string.isRequired,
+	        frameSource: React.PropTypes.string.isRequired,
+	        imageUploader: React.PropTypes.func,
+	        highlightLint: React.PropTypes.bool
+	    },
+
+	    statics: {
+	        HintEditor: HintEditor
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            onChange: function onChange() {},
+	            hints: [],
+	            highlightLint: false
+	        };
+	    },
+
+	    render: function render() {
+	        var hints = this.props.hints;
+	        var hintElems = _.map(hints, function (hint, i) {
+	            return React.createElement(CombinedHintEditor, {
+	                ref: "hintEditor" + i,
+	                key: "hintEditor" + i,
+	                isFirst: i === 0,
+	                isLast: i + 1 === hints.length,
+	                hint: hint,
+	                pos: i,
+	                imageUploader: this.props.imageUploader,
+	                onChange: this.handleHintChange.bind(this, i),
+	                onRemove: this.handleHintRemove.bind(this, i),
+	                onMove: this.handleHintMove.bind(this, i),
+	                deviceType: this.props.deviceType,
+	                apiOptions: this.props.apiOptions,
+	                frameSource: this.props.frameSource,
+	                highlightLint: this.props.highlightLint
+	            });
+	        }, this);
+
+	        /* eslint-disable max-len */
+	        return React.createElement(
+	            "div",
+	            { className: "perseus-hints-editor perseus-editor-table" },
+	            hintElems,
+	            React.createElement(
+	                "div",
+	                { className: "perseus-editor-row" },
+	                React.createElement(
+	                    "div",
+	                    { className: "add-hint-container perseus-editor-left-cell" },
+	                    React.createElement(
+	                        "button",
+	                        {
+	                            type: "button",
+	                            className: "add-hint simple-button orange",
+	                            onClick: this.addHint
+	                        },
+	                        React.createElement(InlineIcon, iconPlus),
+	                        " Add a hint"
+	                    )
+	                )
+	            )
+	        );
+	        /* eslint-enable max-len */
+	    },
+
+	    handleHintChange: function handleHintChange(i, newProps, cb, silent) {
+	        // TODO(joel) - lens
+	        var hints = _(this.props.hints).clone();
+	        hints[i] = _.extend({}, this.serializeHint(i, { keepDeletedWidgets: true }), newProps);
+
+	        this.props.onChange({ hints: hints }, cb, silent);
+	    },
+
+	    handleHintRemove: function handleHintRemove(i) {
+	        var hints = _(this.props.hints).clone();
+	        hints.splice(i, 1);
+	        this.props.onChange({ hints: hints });
+	    },
+
+	    handleHintMove: function handleHintMove(i, dir) {
+	        var _this = this;
+
+	        var hints = _(this.props.hints).clone();
+	        var hint = hints.splice(i, 1)[0];
+	        hints.splice(i + dir, 0, hint);
+	        this.props.onChange({ hints: hints }, function () {
+	            _this.refs["hintEditor" + (i + dir)].focus();
+	        });
+	    },
+
+	    addHint: function addHint() {
+	        var _this2 = this;
+
+	        var hints = _(this.props.hints).clone().concat([{ content: "" }]);
+	        this.props.onChange({ hints: hints }, function () {
+	            var i = hints.length - 1;
+	            _this2.refs["hintEditor" + i].focus();
+	        });
+	    },
+
+	    getSaveWarnings: function getSaveWarnings() {
+	        var _this3 = this;
+
+	        return _.chain(this.props.hints).map(function (hint, i) {
+	            return _.map(_this3.refs["hintEditor" + i].getSaveWarnings(), function (issue) {
+	                return "Hint " + (i + 1) + ": " + issue;
+	            });
+	        }).flatten(true).value();
+	    },
+
+	    serialize: function serialize(options) {
+	        var _this4 = this;
+
+	        return this.props.hints.map(function (hint, i) {
+	            return _this4.serializeHint(i, options);
+	        });
+	    },
+
+	    serializeHint: function serializeHint(index, options) {
+	        return this.refs["hintEditor" + index].serialize(options);
+	    }
+	});
+
+	module.exports = CombinedHintsEditor;
+
+/***/ },
+/* 49 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	/* eslint-disable no-var, object-curly-spacing, react/prop-types, react/sort-comp */
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var React = __webpack_require__(21);
+	var _ = __webpack_require__(22);
+
+	var ApiOptions = __webpack_require__(5).Options;
+	var Editor = __webpack_require__(11);
+	var ItemExtrasEditor = __webpack_require__(90);
+	var DeviceFramer = __webpack_require__(19);
+	var ITEM_DATA_VERSION = __webpack_require__(87).itemDataVersion;
+	var IframeContentRenderer = __webpack_require__(13);
+
+	var ItemEditor = React.createClass({
+	    displayName: "ItemEditor",
+
+	    propTypes: {
+	        apiOptions: ApiOptions.propTypes,
+	        deviceType: React.PropTypes.string,
+	        frameSource: React.PropTypes.string.isRequired,
+	        gradeMessage: React.PropTypes.string,
+	        imageUploader: React.PropTypes.func,
+	        wasAnswered: React.PropTypes.bool
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            onChange: function onChange() {},
+	            question: {},
+	            answerArea: {}
+	        };
+	    },
+
+	    // Notify the parent that the question or answer area has been updated.
+	    updateProps: function updateProps(newProps, cb, silent) {
+	        var props = _(this.props).pick("question", "answerArea");
+
+	        this.props.onChange(_(props).extend(newProps), cb, silent);
+	    },
+
+	    render: function render() {
+	        var isMobile = this.props.deviceType === "phone" || this.props.deviceType === "tablet";
+	        return React.createElement(
+	            "div",
+	            { className: "perseus-editor-table" },
+	            React.createElement(
+	                "div",
+	                { className: "perseus-editor-row perseus-question-container" },
+	                React.createElement(
+	                    "div",
+	                    { className: "perseus-editor-left-cell" },
+	                    React.createElement(
+	                        "div",
+	                        { className: "pod-title" },
+	                        "Question"
+	                    ),
+	                    React.createElement(Editor, _extends({
+	                        ref: "questionEditor",
+	                        placeholder: "Type your question here...",
+	                        className: "perseus-question-editor",
+	                        imageUploader: this.props.imageUploader,
+	                        onChange: this.handleEditorChange,
+	                        apiOptions: this.props.apiOptions,
+	                        showWordCount: true
+	                    }, this.props.question))
+	                ),
+	                React.createElement(
+	                    "div",
+	                    { className: "perseus-editor-right-cell" },
+	                    React.createElement(
+	                        "div",
+	                        { id: "problemarea" },
+	                        React.createElement(
+	                            DeviceFramer,
+	                            {
+	                                deviceType: this.props.deviceType,
+	                                nochrome: true
+	                            },
+	                            React.createElement(IframeContentRenderer, {
+	                                ref: "frame",
+	                                key: this.props.deviceType,
+	                                content: this.props.frameSource,
+	                                datasetKey: "mobile",
+	                                datasetValue: isMobile,
+	                                seamless: true
+	                            })
+	                        ),
+	                        React.createElement("div", {
+	                            id: "hintsarea",
+	                            className: "hintsarea",
+	                            style: { display: "none" }
+	                        })
+	                    )
+	                )
+	            ),
+	            React.createElement(
+	                "div",
+	                { className: "perseus-editor-row perseus-answer-container" },
+	                React.createElement(
+	                    "div",
+	                    { className: "perseus-editor-left-cell" },
+	                    React.createElement(
+	                        "div",
+	                        { className: "pod-title" },
+	                        "Question extras"
+	                    ),
+	                    React.createElement(ItemExtrasEditor, _extends({
+	                        ref: "itemExtrasEditor",
+	                        onChange: this.handleItemExtrasChange
+	                    }, this.props.answerArea))
+	                ),
+	                React.createElement(
+	                    "div",
+	                    { className: "perseus-editor-right-cell" },
+	                    React.createElement("div", { id: "answer_area" })
+	                )
+	            )
+	        );
+	    },
+
+	    triggerPreviewUpdate: function triggerPreviewUpdate(newData) {
+	        this.refs.frame.sendNewData(newData);
+	    },
+
+	    handleEditorChange: function handleEditorChange(newProps, cb, silent) {
+	        var question = _.extend({}, this.props.question, newProps);
+	        this.updateProps({ question: question }, cb, silent);
+	    },
+
+	    handleItemExtrasChange: function handleItemExtrasChange(newProps, cb, silent) {
+	        var answerArea = _.extend({}, this.props.answerArea, newProps);
+	        this.updateProps({ answerArea: answerArea }, cb, silent);
+	    },
+
+	    getSaveWarnings: function getSaveWarnings() {
+	        return this.refs.questionEditor.getSaveWarnings();
+	    },
+
+	    serialize: function serialize(options) {
+	        return {
+	            question: this.refs.questionEditor.serialize(options),
+	            answerArea: this.refs.itemExtrasEditor.serialize(options),
+	            itemDataVersion: ITEM_DATA_VERSION
+	        };
+	    },
+
+	    focus: function focus() {
+	        this.questionEditor.focus();
+	    }
+	});
+
+	module.exports = ItemEditor;
+
+/***/ },
 /* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -12701,7 +12705,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var TextDiff = __webpack_require__(103);
 	var WidgetDiff = __webpack_require__(52);
-	var Widgets = __webpack_require__(28);
+	var Widgets = __webpack_require__(27);
 
 	var rendererProps = React.PropTypes.shape({
 	    content: React.PropTypes.string,
@@ -13146,27 +13150,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 53 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var devices = {
-	    PHONE: "phone",
-	    TABLET: "tablet",
-	    DESKTOP: "desktop"
-	};
-
-	module.exports = {
-	    devices: devices,
-	    // How many pixels do we reserve on the right-hand side of a preview
-	    // for displaying lint indicators? This space needs to be reserved
-	    // in DeviceFramer, but it is actually allocated in PerseusFrame
-	    lintGutterWidth: 36,
-	    // How wide a border does PerseusFrame draw? We need to allocate enough
-	    // space for it in DeviceFramer.
-	    perseusFrameBorderWidth: 1
-	};
-
-/***/ },
-/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* eslint-disable object-curly-spacing */
@@ -13823,6 +13806,26 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = KhanAnswerTypes;
 
 /***/ },
+/* 54 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Preprocess TeX code to convert things that KaTeX doesn't know how to handle
+	 * to things is does.
+	 */
+
+	module.exports = function (texCode) {
+	    return texCode
+	    // Replace uses of \begin{align}...\end{align} which KaTeX doesn't
+	    // support (yet) with \begin{aligned}...\end{aligned} which renders
+	    // the same is supported by KaTeX.  It does the same for align*.
+	    // TODO(kevinb) update content to use aligned instead of align.
+	    .replace(/\{align[*]?\}/g, "{aligned}")
+	    // Replace non-breaking spaces with regular spaces.
+	    .replace(/[\u00a0]/g, " ");
+	};
+
+/***/ },
 /* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -13943,24 +13946,54 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/**
-	 * Preprocess TeX code to convert things that KaTeX doesn't know how to handle
-	 * to things is does.
-	 */
+	var devices = {
+	    PHONE: "phone",
+	    TABLET: "tablet",
+	    DESKTOP: "desktop"
+	};
 
-	module.exports = function (texCode) {
-	    return texCode
-	    // Replace uses of \begin{align}...\end{align} which KaTeX doesn't
-	    // support (yet) with \begin{aligned}...\end{aligned} which renders
-	    // the same is supported by KaTeX.  It does the same for align*.
-	    // TODO(kevinb) update content to use aligned instead of align.
-	    .replace(/\{align[*]?\}/g, "{aligned}")
-	    // Replace non-breaking spaces with regular spaces.
-	    .replace(/[\u00a0]/g, " ");
+	module.exports = {
+	    devices: devices,
+	    // How many pixels do we reserve on the right-hand side of a preview
+	    // for displaying lint indicators? This space needs to be reserved
+	    // in DeviceFramer, but it is actually allocated in PerseusFrame
+	    lintGutterWidth: 36,
+	    // How wide a border does PerseusFrame draw? We need to allocate enough
+	    // space for it in DeviceFramer.
+	    perseusFrameBorderWidth: 1
 	};
 
 /***/ },
 /* 57 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * These are things that widgets should exclude when serializing themselves.
+	 *
+	 * The use of this list needs to die. Basically, there are codepaths that
+	 * blindly serialize the "props" of a widget so that it can pass around its
+	 * info. Unfortunately, props aren't guaranteed to be serializable, and
+	 * automatically serializing schemaless list of attributes causes issues (e.g.
+	 * circular JSON structures sometimes).
+	 *
+	 * This blacklists things that we know don't need to be serialized.
+	 */
+	module.exports = [
+	// standard props "added" by react
+	// (technically the renderer still adds them)
+	"key", "ref",
+	// added by src/renderer.jsx
+	"containerSizeClass", "widgetId", "onChange", "problemNum", "apiOptions", "questionCompleted", "findWidgets",
+	// added by src/editor.jsx, for widgets removing themselves
+	// this is soooo not the right place for this, but alas.
+	"onRemove",
+	// also added by src/editor.jsx
+	"id",
+	// Callbacks and items for interaction handling
+	"onBlur", "onFocus", "trackInteraction", "keypadElement"];
+
+/***/ },
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -13988,35 +14021,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	module.exports = ApiOptionsProps;
-
-/***/ },
-/* 58 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * These are things that widgets should exclude when serializing themselves.
-	 *
-	 * The use of this list needs to die. Basically, there are codepaths that
-	 * blindly serialize the "props" of a widget so that it can pass around its
-	 * info. Unfortunately, props aren't guaranteed to be serializable, and
-	 * automatically serializing schemaless list of attributes causes issues (e.g.
-	 * circular JSON structures sometimes).
-	 *
-	 * This blacklists things that we know don't need to be serialized.
-	 */
-	module.exports = [
-	// standard props "added" by react
-	// (technically the renderer still adds them)
-	"key", "ref",
-	// added by src/renderer.jsx
-	"containerSizeClass", "widgetId", "onChange", "problemNum", "apiOptions", "questionCompleted", "findWidgets",
-	// added by src/editor.jsx, for widgets removing themselves
-	// this is soooo not the right place for this, but alas.
-	"onRemove",
-	// also added by src/editor.jsx
-	"id",
-	// Callbacks and items for interaction handling
-	"onBlur", "onFocus", "trackInteraction", "keypadElement"];
 
 /***/ },
 /* 59 */
@@ -14052,7 +14056,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _require = __webpack_require__(108),
 	    buildMapper = _require.buildMapper;
 
-	var shapes = __webpack_require__(80);
+	var shapes = __webpack_require__(73);
 
 	/**
 	 * Return a semantically empty ItemTree that conforms to the given shape.
@@ -15677,7 +15681,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(21);
 	var ReactDOM = __webpack_require__(23);
 
-	var Keypad = __webpack_require__(219).components.Keypad;
+	var Keypad = __webpack_require__(220).components.Keypad;
 
 	var ProvideKeypad = {
 	    propTypes: {
@@ -15780,7 +15784,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var classnames = __webpack_require__(64);
 	var i18n = window.i18n;
 
-	var Renderer = __webpack_require__(35);
+	var Renderer = __webpack_require__(34);
 
 	var ApiOptions = __webpack_require__(5).Options;
 
@@ -15917,933 +15921,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _underscore = __webpack_require__(22);
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	/**
-	 * NotGorgon asynchronously calls Khan Academy's poentry linter.
-	 *
-	 * The poentry linter checks for issues that prevent content from being
-	 * translated. This linter is KA-specific and so NotGorgon does not do anything
-	 * in non-KA environments.
-	 *
-	 * NotGorgon is named as such because it is not Gorgon, Perseus' built-in
-	 * linter.
-	 */
-
-	// msec to wait before we actually call the linter after receiving the
-	// last call. The timer is reset if the lint is called during the wait.
-
-
-	// A LintCB is called once the linter has been run.
-	var DEBOUNCE_TIMEOUT = 1000;
-
-	var NotGorgon = function () {
-	  function NotGorgon() {
-	    var _this = this;
-
-	    _classCallCheck(this, NotGorgon);
-
-	    this.previousContent = null;
-	    this.runLinter = (0, _underscore.debounce)(function (perseusStr, onLintErrorsGenerated) {
-	      // $FlowFixMe -- TODO(joshuan): use an api flag instead?
-	      if (typeof KA === "undefined") {
-	        return;
-	      }
-
-	      if (perseusStr === _this.previousContent) {
-	        return;
-	      }
-
-	      _this.previousContent = perseusStr;
-
-	      if (perseusStr === "") {
-	        onLintErrorsGenerated([]);
-	        return;
-	      }
-
-	      fetch("/api/internal/translate/lint_poentry?preview=1&lang=en", {
-	        headers: { "Content-Type": "application/json" },
-	        body: JSON.stringify({
-	          // The poentry linter verifies that the translation from
-	          // the original text to the translated text is sane. We
-	          // want to ensure that the translation from English to
-	          // English is sane, so msgid === mstr.
-	          msgid: perseusStr, // msgid is the original text
-	          msgstr: perseusStr, // msgstr is the translated text
-	          format: "perseus_text",
-	          filename: ""
-	        }),
-	        method: "POST"
-	      }).then(function (response) {
-	        if (response.status >= 400) {
-	          return {
-	            status: "error",
-	            message: "Could not run i18n linter."
-	          };
-	        }
-	        return response.json();
-	      }, function (rejection) {
-	        return {
-	          status: "error",
-	          message: "Could not run i18n linter."
-	        };
-	      }).then(function (json) {
-	        if (json.status === "error") {
-	          onLintErrorsGenerated(["Some part of this text makes it untranslatable. " + "The specific message from the i18n linter was: " + json.message.replace(/\n/g, " ")]);
-	        } else {
-	          onLintErrorsGenerated([]);
-	        }
-	      });
-	    }, DEBOUNCE_TIMEOUT);
-	  }
-	  // To avoid linting when nothing has changed.
-
-
-	  /**
-	   * Runs the poentry linter on the given perseus string asynchronously.
-	   *
-	   * It doesn't do anything unless we're in a KA environment.
-	   *
-	   * onLintErrorsGenerated is called even if there are no errors. It is not
-	   * called if perseusStr is unchanged from the last call.
-	   *
-	   * Linting is relatively expensive -- so we debounce linting each instance
-	   * for some amount of time.
-	   */
-
-
-	  /**
-	   * Applies a list of errors generated by NotGorgon to a Perseus tree.
-	   */
-	  NotGorgon.prototype.applyLintErrors = function applyLintErrors(parsedMarkdown, notGorgonLintErrors) {
-	    // These lint errors do not have position data associated with
-	    // them, so we just plop them at the top.
-	    notGorgonLintErrors.forEach(function (error) {
-	      parsedMarkdown.unshift({
-	        content: {
-	          type: "text",
-	          content: ""
-	        },
-	        insideTable: false,
-	        message: error,
-	        ruleName: "i18n-lint-error",
-	        severity: 1,
-	        type: "lint"
-	      });
-	    });
-	  };
-
-	  NotGorgon.prototype.destroy = function destroy() {
-	    this.runLinter = null;
-	    this.previousContent = null;
-	  };
-
-	  return NotGorgon;
-	}();
-
-	exports.default = NotGorgon;
-
-/***/ },
-/* 73 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Paragraph parsing/splitting for article jipt i18n
-	 */
-
-	var SimpleMarkdown = __webpack_require__(225);
-
-	var arrayRules = {
-	    fence: {
-	        match: SimpleMarkdown.defaultRules.fence.match,
-	        order: 1,
-	        parse: function parse(capture, state, _parse) {
-	            return capture[3];
-	        }
-	    },
-	    paragraph: {
-	        match: SimpleMarkdown.defaultRules.paragraph.match,
-	        order: 2,
-	        parse: function parse(capture, state, _parse2) {
-	            return capture[1];
-	        }
-	    }
-	};
-
-	var builtArrayParser = SimpleMarkdown.parserFor(arrayRules);
-
-	// This should just return an array of strings! magick!
-	var parseToArray = function parseToArray(source) {
-	    // Remove any leading newlines to avoid splitting weirdness
-	    // (simple-markdown has the `newline` rule for this, and i have
-	    // no idea how this will handle leading newlines without that rule),
-	    // and add \n\n to let it parse at a block/paragraph level
-	    var paragraphedSource = source.replace(/^\n\s*\n/, "") + "\n\n";
-	    return builtArrayParser(paragraphedSource, { inline: false });
-	};
-
-	var joinFromArray = function joinFromArray(paragraphs) {
-	    return paragraphs.join("\n\n");
-	};
-
-	module.exports = {
-	    parseToArray: parseToArray,
-	    joinFromArray: joinFromArray
-	};
-
-/***/ },
-/* 74 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types */
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var React = __webpack_require__(21);
-
-	var QuestionParagraph = React.createClass({
-	    displayName: "QuestionParagraph",
-
-	    render: function render() {
-	        var className = this.props.className ? "paragraph " + this.props.className : "paragraph";
-	        // For perseus-article just-in-place-translation (jipt), we need
-	        // to attach some metadata to top-level QuestionParagraphs:
-	        return React.createElement(
-	            "div",
-	            {
-	                className: className,
-	                "data-perseus-component-index": this.props.translationIndex,
-	                "data-perseus-paragraph-index": this.props.paragraphIndex
-	            },
-	            this.props.children
-	        );
-	    }
-	});
-
-	module.exports = QuestionParagraph;
-
-/***/ },
-/* 75 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	/**
-	 * For math rendered using KaTex and/or MathJax. Use me like <TeX>2x + 3</TeX>.
-	 */
-	/* global katex, MathJax, Khan */
-	// TODO(joel) - require MathJax / katex so they don't have to be global
-
-	var PureRenderMixin = __webpack_require__(141);
-	var React = __webpack_require__(21);
-	var ReactDOM = __webpack_require__(23);
-
-	var katexA11y = __webpack_require__(217);
-
-	var pendingScripts = [];
-	var pendingCallbacks = [];
-	var needsProcess = false;
-
-	var process = function process(script, callback) {
-	    pendingScripts.push(script);
-	    pendingCallbacks.push(callback);
-	    if (!needsProcess) {
-	        needsProcess = true;
-	        setTimeout(doProcess, 0);
-	    }
-	};
-
-	var loadMathJax = function loadMathJax(callback) {
-	    if (typeof MathJax !== "undefined") {
-	        callback();
-	    } else if (typeof Khan !== "undefined" && Khan.mathJaxLoaded) {
-	        Khan.mathJaxLoaded.then(callback);
-	    } else {
-	        throw new Error("MathJax wasn't loaded before it was needed by <TeX/>");
-	    }
-	};
-
-	var doProcess = function doProcess() {
-	    loadMathJax(function () {
-	        MathJax.Hub.Queue(function () {
-	            var oldElementScripts = MathJax.Hub.elementScripts;
-	            MathJax.Hub.elementScripts = function (element) {
-	                return pendingScripts;
-	            };
-
-	            try {
-	                return MathJax.Hub.Process(null, function () {
-	                    // Trigger all of the pending callbacks before clearing them
-	                    // out.
-	                    for (var _iterator = pendingCallbacks, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
-	                        var _ref;
-
-	                        if (_isArray) {
-	                            if (_i >= _iterator.length) break;
-	                            _ref = _iterator[_i++];
-	                        } else {
-	                            _i = _iterator.next();
-	                            if (_i.done) break;
-	                            _ref = _i.value;
-	                        }
-
-	                        var callback = _ref;
-
-	                        callback();
-	                    }
-
-	                    pendingScripts = [];
-	                    pendingCallbacks = [];
-	                    needsProcess = false;
-	                });
-	            } catch (e) {
-	                // IE8 requires `catch` in order to use `finally`
-	                throw e;
-	            } finally {
-	                MathJax.Hub.elementScripts = oldElementScripts;
-	            }
-	        });
-	    });
-	};
-
-	// Make content only visible to screen readers.
-	// Both collegeboard.org and Bootstrap 3 use this exact implementation.
-	var srOnly = {
-	    border: 0,
-	    clip: "rect(0,0,0,0)",
-	    height: "1px",
-	    margin: "-1px",
-	    overflow: "hidden",
-	    padding: 0,
-	    position: "absolute",
-	    width: "1px"
-	};
-
-	var TeX = React.createClass({
-	    displayName: 'TeX',
-
-	    propTypes: {
-	        children: React.PropTypes.node,
-	        onClick: React.PropTypes.func,
-	        onRender: React.PropTypes.func,
-	        style: React.PropTypes.any
-	    },
-
-	    mixins: [PureRenderMixin],
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            // Called after math is rendered or re-rendered
-	            onRender: function onRender() {},
-	            onClick: null
-	        };
-	    },
-
-	    componentDidMount: function componentDidMount() {
-	        var _this = this;
-
-	        this._root = ReactDOM.findDOMNode(this);
-
-	        if (this.refs.katex.childElementCount > 0) {
-	            // If we already rendered katex in the render function, we don't
-	            // need to render anything here.
-	            this.props.onRender(this._root);
-	            return;
-	        }
-
-	        var text = this.props.children;
-
-	        this.setScriptText(text);
-	        process(this.script, function () {
-	            return _this.props.onRender(_this._root);
-	        });
-	    },
-
-	    componentDidUpdate: function componentDidUpdate(prevProps, prevState) {
-	        var _this2 = this;
-
-	        // If we already rendered katex in the render function, we don't
-	        // need to render anything here.
-	        if (this.refs.katex.childElementCount > 0) {
-	            if (this.script) {
-	                // If we successfully rendered KaTeX, check if there's
-	                // lingering MathJax from the last render, and if so remove it.
-	                loadMathJax(function () {
-	                    var jax = MathJax.Hub.getJaxFor(_this2.script);
-	                    if (jax) {
-	                        jax.Remove();
-	                    }
-	                });
-	            }
-
-	            this.props.onRender();
-	            return;
-	        }
-
-	        var newText = this.props.children;
-
-	        if (this.script) {
-	            loadMathJax(function () {
-	                MathJax.Hub.Queue(function () {
-	                    var jax = MathJax.Hub.getJaxFor(_this2.script);
-	                    if (jax) {
-	                        return jax.Text(newText, _this2.props.onRender);
-	                    } else {
-	                        _this2.setScriptText(newText);
-	                        process(_this2.script, _this2.props.onRender);
-	                    }
-	                });
-	            });
-	        } else {
-	            this.setScriptText(newText);
-	            process(this.script, this.props.onRender);
-	        }
-	    },
-
-	    componentWillUnmount: function componentWillUnmount() {
-	        var _this3 = this;
-
-	        if (this.script) {
-	            loadMathJax(function () {
-	                var jax = MathJax.Hub.getJaxFor(_this3.script);
-	                if (jax) {
-	                    jax.Remove();
-	                }
-	            });
-	        }
-	    },
-
-	    setScriptText: function setScriptText(text) {
-	        if (!this.script) {
-	            this.script = document.createElement("script");
-	            this.script.type = "math/tex";
-	            ReactDOM.findDOMNode(this.refs.mathjax).appendChild(this.script);
-	        }
-	        if ("text" in this.script) {
-	            // IE8, etc
-	            this.script.text = text;
-	        } else {
-	            this.script.textContent = text;
-	        }
-	    },
-
-	    render: function render() {
-	        var katexHtml = null;
-	        try {
-	            katexHtml = {
-	                __html: katex.renderToString(this.props.children)
-	            };
-	        } catch (e) {
-	            /* jshint -W103 */
-	            if (e.__proto__ !== katex.ParseError.prototype) {
-	                /* jshint +W103 */
-	                throw e;
-	            }
-	        }
-
-	        var katexA11yHtml = null;
-	        if (katexHtml) {
-	            try {
-	                katexA11yHtml = {
-	                    __html: katexA11y.renderString(this.props.children)
-	                };
-	            } catch (e) {
-	                // Nothing
-	            }
-	        }
-
-	        return React.createElement(
-	            'span',
-	            {
-	                style: this.props.style,
-	                onClick: this.props.onClick
-	            },
-	            React.createElement('span', { ref: 'mathjax' }),
-	            React.createElement('span', {
-	                ref: 'katex',
-	                dangerouslySetInnerHTML: katexHtml,
-	                'aria-hidden': !!katexHtml && !!katexA11yHtml
-	            }),
-	            React.createElement('span', {
-	                dangerouslySetInnerHTML: katexA11yHtml,
-	                style: srOnly
-	            })
-	        );
-	    }
-	});
-
-	module.exports = TeX;
-
-/***/ },
-/* 76 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	/* eslint-disable comma-dangle, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var classNames = __webpack_require__(64);
-	var React = __webpack_require__(21);
-	var ReactDOM = __webpack_require__(23);
-
-	var _require = __webpack_require__(102),
-	    zIndexInteractiveComponent = _require.zIndexInteractiveComponent;
-
-	var Widgets = __webpack_require__(28);
-
-	var _require2 = __webpack_require__(218),
-	    containerSizeClass = _require2.containerSizeClass,
-	    getClassFromWidth = _require2.getClassFromWidth;
-
-	var _require3 = __webpack_require__(70),
-	    linterContextProps = _require3.linterContextProps,
-	    linterContextDefault = _require3.linterContextDefault;
-
-	var WidgetContainer = React.createClass({
-	    displayName: "WidgetContainer",
-
-	    propTypes: {
-	        shouldHighlight: React.PropTypes.bool.isRequired,
-	        type: React.PropTypes.string,
-	        initialProps: React.PropTypes.object.isRequired,
-	        linterContext: linterContextProps
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            linterContext: linterContextDefault
-	        };
-	    },
-
-
-	    getInitialState: function getInitialState() {
-	        return {
-	            // TODO(benkomalo): before we're mounted, we don't know how big
-	            // we're going to be, so just default to MEDIUM for now. :/ In the
-	            // future we can sniff with user-agents or something to get a
-	            // better approximation, to avoid flickers
-	            sizeClass: containerSizeClass.MEDIUM,
-	            widgetProps: this.props.initialProps
-	        };
-	    },
-
-	    componentDidMount: function componentDidMount() {
-	        // Only relay size class changes for mobile right now.  We may want to
-	        // this for desktop as well at some point in the future.
-	        if (this.state.widgetProps.apiOptions.isMobile) {
-	            var containerWidth = ReactDOM.findDOMNode(this).offsetWidth;
-
-	            // NOTE(benkomalo): in the common case, this won't change anything.
-	            // Unfortunately, it will cause a flash and re-layout on mobile,
-	            // but until we have better SSR or a more drastic way change to our
-	            // APIs that hints at the available size, we do have to measure DOM
-	            // unfortunately.
-	            /* eslint-disable react/no-did-mount-set-state */
-	            this.setState({
-	                sizeClass: getClassFromWidth(containerWidth)
-	            });
-	            /* eslint-enable react/no-did-mount-set-state */
-	        }
-	    },
-
-
-	    render: function render() {
-	        var className = classNames({
-	            "perseus-widget-container": true,
-	            "widget-highlight": this.props.shouldHighlight,
-	            "widget-nohighlight": !this.props.shouldHighlight
-	        });
-
-	        var type = this.props.type;
-	        var WidgetType = Widgets.getWidget(type);
-	        if (WidgetType == null) {
-	            // Just give up on invalid widget types
-	            return React.createElement("div", { className: className });
-	        }
-
-	        var alignment = this.state.widgetProps.alignment;
-	        if (alignment === "default") {
-	            alignment = Widgets.getDefaultAlignment(type);
-	        }
-
-	        className += " widget-" + alignment;
-
-	        var apiOptions = this.state.widgetProps.apiOptions;
-
-	        // Hack to prevent interaction with static widgets: we overlay a big
-	        // div on top of the widget and overflow: hidden the container.
-	        // Ideally widgets themselves should know how to prevent interaction.
-	        var isStatic = this.state.widgetProps.static || apiOptions.readOnly;
-	        var staticContainerStyles = {
-	            position: "relative",
-	            overflow: "visible"
-	        };
-	        var staticOverlayStyles = {
-	            width: "100%",
-	            height: "100%",
-	            position: "absolute",
-	            top: 0,
-	            left: 0,
-	            zIndex: zIndexInteractiveComponent
-	        };
-
-	        // Some widgets may include strings of markdown that we may
-	        // want to run the linter on. So if the widget is lintable,
-	        // and we've been asked to highlight lint, pass that property
-	        // on to the widget, and if the content is not lintable, make sure
-	        // to default to false.
-	        var linterContext = this.props.linterContext;
-
-	        if (!Widgets.isLintable(type)) {
-	            linterContext.highlightLint = false;
-	        }
-
-	        // Note: if you add more props here, please consider whether or not
-	        // it should be auto-serialized (e.g. used in scoreInput()). See
-	        // widget-jsonify-deprecated.jsx and widget-prop-blacklist.jsx
-
-	        // We default to an empty object for style instead of null
-	        // because of a strange bug where the static styles aren't applied
-	        // after toggling static mode.
-	        return React.createElement(
-	            "div",
-	            {
-	                className: className,
-	                style: isStatic ? staticContainerStyles : {}
-	            },
-	            React.createElement(WidgetType, _extends({}, this.state.widgetProps, {
-	                linterContext: linterContext,
-	                containerSizeClass: this.state.sizeClass,
-	                ref: "widget"
-	            })),
-	            isStatic && React.createElement("div", { style: staticOverlayStyles })
-	        );
-	    },
-
-	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        if (this.props.type !== nextProps.type) {
-	            throw new Error("WidgetContainer can't change widget type; set a different " + "key instead to recreate the container.");
-	        }
-	    },
-
-	    shouldComponentUpdate: function shouldComponentUpdate(nextProps, nextState) {
-	        return this.props.shouldHighlight !== nextProps.shouldHighlight || this.props.type !== nextProps.type || this.state.widgetProps !== nextState.widgetProps || this.state.sizeClass !== nextState.sizeClass;
-	    },
-
-	    getWidget: function getWidget() {
-	        return this.refs.widget;
-	    },
-
-	    replaceWidgetProps: function replaceWidgetProps(newWidgetProps) {
-	        this.setState({ widgetProps: newWidgetProps });
-	    }
-	});
-
-	module.exports = WidgetContainer;
-
-/***/ },
-/* 77 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	/**
-	 * Zooms child to fit with tap-to-zoom behavior.
-	 */
-
-	var React = __webpack_require__(21);
-	var ReactDOM = __webpack_require__(23);
-
-	var Deferred = __webpack_require__(78);
-
-	var Zoomable = React.createClass({
-	    displayName: "Zoomable",
-
-	    propTypes: {
-	        animateHeight: React.PropTypes.bool,
-	        children: React.PropTypes.element.isRequired,
-
-	        /**
-	         * Optional function that allows customizations in zooming.
-	         *
-	         * Defaults to just using the bounding client rect of the first DOM
-	         * element of this component.
-	         *
-	         * @return {Object} bounds object with `width` and `height` properties
-	         */
-	        computeChildBounds: React.PropTypes.func,
-
-	        // If this prop is specified, we wait until the deferred is resolved
-	        // before measuring the child element.  This is necessary in cases
-	        // where the child size depends on whether or not resources, such as
-	        // fonts, have been loaded.
-	        readyToMeasureDeferred: React.PropTypes.shape({
-	            then: React.PropTypes.func.isRequired,
-	            reject: React.PropTypes.func.isRequired
-	        }).isRequired
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        var deferred = new Deferred();
-	        deferred.resolve();
-
-	        return {
-	            animateHeight: false,
-	            readyToMeasureDeferred: deferred,
-	            computeChildBounds: function computeChildBounds(parentNode) {
-	                var firstChild = parentNode.firstElementChild;
-
-	                return {
-	                    // The +1 is a fudge factor to make sure any border on the
-	                    // content isn't clipped by the the container it's in.
-	                    width: firstChild.offsetWidth + 1,
-	                    height: firstChild.offsetHeight + 1
-	                };
-	            }
-	        };
-	    },
-	    getInitialState: function getInitialState() {
-	        return {
-	            visible: false,
-	            marginBottomPx: 0,
-	            zoomed: true
-	        };
-	    },
-	    componentDidMount: function componentDidMount() {
-	        var _this = this;
-
-	        this._node = ReactDOM.findDOMNode(this);
-	        this.props.readyToMeasureDeferred.then(function () {
-	            if (_this.isMounted()) {
-	                _this.scaleChildToFit(false);
-
-	                if (window.MutationObserver) {
-	                    _this._observer = new MutationObserver(function (mutations) {
-	                        if (_this.isMounted()) {
-	                            for (var _iterator = mutations, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
-	                                var _ref;
-
-	                                if (_isArray) {
-	                                    if (_i >= _iterator.length) break;
-	                                    _ref = _iterator[_i++];
-	                                } else {
-	                                    _i = _iterator.next();
-	                                    if (_i.done) break;
-	                                    _ref = _i.value;
-	                                }
-
-	                                var mutation = _ref;
-
-	                                if (mutation.target !== _this._node) {
-	                                    // Only act on mutations of children
-	                                    _this.scaleChildToFit(_this.state.zoomed);
-	                                    break;
-	                                }
-	                            }
-	                        }
-	                    });
-
-	                    _this._observer.observe(_this._node, {
-	                        childList: true,
-	                        subtree: true,
-	                        attributes: true
-	                    });
-	                }
-	                window.addEventListener("resize", _this.reset);
-	            }
-	        });
-	    },
-	    componentWillUnmount: function componentWillUnmount() {
-	        window.removeEventListener("resize", this.reset);
-	        if (this._observer) {
-	            this._observer.disconnect();
-	        }
-	    },
-	    reset: function reset() {
-	        var _this2 = this;
-
-	        if (!this.isMounted()) {
-	            return;
-	        }
-	        if (!this.state.visible) {
-	            return;
-	        }
-	        this._originalWidth = null;
-	        this.setState({
-	            visible: false,
-	            compactHeight: null,
-	            expandedHeight: null,
-	            zoomed: true
-	        }, function () {
-	            _this2.scaleChildToFit(false);
-	        });
-	    },
-	    stopPropagationIfZoomed: function stopPropagationIfZoomed(e) {
-	        if (!this.state.zoomed) {
-	            // We only allow touch events (which trigger interactive elements)
-	            // to be propagated to children if we are already zoomed.
-	            e.stopPropagation();
-	        }
-	    },
-
-
-	    // TODO(benkomalo): call this on viewport width changes?
-	    // https://github.com/Khan/math-input/blob/master/src/components/math-keypad.js#L43
-	    scaleChildToFit: function scaleChildToFit(zoomed) {
-	        var _this3 = this;
-
-	        var parentBounds = {
-	            width: this._node.offsetWidth,
-	            height: this._node.offsetHeight
-	        };
-	        var childBounds = this.props.computeChildBounds(this._node, parentBounds);
-
-	        var childWidth = childBounds.width;
-	        var childHeight = childBounds.height;
-
-	        if (childWidth > parentBounds.width) {
-	            var scale = parentBounds.width / childWidth;
-
-	            this.setState({
-	                scale: scale,
-	                zoomed: zoomed,
-
-	                compactHeight: Math.ceil(scale * childHeight),
-	                expandedHeight: childHeight
-	            });
-
-	            // TODO(charlie): Do this as a callback to `setState`. Something is
-	            // going wrong with that approach in initial testing.
-	            setTimeout(function () {
-	                // Only show it after the next paint, to allow for CSS
-	                // transitions to fade it in.
-	                if (_this3.isMounted()) {
-	                    _this3.setState({
-	                        visible: true
-	                    });
-	                }
-	            });
-	        } else {
-	            this.setState({
-	                visible: true
-	            });
-	        }
-	    },
-	    handleClickIfZoomed: function handleClickIfZoomed(e) {
-	        if (!this.state.zoomed) {
-	            e.stopPropagation();
-	            this.handleClick();
-	        }
-	    },
-	    handleClick: function handleClick() {
-	        this.setState({
-	            zoomed: !this.state.zoomed
-	        });
-	    },
-	    render: function render() {
-	        var _state = this.state,
-	            visible = _state.visible,
-	            scale = _state.scale,
-	            compactHeight = _state.compactHeight,
-	            expandedHeight = _state.expandedHeight,
-	            zoomed = _state.zoomed;
-	        var animateHeight = this.props.animateHeight;
-
-
-	        var property = animateHeight ? "opacity transform height" : "opacity transform";
-
-	        // Since we're not using aphrodite, we have to prefix ourselves.
-	        /* eslint-disable indent */
-	        var transitionStyle = visible ? {
-	            transitionProperty: property,
-	            WebkitTransitionProperty: property,
-	            msTransitionProperty: property,
-	            transitionDuration: "0.3s",
-	            WebkitTransitionDuration: "0.3s",
-	            msTransitionDuration: "0.3s",
-	            transitionTimingFunction: "ease-out",
-	            WebkitTransitionTimingfunction: "ease-out",
-	            msTransitionTmingFunction: "ease-out"
-	        } : {};
-	        /* eslint-enable indent */
-
-	        // Do a fancy little slide as we fade the contents in the first time.
-	        var translateOffset = visible ? "" : " translate(0, 8px)";
-	        var transform = zoomed ? "scale(1, 1) " + translateOffset : "scale(" + scale + ", " + scale + ") " + translateOffset;
-
-	        var style = _extends({
-	            display: "block",
-	            width: "100%",
-	            height: zoomed ? expandedHeight : compactHeight,
-	            transform: transform,
-	            WebkitTransform: transform,
-	            msTransform: transform,
-	            transformOrigin: "0 0",
-	            WebkitTransformOrigin: "0 0",
-	            msTransformOrigin: "0 0",
-	            opacity: visible ? 1 : 0,
-	            WebkitTapHighlightColor: "transparent"
-	        }, transitionStyle);
-
-	        return React.createElement(
-	            "span",
-	            {
-	                onClick: this.handleClick,
-	                onClickCapture: this.handleClickIfZoomed,
-	                onTouchCancelCapture: this.stopPropagationIfZoomed,
-	                onTouchEndCapture: this.stopPropagationIfZoomed,
-	                onTouchStartCapture: this.stopPropagationIfZoomed,
-	                style: style
-	            },
-	            this.props.children
-	        );
-	    }
-	});
-
-	module.exports = Zoomable;
-
-/***/ },
-/* 78 */
-/***/ function(module, exports, __webpack_require__) {
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	/**
-	 * Simple version of jQuery's Deferred.
-	 */
-
-	var Deferred = function () {
-	    function Deferred() {
-	        var _this = this;
-
-	        _classCallCheck(this, Deferred);
-
-	        this.promise = new Promise(function (resolve, reject) {
-	            _this.resolve = resolve;
-	            _this.reject = reject;
-	        });
-	    }
-
-	    Deferred.prototype.then = function then(callback) {
-	        return this.promise.then(callback);
-	    };
-
-	    return Deferred;
-	}();
-
-	module.exports = Deferred;
-
-/***/ },
-/* 79 */
-/***/ function(module, exports, __webpack_require__) {
-
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
@@ -16901,7 +15978,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var babelPluginFlowReactPropTypes_proptype_Shape = __webpack_require__(107).babelPluginFlowReactPropTypes_proptype_Shape || __webpack_require__(21).PropTypes.any;
 
-	var babelPluginFlowReactPropTypes_proptype_Tree = __webpack_require__(220).babelPluginFlowReactPropTypes_proptype_Tree || __webpack_require__(21).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_Tree = __webpack_require__(217).babelPluginFlowReactPropTypes_proptype_Tree || __webpack_require__(21).PropTypes.any;
 
 	var babelPluginFlowReactPropTypes_proptype_Path = __webpack_require__(108).babelPluginFlowReactPropTypes_proptype_Path || __webpack_require__(21).PropTypes.any;
 
@@ -16921,8 +15998,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _require2 = __webpack_require__(59),
 	    itemToTree = _require2.itemToTree;
 
-	var HintsRenderer = __webpack_require__(34);
-	var Renderer = __webpack_require__(35);
+	var HintsRenderer = __webpack_require__(33);
+	var Renderer = __webpack_require__(34);
 
 	var _require3 = __webpack_require__(108),
 	    buildMapper = _require3.buildMapper;
@@ -17353,7 +16430,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MultiRenderer;
 
 /***/ },
-/* 80 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -17418,6 +16495,933 @@ return /******/ (function(modules) { // webpackBootstrap
 	    arrayOf: buildArrayShape,
 	    shape: buildObjectShape
 	};
+
+/***/ },
+/* 74 */
+/***/ function(module, exports, __webpack_require__) {
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _underscore = __webpack_require__(22);
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	/**
+	 * NotGorgon asynchronously calls Khan Academy's poentry linter.
+	 *
+	 * The poentry linter checks for issues that prevent content from being
+	 * translated. This linter is KA-specific and so NotGorgon does not do anything
+	 * in non-KA environments.
+	 *
+	 * NotGorgon is named as such because it is not Gorgon, Perseus' built-in
+	 * linter.
+	 */
+
+	// msec to wait before we actually call the linter after receiving the
+	// last call. The timer is reset if the lint is called during the wait.
+
+
+	// A LintCB is called once the linter has been run.
+	var DEBOUNCE_TIMEOUT = 1000;
+
+	var NotGorgon = function () {
+	  function NotGorgon() {
+	    var _this = this;
+
+	    _classCallCheck(this, NotGorgon);
+
+	    this.previousContent = null;
+	    this.runLinter = (0, _underscore.debounce)(function (perseusStr, onLintErrorsGenerated) {
+	      // $FlowFixMe -- TODO(joshuan): use an api flag instead?
+	      if (typeof KA === "undefined") {
+	        return;
+	      }
+
+	      if (perseusStr === _this.previousContent) {
+	        return;
+	      }
+
+	      _this.previousContent = perseusStr;
+
+	      if (perseusStr === "") {
+	        onLintErrorsGenerated([]);
+	        return;
+	      }
+
+	      fetch("/api/internal/translate/lint_poentry?preview=1&lang=en", {
+	        headers: { "Content-Type": "application/json" },
+	        body: JSON.stringify({
+	          // The poentry linter verifies that the translation from
+	          // the original text to the translated text is sane. We
+	          // want to ensure that the translation from English to
+	          // English is sane, so msgid === mstr.
+	          msgid: perseusStr, // msgid is the original text
+	          msgstr: perseusStr, // msgstr is the translated text
+	          format: "perseus_text",
+	          filename: ""
+	        }),
+	        method: "POST"
+	      }).then(function (response) {
+	        if (response.status >= 400) {
+	          return {
+	            status: "error",
+	            message: "Could not run i18n linter."
+	          };
+	        }
+	        return response.json();
+	      }, function (rejection) {
+	        return {
+	          status: "error",
+	          message: "Could not run i18n linter."
+	        };
+	      }).then(function (json) {
+	        if (json.status === "error") {
+	          onLintErrorsGenerated(["Some part of this text makes it untranslatable. " + "The specific message from the i18n linter was: " + json.message.replace(/\n/g, " ")]);
+	        } else {
+	          onLintErrorsGenerated([]);
+	        }
+	      });
+	    }, DEBOUNCE_TIMEOUT);
+	  }
+	  // To avoid linting when nothing has changed.
+
+
+	  /**
+	   * Runs the poentry linter on the given perseus string asynchronously.
+	   *
+	   * It doesn't do anything unless we're in a KA environment.
+	   *
+	   * onLintErrorsGenerated is called even if there are no errors. It is not
+	   * called if perseusStr is unchanged from the last call.
+	   *
+	   * Linting is relatively expensive -- so we debounce linting each instance
+	   * for some amount of time.
+	   */
+
+
+	  /**
+	   * Applies a list of errors generated by NotGorgon to a Perseus tree.
+	   */
+	  NotGorgon.prototype.applyLintErrors = function applyLintErrors(parsedMarkdown, notGorgonLintErrors) {
+	    // These lint errors do not have position data associated with
+	    // them, so we just plop them at the top.
+	    notGorgonLintErrors.forEach(function (error) {
+	      parsedMarkdown.unshift({
+	        content: {
+	          type: "text",
+	          content: ""
+	        },
+	        insideTable: false,
+	        message: error,
+	        ruleName: "i18n-lint-error",
+	        severity: 1,
+	        type: "lint"
+	      });
+	    });
+	  };
+
+	  NotGorgon.prototype.destroy = function destroy() {
+	    this.runLinter = null;
+	    this.previousContent = null;
+	  };
+
+	  return NotGorgon;
+	}();
+
+	exports.default = NotGorgon;
+
+/***/ },
+/* 75 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Paragraph parsing/splitting for article jipt i18n
+	 */
+
+	var SimpleMarkdown = __webpack_require__(225);
+
+	var arrayRules = {
+	    fence: {
+	        match: SimpleMarkdown.defaultRules.fence.match,
+	        order: 1,
+	        parse: function parse(capture, state, _parse) {
+	            return capture[3];
+	        }
+	    },
+	    paragraph: {
+	        match: SimpleMarkdown.defaultRules.paragraph.match,
+	        order: 2,
+	        parse: function parse(capture, state, _parse2) {
+	            return capture[1];
+	        }
+	    }
+	};
+
+	var builtArrayParser = SimpleMarkdown.parserFor(arrayRules);
+
+	// This should just return an array of strings! magick!
+	var parseToArray = function parseToArray(source) {
+	    // Remove any leading newlines to avoid splitting weirdness
+	    // (simple-markdown has the `newline` rule for this, and i have
+	    // no idea how this will handle leading newlines without that rule),
+	    // and add \n\n to let it parse at a block/paragraph level
+	    var paragraphedSource = source.replace(/^\n\s*\n/, "") + "\n\n";
+	    return builtArrayParser(paragraphedSource, { inline: false });
+	};
+
+	var joinFromArray = function joinFromArray(paragraphs) {
+	    return paragraphs.join("\n\n");
+	};
+
+	module.exports = {
+	    parseToArray: parseToArray,
+	    joinFromArray: joinFromArray
+	};
+
+/***/ },
+/* 76 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types */
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var React = __webpack_require__(21);
+
+	var QuestionParagraph = React.createClass({
+	    displayName: "QuestionParagraph",
+
+	    render: function render() {
+	        var className = this.props.className ? "paragraph " + this.props.className : "paragraph";
+	        // For perseus-article just-in-place-translation (jipt), we need
+	        // to attach some metadata to top-level QuestionParagraphs:
+	        return React.createElement(
+	            "div",
+	            {
+	                className: className,
+	                "data-perseus-component-index": this.props.translationIndex,
+	                "data-perseus-paragraph-index": this.props.paragraphIndex
+	            },
+	            this.props.children
+	        );
+	    }
+	});
+
+	module.exports = QuestionParagraph;
+
+/***/ },
+/* 77 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	/**
+	 * For math rendered using KaTex and/or MathJax. Use me like <TeX>2x + 3</TeX>.
+	 */
+	/* global katex, MathJax, Khan */
+	// TODO(joel) - require MathJax / katex so they don't have to be global
+
+	var PureRenderMixin = __webpack_require__(141);
+	var React = __webpack_require__(21);
+	var ReactDOM = __webpack_require__(23);
+
+	var katexA11y = __webpack_require__(218);
+
+	var pendingScripts = [];
+	var pendingCallbacks = [];
+	var needsProcess = false;
+
+	var process = function process(script, callback) {
+	    pendingScripts.push(script);
+	    pendingCallbacks.push(callback);
+	    if (!needsProcess) {
+	        needsProcess = true;
+	        setTimeout(doProcess, 0);
+	    }
+	};
+
+	var loadMathJax = function loadMathJax(callback) {
+	    if (typeof MathJax !== "undefined") {
+	        callback();
+	    } else if (typeof Khan !== "undefined" && Khan.mathJaxLoaded) {
+	        Khan.mathJaxLoaded.then(callback);
+	    } else {
+	        throw new Error("MathJax wasn't loaded before it was needed by <TeX/>");
+	    }
+	};
+
+	var doProcess = function doProcess() {
+	    loadMathJax(function () {
+	        MathJax.Hub.Queue(function () {
+	            var oldElementScripts = MathJax.Hub.elementScripts;
+	            MathJax.Hub.elementScripts = function (element) {
+	                return pendingScripts;
+	            };
+
+	            try {
+	                return MathJax.Hub.Process(null, function () {
+	                    // Trigger all of the pending callbacks before clearing them
+	                    // out.
+	                    for (var _iterator = pendingCallbacks, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
+	                        var _ref;
+
+	                        if (_isArray) {
+	                            if (_i >= _iterator.length) break;
+	                            _ref = _iterator[_i++];
+	                        } else {
+	                            _i = _iterator.next();
+	                            if (_i.done) break;
+	                            _ref = _i.value;
+	                        }
+
+	                        var callback = _ref;
+
+	                        callback();
+	                    }
+
+	                    pendingScripts = [];
+	                    pendingCallbacks = [];
+	                    needsProcess = false;
+	                });
+	            } catch (e) {
+	                // IE8 requires `catch` in order to use `finally`
+	                throw e;
+	            } finally {
+	                MathJax.Hub.elementScripts = oldElementScripts;
+	            }
+	        });
+	    });
+	};
+
+	// Make content only visible to screen readers.
+	// Both collegeboard.org and Bootstrap 3 use this exact implementation.
+	var srOnly = {
+	    border: 0,
+	    clip: "rect(0,0,0,0)",
+	    height: "1px",
+	    margin: "-1px",
+	    overflow: "hidden",
+	    padding: 0,
+	    position: "absolute",
+	    width: "1px"
+	};
+
+	var TeX = React.createClass({
+	    displayName: 'TeX',
+
+	    propTypes: {
+	        children: React.PropTypes.node,
+	        onClick: React.PropTypes.func,
+	        onRender: React.PropTypes.func,
+	        style: React.PropTypes.any
+	    },
+
+	    mixins: [PureRenderMixin],
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            // Called after math is rendered or re-rendered
+	            onRender: function onRender() {},
+	            onClick: null
+	        };
+	    },
+
+	    componentDidMount: function componentDidMount() {
+	        var _this = this;
+
+	        this._root = ReactDOM.findDOMNode(this);
+
+	        if (this.refs.katex.childElementCount > 0) {
+	            // If we already rendered katex in the render function, we don't
+	            // need to render anything here.
+	            this.props.onRender(this._root);
+	            return;
+	        }
+
+	        var text = this.props.children;
+
+	        this.setScriptText(text);
+	        process(this.script, function () {
+	            return _this.props.onRender(_this._root);
+	        });
+	    },
+
+	    componentDidUpdate: function componentDidUpdate(prevProps, prevState) {
+	        var _this2 = this;
+
+	        // If we already rendered katex in the render function, we don't
+	        // need to render anything here.
+	        if (this.refs.katex.childElementCount > 0) {
+	            if (this.script) {
+	                // If we successfully rendered KaTeX, check if there's
+	                // lingering MathJax from the last render, and if so remove it.
+	                loadMathJax(function () {
+	                    var jax = MathJax.Hub.getJaxFor(_this2.script);
+	                    if (jax) {
+	                        jax.Remove();
+	                    }
+	                });
+	            }
+
+	            this.props.onRender();
+	            return;
+	        }
+
+	        var newText = this.props.children;
+
+	        if (this.script) {
+	            loadMathJax(function () {
+	                MathJax.Hub.Queue(function () {
+	                    var jax = MathJax.Hub.getJaxFor(_this2.script);
+	                    if (jax) {
+	                        return jax.Text(newText, _this2.props.onRender);
+	                    } else {
+	                        _this2.setScriptText(newText);
+	                        process(_this2.script, _this2.props.onRender);
+	                    }
+	                });
+	            });
+	        } else {
+	            this.setScriptText(newText);
+	            process(this.script, this.props.onRender);
+	        }
+	    },
+
+	    componentWillUnmount: function componentWillUnmount() {
+	        var _this3 = this;
+
+	        if (this.script) {
+	            loadMathJax(function () {
+	                var jax = MathJax.Hub.getJaxFor(_this3.script);
+	                if (jax) {
+	                    jax.Remove();
+	                }
+	            });
+	        }
+	    },
+
+	    setScriptText: function setScriptText(text) {
+	        if (!this.script) {
+	            this.script = document.createElement("script");
+	            this.script.type = "math/tex";
+	            ReactDOM.findDOMNode(this.refs.mathjax).appendChild(this.script);
+	        }
+	        if ("text" in this.script) {
+	            // IE8, etc
+	            this.script.text = text;
+	        } else {
+	            this.script.textContent = text;
+	        }
+	    },
+
+	    render: function render() {
+	        var katexHtml = null;
+	        try {
+	            katexHtml = {
+	                __html: katex.renderToString(this.props.children)
+	            };
+	        } catch (e) {
+	            /* jshint -W103 */
+	            if (e.__proto__ !== katex.ParseError.prototype) {
+	                /* jshint +W103 */
+	                throw e;
+	            }
+	        }
+
+	        var katexA11yHtml = null;
+	        if (katexHtml) {
+	            try {
+	                katexA11yHtml = {
+	                    __html: katexA11y.renderString(this.props.children)
+	                };
+	            } catch (e) {
+	                // Nothing
+	            }
+	        }
+
+	        return React.createElement(
+	            'span',
+	            {
+	                style: this.props.style,
+	                onClick: this.props.onClick
+	            },
+	            React.createElement('span', { ref: 'mathjax' }),
+	            React.createElement('span', {
+	                ref: 'katex',
+	                dangerouslySetInnerHTML: katexHtml,
+	                'aria-hidden': !!katexHtml && !!katexA11yHtml
+	            }),
+	            React.createElement('span', {
+	                dangerouslySetInnerHTML: katexA11yHtml,
+	                style: srOnly
+	            })
+	        );
+	    }
+	});
+
+	module.exports = TeX;
+
+/***/ },
+/* 78 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	/* eslint-disable comma-dangle, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var classNames = __webpack_require__(64);
+	var React = __webpack_require__(21);
+	var ReactDOM = __webpack_require__(23);
+
+	var _require = __webpack_require__(102),
+	    zIndexInteractiveComponent = _require.zIndexInteractiveComponent;
+
+	var Widgets = __webpack_require__(27);
+
+	var _require2 = __webpack_require__(219),
+	    containerSizeClass = _require2.containerSizeClass,
+	    getClassFromWidth = _require2.getClassFromWidth;
+
+	var _require3 = __webpack_require__(70),
+	    linterContextProps = _require3.linterContextProps,
+	    linterContextDefault = _require3.linterContextDefault;
+
+	var WidgetContainer = React.createClass({
+	    displayName: "WidgetContainer",
+
+	    propTypes: {
+	        shouldHighlight: React.PropTypes.bool.isRequired,
+	        type: React.PropTypes.string,
+	        initialProps: React.PropTypes.object.isRequired,
+	        linterContext: linterContextProps
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            linterContext: linterContextDefault
+	        };
+	    },
+
+
+	    getInitialState: function getInitialState() {
+	        return {
+	            // TODO(benkomalo): before we're mounted, we don't know how big
+	            // we're going to be, so just default to MEDIUM for now. :/ In the
+	            // future we can sniff with user-agents or something to get a
+	            // better approximation, to avoid flickers
+	            sizeClass: containerSizeClass.MEDIUM,
+	            widgetProps: this.props.initialProps
+	        };
+	    },
+
+	    componentDidMount: function componentDidMount() {
+	        // Only relay size class changes for mobile right now.  We may want to
+	        // this for desktop as well at some point in the future.
+	        if (this.state.widgetProps.apiOptions.isMobile) {
+	            var containerWidth = ReactDOM.findDOMNode(this).offsetWidth;
+
+	            // NOTE(benkomalo): in the common case, this won't change anything.
+	            // Unfortunately, it will cause a flash and re-layout on mobile,
+	            // but until we have better SSR or a more drastic way change to our
+	            // APIs that hints at the available size, we do have to measure DOM
+	            // unfortunately.
+	            /* eslint-disable react/no-did-mount-set-state */
+	            this.setState({
+	                sizeClass: getClassFromWidth(containerWidth)
+	            });
+	            /* eslint-enable react/no-did-mount-set-state */
+	        }
+	    },
+
+
+	    render: function render() {
+	        var className = classNames({
+	            "perseus-widget-container": true,
+	            "widget-highlight": this.props.shouldHighlight,
+	            "widget-nohighlight": !this.props.shouldHighlight
+	        });
+
+	        var type = this.props.type;
+	        var WidgetType = Widgets.getWidget(type);
+	        if (WidgetType == null) {
+	            // Just give up on invalid widget types
+	            return React.createElement("div", { className: className });
+	        }
+
+	        var alignment = this.state.widgetProps.alignment;
+	        if (alignment === "default") {
+	            alignment = Widgets.getDefaultAlignment(type);
+	        }
+
+	        className += " widget-" + alignment;
+
+	        var apiOptions = this.state.widgetProps.apiOptions;
+
+	        // Hack to prevent interaction with static widgets: we overlay a big
+	        // div on top of the widget and overflow: hidden the container.
+	        // Ideally widgets themselves should know how to prevent interaction.
+	        var isStatic = this.state.widgetProps.static || apiOptions.readOnly;
+	        var staticContainerStyles = {
+	            position: "relative",
+	            overflow: "visible"
+	        };
+	        var staticOverlayStyles = {
+	            width: "100%",
+	            height: "100%",
+	            position: "absolute",
+	            top: 0,
+	            left: 0,
+	            zIndex: zIndexInteractiveComponent
+	        };
+
+	        // Some widgets may include strings of markdown that we may
+	        // want to run the linter on. So if the widget is lintable,
+	        // and we've been asked to highlight lint, pass that property
+	        // on to the widget, and if the content is not lintable, make sure
+	        // to default to false.
+	        var linterContext = this.props.linterContext;
+
+	        if (!Widgets.isLintable(type)) {
+	            linterContext.highlightLint = false;
+	        }
+
+	        // Note: if you add more props here, please consider whether or not
+	        // it should be auto-serialized (e.g. used in scoreInput()). See
+	        // widget-jsonify-deprecated.jsx and widget-prop-blacklist.jsx
+
+	        // We default to an empty object for style instead of null
+	        // because of a strange bug where the static styles aren't applied
+	        // after toggling static mode.
+	        return React.createElement(
+	            "div",
+	            {
+	                className: className,
+	                style: isStatic ? staticContainerStyles : {}
+	            },
+	            React.createElement(WidgetType, _extends({}, this.state.widgetProps, {
+	                linterContext: linterContext,
+	                containerSizeClass: this.state.sizeClass,
+	                ref: "widget"
+	            })),
+	            isStatic && React.createElement("div", { style: staticOverlayStyles })
+	        );
+	    },
+
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        if (this.props.type !== nextProps.type) {
+	            throw new Error("WidgetContainer can't change widget type; set a different " + "key instead to recreate the container.");
+	        }
+	    },
+
+	    shouldComponentUpdate: function shouldComponentUpdate(nextProps, nextState) {
+	        return this.props.shouldHighlight !== nextProps.shouldHighlight || this.props.type !== nextProps.type || this.state.widgetProps !== nextState.widgetProps || this.state.sizeClass !== nextState.sizeClass;
+	    },
+
+	    getWidget: function getWidget() {
+	        return this.refs.widget;
+	    },
+
+	    replaceWidgetProps: function replaceWidgetProps(newWidgetProps) {
+	        this.setState({ widgetProps: newWidgetProps });
+	    }
+	});
+
+	module.exports = WidgetContainer;
+
+/***/ },
+/* 79 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	/**
+	 * Zooms child to fit with tap-to-zoom behavior.
+	 */
+
+	var React = __webpack_require__(21);
+	var ReactDOM = __webpack_require__(23);
+
+	var Deferred = __webpack_require__(80);
+
+	var Zoomable = React.createClass({
+	    displayName: "Zoomable",
+
+	    propTypes: {
+	        animateHeight: React.PropTypes.bool,
+	        children: React.PropTypes.element.isRequired,
+
+	        /**
+	         * Optional function that allows customizations in zooming.
+	         *
+	         * Defaults to just using the bounding client rect of the first DOM
+	         * element of this component.
+	         *
+	         * @return {Object} bounds object with `width` and `height` properties
+	         */
+	        computeChildBounds: React.PropTypes.func,
+
+	        // If this prop is specified, we wait until the deferred is resolved
+	        // before measuring the child element.  This is necessary in cases
+	        // where the child size depends on whether or not resources, such as
+	        // fonts, have been loaded.
+	        readyToMeasureDeferred: React.PropTypes.shape({
+	            then: React.PropTypes.func.isRequired,
+	            reject: React.PropTypes.func.isRequired
+	        }).isRequired
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        var deferred = new Deferred();
+	        deferred.resolve();
+
+	        return {
+	            animateHeight: false,
+	            readyToMeasureDeferred: deferred,
+	            computeChildBounds: function computeChildBounds(parentNode) {
+	                var firstChild = parentNode.firstElementChild;
+
+	                return {
+	                    // The +1 is a fudge factor to make sure any border on the
+	                    // content isn't clipped by the the container it's in.
+	                    width: firstChild.offsetWidth + 1,
+	                    height: firstChild.offsetHeight + 1
+	                };
+	            }
+	        };
+	    },
+	    getInitialState: function getInitialState() {
+	        return {
+	            visible: false,
+	            marginBottomPx: 0,
+	            zoomed: true
+	        };
+	    },
+	    componentDidMount: function componentDidMount() {
+	        var _this = this;
+
+	        this._node = ReactDOM.findDOMNode(this);
+	        this.props.readyToMeasureDeferred.then(function () {
+	            if (_this.isMounted()) {
+	                _this.scaleChildToFit(false);
+
+	                if (window.MutationObserver) {
+	                    _this._observer = new MutationObserver(function (mutations) {
+	                        if (_this.isMounted()) {
+	                            for (var _iterator = mutations, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
+	                                var _ref;
+
+	                                if (_isArray) {
+	                                    if (_i >= _iterator.length) break;
+	                                    _ref = _iterator[_i++];
+	                                } else {
+	                                    _i = _iterator.next();
+	                                    if (_i.done) break;
+	                                    _ref = _i.value;
+	                                }
+
+	                                var mutation = _ref;
+
+	                                if (mutation.target !== _this._node) {
+	                                    // Only act on mutations of children
+	                                    _this.scaleChildToFit(_this.state.zoomed);
+	                                    break;
+	                                }
+	                            }
+	                        }
+	                    });
+
+	                    _this._observer.observe(_this._node, {
+	                        childList: true,
+	                        subtree: true,
+	                        attributes: true
+	                    });
+	                }
+	                window.addEventListener("resize", _this.reset);
+	            }
+	        });
+	    },
+	    componentWillUnmount: function componentWillUnmount() {
+	        window.removeEventListener("resize", this.reset);
+	        if (this._observer) {
+	            this._observer.disconnect();
+	        }
+	    },
+	    reset: function reset() {
+	        var _this2 = this;
+
+	        if (!this.isMounted()) {
+	            return;
+	        }
+	        if (!this.state.visible) {
+	            return;
+	        }
+	        this._originalWidth = null;
+	        this.setState({
+	            visible: false,
+	            compactHeight: null,
+	            expandedHeight: null,
+	            zoomed: true
+	        }, function () {
+	            _this2.scaleChildToFit(false);
+	        });
+	    },
+	    stopPropagationIfZoomed: function stopPropagationIfZoomed(e) {
+	        if (!this.state.zoomed) {
+	            // We only allow touch events (which trigger interactive elements)
+	            // to be propagated to children if we are already zoomed.
+	            e.stopPropagation();
+	        }
+	    },
+
+
+	    // TODO(benkomalo): call this on viewport width changes?
+	    // https://github.com/Khan/math-input/blob/master/src/components/math-keypad.js#L43
+	    scaleChildToFit: function scaleChildToFit(zoomed) {
+	        var _this3 = this;
+
+	        var parentBounds = {
+	            width: this._node.offsetWidth,
+	            height: this._node.offsetHeight
+	        };
+	        var childBounds = this.props.computeChildBounds(this._node, parentBounds);
+
+	        var childWidth = childBounds.width;
+	        var childHeight = childBounds.height;
+
+	        if (childWidth > parentBounds.width) {
+	            var scale = parentBounds.width / childWidth;
+
+	            this.setState({
+	                scale: scale,
+	                zoomed: zoomed,
+
+	                compactHeight: Math.ceil(scale * childHeight),
+	                expandedHeight: childHeight
+	            });
+
+	            // TODO(charlie): Do this as a callback to `setState`. Something is
+	            // going wrong with that approach in initial testing.
+	            setTimeout(function () {
+	                // Only show it after the next paint, to allow for CSS
+	                // transitions to fade it in.
+	                if (_this3.isMounted()) {
+	                    _this3.setState({
+	                        visible: true
+	                    });
+	                }
+	            });
+	        } else {
+	            this.setState({
+	                visible: true
+	            });
+	        }
+	    },
+	    handleClickIfZoomed: function handleClickIfZoomed(e) {
+	        if (!this.state.zoomed) {
+	            e.stopPropagation();
+	            this.handleClick();
+	        }
+	    },
+	    handleClick: function handleClick() {
+	        this.setState({
+	            zoomed: !this.state.zoomed
+	        });
+	    },
+	    render: function render() {
+	        var _state = this.state,
+	            visible = _state.visible,
+	            scale = _state.scale,
+	            compactHeight = _state.compactHeight,
+	            expandedHeight = _state.expandedHeight,
+	            zoomed = _state.zoomed;
+	        var animateHeight = this.props.animateHeight;
+
+
+	        var property = animateHeight ? "opacity transform height" : "opacity transform";
+
+	        // Since we're not using aphrodite, we have to prefix ourselves.
+	        /* eslint-disable indent */
+	        var transitionStyle = visible ? {
+	            transitionProperty: property,
+	            WebkitTransitionProperty: property,
+	            msTransitionProperty: property,
+	            transitionDuration: "0.3s",
+	            WebkitTransitionDuration: "0.3s",
+	            msTransitionDuration: "0.3s",
+	            transitionTimingFunction: "ease-out",
+	            WebkitTransitionTimingfunction: "ease-out",
+	            msTransitionTmingFunction: "ease-out"
+	        } : {};
+	        /* eslint-enable indent */
+
+	        // Do a fancy little slide as we fade the contents in the first time.
+	        var translateOffset = visible ? "" : " translate(0, 8px)";
+	        var transform = zoomed ? "scale(1, 1) " + translateOffset : "scale(" + scale + ", " + scale + ") " + translateOffset;
+
+	        var style = _extends({
+	            display: "block",
+	            width: "100%",
+	            height: zoomed ? expandedHeight : compactHeight,
+	            transform: transform,
+	            WebkitTransform: transform,
+	            msTransform: transform,
+	            transformOrigin: "0 0",
+	            WebkitTransformOrigin: "0 0",
+	            msTransformOrigin: "0 0",
+	            opacity: visible ? 1 : 0,
+	            WebkitTapHighlightColor: "transparent"
+	        }, transitionStyle);
+
+	        return React.createElement(
+	            "span",
+	            {
+	                onClick: this.handleClick,
+	                onClickCapture: this.handleClickIfZoomed,
+	                onTouchCancelCapture: this.stopPropagationIfZoomed,
+	                onTouchEndCapture: this.stopPropagationIfZoomed,
+	                onTouchStartCapture: this.stopPropagationIfZoomed,
+	                style: style
+	            },
+	            this.props.children
+	        );
+	    }
+	});
+
+	module.exports = Zoomable;
+
+/***/ },
+/* 80 */
+/***/ function(module, exports, __webpack_require__) {
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	/**
+	 * Simple version of jQuery's Deferred.
+	 */
+
+	var Deferred = function () {
+	    function Deferred() {
+	        var _this = this;
+
+	        _classCallCheck(this, Deferred);
+
+	        this.promise = new Promise(function (resolve, reject) {
+	            _this.resolve = resolve;
+	            _this.reject = reject;
+	        });
+	    }
+
+	    Deferred.prototype.then = function then(callback) {
+	        return this.promise.then(callback);
+	    };
+
+	    return Deferred;
+	}();
+
+	module.exports = Deferred;
 
 /***/ },
 /* 81 */
@@ -19035,231 +19039,10 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 87 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/**
-	 * A wrapper around react-components/info-tip.jsx that can be rendered on the
-	 * server without causing a checksum mismatch on the client.
-	 * (RCSS generates classnames with a randomSuffix, which ensures that any
-	 * two sets of generated classnames will not match.)
-	 */
-
-	var React = __webpack_require__(21);
-
-	var ReactComponentsInfoTip = __webpack_require__(226);
-
-	var InfoTip = React.createClass({
-	    displayName: "InfoTip",
-
-	    getInitialState: function getInitialState() {
-	        return {
-	            didMount: false
-	        };
-	    },
-
-	    componentDidMount: function componentDidMount() {
-	        /* eslint-disable react/no-did-mount-set-state */
-	        this.setState({ didMount: true });
-	        /* eslint-enable react/no-did-mount-set-state */
-	    },
-
-	    render: function render() {
-	        if (this.state.didMount) {
-	            return React.createElement(ReactComponentsInfoTip, this.props);
-	        } else {
-	            return React.createElement("div", null);
-	        }
-	    }
-	});
-
-	module.exports = InfoTip;
-
-/***/ },
-/* 88 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* eslint-disable no-var */
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var React = __webpack_require__(21);
-
-	var InfoTip = __webpack_require__(87);
-
-	var ItemExtrasEditor = React.createClass({
-	    displayName: "ItemExtrasEditor",
-
-	    propTypes: {
-	        calculator: React.PropTypes.bool,
-	        chi2Table: React.PropTypes.bool,
-	        onChange: React.PropTypes.func.isRequired,
-	        periodicTable: React.PropTypes.bool,
-	        tTable: React.PropTypes.bool,
-	        zTable: React.PropTypes.bool
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            calculator: false,
-	            chi2Table: false,
-	            periodicTable: false,
-	            tTable: false,
-	            zTable: false
-	        };
-	    },
-
-	    serialize: function serialize() {
-	        return {
-	            calculator: this.props.calculator,
-	            chi2Table: this.props.chi2Table,
-	            periodicTable: this.props.periodicTable,
-	            tTable: this.props.tTable,
-	            zTable: this.props.zTable
-	        };
-	    },
-
-	    render: function render() {
-	        var _this = this;
-
-	        return React.createElement(
-	            "div",
-	            { className: "perseus-answer-editor" },
-	            React.createElement(
-	                "div",
-	                { className: "perseus-answer-options" },
-	                React.createElement(
-	                    "div",
-	                    null,
-	                    React.createElement(
-	                        "label",
-	                        null,
-	                        "Show calculator:",
-	                        " ",
-	                        React.createElement("input", {
-	                            type: "checkbox",
-	                            checked: this.props.calculator,
-	                            onChange: function onChange(e) {
-	                                _this.props.onChange({
-	                                    calculator: e.target.checked
-	                                });
-	                            }
-	                        })
-	                    ),
-	                    React.createElement(
-	                        InfoTip,
-	                        null,
-	                        "Use the calculator when completing difficult calculations is NOT the intent of the question. DON\u2019T use the calculator when testing the student\u2019s ability to complete different types of computations."
-	                    )
-	                ),
-	                React.createElement(
-	                    "div",
-	                    null,
-	                    React.createElement(
-	                        "label",
-	                        null,
-	                        "Show periodic table:",
-	                        " ",
-	                        React.createElement("input", {
-	                            type: "checkbox",
-	                            checked: this.props.periodicTable,
-	                            onChange: function onChange(e) {
-	                                _this.props.onChange({
-	                                    periodicTable: e.target.checked
-	                                });
-	                            }
-	                        })
-	                    ),
-	                    React.createElement(
-	                        InfoTip,
-	                        null,
-	                        "This provides the student with the ability to view a periodic table of the elements, e.g., for answering chemistry questions."
-	                    )
-	                ),
-	                React.createElement(
-	                    "div",
-	                    null,
-	                    React.createElement(
-	                        "label",
-	                        null,
-	                        "Show z table (statistics):",
-	                        " ",
-	                        React.createElement("input", {
-	                            type: "checkbox",
-	                            checked: this.props.zTable,
-	                            onChange: function onChange(e) {
-	                                _this.props.onChange({
-	                                    zTable: e.target.checked
-	                                });
-	                            }
-	                        })
-	                    ),
-	                    React.createElement(
-	                        InfoTip,
-	                        null,
-	                        "This provides the student with the ability to view a table of critical values for the z distribution, e.g. for answering statistics questions."
-	                    )
-	                ),
-	                React.createElement(
-	                    "div",
-	                    null,
-	                    React.createElement(
-	                        "label",
-	                        null,
-	                        "Show t table (statistics):",
-	                        " ",
-	                        React.createElement("input", {
-	                            type: "checkbox",
-	                            checked: this.props.tTable,
-	                            onChange: function onChange(e) {
-	                                _this.props.onChange({
-	                                    tTable: e.target.checked
-	                                });
-	                            }
-	                        })
-	                    ),
-	                    React.createElement(
-	                        InfoTip,
-	                        null,
-	                        "This provides the student with the ability to view a table of critical values for the Student's t distribution, e.g. for answering statistics questions."
-	                    )
-	                ),
-	                React.createElement(
-	                    "div",
-	                    null,
-	                    React.createElement(
-	                        "label",
-	                        null,
-	                        "Show chi-squared table (statistics):",
-	                        " ",
-	                        React.createElement("input", {
-	                            type: "checkbox",
-	                            checked: this.props.chi2Table,
-	                            onChange: function onChange(e) {
-	                                _this.props.onChange({
-	                                    chi2Table: e.target.checked
-	                                });
-	                            }
-	                        })
-	                    ),
-	                    React.createElement(
-	                        InfoTip,
-	                        null,
-	                        "This provides the student with the ability to view a table of critical values for the chi-squared distribution, e.g. for answering statistics questions."
-	                    )
-	                )
-	            )
-	        );
-	    }
-	});
-
-	module.exports = ItemExtrasEditor;
-
-/***/ },
-/* 89 */
-/***/ function(module, exports, __webpack_require__) {
-
 	module.exports = {"apiVersion":{"major":10,"minor":2},"itemDataVersion":{"major":0,"minor":1}}
 
 /***/ },
-/* 90 */
+/* 88 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -19726,6 +19509,227 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
+/* 89 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * A wrapper around react-components/info-tip.jsx that can be rendered on the
+	 * server without causing a checksum mismatch on the client.
+	 * (RCSS generates classnames with a randomSuffix, which ensures that any
+	 * two sets of generated classnames will not match.)
+	 */
+
+	var React = __webpack_require__(21);
+
+	var ReactComponentsInfoTip = __webpack_require__(226);
+
+	var InfoTip = React.createClass({
+	    displayName: "InfoTip",
+
+	    getInitialState: function getInitialState() {
+	        return {
+	            didMount: false
+	        };
+	    },
+
+	    componentDidMount: function componentDidMount() {
+	        /* eslint-disable react/no-did-mount-set-state */
+	        this.setState({ didMount: true });
+	        /* eslint-enable react/no-did-mount-set-state */
+	    },
+
+	    render: function render() {
+	        if (this.state.didMount) {
+	            return React.createElement(ReactComponentsInfoTip, this.props);
+	        } else {
+	            return React.createElement("div", null);
+	        }
+	    }
+	});
+
+	module.exports = InfoTip;
+
+/***/ },
+/* 90 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* eslint-disable no-var */
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var React = __webpack_require__(21);
+
+	var InfoTip = __webpack_require__(89);
+
+	var ItemExtrasEditor = React.createClass({
+	    displayName: "ItemExtrasEditor",
+
+	    propTypes: {
+	        calculator: React.PropTypes.bool,
+	        chi2Table: React.PropTypes.bool,
+	        onChange: React.PropTypes.func.isRequired,
+	        periodicTable: React.PropTypes.bool,
+	        tTable: React.PropTypes.bool,
+	        zTable: React.PropTypes.bool
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            calculator: false,
+	            chi2Table: false,
+	            periodicTable: false,
+	            tTable: false,
+	            zTable: false
+	        };
+	    },
+
+	    serialize: function serialize() {
+	        return {
+	            calculator: this.props.calculator,
+	            chi2Table: this.props.chi2Table,
+	            periodicTable: this.props.periodicTable,
+	            tTable: this.props.tTable,
+	            zTable: this.props.zTable
+	        };
+	    },
+
+	    render: function render() {
+	        var _this = this;
+
+	        return React.createElement(
+	            "div",
+	            { className: "perseus-answer-editor" },
+	            React.createElement(
+	                "div",
+	                { className: "perseus-answer-options" },
+	                React.createElement(
+	                    "div",
+	                    null,
+	                    React.createElement(
+	                        "label",
+	                        null,
+	                        "Show calculator:",
+	                        " ",
+	                        React.createElement("input", {
+	                            type: "checkbox",
+	                            checked: this.props.calculator,
+	                            onChange: function onChange(e) {
+	                                _this.props.onChange({
+	                                    calculator: e.target.checked
+	                                });
+	                            }
+	                        })
+	                    ),
+	                    React.createElement(
+	                        InfoTip,
+	                        null,
+	                        "Use the calculator when completing difficult calculations is NOT the intent of the question. DON\u2019T use the calculator when testing the student\u2019s ability to complete different types of computations."
+	                    )
+	                ),
+	                React.createElement(
+	                    "div",
+	                    null,
+	                    React.createElement(
+	                        "label",
+	                        null,
+	                        "Show periodic table:",
+	                        " ",
+	                        React.createElement("input", {
+	                            type: "checkbox",
+	                            checked: this.props.periodicTable,
+	                            onChange: function onChange(e) {
+	                                _this.props.onChange({
+	                                    periodicTable: e.target.checked
+	                                });
+	                            }
+	                        })
+	                    ),
+	                    React.createElement(
+	                        InfoTip,
+	                        null,
+	                        "This provides the student with the ability to view a periodic table of the elements, e.g., for answering chemistry questions."
+	                    )
+	                ),
+	                React.createElement(
+	                    "div",
+	                    null,
+	                    React.createElement(
+	                        "label",
+	                        null,
+	                        "Show z table (statistics):",
+	                        " ",
+	                        React.createElement("input", {
+	                            type: "checkbox",
+	                            checked: this.props.zTable,
+	                            onChange: function onChange(e) {
+	                                _this.props.onChange({
+	                                    zTable: e.target.checked
+	                                });
+	                            }
+	                        })
+	                    ),
+	                    React.createElement(
+	                        InfoTip,
+	                        null,
+	                        "This provides the student with the ability to view a table of critical values for the z distribution, e.g. for answering statistics questions."
+	                    )
+	                ),
+	                React.createElement(
+	                    "div",
+	                    null,
+	                    React.createElement(
+	                        "label",
+	                        null,
+	                        "Show t table (statistics):",
+	                        " ",
+	                        React.createElement("input", {
+	                            type: "checkbox",
+	                            checked: this.props.tTable,
+	                            onChange: function onChange(e) {
+	                                _this.props.onChange({
+	                                    tTable: e.target.checked
+	                                });
+	                            }
+	                        })
+	                    ),
+	                    React.createElement(
+	                        InfoTip,
+	                        null,
+	                        "This provides the student with the ability to view a table of critical values for the Student's t distribution, e.g. for answering statistics questions."
+	                    )
+	                ),
+	                React.createElement(
+	                    "div",
+	                    null,
+	                    React.createElement(
+	                        "label",
+	                        null,
+	                        "Show chi-squared table (statistics):",
+	                        " ",
+	                        React.createElement("input", {
+	                            type: "checkbox",
+	                            checked: this.props.chi2Table,
+	                            onChange: function onChange(e) {
+	                                _this.props.onChange({
+	                                    chi2Table: e.target.checked
+	                                });
+	                            }
+	                        })
+	                    ),
+	                    React.createElement(
+	                        InfoTip,
+	                        null,
+	                        "This provides the student with the ability to view a table of critical values for the chi-squared distribution, e.g. for answering statistics questions."
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+
+	module.exports = ItemExtrasEditor;
+
+/***/ },
 /* 91 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -19852,9 +19856,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var SimpleKeypadInput = __webpack_require__(229);
 	var ParseTex = __webpack_require__(230).parseTex;
 	var PossibleAnswers = __webpack_require__(231);
-	var KhanAnswerTypes = __webpack_require__(54);
+	var KhanAnswerTypes = __webpack_require__(53);
 
-	var keypadElementPropType = __webpack_require__(219).propTypes.keypadElementPropType;
+	var keypadElementPropType = __webpack_require__(220).propTypes.keypadElementPropType;
 
 	var _require = __webpack_require__(70),
 	    linterContextProps = _require.linterContextProps,
@@ -20178,7 +20182,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Util = __webpack_require__(6);
 
 	var BlurInput = __webpack_require__(232);
-	var InfoTip = __webpack_require__(87);
+	var InfoTip = __webpack_require__(89);
 
 	var answerTypes = {
 	    number: {
@@ -20472,10 +20476,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ApiClassNames = __webpack_require__(5).ClassNames;
 	var ApiOptions = __webpack_require__(5).Options;
-	var KhanAnswerTypes = __webpack_require__(54);
+	var KhanAnswerTypes = __webpack_require__(53);
 	var KhanMath = __webpack_require__(105);
 
-	var keypadElementPropType = __webpack_require__(219).propTypes.keypadElementPropType;
+	var keypadElementPropType = __webpack_require__(220).propTypes.keypadElementPropType;
 
 	var _require2 = __webpack_require__(70),
 	    linterContextProps = _require2.linterContextProps,
@@ -21231,11 +21235,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    iconGear = _require.iconGear,
 	    iconTrash = _require.iconTrash;
 
-	var InfoTip = __webpack_require__(87);
+	var InfoTip = __webpack_require__(89);
 	var InlineIcon = __webpack_require__(42);
 	var MultiButtonGroup = __webpack_require__(235);
 	var NumberInput = __webpack_require__(236);
-	var PropCheckBox = __webpack_require__(48);
+	var PropCheckBox = __webpack_require__(46);
 	var TextInput = __webpack_require__(237);
 
 	var firstNumericalParse = __webpack_require__(6).firstNumericalParse;
@@ -21833,20 +21837,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Changeable = __webpack_require__(233);
 	var ApiOptions = __webpack_require__(5).Options;
 	var ApiClassNames = __webpack_require__(5).ClassNames;
-	var KhanAnswerTypes = __webpack_require__(54);
+	var KhanAnswerTypes = __webpack_require__(53);
 
 	var InlineIcon = __webpack_require__(42);
 	var InputWithExamples = __webpack_require__(228);
 	var MathInput = __webpack_require__(239);
 	var TexButtons = __webpack_require__(240);
 
-	var KeypadInput = __webpack_require__(219).components.KeypadInput;
+	var KeypadInput = __webpack_require__(220).components.KeypadInput;
 
-	var _require$propTypes = __webpack_require__(219).propTypes,
+	var _require$propTypes = __webpack_require__(220).propTypes,
 	    keypadConfigurationPropType = _require$propTypes.keypadConfigurationPropType,
 	    keypadElementPropType = _require$propTypes.keypadElementPropType;
 
-	var KeypadTypes = __webpack_require__(219).consts.KeypadTypes;
+	var KeypadTypes = __webpack_require__(220).consts.KeypadTypes;
 
 	var _require = __webpack_require__(70),
 	    linterContextProps = _require.linterContextProps,
@@ -22445,10 +22449,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Changeable = __webpack_require__(233);
 
-	var InfoTip = __webpack_require__(87);
-	var PropCheckBox = __webpack_require__(48);
+	var InfoTip = __webpack_require__(89);
+	var PropCheckBox = __webpack_require__(46);
 	var SortableArea = __webpack_require__(241);
-	var TeX = __webpack_require__(75); // OldExpression only
+	var TeX = __webpack_require__(77); // OldExpression only
 	var TexButtons = __webpack_require__(240);
 
 	var Expression = __webpack_require__(96).Expression;
@@ -23037,7 +23041,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    iconTrash = _require.iconTrash;
 
 	var InlineIcon = __webpack_require__(42);
-	var PropCheckBox = __webpack_require__(48);
+	var PropCheckBox = __webpack_require__(46);
 
 	var ChoiceEditor = React.createClass({
 	    displayName: "ChoiceEditor",
@@ -24293,7 +24297,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 106 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var babelPluginFlowReactPropTypes_proptype_ObjectNode = __webpack_require__(220).babelPluginFlowReactPropTypes_proptype_ObjectNode || __webpack_require__(21).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_ObjectNode = __webpack_require__(217).babelPluginFlowReactPropTypes_proptype_ObjectNode || __webpack_require__(21).PropTypes.any;
 	/**
 	 * Type definitions for multi-item types, including:
 	 *
@@ -24306,9 +24310,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 
 
-	var babelPluginFlowReactPropTypes_proptype_ArrayNode = __webpack_require__(220).babelPluginFlowReactPropTypes_proptype_ArrayNode || __webpack_require__(21).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_ArrayNode = __webpack_require__(217).babelPluginFlowReactPropTypes_proptype_ArrayNode || __webpack_require__(21).PropTypes.any;
 
-	var babelPluginFlowReactPropTypes_proptype_Tree = __webpack_require__(220).babelPluginFlowReactPropTypes_proptype_Tree || __webpack_require__(21).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_Tree = __webpack_require__(217).babelPluginFlowReactPropTypes_proptype_Tree || __webpack_require__(21).PropTypes.any;
 
 	Object.defineProperty(module.exports, "babelPluginFlowReactPropTypes_proptype_ContentNode", __webpack_require__(21).PropTypes.shape({
 	    __type: __webpack_require__(21).PropTypes.oneOf(["content", "item"]).isRequired,
@@ -24439,11 +24443,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Elements can be `string` to correspond to an ObjectNode key, or `number` to
 	 * correspond to an ArrayNode index.
 	 */
-	var babelPluginFlowReactPropTypes_proptype_ObjectNode = __webpack_require__(220).babelPluginFlowReactPropTypes_proptype_ObjectNode || __webpack_require__(21).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_ObjectNode = __webpack_require__(217).babelPluginFlowReactPropTypes_proptype_ObjectNode || __webpack_require__(21).PropTypes.any;
 
-	var babelPluginFlowReactPropTypes_proptype_ArrayNode = __webpack_require__(220).babelPluginFlowReactPropTypes_proptype_ArrayNode || __webpack_require__(21).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_ArrayNode = __webpack_require__(217).babelPluginFlowReactPropTypes_proptype_ArrayNode || __webpack_require__(21).PropTypes.any;
 
-	var babelPluginFlowReactPropTypes_proptype_Tree = __webpack_require__(220).babelPluginFlowReactPropTypes_proptype_Tree || __webpack_require__(21).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_Tree = __webpack_require__(217).babelPluginFlowReactPropTypes_proptype_Tree || __webpack_require__(21).PropTypes.any;
 
 	/**
 	 * These are function interfaces for mapping over various types of tree nodes.
@@ -26177,7 +26181,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    iconCircleThin = _require2.iconCircleThin;
 
 	var InlineIcon = __webpack_require__(42);
-	var Renderer = __webpack_require__(35);
+	var Renderer = __webpack_require__(34);
 	var Util = __webpack_require__(6);
 	var mediaQueries = __webpack_require__(100);
 	var sharedStyles = __webpack_require__(101);
@@ -26461,7 +26465,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ApiOptions = __webpack_require__(5).Options;
 	var EditorJsonify = __webpack_require__(234);
-	var PropCheckBox = __webpack_require__(48);
+	var PropCheckBox = __webpack_require__(46);
 	var TextListEditor = __webpack_require__(81);
 
 	var Categorizer = __webpack_require__(147).widget;
@@ -26774,8 +26778,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var EditorJsonify = __webpack_require__(234);
 
 	var BlurInput = __webpack_require__(232);
-	var InfoTip = __webpack_require__(87);
-	var PropCheckBox = __webpack_require__(48);
+	var InfoTip = __webpack_require__(89);
+	var PropCheckBox = __webpack_require__(46);
 
 	var DEFAULT_WIDTH = 400;
 	var DEFAULT_HEIGHT = 400;
@@ -27240,7 +27244,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    iconPlus = _require.iconPlus,
 	    iconTrash = _require.iconTrash;
 
-	var InfoTip = __webpack_require__(87);
+	var InfoTip = __webpack_require__(89);
 	var InlineIcon = __webpack_require__(42);
 	var EditorJsonify = __webpack_require__(234);
 
@@ -27445,7 +27449,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Changeable = __webpack_require__(233);
 	var PerseusApi = __webpack_require__(5);
-	var Renderer = __webpack_require__(35);
+	var Renderer = __webpack_require__(34);
 	var mediaQueries = __webpack_require__(100);
 	var styleConstants = __webpack_require__(102);
 
@@ -27843,7 +27847,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Changeable = __webpack_require__(233);
 	var PerseusApi = __webpack_require__(5);
-	var Renderer = __webpack_require__(35);
+	var Renderer = __webpack_require__(34);
 	var mediaQueries = __webpack_require__(100);
 	var styleConstants = __webpack_require__(102);
 
@@ -28395,13 +28399,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	var kpoint = __webpack_require__(260).point;
 	var KhanColors = __webpack_require__(251);
 
-	var _require = __webpack_require__(218),
+	var _require = __webpack_require__(219),
 	    containerSizeClassPropType = _require.containerSizeClassPropType;
 
 	var _require2 = __webpack_require__(102),
 	    interactiveSizes = _require2.interactiveSizes;
 
-	var _require3 = __webpack_require__(218),
+	var _require3 = __webpack_require__(219),
 	    getInteractiveBoxFromSizeClass = _require3.getInteractiveBoxFromSizeClass;
 
 	/* Mixins. */
@@ -28915,7 +28919,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Changeable = __webpack_require__(233);
 
 	var GraphSettings = __webpack_require__(252);
-	var InfoTip = __webpack_require__(87);
+	var InfoTip = __webpack_require__(89);
 	var MultiButtonGroup = __webpack_require__(235);
 
 	var Grapher = __webpack_require__(157).widget;
@@ -28926,7 +28930,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    typeToButton = _require.typeToButton,
 	    DEFAULT_GRAPHER_PROPS = _require.DEFAULT_GRAPHER_PROPS;
 
-	var _require2 = __webpack_require__(218),
+	var _require2 = __webpack_require__(219),
 	    containerSizeClass = _require2.containerSizeClass,
 	    getInteractiveBoxFromSizeClass = _require2.getInteractiveBoxFromSizeClass;
 
@@ -29090,7 +29094,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    iconRemove = _require.iconRemove;
 
 	var InlineIcon = __webpack_require__(42);
-	var Renderer = __webpack_require__(35);
+	var Renderer = __webpack_require__(34);
 	var GradedGroupAnswerBar = __webpack_require__(253);
 
 	var _require2 = __webpack_require__(102),
@@ -29990,7 +29994,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ApiOptions = __webpack_require__(5).Options;
 	var Changeable = __webpack_require__(233);
-	var Renderer = __webpack_require__(35);
+	var Renderer = __webpack_require__(34);
 
 	var _require = __webpack_require__(70),
 	    linterContextProps = _require.linterContextProps,
@@ -30492,7 +30496,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var EditorJsonify = __webpack_require__(234);
 
 	var BlurInput = __webpack_require__(232);
-	var PropCheckBox = __webpack_require__(48);
+	var PropCheckBox = __webpack_require__(46);
 
 	/**
 	 * This is used for editing a name/value pair.
@@ -30747,7 +30751,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Changeable = __webpack_require__(233);
 	var mediaQueries = __webpack_require__(100);
-	var Renderer = __webpack_require__(35);
+	var Renderer = __webpack_require__(34);
 	var SvgImage = __webpack_require__(38);
 
 	var _require3 = __webpack_require__(70),
@@ -31077,7 +31081,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var BlurInput = __webpack_require__(232);
 	var Editor = __webpack_require__(11);
-	var InfoTip = __webpack_require__(87);
+	var InfoTip = __webpack_require__(89);
 	var InlineIcon = __webpack_require__(42);
 	var RangeInput = __webpack_require__(254);
 
@@ -31906,7 +31910,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var GraphSettings = __webpack_require__(252);
 	var MathInput = __webpack_require__(239);
 	var NumberInput = __webpack_require__(236);
-	var TeX = __webpack_require__(75);
+	var TeX = __webpack_require__(77);
 	var TextInput = __webpack_require__(237);
 
 	var KhanColors = __webpack_require__(251);
@@ -33385,7 +33389,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(22);
 
 	var Graph = __webpack_require__(255);
-	var InfoTip = __webpack_require__(87);
+	var InfoTip = __webpack_require__(89);
 	var Interactive2 = __webpack_require__(249);
 	var NumberInput = __webpack_require__(236);
 	var Util = __webpack_require__(6);
@@ -33398,7 +33402,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _require = __webpack_require__(102),
 	    interactiveSizes = _require.interactiveSizes;
 
-	var _require2 = __webpack_require__(218),
+	var _require2 = __webpack_require__(219),
 	    containerSizeClassPropType = _require2.containerSizeClassPropType,
 	    getInteractiveBoxFromSizeClass = _require2.getInteractiveBoxFromSizeClass;
 
@@ -35738,14 +35742,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	var DeprecationMixin = Util.DeprecationMixin;
 
 	var GraphSettings = __webpack_require__(252);
-	var InfoTip = __webpack_require__(87);
+	var InfoTip = __webpack_require__(89);
 
 	var InteractiveGraph = __webpack_require__(171).widget;
 
 	var _require = __webpack_require__(102),
 	    interactiveSizes = _require.interactiveSizes;
 
-	var _require2 = __webpack_require__(218),
+	var _require2 = __webpack_require__(219),
 	    containerSizeClass = _require2.containerSizeClass,
 	    getInteractiveBoxFromSizeClass = _require2.getInteractiveBoxFromSizeClass;
 
@@ -36439,8 +36443,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var EditorJsonify = __webpack_require__(234);
 
 	var NumberInput = __webpack_require__(236);
-	var PropCheckBox = __webpack_require__(48);
-	var InfoTip = __webpack_require__(87);
+	var PropCheckBox = __webpack_require__(46);
+	var InfoTip = __webpack_require__(89);
 
 	var MAX_SIZE = 8;
 
@@ -36727,15 +36731,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(22);
 
 	var NumberInput = __webpack_require__(236);
-	var Renderer = __webpack_require__(35);
+	var Renderer = __webpack_require__(34);
 	var TextInput = __webpack_require__(237);
 	var MathOutput = __webpack_require__(256);
 	var SimpleKeypadInput = __webpack_require__(229);
 
 	var ApiOptions = __webpack_require__(5).Options;
-	var KhanAnswerTypes = __webpack_require__(54);
+	var KhanAnswerTypes = __webpack_require__(53);
 
-	var keypadElementPropType = __webpack_require__(219).propTypes.keypadElementPropType;
+	var keypadElementPropType = __webpack_require__(220).propTypes.keypadElementPropType;
 
 	var assert = __webpack_require__(223).assert;
 	var stringArrayOfSize = __webpack_require__(6).stringArrayOfSize;
@@ -37442,7 +37446,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(22);
 
-	var Renderer = __webpack_require__(35);
+	var Renderer = __webpack_require__(34);
 	var Sortable = __webpack_require__(257);
 
 	var ApiOptions = __webpack_require__(5).Options;
@@ -37674,8 +37678,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(21);
 	var _ = __webpack_require__(22);
 
-	var InfoTip = __webpack_require__(87);
-	var PropCheckBox = __webpack_require__(48);
+	var InfoTip = __webpack_require__(89);
+	var PropCheckBox = __webpack_require__(46);
 	var TextListEditor = __webpack_require__(81);
 
 	var MatcherEditor = React.createClass({
@@ -38026,9 +38030,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Changeable = __webpack_require__(233);
 	var EditorJsonify = __webpack_require__(234);
 
-	var InfoTip = __webpack_require__(87);
+	var InfoTip = __webpack_require__(89);
 	var NumberInput = __webpack_require__(236);
-	var PropCheckBox = __webpack_require__(48);
+	var PropCheckBox = __webpack_require__(46);
 	var RangeInput = __webpack_require__(254);
 
 	var defaultImage = {
@@ -38598,7 +38602,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ApiOptions = __webpack_require__(5).Options;
 
-	var keypadElementPropType = __webpack_require__(219).propTypes.keypadElementPropType;
+	var keypadElementPropType = __webpack_require__(220).propTypes.keypadElementPropType;
 
 	var Graphie = __webpack_require__(83);
 	var MovablePoint = Graphie.MovablePoint;
@@ -39293,9 +39297,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var EditorJsonify = __webpack_require__(234);
 
 	var ButtonGroup = __webpack_require__(66);
-	var InfoTip = __webpack_require__(87);
+	var InfoTip = __webpack_require__(89);
 	var NumberInput = __webpack_require__(236);
-	var PropCheckBox = __webpack_require__(48);
+	var PropCheckBox = __webpack_require__(46);
 	var RangeInput = __webpack_require__(254);
 
 	var knumber = __webpack_require__(260).number;
@@ -39855,7 +39859,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ReactDOM = __webpack_require__(23);
 	var _ = __webpack_require__(22);
 
-	var Renderer = __webpack_require__(35);
+	var Renderer = __webpack_require__(34);
 	var Util = __webpack_require__(6);
 
 	var ApiClassNames = __webpack_require__(5).ClassNames;
@@ -40437,7 +40441,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(21);
 	var _ = __webpack_require__(22);
 
-	var InfoTip = __webpack_require__(87);
+	var InfoTip = __webpack_require__(89);
 	var TextListEditor = __webpack_require__(81);
 
 	var NORMAL = "normal",
@@ -40656,7 +40660,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var $ = __webpack_require__(25);
 
 	var HighlightableContent = __webpack_require__(273);
-	var Renderer = __webpack_require__(35);
+	var Renderer = __webpack_require__(34);
 	var PassageMarkdown = __webpack_require__(275);
 
 	var _require2 = __webpack_require__(70),
@@ -41209,8 +41213,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var EditorJsonify = __webpack_require__(234);
 
 	var Editor = __webpack_require__(11);
-	var InfoTip = __webpack_require__(87);
-	var PropCheckBox = __webpack_require__(48);
+	var InfoTip = __webpack_require__(89);
+	var PropCheckBox = __webpack_require__(46);
 
 	var PassageEditor = React.createClass({
 	    displayName: "PassageEditor",
@@ -41519,7 +41523,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Changeable = __webpack_require__(233);
 	var EditorJsonify = __webpack_require__(234);
 
-	var InfoTip = __webpack_require__(87);
+	var InfoTip = __webpack_require__(89);
 	var NumberInput = __webpack_require__(236);
 	var TextInput = __webpack_require__(237);
 
@@ -41631,7 +41635,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Changeable = __webpack_require__(233);
 	var WidgetJsonifyDeprecated = __webpack_require__(248);
-	var Renderer = __webpack_require__(35);
+	var Renderer = __webpack_require__(34);
 
 	var _require = __webpack_require__(70),
 	    linterContextProps = _require.linterContextProps,
@@ -42672,7 +42676,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(22);
 
 	var BlurInput = __webpack_require__(232);
-	var InfoTip = __webpack_require__(87);
+	var InfoTip = __webpack_require__(89);
 	var NumberInput = __webpack_require__(236);
 	var RangeInput = __webpack_require__(254);
 	var SvgImage = __webpack_require__(38);
@@ -43541,7 +43545,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    iconOk = _require.iconOk;
 
 	var InlineIcon = __webpack_require__(42);
-	var Renderer = __webpack_require__(35);
+	var Renderer = __webpack_require__(34);
 	var Util = __webpack_require__(6);
 
 	var _require2 = __webpack_require__(70),
@@ -43882,7 +43886,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	/* globals $_, i18n */
-	var InfoTip = __webpack_require__(87);
+	var InfoTip = __webpack_require__(89);
 	var React = __webpack_require__(21);
 	var ReactDOM = __webpack_require__(23);
 	var _ = __webpack_require__(22);
@@ -44668,7 +44672,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Changeable = __webpack_require__(233);
 	var EditorJsonify = __webpack_require__(234);
 
-	var InfoTip = __webpack_require__(87);
+	var InfoTip = __webpack_require__(89);
 	var NumberInput = __webpack_require__(236);
 
 	var maxTrials = 5000;
@@ -44935,8 +44939,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(21);
 	var _ = __webpack_require__(22);
 
-	var InfoTip = __webpack_require__(87);
-	var PropCheckBox = __webpack_require__(48);
+	var InfoTip = __webpack_require__(89);
+	var PropCheckBox = __webpack_require__(46);
 	var TextListEditor = __webpack_require__(81);
 
 	var HORIZONTAL = "horizontal";
@@ -45071,13 +45075,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var MathOutput = __webpack_require__(256);
 	var SimpleKeypadInput = __webpack_require__(229);
-	var Renderer = __webpack_require__(35);
+	var Renderer = __webpack_require__(34);
 	var Util = __webpack_require__(6);
 
-	var keypadElementPropType = __webpack_require__(219).propTypes.keypadElementPropType;
+	var keypadElementPropType = __webpack_require__(220).propTypes.keypadElementPropType;
 
 	var ApiOptions = __webpack_require__(5).Options;
-	var KhanAnswerTypes = __webpack_require__(54);
+	var KhanAnswerTypes = __webpack_require__(53);
 
 	var _require = __webpack_require__(70),
 	    linterContextProps = _require.linterContextProps,
@@ -45439,7 +45443,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Util = __webpack_require__(6);
 
-	var InfoTip = __webpack_require__(87);
+	var InfoTip = __webpack_require__(89);
 	var NumberInput = __webpack_require__(236);
 	var Editor = __webpack_require__(11);
 
@@ -45622,12 +45626,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	var InlineIcon = __webpack_require__(42);
 	var NumberInput = __webpack_require__(236);
 	var MathOutput = __webpack_require__(256);
-	var TeX = __webpack_require__(75);
+	var TeX = __webpack_require__(77);
 	var SimpleKeypadInput = __webpack_require__(229);
 
 	var ApiOptions = __webpack_require__(5).Options;
 
-	var keypadElementPropType = __webpack_require__(219).propTypes.keypadElementPropType;
+	var keypadElementPropType = __webpack_require__(220).propTypes.keypadElementPropType;
 
 	var ROTATE_SNAP_DEGREES = 15;
 	var DEGREE_SIGN = "\xB0";
@@ -48073,8 +48077,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Graph = __webpack_require__(255);
 	var GraphSettings = __webpack_require__(252);
-	var InfoTip = __webpack_require__(87);
-	var PropCheckBox = __webpack_require__(48);
+	var InfoTip = __webpack_require__(89);
+	var PropCheckBox = __webpack_require__(46);
 
 	var Transformer = __webpack_require__(205).widget;
 
@@ -49833,7 +49837,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Changeable = __webpack_require__(233);
 	var EditorJsonify = __webpack_require__(234);
 
-	var InfoTip = __webpack_require__(87);
+	var InfoTip = __webpack_require__(89);
 	var BlurInput = __webpack_require__(232);
 
 	var KA_VIDEO_URL = /khanacademy\.org\/.*\/v\/(.*)$/;
@@ -50615,6 +50619,35 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 217 */
 /***/ function(module, exports, __webpack_require__) {
 
+	
+	/**
+	 * Type definitions for generic trees that are shaped like multi-items.
+	 *
+	 * Multi-items are trees! But we also often have other trees that are shaped
+	 * like multi-items - for example, if we map a multi-item tree into a tree of
+	 * renderer info and state, and then map that again into a tree of just the
+	 * renderer nodes, like we do in MultiRenderer.
+	 *
+	 * Therefore, we provide the type Tree<C, H>, which represents a tree that's
+	 * shaped like a multi-item, but the data that lives at each type of leaf could
+	 * be anything.
+	 *
+	 * So, in a Tree<C, H>, content leaf nodes have type C, and hint leaf nodes
+	 * have type H. An ItemTree is a Tree<ContentNode, HintNode>.
+	 *
+	 * That is, we still preserve the distinction between node types, and thereby
+	 * enforce the Tree's adherence to some multi-item Shape, but we're flexible
+	 * about exactly what type of data the tree contains at its leaves.
+	 *
+	 * This enables us to write generic tree-traversal and tree-mapping functions,
+	 * as you'll see in trees.js.
+	 */
+	Object.defineProperty(module.exports, "babelPluginFlowReactPropTypes_proptype_ObjectNode", __webpack_require__(21).PropTypes.shape({}));
+
+/***/ },
+/* 218 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	/**
@@ -51110,7 +51143,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 218 */
+/* 219 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* eslint-disable object-curly-spacing */
@@ -51167,7 +51200,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 219 */
+/* 220 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -51195,35 +51228,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    consts: consts,
 	    propTypes: propTypes
 	};
-
-/***/ },
-/* 220 */
-/***/ function(module, exports, __webpack_require__) {
-
-	
-	/**
-	 * Type definitions for generic trees that are shaped like multi-items.
-	 *
-	 * Multi-items are trees! But we also often have other trees that are shaped
-	 * like multi-items - for example, if we map a multi-item tree into a tree of
-	 * renderer info and state, and then map that again into a tree of just the
-	 * renderer nodes, like we do in MultiRenderer.
-	 *
-	 * Therefore, we provide the type Tree<C, H>, which represents a tree that's
-	 * shaped like a multi-item, but the data that lives at each type of leaf could
-	 * be anything.
-	 *
-	 * So, in a Tree<C, H>, content leaf nodes have type C, and hint leaf nodes
-	 * have type H. An ItemTree is a Tree<ContentNode, HintNode>.
-	 *
-	 * That is, we still preserve the distinction between node types, and thereby
-	 * enforce the Tree's adherence to some multi-item Shape, but we're flexible
-	 * about exactly what type of data the tree contains at its leaves.
-	 *
-	 * This enables us to write generic tree-traversal and tree-mapping functions,
-	 * as you'll see in trees.js.
-	 */
-	Object.defineProperty(module.exports, "babelPluginFlowReactPropTypes_proptype_ObjectNode", __webpack_require__(21).PropTypes.shape({}));
 
 /***/ },
 /* 221 */
@@ -53300,7 +53304,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(21);
 	var _ = __webpack_require__(22);
 
-	var Renderer = __webpack_require__(35);
+	var Renderer = __webpack_require__(34);
 	var PassageRef = __webpack_require__(189);
 	var Util = __webpack_require__(6);
 
@@ -53742,7 +53746,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ApiClassNames = __webpack_require__(5).ClassNames;
 	var MathInput = __webpack_require__(239);
-	var Renderer = __webpack_require__(35);
+	var Renderer = __webpack_require__(34);
 	var TextInput = __webpack_require__(237);
 	var MathOutput = __webpack_require__(256);
 
@@ -53982,11 +53986,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(21);
 
-	var KeypadInput = __webpack_require__(219).components.KeypadInput;
+	var KeypadInput = __webpack_require__(220).components.KeypadInput;
 
-	var KeypadTypes = __webpack_require__(219).consts.KeypadTypes;
+	var KeypadTypes = __webpack_require__(220).consts.KeypadTypes;
 
-	var keypadElementPropType = __webpack_require__(219).propTypes.keypadElementPropType;
+	var keypadElementPropType = __webpack_require__(220).propTypes.keypadElementPropType;
 
 	var SimpleKeypadInput = React.createClass({
 	    displayName: "SimpleKeypadInput",
@@ -54333,7 +54337,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(21);
 	var _ = __webpack_require__(22);
 
-	var WIDGET_PROP_BLACKLIST = __webpack_require__(58);
+	var WIDGET_PROP_BLACKLIST = __webpack_require__(57);
 
 	var USAGE = "Usage:\n" + "  this.change({propName: 5}, callback);\n" + "  this.change(\"propName\", 5, callback);\n" + "  this.change(\"propName\")";
 
@@ -54416,7 +54420,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(22);
 
-	var WIDGET_PROP_BLACKLIST = __webpack_require__(58);
+	var WIDGET_PROP_BLACKLIST = __webpack_require__(57);
 
 	var EditorJsonify = {
 	    serialize: function serialize() {
@@ -55498,7 +55502,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(21);
 	var _ = __webpack_require__(22);
 
-	var TeX = __webpack_require__(75);
+	var TeX = __webpack_require__(77);
 
 	var prettyBig = { fontSize: "150%" };
 	var slightlyBig = { fontSize: "120%" };
@@ -55993,7 +55997,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(22);
 
 	var ApiClassNames = __webpack_require__(5).ClassNames;
-	var Renderer = __webpack_require__(35);
+	var Renderer = __webpack_require__(34);
 	var sharedStyles = __webpack_require__(101);
 	var styleConstants = __webpack_require__(102);
 	var mediaQueries = __webpack_require__(100);
@@ -57118,7 +57122,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * just returns all the widget's props rather than picking out those which were
 	 * input by the user.
 	 */
-	var WIDGET_PROP_BLACKLIST = __webpack_require__(58);
+	var WIDGET_PROP_BLACKLIST = __webpack_require__(57);
 	var _ = __webpack_require__(22);
 
 	var WidgetJsonifyDeprecated = {
@@ -57385,10 +57389,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Changeable = __webpack_require__(233);
 
 	var ButtonGroup = __webpack_require__(66);
-	var InfoTip = __webpack_require__(87);
-	var PropCheckBox = __webpack_require__(48);
+	var InfoTip = __webpack_require__(89);
+	var PropCheckBox = __webpack_require__(46);
 	var RangeInput = __webpack_require__(254);
-	var TeX = __webpack_require__(75);
+	var TeX = __webpack_require__(77);
 	var Util = __webpack_require__(6);
 	var KhanMath = __webpack_require__(105);
 
@@ -58643,7 +58647,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(21);
 	var ReactDOM = __webpack_require__(23);
 	var _ = __webpack_require__(22);
-	var TeX = __webpack_require__(75);
+	var TeX = __webpack_require__(77);
 	var ApiClassNames = __webpack_require__(5).ClassNames;
 	var ModifyTex = __webpack_require__(230).modifyTex;
 
@@ -58784,7 +58788,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(22);
 
 	var Util = __webpack_require__(6);
-	var Renderer = __webpack_require__(35);
+	var Renderer = __webpack_require__(34);
 
 	var ApiClassNames = __webpack_require__(5).ClassNames;
 
@@ -65303,7 +65307,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var React = __webpack_require__(21);
-	var TeX = __webpack_require__(75);
+	var TeX = __webpack_require__(77);
 
 	var ButtonGroup = __webpack_require__(66);
 
@@ -105059,9 +105063,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var emptyFunction = __webpack_require__(568);
-	var invariant = __webpack_require__(569);
-	var ReactPropTypesSecret = __webpack_require__(520);
+	var emptyFunction = __webpack_require__(569);
+	var invariant = __webpack_require__(570);
+	var ReactPropTypesSecret = __webpack_require__(524);
 
 	module.exports = function () {
 	  function shim(props, propName, componentName, location, propFullName, secret) {
@@ -105108,9 +105112,9 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 514 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _Symbol = __webpack_require__(522),
-	    getRawTag = __webpack_require__(523),
-	    objectToString = __webpack_require__(524);
+	var _Symbol = __webpack_require__(521),
+	    getRawTag = __webpack_require__(522),
+	    objectToString = __webpack_require__(523);
 
 	/** `Object#toString` result references. */
 	var nullTag = '[object Null]',
@@ -105139,7 +105143,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 515 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var overArg = __webpack_require__(521);
+	var overArg = __webpack_require__(520);
 
 	/** Built-in value references. */
 	var getPrototype = overArg(Object.getPrototypeOf, Object);
@@ -105284,23 +105288,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 *
-	 * This source code is licensed under the MIT license found in the
-	 * LICENSE file in the root directory of this source tree.
-	 */
-
-	'use strict';
-
-	var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
-
-	module.exports = ReactPropTypesSecret;
-
-/***/ },
-/* 521 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
 	 * Creates a unary function that invokes `func` with its argument transformed.
 	 *
 	 * @private
@@ -105317,10 +105304,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = overArg;
 
 /***/ },
-/* 522 */
+/* 521 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var root = __webpack_require__(570);
+	var root = __webpack_require__(568);
 
 	/** Built-in value references. */
 	var _Symbol = root.Symbol;
@@ -105328,10 +105315,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = _Symbol;
 
 /***/ },
-/* 523 */
+/* 522 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _Symbol = __webpack_require__(522);
+	var _Symbol = __webpack_require__(521);
 
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -105379,7 +105366,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = getRawTag;
 
 /***/ },
-/* 524 */
+/* 523 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/** Used for built-in method references. */
@@ -105404,6 +105391,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	module.exports = objectToString;
+
+/***/ },
+/* 524 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 *
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
+	 */
+
+	'use strict';
+
+	var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
+
+	module.exports = ReactPropTypesSecret;
 
 /***/ },
 /* 525 */
@@ -107227,6 +107231,22 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 568 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+	var freeGlobal = __webpack_require__(572);
+
+	/** Detect free variable `self`. */
+	var freeSelf = (typeof self === 'undefined' ? 'undefined' : _typeof(self)) == 'object' && self && self.Object === Object && self;
+
+	/** Used as a reference to the global object. */
+	var root = freeGlobal || freeSelf || Function('return this')();
+
+	module.exports = root;
+
+/***/ },
+/* 569 */
+/***/ function(module, exports, __webpack_require__) {
+
 	"use strict";
 
 	/**
@@ -107265,7 +107285,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = emptyFunction;
 
 /***/ },
-/* 569 */
+/* 570 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -107321,22 +107341,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	module.exports = invariant;
-
-/***/ },
-/* 570 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-	var freeGlobal = __webpack_require__(572);
-
-	/** Detect free variable `self`. */
-	var freeSelf = (typeof self === 'undefined' ? 'undefined' : _typeof(self)) == 'object' && self && self.Object === Object && self;
-
-	/** Used as a reference to the global object. */
-	var root = freeGlobal || freeSelf || Function('return this')();
-
-	module.exports = root;
 
 /***/ },
 /* 571 */

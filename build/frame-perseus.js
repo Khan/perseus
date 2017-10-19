@@ -1,3 +1,7 @@
+/*! Perseus with editors for frame | https://github.com/Khan/perseus */
+// commit d9ffae121412f16db872af3a5ea3a426f9f29e72
+// branch master
+// @generated
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory(require("react"), require("underscore"), require("react-dom"), require("classnames"), require("aphrodite"), require("jquery"), require("react-addons-pure-render-mixin"), require("react-addons-css-transition-group"));
@@ -709,19 +713,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var classNames = __webpack_require__(19);
 
-	var Util = __webpack_require__(23);
+	var Util = __webpack_require__(24);
 
-	var ApiOptions = __webpack_require__(24).Options;
+	var ApiOptions = __webpack_require__(23).Options;
 
-	var ApiClassNames = __webpack_require__(24).ClassNames;
+	var ApiClassNames = __webpack_require__(23).ClassNames;
 
 	var Renderer = __webpack_require__(13);
 
 	var ProvideKeypad = __webpack_require__(39);
 
-	var Gorgon = __webpack_require__(41);
+	var Gorgon = __webpack_require__(42);
 
-	var _require = __webpack_require__(42), linterContextProps = _require.linterContextProps, linterContextDefault = _require.linterContextDefault;
+	var _require = __webpack_require__(43), linterContextProps = _require.linterContextProps, linterContextDefault = _require.linterContextDefault;
 
 	var rendererProps = React.PropTypes.shape({
 	    content: React.PropTypes.string,
@@ -869,7 +873,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(17);
 
-	var ApiOptions = __webpack_require__(24).Options;
+	var ApiOptions = __webpack_require__(23).Options;
 
 	var HintsRenderer = __webpack_require__(12);
 
@@ -877,13 +881,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ProvideKeypad = __webpack_require__(39);
 
-	var Util = __webpack_require__(23);
+	var Util = __webpack_require__(24);
 
-	var _require = __webpack_require__(43), mapObject = _require.mapObject;
+	var _require = __webpack_require__(41), mapObject = _require.mapObject;
 
-	var Gorgon = __webpack_require__(41);
+	var Gorgon = __webpack_require__(42);
 
-	var _require2 = __webpack_require__(42), linterContextProps = _require2.linterContextProps, linterContextDefault = _require2.linterContextDefault;
+	var _require2 = __webpack_require__(43), linterContextProps = _require2.linterContextProps, linterContextDefault = _require2.linterContextDefault;
 
 	var RP = React.PropTypes;
 
@@ -1219,7 +1223,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require = __webpack_require__(20), StyleSheet = _require.StyleSheet, css = _require.css;
 
-	var ApiOptions = __webpack_require__(24).Options;
+	var ApiOptions = __webpack_require__(23).Options;
 
 	var HintsRenderer = __webpack_require__(12);
 
@@ -1227,9 +1231,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Renderer = __webpack_require__(13);
 
-	var Util = __webpack_require__(23);
+	var Util = __webpack_require__(24);
 
-	var _require2 = __webpack_require__(43), mapObject = _require2.mapObject;
+	var _require2 = __webpack_require__(41), mapObject = _require2.mapObject;
 
 	var RP = React.PropTypes;
 
@@ -1524,9 +1528,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require2 = __webpack_require__(46), baseUnitPx = _require2.baseUnitPx, hintBorderWidth = _require2.hintBorderWidth, kaGreen = _require2.kaGreen, gray85 = _require2.gray85, gray17 = _require2.gray17;
 
-	var Gorgon = __webpack_require__(41);
+	var Gorgon = __webpack_require__(42);
 
-	var _require3 = __webpack_require__(42), linterContextProps = _require3.linterContextProps, linterContextDefault = _require3.linterContextDefault;
+	var _require3 = __webpack_require__(43), linterContextProps = _require3.linterContextProps, linterContextDefault = _require3.linterContextDefault;
 
 	var HintsRenderer = React.createClass({
 	    displayName: "HintsRenderer",
@@ -1773,11 +1777,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Widgets = __webpack_require__(6);
 
-	var Util = __webpack_require__(23);
+	var Util = __webpack_require__(24);
 
 	var ApiOptionsProps = __webpack_require__(40);
 
-	var ApiClassNames = __webpack_require__(24).ClassNames;
+	var ApiClassNames = __webpack_require__(23).ClassNames;
 
 	var Zoomable = __webpack_require__(32);
 
@@ -1785,15 +1789,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var preprocessTex = __webpack_require__(51);
 
-	var Gorgon = __webpack_require__(41);
+	var Gorgon = __webpack_require__(42);
 
 	// The linter engine
-	var _require2 = __webpack_require__(42), linterContextProps = _require2.linterContextProps, linterContextDefault = _require2.linterContextDefault;
+	var _require2 = __webpack_require__(43), linterContextProps = _require2.linterContextProps, linterContextDefault = _require2.linterContextDefault;
 
 	// The i18n linter
 	var keypadElementPropType = __webpack_require__(93).propTypes.keypadElementPropType;
 
-	var _require3 = __webpack_require__(43), mapObject = _require3.mapObject, mapObjectFromArray = _require3.mapObjectFromArray;
+	var _require3 = __webpack_require__(41), mapObject = _require3.mapObject, mapObjectFromArray = _require3.mapObjectFromArray;
 
 	var rContainsNonWhitespace = /\S/;
 
@@ -3124,15 +3128,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Renderer = __webpack_require__(13);
 
-	var ApiOptions = __webpack_require__(24).Options;
+	var ApiOptions = __webpack_require__(23).Options;
 
 	var mediaQueries = __webpack_require__(44);
 
 	var _require2 = __webpack_require__(46), baseUnitPx = _require2.baseUnitPx, hintBorderWidth = _require2.hintBorderWidth, kaGreen = _require2.kaGreen, gray97 = _require2.gray97;
 
-	var Gorgon = __webpack_require__(41);
+	var Gorgon = __webpack_require__(42);
 
-	var _require3 = __webpack_require__(42), linterContextProps = _require3.linterContextProps, linterContextDefault = _require3.linterContextDefault;
+	var _require3 = __webpack_require__(43), linterContextProps = _require3.linterContextProps, linterContextDefault = _require3.linterContextDefault;
 
 	/* Renders just a hint preview */
 	var HintRenderer = React.createClass({
@@ -3634,12 +3638,201 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/* eslint-disable brace-style */
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+	/**
+	 * [Most of] the Perseus client API.
+	 *
+	 * If making a change to this file, or otherwise to the perseus
+	 * API, you should increment:
+	 *  * the perseus api major version if it is a breaking change
+	 *  * the perseus api minor version if it is an additive-only change
+	 *  * nothing if it is purely a bug fix.
+	 *
+	 * Callbacks passed to Renderer/ItemRenderer:
+	 *  * onInputError:
+	 *    Called when there is an error grading a widget
+	 *  * onFocusChange: (newFocusPath, oldFocusPath, keypadDOMNode)
+	 *    Called when the user focus changes. The first two parameters are `path`
+	 *    arrays uniquely identifying the respect inputs. The third parameter,
+	 *    `keypadDOMNode`, is the DOM node of the custom keypad, or `null` if the
+	 *    keypad is disabled, which can be used by clients to accommodate for the
+	 *    appearance of the keypad on the screen.
+	 *    When focus changes to or from nothing being selected, `path` will be null.
+	 *  * interactionCallback: Called when the user interacts with a widget.
+	 *  * answerableCallback: Called with the current `answerability` of the
+	 *    problem, e.g. whether all required fields have input.
+	 *  * getAnotherHint: If provided, a button is rendered at the bottom of the
+	 *    hints (only when at least one hint has been shown, and not all hints
+	 *    have been shown) allowing the user to take another hint. This function
+	 *    is then called when the user clicks the button.
+	 *
+	 * Stable CSS ClassNames:
+	 * These are css class names that will continue to preserve their
+	 * semantic meaning across the same perseus api major version.
+	 */
+	var React = __webpack_require__(5);
+
+	var StubTagEditor = __webpack_require__(85);
+
+	module.exports = {
+	    Options: {
+	        propTypes: React.PropTypes.shape({
+	            isArticle: React.PropTypes.bool.isRequired,
+	            satStyling: React.PropTypes.bool.isRequired,
+	            onInputError: React.PropTypes.func.isRequired,
+	            onFocusChange: React.PropTypes.func.isRequired,
+	            staticRender: React.PropTypes.bool.isRequired,
+	            GroupMetadataEditor: React.PropTypes.func.isRequired,
+	            showAlignmentOptions: React.PropTypes.bool.isRequired,
+	            readOnly: React.PropTypes.bool.isRequired,
+	            answerableCallback: React.PropTypes.func,
+	            getAnotherHint: React.PropTypes.func,
+	            interactionCallback: React.PropTypes.func,
+	            // A function that takes in the relative problem number (starts at
+	            // 0 and is incremented for each group widget), and the ID of the
+	            // group widget, then returns a react component that will be added
+	            // immediately above the renderer in the group widget. If the
+	            // function returns null, no annotation will be added.
+	            groupAnnotator: React.PropTypes.func.isRequired,
+	            // If imagePlaceholder or widgetPlaceholder are set, perseus will
+	            // render the placeholder instead of the image or widget node.
+	            imagePlaceholder: React.PropTypes.node,
+	            widgetPlaceholder: React.PropTypes.node,
+	            // Base React elements that can be used in place of the standard DOM
+	            // DOM elements. For example, when provided, <Link /> will be used
+	            // in place of <a />. This allows clients to provide pre-styled
+	            // components or components with custom behavior.
+	            baseElements: React.PropTypes.shape({
+	                // The <Link /> component provided here must adhere to the same
+	                // interface as React's base <a /> component.
+	                Link: React.PropTypes.func
+	            }),
+	            // Function that takes dimensions and returns a React component
+	            // to display while an image is loading
+	            imagePreloader: React.PropTypes.func,
+	            // Function that takes an object argument. The object should
+	            // include type and id, both strings, at least and can optionally
+	            // include a boolean "correct" value. This is used for keeping
+	            // track of widget interactions.
+	            trackInteraction: React.PropTypes.func,
+	            // A boolean that indicates whether or not a custom keypad is
+	            // being used.  For mobile web this will be the ProvidedKeypad
+	            // component.  In this situation we use the MathInput component
+	            // from the math-input repo instead of the existing perseus math
+	            // input components.
+	            // TODO(charlie): Make this mutually exclusive with `staticRender`.
+	            // Internally, we defer to `customKeypad` over `staticRender`, but
+	            // they should really be represented as an enum or some other data
+	            // structure that forbids them both being enabled at once.
+	            customKeypad: React.PropTypes.bool,
+	            // Indicates whether or not to use mobile styling.
+	            isMobile: React.PropTypes.bool,
+	            // A function, called with a bool indicating whether use of the
+	            // drawing area (scratchpad) should be allowed/disallowed.
+	            // Previously handled by `Khan.scratchpad.enable/disable`
+	            setDrawingAreaAvailable: React.PropTypes.func,
+	            // Whether to use the Draft.js editor or the legacy textarea
+	            useDraftEditor: React.PropTypes.bool,
+	            // Styling options that control the visual behavior of Perseus
+	            // items.
+	            // TODO(mdr): If we adopt this pattern, we'll need to think about
+	            //     how to make individual `styling` options be optional, and
+	            //     how to set their default values without overwriting provided
+	            //     values. For now, though, you must either specify all fields
+	            //     of `styling`, or omit the `styling` option entirely.
+	            styling: React.PropTypes.shape({
+	                // Which version of radio widget styles to use in non-SAT
+	                // contexts.
+	                //
+	                // "legacy" was the version of the widget display after XOM but
+	                // before we started adding MCR styles. It doesn't have support
+	                // for rationales. It has since been removed.
+	                //
+	                // "intermediate" is a design which adds several new additions
+	                // to the "legacy" styles such as:
+	                //  1. Using the XOM "desktop" styles (with a visible check icon
+	                //     and lines in between choices) on mobile devices.
+	                //  2. Designs for rationales
+	                //  3. Using the single-select styles for multi-select styles
+	                //
+	                // "final" is a design which will build off of the
+	                // "intermediate" designs and adds some improved designs as well
+	                // as:
+	                //  1. a/b/c/d/etc. letters inside of the prompt check box
+	                //  2. New iconography and styles to indicate choice correctness
+	                //
+	                // The "legacy" and "intermediate" designs will be A/B tested
+	                // against each other to ensure that its changes don't cause
+	                // problems due to the new designs. Once the "intermediate"
+	                // designs are finished, they will be A/B tested against the
+	                // "final" designs.
+	                //
+	                // If no flag is provided, "legacy" styles will be shown.
+	                //
+	                // TODO(emily): Remove this by Aug 1, 2017, at which point all
+	                //   callsites should have been switched to using the "final"
+	                //   designs.
+	                radioStyleVersion: React.PropTypes.oneOf([ "intermediate", "final" ])
+	            }),
+	            // The color used for the hint progress indicator (eg. 1 / 3)
+	            hintProgressColor: React.PropTypes.string
+	        }).isRequired,
+	        defaults: {
+	            isArticle: false,
+	            isMobile: false,
+	            satStyling: false,
+	            onInputError: function onInputError() {},
+	            onFocusChange: function onFocusChange() {},
+	            staticRender: false,
+	            GroupMetadataEditor: StubTagEditor,
+	            showAlignmentOptions: false,
+	            readOnly: false,
+	            groupAnnotator: function groupAnnotator() {
+	                return null;
+	            },
+	            baseElements: {
+	                Link: function Link(props) {
+	                    return React.createElement("a", props);
+	                }
+	            },
+	            setDrawingAreaAvailable: function setDrawingAreaAvailable() {},
+	            useDraftEditor: false,
+	            styling: {
+	                radioStyleVersion: "final"
+	            }
+	        }
+	    },
+	    ClassNames: {
+	        RENDERER: "perseus-renderer",
+	        TWO_COLUMN_RENDERER: "perseus-renderer-two-columns",
+	        RESPONSIVE_RENDERER: "perseus-renderer-responsive",
+	        INPUT: "perseus-input",
+	        FOCUSED: "perseus-focused",
+	        RADIO: {
+	            OPTION: "perseus-radio-option",
+	            SELECTED: "perseus-radio-selected",
+	            OPTION_CONTENT: "perseus-radio-option-content"
+	        },
+	        INTERACTIVE: "perseus-interactive",
+	        CORRECT: "perseus-correct",
+	        INCORRECT: "perseus-incorrect",
+	        UNANSWERED: "perseus-unanswered",
+	        MOBILE: "perseus-mobile"
+	    }
+	};
+
+/***/ },
+/* 24 */
+/***/ function(module, exports, __webpack_require__) {
+
 	/* eslint-disable brace-style, comma-dangle, indent, max-len, no-var, one-var, prefer-spread */
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var _ = __webpack_require__(17);
 
-	var KhanAnswerTypes = __webpack_require__(85);
+	var KhanAnswerTypes = __webpack_require__(86);
 
 	var nestedMap = function nestedMap(children, func, context) {
 	    return _.isArray(children) ? _.map(children, function(child) {
@@ -4134,195 +4327,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Util;
 
 /***/ },
-/* 24 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* eslint-disable brace-style */
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	/**
-	 * [Most of] the Perseus client API.
-	 *
-	 * If making a change to this file, or otherwise to the perseus
-	 * API, you should increment:
-	 *  * the perseus api major version if it is a breaking change
-	 *  * the perseus api minor version if it is an additive-only change
-	 *  * nothing if it is purely a bug fix.
-	 *
-	 * Callbacks passed to Renderer/ItemRenderer:
-	 *  * onInputError:
-	 *    Called when there is an error grading a widget
-	 *  * onFocusChange: (newFocusPath, oldFocusPath, keypadDOMNode)
-	 *    Called when the user focus changes. The first two parameters are `path`
-	 *    arrays uniquely identifying the respect inputs. The third parameter,
-	 *    `keypadDOMNode`, is the DOM node of the custom keypad, or `null` if the
-	 *    keypad is disabled, which can be used by clients to accommodate for the
-	 *    appearance of the keypad on the screen.
-	 *    When focus changes to or from nothing being selected, `path` will be null.
-	 *  * interactionCallback: Called when the user interacts with a widget.
-	 *  * answerableCallback: Called with the current `answerability` of the
-	 *    problem, e.g. whether all required fields have input.
-	 *  * getAnotherHint: If provided, a button is rendered at the bottom of the
-	 *    hints (only when at least one hint has been shown, and not all hints
-	 *    have been shown) allowing the user to take another hint. This function
-	 *    is then called when the user clicks the button.
-	 *
-	 * Stable CSS ClassNames:
-	 * These are css class names that will continue to preserve their
-	 * semantic meaning across the same perseus api major version.
-	 */
-	var React = __webpack_require__(5);
-
-	var StubTagEditor = __webpack_require__(86);
-
-	module.exports = {
-	    Options: {
-	        propTypes: React.PropTypes.shape({
-	            isArticle: React.PropTypes.bool.isRequired,
-	            satStyling: React.PropTypes.bool.isRequired,
-	            onInputError: React.PropTypes.func.isRequired,
-	            onFocusChange: React.PropTypes.func.isRequired,
-	            staticRender: React.PropTypes.bool.isRequired,
-	            GroupMetadataEditor: React.PropTypes.func.isRequired,
-	            showAlignmentOptions: React.PropTypes.bool.isRequired,
-	            readOnly: React.PropTypes.bool.isRequired,
-	            answerableCallback: React.PropTypes.func,
-	            getAnotherHint: React.PropTypes.func,
-	            interactionCallback: React.PropTypes.func,
-	            // A function that takes in the relative problem number (starts at
-	            // 0 and is incremented for each group widget), and the ID of the
-	            // group widget, then returns a react component that will be added
-	            // immediately above the renderer in the group widget. If the
-	            // function returns null, no annotation will be added.
-	            groupAnnotator: React.PropTypes.func.isRequired,
-	            // If imagePlaceholder or widgetPlaceholder are set, perseus will
-	            // render the placeholder instead of the image or widget node.
-	            imagePlaceholder: React.PropTypes.node,
-	            widgetPlaceholder: React.PropTypes.node,
-	            // Base React elements that can be used in place of the standard DOM
-	            // DOM elements. For example, when provided, <Link /> will be used
-	            // in place of <a />. This allows clients to provide pre-styled
-	            // components or components with custom behavior.
-	            baseElements: React.PropTypes.shape({
-	                // The <Link /> component provided here must adhere to the same
-	                // interface as React's base <a /> component.
-	                Link: React.PropTypes.func
-	            }),
-	            // Function that takes dimensions and returns a React component
-	            // to display while an image is loading
-	            imagePreloader: React.PropTypes.func,
-	            // Function that takes an object argument. The object should
-	            // include type and id, both strings, at least and can optionally
-	            // include a boolean "correct" value. This is used for keeping
-	            // track of widget interactions.
-	            trackInteraction: React.PropTypes.func,
-	            // A boolean that indicates whether or not a custom keypad is
-	            // being used.  For mobile web this will be the ProvidedKeypad
-	            // component.  In this situation we use the MathInput component
-	            // from the math-input repo instead of the existing perseus math
-	            // input components.
-	            // TODO(charlie): Make this mutually exclusive with `staticRender`.
-	            // Internally, we defer to `customKeypad` over `staticRender`, but
-	            // they should really be represented as an enum or some other data
-	            // structure that forbids them both being enabled at once.
-	            customKeypad: React.PropTypes.bool,
-	            // Indicates whether or not to use mobile styling.
-	            isMobile: React.PropTypes.bool,
-	            // A function, called with a bool indicating whether use of the
-	            // drawing area (scratchpad) should be allowed/disallowed.
-	            // Previously handled by `Khan.scratchpad.enable/disable`
-	            setDrawingAreaAvailable: React.PropTypes.func,
-	            // Whether to use the Draft.js editor or the legacy textarea
-	            useDraftEditor: React.PropTypes.bool,
-	            // Styling options that control the visual behavior of Perseus
-	            // items.
-	            // TODO(mdr): If we adopt this pattern, we'll need to think about
-	            //     how to make individual `styling` options be optional, and
-	            //     how to set their default values without overwriting provided
-	            //     values. For now, though, you must either specify all fields
-	            //     of `styling`, or omit the `styling` option entirely.
-	            styling: React.PropTypes.shape({
-	                // Which version of radio widget styles to use in non-SAT
-	                // contexts.
-	                //
-	                // "legacy" was the version of the widget display after XOM but
-	                // before we started adding MCR styles. It doesn't have support
-	                // for rationales. It has since been removed.
-	                //
-	                // "intermediate" is a design which adds several new additions
-	                // to the "legacy" styles such as:
-	                //  1. Using the XOM "desktop" styles (with a visible check icon
-	                //     and lines in between choices) on mobile devices.
-	                //  2. Designs for rationales
-	                //  3. Using the single-select styles for multi-select styles
-	                //
-	                // "final" is a design which will build off of the
-	                // "intermediate" designs and adds some improved designs as well
-	                // as:
-	                //  1. a/b/c/d/etc. letters inside of the prompt check box
-	                //  2. New iconography and styles to indicate choice correctness
-	                //
-	                // The "legacy" and "intermediate" designs will be A/B tested
-	                // against each other to ensure that its changes don't cause
-	                // problems due to the new designs. Once the "intermediate"
-	                // designs are finished, they will be A/B tested against the
-	                // "final" designs.
-	                //
-	                // If no flag is provided, "legacy" styles will be shown.
-	                //
-	                // TODO(emily): Remove this by Aug 1, 2017, at which point all
-	                //   callsites should have been switched to using the "final"
-	                //   designs.
-	                radioStyleVersion: React.PropTypes.oneOf([ "intermediate", "final" ])
-	            }),
-	            // The color used for the hint progress indicator (eg. 1 / 3)
-	            hintProgressColor: React.PropTypes.string
-	        }).isRequired,
-	        defaults: {
-	            isArticle: false,
-	            isMobile: false,
-	            satStyling: false,
-	            onInputError: function onInputError() {},
-	            onFocusChange: function onFocusChange() {},
-	            staticRender: false,
-	            GroupMetadataEditor: StubTagEditor,
-	            showAlignmentOptions: false,
-	            readOnly: false,
-	            groupAnnotator: function groupAnnotator() {
-	                return null;
-	            },
-	            baseElements: {
-	                Link: function Link(props) {
-	                    return React.createElement("a", props);
-	                }
-	            },
-	            setDrawingAreaAvailable: function setDrawingAreaAvailable() {},
-	            useDraftEditor: false,
-	            styling: {
-	                radioStyleVersion: "final"
-	            }
-	        }
-	    },
-	    ClassNames: {
-	        RENDERER: "perseus-renderer",
-	        TWO_COLUMN_RENDERER: "perseus-renderer-two-columns",
-	        RESPONSIVE_RENDERER: "perseus-renderer-responsive",
-	        INPUT: "perseus-input",
-	        FOCUSED: "perseus-focused",
-	        RADIO: {
-	            OPTION: "perseus-radio-option",
-	            SELECTED: "perseus-radio-selected",
-	            OPTION_CONTENT: "perseus-radio-option-content"
-	        },
-	        INTERACTIVE: "perseus-interactive",
-	        CORRECT: "perseus-correct",
-	        INCORRECT: "perseus-incorrect",
-	        UNANSWERED: "perseus-unanswered",
-	        MOBILE: "perseus-mobile"
-	    }
-	};
-
-/***/ },
 /* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -4351,7 +4355,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require = __webpack_require__(28), maybeUnescape = _require.maybeUnescape;
 
-	var Util = __webpack_require__(23);
+	var Util = __webpack_require__(24);
 
 	var Zoom = __webpack_require__(90);
 
@@ -5215,7 +5219,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var TeX = __webpack_require__(52);
 
-	var Util = __webpack_require__(23);
+	var Util = __webpack_require__(24);
 
 	var Lint = __webpack_require__(91);
 
@@ -5715,7 +5719,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require2 = __webpack_require__(92), containerSizeClass = _require2.containerSizeClass, getClassFromWidth = _require2.getClassFromWidth;
 
-	var _require3 = __webpack_require__(42), linterContextProps = _require3.linterContextProps, linterContextDefault = _require3.linterContextDefault;
+	var _require3 = __webpack_require__(43), linterContextProps = _require3.linterContextProps, linterContextDefault = _require3.linterContextDefault;
 
 	var WidgetContainer = React.createClass({
 	    displayName: "WidgetContainer",
@@ -6090,7 +6094,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var _2 = __webpack_require__(17);
 
-	var shuffle = __webpack_require__(23).shuffle;
+	var shuffle = __webpack_require__(24).shuffle;
 
 	var Radio = __webpack_require__(111);
 
@@ -6197,15 +6201,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var PossibleAnswers = __webpack_require__(97);
 
-	var KhanAnswerTypes = __webpack_require__(85);
+	var KhanAnswerTypes = __webpack_require__(86);
 
 	var keypadElementPropType = __webpack_require__(93).propTypes.keypadElementPropType;
 
-	var _require = __webpack_require__(42), linterContextProps = _require.linterContextProps, linterContextDefault = _require.linterContextDefault;
+	var _require = __webpack_require__(43), linterContextProps = _require.linterContextProps, linterContextDefault = _require.linterContextDefault;
 
-	var ApiClassNames = __webpack_require__(24).ClassNames;
+	var ApiClassNames = __webpack_require__(23).ClassNames;
 
-	var ApiOptions = __webpack_require__(24).Options;
+	var ApiOptions = __webpack_require__(23).Options;
 
 	var answerTypes = {
 	    number: {
@@ -6483,17 +6487,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var PossibleAnswers = __webpack_require__(97);
 
-	var ApiClassNames = __webpack_require__(24).ClassNames;
+	var ApiClassNames = __webpack_require__(23).ClassNames;
 
-	var ApiOptions = __webpack_require__(24).Options;
+	var ApiOptions = __webpack_require__(23).Options;
 
-	var KhanAnswerTypes = __webpack_require__(85);
+	var KhanAnswerTypes = __webpack_require__(86);
 
 	var KhanMath = __webpack_require__(98);
 
 	var keypadElementPropType = __webpack_require__(93).propTypes.keypadElementPropType;
 
-	var _require2 = __webpack_require__(42), linterContextProps = _require2.linterContextProps, linterContextDefault = _require2.linterContextDefault;
+	var _require2 = __webpack_require__(43), linterContextProps = _require2.linterContextProps, linterContextDefault = _require2.linterContextDefault;
 
 	var _require3 = __webpack_require__(99), iconDropdownArrow = _require3.iconDropdownArrow;
 
@@ -7115,15 +7119,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(17);
 
-	var ApiOptions = __webpack_require__(24).Options;
+	var ApiOptions = __webpack_require__(23).Options;
 
 	var Changeable = __webpack_require__(102);
 
-	var ApiOptions = __webpack_require__(24).Options;
+	var ApiOptions = __webpack_require__(23).Options;
 
-	var ApiClassNames = __webpack_require__(24).ClassNames;
+	var ApiClassNames = __webpack_require__(23).ClassNames;
 
-	var KhanAnswerTypes = __webpack_require__(85);
+	var KhanAnswerTypes = __webpack_require__(86);
 
 	var InlineIcon = __webpack_require__(100);
 
@@ -7139,7 +7143,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var KeypadTypes = __webpack_require__(93).consts.KeypadTypes;
 
-	var _require = __webpack_require__(42), linterContextProps = _require.linterContextProps, linterContextDefault = _require.linterContextDefault;
+	var _require = __webpack_require__(43), linterContextProps = _require.linterContextProps, linterContextDefault = _require.linterContextDefault;
 
 	var _require2 = __webpack_require__(99), iconExclamationSign = _require2.iconExclamationSign;
 
@@ -7708,7 +7712,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(5);
 
-	var ApiOptions = __webpack_require__(24).Options;
+	var ApiOptions = __webpack_require__(23).Options;
 
 	var ApiOptionsProps = {
 	    propTypes: {
@@ -7729,6 +7733,80 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 41 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * A work-in-progress of _ methods for objects.
+	 * That is, they take an object as a parameter,
+	 * and return an object instead of an array.
+	 *
+	 * TODO(aria): Move this out of interactive2
+	 */
+	var _ = __webpack_require__(17);
+
+	/**
+	 * Does a pluck on keys inside objects in an object
+	 *
+	 * Ex:
+	 * tools = {
+	 *     translation: {
+	 *         enabled: true
+	 *     },
+	 *     rotation: {
+	 *         enabled: false
+	 *     }
+	 * };
+	 * pluckObject(tools, "enabled") returns {
+	 *     translation: true
+	 *     rotation: false
+	 * }
+	 */
+	var pluck = function pluck(table, subKey) {
+	    return _.object(_.map(table, function(value, key) {
+	        return [ key, value[subKey] ];
+	    }));
+	};
+
+	/**
+	 * Maps an object to an object
+	 *
+	 * > mapObject({a: '1', b: '2'}, (value, key) => {
+	 *       return value + 1;
+	 *   });
+	 * {a: 2, b: 3}
+	 */
+	var mapObject = function mapObject(obj, lambda) {
+	    var result = {};
+	    _.each(_.keys(obj), function(key) {
+	        result[key] = lambda(obj[key], key);
+	    });
+	    return result;
+	};
+
+	/**
+	 * Maps an array to an object
+	 *
+	 * > mapObjectFromArray(['a', 'b'], function(elem) {
+	 *       return elem + elem;
+	 *   });
+	 * {a: 'aa', b: 'bb'}
+	 */
+	var mapObjectFromArray = function mapObjectFromArray(arr, lambda) {
+	    var result = {};
+	    _.each(arr, function(elem) {
+	        result[elem] = lambda(elem);
+	    });
+	    return result;
+	};
+
+	module.exports = {
+	    pluck: pluck,
+	    mapObject: mapObject,
+	    mapObjectFromArray: mapObjectFromArray
+	};
+
+/***/ },
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function(target) {
@@ -8004,7 +8082,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 42 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	Object.defineProperty(exports, "__esModule", {
@@ -8027,80 +8105,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    highlightLint: false,
 	    paths: [],
 	    stack: []
-	};
-
-/***/ },
-/* 43 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * A work-in-progress of _ methods for objects.
-	 * That is, they take an object as a parameter,
-	 * and return an object instead of an array.
-	 *
-	 * TODO(aria): Move this out of interactive2
-	 */
-	var _ = __webpack_require__(17);
-
-	/**
-	 * Does a pluck on keys inside objects in an object
-	 *
-	 * Ex:
-	 * tools = {
-	 *     translation: {
-	 *         enabled: true
-	 *     },
-	 *     rotation: {
-	 *         enabled: false
-	 *     }
-	 * };
-	 * pluckObject(tools, "enabled") returns {
-	 *     translation: true
-	 *     rotation: false
-	 * }
-	 */
-	var pluck = function pluck(table, subKey) {
-	    return _.object(_.map(table, function(value, key) {
-	        return [ key, value[subKey] ];
-	    }));
-	};
-
-	/**
-	 * Maps an object to an object
-	 *
-	 * > mapObject({a: '1', b: '2'}, (value, key) => {
-	 *       return value + 1;
-	 *   });
-	 * {a: 2, b: 3}
-	 */
-	var mapObject = function mapObject(obj, lambda) {
-	    var result = {};
-	    _.each(_.keys(obj), function(key) {
-	        result[key] = lambda(obj[key], key);
-	    });
-	    return result;
-	};
-
-	/**
-	 * Maps an array to an object
-	 *
-	 * > mapObjectFromArray(['a', 'b'], function(elem) {
-	 *       return elem + elem;
-	 *   });
-	 * {a: 'aa', b: 'bb'}
-	 */
-	var mapObjectFromArray = function mapObjectFromArray(arr, lambda) {
-	    var result = {};
-	    _.each(arr, function(elem) {
-	        result[elem] = lambda(elem);
-	    });
-	    return result;
-	};
-
-	module.exports = {
-	    pluck: pluck,
-	    mapObject: mapObject,
-	    mapObjectFromArray: mapObjectFromArray
 	};
 
 /***/ },
@@ -8624,7 +8628,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require3 = __webpack_require__(109), buildMapper = _require3.buildMapper;
 
-	var Util = __webpack_require__(23);
+	var Util = __webpack_require__(24);
 
 	// TODO(mdr)
 	// TODO(mdr)
@@ -9339,9 +9343,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(17);
 
-	var ApiClassNames = __webpack_require__(24).ClassNames;
+	var ApiClassNames = __webpack_require__(23).ClassNames;
 
-	var ApiOptions = __webpack_require__(24).Options;
+	var ApiOptions = __webpack_require__(23).Options;
 
 	var _require2 = __webpack_require__(99), iconCircle = _require2.iconCircle, iconCircleThin = _require2.iconCircleThin;
 
@@ -9349,13 +9353,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Renderer = __webpack_require__(13);
 
-	var Util = __webpack_require__(23);
+	var Util = __webpack_require__(24);
 
 	var mediaQueries = __webpack_require__(44);
 
 	var sharedStyles = __webpack_require__(45);
 
-	var _require3 = __webpack_require__(42), linterContextProps = _require3.linterContextProps, linterContextDefault = _require3.linterContextDefault;
+	var _require3 = __webpack_require__(43), linterContextProps = _require3.linterContextProps, linterContextDefault = _require3.linterContextDefault;
 
 	var Categorizer = React.createClass({
 	    displayName: "Categorizer",
@@ -9565,7 +9569,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Changeable = __webpack_require__(102);
 
-	var updateQueryString = __webpack_require__(23).updateQueryString;
+	var updateQueryString = __webpack_require__(24).updateQueryString;
 
 	var PADDING_WIDTH = 2;
 
@@ -9737,9 +9741,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(17);
 
-	var ApiClassNames = __webpack_require__(24).ClassNames;
+	var ApiClassNames = __webpack_require__(23).ClassNames;
 
-	var ApiOptions = __webpack_require__(24).Options;
+	var ApiOptions = __webpack_require__(23).Options;
 
 	var InlineIcon = __webpack_require__(100);
 
@@ -9912,7 +9916,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Changeable = __webpack_require__(102);
 
-	var PerseusApi = __webpack_require__(24);
+	var PerseusApi = __webpack_require__(23);
 
 	var Renderer = __webpack_require__(13);
 
@@ -9920,7 +9924,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var styleConstants = __webpack_require__(46);
 
-	var _require2 = __webpack_require__(42), linterContextProps = _require2.linterContextProps, linterContextDefault = _require2.linterContextDefault;
+	var _require2 = __webpack_require__(43), linterContextProps = _require2.linterContextProps, linterContextDefault = _require2.linterContextDefault;
 
 	var defaultExplanationProps = {
 	    showPrompt: "Explain",
@@ -10143,7 +10147,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Changeable = __webpack_require__(102);
 
-	var PerseusApi = __webpack_require__(24);
+	var PerseusApi = __webpack_require__(23);
 
 	var Renderer = __webpack_require__(13);
 
@@ -10501,7 +10505,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var SvgImage = __webpack_require__(25);
 
-	var Util = __webpack_require__(23);
+	var Util = __webpack_require__(24);
 
 	var ButtonGroup = __webpack_require__(118);
 
@@ -10951,7 +10955,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(17);
 
-	var ApiOptions = __webpack_require__(24).Options;
+	var ApiOptions = __webpack_require__(23).Options;
 
 	var Changeable = __webpack_require__(102);
 
@@ -10967,7 +10971,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require3 = __webpack_require__(20), StyleSheet = _require3.StyleSheet, css = _require3.css;
 
-	var _require4 = __webpack_require__(42), linterContextProps = _require4.linterContextProps, linterContextDefault = _require4.linterContextDefault;
+	var _require4 = __webpack_require__(43), linterContextProps = _require4.linterContextProps, linterContextDefault = _require4.linterContextDefault;
 
 	// A Graded Group is more or less a Group widget that displays a check
 	// answer button below the rendered content. When clicked, the widget grades
@@ -11278,7 +11282,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require = __webpack_require__(20), StyleSheet = _require.StyleSheet, css = _require.css;
 
-	var ApiOptions = __webpack_require__(24).Options;
+	var ApiOptions = __webpack_require__(23).Options;
 
 	var Changeable = __webpack_require__(102);
 
@@ -11286,7 +11290,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require2 = __webpack_require__(46), grayLight = _require2.grayLight, gray76 = _require2.gray76, tableBackgroundAccent = _require2.tableBackgroundAccent, kaGreen = _require2.kaGreen, phoneMargin = _require2.phoneMargin, negativePhoneMargin = _require2.negativePhoneMargin;
 
-	var _require3 = __webpack_require__(42), linterContextProps = _require3.linterContextProps, linterContextDefault = _require3.linterContextDefault;
+	var _require3 = __webpack_require__(43), linterContextProps = _require3.linterContextProps, linterContextDefault = _require3.linterContextDefault;
 
 	var Indicators = React.createClass({
 	    displayName: "Indicators",
@@ -11486,13 +11490,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(17);
 
-	var ApiOptions = __webpack_require__(24).Options;
+	var ApiOptions = __webpack_require__(23).Options;
 
 	var Changeable = __webpack_require__(102);
 
 	var Renderer = __webpack_require__(13);
 
-	var _require = __webpack_require__(42), linterContextProps = _require.linterContextProps, linterContextDefault = _require.linterContextDefault;
+	var _require = __webpack_require__(43), linterContextProps = _require.linterContextProps, linterContextDefault = _require.linterContextDefault;
 
 	var Group = React.createClass({
 	    displayName: "Group",
@@ -11668,7 +11672,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var WidgetJsonifyDeprecated = __webpack_require__(116);
 
-	var updateQueryString = __webpack_require__(23).updateQueryString;
+	var updateQueryString = __webpack_require__(24).updateQueryString;
 
 	/* This renders the iframe and handles validation via window.postMessage */
 	var Iframe = React.createClass({
@@ -11842,7 +11846,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(17);
 
-	var ApiOptions = __webpack_require__(24).Options;
+	var ApiOptions = __webpack_require__(23).Options;
 
 	var _require2 = __webpack_require__(46), baseUnitPx = _require2.baseUnitPx;
 
@@ -11854,7 +11858,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var SvgImage = __webpack_require__(25);
 
-	var _require3 = __webpack_require__(42), linterContextProps = _require3.linterContextProps, linterContextDefault = _require3.linterContextDefault;
+	var _require3 = __webpack_require__(43), linterContextProps = _require3.linterContextProps, linterContextDefault = _require3.linterContextDefault;
 
 	var defaultBoxSize = 400;
 
@@ -12572,7 +12576,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var NumberInput = __webpack_require__(124);
 
-	var Util = __webpack_require__(23);
+	var Util = __webpack_require__(24);
 
 	var knumber = __webpack_require__(180).number;
 
@@ -14609,17 +14613,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var SimpleKeypadInput = __webpack_require__(95);
 
-	var ApiOptions = __webpack_require__(24).Options;
+	var ApiOptions = __webpack_require__(23).Options;
 
-	var KhanAnswerTypes = __webpack_require__(85);
+	var KhanAnswerTypes = __webpack_require__(86);
 
 	var keypadElementPropType = __webpack_require__(93).propTypes.keypadElementPropType;
 
 	var assert = __webpack_require__(128).assert;
 
-	var stringArrayOfSize = __webpack_require__(23).stringArrayOfSize;
+	var stringArrayOfSize = __webpack_require__(24).stringArrayOfSize;
 
-	var _require = __webpack_require__(42), linterContextProps = _require.linterContextProps, linterContextDefault = _require.linterContextDefault;
+	var _require = __webpack_require__(43), linterContextProps = _require.linterContextProps, linterContextDefault = _require.linterContextDefault;
 
 	// We store three sets of dimensions for the brackets, for our three types of
 	// inputs, which vary in formatting: (1) the "static" inputs rendered for the
@@ -15029,13 +15033,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Sortable = __webpack_require__(129);
 
-	var ApiOptions = __webpack_require__(24).Options;
+	var ApiOptions = __webpack_require__(23).Options;
 
-	var shuffle = __webpack_require__(23).shuffle;
+	var shuffle = __webpack_require__(24).shuffle;
 
-	var seededRNG = __webpack_require__(23).seededRNG;
+	var seededRNG = __webpack_require__(24).seededRNG;
 
-	var _require2 = __webpack_require__(42), linterContextProps = _require2.linterContextProps, linterContextDefault = _require2.linterContextDefault;
+	var _require2 = __webpack_require__(43), linterContextProps = _require2.linterContextProps, linterContextDefault = _require2.linterContextDefault;
 
 	var HACKY_CSS_CLASSNAME = "perseus-widget-matcher";
 
@@ -15214,7 +15218,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _2 = __webpack_require__(17);
 
-	var ApiOptions = __webpack_require__(24).Options;
+	var ApiOptions = __webpack_require__(23).Options;
 
 	var GraphUtils = __webpack_require__(125);
 
@@ -15547,7 +15551,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var SimpleKeypadInput = __webpack_require__(95);
 
-	var ApiOptions = __webpack_require__(24).Options;
+	var ApiOptions = __webpack_require__(23).Options;
 
 	var keypadElementPropType = __webpack_require__(93).propTypes.keypadElementPropType;
 
@@ -16079,11 +16083,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Renderer = __webpack_require__(13);
 
-	var Util = __webpack_require__(23);
+	var Util = __webpack_require__(24);
 
-	var ApiClassNames = __webpack_require__(24).ClassNames;
+	var ApiClassNames = __webpack_require__(23).ClassNames;
 
-	var _require = __webpack_require__(42), linterContextProps = _require.linterContextProps, linterContextDefault = _require.linterContextDefault;
+	var _require = __webpack_require__(43), linterContextProps = _require.linterContextProps, linterContextDefault = _require.linterContextDefault;
 
 	var PlaceholderCard = React.createClass({
 	    displayName: "PlaceholderCard",
@@ -16546,7 +16550,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var PassageMarkdown = __webpack_require__(143);
 
-	var _require2 = __webpack_require__(42), linterContextDefault = _require2.linterContextDefault;
+	var _require2 = __webpack_require__(43), linterContextDefault = _require2.linterContextDefault;
 
 	var babelPluginFlowReactPropTypes_proptype_ChangeableProps = __webpack_require__(102).babelPluginFlowReactPropTypes_proptype_ChangeableProps || __webpack_require__(5).PropTypes.any;
 
@@ -17085,7 +17089,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Renderer = __webpack_require__(13);
 
-	var _require = __webpack_require__(42), linterContextProps = _require.linterContextProps, linterContextDefault = _require.linterContextDefault;
+	var _require = __webpack_require__(43), linterContextProps = _require.linterContextProps, linterContextDefault = _require.linterContextDefault;
 
 	var PassageRefTarget = React.createClass({
 	    displayName: "PassageRefTarget",
@@ -17159,9 +17163,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(17);
 
-	var ApiClassNames = __webpack_require__(24).ClassNames;
+	var ApiClassNames = __webpack_require__(23).ClassNames;
 
-	var deepEq = __webpack_require__(23).deepEq;
+	var deepEq = __webpack_require__(24).deepEq;
 
 	var KhanMath = __webpack_require__(98);
 
@@ -18011,7 +18015,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(17);
 
-	var ApiOptions = __webpack_require__(24).Options;
+	var ApiOptions = __webpack_require__(23).Options;
 
 	var Changeable = __webpack_require__(102);
 
@@ -18021,9 +18025,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Renderer = __webpack_require__(13);
 
-	var Util = __webpack_require__(23);
+	var Util = __webpack_require__(24);
 
-	var _require2 = __webpack_require__(42), linterContextProps = _require2.linterContextProps, linterContextDefault = _require2.linterContextDefault;
+	var _require2 = __webpack_require__(43), linterContextProps = _require2.linterContextProps, linterContextDefault = _require2.linterContextDefault;
 
 	var Sequence = React.createClass({
 	    displayName: "Sequence",
@@ -18159,7 +18163,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Changeable = __webpack_require__(102);
 
-	var ApiOptions = __webpack_require__(24).Options;
+	var ApiOptions = __webpack_require__(23).Options;
 
 	var assert = __webpack_require__(128).assert;
 
@@ -18171,9 +18175,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var MathOutput = __webpack_require__(127);
 
-	var seededRNG = __webpack_require__(23).seededRNG;
+	var seededRNG = __webpack_require__(24).seededRNG;
 
-	var Util = __webpack_require__(23);
+	var Util = __webpack_require__(24);
 
 	var knumber = __webpack_require__(180).number;
 
@@ -18735,11 +18739,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Sortable = __webpack_require__(129);
 
-	var ApiOptions = __webpack_require__(24).Options;
+	var ApiOptions = __webpack_require__(23).Options;
 
-	var shuffle = __webpack_require__(23).shuffle;
+	var shuffle = __webpack_require__(24).shuffle;
 
-	var _require = __webpack_require__(42), linterContextProps = _require.linterContextProps, linterContextDefault = _require.linterContextDefault;
+	var _require = __webpack_require__(43), linterContextProps = _require.linterContextProps, linterContextDefault = _require.linterContextDefault;
 
 	var HORIZONTAL = "horizontal", VERTICAL = "vertical";
 
@@ -18832,15 +18836,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Renderer = __webpack_require__(13);
 
-	var Util = __webpack_require__(23);
+	var Util = __webpack_require__(24);
 
 	var keypadElementPropType = __webpack_require__(93).propTypes.keypadElementPropType;
 
-	var ApiOptions = __webpack_require__(24).Options;
+	var ApiOptions = __webpack_require__(23).Options;
 
-	var KhanAnswerTypes = __webpack_require__(85);
+	var KhanAnswerTypes = __webpack_require__(86);
 
-	var _require = __webpack_require__(42), linterContextProps = _require.linterContextProps, linterContextDefault = _require.linterContextDefault;
+	var _require = __webpack_require__(43), linterContextProps = _require.linterContextProps, linterContextDefault = _require.linterContextDefault;
 
 	var assert = __webpack_require__(128).assert;
 
@@ -19145,7 +19149,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var SimpleKeypadInput = __webpack_require__(95);
 
-	var ApiOptions = __webpack_require__(24).Options;
+	var ApiOptions = __webpack_require__(23).Options;
 
 	var keypadElementPropType = __webpack_require__(93).propTypes.keypadElementPropType;
 
@@ -19163,11 +19167,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require = __webpack_require__(99), iconPlus = _require.iconPlus, iconUndo = _require.iconUndo;
 
-	var deepEq = __webpack_require__(23).deepEq;
+	var deepEq = __webpack_require__(24).deepEq;
 
-	var getGridStep = __webpack_require__(23).getGridStep;
+	var getGridStep = __webpack_require__(24).getGridStep;
 
-	var captureScratchpadTouchStart = __webpack_require__(23).captureScratchpadTouchStart;
+	var captureScratchpadTouchStart = __webpack_require__(24).captureScratchpadTouchStart;
 
 	var knumber = __webpack_require__(180).number;
 
@@ -21125,9 +21129,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(17);
 
-	var ApiClassNames = __webpack_require__(24).ClassNames;
+	var ApiClassNames = __webpack_require__(23).ClassNames;
 
-	var ApiOptions = __webpack_require__(24).Options;
+	var ApiOptions = __webpack_require__(23).Options;
 
 	var Changeable = __webpack_require__(102);
 
@@ -21450,6 +21454,57 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 85 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Stub Tag Editor.
+	 *
+	 * This is stupidly used by Perseus Zero because I didn't implement
+	 * the <TagEditor> for Perseus Zero (since everyone wants me to
+	 * delete it anyways).
+	 *
+	 * This is a small wrapper for a TextListEditor that allows us to
+	 * edit raw Tag ID strings in perseus zero (please don't use this).
+	 *
+	 * It also gives a nicer interface for the group metadata editor
+	 * in local demo mode.
+	 */
+	var React = __webpack_require__(5);
+
+	var TextListEditor = __webpack_require__(131);
+
+	var EMPTY_ARRAY = [];
+
+	var StubTagEditor = React.createClass({
+	    displayName: "StubTagEditor",
+	    propTypes: {
+	        value: React.PropTypes.arrayOf(React.PropTypes.string),
+	        onChange: React.PropTypes.func.isRequired,
+	        showTitle: React.PropTypes.bool.isRequired
+	    },
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            value: EMPTY_ARRAY,
+	            showTitle: true
+	        };
+	    },
+	    render: function render() {
+	        return React.createElement("div", null, this.props.showTitle && React.createElement("div", {
+	            style: {
+	                fontSize: 14
+	            }
+	        }, "Tags:"), React.createElement(TextListEditor, {
+	            options: this.props.value || EMPTY_ARRAY,
+	            layout: "vertical",
+	            onChange: this.props.onChange
+	        }));
+	    }
+	});
+
+	module.exports = StubTagEditor;
+
+/***/ },
+/* 86 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* eslint-disable object-curly-spacing */
@@ -21966,57 +22021,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = KhanAnswerTypes;
 
 /***/ },
-/* 86 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Stub Tag Editor.
-	 *
-	 * This is stupidly used by Perseus Zero because I didn't implement
-	 * the <TagEditor> for Perseus Zero (since everyone wants me to
-	 * delete it anyways).
-	 *
-	 * This is a small wrapper for a TextListEditor that allows us to
-	 * edit raw Tag ID strings in perseus zero (please don't use this).
-	 *
-	 * It also gives a nicer interface for the group metadata editor
-	 * in local demo mode.
-	 */
-	var React = __webpack_require__(5);
-
-	var TextListEditor = __webpack_require__(131);
-
-	var EMPTY_ARRAY = [];
-
-	var StubTagEditor = React.createClass({
-	    displayName: "StubTagEditor",
-	    propTypes: {
-	        value: React.PropTypes.arrayOf(React.PropTypes.string),
-	        onChange: React.PropTypes.func.isRequired,
-	        showTitle: React.PropTypes.bool.isRequired
-	    },
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            value: EMPTY_ARRAY,
-	            showTitle: true
-	        };
-	    },
-	    render: function render() {
-	        return React.createElement("div", null, this.props.showTitle && React.createElement("div", {
-	            style: {
-	                fontSize: 14
-	            }
-	        }, "Tags:"), React.createElement(TextListEditor, {
-	            options: this.props.value || EMPTY_ARRAY,
-	            layout: "vertical",
-	            onChange: this.props.onChange
-	        }));
-	    }
-	});
-
-	module.exports = StubTagEditor;
-
-/***/ },
 /* 87 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -22147,9 +22151,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var GraphieMovable = GraphieClasses.GraphieMovable;
 
-	var deepEq = __webpack_require__(23).deepEq;
+	var deepEq = __webpack_require__(24).deepEq;
 
-	var nestedMap = __webpack_require__(23).nestedMap;
+	var nestedMap = __webpack_require__(24).nestedMap;
 
 	var assert = __webpack_require__(128).assert;
 
@@ -23253,7 +23257,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(17);
 
-	var ApiClassNames = __webpack_require__(24).ClassNames;
+	var ApiClassNames = __webpack_require__(23).ClassNames;
 
 	var MathInput = __webpack_require__(103);
 
@@ -23263,11 +23267,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var MathOutput = __webpack_require__(127);
 
-	var Gorgon = __webpack_require__(41);
+	var Gorgon = __webpack_require__(42);
 
-	var _require = __webpack_require__(42), linterContextProps = _require.linterContextProps, linterContextDefault = _require.linterContextDefault;
+	var _require = __webpack_require__(43), linterContextProps = _require.linterContextProps, linterContextDefault = _require.linterContextDefault;
 
-	var captureScratchpadTouchStart = __webpack_require__(23).captureScratchpadTouchStart;
+	var captureScratchpadTouchStart = __webpack_require__(24).captureScratchpadTouchStart;
 
 	var MATH = "math";
 
@@ -26052,11 +26056,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var PassageRef = __webpack_require__(74);
 
-	var Util = __webpack_require__(23);
+	var Util = __webpack_require__(24);
 
 	var BaseRadio = __webpack_require__(148);
 
-	var _require = __webpack_require__(42), linterContextProps = _require.linterContextProps, linterContextDefault = _require.linterContextDefault;
+	var _require = __webpack_require__(43), linterContextProps = _require.linterContextProps, linterContextDefault = _require.linterContextDefault;
 
 	var Radio = React.createClass({
 	    displayName: "Radio",
@@ -27305,7 +27309,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(5);
 
-	var ApiOptions = __webpack_require__(24).Options;
+	var ApiOptions = __webpack_require__(23).Options;
 
 	var InlineIcon = __webpack_require__(100);
 
@@ -27460,7 +27464,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(17);
 
-	var Util = __webpack_require__(23);
+	var Util = __webpack_require__(24);
 
 	var GraphUtils = __webpack_require__(125);
 
@@ -27799,9 +27803,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(17);
 
-	var firstNumericalParse = __webpack_require__(23).firstNumericalParse;
+	var firstNumericalParse = __webpack_require__(24).firstNumericalParse;
 
-	var captureScratchpadTouchStart = __webpack_require__(23).captureScratchpadTouchStart;
+	var captureScratchpadTouchStart = __webpack_require__(24).captureScratchpadTouchStart;
 
 	var knumber = __webpack_require__(180).number;
 
@@ -28072,7 +28076,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var TeX = __webpack_require__(52);
 
-	var ApiClassNames = __webpack_require__(24).ClassNames;
+	var ApiClassNames = __webpack_require__(23).ClassNames;
 
 	var ModifyTex = __webpack_require__(96).modifyTex;
 
@@ -28283,15 +28287,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(17);
 
-	var Util = __webpack_require__(23);
+	var Util = __webpack_require__(24);
 
 	var Renderer = __webpack_require__(13);
 
-	var ApiClassNames = __webpack_require__(24).ClassNames;
+	var ApiClassNames = __webpack_require__(23).ClassNames;
 
-	var Gorgon = __webpack_require__(41);
+	var Gorgon = __webpack_require__(42);
 
-	var _require2 = __webpack_require__(42), linterContextProps = _require2.linterContextProps, linterContextDefault = _require2.linterContextDefault;
+	var _require2 = __webpack_require__(43), linterContextProps = _require2.linterContextProps, linterContextDefault = _require2.linterContextDefault;
 
 	var HORIZONTAL = "horizontal";
 
@@ -29288,7 +29292,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 132 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Util = __webpack_require__(23);
+	var Util = __webpack_require__(24);
 
 	var nestedMap = Util.nestedMap;
 
@@ -31138,7 +31142,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var _ = __webpack_require__(17);
 
-	var Util = __webpack_require__(23);
+	var Util = __webpack_require__(24);
 
 	var Graphie = __webpack_require__(88);
 
@@ -33558,11 +33562,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require = __webpack_require__(244), Provider = _require.Provider;
 
-	var KeypadContainer = __webpack_require__(197);
+	var KeypadContainer = __webpack_require__(198);
 
-	var _require2 = __webpack_require__(207), activateKeypad = _require2.activateKeypad, dismissKeypad = _require2.dismissKeypad, configureKeypad = _require2.configureKeypad, setCursor = _require2.setCursor, setKeyHandler = _require2.setKeyHandler;
+	var _require2 = __webpack_require__(208), activateKeypad = _require2.activateKeypad, dismissKeypad = _require2.dismissKeypad, configureKeypad = _require2.configureKeypad, setCursor = _require2.setCursor, setKeyHandler = _require2.setKeyHandler;
 
-	var createStore = __webpack_require__(208);
+	var createStore = __webpack_require__(209);
 
 	var ProvidedKeypad = function(_React$Component) {
 	    _inherits(ProvidedKeypad, _React$Component);
@@ -33634,9 +33638,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(5);
 
-	var KeyConfigs = __webpack_require__(209);
+	var KeyConfigs = __webpack_require__(207);
 
-	var CursorContexts = __webpack_require__(198);
+	var CursorContexts = __webpack_require__(197);
 
 	var _require = __webpack_require__(135), BorderDirections = _require.BorderDirections, EchoAnimationTypes = _require.EchoAnimationTypes, IconTypes = _require.IconTypes, KeyTypes = _require.KeyTypes, KeypadTypes = _require.KeypadTypes;
 
@@ -34385,7 +34389,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(17);
 
-	var ApiClassNames = __webpack_require__(24).ClassNames;
+	var ApiClassNames = __webpack_require__(23).ClassNames;
 
 	var Renderer = __webpack_require__(13);
 
@@ -34395,7 +34399,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var mediaQueries = __webpack_require__(44);
 
-	var captureScratchpadTouchStart = __webpack_require__(23).captureScratchpadTouchStart;
+	var captureScratchpadTouchStart = __webpack_require__(24).captureScratchpadTouchStart;
 
 	var Choice = __webpack_require__(204);
 
@@ -35968,13 +35972,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var _ = __webpack_require__(17);
 
-	var MovablePointOptions = __webpack_require__(216);
+	var MovablePointOptions = __webpack_require__(217);
 
-	var WrappedEllipse = __webpack_require__(217);
+	var WrappedEllipse = __webpack_require__(218);
 
 	var InteractiveUtil = __webpack_require__(128);
 
-	var objective_ = __webpack_require__(43);
+	var objective_ = __webpack_require__(41);
 
 	var assert = InteractiveUtil.assert;
 
@@ -35986,7 +35990,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var KhanColors = __webpack_require__(120);
 
-	var processMath = __webpack_require__(218).processMath;
+	var processMath = __webpack_require__(219).processMath;
 
 	var _require = __webpack_require__(99), iconTrash = _require.iconTrash;
 
@@ -36361,13 +36365,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var _ = __webpack_require__(17);
 
-	var MovableLineOptions = __webpack_require__(219);
+	var MovableLineOptions = __webpack_require__(216);
 
 	var WrappedLine = __webpack_require__(119);
 
 	var InteractiveUtil = __webpack_require__(128);
 
-	var objective_ = __webpack_require__(43);
+	var objective_ = __webpack_require__(41);
 
 	var assert = InteractiveUtil.assert;
 
@@ -36593,7 +36597,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var InteractiveUtil = __webpack_require__(128);
 
-	var objective_ = __webpack_require__(43);
+	var objective_ = __webpack_require__(41);
 
 	var assert = InteractiveUtil.assert;
 
@@ -36893,7 +36897,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var InteractiveUtil = __webpack_require__(128);
 
-	var objective_ = __webpack_require__(43);
+	var objective_ = __webpack_require__(41);
 
 	var kvector = __webpack_require__(180).vector;
 
@@ -37093,7 +37097,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var KhanMath = __webpack_require__(98);
 
-	var processMath = __webpack_require__(218).processMath;
+	var processMath = __webpack_require__(219).processMath;
 
 	var KhanColors = __webpack_require__(120);
 
@@ -38023,7 +38027,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var kline = __webpack_require__(180).line;
 
-	var WrappedEllipse = __webpack_require__(217);
+	var WrappedEllipse = __webpack_require__(218);
 
 	var WrappedLine = __webpack_require__(119);
 
@@ -40921,6 +40925,41 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 197 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/**
+	 * Constants that define the various contexts in which a cursor can exist. The
+	 * active context is determined first by looking at the cursor's siblings (e.g.,
+	 * for the `BEFORE_FRACTION` context), and then at its direct parent. Though a
+	 * cursor could in theory be nested in multiple contexts, we only care about the
+	 * immediate context.
+	 *
+	 * TODO(charlie): Add a context to represent being inside of a radical. Right
+	 * now, we show the dismiss button rather than allowing the user to jump out of
+	 * the radical.
+	 */
+	module.exports = {
+	    // The cursor is not in any of the other viable contexts.
+	    NONE: "NONE",
+	    // The cursor is within a set of parentheses.
+	    IN_PARENS: "IN_PARENS",
+	    // The cursor is within a superscript (e.g., an exponent).
+	    IN_SUPER_SCRIPT: "IN_SUPER_SCRIPT",
+	    // The cursor is within a subscript (e.g., the base of a custom logarithm).
+	    IN_SUB_SCRIPT: "IN_SUB_SCRIPT",
+	    // The cursor is in the numerator of a fraction.
+	    IN_NUMERATOR: "IN_NUMERATOR",
+	    // The cursor is in the denominator of a fraction.
+	    IN_DENOMINATOR: "IN_DENOMINATOR",
+	    // The cursor is sitting before a fraction; that is, the cursor is within
+	    // what looks to be a mixed number preceding a fraction. This will only be
+	    // the case when the only math between the cursor and the fraction to its
+	    // write is non-leaf math (numbers and variables).
+	    BEFORE_FRACTION: "BEFORE_FRACTION"
+	};
+
+/***/ },
+/* 198 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var _extends = Object.assign || function(target) {
 	    for (var i = 1; i < arguments.length; i++) {
 	        var source = arguments[i];
@@ -40967,7 +41006,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var zIndexes = __webpack_require__(228);
 
-	var _require4 = __webpack_require__(207), setPageSize = _require4.setPageSize;
+	var _require4 = __webpack_require__(208), setPageSize = _require4.setPageSize;
 
 	var _require5 = __webpack_require__(146), keyIdPropType = _require5.keyIdPropType;
 
@@ -41187,41 +41226,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = connect(mapStateToProps, mapDispatchToProps)(KeypadContainer);
 
 /***/ },
-/* 198 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Constants that define the various contexts in which a cursor can exist. The
-	 * active context is determined first by looking at the cursor's siblings (e.g.,
-	 * for the `BEFORE_FRACTION` context), and then at its direct parent. Though a
-	 * cursor could in theory be nested in multiple contexts, we only care about the
-	 * immediate context.
-	 *
-	 * TODO(charlie): Add a context to represent being inside of a radical. Right
-	 * now, we show the dismiss button rather than allowing the user to jump out of
-	 * the radical.
-	 */
-	module.exports = {
-	    // The cursor is not in any of the other viable contexts.
-	    NONE: "NONE",
-	    // The cursor is within a set of parentheses.
-	    IN_PARENS: "IN_PARENS",
-	    // The cursor is within a superscript (e.g., an exponent).
-	    IN_SUPER_SCRIPT: "IN_SUPER_SCRIPT",
-	    // The cursor is within a subscript (e.g., the base of a custom logarithm).
-	    IN_SUB_SCRIPT: "IN_SUB_SCRIPT",
-	    // The cursor is in the numerator of a fraction.
-	    IN_NUMERATOR: "IN_NUMERATOR",
-	    // The cursor is in the denominator of a fraction.
-	    IN_DENOMINATOR: "IN_DENOMINATOR",
-	    // The cursor is sitting before a fraction; that is, the cursor is within
-	    // what looks to be a mixed number preceding a fraction. This will only be
-	    // the case when the only math between the cursor and the fraction to its
-	    // write is non-leaf math (numbers and variables).
-	    BEFORE_FRACTION: "BEFORE_FRACTION"
-	};
-
-/***/ },
 /* 199 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -41371,7 +41375,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Keys = __webpack_require__(230);
 
-	var CursorContexts = __webpack_require__(198);
+	var CursorContexts = __webpack_require__(197);
 
 	var _require = __webpack_require__(135), DecimalSeparators = _require.DecimalSeparators;
 
@@ -42275,7 +42279,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var classNames = __webpack_require__(19);
 
-	var _require2 = __webpack_require__(24), ClassNames = _require2.ClassNames;
+	var _require2 = __webpack_require__(23), ClassNames = _require2.ClassNames;
 
 	var sharedStyles = __webpack_require__(45);
 
@@ -42824,6 +42828,300 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 207 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var _extends = Object.assign || function(target) {
+	    for (var i = 1; i < arguments.length; i++) {
+	        var source = arguments[i];
+	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
+	    }
+	    return target;
+	};
+
+	var _KeyConfigs;
+
+	/**
+	 * This file contains configuration settings for the buttons in the keypad.
+	 */
+	/* globals i18n */
+	var Keys = __webpack_require__(230);
+
+	var _require = __webpack_require__(135), DecimalSeparators = _require.DecimalSeparators, IconTypes = _require.IconTypes, KeyTypes = _require.KeyTypes;
+
+	var _require2 = __webpack_require__(231), decimalSeparator = _require2.decimalSeparator;
+
+	var KeyConfigs = (_KeyConfigs = {}, _KeyConfigs[Keys.PLUS] = {
+	    type: KeyTypes.OPERATOR,
+	    // I18N: A label for a plus sign.
+	    ariaLabel: i18n._("Plus")
+	}, _KeyConfigs[Keys.MINUS] = {
+	    type: KeyTypes.OPERATOR,
+	    // I18N: A label for a minus sign.
+	    ariaLabel: i18n._("Minus")
+	}, _KeyConfigs[Keys.NEGATIVE] = {
+	    type: KeyTypes.VALUE,
+	    // I18N: A label for a minus sign.
+	    ariaLabel: i18n._("Negative")
+	}, _KeyConfigs[Keys.TIMES] = {
+	    type: KeyTypes.OPERATOR,
+	    // I18N: A label for a multiplication sign (represented with an 'x').
+	    ariaLabel: i18n._("Multiply")
+	}, _KeyConfigs[Keys.DIVIDE] = {
+	    type: KeyTypes.OPERATOR,
+	    // I18N: A label for a division sign.
+	    ariaLabel: i18n._("Divide")
+	}, _KeyConfigs[Keys.DECIMAL] = {
+	    type: KeyTypes.VALUE,
+	    // I18N: A label for a decimal symbol.
+	    ariaLabel: i18n._("Decimal"),
+	    icon: decimalSeparator === DecimalSeparators.COMMA ? {
+	        // TODO(charlie): Get an SVG icon for the comma, or verify with
+	        // design that the text-rendered version is acceptable.
+	        type: IconTypes.TEXT,
+	        data: ","
+	    } : {
+	        type: IconTypes.SVG,
+	        data: Keys.PERIOD
+	    }
+	}, _KeyConfigs[Keys.PERCENT] = {
+	    type: KeyTypes.OPERATOR,
+	    // I18N: A label for a percent sign.
+	    ariaLabel: i18n._("Percent")
+	}, _KeyConfigs[Keys.CDOT] = {
+	    type: KeyTypes.OPERATOR,
+	    // I18N: A label for a multiplication sign (represented as a dot).
+	    ariaLabel: i18n._("Multiply")
+	}, _KeyConfigs[Keys.EQUAL] = {
+	    type: KeyTypes.OPERATOR,
+	    ariaLabel: i18n._("Equals sign")
+	}, _KeyConfigs[Keys.NEQ] = {
+	    type: KeyTypes.OPERATOR,
+	    ariaLabel: i18n._("Not-equals sign")
+	}, _KeyConfigs[Keys.GT] = {
+	    type: KeyTypes.OPERATOR,
+	    // I18N: A label for a 'greater than' sign (represented as '>').
+	    ariaLabel: i18n._("Greater than sign")
+	}, _KeyConfigs[Keys.LT] = {
+	    type: KeyTypes.OPERATOR,
+	    // I18N: A label for a 'less than' sign (represented as '<').
+	    ariaLabel: i18n._("Less than sign")
+	}, _KeyConfigs[Keys.GEQ] = {
+	    type: KeyTypes.OPERATOR,
+	    ariaLabel: i18n._("Greater than or equal to sign")
+	}, _KeyConfigs[Keys.LEQ] = {
+	    type: KeyTypes.OPERATOR,
+	    ariaLabel: i18n._("Less than or equal to sign")
+	}, _KeyConfigs[Keys.FRAC_INCLUSIVE] = {
+	    type: KeyTypes.OPERATOR,
+	    // I18N: A label for a button that creates a new fraction and puts the
+	    // current expression in the numerator of that fraction.
+	    ariaLabel: i18n._("Fraction, with current expression in numerator")
+	}, _KeyConfigs[Keys.FRAC_EXCLUSIVE] = {
+	    type: KeyTypes.OPERATOR,
+	    // I18N: A label for a button that creates a new fraction next to the
+	    // cursor.
+	    ariaLabel: i18n._("Fraction, excluding the current expression")
+	}, _KeyConfigs[Keys.EXP] = {
+	    type: KeyTypes.OPERATOR,
+	    // I18N: A label for a button that will allow the user to input a custom
+	    // exponent.
+	    ariaLabel: i18n._("Custom exponent")
+	}, _KeyConfigs[Keys.EXP_2] = {
+	    type: KeyTypes.OPERATOR,
+	    // I18N: A label for a button that will square (take to the second
+	    // power) some math.
+	    ariaLabel: i18n._("Square")
+	}, _KeyConfigs[Keys.EXP_3] = {
+	    type: KeyTypes.OPERATOR,
+	    // I18N: A label for a button that will cube (take to the third power)
+	    // some math.
+	    ariaLabel: i18n._("Cube")
+	}, _KeyConfigs[Keys.SQRT] = {
+	    type: KeyTypes.OPERATOR,
+	    ariaLabel: i18n._("Square root")
+	}, _KeyConfigs[Keys.CUBE_ROOT] = {
+	    type: KeyTypes.OPERATOR,
+	    ariaLabel: i18n._("Cube root")
+	}, _KeyConfigs[Keys.RADICAL] = {
+	    type: KeyTypes.OPERATOR,
+	    ariaLabel: i18n._("Radical with custom root")
+	}, _KeyConfigs[Keys.LEFT_PAREN] = {
+	    type: KeyTypes.OPERATOR,
+	    ariaLabel: i18n._("Left parenthesis")
+	}, _KeyConfigs[Keys.RIGHT_PAREN] = {
+	    type: KeyTypes.OPERATOR,
+	    ariaLabel: i18n._("Right parenthesis")
+	}, _KeyConfigs[Keys.LN] = {
+	    type: KeyTypes.OPERATOR,
+	    ariaLabel: i18n._("Natural logarithm")
+	}, _KeyConfigs[Keys.LOG] = {
+	    type: KeyTypes.OPERATOR,
+	    ariaLabel: i18n._("Logarithm with base 10")
+	}, _KeyConfigs[Keys.LOG_N] = {
+	    type: KeyTypes.OPERATOR,
+	    ariaLabel: i18n._("Logarithm with custom base")
+	}, _KeyConfigs[Keys.SIN] = {
+	    type: KeyTypes.OPERATOR,
+	    ariaLabel: i18n._("Sine")
+	}, _KeyConfigs[Keys.COS] = {
+	    type: KeyTypes.OPERATOR,
+	    ariaLabel: i18n._("Cosine")
+	}, _KeyConfigs[Keys.TAN] = {
+	    type: KeyTypes.OPERATOR,
+	    ariaLabel: i18n._("Tangent")
+	}, _KeyConfigs[Keys.PI] = {
+	    type: KeyTypes.VALUE,
+	    ariaLabel: i18n._("Pi"),
+	    icon: {
+	        type: IconTypes.MATH,
+	        data: "\\pi"
+	    }
+	}, _KeyConfigs[Keys.THETA] = {
+	    type: KeyTypes.VALUE,
+	    ariaLabel: i18n._("Theta"),
+	    icon: {
+	        type: IconTypes.MATH,
+	        data: "\\theta"
+	    }
+	}, _KeyConfigs[Keys.NOOP] = {
+	    type: KeyTypes.EMPTY
+	}, _KeyConfigs[Keys.UP] = {
+	    type: KeyTypes.INPUT_NAVIGATION,
+	    ariaLabel: i18n._("Up arrow")
+	}, _KeyConfigs[Keys.RIGHT] = {
+	    type: KeyTypes.INPUT_NAVIGATION,
+	    ariaLabel: i18n._("Right arrow")
+	}, _KeyConfigs[Keys.DOWN] = {
+	    type: KeyTypes.INPUT_NAVIGATION,
+	    ariaLabel: i18n._("Down arrow")
+	}, _KeyConfigs[Keys.LEFT] = {
+	    type: KeyTypes.INPUT_NAVIGATION,
+	    ariaLabel: i18n._("Left arrow")
+	}, _KeyConfigs[Keys.JUMP_OUT_PARENTHESES] = {
+	    type: KeyTypes.INPUT_NAVIGATION,
+	    ariaLabel: i18n._("Navigate right out of a set of parentheses")
+	}, _KeyConfigs[Keys.JUMP_OUT_EXPONENT] = {
+	    type: KeyTypes.INPUT_NAVIGATION,
+	    ariaLabel: i18n._("Navigate right out of an exponent")
+	}, _KeyConfigs[Keys.JUMP_OUT_BASE] = {
+	    type: KeyTypes.INPUT_NAVIGATION,
+	    ariaLabel: i18n._("Navigate right out of a base")
+	}, _KeyConfigs[Keys.JUMP_INTO_NUMERATOR] = {
+	    type: KeyTypes.INPUT_NAVIGATION,
+	    ariaLabel: i18n._("Navigate right into the numerator of a fraction")
+	}, _KeyConfigs[Keys.JUMP_OUT_NUMERATOR] = {
+	    type: KeyTypes.INPUT_NAVIGATION,
+	    ariaLabel: i18n._("Navigate right out of the numerator and into the denominator")
+	}, _KeyConfigs[Keys.JUMP_OUT_DENOMINATOR] = {
+	    type: KeyTypes.INPUT_NAVIGATION,
+	    ariaLabel: i18n._("Navigate right out of the denominator of a fraction")
+	}, _KeyConfigs[Keys.BACKSPACE] = {
+	    type: KeyTypes.INPUT_NAVIGATION,
+	    // I18N: A label for a button that will delete some input.
+	    ariaLabel: i18n._("Delete")
+	}, _KeyConfigs[Keys.DISMISS] = {
+	    type: KeyTypes.KEYPAD_NAVIGATION,
+	    // I18N: A label for a button that will dismiss/hide a keypad.
+	    ariaLabel: i18n._("Dismiss")
+	}, _KeyConfigs);
+
+	// Add in any multi-function buttons. By default, these keys will mix in any
+	// configuration settings from their default child key (i.e., the first key in
+	// the `childKeyIds` array).
+	// TODO(charlie): Make the multi-function button's long-press interaction
+	// accessible.
+	KeyConfigs[Keys.FRAC_MULTI] = {
+	    childKeyIds: [ Keys.FRAC_INCLUSIVE, Keys.FRAC_EXCLUSIVE ]
+	};
+
+	// TODO(charlie): Use the numeral color for the 'Many' key.
+	KeyConfigs[Keys.MANY] = {
+	    type: KeyTypes.MANY
+	};
+
+	// Add in every numeral.
+	var NUMBERS = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ];
+
+	for (var _iterator = NUMBERS, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator](); ;) {
+	    var _ref;
+	    if (_isArray) {
+	        if (_i >= _iterator.length) break;
+	        _ref = _iterator[_i++];
+	    } else {
+	        _i = _iterator.next();
+	        if (_i.done) break;
+	        _ref = _i.value;
+	    }
+	    var num = _ref;
+	    // TODO(charlie): Consider removing the SVG icons that we have for the
+	    // numeral keys. They can be rendered just as easily with text (though that
+	    // would mean that we'd be using text beyond the variable key).
+	    var textRepresentation = "" + num;
+	    KeyConfigs["NUM_" + num] = {
+	        type: KeyTypes.VALUE,
+	        ariaLabel: textRepresentation,
+	        icon: {
+	            type: IconTypes.TEXT,
+	            data: textRepresentation
+	        }
+	    };
+	}
+
+	// Add in every variable.
+	var LETTERS = [ "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" ];
+
+	for (var _iterator2 = LETTERS, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : _iterator2[Symbol.iterator](); ;) {
+	    var _ref2;
+	    if (_isArray2) {
+	        if (_i2 >= _iterator2.length) break;
+	        _ref2 = _iterator2[_i2++];
+	    } else {
+	        _i2 = _iterator2.next();
+	        if (_i2.done) break;
+	        _ref2 = _i2.value;
+	    }
+	    var letter = _ref2;
+	    var lowerCaseVariable = letter.toLowerCase();
+	    var upperCaseVariable = letter.toUpperCase();
+	    var _arr = [ lowerCaseVariable, upperCaseVariable ];
+	    for (var _i4 = 0; _i4 < _arr.length; _i4++) {
+	        var _textRepresentation = _arr[_i4];
+	        KeyConfigs[_textRepresentation] = {
+	            type: KeyTypes.VALUE,
+	            ariaLabel: _textRepresentation,
+	            icon: {
+	                type: IconTypes.MATH,
+	                data: _textRepresentation
+	            }
+	        };
+	    }
+	}
+
+	for (var _iterator3 = Object.keys(KeyConfigs), _isArray3 = Array.isArray(_iterator3), _i3 = 0, _iterator3 = _isArray3 ? _iterator3 : _iterator3[Symbol.iterator](); ;) {
+	    var _ref3;
+	    if (_isArray3) {
+	        if (_i3 >= _iterator3.length) break;
+	        _ref3 = _iterator3[_i3++];
+	    } else {
+	        _i3 = _iterator3.next();
+	        if (_i3.done) break;
+	        _ref3 = _i3.value;
+	    }
+	    var key = _ref3;
+	    KeyConfigs[key] = _extends({
+	        id: key,
+	        // Default to an SVG icon indexed by the key name.
+	        icon: {
+	            type: IconTypes.SVG,
+	            data: key
+	        }
+	    }, KeyConfigs[key]);
+	}
+
+	module.exports = KeyConfigs;
+
+/***/ },
+/* 208 */
+/***/ function(module, exports, __webpack_require__) {
+
 	module.exports = {
 	    // naming convetion: verb + noun
 	    // the noun should be one of the other properties in the object that's
@@ -42878,7 +43176,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 208 */
+/* 209 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function(target) {
@@ -42901,9 +43199,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Keys = __webpack_require__(230);
 
-	var KeyConfigs = __webpack_require__(209);
+	var KeyConfigs = __webpack_require__(207);
 
-	var CursorContexts = __webpack_require__(198);
+	var CursorContexts = __webpack_require__(197);
 
 	var GestureManager = __webpack_require__(240);
 
@@ -43304,300 +43602,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	module.exports = createStore;
-
-/***/ },
-/* 209 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _extends = Object.assign || function(target) {
-	    for (var i = 1; i < arguments.length; i++) {
-	        var source = arguments[i];
-	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
-	    }
-	    return target;
-	};
-
-	var _KeyConfigs;
-
-	/**
-	 * This file contains configuration settings for the buttons in the keypad.
-	 */
-	/* globals i18n */
-	var Keys = __webpack_require__(230);
-
-	var _require = __webpack_require__(135), DecimalSeparators = _require.DecimalSeparators, IconTypes = _require.IconTypes, KeyTypes = _require.KeyTypes;
-
-	var _require2 = __webpack_require__(231), decimalSeparator = _require2.decimalSeparator;
-
-	var KeyConfigs = (_KeyConfigs = {}, _KeyConfigs[Keys.PLUS] = {
-	    type: KeyTypes.OPERATOR,
-	    // I18N: A label for a plus sign.
-	    ariaLabel: i18n._("Plus")
-	}, _KeyConfigs[Keys.MINUS] = {
-	    type: KeyTypes.OPERATOR,
-	    // I18N: A label for a minus sign.
-	    ariaLabel: i18n._("Minus")
-	}, _KeyConfigs[Keys.NEGATIVE] = {
-	    type: KeyTypes.VALUE,
-	    // I18N: A label for a minus sign.
-	    ariaLabel: i18n._("Negative")
-	}, _KeyConfigs[Keys.TIMES] = {
-	    type: KeyTypes.OPERATOR,
-	    // I18N: A label for a multiplication sign (represented with an 'x').
-	    ariaLabel: i18n._("Multiply")
-	}, _KeyConfigs[Keys.DIVIDE] = {
-	    type: KeyTypes.OPERATOR,
-	    // I18N: A label for a division sign.
-	    ariaLabel: i18n._("Divide")
-	}, _KeyConfigs[Keys.DECIMAL] = {
-	    type: KeyTypes.VALUE,
-	    // I18N: A label for a decimal symbol.
-	    ariaLabel: i18n._("Decimal"),
-	    icon: decimalSeparator === DecimalSeparators.COMMA ? {
-	        // TODO(charlie): Get an SVG icon for the comma, or verify with
-	        // design that the text-rendered version is acceptable.
-	        type: IconTypes.TEXT,
-	        data: ","
-	    } : {
-	        type: IconTypes.SVG,
-	        data: Keys.PERIOD
-	    }
-	}, _KeyConfigs[Keys.PERCENT] = {
-	    type: KeyTypes.OPERATOR,
-	    // I18N: A label for a percent sign.
-	    ariaLabel: i18n._("Percent")
-	}, _KeyConfigs[Keys.CDOT] = {
-	    type: KeyTypes.OPERATOR,
-	    // I18N: A label for a multiplication sign (represented as a dot).
-	    ariaLabel: i18n._("Multiply")
-	}, _KeyConfigs[Keys.EQUAL] = {
-	    type: KeyTypes.OPERATOR,
-	    ariaLabel: i18n._("Equals sign")
-	}, _KeyConfigs[Keys.NEQ] = {
-	    type: KeyTypes.OPERATOR,
-	    ariaLabel: i18n._("Not-equals sign")
-	}, _KeyConfigs[Keys.GT] = {
-	    type: KeyTypes.OPERATOR,
-	    // I18N: A label for a 'greater than' sign (represented as '>').
-	    ariaLabel: i18n._("Greater than sign")
-	}, _KeyConfigs[Keys.LT] = {
-	    type: KeyTypes.OPERATOR,
-	    // I18N: A label for a 'less than' sign (represented as '<').
-	    ariaLabel: i18n._("Less than sign")
-	}, _KeyConfigs[Keys.GEQ] = {
-	    type: KeyTypes.OPERATOR,
-	    ariaLabel: i18n._("Greater than or equal to sign")
-	}, _KeyConfigs[Keys.LEQ] = {
-	    type: KeyTypes.OPERATOR,
-	    ariaLabel: i18n._("Less than or equal to sign")
-	}, _KeyConfigs[Keys.FRAC_INCLUSIVE] = {
-	    type: KeyTypes.OPERATOR,
-	    // I18N: A label for a button that creates a new fraction and puts the
-	    // current expression in the numerator of that fraction.
-	    ariaLabel: i18n._("Fraction, with current expression in numerator")
-	}, _KeyConfigs[Keys.FRAC_EXCLUSIVE] = {
-	    type: KeyTypes.OPERATOR,
-	    // I18N: A label for a button that creates a new fraction next to the
-	    // cursor.
-	    ariaLabel: i18n._("Fraction, excluding the current expression")
-	}, _KeyConfigs[Keys.EXP] = {
-	    type: KeyTypes.OPERATOR,
-	    // I18N: A label for a button that will allow the user to input a custom
-	    // exponent.
-	    ariaLabel: i18n._("Custom exponent")
-	}, _KeyConfigs[Keys.EXP_2] = {
-	    type: KeyTypes.OPERATOR,
-	    // I18N: A label for a button that will square (take to the second
-	    // power) some math.
-	    ariaLabel: i18n._("Square")
-	}, _KeyConfigs[Keys.EXP_3] = {
-	    type: KeyTypes.OPERATOR,
-	    // I18N: A label for a button that will cube (take to the third power)
-	    // some math.
-	    ariaLabel: i18n._("Cube")
-	}, _KeyConfigs[Keys.SQRT] = {
-	    type: KeyTypes.OPERATOR,
-	    ariaLabel: i18n._("Square root")
-	}, _KeyConfigs[Keys.CUBE_ROOT] = {
-	    type: KeyTypes.OPERATOR,
-	    ariaLabel: i18n._("Cube root")
-	}, _KeyConfigs[Keys.RADICAL] = {
-	    type: KeyTypes.OPERATOR,
-	    ariaLabel: i18n._("Radical with custom root")
-	}, _KeyConfigs[Keys.LEFT_PAREN] = {
-	    type: KeyTypes.OPERATOR,
-	    ariaLabel: i18n._("Left parenthesis")
-	}, _KeyConfigs[Keys.RIGHT_PAREN] = {
-	    type: KeyTypes.OPERATOR,
-	    ariaLabel: i18n._("Right parenthesis")
-	}, _KeyConfigs[Keys.LN] = {
-	    type: KeyTypes.OPERATOR,
-	    ariaLabel: i18n._("Natural logarithm")
-	}, _KeyConfigs[Keys.LOG] = {
-	    type: KeyTypes.OPERATOR,
-	    ariaLabel: i18n._("Logarithm with base 10")
-	}, _KeyConfigs[Keys.LOG_N] = {
-	    type: KeyTypes.OPERATOR,
-	    ariaLabel: i18n._("Logarithm with custom base")
-	}, _KeyConfigs[Keys.SIN] = {
-	    type: KeyTypes.OPERATOR,
-	    ariaLabel: i18n._("Sine")
-	}, _KeyConfigs[Keys.COS] = {
-	    type: KeyTypes.OPERATOR,
-	    ariaLabel: i18n._("Cosine")
-	}, _KeyConfigs[Keys.TAN] = {
-	    type: KeyTypes.OPERATOR,
-	    ariaLabel: i18n._("Tangent")
-	}, _KeyConfigs[Keys.PI] = {
-	    type: KeyTypes.VALUE,
-	    ariaLabel: i18n._("Pi"),
-	    icon: {
-	        type: IconTypes.MATH,
-	        data: "\\pi"
-	    }
-	}, _KeyConfigs[Keys.THETA] = {
-	    type: KeyTypes.VALUE,
-	    ariaLabel: i18n._("Theta"),
-	    icon: {
-	        type: IconTypes.MATH,
-	        data: "\\theta"
-	    }
-	}, _KeyConfigs[Keys.NOOP] = {
-	    type: KeyTypes.EMPTY
-	}, _KeyConfigs[Keys.UP] = {
-	    type: KeyTypes.INPUT_NAVIGATION,
-	    ariaLabel: i18n._("Up arrow")
-	}, _KeyConfigs[Keys.RIGHT] = {
-	    type: KeyTypes.INPUT_NAVIGATION,
-	    ariaLabel: i18n._("Right arrow")
-	}, _KeyConfigs[Keys.DOWN] = {
-	    type: KeyTypes.INPUT_NAVIGATION,
-	    ariaLabel: i18n._("Down arrow")
-	}, _KeyConfigs[Keys.LEFT] = {
-	    type: KeyTypes.INPUT_NAVIGATION,
-	    ariaLabel: i18n._("Left arrow")
-	}, _KeyConfigs[Keys.JUMP_OUT_PARENTHESES] = {
-	    type: KeyTypes.INPUT_NAVIGATION,
-	    ariaLabel: i18n._("Navigate right out of a set of parentheses")
-	}, _KeyConfigs[Keys.JUMP_OUT_EXPONENT] = {
-	    type: KeyTypes.INPUT_NAVIGATION,
-	    ariaLabel: i18n._("Navigate right out of an exponent")
-	}, _KeyConfigs[Keys.JUMP_OUT_BASE] = {
-	    type: KeyTypes.INPUT_NAVIGATION,
-	    ariaLabel: i18n._("Navigate right out of a base")
-	}, _KeyConfigs[Keys.JUMP_INTO_NUMERATOR] = {
-	    type: KeyTypes.INPUT_NAVIGATION,
-	    ariaLabel: i18n._("Navigate right into the numerator of a fraction")
-	}, _KeyConfigs[Keys.JUMP_OUT_NUMERATOR] = {
-	    type: KeyTypes.INPUT_NAVIGATION,
-	    ariaLabel: i18n._("Navigate right out of the numerator and into the denominator")
-	}, _KeyConfigs[Keys.JUMP_OUT_DENOMINATOR] = {
-	    type: KeyTypes.INPUT_NAVIGATION,
-	    ariaLabel: i18n._("Navigate right out of the denominator of a fraction")
-	}, _KeyConfigs[Keys.BACKSPACE] = {
-	    type: KeyTypes.INPUT_NAVIGATION,
-	    // I18N: A label for a button that will delete some input.
-	    ariaLabel: i18n._("Delete")
-	}, _KeyConfigs[Keys.DISMISS] = {
-	    type: KeyTypes.KEYPAD_NAVIGATION,
-	    // I18N: A label for a button that will dismiss/hide a keypad.
-	    ariaLabel: i18n._("Dismiss")
-	}, _KeyConfigs);
-
-	// Add in any multi-function buttons. By default, these keys will mix in any
-	// configuration settings from their default child key (i.e., the first key in
-	// the `childKeyIds` array).
-	// TODO(charlie): Make the multi-function button's long-press interaction
-	// accessible.
-	KeyConfigs[Keys.FRAC_MULTI] = {
-	    childKeyIds: [ Keys.FRAC_INCLUSIVE, Keys.FRAC_EXCLUSIVE ]
-	};
-
-	// TODO(charlie): Use the numeral color for the 'Many' key.
-	KeyConfigs[Keys.MANY] = {
-	    type: KeyTypes.MANY
-	};
-
-	// Add in every numeral.
-	var NUMBERS = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ];
-
-	for (var _iterator = NUMBERS, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator](); ;) {
-	    var _ref;
-	    if (_isArray) {
-	        if (_i >= _iterator.length) break;
-	        _ref = _iterator[_i++];
-	    } else {
-	        _i = _iterator.next();
-	        if (_i.done) break;
-	        _ref = _i.value;
-	    }
-	    var num = _ref;
-	    // TODO(charlie): Consider removing the SVG icons that we have for the
-	    // numeral keys. They can be rendered just as easily with text (though that
-	    // would mean that we'd be using text beyond the variable key).
-	    var textRepresentation = "" + num;
-	    KeyConfigs["NUM_" + num] = {
-	        type: KeyTypes.VALUE,
-	        ariaLabel: textRepresentation,
-	        icon: {
-	            type: IconTypes.TEXT,
-	            data: textRepresentation
-	        }
-	    };
-	}
-
-	// Add in every variable.
-	var LETTERS = [ "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" ];
-
-	for (var _iterator2 = LETTERS, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : _iterator2[Symbol.iterator](); ;) {
-	    var _ref2;
-	    if (_isArray2) {
-	        if (_i2 >= _iterator2.length) break;
-	        _ref2 = _iterator2[_i2++];
-	    } else {
-	        _i2 = _iterator2.next();
-	        if (_i2.done) break;
-	        _ref2 = _i2.value;
-	    }
-	    var letter = _ref2;
-	    var lowerCaseVariable = letter.toLowerCase();
-	    var upperCaseVariable = letter.toUpperCase();
-	    var _arr = [ lowerCaseVariable, upperCaseVariable ];
-	    for (var _i4 = 0; _i4 < _arr.length; _i4++) {
-	        var _textRepresentation = _arr[_i4];
-	        KeyConfigs[_textRepresentation] = {
-	            type: KeyTypes.VALUE,
-	            ariaLabel: _textRepresentation,
-	            icon: {
-	                type: IconTypes.MATH,
-	                data: _textRepresentation
-	            }
-	        };
-	    }
-	}
-
-	for (var _iterator3 = Object.keys(KeyConfigs), _isArray3 = Array.isArray(_iterator3), _i3 = 0, _iterator3 = _isArray3 ? _iterator3 : _iterator3[Symbol.iterator](); ;) {
-	    var _ref3;
-	    if (_isArray3) {
-	        if (_i3 >= _iterator3.length) break;
-	        _ref3 = _iterator3[_i3++];
-	    } else {
-	        _i3 = _iterator3.next();
-	        if (_i3.done) break;
-	        _ref3 = _i3.value;
-	    }
-	    var key = _ref3;
-	    KeyConfigs[key] = _extends({
-	        id: key,
-	        // Default to an SVG icon indexed by the key name.
-	        icon: {
-	            type: IconTypes.SVG,
-	            data: key
-	        }
-	    }, KeyConfigs[key]);
-	}
-
-	module.exports = KeyConfigs;
 
 /***/ },
 /* 210 */
@@ -44156,337 +44160,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var _ = __webpack_require__(17);
 
-	var WrappedEllipse = __webpack_require__(217);
-
-	var kpoint = __webpack_require__(180).point;
-
-	var add = {
-	    constrain: function constrain() {
-	        this.constrain();
-	    }
-	};
-
-	add.standard = [ add.constrain ];
-
-	var modify = {
-	    draw: function draw() {
-	        this.draw();
-	    }
-	};
-
-	modify.standard = [ modify.draw ];
-
-	var draw = {
-	    basic: function basic(state, prevState) {
-	        var graphie = this.graphie;
-	        if (!this.state.visibleShape) {
-	            var radii = [ this.pointSize() / graphie.scale[0], this.pointSize() / graphie.scale[1] ];
-	            var options = {
-	                maxScale: Math.max(this.highlightStyle().scale, this.normalStyle().scale),
-	                // Add in 10px of padding to avoid clipping at the edges.
-	                padding: 10,
-	                shadow: state.shadow
-	            };
-	            this.state.visibleShape = new WrappedEllipse(graphie, this.coord(), radii, options);
-	            this.state.visibleShape.attr(_.omit(this.normalStyle(), "scale"));
-	            this.state.visibleShape.toFront();
-	            // Keep mouseTarget in front of visible shape
-	            this.mouseTarget() && this.mouseTarget().toFront();
-	        }
-	        state.normalStyle === prevState.normalStyle || _.isEqual(state.normalStyle, prevState.normalStyle) || this.state.visibleShape.attr(this.normalStyle());
-	        this.state.visibleShape.moveTo(this.coord());
-	        this.mouseTarget() && this.mouseTarget().moveTo(this.coord());
-	    },
-	    highlight: function highlight(state, prevState) {
-	        state.isHovering && !prevState.isHovering ? state.visibleShape.animate(this.highlightStyle(), 50) : !state.isHovering && prevState.isHovering && state.visibleShape.animate(this.normalStyle(), 50);
-	    }
-	};
-
-	draw.standard = [ draw.basic, draw.highlight ];
-
-	var remove = {
-	    basic: function basic() {
-	        if (this.state.visibleShape) {
-	            this.state.visibleShape.remove();
-	            this.state.visibleShape = null;
-	        }
-	    }
-	};
-
-	remove.standard = remove.basic;
-
-	var constraints = {
-	    fixed: function fixed() {
-	        return function() {
-	            return false;
-	        };
-	    },
-	    snap: function snap(_snap) {
-	        return function(coord) {
-	            if (null === _snap) return true;
-	            _snap = _snap || this.graphie.snap;
-	            return kpoint.roundTo(coord, _snap);
-	        };
-	    },
-	    bound: function bound(range, snap, paddingPx) {
-	        void 0 === paddingPx && (paddingPx = void 0 === range ? 10 : 0);
-	        return function(coord, prev, options) {
-	            var graphie = this.graphie;
-	            range = range || graphie.range;
-	            void 0 === snap && (snap = graphie.snap);
-	            var lower = graphie.unscalePoint([ paddingPx, graphie.ypixels - paddingPx ]);
-	            var upper = graphie.unscalePoint([ graphie.xpixels - paddingPx, paddingPx ]);
-	            if (snap) {
-	                lower = kpoint.ceilTo(lower, snap);
-	                upper = kpoint.floorTo(upper, snap);
-	            }
-	            if (!!options && !!options.onOutOfBounds) {
-	                if (coord[0] > upper[0] || coord[0] < lower[0] || coord[1] > upper[1] || coord[1] < lower[1]) {
-	                    options.onSkipRemaining();
-	                    options.onOutOfBounds();
-	                }
-	                return coord;
-	            }
-	            return [ Math.max(lower[0], Math.min(upper[0], coord[0])), Math.max(lower[1], Math.min(upper[1], coord[1])) ];
-	        };
-	    }
-	};
-
-	constraints.standard = null;
-
-	module.exports = {
-	    add: add,
-	    modify: modify,
-	    draw: draw,
-	    remove: remove,
-	    onMoveStart: {
-	        standard: null
-	    },
-	    constraints: constraints,
-	    onMove: {
-	        standard: null
-	    },
-	    onMoveEnd: {
-	        standard: null
-	    },
-	    onClick: {
-	        standard: null
-	    }
-	};
-
-/***/ },
-/* 217 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(17);
-
-	var WrappedDefaults = __webpack_require__(190);
-
-	var InteractiveUtil = __webpack_require__(128);
-
-	var kvector = __webpack_require__(180).vector;
-
-	var DEFAULT_OPTIONS = {
-	    maxScale: 1,
-	    mouselayer: false,
-	    shadow: false,
-	    disableMouseEventsOnWrapper: false
-	};
-
-	var WrappedEllipse = function WrappedEllipse(graphie, center, radii, options) {
-	    options = _.extend({}, DEFAULT_OPTIONS, options);
-	    // Add `wrapper`, `visibleShape`, and remaining properties.
-	    var fixedEllipse = graphie.fixedEllipse(center, radii, options.maxScale, options.padding);
-	    _.extend(this, fixedEllipse, {
-	        graphie: graphie,
-	        initialPoint: center
-	    });
-	    // Add to appropriate graphie layer
-	    if (options.mouselayer) {
-	        // Disable browser handling of all panning and zooming gestures on the
-	        // movable wrapper so that when moved the browser does not scroll page
-	        this.wrapper.style.touchAction = "none";
-	        this.graphie.addToMouseLayerWrapper(this.wrapper);
-	    } else this.graphie.addToVisibleLayerWrapper(this.wrapper);
-	    if (options.shadow) {
-	        var filter = "drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.5))";
-	        var wrapper = this.wrapper;
-	        wrapper.style.webkitFilter = filter;
-	        wrapper.style.filter = filter;
-	        this.moveTo = function(point) {
-	            var delta = kvector.subtract(this.graphie.scalePoint(point), this.graphie.scalePoint(this.initialPoint));
-	            var do3dTransform = InteractiveUtil.getCanUse3dTransform();
-	            var transform = "translateX(" + Math.round(delta[0]) + "px) translateY(" + Math.round(delta[1]) + "px)" + (do3dTransform ? " translateZ(0)" : "");
-	            this.transform(transform);
-	        };
-	    }
-	    if (options.disableMouseEventsOnWrapper) {
-	        this.wrapper.style.pointerEvents = "none";
-	        this.visibleShape.node.style.pointerEvents = "auto";
-	    }
-	};
-
-	_.extend(WrappedEllipse.prototype, WrappedDefaults);
-
-	module.exports = WrappedEllipse;
-
-/***/ },
-/* 218 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* globals katex:false, MathJax:false, Exercises:false */
-	var KhanMath = __webpack_require__(98);
-
-	function findChildOrAdd(elem, className) {
-	    var $child = $(elem).find("." + className);
-	    return 0 === $child.length ? $("<span>").addClass(className).appendTo($(elem)) : $child;
-	}
-
-	function doCallback(elem, callback) {
-	    var tries = 0;
-	    !function check() {
-	        // Heuristic to guess if the font has kicked in
-	        // so we have box metrics (magic number ick,
-	        // but this seems to work mostly-consistently)
-	        if (elem.scrollHeight > 18 || tries >= 10) callback(); else {
-	            tries++;
-	            setTimeout(check, 100);
-	        }
-	    }();
-	}
-
-	module.exports = {
-	    // Process a node and add math inside of it. This attempts to use KaTeX to
-	    // format the math, and if that fails it falls back to MathJax.
-	    //
-	    // elem: The element which the math should be added to.
-	    //
-	    // text: The text that should be formatted inside of the node. If the node
-	    //       has already had math formatted inside of it before, this doesn't
-	    //       have to be provided. If this is not provided, and the node hasn't
-	    //       been formatted before, the text content of the node is used.
-	    //
-	    // force: (optional) if the node has been processed before, then it will
-	    //        not be formatted again, unless this argument is true
-	    //
-	    // callback: (optional) a callback to be run after the math has been
-	    //           processed (note: this might be called synchronously or
-	    //           asynchronously, depending on whether KaTeX or MathJax is used)
-	    processMath: function processMath(elem, text, force, callback) {
-	        var $elem = $(elem);
-	        // Only process if it hasn't been done before, or it is forced
-	        if (null == $elem.attr("data-math-formula") || force) {
-	            var $katexHolder = findChildOrAdd($elem, "katex-holder");
-	            var $mathjaxHolder = findChildOrAdd($elem, "mathjax-holder");
-	            // Search for MathJax-y script tags inside of the node. These are
-	            // used by MathJax to denote the formula to be typeset. Before, we
-	            // would update the formula by updating the contents of the script
-	            // tag, which shouldn't happen any more, but we manage them just in
-	            // case.
-	            var script = $mathjaxHolder.find("script[type='math/tex']")[0];
-	            // If text wasn't provided, we look in two places
-	            null == text && ($elem.attr("data-math-formula") ? // The old typeset formula
-	            text = $elem.attr("data-math-formula") : script && (// The contents of the <script> tag
-	            text = script.text || script.textContent));
-	            text = null != text ? text + "" : "";
-	            // Attempt to clean up some of the math
-	            text = KhanMath.cleanMath(text);
-	            // Store the formula that we're using
-	            $elem.attr("data-math-formula", text);
-	            if (Exercises.useKatex) // Try to process the nodes with KaTeX first
-	            try {
-	                katex.render(text, $katexHolder[0]);
-	                // If that worked, and we previously formatted with
-	                // mathjax, do some mathjax cleanup
-	                if ("mathjax" === $elem.attr("data-math-type")) {
-	                    // Remove the old mathjax stuff
-	                    var jax = MathJax.Hub.getJaxFor(script);
-	                    if (jax) {
-	                        var e = jax.SourceElement();
-	                        e.previousSibling && e.previousSibling.className && jax.Remove();
-	                    }
-	                }
-	                $elem.attr("data-math-type", "katex");
-	                // Call the callback
-	                callback && doCallback(elem, callback);
-	                return;
-	            } catch (err) {
-	                // IE doesn't do instanceof correctly, so we resort to
-	                // manual checking
-	                /* jshint -W103 */
-	                if (err.__proto__ !== katex.ParseError.prototype) throw err;
-	            }
-	            // Otherwise, fallback to MathJax
-	            // (Note: we don't need to do any katex cleanup here, because
-	            // KaTeX is smart and cleans itself up)
-	            $elem.attr("data-math-type", "mathjax");
-	            // Update the script tag, or add one if necessary
-	            script ? "text" in script ? // IE8, etc
-	            script.text = text : script.textContent = text : $mathjaxHolder.append("<script type='math/tex'>" + text.replace(/<\//g, "< /") + "<\/script>");
-	            if ("undefined" !== typeof MathJax) {
-	                // Put the process, a debug log, and the callback into the
-	                // MathJax queue
-	                MathJax.Hub.Queue([ "Reprocess", MathJax.Hub, $mathjaxHolder[0] ]);
-	                MathJax.Hub.Queue(function() {
-	                    KhanUtil.debugLog("MathJax done typesetting (" + text + ")");
-	                });
-	                callback && MathJax.Hub.Queue(function() {
-	                    var cb = MathJax.Callback(function() {});
-	                    doCallback(elem, function() {
-	                        callback();
-	                        cb();
-	                    });
-	                    return cb;
-	                });
-	            }
-	        }
-	    },
-	    processAllMath: function processAllMath(elem, force) {
-	        var $elem = $(elem);
-	        $elem.filter("code").add($elem.find("code")).each(function() {
-	            var $this = $(this);
-	            var text = $this.attr("data-math-formula");
-	            if (null == text) {
-	                text = $this.text();
-	                $this.empty();
-	            }
-	            KhanUtil.processMath(this, text, force);
-	        });
-	    },
-	    // Function to restore a node to a non-math-processed state
-	    cleanupMath: function cleanupMath(elem) {
-	        var $elem = $(elem);
-	        // Only mess with it if it's been processed before
-	        if ($elem.attr("data-math-formula")) {
-	            // Remove MathJax remnants
-	            if ("undefined" !== typeof MathJax) {
-	                var jax = MathJax.Hub.getJaxFor($elem.find("script")[0]);
-	                if (jax) {
-	                    var e = jax.SourceElement();
-	                    e.previousSibling && e.previousSibling.className && jax.Remove();
-	                }
-	            }
-	            $elem.text($elem.attr("data-math-formula"));
-	            $elem.attr("data-math-formula", null);
-	            $elem.attr("data-math-type", null);
-	        }
-	        return elem;
-	    },
-	    // Function to retrieve the formula of a typeset math node
-	    retrieveMathFormula: function retrieveMathFormula(elem) {
-	        return $(elem).attr("data-math-formula");
-	    }
-	};
-
-/***/ },
-/* 219 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * A library of options to pass to add/draw/remove/constraints
-	 */
-	var _ = __webpack_require__(17);
-
 	var WrappedLine = __webpack_require__(119);
 
 	var WrappedPath = __webpack_require__(223);
@@ -44732,6 +44405,337 @@ return /******/ (function(modules) { // webpackBootstrap
 	    onMove: onMove,
 	    onMoveEnd: {
 	        standard: null
+	    }
+	};
+
+/***/ },
+/* 217 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * A library of options to pass to add/draw/remove/constraints
+	 */
+	var _ = __webpack_require__(17);
+
+	var WrappedEllipse = __webpack_require__(218);
+
+	var kpoint = __webpack_require__(180).point;
+
+	var add = {
+	    constrain: function constrain() {
+	        this.constrain();
+	    }
+	};
+
+	add.standard = [ add.constrain ];
+
+	var modify = {
+	    draw: function draw() {
+	        this.draw();
+	    }
+	};
+
+	modify.standard = [ modify.draw ];
+
+	var draw = {
+	    basic: function basic(state, prevState) {
+	        var graphie = this.graphie;
+	        if (!this.state.visibleShape) {
+	            var radii = [ this.pointSize() / graphie.scale[0], this.pointSize() / graphie.scale[1] ];
+	            var options = {
+	                maxScale: Math.max(this.highlightStyle().scale, this.normalStyle().scale),
+	                // Add in 10px of padding to avoid clipping at the edges.
+	                padding: 10,
+	                shadow: state.shadow
+	            };
+	            this.state.visibleShape = new WrappedEllipse(graphie, this.coord(), radii, options);
+	            this.state.visibleShape.attr(_.omit(this.normalStyle(), "scale"));
+	            this.state.visibleShape.toFront();
+	            // Keep mouseTarget in front of visible shape
+	            this.mouseTarget() && this.mouseTarget().toFront();
+	        }
+	        state.normalStyle === prevState.normalStyle || _.isEqual(state.normalStyle, prevState.normalStyle) || this.state.visibleShape.attr(this.normalStyle());
+	        this.state.visibleShape.moveTo(this.coord());
+	        this.mouseTarget() && this.mouseTarget().moveTo(this.coord());
+	    },
+	    highlight: function highlight(state, prevState) {
+	        state.isHovering && !prevState.isHovering ? state.visibleShape.animate(this.highlightStyle(), 50) : !state.isHovering && prevState.isHovering && state.visibleShape.animate(this.normalStyle(), 50);
+	    }
+	};
+
+	draw.standard = [ draw.basic, draw.highlight ];
+
+	var remove = {
+	    basic: function basic() {
+	        if (this.state.visibleShape) {
+	            this.state.visibleShape.remove();
+	            this.state.visibleShape = null;
+	        }
+	    }
+	};
+
+	remove.standard = remove.basic;
+
+	var constraints = {
+	    fixed: function fixed() {
+	        return function() {
+	            return false;
+	        };
+	    },
+	    snap: function snap(_snap) {
+	        return function(coord) {
+	            if (null === _snap) return true;
+	            _snap = _snap || this.graphie.snap;
+	            return kpoint.roundTo(coord, _snap);
+	        };
+	    },
+	    bound: function bound(range, snap, paddingPx) {
+	        void 0 === paddingPx && (paddingPx = void 0 === range ? 10 : 0);
+	        return function(coord, prev, options) {
+	            var graphie = this.graphie;
+	            range = range || graphie.range;
+	            void 0 === snap && (snap = graphie.snap);
+	            var lower = graphie.unscalePoint([ paddingPx, graphie.ypixels - paddingPx ]);
+	            var upper = graphie.unscalePoint([ graphie.xpixels - paddingPx, paddingPx ]);
+	            if (snap) {
+	                lower = kpoint.ceilTo(lower, snap);
+	                upper = kpoint.floorTo(upper, snap);
+	            }
+	            if (!!options && !!options.onOutOfBounds) {
+	                if (coord[0] > upper[0] || coord[0] < lower[0] || coord[1] > upper[1] || coord[1] < lower[1]) {
+	                    options.onSkipRemaining();
+	                    options.onOutOfBounds();
+	                }
+	                return coord;
+	            }
+	            return [ Math.max(lower[0], Math.min(upper[0], coord[0])), Math.max(lower[1], Math.min(upper[1], coord[1])) ];
+	        };
+	    }
+	};
+
+	constraints.standard = null;
+
+	module.exports = {
+	    add: add,
+	    modify: modify,
+	    draw: draw,
+	    remove: remove,
+	    onMoveStart: {
+	        standard: null
+	    },
+	    constraints: constraints,
+	    onMove: {
+	        standard: null
+	    },
+	    onMoveEnd: {
+	        standard: null
+	    },
+	    onClick: {
+	        standard: null
+	    }
+	};
+
+/***/ },
+/* 218 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(17);
+
+	var WrappedDefaults = __webpack_require__(190);
+
+	var InteractiveUtil = __webpack_require__(128);
+
+	var kvector = __webpack_require__(180).vector;
+
+	var DEFAULT_OPTIONS = {
+	    maxScale: 1,
+	    mouselayer: false,
+	    shadow: false,
+	    disableMouseEventsOnWrapper: false
+	};
+
+	var WrappedEllipse = function WrappedEllipse(graphie, center, radii, options) {
+	    options = _.extend({}, DEFAULT_OPTIONS, options);
+	    // Add `wrapper`, `visibleShape`, and remaining properties.
+	    var fixedEllipse = graphie.fixedEllipse(center, radii, options.maxScale, options.padding);
+	    _.extend(this, fixedEllipse, {
+	        graphie: graphie,
+	        initialPoint: center
+	    });
+	    // Add to appropriate graphie layer
+	    if (options.mouselayer) {
+	        // Disable browser handling of all panning and zooming gestures on the
+	        // movable wrapper so that when moved the browser does not scroll page
+	        this.wrapper.style.touchAction = "none";
+	        this.graphie.addToMouseLayerWrapper(this.wrapper);
+	    } else this.graphie.addToVisibleLayerWrapper(this.wrapper);
+	    if (options.shadow) {
+	        var filter = "drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.5))";
+	        var wrapper = this.wrapper;
+	        wrapper.style.webkitFilter = filter;
+	        wrapper.style.filter = filter;
+	        this.moveTo = function(point) {
+	            var delta = kvector.subtract(this.graphie.scalePoint(point), this.graphie.scalePoint(this.initialPoint));
+	            var do3dTransform = InteractiveUtil.getCanUse3dTransform();
+	            var transform = "translateX(" + Math.round(delta[0]) + "px) translateY(" + Math.round(delta[1]) + "px)" + (do3dTransform ? " translateZ(0)" : "");
+	            this.transform(transform);
+	        };
+	    }
+	    if (options.disableMouseEventsOnWrapper) {
+	        this.wrapper.style.pointerEvents = "none";
+	        this.visibleShape.node.style.pointerEvents = "auto";
+	    }
+	};
+
+	_.extend(WrappedEllipse.prototype, WrappedDefaults);
+
+	module.exports = WrappedEllipse;
+
+/***/ },
+/* 219 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* globals katex:false, MathJax:false, Exercises:false */
+	var KhanMath = __webpack_require__(98);
+
+	function findChildOrAdd(elem, className) {
+	    var $child = $(elem).find("." + className);
+	    return 0 === $child.length ? $("<span>").addClass(className).appendTo($(elem)) : $child;
+	}
+
+	function doCallback(elem, callback) {
+	    var tries = 0;
+	    !function check() {
+	        // Heuristic to guess if the font has kicked in
+	        // so we have box metrics (magic number ick,
+	        // but this seems to work mostly-consistently)
+	        if (elem.scrollHeight > 18 || tries >= 10) callback(); else {
+	            tries++;
+	            setTimeout(check, 100);
+	        }
+	    }();
+	}
+
+	module.exports = {
+	    // Process a node and add math inside of it. This attempts to use KaTeX to
+	    // format the math, and if that fails it falls back to MathJax.
+	    //
+	    // elem: The element which the math should be added to.
+	    //
+	    // text: The text that should be formatted inside of the node. If the node
+	    //       has already had math formatted inside of it before, this doesn't
+	    //       have to be provided. If this is not provided, and the node hasn't
+	    //       been formatted before, the text content of the node is used.
+	    //
+	    // force: (optional) if the node has been processed before, then it will
+	    //        not be formatted again, unless this argument is true
+	    //
+	    // callback: (optional) a callback to be run after the math has been
+	    //           processed (note: this might be called synchronously or
+	    //           asynchronously, depending on whether KaTeX or MathJax is used)
+	    processMath: function processMath(elem, text, force, callback) {
+	        var $elem = $(elem);
+	        // Only process if it hasn't been done before, or it is forced
+	        if (null == $elem.attr("data-math-formula") || force) {
+	            var $katexHolder = findChildOrAdd($elem, "katex-holder");
+	            var $mathjaxHolder = findChildOrAdd($elem, "mathjax-holder");
+	            // Search for MathJax-y script tags inside of the node. These are
+	            // used by MathJax to denote the formula to be typeset. Before, we
+	            // would update the formula by updating the contents of the script
+	            // tag, which shouldn't happen any more, but we manage them just in
+	            // case.
+	            var script = $mathjaxHolder.find("script[type='math/tex']")[0];
+	            // If text wasn't provided, we look in two places
+	            null == text && ($elem.attr("data-math-formula") ? // The old typeset formula
+	            text = $elem.attr("data-math-formula") : script && (// The contents of the <script> tag
+	            text = script.text || script.textContent));
+	            text = null != text ? text + "" : "";
+	            // Attempt to clean up some of the math
+	            text = KhanMath.cleanMath(text);
+	            // Store the formula that we're using
+	            $elem.attr("data-math-formula", text);
+	            if (Exercises.useKatex) // Try to process the nodes with KaTeX first
+	            try {
+	                katex.render(text, $katexHolder[0]);
+	                // If that worked, and we previously formatted with
+	                // mathjax, do some mathjax cleanup
+	                if ("mathjax" === $elem.attr("data-math-type")) {
+	                    // Remove the old mathjax stuff
+	                    var jax = MathJax.Hub.getJaxFor(script);
+	                    if (jax) {
+	                        var e = jax.SourceElement();
+	                        e.previousSibling && e.previousSibling.className && jax.Remove();
+	                    }
+	                }
+	                $elem.attr("data-math-type", "katex");
+	                // Call the callback
+	                callback && doCallback(elem, callback);
+	                return;
+	            } catch (err) {
+	                // IE doesn't do instanceof correctly, so we resort to
+	                // manual checking
+	                /* jshint -W103 */
+	                if (err.__proto__ !== katex.ParseError.prototype) throw err;
+	            }
+	            // Otherwise, fallback to MathJax
+	            // (Note: we don't need to do any katex cleanup here, because
+	            // KaTeX is smart and cleans itself up)
+	            $elem.attr("data-math-type", "mathjax");
+	            // Update the script tag, or add one if necessary
+	            script ? "text" in script ? // IE8, etc
+	            script.text = text : script.textContent = text : $mathjaxHolder.append("<script type='math/tex'>" + text.replace(/<\//g, "< /") + "<\/script>");
+	            if ("undefined" !== typeof MathJax) {
+	                // Put the process, a debug log, and the callback into the
+	                // MathJax queue
+	                MathJax.Hub.Queue([ "Reprocess", MathJax.Hub, $mathjaxHolder[0] ]);
+	                MathJax.Hub.Queue(function() {
+	                    KhanUtil.debugLog("MathJax done typesetting (" + text + ")");
+	                });
+	                callback && MathJax.Hub.Queue(function() {
+	                    var cb = MathJax.Callback(function() {});
+	                    doCallback(elem, function() {
+	                        callback();
+	                        cb();
+	                    });
+	                    return cb;
+	                });
+	            }
+	        }
+	    },
+	    processAllMath: function processAllMath(elem, force) {
+	        var $elem = $(elem);
+	        $elem.filter("code").add($elem.find("code")).each(function() {
+	            var $this = $(this);
+	            var text = $this.attr("data-math-formula");
+	            if (null == text) {
+	                text = $this.text();
+	                $this.empty();
+	            }
+	            KhanUtil.processMath(this, text, force);
+	        });
+	    },
+	    // Function to restore a node to a non-math-processed state
+	    cleanupMath: function cleanupMath(elem) {
+	        var $elem = $(elem);
+	        // Only mess with it if it's been processed before
+	        if ($elem.attr("data-math-formula")) {
+	            // Remove MathJax remnants
+	            if ("undefined" !== typeof MathJax) {
+	                var jax = MathJax.Hub.getJaxFor($elem.find("script")[0]);
+	                if (jax) {
+	                    var e = jax.SourceElement();
+	                    e.previousSibling && e.previousSibling.className && jax.Remove();
+	                }
+	            }
+	            $elem.text($elem.attr("data-math-formula"));
+	            $elem.attr("data-math-formula", null);
+	            $elem.attr("data-math-type", null);
+	        }
+	        return elem;
+	    },
+	    // Function to retrieve the formula of a typeset math node
+	    retrieveMathFormula: function retrieveMathFormula(elem) {
+	        return $(elem).attr("data-math-formula");
 	    }
 	};
 
@@ -49546,11 +49550,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require4 = __webpack_require__(135), BorderStyles = _require4.BorderStyles;
 
-	var CursorContexts = __webpack_require__(198);
+	var CursorContexts = __webpack_require__(197);
 
 	var _require5 = __webpack_require__(146), cursorContextPropType = _require5.cursorContextPropType;
 
-	var KeyConfigs = __webpack_require__(209);
+	var KeyConfigs = __webpack_require__(207);
 
 	var FractionKeypad = function(_React$Component) {
 	    _inherits(FractionKeypad, _React$Component);
@@ -49736,9 +49740,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require7 = __webpack_require__(146), cursorContextPropType = _require7.cursorContextPropType, keyIdPropType = _require7.keyIdPropType;
 
-	var KeyConfigs = __webpack_require__(209);
+	var KeyConfigs = __webpack_require__(207);
 
-	var CursorContexts = __webpack_require__(198);
+	var CursorContexts = __webpack_require__(197);
 
 	var ExpressionKeypad = function(_React$Component) {
 	    _inherits(ExpressionKeypad, _React$Component);
@@ -50022,7 +50026,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require5 = __webpack_require__(135), BorderStyles = _require5.BorderStyles;
 
-	var KeyConfigs = __webpack_require__(209);
+	var KeyConfigs = __webpack_require__(207);
 
 	var NavigationPad = function(_React$Component) {
 	    _inherits(NavigationPad, _React$Component);
@@ -51980,7 +51984,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require = __webpack_require__(244), connect = _require.connect;
 
-	var _require2 = __webpack_require__(207), removeEcho = _require2.removeEcho;
+	var _require2 = __webpack_require__(208), removeEcho = _require2.removeEcho;
 
 	var _require3 = __webpack_require__(210), View = _require3.View;
 
@@ -52167,7 +52171,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var KeypadButton = __webpack_require__(260);
 
-	var KeyConfigs = __webpack_require__(209);
+	var KeyConfigs = __webpack_require__(207);
 
 	var GestureManager = __webpack_require__(240);
 
@@ -52439,7 +52443,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Keys = __webpack_require__(230);
 
-	var KeyConfigs = __webpack_require__(209);
+	var KeyConfigs = __webpack_require__(207);
 
 	var _require = __webpack_require__(135), KeyTypes = _require.KeyTypes;
 
@@ -53949,7 +53953,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var KeypadButton = __webpack_require__(260);
 
-	var KeyConfigs = __webpack_require__(209);
+	var KeyConfigs = __webpack_require__(207);
 
 	var _require = __webpack_require__(135), KeyTypes = _require.KeyTypes, EchoAnimationTypes = _require.EchoAnimationTypes;
 
@@ -54129,7 +54133,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ReactCSSTransitionGroup = __webpack_require__(275);
 
-	var KeyConfigs = __webpack_require__(209);
+	var KeyConfigs = __webpack_require__(207);
 
 	var MultiSymbolPopover = __webpack_require__(276);
 
@@ -54859,7 +54863,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var GestureManager = __webpack_require__(240);
 
-	var KeyConfigs = __webpack_require__(209);
+	var KeyConfigs = __webpack_require__(207);
 
 	var KeypadButton = __webpack_require__(260);
 
@@ -56675,7 +56679,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var result = (0, _ponyfill2["default"])(root);
 
 	exports["default"] = result;
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(347)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(346)(module)))
 
 /***/ },
 /* 296 */
@@ -59336,7 +59340,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return obj && "function" === typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
 	};
 
-	var freeGlobal = __webpack_require__(346);
+	var freeGlobal = __webpack_require__(347);
 
 	/** Detect free variable `self`. */
 	var freeSelf = "object" == ("undefined" === typeof self ? "undefined" : _typeof(self)) && self && self.Object === Object && self;
@@ -59388,22 +59392,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 346 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(global) {var _typeof = "function" === typeof Symbol && "symbol" === typeof Symbol.iterator ? function(obj) {
-	    return typeof obj;
-	} : function(obj) {
-	    return obj && "function" === typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-	};
-
-	/** Detect free variable `global` from Node.js. */
-	var freeGlobal = "object" == ("undefined" === typeof global ? "undefined" : _typeof(global)) && global && global.Object === Object && global;
-
-	module.exports = freeGlobal;
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
-
-/***/ },
-/* 347 */
-/***/ function(module, exports, __webpack_require__) {
-
 	module.exports = function(module) {
 		if(!module.webpackPolyfill) {
 			module.deprecate = function() {};
@@ -59415,6 +59403,22 @@ return /******/ (function(modules) { // webpackBootstrap
 		return module;
 	}
 
+
+/***/ },
+/* 347 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(global) {var _typeof = "function" === typeof Symbol && "symbol" === typeof Symbol.iterator ? function(obj) {
+	    return typeof obj;
+	} : function(obj) {
+	    return obj && "function" === typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+	};
+
+	/** Detect free variable `global` from Node.js. */
+	var freeGlobal = "object" == ("undefined" === typeof global ? "undefined" : _typeof(global)) && global && global.Object === Object && global;
+
+	module.exports = freeGlobal;
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ }
 /******/ ])
