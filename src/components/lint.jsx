@@ -23,6 +23,13 @@ const React = require("react");
 const ReactDOM = require("react-dom");
 const {StyleSheet, css} = require("aphrodite");
 const constants = require("../styles/constants.js");
+const InlineIcon = require("./inline-icon.jsx");
+
+const exclamationIcon = {
+    path: "M6 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm0-9a1 1 0 0 1 1 1v4a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1z", // eslint-disable-line max-len
+    height: 12,
+    width: 12,
+};
 
 const Lint = React.createClass({
     propTypes: {
@@ -73,12 +80,20 @@ const Lint = React.createClass({
         const tooltipAbove = this.state.tooltipAbove;
 
         let severityStyle;
+        let warningText;
+        let warningTextStyle;
         if (this.props.severity === 1) {
             severityStyle = styles.indicatorError;
+            warningText = "Error";
+            warningTextStyle = styles.publishBlockingError;
         } else if (this.props.severity ===  2) {
             severityStyle = styles.indicatorWarning;
+            warningText = "Warning";
+            warningTextStyle = styles.warning;
         } else {
             severityStyle = styles.indicatorGuideline;
+            warningText = "Recommendation";
+            warningTextStyle = styles.warning;
         }
 
         return (
@@ -90,7 +105,10 @@ const Lint = React.createClass({
                 target="lint-help-window"
                 className={css(style)}
             >
-                <span className={css(styles.indicator, severityStyle)} />
+                <span className={css(styles.indicator, severityStyle)}>
+                    {this.props.severity === 1 &&
+                        <InlineIcon {...exclamationIcon} />}
+                </span>
                 <div
                     className={css(
                         styles.tooltip, tooltipAbove && styles.tooltipAbove
@@ -98,8 +116,8 @@ const Lint = React.createClass({
                 >
                     {this.props.message.split("\n\n").map((m, i) =>
                         <p key={i} className={css(styles.tooltipParagraph)}>
-                            <span className={css(styles.warning)}>
-                                Warning:{" "}
+                            <span className={css(warningTextStyle)}>
+                                {warningText}:{" "}
                             </span>
                             {m}
                         </p>
@@ -268,14 +286,21 @@ const styles = StyleSheet.create({
 
     // This is the class for the lint indicator in the margin.
     indicator: {
-        display: "block", // Marked up with span, but displayed as a block
+        alignItems: 'center',
         borderRadius: 4,
+        color: 'white',
+        display: 'flex',
+        fontSize: 12,
         height: 8,
-        width: 8,
+        justifyContent: 'center',
         margin: 8,
+        width: 8,
     },
     indicatorError: {
         backgroundColor: '#be2612',
+        borderRadius: 8,
+        height: 16,
+        width: 16,
     },
     indicatorWarning: {
         backgroundColor: '#f86700',
@@ -345,6 +370,12 @@ const styles = StyleSheet.create({
     warning: {
         color: constants.warningColor,
         fontFamily: constants.boldFontFamily,
+    },
+
+    // The text "Publish-blocking error" instide the tooltip is highlighted
+    // like this
+    publishBlockingError: {
+        color: constants.publishBlockingErrorColor,
     },
 
 });
