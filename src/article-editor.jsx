@@ -103,21 +103,22 @@ const ArticleEditor = React.createClass({
         if (this.props.mode === "preview") {
             this.refs["frame-all"].sendNewData({
                 type: "article-all",
-                data: this._sections().map(section => {
-                    return this._apiOptionsForSection(section);
+                data: this._sections().map((section, i) => {
+                    return this._apiOptionsForSection(section, i);
                 }),
             });
         } else if (this.props.mode === "edit") {
             this._sections().forEach((section, i) => {
                 this.refs["frame-" + i].sendNewData({
                     type: "article",
-                    data: this._apiOptionsForSection(section),
+                    data: this._apiOptionsForSection(section, i),
                 });
             });
         }
     },
 
-    _apiOptionsForSection: function(section) {
+    _apiOptionsForSection: function(section, sectionIndex) {
+        const editor = this.refs[`editor${sectionIndex}`];
         return {
             apiOptions: {
                 ...ApiOptions.defaults,
@@ -135,6 +136,7 @@ const ArticleEditor = React.createClass({
                 highlightLint: this.state.highlightLint,
                 paths: this.props.contentPaths,
             },
+            legacyPerseusLint: editor ? editor.getSaveWarnings() : [],
         };
     },
 

@@ -172,6 +172,8 @@ var Renderer = React.createClass({
         // to the linter and any warnings will be highlighted in the rendered
         // output.
         linterContext: linterContextProps,
+
+        legacyPerseusLint: React.PropTypes.arrayOf(React.PropTypes.string),
     },
 
     getDefaultProps: function() {
@@ -1708,7 +1710,8 @@ var Renderer = React.createClass({
             // Apply the lint errors from the last NotGorgon run.
             // TODO(joshuan): Support overlapping dots.
             this.state.notGorgon.applyLintErrors(parsedMarkdown,
-                this.state.notGorgonLintErrors);
+                [...this.state.notGorgonLintErrors,
+                    ...(this.props.legacyPerseusLint || [])]);
         }
 
         // Render the linted markdown parse tree with React components

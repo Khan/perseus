@@ -42,6 +42,7 @@ const ArticleRenderer = React.createClass({
         // Whether to use the new Bibliotron styles for articles
         useNewStyles: React.PropTypes.bool,
         linterContext: linterContextProps,
+        legacyPerseusLint: React.PropTypes.arrayOf(React.PropTypes.string),
     },
 
     getDefaultProps() {
@@ -197,6 +198,7 @@ const ArticleRenderer = React.createClass({
                             this.props.linterContext,
                             "article"
                         )}
+                        legacyPerseusLint={this.props.legacyPerseusLint}
                     />
                 </div>
             );

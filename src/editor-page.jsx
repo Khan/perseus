@@ -137,6 +137,7 @@ var EditorPage = React.createClass({
                     paths: this.props.contentPaths,
                 },
                 reviewMode: true,
+                legacyPerseusLint: this.refs.itemEditor.getSaveWarnings(),
             }).extend(
                 _(this.props).pick(
                     "workAreaSelector",

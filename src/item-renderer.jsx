@@ -62,6 +62,7 @@ const ItemRenderer = React.createClass({
         savedState: RP.any,
         workAreaSelector: RP.string,
         linterContext: linterContextProps,
+        legacyPerseusLint: React.PropTypes.arrayOf(React.PropTypes.string),
     },
 
     getDefaultProps: function() {
@@ -166,6 +167,7 @@ const ItemRenderer = React.createClass({
                     "question"
                 )}
                 {...this.props.item.question}
+                legacyPerseusLint={this.props.legacyPerseusLint}
             />,
             document.querySelector(this.props.workAreaSelector)
         );
