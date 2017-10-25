@@ -111,15 +111,15 @@ const PreviewFrame = React.createClass({
 
     render: function() {
         if (this.state.data) {
-            const updatedData = {
-                ...this.state.data,
+            const makeUpdatedData = (data) => ({
+                ...data,
                 workAreaSelector: "#workarea",
                 hintsAreaSelector: "#hintsarea",
                 apiOptions: {
-                    ...this.state.data.apiOptions,
+                    ...data.apiOptions,
                     isMobile: this.props.isMobile,
                 },
-            };
+            });
 
             const isExercise =
                 this.state.type === "question" || this.state.type === "hint";
@@ -139,7 +139,7 @@ const PreviewFrame = React.createClass({
                         ref="container"
                     >
                         <ItemRenderer
-                            {...updatedData}
+                            {...makeUpdatedData(this.state.data)}
                             linterContext={linterContext}
                         />
                         <div id="workarea" style={{marginLeft: 0}} />
@@ -154,7 +154,7 @@ const PreviewFrame = React.createClass({
                         ref="container"
                     >
                         <HintRenderer
-                            {...updatedData}
+                            {...makeUpdatedData(this.state.data)}
                             linterContext={linterContext}
                         />
                     </div>
@@ -166,7 +166,7 @@ const PreviewFrame = React.createClass({
                         style={this.props.isMobile ? {} : {margin: "30px 0"}}
                     >
                         <ArticleRenderer
-                            {...updatedData}
+                            {...makeUpdatedData(this.state.data)}
                             linterContext={linterContext}
                         />
                     </div>
@@ -177,11 +177,11 @@ const PreviewFrame = React.createClass({
                         className={perseusClass}
                         style={this.props.isMobile ? {} : {margin: "30px 0"}}
                     >
-                        {updatedData.map((data, i) => {
+                        {this.state.data.map((data, i) => {
                             return (
                                 <ArticleRenderer
                                     key={i}
-                                    {...data}
+                                    {...makeUpdatedData(data)}
                                     linterContext={linterContext}
                                 />
                             );
