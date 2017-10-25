@@ -1,6 +1,6 @@
 /*! Perseus | https://github.com/Khan/perseus */
-// commit 7b38c9f1fac33c59056ba460e2297252bd5cf5b6
-// branch HEAD
+// commit cf341dd698c0720511dec224ee16514cbb3ed667
+// branch master
 // @generated
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -76,7 +76,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/**
 	 * Main entry point
 	 */
-	var version = __webpack_require__(28);
+	var version = __webpack_require__(21);
 
 	var Widgets = __webpack_require__(2);
 
@@ -226,7 +226,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // alignment value will likely just end up as "default".
 	        null != alignment && "default" !== alignment || (alignment = Widgets.getSupportedAlignments(type)[0]);
 	        var widgetStatic = oldWidgetInfo.static;
-	        null == widgetStatic && (widgetStatic = DEFAULT_STATIC);
+	        null == widgetStatic && (widgetStatic = false);
 	        return _.extend({}, oldWidgetInfo, {
 	            // maintain other info, like type
 	            // After upgrading we guarantee that the version is up-to-date
@@ -296,9 +296,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    getDefaultAlignment: function getDefaultAlignment(type) {
 	        var widgetInfo = widgets[type];
 	        var alignment;
-	        if (!widgetInfo) return DEFAULT_ALIGNMENT;
+	        if (!widgetInfo) return "block";
 	        alignment = widgetInfo.getDefaultAlignment ? widgetInfo.getDefaultAlignment() : widgetInfo.defaultAlignment;
-	        return alignment || DEFAULT_ALIGNMENT;
+	        return alignment || "block";
 	    },
 	    validAlignments: [ "block", "inline-block", "inline", "float-left", "float-right", "full-width" ],
 	    /**
@@ -342,7 +342,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	     */
 	    getTracking: function getTracking(type) {
 	        var widgetInfo = widgets[type];
-	        return widgetInfo && widgetInfo.tracking || DEFAULT_TRACKING;
+	        return widgetInfo && widgetInfo.tracking || "";
 	    },
 	    /**
 	     * Returns true if this widget can include lintable markdown text
@@ -350,7 +350,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	     */
 	    isLintable: function isLintable(type) {
 	        var widgetInfo = widgets[type];
-	        return widgetInfo && widgetInfo.isLintable || DEFAULT_LINTABLE;
+	        return widgetInfo && widgetInfo.isLintable || false;
 	    }
 	};
 
@@ -1292,7 +1292,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    },
 	    _hintsVisible: function _hintsVisible() {
-	        return null == this.props.hintsVisible || -1 === this.props.hintsVisible ? this.props.hints.length : this.props.hintsVisible;
+	        return null == this.props.hintsVisible || this.props.hintsVisible === -1 ? this.props.hints.length : this.props.hintsVisible;
 	    },
 	    _cacheImagesInHint: function _cacheImagesInHint(hint) {
 	        _.each(hint.images, function(data, src) {
@@ -1471,7 +1471,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return target;
 	};
 
-	var _notGorgon = __webpack_require__(21);
+	var _notGorgon = __webpack_require__(22);
 
 	var _notGorgon2 = _interopRequireDefault(_notGorgon);
 
@@ -1495,19 +1495,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var classNames = __webpack_require__(14);
 
-	var JiptParagraphs = __webpack_require__(22);
+	var JiptParagraphs = __webpack_require__(23);
 
-	var _require = __webpack_require__(23), maybeUnescape = _require.maybeUnescape;
+	var _require = __webpack_require__(24), maybeUnescape = _require.maybeUnescape;
 
-	var PerseusMarkdown = __webpack_require__(24);
+	var PerseusMarkdown = __webpack_require__(25);
 
-	var QuestionParagraph = __webpack_require__(25);
+	var QuestionParagraph = __webpack_require__(26);
 
 	var SvgImage = __webpack_require__(38);
 
 	var TeX = __webpack_require__(48);
 
-	var WidgetContainer = __webpack_require__(26);
+	var WidgetContainer = __webpack_require__(27);
 
 	var Widgets = __webpack_require__(2);
 
@@ -1519,7 +1519,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Zoomable = __webpack_require__(39);
 
-	var Deferred = __webpack_require__(27);
+	var Deferred = __webpack_require__(28);
 
 	var preprocessTex = __webpack_require__(47);
 
@@ -1986,7 +1986,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // Convenience filters:
 	        // "interactive-graph 3" will give you [[interactive-graph 3]]
 	        // "interactive-graph" will give you all interactive-graphs
-	        if ("string" === typeof filterCriterion) if (-1 !== filterCriterion.indexOf(" ")) {
+	        if ("string" === typeof filterCriterion) if (filterCriterion.indexOf(" ") !== -1) {
 	            var widgetId = filterCriterion;
 	            filterFunc = function filterFunc(id, widgetInfo) {
 	                return id === widgetId;
@@ -1998,9 +1998,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            };
 	        } else filterFunc = filterCriterion;
 	        return this.widgetIds.filter(function(id) {
-	            var widgetInfo = _this7._getWidgetInfo(id);
-	            var widget = _this7.getWidgetInstance(id);
-	            return filterFunc(id, widgetInfo, widget);
+	            return filterFunc(id, _this7._getWidgetInfo(id), _this7.getWidgetInstance(id));
 	        }).map(this.getWidgetInstance);
 	    },
 	    /**
@@ -2044,7 +2042,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    },
 	    shouldRenderJiptPlaceholder: function shouldRenderJiptPlaceholder(props, state) {
 	        // TODO(aria): Pass this in via webapp as an apiOption
-	        return "undefined" !== typeof KA && "en-pt" === KA.language && null == state.jiptContent && -1 !== props.content.indexOf("crwdns");
+	        return "undefined" !== typeof KA && "en-pt" === KA.language && null == state.jiptContent && props.content.indexOf("crwdns") !== -1;
 	    },
 	    replaceJiptContent: function replaceJiptContent(content, paragraphIndex) {
 	        if (null == paragraphIndex) // we're not translating paragraph-wise; replace the whole content
@@ -2950,13 +2948,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	        })) return shuffled;
 	        var random;
 	        random = _.isFunction(randomSeed) ? randomSeed : Util.seededRNG(randomSeed);
-	        do {
-	            // Fischer-Yates shuffle
-	            for (var top = shuffled.length; top > 0; top--) {
-	                var newEnd = Math.floor(random() * top), temp = shuffled[newEnd];
-	                shuffled[newEnd] = shuffled[top - 1];
-	                shuffled[top - 1] = temp;
-	            }
+	        do // Fischer-Yates shuffle
+	        for (var top = shuffled.length; top > 0; top--) {
+	            var newEnd = Math.floor(random() * top), temp = shuffled[newEnd];
+	            shuffled[newEnd] = shuffled[top - 1];
+	            shuffled[top - 1] = temp;
 	        } while (ensurePermuted && _.isEqual(array, shuffled));
 	        return shuffled;
 	    },
@@ -3218,7 +3214,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        query = query || window.location.search.substring(1);
 	        var urlParams = {}, e, a = /\+/g, // Regex for replacing addition symbol with a space
 	        r = /([^&=]+)=?([^&]*)/g, d = function d(s) {
-	            return decodeURIComponent(s.replace(a, " "));
+	            return decodeURIComponent(s.replace(/\+/g, " "));
 	        };
 	        while (e = r.exec(query)) urlParams[d(e[1])] = d(e[2]);
 	        return urlParams;
@@ -3232,7 +3228,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    updateQueryString: function updateQueryString(uri, key, value) {
 	        value = encodeURIComponent(value);
 	        var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
-	        var separator = -1 !== uri.indexOf("?") ? "&" : "?";
+	        var separator = uri.indexOf("?") !== -1 ? "&" : "?";
 	        return uri.match(re) ? uri.replace(re, "$1" + key + "=" + value + "$2") : uri + separator + key + "=" + value;
 	    },
 	    /**
@@ -3701,6 +3697,21 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
+	module.exports = {
+		"apiVersion": {
+			"major": 10,
+			"minor": 2
+		},
+		"itemDataVersion": {
+			"major": 0,
+			"minor": 1
+		}
+	};
+
+/***/ },
+/* 22 */
+/***/ function(module, exports, __webpack_require__) {
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
@@ -3771,7 +3782,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }).then(function(json) {
 	                onLintErrorsGenerated("error" === json.status ? [ "Some part of this text makes it untranslatable. The specific message from the i18n linter was: " + json.message.replace(/\n/g, " ") ] : []);
 	            });
-	        }, DEBOUNCE_TIMEOUT);
+	        }, 1e3);
 	    }
 	    // To avoid linting when nothing has changed.
 	    /**
@@ -3815,7 +3826,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = NotGorgon;
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -3844,12 +3855,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	// This should just return an array of strings! magick!
 	var parseToArray = function parseToArray(source) {
-	    // Remove any leading newlines to avoid splitting weirdness
-	    // (simple-markdown has the `newline` rule for this, and i have
-	    // no idea how this will handle leading newlines without that rule),
-	    // and add \n\n to let it parse at a block/paragraph level
-	    var paragraphedSource = source.replace(/^\n\s*\n/, "") + "\n\n";
-	    return builtArrayParser(paragraphedSource, {
+	    return builtArrayParser(source.replace(/^\n\s*\n/, "") + "\n\n", {
 	        inline: false
 	    });
 	};
@@ -3864,7 +3870,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -4037,7 +4043,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 24 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function(target) {
@@ -4464,7 +4470,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    // Base case: This is where we actually extract text content
 	    if (ast.content && _.isString(ast.content)) // Collapse whitespace within content unless it is code
 	    // Collapse whitespace within content unless it is code
-	    return -1 !== ast.type.toLowerCase().indexOf("code") ? [ "", ast.content, "" ] : [ ast.content.replace(/\s+/g, " ") ];
+	    return ast.type.toLowerCase().indexOf("code") !== -1 ? [ "", ast.content, "" ] : [ ast.content.replace(/\s+/g, " ") ];
 	    // Recurse through child AST nodes
 	    // Assumptions made:
 	    // 1) Child AST nodes are either direct properties or inside
@@ -4491,8 +4497,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Markdown markup and widget references are ignored.
 	 */
 	var characterCount = function characterCount(source) {
-	    var ast = parse(source);
-	    return getContent(ast).join("").length;
+	    return getContent(parse(source)).join("").length;
 	};
 
 	module.exports = {
@@ -4507,7 +4512,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 25 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types */
@@ -4532,7 +4537,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = QuestionParagraph;
 
 /***/ },
-/* 26 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function(target) {
@@ -4674,7 +4679,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = WidgetContainer;
 
 /***/ },
-/* 27 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	function _classCallCheck(instance, Constructor) {
@@ -4700,12 +4705,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	}();
 
 	module.exports = Deferred;
-
-/***/ },
-/* 28 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = {"apiVersion":{"major":10,"minor":2},"itemDataVersion":{"major":0,"minor":1}}
 
 /***/ },
 /* 29 */
@@ -5769,7 +5768,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require2 = __webpack_require__(91), iconExclamationSign = _require2.iconExclamationSign;
 
-	var lens = __webpack_require__(111);
+	var lens = __webpack_require__(126);
 
 	var ERROR_MESSAGE = i18n._("Sorry, I don't understand that!");
 
@@ -6047,9 +6046,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var matchingAnswer;
 	        var allEmpty = true;
 	        var foundMatch = !!_(rubric.answerForms).find(function(answer) {
-	            var validate = createValidator(answer);
 	            // save these because they'll be needed if this answer matches
-	            result = validate(state);
+	            result = createValidator(answer)(state);
 	            matchingAnswer = answer;
 	            allEmpty = allEmpty && result.empty;
 	            // short-circuit as soon as an answer matches
@@ -6117,7 +6115,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	        var answerForm = _ref;
 	        var maybeExpr = KAS.parse(answerForm.value, props);
-	        maybeExpr.parsed && !function() {
+	        maybeExpr.parsed && function() {
 	            var expr = maybeExpr.expr;
 	            // The keypad expects Greek letters to be capitalized (e.g., it
 	            // requires `PI` instead of `pi`). Right now, it only supports Pi
@@ -6365,7 +6363,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return target;
 	};
 
-	var _perseusMarkdown = __webpack_require__(24);
+	var _perseusMarkdown = __webpack_require__(25);
 
 	var _perseusMarkdown2 = _interopRequireDefault(_perseusMarkdown);
 
@@ -6607,9 +6605,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	function pushContextStack(context, name) {
-	    var stack = context.stack || [];
 	    return _extends({}, context, {
-	        stack: stack.concat(name)
+	        stack: (context.stack || []).concat(name)
 	    });
 	}
 
@@ -6756,7 +6753,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ImageLoader = __webpack_require__(101);
 
-	var _require = __webpack_require__(23), maybeUnescape = _require.maybeUnescape;
+	var _require = __webpack_require__(24), maybeUnescape = _require.maybeUnescape;
 
 	var Util = __webpack_require__(18);
 
@@ -6861,7 +6858,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            text = maybeUnescape(text);
 	            if (useMath) {
 	                var mathRegex = /^\$(.*)\$$/;
-	                var match = text.match(mathRegex);
+	                var match = text.match(/^\$(.*)\$$/);
 	                var mathText = match ? match[1] : "\\color{red}{\\text{Invalid Math}}";
 	                label.processMath(mathText, true);
 	            } else label.processText(text);
@@ -7187,7 +7184,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (!isLabeledSVG(imageSrc)) {
 	            if (responsive) {
 	                var wrapperClasses = classNames({
-	                    zoomable: width > ZOOMABLE_THRESHOLD,
+	                    zoomable: width > 700,
 	                    "svg-image": true
 	                });
 	                imageProps.onClick = this._handleZoomClick;
@@ -7280,7 +7277,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ReactDOM = __webpack_require__(13);
 
-	var Deferred = __webpack_require__(27);
+	var Deferred = __webpack_require__(28);
 
 	var Zoomable = React.createClass({
 	    displayName: "Zoomable",
@@ -7987,7 +7984,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require = __webpack_require__(15), StyleSheet = _require.StyleSheet, css = _require.css;
 
-	var lens = __webpack_require__(111);
+	var lens = __webpack_require__(126);
 
 	var React = __webpack_require__(12);
 
@@ -8017,8 +8014,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        _this._handleSerializedStateUpdated = function(path, newState) {
 	            var onSerializedStateUpdated = _this.props.onSerializedStateUpdated;
 	            if (onSerializedStateUpdated) {
-	                var oldState = _this._getSerializedState(_this.props.serializedState);
-	                onSerializedStateUpdated(lens(oldState).set(path, newState).freeze());
+	                onSerializedStateUpdated(lens(_this._getSerializedState(_this.props.serializedState)).set(path, newState).freeze());
 	            }
 	        };
 	        _this.rendererDataTreeMapper = buildMapper().setContentMapper(function(c, _, p) {
@@ -8710,7 +8706,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Changeable = __webpack_require__(94);
 
-	var WidgetJsonifyDeprecated = __webpack_require__(112);
+	var WidgetJsonifyDeprecated = __webpack_require__(111);
 
 	var _ = __webpack_require__(11);
 
@@ -8871,8 +8867,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var styles = StyleSheet.create({
 	    fullBleedContainer: (_fullBleedContainer = {}, _fullBleedContainer[mediaQueries.mdOrSmaller] = {
-	        marginLeft: -pageMargin,
-	        marginRight: -pageMargin,
+	        marginLeft: -16,
+	        marginRight: -16,
 	        overflowX: "auto"
 	    }, _fullBleedContainer),
 	    header: {
@@ -8946,10 +8942,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var IS_KA_SITE = /khanacademy\.org/;
 
-	var KA_EMBED_URL = "https://{hostname}/computer-programming/program/{programID}/embedded?embed=yes&author=no";
-
 	function getUrlFromProgramID(programID) {
-	    var url = KA_EMBED_URL.replace("{programID}", programID);
+	    var url = "https://{hostname}/computer-programming/program/{programID}/embedded?embed=yes&author=no".replace("{programID}", programID);
 	    var currentHostname = document.location.hostname;
 	    var embedHostname = "www.khanacademy.org";
 	    IS_KA_SITE.test(currentHostname) && (embedHostname = currentHostname);
@@ -9019,7 +9013,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            className = "perseus-scratchpad-editor";
 	        } else {
 	            url += "&editor=no";
-	            style.width = this.props.width + PADDING_WIDTH;
+	            style.width = this.props.width + 2;
 	            className = "perseus-scratchpad";
 	        }
 	        if (this.props.showButtons) {
@@ -9173,9 +9167,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }, choice);
 	        })), React.createElement(InlineIcon, _extends({}, iconDropdownArrow, {
 	            style: {
-	                marginLeft: "-" + dropdownArrowSize + "px",
-	                height: dropdownArrowSize,
-	                width: dropdownArrowSize
+	                marginLeft: "-24px",
+	                height: 24,
+	                width: 24
 	            }
 	        })));
 	    },
@@ -9235,11 +9229,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	        borderRadius: 4,
 	        boxShadow: "none",
 	        fontFamily: styleConstants.baseFontFamily,
-	        padding: "9px " + (dropdownArrowSize + 1) + "px 9px 9px",
+	        padding: "9px 25px 9px 9px",
 	        ":focus": {
 	            outline: "none",
 	            border: "2px solid " + styleConstants.kaGreen,
-	            padding: "8px " + dropdownArrowSize + "px 8px 8px"
+	            padding: "8px 24px 8px 8px"
 	        },
 	        ":focus + svg": {
 	            color: "" + styleConstants.kaGreen
@@ -9437,9 +9431,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    },
 	    contentExpanded: {
 	        borderLeft: "5px solid #ccc",
-	        marginLeft: -leftBorderSpacing,
-	        paddingLeft: leftBorderSpacing,
-	        paddingBottom: verticalContentPadding,
+	        marginLeft: -23,
+	        paddingLeft: 23,
+	        paddingBottom: 10,
 	        // Note: we still use arrow height as the vertical margin, even on
 	        // desktop when there is no arrow, but it's good enough.
 	        marginBottom: arrowHeight,
@@ -9470,7 +9464,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        bottom: -(arrowHeight + 5),
 	        height: arrowHeight,
 	        left: "50%",
-	        marginLeft: -arrowWidth / 2,
+	        marginLeft: -(arrowWidth / 2),
 	        position: "absolute",
 	        width: arrowWidth
 	    }
@@ -9827,7 +9821,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // below it.
 	        height: arrowHeight,
 	        left: "50%",
-	        marginLeft: -arrowWidth / 2,
+	        marginLeft: -(arrowWidth / 2),
 	        position: "absolute",
 	        width: arrowWidth,
 	        zIndex: 4
@@ -9872,13 +9866,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(11);
 
-	var Interactive2 = __webpack_require__(113);
+	var Interactive2 = __webpack_require__(112);
 
 	var SvgImage = __webpack_require__(38);
 
 	var Util = __webpack_require__(18);
 
-	var ButtonGroup = __webpack_require__(114);
+	var ButtonGroup = __webpack_require__(113);
 
 	/* Graphie and relevant components. */
 	var Graphie = __webpack_require__(100);
@@ -9887,7 +9881,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var MovableLine = Graphie.MovableLine;
 
-	var WrappedLine = __webpack_require__(115);
+	var WrappedLine = __webpack_require__(114);
 
 	var knumber = __webpack_require__(176).number;
 
@@ -9895,7 +9889,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var kpoint = __webpack_require__(176).point;
 
-	var KhanColors = __webpack_require__(116);
+	var KhanColors = __webpack_require__(115);
 
 	var _require = __webpack_require__(84), containerSizeClassPropType = _require.containerSizeClassPropType;
 
@@ -9906,7 +9900,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* Mixins. */
 	var Changeable = __webpack_require__(94);
 
-	var _require4 = __webpack_require__(131), GrapherUtil = _require4.GrapherUtil, typeToButton = _require4.typeToButton, functionForType = _require4.functionForType, DEFAULT_GRAPHER_PROPS = _require4.DEFAULT_GRAPHER_PROPS;
+	var _require4 = __webpack_require__(130), GrapherUtil = _require4.GrapherUtil, typeToButton = _require4.typeToButton, functionForType = _require4.functionForType, DEFAULT_GRAPHER_PROPS = _require4.DEFAULT_GRAPHER_PROPS;
 
 	function isFlipped(newCoord, oldCoord, line) {
 	    var CCW = function CCW(a, b, c) {
@@ -10336,7 +10330,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Renderer = __webpack_require__(9);
 
-	var GradedGroupAnswerBar = __webpack_require__(117);
+	var GradedGroupAnswerBar = __webpack_require__(116);
 
 	var _require2 = __webpack_require__(42), gray76 = _require2.gray76, phoneMargin = _require2.phoneMargin, negativePhoneMargin = _require2.negativePhoneMargin, tableBackgroundAccent = _require2.tableBackgroundAccent, kaGreen = _require2.kaGreen;
 
@@ -11041,7 +11035,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Changeable = __webpack_require__(94);
 
-	var WidgetJsonifyDeprecated = __webpack_require__(112);
+	var WidgetJsonifyDeprecated = __webpack_require__(111);
 
 	var updateQueryString = __webpack_require__(18).updateQueryString;
 
@@ -11294,10 +11288,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    },
 	    getDefaultProps: function getDefaultProps() {
 	        return {
-	            alignment: DEFAULT_ALIGNMENT,
+	            alignment: "block",
 	            title: "",
 	            range: [ defaultRange, defaultRange ],
-	            box: [ defaultBoxSize, defaultBoxSize ],
+	            box: [ 400, 400 ],
 	            backgroundImage: defaultBackgroundImage,
 	            labels: [],
 	            alt: "",
@@ -11460,7 +11454,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var bgImage = props.backgroundImage;
 	        return !(bgImage && bgImage.url && !props.alt);
 	    },
-	    defaultAlignment: DEFAULT_ALIGNMENT,
+	    defaultAlignment: "block",
 	    supportedAlignments: editorAlignments,
 	    displayName: "Image",
 	    widget: ImageWidget,
@@ -11939,13 +11933,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(11);
 
-	var Graph = __webpack_require__(118);
+	var Graph = __webpack_require__(117);
 
-	var InfoTip = __webpack_require__(119);
+	var InfoTip = __webpack_require__(118);
 
-	var Interactive2 = __webpack_require__(113);
+	var Interactive2 = __webpack_require__(112);
 
-	var NumberInput = __webpack_require__(120);
+	var NumberInput = __webpack_require__(119);
 
 	var Util = __webpack_require__(18);
 
@@ -11953,15 +11947,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var kpoint = __webpack_require__(176).point;
 
-	var KhanColors = __webpack_require__(116);
+	var KhanColors = __webpack_require__(115);
 
-	var GraphUtils = __webpack_require__(121);
+	var GraphUtils = __webpack_require__(120);
 
 	var _require = __webpack_require__(42), interactiveSizes = _require.interactiveSizes;
 
 	var _require2 = __webpack_require__(84), containerSizeClassPropType = _require2.containerSizeClassPropType, getInteractiveBoxFromSizeClass = _require2.getInteractiveBoxFromSizeClass;
 
-	var WrappedLine = __webpack_require__(115);
+	var WrappedLine = __webpack_require__(114);
 
 	var DeprecationMixin = Util.DeprecationMixin;
 
@@ -13412,9 +13406,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        });
 	    },
 	    getEquationString: function getEquationString(props) {
-	        var type = props.graph.type;
-	        var funcName = "get" + capitalize(type) + "EquationString";
-	        return InteractiveGraph[funcName](props);
+	        return InteractiveGraph["get" + capitalize(props.graph.type) + "EquationString"](props);
 	    },
 	    pointsFromNormalized: function pointsFromNormalized(props, coordsList, noSnap) {
 	        return _.map(coordsList, function(coords) {
@@ -13464,7 +13456,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var graph = props.graph;
 	        // TODO(alpert): Don't duplicate
 	        var center = graph.center || [ 0, 0 ];
-	        return "center (" + center[0] + ", " + center[1] + "), radius " + (graph.radius || 2);
+	        var radius = graph.radius || 2;
+	        return "center (" + center[0] + ", " + center[1] + "), radius " + radius;
 	    },
 	    getLinearSystemEquationString: function getLinearSystemEquationString(props) {
 	        var coords = InteractiveGraph.getLinearSystemCoords(props.graph, props);
@@ -13488,7 +13481,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var a = coords[0];
 	        var b = coords[1];
 	        var eq = InteractiveGraph.getLinearEquationString(props);
-	        a[0] > b[0] ? eq += " (for x <= " + a[0].toFixed(3) + ")" : a[0] < b[0] ? eq += " (for x >= " + a[0].toFixed(3) + ")" : a[1] > b[1] ? eq += " (for y <= " + a[1].toFixed(3) + ")" : eq += " (for y >= " + a[1].toFixed(3) + ")";
+	        eq += a[0] > b[0] ? " (for x <= " + a[0].toFixed(3) + ")" : a[0] < b[0] ? " (for x >= " + a[0].toFixed(3) + ")" : a[1] > b[1] ? " (for y <= " + a[1].toFixed(3) + ")" : " (for y >= " + a[1].toFixed(3) + ")";
 	        return eq;
 	    },
 	    getPolygonEquationString: function getPolygonEquationString(props) {
@@ -13669,7 +13662,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Changeable = __webpack_require__(94);
 
-	var WidgetJsonifyDeprecated = __webpack_require__(112);
+	var WidgetJsonifyDeprecated = __webpack_require__(111);
 
 	var MAX_SIZE = 8;
 
@@ -13687,7 +13680,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var CELL_STYLE = {
 	    display: "table-cell",
-	    padding: CELL_PADDING
+	    padding: 5
 	};
 
 	var BASE_TILE_STYLE = {
@@ -13696,13 +13689,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	var MOVE_COUNT_STYLE = {
-	    padding: CELL_PADDING,
+	    padding: 5,
 	    display: "inline-block"
 	};
 
 	var RESET_BUTTON_STYLE = {
 	    float: "right",
-	    paddingRight: CELL_PADDING
+	    paddingRight: 5
 	};
 
 	var MAIN_TILE_SIZE = 50;
@@ -13839,11 +13832,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    },
 	    render: function render() {
 	        var width = this._width();
-	        var tileSize = MAIN_TILE_SIZE;
-	        var pxWidth = width * (tileSize + 2 * CELL_PADDING);
+	        var tileSize = 50;
+	        var pxWidth = 60 * width;
 	        return React.createElement("div", null, React.createElement(TileGrid, {
 	            cells: this.props.cells,
-	            size: tileSize,
+	            size: 50,
 	            onChange: this._flipTile
 	        }), React.createElement("div", {
 	            style: {
@@ -13974,13 +13967,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(11);
 
-	var NumberInput = __webpack_require__(120);
+	var NumberInput = __webpack_require__(119);
 
 	var Renderer = __webpack_require__(9);
 
-	var TextInput = __webpack_require__(122);
+	var TextInput = __webpack_require__(121);
 
-	var MathOutput = __webpack_require__(123);
+	var MathOutput = __webpack_require__(122);
 
 	var SimpleKeypadInput = __webpack_require__(87);
 
@@ -13990,7 +13983,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var keypadElementPropType = __webpack_require__(85).propTypes.keypadElementPropType;
 
-	var assert = __webpack_require__(124).assert;
+	var assert = __webpack_require__(123).assert;
 
 	var stringArrayOfSize = __webpack_require__(18).stringArrayOfSize;
 
@@ -14402,7 +14395,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Renderer = __webpack_require__(9);
 
-	var Sortable = __webpack_require__(125);
+	var Sortable = __webpack_require__(124);
 
 	var ApiOptions = __webpack_require__(19).Options;
 
@@ -14544,7 +14537,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var styles = StyleSheet.create({
 	    widget: {
-	        paddingTop: padding,
+	        paddingTop: 5,
 	        maxWidth: "100%",
 	        // Need to override minWidth in CSS :(
 	        minWidth: "auto"
@@ -14564,7 +14557,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    columnLabel: {
 	        fontWeight: "inherit",
 	        borderBottom: border,
-	        padding: "0 " + padding + "px " + padding + "px " + padding + "px",
+	        padding: "0 5px 5px 5px",
 	        textAlign: "center"
 	    }
 	});
@@ -14591,7 +14584,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ApiOptions = __webpack_require__(19).Options;
 
-	var GraphUtils = __webpack_require__(121);
+	var GraphUtils = __webpack_require__(120);
 
 	var defaultImage = {
 	    url: null,
@@ -14740,11 +14733,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var React = __webpack_require__(12);
 
-	var draw = __webpack_require__(132);
+	var draw = __webpack_require__(131);
 
-	var _require = __webpack_require__(133), layout = _require.layout;
+	var _require = __webpack_require__(132), layout = _require.layout;
 
-	var SmilesParser = __webpack_require__(134);
+	var SmilesParser = __webpack_require__(133);
 
 	var parse = SmilesParser.parse;
 
@@ -14792,10 +14785,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    },
 	    setCanvasBounds: function setCanvasBounds(canvas, items) {
 	        var xmax = Math.max.apply(Math, items.map(function(item) {
-	            return item.pos ? item.pos[0] : -1 / 0;
+	            return item.pos ? item.pos[0] : -(1 / 0);
 	        }));
 	        var ymax = Math.max.apply(Math, items.map(function(item) {
-	            return item.pos ? item.pos[1] : -1 / 0;
+	            return item.pos ? item.pos[1] : -(1 / 0);
 	        }));
 	        var xmin = Math.min.apply(Math, items.map(function(item) {
 	            return item.pos ? item.pos[0] : 1 / 0;
@@ -14803,11 +14796,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var ymin = Math.min.apply(Math, items.map(function(item) {
 	            return item.pos ? item.pos[1] : 1 / 0;
 	        }));
-	        var width = xmax - xmin + 2 * borderSize;
-	        var height = ymax - ymin + 2 * borderSize;
+	        var width = xmax - xmin + 60;
+	        var height = ymax - ymin + 60;
 	        canvas.width = width;
 	        canvas.height = height;
-	        return [ borderSize - xmin, borderSize - ymin ];
+	        return [ 30 - xmin, 30 - ymin ];
 	    },
 	    canvasRender: function canvasRender() {
 	        // Since canvas drawing happens only through an imperative API, we sync
@@ -14916,9 +14909,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Changeable = __webpack_require__(94);
 
-	var NumberInput = __webpack_require__(120);
+	var NumberInput = __webpack_require__(119);
 
-	var MathOutput = __webpack_require__(123);
+	var MathOutput = __webpack_require__(122);
 
 	var SimpleKeypadInput = __webpack_require__(87);
 
@@ -14936,13 +14929,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var KhanMath = __webpack_require__(90);
 
-	var KhanColors = __webpack_require__(116);
+	var KhanColors = __webpack_require__(115);
 
 	var bound = function bound(x, gt, lt) {
 	    return Math.min(Math.max(x, gt), lt);
 	};
 
-	var assert = __webpack_require__(124).assert;
+	var assert = __webpack_require__(123).assert;
 
 	var EN_DASH = "–";
 
@@ -15110,7 +15103,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // Don't allow a fraction for the number of divisions
 	        numDivisions = Math.round(numDivisions);
 	        // Don't allow negative numbers for the number of divisions
-	        numDivisions = numDivisions < 0 ? -1 * numDivisions : numDivisions;
+	        numDivisions = numDivisions < 0 ? numDivisions * -1 : numDivisions;
 	        // If the number of divisions isn't blank, update the number line
 	        if (numDivisions) {
 	            var nextProps = _.extend({}, this.props, {
@@ -15255,7 +15248,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var widthInPixels = 400;
 	        var range = props.range;
 	        var scale = (range[1] - range[0]) / 400;
-	        var buffer = horizontalPadding * scale;
+	        var buffer = 30 * scale;
 	        var left = range[0] - buffer;
 	        var right = range[1] + buffer;
 	        return isGreater ? [ right, 0 ] : [ left, 0 ];
@@ -15281,10 +15274,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // Ensure a sane configuration to avoid infinite loops
 	        if (!this.isValid()) return;
 	        // Position variables
-	        var widthInPixels = this.props.apiOptions.isMobile ? 288 - 2 * horizontalPadding : 400;
+	        var widthInPixels = this.props.apiOptions.isMobile ? 228 : 400;
 	        var range = options.range;
 	        var scale = (range[1] - range[0]) / widthInPixels;
-	        var buffer = horizontalPadding * scale;
+	        var buffer = 30 * scale;
 	        // Initiate the graphie without actually drawing anything
 	        var left = range[0] - buffer;
 	        var right = range[1] + buffer;
@@ -15318,7 +15311,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    },
 	    render: function render() {
 	        var divisionRange = this.props.divisionRange;
-	        var divRangeString = divisionRange[0] + EN_DASH + divisionRange[1];
+	        var divRangeString = divisionRange[0] + "–" + divisionRange[1];
 	        var invalidNumDivisions = this.props.numDivisions < divisionRange[0] || this.props.numDivisions > divisionRange[1];
 	        var inequalityControls = React.createElement("div", null, React.createElement("input", {
 	            type: "button",
@@ -15915,17 +15908,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var $ = __webpack_require__(16);
 
-	var HighlightableContent = __webpack_require__(135);
+	var HighlightableContent = __webpack_require__(134);
 
 	var Renderer = __webpack_require__(9);
 
-	var PassageMarkdown = __webpack_require__(137);
+	var PassageMarkdown = __webpack_require__(136);
 
 	var _require2 = __webpack_require__(36), linterContextDefault = _require2.linterContextDefault;
 
 	var babelPluginFlowReactPropTypes_proptype_ChangeableProps = __webpack_require__(94).babelPluginFlowReactPropTypes_proptype_ChangeableProps || __webpack_require__(12).PropTypes.any;
 
-	var babelPluginFlowReactPropTypes_proptype_SerializedHighlightSet = __webpack_require__(136).babelPluginFlowReactPropTypes_proptype_SerializedHighlightSet || __webpack_require__(12).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_SerializedHighlightSet = __webpack_require__(135).babelPluginFlowReactPropTypes_proptype_SerializedHighlightSet || __webpack_require__(12).PropTypes.any;
 
 	// A fake paragraph to measure the line height of the passage. In CSS we always
 	// set the line height to 22 pixels, but when using the browser zoom feature,
@@ -16193,7 +16186,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // Mostly copied from `renderer.jsx`. If we're doing JIPT, we want to
 	        // render our content differently.
 	        // $FlowFixMe KA is a global
-	        return "undefined" !== typeof KA && "en-pt" === KA.language && -1 !== this.props.passageText.indexOf("crwdns");
+	        return "undefined" !== typeof KA && "en-pt" === KA.language && this.props.passageText.indexOf("crwdns") !== -1;
 	    };
 	    Passage.prototype._renderContent = function _renderContent(parsed) {
 	        var _this6 = this;
@@ -16216,7 +16209,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }), PassageMarkdown.output(parsed)));
 	    };
 	    Passage.prototype._hasFootnotes = function _hasFootnotes() {
-	        return !/^\s*$/.test(this.props.footnotes);
+	        var rawContent = this.props.footnotes;
+	        return !/^\s*$/.test(rawContent);
 	    };
 	    Passage.prototype._renderFootnotes = function _renderFootnotes() {
 	        var rawContent = this.props.footnotes;
@@ -16322,9 +16316,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Changeable = __webpack_require__(94);
 
-	var PerseusMarkdown = __webpack_require__(24);
+	var PerseusMarkdown = __webpack_require__(25);
 
-	var WidgetJsonifyDeprecated = __webpack_require__(112);
+	var WidgetJsonifyDeprecated = __webpack_require__(111);
 
 	var EN_DASH = "–";
 
@@ -16360,9 +16354,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        lineRangeOutput = lineRange ? lineRange[0] === lineRange[1] ? $_({
 	            lineNumber: lineRange[0]
 	        }, "line %(lineNumber)s") : $_({
-	            lineRange: lineRange[0] + EN_DASH + lineRange[1]
+	            lineRange: lineRange[0] + "–" + lineRange[1]
 	        }, "lines %(lineRange)s") : $_({
-	            lineRange: "?" + EN_DASH + "?"
+	            lineRange: "?–?"
 	        }, "lines %(lineRange)s");
 	        var summaryOutput;
 	        if (this.props.summaryText) {
@@ -16456,7 +16450,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Changeable = __webpack_require__(94);
 
-	var WidgetJsonifyDeprecated = __webpack_require__(112);
+	var WidgetJsonifyDeprecated = __webpack_require__(111);
 
 	var Renderer = __webpack_require__(9);
 
@@ -16540,13 +16534,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var KhanMath = __webpack_require__(90);
 
-	var KhanColors = __webpack_require__(116);
+	var KhanColors = __webpack_require__(115);
 
-	var GraphUtils = __webpack_require__(121);
+	var GraphUtils = __webpack_require__(120);
 
-	var Interactive2 = __webpack_require__(113);
+	var Interactive2 = __webpack_require__(112);
 
-	var WrappedLine = __webpack_require__(115);
+	var WrappedLine = __webpack_require__(114);
 
 	var BAR = "bar", LINE = "line", PIC = "pic", HISTOGRAM = "histogram", DOTPLOT = "dotplot";
 
@@ -16802,6 +16796,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            isTeX = true;
 	        }
 	        var hasXLabel = 0 !== this.props.labels[0].length;
+	        var labelRotation = "translateX(-50%) translateX(5px) translateY(-50%) rotate(-45deg)";
 	        graphie.style({
 	            color: isMobile ? KhanColors.GRAY_G : "inherit",
 	            transform: isMobile && !mathyCategory ? "translateX(-50%) translateX(5px) translateY(-50%) rotate(-45deg)" : "none",
@@ -17119,8 +17114,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        graphie.mouselayer.canvas.style.touchAction = "none";
 	        pics[i] = [];
 	        dotTicks[i] = [];
-	        var n = Math.round(c.dimY / c.scaleY) + 1;
-	        _(n).times(function(j) {
+	        _(Math.round(c.dimY / c.scaleY) + 1).times(function(j) {
 	            j -= 1;
 	            var midY = (j + .5) * c.scaleY;
 	            var leftX = x - c.picBoxWidth / 2;
@@ -17524,7 +17518,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	/* globals $_, i18n */
-	var InfoTip = __webpack_require__(119);
+	var InfoTip = __webpack_require__(118);
 
 	var React = __webpack_require__(12);
 
@@ -17536,15 +17530,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ApiOptions = __webpack_require__(19).Options;
 
-	var assert = __webpack_require__(124).assert;
+	var assert = __webpack_require__(123).assert;
 
 	var Graphie = __webpack_require__(100);
 
 	var Path = Graphie.Path, Arc = Graphie.Arc, Circle = Graphie.Circle, Label = Graphie.Label, Line = Graphie.Line, MovablePoint = Graphie.MovablePoint, MovableLine = Graphie.MovableLine;
 
-	var NumberInput = __webpack_require__(120);
+	var NumberInput = __webpack_require__(119);
 
-	var MathOutput = __webpack_require__(123);
+	var MathOutput = __webpack_require__(122);
 
 	var seededRNG = __webpack_require__(18).seededRNG;
 
@@ -17552,7 +17546,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var knumber = __webpack_require__(176).number;
 
-	var KhanColors = __webpack_require__(116);
+	var KhanColors = __webpack_require__(115);
 
 	var KhanMath = __webpack_require__(90);
 
@@ -17575,7 +17569,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            data: null,
 	            xAxisLabel: "Proportion (%)",
 	            yAxisLabel: "Number of times seen",
-	            box: [ defaultBoxSize, defaultBoxSize ]
+	            box: [ 400, 400 ]
 	        };
 	    },
 	    getInitialState: function getInitialState() {
@@ -17991,7 +17985,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }, cb);
 	    },
 	    handleSampleSizeChange: function handleSampleSizeChange(sampleSize, cb) {
-	        null != sampleSize && (sampleSize = Math.min(maxSampleSize, Math.max(0, Math.floor(sampleSize))));
+	        null != sampleSize && (sampleSize = Math.min(1e3, Math.max(0, Math.floor(sampleSize))));
 	        this.props.onChange({
 	            sampleSize: sampleSize
 	        }, cb);
@@ -18025,8 +18019,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            _.times(numTrials, function() {
 	                var results = _.times(sampleSize, draw);
 	                var count = _.filter(results, _.identity).length;
-	                var normalizedCount = Math.floor(100 * count / sampleSize);
-	                sampleDistribution[normalizedCount]++;
+	                sampleDistribution[Math.floor(100 * count / sampleSize)]++;
 	            });
 	            return sampleDistribution;
 	        }(props.sampleSize, props.numTrials, props.userProportion);
@@ -18108,7 +18101,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(11);
 
-	var Sortable = __webpack_require__(125);
+	var Sortable = __webpack_require__(124);
 
 	var ApiOptions = __webpack_require__(19).Options;
 
@@ -18201,7 +18194,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(11);
 
-	var MathOutput = __webpack_require__(123);
+	var MathOutput = __webpack_require__(122);
 
 	var SimpleKeypadInput = __webpack_require__(87);
 
@@ -18217,7 +18210,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require = __webpack_require__(36), linterContextProps = _require.linterContextProps, linterContextDefault = _require.linterContextDefault;
 
-	var assert = __webpack_require__(124).assert;
+	var assert = __webpack_require__(123).assert;
 
 	/* Input handling: Maps a (row, column) pair to a unique ref used by React,
 	 * and extracts (row, column) pairs from input paths, used to allow outsiders
@@ -18508,13 +18501,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(11);
 
-	var Graph = __webpack_require__(118);
+	var Graph = __webpack_require__(117);
 
 	var InlineIcon = __webpack_require__(92);
 
-	var NumberInput = __webpack_require__(120);
+	var NumberInput = __webpack_require__(119);
 
-	var MathOutput = __webpack_require__(123);
+	var MathOutput = __webpack_require__(122);
 
 	var TeX = __webpack_require__(48);
 
@@ -18556,9 +18549,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var KhanMath = __webpack_require__(90);
 
-	var KhanColors = __webpack_require__(116);
+	var KhanColors = __webpack_require__(115);
 
-	var assert = __webpack_require__(124).assert;
+	var assert = __webpack_require__(123).assert;
 
 	var defaultBoxSize = 400;
 
@@ -18701,7 +18694,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	function texFromAngleDeg(angleDeg) {
-	    return stringFromDecimal(angleDeg) + DEGREE_SIGN;
+	    return stringFromDecimal(angleDeg) + "°";
 	}
 
 	function orderInsensitiveCoordsEqual(coords1, coords2) {
@@ -18811,7 +18804,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        },
 	        handleChange: _.debounce(function(callback) {
 	            this.props.onChange(this.value(), callback);
-	        }, RENDER_TRANSFORM_DELAY_IN_MS),
+	        }, 300),
 	        /* InputPath API: depending on the API call, this could involve simply
 	         * navigating to the right ref and calling the function on that
 	         * component, or threading the call down and returning the result. */
@@ -19060,7 +19053,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    onFocus: _.partial(this.props.onFocus, "angleDeg"),
 	                    onBlur: _.partial(this.props.onBlur, "angleDeg"),
 	                    keypadElement: this.props.keypadElement
-	                }), DEGREE_SIGN ];
+	                }), "°" ];
 	                // I18N: %(point)s must come before %(degrees)s in this phrase
 	                var text = $_({
 	                    point: point,
@@ -19464,12 +19457,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	            update: update,
 	            remove: remove,
 	            toJSON: function toJSON() {
-	                var coords = _.map(points, function(pt) {
-	                    return _.isArray(pt) ? pt : pt.coord;
-	                });
 	                return {
 	                    type: types,
-	                    coords: coords,
+	                    coords: _.map(points, function(pt) {
+	                        return _.isArray(pt) ? pt : pt.coord;
+	                    }),
 	                    options: getOptions()
 	                };
 	            },
@@ -19502,8 +19494,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        });
 	    },
 	    _forType: function _forType(type) {
-	        var baseType = type.split("-")[0];
-	        return ShapeTypes[baseType];
+	        return ShapeTypes[type.split("-")[0]];
 	    },
 	    _mapTypes: function _mapTypes(types, points, func, context) {
 	        return _.map(types, function(type, i) {
@@ -19799,7 +19790,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // Fill in any missing value in this.props.graph
 	        // this can happen because the graph json doesn't include
 	        // box, for example
-	        var graph = _.extend(defaultGraphProps(this.props.graph, defaultBoxSize), this.props.graph);
+	        var graph = _.extend(defaultGraphProps(this.props.graph, 400), this.props.graph);
 	        var interactiveToolsMode = "interactive" === this.props.graphMode;
 	        var ToolsBarClass = interactiveToolsMode ? ToolsBar : AddTransformBar;
 	        // This style is applied inline because it is dependent on the
@@ -19991,7 +19982,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var directionPolar = [ 1, KhanMath.roundToNearest(45, origDirectionPolar[1]) ];
 	        var direction = kvector.cartFromPolarDeg(directionPolar);
 	        return _.map([ -1, 1 ], function(directionCoefficient) {
-	            var coord = kvector.add(midpoint, kvector.scale(direction, directionCoefficient * this.scaleToCurrentRange(REFLECT_ROTATE_HANDLE_DIST)));
+	            var coord = kvector.add(midpoint, kvector.scale(direction, directionCoefficient * this.scaleToCurrentRange(2)));
 	            return this.snapCoord(coord);
 	        }, this);
 	    },
@@ -20047,7 +20038,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var reflectButton = graphie.addReflectButton({
 	            fixed: options.constraints.fixed,
 	            line: reflectLine,
-	            size: this.scaleToCurrentRange(REFLECT_BUTTON_SIZE),
+	            size: this.scaleToCurrentRange(1),
 	            onClick: function onClick() {
 	                self.doTransform({
 	                    type: "reflection",
@@ -20078,7 +20069,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            // 90 degrees off of the line
 	            reflectRotateHandle = graphie.addRotateHandle({
 	                center: reflectButton,
-	                radius: this.scaleToCurrentRange(REFLECT_ROTATE_HANDLE_DIST),
+	                radius: this.scaleToCurrentRange(2),
 	                angleDeg: initRotateHandleAngle,
 	                width: this.scaleToCurrentRange(.24),
 	                hoverWidth: this.scaleToCurrentRange(.4),
@@ -20154,7 +20145,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // cause rotations
 	        this.rotateHandle = graphie.addRotateHandle({
 	            center: this.rotatePoint,
-	            radius: this.scaleToCurrentRange(ROTATE_HANDLE_DIST),
+	            radius: this.scaleToCurrentRange(1.5),
 	            width: this.scaleToCurrentRange(.24),
 	            hoverWidth: this.scaleToCurrentRange(.4),
 	            onMove: function onMove(newAngle, oldAngle) {
@@ -20246,7 +20237,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return {
 	            type: "rotation",
 	            center: center,
-	            angleDeg: Math.round(angleChanged / ROTATE_SNAP_DEGREES) * ROTATE_SNAP_DEGREES
+	            angleDeg: 15 * Math.round(angleChanged / 15)
 	        };
 	    },
 	    // apply and save a transform
@@ -20492,7 +20483,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// terms of a certain type.
 	// TODO(joel): Allow sigfigs within a range rather than an exact expected
 	// value?
-	var lens = __webpack_require__(111);
+	var lens = __webpack_require__(126);
 
 	var React = __webpack_require__(12);
 
@@ -20506,9 +20497,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Changeable = __webpack_require__(94);
 
-	var MathOutput = __webpack_require__(123);
+	var MathOutput = __webpack_require__(122);
 
-	var _require = __webpack_require__(126), SignificantFigures = _require.SignificantFigures, displaySigFigs = _require.displaySigFigs;
+	var _require = __webpack_require__(125), SignificantFigures = _require.SignificantFigures, displaySigFigs = _require.displaySigFigs;
 
 	var ALL = "all";
 
@@ -20521,7 +20512,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	var sigfigPrint = function sigfigPrint(num, sigfigs) {
-	    return displaySigFigs(num, sigfigs, -MAX_SIGFIGS, false);
+	    return displaySigFigs(num, sigfigs, -10, false);
 	};
 
 	/* I just wrote this, but it's old by analogy to `OldExpression`, in that it's
@@ -20785,14 +20776,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	            url = url.replace("{hostname}", embedHostname);
 	        }
 	        return React.createElement(FixedToResponsive, {
-	            width: DEFAULT_WIDTH,
-	            height: DEFAULT_HEIGHT,
+	            width: 1280,
+	            height: 720,
 	            key: location + this.props.alignment
 	        }, React.createElement("iframe", {
 	            className: "perseus-video-widget",
 	            sandbox: "allow-same-origin allow-scripts",
-	            width: DEFAULT_WIDTH,
-	            height: DEFAULT_HEIGHT,
+	            width: 1280,
+	            height: 720,
 	            src: url,
 	            allowFullScreen: true
 	        }));
@@ -21709,7 +21700,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    containerSizeClassPropType: React.PropTypes.oneOf(Object.values(containerSizeClass)),
 	    getClassFromWidth: function getClassFromWidth(width) {
 	        if (!width) return containerSizeClass.MEDIUM;
-	        return width <= smMax ? containerSizeClass.SMALL : width <= mdMax ? containerSizeClass.MEDIUM : containerSizeClass.LARGE;
+	        return width <= 512 ? containerSizeClass.SMALL : width <= 688 ? containerSizeClass.MEDIUM : containerSizeClass.LARGE;
 	    },
 	    getInteractiveBoxFromSizeClass: function getInteractiveBoxFromSizeClass(sizeClass) {
 	        return sizeClass === containerSizeClass.SMALL ? [ interactiveSizes.defaultBoxSizeSmall, interactiveSizes.defaultBoxSizeSmall ] : [ interactiveSizes.defaultBoxSize, interactiveSizes.defaultBoxSize ];
@@ -21764,9 +21755,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Renderer = __webpack_require__(9);
 
-	var TextInput = __webpack_require__(122);
+	var TextInput = __webpack_require__(121);
 
-	var MathOutput = __webpack_require__(123);
+	var MathOutput = __webpack_require__(122);
 
 	var Gorgon = __webpack_require__(35);
 
@@ -22071,8 +22062,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	function getNextFracIndex(tex, currentIndex) {
 	    var dfrac = "\\dfrac";
 	    var frac = "\\frac";
-	    var nextFrac = tex.indexOf(frac, currentIndex);
-	    var nextDFrac = tex.indexOf(dfrac, currentIndex);
+	    var nextFrac = tex.indexOf("\\frac", currentIndex);
+	    var nextDFrac = tex.indexOf("\\dfrac", currentIndex);
 	    return nextFrac > -1 && nextDFrac > -1 ? Math.min(nextFrac, nextDFrac) : nextFrac > -1 ? nextFrac : nextDFrac > -1 ? nextDFrac : -1;
 	}
 
@@ -22326,7 +22317,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var numerator = Math.abs(fraction[0]);
 	            var denominator = fraction[1];
 	            if (knumber.isInteger(numerator)) {
-	                return (number < 0 ? "-" : "") + (1 === numerator ? "" : numerator) + "π" + (1 === denominator ? "" : "/" + denominator);
+	                var sign = number < 0 ? "-" : "";
+	                var pi = "π";
+	                return sign + (1 === numerator ? "" : numerator) + "π" + (1 === denominator ? "" : "/" + denominator);
 	            }
 	        }
 	        if (_([ "proper", "improper", "mixed", "fraction" ]).contains(format)) {
@@ -22671,7 +22664,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                height: this.props.height + 1,
 	                marginTop: -1,
 	                marginBottom: -2,
-	                zIndex: zIndex
+	                zIndex: 10
 	            }
 	        }, React.createElement(Triangle, {
 	            horizontalDirection: this.props.horizontalDirection,
@@ -22780,10 +22773,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	                color: "white",
 	                border: this.props.borderColor,
 	                left: settings.arrowLeft(this.props.arrowSize),
-	                top: 2 - this.props.arrowSize,
+	                top: -this.props.arrowSize + 2,
 	                width: this.props.arrowSize,
 	                height: this.props.arrowSize,
-	                zIndex: zIndex
+	                zIndex: 10
 	            });
 	            // And we use a visibility: hidden arrow below to shift up the
 	            // content by the correct amount
@@ -22797,7 +22790,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                top: -1,
 	                width: this.props.arrowSize,
 	                height: this.props.arrowSize,
-	                zIndex: zIndex
+	                zIndex: 10
 	            });
 	        } else {
 	            arrowAbove = React.createElement(TooltipArrow, {
@@ -22809,7 +22802,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                top: -1,
 	                width: this.props.arrowSize,
 	                height: this.props.arrowSize,
-	                zIndex: zIndex
+	                zIndex: 10
 	            });
 	            arrowBelow = null;
 	        }
@@ -22844,7 +22837,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                WebkitBoxShadow: "0 1px 3px " + this.props.borderColor,
 	                MozBoxShadow: "0 1px 3px " + this.props.borderColor,
 	                boxShadow: "0 1px 3px " + this.props.borderColor,
-	                zIndex: zIndex - 1
+	                zIndex: 9
 	            }
 	        }, this.props.children.slice(1)), arrowBelow));
 	    },
@@ -22886,7 +22879,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(11);
 
-	var WIDGET_PROP_BLACKLIST = __webpack_require__(130);
+	var WIDGET_PROP_BLACKLIST = __webpack_require__(137);
 
 	var USAGE = 'Usage:\n  this.change({propName: 5}, callback);\n  this.change("propName", 5, callback);\n  this.change("propName")';
 
@@ -24243,14 +24236,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // after the initial render (because initial render may be
 	        // server-side).
 	        // TODO(david): Don't do this for each image. Do this once per page.
-	        window.innerHeight < MIN_VIEWPORT_HEIGHT ? // There is a weird issue when this gets rendered in an Android
+	        window.innerHeight < 480 ? // There is a weird issue when this gets rendered in an Android
 	        // webview where window.innerHeight might be initially very small,
 	        // like 46, but seems to be good after ~400ms.
 	        setTimeout(this._cacheViewportSize, 800) : this._cacheViewportSize();
 	    },
 	    _cacheViewportSize: function _cacheViewportSize() {
 	        this.isMounted() && this.setState({
-	            viewportHeight: Math.max(MIN_VIEWPORT_HEIGHT, window.innerHeight),
+	            viewportHeight: Math.max(480, window.innerHeight),
 	            viewportWidth: window.innerWidth
 	        });
 	    },
@@ -24321,9 +24314,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var nestedMap = __webpack_require__(18).nestedMap;
 
-	var assert = __webpack_require__(124).assert;
+	var assert = __webpack_require__(123).assert;
 
-	var GraphUtils = __webpack_require__(121);
+	var GraphUtils = __webpack_require__(120);
 
 	var createGraphie = GraphUtils.createGraphie;
 
@@ -26145,9 +26138,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	var render = function render(text, a11yNode) {
-	    var tree = parseMath(text);
-	    var a11yStrings = buildA11yStrings(tree);
-	    renderStrings(a11yStrings, a11yNode);
+	    renderStrings(buildA11yStrings(parseMath(text)), a11yNode);
 	};
 
 	var flatten = function flatten(array) {
@@ -26159,9 +26150,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	var renderString = function renderString(text) {
-	    var tree = parseMath(text);
-	    var a11yStrings = buildA11yStrings(tree);
-	    return flatten(a11yStrings).join(", ");
+	    return flatten(buildA11yStrings(parseMath(text))).join(", ");
 	};
 
 	true ? module.exports = {
@@ -26174,152 +26163,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 111 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* TODO batch *all* mutations
-	 * idea: freeze / thaw implementations for all types
-	 * lens constructor thaws, freeze delegates to type's freeze
-	 */
-
-	var util = __webpack_require__(177);
-	    var clone = util.clone;
-	    var isObject = util.isObject;
-	    var merge = util.merge;
-
-	var arr = __webpack_require__(178);
-	var obj = __webpack_require__(179);
-	var str = __webpack_require__(180);
-
-	// equivalents, without requiring it
-	// find the implementation to use for a given object
-	var dispatch = function(x) {
-	    if (Array.isArray(x)) {
-	        return arr;
-	    } else if (isObject(x)) {
-	        return obj;
-	    } else if (typeof x === "string") {
-	        return str;
-	    }
-	};
-
-	// This is underscore with a different name
-	var lens = function(obj) {
-	    if (obj instanceof lens) {
-	        return obj;
-	    }
-
-	    if (!(this instanceof lens)) {
-	        return new lens(obj);
-	    }
-
-	    var ops = dispatch(obj);
-	    this._wrapped = ops.thaw ? ops.thaw(obj) : obj;
-	};
-
-	lens.prototype.freeze = function() {
-	    var obj = this._wrapped;
-	    var ops = dispatch(obj);
-
-	    return ops.freeze ? ops.freeze(obj) : obj;
-	};
-
-	lens.prototype.zoom = function(lensArr) {
-	    if (this._zoomStack === undefined) {
-	        this._zoomStack = [];
-	    }
-
-	    this._zoomStack.push({
-	        zoom: lensArr,
-	        wrapped: this._wrapped
-	    });
-	    this._wrapped = lens(this._wrapped).get(lensArr);
-
-	    return this;
-	};
-
-	lens.prototype.deZoom = function() {
-	    var frame = this._zoomStack.pop();
-	    this._wrapped = lens(frame.wrapped)
-	        .set(frame.zoom, this._wrapped)
-	        .freeze();
-
-	    return this;
-	};
-
-	lens.prototype.get = function(lensArr) {
-	    var obj = this._wrapped;
-
-	    for (var i = 0; i < lensArr.length; i++) {
-	        obj = dispatch(obj).get(obj, lensArr[i]);
-	    }
-
-	    return obj;
-	};
-
-	lens.prototype.mod = function(lensArr, f) {
-	    var obj = this._wrapped;
-	    var newObj = clone(obj);
-	    var ops = dispatch(obj);
-
-	    if (lensArr.length === 0) {
-	        this._wrapped = f(this._wrapped);
-	    } else if (lensArr.length === 1) {
-	        this._wrapped = ops.mod(newObj, lensArr[0], f);
-	    } else {
-	        var monocle = lensArr[0];
-	        var shortLens = lensArr.slice(1);
-
-	        // newObj = ops.mod(obj[monocle], shortLens, f);
-
-	        newObj[monocle] = lens(obj[monocle])
-	            .mod(shortLens, f)
-	            .freeze();
-	        this._wrapped = newObj;
-	    }
-
-	    return this;
-	};
-
-	// TODO - move to individual files
-	lens.prototype.merge = function(lensArr, props) {
-	    this._wrapped = lens(this._wrapped).mod(lensArr, function(oldProps) {
-	        return merge(oldProps, props);
-	    }).freeze();
-
-	    return this;
-	};
-
-	// Lens must have length >= 1 or there would be nothing to return
-	lens.prototype.del = function(lensArr) {
-	    var obj = this._wrapped;
-	    var ops = dispatch(obj);
-
-	    if (lensArr.length === 1) {
-	        this._wrapped = ops.del(obj, lensArr[0]);
-	    } else {
-	        var monocle = lensArr[0];
-	        var shortLens = lensArr.slice(1);
-	        var newObj = clone(obj);
-
-	        newObj[monocle] = lens(obj[monocle])
-	            .del(shortLens)
-	            .freeze();
-
-	        this._wrapped = newObj;
-	    }
-
-	    return this;
-	};
-
-	lens.prototype.set = function(lensArr, set) {
-	    return this.mod(lensArr, function() { return set; });
-	};
-
-	module.exports = lens;
-
-
-/***/ },
-/* 112 */
-/***/ function(module, exports, __webpack_require__) {
-
 	/* eslint-disable comma-dangle, no-var */
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
@@ -26327,7 +26170,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * just returns all the widget's props rather than picking out those which were
 	 * input by the user.
 	 */
-	var WIDGET_PROP_BLACKLIST = __webpack_require__(130);
+	var WIDGET_PROP_BLACKLIST = __webpack_require__(137);
 
 	var _ = __webpack_require__(11);
 
@@ -26341,7 +26184,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = WidgetJsonifyDeprecated;
 
 /***/ },
-/* 113 */
+/* 112 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function(target) {
@@ -26352,31 +26195,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return target;
 	};
 
-	var Movable = __webpack_require__(181);
+	var Movable = __webpack_require__(177);
 
-	var MovablePoint = __webpack_require__(182);
+	var MovablePoint = __webpack_require__(178);
 
-	var MovableLine = __webpack_require__(183);
+	var MovableLine = __webpack_require__(179);
 
-	var MovablePolygon = __webpack_require__(184);
+	var MovablePolygon = __webpack_require__(180);
 
-	var KhanColors = __webpack_require__(116);
+	var KhanColors = __webpack_require__(115);
 
 	var Interactive2 = {
 	    MovablePoint: MovablePoint,
 	    addMovablePoint: function addMovablePoint(graphie, options) {
-	        var movable = new Movable(graphie, {});
-	        return new MovablePoint(graphie, movable, options);
+	        return new MovablePoint(graphie, new Movable(graphie, {}), options);
 	    },
 	    MovableLine: MovableLine,
 	    addMovableLine: function addMovableLine(graphie, options) {
-	        var movable = new Movable(graphie, {});
-	        return new MovableLine(graphie, movable, options);
+	        return new MovableLine(graphie, new Movable(graphie, {}), options);
 	    },
 	    MovablePolygon: MovablePolygon,
 	    addMovablePolygon: function addMovablePolygon(graphie, options) {
-	        var movable = new Movable(graphie, {});
-	        return new MovablePolygon(graphie, movable, options);
+	        return new MovablePolygon(graphie, new Movable(graphie, {}), options);
 	    },
 	    addMaybeMobileMovablePoint: function addMaybeMobileMovablePoint(widget, extraProps) {
 	        var isMobile = widget.props.apiOptions.isMobile;
@@ -26410,7 +26250,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Interactive2;
 
 /***/ },
-/* 114 */
+/* 113 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* ButtonGroup is an aesthetically pleasing group of buttons.
@@ -26435,7 +26275,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ReactDOM = __webpack_require__(13);
 
-	var styles = __webpack_require__(185);
+	var styles = __webpack_require__(181);
 
 	var css = __webpack_require__(15).css;
 
@@ -26492,14 +26332,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ButtonGroup;
 
 /***/ },
-/* 115 */
+/* 114 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _ = __webpack_require__(11);
 
-	var InteractiveUtil = __webpack_require__(124);
+	var InteractiveUtil = __webpack_require__(123);
 
-	var WrappedDefaults = __webpack_require__(186);
+	var WrappedDefaults = __webpack_require__(182);
 
 	var kpoint = __webpack_require__(176).point;
 
@@ -26562,7 +26402,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = WrappedLine;
 
 /***/ },
-/* 116 */
+/* 115 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -26663,7 +26503,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = KhanColors;
 
 /***/ },
-/* 117 */
+/* 116 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function(target) {
@@ -26803,7 +26643,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        borderRadius: 4,
 	        color: "white",
 	        fontFamily: boldFontFamily,
-	        fontSize: fontSize,
+	        fontSize: 17,
 	        border: "none"
 	    },
 	    tryAgainIcon: {
@@ -26816,7 +26656,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        flexDirection: "row",
 	        alignItems: "center",
 	        fontFamily: boldFontFamily,
-	        fontSize: fontSize
+	        fontSize: 17
 	    }
 	};
 
@@ -26825,7 +26665,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = GradedGroupAnswerBar;
 
 /***/ },
-/* 118 */
+/* 117 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* eslint-disable react/forbid-prop-types, react/prop-types, react/sort-comp */
@@ -26837,7 +26677,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Util = __webpack_require__(18);
 
-	var GraphUtils = __webpack_require__(121);
+	var GraphUtils = __webpack_require__(120);
 
 	var _require = __webpack_require__(42), interactiveSizes = _require.interactiveSizes;
 
@@ -27120,7 +26960,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Graph;
 
 /***/ },
-/* 119 */
+/* 118 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -27131,7 +26971,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(12);
 
-	var ReactComponentsInfoTip = __webpack_require__(187);
+	var ReactComponentsInfoTip = __webpack_require__(183);
 
 	var InfoTip = React.createClass({
 	    displayName: "InfoTip",
@@ -27154,7 +26994,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = InfoTip;
 
 /***/ },
-/* 120 */
+/* 119 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function(target) {
@@ -27335,7 +27175,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = NumberInput;
 
 /***/ },
-/* 121 */
+/* 120 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -27347,15 +27187,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * To use the utilities exported from interactive.js, require that file
 	 * itself.
 	 */
-	var GraphUtils = __webpack_require__(188);
+	var GraphUtils = __webpack_require__(184);
 
-	__webpack_require__(189);
+	__webpack_require__(185);
 
 	// For side effects
 	module.exports = GraphUtils;
 
 /***/ },
-/* 122 */
+/* 121 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function(target) {
@@ -27435,7 +27275,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = TextInput;
 
 /***/ },
-/* 123 */
+/* 122 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* eslint-disable react/sort-comp */
@@ -27537,7 +27377,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MathOutput;
 
 /***/ },
-/* 124 */
+/* 123 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -27545,7 +27385,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var _ = __webpack_require__(11);
 
-	var MovableHelperMethods = __webpack_require__(190);
+	var MovableHelperMethods = __webpack_require__(186);
 
 	/**
 	 * Compute the correct vendor-prefixed `transform`.
@@ -27646,7 +27486,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = InteractiveUtil;
 
 /***/ },
-/* 125 */
+/* 124 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* eslint-disable react/forbid-prop-types, react/prop-types, react/sort-comp */
@@ -28137,7 +27977,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Sortable;
 
 /***/ },
-/* 126 */
+/* 125 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* eslint-disable eqeqeq, indent, keyword-spacing, max-len, no-mixed-spaces-and-tabs, no-unused-vars, no-var, semi, space-infix-ops */
@@ -28539,6 +28379,152 @@ return /******/ (function(modules) { // webpackBootstrap
 	    SignificantFigures: SignificantFigures,
 	    displaySigFigs: displaySigFigs
 	};
+
+/***/ },
+/* 126 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO batch *all* mutations
+	 * idea: freeze / thaw implementations for all types
+	 * lens constructor thaws, freeze delegates to type's freeze
+	 */
+
+	var util = __webpack_require__(187);
+	    var clone = util.clone;
+	    var isObject = util.isObject;
+	    var merge = util.merge;
+
+	var arr = __webpack_require__(188);
+	var obj = __webpack_require__(189);
+	var str = __webpack_require__(190);
+
+	// equivalents, without requiring it
+	// find the implementation to use for a given object
+	var dispatch = function(x) {
+	    if (Array.isArray(x)) {
+	        return arr;
+	    } else if (isObject(x)) {
+	        return obj;
+	    } else if (typeof x === "string") {
+	        return str;
+	    }
+	};
+
+	// This is underscore with a different name
+	var lens = function(obj) {
+	    if (obj instanceof lens) {
+	        return obj;
+	    }
+
+	    if (!(this instanceof lens)) {
+	        return new lens(obj);
+	    }
+
+	    var ops = dispatch(obj);
+	    this._wrapped = ops.thaw ? ops.thaw(obj) : obj;
+	};
+
+	lens.prototype.freeze = function() {
+	    var obj = this._wrapped;
+	    var ops = dispatch(obj);
+
+	    return ops.freeze ? ops.freeze(obj) : obj;
+	};
+
+	lens.prototype.zoom = function(lensArr) {
+	    if (this._zoomStack === undefined) {
+	        this._zoomStack = [];
+	    }
+
+	    this._zoomStack.push({
+	        zoom: lensArr,
+	        wrapped: this._wrapped
+	    });
+	    this._wrapped = lens(this._wrapped).get(lensArr);
+
+	    return this;
+	};
+
+	lens.prototype.deZoom = function() {
+	    var frame = this._zoomStack.pop();
+	    this._wrapped = lens(frame.wrapped)
+	        .set(frame.zoom, this._wrapped)
+	        .freeze();
+
+	    return this;
+	};
+
+	lens.prototype.get = function(lensArr) {
+	    var obj = this._wrapped;
+
+	    for (var i = 0; i < lensArr.length; i++) {
+	        obj = dispatch(obj).get(obj, lensArr[i]);
+	    }
+
+	    return obj;
+	};
+
+	lens.prototype.mod = function(lensArr, f) {
+	    var obj = this._wrapped;
+	    var newObj = clone(obj);
+	    var ops = dispatch(obj);
+
+	    if (lensArr.length === 0) {
+	        this._wrapped = f(this._wrapped);
+	    } else if (lensArr.length === 1) {
+	        this._wrapped = ops.mod(newObj, lensArr[0], f);
+	    } else {
+	        var monocle = lensArr[0];
+	        var shortLens = lensArr.slice(1);
+
+	        // newObj = ops.mod(obj[monocle], shortLens, f);
+
+	        newObj[monocle] = lens(obj[monocle])
+	            .mod(shortLens, f)
+	            .freeze();
+	        this._wrapped = newObj;
+	    }
+
+	    return this;
+	};
+
+	// TODO - move to individual files
+	lens.prototype.merge = function(lensArr, props) {
+	    this._wrapped = lens(this._wrapped).mod(lensArr, function(oldProps) {
+	        return merge(oldProps, props);
+	    }).freeze();
+
+	    return this;
+	};
+
+	// Lens must have length >= 1 or there would be nothing to return
+	lens.prototype.del = function(lensArr) {
+	    var obj = this._wrapped;
+	    var ops = dispatch(obj);
+
+	    if (lensArr.length === 1) {
+	        this._wrapped = ops.del(obj, lensArr[0]);
+	    } else {
+	        var monocle = lensArr[0];
+	        var shortLens = lensArr.slice(1);
+	        var newObj = clone(obj);
+
+	        newObj[monocle] = lens(obj[monocle])
+	            .del(shortLens)
+	            .freeze();
+
+	        this._wrapped = newObj;
+	    }
+
+	    return this;
+	};
+
+	lens.prototype.set = function(lensArr, set) {
+	    return this.mod(lensArr, function() { return set; });
+	};
+
+	module.exports = lens;
+
 
 /***/ },
 /* 127 */
@@ -30114,30 +30100,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 130 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/**
-	 * These are things that widgets should exclude when serializing themselves.
-	 *
-	 * The use of this list needs to die. Basically, there are codepaths that
-	 * blindly serialize the "props" of a widget so that it can pass around its
-	 * info. Unfortunately, props aren't guaranteed to be serializable, and
-	 * automatically serializing schemaless list of attributes causes issues (e.g.
-	 * circular JSON structures sometimes).
-	 *
-	 * This blacklists things that we know don't need to be serialized.
-	 */
-	module.exports = [ // standard props "added" by react
-	// (technically the renderer still adds them)
-	"key", "ref", // added by src/renderer.jsx
-	"containerSizeClass", "widgetId", "onChange", "problemNum", "apiOptions", "questionCompleted", "findWidgets", // added by src/editor.jsx, for widgets removing themselves
-	// this is soooo not the right place for this, but alas.
-	"onRemove", // also added by src/editor.jsx
-	"id", // Callbacks and items for interaction handling
-	"onBlur", "onFocus", "trackInteraction", "keypadElement" ];
-
-/***/ },
-/* 131 */
-/***/ function(module, exports, __webpack_require__) {
-
 	/* eslint-disable brace-style, comma-dangle, no-var, one-var, space-unary-ops */
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
@@ -30644,7 +30606,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 132 */
+/* 131 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* eslint-disable brace-style */
@@ -30816,7 +30778,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = draw;
 
 /***/ },
-/* 133 */
+/* 132 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* eslint-disable brace-style */
@@ -30928,7 +30890,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    // TODO(colin): don't depend on the parser's indexing scheme and just track
 	    // this entirely in the layout engine.
 	    angle = parseInt(lastAtomIdx) % 2 !== 0 ? prevPositionedAtom.baseAngle - (baseAngleIncrement - angleIncrement * myIndex) : prevPositionedAtom.baseAngle + (baseAngleIncrement - angleIncrement * myIndex);
-	    var pos = polarAdd(prevPositionedAtom.pos, angle, bondLength);
+	    var pos = polarAdd(prevPositionedAtom.pos, angle, 30);
 	    atom.pos = pos;
 	    atom.baseAngle = angle;
 	    return {
@@ -31122,12 +31084,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    // use.
 	    _atomLayout: atomLayout,
 	    _bondLayout: bondLayout,
-	    _bondLength: bondLength,
+	    _bondLength: 30,
 	    _convertTree: convertTree
 	};
 
 /***/ },
-/* 134 */
+/* 133 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function(target) {
@@ -31254,10 +31216,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // TODO(colin): this should just start at 0 all the time, and the
 	        // layout engine should figure out continuity.
 	        inBranchIdx = 0);
-	        return [ parse(rest, _extends({}, newCtx, {
+	        var parenCtx = _extends({}, newCtx, {
 	            idx: newCtx.idx.concat([ [ inBranchIdx, 0 ] ]),
 	            parens: newCtx.parens.concat("(")
-	        })) ].concat(parse(sliceFromMatchingCloseParen(rest, [ "(" ]), newCtx));
+	        });
+	        var parenExpr = parse(rest, parenCtx);
+	        var remainder = parse(sliceFromMatchingCloseParen(rest, [ "(" ]), newCtx);
+	        return [ parenExpr ].concat(remainder);
 	    }
 	    if (")" === firstChar) {
 	        if ("(" !== ctx.parens[ctx.parens.length - 1]) throw new ParseError("Mismatched parentheses");
@@ -31277,7 +31242,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var rest = null;
 	    if ("[" === smiles[0]) {
 	        var closingIdx = smiles.indexOf("]");
-	        if (-1 === closingIdx) return [ "", smiles ];
+	        if (closingIdx === -1) return [ "", smiles ];
 	        sym = smiles.slice(1, closingIdx);
 	        rest = smiles.slice(closingIdx + 1);
 	    } else {
@@ -31363,7 +31328,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 135 */
+/* 134 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function(target) {
@@ -31414,19 +31379,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require = __webpack_require__(15), StyleSheet = _require.StyleSheet, css = _require.css;
 
-	var HighlightingUI = __webpack_require__(201);
+	var HighlightingUI = __webpack_require__(200);
 
 	var WordIndexer = __webpack_require__(191);
 
 	var _require2 = __webpack_require__(192), addHighlight = _require2.addHighlight, buildHighlight = _require2.buildHighlight, deserializeHighlight = _require2.deserializeHighlight, serializeHighlight = _require2.serializeHighlight;
 
-	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(136).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(12).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(135).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(12).PropTypes.any;
 
-	var babelPluginFlowReactPropTypes_proptype_SerializedHighlightSet = __webpack_require__(136).babelPluginFlowReactPropTypes_proptype_SerializedHighlightSet || __webpack_require__(12).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_SerializedHighlightSet = __webpack_require__(135).babelPluginFlowReactPropTypes_proptype_SerializedHighlightSet || __webpack_require__(12).PropTypes.any;
 
-	var babelPluginFlowReactPropTypes_proptype_DOMHighlightSet = __webpack_require__(136).babelPluginFlowReactPropTypes_proptype_DOMHighlightSet || __webpack_require__(12).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_DOMHighlightSet = __webpack_require__(135).babelPluginFlowReactPropTypes_proptype_DOMHighlightSet || __webpack_require__(12).PropTypes.any;
 
-	var babelPluginFlowReactPropTypes_proptype_DOMHighlight = __webpack_require__(136).babelPluginFlowReactPropTypes_proptype_DOMHighlight || __webpack_require__(12).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_DOMHighlight = __webpack_require__(135).babelPluginFlowReactPropTypes_proptype_DOMHighlight || __webpack_require__(12).PropTypes.any;
 
 	var HighlightableContent = function(_React$PureComponent) {
 	    _inherits(HighlightableContent, _React$PureComponent);
@@ -31598,7 +31563,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = HighlightableContent;
 
 /***/ },
-/* 136 */
+/* 135 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -31670,7 +31635,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(module.exports, "babelPluginFlowReactPropTypes_proptype_SerializedHighlightSet", __webpack_require__(12).PropTypes.shape({}));
 
 /***/ },
-/* 137 */
+/* 136 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function(target) {
@@ -31846,8 +31811,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            // our state by the double-output here :).
 	            var refContent = output(node.refContent, {});
 	            return React.createElement(RefStart, {
-	                ref: START_REF_PREFIX + node.ref,
-	                key: START_REF_PREFIX + node.ref,
+	                ref: "start-ref-" + node.ref,
+	                key: "start-ref-" + node.ref,
 	                refContent: refContent
 	            });
 	        }
@@ -31865,8 +31830,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        },
 	        react: function react(node, output, state) {
 	            return null != node.ref ? React.createElement(RefEnd, {
-	                ref: END_REF_PREFIX + node.ref,
-	                key: END_REF_PREFIX + node.ref
+	                ref: "end-ref-" + node.ref,
+	                key: "end-ref-" + node.ref
 	            }) : null;
 	        }
 	    },
@@ -32005,10 +31970,34 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = {
 	    parse: parse,
 	    output: SimpleMarkdown.reactFor(SimpleMarkdown.ruleOutput(rules, "react")),
-	    START_REF_PREFIX: START_REF_PREFIX,
-	    END_REF_PREFIX: END_REF_PREFIX,
+	    START_REF_PREFIX: "start-ref-",
+	    END_REF_PREFIX: "end-ref-",
 	    _rulesForTesting: rules
 	};
+
+/***/ },
+/* 137 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * These are things that widgets should exclude when serializing themselves.
+	 *
+	 * The use of this list needs to die. Basically, there are codepaths that
+	 * blindly serialize the "props" of a widget so that it can pass around its
+	 * info. Unfortunately, props aren't guaranteed to be serializable, and
+	 * automatically serializing schemaless list of attributes causes issues (e.g.
+	 * circular JSON structures sometimes).
+	 *
+	 * This blacklists things that we know don't need to be serialized.
+	 */
+	module.exports = [ // standard props "added" by react
+	// (technically the renderer still adds them)
+	"key", "ref", // added by src/renderer.jsx
+	"containerSizeClass", "widgetId", "onChange", "problemNum", "apiOptions", "questionCompleted", "findWidgets", // added by src/editor.jsx, for widgets removing themselves
+	// this is soooo not the right place for this, but alas.
+	"onRemove", // also added by src/editor.jsx
+	"id", // Callbacks and items for interaction handling
+	"onBlur", "onFocus", "trackInteraction", "keypadElement" ];
 
 /***/ },
 /* 138 */
@@ -32648,9 +32637,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var GraphieClasses = __webpack_require__(139);
 
-	var Interactive2 = __webpack_require__(113);
+	var Interactive2 = __webpack_require__(112);
 
-	var KhanColors = __webpack_require__(116);
+	var KhanColors = __webpack_require__(115);
 
 	var MovablePoint = GraphieClasses.createClass({
 	    displayName: "MovablePoint",
@@ -33009,9 +32998,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(12);
 
-	var KeyConfigs = __webpack_require__(205);
+	var KeyConfigs = __webpack_require__(206);
 
-	var CursorContexts = __webpack_require__(194);
+	var CursorContexts = __webpack_require__(199);
 
 	var _require = __webpack_require__(129), BorderDirections = _require.BorderDirections, EchoAnimationTypes = _require.EchoAnimationTypes, IconTypes = _require.IconTypes, KeyTypes = _require.KeyTypes, KeypadTypes = _require.KeypadTypes;
 
@@ -33128,21 +33117,21 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require = __webpack_require__(15), StyleSheet = _require.StyleSheet;
 
-	var _require2 = __webpack_require__(206), View = _require2.View;
+	var _require2 = __webpack_require__(205), View = _require2.View;
 
-	var CursorHandle = __webpack_require__(195);
+	var CursorHandle = __webpack_require__(194);
 
-	var MathWrapper = __webpack_require__(196);
+	var MathWrapper = __webpack_require__(195);
 
-	var scrollIntoView = __webpack_require__(197);
+	var scrollIntoView = __webpack_require__(196);
 
-	var DragListener = __webpack_require__(198);
+	var DragListener = __webpack_require__(197);
 
-	var _require3 = __webpack_require__(199), cursorHandleRadiusPx = _require3.cursorHandleRadiusPx, cursorHandleDistanceMultiplier = _require3.cursorHandleDistanceMultiplier, gray76 = _require3.gray76;
+	var _require3 = __webpack_require__(198), cursorHandleRadiusPx = _require3.cursorHandleRadiusPx, cursorHandleDistanceMultiplier = _require3.cursorHandleDistanceMultiplier, gray76 = _require3.gray76;
 
 	var _require4 = __webpack_require__(142), keypadElementPropType = _require4.keypadElementPropType;
 
-	var _require5 = __webpack_require__(199), brightGreen = _require5.brightGreen, gray17 = _require5.gray17;
+	var _require5 = __webpack_require__(198), brightGreen = _require5.brightGreen, gray17 = _require5.gray17;
 
 	var constrainingFrictionFactor = .8;
 
@@ -33428,8 +33417,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    // scroll offsets. This likely also means that the cursor
 	                    // detection doesn't work when scrolled, since we're not
 	                    // offsetting those values.
-	                    x: _this._constrainToBound(relativeX, 0, _this._containerBounds.width, constrainingFrictionFactor),
-	                    y: _this._constrainToBound(relativeY, 0, _this._containerBounds.height, constrainingFrictionFactor)
+	                    x: _this._constrainToBound(relativeX, 0, _this._containerBounds.width, .8),
+	                    y: _this._constrainToBound(relativeY, 0, _this._containerBounds.height, .8)
 	                }
 	            });
 	            // Use a y-coordinate that's just above where the user is actually
@@ -33701,7 +33690,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var totalDesiredPadding = 8;
 
-	var minHeightPx = numeralHeightPx + 2 * totalDesiredPadding;
+	var minHeightPx = 20 + 2 * totalDesiredPadding;
 
 	var minWidthPx = 64;
 
@@ -33727,7 +33716,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        backgroundColor: "white",
 	        display: "flex",
 	        minHeight: minHeightPx,
-	        minWidth: minWidthPx,
+	        minWidth: 64,
 	        boxSizing: "border-box",
 	        position: "relative",
 	        overflow: "hidden",
@@ -33772,7 +33761,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var captureScratchpadTouchStart = __webpack_require__(18).captureScratchpadTouchStart;
 
-	var Choice = __webpack_require__(200);
+	var Choice = __webpack_require__(201);
 
 	var ChoiceNoneAbove = React.createClass({
 	    displayName: "ChoiceNoneAbove",
@@ -34870,7 +34859,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            // Find the url in the original content and make sure that the
 	            // character before is '(' and the character after is ')'
 	            var index = context.content.indexOf(url);
-	            if (-1 === index) // It is not an error if we didn't find it.
+	            if (index === -1) // It is not an error if we didn't find it.
 	            return;
 	            if ("(" !== context.content[index - 1] || ")" !== context.content[index + url.length]) return "Whitespace before or after image url:\nFor images, don't include any space or newlines after '(' or before ')'.\nWhitespace in image URLs causes translation difficulties.";
 	        }
@@ -34934,150 +34923,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 177 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isObject = function(obj) {
-	    return obj === Object(obj);;
-	}
-
-	var merge = function() {
-	    var obj = {};
-
-	    for (var i = 0; i < arguments.length; i++) {
-	        var source = arguments[i];
-	        if (source) {
-	            for (var prop in source) {
-	                obj[prop] = source[prop];
-	            }
-	        }
-	    }
-
-	    return obj;
-	};
-
-	var clone = function(obj) {
-	    if (!isObject(obj)) {
-	        return obj;
-	    }
-
-	    return Array.isArray(obj) ? obj.slice() : merge(obj);
-	};
-
-	module.exports = { isObject: isObject, merge: merge, clone: clone };
-
-
-/***/ },
-/* 178 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var get = function(arr, monocle) {
-	    return arr[monocle];
-	};
-
-	var set = function(arr, monocle, val) {
-	    var newArr = arr.splice();
-	    newArr[monocle] = val;
-	    return newArr;
-	};
-
-	var mod = function(arr, monocle, f) {
-	    var newArr = arr.slice();
-	    newArr[monocle] = f(arr[monocle]);
-	    return newArr;
-	};
-
-	var del = function(arr, monocle) {
-	    var newArr = arr.slice();
-	    newArr.splice(monocle, 1);
-	    return newArr;
-	};
-
-	/*
-	// Lens must point to a member of an array. We'll insert into that array.
-	lens.prototype.insertAt = function(lensArr, toInsert) {
-	    var obj = this._wrapped;
-
-	    var arrLens = lensArr.slice(0, -1);
-	    var arr = lens(obj).get(arrLens).slice(); // slice to copy
-
-	    var arrIdx = lensArr[lensArr.length-1];
-	    arr.splice(arrIdx, 0, toInsert);
-	    return lens(obj).set(arrLens, arr);
-	};
-
-	lens.prototype.insertBefore = lens.prototype.insertAt;
-	lens.prototype.insertAfter = function(lensArr, toInsert) {
-	    var newLens = lensArr.slice();
-	    newLens[newLens.length-1] += 1;
-	    return lens(this._wrapped).insertAt(newLens, toInsert);
-	};
-	*/
-
-	module.exports = { get: get, set: set, mod: mod, del: del };
-
-
-/***/ },
-/* 179 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var clone = __webpack_require__(177).clone;
-
-	var get = function(obj, monocle) {
-	    return obj[monocle];
-	};
-
-	var set = function(obj, monocle, val) {
-	    var newObj = clone(obj);
-	    newObj[monocle] = val;
-	    return newObj;
-	};
-
-	var mod = function(obj, monocle, f) {
-	    var newObj = clone(obj);
-	    newObj[monocle] = f(obj[monocle]);
-	    return newObj;
-	};
-
-	var del = function(obj, monocle) {
-	    var newObj = clone(obj);
-	    delete newObj[monocle];
-	    return newObj;
-	};
-
-	module.exports = { get: get, set: set, mod: mod, del: del };
-
-
-/***/ },
-/* 180 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var get = function(arr, monocle) {
-	    return arr[monocle];
-	};
-
-	var set = function(arr, monocle, val) {
-	    var newArr = arr.splice();
-	    newArr[monocle] = val;
-	    return newArr;
-	};
-
-	var mod = function(arr, monocle, f) {
-	    var newArr = arr.splice();
-	    newArr[monocle] = f(arr[monocle]);
-	    return newArr;
-	};
-
-	var del = function(arr, monocle) {
-	    var newArr = arr.slice();
-	    newArr.splice(monocle);
-	    return newArr;
-	};
-
-	module.exports = { get: get, set: set, mod: mod, del: del };
-
-
-/***/ },
-/* 181 */
-/***/ function(module, exports, __webpack_require__) {
-
 	/**
 	 * Movable
 	 *
@@ -35091,7 +34936,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var _ = __webpack_require__(11);
 
-	var InteractiveUtil = __webpack_require__(124);
+	var InteractiveUtil = __webpack_require__(123);
 
 	var normalizeOptions = InteractiveUtil.normalizeOptions;
 
@@ -35279,7 +35124,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Movable;
 
 /***/ },
-/* 182 */
+/* 178 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function(target) {
@@ -35343,11 +35188,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var _ = __webpack_require__(11);
 
-	var MovablePointOptions = __webpack_require__(212);
+	var MovablePointOptions = __webpack_require__(213);
 
-	var WrappedEllipse = __webpack_require__(213);
+	var WrappedEllipse = __webpack_require__(214);
 
-	var InteractiveUtil = __webpack_require__(124);
+	var InteractiveUtil = __webpack_require__(123);
 
 	var objective_ = __webpack_require__(37);
 
@@ -35359,9 +35204,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var kvector = __webpack_require__(176).vector;
 
-	var KhanColors = __webpack_require__(116);
+	var KhanColors = __webpack_require__(115);
 
-	var processMath = __webpack_require__(214).processMath;
+	var processMath = __webpack_require__(215).processMath;
 
 	var _require = __webpack_require__(91), iconTrash = _require.iconTrash;
 
@@ -35728,7 +35573,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MovablePoint;
 
 /***/ },
-/* 183 */
+/* 179 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -35736,11 +35581,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var _ = __webpack_require__(11);
 
-	var MovableLineOptions = __webpack_require__(216);
+	var MovableLineOptions = __webpack_require__(212);
 
-	var WrappedLine = __webpack_require__(115);
+	var WrappedLine = __webpack_require__(114);
 
-	var InteractiveUtil = __webpack_require__(124);
+	var InteractiveUtil = __webpack_require__(123);
 
 	var objective_ = __webpack_require__(37);
 
@@ -35750,7 +35595,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var kvector = __webpack_require__(176).vector;
 
-	var KhanColors = __webpack_require__(116);
+	var KhanColors = __webpack_require__(115);
 
 	var FUNCTION_ARRAY_OPTIONS = [ "add", "draw", "remove", "onMoveStart", "constraints", "onMove", "onMoveEnd" ];
 
@@ -35953,7 +35798,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MovableLine;
 
 /***/ },
-/* 184 */
+/* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -35964,9 +35809,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(11);
 
-	var MovablePolygonOptions = __webpack_require__(215);
+	var MovablePolygonOptions = __webpack_require__(216);
 
-	var InteractiveUtil = __webpack_require__(124);
+	var InteractiveUtil = __webpack_require__(123);
 
 	var objective_ = __webpack_require__(37);
 
@@ -35974,9 +35819,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var normalizeOptions = InteractiveUtil.normalizeOptions;
 
-	var KhanColors = __webpack_require__(116);
+	var KhanColors = __webpack_require__(115);
 
-	var GraphUtils = __webpack_require__(121);
+	var GraphUtils = __webpack_require__(120);
 
 	// State parameters that should be converted into an array of
 	// functions
@@ -36216,7 +36061,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MovablePolygon;
 
 /***/ },
-/* 185 */
+/* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var StyleSheet = __webpack_require__(15).StyleSheet;
@@ -36258,7 +36103,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 186 */
+/* 182 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -36266,7 +36111,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var _ = __webpack_require__(11);
 
-	var InteractiveUtil = __webpack_require__(124);
+	var InteractiveUtil = __webpack_require__(123);
 
 	var objective_ = __webpack_require__(37);
 
@@ -36324,7 +36169,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = WrappedDefaults;
 
 /***/ },
-/* 187 */
+/* 183 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _require = __webpack_require__(15), StyleSheet = _require.StyleSheet, css = _require.css;
@@ -36434,7 +36279,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = InfoTip;
 
 /***/ },
-/* 188 */
+/* 184 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function(target) {
@@ -36468,9 +36313,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var KhanMath = __webpack_require__(90);
 
-	var processMath = __webpack_require__(214).processMath;
+	var processMath = __webpack_require__(215).processMath;
 
-	var KhanColors = __webpack_require__(116);
+	var KhanColors = __webpack_require__(115);
 
 	/* Convert cartesian coordinates [x, y] to polar coordinates [r,
 	 * theta], with theta in degrees, or in radians if angleInRadians is
@@ -36582,9 +36427,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	    var scaleVector = function scaleVector(point) {
 	        if ("number" === typeof point) return scaleVector([ point, point ]);
-	        var x = point[0];
-	        var y = point[1];
-	        return [ x * xScale, y * yScale ];
+	        return [ point[0] * xScale, point[1] * yScale ];
 	    };
 	    var scalePoint = function scalePoint(point) {
 	        if ("number" === typeof point) return scalePoint([ point, point ]);
@@ -36635,10 +36478,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        };
 	        // If points are collinear, plot a line instead
 	        if (0 === a) {
-	            var _points = _.map(xRange, function(x) {
+	            return svgPath(_.map(xRange, function(x) {
 	                return [ x, computeParabola(x) ];
-	            });
-	            return svgPath(_points);
+	            }));
 	        }
 	        // Calculate x coordinates of points on parabola
 	        var xVertex = -b / (2 * a);
@@ -36744,8 +36586,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        $.each(attrs || {}, function(key, value) {
 	            var transformer = transformers[key];
 	            if ("function" === typeof transformer) $.extend(processed, transformer(value)); else {
-	                var dasherized = key.replace(/([A-Z]+)([A-Z][a-z])/g, "$1-$2").replace(/([a-z\d])([A-Z])/g, "$1-$2").toLowerCase();
-	                processed[dasherized] = value;
+	                processed[key.replace(/([A-Z]+)([A-Z][a-z])/g, "$1-$2").replace(/([a-z\d])([A-Z])/g, "$1-$2").toLowerCase()] = value;
 	            }
 	        });
 	        return processed;
@@ -36962,16 +36803,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var span = $span[0];
 	            $span.processMath = function(math, force) {
 	                processMath(span, math, force, function() {
-	                    var width = span.scrollWidth;
-	                    var height = span.scrollHeight;
-	                    setLabelMargins(span, [ width, height ]);
+	                    setLabelMargins(span, [ span.scrollWidth, span.scrollHeight ]);
 	                });
 	            };
 	            $span.processText = function(text) {
 	                $span.html(text);
-	                var width = span.scrollWidth;
-	                var height = span.scrollHeight;
-	                setLabelMargins(span, [ width, height ]);
+	                setLabelMargins(span, [ span.scrollWidth, span.scrollHeight ]);
 	            };
 	            latex ? $span.processMath(text, /* force */ false) : $span.processText(text);
 	            return $span;
@@ -37367,7 +37204,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = GraphUtils;
 
 /***/ },
-/* 189 */
+/* 185 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _typeof = "function" === typeof Symbol && "symbol" === typeof Symbol.iterator ? function(obj) {
@@ -37390,7 +37227,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	__webpack_require__(219);
 
 	/* global Raphael:false */
-	var GraphUtils = __webpack_require__(188);
+	var GraphUtils = __webpack_require__(184);
 
 	var kvector = __webpack_require__(176).vector;
 
@@ -37398,17 +37235,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var kline = __webpack_require__(176).line;
 
-	var WrappedEllipse = __webpack_require__(213);
+	var WrappedEllipse = __webpack_require__(214);
 
-	var WrappedLine = __webpack_require__(115);
+	var WrappedLine = __webpack_require__(114);
 
 	var WrappedPath = __webpack_require__(217);
 
 	var KhanMath = __webpack_require__(90);
 
-	var KhanColors = __webpack_require__(116);
+	var KhanColors = __webpack_require__(115);
 
-	var _require = __webpack_require__(124), getCanUse3dTransform = _require.getCanUse3dTransform;
+	var _require = __webpack_require__(123), getCanUse3dTransform = _require.getCanUse3dTransform;
 
 	function sum(array) {
 	    return _.reduce(array, function(memo, arg) {
@@ -37434,14 +37271,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function reverseVector(vector) {
 	    return _.map(vector, function(coord) {
-	        return -1 * coord;
+	        return coord * -1;
 	    });
 	}
 
 	function scaledDistanceFromAngle(angle) {
 	    var a = 70.2941120352484;
 	    var b = 11.374597405497571;
-	    return (a - b) * Math.exp(-.037587715462826674 * angle) + b;
+	    var c = -.037587715462826674;
+	    return 58.919514629750836 * Math.exp(-.037587715462826674 * angle) + b;
 	}
 
 	function scaledPolarRad(radius, radians) {
@@ -38916,7 +38754,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // and maximum angle values bounding a circle sector, and
 	        // the third column refers to the cursor name that will be
 	        // applied if the mouse position falls inside the given sector.
-	        var cursorAxes = [ [ -1 * Math.PI, -.875 * Math.PI, "ew-resize" ], [ -.875 * Math.PI, -.625 * Math.PI, "nesw-resize" ], [ -.625 * Math.PI, -.375 * Math.PI, "ns-resize" ], [ -.375 * Math.PI, -.125 * Math.PI, "nwse-resize" ], [ -.125 * Math.PI, .125 * Math.PI, "ew-resize" ], [ .125 * Math.PI, .375 * Math.PI, "nesw-resize" ], [ .375 * Math.PI, .625 * Math.PI, "ns-resize" ], [ .625 * Math.PI, .875 * Math.PI, "nwse-resize" ], [ .875 * Math.PI, 1 * Math.PI, "ew-resize" ] ];
+	        var cursorAxes = [ [ Math.PI * -1, Math.PI * -.875, "ew-resize" ], [ Math.PI * -.875, Math.PI * -.625, "nesw-resize" ], [ Math.PI * -.625, Math.PI * -.375, "ns-resize" ], [ Math.PI * -.375, Math.PI * -.125, "nwse-resize" ], [ Math.PI * -.125, .125 * Math.PI, "ew-resize" ], [ .125 * Math.PI, .375 * Math.PI, "nesw-resize" ], [ .375 * Math.PI, .625 * Math.PI, "ns-resize" ], [ .625 * Math.PI, .875 * Math.PI, "nwse-resize" ], [ .875 * Math.PI, 1 * Math.PI, "ew-resize" ] ];
 	        // When the mouse moves along the circle's perimeter, we
 	        // dynamically set a CSS rule to show the correct
 	        // bidirectional cursor so a student knows they can resize
@@ -39846,7 +39684,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = InteractiveUtils;
 
 /***/ },
-/* 190 */
+/* 186 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function(target) {
@@ -39969,6 +39807,150 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MovableHelperMethods;
 
 /***/ },
+/* 187 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var isObject = function(obj) {
+	    return obj === Object(obj);;
+	}
+
+	var merge = function() {
+	    var obj = {};
+
+	    for (var i = 0; i < arguments.length; i++) {
+	        var source = arguments[i];
+	        if (source) {
+	            for (var prop in source) {
+	                obj[prop] = source[prop];
+	            }
+	        }
+	    }
+
+	    return obj;
+	};
+
+	var clone = function(obj) {
+	    if (!isObject(obj)) {
+	        return obj;
+	    }
+
+	    return Array.isArray(obj) ? obj.slice() : merge(obj);
+	};
+
+	module.exports = { isObject: isObject, merge: merge, clone: clone };
+
+
+/***/ },
+/* 188 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var get = function(arr, monocle) {
+	    return arr[monocle];
+	};
+
+	var set = function(arr, monocle, val) {
+	    var newArr = arr.splice();
+	    newArr[monocle] = val;
+	    return newArr;
+	};
+
+	var mod = function(arr, monocle, f) {
+	    var newArr = arr.slice();
+	    newArr[monocle] = f(arr[monocle]);
+	    return newArr;
+	};
+
+	var del = function(arr, monocle) {
+	    var newArr = arr.slice();
+	    newArr.splice(monocle, 1);
+	    return newArr;
+	};
+
+	/*
+	// Lens must point to a member of an array. We'll insert into that array.
+	lens.prototype.insertAt = function(lensArr, toInsert) {
+	    var obj = this._wrapped;
+
+	    var arrLens = lensArr.slice(0, -1);
+	    var arr = lens(obj).get(arrLens).slice(); // slice to copy
+
+	    var arrIdx = lensArr[lensArr.length-1];
+	    arr.splice(arrIdx, 0, toInsert);
+	    return lens(obj).set(arrLens, arr);
+	};
+
+	lens.prototype.insertBefore = lens.prototype.insertAt;
+	lens.prototype.insertAfter = function(lensArr, toInsert) {
+	    var newLens = lensArr.slice();
+	    newLens[newLens.length-1] += 1;
+	    return lens(this._wrapped).insertAt(newLens, toInsert);
+	};
+	*/
+
+	module.exports = { get: get, set: set, mod: mod, del: del };
+
+
+/***/ },
+/* 189 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var clone = __webpack_require__(187).clone;
+
+	var get = function(obj, monocle) {
+	    return obj[monocle];
+	};
+
+	var set = function(obj, monocle, val) {
+	    var newObj = clone(obj);
+	    newObj[monocle] = val;
+	    return newObj;
+	};
+
+	var mod = function(obj, monocle, f) {
+	    var newObj = clone(obj);
+	    newObj[monocle] = f(obj[monocle]);
+	    return newObj;
+	};
+
+	var del = function(obj, monocle) {
+	    var newObj = clone(obj);
+	    delete newObj[monocle];
+	    return newObj;
+	};
+
+	module.exports = { get: get, set: set, mod: mod, del: del };
+
+
+/***/ },
+/* 190 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var get = function(arr, monocle) {
+	    return arr[monocle];
+	};
+
+	var set = function(arr, monocle, val) {
+	    var newArr = arr.splice();
+	    newArr[monocle] = val;
+	    return newArr;
+	};
+
+	var mod = function(arr, monocle, f) {
+	    var newArr = arr.splice();
+	    newArr[monocle] = f(arr[monocle]);
+	    return newArr;
+	};
+
+	var del = function(arr, monocle) {
+	    var newArr = arr.slice();
+	    newArr.splice(monocle);
+	    return newArr;
+	};
+
+	module.exports = { get: get, set: set, mod: mod, del: del };
+
+
+/***/ },
 /* 191 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -40009,7 +39991,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(12);
 
-	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(136).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(12).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(135).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(12).PropTypes.any;
 
 	var WordIndexer = function(_React$PureComponent) {
 	    _inherits(WordIndexer, _React$PureComponent);
@@ -40133,13 +40115,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * existing DOMHighlights, the other Highlights are removed and their ranges
 	 * are merged into the new DOMHighlight.
 	 */
-	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(136).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(12).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(135).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(12).PropTypes.any;
 
-	var babelPluginFlowReactPropTypes_proptype_SerializedHighlight = __webpack_require__(136).babelPluginFlowReactPropTypes_proptype_SerializedHighlight || __webpack_require__(12).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_SerializedHighlight = __webpack_require__(135).babelPluginFlowReactPropTypes_proptype_SerializedHighlight || __webpack_require__(12).PropTypes.any;
 
-	var babelPluginFlowReactPropTypes_proptype_DOMHighlightSet = __webpack_require__(136).babelPluginFlowReactPropTypes_proptype_DOMHighlightSet || __webpack_require__(12).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_DOMHighlightSet = __webpack_require__(135).babelPluginFlowReactPropTypes_proptype_DOMHighlightSet || __webpack_require__(12).PropTypes.any;
 
-	var babelPluginFlowReactPropTypes_proptype_DOMHighlight = __webpack_require__(136).babelPluginFlowReactPropTypes_proptype_DOMHighlight || __webpack_require__(12).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_DOMHighlight = __webpack_require__(135).babelPluginFlowReactPropTypes_proptype_DOMHighlight || __webpack_require__(12).PropTypes.any;
 
 	function addHighlight(existingHighlights, newHighlight) {
 	    var newHighlights = {};
@@ -40215,21 +40197,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	            if (_i2.done) break;
 	            _ref2 = _i2.value;
 	        }
-	        var key = _ref2;
-	        var existingHighlightRange = existingHighlights[key].domRange;
-	        if (rangeIncludes(existingHighlightRange, newHighlightRange)) return null;
+	        if (rangeIncludes(existingHighlights[_ref2].domRange, newHighlightRange)) return null;
 	    }
 	    // If the new highlight range doesn't span two words from the content, it's
 	    // not valid to build this as a highlight. Return null.
 	    var indexes = findFirstAndLastWordIndexes(newHighlightRange, wordRanges);
 	    if (!indexes) return null;
 	    var firstWordIndex = indexes[0], lastWordIndex = indexes[1];
-	    var firstWord = wordRanges[firstWordIndex];
-	    var lastWord = wordRanges[lastWordIndex];
 	    return {
 	        firstWordIndex: firstWordIndex,
 	        lastWordIndex: lastWordIndex,
-	        domRange: spanRanges(firstWord, lastWord)
+	        domRange: spanRanges(wordRanges[firstWordIndex], wordRanges[lastWordIndex])
 	    };
 	}
 
@@ -40332,7 +40310,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require2 = __webpack_require__(15), StyleSheet = _require2.StyleSheet;
 
-	var _require3 = __webpack_require__(206), View = _require3.View;
+	var _require3 = __webpack_require__(205), View = _require3.View;
 
 	var FractionKeypad = __webpack_require__(221);
 
@@ -40350,7 +40328,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require7 = __webpack_require__(225), row = _require7.row, centered = _require7.centered, fullWidth = _require7.fullWidth;
 
-	var _require8 = __webpack_require__(199), innerBorderColor = _require8.innerBorderColor, innerBorderStyle = _require8.innerBorderStyle, innerBorderWidthPx = _require8.innerBorderWidthPx, compactKeypadBorderRadiusPx = _require8.compactKeypadBorderRadiusPx;
+	var _require8 = __webpack_require__(198), innerBorderColor = _require8.innerBorderColor, innerBorderStyle = _require8.innerBorderStyle, innerBorderWidthPx = _require8.innerBorderWidthPx, compactKeypadBorderRadiusPx = _require8.compactKeypadBorderRadiusPx;
 
 	var KeypadContainer = function(_React$Component) {
 	    _inherits(KeypadContainer, _React$Component);
@@ -40489,7 +40467,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        left: 0,
 	        right: 0,
 	        position: "fixed",
-	        transition: keypadAnimationDurationMs + "ms ease-out",
+	        transition: "300ms ease-out",
 	        transitionProperty: "transform",
 	        zIndex: zIndexes.keypad
 	    },
@@ -40499,14 +40477,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	        borderStyle: "solid"
 	    },
 	    fullscreen: {
-	        borderTopWidth: borderWidthPx
+	        borderTopWidth: 1
 	    },
 	    compact: {
 	        borderTopRightRadius: compactKeypadBorderRadiusPx,
 	        borderTopLeftRadius: compactKeypadBorderRadiusPx,
-	        borderTopWidth: borderWidthPx,
-	        borderRightWidth: borderWidthPx,
-	        borderLeftWidth: borderWidthPx
+	        borderTopWidth: 1,
+	        borderRightWidth: 1,
+	        borderLeftWidth: 1
 	    },
 	    navigationPadContainer: {
 	        // Add a separator between the navigation pad and the keypad.
@@ -40565,41 +40543,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 194 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/**
-	 * Constants that define the various contexts in which a cursor can exist. The
-	 * active context is determined first by looking at the cursor's siblings (e.g.,
-	 * for the `BEFORE_FRACTION` context), and then at its direct parent. Though a
-	 * cursor could in theory be nested in multiple contexts, we only care about the
-	 * immediate context.
-	 *
-	 * TODO(charlie): Add a context to represent being inside of a radical. Right
-	 * now, we show the dismiss button rather than allowing the user to jump out of
-	 * the radical.
-	 */
-	module.exports = {
-	    // The cursor is not in any of the other viable contexts.
-	    NONE: "NONE",
-	    // The cursor is within a set of parentheses.
-	    IN_PARENS: "IN_PARENS",
-	    // The cursor is within a superscript (e.g., an exponent).
-	    IN_SUPER_SCRIPT: "IN_SUPER_SCRIPT",
-	    // The cursor is within a subscript (e.g., the base of a custom logarithm).
-	    IN_SUB_SCRIPT: "IN_SUB_SCRIPT",
-	    // The cursor is in the numerator of a fraction.
-	    IN_NUMERATOR: "IN_NUMERATOR",
-	    // The cursor is in the denominator of a fraction.
-	    IN_DENOMINATOR: "IN_DENOMINATOR",
-	    // The cursor is sitting before a fraction; that is, the cursor is within
-	    // what looks to be a mixed number preceding a fraction. This will only be
-	    // the case when the only math between the cursor and the fraction to its
-	    // write is non-leaf math (numbers and variables).
-	    BEFORE_FRACTION: "BEFORE_FRACTION"
-	};
-
-/***/ },
-/* 195 */
-/***/ function(module, exports, __webpack_require__) {
-
 	var _extends = Object.assign || function(target) {
 	    for (var i = 1; i < arguments.length; i++) {
 	        var source = arguments[i];
@@ -40635,13 +40578,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(12);
 
-	var _require = __webpack_require__(199), cursorHandleRadiusPx = _require.cursorHandleRadiusPx, brightGreen = _require.brightGreen, cursorHandleDistanceMultiplier = _require.cursorHandleDistanceMultiplier;
+	var _require = __webpack_require__(198), cursorHandleRadiusPx = _require.cursorHandleRadiusPx, brightGreen = _require.brightGreen, cursorHandleDistanceMultiplier = _require.cursorHandleDistanceMultiplier;
 
 	var touchTargetRadiusPx = 22;
 
-	var touchTargetHeightPx = 2 * touchTargetRadiusPx;
+	var touchTargetHeightPx = 44;
 
-	var touchTargetWidthPx = 2 * touchTargetRadiusPx;
+	var touchTargetWidthPx = 44;
 
 	var cursorRadiusPx = cursorHandleRadiusPx;
 
@@ -40671,19 +40614,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	            // This is essentially webapp's interactiveComponent + 1.
 	            // TODO(charlie): Pull in those styles somehow to avoid breakages.
 	            zIndex: 4,
-	            left: -touchTargetWidthPx / 2,
+	            left: -22,
 	            top: 0,
 	            msTransform: transformString,
 	            WebkitTransform: transformString,
 	            transform: transformString,
-	            width: touchTargetWidthPx,
-	            height: touchTargetHeightPx,
+	            width: 44,
+	            height: 44,
 	            // Touch events that start on the cursor shouldn't be allowed to
 	            // produce page scrolls.
 	            touchAction: "none"
 	        }, animationStyle);
 	        var innerStyle = {
-	            marginLeft: touchTargetRadiusPx - cursorRadiusPx
+	            marginLeft: 22 - cursorRadiusPx
 	        };
 	        return React.createElement("span", {
 	            style: outerStyle,
@@ -40725,7 +40668,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = CursorHandle;
 
 /***/ },
-/* 196 */
+/* 195 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _KeyActions, _NormalCommands, _KeysForJumpContext;
@@ -40746,7 +40689,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Keys = __webpack_require__(226);
 
-	var CursorContexts = __webpack_require__(194);
+	var CursorContexts = __webpack_require__(199);
 
 	var _require = __webpack_require__(129), DecimalSeparators = _require.DecimalSeparators;
 
@@ -40914,7 +40857,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        } else if (Object.keys(NormalCommands).includes(key)) this._writeNormalFunction(NormalCommands[key]); else if (key === Keys.FRAC_EXCLUSIVE) {
 	            // If there's nothing to the left of the cursor, then we want to
 	            // leave the cursor to the left of the fraction after creating it.
-	            var shouldNavigateLeft = cursor[this.MQ.L] === MQ_END;
+	            var shouldNavigateLeft = 0 === cursor[this.MQ.L];
 	            this.mathField.cmd("\\frac");
 	            shouldNavigateLeft && this.mathField.keystroke("Left");
 	        } else if (key === Keys.LOG_N) {
@@ -41007,7 +40950,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    // All of the code below is super fragile.  Please be especially careful
 	    // when upgrading MathQuill.
 	    MathWrapper.prototype._handleBackspaceInNthRoot = function _handleBackspaceInNthRoot(cursor) {
-	        var isAtLeftEnd = cursor[this.MQ.L] === MQ_END;
+	        var isAtLeftEnd = 0 === cursor[this.MQ.L];
 	        var isRootEmpty = this._isInsideEmptyNode(cursor.parent.parent.blocks[0].ends);
 	        if (isAtLeftEnd) {
 	            this._selectNode(cursor.parent.parent, cursor);
@@ -41040,7 +40983,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            // Find the nearest fraction to the right of the cursor.
 	            var fractionNode = void 0;
 	            var visitor = cursor;
-	            while (visitor[this.MQ.R] !== MQ_END) {
+	            while (0 !== visitor[this.MQ.R]) {
 	                this._isFraction(visitor[this.MQ.R]) && (fractionNode = visitor[this.MQ.R]);
 	                visitor = visitor[this.MQ.R];
 	            }
@@ -41094,7 +41037,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var parent = cursor.parent;
 	            var grandparent = parent.parent;
 	            var leftNode = cursor[this.MQ.L];
-	            this._isFraction(leftNode) ? this._selectNode(leftNode, cursor) : this._isSquareRoot(leftNode) ? this._selectNode(leftNode, cursor) : this._isNthRoot(leftNode) ? this._selectNode(leftNode, cursor) : this._isNthRootIndex(parent) ? this._handleBackspaceInRootIndex(cursor) : "\\left(" === leftNode.ctrlSeq ? this._handleBackspaceOutsideParens(cursor) : "\\left(" === grandparent.ctrlSeq ? this._handleBackspaceInsideParens(cursor) : this._isInsideLogIndex(cursor) ? this._handleBackspaceInLogIndex(cursor) : "\\ge " === leftNode.ctrlSeq || "\\le " === leftNode.ctrlSeq ? this._handleBackspaceAfterLigaturedSymbol(cursor) : this._isNthRoot(grandparent) && leftNode === MQ_END ? this._handleBackspaceInNthRoot(cursor) : this.mathField.keystroke("Backspace");
+	            this._isFraction(leftNode) ? this._selectNode(leftNode, cursor) : this._isSquareRoot(leftNode) ? this._selectNode(leftNode, cursor) : this._isNthRoot(leftNode) ? this._selectNode(leftNode, cursor) : this._isNthRootIndex(parent) ? this._handleBackspaceInRootIndex(cursor) : "\\left(" === leftNode.ctrlSeq ? this._handleBackspaceOutsideParens(cursor) : "\\left(" === grandparent.ctrlSeq ? this._handleBackspaceInsideParens(cursor) : this._isInsideLogIndex(cursor) ? this._handleBackspaceInLogIndex(cursor) : "\\ge " === leftNode.ctrlSeq || "\\le " === leftNode.ctrlSeq ? this._handleBackspaceAfterLigaturedSymbol(cursor) : this._isNthRoot(grandparent) && 0 === leftNode ? this._handleBackspaceInNthRoot(cursor) : this.mathField.keystroke("Backspace");
 	        }
 	    };
 	    MathWrapper.prototype._handleLeftArrow = function _handleLeftArrow(cursor) {
@@ -41108,7 +41051,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // the MQ_END node, that our grandparent is the left parenthesis, and
 	        // the nodes to the left of our grandparent comprise a valid function
 	        // name.
-	        if (cursor[this.MQ.L] === MQ_END) {
+	        if (0 === cursor[this.MQ.L]) {
 	            var parent = cursor.parent;
 	            var grandparent = parent.parent;
 	            if ("\\left(" === grandparent.ctrlSeq) {
@@ -41140,7 +41083,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // parentheses and apply the exponent to that.
 	        var invalidPrefixes = [].concat(ArithmeticOperators, EqualityOperators);
 	        var precedingNode = cursor[this.MQ.L];
-	        var shouldPrefixWithParens = precedingNode === MQ_END || invalidPrefixes.includes(precedingNode.ctrlSeq.trim());
+	        var shouldPrefixWithParens = 0 === precedingNode || invalidPrefixes.includes(precedingNode.ctrlSeq.trim());
 	        shouldPrefixWithParens && this.mathField.write("\\left(\\right)");
 	        // Insert the appropriate exponent operator.
 	        switch (key) {
@@ -41306,7 +41249,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return false;
 	    };
 	    MathWrapper.prototype._isInsideEmptyNode = function _isInsideEmptyNode(cursor) {
-	        return cursor[this.MQ.L] === MQ_END && cursor[this.MQ.R] === MQ_END;
+	        return 0 === cursor[this.MQ.L] && 0 === cursor[this.MQ.R];
 	    };
 	    MathWrapper.prototype._handleBackspaceInRootIndex = function _handleBackspaceInRootIndex(cursor) {
 	        if (this._isInsideEmptyNode(cursor)) {
@@ -41327,9 +41270,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                // Replace the nth-root with a sqrt.
 	                this.mathField.write(latex.replace(/^\\sqrt\[\]/, "\\sqrt"));
 	                // Adjust the cursor to be to the left the sqrt.
-	                reinsertionPoint === MQ_END ? this.mathField.moveToDirEnd(this.MQ.L) : cursor.insRightOf(reinsertionPoint);
+	                0 === reinsertionPoint ? this.mathField.moveToDirEnd(this.MQ.L) : cursor.insRightOf(reinsertionPoint);
 	            }
-	        } else cursor[this.MQ.L] !== MQ_END && // If the cursor is not at the leftmost position inside the
+	        } else 0 !== cursor[this.MQ.L] && // If the cursor is not at the leftmost position inside the
 	        // root's index, delete a character.
 	        this.mathField.keystroke("Backspace");
 	    };
@@ -41339,7 +41282,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var command = this._maybeFindCommandBeforeParens(grandparent);
 	            cursor.insLeftOf(command.startNode);
 	            cursor.startSelection();
-	            grandparent[this.MQ.R] !== MQ_END ? cursor.insRightOf(grandparent[this.MQ.R]) : cursor.insRightOf(grandparent);
+	            0 !== grandparent[this.MQ.R] ? cursor.insRightOf(grandparent[this.MQ.R]) : cursor.insRightOf(grandparent);
 	            cursor.select();
 	            cursor.endSelection();
 	            "" === grandparent[this.MQ.R].contentjQ.text() && // If there's no content inside the log's parens then delete the
@@ -41363,7 +41306,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            // the parens.
 	            cursor.insLeftOf(command.startNode);
 	            cursor.startSelection();
-	            rightNode === MQ_END ? cursor.insAtRightEnd(cursor.parent) : cursor.insLeftOf(rightNode);
+	            0 === rightNode ? cursor.insAtRightEnd(cursor.parent) : cursor.insLeftOf(rightNode);
 	            cursor.select();
 	            cursor.endSelection();
 	        } else {
@@ -41398,7 +41341,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // - \log(x+1|) => \log(x+|)
 	        // - \log(|x+1) => |\log(x+1)|
 	        // - \log(|) => |
-	        if (cursor[this.MQ.L] !== MQ_END) {
+	        if (0 !== cursor[this.MQ.L]) {
 	            // This command contains math and there's some math to
 	            // the left of the cursor that we should delete normally
 	            // before doing anything special.
@@ -41437,7 +41380,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    MathWrapper.prototype.contextForCursor = function contextForCursor(cursor) {
 	        // First, try to find any fraction to the right, unimpeded.
 	        var visitor = cursor;
-	        while (visitor[this.MQ.R] !== MQ_END) {
+	        while (0 !== visitor[this.MQ.R]) {
 	            if (this._isFraction(visitor[this.MQ.R])) return CursorContexts.BEFORE_FRACTION;
 	            if (!this._isLeaf(visitor[this.MQ.R])) break;
 	            visitor = visitor[this.MQ.R];
@@ -41457,7 +41400,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MathWrapper;
 
 /***/ },
-/* 197 */
+/* 196 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -41470,7 +41413,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * TODO(charlie): Move this scroll logic out of our components and into a higher
 	 * level in the component tree--perhaps even into webapp, beyond Perseus.
 	 */
-	var _require = __webpack_require__(199), toolbarHeightPx = _require.toolbarHeightPx;
+	var _require = __webpack_require__(198), toolbarHeightPx = _require.toolbarHeightPx;
 
 	var scrollIntoView = function scrollIntoView(containerNode, keypadNode) {
 	    // TODO(charlie): There's no need for us to be reading the keypad bounds
@@ -41510,7 +41453,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = scrollIntoView;
 
 /***/ },
-/* 198 */
+/* 197 */
 /***/ function(module, exports, __webpack_require__) {
 
 	function _classCallCheck(instance, Constructor) {
@@ -41550,7 +41493,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    var touchLocation = [ _touch.clientX, _touch.clientY ];
 	                    var dx = touchLocation[0] - initialTouchLocation[0];
 	                    var dy = touchLocation[1] - initialTouchLocation[1];
-	                    dx * dx + dy * dy > touchSlopPx * touchSlopPx && onDrag();
+	                    var squaredDist = dx * dx + dy * dy;
+	                    var squaredTouchSlop = 64;
+	                    squaredDist > 64 && onDrag();
 	                }
 	            }
 	        };
@@ -41578,7 +41523,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = DragListener;
 
 /***/ },
-/* 199 */
+/* 198 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -41626,7 +41571,168 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
+/* 199 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Constants that define the various contexts in which a cursor can exist. The
+	 * active context is determined first by looking at the cursor's siblings (e.g.,
+	 * for the `BEFORE_FRACTION` context), and then at its direct parent. Though a
+	 * cursor could in theory be nested in multiple contexts, we only care about the
+	 * immediate context.
+	 *
+	 * TODO(charlie): Add a context to represent being inside of a radical. Right
+	 * now, we show the dismiss button rather than allowing the user to jump out of
+	 * the radical.
+	 */
+	module.exports = {
+	    // The cursor is not in any of the other viable contexts.
+	    NONE: "NONE",
+	    // The cursor is within a set of parentheses.
+	    IN_PARENS: "IN_PARENS",
+	    // The cursor is within a superscript (e.g., an exponent).
+	    IN_SUPER_SCRIPT: "IN_SUPER_SCRIPT",
+	    // The cursor is within a subscript (e.g., the base of a custom logarithm).
+	    IN_SUB_SCRIPT: "IN_SUB_SCRIPT",
+	    // The cursor is in the numerator of a fraction.
+	    IN_NUMERATOR: "IN_NUMERATOR",
+	    // The cursor is in the denominator of a fraction.
+	    IN_DENOMINATOR: "IN_DENOMINATOR",
+	    // The cursor is sitting before a fraction; that is, the cursor is within
+	    // what looks to be a mixed number preceding a fraction. This will only be
+	    // the case when the only math between the cursor and the fraction to its
+	    // write is non-leaf math (numbers and variables).
+	    BEFORE_FRACTION: "BEFORE_FRACTION"
+	};
+
+/***/ },
 /* 200 */
+/***/ function(module, exports, __webpack_require__) {
+
+	function _classCallCheck(instance, Constructor) {
+	    if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
+	}
+
+	function _possibleConstructorReturn(self, call) {
+	    if (!self) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	    return !call || "object" !== typeof call && "function" !== typeof call ? self : call;
+	}
+
+	function _inherits(subClass, superClass) {
+	    if ("function" !== typeof superClass && null !== superClass) throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+	    subClass.prototype = Object.create(superClass && superClass.prototype, {
+	        constructor: {
+	            value: subClass,
+	            enumerable: false,
+	            writable: true,
+	            configurable: true
+	        }
+	    });
+	    superClass && (Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass);
+	}
+
+	/**
+	 * This component, given a set of DOMHighlights, draws highlight rectangles in
+	 * the same absolute position as the highlighted content, as computed by the
+	 * range's `getClientRects` method.
+	 *
+	 * TODO(mdr): Many things can affect the correct positioning of highlighting,
+	 *     and this component does not attempt to anticipate them. If we start
+	 *     using this highlighting library on content with a more dynamic layout,
+	 *     we should add a hook to allow the parent to `forceUpdate` the
+	 *     `HighlightingUI`.
+	 */
+	var React = __webpack_require__(12);
+
+	var HighlightSetRenderer = __webpack_require__(228);
+
+	var HighlightTooltip = __webpack_require__(229);
+
+	var _require = __webpack_require__(220), rangesOverlap = _require.rangesOverlap;
+
+	var SelectionTracker = __webpack_require__(230);
+
+	var babelPluginFlowReactPropTypes_proptype_ZIndexes = __webpack_require__(231).babelPluginFlowReactPropTypes_proptype_ZIndexes || __webpack_require__(12).PropTypes.any;
+
+	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(231).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(12).PropTypes.any;
+
+	var babelPluginFlowReactPropTypes_proptype_DOMHighlightSet = __webpack_require__(231).babelPluginFlowReactPropTypes_proptype_DOMHighlightSet || __webpack_require__(12).PropTypes.any;
+
+	var babelPluginFlowReactPropTypes_proptype_DOMHighlight = __webpack_require__(231).babelPluginFlowReactPropTypes_proptype_DOMHighlight || __webpack_require__(12).PropTypes.any;
+
+	/* global i18n */
+	var babelPluginFlowReactPropTypes_proptype_TrackedSelection = __webpack_require__(230).babelPluginFlowReactPropTypes_proptype_TrackedSelection || __webpack_require__(12).PropTypes.any;
+
+	var HighlightingUI = function(_React$PureComponent) {
+	    _inherits(HighlightingUI, _React$PureComponent);
+	    function HighlightingUI() {
+	        _classCallCheck(this, HighlightingUI);
+	        return _possibleConstructorReturn(this, _React$PureComponent.apply(this, arguments));
+	    }
+	    HighlightingUI.prototype._handleAddHighlight = function _handleAddHighlight(highlightToAdd) {
+	        this.props.onAddHighlight(highlightToAdd);
+	        // Deselect the newly-highlighted text, by collapsing the selection
+	        // to the end of the range.
+	        var selection = document.getSelection();
+	        selection && selection.collapseToEnd();
+	    };
+	    HighlightingUI.prototype._selectionIsValid = function _selectionIsValid(trackedSelection) {
+	        if (!trackedSelection) return false;
+	        var contentNode = this.props.contentNode;
+	        // Create a range over the content node.
+	        var contentRange = new Range();
+	        contentRange.selectNodeContents(contentNode);
+	        // Create a range over the focus position.
+	        var focusRange = new Range();
+	        focusRange.setStart(trackedSelection.focusNode, trackedSelection.focusOffset);
+	        focusRange.collapse(true);
+	        return rangesOverlap(contentRange, focusRange);
+	    };
+	    HighlightingUI.prototype.render = function render() {
+	        var _this2 = this;
+	        return React.createElement(SelectionTracker, {
+	            buildHighlight: this.props.buildHighlight,
+	            enabled: this.props.editable
+	        }, function(trackedSelection, userIsMouseSelecting) {
+	            return React.createElement("div", null, React.createElement(HighlightSetRenderer, {
+	                editable: /* An existing highlight is editable when the
+	                         * component is in editable mode, and there's no
+	                         * selection in progress. */
+	                _this2.props.editable && !_this2._selectionIsValid(trackedSelection),
+	                highlights: _this2.props.highlights,
+	                offsetParent: _this2.props.offsetParent,
+	                onRemoveHighlight: _this2.props.onRemoveHighlight,
+	                zIndexes: _this2.props.zIndexes
+	            }), _this2._selectionIsValid(trackedSelection) && !userIsMouseSelecting && React.createElement(HighlightTooltip, {
+	                label: i18n._("Add highlight"),
+	                onClick: function onClick() {
+	                    return _this2._handleAddHighlight(trackedSelection.proposedHighlight);
+	                },
+	                focusNode: trackedSelection.focusNode,
+	                focusOffset: trackedSelection.focusOffset,
+	                offsetParent: _this2.props.offsetParent,
+	                zIndex: _this2.props.zIndexes.aboveContent
+	            }));
+	        });
+	    };
+	    return HighlightingUI;
+	}(React.PureComponent);
+
+	HighlightingUI.propTypes = {
+	    buildHighlight: __webpack_require__(12).PropTypes.func.isRequired,
+	    contentNode: __webpack_require__(12).PropTypes.any.isRequired,
+	    editable: __webpack_require__(12).PropTypes.bool.isRequired,
+	    highlights: babelPluginFlowReactPropTypes_proptype_DOMHighlightSet,
+	    offsetParent: __webpack_require__(12).PropTypes.any.isRequired,
+	    onAddHighlight: __webpack_require__(12).PropTypes.func.isRequired,
+	    onRemoveHighlight: __webpack_require__(12).PropTypes.func.isRequired,
+	    zIndexes: babelPluginFlowReactPropTypes_proptype_ZIndexes
+	};
+
+	module.exports = HighlightingUI;
+
+/***/ },
+/* 201 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _nonSatRationale, _intermediateResponsi;
@@ -41658,11 +41764,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var mediaQueries = __webpack_require__(40);
 
-	var ToggleableRadioButton = __webpack_require__(228);
+	var ToggleableRadioButton = __webpack_require__(232);
 
-	var ChoiceIcon = __webpack_require__(229);
+	var ChoiceIcon = __webpack_require__(233);
 
-	var OptionStatus = __webpack_require__(230);
+	var OptionStatus = __webpack_require__(234);
 
 	var focusedStyleMixin = {
 	    backgroundColor: styleConstants.satSelectedBackgroundColor,
@@ -41786,11 +41892,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	                display: "block"
 	            },
 	            nonSatRationale: (_nonSatRationale = {
-	                padding: intermediateCheckboxPadding,
+	                padding: "16px 16px",
 	                paddingTop: 0,
 	                marginLeft: 44
 	            }, _nonSatRationale[mediaQueries.smOrSmaller] = {
-	                padding: intermediateCheckboxPaddingPhone,
+	                padding: "12px 16px",
 	                paddingTop: 0
 	            }, _nonSatRationale),
 	            satReviewRationale: {
@@ -41810,9 +41916,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	            intermediateResponsiveCheckbox: (_intermediateResponsi = {
 	                display: "flex",
 	                alignItems: "center",
-	                padding: intermediateCheckboxPadding
+	                padding: "16px 16px"
 	            }, _intermediateResponsi[mediaQueries.smOrSmaller] = {
-	                padding: intermediateCheckboxPaddingPhone
+	                padding: "12px 16px"
 	            }, _intermediateResponsi),
 	            intermediateResponsiveCheckboxReview: {
 	                alignItems: "flex-start"
@@ -42014,132 +42120,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Choice;
 
 /***/ },
-/* 201 */
-/***/ function(module, exports, __webpack_require__) {
-
-	function _classCallCheck(instance, Constructor) {
-	    if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
-	}
-
-	function _possibleConstructorReturn(self, call) {
-	    if (!self) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-	    return !call || "object" !== typeof call && "function" !== typeof call ? self : call;
-	}
-
-	function _inherits(subClass, superClass) {
-	    if ("function" !== typeof superClass && null !== superClass) throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-	    subClass.prototype = Object.create(superClass && superClass.prototype, {
-	        constructor: {
-	            value: subClass,
-	            enumerable: false,
-	            writable: true,
-	            configurable: true
-	        }
-	    });
-	    superClass && (Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass);
-	}
-
-	/**
-	 * This component, given a set of DOMHighlights, draws highlight rectangles in
-	 * the same absolute position as the highlighted content, as computed by the
-	 * range's `getClientRects` method.
-	 *
-	 * TODO(mdr): Many things can affect the correct positioning of highlighting,
-	 *     and this component does not attempt to anticipate them. If we start
-	 *     using this highlighting library on content with a more dynamic layout,
-	 *     we should add a hook to allow the parent to `forceUpdate` the
-	 *     `HighlightingUI`.
-	 */
-	var React = __webpack_require__(12);
-
-	var HighlightSetRenderer = __webpack_require__(231);
-
-	var HighlightTooltip = __webpack_require__(232);
-
-	var _require = __webpack_require__(220), rangesOverlap = _require.rangesOverlap;
-
-	var SelectionTracker = __webpack_require__(233);
-
-	var babelPluginFlowReactPropTypes_proptype_ZIndexes = __webpack_require__(234).babelPluginFlowReactPropTypes_proptype_ZIndexes || __webpack_require__(12).PropTypes.any;
-
-	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(234).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(12).PropTypes.any;
-
-	var babelPluginFlowReactPropTypes_proptype_DOMHighlightSet = __webpack_require__(234).babelPluginFlowReactPropTypes_proptype_DOMHighlightSet || __webpack_require__(12).PropTypes.any;
-
-	var babelPluginFlowReactPropTypes_proptype_DOMHighlight = __webpack_require__(234).babelPluginFlowReactPropTypes_proptype_DOMHighlight || __webpack_require__(12).PropTypes.any;
-
-	/* global i18n */
-	var babelPluginFlowReactPropTypes_proptype_TrackedSelection = __webpack_require__(233).babelPluginFlowReactPropTypes_proptype_TrackedSelection || __webpack_require__(12).PropTypes.any;
-
-	var HighlightingUI = function(_React$PureComponent) {
-	    _inherits(HighlightingUI, _React$PureComponent);
-	    function HighlightingUI() {
-	        _classCallCheck(this, HighlightingUI);
-	        return _possibleConstructorReturn(this, _React$PureComponent.apply(this, arguments));
-	    }
-	    HighlightingUI.prototype._handleAddHighlight = function _handleAddHighlight(highlightToAdd) {
-	        this.props.onAddHighlight(highlightToAdd);
-	        // Deselect the newly-highlighted text, by collapsing the selection
-	        // to the end of the range.
-	        var selection = document.getSelection();
-	        selection && selection.collapseToEnd();
-	    };
-	    HighlightingUI.prototype._selectionIsValid = function _selectionIsValid(trackedSelection) {
-	        if (!trackedSelection) return false;
-	        var contentNode = this.props.contentNode;
-	        // Create a range over the content node.
-	        var contentRange = new Range();
-	        contentRange.selectNodeContents(contentNode);
-	        // Create a range over the focus position.
-	        var focusRange = new Range();
-	        focusRange.setStart(trackedSelection.focusNode, trackedSelection.focusOffset);
-	        focusRange.collapse(true);
-	        return rangesOverlap(contentRange, focusRange);
-	    };
-	    HighlightingUI.prototype.render = function render() {
-	        var _this2 = this;
-	        return React.createElement(SelectionTracker, {
-	            buildHighlight: this.props.buildHighlight,
-	            enabled: this.props.editable
-	        }, function(trackedSelection, userIsMouseSelecting) {
-	            return React.createElement("div", null, React.createElement(HighlightSetRenderer, {
-	                editable: /* An existing highlight is editable when the
-	                         * component is in editable mode, and there's no
-	                         * selection in progress. */
-	                _this2.props.editable && !_this2._selectionIsValid(trackedSelection),
-	                highlights: _this2.props.highlights,
-	                offsetParent: _this2.props.offsetParent,
-	                onRemoveHighlight: _this2.props.onRemoveHighlight,
-	                zIndexes: _this2.props.zIndexes
-	            }), _this2._selectionIsValid(trackedSelection) && !userIsMouseSelecting && React.createElement(HighlightTooltip, {
-	                label: i18n._("Add highlight"),
-	                onClick: function onClick() {
-	                    return _this2._handleAddHighlight(trackedSelection.proposedHighlight);
-	                },
-	                focusNode: trackedSelection.focusNode,
-	                focusOffset: trackedSelection.focusOffset,
-	                offsetParent: _this2.props.offsetParent,
-	                zIndex: _this2.props.zIndexes.aboveContent
-	            }));
-	        });
-	    };
-	    return HighlightingUI;
-	}(React.PureComponent);
-
-	HighlightingUI.propTypes = {
-	    buildHighlight: __webpack_require__(12).PropTypes.func.isRequired,
-	    contentNode: __webpack_require__(12).PropTypes.any.isRequired,
-	    editable: __webpack_require__(12).PropTypes.bool.isRequired,
-	    highlights: babelPluginFlowReactPropTypes_proptype_DOMHighlightSet,
-	    offsetParent: __webpack_require__(12).PropTypes.any.isRequired,
-	    onAddHighlight: __webpack_require__(12).PropTypes.func.isRequired,
-	    onRemoveHighlight: __webpack_require__(12).PropTypes.func.isRequired,
-	    zIndexes: babelPluginFlowReactPropTypes_proptype_ZIndexes
-	};
-
-	module.exports = HighlightingUI;
-
-/***/ },
 /* 202 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -42268,7 +42248,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Redux = __webpack_require__(251);
 
-	var _require = __webpack_require__(199), tabletCutoffPx = _require.tabletCutoffPx;
+	var _require = __webpack_require__(198), tabletCutoffPx = _require.tabletCutoffPx;
 
 	var computeLayoutParameters = __webpack_require__(235);
 
@@ -42276,9 +42256,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Keys = __webpack_require__(226);
 
-	var KeyConfigs = __webpack_require__(205);
+	var KeyConfigs = __webpack_require__(206);
 
-	var CursorContexts = __webpack_require__(194);
+	var CursorContexts = __webpack_require__(199);
 
 	var GestureManager = __webpack_require__(236);
 
@@ -42422,18 +42402,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	            });
 
 	          case "PageKeypadRight":
-	            var nextPage = Math.min(state.currentPage + 1, state.numPages - 1);
 	            return _extends({}, state, {
 	                animateToPosition: true,
-	                currentPage: nextPage,
+	                currentPage: Math.min(state.currentPage + 1, state.numPages - 1),
 	                dx: 0
 	            });
 
 	          case "PageKeypadLeft":
-	            var prevPage = Math.max(state.currentPage - 1, 0);
 	            return _extends({}, state, {
 	                animateToPosition: true,
-	                currentPage: prevPage,
+	                currentPage: Math.max(state.currentPage - 1, 0),
 	                dx: 0
 	            });
 
@@ -42531,12 +42509,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	            return _extends({}, state, action.activeNodes);
 
 	          case "ConfigureKeypad":
-	            var keypadType = action.configuration.keypadType;
-	            var numPages = keypadForType[keypadType].numPages;
 	            return {
 	                popover: null,
 	                focus: null,
-	                gestureManager: createGestureManager(numPages > 1)
+	                gestureManager: createGestureManager(keypadForType[action.configuration.keypadType].numPages > 1)
 	            };
 
 	          default:
@@ -42569,11 +42545,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	            return state;
 
 	          case "RemoveEcho":
-	            var remainingEchoes = state.echoes.filter(function(echo) {
-	                return echo.animationId !== action.animationId;
-	            });
 	            return _extends({}, state, {
-	                echoes: remainingEchoes
+	                echoes: state.echoes.filter(function(echo) {
+	                    return echo.animationId !== action.animationId;
+	                })
 	            });
 
 	          default:
@@ -42682,6 +42657,23 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 205 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * This file exports components View and Text which wrap <div> and <span>.
+	 * We do this so that someday in the future we can use these components with
+	 * React Native.
+	 *
+	 * Inspired by https://github.com/necolas/react-native-web. We use aphrodite
+	 * StyleSheets instead.
+	 */
+	module.exports = {
+	    Text: __webpack_require__(238),
+	    View: __webpack_require__(239)
+	};
+
+/***/ },
+/* 206 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function(target) {
@@ -42973,23 +42965,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	module.exports = KeyConfigs;
-
-/***/ },
-/* 206 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * This file exports components View and Text which wrap <div> and <span>.
-	 * We do this so that someday in the future we can use these components with
-	 * React Native.
-	 *
-	 * Inspired by https://github.com/necolas/react-native-web. We use aphrodite
-	 * StyleSheets instead.
-	 */
-	module.exports = {
-	    Text: __webpack_require__(238),
-	    View: __webpack_require__(239)
-	};
 
 /***/ },
 /* 207 */
@@ -43531,575 +43506,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var _ = __webpack_require__(11);
 
-	var WrappedEllipse = __webpack_require__(213);
-
-	var kpoint = __webpack_require__(176).point;
-
-	var add = {
-	    constrain: function constrain() {
-	        this.constrain();
-	    }
-	};
-
-	add.standard = [ add.constrain ];
-
-	var modify = {
-	    draw: function draw() {
-	        this.draw();
-	    }
-	};
-
-	modify.standard = [ modify.draw ];
-
-	var draw = {
-	    basic: function basic(state, prevState) {
-	        var graphie = this.graphie;
-	        if (!this.state.visibleShape) {
-	            var radii = [ this.pointSize() / graphie.scale[0], this.pointSize() / graphie.scale[1] ];
-	            var options = {
-	                maxScale: Math.max(this.highlightStyle().scale, this.normalStyle().scale),
-	                // Add in 10px of padding to avoid clipping at the edges.
-	                padding: 10,
-	                shadow: state.shadow
-	            };
-	            this.state.visibleShape = new WrappedEllipse(graphie, this.coord(), radii, options);
-	            this.state.visibleShape.attr(_.omit(this.normalStyle(), "scale"));
-	            this.state.visibleShape.toFront();
-	            // Keep mouseTarget in front of visible shape
-	            this.mouseTarget() && this.mouseTarget().toFront();
-	        }
-	        state.normalStyle === prevState.normalStyle || _.isEqual(state.normalStyle, prevState.normalStyle) || this.state.visibleShape.attr(this.normalStyle());
-	        this.state.visibleShape.moveTo(this.coord());
-	        this.mouseTarget() && this.mouseTarget().moveTo(this.coord());
-	    },
-	    highlight: function highlight(state, prevState) {
-	        state.isHovering && !prevState.isHovering ? state.visibleShape.animate(this.highlightStyle(), 50) : !state.isHovering && prevState.isHovering && state.visibleShape.animate(this.normalStyle(), 50);
-	    }
-	};
-
-	draw.standard = [ draw.basic, draw.highlight ];
-
-	var remove = {
-	    basic: function basic() {
-	        if (this.state.visibleShape) {
-	            this.state.visibleShape.remove();
-	            this.state.visibleShape = null;
-	        }
-	    }
-	};
-
-	remove.standard = remove.basic;
-
-	var constraints = {
-	    fixed: function fixed() {
-	        return function() {
-	            return false;
-	        };
-	    },
-	    snap: function snap(_snap) {
-	        return function(coord) {
-	            if (null === _snap) return true;
-	            _snap = _snap || this.graphie.snap;
-	            return kpoint.roundTo(coord, _snap);
-	        };
-	    },
-	    bound: function bound(range, snap, paddingPx) {
-	        void 0 === paddingPx && (paddingPx = void 0 === range ? 10 : 0);
-	        return function(coord, prev, options) {
-	            var graphie = this.graphie;
-	            range = range || graphie.range;
-	            void 0 === snap && (snap = graphie.snap);
-	            var lower = graphie.unscalePoint([ paddingPx, graphie.ypixels - paddingPx ]);
-	            var upper = graphie.unscalePoint([ graphie.xpixels - paddingPx, paddingPx ]);
-	            if (snap) {
-	                lower = kpoint.ceilTo(lower, snap);
-	                upper = kpoint.floorTo(upper, snap);
-	            }
-	            if (!!options && !!options.onOutOfBounds) {
-	                if (coord[0] > upper[0] || coord[0] < lower[0] || coord[1] > upper[1] || coord[1] < lower[1]) {
-	                    options.onSkipRemaining();
-	                    options.onOutOfBounds();
-	                }
-	                return coord;
-	            }
-	            return [ Math.max(lower[0], Math.min(upper[0], coord[0])), Math.max(lower[1], Math.min(upper[1], coord[1])) ];
-	        };
-	    }
-	};
-
-	constraints.standard = null;
-
-	module.exports = {
-	    add: add,
-	    modify: modify,
-	    draw: draw,
-	    remove: remove,
-	    onMoveStart: {
-	        standard: null
-	    },
-	    constraints: constraints,
-	    onMove: {
-	        standard: null
-	    },
-	    onMoveEnd: {
-	        standard: null
-	    },
-	    onClick: {
-	        standard: null
-	    }
-	};
-
-/***/ },
-/* 213 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(11);
-
-	var WrappedDefaults = __webpack_require__(186);
-
-	var InteractiveUtil = __webpack_require__(124);
-
-	var kvector = __webpack_require__(176).vector;
-
-	var DEFAULT_OPTIONS = {
-	    maxScale: 1,
-	    mouselayer: false,
-	    shadow: false,
-	    disableMouseEventsOnWrapper: false
-	};
-
-	var WrappedEllipse = function WrappedEllipse(graphie, center, radii, options) {
-	    options = _.extend({}, DEFAULT_OPTIONS, options);
-	    // Add `wrapper`, `visibleShape`, and remaining properties.
-	    var fixedEllipse = graphie.fixedEllipse(center, radii, options.maxScale, options.padding);
-	    _.extend(this, fixedEllipse, {
-	        graphie: graphie,
-	        initialPoint: center
-	    });
-	    // Add to appropriate graphie layer
-	    if (options.mouselayer) {
-	        // Disable browser handling of all panning and zooming gestures on the
-	        // movable wrapper so that when moved the browser does not scroll page
-	        this.wrapper.style.touchAction = "none";
-	        this.graphie.addToMouseLayerWrapper(this.wrapper);
-	    } else this.graphie.addToVisibleLayerWrapper(this.wrapper);
-	    if (options.shadow) {
-	        var filter = "drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.5))";
-	        var wrapper = this.wrapper;
-	        wrapper.style.webkitFilter = filter;
-	        wrapper.style.filter = filter;
-	        this.moveTo = function(point) {
-	            var delta = kvector.subtract(this.graphie.scalePoint(point), this.graphie.scalePoint(this.initialPoint));
-	            var do3dTransform = InteractiveUtil.getCanUse3dTransform();
-	            var transform = "translateX(" + Math.round(delta[0]) + "px) translateY(" + Math.round(delta[1]) + "px)" + (do3dTransform ? " translateZ(0)" : "");
-	            this.transform(transform);
-	        };
-	    }
-	    if (options.disableMouseEventsOnWrapper) {
-	        this.wrapper.style.pointerEvents = "none";
-	        this.visibleShape.node.style.pointerEvents = "auto";
-	    }
-	};
-
-	_.extend(WrappedEllipse.prototype, WrappedDefaults);
-
-	module.exports = WrappedEllipse;
-
-/***/ },
-/* 214 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* globals katex:false, MathJax:false, Exercises:false */
-	var KhanMath = __webpack_require__(90);
-
-	function findChildOrAdd(elem, className) {
-	    var $child = $(elem).find("." + className);
-	    return 0 === $child.length ? $("<span>").addClass(className).appendTo($(elem)) : $child;
-	}
-
-	function doCallback(elem, callback) {
-	    var tries = 0;
-	    !function check() {
-	        // Heuristic to guess if the font has kicked in
-	        // so we have box metrics (magic number ick,
-	        // but this seems to work mostly-consistently)
-	        if (elem.scrollHeight > 18 || tries >= 10) callback(); else {
-	            tries++;
-	            setTimeout(check, 100);
-	        }
-	    }();
-	}
-
-	module.exports = {
-	    // Process a node and add math inside of it. This attempts to use KaTeX to
-	    // format the math, and if that fails it falls back to MathJax.
-	    //
-	    // elem: The element which the math should be added to.
-	    //
-	    // text: The text that should be formatted inside of the node. If the node
-	    //       has already had math formatted inside of it before, this doesn't
-	    //       have to be provided. If this is not provided, and the node hasn't
-	    //       been formatted before, the text content of the node is used.
-	    //
-	    // force: (optional) if the node has been processed before, then it will
-	    //        not be formatted again, unless this argument is true
-	    //
-	    // callback: (optional) a callback to be run after the math has been
-	    //           processed (note: this might be called synchronously or
-	    //           asynchronously, depending on whether KaTeX or MathJax is used)
-	    processMath: function processMath(elem, text, force, callback) {
-	        var $elem = $(elem);
-	        // Only process if it hasn't been done before, or it is forced
-	        if (null == $elem.attr("data-math-formula") || force) {
-	            var $katexHolder = findChildOrAdd($elem, "katex-holder");
-	            var $mathjaxHolder = findChildOrAdd($elem, "mathjax-holder");
-	            // Search for MathJax-y script tags inside of the node. These are
-	            // used by MathJax to denote the formula to be typeset. Before, we
-	            // would update the formula by updating the contents of the script
-	            // tag, which shouldn't happen any more, but we manage them just in
-	            // case.
-	            var script = $mathjaxHolder.find("script[type='math/tex']")[0];
-	            // If text wasn't provided, we look in two places
-	            null == text && ($elem.attr("data-math-formula") ? // The old typeset formula
-	            text = $elem.attr("data-math-formula") : script && (// The contents of the <script> tag
-	            text = script.text || script.textContent));
-	            text = null != text ? text + "" : "";
-	            // Attempt to clean up some of the math
-	            text = KhanMath.cleanMath(text);
-	            // Store the formula that we're using
-	            $elem.attr("data-math-formula", text);
-	            if (Exercises.useKatex) // Try to process the nodes with KaTeX first
-	            try {
-	                katex.render(text, $katexHolder[0]);
-	                // If that worked, and we previously formatted with
-	                // mathjax, do some mathjax cleanup
-	                if ("mathjax" === $elem.attr("data-math-type")) {
-	                    // Remove the old mathjax stuff
-	                    var jax = MathJax.Hub.getJaxFor(script);
-	                    if (jax) {
-	                        var e = jax.SourceElement();
-	                        e.previousSibling && e.previousSibling.className && jax.Remove();
-	                    }
-	                }
-	                $elem.attr("data-math-type", "katex");
-	                // Call the callback
-	                callback && doCallback(elem, callback);
-	                return;
-	            } catch (err) {
-	                // IE doesn't do instanceof correctly, so we resort to
-	                // manual checking
-	                /* jshint -W103 */
-	                if (err.__proto__ !== katex.ParseError.prototype) throw err;
-	            }
-	            // Otherwise, fallback to MathJax
-	            // (Note: we don't need to do any katex cleanup here, because
-	            // KaTeX is smart and cleans itself up)
-	            $elem.attr("data-math-type", "mathjax");
-	            // Update the script tag, or add one if necessary
-	            script ? "text" in script ? // IE8, etc
-	            script.text = text : script.textContent = text : $mathjaxHolder.append("<script type='math/tex'>" + text.replace(/<\//g, "< /") + "<\/script>");
-	            if ("undefined" !== typeof MathJax) {
-	                // Put the process, a debug log, and the callback into the
-	                // MathJax queue
-	                MathJax.Hub.Queue([ "Reprocess", MathJax.Hub, $mathjaxHolder[0] ]);
-	                MathJax.Hub.Queue(function() {
-	                    KhanUtil.debugLog("MathJax done typesetting (" + text + ")");
-	                });
-	                callback && MathJax.Hub.Queue(function() {
-	                    var cb = MathJax.Callback(function() {});
-	                    doCallback(elem, function() {
-	                        callback();
-	                        cb();
-	                    });
-	                    return cb;
-	                });
-	            }
-	        }
-	    },
-	    processAllMath: function processAllMath(elem, force) {
-	        var $elem = $(elem);
-	        $elem.filter("code").add($elem.find("code")).each(function() {
-	            var $this = $(this);
-	            var text = $this.attr("data-math-formula");
-	            if (null == text) {
-	                text = $this.text();
-	                $this.empty();
-	            }
-	            KhanUtil.processMath(this, text, force);
-	        });
-	    },
-	    // Function to restore a node to a non-math-processed state
-	    cleanupMath: function cleanupMath(elem) {
-	        var $elem = $(elem);
-	        // Only mess with it if it's been processed before
-	        if ($elem.attr("data-math-formula")) {
-	            // Remove MathJax remnants
-	            if ("undefined" !== typeof MathJax) {
-	                var jax = MathJax.Hub.getJaxFor($elem.find("script")[0]);
-	                if (jax) {
-	                    var e = jax.SourceElement();
-	                    e.previousSibling && e.previousSibling.className && jax.Remove();
-	                }
-	            }
-	            $elem.text($elem.attr("data-math-formula"));
-	            $elem.attr("data-math-formula", null);
-	            $elem.attr("data-math-type", null);
-	        }
-	        return elem;
-	    },
-	    // Function to retrieve the formula of a typeset math node
-	    retrieveMathFormula: function retrieveMathFormula(elem) {
-	        return $(elem).attr("data-math-formula");
-	    }
-	};
-
-/***/ },
-/* 215 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * A library of options to pass to add/draw/remove/constraints
-	 */
-	var _ = __webpack_require__(11);
-
-	var kpoint = __webpack_require__(176).point;
-
-	var kvector = __webpack_require__(176).vector;
-
-	function sum(array) {
-	    return _.reduce(array, function(memo, arg) {
-	        return memo + arg;
-	    }, 0);
-	}
-
-	function clockwise(points) {
-	    var segments = _.zip(points, points.slice(1).concat(points.slice(0, 1)));
-	    return sum(_.map(segments, function(segment) {
-	        var p1 = segment[0];
-	        var p2 = segment[1];
-	        return (p2[0] - p1[0]) * (p2[1] + p1[1]);
-	    })) > 0;
-	}
-
-	var add = {
-	    constrain: function constrain() {
-	        this.constrain();
-	    },
-	    pointsToFront: function pointsToFront(state) {
-	        _.invoke(state.points, "toFront");
-	    }
-	};
-
-	add.standard = [ add.constrain, add.pointsToFront ];
-
-	var modify = {
-	    draw: function draw() {
-	        this.draw();
-	    }
-	};
-
-	modify.standard = [ modify.draw ];
-
-	var draw = {
-	    basic: function basic(state, prevState) {
-	        var graphie = this.graphie;
-	        var path = this.path(state);
-	        if (!this.state.visibleShape) {
-	            this.state.visibleShape = graphie.raphael.path(path);
-	            this.state.visibleShape.attr(this.normalStyle());
-	        }
-	        state.normalStyle === prevState.normalStyle || _.isEqual(state.normalStyle, prevState.normalStyle) || this.state.visibleShape.attr(this.normalStyle());
-	        this.state.visibleShape.attr({
-	            path: path
-	        });
-	        this.mouseTarget() && this.mouseTarget().attr({
-	            path: path
-	        });
-	    },
-	    /* Labels are handled primarily by label objects, but sometimes require
-	     * extra movables, e.g., for the arcs drawn at labeled angles. These extra
-	     * movables are stored in the label cache. */
-	    labels: function labels(state, prevState) {
-	        var graphie = this.graphie;
-	        var self = this;
-	        var coords = _.invoke(state.points, "coord");
-	        var isClockwise = clockwise(coords);
-	        var n = coords.length;
-	        // graphie.labelAngle and similar methods attempt to re-use the label
-	        // provided, which will have been stored on state._labeledAngles.
-	        // If they cannot re-use the label, they make a new one, which will
-	        // get stored on state._labelCache. These will all be cleared out when
-	        // we remove the polygon.
-	        // (This logic is borrowed from graphie:addMovablePolygon.)
-	        null != self.state._labelCache && _.invoke(self.state._labelCache, "remove");
-	        self.state._labelCache = [];
-	        // Update angle labels
-	        if (state.angleLabels.length || state.showRightAngleMarkers.length) {
-	            // Generate labels
-	            null == self.state._labeledAngles && (self.state._labeledAngles = _.times(Math.max(state.angleLabels.length, state.showRightAngleMarkers.length), function() {
-	                return graphie.label([ 0, 0 ], "", "center", state.labelStyle);
-	            }));
-	            _.each(self.state._labeledAngles, function(label, i) {
-	                self.state._labelCache.push(graphie.labelAngle({
-	                    point1: coords[(i - 1 + n) % n],
-	                    vertex: coords[i],
-	                    point3: coords[(i + 1) % n],
-	                    label: label,
-	                    text: state.angleLabels[i],
-	                    showRightAngleMarker: state.showRightAngleMarkers[i],
-	                    numArcs: state.numArcs[i],
-	                    clockwise: isClockwise,
-	                    style: state.labelStyle
-	                }));
-	            });
-	        }
-	        // Update side labels
-	        if (state.sideLabels.length) {
-	            // Generate labels
-	            null == self.state._labeledSides && (self.state._labeledSides = _.map(state.sideLabels, function(label) {
-	                return graphie.label([ 0, 0 ], "", "center", state.labelStyle);
-	            }));
-	            _.each(self.state._labeledSides, function(label, i) {
-	                self.state._labelCache.push(graphie.labelSide({
-	                    point1: coords[i],
-	                    point2: coords[(i + 1) % n],
-	                    label: label,
-	                    text: state.sideLabels[i],
-	                    numArrows: state.numArrows[i],
-	                    numTicks: state.numTicks[i],
-	                    clockwise: isClockwise,
-	                    style: state.labelStyle
-	                }));
-	            });
-	        }
-	        // Update vertex labels
-	        if (state.vertexLabels.length) {
-	            // Generate labels
-	            null == self.state._labeledVertices && (self.state._labeledVertices = _.map(state.vertexLabels, function(label) {
-	                return graphie.label([ 0, 0 ], "", "center", state.labelStyle);
-	            }));
-	            _.each(self.state._labeledVertices, function(label, i) {
-	                self.state._labelCache.push(graphie.labelVertex({
-	                    point1: coords[(i - 1 + n) % n],
-	                    vertex: coords[i],
-	                    point3: coords[(i + 1) % n],
-	                    label: label,
-	                    text: state.vertexLabels[i],
-	                    clockwise: isClockwise,
-	                    style: state.labelStyle
-	                }));
-	            });
-	        }
-	        // graphie.labelVertex and its peer methods return an array of movables
-	        self.state._labelCache = _.flatten(self.state._labelCache);
-	    },
-	    highlight: function highlight(state, prevState) {
-	        state.isHovering && !prevState.isHovering ? state.visibleShape.animate(this.highlightStyle(), 50) : !state.isHovering && prevState.isHovering && state.visibleShape.animate(this.normalStyle(), 50);
-	    }
-	};
-
-	draw.standard = [ draw.basic, draw.labels, draw.highlight ];
-
-	var remove = {
-	    basic: function basic() {
-	        this.state.visibleShape && this.state.visibleShape.remove();
-	    },
-	    labels: function labels() {
-	        var labels = [ this.state._labeledSides, this.state._labeledVertices, this.state._labeledAngles, this.state._labelCache ];
-	        _.each(labels, function(labelType) {
-	            null != labelType && labelType.length && _.invoke(labelType, "remove");
-	        });
-	    }
-	};
-
-	remove.standard = [ remove.basic, remove.labels ];
-
-	var constraints = {
-	    fixed: function fixed() {
-	        return function() {
-	            return false;
-	        };
-	    },
-	    snap: function snap(_snap) {
-	        return function(coord) {
-	            if (null === _snap) return true;
-	            _snap = _snap || this.graphie.snap;
-	            return kpoint.roundTo(coord, _snap);
-	        };
-	    },
-	    bound: function bound(range, snap, paddingPx) {
-	        void 0 === paddingPx && (paddingPx = void 0 === range ? 10 : 0);
-	        return function(coord, prevCoord) {
-	            var graphie = this.graphie;
-	            var delta = kvector.subtract(coord, prevCoord);
-	            var range = range || graphie.range;
-	            // A null snap means no snap; an undefined snap means
-	            // default to graphie's
-	            void 0 === snap && (snap = graphie.snap);
-	            // Calculate the bounds for both points
-	            var absoluteLower = graphie.unscalePoint([ paddingPx, graphie.ypixels - paddingPx ]);
-	            var absoluteUpper = graphie.unscalePoint([ graphie.xpixels - paddingPx, paddingPx ]);
-	            if (snap) {
-	                absoluteLower = kpoint.ceilTo(absoluteLower, snap);
-	                absoluteUpper = kpoint.floorTo(absoluteUpper, snap);
-	            }
-	            // Calculate the bounds for the delta.
-	            var deltaBounds = _.map(this.coords(), function(coord, i) {
-	                var max = kvector.subtract(absoluteUpper, coord);
-	                return [ kvector.subtract(absoluteLower, coord), max ];
-	            });
-	            // bound the delta by the calculated bounds
-	            var boundedDelta = _.reduce(deltaBounds, function(delta, bound) {
-	                var lower = bound[0];
-	                var upper = bound[1];
-	                return [ Math.max(lower[0], Math.min(upper[0], delta[0])), Math.max(lower[1], Math.min(upper[1], delta[1])) ];
-	            }, delta);
-	            return kvector.add(prevCoord, boundedDelta);
-	        };
-	    }
-	};
-
-	constraints.standard = null;
-
-	var onMove = {
-	    updatePoints: function updatePoints(coord, prevCoord) {
-	        var actualDelta = kvector.subtract(coord, prevCoord);
-	        _.each(this.state.points, function(point) {
-	            point.setCoord(kvector.add(point.coord(), actualDelta));
-	        });
-	    }
-	};
-
-	onMove.standard = null;
-
-	module.exports = {
-	    add: add,
-	    modify: modify,
-	    draw: draw,
-	    remove: remove,
-	    onMoveStart: {
-	        standard: null
-	    },
-	    constraints: constraints,
-	    onMove: onMove,
-	    onMoveEnd: {
-	        standard: null
-	    },
-	    onClick: {
-	        standard: null
-	    }
-	};
-
-/***/ },
-/* 216 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * A library of options to pass to add/draw/remove/constraints
-	 */
-	var _ = __webpack_require__(11);
-
-	var WrappedLine = __webpack_require__(115);
+	var WrappedLine = __webpack_require__(114);
 
 	var WrappedPath = __webpack_require__(217);
 
@@ -44348,12 +43755,580 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
+/* 213 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * A library of options to pass to add/draw/remove/constraints
+	 */
+	var _ = __webpack_require__(11);
+
+	var WrappedEllipse = __webpack_require__(214);
+
+	var kpoint = __webpack_require__(176).point;
+
+	var add = {
+	    constrain: function constrain() {
+	        this.constrain();
+	    }
+	};
+
+	add.standard = [ add.constrain ];
+
+	var modify = {
+	    draw: function draw() {
+	        this.draw();
+	    }
+	};
+
+	modify.standard = [ modify.draw ];
+
+	var draw = {
+	    basic: function basic(state, prevState) {
+	        var graphie = this.graphie;
+	        if (!this.state.visibleShape) {
+	            var radii = [ this.pointSize() / graphie.scale[0], this.pointSize() / graphie.scale[1] ];
+	            var options = {
+	                maxScale: Math.max(this.highlightStyle().scale, this.normalStyle().scale),
+	                // Add in 10px of padding to avoid clipping at the edges.
+	                padding: 10,
+	                shadow: state.shadow
+	            };
+	            this.state.visibleShape = new WrappedEllipse(graphie, this.coord(), radii, options);
+	            this.state.visibleShape.attr(_.omit(this.normalStyle(), "scale"));
+	            this.state.visibleShape.toFront();
+	            // Keep mouseTarget in front of visible shape
+	            this.mouseTarget() && this.mouseTarget().toFront();
+	        }
+	        state.normalStyle === prevState.normalStyle || _.isEqual(state.normalStyle, prevState.normalStyle) || this.state.visibleShape.attr(this.normalStyle());
+	        this.state.visibleShape.moveTo(this.coord());
+	        this.mouseTarget() && this.mouseTarget().moveTo(this.coord());
+	    },
+	    highlight: function highlight(state, prevState) {
+	        state.isHovering && !prevState.isHovering ? state.visibleShape.animate(this.highlightStyle(), 50) : !state.isHovering && prevState.isHovering && state.visibleShape.animate(this.normalStyle(), 50);
+	    }
+	};
+
+	draw.standard = [ draw.basic, draw.highlight ];
+
+	var remove = {
+	    basic: function basic() {
+	        if (this.state.visibleShape) {
+	            this.state.visibleShape.remove();
+	            this.state.visibleShape = null;
+	        }
+	    }
+	};
+
+	remove.standard = remove.basic;
+
+	var constraints = {
+	    fixed: function fixed() {
+	        return function() {
+	            return false;
+	        };
+	    },
+	    snap: function snap(_snap) {
+	        return function(coord) {
+	            if (null === _snap) return true;
+	            _snap = _snap || this.graphie.snap;
+	            return kpoint.roundTo(coord, _snap);
+	        };
+	    },
+	    bound: function bound(range, snap, paddingPx) {
+	        void 0 === paddingPx && (paddingPx = void 0 === range ? 10 : 0);
+	        return function(coord, prev, options) {
+	            var graphie = this.graphie;
+	            range = range || graphie.range;
+	            void 0 === snap && (snap = graphie.snap);
+	            var lower = graphie.unscalePoint([ paddingPx, graphie.ypixels - paddingPx ]);
+	            var upper = graphie.unscalePoint([ graphie.xpixels - paddingPx, paddingPx ]);
+	            if (snap) {
+	                lower = kpoint.ceilTo(lower, snap);
+	                upper = kpoint.floorTo(upper, snap);
+	            }
+	            if (!!options && !!options.onOutOfBounds) {
+	                if (coord[0] > upper[0] || coord[0] < lower[0] || coord[1] > upper[1] || coord[1] < lower[1]) {
+	                    options.onSkipRemaining();
+	                    options.onOutOfBounds();
+	                }
+	                return coord;
+	            }
+	            return [ Math.max(lower[0], Math.min(upper[0], coord[0])), Math.max(lower[1], Math.min(upper[1], coord[1])) ];
+	        };
+	    }
+	};
+
+	constraints.standard = null;
+
+	module.exports = {
+	    add: add,
+	    modify: modify,
+	    draw: draw,
+	    remove: remove,
+	    onMoveStart: {
+	        standard: null
+	    },
+	    constraints: constraints,
+	    onMove: {
+	        standard: null
+	    },
+	    onMoveEnd: {
+	        standard: null
+	    },
+	    onClick: {
+	        standard: null
+	    }
+	};
+
+/***/ },
+/* 214 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(11);
+
+	var WrappedDefaults = __webpack_require__(182);
+
+	var InteractiveUtil = __webpack_require__(123);
+
+	var kvector = __webpack_require__(176).vector;
+
+	var DEFAULT_OPTIONS = {
+	    maxScale: 1,
+	    mouselayer: false,
+	    shadow: false,
+	    disableMouseEventsOnWrapper: false
+	};
+
+	var WrappedEllipse = function WrappedEllipse(graphie, center, radii, options) {
+	    options = _.extend({}, DEFAULT_OPTIONS, options);
+	    // Add `wrapper`, `visibleShape`, and remaining properties.
+	    var fixedEllipse = graphie.fixedEllipse(center, radii, options.maxScale, options.padding);
+	    _.extend(this, fixedEllipse, {
+	        graphie: graphie,
+	        initialPoint: center
+	    });
+	    // Add to appropriate graphie layer
+	    if (options.mouselayer) {
+	        // Disable browser handling of all panning and zooming gestures on the
+	        // movable wrapper so that when moved the browser does not scroll page
+	        this.wrapper.style.touchAction = "none";
+	        this.graphie.addToMouseLayerWrapper(this.wrapper);
+	    } else this.graphie.addToVisibleLayerWrapper(this.wrapper);
+	    if (options.shadow) {
+	        var filter = "drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.5))";
+	        var wrapper = this.wrapper;
+	        wrapper.style.webkitFilter = filter;
+	        wrapper.style.filter = filter;
+	        this.moveTo = function(point) {
+	            var delta = kvector.subtract(this.graphie.scalePoint(point), this.graphie.scalePoint(this.initialPoint));
+	            var do3dTransform = InteractiveUtil.getCanUse3dTransform();
+	            var transform = "translateX(" + Math.round(delta[0]) + "px) translateY(" + Math.round(delta[1]) + "px)" + (do3dTransform ? " translateZ(0)" : "");
+	            this.transform(transform);
+	        };
+	    }
+	    if (options.disableMouseEventsOnWrapper) {
+	        this.wrapper.style.pointerEvents = "none";
+	        this.visibleShape.node.style.pointerEvents = "auto";
+	    }
+	};
+
+	_.extend(WrappedEllipse.prototype, WrappedDefaults);
+
+	module.exports = WrappedEllipse;
+
+/***/ },
+/* 215 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* globals katex:false, MathJax:false, Exercises:false */
+	var KhanMath = __webpack_require__(90);
+
+	function findChildOrAdd(elem, className) {
+	    var $child = $(elem).find("." + className);
+	    return 0 === $child.length ? $("<span>").addClass(className).appendTo($(elem)) : $child;
+	}
+
+	function doCallback(elem, callback) {
+	    var tries = 0;
+	    !function check() {
+	        // Heuristic to guess if the font has kicked in
+	        // so we have box metrics (magic number ick,
+	        // but this seems to work mostly-consistently)
+	        if (elem.scrollHeight > 18 || tries >= 10) callback(); else {
+	            tries++;
+	            setTimeout(check, 100);
+	        }
+	    }();
+	}
+
+	module.exports = {
+	    // Process a node and add math inside of it. This attempts to use KaTeX to
+	    // format the math, and if that fails it falls back to MathJax.
+	    //
+	    // elem: The element which the math should be added to.
+	    //
+	    // text: The text that should be formatted inside of the node. If the node
+	    //       has already had math formatted inside of it before, this doesn't
+	    //       have to be provided. If this is not provided, and the node hasn't
+	    //       been formatted before, the text content of the node is used.
+	    //
+	    // force: (optional) if the node has been processed before, then it will
+	    //        not be formatted again, unless this argument is true
+	    //
+	    // callback: (optional) a callback to be run after the math has been
+	    //           processed (note: this might be called synchronously or
+	    //           asynchronously, depending on whether KaTeX or MathJax is used)
+	    processMath: function processMath(elem, text, force, callback) {
+	        var $elem = $(elem);
+	        // Only process if it hasn't been done before, or it is forced
+	        if (null == $elem.attr("data-math-formula") || force) {
+	            var $katexHolder = findChildOrAdd($elem, "katex-holder");
+	            var $mathjaxHolder = findChildOrAdd($elem, "mathjax-holder");
+	            // Search for MathJax-y script tags inside of the node. These are
+	            // used by MathJax to denote the formula to be typeset. Before, we
+	            // would update the formula by updating the contents of the script
+	            // tag, which shouldn't happen any more, but we manage them just in
+	            // case.
+	            var script = $mathjaxHolder.find("script[type='math/tex']")[0];
+	            // If text wasn't provided, we look in two places
+	            null == text && ($elem.attr("data-math-formula") ? // The old typeset formula
+	            text = $elem.attr("data-math-formula") : script && (// The contents of the <script> tag
+	            text = script.text || script.textContent));
+	            text = null != text ? text + "" : "";
+	            // Attempt to clean up some of the math
+	            text = KhanMath.cleanMath(text);
+	            // Store the formula that we're using
+	            $elem.attr("data-math-formula", text);
+	            if (Exercises.useKatex) // Try to process the nodes with KaTeX first
+	            try {
+	                katex.render(text, $katexHolder[0]);
+	                // If that worked, and we previously formatted with
+	                // mathjax, do some mathjax cleanup
+	                if ("mathjax" === $elem.attr("data-math-type")) {
+	                    // Remove the old mathjax stuff
+	                    var jax = MathJax.Hub.getJaxFor(script);
+	                    if (jax) {
+	                        var e = jax.SourceElement();
+	                        e.previousSibling && e.previousSibling.className && jax.Remove();
+	                    }
+	                }
+	                $elem.attr("data-math-type", "katex");
+	                // Call the callback
+	                callback && doCallback(elem, callback);
+	                return;
+	            } catch (err) {
+	                // IE doesn't do instanceof correctly, so we resort to
+	                // manual checking
+	                /* jshint -W103 */
+	                if (err.__proto__ !== katex.ParseError.prototype) throw err;
+	            }
+	            // Otherwise, fallback to MathJax
+	            // (Note: we don't need to do any katex cleanup here, because
+	            // KaTeX is smart and cleans itself up)
+	            $elem.attr("data-math-type", "mathjax");
+	            // Update the script tag, or add one if necessary
+	            script ? "text" in script ? // IE8, etc
+	            script.text = text : script.textContent = text : $mathjaxHolder.append("<script type='math/tex'>" + text.replace(/<\//g, "< /") + "</script>");
+	            if ("undefined" !== typeof MathJax) {
+	                // Put the process, a debug log, and the callback into the
+	                // MathJax queue
+	                MathJax.Hub.Queue([ "Reprocess", MathJax.Hub, $mathjaxHolder[0] ]);
+	                MathJax.Hub.Queue(function() {
+	                    KhanUtil.debugLog("MathJax done typesetting (" + text + ")");
+	                });
+	                callback && MathJax.Hub.Queue(function() {
+	                    var cb = MathJax.Callback(function() {});
+	                    doCallback(elem, function() {
+	                        callback();
+	                        cb();
+	                    });
+	                    return cb;
+	                });
+	            }
+	        }
+	    },
+	    processAllMath: function processAllMath(elem, force) {
+	        var $elem = $(elem);
+	        $elem.filter("code").add($elem.find("code")).each(function() {
+	            var $this = $(this);
+	            var text = $this.attr("data-math-formula");
+	            if (null == text) {
+	                text = $this.text();
+	                $this.empty();
+	            }
+	            KhanUtil.processMath(this, text, force);
+	        });
+	    },
+	    // Function to restore a node to a non-math-processed state
+	    cleanupMath: function cleanupMath(elem) {
+	        var $elem = $(elem);
+	        // Only mess with it if it's been processed before
+	        if ($elem.attr("data-math-formula")) {
+	            // Remove MathJax remnants
+	            if ("undefined" !== typeof MathJax) {
+	                var jax = MathJax.Hub.getJaxFor($elem.find("script")[0]);
+	                if (jax) {
+	                    var e = jax.SourceElement();
+	                    e.previousSibling && e.previousSibling.className && jax.Remove();
+	                }
+	            }
+	            $elem.text($elem.attr("data-math-formula"));
+	            $elem.attr("data-math-formula", null);
+	            $elem.attr("data-math-type", null);
+	        }
+	        return elem;
+	    },
+	    // Function to retrieve the formula of a typeset math node
+	    retrieveMathFormula: function retrieveMathFormula(elem) {
+	        return $(elem).attr("data-math-formula");
+	    }
+	};
+
+/***/ },
+/* 216 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * A library of options to pass to add/draw/remove/constraints
+	 */
+	var _ = __webpack_require__(11);
+
+	var kpoint = __webpack_require__(176).point;
+
+	var kvector = __webpack_require__(176).vector;
+
+	function sum(array) {
+	    return _.reduce(array, function(memo, arg) {
+	        return memo + arg;
+	    }, 0);
+	}
+
+	function clockwise(points) {
+	    var segments = _.zip(points, points.slice(1).concat(points.slice(0, 1)));
+	    return sum(_.map(segments, function(segment) {
+	        var p1 = segment[0];
+	        var p2 = segment[1];
+	        return (p2[0] - p1[0]) * (p2[1] + p1[1]);
+	    })) > 0;
+	}
+
+	var add = {
+	    constrain: function constrain() {
+	        this.constrain();
+	    },
+	    pointsToFront: function pointsToFront(state) {
+	        _.invoke(state.points, "toFront");
+	    }
+	};
+
+	add.standard = [ add.constrain, add.pointsToFront ];
+
+	var modify = {
+	    draw: function draw() {
+	        this.draw();
+	    }
+	};
+
+	modify.standard = [ modify.draw ];
+
+	var draw = {
+	    basic: function basic(state, prevState) {
+	        var graphie = this.graphie;
+	        var path = this.path(state);
+	        if (!this.state.visibleShape) {
+	            this.state.visibleShape = graphie.raphael.path(path);
+	            this.state.visibleShape.attr(this.normalStyle());
+	        }
+	        state.normalStyle === prevState.normalStyle || _.isEqual(state.normalStyle, prevState.normalStyle) || this.state.visibleShape.attr(this.normalStyle());
+	        this.state.visibleShape.attr({
+	            path: path
+	        });
+	        this.mouseTarget() && this.mouseTarget().attr({
+	            path: path
+	        });
+	    },
+	    /* Labels are handled primarily by label objects, but sometimes require
+	     * extra movables, e.g., for the arcs drawn at labeled angles. These extra
+	     * movables are stored in the label cache. */
+	    labels: function labels(state, prevState) {
+	        var graphie = this.graphie;
+	        var self = this;
+	        var coords = _.invoke(state.points, "coord");
+	        var isClockwise = clockwise(coords);
+	        var n = coords.length;
+	        // graphie.labelAngle and similar methods attempt to re-use the label
+	        // provided, which will have been stored on state._labeledAngles.
+	        // If they cannot re-use the label, they make a new one, which will
+	        // get stored on state._labelCache. These will all be cleared out when
+	        // we remove the polygon.
+	        // (This logic is borrowed from graphie:addMovablePolygon.)
+	        null != self.state._labelCache && _.invoke(self.state._labelCache, "remove");
+	        self.state._labelCache = [];
+	        // Update angle labels
+	        if (state.angleLabels.length || state.showRightAngleMarkers.length) {
+	            // Generate labels
+	            null == self.state._labeledAngles && (self.state._labeledAngles = _.times(Math.max(state.angleLabels.length, state.showRightAngleMarkers.length), function() {
+	                return graphie.label([ 0, 0 ], "", "center", state.labelStyle);
+	            }));
+	            _.each(self.state._labeledAngles, function(label, i) {
+	                self.state._labelCache.push(graphie.labelAngle({
+	                    point1: coords[(i - 1 + n) % n],
+	                    vertex: coords[i],
+	                    point3: coords[(i + 1) % n],
+	                    label: label,
+	                    text: state.angleLabels[i],
+	                    showRightAngleMarker: state.showRightAngleMarkers[i],
+	                    numArcs: state.numArcs[i],
+	                    clockwise: isClockwise,
+	                    style: state.labelStyle
+	                }));
+	            });
+	        }
+	        // Update side labels
+	        if (state.sideLabels.length) {
+	            // Generate labels
+	            null == self.state._labeledSides && (self.state._labeledSides = _.map(state.sideLabels, function(label) {
+	                return graphie.label([ 0, 0 ], "", "center", state.labelStyle);
+	            }));
+	            _.each(self.state._labeledSides, function(label, i) {
+	                self.state._labelCache.push(graphie.labelSide({
+	                    point1: coords[i],
+	                    point2: coords[(i + 1) % n],
+	                    label: label,
+	                    text: state.sideLabels[i],
+	                    numArrows: state.numArrows[i],
+	                    numTicks: state.numTicks[i],
+	                    clockwise: isClockwise,
+	                    style: state.labelStyle
+	                }));
+	            });
+	        }
+	        // Update vertex labels
+	        if (state.vertexLabels.length) {
+	            // Generate labels
+	            null == self.state._labeledVertices && (self.state._labeledVertices = _.map(state.vertexLabels, function(label) {
+	                return graphie.label([ 0, 0 ], "", "center", state.labelStyle);
+	            }));
+	            _.each(self.state._labeledVertices, function(label, i) {
+	                self.state._labelCache.push(graphie.labelVertex({
+	                    point1: coords[(i - 1 + n) % n],
+	                    vertex: coords[i],
+	                    point3: coords[(i + 1) % n],
+	                    label: label,
+	                    text: state.vertexLabels[i],
+	                    clockwise: isClockwise,
+	                    style: state.labelStyle
+	                }));
+	            });
+	        }
+	        // graphie.labelVertex and its peer methods return an array of movables
+	        self.state._labelCache = _.flatten(self.state._labelCache);
+	    },
+	    highlight: function highlight(state, prevState) {
+	        state.isHovering && !prevState.isHovering ? state.visibleShape.animate(this.highlightStyle(), 50) : !state.isHovering && prevState.isHovering && state.visibleShape.animate(this.normalStyle(), 50);
+	    }
+	};
+
+	draw.standard = [ draw.basic, draw.labels, draw.highlight ];
+
+	var remove = {
+	    basic: function basic() {
+	        this.state.visibleShape && this.state.visibleShape.remove();
+	    },
+	    labels: function labels() {
+	        var labels = [ this.state._labeledSides, this.state._labeledVertices, this.state._labeledAngles, this.state._labelCache ];
+	        _.each(labels, function(labelType) {
+	            null != labelType && labelType.length && _.invoke(labelType, "remove");
+	        });
+	    }
+	};
+
+	remove.standard = [ remove.basic, remove.labels ];
+
+	var constraints = {
+	    fixed: function fixed() {
+	        return function() {
+	            return false;
+	        };
+	    },
+	    snap: function snap(_snap) {
+	        return function(coord) {
+	            if (null === _snap) return true;
+	            _snap = _snap || this.graphie.snap;
+	            return kpoint.roundTo(coord, _snap);
+	        };
+	    },
+	    bound: function bound(range, snap, paddingPx) {
+	        void 0 === paddingPx && (paddingPx = void 0 === range ? 10 : 0);
+	        return function(coord, prevCoord) {
+	            var graphie = this.graphie;
+	            var delta = kvector.subtract(coord, prevCoord);
+	            var range = range || graphie.range;
+	            // A null snap means no snap; an undefined snap means
+	            // default to graphie's
+	            void 0 === snap && (snap = graphie.snap);
+	            // Calculate the bounds for both points
+	            var absoluteLower = graphie.unscalePoint([ paddingPx, graphie.ypixels - paddingPx ]);
+	            var absoluteUpper = graphie.unscalePoint([ graphie.xpixels - paddingPx, paddingPx ]);
+	            if (snap) {
+	                absoluteLower = kpoint.ceilTo(absoluteLower, snap);
+	                absoluteUpper = kpoint.floorTo(absoluteUpper, snap);
+	            }
+	            // Calculate the bounds for the delta.
+	            var deltaBounds = _.map(this.coords(), function(coord, i) {
+	                var max = kvector.subtract(absoluteUpper, coord);
+	                return [ kvector.subtract(absoluteLower, coord), max ];
+	            });
+	            // bound the delta by the calculated bounds
+	            var boundedDelta = _.reduce(deltaBounds, function(delta, bound) {
+	                var lower = bound[0];
+	                var upper = bound[1];
+	                return [ Math.max(lower[0], Math.min(upper[0], delta[0])), Math.max(lower[1], Math.min(upper[1], delta[1])) ];
+	            }, delta);
+	            return kvector.add(prevCoord, boundedDelta);
+	        };
+	    }
+	};
+
+	constraints.standard = null;
+
+	var onMove = {
+	    updatePoints: function updatePoints(coord, prevCoord) {
+	        var actualDelta = kvector.subtract(coord, prevCoord);
+	        _.each(this.state.points, function(point) {
+	            point.setCoord(kvector.add(point.coord(), actualDelta));
+	        });
+	    }
+	};
+
+	onMove.standard = null;
+
+	module.exports = {
+	    add: add,
+	    modify: modify,
+	    draw: draw,
+	    remove: remove,
+	    onMoveStart: {
+	        standard: null
+	    },
+	    constraints: constraints,
+	    onMove: onMove,
+	    onMoveEnd: {
+	        standard: null
+	    },
+	    onClick: {
+	        standard: null
+	    }
+	};
+
+/***/ },
 /* 217 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _ = __webpack_require__(11);
 
-	var WrappedDefaults = __webpack_require__(186);
+	var WrappedDefaults = __webpack_require__(182);
 
 	var DEFAULT_OPTIONS = {
 	    center: null,
@@ -48673,7 +48648,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 *     of the DOM's `compareBoundaryPoints` API, and to cover over a Flow bug
 	 *     documented here: https://github.com/facebook/flow/issues/3734.
 	 */
-	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(136).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(12).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(135).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(12).PropTypes.any;
 
 	/**
 	 * Utility functions for manipulating ranges of highlightable content.
@@ -48911,7 +48886,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require = __webpack_require__(240), connect = _require.connect;
 
-	var _require2 = __webpack_require__(206), View = _require2.View;
+	var _require2 = __webpack_require__(205), View = _require2.View;
 
 	var Keypad = __webpack_require__(241);
 
@@ -48921,11 +48896,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require4 = __webpack_require__(129), BorderStyles = _require4.BorderStyles;
 
-	var CursorContexts = __webpack_require__(194);
+	var CursorContexts = __webpack_require__(199);
 
 	var _require5 = __webpack_require__(142), cursorContextPropType = _require5.cursorContextPropType;
 
-	var KeyConfigs = __webpack_require__(205);
+	var KeyConfigs = __webpack_require__(206);
 
 	var FractionKeypad = function(_React$Component) {
 	    _inherits(FractionKeypad, _React$Component);
@@ -49095,7 +49070,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require2 = __webpack_require__(15), StyleSheet = _require2.StyleSheet;
 
-	var _require3 = __webpack_require__(206), View = _require3.View;
+	var _require3 = __webpack_require__(205), View = _require3.View;
 
 	var TwoPageKeypad = __webpack_require__(243);
 
@@ -49107,13 +49082,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require5 = __webpack_require__(129), BorderStyles = _require5.BorderStyles;
 
-	var _require6 = __webpack_require__(199), valueGrey = _require6.valueGrey, controlGrey = _require6.controlGrey;
+	var _require6 = __webpack_require__(198), valueGrey = _require6.valueGrey, controlGrey = _require6.controlGrey;
 
 	var _require7 = __webpack_require__(142), cursorContextPropType = _require7.cursorContextPropType, keyIdPropType = _require7.keyIdPropType;
 
-	var KeyConfigs = __webpack_require__(205);
+	var KeyConfigs = __webpack_require__(206);
 
-	var CursorContexts = __webpack_require__(194);
+	var CursorContexts = __webpack_require__(199);
 
 	var ExpressionKeypad = function(_React$Component) {
 	    _inherits(ExpressionKeypad, _React$Component);
@@ -49387,17 +49362,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require = __webpack_require__(15), StyleSheet = _require.StyleSheet;
 
-	var _require2 = __webpack_require__(206), View = _require2.View;
+	var _require2 = __webpack_require__(205), View = _require2.View;
 
 	var TouchableKeypadButton = __webpack_require__(242);
 
 	var _require3 = __webpack_require__(225), row = _require3.row, column = _require3.column, centered = _require3.centered, stretch = _require3.stretch, roundedTopLeft = _require3.roundedTopLeft;
 
-	var _require4 = __webpack_require__(199), navigationPadWidthPx = _require4.navigationPadWidthPx, controlGrey = _require4.controlGrey, valueGrey = _require4.valueGrey, gray85 = _require4.gray85;
+	var _require4 = __webpack_require__(198), navigationPadWidthPx = _require4.navigationPadWidthPx, controlGrey = _require4.controlGrey, valueGrey = _require4.valueGrey, gray85 = _require4.gray85;
 
 	var _require5 = __webpack_require__(129), BorderStyles = _require5.BorderStyles;
 
-	var KeyConfigs = __webpack_require__(205);
+	var KeyConfigs = __webpack_require__(206);
 
 	var NavigationPad = function(_React$Component) {
 	    _inherits(NavigationPad, _React$Component);
@@ -49460,45 +49435,45 @@ return /******/ (function(modules) { // webpackBootstrap
 	    navigationKey: {
 	        borderColor: gray85,
 	        backgroundColor: valueGrey,
-	        width: buttonSizePx,
-	        height: buttonSizePx,
+	        width: 48,
+	        height: 48,
 	        // Override the default box-sizing so that our buttons are
 	        // `buttonSizePx` exclusive of their borders.
 	        boxSizing: "content-box"
 	    },
 	    topArrow: {
-	        borderTopWidth: borderWidthPx,
-	        borderLeftWidth: borderWidthPx,
-	        borderRightWidth: borderWidthPx,
-	        borderTopLeftRadius: borderRadiusPx,
-	        borderTopRightRadius: borderRadiusPx
+	        borderTopWidth: 1,
+	        borderLeftWidth: 1,
+	        borderRightWidth: 1,
+	        borderTopLeftRadius: 4,
+	        borderTopRightRadius: 4
 	    },
 	    rightArrow: {
-	        borderTopWidth: borderWidthPx,
-	        borderRightWidth: borderWidthPx,
-	        borderBottomWidth: borderWidthPx,
-	        borderTopRightRadius: borderRadiusPx,
-	        borderBottomRightRadius: borderRadiusPx
+	        borderTopWidth: 1,
+	        borderRightWidth: 1,
+	        borderBottomWidth: 1,
+	        borderTopRightRadius: 4,
+	        borderBottomRightRadius: 4
 	    },
 	    bottomArrow: {
-	        borderBottomWidth: borderWidthPx,
-	        borderLeftWidth: borderWidthPx,
-	        borderRightWidth: borderWidthPx,
-	        borderBottomLeftRadius: borderRadiusPx,
-	        borderBottomRightRadius: borderRadiusPx
+	        borderBottomWidth: 1,
+	        borderLeftWidth: 1,
+	        borderRightWidth: 1,
+	        borderBottomLeftRadius: 4,
+	        borderBottomRightRadius: 4
 	    },
 	    leftArrow: {
-	        borderTopWidth: borderWidthPx,
-	        borderBottomWidth: borderWidthPx,
-	        borderLeftWidth: borderWidthPx,
-	        borderTopLeftRadius: borderRadiusPx,
-	        borderBottomLeftRadius: borderRadiusPx
+	        borderTopWidth: 1,
+	        borderBottomWidth: 1,
+	        borderLeftWidth: 1,
+	        borderTopLeftRadius: 4,
+	        borderBottomLeftRadius: 4
 	    },
 	    horizontalSpacer: {
 	        background: valueGrey,
 	        // No need to set a height -- the spacer will be stretched by its
 	        // parent.
-	        width: buttonSizePx
+	        width: 48
 	    }
 	});
 
@@ -49527,7 +49502,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var _require = __webpack_require__(15), StyleSheet = _require.StyleSheet;
 
-	var _require2 = __webpack_require__(199), compactKeypadBorderRadiusPx = _require2.compactKeypadBorderRadiusPx;
+	var _require2 = __webpack_require__(198), compactKeypadBorderRadiusPx = _require2.compactKeypadBorderRadiusPx;
 
 	module.exports = StyleSheet.create({
 	    row: {
@@ -49650,6 +49625,517 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 228 */
 /***/ function(module, exports, __webpack_require__) {
 
+	function _classCallCheck(instance, Constructor) {
+	    if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
+	}
+
+	function _possibleConstructorReturn(self, call) {
+	    if (!self) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	    return !call || "object" !== typeof call && "function" !== typeof call ? self : call;
+	}
+
+	function _inherits(subClass, superClass) {
+	    if ("function" !== typeof superClass && null !== superClass) throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+	    subClass.prototype = Object.create(superClass && superClass.prototype, {
+	        constructor: {
+	            value: subClass,
+	            enumerable: false,
+	            writable: true,
+	            configurable: true
+	        }
+	    });
+	    superClass && (Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass);
+	}
+
+	/**
+	 * Render a set of highlights. See HighlightRenderer for more details about how
+	 * each highlight is rendered.
+	 *
+	 * This component manages the state of the "Remove highlight" tooltip. To
+	 * determine the currently-hovered highlight, it calls the `isHovered` method
+	 * on each HighlightRenderer.
+	 */
+	var React = __webpack_require__(12);
+
+	var HighlightRenderer = __webpack_require__(245);
+
+	var HighlightTooltip = __webpack_require__(229);
+
+	/* global i18n */
+	var babelPluginFlowReactPropTypes_proptype_ZIndexes = __webpack_require__(231).babelPluginFlowReactPropTypes_proptype_ZIndexes || __webpack_require__(12).PropTypes.any;
+
+	var babelPluginFlowReactPropTypes_proptype_Position = __webpack_require__(231).babelPluginFlowReactPropTypes_proptype_Position || __webpack_require__(12).PropTypes.any;
+
+	var babelPluginFlowReactPropTypes_proptype_DOMHighlightSet = __webpack_require__(231).babelPluginFlowReactPropTypes_proptype_DOMHighlightSet || __webpack_require__(12).PropTypes.any;
+
+	var HighlightSetRenderer = function(_React$PureComponent) {
+	    _inherits(HighlightSetRenderer, _React$PureComponent);
+	    function HighlightSetRenderer() {
+	        var _temp, _this, _ret;
+	        _classCallCheck(this, HighlightSetRenderer);
+	        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) args[_key] = arguments[_key];
+	        return _ret = (_temp = (_this = _possibleConstructorReturn(this, _React$PureComponent.call.apply(_React$PureComponent, [ this ].concat(args))), 
+	        _this), _this.state = {
+	            mouseClientPosition: null,
+	            hoveringTooltipFor: null
+	        }, _this._highlightRenderers = {}, _this._handleMouseMove = function(e) {
+	            _this.setState({
+	                mouseClientPosition: {
+	                    left: e.clientX,
+	                    top: e.clientY
+	                }
+	            });
+	        }, _temp), _possibleConstructorReturn(_this, _ret);
+	    }
+	    // eslint-disable-next-line react/sort-comp
+	    HighlightSetRenderer.prototype.componentDidMount = function componentDidMount() {
+	        this._updateEditListeners(false, this.props.editable);
+	    };
+	    HighlightSetRenderer.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
+	        this._updateEditListeners(this.props.editable, nextProps.editable);
+	        // If we were previously hovering over the tooltip for a highlight that
+	        // has since been removed, reset the hover state accordingly.
+	        "string" !== typeof this.state.hoveringTooltipFor || this.state.hoveringTooltipFor in nextProps.highlights || this.setState({
+	            hoveringTooltipFor: null
+	        });
+	    };
+	    HighlightSetRenderer.prototype.componentWillUnmount = function componentWillUnmount() {
+	        this._updateEditListeners(this.props.editable, false);
+	    };
+	    /**
+	     * Given whether we were previously listening to mousemove events, and
+	     * whether we will now listen to mousemove events, add or remove the
+	     * listener accordingly.
+	     */
+	    HighlightSetRenderer.prototype._updateEditListeners = function _updateEditListeners(wasListening, willListen) {
+	        if (!wasListening && willListen) window.addEventListener("mousemove", this._handleMouseMove); else if (wasListening && !willListen) {
+	            window.removeEventListener("mousemove", this._handleMouseMove);
+	            // Additionally, reset the mouse position. Our child components
+	            // won't be checking `mouseClientPosition` when we're not
+	            // listening, anyway, but this guards against errors where we
+	            // re-enter listening mode and have stale coordinates stored in
+	            // state.
+	            this.setState({
+	                mouseClientPosition: null
+	            });
+	        }
+	    };
+	    HighlightSetRenderer.prototype._getHoveredHighlightKey = function _getHoveredHighlightKey() {
+	        var _this2 = this;
+	        // If we're hovering over the tooltip, the hovered highlight is the
+	        // highlight that the tooltip is pointing to.
+	        var hoveringTooltipFor = this.state.hoveringTooltipFor;
+	        if ("string" === typeof hoveringTooltipFor) return hoveringTooltipFor;
+	        return Object.keys(this.props.highlights).find(function(key) {
+	            var highlightRenderer = _this2._highlightRenderers[key];
+	            return highlightRenderer && highlightRenderer.isHovered(_this2.state.mouseClientPosition);
+	        });
+	    };
+	    HighlightSetRenderer.prototype._renderTooltip = function _renderTooltip() {
+	        var _this3 = this;
+	        var hoveredHighlightKey = this._getHoveredHighlightKey();
+	        if ("string" !== typeof hoveredHighlightKey) return null;
+	        var hoveredHighlight = this.props.highlights[hoveredHighlightKey];
+	        return React.createElement(HighlightTooltip, {
+	            label: i18n._("Remove highlight"),
+	            focusNode: hoveredHighlight.domRange.endContainer,
+	            focusOffset: hoveredHighlight.domRange.endOffset,
+	            offsetParent: this.props.offsetParent,
+	            zIndex: this.props.zIndexes.aboveContent,
+	            onClick: function onClick() {
+	                return _this3.props.onRemoveHighlight(hoveredHighlightKey);
+	            },
+	            onMouseEnter: function onMouseEnter() {
+	                return _this3.setState({
+	                    hoveringTooltipFor: hoveredHighlightKey
+	                });
+	            },
+	            onMouseLeave: function onMouseLeave() {
+	                return _this3.setState({
+	                    hoveringTooltipFor: null
+	                });
+	            }
+	        });
+	    };
+	    HighlightSetRenderer.prototype.render = function render() {
+	        var _this4 = this;
+	        return React.createElement("div", null, Object.keys(this.props.highlights).map(function(key) {
+	            return React.createElement(HighlightRenderer, {
+	                ref: function ref(r) {
+	                    r ? _this4._highlightRenderers[key] = r : delete _this4._highlightRenderers[key];
+	                },
+	                editable: _this4.props.editable,
+	                key: key,
+	                highlight: _this4.props.highlights[key],
+	                highlightKey: key,
+	                mouseClientPosition: _this4.state.mouseClientPosition,
+	                offsetParent: _this4.props.offsetParent,
+	                onRemoveHighlight: _this4.props.onRemoveHighlight,
+	                zIndexes: _this4.props.zIndexes
+	            });
+	        }), this.props.editable && this._renderTooltip());
+	    };
+	    return HighlightSetRenderer;
+	}(React.PureComponent);
+
+	HighlightSetRenderer.propTypes = {
+	    editable: __webpack_require__(12).PropTypes.bool.isRequired,
+	    highlights: babelPluginFlowReactPropTypes_proptype_DOMHighlightSet,
+	    offsetParent: __webpack_require__(12).PropTypes.any.isRequired,
+	    onRemoveHighlight: __webpack_require__(12).PropTypes.func.isRequired,
+	    zIndexes: babelPluginFlowReactPropTypes_proptype_ZIndexes
+	};
+
+	module.exports = HighlightSetRenderer;
+
+/***/ },
+/* 229 */
+/***/ function(module, exports, __webpack_require__) {
+
+	function _classCallCheck(instance, Constructor) {
+	    if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
+	}
+
+	function _possibleConstructorReturn(self, call) {
+	    if (!self) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	    return !call || "object" !== typeof call && "function" !== typeof call ? self : call;
+	}
+
+	function _inherits(subClass, superClass) {
+	    if ("function" !== typeof superClass && null !== superClass) throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+	    subClass.prototype = Object.create(superClass && superClass.prototype, {
+	        constructor: {
+	            value: subClass,
+	            enumerable: false,
+	            writable: true,
+	            configurable: true
+	        }
+	    });
+	    superClass && (Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass);
+	}
+
+	/**
+	 * A tooltip to point to the focus of a highlight.
+	 */
+	var React = __webpack_require__(12);
+
+	var _require = __webpack_require__(15), StyleSheet = _require.StyleSheet, css = _require.css;
+
+	var _require2 = __webpack_require__(246), getRelativePosition = _require2.getRelativePosition;
+
+	var babelPluginFlowReactPropTypes_proptype_Position = __webpack_require__(231).babelPluginFlowReactPropTypes_proptype_Position || __webpack_require__(12).PropTypes.any;
+
+	var HighlightTooltip = function(_React$PureComponent) {
+	    _inherits(HighlightTooltip, _React$PureComponent);
+	    function HighlightTooltip() {
+	        _classCallCheck(this, HighlightTooltip);
+	        return _possibleConstructorReturn(this, _React$PureComponent.apply(this, arguments));
+	    }
+	    HighlightTooltip.prototype._getPosition = function _getPosition() {
+	        var _props = this.props, focusNode = _props.focusNode, focusOffset = _props.focusOffset, offsetParent = _props.offsetParent;
+	        // Get a range of *just* the focus point of the selection.
+	        var focusRange = document.createRange();
+	        focusRange.setStart(focusNode, focusOffset);
+	        focusRange.setEnd(focusNode, focusOffset);
+	        // Then, get the bounding box of the collapsed range. This will be a
+	        // zero-width rectangle, but still have positioning information, which
+	        // we can use the position the tooltip.
+	        //
+	        // NOTE(mdr): If we used getClientBoundingRect here instead, Safari
+	        //     would return an unpositioned rect. But all tested browsers at
+	        //     time of writing (latest Chrome, Firefox, Safari) return at least
+	        //     one rectangle from getClientRects, and it's well-positioned.
+	        var focusRect = focusRange.getClientRects()[0];
+	        // NOTE(mdr): ...except in the case where the focus is between two
+	        //     paragraphs, in which case the focus range has no client rects?
+	        //     Not sure why, or in what browsers (only noticed in Chrome 60),
+	        //     but let's catch that case and bail out.
+	        // TODO(mdr): Instead, we should somehow walk back the range until we
+	        //     find an appropriate position for the tooltip. Sounds tricky!
+	        if (!focusRect) {
+	            // eslint-disable-next-line no-console
+	            console.warn('[Highlighting] Known bug: Could not determine the focus position, so did not show an "Add Highlight" tooltip. https://app.asana.com/0/329800276300868/413878480039713');
+	            return null;
+	        }
+	        return getRelativePosition(focusRect, offsetParent.getBoundingClientRect());
+	    };
+	    HighlightTooltip.prototype.render = function render() {
+	        var position = this._getPosition();
+	        if (!position) return null;
+	        return React.createElement("div", {
+	            className: css(styles.tooltip),
+	            onClick: this.props.onClick,
+	            onMouseEnter: this.props.onMouseEnter,
+	            onMouseLeave: this.props.onMouseLeave,
+	            style: {
+	                left: position.left,
+	                top: position.top,
+	                zIndex: this.props.zIndex
+	            }
+	        }, React.createElement("div", {
+	            className: css(styles.label)
+	        }, this.props.label), React.createElement("div", {
+	            className: css(styles.arrow)
+	        }));
+	    };
+	    return HighlightTooltip;
+	}(React.PureComponent);
+
+	HighlightTooltip.propTypes = {
+	    label: __webpack_require__(12).PropTypes.string.isRequired,
+	    onClick: __webpack_require__(12).PropTypes.func.isRequired,
+	    onMouseEnter: __webpack_require__(12).PropTypes.func,
+	    onMouseLeave: __webpack_require__(12).PropTypes.func,
+	    focusNode: __webpack_require__(12).PropTypes.any.isRequired,
+	    focusOffset: __webpack_require__(12).PropTypes.number.isRequired,
+	    offsetParent: __webpack_require__(12).PropTypes.any.isRequired,
+	    zIndex: __webpack_require__(12).PropTypes.number.isRequired
+	};
+
+	var styles = StyleSheet.create({
+	    tooltip: {
+	        // Positioning.
+	        //
+	        // Position the tooltip's *center-bottom* point at the left/top
+	        // coordinates, instead of the tooltip's top-left point, by translating
+	        // left by half the tooltip's width and up by the tooltip's full
+	        // height.
+	        //
+	        // `left`, `top`, and `zIndex` are specified via the `style` attribute.
+	        position: "absolute",
+	        transform: "translate(-50%, -100%)",
+	        // Cursor interaction.
+	        cursor: "pointer",
+	        userSelect: "none"
+	    },
+	    label: {
+	        // Box appearance.
+	        background: "#314453",
+	        borderRadius: 2,
+	        boxShadow: "0 1px 4px 0 rgba(97, 101, 105, 0.42)",
+	        padding: "8px 11px",
+	        // Text appearance.
+	        color: "white",
+	        fontSize: 12,
+	        lineHeight: 1.5,
+	        textAlign: "center"
+	    },
+	    // A 12px-width, 6px-height downward-facing arrow.
+	    //
+	    // Implemented by creating a box whose only content is its top, left, and
+	    // right borders. The joints between two borders are a diagonal line, so
+	    // the arrow element renders divided into these three areas:
+	    //
+	    // +-------+
+	    // |\ top /|
+	    // | \   / |
+	    // |  \ /  |
+	    // |L  v  R|
+	    // +-------+
+	    //
+	    // Therefore, if we color the top border, and make the left and right
+	    // borders transparent, we end up with a triangle!
+	    //
+	    // https://css-tricks.com/snippets/css/css-triangle/
+	    arrow: {
+	        // Make the inner dimensions of the box 0x0, so that its only content
+	        // is its top, left, and right borders.
+	        height: 0,
+	        width: 0,
+	        // The sum of our left and right border widths will be the width of our
+	        // triangle, so set them to 6px + 6px = 12px.
+	        borderLeft: "6px solid transparent",
+	        borderRight: "6px solid transparent",
+	        // The top border height will be the height of our triangle, so set it
+	        // to 6px.
+	        borderTop: "6px solid #314453",
+	        // Center the arrow within the tooltip container.
+	        margin: "0 auto"
+	    }
+	});
+
+	module.exports = HighlightTooltip;
+
+/***/ },
+/* 230 */
+/***/ function(module, exports, __webpack_require__) {
+
+	function _classCallCheck(instance, Constructor) {
+	    if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
+	}
+
+	function _possibleConstructorReturn(self, call) {
+	    if (!self) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	    return !call || "object" !== typeof call && "function" !== typeof call ? self : call;
+	}
+
+	function _inherits(subClass, superClass) {
+	    if ("function" !== typeof superClass && null !== superClass) throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+	    subClass.prototype = Object.create(superClass && superClass.prototype, {
+	        constructor: {
+	            value: subClass,
+	            enumerable: false,
+	            writable: true,
+	            configurable: true
+	        }
+	    });
+	    superClass && (Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass);
+	}
+
+	/**
+	 * Tracks the user's current selection, and exposes it to the subtree using the
+	 * function-as-children pattern.
+	 */
+	var React = __webpack_require__(12);
+
+	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(231).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(12).PropTypes.any;
+
+	var babelPluginFlowReactPropTypes_proptype_DOMHighlight = __webpack_require__(231).babelPluginFlowReactPropTypes_proptype_DOMHighlight || __webpack_require__(12).PropTypes.any;
+
+	Object.defineProperty(module.exports, "babelPluginFlowReactPropTypes_proptype_TrackedSelection", __webpack_require__(12).PropTypes.shape({
+	    focusNode: __webpack_require__(12).PropTypes.any.isRequired,
+	    focusOffset: __webpack_require__(12).PropTypes.number.isRequired,
+	    proposedHighlight: babelPluginFlowReactPropTypes_proptype_DOMHighlight
+	}));
+
+	var SelectionTracker = function(_React$PureComponent) {
+	    _inherits(SelectionTracker, _React$PureComponent);
+	    function SelectionTracker() {
+	        var _temp, _this, _ret;
+	        _classCallCheck(this, SelectionTracker);
+	        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) args[_key] = arguments[_key];
+	        return _ret = (_temp = (_this = _possibleConstructorReturn(this, _React$PureComponent.call.apply(_React$PureComponent, [ this ].concat(args))), 
+	        _this), _this.state = {
+	            mouseState: "up",
+	            trackedSelection: null
+	        }, _this._handleSelectionChange = function() {
+	            _this._updateTrackedSelection(_this.props.buildHighlight);
+	            "down" === _this.state.mouseState && _this.setState({
+	                mouseState: "down-and-selecting"
+	            });
+	        }, _this._handleMouseDown = function() {
+	            _this.setState({
+	                mouseState: "down"
+	            });
+	        }, _this._handleMouseUp = function() {
+	            _this.setState({
+	                mouseState: "up"
+	            });
+	        }, _temp), _possibleConstructorReturn(_this, _ret);
+	    }
+	    SelectionTracker.prototype.componentDidMount = function componentDidMount() {
+	        this._updateListeners(false, this.props.enabled);
+	    };
+	    SelectionTracker.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
+	        this.props.buildHighlight !== nextProps.buildHighlight && // The highlight-building function changed, so the
+	        // proposedHighlight we built with it might be different, or no
+	        // longer be valid. Update accordingly.
+	        this._updateTrackedSelection(nextProps.buildHighlight);
+	        this._updateListeners(this.props.enabled, nextProps.enabled);
+	    };
+	    SelectionTracker.prototype.componentWillUnmount = function componentWillUnmount() {
+	        this._updateListeners(this.props.enabled, false);
+	    };
+	    SelectionTracker.prototype._updateListeners = function _updateListeners(wasListening, willListen) {
+	        if (!wasListening && willListen) {
+	            window.addEventListener("mousedown", this._handleMouseDown);
+	            window.addEventListener("mouseup", this._handleMouseUp);
+	            document.addEventListener("selectionchange", this._handleSelectionChange);
+	        } else if (wasListening && !willListen) {
+	            window.removeEventListener("mousedown", this._handleMouseDown);
+	            window.removeEventListener("mouseup", this._handleMouseUp);
+	            document.removeEventListener("selectionchange", this._handleSelectionChange);
+	            // Additionally, reset the state, to guard against errors where we
+	            // re-enter listening mode and have stale values stored.
+	            this.setState({
+	                mouseState: "up",
+	                trackedSelection: null
+	            });
+	        }
+	    };
+	    /**
+	     * Get the current selection focus and range, if present and non-collapsed.
+	     *
+	     * Otherwise, if there is no current selection or it's collapsed, return
+	     * null.
+	     */
+	    SelectionTracker.prototype._computeFocusAndRange = function _computeFocusAndRange() {
+	        var selection = document.getSelection();
+	        if (!selection || 0 === selection.rangeCount) return null;
+	        var range = selection.getRangeAt(0);
+	        if (range.collapsed) return null;
+	        return {
+	            focusNode: selection.focusNode,
+	            focusOffset: selection.focusOffset,
+	            range: range
+	        };
+	    };
+	    /**
+	     * Compute the current TrackedSelection from the document state.
+	     */
+	    SelectionTracker.prototype._computeTrackedSelection = function _computeTrackedSelection(buildHighlight) {
+	        var focusAndRange = this._computeFocusAndRange();
+	        if (!focusAndRange) return null;
+	        var focusNode = focusAndRange.focusNode, focusOffset = focusAndRange.focusOffset, range = focusAndRange.range;
+	        var proposedHighlight = buildHighlight(range);
+	        if (!proposedHighlight) return null;
+	        return {
+	            focusNode: focusNode,
+	            focusOffset: focusOffset,
+	            proposedHighlight: proposedHighlight
+	        };
+	    };
+	    /**
+	     * Update the TrackedSelection to reflect the document state.
+	     */
+	    SelectionTracker.prototype._updateTrackedSelection = function _updateTrackedSelection(buildHighlight) {
+	        var trackedSelection = this._computeTrackedSelection(buildHighlight);
+	        this.setState({
+	            trackedSelection: trackedSelection
+	        });
+	    };
+	    SelectionTracker.prototype.render = function render() {
+	        var _state = this.state, mouseState = _state.mouseState, trackedSelection = _state.trackedSelection;
+	        var userIsMouseSelecting = "down-and-selecting" === mouseState;
+	        return this.props.children && React.createElement("div", null, this.props.children(trackedSelection, userIsMouseSelecting));
+	    };
+	    return SelectionTracker;
+	}(React.PureComponent);
+
+	SelectionTracker.propTypes = {
+	    buildHighlight: __webpack_require__(12).PropTypes.func.isRequired,
+	    children: __webpack_require__(12).PropTypes.func,
+	    enabled: __webpack_require__(12).PropTypes.bool.isRequired
+	};
+
+	module.exports = SelectionTracker;
+
+/***/ },
+/* 231 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(135).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(12).PropTypes.any;
+
+	// Import the DOM-related types from the parent directory, and re-export them
+	// to the UI code.
+	var babelPluginFlowReactPropTypes_proptype_DOMHighlightSet = __webpack_require__(135).babelPluginFlowReactPropTypes_proptype_DOMHighlightSet || __webpack_require__(12).PropTypes.any;
+
+	var babelPluginFlowReactPropTypes_proptype_DOMHighlight = __webpack_require__(135).babelPluginFlowReactPropTypes_proptype_DOMHighlight || __webpack_require__(12).PropTypes.any;
+
+	Object.defineProperty(module.exports, "babelPluginFlowReactPropTypes_proptype_Position", __webpack_require__(12).PropTypes.shape({
+	    left: __webpack_require__(12).PropTypes.number.isRequired,
+	    top: __webpack_require__(12).PropTypes.number.isRequired
+	}));
+
+	Object.defineProperty(module.exports, "babelPluginFlowReactPropTypes_proptype_ZIndexes", __webpack_require__(12).PropTypes.shape({
+	    aboveContent: __webpack_require__(12).PropTypes.number.isRequired,
+	    belowContent: __webpack_require__(12).PropTypes.number.isRequired
+	}));
+
+/***/ },
+/* 232 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var _extends = Object.assign || function(target) {
 	    for (var i = 1; i < arguments.length; i++) {
 	        var source = arguments[i];
@@ -49747,7 +50233,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ToggleableRadioButton;
 
 /***/ },
-/* 229 */
+/* 233 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function(target) {
@@ -49792,7 +50278,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var InlineIcon = __webpack_require__(92);
 
-	var FocusRing = __webpack_require__(245);
+	var FocusRing = __webpack_require__(247);
 
 	var SATChoiceIcon = function(_React$Component) {
 	    _inherits(SATChoiceIcon, _React$Component);
@@ -50079,7 +50565,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ChoiceIcon;
 
 /***/ },
-/* 230 */
+/* 234 */
 /***/ function(module, exports, __webpack_require__) {
 
 	function _classCallCheck(instance, Constructor) {
@@ -50161,519 +50647,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = OptionStatus;
 
 /***/ },
-/* 231 */
-/***/ function(module, exports, __webpack_require__) {
-
-	function _classCallCheck(instance, Constructor) {
-	    if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
-	}
-
-	function _possibleConstructorReturn(self, call) {
-	    if (!self) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-	    return !call || "object" !== typeof call && "function" !== typeof call ? self : call;
-	}
-
-	function _inherits(subClass, superClass) {
-	    if ("function" !== typeof superClass && null !== superClass) throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-	    subClass.prototype = Object.create(superClass && superClass.prototype, {
-	        constructor: {
-	            value: subClass,
-	            enumerable: false,
-	            writable: true,
-	            configurable: true
-	        }
-	    });
-	    superClass && (Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass);
-	}
-
-	/**
-	 * Render a set of highlights. See HighlightRenderer for more details about how
-	 * each highlight is rendered.
-	 *
-	 * This component manages the state of the "Remove highlight" tooltip. To
-	 * determine the currently-hovered highlight, it calls the `isHovered` method
-	 * on each HighlightRenderer.
-	 */
-	var React = __webpack_require__(12);
-
-	var HighlightRenderer = __webpack_require__(246);
-
-	var HighlightTooltip = __webpack_require__(232);
-
-	/* global i18n */
-	var babelPluginFlowReactPropTypes_proptype_ZIndexes = __webpack_require__(234).babelPluginFlowReactPropTypes_proptype_ZIndexes || __webpack_require__(12).PropTypes.any;
-
-	var babelPluginFlowReactPropTypes_proptype_Position = __webpack_require__(234).babelPluginFlowReactPropTypes_proptype_Position || __webpack_require__(12).PropTypes.any;
-
-	var babelPluginFlowReactPropTypes_proptype_DOMHighlightSet = __webpack_require__(234).babelPluginFlowReactPropTypes_proptype_DOMHighlightSet || __webpack_require__(12).PropTypes.any;
-
-	var HighlightSetRenderer = function(_React$PureComponent) {
-	    _inherits(HighlightSetRenderer, _React$PureComponent);
-	    function HighlightSetRenderer() {
-	        var _temp, _this, _ret;
-	        _classCallCheck(this, HighlightSetRenderer);
-	        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) args[_key] = arguments[_key];
-	        return _ret = (_temp = (_this = _possibleConstructorReturn(this, _React$PureComponent.call.apply(_React$PureComponent, [ this ].concat(args))), 
-	        _this), _this.state = {
-	            mouseClientPosition: null,
-	            hoveringTooltipFor: null
-	        }, _this._highlightRenderers = {}, _this._handleMouseMove = function(e) {
-	            _this.setState({
-	                mouseClientPosition: {
-	                    left: e.clientX,
-	                    top: e.clientY
-	                }
-	            });
-	        }, _temp), _possibleConstructorReturn(_this, _ret);
-	    }
-	    HighlightSetRenderer.prototype.componentDidMount = function componentDidMount() {
-	        this._updateEditListeners(false, this.props.editable);
-	    };
-	    HighlightSetRenderer.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
-	        this._updateEditListeners(this.props.editable, nextProps.editable);
-	        // If we were previously hovering over the tooltip for a highlight that
-	        // has since been removed, reset the hover state accordingly.
-	        "string" !== typeof this.state.hoveringTooltipFor || this.state.hoveringTooltipFor in nextProps.highlights || this.setState({
-	            hoveringTooltipFor: null
-	        });
-	    };
-	    HighlightSetRenderer.prototype.componentWillUnmount = function componentWillUnmount() {
-	        this._updateEditListeners(this.props.editable, false);
-	    };
-	    /**
-	     * Given whether we were previously listening to mousemove events, and
-	     * whether we will now listen to mousemove events, add or remove the
-	     * listener accordingly.
-	     */
-	    HighlightSetRenderer.prototype._updateEditListeners = function _updateEditListeners(wasListening, willListen) {
-	        if (!wasListening && willListen) window.addEventListener("mousemove", this._handleMouseMove); else if (wasListening && !willListen) {
-	            window.removeEventListener("mousemove", this._handleMouseMove);
-	            // Additionally, reset the mouse position. Our child components
-	            // won't be checking `mouseClientPosition` when we're not
-	            // listening, anyway, but this guards against errors where we
-	            // re-enter listening mode and have stale coordinates stored in
-	            // state.
-	            this.setState({
-	                mouseClientPosition: null
-	            });
-	        }
-	    };
-	    HighlightSetRenderer.prototype._getHoveredHighlightKey = function _getHoveredHighlightKey() {
-	        var _this2 = this;
-	        // If we're hovering over the tooltip, the hovered highlight is the
-	        // highlight that the tooltip is pointing to.
-	        var hoveringTooltipFor = this.state.hoveringTooltipFor;
-	        if ("string" === typeof hoveringTooltipFor) return hoveringTooltipFor;
-	        return Object.keys(this.props.highlights).find(function(key) {
-	            var highlightRenderer = _this2._highlightRenderers[key];
-	            return highlightRenderer && highlightRenderer.isHovered(_this2.state.mouseClientPosition);
-	        });
-	    };
-	    HighlightSetRenderer.prototype._renderTooltip = function _renderTooltip() {
-	        var _this3 = this;
-	        var hoveredHighlightKey = this._getHoveredHighlightKey();
-	        if ("string" !== typeof hoveredHighlightKey) return null;
-	        var hoveredHighlight = this.props.highlights[hoveredHighlightKey];
-	        return React.createElement(HighlightTooltip, {
-	            label: i18n._("Remove highlight"),
-	            focusNode: hoveredHighlight.domRange.endContainer,
-	            focusOffset: hoveredHighlight.domRange.endOffset,
-	            offsetParent: this.props.offsetParent,
-	            zIndex: this.props.zIndexes.aboveContent,
-	            onClick: function onClick() {
-	                return _this3.props.onRemoveHighlight(hoveredHighlightKey);
-	            },
-	            onMouseEnter: function onMouseEnter() {
-	                return _this3.setState({
-	                    hoveringTooltipFor: hoveredHighlightKey
-	                });
-	            },
-	            onMouseLeave: function onMouseLeave() {
-	                return _this3.setState({
-	                    hoveringTooltipFor: null
-	                });
-	            }
-	        });
-	    };
-	    HighlightSetRenderer.prototype.render = function render() {
-	        var _this4 = this;
-	        return React.createElement("div", null, Object.keys(this.props.highlights).map(function(key) {
-	            return React.createElement(HighlightRenderer, {
-	                ref: function ref(r) {
-	                    r ? _this4._highlightRenderers[key] = r : delete _this4._highlightRenderers[key];
-	                },
-	                editable: _this4.props.editable,
-	                key: key,
-	                highlight: _this4.props.highlights[key],
-	                highlightKey: key,
-	                mouseClientPosition: _this4.state.mouseClientPosition,
-	                offsetParent: _this4.props.offsetParent,
-	                onRemoveHighlight: _this4.props.onRemoveHighlight,
-	                zIndexes: _this4.props.zIndexes
-	            });
-	        }), this.props.editable && this._renderTooltip());
-	    };
-	    return HighlightSetRenderer;
-	}(React.PureComponent);
-
-	HighlightSetRenderer.propTypes = {
-	    editable: __webpack_require__(12).PropTypes.bool.isRequired,
-	    highlights: babelPluginFlowReactPropTypes_proptype_DOMHighlightSet,
-	    offsetParent: __webpack_require__(12).PropTypes.any.isRequired,
-	    onRemoveHighlight: __webpack_require__(12).PropTypes.func.isRequired,
-	    zIndexes: babelPluginFlowReactPropTypes_proptype_ZIndexes
-	};
-
-	module.exports = HighlightSetRenderer;
-
-/***/ },
-/* 232 */
-/***/ function(module, exports, __webpack_require__) {
-
-	function _classCallCheck(instance, Constructor) {
-	    if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
-	}
-
-	function _possibleConstructorReturn(self, call) {
-	    if (!self) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-	    return !call || "object" !== typeof call && "function" !== typeof call ? self : call;
-	}
-
-	function _inherits(subClass, superClass) {
-	    if ("function" !== typeof superClass && null !== superClass) throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-	    subClass.prototype = Object.create(superClass && superClass.prototype, {
-	        constructor: {
-	            value: subClass,
-	            enumerable: false,
-	            writable: true,
-	            configurable: true
-	        }
-	    });
-	    superClass && (Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass);
-	}
-
-	/**
-	 * A tooltip to point to the focus of a highlight.
-	 */
-	var React = __webpack_require__(12);
-
-	var _require = __webpack_require__(15), StyleSheet = _require.StyleSheet, css = _require.css;
-
-	var _require2 = __webpack_require__(247), getRelativePosition = _require2.getRelativePosition;
-
-	var babelPluginFlowReactPropTypes_proptype_Position = __webpack_require__(234).babelPluginFlowReactPropTypes_proptype_Position || __webpack_require__(12).PropTypes.any;
-
-	var HighlightTooltip = function(_React$PureComponent) {
-	    _inherits(HighlightTooltip, _React$PureComponent);
-	    function HighlightTooltip() {
-	        _classCallCheck(this, HighlightTooltip);
-	        return _possibleConstructorReturn(this, _React$PureComponent.apply(this, arguments));
-	    }
-	    HighlightTooltip.prototype._getPosition = function _getPosition() {
-	        var _props = this.props, focusNode = _props.focusNode, focusOffset = _props.focusOffset, offsetParent = _props.offsetParent;
-	        // Get a range of *just* the focus point of the selection.
-	        var focusRange = document.createRange();
-	        focusRange.setStart(focusNode, focusOffset);
-	        focusRange.setEnd(focusNode, focusOffset);
-	        // Then, get the bounding box of the collapsed range. This will be a
-	        // zero-width rectangle, but still have positioning information, which
-	        // we can use the position the tooltip.
-	        //
-	        // NOTE(mdr): If we used getClientBoundingRect here instead, Safari
-	        //     would return an unpositioned rect. But all tested browsers at
-	        //     time of writing (latest Chrome, Firefox, Safari) return at least
-	        //     one rectangle from getClientRects, and it's well-positioned.
-	        var focusRect = focusRange.getClientRects()[0];
-	        // NOTE(mdr): ...except in the case where the focus is between two
-	        //     paragraphs, in which case the focus range has no client rects?
-	        //     Not sure why, or in what browsers (only noticed in Chrome 60),
-	        //     but let's catch that case and bail out.
-	        // TODO(mdr): Instead, we should somehow walk back the range until we
-	        //     find an appropriate position for the tooltip. Sounds tricky!
-	        if (!focusRect) {
-	            // eslint-disable-next-line no-console
-	            console.warn('[Highlighting] Known bug: Could not determine the focus position, so did not show an "Add Highlight" tooltip. https://app.asana.com/0/329800276300868/413878480039713');
-	            return null;
-	        }
-	        // Compute the desired position of the tooltip relative to the offset
-	        // parent.
-	        var offsetParentRect = offsetParent.getBoundingClientRect();
-	        return getRelativePosition(focusRect, offsetParentRect);
-	    };
-	    HighlightTooltip.prototype.render = function render() {
-	        var position = this._getPosition();
-	        if (!position) return null;
-	        return React.createElement("div", {
-	            className: css(styles.tooltip),
-	            onClick: this.props.onClick,
-	            onMouseEnter: this.props.onMouseEnter,
-	            onMouseLeave: this.props.onMouseLeave,
-	            style: {
-	                left: position.left,
-	                top: position.top,
-	                zIndex: this.props.zIndex
-	            }
-	        }, React.createElement("div", {
-	            className: css(styles.label)
-	        }, this.props.label), React.createElement("div", {
-	            className: css(styles.arrow)
-	        }));
-	    };
-	    return HighlightTooltip;
-	}(React.PureComponent);
-
-	HighlightTooltip.propTypes = {
-	    label: __webpack_require__(12).PropTypes.string.isRequired,
-	    onClick: __webpack_require__(12).PropTypes.func.isRequired,
-	    onMouseEnter: __webpack_require__(12).PropTypes.func,
-	    onMouseLeave: __webpack_require__(12).PropTypes.func,
-	    focusNode: __webpack_require__(12).PropTypes.any.isRequired,
-	    focusOffset: __webpack_require__(12).PropTypes.number.isRequired,
-	    offsetParent: __webpack_require__(12).PropTypes.any.isRequired,
-	    zIndex: __webpack_require__(12).PropTypes.number.isRequired
-	};
-
-	var styles = StyleSheet.create({
-	    tooltip: {
-	        // Positioning.
-	        //
-	        // Position the tooltip's *center-bottom* point at the left/top
-	        // coordinates, instead of the tooltip's top-left point, by translating
-	        // left by half the tooltip's width and up by the tooltip's full
-	        // height.
-	        //
-	        // `left`, `top`, and `zIndex` are specified via the `style` attribute.
-	        position: "absolute",
-	        transform: "translate(-50%, -100%)",
-	        // Cursor interaction.
-	        cursor: "pointer",
-	        userSelect: "none"
-	    },
-	    label: {
-	        // Box appearance.
-	        background: "#314453",
-	        borderRadius: 2,
-	        boxShadow: "0 1px 4px 0 rgba(97, 101, 105, 0.42)",
-	        padding: "8px 11px",
-	        // Text appearance.
-	        color: "white",
-	        fontSize: 12,
-	        lineHeight: 1.5,
-	        textAlign: "center"
-	    },
-	    // A 12px-width, 6px-height downward-facing arrow.
-	    //
-	    // Implemented by creating a box whose only content is its top, left, and
-	    // right borders. The joints between two borders are a diagonal line, so
-	    // the arrow element renders divided into these three areas:
-	    //
-	    // +-------+
-	    // |\ top /|
-	    // | \   / |
-	    // |  \ /  |
-	    // |L  v  R|
-	    // +-------+
-	    //
-	    // Therefore, if we color the top border, and make the left and right
-	    // borders transparent, we end up with a triangle!
-	    //
-	    // https://css-tricks.com/snippets/css/css-triangle/
-	    arrow: {
-	        // Make the inner dimensions of the box 0x0, so that its only content
-	        // is its top, left, and right borders.
-	        height: 0,
-	        width: 0,
-	        // The sum of our left and right border widths will be the width of our
-	        // triangle, so set them to 6px + 6px = 12px.
-	        borderLeft: "6px solid transparent",
-	        borderRight: "6px solid transparent",
-	        // The top border height will be the height of our triangle, so set it
-	        // to 6px.
-	        borderTop: "6px solid #314453",
-	        // Center the arrow within the tooltip container.
-	        margin: "0 auto"
-	    }
-	});
-
-	module.exports = HighlightTooltip;
-
-/***/ },
-/* 233 */
-/***/ function(module, exports, __webpack_require__) {
-
-	function _classCallCheck(instance, Constructor) {
-	    if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
-	}
-
-	function _possibleConstructorReturn(self, call) {
-	    if (!self) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-	    return !call || "object" !== typeof call && "function" !== typeof call ? self : call;
-	}
-
-	function _inherits(subClass, superClass) {
-	    if ("function" !== typeof superClass && null !== superClass) throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-	    subClass.prototype = Object.create(superClass && superClass.prototype, {
-	        constructor: {
-	            value: subClass,
-	            enumerable: false,
-	            writable: true,
-	            configurable: true
-	        }
-	    });
-	    superClass && (Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass);
-	}
-
-	/**
-	 * Tracks the user's current selection, and exposes it to the subtree using the
-	 * function-as-children pattern.
-	 */
-	var React = __webpack_require__(12);
-
-	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(234).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(12).PropTypes.any;
-
-	var babelPluginFlowReactPropTypes_proptype_DOMHighlight = __webpack_require__(234).babelPluginFlowReactPropTypes_proptype_DOMHighlight || __webpack_require__(12).PropTypes.any;
-
-	Object.defineProperty(module.exports, "babelPluginFlowReactPropTypes_proptype_TrackedSelection", __webpack_require__(12).PropTypes.shape({
-	    focusNode: __webpack_require__(12).PropTypes.any.isRequired,
-	    focusOffset: __webpack_require__(12).PropTypes.number.isRequired,
-	    proposedHighlight: babelPluginFlowReactPropTypes_proptype_DOMHighlight
-	}));
-
-	var SelectionTracker = function(_React$PureComponent) {
-	    _inherits(SelectionTracker, _React$PureComponent);
-	    function SelectionTracker() {
-	        var _temp, _this, _ret;
-	        _classCallCheck(this, SelectionTracker);
-	        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) args[_key] = arguments[_key];
-	        return _ret = (_temp = (_this = _possibleConstructorReturn(this, _React$PureComponent.call.apply(_React$PureComponent, [ this ].concat(args))), 
-	        _this), _this.state = {
-	            mouseState: "up",
-	            trackedSelection: null
-	        }, _this._handleSelectionChange = function() {
-	            _this._updateTrackedSelection(_this.props.buildHighlight);
-	            "down" === _this.state.mouseState && _this.setState({
-	                mouseState: "down-and-selecting"
-	            });
-	        }, _this._handleMouseDown = function() {
-	            _this.setState({
-	                mouseState: "down"
-	            });
-	        }, _this._handleMouseUp = function() {
-	            _this.setState({
-	                mouseState: "up"
-	            });
-	        }, _temp), _possibleConstructorReturn(_this, _ret);
-	    }
-	    SelectionTracker.prototype.componentDidMount = function componentDidMount() {
-	        this._updateListeners(false, this.props.enabled);
-	    };
-	    SelectionTracker.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
-	        this.props.buildHighlight !== nextProps.buildHighlight && // The highlight-building function changed, so the
-	        // proposedHighlight we built with it might be different, or no
-	        // longer be valid. Update accordingly.
-	        this._updateTrackedSelection(nextProps.buildHighlight);
-	        this._updateListeners(this.props.enabled, nextProps.enabled);
-	    };
-	    SelectionTracker.prototype.componentWillUnmount = function componentWillUnmount() {
-	        this._updateListeners(this.props.enabled, false);
-	    };
-	    SelectionTracker.prototype._updateListeners = function _updateListeners(wasListening, willListen) {
-	        if (!wasListening && willListen) {
-	            window.addEventListener("mousedown", this._handleMouseDown);
-	            window.addEventListener("mouseup", this._handleMouseUp);
-	            document.addEventListener("selectionchange", this._handleSelectionChange);
-	        } else if (wasListening && !willListen) {
-	            window.removeEventListener("mousedown", this._handleMouseDown);
-	            window.removeEventListener("mouseup", this._handleMouseUp);
-	            document.removeEventListener("selectionchange", this._handleSelectionChange);
-	            // Additionally, reset the state, to guard against errors where we
-	            // re-enter listening mode and have stale values stored.
-	            this.setState({
-	                mouseState: "up",
-	                trackedSelection: null
-	            });
-	        }
-	    };
-	    /**
-	     * Get the current selection focus and range, if present and non-collapsed.
-	     *
-	     * Otherwise, if there is no current selection or it's collapsed, return
-	     * null.
-	     */
-	    SelectionTracker.prototype._computeFocusAndRange = function _computeFocusAndRange() {
-	        var selection = document.getSelection();
-	        if (!selection || 0 === selection.rangeCount) return null;
-	        var range = selection.getRangeAt(0);
-	        if (range.collapsed) return null;
-	        return {
-	            focusNode: selection.focusNode,
-	            focusOffset: selection.focusOffset,
-	            range: range
-	        };
-	    };
-	    /**
-	     * Compute the current TrackedSelection from the document state.
-	     */
-	    SelectionTracker.prototype._computeTrackedSelection = function _computeTrackedSelection(buildHighlight) {
-	        var focusAndRange = this._computeFocusAndRange();
-	        if (!focusAndRange) return null;
-	        var focusNode = focusAndRange.focusNode, focusOffset = focusAndRange.focusOffset, range = focusAndRange.range;
-	        var proposedHighlight = buildHighlight(range);
-	        if (!proposedHighlight) return null;
-	        return {
-	            focusNode: focusNode,
-	            focusOffset: focusOffset,
-	            proposedHighlight: proposedHighlight
-	        };
-	    };
-	    /**
-	     * Update the TrackedSelection to reflect the document state.
-	     */
-	    SelectionTracker.prototype._updateTrackedSelection = function _updateTrackedSelection(buildHighlight) {
-	        var trackedSelection = this._computeTrackedSelection(buildHighlight);
-	        this.setState({
-	            trackedSelection: trackedSelection
-	        });
-	    };
-	    SelectionTracker.prototype.render = function render() {
-	        var _state = this.state, mouseState = _state.mouseState, trackedSelection = _state.trackedSelection;
-	        var userIsMouseSelecting = "down-and-selecting" === mouseState;
-	        return this.props.children && React.createElement("div", null, this.props.children(trackedSelection, userIsMouseSelecting));
-	    };
-	    return SelectionTracker;
-	}(React.PureComponent);
-
-	SelectionTracker.propTypes = {
-	    buildHighlight: __webpack_require__(12).PropTypes.func.isRequired,
-	    children: __webpack_require__(12).PropTypes.func,
-	    enabled: __webpack_require__(12).PropTypes.bool.isRequired
-	};
-
-	module.exports = SelectionTracker;
-
-/***/ },
-/* 234 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(136).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(12).PropTypes.any;
-
-	// Import the DOM-related types from the parent directory, and re-export them
-	// to the UI code.
-	var babelPluginFlowReactPropTypes_proptype_DOMHighlightSet = __webpack_require__(136).babelPluginFlowReactPropTypes_proptype_DOMHighlightSet || __webpack_require__(12).PropTypes.any;
-
-	var babelPluginFlowReactPropTypes_proptype_DOMHighlight = __webpack_require__(136).babelPluginFlowReactPropTypes_proptype_DOMHighlight || __webpack_require__(12).PropTypes.any;
-
-	Object.defineProperty(module.exports, "babelPluginFlowReactPropTypes_proptype_Position", __webpack_require__(12).PropTypes.shape({
-	    left: __webpack_require__(12).PropTypes.number.isRequired,
-	    top: __webpack_require__(12).PropTypes.number.isRequired
-	}));
-
-	Object.defineProperty(module.exports, "babelPluginFlowReactPropTypes_proptype_ZIndexes", __webpack_require__(12).PropTypes.shape({
-	    aboveContent: __webpack_require__(12).PropTypes.number.isRequired,
-	    belowContent: __webpack_require__(12).PropTypes.number.isRequired
-	}));
-
-/***/ },
 /* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -50699,7 +50672,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var _require = __webpack_require__(129), DeviceTypes = _require.DeviceTypes, DeviceOrientations = _require.DeviceOrientations, LayoutModes = _require.LayoutModes;
 
-	var _require2 = __webpack_require__(199), pageIndicatorHeightPx = _require2.pageIndicatorHeightPx, toolbarHeightPx = _require2.toolbarHeightPx, navigationPadWidthPx = _require2.navigationPadWidthPx, innerBorderWidthPx = _require2.innerBorderWidthPx;
+	var _require2 = __webpack_require__(198), pageIndicatorHeightPx = _require2.pageIndicatorHeightPx, toolbarHeightPx = _require2.toolbarHeightPx, navigationPadWidthPx = _require2.navigationPadWidthPx, innerBorderWidthPx = _require2.innerBorderWidthPx;
 
 	var minButtonHeight = 48;
 
@@ -50721,16 +50694,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	// though a shrunken navbar and full-sized toolbar on scroll. In portrait, the
 	// shrunken navbar is always visible, but expands on scroll (and the toolbar
 	// appears as well).
-	var maxLandscapeBrowserChrome = safariNavBarWhenShrunk + safariToolbar;
+	var maxLandscapeBrowserChrome = 88;
 
-	var maxPortraitBrowserChrome = safariToolbar + (safariNavBarWhenExpanded - safariNavBarWhenShrunk);
+	var maxPortraitBrowserChrome = 64;
 
 	// This represents the 'worst case' aspect ratio that we care about (for
 	// portrait layouts). It's taken from the iPhone 4. The height is computed by
 	// taking the height of the device and removing the persistent, shrunken navbar.
 	// (We don't need to account for the expanded navbar, since we include the
 	// difference when reserving space above the keypad.)
-	var worstCaseAspectRatio = 320 / (480 - safariNavBarWhenShrunk);
+	var worstCaseAspectRatio = 320 / 436;
 
 	var computeLayoutParameters = function computeLayoutParameters(_ref, _ref2, _ref3, _ref4) {
 	    var numColumns = _ref.numColumns, numMaxVisibleRows = _ref.numMaxVisibleRows, numPages = _ref.numPages;
@@ -50747,14 +50720,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // into `pageHeightPx`. But we have no way of knowing if that's
 	        // the case or not. As such, we take a conservative approach and
 	        // assume that the chrome is _never_ included in `pageHeightPx`.
-	        var browserChromeHeight = isLandscape ? maxLandscapeBrowserChrome : maxPortraitBrowserChrome;
+	        var browserChromeHeight = isLandscape ? 88 : 64;
 	        // Count up all the space that we need to reserve on the page.
 	        // Namely, we need to account for:
 	        //  1. Space between the keypad and the top of the page.
 	        //  2. The presence of the exercise toolbar.
 	        //  3. The presence of the view pager indicator.
 	        //  4. Any browser chrome that may appear later.
-	        var reservedSpace = minSpaceAboveKeypad + browserChromeHeight + (toolbarEnabled ? toolbarHeightPx : 0) + (paginationEnabled ? pageIndicatorHeightPx : 0);
+	        var reservedSpace = 32 + browserChromeHeight + (toolbarEnabled ? toolbarHeightPx : 0) + (paginationEnabled ? pageIndicatorHeightPx : 0);
 	        // Next, compute the effective width and height. We can use the page
 	        // width as the effective width. For the height, though, we take
 	        // another conservative measure when in portrait by assuming that
@@ -50763,17 +50736,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // This prevents the keypad from changing size when browser chrome
 	        // appears and disappears.
 	        var effectiveWidth = pageWidthPx;
-	        var effectiveHeight = isLandscape ? pageHeightPx : pageWidthPx / worstCaseAspectRatio;
+	        var effectiveHeight = isLandscape ? pageHeightPx : pageWidthPx / (320 / 436);
 	        var maxKeypadHeight = effectiveHeight - reservedSpace;
 	        // Finally, compute the button height and width. In computing the
 	        // height, accommodate for the maximum number of rows that will ever be
 	        // visible (since the toggling of popovers can increase the number of
 	        // visible rows).
-	        var buttonHeightPx = Math.max(Math.min(maxKeypadHeight / numMaxVisibleRows, maxButtonSize), minButtonHeight);
+	        var buttonHeightPx = Math.max(Math.min(maxKeypadHeight / numMaxVisibleRows, 64), 48);
 	        var buttonWidthPx = void 0;
 	        if (numPages > 1) {
 	            buttonWidthPx = effectiveWidth / (paginationEnabled ? numColumns : numColumns * numPages);
-	        } else buttonWidthPx = isLandscape ? maxButtonSize : effectiveWidth / numColumns;
+	        } else buttonWidthPx = isLandscape ? 64 : effectiveWidth / numColumns;
 	        buttonDimensions = {
 	            widthPx: buttonWidthPx,
 	            heightPx: buttonHeightPx
@@ -50781,8 +50754,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    } else {
 	        if (deviceType !== DeviceTypes.TABLET) throw new Error("Invalid device type: " + deviceType);
 	        buttonDimensions = {
-	            widthPx: maxButtonSize,
-	            heightPx: maxButtonSize
+	            widthPx: 64,
+	            heightPx: 64
 	        };
 	    }
 	    // Finally, determine whether the keypad should be rendered in the
@@ -51357,7 +51330,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require2 = __webpack_require__(203), removeEcho = _require2.removeEcho;
 
-	var _require3 = __webpack_require__(206), View = _require3.View;
+	var _require3 = __webpack_require__(205), View = _require3.View;
 
 	var EchoManager = __webpack_require__(254);
 
@@ -51413,8 +51386,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // Translate the echo boxes, as they'll be positioned absolutely to
 	        // this relative container.
 	        var relativeEchoes = echoes.map(function(echo) {
-	            var initialBounds = echo.initialBounds, rest = _objectWithoutProperties(echo, [ "initialBounds" ]);
-	            return _extends({}, rest, {
+	            var initialBounds = echo.initialBounds;
+	            return _extends({}, _objectWithoutProperties(echo, [ "initialBounds" ]), {
 	                initialBounds: {
 	                    top: initialBounds.top - _this2._container.top,
 	                    right: initialBounds.right - _this2._container.left,
@@ -51542,7 +51515,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var KeypadButton = __webpack_require__(256);
 
-	var KeyConfigs = __webpack_require__(205);
+	var KeyConfigs = __webpack_require__(206);
 
 	var GestureManager = __webpack_require__(236);
 
@@ -51694,11 +51667,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var PagerIndicator = __webpack_require__(258);
 
-	var _require3 = __webpack_require__(206), View = _require3.View;
+	var _require3 = __webpack_require__(205), View = _require3.View;
 
 	var _require4 = __webpack_require__(225), column = _require4.column, row = _require4.row, fullWidth = _require4.fullWidth;
 
-	var _require5 = __webpack_require__(199), innerBorderColor = _require5.innerBorderColor, innerBorderStyle = _require5.innerBorderStyle, innerBorderWidthPx = _require5.innerBorderWidthPx, gray85 = _require5.gray85;
+	var _require5 = __webpack_require__(198), innerBorderColor = _require5.innerBorderColor, innerBorderStyle = _require5.innerBorderStyle, innerBorderWidthPx = _require5.innerBorderWidthPx, gray85 = _require5.gray85;
 
 	var TwoPageKeypad = function(_React$Component) {
 	    _inherits(TwoPageKeypad, _React$Component);
@@ -51814,7 +51787,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Keys = __webpack_require__(226);
 
-	var KeyConfigs = __webpack_require__(205);
+	var KeyConfigs = __webpack_require__(206);
 
 	var _require = __webpack_require__(129), KeyTypes = _require.KeyTypes;
 
@@ -51883,84 +51856,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	/**
-	 * Renders a circular selection ring around the child.
-	 */
-	var React = __webpack_require__(12);
-
-	var _require = __webpack_require__(15), StyleSheet = _require.StyleSheet, css = _require.css;
-
-	var styleConstants = __webpack_require__(42);
-
-	var FocusRing = function(_React$Component) {
-	    _inherits(FocusRing, _React$Component);
-	    function FocusRing() {
-	        _classCallCheck(this, FocusRing);
-	        return _possibleConstructorReturn(this, _React$Component.apply(this, arguments));
-	    }
-	    FocusRing.prototype.render = function render() {
-	        var borderColor = this.props.visible ? this.props.color : "transparent";
-	        var style = {
-	            borderColor: borderColor
-	        };
-	        return React.createElement("span", {
-	            className: css(styles.ring),
-	            style: style
-	        }, this.props.children);
-	    };
-	    return FocusRing;
-	}(React.Component);
-
-	FocusRing.defaultProps = {
-	    visible: true,
-	    color: styleConstants.kaGreen
-	};
-
-	FocusRing.propTypes = {
-	    children: __webpack_require__(12).PropTypes.any,
-	    visible: __webpack_require__(12).PropTypes.bool.isRequired,
-	    color: __webpack_require__(12).PropTypes.string.isRequired
-	};
-
-	var styles = StyleSheet.create({
-	    ring: {
-	        margin: "auto",
-	        display: "inline-block",
-	        borderRadius: "50%",
-	        borderWidth: 2,
-	        padding: 2,
-	        borderStyle: "solid"
-	    }
-	});
-
-	module.exports = FocusRing;
-
-/***/ },
-/* 246 */
-/***/ function(module, exports, __webpack_require__) {
-
-	function _classCallCheck(instance, Constructor) {
-	    if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
-	}
-
-	function _possibleConstructorReturn(self, call) {
-	    if (!self) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-	    return !call || "object" !== typeof call && "function" !== typeof call ? self : call;
-	}
-
-	function _inherits(subClass, superClass) {
-	    if ("function" !== typeof superClass && null !== superClass) throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-	    subClass.prototype = Object.create(superClass && superClass.prototype, {
-	        constructor: {
-	            value: subClass,
-	            enumerable: false,
-	            writable: true,
-	            configurable: true
-	        }
-	    });
-	    superClass && (Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass);
-	}
-
-	/**
 	 * This component, given a single DOMHighlight, draws highlight rectangles in
 	 * the same absolute position as the highlighted content, as computed via
 	 * `getClientRects`.
@@ -51975,15 +51870,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require = __webpack_require__(15), StyleSheet = _require.StyleSheet, css = _require.css;
 
-	var _require2 = __webpack_require__(247), getClientRectsForTextInRange = _require2.getClientRectsForTextInRange, getRelativePosition = _require2.getRelativePosition, getRelativeRect = _require2.getRelativeRect;
+	var _require2 = __webpack_require__(246), getClientRectsForTextInRange = _require2.getClientRectsForTextInRange, getRelativePosition = _require2.getRelativePosition, getRelativeRect = _require2.getRelativeRect;
 
-	var babelPluginFlowReactPropTypes_proptype_ZIndexes = __webpack_require__(234).babelPluginFlowReactPropTypes_proptype_ZIndexes || __webpack_require__(12).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_ZIndexes = __webpack_require__(231).babelPluginFlowReactPropTypes_proptype_ZIndexes || __webpack_require__(12).PropTypes.any;
 
-	var babelPluginFlowReactPropTypes_proptype_Rect = __webpack_require__(234).babelPluginFlowReactPropTypes_proptype_Rect || __webpack_require__(12).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_Rect = __webpack_require__(231).babelPluginFlowReactPropTypes_proptype_Rect || __webpack_require__(12).PropTypes.any;
 
-	var babelPluginFlowReactPropTypes_proptype_Position = __webpack_require__(234).babelPluginFlowReactPropTypes_proptype_Position || __webpack_require__(12).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_Position = __webpack_require__(231).babelPluginFlowReactPropTypes_proptype_Position || __webpack_require__(12).PropTypes.any;
 
-	var babelPluginFlowReactPropTypes_proptype_DOMHighlight = __webpack_require__(234).babelPluginFlowReactPropTypes_proptype_DOMHighlight || __webpack_require__(12).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_DOMHighlight = __webpack_require__(231).babelPluginFlowReactPropTypes_proptype_DOMHighlight || __webpack_require__(12).PropTypes.any;
 
 	var HighlightRenderer = function(_React$PureComponent) {
 	    _inherits(HighlightRenderer, _React$PureComponent);
@@ -52088,7 +51983,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = HighlightRenderer;
 
 /***/ },
-/* 247 */
+/* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function(target) {
@@ -52099,14 +51994,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return target;
 	};
 
-	var babelPluginFlowReactPropTypes_proptype_Rect = __webpack_require__(234).babelPluginFlowReactPropTypes_proptype_Rect || __webpack_require__(12).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_Rect = __webpack_require__(231).babelPluginFlowReactPropTypes_proptype_Rect || __webpack_require__(12).PropTypes.any;
 
 	/**
 	 * Utility functions for highlighting UI.
 	 */
-	var babelPluginFlowReactPropTypes_proptype_Position = __webpack_require__(234).babelPluginFlowReactPropTypes_proptype_Position || __webpack_require__(12).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_Position = __webpack_require__(231).babelPluginFlowReactPropTypes_proptype_Position || __webpack_require__(12).PropTypes.any;
 
-	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(234).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(12).PropTypes.any;
+	var babelPluginFlowReactPropTypes_proptype_DOMRange = __webpack_require__(231).babelPluginFlowReactPropTypes_proptype_DOMRange || __webpack_require__(12).PropTypes.any;
 
 	var _require = __webpack_require__(220), rangesOverlap = _require.rangesOverlap, intersectRanges = _require.intersectRanges;
 
@@ -52255,6 +52150,84 @@ return /******/ (function(modules) { // webpackBootstrap
 	    getRelativePosition: getRelativePosition,
 	    getRelativeRect: getRelativeRect
 	};
+
+/***/ },
+/* 247 */
+/***/ function(module, exports, __webpack_require__) {
+
+	function _classCallCheck(instance, Constructor) {
+	    if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
+	}
+
+	function _possibleConstructorReturn(self, call) {
+	    if (!self) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	    return !call || "object" !== typeof call && "function" !== typeof call ? self : call;
+	}
+
+	function _inherits(subClass, superClass) {
+	    if ("function" !== typeof superClass && null !== superClass) throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+	    subClass.prototype = Object.create(superClass && superClass.prototype, {
+	        constructor: {
+	            value: subClass,
+	            enumerable: false,
+	            writable: true,
+	            configurable: true
+	        }
+	    });
+	    superClass && (Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass);
+	}
+
+	/**
+	 * Renders a circular selection ring around the child.
+	 */
+	var React = __webpack_require__(12);
+
+	var _require = __webpack_require__(15), StyleSheet = _require.StyleSheet, css = _require.css;
+
+	var styleConstants = __webpack_require__(42);
+
+	var FocusRing = function(_React$Component) {
+	    _inherits(FocusRing, _React$Component);
+	    function FocusRing() {
+	        _classCallCheck(this, FocusRing);
+	        return _possibleConstructorReturn(this, _React$Component.apply(this, arguments));
+	    }
+	    FocusRing.prototype.render = function render() {
+	        var borderColor = this.props.visible ? this.props.color : "transparent";
+	        var style = {
+	            borderColor: borderColor
+	        };
+	        return React.createElement("span", {
+	            className: css(styles.ring),
+	            style: style
+	        }, this.props.children);
+	    };
+	    return FocusRing;
+	}(React.Component);
+
+	FocusRing.defaultProps = {
+	    visible: true,
+	    color: styleConstants.kaGreen
+	};
+
+	FocusRing.propTypes = {
+	    children: __webpack_require__(12).PropTypes.any,
+	    visible: __webpack_require__(12).PropTypes.bool.isRequired,
+	    color: __webpack_require__(12).PropTypes.string.isRequired
+	};
+
+	var styles = StyleSheet.create({
+	    ring: {
+	        margin: "auto",
+	        display: "inline-block",
+	        borderRadius: "50%",
+	        borderWidth: 2,
+	        padding: 2,
+	        borderStyle: "solid"
+	    }
+	});
+
+	module.exports = FocusRing;
 
 /***/ },
 /* 248 */
@@ -52889,10 +52862,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react = __webpack_require__(12);
 
-	var _propTypes = __webpack_require__(276);
-
-	var _propTypes2 = _interopRequireDefault(_propTypes);
-
 	var _storeShape = __webpack_require__(267);
 
 	var _storeShape2 = _interopRequireDefault(_storeShape);
@@ -52964,7 +52933,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	Provider.propTypes = {
 	    store: _storeShape2["default"].isRequired,
-	    children: _propTypes2["default"].element.isRequired
+	    children: _react.PropTypes.element.isRequired
 	};
 
 	Provider.childContextTypes = {
@@ -53013,15 +52982,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _warning2 = _interopRequireDefault(_warning);
 
-	var _isPlainObject = __webpack_require__(278);
+	var _isPlainObject = __webpack_require__(277);
 
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
-	var _hoistNonReactStatics = __webpack_require__(277);
+	var _hoistNonReactStatics = __webpack_require__(276);
 
 	var _hoistNonReactStatics2 = _interopRequireDefault(_hoistNonReactStatics);
 
-	var _invariant = __webpack_require__(279);
+	var _invariant = __webpack_require__(278);
 
 	var _invariant2 = _interopRequireDefault(_invariant);
 
@@ -53324,7 +53293,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var KeypadButton = __webpack_require__(256);
 
-	var KeyConfigs = __webpack_require__(205);
+	var KeyConfigs = __webpack_require__(206);
 
 	var _require = __webpack_require__(129), KeyTypes = _require.KeyTypes, EchoAnimationTypes = _require.EchoAnimationTypes;
 
@@ -53504,7 +53473,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ReactCSSTransitionGroup = __webpack_require__(271);
 
-	var KeyConfigs = __webpack_require__(205);
+	var KeyConfigs = __webpack_require__(206);
 
 	var MultiSymbolPopover = __webpack_require__(272);
 
@@ -53552,10 +53521,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    PopoverManager.prototype.render = function render() {
 	        var popover = this.props.popover;
 	        return React.createElement(ReactCSSTransitionGroup, {
-	            transitionName: animationTransitionName,
+	            transitionName: "popover",
 	            transitionEnter: true,
 	            transitionLeave: false,
-	            transitionEnterTimeout: animationDurationMs
+	            transitionEnterTimeout: 200
 	        }, popover && React.createElement(PopoverContainer, {
 	            key: popover.childKeyIds[0],
 	            bounds: popover.bounds,
@@ -53616,7 +53585,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require2 = __webpack_require__(15), StyleSheet = _require2.StyleSheet, css = _require2.css;
 
-	var _require3 = __webpack_require__(206), View = _require3.View;
+	var _require3 = __webpack_require__(205), View = _require3.View;
 
 	var Icon = __webpack_require__(273);
 
@@ -53626,7 +53595,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require4 = __webpack_require__(129), KeyTypes = _require4.KeyTypes, BorderDirections = _require4.BorderDirections, BorderStyles = _require4.BorderStyles;
 
-	var _require5 = __webpack_require__(199), brightGreen = _require5.brightGreen, innerBorderColor = _require5.innerBorderColor, innerBorderStyle = _require5.innerBorderStyle, innerBorderWidthPx = _require5.innerBorderWidthPx, valueGrey = _require5.valueGrey, operatorGrey = _require5.operatorGrey, controlGrey = _require5.controlGrey, emptyGrey = _require5.emptyGrey;
+	var _require5 = __webpack_require__(198), brightGreen = _require5.brightGreen, innerBorderColor = _require5.innerBorderColor, innerBorderStyle = _require5.innerBorderStyle, innerBorderWidthPx = _require5.innerBorderWidthPx, valueGrey = _require5.valueGrey, operatorGrey = _require5.operatorGrey, controlGrey = _require5.controlGrey, emptyGrey = _require5.emptyGrey;
 
 	var _require6 = __webpack_require__(142), bordersPropType = _require6.bordersPropType, iconPropType = _require6.iconPropType, keyConfigPropType = _require6.keyConfigPropType;
 
@@ -53702,8 +53671,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                backgroundStyle = null;
 	            }
 	            var borderStyle = [];
-	            -1 !== borders.indexOf(BorderDirections.LEFT) && borderStyle.push(styles.leftBorder);
-	            -1 !== borders.indexOf(BorderDirections.BOTTOM) && borderStyle.push(styles.bottomBorder);
+	            borders.indexOf(BorderDirections.LEFT) !== -1 && borderStyle.push(styles.leftBorder);
+	            borders.indexOf(BorderDirections.BOTTOM) !== -1 && borderStyle.push(styles.bottomBorder);
 	            return [ styles.buttonBase, backgroundStyle ].concat(borderStyle, [ type === KeyTypes.ECHO && styles.echo, _this.buttonSizeStyle ], Array.isArray(style) ? style : [ style ]);
 	        }, _temp), _possibleConstructorReturn(_this, _ret);
 	    }
@@ -53836,8 +53805,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        boxSizing: "border-box"
 	    },
 	    decalInset: {
-	        top: focusInsetPx,
-	        right: focusInsetPx
+	        top: 4,
+	        right: 4
 	    },
 	    // Overrides for the echo state, where we want to render the borders for
 	    // layout purposes, but we don't want them to be visible.
@@ -53865,15 +53834,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	        backgroundColor: "rgba(33, 36, 44, 0.1)"
 	    },
 	    iconWrapper: {
-	        zIndex: focusBoxZIndex + 1
+	        zIndex: 1
 	    },
 	    focusBox: {
 	        position: "absolute",
-	        zIndex: focusBoxZIndex,
-	        left: focusInsetPx,
-	        right: focusInsetPx,
-	        bottom: focusInsetPx,
-	        top: focusInsetPx,
+	        zIndex: 0,
+	        left: 4,
+	        right: 4,
+	        bottom: 4,
+	        top: 4,
 	        borderRadius: 1
 	    },
 	    disabled: {
@@ -53951,13 +53920,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require2 = __webpack_require__(15), StyleSheet = _require2.StyleSheet;
 
-	var _require3 = __webpack_require__(206), View = _require3.View;
+	var _require3 = __webpack_require__(205), View = _require3.View;
 
 	var _require4 = __webpack_require__(225), row = _require4.row;
 
 	var _require5 = __webpack_require__(142), childrenPropType = _require5.childrenPropType;
 
-	var _require6 = __webpack_require__(199), innerBorderColor = _require6.innerBorderColor, innerBorderStyle = _require6.innerBorderStyle, innerBorderWidthPx = _require6.innerBorderWidthPx;
+	var _require6 = __webpack_require__(198), innerBorderColor = _require6.innerBorderColor, innerBorderStyle = _require6.innerBorderStyle, innerBorderWidthPx = _require6.innerBorderWidthPx;
 
 	var ViewPager = function(_React$Component) {
 	    _inherits(ViewPager, _React$Component);
@@ -54091,9 +54060,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require = __webpack_require__(15), StyleSheet = _require.StyleSheet;
 
-	var _require2 = __webpack_require__(206), View = _require2.View;
+	var _require2 = __webpack_require__(205), View = _require2.View;
 
-	var _require3 = __webpack_require__(199), pageIndicatorHeightPx = _require3.pageIndicatorHeightPx, gray68 = _require3.gray68, gray85 = _require3.gray85;
+	var _require3 = __webpack_require__(198), pageIndicatorHeightPx = _require3.pageIndicatorHeightPx, gray68 = _require3.gray68, gray85 = _require3.gray85;
 
 	var PagerIcon = function(_React$Component) {
 	    _inherits(PagerIcon, _React$Component);
@@ -54234,7 +54203,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var GestureManager = __webpack_require__(236);
 
-	var KeyConfigs = __webpack_require__(205);
+	var KeyConfigs = __webpack_require__(206);
 
 	var KeypadButton = __webpack_require__(256);
 
@@ -54299,11 +54268,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports["default"] = createStore;
 
-	var _isPlainObject = __webpack_require__(278);
+	var _isPlainObject = __webpack_require__(277);
 
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
-	var _symbolObservable = __webpack_require__(283);
+	var _symbolObservable = __webpack_require__(282);
 
 	var _symbolObservable2 = _interopRequireDefault(_symbolObservable);
 
@@ -54323,6 +54292,31 @@ return /******/ (function(modules) { // webpackBootstrap
 	    INIT: "@@redux/INIT"
 	};
 
+	/**
+	 * Creates a Redux store that holds the state tree.
+	 * The only way to change the data in the store is to call `dispatch()` on it.
+	 *
+	 * There should only be a single store in your app. To specify how different
+	 * parts of the state tree respond to actions, you may combine several reducers
+	 * into a single reducer function by using `combineReducers`.
+	 *
+	 * @param {Function} reducer A function that returns the next state tree, given
+	 * the current state tree and the action to handle.
+	 *
+	 * @param {any} [preloadedState] The initial state. You may optionally specify it
+	 * to hydrate the state from the server in universal apps, or to restore a
+	 * previously serialized user session.
+	 * If you use `combineReducers` to produce the root reducer function, this must be
+	 * an object with the same shape as `combineReducers` keys.
+	 *
+	 * @param {Function} enhancer The store enhancer. You may optionally specify it
+	 * to enhance the store with third-party capabilities such as middleware,
+	 * time travel, persistence, etc. The only store enhancer that ships with Redux
+	 * is `applyMiddleware()`.
+	 *
+	 * @returns {Store} A Redux store that lets you read the state, dispatch actions
+	 * and subscribe to changes.
+	 */
 	function createStore(reducer, preloadedState, enhancer) {
 	    var _ref2;
 	    if ("function" === typeof preloadedState && "undefined" === typeof enhancer) {
@@ -54422,9 +54416,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            isDispatching = false;
 	        }
 	        var listeners = currentListeners = nextListeners;
-	        for (var i = 0; i < listeners.length; i++) {
-	            (0, listeners[i])();
-	        }
+	        for (var i = 0; i < listeners.length; i++) listeners[i]();
 	        return action;
 	    }
 	    /**
@@ -54448,7 +54440,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	   * Interoperability point for observable/reactive libraries.
 	   * @returns {observable} A minimal observable of state changes.
 	   * For more information, see the observable proposal:
-	   * https://github.com/tc39/proposal-observable
+	   * https://github.com/zenparsing/es-observable
 	   */
 	    function observable() {
 	        var _ref;
@@ -54502,7 +54494,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _createStore = __webpack_require__(260);
 
-	var _isPlainObject = __webpack_require__(278);
+	var _isPlainObject = __webpack_require__(277);
 
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
@@ -54518,7 +54510,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function getUndefinedStateErrorMessage(key, action) {
 	    var actionType = action && action.type;
-	    return "Given action " + (actionType && '"' + actionType.toString() + '"' || "an action") + ', reducer "' + key + '" returned undefined. To ignore an action, you must explicitly return the previous state. If you want this reducer to hold no value, you can return null instead of undefined.';
+	    return "Given action " + (actionType && '"' + actionType.toString() + '"' || "an action") + ', reducer "' + key + '" returned undefined. To ignore an action, you must explicitly return the previous state.';
 	}
 
 	function getUnexpectedStateShapeWarningMessage(inputState, reducers, action, unexpectedKeyCache) {
@@ -54535,15 +54527,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (unexpectedKeys.length > 0) return "Unexpected " + (unexpectedKeys.length > 1 ? "keys" : "key") + ' "' + unexpectedKeys.join('", "') + '" found in ' + argumentName + '. Expected to find one of the known reducer keys instead: "' + reducerKeys.join('", "') + '". Unexpected keys will be ignored.';
 	}
 
-	function assertReducerShape(reducers) {
+	function assertReducerSanity(reducers) {
 	    Object.keys(reducers).forEach(function(key) {
 	        var reducer = reducers[key];
 	        if ("undefined" === typeof reducer(void 0, {
 	            type: _createStore.ActionTypes.INIT
-	        })) throw new Error('Reducer "' + key + "\" returned undefined during initialization. If the state passed to the reducer is undefined, you must explicitly return the initial state. The initial state may not be undefined. If you don't want to set a value for this reducer, you can use null instead of undefined.");
+	        })) throw new Error('Reducer "' + key + '" returned undefined during initialization. If the state passed to the reducer is undefined, you must explicitly return the initial state. The initial state may not be undefined.');
 	        if ("undefined" === typeof reducer(void 0, {
 	            type: "@@redux/PROBE_UNKNOWN_ACTION_" + Math.random().toString(36).substring(7).split("").join(".")
-	        })) throw new Error('Reducer "' + key + "\" returned undefined when probed with a random type. Don't try to handle " + _createStore.ActionTypes.INIT + ' or other actions in "redux/*" namespace. They are considered private. Instead, you must return the current state for any unknown actions, unless it is undefined, in which case you must return the initial state, regardless of the action type. The initial state may not be undefined, but can be null.');
+	        })) throw new Error('Reducer "' + key + "\" returned undefined when probed with a random type. Don't try to handle " + _createStore.ActionTypes.INIT + ' or other actions in "redux/*" namespace. They are considered private. Instead, you must return the current state for any unknown actions, unless it is undefined, in which case you must return the initial state, regardless of the action type. The initial state may not be undefined.');
 	    });
 	}
 
@@ -54573,34 +54565,33 @@ return /******/ (function(modules) { // webpackBootstrap
 	        "function" === typeof reducers[key] && (finalReducers[key] = reducers[key]);
 	    }
 	    var finalReducerKeys = Object.keys(finalReducers);
-	    var unexpectedKeyCache = void 0;
-	    "production" !== ("production") && (unexpectedKeyCache = {});
-	    var shapeAssertionError = void 0;
+	    if (false) var unexpectedKeyCache = {};
+	    var sanityError;
 	    try {
-	        assertReducerShape(finalReducers);
+	        assertReducerSanity(finalReducers);
 	    } catch (e) {
-	        shapeAssertionError = e;
+	        sanityError = e;
 	    }
 	    return function combination() {
-	        var state = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {};
+	        var state = arguments.length <= 0 || void 0 === arguments[0] ? {} : arguments[0];
 	        var action = arguments[1];
-	        if (shapeAssertionError) throw shapeAssertionError;
+	        if (sanityError) throw sanityError;
 	        if (false) {
 	            var warningMessage = getUnexpectedStateShapeWarningMessage(state, finalReducers, action, unexpectedKeyCache);
 	            warningMessage && (0, _warning2["default"])(warningMessage);
 	        }
 	        var hasChanged = false;
 	        var nextState = {};
-	        for (var _i = 0; _i < finalReducerKeys.length; _i++) {
-	            var _key = finalReducerKeys[_i];
-	            var reducer = finalReducers[_key];
-	            var previousStateForKey = state[_key];
+	        for (var i = 0; i < finalReducerKeys.length; i++) {
+	            var key = finalReducerKeys[i];
+	            var reducer = finalReducers[key];
+	            var previousStateForKey = state[key];
 	            var nextStateForKey = reducer(previousStateForKey, action);
 	            if ("undefined" === typeof nextStateForKey) {
-	                var errorMessage = getUndefinedStateErrorMessage(_key, action);
+	                var errorMessage = getUndefinedStateErrorMessage(key, action);
 	                throw new Error(errorMessage);
 	            }
-	            nextState[_key] = nextStateForKey;
+	            nextState[key] = nextStateForKey;
 	            hasChanged = hasChanged || nextStateForKey !== previousStateForKey;
 	        }
 	        return hasChanged ? nextState : state;
@@ -54757,11 +54748,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return arg;
 	    };
 	    if (1 === funcs.length) return funcs[0];
-	    return funcs.reduce(function(a, b) {
-	        return function() {
-	            return a(b.apply(void 0, arguments));
-	        };
-	    });
+	    var last = funcs[funcs.length - 1];
+	    var rest = funcs.slice(0, -1);
+	    return function() {
+	        return rest.reduceRight(function(composed, f) {
+	            return f(composed);
+	        }, last.apply(void 0, arguments));
+	    };
 	}
 
 /***/ },
@@ -54796,7 +54789,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        loadTime = new Date().getTime();
 	    }
 	}).call(this);
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(284)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(283)))
 
 /***/ },
 /* 266 */
@@ -54834,20 +54827,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports.__esModule = true;
 
-	var _propTypes = __webpack_require__(276);
+	var _react = __webpack_require__(12);
 
-	var _propTypes2 = _interopRequireDefault(_propTypes);
-
-	function _interopRequireDefault(obj) {
-	    return obj && obj.__esModule ? obj : {
-	        default: obj
-	    };
-	}
-
-	exports["default"] = _propTypes2["default"].shape({
-	    subscribe: _propTypes2["default"].func.isRequired,
-	    dispatch: _propTypes2["default"].func.isRequired,
-	    getState: _propTypes2["default"].func.isRequired
+	exports["default"] = _react.PropTypes.shape({
+	    subscribe: _react.PropTypes.func.isRequired,
+	    dispatch: _react.PropTypes.func.isRequired,
+	    getState: _react.PropTypes.func.isRequired
 	});
 
 /***/ },
@@ -54956,7 +54941,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require = __webpack_require__(15), StyleSheet = _require.StyleSheet;
 
-	var _require2 = __webpack_require__(206), View = _require2.View;
+	var _require2 = __webpack_require__(205), View = _require2.View;
 
 	var _require3 = __webpack_require__(142), keyConfigPropType = _require3.keyConfigPropType;
 
@@ -55042,17 +55027,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require = __webpack_require__(15), StyleSheet = _require.StyleSheet;
 
-	var MathIcon = __webpack_require__(280);
+	var MathIcon = __webpack_require__(279);
 
-	var SvgIcon = __webpack_require__(281);
+	var SvgIcon = __webpack_require__(280);
 
-	var TextIcon = __webpack_require__(282);
+	var TextIcon = __webpack_require__(281);
 
 	var _require2 = __webpack_require__(129), IconTypes = _require2.IconTypes;
 
 	var _require3 = __webpack_require__(142), iconPropType = _require3.iconPropType;
 
-	var _require4 = __webpack_require__(199), gray25 = _require4.gray25;
+	var _require4 = __webpack_require__(198), gray25 = _require4.gray25;
 
 	var focusedColor = "#FFF";
 
@@ -55081,7 +55066,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            // relying on an explicit color prop.
 	            return React.createElement(SvgIcon, {
 	                name: icon.data,
-	                color: focused ? focusedColor : unfocusedColor
+	                color: focused ? "#FFF" : unfocusedColor
 	            });
 
 	          case IconTypes.TEXT:
@@ -55109,7 +55094,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        color: unfocusedColor
 	    },
 	    focused: {
-	        color: focusedColor
+	        color: "#FFF"
 	    }
 	});
 
@@ -55149,7 +55134,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require = __webpack_require__(15), StyleSheet = _require.StyleSheet;
 
-	var _require2 = __webpack_require__(206), View = _require2.View;
+	var _require2 = __webpack_require__(205), View = _require2.View;
 
 	var Icon = __webpack_require__(273);
 
@@ -55159,7 +55144,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require5 = __webpack_require__(225), row = _require5.row, column = _require5.column, centered = _require5.centered, fullWidth = _require5.fullWidth;
 
-	var _require6 = __webpack_require__(199), iconSizeHeightPx = _require6.iconSizeHeightPx, iconSizeWidthPx = _require6.iconSizeWidthPx;
+	var _require6 = __webpack_require__(198), iconSizeHeightPx = _require6.iconSizeHeightPx, iconSizeWidthPx = _require6.iconSizeWidthPx;
 
 	var MultiSymbolGrid = function(_React$Component) {
 	    _inherits(MultiSymbolGrid, _React$Component);
@@ -55250,27 +55235,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	    },
 	    // For the three- and four-icon layouts.
 	    bottomLeft: {
-	        marginBottom: verticalInsetPx,
-	        marginLeft: horizontalInsetPx
+	        marginBottom: 2,
+	        marginLeft: 4
 	    },
 	    topLeft: {
-	        marginTop: verticalInsetPx,
-	        marginLeft: horizontalInsetPx
+	        marginTop: 2,
+	        marginLeft: 4
 	    },
 	    topRight: {
-	        marginTop: verticalInsetPx,
-	        marginRight: horizontalInsetPx
+	        marginTop: 2,
+	        marginRight: 4
 	    },
 	    bottomRight: {
-	        marginBottom: verticalInsetPx,
-	        marginRight: horizontalInsetPx
+	        marginBottom: 2,
+	        marginRight: 4
 	    },
 	    // For the two-icon layout.
 	    middleLeft: {
-	        marginLeft: horizontalInsetPx
+	        marginLeft: 4
 	    },
 	    middleRight: {
-	        marginRight: horizontalInsetPx
+	        marginRight: 4
 	    },
 	    base: {
 	        fontSize: 18
@@ -55315,9 +55300,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require = __webpack_require__(15), StyleSheet = _require.StyleSheet;
 
-	var _require2 = __webpack_require__(206), View = _require2.View;
+	var _require2 = __webpack_require__(205), View = _require2.View;
 
-	var _require3 = __webpack_require__(199), gray25 = _require3.gray25;
+	var _require3 = __webpack_require__(198), gray25 = _require3.gray25;
 
 	var CornerDecal = function(_React$Component) {
 	    _inherits(CornerDecal, _React$Component);
@@ -55365,35 +55350,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 276 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _typeof = "function" === typeof Symbol && "symbol" === typeof Symbol.iterator ? function(obj) {
-	    return typeof obj;
-	} : function(obj) {
-	    return obj && "function" === typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-	};
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 *
-	 * This source code is licensed under the MIT license found in the
-	 * LICENSE file in the root directory of this source tree.
-	 */
-	if (false) {
-	    var REACT_ELEMENT_TYPE = "function" === typeof Symbol && Symbol.for && Symbol.for("react.element") || 60103;
-	    var isValidElement = function isValidElement(object) {
-	        return "object" === ("undefined" === typeof object ? "undefined" : _typeof(object)) && null !== object && object.$$typeof === REACT_ELEMENT_TYPE;
-	    };
-	    // By explicitly using `prop-types` you are opting into new development behavior.
-	    // http://fb.me/prop-types-in-prod
-	    var throwOnDirectAccess = true;
-	    module.exports = require("./factoryWithTypeCheckers")(isValidElement, throwOnDirectAccess);
-	} else // By explicitly using `prop-types` you are opting into new production behavior.
-	// http://fb.me/prop-types-in-prod
-	module.exports = __webpack_require__(285)();
-
-/***/ },
-/* 277 */
-/***/ function(module, exports, __webpack_require__) {
-
 	/**
 	 * Copyright 2015, Yahoo! Inc.
 	 * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
@@ -55436,10 +55392,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 278 */
+/* 277 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseGetTag = __webpack_require__(286), getPrototype = __webpack_require__(287), isObjectLike = __webpack_require__(288);
+	var baseGetTag = __webpack_require__(284), getPrototype = __webpack_require__(285), isObjectLike = __webpack_require__(286);
 
 	/** `Object#toString` result references. */
 	var objectTag = "[object Object]";
@@ -55495,7 +55451,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = isPlainObject;
 
 /***/ },
-/* 279 */
+/* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -55539,7 +55495,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = invariant;
 
 /***/ },
-/* 280 */
+/* 279 */
 /***/ function(module, exports, __webpack_require__) {
 
 	function _classCallCheck(instance, Constructor) {
@@ -55573,11 +55529,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require = __webpack_require__(15), StyleSheet = _require.StyleSheet;
 
-	var _require2 = __webpack_require__(206), View = _require2.View;
+	var _require2 = __webpack_require__(205), View = _require2.View;
 
 	var _require3 = __webpack_require__(225), row = _require3.row, centered = _require3.centered;
 
-	var _require4 = __webpack_require__(199), iconSizeHeightPx = _require4.iconSizeHeightPx, iconSizeWidthPx = _require4.iconSizeWidthPx;
+	var _require4 = __webpack_require__(198), iconSizeHeightPx = _require4.iconSizeHeightPx, iconSizeWidthPx = _require4.iconSizeWidthPx;
 
 	var MathIcon = function(_React$Component) {
 	    _inherits(MathIcon, _React$Component);
@@ -55625,7 +55581,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MathIcon;
 
 /***/ },
-/* 281 */
+/* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
 	function _classCallCheck(instance, Constructor) {
@@ -55655,7 +55611,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(12);
 
-	var Iconography = __webpack_require__(289);
+	var Iconography = __webpack_require__(287);
 
 	var SvgIcon = function(_React$Component) {
 	    _inherits(SvgIcon, _React$Component);
@@ -55681,7 +55637,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = SvgIcon;
 
 /***/ },
-/* 282 */
+/* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
 	function _classCallCheck(instance, Constructor) {
@@ -55713,11 +55669,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _require = __webpack_require__(15), StyleSheet = _require.StyleSheet;
 
-	var _require2 = __webpack_require__(206), View = _require2.View, Text = _require2.Text;
+	var _require2 = __webpack_require__(205), View = _require2.View, Text = _require2.Text;
 
 	var _require3 = __webpack_require__(225), row = _require3.row, centered = _require3.centered;
 
-	var _require4 = __webpack_require__(199), iconSizeHeightPx = _require4.iconSizeHeightPx, iconSizeWidthPx = _require4.iconSizeWidthPx;
+	var _require4 = __webpack_require__(198), iconSizeHeightPx = _require4.iconSizeHeightPx, iconSizeWidthPx = _require4.iconSizeWidthPx;
 
 	var TextIcon = function(_React$Component) {
 	    _inherits(TextIcon, _React$Component);
@@ -55754,13 +55710,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = TextIcon;
 
 /***/ },
-/* 283 */
+/* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(290);
+	module.exports = __webpack_require__(288);
 
 /***/ },
-/* 284 */
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// shim for using process in browser
@@ -55824,64 +55780,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 285 */
+/* 284 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 *
-	 * This source code is licensed under the MIT license found in the
-	 * LICENSE file in the root directory of this source tree.
-	 */
-	"use strict";
-
-	var emptyFunction = __webpack_require__(337);
-
-	var invariant = __webpack_require__(338);
-
-	var ReactPropTypesSecret = __webpack_require__(291);
-
-	module.exports = function() {
-	    function shim(props, propName, componentName, location, propFullName, secret) {
-	        if (secret === ReactPropTypesSecret) // It is still safe when called from React.
-	        return;
-	        invariant(false, "Calling PropTypes validators directly is not supported by the `prop-types` package. Use PropTypes.checkPropTypes() to call them. Read more at http://fb.me/use-check-prop-types");
-	    }
-	    shim.isRequired = shim;
-	    function getShim() {
-	        return shim;
-	    }
-	    // Important!
-	    // Keep this list in sync with production version in `./factoryWithTypeCheckers.js`.
-	    var ReactPropTypes = {
-	        array: shim,
-	        bool: shim,
-	        func: shim,
-	        number: shim,
-	        object: shim,
-	        string: shim,
-	        symbol: shim,
-	        any: shim,
-	        arrayOf: getShim,
-	        element: shim,
-	        instanceOf: getShim,
-	        node: shim,
-	        objectOf: getShim,
-	        oneOf: getShim,
-	        oneOfType: getShim,
-	        shape: getShim,
-	        exact: getShim
-	    };
-	    ReactPropTypes.checkPropTypes = emptyFunction;
-	    ReactPropTypes.PropTypes = ReactPropTypes;
-	    return ReactPropTypes;
-	};
-
-/***/ },
-/* 286 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _Symbol = __webpack_require__(292), getRawTag = __webpack_require__(293), objectToString = __webpack_require__(294);
+	var _Symbol = __webpack_require__(289), getRawTag = __webpack_require__(290), objectToString = __webpack_require__(291);
 
 	/** `Object#toString` result references. */
 	var nullTag = "[object Null]", undefinedTag = "[object Undefined]";
@@ -55904,10 +55806,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = baseGetTag;
 
 /***/ },
-/* 287 */
+/* 285 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var overArg = __webpack_require__(295);
+	var overArg = __webpack_require__(292);
 
 	/** Built-in value references. */
 	var getPrototype = overArg(Object.getPrototypeOf, Object);
@@ -55915,7 +55817,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = getPrototype;
 
 /***/ },
-/* 288 */
+/* 286 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _typeof = "function" === typeof Symbol && "symbol" === typeof Symbol.iterator ? function(obj) {
@@ -55955,59 +55857,59 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = isObjectLike;
 
 /***/ },
-/* 289 */
+/* 287 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * A directory of autogenerated icon components.
 	 */
 	module.exports = {
-	    COS: __webpack_require__(296),
-	    LOG: __webpack_require__(297),
-	    EQUAL: __webpack_require__(298),
-	    BACKSPACE: __webpack_require__(299),
-	    SQRT: __webpack_require__(300),
-	    EXP: __webpack_require__(301),
-	    NEQ: __webpack_require__(302),
-	    GEQ: __webpack_require__(303),
-	    LN: __webpack_require__(304),
-	    DISMISS: __webpack_require__(305),
-	    SIN: __webpack_require__(306),
-	    LT: __webpack_require__(307),
-	    CUBE_ROOT: __webpack_require__(308),
-	    PLUS: __webpack_require__(309),
-	    TAN: __webpack_require__(310),
-	    LEFT: __webpack_require__(311),
-	    UP: __webpack_require__(312),
-	    DOWN: __webpack_require__(313),
-	    LEFT_PAREN: __webpack_require__(314),
-	    RIGHT_PAREN: __webpack_require__(315),
-	    GT: __webpack_require__(316),
-	    DIVIDE: __webpack_require__(317),
-	    PERIOD: __webpack_require__(318),
-	    PERCENT: __webpack_require__(319),
-	    TIMES: __webpack_require__(320),
-	    EXP_3: __webpack_require__(321),
-	    EXP_2: __webpack_require__(322),
-	    RIGHT: __webpack_require__(323),
-	    CDOT: __webpack_require__(324),
-	    LOG_N: __webpack_require__(325),
-	    LEQ: __webpack_require__(326),
-	    MINUS: __webpack_require__(327),
-	    NEGATIVE: __webpack_require__(327),
-	    RADICAL: __webpack_require__(328),
-	    FRAC_INCLUSIVE: __webpack_require__(329),
-	    FRAC_EXCLUSIVE: __webpack_require__(330),
-	    JUMP_OUT_PARENTHESES: __webpack_require__(331),
-	    JUMP_OUT_EXPONENT: __webpack_require__(332),
-	    JUMP_OUT_BASE: __webpack_require__(333),
-	    JUMP_INTO_NUMERATOR: __webpack_require__(334),
-	    JUMP_OUT_NUMERATOR: __webpack_require__(335),
-	    JUMP_OUT_DENOMINATOR: __webpack_require__(336)
+	    COS: __webpack_require__(293),
+	    LOG: __webpack_require__(294),
+	    EQUAL: __webpack_require__(295),
+	    BACKSPACE: __webpack_require__(296),
+	    SQRT: __webpack_require__(297),
+	    EXP: __webpack_require__(298),
+	    NEQ: __webpack_require__(299),
+	    GEQ: __webpack_require__(300),
+	    LN: __webpack_require__(301),
+	    DISMISS: __webpack_require__(302),
+	    SIN: __webpack_require__(303),
+	    LT: __webpack_require__(304),
+	    CUBE_ROOT: __webpack_require__(305),
+	    PLUS: __webpack_require__(306),
+	    TAN: __webpack_require__(307),
+	    LEFT: __webpack_require__(308),
+	    UP: __webpack_require__(309),
+	    DOWN: __webpack_require__(310),
+	    LEFT_PAREN: __webpack_require__(311),
+	    RIGHT_PAREN: __webpack_require__(312),
+	    GT: __webpack_require__(313),
+	    DIVIDE: __webpack_require__(314),
+	    PERIOD: __webpack_require__(315),
+	    PERCENT: __webpack_require__(316),
+	    TIMES: __webpack_require__(317),
+	    EXP_3: __webpack_require__(318),
+	    EXP_2: __webpack_require__(319),
+	    RIGHT: __webpack_require__(320),
+	    CDOT: __webpack_require__(321),
+	    LOG_N: __webpack_require__(322),
+	    LEQ: __webpack_require__(323),
+	    MINUS: __webpack_require__(324),
+	    NEGATIVE: __webpack_require__(324),
+	    RADICAL: __webpack_require__(325),
+	    FRAC_INCLUSIVE: __webpack_require__(326),
+	    FRAC_EXCLUSIVE: __webpack_require__(327),
+	    JUMP_OUT_PARENTHESES: __webpack_require__(328),
+	    JUMP_OUT_EXPONENT: __webpack_require__(329),
+	    JUMP_OUT_BASE: __webpack_require__(330),
+	    JUMP_INTO_NUMERATOR: __webpack_require__(331),
+	    JUMP_OUT_NUMERATOR: __webpack_require__(332),
+	    JUMP_OUT_DENOMINATOR: __webpack_require__(333)
 	};
 
 /***/ },
-/* 290 */
+/* 288 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global, module) {"use strict";
@@ -56016,7 +55918,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: true
 	});
 
-	var _ponyfill = __webpack_require__(339);
+	var _ponyfill = __webpack_require__(334);
 
 	var _ponyfill2 = _interopRequireDefault(_ponyfill);
 
@@ -56034,29 +55936,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	var result = (0, _ponyfill2["default"])(root);
 
 	exports["default"] = result;
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(342)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(337)(module)))
 
 /***/ },
-/* 291 */
+/* 289 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 *
-	 * This source code is licensed under the MIT license found in the
-	 * LICENSE file in the root directory of this source tree.
-	 */
-	"use strict";
-
-	var ReactPropTypesSecret = "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED";
-
-	module.exports = ReactPropTypesSecret;
-
-/***/ },
-/* 292 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var root = __webpack_require__(340);
+	var root = __webpack_require__(335);
 
 	/** Built-in value references. */
 	var _Symbol = root.Symbol;
@@ -56064,10 +55950,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = _Symbol;
 
 /***/ },
-/* 293 */
+/* 290 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _Symbol = __webpack_require__(292);
+	var _Symbol = __webpack_require__(289);
 
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -56099,14 +55985,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var unmasked = true;
 	    } catch (e) {}
 	    var result = nativeObjectToString.call(value);
-	    unmasked && (isOwn ? value[symToStringTag] = tag : delete value[symToStringTag]);
+	    isOwn ? value[symToStringTag] = tag : delete value[symToStringTag];
 	    return result;
 	}
 
 	module.exports = getRawTag;
 
 /***/ },
-/* 294 */
+/* 291 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/** Used for built-in method references. */
@@ -56133,7 +56019,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = objectToString;
 
 /***/ },
-/* 295 */
+/* 292 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -56153,7 +56039,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = overArg;
 
 /***/ },
-/* 296 */
+/* 293 */
 /***/ function(module, exports, __webpack_require__) {
 
 	function _classCallCheck(instance, Constructor) {
@@ -56220,7 +56106,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Cos;
 
 /***/ },
-/* 297 */
+/* 294 */
 /***/ function(module, exports, __webpack_require__) {
 
 	function _classCallCheck(instance, Constructor) {
@@ -56284,7 +56170,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Log;
 
 /***/ },
-/* 298 */
+/* 295 */
 /***/ function(module, exports, __webpack_require__) {
 
 	function _classCallCheck(instance, Constructor) {
@@ -56354,7 +56240,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Equal;
 
 /***/ },
-/* 299 */
+/* 296 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -56390,7 +56276,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Backspace;
 
 /***/ },
-/* 300 */
+/* 297 */
 /***/ function(module, exports, __webpack_require__) {
 
 	function _classCallCheck(instance, Constructor) {
@@ -56457,7 +56343,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Sqrt;
 
 /***/ },
-/* 301 */
+/* 298 */
 /***/ function(module, exports, __webpack_require__) {
 
 	function _classCallCheck(instance, Constructor) {
@@ -56521,7 +56407,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Exp;
 
 /***/ },
-/* 302 */
+/* 299 */
 /***/ function(module, exports, __webpack_require__) {
 
 	function _classCallCheck(instance, Constructor) {
@@ -56591,7 +56477,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Neq;
 
 /***/ },
-/* 303 */
+/* 300 */
 /***/ function(module, exports, __webpack_require__) {
 
 	function _classCallCheck(instance, Constructor) {
@@ -56661,7 +56547,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Geq;
 
 /***/ },
-/* 304 */
+/* 301 */
 /***/ function(module, exports, __webpack_require__) {
 
 	function _classCallCheck(instance, Constructor) {
@@ -56725,7 +56611,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Ln;
 
 /***/ },
-/* 305 */
+/* 302 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -56758,7 +56644,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Dismiss;
 
 /***/ },
-/* 306 */
+/* 303 */
 /***/ function(module, exports, __webpack_require__) {
 
 	function _classCallCheck(instance, Constructor) {
@@ -56825,7 +56711,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Sin;
 
 /***/ },
-/* 307 */
+/* 304 */
 /***/ function(module, exports, __webpack_require__) {
 
 	function _classCallCheck(instance, Constructor) {
@@ -56895,7 +56781,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Lt;
 
 /***/ },
-/* 308 */
+/* 305 */
 /***/ function(module, exports, __webpack_require__) {
 
 	function _classCallCheck(instance, Constructor) {
@@ -56965,7 +56851,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = CubeRoot;
 
 /***/ },
-/* 309 */
+/* 306 */
 /***/ function(module, exports, __webpack_require__) {
 
 	function _classCallCheck(instance, Constructor) {
@@ -57032,7 +56918,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Plus;
 
 /***/ },
-/* 310 */
+/* 307 */
 /***/ function(module, exports, __webpack_require__) {
 
 	function _classCallCheck(instance, Constructor) {
@@ -57099,7 +56985,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Tan;
 
 /***/ },
-/* 311 */
+/* 308 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -57107,7 +56993,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(12);
 
-	var Arrow = __webpack_require__(341);
+	var Arrow = __webpack_require__(336);
 
 	var Left = function Left() {
 	    return React.createElement("svg", {
@@ -57120,7 +57006,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Left;
 
 /***/ },
-/* 312 */
+/* 309 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -57128,7 +57014,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(12);
 
-	var Arrow = __webpack_require__(341);
+	var Arrow = __webpack_require__(336);
 
 	var Up = function Up() {
 	    return React.createElement("svg", {
@@ -57143,7 +57029,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Up;
 
 /***/ },
-/* 313 */
+/* 310 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -57151,7 +57037,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(12);
 
-	var Arrow = __webpack_require__(341);
+	var Arrow = __webpack_require__(336);
 
 	var Down = function Down() {
 	    return React.createElement("svg", {
@@ -57166,7 +57052,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Down;
 
 /***/ },
-/* 314 */
+/* 311 */
 /***/ function(module, exports, __webpack_require__) {
 
 	function _classCallCheck(instance, Constructor) {
@@ -57236,7 +57122,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = LeftParen;
 
 /***/ },
-/* 315 */
+/* 312 */
 /***/ function(module, exports, __webpack_require__) {
 
 	function _classCallCheck(instance, Constructor) {
@@ -57306,7 +57192,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = RightParen;
 
 /***/ },
-/* 316 */
+/* 313 */
 /***/ function(module, exports, __webpack_require__) {
 
 	function _classCallCheck(instance, Constructor) {
@@ -57376,7 +57262,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Gt;
 
 /***/ },
-/* 317 */
+/* 314 */
 /***/ function(module, exports, __webpack_require__) {
 
 	function _classCallCheck(instance, Constructor) {
@@ -57453,7 +57339,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Divide;
 
 /***/ },
-/* 318 */
+/* 315 */
 /***/ function(module, exports, __webpack_require__) {
 
 	function _classCallCheck(instance, Constructor) {
@@ -57519,7 +57405,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Period;
 
 /***/ },
-/* 319 */
+/* 316 */
 /***/ function(module, exports, __webpack_require__) {
 
 	function _classCallCheck(instance, Constructor) {
@@ -57603,7 +57489,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Percent;
 
 /***/ },
-/* 320 */
+/* 317 */
 /***/ function(module, exports, __webpack_require__) {
 
 	function _classCallCheck(instance, Constructor) {
@@ -57673,7 +57559,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Times;
 
 /***/ },
-/* 321 */
+/* 318 */
 /***/ function(module, exports, __webpack_require__) {
 
 	function _classCallCheck(instance, Constructor) {
@@ -57737,7 +57623,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Exp3;
 
 /***/ },
-/* 322 */
+/* 319 */
 /***/ function(module, exports, __webpack_require__) {
 
 	function _classCallCheck(instance, Constructor) {
@@ -57801,7 +57687,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Exp2;
 
 /***/ },
-/* 323 */
+/* 320 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -57809,7 +57695,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(12);
 
-	var Arrow = __webpack_require__(341);
+	var Arrow = __webpack_require__(336);
 
 	var Right = function Right() {
 	    return React.createElement("svg", {
@@ -57824,7 +57710,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Right;
 
 /***/ },
-/* 324 */
+/* 321 */
 /***/ function(module, exports, __webpack_require__) {
 
 	function _classCallCheck(instance, Constructor) {
@@ -57895,7 +57781,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Cdot;
 
 /***/ },
-/* 325 */
+/* 322 */
 /***/ function(module, exports, __webpack_require__) {
 
 	function _classCallCheck(instance, Constructor) {
@@ -57959,7 +57845,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = LogN;
 
 /***/ },
-/* 326 */
+/* 323 */
 /***/ function(module, exports, __webpack_require__) {
 
 	function _classCallCheck(instance, Constructor) {
@@ -58029,7 +57915,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Leq;
 
 /***/ },
-/* 327 */
+/* 324 */
 /***/ function(module, exports, __webpack_require__) {
 
 	function _classCallCheck(instance, Constructor) {
@@ -58096,7 +57982,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Minus;
 
 /***/ },
-/* 328 */
+/* 325 */
 /***/ function(module, exports, __webpack_require__) {
 
 	function _classCallCheck(instance, Constructor) {
@@ -58166,7 +58052,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Radical;
 
 /***/ },
-/* 329 */
+/* 326 */
 /***/ function(module, exports, __webpack_require__) {
 
 	function _classCallCheck(instance, Constructor) {
@@ -58245,7 +58131,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = FracInclusive;
 
 /***/ },
-/* 330 */
+/* 327 */
 /***/ function(module, exports, __webpack_require__) {
 
 	function _classCallCheck(instance, Constructor) {
@@ -58324,7 +58210,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = FracExclusive;
 
 /***/ },
-/* 331 */
+/* 328 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -58366,7 +58252,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = JumpOutParentheses;
 
 /***/ },
-/* 332 */
+/* 329 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -58405,7 +58291,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = JumpOutExponent;
 
 /***/ },
-/* 333 */
+/* 330 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -58444,7 +58330,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = JumpOutBase;
 
 /***/ },
-/* 334 */
+/* 331 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -58492,7 +58378,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = JumpIntoNumerator;
 
 /***/ },
-/* 335 */
+/* 332 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -58540,7 +58426,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = JumpOutNumerator;
 
 /***/ },
-/* 336 */
+/* 333 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -58586,101 +58472,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = JumpOutDenominator;
 
 /***/ },
-/* 337 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 *
-	 * This source code is licensed under the MIT license found in the
-	 * LICENSE file in the root directory of this source tree.
-	 *
-	 * 
-	 */
-	function makeEmptyFunction(arg) {
-	    return function() {
-	        return arg;
-	    };
-	}
-
-	/**
-	 * This function accepts and discards inputs; it has no side effects. This is
-	 * primarily useful idiomatically for overridable function endpoints which
-	 * always need to be callable, since JS lacks a null-call idiom ala Cocoa.
-	 */
-	var emptyFunction = function emptyFunction() {};
-
-	emptyFunction.thatReturns = makeEmptyFunction;
-
-	emptyFunction.thatReturnsFalse = makeEmptyFunction(false);
-
-	emptyFunction.thatReturnsTrue = makeEmptyFunction(true);
-
-	emptyFunction.thatReturnsNull = makeEmptyFunction(null);
-
-	emptyFunction.thatReturnsThis = function() {
-	    return this;
-	};
-
-	emptyFunction.thatReturnsArgument = function(arg) {
-	    return arg;
-	};
-
-	module.exports = emptyFunction;
-
-/***/ },
-/* 338 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 *
-	 * This source code is licensed under the MIT license found in the
-	 * LICENSE file in the root directory of this source tree.
-	 *
-	 */
-	"use strict";
-
-	/**
-	 * Use invariant() to assert state which your program assumes to be true.
-	 *
-	 * Provide sprintf-style format (only %s is supported) and arguments
-	 * to provide information about what broke and what you were
-	 * expecting.
-	 *
-	 * The invariant message will be stripped in production, but the invariant
-	 * will remain to ensure logic does not differ in production.
-	 */
-	var validateFormat = function validateFormat(format) {};
-
-	"production" !== ("production") && (validateFormat = function validateFormat(format) {
-	    if (void 0 === format) throw new Error("invariant requires an error message argument");
-	});
-
-	function invariant(condition, format, a, b, c, d, e, f) {
-	    validateFormat(format);
-	    if (!condition) {
-	        var error;
-	        if (void 0 === format) error = new Error("Minified exception occurred; use the non-minified dev environment for the full error message and additional helpful warnings."); else {
-	            var args = [ a, b, c, d, e, f ];
-	            var argIndex = 0;
-	            error = new Error(format.replace(/%s/g, function() {
-	                return args[argIndex++];
-	            }));
-	            error.name = "Invariant Violation";
-	        }
-	        error.framesToPop = 1;
-	        // we don't care about invariant's own frame
-	        throw error;
-	    }
-	}
-
-	module.exports = invariant;
-
-/***/ },
-/* 339 */
+/* 334 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -58702,7 +58494,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 340 */
+/* 335 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _typeof = "function" === typeof Symbol && "symbol" === typeof Symbol.iterator ? function(obj) {
@@ -58711,7 +58503,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return obj && "function" === typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
 	};
 
-	var freeGlobal = __webpack_require__(343);
+	var freeGlobal = __webpack_require__(338);
 
 	/** Detect free variable `self`. */
 	var freeSelf = "object" == ("undefined" === typeof self ? "undefined" : _typeof(self)) && self && self.Object === Object && self;
@@ -58722,7 +58514,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = root;
 
 /***/ },
-/* 341 */
+/* 336 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function(target) {
@@ -58760,7 +58552,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Arrow;
 
 /***/ },
-/* 342 */
+/* 337 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = function(module) {
@@ -58776,7 +58568,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 343 */
+/* 338 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {var _typeof = "function" === typeof Symbol && "symbol" === typeof Symbol.iterator ? function(obj) {
