@@ -34,7 +34,13 @@ var _choiceTransform = (editorProps, problemNum) => {
     // Add meta-information to choices
     var choices = editorProps.choices.slice();
     choices = _.map(choices, (choice, i) => {
-        return _.extend({}, choice, {originalIndex: i});
+        return _.extend(
+            {},
+            choice,
+            {
+                originalIndex: i,
+                correct: Boolean(choice.correct),
+            });
     });
 
     // Randomize and add 'None of the above'
