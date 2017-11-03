@@ -44,7 +44,16 @@ const Radio = React.createClass({
         values: React.PropTypes.arrayOf(React.PropTypes.bool),
         choiceStates: React.PropTypes.arrayOf(
             React.PropTypes.shape({
+                // Indicates whether this choice is selected. (Inside
+                // BaseRadio, this is called `checked`.)
                 selected: React.PropTypes.bool,
+
+                // Indicates whether the user has "crossed out" this choice,
+                // meaning that they don't think it's correct. This value does
+                // not affect scoring or other behavior; it's just a note for
+                // the user's reference.
+                crossedOut: React.PropTypes.bool,
+
                 highlighted: React.PropTypes.bool,
                 rationaleShown: React.PropTypes.bool,
                 correctnessShown: React.PropTypes.bool,
@@ -119,29 +128,49 @@ const Radio = React.createClass({
         return this.refs.baseRadio.focus(i);
     },
 
-    onCheckedChange: function(checked) {
+    // When `BaseRadio`'s `onChange` handler is called, indicating a change in
+    // our choices' state, we need to call our `onChange` handler in order to
+    // persist those changes in the item's Perseus state.
+    //
+    // So, given the new values for each choice, construct the new
+    // `choiceStates` objects, and pass them to `this.props.onChange`.
+    //
+    // `newValueLists` is an object with two keys: `checked` and `crossedOut`.
+    // Each contains an array of boolean values, specifying the new checked and
+    // crossed-out value of each choice.
+    //
+    // NOTE(mdr): This method expects to be auto-bound. If this component is
+    //     converted to an ES6 class, take care to auto-bind this method!
+    updateChoices: function(newValueLists) {
         const {choiceStates, choices} = this.props;
 
+        // Construct the baseline `choiceStates` objects. If this is the user's
+        // first interaction with the widget, we'll need to initialize them to
+        // new objects with all fields set to the default values. Otherwise, we
+        // should clone the old `choiceStates` objects, in preparation to
+        // mutate them.
+        let newChoiceStates;
         if (choiceStates) {
-            const newStates = choiceStates.map((state, i) => ({
-                ...state,
-                selected: checked[i],
-            }));
-            this.props.onChange({
-                choiceStates: newStates,
-            });
+            newChoiceStates = choiceStates.map(state => ({...state}));
         } else {
-            this.props.onChange({
-                choiceStates: choices.map((_, i) => ({
-                    selected: checked[i],
-                    highlighted: false,
-                    rationaleShown: false,
-                    correctnessShown: false,
-                    readOnly: false,
-                })),
-            });
+            newChoiceStates = choices.map(() => ({
+                selected: false,
+                crossedOut: false,
+                highlighted: false,
+                rationaleShown: false,
+                correctnessShown: false,
+                readOnly: false,
+            }));
         }
 
+        // Mutate the new `choiceState` objects, according to the new `checked`
+        // and `crossedOut` values provided in `newValueLists`.
+        newChoiceStates.forEach((choiceState, i) => {
+            choiceState.selected = newValueLists.checked[i];
+            choiceState.crossedOut = newValueLists.crossedOut[i];
+        });
+
+        this.props.onChange({choiceStates: newChoiceStates});
         this.props.trackInteraction();
     },
 
@@ -294,6 +323,7 @@ const Radio = React.createClass({
         if (this.props.static) {
             choiceStates = _.map(choices, val => ({
                 selected: val.correct,
+                crossedOut: val.crossedOut,
                 readOnly: true,
                 highlighted: false,
                 rationaleShown: true,
@@ -305,6 +335,7 @@ const Radio = React.createClass({
             // Support legacy choiceStates implementation
             choiceStates = _.map(this.props.values, val => ({
                 selected: val,
+                crossedOut: false,
                 readOnly: false,
                 highlighted: false,
                 rationaleShown: false,
@@ -313,6 +344,7 @@ const Radio = React.createClass({
         } else {
             choiceStates = _.map(choices, () => ({
                 selected: false,
+                crossedOut: false,
                 readOnly: false,
                 highlighted: false,
                 rationaleShown: false,
@@ -331,6 +363,7 @@ const Radio = React.createClass({
 
             const {
                 selected,
+                crossedOut,
                 rationaleShown,
                 correctnessShown,
                 readOnly,
@@ -365,6 +398,7 @@ const Radio = React.createClass({
                 showCorrectness: correctnessShown,
                 isNoneOfTheAbove: choice.isNoneOfTheAbove,
                 revealNoneOfTheAbove: this.props.questionCompleted && selected,
+                crossedOut,
                 highlighted,
             };
         });
@@ -378,7 +412,7 @@ const Radio = React.createClass({
                 countChoices={this.props.countChoices}
                 numCorrect={this.props.numCorrect}
                 choices={choices}
-                onCheckedChange={this.onCheckedChange}
+                onChange={this.updateChoices}
                 reviewModeRubric={this.props.reviewModeRubric}
                 deselectEnabled={this.props.deselectEnabled}
                 apiOptions={this.props.apiOptions}

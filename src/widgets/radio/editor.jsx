@@ -206,7 +206,7 @@ var RadioEditor = React.createClass({
                             checked: choice.correct,
                         };
                     }, this)}
-                    onCheckedChange={this.onCheckedChange}
+                    onChange={this.onChange}
                 />
 
                 <div className="add-choice-container">
@@ -271,7 +271,7 @@ var RadioEditor = React.createClass({
         this.props.onChange({countChoices: count});
     },
 
-    onCheckedChange: function(checked) {
+    onChange: function({checked}) {
         var choices = _.map(this.props.choices, (choice, i) => {
             return _.extend({}, choice, {
                 correct: checked[i],

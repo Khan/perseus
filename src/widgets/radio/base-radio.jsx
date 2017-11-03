@@ -58,7 +58,15 @@ const ChoiceNoneAbove = React.createClass({
 
 const ChoicesType = React.PropTypes.arrayOf(
     React.PropTypes.shape({
+        // Indicates whether this choice is checked.
         checked: React.PropTypes.bool,
+
+        // Indicates whether the user has "crossed out" this choice, meaning
+        // that they don't think it's correct. This value does not affect
+        // scoring or other behavior; it's just a note for the user's
+        // reference.
+        crossedOut: React.PropTypes.bool,
+
         content: React.PropTypes.node,
         rationale: React.PropTypes.node,
         hasRationale: React.PropTypes.bool,
@@ -92,10 +100,15 @@ const BaseRadio = React.createClass({
         countChoices: React.PropTypes.bool,
         numCorrect: React.PropTypes.number,
         multipleSelect: React.PropTypes.bool,
-        onCheckedChange: React.PropTypes.func,
         reviewModeRubric: React.PropTypes.shape({
             choices: ChoicesType,
         }),
+
+        // A callback indicating that this choice has changed. Its argument is
+        // an object with two keys: `checked` and `crossedOut`. Each contains
+        // an array of boolean values, specifying the new checked and
+        // crossed-out value of each choice.
+        onChange: React.PropTypes.func,
     },
 
     statics: {
@@ -269,26 +282,42 @@ const BaseRadio = React.createClass({
         };
     },
 
-    checkOption: function(radioIndex, shouldBeChecked) {
-        let newChecked;
-        if (this.props.multipleSelect) {
-            // When multipleSelect is on, clicking an index toggles the
-            // selection of just that index.
-            newChecked = _.map(this.props.choices, (choice, i) => {
-                return i === radioIndex ? shouldBeChecked : choice.checked;
-            });
+    // When a particular choice's `onChange` handler is called, indicating a
+    // change in a single choice's values, we need to call our `onChange`
+    // handler in order to notify our parent. However, our API with our parent
+    // is that we always provide *all* values for *all* choices, even if just
+    // one choice's values changed. (This is because sometimes an interaction
+    // with one choice can affect many choices, like how checking a new answer
+    // will usually cause the old answer to become unchecked.)
+    //
+    // So, given the new values for a particular choice, compute the new values
+    // for all choices, and pass them to `this.props.onChange`.
+    //
+    // `newValues` is an object with two keys: `checked` and `crossedOut`. Each
+    // contains a boolean value specifying the new checked and crossed-out
+    // value of this choice.
+    updateChoice: function(choiceIndex, newValues) {
+        // Get the baseline `checked` values. If we're checking a new answer
+        // and multiple-select is not on, we should clear all choices to be
+        // unchecked. Otherwise, we should copy the old checked values.
+        let newCheckedList;
+        if (newValues.checked && !this.props.multipleSelect) {
+            newCheckedList = this.props.choices.map(_ => false);
         } else {
-            // When multipleSelect is turned off we always unselect everything
-            // that wasn't clicked.
-            newChecked = _.map(this.props.choices, (choice, i) => {
-                return i === radioIndex && shouldBeChecked;
-            });
+            newCheckedList = this.props.choices.map(c => c.checked);
         }
 
-        // We send just the array of [true/false] checked values here;
-        // onCheckedChange reconstructs the new choices to send to
-        // this.props.onChange
-        this.props.onCheckedChange(newChecked);
+        // Get the baseline `crossedOut` values.
+        const newCrossedOutList = this.props.choices.map(c => c.crossedOut);
+
+        // Update this choice's `checked` and `crossedOut` values.
+        newCheckedList[choiceIndex] = newValues.checked;
+        newCrossedOutList[choiceIndex] = newValues.crossedOut;
+
+        this.props.onChange({
+            checked: newCheckedList,
+            crossedOut: newCrossedOutList,
+        });
     },
 
     focus: function(i) {
@@ -375,6 +404,7 @@ const BaseRadio = React.createClass({
                             ref: `radio${i}`,
                             apiOptions: this.props.apiOptions,
                             checked: choice.checked,
+                            crossedOut: choice.crossedOut,
                             reviewMode,
                             correct: choice.correct,
                             rationale: choice.rationale,
@@ -393,8 +423,8 @@ const BaseRadio = React.createClass({
                             type: inputType,
                             pos: i,
                             deselectEnabled: this.deselectEnabled(),
-                            onChecked: checked => {
-                                this.checkOption(i, checked);
+                            onChange: newValues => {
+                                this.updateChoice(i, newValues);
                             },
                         };
 
@@ -493,7 +523,8 @@ const BaseRadio = React.createClass({
                                     if (
                                         elem.getAttribute("data-is-radio-icon")
                                     ) {
-                                        this.checkOption(i, !choice.checked);
+                                        this.updateChoice(
+                                            i, {checked: !choice.checked});
                                         return;
                                     }
                                     elem = elem.parentNode;
@@ -504,9 +535,8 @@ const BaseRadio = React.createClass({
                         // TODO(mattdr): Index isn't a *good* choice of key
                         // here; is there a better one? Can we use choice
                         // content somehow? Would changing our choice of key
-                        // somehow break any voodoo happening inside a
-                        // choice's child Renderers by changing when we
-                        // mount/unmount?
+                        // somehow break something happening inside a choice's
+                        // child Renderers, by changing when we mount/unmount?
                         return (
                             <li
                                 key={i}

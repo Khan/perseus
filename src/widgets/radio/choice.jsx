@@ -2,6 +2,8 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
+/* global i18n */
+
 const {StyleSheet, css} = require("aphrodite");
 const _ = require("underscore");
 const React = require("react");
@@ -54,7 +56,6 @@ const Choice = React.createClass({
         editMode: React.PropTypes.bool,
         groupName: React.PropTypes.string,
         isLastChoice: React.PropTypes.bool, // Needed for border styling
-        onChecked: React.PropTypes.func.isRequired,
         // This indicates the position of the choice relative to others
         // (so that we can display a nice little (A), (B), etc. next to it)
         // Also used to generate an id for each input.
@@ -63,6 +64,18 @@ const Choice = React.createClass({
         showRationale: React.PropTypes.bool,
         showCorrectness: React.PropTypes.bool,
         type: React.PropTypes.string,
+
+        // Indicates whether the user has "crossed out" this choice, meaning
+        // that they don't think it's correct. This value does not affect
+        // scoring or other behavior; it's just a note for the user's
+        // reference.
+        crossedOut: React.PropTypes.bool,
+
+        // A callback indicating that this choice has changed. Its argument is
+        // an object with two keys: `checked` and `crossedOut`. Each contains a
+        // boolean value specifying the new checked and crossed-out value of
+        // this choice.
+        onChange: React.PropTypes.func,
     },
 
     statics: {
@@ -197,6 +210,12 @@ const Choice = React.createClass({
             },
             intermediateResponsiveCheckboxReview: {
                 alignItems: 'flex-start',
+            },
+
+            crossOutLink: {
+                textAlign: "right",
+                alignSelf: "center",
+                width: 100,
             },
         }),
     },
@@ -336,6 +355,38 @@ const Choice = React.createClass({
         );
     },
 
+    // NOTE(mdr): This method expects to be auto-bound. If this component is
+    //     converted to an ES6 class, take care to auto-bind this method!
+    _toggleCrossOut: function() {
+        const willBeCrossedOut = !this.props.crossedOut;
+
+        if (willBeCrossedOut) {
+            // If we're crossing out a checked option, let's also uncheck it.
+            this._sendChange({checked: false, crossedOut: true});
+        } else {
+            this._sendChange({crossedOut: false});
+        }
+    },
+
+    // Call `this.props.onChange` with the given values. Any keys that are not
+    // specified will be filled in with the current value. (For example, if
+    // `checked` is specified but `crossedOut` is not, then `crossedOut` will
+    // be filled in with `this.props.crossedOut`.)
+    //
+    // This enables us to use shorthand inside this component, while
+    // maintaining a consistent API for the parent.
+    _sendChange: function(newValues) {
+        const checked = newValues.checked != null
+            ? newValues.checked
+            : this.props.checked;
+
+        const crossedOut = newValues.crossedOut != null
+            ? newValues.crossedOut
+            : this.props.crossedOut;
+
+        this.props.onChange({checked, crossedOut});
+    },
+
     render: function() {
         const styles = Choice.styles;
         const sat = this.props.apiOptions.satStyling;
@@ -392,7 +443,9 @@ const Choice = React.createClass({
             // it by merely clicking/selecting it again.
             input = (
                 <ToggleableRadioButton
-                    onChecked={this.props.onChecked}
+                    onChecked={willBeChecked => {
+                        this._sendChange({checked: willBeChecked});
+                    }}
                     inputRef={this.inputRef}
                     {...commonInputProps}
                 />
@@ -401,7 +454,7 @@ const Choice = React.createClass({
             input = (
                 <input
                     onChange={event => {
-                        this.props.onChecked(event.target.checked);
+                        this._sendChange({checked: event.target.checked});
                     }}
                     ref={this.inputRef}
                     {...commonInputProps}
@@ -469,12 +522,25 @@ const Choice = React.createClass({
         // element instead
         const LabelOrDiv = this.props.editMode ? "div" : "label";
 
+        const showCrossOut =
+            !this.props.showCorrectness && !sat &&
+            // HACK(mdr): This should go behind a real flag; this is just a
+            //     quick hack so I can ship this code for review (and maybe
+            //     land before the Nov 2017 TSM) before overcommitting to arch.
+            //     https://app.asana.com/0/329800276300868/467694510751339
+            document.location.href.indexOf("PERSEUS-HACK-SHOW-CROSS-OUT") >= 0;
+
         // We want to show the choices as dimmed out when the choices are
         // disabled. However, we don't want to do this in the SAT product and
         // we also don't want to do this when we're in review mode in the
         // content library.
         const showDimmed =
-            !sat && !reviewMode && this.props.apiOptions.readOnly;
+            (!sat && !reviewMode && this.props.apiOptions.readOnly) ||
+            // HACK(mdr): This is a temporary way of showing the crossedOut
+            //     state. Eventually, we'll have custom visuals for this state,
+            //     at which point we'll remove this condition.
+            //     https://app.asana.com/0/329800276300868/467694510751336
+            (showCrossOut && this.props.crossedOut);
 
         return (
             <LabelOrDiv
@@ -524,6 +590,15 @@ const Choice = React.createClass({
                             {this.props.rationale}
                         </div>}
                 </div>
+                {showCrossOut && <a
+                    href="javascript:void 0"
+                    onClick={this._toggleCrossOut}
+                    className={css(styles.crossOutLink)}
+                >
+                    {this.props.crossedOut
+                        ? i18n.i18nDoNotTranslate("Uncross out")
+                        : i18n.i18nDoNotTranslate("Cross out")}
+                </a>}
             </LabelOrDiv>
         );
     },
