@@ -1,3 +1,9 @@
+# Attention: No longer under active development
+
+As of January 2018 this repository is no longer under active development, so we're not seeking any more contributions. That said, you are always welcome to fork Perseus and make your own changes to it. This repository will continue to stick around in its current open-sourced state forever.
+
+The following text is the original content of this file.
+
 ## Getting started locally
 
 Note: if you're a KA employee this will already be checked out inside webapp.
