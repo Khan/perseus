@@ -1,3 +1,5 @@
+_**As of January 2018 this repo is no longer under active development. It will, however, remain open source.**_
+
 # Perseus
 
 [![Build Status](https://travis-ci.org/Khan/perseus.svg?branch=master)](https://travis-ci.org/Khan/perseus)
