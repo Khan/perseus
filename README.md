@@ -53,6 +53,10 @@ Also, the following global variables are used, if present:
 
 (See `src/perseus-env.js` and `src/demo-perseus.js`)
 
+For an example of supplying these dependencies, or to get an npm package
+of perseus with these dependencies built-in, see
+[perseus-configured](https://github.com/ariabuckles/perseus-configured)
+
 ## Versioning
 
 Perseus uses two types of version numbers: the version of the itemData/content
