@@ -135,16 +135,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macOS-latest]
-        # We want to include all the versions we support here.
-        # We skip 14 just to save action minutes and because our core usage is
-        # either 12 or 16 at this time.
-        node-version: [12.x, 16.x]
-        exclude:
-          # And exclude the configuration that our coverage job already
-          # includes.
-          - os: ubuntu-latest
-            node-version: 16.x
+        os: [ubuntu-latest]
+        node-version: [16.x]
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
