@@ -1,0 +1,81 @@
+name: Node CI (landed on protected branch)
+
+on:
+  push:
+    branches:
+    - main
+    - changeset-release/*
+    - feature/*
+
+# Our jobs run like this to minimize wasting resource cycles:
+#   1. Prime caches for primary configuration (ubuntu on node 14).
+#      This way the next two jobs can run in parallel but rely on this primed
+#      cache.
+#   2. Coverage
+#
+# For pushes directly to a branch, we assume a PR has been used with wider
+# checks, this just makes sure our coverage data is up-to-date.
+jobs:
+  prime_cache_primary:
+    name: Prime node_modules cache for primary configuration
+    env:
+      CI: true
+    runs-on: ${{ matrix.os }}
+    strategy:
+      # Use a matrix as it means we get the version info in the job name
+      # which is very helpful.
+      matrix:
+        os: [ubuntu-latest]
+        node-version: [16.x]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+    - uses: actions/cache@v2
+      id: node-modules-cache # use this to check for `cache-hit` (`steps.node-modules-cache.outputs.cache-hit != 'true'`)
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-${{ matrix.node-version }}-node-modules-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-${{ matrix.node-version }}-node-modules-
+    - name: Install dependencies
+      if: steps.node-modules-cache.outputs.cache-hit != 'true'
+      run: yarn install --frozen-lockfile
+
+
+  coverage:
+    needs: [prime_cache_primary]
+    name: Gather coverage
+    env:
+      CI: true
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        # Use a matrix as it means we get the version info in the job name
+        # which is very helpful.
+        os: [ubuntu-latest]
+        node-version: [16.x]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+    - uses: actions/cache@v2
+      id: node-modules-cache # use this to check for `cache-hit` (`steps.node-modules-cache.outputs.cache-hit != 'true'`)
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-${{ matrix.node-version }}-node-modules-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-${{ matrix.node-version }}-node-modules-
+    - name: Install dependencies
+      if: steps.node-modules-cache.outputs.cache-hit != 'true'
+      run: yarn install --frozen-lockfile
+    - name: Run tests with coverage
+      run: yarn coverage
+    # - name: Upload Coverage
+    #   uses: codecov/codecov-action@v2
+    #   with:
+    #     token: ${{ secrets.CODECOV_TOKEN }}

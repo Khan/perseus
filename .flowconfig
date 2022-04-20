@@ -1,0 +1,27 @@
+[ignore]
+<PROJECT_ROOT>/coverage
+<PROJECT_ROOT>/dist
+<PROJECT_ROOT>/.vscode
+<PROJECT_ROOT>/bin
+
+[options]
+module.name_mapper='@khanacademy/\(perseus-[^/]*\)' -> '<PROJECT_ROOT>/packages/\1/src/index.js'
+enums=true
+emoji=true
+exact_by_default=true
+module.use_strict=true
+
+[lints]
+deprecated-type=error
+deprecated-utility=error
+sketchy-null=error
+sketchy-number=error
+unclear-type=error
+untyped-import=error
+untyped-type-import=error
+
+[declarations]
+<PROJECT_ROOT>/node_modules
+
+[libs]
+flow-typed
