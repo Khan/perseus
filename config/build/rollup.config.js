@@ -178,7 +178,7 @@ const getPackageInfo = (commandLineArgs, pkgName) => {
             {
                 // src path is relative to the package root unless started
                 // with ./
-                src: "build-settings/index.js.flow.template",
+                src: "config/build/index.js.flow.template",
                 // dest path is relative to src path.
                 dest: makePackageBasedPath(pkgName, "./dist"),
                 rename: "index.js.flow",
@@ -187,7 +187,7 @@ const getPackageInfo = (commandLineArgs, pkgName) => {
             {
                 // src path is relative to the package root unless started
                 // with ./
-                src: "build-settings/index.js.flow.template",
+                src: "config/build/index.js.flow.template",
                 // dest path is relative to src path.
                 dest: makePackageBasedPath(pkgName, "./dist"),
                 rename: "index.d.ts",
