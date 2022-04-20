@@ -19,7 +19,7 @@ const createBabelPlugins = require("./create-babel-plugins.js");
  *
  * --configPackages
  *      A comma-delimited list of package names to build.
- *      The "wonder-stuff-" portion can be omitted.
+ *      The "perseus-" portion can be omitted.
  *      Default: All packages.
  *
  * --configFormats
@@ -258,7 +258,7 @@ const getPackageInfo = (commandLineArgs, pkgName) => {
     return configs;
 };
 
-const getPkgShortName = (pkgName) => pkgName.replace("wonder-stuff-", "");
+const getPkgShortName = (pkgName) => pkgName.replace("perseus-", "");
 
 /**
  * Determine the packages that we want to generate outputs for.
