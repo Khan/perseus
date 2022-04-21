@@ -1,0 +1,29 @@
+name: 'Shared Node Cache'
+description: 'Install & cache our npm dependencies'
+inputs:
+  node-version:
+    description: 'Node version to use'
+    required: false
+    default: '16.x'
+runs:
+  using: "composite"
+  steps:
+
+    - name: Use Node.js ${{ inputs.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ inputs.node-version }}
+
+    - name: Cache node_modules
+      uses: actions/cache@v2
+      id: cache-node-modules
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-${{ inputs.node-version }}-node_modules-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-${{ inputs.node-version }}-node_modules-
+
+    - name: Install Dependencies
+      if: steps.cache-node-modules.outputs.cache-hit != 'true'
+      shell: bash
+      run: yarn install --frozen-lockfile

@@ -1,0 +1,53 @@
+name: Node CI (landed on protected branch)
+
+on:
+  push:
+    branches:
+    - main
+    - changeset-release/*
+    - feature/*
+
+# Our jobs run like this to minimize wasting resource cycles:
+#   1. Prime caches for primary configuration.  This way subsequent jobs
+#      can run in parallel but rely on this primed cache.
+#   2. Coverage
+#
+# For pushes directly to a branch, we assume a PR has been used with wider
+# checks, this just makes sure our coverage data is up-to-date.
+jobs:
+  prime_cache_primary:
+    name: Prime node_modules cache for primary configuration
+    runs-on: ${{ matrix.os }}
+    strategy:
+      # Use a matrix as it means we get the version info in the job name
+      # which is very helpful.
+      matrix:
+        os: [ubuntu-latest]
+        node-version: [16.x]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
+      uses: ./.github/actions/shared-node-cache
+      with:
+        node-version: ${{ matrix.node-version }}
+
+  coverage:
+    needs: [prime_cache_primary]
+    name: Gather coverage
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        # Use a matrix as it means we get the version info in the job name
+        # which is very helpful.
+        os: [ubuntu-latest]
+        node-version: [16.x]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
+      uses: ./.github/actions/shared-node-cache
+      with:
+        node-version: ${{ matrix.node-version }}
+    # - name: Upload Coverage
+    #   uses: codecov/codecov-action@v2
+    #   with:
+    #     token: ${{ secrets.CODECOV_TOKEN }}
