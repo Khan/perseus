@@ -18,8 +18,6 @@ on:
 jobs:
   lint:
     name: Lint, flow, and coverage check
-    env:
-      CI: true
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -89,8 +87,6 @@ jobs:
 
   test:
     name: Test
-    env:
-      CI: true
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:

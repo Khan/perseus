@@ -17,8 +17,6 @@ on:
 jobs:
   prime_cache_primary:
     name: Prime node_modules cache for primary configuration
-    env:
-      CI: true
     runs-on: ${{ matrix.os }}
     strategy:
       # Use a matrix as it means we get the version info in the job name
@@ -36,8 +34,6 @@ jobs:
   coverage:
     needs: [prime_cache_primary]
     name: Gather coverage
-    env:
-      CI: true
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
