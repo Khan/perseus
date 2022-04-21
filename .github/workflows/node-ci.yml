@@ -125,3 +125,21 @@ jobs:
          contains(steps.changed.outputs.added_modified, 'test.config.js') ||
          contains(steps.changed.outputs.added_modified, 'test.transform.js')) == false
       run: yarn test --passWithNoTests ${{ steps.changed.outputs.added_modified }}
+
+  test:
+    name: Extract i18n strings
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node-version: [16.x]
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
+      uses: ./.github/actions/shared-node-cache
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Extract strings
+      run: yarn extract-strings

@@ -11,6 +11,9 @@
     "scripts": {
         "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"
     },
+    "dependencies": {
+        "@khanacademy/math-input": "^0.4.1"
+    },
     "devDependencies": {
         "perseus-build-settings": "^0.0.1"
     },
