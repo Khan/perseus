@@ -8,8 +8,6 @@ import copy from "rollup-plugin-copy";
 import resolve from "@rollup/plugin-node-resolve";
 import replace from "@rollup/plugin-replace";
 import filesize from "rollup-plugin-filesize";
-import {preserveShebangs} from "rollup-plugin-preserve-shebangs";
-import rollupExecutable from "rollup-plugin-executable-output";
 
 const createBabelPresets = require("./create-babel-presets.js");
 const createBabelPlugins = require("./create-babel-plugins.js");
@@ -234,23 +232,6 @@ const getPackageInfo = (commandLineArgs, pkgName) => {
                 platform: "node",
                 file: esmNode,
                 plugins: [typesAndDocsCopy],
-            });
-        }
-    }
-
-    // Figure out if there are any scripts that we need to generate.
-    const binsPath = makePackageBasedPath(pkgName, "./src/bin");
-    if (fs.existsSync(binsPath)) {
-        const binFiles = fs.readdirSync(binsPath);
-
-        for (const binFile of binFiles) {
-            configs.push({
-                name: pkgName,
-                format: "cjs",
-                platform: "node",
-                file: `dist/bin/${binFile}`,
-                inputFile: `./src/bin/${binFile}`,
-                plugins: [preserveShebangs(), rollupExecutable()],
             });
         }
     }

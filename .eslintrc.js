@@ -8,34 +8,11 @@ module.exports = {
         },
     },
     plugins: ["@babel", "import", "jest", "promise", "monorepo", "disable"],
-    settings: {
-        "eslint-plugin-disable": {
-            paths: {
-                react: ["./*.js", "src/*.js"],
-                "jsx-a11y": ["./*.js", "src/*.js"],
-            },
-        },
-    },
-    globals: {
-        __IS_BROWSER__: "readonly",
-    },
     overrides: [
-        {
-            files: ["utils/*.js"],
-            rules: {
-                "import/no-commonjs": "off",
-            },
-        },
         {
             files: ["**/__tests__/*.test.js"],
             rules: {
                 "max-lines": "off",
-            },
-        },
-        {
-            files: ["**/bin/**/*.js"],
-            rules: {
-                "no-console": "off",
             },
         },
     ],
