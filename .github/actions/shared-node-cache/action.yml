@@ -10,7 +10,7 @@ runs:
   steps:
 
     - name: Use Node.js ${{ inputs.node-version }}
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v2
       with:
         node-version: ${{ inputs.node-version }}
 
@@ -25,8 +25,5 @@ runs:
 
     - name: Install Dependencies
       if: steps.cache-node-modules.outputs.cache-hit != 'true'
-      # We need to ignore engines here because of our customizations to Apollo
-      # and it's restrictive engines declaration. When that is addressed, we
-      # can and should remove this.
       shell: bash
-      run: yarn install --frozen-lockfile --ignore-engines
+      run: yarn install --frozen-lockfile
