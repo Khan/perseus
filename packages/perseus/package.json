@@ -15,7 +15,15 @@
         "@khanacademy/math-input": "^0.4.1"
     },
     "devDependencies": {
-        "perseus-build-settings": "^0.0.1"
+        "@khanacademy/wonder-blocks-i18n": "^1.2.3",
+        "perseus-build-settings": "^0.0.1",
+        "react": "16.14.0",
+        "react-dom": "16.14.0"
+    },
+    "peerDependencies": {
+        "@khanacademy/wonder-blocks-i18n": "^1.2.3",
+        "react": "16.14.0",
+        "react-dom": "16.14.0"
     },
     "browser": {
         "dist/es/index.js": "./dist/es/index.browser.js",

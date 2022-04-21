@@ -1,18 +1,11 @@
 #!/usr/bin/env ./node_modules/.bin/babel-node
 // @flow
 /**
- * Extracts i18n strings from:
- * - perseus-all-package
- * - perseus-merged-extra-widgets-package
- * - perseus-merged-editor-package
- * - node_modules/math-input
- * and write them to javascript/perseus/perseus.strings.js as i18n.*() calls so
- * that they can be processed by our nightly translation job which uploads strings
- * to Crowdin.
+ * Extracts i18n strings from each package and writes them out to <package>/dist/strings.js.
  *
- * Notes:
- * - This script must be run from services/static/ since the shebang makes use of
- *   a relative path.
+ * This file contains i18n._(), i18n._$(), and i18n.ngettext() calls that can be re-extracted
+ * by webapp.  This is required for so that we can leverage webapp's translation pipeline
+ * which is responsible for uploading strings to Crowdin.
  */
 import fs from "fs";
 import path from "path";
@@ -26,30 +19,33 @@ const rootDir = ancesdir(__dirname);
 
 const logger = getLogger();
 
-export const generateStringsFile = (filename: string) => {
-    const packages = ["perseus", "perseus-editor"];
-
+export const generateStringsFileForPackage = (pkgName: string) => {
     const glob = path.join(
         rootDir,
         "packages",
-        packages.length > 1 ? `{${packages.join(",")}}` : packages[0],
+        pkgName,
+        "src",
         "**",
         "*.{js,jsx}",
     );
     const files = fg.sync(glob);
-    files.push(
-        // NOTE(kevinb): Extracting strings from build files is not ideal since we
-        // lose any I18N comments.  Once Perseus is in its own repo we should move
-        // math-input there as well so that we can run string extraction on the source.
-        path.join(
-            rootDir,
-            "node_modules",
-            "@khanacademy",
-            "math-input",
-            "build",
-            "math-input.js",
-        ),
-    );
+
+    if (pkgName === "perseus") {
+        files.push(
+            // NOTE(kevinb): Extracting strings from build files is not ideal since we
+            // lose any I18N comments.  Once Perseus is in its own repo we should move
+            // math-input there as well so that we can run string extraction on the source.
+            path.join(
+                rootDir,
+                "node_modules",
+                "@khanacademy",
+                "math-input",
+                "build",
+                "math-input.js",
+            ),
+        );
+    }
+
     files.sort();
 
     let strings = [];
@@ -86,15 +82,12 @@ export const generateStringsFile = (filename: string) => {
 
     strings.sort((a, b) => a.msgids[0].localeCompare(b.msgids[0]));
 
-    const outDir = path.join(rootDir, "dist");
+    const outDir = path.join(rootDir, "packages", pkgName, "dist");
     if (!fs.existsSync(outDir)) {
         fs.mkdirSync(outDir, {recursive: true});
     }
 
-    const outPath = filename.startsWith("/")
-        ? filename
-        : path.join(outDir, filename);
-
+    const outPath = path.join(outDir, "strings.js");
     const fd = fs.openSync(outPath, "w");
 
     const writeLine = (line) => fs.writeSync(fd, line + "\n");
@@ -125,5 +118,6 @@ export const generateStringsFile = (filename: string) => {
 };
 
 if (require.main === module) {
-    generateStringsFile("strings.js");
+    generateStringsFileForPackage("perseus");
+    generateStringsFileForPackage("perseus-editor");
 }
