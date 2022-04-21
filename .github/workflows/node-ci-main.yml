@@ -8,9 +8,8 @@ on:
     - feature/*
 
 # Our jobs run like this to minimize wasting resource cycles:
-#   1. Prime caches for primary configuration (ubuntu on node 14).
-#      This way the next two jobs can run in parallel but rely on this primed
-#      cache.
+#   1. Prime caches for primary configuration.  This way subsequent jobs
+#      can run in parallel but rely on this primed cache.
 #   2. Coverage
 #
 # For pushes directly to a branch, we assume a PR has been used with wider
@@ -33,17 +32,10 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
-    - uses: actions/cache@v2
-      id: node-modules-cache # use this to check for `cache-hit` (`steps.node-modules-cache.outputs.cache-hit != 'true'`)
+    - name: Install & cache node_modules
+      uses: ./.github/actions/shared-node-cache
       with:
-        path: node_modules
-        key: ${{ runner.os }}-${{ matrix.node-version }}-node-modules-${{ hashFiles('**/yarn.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-${{ matrix.node-version }}-node-modules-
-    - name: Install dependencies
-      if: steps.node-modules-cache.outputs.cache-hit != 'true'
-      run: yarn install --frozen-lockfile
-
+        node-version: ${{ matrix.node-version }}
 
   coverage:
     needs: [prime_cache_primary]
@@ -70,11 +62,10 @@ jobs:
         key: ${{ runner.os }}-${{ matrix.node-version }}-node-modules-${{ hashFiles('**/yarn.lock') }}
         restore-keys: |
           ${{ runner.os }}-${{ matrix.node-version }}-node-modules-
-    - name: Install dependencies
-      if: steps.node-modules-cache.outputs.cache-hit != 'true'
-      run: yarn install --frozen-lockfile
-    - name: Run tests with coverage
-      run: yarn coverage
+    - name: Install & cache node_modules
+      uses: ./.github/actions/shared-node-cache
+      with:
+        node-version: ${{ matrix.node-version }}
     # - name: Upload Coverage
     #   uses: codecov/codecov-action@v2
     #   with:

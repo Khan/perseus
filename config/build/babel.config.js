@@ -8,11 +8,11 @@ module.exports = {
         constantReexports: true,
     },
     presets: createBabelPresets({
-        platform: "node",
+        platform: "browser",
         format: "cjs",
     }),
     plugins: createBabelPlugins({
-        platform: "node",
+        platform: "browser",
         format: "cjs",
     }),
 };

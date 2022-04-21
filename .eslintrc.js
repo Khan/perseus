@@ -27,7 +27,7 @@ module.exports = {
             },
         },
         {
-            files: ["**/__tests__/**/*.test.js"],
+            files: ["**/__tests__/*.test.js"],
             rules: {
                 "max-lines": "off",
             },

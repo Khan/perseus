@@ -5,8 +5,8 @@
     "name": "@khanacademy/perseus-core",
     "version": "0.0.1",
     "description": "Core Perseus API (includes renderers and widgets)",
-    "module": "dist/es/index.js",
-    "main": "dist/index.js",
+    "module": "dist/es/index.browser.js",
+    "main": "dist/index.browser.js",
     "source": "src/index.js",
     "scripts": {
         "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"

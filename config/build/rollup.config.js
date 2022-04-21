@@ -75,7 +75,7 @@ const getSetFromDelimitedString = (arg, defaults) => {
  * Determine what platforms we are targetting.
  */
 const getPlatforms = ({configPlatforms}) =>
-    getSetFromDelimitedString(configPlatforms, ["browser", "node"]);
+    getSetFromDelimitedString(configPlatforms, ["browser"]);
 
 /**
  * Determine what formats we are targetting.
