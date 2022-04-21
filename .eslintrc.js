@@ -28,7 +28,12 @@ module.exports = {
         "flowtype/no-types-missing-file-annotation": "error",
         "flowtype/no-existential-type": "error",
         "import/no-default-export": "error",
-        "import/no-unresolved": "error",
+        // NOTE(kevinb): I'm not sure why @khanacademy/perseus won't resolve
+        // when it's imported in perseus-editor.
+        // https://github.com/import-js/eslint-plugin-import/issues/2301
+        // might be related, but there's some TypeScript specific details that
+        // don't apply to our situation.
+        "import/no-unresolved": ["error", {ignore: ["@khanacademy/perseus"]}],
         "import/named": "error",
         "import/default": "error",
         "import/no-absolute-path": "error",

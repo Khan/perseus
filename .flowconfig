@@ -5,7 +5,7 @@
 <PROJECT_ROOT>/bin
 
 [options]
-module.name_mapper='@khanacademy/\(perseus-[^/]*\)' -> '<PROJECT_ROOT>/packages/\1/src/index.js'
+module.name_mapper='@khanacademy/\(perseus[^/]*\)' -> '<PROJECT_ROOT>/packages/\1/src/index.js'
 enums=true
 emoji=true
 exact_by_default=true

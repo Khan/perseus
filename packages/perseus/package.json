@@ -2,7 +2,7 @@
     "publishConfig": {
         "access": "public"
     },
-    "name": "@khanacademy/perseus-core",
+    "name": "@khanacademy/perseus",
     "version": "0.0.1",
     "description": "Core Perseus API (includes renderers and widgets)",
     "module": "dist/es/index.browser.js",

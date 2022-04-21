@@ -15,11 +15,6 @@ const createBabelPlugins = require("./create-babel-plugins.js");
 /**
  * We support the following config args with this rollup configuration:
  *
- * --configPackages
- *      A comma-delimited list of package names to build.
- *      The "perseus-" portion can be omitted.
- *      Default: All packages.
- *
  * --configFormats
  *      A comma-delimited list of formats to build.
  *      Valid options are "cjs" and "esm".
@@ -239,60 +234,12 @@ const getPackageInfo = (commandLineArgs, pkgName) => {
     return configs;
 };
 
-const getPkgShortName = (pkgName) => pkgName.replace("perseus-", "");
-
-/**
- * Determine the packages that we want to generate outputs for.
- */
-const getPkgNames = (commandLineArgs) => {
-    const {configPackages} = commandLineArgs;
-
-    // Get the list of packages that we have in our packages folder.
-    const actualPackages = fs.readdirSync("packages");
-
-    // Parse the configPackages arg into an array of package names.
-    const specificPackages = getSetFromDelimitedString(
-        configPackages,
-        actualPackages,
-    );
-
-    // Filter our list of actual packages to only those that were requested.
-    const pkgNames = actualPackages.filter(
-        (p) =>
-            specificPackages.has(p) || specificPackages.has(getPkgShortName(p)),
-    );
-
-    // Perform some validation to help folks.
-    if (
-        specificPackages.length > 0 &&
-        specificPackages.length !== pkgNames.length
-    ) {
-        // If we were asked for specific packages but we did not match them
-        // all, then let's tell the caller which ones we couldn't find.
-        const missingPackages = Array.from(specificPackages).filter(
-            (s) => !pkgNames.some((p) => p.endsWith(s)),
-        );
-        throw new Error(
-            `Could not find one or more of the requested packages: ${missingPackages}`,
-        );
-    } else if (pkgNames.length === 0) {
-        // If we just don't have any packages right now, let's also report that.
-        throw new Error("No packages found in /packages folder");
-    }
-
-    return pkgNames;
-};
-
 /**
  * Creates the full rollup configuration for the given args.
- *
- * If the `--configPackages` arg is included, we split it on commas and
- * take each as the name of a package to process. Otherwise, we process all
- * packages.
  */
 const createRollupConfig = (commandLineArgs) => {
     // Determine what packages we are building.
-    const pkgNames = getPkgNames(commandLineArgs);
+    const pkgNames = fs.readdirSync("packages");
 
     // For the packages we have determined we want, let's get more information
     // about them and  generate configurations.

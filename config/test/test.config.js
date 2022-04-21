@@ -19,8 +19,8 @@ module.exports = {
         "<rootDir>/config/test/test-setup.js",
     ],
     moduleNameMapper: {
-        "^@khanacademy/perseus-(.*)$":
-            "<rootDir>/packages/perseus-$1/src/index.js",
+        "^@khanacademy/perseus(.*)$":
+            "<rootDir>/packages/perseus$1/src/index.js",
     },
     collectCoverageFrom: [
         "packages/**/*.js",
