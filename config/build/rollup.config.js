@@ -67,7 +67,6 @@ const getSetFromDelimitedString = (arg, defaults) => {
                   .map((p) => p.trim())
                   .filter(Boolean)
             : [];
-
     return new Set(values.length ? values : defaults);
 };
 
@@ -75,7 +74,8 @@ const getSetFromDelimitedString = (arg, defaults) => {
  * Determine what platforms we are targetting.
  */
 const getPlatforms = ({configPlatforms}) =>
-    getSetFromDelimitedString(configPlatforms, ["browser"]);
+    // TODO(FEI-4472): Update package.json and rollup.config.js to work with only browser
+    getSetFromDelimitedString(configPlatforms, ["browser", "node"]);
 
 /**
  * Determine what formats we are targetting.
