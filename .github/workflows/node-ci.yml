@@ -73,17 +73,17 @@ jobs:
     # Make sure our packages aren't growing unexpectedly
     # This must come last as it builds the old code last and so leaves the
     # wrong code in place for the next job.
-    # - name: Check Builds
-    #   uses: preactjs/compressed-size-action@v2
-    #   with:
-    #     # We only care about the browser ES module size, really:
-    #     pattern: "**/dist/es/index.browser.js"
-    #     # Always ignore SourceMaps and node_modules:
-    #     exclude: "{**/*.map,**/node_modules/**}"
-    #     # Clean up before a build
-    #     clean-script: "clean"
-    #     # Build production
-    #     build-script: "build:prodsizecheck"
+    - name: Check Builds
+      uses: preactjs/compressed-size-action@v2
+      with:
+        # We only care about the browser ES module size, really:
+        pattern: "**/dist/es/index.browser.js"
+        # Always ignore SourceMaps and node_modules:
+        exclude: "{**/*.map,**/node_modules/**}"
+        # Clean up before a build
+        clean-script: "clean"
+        # Build production
+        build-script: "build:prodsizecheck"
 
   test:
     name: Test
