@@ -19,6 +19,7 @@
     "@babel/node": "^7.16.8",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-flow": "^7.16.7",
+    "@changesets/cli": "^2.22.0",
     "@khanacademy/eslint-config": "^0.1.0",
     "@khanacademy/wonder-stuff-i18n": "^1.1.0",
     "@rollup/plugin-babel": "^5.3.0",
@@ -63,6 +64,7 @@
     "flow:ci": "flow check --max-workers 0",
     "lint": "eslint --config .eslintrc.js packages",
     "lint:ci": "eslint --config .eslintrc.js",
+    "publish:ci": "node utils/pre-publish-check-ci.js && git diff --stat --exit-code HEAD && yarn build && changeset publish",
     "test": "yarn jest"
   }
 }

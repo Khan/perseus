@@ -31,21 +31,12 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.4.1
+      - uses: actions/checkout@v2
         with:
-          ssh-private-key: ${{ secrets.SSH_NODECI_PRIVATE_KEY }}
-      - name: Clone repository
-        run: git clone git@github.com:Khan/wonder-stuff.git .
-
-      - name: Setup Node.js 12.x
-        uses: actions/setup-node@master
+          fetch-depth: 0
+      - uses: ./.github/actions/setup
         with:
-          # This is our target Node version.
-          # This should match the engine value in the root package.json
           node-version: 12.x
-
-      - name: Install Dependencies
-        run: yarn
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets
@@ -60,47 +51,16 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.KHAN_ACTIONS_BOT_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Build Slack message
-        id: slack_message
-        if: steps.changesets.outputs.published == 'true'
-        # We have to do this in stages to make sure that the output into the
-        # GITHUB_ENV retains are lines and is valid for updating the env.
-        # This is based on:
-        # - LIVE: https://trstringer.com/github-actions-multiline-strings/
-        # - ARCHIVE: https://web.archive.org/web/20211017170102/https://trstringer.com/github-actions-multiline-strings/
-        # - LIVE: https://renehernandez.io/snippets/multiline-strings-as-a-job-output-in-github-actions/
-        # - ARCHIVE: https://web.archive.org/web/20211115000540/https://renehernandez.io/snippets/multiline-strings-as-a-job-output-in-github-actions/
-        run: |
-          UPDATED_PACKAGES=$(jq -r '[group_by(.name) | .[] | " - "+.[].name+"@"+.[].version] | join("\n")' <<< '${{ steps.changesets.outputs.publishedPackages }}')
-          UPDATED_PACKAGES="${UPDATED_PACKAGES//'%'/'%25'}"
-          UPDATED_PACKAGES="${UPDATED_PACKAGES//$'\n'/'%0A'}"
-          UPDATED_PACKAGES="${UPDATED_PACKAGES//$'\r'/'%0D'}"
-          echo "::set-output name=updated_packages::$UPDATED_PACKAGES"
-
       - name: Send a Slack notification for web if a publish happens
         if: steps.changesets.outputs.published == 'true'
         uses: rtCamp/action-slack-notify@v2
         env:
-          SLACK_WEBHOOK: ${{ secrets.SLACK_FEIWEB_WEBHOOK }}
-          SLACK_CHANNEL: frontend-infra-web
+          SLACK_WEBHOOK: ${{ secrets.SLACK_EXERCISENEXT_WEBHOOK }}
+          SLACK_CHANNEL: exercise-next
           SLACK_MSG_AUTHOR: ${{ github.event.pull_request.user.login }}
           SLACK_USERNAME: GithubGoose
           SLACK_ICON_EMOJI: ":goose:"
-          SLACK_MESSAGE: "A new version of ${{ github.event.repository.name }} was published! 🎉 \n${{ steps.slack_message.outputs.updated_packages }}\n\nRelease notes → https://github.com/Khan/${{ github.event.repository.name }}/releases/"
-          SLACK_TITLE: "New Wonder Stuff release!"
-          SLACK_FOOTER: Wonder Stuff Slack Notification
-          MSG_MINIMAL: true
-
-      - name: Send a Slack notification for mobile if a publish happens
-        if: steps.changesets.outputs.published == 'true'
-        uses: rtCamp/action-slack-notify@v2
-        env:
-          SLACK_WEBHOOK: ${{ secrets.SLACK_FEIMOBILE_WEBHOOK }}
-          SLACK_CHANNEL: frontend-infra-mobile
-          SLACK_MSG_AUTHOR: ${{ github.event.pull_request.user.login }}
-          SLACK_USERNAME: GithubGoose
-          SLACK_ICON_EMOJI: ":goose:"
-          SLACK_MESSAGE: "A new version of ${{ github.event.repository.name }} was published! 🎉 \n${{ steps.slack_message.outputs.updated_packages }}\n\nRelease notes → https://github.com/Khan/${{ github.event.repository.name }}/releases/"
-          SLACK_TITLE: "New Wonder Stuff release!"
-          SLACK_FOOTER: Wonder Stuff Slack Notification
+          SLACK_MESSAGE: "A new version of ${{ github.event.repository.name }} was published! 🎉 \nRelease notes → https://github.com/Khan/${{ github.event.repository.name }}/releases/"
+          SLACK_TITLE: "New Perseus release!"
+          SLACK_FOOTER: Perseus Slack Notification
           MSG_MINIMAL: true
