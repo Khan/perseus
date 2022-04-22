@@ -20,11 +20,6 @@ const createBabelPlugins = require("./create-babel-plugins.js");
  *      Valid options are "cjs" and "esm".
  *      Default: cjs, esm
  *
- * --configPlatforms
- *      A comma-delimited list of platforms to build.
- *      Valid options are "browser" and "node".
- *      Default: browser, node
- *
  * --configEnvironment
  *      A string to use as the NODE_ENV environment variable.
  *      Valid options are "development" and "production".
@@ -62,13 +57,6 @@ const getSetFromDelimitedString = (arg, defaults) => {
             : [];
     return new Set(values.length ? values : defaults);
 };
-
-/**
- * Determine what platforms we are targetting.
- */
-const getPlatforms = ({configPlatforms}) =>
-    // TODO(FEI-4472): Update package.json and rollup.config.js to work with only browser
-    getSetFromDelimitedString(configPlatforms, ["browser", "node"]);
 
 /**
  * Determine what formats we are targetting.
@@ -151,14 +139,7 @@ const getPackageInfo = (commandLineArgs, pkgName) => {
     const pkgJson = JSON.parse(fs.readFileSync(pkgJsonPath));
 
     // Determine what formats and platforms we are building.
-    const platforms = getPlatforms(commandLineArgs);
     const formats = getFormats(commandLineArgs);
-
-    // Now we have the package.json, we need to look at the main, module, and
-    // browser fields and values.
-    const {main: cjsNode, module: esmNode, browser} = pkgJson;
-    const cjsBrowser = browser == null ? null : browser[cjsNode];
-    const esmBrowser = browser == null ? null : browser[esmNode];
 
     // This generates the flow import file and a file for intellisense to work.
     // By using the same instance of it across all output configurations
@@ -189,46 +170,24 @@ const getPackageInfo = (commandLineArgs, pkgName) => {
     });
 
     const configs = [];
-    if (platforms.has("browser")) {
-        if (formats.has("cjs") && cjsBrowser) {
-            configs.push({
-                name: pkgName,
-                format: "cjs",
-                platform: "browser",
-                file: cjsBrowser,
-                plugins: [typesAndDocsCopy],
-            });
-        }
-        if (formats.has("esm") && esmBrowser) {
-            configs.push({
-                name: pkgName,
-                format: "esm",
-                platform: "browser",
-                file: esmBrowser,
-                // We care about the file size of this one.
-                plugins: [typesAndDocsCopy, filesize()],
-            });
-        }
+    if (formats.has("cjs")) {
+        configs.push({
+            name: pkgName,
+            format: "cjs",
+            platform: "browser",
+            file: pkgJson.main,
+            plugins: [typesAndDocsCopy],
+        });
     }
-    if (platforms.has("node")) {
-        if (formats.has("cjs") && cjsNode) {
-            configs.push({
-                name: pkgName,
-                format: "cjs",
-                platform: "node",
-                file: cjsNode,
-                plugins: [typesAndDocsCopy],
-            });
-        }
-        if (formats.has("esm") && esmNode) {
-            configs.push({
-                name: pkgName,
-                format: "esm",
-                platform: "node",
-                file: esmNode,
-                plugins: [typesAndDocsCopy],
-            });
-        }
+    if (formats.has("esm")) {
+        configs.push({
+            name: pkgName,
+            format: "esm",
+            platform: "browser",
+            file: pkgJson.module,
+            // We care about the file size of this one.
+            plugins: [typesAndDocsCopy, filesize()],
+        });
     }
 
     return configs;
