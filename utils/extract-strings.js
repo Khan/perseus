@@ -33,8 +33,9 @@ export const generateStringsFileForPackage = (pkgName: string) => {
     if (pkgName === "perseus") {
         files.push(
             // NOTE(kevinb): Extracting strings from build files is not ideal since we
-            // lose any I18N comments.  Once Perseus is in its own repo we should move
-            // math-input there as well so that we can run string extraction on the source.
+            // lose any I18N comments.
+            // TODO(FEI-4474): Move math-input into this repo so that we can extract
+            // strings from the source.
             path.join(
                 rootDir,
                 "node_modules",
