@@ -1,0 +1,27 @@
+{
+    "publishConfig": {
+        "access": "public"
+    },
+    "name": "@khanacademy/kmath",
+    "version": "0.0.3",
+    "description": "Khan Academy's Javascript Numeric Math Utilities",
+    "module": "dist/es/index.browser.js",
+    "main": "dist/index.browser.js",
+    "source": "src/index.js",
+    "scripts": {
+        "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"
+    },
+    "dependencies": {
+        "underscore": "1.4.4"
+    },
+    "devDependencies": {
+        "perseus-build-settings": "^0.0.1"
+    },
+    "peerDependencies": {},
+    "browser": {
+        "dist/es/index.js": "./dist/es/index.browser.js",
+        "dist/index.js": "./dist/index.browser.js"
+    },
+    "author": "Khan Academy",
+    "license": "MIT"
+}
