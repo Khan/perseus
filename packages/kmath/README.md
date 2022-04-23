@@ -39,7 +39,7 @@ To play around with the available interfaces, you can load kmath
 into a Node repl:
 
     $ node
-    > var kmath = require("kmath");
+    > var kmath = require("@khanacademy/kmath");
     > kmath.vector.add([1, 2], [3, 4])
     [4, 6]
 
