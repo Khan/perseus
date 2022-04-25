@@ -3,7 +3,7 @@
         "access": "public"
     },
     "name": "@khanacademy/kmath",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "description": "Khan Academy's Javascript Numeric Math Utilities",
     "module": "dist/es/index.js",
     "main": "dist/index.js",
