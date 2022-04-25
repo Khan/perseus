@@ -11,16 +11,13 @@
     "scripts": {
         "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"
     },
-    "dependencies": {
+    "dependencies": {},
+    "devDependencies": {
+        "perseus-build-settings": "^0.0.1",
         "underscore": "1.4.4"
     },
-    "devDependencies": {
-        "perseus-build-settings": "^0.0.1"
-    },
-    "peerDependencies": {},
-    "browser": {
-        "dist/es/index.js": "./dist/es/index.browser.js",
-        "dist/index.js": "./dist/index.browser.js"
+    "peerDependencies": {
+        "underscore": "1.4.4"
     },
     "author": "Khan Academy",
     "license": "MIT"
