@@ -29,14 +29,16 @@ on:
 jobs:
   release:
     name: Release
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node-version: [16.x]
     steps:
-      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
+        uses: ./.github/actions/shared-node-cache
         with:
-          fetch-depth: 0
-      - uses: ./.github/actions/setup
-        with:
-          node-version: 12.x
+          node-version: ${{ matrix.node-version }}
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets
