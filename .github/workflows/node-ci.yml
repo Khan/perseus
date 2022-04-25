@@ -126,7 +126,7 @@ jobs:
          contains(steps.changed.outputs.added_modified, 'test.transform.js')) == false
       run: yarn test --passWithNoTests ${{ steps.changed.outputs.added_modified }}
 
-  extract_i18n_strings:
+  extract_strings:
     name: Extract i18n strings
     runs-on: ${{ matrix.os }}
     strategy:

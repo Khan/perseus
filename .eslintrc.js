@@ -1,4 +1,16 @@
 /* eslint-disable import/no-commonjs */
+const path = require("path");
+const fs = require("fs");
+
+const aliasMap = fs
+    .readdirSync(path.join(__dirname, "packages"))
+    .map((pkgName) => {
+        return [
+            `@khanacademy/${pkgName}`,
+            `./packages/${pkgName}/src/index.js`,
+        ];
+    });
+
 module.exports = {
     extends: ["@khanacademy"],
     parser: "@babel/eslint-parser",
@@ -8,6 +20,14 @@ module.exports = {
         },
     },
     plugins: ["@babel", "import", "jest", "promise", "monorepo", "disable"],
+    settings: {
+        "import/resolver": {
+            alias: {
+                map: aliasMap,
+                extensions: [".ts", ".js", ".jsx", ".json"],
+            },
+        },
+    },
     overrides: [
         {
             files: ["**/__tests__/*.test.js"],
@@ -54,6 +74,7 @@ module.exports = {
         "import/newline-after-import": "error",
         "import/no-unassigned-import": "error",
         "import/no-named-default": "error",
+        "import/no-relative-packages": "error",
         "import/extensions": [
             "error",
             "always",
@@ -69,7 +90,6 @@ module.exports = {
         "promise/no-new-statics": "error",
         "promise/no-return-in-finally": "error",
         "monorepo/no-internal-import": "error",
-        "monorepo/no-relative-import": "error",
         "import/no-restricted-paths": [
             "error",
             {
