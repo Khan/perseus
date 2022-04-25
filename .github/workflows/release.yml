@@ -35,6 +35,10 @@ jobs:
         os: [ubuntu-latest]
         node-version: [16.x]
     steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
       - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
         uses: ./.github/actions/shared-node-cache
         with:
