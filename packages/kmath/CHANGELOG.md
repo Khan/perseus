@@ -1,5 +1,11 @@
 # @khanacademy/kmath
 
+## 0.0.5
+
+### Patch Changes
+
+-   1c1f7717: Enhance Flow types for kmath's vector and point
+
 ## 0.0.4
 
 ### Patch Changes
