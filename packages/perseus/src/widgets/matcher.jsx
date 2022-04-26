@@ -6,18 +6,15 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-import Sortable from "../../perseus-all-package/components/sortable.jsx";
-import {getDependencies} from "../../perseus-all-package/dependencies.js";
-import {
-    linterContextProps,
-    linterContextDefault,
-} from "../../perseus-all-package/gorgon/proptypes.js";
-import {ApiOptions} from "../../perseus-all-package/perseus-api.jsx";
-import Renderer from "../../perseus-all-package/renderer.jsx";
-import Util from "../../perseus-all-package/util.js";
+import Sortable from "../components/sortable.jsx";
+import {getDependencies} from "../dependencies.js";
+import {linterContextProps, linterContextDefault} from "../gorgon/proptypes.js";
+import {ApiOptions} from "../perseus-api.jsx";
+import Renderer from "../renderer.jsx";
+import Util from "../util.js";
 
-import type {SortableOption} from "../../perseus-all-package/components/sortable.jsx";
-import type {WidgetExports} from "../../perseus-all-package/types.js";
+import type {SortableOption} from "../components/sortable.jsx";
+import type {WidgetExports} from "../types.js";
 
 const {shuffle, seededRNG} = Util;
 const HACKY_CSS_CLASSNAME = "perseus-widget-matcher";

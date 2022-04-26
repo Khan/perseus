@@ -1,4 +1,4 @@
-/* eslint-disable @babel/no-invalid-this, react/sort-comp, static-service/require-fixture */
+/* eslint-disable @babel/no-invalid-this, react/sort-comp */
 // @flow
 import createReactClass from "create-react-class";
 import $ from "jquery";
@@ -7,11 +7,11 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
-import SvgImage from "../../perseus-all-package/components/svg-image.jsx";
-import {ApiOptions} from "../../perseus-all-package/perseus-api.jsx";
-import GraphUtils from "../../perseus-all-package/util/graph-utils.js";
+import SvgImage from "../components/svg-image.jsx";
+import {ApiOptions} from "../perseus-api.jsx";
+import GraphUtils from "../util/graph-utils.js";
 
-import type {WidgetExports} from "../../perseus-all-package/types.js";
+import type {WidgetExports} from "../types.js";
 
 const defaultImage = {
     url: null,

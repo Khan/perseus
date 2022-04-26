@@ -2,14 +2,15 @@
 
 import "@testing-library/jest-dom";
 
-import * as Dependencies from "../../../perseus-all-package/dependencies.js";
-import {renderQuestion} from "../../../perseus-all-package/widgets/__tests__/renderQuestion.jsx";
 import {testDependencies} from "../../../perseus-testing/test-dependencies.js";
+import * as Dependencies from "../../dependencies.js";
 import {question1, question2} from "../__testdata__/passage_testdata.js";
 import PassageWidgetExport from "../passage.jsx";
 import * as getLineHeightModule from "../passage/get-line-height-for-node.js";
 
-import type {APIOptions} from "../../../perseus-all-package/types.js";
+import {renderQuestion} from "./renderQuestion.jsx";
+
+import type {APIOptions} from "../../types.js";
 
 jest.mock("../passage/get-line-height-for-node.js");
 

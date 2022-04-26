@@ -1,18 +1,14 @@
-/* eslint-disable static-service/require-fixture */
 // @flow
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-import {
-    linterContextProps,
-    linterContextDefault,
-} from "../../perseus-all-package/gorgon/proptypes.js";
-import * as Changeable from "../../perseus-all-package/mixins/changeable.jsx";
-import WidgetJsonifyDeprecated from "../../perseus-all-package/mixins/widget-jsonify-deprecated.jsx";
-import Renderer from "../../perseus-all-package/renderer.jsx";
+import {linterContextProps, linterContextDefault} from "../gorgon/proptypes.js";
+import * as Changeable from "../mixins/changeable.jsx";
+import WidgetJsonifyDeprecated from "../mixins/widget-jsonify-deprecated.jsx";
+import Renderer from "../renderer.jsx";
 
-import type {WidgetExports} from "../../perseus-all-package/types.js";
+import type {WidgetExports} from "../types.js";
 
 class PassageRefTarget extends React.Component<$FlowFixMe> {
     static propTypes = {

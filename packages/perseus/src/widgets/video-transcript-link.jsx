@@ -10,7 +10,7 @@ import Link from "@khanacademy/wonder-blocks-link";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import {getDependencies} from "../../perseus-all-package/dependencies.js";
+import {getDependencies} from "../dependencies.js";
 
 const IS_URL = /^https?:\/\//;
 

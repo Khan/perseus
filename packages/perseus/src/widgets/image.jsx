@@ -5,20 +5,20 @@ import classNames from "classnames";
 import * as React from "react";
 import _ from "underscore";
 
-import SvgImage from "../../perseus-all-package/components/svg-image.jsx";
-import {linterContextDefault} from "../../perseus-all-package/gorgon/proptypes.js";
-import * as Changeable from "../../perseus-all-package/mixins/changeable.jsx";
-import Renderer from "../../perseus-all-package/renderer.jsx";
-import {baseUnitPx} from "../../perseus-all-package/styles/constants.js";
-import mediaQueries from "../../perseus-all-package/styles/media-queries.js";
+import SvgImage from "../components/svg-image.jsx";
+import {linterContextDefault} from "../gorgon/proptypes.js";
+import * as Changeable from "../mixins/changeable.jsx";
+import Renderer from "../renderer.jsx";
+import {baseUnitPx} from "../styles/constants.js";
+import mediaQueries from "../styles/media-queries.js";
 
-import type {PerseusImageWidgetOptions} from "../../perseus-all-package/perseus-types.js";
+import type {PerseusImageWidgetOptions} from "../perseus-types.js";
 import type {
     ChangeFn,
     PerseusScore,
     WidgetExports,
     WidgetProps,
-} from "../../perseus-all-package/types.js";
+} from "../types.js";
 
 const defaultBoxSize = 400;
 const defaultRange = [0, 10];

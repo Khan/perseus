@@ -9,14 +9,14 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-import {getDependencies} from "../../perseus-all-package/dependencies.js";
-import * as Changeable from "../../perseus-all-package/mixins/changeable.jsx";
-import {articleMaxWidthInPx} from "../../perseus-all-package/styles/constants.js";
-import Util from "../../perseus-all-package/util.js";
-import {isFileProtocol} from "../../perseus-all-package/util/mobile-native-utils.js";
-import {toAbsoluteUrl} from "../../perseus-all-package/util/url-utils.js";
+import {getDependencies} from "../dependencies.js";
+import * as Changeable from "../mixins/changeable.jsx";
+import {articleMaxWidthInPx} from "../styles/constants.js";
+import Util from "../util.js";
+import {isFileProtocol} from "../util/mobile-native-utils.js";
+import {toAbsoluteUrl} from "../util/url-utils.js";
 
-import type {WidgetExports} from "../../perseus-all-package/types.js";
+import type {WidgetExports} from "../types.js";
 
 const {updateQueryString} = Util;
 

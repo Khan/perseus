@@ -9,12 +9,11 @@ import InputWithExamples from "../components/input-with-examples.jsx";
 import PossibleAnswers from "../components/possible-answers.jsx";
 import SimpleKeypadInput from "../components/simple-keypad-input.jsx";
 import {linterContextDefault} from "../gorgon/proptypes.js";
-import {ClassNames as ApiClassNames} from "../perseus-api.jsx";
-import {ApiOptions} from "../perseus-api.jsx";
+import {ClassNames as ApiClassNames, ApiOptions} from "../perseus-api.jsx";
 import TexWrangler from "../tex-wrangler.js";
 import KhanAnswerTypes from "../util/answer-types.js";
 
-import type {PerseusInputNumberWidgetOptions} from "../../perseus-all-package/perseus-types.js";
+import type {PerseusInputNumberWidgetOptions} from "../perseus-types.js";
 import type {
     APIOptions,
     Path,

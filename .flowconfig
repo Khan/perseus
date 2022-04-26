@@ -5,7 +5,15 @@
 <PROJECT_ROOT>/bin
 
 [options]
+module.file_ext=.js
+module.file_ext=.jsx
+module.file_ext=.less
+# stub out less imports.
+module.name_mapper.extension='less' -> 'empty/object'
 module.name_mapper='@khanacademy/\(perseus[^/]*\)' -> '<PROJECT_ROOT>/packages/\1/src/index.js'
+module.name_mapper='hubble' -> '<PROJECT_ROOT>/vendor/hubble/hubble.js'
+module.name_mapper='jsdiff' -> '<PROJECT_ROOT>/vendor/jsdiff/jsdiff.js'
+module.name_mapper='raphael' -> '<PROJECT_ROOT>/vendor/raphael/raphael.js'
 enums=true
 emoji=true
 exact_by_default=true
@@ -15,10 +23,10 @@ module.use_strict=true
 deprecated-type=error
 deprecated-utility=error
 ; sketchy-null=error
-sketchy-number=error
+; sketchy-number=error
 ; unclear-type=error
-untyped-import=error
-untyped-type-import=error
+; untyped-import=error
+; untyped-type-import=error
 
 [declarations]
 <PROJECT_ROOT>/node_modules

@@ -7,22 +7,18 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
-import HighlightableContent from "../../perseus-all-package/components/highlighting/highlightable-content.jsx";
-import {getDependencies} from "../../perseus-all-package/dependencies.js";
-import {linterContextDefault} from "../../perseus-all-package/gorgon/proptypes.js";
-import Renderer from "../../perseus-all-package/renderer.jsx";
+import HighlightableContent from "../components/highlighting/highlightable-content.jsx";
+import {getDependencies} from "../dependencies.js";
+import {linterContextDefault} from "../gorgon/proptypes.js";
+import Renderer from "../renderer.jsx";
 
 import {getLineHeightForNode} from "./passage/get-line-height-for-node.js";
 import PassageMarkdown from "./passage/passage-markdown.jsx";
 
-import type {SerializedHighlightSet} from "../../perseus-all-package/components/highlighting/types.js";
-import type {ChangeableProps} from "../../perseus-all-package/mixins/changeable.jsx";
-import type {PerseusPassageWidgetOptions} from "../../perseus-all-package/perseus-types.js";
-import type {
-    PerseusScore,
-    WidgetExports,
-    WidgetProps,
-} from "../../perseus-all-package/types.js";
+import type {SerializedHighlightSet} from "../components/highlighting/types.js";
+import type {ChangeableProps} from "../mixins/changeable.jsx";
+import type {PerseusPassageWidgetOptions} from "../perseus-types.js";
+import type {PerseusScore, WidgetExports, WidgetProps} from "../types.js";
 
 type JQueryCollection = $FlowFixMe;
 

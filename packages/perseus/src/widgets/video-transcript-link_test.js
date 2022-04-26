@@ -3,8 +3,8 @@ import {render, screen} from "@testing-library/react";
 import * as React from "react";
 import "@testing-library/jest-dom/extend-expect";
 
-import * as Dependencies from "../../perseus-all-package/dependencies.js";
 import {testDependencies} from "../../perseus-testing/test-dependencies.js";
+import * as Dependencies from "../dependencies.js";
 
 import VideoTranscriptLink from "./video-transcript-link.jsx";
 

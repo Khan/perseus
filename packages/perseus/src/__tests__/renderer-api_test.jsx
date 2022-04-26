@@ -1,5 +1,4 @@
 // @flow
-import {ClassNames, Dependencies, Renderer} from "@khanacademy/perseus";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {mount} from "enzyme"; // eslint-disable-line no-restricted-imports
 import $ from "jquery";
@@ -8,6 +7,8 @@ import ReactDOM from "react-dom";
 import TestUtils from "react-dom/test-utils.js";
 import _ from "underscore";
 import "jest-enzyme";
+
+import {ClassNames, Dependencies, Renderer} from "@khanacademy/perseus";
 
 import {testDependencies} from "../../perseus-testing/test-dependencies.js";
 import {registerAllWidgetsForTesting} from "../util/register-all-widgets-for-testing.js";

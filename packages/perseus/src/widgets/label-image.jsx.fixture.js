@@ -1,8 +1,8 @@
 // @flow
 import * as React from "react";
 
-import {ApiOptions} from "../../perseus-all-package/perseus-api.jsx";
 import {getFixtureFnFor} from "../../testing/sandbox/fixture.js";
+import {ApiOptions} from "../perseus-api.jsx";
 
 import LabelImageWidget from "./label-image.jsx";
 

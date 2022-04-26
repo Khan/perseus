@@ -1,4 +1,3 @@
-/* eslint-disable static-service/require-fixture */
 // @flow
 import {
     components,

@@ -6,26 +6,19 @@ import classNames from "classnames";
 import * as React from "react";
 import _ from "underscore";
 
-import InlineIcon from "../../perseus-all-package/components/inline-icon.jsx";
-import {linterContextDefault} from "../../perseus-all-package/gorgon/proptypes.js";
-import {
-    iconCircle,
-    iconCircleThin,
-} from "../../perseus-all-package/icon-paths.js";
-import * as Changeable from "../../perseus-all-package/mixins/changeable.jsx";
-import WidgetJsonifyDeprecated from "../../perseus-all-package/mixins/widget-jsonify-deprecated.jsx";
-import {ClassNames as ApiClassNames} from "../../perseus-all-package/perseus-api.jsx";
-import Renderer from "../../perseus-all-package/renderer.jsx";
-import mediaQueries from "../../perseus-all-package/styles/media-queries.js";
-import sharedStyles from "../../perseus-all-package/styles/shared.js";
-import Util from "../../perseus-all-package/util.js";
+import InlineIcon from "../components/inline-icon.jsx";
+import {linterContextDefault} from "../gorgon/proptypes.js";
+import {iconCircle, iconCircleThin} from "../icon-paths.js";
+import * as Changeable from "../mixins/changeable.jsx";
+import WidgetJsonifyDeprecated from "../mixins/widget-jsonify-deprecated.jsx";
+import {ClassNames as ApiClassNames} from "../perseus-api.jsx";
+import Renderer from "../renderer.jsx";
+import mediaQueries from "../styles/media-queries.js";
+import sharedStyles from "../styles/shared.js";
+import Util from "../util.js";
 
-import type {PerseusCategorizerWidgetOptions} from "../../perseus-all-package/perseus-types.js";
-import type {
-    PerseusScore,
-    WidgetExports,
-    WidgetProps,
-} from "../../perseus-all-package/types.js";
+import type {PerseusCategorizerWidgetOptions} from "../perseus-types.js";
+import type {PerseusScore, WidgetExports, WidgetProps} from "../types.js";
 
 type UserInput = $FlowFixMe;
 

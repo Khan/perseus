@@ -1,4 +1,3 @@
-/* eslint-disable static-service/require-fixture */
 // @flow
 import {itemDataVersion} from "@khanacademy/perseus";
 import * as React from "react";

@@ -2,12 +2,13 @@
 
 import "@testing-library/jest-dom";
 
-import * as Dependencies from "../../../perseus-all-package/dependencies.js";
-import {renderQuestion} from "../../../perseus-all-package/widgets/__tests__/renderQuestion.jsx";
 import {testDependencies} from "../../../perseus-testing/test-dependencies.js";
+import * as Dependencies from "../../dependencies.js";
 import {question1} from "../__testdata__/iframe_testdata.js";
 
-import type {APIOptions} from "../../../perseus-all-package/types.js";
+import {renderQuestion} from "./renderQuestion.jsx";
+
+import type {APIOptions} from "../../types.js";
 
 describe("iframe widget", () => {
     beforeEach(() => {

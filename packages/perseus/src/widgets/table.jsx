@@ -1,4 +1,4 @@
-/* eslint-disable react/sort-comp, static-service/require-fixture */
+/* eslint-disable react/sort-comp */
 // @flow
 import {propTypes} from "@khanacademy/math-input";
 import PropTypes from "prop-types";
@@ -6,19 +6,16 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
-import MathOutput from "../../perseus-all-package/components/math-output.jsx";
-import SimpleKeypadInput from "../../perseus-all-package/components/simple-keypad-input.jsx";
-import {
-    linterContextProps,
-    linterContextDefault,
-} from "../../perseus-all-package/gorgon/proptypes.js";
-import InteractiveUtil from "../../perseus-all-package/interactive2/interactive-util.js";
-import {ApiOptions} from "../../perseus-all-package/perseus-api.jsx";
-import Renderer from "../../perseus-all-package/renderer.jsx";
-import Util from "../../perseus-all-package/util.js";
-import KhanAnswerTypes from "../../perseus-all-package/util/answer-types.js";
+import MathOutput from "../components/math-output.jsx";
+import SimpleKeypadInput from "../components/simple-keypad-input.jsx";
+import {linterContextProps, linterContextDefault} from "../gorgon/proptypes.js";
+import InteractiveUtil from "../interactive2/interactive-util.js";
+import {ApiOptions} from "../perseus-api.jsx";
+import Renderer from "../renderer.jsx";
+import Util from "../util.js";
+import KhanAnswerTypes from "../util/answer-types.js";
 
-import type {WidgetExports} from "../../perseus-all-package/types.js";
+import type {WidgetExports} from "../types.js";
 
 const {assert} = InteractiveUtil;
 const {keypadElementPropType} = propTypes;

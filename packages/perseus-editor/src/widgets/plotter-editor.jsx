@@ -1,4 +1,4 @@
-/* eslint-disable @babel/no-invalid-this, one-var, react/no-unsafe, react/sort-comp, static-service/require-fixture */
+/* eslint-disable @babel/no-invalid-this, one-var, react/no-unsafe, react/sort-comp */
 // @flow
 import {
     components,

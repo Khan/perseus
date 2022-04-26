@@ -1,4 +1,3 @@
-/* eslint-disable static-service/require-fixture */
 // @flow
 /* Free implementation of getUserInput. This should be used sparingly, since it
  * just returns all the widget's props rather than picking out those which were

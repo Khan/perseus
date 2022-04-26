@@ -4,18 +4,14 @@ import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
 
-import {linterContextDefault} from "../../perseus-all-package/gorgon/proptypes.js";
-import * as Changeable from "../../perseus-all-package/mixins/changeable.jsx";
-import Renderer from "../../perseus-all-package/renderer.jsx";
-import * as styleConstants from "../../perseus-all-package/styles/constants.js";
-import mediaQueries from "../../perseus-all-package/styles/media-queries.js";
+import {linterContextDefault} from "../gorgon/proptypes.js";
+import * as Changeable from "../mixins/changeable.jsx";
+import Renderer from "../renderer.jsx";
+import * as styleConstants from "../styles/constants.js";
+import mediaQueries from "../styles/media-queries.js";
 
-import type {PerseusExplanationWidgetOptions} from "../../perseus-all-package/perseus-types.js";
-import type {
-    PerseusScore,
-    WidgetExports,
-    WidgetProps,
-} from "../../perseus-all-package/types.js";
+import type {PerseusExplanationWidgetOptions} from "../perseus-types.js";
+import type {PerseusScore, WidgetExports, WidgetProps} from "../types.js";
 
 type RenderProps = PerseusExplanationWidgetOptions; // transform = _.identity
 

@@ -2,10 +2,11 @@
 
 import "@testing-library/jest-dom";
 
-import * as Dependencies from "../../../perseus-all-package/dependencies.js";
-import {renderQuestion} from "../../../perseus-all-package/widgets/__tests__/renderQuestion.jsx";
 import {testDependencies} from "../../../perseus-testing/test-dependencies.js";
+import * as Dependencies from "../../dependencies.js";
 import {question1} from "../__testdata__/cs-program_testdata.js";
+
+import {renderQuestion} from "./renderQuestion.jsx";
 
 describe("cs-program widget", () => {
     beforeEach(() => {

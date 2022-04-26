@@ -1,4 +1,3 @@
-/* eslint-disable static-service/require-fixture */
 // @flow
 import {Changeable, EditorJsonify} from "@khanacademy/perseus";
 import * as React from "react";

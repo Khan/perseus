@@ -1,4 +1,3 @@
-/* eslint-disable static-service/require-fixture */
 // @flow
 import {components, EditorJsonify} from "@khanacademy/perseus";
 import {number as knumber} from "kmath";

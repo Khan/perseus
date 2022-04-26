@@ -1,4 +1,4 @@
-/* eslint-disable one-var, react/forbid-prop-types, react/sort-comp, static-service/require-fixture */
+/* eslint-disable one-var, react/forbid-prop-types, react/sort-comp */
 // @flow
 import {
     components,

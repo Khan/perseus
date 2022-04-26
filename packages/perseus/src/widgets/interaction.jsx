@@ -5,20 +5,16 @@ import {vector as kvector} from "kmath";
 import * as React from "react";
 import _ from "underscore";
 
-import Graphie from "../../perseus-all-package/components/graphie.jsx";
-import * as Changeable from "../../perseus-all-package/mixins/changeable.jsx";
-import Util from "../../perseus-all-package/util.js";
+import Graphie from "../components/graphie.jsx";
+import * as Changeable from "../mixins/changeable.jsx";
+import Util from "../util.js";
 
-import type {Coord} from "../../perseus-all-package/interactive2/types.js";
+import type {Coord} from "../interactive2/types.js";
 import type {
     PerseusInteractionElement,
     PerseusInteractionWidgetOptions,
-} from "../../perseus-all-package/perseus-types.js";
-import type {
-    PerseusScore,
-    WidgetExports,
-    WidgetProps,
-} from "../../perseus-all-package/types.js";
+} from "../perseus-types.js";
+import type {PerseusScore, WidgetExports, WidgetProps} from "../types.js";
 
 // $FlowFixMe[prop-missing]
 const Label = Graphie.Label;

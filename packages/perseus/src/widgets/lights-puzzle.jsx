@@ -1,14 +1,14 @@
-/* eslint-disable no-unused-vars, react/sort-comp, static-service/require-fixture */
+/* eslint-disable no-unused-vars, react/sort-comp */
 // @flow
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-import * as Changeable from "../../perseus-all-package/mixins/changeable.jsx";
-import WidgetJsonifyDeprecated from "../../perseus-all-package/mixins/widget-jsonify-deprecated.jsx";
+import * as Changeable from "../mixins/changeable.jsx";
+import WidgetJsonifyDeprecated from "../mixins/widget-jsonify-deprecated.jsx";
 
-import type {WidgetExports} from "../../perseus-all-package/types.js";
+import type {WidgetExports} from "../types.js";
 
 const MAX_SIZE = 8;
 

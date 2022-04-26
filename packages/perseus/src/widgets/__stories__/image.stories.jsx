@@ -4,7 +4,7 @@ import * as React from "react";
 import {RendererWithDebugUI} from "../../../perseus-testing/renderer-with-debug-ui.jsx";
 import {question} from "../__testdata__/image_testdata.js";
 
-import type {APIOptions} from "../../../perseus-all-package/types.js";
+import type {APIOptions} from "../../types.js";
 
 type StoryArgs = {|
     isMobile: boolean,

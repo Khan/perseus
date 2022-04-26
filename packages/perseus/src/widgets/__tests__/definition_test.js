@@ -4,9 +4,10 @@ import userEvent from "@testing-library/user-event";
 
 import "@testing-library/jest-dom"; // Imports custom matchers
 
-import * as Dependencies from "../../../perseus-all-package/dependencies.js";
-import {renderQuestion} from "../../../perseus-all-package/widgets/__tests__/renderQuestion.jsx";
 import {testDependencies} from "../../../perseus-testing/test-dependencies.js";
+import * as Dependencies from "../../dependencies.js";
+
+import {renderQuestion} from "./renderQuestion.jsx";
 
 const question = {
     content:

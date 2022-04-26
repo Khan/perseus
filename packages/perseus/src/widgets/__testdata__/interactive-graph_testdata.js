@@ -1,7 +1,7 @@
 // @flow
 
-import type {Coord} from "../../../perseus-all-package/interactive2/types.js";
-import type {PerseusRenderer} from "../../../perseus-all-package/perseus-types.js";
+import type {Coord} from "../../interactive2/types.js";
+import type {PerseusRenderer} from "../../perseus-types.js";
 
 // Data for the interactive graph widget
 

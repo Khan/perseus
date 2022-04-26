@@ -7,20 +7,20 @@ import debounce from "lodash.debounce";
 import * as React from "react";
 import _ from "underscore";
 
-import Graph from "../../perseus-all-package/components/graph.jsx";
-import Interactive2 from "../../perseus-all-package/interactive2.js";
-import WrappedLine from "../../perseus-all-package/interactive2/wrapped-line.js";
-import {Errors} from "../../perseus-all-package/logging/log.js";
-import {PerseusError} from "../../perseus-all-package/perseus-error.js";
-import Util from "../../perseus-all-package/util.js";
-import KhanColors from "../../perseus-all-package/util/colors.js";
-import GraphUtils from "../../perseus-all-package/util/graph-utils.js";
-import {getInteractiveBoxFromSizeClass} from "../../perseus-all-package/util/sizing-utils.js";
+import Graph from "../components/graph.jsx";
+import Interactive2 from "../interactive2.js";
+import WrappedLine from "../interactive2/wrapped-line.js";
+import {Errors} from "../logging/log.js";
+import {PerseusError} from "../perseus-error.js";
+import Util from "../util.js";
+import KhanColors from "../util/colors.js";
+import GraphUtils from "../util/graph-utils.js";
+import {getInteractiveBoxFromSizeClass} from "../util/sizing-utils.js";
 
 import type {
     Coord,
     Line,
-} from "../../perseus-all-package/interactive2/types.js";
+} from "../interactive2/types.js";
 import type {
     PerseusGraphType,
     PerseusGraphTypeAngle,
@@ -28,12 +28,12 @@ import type {
     PerseusGraphTypePolygon,
     PerseusGraphTypeSegment,
     PerseusInteractiveGraphWidgetOptions,
-} from "../../perseus-all-package/perseus-types.js";
+} from "../perseus-types.js";
 import type {
     PerseusScore,
     WidgetExports,
     WidgetProps,
-} from "../../perseus-all-package/types.js";
+} from "../types.js";
 
 type Range = $ReadOnlyArray<number>; // This should really be a readonly tuple of [number, number]
 type SineCoefficient = [

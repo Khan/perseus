@@ -1,4 +1,4 @@
-/* eslint-disable react/forbid-prop-types, react/sort-comp, static-service/require-fixture */
+/* eslint-disable react/forbid-prop-types, react/sort-comp */
 // @flow
 import {components, icons, ApiOptions, Changeable} from "@khanacademy/perseus";
 import {StyleSheet, css} from "aphrodite";

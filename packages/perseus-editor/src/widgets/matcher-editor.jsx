@@ -1,4 +1,4 @@
-/* eslint-disable react/forbid-prop-types, react/sort-comp, static-service/require-fixture */
+/* eslint-disable react/forbid-prop-types, react/sort-comp */
 // @flow
 import {components} from "@khanacademy/perseus";
 import PropTypes from "prop-types";

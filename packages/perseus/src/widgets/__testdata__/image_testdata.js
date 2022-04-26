@@ -1,6 +1,6 @@
 // @flow
 
-import type {ImageWidget} from "../../../perseus-all-package/perseus-types.js";
+import type {ImageWidget} from "../../perseus-types.js";
 
 export const question = {
     content:

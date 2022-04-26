@@ -5,12 +5,13 @@ import userEvent from "@testing-library/user-event";
 // TODO(FEI-3857): Include in jest setup so that we don't need to import it everywhere
 import "@testing-library/jest-dom/extend-expect";
 
-import * as Dependencies from "../../../perseus-all-package/dependencies.js";
-import {renderQuestion} from "../../../perseus-all-package/widgets/__tests__/renderQuestion.jsx";
 import {testDependencies} from "../../../perseus-testing/test-dependencies.js";
+import * as Dependencies from "../../dependencies.js";
 import {question1} from "../__testdata__/graded-group_testdata.js";
 
-import type {APIOptions} from "../../../perseus-all-package/types.js";
+import {renderQuestion} from "./renderQuestion.jsx";
+
+import type {APIOptions} from "../../types.js";
 
 const checkAnswer = () => {
     // NOTE(jeremy): The graded-group widget does not participate in

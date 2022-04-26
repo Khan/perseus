@@ -13,6 +13,7 @@ import {
     WIDGET_PROP_BLACKLIST,
 } from "@khanacademy/perseus";
 import $ from "jquery";
+// eslint-disable-next-line import/no-unresolved
 import typeof katex from "katex";
 import * as React from "react";
 import * as ReactDOM from "react-dom";

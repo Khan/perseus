@@ -1,4 +1,3 @@
-/* eslint-disable static-service/require-fixture */
 // @flow
 /**
  * This component, given a set of DOMHighlights, draws highlight rectangles in

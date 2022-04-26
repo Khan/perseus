@@ -3,11 +3,12 @@
  * Main entry point
  */
 
+import version from "./version.js";
+
 export {default as init} from "./init.js";
 
 export {ApiOptions, ClassNames} from "./perseus-api.jsx";
 
-import version from "./version.js";
 export const apiVersion = version.apiVersion;
 export const itemDataVersion = version.itemDataVersion;
 export {default as itemVersion} from "./item-version.js";

@@ -4,18 +4,18 @@ import classNames from "classnames";
 import * as React from "react";
 import _ from "underscore";
 
-import {linterContextDefault} from "../../perseus-all-package/gorgon/proptypes.js";
-import * as Changeable from "../../perseus-all-package/mixins/changeable.jsx";
-import {ApiOptions} from "../../perseus-all-package/perseus-api.jsx";
-import Renderer from "../../perseus-all-package/renderer.jsx";
+import {linterContextDefault} from "../gorgon/proptypes.js";
+import * as Changeable from "../mixins/changeable.jsx";
+import {ApiOptions} from "../perseus-api.jsx";
+import Renderer from "../renderer.jsx";
 
-import type {PerseusGroupWidgetOptions} from "../../perseus-all-package/perseus-types.js";
+import type {PerseusGroupWidgetOptions} from "../perseus-types.js";
 import type {
     FocusPath,
     PerseusScore,
     WidgetExports,
     WidgetProps,
-} from "../../perseus-all-package/types.js";
+} from "../types.js";
 
 type Rubric = PerseusGroupWidgetOptions;
 type RenderProps = PerseusGroupWidgetOptions; // exports has no 'transform'

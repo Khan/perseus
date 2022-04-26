@@ -5,14 +5,10 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
-import {ApiOptions} from "../../perseus-all-package/perseus-api.jsx";
+import {ApiOptions} from "../perseus-api.jsx";
 
-import type {PerseusDropdownWidgetOptions} from "../../perseus-all-package/perseus-types.js";
-import type {
-    PerseusScore,
-    WidgetExports,
-    WidgetProps,
-} from "../../perseus-all-package/types.js";
+import type {PerseusDropdownWidgetOptions} from "../perseus-types.js";
+import type {PerseusScore, WidgetExports, WidgetProps} from "../types.js";
 
 type Rubric = PerseusDropdownWidgetOptions;
 

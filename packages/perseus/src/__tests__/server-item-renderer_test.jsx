@@ -1,8 +1,7 @@
 // @flow
 
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-import {within} from "@testing-library/react";
-import {render, screen} from "@testing-library/react";
+import {within, render, screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as React from "react";
 import "@testing-library/jest-dom"; // Imports custom matchers

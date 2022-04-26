@@ -1,5 +1,4 @@
 // @flow
-/* eslint-disable static-service/require-fixture */
 
 import * as React from "react";
 

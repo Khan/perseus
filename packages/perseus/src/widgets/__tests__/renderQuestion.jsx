@@ -1,10 +1,9 @@
 // @flow
-/* eslint-disable static-service/require-fixture */
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {render} from "@testing-library/react";
 import * as React from "react";
 
-import * as Perseus from "../../perseus.js";
+import * as Perseus from "../../index.js";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing.js";
 
 import type {PerseusRenderer} from "../../perseus-types.js";

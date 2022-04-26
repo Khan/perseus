@@ -1,4 +1,4 @@
-/* eslint-disable react/no-unsafe, static-service/require-fixture */
+/* eslint-disable react/no-unsafe */
 // @flow
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import PropTypes from "prop-types";
@@ -8,7 +8,7 @@ import draw from "./molecule/molecule-drawing.jsx";
 import MoleculeLayout from "./molecule/molecule-layout.jsx";
 import SmilesParser from "./molecule/smiles-parser.jsx";
 
-import type {WidgetExports} from "../../perseus-all-package/types.js";
+import type {WidgetExports} from "../types.js";
 
 const {layout} = MoleculeLayout;
 const parse = SmilesParser.parse;

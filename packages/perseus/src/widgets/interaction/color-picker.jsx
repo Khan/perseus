@@ -1,13 +1,12 @@
-/* eslint-disable static-service/require-fixture */
 // @flow
 
 import * as React from "react";
 import _ from "underscore";
 
-import ButtonGroup from "../../../perseus-all-package/components/button-group.jsx";
-import KhanColors from "../../../perseus-all-package/util/colors.js";
+import ButtonGroup from "../../components/button-group.jsx";
+import KhanColors from "../../util/colors.js";
 
-import type {ChangeableProps} from "../../../perseus-all-package/mixins/changeable.jsx";
+import type {ChangeableProps} from "../../mixins/changeable.jsx";
 
 const COLORS = [
     KhanColors.BLACK,

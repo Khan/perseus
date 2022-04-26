@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/anchor-is-valid, no-alert, react/sort-comp, static-service/require-fixture */
+/* eslint-disable jsx-a11y/anchor-is-valid, no-alert, react/sort-comp */
 // @flow
 import {components, icons, ApiOptions} from "@khanacademy/perseus";
 import PropTypes from "prop-types";

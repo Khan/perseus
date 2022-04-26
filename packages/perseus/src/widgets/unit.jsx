@@ -12,21 +12,17 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
-import MathOutput from "../../perseus-all-package/components/math-output.jsx";
-import * as Changeable from "../../perseus-all-package/mixins/changeable.jsx";
-import {ClassNames as ApiClassNames} from "../../perseus-all-package/perseus-api.jsx";
-import {ApiOptions} from "../../perseus-all-package/perseus-api.jsx";
-import {
-    SignificantFigures,
-    displaySigFigs,
-} from "../../perseus-all-package/sigfigs.jsx";
+import MathOutput from "../components/math-output.jsx";
+import * as Changeable from "../mixins/changeable.jsx";
+import {ClassNames as ApiClassNames, ApiOptions} from "../perseus-api.jsx";
+import {SignificantFigures, displaySigFigs} from "../sigfigs.jsx";
 
 import type {
     APIOptions,
     ChangeHandler,
     FocusPath,
     WidgetExports,
-} from "../../perseus-all-package/types.js";
+} from "../types.js";
 
 const ALL = "all";
 const MAX_SIGFIGS = 10;

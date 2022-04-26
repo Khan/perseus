@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars, react/no-unsafe, react/sort-comp, static-service/require-fixture */
+/* eslint-disable no-unused-vars, react/no-unsafe, react/sort-comp */
 // @flow
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {number as knumber} from "kmath";
@@ -7,18 +7,18 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
-import Graphie from "../../perseus-all-package/components/graphie.jsx";
-import InfoTip from "../../perseus-all-package/components/info-tip.jsx";
-import MathOutput from "../../perseus-all-package/components/math-output.jsx";
-import NumberInput from "../../perseus-all-package/components/number-input.jsx";
-import InteractiveUtil from "../../perseus-all-package/interactive2/interactive-util.js";
-import * as Changeable from "../../perseus-all-package/mixins/changeable.jsx";
-import {ApiOptions} from "../../perseus-all-package/perseus-api.jsx";
-import Util from "../../perseus-all-package/util.js";
-import KhanColors from "../../perseus-all-package/util/colors.js";
-import KhanMath from "../../perseus-all-package/util/math.js";
+import Graphie from "../components/graphie.jsx";
+import InfoTip from "../components/info-tip.jsx";
+import MathOutput from "../components/math-output.jsx";
+import NumberInput from "../components/number-input.jsx";
+import InteractiveUtil from "../interactive2/interactive-util.js";
+import * as Changeable from "../mixins/changeable.jsx";
+import {ApiOptions} from "../perseus-api.jsx";
+import Util from "../util.js";
+import KhanColors from "../util/colors.js";
+import KhanMath from "../util/math.js";
 
-import type {WidgetExports} from "../../perseus-all-package/types.js";
+import type {WidgetExports} from "../types.js";
 
 const {assert} = InteractiveUtil;
 const {seededRNG} = Util;
