@@ -1,4 +1,4 @@
-/* eslint-disable no-useless-escape, static-service/require-fixture */
+/* eslint-disable no-useless-escape */
 // @flow
 // TODO(FEI-4465): move this into it's own package called perseus-markdown
 import * as i18n from "@khanacademy/wonder-blocks-i18n";

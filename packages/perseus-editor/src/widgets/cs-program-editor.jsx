@@ -1,4 +1,4 @@
-/* eslint-disable no-useless-escape, static-service/require-fixture */
+/* eslint-disable no-useless-escape */
 // @flow
 /**
  * This editor is for embedding Khan Academy CS programs.
@@ -174,8 +174,7 @@ class CSProgramEditor extends React.Component<$FlowFixMe> {
 
         const host = RequestInfo.IS_DEV_SERVER
             ? InitialRequestUrl.origin
-            : // eslint-disable-next-line static-service/require-safe-link-to
-              "https://www.khanacademy.org";
+            : "https://www.khanacademy.org";
         const baseUrl = `${host}/api/internal/scratchpads/${programID}`;
 
         $.getJSON(baseUrl)

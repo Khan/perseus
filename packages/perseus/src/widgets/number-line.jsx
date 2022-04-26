@@ -5,19 +5,18 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
-import Graphie from "../../perseus-all-package/components/graphie.jsx";
-import MathOutput from "../../perseus-all-package/components/math-output.jsx";
-import NumberInput from "../../perseus-all-package/components/number-input.jsx";
-import SimpleKeypadInput from "../../perseus-all-package/components/simple-keypad-input.jsx";
-import InteractiveUtil from "../../perseus-all-package/interactive2/interactive-util.js";
-import * as Changeable from "../../perseus-all-package/mixins/changeable.jsx";
-import {ApiOptions} from "../../perseus-all-package/perseus-api.jsx";
-import KhanColors from "../../perseus-all-package/util/colors.js";
-import KhanMath from "../../perseus-all-package/util/math.js";
+import Graphie from "../components/graphie.jsx";
+import MathOutput from "../components/math-output.jsx";
+import NumberInput from "../components/number-input.jsx";
+import SimpleKeypadInput from "../components/simple-keypad-input.jsx";
+import InteractiveUtil from "../interactive2/interactive-util.js";
+import * as Changeable from "../mixins/changeable.jsx";
+import {ApiOptions} from "../perseus-api.jsx";
+import KhanColors from "../util/colors.js";
+import KhanMath from "../util/math.js";
 
-import type {ChangeableProps} from "../../perseus-all-package/mixins/changeable.jsx";
-import type {APIOptions} from "../../perseus-all-package/types";
-import type {WidgetExports} from "../../perseus-all-package/types.js";
+import type {ChangeableProps} from "../mixins/changeable.jsx";
+import type {APIOptions, WidgetExports} from "../types";
 
 // $FlowFixMe[prop-missing]
 const MovablePoint = Graphie.MovablePoint;

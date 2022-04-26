@@ -1,4 +1,4 @@
-/* eslint-disable @babel/no-invalid-this, react/no-unsafe, react/sort-comp, static-service/require-fixture */
+/* eslint-disable @babel/no-invalid-this, react/no-unsafe, react/sort-comp */
 // @flow
 import createReactClass from "create-react-class";
 import * as React from "react";

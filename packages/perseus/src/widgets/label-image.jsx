@@ -14,21 +14,17 @@ import classNames from "classnames";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
-import AssetContext from "../../perseus-all-package/asset-context.js";
-import SvgImage from "../../perseus-all-package/components/svg-image.jsx";
-import Renderer from "../../perseus-all-package/renderer.jsx";
-import mediaQueries from "../../perseus-all-package/styles/media-queries.js";
 import {typography} from "../../shared-styles-package/global-styles.js";
+import AssetContext from "../asset-context.js";
+import SvgImage from "../components/svg-image.jsx";
+import Renderer from "../renderer.jsx";
+import mediaQueries from "../styles/media-queries.js";
 
 import AnswerChoices from "./label-image/answer-choices.jsx";
 import Marker from "./label-image/marker.jsx";
 
-import type {ChangeableProps} from "../../perseus-all-package/mixins/changeable.jsx";
-import type {
-    APIOptions,
-    PerseusScore,
-    WidgetExports,
-} from "../../perseus-all-package/types.js";
+import type {ChangeableProps} from "../mixins/changeable.jsx";
+import type {APIOptions, PerseusScore, WidgetExports} from "../types.js";
 import type {
     InteractiveMarkerType,
     InteractiveMarkerScore,

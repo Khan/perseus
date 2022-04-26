@@ -1,5 +1,5 @@
 // @flow
-import type {PerseusRenderer} from "../../../perseus-all-package/perseus-types.js";
+import type {PerseusRenderer} from "../../perseus-types.js";
 
 export const question1: PerseusRenderer = {
     content:

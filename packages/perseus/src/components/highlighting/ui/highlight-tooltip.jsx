@@ -1,4 +1,3 @@
-/* eslint-disable static-service/require-fixture */
 // @flow
 /**
  * A tooltip to point to the focus of a highlight.

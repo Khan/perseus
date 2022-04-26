@@ -1,4 +1,3 @@
-/* eslint-disable static-service/require-fixture */
 // @flow
 /**
  * Renders answer bar for mobile graded groups. [STATELESS]
@@ -8,14 +7,11 @@ import Color from "@khanacademy/wonder-blocks-color";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import * as React from "react";
 
-import InlineIcon from "../../perseus-all-package/components/inline-icon.jsx";
-import {iconStar, iconTryAgain} from "../../perseus-all-package/icon-paths.js";
-import {
-    phoneMargin,
-    negativePhoneMargin,
-} from "../../perseus-all-package/styles/constants.js";
+import InlineIcon from "../components/inline-icon.jsx";
+import {iconStar, iconTryAgain} from "../icon-paths.js";
+import {phoneMargin, negativePhoneMargin} from "../styles/constants.js";
 
-import type {APIOptions} from "../../perseus-all-package/types.js";
+import type {APIOptions} from "../types.js";
 
 export type ANSWER_BAR_STATES =
     // Initial state before the question is answerable.  The user must complete

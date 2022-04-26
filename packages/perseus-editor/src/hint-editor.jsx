@@ -1,4 +1,3 @@
-/* eslint-disable static-service/require-fixture */
 /* eslint-disable @babel/no-invalid-this */
 // @flow
 /**

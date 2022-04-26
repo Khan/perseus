@@ -1,4 +1,4 @@
-/* eslint-disable react/no-unsafe, static-service/require-fixture */
+/* eslint-disable react/no-unsafe */
 // @flow
 /**
  * A side by side diff view for Perseus articles.

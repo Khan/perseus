@@ -6,21 +6,15 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
-import {getDependencies} from "../../perseus-all-package/dependencies.js";
-import {
-    linterContextProps,
-    linterContextDefault,
-} from "../../perseus-all-package/gorgon/proptypes.js";
-import {Errors, Log} from "../../perseus-all-package/logging/log.js";
-import {ClassNames as ApiClassNames} from "../../perseus-all-package/perseus-api.jsx";
-import Renderer from "../../perseus-all-package/renderer.jsx";
-import Util from "../../perseus-all-package/util.js";
+import {getDependencies} from "../dependencies.js";
+import {linterContextProps, linterContextDefault} from "../gorgon/proptypes.js";
+import {Errors, Log} from "../logging/log.js";
+import {ClassNames as ApiClassNames} from "../perseus-api.jsx";
+import Renderer from "../renderer.jsx";
+import Util from "../util.js";
 
-import type {PerseusOrdererWidgetOptions} from "../../perseus-all-package/perseus-types.js";
-import type {
-    WidgetExports,
-    WidgetProps,
-} from "../../perseus-all-package/types.js";
+import type {PerseusOrdererWidgetOptions} from "../perseus-types.js";
+import type {WidgetExports, WidgetProps} from "../types.js";
 
 class PlaceholderCard extends React.Component<$FlowFixMe> {
     static propTypes = {

@@ -1,4 +1,4 @@
-/* eslint-disable react/sort-comp, static-service/require-fixture */
+/* eslint-disable react/sort-comp */
 // @flow
 /**
  * This is a simple number-entry widget

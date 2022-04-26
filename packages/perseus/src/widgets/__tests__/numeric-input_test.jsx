@@ -7,7 +7,7 @@ import * as React from "react";
 
 import {testDependencies} from "../../../perseus-testing/test-dependencies.js";
 import * as Dependencies from "../../dependencies.js";
-import * as Perseus from "../../perseus.js";
+import * as Perseus from "../../index.js";
 import {
     question1AndAnswer,
     multipleAnswers,

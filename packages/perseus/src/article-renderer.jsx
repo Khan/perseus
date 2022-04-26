@@ -1,4 +1,3 @@
-/* eslint-disable static-service/require-fixture */
 // @flow
 
 /**
@@ -13,8 +12,7 @@ import * as React from "react";
 import Gorgon from "./gorgon/gorgon.js";
 import {linterContextProps, linterContextDefault} from "./gorgon/proptypes.js";
 import ProvideKeypad from "./mixins/provide-keypad.jsx";
-import {ClassNames as ApiClassNames} from "./perseus-api.jsx";
-import {ApiOptions} from "./perseus-api.jsx";
+import {ClassNames as ApiClassNames, ApiOptions} from "./perseus-api.jsx";
 import Renderer from "./renderer.jsx";
 import Util from "./util.js";
 

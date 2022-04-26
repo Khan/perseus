@@ -1,4 +1,3 @@
-/* eslint-disable static-service/require-fixture */
 // @flow
 /**
  * Displays the given content in an iframe, isolating it from the parent page

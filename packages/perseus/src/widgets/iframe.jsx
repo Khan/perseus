@@ -14,12 +14,12 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-import {getDependencies} from "../../perseus-all-package/dependencies.js";
-import * as Changeable from "../../perseus-all-package/mixins/changeable.jsx";
-import WidgetJsonifyDeprecated from "../../perseus-all-package/mixins/widget-jsonify-deprecated.jsx";
-import Util from "../../perseus-all-package/util.js";
+import {getDependencies} from "../dependencies.js";
+import * as Changeable from "../mixins/changeable.jsx";
+import WidgetJsonifyDeprecated from "../mixins/widget-jsonify-deprecated.jsx";
+import Util from "../util.js";
 
-import type {WidgetExports} from "../../perseus-all-package/types.js";
+import type {WidgetExports} from "../types.js";
 
 const {updateQueryString} = Util;
 

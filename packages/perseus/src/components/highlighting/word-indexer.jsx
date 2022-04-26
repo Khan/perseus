@@ -1,4 +1,3 @@
-/* eslint-disable static-service/require-fixture */
 // @flow
 /**
  * This component, whenever its content updates, traverses the DOM to find

@@ -1,8 +1,8 @@
 // @flow
 
-import * as Perseus from "../../../perseus-all-package/perseus.js";
 import renderQuestionWithCypress from "../../../perseus-testing/render-question-with-cypress.jsx";
 import {webappDependencies} from "../../../perseus/webapp-dependencies.js";
+import * as Perseus from "../../index.js";
 import {
     absoluteValueQuestion,
     exponentialQuestion,

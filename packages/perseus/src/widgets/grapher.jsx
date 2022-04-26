@@ -4,16 +4,16 @@ import {number as knumber, vector as kvector, point as kpoint} from "kmath";
 import * as React from "react";
 import _ from "underscore";
 
-import ButtonGroup from "../../perseus-all-package/components/button-group.jsx";
-import Graphie from "../../perseus-all-package/components/graphie.jsx";
-import SvgImage from "../../perseus-all-package/components/svg-image.jsx";
-import Interactive2 from "../../perseus-all-package/interactive2.js";
-import WrappedLine from "../../perseus-all-package/interactive2/wrapped-line.js";
-import * as Changeable from "../../perseus-all-package/mixins/changeable.jsx";
-import {interactiveSizes} from "../../perseus-all-package/styles/constants.js";
-import Util from "../../perseus-all-package/util.js";
-import KhanColors from "../../perseus-all-package/util/colors.js";
-import {getInteractiveBoxFromSizeClass} from "../../perseus-all-package/util/sizing-utils.js";
+import ButtonGroup from "../components/button-group.jsx";
+import Graphie from "../components/graphie.jsx";
+import SvgImage from "../components/svg-image.jsx";
+import Interactive2 from "../interactive2.js";
+import WrappedLine from "../interactive2/wrapped-line.js";
+import * as Changeable from "../mixins/changeable.jsx";
+import {interactiveSizes} from "../styles/constants.js";
+import Util from "../util.js";
+import KhanColors from "../util/colors.js";
+import {getInteractiveBoxFromSizeClass} from "../util/sizing-utils.js";
 
 /* Graphie and relevant components. */
 /* Mixins. */
@@ -28,18 +28,11 @@ import {
     validate as grapherValidate,
 } from "./grapher/util.jsx";
 
-import type {
-    Coord,
-    Line,
-} from "../../perseus-all-package/interactive2/types.js";
-import type {ChangeableProps} from "../../perseus-all-package/mixins/changeable.jsx";
-import type {PerseusGrapherWidgetOptions} from "../../perseus-all-package/perseus-types.js";
-import type {PerseusScore} from "../../perseus-all-package/types";
-import type {
-    WidgetExports,
-    WidgetProps,
-} from "../../perseus-all-package/types.js";
-import type {GridDimensions} from "../../perseus-all-package/util.js";
+import type {Coord, Line} from "../interactive2/types.js";
+import type {ChangeableProps} from "../mixins/changeable.jsx";
+import type {PerseusGrapherWidgetOptions} from "../perseus-types.js";
+import type {PerseusScore, WidgetExports, WidgetProps} from "../types";
+import type {GridDimensions} from "../util.js";
 
 // $FlowFixMe[prop-missing]
 const MovablePoint = Graphie.MovablePoint;

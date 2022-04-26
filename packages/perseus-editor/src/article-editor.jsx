@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/anchor-is-valid, static-service/require-fixture */
+/* eslint-disable jsx-a11y/anchor-is-valid */
 // @flow
 
 /**

@@ -1,4 +1,3 @@
-/* eslint-disable static-service/require-fixture */
 // @flow
 /**
  * A component that displays controls for choosing a viewport size.

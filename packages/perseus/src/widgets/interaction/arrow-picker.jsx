@@ -1,11 +1,10 @@
-/* eslint-disable static-service/require-fixture */
 // @flow
 
 import * as React from "react";
 
-import ButtonGroup from "../../../perseus-all-package/components/button-group.jsx";
+import ButtonGroup from "../../components/button-group.jsx";
 
-import type {ChangeableProps} from "../../../perseus-all-package/mixins/changeable.jsx";
+import type {ChangeableProps} from "../../mixins/changeable.jsx";
 
 type Props = {|
     value?: string,

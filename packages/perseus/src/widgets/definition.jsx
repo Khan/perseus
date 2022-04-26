@@ -8,19 +8,19 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-import {ApiOptions} from "../../perseus-all-package/perseus-api.jsx";
-import Renderer from "../../perseus-all-package/renderer.jsx";
+import {ApiOptions} from "../perseus-api.jsx";
+import Renderer from "../renderer.jsx";
 
 import type {
     PerseusRenderer,
     PerseusDefinitionWidgetOptions,
-} from "../../perseus-all-package/perseus-types.js";
+} from "../perseus-types.js";
 import type {
     APIOptionsWithDefaults,
     PerseusScore,
     WidgetExports,
     WidgetProps,
-} from "../../perseus-all-package/types.js";
+} from "../types.js";
 
 type DefinitionContentProps = {|
     apiOptions: APIOptionsWithDefaults,

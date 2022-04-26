@@ -6,7 +6,7 @@ import InputNumber from "./widgets/input-number.jsx";
 import NumericInput from "./widgets/numeric-input.jsx";
 import Radio from "./widgets/radio.jsx";
 
-import type {WidgetExports} from "../perseus-all-package/types.js";
+import type {WidgetExports} from "./types.js";
 
 export default ([Radio, InputNumber, NumericInput, Expression]: $ReadOnlyArray<
     WidgetExports<>,

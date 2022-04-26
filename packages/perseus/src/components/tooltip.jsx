@@ -1,4 +1,3 @@
-/* eslint-disable static-service/require-fixture */
 // @noflow
 /**
  * A generic tooltip library for React.js

@@ -1,4 +1,4 @@
-/* eslint-disable camelcase, react/sort-comp, static-service/require-fixture */
+/* eslint-disable camelcase, react/sort-comp */
 // @flow
 import {
     components,

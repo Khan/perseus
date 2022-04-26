@@ -6,31 +6,27 @@ import classNames from "classnames";
 import * as React from "react";
 import _ from "underscore";
 
-import InlineIcon from "../../perseus-all-package/components/inline-icon.jsx";
-import {linterContextDefault} from "../../perseus-all-package/gorgon/proptypes.js";
-import {iconOk, iconRemove} from "../../perseus-all-package/icon-paths.js";
-import * as Changeable from "../../perseus-all-package/mixins/changeable.jsx";
-import {ApiOptions} from "../../perseus-all-package/perseus-api.jsx";
-import Renderer from "../../perseus-all-package/renderer.jsx";
+import InlineIcon from "../components/inline-icon.jsx";
+import {linterContextDefault} from "../gorgon/proptypes.js";
+import {iconOk, iconRemove} from "../icon-paths.js";
+import * as Changeable from "../mixins/changeable.jsx";
+import {ApiOptions} from "../perseus-api.jsx";
+import Renderer from "../renderer.jsx";
 import {
     gray76,
     phoneMargin,
     negativePhoneMargin,
     tableBackgroundAccent,
     kaGreen,
-} from "../../perseus-all-package/styles/constants.js";
-import a11y from "../../perseus-all-package/util/a11y.js";
+} from "../styles/constants.js";
+import a11y from "../util/a11y.js";
 
 import GradedGroupAnswerBar, {
     type ANSWER_BAR_STATES,
 } from "./graded-group-answer-bar.jsx";
 
-import type {PerseusGradedGroupWidgetOptions} from "../../perseus-all-package/perseus-types.js";
-import type {
-    PerseusScore,
-    WidgetExports,
-    WidgetProps,
-} from "../../perseus-all-package/types.js";
+import type {PerseusGradedGroupWidgetOptions} from "../perseus-types.js";
+import type {PerseusScore, WidgetExports, WidgetProps} from "../types.js";
 
 const GRADING_STATUSES = {
     ungraded: ("ungraded": "ungraded"),

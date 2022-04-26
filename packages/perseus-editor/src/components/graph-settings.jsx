@@ -1,4 +1,4 @@
-/* eslint-disable react/forbid-prop-types, react/no-unsafe, static-service/require-fixture */
+/* eslint-disable react/forbid-prop-types, react/no-unsafe */
 // @flow
 import {
     components,

@@ -1,4 +1,3 @@
-/* eslint-disable static-service/require-fixture */
 // @flow
 /**
  * A mixin that renders a custom software keypad in additional to the base

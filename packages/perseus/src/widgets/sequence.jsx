@@ -1,21 +1,17 @@
-/* eslint-disable static-service/require-fixture */
 // @flow
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-import InlineIcon from "../../perseus-all-package/components/inline-icon.jsx";
-import {
-    linterContextProps,
-    linterContextDefault,
-} from "../../perseus-all-package/gorgon/proptypes.js";
-import {iconOk} from "../../perseus-all-package/icon-paths.js";
-import * as Changeable from "../../perseus-all-package/mixins/changeable.jsx";
-import {ApiOptions} from "../../perseus-all-package/perseus-api.jsx";
-import Renderer from "../../perseus-all-package/renderer.jsx";
-import Util from "../../perseus-all-package/util.js";
+import InlineIcon from "../components/inline-icon.jsx";
+import {linterContextProps, linterContextDefault} from "../gorgon/proptypes.js";
+import {iconOk} from "../icon-paths.js";
+import * as Changeable from "../mixins/changeable.jsx";
+import {ApiOptions} from "../perseus-api.jsx";
+import Renderer from "../renderer.jsx";
+import Util from "../util.js";
 
-import type {WidgetExports} from "../../perseus-all-package/types.js";
+import type {WidgetExports} from "../types.js";
 
 class Sequence extends React.Component<$FlowFixMe, $FlowFixMe> {
     static propTypes = {

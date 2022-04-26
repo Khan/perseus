@@ -1,4 +1,4 @@
-/* eslint-disable react/sort-comp, static-service/require-fixture */
+/* eslint-disable react/sort-comp */
 // @flow
 import {Changeable, PerseusMarkdown} from "@khanacademy/perseus";
 import PropTypes from "prop-types";

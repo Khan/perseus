@@ -2,7 +2,7 @@
 import type {
     PerseusRenderer,
     TransformerWidget,
-} from "../../../perseus-all-package/perseus-types.js";
+} from "../../perseus-types.js";
 
 export const question: PerseusRenderer = {
     content:

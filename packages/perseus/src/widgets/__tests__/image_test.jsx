@@ -1,16 +1,17 @@
 // @flow
 
-import * as Dependencies from "../../../perseus-all-package/dependencies.js";
-import {isAccessible} from "../../../perseus-all-package/widgets.js";
-import {renderQuestion} from "../../../perseus-all-package/widgets/__tests__/renderQuestion.jsx";
 import {testDependencies} from "../../../perseus-testing/test-dependencies.js";
+import * as Dependencies from "../../dependencies.js";
+import {isAccessible} from "../../widgets.js";
 import {question} from "../__testdata__/image_testdata.js";
+
+import {renderQuestion} from "./renderQuestion.jsx";
 
 import type {
     ImageWidget,
     PerseusImageWidgetOptions,
-} from "../../../perseus-all-package/perseus-types.js";
-import type {APIOptions} from "../../../perseus-all-package/types.js";
+} from "../../perseus-types.js";
+import type {APIOptions} from "../../types.js";
 
 describe.each([true, false])("image widget - isMobile %b", (isMobile) => {
     const apiOptions: APIOptions = {isMobile};

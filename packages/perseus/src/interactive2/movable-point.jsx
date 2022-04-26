@@ -1,4 +1,3 @@
-/* eslint-disable static-service/require-fixture */
 // @flow
 /**
  * Creates and adds a point to the graph that can be dragged around.

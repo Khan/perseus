@@ -1,4 +1,3 @@
-/* eslint-disable static-service/require-fixture */
 // @flow
 import jsdiff from "jsdiff";
 import _ from "underscore";

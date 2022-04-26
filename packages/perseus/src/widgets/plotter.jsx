@@ -1,4 +1,4 @@
-/* eslint-disable @babel/no-invalid-this, no-unused-vars, one-var, react/no-unsafe, react/sort-comp, static-service/require-fixture */
+/* eslint-disable @babel/no-invalid-this, no-unused-vars, one-var, react/no-unsafe, react/sort-comp */
 // @flow
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import $ from "jquery";
@@ -7,15 +7,15 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
-import Interactive2 from "../../perseus-all-package/interactive2.js";
-import WrappedLine from "../../perseus-all-package/interactive2/wrapped-line.js";
-import {ClassNames as ApiClassNames} from "../../perseus-all-package/perseus-api.jsx";
-import Util from "../../perseus-all-package/util.js";
-import KhanColors from "../../perseus-all-package/util/colors.js";
-import GraphUtils from "../../perseus-all-package/util/graph-utils.js";
-import KhanMath from "../../perseus-all-package/util/math.js";
+import Interactive2 from "../interactive2.js";
+import WrappedLine from "../interactive2/wrapped-line.js";
+import {ClassNames as ApiClassNames} from "../perseus-api.jsx";
+import Util from "../util.js";
+import KhanColors from "../util/colors.js";
+import GraphUtils from "../util/graph-utils.js";
+import KhanMath from "../util/math.js";
 
-import type {WidgetExports} from "../../perseus-all-package/types.js";
+import type {WidgetExports} from "../types.js";
 
 const {deepEq} = Util;
 

@@ -3,9 +3,9 @@ import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
-import {getDependencies} from "../../perseus-all-package/dependencies.js";
-import {linterContextDefault} from "../../perseus-all-package/gorgon/proptypes.js";
-import * as Changeable from "../../perseus-all-package/mixins/changeable.jsx";
+import {getDependencies} from "../dependencies.js";
+import {linterContextDefault} from "../gorgon/proptypes.js";
+import * as Changeable from "../mixins/changeable.jsx";
 import {
     grayLight,
     gray76,
@@ -13,19 +13,15 @@ import {
     kaGreen,
     phoneMargin,
     negativePhoneMargin,
-} from "../../perseus-all-package/styles/constants.js";
+} from "../styles/constants.js";
 
 import GradedGroupWidget from "./graded-group.jsx";
 
 import type {
     PerseusGradedGroupSetWidgetOptions,
     PerseusGradedGroupWidgetOptions,
-} from "../../perseus-all-package/perseus-types";
-import type {
-    FocusPath,
-    WidgetExports,
-    WidgetProps,
-} from "../../perseus-all-package/types.js";
+} from "../perseus-types";
+import type {FocusPath, WidgetExports, WidgetProps} from "../types.js";
 
 const GradedGroup = GradedGroupWidget.widget;
 

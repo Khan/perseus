@@ -1,15 +1,15 @@
-/* eslint-disable jsx-a11y/anchor-is-valid, static-service/require-fixture */
+/* eslint-disable jsx-a11y/anchor-is-valid */
 // @flow
 import * as React from "react";
 
-import InlineIcon from "../../../perseus-all-package/components/inline-icon.jsx";
+import InlineIcon from "../../components/inline-icon.jsx";
 import {
     iconChevronDown,
     iconChevronRight,
     iconCircleArrowDown,
     iconCircleArrowUp,
     iconTrash,
-} from "../../../perseus-all-package/icon-paths.js";
+} from "../../icon-paths.js";
 
 type ElementContainerProps = {|
     children: React.Element<any> | $ReadOnlyArray<React.Element<any>>,

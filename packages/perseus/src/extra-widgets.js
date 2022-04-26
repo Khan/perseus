@@ -36,7 +36,7 @@ import Transformer from "./widgets/transformer.jsx";
 import Unit from "./widgets/unit.jsx";
 import Video from "./widgets/video.jsx";
 
-import type {WidgetExports} from "../perseus-all-package/types.js";
+import type {WidgetExports} from "./types.js";
 
 export default ([
     Categorizer,

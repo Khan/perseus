@@ -1,9 +1,9 @@
 // @flow
 
-import * as Dependencies from "../../../perseus-all-package/dependencies.js";
-import * as Perseus from "../../../perseus-all-package/perseus.js";
 import renderQuestion from "../../../perseus-testing/render-question-with-cypress.jsx";
 import {webappDependencies} from "../../../perseus/webapp-dependencies.js";
+import * as Dependencies from "../../dependencies.js";
+import * as Perseus from "../../index.js";
 import {
     questionsAndAnswers,
     angleQuestion,

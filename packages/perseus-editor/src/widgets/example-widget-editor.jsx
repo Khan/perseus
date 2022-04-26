@@ -1,4 +1,4 @@
-/* eslint-disable react/sort-comp, static-service/require-fixture */
+/* eslint-disable react/sort-comp */
 // @flow
 import {Changeable, EditorJsonify} from "@khanacademy/perseus";
 import * as React from "react";

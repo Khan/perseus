@@ -13,7 +13,7 @@
 
 import * as React from "react";
 
-import {getDependencies} from "../../perseus-all-package/dependencies.js";
+import {getDependencies} from "../dependencies.js";
 
 import type {Dimensions} from "../types.js";
 

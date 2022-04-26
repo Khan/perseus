@@ -1,4 +1,4 @@
-/* eslint-disable react/no-unsafe, static-service/require-fixture */
+/* eslint-disable react/no-unsafe */
 // @flow
 /**
  * Tracks the user's current selection, and exposes it to the subtree using the

@@ -1,4 +1,3 @@
-/* eslint-disable static-service/require-fixture */
 // @flow
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import PropTypes from "prop-types";
@@ -6,7 +5,7 @@ import * as React from "react";
 
 import {Molecule} from "./molecule.jsx";
 
-import type {WidgetExports} from "../../perseus-all-package/types.js";
+import type {WidgetExports} from "../types.js";
 
 class Separator extends React.Component<$FlowFixMe> {
     static propTypes = {

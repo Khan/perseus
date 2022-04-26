@@ -5,3 +5,4 @@ coverage
 **/*.template
 **/package.json
 **/*.md
+vendor

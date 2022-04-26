@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars, react/forbid-prop-types, react/sort-comp, static-service/require-fixture */
+/* eslint-disable no-unused-vars, react/forbid-prop-types, react/sort-comp */
 // @flow
 /**
  * This is an example graphie-using widget
@@ -13,8 +13,7 @@ import {
     Util,
     WidgetJsonifyDeprecated,
 } from "@khanacademy/perseus";
-import {number as knumber} from "kmath";
-import {point as kpoint} from "kmath";
+import {number as knumber, point as kpoint} from "kmath";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";

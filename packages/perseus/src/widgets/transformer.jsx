@@ -24,22 +24,22 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
-import Graph from "../../perseus-all-package/components/graph.jsx";
-import InlineIcon from "../../perseus-all-package/components/inline-icon.jsx";
-import MathOutput from "../../perseus-all-package/components/math-output.jsx";
-import NumberInput from "../../perseus-all-package/components/number-input.jsx";
-import SimpleKeypadInput from "../../perseus-all-package/components/simple-keypad-input.jsx";
-import {getDependencies} from "../../perseus-all-package/dependencies.js";
-import {iconPlus, iconUndo} from "../../perseus-all-package/icon-paths.js";
-import InteractiveUtil from "../../perseus-all-package/interactive2/interactive-util.js";
-import {Errors} from "../../perseus-all-package/logging/log.js";
-import {ApiOptions} from "../../perseus-all-package/perseus-api.jsx";
-import {PerseusError} from "../../perseus-all-package/perseus-error.js";
-import Util from "../../perseus-all-package/util.js";
-import KhanColors from "../../perseus-all-package/util/colors.js";
-import KhanMath from "../../perseus-all-package/util/math.js";
+import Graph from "../components/graph.jsx";
+import InlineIcon from "../components/inline-icon.jsx";
+import MathOutput from "../components/math-output.jsx";
+import NumberInput from "../components/number-input.jsx";
+import SimpleKeypadInput from "../components/simple-keypad-input.jsx";
+import {getDependencies} from "../dependencies.js";
+import {iconPlus, iconUndo} from "../icon-paths.js";
+import InteractiveUtil from "../interactive2/interactive-util.js";
+import {Errors} from "../logging/log.js";
+import {ApiOptions} from "../perseus-api.jsx";
+import {PerseusError} from "../perseus-error.js";
+import Util from "../util.js";
+import KhanColors from "../util/colors.js";
+import KhanMath from "../util/math.js";
 
-import type {Coord} from "../../perseus-all-package/interactive2/types.js";
+import type {Coord} from "../interactive2/types.js";
 import type {
     PerseusTransformerWidgetOptions,
     PerseusTransformerTransformation as TransformerTransformation,
@@ -47,13 +47,8 @@ import type {
     ReflectionTransformation,
     RotationTransformation,
     TranslationTransformation,
-} from "../../perseus-all-package/perseus-types.js";
-import type {
-    Path,
-    PerseusScore,
-    WidgetExports,
-    WidgetProps,
-} from "../../perseus-all-package/types.js";
+} from "../perseus-types.js";
+import type {Path, PerseusScore, WidgetExports, WidgetProps} from "../types.js";
 
 const {deepEq, getGridStep, captureScratchpadTouchStart} = Util;
 const {assert} = InteractiveUtil;

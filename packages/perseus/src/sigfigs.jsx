@@ -1,4 +1,4 @@
-/* eslint-disable eqeqeq, no-unused-vars, static-service/require-fixture */
+/* eslint-disable eqeqeq, no-unused-vars */
 // @flow
 /*
  * A class for formatting number to significant digits.

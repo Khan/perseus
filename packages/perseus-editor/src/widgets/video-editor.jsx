@@ -1,4 +1,3 @@
-/* eslint-disable static-service/require-fixture */
 // @flow
 import {components, Changeable, EditorJsonify} from "@khanacademy/perseus";
 import PropTypes from "prop-types";

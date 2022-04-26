@@ -6,10 +6,11 @@ import userEvent from "@testing-library/user-event";
 // TODO(FEI-3857): Include in jest setup so that we don't need to import it everywhere
 import "@testing-library/jest-dom/extend-expect";
 
-import * as Dependencies from "../../../perseus-all-package/dependencies.js";
-import {renderQuestion} from "../../../perseus-all-package/widgets/__tests__/renderQuestion.jsx";
 import {testDependencies} from "../../../perseus-testing/test-dependencies.js";
+import * as Dependencies from "../../dependencies.js";
 import {article1} from "../__testdata__/graded-group-set_testdata.js";
+
+import {renderQuestion} from "./renderQuestion.jsx";
 
 describe("graded group widget", () => {
     beforeEach(() => {

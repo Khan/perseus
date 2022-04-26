@@ -1,15 +1,15 @@
-/* eslint-disable one-var, static-service/require-fixture */
+/* eslint-disable one-var */
 // @flow
 import {point as kpoint} from "kmath";
 import * as React from "react";
 import _ from "underscore";
 
-import Graphie from "../../../perseus-all-package/components/graphie.jsx";
-import {getDependencies} from "../../../perseus-all-package/dependencies.js";
-import Util from "../../../perseus-all-package/util.js";
+import Graphie from "../../components/graphie.jsx";
+import {getDependencies} from "../../dependencies.js";
+import Util from "../../util.js";
 
-import type {Coord} from "../../../perseus-all-package/interactive2/types";
-import type {PerseusScore} from "../../../perseus-all-package/types";
+import type {Coord} from "../../interactive2/types";
+import type {PerseusScore} from "../../types";
 
 // $FlowFixMe[prop-missing]
 const Plot = Graphie.Plot;

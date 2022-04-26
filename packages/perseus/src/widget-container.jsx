@@ -1,4 +1,4 @@
-/* eslint-disable react/no-unsafe, react/sort-comp, static-service/require-fixture */
+/* eslint-disable react/no-unsafe, react/sort-comp */
 // @flow
 import classNames from "classnames";
 import * as React from "react";

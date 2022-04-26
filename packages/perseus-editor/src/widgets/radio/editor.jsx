@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/anchor-is-valid, react/forbid-prop-types, react/sort-comp, static-service/require-fixture */
+/* eslint-disable jsx-a11y/anchor-is-valid, react/forbid-prop-types, react/sort-comp */
 // @flow
 import {
     components,
