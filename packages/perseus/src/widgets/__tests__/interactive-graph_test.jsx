@@ -1,7 +1,7 @@
 // @flow
 
-import {clone} from "../../../perseus-testing/object-utils.js";
-import {testDependencies} from "../../../perseus-testing/test-dependencies.js";
+import {clone} from "../../../../../testing/object-utils.js";
+import {testDependencies} from "../../../../../testing/test-dependencies.js";
 import * as Dependencies from "../../dependencies.js";
 import {ApiOptions} from "../../perseus-api.jsx";
 import {questionsAndAnswers} from "../__testdata__/interactive-graph_testdata.js";

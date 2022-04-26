@@ -1,11 +1,9 @@
 // @flow
-/* eslint-disable static-service/require-fixture */
 
+import {View} from "@khanacademy/wonder-blocks-core";
+import {HeadingMedium} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 import ReactJson from "react-json-view";
-import {View} from "@khanacademy/wonder-blocks-core";
-
-import {HeadingMedium} from "@khanacademy/wonder-blocks-typography";
 
 const SideBySide = ({
     leftTitle = "Renderer",

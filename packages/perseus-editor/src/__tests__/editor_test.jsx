@@ -5,7 +5,7 @@ import userEvent from "@testing-library/user-event";
 import * as React from "react";
 import "@testing-library/jest-dom"; // Imports custom mathers
 
-import {testDependencies} from "../../perseus-testing/test-dependencies.js";
+import {testDependencies} from "../../../../testing/test-dependencies.js";
 import {question1} from "../__testdata__/input-number_testdata.js";
 import Editor from "../editor.jsx";
 

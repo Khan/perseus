@@ -1,4 +1,4 @@
-# perseus-testing
+# ../../testing
 
 Testing related code used by Perseus.
 

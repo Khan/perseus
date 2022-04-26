@@ -14,8 +14,7 @@ import {linterContextDefault} from "../gorgon/proptypes.js";
 import {iconExclamationSign} from "../icon-paths.js";
 import {Errors as PerseusErrors, Log} from "../logging/log.js";
 import * as Changeable from "../mixins/changeable.jsx";
-import {ApiOptions} from "../perseus-api.jsx";
-import {ClassNames as ApiClassNames} from "../perseus-api.jsx";
+import {ApiOptions, ClassNames as ApiClassNames} from "../perseus-api.jsx";
 import KhanAnswerTypes from "../util/answer-types.js";
 
 import type {PerseusExpressionWidgetOptions} from "../perseus-types.js";

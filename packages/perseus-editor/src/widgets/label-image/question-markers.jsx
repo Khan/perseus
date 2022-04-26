@@ -4,18 +4,15 @@
  * label image with answers from list of choices.
  */
 
-import {Util, Dependencies} from "@khanacademy/perseus";
+import {Util, Dependencies, globalStyles} from "@khanacademy/perseus";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
-
-import {
-    colors,
-    typography,
-} from "../../../shared-styles-package/global-styles.js";
 
 import Marker from "./marker.jsx";
 
 import type {MarkerType} from "@khanacademy/perseus";
+
+const {colors, typography} = globalStyles;
 
 type QuestionMarkersProps = {|
     // The list of possible answers in a specific order.

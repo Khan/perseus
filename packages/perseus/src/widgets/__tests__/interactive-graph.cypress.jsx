@@ -1,7 +1,7 @@
 // @flow
 
-import renderQuestion from "../../../perseus-testing/render-question-with-cypress.jsx";
-import {webappDependencies} from "../../../perseus/webapp-dependencies.js";
+import renderQuestion from "../../../../../testing/render-question-with-cypress.jsx";
+import {testDependencies} from "../../../../../testing/test-dependencies.js";
 import * as Dependencies from "../../dependencies.js";
 import * as Perseus from "../../index.js";
 import {
@@ -29,7 +29,7 @@ const CIRCLES = "svg > circle";
 
 describe("Interactive graph", () => {
     beforeEach(() => {
-        Dependencies.setDependencies(webappDependencies);
+        Dependencies.setDependencies(testDependencies);
         Perseus.init({skipMathJax: true});
     });
 

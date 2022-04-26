@@ -9,7 +9,7 @@ import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
-import {colors as oldColors} from "../../../shared-styles-package/global-styles.js";
+import {colors as oldColors} from "../../styles/global-styles.js";
 
 import ChoiceIcon from "./choice-icon.jsx";
 import {getChoiceLetter} from "./util.js";

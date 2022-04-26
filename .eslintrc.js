@@ -14,7 +14,7 @@ const pkgAliases = fs
 const vendorAliases = fs
     .readdirSync(path.join(__dirname, "vendor"))
     .map((name) => {
-        return [name, `vendor/${name}`];
+        return [name, `./vendor/${name}`];
     });
 
 const allAliases = [...pkgAliases, ...vendorAliases];
@@ -46,12 +46,39 @@ module.exports = {
     },
     env: {
         "cypress/globals": true,
+        node: true,
+        browser: true,
+    },
+    globals: {
+        // `no-undef` doesn't support `globalThis`, for details see
+        // https://github.com/eslint/eslint/issues/15199.
+        globalThis: false, // means it isn't writeable
     },
     overrides: [
         {
             files: ["**/__tests__/*.test.js"],
             rules: {
                 "max-lines": "off",
+            },
+        },
+        {
+            files: ["testing/*"],
+            rules: {
+                "import/no-relative-packages": "off",
+                "import/no-commonjs": "off",
+            },
+        },
+        {
+            files: [
+                "*.stories.jsx",
+                "*.stories.js",
+                "*test.js",
+                "*test.jsx",
+                "*.cypress.jsx",
+                "*.cypress.js",
+            ],
+            rules: {
+                "import/no-relative-packages": "off",
             },
         },
     ],
@@ -67,7 +94,7 @@ module.exports = {
         "@babel/semi": "error",
         "flowtype/no-types-missing-file-annotation": "error",
         // "flowtype/no-existential-type": "error",
-        "import/no-default-export": "error",
+        // "import/no-default-export": "error",
         "import/no-unresolved": "error",
         "import/named": "error",
         "import/default": "error",
@@ -100,7 +127,15 @@ module.exports = {
         "import/newline-after-import": "error",
         "import/no-unassigned-import": [
             "error",
-            {allow: ["**/*.less", "@testing-library/jest-dom", "jest-enzyme"]},
+            {
+                allow: [
+                    "**/*.less",
+                    "@testing-library/jest-dom",
+                    "@testing-library/jest-dom/extend-expect",
+                    "jest-enzyme",
+                    "whatwg-fetch",
+                ],
+            },
         ],
         "import/no-named-default": "error",
         "import/no-relative-packages": "error",

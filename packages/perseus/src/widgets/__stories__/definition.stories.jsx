@@ -1,7 +1,8 @@
 // @flow
 import * as React from "react";
 
-import {RendererWithDebugUI} from "../../../perseus-testing/renderer-with-debug-ui.jsx";
+import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui.jsx";
+
 export default {
     title: "Perseus/Widgets/Definition",
 };

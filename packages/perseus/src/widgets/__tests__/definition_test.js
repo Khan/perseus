@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event";
 
 import "@testing-library/jest-dom"; // Imports custom matchers
 
-import {testDependencies} from "../../../perseus-testing/test-dependencies.js";
+import {testDependencies} from "../../../../../testing/test-dependencies.js";
 import * as Dependencies from "../../dependencies.js";
 
 import {renderQuestion} from "./renderQuestion.jsx";

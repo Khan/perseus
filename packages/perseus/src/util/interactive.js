@@ -10,15 +10,14 @@
 // TODO(emily): This file breaks our line length limits like nobody's business.
 // Figure out how to fix that.
 import $ from "jquery";
-import {vector as kvector} from "kmath";
-import {point as kpoint} from "kmath";
-import {line as kline} from "kmath";
+import {vector as kvector, point as kpoint, line as kline} from "kmath";
 import Raphael from "raphael";
 import _ from "underscore";
 
 // NOTE(jeresig): We include a special copy of jQuery vmouse so
 // that Perseus will continue to work in mobile native devices
 // (this should have no impact in the browser)
+// eslint-disable-next-line import/no-unassigned-import
 import "../jquery.mobile.vmouse.js";
 import InteractiveUtil from "../interactive2/interactive-util.js";
 import WrappedEllipse from "../interactive2/wrapped-ellipse.js";

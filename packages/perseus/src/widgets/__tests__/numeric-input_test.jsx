@@ -5,7 +5,7 @@ import {render, screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as React from "react";
 
-import {testDependencies} from "../../../perseus-testing/test-dependencies.js";
+import {testDependencies} from "../../../../../testing/test-dependencies.js";
 import * as Dependencies from "../../dependencies.js";
 import * as Perseus from "../../index.js";
 import {

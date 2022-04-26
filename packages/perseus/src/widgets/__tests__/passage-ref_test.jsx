@@ -3,7 +3,7 @@
 import {screen} from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 
-import {testDependencies} from "../../../perseus-testing/test-dependencies.js";
+import {testDependencies} from "../../../../../testing/test-dependencies.js";
 import * as Dependencies from "../../dependencies.js";
 import {question1} from "../__testdata__/passage-ref_testdata.js";
 import PassageExport from "../passage.jsx";

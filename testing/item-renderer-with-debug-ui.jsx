@@ -1,19 +1,18 @@
 // @flow
-/* eslint-disable static-service/require-fixture */
 
+import Button from "@khanacademy/wonder-blocks-button";
+import {View} from "@khanacademy/wonder-blocks-core";
+import {Strut} from "@khanacademy/wonder-blocks-layout";
 import * as React from "react";
 
-import {View} from "@khanacademy/wonder-blocks-core";
-import Button from "@khanacademy/wonder-blocks-button";
-import {Strut} from "@khanacademy/wonder-blocks-layout";
+import {Dependencies, ItemRenderer} from "../packages/perseus/src/index.js";
 
-import {webappDependencies} from "../perseus/webapp-dependencies.js";
-import {Dependencies, ItemRenderer} from "../perseus-all-package/perseus.js";
-import SideBySide from "./side-by-side.jsx";
 import KEScoreUI from "./ke-score-ui.js";
+import SideBySide from "./side-by-side.jsx";
+import {testDependencies} from "./test-dependencies.js";
 
-import type {PerseusItem} from "../perseus-all-package/perseus-types.js";
-import type {APIOptions, KEScore} from "../perseus-all-package/types.js";
+import type {PerseusItem} from "../packages/perseus/src/perseus-types.js";
+import type {APIOptions, KEScore} from "../packages/perseus/src/types.js";
 
 type Props = {|
     item: PerseusItem,
@@ -27,7 +26,7 @@ export const ItemRendererWithDebugUI = ({
     const ref = React.useRef<?ItemRenderer>(null);
     const [state, setState] = React.useState<?KEScore>(null);
 
-    Dependencies.setDependencies(webappDependencies);
+    Dependencies.setDependencies(testDependencies);
 
     return (
         <SideBySide

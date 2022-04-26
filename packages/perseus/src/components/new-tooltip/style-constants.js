@@ -2,7 +2,7 @@
 /**
  * Constant style values used across the tooltip components.
  */
-import * as constants from "../../../shared-styles-package/constants.js";
+import * as constants from "../../styles/global-constants.js";
 
 export const arrowWidth = 18;
 export const arrowHeight = 9;

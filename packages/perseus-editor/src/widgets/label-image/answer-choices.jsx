@@ -3,16 +3,15 @@
  * Controlled list of answer choices, handles adding and removing answers.
  */
 
+import {components, globalStyles} from "@khanacademy/perseus";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
-import Link from "../../../components/link-package/link.jsx";
-import FormWrappedTextField from "../../../components/text-inputs-package/form-wrapped-text-field.jsx";
-import {
-    colors,
-    typography,
-} from "../../../shared-styles-package/global-styles.js";
-import Icon from "../../../shared-styles-package/icon.jsx";
+import FormWrappedTextField from "../../components/form-wrapped-text-field.jsx";
+import Link from "../../components/link.jsx";
+
+const {colors, typography} = globalStyles;
+const {Icon} = components;
 
 type AddAnswerProps = {
     // Callback to add new answer choice.

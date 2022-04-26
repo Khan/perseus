@@ -3,6 +3,7 @@ export {default as ButtonGroup} from "./components/button-group.jsx";
 export {default as Graph} from "./components/graph.jsx";
 export {default as Graphie} from "./components/graphie.jsx";
 export {default as HUD} from "./components/hud.jsx";
+export {default as Icon} from "./components/icon.jsx";
 export {default as InfoTip} from "./components/info-tip.jsx";
 export {default as InlineIcon} from "./components/inline-icon.jsx";
 export {default as MathInput} from "./components/math-input.jsx";

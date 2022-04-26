@@ -1,8 +1,7 @@
 /* eslint-disable @babel/no-invalid-this */
 // @flow
 import $ from "jquery";
-import {point as kpoint} from "kmath";
-import {vector as kvector} from "kmath";
+import {point as kpoint, vector as kvector} from "kmath";
 import Raphael from "raphael";
 import _ from "underscore";
 

@@ -6,7 +6,7 @@ import {HeadingSmall} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import {MultiItemRendererWithDebugUI} from "../../../perseus-testing/multi-item-renderer-with-debug-ui.jsx";
+import {MultiItemRendererWithDebugUI} from "../../../../../testing/multi-item-renderer-with-debug-ui.jsx";
 import {question1} from "../__testdata__/multi-renderer_testdata.js";
 
 type StoryArgs = {||};

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 
-import {ServerItemRendererWithDebugUI} from "../../perseus-testing/server-item-renderer-with-debug-ui.jsx";
+import {ServerItemRendererWithDebugUI} from "../../../../testing/server-item-renderer-with-debug-ui.jsx";
 import {
     itemWithInput,
     labelImageItem,

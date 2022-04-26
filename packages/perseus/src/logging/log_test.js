@@ -1,6 +1,6 @@
 // @flow
 
-import {testDependencies} from "../../perseus-testing/test-dependencies.js";
+import {testDependencies} from "../../../../testing/test-dependencies.js";
 import {setDependencies} from "../dependencies.js";
 
 import {Errors, Log} from "./log.js";

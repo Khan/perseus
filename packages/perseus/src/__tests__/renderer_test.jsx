@@ -6,8 +6,8 @@ import * as React from "react";
 
 import "@testing-library/jest-dom"; // Imports custom matchers
 
-import {clone} from "../../perseus-testing/object-utils.js";
-import {testDependencies} from "../../perseus-testing/test-dependencies.js";
+import {clone} from "../../../../testing/object-utils.js";
+import {testDependencies} from "../../../../testing/test-dependencies.js";
 import {
     dropdownWidget,
     imageWidget,

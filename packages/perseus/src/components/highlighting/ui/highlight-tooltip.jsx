@@ -16,8 +16,8 @@
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
-import {colors} from "../../../../shared-styles-package/global-styles.js";
 import {Log} from "../../../logging/log.js";
+import {colors} from "../../../styles/global-styles.js";
 import NewTooltip from "../../new-tooltip/new-tooltip.jsx";
 
 import {getRelativeRect} from "./util.js";
@@ -80,7 +80,6 @@ class HighlightTooltip extends React.PureComponent<HighlightTooltipProps> {
         //     find an appropriate position for the tooltip. Sounds tricky!
         if (!focusRect) {
             Log.log(
-                // eslint-disable-next-line static-service/require-safe-link-to
                 "[Highlighting] Known bug: Could not determine the focus " +
                     'position, so did not show an "Add Highlight" tooltip. ' +
                     "https://app.asana.com/0/329800276300868/413878480039713 " +

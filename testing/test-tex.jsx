@@ -1,12 +1,11 @@
-/* eslint-disable static-service/require-fixture */
 // @flow
-import * as React from "react";
+import {useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
 import katex from "katex";
 import renderA11yString from "katex/dist/contrib/render-a11y-string.js";
-import {useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
+import * as React from "react";
 import "katex/dist/katex.css";
 
-import type {PerseusDependencies} from "../perseus-all-package/types.js";
+import type {PerseusDependencies} from "../packages/perseus/src/types.js";
 
 type Props = React.ElementConfig<PerseusDependencies["TeX"]>;
 

@@ -3,8 +3,7 @@
 /**
  * A library of options to pass to add/draw/remove/constraints
  */
-import {vector as kvector} from "kmath";
-import {point as kpoint} from "kmath";
+import {vector as kvector, point as kpoint} from "kmath";
 import _ from "underscore";
 
 import KhanMath from "../util/math.js";

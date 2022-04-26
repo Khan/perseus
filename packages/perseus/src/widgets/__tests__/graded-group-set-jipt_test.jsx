@@ -6,7 +6,7 @@
  * easier for translators.
  */
 
-import {testDependencies} from "../../../perseus-testing/test-dependencies.js";
+import {testDependencies} from "../../../../../testing/test-dependencies.js";
 import * as Dependencies from "../../dependencies.js";
 import {article1} from "../__testdata__/graded-group-set_testdata.js";
 

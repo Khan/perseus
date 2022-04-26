@@ -14,10 +14,10 @@ import classNames from "classnames";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
-import {typography} from "../../shared-styles-package/global-styles.js";
 import AssetContext from "../asset-context.js";
 import SvgImage from "../components/svg-image.jsx";
 import Renderer from "../renderer.jsx";
+import {typography} from "../styles/global-styles.js";
 import mediaQueries from "../styles/media-queries.js";
 
 import AnswerChoices from "./label-image/answer-choices.jsx";

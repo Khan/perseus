@@ -4,7 +4,7 @@ import {screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 
-import {testDependencies} from "../../../perseus-testing/test-dependencies.js";
+import {testDependencies} from "../../../../../testing/test-dependencies.js";
 import * as Dependencies from "../../dependencies.js";
 import {question1} from "../__testdata__/matrix_testdata.js";
 

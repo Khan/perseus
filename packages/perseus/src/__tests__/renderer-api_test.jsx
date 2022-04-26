@@ -10,7 +10,7 @@ import "jest-enzyme";
 
 import {ClassNames, Dependencies, Renderer} from "@khanacademy/perseus";
 
-import {testDependencies} from "../../perseus-testing/test-dependencies.js";
+import {testDependencies} from "../../../../testing/test-dependencies.js";
 import {registerAllWidgetsForTesting} from "../util/register-all-widgets-for-testing.js";
 
 import imageItem from "./test-items/image-item.js";

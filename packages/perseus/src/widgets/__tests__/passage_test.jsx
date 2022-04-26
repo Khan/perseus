@@ -2,7 +2,7 @@
 
 import "@testing-library/jest-dom";
 
-import {testDependencies} from "../../../perseus-testing/test-dependencies.js";
+import {testDependencies} from "../../../../../testing/test-dependencies.js";
 import * as Dependencies from "../../dependencies.js";
 import {question1, question2} from "../__testdata__/passage_testdata.js";
 import PassageWidgetExport from "../passage.jsx";

@@ -214,7 +214,7 @@ module.exports = {
         "<rootDir>/javascript/perseus-all-package/**/__tests__/*_test.js",
         "<rootDir>/javascript/perseus-all-package/**/__tests__/*_test.jsx",
     ],
-    coverageDirectory: `<rootDir>/javascript/perseus-testing/coverage/jest/${PERSEUS_COV}`,
+    coverageDirectory: `<rootDir>/javascript/../../testing/coverage/jest/${PERSEUS_COV}`,
     collectCoverageFrom: collectCoverageFrom,
     moduleNameMapper: {
         "^perseus$": "<rootDir>/javascript/perseus/perseus.js",
@@ -231,7 +231,7 @@ module.exports = {
     // This file is loaded by each jest worker before setting up the test framework
     // and before running tests.
     setupFiles: [
-        "<rootDir>/javascript/perseus-testing/jest-setup.js",
+        "<rootDir>/javascript/../../testing/jest-setup.js",
         "jest-date-mock",
     ],
 
@@ -241,7 +241,7 @@ module.exports = {
         "jest-extended/all",
         "jest-specific-snapshot",
         "<rootDir>/dev/tools/jest-runner/matchers/perseusMatchers.js",
-        "<rootDir>/javascript/perseus-testing/jest-setup-after-env.js",
+        "<rootDir>/javascript/../../testing/jest-setup-after-env.js",
     ],
 
     // Jest supports node 10 which uses jsdom-sixteen, so we'll use that.
@@ -250,7 +250,7 @@ module.exports = {
     // Compile .js files using custom babel settings.
     transform: {
         "^.+\\.(js|jsx|mjs)$":
-            "<rootDir>/javascript/perseus-testing/jest-transform.js",
+            "<rootDir>/javascript/../../testing/jest-transform.js",
     },
 
     // Don't compute coverage on files in these locations.

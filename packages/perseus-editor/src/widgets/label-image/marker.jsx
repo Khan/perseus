@@ -7,6 +7,7 @@
  * the dropdown component.
  */
 
+import {globalStyles} from "@khanacademy/perseus";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
@@ -14,10 +15,11 @@ import Option, {
     OptionGroup,
 } from "../../../components/dropdown-package/option.jsx";
 import dropdownStyles from "../../../components/dropdown-package/shared-styles.js";
-import FormWrappedTextField from "../../../components/text-inputs-package/form-wrapped-text-field.jsx";
-import {colors} from "../../../shared-styles-package/global-styles.js";
+import FormWrappedTextField from "../../components/form-wrapped-text-field.jsx";
 
 import type {MarkerType} from "@khanacademy/perseus";
+
+const {colors} = globalStyles;
 
 type MarkerProps = {|
     ...MarkerType,
