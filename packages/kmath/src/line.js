@@ -15,10 +15,7 @@ export function distanceToPoint(line: Line, point: Point): number {
     return kpoint.distanceToLine(point, line);
 }
 
-export function reflectPoint(
-    line: Line,
-    point: Point,
-): $ReadOnlyArray<number> /* TODO: convert to Point */ {
+export function reflectPoint(line: Line, point: Point): Point {
     return kpoint.reflectOverLine(point, line);
 }
 
