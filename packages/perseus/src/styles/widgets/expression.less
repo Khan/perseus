@@ -1,0 +1,147 @@
+.perseus-widget-expression {
+    & > span, .error-tooltip {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    position: relative;
+
+    .error-tooltip {
+        position: absolute;
+        right: 6px;
+        top: -2px;
+    }
+
+    .error-icon {
+        color: #fcc335;
+        cursor: pointer;
+        font-size: 20px;
+        .perseus-interactive;
+    }
+
+    .error-text {
+        background-color: #fff;
+        padding: 5px;
+        width: 210px;
+    }
+
+    &.show-error-tooltip .perseus-math-input.mq-editable-field.mq-math-mode > .mq-root-block {
+        padding-right: 25px;
+    }
+
+    .perseus-formats-tooltip {
+        width: 190px;
+    }
+}
+
+#answer_area .perseus-widget-expression {
+    // Super hacky overrides to make the error tooltip fit into the answer area
+    // by putting it on top of the MathQuill input.
+
+    // TODO(alex): Implement arrows coming from the middle of the tooltip side,
+    // then use some of those here; e.g. align to left middle
+
+    .perseus-math-input.mq-editable-field.mq-math-mode {
+        // Make the input wider so that error message never scrolls left
+        min-width: 130px;
+    }
+
+    .error-tooltip {
+        .error-text-container {
+            // Move the tooltip to the left of the error icon
+            left: -125px !important;
+            top: -17px !important;
+        }
+
+        .error-text {
+            // Make the error message much smaller
+            font-size: 12px;
+            width: 90px;
+        }
+
+        .tooltipContainer > div:first-child {
+            // Hide the little triangle "arrow" created by the tooltip
+            // (If it weren't in a corner, we wouldn't have to hide it)
+            visibility: hidden !important;
+        }
+    }
+}
+
+// Old expression widget
+.perseus-widget-expression-old {
+    &,
+    > .output,
+    > .output > .tex,
+    > .output > .placeholder {
+        display: block;
+    }
+}
+
+.perseus-widget-expression-old input,
+#answer_area .perseus-widget-expression-old input {
+    direction: ltr;
+    border: 1px solid #a4a4a4;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 14px;
+    margin-bottom: 5px;
+    max-width: 240px;
+    padding: 6px;
+    width: 100%;
+}
+
+.perseus-widget-expression-old > .output {
+    background: #f2f2f2;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+#answer_area .perseus-widget-expression-old > .output {
+    background: #f7f7f7;
+}
+
+.perseus-widget-expression-old > .output > .tex {
+    overflow-x: auto;
+    padding: 5px;
+}
+
+.perseus-widget-expression-old > .output > .placeholder {
+    position: relative;
+    height: 40px;
+    overflow-y: hidden;
+}
+
+.perseus-widget-expression-old > .output > .placeholder  > .error {
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    background: #f7f7f7;
+    border: 1px solid #ddd;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+    color: #000;
+    display: none;
+    font-weight: normal;
+    min-height: 22px;
+    width: 168px;
+    position: absolute;
+    top: 0px;
+    left: 40px;
+    margin: auto;
+}
+
+.perseus-widget-expression-old > .output > .placeholder > .error > .buddy {
+    background-image: url(/images/perseus/error-buddy.png);
+    background-size: 100%;
+    height: 36px;
+    width: 40px;
+    position: absolute;
+    top: -3px;
+    left: -42px;
+}
+
+.perseus-widget-expression-old > .output > .placeholder > .error > .message {
+    font: 12px @baseFontFamily;
+    line-height: 1.4em;
+    margin: 0px 4px;
+}

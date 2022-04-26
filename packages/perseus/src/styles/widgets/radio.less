@@ -1,0 +1,52 @@
+@import "../util.less";
+
+.perseus-widget-radio {
+    &.perseus-rendered-radio {
+        div,
+        div > p {
+            /* TODO(alpert): Find a better way of doing inline renderers */
+            display: inline;
+        }
+
+        // Multiple-choice rationales might contain several subsequent
+        // paragraphs, which need to have breaks in-between. Thus, we need
+        // to override the above `display: inline` rule.
+        // We use "display: table" instead of "display: block" to make the
+        // width of the element the width of the content. This makes
+        // lint dots better positioned.
+        .perseus-radio-rationale-content > .perseus-renderer > .paragraph {
+            display: table;
+            margin: 0;
+
+            &:not(:last-child) {
+                margin-bottom: 8px;
+            }
+        }
+    }
+
+    .unresponsive-svg-image div, .svg-image div {
+        // The divs in an svg image shouldn't be inline
+        display: block;
+    }
+
+    li {
+        div.instructions {
+            margin-bottom: 5px;
+        }
+
+        .value {
+            display: block;
+            margin-left: 18px;
+            min-height: 22px;
+        }
+
+        img, table {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        table {
+            border: 1px solid #ccc;
+        }
+    }
+}

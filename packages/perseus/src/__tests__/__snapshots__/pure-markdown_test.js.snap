@@ -1,0 +1,113 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`pure markdown parser should parse titled table with unescaped dollars 1`] = `
+Array [
+  Object {
+    "table": Object {
+      "align": Array [
+        null,
+        null,
+        null,
+      ],
+      "cells": Array [
+        Array [
+          Array [
+            Object {
+              "content": "data 1",
+              "type": "text",
+            },
+          ],
+          Array [
+            Object {
+              "content": "data 2",
+              "type": "text",
+            },
+          ],
+          Array [
+            Object {
+              "content": "data 3",
+              "type": "text",
+            },
+          ],
+        ],
+        Array [
+          Array [
+            Object {
+              "content": "data 4",
+              "type": "text",
+            },
+          ],
+          Array [
+            Object {
+              "type": "unescapedDollar",
+            },
+            Object {
+              "content": "data 5",
+              "type": "text",
+            },
+          ],
+          Array [
+            Object {
+              "content": "data 6",
+              "type": "text",
+            },
+          ],
+        ],
+        Array [
+          Array [
+            Object {
+              "content": "data 7",
+              "type": "text",
+            },
+          ],
+          Array [
+            Object {
+              "content": "data 8",
+              "type": "text",
+            },
+          ],
+          Array [
+            Object {
+              "content": "data 9",
+              "type": "text",
+            },
+          ],
+        ],
+      ],
+      "header": Array [
+        Array [
+          Object {
+            "content": "header 1",
+            "type": "text",
+          },
+        ],
+        Array [
+          Object {
+            "content": "header 2",
+            "type": "text",
+          },
+        ],
+        Array [
+          Object {
+            "content": "header 3",
+            "type": "text",
+          },
+        ],
+      ],
+      "type": "table",
+    },
+    "title": Array [
+      Object {
+        "content": Array [
+          Object {
+            "content": "Table title",
+            "type": "text",
+          },
+        ],
+        "type": "strong",
+      },
+    ],
+    "type": "titledTable",
+  },
+]
+`;

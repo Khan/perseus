@@ -1,0 +1,86 @@
+@import "../variables.less";
+@import "../util.less";
+
+// HACK(michaelpolyak): As the Definition widget may be rendered within an
+// Article or an Exercise, we need to support the "legacy" way of styling for
+// the specific responsive rendering context. In order to match the surrounding
+// Perseus content styling, we copy and apply styles defined in
+// `perseus-renderer.less`, `articles.less` (both of which are now moved into
+// Perseus).
+
+// Desktop exercise styles
+.framework-perseus:not(.perseus-article):not(.perseus-mobile) {
+    .perseus-widget-definition {
+        .legacy-typography;
+    }
+}
+
+// Mobile exercise styles
+.framework-perseus:not(.perseus-article).perseus-mobile {
+    .perseus-widget-definition {
+        @desktop-width-min: 1200px;
+        @tablet-width-max: (@desktop-width-min - 1);
+
+        // Phone styles
+        @media (max-width: @pure-sm-max) {
+            font-size: 18px;
+            line-height: 1.4;
+        }
+
+        // Tablet styles
+        @media (min-width: @pure-md-min) and (max-width: @tablet-width-max) {
+            font-size: 20px;
+            line-height: 1.5;
+        }
+
+        // "Desktop" (resolution) styles (while rendering on a mobile device,
+        // ie. `this.props.apiOptions.isMobile` is `true`)
+        @media (min-width: @desktop-width-min) {
+            font-size: 22px;
+            line-height: 1.4;
+        }
+    }
+}
+
+// Default article styles
+.bibliotron-article.framework-perseus.perseus-article {
+    .perseus-widget-definition {
+        font-size: 18px;
+        line-height: 1.4;
+    }
+}
+
+// Desktop article styles
+.bibliotron-article.framework-perseus.perseus-article:not(.perseus-mobile) {
+    .perseus-widget-definition {
+        font-size: 20px;
+        line-height: 30px;
+    }
+}
+
+// Mobile article styles
+.bibliotron-article.framework-perseus.perseus-article.perseus-mobile {
+    .perseus-widget-definition {
+        @desktop-width-min: 1200px;
+        @tablet-width-max: (@desktop-width-min - 1);
+
+        // Phone styles
+        @media (max-width: @pure-sm-max) {
+            font-size: 18px;
+            line-height: 1.4;
+        }
+
+        // Tablet styles
+        @media (min-width: @pure-md-min) and (max-width: @tablet-width-max) {
+            font-size: 20px;
+            line-height: 1.5;
+        }
+
+        // "Desktop" (resolution) styles (while rendering on a mobile device,
+        // ie. `this.props.apiOptions.isMobile` is `true`)
+        @media (min-width: @desktop-width-min) {
+            font-size: 22px;
+            line-height: 1.4;
+        }
+    }
+}
