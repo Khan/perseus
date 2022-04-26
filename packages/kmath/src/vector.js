@@ -7,6 +7,8 @@
 import _ from "underscore";
 import * as knumber from "./number.js";
 
+type Vec = $ReadOnlyArray<number>;
+
 function arraySum(array: $ReadOnlyArray<number>): number {
     return array.reduce((memo, arg) => memo + arg, 0);
 }
@@ -15,7 +17,7 @@ function arrayProduct(array: $ReadOnlyArray<number>): number {
     return array.reduce((memo, arg) => memo * arg, 1);
 }
 
-export function is<T>(vec: $ReadOnlyArray<T>, dimension: number): boolean {
+export function is<T>(vec: $ReadOnlyArray<T>, dimension?: number): boolean {
     if (!_.isArray(vec)) {
         return false;
     }
@@ -26,19 +28,16 @@ export function is<T>(vec: $ReadOnlyArray<T>, dimension: number): boolean {
 }
 
 // Normalize to a unit vector
-export function normalize(v: $ReadOnlyArray<number>): $ReadOnlyArray<number> {
+export function normalize<V: Vec>(v: V): V {
     return scale(v, 1 / length(v));
 }
 
 // Length/magnitude of a vector
-export function length(v: $ReadOnlyArray<number>): number {
+export function length(v: Vec): number {
     return Math.sqrt(dot(v, v));
 }
 // Dot product of two vectors
-export function dot(
-    a: $ReadOnlyArray<number>,
-    b: $ReadOnlyArray<number>,
-): number {
+export function dot(a: Vec, b: Vec): number {
     // $FlowFixMe[incompatible-call] underscore doesn't like $ReadOnlyArray
     const zipped = _.zip(a, b);
     const multiplied = zipped.map(arrayProduct);
@@ -49,43 +48,33 @@ export function dot(
  *
  * add([1, 2], [3, 4]) -> [4, 6]
  */
-export function add(
-    ...vecs: $ReadOnlyArray<$ReadOnlyArray<number>>
-): $ReadOnlyArray<number> {
+export function add<V: Vec>(...vecs: $ReadOnlyArray<V>): V {
     // $FlowFixMe[incompatible-call] underscore doesn't like $ReadOnlyArray
     const zipped = _.zip(...vecs);
     return zipped.map(arraySum);
 }
 
-export function subtract(
-    v1: $ReadOnlyArray<number>,
-    v2: $ReadOnlyArray<number>,
-): $ReadOnlyArray<number> {
+export function subtract<V: Vec>(v1: V, v2: V): V {
     // $FlowFixMe[incompatible-call] underscore doesn't like $ReadOnlyArray
     return _.zip(v1, v2).map((dim) => dim[0] - dim[1]);
 }
 
-export function negate(v: $ReadOnlyArray<number>): $ReadOnlyArray<number> {
+export function negate<V: Vec>(v: V): V {
+    // $FlowFixMe[incompatible-return] Flow's `.map()` libdef is lacking
     return v.map((x) => {
         return -x;
     });
 }
 
 // Scale a vector
-export function scale(
-    v1: $ReadOnlyArray<number>,
-    scalar: number,
-): $ReadOnlyArray<number> {
+export function scale<V: Vec>(v1: V, scalar: number): V {
+    // $FlowFixMe[incompatible-return] Flow's `.map()` libdef is lacking
     return v1.map((x) => {
         return x * scalar;
     });
 }
 
-export function equal(
-    v1: $ReadOnlyArray<number>,
-    v2: $ReadOnlyArray<number>,
-    tolerance?: number,
-): boolean {
+export function equal(v1: Vec, v2: Vec, tolerance?: number): boolean {
     // _.zip will nicely deal with the lengths, going through
     // the length of the longest vector. knumber.equal then
     // returns false for any number compared to the undefined
@@ -96,11 +85,7 @@ export function equal(
     );
 }
 
-export function codirectional(
-    v1: $ReadOnlyArray<number>,
-    v2: $ReadOnlyArray<number>,
-    tolerance?: number,
-): boolean {
+export function codirectional(v1: Vec, v2: Vec, tolerance?: number): boolean {
     // The origin is trivially codirectional with all other vectors.
     // This gives nice semantics for codirectionality between points when
     // comparing their difference vectors.
@@ -117,11 +102,7 @@ export function codirectional(
     return equal(v1, v2, tolerance);
 }
 
-export function collinear(
-    v1: $ReadOnlyArray<number>,
-    v2: $ReadOnlyArray<number>,
-    tolerance?: number,
-): boolean {
+export function collinear(v1: Vec, v2: Vec, tolerance?: number): boolean {
     return (
         codirectional(v1, v2, tolerance) ||
         codirectional(v1, negate(v2), tolerance)
@@ -221,10 +202,8 @@ export function projection(
 }
 
 // Round each number to a certain number of decimal places
-export function round(
-    vec: $ReadOnlyArray<number>,
-    precision: $ReadOnlyArray<number> | number,
-): $ReadOnlyArray<number> {
+export function round<V: Vec>(vec: V, precision: V | number): V {
+    // $FlowFixMe[incompatible-return] Flow's `.map()` libdef is lacking
     return vec.map((elem, i) =>
         // $FlowFixMe[prop-missing]
         // $FlowFixMe[incompatible-call]
@@ -233,10 +212,8 @@ export function round(
 }
 
 // Round each number to the nearest increment
-export function roundTo(
-    vec: $ReadOnlyArray<number>,
-    increment: $ReadOnlyArray<number> | number,
-): $ReadOnlyArray<number> {
+export function roundTo<V: Vec>(vec: V, increment: V | number): V {
+    // $FlowFixMe[incompatible-return] Flow's `.map()` libdef is lacking
     return vec.map((elem, i) =>
         // $FlowFixMe[prop-missing]
         // $FlowFixMe[incompatible-call]
@@ -244,10 +221,8 @@ export function roundTo(
     );
 }
 
-export function floorTo(
-    vec: $ReadOnlyArray<number>,
-    increment: $ReadOnlyArray<number> | number,
-): $ReadOnlyArray<number> {
+export function floorTo<V: Vec>(vec: V, increment: V | number): V {
+    // $FlowFixMe[incompatible-return] Flow's `.map()` libdef is lacking
     return vec.map((elem, i) =>
         // $FlowFixMe[prop-missing]
         // $FlowFixMe[incompatible-call]
@@ -255,10 +230,8 @@ export function floorTo(
     );
 }
 
-export function ceilTo(
-    vec: $ReadOnlyArray<number>,
-    increment: $ReadOnlyArray<number> | number,
-): $ReadOnlyArray<number> {
+export function ceilTo<V: Vec>(vec: V, increment: V | number): V {
+    // $FlowFixMe[incompatible-return] Flow's `.map()` libdef is lacking
     return vec.map((elem, i) =>
         // $FlowFixMe[prop-missing]
         // $FlowFixMe[incompatible-call]
