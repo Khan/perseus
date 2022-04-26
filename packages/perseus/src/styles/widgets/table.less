@@ -1,0 +1,56 @@
+// Extra specifity is needed to counteract generic tables
+.framework-perseus table.perseus-widget-table-of-values.non-markdown {
+    text-align: left;
+    margin: 20px auto;
+    border-collapse: collapse;
+
+    tr {
+        height: 23px;
+    }
+
+    th, td {
+        border: 2px solid black;
+        border-width: 0 2px;
+
+        &:first-child {
+            border-left: 0;
+        }
+
+        &:last-child {
+            border-right: 0;
+        }
+    }
+
+    th {
+        font-weight: normal;
+        padding: 5px;
+        width: 80px;
+        text-align: left;
+        border-bottom: 2px solid black;
+        .paragraph {
+            margin: 0;
+        }
+    }
+
+    td {
+        padding: 0px 5px;
+    }
+
+    tbody tr:first-child td {
+        padding-top: 5px;
+    }
+}
+.framework-perseus table.perseus-widget-table-of-values input,
+#answer_area table.perseus-widget-table-of-values input {
+    // NOTE(charlie): This should be kept in-sync with the "width: 80" in
+    // table.jsx.
+    width: 80px;
+}
+
+body.mobile {
+    .framework-perseus table.perseus-widget-table-of-values.non-markdown {
+        td {
+            padding: 5px;
+        }
+    }
+}

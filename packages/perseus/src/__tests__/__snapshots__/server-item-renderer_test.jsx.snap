@@ -1,0 +1,306 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`server item renderer should snapshot: initial render 1`] = `
+<div>
+  <div>
+    <div>
+      <span
+        class="mock-KatexProvider"
+      >
+        <div
+          class="perseus-renderer perseus-renderer-responsive"
+        >
+          <div
+            class="paragraph"
+            data-perseus-paragraph-index="0"
+          >
+            <div
+              class="paragraph"
+            >
+              Enter the number 
+              <span
+                style="white-space: nowrap;"
+              >
+                <span />
+                <span
+                  class="mock-TeX"
+                />
+                <span />
+              </span>
+              -42
+              <span
+                style="white-space: nowrap;"
+              >
+                <span />
+                <span
+                  class="mock-TeX"
+                />
+                <span />
+              </span>
+               in the box: 
+              <div
+                class="perseus-widget-container widget-nohighlight widget-inline-block"
+              >
+                <span>
+                  <div>
+                    <input
+                      aria-describedby="input-with-examples-aW5wdXQtbnVtYmVyIDE"
+                      autocapitalize="off"
+                      autocomplete="off"
+                      autocorrect="off"
+                      class="perseus-input perseus-interactive perseus-input-size-normal"
+                      spellcheck="false"
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                  <div
+                    style="position: relative; height: 0px; display: none;"
+                  >
+                    <div
+                      class="tooltipContainer"
+                      style="position: absolute; left: 0px;"
+                    >
+                      <div
+                        style="display: block; position: relative; visibility: visible; left: 0px; top: -1px; width: 12px; height: 11px; margin-top: -1px; margin-bottom: -2px; z-index: 10;"
+                      >
+                        <div
+                          style="display: block; height: 0px; width: 0px; position: absolute; left: 0px; top: -1px; border-right: 12px solid transparent; border-bottom: 12px solid #ccc;"
+                        />
+                        <div
+                          style="display: block; height: 0px; width: 0px; position: absolute; left: 1px; top: 1px; border-right: 10px solid transparent; border-bottom: 10px solid white;"
+                        />
+                      </div>
+                      <div
+                        class="perseus-formats-tooltip preview-measure"
+                        style="position: relative; top: 0px; left: 0px; border: 1px solid #ccc; box-shadow: 0 1px 3px #ccc; z-index: 9;"
+                      >
+                        <div
+                          id="input-with-examples-aW5wdXQtbnVtYmVyIDE"
+                        >
+                          <span
+                            class="mock-KatexProvider"
+                          >
+                            <div
+                              class="perseus-renderer perseus-renderer-responsive"
+                            >
+                              <div
+                                class="paragraph"
+                                data-perseus-paragraph-index="0"
+                              >
+                                <ul>
+                                  <li>
+                                    <strong>
+                                      Your answer should be
+                                    </strong>
+                                  </li>
+                                  <li>
+                                    an integer, like 
+                                    <span
+                                      style="white-space: nowrap;"
+                                    >
+                                      <span />
+                                      <span
+                                        class="mock-TeX"
+                                      >
+                                        6
+                                      </span>
+                                      <span />
+                                    </span>
+                                  </li>
+                                  <li>
+                                    an 
+                                    <em>
+                                      exact
+                                    </em>
+                                     decimal, like 
+                                    <span
+                                      style="white-space: nowrap;"
+                                    >
+                                      <span />
+                                      <span
+                                        class="mock-TeX"
+                                      >
+                                        0.75
+                                      </span>
+                                      <span />
+                                    </span>
+                                  </li>
+                                  <li>
+                                    a 
+                                    <em>
+                                      simplified proper
+                                    </em>
+                                     fraction, like 
+                                    <span
+                                      style="white-space: nowrap;"
+                                    >
+                                      <span />
+                                      <span
+                                        class="mock-TeX"
+                                      >
+                                        3/5
+                                      </span>
+                                      <span />
+                                    </span>
+                                  </li>
+                                  <li>
+                                    a 
+                                    <em>
+                                      simplified improper
+                                    </em>
+                                     fraction, like 
+                                    <span
+                                      style="white-space: nowrap;"
+                                    >
+                                      <span />
+                                      <span
+                                        class="mock-TeX"
+                                      >
+                                        7/4
+                                      </span>
+                                      <span />
+                                    </span>
+                                  </li>
+                                  <li>
+                                    a mixed number, like 
+                                    <span
+                                      style="white-space: nowrap;"
+                                    >
+                                      <span />
+                                      <span
+                                        class="mock-TeX"
+                                      >
+                                        1\\ 3/4
+                                      </span>
+                                      <span />
+                                    </span>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </span>
+    </div>
+    <div
+      class="hintsContainer_1g61p95"
+    >
+      <div
+        class=""
+      >
+        <div
+          class="perseus-hint-renderer"
+          tabindex="-1"
+        >
+          <span
+            class="perseus-sr-only"
+          >
+            Hint #1
+          </span>
+          <span
+            class="perseus-hint-label"
+            style="display: block;"
+          >
+            1 / 3
+          </span>
+          <span
+            class="mock-KatexProvider"
+          >
+            <div
+              class="perseus-renderer perseus-renderer-responsive"
+            >
+              <div
+                class="paragraph"
+                data-perseus-paragraph-index="0"
+              >
+                <div
+                  class="paragraph"
+                >
+                  Hint #1
+                </div>
+              </div>
+            </div>
+          </span>
+        </div>
+        <div
+          class="perseus-hint-renderer"
+          tabindex="-1"
+        >
+          <span
+            class="perseus-sr-only"
+          >
+            Hint #2
+          </span>
+          <span
+            class="perseus-hint-label"
+            style="display: block;"
+          >
+            2 / 3
+          </span>
+          <span
+            class="mock-KatexProvider"
+          >
+            <div
+              class="perseus-renderer perseus-renderer-responsive"
+            >
+              <div
+                class="paragraph"
+                data-perseus-paragraph-index="0"
+              >
+                <div
+                  class="paragraph"
+                >
+                  Hint #2
+                </div>
+              </div>
+            </div>
+          </span>
+        </div>
+        <div
+          class="perseus-hint-renderer last-hint last-rendered"
+          tabindex="-1"
+        >
+          <span
+            class="perseus-sr-only"
+          >
+            Hint #3
+          </span>
+          <span
+            class="perseus-hint-label"
+            style="display: block;"
+          >
+            3 / 3
+          </span>
+          <span
+            class="mock-KatexProvider"
+          >
+            <div
+              class="perseus-renderer perseus-renderer-responsive"
+            >
+              <div
+                class="paragraph"
+                data-perseus-paragraph-index="0"
+              >
+                <div
+                  class="paragraph"
+                >
+                  Hint #3
+                </div>
+              </div>
+            </div>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

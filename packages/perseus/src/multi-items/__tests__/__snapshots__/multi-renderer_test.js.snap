@@ -1,0 +1,994 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`multi-item renderer should snapshot: initial render 1`] = `
+<div>
+  <div>
+    <div
+      id="blurb"
+    >
+      <span
+        class="mock-KatexProvider"
+      >
+        <div
+          class="perseus-renderer perseus-renderer-responsive"
+        >
+          <div
+            class="paragraph perseus-paragraph-centered"
+            data-perseus-paragraph-index="0"
+          >
+            
+
+          </div>
+        </div>
+      </span>
+    </div>
+    <div
+      id="question"
+    >
+      <span
+        class="mock-KatexProvider"
+      >
+        <div
+          class="perseus-renderer perseus-renderer-responsive"
+        >
+          <div
+            class="paragraph"
+            data-perseus-paragraph-index="0"
+          >
+            <div
+              class="paragraph"
+            >
+              Triangle 
+              <span
+                style="white-space: nowrap;"
+              >
+                <span />
+                <span
+                  class="mock-TeX"
+                >
+                  ABC
+                </span>
+                <span />
+              </span>
+               has side lengths of 
+              <span
+                style="white-space: nowrap;"
+              >
+                <span />
+                <span
+                  class="mock-TeX"
+                >
+                  12
+                </span>
+                <span />
+              </span>
+              , 
+              <span
+                style="white-space: nowrap;"
+              >
+                <span />
+                <span
+                  class="mock-TeX"
+                >
+                  14
+                </span>
+                <span />
+              </span>
+              , and 
+              <span
+                style="white-space: nowrap;"
+              >
+                <span />
+                <span
+                  class="mock-TeX"
+                >
+                  20
+                </span>
+                <span />
+              </span>
+              . Which of the following triangles is congruent to triangle 
+              <span
+                style="white-space: nowrap;"
+              >
+                <span />
+                <span
+                  class="mock-TeX"
+                >
+                  ABC
+                </span>
+                <span />
+              </span>
+               ?
+            </div>
+          </div>
+          <div
+            class="paragraph"
+            data-perseus-paragraph-index="1"
+          >
+            <div
+              class="paragraph"
+            >
+              <div
+                class="perseus-widget-container widget-nohighlight widget-block"
+              >
+                <div
+                  class="responsiveContainer_vq37gq"
+                >
+                  <fieldset
+                    class="perseus-widget-radio-fieldset responsiveFieldset_c0l5kf"
+                  >
+                    <legend
+                      class="perseus-sr-only"
+                    >
+                      Choose 1 answer:
+                    </legend>
+                    <div
+                      class="instructions instructions_125m8j1"
+                    >
+                      Choose 1 answer:
+                    </div>
+                    <ul
+                      class="perseus-widget-radio perseus-rendered-radio radio_zdxht7-o_O-responsiveRadioContainer_1ybwre2"
+                    >
+                      <li
+                        class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                      >
+                        <div>
+                          <div
+                            class="wrapper_e7hn5"
+                          >
+                            <div
+                              class="slidingContent_1b7d4h4"
+                            >
+                              <div
+                                class="content_1rmtpuj"
+                              >
+                                <label
+                                  class="checkbox-label label_1ekb3l0-o_O-responsiveLabel_19cgmwo"
+                                  for="perseus_radio_9-choice-0"
+                                  style="opacity: 1;"
+                                >
+                                  <div
+                                    class="description description_psmgei"
+                                  >
+                                    <div
+                                      class="checkbox-and-option intermediateResponsiveCheckbox_tqugjn"
+                                    >
+                                      <span
+                                        class="checkbox perseusInteractive_18kcvhx-o_O-choiceIconWrapper_1htut3f"
+                                      >
+                                        <input
+                                          class="perseusSrOnly_19bpjuy"
+                                          id="perseus_radio_9-choice-0"
+                                          name="perseus_radio_9"
+                                          type="radio"
+                                        />
+                                        <div
+                                          class="iconWrapper_17y0hv9"
+                                        >
+                                          <span
+                                            class="ring_en36io"
+                                            style="border-color: transparent;"
+                                          >
+                                            <div
+                                              class="libraryCircle_1ytyy5d"
+                                              data-is-radio-icon="true"
+                                              style="border-color: #888d93; color: rgb(136, 141, 147);"
+                                            >
+                                              <div
+                                                class="perseus-sr-only"
+                                              >
+                                                (Choice A)
+                                              </div>
+                                              <div
+                                                aria-hidden="true"
+                                              >
+                                                A
+                                              </div>
+                                            </div>
+                                          </span>
+                                        </div>
+                                      </span>
+                                      <span
+                                        class="perseus-radio-option-content perseus-interactive"
+                                        style="cursor: default;"
+                                      >
+                                        <div
+                                          class="optionStatusContainer_uhlm2"
+                                        />
+                                        <div>
+                                          <span
+                                            class="mock-KatexProvider"
+                                          >
+                                            <div
+                                              class="perseus-renderer perseus-renderer-responsive"
+                                            >
+                                              <div
+                                                class="paragraph"
+                                                data-perseus-paragraph-index="0"
+                                              >
+                                                <div
+                                                  class="paragraph"
+                                                >
+                                                  A triangle with side lengths of 
+                                                  <span
+                                                    style="white-space: nowrap;"
+                                                  >
+                                                    <span />
+                                                    <span
+                                                      class="mock-TeX"
+                                                    >
+                                                      3
+                                                    </span>
+                                                    <span />
+                                                  </span>
+                                                  , 
+                                                  <span
+                                                    style="white-space: nowrap;"
+                                                  >
+                                                    <span />
+                                                    <span
+                                                      class="mock-TeX"
+                                                    >
+                                                      4
+                                                    </span>
+                                                    <span />
+                                                  </span>
+                                                  , and 
+                                                  <span
+                                                    style="white-space: nowrap;"
+                                                  >
+                                                    <span />
+                                                    <span
+                                                      class="mock-TeX"
+                                                    >
+                                                      5
+                                                    </span>
+                                                    <span />
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </span>
+                                        </div>
+                                      </span>
+                                    </div>
+                                  </div>
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li
+                        class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                      >
+                        <div>
+                          <div
+                            class="wrapper_e7hn5"
+                          >
+                            <div
+                              class="slidingContent_1b7d4h4"
+                            >
+                              <div
+                                class="content_1rmtpuj"
+                              >
+                                <label
+                                  class="checkbox-label label_1ekb3l0-o_O-responsiveLabel_19cgmwo"
+                                  for="perseus_radio_9-choice-1"
+                                  style="opacity: 1;"
+                                >
+                                  <div
+                                    class="description description_psmgei"
+                                  >
+                                    <div
+                                      class="checkbox-and-option intermediateResponsiveCheckbox_tqugjn"
+                                    >
+                                      <span
+                                        class="checkbox perseusInteractive_18kcvhx-o_O-choiceIconWrapper_1htut3f"
+                                      >
+                                        <input
+                                          class="perseusSrOnly_19bpjuy"
+                                          id="perseus_radio_9-choice-1"
+                                          name="perseus_radio_9"
+                                          type="radio"
+                                        />
+                                        <div
+                                          class="iconWrapper_17y0hv9"
+                                        >
+                                          <span
+                                            class="ring_en36io"
+                                            style="border-color: transparent;"
+                                          >
+                                            <div
+                                              class="libraryCircle_1ytyy5d"
+                                              data-is-radio-icon="true"
+                                              style="border-color: #888d93; color: rgb(136, 141, 147);"
+                                            >
+                                              <div
+                                                class="perseus-sr-only"
+                                              >
+                                                (Choice B)
+                                              </div>
+                                              <div
+                                                aria-hidden="true"
+                                              >
+                                                B
+                                              </div>
+                                            </div>
+                                          </span>
+                                        </div>
+                                      </span>
+                                      <span
+                                        class="perseus-radio-option-content perseus-interactive"
+                                        style="cursor: default;"
+                                      >
+                                        <div
+                                          class="optionStatusContainer_uhlm2"
+                                        />
+                                        <div>
+                                          <span
+                                            class="mock-KatexProvider"
+                                          >
+                                            <div
+                                              class="perseus-renderer perseus-renderer-responsive"
+                                            >
+                                              <div
+                                                class="paragraph"
+                                                data-perseus-paragraph-index="0"
+                                              >
+                                                <div
+                                                  class="paragraph"
+                                                >
+                                                  A triangle with side lengths of 
+                                                  <span
+                                                    style="white-space: nowrap;"
+                                                  >
+                                                    <span />
+                                                    <span
+                                                      class="mock-TeX"
+                                                    >
+                                                      6
+                                                    </span>
+                                                    <span />
+                                                  </span>
+                                                  , 
+                                                  <span
+                                                    style="white-space: nowrap;"
+                                                  >
+                                                    <span />
+                                                    <span
+                                                      class="mock-TeX"
+                                                    >
+                                                      7
+                                                    </span>
+                                                    <span />
+                                                  </span>
+                                                  , and 
+                                                  <span
+                                                    style="white-space: nowrap;"
+                                                  >
+                                                    <span />
+                                                    <span
+                                                      class="mock-TeX"
+                                                    >
+                                                      10
+                                                    </span>
+                                                    <span />
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </span>
+                                        </div>
+                                      </span>
+                                    </div>
+                                  </div>
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li
+                        class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                      >
+                        <div>
+                          <div
+                            class="wrapper_e7hn5"
+                          >
+                            <div
+                              class="slidingContent_1b7d4h4"
+                            >
+                              <div
+                                class="content_1rmtpuj"
+                              >
+                                <label
+                                  class="checkbox-label label_1ekb3l0-o_O-responsiveLabel_19cgmwo"
+                                  for="perseus_radio_9-choice-2"
+                                  style="opacity: 1;"
+                                >
+                                  <div
+                                    class="description description_psmgei"
+                                  >
+                                    <div
+                                      class="checkbox-and-option intermediateResponsiveCheckbox_tqugjn"
+                                    >
+                                      <span
+                                        class="checkbox perseusInteractive_18kcvhx-o_O-choiceIconWrapper_1htut3f"
+                                      >
+                                        <input
+                                          class="perseusSrOnly_19bpjuy"
+                                          id="perseus_radio_9-choice-2"
+                                          name="perseus_radio_9"
+                                          type="radio"
+                                        />
+                                        <div
+                                          class="iconWrapper_17y0hv9"
+                                        >
+                                          <span
+                                            class="ring_en36io"
+                                            style="border-color: transparent;"
+                                          >
+                                            <div
+                                              class="libraryCircle_1ytyy5d"
+                                              data-is-radio-icon="true"
+                                              style="border-color: #888d93; color: rgb(136, 141, 147);"
+                                            >
+                                              <div
+                                                class="perseus-sr-only"
+                                              >
+                                                (Choice C)
+                                              </div>
+                                              <div
+                                                aria-hidden="true"
+                                              >
+                                                C
+                                              </div>
+                                            </div>
+                                          </span>
+                                        </div>
+                                      </span>
+                                      <span
+                                        class="perseus-radio-option-content perseus-interactive"
+                                        style="cursor: default;"
+                                      >
+                                        <div
+                                          class="optionStatusContainer_uhlm2"
+                                        />
+                                        <div>
+                                          <span
+                                            class="mock-KatexProvider"
+                                          >
+                                            <div
+                                              class="perseus-renderer perseus-renderer-responsive"
+                                            >
+                                              <div
+                                                class="paragraph"
+                                                data-perseus-paragraph-index="0"
+                                              >
+                                                <div
+                                                  class="paragraph"
+                                                >
+                                                  A triangle with side lengths of 
+                                                  <span
+                                                    style="white-space: nowrap;"
+                                                  >
+                                                    <span />
+                                                    <span
+                                                      class="mock-TeX"
+                                                    >
+                                                      10
+                                                    </span>
+                                                    <span />
+                                                  </span>
+                                                  , 
+                                                  <span
+                                                    style="white-space: nowrap;"
+                                                  >
+                                                    <span />
+                                                    <span
+                                                      class="mock-TeX"
+                                                    >
+                                                      12
+                                                    </span>
+                                                    <span />
+                                                  </span>
+                                                  , and 
+                                                  <span
+                                                    style="white-space: nowrap;"
+                                                  >
+                                                    <span />
+                                                    <span
+                                                      class="mock-TeX"
+                                                    >
+                                                      18
+                                                    </span>
+                                                    <span />
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </span>
+                                        </div>
+                                      </span>
+                                    </div>
+                                  </div>
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li
+                        class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                      >
+                        <div>
+                          <div
+                            class="wrapper_e7hn5"
+                          >
+                            <div
+                              class="slidingContent_1b7d4h4"
+                            >
+                              <div
+                                class="content_1rmtpuj"
+                              >
+                                <label
+                                  class="checkbox-label label_1ekb3l0-o_O-responsiveLabel_19cgmwo"
+                                  for="perseus_radio_9-choice-3"
+                                  style="opacity: 1;"
+                                >
+                                  <div
+                                    class="description description_psmgei"
+                                  >
+                                    <div
+                                      class="checkbox-and-option intermediateResponsiveCheckbox_tqugjn"
+                                    >
+                                      <span
+                                        class="checkbox perseusInteractive_18kcvhx-o_O-choiceIconWrapper_1htut3f"
+                                      >
+                                        <input
+                                          class="perseusSrOnly_19bpjuy"
+                                          id="perseus_radio_9-choice-3"
+                                          name="perseus_radio_9"
+                                          type="radio"
+                                        />
+                                        <div
+                                          class="iconWrapper_17y0hv9"
+                                        >
+                                          <span
+                                            class="ring_en36io"
+                                            style="border-color: transparent;"
+                                          >
+                                            <div
+                                              class="libraryCircle_1ytyy5d"
+                                              data-is-radio-icon="true"
+                                              style="border-color: #888d93; color: rgb(136, 141, 147);"
+                                            >
+                                              <div
+                                                class="perseus-sr-only"
+                                              >
+                                                (Choice D)
+                                              </div>
+                                              <div
+                                                aria-hidden="true"
+                                              >
+                                                D
+                                              </div>
+                                            </div>
+                                          </span>
+                                        </div>
+                                      </span>
+                                      <span
+                                        class="perseus-radio-option-content perseus-interactive"
+                                        style="cursor: default;"
+                                      >
+                                        <div
+                                          class="optionStatusContainer_uhlm2"
+                                        />
+                                        <div>
+                                          <span
+                                            class="mock-KatexProvider"
+                                          >
+                                            <div
+                                              class="perseus-renderer perseus-renderer-responsive"
+                                            >
+                                              <div
+                                                class="paragraph"
+                                                data-perseus-paragraph-index="0"
+                                              >
+                                                <div
+                                                  class="paragraph"
+                                                >
+                                                  A triangle with side lengths of 
+                                                  <span
+                                                    style="white-space: nowrap;"
+                                                  >
+                                                    <span />
+                                                    <span
+                                                      class="mock-TeX"
+                                                    >
+                                                      12
+                                                    </span>
+                                                    <span />
+                                                  </span>
+                                                  , 
+                                                  <span
+                                                    style="white-space: nowrap;"
+                                                  >
+                                                    <span />
+                                                    <span
+                                                      class="mock-TeX"
+                                                    >
+                                                      14
+                                                    </span>
+                                                    <span />
+                                                  </span>
+                                                  , and 
+                                                  <span
+                                                    style="white-space: nowrap;"
+                                                  >
+                                                    <span />
+                                                    <span
+                                                      class="mock-TeX"
+                                                    >
+                                                      20
+                                                    </span>
+                                                    <span />
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </span>
+                                        </div>
+                                      </span>
+                                    </div>
+                                  </div>
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li
+                        class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                      >
+                        <div>
+                          <div
+                            class="wrapper_e7hn5"
+                          >
+                            <div
+                              class="slidingContent_1b7d4h4"
+                            >
+                              <div
+                                class="content_1rmtpuj"
+                              >
+                                <label
+                                  class="checkbox-label label_1ekb3l0-o_O-responsiveLabel_19cgmwo"
+                                  for="perseus_radio_9-choice-4"
+                                  style="opacity: 1;"
+                                >
+                                  <div
+                                    class="description description_psmgei"
+                                  >
+                                    <div
+                                      class="checkbox-and-option intermediateResponsiveCheckbox_tqugjn"
+                                    >
+                                      <span
+                                        class="checkbox perseusInteractive_18kcvhx-o_O-choiceIconWrapper_1htut3f"
+                                      >
+                                        <input
+                                          class="perseusSrOnly_19bpjuy"
+                                          id="perseus_radio_9-choice-4"
+                                          name="perseus_radio_9"
+                                          type="radio"
+                                        />
+                                        <div
+                                          class="iconWrapper_17y0hv9"
+                                        >
+                                          <span
+                                            class="ring_en36io"
+                                            style="border-color: transparent;"
+                                          >
+                                            <div
+                                              class="libraryCircle_1ytyy5d"
+                                              data-is-radio-icon="true"
+                                              style="border-color: #888d93; color: rgb(136, 141, 147);"
+                                            >
+                                              <div
+                                                class="perseus-sr-only"
+                                              >
+                                                (Choice E)
+                                              </div>
+                                              <div
+                                                aria-hidden="true"
+                                              >
+                                                E
+                                              </div>
+                                            </div>
+                                          </span>
+                                        </div>
+                                      </span>
+                                      <span
+                                        class="perseus-radio-option-content perseus-interactive"
+                                        style="cursor: default;"
+                                      >
+                                        <div
+                                          class="optionStatusContainer_uhlm2"
+                                        />
+                                        <div>
+                                          <span
+                                            class="mock-KatexProvider"
+                                          >
+                                            <div
+                                              class="perseus-renderer perseus-renderer-responsive"
+                                            >
+                                              <div
+                                                class="paragraph"
+                                                data-perseus-paragraph-index="0"
+                                              >
+                                                <div
+                                                  class="paragraph"
+                                                >
+                                                  A triangle with side lengths of 
+                                                  <span
+                                                    style="white-space: nowrap;"
+                                                  >
+                                                    <span />
+                                                    <span
+                                                      class="mock-TeX"
+                                                    >
+                                                      24
+                                                    </span>
+                                                    <span />
+                                                  </span>
+                                                  , 
+                                                  <span
+                                                    style="white-space: nowrap;"
+                                                  >
+                                                    <span />
+                                                    <span
+                                                      class="mock-TeX"
+                                                    >
+                                                      28
+                                                    </span>
+                                                    <span />
+                                                  </span>
+                                                  , and 
+                                                  <span
+                                                    style="white-space: nowrap;"
+                                                  >
+                                                    <span />
+                                                    <span
+                                                      class="mock-TeX"
+                                                    >
+                                                      40
+                                                    </span>
+                                                    <span />
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </span>
+                                        </div>
+                                      </span>
+                                    </div>
+                                  </div>
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </fieldset>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="paragraph"
+            data-perseus-paragraph-index="2"
+          >
+            <div
+              class="paragraph"
+            >
+              Enter the number 3 into this field: 
+              <div
+                class="perseus-widget-container widget-nohighlight widget-inline-block"
+              >
+                <span>
+                  <div>
+                    <input
+                      aria-describedby="input-with-examples-aW5wdXQtbnVtYmVyIDE"
+                      autocapitalize="off"
+                      autocomplete="off"
+                      autocorrect="off"
+                      class="perseus-input perseus-interactive perseus-input-size-normal"
+                      spellcheck="false"
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                  <div
+                    style="position: relative; height: 0px; display: none;"
+                  >
+                    <div
+                      class="tooltipContainer"
+                      style="position: absolute; left: 0px;"
+                    >
+                      <div
+                        style="display: block; position: relative; visibility: visible; left: 0px; top: -1px; width: 12px; height: 11px; margin-top: -1px; margin-bottom: -2px; z-index: 10;"
+                      >
+                        <div
+                          style="display: block; height: 0px; width: 0px; position: absolute; left: 0px; top: -1px; border-right: 12px solid transparent; border-bottom: 12px solid #ccc;"
+                        />
+                        <div
+                          style="display: block; height: 0px; width: 0px; position: absolute; left: 1px; top: 1px; border-right: 10px solid transparent; border-bottom: 10px solid white;"
+                        />
+                      </div>
+                      <div
+                        class="perseus-formats-tooltip preview-measure"
+                        style="position: relative; top: 0px; left: 0px; border: 1px solid #ccc; box-shadow: 0 1px 3px #ccc; z-index: 9;"
+                      >
+                        <div
+                          id="input-with-examples-aW5wdXQtbnVtYmVyIDE"
+                        >
+                          <span
+                            class="mock-KatexProvider"
+                          >
+                            <div
+                              class="perseus-renderer perseus-renderer-responsive"
+                            >
+                              <div
+                                class="paragraph"
+                                data-perseus-paragraph-index="0"
+                              >
+                                <ul>
+                                  <li>
+                                    <strong>
+                                      Your answer should be
+                                    </strong>
+                                  </li>
+                                  <li>
+                                    an integer, like 
+                                    <span
+                                      style="white-space: nowrap;"
+                                    >
+                                      <span />
+                                      <span
+                                        class="mock-TeX"
+                                      >
+                                        6
+                                      </span>
+                                      <span />
+                                    </span>
+                                  </li>
+                                  <li>
+                                    an 
+                                    <em>
+                                      exact
+                                    </em>
+                                     decimal, like 
+                                    <span
+                                      style="white-space: nowrap;"
+                                    >
+                                      <span />
+                                      <span
+                                        class="mock-TeX"
+                                      >
+                                        0.75
+                                      </span>
+                                      <span />
+                                    </span>
+                                  </li>
+                                  <li>
+                                    a 
+                                    <em>
+                                      simplified proper
+                                    </em>
+                                     fraction, like 
+                                    <span
+                                      style="white-space: nowrap;"
+                                    >
+                                      <span />
+                                      <span
+                                        class="mock-TeX"
+                                      >
+                                        3/5
+                                      </span>
+                                      <span />
+                                    </span>
+                                  </li>
+                                  <li>
+                                    a 
+                                    <em>
+                                      simplified improper
+                                    </em>
+                                     fraction, like 
+                                    <span
+                                      style="white-space: nowrap;"
+                                    >
+                                      <span />
+                                      <span
+                                        class="mock-TeX"
+                                      >
+                                        7/4
+                                      </span>
+                                      <span />
+                                    </span>
+                                  </li>
+                                  <li>
+                                    a mixed number, like 
+                                    <span
+                                      style="white-space: nowrap;"
+                                    >
+                                      <span />
+                                      <span
+                                        class="mock-TeX"
+                                      >
+                                        1\\ 3/4
+                                      </span>
+                                      <span />
+                                    </span>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </span>
+    </div>
+    <div
+      id="hints"
+    >
+      <div
+        class=""
+      >
+        <div
+          class="perseus-hint-renderer last-rendered"
+          tabindex="-1"
+        >
+          <span
+            class="perseus-sr-only"
+          >
+            Hint #1
+          </span>
+          <span
+            class="perseus-hint-label"
+            style="display: block;"
+          >
+            1 / 3
+          </span>
+          <span
+            class="mock-KatexProvider"
+          >
+            <div
+              class="perseus-renderer perseus-renderer-responsive"
+            >
+              <div
+                class="paragraph"
+                data-perseus-paragraph-index="0"
+              >
+                <div
+                  class="paragraph"
+                >
+                  If two triangles are congruent, then they have the same side lengths and angle measures.
+                </div>
+              </div>
+            </div>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

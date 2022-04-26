@@ -1,0 +1,127 @@
+.draggy-boxy-thing-hover (@color: #ffa500) {
+    border-color: @color;
+    @darker: darken(@color, 11%);
+    box-shadow: 0 0 4px @darker;
+    -moz-box-shadow: 0 0 4px @darker;
+    -ms-box-shadow: 0 0 4px @darker;
+    -o-box-shadow: 0 0 4px @darker;
+    -webkit-box-shadow: 0 0 4px @darker;
+}
+
+.draggy-boxy-thing {
+    .draggable-box,
+    .cards-area {
+        background: #eee;
+        border: 1px solid #ccc;
+        border-bottom: 1px solid #aaa;
+
+        box-shadow: 0 1px 2px #ccc;
+        -moz-box-shadow: 0 1px 2px #ccc;
+        -webkit-box-shadow: 0 1px 2px #ccc;
+    }
+
+    // TODO(jack): Make this work for the orderer too.
+    // Right now don't do this for the orderer because it uses
+    // more complicated positioning that this would break
+    .cards-area {
+        .above-scratchpad;
+    }
+
+    .card {
+        .perseus-interactive;
+
+        background-color: #fff;
+        border: 1px solid #b9b9b9;
+        border-bottom-color: #939393;
+        border-radius: 4px;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -o-user-select: none;
+        cursor: pointer;
+        touch-action: none;
+
+        &.placeholder {
+            background:#ddd;
+            border: 1px solid #ccc;
+        }
+
+        &.drag-hint {
+            background: none;
+            border: 1px dashed #aaa;
+            cursor: auto;
+
+            &:hover {
+                border-color: #aaa;
+                box-shadow: none;
+            }
+        }
+
+        &.dragging {
+            background-color: #ffedcd;
+            opacity: 0.8;
+            filter: opacity(0.8);
+        }
+
+        &.stack {
+            z-index: auto;
+            &:after {
+                content: " ";
+                background-color: #fff;
+                border: 1px solid #b9b9b9;
+                border-bottom-color: #939393;
+                border-radius: 4px;
+                -moz-border-radius: 4px;
+                -webkit-border-radius: 4px;
+                height: 100%;
+                width: 100%;
+                z-index: -1;
+                top: 1px;
+                left: 1px;
+                position: absolute;
+            }
+        }
+
+        &:hover {
+            .draggy-boxy-thing-hover();
+        }
+    }
+}
+
+// TODO(benkomalo): ideally all of these would be removed as all of the other
+// sortable styles have been moved to inline styles using Aphrodite. However,
+// these are all hacky styles that reach down into descendents in ways that
+// they probably shouldn't, so Aphrodite doesn't support it. This will require
+// a larger refactoring to wire down options to nested `Renderer`s so they can
+// have their styling modified.
+.perseus-sortable {
+    div.paragraph {
+        margin: 0;
+    }
+
+    .perseus-sortable-draggable {
+        &:before {
+            // Vertical-align, part 1
+            content: "";
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+        }
+
+        & > div {
+            // Vertical-align, part 2
+            display: inline-block;
+            font-size: 14px;
+            max-width: 100%;
+            vertical-align: middle;
+        }
+    }
+
+    .perseus-sortable-draggable-unpadded {
+        img {
+            vertical-align: bottom;
+        }
+    }
+}

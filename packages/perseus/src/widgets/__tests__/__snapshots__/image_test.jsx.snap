@@ -1,0 +1,388 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`image widget - isMobile %b should snapshot: first render 1`] = `
+<div>
+  <span
+    class="mock-KatexProvider"
+  >
+    <div
+      class="perseus-renderer perseus-renderer-responsive perseus-renderer-two-columns"
+    >
+      <div
+        class="paragraph"
+        data-perseus-paragraph-index="0"
+      >
+        <div
+          class="perseus-two-columns"
+        >
+          <div
+            class="perseus-column"
+          >
+            <div
+              class="perseus-column-content"
+            >
+              <div
+                class="paragraph"
+              >
+                <div
+                  class="perseus-widget-container widget-nohighlight widget-block"
+                >
+                  <div
+                    class="perseus-image-widget"
+                  >
+                    <div
+                      class="fixed-to-responsive svg-image"
+                      style="max-width: 420px; max-height: 345px;"
+                    >
+                      <div
+                        style="padding-bottom: 82.14%;"
+                      />
+                      <span
+                        style="background: url(/images/spinner.gif) no-repeat; background-position: center; width: 100%; height: 100%; position: absolute; min-width: 20px;"
+                      />
+                    </div>
+                    <span
+                      class="perseus-sr-only"
+                    >
+                      <span
+                        class="mock-KatexProvider"
+                      >
+                        <div
+                          class="perseus-renderer perseus-renderer-responsive"
+                        >
+                          <div
+                            class="paragraph"
+                            data-perseus-paragraph-index="0"
+                          >
+                            <div
+                              class="paragraph"
+                            >
+                              An array of isosceles triangles. A triangle has height A. Two smaller triangle, one with height B and one with height C, have approximately the same combined height as A.
+                            </div>
+                          </div>
+                        </div>
+                      </span>
+                    </span>
+                    <div
+                      class="perseus-image-caption has-title"
+                    >
+                      <div
+                        class="caption_4bstk7"
+                      >
+                        <span
+                          class="mock-KatexProvider"
+                        >
+                          <div
+                            class="perseus-renderer perseus-renderer-responsive"
+                          >
+                            <div
+                              class="paragraph"
+                              data-perseus-paragraph-index="0"
+                            >
+                              <div
+                                class="paragraph"
+                              >
+                                <strong>
+                                  Image Title.
+                                </strong>
+                                 Image Caption
+                              </div>
+                            </div>
+                          </div>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="perseus-column"
+          >
+            <div
+              class="sat-header-grafting-area"
+            />
+            <div
+              class="perseus-column-content"
+            >
+              <div
+                class="sat-skill-subscore-grafting-area"
+              />
+              <div
+                class="paragraph"
+              >
+                A quilter wants to make the design shown at left using the Golden Ratio. Specifically, he wants the ratio of the triangle heights 
+                <span
+                  style="white-space: nowrap;"
+                >
+                  <span />
+                  <span
+                    class="mock-TeX"
+                  >
+                    A:B
+                  </span>
+                  <span />
+                </span>
+                 and 
+                <span
+                  style="white-space: nowrap;"
+                >
+                  <span />
+                  <span
+                    class="mock-TeX"
+                  >
+                    B:C
+                  </span>
+                  <span />
+                </span>
+                 to each equal 
+                <span
+                  style="white-space: nowrap;"
+                >
+                  <span />
+                  <span
+                    class="mock-TeX"
+                  >
+                    1.62
+                  </span>
+                  <span />
+                </span>
+                . If the quilter makes the triangle height 
+                <span
+                  style="white-space: nowrap;"
+                >
+                  <span />
+                  <span
+                    class="mock-TeX"
+                  >
+                    A=8\\ \\text{in}
+                  </span>
+                  <span />
+                </span>
+                , approximately how tall should he make triangle height 
+                <span
+                  style="white-space: nowrap;"
+                >
+                  <span />
+                  <span
+                    class="mock-TeX"
+                  >
+                    C
+                  </span>
+                  <span />
+                </span>
+                ?
+              </div>
+              <div
+                class="sat-grafting-area"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </span>
+</div>
+`;
+
+exports[`image widget - isMobile %b should snapshot: first render 2`] = `
+<div>
+  <span
+    class="mock-KatexProvider"
+  >
+    <div
+      class="perseus-renderer perseus-renderer-responsive perseus-renderer-two-columns"
+    >
+      <div
+        class="paragraph"
+        data-perseus-paragraph-index="0"
+      >
+        <div
+          class="perseus-two-columns"
+        >
+          <div
+            class="perseus-column"
+          >
+            <div
+              class="perseus-column-content"
+            >
+              <div
+                class="paragraph"
+              >
+                <div
+                  class="perseus-widget-container widget-nohighlight widget-block"
+                >
+                  <div
+                    class="perseus-image-widget"
+                  >
+                    <div
+                      class="perseus-image-title"
+                    >
+                      <span
+                        class="mock-KatexProvider"
+                      >
+                        <div
+                          class="perseus-renderer perseus-renderer-responsive"
+                        >
+                          <div
+                            class="paragraph"
+                            data-perseus-paragraph-index="0"
+                          >
+                            <div
+                              class="paragraph"
+                            >
+                              Image Title
+                            </div>
+                          </div>
+                        </div>
+                      </span>
+                    </div>
+                    <div
+                      class="fixed-to-responsive svg-image"
+                      style="max-width: 420px; max-height: 345px;"
+                    >
+                      <div
+                        style="padding-bottom: 82.14%;"
+                      />
+                      <span
+                        style="background: url(/images/spinner.gif) no-repeat; background-position: center; width: 100%; height: 100%; position: absolute; min-width: 20px;"
+                      />
+                    </div>
+                    <span
+                      class="perseus-sr-only"
+                    >
+                      <span
+                        class="mock-KatexProvider"
+                      >
+                        <div
+                          class="perseus-renderer perseus-renderer-responsive"
+                        >
+                          <div
+                            class="paragraph"
+                            data-perseus-paragraph-index="0"
+                          >
+                            <div
+                              class="paragraph"
+                            >
+                              An array of isosceles triangles. A triangle has height A. Two smaller triangle, one with height B and one with height C, have approximately the same combined height as A.
+                            </div>
+                          </div>
+                        </div>
+                      </span>
+                    </span>
+                    <div
+                      class="perseus-image-caption"
+                    >
+                      <span
+                        class="mock-KatexProvider"
+                      >
+                        <div
+                          class="perseus-renderer perseus-renderer-responsive"
+                        >
+                          <div
+                            class="paragraph"
+                            data-perseus-paragraph-index="0"
+                          >
+                            <div
+                              class="paragraph"
+                            >
+                              Image Caption
+                            </div>
+                          </div>
+                        </div>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="perseus-column"
+          >
+            <div
+              class="sat-header-grafting-area"
+            />
+            <div
+              class="perseus-column-content"
+            >
+              <div
+                class="sat-skill-subscore-grafting-area"
+              />
+              <div
+                class="paragraph"
+              >
+                A quilter wants to make the design shown at left using the Golden Ratio. Specifically, he wants the ratio of the triangle heights 
+                <span
+                  style="white-space: nowrap;"
+                >
+                  <span />
+                  <span
+                    class="mock-TeX"
+                  >
+                    A:B
+                  </span>
+                  <span />
+                </span>
+                 and 
+                <span
+                  style="white-space: nowrap;"
+                >
+                  <span />
+                  <span
+                    class="mock-TeX"
+                  >
+                    B:C
+                  </span>
+                  <span />
+                </span>
+                 to each equal 
+                <span
+                  style="white-space: nowrap;"
+                >
+                  <span />
+                  <span
+                    class="mock-TeX"
+                  >
+                    1.62
+                  </span>
+                  <span />
+                </span>
+                . If the quilter makes the triangle height 
+                <span
+                  style="white-space: nowrap;"
+                >
+                  <span />
+                  <span
+                    class="mock-TeX"
+                  >
+                    A=8\\ \\text{in}
+                  </span>
+                  <span />
+                </span>
+                , approximately how tall should he make triangle height 
+                <span
+                  style="white-space: nowrap;"
+                >
+                  <span />
+                  <span
+                    class="mock-TeX"
+                  >
+                    C
+                  </span>
+                  <span />
+                </span>
+                ?
+              </div>
+              <div
+                class="sat-grafting-area"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </span>
+</div>
+`;

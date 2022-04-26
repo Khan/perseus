@@ -1,0 +1,473 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Explanation should snapshot for article when expanded: expanded 1`] = `
+<div>
+  <span
+    class="mock-KatexProvider"
+  >
+    <div
+      class="perseus-renderer perseus-renderer-responsive"
+    >
+      <div
+        class="paragraph"
+        data-perseus-paragraph-index="0"
+      >
+        <div
+          class="paragraph"
+        >
+          Here's the explanation
+
+          <div
+            class="perseus-widget-container widget-nohighlight widget-inline"
+          >
+            <div
+              class="container_167wsvl"
+            >
+              <div
+                class="linkContainer_36rlri-o_O-articleLink_17wlykh"
+              >
+                <a
+                  aria-expanded="true"
+                  class="explanationLink_7n4oib"
+                  href="javascript:void(0)"
+                  role="button"
+                >
+                  [Hide explanation!]
+                </a>
+              </div>
+              <div
+                class="content_z5b02x-o_O-contentExpanded_1c06cap"
+              >
+                <span
+                  class="mock-KatexProvider"
+                >
+                  <div
+                    class="perseus-renderer perseus-renderer-responsive"
+                  >
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="0"
+                    >
+                      <div
+                        class="paragraph"
+                      >
+                        This is an explanation
+                      </div>
+                    </div>
+                  </div>
+                </span>
+              </div>
+            </div>
+          </div>
+          
+Did you get that?
+        </div>
+      </div>
+    </div>
+  </span>
+</div>
+`;
+
+exports[`Explanation should snapshot for article+mobile when expanded: expanded 1`] = `
+<div>
+  <span
+    class="mock-KatexProvider"
+  >
+    <div
+      class="perseus-renderer perseus-renderer-responsive"
+    >
+      <div
+        class="paragraph"
+        data-perseus-paragraph-index="0"
+      >
+        <div
+          class="paragraph"
+        >
+          Here's the explanation
+
+          <div
+            class="perseus-widget-container widget-nohighlight widget-inline"
+          >
+            <div
+              class="container_167wsvl"
+            >
+              <div
+                class="linkContainer_36rlri"
+              >
+                <a
+                  aria-expanded="true"
+                  class="mobileExplanationLink_his27d"
+                  href="javascript:void(0)"
+                  role="button"
+                >
+                  Hide explanation!
+                </a>
+                <svg
+                  class="disclosureArrow_12nx0hv"
+                >
+                  <polygon
+                    points="0,14 30,14 15,0"
+                    style="fill: #F0F1F2;"
+                  />
+                </svg>
+              </div>
+              <div
+                class="content_z5b02x-o_O-contentMobile_1wvx5oh-o_O-contentExpandedMobile_knze7z"
+              >
+                <span
+                  class="mock-KatexProvider"
+                >
+                  <div
+                    class="perseus-renderer perseus-renderer-responsive"
+                  >
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="0"
+                    >
+                      <div
+                        class="paragraph"
+                      >
+                        This is an explanation
+                      </div>
+                    </div>
+                  </div>
+                </span>
+              </div>
+            </div>
+          </div>
+          
+Did you get that?
+        </div>
+      </div>
+    </div>
+  </span>
+</div>
+`;
+
+exports[`Explanation should snapshot for article+mobile: initial render 1`] = `
+<div>
+  <span
+    class="mock-KatexProvider"
+  >
+    <div
+      class="perseus-renderer perseus-renderer-responsive"
+    >
+      <div
+        class="paragraph"
+        data-perseus-paragraph-index="0"
+      >
+        <div
+          class="paragraph"
+        >
+          Here's the explanation
+
+          <div
+            class="perseus-widget-container widget-nohighlight widget-inline"
+          >
+            <div
+              class="container_167wsvl"
+            >
+              <div
+                class="linkContainer_36rlri"
+              >
+                <a
+                  aria-expanded="false"
+                  class="mobileExplanationLink_his27d"
+                  href="javascript:void(0)"
+                  role="button"
+                >
+                  Explanation
+                </a>
+              </div>
+            </div>
+          </div>
+          
+Did you get that?
+        </div>
+      </div>
+    </div>
+  </span>
+</div>
+`;
+
+exports[`Explanation should snapshot for article: initial render 1`] = `
+<div>
+  <span
+    class="mock-KatexProvider"
+  >
+    <div
+      class="perseus-renderer perseus-renderer-responsive"
+    >
+      <div
+        class="paragraph"
+        data-perseus-paragraph-index="0"
+      >
+        <div
+          class="paragraph"
+        >
+          Here's the explanation
+
+          <div
+            class="perseus-widget-container widget-nohighlight widget-inline"
+          >
+            <div
+              class="container_167wsvl"
+            >
+              <div
+                class="linkContainer_36rlri-o_O-articleLink_17wlykh"
+              >
+                <a
+                  aria-expanded="false"
+                  class="explanationLink_7n4oib"
+                  href="javascript:void(0)"
+                  role="button"
+                >
+                  [Explanation]
+                </a>
+              </div>
+            </div>
+          </div>
+          
+Did you get that?
+        </div>
+      </div>
+    </div>
+  </span>
+</div>
+`;
+
+exports[`Explanation should snapshot for mobile when expanded: expanded 1`] = `
+<div>
+  <span
+    class="mock-KatexProvider"
+  >
+    <div
+      class="perseus-renderer perseus-renderer-responsive"
+    >
+      <div
+        class="paragraph"
+        data-perseus-paragraph-index="0"
+      >
+        <div
+          class="paragraph"
+        >
+          Here's the explanation
+
+          <div
+            class="perseus-widget-container widget-nohighlight widget-inline"
+          >
+            <div
+              class="container_167wsvl"
+            >
+              <div
+                class="linkContainer_36rlri"
+              >
+                <a
+                  aria-expanded="true"
+                  class="mobileExplanationLink_his27d"
+                  href="javascript:void(0)"
+                  role="button"
+                >
+                  Hide explanation!
+                </a>
+                <svg
+                  class="disclosureArrow_12nx0hv"
+                >
+                  <polygon
+                    points="0,14 30,14 15,0"
+                    style="fill: #F0F1F2;"
+                  />
+                </svg>
+              </div>
+              <div
+                class="content_z5b02x-o_O-contentMobile_1wvx5oh-o_O-contentExpandedMobile_knze7z"
+              >
+                <span
+                  class="mock-KatexProvider"
+                >
+                  <div
+                    class="perseus-renderer perseus-renderer-responsive"
+                  >
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="0"
+                    >
+                      <div
+                        class="paragraph"
+                      >
+                        This is an explanation
+                      </div>
+                    </div>
+                  </div>
+                </span>
+              </div>
+            </div>
+          </div>
+          
+Did you get that?
+        </div>
+      </div>
+    </div>
+  </span>
+</div>
+`;
+
+exports[`Explanation should snapshot for mobile: initial render 1`] = `
+<div>
+  <span
+    class="mock-KatexProvider"
+  >
+    <div
+      class="perseus-renderer perseus-renderer-responsive"
+    >
+      <div
+        class="paragraph"
+        data-perseus-paragraph-index="0"
+      >
+        <div
+          class="paragraph"
+        >
+          Here's the explanation
+
+          <div
+            class="perseus-widget-container widget-nohighlight widget-inline"
+          >
+            <div
+              class="container_167wsvl"
+            >
+              <div
+                class="linkContainer_36rlri"
+              >
+                <a
+                  aria-expanded="false"
+                  class="mobileExplanationLink_his27d"
+                  href="javascript:void(0)"
+                  role="button"
+                >
+                  Explanation
+                </a>
+              </div>
+            </div>
+          </div>
+          
+Did you get that?
+        </div>
+      </div>
+    </div>
+  </span>
+</div>
+`;
+
+exports[`Explanation should snapshot when expanded: expanded 1`] = `
+<div>
+  <span
+    class="mock-KatexProvider"
+  >
+    <div
+      class="perseus-renderer perseus-renderer-responsive"
+    >
+      <div
+        class="paragraph"
+        data-perseus-paragraph-index="0"
+      >
+        <div
+          class="paragraph"
+        >
+          Here's the explanation
+
+          <div
+            class="perseus-widget-container widget-nohighlight widget-inline"
+          >
+            <div
+              class="container_167wsvl"
+            >
+              <div
+                class="linkContainer_36rlri-o_O-exerciseLink_574wt1"
+              >
+                <a
+                  aria-expanded="true"
+                  class="explanationLink_7n4oib"
+                  href="javascript:void(0)"
+                  role="button"
+                >
+                  [Hide explanation!]
+                </a>
+              </div>
+              <div
+                class="content_z5b02x-o_O-contentExpanded_1c06cap"
+              >
+                <span
+                  class="mock-KatexProvider"
+                >
+                  <div
+                    class="perseus-renderer perseus-renderer-responsive"
+                  >
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="0"
+                    >
+                      <div
+                        class="paragraph"
+                      >
+                        This is an explanation
+                      </div>
+                    </div>
+                  </div>
+                </span>
+              </div>
+            </div>
+          </div>
+          
+Did you get that?
+        </div>
+      </div>
+    </div>
+  </span>
+</div>
+`;
+
+exports[`Explanation should snapshot: initial render 1`] = `
+<div>
+  <span
+    class="mock-KatexProvider"
+  >
+    <div
+      class="perseus-renderer perseus-renderer-responsive"
+    >
+      <div
+        class="paragraph"
+        data-perseus-paragraph-index="0"
+      >
+        <div
+          class="paragraph"
+        >
+          Here's the explanation
+
+          <div
+            class="perseus-widget-container widget-nohighlight widget-inline"
+          >
+            <div
+              class="container_167wsvl"
+            >
+              <div
+                class="linkContainer_36rlri-o_O-exerciseLink_574wt1"
+              >
+                <a
+                  aria-expanded="false"
+                  class="explanationLink_7n4oib"
+                  href="javascript:void(0)"
+                  role="button"
+                >
+                  [Explanation]
+                </a>
+              </div>
+            </div>
+          </div>
+          
+Did you get that?
+        </div>
+      </div>
+    </div>
+  </span>
+</div>
+`;
