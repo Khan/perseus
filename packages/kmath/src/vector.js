@@ -17,6 +17,14 @@ function arrayProduct(array: $ReadOnlyArray<number>): number {
     return array.reduce((memo, arg) => memo * arg, 1);
 }
 
+/**
+ * Checks if the given vector contains only numbers and, optionally, is of the
+ * right dimension (length).
+ *
+ * is([1, 2, 3]) -> true
+ * is([1, "Hello", 3]) -> false
+ * is([1, 2, 3], 1) -> false
+ */
 export function is<T>(vec: $ReadOnlyArray<T>, dimension?: number): boolean {
     if (!_.isArray(vec)) {
         return false;
