@@ -7,7 +7,7 @@
 import _ from "underscore";
 import * as knumber from "./number.js";
 
-type Vec = $ReadOnlyArray<number>;
+type Vector = $ReadOnlyArray<number>;
 
 function arraySum(array: $ReadOnlyArray<number>): number {
     return array.reduce((memo, arg) => memo + arg, 0);
@@ -36,16 +36,16 @@ export function is<T>(vec: $ReadOnlyArray<T>, dimension?: number): boolean {
 }
 
 // Normalize to a unit vector
-export function normalize<V: Vec>(v: V): V {
+export function normalize<V: Vector>(v: V): V {
     return scale(v, 1 / length(v));
 }
 
 // Length/magnitude of a vector
-export function length(v: Vec): number {
+export function length(v: Vector): number {
     return Math.sqrt(dot(v, v));
 }
 // Dot product of two vectors
-export function dot(a: Vec, b: Vec): number {
+export function dot(a: Vector, b: Vector): number {
     // $FlowFixMe[incompatible-call] underscore doesn't like $ReadOnlyArray
     const zipped = _.zip(a, b);
     const multiplied = zipped.map(arrayProduct);
@@ -56,18 +56,18 @@ export function dot(a: Vec, b: Vec): number {
  *
  * add([1, 2], [3, 4]) -> [4, 6]
  */
-export function add<V: Vec>(...vecs: $ReadOnlyArray<V>): V {
+export function add<V: Vector>(...vecs: $ReadOnlyArray<V>): V {
     // $FlowFixMe[incompatible-call] underscore doesn't like $ReadOnlyArray
     const zipped = _.zip(...vecs);
     return zipped.map(arraySum);
 }
 
-export function subtract<V: Vec>(v1: V, v2: V): V {
+export function subtract<V: Vector>(v1: V, v2: V): V {
     // $FlowFixMe[incompatible-call] underscore doesn't like $ReadOnlyArray
     return _.zip(v1, v2).map((dim) => dim[0] - dim[1]);
 }
 
-export function negate<V: Vec>(v: V): V {
+export function negate<V: Vector>(v: V): V {
     // $FlowFixMe[incompatible-return] Flow's `.map()` libdef is lacking
     return v.map((x) => {
         return -x;
@@ -75,14 +75,14 @@ export function negate<V: Vec>(v: V): V {
 }
 
 // Scale a vector
-export function scale<V: Vec>(v1: V, scalar: number): V {
+export function scale<V: Vector>(v1: V, scalar: number): V {
     // $FlowFixMe[incompatible-return] Flow's `.map()` libdef is lacking
     return v1.map((x) => {
         return x * scalar;
     });
 }
 
-export function equal(v1: Vec, v2: Vec, tolerance?: number): boolean {
+export function equal(v1: Vector, v2: Vector, tolerance?: number): boolean {
     // _.zip will nicely deal with the lengths, going through
     // the length of the longest vector. knumber.equal then
     // returns false for any number compared to the undefined
@@ -93,7 +93,11 @@ export function equal(v1: Vec, v2: Vec, tolerance?: number): boolean {
     );
 }
 
-export function codirectional(v1: Vec, v2: Vec, tolerance?: number): boolean {
+export function codirectional(
+    v1: Vector,
+    v2: Vector,
+    tolerance?: number,
+): boolean {
     // The origin is trivially codirectional with all other vectors.
     // This gives nice semantics for codirectionality between points when
     // comparing their difference vectors.
@@ -110,7 +114,7 @@ export function codirectional(v1: Vec, v2: Vec, tolerance?: number): boolean {
     return equal(v1, v2, tolerance);
 }
 
-export function collinear(v1: Vec, v2: Vec, tolerance?: number): boolean {
+export function collinear(v1: Vector, v2: Vector, tolerance?: number): boolean {
     return (
         codirectional(v1, v2, tolerance) ||
         codirectional(v1, negate(v2), tolerance)
@@ -210,7 +214,7 @@ export function projection(
 }
 
 // Round each number to a certain number of decimal places
-export function round<V: Vec>(vec: V, precision: V | number): V {
+export function round<V: Vector>(vec: V, precision: V | number): V {
     // $FlowFixMe[incompatible-return] Flow's `.map()` libdef is lacking
     return vec.map((elem, i) =>
         // $FlowFixMe[prop-missing]
@@ -220,7 +224,7 @@ export function round<V: Vec>(vec: V, precision: V | number): V {
 }
 
 // Round each number to the nearest increment
-export function roundTo<V: Vec>(vec: V, increment: V | number): V {
+export function roundTo<V: Vector>(vec: V, increment: V | number): V {
     // $FlowFixMe[incompatible-return] Flow's `.map()` libdef is lacking
     return vec.map((elem, i) =>
         // $FlowFixMe[prop-missing]
@@ -229,7 +233,7 @@ export function roundTo<V: Vec>(vec: V, increment: V | number): V {
     );
 }
 
-export function floorTo<V: Vec>(vec: V, increment: V | number): V {
+export function floorTo<V: Vector>(vec: V, increment: V | number): V {
     // $FlowFixMe[incompatible-return] Flow's `.map()` libdef is lacking
     return vec.map((elem, i) =>
         // $FlowFixMe[prop-missing]
@@ -238,7 +242,7 @@ export function floorTo<V: Vec>(vec: V, increment: V | number): V {
     );
 }
 
-export function ceilTo<V: Vec>(vec: V, increment: V | number): V {
+export function ceilTo<V: Vector>(vec: V, increment: V | number): V {
     // $FlowFixMe[incompatible-return] Flow's `.map()` libdef is lacking
     return vec.map((elem, i) =>
         // $FlowFixMe[prop-missing]
