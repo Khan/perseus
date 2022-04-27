@@ -2,7 +2,6 @@
 import Button from "@khanacademy/wonder-blocks-button";
 import {OnePaneDialog} from "@khanacademy/wonder-blocks-modal";
 import {StyleSheet, css} from "aphrodite";
-import moment from "moment";
 import * as React from "react";
 
 import mediaQueries from "../../../styles/media-queries.js";
@@ -107,10 +106,10 @@ class DismissDemo extends React.PureComponent<Empty, {|dismissed: boolean|}> {
 
 class ContentChangingTooltip extends React.PureComponent<
     Empty,
-    {|now: moment$Moment|},
+    {|now: number|},
 > {
     _interval: ?IntervalID;
-    state = {now: moment()};
+    state = {now: Date.now()};
 
     componentDidMount() {
         // TODO(jeff, WEB-1378): Use Wonder Blocks Timing API.
@@ -127,14 +126,14 @@ class ContentChangingTooltip extends React.PureComponent<
     }
 
     _updateTime = () => {
-        this.setState({now: moment()});
+        this.setState({now: Date.now()});
     };
 
     render(): React.Node {
         return (
             <div className={css(styles.wrapper)}>
                 <NewTooltip
-                    content={"Clock: " + this.state.now.format("HH:mm:ss")}
+                    content={"Timestamp: " + this.state.now}
                     toggleOnHover={false}
                     showOnMount
                     a11y={{title: "Content-changing permanent tooltip"}}

@@ -453,6 +453,7 @@ class Plotter extends React.Component<$FlowFixMe, $FlowFixMe> {
             .addClass("rotate");
 
         if (this.props.apiOptions.isMobile) {
+            // $FlowFixMe[invalid-constructor]
             this.horizHairline = new WrappedLine(this.graphie, [0, 0], [0, 0], {
                 normalStyle: {
                     strokeWidth: 1,

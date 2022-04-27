@@ -19,7 +19,7 @@ import type {Shape} from "./shape-types.js";
  *
  * Usage: `propTypes: {shape: shapePropType}`.
  */
-export function shapePropType(...args: $ReadOnlyArray<any>) {
+export function shapePropType(...args: $ReadOnlyArray<any>): $FlowFixMe {
     const itemShape = PropTypes.oneOfType([
         PropTypes.shape({
             type: PropTypes.oneOf(["content"]).isRequired,
@@ -49,7 +49,7 @@ export function shapePropType(...args: $ReadOnlyArray<any>) {
  *
  * Usage: `propTypes: {item: buildPropTypeForShape(myShape)}`
  */
-export function buildPropTypeForShape(shape: Shape) {
+export function buildPropTypeForShape(shape: Shape): $FlowFixMe {
     return PropTypes.oneOfType([
         PropTypes.shape({
             _multi: buildTreePropTypeForShape(shape),
@@ -62,7 +62,7 @@ export function buildPropTypeForShape(shape: Shape) {
  * Return a PropType that accepts ItemTrees of the given shape, and rejects
  * other objects.
  */
-function buildTreePropTypeForShape(shape: Shape) {
+function buildTreePropTypeForShape(shape: Shape): $FlowFixMe {
     if (shape.type === "content") {
         return PropTypes.shape({
             // TODO(mdr): Remove #LegacyContentNode support.

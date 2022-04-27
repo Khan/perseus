@@ -1079,6 +1079,7 @@ GraphUtils.createGraphie = function (el) {
         },
     };
 
+    // $FlowFixMe[invalid-constructor]
     const graphie = new Graphie();
     _.extend(graphie, {
         raphael: raphael,

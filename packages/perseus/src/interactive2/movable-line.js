@@ -159,6 +159,7 @@ _.extend(MovableLine.prototype, {
                     mouselayer: true,
                     interactiveKindForTesting: "movable-line",
                 };
+                // $FlowFixMe[invalid-constructor]
                 state.mouseTarget = new WrappedLine(
                     graphie,
                     this.coord(0),

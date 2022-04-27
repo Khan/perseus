@@ -209,6 +209,7 @@ ZoomServiceClass.prototype.handleZoomClick = function (e, enableMobilePinch) {
 };
 
 ZoomServiceClass.prototype._zoom = function (target) {
+    // $FlowFixMe[invalid-constructor]
     this._activeZoom = new Zoom(target, this._enableMobilePinch);
     this._activeZoom.zoomImage();
 };
@@ -534,4 +535,5 @@ Zoom.prototype.dispose = function () {
     this._targetImage.focus();
 };
 
+// $FlowFixMe[invalid-constructor]
 export const ZoomService: $FlowFixMe = new ZoomServiceClass();

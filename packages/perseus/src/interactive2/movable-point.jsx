@@ -263,6 +263,7 @@ _.extend(MovablePoint.prototype, {
                     padding: 0,
                     interactiveKindForTesting: "movable-point",
                 };
+                // $FlowFixMe[invalid-constructor]
                 state.mouseTarget = new WrappedEllipse(
                     graphie,
                     center,

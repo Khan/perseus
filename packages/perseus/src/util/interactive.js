@@ -820,6 +820,7 @@ _.extend(GraphUtils.Graphie.prototype, {
                     // Add in 2px of padding to avoid clipping at the edges.
                     padding: 2,
                 };
+                // $FlowFixMe[invalid-constructor]
                 movablePoint.visibleShape = new WrappedEllipse(
                     graph,
                     movablePoint.coord,
@@ -965,6 +966,7 @@ _.extend(GraphUtils.Graphie.prototype, {
                     disableMouseEventsOnWrapper: true,
                     interactiveKindForTesting: "movable-point",
                 };
+                // $FlowFixMe[invalid-constructor]
                 movablePoint.mouseTarget = new WrappedEllipse(
                     graph,
                     movablePoint.coord,
@@ -1242,6 +1244,7 @@ _.extend(GraphUtils.Graphie.prototype, {
                 lineSegment.highlightStyle["stroke-width"],
             ),
         };
+        // $FlowFixMe[invalid-constructor]
         lineSegment.visibleLine = new WrappedLine(
             graph,
             [0, 0],
@@ -1257,6 +1260,7 @@ _.extend(GraphUtils.Graphie.prototype, {
                 mouselayer: true,
                 interactiveKindForTesting: "movable-line",
             };
+            // $FlowFixMe[invalid-constructor]
             lineSegment.mouseTarget = new WrappedLine(
                 graph,
                 [0, 0],
@@ -1375,6 +1379,7 @@ _.extend(GraphUtils.Graphie.prototype, {
                     center: graph.unscalePoint(center),
                     createPath: createCubicPath,
                 };
+                // $FlowFixMe[invalid-constructor]
                 const arrowHead = new WrappedPath(
                     graph,
                     unscaledPoints,
@@ -2403,6 +2408,7 @@ _.extend(GraphUtils.Graphie.prototype, {
     //         The movableAngle's current coordinates (generated, don't edit).
     //
     addMovableAngle: function (options) {
+        // $FlowFixMe[invalid-constructor]
         return new MovableAngle(this, options);
     },
 
@@ -3162,10 +3168,12 @@ _.extend(GraphUtils.Graphie.prototype, {
     })(),
 
     protractor: function (center) {
+        // $FlowFixMe[invalid-constructor]
         return new Protractor(this, center);
     },
 
     ruler: function (options) {
+        // $FlowFixMe[invalid-constructor]
         return new Ruler(this, options || {});
     },
 

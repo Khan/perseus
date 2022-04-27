@@ -8,11 +8,13 @@ import _ from "underscore";
 import Movable from "../movable.js";
 
 const createMock = function (): $FlowFixMe {
+    // $FlowFixMe[invalid-constructor]
     const movable = new Movable(null, {
         mouseTarget: null,
     });
     // $FlowFixMe[prop-missing]
     movable.modify = function (options) {
+        // $FlowFixMe[prop-missing]
         Movable.prototype.modify.call(movable, _.omit(options, "mouseTarget"));
     };
     _.each(

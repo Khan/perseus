@@ -1,7 +1,7 @@
 // @flow
 import * as React from "react";
 
-import staticUrl from "../../../shared-package/static-url.js";
+import {getDependencies} from "../../dependencies.js";
 import FixedToResponsive from "../fixed-to-responsive.jsx";
 
 type StoryArgs = {||};
@@ -29,7 +29,7 @@ export const SmallImageWithSmallContainer = (args: StoryArgs): React.Node => {
                 alt=""
                 width={sizeSmall}
                 height={sizeSmall}
-                src={staticUrl(svgUrl)}
+                src={getDependencies().staticUrl(svgUrl)}
             />
         </FixedToResponsive>
     );
@@ -42,7 +42,7 @@ export const SmallImageWithMediumContainer = (args: StoryArgs): React.Node => {
                 alt=""
                 width={sizeMedium}
                 height={sizeMedium}
-                src={staticUrl(svgUrl)}
+                src={getDependencies().staticUrl(svgUrl)}
             />
         </FixedToResponsive>
     );
@@ -55,7 +55,7 @@ export const LargeImageWithLargeContainer = (args: StoryArgs): React.Node => {
                 alt=""
                 width={sizeLarge}
                 height={sizeLarge}
-                src={staticUrl(svgUrl)}
+                src={getDependencies().staticUrl(svgUrl)}
             />
         </FixedToResponsive>
     );
@@ -68,7 +68,7 @@ export const LargeImageWithSmallerContainer = (args: StoryArgs): React.Node => {
                 alt=""
                 width={sizeLarge}
                 height={sizeLarge}
-                src={staticUrl(svgUrl)}
+                src={getDependencies().staticUrl(svgUrl)}
             />
         </FixedToResponsive>
     );
@@ -91,7 +91,7 @@ export const TwoOverlayedImagesInsteadOneResponsiveContainer = (
                 key={2}
                 width={sizeSmall}
                 height={sizeSmall}
-                src={staticUrl(svgUrl)}
+                src={getDependencies().staticUrl(svgUrl)}
             />
         </FixedToResponsive>
     );
@@ -108,7 +108,7 @@ export const HeightConstrainingAnImage = (args: StoryArgs): React.Node => {
                 alt=""
                 width={sizeLarge}
                 height={sizeLarge}
-                src={staticUrl(svgUrl)}
+                src={getDependencies().staticUrl(svgUrl)}
             />
         </FixedToResponsive>
     );
@@ -125,7 +125,7 @@ export const AllowingFullBleed = (args: StoryArgs): React.Node => {
                 alt=""
                 width={sizeMedium}
                 height={sizeMedium}
-                src={staticUrl(svgUrl)}
+                src={getDependencies().staticUrl(svgUrl)}
             />
         </FixedToResponsive>
     );

@@ -7,17 +7,22 @@ import SimpleMarkdown from "simple-markdown";
 
 const arrayRules = {
     fence: {
+        // $FlowFixMe[prop-missing]
+        // $FlowFixMe[incompatible-use]
         match: SimpleMarkdown.defaultRules.fence.match,
         order: 1,
         parse: (capture, state, parse) => capture[3],
     },
     paragraph: {
+        // $FlowFixMe[prop-missing]
+        // $FlowFixMe[incompatible-use]
         match: SimpleMarkdown.defaultRules.paragraph.match,
         order: 2,
         parse: (capture, state, parse) => capture[1],
     },
 };
 
+// $FlowFixMe[prop-missing]
 const builtArrayParser = SimpleMarkdown.parserFor(arrayRules);
 
 // This should just return an array of strings! magick!

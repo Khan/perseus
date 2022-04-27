@@ -45,6 +45,7 @@ const draw = {
                 padding: 10,
                 shadow: state.shadow,
             };
+            // $FlowFixMe[invalid-constructor]
             this.state.visibleShape = new WrappedEllipse(
                 graphie,
                 this.coord(),

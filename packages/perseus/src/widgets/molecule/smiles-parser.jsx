@@ -84,6 +84,7 @@ function parseBondModifier(smiles, ctx) {
     if (firstChar === "#") {
         return parse(rest, _mset(ctx, ["bond", "bondType"], "triple"));
     }
+    // $FlowFixMe[invalid-constructor]
     throw new ParseError("Invalid character: " + firstChar);
 }
 
@@ -100,6 +101,7 @@ function sliceFromMatchingCloseParen(smiles, parenStack) {
     }
 
     if (smiles === "") {
+        // $FlowFixMe[invalid-constructor]
         throw new ParseError("Mismatched parentheses");
     }
 
@@ -155,10 +157,12 @@ function parseParenthesizedExpression(smiles, ctx) {
     }
     if (firstChar === ")") {
         if (ctx.parens[ctx.parens.length - 1] !== "(") {
+            // $FlowFixMe[invalid-constructor]
             throw new ParseError("Mismatched parentheses");
         }
         return null;
     }
+    // $FlowFixMe[invalid-constructor]
     throw new ParseError("Invalid bare character: " + firstChar);
 }
 
@@ -264,6 +268,7 @@ function isModifierChar(s) {
  */
 function parse(smiles: $FlowFixMe, ctx: $FlowFixMe): $FlowFixMe {
     if (!validate(smiles)) {
+        // $FlowFixMe[invalid-constructor]
         throw new ParseError("Invalid input.");
     }
 

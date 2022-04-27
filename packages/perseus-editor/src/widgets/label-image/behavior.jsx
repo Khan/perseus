@@ -7,7 +7,7 @@ import {globalStyles} from "@khanacademy/perseus";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
-import Checkbox from "../../../components/checkbox-package/checkbox.jsx";
+import Checkbox from "../../components/checkbox.jsx";
 
 const {colors, typography} = globalStyles;
 

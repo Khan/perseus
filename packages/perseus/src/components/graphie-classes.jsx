@@ -79,6 +79,7 @@ const createClass = function (spec: $FlowFixMe): $FlowFixMe {
     // React's myDescriptor.constructor.displayName
     GraphieClass.displayName = spec.displayName;
 
+    // $FlowFixMe[invalid-constructor]
     GraphieClass.prototype = new GraphieMovable(spec);
     GraphieClass.prototype.constructor = GraphieClass;
 

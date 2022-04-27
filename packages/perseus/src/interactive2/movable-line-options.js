@@ -102,6 +102,7 @@ const createArrow = function (graph, style) {
         center: graph.unscalePoint(center),
         createPath: createCubicPath,
     };
+    // $FlowFixMe[invalid-constructor]
     const arrowHead = new WrappedPath(graph, unscaledPoints, options);
     arrowHead.attr(
         _.extend(
@@ -173,6 +174,7 @@ const draw = {
             const options = {
                 thickness: 10,
             };
+            // $FlowFixMe[invalid-constructor]
             this.state.visibleShape = new WrappedLine(
                 graphie,
                 start,

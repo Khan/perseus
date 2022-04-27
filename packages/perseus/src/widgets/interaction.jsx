@@ -38,6 +38,7 @@ const {unescapeMathMode} = Util;
 const KAShashFunc = (expr, options) => {
     options = options || {};
     // $FlowFixMe[prop-missing]: decimal_separator
+    // $FlowFixMe[incompatible-type]
     let result = expr + "||" + options.decimal_separator + "||";
     const functions = options.functions;
     const functionsLength = functions ? functions.length : 0;

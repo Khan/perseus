@@ -571,6 +571,7 @@ class InteractiveGraph extends React.Component<Props, State> {
         }
 
         if (this.props.apiOptions.isMobile) {
+            // $FlowFixMe[invalid-constructor]
             this.horizHairline = new WrappedLine(this.graphie, [0, 0], [0, 0], {
                 normalStyle: {
                     strokeWidth: 1,
@@ -581,6 +582,7 @@ class InteractiveGraph extends React.Component<Props, State> {
             });
             this.horizHairline?.hide();
 
+            // $FlowFixMe[invalid-constructor]
             this.vertHairline = new WrappedLine(this.graphie, [0, 0], [0, 0], {
                 normalStyle: {
                     strokeWidth: 1,

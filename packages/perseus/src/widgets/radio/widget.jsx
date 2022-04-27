@@ -410,6 +410,7 @@ class Radio extends React.Component<Props> {
             for (let i = 0; i < choicesSelected.length; i++) {
                 // $FlowFixMe[prop-missing]
                 const index = props.choices[i].originalIndex;
+                // $FlowFixMe[incompatible-use]
                 choicesSelected[index] = choiceStates[i].selected;
 
                 if (props.choices[i].isNoneOfTheAbove) {

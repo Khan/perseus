@@ -10,6 +10,7 @@ import _createMockMovable from "./movable-mock.js";
 // Create a testable MovablePoint with a mocked out Movable
 const createPoint = function (options) {
     const movable = _createMockMovable();
+    // $FlowFixMe[invalid-constructor]
     const point = new MovablePoint(
         null,
         movable,
