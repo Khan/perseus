@@ -122,6 +122,8 @@ export function collinear(v1: Vector, v2: Vector, tolerance?: number): boolean {
     );
 }
 
+// TODO(jeremy) These coordinate conversion functions really only handle 2D points (ie. [number, number])
+
 // Convert a cartesian coordinate into a radian polar coordinate
 export function polarRadFromCart(
     v: $ReadOnlyArray<number>,

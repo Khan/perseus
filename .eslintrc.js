@@ -101,7 +101,7 @@ module.exports = {
         "@babel/semi": "error",
         "flowtype/no-types-missing-file-annotation": "error",
         // "flowtype/no-existential-type": "error",
-        // "import/no-default-export": "error",
+        // "import/no-default-export": "error", much of Interactive violates this rule
         "import/no-unresolved": "error",
         "import/named": "error",
         "import/default": "error",
