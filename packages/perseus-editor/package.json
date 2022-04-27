@@ -23,7 +23,8 @@
         "perseus-build-settings": "^0.0.1",
         "prop-types": "^15.6.1",
         "react": "16.14.0",
-        "react-dom": "16.14.0"
+        "react-dom": "16.14.0",
+        "underscore": "^1.4.4"
     },
     "peerDependencies": {
         "@khanacademy/wonder-blocks-i18n": "^1.2.3",
@@ -33,7 +34,8 @@
         "jquery": "^2.1.1",
         "prop-types": "^15.6.1",
         "react": "16.14.0",
-        "react-dom": "16.14.0"
+        "react-dom": "16.14.0",
+        "underscore": "^1.4.4"
     },
     "author": "",
     "license": "MIT"

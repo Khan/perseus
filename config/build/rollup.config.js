@@ -2,16 +2,22 @@
 import fs from "fs";
 import path from "path";
 
+import alias from "@rollup/plugin-alias";
 import {babel} from "@rollup/plugin-babel";
+import commonjs from "@rollup/plugin-commonjs";
 import resolve from "@rollup/plugin-node-resolve";
 import replace from "@rollup/plugin-replace";
+import ancesdir from "ancesdir";
 import autoExternal from "rollup-plugin-auto-external";
 import copy from "rollup-plugin-copy";
 import filesize from "rollup-plugin-filesize";
+import less from "rollup-plugin-less";
 import {terser} from "rollup-plugin-terser";
 
 const createBabelPlugins = require("./create-babel-plugins.js");
 const createBabelPresets = require("./create-babel-presets.js");
+
+const rootDir = ancesdir(__dirname);
 
 /**
  * We support the following config args with this rollup configuration:
@@ -96,12 +102,31 @@ const createConfig = (
                 preventAssignment: true,
                 values: valueReplacementMappings,
             }),
+            alias({
+                entries: {
+                    hubble: path.join(rootDir, "vendor", "hubble"),
+                    jsdiff: path.join(rootDir, "vendor", "jsdiff"),
+                    raphael: path.join(rootDir, "vendor", "raphael"),
+                },
+            }),
+            less({
+                output: path.join(
+                    rootDir,
+                    "packages",
+                    "perseus",
+                    "dist",
+                    "index.css",
+                ),
+            }),
             babel({
                 babelHelpers: "bundled",
                 presets: createBabelPresets({platform, format}),
                 plugins: createBabelPlugins({platform, format}),
                 exclude: "node_modules/**",
             }),
+            // This must come after babel() since this plugin doesn't know how
+            // to deal with Flow types.
+            commonjs(),
             resolve({
                 browser: platform === "browser",
             }),
