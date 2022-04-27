@@ -24,6 +24,7 @@
  */
 // NOTE(jeresig): As of 2021-03-02 there are still a non-trivial number of
 // pre-Safari 12.1 users and they need a polyfill for IntersectionObserver
+// eslint-disable-next-line import/no-unassigned-import
 import "intersection-observer";
 
 export interface VisibilityObserver {

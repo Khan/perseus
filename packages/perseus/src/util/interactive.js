@@ -3193,7 +3193,6 @@ function Protractor(graph, center) {
         this.cy + r - graph.unscaleVector(10.5)[1],
     ]);
     const image = graph.mouselayer.image(
-        // eslint-disable-next-line static-service/require-safe-link-to
         "https://ka-perseus-graphie.s3.amazonaws.com/e9d032f2ab8b95979f674fbfa67056442ba1ff6a.png",
         imgPos[0],
         imgPos[1],

@@ -10,6 +10,7 @@
  */
 import GraphUtils from "./graphie.js";
 
+// eslint-disable-next-line import/no-unassigned-import
 import "./interactive.js"; // For side effects
 
 export default GraphUtils;

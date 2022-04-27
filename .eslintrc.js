@@ -20,7 +20,14 @@ const vendorAliases = fs
 const allAliases = [...pkgAliases, ...vendorAliases];
 
 module.exports = {
-    extends: ["@khanacademy"],
+    extends: [
+        "@khanacademy",
+        // This config includes rules from storybook to enforce story best
+        // practices
+        "plugin:storybook/recommended",
+        // This config includes rules from @testing-library/jest-dom as well
+        "plugin:testing-library/react",
+    ],
     parser: "@babel/eslint-parser",
     parserOptions: {
         babelOptions: {
@@ -88,7 +95,7 @@ module.exports = {
         "no-invalid-this": "off",
         "object-curly-spacing": "off",
         semi: "off",
-        "@babel/new-cap": "error",
+        // "@babel/new-cap": "error",
         "@babel/no-invalid-this": "error",
         "@babel/object-curly-spacing": "error",
         "@babel/semi": "error",
@@ -179,5 +186,17 @@ module.exports = {
                 ],
             },
         ],
+
+        // testing-library
+        "testing-library/prefer-user-event": "error",
+        "testing-library/no-wait-for-empty-callback": "error",
+        "testing-library/no-wait-for-multiple-assertions": "error",
+        "testing-library/no-wait-for-side-effects": "error",
+        "testing-library/no-wait-for-snapshot": "error",
+
+        // These rules results in a lot of false positives
+        "testing-library/render-result-naming-convention": "off",
+        "testing-library/await-async-utils": "off",
+        "testing-library/await-async-query": "off",
     },
 };

@@ -1,6 +1,6 @@
 // @flow
 
-import shapes from "../../multi-items/shapes.js";
+import shapes from "../shapes.js";
 
 import type {Item} from "../item-types.js";
 import type {Shape} from "../shape-types.js";

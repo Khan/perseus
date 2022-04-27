@@ -48,6 +48,7 @@ export default (Rule.makeRule({
         // Remove the first word and the little words
         words.shift();
         words = words.filter(
+            // eslint-disable-next-line no-prototype-builtins
             (w) => w.length > 2 && !littleWords.hasOwnProperty(w),
         );
 

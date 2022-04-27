@@ -58,6 +58,8 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.29.4",
+    "eslint-plugin-storybook": "^0.5.7",
+    "eslint-plugin-testing-library": "^5.0.0",
     "fast-glob": "^3.2.11",
     "flow-bin": "^0.176.2",
     "jest": "^27.2.4",
