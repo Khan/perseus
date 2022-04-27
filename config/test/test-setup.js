@@ -1,4 +1,3 @@
-// No setup to perform
 // @flow
 /**
  * This file is loaded after the jest test framework has be initialized
@@ -60,27 +59,8 @@ if (typeof window !== "undefined") {
     };
 }
 
-// javascript/shared-package/api-action-results.js sets an ajaxSetup method that
-// attaches an X-KA-FKey header to all AJAX requests based on the "fkey" cookie
-// value. If it doesn't find the cookie, it blows up, so make sure it's always
-// there.
-if (typeof document !== "undefined") {
-    document.cookie = "fkey=FAKEXSRFTOKEN";
-}
-
+// eslint-disable-next-line import/no-commonjs
 require("../../testing/attach-jsdom-window-shims.js")(globalThis);
-
-// NOTE(jared): This has to be defined for tests to run (otherwise we get a
-// "accessing an undefined variable" error in load-mathjax.js), but it doesn't
-// have to be anything meaningful. If we add tests that require this, then we
-// can copy the value from webpack.common.js.
-globalThis.WEBPACK_DEFINE_MATHJAX_URL =
-    "we-dont-currently-test-mathjax-i-guess";
-
-// We don't run webpack for our tests, but some code expects some webpack
-// utilities. Rather than have prod code always affirming what we know will
-// be there, let's just sub things in.
-globalThis.__webpack_public_path__ = "/genwebpack/services/static/";
 
 // Make sure we capture any unhandled rejections and log them to the console
 // so that we can more easily find them later
@@ -101,7 +81,7 @@ const reportUnhandledConsoleWarnAndErrors = () => {
         resetConsoleWarnsAndErrors();
         throw new Error(
             "Unhandled console warnings or errors.\n" +
-                "Use perseus-all-package/logging/log.js to log, and make " +
+                "Use packages/perseus/src/logging/log.js to log, and make " +
                 "sure that your test case mocks the implementation of the " +
                 "Log.error call to handle your expected errors.",
         );
@@ -186,7 +166,6 @@ afterEach(() => {
 
 afterAll(() => {
     // We track to see if there were any console warnings or errors that came
-    // up *after* all the tests finished. This appears to happen for GraphQL
-    // failures (they are being executed async)
+    // up *after* all the tests finished.
     reportUnhandledConsoleWarnAndErrors();
 });
