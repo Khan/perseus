@@ -3,10 +3,10 @@
  * This file is loaded after the jest test framework has be initialized
  * but before any tests have run.
  */
-import React16EnzymeAdapter from "enzyme-adapter-react-16";
-import Enzyme from "enzyme"; // eslint-disable-line no-restricted-imports
 import MutationObserver from "@sheerun/mutationobserver-shim";
-import {configure} from "@testing-library/dom";
+import {configure} from "@testing-library/react";
+import Enzyme from "enzyme"; // eslint-disable-line no-restricted-imports
+import React16EnzymeAdapter from "enzyme-adapter-react-16";
 import jestSerializerHtml from "jest-serializer-html";
 import {addSerializer} from "jest-specific-snapshot";
 
