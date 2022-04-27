@@ -133,7 +133,7 @@ describe("Zoomable", () => {
         expect(container).toMatchInlineSnapshot(`
             <div>
               <span
-                style="display: block; width: 100%; transform: scale(0.4993757802746567, 0.4993757802746567); transform-origin: 0 0; opacity: 1; height: 101px; transition-property: opacity transform; transition-duration: 0.3s; transition-timing-function: ease-out;"
+                style="display: block; width: 100%; transform: scale(0.4993757802746567, 0.4993757802746567)  translate(0, 8px); transform-origin: 0 0; opacity: 0; height: 101px;"
               >
                 <span>
                   Some zoomable text
