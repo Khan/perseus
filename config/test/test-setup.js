@@ -3,6 +3,8 @@
  * This file is loaded after the jest test framework has be initialized
  * but before any tests have run.
  */
+import React16EnzymeAdapter from "enzyme-adapter-react-16";
+import Enzyme from "enzyme"; // eslint-disable-line no-restricted-imports
 import MutationObserver from "@sheerun/mutationobserver-shim";
 import {configure} from "@testing-library/dom";
 import jestSerializerHtml from "jest-serializer-html";
@@ -11,6 +13,9 @@ import {addSerializer} from "jest-specific-snapshot";
 // Hook in the Jest HTML Serializer to our custom snapshot matcher.
 // See https://www.npmjs.com/package/jest-specific-snapshot#with-custom-serializer
 addSerializer(jestSerializerHtml);
+
+// Enzyme requires an adapater for each version of React.
+Enzyme.configure({adapter: new React16EnzymeAdapter()});
 
 // @testing-library uses "data-testId" by default but wonder-blocks uses "data-test-id"
 configure({
