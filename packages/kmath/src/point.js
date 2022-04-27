@@ -13,7 +13,7 @@ import * as kvector from "./vector.js";
 export type Point = $ReadOnlyArray<number>;
 
 // Rotate point (around origin unless a center is specified)
-export function rotateRad(point: Point, theta: number, center: Point): Point {
+export function rotateRad(point: Point, theta: number, center?: Point): Point {
     if (center === undefined) {
         return kvector.rotateRad(point, theta);
     } else {
@@ -24,7 +24,7 @@ export function rotateRad(point: Point, theta: number, center: Point): Point {
     }
 }
 
-export function rotateDeg(point: Point, theta: number, center: Point): Point {
+export function rotateDeg(point: Point, theta: number, center?: Point): Point {
     if (center === undefined) {
         return kvector.rotateDeg(point, theta);
     } else {
