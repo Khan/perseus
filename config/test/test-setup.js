@@ -4,7 +4,7 @@
  * but before any tests have run.
  */
 import MutationObserver from "@sheerun/mutationobserver-shim";
-import {configure} from "@testing-library/react";
+import {configure} from "@testing-library/dom"; // eslint-disable-line testing-library/no-dom-import, prettier/prettier
 import Enzyme from "enzyme"; // eslint-disable-line no-restricted-imports
 import React16EnzymeAdapter from "enzyme-adapter-react-16"; // eslint-disable-line no-restricted-imports
 import jestSerializerHtml from "jest-serializer-html";
