@@ -12,7 +12,9 @@ const Interactive2 = {
         graphie: $FlowFixMe,
         options: $FlowFixMe,
     ): $FlowFixMe {
+        // $FlowFixMe[invalid-constructor]
         const movable = new Movable(graphie, {});
+        // $FlowFixMe[invalid-constructor]
         return new MovablePoint(graphie, movable, options);
     },
     MovableLine: MovableLine,
@@ -20,7 +22,9 @@ const Interactive2 = {
         graphie: $FlowFixMe,
         options: $FlowFixMe,
     ): $FlowFixMe {
+        // $FlowFixMe[invalid-constructor]
         const movable = new Movable(graphie, {});
+        // $FlowFixMe[invalid-constructor]
         return new MovableLine(graphie, movable, options);
     },
     MovablePolygon: MovablePolygon,
@@ -28,7 +32,9 @@ const Interactive2 = {
         graphie: $FlowFixMe,
         options: $FlowFixMe,
     ): $FlowFixMe {
+        // $FlowFixMe[invalid-constructor]
         const movable = new Movable(graphie, {});
+        // $FlowFixMe[invalid-constructor]
         return new MovablePolygon(graphie, movable, options);
     },
 

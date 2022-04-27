@@ -54,6 +54,8 @@ export * as components from "./components.js";
 export * as constants from "./components/constants.js";
 // TODO(FEI-4504): Replace globalStyles with wonder-blocks where possible
 export * as globalStyles from "./styles/global-styles.js";
+// TODO(FEI-4504): Replace globalStyles with wonder-blocks where possible
+export * as globalConstants from "./styles/global-constants.js";
 export * as icons from "./icon-paths.js";
 export * as Dependencies from "./dependencies.js";
 export {Errors, Log} from "./logging/log.js";

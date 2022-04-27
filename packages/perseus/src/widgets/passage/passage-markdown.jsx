@@ -64,11 +64,20 @@ class RefEnd extends React.Component<$FlowFixMe> {
 }
 
 const rules: $FlowFixMe = {
+    // $FlowFixMe[prop-missing]
+    // $FlowFixMe[incompatible-use]
     newline: SimpleMarkdown.defaultRules.newline,
+    // $FlowFixMe[prop-missing]
+    // $FlowFixMe[incompatible-use]
     paragraph: SimpleMarkdown.defaultRules.paragraph,
+    // $FlowFixMe[prop-missing]
+    // $FlowFixMe[incompatible-use]
     escape: SimpleMarkdown.defaultRules.escape,
     passageFootnote: {
+        // $FlowFixMe[prop-missing]
+        // $FlowFixMe[incompatible-use]
         order: SimpleMarkdown.defaultRules.escape.order + 0.1,
+        // $FlowFixMe[prop-missing]
         match: SimpleMarkdown.inlineRegex(/^\^/),
         parse: (capture, parse, state) => {
             // if no footnotes have been seen, we're id 1. otherwise,
@@ -96,6 +105,8 @@ const rules: $FlowFixMe = {
         },
     },
     refStart: {
+        // $FlowFixMe[prop-missing]
+        // $FlowFixMe[incompatible-use]
         order: SimpleMarkdown.defaultRules.escape.order + 0.2,
         match: function (source, state) {
             const capture = /^\{\{/.exec(source);
@@ -186,7 +197,10 @@ const rules: $FlowFixMe = {
         },
     },
     refEnd: {
+        // $FlowFixMe[prop-missing]
+        // $FlowFixMe[incompatible-use]
         order: SimpleMarkdown.defaultRules.escape.order + 0.3,
+        // $FlowFixMe[prop-missing]
         match: SimpleMarkdown.inlineRegex(/^\}\}/),
         parse: (capture, parse, state) => {
             if (!state.useRefs) {
@@ -216,7 +230,10 @@ const rules: $FlowFixMe = {
         },
     },
     squareLabel: {
+        // $FlowFixMe[prop-missing]
+        // $FlowFixMe[incompatible-use]
         order: SimpleMarkdown.defaultRules.escape.order + 0.4,
+        // $FlowFixMe[prop-missing]
         match: SimpleMarkdown.inlineRegex(/^\[\[(\w+)\]\]( *)/),
         parse: (capture, parse, state) => {
             if (!state.firstQuestionRef) {
@@ -247,7 +264,10 @@ const rules: $FlowFixMe = {
         },
     },
     circleLabel: {
+        // $FlowFixMe[prop-missing]
+        // $FlowFixMe[incompatible-use]
         order: SimpleMarkdown.defaultRules.escape.order + 0.5,
+        // $FlowFixMe[prop-missing]
         match: SimpleMarkdown.inlineRegex(/^\(\((\w+)\)\)( *)/),
         parse: (capture, parse, state) => {
             return {
@@ -275,7 +295,10 @@ const rules: $FlowFixMe = {
         },
     },
     squareBracketRef: {
+        // $FlowFixMe[prop-missing]
+        // $FlowFixMe[incompatible-use]
         order: SimpleMarkdown.defaultRules.escape.order + 0.6,
+        // $FlowFixMe[prop-missing]
         match: SimpleMarkdown.inlineRegex(/^\[(\d+)\]( *)/),
         parse: (capture, parse, state) => {
             if (!state.firstSentenceRef) {
@@ -303,7 +326,10 @@ const rules: $FlowFixMe = {
         },
     },
     highlight: {
+        // $FlowFixMe[prop-missing]
+        // $FlowFixMe[incompatible-use]
         order: SimpleMarkdown.defaultRules.escape.order + 0.7,
+        // $FlowFixMe[prop-missing]
         match: SimpleMarkdown.inlineRegex(
             /^{highlighting.start}(.+?){highlighting.end}/,
         ),
@@ -321,7 +347,10 @@ const rules: $FlowFixMe = {
         },
     },
     reviewHighlight: {
+        // $FlowFixMe[prop-missing]
+        // $FlowFixMe[incompatible-use]
         order: SimpleMarkdown.defaultRules.escape.order + 0.7,
+        // $FlowFixMe[prop-missing]
         match: SimpleMarkdown.inlineRegex(
             /^{review-highlighting.start}(.+?){review-highlighting.end}/,
         ),
@@ -338,11 +367,21 @@ const rules: $FlowFixMe = {
             ];
         },
     },
+    // $FlowFixMe[prop-missing]
+    // $FlowFixMe[incompatible-use]
     strong: SimpleMarkdown.defaultRules.strong,
+    // $FlowFixMe[prop-missing]
+    // $FlowFixMe[incompatible-use]
     u: SimpleMarkdown.defaultRules.u,
+    // $FlowFixMe[prop-missing]
+    // $FlowFixMe[incompatible-use]
     em: SimpleMarkdown.defaultRules.em,
+    // $FlowFixMe[prop-missing]
+    // $FlowFixMe[incompatible-use]
     del: SimpleMarkdown.defaultRules.del,
     text: {
+        // $FlowFixMe[prop-missing]
+        // $FlowFixMe[incompatible-use]
         ...SimpleMarkdown.defaultRules.text,
         react(node, output, state) {
             return <span key={state.key}>{node.content}</span>;
@@ -356,6 +395,7 @@ const INITIAL_PARSE_STATE = {
     lastRef: 0,
     lastFootnote: {id: 0, text: ""},
 };
+// $FlowFixMe[prop-missing]
 const builtParser = SimpleMarkdown.parserFor(rules);
 const parse: (string, $FlowFixMe) => $FlowFixMe = (source, state) => {
     state = state || {};
@@ -365,7 +405,9 @@ const parse: (string, $FlowFixMe) => $FlowFixMe = (source, state) => {
 
 export default {
     parse: parse,
+    // $FlowFixMe[prop-missing]
     output: (SimpleMarkdown.reactFor(
+        // $FlowFixMe[prop-missing]
         SimpleMarkdown.ruleOutput(rules, "react"),
     ): $FlowFixMe),
     START_REF_PREFIX: START_REF_PREFIX,

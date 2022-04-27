@@ -81,6 +81,8 @@ const rules = {
     table: {
         ...pureMarkdownRules.table,
         react: function (node, output, state) {
+            // $FlowFixMe[prop-missing]
+            // $FlowFixMe[incompatible-use]
             const table = SimpleMarkdown.defaultRules.table.react(
                 node,
                 output,
@@ -140,6 +142,8 @@ const rules = {
                     contents = rules.lint.react(node.table, output, state);
                 }
             } else {
+                // $FlowFixMe[prop-missing]
+                // $FlowFixMe[incompatible-use]
                 const tableOutput = SimpleMarkdown.defaultRules.table.react(
                     node.table,
                     output,
@@ -219,6 +223,8 @@ const rules = {
     link: {
         ...pureMarkdownRules.link,
         react: function (node, output, state) {
+            // $FlowFixMe[prop-missing]
+            // $FlowFixMe[incompatible-use]
             const link = SimpleMarkdown.defaultRules.link.react(
                 node,
                 output,
@@ -261,6 +267,8 @@ const rules = {
                     </div>
                 );
             }
+            // $FlowFixMe[prop-missing]
+            // $FlowFixMe[incompatible-use]
             return SimpleMarkdown.defaultRules.codeBlock.react(
                 node,
                 output,
@@ -310,6 +318,7 @@ const inlineNodeTypes = {
     code: true,
 };
 
+// $FlowFixMe[prop-missing]
 const builtParser = SimpleMarkdown.parserFor(rules);
 const parse = (source: string, state: $FlowFixMe): $FlowFixMe => {
     const paragraphedSource = source + "\n\n";
@@ -411,10 +420,15 @@ export default {
     traverseContent: traverseContent,
     parse: parse,
     parseInline: inlineParser,
+    // $FlowFixMe[prop-missing]
     reactFor: SimpleMarkdown.reactFor,
+    // $FlowFixMe[prop-missing]
     ruleOutput: (SimpleMarkdown.ruleOutput(rules, "react"): $FlowFixMe),
+    // $FlowFixMe[prop-missing]
     basicOutput: (SimpleMarkdown.reactFor(
+        // $FlowFixMe[prop-missing]
         SimpleMarkdown.ruleOutput(rules, "react"),
     ): $FlowFixMe),
+    // $FlowFixMe[prop-missing]
     sanitizeUrl: SimpleMarkdown.sanitizeUrl,
 };

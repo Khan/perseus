@@ -7,19 +7,16 @@
  * the dropdown component.
  */
 
-import {globalStyles} from "@khanacademy/perseus";
+import {globalConstants, globalStyles} from "@khanacademy/perseus";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
-import Option, {
-    OptionGroup,
-} from "../../../components/dropdown-package/option.jsx";
-import dropdownStyles from "../../../components/dropdown-package/shared-styles.js";
+import Option, {OptionGroup} from "../../components/dropdown-option.jsx";
 import FormWrappedTextField from "../../components/form-wrapped-text-field.jsx";
 
 import type {MarkerType} from "@khanacademy/perseus";
 
-const {colors} = globalStyles;
+const {colors, borderRadius} = globalStyles;
 
 type MarkerProps = {|
     ...MarkerType,
@@ -155,7 +152,7 @@ export default class Marker extends React.Component<MarkerProps, MarkerState> {
                     <div>
                         <div
                             className={css(
-                                dropdownStyles.dropdownBody,
+                                styles.dropdownBody,
                                 styles.dropdownPositionWithArrow,
                             )}
                         >
@@ -278,5 +275,18 @@ const styles = StyleSheet.create({
         borderWidth: "0 0 1px",
 
         boxShadow: "none",
+    },
+
+    // TODO (josh): This should probably be its own component, rather than
+    // sharing styles this way.
+    dropdownBody: {
+        position: "absolute",
+        border: "solid 1px rgba(0, 0, 0, 0.1)",
+        zIndex: globalConstants.zindexDropdown,
+        color: colors.gray17,
+        backgroundColor: colors.gray98,
+        borderRadius: borderRadius,
+        maxHeight: 320,
+        cursor: "pointer",
     },
 });

@@ -544,6 +544,7 @@ class Grapher extends React.Component<Props> {
                 },
             };
 
+            // $FlowFixMe[invalid-constructor]
             this.horizHairline = new WrappedLine(
                 graphie,
                 [0, 0],
@@ -555,6 +556,7 @@ class Grapher extends React.Component<Props> {
             });
             this.horizHairline.hide();
 
+            // $FlowFixMe[invalid-constructor]
             this.vertHairline = new WrappedLine(
                 graphie,
                 [0, 0],
