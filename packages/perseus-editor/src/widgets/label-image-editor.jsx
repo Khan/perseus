@@ -11,7 +11,7 @@ import {EditorJsonify, Util} from "@khanacademy/perseus";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
-import FormWrappedTextField from "../../components/text-inputs-package/form-wrapped-text-field.jsx";
+import FormWrappedTextField from "../components/form-wrapped-text-field.jsx";
 
 import AnswerChoices from "./label-image/answer-choices.jsx";
 import Behavior from "./label-image/behavior.jsx";

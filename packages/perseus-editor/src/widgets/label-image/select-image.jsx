@@ -3,15 +3,14 @@
  * Controlled component for selecting the question image, for answer labeling.
  */
 
+import {globalStyles} from "@khanacademy/perseus";
 import Button from "@khanacademy/wonder-blocks-button";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
-import FormWrappedTextField from "../../../components/text-inputs-package/form-wrapped-text-field.jsx";
-import {
-    colors,
-    typography,
-} from "../../../shared-styles-package/global-styles.js";
+import FormWrappedTextField from "../../components/form-wrapped-text-field.jsx";
+
+const {colors, typography} = globalStyles;
 
 type SelectImageProps = {
     // Callback for when image URL is changed.

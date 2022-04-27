@@ -4,8 +4,8 @@ import getRenderA11yString from "katex/dist/contrib/render-a11y-string.js";
 import * as React from "react";
 import "@testing-library/jest-dom";
 
-import {testDependencies} from "../../../perseus-testing/test-dependencies.js";
-import {wait} from "../../../testing/wait.js";
+import {testDependencies} from "../../../../../testing/test-dependencies.js";
+import {wait} from "../../../../../testing/wait.js";
 import * as Dependencies from "../../dependencies.js";
 import {question1} from "../__testdata__/matcher_testdata.js";
 

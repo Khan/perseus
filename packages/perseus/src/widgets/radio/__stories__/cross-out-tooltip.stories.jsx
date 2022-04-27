@@ -2,7 +2,7 @@
 import colors from "@khanacademy/wonder-blocks-color";
 import * as React from "react";
 
-import {colors as oldColors} from "../../../../shared-styles-package/global-styles.js";
+import {colors as oldColors} from "../../../styles/global-styles.js";
 import CrossOutTooltip from "../cross-out-tooltip.jsx";
 
 type StoryArgs = {||};

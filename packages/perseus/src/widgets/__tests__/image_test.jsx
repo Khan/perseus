@@ -1,6 +1,6 @@
 // @flow
 
-import {testDependencies} from "../../../perseus-testing/test-dependencies.js";
+import {testDependencies} from "../../../../../testing/test-dependencies.js";
 import * as Dependencies from "../../dependencies.js";
 import {isAccessible} from "../../widgets.js";
 import {question} from "../__testdata__/image_testdata.js";

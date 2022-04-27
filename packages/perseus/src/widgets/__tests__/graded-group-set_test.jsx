@@ -6,7 +6,7 @@ import userEvent from "@testing-library/user-event";
 // TODO(FEI-3857): Include in jest setup so that we don't need to import it everywhere
 import "@testing-library/jest-dom/extend-expect";
 
-import {testDependencies} from "../../../perseus-testing/test-dependencies.js";
+import {testDependencies} from "../../../../../testing/test-dependencies.js";
 import * as Dependencies from "../../dependencies.js";
 import {article1} from "../__testdata__/graded-group-set_testdata.js";
 

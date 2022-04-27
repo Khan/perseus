@@ -1,18 +1,17 @@
 // @flow
-/* eslint-disable static-service/require-fixture */
 
+import Button from "@khanacademy/wonder-blocks-button";
+import {View} from "@khanacademy/wonder-blocks-core";
+import {Strut} from "@khanacademy/wonder-blocks-layout";
 import * as React from "react";
 
-import {View} from "@khanacademy/wonder-blocks-core";
-import Button from "@khanacademy/wonder-blocks-button";
-import {Strut} from "@khanacademy/wonder-blocks-layout";
+import * as Perseus from "../packages/perseus/src/index.js";
 
-import * as Perseus from "../perseus-all-package/perseus.js";
-import SideBySide from "./side-by-side.jsx";
 import KEScoreUI from "./ke-score-ui.js";
+import SideBySide from "./side-by-side.jsx";
 
-import type {PerseusItem} from "../perseus-all-package/perseus-types.js";
-import type {APIOptions, KEScore} from "../perseus-all-package/types.js";
+import type {PerseusItem} from "../packages/perseus/src/perseus-types.js";
+import type {APIOptions, KEScore} from "../packages/perseus/src/types.js";
 import type {AbstractComponent} from "react";
 
 // Jump through the Flow hoops to get at the underlying type that our ref will

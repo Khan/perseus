@@ -5,9 +5,9 @@ import userEvent from "@testing-library/user-event";
 import _ from "underscore";
 import "@testing-library/jest-dom"; // Imports custom mathers
 
-import {getMockUniqueId} from "../../../perseus-testing/mock-unique-id.js";
-import {clone} from "../../../perseus-testing/object-utils.js";
-import {testDependencies} from "../../../perseus-testing/test-dependencies.js";
+import {getMockUniqueId} from "../../../../../testing/mock-unique-id.js";
+import {clone} from "../../../../../testing/object-utils.js";
+import {testDependencies} from "../../../../../testing/test-dependencies.js";
 import * as Dependencies from "../../dependencies.js";
 import {
     passageWidget,

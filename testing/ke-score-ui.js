@@ -1,10 +1,10 @@
 // @flow
 
+import {HeadingSmall} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 import ReactJson from "react-json-view";
-import {HeadingSmall} from "@khanacademy/wonder-blocks-typography";
 
-import type {KEScore} from "../perseus-all-package/types.js";
+import type {KEScore} from "../packages/perseus/src/types.js";
 
 export default ({score}: {|score: ?KEScore|}): React.Node => {
     if (score == null) {

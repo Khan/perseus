@@ -3,11 +3,10 @@
  * This file is loaded after the jest test framework has be initialized
  * but before any tests have run.
  */
-import {addSerializer} from "jest-specific-snapshot";
-import jestSerializerHtml from "jest-serializer-html";
 import MutationObserver from "@sheerun/mutationobserver-shim";
-// eslint-disable-next-line testing-library/no-dom-import
 import {configure} from "@testing-library/dom";
+import jestSerializerHtml from "jest-serializer-html";
+import {addSerializer} from "jest-specific-snapshot";
 
 // Hook in the Jest HTML Serializer to our custom snapshot matcher.
 // See https://www.npmjs.com/package/jest-specific-snapshot#with-custom-serializer
@@ -38,7 +37,6 @@ if (typeof window !== "undefined") {
     /* eslint-disable no-restricted-syntax */
     const oldLocation = window.location;
     delete window.location;
-    // eslint-disable-next-line static-service/require-safe-link-to
     const mockedLocation = new URL("http://localhost:8081");
     window.location = {
         ...oldLocation,
@@ -130,7 +128,6 @@ beforeEach(() => {
         if (
             message &&
             message.includes(
-                // eslint-disable-next-line static-service/require-safe-link-to
                 "See https://fb.me/react-unsafe-component-lifecycles for details.",
             ) &&
             args[1] // comma separated string of component names if defined

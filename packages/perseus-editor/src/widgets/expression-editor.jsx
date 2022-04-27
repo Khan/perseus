@@ -12,7 +12,7 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-import SortableArea from "../../react-components-package/sortable.jsx";
+import SortableArea from "../components/sortable.jsx";
 
 const {InfoTip, PropCheckBox, TexButtons} = components;
 const {getDependencies} = Dependencies;

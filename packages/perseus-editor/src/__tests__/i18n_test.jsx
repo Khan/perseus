@@ -2,7 +2,7 @@
 import {Dependencies} from "@khanacademy/perseus";
 import _ from "underscore";
 
-import {testDependencies} from "../../perseus-testing/test-dependencies.js";
+import {testDependencies} from "../../../../testing/test-dependencies.js";
 import i18n from "../i18n.jsx";
 import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing.js";
 

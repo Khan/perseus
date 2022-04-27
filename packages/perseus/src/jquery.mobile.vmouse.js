@@ -1,4 +1,5 @@
 // @noflow
+/* eslint-disable */
 /*
  * jQuery Mobile Framework : "mouse" plugin
  * Copyright (c) jQuery Project

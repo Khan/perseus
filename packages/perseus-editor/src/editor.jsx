@@ -19,8 +19,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import _ from "underscore";
 
-import DragTarget from "../react-components-package/drag-target.jsx";
-
+import DragTarget from "./components/drag-target.jsx";
 import KatexErrorView from "./katex-error-view.jsx";
 import SectionControlButton from "./section-control-button.jsx";
 

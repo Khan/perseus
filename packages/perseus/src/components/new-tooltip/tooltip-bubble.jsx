@@ -13,9 +13,9 @@ import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
-import {typography} from "../../../shared-styles-package/global-styles.js";
-import Icon from "../../../shared-styles-package/icon.jsx";
+import {typography} from "../../styles/global-styles.js";
 import a11yStyles from "../../util/a11y.js";
+import Icon from "../icon.jsx";
 
 import {
     bubbleBorderRadius,

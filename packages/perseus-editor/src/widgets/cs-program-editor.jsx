@@ -17,7 +17,6 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-import RequestInfo from "../../data-access/request-info.js";
 import BlurInput from "../components/blur-input.jsx";
 
 const {InfoTip, PropCheckBox} = components;
@@ -170,9 +169,9 @@ class CSProgramEditor extends React.Component<$FlowFixMe> {
 
     _handleProgramIDChange: (string) => void = (programID) => {
         programID = isolateProgramID(programID);
-        const {InitialRequestUrl} = Dependencies.getDependencies();
+        const {isDevServer, InitialRequestUrl} = Dependencies.getDependencies();
 
-        const host = RequestInfo.IS_DEV_SERVER
+        const host = isDevServer
             ? InitialRequestUrl.origin
             : "https://www.khanacademy.org";
         const baseUrl = `${host}/api/internal/scratchpads/${programID}`;

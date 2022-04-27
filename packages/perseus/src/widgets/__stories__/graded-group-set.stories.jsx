@@ -1,7 +1,7 @@
 // @flow
 import * as React from "react";
 
-import {RendererWithDebugUI} from "../../../perseus-testing/renderer-with-debug-ui.jsx";
+import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui.jsx";
 import {article1} from "../__testdata__/graded-group-set_testdata.js";
 
 type StoryArgs = {|

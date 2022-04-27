@@ -21,10 +21,10 @@ import {StyleSheet, css} from "aphrodite";
 import PropTypes from "prop-types";
 import * as React from "react";
 
-import {colors} from "../../../shared-styles-package/global-styles.js";
 import {getDependencies} from "../../dependencies.js";
 import {Errors, Log} from "../../logging/log.js";
 import {PerseusError} from "../../perseus-error.js";
+import {colors} from "../../styles/global-styles.js";
 import {createVisibilityObserver} from "../visibility-observer/visibility-observer.js";
 
 import TooltipPortal from "./tooltip-portal.jsx";

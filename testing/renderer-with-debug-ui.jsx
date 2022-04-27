@@ -1,21 +1,20 @@
 // @flow
-/* eslint-disable static-service/require-fixture */
-import * as React from "react";
-import ReactJson from "react-json-view";
-import {View, RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import Button from "@khanacademy/wonder-blocks-button";
+import {View, RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {HeadingSmall} from "@khanacademy/wonder-blocks-typography";
+import * as React from "react";
+import ReactJson from "react-json-view";
+
+import {Dependencies, Renderer} from "../packages/perseus/src/index.js";
+import {registerAllWidgetsForTesting} from "../packages/perseus/src/util/register-all-widgets-for-testing.js";
+
+import SideBySide from "./side-by-side.jsx";
+import {testDependencies} from "./test-dependencies.js";
 import {TestTeX} from "./test-tex.jsx";
 
-import {Dependencies, Renderer} from "../perseus-all-package/perseus.js";
-import {testDependencies} from "./test-dependencies.js";
-
-import {registerAllWidgetsForTesting} from "../perseus-all-package/util/register-all-widgets-for-testing.js";
-import SideBySide from "./side-by-side.jsx";
-
-import type {APIOptions} from "../perseus-all-package/types.js";
-import type {PerseusRenderer} from "../perseus-all-package/perseus-types.js";
+import type {PerseusRenderer} from "../packages/perseus/src/perseus-types.js";
+import type {APIOptions} from "../packages/perseus/src/types.js";
 
 type Props = {|
     question: PerseusRenderer,

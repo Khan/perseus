@@ -3,14 +3,13 @@
  * Controlled component to display and change widget options.
  */
 
+import {globalStyles} from "@khanacademy/perseus";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
 import Checkbox from "../../../components/checkbox-package/checkbox.jsx";
-import {
-    colors,
-    typography,
-} from "../../../shared-styles-package/global-styles.js";
+
+const {colors, typography} = globalStyles;
 
 type BehaviorProps = {
     // Whether multiple answer choices may be selected for markers.

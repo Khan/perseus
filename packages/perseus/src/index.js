@@ -52,6 +52,7 @@ export * as GrapherUtil from "./widgets/grapher/util.jsx";
  */
 export * as components from "./components.js";
 export * as constants from "./components/constants.js";
+export * as globalStyles from "./styles/global-styles.js";
 export * as icons from "./icon-paths.js";
 export * as Dependencies from "./dependencies.js";
 export {Errors, Log} from "./logging/log.js";

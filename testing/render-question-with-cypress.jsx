@@ -1,13 +1,12 @@
-/* eslint-disable static-service/require-fixture */
 // @flow
-import React from "react";
 import {mount} from "@cypress/react";
+import React from "react";
 
-import * as Perseus from "../perseus-all-package/perseus.js";
-import AssetContext from "../perseus-all-package/asset-context.js";
+import AssetContext from "../packages/perseus/src/asset-context.js";
+import * as Perseus from "../packages/perseus/src/index.js";
 
-import type {PerseusRenderer} from "../perseus-all-package/perseus-types.js";
-import type {APIOptions} from "../perseus-all-package/types.js";
+import type {PerseusRenderer} from "../packages/perseus/src/perseus-types.js";
+import type {APIOptions} from "../packages/perseus/src/types.js";
 
 /**
  * Renders the given question using Cypress. Waits until all assets have been

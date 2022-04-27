@@ -34,11 +34,13 @@
         "create-react-class": "^15.6.3",
         "eslint-import-resolver-alias": "^1.1.2",
         "eslint-plugin-import": "^2.26.0",
+        "intersection-observer": "^0.12.0",
         "jquery": "^2.1.1",
         "perseus-build-settings": "^0.0.1",
         "prop-types": "^15.6.1",
         "react": "16.14.0",
-        "react-dom": "16.14.0"
+        "react-dom": "16.14.0",
+        "react-window": "^1.8.5"
     },
     "peerDependencies": {
         "@khanacademy/wonder-blocks-color": "^1.1.20",
@@ -54,10 +56,12 @@
         "aphrodite": "^1.2.5",
         "classnames": "^1.1.4",
         "create-react-class": "^15.6.3",
+        "intersection-observer": "^0.12.0",
         "jquery": "^2.1.1",
         "prop-types": "^15.6.1",
         "react": "16.14.0",
-        "react-dom": "16.14.0"
+        "react-dom": "16.14.0",
+        "react-window": "^1.8.5"
     },
     "author": "",
     "license": "MIT"

@@ -3,6 +3,7 @@
  * otherwise doesn't support.
  */
 const {performance} = require("perf_hooks");
+
 const createSimpleStorage = require("./create-simple-storage.js");
 const setupGlobals = require("./setup-window-globals-for-testing.js");
 

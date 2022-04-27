@@ -7,7 +7,7 @@ import {screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import _ from "underscore";
 
-import {testDependencies} from "../../../perseus-testing/test-dependencies.js";
+import {testDependencies} from "../../../../../testing/test-dependencies.js";
 import * as Dependencies from "../../dependencies.js";
 import {errors} from "../../util/answer-types.js";
 import {question3 as question} from "../__testdata__/input-number_testdata.js";

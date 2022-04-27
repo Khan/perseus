@@ -3,6 +3,7 @@
 
 // Prevent aphrodite from trying to inject styles into the CSSOM
 const {StyleSheetTestUtils} = require("aphrodite");
+
 StyleSheetTestUtils.suppressStyleInjection();
 
 // Setup various shims

@@ -1,14 +1,14 @@
 // @flow
 // This defines a version of PerseusDependencies that is suitable for use in tests.
 // It should not make network requests, for example.
-import * as React from "react";
 import katex from "katex";
-import renderA11yString from "katex-future/dist/contrib/render-a11y-string.js";
+import renderA11yString from "katex/dist/contrib/render-a11y-string.js";
+import * as React from "react";
 
-import {registerAllWidgetsForTesting} from "../perseus-all-package/util/register-all-widgets-for-testing.js";
+import {registerAllWidgetsForTesting} from "../packages/perseus/src/util/register-all-widgets-for-testing.js";
 
-import type {PerseusDependencies} from "../perseus-all-package/perseus.js";
-import type {ILogger} from "../perseus-all-package/logging/log.js";
+import type {PerseusDependencies} from "../packages/perseus/src/index.js";
+import type {ILogger} from "../packages/perseus/src/logging/log.js";
 
 registerAllWidgetsForTesting();
 

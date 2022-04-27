@@ -11,3 +11,5 @@
  * See https://github.com/facebook/flow/issues/2977 for details.
  */
 declare type Empty = $Shape<{||}>;
+
+declare var globalThis: any;

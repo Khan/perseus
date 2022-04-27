@@ -59,12 +59,12 @@
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
+import {Errors} from "../../logging/log.js";
+import {PerseusError} from "../../perseus-error.js";
 import {
     zindexTooltip,
     zindexAboveModal,
-} from "../../../shared-styles-package/constants.js";
-import {Errors} from "../../logging/log.js";
-import {PerseusError} from "../../perseus-error.js";
+} from "../../styles/global-constants.js";
 
 import FlexiblePosition from "./flexible-position.jsx";
 import {

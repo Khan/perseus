@@ -17,10 +17,7 @@ import KhanColors from "../util/colors.js";
 import GraphUtils from "../util/graph-utils.js";
 import {getInteractiveBoxFromSizeClass} from "../util/sizing-utils.js";
 
-import type {
-    Coord,
-    Line,
-} from "../interactive2/types.js";
+import type {Coord, Line} from "../interactive2/types.js";
 import type {
     PerseusGraphType,
     PerseusGraphTypeAngle,
@@ -29,11 +26,7 @@ import type {
     PerseusGraphTypeSegment,
     PerseusInteractiveGraphWidgetOptions,
 } from "../perseus-types.js";
-import type {
-    PerseusScore,
-    WidgetExports,
-    WidgetProps,
-} from "../types.js";
+import type {PerseusScore, WidgetExports, WidgetProps} from "../types.js";
 
 type Range = $ReadOnlyArray<number>; // This should really be a readonly tuple of [number, number]
 type SineCoefficient = [
@@ -48,7 +41,6 @@ const {number: knumber, point: kpoint} = kmath;
 const {DeprecationMixin} = Util;
 
 const TRASH_ICON_URI =
-    // eslint-disable-next-line static-service/require-safe-link-to
     "https://ka-perseus-graphie.s3.amazonaws.com/b1452c0d79fd0f7ff4c3af9488474a0a0decb361.png";
 
 const defaultBackgroundImage = {
