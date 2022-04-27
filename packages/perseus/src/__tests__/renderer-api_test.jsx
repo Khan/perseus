@@ -15,9 +15,10 @@ import {registerAllWidgetsForTesting} from "../util/register-all-widgets-for-tes
 
 import imageItem from "./test-items/image-item.js";
 import inputNumber1Item from "./test-items/input-number-1-item.js";
-import itemWidget from "./test-items/input-number-1-item.js";
 import inputNumber2Item from "./test-items/input-number-2-item.js";
 import tableItem from "./test-items/table-item.js";
+
+const itemWidget = inputNumber1Item;
 
 // Returns a promise that will resolve shortly after the end of this
 // browser tick (roughly a `setTimeout(0)`)

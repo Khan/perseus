@@ -23,7 +23,6 @@ const internalDomains = {
     "www.khanacademy.org": true,
     "kasandbox.org": true,
     "fastly.kastatic.org": true,
-    // eslint-disable-next-line static-service/dont-hardcode-cdn
     "cdn.kastatic.org": true, // This isn't a link to cdn.kastatic.org
     "ka-youtube-converted.storage.googleapis.com": true,
     "KA-share.s3.amazonaws.com": true,
@@ -44,5 +43,6 @@ const internalDomains = {
 // URL with one of the domains listed above as its hostname.
 export function isInternalURL(url: string): boolean {
     const hostname = getHostname(url);
+    // eslint-disable-next-line no-prototype-builtins
     return hostname === "" || internalDomains.hasOwnProperty(hostname);
 }

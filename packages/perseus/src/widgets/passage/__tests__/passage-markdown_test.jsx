@@ -5,6 +5,7 @@ import {renderToStaticMarkup} from "react-dom/server";
 import _ from "underscore";
 
 import PassageMarkdown from "../passage-markdown.jsx";
+
 const parse = PassageMarkdown.parse;
 const rules = PassageMarkdown._rulesForTesting;
 

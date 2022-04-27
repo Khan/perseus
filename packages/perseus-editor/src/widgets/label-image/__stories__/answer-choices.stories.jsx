@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     },
 });
 
-const Wrapper = (props) => {
+const Wrapper = (props: $FlowFixMe) => {
     return (
         <div className={css(styles.wrapper)}>
             <AnswerChoices

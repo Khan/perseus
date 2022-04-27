@@ -3,7 +3,7 @@
 import * as React from "react";
 
 import * as IconPaths from "../../icon-paths.js";
-import {default as IconComponent} from "../icon.jsx";
+import IconComponent from "../icon.jsx";
 
 type StorybookStoryArgs = {|
     options?: $ReadOnlyArray<string>,

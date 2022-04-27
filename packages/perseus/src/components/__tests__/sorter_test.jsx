@@ -26,7 +26,9 @@ describe("sorter widget", () => {
             getKaTeX: () => {
                 return Promise.resolve({});
             },
-            TeX: ({children}) => <span className="tex-mock">{children}</span>,
+            TeX: ({children}: {|children: React.Node|}) => (
+                <span className="tex-mock">{children}</span>
+            ),
             getRenderA11yString: Promise.resolve(getRenderA11yString),
             shouldUseFutureKaTeX: (flag: boolean) => {},
         });
