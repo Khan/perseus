@@ -149,7 +149,6 @@ export function polarDegFromCart(
  *
  * Examples:
  * cartFromPolarRad(5, Math.PI)
- * cartFromPolarRad([5, Math.PI])
  */
 export function cartFromPolarRad(
     radius: number,
@@ -162,7 +161,6 @@ export function cartFromPolarRad(
  *
  * Examples:
  * cartFromPolarDeg(5, 30)
- * cartFromPolarDeg([5, 30])
  */
 export function cartFromPolarDeg(
     radius: number,
