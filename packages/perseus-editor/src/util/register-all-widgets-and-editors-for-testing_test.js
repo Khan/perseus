@@ -1,17 +1,18 @@
 // @flow
-import * as Widgets from "../widgets.js";
+import {Widgets} from "@khanacademy/perseus";
 
-import {registerAllWidgetsForTesting} from "./register-all-widgets-for-testing.js";
+import {registerAllWidgetsAndEditorsForTesting} from "./register-all-widgets-and-editors-for-testing.js";
 
 describe("Registering all widgets and editors", () => {
     it("should have an editor for every widget", () => {
-        registerAllWidgetsForTesting();
+        registerAllWidgetsAndEditorsForTesting();
 
         const allWidgetsTypes = Widgets.getAllWidgetTypes();
 
         expect(allWidgetsTypes).not.toContain("undefined");
 
         for (const widgetType of allWidgetsTypes) {
+            console.log(widgetType);
             expect(Widgets.getEditor(widgetType)).toBeTruthy();
         }
     });
