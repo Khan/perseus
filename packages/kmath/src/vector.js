@@ -5,6 +5,7 @@
  */
 
 import _ from "underscore";
+
 import * as knumber from "./number.js";
 
 type Vector = $ReadOnlyArray<number>;

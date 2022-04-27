@@ -1,0 +1,297 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`sorter widget should snapshot on mobile: first mobile render 1`] = `
+<div>
+  <span
+    class="mock-KatexProvider"
+  >
+    <div
+      class="perseus-renderer perseus-renderer-responsive"
+    >
+      <div
+        class="paragraph"
+        data-perseus-paragraph-index="0"
+      >
+        <div
+          class="paragraph"
+        >
+          <strong>
+            Arrange the following measurements in order from smallest to largest.
+          </strong>
+        </div>
+      </div>
+      <div
+        class="paragraph"
+        data-perseus-paragraph-index="1"
+      >
+        <div
+          class="paragraph"
+        >
+          <div
+            class="perseus-widget-container widget-nohighlight widget-block"
+          >
+            <div
+              class="perseus-widget-sorter perseus-clearfix"
+            >
+              <ul
+                class="sortable_13d4756 perseus-sortable"
+              >
+                <li
+                  class="card_1s6cuhy-o_O-draggable_12to336-o_O-horizontalCard_9um937 perseus-interactive perseus-sortable-draggable"
+                  style="position: static; margin: 0px 8px 0px 0px;"
+                >
+                  <span
+                    class="mock-KatexProvider"
+                  >
+                    <div
+                      class="perseus-renderer perseus-renderer-responsive"
+                    >
+                      <div
+                        class="paragraph"
+                        data-perseus-paragraph-index="0"
+                      >
+                        <div
+                          class="paragraph"
+                        >
+                          <span
+                            style="white-space: nowrap;"
+                          >
+                            <span />
+                            <span
+                              class="tex-mock"
+                            >
+                              15
+                            </span>
+                            <span />
+                          </span>
+                           grams
+                        </div>
+                      </div>
+                    </div>
+                  </span>
+                </li>
+                <li
+                  class="card_1s6cuhy-o_O-draggable_12to336-o_O-horizontalCard_9um937 perseus-interactive perseus-sortable-draggable"
+                  style="position: static; margin: 0px 8px 0px 0px;"
+                >
+                  <span
+                    class="mock-KatexProvider"
+                  >
+                    <div
+                      class="perseus-renderer perseus-renderer-responsive"
+                    >
+                      <div
+                        class="paragraph"
+                        data-perseus-paragraph-index="0"
+                      >
+                        <div
+                          class="paragraph"
+                        >
+                          <span
+                            style="white-space: nowrap;"
+                          >
+                            <span />
+                            <span
+                              class="tex-mock"
+                            >
+                              0.005
+                            </span>
+                            <span />
+                          </span>
+                           kilograms
+                        </div>
+                      </div>
+                    </div>
+                  </span>
+                </li>
+                <li
+                  class="card_1s6cuhy-o_O-draggable_12to336-o_O-horizontalCard_9um937 perseus-interactive perseus-sortable-draggable"
+                  style="position: static; margin: 0px;"
+                >
+                  <span
+                    class="mock-KatexProvider"
+                  >
+                    <div
+                      class="perseus-renderer perseus-renderer-responsive"
+                    >
+                      <div
+                        class="paragraph"
+                        data-perseus-paragraph-index="0"
+                      >
+                        <div
+                          class="paragraph"
+                        >
+                          <span
+                            style="white-space: nowrap;"
+                          >
+                            <span />
+                            <span
+                              class="tex-mock"
+                            >
+                              55
+                            </span>
+                            <span />
+                          </span>
+                           grams
+                        </div>
+                      </div>
+                    </div>
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </span>
+</div>
+`;
+
+exports[`sorter widget should snapshot: first render 1`] = `
+<div>
+  <span
+    class="mock-KatexProvider"
+  >
+    <div
+      class="perseus-renderer perseus-renderer-responsive"
+    >
+      <div
+        class="paragraph"
+        data-perseus-paragraph-index="0"
+      >
+        <div
+          class="paragraph"
+        >
+          <strong>
+            Arrange the following measurements in order from smallest to largest.
+          </strong>
+        </div>
+      </div>
+      <div
+        class="paragraph"
+        data-perseus-paragraph-index="1"
+      >
+        <div
+          class="paragraph"
+        >
+          <div
+            class="perseus-widget-container widget-nohighlight widget-block"
+          >
+            <div
+              class="perseus-widget-sorter perseus-clearfix"
+            >
+              <ul
+                class="sortable_13d4756 perseus-sortable"
+              >
+                <li
+                  class="card_1s6cuhy-o_O-draggable_12to336-o_O-horizontalCard_9um937 perseus-interactive perseus-sortable-draggable"
+                  style="position: static; margin: 0px 5px 0px 0px;"
+                >
+                  <span
+                    class="mock-KatexProvider"
+                  >
+                    <div
+                      class="perseus-renderer perseus-renderer-responsive"
+                    >
+                      <div
+                        class="paragraph"
+                        data-perseus-paragraph-index="0"
+                      >
+                        <div
+                          class="paragraph"
+                        >
+                          <span
+                            style="white-space: nowrap;"
+                          >
+                            <span />
+                            <span
+                              class="tex-mock"
+                            >
+                              15
+                            </span>
+                            <span />
+                          </span>
+                           grams
+                        </div>
+                      </div>
+                    </div>
+                  </span>
+                </li>
+                <li
+                  class="card_1s6cuhy-o_O-draggable_12to336-o_O-horizontalCard_9um937 perseus-interactive perseus-sortable-draggable"
+                  style="position: static; margin: 0px 5px 0px 0px;"
+                >
+                  <span
+                    class="mock-KatexProvider"
+                  >
+                    <div
+                      class="perseus-renderer perseus-renderer-responsive"
+                    >
+                      <div
+                        class="paragraph"
+                        data-perseus-paragraph-index="0"
+                      >
+                        <div
+                          class="paragraph"
+                        >
+                          <span
+                            style="white-space: nowrap;"
+                          >
+                            <span />
+                            <span
+                              class="tex-mock"
+                            >
+                              0.005
+                            </span>
+                            <span />
+                          </span>
+                           kilograms
+                        </div>
+                      </div>
+                    </div>
+                  </span>
+                </li>
+                <li
+                  class="card_1s6cuhy-o_O-draggable_12to336-o_O-horizontalCard_9um937 perseus-interactive perseus-sortable-draggable"
+                  style="position: static; margin: 0px;"
+                >
+                  <span
+                    class="mock-KatexProvider"
+                  >
+                    <div
+                      class="perseus-renderer perseus-renderer-responsive"
+                    >
+                      <div
+                        class="paragraph"
+                        data-perseus-paragraph-index="0"
+                      >
+                        <div
+                          class="paragraph"
+                        >
+                          <span
+                            style="white-space: nowrap;"
+                          >
+                            <span />
+                            <span
+                              class="tex-mock"
+                            >
+                              55
+                            </span>
+                            <span />
+                          </span>
+                           grams
+                        </div>
+                      </div>
+                    </div>
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </span>
+</div>
+`;

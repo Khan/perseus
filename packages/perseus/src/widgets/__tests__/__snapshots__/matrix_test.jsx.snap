@@ -1,0 +1,450 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
+<div>
+  <span
+    class="mock-KatexProvider"
+  >
+    <div
+      class="perseus-renderer perseus-renderer-responsive"
+    >
+      <div
+        class="paragraph"
+        data-perseus-paragraph-index="0"
+      >
+        <div
+          class="paragraph"
+        >
+          <strong>
+            Perform the row operation, 
+            <span
+              style="white-space: nowrap;"
+            >
+              <span />
+              <span
+                class="mock-TeX"
+              >
+                R_3 \\leftrightarrow R_2
+              </span>
+              <span />
+            </span>
+            , on the following matrix.
+          </strong>
+        </div>
+      </div>
+      <div
+        class="paragraph perseus-paragraph-centered"
+        data-perseus-paragraph-index="1"
+      >
+        <div
+          class="perseus-block-math"
+          style="margin-left: -16px; margin-right: -16px;"
+        >
+          <div
+            class="perseus-block-math-inner"
+            style="overflow-x: auto; overflow-y: hidden; margin-top: -10px; margin-bottom: -10px; transform: translate3d(0,0,0); padding: 10px 16px 10px 16px;"
+          >
+            <span
+              style="display: block; width: 100%; transform: scale(1, 1)  translate(0, 8px); transform-origin: 0 0; opacity: 0;"
+            >
+              <span
+                class="mock-TeX"
+              >
+                \\left[\\begin{array} {ccc}
+5 & -2 & 1 & 1 \\\\
+3 & 0 & 0 & -2 \\\\
+1 & 1 & 7 & -3 \\end{array} \\right] 
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="paragraph"
+        data-perseus-paragraph-index="2"
+      >
+        <div
+          class="paragraph"
+        >
+          <div
+            class="perseus-widget-container widget-nohighlight widget-block"
+          >
+            <div
+              class="perseus-matrix"
+            >
+              
+              <div
+                class="matrix-input"
+              >
+                <div
+                  class="matrix-bracket bracket-left"
+                  style="height: 36px;"
+                />
+                <div
+                  class="matrix-bracket bracket-right"
+                  style="height: 36px; left: 46px;"
+                />
+                <div
+                  class="matrix-row"
+                >
+                  <span
+                    class="matrix-input-field"
+                  >
+                    <input
+                      class="inside"
+                      style="height: 30px; width: 40px; margin: 3px;"
+                      type="text"
+                      value=""
+                    />
+                  </span>
+                  <span
+                    class="matrix-input-field"
+                  >
+                    <input
+                      class="outside"
+                      style="height: 30px; width: 40px; margin: 3px;"
+                      type="text"
+                      value=""
+                    />
+                  </span>
+                  <span
+                    class="matrix-input-field"
+                  >
+                    <input
+                      class="outside"
+                      style="height: 30px; width: 40px; margin: 3px;"
+                      type="text"
+                      value=""
+                    />
+                  </span>
+                  <span
+                    class="matrix-input-field"
+                  >
+                    <input
+                      class="outside"
+                      style="height: 30px; width: 40px; margin: 3px;"
+                      type="text"
+                      value=""
+                    />
+                  </span>
+                </div>
+                <div
+                  class="matrix-row"
+                >
+                  <span
+                    class="matrix-input-field"
+                  >
+                    <input
+                      class="outside"
+                      style="height: 30px; width: 40px; margin: 3px;"
+                      type="text"
+                      value=""
+                    />
+                  </span>
+                  <span
+                    class="matrix-input-field"
+                  >
+                    <input
+                      class="outside"
+                      style="height: 30px; width: 40px; margin: 3px;"
+                      type="text"
+                      value=""
+                    />
+                  </span>
+                  <span
+                    class="matrix-input-field"
+                  >
+                    <input
+                      class="outside"
+                      style="height: 30px; width: 40px; margin: 3px;"
+                      type="text"
+                      value=""
+                    />
+                  </span>
+                  <span
+                    class="matrix-input-field"
+                  >
+                    <input
+                      class="outside"
+                      style="height: 30px; width: 40px; margin: 3px;"
+                      type="text"
+                      value=""
+                    />
+                  </span>
+                </div>
+                <div
+                  class="matrix-row"
+                >
+                  <span
+                    class="matrix-input-field"
+                  >
+                    <input
+                      class="outside"
+                      style="height: 30px; width: 40px; margin: 3px;"
+                      type="text"
+                      value=""
+                    />
+                  </span>
+                  <span
+                    class="matrix-input-field"
+                  >
+                    <input
+                      class="outside"
+                      style="height: 30px; width: 40px; margin: 3px;"
+                      type="text"
+                      value=""
+                    />
+                  </span>
+                  <span
+                    class="matrix-input-field"
+                  >
+                    <input
+                      class="outside"
+                      style="height: 30px; width: 40px; margin: 3px;"
+                      type="text"
+                      value=""
+                    />
+                  </span>
+                  <span
+                    class="matrix-input-field"
+                  >
+                    <input
+                      class="outside"
+                      style="height: 30px; width: 40px; margin: 3px;"
+                      type="text"
+                      value=""
+                    />
+                  </span>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </span>
+</div>
+`;
+
+exports[`matrix widget should snapshot: first render 1`] = `
+<div>
+  <span
+    class="mock-KatexProvider"
+  >
+    <div
+      class="perseus-renderer perseus-renderer-responsive"
+    >
+      <div
+        class="paragraph"
+        data-perseus-paragraph-index="0"
+      >
+        <div
+          class="paragraph"
+        >
+          <strong>
+            Perform the row operation, 
+            <span
+              style="white-space: nowrap;"
+            >
+              <span />
+              <span
+                class="mock-TeX"
+              >
+                R_3 \\leftrightarrow R_2
+              </span>
+              <span />
+            </span>
+            , on the following matrix.
+          </strong>
+        </div>
+      </div>
+      <div
+        class="paragraph perseus-paragraph-centered"
+        data-perseus-paragraph-index="1"
+      >
+        <div
+          class="perseus-block-math"
+        >
+          <div
+            class="perseus-block-math-inner"
+            style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
+          >
+            <span
+              class="mock-TeX"
+            >
+              \\left[\\begin{array} {ccc}
+5 & -2 & 1 & 1 \\\\
+3 & 0 & 0 & -2 \\\\
+1 & 1 & 7 & -3 \\end{array} \\right] 
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="paragraph"
+        data-perseus-paragraph-index="2"
+      >
+        <div
+          class="paragraph"
+        >
+          <div
+            class="perseus-widget-container widget-nohighlight widget-block"
+          >
+            <div
+              class="perseus-matrix"
+            >
+              
+              <div
+                class="matrix-input"
+              >
+                <div
+                  class="matrix-bracket bracket-left"
+                  style="height: 36px;"
+                />
+                <div
+                  class="matrix-bracket bracket-right"
+                  style="height: 36px; left: 46px;"
+                />
+                <div
+                  class="matrix-row"
+                >
+                  <span
+                    class="matrix-input-field"
+                  >
+                    <input
+                      class="inside"
+                      style="height: 30px; width: 40px; margin: 3px;"
+                      type="text"
+                      value=""
+                    />
+                  </span>
+                  <span
+                    class="matrix-input-field"
+                  >
+                    <input
+                      class="outside"
+                      style="height: 30px; width: 40px; margin: 3px;"
+                      type="text"
+                      value=""
+                    />
+                  </span>
+                  <span
+                    class="matrix-input-field"
+                  >
+                    <input
+                      class="outside"
+                      style="height: 30px; width: 40px; margin: 3px;"
+                      type="text"
+                      value=""
+                    />
+                  </span>
+                  <span
+                    class="matrix-input-field"
+                  >
+                    <input
+                      class="outside"
+                      style="height: 30px; width: 40px; margin: 3px;"
+                      type="text"
+                      value=""
+                    />
+                  </span>
+                </div>
+                <div
+                  class="matrix-row"
+                >
+                  <span
+                    class="matrix-input-field"
+                  >
+                    <input
+                      class="outside"
+                      style="height: 30px; width: 40px; margin: 3px;"
+                      type="text"
+                      value=""
+                    />
+                  </span>
+                  <span
+                    class="matrix-input-field"
+                  >
+                    <input
+                      class="outside"
+                      style="height: 30px; width: 40px; margin: 3px;"
+                      type="text"
+                      value=""
+                    />
+                  </span>
+                  <span
+                    class="matrix-input-field"
+                  >
+                    <input
+                      class="outside"
+                      style="height: 30px; width: 40px; margin: 3px;"
+                      type="text"
+                      value=""
+                    />
+                  </span>
+                  <span
+                    class="matrix-input-field"
+                  >
+                    <input
+                      class="outside"
+                      style="height: 30px; width: 40px; margin: 3px;"
+                      type="text"
+                      value=""
+                    />
+                  </span>
+                </div>
+                <div
+                  class="matrix-row"
+                >
+                  <span
+                    class="matrix-input-field"
+                  >
+                    <input
+                      class="outside"
+                      style="height: 30px; width: 40px; margin: 3px;"
+                      type="text"
+                      value=""
+                    />
+                  </span>
+                  <span
+                    class="matrix-input-field"
+                  >
+                    <input
+                      class="outside"
+                      style="height: 30px; width: 40px; margin: 3px;"
+                      type="text"
+                      value=""
+                    />
+                  </span>
+                  <span
+                    class="matrix-input-field"
+                  >
+                    <input
+                      class="outside"
+                      style="height: 30px; width: 40px; margin: 3px;"
+                      type="text"
+                      value=""
+                    />
+                  </span>
+                  <span
+                    class="matrix-input-field"
+                  >
+                    <input
+                      class="outside"
+                      style="height: 30px; width: 40px; margin: 3px;"
+                      type="text"
+                      value=""
+                    />
+                  </span>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </span>
+</div>
+`;

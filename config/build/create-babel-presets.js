@@ -25,5 +25,6 @@ module.exports = function createBabelPresets({platform, format}) {
                 targets,
             },
         ],
+        "@babel/preset-react",
     ];
 };

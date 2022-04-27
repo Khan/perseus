@@ -1,0 +1,99 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Definition widget should have a default snapshot: first render 1`] = `
+<div>
+  <span
+    class="mock-KatexProvider"
+  >
+    <div
+      class="perseus-renderer perseus-renderer-responsive"
+    >
+      <div
+        class="paragraph"
+        data-perseus-paragraph-index="0"
+      >
+        <div
+          class="paragraph"
+        >
+          Read the excerpt and answer the question below. 
+        </div>
+      </div>
+      <div
+        class="paragraph"
+        data-perseus-paragraph-index="1"
+      >
+        <div
+          class="paragraph"
+        >
+          The Governor and Council of the Massachusetts had much conference many days; and at last . . . . concluded a peace and friendship with 
+          <div
+            class="perseus-widget-container widget-nohighlight widget-inline"
+          >
+            <span
+              aria-describedby="uid-tooltip-0-aria-content"
+              class="perseus-widget-definition"
+              tabindex="0"
+            >
+              <div
+                class="default_xu2jcg-o_O-inlineStyles_txdle"
+              >
+                the Pequots
+              </div>
+            </span>
+          </div>
+          , upon these conditions.
+        </div>
+      </div>
+    </div>
+  </span>
+</div>
+`;
+
+exports[`Definition widget should have an open state snapshot: open state 1`] = `
+<div>
+  <span
+    class="mock-KatexProvider"
+  >
+    <div
+      class="perseus-renderer perseus-renderer-responsive"
+    >
+      <div
+        class="paragraph"
+        data-perseus-paragraph-index="0"
+      >
+        <div
+          class="paragraph"
+        >
+          Read the excerpt and answer the question below. 
+        </div>
+      </div>
+      <div
+        class="paragraph"
+        data-perseus-paragraph-index="1"
+      >
+        <div
+          class="paragraph"
+        >
+          The Governor and Council of the Massachusetts had much conference many days; and at last . . . . concluded a peace and friendship with 
+          <div
+            class="perseus-widget-container widget-nohighlight widget-inline"
+          >
+            <span
+              aria-describedby="uid-tooltip-1-aria-content"
+              class="perseus-widget-definition"
+              tabindex="0"
+            >
+              <div
+                class="default_xu2jcg-o_O-inlineStyles_txdle"
+              >
+                the Pequots
+              </div>
+            </span>
+          </div>
+          , upon these conditions.
+        </div>
+      </div>
+    </div>
+  </span>
+</div>
+`;

@@ -6,8 +6,8 @@
  * traveling along the positive x-axis.
  */
 
-import * as kvector from "./vector.js";
 import * as kpoint from "./point.js";
+import * as kvector from "./vector.js";
 
 import type {Point} from "./point";
 

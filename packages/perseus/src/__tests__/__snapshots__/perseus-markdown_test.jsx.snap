@@ -1,0 +1,516 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`perseus markdown output should output columns 1`] = `
+Array [
+  <div
+    className="perseus-two-columns"
+  >
+    <div
+      className="perseus-column"
+    >
+      <div
+        className="perseus-column-content"
+      >
+        <div
+          className="paragraph"
+        >
+          col1
+        </div>
+      </div>
+    </div>
+    <div
+      className="perseus-column"
+    >
+      <div
+        className="sat-header-grafting-area"
+      />
+      <div
+        className="perseus-column-content"
+      >
+        <div
+          className="sat-skill-subscore-grafting-area"
+        />
+        <div
+          className="paragraph"
+        >
+          col2
+        </div>
+        <div
+          className="sat-grafting-area"
+        />
+      </div>
+    </div>
+  </div>,
+]
+`;
+
+exports[`perseus markdown output should output paragraphs 1`] = `
+Array [
+  <div
+    className="paragraph"
+  >
+    para!
+  </div>,
+]
+`;
+
+exports[`perseus markdown output should output titled table with unescaped dollars 1`] = `
+Array [
+  <div
+    className="perseus-titled-table"
+  >
+    <table>
+      <caption
+        className="perseus-table-title"
+      >
+        <strong>
+          Table title
+        </strong>
+      </caption>
+      <thead>
+        <tr>
+          <th
+            scope="col"
+            style={Object {}}
+          >
+            header 1
+          </th>
+          <th
+            scope="col"
+            style={Object {}}
+          >
+            header 2
+          </th>
+          <th
+            scope="col"
+            style={Object {}}
+          >
+            header 3
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td
+            style={Object {}}
+          >
+            data 1
+          </td>
+          <td
+            style={Object {}}
+          >
+            data 2
+          </td>
+          <td
+            style={Object {}}
+          >
+            data 3
+          </td>
+        </tr>
+        <tr>
+          <td
+            style={Object {}}
+          >
+            data 4
+          </td>
+          <td
+            style={Object {}}
+          >
+            $data 5
+          </td>
+          <td
+            style={Object {}}
+          >
+            data 6
+          </td>
+        </tr>
+        <tr>
+          <td
+            style={Object {}}
+          >
+            data 7
+          </td>
+          <td
+            style={Object {}}
+          >
+            data 8
+          </td>
+          <td
+            style={Object {}}
+          >
+            data 9
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>,
+]
+`;
+
+exports[`perseus markdown output should render \`\`\`alt screenreader blocks 1`] = `
+Array [
+  <div
+    className="perseus-markdown-alt perseus-sr-only"
+  >
+    <div
+      className="paragraph"
+    >
+      screenreader-only text!
+    </div>
+  </div>,
+]
+`;
+
+exports[`perseus markdown output with linter should output titled table with unescaped dollars in lint 1`] = `
+Array [
+  <div
+    className="perseus-titled-table"
+  >
+    <Lint
+      inline={false}
+      insideTable={false}
+      message="Unescaped dollar sign:
+Dollar signs must appear in pairs or be escaped as \\\\$"
+      ruleName="unescaped-dollar"
+      severity={1}
+    >
+      <table>
+        <caption
+          className="perseus-table-title"
+        >
+          <strong>
+            Table title
+          </strong>
+        </caption>
+        <thead>
+          <tr>
+            <th
+              scope="col"
+              style={Object {}}
+            >
+              header 1
+            </th>
+            <th
+              scope="col"
+              style={Object {}}
+            >
+              header 2
+            </th>
+            <th
+              scope="col"
+              style={Object {}}
+            >
+              header 3
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td
+              style={Object {}}
+            >
+              data 1
+            </td>
+            <td
+              style={Object {}}
+            >
+              data 2
+            </td>
+            <td
+              style={Object {}}
+            >
+              data 3
+            </td>
+          </tr>
+          <tr>
+            <td
+              style={Object {}}
+            >
+              data 4
+            </td>
+            <td
+              style={Object {}}
+            >
+              <Lint
+                inline={true}
+                insideTable={true}
+                message="Unescaped dollar sign:
+Dollar signs must appear in pairs or be escaped as \\\\$"
+                ruleName="unescaped-dollar"
+                severity={1}
+              >
+                $
+              </Lint>
+              data 5
+            </td>
+            <td
+              style={Object {}}
+            >
+              data 6
+            </td>
+          </tr>
+          <tr>
+            <td
+              style={Object {}}
+            >
+              data 7
+            </td>
+            <td
+              style={Object {}}
+            >
+              data 8
+            </td>
+            <td
+              style={Object {}}
+            >
+              data 9
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </Lint>
+  </div>,
+]
+`;
+
+exports[`perseus markdown parser should parse titled table with unescaped dollars 1`] = `
+Array [
+  Object {
+    "table": Object {
+      "align": Array [
+        null,
+        null,
+        null,
+      ],
+      "cells": Array [
+        Array [
+          Array [
+            Object {
+              "content": "data 1",
+              "type": "text",
+            },
+          ],
+          Array [
+            Object {
+              "content": "data 2",
+              "type": "text",
+            },
+          ],
+          Array [
+            Object {
+              "content": "data 3",
+              "type": "text",
+            },
+          ],
+        ],
+        Array [
+          Array [
+            Object {
+              "content": "data 4",
+              "type": "text",
+            },
+          ],
+          Array [
+            Object {
+              "type": "unescapedDollar",
+            },
+            Object {
+              "content": "data 5",
+              "type": "text",
+            },
+          ],
+          Array [
+            Object {
+              "content": "data 6",
+              "type": "text",
+            },
+          ],
+        ],
+        Array [
+          Array [
+            Object {
+              "content": "data 7",
+              "type": "text",
+            },
+          ],
+          Array [
+            Object {
+              "content": "data 8",
+              "type": "text",
+            },
+          ],
+          Array [
+            Object {
+              "content": "data 9",
+              "type": "text",
+            },
+          ],
+        ],
+      ],
+      "header": Array [
+        Array [
+          Object {
+            "content": "header 1",
+            "type": "text",
+          },
+        ],
+        Array [
+          Object {
+            "content": "header 2",
+            "type": "text",
+          },
+        ],
+        Array [
+          Object {
+            "content": "header 3",
+            "type": "text",
+          },
+        ],
+      ],
+      "type": "table",
+    },
+    "title": Array [
+      Object {
+        "content": Array [
+          Object {
+            "content": "Table title",
+            "type": "text",
+          },
+        ],
+        "type": "strong",
+      },
+    ],
+    "type": "titledTable",
+  },
+]
+`;
+
+exports[`perseus markdown parser with linter should lint unescaped dollars in titled table 1`] = `
+Array [
+  Object {
+    "table": Object {
+      "blockHighlight": undefined,
+      "content": Object {
+        "align": Array [
+          null,
+          null,
+          null,
+        ],
+        "cells": Array [
+          Array [
+            Array [
+              Object {
+                "content": "data 1",
+                "type": "text",
+              },
+            ],
+            Array [
+              Object {
+                "content": "data 2",
+                "type": "text",
+              },
+            ],
+            Array [
+              Object {
+                "content": "data 3",
+                "type": "text",
+              },
+            ],
+          ],
+          Array [
+            Array [
+              Object {
+                "content": "data 4",
+                "type": "text",
+              },
+            ],
+            Array [
+              Object {
+                "blockHighlight": undefined,
+                "content": Object {
+                  "type": "unescapedDollar",
+                },
+                "insideTable": true,
+                "message": "Unescaped dollar sign:
+Dollar signs must appear in pairs or be escaped as \\\\$",
+                "ruleName": "unescaped-dollar",
+                "severity": 1,
+                "type": "lint",
+              },
+              Object {
+                "content": "data 5",
+                "type": "text",
+              },
+            ],
+            Array [
+              Object {
+                "content": "data 6",
+                "type": "text",
+              },
+            ],
+          ],
+          Array [
+            Array [
+              Object {
+                "content": "data 7",
+                "type": "text",
+              },
+            ],
+            Array [
+              Object {
+                "content": "data 8",
+                "type": "text",
+              },
+            ],
+            Array [
+              Object {
+                "content": "data 9",
+                "type": "text",
+              },
+            ],
+          ],
+        ],
+        "header": Array [
+          Array [
+            Object {
+              "content": "header 1",
+              "type": "text",
+            },
+          ],
+          Array [
+            Object {
+              "content": "header 2",
+              "type": "text",
+            },
+          ],
+          Array [
+            Object {
+              "content": "header 3",
+              "type": "text",
+            },
+          ],
+        ],
+        "type": "table",
+      },
+      "insideTable": false,
+      "message": "Unescaped dollar sign:
+Dollar signs must appear in pairs or be escaped as \\\\$",
+      "ruleName": "unescaped-dollar",
+      "severity": 1,
+      "type": "lint",
+    },
+    "title": Array [
+      Object {
+        "content": Array [
+          Object {
+            "content": "Table title",
+            "type": "text",
+          },
+        ],
+        "type": "strong",
+      },
+    ],
+    "type": "titledTable",
+  },
+]
+`;

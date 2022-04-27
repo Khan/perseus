@@ -1,6 +1,35 @@
 // flow-typed signature: 5ddcf688200e3506308fdcfa78ca48d9
 // flow-typed version: 644a595e77/jest_v27.x.x/flow_>=v0.134.x
 
+/**
+ * IMPORTANT: There are KA specific customizations. If the flow-typed typelib
+ * is updated, these must be readded or you're going to get flow errors all
+ * over the shop. They are marked with:
+ *
+ * // KA>
+ * // KA<
+ */
+
+// KA>
+// Have to declare these here as we cannot have top-level imports in typelibs
+// The `void` returns are technically wrong. These matchers should be returning
+// {|pass: boolean, message:()=>string|}. See: https://jestjs.io/docs/expect
+export type KACustomMatcherTypes = {|
+  toHaveMarkedConversion: (
+      conversion?: string,
+      conversionExtra?: any,
+      learningTimeInfo?: $FlowFixMe //PartialLearningTimeInfo,
+  ) => void,
+  toMatchSpecificSnapshot: (snapshotName: string) => void,
+  toHaveBeenAnsweredCorrectly(): void,
+  toHaveBeenAnsweredIncorrectly(): void,
+  toHaveInvalidInput(expectedMessage?: string): void,
+  // [Perseus-specific] Asserts that the given DOM element is somewhere
+  // within a highlighted widget
+  toBeHighlighted(): void,
+|};
+// <KA
+
 type JestMockFn<TArguments: $ReadOnlyArray<*>, TReturn> = {
   (...args: TArguments): TReturn,
   /**
@@ -577,7 +606,10 @@ interface JestExpectType {
     JestJQueryMatchersType &
     JestStyledComponentsMatchersType &
     JestExtendedMatchersType &
-    SnapshotDiffType;
+    SnapshotDiffType &
+    // KA>
+    KACustomMatcherTypes;
+    // KA<
   /**
    * If you have a mock function, you can use .lastCalledWith to test what
    * arguments it was last called with.
@@ -1183,7 +1215,10 @@ declare var expect: {
     JestJQueryMatchersType &
     JestStyledComponentsMatchersType &
     JestExtendedMatchersType &
-    SnapshotDiffType,
+    SnapshotDiffType &
+    // KA>
+    KACustomMatcherTypes,
+    // KA<,
   /** Add additional Jasmine matchers to Jest's roster */
   extend(matchers: { [name: string]: JestMatcher, ... }): void,
   /** Add a module that formats application-specific data structures. */

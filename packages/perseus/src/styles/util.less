@@ -1,0 +1,47 @@
+// Make content only visible to screen readers.
+// This keeps the element physically present on the page (i.e. focusable),
+// while visually appearing as if it were subject to `display: none`.
+// Stolen from the .sr-only class on the main Khan Academy site.
+// Both collegeboard.org and Bootstrap 3 use this exact implementation.
+// We use this as both a physical class and as a mixin.
+.perseus-sr-only {
+    border: 0;
+    clip: rect(0,0,0,0);
+
+    // HACK(mdr): With a nonzero font size, our highlighting library's call to
+    //     `Range.prototype.getClientRects` will yield rectangles for the
+    //     hidden text nodes. The highlighting library should probably instead
+    //     be cleverer about detecting that the text is hidden, but, until
+    //     then, let's just make the text small so there are no extra
+    //     rectangles.
+    font-size: 0;
+
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+// Pre-Bibliotron typography.
+// Still used in Bibliotron widget containers for backward-compatibility.
+.legacy-typography() {
+    font-size: 14px;
+    line-height: 19.6px;
+}
+
+// Cause a container to size to its floated children.
+.perseus-clearfix {
+    *zoom: 1;
+
+    &:before,
+    &:after {
+        content: "";
+        display: table;
+    }
+
+    &:after {
+        clear: both;
+    }
+}

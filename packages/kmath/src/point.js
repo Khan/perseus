@@ -6,8 +6,8 @@
 
 import _ from "underscore";
 
-import * as kvector from "./vector.js";
 import * as knumber from "./number.js";
+import * as kvector from "./vector.js";
 
 // A point, in 2D, 3D, or nD space.
 export type Point = $ReadOnlyArray<number>;

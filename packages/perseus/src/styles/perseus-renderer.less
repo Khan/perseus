@@ -1,0 +1,1008 @@
+@import (inline) "./khan-exercise.css";
+
+//
+// Edit this file in the *perseus* repo!
+// (All changes outside the perseus repo will be overwritten)
+//
+
+@import "./variables.less";
+@import "./util.less";
+
+// Article Renderer
+@import "./articles.less";
+
+#perseus {
+    position: relative;
+}
+
+.framework-perseus.perseus-mobile {
+    margin-top: 48px;
+}
+
+// .no-select is used to prevent selection of certain widgets.
+// often, allowing selection makes for an awkward mobile experience
+// where you constantly highlight elements unintentionally.
+.no-select {
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+// .blank-background is used to prevent drawing under transparent widgets.
+// drawing under transparent widgets is particularly annoying because if
+// you lift up your pen and put it down again, you can't continue drawing,
+// because you're now clicking on the widget. This is very
+// counterintuitive, so we simply don't let you see anything you draw under
+// a widget.
+.blank-background {
+    background-color: #FDFDFD;  // Keep in sync with KhanUtil._BACKGROUND
+}
+// There is no scratchpad in the answer_area, and it has a different color
+// background, so just make it transparent
+#answer_area .blank-background {
+    background-color: transparent;
+}
+
+.above-scratchpad {
+    position: relative;
+    z-index: @zIndexAboveScratchpad;
+}
+
+// All graphie components placed above the scratchpad should have their
+// background wiped out.
+.graphie.above-scratchpad,
+.graphie-container.above-scratchpad {
+    .blank-background;
+}
+
+.perseus-mobile .graphie-container.above-scratchpad {
+    background: #ffffff;
+}
+
+// Selectable graphie components make for awkward touch experiences
+.graphie {
+    .no-select;
+}
+
+.perseus-interactive,
+.perseus-interactive.above-scratchpad {
+    position: relative;
+    z-index: @zIndexInteractiveComponent;
+}
+
+&,  // and moar specificity...
+#answercontent input[type=text],
+#answercontent input[type=number],
+.framework-perseus input[type=text],
+.framework-perseus input[type=number] {
+    &.perseus-input-size-normal
+    {
+        border: 1px solid #ccc;
+        width: 80px;
+    }
+
+    &.perseus-input-size-small {
+        border: 1px solid #ccc;
+        width: 40px;
+    }
+
+    &.perseus-input-right-align {
+        text-align: right;
+    }
+}
+
+.framework-perseus.perseus-mobile {
+    .perseus-input-right-align .keypad-input {
+        text-align: right;
+    }
+}
+
+.framework-perseus {
+    #problemarea {
+        input, button {
+            .perseus-interactive;
+        }
+    }
+
+    div.paragraph {
+        .legacy-typography;
+        margin: 22px 0px;
+    }
+
+        // HACK(yejia): Override the font size and line height for blurbs
+        //
+        // NOTE(yejia): Minion Pro is only loaded on GTP pages, because those
+        //     are the main call sites for blurbs and the passage widget. We
+        //     considered inserting the relevant stylesheet whenever the passage
+        //     widget loads, but this approach produced a "flash of unstyled
+        //     text", so we decided to embed the stylesheet into the relevant
+        //     page templates instead.
+        //
+        // NOTE(yejia): Minion Pro will not be available on ZNDs, due to
+        //     restrictions in our Adobe TypeKit configuration.
+        //
+        // TODO(TP-3315): Remove once Perseus uses Wonder Blocks BodySerif
+        .test-prep-blurb div.paragraph {
+        font-size: 16px;
+        line-height: 20px;
+    }
+
+    div.instructions {
+        display: block;
+        font-style: italic;
+        font-weight: bold;
+    }
+
+    .perseus-renderer > .paragraph > ul:not(.perseus-widget-radio),
+    .perseus-renderer > .paragraph > ol {
+        margin: -11px 0px 22px 0px;  // first-level lists need padding
+    }
+
+    .paragraph ul:not(.perseus-widget-radio) {
+        .legacy-typography;
+        padding-left: 35px;
+    }
+
+    .paragraph ul:not(.perseus-widget-radio) li {
+        list-style-type: disc;
+    }
+
+    .paragraph ol {
+        list-style: decimal;
+        padding-left: 2em;
+    }
+
+    blockquote {
+        padding: 0 2.5em;
+    }
+
+    .zoomable {
+        -webkit-tap-highlight-color: rgba(0,0,0,0);
+        -webkit-touch-callout: none;
+    }
+
+    // We do not apply this styling to MathQuill elements because the
+    // styles interfere with calculation of the size of the container
+    // surrounding the math.
+    sup:not(.mq-non-leaf) {
+        font-size: smaller;
+        vertical-align: super;
+
+        // by default, vertical-align: super changes the line height of
+        // the line this text is in, which repositions surrounding text
+        // and is sad. This is especially important for the passage
+        // widget, as changes to line-height there make the line numbers
+        // incorrect. This hack fixes that, and seems to not cause problems
+        // even if there is no other text on the line (it still gets the
+        // standard line-height of what non `vertical-align: super` text
+        // would be.
+        line-height: 0;
+    }
+
+    // place on a div above the inputs
+    .range-input {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        display: inline-block;
+        padding: 0px 5px;
+
+        & > input {
+            border: 0;
+            display: inline;
+            text-align: center;
+            width: 30px;
+        }
+
+        & > span {
+            color: #999;
+            font-size: 14px;
+        }
+    }
+
+    .number-input {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin: 0; // override
+        padding: 5px 0; // override
+        text-align: center;
+        width: 40px;
+
+        &.invalid-input {
+            background-color: @red;
+            outline-color: red;
+        }
+
+        &.mini {
+            width: 40px;
+        }
+        &.small {
+            width: 60px;
+        }
+        &.normal {
+            width: 80px;
+        }
+    }
+
+    .math-output {
+        display: inline-block;
+        min-width: 80px;
+        min-height: 36px;
+        border-radius: 5px;
+        padding: 0;
+        margin-top: 4px;
+        margin-bottom: 4px;
+        background: white;
+        border: 1px solid #a4a4a4;
+    }
+
+    .graph-settings {
+        .graph-settings-axis-label {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            display: inline-block;
+            padding: 5px 5px;
+            width: 70px;
+            float: right;
+            margin: 0 5px;
+        }
+        .graph-settings-background-url {
+            width: 250px;
+        }
+    }
+
+    .graphie-container {
+        // TODO(alex): Is this still used?
+        position: relative;
+    }
+
+    .graph-settings, .image-settings, .misc-settings {
+        padding-bottom: 5px;
+    }
+
+    .misc-settings, .type-settings {
+        border-top: 1px solid black;
+        padding-top: 5px;
+    }
+
+    .svg-image {
+        display: inline-block;
+    }
+
+    .unresponsive-svg-image, .perseus-rendered-radio .unresponsive-svg-image {
+        display: inline-block;
+        position: relative;
+
+        > .graphie-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    }
+
+    .fixed-to-responsive {
+        position: relative;
+        width: 100%;
+
+        // The first child is different than the rest - it's a div
+        // with vertical padding that reserves space for the rest
+        // of the children (which are absolutely positioned and
+        // thus can't claim space for themselves).
+        > :not(:first-child) {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+
+/* Legacy table styles. Remove when XOM is rolled out (see below for
+   updated XOM styles). */
+.framework-perseus:not(.perseus-mobile) {
+    table {
+        .legacy-typography;
+
+        th, td {
+            padding: 5px 10px;
+            text-align: left;
+
+            &[align=center] {
+                text-align: center;
+            }
+
+            &[align=right] {
+                text-align: right;
+            }
+        }
+
+        th {
+            border-bottom: 2px solid #ccc;
+            font-weight: bold;
+            padding-bottom: 2px;
+        }
+
+        tr:nth-child(odd) {
+            // Doesn't work in IE8 :(
+            td {
+                background-color: #ededed;
+            }
+        }
+    }
+
+    .perseus-titled-table {
+        display: inline-block;
+
+        // Center the table in a titled table
+        table {
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+
+    // Center the title in a titled table
+    .perseus-table-title {
+        text-align: center;
+        font-size: larger;
+    }
+
+    table.non-markdown {
+        tr:nth-child(odd) {
+            td {
+                background-color: transparent;
+            }
+        }
+
+        th, td {
+            border-width: 0;
+        }
+    }
+}
+
+/* New XOM styles for tables. */
+.framework-perseus.perseus-mobile {
+    /* There are three kinds of tables:
+       1) normal "tables" - emitted by markdown (src/perseus-markdown.jsx)
+       2) "titled tables" - emitted by markdown as well (these are just
+          tables with a title, and encased in one more element)
+       3) "table widget" - where a user is expected to enter answers in a
+          table form (src/widgets/table.jsx).
+      Moreover, there the Categorizer widget uses <table> tags, so these
+      stylings will apply there as well.  */
+    // TODO(benkomalo): be more explicit by adding className values to all
+    // widgets and stop relying on tag names when using CSS. or use aphrodite
+    // evurrwhere
+    table {
+        border-collapse: collapse;
+        margin: 0 auto;
+
+        tbody > tr {
+            border: 1px solid #e5e5e5;
+        }
+
+        th,
+        td {
+            padding: 16px;
+            text-align: left;
+
+            &[align=center] {
+                text-align: center;
+            }
+
+            &[align=right] {
+                text-align: right;
+            }
+        }
+
+        td {
+            background: #fff;
+        }
+
+        th {
+            font-weight: bold;
+        }
+    }
+
+    @media (max-width: @pure-sm-max) {
+        table {
+            // Make tables "full-bleed" on phones.
+            width: 100%;
+            min-width: 480px;
+
+            tbody > tr {
+                border-left: 0;
+                border-right: 0;
+            }
+        }
+    }
+
+    .perseus-titled-table {
+        display: inline-block;
+    }
+
+    // Center the title in a titled table
+    .perseus-table-title {
+        text-align: center;
+        font-size: larger;
+    }
+
+    table.non-markdown {
+        // No customizations for table widgets for now.
+    }
+}
+
+/* Widget CSS */
+
+.perseus-graph-padding {
+    padding: 25px 25px 0 0;
+}
+
+@import "./widgets/categorizer.less";
+@import "./widgets/definition.less";
+@import "./widgets/dropdown.less";
+@import "./widgets/expression.less";
+@import "./widgets/grapher.less";
+@import "./widgets/graded-group.less";
+@import "./widgets/group.less";
+@import "./widgets/image.less";
+@import "./widgets/interactive-graph.less";
+@import "./widgets/label-image.less";
+@import "./widgets/matcher.less";
+@import "./widgets/matrix.less";
+@import "./widgets/measurer.less";
+@import "./widgets/orderer.less";
+@import "./widgets/passage.less";
+@import "./widgets/plotter.less";
+@import "./widgets/radio.less";
+@import "./widgets/reaction-diagram.less";
+@import "./widgets/sequence.less";
+@import "./widgets/sortable.less";
+@import "./widgets/table.less";
+@import "./widgets/transformer.less";
+@import "./widgets/unit.less";
+
+.perseus-widget-container {
+    &.widget-nohighlight {
+        transition: all 0.15s;
+    }
+
+    &.widget-highlight {
+        @highlight: 0px 0px 0px 2px rgba(255, 165, 0, 1);
+        -webkit-box-shadow: @highlight;
+        -moz-box-shadow:    @highlight;
+        box-shadow:         @highlight;
+        transition: all 0.15s;
+    }
+
+    &.widget-inline {
+        display: inline;
+    }
+
+    &.widget-inline-block {
+        display: inline-block;
+    }
+}
+
+
+// Hide new hints styling everywhere except Bibliotron. Note that the Bibliotron
+// styles are used both in webapp and in the mobile native apps.
+.bibliotron-exercise .perseus-hint-renderer {
+    border-left: 4px solid #f6f7f7;
+    padding-left: 16px;
+    position: relative;
+    &:focus {
+        border-left-color: #d6d8da;
+        outline: none;
+    }
+    &:before,
+    &:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+    // NOTE(charlie): In XOM, these margins get overridden with the paragraph
+    // defaults. Instead, we apply similar margins through inline styles in
+    // `hints-renderer.jsx`.
+    div.paragraph {
+        margin-top: 0px;
+        margin-bottom: 16px;
+    }
+    &.last-hint {
+        margin-bottom: 32px;
+    }
+}
+
+@media (max-width: @pure-sm-max) {
+    .bibliotron-exercise .perseus-hint-renderer {
+        &.last-hint {
+            margin-bottom: 0;
+        }
+    }
+}
+
+@default3: #00457c;
+@science3: #9e034e;
+@math3: #007d96;
+@economics3: #a75a05;
+@partner3: #208170;
+@humanities3: #be2612;
+@testPrep3: #543b78;
+@cs3: #0d923f;
+.perseus-hint-label {
+    color: @default3;
+    display: none;
+    font-weight: 600;
+    margin-right: 13px;
+    position: absolute;
+    right: 100%;
+    white-space: nowrap;
+}
+.perseus-domain-science .perseus-hint-label {
+    color: @science3;
+}
+.perseus-domain-math .perseus-hint-label {
+    color: @math3;
+}
+.perseus-domain-economics .perseus-hint-label {
+    color: @economics3;
+}
+.perseus-domain-partner .perseus-hint-label {
+    color: @partner3;
+}
+.perseus-domain-humanities .perseus-hint-label {
+    color: @humanities3;
+}
+.perseus-domain-test-prep .perseus-hint-label {
+    color: @testPrep3;
+}
+.perseus-domain-cs .perseus-hint-label {
+    color: @cs3;
+}
+.bibliotron-exercise .perseus-hint-renderer.last-rendered .perseus-hint-label {
+    display: block;
+}
+
+@media (max-width: @pure-sm-max) {
+    .bibliotron-exercise .perseus-hint-renderer.last-rendered .perseus-hint-label {
+        display: none;
+    }
+}
+
+// TODO(joel) - remove?
+.perseus-tooltip {
+    background: #fff;
+    padding: 5px 10px;
+    width: 240px;
+}
+
+// CSS is evil; let's overwrite some styles. T_T
+.perseus-formats-tooltip {
+    .perseus-tooltip;
+    color: #777;
+}
+.framework-perseus .perseus-formats-tooltip .paragraph > ul {
+    padding: 0;
+    margin: -20px 0 -16px 0;
+    > li {
+        list-style-type: none;
+    }
+}
+
+.box-shadow(@shadow: 0 1px 3px rgba(0,0,0,.25)) {
+          box-shadow: @shadow;
+       -o-box-shadow: @shadow;
+      -ms-box-shadow: @shadow;
+     -moz-box-shadow: @shadow;
+  -webkit-box-shadow: @shadow;
+}
+
+.perseus-math-input.mq-editable-field.mq-math-mode {
+    // Mimic native text input
+    background: #fff;
+
+    // If the font-size is too small, super/subscripts become hard to input
+    font-size: 18px;
+
+    // Make the click target easier to hit
+    min-width: 100px;
+
+    // Mimic native text input w/o using -moz/-webkit-apperance: textfield
+    // border-color: rgb(78, 187, 212);
+    border-color: #a4a4a4;
+
+    border-radius: 5px;
+
+    & > .mq-root-block {
+        // A bit of extra whitespace here greatly improves legibility
+        padding: 4px;
+    }
+
+    // Fixes for strange default MathQuill styles:
+
+    // Cursor shouldn't actually be touching left border
+    .mq-cursor {
+        padding-left: 0;
+    }
+
+    // Don't gray out implicitly created closing parens
+    .mq-paren.mq-ghost {
+        color: inherit;
+    }
+
+    // Don't put vertical margins on an expression wrapped in parens
+    // because it messes up baseline alignment, e.g. h(x)
+    .mq-paren + span {
+        margin: 0;
+    }
+
+    .mq-binary-operator {
+        // MathQuill uses Symbola to render binary operators.  Unfortunately,
+        // Firefox 47 on Windows doesn't render the +/- signs correctly when
+        // using Symbola so we override it and use KaTeX_Main instead.
+        font-family: KaTeX_Main !important;
+    }
+
+    sup {
+        // This is set to 0 across Perseus normally, but we need to override it
+        // here so nth-roots are rendered correctly.
+        line-height: normal;
+    }
+}
+
+// override normal 5px border radius for the editor only
+.perseus-widget-editor .perseus-math-input.mq-editable-field.mq-math-mode > .mq-root-block {
+    border-radius: 0;
+}
+
+// This style looks a little off in the expression editor. Luckily users don't
+// use the expression editor.
+.math-input-buttons {
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    margin-top: 5px;
+    padding: 2px;
+    // each button is 35 + 4 px, plus 4 padding, plus 2 border
+    width: 39px*5 + 4px + 2px; // (201)
+
+    &.absolute {
+        left: -2px;
+        position: absolute;
+        top: -3px;
+        z-index: @zIndexCalculator;
+    }
+};
+
+// Math domain color
+@borderColor: #1c758a;
+
+.tex-button {
+    display: block;
+    float: left;
+    width: 35px;
+    height: 35px;
+    margin: 2px;
+    border: 1px solid @borderColor;
+    background-color: white;
+    border-radius: 5px;
+
+    &:hover {
+        cursor: pointer;
+        background-color: #f0f0f0;
+    }
+
+    &:focus {
+        border: 2px solid @borderColor;
+        outline: none;
+    }
+}
+
+.tex-button-row {
+    margin: 5px 0;
+
+    &:first-child {
+        margin-top: 0;
+    }
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.renderer-widget-error {
+    background-color: #fcc;
+}
+
+@satTopSpacingForTwoColumnLayout: 48px;
+@satTwoColumnLayoutSideMargin: 32px;
+
+// #sat-mission (below) matches when we're inside the SAT MVP product,
+// basically internal-only and in flux.
+#sat-mission {
+    @satContentWidth: 592px;
+
+    .content-area > div {
+        margin-left: auto;
+        margin-right: auto;
+        width: @satContentWidth;
+        .perseus-input-with-label {
+            display: flex;
+            align-items: center;
+            .perseus-input-label {
+                font-weight: 600;
+                padding-right: 10px;
+            }
+        }
+        .perseus-input-with-answer-blurb {
+            // numeric-inputs widgets use labels whereas input-number widgets
+            // use spans.
+            > span, > label {
+                display: inline-block;
+            }
+
+            .perseus-possible-answers {
+                color: rgb(0, 153, 0);
+                display: inline-block;
+                padding-right: 4px;
+
+                dt, dd {
+                    // If you just use inline, then screen readers (or at least
+                    // ChromeVox) won't read the answers as distinct items;
+                    // if 2 and 4 were both correct, then it would read them
+                    // concatenated as "twenty-four".
+                    display: inline-block;
+                }
+
+                dt {
+                    padding: 0 5px 0 13px;
+                    color: rgb(18, 18, 18);
+                    text-transform: uppercase;
+                }
+
+                dt::after {
+                    content: ":";
+                }
+
+                dd:not(:last-child)::after {
+                    // TODO(johnsullivan): Figure out a better way to do this list
+                    // joining.
+                    // TODO(mattdr): Joining in CSS makes semantic sense here
+                    // (they're definition list entries that we happen to be
+                    // rendering as a line of text joined by "or"), but CSS is
+                    // more difficult to internationalize. SAT is English-only
+                    // for now, though.
+                    content: "or";
+                    padding: 0 5px;
+                    color: rgb(18, 18, 18);
+                }
+            }
+        }
+
+        input.perseus-incorrect {
+            color: @satIncorrectColor;
+            background-color: @satIncorrectBackgroundColor;
+            border: solid 1px @satIncorrectBorderColor;
+        }
+
+        input.perseus-correct {
+            color: @satCorrectColor;
+            background-color: @satCorrectBackgroundColor;
+            border: solid 1px @satCorrectBorderColor;
+        }
+
+        input.perseus-unanswered {
+            background-color: #eee;
+            border: solid 1px #999;
+        }
+
+        &.perseus-renderer-two-columns {
+            width: 1024px;
+
+            // This prevents a strange blank space from appearing above
+            // passages.
+            // TODO(johnsullivan): Try and get rid of the wrapping div that's
+            // causing this instead of modifying its margin like this.
+            & > .paragraph {
+                margin: 0;
+            }
+
+            .perseus-two-columns {
+                display: flex;
+                justify-content: center;
+            }
+
+            .perseus-column {
+                // NOTE(emily): For some reason, these prefixes aren't being
+                // added by our auto-prefixer, and we need these prefixes to
+                // work in Safari <= 8.
+                display: -webkit-flex;
+                -webkit-flex-direction: column;
+
+                display: flex;
+                flex-direction: column;
+                // Should this be @articleMaxWidthTablet? or is this
+                // conceptually a different value?
+                width: 512px;
+
+                &:nth-child(1) {
+                    background: #eee;
+                    border-right: 1px solid #ddd;
+                    box-sizing: border-box;
+
+                    .perseus-column-content {
+                        padding-top: @satTopSpacingForTwoColumnLayout;
+                        padding-bottom: 22px;
+                        padding-left: 46px;
+                        padding-right: @satTwoColumnLayoutSideMargin;
+                    }
+
+                    .perseus-widget-passage-container {
+                        position: relative;
+                        .perseus-widget-passage-instructions div.paragraph {
+                            margin-top: 0;
+                        }
+                    }
+                    .perseus-widget-passage {
+                        // We've replaced the margin here with padding in the
+                        // parent element to stay consistent with non-passage
+                        // two-column mode.
+                        margin: 0;
+                    }
+
+                    & > .paragraph {
+                        margin-right: 40px;
+                    }
+
+                    blockquote {
+                        padding: 0;
+                        margin-right: 22px;
+
+                        & > .paragraph:nth-child(1) {
+                            margin-top: 0;
+                        }
+                    }
+                }
+
+                &:nth-child(2) {
+                    .perseus-column-content {
+                        padding-left: @satTwoColumnLayoutSideMargin;
+                        padding-right: @satTwoColumnLayoutSideMargin;
+                    }
+
+                    .perseus-group {
+                        margin-bottom: 20px;
+                    }
+                }
+            }
+
+            .perseus-column-content {
+                flex: 1 1 auto;
+                overflow-y: auto;
+
+                & > .paragraph {
+                    margin-top: 0;
+                }
+            }
+
+        }
+    }
+
+    input[type=text],
+    input[type=number] {
+        border: 1px solid #aaa;
+        font-family: @boldFontFamily;
+        font-size: 14px;
+        margin: 10px 0;
+        padding: 5px;
+
+        &:focus {
+            border-color: @satBlue;
+            box-shadow: 0 0 10px fade(@satBlue, 80%);
+            outline: none;
+        }
+    }
+
+    .valid-answer-mixin() {
+        input[type=text]:valid, input[type=number]:valid {
+            border: 1px solid @satBlue;
+            background: @satSelectedBackgroundColor;
+            color: initial;
+
+            &:focus {
+                box-shadow: 0 0 10px fade(@satBlue, 80%);
+            }
+        }
+    }
+
+    .invalid-answer-mixin() {
+        input[type=text]:valid, input[type=number]:valid {
+            color: @satIncorrectColor;
+            background-color: @satIncorrectBackgroundColor;
+            border: solid 1px @satIncorrectBorderColor;
+
+            &:focus {
+                box-shadow: 0 0 10px fade(@satIncorrectBorderColor, 80%);
+            }
+        }
+    }
+
+    // If a textbox appears inside a Perseus group widget, then the group
+    // widget's validity should override the item's validity when styling that
+    // item.
+    //
+    // That is, if a group widget is valid, but the item as a whole is
+    // invalid, inputs inside the valid group widget should still render as
+    // valid.
+    //
+    // This is implemented as a mixin and mixed into .valid-answer and
+    // .invalid-answer, in order to ensure that there's no ambiguity as to
+    // which selector takes precedence. Additionally, this ensures that these
+    // styles will only be applied when validity is relevant to the user (i.e.
+    // not in review mode).
+    .perseus-group-validity-override() {
+        .perseus-group-valid-answer {
+            .valid-answer-mixin();
+        }
+        .perseus-group-invalid-answer {
+            .invalid-answer-mixin();
+        }
+    }
+
+    .valid-answer {
+        .valid-answer-mixin();
+        .perseus-group-validity-override();
+    }
+    .invalid-answer {
+        .invalid-answer-mixin();
+        .perseus-group-validity-override();
+    }
+
+    #sat-route-task, #sat-route-section {
+        .content-area > .perseus-renderer-two-columns {
+            // Override column top margin to 0 (the first column will get
+            // the desired spacing by adding padding - to preserve the
+            // gray background)
+            margin-top: 0;
+
+            // Add spacing to the second column, by way of its first child.
+            // We want the margins to auto collapse, and so we can't add
+            // it to perseus-column because it's floated.
+            .perseus-column:nth-child(2) > .perseus-column-content > :first-child {
+                margin-top: @satTopSpacingForTwoColumnLayout;
+            }
+        }
+    }
+}
+
+.perseus-error {
+    background: @red;
+    border: 2px solid red;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 15px 0 10px;
+}
+
+@media (max-width: @pure-sm-max) {
+    .perseus-renderer-responsive {
+        margin: 0 @phoneMargin;
+
+        // Horizontal margins should only be applied to top-level Renderers.
+        .perseus-renderer-responsive {
+            margin: 0;
+        }
+    }
+}
+
+.perseus-mobile {
+    @media (max-width: 767px) {
+        .perseus-block-math {
+            font-size: 18px;
+        }
+    }
+}
+
+@import (inline) "../../../../node_modules/@khanacademy/math-input/build/math-input.css";
+@import (inline) "../../../../node_modules/mathquill/build/mathquill.css";
