@@ -50,7 +50,7 @@ export function distanceToLine(point: Point, line: [Point, Point]): number {
 }
 
 // Reflect point over line
-export function reflectOverLine(point: Point, line: [Point, Point]): Point {
+export function reflectOverLine<P: Point>(point: P, line: [P, P]): P {
     const lv = kvector.subtract(line[1], line[0]);
     const pv = kvector.subtract(point, line[0]);
     const projectedPv = kvector.projection(pv, lv);
