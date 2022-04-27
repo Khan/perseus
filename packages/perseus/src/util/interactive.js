@@ -9,8 +9,12 @@
 
 // TODO(emily): This file breaks our line length limits like nobody's business.
 // Figure out how to fix that.
+import {
+    vector as kvector,
+    point as kpoint,
+    line as kline,
+} from "@khanacademy/kmath";
 import $ from "jquery";
-import {vector as kvector, point as kpoint, line as kline} from "kmath";
 import Raphael from "raphael";
 import _ from "underscore";
 

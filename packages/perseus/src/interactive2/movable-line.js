@@ -2,7 +2,7 @@
 /**
  * MovableLine
  */
-import {vector as kvector} from "kmath";
+import {vector as kvector} from "@khanacademy/kmath";
 import _ from "underscore";
 
 import KhanColors from "../util/colors.js";

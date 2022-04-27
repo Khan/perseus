@@ -1,6 +1,6 @@
 // @flow
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
-import {number as knumber} from "kmath";
+import {number as knumber} from "@khanacademy/kmath";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";

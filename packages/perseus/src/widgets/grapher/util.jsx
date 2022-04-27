@@ -1,6 +1,6 @@
 /* eslint-disable one-var */
 // @flow
-import {point as kpoint} from "kmath";
+import {point as kpoint} from "@khanacademy/kmath";
 import * as React from "react";
 import _ from "underscore";
 

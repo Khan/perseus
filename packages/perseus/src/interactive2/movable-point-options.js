@@ -3,7 +3,7 @@
 /**
  * A library of options to pass to add/draw/remove/constraints
  */
-import {point as kpoint} from "kmath";
+import {point as kpoint} from "@khanacademy/kmath";
 import _ from "underscore";
 
 import WrappedEllipse from "./wrapped-ellipse.js";

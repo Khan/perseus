@@ -19,7 +19,7 @@ import {
     point as kpoint,
     ray as kray,
     line as kline,
-} from "kmath";
+} from "@khanacademy/kmath";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";

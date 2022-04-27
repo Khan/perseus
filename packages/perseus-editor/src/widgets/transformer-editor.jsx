@@ -15,7 +15,7 @@ import {
     point as kpoint,
     ray as kray,
     vector as kvector,
-} from "kmath";
+} from "@khanacademy/kmath";
 import * as React from "react";
 import _ from "underscore";
 
