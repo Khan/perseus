@@ -695,6 +695,7 @@ export const pointsFromNormalized = (
         // on the Graphie to handle snapping. Here, we need the points
         // returned to already be snapped so that the plot that goes
         // through them is correct.
+        // $FlowFixMe[invalid-tuple-arity] improve unsnappedPoint type so it knows arity
         return kpoint.roundTo(unsnappedPoint, snapStep);
     });
 };

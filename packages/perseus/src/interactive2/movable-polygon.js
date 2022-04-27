@@ -213,6 +213,7 @@ _.extend(MovablePolygon.prototype, {
                         refCoord,
                         self._prevRefCoord,
                     );
+                    // $FlowFixMe[incompatible-type] _applyConstraints can return false
                     if (refCoord === false) {
                         return;
                     }

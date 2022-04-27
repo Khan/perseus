@@ -823,6 +823,9 @@ const Transformations = {
             transform1: ReflectionTransformation,
             transform2: ReflectionTransformation,
         ) {
+            // STOPSHIP(jeremy): This really calls for an nD line (or use Point
+            // from kmath)
+            // $FlowFixMe[incompatible-call]
             if (!kline.equal(transform1.line, transform2.line)) {
                 return false;
             }
