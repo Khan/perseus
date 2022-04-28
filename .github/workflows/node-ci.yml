@@ -7,14 +7,6 @@ on:
     # The rest are the defaults.
     types: [edited, opened, synchronize, reopened]
 
-# Our jobs run like this to minimize wasting resource cycles:
-#   1. Prime caches for primary configuration.  This way subsequent jobs
-#      can run in parallel but rely on this primed cache.
-#   2. Lint and coverage
-#     a. Lint
-#     b. Coverage
-#   3. Run tests for remaining configurations
-#      Since these don't share caches, we don't need to prime those caches.
 jobs:
   lint:
     name: Lint, flow, and coverage check
@@ -55,17 +47,21 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    # Collect and record coverage
-    - name: Run Jest with coverage
-      run: yarn coverage
-    # - name: Upload Coverage
-    #   # We don't bother collecting a record of coverage for dependabot changes
-    #   if: ${{ github.actor != 'dependabot[bot]' }}
-    #   uses: codecov/codecov-action@v2
-    #   with:
-    #     token: ${{ secrets.CODECOV_TOKEN }}
-    #     files: ./coverage/coverage-final.json
-    #     fail_ci_if_error: true
+    # Run tests for our target matrix
+    - name: Run Jest (all files)
+      if: |
+        contains(steps.changed.outputs.added_modified, 'jest.config.js') ||
+        contains(steps.changed.outputs.added_modified, 'yarn.lock') ||
+        contains(steps.changed.outputs.added_modified, 'test.config.js') ||
+        contains(steps.changed.outputs.added_modified, 'test.transform.js')
+      run: yarn test
+    - name: Run Jest (added/changed files)
+      if: |
+        (contains(steps.changed.outputs.added_modified, 'jest.config.js') ||
+         contains(steps.changed.outputs.added_modified, 'yarn.lock') ||
+         contains(steps.changed.outputs.added_modified, 'test.config.js') ||
+         contains(steps.changed.outputs.added_modified, 'test.transform.js')) == false
+      run: yarn test --passWithNoTests ${{ steps.changed.outputs.added_modified }}
 
   check_builds:
     name: Check builds for changes in size
@@ -97,8 +93,8 @@ jobs:
         # Build production
         build-script: "build:prodsizecheck"
 
-  test:
-    name: Test
+  coverage:
+    name: Test Coverage
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -112,28 +108,17 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: Get All Changed Files
-      uses: jaredly/get-changed-files@v1.0.1
-      id: changed
-      with:
-        format: space-delimited
-        absolute: true
-
-    # Run tests for our target matrix
-    - name: Run Jest (all files)
-      if: |
-        contains(steps.changed.outputs.added_modified, 'jest.config.js') ||
-        contains(steps.changed.outputs.added_modified, 'yarn.lock') ||
-        contains(steps.changed.outputs.added_modified, 'test.config.js') ||
-        contains(steps.changed.outputs.added_modified, 'test.transform.js')
-      run: yarn test
-    - name: Run Jest (added/changed files)
-      if: |
-        (contains(steps.changed.outputs.added_modified, 'jest.config.js') ||
-         contains(steps.changed.outputs.added_modified, 'yarn.lock') ||
-         contains(steps.changed.outputs.added_modified, 'test.config.js') ||
-         contains(steps.changed.outputs.added_modified, 'test.transform.js')) == false
-      run: yarn test --passWithNoTests ${{ steps.changed.outputs.added_modified }}
+    # Collect and record coverage
+    - name: Run Jest with coverage
+      run: yarn coverage
+    # - name: Upload Coverage
+    #   # We don't bother collecting a record of coverage for dependabot changes
+    #   if: ${{ github.actor != 'dependabot[bot]' }}
+    #   uses: codecov/codecov-action@v2
+    #   with:
+    #     token: ${{ secrets.CODECOV_TOKEN }}
+    #     files: ./coverage/coverage-final.json
+    #     fail_ci_if_error: true
 
   extract_strings:
     name: Extract i18n strings
