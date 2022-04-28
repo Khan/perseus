@@ -2152,15 +2152,16 @@ class Transformer extends React.Component<Props> {
     normalizeReflectionCoords: ([Coord, Coord]) => [Coord, Coord] = (
         messyCoords,
     ) => {
+        // $FlowFixMe[incompatible-call]
         const midpoint = this.snapCoord(kline.midpoint(messyCoords));
         const origDirectionPolar = kvector.polarDegFromCart(
             kvector.subtract(messyCoords[0], messyCoords[1]),
         );
-        const directionPolar = [
+
+        const direction = kvector.cartFromPolarDeg(
             1,
             KhanMath.roundToNearest(45, origDirectionPolar[1]),
-        ];
-        const direction = kvector.cartFromPolarDeg(directionPolar);
+        );
         const coords = _.map(
             [-1, 1],
             function (directionCoefficient) {
