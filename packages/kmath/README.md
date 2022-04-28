@@ -501,4 +501,4 @@ Returns the reflection of `p` over `theLine`.
 
 ## License
 
-MIT. See the [LICENSE.txt](../../LICENSE.txt) file for more information.
+MIT. See the [LICENSE](../../LICENSE) file for more information.
