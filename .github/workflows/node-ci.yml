@@ -39,9 +39,6 @@ jobs:
         format: space-delimited
         absolute: true
 
-    - name: Build so that inter-package references are resolved
-      run: yarn build
-
     # Linting / type checking
     - name: Run ESLint (all files)
       if: contains(steps.changed.outputs.added_modified, '.eslintrc.js') || contains(steps.changed.outputs.added_modified, 'yarn.lock')
@@ -121,9 +118,6 @@ jobs:
       with:
         format: space-delimited
         absolute: true
-
-    - name: Build so that inter-package references are resolved
-      run: yarn build
 
     # Run tests for our target matrix
     - name: Run Jest (all files)
