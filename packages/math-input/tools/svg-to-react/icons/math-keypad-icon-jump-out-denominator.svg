@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
+    <title>F9836568-2758-4C92-9536-A2BB079F9BF6</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="600" height="956"></rect>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Math-Input" transform="translate(-318.000000, -1380.000000)"></g>
+        <g id="Asset-Sheet" transform="translate(-118.000000, -284.000000)">
+            <g id="math_keypad_icon_jump_out_denominator" transform="translate(118.000000, 284.000000)">
+                <rect id="bounds" fill-opacity="0" fill="#FF0088" x="0" y="0" width="48" height="48"></rect>
+                <g id="icon" stroke-width="1" transform="translate(12.000000, 12.000000)">
+                    <rect id="bounds" fill-opacity="0" fill="#FF0088" x="0" y="0" width="24" height="24"></rect>
+                    <path d="M23,4 L23,20" id="caret" stroke="#78C008" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <polyline id="head" stroke="#78C008" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="19 16 19 12 15 12"></polyline>
+                    <path d="M13,18 L19,12" id="tail" stroke="#78C008" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M2,15.9970301 C2,15.4463856 2.45303631,15 2.99703014,15 L9.00296986,15 C9.5536144,15 10,15.4530363 10,15.9970301 L10,22.0029699 C10,22.5536144 9.54696369,23 9.00296986,23 L2.99703014,23 C2.4463856,23 2,22.5469637 2,22.0029699 L2,15.9970301 Z M4,17 L8,17 L8,21 L4,21 L4,17 Z" id="block" fill="#888D93"></path>
+                    <path d="M11,12 L1,12" id="bar" stroke="#888D93" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M2,1.99703014 C2,1.4463856 2.45303631,1 2.99703014,1 L9.00296986,1 C9.5536144,1 10,1.45303631 10,1.99703014 L10,8.00296986 C10,8.5536144 9.54696369,9 9.00296986,9 L2.99703014,9 C2.4463856,9 2,8.54696369 2,8.00296986 L2,1.99703014 Z M4,3 L8,3 L8,7 L4,7 L4,3 Z" id="block" fill="#888D93"></path>
+                </g>
+            </g>
+        </g>
+        <g id="Math-Input" transform="translate(-318.000000, -1380.000000)">
+            <g id="Asset-Sheet" transform="translate(200.000000, 1096.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="Mask" fill="#FAFAFA" xlink:href="#path-1"></use>
+                <g id="math_keypad_icon_jump_out_denominator" mask="url(#mask-2)">
+                    <g transform="translate(118.000000, 284.000000)">
+                        <rect id="bounds" fill-opacity="0" fill="#FF0088" x="0" y="0" width="48" height="48"></rect>
+                        <g id="icon" stroke-width="1" fill="none" transform="translate(12.000000, 12.000000)">
+                            <rect id="bounds" fill-opacity="0" fill="#FF0088" x="0" y="0" width="24" height="24"></rect>
+                            <path d="M23,4 L23,20" id="caret" stroke="#78C008" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <polyline id="head" stroke="#78C008" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="19 16 19 12 15 12"></polyline>
+                            <path d="M13,18 L19,12" id="tail" stroke="#78C008" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M2,15.9970301 C2,15.4463856 2.45303631,15 2.99703014,15 L9.00296986,15 C9.5536144,15 10,15.4530363 10,15.9970301 L10,22.0029699 C10,22.5536144 9.54696369,23 9.00296986,23 L2.99703014,23 C2.4463856,23 2,22.5469637 2,22.0029699 L2,15.9970301 Z M4,17 L8,17 L8,21 L4,21 L4,17 Z" id="block" fill="#888D93"></path>
+                            <path d="M11,12 L1,12" id="bar" stroke="#888D93" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M2,1.99703014 C2,1.4463856 2.45303631,1 2.99703014,1 L9.00296986,1 C9.5536144,1 10,1.45303631 10,1.99703014 L10,8.00296986 C10,8.5536144 9.54696369,9 9.00296986,9 L2.99703014,9 C2.4463856,9 2,8.54696369 2,8.00296986 L2,1.99703014 Z M4,3 L8,3 L8,7 L4,7 L4,3 Z" id="block" fill="#888D93"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

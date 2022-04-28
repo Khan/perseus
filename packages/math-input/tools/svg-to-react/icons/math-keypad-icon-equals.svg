@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
+    <title>1F450FE8-40B6-4468-972E-854AD0C54F6B</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="600" height="956"></rect>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Math-Input" transform="translate(-634.000000, -1614.000000)"></g>
+        <g id="Asset-Sheet" transform="translate(-434.000000, -518.000000)">
+            <g id="math_keypad_icon_equals" transform="translate(434.000000, 518.000000)">
+                <g id="icon">
+                    <g id="math_keypad_icon_equals">
+                        <rect id="bounds" fill-opacity="0" fill="#FF0088" x="0" y="0" width="48" height="48"></rect>
+                        <g id="icon" transform="translate(12.000000, 12.000000)">
+                            <rect id="bounds" fill-opacity="0" fill="#FF0088" x="0" y="0" width="24" height="24"></rect>
+                            <path d="M4,9 L21,9" id="line" stroke="#3B3E40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M4,15 L21,15" id="line" stroke="#3B3E40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+        <g id="Math-Input" transform="translate(-634.000000, -1614.000000)">
+            <g id="Asset-Sheet" transform="translate(200.000000, 1096.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="Mask" fill="#FAFAFA" xlink:href="#path-1"></use>
+                <g id="math_keypad_icon_equals" mask="url(#mask-2)">
+                    <g transform="translate(434.000000, 518.000000)" id="icon">
+                        <g>
+                            <g id="math_keypad_icon_equals">
+                                <rect id="bounds" fill-opacity="0" fill="#FF0088" x="0" y="0" width="48" height="48"></rect>
+                                <g id="icon" transform="translate(12.000000, 12.000000)">
+                                    <rect id="bounds" fill-opacity="0" fill="#FF0088" x="0" y="0" width="24" height="24"></rect>
+                                    <path d="M4,9 L21,9" id="line" stroke="#3B3E40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <path d="M4,15 L21,15" id="line" stroke="#3B3E40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

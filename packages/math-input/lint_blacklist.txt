@@ -1,0 +1,7 @@
+build/
+mathquill/
+node_modules/
+src/components/iconography/
+tools/
+lib/
+i18n.js

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
+    <title>F8BF04A5-690D-48F9-A91F-87274E7C6623</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="600" height="956"></rect>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Math-Input" transform="translate(-566.000000, -1312.000000)"></g>
+        <g id="Asset-Sheet" transform="translate(-366.000000, -216.000000)">
+            <g id="math_keypad_icon_7" transform="translate(366.000000, 216.000000)">
+                <rect id="bounds" fill-opacity="0" fill="#FF0088" x="0" y="0" width="48" height="48"></rect>
+                <polygon id="7" fill="#3B3E40" points="22.8875 32 29.7125 16.75 29.7125 15.325 18.3375 15.325 18.3375 17.175 27.3125 17.175 20.5875 32"></polygon>
+            </g>
+        </g>
+        <g id="Math-Input" transform="translate(-566.000000, -1312.000000)">
+            <g id="Asset-Sheet" transform="translate(200.000000, 1096.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="Mask" fill="#FAFAFA" xlink:href="#path-1"></use>
+                <g id="math_keypad_icon_7" mask="url(#mask-2)">
+                    <g transform="translate(366.000000, 216.000000)">
+                        <rect id="bounds" fill-opacity="0" fill="#FF0088" x="0" y="0" width="48" height="48"></rect>
+                        <polygon id="7" fill="#3B3E40" points="22.8875 32 29.7125 16.75 29.7125 15.325 18.3375 15.325 18.3375 17.175 27.3125 17.175 20.5875 32"></polygon>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

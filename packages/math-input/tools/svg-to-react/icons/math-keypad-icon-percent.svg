@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
+    <title>4B8271CC-4E8B-42AA-AA26-96FF0B8D347D</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="600" height="956"></rect>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Math-Input" transform="translate(-386.000000, -1546.000000)"></g>
+        <g id="Asset-Sheet" transform="translate(-186.000000, -450.000000)">
+            <g id="math_keypad_icon_percent" transform="translate(186.000000, 450.000000)">
+                <rect id="bounds" fill-opacity="0" fill="#FF0088" x="0" y="0" width="48" height="48"></rect>
+                <g id="percent" stroke-width="1" transform="translate(12.000000, 12.000000)">
+                    <rect id="bounds" fill-opacity="0" fill="#FF0088" x="0" y="0" width="24" height="24"></rect>
+                    <path d="M16,4 L8,20" id="line" stroke="#3B3E40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <circle id="circle" stroke="#3B3E40" stroke-width="2" cx="7" cy="7" r="3"></circle>
+                    <circle id="circle" stroke="#3B3E40" stroke-width="2" cx="17" cy="17" r="3"></circle>
+                </g>
+            </g>
+        </g>
+        <g id="Math-Input" transform="translate(-386.000000, -1546.000000)">
+            <g id="Asset-Sheet" transform="translate(200.000000, 1096.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="Mask" fill="#FAFAFA" xlink:href="#path-1"></use>
+                <g id="math_keypad_icon_percent" mask="url(#mask-2)">
+                    <g transform="translate(186.000000, 450.000000)">
+                        <rect id="bounds" fill-opacity="0" fill="#FF0088" x="0" y="0" width="48" height="48"></rect>
+                        <g id="percent" stroke-width="1" fill="none" transform="translate(12.000000, 12.000000)">
+                            <rect id="bounds" fill-opacity="0" fill="#FF0088" x="0" y="0" width="24" height="24"></rect>
+                            <path d="M16,4 L8,20" id="line" stroke="#3B3E40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <circle id="circle" stroke="#3B3E40" stroke-width="2" cx="7" cy="7" r="3"></circle>
+                            <circle id="circle" stroke="#3B3E40" stroke-width="2" cx="17" cy="17" r="3"></circle>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
