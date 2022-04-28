@@ -60,6 +60,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.29.4",
+    "eslint-plugin-react-native": "^3.10.0",
     "eslint-plugin-storybook": "^0.5.7",
     "eslint-plugin-testing-library": "^5.0.0",
     "fast-glob": "^3.2.11",
@@ -96,7 +97,7 @@
     "coverage": "yarn run jest --coverage",
     "extract-strings": "./utils/extract-strings.js",
     "flow:ci": "flow check --max-workers 0",
-    "lint": "eslint --config .eslintrc.js packages",
+    "lint": "eslint --config .eslintrc.js packages --ext .js --ext .jsx",
     "lint:ci": "eslint --config .eslintrc.js",
     "publish:ci": "node utils/pre-publish-check-ci.js && git diff --stat --exit-code HEAD && yarn build && yarn extract-strings && changeset publish",
     "test": "yarn jest"

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 // @flow
 import {components, consts} from "@khanacademy/math-input";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";

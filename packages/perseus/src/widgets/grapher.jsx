@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/sort-comp */
 // @flow
 import {number as knumber, vector as kvector, point as kpoint} from "kmath";

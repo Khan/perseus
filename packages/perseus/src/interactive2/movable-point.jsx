@@ -50,8 +50,7 @@
  *   remove:
  *     removes the point from graphie
  */
-import {point as kpoint} from "kmath";
-import {vector as kvector} from "kmath";
+import {point as kpoint, vector as kvector} from "kmath";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import _ from "underscore";

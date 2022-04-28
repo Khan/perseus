@@ -105,9 +105,7 @@ const PlotDefaults = {
 };
 
 const Linear = _.extend({}, PlotDefaults, {
-    url:
-        // eslint-disable-next-line static-service/require-safe-link-to
-        "https://ka-perseus-graphie.s3.amazonaws.com/67aaf581e6d9ef9038c10558a1f70ac21c11c9f8.png",
+    url: "https://ka-perseus-graphie.s3.amazonaws.com/67aaf581e6d9ef9038c10558a1f70ac21c11c9f8.png",
 
     defaultCoords: [
         [0.25, 0.75],
@@ -145,9 +143,7 @@ const Linear = _.extend({}, PlotDefaults, {
 });
 
 const Quadratic = _.extend({}, PlotDefaults, {
-    url:
-        // eslint-disable-next-line static-service/require-safe-link-to
-        "https://ka-perseus-graphie.s3.amazonaws.com/e23d36e6fc29ee37174e92c9daba2a66677128ab.png",
+    url: "https://ka-perseus-graphie.s3.amazonaws.com/e23d36e6fc29ee37174e92c9daba2a66677128ab.png",
 
     defaultCoords: [
         [0.5, 0.5],
@@ -205,9 +201,7 @@ const Quadratic = _.extend({}, PlotDefaults, {
 });
 
 const Sinusoid = _.extend({}, PlotDefaults, {
-    url:
-        // eslint-disable-next-line static-service/require-safe-link-to
-        "https://ka-perseus-graphie.s3.amazonaws.com/3d68e7718498475f53b206c2ab285626baf8857e.png",
+    url: "https://ka-perseus-graphie.s3.amazonaws.com/3d68e7718498475f53b206c2ab285626baf8857e.png",
 
     defaultCoords: [
         [0.5, 0.5],
@@ -273,9 +267,7 @@ const Sinusoid = _.extend({}, PlotDefaults, {
 });
 
 const Tangent = _.extend({}, PlotDefaults, {
-    url:
-        // eslint-disable-next-line static-service/require-safe-link-to
-        "https://ka-perseus-graphie.s3.amazonaws.com/7db80d23c35214f98659fe1cf0765811c1bbfbba.png",
+    url: "https://ka-perseus-graphie.s3.amazonaws.com/7db80d23c35214f98659fe1cf0765811c1bbfbba.png",
 
     defaultCoords: [
         [0.5, 0.5],
@@ -329,9 +321,7 @@ const Tangent = _.extend({}, PlotDefaults, {
 });
 
 const Exponential = _.extend({}, PlotDefaults, {
-    url:
-        // eslint-disable-next-line static-service/require-safe-link-to
-        "https://ka-perseus-graphie.s3.amazonaws.com/9cbfad55525e3ce755a31a631b074670a5dad611.png",
+    url: "https://ka-perseus-graphie.s3.amazonaws.com/9cbfad55525e3ce755a31a631b074670a5dad611.png",
 
     defaultCoords: [
         [0.5, 0.55],
@@ -437,9 +427,7 @@ const Exponential = _.extend({}, PlotDefaults, {
 });
 
 const Logarithm = _.extend({}, PlotDefaults, {
-    url:
-        // eslint-disable-next-line static-service/require-safe-link-to
-        "https://ka-perseus-graphie.s3.amazonaws.com/f6491e99d34af34d924bfe0231728ad912068dc3.png",
+    url: "https://ka-perseus-graphie.s3.amazonaws.com/f6491e99d34af34d924bfe0231728ad912068dc3.png",
 
     defaultCoords: [
         [0.55, 0.5],
@@ -537,9 +525,7 @@ const Logarithm = _.extend({}, PlotDefaults, {
 });
 
 const AbsoluteValue = _.extend({}, PlotDefaults, {
-    url:
-        // eslint-disable-next-line static-service/require-safe-link-to
-        "https://ka-perseus-graphie.s3.amazonaws.com/8256a630175a0cb1d11de223d6de0266daf98721.png",
+    url: "https://ka-perseus-graphie.s3.amazonaws.com/8256a630175a0cb1d11de223d6de0266daf98721.png",
 
     defaultCoords: [
         [0.5, 0.5],

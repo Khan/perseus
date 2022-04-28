@@ -6,10 +6,11 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
-import SvgImage from "../components/svg-image.jsx";
 import {interactiveSizes} from "../styles/constants.js";
 import Util from "../util.js";
 import GraphUtils from "../util/graph-utils.js";
+
+import SvgImage from "./svg-image.jsx";
 
 const defaultBackgroundImage = {
     url: null,

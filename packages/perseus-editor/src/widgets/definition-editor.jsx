@@ -37,7 +37,6 @@ class DefinitionEditor extends React.Component<Props> {
         return (
             <div className="perseus-widget-definition-editor">
                 <a
-                    // eslint-disable-next-line static-service/require-safe-link-to
                     href="https://docs.google.com/document/d/1udaPef4imOfTMhmLDlWq4SM0mxL0r3YHFZE-5J1uGfo"
                     target="_blank"
                 >

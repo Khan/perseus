@@ -42,6 +42,7 @@ module.exports = {
         "jest",
         "monorepo",
         "promise",
+        "react-native",
     ],
     settings: {
         "import/resolver": {
@@ -186,6 +187,9 @@ module.exports = {
                 ],
             },
         ],
+
+        // react-native
+        "react-native/no-unused-styles": "error",
 
         // testing-library
         "testing-library/prefer-user-event": "error",

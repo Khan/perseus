@@ -101,7 +101,6 @@ class Iframe extends React.Component<$FlowFixMe> {
         // If the URL doesnt start with http, it must be a program ID
         if (url && url.length && url.indexOf("http") !== 0) {
             url =
-                // eslint-disable-next-line static-service/require-safe-link-to
                 "https://www.khanacademy.org/computer-programming/program/" +
                 url +
                 "/embedded?buttons=no&embed=yes&editor=no&author=no";
