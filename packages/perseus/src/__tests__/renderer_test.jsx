@@ -296,6 +296,8 @@ describe("renderer", () => {
 
         beforeEach(() => {
             originalImage = window.Image;
+            // Mock HTML Image so we can trigger onLoad callbacks and see full
+            // image rendering.
             window.Image = jest.fn(() => {
                 const img = {};
                 images.push(img);
