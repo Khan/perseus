@@ -4,10 +4,6 @@
 
 <p align="center">Javascript Numeric Math Utilities</p>
 
-[![MIT License][license-image]][license] [![Build
-Status][github-action-image]][github-action-url] [![NPM
-version][npm-version-image]][npm-url] [![PRs
-welcome][contributing-image]][contributing-url]
 ## Overview
 
 kmath is a collection of Javascript utility functions for performing
@@ -469,19 +465,3 @@ Returns the reflection of `p` over `theLine`.
 ## License
 
 MIT. See the [LICENSE.txt](../../LICENSE.txt) file for more information.
-
-
-[license-image]: http://img.shields.io/badge/license-MIT-blue.svg
-[license]: ../../LICENSE.txt
-
-[github-action-image]: https://github.com/Khan/perseus/actions/workflows/node-ci-main.yml/badge.svg
-[github-action-url]: https://github.com/Khan/perseus/actions/workflows/node-ci-main.yml
-
-[npm-url]: https://npmjs.org/package/@khanacademy/kmath
-[npm-version-image]: https://badge.fury.io/js/@khanacademy%2Fkmath.svg
-
-[test-coverage-url]: https://codecov.io/gh/Khan/perseus
-[test-coverage-image]: https://codecov.io/gh/Khan/perseus/branch/main/graph/badge.svg
-
-[contributing-url]: https://github.com/Khan/perseus/blob/master/CONTRIBUTING.md
-[contributing-image]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg
