@@ -1,5 +1,5 @@
 // @flow
-import {screen} from "@testing-library/react";
+import {screen, waitForElementToBeRemoved} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import "@testing-library/jest-dom"; // Imports custom matchers
@@ -34,6 +34,8 @@ const question = {
 
 describe("Definition widget", () => {
     beforeEach(() => {
+        jest.useRealTimers();
+
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
@@ -54,70 +56,67 @@ describe("Definition widget", () => {
         // Act
         const definitionAnchor = screen.getByText("the Pequots");
         userEvent.hover(definitionAnchor);
-        jest.advanceTimersByTime(250);
 
         // Assert
         expect(container).toMatchSnapshot("open state");
     });
 
-    it("should display the definition on hover", () => {
+    it("should display the definition on hover", async () => {
         // Arrange
         renderQuestion(question);
 
         // Act
         const definitionAnchor = screen.getByText("the Pequots");
         userEvent.hover(definitionAnchor);
-        jest.advanceTimersByTime(250);
 
         // Assert
-        const tooltip = screen.getByRole("tooltip");
+        const tooltip = await screen.findByRole("tooltip");
         expect(tooltip).toBeVisible();
         expect(tooltip).toHaveTextContent("Definition text");
     });
 
-    it("should display the definition on click", () => {
+    it("should display the definition on click", async () => {
         // Arrange
         renderQuestion(question);
 
         // Act
         const definitionAnchor = screen.getByText("the Pequots");
         userEvent.click(definitionAnchor);
-        const tooltip = screen.getByRole("tooltip");
+        const tooltip = await screen.findByRole("tooltip");
 
         // Assert
         expect(tooltip).toBeVisible();
         expect(tooltip).toHaveTextContent("Definition text");
     });
 
-    it("should show via focus by the tab key", () => {
+    it("should show via focus by the tab key", async () => {
         // Arrange
         renderQuestion(question);
 
         // Act - Tab in to set focus
         userEvent.tab();
-        jest.advanceTimersByTime(250);
 
         // Assert
-        const tooltip = screen.getByRole("tooltip");
+        const tooltip = await screen.findByRole("tooltip");
         expect(tooltip).toBeVisible();
         expect(tooltip).toHaveTextContent("Definition text");
     });
 
-    it("should hide and blur by the tab key", () => {
+    it("should hide and blur by the tab key", async () => {
         // Arrange
         renderQuestion(question);
 
         // Act - Tab in to set focus, tab out to blur
         userEvent.tab();
-        jest.advanceTimersByTime(250);
+        await screen.findByRole("tooltip");
         userEvent.tab();
-        jest.advanceTimersByTime(250);
+        await waitForElementToBeRemoved(() => screen.queryByRole("tooltip"));
 
         // Assert
         expect(screen.queryByRole("tooltip")).toBeNull();
     });
 
-    it("should dimiss by a click when showing", () => {
+    it("should dimiss by a click when showing", async () => {
         renderQuestion(question);
 
         // Act
@@ -127,11 +126,11 @@ describe("Definition widget", () => {
 
         // Move the mouse away and make sure text is still visible
         userEvent.unhover(definitionAnchor);
-        jest.advanceTimersByTime(250);
+        await screen.findByRole("tooltip");
 
         // Click to elsewhere, tooltip is hidden
         userEvent.click((document.body: any));
-        jest.advanceTimersByTime(250);
+        await waitForElementToBeRemoved(() => screen.queryByRole("tooltip"));
 
         // Assert
         expect(screen.queryByRole("tooltip")).toBeNull();

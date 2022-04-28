@@ -6,7 +6,6 @@ import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom/extend-expect";
 
 import {testDependencies} from "../../../../../testing/test-dependencies.js";
-import {waitForAnimationFrame} from "../../../../../testing/wait.js";
 import * as Dependencies from "../../dependencies.js";
 import {question1} from "../__testdata__/dropdown_testdata.js";
 
@@ -36,7 +35,7 @@ describe("Dropdown widget", () => {
         // Act
         const dropdown = screen.getByRole("button");
         userEvent.click(dropdown);
-        await waitForAnimationFrame();
+        await screen.findByText("less than or equal to");
 
         // Assert
         expect(container).toMatchSnapshot("dropdown open");
@@ -54,14 +53,13 @@ describe("Dropdown widget", () => {
         expect(dropdown).toHaveTextContent("greater/less than or equal to");
     });
 
-    it("should be answerable correctly", async () => {
+    it("should be answerable correctly", () => {
         // Arrange
         const {renderer} = renderQuestion(question1);
 
         // Act
         const dropdown = screen.getByRole("button");
         userEvent.click(dropdown);
-        await waitForAnimationFrame();
         userEvent.click(screen.getByText("less than or equal to"));
 
         // Assert
@@ -69,15 +67,13 @@ describe("Dropdown widget", () => {
         expect(renderer).toHaveBeenAnsweredCorrectly();
     });
 
-    it("should be answerable incorrectly", async () => {
+    it("should be answerable incorrectly", () => {
         // Arrange
         const {renderer} = renderQuestion(question1);
 
         // Act
         const dropdown = screen.getByRole("button");
         userEvent.click(dropdown);
-        // SingleSelect waits a frame to do some measurement before opening
-        await waitForAnimationFrame();
         userEvent.click(screen.getByText("greater than or equal to"));
 
         // Assert
