@@ -44,6 +44,7 @@ module.exports = {
     },
     collectCoverageFrom: [
         "packages/**/*.js",
+        "packages/**/*.jsx",
         "!packages/**/types.js",
         "!packages/**/src/**/index.js",
         "!packages/**/dist/**/*.js",
