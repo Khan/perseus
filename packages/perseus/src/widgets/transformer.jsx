@@ -1,4 +1,4 @@
-/* eslint-disable @babel/no-invalid-this, camelcase, react/no-did-update-set-state, react/sort-comp, react/prop-types */
+/* eslint-disable @babel/no-invalid-this, camelcase, react/no-did-update-set-state, react/sort-comp */
 /*
 NOTE(Pereus stabilize project): This widget is no-longer-used as of January
 2022. It's not present in US content but is still present in some

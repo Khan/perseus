@@ -420,7 +420,7 @@ Returns a two-dimensional cartesian point from the polar point input,
 where the input angle is measured in radians.
 
 ```js
-kmath.point.cartFromPolarRad([2, Math.PI])
+kmath.point.cartFromPolarRad(2, Math.PI)
 => [-2, 0]  // Note: a very small nonzero number is actually returned here,
             // due to numerical inaccuracy.
 kmath.point.cartFromPolarRad(Math.pow(2, 0.5), Math.PI/4)
