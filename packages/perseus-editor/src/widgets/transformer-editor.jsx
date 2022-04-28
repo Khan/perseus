@@ -1,6 +1,13 @@
 /* eslint-disable camelcase, react/sort-comp */
 // @flow
 import {
+    line as kline,
+    number as knumber,
+    point as kpoint,
+    ray as kray,
+    vector as kvector,
+} from "@khanacademy/kmath";
+import {
     components,
     ApiOptions,
     Errors,
@@ -9,13 +16,6 @@ import {
     TransformerWidget,
     Util,
 } from "@khanacademy/perseus";
-import {
-    line as kline,
-    number as knumber,
-    point as kpoint,
-    ray as kray,
-    vector as kvector,
-} from "@khanacademy/kmath";
 import * as React from "react";
 import _ from "underscore";
 

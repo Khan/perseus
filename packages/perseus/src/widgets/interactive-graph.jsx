@@ -1,8 +1,8 @@
 /* eslint-disable @babel/no-invalid-this, react/no-unsafe, react/sort-comp */
 // @flow
+import {number as knumber, point as kpoint} from "@khanacademy/kmath";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import $ from "jquery";
-import {number as knumber, point as kpoint} from "@khanacademy/kmath";
 import debounce from "lodash.debounce";
 import * as React from "react";
 import _ from "underscore";
