@@ -1,8 +1,6 @@
-# kmath
+# kmath - Javascript Numeric Math Utilities
 
-<p align="center"><img src="logo.svg" width="50%"/></p>
-
-<h2 align="center">Javascript Numeric Math Utilities</h2>
+<p align="center"><img src="logo.svg" width="50px"/></p>
 
 ## Overview
 
