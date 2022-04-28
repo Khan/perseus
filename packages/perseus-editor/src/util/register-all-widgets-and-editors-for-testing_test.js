@@ -12,7 +12,6 @@ describe("Registering all widgets and editors", () => {
         expect(allWidgetsTypes).not.toContain("undefined");
 
         for (const widgetType of allWidgetsTypes) {
-            console.log(widgetType);
             expect(Widgets.getEditor(widgetType)).toBeTruthy();
         }
     });

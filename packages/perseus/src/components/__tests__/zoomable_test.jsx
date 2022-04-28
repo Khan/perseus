@@ -128,6 +128,7 @@ describe("Zoomable", () => {
         // Act
         // The measure action uses a setState and setTimeout(0)
         jest.runOnlyPendingTimers();
+        jest.runOnlyPendingTimers();
 
         // Assert
         expect(container).toMatchInlineSnapshot(`

@@ -386,7 +386,7 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
                 class="default_xu2jcg-o_O-menuWrapper_wvrnr4"
               >
                 <button
-                  aria-expanded="true"
+                  aria-expanded="false"
                   aria-haspopup="listbox"
                   class="button_vr44p2-o_O-shared_u51dsh-o_O-default_kjzwx1-o_O-focus_1qpi544"
                   tabindex="0"
@@ -395,7 +395,7 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
                   <span
                     class="text_f1191h-o_O-LabelMedium_1rew30o-o_O-text_16ujc3c"
                   >
-                    greater/less than or equal to
+                    less than or equal to
                   </span>
                   <svg
                     aria-hidden="true"
@@ -457,7 +457,7 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
                 class="default_xu2jcg-o_O-menuWrapper_wvrnr4"
               >
                 <button
-                  aria-expanded="true"
+                  aria-expanded="false"
                   aria-haspopup="listbox"
                   class="button_vr44p2-o_O-shared_u51dsh-o_O-default_kjzwx1-o_O-focus_1qpi544"
                   tabindex="0"
@@ -466,7 +466,7 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
                   <span
                     class="text_f1191h-o_O-LabelMedium_1rew30o-o_O-text_16ujc3c"
                   >
-                    greater/less than or equal to
+                    greater than or equal to
                   </span>
                   <svg
                     aria-hidden="true"
