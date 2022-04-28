@@ -100,9 +100,7 @@ describe("MovablePoint", function () {
     });
 
     describe("onMove", function () {
-        // TODO(emily): [PERSEUS_MERGE] This test crashes phantomjs for me,
-        // make this not crash.
-        it.skip("should be called when movable is moved", function () {
+        it("should be called when movable is moved", function () {
             let movedToCoord;
             const handle = createPoint({
                 coord: [1, 2],
