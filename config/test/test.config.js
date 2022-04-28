@@ -43,12 +43,9 @@ module.exports = {
         ...vendorMap,
     },
     collectCoverageFrom: [
-        "packages/**/*.js",
-        "!packages/**/types.js",
-        "!packages/**/src/**/index.js",
-        "!packages/**/dist/**/*.js",
-        "!<rootDir>/node_modules/",
-        "!packages/**/node_modules/",
+        "packages/*/src/**/*.js",
+        "packages/*/src/**/*.jsx",
+        "!packages/*/node_modules/",
     ],
     // Only output log messages on test failure. From:
     // https://github.com/facebook/jest/issues/4156#issuecomment-490764080

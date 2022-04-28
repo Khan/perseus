@@ -5,17 +5,18 @@ import $ from "jquery";
 import * as React from "react";
 import _ from "underscore";
 
-import FixedToResponsive from "../components/fixed-to-responsive.jsx";
-import Graphie from "../components/graphie.jsx";
-import ImageLoader from "../components/image-loader.jsx";
 import {getDependencies} from "../dependencies.js";
 import {Errors, Log} from "../logging/log.js";
 import {PerseusError} from "../perseus-error.js";
 import Util from "../util.js";
 import * as Zoom from "../zoom.js";
 
-import type {ImageProps} from "../components/image-loader.jsx";
+import FixedToResponsive from "./fixed-to-responsive.jsx";
+import Graphie from "./graphie.jsx";
+import ImageLoader from "./image-loader.jsx";
+
 import type {Alignment, Dimensions} from "../types.js";
+import type {ImageProps} from "./image-loader.jsx";
 
 // Minimum image width to make an image appear as zoomable.
 const ZOOMABLE_THRESHOLD = 700;
