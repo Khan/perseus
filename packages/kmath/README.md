@@ -3,12 +3,8 @@
 </p>
 
 <h1 align="center">
-  kmath
+  kmath - Javascript Numeric Math Utilities
 </h1>
-
-<p align="center">
-  Javascript Numeric Math Utilities
-</p>
 
 ## Overview
 
