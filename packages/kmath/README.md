@@ -1,6 +1,6 @@
 # kmath
 
-![kmath logo](logo.svg)
+<p align="center">![kmath logo](logo.svg)</p>
 
 Javascript Numeric Math Utilities
 
