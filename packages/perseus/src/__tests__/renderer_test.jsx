@@ -40,12 +40,12 @@ const mockApplyLintErrors = jest.fn();
 jest.mock("../not-gorgon.js", () => {
     // We mock the NotGorgon constructor here setting things up so we can
     // spy/verify calls to instances of NotGorgon
-    return jest.fn().mockImplementation(() => {
+    return function () {
         return {
             runLinter: mockRunLinter,
             applyLintErrors: mockApplyLintErrors,
         };
-    });
+    };
 });
 
 describe("renderer", () => {
@@ -294,9 +294,7 @@ describe("renderer", () => {
         const images = [];
         let originalImage;
 
-        beforeAll(() => {
-            // Mock HTML Image so we can trigger onLoad callbacks and see full
-            // image rendering.
+        beforeEach(() => {
             originalImage = window.Image;
             window.Image = jest.fn(() => {
                 const img = {};
@@ -305,21 +303,23 @@ describe("renderer", () => {
             });
         });
 
-        beforeEach(() => {
-            // Reset "known" images
-            images.splice(0, images.length);
-        });
-
-        afterAll(() => {
+        afterEach(() => {
             window.Image = originalImage;
         });
 
         // Tells the image loader 1, or all, of our images loaded
         const markImagesAsLoaded = (imageIndex?: number) => {
             if (imageIndex != null) {
-                images[imageIndex].onload();
+                const img = images[imageIndex];
+                if (img?.onload) {
+                    img.onload();
+                }
             } else {
-                images.forEach((i) => i.onload());
+                images.forEach((i) => {
+                    if (i?.onload) {
+                        i.onload();
+                    }
+                });
             }
         };
 
