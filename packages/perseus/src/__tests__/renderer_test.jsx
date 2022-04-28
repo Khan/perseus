@@ -294,23 +294,21 @@ describe("renderer", () => {
         const images = [];
         let originalImage;
 
-        beforeAll(() => {
+        beforeEach(() => {
             // Mock HTML Image so we can trigger onLoad callbacks and see full
-            // image rendering.
+            // image rendering. See also `markImagesAsLoaded`
             originalImage = window.Image;
             window.Image = jest.fn(() => {
                 const img = {};
                 images.push(img);
                 return img;
             });
-        });
 
-        beforeEach(() => {
             // Reset "known" images
             images.splice(0, images.length);
         });
 
-        afterAll(() => {
+        afterEach(() => {
             window.Image = originalImage;
         });
 
