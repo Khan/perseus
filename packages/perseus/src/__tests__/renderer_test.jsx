@@ -40,12 +40,12 @@ const mockApplyLintErrors = jest.fn();
 jest.mock("../not-gorgon.js", () => {
     // We mock the NotGorgon constructor here setting things up so we can
     // spy/verify calls to instances of NotGorgon
-    return jest.fn().mockImplementation(() => {
+    return function () {
         return {
             runLinter: mockRunLinter,
             applyLintErrors: mockApplyLintErrors,
         };
-    });
+    };
 });
 
 describe("renderer", () => {
