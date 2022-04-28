@@ -2,7 +2,7 @@
 
 <p align="center"><img src="logo.svg" width="50%"/></p>
 
-Javascript Numeric Math Utilities
+<h2 align="center">Javascript Numeric Math Utilities</h2>
 
 ## Overview
 
