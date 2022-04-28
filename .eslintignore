@@ -6,3 +6,4 @@ coverage
 **/package.json
 **/*.md
 vendor
+LICENSE
