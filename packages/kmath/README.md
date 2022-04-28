@@ -1,5 +1,7 @@
 # kmath
 
+![kmath logo](packages/kmath/logo.svg)
+
 Javascript Numeric Math Utilities
 
 ## Overview
