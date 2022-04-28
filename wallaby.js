@@ -7,7 +7,8 @@
  * is installed, use it to select this file as the wallaby config you
  * want to use then start wallaby.
  *
- * IMPORTANT: Since we have a lot of test cases in webapp you should be use the
+ * IMPORTANT: Running all test suites takes a long time.  Usually you
+ * only care about one or two test suites when using wallaby.  Use the
  * "start exclusive test run" command when running tests with wallaby.
  * See https://wallabyjs.com/blog/exclusive-test-runs.html.
  */
