@@ -1,5 +1,6 @@
 <h1 align="center">
-  kmath - Javascript Numeric Math Utilities <img alt="kmath" src="logo.svg" width="50" />
+    <img alt="kmath" src="logo.svg" width="50" /> <br />
+    kmath - Javascript Numeric Math Utilities
 </h1>
 
 ## Overview
