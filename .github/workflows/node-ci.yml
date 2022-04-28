@@ -9,7 +9,7 @@ on:
 
 jobs:
   lint:
-    name: Lint, flow, and coverage check
+    name: Lint, Flow, and Test
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
