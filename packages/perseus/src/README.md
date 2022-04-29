@@ -1,7 +1,36 @@
-Widgets from the Perseus (exercise) editor.
+# Perseus
 
-TODO(benkraft): Figure out the distinction between this and the various other
-Perseus packages.
+<p align="center"><img src="logo.png" alt="perseus logo" width="150px"/></p>
 
-Code-Owner: Learning Platform
-Crowdin-Category: content.chrome
+<p align="center">Perseus Exercise Renderer</p>
+
+Perseus is Khan Academy's exercise system. This repo contains the code needed to take a problem in the perseus format and present it, allow interaction, and grade the result of a learner's work.
+
+<p align="center"><img src="sample.png" alt="sample of perseus in use" height="150px"/></p>
+## Getting started
+
+### Prerequisites
+
+- [Node.JS v10](https://nodejs.org/download/release/v10.18.1/)
+- [Yarn](https://yarnpkg.com/lang/en/docs/install/)
+
+### Installation
+
+To install perseus, you need to run the following commands:
+
+#### `yarn install`
+
+Installs project dependencies
+
+#### `yarn start`
+
+Runs the project in dev mode
+
+## Contributing
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for a walkthrough of how some
+of the Perseus code works and how to extend it.
+
+## License
+
+[MIT License](http://opensource.org/licenses/MIT)
