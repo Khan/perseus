@@ -7,17 +7,9 @@ on:
     # The rest are the defaults.
     types: [edited, opened, synchronize, reopened]
 
-# Our jobs run like this to minimize wasting resource cycles:
-#   1. Prime caches for primary configuration.  This way subsequent jobs
-#      can run in parallel but rely on this primed cache.
-#   2. Lint and coverage
-#     a. Lint
-#     b. Coverage
-#   3. Run tests for remaining configurations
-#      Since these don't share caches, we don't need to prime those caches.
 jobs:
   lint:
-    name: Lint, flow, and coverage check
+    name: Lint, Flow, and Test
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -39,9 +31,6 @@ jobs:
         format: space-delimited
         absolute: true
 
-    - name: Build so that inter-package references are resolved
-      run: yarn build
-
     # Linting / type checking
     - name: Run ESLint (all files)
       if: contains(steps.changed.outputs.added_modified, '.eslintrc.js') || contains(steps.changed.outputs.added_modified, 'yarn.lock')
@@ -58,58 +47,6 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    # Collect and record coverage
-    - name: Run Jest with coverage
-      run: yarn coverage
-    # - name: Upload Coverage
-    #   # We don't bother collecting a record of coverage for dependabot changes
-    #   if: ${{ github.actor != 'dependabot[bot]' }}
-    #   uses: codecov/codecov-action@v2
-    #   with:
-    #     token: ${{ secrets.CODECOV_TOKEN }}
-    #     files: ./coverage/coverage-final.json
-    #     fail_ci_if_error: true
-
-    # Make sure our packages aren't growing unexpectedly
-    # This must come last as it builds the old code last and so leaves the
-    # wrong code in place for the next job.
-    - name: Check Builds
-      uses: preactjs/compressed-size-action@v2
-      with:
-        # We only care about the browser ES module size, really:
-        pattern: "**/dist/es/index.browser.js"
-        # Always ignore SourceMaps and node_modules:
-        exclude: "{**/*.map,**/node_modules/**}"
-        # Clean up before a build
-        clean-script: "clean"
-        # Build production
-        build-script: "build:prodsizecheck"
-
-  test:
-    name: Test
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node-version: [16.x]
-    steps:
-    - uses: actions/checkout@v2
-
-    - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
-      uses: ./.github/actions/shared-node-cache
-      with:
-        node-version: ${{ matrix.node-version }}
-
-    - name: Get All Changed Files
-      uses: jaredly/get-changed-files@v1.0.1
-      id: changed
-      with:
-        format: space-delimited
-        absolute: true
-
-    - name: Build so that inter-package references are resolved
-      run: yarn build
-
     # Run tests for our target matrix
     - name: Run Jest (all files)
       if: |
@@ -125,6 +62,63 @@ jobs:
          contains(steps.changed.outputs.added_modified, 'test.config.js') ||
          contains(steps.changed.outputs.added_modified, 'test.transform.js')) == false
       run: yarn test --passWithNoTests ${{ steps.changed.outputs.added_modified }}
+
+  check_builds:
+    name: Check builds for changes in size
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node-version: [16.x]
+    steps:
+    - name: Checking out latest commit
+      uses: actions/checkout@v2
+
+    - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
+      uses: ./.github/actions/shared-node-cache
+      with:
+        node-version: ${{ matrix.node-version }}
+    # Make sure our packages aren't growing unexpectedly
+    # This must come last as it builds the old code last and so leaves the
+    # wrong code in place for the next job.
+    - name: Check Builds
+      uses: preactjs/compressed-size-action@v2
+      with:
+        # We only care about the ES module size, really:
+        pattern: "**/dist/es/index.js"
+        # Always ignore SourceMaps and node_modules:
+        exclude: "{**/*.map,**/node_modules/**}"
+        # Clean up before a build
+        clean-script: "clean"
+        # Build production
+        build-script: "build:prodsizecheck"
+
+  coverage:
+    name: Test Coverage
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node-version: [16.x]
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
+      uses: ./.github/actions/shared-node-cache
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    # Collect and record coverage
+    - name: Run Jest with coverage
+      run: yarn coverage
+    # - name: Upload Coverage
+    #   # We don't bother collecting a record of coverage for dependabot changes
+    #   if: ${{ github.actor != 'dependabot[bot]' }}
+    #   uses: codecov/codecov-action@v2
+    #   with:
+    #     token: ${{ secrets.CODECOV_TOKEN }}
+    #     files: ./coverage/coverage-final.json
+    #     fail_ci_if_error: true
 
   extract_strings:
     name: Extract i18n strings

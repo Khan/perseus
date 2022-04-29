@@ -1,4 +1,7 @@
-/* eslint-disable @babel/no-invalid-this, react/no-unsafe, react/sort-comp */
+/* eslint-disable react/prop-types */
+/* eslint-disable @babel/no-invalid-this */
+/* eslint-disable react/no-unsafe */
+/* eslint-disable react/sort-comp */
 // @flow
 import createReactClass from "create-react-class";
 import * as React from "react";
