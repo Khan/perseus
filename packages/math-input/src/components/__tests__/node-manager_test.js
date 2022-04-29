@@ -1,7 +1,4 @@
-/* eslint-env node, mocha */
-const assert = require("assert");
-
-const NodeManager = require("../src/components/node-manager");
+import NodeManager from "../node-manager.js";
 
 describe("NodeManager", () => {
     let nodeManager;
@@ -13,8 +10,9 @@ describe("NodeManager", () => {
     it("should register a single node with no children", () => {
         const nodeId = "1";
         nodeManager.registerDOMNode(nodeId, {}, []);
-        assert.ok(nodeManager._nodesById[nodeId]);
-        assert.ok(nodeManager._orderedIds.includes(nodeId));
+
+        expect(nodeManager._nodesById[nodeId]).toBeTruthy();
+        expect(nodeManager._orderedIds.includes(nodeId)).toBeTruthy();
     });
 
     it("should register a single node with children", () => {
@@ -22,14 +20,14 @@ describe("NodeManager", () => {
         const childNodeIds = ["2", "3"];
         nodeManager.registerDOMNode(nodeId, {}, childNodeIds);
 
-        assert.ok(nodeManager._orderedIds.includes(nodeId));
-        assert.ok(nodeManager._nodesById[nodeId]);
+        expect(nodeManager._orderedIds.includes(nodeId)).toBeTruthy();
+        expect(nodeManager._nodesById[nodeId]).toBeTruthy();
 
         for (const childId of childNodeIds) {
             // The children should appear in the list of ordered IDs, but not
             // in the list of registered nodes.
-            assert.ok(!nodeManager._nodesById[childId]);
-            assert.ok(nodeManager._orderedIds.includes(childId));
+            expect(!nodeManager._nodesById[childId]).toBeTruthy();
+            expect(nodeManager._orderedIds.includes(childId)).toBeTruthy();
         }
     });
 
@@ -43,7 +41,7 @@ describe("NodeManager", () => {
             // The children should appear ahead of the parent in the ordered
             // list.
             const childIndex = nodeManager._orderedIds.indexOf(childId);
-            assert.ok(childIndex < parentIndex);
+            expect(childIndex < parentIndex).toBeTruthy();
         }
     });
 
@@ -57,11 +55,11 @@ describe("NodeManager", () => {
 
         // Verify that both were added to the list of DOM nodes.
         for (const id of [nodeId, childNodeId]) {
-            assert.ok(nodeManager._nodesById[id]);
+            expect(nodeManager._nodesById[id]).toBeTruthy();
         }
 
         // Verify that the child is ahead of the parent, and only appears once.
-        assert.deepEqual(nodeManager._orderedIds, [childNodeId, nodeId]);
+        expect(nodeManager._orderedIds).toStrictEqual([childNodeId, nodeId]);
     });
 
     it("should handle multiple sets of children", () => {
@@ -84,7 +82,7 @@ describe("NodeManager", () => {
                 // The children should appear ahead of the parent in the
                 // ordered list.
                 const childIndex = nodeManager._orderedIds.indexOf(childId);
-                assert.ok(childIndex < parentIndex);
+                expect(childIndex < parentIndex).toBeTruthy();
             }
         }
     });

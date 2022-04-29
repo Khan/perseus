@@ -2,23 +2,24 @@
  * A keypad with two pages of keys.
  */
 
-const React = require("react");
-const PropTypes = require("prop-types");
-const {connect} = require("react-redux");
 const {StyleSheet} = require("aphrodite");
+const PropTypes = require("prop-types");
+const React = require("react");
+const {connect} = require("react-redux");
 
-const Keypad = require("./keypad");
-const Tabbar = require("./tabbar/tabbar");
 const {View} = require("../fake-react-native-web");
-const {column, row, fullWidth} = require("./styles");
+
 const {
     innerBorderColor,
     innerBorderStyle,
     innerBorderWidthPx,
     offBlack16,
 } = require("./common-style");
+const Keypad = require("./keypad");
+const {column, row, fullWidth} = require("./styles");
+const Tabbar = require("./tabbar/tabbar");
 
-class TwoPageKeypad extends React.Component {
+export class TwoPageKeypad extends React.Component {
     static propTypes = {
         currentPage: PropTypes.oneOf([0, 1]).isRequired,
         leftPage: PropTypes.node.isRequired,
@@ -31,12 +32,8 @@ class TwoPageKeypad extends React.Component {
     };
 
     render() {
-        const {
-            currentPage,
-            leftPage,
-            paginationEnabled,
-            rightPage,
-        } = this.props;
+        const {currentPage, leftPage, paginationEnabled, rightPage} =
+            this.props;
 
         const {selectedPage} = this.state;
 

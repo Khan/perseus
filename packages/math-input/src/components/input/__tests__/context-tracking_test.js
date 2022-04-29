@@ -1,7 +1,7 @@
-const Keys = require("../src/data/keys");
-const CursorContexts = require("../src/components/input/cursor-contexts");
+import Keys from "../../../data/keys.js";
+import CursorContexts from "../cursor-contexts.js";
 
-import MathWrapper from "./test-math-wrapper";
+import MathWrapper from "./math-wrapper.jsx";
 
 describe("Cursor context", () => {
     let mathField;
