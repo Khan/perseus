@@ -3,7 +3,7 @@
 import PropTypes from "prop-types";
 import * as React from "react";
 
-import NumberInput from "../components/number-input.jsx";
+import NumberInput from "./number-input.jsx";
 
 const truth = () => true;
 

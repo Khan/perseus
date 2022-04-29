@@ -761,6 +761,7 @@ class InteractionEditor extends React.Component<
     // TODO(eater): Make more better
     static propTypes = {
         ...Changeable.propTypes,
+        // eslint-disable-next-line react/forbid-prop-types
         elements: PropTypes.arrayOf(PropTypes.object),
         graph: PropTypes.objectOf(PropTypes.any),
     };

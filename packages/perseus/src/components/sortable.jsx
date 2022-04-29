@@ -16,6 +16,7 @@ import Renderer from "../renderer.jsx";
 import Util from "../util.js";
 
 import type {LinterContextProps} from "../types";
+
 const HORIZONTAL = "horizontal";
 const VERTICAL = "vertical";
 

@@ -16,6 +16,7 @@ import PropTypes from "prop-types";
 import * as React from "react";
 
 import TextListEditor from "./text-list-editor.jsx";
+
 const EMPTY_ARRAY = [];
 
 class StubTagEditor extends React.Component<$FlowFixMe> {

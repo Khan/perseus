@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 // @flow
 /**
  * A wrapper for a component that would otherwise have a fixed width and

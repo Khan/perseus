@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-import MathOutput from "../components/math-output.jsx";
 import Gorgon from "../gorgon/gorgon.js";
 import {linterContextProps, linterContextDefault} from "../gorgon/proptypes.js";
 import {ClassNames as ApiClassNames} from "../perseus-api.jsx";
@@ -12,6 +11,7 @@ import Renderer from "../renderer.jsx";
 import Util from "../util.js";
 
 import MathInput from "./math-input.jsx";
+import MathOutput from "./math-output.jsx";
 import TextInput from "./text-input.jsx";
 import Tooltip from "./tooltip.jsx";
 

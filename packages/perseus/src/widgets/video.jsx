@@ -16,11 +16,7 @@ import a11y from "../util/a11y.js";
 import VideoTranscriptLink from "./video-transcript-link.jsx";
 
 import type {PerseusVideoWidgetOptions} from "../perseus-types.js";
-import type {
-    PerseusScore,
-    WidgetExports,
-    WidgetProps,
-} from "../types.js";
+import type {PerseusScore, WidgetExports, WidgetProps} from "../types.js";
 
 // Current default is 720p, based on the typical videos we upload currently
 const DEFAULT_WIDTH = 1280;
@@ -83,7 +79,6 @@ class Video extends React.Component<Props> {
             url = location;
         } else {
             url = KA_EMBED.replace("{slug}", location);
-            // eslint-disable-next-line static-service/require-safe-link-to
             let embedHostname = "https://www.khanacademy.org";
             if (IS_KA_SITE.test(InitialRequestUrl.host)) {
                 embedHostname = InitialRequestUrl.origin;
