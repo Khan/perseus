@@ -4,9 +4,9 @@
  * and links them together.
  */
 
-const NodeManager = require("./node-manager");
-const PopoverStateMachine = require("./popover-state-machine");
-const GestureStateMachine = require("./gesture-state-machine");
+const NodeManager = require("./node-manager.js");
+const PopoverStateMachine = require("./popover-state-machine.js");
+const GestureStateMachine = require("./gesture-state-machine.js");
 
 const coordsForEvent = (evt) => {
     return [evt.changedTouches[0].clientX, evt.changedTouches[0].clientY];

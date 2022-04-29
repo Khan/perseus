@@ -7,12 +7,12 @@ const React = require("react");
 const PropTypes = require("prop-types");
 const {StyleSheet} = require("aphrodite");
 
-const {View} = require("../fake-react-native-web");
-const Icon = require("./icon");
-const {IconTypes} = require("../consts");
-const {iconPropType} = require("./prop-types");
-const {row, column, centered, fullWidth} = require("./styles");
-const {iconSizeHeightPx, iconSizeWidthPx} = require("./common-style");
+const {View} = require("../fake-react-native-web/index.js");
+const Icon = require("./icon.js");
+const {IconTypes} = require("../consts.js");
+const {iconPropType} = require("./prop-types.js");
+const {row, column, centered, fullWidth} = require("./styles.js");
+const {iconSizeHeightPx, iconSizeWidthPx} = require("./common-style.js");
 
 class MultiSymbolGrid extends React.Component {
     static propTypes = {

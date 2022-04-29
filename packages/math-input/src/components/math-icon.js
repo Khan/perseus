@@ -8,9 +8,10 @@ const ReactDOM = require("react-dom");
 const {StyleSheet} = require("aphrodite");
 const katex = require("katex");
 
-const {View} = require("../fake-react-native-web");
-const {row, centered} = require("./styles");
-const {iconSizeHeightPx, iconSizeWidthPx} = require("./common-style");
+const {View} = require("../fake-react-native-web/index.js");
+
+const {iconSizeHeightPx, iconSizeWidthPx} = require("./common-style.js");
+const {row, centered} = require("./styles.js");
 
 class MathIcon extends React.Component {
     static propTypes = {

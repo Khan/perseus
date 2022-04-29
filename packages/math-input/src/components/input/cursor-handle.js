@@ -9,7 +9,7 @@ const {
     cursorHandleRadiusPx,
     cursorHandleDistanceMultiplier,
     wonderBlocksBlue,
-} = require("../common-style");
+} = require("../common-style.js");
 
 const touchTargetRadiusPx = 2 * cursorHandleRadiusPx;
 const touchTargetHeightPx = 2 * touchTargetRadiusPx;

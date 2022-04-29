@@ -5,16 +5,16 @@
 const React = require("react");
 const PropTypes = require("prop-types");
 const {TransitionGroup, CSSTransition} = require("react-transition-group");
-const KeypadButton = require("./keypad-button");
-const KeyConfigs = require("../data/key-configs");
-const {KeyTypes, EchoAnimationTypes} = require("../consts");
+const KeypadButton = require("./keypad-button.js");
+const KeyConfigs = require("../data/key-configs.js");
+const {KeyTypes, EchoAnimationTypes} = require("../consts.js");
 const {
     echoPropType,
     bordersPropType,
     boundingBoxPropType,
     keyIdPropType,
-} = require("./prop-types");
-const zIndexes = require("./z-indexes");
+} = require("./prop-types.js");
+const zIndexes = require("./z-indexes.js");
 
 class Echo extends React.Component {
     static propTypes = {

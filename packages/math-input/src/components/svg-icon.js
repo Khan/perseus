@@ -5,7 +5,7 @@
 const React = require("react");
 const PropTypes = require("prop-types");
 
-const Iconography = require("./iconography");
+const Iconography = require("./iconography/index.js");
 
 class SvgIcon extends React.Component {
     static propTypes = {

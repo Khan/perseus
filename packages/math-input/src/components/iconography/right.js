@@ -3,7 +3,7 @@
  */
 const React = require("react");
 
-const Arrow = require("./arrow");
+const Arrow = require("./arrow.js");
 
 const Right = () => {
     return (

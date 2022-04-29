@@ -8,11 +8,11 @@ const PropTypes = require("prop-types");
 const ReactDOM = require("react-dom");
 const {connect} = require("react-redux");
 
-const {removeEcho} = require("../actions");
-const {View} = require("../fake-react-native-web");
-const EchoManager = require("./echo-manager");
-const PopoverManager = require("./popover-manager");
-const {echoPropType, popoverPropType} = require("./prop-types");
+const {removeEcho} = require("../actions/index.js");
+const {View} = require("../fake-react-native-web/index.js");
+const EchoManager = require("./echo-manager.js");
+const PopoverManager = require("./popover-manager.js");
+const {echoPropType, popoverPropType} = require("./prop-types.js");
 
 class Keypad extends React.Component {
     static propTypes = {
