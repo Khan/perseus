@@ -7,6 +7,9 @@
 Perseus is Khan Academy's exercise system. This repo contains the code needed to take a problem in the perseus format and present it, allow interaction, and grade the result of a learner's work.
 
 <p align="center"><img src="sample.png" alt="sample of perseus in use" height="150px"/></p>
+
+This repo is a constellation of sub-repos for showing exercise content. Please see individual projects in in the `packages/` folder for more information about each sub-project.
+
 ## Getting started
 
 ### Prerequisites
