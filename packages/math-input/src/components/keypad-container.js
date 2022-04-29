@@ -3,21 +3,21 @@ const PropTypes = require("prop-types");
 const {connect} = require("react-redux");
 const {StyleSheet} = require("aphrodite");
 
-const {View} = require("../fake-react-native-web");
-const FractionKeypad = require("./fraction-keypad");
-const ExpressionKeypad = require("./expression-keypad");
-const NavigationPad = require("./navigation-pad");
-const zIndexes = require("./z-indexes");
-const {setPageSize} = require("../actions");
-const {keyIdPropType} = require("./prop-types");
-const {KeypadTypes, LayoutModes} = require("../consts");
-const {row, centered, fullWidth} = require("./styles");
+const {View} = require("../fake-react-native-web/index.js");
+const FractionKeypad = require("./fraction-keypad.js");
+const ExpressionKeypad = require("./expression-keypad.js");
+const NavigationPad = require("./navigation-pad.js");
+const zIndexes = require("./z-indexes.js");
+const {setPageSize} = require("../actions.js");
+const {keyIdPropType} = require("./prop-types.js");
+const {KeypadTypes, LayoutModes} = require("../consts.js");
+const {row, centered, fullWidth} = require("./styles.js");
 const {
     innerBorderColor,
     innerBorderStyle,
     innerBorderWidthPx,
     compactKeypadBorderRadiusPx,
-} = require("./common-style");
+} = require("./common-style.js");
 
 class KeypadContainer extends React.Component {
     static propTypes = {
@@ -104,12 +104,8 @@ class KeypadContainer extends React.Component {
     };
 
     renderKeypad = () => {
-        const {
-            extraKeys,
-            keypadType,
-            layoutMode,
-            navigationPadEnabled,
-        } = this.props;
+        const {extraKeys, keypadType, layoutMode, navigationPadEnabled} =
+            this.props;
 
         const keypadProps = {
             extraKeys,

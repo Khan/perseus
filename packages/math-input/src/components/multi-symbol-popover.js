@@ -6,10 +6,11 @@ const React = require("react");
 const PropTypes = require("prop-types");
 const {StyleSheet} = require("aphrodite");
 
-const {View} = require("../fake-react-native-web");
-const {keyConfigPropType} = require("./prop-types");
-const {BorderStyles} = require("../consts");
-const zIndexes = require("./z-indexes");
+const {BorderStyles} = require("../consts.js");
+const {View} = require("../fake-react-native-web/index.js");
+
+const {keyConfigPropType} = require("./prop-types.js");
+const zIndexes = require("./z-indexes.js");
 
 class MultiSymbolPopover extends React.Component {
     static propTypes = {
@@ -21,7 +22,7 @@ class MultiSymbolPopover extends React.Component {
 
         // TODO(charlie): We have to require this lazily because of a cyclic
         // dependence in our components.
-        const TouchableKeypadButton = require("./touchable-keypad-button");
+        const TouchableKeypadButton = require("./touchable-keypad-button.js");
         return (
             <View style={styles.container}>
                 {keys.map((key) => {

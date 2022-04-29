@@ -6,9 +6,10 @@ const React = require("react");
 const PropTypes = require("prop-types");
 const {StyleSheet} = require("aphrodite");
 
-const {View, Text} = require("../fake-react-native-web");
-const {row, centered} = require("./styles");
-const {iconSizeHeightPx, iconSizeWidthPx} = require("./common-style");
+const {View, Text} = require("../fake-react-native-web/index.js");
+
+const {iconSizeHeightPx, iconSizeWidthPx} = require("./common-style.js");
+const {row, centered} = require("./styles.js");
 
 class TextIcon extends React.Component {
     static propTypes = {

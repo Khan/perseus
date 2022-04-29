@@ -9,10 +9,10 @@ const $ = require("jquery");
 // If it does not exist, fall back to CommonJS require. - jsatk
 const MathQuill = require("mathquill");
 
-const Keys = require("../../data/keys");
-const CursorContexts = require("./cursor-contexts");
-const {DecimalSeparators} = require("../../consts");
-const {decimalSeparator} = require("../../utils");
+const Keys = require("../../data/keys.js");
+const CursorContexts = require("./cursor-contexts.js");
+const {DecimalSeparators} = require("../../consts.js");
+const {decimalSeparator} = require("../../utils.js");
 
 const decimalSymbol = decimalSeparator === DecimalSeparators.COMMA ? "," : ".";
 

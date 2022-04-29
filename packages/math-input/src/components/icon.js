@@ -6,12 +6,13 @@ const React = require("react");
 const PropTypes = require("prop-types");
 const {StyleSheet} = require("aphrodite");
 
-const MathIcon = require("./math-icon");
-const SvgIcon = require("./svg-icon");
-const TextIcon = require("./text-icon");
-const {IconTypes} = require("../consts");
-const {iconPropType} = require("./prop-types");
-const {offBlack} = require("./common-style");
+const {IconTypes} = require("../consts.js");
+
+const {offBlack} = require("./common-style.js");
+const MathIcon = require("./math-icon.js");
+const {iconPropType} = require("./prop-types.js");
+const SvgIcon = require("./svg-icon.js");
+const TextIcon = require("./text-icon.js");
 
 const focusedColor = "#FFF";
 const unfocusedColor = offBlack;

@@ -7,11 +7,11 @@ const PropTypes = require("prop-types");
 const {connect} = require("react-redux");
 
 const {StyleSheet, css} = require("aphrodite");
-const {View} = require("../fake-react-native-web");
-const Icon = require("./icon");
-const MultiSymbolGrid = require("./multi-symbol-grid");
-const CornerDecal = require("./corner-decal");
-const {KeyTypes, BorderDirections, BorderStyles} = require("../consts");
+const {View} = require("../fake-react-native-web/index.js");
+const Icon = require("./icon.js");
+const MultiSymbolGrid = require("./multi-symbol-grid.js");
+const CornerDecal = require("./corner-decal.js");
+const {KeyTypes, BorderDirections, BorderStyles} = require("../consts.js");
 const {
     wonderBlocksBlue,
     innerBorderColor,
@@ -21,12 +21,12 @@ const {
     operatorGrey,
     controlGrey,
     emptyGrey,
-} = require("./common-style");
+} = require("./common-style.js");
 const {
     bordersPropType,
     iconPropType,
     keyConfigPropType,
-} = require("./prop-types");
+} = require("./prop-types.js");
 
 class KeypadButton extends React.PureComponent {
     static propTypes = {

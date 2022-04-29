@@ -1,17 +1,18 @@
 // @flow
-import * as React from "react";
-import {View} from "@khanacademy/wonder-blocks-core";
 import Color from "@khanacademy/wonder-blocks-color";
+import {View} from "@khanacademy/wonder-blocks-core";
+import * as React from "react";
 
-import Keys from "../../data/key-configs";
+import Keys from "../../data/key-configs.js";
+
 import {
     KeypadPageContainer,
     KeypadButton,
     SecondaryKeypadButton,
     KeypadActionButton,
-} from "./keypad-page-items";
+} from "./keypad-page-items.js";
 
-import type {KeyConfig} from "../../data/key-configs";
+import type {KeyConfig} from "../../data/key-configs.js";
 
 type Props = {|
     onClickKey: (keyConfig: string) => void,

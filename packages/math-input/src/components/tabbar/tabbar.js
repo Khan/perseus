@@ -1,14 +1,13 @@
 // @flow
 
+import Color from "@khanacademy/wonder-blocks-color";
+import {View} from "@khanacademy/wonder-blocks-core";
+import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import {StyleSheet} from "aphrodite";
-import {View} from "@khanacademy/wonder-blocks-core";
-import Color from "@khanacademy/wonder-blocks-color";
+import TabbarItem from "./item.js";
 
-import TabbarItem from "./item";
-
-import type {TabbarItemType} from "./item";
+import type {TabbarItemType} from "./item.js";
 
 const styles = StyleSheet.create({
     tabbar: {

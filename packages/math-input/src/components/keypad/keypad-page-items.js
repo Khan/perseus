@@ -1,13 +1,13 @@
 // @flow
-import * as React from "react";
 import {View} from "@khanacademy/wonder-blocks-core";
+import * as React from "react";
 
-import Button from "./button";
-import ButtonAsset from "./button-assets";
-import type {KeyConfig} from "../../data/key-configs";
+import ButtonAsset from "./button-assets.js";
+import Button from "./button.js";
 
-import type {Node} from "React";
+import type {KeyConfig} from "../../data/key-configs.js";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
+import type {Node} from "React";
 
 const KeypadPageContainer = ({children}: {children: Node}): React.Node => (
     <View
@@ -97,7 +97,7 @@ const PlaceHolderButton = (): React.Node => (
                 borderRadius: 4,
                 border: `1px solid transparent`,
             }}
-        ></View>
+        />
     </View>
 );
 

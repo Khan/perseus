@@ -4,7 +4,7 @@
 
 const {StyleSheet} = require("aphrodite");
 
-const {compactKeypadBorderRadiusPx} = require("./common-style");
+const {compactKeypadBorderRadiusPx} = require("./common-style.js");
 
 module.exports = StyleSheet.create({
     row: {

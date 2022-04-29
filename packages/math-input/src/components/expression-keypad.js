@@ -7,10 +7,10 @@ const PropTypes = require("prop-types");
 const {connect} = require("react-redux");
 const {StyleSheet} = require("aphrodite");
 
-const {View} = require("../fake-react-native-web");
-const TwoPageKeypad = require("./two-page-keypad");
-const ManyKeypadButton = require("./many-keypad-button");
-const TouchableKeypadButton = require("./touchable-keypad-button");
+const {View} = require("../fake-react-native-web/index.js");
+const TwoPageKeypad = require("./two-page-keypad.js");
+const ManyKeypadButton = require("./many-keypad-button.js");
+const TouchableKeypadButton = require("./touchable-keypad-button.js");
 const {
     row,
     column,
@@ -18,12 +18,12 @@ const {
     fullWidth,
     roundedTopLeft,
     roundedTopRight,
-} = require("./styles");
-const {BorderStyles} = require("../consts");
-const {valueGrey, controlGrey} = require("./common-style");
-const {cursorContextPropType, keyIdPropType} = require("./prop-types");
-const KeyConfigs = require("../data/key-configs");
-const CursorContexts = require("./input/cursor-contexts");
+} = require("./styles.js");
+const {BorderStyles} = require("../consts.js");
+const {valueGrey, controlGrey} = require("./common-style.js");
+const {cursorContextPropType, keyIdPropType} = require("./prop-types.js");
+const KeyConfigs = require("../data/key-configs.js");
+const CursorContexts = require("./input/cursor-contexts.js");
 
 class ExpressionKeypad extends React.Component {
     static propTypes = {

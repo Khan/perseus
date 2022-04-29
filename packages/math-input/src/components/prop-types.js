@@ -4,15 +4,16 @@
 
 const PropTypes = require("prop-types");
 
-const KeyConfigs = require("../data/key-configs");
-const CursorContexts = require("./input/cursor-contexts");
 const {
     BorderDirections,
     EchoAnimationTypes,
     IconTypes,
     KeyTypes,
     KeypadTypes,
-} = require("../consts");
+} = require("../consts.js");
+const KeyConfigs = require("../data/key-configs.js");
+
+const CursorContexts = require("./input/cursor-contexts.js");
 
 const iconPropType = PropTypes.shape({
     type: PropTypes.oneOf(Object.keys(IconTypes)).isRequired,

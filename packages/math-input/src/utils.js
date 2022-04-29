@@ -1,6 +1,6 @@
 // @flow
 
-const {DecimalSeparators} = require("./consts");
+const {DecimalSeparators} = require("./consts.js");
 
 // We expect `window.icu` to be exposed by the parent. When in doubt, we fall
 // back to a period. We can only depend on a subset of what localeplanet
