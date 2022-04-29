@@ -11,7 +11,7 @@ import ancesdir from "ancesdir";
 import autoExternal from "rollup-plugin-auto-external";
 import copy from "rollup-plugin-copy";
 import filesize from "rollup-plugin-filesize";
-import less from "rollup-plugin-less";
+import styles from "rollup-plugin-styles";
 import {terser} from "rollup-plugin-terser";
 
 const createBabelPlugins = require("./create-babel-plugins.js");
@@ -41,12 +41,19 @@ const makePackageBasedPath = (pkgName, pkgRelPath) =>
     path.normalize(path.join("packages", pkgName, pkgRelPath));
 
 /**
- * Generate the rollup output configuration for a given
+ * Generate the rollup output configuration for a given package
  */
 const createOutputConfig = (pkgName, format, targetFile) => ({
     file: makePackageBasedPath(pkgName, targetFile),
     sourcemap: true,
     format,
+
+    // Governs names of CSS files (for assets from CSS use `hash` option for
+    // url handler).
+    // Note: using value below will put `.css` files near js,
+    // but make sure to adjust `hash`, `assetDir` and `publicPath`
+    // options for url handler accordingly.
+    assetFileNames: "[name][extname]",
 });
 
 /**
@@ -109,14 +116,14 @@ const createConfig = (
                     raphael: path.join(rootDir, "vendor", "raphael"),
                 },
             }),
-            less({
-                output: path.join(
-                    rootDir,
-                    "packages",
-                    "perseus",
-                    "dist",
-                    "index.css",
-                ),
+            styles({
+                mode: "extract",
+                // We don't want to try to resolve the url() occurrences in our
+                // stylesheets. We'll leave that for consumers of the library
+                // to deal with. Otherwise we end up packaging upstream assets
+                // into our libraries when our consumers should be the ones
+                // handling asset bundling.
+                url: false,
             }),
             babel({
                 babelHelpers: "bundled",

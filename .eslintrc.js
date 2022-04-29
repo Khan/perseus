@@ -136,6 +136,7 @@ module.exports = {
             "error",
             {
                 allow: [
+                    "**/*.css",
                     "**/*.less",
                     "@testing-library/jest-dom",
                     "@testing-library/jest-dom/extend-expect",
