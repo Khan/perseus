@@ -92,7 +92,7 @@
     "build": "rollup -c config/build/rollup.config.js",
     "build:prodsizecheck": "rollup -c config/build/rollup.config.js --configFormats='esm' --configEnvironment='production'",
     "watch": "rollup -c config/build/rollup.config.js --watch",
-    "clean": "rm -rf packages/perseus*/dist && rm -rf packages/perseus*/node_modules",
+    "clean": "rm -rf packages/*/dist && rm -rf packages/*/node_modules",
     "coverage": "yarn run jest --coverage",
     "extract-strings": "./utils/extract-strings.js",
     "flow:ci": "flow check --max-workers 0",
