@@ -8,6 +8,8 @@ import * as React from "react";
 
 import IconAsset from "./icons.js";
 
+import type {TabbarItemType} from "./types";
+
 const styles = StyleSheet.create({
     base: {
         display: "flex",
@@ -69,7 +71,6 @@ function imageTintColor(
     }
     return Color.offBlack64;
 }
-export type TabbarItemType = "Geometry" | "Operators" | "Numbers";
 export type ItemState = "active" | "inactive" | "disabled";
 type Props = {
     onClick: () => void,
@@ -132,4 +133,4 @@ class TabbarItem extends React.Component<Props, State> {
     }
 }
 
-module.exports = TabbarItem;
+export default TabbarItem;

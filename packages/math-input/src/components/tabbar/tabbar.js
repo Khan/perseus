@@ -7,7 +7,7 @@ import * as React from "react";
 
 import TabbarItem from "./item.js";
 
-import type {TabbarItemType} from "./item.js";
+import type {TabbarItemType} from "./types.js";
 
 const styles = StyleSheet.create({
     tabbar: {
@@ -58,4 +58,4 @@ class Tabbar extends React.Component<TabbarProps, TabbarState> {
     }
 }
 
-module.exports = Tabbar;
+export default Tabbar;
