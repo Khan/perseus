@@ -71,6 +71,7 @@
     "jest-serializer-html": "^7.1.0",
     "jest-specific-snapshot": "^5.0.0",
     "katex": "^0.11.1",
+    "less": "~3.0.0",
     "prettier": "^2.6.2",
     "react-json-view": "^1.19.1",
     "react-redux": "^7.2.6",
