@@ -35,7 +35,7 @@ jobs:
       uses: ./.github/actions/filter-files
       with:
         changed-files: ${{ steps.changed.outputs.added_modified }}
-        extensions: '.js'
+        extensions: '.js,.jsx'
 
     - id: eslint-reset
       uses: ./.github/actions/filter-files
