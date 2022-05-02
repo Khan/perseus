@@ -1,3 +1,4 @@
+// @flow
 /**
  * This file exports components View and Text which wrap <div> and <span>.
  * We do this so that someday in the future we can use these components with
@@ -7,7 +8,5 @@
  * StyleSheets instead.
  */
 
-module.exports = {
-    Text: require("./text.js"),
-    View: require("./view.js"),
-};
+export {default as Text} from "./text.js";
+export {default as View} from "./view.js";

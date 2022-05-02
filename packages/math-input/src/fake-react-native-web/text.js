@@ -1,23 +1,23 @@
+// @flow
+
 import {StyleSheet, css} from "aphrodite";
-import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 
-class Text extends React.Component {
-    static propTypes = {
-        children: PropTypes.oneOfType([
-            PropTypes.arrayOf(PropTypes.node),
-            PropTypes.node,
-        ]),
-        // The `dynamicStyle` prop is provided for animating dynamic
-        // properties, as creating Aphrodite StyleSheets in animation loops is
-        // expensive. `dynamicStyle` should be a raw style object, rather than
-        // a StyleSheet.
-        dynamicStyle: PropTypes.any,
-        numberOfLines: PropTypes.number,
-        style: PropTypes.any,
-    };
+import type {CSSProperties} from "aphrodite";
 
-    render() {
+type Props = {|
+    children: React.Node,
+    // The `dynamicStyle` prop is provided for animating dynamic
+    // properties, as creating Aphrodite StyleSheets in animation loops is
+    // expensive. `dynamicStyle` should be a raw style object, rather than
+    // a StyleSheet.
+    dynamicStyle?: CSSProperties,
+    numberOfLines?: number,
+    style?: CSSProperties,
+|};
+
+class Text extends React.Component<Props> {
+    render(): React.Element<"span"> {
         const {numberOfLines, style} = this.props;
 
         const className = css(
@@ -53,4 +53,4 @@ const styles = StyleSheet.create({
     },
 });
 
-module.exports = Text;
+export default Text;
