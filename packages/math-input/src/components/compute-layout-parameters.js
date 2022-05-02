@@ -19,13 +19,14 @@
  * might need to be.
  */
 
-const {DeviceTypes, DeviceOrientations, LayoutModes} = require("../consts.js");
-const {
+import {
     pageIndicatorHeightPx,
     toolbarHeightPx,
     navigationPadWidthPx,
     innerBorderWidthPx,
-} = require("./common-style.js");
+} from "./common-style.js";
+
+const {DeviceTypes, DeviceOrientations, LayoutModes} = require("../consts.js");
 
 const minButtonHeight = 48;
 const maxButtonSize = 64;
@@ -54,7 +55,7 @@ const maxPortraitBrowserChrome =
 // difference when reserving space above the keypad.)
 const worstCaseAspectRatio = 320 / (480 - safariNavBarWhenShrunk);
 
-const computeLayoutParameters = function(
+const computeLayoutParameters = function (
     {numColumns, numMaxVisibleRows, numPages},
     {pageWidthPx, pageHeightPx},
     {deviceOrientation, deviceType},

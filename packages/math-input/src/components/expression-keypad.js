@@ -2,6 +2,8 @@
  * A keypad that includes all of the expression symbols.
  */
 
+import {valueGrey, controlGrey} from "./common-style.js";
+
 const React = require("react");
 const PropTypes = require("prop-types");
 const {connect} = require("react-redux");
@@ -20,7 +22,6 @@ const {
     roundedTopRight,
 } = require("./styles.js");
 const {BorderStyles} = require("../consts.js");
-const {valueGrey, controlGrey} = require("./common-style.js");
 const {cursorContextPropType, keyIdPropType} = require("./prop-types.js");
 const KeyConfigs = require("../data/key-configs.js");
 const CursorContexts = require("./input/cursor-contexts.js");

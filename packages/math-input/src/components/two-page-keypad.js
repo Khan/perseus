@@ -2,6 +2,13 @@
  * A keypad with two pages of keys.
  */
 
+import {
+    innerBorderColor,
+    innerBorderStyle,
+    innerBorderWidthPx,
+    offBlack16,
+} from "./common-style.js";
+
 const {StyleSheet} = require("aphrodite");
 const PropTypes = require("prop-types");
 const React = require("react");
@@ -9,12 +16,6 @@ const {connect} = require("react-redux");
 
 const {View} = require("../fake-react-native-web/index.js");
 
-const {
-    innerBorderColor,
-    innerBorderStyle,
-    innerBorderWidthPx,
-    offBlack16,
-} = require("./common-style.js");
 const Keypad = require("./keypad.js");
 const {column, row, fullWidth} = require("./styles.js");
 const Tabbar = require("./tabbar/tabbar.js");

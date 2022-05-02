@@ -2,13 +2,14 @@
  * A component that renders a text-based icon.
  */
 
-const React = require("react");
-const PropTypes = require("prop-types");
+import {iconSizeHeightPx, iconSizeWidthPx} from "./common-style.js";
+
 const {StyleSheet} = require("aphrodite");
+const PropTypes = require("prop-types");
+const React = require("react");
 
 const {View, Text} = require("../fake-react-native-web/index.js");
 
-const {iconSizeHeightPx, iconSizeWidthPx} = require("./common-style.js");
 const {row, centered} = require("./styles.js");
 
 class TextIcon extends React.Component {

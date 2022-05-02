@@ -2,9 +2,9 @@
  * Common styles shared across components.
  */
 
-const {StyleSheet} = require("aphrodite");
+import {compactKeypadBorderRadiusPx} from "./common-style.js";
 
-const {compactKeypadBorderRadiusPx} = require("./common-style.js");
+const {StyleSheet} = require("aphrodite");
 
 module.exports = StyleSheet.create({
     row: {

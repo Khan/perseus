@@ -2,21 +2,23 @@
  * A component that renders a navigation pad, which consists of an arrow for
  * each possible direction.
  */
-const React = require("react");
-const PropTypes = require("prop-types");
-
-const {StyleSheet} = require("aphrodite");
-const {View} = require("../fake-react-native-web/index.js");
-const TouchableKeypadButton = require("./touchable-keypad-button.js");
-const {row, column, centered, stretch, roundedTopLeft} = require("./styles.js");
-const {
+import {
     navigationPadWidthPx,
     controlGrey,
     valueGrey,
     offBlack16,
-} = require("./common-style.js");
+} from "./common-style.js";
+
+const {StyleSheet} = require("aphrodite");
+const PropTypes = require("prop-types");
+const React = require("react");
+
 const {BorderStyles} = require("../consts.js");
 const KeyConfigs = require("../data/key-configs.js");
+const {View} = require("../fake-react-native-web/index.js");
+
+const {row, column, centered, stretch, roundedTopLeft} = require("./styles.js");
+const TouchableKeypadButton = require("./touchable-keypad-button.js");
 
 class NavigationPad extends React.Component {
     static propTypes = {

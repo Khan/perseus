@@ -1,24 +1,25 @@
-import * as zIndexes from "./z-indexes.js";
-
-const React = require("react");
-const PropTypes = require("prop-types");
-const {connect} = require("react-redux");
-const {StyleSheet} = require("aphrodite");
-
-const {View} = require("../fake-react-native-web/index.js");
-const FractionKeypad = require("./fraction-keypad.js");
-const ExpressionKeypad = require("./expression-keypad.js");
-const NavigationPad = require("./navigation-pad.js");
-const {setPageSize} = require("../actions.js");
-const {keyIdPropType} = require("./prop-types.js");
-const {KeypadTypes, LayoutModes} = require("../consts.js");
-const {row, centered, fullWidth} = require("./styles.js");
-const {
+import {
     innerBorderColor,
     innerBorderStyle,
     innerBorderWidthPx,
     compactKeypadBorderRadiusPx,
-} = require("./common-style.js");
+} from "./common-style.js";
+import * as zIndexes from "./z-indexes.js";
+
+const {StyleSheet} = require("aphrodite");
+const PropTypes = require("prop-types");
+const React = require("react");
+const {connect} = require("react-redux");
+
+const {setPageSize} = require("../actions.js");
+const {KeypadTypes, LayoutModes} = require("../consts.js");
+const {View} = require("../fake-react-native-web/index.js");
+
+const ExpressionKeypad = require("./expression-keypad.js");
+const FractionKeypad = require("./fraction-keypad.js");
+const NavigationPad = require("./navigation-pad.js");
+const {keyIdPropType} = require("./prop-types.js");
+const {row, centered, fullWidth} = require("./styles.js");
 
 class KeypadContainer extends React.Component {
     static propTypes = {

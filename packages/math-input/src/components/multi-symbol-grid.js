@@ -3,16 +3,18 @@
  * symbols provided. Up to four symbols will be shown.
  */
 
-const React = require("react");
-const PropTypes = require("prop-types");
-const {StyleSheet} = require("aphrodite");
+import {iconSizeHeightPx, iconSizeWidthPx} from "./common-style.js";
 
-const {View} = require("../fake-react-native-web/index.js");
-const Icon = require("./icon.js");
+const {StyleSheet} = require("aphrodite");
+const PropTypes = require("prop-types");
+const React = require("react");
+
 const {IconTypes} = require("../consts.js");
+const {View} = require("../fake-react-native-web/index.js");
+
+const Icon = require("./icon.js");
 const {iconPropType} = require("./prop-types.js");
 const {row, column, centered, fullWidth} = require("./styles.js");
-const {iconSizeHeightPx, iconSizeWidthPx} = require("./common-style.js");
 
 class MultiSymbolGrid extends React.Component {
     static propTypes = {
