@@ -1,0 +1,32 @@
+name: 'Pass a jsonified-list of files as shell arguments'
+description: 'Because file names with spaces are the worst'
+inputs:
+  list:
+    description: A jsonified Array of string file names
+    required: true
+  run:
+    description: "a command to run, where the literal '{}' will be replaced with the files as individual arguments. If no '{}' is provided, the files will be appended."
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/github-script@v6
+      with:
+        script: |
+          const listRaw = `${{ inputs.list }}`;
+          const files = JSON.parse(listRaw);
+          const {execSync} = require('child_process');
+          if (files.some(name => name.match(/['"]/))) {
+            throw new Error(`Not going to mess with file names that have quotes in them.`)
+          }
+          const filesList = files.map(name => `"${name}"`).join(' ')
+          let cmd = `${{ inputs.run }}`;
+          if (cmd.includes('{}')) {
+            cmd = cmd.replace('{}', filesList)
+          } else {
+            cmd += ' ' + filesList;
+          }
+          console.log(`Running: ${cmd}`);
+          execSync(cmd, {
+            stdio: 'inherit',
+          })
