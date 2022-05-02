@@ -1,7 +1,4 @@
-/* eslint-env node, mocha */
-const assert = require("assert");
-
-const GestureStateMachine = require("../src/components/gesture-state-machine");
+import GestureStateMachine from "../gesture-state-machine.js";
 
 const swipeThresholdPx = 5;
 const longPressWaitTimeMs = 5;
@@ -22,7 +19,7 @@ const eventTrackers = (buffer) => {
         "onSwipeEnd",
     ];
     callbackNames.forEach((callbackName) => {
-        handlers[callbackName] = function() {
+        handlers[callbackName] = function () {
             buffer.push([callbackName, ...arguments]);
         };
     });
@@ -57,7 +54,7 @@ describe("GestureStateMachine", () => {
     });
 
     const assertEvents = (expectedEvents) => {
-        assert.deepEqual(eventBuffer, expectedEvents);
+        expect(eventBuffer).toStrictEqual(expectedEvents);
     };
 
     it("should trigger a tap on a simple button", () => {
@@ -93,7 +90,7 @@ describe("GestureStateMachine", () => {
         assertEvents(expectedEvents);
     });
 
-    it("should trigger a long press on hold", (done) => {
+    it("should trigger a long press on hold", () => {
         const touchId = 1;
 
         /// Trigger a touch start.
@@ -103,28 +100,26 @@ describe("GestureStateMachine", () => {
         const initialExpectedEvents = [["onFocus", NodeIds.first]];
         assertEvents(initialExpectedEvents);
 
-        setTimeout(() => {
-            const expectedEventsAfterLongPress = [
-                ...initialExpectedEvents,
-                ["onLongPress", NodeIds.first],
-            ];
-            assertEvents(expectedEventsAfterLongPress);
+        jest.advanceTimersByTime(longPressWaitTimeMs);
 
-            // Finish up the interaction.
-            stateMachine.onTouchEnd(() => NodeIds.first, touchId, 0);
+        const expectedEventsAfterLongPress = [
+            ...initialExpectedEvents,
+            ["onLongPress", NodeIds.first],
+        ];
+        assertEvents(expectedEventsAfterLongPress);
 
-            // Assert that we still see a touch-end.
-            const expectedEventsAfterRelease = [
-                ...expectedEventsAfterLongPress,
-                ["onTouchEnd", NodeIds.first],
-            ];
-            assertEvents(expectedEventsAfterRelease);
+        // Finish up the interaction.
+        stateMachine.onTouchEnd(() => NodeIds.first, touchId, 0);
 
-            done();
-        }, longPressWaitTimeMs);
+        // Assert that we still see a touch-end.
+        const expectedEventsAfterRelease = [
+            ...expectedEventsAfterLongPress,
+            ["onTouchEnd", NodeIds.first],
+        ];
+        assertEvents(expectedEventsAfterRelease);
     });
 
-    it("should trigger multiple presses on hold", (done) => {
+    it("should trigger multiple presses on hold", () => {
         const touchId = 1;
 
         // Trigger a touch start on the multi-pressable node.
@@ -137,27 +132,25 @@ describe("GestureStateMachine", () => {
         ];
         assertEvents(initialExpectedEvents);
 
-        setTimeout(() => {
-            // Assert that we see an additional trigger after the delay.
-            const expectedEventsAfterHold = [
-                ...initialExpectedEvents,
-                ["onTrigger", NodeIds.multiPressable],
-            ];
-            assertEvents(expectedEventsAfterHold);
+        jest.advanceTimersByTime(holdIntervalMs);
 
-            // Now release, and verify that we see a blur, but no touch-end.
-            stateMachine.onTouchEnd(() => NodeIds.multiPressable, touchId, 0);
-            const expectedEventsAfterRelease = [
-                ...expectedEventsAfterHold,
-                ["onBlur"],
-            ];
-            assertEvents(expectedEventsAfterRelease);
+        // Assert that we see an additional trigger after the delay.
+        const expectedEventsAfterHold = [
+            ...initialExpectedEvents,
+            ["onTrigger", NodeIds.multiPressable],
+        ];
+        assertEvents(expectedEventsAfterHold);
 
-            done();
-        }, holdIntervalMs);
+        // Now release, and verify that we see a blur, but no touch-end.
+        stateMachine.onTouchEnd(() => NodeIds.multiPressable, touchId, 0);
+        const expectedEventsAfterRelease = [
+            ...expectedEventsAfterHold,
+            ["onBlur"],
+        ];
+        assertEvents(expectedEventsAfterRelease);
     });
 
-    it("should be robust to multiple touch starts", (done) => {
+    it("should be robust to multiple touch starts", () => {
         const touchId = 1;
 
         // Trigger a touch start on the multi-pressable node twice, because
@@ -172,29 +165,27 @@ describe("GestureStateMachine", () => {
         ];
         assertEvents(initialExpectedEvents);
 
-        setTimeout(() => {
-            // Assert that we see an additional trigger after the delay.
-            const expectedEventsAfterHold = [
-                ...initialExpectedEvents,
-                ["onTrigger", NodeIds.multiPressable],
-            ];
-            assertEvents(expectedEventsAfterHold);
+        jest.advanceTimersByTime(holdIntervalMs);
 
-            // Now release, and verify that we see a blur, but no touch-end.
-            stateMachine.onTouchEnd(() => NodeIds.multiPressable, touchId, 0);
-            const expectedEventsAfterRelease = [
-                ...expectedEventsAfterHold,
-                ["onBlur"],
-            ];
-            assertEvents(expectedEventsAfterRelease);
+        // Assert that we see an additional trigger after the delay.
+        const expectedEventsAfterHold = [
+            ...initialExpectedEvents,
+            ["onTrigger", NodeIds.multiPressable],
+        ];
+        assertEvents(expectedEventsAfterHold);
 
-            setTimeout(() => {
-                // Ensure the touch end cleaned it up, and that we didn't
-                // create multiple listeners.
-                assertEvents(expectedEventsAfterRelease);
-                done();
-            }, holdIntervalMs);
-        }, holdIntervalMs);
+        // Now release, and verify that we see a blur, but no touch-end.
+        stateMachine.onTouchEnd(() => NodeIds.multiPressable, touchId, 0);
+        const expectedEventsAfterRelease = [
+            ...expectedEventsAfterHold,
+            ["onBlur"],
+        ];
+        assertEvents(expectedEventsAfterRelease);
+
+        jest.advanceTimersByTime(holdIntervalMs);
+        // Ensure the touch end cleaned it up, and that we didn't
+        // create multiple listeners.
+        assertEvents(expectedEventsAfterRelease);
     });
 
     /* Swiping. */

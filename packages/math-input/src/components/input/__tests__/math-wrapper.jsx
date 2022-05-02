@@ -1,7 +1,8 @@
-const MathQuill = require("mathquill");
-const MQ = MathQuill.getInterface(2);
+import MathQuill from "mathquill";
 
-const MathWrapper = require("../src/components/input/math-wrapper");
+import MathWrapper from "../math-wrapper.js";
+
+const MQ = MathQuill.getInterface(2);
 
 export default class TestMathWrapper extends MathWrapper {
     getContent() {

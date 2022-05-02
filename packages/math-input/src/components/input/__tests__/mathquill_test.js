@@ -1,7 +1,6 @@
-/* eslint-env node, mocha */
-const Keys = require("../src/data/keys");
+import Keys from "../../../data/keys.js";
 
-import MathWrapper from "./test-math-wrapper";
+import MathWrapper from "./math-wrapper.jsx";
 
 const MQ = {L: "-1", R: "1"};
 const END_OF_EXPR = 0;
