@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 // @flow
+import KAS from "@khanacademy/kas";
 import {components, consts} from "@khanacademy/math-input";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import classNames from "classnames";
-import KAS from "kas";
 import * as React from "react";
 import _ from "underscore";
 

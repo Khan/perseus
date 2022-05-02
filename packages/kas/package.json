@@ -1,0 +1,38 @@
+{
+  "name": "kas",
+  "version": "0.2.2",
+  "description": "A lightweight JavaScript CAS for comparing expressions and equations.",
+  "main": "kas.js",
+  "scripts": {
+    "test": "node testrunner",
+    "build": "grunt",
+    "build:parser": "grunt parser"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Khan/KAS.git"
+  },
+  "keywords": [
+    "parsing",
+    "equation",
+    "expression",
+    "algebra",
+    "symbolic"
+  ],
+  "author": "alopatin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Khan/KAS/issues"
+  },
+  "dependencies": {
+    "underscore": "1.4.4"
+  },
+  "devDependencies": {
+    "grunt": "^1.0.3",
+    "grunt-contrib-concat": "~0.1.3",
+    "grunt-execute": "~0.1.5",
+    "jison": "0.4.15",
+    "qunit": "^2.8.0",
+    "qunit-assert-close": "^2.1.2"
+  }
+}
