@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
         boxSizing: "border-box",
         border: `1px solid transparent`,
         borderRadius: 2,
-        dislay: "flex",
+        display: "flex",
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
