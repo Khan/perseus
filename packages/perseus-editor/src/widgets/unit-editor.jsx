@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unsafe */
 // @flow
-import KAS from "@khanacademy/kas";
+import * as KAS from "@khanacademy/kas";
 import {
     components,
     displaySigFigs,

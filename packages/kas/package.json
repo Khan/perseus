@@ -2,11 +2,11 @@
   "name": "kas",
   "version": "0.2.2",
   "description": "A lightweight JavaScript CAS for comparing expressions and equations.",
-  "main": "kas.js",
+  "module": "dist/es/index.js",
+  "main": "dist/index.js",
+  "source": "src/index.js",
   "scripts": {
-    "test": "node testrunner",
-    "build": "grunt",
-    "build:parser": "grunt parser"
+    "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"
   },
   "repository": {
     "type": "git",

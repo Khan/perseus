@@ -1,4 +1,4 @@
-import KAS from "../kas.js";
+import * as KAS from "../index.js";
 
 describe("KAS", () => {
     it("should parse", () => {

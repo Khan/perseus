@@ -1,7 +1,9 @@
 /* TODO(charlie): fix these lint errors (http://eslint.org/docs/rules): */
 /* eslint-disable indent, no-undef, no-var, one-var, no-dupe-keys, no-new-func, no-redeclare, no-unused-vars, comma-dangle, max-len, prefer-spread, space-infix-ops, space-unary-ops */
+import _ from "underscore";
 
-(function(KAS) {
+import {unitParser} from "./unitparser.js";
+import {parser} from "./parser.js";
 
 /*  The node hierarcy is as follows:
 
@@ -580,7 +582,7 @@ _.extend(Seq.prototype, {
 
 
 /* sequence of additive terms */
-function Add() {
+export function Add() {
     if (arguments.length === 1) {
         this.terms = arguments[0];
     } else {
@@ -711,7 +713,7 @@ _.extend(Add.prototype, {
 
 
 /* sequence of multiplicative terms */
-function Mul() {
+export function Mul() {
     if (arguments.length === 1) {
         this.terms = arguments[0];
     } else {
@@ -1384,7 +1386,7 @@ _.extend(Mul, {
 
 
 /* exponentiation */
-function Pow(base, exp) { this.base = base; this.exp = exp; }
+export function Pow(base, exp) { this.base = base; this.exp = exp; }
 Pow.prototype = new Expr();
 
 _.extend(Pow.prototype, {
@@ -1786,7 +1788,7 @@ _.extend(Pow, {
 
 
 /* logarithm */
-function Log(base, power) { this.base = base; this.power = power; }
+export function Log(base, power) { this.base = base; this.power = power; }
 Log.prototype = new Expr();
 
 _.extend(Log.prototype, {
@@ -1904,7 +1906,7 @@ _.extend(Log, {
 
 
 /* trigonometric functions */
-function Trig(type, arg) { this.type = type; this.arg = arg; }
+export function Trig(type, arg) { this.type = type; this.arg = arg; }
 Trig.prototype = new Expr();
 
 _.extend(Trig.prototype, {
@@ -2202,7 +2204,7 @@ _.extend(Trig, {
 });
 
 
-function Abs(arg) { this.arg = arg; }
+export function Abs(arg) { this.arg = arg; }
 Abs.prototype = new Expr();
 
 _.extend(Abs.prototype, {
@@ -2269,7 +2271,7 @@ _.extend(Abs.prototype, {
 
 
 /* equation */
-function Eq(left, type, right) {
+export function Eq(left, type, right) {
     this.left = left;
     this.type = type;
     this.right = right;
@@ -2532,7 +2534,7 @@ _.extend(Symbol.prototype, {
 
 
 /* function variable */
-function Func(symbol, arg) {
+export function Func(symbol, arg) {
     this.symbol = symbol; this.arg = arg;
 }
 Func.prototype = new Symbol();
@@ -2555,7 +2557,7 @@ _.extend(Func.prototype, {
         var newVars = _.extend(_.clone(vars), {
             x: arg.eval(vars, options)
         });
-        var parsedFunc = KAS.parse(func, options);
+        var parsedFunc = parse(func, options);
         if (parsedFunc.parsed) {
             return parsedFunc.expr.eval(newVars, options);
         }
@@ -2587,7 +2589,7 @@ _.extend(Func.prototype, {
 
 
 /* variable */
-function Var(symbol, subscript) {
+export function Var(symbol, subscript) {
     this.symbol = symbol;
     this.subscript = subscript;
 }
@@ -2645,7 +2647,7 @@ _.extend(Var.prototype, {
 
 
 /* constant */
-function Const(symbol) { this.symbol = symbol; }
+export function Const(symbol) { this.symbol = symbol; }
 Const.prototype = new Symbol();
 
 _.extend(Const.prototype, {
@@ -2773,7 +2775,7 @@ _.extend(Num.prototype, {
 
 
 /* rational number (n: numerator, d: denominator) */
-function Rational(numerator, denominator) {
+export function Rational(numerator, denominator) {
     var n = numerator; var d = denominator;
     if (d < 0) {
         n = -n; d = -d;
@@ -2878,7 +2880,7 @@ _.extend(Rational.prototype, {
 
 
 /* integer (n: numerator/number) */
-function Int(number) { this.n = number; }
+export function Int(number) { this.n = number; }
 Int.prototype = new Rational(0, 1);
 
 _.extend(Int.prototype, {
@@ -2903,7 +2905,7 @@ _.extend(Int, {
 });
 
 /* float (n: number) */
-function Float(number) { this.n = number; }
+export function Float(number) { this.n = number; }
 Float.prototype = new Num();
 
 _.extend(Float.prototype, {
@@ -3060,9 +3062,6 @@ Num.Ten = new Int(10);
 Add.prototype.identity = Num.Zero;
 Mul.prototype.identity = Num.One;
 
-
-var parser = KAS.parser;
-
 var parseError = function(str, hash) {
     // return int location of parsing error
     throw new Error(hash.loc.first_column);
@@ -3097,7 +3096,7 @@ parser.yy = {
     }
 };
 
-KAS.parse = function(input, options) {
+export const parse = function(input, options) {
     try {
         if (options && options.functions) {
             // reserve the symbol "i" for complex numbers
@@ -3122,7 +3121,7 @@ KAS.parse = function(input, options) {
 };
 
 /* unit */
-function Unit(symbol) {
+export function Unit(symbol) {
     this.symbol = symbol;
 }
 Unit.prototype = new Symbol();
@@ -3163,9 +3162,9 @@ var unprefixify = function(symbol) {
     }
 };
 
-KAS.unitParse = function(input) {
+export const unitParse = function(input) {
     try {
-        var parseResult = KAS.unitParser.parse(input);
+        var parseResult = unitParser.parse(input);
 
         // parseResult looks like:
         // {
@@ -3304,7 +3303,7 @@ var makeAlias = function(str, prefixes) {
 
     var coefficient = Num.One;
     if (coefficientStr !== "") {
-        coefficient = KAS.parse(coefficientStr).expr;
+        coefficient = parse(coefficientStr).expr;
     }
 
     var numdenomStr = unitsStr.split("/");
@@ -3502,21 +3501,5 @@ var derivedUnits = {
     "Hz": makeAlias("| / s", hasPrefixes),
 };
 
-KAS.Add = Add;
-KAS.Mul = Mul;
-KAS.Pow = Pow;
-KAS.Log = Log;
-KAS.Eq = Eq;
-KAS.Trig = Trig;
-KAS.Abs = Abs;
-KAS.Func = Func;
-KAS.Var = Var;
-KAS.Const = Const;
-KAS.Unit = Unit;
-KAS.Rational = Rational;
-KAS.Int = Int;
-KAS.Float = Float;
-KAS.Zero = Num.Zero;
-KAS.One = Num.One;
-
-})(KAS);
+export const Zero = Num.Zero;
+export const One = Num.One;

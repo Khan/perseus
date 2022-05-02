@@ -1,6 +1,6 @@
 /* eslint-disable one-var, react/forbid-prop-types, react/sort-comp */
 // @flow
-import KAS from "@khanacademy/kas";
+import * as KAS from "@khanacademy/kas";
 import {
     components,
     Changeable,
