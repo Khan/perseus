@@ -1,3 +1,4 @@
+// @flow
 /**
  * This file contains constants for keypad buttons that aren't single
  * alphanumeric characters.
@@ -68,4 +69,4 @@ const Keys = {
     MANY: "MANY",
 };
 
-module.exports = Keys;
+export default Keys;

@@ -1,3 +1,5 @@
+import Keys from "../data/keys.js";
+
 const Redux = require("redux");
 
 const {tabletCutoffPx} = require("../components/common-style.js");
@@ -16,7 +18,6 @@ const {
     LayoutModes,
 } = require("../consts.js");
 const KeyConfigs = require("../data/key-configs.js");
-const Keys = require("../data/keys.js");
 
 const keypadForType = {
     [KeypadTypes.FRACTION]: FractionKeypad,

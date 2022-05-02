@@ -1,9 +1,10 @@
+import Keys from "../../data/keys.js";
+
 const React = require("react");
 const PropTypes = require("prop-types");
 const ReactDOM = require("react-dom");
 const {StyleSheet} = require("aphrodite");
 
-const Keys = require("../../data/keys.js");
 const {View} = require("../../fake-react-native-web/index.js");
 const {
     cursorHandleRadiusPx,

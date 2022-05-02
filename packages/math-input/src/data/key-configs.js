@@ -5,7 +5,8 @@
 
 import {decimalSeparator} from "../utils.js";
 
-const Keys = require("../data/keys.js");
+import Keys from "./keys.js";
+
 const {DecimalSeparators, IconTypes, KeyTypes} = require("../consts.js");
 const i18n = window.i18n || {_: (s) => s};
 
