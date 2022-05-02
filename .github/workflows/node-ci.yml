@@ -41,7 +41,7 @@ jobs:
       uses: ./.github/actions/filter-files
       name: Files that would trigger a full eslint run
       with:
-        changed-files: ${{ steps.setup.outputs.changed_files }}
+        changed-files: ${{ steps.changed.outputs.added_modified }}
         files: '.eslintrc.js,yarn.lock,.eslintignore'
 
     # Linting / type checking
@@ -62,7 +62,7 @@ jobs:
       uses: ./.github/actions/filter-files
       name: Files that would trigger a full jest run
       with:
-        changed-files: ${{ steps.setup.outputs.changed_files }}
+        changed-files: ${{ steps.changed.outputs.added_modified }}
         files: 'jest.config.js,yarn.lock,test.config.js,test.transform.js'
 
     - name: Jest
