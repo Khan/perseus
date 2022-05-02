@@ -1,3 +1,5 @@
+import * as zIndexes from "./z-indexes.js";
+
 const React = require("react");
 const PropTypes = require("prop-types");
 const {connect} = require("react-redux");
@@ -7,7 +9,6 @@ const {View} = require("../fake-react-native-web/index.js");
 const FractionKeypad = require("./fraction-keypad.js");
 const ExpressionKeypad = require("./expression-keypad.js");
 const NavigationPad = require("./navigation-pad.js");
-const zIndexes = require("./z-indexes.js");
 const {setPageSize} = require("../actions.js");
 const {keyIdPropType} = require("./prop-types.js");
 const {KeypadTypes, LayoutModes} = require("../consts.js");

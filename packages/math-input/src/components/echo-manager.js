@@ -2,6 +2,8 @@
  * A component that renders and animates the selection state effect effect.
  */
 
+import * as zIndexes from "./z-indexes.js";
+
 const React = require("react");
 const PropTypes = require("prop-types");
 const {TransitionGroup, CSSTransition} = require("react-transition-group");
@@ -14,7 +16,6 @@ const {
     boundingBoxPropType,
     keyIdPropType,
 } = require("./prop-types.js");
-const zIndexes = require("./z-indexes.js");
 
 class Echo extends React.Component {
     static propTypes = {

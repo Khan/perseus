@@ -1,6 +1,7 @@
 /**
  * A popover that renders a set of keys floating above the page.
  */
+import * as zIndexes from "./z-indexes.js";
 
 const React = require("react");
 const PropTypes = require("prop-types");
@@ -10,7 +11,6 @@ const {BorderStyles} = require("../consts.js");
 const {View} = require("../fake-react-native-web/index.js");
 
 const {keyConfigPropType} = require("./prop-types.js");
-const zIndexes = require("./z-indexes.js");
 
 class MultiSymbolPopover extends React.Component {
     static propTypes = {
