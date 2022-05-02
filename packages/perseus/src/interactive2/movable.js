@@ -10,8 +10,8 @@
  * let this class handle all of the virtual mouse events, and then
  * take appropriate action in onMoveStart, onMove, onMoveEnd
  */
+import {point as kpoint} from "@khanacademy/kmath";
 import $ from "jquery";
-import {point as kpoint} from "kmath";
 import _ from "underscore";
 
 import InteractiveUtil from "./interactive-util.js";

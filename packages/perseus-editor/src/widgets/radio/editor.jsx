@@ -143,7 +143,6 @@ class RadioEditor extends React.Component<$FlowFixMe> {
                     <a
                         href={
                             // This is an editor component, not user-facing.
-                            // eslint-disable-next-line static-service/require-safe-link-to
                             "https://docs.google.com/document/d/1frZf7yrWVWb1n4tVjqlzqVUiv1pn4cZXbxgP62-JDBY/edit#heading=h.8ng1isya19nu"
                         }
                         target="_blank"

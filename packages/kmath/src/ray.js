@@ -13,7 +13,7 @@ import type {Point} from "./point";
 
 export type Ray = [Point, Point];
 
-export function equal(ray1: Ray, ray2: Ray, tolerance: number): boolean {
+export function equal(ray1: Ray, ray2: Ray, tolerance?: number): boolean {
     // Compare the directions of the rays
     const v1 = kvector.subtract(ray1[1], ray1[0]);
     const v2 = kvector.subtract(ray2[1], ray2[0]);

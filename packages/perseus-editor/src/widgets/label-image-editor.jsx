@@ -78,6 +78,7 @@ class LabelImageEditor extends React.Component<LabelImageEditorProps> {
         // Find the newly added marker indices.
         const newIndices = this.props.markers
             .map((marker, index) =>
+                // eslint-disable-next-line no-prototype-builtins
                 coordsToMarkers.hasOwnProperty(`${marker.x}.${marker.y}`)
                     ? -1
                     : index,

@@ -120,9 +120,6 @@ class InfoTip extends React.Component<Props, State> {
                     alt=""
                     width={10}
                     height={10}
-                    // The question mark icon is a data url, so no need to run
-                    // it through staticUrl!
-                    // eslint-disable-next-line static-service/require-static-url
                     src={questionMark}
                     onMouseEnter={this.handleMouseEnter}
                     onMouseLeave={this.handleMouseLeave}
