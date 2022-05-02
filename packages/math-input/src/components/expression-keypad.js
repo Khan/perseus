@@ -2,14 +2,14 @@
  * A keypad that includes all of the expression symbols.
  */
 
+import {StyleSheet} from "aphrodite";
+import PropTypes from "prop-types";
+import React from "react";
+import {connect} from "react-redux";
+
 import {BorderStyles} from "../consts.js";
 
 import {valueGrey, controlGrey} from "./common-style.js";
-
-const {StyleSheet} = require("aphrodite");
-const PropTypes = require("prop-types");
-const React = require("react");
-const {connect} = require("react-redux");
 
 const KeyConfigs = require("../data/key-configs.js");
 const {View} = require("../fake-react-native-web/index.js");

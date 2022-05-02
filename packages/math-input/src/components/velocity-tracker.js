@@ -5,7 +5,7 @@
  * occurred in the last 100 milliseconds.
  */
 
-const now = require("performance-now");
+import now from "performance-now";
 
 class VelocityTracker {
     constructor(options) {

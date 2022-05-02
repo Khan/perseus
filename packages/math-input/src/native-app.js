@@ -1,5 +1,5 @@
-const React = require("react");
-const ReactDOM = require("react-dom");
+import React from "react";
+import ReactDOM from "react-dom";
 
 const {View} = require("./fake-react-native-web/index.js");
 

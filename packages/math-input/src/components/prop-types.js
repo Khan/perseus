@@ -2,6 +2,8 @@
  * React PropTypes that may be shared between components.
  */
 
+import PropTypes from "prop-types";
+
 import {
     BorderDirections,
     EchoAnimationTypes,
@@ -9,8 +11,6 @@ import {
     KeyTypes,
     KeypadTypes,
 } from "../consts.js";
-
-const PropTypes = require("prop-types");
 
 const KeyConfigs = require("../data/key-configs.js");
 

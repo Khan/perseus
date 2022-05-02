@@ -1,6 +1,6 @@
-const React = require("react");
-const PropTypes = require("prop-types");
-const {StyleSheet, css} = require("aphrodite");
+import {StyleSheet, css} from "aphrodite";
+import PropTypes from "prop-types";
+import React from "react";
 
 class View extends React.Component {
     static propTypes = {

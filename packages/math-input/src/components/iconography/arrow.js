@@ -1,7 +1,7 @@
 /**
  * An arrow icon, used by the other navigational keys.
  */
-const React = require("react");
+import React from "react";
 
 const Arrow = (props) => {
     return (

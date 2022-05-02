@@ -2,13 +2,13 @@
  * A component that renders an icon with math (via KaTeX).
  */
 
-import {iconSizeHeightPx, iconSizeWidthPx} from "./common-style.js";
+import {StyleSheet} from "aphrodite";
+import katex from "katex";
+import PropTypes from "prop-types";
+import React from "react";
+import ReactDOM from "react-dom";
 
-const {StyleSheet} = require("aphrodite");
-const katex = require("katex");
-const PropTypes = require("prop-types");
-const React = require("react");
-const ReactDOM = require("react-dom");
+import {iconSizeHeightPx, iconSizeWidthPx} from "./common-style.js";
 
 const {View} = require("../fake-react-native-web/index.js");
 

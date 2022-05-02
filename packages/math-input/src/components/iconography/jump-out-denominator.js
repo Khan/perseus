@@ -3,7 +3,7 @@
  *
  * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
  */
-const React = require("react");
+import React from "react";
 
 const JumpOutDenominator = () => {
     return (

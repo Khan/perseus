@@ -1,3 +1,8 @@
+import {StyleSheet} from "aphrodite";
+import PropTypes from "prop-types";
+import React from "react";
+import {connect} from "react-redux";
+
 import {KeypadTypes, LayoutModes} from "../consts.js";
 
 import {
@@ -7,11 +12,6 @@ import {
     compactKeypadBorderRadiusPx,
 } from "./common-style.js";
 import * as zIndexes from "./z-indexes.js";
-
-const {StyleSheet} = require("aphrodite");
-const PropTypes = require("prop-types");
-const React = require("react");
-const {connect} = require("react-redux");
 
 const {setPageSize} = require("../actions.js");
 const {View} = require("../fake-react-native-web/index.js");

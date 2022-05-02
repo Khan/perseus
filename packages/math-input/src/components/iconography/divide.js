@@ -3,8 +3,8 @@
  *
  * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
  */
-const React = require("react");
-const PropTypes = require("prop-types");
+import PropTypes from "prop-types";
+import React from "react";
 
 class Divide extends React.Component {
     static propTypes = {

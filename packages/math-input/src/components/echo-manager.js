@@ -2,13 +2,13 @@
  * A component that renders and animates the selection state effect effect.
  */
 
+import PropTypes from "prop-types";
+import React from "react";
+import {TransitionGroup, CSSTransition} from "react-transition-group";
+
 import {KeyTypes, EchoAnimationTypes} from "../consts.js";
 
 import * as zIndexes from "./z-indexes.js";
-
-const PropTypes = require("prop-types");
-const React = require("react");
-const {TransitionGroup, CSSTransition} = require("react-transition-group");
 
 const KeyConfigs = require("../data/key-configs.js");
 

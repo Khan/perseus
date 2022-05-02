@@ -2,11 +2,11 @@
  * A component that renders a text-based icon.
  */
 
-import {iconSizeHeightPx, iconSizeWidthPx} from "./common-style.js";
+import {StyleSheet} from "aphrodite";
+import PropTypes from "prop-types";
+import React from "react";
 
-const {StyleSheet} = require("aphrodite");
-const PropTypes = require("prop-types");
-const React = require("react");
+import {iconSizeHeightPx, iconSizeWidthPx} from "./common-style.js";
 
 const {View, Text} = require("../fake-react-native-web/index.js");
 

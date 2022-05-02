@@ -4,14 +4,15 @@
  * from MathQuill changes.
  */
 
+import $ from "jquery";
+import MathQuill from "mathquill";
+
 import {DecimalSeparators} from "../../consts.js";
 import Keys from "../../data/keys.js";
 import {decimalSeparator} from "../../utils.js";
 
-const $ = require("jquery");
 // Keeping `window` in place for test suite and GitHub Pages.
 // If it does not exist, fall back to CommonJS require. - jsatk
-const MathQuill = require("mathquill");
 
 const CursorContexts = require("./cursor-contexts.js");
 

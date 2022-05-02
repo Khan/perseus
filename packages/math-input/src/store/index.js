@@ -1,3 +1,5 @@
+import Redux from "redux";
+
 import {tabletCutoffPx} from "../components/common-style.js";
 import {
     DeviceOrientations,
@@ -8,8 +10,6 @@ import {
     LayoutModes,
 } from "../consts.js";
 import Keys from "../data/keys.js";
-
-const Redux = require("redux");
 
 const computeLayoutParameters = require("../components/compute-layout-parameters.js");
 const ExpressionKeypad = require("../components/expression-keypad.js");

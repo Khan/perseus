@@ -4,13 +4,13 @@
  * touch events globally) opaque to the KeypadButton.
  */
 
-import {KeyTypes} from "../consts.js";
+import {StyleSheet} from "aphrodite";
+import PropTypes from "prop-types";
+import React from "react";
+import ReactDOM from "react-dom";
+import {connect} from "react-redux";
 
-const {StyleSheet} = require("aphrodite");
-const PropTypes = require("prop-types");
-const React = require("react");
-const ReactDOM = require("react-dom");
-const {connect} = require("react-redux");
+import {KeyTypes} from "../consts.js";
 
 const KeyConfigs = require("../data/key-configs.js");
 

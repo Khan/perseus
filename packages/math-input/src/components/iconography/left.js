@@ -1,7 +1,7 @@
 /**
  * An component that renders the LEFT iconograpy in SVG.
  */
-const React = require("react");
+import React from "react";
 
 const Arrow = require("./arrow.js");
 

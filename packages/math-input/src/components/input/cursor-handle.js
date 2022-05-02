@@ -2,14 +2,14 @@
  * Renders the green tear-shaped handle under the cursor.
  */
 
+import PropTypes from "prop-types";
+import React from "react";
+
 import {
     cursorHandleRadiusPx,
     cursorHandleDistanceMultiplier,
     wonderBlocksBlue,
 } from "../common-style.js";
-
-const PropTypes = require("prop-types");
-const React = require("react");
 
 const touchTargetRadiusPx = 2 * cursorHandleRadiusPx;
 const touchTargetHeightPx = 2 * touchTargetRadiusPx;

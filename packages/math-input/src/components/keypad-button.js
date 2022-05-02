@@ -2,6 +2,11 @@
  * A component that renders a keypad button.
  */
 
+import {StyleSheet, css} from "aphrodite";
+import PropTypes from "prop-types";
+import React from "react";
+import {connect} from "react-redux";
+
 import {KeyTypes, BorderDirections, BorderStyles} from "../consts.js";
 
 import {
@@ -14,11 +19,6 @@ import {
     controlGrey,
     emptyGrey,
 } from "./common-style.js";
-
-const {StyleSheet, css} = require("aphrodite");
-const PropTypes = require("prop-types");
-const React = require("react");
-const {connect} = require("react-redux");
 
 const {View} = require("../fake-react-native-web/index.js");
 

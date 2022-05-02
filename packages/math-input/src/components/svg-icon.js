@@ -2,8 +2,8 @@
  * A component that renders a single SVG icon.
  */
 
-const React = require("react");
-const PropTypes = require("prop-types");
+import PropTypes from "prop-types";
+import React from "react";
 
 const Iconography = require("./iconography/index.js");
 

@@ -1,3 +1,8 @@
+import {StyleSheet} from "aphrodite";
+import PropTypes from "prop-types";
+import React from "react";
+import ReactDOM from "react-dom";
+
 import Keys from "../../data/keys.js";
 import {
     cursorHandleRadiusPx,
@@ -5,11 +10,6 @@ import {
     wonderBlocksBlue,
     offBlack,
 } from "../common-style.js";
-
-const {StyleSheet} = require("aphrodite");
-const PropTypes = require("prop-types");
-const React = require("react");
-const ReactDOM = require("react-dom");
 
 const {View} = require("../../fake-react-native-web/index.js");
 const {keypadElementPropType} = require("../prop-types.js");

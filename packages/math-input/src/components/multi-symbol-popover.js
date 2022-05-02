@@ -1,13 +1,14 @@
 /**
  * A popover that renders a set of keys floating above the page.
  */
+
+import {StyleSheet} from "aphrodite";
+import PropTypes from "prop-types";
+import React from "react";
+
 import {BorderStyles} from "../consts.js";
 
 import * as zIndexes from "./z-indexes.js";
-
-const {StyleSheet} = require("aphrodite");
-const PropTypes = require("prop-types");
-const React = require("react");
 
 const {View} = require("../fake-react-native-web/index.js");
 

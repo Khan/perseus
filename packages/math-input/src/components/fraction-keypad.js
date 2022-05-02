@@ -3,11 +3,11 @@
  * with fractions, decimals, and percents.
  */
 
-import {BorderStyles} from "../consts.js";
+import PropTypes from "prop-types";
+import React from "react";
+import {connect} from "react-redux";
 
-const PropTypes = require("prop-types");
-const React = require("react");
-const {connect} = require("react-redux");
+import {BorderStyles} from "../consts.js";
 
 const KeyConfigs = require("../data/key-configs.js");
 const {View} = require("../fake-react-native-web/index.js");
