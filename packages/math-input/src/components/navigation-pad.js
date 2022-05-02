@@ -2,6 +2,8 @@
  * A component that renders a navigation pad, which consists of an arrow for
  * each possible direction.
  */
+import {BorderStyles} from "../consts.js";
+
 import {
     navigationPadWidthPx,
     controlGrey,
@@ -13,7 +15,6 @@ const {StyleSheet} = require("aphrodite");
 const PropTypes = require("prop-types");
 const React = require("react");
 
-const {BorderStyles} = require("../consts.js");
 const KeyConfigs = require("../data/key-configs.js");
 const {View} = require("../fake-react-native-web/index.js");
 

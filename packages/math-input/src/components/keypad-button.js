@@ -2,6 +2,8 @@
  * A component that renders a keypad button.
  */
 
+import {KeyTypes, BorderDirections, BorderStyles} from "../consts.js";
+
 import {
     wonderBlocksBlue,
     innerBorderColor,
@@ -18,7 +20,6 @@ const PropTypes = require("prop-types");
 const React = require("react");
 const {connect} = require("react-redux");
 
-const {KeyTypes, BorderDirections, BorderStyles} = require("../consts.js");
 const {View} = require("../fake-react-native-web/index.js");
 
 const CornerDecal = require("./corner-decal.js");

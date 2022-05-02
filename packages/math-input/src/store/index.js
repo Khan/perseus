@@ -1,4 +1,12 @@
 import {tabletCutoffPx} from "../components/common-style.js";
+import {
+    DeviceOrientations,
+    DeviceTypes,
+    EchoAnimationTypes,
+    KeyTypes,
+    KeypadTypes,
+    LayoutModes,
+} from "../consts.js";
 import Keys from "../data/keys.js";
 
 const Redux = require("redux");
@@ -9,14 +17,6 @@ const FractionKeypad = require("../components/fraction-keypad.js");
 const GestureManager = require("../components/gesture-manager.js");
 const CursorContexts = require("../components/input/cursor-contexts.js");
 const VelocityTracker = require("../components/velocity-tracker.js");
-const {
-    DeviceOrientations,
-    DeviceTypes,
-    EchoAnimationTypes,
-    KeyTypes,
-    KeypadTypes,
-    LayoutModes,
-} = require("../consts.js");
 const KeyConfigs = require("../data/key-configs.js");
 
 const keypadForType = {

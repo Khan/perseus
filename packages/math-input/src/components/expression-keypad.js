@@ -2,17 +2,21 @@
  * A keypad that includes all of the expression symbols.
  */
 
+import {BorderStyles} from "../consts.js";
+
 import {valueGrey, controlGrey} from "./common-style.js";
 
-const React = require("react");
-const PropTypes = require("prop-types");
-const {connect} = require("react-redux");
 const {StyleSheet} = require("aphrodite");
+const PropTypes = require("prop-types");
+const React = require("react");
+const {connect} = require("react-redux");
 
+const KeyConfigs = require("../data/key-configs.js");
 const {View} = require("../fake-react-native-web/index.js");
-const TwoPageKeypad = require("./two-page-keypad.js");
+
+const CursorContexts = require("./input/cursor-contexts.js");
 const ManyKeypadButton = require("./many-keypad-button.js");
-const TouchableKeypadButton = require("./touchable-keypad-button.js");
+const {cursorContextPropType, keyIdPropType} = require("./prop-types.js");
 const {
     row,
     column,
@@ -21,10 +25,8 @@ const {
     roundedTopLeft,
     roundedTopRight,
 } = require("./styles.js");
-const {BorderStyles} = require("../consts.js");
-const {cursorContextPropType, keyIdPropType} = require("./prop-types.js");
-const KeyConfigs = require("../data/key-configs.js");
-const CursorContexts = require("./input/cursor-contexts.js");
+const TouchableKeypadButton = require("./touchable-keypad-button.js");
+const TwoPageKeypad = require("./two-page-keypad.js");
 
 class ExpressionKeypad extends React.Component {
     static propTypes = {

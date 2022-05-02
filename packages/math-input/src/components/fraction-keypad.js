@@ -3,18 +3,20 @@
  * with fractions, decimals, and percents.
  */
 
-const React = require("react");
+import {BorderStyles} from "../consts.js";
+
 const PropTypes = require("prop-types");
+const React = require("react");
 const {connect} = require("react-redux");
 
-const {View} = require("../fake-react-native-web/index.js");
-const Keypad = require("./keypad.js");
-const TouchableKeypadButton = require("./touchable-keypad-button.js");
-const {row, roundedTopLeft, roundedTopRight} = require("./styles.js");
-const {BorderStyles} = require("../consts.js");
-const CursorContexts = require("./input/cursor-contexts.js");
-const {cursorContextPropType} = require("./prop-types.js");
 const KeyConfigs = require("../data/key-configs.js");
+const {View} = require("../fake-react-native-web/index.js");
+
+const CursorContexts = require("./input/cursor-contexts.js");
+const Keypad = require("./keypad.js");
+const {cursorContextPropType} = require("./prop-types.js");
+const {row, roundedTopLeft, roundedTopRight} = require("./styles.js");
+const TouchableKeypadButton = require("./touchable-keypad-button.js");
 
 class FractionKeypad extends React.Component {
     static propTypes = {

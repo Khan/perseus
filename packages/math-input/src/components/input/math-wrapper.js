@@ -4,6 +4,7 @@
  * from MathQuill changes.
  */
 
+import {DecimalSeparators} from "../../consts.js";
 import Keys from "../../data/keys.js";
 import {decimalSeparator} from "../../utils.js";
 
@@ -13,7 +14,6 @@ const $ = require("jquery");
 const MathQuill = require("mathquill");
 
 const CursorContexts = require("./cursor-contexts.js");
-const {DecimalSeparators} = require("../../consts.js");
 
 const decimalSymbol = decimalSeparator === DecimalSeparators.COMMA ? "," : ".";
 
@@ -123,7 +123,7 @@ class MathWrapper {
         this.mathField = this.MQ.MathField(element, {
             // use a span instead of a textarea so that we don't bring up the
             // native keyboard on mobile when selecting the input
-            substituteTextarea: function() {
+            substituteTextarea: function () {
                 return document.createElement("span");
             },
         });

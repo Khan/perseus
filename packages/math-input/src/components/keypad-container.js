@@ -1,3 +1,5 @@
+import {KeypadTypes, LayoutModes} from "../consts.js";
+
 import {
     innerBorderColor,
     innerBorderStyle,
@@ -12,7 +14,6 @@ const React = require("react");
 const {connect} = require("react-redux");
 
 const {setPageSize} = require("../actions.js");
-const {KeypadTypes, LayoutModes} = require("../consts.js");
 const {View} = require("../fake-react-native-web/index.js");
 
 const ExpressionKeypad = require("./expression-keypad.js");

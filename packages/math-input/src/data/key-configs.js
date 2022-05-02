@@ -3,11 +3,11 @@
  * This file contains configuration settings for the buttons in the keypad.
  */
 
+import {DecimalSeparators, IconTypes, KeyTypes} from "../consts.js";
 import {decimalSeparator} from "../utils.js";
 
 import Keys from "./keys.js";
 
-const {DecimalSeparators, IconTypes, KeyTypes} = require("../consts.js");
 const i18n = window.i18n || {_: (s) => s};
 
 export type KeyConfig = {

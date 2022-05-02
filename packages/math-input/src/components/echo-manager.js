@@ -2,14 +2,17 @@
  * A component that renders and animates the selection state effect effect.
  */
 
+import {KeyTypes, EchoAnimationTypes} from "../consts.js";
+
 import * as zIndexes from "./z-indexes.js";
 
-const React = require("react");
 const PropTypes = require("prop-types");
+const React = require("react");
 const {TransitionGroup, CSSTransition} = require("react-transition-group");
-const KeypadButton = require("./keypad-button.js");
+
 const KeyConfigs = require("../data/key-configs.js");
-const {KeyTypes, EchoAnimationTypes} = require("../consts.js");
+
+const KeypadButton = require("./keypad-button.js");
 const {
     echoPropType,
     bordersPropType,
@@ -111,10 +114,8 @@ class EchoManager extends React.Component {
                 {Object.keys(EchoAnimationTypes).map((animationType) => {
                     // Collect the relevant parameters for the animation type, and
                     // filter for the appropriate echoes.
-                    const {
-                        animationDurationMs,
-                        animationTransitionName,
-                    } = this._animationConfigForType(animationType);
+                    const {animationDurationMs, animationTransitionName} =
+                        this._animationConfigForType(animationType);
                     const echoesForType = echoes.filter((echo) => {
                         return echo.animationType === animationType;
                     });

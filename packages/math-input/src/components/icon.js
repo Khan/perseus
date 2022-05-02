@@ -2,13 +2,13 @@
  * A component that renders an icon for a symbol with the given name.
  */
 
+import {IconTypes} from "../consts.js";
+
 import {offBlack} from "./common-style.js";
 
 const {StyleSheet} = require("aphrodite");
 const PropTypes = require("prop-types");
 const React = require("react");
-
-const {IconTypes} = require("../consts.js");
 
 const MathIcon = require("./math-icon.js");
 const {iconPropType} = require("./prop-types.js");
