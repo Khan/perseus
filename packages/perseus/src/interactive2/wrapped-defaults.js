@@ -4,8 +4,8 @@
  * Default methods for a wrapped movable.
  */
 
+import {vector as kvector} from "@khanacademy/kmath";
 import $ from "jquery";
-import {vector as kvector} from "kmath";
 import _ from "underscore";
 
 import InteractiveUtil from "./interactive-util.js";
