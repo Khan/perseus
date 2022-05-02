@@ -35,8 +35,8 @@ module.exports = {
         "<rootDir>/config/test/test-setup.js",
         "<rootDir>/config/test/custom-matchers.js",
 
-        // math-input uses these matchers. We can remove this once we
-        // transition these tests to RTL
+        // TODO(LP-11633) math-input uses these matchers. We can remove this
+        // once we transition these tests to RTL
         "<rootDir>/node_modules/jest-enzyme/lib/index.js",
     ],
     moduleNameMapper: {
