@@ -6,17 +6,17 @@ const React = require("react");
 const PropTypes = require("prop-types");
 
 const {StyleSheet} = require("aphrodite");
-const {View} = require("../fake-react-native-web");
-const TouchableKeypadButton = require("./touchable-keypad-button");
-const {row, column, centered, stretch, roundedTopLeft} = require("./styles");
+const {View} = require("../fake-react-native-web/index.js");
+const TouchableKeypadButton = require("./touchable-keypad-button.js");
+const {row, column, centered, stretch, roundedTopLeft} = require("./styles.js");
 const {
     navigationPadWidthPx,
     controlGrey,
     valueGrey,
     offBlack16,
-} = require("./common-style");
-const {BorderStyles} = require("../consts");
-const KeyConfigs = require("../data/key-configs");
+} = require("./common-style.js");
+const {BorderStyles} = require("../consts.js");
+const KeyConfigs = require("../data/key-configs.js");
 
 class NavigationPad extends React.Component {
     static propTypes = {

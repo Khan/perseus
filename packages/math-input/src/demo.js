@@ -1,7 +1,7 @@
 const React = require("react");
 const ReactDOM = require("react-dom");
 
-const App = require("./components/app");
+const App = require("./components/app.js");
 
 import "../less/echo.less";
 import "../less/main.less";

@@ -6,8 +6,9 @@ const React = require("react");
 const PropTypes = require("prop-types");
 const {StyleSheet} = require("aphrodite");
 
-const {View} = require("../fake-react-native-web");
-const {offBlack} = require("./common-style");
+const {View} = require("../fake-react-native-web/index.js");
+
+const {offBlack} = require("./common-style.js");
 
 class CornerDecal extends React.Component {
     static propTypes = {

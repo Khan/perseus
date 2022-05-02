@@ -1,13 +1,12 @@
 // @flow
 
+import Clickable from "@khanacademy/wonder-blocks-clickable";
+import Color from "@khanacademy/wonder-blocks-color";
+import {View} from "@khanacademy/wonder-blocks-core";
+import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import {StyleSheet} from "aphrodite";
-import Clickable from "@khanacademy/wonder-blocks-clickable";
-import {View} from "@khanacademy/wonder-blocks-core";
-import Color from "@khanacademy/wonder-blocks-color";
-
-import IconAsset from "./icons";
+import IconAsset from "./icons.js";
 
 const styles = StyleSheet.create({
     base: {
@@ -123,7 +122,7 @@ class TabbarItem extends React.Component<Props, State> {
                                             backgroundColor: tintColor,
                                         },
                                     ]}
-                                ></View>
+                                />
                             )}
                         </View>
                     );

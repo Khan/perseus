@@ -1,7 +1,12 @@
 const Redux = require("redux");
 
-const {tabletCutoffPx} = require("../components/common-style");
-const computeLayoutParameters = require("../components/compute-layout-parameters");
+const {tabletCutoffPx} = require("../components/common-style.js");
+const computeLayoutParameters = require("../components/compute-layout-parameters.js");
+const ExpressionKeypad = require("../components/expression-keypad.js");
+const FractionKeypad = require("../components/fraction-keypad.js");
+const GestureManager = require("../components/gesture-manager.js");
+const CursorContexts = require("../components/input/cursor-contexts.js");
+const VelocityTracker = require("../components/velocity-tracker.js");
 const {
     DeviceOrientations,
     DeviceTypes,
@@ -9,15 +14,9 @@ const {
     KeyTypes,
     KeypadTypes,
     LayoutModes,
-} = require("../consts");
-const Keys = require("../data/keys");
-const KeyConfigs = require("../data/key-configs");
-const CursorContexts = require("../components/input/cursor-contexts");
-const GestureManager = require("../components/gesture-manager");
-const VelocityTracker = require("../components/velocity-tracker");
-
-const FractionKeypad = require("../components/fraction-keypad");
-const ExpressionKeypad = require("../components/expression-keypad");
+} = require("../consts.js");
+const KeyConfigs = require("../data/key-configs.js");
+const Keys = require("../data/keys.js");
 
 const keypadForType = {
     [KeypadTypes.FRACTION]: FractionKeypad,

@@ -3,15 +3,16 @@ const PropTypes = require("prop-types");
 const ReactDOM = require("react-dom");
 const {Provider} = require("react-redux");
 
-const KeypadContainer = require("./keypad-container");
 const {
     activateKeypad,
     dismissKeypad,
     configureKeypad,
     setCursor,
     setKeyHandler,
-} = require("../actions");
-const createStore = require("../store");
+} = require("../actions.js");
+const createStore = require("../store.js");
+
+const KeypadContainer = require("./keypad-container.js");
 
 class ProvidedKeypad extends React.Component {
     static propTypes = {

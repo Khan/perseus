@@ -2,7 +2,7 @@
 
 import * as React from "react";
 
-import type {TabbarItemType} from "./item";
+import type {TabbarItemType} from "./item.js";
 
 function IconAsset({
     tintColor,

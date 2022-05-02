@@ -1,18 +1,18 @@
 //@flow
+import Clickable from "@khanacademy/wonder-blocks-clickable";
+import Color from "@khanacademy/wonder-blocks-color";
+import {View} from "@khanacademy/wonder-blocks-core";
+import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import {StyleSheet} from "aphrodite";
-import {View} from "@khanacademy/wonder-blocks-core";
-import Color from "@khanacademy/wonder-blocks-color";
-import Clickable from "@khanacademy/wonder-blocks-clickable";
+import Tabbar from "../tabbar/tabbar.js";
 
-import Tabbar from "../tabbar/tabbar";
-import NumericInputPage from "./numeric-input-page";
-import PreAlgebraPage from "./pre-algebra-page";
-import TrigonometryPage from "./trigonometry-page";
+import NumericInputPage from "./numeric-input-page.js";
+import PreAlgebraPage from "./pre-algebra-page.js";
+import TrigonometryPage from "./trigonometry-page.js";
 
+import type {TabbarItemType} from "../tabbar/item.js";
 import type {Node} from "React";
-import type {TabbarItemType} from "../tabbar/item";
 
 type Props = {|
     onClickKey: (keyConfig: string) => void,
@@ -24,7 +24,7 @@ type State = {
 };
 
 function allPages(props: Props): Array<TabbarItemType> {
-    var pages: Array<TabbarItemType> = ["Numbers"];
+    const pages: Array<TabbarItemType> = ["Numbers"];
 
     if (props.preAlgebra) {
         pages.push("Operators");

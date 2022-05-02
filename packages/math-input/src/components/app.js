@@ -1,8 +1,8 @@
 const React = require("react");
 const {StyleSheet} = require("aphrodite");
 
-const {View} = require("../fake-react-native-web");
-const {components, consts} = require("../index");
+const {View} = require("../fake-react-native-web/index.js");
+const {components, consts} = require("../index.js");
 
 const {Keypad, KeypadInput} = components;
 

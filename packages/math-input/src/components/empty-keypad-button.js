@@ -6,9 +6,10 @@ const React = require("react");
 const PropTypes = require("prop-types");
 const {connect} = require("react-redux");
 
-const GestureManager = require("./gesture-manager");
-const KeyConfigs = require("../data/key-configs");
-const KeypadButton = require("./keypad-button");
+const KeyConfigs = require("../data/key-configs.js");
+
+const GestureManager = require("./gesture-manager.js");
+const KeypadButton = require("./keypad-button.js");
 
 class EmptyKeypadButton extends React.Component {
     static propTypes = {

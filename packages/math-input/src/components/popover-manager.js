@@ -7,8 +7,9 @@ const React = require("react");
 const PropTypes = require("prop-types");
 const {TransitionGroup, CSSTransition} = require("react-transition-group");
 
-const KeyConfigs = require("../data/key-configs");
-const MultiSymbolPopover = require("./multi-symbol-popover");
+const KeyConfigs = require("../data/key-configs.js");
+
+const MultiSymbolPopover = require("./multi-symbol-popover.js");
 const {
     boundingBoxPropType,
     keyConfigPropType,
