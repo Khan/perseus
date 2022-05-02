@@ -1,7 +1,7 @@
 KAS
 ===
 
-A lightweight JavaScript CAS for comparing expressions and equations.
+A lightweight JavaScript CAS (Computer Algebra System) for comparing expressions and equations.
 It is used throughout [Khan Academy](https://khanacademy.org)'s interactive exercises.
 
 What can it do?
