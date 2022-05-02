@@ -67,6 +67,7 @@ class ReactionDiagramWidget extends React.Component<$FlowFixMe> {
         // we're limited to a single reaction step.  At some point, add support
         // for more steps in the reaction.
         rotationAngle: PropTypes.arrayOf(PropTypes.number),
+        // eslint-disable-next-line react/forbid-prop-types
         separators: PropTypes.arrayOf(PropTypes.object),
         smiles: PropTypes.arrayOf(PropTypes.string),
         widgetId: PropTypes.string,

@@ -30,7 +30,6 @@ function getUrlFromProgramID(programID) {
     // as a `file://` URL. In this case, we want to reference `ka.org` instead
     // of defaulting to what we get from `toAbsoluteUrl`.
     if (isFileProtocol(InitialRequestUrl.protocol)) {
-        // eslint-disable-next-line static-service/require-safe-link-to
         return `https://khanacademy.org${path}`;
     }
 
