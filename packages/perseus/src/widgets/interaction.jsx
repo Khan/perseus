@@ -1,7 +1,7 @@
 /* eslint-disable @babel/no-invalid-this, react/no-unsafe, react/sort-comp */
 // @flow
+import {vector as kvector} from "@khanacademy/kmath";
 import KAS from "kas";
-import {vector as kvector} from "kmath";
 import * as React from "react";
 import _ from "underscore";
 

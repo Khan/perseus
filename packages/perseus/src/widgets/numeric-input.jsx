@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 // @flow
 
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
@@ -9,8 +10,7 @@ import InputWithExamples from "../components/input-with-examples.jsx";
 import PossibleAnswers from "../components/possible-answers.jsx";
 import SimpleKeypadInput from "../components/simple-keypad-input.jsx";
 import {linterContextDefault} from "../gorgon/proptypes.js";
-import {ClassNames as ApiClassNames} from "../perseus-api.jsx";
-import {ApiOptions} from "../perseus-api.jsx";
+import {ApiOptions, ClassNames as ApiClassNames} from "../perseus-api.jsx";
 import TexWrangler from "../tex-wrangler.js";
 import KhanAnswerTypes from "../util/answer-types.js";
 import KhanMath from "../util/math.js";

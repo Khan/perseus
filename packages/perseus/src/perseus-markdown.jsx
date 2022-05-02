@@ -303,6 +303,7 @@ const rules = {
 // and false otherwise. We need this so that lint nodes can figure out whether
 // they should behave as an inline wrapper or a block wrapper
 function isInline(node) {
+    // eslint-disable-next-line no-prototype-builtins
     return !!(node && node.type && inlineNodeTypes.hasOwnProperty(node.type));
 }
 const inlineNodeTypes = {

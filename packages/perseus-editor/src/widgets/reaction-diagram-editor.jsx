@@ -11,6 +11,7 @@ class ReactionDiagramWidgetEditor extends React.Component<Props> {
     static propTypes = {
         ...Changeable.propTypes,
         rotationAngle: PropTypes.arrayOf(PropTypes.number),
+        // eslint-disable-next-line react/forbid-prop-types
         separators: PropTypes.arrayOf(PropTypes.object),
         smiles: PropTypes.arrayOf(PropTypes.string),
     };

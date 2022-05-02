@@ -8,7 +8,7 @@
  * are simply for convenience.
  */
 
-import {point as kpoint} from "kmath";
+import {point as kpoint} from "@khanacademy/kmath";
 import _ from "underscore";
 
 import {Errors} from "../logging/log.js";

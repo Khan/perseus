@@ -122,6 +122,8 @@ export function collinear(v1: Vector, v2: Vector, tolerance?: number): boolean {
     );
 }
 
+// TODO(jeremy) These coordinate conversion functions really only handle 2D points (ie. [number, number])
+
 // Convert a cartesian coordinate into a radian polar coordinate
 export function polarRadFromCart(
     v: $ReadOnlyArray<number>,
@@ -149,7 +151,6 @@ export function polarDegFromCart(
  *
  * Examples:
  * cartFromPolarRad(5, Math.PI)
- * cartFromPolarRad([5, Math.PI])
  */
 export function cartFromPolarRad(
     radius: number,
@@ -162,7 +163,6 @@ export function cartFromPolarRad(
  *
  * Examples:
  * cartFromPolarDeg(5, 30)
- * cartFromPolarDeg([5, 30])
  */
 export function cartFromPolarDeg(
     radius: number,
@@ -191,25 +191,16 @@ export function rotateDeg(
 }
 
 // Angle between two vectors
-export function angleRad(
-    v1: $ReadOnlyArray<number>,
-    v2: $ReadOnlyArray<number>,
-): number {
+export function angleRad(v1: Vector, v2: Vector): number {
     return Math.acos(dot(v1, v2) / (length(v1) * length(v2)));
 }
 
-export function angleDeg(
-    v1: $ReadOnlyArray<number>,
-    v2: $ReadOnlyArray<number>,
-): number {
+export function angleDeg(v1: Vector, v2: Vector): number {
     return (angleRad(v1, v2) * 180) / Math.PI;
 }
 
 // Vector projection of v1 onto v2
-export function projection(
-    v1: $ReadOnlyArray<number>,
-    v2: $ReadOnlyArray<number>,
-): $ReadOnlyArray<number> {
+export function projection<V: Vector>(v1: V, v2: V): V {
     const scalar = dot(v1, v2) / dot(v2, v2);
     return scale(v2, scalar);
 }

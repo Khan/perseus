@@ -114,8 +114,6 @@ class Lint extends React.Component<Props, State> {
 
         return (
             <a
-                // This is not a user-facing component and so
-                // eslint-disable-next-line static-service/require-safe-link-to
                 href={`https://khanacademy.org/r/linter-rules#${this.props.ruleName}`}
                 target="lint-help-window"
                 className={css(style)}

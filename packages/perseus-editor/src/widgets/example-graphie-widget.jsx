@@ -6,6 +6,7 @@
  * TODO(jack): Add more comments
  */
 
+import {number as knumber, point as kpoint} from "@khanacademy/kmath";
 import {
     components,
     ApiOptions,
@@ -13,7 +14,6 @@ import {
     Util,
     WidgetJsonifyDeprecated,
 } from "@khanacademy/perseus";
-import {number as knumber, point as kpoint} from "kmath";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
