@@ -2,8 +2,8 @@
 /* eslint-disable indent, no-undef, no-var, one-var, no-dupe-keys, no-new-func, no-redeclare, no-unused-vars, comma-dangle, max-len, prefer-spread, space-infix-ops, space-unary-ops */
 import _ from "underscore";
 
-import {unitParser} from "./unitparser.js";
-import {parser} from "./parser.js";
+import {unitParser} from "./__genfiles__/unitparser.js";
+import {parser} from "./__genfiles__/parser.js";
 
 /*  The node hierarcy is as follows:
 
