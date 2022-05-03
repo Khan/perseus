@@ -10,13 +10,7 @@
   "module": "dist/es/index.js",
   "main": "dist/index.js",
   "source": "src/index.js",
-  "scripts": {
-    "build": "webpack --config webpack.config.externals.js",
-    "watch": "webpack --config webpack.config.externals.js --watch",
-    "start": "webpack-dev-server --open",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
-  },
+  "scripts": {},
   "dependencies": {
     "performance-now": "^0.2.0"
   },
