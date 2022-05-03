@@ -17,11 +17,12 @@
     "dependencies": {
         "@types/react": ">=16.0.0"
     },
+    "peerDependencies": {
+        "react": "16.14.0",
+        "react-dom": "16.14.0"
+    },
     "devDependencies": {
         "@types/react-dom": ">=16.0.0",
-        "react": "^16.11.0",
-        "react-dom": "^16.11.0",
-        "rollup": "^1.26.3",
         "size-limit": "^0.21.1",
         "typescript": "^3.6.4",
         "uglify-js": "^3.6.7"
