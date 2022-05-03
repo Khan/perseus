@@ -16,7 +16,7 @@ describe("<TwoPageKeyPage />", () => {
         );
 
         // Assert
-        secondItem = wrapper.find("TabbarItem").at(0);
+        const secondItem = wrapper.find("TabbarItem").at(0);
         expect(secondItem).toHaveProp("itemState", "active");
     });
 

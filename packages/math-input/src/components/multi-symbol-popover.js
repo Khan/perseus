@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
         zIndex: zIndexes.popover,
     },
 
+    // eslint-disable-next-line react-native/no-unused-styles
     popoverButton: {
         backgroundColor: "#FFF",
         borderWidth: 0,

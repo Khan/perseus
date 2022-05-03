@@ -42,7 +42,7 @@ class KeypadContainer extends React.Component {
         viewportWidth: "100vw",
     };
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         if (this.props.active) {
             this.setState({
                 hasBeenActivated: this.props.active,
@@ -62,7 +62,7 @@ class KeypadContainer extends React.Component {
         );
     }
 
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
         if (!this.state.hasBeenActivated && nextProps.active) {
             this.setState({
                 hasBeenActivated: true,

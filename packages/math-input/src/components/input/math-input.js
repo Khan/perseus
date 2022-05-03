@@ -189,7 +189,7 @@ class MathInput extends React.Component {
         );
     }
 
-    componentWillReceiveProps(props) {
+    UNSAFE_componentWillReceiveProps(props) {
         if (this.props.keypadElement !== props.keypadElement) {
             this._clearKeypadBoundsCache();
         }
@@ -739,7 +739,7 @@ class MathInput extends React.Component {
         }
 
         // Movement keys
-        else if (key == "Backspace") {
+        else if (key === "Backspace") {
             return Keys.BACKSPACE;
         }
 

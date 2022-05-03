@@ -181,6 +181,7 @@ class MathWrapper {
                 this.mathField.keystroke("Left");
             }
         } else if (key === Keys.FRAC) {
+            // eslint-disable-next-line no-unused-vars
             const shouldNavigateLeft = cursor[this.MQ.L] === MQ_END;
             this.mathField.cmd("\\frac");
         } else if (key === Keys.LOG_N) {

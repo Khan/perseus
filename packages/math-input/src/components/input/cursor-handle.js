@@ -8,7 +8,6 @@ import * as React from "react";
 import {
     cursorHandleRadiusPx,
     cursorHandleDistanceMultiplier,
-    wonderBlocksBlue,
 } from "../common-style.js";
 
 const touchTargetRadiusPx = 2 * cursorHandleRadiusPx;

@@ -65,7 +65,7 @@ class KeypadButton extends React.PureComponent {
         popoverEnabled: false,
     };
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         this.buttonSizeStyle = styleForButtonDimensions(
             this.props.heightPx,
             this.props.widthPx,
@@ -76,7 +76,7 @@ class KeypadButton extends React.PureComponent {
         this._preInjectStyles();
     }
 
-    componentWillUpdate(newProps, newState) {
+    UNSAFE_componentWillUpdate(newProps, newState) {
         // Only recompute the Aphrodite StyleSheet when the button height has
         // changed. Though it is safe to recompute the StyleSheet (since
         // they're content-addressable), it saves us a bunch of hashing and
@@ -347,6 +347,7 @@ const styles = StyleSheet.create({
 
 const styleForButtonDimensions = (heightPx, widthPx) => {
     return StyleSheet.create({
+        // eslint-disable-next-line react-native/no-unused-styles
         buttonSize: {
             height: heightPx,
             width: widthPx,

@@ -17,7 +17,7 @@ function bodyOrHtml() {
         return document.scrollingElement;
     }
     // Fallback for legacy browsers
-    if (navigator.userAgent.indexOf("WebKit") != -1) {
+    if (navigator.userAgent.indexOf("WebKit") !== -1) {
         return document.body;
     }
     return document.documentElement;

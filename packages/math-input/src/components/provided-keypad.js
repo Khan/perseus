@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unsafe */
 // @flow
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -22,7 +23,7 @@ class ProvidedKeypad extends React.Component<Props> {
     mounted: boolean;
     store: $FlowFixMe;
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         this.store = createStore();
     }
 

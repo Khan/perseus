@@ -40,7 +40,7 @@ class Keypad extends React.Component {
         this._updateSizeAndPosition();
     }
 
-    componentWillReceiveProps(newProps) {
+    UNSAFE_componentWillReceiveProps(newProps) {
         if (!this._container && (newProps.popover || newProps.echoes.length)) {
             this._computeContainer();
         }
