@@ -26,4 +26,4 @@ const Backspace = () => {
     );
 };
 
-module.exports = Backspace;
+export default Backspace;

@@ -7,14 +7,14 @@ import PropTypes from "prop-types";
 import React from "react";
 import {connect} from "react-redux";
 
+import {View} from "../fake-react-native-web/index.js";
+
 import {
     innerBorderColor,
     innerBorderStyle,
     innerBorderWidthPx,
     offBlack16,
 } from "./common-style.js";
-
-const {View} = require("../fake-react-native-web/index.js");
 
 const Keypad = require("./keypad.js");
 const {column, row, fullWidth} = require("./styles.js");
@@ -94,6 +94,6 @@ const mapStateToProps = (state) => {
     };
 };
 
-module.exports = connect(mapStateToProps, null, null, {forwardRef: true})(
+export default connect(mapStateToProps, null, null, {forwardRef: true})(
     TwoPageKeypad,
 );

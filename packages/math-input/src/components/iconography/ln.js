@@ -26,4 +26,4 @@ class Ln extends React.Component {
     }
 }
 
-module.exports = Ln;
+export default Ln;

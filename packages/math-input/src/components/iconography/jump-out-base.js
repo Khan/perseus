@@ -27,4 +27,4 @@ const JumpOutBase = () => {
     );
 };
 
-module.exports = JumpOutBase;
+export default JumpOutBase;

@@ -27,4 +27,4 @@ class Sin extends React.Component {
     }
 }
 
-module.exports = Sin;
+export default Sin;

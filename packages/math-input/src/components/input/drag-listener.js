@@ -72,4 +72,4 @@ class DragListener {
     }
 }
 
-module.exports = DragListener;
+export default DragListener;

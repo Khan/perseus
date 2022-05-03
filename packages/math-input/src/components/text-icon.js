@@ -6,9 +6,9 @@ import {StyleSheet} from "aphrodite";
 import PropTypes from "prop-types";
 import React from "react";
 
-import {iconSizeHeightPx, iconSizeWidthPx} from "./common-style.js";
+import {View, Text} from "../fake-react-native-web/index.js";
 
-const {View, Text} = require("../fake-react-native-web/index.js");
+import {iconSizeHeightPx, iconSizeWidthPx} from "./common-style.js";
 
 const {row, centered} = require("./styles.js");
 
@@ -48,4 +48,4 @@ const styles = StyleSheet.create({
     },
 });
 
-module.exports = TextIcon;
+export default TextIcon;

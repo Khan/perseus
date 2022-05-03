@@ -30,4 +30,4 @@ class Equal extends React.Component {
     }
 }
 
-module.exports = Equal;
+export default Equal;

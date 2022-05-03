@@ -7,10 +7,9 @@ import PropTypes from "prop-types";
 import React from "react";
 
 import {BorderStyles} from "../consts.js";
+import {View} from "../fake-react-native-web/index.js";
 
 import * as zIndexes from "./z-indexes.js";
-
-const {View} = require("../fake-react-native-web/index.js");
 
 const {keyConfigPropType} = require("./prop-types.js");
 
@@ -57,4 +56,4 @@ const styles = StyleSheet.create({
     },
 });
 
-module.exports = MultiSymbolPopover;
+export default MultiSymbolPopover;

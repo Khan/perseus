@@ -8,6 +8,7 @@ import React from "react";
 import {connect} from "react-redux";
 
 import {KeyTypes, BorderDirections, BorderStyles} from "../consts.js";
+import {View} from "../fake-react-native-web/index.js";
 
 import {
     wonderBlocksBlue,
@@ -19,8 +20,6 @@ import {
     controlGrey,
     emptyGrey,
 } from "./common-style.js";
-
-const {View} = require("../fake-react-native-web/index.js");
 
 const CornerDecal = require("./corner-decal.js");
 const Icon = require("./icon.js");
@@ -361,6 +360,6 @@ const mapStateToProps = (state) => {
     return state.layout.buttonDimensions;
 };
 
-module.exports = connect(mapStateToProps, null, null, {forwardRef: true})(
+export default connect(mapStateToProps, null, null, {forwardRef: true})(
     KeypadButton,
 );

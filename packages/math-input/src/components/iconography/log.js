@@ -26,4 +26,4 @@ class Log extends React.Component {
     }
 }
 
-module.exports = Log;
+export default Log;

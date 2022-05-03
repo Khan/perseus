@@ -135,4 +135,4 @@ class CursorHandle extends React.Component {
     }
 }
 
-module.exports = CursorHandle;
+export default CursorHandle;

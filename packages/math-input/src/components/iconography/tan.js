@@ -27,4 +27,4 @@ class Tan extends React.Component {
     }
 }
 
-module.exports = Tan;
+export default Tan;

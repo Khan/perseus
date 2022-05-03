@@ -30,4 +30,4 @@ class RightParen extends React.Component {
     }
 }
 
-module.exports = RightParen;
+export default RightParen;

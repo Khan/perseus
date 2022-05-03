@@ -30,4 +30,4 @@ class LeftParen extends React.Component {
     }
 }
 
-module.exports = LeftParen;
+export default LeftParen;

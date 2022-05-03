@@ -282,4 +282,4 @@ class GestureStateMachine {
     }
 }
 
-module.exports = GestureStateMachine;
+export default GestureStateMachine;

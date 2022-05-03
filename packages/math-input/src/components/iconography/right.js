@@ -13,4 +13,4 @@ const Right = () => {
     );
 };
 
-module.exports = Right;
+export default Right;

@@ -26,4 +26,4 @@ class Exp3 extends React.Component {
     }
 }
 
-module.exports = Exp3;
+export default Exp3;

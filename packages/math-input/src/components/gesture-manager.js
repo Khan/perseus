@@ -4,11 +4,13 @@
  * and links them together.
  */
 
-const NodeManager = require("./node-manager.js");
-const PopoverStateMachine = require("./popover-state-machine.js");
-const GestureStateMachine = require("./gesture-state-machine.js");
+import GestureStateMachine from "./gesture-state-machine.js";
+import NodeManager from "./node-manager.js";
+import PopoverStateMachine from "./popover-state-machine.js";
 
-const coordsForEvent = (evt) => {
+import type {KeyId, NodeId} from "./types";
+
+const coordsForEvent = (evt: SyntheticTouchEvent<>) => {
     return [evt.changedTouches[0].clientX, evt.changedTouches[0].clientY];
 };
 
@@ -223,4 +225,4 @@ class GestureManager {
     }
 }
 
-module.exports = GestureManager;
+export default GestureManager;

@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import {TransitionGroup, CSSTransition} from "react-transition-group";
 
-const KeyConfigs = require("../data/key-configs.js");
+import KeyConfigs from "../data/key-configs.js";
 
 const MultiSymbolPopover = require("./multi-symbol-popover.js");
 const {
@@ -73,4 +73,4 @@ class PopoverManager extends React.Component {
     }
 }
 
-module.exports = PopoverManager;
+export defaultPopoverManager;

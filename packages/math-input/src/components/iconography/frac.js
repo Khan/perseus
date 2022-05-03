@@ -41,4 +41,4 @@ class FracInclusive extends React.Component {
     }
 }
 
-module.exports = FracInclusive;
+export default FracInclusive;

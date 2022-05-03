@@ -27,4 +27,4 @@ class Cos extends React.Component {
     }
 }
 
-module.exports = Cos;
+export default Cos;

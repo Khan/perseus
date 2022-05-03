@@ -4,6 +4,7 @@ import React from "react";
 import {connect} from "react-redux";
 
 import {KeypadTypes, LayoutModes} from "../consts.js";
+import {View} from "../fake-react-native-web/index.js";
 
 import {
     innerBorderColor,
@@ -14,7 +15,6 @@ import {
 import * as zIndexes from "./z-indexes.js";
 
 const {setPageSize} = require("../actions.js");
-const {View} = require("../fake-react-native-web/index.js");
 
 const ExpressionKeypad = require("./expression-keypad.js");
 const FractionKeypad = require("./fraction-keypad.js");
@@ -297,6 +297,6 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-module.exports = connect(mapStateToProps, mapDispatchToProps, null, {
+export default connect(mapStateToProps, mapDispatchToProps, null, {
     forwardRef: true,
 })(KeypadContainer);

@@ -8,13 +8,12 @@ import React from "react";
 import {connect} from "react-redux";
 
 import {BorderStyles} from "../consts.js";
+import KeyConfigs from "../data/key-configs.js";
+import {View} from "../fake-react-native-web/index.js";
 
 import {valueGrey, controlGrey} from "./common-style.js";
+import * as CursorContexts from "./input/cursor-contexts.js";
 
-const KeyConfigs = require("../data/key-configs.js");
-const {View} = require("../fake-react-native-web/index.js");
-
-const CursorContexts = require("./input/cursor-contexts.js");
 const ManyKeypadButton = require("./many-keypad-button.js");
 const {cursorContextPropType, keyIdPropType} = require("./prop-types.js");
 const {
@@ -324,6 +323,6 @@ const mapStateToProps = (state) => {
     };
 };
 
-module.exports = connect(mapStateToProps, null, null, {forwardRef: true})(
+export default connect(mapStateToProps, null, null, {forwardRef: true})(
     ExpressionKeypad,
 );

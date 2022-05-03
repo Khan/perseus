@@ -8,10 +8,9 @@ import PropTypes from "prop-types";
 import React from "react";
 
 import {IconTypes} from "../consts.js";
+import {View} from "../fake-react-native-web/index.js";
 
 import {iconSizeHeightPx, iconSizeWidthPx} from "./common-style.js";
-
-const {View} = require("../fake-react-native-web/index.js");
 
 const Icon = require("./icon.js");
 const {iconPropType} = require("./prop-types.js");
@@ -179,4 +178,4 @@ const styles = StyleSheet.create({
     },
 });
 
-module.exports = MultiSymbolGrid;
+export default MultiSymbolGrid;

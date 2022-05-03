@@ -9,7 +9,11 @@ import type {KeyConfig} from "../../data/key-configs.js";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 import type {Node} from "React";
 
-const KeypadPageContainer = ({children}: {children: Node}): React.Node => (
+export const KeypadPageContainer = ({
+    children,
+}: {
+    children: Node,
+}): React.Node => (
     <View
         style={{
             backgroundColor: "#DBDCDD",
@@ -25,7 +29,7 @@ const KeypadPageContainer = ({children}: {children: Node}): React.Node => (
     </View>
 );
 
-const KeypadButton = ({
+export const KeypadButton = ({
     keyConfig,
     onClickKey,
     tintColor,
@@ -45,7 +49,7 @@ const KeypadButton = ({
     </Button>
 );
 
-const SecondaryKeypadButton = ({
+export const SecondaryKeypadButton = ({
     keyConfig,
     onClickKey,
     style,
@@ -62,7 +66,7 @@ const SecondaryKeypadButton = ({
     />
 );
 
-const KeypadActionButton = ({
+export const KeypadActionButton = ({
     keyConfig,
     onClickKey,
     style,
@@ -79,7 +83,7 @@ const KeypadActionButton = ({
     />
 );
 
-const PlaceHolderButton = (): React.Node => (
+export const PlaceHolderButton = (): React.Node => (
     <View
         style={{
             height: "100%",
@@ -100,11 +104,3 @@ const PlaceHolderButton = (): React.Node => (
         />
     </View>
 );
-
-module.exports = {
-    KeypadPageContainer,
-    KeypadButton,
-    SecondaryKeypadButton,
-    KeypadActionButton,
-    PlaceHolderButton,
-};

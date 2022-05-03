@@ -31,4 +31,4 @@ class Divide extends React.Component {
     }
 }
 
-module.exports = Divide;
+export default Divide;

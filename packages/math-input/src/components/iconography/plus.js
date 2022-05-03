@@ -29,4 +29,4 @@ class Plus extends React.Component {
     }
 }
 
-module.exports = Plus;
+export default Plus;

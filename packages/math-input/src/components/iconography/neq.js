@@ -30,4 +30,4 @@ class Neq extends React.Component {
     }
 }
 
-module.exports = Neq;
+export default Neq;

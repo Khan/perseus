@@ -13,4 +13,4 @@ const Up = () => {
     );
 };
 
-module.exports = Up;
+export default Up;

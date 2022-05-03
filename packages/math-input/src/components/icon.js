@@ -72,4 +72,4 @@ const styles = StyleSheet.create({
     },
 });
 
-module.exports = Icon;
+export default Icon;

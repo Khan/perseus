@@ -30,4 +30,4 @@ class Lt extends React.Component {
     }
 }
 
-module.exports = Lt;
+export default Lt;

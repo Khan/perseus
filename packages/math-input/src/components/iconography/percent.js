@@ -46,4 +46,4 @@ class Percent extends React.Component {
     }
 }
 
-module.exports = Percent;
+export default Percent;

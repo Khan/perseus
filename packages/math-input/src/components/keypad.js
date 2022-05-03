@@ -8,8 +8,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import {connect} from "react-redux";
 
+import {View} from "../fake-react-native-web/index.js";
+
 const {removeEcho} = require("../actions/index.js");
-const {View} = require("../fake-react-native-web/index.js");
 
 const EchoManager = require("./echo-manager.js");
 const PopoverManager = require("./popover-manager.js");
@@ -148,6 +149,6 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-module.exports = connect(mapStateToProps, mapDispatchToProps, null, {
+export default connect(mapStateToProps, mapDispatchToProps, null, {
     forwardRef: true,
 })(Keypad);

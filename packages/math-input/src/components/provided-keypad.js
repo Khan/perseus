@@ -5,6 +5,8 @@ import {Provider} from "react-redux";
 
 import {createStore} from "../store/index.js";
 
+import KeypadContainer from "./keypad-container.js";
+
 const {
     activateKeypad,
     dismissKeypad,
@@ -12,8 +14,6 @@ const {
     setCursor,
     setKeyHandler,
 } = require("../actions/index.js");
-
-const KeypadContainer = require("./keypad-container.js");
 
 type Props = {|
     onElementMounted?: ($FlowFixMe) => void,

@@ -26,4 +26,4 @@ class Cdot extends React.Component {
     }
 }
 
-module.exports = Cdot;
+export default Cdot;

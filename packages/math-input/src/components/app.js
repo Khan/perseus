@@ -1,8 +1,8 @@
 import {StyleSheet} from "aphrodite";
 import React from "react";
 
-const {View} = require("../fake-react-native-web/index.js");
-const {components, consts} = require("../index.js");
+import {View} from "../fake-react-native-web/index.js";
+import {components, consts} from "../index.js";
 
 const {Keypad, KeypadInput} = components;
 
@@ -72,4 +72,4 @@ const styles = StyleSheet.create({
     },
 });
 
-module.exports = App;
+export default App;

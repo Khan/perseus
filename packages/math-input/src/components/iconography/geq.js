@@ -30,4 +30,4 @@ class Geq extends React.Component {
     }
 }
 
-module.exports = Geq;
+export default Geq;

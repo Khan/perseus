@@ -38,4 +38,4 @@ const JumpOutDenominator = () => {
     );
 };
 
-module.exports = JumpOutDenominator;
+export default JumpOutDenominator;

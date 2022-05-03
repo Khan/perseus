@@ -29,4 +29,4 @@ class Minus extends React.Component {
     }
 }
 
-module.exports = Minus;
+export default Minus;

@@ -8,9 +8,9 @@ import PropTypes from "prop-types";
 import React from "react";
 import ReactDOM from "react-dom";
 
-import {iconSizeHeightPx, iconSizeWidthPx} from "./common-style.js";
+import {View} from "../fake-react-native-web/index.js";
 
-const {View} = require("../fake-react-native-web/index.js");
+import {iconSizeHeightPx, iconSizeWidthPx} from "./common-style.js";
 
 const {row, centered} = require("./styles.js");
 
@@ -61,4 +61,4 @@ const styles = StyleSheet.create({
     },
 });
 
-module.exports = MathIcon;
+export default MathIcon;

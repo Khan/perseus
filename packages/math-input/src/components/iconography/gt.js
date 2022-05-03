@@ -30,4 +30,4 @@ class Gt extends React.Component {
     }
 }
 
-module.exports = Gt;
+export default Gt;

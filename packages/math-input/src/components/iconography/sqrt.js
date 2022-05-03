@@ -29,4 +29,4 @@ class Sqrt extends React.Component {
     }
 }
 
-module.exports = Sqrt;
+export default Sqrt;

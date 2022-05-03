@@ -21,4 +21,4 @@ class SvgIcon extends React.Component {
     }
 }
 
-module.exports = SvgIcon;
+export default SvgIcon;

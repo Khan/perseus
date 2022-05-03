@@ -7,9 +7,8 @@ import PropTypes from "prop-types";
 import React from "react";
 
 import {KeyTypes} from "../consts.js";
+import KeyConfigs from "../data/key-configs.js";
 import Keys from "../data/keys.js";
-
-const KeyConfigs = require("../data/key-configs.js");
 
 const EmptyKeypadButton = require("./empty-keypad-button.js");
 const {keyIdPropType} = require("./prop-types.js");
@@ -42,4 +41,4 @@ class ManyKeypadButton extends React.Component {
     }
 }
 
-module.exports = ManyKeypadButton;
+export default ManyKeypadButton;

@@ -8,11 +8,11 @@ import React from "react";
 import {connect} from "react-redux";
 
 import {BorderStyles} from "../consts.js";
+import KeyConfigs from "../data/key-configs.js";
+import {View} from "../fake-react-native-web/index.js";
 
-const KeyConfigs = require("../data/key-configs.js");
-const {View} = require("../fake-react-native-web/index.js");
+import * as CursorContexts from "./input/cursor-contexts.js";
 
-const CursorContexts = require("./input/cursor-contexts.js");
 const Keypad = require("./keypad.js");
 const {cursorContextPropType} = require("./prop-types.js");
 const {row, roundedTopLeft, roundedTopRight} = require("./styles.js");
@@ -170,6 +170,6 @@ const mapStateToProps = (state) => {
     };
 };
 
-module.exports = connect(mapStateToProps, null, null, {forwardRef: true})(
+export default connect(mapStateToProps, null, null, {forwardRef: true})(
     FractionKeypad,
 );

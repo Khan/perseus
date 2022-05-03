@@ -38,4 +38,4 @@ const JumpIntoNumerator = () => {
     );
 };
 
-module.exports = JumpIntoNumerator;
+export default JumpIntoNumerator;

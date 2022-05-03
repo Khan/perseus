@@ -33,4 +33,4 @@ class Radical extends React.Component {
     }
 }
 
-module.exports = Radical;
+export default Radical;

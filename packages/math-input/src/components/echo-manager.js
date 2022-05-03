@@ -7,12 +7,11 @@ import React from "react";
 import {TransitionGroup, CSSTransition} from "react-transition-group";
 
 import {KeyTypes, EchoAnimationTypes} from "../consts.js";
+import KeyConfigs from "../data/key-configs.js";
 
+import KeypadButton from "./keypad-button.js";
 import * as zIndexes from "./z-indexes.js";
 
-const KeyConfigs = require("../data/key-configs.js");
-
-const KeypadButton = require("./keypad-button.js");
 const {
     echoPropType,
     bordersPropType,
@@ -159,4 +158,4 @@ class EchoManager extends React.Component {
     }
 }
 
-module.exports = EchoManager;
+export default EchoManager;

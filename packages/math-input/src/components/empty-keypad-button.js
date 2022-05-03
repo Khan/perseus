@@ -6,10 +6,10 @@ import PropTypes from "prop-types";
 import React from "react";
 import {connect} from "react-redux";
 
-const KeyConfigs = require("../data/key-configs.js");
+import KeyConfigs from "../data/key-configs.js";
 
-const GestureManager = require("./gesture-manager.js");
-const KeypadButton = require("./keypad-button.js");
+import GestureManager from "./gesture-manager.js";
+import KeypadButton from "./keypad-button.js";
 
 class EmptyKeypadButton extends React.Component {
     static propTypes = {
@@ -44,6 +44,6 @@ const mapStateToProps = (state) => {
     };
 };
 
-module.exports = connect(mapStateToProps, null, null, {forwardRef: true})(
+export default connect(mapStateToProps, null, null, {forwardRef: true})(
     EmptyKeypadButton,
 );

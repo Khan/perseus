@@ -126,4 +126,4 @@ class NodeManager {
     }
 }
 
-module.exports = NodeManager;
+export default NodeManager;

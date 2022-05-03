@@ -13,4 +13,4 @@ const Down = () => {
     );
 };
 
-module.exports = Down;
+export default Down;

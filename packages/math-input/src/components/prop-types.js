@@ -11,10 +11,9 @@ import {
     KeyTypes,
     KeypadTypes,
 } from "../consts.js";
+import KeyConfigs from "../data/key-configs.js";
 
-const KeyConfigs = require("../data/key-configs.js");
-
-const CursorContexts = require("./input/cursor-contexts.js");
+import CursorContexts from "./input/cursor-contexts.js";
 
 const iconPropType = PropTypes.shape({
     type: PropTypes.oneOf(Object.keys(IconTypes)).isRequired,
@@ -80,7 +79,7 @@ const childrenPropType = PropTypes.oneOfType([
     PropTypes.node,
 ]);
 
-module.exports = {
+export default {
     keyConfigPropType,
     keyIdPropType,
     keypadConfigurationPropType,

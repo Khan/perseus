@@ -8,6 +8,8 @@ import PropTypes from "prop-types";
 import React from "react";
 
 import {BorderStyles} from "../consts.js";
+import KeyConfigs from "../data/key-configs.js";
+import {View} from "../fake-react-native-web/index.js";
 
 import {
     navigationPadWidthPx,
@@ -15,9 +17,6 @@ import {
     valueGrey,
     offBlack16,
 } from "./common-style.js";
-
-const KeyConfigs = require("../data/key-configs.js");
-const {View} = require("../fake-react-native-web/index.js");
 
 const {row, column, centered, stretch, roundedTopLeft} = require("./styles.js");
 const TouchableKeypadButton = require("./touchable-keypad-button.js");
@@ -136,4 +135,4 @@ const styles = StyleSheet.create({
     },
 });
 
-module.exports = NavigationPad;
+export default NavigationPad;

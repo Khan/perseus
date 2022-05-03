@@ -30,4 +30,4 @@ class Leq extends React.Component {
     }
 }
 
-module.exports = Leq;
+export default Leq;

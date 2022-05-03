@@ -11,11 +11,11 @@ import ReactDOM from "react-dom";
 import {connect} from "react-redux";
 
 import {KeyTypes} from "../consts.js";
+import KeyConfigs from "../data/key-configs.js";
 
-const KeyConfigs = require("../data/key-configs.js");
+import GestureManager from "./gesture-manager.js";
+import KeypadButton from "./keypad-button.js";
 
-const GestureManager = require("./gesture-manager.js");
-const KeypadButton = require("./keypad-button.js");
 const {bordersPropType, keyIdPropType} = require("./prop-types.js");
 
 class TouchableKeypadButton extends React.Component {
@@ -142,6 +142,6 @@ const styles = StyleSheet.create({
     },
 });
 
-module.exports = connect(mapStateToProps, null, null, {forwardRef: true})(
+export default connect(mapStateToProps, null, null, {forwardRef: true})(
     TouchableKeypadButton,
 );

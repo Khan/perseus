@@ -1,12 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-const {View} = require("./fake-react-native-web/index.js");
+import KeyConfigs from "./data/key-configs.js";
+import {View} from "./fake-react-native-web/index.js";
 
-const {components} = require("./index.js");
+import {components} from "./index.js";
 
+// eslint-disable-next-line no-unused-vars
 const {Keypad, KeypadInput} = components;
-const KeyConfigs = require("./data/key-configs.js");
 
 const ManualInput = ({handler}) => {
     return (

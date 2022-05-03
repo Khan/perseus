@@ -23,7 +23,7 @@ function bodyOrHtml() {
     return document.documentElement;
 }
 
-const scrollIntoView = (containerNode, keypadNode) => {
+export const scrollIntoView = (containerNode, keypadNode) => {
     // TODO(charlie): There's no need for us to be reading the keypad bounds
     // here, since they're pre-determined by logic in the store. We should
     // instead pass around an object that knows the bounds.
@@ -70,5 +70,3 @@ const scrollIntoView = (containerNode, keypadNode) => {
         scrollNode.scrollTop -= containerBounds.height + desiredMarginPx;
     }
 };
-
-module.exports = scrollIntoView;

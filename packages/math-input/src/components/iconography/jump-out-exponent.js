@@ -27,4 +27,4 @@ const JumpOutExponent = () => {
     );
 };
 
-module.exports = JumpOutExponent;
+export default JumpOutExponent;

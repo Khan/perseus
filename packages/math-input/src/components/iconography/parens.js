@@ -30,4 +30,4 @@ class Parens extends React.Component {
     }
 }
 
-module.exports = Parens;
+export default Parens;

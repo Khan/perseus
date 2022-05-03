@@ -4,6 +4,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import Keys from "../../data/keys.js";
+import {View} from "../../fake-react-native-web/index.js";
 import {
     cursorHandleRadiusPx,
     cursorHandleDistanceMultiplier,
@@ -11,7 +12,6 @@ import {
     offBlack,
 } from "../common-style.js";
 
-const {View} = require("../../fake-react-native-web/index.js");
 const {keypadElementPropType} = require("../prop-types.js");
 
 const CursorHandle = require("./cursor-handle.js");
@@ -921,4 +921,4 @@ const inlineStyles = {
     },
 };
 
-module.exports = MathInput;
+export default MathInput;

@@ -38,4 +38,4 @@ const JumpOutNumerator = () => {
     );
 };
 
-module.exports = JumpOutNumerator;
+export default JumpOutNumerator;

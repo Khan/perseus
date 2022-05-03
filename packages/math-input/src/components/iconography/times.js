@@ -30,4 +30,4 @@ class Times extends React.Component {
     }
 }
 
-module.exports = Times;
+export default Times;

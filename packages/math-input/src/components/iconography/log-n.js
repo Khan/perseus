@@ -26,4 +26,4 @@ class LogN extends React.Component {
     }
 }
 
-module.exports = LogN;
+export default LogN;

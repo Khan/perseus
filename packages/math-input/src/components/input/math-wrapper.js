@@ -955,4 +955,4 @@ class MathWrapper {
     }
 }
 
-module.exports = MathWrapper;
+export default MathWrapper;

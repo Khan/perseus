@@ -23,4 +23,4 @@ class Period extends React.Component {
     }
 }
 
-module.exports = Period;
+export default Period;

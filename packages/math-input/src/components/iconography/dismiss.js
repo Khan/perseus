@@ -22,4 +22,4 @@ const Dismiss = () => {
     );
 };
 
-module.exports = Dismiss;
+export default Dismiss;

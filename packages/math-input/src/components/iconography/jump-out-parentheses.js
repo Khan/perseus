@@ -30,4 +30,4 @@ const JumpOutParentheses = () => {
     );
 };
 
-module.exports = JumpOutParentheses;
+export default JumpOutParentheses;

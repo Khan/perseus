@@ -33,4 +33,4 @@ class CubeRoot extends React.Component {
     }
 }
 
-module.exports = CubeRoot;
+export default CubeRoot;

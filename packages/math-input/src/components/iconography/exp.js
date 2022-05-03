@@ -26,4 +26,4 @@ class Exp extends React.Component {
     }
 }
 
-module.exports = Exp;
+export default Exp;
