@@ -38,6 +38,8 @@ module.exports = {
     moduleNameMapper: {
         "^@khanacademy/perseus(.*)$":
             "<rootDir>/packages/perseus$1/src/index.js",
+        "^@khanacademy/simple-markdown":
+            "<rootDir>/packages/simple-markdown/src/index.js",
         // Load a .js file with no exports whenever a .css or .less file is requested.
         "\\.(css|less)$": "<rootDir>/config/test/style-mock.js",
         ...vendorMap,
