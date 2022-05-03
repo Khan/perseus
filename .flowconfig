@@ -4,6 +4,7 @@
 <PROJECT_ROOT>/packages/[^/]*/dist
 <PROJECT_ROOT>/.vscode
 <PROJECT_ROOT>/bin
+<PROJECT_ROOT>/packages/math-input/node_modules/fbjs
 
 [options]
 module.file_ext=.js
