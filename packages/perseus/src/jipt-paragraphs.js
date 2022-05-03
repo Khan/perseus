@@ -3,7 +3,7 @@
  * Paragraph parsing/splitting for article jipt i18n
  */
 
-import SimpleMarkdown from "@khanacademy/simple-markdown";
+import SimpleMarkdown from "simple-markdown";
 
 const arrayRules = {
     fence: {

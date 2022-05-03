@@ -3,7 +3,7 @@
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import PropTypes from "prop-types";
 import * as React from "react";
-import SimpleMarkdown from "@khanacademy/simple-markdown";
+import SimpleMarkdown from "simple-markdown";
 import _ from "underscore";
 
 const START_REF_PREFIX = "start-ref-";
