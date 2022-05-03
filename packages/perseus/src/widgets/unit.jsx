@@ -4,10 +4,10 @@
 // terms of a certain type.
 // TODO(joel): Allow sigfigs within a range rather than an exact expected
 // value?
+import * as KAS from "@khanacademy/kas";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import lens from "hubble";
 import $ from "jquery";
-import KAS from "kas";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";

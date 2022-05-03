@@ -1,5 +1,6 @@
 /* eslint-disable one-var, react/forbid-prop-types, react/sort-comp */
 // @flow
+import * as KAS from "@khanacademy/kas";
 import {
     components,
     Changeable,
@@ -7,7 +8,6 @@ import {
     Expression,
 } from "@khanacademy/perseus";
 import lens from "hubble";
-import KAS from "kas";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
