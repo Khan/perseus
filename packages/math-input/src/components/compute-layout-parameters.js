@@ -55,12 +55,12 @@ const maxPortraitBrowserChrome =
 // difference when reserving space above the keypad.)
 const worstCaseAspectRatio = 320 / (480 - safariNavBarWhenShrunk);
 
-export const computeLayoutParameters = function (
+export const computeLayoutParameters = (
     {numColumns, numMaxVisibleRows, numPages},
     {pageWidthPx, pageHeightPx},
     {deviceOrientation, deviceType},
     {navigationPadEnabled, paginationEnabled, toolbarEnabled},
-) {
+) => {
     // First, compute some values that will be used in multiple computations.
     const effectiveNumColumns = paginationEnabled
         ? numColumns
