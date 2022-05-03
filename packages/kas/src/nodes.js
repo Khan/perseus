@@ -327,6 +327,8 @@ _.extend(Expr.prototype, {
 
         var unitList1 = this.getUnits();
         var unitList2 = other.getUnits();
+        unitList1; // ?
+        unitList2; // ?
         if (!_.isEqual(unitList1, unitList2)) {
             return false;
         }
@@ -750,9 +752,7 @@ _.extend(Mul.prototype, {
             .flatten()
             .value();
 
-        tmUnits.sort(function(a, b) {
-            return a.unit < b.unit;
-        });
+        tmUnits.sort((a, b) => a.unit.localeCompare(b.unit));
 
         return tmUnits;
     },
