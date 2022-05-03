@@ -6,6 +6,7 @@
   "main": "dist/index.js",
   "source": "src/index.js",
   "scripts": {
+    "gen:parsers": "node src/parser-generator.js",
     "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"
   },
   "repository": {
@@ -28,9 +29,6 @@
     "underscore": "1.4.4"
   },
   "devDependencies": {
-    "grunt": "^1.0.3",
-    "grunt-contrib-concat": "~0.1.3",
-    "grunt-execute": "~0.1.5",
     "jison": "0.4.15",
     "qunit": "^2.8.0",
     "qunit-assert-close": "^2.1.2"

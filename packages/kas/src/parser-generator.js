@@ -187,30 +187,20 @@ var grammar = {
 };
 
 var prelude = "// This is a @gene" + "rated file\n" +
-              "var _, KAS = {};\n\n" +
-              "if (typeof module === \"object\" && module.exports) {\n" +
-              "    _ = require(\"underscore\");\n" +
-              "    module.exports = KAS;\n" +
-              "} else {\n" +
-              "    _ = window._;\n" +
-              "    window.KAS = KAS;\n" +
-              "}\n\n" +
-              "(function(KAS) {\n\n";
+              "import _ from \"underscore\";\n\n";
 var parser = (new jison.Generator(grammar)).generate({moduleType: "js"});
 // NOTE(jeresig): We need to comment out these two labels as they appear to be
 // invalid ES5 (they also aren't referenced anywhere so this seems safe).
 parser = parser.replace(/(_token_stack:)/g, "//$1");
-var postlude = "\n\nKAS.parser = parser;\n})(KAS);";
+var postlude = "\n\nexport {parser};\n";
 
-fs.writeFileSync(path.resolve(__dirname, "parser.js"), prelude + parser + postlude);
+fs.writeFileSync(path.resolve(__dirname, "__genfiles__", "parser.js"), prelude + parser + postlude);
 
-var unitPrelude = "// this is a @gene" + "rated file\n" +
-                  "(function(KAS) {\n\n";
-var unitEpilogue = "\n\nKAS.unitParser = parser;\n" +
-                   "})(KAS);";
+var unitPrelude = "// this is a @gene" + "rated file\n\n";
+var unitEpilogue = "\n\nexport const unitParser = parser;\n";
 
 var unitParserInfile = path.resolve(__dirname, "unitvalue.jison");
-var unitParserOutfile = path.resolve(__dirname, "unitparser.js");
+var unitParserOutfile = path.resolve(__dirname, "__genfiles__", "unitparser.js");
 
 var unitParserSource = fs.readFileSync(unitParserInfile);
 var unitParser = new jison.Generator(unitParserSource.toString());
