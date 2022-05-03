@@ -7,7 +7,8 @@
     "source": "src/index.js",
     "types": "simple-markdown.d.ts",
     "scripts": {
-        "test": "mocha __tests__"
+        "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'",
+        "test2": "mocha __tests__"
     },
     "keywords": [
         "markdown",
@@ -34,13 +35,7 @@
         "@types/react": ">=16.0.0"
     },
     "devDependencies": {
-        "@types/mocha": "^5.2.7",
         "@types/react-dom": ">=16.0.0",
-        "express": "^4.17.1",
-        "flow-bin": "^0.111.1",
-        "flow-typed": "^2.6.2",
-        "mocha": "^6.2.2",
-        "nyc": "^15.0.0",
         "react": "^16.11.0",
         "react-dom": "^16.11.0",
         "rollup": "^1.26.3",
