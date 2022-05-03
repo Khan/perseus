@@ -270,6 +270,8 @@ describe("comparing", () => {
         // to isolate `f(x)` in each expression and then check that the
         // expressions that they're equal to are equal.  In this case that
         // would be `sin^2(x)+cos^2(x)` and `1`.
+        // TODO(TP-11651): Update compare to isolate functions on wide side
+        // before comparing expressions on the other side.
         // expect("f(x) = sin^2(x)+cos^2(x)").toEqualExpr("f(x) = 1");
         expect("f(x) = ln|x|+c").toEqualExpr("f(x)-ln|x|-c = 0");
     });
