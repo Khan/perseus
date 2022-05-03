@@ -19,30 +19,6 @@
  *
  * Many of the regexes and original logic has been adapted from
  * the wonderful [marked.js](https://github.com/chjj/marked)
- *
- * LICENSE (MIT):
- * New code copyright (c) 2014-2019 Khan Academy & Aria Buckles.
- *
- * Portions adapted from marked.js copyright (c) 2011-2014
- * Christopher Jeffrey (https://github.com/chjj/).
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
  */
 
 // Typescript language & simple-markdown.d.ts references:
@@ -257,10 +233,11 @@ var FORMFEED_R = /\f/g;
  * @param {string} source
  * @returns {string}
  */
-var preprocess = function(source /* : string */) {
-    return source.replace(CR_NEWLINE_R, '\n')
-            .replace(FORMFEED_R, '')
-            .replace(TAB_R, '    ');
+var preprocess = function (source /* : string */) {
+    return source
+        .replace(CR_NEWLINE_R, "\n")
+        .replace(FORMFEED_R, "")
+        .replace(TAB_R, "    ");
 };
 
 /**
@@ -268,10 +245,10 @@ var preprocess = function(source /* : string */) {
  * @param {SimpleMarkdown.OptionalState} defaultState
  * @returns {SimpleMarkdown.State}
  */
-var populateInitialState = function(
+var populateInitialState = function (
     givenState /* : ?State */,
-    defaultState /* : ?State */
-) /* : State */{
+    defaultState /* : ?State */,
+) /* : State */ {
     var state /* : State */ = givenState || {};
     if (defaultState != null) {
         for (var prop in defaultState) {
@@ -302,28 +279,41 @@ var populateInitialState = function(
  *         some nesting is. For an example use-case, see passage-ref
  *         parsing in src/widgets/passage/passage-markdown.jsx
  */
-var parserFor = function(rules /*: ParserRules */, defaultState /*: ?State */) {
+var parserFor = function (
+    rules /*: ParserRules */,
+    defaultState /*: ?State */,
+) {
     // Sorts rules in order of increasing order, then
     // ascending rule name in case of ties.
-    var ruleList = Object.keys(rules).filter(function(type) {
+    var ruleList = Object.keys(rules).filter(function (type) {
         var rule = rules[type];
         if (rule == null || rule.match == null) {
             return false;
         }
         var order = rule.order;
-        if ((typeof order !== 'number' || !isFinite(order)) &&
-                typeof console !== 'undefined') {
+        if (
+            (typeof order !== "number" || !isFinite(order)) &&
+            typeof console !== "undefined"
+        ) {
             console.warn(
-                "simple-markdown: Invalid order for rule `" + type + "`: " +
-                String(order)
+                "simple-markdown: Invalid order for rule `" +
+                    type +
+                    "`: " +
+                    String(order),
             );
         }
         return true;
     });
 
-    ruleList.sort(function(typeA, typeB) {
-        var ruleA /* : ParserRule */ = /** @type {SimpleMarkdown.ParserRule} */ (rules[typeA] /*:: :any */);
-        var ruleB /* : ParserRule */ = /** @type {SimpleMarkdown.ParserRule} */ (rules[typeB] /*:: :any */);
+    ruleList.sort(function (typeA, typeB) {
+        var ruleA /* : ParserRule */ =
+            /** @type {SimpleMarkdown.ParserRule} */ (
+                rules[typeA] /*:: :any */
+            );
+        var ruleB /* : ParserRule */ =
+            /** @type {SimpleMarkdown.ParserRule} */ (
+                rules[typeB] /*:: :any */
+            );
         var orderA = ruleA.order;
         var orderB = ruleB.order;
 
@@ -338,12 +328,11 @@ var parserFor = function(rules /*: ParserRules */, defaultState /*: ?State */) {
         if (secondaryOrderA !== secondaryOrderB) {
             return secondaryOrderA - secondaryOrderB;
 
-        // Then based on increasing unicode lexicographic ordering
+            // Then based on increasing unicode lexicographic ordering
         } else if (typeA < typeB) {
             return -1;
         } else if (typeA > typeB) {
             return 1;
-
         } else {
             // Rules should never have the same name,
             // but this is provided for completeness.
@@ -354,7 +343,7 @@ var parserFor = function(rules /*: ParserRules */, defaultState /*: ?State */) {
     /** @type {SimpleMarkdown.State} */
     var latestState;
     /** @type {SimpleMarkdown.Parser} */
-    var nestedParse = function(source /* : string */, state /* : ?State */) {
+    var nestedParse = function (source /* : string */, state /* : ?State */) {
         /** @type Array<SimpleMarkdown.SingleASTNode> */
         var result = [];
         state = state || latestState;
@@ -369,19 +358,21 @@ var parserFor = function(rules /*: ParserRules */, defaultState /*: ?State */) {
             // loop control variables:
             var i = 0;
             var currRuleType = ruleList[0];
-            var currRule /* : ParserRule */ = /** @type {SimpleMarkdown.ParserRule} */ ( rules[currRuleType] /*:: :any */ );
+            var currRule /* : ParserRule */ =
+                /** @type {SimpleMarkdown.ParserRule} */ (
+                    rules[currRuleType] /*:: :any */
+                );
 
             do {
                 var currOrder = currRule.order;
-                var prevCaptureStr = state.prevCapture == null ? "" : state.prevCapture[0];
+                var prevCaptureStr =
+                    state.prevCapture == null ? "" : state.prevCapture[0];
                 var currCapture = currRule.match(source, state, prevCaptureStr);
 
                 if (currCapture) {
-                    var currQuality = currRule.quality ? currRule.quality(
-                        currCapture,
-                        state,
-                        prevCaptureStr
-                    ) : 0;
+                    var currQuality = currRule.quality
+                        ? currRule.quality(currCapture, state, prevCaptureStr)
+                        : 0;
                     // This should always be true the first time because
                     // the initial quality is NaN (that's why there's the
                     // condition negation).
@@ -397,42 +388,41 @@ var parserFor = function(rules /*: ParserRules */, defaultState /*: ?State */) {
                 // Note that this makes `currRule` be the next item
                 i++;
                 currRuleType = ruleList[i];
-                currRule = /*::((*/ /** @type {SimpleMarkdown.ParserRule} */ (rules[currRuleType]) /*:: : any) : ParserRule)*/;
-
+                currRule = /*::((*/ /** @type {SimpleMarkdown.ParserRule} */ (
+                    rules[currRuleType]
+                ) /*:: : any) : ParserRule)*/;
             } while (
                 // keep looping while we're still within the ruleList
-                currRule && (
-                    // if we don't have a match yet, continue
-                    !capture || (
-                        // or if we have a match, but the next rule is
-                        // at the same order, and has a quality measurement
-                        // functions, then this rule must have a quality
-                        // measurement function (since they are sorted before
-                        // those without), and we need to check if there is
-                        // a better quality match
-                        currRule.order === currOrder &&
-                        currRule.quality
-                    )
-                )
+                currRule &&
+                // if we don't have a match yet, continue
+                (!capture ||
+                    // or if we have a match, but the next rule is
+                    // at the same order, and has a quality measurement
+                    // functions, then this rule must have a quality
+                    // measurement function (since they are sorted before
+                    // those without), and we need to check if there is
+                    // a better quality match
+                    (currRule.order === currOrder && currRule.quality))
             );
 
             // TODO(aria): Write tests for these
             if (rule == null || capture == null /*:: || ruleType == null */) {
                 throw new Error(
                     "Could not find a matching rule for the below " +
-                    "content. The rule with highest `order` should " +
-                    "always match content provided to it. Check " +
-                    "the definition of `match` for '" +
-                    ruleList[ruleList.length - 1] +
-                    "'. It seems to not match the following source:\n" +
-                    source
+                        "content. The rule with highest `order` should " +
+                        "always match content provided to it. Check " +
+                        "the definition of `match` for '" +
+                        ruleList[ruleList.length - 1] +
+                        "'. It seems to not match the following source:\n" +
+                        source,
                 );
             }
-            if (capture.index) { // If present and non-zero, i.e. a non-^ regexp result:
+            if (capture.index) {
+                // If present and non-zero, i.e. a non-^ regexp result:
                 throw new Error(
                     "`match` must return a capture starting at index 0 " +
-                    "(the current parse index). Did you forget a ^ at the " +
-                    "start of the RegExp?"
+                        "(the current parse index). Did you forget a ^ at the " +
+                        "start of the RegExp?",
                 );
             }
 
@@ -451,7 +441,9 @@ var parserFor = function(rules /*: ParserRules */, defaultState /*: ?State */) {
                 if (parsed.type == null) {
                     parsed.type = ruleType;
                 }
-                result.push(/** @type {SimpleMarkdown.SingleASTNode} */ (parsed));
+                result.push(
+                    /** @type {SimpleMarkdown.SingleASTNode} */ (parsed),
+                );
             }
 
             state.prevCapture = capture;
@@ -461,7 +453,7 @@ var parserFor = function(rules /*: ParserRules */, defaultState /*: ?State */) {
     };
 
     /** @type {SimpleMarkdown.Parser} */
-    var outerParse = function(source /* : string */, state /* : ?State */) {
+    var outerParse = function (source /* : string */, state /* : ?State */) {
         latestState = populateInitialState(state, defaultState);
         if (!latestState.inline && !latestState.disableAutoBlockNewlines) {
             source = source + "\n\n";
@@ -479,9 +471,9 @@ var parserFor = function(rules /*: ParserRules */, defaultState /*: ?State */) {
 
 // Creates a match function for an inline scoped element from a regex
 /** @type {(regex: RegExp) => SimpleMarkdown.MatchFunction} */
-var inlineRegex = function(regex /* : RegExp */) {
+var inlineRegex = function (regex /* : RegExp */) {
     /** @type {SimpleMarkdown.MatchFunction} */
-    var match /* : MatchFunction */ = function(source, state) {
+    var match /* : MatchFunction */ = function (source, state) {
         if (state.inline) {
             return regex.exec(source);
         } else {
@@ -494,9 +486,9 @@ var inlineRegex = function(regex /* : RegExp */) {
 
 // Creates a match function for a block scoped element from a regex
 /** @type {(regex: RegExp) => SimpleMarkdown.MatchFunction} */
-var blockRegex = function(regex /* : RegExp */) {
+var blockRegex = function (regex /* : RegExp */) {
     /** @type {SimpleMarkdown.MatchFunction} */
-    var match /* : MatchFunction */ = function(source, state) {
+    var match /* : MatchFunction */ = function (source, state) {
         if (state.inline) {
             return null;
         } else {
@@ -509,9 +501,9 @@ var blockRegex = function(regex /* : RegExp */) {
 
 // Creates a match function from a regex, ignoring block/inline scope
 /** @type {(regex: RegExp) => SimpleMarkdown.MatchFunction} */
-var anyScopeRegex = function(regex /* : RegExp */) {
+var anyScopeRegex = function (regex /* : RegExp */) {
     /** @type {SimpleMarkdown.MatchFunction} */
-    var match /* : MatchFunction */ = function(source, state) {
+    var match /* : MatchFunction */ = function (source, state) {
         return regex.exec(source);
     };
     match.regex = regex;
@@ -519,8 +511,9 @@ var anyScopeRegex = function(regex /* : RegExp */) {
 };
 
 var TYPE_SYMBOL =
-    (typeof Symbol === 'function' && Symbol.for &&
-     Symbol.for('react.element')) ||
+    (typeof Symbol === "function" &&
+        Symbol.for &&
+        Symbol.for("react.element")) ||
     0xeac7;
 
 /**
@@ -529,19 +522,22 @@ var TYPE_SYMBOL =
  * @param {Object<string, any>} props
  * @returns {SimpleMarkdown.ReactElement}
  */
-var reactElement = function(
+var reactElement = function (
     type /* : string */,
     key /* : string | number | null | void */,
-    props /* : { [string]: any } */
+    props /* : { [string]: any } */,
 ) /* : ReactElement */ {
-    var element /* : ReactElement */ = /** @type {SimpleMarkdown.ReactElement} */ ({
-        $$typeof: TYPE_SYMBOL,
-        type: type,
-        key: key == null ? undefined : key,
-        ref: null,
-        props: props,
-        _owner: null
-    } /* : any */);
+    var element /* : ReactElement */ =
+        /** @type {SimpleMarkdown.ReactElement} */ (
+            {
+                $$typeof: TYPE_SYMBOL,
+                type: type,
+                key: key == null ? undefined : key,
+                ref: null,
+                props: props,
+                _owner: null,
+            } /* : any */
+        );
     return element;
 };
 
@@ -553,24 +549,25 @@ var reactElement = function(
  * @param {boolean} [isClosed] - boolean that controls whether tag is closed or not (eg. img tags).
  *   defaults to true
  */
-var htmlTag = function(
+var htmlTag = function (
     tagName /* : string */,
     content /* : string */,
     attributes /* : ?{[any]: ?Attr} */,
-    isClosed /* : ?boolean */
+    isClosed /* : ?boolean */,
 ) {
     attributes = attributes || {};
-    isClosed = typeof isClosed !== 'undefined' ? isClosed : true;
+    isClosed = typeof isClosed !== "undefined" ? isClosed : true;
 
     var attributeString = "";
     for (var attr in attributes) {
         var attribute = attributes[attr];
         // Removes falsey attributes
-        if (Object.prototype.hasOwnProperty.call(attributes, attr) &&
-                attribute) {
-            attributeString += " " +
-                sanitizeText(attr) + '="' +
-                sanitizeText(attribute) + '"';
+        if (
+            Object.prototype.hasOwnProperty.call(attributes, attr) &&
+            attribute
+        ) {
+            attributeString +=
+                " " + sanitizeText(attr) + '="' + sanitizeText(attribute) + '"';
         }
     }
 
@@ -589,13 +586,17 @@ var EMPTY_PROPS = {};
  * @param {string | null | undefined} url - url to sanitize
  * @returns {string | null} - url if safe, or null if a safe url could not be made
  */
-var sanitizeUrl = function(url /* : ?string */) {
+var sanitizeUrl = function (url /* : ?string */) {
     if (url == null) {
         return null;
     }
-    try {   
-        var prot = new URL(url, 'https://localhost').protocol
-        if (prot.indexOf('javascript:') === 0 || prot.indexOf('vbscript:') === 0 || prot.indexOf('data:') === 0) {
+    try {
+        var prot = new URL(url, "https://localhost").protocol;
+        if (
+            prot.indexOf("javascript:") === 0 ||
+            prot.indexOf("vbscript:") === 0 ||
+            prot.indexOf("data:") === 0
+        ) {
             return null;
         }
     } catch (e) {
@@ -609,20 +610,20 @@ var sanitizeUrl = function(url /* : ?string */) {
 var SANITIZE_TEXT_R = /[<>&"']/g;
 /** @type {any} */
 var SANITIZE_TEXT_CODES = {
-    '<': '&lt;',
-    '>': '&gt;',
-    '&': '&amp;',
-    '"': '&quot;',
-    "'": '&#x27;',
-    '/': '&#x2F;',
-    "`": '&#96;'
+    "<": "&lt;",
+    ">": "&gt;",
+    "&": "&amp;",
+    '"': "&quot;",
+    "'": "&#x27;",
+    "/": "&#x2F;",
+    "`": "&#96;",
 };
 /**
  * @param {SimpleMarkdown.Attr} text
  * @returns {string}
  */
-var sanitizeText = function(text /* : Attr */) {
-    return String(text).replace(SANITIZE_TEXT_R, function(chr) {
+var sanitizeText = function (text /* : Attr */) {
+    return String(text).replace(SANITIZE_TEXT_R, function (chr) {
         return SANITIZE_TEXT_CODES[chr];
     });
 };
@@ -633,7 +634,7 @@ var UNESCAPE_URL_R = /\\([^0-9A-Za-z\s])/g;
  * @param {string} rawUrlString
  * @returns {string}
  */
-var unescapeUrl = function(rawUrlString /* : string */) {
+var unescapeUrl = function (rawUrlString /* : string */) {
     return rawUrlString.replace(UNESCAPE_URL_R, "$1");
 };
 
@@ -647,7 +648,7 @@ var unescapeUrl = function(rawUrlString /* : string */) {
  * @param {SimpleMarkdown.State} state
  * @returns {SimpleMarkdown.ASTNode}
  */
-var parseInline = function(parse, content, state) {
+var parseInline = function (parse, content, state) {
     var isCurrentlyInline = state.inline || false;
     state.inline = true;
     var result = parse(content, state);
@@ -660,7 +661,7 @@ var parseInline = function(parse, content, state) {
  * @param {SimpleMarkdown.State} state
  * @returns {SimpleMarkdown.ASTNode}
  */
-var parseBlock = function(parse, content, state) {
+var parseBlock = function (parse, content, state) {
     var isCurrentlyInline = state.inline || false;
     state.inline = false;
     var result = parse(content + "\n\n", state);
@@ -674,15 +675,17 @@ var parseBlock = function(parse, content, state) {
  * @param {SimpleMarkdown.State} state
  * @returns {SimpleMarkdown.UnTypedASTNode}
  */
-var parseCaptureInline = function(capture, parse, state) {
+var parseCaptureInline = function (capture, parse, state) {
     return {
-        content: parseInline(parse, capture[1], state)
+        content: parseInline(parse, capture[1], state),
     };
 };
 /**
  * @returns {SimpleMarkdown.UnTypedASTNode}
  */
-var ignoreCapture = function() { return {}; };
+var ignoreCapture = function () {
+    return {};
+};
 
 // recognize a `*` `-`, `+`, `1.`, `2.`... list bullet
 var LIST_BULLET = "(?:[*+-]|\\d+\\.)";
@@ -699,9 +702,11 @@ var LIST_ITEM_PREFIX_R = new RegExp("^" + LIST_ITEM_PREFIX);
 //  * but this is not part of the same item
 var LIST_ITEM_R = new RegExp(
     LIST_ITEM_PREFIX +
-    "[^\\n]*(?:\\n" +
-    "(?!\\1" + LIST_BULLET + " )[^\\n]*)*(\n|$)",
-    "gm"
+        "[^\\n]*(?:\\n" +
+        "(?!\\1" +
+        LIST_BULLET +
+        " )[^\\n]*)*(\n|$)",
+    "gm",
 );
 var BLOCK_END_R = /\n{2,}$/;
 var INLINE_CODE_ESCAPE_BACKTICKS_R = /^ (?= *`)|(` *) $/g;
@@ -712,16 +717,20 @@ var LIST_ITEM_END_R = / *\n+$/;
 // check whether a list item has paragraphs: if it does,
 // we leave the newlines at the end
 var LIST_R = new RegExp(
-    "^( *)(" + LIST_BULLET + ") " +
-    "[\\s\\S]+?(?:\n{2,}(?! )" +
-    "(?!\\1" + LIST_BULLET + " )\\n*" +
-    // the \\s*$ here is so that we can parse the inside of nested
-    // lists, where our content might end before we receive two `\n`s
-    "|\\s*\n*$)"
+    "^( *)(" +
+        LIST_BULLET +
+        ") " +
+        "[\\s\\S]+?(?:\n{2,}(?! )" +
+        "(?!\\1" +
+        LIST_BULLET +
+        " )\\n*" +
+        // the \\s*$ here is so that we can parse the inside of nested
+        // lists, where our content might end before we receive two `\n`s
+        "|\\s*\n*$)",
 );
 var LIST_LOOKBEHIND_R = /(?:^|\n)( *)$/;
 
-var TABLES = (function() {
+var TABLES = (function () {
     // predefine regexes so we don't have to create them inside functions
     // sure, regex literals should be fast, even inside functions, but they
     // aren't in all browsers.
@@ -736,7 +745,7 @@ var TABLES = (function() {
      * @param {string} alignCapture
      * @returns {SimpleMarkdown.TableAlignment}
      */
-    var parseTableAlignCapture = function(alignCapture) {
+    var parseTableAlignCapture = function (alignCapture) {
         if (TABLE_RIGHT_ALIGN.test(alignCapture)) {
             return "right";
         } else if (TABLE_CENTER_ALIGN.test(alignCapture)) {
@@ -755,7 +764,7 @@ var TABLES = (function() {
      * @param {boolean} trimEndSeparators
      * @returns {Array<SimpleMarkdown.TableAlignment>}
      */
-    var parseTableAlign = function(source, parse, state, trimEndSeparators) {
+    var parseTableAlign = function (source, parse, state, trimEndSeparators) {
         if (trimEndSeparators) {
             source = source.replace(TABLE_ROW_SEPARATOR_TRIM, "");
         }
@@ -770,7 +779,7 @@ var TABLES = (function() {
      * @param {boolean} trimEndSeparators
      * @returns {SimpleMarkdown.SingleASTNode[][]}
      */
-    var parseTableRow = function(source, parse, state, trimEndSeparators) {
+    var parseTableRow = function (source, parse, state, trimEndSeparators) {
         var prevInTable = state.inTable;
         state.inTable = true;
         var tableRow = parse(source.trim(), state);
@@ -778,19 +787,26 @@ var TABLES = (function() {
 
         /** @type {SimpleMarkdown.SingleASTNode[][]} */
         var cells = [[]];
-        tableRow.forEach(function(node, i) {
-            if (node.type === 'tableSeparator') {
+        tableRow.forEach(function (node, i) {
+            if (node.type === "tableSeparator") {
                 // Filter out empty table separators at the start/end:
-                if (!trimEndSeparators || i !== 0 && i !== tableRow.length - 1) {
+                if (
+                    !trimEndSeparators ||
+                    (i !== 0 && i !== tableRow.length - 1)
+                ) {
                     // Split the current row:
                     cells.push([]);
                 }
             } else {
-                if (node.type === 'text' && (
-                    tableRow[i + 1] == null ||
-                    tableRow[i + 1].type === 'tableSeparator'
-                )) {
-                    node.content = node.content.replace(TABLE_CELL_END_TRIM, "");
+                if (
+                    node.type === "text" &&
+                    (tableRow[i + 1] == null ||
+                        tableRow[i + 1].type === "tableSeparator")
+                ) {
+                    node.content = node.content.replace(
+                        TABLE_CELL_END_TRIM,
+                        "",
+                    );
                 }
                 cells[cells.length - 1].push(node);
             }
@@ -806,10 +822,10 @@ var TABLES = (function() {
      * @param {boolean} trimEndSeparators
      * @returns {SimpleMarkdown.ASTNode[][]}
      */
-    var parseTableCells = function(source, parse, state, trimEndSeparators) {
+    var parseTableCells = function (source, parse, state, trimEndSeparators) {
         var rowsText = source.trim().split("\n");
 
-        return rowsText.map(function(rowText) {
+        return rowsText.map(function (rowText) {
             return parseTableRow(rowText, parse, state, trimEndSeparators);
         });
     };
@@ -818,20 +834,35 @@ var TABLES = (function() {
      * @param {boolean} trimEndSeparators
      * @returns {SimpleMarkdown.SingleNodeParseFunction}
      */
-    var parseTable = function(trimEndSeparators) {
+    var parseTable = function (trimEndSeparators) {
         /** @type {SimpleMarkdown.SingleNodeParseFunction} */
-        return function(capture, parse, state) {
+        return function (capture, parse, state) {
             state.inline = true;
-            var header = parseTableRow(capture[1], parse, state, trimEndSeparators);
-            var align = parseTableAlign(capture[2], parse, state, trimEndSeparators);
-            var cells = parseTableCells(capture[3], parse, state, trimEndSeparators);
+            var header = parseTableRow(
+                capture[1],
+                parse,
+                state,
+                trimEndSeparators,
+            );
+            var align = parseTableAlign(
+                capture[2],
+                parse,
+                state,
+                trimEndSeparators,
+            );
+            var cells = parseTableCells(
+                capture[3],
+                parse,
+                state,
+                trimEndSeparators,
+            );
             state.inline = false;
 
             return {
                 type: "table",
                 header: header,
                 align: align,
-                cells: cells
+                cells: cells,
             };
         };
     };
@@ -839,14 +870,16 @@ var TABLES = (function() {
     return {
         parseTable: parseTable(true),
         parseNpTable: parseTable(false),
-        TABLE_REGEX: /^ *(\|.+)\n *\|( *[-:]+[-| :]*)\n((?: *\|.*(?:\n|$))*)\n*/,
-        NPTABLE_REGEX: /^ *(\S.*\|.*)\n *([-:]+ *\|[-| :]*)\n((?:.*\|.*(?:\n|$))*)\n*/
+        TABLE_REGEX:
+            /^ *(\|.+)\n *\|( *[-:]+[-| :]*)\n((?: *\|.*(?:\n|$))*)\n*/,
+        NPTABLE_REGEX:
+            /^ *(\S.*\|.*)\n *([-:]+ *\|[-| :]*)\n((?:.*\|.*(?:\n|$))*)\n*/,
     };
 })();
 
 var LINK_INSIDE = "(?:\\[[^\\]]*\\]|[^\\[\\]]|\\](?=[^\\[]*\\]))*";
 var LINK_HREF_AND_TITLE =
-        "\\s*<?((?:\\([^)]*\\)|[^\\s\\\\]|\\\\.)*?)>?(?:\\s+['\"]([\\s\\S]*?)['\"])?\\s*";
+    "\\s*<?((?:\\([^)]*\\)|[^\\s\\\\]|\\\\.)*?)>?(?:\\s+['\"]([\\s\\S]*?)['\"])?\\s*";
 var AUTOLINK_MAILTO_CHECK_R = /mailto:/i;
 
 /**
@@ -855,10 +888,8 @@ var AUTOLINK_MAILTO_CHECK_R = /mailto:/i;
  * @param {SimpleMarkdown.RefNode} refNode
  * @returns {SimpleMarkdown.RefNode}
  */
-var parseRef = function(capture, state, refNode /* : RefNode */) {
-    var ref = (capture[2] || capture[1])
-        .replace(/\s+/g, ' ')
-        .toLowerCase();
+var parseRef = function (capture, state, refNode /* : RefNode */) {
+    var ref = (capture[2] || capture[1]).replace(/\s+/g, " ").toLowerCase();
 
     // We store information about previously seen defs on
     // state._defs (_ to deconflict with client-defined
@@ -890,7 +921,7 @@ var currOrder = 0;
 /** @type {SimpleMarkdown.DefaultRules} */
 var defaultRules /* : DefaultRules */ = {
     Array: {
-        react: function(arr, output, state) {
+        react: function (arr, output, state) {
             var oldKey = state.key;
             var result /* : Array<ReactElements> */ = [];
 
@@ -900,12 +931,16 @@ var defaultRules /* : DefaultRules */ = {
                 // `key` is our numerical `state.key`, which we increment for
                 // every output node, but don't change for joined text nodes.
                 // (i, however, must change for joined text nodes)
-                state.key = '' + i;
+                state.key = "" + i;
 
                 var node = arr[i];
-                if (node.type === 'text') {
-                    node = { type: 'text', content: node.content };
-                    for (; i + 1 < arr.length && arr[i + 1].type === 'text'; i++) {
+                if (node.type === "text") {
+                    node = {type: "text", content: node.content};
+                    for (
+                        ;
+                        i + 1 < arr.length && arr[i + 1].type === "text";
+                        i++
+                    ) {
                         node.content += arr[i + 1].content;
                     }
                 }
@@ -916,17 +951,20 @@ var defaultRules /* : DefaultRules */ = {
             state.key = oldKey;
             return result;
         },
-        html: function(arr, output, state) {
+        html: function (arr, output, state) {
             var result = "";
 
             // map output over the ast, except group any text
             // nodes together into a single string output.
             for (var i = 0, key = 0; i < arr.length; i++) {
-
                 var node = arr[i];
-                if (node.type === 'text') {
-                    node = { type: 'text', content: node.content };
-                    for (; i + 1 < arr.length && arr[i + 1].type === 'text'; i++) {
+                if (node.type === "text") {
+                    node = {type: "text", content: node.content};
+                    for (
+                        ;
+                        i + 1 < arr.length && arr[i + 1].type === "text";
+                        i++
+                    ) {
                         node.content += arr[i + 1].content;
                     }
                 }
@@ -934,146 +972,126 @@ var defaultRules /* : DefaultRules */ = {
                 result += output(node, state);
             }
             return result;
-        }
+        },
     },
     heading: {
         order: currOrder++,
         match: blockRegex(/^ *(#{1,6})([^\n]+?)#* *(?:\n *)+\n/),
-        parse: function(capture, parse, state) {
+        parse: function (capture, parse, state) {
             return {
                 level: capture[1].length,
-                content: parseInline(parse, capture[2].trim(), state)
+                content: parseInline(parse, capture[2].trim(), state),
             };
         },
-        react: function(node, output, state) {
-            return reactElement(
-                'h' + node.level,
-                state.key,
-                {
-                    children: output(node.content, state)
-                }
-            );
+        react: function (node, output, state) {
+            return reactElement("h" + node.level, state.key, {
+                children: output(node.content, state),
+            });
         },
-        html: function(node, output, state) {
+        html: function (node, output, state) {
             return htmlTag("h" + node.level, output(node.content, state));
-        }
+        },
     },
     nptable: {
         order: currOrder++,
         match: blockRegex(TABLES.NPTABLE_REGEX),
         parse: TABLES.parseNpTable,
         react: null,
-        html: null
+        html: null,
     },
     lheading: {
         order: currOrder++,
         match: blockRegex(/^([^\n]+)\n *(=|-){3,} *(?:\n *)+\n/),
-        parse: function(capture, parse, state) {
+        parse: function (capture, parse, state) {
             return {
                 type: "heading",
-                level: capture[2] === '=' ? 1 : 2,
-                content: parseInline(parse, capture[1], state)
+                level: capture[2] === "=" ? 1 : 2,
+                content: parseInline(parse, capture[1], state),
             };
         },
         react: null,
-        html: null
+        html: null,
     },
     hr: {
         order: currOrder++,
         match: blockRegex(/^( *[-*_]){3,} *(?:\n *)+\n/),
         parse: ignoreCapture,
-        react: function(node, output, state) {
-            return reactElement(
-                'hr',
-                state.key,
-                EMPTY_PROPS
-            );
+        react: function (node, output, state) {
+            return reactElement("hr", state.key, EMPTY_PROPS);
         },
-        html: function(node, output, state) {
+        html: function (node, output, state) {
             return "<hr>";
-        }
+        },
     },
     codeBlock: {
         order: currOrder++,
         match: blockRegex(/^(?:    [^\n]+\n*)+(?:\n *)+\n/),
-        parse: function(capture, parse, state) {
-            var content = capture[0]
-                .replace(/^    /gm, '')
-                .replace(/\n+$/, '');
+        parse: function (capture, parse, state) {
+            var content = capture[0].replace(/^    /gm, "").replace(/\n+$/, "");
             return {
                 lang: undefined,
-                content: content
+                content: content,
             };
         },
-        react: function(node, output, state) {
-            var className = node.lang ?
-                "markdown-code-" + node.lang :
-                undefined;
+        react: function (node, output, state) {
+            var className = node.lang
+                ? "markdown-code-" + node.lang
+                : undefined;
 
-            return reactElement(
-                'pre',
-                state.key,
-                {
-                    children: reactElement(
-                        'code',
-                        null,
-                        {
-                            className: className,
-                            children: node.content
-                        }
-                    )
-                }
-            );
+            return reactElement("pre", state.key, {
+                children: reactElement("code", null, {
+                    className: className,
+                    children: node.content,
+                }),
+            });
         },
-        html: function(node, output, state) {
-            var className = node.lang ?
-                "markdown-code-" + node.lang :
-                undefined;
+        html: function (node, output, state) {
+            var className = node.lang
+                ? "markdown-code-" + node.lang
+                : undefined;
 
             var codeBlock = htmlTag("code", sanitizeText(node.content), {
-                class: className
+                class: className,
             });
             return htmlTag("pre", codeBlock);
-        }
+        },
     },
     fence: {
         order: currOrder++,
-        match: blockRegex(/^ *(`{3,}|~{3,}) *(?:(\S+) *)?\n([\s\S]+?)\n?\1 *(?:\n *)+\n/),
-        parse: function(capture, parse, state) {
+        match: blockRegex(
+            /^ *(`{3,}|~{3,}) *(?:(\S+) *)?\n([\s\S]+?)\n?\1 *(?:\n *)+\n/,
+        ),
+        parse: function (capture, parse, state) {
             return {
                 type: "codeBlock",
                 lang: capture[2] || undefined,
-                content: capture[3]
+                content: capture[3],
             };
         },
         react: null,
-        html: null
+        html: null,
     },
     blockQuote: {
         order: currOrder++,
         match: blockRegex(/^( *>[^\n]+(\n[^\n]+)*\n*)+\n{2,}/),
-        parse: function(capture, parse, state) {
-            var content = capture[0].replace(/^ *> ?/gm, '');
+        parse: function (capture, parse, state) {
+            var content = capture[0].replace(/^ *> ?/gm, "");
             return {
-                content: parse(content, state)
+                content: parse(content, state),
             };
         },
-        react: function(node, output, state) {
-            return reactElement(
-                'blockquote',
-                state.key,
-                {
-                    children: output(node.content, state)
-                }
-            );
+        react: function (node, output, state) {
+            return reactElement("blockquote", state.key, {
+                children: output(node.content, state),
+            });
         },
-        html: function(node, output, state) {
+        html: function (node, output, state) {
             return htmlTag("blockquote", output(node.content, state));
-        }
+        },
     },
     list: {
         order: currOrder++,
-        match: function(source, state) {
+        match: function (source, state) {
             // We only want to break into a list if we are at the start of a
             // line. This is to avoid parsing "hi * there" with "* there"
             // becoming a part of a list.
@@ -1082,7 +1100,8 @@ var defaultRules /* : DefaultRules */ = {
             // lists can be inline, because they might be inside another list,
             // in which case we can parse with inline scope, but need to allow
             // nested lists inside this inline scope.
-            var prevCaptureStr = state.prevCapture == null ? "" : state.prevCapture[0];
+            var prevCaptureStr =
+                state.prevCapture == null ? "" : state.prevCapture[0];
             var isStartOfLineCapture = LIST_LOOKBEHIND_R.exec(prevCaptureStr);
             var isListBlock = state._list || !state.inline;
 
@@ -1093,14 +1112,12 @@ var defaultRules /* : DefaultRules */ = {
                 return null;
             }
         },
-        parse: function(capture, parse, state) {
+        parse: function (capture, parse, state) {
             var bullet = capture[2];
             var ordered = bullet.length > 1;
             var start = ordered ? +bullet : undefined;
             var items = /** @type {string[]} */ (
-                capture[0]
-                    .replace(LIST_BLOCK_END_R, "\n")
-                    .match(LIST_ITEM_R)
+                capture[0].replace(LIST_BLOCK_END_R, "\n").match(LIST_ITEM_R)
             );
 
             // We know this will match here, because of how the regexes are
@@ -1108,7 +1125,10 @@ var defaultRules /* : DefaultRules */ = {
             /*:: items = ((items : any) : Array<string>) */
 
             var lastItemWasAParagraph = false;
-            var itemContent = items.map(function(/** @type {string} */ item, /** @type {number} */ i) {
+            var itemContent = items.map(function (
+                /** @type {string} */ item,
+                /** @type {number} */ i,
+            ) {
                 // We need to see how far indented this item is:
                 var prefixCapture = LIST_ITEM_PREFIX_R.exec(item);
                 var space = prefixCapture ? prefixCapture[0].length : 0;
@@ -1118,10 +1138,10 @@ var defaultRules /* : DefaultRules */ = {
 
                 // Before processing the item, we need a couple things
                 var content = item
-                         // remove indents on trailing lines:
-                        .replace(spaceRegex, '')
-                         // remove the bullet:
-                        .replace(LIST_ITEM_PREFIX_R, '');
+                    // remove indents on trailing lines:
+                    .replace(spaceRegex, "")
+                    // remove the bullet:
+                    .replace(LIST_ITEM_PREFIX_R, "");
 
                 // I'm not sur4 why this is necessary again?
                 /*:: items = ((items : any) : Array<string>) */
@@ -1133,7 +1153,7 @@ var defaultRules /* : DefaultRules */ = {
                 //  * as is this
                 //
                 //  * as is this
-                var isLastItem = (i === items.length - 1);
+                var isLastItem = i === items.length - 1;
                 var containsBlocks = content.indexOf("\n\n") !== -1;
 
                 // Any element in a list is a block if it contains multiple
@@ -1142,8 +1162,8 @@ var defaultRules /* : DefaultRules */ = {
                 // because non-last items in the list can end with \n\n, but
                 // the last item can't, so we just "inherit" this property
                 // from our previous element).
-                var thisItemIsAParagraph = containsBlocks ||
-                        (isLastItem && lastItemWasAParagraph);
+                var thisItemIsAParagraph =
+                    containsBlocks || (isLastItem && lastItemWasAParagraph);
                 lastItemWasAParagraph = thisItemIsAParagraph;
 
                 // backup our state for restoration afterwards. We're going to
@@ -1175,43 +1195,37 @@ var defaultRules /* : DefaultRules */ = {
             return {
                 ordered: ordered,
                 start: start,
-                items: itemContent
+                items: itemContent,
             };
         },
-        react: function(node, output, state) {
+        react: function (node, output, state) {
             var ListWrapper = node.ordered ? "ol" : "ul";
 
-            return reactElement(
-                ListWrapper,
-                state.key,
-                {
-                    start: node.start,
-                    children: node.items.map(function(
-                        /** @type {SimpleMarkdown.ASTNode} */ item,
-                        /** @type {number} */ i
-                    ) {
-                        return reactElement(
-                            'li',
-                            '' + i,
-                            {
-                                children: output(item, state)
-                            }
-                        );
-                    })
-                }
-            );
+            return reactElement(ListWrapper, state.key, {
+                start: node.start,
+                children: node.items.map(function (
+                    /** @type {SimpleMarkdown.ASTNode} */ item,
+                    /** @type {number} */ i,
+                ) {
+                    return reactElement("li", "" + i, {
+                        children: output(item, state),
+                    });
+                }),
+            });
         },
-        html: function(node, output, state) {
-            var listItems = node.items.map(function(/** @type {SimpleMarkdown.ASTNode} */ item) {
-                return htmlTag("li", output(item, state));
-            }).join("");
+        html: function (node, output, state) {
+            var listItems = node.items
+                .map(function (/** @type {SimpleMarkdown.ASTNode} */ item) {
+                    return htmlTag("li", output(item, state));
+                })
+                .join("");
 
             var listTag = node.ordered ? "ol" : "ul";
             var attributes = {
-                start: node.start
+                start: node.start,
             };
             return htmlTag(listTag, listItems, attributes);
-        }
+        },
     },
     def: {
         order: currOrder++,
@@ -1219,12 +1233,10 @@ var defaultRules /* : DefaultRules */ = {
         // block element, which is inconsistent with most of the rest of
         // simple-markdown.
         match: blockRegex(
-            /^ *\[([^\]]+)\]: *<?([^\s>]*)>?(?: +["(]([^\n]+)[")])? *\n(?: *\n)*/
+            /^ *\[([^\]]+)\]: *<?([^\s>]*)>?(?: +["(]([^\n]+)[")])? *\n(?: *\n)*/,
         ),
-        parse: function(capture, parse, state) {
-            var def = capture[1]
-                .replace(/\s+/g, ' ')
-                .toLowerCase();
+        parse: function (capture, parse, state) {
+            var def = capture[1].replace(/\s+/g, " ").toLowerCase();
             var target = capture[2];
             var title = capture[3];
 
@@ -1237,7 +1249,9 @@ var defaultRules /* : DefaultRules */ = {
             // Sorry :(.
             if (state._refs && state._refs[def]) {
                 // `refNode` can be a link or an image
-                state._refs[def].forEach(function(/** @type {SimpleMarkdown.RefNode} */ refNode) {
+                state._refs[def].forEach(function (
+                    /** @type {SimpleMarkdown.RefNode} */ refNode,
+                ) {
                     refNode.target = target;
                     refNode.title = title;
                 });
@@ -1262,153 +1276,144 @@ var defaultRules /* : DefaultRules */ = {
                 title: title,
             };
         },
-        react: function() { return null; },
-        html: function() { return ""; }
+        react: function () {
+            return null;
+        },
+        html: function () {
+            return "";
+        },
     },
     table: {
         order: currOrder++,
         match: blockRegex(TABLES.TABLE_REGEX),
         parse: TABLES.parseTable,
-        react: function(node, output, state) {
+        react: function (node, output, state) {
             /**
              * @param {number} colIndex
              * @returns {{ [attr: string]: SimpleMarkdown.Attr }}
              */
-            var getStyle = function(colIndex) {
-                return node.align[colIndex] == null ? {} : {
-                    textAlign: node.align[colIndex]
-                };
+            var getStyle = function (colIndex) {
+                return node.align[colIndex] == null
+                    ? {}
+                    : {
+                          textAlign: node.align[colIndex],
+                      };
             };
 
-            var headers = node.header.map(function(
+            var headers = node.header.map(function (
                 /** @type {SimpleMarkdown.ASTNode} */ content,
-                /** @type {number} */ i
+                /** @type {number} */ i,
             ) {
-                return reactElement(
-                    'th',
-                    '' + i,
-                    {
-                        style: getStyle(i),
-                        scope: 'col',
-                        children: output(content, state)
-                    }
-                );
+                return reactElement("th", "" + i, {
+                    style: getStyle(i),
+                    scope: "col",
+                    children: output(content, state),
+                });
             });
 
-            var rows = node.cells.map(function(
-                    /** @type {SimpleMarkdown.ASTNode[]} */ row,
-                    /** @type {number} */ r
+            var rows = node.cells.map(function (
+                /** @type {SimpleMarkdown.ASTNode[]} */ row,
+                /** @type {number} */ r,
             ) {
-                return reactElement(
-                    'tr',
-                    '' + r,
-                    {
-                        children: row.map(function(
-                            /** @type {SimpleMarkdown.ASTNode} */ content,
-                            /** @type {number} */ c
-                        ) {
-                            return reactElement(
-                                'td',
-                                '' + c,
-                                {
-                                    style: getStyle(c),
-                                    children: output(content, state)
-                                }
-                            );
-                        })
-                    }
-                );
+                return reactElement("tr", "" + r, {
+                    children: row.map(function (
+                        /** @type {SimpleMarkdown.ASTNode} */ content,
+                        /** @type {number} */ c,
+                    ) {
+                        return reactElement("td", "" + c, {
+                            style: getStyle(c),
+                            children: output(content, state),
+                        });
+                    }),
+                });
             });
 
-            return reactElement(
-                'table',
-                state.key,
-                {
-                    children: [reactElement(
-                        'thead',
-                        'thead',
-                        {
-                            children: reactElement(
-                                'tr',
-                                null,
-                                {
-                                    children: headers
-                                }
-                            )
-                        }
-                    ), reactElement(
-                        'tbody',
-                        'tbody',
-                        {
-                            children: rows
-                        }
-                    )]
-                }
-            );
+            return reactElement("table", state.key, {
+                children: [
+                    reactElement("thead", "thead", {
+                        children: reactElement("tr", null, {
+                            children: headers,
+                        }),
+                    }),
+                    reactElement("tbody", "tbody", {
+                        children: rows,
+                    }),
+                ],
+            });
         },
-        html: function(node, output, state) {
+        html: function (node, output, state) {
             /**
              * @param {number} colIndex
              * @returns {string}
              */
-            var getStyle = function(colIndex) {
-                return node.align[colIndex] == null ? "" :
-                    "text-align:" + node.align[colIndex] + ";";
+            var getStyle = function (colIndex) {
+                return node.align[colIndex] == null
+                    ? ""
+                    : "text-align:" + node.align[colIndex] + ";";
             };
 
-            var headers = node.header.map(function(
-                /** @type {SimpleMarkdown.ASTNode} */ content,
-                /** @type {number} */ i
-            ) {
-                return htmlTag("th", output(content, state),
-                    { style: getStyle(i), scope: "col" });
-            }).join("");
-
-            var rows = node.cells.map(function(/** @type {SimpleMarkdown.ASTNode[]} */ row) {
-                var cols = row.map(function(
+            var headers = node.header
+                .map(function (
                     /** @type {SimpleMarkdown.ASTNode} */ content,
-                    /** @type {number} */ c
+                    /** @type {number} */ i,
                 ) {
-                    return htmlTag("td", output(content, state),
-                        { style: getStyle(c) });
-                }).join("");
+                    return htmlTag("th", output(content, state), {
+                        style: getStyle(i),
+                        scope: "col",
+                    });
+                })
+                .join("");
 
-                return htmlTag("tr", cols);
-            }).join("");
+            var rows = node.cells
+                .map(function (/** @type {SimpleMarkdown.ASTNode[]} */ row) {
+                    var cols = row
+                        .map(function (
+                            /** @type {SimpleMarkdown.ASTNode} */ content,
+                            /** @type {number} */ c,
+                        ) {
+                            return htmlTag("td", output(content, state), {
+                                style: getStyle(c),
+                            });
+                        })
+                        .join("");
+
+                    return htmlTag("tr", cols);
+                })
+                .join("");
 
             var thead = htmlTag("thead", htmlTag("tr", headers));
             var tbody = htmlTag("tbody", rows);
 
             return htmlTag("table", thead + tbody);
-        }
+        },
     },
     newline: {
         order: currOrder++,
         match: blockRegex(/^(?:\n *)*\n/),
         parse: ignoreCapture,
-        react: function(node, output, state) { return "\n"; },
-        html: function(node, output, state) { return "\n"; }
+        react: function (node, output, state) {
+            return "\n";
+        },
+        html: function (node, output, state) {
+            return "\n";
+        },
     },
     paragraph: {
         order: currOrder++,
         match: blockRegex(/^((?:[^\n]|\n(?! *\n))+)(?:\n *)+\n/),
         parse: parseCaptureInline,
-        react: function(node, output, state) {
-            return reactElement(
-                'div',
-                state.key,
-                {
-                    className: 'paragraph',
-                    children: output(node.content, state)
-                }
-            );
+        react: function (node, output, state) {
+            return reactElement("div", state.key, {
+                className: "paragraph",
+                children: output(node.content, state),
+            });
         },
-        html: function(node, output, state) {
+        html: function (node, output, state) {
             var attributes = {
-                class: 'paragraph'
+                class: "paragraph",
             };
             return htmlTag("div", output(node.content, state), attributes);
-        }
+        },
     },
     escape: {
         order: currOrder++,
@@ -1417,50 +1422,56 @@ var defaultRules /* : DefaultRules */ = {
         // escaping anything else provides a very flexible escape mechanism,
         // regardless of how this grammar is extended.
         match: inlineRegex(/^\\([^0-9A-Za-z\s])/),
-        parse: function(capture, parse, state) {
+        parse: function (capture, parse, state) {
             return {
                 type: "text",
-                content: capture[1]
+                content: capture[1],
             };
         },
         react: null,
-        html: null
+        html: null,
     },
     tableSeparator: {
         order: currOrder++,
-        match: function(source, state) {
+        match: function (source, state) {
             if (!state.inTable) {
                 return null;
             }
             return /^ *\| */.exec(source);
         },
-        parse: function() {
-            return { type: 'tableSeparator' };
+        parse: function () {
+            return {type: "tableSeparator"};
         },
         // These shouldn't be reached, but in case they are, be reasonable:
-        react: function() { return ' | '; },
-        html: function() { return ' &vert; '; },
+        react: function () {
+            return " | ";
+        },
+        html: function () {
+            return " &vert; ";
+        },
     },
     autolink: {
         order: currOrder++,
         match: inlineRegex(/^<([^: >]+:\/[^ >]+)>/),
-        parse: function(capture, parse, state) {
+        parse: function (capture, parse, state) {
             return {
                 type: "link",
-                content: [{
-                    type: "text",
-                    content: capture[1]
-                }],
-                target: capture[1]
+                content: [
+                    {
+                        type: "text",
+                        content: capture[1],
+                    },
+                ],
+                target: capture[1],
             };
         },
         react: null,
-        html: null
+        html: null,
     },
     mailto: {
         order: currOrder++,
         match: inlineRegex(/^<([^ >]+@[^ >]+)>/),
-        parse: function(capture, parse, state) {
+        parse: function (capture, parse, state) {
             var address = capture[1];
             var target = capture[1];
 
@@ -1471,133 +1482,145 @@ var defaultRules /* : DefaultRules */ = {
 
             return {
                 type: "link",
-                content: [{
-                    type: "text",
-                    content: address
-                }],
-                target: target
+                content: [
+                    {
+                        type: "text",
+                        content: address,
+                    },
+                ],
+                target: target,
             };
         },
         react: null,
-        html: null
+        html: null,
     },
     url: {
         order: currOrder++,
         match: inlineRegex(/^(https?:\/\/[^\s<]+[^<.,:;"')\]\s])/),
-        parse: function(capture, parse, state) {
+        parse: function (capture, parse, state) {
             return {
                 type: "link",
-                content: [{
-                    type: "text",
-                    content: capture[1]
-                }],
+                content: [
+                    {
+                        type: "text",
+                        content: capture[1],
+                    },
+                ],
                 target: capture[1],
-                title: undefined
+                title: undefined,
             };
         },
         react: null,
-        html: null
+        html: null,
     },
     link: {
         order: currOrder++,
-        match: inlineRegex(new RegExp(
-            "^\\[(" + LINK_INSIDE + ")\\]\\(" + LINK_HREF_AND_TITLE + "\\)"
-        )),
-        parse: function(capture, parse, state) {
-            var link ={
+        match: inlineRegex(
+            new RegExp(
+                "^\\[(" + LINK_INSIDE + ")\\]\\(" + LINK_HREF_AND_TITLE + "\\)",
+            ),
+        ),
+        parse: function (capture, parse, state) {
+            var link = {
                 content: parse(capture[1], state),
                 target: unescapeUrl(capture[2]),
-                title: capture[3]
+                title: capture[3],
             };
             return link;
         },
-        react: function(node, output, state) {
-            return reactElement(
-                'a',
-                state.key,
-                {
-                    href: sanitizeUrl(node.target),
-                    title: node.title,
-                    children: output(node.content, state)
-                }
-            );
+        react: function (node, output, state) {
+            return reactElement("a", state.key, {
+                href: sanitizeUrl(node.target),
+                title: node.title,
+                children: output(node.content, state),
+            });
         },
-        html: function(node, output, state) {
+        html: function (node, output, state) {
             var attributes = {
                 href: sanitizeUrl(node.target),
-                title: node.title
+                title: node.title,
             };
 
             return htmlTag("a", output(node.content, state), attributes);
-        }
+        },
     },
     image: {
         order: currOrder++,
-        match: inlineRegex(new RegExp(
-            "^!\\[(" + LINK_INSIDE + ")\\]\\(" + LINK_HREF_AND_TITLE + "\\)"
-        )),
-        parse: function(capture, parse, state) {
+        match: inlineRegex(
+            new RegExp(
+                "^!\\[(" +
+                    LINK_INSIDE +
+                    ")\\]\\(" +
+                    LINK_HREF_AND_TITLE +
+                    "\\)",
+            ),
+        ),
+        parse: function (capture, parse, state) {
             var image = {
                 alt: capture[1],
                 target: unescapeUrl(capture[2]),
-                title: capture[3]
+                title: capture[3],
             };
             return image;
         },
-        react: function(node, output, state) {
-            return reactElement(
-                'img',
-                state.key,
-                {
-                    src: sanitizeUrl(node.target),
-                    alt: node.alt,
-                    title: node.title
-                }
-            );
+        react: function (node, output, state) {
+            return reactElement("img", state.key, {
+                src: sanitizeUrl(node.target),
+                alt: node.alt,
+                title: node.title,
+            });
         },
-        html: function(node, output, state) {
+        html: function (node, output, state) {
             var attributes = {
                 src: sanitizeUrl(node.target),
                 alt: node.alt,
-                title: node.title
+                title: node.title,
             };
 
             return htmlTag("img", "", attributes, false);
-        }
+        },
     },
     reflink: {
         order: currOrder++,
-        match: inlineRegex(new RegExp(
-            // The first [part] of the link
-            "^\\[(" + LINK_INSIDE + ")\\]" +
-            // The [ref] target of the link
-            "\\s*\\[([^\\]]*)\\]"
-        )),
-        parse: function(capture, parse, state) {
+        match: inlineRegex(
+            new RegExp(
+                // The first [part] of the link
+                "^\\[(" +
+                    LINK_INSIDE +
+                    ")\\]" +
+                    // The [ref] target of the link
+                    "\\s*\\[([^\\]]*)\\]",
+            ),
+        ),
+        parse: function (capture, parse, state) {
             return parseRef(capture, state, {
                 type: "link",
-                content: parse(capture[1], state)
+                content: parse(capture[1], state),
             });
         },
         react: null,
-        html: null
+        html: null,
     },
     refimage: {
         order: currOrder++,
-        match: inlineRegex(new RegExp(
-            // The first [part] of the link
-            "^!\\[(" + LINK_INSIDE + ")\\]" +
-            // The [ref] target of the link
-            "\\s*\\[([^\\]]*)\\]"
-        )),
-        parse: function(capture, parse, state) {
+        match: inlineRegex(
+            new RegExp(
+                // The first [part] of the link
+                "^!\\[(" +
+                    LINK_INSIDE +
+                    ")\\]" +
+                    // The [ref] target of the link
+                    "\\s*\\[([^\\]]*)\\]",
+            ),
+        ),
+        parse: function (capture, parse, state) {
             return parseRef(capture, state, {
                 type: "image",
-                alt: capture[1]
+                alt: capture[1],
             });
         },
         react: null,
-        html: null
+        html: null,
     },
     em: {
         order: currOrder /* same as strong/u */,
@@ -1605,146 +1628,127 @@ var defaultRules /* : DefaultRules */ = {
             new RegExp(
                 // only match _s surrounding words.
                 "^\\b_" +
-                "((?:__|\\\\[\\s\\S]|[^\\\\_])+?)_" +
-                "\\b" +
-                // Or match *s:
-                "|" +
-                // Only match *s that are followed by a non-space:
-                "^\\*(?=\\S)(" +
-                // Match at least one of:
-                "(?:" +
-                  //  - `**`: so that bolds inside italics don't close the
-                  //          italics
-                  "\\*\\*|" +
-                  //  - escape sequence: so escaped *s don't close us
-                  "\\\\[\\s\\S]|" +
-                  //  - whitespace: followed by a non-* (we don't
-                  //          want ' *' to close an italics--it might
-                  //          start a list)
-                  "\\s+(?:\\\\[\\s\\S]|[^\\s\\*\\\\]|\\*\\*)|" +
-                  //  - non-whitespace, non-*, non-backslash characters
-                  "[^\\s\\*\\\\]" +
-                ")+?" +
-                // followed by a non-space, non-* then *
-                ")\\*(?!\\*)"
-            )
+                    "((?:__|\\\\[\\s\\S]|[^\\\\_])+?)_" +
+                    "\\b" +
+                    // Or match *s:
+                    "|" +
+                    // Only match *s that are followed by a non-space:
+                    "^\\*(?=\\S)(" +
+                    // Match at least one of:
+                    "(?:" +
+                    //  - `**`: so that bolds inside italics don't close the
+                    //          italics
+                    "\\*\\*|" +
+                    //  - escape sequence: so escaped *s don't close us
+                    "\\\\[\\s\\S]|" +
+                    //  - whitespace: followed by a non-* (we don't
+                    //          want ' *' to close an italics--it might
+                    //          start a list)
+                    "\\s+(?:\\\\[\\s\\S]|[^\\s\\*\\\\]|\\*\\*)|" +
+                    //  - non-whitespace, non-*, non-backslash characters
+                    "[^\\s\\*\\\\]" +
+                    ")+?" +
+                    // followed by a non-space, non-* then *
+                    ")\\*(?!\\*)",
+            ),
         ),
-        quality: function(capture) {
+        quality: function (capture) {
             // precedence by length, `em` wins ties:
             return capture[0].length + 0.2;
         },
-        parse: function(capture, parse, state) {
+        parse: function (capture, parse, state) {
             return {
-                content: parse(capture[2] || capture[1], state)
+                content: parse(capture[2] || capture[1], state),
             };
         },
-        react: function(node, output, state) {
-            return reactElement(
-                'em',
-                state.key,
-                {
-                    children: output(node.content, state)
-                }
-            );
+        react: function (node, output, state) {
+            return reactElement("em", state.key, {
+                children: output(node.content, state),
+            });
         },
-        html: function(node, output, state) {
+        html: function (node, output, state) {
             return htmlTag("em", output(node.content, state));
-        }
+        },
     },
     strong: {
         order: currOrder /* same as em */,
         match: inlineRegex(/^\*\*((?:\\[\s\S]|[^\\])+?)\*\*(?!\*)/),
-        quality: function(capture) {
+        quality: function (capture) {
             // precedence by length, wins ties vs `u`:
             return capture[0].length + 0.1;
         },
         parse: parseCaptureInline,
-        react: function(node, output, state) {
-            return reactElement(
-                'strong',
-                state.key,
-                {
-                    children: output(node.content, state)
-                }
-            );
+        react: function (node, output, state) {
+            return reactElement("strong", state.key, {
+                children: output(node.content, state),
+            });
         },
-        html: function(node, output, state) {
+        html: function (node, output, state) {
             return htmlTag("strong", output(node.content, state));
-        }
+        },
     },
     u: {
         order: currOrder++ /* same as em&strong; increment for next rule */,
         match: inlineRegex(/^__((?:\\[\s\S]|[^\\])+?)__(?!_)/),
-        quality: function(capture) {
+        quality: function (capture) {
             // precedence by length, loses all ties
             return capture[0].length;
         },
         parse: parseCaptureInline,
-        react: function(node, output, state) {
-            return reactElement(
-                'u',
-                state.key,
-                {
-                    children: output(node.content, state)
-                }
-            );
+        react: function (node, output, state) {
+            return reactElement("u", state.key, {
+                children: output(node.content, state),
+            });
         },
-        html: function(node, output, state) {
+        html: function (node, output, state) {
             return htmlTag("u", output(node.content, state));
-        }
+        },
     },
     del: {
         order: currOrder++,
-        match: inlineRegex(/^~~(?=\S)((?:\\[\s\S]|~(?!~)|[^\s~\\]|\s(?!~~))+?)~~/),
+        match: inlineRegex(
+            /^~~(?=\S)((?:\\[\s\S]|~(?!~)|[^\s~\\]|\s(?!~~))+?)~~/,
+        ),
         parse: parseCaptureInline,
-        react: function(node, output, state) {
-            return reactElement(
-                'del',
-                state.key,
-                {
-                    children: output(node.content, state)
-                }
-            );
+        react: function (node, output, state) {
+            return reactElement("del", state.key, {
+                children: output(node.content, state),
+            });
         },
-        html: function(node, output, state) {
+        html: function (node, output, state) {
             return htmlTag("del", output(node.content, state));
-        }
+        },
     },
     inlineCode: {
         order: currOrder++,
         match: inlineRegex(/^(`+)([\s\S]*?[^`])\1(?!`)/),
-        parse: function(capture, parse, state) {
+        parse: function (capture, parse, state) {
             return {
-                content: capture[2].replace(INLINE_CODE_ESCAPE_BACKTICKS_R, "$1")
+                content: capture[2].replace(
+                    INLINE_CODE_ESCAPE_BACKTICKS_R,
+                    "$1",
+                ),
             };
         },
-        react: function(node, output, state) {
-            return reactElement(
-                'code',
-                state.key,
-                {
-                    children: node.content
-                }
-            );
+        react: function (node, output, state) {
+            return reactElement("code", state.key, {
+                children: node.content,
+            });
         },
-        html: function(node, output, state) {
+        html: function (node, output, state) {
             return htmlTag("code", sanitizeText(node.content));
-        }
+        },
     },
     br: {
         order: currOrder++,
         match: anyScopeRegex(/^ {2,}\n/),
         parse: ignoreCapture,
-        react: function(node, output, state) {
-            return reactElement(
-                'br',
-                state.key,
-                EMPTY_PROPS
-            );
+        react: function (node, output, state) {
+            return reactElement("br", state.key, EMPTY_PROPS);
         },
-        html: function(node, output, state) {
+        html: function (node, output, state) {
             return "<br>";
-        }
+        },
     },
     text: {
         order: currOrder++,
@@ -1753,20 +1757,20 @@ var defaultRules /* : DefaultRules */ = {
         // We break on any symbol characters so that this grammar
         // is easy to extend without needing to modify this regex
         match: anyScopeRegex(
-            /^[\s\S]+?(?=[^0-9A-Za-z\s\u00c0-\uffff]|\n\n| {2,}\n|\w+:\S|$)/
+            /^[\s\S]+?(?=[^0-9A-Za-z\s\u00c0-\uffff]|\n\n| {2,}\n|\w+:\S|$)/,
         ),
-        parse: function(capture, parse, state) {
+        parse: function (capture, parse, state) {
             return {
-                content: capture[0]
+                content: capture[0],
             };
         },
-        react: function(node, output, state) {
+        react: function (node, output, state) {
             return node.content;
         },
-        html: function(node, output, state) {
+        html: function (node, output, state) {
             return sanitizeText(node.content);
-        }
-    }
+        },
+    },
 };
 
 /** (deprecated)
@@ -1774,21 +1778,22 @@ var defaultRules /* : DefaultRules */ = {
  * @param {any} property
  * @returns {any}
  */
-var ruleOutput = function/* :: <Rule : Object> */(
-    rules /* : OutputRules<Rule> */,
-    property /* : $Keys<Rule> */
+var ruleOutput = function (
+    /* :: <Rule : Object> */ rules /* : OutputRules<Rule> */,
+    property /* : $Keys<Rule> */,
 ) {
     if (!property && typeof console !== "undefined") {
-        console.warn("simple-markdown ruleOutput should take 'react' or " +
-            "'html' as the second argument."
+        console.warn(
+            "simple-markdown ruleOutput should take 'react' or " +
+                "'html' as the second argument.",
         );
     }
 
     /** @type {SimpleMarkdown.NodeOutput<any>} */
-    var nestedRuleOutput /* : NodeOutput<any> */ = function(
+    var nestedRuleOutput /* : NodeOutput<any> */ = function (
         ast /* : SingleASTNode */,
         outputFunc /* : Output<any> */,
-        state /* : State */
+        state /* : State */,
     ) {
         return rules[ast.type][property](ast, outputFunc, state);
     };
@@ -1799,9 +1804,11 @@ var ruleOutput = function/* :: <Rule : Object> */(
  * @param {any} outputFunc
  * @returns {any}
  */
-var reactFor = function(outputFunc /* : ReactNodeOutput */) /* : ReactOutput */ {
+var reactFor = function (
+    outputFunc /* : ReactNodeOutput */,
+) /* : ReactOutput */ {
     /** @type {SimpleMarkdown.ReactOutput} */
-    var nestedOutput /* : ReactOutput */ = function(ast, state) {
+    var nestedOutput /* : ReactOutput */ = function (ast, state) {
         state = state || {};
         if (Array.isArray(ast)) {
             var oldKey = state.key;
@@ -1811,9 +1818,12 @@ var reactFor = function(outputFunc /* : ReactNodeOutput */) /* : ReactOutput */ 
             // nodes together into a single string output.
             var lastResult = null;
             for (var i = 0; i < ast.length; i++) {
-                state.key = '' + i;
+                state.key = "" + i;
                 var nodeOut = nestedOutput(ast[i], state);
-                if (typeof nodeOut === "string" && typeof lastResult === "string") {
+                if (
+                    typeof nodeOut === "string" &&
+                    typeof lastResult === "string"
+                ) {
                     lastResult = lastResult + nodeOut;
                     result[result.length - 1] = lastResult;
                 } else {
@@ -1835,14 +1845,16 @@ var reactFor = function(outputFunc /* : ReactNodeOutput */) /* : ReactOutput */ 
  * @param {any} outputFunc
  * @returns {any}
  */
-var htmlFor = function(outputFunc /* : HtmlNodeOutput */) /* : HtmlOutput */ {
+var htmlFor = function (outputFunc /* : HtmlNodeOutput */) /* : HtmlOutput */ {
     /** @type {SimpleMarkdown.HtmlOutput} */
-    var nestedOutput /* : HtmlOutput */ = function(ast, state) {
+    var nestedOutput /* : HtmlOutput */ = function (ast, state) {
         state = state || {};
         if (Array.isArray(ast)) {
-            return ast.map(function(node) {
-                return nestedOutput(node, state);
-            }).join("");
+            return ast
+                .map(function (node) {
+                    return nestedOutput(node, state);
+                })
+                .join("");
         } else {
             return outputFunc(ast, nestedOutput, state);
         }
@@ -1853,16 +1865,17 @@ var htmlFor = function(outputFunc /* : HtmlNodeOutput */) /* : HtmlOutput */ {
 /**
  * @type {SimpleMarkdown.OutputFor}
  */
-var outputFor = function/* :: <Rule : Object> */(
-    rules /* : OutputRules<Rule> */,
+var outputFor = function (
+    /* :: <Rule : Object> */ rules /* : OutputRules<Rule> */,
     property /* : $Keys<Rule> */,
-    defaultState /* : ?State */
+    defaultState /* : ?State */,
 ) {
     if (!property) {
-        throw new Error('simple-markdown: outputFor: `property` must be ' +
-            'defined. ' +
-            'if you just upgraded, you probably need to replace `outputFor` ' +
-            'with `reactFor`'
+        throw new Error(
+            "simple-markdown: outputFor: `property` must be " +
+                "defined. " +
+                "if you just upgraded, you probably need to replace `outputFor` " +
+                "with `reactFor`",
         );
     }
 
@@ -1874,15 +1887,17 @@ var outputFor = function/* :: <Rule : Object> */(
     // Tricks to convince tsc that this var is not null:
     var arrayRuleCheck = arrayRule[property];
     if (!arrayRuleCheck) {
-        throw new Error('simple-markdown: outputFor: to join nodes of type `' +
-            property + '` you must provide an `Array:` joiner rule with that type, ' +
-            'Please see the docs for details on specifying an Array rule.'
+        throw new Error(
+            "simple-markdown: outputFor: to join nodes of type `" +
+                property +
+                "` you must provide an `Array:` joiner rule with that type, " +
+                "Please see the docs for details on specifying an Array rule.",
         );
     }
     var arrayRuleOutput = arrayRuleCheck;
 
     /** @type {SimpleMarkdown.Output<any>} */
-    var nestedOutput /* : Output<any> */ = function(ast, state) {
+    var nestedOutput /* : Output<any> */ = function (ast, state) {
         state = state || latestState;
         latestState = state;
         if (Array.isArray(ast)) {
@@ -1893,7 +1908,7 @@ var outputFor = function/* :: <Rule : Object> */(
     };
 
     /** @type {SimpleMarkdown.Output<any>} */
-    var outerOutput = function(ast, state) {
+    var outerOutput = function (ast, state) {
         latestState = populateInitialState(state, defaultState);
         return nestedOutput(ast, latestState);
     };
@@ -1906,7 +1921,7 @@ var defaultRawParse = parserFor(defaultRules);
  * @param {SimpleMarkdown.OptionalState} [state]
  * @returns {Array<SimpleMarkdown.SingleASTNode>}
  */
-var defaultBlockParse = function(source, state) {
+var defaultBlockParse = function (source, state) {
     state = state || {};
     state.inline = false;
     return defaultRawParse(source, state);
@@ -1916,7 +1931,7 @@ var defaultBlockParse = function(source, state) {
  * @param {SimpleMarkdown.OptionalState} [state]
  * @returns {Array<SimpleMarkdown.SingleASTNode>}
  */
-var defaultInlineParse = function(source, state) {
+var defaultInlineParse = function (source, state) {
     state = state || {};
     state.inline = true;
     return defaultRawParse(source, state);
@@ -1926,7 +1941,7 @@ var defaultInlineParse = function(source, state) {
  * @param {SimpleMarkdown.OptionalState} [state]
  * @returns {Array<SimpleMarkdown.SingleASTNode>}
  */
-var defaultImplicitParse = function(source, state) {
+var defaultImplicitParse = function (source, state) {
     var isBlock = BLOCK_END_R.test(source);
     state = state || {};
     state.inline = !isBlock;
@@ -1943,7 +1958,7 @@ var defaultHtmlOutput /* : HtmlOutput */ = outputFor(defaultRules, "html");
  * @param {SimpleMarkdown.OptionalState} [state]
  * @returns {SimpleMarkdown.ReactElements}
  */
-var markdownToReact = function(source, state) /* : ReactElements */ {
+var markdownToReact = function (source, state) /* : ReactElements */ {
     return defaultReactOutput(defaultBlockParse(source, state), state);
 };
 /**
@@ -1951,7 +1966,7 @@ var markdownToReact = function(source, state) /* : ReactElements */ {
  * @param {SimpleMarkdown.OptionalState} [state]
  * @returns {string}
  */
-var markdownToHtml = function(source, state) /* : string */ {
+var markdownToHtml = function (source, state) /* : string */ {
     return defaultHtmlOutput(defaultBlockParse(source, state), state);
 };
 
@@ -1959,12 +1974,13 @@ var markdownToHtml = function(source, state) /* : string */ {
  * @param {SimpleMarkdown.ReactMarkdownProps} props
  * @returns {SimpleMarkdown.ReactElement}
  */
-var ReactMarkdown = function(props) {
+var ReactMarkdown = function (props) {
     /** @type {Object} */
     var divProps = {};
 
     for (var prop in props) {
-        if (prop !== 'source' &&
+        if (
+            prop !== "source" &&
             Object.prototype.hasOwnProperty.call(props, prop)
         ) {
             divProps[prop] = props[prop];
@@ -1972,13 +1988,8 @@ var ReactMarkdown = function(props) {
     }
     divProps.children = markdownToReact(props.source);
 
-    return reactElement(
-        'div',
-        null,
-        divProps
-    );
+    return reactElement("div", null, divProps);
 };
-
 
 /*:: // Flow exports:
 type Exports = {
@@ -2087,18 +2098,22 @@ var SimpleMarkdown /* : Exports */ = {
     reactFor: reactFor,
     htmlFor: htmlFor,
 
-    defaultParse: function() {
-        if (typeof console !== 'undefined') {
-            console.warn('defaultParse is deprecated, please use `defaultImplicitParse`');
+    defaultParse: function () {
+        if (typeof console !== "undefined") {
+            console.warn(
+                "defaultParse is deprecated, please use `defaultImplicitParse`",
+            );
         }
         return defaultImplicitParse.apply(null, /** @type {any} */ (arguments));
     },
-    defaultOutput: function() {
-        if (typeof console !== 'undefined') {
-            console.warn('defaultOutput is deprecated, please use `defaultReactOutput`');
+    defaultOutput: function () {
+        if (typeof console !== "undefined") {
+            console.warn(
+                "defaultOutput is deprecated, please use `defaultReactOutput`",
+            );
         }
         return defaultReactOutput.apply(null, /** @type {any} */ (arguments));
-    }
+    },
 };
 
 export default SimpleMarkdown;
