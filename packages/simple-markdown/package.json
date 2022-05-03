@@ -1,6 +1,6 @@
 {
   "name": "@khanacademy/simple-markdown",
-  "version": "0.7.3",
+  "version": "0.8.0",
   "description": "Javascript markdown parsing, made simple",
   "main": "simple-markdown.js",
   "types": "simple-markdown.d.ts",
