@@ -3,7 +3,7 @@
 /**
  * A library of options to pass to add/draw/remove/constraints
  */
-import {vector as kvector, point as kpoint} from "kmath";
+import {vector as kvector, point as kpoint} from "@khanacademy/kmath";
 import _ from "underscore";
 
 import KhanMath from "../util/math.js";
@@ -35,7 +35,7 @@ const getClipPoint = function (graph, coord: Coord, angle: number) {
     // shoot a point off into the distance ...
     const distance = xExtent + yExtent;
     // we need to scale the point according to the scale of the axes
-    const angleVec = graph.unscaleVector(kvector.cartFromPolarDeg([1, angle]));
+    const angleVec = graph.unscaleVector(kvector.cartFromPolarDeg(1, angle));
     const distVec = kvector.scale(kvector.normalize(angleVec), distance);
     const farCoord = kvector.add(coord, distVec);
     const scaledAngle = kvector.polarDegFromCart(angleVec)[1];
