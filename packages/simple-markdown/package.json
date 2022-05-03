@@ -1,5 +1,5 @@
 {
-  "name": "simple-markdown",
+  "name": "@khanacademy/simple-markdown",
   "version": "0.7.3",
   "description": "Javascript markdown parsing, made simple",
   "main": "simple-markdown.js",
@@ -9,11 +9,6 @@
     "test": "make test",
     "prepublishOnly": "make build",
     "size": "size-limit",
-    "heroku": "node babelmark.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Khan/simple-markdown.git"
   },
   "keywords": [
     "markdown",
@@ -27,12 +22,8 @@
     "flow",
     "typescript"
   ],
-  "author": "Aria Buckles",
+  "author": "Khan Academy",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Khan/simple-markdown/issues"
-  },
-  "homepage": "https://github.com/Khan/simple-markdown",
   "files": [
     "index.js",
     "simple-markdown.js",
