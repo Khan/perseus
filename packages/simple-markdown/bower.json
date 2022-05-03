@@ -1,0 +1,27 @@
+{
+  "name": "simple-markdown",
+  "description": "Javascript markdown parsing, made simple",
+  "main": "simple-markdown.js",
+  "authors": [
+    "Khan Academy"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "markdown",
+    "simple",
+    "react",
+    "html",
+    "ast",
+    "markup",
+    "text",
+    "processing"
+  ],
+  "homepage": "https://github.com/Khan/simple-markdown",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

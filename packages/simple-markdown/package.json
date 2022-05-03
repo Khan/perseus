@@ -1,0 +1,67 @@
+{
+  "name": "simple-markdown",
+  "version": "0.7.3",
+  "description": "Javascript markdown parsing, made simple",
+  "main": "simple-markdown.js",
+  "types": "simple-markdown.d.ts",
+  "scripts": {
+    "build": "make build",
+    "test": "make test",
+    "prepublishOnly": "make build",
+    "size": "size-limit",
+    "heroku": "node babelmark.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Khan/simple-markdown.git"
+  },
+  "keywords": [
+    "markdown",
+    "simple",
+    "react",
+    "html",
+    "ast",
+    "markup",
+    "text processing",
+    "extension",
+    "flow",
+    "typescript"
+  ],
+  "author": "Aria Buckles",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Khan/simple-markdown/issues"
+  },
+  "homepage": "https://github.com/Khan/simple-markdown",
+  "files": [
+    "index.js",
+    "simple-markdown.js",
+    "simple-markdown.d.ts",
+    "simple-markdown.min.js",
+    "README.md"
+  ],
+  "dependencies": {
+    "@types/react": ">=16.0.0"
+  },
+  "devDependencies": {
+    "@types/mocha": "^5.2.7",
+    "@types/react-dom": ">=16.0.0",
+    "express": "^4.17.1",
+    "flow-bin": "^0.111.1",
+    "flow-typed": "^2.6.2",
+    "mocha": "^6.2.2",
+    "nyc": "^15.0.0",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0",
+    "rollup": "^1.26.3",
+    "size-limit": "^0.21.1",
+    "typescript": "^3.6.4",
+    "uglify-js": "^3.6.7"
+  },
+  "size-limit": [
+    {
+      "path": "simple-markdown.js",
+      "limit": "5 KB"
+    }
+  ]
+}
