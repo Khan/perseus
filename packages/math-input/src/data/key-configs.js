@@ -1,5 +1,5 @@
+// @flow
 /**
- * @flow
  * This file contains configuration settings for the buttons in the keypad.
  */
 
