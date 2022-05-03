@@ -8,7 +8,7 @@
     "build": "make build",
     "test": "make test",
     "prepublishOnly": "make build",
-    "size": "size-limit",
+    "size": "size-limit"
   },
   "keywords": [
     "markdown",
