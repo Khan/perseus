@@ -1,4 +1,4 @@
-(function() {
+(function () {
     // Running in local mode depends on $_, which is defined here. This was taken
     // from Perseus#826719c5.
 
@@ -17,15 +17,15 @@
     // true to 1 and false to 0 below, to always get a number out of this.
 
     /* eslint-disable space-infix-ops, eqeqeq, max-len */
-    var likeEnglish = function(n) {
+    const likeEnglish = function (n) {
         return n != 1;
     };
 
     // TODO(csilvers): auto-generate this list from the foo.po files (in dropbox)
-    var allPluralForms = {
+    const allPluralForms = {
         accents: likeEnglish, // a 'fake' langauge
         af: likeEnglish,
-        ar: function(n) {
+        ar: function (n) {
             return n == 0
                 ? 0
                 : n == 1
@@ -43,7 +43,7 @@
         bn: likeEnglish,
         boxes: likeEnglish, // a 'fake' langauge
         ca: likeEnglish,
-        cs: function(n) {
+        cs: function (n) {
             return n == 1 ? 0 : n >= 2 && n <= 4 ? 1 : 2;
         },
         da: likeEnglish,
@@ -53,38 +53,38 @@
         en: likeEnglish,
         "en-pt": likeEnglish, // a 'fake' language, used by crowdin for JIPT
         es: likeEnglish,
-        fa: function(n) {
+        fa: function (n) {
             return 0;
         },
-        "fa-af": function(n) {
+        "fa-af": function (n) {
             return 0;
         },
         fi: likeEnglish,
-        fr: function(n) {
+        fr: function (n) {
             return n > 1;
         },
         he: likeEnglish,
         hi: likeEnglish,
         hu: likeEnglish,
         hy: likeEnglish,
-        id: function(n) {
+        id: function (n) {
             return 0;
         },
         it: likeEnglish,
-        ja: function(n) {
+        ja: function (n) {
             return 0;
         },
-        ko: function(n) {
+        ko: function (n) {
             return 0;
         },
         lol: likeEnglish, // a 'fake' langauge
         mn: likeEnglish,
-        ms: function(n) {
+        ms: function (n) {
             return 0;
         },
         nb: likeEnglish,
         nl: likeEnglish,
-        pl: function(n) {
+        pl: function (n) {
             return n == 1
                 ? 0
                 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20)
@@ -93,10 +93,10 @@
         },
         pt: likeEnglish,
         "pt-pt": likeEnglish,
-        ro: function(n) {
+        ro: function (n) {
             return n == 1 ? 0 : n == 0 || (n % 100 > 0 && n % 100 < 20) ? 1 : 2;
         },
-        ru: function(n) {
+        ru: function (n) {
             return n % 10 == 1 && n % 100 != 11
                 ? 0
                 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20)
@@ -104,10 +104,10 @@
                 : 2;
         },
         "si-LK": likeEnglish,
-        sk: function(n) {
+        sk: function (n) {
             return n == 1 ? 0 : n >= 2 && n <= 4 ? 1 : 2;
         },
-        sr: function(n) {
+        sr: function (n) {
             return n % 10 == 1 && n % 100 != 11
                 ? 0
                 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20)
@@ -117,13 +117,13 @@
         "sv-SE": likeEnglish,
         sw: likeEnglish,
         te: likeEnglish,
-        th: function(n) {
+        th: function (n) {
             return 0;
         },
-        tr: function(n) {
+        tr: function (n) {
             return 0;
         },
-        uk: function(n) {
+        uk: function (n) {
             return n % 10 == 1 && n % 100 != 11
                 ? 0
                 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20)
@@ -131,14 +131,14 @@
                 : 2;
         },
         ur: likeEnglish,
-        vi: function(n) {
+        vi: function (n) {
             return 0;
         },
         xh: likeEnglish,
-        "zh-hans": function(n) {
+        "zh-hans": function (n) {
             return 0;
         },
-        "zh-hant": function(n) {
+        "zh-hant": function (n) {
             return 0;
         },
         zu: likeEnglish,
@@ -146,7 +146,7 @@
 
     /* eslint-enable */
 
-    var interpolationMarker = /%\(([\w_]+)\)s/g;
+    const interpolationMarker = /%\(([\w_]+)\)s/g;
     /**
      * Performs sprintf-like %(name)s replacement on str, and returns a React
      * fragment of the string interleaved with those replacements. The replacements
@@ -160,18 +160,18 @@
      *  interpolateStringToFragment("test %(num)s", {num: <Count />}) ->
      *      test <Count />
      */
-    var interpolateStringToFragment = function(str, options) {
+    const interpolateStringToFragment = function (str, options) {
         options = options || {};
 
         // Split the string into its language fragments and substitutions
-        var split = str.split(interpolationMarker);
+        const split = str.split(interpolationMarker);
 
-        var result = {text_0: split[0]};
+        const result = {text_0: split[0]};
 
         // Replace the substitutions with the appropriate option
-        for (var i = 1; i < split.length; i += 2) {
-            var key = split[i];
-            var replaceWith = options[key];
+        for (let i = 1; i < split.length; i += 2) {
+            const key = split[i];
+            let replaceWith = options[key];
             if (replaceWith === undefined) {
                 replaceWith = "%(" + key + ")s";
             }
@@ -183,7 +183,7 @@
             // This is better than just using the array index in the case that we
             // switch between two translated strings with the same variables.
             // Admittedly, an edge case.
-            var j = 0;
+            let j = 0;
             while ("" + j + "_" + key in result) {
                 j++;
             }
@@ -194,6 +194,7 @@
             result["text_" + (i + 1)] = split[i + 1];
         }
 
+        // eslint-disable-next-line no-undef
         return createFragment(result);
     };
 
@@ -203,7 +204,7 @@
      *   i18n._("Some string")
      *   i18n._("Hello %(name)s", {name: "John"})
      */
-    var _ = function(str, options) {
+    const _ = function (str, options) {
         // Sometimes we're given an argument that's meant for ngettext().  This
         // happens if the same string is used in both i18n._() and i18n.ngettext()
         // (.g. a = i18n._(foo); b = i18n.ngettext("foo", "bar", count);
@@ -216,8 +217,8 @@
 
         options = options || {};
 
-        return str.replace(interpolationMarker, function(match, key) {
-            var replaceWith = options[key];
+        return str.replace(interpolationMarker, function (match, key) {
+            const replaceWith = options[key];
             return replaceWith === undefined ? match : replaceWith;
         });
     };
@@ -250,7 +251,7 @@
      * other things added to props, such as this.props.ref and
      * this.props.children
      */
-    var $_ = function(options, str) {
+    const $_ = function (options, str) {
         if (arguments.length !== 2 || typeof str !== "string") {
             return "<$_> must have exactly one child, which must be a string";
         }
@@ -269,7 +270,7 @@
      * which react/jsx compiles to:
      *    $i18nDoNotTranslate(null, "English only text.")
      */
-    var $i18nDoNotTranslate = function(options, str) {
+    const $i18nDoNotTranslate = function (options, str) {
         return str;
     };
 
@@ -287,10 +288,10 @@
      *     messages: ["%(num)s 猫 %(username)s"]
      *   }, 3, {username: "John"});
      */
-    var ngettext = function(singular, plural, num, options) {
+    const ngettext = function (singular, plural, num, options) {
         // Fall back to the default lang
-        var lang;
-        var messages;
+        let lang;
+        let messages;
 
         // If the first argument is an object then we're receiving a plural
         // configuration object
@@ -307,8 +308,8 @@
         }
 
         // Get the translated string
-        var idx = ngetpos(num, lang);
-        var translation = "";
+        const idx = ngetpos(num, lang);
+        let translation = "";
         if (idx < messages.length) {
             // the common (non-error) case
             translation = messages[idx];
@@ -330,9 +331,9 @@
      *  - num: The number upon which to toggle the plural forms.
      *  - lang: The language to use as the basis for the pluralization.
      */
-    var ngetpos = function(num, lang) {
-        var pluralForm = allPluralForms[lang] || allPluralForms["en"];
-        var pos = pluralForm(num);
+    const ngetpos = function (num, lang) {
+        const pluralForm = allPluralForms[lang] || allPluralForms["en"];
+        const pos = pluralForm(num);
         // Map true to 1 and false to 0, keep any numeric return value the same.
         return pos === true ? 1 : pos ? pos : 0;
     };
@@ -345,7 +346,7 @@
      * they shouldn't complain that this text isn't translated.)
      * Use it like so: 'tag.author = i18n.i18nDoNotTranslate("Jim");'
      */
-    var i18nDoNotTranslate = _;
+    const i18nDoNotTranslate = _;
 
     /**
      * Dummy Handlebars _ function. Is a noop.
@@ -354,7 +355,9 @@
      * This is just used for marking up those fragments that need translation.
      * The translated text is injected at deploy-time.
      */
-    var handlebarsUnderscore = function(options) {
+    // eslint-disable-next-line no-unused-vars
+    const handlebarsUnderscore = function (options) {
+        // eslint-disable-next-line @babel/no-invalid-this
         return options.fn(this);
     };
 
@@ -367,7 +370,9 @@
      * It does not need to actually do anything and hence returns the contents
      * as is.
      */
-    var handlebarsDoNotTranslate = function(options) {
+    // eslint-disable-next-line no-unused-vars
+    const handlebarsDoNotTranslate = function (options) {
+        // eslint-disable-next-line @babel/no-invalid-this
         return options.fn(this);
     };
 
@@ -388,7 +393,8 @@
      *  - lang: The language to use as the basis for the pluralization.
      *  - pos: The expected plural form (depends upon the language)
      */
-    var handlebarsNgettext = function(num, lang, pos, options) {
+    // eslint-disable-next-line no-unused-vars
+    const handlebarsNgettext = function (num, lang, pos, options) {
         // This method has two signatures:
         // (num) (the default for when the code is run in dev mode)
         // (num, lang, pos) (for when the code is run in prod mode)
@@ -399,11 +405,13 @@
         }
 
         // Add in 'num' as a magic variable.
+        // eslint-disable-next-line @babel/no-invalid-this
         this.num = this.num || num;
 
         // If the result of the plural form function given the specified
         // number matches the expected position then we give the first
         // result, otherwise we give the inverse result.
+        // eslint-disable-next-line @babel/no-invalid-this
         return ngetpos(num) === pos ? options.fn(this) : options.inverse(this);
     };
 
@@ -411,9 +419,12 @@
      * Rounds num to X places, and uses the proper decimal seperator.
      * But does *not* insert thousands separators.
      */
-    var localeToFixed = function(num, places) {
-        var decimalSeperator = icu.getDecimalFormatSymbols().decimal_separator;
-        var localeFixed = num.toFixed(places).replace(".", decimalSeperator);
+    // eslint-disable-next-line no-unused-vars
+    const localeToFixed = function (num, places) {
+        const decimalSeperator =
+            // eslint-disable-next-line no-undef
+            icu.getDecimalFormatSymbols().decimal_separator;
+        let localeFixed = num.toFixed(places).replace(".", decimalSeperator);
         if (localeFixed === "-0") {
             localeFixed = "0";
         }
