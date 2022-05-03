@@ -29,6 +29,7 @@ import {
     keyConfigPropType,
 } from "./prop-types.js";
 
+// eslint-disable-next-line react/no-unsafe
 class KeypadButton extends React.PureComponent {
     static propTypes = {
         ariaLabel: PropTypes.string,

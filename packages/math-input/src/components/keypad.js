@@ -15,6 +15,7 @@ import EchoManager from "./echo-manager.js";
 import PopoverManager from "./popover-manager.js";
 import {echoPropType, popoverPropType} from "./prop-types.js";
 
+// eslint-disable-next-line react/no-unsafe
 class Keypad extends React.Component {
     static propTypes = {
         children: PropTypes.oneOfType([

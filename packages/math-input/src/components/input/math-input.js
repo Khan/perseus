@@ -23,6 +23,7 @@ const i18n = window.i18n || {_: (s) => s};
 
 const constrainingFrictionFactor = 0.8;
 
+// eslint-disable-next-line react/no-unsafe
 class MathInput extends React.Component {
     static propTypes = {
         // The React element node associated with the keypad that will send

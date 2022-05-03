@@ -22,6 +22,7 @@ import * as zIndexes from "./z-indexes.js";
 
 const {row, centered, fullWidth} = Styles;
 
+// eslint-disable-next-line react/no-unsafe
 class KeypadContainer extends React.Component {
     static propTypes = {
         active: PropTypes.bool,
