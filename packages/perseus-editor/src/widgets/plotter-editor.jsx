@@ -1,12 +1,12 @@
 /* eslint-disable @babel/no-invalid-this, one-var, react/no-unsafe, react/sort-comp */
 // @flow
+import {number as knumber} from "@khanacademy/kmath";
 import {
     components,
     Dependencies,
     PlotterWidget,
     Util,
 } from "@khanacademy/perseus";
-import {number as knumber} from "kmath";
 import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";

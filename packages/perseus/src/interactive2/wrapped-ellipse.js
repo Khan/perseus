@@ -1,5 +1,5 @@
 // @flow
-import {vector as kvector} from "kmath";
+import {vector as kvector} from "@khanacademy/kmath";
 import _ from "underscore";
 
 import InteractiveUtil from "./interactive-util.js";

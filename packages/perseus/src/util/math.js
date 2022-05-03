@@ -1,7 +1,7 @@
 // @flow
 
+import {number as knumber} from "@khanacademy/kmath";
 import $ from "jquery";
-import {number as knumber} from "kmath";
 import _ from "underscore";
 
 export type Format =
