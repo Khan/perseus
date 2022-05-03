@@ -7,30 +7,13 @@
     "source": "src/index.js",
     "types": "simple-markdown.d.ts",
     "scripts": {
-        "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'",
-        "test2": "mocha __tests__"
+        "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"
     },
     "keywords": [
-        "markdown",
-        "simple",
-        "react",
-        "html",
-        "ast",
-        "markup",
-        "text processing",
-        "extension",
-        "flow",
-        "typescript"
+        "markdown"
     ],
     "author": "Khan Academy",
     "license": "MIT",
-    "files": [
-        "index.js",
-        "simple-markdown.js",
-        "simple-markdown.d.ts",
-        "simple-markdown.min.js",
-        "README.md"
-    ],
     "dependencies": {
         "@types/react": ">=16.0.0"
     },
