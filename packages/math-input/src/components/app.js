@@ -1,5 +1,5 @@
-const React = require("react");
-const {StyleSheet} = require("aphrodite");
+import {StyleSheet} from "aphrodite";
+import React from "react";
 
 const {View} = require("../fake-react-native-web/index.js");
 const {components, consts} = require("../index.js");

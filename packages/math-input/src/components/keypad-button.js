@@ -2,17 +2,14 @@
  * A component that renders a keypad button.
  */
 
-const React = require("react");
-const PropTypes = require("prop-types");
-const {connect} = require("react-redux");
+import {StyleSheet, css} from "aphrodite";
+import PropTypes from "prop-types";
+import React from "react";
+import {connect} from "react-redux";
 
-const {StyleSheet, css} = require("aphrodite");
-const {View} = require("../fake-react-native-web/index.js");
-const Icon = require("./icon.js");
-const MultiSymbolGrid = require("./multi-symbol-grid.js");
-const CornerDecal = require("./corner-decal.js");
-const {KeyTypes, BorderDirections, BorderStyles} = require("../consts.js");
-const {
+import {KeyTypes, BorderDirections, BorderStyles} from "../consts.js";
+
+import {
     wonderBlocksBlue,
     innerBorderColor,
     innerBorderStyle,
@@ -21,7 +18,13 @@ const {
     operatorGrey,
     controlGrey,
     emptyGrey,
-} = require("./common-style.js");
+} from "./common-style.js";
+
+const {View} = require("../fake-react-native-web/index.js");
+
+const CornerDecal = require("./corner-decal.js");
+const Icon = require("./icon.js");
+const MultiSymbolGrid = require("./multi-symbol-grid.js");
 const {
     bordersPropType,
     iconPropType,

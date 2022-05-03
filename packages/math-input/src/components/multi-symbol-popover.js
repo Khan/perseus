@@ -2,15 +2,17 @@
  * A popover that renders a set of keys floating above the page.
  */
 
-const React = require("react");
-const PropTypes = require("prop-types");
-const {StyleSheet} = require("aphrodite");
+import {StyleSheet} from "aphrodite";
+import PropTypes from "prop-types";
+import React from "react";
 
-const {BorderStyles} = require("../consts.js");
+import {BorderStyles} from "../consts.js";
+
+import * as zIndexes from "./z-indexes.js";
+
 const {View} = require("../fake-react-native-web/index.js");
 
 const {keyConfigPropType} = require("./prop-types.js");
-const zIndexes = require("./z-indexes.js");
 
 class MultiSymbolPopover extends React.Component {
     static propTypes = {

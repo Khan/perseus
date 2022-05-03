@@ -1,22 +1,23 @@
-const Redux = require("redux");
+import Redux from "redux";
 
-const {tabletCutoffPx} = require("../components/common-style.js");
-const computeLayoutParameters = require("../components/compute-layout-parameters.js");
-const ExpressionKeypad = require("../components/expression-keypad.js");
-const FractionKeypad = require("../components/fraction-keypad.js");
-const GestureManager = require("../components/gesture-manager.js");
-const CursorContexts = require("../components/input/cursor-contexts.js");
-const VelocityTracker = require("../components/velocity-tracker.js");
-const {
+import {tabletCutoffPx} from "../components/common-style.js";
+import {
     DeviceOrientations,
     DeviceTypes,
     EchoAnimationTypes,
     KeyTypes,
     KeypadTypes,
     LayoutModes,
-} = require("../consts.js");
+} from "../consts.js";
+import Keys from "../data/keys.js";
+
+const computeLayoutParameters = require("../components/compute-layout-parameters.js");
+const ExpressionKeypad = require("../components/expression-keypad.js");
+const FractionKeypad = require("../components/fraction-keypad.js");
+const GestureManager = require("../components/gesture-manager.js");
+const CursorContexts = require("../components/input/cursor-contexts.js");
+const VelocityTracker = require("../components/velocity-tracker.js");
 const KeyConfigs = require("../data/key-configs.js");
-const Keys = require("../data/keys.js");
 
 const keypadForType = {
     [KeypadTypes.FRACTION]: FractionKeypad,
@@ -31,7 +32,7 @@ const createStore = () => {
         },
     };
 
-    const inputReducer = function(state = initialInputState, action) {
+    const inputReducer = function (state = initialInputState, action) {
         switch (action.type) {
             case "SetKeyHandler":
                 return {
@@ -73,7 +74,7 @@ const createStore = () => {
         active: false,
     };
 
-    const keypadReducer = function(state = initialKeypadState, action) {
+    const keypadReducer = function (state = initialKeypadState, action) {
         switch (action.type) {
             case "DismissKeypad":
                 return {
@@ -130,7 +131,7 @@ const createStore = () => {
         velocityTracker: new VelocityTracker(),
     };
 
-    const pagerReducer = function(state = initialPagerState, action) {
+    const pagerReducer = function (state = initialPagerState, action) {
         switch (action.type) {
             case "ConfigureKeypad":
                 const {keypadType} = action.configuration;
@@ -281,7 +282,7 @@ const createStore = () => {
         ),
     };
 
-    const gestureReducer = function(state = initialGestureState, action) {
+    const gestureReducer = function (state = initialGestureState, action) {
         switch (action.type) {
             case "DismissKeypad":
                 // NOTE(charlie): In the past, we enforced the "gesture manager
@@ -329,7 +330,7 @@ const createStore = () => {
         echoes: [],
     };
 
-    const echoReducer = function(state = initialEchoState, action) {
+    const echoReducer = function (state = initialEchoState, action) {
         switch (action.type) {
             case "PressKey":
                 const keyConfig = KeyConfigs[action.key];
@@ -444,7 +445,7 @@ const createStore = () => {
         };
     };
 
-    const layoutReducer = function(state = initialLayoutState, action) {
+    const layoutReducer = function (state = initialLayoutState, action) {
         switch (action.type) {
             case "ConfigureKeypad":
                 const {keypadType} = action.configuration;

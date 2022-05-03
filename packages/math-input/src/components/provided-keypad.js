@@ -1,7 +1,7 @@
-const React = require("react");
-const PropTypes = require("prop-types");
-const ReactDOM = require("react-dom");
-const {Provider} = require("react-redux");
+import PropTypes from "prop-types";
+import React from "react";
+import ReactDOM from "react-dom";
+import {Provider} from "react-redux";
 
 const {
     activateKeypad,

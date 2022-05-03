@@ -2,9 +2,9 @@
  * A keypad button containing no symbols and triggering no actions on click.
  */
 
-const React = require("react");
-const PropTypes = require("prop-types");
-const {connect} = require("react-redux");
+import PropTypes from "prop-types";
+import React from "react";
+import {connect} from "react-redux";
 
 const KeyConfigs = require("../data/key-configs.js");
 

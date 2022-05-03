@@ -2,19 +2,20 @@
  * A keypad with two pages of keys.
  */
 
-const {StyleSheet} = require("aphrodite");
-const PropTypes = require("prop-types");
-const React = require("react");
-const {connect} = require("react-redux");
+import {StyleSheet} from "aphrodite";
+import PropTypes from "prop-types";
+import React from "react";
+import {connect} from "react-redux";
 
-const {View} = require("../fake-react-native-web/index.js");
-
-const {
+import {
     innerBorderColor,
     innerBorderStyle,
     innerBorderWidthPx,
     offBlack16,
-} = require("./common-style.js");
+} from "./common-style.js";
+
+const {View} = require("../fake-react-native-web/index.js");
+
 const Keypad = require("./keypad.js");
 const {column, row, fullWidth} = require("./styles.js");
 const Tabbar = require("./tabbar/tabbar.js");

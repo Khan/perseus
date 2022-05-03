@@ -3,12 +3,13 @@
  * 'default' symbol.
  */
 
-const React = require("react");
-const PropTypes = require("prop-types");
+import PropTypes from "prop-types";
+import React from "react";
 
-const {KeyTypes} = require("../consts.js");
+import {KeyTypes} from "../consts.js";
+import Keys from "../data/keys.js";
+
 const KeyConfigs = require("../data/key-configs.js");
-const Keys = require("../data/keys.js");
 
 const EmptyKeypadButton = require("./empty-keypad-button.js");
 const {keyIdPropType} = require("./prop-types.js");

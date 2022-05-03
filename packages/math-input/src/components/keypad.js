@@ -3,13 +3,14 @@
  * and manages the rendering of echo animations on top of those buttons.
  */
 
-const React = require("react");
-const PropTypes = require("prop-types");
-const ReactDOM = require("react-dom");
-const {connect} = require("react-redux");
+import PropTypes from "prop-types";
+import React from "react";
+import ReactDOM from "react-dom";
+import {connect} from "react-redux";
 
 const {removeEcho} = require("../actions/index.js");
 const {View} = require("../fake-react-native-web/index.js");
+
 const EchoManager = require("./echo-manager.js");
 const PopoverManager = require("./popover-manager.js");
 const {echoPropType, popoverPropType} = require("./prop-types.js");

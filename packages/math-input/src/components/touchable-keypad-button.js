@@ -4,17 +4,19 @@
  * touch events globally) opaque to the KeypadButton.
  */
 
-const React = require("react");
-const PropTypes = require("prop-types");
-const ReactDOM = require("react-dom");
-const {connect} = require("react-redux");
-const {StyleSheet} = require("aphrodite");
+import {StyleSheet} from "aphrodite";
+import PropTypes from "prop-types";
+import React from "react";
+import ReactDOM from "react-dom";
+import {connect} from "react-redux";
 
-const KeypadButton = require("./keypad-button.js");
+import {KeyTypes} from "../consts.js";
+
 const KeyConfigs = require("../data/key-configs.js");
+
 const GestureManager = require("./gesture-manager.js");
+const KeypadButton = require("./keypad-button.js");
 const {bordersPropType, keyIdPropType} = require("./prop-types.js");
-const {KeyTypes} = require("../consts.js");
 
 class TouchableKeypadButton extends React.Component {
     static propTypes = {

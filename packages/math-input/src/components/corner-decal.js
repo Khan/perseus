@@ -2,13 +2,13 @@
  * A small triangular decal to sit in the corner of a parent component.
  */
 
-const React = require("react");
-const PropTypes = require("prop-types");
-const {StyleSheet} = require("aphrodite");
+import {StyleSheet} from "aphrodite";
+import PropTypes from "prop-types";
+import React from "react";
+
+import {offBlack} from "./common-style.js";
 
 const {View} = require("../fake-react-native-web/index.js");
-
-const {offBlack} = require("./common-style.js");
 
 class CornerDecal extends React.Component {
     static propTypes = {

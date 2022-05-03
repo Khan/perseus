@@ -3,9 +3,9 @@
  * multi-functional keys.
  */
 
-const React = require("react");
-const PropTypes = require("prop-types");
-const {TransitionGroup, CSSTransition} = require("react-transition-group");
+import PropTypes from "prop-types";
+import React from "react";
+import {TransitionGroup, CSSTransition} from "react-transition-group";
 
 const KeyConfigs = require("../data/key-configs.js");
 
@@ -53,8 +53,8 @@ class PopoverManager extends React.Component {
     render() {
         const {popover} = this.props;
 
-        return (
-            popover ? <CSSTransition
+        return popover ? (
+            <CSSTransition
                 in={true}
                 classNames={animationTransitionName}
                 enter={true}
@@ -69,8 +69,7 @@ class PopoverManager extends React.Component {
                     childKeys={popover.childKeyIds.map((id) => KeyConfigs[id])}
                 />
             </CSSTransition>
-            : null
-        );
+        ) : null;
     }
 }
 
