@@ -1,6 +1,6 @@
 /* eslint-disable react/sort-comp */
 // @flow
-import {propTypes} from "@khanacademy/math-input";
+import {keypadElementPropType} from "@khanacademy/math-input";
 import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -18,7 +18,6 @@ import KhanAnswerTypes from "../util/answer-types.js";
 import type {WidgetExports} from "../types.js";
 
 const {assert} = InteractiveUtil;
-const {keypadElementPropType} = propTypes;
 
 /* Input handling: Maps a (row, column) pair to a unique ref used by React,
  * and extracts (row, column) pairs from input paths, used to allow outsiders

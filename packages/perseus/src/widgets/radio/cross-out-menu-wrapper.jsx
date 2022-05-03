@@ -10,7 +10,7 @@
  * to uncover a cross-out button underneath. (This is why we need to wrap the
  * content!)
  */
-import colors from "@khanacademy/wonder-blocks-color";
+import Color from "@khanacademy/wonder-blocks-color";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
@@ -248,9 +248,9 @@ export default class CrossOutMenuWrapper extends React.PureComponent<
             return this.props.primaryProductColor;
         }
         if (this.state.hovered) {
-            return colors.offBlack;
+            return Color.offBlack;
         }
-        return colors.offBlack50;
+        return Color.offBlack50;
     }
 
     _renderMenu(): React.Element<"div"> {
@@ -396,7 +396,7 @@ const styles = StyleSheet.create({
         // to being closed, rather than awkwardly _sliding_ closed.
         [mediaQueries.smOrSmaller]: {
             transition: "transform 0.2s ease-out",
-            backgroundColor: colors.white,
+            backgroundColor: Color.white,
         },
     },
 
@@ -471,7 +471,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
 
-        background: colors.offBlack50,
+        background: Color.offBlack50,
         cursor: "pointer",
 
         [mediaQueries.mdOrLarger]: {
