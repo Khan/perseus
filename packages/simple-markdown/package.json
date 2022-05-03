@@ -2,13 +2,12 @@
     "name": "@khanacademy/simple-markdown",
     "version": "0.8.0",
     "description": "Javascript markdown parsing, made simple",
-    "main": "simple-markdown.js",
+    "module": "dist/es/index.js",
+    "main": "dist/index.js",
+    "source": "src/index.js",
     "types": "simple-markdown.d.ts",
     "scripts": {
-        "build": "make build",
-        "test": "mocha __tests__",
-        "prepublishOnly": "make build",
-        "size": "size-limit"
+        "test": "mocha __tests__"
     },
     "keywords": [
         "markdown",
