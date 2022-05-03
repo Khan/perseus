@@ -16,7 +16,7 @@
         "kas": "git+https://git@github.com/Khan/KAS.git#a5b04e0688ec692da86e2991cd389f1fd3831528",
         "kmath": "git+https://git@github.com/Khan/kmath.git#e1191bbc7bac64ccb582de1b3b2d47ba38b510e0",
         "mathquill": "git+https://git@github.com/Khan/mathquill.git#a9ae54e057c5c1acc8244a5627acbff29901d992",
-        "@khanacademy/simple-markdown": "^0.3.1"
+        "simple-markdown": "^0.3.1"
     },
     "devDependencies": {
         "@khanacademy/wonder-blocks-color": "^1.1.20",
