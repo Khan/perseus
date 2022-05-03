@@ -46,7 +46,6 @@ expect.extend({
             new KAS.Mul(x, newUnitParsed),
         );
         const answer = equality.solveLinearEquationForVariable(x);
-        expected; // ?
         return Math.round(answer.eval()) == Math.round(expected.eval())
             ? {pass: true}
             : {
