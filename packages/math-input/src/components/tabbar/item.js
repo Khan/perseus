@@ -1,13 +1,14 @@
 // @flow
 
+import Clickable from "@khanacademy/wonder-blocks-clickable";
+import Color from "@khanacademy/wonder-blocks-color";
+import {View} from "@khanacademy/wonder-blocks-core";
+import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import {StyleSheet} from "aphrodite";
-import Clickable from "@khanacademy/wonder-blocks-clickable";
-import {View} from "@khanacademy/wonder-blocks-core";
-import Color from "@khanacademy/wonder-blocks-color";
+import IconAsset from "./icons.js";
 
-import IconAsset from "./icons";
+import type {TabbarItemType} from "./types";
 
 const styles = StyleSheet.create({
     base: {
@@ -35,7 +36,7 @@ const styles = StyleSheet.create({
         boxSizing: "border-box",
         border: `1px solid transparent`,
         borderRadius: 2,
-        dislay: "flex",
+        display: "flex",
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
@@ -70,7 +71,6 @@ function imageTintColor(
     }
     return Color.offBlack64;
 }
-export type TabbarItemType = "Geometry" | "Operators" | "Numbers";
 export type ItemState = "active" | "inactive" | "disabled";
 type Props = {
     onClick: () => void,
@@ -123,7 +123,7 @@ class TabbarItem extends React.Component<Props, State> {
                                             backgroundColor: tintColor,
                                         },
                                     ]}
-                                ></View>
+                                />
                             )}
                         </View>
                     );
@@ -133,4 +133,4 @@ class TabbarItem extends React.Component<Props, State> {
     }
 }
 
-module.exports = TabbarItem;
+export default TabbarItem;

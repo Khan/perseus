@@ -1,18 +1,14 @@
 //@flow
+import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 
-import {StyleSheet} from "aphrodite";
-import {View} from "@khanacademy/wonder-blocks-core";
-import Color from "@khanacademy/wonder-blocks-color";
-import Clickable from "@khanacademy/wonder-blocks-clickable";
+import Tabbar from "../tabbar/tabbar.js";
 
-import Tabbar from "../tabbar/tabbar";
-import NumericInputPage from "./numeric-input-page";
-import PreAlgebraPage from "./pre-algebra-page";
-import TrigonometryPage from "./trigonometry-page";
+import NumericInputPage from "./numeric-input-page.js";
+import PreAlgebraPage from "./pre-algebra-page.js";
+import TrigonometryPage from "./trigonometry-page.js";
 
-import type {Node} from "React";
-import type {TabbarItemType} from "../tabbar/item";
+import type {TabbarItemType} from "../tabbar/types.js";
 
 type Props = {|
     onClickKey: (keyConfig: string) => void,
@@ -24,7 +20,7 @@ type State = {
 };
 
 function allPages(props: Props): Array<TabbarItemType> {
-    var pages: Array<TabbarItemType> = ["Numbers"];
+    const pages: Array<TabbarItemType> = ["Numbers"];
 
     if (props.preAlgebra) {
         pages.push("Operators");
@@ -41,7 +37,7 @@ export default class PreAlgebraKeypad extends React.Component<Props, State> {
     };
     render(): React.Node {
         const {selectedPage} = this.state;
-        const {onClickKey, preAlgebra} = this.props;
+        const {onClickKey} = this.props;
 
         const availablePages = allPages(this.props);
 

@@ -33,6 +33,7 @@
     "@storybook/addon-a11y": "^6.4.19",
     "@storybook/addon-actions": "^6.4.19",
     "@storybook/addon-essentials": "^6.4.19",
+    "@storybook/addon-knobs": "^6.4.0",
     "@storybook/addon-links": "^6.4.19",
     "@storybook/react": "^6.4.19",
     "@testing-library/dom": "^8.11.0",
@@ -91,8 +92,9 @@
     "winston": "^3.7.2"
   },
   "scripts": {
-    "build": "rollup -c config/build/rollup.config.js",
-    "build:prodsizecheck": "rollup -c config/build/rollup.config.js --configFormats='esm' --configEnvironment='production'",
+    "gen:parsers": "yarn --cwd packages/kas gen:parsers",
+    "build": "yarn gen:parsers && rollup -c config/build/rollup.config.js",
+    "build:prodsizecheck": "yarn gen:parsers && rollup -c config/build/rollup.config.js --configFormats='esm' --configEnvironment='production'",
     "watch": "rollup -c config/build/rollup.config.js --watch",
     "clean": "rm -rf packages/*/dist && rm -rf packages/*/node_modules",
     "coverage": "yarn run jest --coverage",

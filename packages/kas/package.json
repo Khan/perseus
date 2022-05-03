@@ -1,0 +1,36 @@
+{
+  "name": "kas",
+  "version": "0.2.2",
+  "description": "A lightweight JavaScript CAS for comparing expressions and equations.",
+  "module": "dist/es/index.js",
+  "main": "dist/index.js",
+  "source": "src/index.js",
+  "scripts": {
+    "gen:parsers": "node src/parser-generator.js",
+    "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Khan/KAS.git"
+  },
+  "keywords": [
+    "parsing",
+    "equation",
+    "expression",
+    "algebra",
+    "symbolic"
+  ],
+  "author": "alopatin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Khan/KAS/issues"
+  },
+  "dependencies": {
+    "underscore": "1.4.4"
+  },
+  "devDependencies": {
+    "jison": "0.4.15",
+    "qunit": "^2.8.0",
+    "qunit-assert-close": "^2.1.2"
+  }
+}

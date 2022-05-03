@@ -19,13 +19,13 @@
  * might need to be.
  */
 
-const {DeviceTypes, DeviceOrientations, LayoutModes} = require("../consts");
+const {DeviceTypes, DeviceOrientations, LayoutModes} = require("../consts.js");
 const {
     pageIndicatorHeightPx,
     toolbarHeightPx,
     navigationPadWidthPx,
     innerBorderWidthPx,
-} = require("./common-style");
+} = require("./common-style.js");
 
 const minButtonHeight = 48;
 const maxButtonSize = 64;

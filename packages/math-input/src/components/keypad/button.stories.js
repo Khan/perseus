@@ -1,8 +1,8 @@
-import React from "react";
 import {action} from "@storybook/addon-actions";
 import {withKnobs, select, array} from "@storybook/addon-knobs";
+import React from "react";
 
-import KeypadButton from "./button";
+import KeypadButton from "./button.js";
 
 export default {
     title: "Keypad Button",

@@ -10,11 +10,11 @@ const ReactDOM = require("react-dom");
 const {connect} = require("react-redux");
 const {StyleSheet} = require("aphrodite");
 
-const KeypadButton = require("./keypad-button");
-const KeyConfigs = require("../data/key-configs");
-const GestureManager = require("./gesture-manager");
-const {bordersPropType, keyIdPropType} = require("./prop-types");
-const {KeyTypes} = require("../consts");
+const KeypadButton = require("./keypad-button.js");
+const KeyConfigs = require("../data/key-configs.js");
+const GestureManager = require("./gesture-manager.js");
+const {bordersPropType, keyIdPropType} = require("./prop-types.js");
+const {KeyTypes} = require("../consts.js");
 
 class TouchableKeypadButton extends React.Component {
     static propTypes = {

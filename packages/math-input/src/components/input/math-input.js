@@ -3,20 +3,19 @@ const PropTypes = require("prop-types");
 const ReactDOM = require("react-dom");
 const {StyleSheet} = require("aphrodite");
 
-const {View} = require("../../fake-react-native-web");
-const CursorHandle = require("./cursor-handle");
-const MathWrapper = require("./math-wrapper");
-const scrollIntoView = require("./scroll-into-view");
-const DragListener = require("./drag-listener");
+const Keys = require("../../data/keys.js");
+const {View} = require("../../fake-react-native-web/index.js");
 const {
     cursorHandleRadiusPx,
     cursorHandleDistanceMultiplier,
-} = require("../common-style");
+} = require("../common-style.js");
+const {wonderBlocksBlue, offBlack} = require("../common-style.js");
+const {keypadElementPropType} = require("../prop-types.js");
 
-import Color from "@khanacademy/wonder-blocks-color";
-const {keypadElementPropType} = require("../prop-types");
-const {wonderBlocksBlue, offBlack} = require("../common-style");
-const Keys = require("../../data/keys");
+const CursorHandle = require("./cursor-handle.js");
+const DragListener = require("./drag-listener.js");
+const MathWrapper = require("./math-wrapper.js");
+const scrollIntoView = require("./scroll-into-view.js");
 
 const i18n = window.i18n || {_: (s) => s};
 

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-commonjs */
 /**
  * A single entry-point for all of the external-facing functionality.
  */

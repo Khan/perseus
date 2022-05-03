@@ -7,3 +7,4 @@ coverage
 **/*.md
 vendor
 LICENSE
+packages/kas/**

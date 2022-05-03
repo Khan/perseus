@@ -1,9 +1,9 @@
+import {action} from "@storybook/addon-actions.js";
+import {withKnobs, select, array} from "@storybook/addon-knobs.js";
 import React from "react";
-import {action} from "@storybook/addon-actions";
-import {withKnobs, select, array} from "@storybook/addon-knobs";
 
-import {TabbarItem} from "../src/components/tabbar/item";
-import Tabbar from "../src/components/tabbar/tabbar";
+import {TabbarItem} from "./item.js";
+import Tabbar from "./tabbar.js";
 
 export default {title: "Tab Bar", decorators: [withKnobs]};
 

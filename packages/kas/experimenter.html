@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>KAS Experimenter</title>
+        <!-- Include Underscore -->
+        <script src="node_modules/underscore/underscore.js"></script>
+        <!-- Include KAS -->
+        <script src="src/parser.js"></script>
+        <script src="src/nodes.js"></script>
+        <script src="src/compare.js"></script>
+        <style>
+            * {
+                font-family: "Courier New"
+            }
+            body {
+                font-size: 28px;
+            }
+            #input {
+                width: 100%;
+                font-size: 72px;
+            }
+            .label {
+                display: inline-block;
+                margin-right:30px;
+                width:400px;
+                vertical-align: top;
+            }
+            .value {
+                display: inline-block;
+            }
+            .code {
+                font-size: 12px;
+            }
+        </style>
+    </head>
+    <body>
+        <input type="text" id="input"></input>
+        <div id="output"></div>
+        <script>
+            window.onload = function() {
+                var input = document.getElementById("input");
+                var out = document.getElementById("output");
+
+                if ("oninput" in input) {
+                    input.addEventListener("input", reprocess, false);
+                } else {
+                    input.attachEvent("onkeyup", reprocess);
+                }
+
+                function addInfo(el, label, value) {
+                    el.innerHTML += "<div>"
+                        + "<div class='label'>" + label + "</div>"
+                        + "<div class='value'>" + value + "</div>"
+                        + "</div>";
+                }
+
+                function reprocess() {
+                    out.innerHTML = "";
+                    var parsed = KAS.parse(input.value, {}).expr;
+                    if (input.value === "") { return; }
+                    if (parsed === undefined) { return; }
+                    addInfo(out, "AST Representation:", parsed.repr());
+                    addInfo(out, "Printed Representation:", parsed.normalize().print());
+                    addInfo(out, "TeX Representation:", parsed.tex());
+                    addInfo(out, "Simplified?", parsed.isSimplified() ? "Yes" : "No");
+                    addInfo(out, "Simplified", parsed.simplify().normalize().print());
+                    addInfo(out, "JSON Representation:", "<pre class='code'>"
+                        + JSON.stringify(parsed, null, 2)
+                        + "</pre>");
+                    addInfo(out, "Compiled", parsed.compile().toString());
+                }
+            };
+        </script>
+    </body>
+</html>

@@ -1,14 +1,12 @@
 // @flow
+import Clickable from "@khanacademy/wonder-blocks-clickable";
+import Color from "@khanacademy/wonder-blocks-color";
+import {View} from "@khanacademy/wonder-blocks-core";
+import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import {StyleSheet} from "aphrodite";
-import {View} from "@khanacademy/wonder-blocks-core";
-import Color from "@khanacademy/wonder-blocks-color";
-
-import Clickable from "@khanacademy/wonder-blocks-clickable";
-
-import type {Node} from "React";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
+import type {Node} from "React";
 
 const styles = StyleSheet.create({
     base: {
@@ -88,7 +86,9 @@ export default class Button extends React.Component<Props, State> {
                                 <View
                                     style={[
                                         styles.base,
-                                        tintColor && {background: tintColor},
+                                        tintColor != null
+                                            ? {background: tintColor}
+                                            : undefined,
                                         hovered && styles.hovered,
                                         focused && styles.focused,
                                         pressed && styles.pressed,

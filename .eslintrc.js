@@ -5,6 +5,9 @@ const path = require("path");
 const pkgAliases = fs
     .readdirSync(path.join(__dirname, "packages"))
     .map((pkgName) => {
+        if (pkgName === "kas") {
+            return ["@khanacademy/kas", "./packages/kas/kas.js"];
+        }
         return [
             `@khanacademy/${pkgName}`,
             `./packages/${pkgName}/src/index.js`,

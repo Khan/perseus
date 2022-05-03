@@ -2,7 +2,7 @@
 
 import * as React from "react";
 
-import type {TabbarItemType} from "./item";
+import type {TabbarItemType} from "./types.js";
 
 function IconAsset({
     tintColor,
@@ -62,7 +62,8 @@ function IconAsset({
         );
     }
 
+    (type: empty);
     throw new Error("Invalid icon type");
 }
 
-module.exports = IconAsset;
+export default IconAsset;
