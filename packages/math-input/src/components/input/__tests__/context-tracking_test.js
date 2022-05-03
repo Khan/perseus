@@ -1,5 +1,5 @@
 import Keys from "../../../data/keys.js";
-import CursorContexts from "../cursor-contexts.js";
+import * as CursorContexts from "../cursor-contexts.js";
 
 import MathWrapper from "./math-wrapper.jsx";
 

@@ -1,9 +1,9 @@
 /**
  * A component that renders the UP iconograpy in SVG.
  */
-import React from "react";
+import * as React from "react";
 
-const Arrow = require("./arrow.js");
+import Arrow from "./arrow.js";
 
 const Up = () => {
     return (

@@ -11,10 +11,10 @@ import {DecimalSeparators} from "../../consts.js";
 import Keys from "../../data/keys.js";
 import {decimalSeparator} from "../../utils.js";
 
+import * as CursorContexts from "./cursor-contexts.js";
+
 // Keeping `window` in place for test suite and GitHub Pages.
 // If it does not exist, fall back to CommonJS require. - jsatk
-
-const CursorContexts = require("./cursor-contexts.js");
 
 const decimalSymbol = decimalSeparator === DecimalSeparators.COMMA ? "," : ".";
 

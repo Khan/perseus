@@ -3,17 +3,16 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import {Provider} from "react-redux";
 
-import {createStore} from "../store/index.js";
-
-import KeypadContainer from "./keypad-container.js";
-
-const {
+import {
     activateKeypad,
     dismissKeypad,
     configureKeypad,
     setCursor,
     setKeyHandler,
-} = require("../actions/index.js");
+} from "../actions/index.js";
+import {createStore} from "../store/index.js";
+
+import KeypadContainer from "./keypad-container.js";
 
 type Props = {|
     onElementMounted?: ($FlowFixMe) => void,

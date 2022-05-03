@@ -1,8 +1,9 @@
 import {StyleSheet} from "aphrodite";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 import {connect} from "react-redux";
 
+import {setPageSize} from "../actions/index.js";
 import {KeypadTypes, LayoutModes} from "../consts.js";
 import {View} from "../fake-react-native-web/index.js";
 
@@ -12,15 +13,14 @@ import {
     innerBorderWidthPx,
     compactKeypadBorderRadiusPx,
 } from "./common-style.js";
+import ExpressionKeypad from "./expression-keypad.js";
+import FractionKeypad from "./fraction-keypad.js";
+import NavigationPad from "./navigation-pad.js";
+import {keyIdPropType} from "./prop-types.js";
+import Styles from "./styles.js";
 import * as zIndexes from "./z-indexes.js";
 
-const {setPageSize} = require("../actions.js");
-
-const ExpressionKeypad = require("./expression-keypad.js");
-const FractionKeypad = require("./fraction-keypad.js");
-const NavigationPad = require("./navigation-pad.js");
-const {keyIdPropType} = require("./prop-types.js");
-const {row, centered, fullWidth} = require("./styles.js");
+const {row, centered, fullWidth} = Styles;
 
 class KeypadContainer extends React.Component {
     static propTypes = {

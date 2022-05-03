@@ -1,6 +1,7 @@
+import Color from "@khanacademy/wonder-blocks-color";
 import {StyleSheet} from "aphrodite";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 import ReactDOM from "react-dom";
 
 import Keys from "../../data/keys.js";
@@ -11,13 +12,12 @@ import {
     wonderBlocksBlue,
     offBlack,
 } from "../common-style.js";
+import {keypadElementPropType} from "../prop-types.js";
 
-const {keypadElementPropType} = require("../prop-types.js");
-
-const CursorHandle = require("./cursor-handle.js");
-const DragListener = require("./drag-listener.js");
-const MathWrapper = require("./math-wrapper.js");
-const scrollIntoView = require("./scroll-into-view.js");
+import CursorHandle from "./cursor-handle.js";
+import DragListener from "./drag-listener.js";
+import MathWrapper from "./math-wrapper.js";
+import {scrollIntoView} from "./scroll-into-view.js";
 
 const i18n = window.i18n || {_: (s) => s};
 

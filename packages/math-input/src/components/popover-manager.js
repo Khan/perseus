@@ -4,17 +4,17 @@
  */
 
 import PropTypes from "prop-types";
-import React from "react";
-import {TransitionGroup, CSSTransition} from "react-transition-group";
+import * as React from "react";
+import {CSSTransition} from "react-transition-group";
 
 import KeyConfigs from "../data/key-configs.js";
 
-const MultiSymbolPopover = require("./multi-symbol-popover.js");
-const {
+import MultiSymbolPopover from "./multi-symbol-popover.js";
+import {
     boundingBoxPropType,
     keyConfigPropType,
     popoverPropType,
-} = require("./prop-types");
+} from "./prop-types.js";
 
 // NOTE(charlie): These must be kept in sync with the transition durations and
 // classnames specified in popover.less.
@@ -73,4 +73,4 @@ class PopoverManager extends React.Component {
     }
 }
 
-export defaultPopoverManager;
+export default PopoverManager;

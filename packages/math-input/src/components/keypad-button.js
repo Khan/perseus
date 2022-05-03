@@ -4,7 +4,7 @@
 
 import {StyleSheet, css} from "aphrodite";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 import {connect} from "react-redux";
 
 import {KeyTypes, BorderDirections, BorderStyles} from "../consts.js";
@@ -20,15 +20,14 @@ import {
     controlGrey,
     emptyGrey,
 } from "./common-style.js";
-
-const CornerDecal = require("./corner-decal.js");
-const Icon = require("./icon.js");
-const MultiSymbolGrid = require("./multi-symbol-grid.js");
-const {
+import CornerDecal from "./corner-decal.js";
+import Icon from "./icon.js";
+import MultiSymbolGrid from "./multi-symbol-grid.js";
+import {
     bordersPropType,
     iconPropType,
     keyConfigPropType,
-} = require("./prop-types.js");
+} from "./prop-types.js";
 
 class KeypadButton extends React.PureComponent {
     static propTypes = {

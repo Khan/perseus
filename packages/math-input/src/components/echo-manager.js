@@ -3,21 +3,20 @@
  */
 
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 import {TransitionGroup, CSSTransition} from "react-transition-group";
 
 import {KeyTypes, EchoAnimationTypes} from "../consts.js";
 import KeyConfigs from "../data/key-configs.js";
 
 import KeypadButton from "./keypad-button.js";
-import * as zIndexes from "./z-indexes.js";
-
-const {
+import {
     echoPropType,
     bordersPropType,
     boundingBoxPropType,
     keyIdPropType,
-} = require("./prop-types.js");
+} from "./prop-types.js";
+import * as zIndexes from "./z-indexes.js";
 
 class Echo extends React.Component {
     static propTypes = {

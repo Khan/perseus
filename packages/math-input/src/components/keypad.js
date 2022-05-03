@@ -4,17 +4,16 @@
  */
 
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 import ReactDOM from "react-dom";
 import {connect} from "react-redux";
 
+import {removeEcho} from "../actions/index.js";
 import {View} from "../fake-react-native-web/index.js";
 
-const {removeEcho} = require("../actions/index.js");
-
-const EchoManager = require("./echo-manager.js");
-const PopoverManager = require("./popover-manager.js");
-const {echoPropType, popoverPropType} = require("./prop-types.js");
+import EchoManager from "./echo-manager.js";
+import PopoverManager from "./popover-manager.js";
+import {echoPropType, popoverPropType} from "./prop-types.js";
 
 class Keypad extends React.Component {
     static propTypes = {

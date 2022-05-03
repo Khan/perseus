@@ -1,7 +1,7 @@
 import {mount} from "enzyme";
-import React from "react";
+import * as React from "react";
 
-import {TwoPageKeypad} from "../two-page-keypad.js";
+import {TwoPageKeypadForTesting as TwoPageKeypad} from "../two-page-keypad.js";
 
 describe("<TwoPageKeyPage />", () => {
     xit("defaults to selecting the right page", () => {

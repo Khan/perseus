@@ -5,7 +5,7 @@
 
 import {StyleSheet} from "aphrodite";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 
 import {BorderStyles} from "../consts.js";
 import KeyConfigs from "../data/key-configs.js";
@@ -17,9 +17,10 @@ import {
     valueGrey,
     offBlack16,
 } from "./common-style.js";
+import Styles from "./styles.js";
+import TouchableKeypadButton from "./touchable-keypad-button.js";
 
-const {row, column, centered, stretch, roundedTopLeft} = require("./styles.js");
-const TouchableKeypadButton = require("./touchable-keypad-button.js");
+const {row, column, centered, stretch, roundedTopLeft} = Styles;
 
 class NavigationPad extends React.Component {
     static propTypes = {

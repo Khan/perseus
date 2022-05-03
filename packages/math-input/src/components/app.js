@@ -1,5 +1,5 @@
 import {StyleSheet} from "aphrodite";
-import React from "react";
+import * as React from "react";
 
 import {View} from "../fake-react-native-web/index.js";
 import {components, consts} from "../index.js";

@@ -4,7 +4,7 @@
 
 import {StyleSheet} from "aphrodite";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 
 import {View} from "../fake-react-native-web/index.js";
 

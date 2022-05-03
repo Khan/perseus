@@ -8,9 +8,7 @@ import GestureStateMachine from "./gesture-state-machine.js";
 import NodeManager from "./node-manager.js";
 import PopoverStateMachine from "./popover-state-machine.js";
 
-import type {KeyId, NodeId} from "./types";
-
-const coordsForEvent = (evt: SyntheticTouchEvent<>) => {
+const coordsForEvent = (evt) => {
     return [evt.changedTouches[0].clientX, evt.changedTouches[0].clientY];
 };
 

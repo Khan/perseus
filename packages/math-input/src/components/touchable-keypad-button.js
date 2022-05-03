@@ -6,7 +6,7 @@
 
 import {StyleSheet} from "aphrodite";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 import ReactDOM from "react-dom";
 import {connect} from "react-redux";
 
@@ -15,8 +15,7 @@ import KeyConfigs from "../data/key-configs.js";
 
 import GestureManager from "./gesture-manager.js";
 import KeypadButton from "./keypad-button.js";
-
-const {bordersPropType, keyIdPropType} = require("./prop-types.js");
+import {bordersPropType, keyIdPropType} from "./prop-types.js";
 
 class TouchableKeypadButton extends React.Component {
     static propTypes = {

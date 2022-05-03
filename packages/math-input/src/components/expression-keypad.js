@@ -4,7 +4,7 @@
 
 import {StyleSheet} from "aphrodite";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 import {connect} from "react-redux";
 
 import {BorderStyles} from "../consts.js";
@@ -13,19 +13,14 @@ import {View} from "../fake-react-native-web/index.js";
 
 import {valueGrey, controlGrey} from "./common-style.js";
 import * as CursorContexts from "./input/cursor-contexts.js";
+import ManyKeypadButton from "./many-keypad-button.js";
+import {cursorContextPropType, keyIdPropType} from "./prop-types.js";
+import Styles from "./styles.js";
+import TouchableKeypadButton from "./touchable-keypad-button.js";
+import TwoPageKeypad from "./two-page-keypad.js";
 
-const ManyKeypadButton = require("./many-keypad-button.js");
-const {cursorContextPropType, keyIdPropType} = require("./prop-types.js");
-const {
-    row,
-    column,
-    oneColumn,
-    fullWidth,
-    roundedTopLeft,
-    roundedTopRight,
-} = require("./styles.js");
-const TouchableKeypadButton = require("./touchable-keypad-button.js");
-const TwoPageKeypad = require("./two-page-keypad.js");
+const {row, column, oneColumn, fullWidth, roundedTopLeft, roundedTopRight} =
+    Styles;
 
 class ExpressionKeypad extends React.Component {
     static propTypes = {

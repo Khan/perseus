@@ -5,14 +5,15 @@
 import {StyleSheet} from "aphrodite";
 import katex from "katex";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 import ReactDOM from "react-dom";
 
 import {View} from "../fake-react-native-web/index.js";
 
 import {iconSizeHeightPx, iconSizeWidthPx} from "./common-style.js";
+import Styles from "./styles.js";
 
-const {row, centered} = require("./styles.js");
+const {row, centered} = Styles;
 
 class MathIcon extends React.Component {
     static propTypes = {

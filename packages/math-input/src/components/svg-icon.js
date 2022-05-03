@@ -3,9 +3,9 @@
  */
 
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 
-const Iconography = require("./iconography/index.js");
+import * as Iconography from "./iconography/index.js";
 
 class SvgIcon extends React.Component {
     static propTypes = {
