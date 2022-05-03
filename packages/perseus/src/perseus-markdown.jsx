@@ -3,7 +3,7 @@
 // TODO(FEI-4465): move this into it's own package called perseus-markdown
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import * as React from "react";
-import SimpleMarkdown from "simple-markdown";
+import SimpleMarkdown from "@khanacademy/simple-markdown";
 import _ from "underscore";
 
 import Lint from "./components/lint.jsx";
