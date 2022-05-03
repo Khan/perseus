@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unsafe */
 // @flow
+import KAS from "@khanacademy/kas";
 import {
     components,
     displaySigFigs,
@@ -7,7 +8,6 @@ import {
     Changeable,
     EditorJsonify,
 } from "@khanacademy/perseus";
-import KAS from "kas";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
