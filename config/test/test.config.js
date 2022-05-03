@@ -38,7 +38,7 @@ module.exports = {
     moduleNameMapper: {
         "^@khanacademy/perseus(.*)$":
             "<rootDir>/packages/perseus$1/src/index.js",
-        "^@khanacademy/kas$": "<rootDir>/packages/kas/kas.js",
+        "^@khanacademy/kas$": "<rootDir>/packages/kas/src/index.js",
         "^@khanacademy/kmath$": "<rootDir>/packages/kmath/src/index.js",
         // Load a .js file with no exports whenever a .css or .less file is requested.
         "\\.(css|less)$": "<rootDir>/config/test/style-mock.js",

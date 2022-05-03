@@ -1,6 +1,6 @@
 /* eslint-disable no-useless-escape */
 // @flow
-import KAS from "@khanacademy/kas";
+import * as KAS from "@khanacademy/kas";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import $ from "jquery";
 import _ from "underscore";
