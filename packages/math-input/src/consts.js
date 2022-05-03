@@ -44,8 +44,8 @@ export const LayoutModes = {
 };
 
 export const BorderDirections = {
-    LEFT: "LEFT",
-    BOTTOM: "BOTTOM",
+    LEFT: ("LEFT": "LEFT"),
+    BOTTOM: ("BOTTOM": "BOTTOM"),
 };
 export const BorderStyles: {|
     [style: string]: $ReadOnlyArray<$Values<typeof BorderDirections>>,
