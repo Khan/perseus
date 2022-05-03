@@ -4,8 +4,6 @@ simple-markdown
 simple-markdown is a markdown-like parser designed for simplicity
 and extensibility.
 
-[Change log](https://github.com/Khan/simple-markdown/releases)
-
 Philosophy
 ----------
 
@@ -29,11 +27,9 @@ over half of our math exercises, because we need
 [markdown extensions][PerseusMarkdown] for math text and
 interactive widgets.
 
-[PerseusMarkdown]: https://github.com/Khan/perseus/blob/master/src/perseus-markdown.jsx
-
 simple-markdown is [MIT licensed][LICENSE].
 
-[LICENSE]: https://github.com/Khan/simple-markdown/blob/master/LICENSE
+[LICENSE]: https://github.com/Khan/perseus/blob/master/LICENSE
 
 Getting started
 ---------------
@@ -48,7 +44,7 @@ folder. Then you can acquire the `SimpleMarkdown` variable
 with:
 
 ```javascript
-    var SimpleMarkdown = require("simple-markdown");
+import SimpleMarkdown from '@khanacademy/simple-markdown'
 ```
 
 Then let's get a basic markdown parser and outputter.
@@ -138,19 +134,19 @@ third `_`.
     var underlineRule = {
         // Specify the order in which this rule is to be run
         order: SimpleMarkdown.defaultRules.em.order - 0.5,
-        
+
         // First we check whether a string matches
         match: function(source) {
             return /^__([\s\S]+?)__(?!_)/.exec(source);
         },
-        
+
         // Then parse this string into a syntax node
         parse: function(capture, parse, state) {
             return {
                 content: parse(capture[1], state)
             };
         },
-        
+
         // Finally transform this syntax node into a
         // React element
         react: function(node, output) {
@@ -212,7 +208,7 @@ markdown with underlines!
             "type": "paragraph"
         }
     ]
-    
+
     reactOutput(syntaxTree)
     => [ { type: 'div',
         key: null,
@@ -342,7 +338,7 @@ For example:
         inline: true
     }, state));
 ```
-    
+
 `parse` should return a `node` object, which can have custom fields
 that will be passed to `output`, below. The one reserved field is
 `type`, which designates the type of the node, which will be used
@@ -400,13 +396,13 @@ object must contain a `match` and a `parse` function.
 
 #### `SimpleMarkdown.outputFor(rules, key)`
 
-Takes a `rules` object and a `key` that indicates which key in 
-the rules object is mapped to the function that generates the 
-output type you want. This will be `'react'` or `'html'` unless 
+Takes a `rules` object and a `key` that indicates which key in
+the rules object is mapped to the function that generates the
+output type you want. This will be `'react'` or `'html'` unless
 you are defining a custom output type.
 
-It returns a function that outputs a single syntax tree node of 
-any type that is in the `rules` object, given a node and a 
+It returns a function that outputs a single syntax tree node of
+any type that is in the `rules` object, given a node and a
 recursive output function.
 
 #### Putting it all together
