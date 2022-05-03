@@ -14,7 +14,7 @@ This repo is a constellation of sub-repos for showing exercise content. Please s
 
 ### Prerequisites
 
-- [Node.JS v10](https://nodejs.org/download/release/v10.18.1/)
+- [Node.JS v12](https://nodejs.org/download/release/v10.18.1/)
 - [Yarn](https://yarnpkg.com/lang/en/docs/install/)
 
 ### Installation
@@ -24,10 +24,6 @@ To install perseus, you need to run the following commands:
 #### `yarn install`
 
 Installs project dependencies
-
-#### `yarn start`
-
-Runs the project in dev mode
 
 ## Contributing
 
