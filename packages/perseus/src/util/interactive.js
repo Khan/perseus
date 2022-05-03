@@ -9,8 +9,12 @@
 
 // TODO(emily): This file breaks our line length limits like nobody's business.
 // Figure out how to fix that.
+import {
+    vector as kvector,
+    point as kpoint,
+    line as kline,
+} from "@khanacademy/kmath";
 import $ from "jquery";
-import {vector as kvector, point as kpoint, line as kline} from "kmath";
 import Raphael from "raphael";
 import _ from "underscore";
 
@@ -1299,7 +1303,7 @@ _.extend(GraphUtils.Graphie.prototype, {
 
                 const distance = xExtent + yExtent;
                 const angleVec = graph.unscaleVector(
-                    kvector.cartFromPolarDeg([1, angle]),
+                    kvector.cartFromPolarDeg(1, angle),
                 );
                 const distVec = kvector.scale(
                     kvector.normalize(angleVec),
@@ -2711,10 +2715,10 @@ _.extend(GraphUtils.Graphie.prototype, {
             ) {
                 const distFromRotationCenter =
                     radius + distanceFromArrowMidline;
-                const vec = kvector.cartFromPolarDeg([
+                const vec = kvector.cartFromPolarDeg(
                     distFromRotationCenter,
                     angle + offset,
-                ]);
+                );
                 const absolute = kvector.add(center, vec);
                 const pixels = graphie.scalePoint(absolute);
                 return pixels[0] + "," + pixels[1];
@@ -2886,13 +2890,15 @@ _.extend(GraphUtils.Graphie.prototype, {
                     const oldAngle = oldPolar[1];
                     const newAngle = newPolar[1];
                     let result = options.onMove(newAngle, oldAngle);
+                    // $FlowFixMe[incompatible-type] add proper onMove param type
                     if (result != null && result !== true) {
+                        // $FlowFixMe[incompatible-type] add proper onMove param type
                         if (result === false) {
                             result = oldAngle;
                         }
                         coord = kvector.add(
                             rotatePoint.coord,
-                            kvector.cartFromPolarDeg([oldPolar[0], result]),
+                            kvector.cartFromPolarDeg(oldPolar[0], result),
                         );
                     }
                 }

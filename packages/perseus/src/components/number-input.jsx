@@ -1,8 +1,8 @@
 /* eslint-disable react/sort-comp */
 // @flow
+import {number as knumber} from "@khanacademy/kmath";
 import classNames from "classnames";
 import $ from "jquery";
-import {number as knumber} from "kmath";
 import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";

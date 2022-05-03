@@ -28,40 +28,50 @@ jobs:
       uses: jaredly/get-changed-files@v1.0.1
       id: changed
       with:
-        format: space-delimited
-        absolute: true
+        format: json
+
+    - id: js-files
+      name: Find .js changed files
+      uses: ./.github/actions/filter-files
+      with:
+        changed-files: ${{ steps.changed.outputs.added_modified }}
+        extensions: '.js,.jsx'
+
+    - id: eslint-reset
+      uses: ./.github/actions/filter-files
+      name: Files that would trigger a full eslint run
+      with:
+        changed-files: ${{ steps.changed.outputs.added_modified }}
+        files: '.eslintrc.js,yarn.lock,.eslintignore'
 
     # Linting / type checking
-    - name: Run ESLint (all files)
-      if: contains(steps.changed.outputs.added_modified, '.eslintrc.js') || contains(steps.changed.outputs.added_modified, 'yarn.lock')
-      run: |
-        yarn lint:ci packages
-    - name: Run ESLint (added/changed files)
-      if: contains(steps.changed.outputs.added_modified, '.eslintrc.js') == false && contains(steps.changed.outputs.added_modified, 'yarn.lock') == false
-      run: |
-        yarn lint:ci ${{ steps.changed.outputs.added_modified }}
-    - name: Run Flow
-      uses: Khan/flow-action@v1.1.3
+    - name: Eslint
+      uses: ./.github/actions/full-or-limited
       with:
-        flow-bin: ./node_modules/.bin/flow
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        full-trigger: ${{ steps.eslint-reset.outputs.filtered }}
+        full: yarn lint:ci packages
+        limited-trigger: ${{ steps.js-files.outputs.filtered }}
+        limited: yarn lint:ci {}
+
+    - name: Run Flow
+      if: steps.js-files.outputs.filtered != '[]'
+      run: yarn flow
 
     # Run tests for our target matrix
-    - name: Run Jest (all files)
-      if: |
-        contains(steps.changed.outputs.added_modified, 'jest.config.js') ||
-        contains(steps.changed.outputs.added_modified, 'yarn.lock') ||
-        contains(steps.changed.outputs.added_modified, 'test.config.js') ||
-        contains(steps.changed.outputs.added_modified, 'test.transform.js')
-      run: yarn test
-    - name: Run Jest (added/changed files)
-      if: |
-        (contains(steps.changed.outputs.added_modified, 'jest.config.js') ||
-         contains(steps.changed.outputs.added_modified, 'yarn.lock') ||
-         contains(steps.changed.outputs.added_modified, 'test.config.js') ||
-         contains(steps.changed.outputs.added_modified, 'test.transform.js')) == false
-      run: yarn test --passWithNoTests ${{ steps.changed.outputs.added_modified }}
+    - id: jest-reset
+      uses: ./.github/actions/filter-files
+      name: Files that would trigger a full jest run
+      with:
+        changed-files: ${{ steps.changed.outputs.added_modified }}
+        files: 'jest.config.js,yarn.lock,test.config.js,test.transform.js'
+
+    - name: Jest
+      uses: ./.github/actions/full-or-limited
+      with:
+        full-trigger: ${{ steps.jest-reset.outputs.filtered }}
+        full: yarn jest
+        limited-trigger: ${{ steps.js-files.outputs.filtered }}
+        limited: yarn jest --passWithNoTests --findRelatedTests {}
 
   check_builds:
     name: Check builds for changes in size

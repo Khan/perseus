@@ -1,5 +1,5 @@
 // @flow
-import {point as kpoint, vector as kvector} from "kmath";
+import {point as kpoint, vector as kvector} from "@khanacademy/kmath";
 import _ from "underscore";
 
 import KhanMath from "../util/math.js";

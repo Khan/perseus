@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars, react/no-unsafe, react/sort-comp */
 // @flow
+import {number as knumber} from "@khanacademy/kmath";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
-import {number as knumber} from "kmath";
 import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";

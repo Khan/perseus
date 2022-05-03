@@ -13,7 +13,7 @@ import * as kvector from "./vector.js";
 export type Point = $ReadOnlyArray<number>;
 
 // Rotate point (around origin unless a center is specified)
-export function rotateRad(point: Point, theta: number, center: Point): Point {
+export function rotateRad(point: Point, theta: number, center?: Point): Point {
     if (center === undefined) {
         return kvector.rotateRad(point, theta);
     } else {
@@ -24,7 +24,7 @@ export function rotateRad(point: Point, theta: number, center: Point): Point {
     }
 }
 
-export function rotateDeg(point: Point, theta: number, center: Point): Point {
+export function rotateDeg(point: Point, theta: number, center?: Point): Point {
     if (center === undefined) {
         return kvector.rotateDeg(point, theta);
     } else {
@@ -50,7 +50,7 @@ export function distanceToLine(point: Point, line: [Point, Point]): number {
 }
 
 // Reflect point over line
-export function reflectOverLine(point: Point, line: [Point, Point]): Point {
+export function reflectOverLine<P: Point>(point: P, line: [P, P]): P {
     const lv = kvector.subtract(line[1], line[0]);
     const pv = kvector.subtract(point, line[0]);
     const projectedPv = kvector.projection(pv, lv);

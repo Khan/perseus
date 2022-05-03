@@ -3,7 +3,7 @@
  * Creates and adds a polygon to the graph that can be dragged around.
  * It allows constraints on its movement and draws when moves happen.
  */
-import {vector as kvector} from "kmath";
+import {vector as kvector} from "@khanacademy/kmath";
 import _ from "underscore";
 
 import KhanColors from "../util/colors.js";
@@ -213,6 +213,7 @@ _.extend(MovablePolygon.prototype, {
                         refCoord,
                         self._prevRefCoord,
                     );
+                    // $FlowFixMe[incompatible-type] _applyConstraints can return false
                     if (refCoord === false) {
                         return;
                     }

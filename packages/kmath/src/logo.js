@@ -1,3 +1,5 @@
+/* eslint-disable import/no-default-export */
+// @flow
 // This file describes the graphie source code of the kmath logo
 // currently used on khan.github.io.
 //
