@@ -4,7 +4,7 @@
  * A library of options to pass to add/draw/remove/constraints
  */
 
-import {point as kpoint, vector as kvector} from "kmath";
+import {point as kpoint, vector as kvector} from "@khanacademy/kmath";
 import _ from "underscore";
 
 import type {Coord} from "./types.js";

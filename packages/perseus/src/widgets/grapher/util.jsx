@@ -1,6 +1,6 @@
 /* eslint-disable one-var */
 // @flow
-import {point as kpoint} from "kmath";
+import {point as kpoint} from "@khanacademy/kmath";
 import * as React from "react";
 import _ from "underscore";
 
@@ -681,6 +681,7 @@ export const pointsFromNormalized = (
         // on the Graphie to handle snapping. Here, we need the points
         // returned to already be snapped so that the plot that goes
         // through them is correct.
+        // $FlowFixMe[invalid-tuple-arity] improve unsnappedPoint type so it knows arity
         return kpoint.roundTo(unsnappedPoint, snapStep);
     });
 };

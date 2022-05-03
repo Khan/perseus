@@ -14,16 +14,16 @@ ref: https://khanacademy.slack.com/archives/CJDRXTGQ7/p1641857400011600
 ref: https://khanacademy.slack.com/archives/C2RFQGYKU/p1596160975061500?thread_ts=1596129758.040000&cid=C2RFQGYKU
 */
 // @flow
-import * as i18n from "@khanacademy/wonder-blocks-i18n";
-import createReactClass from "create-react-class";
-import $ from "jquery";
 import {
     number as knumber,
     vector as kvector,
     point as kpoint,
     ray as kray,
     line as kline,
-} from "kmath";
+} from "@khanacademy/kmath";
+import * as i18n from "@khanacademy/wonder-blocks-i18n";
+import createReactClass from "create-react-class";
+import $ from "jquery";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
@@ -827,6 +827,7 @@ const Transformations = {
             transform1: ReflectionTransformation,
             transform2: ReflectionTransformation,
         ) {
+            // $FlowFixMe[incompatible-call]
             if (!kline.equal(transform1.line, transform2.line)) {
                 return false;
             }
@@ -2155,15 +2156,16 @@ class Transformer extends React.Component<Props> {
     normalizeReflectionCoords: ([Coord, Coord]) => [Coord, Coord] = (
         messyCoords,
     ) => {
+        // $FlowFixMe[incompatible-call]
         const midpoint = this.snapCoord(kline.midpoint(messyCoords));
         const origDirectionPolar = kvector.polarDegFromCart(
             kvector.subtract(messyCoords[0], messyCoords[1]),
         );
-        const directionPolar = [
+
+        const direction = kvector.cartFromPolarDeg(
             1,
             KhanMath.roundToNearest(45, origDirectionPolar[1]),
-        ];
-        const direction = kvector.cartFromPolarDeg(directionPolar);
+        );
         const coords = _.map(
             [-1, 1],
             function (directionCoefficient) {

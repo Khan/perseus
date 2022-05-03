@@ -1,8 +1,8 @@
 /* eslint-disable @babel/no-invalid-this, react/no-unsafe, react/sort-comp */
 // @flow
+import {number as knumber, point as kpoint} from "@khanacademy/kmath";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import $ from "jquery";
-import kmath from "kmath";
 import debounce from "lodash.debounce";
 import * as React from "react";
 import _ from "underscore";
@@ -37,7 +37,6 @@ type SineCoefficient = [
 ];
 type QuadraticCoefficient = [/* a */ number, /* b */ number, /* c */ number];
 
-const {number: knumber, point: kpoint} = kmath;
 const {DeprecationMixin} = Util;
 
 const TRASH_ICON_URI =
