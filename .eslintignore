@@ -2,7 +2,7 @@
 flow-typed/**/*.js
 coverage
 **/dist
-**/build
+packages/**/build
 **/*.template
 **/package.json
 **/*.md
