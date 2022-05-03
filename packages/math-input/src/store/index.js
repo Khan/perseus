@@ -1,3 +1,5 @@
+// @flow
+
 import Redux from "redux";
 
 import {tabletCutoffPx} from "../components/common-style.js";
@@ -24,8 +26,11 @@ const keypadForType = {
     [KeypadTypes.EXPRESSION]: ExpressionKeypad,
 };
 
-const createStore = () => {
-    const initialInputState = {
+export const createStore = (): $FlowFixMe => {
+    const initialInputState: {|
+        keyHandler: $FlowFixMe,
+        cursor: $FlowFixMe,
+    |} = {
         keyHandler: null,
         cursor: {
             context: CursorContexts.NONE,
@@ -499,5 +504,3 @@ const createStore = () => {
 
     return store;
 };
-
-module.exports = createStore;

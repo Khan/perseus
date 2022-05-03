@@ -1,7 +1,9 @@
-import PropTypes from "prop-types";
-import React from "react";
+// @flow
+import * as React from "react";
 import ReactDOM from "react-dom";
 import {Provider} from "react-redux";
+
+import {createStore} from "../store/index.js";
 
 const {
     activateKeypad,
@@ -9,15 +11,17 @@ const {
     configureKeypad,
     setCursor,
     setKeyHandler,
-} = require("../actions.js");
-const createStore = require("../store.js");
+} = require("../actions/index.js");
 
 const KeypadContainer = require("./keypad-container.js");
 
-class ProvidedKeypad extends React.Component {
-    static propTypes = {
-        onElementMounted: PropTypes.func,
-    };
+type Props = {|
+    onElementMounted?: ($FlowFixMe) => void,
+|};
+
+class ProvidedKeypad extends React.Component<Props> {
+    mounted: boolean;
+    store: $FlowFixMe;
 
     componentWillMount() {
         this.store = createStore();
@@ -31,15 +35,15 @@ class ProvidedKeypad extends React.Component {
         this.mounted = false;
     }
 
-    activate = () => {
+    activate: () => void = () => {
         this.store.dispatch(activateKeypad());
     };
 
-    dismiss = () => {
+    dismiss: () => void = () => {
         this.store.dispatch(dismissKeypad());
     };
 
-    configure = (configuration, cb) => {
+    configure: () => void = (configuration, cb) => {
         this.store.dispatch(configureKeypad(configuration));
 
         // HACK(charlie): In Perseus, triggering a focus causes the keypad to
@@ -52,19 +56,19 @@ class ProvidedKeypad extends React.Component {
         setTimeout(() => cb && cb());
     };
 
-    setCursor = (cursor) => {
+    setCursor: () => void = (cursor) => {
         this.store.dispatch(setCursor(cursor));
     };
 
-    setKeyHandler = (keyHandler) => {
+    setKeyHandler: (keyHandler: $FlowFixMe) => void = (keyHandler) => {
         this.store.dispatch(setKeyHandler(keyHandler));
     };
 
-    getDOMNode = () => {
+    getDOMNode: () => $Call<typeof ReactDOM.findDOMNode, any> = () => {
         return ReactDOM.findDOMNode(this);
     };
 
-    render() {
+    render(): React.Node {
         const {onElementMounted, ...rest} = this.props;
 
         return (
@@ -92,4 +96,4 @@ class ProvidedKeypad extends React.Component {
     }
 }
 
-module.exports = ProvidedKeypad;
+export default ProvidedKeypad;
