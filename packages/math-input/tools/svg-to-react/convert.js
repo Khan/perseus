@@ -111,7 +111,7 @@ const main = async () => {
             symbolMap[path.parse(svgFilename).name];
         if (symbolName == null) {
             console.warn(
-                `Skipping: '${svgFilename}' not found in symbol_map.js`,
+                `⚠️  Skipping: '${svgFilename}' not found in symbol_map.js`,
             );
             continue;
         }
@@ -156,7 +156,7 @@ const main = async () => {
         });
 
         const outputFilename = path.join(outputDirName, jsFilename + ".js");
-        console.log("Writing:", outputFilename);
+        console.log("✍🏿  Writing:", outputFilename);
         fs.writeFileSync(outputFilename, await format(output, outputFilename));
         filenameMap[symbolName] = jsFilename;
     }
@@ -164,7 +164,7 @@ const main = async () => {
     const indexContents = renderIndex(filenameMap);
     const indexFilename = path.join(outputDirName, "index.js");
 
-    console.log("Writing:", indexFilename);
+    console.log("✍🏿  Writing:", indexFilename);
     fs.writeFileSync(indexFilename, await format(indexContents, indexFilename));
 };
 
