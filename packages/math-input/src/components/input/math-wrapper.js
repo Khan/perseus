@@ -11,10 +11,10 @@ import {DecimalSeparators} from "../../consts.js";
 import Keys from "../../data/keys.js";
 import {decimalSeparator} from "../../utils.js";
 
+import * as CursorContexts from "./cursor-contexts.js";
+
 // Keeping `window` in place for test suite and GitHub Pages.
 // If it does not exist, fall back to CommonJS require. - jsatk
-
-const CursorContexts = require("./cursor-contexts.js");
 
 const decimalSymbol = decimalSeparator === DecimalSeparators.COMMA ? "," : ".";
 
@@ -181,6 +181,7 @@ class MathWrapper {
                 this.mathField.keystroke("Left");
             }
         } else if (key === Keys.FRAC) {
+            // eslint-disable-next-line no-unused-vars
             const shouldNavigateLeft = cursor[this.MQ.L] === MQ_END;
             this.mathField.cmd("\\frac");
         } else if (key === Keys.LOG_N) {
@@ -955,4 +956,4 @@ class MathWrapper {
     }
 }
 
-module.exports = MathWrapper;
+export default MathWrapper;

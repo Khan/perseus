@@ -1,7 +1,7 @@
 import {mount} from "enzyme";
-import React from "react";
+import * as React from "react";
 
-import {TwoPageKeypad} from "../two-page-keypad.js";
+import TwoPageKeypad from "../two-page-keypad.js";
 
 describe("<TwoPageKeyPage />", () => {
     xit("defaults to selecting the right page", () => {
@@ -16,7 +16,7 @@ describe("<TwoPageKeyPage />", () => {
         );
 
         // Assert
-        secondItem = wrapper.find("TabbarItem").at(0);
+        const secondItem = wrapper.find("TabbarItem").at(0);
         expect(secondItem).toHaveProp("itemState", "active");
     });
 

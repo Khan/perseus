@@ -4,7 +4,7 @@
  * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
  */
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 
 class Plus extends React.Component {
     static propTypes = {
@@ -29,4 +29,4 @@ class Plus extends React.Component {
     }
 }
 
-module.exports = Plus;
+export default Plus;

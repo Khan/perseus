@@ -347,4 +347,4 @@ for (const key of Object.keys(KeyConfigs)) {
     };
 }
 
-module.exports = KeyConfigs;
+export default KeyConfigs;

@@ -1,6 +1,6 @@
 import {action} from "@storybook/addon-actions";
-import {withKnobs, select, array} from "@storybook/addon-knobs";
-import React from "react";
+import {withKnobs} from "@storybook/addon-knobs";
+import * as React from "react";
 
 import KeypadButton from "./button.js";
 

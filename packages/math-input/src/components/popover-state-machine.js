@@ -170,4 +170,4 @@ class PopoverStateMachine {
     }
 }
 
-module.exports = PopoverStateMachine;
+export default PopoverStateMachine;

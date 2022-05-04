@@ -4,8 +4,10 @@
 
 import {StyleSheet} from "aphrodite";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 import {connect} from "react-redux";
+
+import {View} from "../fake-react-native-web/index.js";
 
 import {
     innerBorderColor,
@@ -13,14 +15,13 @@ import {
     innerBorderWidthPx,
     offBlack16,
 } from "./common-style.js";
+import Keypad from "./keypad.js";
+import Styles from "./styles.js";
+import Tabbar from "./tabbar/tabbar.js";
 
-const {View} = require("../fake-react-native-web/index.js");
+const {column, row, fullWidth} = Styles;
 
-const Keypad = require("./keypad.js");
-const {column, row, fullWidth} = require("./styles.js");
-const Tabbar = require("./tabbar/tabbar.js");
-
-export class TwoPageKeypad extends React.Component {
+class TwoPageKeypad extends React.Component {
     static propTypes = {
         currentPage: PropTypes.oneOf([0, 1]).isRequired,
         leftPage: PropTypes.node.isRequired,
@@ -33,8 +34,7 @@ export class TwoPageKeypad extends React.Component {
     };
 
     render() {
-        const {currentPage, leftPage, paginationEnabled, rightPage} =
-            this.props;
+        const {leftPage, paginationEnabled, rightPage} = this.props;
 
         const {selectedPage} = this.state;
 
@@ -94,6 +94,6 @@ const mapStateToProps = (state) => {
     };
 };
 
-module.exports = connect(mapStateToProps, null, null, {forwardRef: true})(
+export default connect(mapStateToProps, null, null, {forwardRef: true})(
     TwoPageKeypad,
 );

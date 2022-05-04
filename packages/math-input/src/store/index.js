@@ -1,6 +1,14 @@
+// @flow
+
 import Redux from "redux";
 
 import {tabletCutoffPx} from "../components/common-style.js";
+import {computeLayoutParameters} from "../components/compute-layout-parameters.js";
+import ExpressionKeypad from "../components/expression-keypad.js";
+import FractionKeypad from "../components/fraction-keypad.js";
+import GestureManager from "../components/gesture-manager.js";
+import * as CursorContexts from "../components/input/cursor-contexts.js";
+import VelocityTracker from "../components/velocity-tracker.js";
 import {
     DeviceOrientations,
     DeviceTypes,
@@ -9,23 +17,19 @@ import {
     KeypadTypes,
     LayoutModes,
 } from "../consts.js";
+import KeyConfigs from "../data/key-configs.js";
 import Keys from "../data/keys.js";
-
-const computeLayoutParameters = require("../components/compute-layout-parameters.js");
-const ExpressionKeypad = require("../components/expression-keypad.js");
-const FractionKeypad = require("../components/fraction-keypad.js");
-const GestureManager = require("../components/gesture-manager.js");
-const CursorContexts = require("../components/input/cursor-contexts.js");
-const VelocityTracker = require("../components/velocity-tracker.js");
-const KeyConfigs = require("../data/key-configs.js");
 
 const keypadForType = {
     [KeypadTypes.FRACTION]: FractionKeypad,
     [KeypadTypes.EXPRESSION]: ExpressionKeypad,
 };
 
-const createStore = () => {
-    const initialInputState = {
+export const createStore = (): $FlowFixMe => {
+    const initialInputState: {|
+        keyHandler: $FlowFixMe,
+        cursor: $FlowFixMe,
+    |} = {
         keyHandler: null,
         cursor: {
             context: CursorContexts.NONE,
@@ -499,5 +503,3 @@ const createStore = () => {
 
     return store;
 };
-
-module.exports = createStore;

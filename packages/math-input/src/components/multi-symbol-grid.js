@@ -5,17 +5,17 @@
 
 import {StyleSheet} from "aphrodite";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 
 import {IconTypes} from "../consts.js";
+import {View} from "../fake-react-native-web/index.js";
 
 import {iconSizeHeightPx, iconSizeWidthPx} from "./common-style.js";
+import Icon from "./icon.js";
+import {iconPropType} from "./prop-types.js";
+import Styles from "./styles.js";
 
-const {View} = require("../fake-react-native-web/index.js");
-
-const Icon = require("./icon.js");
-const {iconPropType} = require("./prop-types.js");
-const {row, column, centered, fullWidth} = require("./styles.js");
+const {row, column, centered, fullWidth} = Styles;
 
 class MultiSymbolGrid extends React.Component {
     static propTypes = {
@@ -179,4 +179,4 @@ const styles = StyleSheet.create({
     },
 });
 
-module.exports = MultiSymbolGrid;
+export default MultiSymbolGrid;

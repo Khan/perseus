@@ -1,13 +1,12 @@
-import React from "react";
+import * as React from "react";
 import ReactDOM from "react-dom";
 
-const {View} = require("./fake-react-native-web/index.js");
+import KeyConfigs from "./data/key-configs.js";
+import {View} from "./fake-react-native-web/index.js";
 
-const {components} = require("./index.js");
+import {KeypadInput} from "./index.js";
 
-const {Keypad, KeypadInput} = components;
-const KeyConfigs = require("./data/key-configs.js");
-
+// eslint-disable-next-line react/prop-types
 const ManualInput = ({handler}) => {
     return (
         <div>
@@ -31,7 +30,9 @@ class App extends React.Component {
         keypadElement: {
             activate: () => this.setState({active: true}),
             dismiss: () => this.setState({active: false}),
+            // eslint-disable-next-line no-console
             configure: (config) => console.log("configure:", config),
+            // eslint-disable-next-line no-console
             setCursor: (cursor) => console.log("Cursor:", cursor),
             setKeyHandler: (handler) => this.setState({handler}),
             getDOMNode: () => null,

@@ -1,28 +1,29 @@
+import Color from "@khanacademy/wonder-blocks-color";
 import {StyleSheet} from "aphrodite";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 import ReactDOM from "react-dom";
 
 import Keys from "../../data/keys.js";
+import {View} from "../../fake-react-native-web/index.js";
 import {
     cursorHandleRadiusPx,
     cursorHandleDistanceMultiplier,
     wonderBlocksBlue,
     offBlack,
 } from "../common-style.js";
+import {keypadElementPropType} from "../prop-types.js";
 
-const {View} = require("../../fake-react-native-web/index.js");
-const {keypadElementPropType} = require("../prop-types.js");
-
-const CursorHandle = require("./cursor-handle.js");
-const DragListener = require("./drag-listener.js");
-const MathWrapper = require("./math-wrapper.js");
-const scrollIntoView = require("./scroll-into-view.js");
+import CursorHandle from "./cursor-handle.js";
+import DragListener from "./drag-listener.js";
+import MathWrapper from "./math-wrapper.js";
+import {scrollIntoView} from "./scroll-into-view.js";
 
 const i18n = window.i18n || {_: (s) => s};
 
 const constrainingFrictionFactor = 0.8;
 
+// eslint-disable-next-line react/no-unsafe
 class MathInput extends React.Component {
     static propTypes = {
         // The React element node associated with the keypad that will send
@@ -189,7 +190,7 @@ class MathInput extends React.Component {
         );
     }
 
-    componentWillReceiveProps(props) {
+    UNSAFE_componentWillReceiveProps(props) {
         if (this.props.keypadElement !== props.keypadElement) {
             this._clearKeypadBoundsCache();
         }
@@ -739,7 +740,7 @@ class MathInput extends React.Component {
         }
 
         // Movement keys
-        else if (key == "Backspace") {
+        else if (key === "Backspace") {
             return Keys.BACKSPACE;
         }
 
@@ -921,4 +922,4 @@ const inlineStyles = {
     },
 };
 
-module.exports = MathInput;
+export default MathInput;

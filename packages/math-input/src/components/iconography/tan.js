@@ -4,7 +4,7 @@
  * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
  */
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 
 class Tan extends React.Component {
     static propTypes = {
@@ -27,4 +27,4 @@ class Tan extends React.Component {
     }
 }
 
-module.exports = Tan;
+export default Tan;

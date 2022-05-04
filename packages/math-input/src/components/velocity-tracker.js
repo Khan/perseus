@@ -73,4 +73,4 @@ class VelocityTracker {
     }
 }
 
-module.exports = VelocityTracker;
+export default VelocityTracker;

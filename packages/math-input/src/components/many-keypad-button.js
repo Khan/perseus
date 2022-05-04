@@ -4,16 +4,15 @@
  */
 
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 
 import {KeyTypes} from "../consts.js";
+import KeyConfigs from "../data/key-configs.js";
 import Keys from "../data/keys.js";
 
-const KeyConfigs = require("../data/key-configs.js");
-
-const EmptyKeypadButton = require("./empty-keypad-button.js");
-const {keyIdPropType} = require("./prop-types.js");
-const TouchableKeypadButton = require("./touchable-keypad-button.js");
+import EmptyKeypadButton from "./empty-keypad-button.js";
+import {keyIdPropType} from "./prop-types.js";
+import TouchableKeypadButton from "./touchable-keypad-button.js";
 
 class ManyKeypadButton extends React.Component {
     static propTypes = {
@@ -42,4 +41,4 @@ class ManyKeypadButton extends React.Component {
     }
 }
 
-module.exports = ManyKeypadButton;
+export default ManyKeypadButton;

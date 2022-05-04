@@ -133,4 +133,6 @@ class TabbarItem extends React.Component<Props, State> {
     }
 }
 
+export const TabbarItemForTesting = TabbarItem;
+
 export default TabbarItem;

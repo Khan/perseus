@@ -1,8 +1,7 @@
 //@flow
 
-import {View} from "@khanacademy/wonder-blocks-core";
 import {action} from "@storybook/addon-actions";
-import {withKnobs, number} from "@storybook/addon-knobs";
+import {withKnobs} from "@storybook/addon-knobs";
 import {INITIAL_VIEWPORTS} from "@storybook/addon-viewport";
 import * as React from "react";
 

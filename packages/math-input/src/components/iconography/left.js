@@ -1,9 +1,9 @@
 /**
  * An component that renders the LEFT iconograpy in SVG.
  */
-import React from "react";
+import * as React from "react";
 
-const Arrow = require("./arrow.js");
+import Arrow from "./arrow.js";
 
 const Left = () => {
     return (
@@ -13,4 +13,4 @@ const Left = () => {
     );
 };
 
-module.exports = Left;
+export default Left;

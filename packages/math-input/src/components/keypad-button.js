@@ -4,10 +4,11 @@
 
 import {StyleSheet, css} from "aphrodite";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 import {connect} from "react-redux";
 
 import {KeyTypes, BorderDirections, BorderStyles} from "../consts.js";
+import {View} from "../fake-react-native-web/index.js";
 
 import {
     wonderBlocksBlue,
@@ -19,18 +20,16 @@ import {
     controlGrey,
     emptyGrey,
 } from "./common-style.js";
-
-const {View} = require("../fake-react-native-web/index.js");
-
-const CornerDecal = require("./corner-decal.js");
-const Icon = require("./icon.js");
-const MultiSymbolGrid = require("./multi-symbol-grid.js");
-const {
+import CornerDecal from "./corner-decal.js";
+import Icon from "./icon.js";
+import MultiSymbolGrid from "./multi-symbol-grid.js";
+import {
     bordersPropType,
     iconPropType,
     keyConfigPropType,
-} = require("./prop-types.js");
+} from "./prop-types.js";
 
+// eslint-disable-next-line react/no-unsafe
 class KeypadButton extends React.PureComponent {
     static propTypes = {
         ariaLabel: PropTypes.string,
@@ -67,7 +66,7 @@ class KeypadButton extends React.PureComponent {
         popoverEnabled: false,
     };
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         this.buttonSizeStyle = styleForButtonDimensions(
             this.props.heightPx,
             this.props.widthPx,
@@ -78,7 +77,7 @@ class KeypadButton extends React.PureComponent {
         this._preInjectStyles();
     }
 
-    componentWillUpdate(newProps, newState) {
+    UNSAFE_componentWillUpdate(newProps, newState) {
         // Only recompute the Aphrodite StyleSheet when the button height has
         // changed. Though it is safe to recompute the StyleSheet (since
         // they're content-addressable), it saves us a bunch of hashing and
@@ -349,6 +348,7 @@ const styles = StyleSheet.create({
 
 const styleForButtonDimensions = (heightPx, widthPx) => {
     return StyleSheet.create({
+        // eslint-disable-next-line react-native/no-unused-styles
         buttonSize: {
             height: heightPx,
             width: widthPx,
@@ -361,6 +361,6 @@ const mapStateToProps = (state) => {
     return state.layout.buttonDimensions;
 };
 
-module.exports = connect(mapStateToProps, null, null, {forwardRef: true})(
+export default connect(mapStateToProps, null, null, {forwardRef: true})(
     KeypadButton,
 );

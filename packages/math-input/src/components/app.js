@@ -1,16 +1,14 @@
 import {StyleSheet} from "aphrodite";
-import React from "react";
+import * as React from "react";
 
-const {View} = require("../fake-react-native-web/index.js");
-const {components, consts} = require("../index.js");
-
-const {Keypad, KeypadInput} = components;
+import {View} from "../fake-react-native-web/index.js";
+import {Keypad, KeypadInput, KeypadTypes} from "../index.js";
 
 class App extends React.Component {
     state = {
         keypadElement: null,
         value: "",
-        keypadType: consts.KeypadTypes.EXPRESSION,
+        keypadType: KeypadTypes.EXPRESSION,
     };
 
     handleChange = (e) => {
@@ -38,10 +36,10 @@ class App extends React.Component {
                             onChange={this.handleChange}
                             value={this.state.keypadType}
                         >
-                            <option value={consts.KeypadTypes.FRACTION}>
+                            <option value={KeypadTypes.FRACTION}>
                                 FRACTION
                             </option>
-                            <option value={consts.KeypadTypes.EXPRESSION}>
+                            <option value={KeypadTypes.EXPRESSION}>
                                 EXPRESSION
                             </option>
                         </select>
@@ -72,4 +70,4 @@ const styles = StyleSheet.create({
     },
 });
 
-module.exports = App;
+export default App;

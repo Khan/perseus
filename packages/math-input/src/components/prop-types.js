@@ -11,19 +11,18 @@ import {
     KeyTypes,
     KeypadTypes,
 } from "../consts.js";
+import KeyConfigs from "../data/key-configs.js";
 
-const KeyConfigs = require("../data/key-configs.js");
+import * as CursorContexts from "./input/cursor-contexts.js";
 
-const CursorContexts = require("./input/cursor-contexts.js");
-
-const iconPropType = PropTypes.shape({
+export const iconPropType = PropTypes.shape({
     type: PropTypes.oneOf(Object.keys(IconTypes)).isRequired,
     data: PropTypes.string.isRequired,
 });
 
-const keyIdPropType = PropTypes.oneOf(Object.keys(KeyConfigs));
+export const keyIdPropType = PropTypes.oneOf(Object.keys(KeyConfigs));
 
-const keyConfigPropType = PropTypes.shape({
+export const keyConfigPropType = PropTypes.shape({
     ariaLabel: PropTypes.string,
     id: keyIdPropType.isRequired,
     type: PropTypes.oneOf(Object.keys(KeyTypes)).isRequired,
@@ -31,13 +30,13 @@ const keyConfigPropType = PropTypes.shape({
     icon: iconPropType.isRequired,
 });
 
-const keypadConfigurationPropType = PropTypes.shape({
+export const keypadConfigurationPropType = PropTypes.shape({
     keypadType: PropTypes.oneOf(Object.keys(KeypadTypes)).isRequired,
     extraKeys: PropTypes.arrayOf(keyIdPropType),
 });
 
 // NOTE(jared): This is no longer guaranteed to be React element
-const keypadElementPropType = PropTypes.shape({
+export const keypadElementPropType = PropTypes.shape({
     activate: PropTypes.func.isRequired,
     dismiss: PropTypes.func.isRequired,
     configure: PropTypes.func.isRequired,
@@ -46,11 +45,11 @@ const keypadElementPropType = PropTypes.shape({
     getDOMNode: PropTypes.func.isRequired,
 });
 
-const bordersPropType = PropTypes.arrayOf(
+export const bordersPropType = PropTypes.arrayOf(
     PropTypes.oneOf(Object.keys(BorderDirections)),
 );
 
-const boundingBoxPropType = PropTypes.shape({
+export const boundingBoxPropType = PropTypes.shape({
     height: PropTypes.number,
     width: PropTypes.number,
     top: PropTypes.number,
@@ -59,7 +58,7 @@ const boundingBoxPropType = PropTypes.shape({
     left: PropTypes.number,
 });
 
-const echoPropType = PropTypes.shape({
+export const echoPropType = PropTypes.shape({
     animationId: PropTypes.string.isRequired,
     animationType: PropTypes.oneOf(Object.keys(EchoAnimationTypes)).isRequired,
     borders: bordersPropType,
@@ -67,29 +66,17 @@ const echoPropType = PropTypes.shape({
     initialBounds: boundingBoxPropType.isRequired,
 });
 
-const cursorContextPropType = PropTypes.oneOf(Object.keys(CursorContexts));
+export const cursorContextPropType = PropTypes.oneOf(
+    Object.keys(CursorContexts),
+);
 
-const popoverPropType = PropTypes.shape({
+export const popoverPropType = PropTypes.shape({
     parentId: keyIdPropType.isRequired,
     bounds: boundingBoxPropType.isRequired,
     childKeyIds: PropTypes.arrayOf(keyIdPropType).isRequired,
 });
 
-const childrenPropType = PropTypes.oneOfType([
+export const childrenPropType = PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
 ]);
-
-module.exports = {
-    keyConfigPropType,
-    keyIdPropType,
-    keypadConfigurationPropType,
-    keypadElementPropType,
-    bordersPropType,
-    boundingBoxPropType,
-    echoPropType,
-    cursorContextPropType,
-    popoverPropType,
-    iconPropType,
-    childrenPropType,
-};

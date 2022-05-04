@@ -3,12 +3,11 @@
  */
 
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 
 import {
     cursorHandleRadiusPx,
     cursorHandleDistanceMultiplier,
-    wonderBlocksBlue,
 } from "../common-style.js";
 
 const touchTargetRadiusPx = 2 * cursorHandleRadiusPx;
@@ -135,4 +134,4 @@ class CursorHandle extends React.Component {
     }
 }
 
-module.exports = CursorHandle;
+export default CursorHandle;

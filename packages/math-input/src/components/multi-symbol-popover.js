@@ -4,15 +4,14 @@
 
 import {StyleSheet} from "aphrodite";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 
 import {BorderStyles} from "../consts.js";
+import {View} from "../fake-react-native-web/index.js";
 
+import {keyConfigPropType} from "./prop-types.js";
+import TouchableKeypadButton from "./touchable-keypad-button.js";
 import * as zIndexes from "./z-indexes.js";
-
-const {View} = require("../fake-react-native-web/index.js");
-
-const {keyConfigPropType} = require("./prop-types.js");
 
 class MultiSymbolPopover extends React.Component {
     static propTypes = {
@@ -24,7 +23,6 @@ class MultiSymbolPopover extends React.Component {
 
         // TODO(charlie): We have to require this lazily because of a cyclic
         // dependence in our components.
-        const TouchableKeypadButton = require("./touchable-keypad-button.js");
         return (
             <View style={styles.container}>
                 {keys.map((key) => {
@@ -51,10 +49,11 @@ const styles = StyleSheet.create({
         zIndex: zIndexes.popover,
     },
 
+    // eslint-disable-next-line react-native/no-unused-styles
     popoverButton: {
         backgroundColor: "#FFF",
         borderWidth: 0,
     },
 });
 
-module.exports = MultiSymbolPopover;
+export default MultiSymbolPopover;

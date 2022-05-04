@@ -6,7 +6,7 @@ import {StyleSheet} from "aphrodite";
 
 import {compactKeypadBorderRadiusPx} from "./common-style.js";
 
-module.exports = StyleSheet.create({
+export default StyleSheet.create({
     row: {
         flexDirection: "row",
     },

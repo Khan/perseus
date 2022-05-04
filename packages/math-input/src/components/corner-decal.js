@@ -4,11 +4,11 @@
 
 import {StyleSheet} from "aphrodite";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
+
+import {View} from "../fake-react-native-web/index.js";
 
 import {offBlack} from "./common-style.js";
-
-const {View} = require("../fake-react-native-web/index.js");
 
 class CornerDecal extends React.Component {
     static propTypes = {
@@ -53,4 +53,4 @@ const styles = StyleSheet.create({
     },
 });
 
-module.exports = CornerDecal;
+export default CornerDecal;

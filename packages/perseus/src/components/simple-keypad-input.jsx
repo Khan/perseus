@@ -9,14 +9,14 @@
  * interface to `math-input`'s MathInput component.
  */
 
-import {components, consts, propTypes} from "@khanacademy/math-input";
+import {
+    KeypadInput,
+    KeypadTypes,
+    keypadElementPropType,
+} from "@khanacademy/math-input";
 import createReactClass from "create-react-class";
 import PropTypes from "prop-types";
 import * as React from "react";
-
-const {KeypadInput} = components;
-const {KeypadTypes} = consts;
-const {keypadElementPropType} = propTypes;
 
 const SimpleKeypadInput: any = createReactClass({
     displayName: "SimpleKeypadInput",

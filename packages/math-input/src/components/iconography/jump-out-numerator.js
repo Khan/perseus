@@ -3,7 +3,7 @@
  *
  * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
  */
-import React from "react";
+import * as React from "react";
 
 const JumpOutNumerator = () => {
     return (
@@ -38,4 +38,4 @@ const JumpOutNumerator = () => {
     );
 };
 
-module.exports = JumpOutNumerator;
+export default JumpOutNumerator;

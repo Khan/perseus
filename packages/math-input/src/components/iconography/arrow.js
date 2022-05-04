@@ -1,7 +1,7 @@
 /**
  * An arrow icon, used by the other navigational keys.
  */
-import React from "react";
+import * as React from "react";
 
 const Arrow = (props) => {
     return (
@@ -19,4 +19,4 @@ const Arrow = (props) => {
     );
 };
 
-module.exports = Arrow;
+export default Arrow;

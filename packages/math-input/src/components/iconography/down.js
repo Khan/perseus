@@ -1,9 +1,9 @@
 /**
  * A component that renders the DOWN iconograpy in SVG.
  */
-import React from "react";
+import * as React from "react";
 
-const Arrow = require("./arrow.js");
+import Arrow from "./arrow.js";
 
 const Down = () => {
     return (
@@ -13,4 +13,4 @@ const Down = () => {
     );
 };
 
-module.exports = Down;
+export default Down;

@@ -1937,13 +1937,6 @@
   resolved "https://registry.yarnpkg.com/@khanacademy/eslint-config/-/eslint-config-0.1.0.tgz#e2b2c935be685f76075ee83136752b184c1ac733"
   integrity sha512-fskDM6GuRgZWmHHt2oUspcbsYNh6HNSB211372P98m3YRwkZNOeRCTFB7Byd3owfSm1z2jDYtUozgQv9zCWiVA==
 
-"@khanacademy/math-input@^0.4.1":
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/@khanacademy/math-input/-/math-input-0.4.1.tgz#ddde7da070c9ec4463a66314c242399c5dbf2dff"
-  integrity sha512-1MJjHtyYTUYn1zQ8KUgcvR/jhbspfn7RZjgINDrx5sjyX+QYzo9IXoTdCv0q9U+IToHtHjiMOo4pzBytWS3EVA==
-  dependencies:
-    performance-now "^0.2.0"
-
 "@khanacademy/wonder-blocks-breadcrumbs@^1.0.30":
   version "1.0.30"
   resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-breadcrumbs/-/wonder-blocks-breadcrumbs-1.0.30.tgz#bc03cd4397959be6a6ddbf33b0c64c6d1bff3a52"

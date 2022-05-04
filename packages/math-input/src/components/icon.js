@@ -4,16 +4,15 @@
 
 import {StyleSheet} from "aphrodite";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 
 import {IconTypes} from "../consts.js";
 
 import {offBlack} from "./common-style.js";
-
-const MathIcon = require("./math-icon.js");
-const {iconPropType} = require("./prop-types.js");
-const SvgIcon = require("./svg-icon.js");
-const TextIcon = require("./text-icon.js");
+import MathIcon from "./math-icon.js";
+import {iconPropType} from "./prop-types.js";
+import SvgIcon from "./svg-icon.js";
+import TextIcon from "./text-icon.js";
 
 const focusedColor = "#FFF";
 const unfocusedColor = offBlack;
@@ -72,4 +71,4 @@ const styles = StyleSheet.create({
     },
 });
 
-module.exports = Icon;
+export default Icon;

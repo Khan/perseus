@@ -3,22 +3,20 @@
  */
 
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 import {TransitionGroup, CSSTransition} from "react-transition-group";
 
 import {KeyTypes, EchoAnimationTypes} from "../consts.js";
+import KeyConfigs from "../data/key-configs.js";
 
-import * as zIndexes from "./z-indexes.js";
-
-const KeyConfigs = require("../data/key-configs.js");
-
-const KeypadButton = require("./keypad-button.js");
-const {
+import KeypadButton from "./keypad-button.js";
+import {
     echoPropType,
     bordersPropType,
     boundingBoxPropType,
     keyIdPropType,
-} = require("./prop-types.js");
+} from "./prop-types.js";
+import * as zIndexes from "./z-indexes.js";
 
 class Echo extends React.Component {
     static propTypes = {
@@ -159,4 +157,4 @@ class EchoManager extends React.Component {
     }
 }
 
-module.exports = EchoManager;
+export default EchoManager;

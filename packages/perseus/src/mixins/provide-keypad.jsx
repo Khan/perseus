@@ -11,12 +11,10 @@
  * extend a `ProvideKeypad` component instead of using this mixin.
  */
 
-import {components} from "@khanacademy/math-input";
+import {Keypad} from "@khanacademy/math-input";
 import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";
-
-const {Keypad} = components;
 
 export type KeypadProps = {|
     // An Aphrodite style object, to be applied to the keypad container.

@@ -4,13 +4,14 @@
 
 import {StyleSheet} from "aphrodite";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
+
+import {View, Text} from "../fake-react-native-web/index.js";
 
 import {iconSizeHeightPx, iconSizeWidthPx} from "./common-style.js";
+import Styles from "./styles.js";
 
-const {View, Text} = require("../fake-react-native-web/index.js");
-
-const {row, centered} = require("./styles.js");
+const {row, centered} = Styles;
 
 class TextIcon extends React.Component {
     static propTypes = {
@@ -48,4 +49,4 @@ const styles = StyleSheet.create({
     },
 });
 
-module.exports = TextIcon;
+export default TextIcon;

@@ -4,17 +4,18 @@
  */
 
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 import ReactDOM from "react-dom";
 import {connect} from "react-redux";
 
-const {removeEcho} = require("../actions/index.js");
-const {View} = require("../fake-react-native-web/index.js");
+import {removeEcho} from "../actions/index.js";
+import {View} from "../fake-react-native-web/index.js";
 
-const EchoManager = require("./echo-manager.js");
-const PopoverManager = require("./popover-manager.js");
-const {echoPropType, popoverPropType} = require("./prop-types.js");
+import EchoManager from "./echo-manager.js";
+import PopoverManager from "./popover-manager.js";
+import {echoPropType, popoverPropType} from "./prop-types.js";
 
+// eslint-disable-next-line react/no-unsafe
 class Keypad extends React.Component {
     static propTypes = {
         children: PropTypes.oneOfType([
@@ -40,7 +41,7 @@ class Keypad extends React.Component {
         this._updateSizeAndPosition();
     }
 
-    componentWillReceiveProps(newProps) {
+    UNSAFE_componentWillReceiveProps(newProps) {
         if (!this._container && (newProps.popover || newProps.echoes.length)) {
             this._computeContainer();
         }
@@ -148,6 +149,6 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-module.exports = connect(mapStateToProps, mapDispatchToProps, null, {
+export default connect(mapStateToProps, mapDispatchToProps, null, {
     forwardRef: true,
 })(Keypad);

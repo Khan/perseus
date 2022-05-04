@@ -109,6 +109,7 @@ module.exports = {
         "import/no-unresolved": "error",
         "import/named": "error",
         "import/default": "error",
+        "import/namespace": "error",
         "import/no-absolute-path": "error",
         "import/no-self-import": "error",
         "import/no-useless-path-segments": "error",
