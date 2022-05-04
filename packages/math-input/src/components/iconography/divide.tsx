@@ -7,7 +7,7 @@ import * as React from "react";
 
 const Divide = (props: {color: string}): React.ReactNode => {
     return (
-        <svg width="48" height="48">
+        <svg width="48" height="48" viewbox="0 0 48 48">
             <defs>
                 <path id="a" d="M0 0h600v956H0z" />
             </defs>

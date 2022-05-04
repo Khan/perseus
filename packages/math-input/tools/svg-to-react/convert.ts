@@ -133,7 +133,15 @@ const main = async () => {
             const result = optimize(rawSvg, {
                 plugins: [
                     // set of built-in plugins enabled by default
-                    "preset-default",
+                    {
+                        name: "preset-default",
+                        params: {
+                            overrides: {
+                                // Don't remove view-box to retain compatibility
+                                removeViewBox: false,
+                            },
+                        },
+                    },
                     "removeXMLNS",
                 ],
             });
