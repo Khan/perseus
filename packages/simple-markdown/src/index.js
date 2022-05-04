@@ -1,4 +1,5 @@
-/* @flow */
+/* eslint-disable no-console */
+// @flow
 /* @ts-check */
 
 /**
@@ -224,16 +225,16 @@ type RefNode = {
 // End Flow Definitions
 */
 
-var CR_NEWLINE_R = /\r\n?/g;
-var TAB_R = /\t/g;
-var FORMFEED_R = /\f/g;
+const CR_NEWLINE_R = /\r\n?/g;
+const TAB_R = /\t/g;
+const FORMFEED_R = /\f/g;
 
 /**
  * Turn various whitespace into easy-to-process whitespace
  * @param {string} source
  * @returns {string}
  */
-var preprocess = function (source /* : string */) {
+const preprocess = function (source /* : string */) {
     return source
         .replace(CR_NEWLINE_R, "\n")
         .replace(FORMFEED_R, "")
@@ -245,13 +246,14 @@ var preprocess = function (source /* : string */) {
  * @param {SimpleMarkdown.OptionalState} defaultState
  * @returns {SimpleMarkdown.State}
  */
-var populateInitialState = function (
+const populateInitialState = function (
     givenState /* : ?State */,
     defaultState /* : ?State */,
 ) /* : State */ {
-    var state /* : State */ = givenState || {};
+    const state /* : State */ = givenState || {};
     if (defaultState != null) {
-        for (var prop in defaultState) {
+        for (const prop in defaultState) {
+            // $FlowFixMe
             if (Object.prototype.hasOwnProperty.call(defaultState, prop)) {
                 state[prop] = defaultState[prop];
             }
@@ -279,18 +281,18 @@ var populateInitialState = function (
  *         some nesting is. For an example use-case, see passage-ref
  *         parsing in src/widgets/passage/passage-markdown.jsx
  */
-var parserFor = function (
+const parserFor = function (
     rules /*: ParserRules */,
     defaultState /*: ?State */,
 ) {
     // Sorts rules in order of increasing order, then
     // ascending rule name in case of ties.
-    var ruleList = Object.keys(rules).filter(function (type) {
-        var rule = rules[type];
+    const ruleList = Object.keys(rules).filter(function (type) {
+        const rule = rules[type];
         if (rule == null || rule.match == null) {
             return false;
         }
-        var order = rule.order;
+        const order = rule.order;
         if (
             (typeof order !== "number" || !isFinite(order)) &&
             typeof console !== "undefined"
@@ -306,24 +308,24 @@ var parserFor = function (
     });
 
     ruleList.sort(function (typeA, typeB) {
-        var ruleA /* : ParserRule */ =
+        const ruleA /* : ParserRule */ =
             /** @type {SimpleMarkdown.ParserRule} */ (
                 rules[typeA] /*:: :any */
             );
-        var ruleB /* : ParserRule */ =
+        const ruleB /* : ParserRule */ =
             /** @type {SimpleMarkdown.ParserRule} */ (
                 rules[typeB] /*:: :any */
             );
-        var orderA = ruleA.order;
-        var orderB = ruleB.order;
+        const orderA = ruleA.order;
+        const orderB = ruleB.order;
 
         // First sort based on increasing order
         if (orderA !== orderB) {
             return orderA - orderB;
         }
 
-        var secondaryOrderA = ruleA.quality ? 0 : 1;
-        var secondaryOrderB = ruleB.quality ? 0 : 1;
+        const secondaryOrderA = ruleA.quality ? 0 : 1;
+        const secondaryOrderB = ruleB.quality ? 0 : 1;
 
         if (secondaryOrderA !== secondaryOrderB) {
             return secondaryOrderA - secondaryOrderB;
@@ -341,36 +343,41 @@ var parserFor = function (
     });
 
     /** @type {SimpleMarkdown.State} */
-    var latestState;
+    let latestState;
     /** @type {SimpleMarkdown.Parser} */
-    var nestedParse = function (source /* : string */, state /* : ?State */) {
+    const nestedParse = function (source /* : string */, state /* : ?State */) {
         /** @type Array<SimpleMarkdown.SingleASTNode> */
-        var result = [];
+        const result = [];
         state = state || latestState;
         latestState = state;
         while (source) {
             // store the best match, it's rule, and quality:
-            var ruleType = null;
-            var rule = null;
-            var capture = null;
-            var quality = NaN;
+            let ruleType = null;
+            let rule = null;
+            let capture = null;
+            let quality = NaN;
 
             // loop control variables:
-            var i = 0;
-            var currRuleType = ruleList[0];
-            var currRule /* : ParserRule */ =
+            let i = 0;
+            let currRuleType = ruleList[0];
+            let currRule /* : ParserRule */ =
                 /** @type {SimpleMarkdown.ParserRule} */ (
                     rules[currRuleType] /*:: :any */
                 );
 
             do {
-                var currOrder = currRule.order;
-                var prevCaptureStr =
+                // eslint-disable-next-line no-unused-vars
+                const currOrder = currRule.order;
+                const prevCaptureStr =
                     state.prevCapture == null ? "" : state.prevCapture[0];
-                var currCapture = currRule.match(source, state, prevCaptureStr);
+                const currCapture = currRule.match(
+                    source,
+                    state,
+                    prevCaptureStr,
+                );
 
                 if (currCapture) {
-                    var currQuality = currRule.quality
+                    const currQuality = currRule.quality
                         ? currRule.quality(currCapture, state, prevCaptureStr)
                         : 0;
                     // This should always be true the first time because
@@ -426,12 +433,13 @@ var parserFor = function (
                 );
             }
 
-            var parsed = rule.parse(capture, nestedParse, state);
+            const parsed = rule.parse(capture, nestedParse, state);
             // We maintain the same object here so that rules can
             // store references to the objects they return and
             // modify them later. (oops sorry! but this adds a lot
             // of power--see reflinks.)
             if (Array.isArray(parsed)) {
+                // $FlowFixMe
                 Array.prototype.push.apply(result, parsed);
             } else {
                 // We also let rules override the default type of
@@ -453,7 +461,7 @@ var parserFor = function (
     };
 
     /** @type {SimpleMarkdown.Parser} */
-    var outerParse = function (source /* : string */, state /* : ?State */) {
+    const outerParse = function (source /* : string */, state /* : ?State */) {
         latestState = populateInitialState(state, defaultState);
         if (!latestState.inline && !latestState.disableAutoBlockNewlines) {
             source = source + "\n\n";
@@ -471,9 +479,10 @@ var parserFor = function (
 
 // Creates a match function for an inline scoped element from a regex
 /** @type {(regex: RegExp) => SimpleMarkdown.MatchFunction} */
-var inlineRegex = function (regex /* : RegExp */) {
+const inlineRegex = function (regex /* : RegExp */) {
     /** @type {SimpleMarkdown.MatchFunction} */
-    var match /* : MatchFunction */ = function (source, state) {
+    // $FlowFixMe
+    const match /* : MatchFunction */ = function (source, state) {
         if (state.inline) {
             return regex.exec(source);
         } else {
@@ -486,9 +495,10 @@ var inlineRegex = function (regex /* : RegExp */) {
 
 // Creates a match function for a block scoped element from a regex
 /** @type {(regex: RegExp) => SimpleMarkdown.MatchFunction} */
-var blockRegex = function (regex /* : RegExp */) {
+const blockRegex = function (regex /* : RegExp */) {
     /** @type {SimpleMarkdown.MatchFunction} */
-    var match /* : MatchFunction */ = function (source, state) {
+    // $FlowFixMe
+    const match /* : MatchFunction */ = function (source, state) {
         if (state.inline) {
             return null;
         } else {
@@ -501,16 +511,17 @@ var blockRegex = function (regex /* : RegExp */) {
 
 // Creates a match function from a regex, ignoring block/inline scope
 /** @type {(regex: RegExp) => SimpleMarkdown.MatchFunction} */
-var anyScopeRegex = function (regex /* : RegExp */) {
+const anyScopeRegex = function (regex /* : RegExp */) {
     /** @type {SimpleMarkdown.MatchFunction} */
-    var match /* : MatchFunction */ = function (source, state) {
+    // $FlowFixMe
+    const match /* : MatchFunction */ = function (source, state) {
         return regex.exec(source);
     };
     match.regex = regex;
     return match;
 };
 
-var TYPE_SYMBOL =
+const TYPE_SYMBOL =
     (typeof Symbol === "function" &&
         Symbol.for &&
         Symbol.for("react.element")) ||
@@ -522,12 +533,12 @@ var TYPE_SYMBOL =
  * @param {Object<string, any>} props
  * @returns {SimpleMarkdown.ReactElement}
  */
-var reactElement = function (
+const reactElement = function (
     type /* : string */,
     key /* : string | number | null | void */,
     props /* : { [string]: any } */,
 ) /* : ReactElement */ {
-    var element /* : ReactElement */ =
+    const element /* : ReactElement */ =
         /** @type {SimpleMarkdown.ReactElement} */ (
             {
                 $$typeof: TYPE_SYMBOL,
@@ -549,7 +560,7 @@ var reactElement = function (
  * @param {boolean} [isClosed] - boolean that controls whether tag is closed or not (eg. img tags).
  *   defaults to true
  */
-var htmlTag = function (
+const htmlTag = function (
     tagName /* : string */,
     content /* : string */,
     attributes /* : ?{[any]: ?Attr} */,
@@ -558,11 +569,13 @@ var htmlTag = function (
     attributes = attributes || {};
     isClosed = typeof isClosed !== "undefined" ? isClosed : true;
 
-    var attributeString = "";
-    for (var attr in attributes) {
-        var attribute = attributes[attr];
+    let attributeString = "";
+    // eslint-disable-next-line guard-for-in
+    for (const attr in attributes) {
+        const attribute = attributes[attr];
         // Removes falsey attributes
         if (
+            // $FlowFixMe
             Object.prototype.hasOwnProperty.call(attributes, attr) &&
             attribute
         ) {
@@ -571,7 +584,7 @@ var htmlTag = function (
         }
     }
 
-    var unclosedTag = "<" + tagName + attributeString + ">";
+    const unclosedTag = "<" + tagName + attributeString + ">";
 
     if (isClosed) {
         return unclosedTag + content + "</" + tagName + ">";
@@ -580,18 +593,18 @@ var htmlTag = function (
     }
 };
 
-var EMPTY_PROPS = {};
+const EMPTY_PROPS = {};
 
 /**
  * @param {string | null | undefined} url - url to sanitize
  * @returns {string | null} - url if safe, or null if a safe url could not be made
  */
-var sanitizeUrl = function (url /* : ?string */) {
+const sanitizeUrl = function (url /* : ?string */) {
     if (url == null) {
         return null;
     }
     try {
-        var prot = new URL(url, "https://localhost").protocol;
+        const prot = new URL(url, "https://localhost").protocol;
         if (
             prot.indexOf("javascript:") === 0 ||
             prot.indexOf("vbscript:") === 0 ||
@@ -607,9 +620,9 @@ var sanitizeUrl = function (url /* : ?string */) {
     return url;
 };
 
-var SANITIZE_TEXT_R = /[<>&"']/g;
+const SANITIZE_TEXT_R = /[<>&"']/g;
 /** @type {any} */
-var SANITIZE_TEXT_CODES = {
+const SANITIZE_TEXT_CODES = {
     "<": "&lt;",
     ">": "&gt;",
     "&": "&amp;",
@@ -622,19 +635,19 @@ var SANITIZE_TEXT_CODES = {
  * @param {SimpleMarkdown.Attr} text
  * @returns {string}
  */
-var sanitizeText = function (text /* : Attr */) {
+const sanitizeText = function (text /* : Attr */) {
     return String(text).replace(SANITIZE_TEXT_R, function (chr) {
         return SANITIZE_TEXT_CODES[chr];
     });
 };
 
-var UNESCAPE_URL_R = /\\([^0-9A-Za-z\s])/g;
+const UNESCAPE_URL_R = /\\([^0-9A-Za-z\s])/g;
 
 /**
  * @param {string} rawUrlString
  * @returns {string}
  */
-var unescapeUrl = function (rawUrlString /* : string */) {
+const unescapeUrl = function (rawUrlString /* : string */) {
     return rawUrlString.replace(UNESCAPE_URL_R, "$1");
 };
 
@@ -648,10 +661,10 @@ var unescapeUrl = function (rawUrlString /* : string */) {
  * @param {SimpleMarkdown.State} state
  * @returns {SimpleMarkdown.ASTNode}
  */
-var parseInline = function (parse, content, state) {
-    var isCurrentlyInline = state.inline || false;
+const parseInline = function (parse, content, state) {
+    const isCurrentlyInline = state.inline || false;
     state.inline = true;
-    var result = parse(content, state);
+    const result = parse(content, state);
     state.inline = isCurrentlyInline;
     return result;
 };
@@ -661,10 +674,10 @@ var parseInline = function (parse, content, state) {
  * @param {SimpleMarkdown.State} state
  * @returns {SimpleMarkdown.ASTNode}
  */
-var parseBlock = function (parse, content, state) {
-    var isCurrentlyInline = state.inline || false;
+const parseBlock = function (parse, content, state) {
+    const isCurrentlyInline = state.inline || false;
     state.inline = false;
-    var result = parse(content + "\n\n", state);
+    const result = parse(content + "\n\n", state);
     state.inline = isCurrentlyInline;
     return result;
 };
@@ -675,7 +688,7 @@ var parseBlock = function (parse, content, state) {
  * @param {SimpleMarkdown.State} state
  * @returns {SimpleMarkdown.UnTypedASTNode}
  */
-var parseCaptureInline = function (capture, parse, state) {
+const parseCaptureInline = function (capture, parse, state) {
     return {
         content: parseInline(parse, capture[1], state),
     };
@@ -683,16 +696,16 @@ var parseCaptureInline = function (capture, parse, state) {
 /**
  * @returns {SimpleMarkdown.UnTypedASTNode}
  */
-var ignoreCapture = function () {
+const ignoreCapture = function () {
     return {};
 };
 
 // recognize a `*` `-`, `+`, `1.`, `2.`... list bullet
-var LIST_BULLET = "(?:[*+-]|\\d+\\.)";
+const LIST_BULLET = "(?:[*+-]|\\d+\\.)";
 // recognize the start of a list item:
 // leading space plus a bullet plus a space (`   * `)
-var LIST_ITEM_PREFIX = "( *)(" + LIST_BULLET + ") +";
-var LIST_ITEM_PREFIX_R = new RegExp("^" + LIST_ITEM_PREFIX);
+const LIST_ITEM_PREFIX = "( *)(" + LIST_BULLET + ") +";
+const LIST_ITEM_PREFIX_R = new RegExp("^" + LIST_ITEM_PREFIX);
 // recognize an individual list item:
 //  * hi
 //    this is part of the same item
@@ -700,7 +713,7 @@ var LIST_ITEM_PREFIX_R = new RegExp("^" + LIST_ITEM_PREFIX);
 //    as is this, which is a new paragraph in the same item
 //
 //  * but this is not part of the same item
-var LIST_ITEM_R = new RegExp(
+const LIST_ITEM_R = new RegExp(
     LIST_ITEM_PREFIX +
         "[^\\n]*(?:\\n" +
         "(?!\\1" +
@@ -708,15 +721,15 @@ var LIST_ITEM_R = new RegExp(
         " )[^\\n]*)*(\n|$)",
     "gm",
 );
-var BLOCK_END_R = /\n{2,}$/;
-var INLINE_CODE_ESCAPE_BACKTICKS_R = /^ (?= *`)|(` *) $/g;
+const BLOCK_END_R = /\n{2,}$/;
+const INLINE_CODE_ESCAPE_BACKTICKS_R = /^ (?= *`)|(` *) $/g;
 // recognize the end of a paragraph block inside a list item:
 // two or more newlines at end end of the item
-var LIST_BLOCK_END_R = BLOCK_END_R;
-var LIST_ITEM_END_R = / *\n+$/;
+const LIST_BLOCK_END_R = BLOCK_END_R;
+const LIST_ITEM_END_R = / *\n+$/;
 // check whether a list item has paragraphs: if it does,
 // we leave the newlines at the end
-var LIST_R = new RegExp(
+const LIST_R = new RegExp(
     "^( *)(" +
         LIST_BULLET +
         ") " +
@@ -728,24 +741,25 @@ var LIST_R = new RegExp(
         // lists, where our content might end before we receive two `\n`s
         "|\\s*\n*$)",
 );
-var LIST_LOOKBEHIND_R = /(?:^|\n)( *)$/;
+const LIST_LOOKBEHIND_R = /(?:^|\n)( *)$/;
 
-var TABLES = (function () {
+const TABLES = (function () {
     // predefine regexes so we don't have to create them inside functions
     // sure, regex literals should be fast, even inside functions, but they
     // aren't in all browsers.
-    var TABLE_BLOCK_TRIM = /\n+/g;
-    var TABLE_ROW_SEPARATOR_TRIM = /^ *\| *| *\| *$/g;
-    var TABLE_CELL_END_TRIM = / *$/;
-    var TABLE_RIGHT_ALIGN = /^ *-+: *$/;
-    var TABLE_CENTER_ALIGN = /^ *:-+: *$/;
-    var TABLE_LEFT_ALIGN = /^ *:-+ *$/;
+    // eslint-disable-next-line no-unused-vars
+    const TABLE_BLOCK_TRIM = /\n+/g;
+    const TABLE_ROW_SEPARATOR_TRIM = /^ *\| *| *\| *$/g;
+    const TABLE_CELL_END_TRIM = / *$/;
+    const TABLE_RIGHT_ALIGN = /^ *-+: *$/;
+    const TABLE_CENTER_ALIGN = /^ *:-+: *$/;
+    const TABLE_LEFT_ALIGN = /^ *:-+ *$/;
 
     /**
      * @param {string} alignCapture
      * @returns {SimpleMarkdown.TableAlignment}
      */
-    var parseTableAlignCapture = function (alignCapture) {
+    const parseTableAlignCapture = function (alignCapture) {
         if (TABLE_RIGHT_ALIGN.test(alignCapture)) {
             return "right";
         } else if (TABLE_CENTER_ALIGN.test(alignCapture)) {
@@ -764,11 +778,11 @@ var TABLES = (function () {
      * @param {boolean} trimEndSeparators
      * @returns {Array<SimpleMarkdown.TableAlignment>}
      */
-    var parseTableAlign = function (source, parse, state, trimEndSeparators) {
+    const parseTableAlign = function (source, parse, state, trimEndSeparators) {
         if (trimEndSeparators) {
             source = source.replace(TABLE_ROW_SEPARATOR_TRIM, "");
         }
-        var alignText = source.trim().split("|");
+        const alignText = source.trim().split("|");
         return alignText.map(parseTableAlignCapture);
     };
 
@@ -779,14 +793,14 @@ var TABLES = (function () {
      * @param {boolean} trimEndSeparators
      * @returns {SimpleMarkdown.SingleASTNode[][]}
      */
-    var parseTableRow = function (source, parse, state, trimEndSeparators) {
-        var prevInTable = state.inTable;
+    const parseTableRow = function (source, parse, state, trimEndSeparators) {
+        const prevInTable = state.inTable;
         state.inTable = true;
-        var tableRow = parse(source.trim(), state);
+        const tableRow = parse(source.trim(), state);
         state.inTable = prevInTable;
 
         /** @type {SimpleMarkdown.SingleASTNode[][]} */
-        var cells = [[]];
+        const cells = [[]];
         tableRow.forEach(function (node, i) {
             if (node.type === "tableSeparator") {
                 // Filter out empty table separators at the start/end:
@@ -822,8 +836,8 @@ var TABLES = (function () {
      * @param {boolean} trimEndSeparators
      * @returns {SimpleMarkdown.ASTNode[][]}
      */
-    var parseTableCells = function (source, parse, state, trimEndSeparators) {
-        var rowsText = source.trim().split("\n");
+    const parseTableCells = function (source, parse, state, trimEndSeparators) {
+        const rowsText = source.trim().split("\n");
 
         return rowsText.map(function (rowText) {
             return parseTableRow(rowText, parse, state, trimEndSeparators);
@@ -834,23 +848,23 @@ var TABLES = (function () {
      * @param {boolean} trimEndSeparators
      * @returns {SimpleMarkdown.SingleNodeParseFunction}
      */
-    var parseTable = function (trimEndSeparators) {
+    const parseTable = function (trimEndSeparators) {
         /** @type {SimpleMarkdown.SingleNodeParseFunction} */
         return function (capture, parse, state) {
             state.inline = true;
-            var header = parseTableRow(
+            const header = parseTableRow(
                 capture[1],
                 parse,
                 state,
                 trimEndSeparators,
             );
-            var align = parseTableAlign(
+            const align = parseTableAlign(
                 capture[2],
                 parse,
                 state,
                 trimEndSeparators,
             );
-            var cells = parseTableCells(
+            const cells = parseTableCells(
                 capture[3],
                 parse,
                 state,
@@ -877,10 +891,10 @@ var TABLES = (function () {
     };
 })();
 
-var LINK_INSIDE = "(?:\\[[^\\]]*\\]|[^\\[\\]]|\\](?=[^\\[]*\\]))*";
-var LINK_HREF_AND_TITLE =
+const LINK_INSIDE = "(?:\\[[^\\]]*\\]|[^\\[\\]]|\\](?=[^\\[]*\\]))*";
+const LINK_HREF_AND_TITLE =
     "\\s*<?((?:\\([^)]*\\)|[^\\s\\\\]|\\\\.)*?)>?(?:\\s+['\"]([\\s\\S]*?)['\"])?\\s*";
-var AUTOLINK_MAILTO_CHECK_R = /mailto:/i;
+const AUTOLINK_MAILTO_CHECK_R = /mailto:/i;
 
 /**
  * @param {SimpleMarkdown.Capture} capture
@@ -888,8 +902,8 @@ var AUTOLINK_MAILTO_CHECK_R = /mailto:/i;
  * @param {SimpleMarkdown.RefNode} refNode
  * @returns {SimpleMarkdown.RefNode}
  */
-var parseRef = function (capture, state, refNode /* : RefNode */) {
-    var ref = (capture[2] || capture[1]).replace(/\s+/g, " ").toLowerCase();
+const parseRef = function (capture, state, refNode /* : RefNode */) {
+    const ref = (capture[2] || capture[1]).replace(/\s+/g, " ").toLowerCase();
 
     // We store information about previously seen defs on
     // state._defs (_ to deconflict with client-defined
@@ -897,7 +911,7 @@ var parseRef = function (capture, state, refNode /* : RefNode */) {
     // already been seen, we can use its target/source
     // and title here:
     if (state._defs && state._defs[ref]) {
-        var def = state._defs[ref];
+        const def = state._defs[ref];
         // `refNode` can be a link or an image. Both use
         // target and title properties.
         refNode.target = def.target;
@@ -917,23 +931,23 @@ var parseRef = function (capture, state, refNode /* : RefNode */) {
     return refNode;
 };
 
-var currOrder = 0;
+let currOrder = 0;
 /** @type {SimpleMarkdown.DefaultRules} */
-var defaultRules /* : DefaultRules */ = {
+const defaultRules = {
     Array: {
         react: function (arr, output, state) {
-            var oldKey = state.key;
-            var result /* : Array<ReactElements> */ = [];
+            const oldKey = state.key;
+            const result /* : Array<ReactElements> */ = [];
 
             // map output over the ast, except group any text
             // nodes together into a single string output.
-            for (var i = 0, key = 0; i < arr.length; i++, key++) {
+            for (let i = 0, key = 0; i < arr.length; i++, key++) {
                 // `key` is our numerical `state.key`, which we increment for
                 // every output node, but don't change for joined text nodes.
                 // (i, however, must change for joined text nodes)
                 state.key = "" + i;
 
-                var node = arr[i];
+                let node = arr[i];
                 if (node.type === "text") {
                     node = {type: "text", content: node.content};
                     for (
@@ -952,12 +966,12 @@ var defaultRules /* : DefaultRules */ = {
             return result;
         },
         html: function (arr, output, state) {
-            var result = "";
+            let result = "";
 
             // map output over the ast, except group any text
             // nodes together into a single string output.
-            for (var i = 0, key = 0; i < arr.length; i++) {
-                var node = arr[i];
+            for (let i = 0; i < arr.length; i++) {
+                let node = arr[i];
                 if (node.type === "text") {
                     node = {type: "text", content: node.content};
                     for (
@@ -1025,16 +1039,18 @@ var defaultRules /* : DefaultRules */ = {
     },
     codeBlock: {
         order: currOrder++,
-        match: blockRegex(/^(?:    [^\n]+\n*)+(?:\n *)+\n/),
+        match: blockRegex(/^(?: {4}[^\n]+\n*)+(?:\n *)+\n/),
         parse: function (capture, parse, state) {
-            var content = capture[0].replace(/^    /gm, "").replace(/\n+$/, "");
+            const content = capture[0]
+                .replace(/^ {4}/gm, "")
+                .replace(/\n+$/, "");
             return {
                 lang: undefined,
                 content: content,
             };
         },
         react: function (node, output, state) {
-            var className = node.lang
+            const className = node.lang
                 ? "markdown-code-" + node.lang
                 : undefined;
 
@@ -1046,11 +1062,11 @@ var defaultRules /* : DefaultRules */ = {
             });
         },
         html: function (node, output, state) {
-            var className = node.lang
+            const className = node.lang
                 ? "markdown-code-" + node.lang
                 : undefined;
 
-            var codeBlock = htmlTag("code", sanitizeText(node.content), {
+            const codeBlock = htmlTag("code", sanitizeText(node.content), {
                 class: className,
             });
             return htmlTag("pre", codeBlock);
@@ -1075,7 +1091,7 @@ var defaultRules /* : DefaultRules */ = {
         order: currOrder++,
         match: blockRegex(/^( *>[^\n]+(\n[^\n]+)*\n*)+\n{2,}/),
         parse: function (capture, parse, state) {
-            var content = capture[0].replace(/^ *> ?/gm, "");
+            const content = capture[0].replace(/^ *> ?/gm, "");
             return {
                 content: parse(content, state),
             };
@@ -1100,10 +1116,10 @@ var defaultRules /* : DefaultRules */ = {
             // lists can be inline, because they might be inside another list,
             // in which case we can parse with inline scope, but need to allow
             // nested lists inside this inline scope.
-            var prevCaptureStr =
+            const prevCaptureStr =
                 state.prevCapture == null ? "" : state.prevCapture[0];
-            var isStartOfLineCapture = LIST_LOOKBEHIND_R.exec(prevCaptureStr);
-            var isListBlock = state._list || !state.inline;
+            const isStartOfLineCapture = LIST_LOOKBEHIND_R.exec(prevCaptureStr);
+            const isListBlock = state._list || !state.inline;
 
             if (isStartOfLineCapture && isListBlock) {
                 source = isStartOfLineCapture[1] + source;
@@ -1113,10 +1129,10 @@ var defaultRules /* : DefaultRules */ = {
             }
         },
         parse: function (capture, parse, state) {
-            var bullet = capture[2];
-            var ordered = bullet.length > 1;
-            var start = ordered ? +bullet : undefined;
-            var items = /** @type {string[]} */ (
+            const bullet = capture[2];
+            const ordered = bullet.length > 1;
+            const start = ordered ? +bullet : undefined;
+            const items = /** @type {string[]} */ (
                 capture[0].replace(LIST_BLOCK_END_R, "\n").match(LIST_ITEM_R)
             );
 
@@ -1124,20 +1140,20 @@ var defaultRules /* : DefaultRules */ = {
             // defined
             /*:: items = ((items : any) : Array<string>) */
 
-            var lastItemWasAParagraph = false;
-            var itemContent = items.map(function (
+            let lastItemWasAParagraph = false;
+            const itemContent = items.map(function (
                 /** @type {string} */ item,
                 /** @type {number} */ i,
             ) {
                 // We need to see how far indented this item is:
-                var prefixCapture = LIST_ITEM_PREFIX_R.exec(item);
-                var space = prefixCapture ? prefixCapture[0].length : 0;
+                const prefixCapture = LIST_ITEM_PREFIX_R.exec(item);
+                const space = prefixCapture ? prefixCapture[0].length : 0;
                 // And then we construct a regex to "unindent" the subsequent
                 // lines of the items by that amount:
-                var spaceRegex = new RegExp("^ {1," + space + "}", "gm");
+                const spaceRegex = new RegExp("^ {1," + space + "}", "gm");
 
                 // Before processing the item, we need a couple things
-                var content = item
+                const content = item
                     // remove indents on trailing lines:
                     .replace(spaceRegex, "")
                     // remove the bullet:
@@ -1153,8 +1169,8 @@ var defaultRules /* : DefaultRules */ = {
                 //  * as is this
                 //
                 //  * as is this
-                var isLastItem = i === items.length - 1;
-                var containsBlocks = content.indexOf("\n\n") !== -1;
+                const isLastItem = i === items.length - 1;
+                const containsBlocks = content.indexOf("\n\n") !== -1;
 
                 // Any element in a list is a block if it contains multiple
                 // newlines. The last element in the list can also be a block
@@ -1162,20 +1178,20 @@ var defaultRules /* : DefaultRules */ = {
                 // because non-last items in the list can end with \n\n, but
                 // the last item can't, so we just "inherit" this property
                 // from our previous element).
-                var thisItemIsAParagraph =
+                const thisItemIsAParagraph =
                     containsBlocks || (isLastItem && lastItemWasAParagraph);
                 lastItemWasAParagraph = thisItemIsAParagraph;
 
                 // backup our state for restoration afterwards. We're going to
                 // want to set state._list to true, and state.inline depending
                 // on our list's looseness.
-                var oldStateInline = state.inline;
-                var oldStateList = state._list;
+                const oldStateInline = state.inline;
+                const oldStateList = state._list;
                 state._list = true;
 
                 // Parse inline if we're in a tight list, or block if we're in
                 // a loose list.
-                var adjustedContent;
+                let adjustedContent;
                 if (thisItemIsAParagraph) {
                     state.inline = false;
                     adjustedContent = content.replace(LIST_ITEM_END_R, "\n\n");
@@ -1184,7 +1200,7 @@ var defaultRules /* : DefaultRules */ = {
                     adjustedContent = content.replace(LIST_ITEM_END_R, "");
                 }
 
-                var result = parse(adjustedContent, state);
+                const result = parse(adjustedContent, state);
 
                 // Restore our state before returning
                 state.inline = oldStateInline;
@@ -1199,7 +1215,7 @@ var defaultRules /* : DefaultRules */ = {
             };
         },
         react: function (node, output, state) {
-            var ListWrapper = node.ordered ? "ol" : "ul";
+            const ListWrapper = node.ordered ? "ol" : "ul";
 
             return reactElement(ListWrapper, state.key, {
                 start: node.start,
@@ -1214,14 +1230,14 @@ var defaultRules /* : DefaultRules */ = {
             });
         },
         html: function (node, output, state) {
-            var listItems = node.items
+            const listItems = node.items
                 .map(function (/** @type {SimpleMarkdown.ASTNode} */ item) {
                     return htmlTag("li", output(item, state));
                 })
                 .join("");
 
-            var listTag = node.ordered ? "ol" : "ul";
-            var attributes = {
+            const listTag = node.ordered ? "ol" : "ul";
+            const attributes = {
                 start: node.start,
             };
             return htmlTag(listTag, listItems, attributes);
@@ -1236,9 +1252,9 @@ var defaultRules /* : DefaultRules */ = {
             /^ *\[([^\]]+)\]: *<?([^\s>]*)>?(?: +["(]([^\n]+)[")])? *\n(?: *\n)*/,
         ),
         parse: function (capture, parse, state) {
-            var def = capture[1].replace(/\s+/g, " ").toLowerCase();
-            var target = capture[2];
-            var title = capture[3];
+            const def = capture[1].replace(/\s+/g, " ").toLowerCase();
+            const target = capture[2];
+            const title = capture[3];
 
             // Look for previous links/images using this def
             // If any links/images using this def have already been declared,
@@ -1292,7 +1308,7 @@ var defaultRules /* : DefaultRules */ = {
              * @param {number} colIndex
              * @returns {{ [attr: string]: SimpleMarkdown.Attr }}
              */
-            var getStyle = function (colIndex) {
+            const getStyle = function (colIndex) {
                 return node.align[colIndex] == null
                     ? {}
                     : {
@@ -1300,7 +1316,7 @@ var defaultRules /* : DefaultRules */ = {
                       };
             };
 
-            var headers = node.header.map(function (
+            const headers = node.header.map(function (
                 /** @type {SimpleMarkdown.ASTNode} */ content,
                 /** @type {number} */ i,
             ) {
@@ -1311,7 +1327,7 @@ var defaultRules /* : DefaultRules */ = {
                 });
             });
 
-            var rows = node.cells.map(function (
+            const rows = node.cells.map(function (
                 /** @type {SimpleMarkdown.ASTNode[]} */ row,
                 /** @type {number} */ r,
             ) {
@@ -1346,13 +1362,13 @@ var defaultRules /* : DefaultRules */ = {
              * @param {number} colIndex
              * @returns {string}
              */
-            var getStyle = function (colIndex) {
+            const getStyle = function (colIndex) {
                 return node.align[colIndex] == null
                     ? ""
                     : "text-align:" + node.align[colIndex] + ";";
             };
 
-            var headers = node.header
+            const headers = node.header
                 .map(function (
                     /** @type {SimpleMarkdown.ASTNode} */ content,
                     /** @type {number} */ i,
@@ -1364,9 +1380,9 @@ var defaultRules /* : DefaultRules */ = {
                 })
                 .join("");
 
-            var rows = node.cells
+            const rows = node.cells
                 .map(function (/** @type {SimpleMarkdown.ASTNode[]} */ row) {
-                    var cols = row
+                    const cols = row
                         .map(function (
                             /** @type {SimpleMarkdown.ASTNode} */ content,
                             /** @type {number} */ c,
@@ -1381,8 +1397,8 @@ var defaultRules /* : DefaultRules */ = {
                 })
                 .join("");
 
-            var thead = htmlTag("thead", htmlTag("tr", headers));
-            var tbody = htmlTag("tbody", rows);
+            const thead = htmlTag("thead", htmlTag("tr", headers));
+            const tbody = htmlTag("tbody", rows);
 
             return htmlTag("table", thead + tbody);
         },
@@ -1409,7 +1425,7 @@ var defaultRules /* : DefaultRules */ = {
             });
         },
         html: function (node, output, state) {
-            var attributes = {
+            const attributes = {
                 class: "paragraph",
             };
             return htmlTag("div", output(node.content, state), attributes);
@@ -1472,8 +1488,8 @@ var defaultRules /* : DefaultRules */ = {
         order: currOrder++,
         match: inlineRegex(/^<([^ >]+@[^ >]+)>/),
         parse: function (capture, parse, state) {
-            var address = capture[1];
-            var target = capture[1];
+            const address = capture[1];
+            let target = capture[1];
 
             // Check for a `mailto:` already existing in the link:
             if (!AUTOLINK_MAILTO_CHECK_R.test(target)) {
@@ -1521,7 +1537,7 @@ var defaultRules /* : DefaultRules */ = {
             ),
         ),
         parse: function (capture, parse, state) {
-            var link = {
+            const link = {
                 content: parse(capture[1], state),
                 target: unescapeUrl(capture[2]),
                 title: capture[3],
@@ -1536,7 +1552,7 @@ var defaultRules /* : DefaultRules */ = {
             });
         },
         html: function (node, output, state) {
-            var attributes = {
+            const attributes = {
                 href: sanitizeUrl(node.target),
                 title: node.title,
             };
@@ -1556,7 +1572,7 @@ var defaultRules /* : DefaultRules */ = {
             ),
         ),
         parse: function (capture, parse, state) {
-            var image = {
+            const image = {
                 alt: capture[1],
                 target: unescapeUrl(capture[2]),
                 title: capture[3],
@@ -1571,7 +1587,7 @@ var defaultRules /* : DefaultRules */ = {
             });
         },
         html: function (node, output, state) {
-            var attributes = {
+            const attributes = {
                 src: sanitizeUrl(node.target),
                 alt: node.alt,
                 title: node.title,
@@ -1778,10 +1794,7 @@ var defaultRules /* : DefaultRules */ = {
  * @param {any} property
  * @returns {any}
  */
-var ruleOutput = function (
-    /* :: <Rule : Object> */ rules /* : OutputRules<Rule> */,
-    property /* : $Keys<Rule> */,
-) {
+const ruleOutput = function (rules, property) {
     if (!property && typeof console !== "undefined") {
         console.warn(
             "simple-markdown ruleOutput should take 'react' or " +
@@ -1790,7 +1803,7 @@ var ruleOutput = function (
     }
 
     /** @type {SimpleMarkdown.NodeOutput<any>} */
-    var nestedRuleOutput /* : NodeOutput<any> */ = function (
+    const nestedRuleOutput /* : NodeOutput<any> */ = function (
         ast /* : SingleASTNode */,
         outputFunc /* : Output<any> */,
         state /* : State */,
@@ -1804,22 +1817,22 @@ var ruleOutput = function (
  * @param {any} outputFunc
  * @returns {any}
  */
-var reactFor = function (
+const reactFor = function (
     outputFunc /* : ReactNodeOutput */,
 ) /* : ReactOutput */ {
     /** @type {SimpleMarkdown.ReactOutput} */
-    var nestedOutput /* : ReactOutput */ = function (ast, state) {
+    const nestedOutput /* : ReactOutput */ = function (ast, state) {
         state = state || {};
         if (Array.isArray(ast)) {
-            var oldKey = state.key;
-            var result /* : Array<ReactElements> */ = [];
+            const oldKey = state.key;
+            const result /* : Array<ReactElements> */ = [];
 
             // map nestedOutput over the ast, except group any text
             // nodes together into a single string output.
-            var lastResult = null;
-            for (var i = 0; i < ast.length; i++) {
+            let lastResult = null;
+            for (let i = 0; i < ast.length; i++) {
                 state.key = "" + i;
-                var nodeOut = nestedOutput(ast[i], state);
+                const nodeOut = nestedOutput(ast[i], state);
                 if (
                     typeof nodeOut === "string" &&
                     typeof lastResult === "string"
@@ -1845,9 +1858,11 @@ var reactFor = function (
  * @param {any} outputFunc
  * @returns {any}
  */
-var htmlFor = function (outputFunc /* : HtmlNodeOutput */) /* : HtmlOutput */ {
+const htmlFor = function (
+    outputFunc /* : HtmlNodeOutput */,
+) /* : HtmlOutput */ {
     /** @type {SimpleMarkdown.HtmlOutput} */
-    var nestedOutput /* : HtmlOutput */ = function (ast, state) {
+    const nestedOutput /* : HtmlOutput */ = function (ast, state) {
         state = state || {};
         if (Array.isArray(ast)) {
             return ast
@@ -1865,8 +1880,7 @@ var htmlFor = function (outputFunc /* : HtmlNodeOutput */) /* : HtmlOutput */ {
 /**
  * @type {SimpleMarkdown.OutputFor}
  */
-var outputFor = function (
-    /* :: <Rule : Object> */ rules /* : OutputRules<Rule> */,
+const outputFor = function (
     property /* : $Keys<Rule> */,
     defaultState /* : ?State */,
 ) {
@@ -1880,12 +1894,14 @@ var outputFor = function (
     }
 
     /** @type {SimpleMarkdown.State} */
-    var latestState;
+    let latestState;
     /** @type {SimpleMarkdown.ArrayRule} */
-    var arrayRule = rules.Array || defaultRules.Array;
+
+    // eslint-disable-next-line no-undef
+    const arrayRule = (rules && rules.Array) || defaultRules.Array;
 
     // Tricks to convince tsc that this var is not null:
-    var arrayRuleCheck = arrayRule[property];
+    const arrayRuleCheck = arrayRule[property];
     if (!arrayRuleCheck) {
         throw new Error(
             "simple-markdown: outputFor: to join nodes of type `" +
@@ -1894,34 +1910,35 @@ var outputFor = function (
                 "Please see the docs for details on specifying an Array rule.",
         );
     }
-    var arrayRuleOutput = arrayRuleCheck;
+    const arrayRuleOutput = arrayRuleCheck;
 
     /** @type {SimpleMarkdown.Output<any>} */
-    var nestedOutput /* : Output<any> */ = function (ast, state) {
+    const nestedOutput /* : Output<any> */ = function (ast, state) {
         state = state || latestState;
         latestState = state;
         if (Array.isArray(ast)) {
             return arrayRuleOutput(ast, nestedOutput, state);
         } else {
+            // eslint-disable-next-line no-undef
             return rules[ast.type][property](ast, nestedOutput, state);
         }
     };
 
     /** @type {SimpleMarkdown.Output<any>} */
-    var outerOutput = function (ast, state) {
+    const outerOutput = function (ast, state) {
         latestState = populateInitialState(state, defaultState);
         return nestedOutput(ast, latestState);
     };
     return outerOutput;
 };
 
-var defaultRawParse = parserFor(defaultRules);
+const defaultRawParse = parserFor(defaultRules);
 /**
  * @param {string} source
  * @param {SimpleMarkdown.OptionalState} [state]
  * @returns {Array<SimpleMarkdown.SingleASTNode>}
  */
-var defaultBlockParse = function (source, state) {
+const defaultBlockParse = function (source, state) {
     state = state || {};
     state.inline = false;
     return defaultRawParse(source, state);
@@ -1931,7 +1948,7 @@ var defaultBlockParse = function (source, state) {
  * @param {SimpleMarkdown.OptionalState} [state]
  * @returns {Array<SimpleMarkdown.SingleASTNode>}
  */
-var defaultInlineParse = function (source, state) {
+const defaultInlineParse = function (source, state) {
     state = state || {};
     state.inline = true;
     return defaultRawParse(source, state);
@@ -1941,24 +1958,24 @@ var defaultInlineParse = function (source, state) {
  * @param {SimpleMarkdown.OptionalState} [state]
  * @returns {Array<SimpleMarkdown.SingleASTNode>}
  */
-var defaultImplicitParse = function (source, state) {
-    var isBlock = BLOCK_END_R.test(source);
+const defaultImplicitParse = function (source, state) {
+    const isBlock = BLOCK_END_R.test(source);
     state = state || {};
     state.inline = !isBlock;
     return defaultRawParse(source, state);
 };
 
 /** @type {SimpleMarkdown.ReactOutput} */
-var defaultReactOutput /* : ReactOutput */ = outputFor(defaultRules, "react");
+const defaultReactOutput /* : ReactOutput */ = outputFor(defaultRules, "react");
 /** @type {SimpleMarkdown.HtmlOutput} */
-var defaultHtmlOutput /* : HtmlOutput */ = outputFor(defaultRules, "html");
+const defaultHtmlOutput /* : HtmlOutput */ = outputFor(defaultRules, "html");
 
 /**
  * @param {string} source
  * @param {SimpleMarkdown.OptionalState} [state]
  * @returns {SimpleMarkdown.ReactElements}
  */
-var markdownToReact = function (source, state) /* : ReactElements */ {
+const markdownToReact = function (source, state) /* : ReactElements */ {
     return defaultReactOutput(defaultBlockParse(source, state), state);
 };
 /**
@@ -1966,7 +1983,7 @@ var markdownToReact = function (source, state) /* : ReactElements */ {
  * @param {SimpleMarkdown.OptionalState} [state]
  * @returns {string}
  */
-var markdownToHtml = function (source, state) /* : string */ {
+const markdownToHtml = function (source, state) /* : string */ {
     return defaultHtmlOutput(defaultBlockParse(source, state), state);
 };
 
@@ -1974,11 +1991,11 @@ var markdownToHtml = function (source, state) /* : string */ {
  * @param {SimpleMarkdown.ReactMarkdownProps} props
  * @returns {SimpleMarkdown.ReactElement}
  */
-var ReactMarkdown = function (props) {
+const ReactMarkdown = function (props) {
     /** @type {Object} */
-    var divProps = {};
+    const divProps = {};
 
-    for (var prop in props) {
+    for (const prop in props) {
         if (
             prop !== "source" &&
             Object.prototype.hasOwnProperty.call(props, prop)
@@ -2062,7 +2079,7 @@ export type {
 };
 */
 
-var SimpleMarkdown /* : Exports */ = {
+const SimpleMarkdown /* : Exports */ = {
     defaultRules: defaultRules,
     parserFor: parserFor,
     outputFor: outputFor,
