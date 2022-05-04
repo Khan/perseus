@@ -1,3 +1,4 @@
+/* eslint-disable no-prototype-builtins */
 /* eslint-disable no-useless-escape */
 // @flow
 // TODO(FEI-4465): move this into it's own package called perseus-markdown

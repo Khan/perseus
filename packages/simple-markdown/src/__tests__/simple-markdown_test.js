@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-var */
 /* @flow */
 /* @ts-check */
 
@@ -3482,6 +3484,7 @@ describe("simple markdown", function () {
                 percentVar: percentVarRule,
             });
 
+            // $FlowFixMe
             var rawBuiltParser = SimpleMarkdown.parserFor(rules);
 
             /** @type {SimpleMarkdown.Parser} */
@@ -3528,6 +3531,7 @@ describe("simple markdown", function () {
             });
 
             it("should sort rules by order", function () {
+                // $FlowFixMe
                 var parser1 = SimpleMarkdown.parserFor({
                     em1: Object.assign({}, emRule, {
                         order: 0,
@@ -3541,6 +3545,7 @@ describe("simple markdown", function () {
                 var parsed1 = parser1("_hi_", {inline: true});
                 validateParse(parsed1, [{content: "hi", type: "em1"}]);
 
+                // $FlowFixMe
                 var parser2 = SimpleMarkdown.parserFor({
                     em1: Object.assign({}, emRule, {
                         order: 1,
@@ -3556,6 +3561,7 @@ describe("simple markdown", function () {
             });
 
             it("should allow fractional orders", function () {
+                // $FlowFixMe
                 var parser1 = SimpleMarkdown.parserFor({
                     em1: Object.assign({}, emRule, {
                         order: 1.4,
@@ -3569,6 +3575,7 @@ describe("simple markdown", function () {
                 var parsed1 = parser1("_hi_", {inline: true});
                 validateParse(parsed1, [{content: "hi", type: "em2"}]);
 
+                // $FlowFixMe
                 var parser2 = SimpleMarkdown.parserFor({
                     em1: Object.assign({}, emRule, {
                         order: 0.5,
@@ -3584,6 +3591,7 @@ describe("simple markdown", function () {
             });
 
             it("should allow negative orders", function () {
+                // $FlowFixMe
                 var parser1 = SimpleMarkdown.parserFor({
                     em1: Object.assign({}, emRule, {
                         order: 0,
@@ -3597,6 +3605,7 @@ describe("simple markdown", function () {
                 var parsed1 = parser1("_hi_", {inline: true});
                 validateParse(parsed1, [{content: "hi", type: "em2"}]);
 
+                // $FlowFixMe
                 var parser2 = SimpleMarkdown.parserFor({
                     em1: Object.assign({}, emRule, {
                         order: -2,
@@ -3612,6 +3621,7 @@ describe("simple markdown", function () {
             });
 
             it("should break ties by rule name", function () {
+                // $FlowFixMe
                 var parser1 = SimpleMarkdown.parserFor({
                     em1: Object.assign({}, emRule, {
                         order: 0,
@@ -3627,6 +3637,7 @@ describe("simple markdown", function () {
 
                 // ...regardless of their order in the
                 // original rule definition
+                // $FlowFixMe
                 var parser2 = SimpleMarkdown.parserFor({
                     em2: Object.assign({}, emRule, {
                         order: 0,
@@ -3650,6 +3661,8 @@ describe("simple markdown", function () {
                 ) {
                     warnings.push(warning);
                 };
+
+                // $FlowFixMe
                 var parser1 = SimpleMarkdown.parserFor({
                     em1: Object.assign({}, emRule, {
                         order: 1 / 0 - 1 / 0,
@@ -3667,6 +3680,7 @@ describe("simple markdown", function () {
             });
 
             it("should break ties with quality", function () {
+                // $FlowFixMe
                 var parser1 = SimpleMarkdown.parserFor({
                     em1: Object.assign({}, emRule, {
                         order: 0,
@@ -3688,6 +3702,8 @@ describe("simple markdown", function () {
 
                 // ...regardless of their order in the
                 // original rule definition
+
+                // $FlowFixMe
                 var parser2 = SimpleMarkdown.parserFor({
                     em2: Object.assign({}, emRule, {
                         order: 0,
@@ -3709,6 +3725,7 @@ describe("simple markdown", function () {
             });
 
             it("rules with quality should always win the tie", function () {
+                // $FlowFixMe
                 var parser1 = SimpleMarkdown.parserFor({
                     em1: Object.assign({}, emRule, {
                         order: 0,
@@ -3726,6 +3743,8 @@ describe("simple markdown", function () {
                 validateParse(parsed1, [{content: "hi", type: "em2"}]);
 
                 // except if they don't match
+
+                // $FlowFixMe
                 var parser2 = SimpleMarkdown.parserFor({
                     em: Object.assign({}, emRule, {
                         order: 0,
@@ -3750,6 +3769,8 @@ describe("simple markdown", function () {
             var parser1 = SimpleMarkdown.parserFor({
                 fancy: {
                     order: SimpleMarkdown.defaultRules.text.order - 1,
+
+                    // $FlowFixMe
                     match: function (/** @type {string} */ source) {
                         return /^.*/.exec(source);
                     },
@@ -3834,6 +3855,7 @@ describe("simple markdown", function () {
                 }),
             };
 
+            // $FlowFixMe
             var parse = SimpleMarkdown.parserFor(rules, {wordCount: 0});
             var output = SimpleMarkdown.outputFor(rules, "result", {
                 wordCount: 0,
@@ -3863,9 +3885,11 @@ describe("simple markdown", function () {
 
         it("should allow default state params in parserFor", function () {
             var parser1 = SimpleMarkdown.parserFor(
+                // $FlowFixMe
                 {
                     fancy: {
                         order: SimpleMarkdown.defaultRules.text.order - 1,
+                        // $FlowFixMe
                         match: function (/** @type {string} */ source) {
                             return /^\w+/.exec(source);
                         },
@@ -3883,6 +3907,7 @@ describe("simple markdown", function () {
                             }
                         },
                     },
+                    // $FlowFixMe
                     text: Object.assign({}, SimpleMarkdown.defaultRules.text, {
                         match: function (/** @type {string} */ source) {
                             return /^\W+/.exec(source);
@@ -3949,6 +3974,7 @@ describe("simple markdown", function () {
                 {
                     bracketed: {
                         order: SimpleMarkdown.defaultRules.text.order - 1,
+                        // $FlowFixMe
                         match: function (/** @type {string} */ source) {
                             return /^\{((?:\\[\S\s]|[^\\\*])+)\}/.exec(source);
                         },
@@ -4102,6 +4128,7 @@ describe("simple markdown", function () {
                 text: SimpleMarkdown.defaultRules.text,
             };
 
+            // $FlowFixMe
             var parse = SimpleMarkdown.parserFor(rules, {inline: true});
             var output = SimpleMarkdown.outputFor(rules, "html");
 
