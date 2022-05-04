@@ -1,4 +1,6 @@
 /* eslint-disable import/no-commonjs */
+
+import {spawnSync} from "child_process";
 import fs from "fs";
 import path from "path";
 
@@ -33,6 +35,74 @@ const rootDir = ancesdir(__dirname);
  *      Default: We do not target an environment so that consumers can benefit
  *               from the default behavior.
  */
+
+// Kahn's algorithm
+// https://en.wikipedia.org/wiki/Topological_sorting#Kahn's_algorithm
+const topoSort = (yarnWorkspacesOutput) => {
+    const sorted = [];
+    // the keys are depended on by the values
+    const reverseMapping /*: {[sink: string]: Array<string>} */ = {};
+    Object.keys(yarnWorkspacesOutput).forEach((pkgName) => {
+        yarnWorkspacesOutput[pkgName].workspaceDependencies.forEach((d) => {
+            reverseMapping[d] = (reverseMapping[d] || []).concat([pkgName]);
+        });
+    });
+    const noIncomingEdge = Object.keys(yarnWorkspacesOutput).filter(
+        (sink) => !reverseMapping[sink],
+    );
+    while (noIncomingEdge.length) {
+        const next = noIncomingEdge.shift();
+        sorted.push(next);
+        if (!yarnWorkspacesOutput[next]) {
+            throw new Error(
+                `Something was referenced that isn't in mapping: ${next}`,
+            );
+        }
+        yarnWorkspacesOutput[next].workspaceDependencies.forEach((sink) => {
+            reverseMapping[sink] = reverseMapping[sink].filter(
+                (k) => k !== next,
+            );
+            if (!reverseMapping[sink].length) {
+                noIncomingEdge.push(sink);
+            }
+        });
+    }
+
+    // We filter out packages that aren't packages we publish (such as the
+    // build settings pseudo-package). We also reverse the order because Kahn's
+    // algorithm gives us the dependency order in reverse of what we want.
+    return sorted
+        .filter((pkgName) => pkgName.startsWith("@khanacademy/"))
+        .map((pkgName) => pkgName.replace("@khanacademy/", ""))
+        .reverse();
+};
+
+/**
+ * Calculates the list of packages to build (using `yarn workspaces info`) and
+ * uses the dependency info that yarn gives us to return the package names in
+ * the order we should build them.
+ */
+const getPackageDirNamesInBuildOrder = () => {
+    // get info from `yarn workspaces info`
+    const {stdout, error} = spawnSync(
+        "yarn",
+        ["--silent", "workspaces", "info"],
+        {
+            cwd: path.join(__dirname, "../.."),
+        },
+    );
+
+    if (error) {
+        // eslint-disable-next-line no-console
+        console.error("Error calculating build order:", error);
+        process.exit(1);
+    }
+
+    const depTree = JSON.parse(stdout);
+
+    // Now use Kahn's Algorithm to determine package order.
+    return topoSort(depTree);
+};
 
 /**
  * Make path to a package relative path.
@@ -222,13 +292,10 @@ const getPackageInfo = (commandLineArgs, pkgName) => {
 /**
  * Creates the full rollup configuration for the given args.
  */
-const createRollupConfig = (commandLineArgs) => {
-    // Determine what packages we are building.
-    const pkgNames = fs.readdirSync("packages");
-
+const createRollupConfig = async (commandLineArgs) => {
     // For the packages we have determined we want, let's get more information
-    // about them and  generate configurations.
-    return pkgNames
+    // about them and generate configurations.
+    return getPackageDirNamesInBuildOrder()
         .flatMap((p) => getPackageInfo(commandLineArgs, p))
         .map((c) => createConfig(commandLineArgs, c));
 };

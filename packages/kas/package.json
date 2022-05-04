@@ -25,10 +25,11 @@
   "bugs": {
     "url": "https://github.com/Khan/KAS/issues"
   },
-  "dependencies": {
+  "devDependencies": {
+    "jison": "0.4.15",
     "underscore": "1.4.4"
   },
-  "devDependencies": {
-    "jison": "0.4.15"
+  "peerDependencies": {
+    "underscore": "1.4.4"
   }
 }

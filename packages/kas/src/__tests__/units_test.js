@@ -46,7 +46,6 @@ expect.extend({
             new KAS.Mul(x, newUnitParsed),
         );
         const answer = equality.solveLinearEquationForVariable(x);
-        expected; // ?
         return Math.round(answer.eval()) == Math.round(expected.eval())
             ? {pass: true}
             : {
@@ -132,11 +131,11 @@ describe("units", () => {
         ]).toHaveEqualUnits("tsp reduces");
 
         expect(
-            !KAS.compare(
+            KAS.compare(
                 new KAS.Mul(new KAS.Int(50), new KAS.Unit("m")),
                 new KAS.Int(50),
             ).equal,
-        ).toBeTrue();
+        ).toBeFalse();
 
         expect(["50 m", "50 A"]).not.toParseUnitsAsEqual("50 m != 50 A");
         expect(["5000 mA", "5 A"]).toParseUnitsAsEqual("5000 mA = 5 A");

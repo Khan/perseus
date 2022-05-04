@@ -97,7 +97,7 @@ describe("comparing", () => {
         expect("y=mx+b").toEqualExpr("y-b=mx");
 
         // all of these normalize to the same expression, set to zero
-        var forms = [
+        const forms = [
             "y=2x-5",
             "2x-5=y",
             "2x-y=5",
@@ -116,7 +116,7 @@ describe("comparing", () => {
 
         expect("3y=2x-15").toEqualExpr("3/2(y+5)=x");
 
-        var forms2 = ["1/3p-3=114", "1/3p=117", "p=351", "p-351=0"];
+        const forms2 = ["1/3p-3=114", "1/3p=117", "p=351", "p-351=0"];
 
         _.each(forms2, (form) => {
             expect(forms2[0]).toEqualExpr(form);
@@ -126,7 +126,7 @@ describe("comparing", () => {
         expect("e^x").toEqualExpr("e^x");
         expect("e^x").not.toEqualExpr("e^x + 1");
 
-        var forms3 = [
+        const forms3 = [
             "x+x+x+6=12",
             "x+2x+6=12",
             "3x+6=12",
@@ -259,7 +259,20 @@ describe("comparing", () => {
         expect("f(g(x))").toEqualExpr("f(g(x))");
         expect("sin(f(3x-x))/cos(f(x+x))").toEqualExpr("tan(f(2x))");
         expect("f(x) = sin(x + 2pi)").toEqualExpr("f(x) = sin(x)");
-        expect("f(x) = sin^2(x)+cos^2(x)").toEqualExpr("f(x) = 1");
+        // NOTE(kevinb): This test is flaky, because Expr.prototype.compare
+        // is non-deterministic.  When comparing expressions this normally
+        // wouldn't be an issue because we could just evaluate the different
+        // variables at different point and then check that the difference
+        // between the expressions is always less than some very small number.
+        // In this case though, we convert equations to expressions, e.g.
+        // `f(x) = 1` is converted to `1-f(x)`, but because `f` is a function,
+        // we can't evaluate it.  One possible solution to this would be
+        // to isolate `f(x)` in each expression and then check that the
+        // expressions that they're equal to are equal.  In this case that
+        // would be `sin^2(x)+cos^2(x)` and `1`.
+        // TODO(TP-11651): Update compare to isolate functions on wide side
+        // before comparing expressions on the other side.
+        // expect("f(x) = sin^2(x)+cos^2(x)").toEqualExpr("f(x) = 1");
         expect("f(x) = ln|x|+c").toEqualExpr("f(x)-ln|x|-c = 0");
     });
 
@@ -267,7 +280,7 @@ describe("comparing", () => {
         expect("ab").toEqualExprAndForm("ba");
         expect("(ab)c").toEqualExprAndForm("(cb)a");
 
-        var forms = [
+        const forms = [
             "(6x+1)(x-1)",
             "(1+6x)(x-1)",
             "(6x+1)(-1+x)",
