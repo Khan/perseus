@@ -125,11 +125,16 @@ const main = async () => {
             path.join(inputDirName, filename),
             "utf-8",
         );
-        const optimizedSvg /*: string */ = optimize(rawSvg).data;
+        const optimizedSvg /*: string */ = optimize(rawSvg, {
+            plugins: [
+                // set of built-in plugins enabled by default
+                "preset-default",
+                "removeXMLNS",
+                "sortAttrs",
+            ],
+        }).data;
 
         const contents = optimizedSvg
-            // Strip out the XML namespace tag
-            .replace('xmlns="http://www.w3.org/2000/svg"', "")
             // Replace color so it can be passed in as props
             .replace(`"${color}"`, (match) => {
                 useSimple = false;
@@ -138,9 +143,10 @@ const main = async () => {
             // Replace the xlink:href tag (special case)
             .replace("xlink:href", "xlinkHref")
             // Replace any other tags
-            .replace(/ (\S+)=/, (tag) => {
+            .replace(/ (\S+)=/g, (tag) => {
                 const [first, ...rest] = tag.split("-");
-                return first + rest.map(title).join("");
+                console.log(`  Found property: ${tag}`);
+                return first.toLocaleLowerCase() + rest.map(title).join("");
             });
 
         const output = renderComponent({
