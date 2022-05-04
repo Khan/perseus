@@ -29,7 +29,7 @@ const pkgMap = fs
         );
         return {
             ...map,
-            // NOTE(kevinb): we the 'source' field here so that we can run our
+            // NOTE(kevinb): we use the 'source' field here so that we can run our
             // tests without having to compile all of the packages first.
             [`^@khanacademy/${name}$`]: `<rootDir>/packages/${name}/${pkgJson.source}`,
         };
