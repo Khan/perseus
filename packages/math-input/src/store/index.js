@@ -1,6 +1,6 @@
 // @flow
 
-import Redux from "redux";
+import * as Redux from "redux";
 
 import {tabletCutoffPx} from "../components/common-style.js";
 import {computeLayoutParameters} from "../components/compute-layout-parameters.js";
