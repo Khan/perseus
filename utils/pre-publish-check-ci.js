@@ -1,8 +1,8 @@
-/* eslint-disable no-console, import/no-commonjs */
 /**
  * Pre-publish checks to verify that our publish will go smoothly.
  */
 const path = require("path");
+
 const fg = require("fast-glob");
 
 const {

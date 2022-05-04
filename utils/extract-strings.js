@@ -9,9 +9,10 @@
  */
 import fs from "fs";
 import path from "path";
+
+import {extractStrings} from "@khanacademy/wonder-stuff-i18n";
 import ancesdir from "ancesdir";
 import fg from "fast-glob";
-import {extractStrings} from "@khanacademy/wonder-stuff-i18n";
 
 import {getLogger} from "./internal/logger.js";
 
@@ -29,23 +30,6 @@ export const generateStringsFileForPackage = (pkgName: string) => {
         "*.{js,jsx}",
     );
     const files = fg.sync(glob);
-
-    if (pkgName === "perseus") {
-        files.push(
-            // NOTE(kevinb): Extracting strings from build files is not ideal since we
-            // lose any I18N comments.
-            // TODO(FEI-4474): Move math-input into this repo so that we can extract
-            // strings from the source.
-            path.join(
-                rootDir,
-                "node_modules",
-                "@khanacademy",
-                "math-input",
-                "build",
-                "math-input.js",
-            ),
-        );
-    }
 
     files.sort();
 
@@ -82,6 +66,10 @@ export const generateStringsFileForPackage = (pkgName: string) => {
     });
 
     strings.sort((a, b) => a.msgids[0].localeCompare(b.msgids[0]));
+    if (strings.length === 0) {
+        logger.info(`No translateable strings in ${pkgName}`);
+        return;
+    }
 
     const outDir = path.join(rootDir, "packages", pkgName, "dist");
     if (!fs.existsSync(outDir)) {
@@ -115,10 +103,13 @@ export const generateStringsFileForPackage = (pkgName: string) => {
     }
     writeLine("];");
     fs.closeSync(fd);
-    logger.info(`wrote ${strings.length} strings to ${outPath}`);
+    logger.info(
+        `wrote ${strings.length} strings to ${path.relative(rootDir, outPath)}`,
+    );
 };
 
 if (require.main === module) {
-    generateStringsFileForPackage("perseus");
-    generateStringsFileForPackage("perseus-editor");
+    fs.readdirSync(path.join(rootDir, "packages")).map(
+        generateStringsFileForPackage,
+    );
 }

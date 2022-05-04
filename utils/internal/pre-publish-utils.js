@@ -1,5 +1,3 @@
-/* eslint-disable import/no-commonjs */
-/* eslint-disable no-console */
 /**
  * Pre-publish utilities to verify that our publish will go smoothly.
  */

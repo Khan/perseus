@@ -96,6 +96,14 @@ module.exports = {
                 "import/no-relative-packages": "off",
             },
         },
+        {
+            files: ["utils/**"],
+            rules: {
+                "import/no-commonjs": "off",
+                "testing-library/no-debugging-utils": "off",
+                "no-console": "off",
+            },
+        },
     ],
     rules: {
         "max-lines": "off",
