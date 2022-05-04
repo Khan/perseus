@@ -1778,10 +1778,7 @@ var defaultRules /* : DefaultRules */ = {
  * @param {any} property
  * @returns {any}
  */
-var ruleOutput = function (
-    /* :: <Rule : Object> */ rules /* : OutputRules<Rule> */,
-    property /* : $Keys<Rule> */,
-) {
+var ruleOutput = function (rules, property) {
     if (!property && typeof console !== "undefined") {
         console.warn(
             "simple-markdown ruleOutput should take 'react' or " +
