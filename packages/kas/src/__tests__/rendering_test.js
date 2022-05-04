@@ -13,7 +13,7 @@ expect.extend({
             };
         }
 
-        return {pass: true};
+        return {pass: !this.isNot};
     },
     toRenderTexOpt(
         input: string,

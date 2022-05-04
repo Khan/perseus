@@ -97,7 +97,7 @@ describe("comparing", () => {
         expect("y=mx+b").toEqualExpr("y-b=mx");
 
         // all of these normalize to the same expression, set to zero
-        var forms = [
+        const forms = [
             "y=2x-5",
             "2x-5=y",
             "2x-y=5",
@@ -116,7 +116,7 @@ describe("comparing", () => {
 
         expect("3y=2x-15").toEqualExpr("3/2(y+5)=x");
 
-        var forms2 = ["1/3p-3=114", "1/3p=117", "p=351", "p-351=0"];
+        const forms2 = ["1/3p-3=114", "1/3p=117", "p=351", "p-351=0"];
 
         _.each(forms2, (form) => {
             expect(forms2[0]).toEqualExpr(form);
@@ -126,7 +126,7 @@ describe("comparing", () => {
         expect("e^x").toEqualExpr("e^x");
         expect("e^x").not.toEqualExpr("e^x + 1");
 
-        var forms3 = [
+        const forms3 = [
             "x+x+x+6=12",
             "x+2x+6=12",
             "3x+6=12",
@@ -280,7 +280,7 @@ describe("comparing", () => {
         expect("ab").toEqualExprAndForm("ba");
         expect("(ab)c").toEqualExprAndForm("(cb)a");
 
-        var forms = [
+        const forms = [
             "(6x+1)(x-1)",
             "(1+6x)(x-1)",
             "(6x+1)(-1+x)",

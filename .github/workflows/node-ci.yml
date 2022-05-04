@@ -49,9 +49,9 @@ jobs:
       uses: ./.github/actions/full-or-limited
       with:
         full-trigger: ${{ steps.eslint-reset.outputs.filtered }}
-        full: yarn lint:ci packages
+        full: yarn lint packages
         limited-trigger: ${{ steps.js-files.outputs.filtered }}
-        limited: yarn lint:ci {}
+        limited: yarn lint {}
 
     - name: Run Flow
       if: steps.js-files.outputs.filtered != '[]'
