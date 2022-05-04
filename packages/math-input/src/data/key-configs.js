@@ -2,13 +2,12 @@
 /**
  * This file contains configuration settings for the buttons in the keypad.
  */
+import * as i18n from "@khanacademy/wonder-blocks-i18n";
 
 import {DecimalSeparators, IconTypes, KeyTypes} from "../consts.js";
 import {decimalSeparator} from "../utils.js";
 
 import Keys from "./keys.js";
-
-const i18n = window.i18n || {_: (s) => s};
 
 export type KeyConfig = {
     id: string,

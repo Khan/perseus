@@ -1,4 +1,5 @@
 import Color from "@khanacademy/wonder-blocks-color";
+import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {StyleSheet} from "aphrodite";
 import PropTypes from "prop-types";
 import * as React from "react";
@@ -18,8 +19,6 @@ import CursorHandle from "./cursor-handle.js";
 import DragListener from "./drag-listener.js";
 import MathWrapper from "./math-wrapper.js";
 import {scrollIntoView} from "./scroll-into-view.js";
-
-const i18n = window.i18n || {_: (s) => s};
 
 const constrainingFrictionFactor = 0.8;
 
