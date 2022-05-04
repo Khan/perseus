@@ -93,14 +93,14 @@
   "scripts": {
     "gen:parsers": "yarn --cwd packages/kas gen:parsers",
     "build": "yarn gen:parsers && rollup -c config/build/rollup.config.js",
-    "build:prodsizecheck": "yarn gen:parsers && rollup -c config/build/rollup.config.js --configFormats='esm' --configEnvironment='production'",
+    "build:prodsizecheck": "yarn gen:parsers && rollup -c config/build/rollup.config.js --configEnvironment='production'",
     "watch": "rollup -c config/build/rollup.config.js --watch",
     "clean": "rm -rf packages/perseus*/dist && rm -rf packages/perseus*/node_modules",
     "coverage": "yarn run jest --coverage",
     "extract-strings": "./utils/extract-strings.js",
     "flow:ci": "flow check --max-workers 0",
-    "lint": "eslint --config .eslintrc.js packages --ext .js --ext .jsx",
-    "lint:ci": "eslint --config .eslintrc.js",
+    "lint": "eslint --config .eslintrc.js --ext .js --ext .jsx",
+    "lint:timing": "TIMING=1 yarn lint",
     "publish:ci": "node utils/pre-publish-check-ci.js && git diff --stat --exit-code HEAD && yarn build && yarn extract-strings && changeset publish",
     "sloc": "sloc packages --exclude node_modules",
     "test": "yarn jest"
