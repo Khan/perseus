@@ -94,8 +94,6 @@ const mapStateToProps = (state) => {
     };
 };
 
-export const TwoPageKeypadForTesting = TwoPageKeypad;
-
 export default connect(mapStateToProps, null, null, {forwardRef: true})(
     TwoPageKeypad,
 );
