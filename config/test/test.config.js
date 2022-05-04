@@ -21,6 +21,20 @@ const vendorMap = fs
         };
     }, {});
 
+const pkgMap = fs
+    .readdirSync(path.join(root, "packages"))
+    .reduce((map, name) => {
+        const pkgJson = JSON.parse(
+            fs.readFileSync(path.join(root, "packages", name, "package.json")),
+        );
+        return {
+            ...map,
+            // NOTE(kevinb): we use the 'source' field here so that we can run our
+            // tests without having to compile all of the packages first.
+            [`^@khanacademy/${name}$`]: `<rootDir>/packages/${name}/${pkgJson.source}`,
+        };
+    }, {});
+
 module.exports = {
     rootDir: path.join(__dirname, "../../"),
     transform: {
@@ -40,13 +54,10 @@ module.exports = {
         "<rootDir>/node_modules/jest-enzyme/lib/index.js",
     ],
     moduleNameMapper: {
-        "^@khanacademy/perseus(.*)$":
-            "<rootDir>/packages/perseus$1/src/index.js",
-        "^@khanacademy/kas$": "<rootDir>/packages/kas/src/index.js",
-        "^@khanacademy/kmath$": "<rootDir>/packages/kmath/src/index.js",
+        ...pkgMap,
+        ...vendorMap,
         // Load a .js file with no exports whenever a .css or .less file is requested.
         "\\.(css|less)$": "<rootDir>/config/test/style-mock.js",
-        ...vendorMap,
     },
     collectCoverageFrom: [
         "packages/*/src/**/*.js",
