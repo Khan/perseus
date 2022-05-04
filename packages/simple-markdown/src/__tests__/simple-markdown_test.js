@@ -1,16 +1,16 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-var */
-/* @flow */
+/* eslint-disable no-var, no-unused-vars, no-console, import/no-commonjs, no-redeclare, no-useless-escape */
+// @flow
 /* @ts-check */
 
 // As of 2019-11-03, flow doesn't have definitions for assert.strict:
 // https://github.com/facebook/flow/pull/7660
 // So we use a /*::*/ hack to satisfy flow:
+import SimpleMarkdown from "../index.js";
+
 var assert = require("assert") /*:: || {} */.strict;
+
 var React = require("react");
 var ReactDOMServer = require("react-dom/server");
-
-import SimpleMarkdown from "../index";
 
 var inlineParse = SimpleMarkdown.defaultInlineParse;
 var blockParse = SimpleMarkdown.defaultBlockParse;
@@ -3841,6 +3841,7 @@ describe("simple markdown", function () {
                         return node.content;
                     },
                 },
+                // $FlowFixMe
                 delimiter: Object.assign({}, SimpleMarkdown.defaultRules.text, {
                     match: function (/** @type {string} */ source) {
                         return /^\W+/.exec(source);
