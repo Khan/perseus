@@ -6,10 +6,10 @@ expect.extend({
     toCompileAs(
         input: string,
         expected: number,
-        vars?: {[string]: string | number} = {},
-        functions?: $ReadOnlyArray<string>,
+        vars?: {[string]: string | number | (number) => number} = {},
     ) {
-        const func = KAS.parse(input, {functions: functions}).expr.compile();
+        const functions = Object.keys(vars).filter(k => typeof vars[k] === 'function');
+        const func = KAS.parse(input, {functions}).expr.compile();
 
         const actual = func(vars);
 
@@ -64,7 +64,6 @@ describe("compilation", () => {
                     return 2 * x;
                 },
             },
-            ["f"],
         );
         expect("f(4+8)").toCompileAs(
             48,
@@ -73,7 +72,6 @@ describe("compilation", () => {
                     return 4 * x;
                 },
             },
-            ["f"],
         );
         expect("f(x-1)-f(x)").toCompileAs(
             -7,
@@ -83,7 +81,6 @@ describe("compilation", () => {
                 },
                 x: 2,
             },
-            ["f"],
         );
     });
 

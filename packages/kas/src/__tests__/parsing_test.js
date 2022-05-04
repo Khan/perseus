@@ -13,7 +13,7 @@ expect.extend({
             };
         }
 
-        return {pass: true};
+        return {pass: !this.isNot};
     },
     toParseWithStructure(input: string, expected: string, options: $FlowFixMe) {
         const actual = KAS.parse(input, options).expr.repr();
@@ -25,7 +25,7 @@ expect.extend({
             };
         }
 
-        return {pass: true};
+        return {pass: !this.isNot};
     },
 });
 

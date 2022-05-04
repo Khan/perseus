@@ -5,10 +5,9 @@ import * as KAS from "../index.js";
 expect.extend({
     toHaveGCD(input: [string, string], expected: string) {
         const [a, b] = input;
-        var actualRep = KAS.parse(a).expr.findGCD(KAS.parse(b).expr).repr();
-        var expectedRep = KAS.parse(expected).expr.repr();
+        const actualRep = KAS.parse(a).expr.findGCD(KAS.parse(b).expr).repr();
+        const expectedRep = KAS.parse(expected).expr.repr();
 
-        var message = "(" + a + ").findGCD(" + b + ") = " + expected;
         return actualRep === expectedRep
             ? {pass: true}
             : {
@@ -163,7 +162,7 @@ describe("KAS", () => {
         ];
 
         _.each(forms, (form) => {
-            if (form.indexOf("<>") !== -1) {
+            if (form.includes("<>")) {
                 expect(form).toBeExpr("-y+2x-5");
             } else {
                 expect(form).toBeExpr("y-2x+5");

@@ -21,7 +21,7 @@ expect.extend({
             };
         }
 
-        return {pass: true};
+        return {pass: !this.isNot};
     },
 });
 
