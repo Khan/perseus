@@ -145,7 +145,6 @@ const main = async () => {
             // Replace any other tags
             .replace(/ (\S+)=/g, (tag) => {
                 const [first, ...rest] = tag.split("-");
-                console.log(`  Found property: ${tag}`);
                 return first.toLocaleLowerCase() + rest.map(title).join("");
             });
 
