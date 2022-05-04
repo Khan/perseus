@@ -126,7 +126,6 @@ jobs:
       if: ${{ github.actor != 'dependabot[bot]' }}
       uses: codecov/codecov-action@v2
       with:
-        token: ${{ secrets.CODECOV_TOKEN }}
         files: ./coverage/coverage-final.json
         fail_ci_if_error: true
 
