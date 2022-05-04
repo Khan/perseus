@@ -121,14 +121,14 @@ jobs:
     # Collect and record coverage
     - name: Run Jest with coverage
       run: yarn coverage
-    # - name: Upload Coverage
-    #   # We don't bother collecting a record of coverage for dependabot changes
-    #   if: ${{ github.actor != 'dependabot[bot]' }}
-    #   uses: codecov/codecov-action@v2
-    #   with:
-    #     token: ${{ secrets.CODECOV_TOKEN }}
-    #     files: ./coverage/coverage-final.json
-    #     fail_ci_if_error: true
+    - name: Upload Coverage
+      # We don't bother collecting a record of coverage for dependabot changes
+      if: ${{ github.actor != 'dependabot[bot]' }}
+      uses: codecov/codecov-action@v2
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        files: ./coverage/coverage-final.json
+        fail_ci_if_error: true
 
   extract_strings:
     name: Extract i18n strings
