@@ -1,11 +1,9 @@
+/* eslint-disable no-prototype-builtins */
 /**
  * Provides a method for attaching some shims to a window object that JSDOM
  * otherwise doesn't support.
  */
 const {performance} = require("perf_hooks");
-
-const createSimpleStorage = require("./create-simple-storage.js");
-const setupGlobals = require("./setup-window-globals-for-testing.js");
 
 /**
  * Attaches various shims to the window object that JSDOM doesn't or didn't
@@ -77,28 +75,8 @@ const attachShims = (targetWindow) => {
         };
     }
 
-    // Setup some fake session and local storage if there isn't any since things
-    // may want to use LocalStore.
-    targetWindow.sessionStorage =
-        targetWindow.sessionStorage || createSimpleStorage();
-    targetWindow.localStorage =
-        targetWindow.localStorage || createSimpleStorage();
-
-    // HACK(mdr): Mocha runs in our JSDOM environment, and it depends on Node's
-    //     `Buffer` class in order to print certain failure messages, like the
-    //     object diff for `assert.deepEqual`. Perhaps this is because Mocha
-    //     expects the `spec` reporter to only run in Node, and for us to use
-    //     a different reporter in a browser environment?
-    //
-    //     It's pretty unrealistic for the JS we're testing to be able to
-    //     access Node's Buffer class, but I'm assuming that they just won't
-    //     try to! Fingers crossed!
-    targetWindow.Buffer = Buffer;
-
     // JSDOM doesn't implement scrollTo
     targetWindow.scrollTo = () => {};
-
-    setupGlobals(targetWindow);
 };
 
 module.exports = attachShims;

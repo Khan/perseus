@@ -69,7 +69,7 @@ if (typeof window !== "undefined") {
 }
 
 // eslint-disable-next-line import/no-commonjs
-require("../../testing/attach-jsdom-window-shims.js")(globalThis);
+require("./attach-jsdom-window-shims.js")(globalThis);
 
 // Make sure we capture any unhandled rejections and log them to the console
 // so that we can more easily find them later
