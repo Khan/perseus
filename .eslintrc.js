@@ -80,6 +80,13 @@ module.exports = {
             },
         },
         {
+            files: ["config/test/*"],
+            rules: {
+                "import/no-relative-packages": "off",
+                "import/no-commonjs": "off",
+            },
+        },
+        {
             files: [
                 "*.stories.jsx",
                 "*.stories.js",

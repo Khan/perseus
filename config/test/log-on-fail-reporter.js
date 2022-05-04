@@ -3,9 +3,9 @@
  * Only log console statements on when the test errors out.
  * From: https://gist.github.com/GeeWee/71db0d9911b4a087e4b2486386168b05
  */
-const chalk = require("chalk");
 const {getConsoleOutput} = require("@jest/console");
 const JestReporters = require("@jest/reporters");
+const chalk = require("chalk");
 
 const DefaultReporter = JestReporters.DefaultReporter;
 const getResultHeader = JestReporters.utils.getResultHeader;
