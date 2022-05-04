@@ -64,10 +64,6 @@ describe("compilation", () => {
                     return 2 * x;
                 },
             },
-<<<<<<< HEAD
-            ["f"],
-=======
->>>>>>> main
         );
         expect("f(4+8)").toCompileAs(
             48,
@@ -76,10 +72,6 @@ describe("compilation", () => {
                     return 4 * x;
                 },
             },
-<<<<<<< HEAD
-            ["f"],
-=======
->>>>>>> main
         );
         expect("f(x-1)-f(x)").toCompileAs(
             -7,
@@ -89,10 +81,6 @@ describe("compilation", () => {
                 },
                 x: 2,
             },
-<<<<<<< HEAD
-            ["f"],
-=======
->>>>>>> main
         );
     });
 

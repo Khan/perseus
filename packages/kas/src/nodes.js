@@ -327,6 +327,7 @@ _.extend(Expr.prototype, {
 
         var unitList1 = this.getUnits();
         var unitList2 = other.getUnits();
+
         if (!_.isEqual(unitList1, unitList2)) {
             return false;
         }
