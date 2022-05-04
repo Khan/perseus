@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 // @flow
 import * as KAS from "@khanacademy/kas";
-import {components, consts} from "@khanacademy/math-input";
+import {KeypadInput, KeypadTypes} from "@khanacademy/math-input";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import classNames from "classnames";
 import * as React from "react";
@@ -20,9 +20,6 @@ import KhanAnswerTypes from "../util/answer-types.js";
 
 import type {PerseusExpressionWidgetOptions} from "../perseus-types.js";
 import type {PerseusScore, WidgetExports, WidgetProps} from "../types.js";
-
-const {KeypadInput} = components;
-const {KeypadTypes} = consts;
 
 type InputPath = $ReadOnlyArray<string>;
 

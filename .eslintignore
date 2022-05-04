@@ -1,7 +1,8 @@
-node_modules
+**/node_modules
 flow-typed/**/*.js
 coverage
 **/dist
+packages/**/build
 **/*.template
 **/package.json
 **/*.md

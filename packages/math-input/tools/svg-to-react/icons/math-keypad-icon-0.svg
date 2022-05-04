@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
+    <title>64B30C56-8FCE-4ECE-BD13-525F6207F288</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="600" height="956"></rect>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Math-Input" transform="translate(-634.000000, -1516.000000)"></g>
+        <g id="Asset-Sheet" transform="translate(-434.000000, -420.000000)">
+            <g id="math_keypad_icon_0" transform="translate(434.000000, 420.000000)">
+                <rect id="bounds" fill-opacity="0" fill="#FF0088" x="0" y="0" width="48" height="48"></rect>
+                <path d="M24,32.3 C28.55,32.3 30.375,27.725 30.375,23.675 C30.375,19.6 28.55,15.075 24,15.075 C19.425,15.075 17.625,19.6 17.625,23.675 C17.625,27.725 19.425,32.3 24,32.3 L24,32.3 Z M24,30.45 C20.825,30.45 19.75,27 19.75,23.675 C19.75,20.35 20.825,16.925 24,16.925 C27.175,16.925 28.25,20.35 28.25,23.675 C28.25,27 27.175,30.45 24,30.45 L24,30.45 Z" id="0" fill="#3B3E40"></path>
+            </g>
+        </g>
+        <g id="Math-Input" transform="translate(-634.000000, -1516.000000)">
+            <g id="Asset-Sheet" transform="translate(200.000000, 1096.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="Mask" fill="#FAFAFA" xlink:href="#path-1"></use>
+                <g id="math_keypad_icon_0" mask="url(#mask-2)">
+                    <g transform="translate(434.000000, 420.000000)">
+                        <rect id="bounds" fill-opacity="0" fill="#FF0088" x="0" y="0" width="48" height="48"></rect>
+                        <path d="M24,32.3 C28.55,32.3 30.375,27.725 30.375,23.675 C30.375,19.6 28.55,15.075 24,15.075 C19.425,15.075 17.625,19.6 17.625,23.675 C17.625,27.725 19.425,32.3 24,32.3 L24,32.3 Z M24,30.45 C20.825,30.45 19.75,27 19.75,23.675 C19.75,20.35 20.825,16.925 24,16.925 C27.175,16.925 28.25,20.35 28.25,23.675 C28.25,27 27.175,30.45 24,30.45 L24,30.45 Z" id="0" fill="#3B3E40"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

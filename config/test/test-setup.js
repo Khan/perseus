@@ -147,12 +147,6 @@ beforeEach(() => {
 
                 // wonder-blocks-modal-v1
                 "ScrollDisabler",
-
-                // math-input (these are minified symbol names so very unhelpful)
-                "b",
-                "c",
-                "g",
-                "y",
             ];
 
             if (!components.every((name) => ignoredComponents.includes(name))) {

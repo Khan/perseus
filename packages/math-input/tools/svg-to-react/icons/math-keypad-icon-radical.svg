@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
+    <title>3F999819-EE39-46D0-88A6-BA2D88427CD4</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="600" height="956"></rect>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Math-Input" transform="translate(-702.000000, -1818.000000)"></g>
+        <g id="Asset-Sheet" transform="translate(-502.000000, -722.000000)">
+            <g id="math_keypad_icon_radical" transform="translate(502.000000, 722.000000)">
+                <g id="icon">
+                    <rect id="bounds" fill-opacity="0" fill="#FF0088" x="0" y="0" width="48" height="48"></rect>
+                    <path d="M13,16.9970301 C13,16.4463856 13.4530363,16 13.9970301,16 L20.0029699,16 C20.5536144,16 21,16.4530363 21,16.9970301 L21,23.0029699 C21,23.5536144 20.5469637,24 20.0029699,24 L13.9970301,24 C13.4463856,24 13,23.5469637 13,23.0029699 L13,16.9970301 Z M15,18 L19,18 L19,22 L15,22 L15,18 Z" id="block" fill="#3B3E40"></path>
+                    <polyline id="root" stroke="#3B3E40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="14 29 18 35 27 21 34 21"></polyline>
+                </g>
+            </g>
+        </g>
+        <g id="Math-Input" transform="translate(-702.000000, -1818.000000)">
+            <g id="Asset-Sheet" transform="translate(200.000000, 1096.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="Mask" fill="#FAFAFA" xlink:href="#path-1"></use>
+                <g id="math_keypad_icon_radical" mask="url(#mask-2)">
+                    <g transform="translate(502.000000, 722.000000)" id="icon">
+                        <g>
+                            <rect id="bounds" fill-opacity="0" fill="#FF0088" x="0" y="0" width="48" height="48"></rect>
+                            <path d="M13,16.9970301 C13,16.4463856 13.4530363,16 13.9970301,16 L20.0029699,16 C20.5536144,16 21,16.4530363 21,16.9970301 L21,23.0029699 C21,23.5536144 20.5469637,24 20.0029699,24 L13.9970301,24 C13.4463856,24 13,23.5469637 13,23.0029699 L13,16.9970301 Z M15,18 L19,18 L19,22 L15,22 L15,18 Z" id="block" fill="#3B3E40"></path>
+                            <polyline id="root" stroke="#3B3E40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="14 29 18 35 27 21 34 21"></polyline>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
