@@ -68,6 +68,7 @@ export const generateStringsFileForPackage = (pkgName: string) => {
     strings.sort((a, b) => a.msgids[0].localeCompare(b.msgids[0]));
     if (strings.length === 0) {
         logger.info(`No translateable strings in ${pkgName}`);
+        return;
     }
 
     const outDir = path.join(rootDir, "packages", pkgName, "dist");
