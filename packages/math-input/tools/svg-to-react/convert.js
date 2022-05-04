@@ -130,7 +130,6 @@ const main = async () => {
                 // set of built-in plugins enabled by default
                 "preset-default",
                 "removeXMLNS",
-                "sortAttrs",
             ],
         }).data;
 
