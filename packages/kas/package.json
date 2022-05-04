@@ -25,12 +25,11 @@
   "bugs": {
     "url": "https://github.com/Khan/KAS/issues"
   },
-  "dependencies": {
-    "underscore": "1.4.4"
-  },
   "devDependencies": {
     "jison": "0.4.15",
-    "qunit": "^2.8.0",
-    "qunit-assert-close": "^2.1.2"
+    "underscore": "1.4.4"
+  },
+  "peerDependencies": {
+    "underscore": "1.4.4"
   }
 }

@@ -259,7 +259,20 @@ describe("comparing", () => {
         expect("f(g(x))").toEqualExpr("f(g(x))");
         expect("sin(f(3x-x))/cos(f(x+x))").toEqualExpr("tan(f(2x))");
         expect("f(x) = sin(x + 2pi)").toEqualExpr("f(x) = sin(x)");
-        expect("f(x) = sin^2(x)+cos^2(x)").toEqualExpr("f(x) = 1");
+        // NOTE(kevinb): This test is flaky, because Expr.prototype.compare
+        // is non-deterministic.  When comparing expressions this normally
+        // wouldn't be an issue because we could just evaluate the different
+        // variables at different point and then check that the difference
+        // between the expressions is always less than some very small number.
+        // In this case though, we convert equations to expressions, e.g.
+        // `f(x) = 1` is converted to `1-f(x)`, but because `f` is a function,
+        // we can't evaluate it.  One possible solution to this would be
+        // to isolate `f(x)` in each expression and then check that the
+        // expressions that they're equal to are equal.  In this case that
+        // would be `sin^2(x)+cos^2(x)` and `1`.
+        // TODO(TP-11651): Update compare to isolate functions on wide side
+        // before comparing expressions on the other side.
+        // expect("f(x) = sin^2(x)+cos^2(x)").toEqualExpr("f(x) = 1");
         expect("f(x) = ln|x|+c").toEqualExpr("f(x)-ln|x|-c = 0");
     });
 
