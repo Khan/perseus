@@ -1,0 +1,36 @@
+{
+    "name": "@khanacademy/simple-markdown",
+    "version": "0.8.0",
+    "description": "Javascript markdown parsing, made simple",
+    "module": "dist/es/index.js",
+    "main": "dist/index.js",
+    "source": "src/index.js",
+    "types": "simple-markdown.d.ts",
+    "scripts": {
+        "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"
+    },
+    "keywords": [
+        "markdown"
+    ],
+    "author": "Khan Academy",
+    "license": "MIT",
+    "dependencies": {
+        "@types/react": ">=16.0.0"
+    },
+    "peerDependencies": {
+        "react": "16.14.0",
+        "react-dom": "16.14.0"
+    },
+    "devDependencies": {
+        "@types/react-dom": ">=16.0.0",
+        "size-limit": "^0.21.1",
+        "typescript": "^3.6.4",
+        "uglify-js": "^3.6.7"
+    },
+    "size-limit": [
+        {
+            "path": "simple-markdown.js",
+            "limit": "5 KB"
+        }
+    ]
+}
