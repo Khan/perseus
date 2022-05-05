@@ -236,7 +236,7 @@ var populateInitialState = function (
     givenState: ?State,
     defaultState: ?State,
 ): State {
-    var state /* : State */ = givenState || {};
+    var state: State = givenState || {};
     if (defaultState != null) {
         for (var prop in defaultState) {
             // $FlowFixMe
@@ -291,14 +291,8 @@ var parserFor = function (rules: ParserRules, defaultState: ?State): Parser {
     });
 
     ruleList.sort(function (typeA, typeB) {
-        var ruleA /* : ParserRule */ =
-            /** @type {SimpleMarkdown.ParserRule} */ (
-                rules[typeA] /*:: :any */
-            );
-        var ruleB /* : ParserRule */ =
-            /** @type {SimpleMarkdown.ParserRule} */ (
-                rules[typeB] /*:: :any */
-            );
+        var ruleA: ParserRule = (rules[typeA]: any);
+        var ruleB: ParserRule = (rules[typeB]: any);
         var orderA = ruleA.order;
         var orderB = ruleB.order;
 
@@ -435,8 +429,7 @@ var parserFor = function (rules: ParserRules, defaultState: ?State): Parser {
         return result;
     };
 
-    /** @type {SimpleMarkdown.Parser} */
-    var outerParse = function (source /* : string */, state /* : ?State */) {
+    var outerParse = function (source: string, state: ?State): Parser {
         latestState = populateInitialState(state, defaultState);
         if (!latestState.inline && !latestState.disableAutoBlockNewlines) {
             source = source + "\n\n";
@@ -477,7 +470,7 @@ var inlineRegex = function (regex: RegExp): MatchFunction {
 // Creates a match function for a block scoped element from a regex
 var blockRegex = function (regex: RegExp): MatchFunction {
     // $FlowFixMe
-    var match /* : MatchFunction */ = function (source, state) {
+    var match: MatchFunction = function (source, state) {
         if (state.inline) {
             return null;
         } else {
@@ -491,7 +484,7 @@ var blockRegex = function (regex: RegExp): MatchFunction {
 // Creates a match function from a regex, ignoring block/inline scope
 var anyScopeRegex = function (regex: RegExp): MatchFunction {
     // $FlowFixMe
-    var match /* : MatchFunction */ = function (source, state) {
+    var match: MatchFunction = function (source, state) {
         return regex.exec(source);
     };
     match.regex = regex;
@@ -516,7 +509,7 @@ var reactElement = function (
         ref: null,
         props: props,
         _owner: null,
-    } /*: any */);
+    }: any);
     return element;
 };
 
@@ -748,7 +741,6 @@ var TABLES = (function () {
         var tableRow = parse(source.trim(), state);
         state.inTable = prevInTable;
 
-        /** @type {SimpleMarkdown.SingleASTNode[][]} */
         var cells = [[]];
         tableRow.forEach(function (node, i) {
             if (node.type === "tableSeparator") {
@@ -804,7 +796,6 @@ var TABLES = (function () {
      * @returns {SimpleMarkdown.SingleNodeParseFunction}
      */
     var parseTable = function (trimEndSeparators) {
-        /** @type {SimpleMarkdown.SingleNodeParseFunction} */
         return function (capture, parse, state) {
             state.inline = true;
             var header = parseTableRow(
@@ -885,14 +876,13 @@ var parseRef = function (
 };
 
 var currOrder = 0;
-/** @type {SimpleMarkdown.DefaultRules} */
 
 // $FlowFixMe
 var defaultRules: DefaultRules = {
     Array: {
         react: function (arr, output, state) {
             var oldKey = state.key;
-            var result /* : Array<ReactElements> */ = [];
+            var result: Array<ReactElements> = [];
 
             // map output over the ast, except group any text
             // nodes together into a single string output.
@@ -1086,9 +1076,9 @@ var defaultRules: DefaultRules = {
             var bullet = capture[2];
             var ordered = bullet.length > 1;
             var start = ordered ? +bullet : undefined;
-            var items = /** @type {string[]} */ (
-                capture[0].replace(LIST_BLOCK_END_R, "\n").match(LIST_ITEM_R)
-            );
+            var items: Array<string> = capture[0]
+                .replace(LIST_BLOCK_END_R, "\n")
+                .match(LIST_ITEM_R);
 
             // We know this will match here, because of how the regexes are
             // defined
@@ -1110,7 +1100,6 @@ var defaultRules: DefaultRules = {
                     .replace(LIST_ITEM_PREFIX_R, "");
 
                 // I'm not sur4 why this is necessary again?
-                /*:: items = ((items : any) : Array<string>) */
 
                 // Handling "loose" lists, like:
                 //
@@ -1169,10 +1158,7 @@ var defaultRules: DefaultRules = {
 
             return reactElement(ListWrapper, state.key, {
                 start: node.start,
-                children: node.items.map(function (
-                    /** @type {SimpleMarkdown.ASTNode} */ item,
-                    /** @type {number} */ i,
-                ) {
+                children: node.items.map(function (item: ASTNode, i: number) {
                     return reactElement("li", "" + i, {
                         children: output(item, state),
                     });
@@ -1181,7 +1167,7 @@ var defaultRules: DefaultRules = {
         },
         html: function (node, output, state) {
             var listItems = node.items
-                .map(function (/** @type {SimpleMarkdown.ASTNode} */ item) {
+                .map(function (item: ASTNode) {
                     return htmlTag("li", output(item, state));
                 })
                 .join("");
@@ -1215,9 +1201,7 @@ var defaultRules: DefaultRules = {
             // Sorry :(.
             if (state._refs && state._refs[def]) {
                 // `refNode` can be a link or an image
-                state._refs[def].forEach(function (
-                    /** @type {SimpleMarkdown.RefNode} */ refNode,
-                ) {
+                state._refs[def].forEach(function (refNode: RefNode) {
                     refNode.target = target;
                     refNode.title = title;
                 });
@@ -1276,14 +1260,11 @@ var defaultRules: DefaultRules = {
             });
 
             var rows = node.cells.map(function (
-                /** @type {SimpleMarkdown.ASTNode[]} */ row,
-                /** @type {number} */ r,
+                row: Array<ASTNode>,
+                r: number,
             ) {
                 return reactElement("tr", "" + r, {
-                    children: row.map(function (
-                        /** @type {SimpleMarkdown.ASTNode} */ content,
-                        /** @type {number} */ c,
-                    ) {
+                    children: row.map(function (content: ASTNode, c: number) {
                         return reactElement("td", "" + c, {
                             style: getStyle(c),
                             children: output(content, state),
@@ -1324,10 +1305,7 @@ var defaultRules: DefaultRules = {
             var rows = node.cells
                 .map(function (row: Array<ASTNode>) {
                     var cols = row
-                        .map(function (
-                            /** @type {SimpleMarkdown.ASTNode} */ content,
-                            /** @type {number} */ c,
-                        ) {
+                        .map(function (content: ASTNode, c: number) {
                             return htmlTag("td", output(content, state), {
                                 style: getStyle(c),
                             });
@@ -1793,7 +1771,7 @@ var reactFor = function (outputFunc: ReactNodeOutput): ReactOutput {
 /** (deprecated)
  */
 var htmlFor = function (outputFunc: HtmlNodeOutput): HtmlOutput {
-    var nestedOutput /* : HtmlOutput */ = function (ast, state) {
+    var nestedOutput: HtmlOutput = function (ast, state) {
         state = state || {};
         if (Array.isArray(ast)) {
             return ast
@@ -1900,7 +1878,6 @@ var markdownToHtml = function (source: string, state: ?State): string {
 // TODO: This needs definition
 type ReactMarkdownProps = any;
 var ReactMarkdown = function (props: ReactMarkdownProps): ReactElement {
-    /** @type {Object} */
     var divProps = {};
 
     for (var prop in props) {
@@ -2009,7 +1986,7 @@ export type {
 };
 
 // $FlowFixMe
-var SimpleMarkdown /* : Exports */ = {
+var SimpleMarkdown: Exports = {
     defaultRules: defaultRules,
     parserFor: parserFor,
     outputFor: outputFor,
@@ -2051,7 +2028,7 @@ var SimpleMarkdown /* : Exports */ = {
                 "defaultParse is deprecated, please use `defaultImplicitParse`",
             );
         }
-        return defaultImplicitParse.apply(null, /** @type {any} */ (arguments));
+        return defaultImplicitParse.apply(null, (arguments: any));
     },
     defaultOutput: function () {
         if (typeof console !== "undefined") {
@@ -2059,7 +2036,7 @@ var SimpleMarkdown /* : Exports */ = {
                 "defaultOutput is deprecated, please use `defaultReactOutput`",
             );
         }
-        return defaultReactOutput.apply(null, /** @type {any} */ (arguments));
+        return defaultReactOutput.apply(null, (arguments: any));
     },
 };
 
