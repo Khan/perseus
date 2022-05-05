@@ -2,6 +2,7 @@
 // @flow
 import {components} from "@khanacademy/perseus";
 import classNames from "classnames";
+// eslint-disable-next-line import/no-extraneous-dependencies
 import jsdiff from "jsdiff";
 import PropTypes from "prop-types";
 import * as React from "react";

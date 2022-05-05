@@ -2,6 +2,7 @@
 // @flow
 import {point as kpoint, vector as kvector} from "@khanacademy/kmath";
 import $ from "jquery";
+// eslint-disable-next-line import/no-extraneous-dependencies
 import Raphael from "raphael";
 import _ from "underscore";
 
