@@ -4,4 +4,4 @@
 
 ### Patch Changes
 
--   9afcc83b: Move KAS into khan/perseus repo
+-   570c5800: Move KAS into khan/perseus repo

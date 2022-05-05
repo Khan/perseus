@@ -4,5 +4,5 @@
 
 ### Minor Changes
 
--   9afcc83b: Move math-input into khan/perseus repo (name changes to @khanacademy/math-input)
--   9afcc83b: Extract math-input strings from source and save them to packages/math-input/dist
+-   ea57be17: Move math-input into khan/perseus repo (name changes to @khanacademy/math-input)
+-   116df39b: Extract math-input strings from source and save them to packages/math-input/dist
