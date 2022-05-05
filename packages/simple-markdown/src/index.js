@@ -1,4 +1,5 @@
-/* @flow */
+/* eslint-disable prefer-spread, no-regex-spaces, no-unused-vars, guard-for-in, no-console, no-var */
+// @flow
 /* @ts-check */
 
 /**
@@ -25,12 +26,11 @@
 /// <reference lib="ES2018" />
 /// <reference path="../simple-markdown.d.ts" />
 
-/*::
 // Flow Type Definitions:
 
 type Capture =
-    Array<string> & {index: number} |
-    Array<string> & {index?: number};
+    | (Array<string> & {index: number})
+    | (Array<string> & {index?: number});
 
 type Attr = string | number | boolean | null | void;
 
@@ -40,7 +40,7 @@ type SingleASTNode = {
 };
 
 type UnTypedASTNode = {
-    [string]: any
+    [string]: any,
 };
 
 type ASTNode = SingleASTNode | Array<SingleASTNode>;
@@ -54,22 +54,19 @@ type State = {
 type ReactElement = React$Element<any>;
 type ReactElements = React$Node;
 
-type MatchFunction = { regex?: RegExp } & (
+type MatchFunction = {regex?: RegExp} & ((
     source: string,
     state: State,
-    prevCapture: string
-) => ?Capture;
+    prevCapture: string,
+) => ?Capture);
 
-type Parser = (
-    source: string,
-    state?: ?State
-) => Array<SingleASTNode>;
+type Parser = (source: string, state?: ?State) => Array<SingleASTNode>;
 
 type ParseFunction = (
     capture: Capture,
     nestedParse: Parser,
     state: State,
-) => (UnTypedASTNode | ASTNode);
+) => UnTypedASTNode | ASTNode;
 
 type SingleNodeParseFunction = (
     capture: Capture,
@@ -77,21 +74,18 @@ type SingleNodeParseFunction = (
     state: State,
 ) => UnTypedASTNode;
 
-type Output<Result> = (
-    node: ASTNode,
-    state?: ?State
-) => Result;
+type Output<Result> = (node: ASTNode, state?: ?State) => Result;
 
 type NodeOutput<Result> = (
     node: SingleASTNode,
     nestedOutput: Output<Result>,
-    state: State
+    state: State,
 ) => Result;
 
 type ArrayNodeOutput<Result> = (
     node: Array<SingleASTNode>,
     nestedOutput: Output<Result>,
-    state: State
+    state: State,
 ) => Result;
 
 type ReactOutput = Output<ReactElements>;
@@ -138,7 +132,7 @@ type ParserRules = {
 
 type OutputRules<Rule> = {
     +Array?: ArrayRule,
-    +[type: string]: Rule
+    +[type: string]: Rule,
 };
 type Rules<OutputRule> = {
     +Array?: ArrayRule,
@@ -174,14 +168,20 @@ type NonNullHtmlOutputRule = {
 };
 
 type DefaultInRule = SingleNodeParserRule & ReactOutputRule & HtmlOutputRule;
-type TextInOutRule = SingleNodeParserRule & TextReactOutputRule & NonNullHtmlOutputRule;
-type LenientInOutRule = SingleNodeParserRule & NonNullReactOutputRule & NonNullHtmlOutputRule;
-type DefaultInOutRule = SingleNodeParserRule & ElementReactOutputRule & NonNullHtmlOutputRule;
+type TextInOutRule = SingleNodeParserRule &
+    TextReactOutputRule &
+    NonNullHtmlOutputRule;
+type LenientInOutRule = SingleNodeParserRule &
+    NonNullReactOutputRule &
+    NonNullHtmlOutputRule;
+type DefaultInOutRule = SingleNodeParserRule &
+    ElementReactOutputRule &
+    NonNullHtmlOutputRule;
 
 type DefaultRules = {
     +Array: {
         +react: ArrayNodeOutput<ReactElements>,
-        +html: ArrayNodeOutput<string>
+        +html: ArrayNodeOutput<string>,
     },
     +heading: DefaultInOutRule,
     +nptable: DefaultInRule,
@@ -222,7 +222,6 @@ type RefNode = {
 };
 
 // End Flow Definitions
-*/
 
 var CR_NEWLINE_R = /\r\n?/g;
 var TAB_R = /\t/g;
@@ -252,6 +251,7 @@ var populateInitialState = function (
     var state /* : State */ = givenState || {};
     if (defaultState != null) {
         for (var prop in defaultState) {
+            // $FlowFixMe
             if (Object.prototype.hasOwnProperty.call(defaultState, prop)) {
                 state[prop] = defaultState[prop];
             }
@@ -432,6 +432,7 @@ var parserFor = function (
             // modify them later. (oops sorry! but this adds a lot
             // of power--see reflinks.)
             if (Array.isArray(parsed)) {
+                // $FlowFixMe
                 Array.prototype.push.apply(result, parsed);
             } else {
                 // We also let rules override the default type of
@@ -473,6 +474,7 @@ var parserFor = function (
 /** @type {(regex: RegExp) => SimpleMarkdown.MatchFunction} */
 var inlineRegex = function (regex /* : RegExp */) {
     /** @type {SimpleMarkdown.MatchFunction} */
+    // $FlowFixMe
     var match /* : MatchFunction */ = function (source, state) {
         if (state.inline) {
             return regex.exec(source);
@@ -488,6 +490,7 @@ var inlineRegex = function (regex /* : RegExp */) {
 /** @type {(regex: RegExp) => SimpleMarkdown.MatchFunction} */
 var blockRegex = function (regex /* : RegExp */) {
     /** @type {SimpleMarkdown.MatchFunction} */
+    // $FlowFixMe
     var match /* : MatchFunction */ = function (source, state) {
         if (state.inline) {
             return null;
@@ -503,6 +506,7 @@ var blockRegex = function (regex /* : RegExp */) {
 /** @type {(regex: RegExp) => SimpleMarkdown.MatchFunction} */
 var anyScopeRegex = function (regex /* : RegExp */) {
     /** @type {SimpleMarkdown.MatchFunction} */
+    // $FlowFixMe
     var match /* : MatchFunction */ = function (source, state) {
         return regex.exec(source);
     };
@@ -563,6 +567,7 @@ var htmlTag = function (
         var attribute = attributes[attr];
         // Removes falsey attributes
         if (
+            // $FlowFixMe
             Object.prototype.hasOwnProperty.call(attributes, attr) &&
             attribute
         ) {
@@ -919,6 +924,8 @@ var parseRef = function (capture, state, refNode /* : RefNode */) {
 
 var currOrder = 0;
 /** @type {SimpleMarkdown.DefaultRules} */
+
+// $FlowFixMe
 var defaultRules /* : DefaultRules */ = {
     Array: {
         react: function (arr, output, state) {
@@ -1091,6 +1098,7 @@ var defaultRules /* : DefaultRules */ = {
     },
     list: {
         order: currOrder++,
+        // $FlowFixMe
         match: function (source, state) {
             // We only want to break into a list if we are at the start of a
             // line. This is to avoid parsing "hi * there" with "* there"
@@ -1433,6 +1441,7 @@ var defaultRules /* : DefaultRules */ = {
     },
     tableSeparator: {
         order: currOrder++,
+        // $FlowFixMe
         match: function (source, state) {
             if (!state.inTable) {
                 return null;
@@ -1778,7 +1787,11 @@ var defaultRules /* : DefaultRules */ = {
  * @param {any} property
  * @returns {any}
  */
-var ruleOutput = function (rules, property) {
+var ruleOutput = function (
+    // $FlowFixMe
+    rules: OutputRules<Rule>,
+    property /* : $Keys<Rule> */,
+) {
     if (!property && typeof console !== "undefined") {
         console.warn(
             "simple-markdown ruleOutput should take 'react' or " +
@@ -1863,7 +1876,7 @@ var htmlFor = function (outputFunc /* : HtmlNodeOutput */) /* : HtmlOutput */ {
  * @type {SimpleMarkdown.OutputFor}
  */
 var outputFor = function (
-    /* :: <Rule : Object> */ rules /* : OutputRules<Rule> */,
+    rules: OutputRules<Rule>,
     property /* : $Keys<Rule> */,
     defaultState /* : ?State */,
 ) {
@@ -1978,6 +1991,7 @@ var ReactMarkdown = function (props) {
     for (var prop in props) {
         if (
             prop !== "source" &&
+            // $FlowFixMe
             Object.prototype.hasOwnProperty.call(props, prop)
         ) {
             divProps[prop] = props[prop];
@@ -2059,6 +2073,7 @@ export type {
 };
 */
 
+// $FlowFixMe
 var SimpleMarkdown /* : Exports */ = {
     defaultRules: defaultRules,
     parserFor: parserFor,
