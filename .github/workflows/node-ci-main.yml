@@ -47,5 +47,11 @@ jobs:
       uses: ./.github/actions/shared-node-cache
       with:
         node-version: ${{ matrix.node-version }}
+    # Collect and upload coverage
+    - name: Run Jest with coverage
+      run: yarn coverage
     - name: Upload Coverage
       uses: codecov/codecov-action@v2
+      with:
+        files: ./coverage/coverage-final.json
+        fail_ci_if_error: true
