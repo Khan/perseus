@@ -3,7 +3,7 @@
     "access": "public"
   },
   "name": "@khanacademy/math-input",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "Khan Academy's new expression editor for the mobile web.",
   "author": "Khan Academy",
   "license": "MIT",
