@@ -1,6 +1,5 @@
 /* eslint-disable prefer-spread, no-regex-spaces, no-unused-vars, guard-for-in, no-console, no-var */
 // @flow
-/* @ts-check */
 
 /**
  * Simple-Markdown
@@ -21,10 +20,6 @@
  * Many of the regexes and original logic has been adapted from
  * the wonderful [marked.js](https://github.com/chjj/marked)
  */
-
-// Typescript language & simple-markdown.d.ts references:
-/// <reference lib="ES2018" />
-/// <reference path="../simple-markdown.d.ts" />
 
 // Flow Type Definitions:
 
@@ -229,25 +224,18 @@ var FORMFEED_R = /\f/g;
 
 /**
  * Turn various whitespace into easy-to-process whitespace
- * @param {string} source
- * @returns {string}
  */
-var preprocess = function (source /* : string */) {
+var preprocess = function (source: string): string {
     return source
         .replace(CR_NEWLINE_R, "\n")
         .replace(FORMFEED_R, "")
         .replace(TAB_R, "    ");
 };
 
-/**
- * @param {SimpleMarkdown.OptionalState} givenState
- * @param {SimpleMarkdown.OptionalState} defaultState
- * @returns {SimpleMarkdown.State}
- */
 var populateInitialState = function (
-    givenState /* : ?State */,
-    defaultState /* : ?State */,
-) /* : State */ {
+    givenState: ?State,
+    defaultState: ?State,
+): State {
     var state /* : State */ = givenState || {};
     if (defaultState != null) {
         for (var prop in defaultState) {
@@ -279,10 +267,7 @@ var populateInitialState = function (
  *         some nesting is. For an example use-case, see passage-ref
  *         parsing in src/widgets/passage/passage-markdown.jsx
  */
-var parserFor = function (
-    rules /*: ParserRules */,
-    defaultState /*: ?State */,
-) {
+var parserFor = function (rules: ParserRules, defaultState: ?State): Parser {
     // Sorts rules in order of increasing order, then
     // ascending rule name in case of ties.
     var ruleList = Object.keys(rules).filter(function (type) {
@@ -340,12 +325,9 @@ var parserFor = function (
         }
     });
 
-    /** @type {SimpleMarkdown.State} */
-    var latestState;
-    /** @type {SimpleMarkdown.Parser} */
-    var nestedParse = function (source /* : string */, state /* : ?State */) {
-        /** @type Array<SimpleMarkdown.SingleASTNode> */
-        var result = [];
+    var latestState: State;
+    var nestedParse = function (source: string, state: ?State): Parser {
+        var result: Array<SingleASTNode> = [];
         state = state || latestState;
         latestState = state;
         while (source) {
@@ -358,10 +340,9 @@ var parserFor = function (
             // loop control variables:
             var i = 0;
             var currRuleType = ruleList[0];
-            var currRule /* : ParserRule */ =
-                /** @type {SimpleMarkdown.ParserRule} */ (
-                    rules[currRuleType] /*:: :any */
-                );
+
+            // $FlowFixMe
+            var currRule: ParserRule = rules[currRuleType];
 
             do {
                 var currOrder = currRule.order;
@@ -388,9 +369,8 @@ var parserFor = function (
                 // Note that this makes `currRule` be the next item
                 i++;
                 currRuleType = ruleList[i];
-                currRule = /*::((*/ /** @type {SimpleMarkdown.ParserRule} */ (
-                    rules[currRuleType]
-                ) /*:: : any) : ParserRule)*/;
+                // $FlowFixMe
+                currRule = rules[currRuleType];
             } while (
                 // keep looping while we're still within the ruleList
                 currRule &&
@@ -406,7 +386,7 @@ var parserFor = function (
             );
 
             // TODO(aria): Write tests for these
-            if (rule == null || capture == null /*:: || ruleType == null */) {
+            if (rule == null || capture == null) {
                 throw new Error(
                     "Could not find a matching rule for the below " +
                         "content. The rule with highest `order` should " +
@@ -426,6 +406,7 @@ var parserFor = function (
                 );
             }
 
+            // $FlowFixMe
             var parsed = rule.parse(capture, nestedParse, state);
             // We maintain the same object here so that rules can
             // store references to the objects they return and
@@ -440,16 +421,17 @@ var parserFor = function (
                 // there can be a single output function for all links,
                 // even if there are several rules to parse them.
                 if (parsed.type == null) {
+                    // $FlowFixMe
                     parsed.type = ruleType;
                 }
-                result.push(
-                    /** @type {SimpleMarkdown.SingleASTNode} */ (parsed),
-                );
+                result.push(parsed);
             }
 
             state.prevCapture = capture;
             source = source.substring(state.prevCapture[0].length);
         }
+
+        // $FlowFixMe
         return result;
     };
 
@@ -467,6 +449,8 @@ var parserFor = function (
         latestState.prevCapture = null;
         return nestedParse(preprocess(source), latestState);
     };
+
+    // $FlowFixMe
     return outerParse;
 };
 
