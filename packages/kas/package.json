@@ -1,6 +1,6 @@
 {
   "name": "@khanacademy/kas",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "A lightweight JavaScript CAS for comparing expressions and equations.",
   "module": "dist/es/index.js",
   "main": "dist/index.js",
