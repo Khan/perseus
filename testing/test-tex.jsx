@@ -40,7 +40,6 @@ export const TestTeX = (props: Props): React.Node => {
         if (onRender) {
             onRender();
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (

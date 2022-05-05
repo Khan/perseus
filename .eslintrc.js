@@ -64,44 +64,28 @@ module.exports = {
     },
     overrides: [
         {
-            files: ["**/__tests__/*.test.js"],
-            rules: {
-                "max-lines": "off",
-            },
-        },
-        {
-            files: ["testing/*"],
-            rules: {
-                "import/no-relative-packages": "off",
-                "import/no-commonjs": "off",
-            },
-        },
-        {
-            files: ["config/test/*"],
-            rules: {
-                "import/no-relative-packages": "off",
-                "import/no-commonjs": "off",
-            },
-        },
-        {
             files: [
-                "*.stories.jsx",
-                "*.stories.js",
-                "*test.js",
-                "*test.jsx",
                 "*.cypress.jsx",
                 "*.cypress.js",
+                "*_test.js",
+                "*_test.jsx",
+                "*.stories.js",
+                "*.stories.jsx",
             ],
             rules: {
+                "max-lines": "off",
+                "import/no-extraneous-dependencies": "off",
                 "import/no-relative-packages": "off",
             },
         },
         {
-            files: ["utils/**"],
+            files: ["config/**", "utils/**", "testing/*"],
             rules: {
                 "import/no-commonjs": "off",
-                "testing-library/no-debugging-utils": "off",
+                "import/no-extraneous-dependencies": "off",
+                "import/no-relative-packages": "off",
                 "no-console": "off",
+                "testing-library/no-debugging-utils": "off",
             },
         },
     ],
@@ -111,12 +95,29 @@ module.exports = {
         "no-invalid-this": "off",
         "object-curly-spacing": "off",
         semi: "off",
+
+        /**
+         * @babel
+         */
         // "@babel/new-cap": "error",
         "@babel/no-invalid-this": "error",
         "@babel/object-curly-spacing": "error",
         "@babel/semi": "error",
+
+        /**
+         * flowtype
+         */
         "flowtype/no-types-missing-file-annotation": "error",
         // "flowtype/no-existential-type": "error",
+
+        /**
+         * jest
+         */
+        "jest/no-focused-tests": "error",
+
+        /**
+         * import
+         */
         // "import/no-default-export": "error",
         "import/no-unresolved": "error",
         "import/named": "error",
@@ -171,14 +172,19 @@ module.exports = {
                 ignorePackages: true,
             },
         ],
-        "jest/no-focused-tests": "error",
-        // "promise/always-return": "error",
-        "promise/no-return-wrap": "error",
-        "promise/param-names": "error",
-        // "promise/catch-or-return": "error",
-        "promise/no-new-statics": "error",
-        "promise/no-return-in-finally": "error",
-        "monorepo/no-internal-import": "error",
+        "import/no-extraneous-dependencies": [
+            "error",
+            {
+                // TODO: compute this list automatically
+                packageDir: [
+                    "./packages/kas",
+                    "./packages/kmath",
+                    "./packages/math-input",
+                    "./packages/perseus-editor",
+                    "./packages/perseus",
+                ],
+            },
+        ],
         "import/no-restricted-paths": [
             "error",
             {
@@ -190,6 +196,25 @@ module.exports = {
                 ],
             },
         ],
+
+        /**
+         * monorepo
+         */
+        "monorepo/no-internal-import": "error",
+
+        /**
+         * promise
+         */
+        // "promise/always-return": "error",
+        "promise/no-return-wrap": "error",
+        "promise/param-names": "error",
+        // "promise/catch-or-return": "error",
+        "promise/no-new-statics": "error",
+        "promise/no-return-in-finally": "error",
+
+        /**
+         * react
+         */
         "react/sort-comp": [
             "error",
             {
@@ -205,10 +230,14 @@ module.exports = {
             },
         ],
 
-        // react-native
+        /**
+         * react-native
+         */
         "react-native/no-unused-styles": "error",
 
-        // testing-library
+        /**
+         * testing-library
+         */
         "testing-library/prefer-user-event": "error",
         "testing-library/no-wait-for-empty-callback": "error",
         "testing-library/no-wait-for-multiple-assertions": "error",
