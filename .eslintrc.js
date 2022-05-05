@@ -2,14 +2,15 @@
 const fs = require("fs");
 const path = require("path");
 
-const pkgAliases = fs
-    .readdirSync(path.join(__dirname, "packages"))
-    .map((pkgName) => {
-        return [
-            `@khanacademy/${pkgName}`,
-            `./packages/${pkgName}/src/index.js`,
-        ];
-    });
+const pkgNames = fs.readdirSync(path.join(__dirname, "packages"));
+
+const pkgAliases = pkgNames.map((pkgName) => {
+    return [`@khanacademy/${pkgName}`, `./packages/${pkgName}/src/index.js`];
+});
+
+const pkgDirs = pkgNames.map((pkgName) => {
+    return `./packages/${pkgName}`;
+});
 
 const vendorAliases = fs
     .readdirSync(path.join(__dirname, "vendor"))
@@ -175,14 +176,7 @@ module.exports = {
         "import/no-extraneous-dependencies": [
             "error",
             {
-                // TODO: compute this list automatically
-                packageDir: [
-                    "./packages/kas",
-                    "./packages/kmath",
-                    "./packages/math-input",
-                    "./packages/perseus-editor",
-                    "./packages/perseus",
-                ],
+                packageDir: pkgDirs,
             },
         ],
         "import/no-restricted-paths": [
