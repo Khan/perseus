@@ -3939,6 +3939,7 @@ describe("simple markdown", function () {
         it("should allow default state params in outputFor", function () {
             var output = SimpleMarkdown.outputFor(
                 {
+                    // $FlowFixMe[incompatible-call]
                     Array: SimpleMarkdown.defaultRules.Array,
                     text: Object.assign({}, SimpleMarkdown.defaultRules.text, {
                         react: function (
@@ -4053,6 +4054,7 @@ describe("simple markdown", function () {
         it("should not require passing state to recursiveOutput", function () {
             var output = SimpleMarkdown.outputFor(
                 {
+                    // $FlowFixMe[incompatible-call]
                     Array: SimpleMarkdown.defaultRules.Array,
                     paragraph: Object.assign(
                         {},
@@ -4472,6 +4474,7 @@ describe("simple markdown", function () {
                 }),
             });
 
+            // $FlowFixMe[incompatible-call]
             var output = SimpleMarkdown.outputFor(rules, "react");
 
             var parsed = SimpleMarkdown.defaultInlineParse("Hi! You! Are! <3!");
