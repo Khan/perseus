@@ -1,0 +1,8 @@
+# @khanacademy/math-input
+
+## 0.5.0
+
+### Minor Changes
+
+-   ea57be17: Move math-input into khan/perseus repo (name changes to @khanacademy/math-input)
+-   116df39b: Extract math-input strings from source and save them to packages/math-input/dist
