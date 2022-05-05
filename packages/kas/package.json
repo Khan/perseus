@@ -1,4 +1,7 @@
 {
+  "publishConfig": {
+    "access": "public"
+  },
   "name": "@khanacademy/kas",
   "version": "0.2.2",
   "description": "A lightweight JavaScript CAS for comparing expressions and equations.",

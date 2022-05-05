@@ -13,7 +13,7 @@ const {
 } = require("./internal/pre-publish-utils.js");
 
 // eslint-disable-next-line promise/catch-or-return
-fg(path.join(__dirname, "..", "packages", "**", "package.json")).then(
+fg(path.join(__dirname, "..", "packages", "*", "package.json")).then(
     (pkgPaths) => {
         // eslint-disable-next-line promise/always-return
         for (const pkgPath of pkgPaths) {
