@@ -455,25 +455,27 @@ var parserFor = function (rules: ParserRules, defaultState: ?State): Parser {
 };
 
 // Creates a match function for an inline scoped element from a regex
-/** @type {(regex: RegExp) => SimpleMarkdown.MatchFunction} */
-var inlineRegex = function (regex /* : RegExp */) {
-    /** @type {SimpleMarkdown.MatchFunction} */
-    // $FlowFixMe
-    var match /* : MatchFunction */ = function (source, state) {
+var inlineRegex = function (regex: RegExp): MatchFunction {
+    var match = function (
+        source: string,
+        state: State,
+        prevCapture: string,
+    ): ?Capture {
         if (state.inline) {
+            // $FlowFixMe
             return regex.exec(source);
         } else {
             return null;
         }
     };
     match.regex = regex;
+
+    // $FlowFixMe
     return match;
 };
 
 // Creates a match function for a block scoped element from a regex
-/** @type {(regex: RegExp) => SimpleMarkdown.MatchFunction} */
-var blockRegex = function (regex /* : RegExp */) {
-    /** @type {SimpleMarkdown.MatchFunction} */
+var blockRegex = function (regex: RegExp): MatchFunction {
     // $FlowFixMe
     var match /* : MatchFunction */ = function (source, state) {
         if (state.inline) {
@@ -487,9 +489,7 @@ var blockRegex = function (regex /* : RegExp */) {
 };
 
 // Creates a match function from a regex, ignoring block/inline scope
-/** @type {(regex: RegExp) => SimpleMarkdown.MatchFunction} */
-var anyScopeRegex = function (regex /* : RegExp */) {
-    /** @type {SimpleMarkdown.MatchFunction} */
+var anyScopeRegex = function (regex: RegExp): MatchFunction {
     // $FlowFixMe
     var match /* : MatchFunction */ = function (source, state) {
         return regex.exec(source);
@@ -504,28 +504,19 @@ var TYPE_SYMBOL =
         Symbol.for("react.element")) ||
     0xeac7;
 
-/**
- * @param {string} type
- * @param {string | number | null | undefined} key
- * @param {Object<string, any>} props
- * @returns {SimpleMarkdown.ReactElement}
- */
 var reactElement = function (
-    type /* : string */,
-    key /* : string | number | null | void */,
-    props /* : { [string]: any } */,
-) /* : ReactElement */ {
-    var element /* : ReactElement */ =
-        /** @type {SimpleMarkdown.ReactElement} */ (
-            {
-                $$typeof: TYPE_SYMBOL,
-                type: type,
-                key: key == null ? undefined : key,
-                ref: null,
-                props: props,
-                _owner: null,
-            } /* : any */
-        );
+    type: string,
+    key: string | number | null | void,
+    props: {[string]: any},
+): ReactElement {
+    var element: ReactElement = ({
+        $$typeof: TYPE_SYMBOL,
+        type: type,
+        key: key == null ? undefined : key,
+        ref: null,
+        props: props,
+        _owner: null,
+    } /*: any */);
     return element;
 };
 
@@ -538,10 +529,10 @@ var reactElement = function (
  *   defaults to true
  */
 var htmlTag = function (
-    tagName /* : string */,
-    content /* : string */,
-    attributes /* : ?{[any]: ?Attr} */,
-    isClosed /* : ?boolean */,
+    tagName: string,
+    content: string,
+    attributes: ?{[any]: ?Attr},
+    isClosed: ?boolean,
 ) {
     attributes = attributes || {};
     isClosed = typeof isClosed !== "undefined" ? isClosed : true;
@@ -575,7 +566,7 @@ var EMPTY_PROPS = {};
  * @param {string | null | undefined} url - url to sanitize
  * @returns {string | null} - url if safe, or null if a safe url could not be made
  */
-var sanitizeUrl = function (url /* : ?string */) {
+var sanitizeUrl = function (url: ?string) {
     if (url == null) {
         return null;
     }
@@ -597,7 +588,6 @@ var sanitizeUrl = function (url /* : ?string */) {
 };
 
 var SANITIZE_TEXT_R = /[<>&"']/g;
-/** @type {any} */
 var SANITIZE_TEXT_CODES = {
     "<": "&lt;",
     ">": "&gt;",
@@ -607,11 +597,8 @@ var SANITIZE_TEXT_CODES = {
     "/": "&#x2F;",
     "`": "&#96;",
 };
-/**
- * @param {SimpleMarkdown.Attr} text
- * @returns {string}
- */
-var sanitizeText = function (text /* : Attr */) {
+
+var sanitizeText = function (text: Attr): string {
     return String(text).replace(SANITIZE_TEXT_R, function (chr) {
         return SANITIZE_TEXT_CODES[chr];
     });
@@ -619,11 +606,7 @@ var sanitizeText = function (text /* : Attr */) {
 
 var UNESCAPE_URL_R = /\\([^0-9A-Za-z\s])/g;
 
-/**
- * @param {string} rawUrlString
- * @returns {string}
- */
-var unescapeUrl = function (rawUrlString /* : string */) {
+var unescapeUrl = function (rawUrlString: string): string {
     return rawUrlString.replace(UNESCAPE_URL_R, "$1");
 };
 
@@ -631,26 +614,24 @@ var unescapeUrl = function (rawUrlString /* : string */) {
  * Parse some content with the parser `parse`, with state.inline
  * set to true. Useful for block elements; not generally necessary
  * to be used by inline elements (where state.inline is already true.
- *
- * @param {SimpleMarkdown.Parser} parse
- * @param {string} content
- * @param {SimpleMarkdown.State} state
- * @returns {SimpleMarkdown.ASTNode}
  */
-var parseInline = function (parse, content, state) {
+var parseInline = function (
+    parse: Parser,
+    content: string,
+    state: State,
+): ASTNode {
     var isCurrentlyInline = state.inline || false;
     state.inline = true;
     var result = parse(content, state);
     state.inline = isCurrentlyInline;
     return result;
 };
-/**
- * @param {SimpleMarkdown.Parser} parse
- * @param {string} content
- * @param {SimpleMarkdown.State} state
- * @returns {SimpleMarkdown.ASTNode}
- */
-var parseBlock = function (parse, content, state) {
+
+var parseBlock = function (
+    parse: Parser,
+    content: string,
+    state: State,
+): ASTNode {
     var isCurrentlyInline = state.inline || false;
     state.inline = false;
     var result = parse(content + "\n\n", state);
@@ -658,21 +639,17 @@ var parseBlock = function (parse, content, state) {
     return result;
 };
 
-/**
- * @param {SimpleMarkdown.Capture} capture
- * @param {SimpleMarkdown.Parser} parse
- * @param {SimpleMarkdown.State} state
- * @returns {SimpleMarkdown.UnTypedASTNode}
- */
-var parseCaptureInline = function (capture, parse, state) {
+var parseCaptureInline = function (
+    capture: Capture,
+    parse: Parser,
+    state: State,
+): UnTypedASTNode {
     return {
         content: parseInline(parse, capture[1], state),
     };
 };
-/**
- * @returns {SimpleMarkdown.UnTypedASTNode}
- */
-var ignoreCapture = function () {
+
+var ignoreCapture = function (): UnTypedASTNode {
     return {};
 };
 
@@ -730,11 +707,12 @@ var TABLES = (function () {
     var TABLE_CENTER_ALIGN = /^ *:-+: *$/;
     var TABLE_LEFT_ALIGN = /^ *:-+ *$/;
 
-    /**
-     * @param {string} alignCapture
-     * @returns {SimpleMarkdown.TableAlignment}
-     */
-    var parseTableAlignCapture = function (alignCapture) {
+    // TODO: This needs a real type
+    type TableAlignment = any;
+
+    var parseTableAlignCapture = function (
+        alignCapture: string,
+    ): TableAlignment {
         if (TABLE_RIGHT_ALIGN.test(alignCapture)) {
             return "right";
         } else if (TABLE_CENTER_ALIGN.test(alignCapture)) {
@@ -746,14 +724,12 @@ var TABLES = (function () {
         }
     };
 
-    /**
-     * @param {string} source
-     * @param {SimpleMarkdown.Parser} parse
-     * @param {SimpleMarkdown.State} state
-     * @param {boolean} trimEndSeparators
-     * @returns {Array<SimpleMarkdown.TableAlignment>}
-     */
-    var parseTableAlign = function (source, parse, state, trimEndSeparators) {
+    var parseTableAlign = function (
+        source: string,
+        parse: Parser,
+        state: State,
+        trimEndSeparators: boolean,
+    ): Array<TableAlignment> {
         if (trimEndSeparators) {
             source = source.replace(TABLE_ROW_SEPARATOR_TRIM, "");
         }
@@ -761,14 +737,12 @@ var TABLES = (function () {
         return alignText.map(parseTableAlignCapture);
     };
 
-    /**
-     * @param {string} source
-     * @param {SimpleMarkdown.Parser} parse
-     * @param {SimpleMarkdown.State} state
-     * @param {boolean} trimEndSeparators
-     * @returns {SimpleMarkdown.SingleASTNode[][]}
-     */
-    var parseTableRow = function (source, parse, state, trimEndSeparators) {
+    var parseTableRow = function (
+        source: string,
+        parse: Parser,
+        state: State,
+        trimEndSeparators: boolean,
+    ): Array<Array<SingleASTNode>> {
         var prevInTable = state.inTable;
         state.inTable = true;
         var tableRow = parse(source.trim(), state);
@@ -811,10 +785,16 @@ var TABLES = (function () {
      * @param {boolean} trimEndSeparators
      * @returns {SimpleMarkdown.ASTNode[][]}
      */
-    var parseTableCells = function (source, parse, state, trimEndSeparators) {
+    var parseTableCells = function (
+        source: string,
+        parse: Parser,
+        state: State,
+        trimEndSeparators: boolean,
+    ): Array<Array<ASTNode>> {
         var rowsText = source.trim().split("\n");
 
         return rowsText.map(function (rowText) {
+            // $FlowFixMe
             return parseTableRow(rowText, parse, state, trimEndSeparators);
         });
     };
@@ -871,13 +851,11 @@ var LINK_HREF_AND_TITLE =
     "\\s*<?((?:\\([^)]*\\)|[^\\s\\\\]|\\\\.)*?)>?(?:\\s+['\"]([\\s\\S]*?)['\"])?\\s*";
 var AUTOLINK_MAILTO_CHECK_R = /mailto:/i;
 
-/**
- * @param {SimpleMarkdown.Capture} capture
- * @param {SimpleMarkdown.State} state
- * @param {SimpleMarkdown.RefNode} refNode
- * @returns {SimpleMarkdown.RefNode}
- */
-var parseRef = function (capture, state, refNode /* : RefNode */) {
+var parseRef = function (
+    capture: Capture,
+    state: State,
+    refNode: RefNode,
+): RefNode {
     var ref = (capture[2] || capture[1]).replace(/\s+/g, " ").toLowerCase();
 
     // We store information about previously seen defs on
@@ -910,7 +888,7 @@ var currOrder = 0;
 /** @type {SimpleMarkdown.DefaultRules} */
 
 // $FlowFixMe
-var defaultRules /* : DefaultRules */ = {
+var defaultRules: DefaultRules = {
     Array: {
         react: function (arr, output, state) {
             var oldKey = state.key;
@@ -1114,13 +1092,9 @@ var defaultRules /* : DefaultRules */ = {
 
             // We know this will match here, because of how the regexes are
             // defined
-            /*:: items = ((items : any) : Array<string>) */
 
             var lastItemWasAParagraph = false;
-            var itemContent = items.map(function (
-                /** @type {string} */ item,
-                /** @type {number} */ i,
-            ) {
+            var itemContent = items.map(function (item: string, i: number) {
                 // We need to see how far indented this item is:
                 var prefixCapture = LIST_ITEM_PREFIX_R.exec(item);
                 var space = prefixCapture ? prefixCapture[0].length : 0;
@@ -1280,11 +1254,9 @@ var defaultRules /* : DefaultRules */ = {
         match: blockRegex(TABLES.TABLE_REGEX),
         parse: TABLES.parseTable,
         react: function (node, output, state) {
-            /**
-             * @param {number} colIndex
-             * @returns {{ [attr: string]: SimpleMarkdown.Attr }}
-             */
-            var getStyle = function (colIndex) {
+            var getStyle = function (colIndex: number): {
+                [attr: string]: Attr,
+            } {
                 return node.align[colIndex] == null
                     ? {}
                     : {
@@ -1293,8 +1265,8 @@ var defaultRules /* : DefaultRules */ = {
             };
 
             var headers = node.header.map(function (
-                /** @type {SimpleMarkdown.ASTNode} */ content,
-                /** @type {number} */ i,
+                content: ASTNode,
+                i: number,
             ) {
                 return reactElement("th", "" + i, {
                     style: getStyle(i),
@@ -1334,21 +1306,14 @@ var defaultRules /* : DefaultRules */ = {
             });
         },
         html: function (node, output, state) {
-            /**
-             * @param {number} colIndex
-             * @returns {string}
-             */
-            var getStyle = function (colIndex) {
+            var getStyle = function (colIndex: number): string {
                 return node.align[colIndex] == null
                     ? ""
                     : "text-align:" + node.align[colIndex] + ";";
             };
 
             var headers = node.header
-                .map(function (
-                    /** @type {SimpleMarkdown.ASTNode} */ content,
-                    /** @type {number} */ i,
-                ) {
+                .map(function (content: ASTNode, i: number) {
                     return htmlTag("th", output(content, state), {
                         style: getStyle(i),
                         scope: "col",
@@ -1357,7 +1322,7 @@ var defaultRules /* : DefaultRules */ = {
                 .join("");
 
             var rows = node.cells
-                .map(function (/** @type {SimpleMarkdown.ASTNode[]} */ row) {
+                .map(function (row: Array<ASTNode>) {
                     var cols = row
                         .map(function (
                             /** @type {SimpleMarkdown.ASTNode} */ content,
@@ -1766,15 +1731,11 @@ var defaultRules /* : DefaultRules */ = {
     },
 };
 
-/** (deprecated)
- * @param {any} rules
- * @param {any} property
- * @returns {any}
- */
+/** (deprecated) */
 var ruleOutput = function (
     // $FlowFixMe
     rules: OutputRules<Rule>,
-    property /* : $Keys<Rule> */,
+    property: $Keys<Rule>,
 ) {
     if (!property && typeof console !== "undefined") {
         console.warn(
@@ -1783,11 +1744,10 @@ var ruleOutput = function (
         );
     }
 
-    /** @type {SimpleMarkdown.NodeOutput<any>} */
-    var nestedRuleOutput /* : NodeOutput<any> */ = function (
-        ast /* : SingleASTNode */,
-        outputFunc /* : Output<any> */,
-        state /* : State */,
+    var nestedRuleOutput = function (
+        ast: SingleASTNode,
+        outputFunc: Output<any>,
+        state: State,
     ) {
         return rules[ast.type][property](ast, outputFunc, state);
     };
@@ -1795,18 +1755,13 @@ var ruleOutput = function (
 };
 
 /** (deprecated)
- * @param {any} outputFunc
- * @returns {any}
  */
-var reactFor = function (
-    outputFunc /* : ReactNodeOutput */,
-) /* : ReactOutput */ {
-    /** @type {SimpleMarkdown.ReactOutput} */
-    var nestedOutput /* : ReactOutput */ = function (ast, state) {
+var reactFor = function (outputFunc: ReactNodeOutput): ReactOutput {
+    var nestedOutput: ReactOutput = function (ast, state) {
         state = state || {};
         if (Array.isArray(ast)) {
             var oldKey = state.key;
-            var result /* : Array<ReactElements> */ = [];
+            var result: Array<ReactElements> = [];
 
             // map nestedOutput over the ast, except group any text
             // nodes together into a single string output.
@@ -1836,11 +1791,8 @@ var reactFor = function (
 };
 
 /** (deprecated)
- * @param {any} outputFunc
- * @returns {any}
  */
-var htmlFor = function (outputFunc /* : HtmlNodeOutput */) /* : HtmlOutput */ {
-    /** @type {SimpleMarkdown.HtmlOutput} */
+var htmlFor = function (outputFunc: HtmlNodeOutput): HtmlOutput {
     var nestedOutput /* : HtmlOutput */ = function (ast, state) {
         state = state || {};
         if (Array.isArray(ast)) {
@@ -1856,13 +1808,10 @@ var htmlFor = function (outputFunc /* : HtmlNodeOutput */) /* : HtmlOutput */ {
     return nestedOutput;
 };
 
-/**
- * @type {SimpleMarkdown.OutputFor}
- */
 var outputFor = function (
     rules: OutputRules<Rule>,
-    property /* : $Keys<Rule> */,
-    defaultState /* : ?State */,
+    property: $Keys<Rule>,
+    defaultStat: ?State,
 ) {
     if (!property) {
         throw new Error(
@@ -1873,10 +1822,8 @@ var outputFor = function (
         );
     }
 
-    /** @type {SimpleMarkdown.State} */
-    var latestState;
-    /** @type {SimpleMarkdown.ArrayRule} */
-    var arrayRule = rules.Array || defaultRules.Array;
+    var latestState: State;
+    var arrayRule: ArrayRule = rules.Array || defaultRules.Array;
 
     // Tricks to convince tsc that this var is not null:
     var arrayRuleCheck = arrayRule[property];
@@ -1890,8 +1837,7 @@ var outputFor = function (
     }
     var arrayRuleOutput = arrayRuleCheck;
 
-    /** @type {SimpleMarkdown.Output<any>} */
-    var nestedOutput /* : Output<any> */ = function (ast, state) {
+    var nestedOutput: Output<any> = function (ast, state) {
         state = state || latestState;
         latestState = state;
         if (Array.isArray(ast)) {
@@ -1901,8 +1847,9 @@ var outputFor = function (
         }
     };
 
-    /** @type {SimpleMarkdown.Output<any>} */
-    var outerOutput = function (ast, state) {
+    var defaultState = defaultState || {};
+
+    var outerOutput: Output<any> = function (ast, state) {
         latestState = populateInitialState(state, defaultState);
         return nestedOutput(ast, latestState);
     };
@@ -1910,65 +1857,49 @@ var outputFor = function (
 };
 
 var defaultRawParse = parserFor(defaultRules);
-/**
- * @param {string} source
- * @param {SimpleMarkdown.OptionalState} [state]
- * @returns {Array<SimpleMarkdown.SingleASTNode>}
- */
-var defaultBlockParse = function (source, state) {
+
+var defaultBlockParse = function (
+    source: string,
+    state: ?State,
+): Array<SingleASTNode> {
     state = state || {};
     state.inline = false;
     return defaultRawParse(source, state);
 };
-/**
- * @param {string} source
- * @param {SimpleMarkdown.OptionalState} [state]
- * @returns {Array<SimpleMarkdown.SingleASTNode>}
- */
-var defaultInlineParse = function (source, state) {
+
+var defaultInlineParse = function (
+    source: string,
+    state: ?State,
+): Array<SingleASTNode> {
     state = state || {};
     state.inline = true;
     return defaultRawParse(source, state);
 };
-/**
- * @param {string} source
- * @param {SimpleMarkdown.OptionalState} [state]
- * @returns {Array<SimpleMarkdown.SingleASTNode>}
- */
-var defaultImplicitParse = function (source, state) {
+
+var defaultImplicitParse = function (
+    source: string,
+    state: ?State,
+): Array<SingleASTNode> {
     var isBlock = BLOCK_END_R.test(source);
     state = state || {};
     state.inline = !isBlock;
     return defaultRawParse(source, state);
 };
 
-/** @type {SimpleMarkdown.ReactOutput} */
-var defaultReactOutput /* : ReactOutput */ = outputFor(defaultRules, "react");
-/** @type {SimpleMarkdown.HtmlOutput} */
-var defaultHtmlOutput /* : HtmlOutput */ = outputFor(defaultRules, "html");
+var defaultReactOutput: ReactOutput = outputFor(defaultRules, "react");
+var defaultHtmlOutput: HtmlOutput = outputFor(defaultRules, "html");
 
-/**
- * @param {string} source
- * @param {SimpleMarkdown.OptionalState} [state]
- * @returns {SimpleMarkdown.ReactElements}
- */
-var markdownToReact = function (source, state) /* : ReactElements */ {
+var markdownToReact = function (source: string, state: ?State): ReactElements {
     return defaultReactOutput(defaultBlockParse(source, state), state);
 };
-/**
- * @param {string} source
- * @param {SimpleMarkdown.OptionalState} [state]
- * @returns {string}
- */
-var markdownToHtml = function (source, state) /* : string */ {
+
+var markdownToHtml = function (source: string, state: ?State): string {
     return defaultHtmlOutput(defaultBlockParse(source, state), state);
 };
 
-/**
- * @param {SimpleMarkdown.ReactMarkdownProps} props
- * @returns {SimpleMarkdown.ReactElement}
- */
-var ReactMarkdown = function (props) {
+// TODO: This needs definition
+type ReactMarkdownProps = any;
+var ReactMarkdown = function (props: ReactMarkdownProps): ReactElement {
     /** @type {Object} */
     var divProps = {};
 
@@ -1986,13 +1917,19 @@ var ReactMarkdown = function (props) {
     return reactElement("div", null, divProps);
 };
 
-/*:: // Flow exports:
 type Exports = {
     +defaultRules: DefaultRules,
     +parserFor: (rules: ParserRules, defaultState?: ?State) => Parser,
-    +outputFor: <Rule : Object>(rules: OutputRules<Rule>, param: $Keys<Rule>, defaultState?: ?State) => Output<any>,
+    +outputFor: <Rule: Object>(
+        rules: OutputRules<Rule>,
+        param: $Keys<Rule>,
+        defaultState?: ?State,
+    ) => Output<any>,
 
-    +ruleOutput: <Rule : Object>(rules: OutputRules<Rule>, param: $Keys<Rule>) => NodeOutput<any>,
+    +ruleOutput: <Rule: Object>(
+        rules: OutputRules<Rule>,
+        param: $Keys<Rule>,
+    ) => NodeOutput<any>,
     +reactFor: (ReactNodeOutput) => ReactOutput,
     +htmlFor: (HtmlNodeOutput) => HtmlOutput,
 
@@ -2004,12 +1941,21 @@ type Exports = {
 
     +markdownToReact: (source: string, state?: ?State) => ReactElements,
     +markdownToHtml: (source: string, state?: ?State) => string,
-    +ReactMarkdown: (props: { source: string, [string]: any }) => ReactElement,
+    +ReactMarkdown: (props: {source: string, [string]: any}) => ReactElement,
 
     +defaultRawParse: (source: string, state?: ?State) => Array<SingleASTNode>,
-    +defaultBlockParse: (source: string, state?: ?State) => Array<SingleASTNode>,
-    +defaultInlineParse: (source: string, state?: ?State) => Array<SingleASTNode>,
-    +defaultImplicitParse: (source: string, state?: ?State) => Array<SingleASTNode>,
+    +defaultBlockParse: (
+        source: string,
+        state?: ?State,
+    ) => Array<SingleASTNode>,
+    +defaultInlineParse: (
+        source: string,
+        state?: ?State,
+    ) => Array<SingleASTNode>,
+    +defaultImplicitParse: (
+        source: string,
+        state?: ?State,
+    ) => Array<SingleASTNode>,
 
     +defaultReactOutput: ReactOutput,
     +defaultHtmlOutput: HtmlOutput,
@@ -2018,8 +1964,17 @@ type Exports = {
     +sanitizeText: (text: Attr) => string,
     +sanitizeUrl: (url: ?string) => ?string,
     +unescapeUrl: (url: string) => string,
-    +htmlTag: (tagName: string, content: string, attributes: ?{ [any]: ?Attr }, isClosed: ?boolean) => string,
-    +reactElement: (type: string, key: string | null, props: { [string]: any }) => ReactElement,
+    +htmlTag: (
+        tagName: string,
+        content: string,
+        attributes: ?{[any]: ?Attr},
+        isClosed: ?boolean,
+    ) => string,
+    +reactElement: (
+        type: string,
+        key: string | null,
+        props: {[string]: any},
+    ) => ReactElement,
 };
 
 export type {
@@ -2030,7 +1985,6 @@ export type {
     Output,
     ReactOutput,
     HtmlOutput,
-
     // Most of the following types should be considered experimental and
     // subject to change or change names. Again, they shouldn't be necessary,
     // but if they are I'd love to hear how so I can better support them!
@@ -2042,12 +1996,10 @@ export type {
     NodeOutput,
     ArrayNodeOutput,
     ReactNodeOutput,
-
     // Single rules:
     ParserRule,
     ReactOutputRule,
     HtmlOutputRule,
-
     // Sets of rules:
     ParserRules,
     OutputRules,
@@ -2055,7 +2007,6 @@ export type {
     ReactRules,
     HtmlRules,
 };
-*/
 
 // $FlowFixMe
 var SimpleMarkdown /* : Exports */ = {
