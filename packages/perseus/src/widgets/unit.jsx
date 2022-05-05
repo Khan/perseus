@@ -82,7 +82,7 @@ type DefaultProps = {|
  * shows and hides an error buddy. The error message is only shown after a
  * rolling two second delay, but hidden immediately on further typing.
  */
-class OldUnitInput extends React.Component<Props> {
+export class OldUnitInput extends React.Component<Props> {
     _errorTimeout: ?TimeoutID;
 
     static defaultProps: DefaultProps = {

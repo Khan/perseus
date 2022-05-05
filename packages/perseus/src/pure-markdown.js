@@ -3,7 +3,7 @@
  * Contains markdown related functions in pure javascript,
  * extracted from perseus-markdown.jsx
  */
-import SimpleMarkdown from "simple-markdown";
+import SimpleMarkdown from "@khanacademy/simple-markdown";
 
 import Util from "./util.js";
 
