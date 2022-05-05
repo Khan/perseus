@@ -1,6 +1,7 @@
 /* eslint-disable no-var, no-unused-vars, no-console, import/no-commonjs, no-redeclare, no-useless-escape */
 // @flow
 /* @ts-check */
+import {render} from "@testing-library/react";
 
 // As of 2019-11-03, flow doesn't have definitions for assert.strict:
 // https://github.com/facebook/flow/pull/7660

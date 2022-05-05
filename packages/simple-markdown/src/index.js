@@ -1789,7 +1789,7 @@ var htmlFor = function (outputFunc: HtmlNodeOutput): HtmlOutput {
 var outputFor = function (
     rules: OutputRules<Rule>,
     property: $Keys<Rule>,
-    defaultStat: ?State,
+    defaultState: ?State = {},
 ) {
     if (!property) {
         throw new Error(
@@ -1824,8 +1824,6 @@ var outputFor = function (
             return rules[ast.type][property](ast, nestedOutput, state);
         }
     };
-
-    var defaultState = defaultState || {};
 
     var outerOutput: Output<any> = function (ast, state) {
         latestState = populateInitialState(state, defaultState);
