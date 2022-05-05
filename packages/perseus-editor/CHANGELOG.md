@@ -4,7 +4,7 @@
 
 ### Patch Changes
 
--   Updated dependencies [9afcc83b]
+-   Updated dependencies [116df39b]
     -   @khanacademy/perseus@0.2.0
 
 ## 0.1.0
