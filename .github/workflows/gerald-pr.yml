@@ -1,0 +1,39 @@
+name: Gerald - Notify and Request Reviewers On Pull Request
+'on':
+  pull_request:
+    # ready_for_review isn't included by default, so we add it
+    # here to have this workflow re-run when a pr is converted
+    # from "draft" to "not draft".
+    # We also add "edited" to re-check when the base branch
+    # is changed.
+    types: [opened, synchronize, reopened, ready_for_review, edited]
+
+jobs:
+  gerald:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get All Changed Files
+        uses: jaredly/get-changed-files@absolute
+        id: changed
+        with:
+          format: 'json'
+      - uses: allenevans/set-env@v2.0.0
+        with:
+          ALL_CHANGED_FILES: '${{ steps.changed.outputs.added_modified }}'
+      - name: Check out base branch
+        uses: actions/checkout@v2
+        if: ${{ github.event.pull_request.draft == false }}
+        with:
+          ref: '${{ github.base_ref }}'
+      - name: Check out head branch
+        uses: actions/checkout@v2
+        if: ${{ github.event.pull_request.draft == false }}
+        with:
+          ref: '${{ github.head_ref }}'
+      - name: Run Gerald
+        uses: Khan/gerald@main
+        if: ${{ github.event.pull_request.draft == false }}
+        env:
+          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+          ADMIN_PERMISSION_TOKEN: '${{ secrets.KHAN_ACTIONS_BOT_TOKEN }}'
+          EVENT: 'pull_request'
