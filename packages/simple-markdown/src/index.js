@@ -463,7 +463,6 @@ var inlineRegex = function (regex: RegExp): MatchFunction {
     };
     match.regex = regex;
 
-    // $FlowFixMe
     return match;
 };
 
@@ -877,7 +876,6 @@ var parseRef = function (
 
 var currOrder = 0;
 
-// $FlowFixMe
 var defaultRules: DefaultRules = {
     Array: {
         react: function (arr, output, state) {
@@ -1801,6 +1799,7 @@ var outputFor = function (
     }
 
     var latestState: State;
+    // $FlowFixMe[incompatible-type]
     var arrayRule: ArrayRule = rules.Array || defaultRules.Array;
 
     // Tricks to convince tsc that this var is not null:
@@ -1832,6 +1831,7 @@ var outputFor = function (
     return outerOutput;
 };
 
+// $FlowFixMe[incompatible-call]
 var defaultRawParse = parserFor(defaultRules);
 
 var defaultBlockParse = function (
@@ -1862,7 +1862,9 @@ var defaultImplicitParse = function (
     return defaultRawParse(source, state);
 };
 
+// $FlowFixMe[incompatible-call]
 var defaultReactOutput: ReactOutput = outputFor(defaultRules, "react");
+// $FlowFixMe[incompatible-call]
 var defaultHtmlOutput: HtmlOutput = outputFor(defaultRules, "html");
 
 var markdownToReact = function (source: string, state: ?State): ReactElements {

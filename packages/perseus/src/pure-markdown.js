@@ -334,6 +334,7 @@ export const pureMarkdownRules = {
 };
 
 // $FlowFixMe[prop-missing]
+// $FlowFixMe[incompatible-call]
 const builtParser = SimpleMarkdown.parserFor(pureMarkdownRules);
 
 export const parse = (source: string, state: $FlowFixMe): $FlowFixMe => {

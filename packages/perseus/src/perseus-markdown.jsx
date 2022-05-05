@@ -320,6 +320,7 @@ const inlineNodeTypes = {
 };
 
 // $FlowFixMe[prop-missing]
+// $FlowFixMe[incompatible-call]
 const builtParser = SimpleMarkdown.parserFor(rules);
 const parse = (source: string, state: $FlowFixMe): $FlowFixMe => {
     const paragraphedSource = source + "\n\n";
@@ -421,15 +422,12 @@ export default {
     traverseContent: traverseContent,
     parse: parse,
     parseInline: inlineParser,
-    // $FlowFixMe[prop-missing]
     reactFor: SimpleMarkdown.reactFor,
-    // $FlowFixMe[prop-missing]
+    // $FlowFixMe[incompatible-use]
     ruleOutput: (SimpleMarkdown.ruleOutput(rules, "react"): $FlowFixMe),
-    // $FlowFixMe[prop-missing]
     basicOutput: (SimpleMarkdown.reactFor(
-        // $FlowFixMe[prop-missing]
+        // $FlowFixMe[incompatible-use]
         SimpleMarkdown.ruleOutput(rules, "react"),
     ): $FlowFixMe),
-    // $FlowFixMe[prop-missing]
     sanitizeUrl: SimpleMarkdown.sanitizeUrl,
 };

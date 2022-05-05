@@ -5,19 +5,19 @@
 
 import SimpleMarkdown from "@khanacademy/simple-markdown";
 
-const arrayRules = {
+import type {ParserRules} from "@khanacademy/simple-markdown";
+
+const arrayRules: ParserRules = {
     fence: {
-        // $FlowFixMe[prop-missing]
-        // $FlowFixMe[incompatible-use]
         match: SimpleMarkdown.defaultRules.fence.match,
         order: 1,
+        // $FlowFixMe[incompatible-type]
         parse: (capture, state, parse) => capture[3],
     },
     paragraph: {
-        // $FlowFixMe[prop-missing]
-        // $FlowFixMe[incompatible-use]
         match: SimpleMarkdown.defaultRules.paragraph.match,
         order: 2,
+        // $FlowFixMe[incompatible-type]
         parse: (capture, state, parse) => capture[1],
     },
 };

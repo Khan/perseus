@@ -22,7 +22,7 @@ module.name_mapper='jsdiff' -> '<PROJECT_ROOT>/vendor/jsdiff/jsdiff.js'
 module.name_mapper='raphael' -> '<PROJECT_ROOT>/vendor/raphael/raphael.js'
 enums=true
 emoji=true
-exact_by_default=true
+exact_by_default=false
 module.use_strict=true
 
 [lints]

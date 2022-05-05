@@ -1275,6 +1275,7 @@ class Renderer extends React.Component<Props, State> {
                         {({setAssetStatus}) => (
                             <SvgImage
                                 setAssetStatus={setAssetStatus}
+                                /* $FlowFixMe[incompatible-type]: sanitizeUrl() can return null */
                                 src={PerseusMarkdown.sanitizeUrl(node.target)}
                                 alt={node.alt}
                                 title={node.title}
