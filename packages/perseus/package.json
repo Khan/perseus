@@ -3,7 +3,7 @@
         "access": "public"
     },
     "name": "@khanacademy/perseus",
-    "version": "0.2.0",
+    "version": "0.1.0",
     "description": "Core Perseus API (includes renderers and widgets)",
     "module": "dist/es/index.js",
     "main": "dist/index.js",
@@ -13,8 +13,8 @@
     },
     "dependencies": {
         "@khanacademy/kmath": "0.0.5",
-        "@khanacademy/math-input": "^0.5.0",
-        "@khanacademy/kas": "^0.2.3",
+        "@khanacademy/math-input": "^0.4.1",
+        "@khanacademy/kas": "^0.2.2",
         "mathquill": "git+https://git@github.com/Khan/mathquill.git#a9ae54e057c5c1acc8244a5627acbff29901d992",
         "simple-markdown": "^0.3.1"
     },
