@@ -101,7 +101,7 @@
     "coverage": "yarn run jest --coverage",
     "extract-strings": "./utils/extract-strings.js",
     "flow:ci": "flow check --max-workers 0",
-    "lint": "eslint --config .eslintrc.js --ext .js --ext .jsx",
+    "lint": "eslint --config .eslintrc.js . --ext .js --ext .jsx",
     "lint:timing": "TIMING=1 yarn lint",
     "publish:ci": "node utils/pre-publish-check-ci.js && git diff --stat --exit-code HEAD && yarn build && yarn extract-strings && changeset publish",
     "sloc": "sloc packages --exclude node_modules",

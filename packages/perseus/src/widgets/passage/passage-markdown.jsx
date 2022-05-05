@@ -1,6 +1,6 @@
 /* eslint-disable react/sort-comp */
 // @flow
-import SimpleMarkdown from "simple-markdown";
+import SimpleMarkdown from "@khanacademy/simple-markdown";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import PropTypes from "prop-types";
 import * as React from "react";

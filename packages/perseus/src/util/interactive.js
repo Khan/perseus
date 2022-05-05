@@ -15,6 +15,7 @@ import {
     line as kline,
 } from "@khanacademy/kmath";
 import $ from "jquery";
+// eslint-disable-next-line import/no-extraneous-dependencies
 import Raphael from "raphael";
 import _ from "underscore";
 

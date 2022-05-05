@@ -1,4 +1,5 @@
 // @flow
+// eslint-disable-next-line import/no-extraneous-dependencies
 import jsdiff from "jsdiff";
 import _ from "underscore";
 
