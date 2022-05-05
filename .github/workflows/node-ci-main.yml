@@ -47,7 +47,5 @@ jobs:
       uses: ./.github/actions/shared-node-cache
       with:
         node-version: ${{ matrix.node-version }}
-    # - name: Upload Coverage
-    #   uses: codecov/codecov-action@v2
-    #   with:
-    #     token: ${{ secrets.CODECOV_TOKEN }}
+    - name: Upload Coverage
+      uses: codecov/codecov-action@v2
