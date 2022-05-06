@@ -40,7 +40,7 @@ jobs:
           const hasChangeset = inputFiles.some(name => {
             return /^\.changeset\/\w+-\w+-\w+\.md/.test(name);
           });
-          core.debug("This PR has a changeset:", hasChangeset);
+          core.info("This PR has a changeset:", hasChangeset);
 
           if (!hasChangeset) {
             core.setFailed(
