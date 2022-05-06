@@ -35,12 +35,12 @@ jobs:
       with:
         script: |
           const inputFiles = JSON.parse(`${{ steps.changed.outputs.added_modified }}`);
-          core.debug("Changed files:", inputFiles);
+          core.debug("Changed files: " + inputFiles);
 
           const hasChangeset = inputFiles.some(name => {
             return /^\.changeset\/.*\.md/.test(name);
           });
-          core.info("This PR has a changeset:", hasChangeset);
+          core.info(`This PR has a changeset: ${hasChangeset}`);
 
           if (!hasChangeset) {
             core.setFailed(
