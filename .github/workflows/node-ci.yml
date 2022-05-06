@@ -34,12 +34,8 @@ jobs:
       uses: actions/github-script@v6
       with:
         script: |
-          const inputFiles = JSON.parse(`${{ inputs.changed-files }}`);
+          const inputFiles = JSON.parse(`${{ steps.changed.outputs.added_modified }}`);
           console.log(inputFiles);
-          const hasChangeset = inputFiles.some(name => {
-            return /^\.changeset\/\w+-\w+-\w+\.md/.test(name);
-          });
-          console.log(hasChangeset);
 
     - id: js-files
       name: Find .js changed files
