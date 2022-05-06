@@ -38,7 +38,7 @@ jobs:
           core.debug("Changed files:", inputFiles);
 
           const hasChangeset = inputFiles.some(name => {
-            return /^\.changeset\/\w+-\w+-\w+\.md/.test(name);
+            return /^\.changeset\/.*\.md/.test(name);
           });
           core.info("This PR has a changeset:", hasChangeset);
 
