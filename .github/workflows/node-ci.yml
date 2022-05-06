@@ -24,18 +24,29 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: Check for Changeset
-      run: |
-        # We need to fetch main otherwise that ref isn't in the local git repo
-        git fetch origin main
-        yarn changeset status --since=main
-
-
     - name: Get All Changed Files
       uses: jaredly/get-changed-files@v1.0.1
       id: changed
       with:
         format: json
+
+    - name: Check for Changeset
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const inputFiles = JSON.parse(`${{ inputs.changed-files }}`);
+          const hasChangeset = inputFiles.some(name => (
+            /^\.changeset\/(\w+)-(\w+)-(\w+)\.md/.test(name)
+          ));
+
+          if (!hasChangeset) {
+            core.setFailed(
+              "This PR does not have a changeset. You can add one by " +
+              "running `yarn changeset` and following the prompts.\n" +
+              "If this PR doesn't need a changeset, run `yarn changeset " +
+              "--empty and commit results."`
+            );
+          }
 
     - id: js-files
       name: Find .js changed files
