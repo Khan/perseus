@@ -35,9 +35,11 @@ jobs:
       with:
         script: |
           const inputFiles = JSON.parse(`${{ inputs.changed-files }}`);
+          console.log(inputFiles);
           const hasChangeset = inputFiles.some(name => (
-            /^\.changeset\/(\w+)-(\w+)-(\w+)\.md/.test(name),
+            /^\.changeset\/\w+-\w+-\w+\.md/.test(name),
           ));
+          console.log(hasChangeset);
 
           if (!hasChangeset) {
             core.setFailed(
