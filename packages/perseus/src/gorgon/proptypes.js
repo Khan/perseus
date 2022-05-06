@@ -1,6 +1,7 @@
 // @flow
 // Define the shape of the linter context object that is passed through the
 // tree with additional information about what we are checking.
+// TODO: Test to see if changeset sees a change without a changeset
 
 import PropTypes from "prop-types";
 
