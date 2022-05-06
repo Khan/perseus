@@ -1,5 +1,13 @@
 # @khanacademy/perseus
 
+## 0.2.1
+
+### Patch Changes
+
+-   e56ab24b: Exclude all deps from bundle except for vendored deps
+-   Updated dependencies [ca76baa3]
+    -   @khanacademy/simple-markdown@0.8.1
+
 ## 0.2.0
 
 ### Minor Changes
