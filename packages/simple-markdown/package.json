@@ -1,4 +1,7 @@
 {
+    "publishConfig": {
+        "access": "public"
+    },
     "name": "@khanacademy/simple-markdown",
     "version": "0.8.0",
     "description": "Javascript markdown parsing, made simple",
