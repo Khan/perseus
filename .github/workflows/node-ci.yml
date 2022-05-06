@@ -36,7 +36,7 @@ jobs:
         script: |
           const inputFiles = JSON.parse(`${{ inputs.changed-files }}`);
           const hasChangeset = inputFiles.some(name => (
-            /^\.changeset\/(\w+)-(\w+)-(\w+)\.md/.test(name)
+            /^\.changeset\/(\w+)-(\w+)-(\w+)\.md/.test(name),
           ));
 
           if (!hasChangeset) {
@@ -44,7 +44,7 @@ jobs:
               "This PR does not have a changeset. You can add one by " +
               "running `yarn changeset` and following the prompts.\n" +
               "If this PR doesn't need a changeset, run `yarn changeset " +
-              "--empty and commit results."`
+              "--empty` and commit results."
             );
           }
 
