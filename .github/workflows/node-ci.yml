@@ -25,7 +25,11 @@ jobs:
         node-version: ${{ matrix.node-version }}
 
     - name: Check for Changeset
-      run: yarn changeset status --since=main
+      run:
+        # We need to fetch main otherwise that ref isn't in the local git repo
+        git fetch origin main
+        yarn changeset status --since=main
+
 
     - name: Get All Changed Files
       uses: jaredly/get-changed-files@v1.0.1
