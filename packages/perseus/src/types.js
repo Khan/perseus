@@ -333,7 +333,7 @@ export type JiptTranslationComponents = {|
     removeComponentAtIndex: (index: number) => void,
 |};
 
-type VideoData = {|
+export type VideoData = {|
     __typename: "Video",
     id: string,
     title: ?string,

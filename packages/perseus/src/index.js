@@ -114,6 +114,7 @@ export type {
     PerseusScore,
     RendererInterface,
     Version,
+    VideoData,
     WidgetDict,
     WidgetExports,
     WidgetInfo,
