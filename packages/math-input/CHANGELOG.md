@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 0.5.1
+
+### Patch Changes
+
+-   591420a6: Add @flow comment to math-input's index.js and missing props to ProvidedKeypad
+
 ## 0.5.0
 
 ### Minor Changes
