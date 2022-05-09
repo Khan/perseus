@@ -15,8 +15,12 @@ import {createStore} from "../store/index.js";
 
 import KeypadContainer from "./keypad-container.js";
 
+import type {CSSProperties} from "aphrodite";
+
 type Props = {|
     onElementMounted?: ($FlowFixMe) => void,
+    onDismiss?: () => mixed,
+    style?: CSSProperties,
 |};
 
 class ProvidedKeypad extends React.Component<Props> {
