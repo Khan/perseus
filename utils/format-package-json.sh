@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+## This script re-formats each `package.json` in the `packages` directory and
+## orders the top-level keys by a consistent order. It also forces a few values
+## to be standardized (such as 'author' always being 'Khan Academy').
+
 if ! command -v jq &> /dev/null
 then
     echo "jq not be found in PATH (you can install using 'brew install jq'"
