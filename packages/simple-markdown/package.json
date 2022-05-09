@@ -1,28 +1,27 @@
 {
+    "name": "@khanacademy/simple-markdown",
+    "description": "Javascript markdown parsing, made simple",
+    "author": "Khan Academy",
+    "license": "MIT",
+    "version": "0.8.1",
     "publishConfig": {
         "access": "public"
     },
-    "name": "@khanacademy/simple-markdown",
-    "version": "0.8.1",
-    "description": "Javascript markdown parsing, made simple",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Khan/simple-markdown.git"
+    },
+    "bugs": {
+        "url": "https://github.com/Khan/perseus/issues"
+    },
     "module": "dist/es/index.js",
     "main": "dist/index.js",
     "source": "src/index.js",
-    "types": "simple-markdown.d.ts",
     "scripts": {
         "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"
     },
-    "keywords": [
-        "markdown"
-    ],
-    "author": "Khan Academy",
-    "license": "MIT",
     "dependencies": {
         "@types/react": ">=16.0.0"
-    },
-    "peerDependencies": {
-        "react": "16.14.0",
-        "react-dom": "16.14.0"
     },
     "devDependencies": {
         "@types/react-dom": ">=16.0.0",
@@ -30,10 +29,11 @@
         "typescript": "^3.6.4",
         "uglify-js": "^3.6.7"
     },
-    "size-limit": [
-        {
-            "path": "simple-markdown.js",
-            "limit": "5 KB"
-        }
+    "peerDependencies": {
+        "react": "16.14.0",
+        "react-dom": "16.14.0"
+    },
+    "keywords": [
+        "markdown"
     ]
 }
