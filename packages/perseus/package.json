@@ -1,7 +1,7 @@
 {
     "name": "@khanacademy/perseus",
     "description": "Core Perseus API (includes renderers and widgets)",
-    "author": "",
+    "author": "Khan Academy",
     "license": "MIT",
     "version": "0.2.2",
     "publishConfig": {
