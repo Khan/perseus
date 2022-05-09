@@ -1,12 +1,12 @@
 {
-    "publishConfig": {
-        "access": "public"
-    },
     "name": "@khanacademy/kmath",
     "description": "Khan Academy's Javascript Numeric Math Utilities",
     "author": "Khan Academy",
     "license": "MIT",
     "version": "0.0.5",
+    "publishConfig": {
+        "access": "public"
+    },
     "repository": {
         "type": "git",
         "url": "https://github.com/Khan/kmath.git"

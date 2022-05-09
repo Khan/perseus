@@ -1,12 +1,12 @@
 {
-    "publishConfig": {
-        "access": "public"
-    },
     "name": "@khanacademy/kas",
     "description": "A lightweight JavaScript CAS for comparing expressions and equations.",
     "author": "alopatin",
     "license": "MIT",
     "version": "0.2.3",
+    "publishConfig": {
+        "access": "public"
+    },
     "repository": {
         "type": "git",
         "url": "https://github.com/Khan/kas.git"

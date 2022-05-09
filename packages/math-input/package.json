@@ -1,12 +1,12 @@
 {
-    "publishConfig": {
-        "access": "public"
-    },
     "name": "@khanacademy/math-input",
     "description": "Khan Academy's new expression editor for the mobile web.",
     "author": "Khan Academy",
     "license": "MIT",
     "version": "0.5.1",
+    "publishConfig": {
+        "access": "public"
+    },
     "repository": {
         "type": "git",
         "url": "https://github.com/Khan/math-input.git"
@@ -17,7 +17,7 @@
     "module": "dist/es/index.js",
     "main": "dist/index.js",
     "source": "src/index.js",
-    "scripts": null,
+    "scripts": {},
     "dependencies": {
         "performance-now": "^0.2.0"
     },

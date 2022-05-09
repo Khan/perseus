@@ -1,12 +1,12 @@
 {
-    "publishConfig": {
-        "access": "public"
-    },
     "name": "@khanacademy/simple-markdown",
     "description": "Javascript markdown parsing, made simple",
     "author": "Khan Academy",
     "license": "MIT",
     "version": "0.8.1",
+    "publishConfig": {
+        "access": "public"
+    },
     "repository": {
         "type": "git",
         "url": "https://github.com/Khan/simple-markdown.git"
