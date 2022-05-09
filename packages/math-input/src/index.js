@@ -1,3 +1,4 @@
+// @flow
 /**
  * A single entry-point for all of the external-facing functionality.
  */
