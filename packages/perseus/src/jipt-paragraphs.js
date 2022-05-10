@@ -11,22 +11,28 @@ const arrayRules: ParserRules = {
     fence: {
         match: SimpleMarkdown.defaultRules.fence.match,
         order: 1,
-        // $FlowFixMe[incompatible-type]
-        parse: (capture, state, parse) => capture[3],
+        parse: (capture, state, parse) => ({
+            type: "codeBlock",
+            lang: capture[2] || undefined,
+            content: capture[3],
+        }),
     },
     paragraph: {
         match: SimpleMarkdown.defaultRules.paragraph.match,
         order: 2,
-        // $FlowFixMe[incompatible-type]
-        parse: (capture, state, parse) => capture[1],
+        parse: (capture, state, parse) => ({
+            content: capture[1],
+        }),
     },
 };
 
 // $FlowFixMe[prop-missing]
 const builtArrayParser = SimpleMarkdown.parserFor(arrayRules);
 
+type ParseToArrayResult = $Call<typeof builtArrayParser, string, $FlowFixMe>;
+
 // This should just return an array of strings! magick!
-const parseToArray = (source: string): $FlowFixMe => {
+const parseToArray = (source: string): ParseToArrayResult => {
     // Remove any leading newlines to avoid splitting weirdness
     // (simple-markdown has the `newline` rule for this, and i have
     // no idea how this will handle leading newlines without that rule),

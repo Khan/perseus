@@ -410,6 +410,12 @@ var parserFor = function (rules: ParserRules, defaultState: ?State): Parser {
                 // $FlowFixMe
                 Array.prototype.push.apply(result, parsed);
             } else {
+                if (parsed == null || typeof parsed !== "object") {
+                    throw new Error(
+                        `parse() function returned invalid parse result: '${parsed}'`,
+                    );
+                }
+
                 // We also let rules override the default type of
                 // their parsed node if they would like to, so that
                 // there can be a single output function for all links,
