@@ -2,56 +2,17 @@
 
 import Color from "@khanacademy/wonder-blocks-color";
 import {View} from "@khanacademy/wonder-blocks-core";
+import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
 import Spacing from "@khanacademy/wonder-blocks-spacing";
-import Tooltip from "@khanacademy/wonder-blocks-tooltip";
-import PropTypes from "prop-types";
 import * as React from "react";
 
-import {ApiOptions} from "../perseus-api.jsx";
 import Renderer from "../renderer.jsx";
 
 import type {
     PerseusRenderer,
     PerseusDefinitionWidgetOptions,
 } from "../perseus-types.js";
-import type {
-    APIOptionsWithDefaults,
-    PerseusScore,
-    WidgetExports,
-    WidgetProps,
-} from "../types.js";
-
-type DefinitionContentProps = {|
-    apiOptions: APIOptionsWithDefaults,
-    content: string,
-    trackInteraction: () => mixed,
-    widgets: PerseusRenderer["widgets"],
-|};
-
-class DefinitionContent extends React.Component<DefinitionContentProps> {
-    static propTypes = {
-        apiOptions: ApiOptions.propTypes,
-        content: PropTypes.string,
-        trackInteraction: PropTypes.func.isRequired,
-        widgets: PropTypes.objectOf(PropTypes.any),
-    };
-
-    componentDidMount() {
-        this.props.trackInteraction();
-    }
-
-    render(): React.Node {
-        return (
-            <View style={styles.tooltipBody}>
-                <Renderer
-                    apiOptions={this.props.apiOptions}
-                    content={this.props.content}
-                    widgets={this.props.widgets}
-                />
-            </View>
-        );
-    }
-}
+import type {PerseusScore, WidgetExports, WidgetProps} from "../types.js";
 
 type RenderProps = PerseusDefinitionWidgetOptions;
 
@@ -88,25 +49,30 @@ class Definition extends React.Component<DefinitionProps> {
     };
 
     render(): React.Node {
-        const content = (
-            <DefinitionContent
-                apiOptions={this.props.apiOptions}
-                content={this.props.definition}
-                key={this.props.definition}
-                trackInteraction={this.props.trackInteraction}
-                widgets={this.props.widgets}
-            />
-        );
-
         return (
-            // $FlowFixMe[incompatible-type]: content prop
-            <Tooltip content={content} placement="top">
+            <Popover
+                content={
+                    <PopoverContentCore
+                        color="white"
+                        style={styles.tooltipBody}
+                        closeButtonVisible={true}
+                    >
+                        <Renderer
+                            apiOptions={this.props.apiOptions}
+                            content={this.props.definition}
+                            widgets={this.props.widgets}
+                        />
+                    </PopoverContentCore>
+                }
+                placement="top"
+                onOpen={this.props.trackInteraction}
+            >
                 <span className="perseus-widget-definition">
                     <View style={styles.definitionLink}>
                         {this.props.togglePrompt}
                     </View>
                 </span>
-            </Tooltip>
+            </Popover>
         );
     }
 }
