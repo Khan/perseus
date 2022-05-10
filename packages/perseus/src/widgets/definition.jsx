@@ -6,7 +6,6 @@ import Spacing from "@khanacademy/wonder-blocks-spacing";
 import Tooltip from "@khanacademy/wonder-blocks-tooltip";
 import PropTypes from "prop-types";
 import * as React from "react";
-import _ from "underscore";
 
 import {ApiOptions} from "../perseus-api.jsx";
 import Renderer from "../renderer.jsx";
@@ -54,7 +53,7 @@ class DefinitionContent extends React.Component<DefinitionContentProps> {
     }
 }
 
-type RenderProps = PerseusDefinitionWidgetOptions; // transform = _.identity
+type RenderProps = PerseusDefinitionWidgetOptions;
 
 type Rubric = PerseusDefinitionWidgetOptions;
 
@@ -137,5 +136,5 @@ export default ({
     accessible: true,
     defaultAlignment: "inline",
     widget: Definition,
-    transform: _.identity,
+    transform: (x: any) => x,
 }: WidgetExports<typeof Definition>);
