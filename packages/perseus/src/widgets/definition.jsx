@@ -1,7 +1,7 @@
 // @flow
 
+import Button from "@khanacademy/wonder-blocks-button";
 import Color from "@khanacademy/wonder-blocks-color";
-import {View} from "@khanacademy/wonder-blocks-core";
 import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
 import Spacing from "@khanacademy/wonder-blocks-spacing";
 import * as React from "react";
@@ -65,13 +65,20 @@ class Definition extends React.Component<DefinitionProps> {
                     </PopoverContentCore>
                 }
                 placement="top"
-                onOpen={this.props.trackInteraction}
             >
-                <span className="perseus-widget-definition">
-                    <View style={styles.definitionLink}>
-                        {this.props.togglePrompt}
-                    </View>
-                </span>
+                {({open}) => (
+                    <span className="perseus-widget-definition">
+                        <Button
+                            kind="tertiary"
+                            onClick={() => {
+                                this.props.trackInteraction();
+                                open();
+                            }}
+                        >
+                            {this.props.togglePrompt}
+                        </Button>
+                    </span>
+                )}
             </Popover>
         );
     }
@@ -85,14 +92,6 @@ const styles = {
         fontWeight: 500,
         lineHeight: "30px",
         margin: Spacing.xSmall_8,
-    },
-
-    definitionLink: {
-        borderBottom: `dashed 1px ${Color.blue}`,
-        color: Color.blue,
-        cursor: "pointer",
-        display: "inline-block",
-        textDecoration: "none",
     },
 };
 
