@@ -63,6 +63,9 @@ type Props = {|
 
     // Initial value of the question being edited
     question?: $FlowFixMe,
+
+    // URL of the route to show on initial load of the preview frames.
+    previewURL: string,
 |};
 
 type PerseusJson = {|
@@ -325,7 +328,7 @@ class EditorPage extends React.Component<Props, State> {
                         gradeMessage={this.state.gradeMessage}
                         deviceType={this.props.previewDevice}
                         apiOptions={deviceBasedApiOptions}
-                        frameSource={this.props.frameSource}
+                        previewURL={this.props.previewURL}
                     />
                 )}
 
@@ -339,7 +342,7 @@ class EditorPage extends React.Component<Props, State> {
                         onChange={this.handleChange}
                         deviceType={this.props.previewDevice}
                         apiOptions={deviceBasedApiOptions}
-                        frameSource={this.props.frameSource}
+                        previewURL={this.props.previewURL}
                         highlightLint={this.state.highlightLint}
                     />
                 )}
