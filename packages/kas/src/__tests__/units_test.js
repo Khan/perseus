@@ -1,11 +1,13 @@
+// @flow
 import _ from "underscore";
 
 import * as KAS from "../index.js";
 
 expect.extend({
     toHaveEqualUnits([x, y]: [$FlowFixMe, $FlowFixMe], msg: string) {
-        let actual = KAS.compare(x.simplify(), y.simplify()).equal;
+        const actual = KAS.compare(x.simplify(), y.simplify()).equal;
 
+        // $FlowFixMe[object-this-reference]
         if (this.isNot) {
             return {
                 pass: actual,
@@ -19,6 +21,7 @@ expect.extend({
         };
     },
     toParseUnitsAsEqual([x, y]: [string, string], msg: string) {
+        // $FlowFixMe[object-this-reference]
         if (this.isNot) {
             expect([
                 KAS.unitParse(x).expr,
@@ -31,6 +34,7 @@ expect.extend({
             ]).toHaveEqualUnits(msg);
         }
 
+        // $FlowFixMe[object-this-reference]
         return {pass: !this.isNot};
     },
     toHaveUnitVariable(
@@ -46,7 +50,7 @@ expect.extend({
             new KAS.Mul(x, newUnitParsed),
         );
         const answer = equality.solveLinearEquationForVariable(x);
-        return Math.round(answer.eval()) == Math.round(expected.eval())
+        return Math.round(answer.eval()) === Math.round(expected.eval())
             ? {pass: true}
             : {
                   pass: false,
@@ -75,7 +79,7 @@ expect.extend({
 });
 
 describe("units", () => {
-    test.only("simplify expressions with units", () => {
+    test("simplify expressions with units", () => {
         expect([
             new KAS.Mul(new KAS.Rational(1, 100), new KAS.Unit("cup")),
             new KAS.Mul(new KAS.Rational(1, 400), new KAS.Unit("qt")),
@@ -151,13 +155,13 @@ describe("units", () => {
         expect(["mA", "A"]).not.toHaveTheSameForm("mA !== A");
         expect(["g", "kg"]).not.toHaveTheSameForm("g !== kg");
         expect(["kg m / s^2", "N"]).not.toHaveTheSameForm("kg m / s^2 !== N");
-        expect(["m / s^2", "N / kg"]).not.toHaveTheSameForm("m / s^2 !== N / kg");
+        expect(["m / s^2", "N / kg"]).not.toHaveTheSameForm(
+            "m / s^2 !== N / kg",
+        );
 
         expect(["A", "A"]).toHaveTheSameForm("A === A");
         expect(["kg", "kg"]).toHaveTheSameForm("kg = kg");
-        expect(
-            ["kg m / s^2", "m kg / s^2"],
-        ).toHaveTheSameForm(
+        expect(["kg m / s^2", "m kg / s^2"]).toHaveTheSameForm(
             "kg m / s^2 === m kg / s^2",
         );
         expect(["m / s^2", "m / s^2"]).toHaveTheSameForm("m / s^2 === m / s^2");

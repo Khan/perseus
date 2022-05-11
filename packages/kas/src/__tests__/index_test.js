@@ -1,3 +1,4 @@
+// @flow
 import _ from "underscore";
 
 import * as KAS from "../index.js";
@@ -15,9 +16,10 @@ expect.extend({
                   message: () => `(${a}).findGCD(${b}) = ${expected}`,
               };
     },
-    toBeSimplified(input: string, options: $FlowFixMe) {
+    toBeSimplified(input: string, options?: $FlowFixMe) {
         const actual = KAS.parse(input, options).expr.isSimplified();
 
+        // $FlowFixMe[object-this-reference]
         if (this.isNot) {
             return actual
                 ? {pass: true}
@@ -40,17 +42,23 @@ expect.extend({
     ) {
         const actual = KAS.parse(input, options).expr.getConsts();
 
+        // $FlowFixMe[object-this-reference]
         if (this.isNot) {
             expect(actual).not.toEqual(expected);
         } else {
             expect(actual).toEqual(expected);
         }
 
+        // $FlowFixMe[object-this-reference]
         return {pass: !this.isNot};
     },
     toBeExpr(input: string, reference: string) {
-        var actual = KAS.parse(input).expr.asExpr().simplify().normalize().print();
-        var expected = KAS.parse(reference).expr.normalize().print();
+        const actual = KAS.parse(input)
+            .expr.asExpr()
+            .simplify()
+            .normalize()
+            .print();
+        const expected = KAS.parse(reference).expr.normalize().print();
 
         return actual === expected
             ? {pass: true}
@@ -158,7 +166,7 @@ describe("KAS", () => {
             ".5(y+5)=x",
             "y-3=2(x-4)",
             "2y=4x-10",
-            "yz=2xz-5z"
+            "yz=2xz-5z",
         ];
 
         _.each(forms, (form) => {
@@ -169,14 +177,9 @@ describe("KAS", () => {
             }
         });
 
-        var forms2 = [
-            "1/3p-3=114",
-            "1/3p=117",
-            "p=351",
-            "p-351=0",
-        ];
+        const forms2 = ["1/3p-3=114", "1/3p=117", "p=351", "p-351=0"];
 
-        _.each(forms2, function(form) {
+        _.each(forms2, function (form) {
             expect(form).toBeExpr("p-351");
         });
     });

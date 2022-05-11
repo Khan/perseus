@@ -8,4 +8,3 @@ packages/**/build
 **/*.md
 vendor
 LICENSE
-packages/kas/**
