@@ -3,7 +3,6 @@
 import {SingleSelect, OptionItem} from "@khanacademy/wonder-blocks-dropdown";
 import * as React from "react";
 import ReactDOM from "react-dom";
-import _ from "underscore";
 
 import {ApiOptions} from "../perseus-api.jsx";
 
@@ -129,7 +128,7 @@ const optionsTransform: (PerseusDropdownWidgetOptions) => RenderProps = (
 ) => {
     return {
         placeholder: widgetOptions.placeholder,
-        choices: _.map(widgetOptions.choices, (choice) => choice.content),
+        choices: widgetOptions.choices.map((choice) => choice.content),
     };
 };
 
