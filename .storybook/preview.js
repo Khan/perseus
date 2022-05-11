@@ -4,7 +4,7 @@ import {
     setupFixtures,
     fixtureAdapters,
 } from "@khanacademy/wonder-blocks-testing";
-import {Dependencies} from "../packages/perseus";
+import {Dependencies} from "@khanacademy/perseus";
 import {testDependencies} from "../testing/test-dependencies";
 // import StorybookWrapper from "../javascript/testing/sandbox/storybook-wrapper.jsx";
 

@@ -1,6 +1,7 @@
 const babelConfig = require("../babel.config.js");
 const util = require("util");
 const path = require("path");
+const fs = require("fs");
 
 module.exports = {
     stories: ["../packages/**/*.@(stories|fixturestories).@(js|jsx|ts|tsx)"],
@@ -22,15 +23,26 @@ module.exports = {
             return rule.test.toString() !== /\.css$/.toString();
         });
 
+        const aliases = {};
+        fs.readdirSync(path.join(__dirname, "../packages")).forEach((name) => {
+            aliases["@khanacademy/" + name] = path.join(
+                __dirname,
+                "../packages",
+                name,
+                "src/index.js",
+            );
+        });
+        fs.readdirSync(path.join(__dirname, "../vendor")).forEach((name) => {
+            aliases[name] = path.join(__dirname, "../vendor", name);
+        });
+
         const updateWebpackConfig = {
             ...webpackConfig,
             resolve: {
                 ...webpackConfig.resolve,
                 alias: {
                     ...webpackConfig.resolve?.alias,
-                    raphael: path.join(__dirname, "../vendor/raphael"),
-                    jsdiff: path.join(__dirname, "../vendor/jsdiff"),
-                    hubble: path.join(__dirname, "../vendor/hubble"),
+                    ...aliases,
                 },
             },
             module: {
