@@ -1999,14 +1999,6 @@
     "@babel/runtime" "^7.16.3"
     "@khanacademy/wonder-blocks-core" "^4.3.1"
 
-"@khanacademy/wonder-blocks-data@^8.0.2":
-  version "8.0.2"
-  resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-data/-/wonder-blocks-data-8.0.2.tgz#3db7bf41a26fc106b255fe12c4c860eaadc1a147"
-  integrity sha512-vHdc+vG6Yvptz9+c17l7PjdF6740iiTAPLtQ8frHclB/622RHejtDc6q1YMIbNslO0AanSxIpv7P3144h4jrtg==
-  dependencies:
-    "@babel/runtime" "^7.16.3"
-    "@khanacademy/wonder-blocks-core" "^4.3.1"
-
 "@khanacademy/wonder-blocks-dropdown@^2.6.7":
   version "2.6.10"
   resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-dropdown/-/wonder-blocks-dropdown-2.6.10.tgz#e234bd81c0ac27611a6fa4b58dc7c5ef6ba75c21"
@@ -2116,14 +2108,6 @@
   version "3.0.5"
   resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-spacing/-/wonder-blocks-spacing-3.0.5.tgz#bae59dfe3e1599c22002e6400fa54b3a9fb4e3d0"
   integrity sha512-2IEn9TrXDV81+sdSAI3ThwbwFsV6SCUmu2P9reI4PoXwrg9gbx99zWueiHubKKpqileYUjLqLNw2MVp5ZpK4bQ==
-
-"@khanacademy/wonder-blocks-testing@^5.0.1":
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-testing/-/wonder-blocks-testing-5.0.1.tgz#f5316c0310a1de2b3e6be64679294e5dcfcf793a"
-  integrity sha512-RWPg2qVUkwNkCG6OjycZUTwx4NTgDjiBRNRQLmBpI+yePFl6VT5NLr1YPD+VKO4Y63oiSnAb4sUVM5DiHqU95g==
-  dependencies:
-    "@babel/runtime" "^7.16.3"
-    "@khanacademy/wonder-blocks-data" "^8.0.2"
 
 "@khanacademy/wonder-blocks-timing@^2.1.0":
   version "2.1.0"

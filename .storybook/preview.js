@@ -1,42 +1,12 @@
 import * as React from "react";
 import Color from "@khanacademy/wonder-blocks-color";
-import {
-    setupFixtures,
-    fixtureAdapters,
-} from "@khanacademy/wonder-blocks-testing";
 import {Dependencies} from "@khanacademy/perseus";
 import {testDependencies} from "../testing/test-dependencies";
-// import StorybookWrapper from "../javascript/testing/sandbox/storybook-wrapper.jsx";
 
 // IMPORTANT: This code runs ONCE per story file, not per story within that file.
 // If you want code to run once per story, see `StorybookWrapper`.
 
 Dependencies.setDependencies(testDependencies);
-
-/**
- * This configures the Wonder Blocks Testing fixtures framework to output
- * as stories. This happens here so it is loaded as part of the story.
- */
-setupFixtures({
-    adapter: fixtureAdapters.storybook(),
-
-    /**
-     * Default options for all fixtures can be provided for all fixtures here,
-     * if we so choose, without affecting non-fixture framework stories.
-     * Supported configuration:
-     *
-     * ```js
-     * decorators?: Array<
-     *     (
-     *         story: React.ComponentType<any>,
-     *         context: StoryContext,
-     *     ) => React.Node,
-     * >,
-     * parameters?: $ReadOnly<any>,
-     * ```
-     */
-    defaultAdapterOptions: {},
-});
 
 // These decorators apply to all stories, both inside and outside the fixture
 // framework.
