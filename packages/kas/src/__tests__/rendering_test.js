@@ -1,9 +1,10 @@
+// @flow
 import _ from "underscore";
 
 import * as KAS from "../index.js";
 
 expect.extend({
-    toRenderTex(input: sstring, expected: string, options: $FlowFixMe) {
+    toRenderTex(input: string, expected: string, options?: $FlowFixMe) {
         const actual = KAS.parse(input, options).expr.tex();
 
         if (actual !== expected) {
@@ -13,6 +14,7 @@ expect.extend({
             };
         }
 
+        // $FlowFixMe[object-this-reference]
         return {pass: !this.isNot};
     },
     toRenderTexOpt(
@@ -41,7 +43,6 @@ expect.extend({
         return {pass: true};
     },
 });
-
 
 describe("rendering", () => {
     test("positive and negative primitives", () => {

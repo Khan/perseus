@@ -1,3 +1,5 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable import/order */
 /* TODO(charlie): fix these lint errors (http://eslint.org/docs/rules): */
 /* eslint-disable indent, no-undef, no-var, one-var, no-dupe-keys, no-new-func, no-redeclare, no-unused-vars, comma-dangle, max-len, prefer-spread, space-infix-ops, space-unary-ops */
 import _ from "underscore";
@@ -40,6 +42,7 @@ import {parser} from "./__genfiles__/parser.js";
 var abstract = function() {
     // Try to give people a bit of information when this happens
     throw new Error("Abstract method - must override for expr: " +
+            // eslint-disable-next-line @babel/no-invalid-this
             this.print());
 };
 
@@ -1523,7 +1526,7 @@ _.extend(Pow.prototype, {
             };
 
             // compute and cache powers of 2 up to n
-            var cache = { 1: pow.base };
+            var cache = {1: pow.base};
             for (var i = 2; i <= n; i *= 2) {
                 var mul = new Mul(cache[i / 2], cache[i / 2]);
                 cache[i] = mul.expand().collect();
@@ -3113,9 +3116,9 @@ export const parse = function(input, options) {
         }
 
         var expr = parser.parse(input).completeParse();
-        return { parsed: true, expr: expr };
+        return {parsed: true, expr: expr};
     } catch (e) {
-        return { parsed: false, error: e.message };
+        return {parsed: false, error: e.message};
     }
 };
 
@@ -3219,7 +3222,7 @@ export const unitParse = function(input) {
             };
         }
     } catch (e) {
-        return { parsed: false, error: e.message };
+        return {parsed: false, error: e.message};
     }
 };
 
@@ -3239,7 +3242,7 @@ _.extend(Unit.prototype, {
         return 1;
     },
 
-    getUnits: function() { return [{ unit: this.symbol, pow: 1 }]; },
+    getUnits: function() { return [{unit: this.symbol, pow: 1}]; },
 
     codegen: function() { return "1"; },
 

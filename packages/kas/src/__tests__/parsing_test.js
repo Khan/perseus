@@ -1,9 +1,10 @@
+// @flow
 import _ from "underscore";
 
 import * as KAS from "../index.js";
 
 expect.extend({
-    toParseAs(input: string, expected: string, options: $FlowFixMe) {
+    toParseAs(input: string, expected: string, options?: $FlowFixMe) {
         const actual = KAS.parse(input, options).expr.print();
 
         if (actual !== expected) {
@@ -13,9 +14,14 @@ expect.extend({
             };
         }
 
+        // $FlowFixMe[object-this-reference]
         return {pass: !this.isNot};
     },
-    toParseWithStructure(input: string, expected: string, options: $FlowFixMe) {
+    toParseWithStructure(
+        input: string,
+        expected: string,
+        options?: $FlowFixMe,
+    ) {
         const actual = KAS.parse(input, options).expr.repr();
 
         if (actual !== expected) {
@@ -25,6 +31,7 @@ expect.extend({
             };
         }
 
+        // $FlowFixMe[object-this-reference]
         return {pass: !this.isNot};
     },
 });
@@ -323,9 +330,9 @@ describe("parsing", () => {
     });
 
     test("trig functions", () => {
-        var functions = ["sin", "cos", "tan", "csc", "sec", "cot"];
+        const functions = ["sin", "cos", "tan", "csc", "sec", "cot"];
 
-        var inverses = _.map(functions, function (func) {
+        const inverses = _.map(functions, function (func) {
             return "arc" + func;
         });
 

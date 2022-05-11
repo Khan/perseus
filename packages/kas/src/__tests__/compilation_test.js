@@ -1,3 +1,4 @@
+// @flow
 import _ from "underscore";
 
 import * as KAS from "../index.js";
@@ -6,9 +7,11 @@ expect.extend({
     toCompileAs(
         input: string,
         expected: number,
-        vars?: {[string]: string | number | (number) => number} = {},
+        vars?: {[string]: string | number | ((number) => number)} = {},
     ) {
-        const functions = Object.keys(vars).filter(k => typeof vars[k] === 'function');
+        const functions = Object.keys(vars).filter(
+            (k) => typeof vars[k] === "function",
+        );
         const func = KAS.parse(input, {functions}).expr.compile();
 
         const actual = func(vars);
@@ -57,31 +60,22 @@ describe("compilation", () => {
     });
 
     test("function expressions", () => {
-        expect("f(2)").toCompileAs(
-            4,
-            {
-                f: function (x) {
-                    return 2 * x;
-                },
+        expect("f(2)").toCompileAs(4, {
+            f: function (x) {
+                return 2 * x;
             },
-        );
-        expect("f(4+8)").toCompileAs(
-            48,
-            {
-                f: function (x) {
-                    return 4 * x;
-                },
+        });
+        expect("f(4+8)").toCompileAs(48, {
+            f: function (x) {
+                return 4 * x;
             },
-        );
-        expect("f(x-1)-f(x)").toCompileAs(
-            -7,
-            {
-                f: function (x) {
-                    return Math.pow(x, 3);
-                },
-                x: 2,
+        });
+        expect("f(x-1)-f(x)").toCompileAs(-7, {
+            f: function (x) {
+                return Math.pow(x, 3);
             },
-        );
+            x: 2,
+        });
     });
 
     test("trig expressions", () => {
