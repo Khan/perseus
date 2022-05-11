@@ -8,3 +8,4 @@ packages/**/build
 **/*.md
 vendor
 LICENSE
+**/__genfiles__
