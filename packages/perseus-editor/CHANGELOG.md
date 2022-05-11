@@ -1,5 +1,16 @@
 # @khanacademy/perseus-editor
 
+## 0.2.0
+
+### Minor Changes
+
+-   309cd98d: Content editor components must now specify a previewURL instead of frameSource
+
+### Patch Changes
+
+-   Updated dependencies [73095170]
+    -   @khanacademy/perseus@0.2.3
+
 ## 0.1.3
 
 ### Patch Changes
