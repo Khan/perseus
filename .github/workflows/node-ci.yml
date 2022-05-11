@@ -30,6 +30,27 @@ jobs:
       with:
         format: json
 
+    - name: Check for Changeset
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const inputFiles = JSON.parse(`${{ steps.changed.outputs.added_modified }}`);
+          core.debug("Changed files: " + inputFiles);
+
+          const hasChangeset = inputFiles.some(name => {
+            return /^\.changeset\/.*\.md/.test(name);
+          });
+          core.info(`This PR has a changeset: ${hasChangeset}`);
+
+          if (!hasChangeset) {
+            core.setFailed(
+              "This PR does not have a changeset. You can add one by " +
+              "running `yarn changeset` and following the prompts.\n" +
+              "If this PR doesn't need a changeset, run `yarn changeset " +
+              "--empty` and commit results."
+            );
+          }
+
     - id: js-files
       name: Find .js changed files
       uses: ./.github/actions/filter-files

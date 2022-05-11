@@ -1,9 +1,9 @@
-/* eslint-disable no-useless-escape */
+/* eslint-disable no-useless-escape, no-prototype-builtins */
 // @flow
 // TODO(FEI-4465): move this into it's own package called perseus-markdown
+import SimpleMarkdown from "@khanacademy/simple-markdown";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import * as React from "react";
-import SimpleMarkdown from "simple-markdown";
 import _ from "underscore";
 
 import Lint from "./components/lint.jsx";
@@ -320,6 +320,7 @@ const inlineNodeTypes = {
 };
 
 // $FlowFixMe[prop-missing]
+// $FlowFixMe[incompatible-call]
 const builtParser = SimpleMarkdown.parserFor(rules);
 const parse = (source: string, state: $FlowFixMe): $FlowFixMe => {
     const paragraphedSource = source + "\n\n";
@@ -421,15 +422,12 @@ export default {
     traverseContent: traverseContent,
     parse: parse,
     parseInline: inlineParser,
-    // $FlowFixMe[prop-missing]
     reactFor: SimpleMarkdown.reactFor,
-    // $FlowFixMe[prop-missing]
+    // $FlowFixMe[incompatible-use]
     ruleOutput: (SimpleMarkdown.ruleOutput(rules, "react"): $FlowFixMe),
-    // $FlowFixMe[prop-missing]
     basicOutput: (SimpleMarkdown.reactFor(
-        // $FlowFixMe[prop-missing]
+        // $FlowFixMe[incompatible-use]
         SimpleMarkdown.ruleOutput(rules, "react"),
     ): $FlowFixMe),
-    // $FlowFixMe[prop-missing]
     sanitizeUrl: SimpleMarkdown.sanitizeUrl,
 };

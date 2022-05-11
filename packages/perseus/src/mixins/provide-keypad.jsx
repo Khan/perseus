@@ -16,12 +16,14 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
+import type {CSSProperties} from "aphrodite";
+
 export type KeypadProps = {|
     // An Aphrodite style object, to be applied to the keypad container.
     // Note that, given our awkward structure of injecting the keypad, this
     // style won't be applied or updated dynamically. Rather, it will only
     // be applied in `componentDidMount`.
-    keypadStyle?: any,
+    keypadStyle?: CSSProperties,
 |};
 
 export type KeypadApiOptions = {|

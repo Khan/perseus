@@ -8,12 +8,12 @@
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
+import type {CSSProperties} from "aphrodite";
+
 // TODO(diedra): This is terrible! If we don't have a href for a link, it should
 // be a button instead. We just need to make sure we override the default browser
 // button styling (backgroundColor, border, and padding).
 const DEFAULT_HREF = "javascript:void(0)";
-
-type AphroditeStyle = any;
 
 type DefaultProps = {|
     element: string | React.AbstractComponent<any>,
@@ -22,7 +22,7 @@ type DefaultProps = {|
     highlighted: boolean,
     href: string,
     // Pass through styles but also add our own to normalize
-    style: AphroditeStyle | Array<AphroditeStyle>,
+    style: CSSProperties | Array<CSSProperties>,
 |};
 
 type LinkProps = {|
@@ -70,7 +70,7 @@ class Link extends React.Component<LinkProps> {
     static defaultProps: DefaultProps = {
         highlighted: false,
         href: DEFAULT_HREF,
-        style: ([]: Array<AphroditeStyle>),
+        style: ([]: Array<CSSProperties>),
         element: "a",
     };
 

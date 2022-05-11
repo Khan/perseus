@@ -3,7 +3,7 @@
  * Contains markdown related functions in pure javascript,
  * extracted from perseus-markdown.jsx
  */
-import SimpleMarkdown from "simple-markdown";
+import SimpleMarkdown from "@khanacademy/simple-markdown";
 
 import Util from "./util.js";
 
@@ -334,6 +334,7 @@ export const pureMarkdownRules = {
 };
 
 // $FlowFixMe[prop-missing]
+// $FlowFixMe[incompatible-call]
 const builtParser = SimpleMarkdown.parserFor(pureMarkdownRules);
 
 export const parse = (source: string, state: $FlowFixMe): $FlowFixMe => {

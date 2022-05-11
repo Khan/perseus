@@ -7,6 +7,7 @@ import {
     Dependencies,
     Expression,
 } from "@khanacademy/perseus";
+// eslint-disable-next-line import/no-extraneous-dependencies
 import lens from "hubble";
 import PropTypes from "prop-types";
 import * as React from "react";

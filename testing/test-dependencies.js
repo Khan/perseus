@@ -50,11 +50,13 @@ export const testDependencies: PerseusDependencies = {
     // Mocking this here so that we don't fail because of this issue.
     logKaTeXError: (expression: string, error: Error): Promise<any> =>
         Promise.resolve({}),
-    KatexProvider: ({children}) => (
+    KatexProvider: ({children}: {|children: React.Node|}) => (
         <span className="mock-KatexProvider">{children}</span>
     ),
     shouldUseFutureKaTeX: (flag: boolean) => {},
-    TeX: ({children}) => <span className="mock-TeX">{children}</span>,
+    TeX: ({children}: {children: React.Node, ...}) => (
+        <span className="mock-TeX">{children}</span>
+    ),
 
     staticUrl: (str: ?string) => {
         // We define the interface such that flow can infer calls properly.
