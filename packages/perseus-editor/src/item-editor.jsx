@@ -19,12 +19,13 @@ const ITEM_DATA_VERSION = itemDataVersion;
 type Props = {|
     apiOptions?: APIOptions,
     deviceType?: string,
-    frameSource: string,
     gradeMessage?: string,
     imageUploader?: ImageUploader,
     wasAnswered?: boolean,
     question?: $FlowFixMe,
     answerArea?: $FlowFixMe,
+    // URL of the route to show on initial load of the preview frames.
+    previewURL: string,
     onChange: ChangeHandler,
 
     // The content ID of the AssessmentItem being edited. It may not be set
@@ -121,10 +122,10 @@ class ItemEditor extends React.Component<Props> {
                                     // eslint-disable-next-line react/no-string-refs
                                     ref="frame"
                                     key={this.props.deviceType}
-                                    content={this.props.frameSource}
                                     datasetKey="mobile"
                                     datasetValue={isMobile}
                                     seamless={true}
+                                    url={this.props.previewURL}
                                 />
                             </DeviceFramer>
                             <div
