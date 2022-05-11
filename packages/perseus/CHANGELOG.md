@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 0.2.3
+
+### Patch Changes
+
+-   73095170: Add `VideoData` to set of exported Perseus types.
+
 ## 0.2.2
 
 ### Patch Changes
