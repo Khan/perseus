@@ -104,8 +104,8 @@ class Dropdown extends React.Component<Props> {
                     e.stopPropagation();
                 }}
             >
-                {/* $FlowFixMe[prop-missing]: placeholder is missing */}
                 <SingleSelect
+                    placeholder=""
                     onChange={(value) => this._handleChange(parseInt(value))}
                     selectedValue={String(this.props.selected)}
                     disabled={this.props.apiOptions.readOnly}
