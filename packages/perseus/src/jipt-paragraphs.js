@@ -26,8 +26,10 @@ const arrayRules: ParserRules = {
     },
 };
 
-// $FlowFixMe[prop-missing]
-const builtArrayParser = SimpleMarkdown.parserFor(arrayRules);
+const builtArrayParser: $Call<
+    typeof SimpleMarkdown.parserFor,
+    typeof arrayRules,
+> = SimpleMarkdown.parserFor(arrayRules);
 
 type ParseToArrayResult = $Call<typeof builtArrayParser, string, $FlowFixMe>;
 
