@@ -31,10 +31,10 @@ const builtArrayParser: $Call<
     typeof arrayRules,
 > = SimpleMarkdown.parserFor(arrayRules);
 
-type ParseToArrayResult = $Call<typeof builtArrayParser, string, $FlowFixMe>;
-
 // This should just return an array of strings! magick!
-const parseToArray = (source: string): ParseToArrayResult => {
+const parseToArray = (
+    source: string,
+): $Call<typeof builtArrayParser, string, $FlowFixMe> => {
     // Remove any leading newlines to avoid splitting weirdness
     // (simple-markdown has the `newline` rule for this, and i have
     // no idea how this will handle leading newlines without that rule),
