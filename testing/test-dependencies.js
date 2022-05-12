@@ -106,19 +106,7 @@ export const testDependencies: PerseusDependencies = {
     InitialRequestUrl: {
         origin: "origin-test-interface",
         host: "host-test-interface",
-        hostname: "hostname-test-interface",
         protocol: "protocol-test-interface",
-        port: "port-test-interface",
-        configParams: {
-            curriculum: "curriculum-test-interface",
-            country: "country-test-interface",
-            embedded: "embedded-test-interface",
-            lang: "lang-test-interface",
-            preview: "preview-test-interface",
-            publish_commit: "publish_commit-test-interface",
-            region: "region-test-interface",
-            schemaMode: {},
-        },
     },
 
     isDevServer: false,
