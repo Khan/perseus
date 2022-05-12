@@ -354,9 +354,9 @@ interface StaticUrlFn {
 
 // A dependency for getting URLs
 type InitialRequestUrlInterface = {|
-    origin: string, // used
-    host: string, // used
-    protocol: string, // used
+    origin: string,
+    host: string,
+    protocol: string,
 |};
 
 // An object for dependency injection, to allow different clients
