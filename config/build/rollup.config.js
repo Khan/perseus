@@ -14,7 +14,6 @@ import autoExternal from "rollup-plugin-auto-external";
 import copy from "rollup-plugin-copy";
 import filesize from "rollup-plugin-filesize";
 import styles from "rollup-plugin-styles";
-import {terser} from "rollup-plugin-terser";
 
 const createBabelPlugins = require("./create-babel-plugins.js");
 const createBabelPresets = require("./create-babel-presets.js");
