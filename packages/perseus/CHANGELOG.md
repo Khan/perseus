@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 0.2.4
+
+### Patch Changes
+
+-   5d86a625: Remove all unused fields from `Dependencies.InitialRequestUrl`
+
 ## 0.2.3
 
 ### Patch Changes

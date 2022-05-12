@@ -1,5 +1,16 @@
 # @khanacademy/perseus-editor
 
+## 0.3.0
+
+### Minor Changes
+
+-   8315e911: Don't re-export Perseus from @khanacademy/perseus-editor
+
+### Patch Changes
+
+-   Updated dependencies [5d86a625]
+    -   @khanacademy/perseus@0.2.4
+
 ## 0.2.0
 
 ### Minor Changes
