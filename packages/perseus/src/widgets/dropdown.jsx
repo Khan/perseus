@@ -1,9 +1,7 @@
-/* eslint-disable react/sort-comp */
 // @flow
 import {SingleSelect, OptionItem} from "@khanacademy/wonder-blocks-dropdown";
 import * as React from "react";
 import ReactDOM from "react-dom";
-import _ from "underscore";
 
 import {ApiOptions} from "../perseus-api.jsx";
 
@@ -51,6 +49,33 @@ class Dropdown extends React.Component<Props> {
         };
     }
 
+    focus: () => boolean = () => {
+        // TODO(LP-10797): This focus() call doesn't do anything because our
+        // root element is a <div> and that cannot be focused without a
+        // tabIndex.
+        // $FlowFixMe[incompatible-use]
+        // $FlowFixMe[prop-missing]
+        ReactDOM.findDOMNode(this).focus();
+        return true;
+    };
+
+    _handleChangeEvent: (SyntheticInputEvent<>) => void = (e) => {
+        this._handleChange(parseInt(e.target.value));
+    };
+
+    _handleChange: (number) => void = (selected) => {
+        this.props.trackInteraction();
+        this.props.onChange({selected: selected});
+    };
+
+    getUserInput: () => UserInput = () => {
+        return {value: this.props.selected};
+    };
+
+    simpleValidate: (Rubric) => PerseusScore = (rubric) => {
+        return Dropdown.validate(this.getUserInput(), rubric);
+    };
+
     render(): React.Node {
         const children = [
             <OptionItem
@@ -79,8 +104,8 @@ class Dropdown extends React.Component<Props> {
                     e.stopPropagation();
                 }}
             >
-                {/* $FlowFixMe[prop-missing]: placeholder is missing */}
                 <SingleSelect
+                    placeholder=""
                     onChange={(value) => this._handleChange(parseInt(value))}
                     selectedValue={String(this.props.selected)}
                     disabled={this.props.apiOptions.readOnly}
@@ -90,33 +115,6 @@ class Dropdown extends React.Component<Props> {
             </div>
         );
     }
-
-    focus: () => boolean = () => {
-        // TODO(LP-10797): This focus() call doesn't do anything because our
-        // root element is a <div> and that cannot be focused without a
-        // tabIndex.
-        // $FlowFixMe[incompatible-use]
-        // $FlowFixMe[prop-missing]
-        ReactDOM.findDOMNode(this).focus();
-        return true;
-    };
-
-    _handleChangeEvent: (SyntheticInputEvent<>) => void = (e) => {
-        this._handleChange(parseInt(e.target.value));
-    };
-
-    _handleChange: (number) => void = (selected) => {
-        this.props.trackInteraction();
-        this.props.onChange({selected: selected});
-    };
-
-    getUserInput: () => UserInput = () => {
-        return {value: this.props.selected};
-    };
-
-    simpleValidate: (Rubric) => PerseusScore = (rubric) => {
-        return Dropdown.validate(this.getUserInput(), rubric);
-    };
 }
 
 type RenderProps = {|
@@ -129,7 +127,7 @@ const optionsTransform: (PerseusDropdownWidgetOptions) => RenderProps = (
 ) => {
     return {
         placeholder: widgetOptions.placeholder,
-        choices: _.map(widgetOptions.choices, (choice) => choice.content),
+        choices: widgetOptions.choices.map((choice) => choice.content),
     };
 };
 
