@@ -14,7 +14,6 @@ import autoExternal from "rollup-plugin-auto-external";
 import copy from "rollup-plugin-copy";
 import filesize from "rollup-plugin-filesize";
 import styles from "rollup-plugin-styles";
-import {terser} from "rollup-plugin-terser";
 
 const createBabelPlugins = require("./create-babel-plugins.js");
 const createBabelPresets = require("./create-babel-presets.js");
@@ -210,7 +209,11 @@ const createConfig = (
             autoExternal({
                 packagePath: makePackageBasedPath(name, "./package.json"),
             }),
-            terser(),
+            // TODO(FEI-4557): Figure out how to make this plugin work so that
+            // @khanacademy/perseus-editor works in webapp.  If we enable this
+            // plugin right now, the content editor pages in webapp will fail
+            // with the following error: `TypeError: Object(...) is not a function`
+            // terser(),
             ...plugins,
         ],
     };

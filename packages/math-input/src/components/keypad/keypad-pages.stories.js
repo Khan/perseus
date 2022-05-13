@@ -12,9 +12,9 @@ export default {
     title: "Keypad pages",
     decorators: [withKnobs],
     parameters: {
-        backgrounds: [
-            {name: "light background", value: "white", default: true},
-        ],
+        backgrounds: {
+            values: [{name: "light background", value: "white", default: true}],
+        },
         viewport: {defaultViewport: "iphone6"},
     },
 };

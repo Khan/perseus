@@ -1,5 +1,26 @@
 # @khanacademy/perseus
 
+## 0.2.5
+
+### Patch Changes
+
+-   Updated dependencies [a15b0e86]
+    -   @khanacademy/kas@0.2.4
+    -   @khanacademy/math-input@0.5.2
+    -   @khanacademy/simple-markdown@0.8.2
+
+## 0.2.4
+
+### Patch Changes
+
+-   5d86a625: Remove all unused fields from `Dependencies.InitialRequestUrl`
+
+## 0.2.3
+
+### Patch Changes
+
+-   73095170: Add `VideoData` to set of exported Perseus types.
+
 ## 0.2.2
 
 ### Patch Changes

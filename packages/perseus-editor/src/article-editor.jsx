@@ -47,8 +47,9 @@ type DefaultProps = {|
 type PerseusArticleEditorProps = {|
     ...DefaultProps,
     apiOptions?: APIOptions,
-    frameSource: string,
     imageUploader?: (string, (string) => mixed) => mixed,
+    // URL of the route to show on initial load of the preview frames.
+    previewURL: string,
     ...Changeable.ChangeableProps,
 |};
 
@@ -285,10 +286,10 @@ export default class ArticleEditor extends React.Component<
                 <IframeContentRenderer
                     ref={"frame-" + i}
                     key={this.props.screen}
-                    content={this.props.frameSource}
                     datasetKey="mobile"
                     datasetValue={isMobile}
                     seamless={nochrome}
+                    url={this.props.previewURL}
                 />
             </DeviceFramer>
         );

@@ -356,19 +356,7 @@ interface StaticUrlFn {
 type InitialRequestUrlInterface = {|
     origin: string,
     host: string,
-    hostname: string,
     protocol: string,
-    port: string,
-    configParams: {|
-        curriculum: string,
-        country: string,
-        embedded: string,
-        lang: string,
-        preview: string,
-        publish_commit: string,
-        region: string,
-        schemaMode: ?any,
-    |},
 |};
 
 // An object for dependency injection, to allow different clients

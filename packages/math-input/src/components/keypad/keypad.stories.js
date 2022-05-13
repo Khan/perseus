@@ -11,9 +11,9 @@ export default {
     title: "Full Keypad",
     decorators: [withKnobs],
     parameters: {
-        backgrounds: [
-            {name: "light background", value: "white", default: true},
-        ],
+        backgrounds: {
+            values: [{name: "light background", value: "white", default: true}],
+        },
         viewport: {defaultViewport: "iphone6", viewports: INITIAL_VIEWPORTS},
     },
 };

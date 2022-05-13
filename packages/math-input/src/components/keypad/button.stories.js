@@ -8,9 +8,11 @@ export default {
     title: "Keypad Button",
     decorators: [withKnobs],
     parameters: {
-        backgrounds: [
-            {name: "dark background", value: "#DBDCDD", default: true},
-        ],
+        backgrounds: {
+            values: [
+                {name: "dark background", value: "#DBDCDD", default: true},
+            ],
+        },
     },
 };
 
