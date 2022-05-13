@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 0.2.6
+
+### Patch Changes
+
+-   5d67bb03: Add missing deps to peer/dev deps in package.json files
+
 ## 0.2.5
 
 ### Patch Changes
