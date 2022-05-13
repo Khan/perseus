@@ -15,40 +15,40 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         node-version: [16.x]
-    - name: Checking out latest commit
-      uses: actions/checkout@v2
+    steps:
+      - name: "Checking out latest commit"
+        uses: actions/checkout@v2
 
-    - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
-      uses: ./.github/actions/shared-node-cache
-      with:
-        node-version: ${{ matrix.node-version }}
+      - name: "Use Node.js ${{ matrix.node-version }} & Install & cache node_modules"
+        uses: ./.github/actions/shared-node-cache
+        with:
+          node-version: "${{ matrix.node-version }}"
 
-    - name: Get All Changed Files
-      uses: jaredly/get-changed-files@v1.0.1
-      id: changed
-      with:
-        format: json
+      - name: "Get All Changed Files"
+        id: changed
+        uses: jaredly/get-changed-files@v1.0.1
+        with:
+          format: json
+      - name: "Check for Changeset"
+        uses: actions/github-script@v6
+        with:
+          script: |
+              const inputFiles = JSON.parse(`${{ steps.changed.outputs.added_modified }}`);
+              core.debug("Changed files: " + inputFiles);
 
-    - name: Check for Changeset
-      uses: actions/github-script@v6
-      with:
-        script: |
-          const inputFiles = JSON.parse(`${{ steps.changed.outputs.added_modified }}`);
-          core.debug("Changed files: " + inputFiles);
+              const hasChangeset = inputFiles.some(name => {
+                return /^\.changeset\/.*\.md/.test(name);
+              });
+              core.info(`This PR has a changeset: ${hasChangeset}`);
 
-          const hasChangeset = inputFiles.some(name => {
-            return /^\.changeset\/.*\.md/.test(name);
-          });
-          core.info(`This PR has a changeset: ${hasChangeset}`);
-
-          if (!hasChangeset) {
-            core.setFailed(
-              "This PR does not have a changeset. You can add one by " +
-              "running `yarn changeset` and following the prompts.\n" +
-              "If this PR doesn't need a changeset, run `yarn changeset " +
-              "--empty` and commit results."
-            );
-          }
+              if (!hasChangeset) {
+                core.setFailed(
+                  "This PR does not have a changeset. You can add one by " +
+                  "running `yarn changeset` and following the prompts.\n" +
+                  "If this PR doesn't need a changeset, run `yarn changeset " +
+                  "--empty` and commit results."
+                );
+              }
 
   lint:
     name: Lint, Flow, and Test
