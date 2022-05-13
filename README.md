@@ -27,8 +27,7 @@ Installs project dependencies
 
 ## Contributing
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md) for a walkthrough of how some
-of the Perseus code works and how to extend it.
+The Perseus project is not accepting external contributions. We’re releasing the code for others to refer to and learn from, but we are not open to pull requests or issues at this time.
 
 ## License
 
