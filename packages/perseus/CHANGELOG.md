@@ -1,5 +1,14 @@
 # @khanacademy/perseus
 
+## 0.2.5
+
+### Patch Changes
+
+-   Updated dependencies [a15b0e86]
+    -   @khanacademy/kas@0.2.4
+    -   @khanacademy/math-input@0.5.2
+    -   @khanacademy/simple-markdown@0.8.2
+
 ## 0.2.4
 
 ### Patch Changes
