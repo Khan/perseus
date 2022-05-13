@@ -21,9 +21,13 @@
         "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"
     },
     "dependencies": {
+        "@khanacademy/kmath": "^0.0.5",
         "@khanacademy/perseus": "^0.2.5"
     },
     "devDependencies": {
+        "@khanacademy/wonder-blocks-button": "^2.11.5",
+        "@khanacademy/wonder-blocks-clickable": "^2.2.6",
+        "@khanacademy/wonder-blocks-color": "^1.1.20",
         "@khanacademy/wonder-blocks-i18n": "^1.2.3",
         "aphrodite": "^1.2.5",
         "classnames": "^1.1.4",
@@ -36,6 +40,9 @@
         "underscore": "^1.4.4"
     },
     "peerDependencies": {
+        "@khanacademy/wonder-blocks-button": "^2.11.5",
+        "@khanacademy/wonder-blocks-clickable": "^2.2.6",
+        "@khanacademy/wonder-blocks-color": "^1.1.20",
         "@khanacademy/wonder-blocks-i18n": "^1.2.3",
         "aphrodite": "^1.2.5",
         "classnames": "^1.1.4",
