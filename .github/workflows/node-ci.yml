@@ -8,7 +8,7 @@ on:
     types: [edited, opened, synchronize, reopened]
 
 jobs:
-  check_for_changeset:
+  changeset:
     name: Check for .changeset file
     runs-on: ${{ matrix.os }}
     strategy:
