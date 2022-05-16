@@ -4943,4 +4943,31 @@ describe("simple markdown", function () {
             );
         });
     });
+
+    describe("custom rules", () => {
+        it("should throw if `parse` returns invalid result", () => {
+            const parse = jest
+                .fn()
+                // Flow correctly catches that the `parse` function returns and
+                // incorrect type, but I want to keep this test here for now
+                // because in call sites that use this, we've seen Flow not
+                // catch this. So for now, we hard-fail!
+                // $FlowFixMe[incompatible-call]
+                .mockImplementation(() => "invalid parse result");
+
+            const invalidRules = {
+                parseDoesntReturnCorrectType: {
+                    order: 1,
+                    match: (source, state, prevCapture) => true,
+                    parse,
+                },
+            };
+
+            expect(() =>
+                // $FlowFixMe[incompatible-call]
+                SimpleMarkdown.parserFor(invalidRules)("some input"),
+            ).toThrow();
+            expect(parse).toHaveBeenCalled();
+        });
+    });
 });
