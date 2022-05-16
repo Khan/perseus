@@ -320,7 +320,10 @@ var parserFor = function (rules: ParserRules, defaultState: ?State): Parser {
     });
 
     var latestState: State;
-    var nestedParse = function (source: string, state: ?State): Parser {
+    var nestedParse: Parser = function (
+        source: string,
+        state: ?State,
+    ): Array<SingleASTNode> {
         var result: Array<SingleASTNode> = [];
         state = state || latestState;
         latestState = state;
@@ -400,7 +403,6 @@ var parserFor = function (rules: ParserRules, defaultState: ?State): Parser {
                 );
             }
 
-            // $FlowFixMe
             var parsed = rule.parse(capture, nestedParse, state);
             // We maintain the same object here so that rules can
             // store references to the objects they return and
@@ -435,7 +437,10 @@ var parserFor = function (rules: ParserRules, defaultState: ?State): Parser {
         return result;
     };
 
-    var outerParse = function (source: string, state: ?State): Parser {
+    var outerParse: Parser = function (
+        source: string,
+        state: ?State,
+    ): Array<SingleASTNode> {
         latestState = populateInitialState(state, defaultState);
         if (!latestState.inline && !latestState.disableAutoBlockNewlines) {
             source = source + "\n\n";

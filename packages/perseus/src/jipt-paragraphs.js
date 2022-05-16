@@ -32,15 +32,15 @@ const builtArrayParser: $Call<
 > = SimpleMarkdown.parserFor(arrayRules);
 
 // This should just return an array of strings! magick!
-const parseToArray = (
-    source: string,
-): $Call<typeof builtArrayParser, string, $FlowFixMe> => {
+const parseToArray = (source: string): Array<string> => {
     // Remove any leading newlines to avoid splitting weirdness
     // (simple-markdown has the `newline` rule for this, and i have
     // no idea how this will handle leading newlines without that rule),
     // and add \n\n to let it parse at a block/paragraph level
     const paragraphedSource = source.replace(/^\n\s*\n/, "") + "\n\n";
-    return builtArrayParser(paragraphedSource, {inline: false});
+    return builtArrayParser(paragraphedSource, {inline: false}).map((c) => {
+        return c["content"];
+    });
 };
 
 const joinFromArray = (paragraphs: $ReadOnlyArray<string>): string =>

@@ -6,18 +6,7 @@ const {parseToArray} = JiptParagraphs;
 
 describe("jipt-paragraphs", () => {
     it("should split paragraphs using custom JIPT SimpleMarkdown rules", () => {
-        expect(parseToArray("  \n\nhello\n\n")).toMatchInlineSnapshot(`
-            Array [
-              Object {
-                "content": "  ",
-                "type": "paragraph",
-              },
-              Object {
-                "content": "hello",
-                "type": "paragraph",
-              },
-            ]
-        `);
+        expect(parseToArray("  \n\nhello\n\n")).toMatchInlineSnapshot();
     });
 
     it("should recognize code fences using custom JIPT SimpleMarkdown rules", () => {
@@ -30,20 +19,10 @@ describe("jipt-paragraphs", () => {
             ),
         ).toMatchInlineSnapshot(`
             Array [
-              Object {
-                "content": "Let's write the canonical Hello World in Javascript",
-                "type": "paragraph",
-              },
-              Object {
-                "content": "const x = \\"hello world\\";
+              "Let's write the canonical Hello World in Javascript",
+              "const x = \\"hello world\\";
             console.log(x);",
-                "lang": "js",
-                "type": "codeBlock",
-              },
-              Object {
-                "content": "**Congratulations, you are on your way to becoming a computer programmer!",
-                "type": "paragraph",
-              },
+              "**Congratulations, you are on your way to becoming a computer programmer!",
             ]
         `);
     });
