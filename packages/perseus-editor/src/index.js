@@ -1,6 +1,4 @@
 // @flow
-export * as Perseus from "@khanacademy/perseus";
-
 export {default as ArticleEditor} from "./article-editor.jsx";
 export {default as DeviceFramer} from "./components/device-framer.jsx";
 export {default as ViewportResizer} from "./components/viewport-resizer.jsx";

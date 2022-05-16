@@ -2,7 +2,9 @@
 const fs = require("fs");
 const path = require("path");
 
-const pkgNames = fs.readdirSync(path.join(__dirname, "packages"));
+const pkgNames = fs
+    .readdirSync(path.join(__dirname, "packages"))
+    .filter((name) => name !== ".DS_Store");
 
 const pkgAliases = pkgNames.map((pkgName) => {
     return [`@khanacademy/${pkgName}`, `./packages/${pkgName}/src/index.js`];

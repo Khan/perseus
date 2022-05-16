@@ -90,7 +90,6 @@
     "rollup-plugin-filesize": "^9.1.1",
     "rollup-plugin-preserve-shebangs": "^0.2.0",
     "rollup-plugin-styles": "^4.0.0",
-    "rollup-plugin-terser": "^7.0.2",
     "sloc": "^0.2.1",
     "winston": "^3.7.2"
   },
