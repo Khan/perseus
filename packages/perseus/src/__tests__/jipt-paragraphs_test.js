@@ -6,7 +6,12 @@ const {parseToArray} = JiptParagraphs;
 
 describe("jipt-paragraphs", () => {
     it("should split paragraphs using custom JIPT SimpleMarkdown rules", () => {
-        expect(parseToArray("  \n\nhello\n\n")).toMatchInlineSnapshot();
+        expect(parseToArray("  \n\nhello\n\n")).toMatchInlineSnapshot(`
+            Array [
+              "  ",
+              "hello",
+            ]
+        `);
     });
 
     it("should recognize code fences using custom JIPT SimpleMarkdown rules", () => {
