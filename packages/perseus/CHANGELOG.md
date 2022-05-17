@@ -1,5 +1,13 @@
 # @khanacademy/perseus
 
+## 0.2.7
+
+### Patch Changes
+
+-   3921a385: Fix bug where JIPT integration parsing rules returned incorrect type
+-   Updated dependencies [3921a385]
+    -   @khanacademy/simple-markdown@0.8.3
+
 ## 0.2.6
 
 ### Patch Changes
