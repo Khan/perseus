@@ -1,50 +1,59 @@
-<!DOCTYPE html>
-<html>
-<head>
+<!doctype html><html lang="en"><head><meta charset="utf-8"/><title>Webpack App</title><meta name="viewport" content="width=device-width,initial-scale=1"/><style>html, body {
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
 
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0">
-<title>Perseus</title>
-
-<link rel="stylesheet" type="text/css" href="stylesheets/local-only/khan-site.css" />
-<link rel="stylesheet" type="text/css" href="stylesheets/local-only/khan-exercise.css" />
-<link rel="stylesheet" type="text/css" href="lib/katex/katex.css" />
-<link rel="stylesheet" type="text/css" href="lib/font-awesome.min.css">
-<link rel="stylesheet" type="text/css" href="lib/mathquill/mathquill.css" />
-<link rel="stylesheet" type="text/css" href="stylesheets/perseus-admin-package/devices.min.css" />
-
-<link rel="stylesheet/less" type="text/css" href="stylesheets/exercise-content-package/perseus.less" />
-<link rel="stylesheet/less" type="text/css" href="stylesheets/perseus-admin-package/editor.less" />
-<style>
-    body {
-        min-width: 0 !important;
-        /* overrides body { min-width: 1000px; } in khan-site.css */
+  * {
+    box-sizing: border-box;
+  }</style><script>/* globals window */
+  /* eslint-disable no-underscore-dangle */
+  try {
+    if (window.top !== window) {
+      window.__REACT_DEVTOOLS_GLOBAL_HOOK__ = window.top.__REACT_DEVTOOLS_GLOBAL_HOOK__;
     }
-</style>
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.warn('unable to connect to top frame for connecting dev tools');
+  }
 
-<script>less = {env: 'development', logLevel: 1};</script>
-<script src="lib/less.js"></script>
-
-</head>
-<body>
-<div id="perseus-container">
-</div>
-<!-- put an empty div here so the margin on the perseus editor has something
-to "push against" (without the div, the padding goes off the page, and the
-add hint button ends up touching the bottom of the page). -->
-<div class="clear"></div>
-<script src="lib/babel-polyfills.min.js"></script>
-<script src="lib/jquery.js"></script>
-<script src="lib/underscore.js"></script>
-<script src="lib/react-with-addons.js"></script>
-<script src="lib/mathjax/2.1/MathJax.js?config=KAthJax-730d56e87e9c926b91584f6030314815&amp;delayStartupUntil=configured"></script>
-<script src="lib/katex/katex.js"></script>
-<script src="lib/mathquill/mathquill-basic.js"></script>
-<script src="lib/kas.js"></script>
-<script src="lib/i18n.js"></script>
-<script src="lib/jquery.qtip.js"></script>
-
-<script src="build/demo-perseus.js"></script>
-
-</body>
-</html>
+  window.onerror = function onerror(message, source, line, column, err) {
+    if (window.CONFIG_TYPE !== 'DEVELOPMENT') return;
+    // eslint-disable-next-line no-var, vars-on-top
+    var xhr = new window.XMLHttpRequest();
+    xhr.open('POST', '/runtime-error');
+    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+    xhr.send(
+      JSON.stringify({
+        /* eslint-disable object-shorthand */
+        message: message,
+        source: source,
+        line: line,
+        column: column,
+        error: err && { message: err.message, name: err.name, stack: err.stack },
+        origin: 'manager',
+        /* eslint-enable object-shorthand */
+      })
+    );
+  };</script><style>#root[hidden],
+      #docs-root[hidden] {
+        display: none !important;
+      }</style></head><body><div id="root"></div><div id="docs-root"></div><script>window['CONFIG_TYPE'] = "PRODUCTION";
+          
+      
+          
+            window['LOGLEVEL'] = "info";
+          
+      
+          
+            window['FEATURES'] = {"postcss":true,"emotionAlias":true,"warnOnLegacyHierarchySeparator":true};
+          
+      
+          
+      
+          
+      
+          
+            window['DOCS_MODE'] = false;</script><script src="runtime~main.6b8e93cdef4753c01d43.manager.bundle.js"></script><script src="vendors~main.471cbd35eb52aea0b43b.manager.bundle.js"></script><script src="main.dde979dbe132a4c653b8.manager.bundle.js"></script></body></html>
