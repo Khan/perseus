@@ -1,5 +1,11 @@
 # @khanacademy/simple-markdown
 
+## 0.8.3
+
+### Patch Changes
+
+-   3921a385: Error when rule returns incorrect `parse` result
+
 ## 0.8.2
 
 ### Patch Changes
