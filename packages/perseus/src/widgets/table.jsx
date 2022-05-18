@@ -1,7 +1,10 @@
 /* eslint-disable react/sort-comp */
 // @flow
-import {linterContextProps, linterContextDefault} from "@khanacademy/gorgon";
 import {keypadElementPropType} from "@khanacademy/math-input";
+import {
+    linterContextProps,
+    linterContextDefault,
+} from "@khanacademy/perseus-linter";
 import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";

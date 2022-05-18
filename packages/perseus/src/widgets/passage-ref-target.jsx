@@ -1,5 +1,5 @@
 // @flow
-import {linterContextProps, linterContextDefault} from "@khanacademy/gorgon";
+import {linterContextProps, linterContextDefault} from "@khanacademy/perseus-linter";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";

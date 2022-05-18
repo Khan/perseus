@@ -1,7 +1,6 @@
-# gorgon
+# perseus-linter
 
-Gorgon is the linter engine for Perseus. It is implemented by the
-following files:
+The linter is implemented by the following files:
 
 tree-transformer.js:
 

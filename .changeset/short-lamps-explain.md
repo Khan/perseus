@@ -1,6 +1,6 @@
 ---
-"@khanacademy/gorgon": minor
 "@khanacademy/perseus-error": minor
+"@khanacademy/perseus-linter": minor
 "@khanacademy/perseus": patch
 ---
 

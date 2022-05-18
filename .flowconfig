@@ -13,7 +13,6 @@ module.file_ext=.less
 # stub out less imports.
 module.name_mapper.extension='less' -> 'empty/object'
 module.name_mapper='@khanacademy/\(perseus[^/]*\)' -> '<PROJECT_ROOT>/packages/\1/src/index.js'
-module.name_mapper='@khanacademy/gorgon' -> '<PROJECT_ROOT>/packages/gorgon/src/index.js'
 module.name_mapper='@khanacademy/kas' -> '<PROJECT_ROOT>/packages/kas/src/index.js'
 module.name_mapper='@khanacademy/kmath' -> '<PROJECT_ROOT>/packages/kmath/src/index.js'
 module.name_mapper='@khanacademy/math-input' -> '<PROJECT_ROOT>/packages/math-input/src/index.js'

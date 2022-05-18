@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unsafe */
 // @flow
-import * as Gorgon from "@khanacademy/gorgon";
+import * as Gorgon from "@khanacademy/perseus-linter";
 import classNames from "classnames";
 import $ from "jquery";
 import * as React from "react";

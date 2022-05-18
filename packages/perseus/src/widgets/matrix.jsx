@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/sort-comp */
 // @flow
-import {linterContextDefault} from "@khanacademy/gorgon";
+import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import classNames from "classnames";
 import * as React from "react";

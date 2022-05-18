@@ -1,6 +1,6 @@
 /* eslint-disable @babel/no-invalid-this, react/forbid-prop-types, react/no-unsafe, react/sort-comp */
 // @flow
-import * as Gorgon from "@khanacademy/gorgon";
+import * as Gorgon from "@khanacademy/perseus-linter";
 import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
 import {StyleSheet, css} from "aphrodite";
 import $ from "jquery";

@@ -5,7 +5,7 @@
  * composed of multiple (Renderer) sections concatenated together.
  */
 
-import * as Gorgon from "@khanacademy/gorgon";
+import * as Gorgon from "@khanacademy/perseus-linter";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import * as React from "react";

@@ -1,6 +1,6 @@
 // @flow
 
-import {linterContextDefault} from "@khanacademy/gorgon";
+import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {StyleSheet, css} from "aphrodite";
 import $ from "jquery";

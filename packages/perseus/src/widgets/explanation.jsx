@@ -1,6 +1,6 @@
 /* eslint-disable react/sort-comp */
 // @flow
-import {linterContextDefault} from "@khanacademy/gorgon";
+import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";

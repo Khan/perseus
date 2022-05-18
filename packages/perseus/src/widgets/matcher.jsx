@@ -1,6 +1,9 @@
 /* eslint-disable react/forbid-prop-types, react/sort-comp */
 // @flow
-import {linterContextProps, linterContextDefault} from "@khanacademy/gorgon";
+import {
+    linterContextProps,
+    linterContextDefault,
+} from "@khanacademy/perseus-linter";
 import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
 import {StyleSheet, css} from "aphrodite";
 import PropTypes from "prop-types";

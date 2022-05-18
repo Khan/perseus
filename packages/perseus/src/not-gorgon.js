@@ -1,5 +1,5 @@
 // @flow
-import {Rule} from "@khanacademy/gorgon";
+import {Rule} from "@khanacademy/perseus-linter";
 import {debounce} from "underscore";
 
 /**

@@ -1,6 +1,6 @@
 {
-    "name": "@khanacademy/gorgon",
-    "description": "Gorgon is the linter engine for Perseus",
+    "name": "@khanacademy/perseus-linter",
+    "description": "Linter engine for Perseus",
     "author": "Khan Academy",
     "license": "MIT",
     "version": "0.0.1",

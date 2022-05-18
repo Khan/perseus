@@ -1,5 +1,5 @@
 // @flow
-import * as Gorgon from "@khanacademy/gorgon";
+import * as Gorgon from "@khanacademy/perseus-linter";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {StyleSheet, css} from "aphrodite";
 import classnames from "classnames";

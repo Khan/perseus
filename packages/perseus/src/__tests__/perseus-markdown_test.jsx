@@ -1,5 +1,5 @@
 // @flow
-import * as Gorgon from "@khanacademy/gorgon";
+import * as Gorgon from "@khanacademy/perseus-linter";
 
 import PerseusMarkdown from "../perseus-markdown.jsx";
 

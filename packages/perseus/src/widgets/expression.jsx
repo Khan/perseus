@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 // @flow
-import {linterContextDefault} from "@khanacademy/gorgon";
 import * as KAS from "@khanacademy/kas";
 import {KeypadInput, KeypadTypes} from "@khanacademy/math-input";
+import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import classNames from "classnames";
 import * as React from "react";
