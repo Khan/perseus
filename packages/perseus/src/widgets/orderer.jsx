@@ -1,6 +1,9 @@
 /* eslint-disable @babel/no-invalid-this, no-unused-vars, one-var, react/no-unsafe, react/sort-comp */
 // @flow
-import {linterContextProps, linterContextDefault} from "@khanacademy/perseus-linter";
+import {
+    linterContextProps,
+    linterContextDefault,
+} from "@khanacademy/perseus-linter";
 import $ from "jquery";
 import PropTypes, {bool} from "prop-types";
 import * as React from "react";
