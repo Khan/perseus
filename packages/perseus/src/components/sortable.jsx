@@ -1,5 +1,6 @@
 /* eslint-disable @babel/no-invalid-this, react/forbid-prop-types, react/no-unsafe, react/sort-comp */
 // @flow
+import * as Gorgon from "@khanacademy/gorgon";
 import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
 import {StyleSheet, css} from "aphrodite";
 import $ from "jquery";
@@ -9,8 +10,6 @@ import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import {getDependencies} from "../dependencies.js";
-import Gorgon from "../gorgon/gorgon.js";
-import {linterContextProps, linterContextDefault} from "../gorgon/proptypes.js";
 import {ClassNames as ApiClassNames} from "../perseus-api.jsx";
 import Renderer from "../renderer.jsx";
 import Util from "../util.js";
@@ -96,13 +95,13 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
         onMouseUp: PropTypes.func.isRequired,
         onRender: PropTypes.func.isRequired,
         type: PropTypes.oneOf([STATIC, DRAGGING, ANIMATING, DISABLED]),
-        linterContext: linterContextProps,
+        linterContext: Gorgon.linterContextProps,
     };
 
     static defaultProps = {
         includePadding: true,
         type: STATIC,
-        linterContext: linterContextDefault,
+        linterContext: Gorgon.linterContextDefault,
     };
 
     state: DraggableState = {
@@ -423,7 +422,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         onMeasure: function () {},
         margin: 5,
         onChange: function () {},
-        linterContext: linterContextDefault,
+        linterContext: Gorgon.linterContextDefault,
         waitForKatexLoad: true,
     };
 

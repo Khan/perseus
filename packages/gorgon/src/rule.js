@@ -122,8 +122,7 @@
  * the Perseus article or exercise that is being linted.
  */
 
-import {Errors} from "../logging/log.js";
-import {PerseusError} from "../perseus-error.js";
+import {Errors, PerseusError} from "@khanacademy/perseus-error";
 
 import Selector from "./selector.js";
 

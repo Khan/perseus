@@ -3,7 +3,7 @@
  * can integrate ../../perseus-markdown.js with ../tree-transform.js and
  * ../selector.js
  */
-import PerseusMarkdown from "../../perseus-markdown.jsx";
+import * as PureMarkdown from "../pure-markdown.js";
 import Selector from "../selector.js";
 import TreeTransformer from "../tree-transformer.js";
 
@@ -23,7 +23,7 @@ C
 `;
 
     function parseTree() {
-        return PerseusMarkdown.parse(markdown);
+        return PureMarkdown.parse(markdown);
     }
 
     it("wildcards match every node", () => {

@@ -1,13 +1,13 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/sort-comp */
 // @flow
+import {linterContextDefault} from "@khanacademy/gorgon";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
 import _ from "underscore";
 
 import SvgImage from "../components/svg-image.jsx";
-import {linterContextDefault} from "../gorgon/proptypes.js";
 import * as Changeable from "../mixins/changeable.jsx";
 import Renderer from "../renderer.jsx";
 import {baseUnitPx} from "../styles/constants.js";

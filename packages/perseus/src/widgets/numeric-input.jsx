@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 // @flow
 
+import {linterContextDefault} from "@khanacademy/gorgon";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import classNames from "classnames";
 import * as React from "react";
@@ -9,7 +10,6 @@ import _ from "underscore";
 import InputWithExamples from "../components/input-with-examples.jsx";
 import PossibleAnswers from "../components/possible-answers.jsx";
 import SimpleKeypadInput from "../components/simple-keypad-input.jsx";
-import {linterContextDefault} from "../gorgon/proptypes.js";
 import {ApiOptions, ClassNames as ApiClassNames} from "../perseus-api.jsx";
 import TexWrangler from "../tex-wrangler.js";
 import KhanAnswerTypes from "../util/answer-types.js";

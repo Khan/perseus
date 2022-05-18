@@ -1,10 +1,10 @@
 /* eslint-disable react/sort-comp */
 // @flow
+import {linterContextDefault} from "@khanacademy/gorgon";
 import classNames from "classnames";
 import * as React from "react";
 import _ from "underscore";
 
-import {linterContextDefault} from "../gorgon/proptypes.js";
 import * as Changeable from "../mixins/changeable.jsx";
 import {ApiOptions} from "../perseus-api.jsx";
 import Renderer from "../renderer.jsx";

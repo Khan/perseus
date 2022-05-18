@@ -1,5 +1,6 @@
 // @flow
 
+import {linterContextDefault} from "@khanacademy/gorgon";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {StyleSheet, css} from "aphrodite";
 import $ from "jquery";
@@ -9,7 +10,6 @@ import _ from "underscore";
 
 import HighlightableContent from "../components/highlighting/highlightable-content.jsx";
 import {getDependencies} from "../dependencies.js";
-import {linterContextDefault} from "../gorgon/proptypes.js";
 import Renderer from "../renderer.jsx";
 
 import {getLineHeightForNode} from "./passage/get-line-height-for-node.js";

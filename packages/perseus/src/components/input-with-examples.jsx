@@ -1,11 +1,10 @@
 /* eslint-disable react/sort-comp */
 // @flow
+import * as Gorgon from "@khanacademy/gorgon";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-import Gorgon from "../gorgon/gorgon.js";
-import {linterContextProps, linterContextDefault} from "../gorgon/proptypes.js";
 import {ClassNames as ApiClassNames} from "../perseus-api.jsx";
 import Renderer from "../renderer.jsx";
 import Util from "../util.js";
@@ -38,7 +37,7 @@ class InputWithExamples extends React.Component<$FlowFixMe, $FlowFixMe> {
 
         // A unique string identifying this InputWithExamples
         id: PropTypes.string.isRequired,
-        linterContext: linterContextProps,
+        linterContext: Gorgon.linterContextProps,
     };
 
     static defaultProps: $FlowFixMe = {
@@ -47,7 +46,7 @@ class InputWithExamples extends React.Component<$FlowFixMe, $FlowFixMe> {
         onFocus: function () {},
         onBlur: function () {},
         disabled: false,
-        linterContext: linterContextDefault,
+        linterContext: Gorgon.linterContextDefault,
     };
 
     state: $FlowFixMe = {

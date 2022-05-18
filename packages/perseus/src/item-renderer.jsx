@@ -1,12 +1,11 @@
 /* eslint-disable react/no-unsafe */
 // @flow
+import * as Gorgon from "@khanacademy/gorgon";
 import $ from "jquery";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import _ from "underscore";
 
-import Gorgon from "./gorgon/gorgon.js";
-import {linterContextDefault} from "./gorgon/proptypes.js";
 import HintsRenderer from "./hints-renderer.jsx";
 import Objective from "./interactive2/objective_.js";
 import ProvideKeypad from "./mixins/provide-keypad.jsx";
@@ -88,7 +87,7 @@ class ItemRenderer extends React.Component<Props, State> {
         initialHintsVisible: 0,
         workAreaSelector: "#workarea",
         reviewMode: false,
-        linterContext: linterContextDefault,
+        linterContext: Gorgon.linterContextDefault,
     };
 
     constructor(props: Props) {

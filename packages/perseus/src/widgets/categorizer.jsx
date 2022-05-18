@@ -1,5 +1,6 @@
 /* eslint-disable react/sort-comp */
 // @flow
+import {linterContextDefault} from "@khanacademy/gorgon";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
@@ -7,7 +8,6 @@ import * as React from "react";
 import _ from "underscore";
 
 import InlineIcon from "../components/inline-icon.jsx";
-import {linterContextDefault} from "../gorgon/proptypes.js";
 import {iconCircle, iconCircleThin} from "../icon-paths.js";
 import * as Changeable from "../mixins/changeable.jsx";
 import WidgetJsonifyDeprecated from "../mixins/widget-jsonify-deprecated.jsx";

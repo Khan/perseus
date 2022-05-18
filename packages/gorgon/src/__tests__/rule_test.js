@@ -1,5 +1,5 @@
 // @flow
-import PerseusMarkdown from "../../perseus-markdown.jsx";
+import * as PureMarkdown from "../pure-markdown.js";
 import Rule from "../rule.js";
 import TreeTransformer from "../tree-transformer.js";
 
@@ -61,7 +61,7 @@ the previous heading was level ${previousHeading.level}`;
     let rules = [];
 
     function parseTree() {
-        return PerseusMarkdown.parse(markdown);
+        return PureMarkdown.parse(markdown);
     }
 
     it("makeRules() factory method", () => {

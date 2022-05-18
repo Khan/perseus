@@ -1,10 +1,10 @@
 // @flow
+import {linterContextProps, linterContextDefault} from "@khanacademy/gorgon";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
 import Sortable from "../components/sortable.jsx";
-import {linterContextProps, linterContextDefault} from "../gorgon/proptypes.js";
 import {ApiOptions} from "../perseus-api.jsx";
 import Util from "../util.js";
 

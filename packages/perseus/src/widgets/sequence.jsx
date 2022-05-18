@@ -1,10 +1,10 @@
 // @flow
+import {linterContextProps, linterContextDefault} from "@khanacademy/gorgon";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
 import InlineIcon from "../components/inline-icon.jsx";
-import {linterContextProps, linterContextDefault} from "../gorgon/proptypes.js";
 import {iconOk} from "../icon-paths.js";
 import * as Changeable from "../mixins/changeable.jsx";
 import {ApiOptions} from "../perseus-api.jsx";

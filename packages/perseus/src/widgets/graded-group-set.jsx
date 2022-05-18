@@ -1,10 +1,10 @@
 // @flow
+import {linterContextDefault} from "@khanacademy/gorgon";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
 import {getDependencies} from "../dependencies.js";
-import {linterContextDefault} from "../gorgon/proptypes.js";
 import * as Changeable from "../mixins/changeable.jsx";
 import {
     grayLight,

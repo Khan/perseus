@@ -1,7 +1,6 @@
 // @flow
+import {Rule} from "@khanacademy/gorgon";
 import {debounce} from "underscore";
-
-import Rule from "./gorgon/rule.js";
 
 /**
  * NotGorgon asynchronously calls Khan Academy's poentry linter.

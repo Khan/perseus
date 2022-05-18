@@ -1,9 +1,9 @@
 // @flow
+import {linterContextProps, linterContextDefault} from "@khanacademy/gorgon";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-import {linterContextProps, linterContextDefault} from "../gorgon/proptypes.js";
 import * as Changeable from "../mixins/changeable.jsx";
 import WidgetJsonifyDeprecated from "../mixins/widget-jsonify-deprecated.jsx";
 import Renderer from "../renderer.jsx";

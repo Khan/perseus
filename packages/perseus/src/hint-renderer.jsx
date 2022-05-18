@@ -1,11 +1,10 @@
 // @flow
+import * as Gorgon from "@khanacademy/gorgon";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {StyleSheet, css} from "aphrodite";
 import classnames from "classnames";
 import * as React from "react";
 
-import Gorgon from "./gorgon/gorgon.js";
-import {linterContextDefault} from "./gorgon/proptypes.js";
 import Renderer from "./renderer.jsx";
 import {
     baseUnitPx,
@@ -36,7 +35,7 @@ type DefaultProps = {|
 /* Renders just a hint preview */
 class HintRenderer extends React.Component<Props> {
     static defaultProps: DefaultProps = {
-        linterContext: linterContextDefault,
+        linterContext: Gorgon.linterContextDefault,
     };
 
     getSerializedState: () => void = () => {

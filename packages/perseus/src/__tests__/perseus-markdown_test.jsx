@@ -1,6 +1,6 @@
 // @flow
-import Gorgon from "../gorgon/gorgon.js"; // The linter engine
-import {linterContextDefault} from "../gorgon/proptypes.js";
+import * as Gorgon from "@khanacademy/gorgon";
+
 import PerseusMarkdown from "../perseus-markdown.jsx";
 
 const {parse, basicOutput, characterCount} = PerseusMarkdown;
@@ -565,7 +565,7 @@ describe("perseus markdown", () => {
                 "data 4 | $data 5 | data 6\n" +
                 "data 7 | data 8 | data 9";
             const context = {
-                ...linterContextDefault,
+                ...Gorgon.linterContextDefault,
                 content,
                 widgets: {},
             };
@@ -650,7 +650,7 @@ describe("perseus markdown", () => {
                 "data 4 | $data 5 | data 6\n" +
                 "data 7 | data 8 | data 9";
             const context = {
-                ...linterContextDefault,
+                ...Gorgon.linterContextDefault,
                 content,
                 widgets: {},
             };

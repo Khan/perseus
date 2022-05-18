@@ -1,4 +1,5 @@
 // @flow
+import * as Gorgon from "@khanacademy/gorgon";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {StyleSheet, css} from "aphrodite";
 import classnames from "classnames";
@@ -6,8 +7,6 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
-import Gorgon from "./gorgon/gorgon.js";
-import {linterContextDefault} from "./gorgon/proptypes.js";
 import HintRenderer from "./hint-renderer.jsx";
 import {ApiOptions} from "./perseus-api.jsx";
 import typeof Renderer from "./renderer.jsx";
@@ -43,7 +42,7 @@ type State = {|
 // eslint-disable-next-line react/no-unsafe
 class HintsRenderer extends React.Component<Props, State> {
     static defaultProps: DefaultProps = {
-        linterContext: linterContextDefault,
+        linterContext: Gorgon.linterContextDefault,
     };
 
     // The isFinalHelpPage property determines if the user has requested help

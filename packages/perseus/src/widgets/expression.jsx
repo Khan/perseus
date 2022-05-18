@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 // @flow
+import {linterContextDefault} from "@khanacademy/gorgon";
 import * as KAS from "@khanacademy/kas";
 import {KeypadInput, KeypadTypes} from "@khanacademy/math-input";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
@@ -11,7 +12,6 @@ import InlineIcon from "../components/inline-icon.jsx";
 import InputWithExamples from "../components/input-with-examples.jsx";
 import MathInput from "../components/math-input.jsx";
 import Tooltip from "../components/tooltip.jsx";
-import {linterContextDefault} from "../gorgon/proptypes.js";
 import {iconExclamationSign} from "../icon-paths.js";
 import {Errors as PerseusErrors, Log} from "../logging/log.js";
 import * as Changeable from "../mixins/changeable.jsx";

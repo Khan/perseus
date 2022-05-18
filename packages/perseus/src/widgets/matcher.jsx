@@ -1,5 +1,6 @@
 /* eslint-disable react/forbid-prop-types, react/sort-comp */
 // @flow
+import {linterContextProps, linterContextDefault} from "@khanacademy/gorgon";
 import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
 import {StyleSheet, css} from "aphrodite";
 import PropTypes from "prop-types";
@@ -8,7 +9,6 @@ import _ from "underscore";
 
 import Sortable from "../components/sortable.jsx";
 import {getDependencies} from "../dependencies.js";
-import {linterContextProps, linterContextDefault} from "../gorgon/proptypes.js";
 import {ApiOptions} from "../perseus-api.jsx";
 import Renderer from "../renderer.jsx";
 import Util from "../util.js";
