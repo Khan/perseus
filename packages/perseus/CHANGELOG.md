@@ -1,5 +1,14 @@
 # @khanacademy/perseus
 
+## 0.2.8
+
+### Patch Changes
+
+-   a4f10ace: Move Gorgon, PerseusError, PureMarkdown into their own packages
+-   Updated dependencies [a4f10ace]
+    -   @khanacademy/perseus-linter@0.1.0
+    -   @khanacademy/pure-markdown@0.1.0
+
 ## 0.2.7
 
 ### Patch Changes
