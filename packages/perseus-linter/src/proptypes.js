@@ -4,7 +4,7 @@
 
 import PropTypes from "prop-types";
 
-import type {LinterContextProps} from "../types.js";
+import type {LinterContextProps} from "./types.js";
 
 export const linterContextProps: React$PropType$Primitive<{
     contentType?: string,

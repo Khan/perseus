@@ -87,8 +87,7 @@
  * traversal.
  */
 
-import {Errors} from "../logging/log.js";
-import {PerseusError} from "../perseus-error.js";
+import {Errors, PerseusError} from "@khanacademy/perseus-error";
 
 import type {TreeNode, TraversalState} from "./tree-transformer.js";
 

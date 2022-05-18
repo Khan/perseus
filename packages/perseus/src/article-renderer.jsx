@@ -5,12 +5,11 @@
  * composed of multiple (Renderer) sections concatenated together.
  */
 
+import * as Gorgon from "@khanacademy/perseus-linter";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import * as React from "react";
 
-import Gorgon from "./gorgon/gorgon.js";
-import {linterContextProps, linterContextDefault} from "./gorgon/proptypes.js";
 import ProvideKeypad from "./mixins/provide-keypad.jsx";
 import {ClassNames as ApiClassNames, ApiOptions} from "./perseus-api.jsx";
 import Renderer from "./renderer.jsx";
@@ -38,14 +37,14 @@ class ArticleRenderer extends React.Component<$FlowFixMe, $FlowFixMe> {
 
         // Whether to use the new Bibliotron styles for articles
         useNewStyles: PropTypes.bool,
-        linterContext: linterContextProps,
+        linterContext: Gorgon.linterContextProps,
         legacyPerseusLint: PropTypes.arrayOf(PropTypes.string),
     };
 
     static defaultProps: $FlowFixMe = {
         apiOptions: {},
         useNewStyles: false,
-        linterContext: linterContextDefault,
+        linterContext: Gorgon.linterContextDefault,
     };
 
     constructor(props: $FlowFixMe) {

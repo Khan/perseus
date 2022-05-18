@@ -1,5 +1,9 @@
 /* eslint-disable @babel/no-invalid-this, no-unused-vars, one-var, react/no-unsafe, react/sort-comp */
 // @flow
+import {
+    linterContextProps,
+    linterContextDefault,
+} from "@khanacademy/perseus-linter";
 import $ from "jquery";
 import PropTypes, {bool} from "prop-types";
 import * as React from "react";
@@ -7,7 +11,6 @@ import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import {getDependencies} from "../dependencies.js";
-import {linterContextProps, linterContextDefault} from "../gorgon/proptypes.js";
 import {Errors, Log} from "../logging/log.js";
 import {ClassNames as ApiClassNames} from "../perseus-api.jsx";
 import Renderer from "../renderer.jsx";

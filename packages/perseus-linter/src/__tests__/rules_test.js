@@ -1,5 +1,6 @@
 // @flow
-import PerseusMarkdown from "../../perseus-markdown.jsx";
+import * as PureMarkdown from "@khanacademy/pure-markdown";
+
 import absoluteUrlRule from "../rules/absolute-url.js";
 import blockquotedMathRule from "../rules/blockquoted-math.js";
 import blockquotedWidgetRule from "../rules/blockquoted-widget.js";
@@ -35,7 +36,7 @@ import TreeTransformer from "../tree-transformer.js";
 
 describe("Individual lint rules tests", () => {
     function testRule(rule, markdown, context) {
-        const tree = PerseusMarkdown.parse(markdown);
+        const tree = PureMarkdown.parse(markdown);
         const tt = new TreeTransformer(tree);
         const warnings = [];
 

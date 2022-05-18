@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unsafe */
 // @flow
+import * as Gorgon from "@khanacademy/perseus-linter";
 import classNames from "classnames";
 import $ from "jquery";
 import * as React from "react";
@@ -13,8 +14,6 @@ import ZoomableTeX from "./components/zoomable-tex.jsx";
 import Zoomable from "./components/zoomable.jsx";
 import {getDependencies} from "./dependencies.js";
 import ErrorBoundary from "./error-boundary.jsx";
-import Gorgon from "./gorgon/gorgon.js"; // The linter engine
-import {linterContextDefault} from "./gorgon/proptypes.js";
 import InteractionTracker from "./interaction-tracker.js";
 import Objective from "./interactive2/objective_.js";
 import JiptParagraphs from "./jipt-paragraphs.js";
@@ -234,7 +233,7 @@ class Renderer extends React.Component<Props, State> {
         reviewMode: false,
         serializedState: null,
         onSerializedStateUpdated: () => {},
-        linterContext: linterContextDefault,
+        linterContext: Gorgon.linterContextDefault,
     };
 
     constructor(props: Props, context: Context) {

@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/sort-comp */
 // @flow
+import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import classNames from "classnames";
 import * as React from "react";
@@ -11,7 +12,6 @@ import MathOutput from "../components/math-output.jsx";
 import NumberInput from "../components/number-input.jsx";
 import SimpleKeypadInput from "../components/simple-keypad-input.jsx";
 import TextInput from "../components/text-input.jsx";
-import {linterContextDefault} from "../gorgon/proptypes.js";
 import InteractiveUtil from "../interactive2/interactive-util.js";
 import {ApiOptions} from "../perseus-api.jsx";
 import Renderer from "../renderer.jsx";
