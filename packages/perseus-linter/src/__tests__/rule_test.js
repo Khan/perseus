@@ -1,5 +1,6 @@
 // @flow
-import * as PureMarkdown from "../pure-markdown.js";
+import * as PureMarkdown from "@khanacademy/pure-markdown";
+
 import Rule from "../rule.js";
 import TreeTransformer from "../tree-transformer.js";
 

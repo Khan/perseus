@@ -1,5 +1,5 @@
 // @flow
-import {parse} from "../pure-markdown.js";
+import {parse} from "../index.js";
 
 describe("pure markdown", () => {
     describe("parser", () => {

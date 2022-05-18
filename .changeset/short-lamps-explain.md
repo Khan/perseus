@@ -2,6 +2,7 @@
 "@khanacademy/perseus-error": minor
 "@khanacademy/perseus-linter": minor
 "@khanacademy/perseus": patch
+"@khanacademy/pure-markdown": minor
 ---
 
-Move Gorgon and PerseusError into their own packages
+Move Gorgon, PerseusError, PureMarkdown into their own packages

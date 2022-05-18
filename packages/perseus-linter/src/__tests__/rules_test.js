@@ -1,5 +1,6 @@
 // @flow
-import * as PureMarkdown from "../pure-markdown.js";
+import * as PureMarkdown from "@khanacademy/pure-markdown";
+
 import absoluteUrlRule from "../rules/absolute-url.js";
 import blockquotedMathRule from "../rules/blockquoted-math.js";
 import blockquotedWidgetRule from "../rules/blockquoted-widget.js";

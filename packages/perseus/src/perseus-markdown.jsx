@@ -1,5 +1,6 @@
 /* eslint-disable no-useless-escape, no-prototype-builtins */
 // @flow
+import {pureMarkdownRules} from "@khanacademy/pure-markdown";
 import SimpleMarkdown from "@khanacademy/simple-markdown";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import * as React from "react";
@@ -7,7 +8,6 @@ import _ from "underscore";
 
 import Lint from "./components/lint.jsx";
 import {getDependencies} from "./dependencies.js";
-import {pureMarkdownRules} from "./pure-markdown.js";
 
 const rules = {
     ...pureMarkdownRules,

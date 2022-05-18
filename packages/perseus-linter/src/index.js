@@ -3,7 +3,6 @@ import Rule from "./rule.js";
 import AllRules from "./rules/all-rules.js";
 import TreeTransformer from "./tree-transformer.js";
 
-export {parse} from "./pure-markdown.js";
 export {linterContextProps, linterContextDefault} from "./proptypes.js";
 export type {LinterContextProps} from "./types.js";
 

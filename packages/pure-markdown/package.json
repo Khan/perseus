@@ -1,6 +1,6 @@
 {
-    "name": "@khanacademy/perseus-linter",
-    "description": "Linter engine for Perseus",
+    "name": "@khanacademy/pure-markdown",
+    "description": "SimpleMarkdown instance with non-react Perseus rules",
     "author": "Khan Academy",
     "license": "MIT",
     "version": "0.0.1",
@@ -21,11 +21,10 @@
         "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"
     },
     "dependencies": {
-        "@khanacademy/perseus-error": "^0.0.1"
+        "@khanacademy/perseus-error": "^0.0.1",
+        "@khanacademy/simple-markdown": "^0.8.3"
     },
-    "devDependencies": {
-        "@khanacademy/pure-markdown": "^0.0.1"
-    },
+    "devDependencies": {},
     "peerDependencies": {},
     "keywords": []
 }
