@@ -44,12 +44,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Build packages
-        # This is necessary for the storybook build to succeed because perseus-renderer.less
-        # includes the following line:
-        # @import (inline) "../../../math-input/dist/index.css";
-        run: yarn build
-
       - name: Build Storybook
         # Generate a static version of storybook inside "storybook-static/"
         run: yarn build-storybook
