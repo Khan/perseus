@@ -7,6 +7,8 @@ import * as React from "react";
 
 import {registerAllWidgetsForTesting} from "../packages/perseus/src/util/register-all-widgets-for-testing.js";
 
+import {TestTeX} from "./test-tex.jsx";
+
 import type {PerseusDependencies} from "../packages/perseus/src/index.js";
 import type {ILogger} from "../packages/perseus/src/logging/log.js";
 
@@ -116,4 +118,11 @@ export const testDependencies: PerseusDependencies = {
     isTablet: false,
 
     Log: LogForTesting,
+};
+
+export const storybookTestDependencies: PerseusDependencies = {
+    ...testDependencies,
+    TeX: TestTeX,
+    // $FlowIgnore[incompatible-type]
+    staticUrl: (str) => str,
 };
