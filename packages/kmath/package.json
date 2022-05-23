@@ -22,7 +22,7 @@
     },
     "dependencies": {},
     "devDependencies": {
-        "perseus-build-settings": "^0.0.1",
+        "perseus-build-settings": "^0.0.2",
         "underscore": "1.4.4"
     },
     "peerDependencies": {

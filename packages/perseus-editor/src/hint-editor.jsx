@@ -165,7 +165,6 @@ type CombinedHintEditorProps = {|
     itemId?: string,
     apiOptions?: APIOptions,
     deviceType: DeviceType,
-    frameSource: string,
     imageUploader?: ImageUploader,
     highlightLint?: boolean,
     isLast: boolean,
@@ -173,6 +172,8 @@ type CombinedHintEditorProps = {|
     hint: Hint,
     pos: number, // position
     contentPaths: $ReadOnlyArray<string>,
+    // URL of the route to show on initial load of the preview frames.
+    previewURL: string,
     onMove: (direction: number) => mixed,
     onRemove: () => mixed,
     onChange: ChangeHandler,
@@ -264,10 +265,10 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
                         <IframeContentRenderer
                             // eslint-disable-next-line react/no-string-refs
                             ref="frame"
-                            content={this.props.frameSource}
                             datasetKey="mobile"
                             datasetValue={isMobile}
                             seamless={true}
+                            url={this.props.previewURL}
                         />
                     </DeviceFramer>
                 </div>
@@ -279,10 +280,11 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
 type CombinedHintsEditorProps = {|
     apiOptions?: APIOptions,
     deviceType: DeviceType,
-    frameSource: string,
     imageUploader?: ImageUploader,
     highlightLint?: boolean,
     hints: $ReadOnlyArray<Hint>,
+    // URL of the route to show on initial load of the preview frames.
+    previewURL: string,
     onChange: ChangeHandler,
 
     // The content ID of the AssessmentItem being edited. It may not be set
@@ -414,8 +416,8 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
                         onMove={this.handleHintMove.bind(this, i)}
                         deviceType={this.props.deviceType}
                         apiOptions={this.props.apiOptions}
-                        frameSource={this.props.frameSource}
                         highlightLint={this.props.highlightLint}
+                        previewURL={this.props.previewURL}
                         // TODO(CP-4838): what should be passed here?
                         contentPaths={[]}
                     />

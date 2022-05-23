@@ -1,3 +1,4 @@
+// @flow
 import _ from "underscore";
 
 import * as KAS from "../index.js";
@@ -11,6 +12,7 @@ expect.extend({
 
         const actual = KAS.compare(inputExpr, expectedExpr, {form: false});
 
+        // $FlowFixMe[object-this-reference]
         if (this.isNot) {
             return actual.equal
                 ? {pass: true}
@@ -34,6 +36,7 @@ expect.extend({
 
         const actual = KAS.compare(inputExpr, expectedExpr, {form: true});
 
+        // $FlowFixMe[object-this-reference]
         if (this.isNot) {
             return actual.equal
                 ? {pass: true}

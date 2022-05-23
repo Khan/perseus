@@ -1,10 +1,13 @@
 #!/usr/bin/env node
+/* eslint-disable import/no-commonjs */
+/* eslint-disable prettier/prettier */
 
 /* TODO(charlie): fix these lint errors (http://eslint.org/docs/rules): */
 /* eslint-disable no-var, comma-dangle, max-len, comma-spacing */
 
 var fs = require("fs");
 var path = require("path");
+
 var jison = require("jison");
 
 var grammar = {
@@ -204,7 +207,7 @@ var unitParserOutfile = path.resolve(__dirname, "__genfiles__", "unitparser.js")
 
 var unitParserSource = fs.readFileSync(unitParserInfile);
 var unitParser = new jison.Generator(unitParserSource.toString());
-var generatedParser = unitParser.generate({ moduleType: "js" });
+var generatedParser = unitParser.generate({moduleType: "js"});
 // NOTE(jeresig): We need to comment out these two labels as they appear to be
 // invalid ES5 (they also aren't referenced anywhere so this seems safe).
 generatedParser = generatedParser.replace(/(_token_stack:)/g, "//$1");

@@ -8,4 +8,5 @@ packages/**/build
 **/*.md
 vendor
 LICENSE
-packages/kas/**
+**/__genfiles__
+storybook-static

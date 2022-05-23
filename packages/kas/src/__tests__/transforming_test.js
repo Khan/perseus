@@ -1,3 +1,4 @@
+// @flow
 import _ from "underscore";
 
 import * as KAS from "../index.js";
@@ -12,10 +13,7 @@ expect.extend({
             : {pass: false, message: () => `${input} factors as ${reference}`};
     },
     toExpandAs(input: string, reference: string) {
-        const actual = KAS.parse(input)
-            .expr.expand()
-            .normalize()
-            .print();
+        const actual = KAS.parse(input).expr.expand().normalize().print();
         const expected = KAS.parse(reference).expr.normalize().print();
 
         return actual === expected
@@ -37,10 +35,7 @@ expect.extend({
             : {pass: false, message: () => `${input} expands as ${reference}`};
     },
     toCollectAs(input: string, reference: string) {
-        const actual = KAS.parse(input)
-            .expr.collect()
-            .normalize()
-            .print();
+        const actual = KAS.parse(input).expr.collect().normalize().print();
         const expected = KAS.parse(reference)
             .expr.collect()
             .normalize()
@@ -65,12 +60,15 @@ expect.extend({
             : {pass: false, message: () => `${input} collects as ${reference}`};
     },
     toSimplifyAs(input: string, reference: string) {
-        var actual = KAS.parse(input).expr.simplify().normalize().print();
-        var expected = KAS.parse(reference).expr.normalize().print();
+        const actual = KAS.parse(input).expr.simplify().normalize().print();
+        const expected = KAS.parse(reference).expr.normalize().print();
 
         return actual === expected
             ? {pass: true}
-            : {pass: false, message: () => `${input} simplifies as ${reference}`};
+            : {
+                  pass: false,
+                  message: () => `${input} simplifies as ${reference}`,
+              };
     },
 });
 

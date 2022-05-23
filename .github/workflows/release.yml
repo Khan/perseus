@@ -44,6 +44,24 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
+      - name: Build packages
+        # This is necessary for the storybook build to succeed because perseus-renderer.less
+        # includes the following line:
+        # @import (inline) "../../../math-input/dist/index.css";
+        run: yarn build
+
+      - name: Build Storybook
+        # Generate a static version of storybook inside "storybook-static/"
+        run: yarn build-storybook
+
+      - name: Deploy to GitHub pages
+        uses: JamesIves/github-pages-deploy-action@v4.2.5
+        with:
+          # The branch the action should deploy to.
+          branch: gh-pages
+          # The folder the action should deploy.
+          folder: storybook-static
+
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@v1

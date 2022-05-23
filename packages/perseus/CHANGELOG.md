@@ -1,5 +1,49 @@
 # @khanacademy/perseus
 
+## 0.2.8
+
+### Patch Changes
+
+-   a4f10ace: Move Gorgon, PerseusError, PureMarkdown into their own packages
+-   Updated dependencies [a4f10ace]
+    -   @khanacademy/perseus-linter@0.1.0
+    -   @khanacademy/pure-markdown@0.1.0
+
+## 0.2.7
+
+### Patch Changes
+
+-   3921a385: Fix bug where JIPT integration parsing rules returned incorrect type
+-   Updated dependencies [3921a385]
+    -   @khanacademy/simple-markdown@0.8.3
+
+## 0.2.6
+
+### Patch Changes
+
+-   5d67bb03: Add missing deps to peer/dev deps in package.json files
+
+## 0.2.5
+
+### Patch Changes
+
+-   Updated dependencies [a15b0e86]
+    -   @khanacademy/kas@0.2.4
+    -   @khanacademy/math-input@0.5.2
+    -   @khanacademy/simple-markdown@0.8.2
+
+## 0.2.4
+
+### Patch Changes
+
+-   5d86a625: Remove all unused fields from `Dependencies.InitialRequestUrl`
+
+## 0.2.3
+
+### Patch Changes
+
+-   73095170: Add `VideoData` to set of exported Perseus types.
+
 ## 0.2.2
 
 ### Patch Changes

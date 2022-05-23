@@ -1,11 +1,12 @@
 // @flow
+
 /**
  * Contains markdown related functions in pure javascript,
  * extracted from perseus-markdown.jsx
+ * Note that this file may be used in stand alone nodejs, thus
+ * do not import anything from Perseus
  */
 import SimpleMarkdown from "@khanacademy/simple-markdown";
-
-import Util from "./util.js";
 
 /**
  * This match function matches math in `$`s, such as:
@@ -29,6 +30,9 @@ import Util from "./util.js";
  *
  * This can also match block-math, which is math alone in a paragraph.
  */
+
+const rWidgetRule: RegExp = /^\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]/;
+
 const mathMatcher = (source, state, isBlock) => {
     const length = source.length;
     let index = 0;
@@ -118,23 +122,19 @@ const TITLED_TABLE_REGEX = new RegExp(
         "(" +
         // The simple-markdown nptable regex, without
         // the leading `^`
-        // $FlowFixMe[prop-missing]
         // $FlowFixMe[incompatible-use]
         SimpleMarkdown.defaultRules.nptable.match.regex.source.substring(1) +
         ")",
 );
 
-// $FlowFixMe[prop-missing]
 const crowdinJiptMatcher = SimpleMarkdown.blockRegex(/^(crwdns.*)\n\s*\n/);
 
 export const pureMarkdownRules = {
-    // $FlowFixMe[prop-missing]
     ...SimpleMarkdown.defaultRules,
 
     // NOTE: basically ignored by JIPT. wraps everything at the outer layer
     columns: {
         order: -2,
-        // $FlowFixMe[prop-missing]
         match: (SimpleMarkdown.blockRegex(
             /^([\s\S]*\n\n)={5,}\n\n([\s\S]*)/,
         ): any),
@@ -166,20 +166,14 @@ export const pureMarkdownRules = {
     // our nptable regex
     titledTable: {
         // process immediately before nptables
-        // $FlowFixMe[prop-missing]
-        // $FlowFixMe[incompatible-use]
         order: SimpleMarkdown.defaultRules.nptable.order - 0.5,
-        // $FlowFixMe[prop-missing]
         match: (SimpleMarkdown.blockRegex(TITLED_TABLE_REGEX): any),
         parse: (capture: any, parse: any, state: any): any => {
-            // $FlowFixMe[prop-missing]
             const title = SimpleMarkdown.parseInline(parse, capture[1], state);
 
             // Remove our [0] and [1] captures, and pass the rest to
             // the nptable parser
             const tableCapture = capture.slice(2);
-            // $FlowFixMe[prop-missing]
-            // $FlowFixMe[incompatible-use]
             const table = SimpleMarkdown.defaultRules.nptable.parse(
                 tableCapture,
                 parse,
@@ -192,11 +186,8 @@ export const pureMarkdownRules = {
         },
     },
     widget: {
-        // $FlowFixMe[prop-missing]
-        // $FlowFixMe[incompatible-use]
         order: SimpleMarkdown.defaultRules.link.order - 0.75,
-        // $FlowFixMe[prop-missing]
-        match: (SimpleMarkdown.inlineRegex(Util.rWidgetRule): any),
+        match: (SimpleMarkdown.inlineRegex(rWidgetRule): any),
         parse: (capture: any, parse: any, state: any): any => {
             return {
                 id: capture[1],
@@ -205,8 +196,6 @@ export const pureMarkdownRules = {
         },
     },
     blockMath: {
-        // $FlowFixMe[prop-missing]
-        // $FlowFixMe[incompatible-use]
         order: (SimpleMarkdown.defaultRules.codeBlock.order + 0.5: any),
         match: blockMathMatch,
         parse: (capture: any, parse: any, state: any): any => {
@@ -216,8 +205,6 @@ export const pureMarkdownRules = {
         },
     },
     math: {
-        // $FlowFixMe[prop-missing]
-        // $FlowFixMe[incompatible-use]
         order: SimpleMarkdown.defaultRules.link.order - 0.25,
         match: mathMatch,
         parse: (capture: any, parse: any, state: any): any => {
@@ -227,22 +214,15 @@ export const pureMarkdownRules = {
         },
     },
     unescapedDollar: {
-        // $FlowFixMe[prop-missing]
-        // $FlowFixMe[incompatible-use]
         order: SimpleMarkdown.defaultRules.link.order - 0.24,
-        // $FlowFixMe[prop-missing]
         match: (SimpleMarkdown.inlineRegex(/^(?!\\)\$/): any),
         parse: (capture: any, parse: any, state: any): any => {
             return {};
         },
     },
     fence: {
-        // $FlowFixMe[prop-missing]
-        // $FlowFixMe[incompatible-use]
         ...SimpleMarkdown.defaultRules.fence,
         parse: (capture: any, parse: any, state: any): any => {
-            // $FlowFixMe[prop-missing]
-            // $FlowFixMe[incompatible-use]
             const node = SimpleMarkdown.defaultRules.fence.parse(
                 capture,
                 parse,
@@ -267,8 +247,6 @@ export const pureMarkdownRules = {
         },
     },
     blockQuote: {
-        // $FlowFixMe[prop-missing]
-        // $FlowFixMe[incompatible-use]
         ...SimpleMarkdown.defaultRules.blockQuote,
         // Replace the less restrictive blockquote regex from SimpleMarkdown
         // with a more restrictive one. The only difference should be that
@@ -297,14 +275,11 @@ export const pureMarkdownRules = {
         // libraries, for instance CommonMark also splits up blockquotes with
         // empty lines into multiple blockquotes:
         // https://spec.commonmark.org/0.28/#example-205
-        // $FlowFixMe[prop-missing]
         match: (SimpleMarkdown.blockRegex(
             /^ *>[^\n]+(\n( *>)?[^\n]+)*\n{2,}/,
         ): any),
     },
     list: {
-        // $FlowFixMe[prop-missing]
-        // $FlowFixMe[incompatible-use]
         ...SimpleMarkdown.defaultRules.list,
         match: (source: any, state: any, prevCapture: any): any => {
             // Since lists can contain double newlines and we have special
@@ -313,8 +288,6 @@ export const pureMarkdownRules = {
             if (state.isJipt) {
                 return null;
             }
-            // $FlowFixMe[prop-missing]
-            // $FlowFixMe[incompatible-use]
             return SimpleMarkdown.defaultRules.list.match(
                 source,
                 state,
@@ -333,7 +306,6 @@ export const pureMarkdownRules = {
     },
 };
 
-// $FlowFixMe[prop-missing]
 // $FlowFixMe[incompatible-call]
 const builtParser = SimpleMarkdown.parserFor(pureMarkdownRules);
 

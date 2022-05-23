@@ -1,10 +1,10 @@
 /* eslint-disable react/no-unsafe, react/sort-comp */
 // @flow
+import {linterContextDefault} from "@khanacademy/perseus-linter";
 import classNames from "classnames";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
-import {linterContextDefault} from "./gorgon/proptypes.js";
 import {zIndexInteractiveComponent} from "./styles/constants.js";
 import {containerSizeClass, getClassFromWidth} from "./util/sizing-utils.js";
 import * as Widgets from "./widgets.js";

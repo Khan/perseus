@@ -1,14 +1,16 @@
 // @flow
-// TODO(FEI-4465): move this into its own package called perseus-gorgon that depends on perseus-markdown
-import PerseusMarkdown from "../perseus-markdown.jsx";
-
 import Rule from "./rule.js";
 import AllRules from "./rules/all-rules.js";
 import TreeTransformer from "./tree-transformer.js";
 
+export {linterContextProps, linterContextDefault} from "./proptypes.js";
+export type {LinterContextProps} from "./types.js";
+
 const allLintRules: $ReadOnlyArray<$FlowFixMe> = AllRules.filter(
     (r) => r.severity < Rule.Severity.BULK_WARNING,
 );
+
+export {Rule, allLintRules as rules};
 
 //
 // Run the Gorgon linter over the specified markdown parse tree,
@@ -34,7 +36,7 @@ const allLintRules: $ReadOnlyArray<$FlowFixMe> = AllRules.filter(
 // in that case). This would allow the one function to be used for both
 // online linting and batch linting.
 //
-function runLinter(
+export function runLinter(
     tree: $FlowFixMe,
     context: $FlowFixMe,
     highlight: boolean,
@@ -267,24 +269,13 @@ function runLinter(
     return warnings;
 }
 
-function pushContextStack(context: $FlowFixMe, name: string): $FlowFixMe {
+export function pushContextStack(
+    context: $FlowFixMe,
+    name: string,
+): $FlowFixMe {
     const stack = context.stack || [];
     return {
         ...context,
         stack: stack.concat(name),
     };
 }
-
-//
-// TODO(davidflanagan):
-// Revisit these exports once we've got gorgon integrated into Perseus.
-// Do we really need to export all of these things, or can we export a
-// smaller set of functionality to enable both bulk linting by tools/gorgon.js
-// and online linting?
-//
-export default {
-    runLinter,
-    parse: PerseusMarkdown.parse,
-    pushContextStack,
-    rules: allLintRules,
-};

@@ -11,28 +11,36 @@ const arrayRules: ParserRules = {
     fence: {
         match: SimpleMarkdown.defaultRules.fence.match,
         order: 1,
-        // $FlowFixMe[incompatible-type]
-        parse: (capture, state, parse) => capture[3],
+        parse: (capture, state, parse) => ({
+            type: "codeBlock",
+            lang: capture[2] || undefined,
+            content: capture[3],
+        }),
     },
     paragraph: {
         match: SimpleMarkdown.defaultRules.paragraph.match,
         order: 2,
-        // $FlowFixMe[incompatible-type]
-        parse: (capture, state, parse) => capture[1],
+        parse: (capture, state, parse) => ({
+            content: capture[1],
+        }),
     },
 };
 
-// $FlowFixMe[prop-missing]
-const builtArrayParser = SimpleMarkdown.parserFor(arrayRules);
+const builtArrayParser: $Call<
+    typeof SimpleMarkdown.parserFor,
+    typeof arrayRules,
+> = SimpleMarkdown.parserFor(arrayRules);
 
 // This should just return an array of strings! magick!
-const parseToArray = (source: string): $FlowFixMe => {
+const parseToArray = (source: string): Array<string> => {
     // Remove any leading newlines to avoid splitting weirdness
     // (simple-markdown has the `newline` rule for this, and i have
     // no idea how this will handle leading newlines without that rule),
     // and add \n\n to let it parse at a block/paragraph level
     const paragraphedSource = source.replace(/^\n\s*\n/, "") + "\n\n";
-    return builtArrayParser(paragraphedSource, {inline: false});
+    return builtArrayParser(paragraphedSource, {inline: false}).map((c) => {
+        return c["content"];
+    });
 };
 
 const joinFromArray = (paragraphs: $ReadOnlyArray<string>): string =>

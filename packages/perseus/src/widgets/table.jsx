@@ -1,6 +1,10 @@
 /* eslint-disable react/sort-comp */
 // @flow
 import {keypadElementPropType} from "@khanacademy/math-input";
+import {
+    linterContextProps,
+    linterContextDefault,
+} from "@khanacademy/perseus-linter";
 import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -8,7 +12,6 @@ import _ from "underscore";
 
 import MathOutput from "../components/math-output.jsx";
 import SimpleKeypadInput from "../components/simple-keypad-input.jsx";
-import {linterContextProps, linterContextDefault} from "../gorgon/proptypes.js";
 import InteractiveUtil from "../interactive2/interactive-util.js";
 import {ApiOptions} from "../perseus-api.jsx";
 import Renderer from "../renderer.jsx";

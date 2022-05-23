@@ -1948,7 +1948,7 @@
     "@khanacademy/wonder-blocks-spacing" "^3.0.5"
     "@khanacademy/wonder-blocks-typography" "^1.1.31"
 
-"@khanacademy/wonder-blocks-button@2.11.5", "@khanacademy/wonder-blocks-button@^2.11.5":
+"@khanacademy/wonder-blocks-button@^2.11.5":
   version "2.11.5"
   resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-button/-/wonder-blocks-button-2.11.5.tgz#b132ff8385fcc6e5d9ca681adab5e9805e91ed82"
   integrity sha512-Et1HmGFEx+PaFKfovm5EUfIvk/35NI3VomMsiZFl6t/txBp2STitvTzvfl+jP/O7DFnrVGjUrDU4EYpx/6fT3A==
@@ -2043,7 +2043,7 @@
     "@babel/runtime" "^7.16.3"
     "@khanacademy/wonder-blocks-core" "^4.3.1"
 
-"@khanacademy/wonder-blocks-layout@1.4.9", "@khanacademy/wonder-blocks-layout@^1.4.9":
+"@khanacademy/wonder-blocks-layout@^1.4.9":
   version "1.4.9"
   resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-layout/-/wonder-blocks-layout-1.4.9.tgz#96344a5c8b1113d9d364e6bb1314cbcceda98d9d"
   integrity sha512-YUILmtzONsuNJiCrBKbuZktRDHEUugCquqkR+NXrvSFBXlBNV9RWLQ0Hll/3O8aLC3+qITELkWNs01Wwi+Xe6A==
@@ -2094,7 +2094,7 @@
     "@khanacademy/wonder-blocks-tooltip" "^1.3.11"
     "@khanacademy/wonder-blocks-typography" "^1.1.31"
 
-"@khanacademy/wonder-blocks-progress-spinner@1.1.31", "@khanacademy/wonder-blocks-progress-spinner@^1.1.31":
+"@khanacademy/wonder-blocks-progress-spinner@^1.1.31":
   version "1.1.31"
   resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-progress-spinner/-/wonder-blocks-progress-spinner-1.1.31.tgz#a8e4fcbda3f51dd0ac48a0e734cb176d187d8fde"
   integrity sha512-1M5h9coA1cP4tkUv79yS3R9bfsxVkJuNi7OrGwTTYV9ernOGnR31QfA7Xxt/onoljb6KMgE+h2iTgaP9qvd2KQ==
@@ -2137,7 +2137,7 @@
     "@khanacademy/wonder-blocks-spacing" "^3.0.5"
     "@khanacademy/wonder-blocks-typography" "^1.1.31"
 
-"@khanacademy/wonder-blocks-typography@1.1.31", "@khanacademy/wonder-blocks-typography@^1.1.31":
+"@khanacademy/wonder-blocks-typography@^1.1.31":
   version "1.1.31"
   resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-typography/-/wonder-blocks-typography-1.1.31.tgz#e6cfc65cee9e9b931133ff51120657e9ee4d21bd"
   integrity sha512-+pxp/YPZXEgSLsxmSuDYOgPfytyoeMqb88PxBMRM/Lb3SwZdxOETxfkPuMxvl6I6QQloWem3tmr4Q9qcUn1w1A==
@@ -5761,6 +5761,11 @@ clone@^1.0.2:
   resolved "https://registry.yarnpkg.com/clone/-/clone-1.0.4.tgz#da309cc263df15994c688ca902179ca3c7cd7c7e"
   integrity sha1-2jCcwmPfFZlMaIypAheco8fNfH4=
 
+clone@^2.1.1:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/clone/-/clone-2.1.2.tgz#1b7f4b9f591f1e8f83670401600345a02887435f"
+  integrity sha1-G39Ln1kfHo+DZwQBYANFoCiHQ18=
+
 clsx@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/clsx/-/clsx-1.1.1.tgz#98b3134f9abbdf23b2663491ace13c5c03a73188"
@@ -8402,6 +8407,11 @@ flow-bin@^0.176.2:
   resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.176.2.tgz#b257da3ebd131b368c95c72e010dc823bfa159e8"
   integrity sha512-gX3YJvv40oRY7A/ytEsWLDMHTfIkmy6ir1D4e5fklVsj3958iTg90cO8XwDdspnxQSgEUP1HW1e6wlX1OlQ5+Q==
 
+flow-enums-runtime@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/flow-enums-runtime/-/flow-enums-runtime-0.0.6.tgz#5bb0cd1b0a3e471330f4d109039b7eba5cb3e787"
+  integrity sha512-3PYnM29RFXwvAN6Pc/scUfkI7RwhQ/xqyLUyPNlXUp9S40zI8nup9tUSrTLSVnWGBN38FNiGWbwZOB6uR4OGdw==
+
 flush-write-stream@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/flush-write-stream/-/flush-write-stream-1.1.1.tgz#8dd7d873a1babc207d94ead0c2e0e44276ebf2e8"
@@ -10893,7 +10903,7 @@ jest-worker@^24.9.0:
     merge-stream "^2.0.0"
     supports-color "^6.1.0"
 
-jest-worker@^26.2.1, jest-worker@^26.5.0, jest-worker@^26.6.2:
+jest-worker@^26.5.0, jest-worker@^26.6.2:
   version "26.6.2"
   resolved "https://registry.yarnpkg.com/jest-worker/-/jest-worker-26.6.2.tgz#7f72cbc4d643c365e27b9fd775f9d0eaa9c7a8ed"
   integrity sha512-KWYVV1c4i+jbMpaBC+U++4Va0cp8OisU185o73T1vo99hqi7w8tSJfUXYswwqqrjzwxa6KpRK54WhPvwf5w6PQ==
@@ -11277,6 +11287,15 @@ left-pad@^1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/left-pad/-/left-pad-1.3.0.tgz#5b8a3a7765dfe001261dde915589e782f8c94d1e"
   integrity sha512-XI5MPzVNApjAyhQzphX8BkmKsKUxD4LdyK24iZeQGinBN9yTQT3bFlCBy/aVx2HrNcqQGsdot8ghrjyrvMCoEA==
+
+less-loader@^4:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/less-loader/-/less-loader-4.1.0.tgz#2c1352c5b09a4f84101490274fd51674de41363e"
+  integrity sha512-KNTsgCE9tMOM70+ddxp9yyt9iHqgmSs0yTZc5XH5Wo+g80RWRIYNqE58QJKm/yMud5wZEvz50ugRDuzVIkyahg==
+  dependencies:
+    clone "^2.1.1"
+    loader-utils "^1.1.0"
+    pify "^3.0.0"
 
 less@~3.0.0:
   version "3.0.4"
@@ -14987,16 +15006,6 @@ rollup-plugin-styles@^4.0.0:
     source-map-js "^1.0.1"
     tslib "^2.3.1"
 
-rollup-plugin-terser@^7.0.2:
-  version "7.0.2"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-terser/-/rollup-plugin-terser-7.0.2.tgz#e8fbba4869981b2dc35ae7e8a502d5c6c04d324d"
-  integrity sha512-w3iIaU4OxcF52UUXiZNsNeuXIMDvFrr+ZXK6bFZ0Q60qyVfq4uLptoS4bbq3paG3x216eQllFZX7zt6TIImguQ==
-  dependencies:
-    "@babel/code-frame" "^7.10.4"
-    jest-worker "^26.2.1"
-    serialize-javascript "^4.0.0"
-    terser "^5.0.0"
-
 rollup@^2.70.2:
   version "2.70.2"
   resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.70.2.tgz#808d206a8851628a065097b7ba2053bd83ba0c0d"
@@ -16110,16 +16119,6 @@ terser@^4.1.2, terser@^4.6.3:
     source-map "~0.6.1"
     source-map-support "~0.5.12"
 
-terser@^5.0.0, terser@^5.6.0:
-  version "5.12.1"
-  resolved "https://registry.yarnpkg.com/terser/-/terser-5.12.1.tgz#4cf2ebed1f5bceef5c83b9f60104ac4a78b49e9c"
-  integrity sha512-NXbs+7nisos5E+yXwAD+y7zrcTkMqb0dEJxIGtSKPdCBzopf7ni4odPul2aechpV7EXNvOudYOX2bb5tln1jbQ==
-  dependencies:
-    acorn "^8.5.0"
-    commander "^2.20.0"
-    source-map "~0.7.2"
-    source-map-support "~0.5.20"
-
 terser@^5.3.4:
   version "5.13.0"
   resolved "https://registry.yarnpkg.com/terser/-/terser-5.13.0.tgz#d43fd71861df1b4df743980caa257c6fa03acc44"
@@ -16128,6 +16127,16 @@ terser@^5.3.4:
     acorn "^8.5.0"
     commander "^2.20.0"
     source-map "~0.8.0-beta.0"
+    source-map-support "~0.5.20"
+
+terser@^5.6.0:
+  version "5.12.1"
+  resolved "https://registry.yarnpkg.com/terser/-/terser-5.12.1.tgz#4cf2ebed1f5bceef5c83b9f60104ac4a78b49e9c"
+  integrity sha512-NXbs+7nisos5E+yXwAD+y7zrcTkMqb0dEJxIGtSKPdCBzopf7ni4odPul2aechpV7EXNvOudYOX2bb5tln1jbQ==
+  dependencies:
+    acorn "^8.5.0"
+    commander "^2.20.0"
+    source-map "~0.7.2"
     source-map-support "~0.5.20"
 
 test-exclude@^5.2.3:

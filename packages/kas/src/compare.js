@@ -1,3 +1,4 @@
+/* eslint-disable */
 import _ from "underscore";
 
 // Assumes that both expressions have already been parsed

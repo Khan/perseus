@@ -1,4 +1,5 @@
 // @flow
+import {linterContextDefault} from "@khanacademy/perseus-linter";
 import Button from "@khanacademy/wonder-blocks-button";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {StyleSheet, css} from "aphrodite";
@@ -7,7 +8,6 @@ import * as React from "react";
 import _ from "underscore";
 
 import InlineIcon from "../components/inline-icon.jsx";
-import {linterContextDefault} from "../gorgon/proptypes.js";
 import {iconOk, iconRemove} from "../icon-paths.js";
 import * as Changeable from "../mixins/changeable.jsx";
 import {ApiOptions} from "../perseus-api.jsx";

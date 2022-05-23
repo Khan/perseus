@@ -1,3 +1,4 @@
+// @flow
 import _ from "underscore";
 
 import * as KAS from "../index.js";
@@ -21,6 +22,7 @@ expect.extend({
             };
         }
 
+        // $FlowFixMe[object-this-reference]
         return {pass: !this.isNot};
     },
 });
