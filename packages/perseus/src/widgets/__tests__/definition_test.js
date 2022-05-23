@@ -1,5 +1,5 @@
 // @flow
-import {screen, waitForElementToBeRemoved} from "@testing-library/react";
+import {screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import "@testing-library/jest-dom"; // Imports custom matchers
@@ -49,28 +49,30 @@ describe("Definition widget", () => {
         expect(container).toMatchSnapshot("first render");
     });
 
-    it("should have an open state snapshot", () => {
+    it("should have an open state snapshot", async () => {
         // Arrange
         const {container} = renderQuestion(question);
 
         // Act
         const definitionAnchor = screen.getByText("the Pequots");
-        userEvent.hover(definitionAnchor);
+        userEvent.click(definitionAnchor);
 
         // Assert
+        const tooltip = await screen.findByRole("dialog");
+        expect(tooltip).toBeVisible();
         expect(container).toMatchSnapshot("open state");
     });
 
-    it("should display the definition on hover", async () => {
+    it("should display the definition on click", async () => {
         // Arrange
         renderQuestion(question);
 
         // Act
         const definitionAnchor = screen.getByText("the Pequots");
-        userEvent.hover(definitionAnchor);
+        userEvent.click(definitionAnchor);
 
         // Assert
-        const tooltip = await screen.findByRole("tooltip");
+        const tooltip = await screen.findByRole("dialog");
         expect(tooltip).toBeVisible();
         expect(tooltip).toHaveTextContent("Definition text");
     });
@@ -82,41 +84,28 @@ describe("Definition widget", () => {
         // Act
         const definitionAnchor = screen.getByText("the Pequots");
         userEvent.click(definitionAnchor);
-        const tooltip = await screen.findByRole("tooltip");
+        const tooltip = await screen.findByRole("dialog");
 
         // Assert
         expect(tooltip).toBeVisible();
         expect(tooltip).toHaveTextContent("Definition text");
     });
 
-    it("should show via focus by the tab key", async () => {
+    it("should show via focus on space key", async () => {
         // Arrange
         renderQuestion(question);
 
         // Act - Tab in to set focus
-        userEvent.tab();
+        const definitionAnchor = screen.getByText("the Pequots");
+        userEvent.type(definitionAnchor, "{space}");
 
         // Assert
-        const tooltip = await screen.findByRole("tooltip");
+        const tooltip = await screen.findByRole("dialog");
         expect(tooltip).toBeVisible();
         expect(tooltip).toHaveTextContent("Definition text");
     });
 
-    it("should hide and blur by the tab key", async () => {
-        // Arrange
-        renderQuestion(question);
-
-        // Act - Tab in to set focus, tab out to blur
-        userEvent.tab();
-        await screen.findByRole("tooltip");
-        userEvent.tab();
-        await waitForElementToBeRemoved(() => screen.queryByRole("tooltip"));
-
-        // Assert
-        expect(screen.queryByRole("tooltip")).toBeNull();
-    });
-
-    it("should dimiss by a click when showing", async () => {
+    it("should dimiss by a click on the x when showing", async () => {
         renderQuestion(question);
 
         // Act
@@ -124,16 +113,12 @@ describe("Definition widget", () => {
         const definitionAnchor = screen.getByText("the Pequots");
         userEvent.click(definitionAnchor);
 
-        // Move the mouse away and make sure text is still visible
-        userEvent.unhover(definitionAnchor);
-        await screen.findByRole("tooltip");
-
-        // Click to elsewhere, tooltip is hidden
-        userEvent.click((document.body: any));
-        await waitForElementToBeRemoved(() => screen.queryByRole("tooltip"));
+        // Click close, tooltip is hidden
+        const close = screen.getByTestId("popover-close-btn");
+        userEvent.click(close);
 
         // Assert
-        expect(screen.queryByRole("tooltip")).toBeNull();
+        expect(screen.queryByRole("dialog")).toBeNull();
     });
 
     it("should not affect answerable", () => {
