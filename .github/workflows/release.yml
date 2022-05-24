@@ -40,7 +40,7 @@ jobs:
           fetch-depth: 0
 
       - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
-        uses: ./.github/actions/shared-node-cache
+        uses: Khan/actions@shared-node-cache-v0
         with:
           node-version: ${{ matrix.node-version }}
 
