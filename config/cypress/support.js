@@ -21,7 +21,7 @@ const dragTo = (node, pos: {|x: number, y: number|}) => {
         .trigger("mousedown", {force: true, which: 1, button: 0})
         .trigger("mousemove", {force: true, pageX: pos.x, pageY: pos.y})
         .trigger("mouseup", {force: true})
-        .trigger("mouseout");
+        .trigger("mouseout", {force: true});
 };
 Cypress.Commands.add("dragTo", {prevSubject: true}, dragTo);
 
