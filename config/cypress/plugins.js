@@ -52,6 +52,10 @@ module.exports = (on, config) => {
         }),
     );
 
+    if (config.env["COVERAGE"]) {
+        require("@cypress/code-coverage/task")(on, config);
+    }
+
     config.env.reactDevtools = true;
     return config;
 };

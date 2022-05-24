@@ -21,6 +21,7 @@
     "@babel/preset-flow": "^7.16.7",
     "@babel/preset-react": "^7.16.0",
     "@changesets/cli": "^2.22.0",
+    "@cypress/code-coverage": "^3.9.12",
     "@cypress/react": "^5.12.5",
     "@cypress/webpack-dev-server": "^1.8.4",
     "@khanacademy/eslint-config": "^0.1.0",
@@ -43,7 +44,10 @@
     "@testing-library/user-event": "^13.1.9",
     "ancesdir": "^3.1.0",
     "babel-jest": "28",
+    "babel-loader": "^8.0.5",
+    "babel-plugin-istanbul": "^6.1.1",
     "babel-plugin-transform-flow-enums": "^0.0.2",
+    "cross-env": "^5.2.0",
     "cypress": "^9.6.1",
     "cypress-jest-adapter": "^0.1.1",
     "cypress-wait-until": "^1.7.2",
@@ -77,6 +81,7 @@
     "katex": "^0.11.1",
     "less": "~3.0.0",
     "less-loader": "^4",
+    "nyc": "^15.1.0",
     "prettier": "^2.6.2",
     "react-json-view": "^1.19.1",
     "react-redux": "^7.2.6",
@@ -105,13 +110,13 @@
     "extract-strings": "./utils/extract-strings.js",
     "flow:ci": "flow check --max-workers 0",
     "lint": "eslint --config .eslintrc.js . --ext .js --ext .jsx",
-    "lint:timing": "TIMING=1 yarn lint",
+    "lint:timing": "cross-env TIMING=1 yarn lint",
     "publish:ci": "node utils/pre-publish-check-ci.js && git diff --stat --exit-code HEAD && yarn build && yarn extract-strings && changeset publish",
     "sloc": "sloc packages --exclude node_modules",
     "test": "yarn jest",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "cypress": "cypress open-ct",
-    "cypress:ci": "cypress run-ct"
+    "cypress:ci": "cross-env COVERAGE=1 cypress run-ct --env COVERAGE=1"
   }
 }

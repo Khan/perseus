@@ -6,6 +6,10 @@ import "cypress-jest-adapter";
 // eslint-disable-next-line import/no-unassigned-import
 import "cypress-wait-until";
 
+if (Cypress.env("COVERAGE")) {
+    require("@cypress/code-coverage/support");
+}
+
 // Here we register our custom commands
 // NOTE: If we end up with a lot of custom commands, we should break
 // each command into its own file.
