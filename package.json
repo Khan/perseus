@@ -112,6 +112,6 @@
     "storybook": "yarn build && start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "cypress": "cypress open-ct",
-    "test:cypress": "cypress run-ct"
+    "cypress:ci": "cypress run-ct"
   }
 }
