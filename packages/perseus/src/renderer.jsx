@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unsafe */
 // @flow
-import * as Gorgon from "@khanacademy/perseus-linter";
+import * as PerseusLinter from "@khanacademy/perseus-linter";
 import classNames from "classnames";
 import $ from "jquery";
 import * as React from "react";
@@ -18,11 +18,11 @@ import InteractionTracker from "./interaction-tracker.js";
 import Objective from "./interactive2/objective_.js";
 import JiptParagraphs from "./jipt-paragraphs.js";
 import {Errors, Log} from "./logging/log.js";
-import NotGorgon from "./not-gorgon.js"; // The i18n linter
 import {ClassNames as ApiClassNames, ApiOptions} from "./perseus-api.jsx";
 import {PerseusError} from "./perseus-error.js";
 import PerseusMarkdown from "./perseus-markdown.jsx";
 import QuestionParagraph from "./question-paragraph.jsx";
+import TranslationLinter from "./translation-linter.js";
 import Util from "./util.js";
 import preprocessTex from "./util/katex-preprocess.js";
 import WidgetContainer from "./widget-container.jsx";
@@ -170,7 +170,7 @@ type Props = {|
 |};
 
 type State = {|
-    notGorgonLintErrors: $ReadOnlyArray<string>,
+    translationLintErrors: $ReadOnlyArray<string>,
     widgetInfo: $ReadOnly<{|[id: string]: ?WidgetInfo|}>,
     widgetProps: $ReadOnly<{|[id: string]: ?$FlowFixMe|}>,
     jiptContent: any,
@@ -209,7 +209,7 @@ class Renderer extends React.Component<Props, State> {
     _isTwoColumn: boolean;
 
     // The i18n linter.
-    _notGorgon: NotGorgon;
+    _translationLinter: TranslationLinter;
 
     lastRenderedMarkdown: React.Element<PerseusDependencies["KatexProvider"]>;
     reuseMarkdown: boolean;
@@ -233,20 +233,20 @@ class Renderer extends React.Component<Props, State> {
         reviewMode: false,
         serializedState: null,
         onSerializedStateUpdated: () => {},
-        linterContext: Gorgon.linterContextDefault,
+        linterContext: PerseusLinter.linterContextDefault,
     };
 
     constructor(props: Props, context: Context) {
         super(props, context);
-        this._notGorgon = new NotGorgon();
+        this._translationLinter = new TranslationLinter();
 
         this.state = {
             jiptContent: null,
 
-            // NotGorgon is async and currently does not contain a location.
-            // This is a list of error strings NotGorgon detected on its last
-            // run.
-            notGorgonLintErrors: [],
+            // TranslationLinter is async and currently does not contain a
+            // location. This is a list of error strings TranslationLinter
+            // detected on its last run.
+            translationLintErrors: [],
 
             // The ID of the last widget the user interacted with. We'll
             // use this to set the `isLastUsedWidget` flag on the
@@ -275,9 +275,9 @@ class Renderer extends React.Component<Props, State> {
         if (this.props.linterContext.highlightLint) {
             // Get i18n lint errors asynchronously. If there are lint errors,
             // this component will be rerendered.
-            this._notGorgon.runLinter(
+            this._translationLinter.runLinter(
                 this.props.content,
-                this.handleNotGorgonLintErrors,
+                this.handletranslationLintErrors,
             );
         }
     }
@@ -343,8 +343,8 @@ class Renderer extends React.Component<Props, State> {
             !newJipt &&
             oldContent === newContent &&
             _.isEqual(
-                this.state.notGorgonLintErrors,
-                nextState.notGorgonLintErrors,
+                this.state.translationLintErrors,
+                nextState.translationLintErrors,
             ) &&
             // If we are running the linter then we need to know when
             // widgets have changed because we need for force the linter to
@@ -391,9 +391,9 @@ class Renderer extends React.Component<Props, State> {
         if (this.props.linterContext.highlightLint) {
             // Get i18n lint errors asynchronously. If lint errors have changed
             // since the last run, this component will be rerendered.
-            this._notGorgon.runLinter(
+            this._translationLinter.runLinter(
                 this.props.content,
-                this.handleNotGorgonLintErrors,
+                this.handletranslationLintErrors,
             );
         }
     }
@@ -537,7 +537,7 @@ class Renderer extends React.Component<Props, State> {
                         type={type}
                         initialProps={this.getWidgetProps(id)}
                         shouldHighlight={shouldHighlight}
-                        linterContext={Gorgon.pushContextStack(
+                        linterContext={PerseusLinter.pushContextStack(
                             this.props.linterContext,
                             "widget",
                         )}
@@ -1780,18 +1780,17 @@ class Renderer extends React.Component<Props, State> {
         return examples[0];
     };
 
-    // NotGorgon callback
-    handleNotGorgonLintErrors: (lintErrors: $ReadOnlyArray<string>) => void = (
-        lintErrors: $ReadOnlyArray<string>,
-    ) => {
-        if (!this._isMounted) {
-            return;
-        }
+    // TranslationLinter callback
+    handletranslationLintErrors: (lintErrors: $ReadOnlyArray<string>) => void =
+        (lintErrors: $ReadOnlyArray<string>) => {
+            if (!this._isMounted) {
+                return;
+            }
 
-        this.setState({
-            notGorgonLintErrors: lintErrors,
-        });
-    };
+            this.setState({
+                translationLintErrors: lintErrors,
+            });
+        };
 
     render(): React.Node {
         const apiOptions = this.getApiOptions();
@@ -1885,12 +1884,12 @@ class Renderer extends React.Component<Props, State> {
                 ...this.props.linterContext,
             };
 
-            Gorgon.runLinter(parsedMarkdown, context, true);
+            PerseusLinter.runLinter(parsedMarkdown, context, true);
 
-            // Apply the lint errors from the last NotGorgon run.
+            // Apply the lint errors from the last TranslationLinter run.
             // TODO(joshuan): Support overlapping dots.
-            this._notGorgon.applyLintErrors(parsedMarkdown, [
-                ...this.state.notGorgonLintErrors,
+            this._translationLinter.applyLintErrors(parsedMarkdown, [
+                ...this.state.translationLintErrors,
                 ...(this.props.legacyPerseusLint || []),
             ]);
         }

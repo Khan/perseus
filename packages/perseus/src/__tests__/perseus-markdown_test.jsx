@@ -1,5 +1,5 @@
 // @flow
-import * as Gorgon from "@khanacademy/perseus-linter";
+import * as PerseusLinter from "@khanacademy/perseus-linter";
 
 import PerseusMarkdown from "../perseus-markdown.jsx";
 
@@ -565,14 +565,14 @@ describe("perseus markdown", () => {
                 "data 4 | $data 5 | data 6\n" +
                 "data 7 | data 8 | data 9";
             const context = {
-                ...Gorgon.linterContextDefault,
+                ...PerseusLinter.linterContextDefault,
                 content,
                 widgets: {},
             };
 
             // Act
             const parsedWithLint = parse(content);
-            Gorgon.runLinter(parsedWithLint, context, true);
+            PerseusLinter.runLinter(parsedWithLint, context, true);
 
             // Assert
             expect(parsedWithLint).toMatchSnapshot();
@@ -650,14 +650,14 @@ describe("perseus markdown", () => {
                 "data 4 | $data 5 | data 6\n" +
                 "data 7 | data 8 | data 9";
             const context = {
-                ...Gorgon.linterContextDefault,
+                ...PerseusLinter.linterContextDefault,
                 content,
                 widgets: {},
             };
 
             // Act
             const parsedWithLint = parse(content);
-            Gorgon.runLinter(parsedWithLint, context, true);
+            PerseusLinter.runLinter(parsedWithLint, context, true);
 
             const output = PerseusMarkdown.basicOutput(parsedWithLint);
 

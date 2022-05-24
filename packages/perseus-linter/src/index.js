@@ -13,7 +13,7 @@ const allLintRules: $ReadOnlyArray<$FlowFixMe> = AllRules.filter(
 export {Rule, allLintRules as rules};
 
 //
-// Run the Gorgon linter over the specified markdown parse tree,
+// Run the Perseus linter over the specified markdown parse tree,
 // with the specified context object, and
 // return a (possibly empty) array of lint warning objects.  If the
 // highlight argument is true, this function also modifies the parse

@@ -1,6 +1,6 @@
 /* eslint-disable @babel/no-invalid-this, react/forbid-prop-types, react/no-unsafe, react/sort-comp */
 // @flow
-import * as Gorgon from "@khanacademy/perseus-linter";
+import * as PerseusLinter from "@khanacademy/perseus-linter";
 import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
 import {StyleSheet, css} from "aphrodite";
 import $ from "jquery";
@@ -95,13 +95,13 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
         onMouseUp: PropTypes.func.isRequired,
         onRender: PropTypes.func.isRequired,
         type: PropTypes.oneOf([STATIC, DRAGGING, ANIMATING, DISABLED]),
-        linterContext: Gorgon.linterContextProps,
+        linterContext: PerseusLinter.linterContextProps,
     };
 
     static defaultProps = {
         includePadding: true,
         type: STATIC,
-        linterContext: Gorgon.linterContextDefault,
+        linterContext: PerseusLinter.linterContextDefault,
     };
 
     state: DraggableState = {
@@ -214,7 +214,7 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
             >
                 <Renderer
                     content={this.props.content}
-                    linterContext={Gorgon.pushContextStack(
+                    linterContext={PerseusLinter.pushContextStack(
                         this.props.linterContext,
                         "draggable",
                     )}
@@ -422,7 +422,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         onMeasure: function () {},
         margin: 5,
         onChange: function () {},
-        linterContext: Gorgon.linterContextDefault,
+        linterContext: PerseusLinter.linterContextDefault,
         waitForKatexLoad: true,
     };
 
@@ -618,7 +618,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
                         includePadding={this.props.padding}
                         margin={isLast && isStatic ? 0 : margin}
                         endPosition={item.endPosition}
-                        linterContext={Gorgon.pushContextStack(
+                        linterContext={PerseusLinter.pushContextStack(
                             this.props.linterContext,
                             "sortable",
                         )}

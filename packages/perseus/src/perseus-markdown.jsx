@@ -110,7 +110,8 @@ const rules = {
             } else if (node.table.type === "lint") {
                 // The `table` in this node is actually a `lint` node,
                 // not the expected `table` node. This is due to the linter
-                // implementation "reparenting" the `table` node, see gorgon.js
+                // implementation "reparenting" the `table` node, see
+                // perseus-linter/src/index.js
                 if (node.table.content?.type === "table") {
                     // And the `content` of this lint node is the `table` node
                     // which we actually want to render. Thus, we perform
