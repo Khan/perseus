@@ -7,9 +7,6 @@ on:
     # The rest are the defaults.
     types: [edited, opened, synchronize, reopened]
 
-env:
-  CYPRESS_CACHE_FOLDER: cypress/cache
-
 jobs:
   changeset:
     name: Check for .changeset file
@@ -134,8 +131,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    # - name: install cypress
-    #   run: ./node_modules/.bin/cypress install
+    - name: install cypress
+      run: ./node_modules/.bin/cypress install
 
     - name: Cypress
       run: yarn cypress:ci
