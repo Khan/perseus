@@ -6,8 +6,6 @@ import "cypress-jest-adapter";
 // eslint-disable-next-line import/no-unassigned-import
 import "cypress-wait-until";
 
-// const setupWindowGlobalsForTesting = require("../../dev/tools/nodejs-runner/setup-window-globals-for-testing.js");
-
 // Here we register our custom commands
 // NOTE: If we end up with a lot of custom commands, we should break
 // each command into its own file.
@@ -24,5 +22,3 @@ const dragTo = (node, pos: {|x: number, y: number|}) => {
         .trigger("mouseout", {force: true});
 };
 Cypress.Commands.add("dragTo", {prevSubject: true}, dragTo);
-
-// setupWindowGlobalsForTesting(window);
