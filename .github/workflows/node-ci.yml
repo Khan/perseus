@@ -134,6 +134,9 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
+    - name: install cypress
+      run: ./node_modules/.bin/cypress install
+
     - name: Cypress
       run: yarn cypress:ci
 
