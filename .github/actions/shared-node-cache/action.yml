@@ -23,6 +23,15 @@ runs:
         restore-keys: |
           ${{ runner.os }}-${{ inputs.node-version }}-node_modules-
 
+    - name: Cache Cypress Binary
+      id: cache-cypress-binary
+      uses: actions/cache@v2
+      with:
+        path: cypress/cache
+        key: ${{ runner.os }}-${{ inputs.node-version }}-cypress-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-${{ inputs.node-version }}-cypress-
+
     - name: Install Dependencies
       if: steps.cache-node-modules.outputs.cache-hit != 'true'
       shell: bash
