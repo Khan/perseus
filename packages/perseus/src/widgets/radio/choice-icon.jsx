@@ -2,6 +2,7 @@
 /* Component for rendering a letter icon in radio choice */
 
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
+import Color from "@khanacademy/wonder-blocks-color";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
@@ -147,9 +148,7 @@ class LibraryChoiceIcon extends React.Component<{
             // Note: kaGreen is not only the default product color,
             // but also the "correctness" color
             const bg =
-                showCorrectness && correct
-                    ? styleConstants.kaGreen
-                    : primaryProductColor;
+                showCorrectness && correct ? Color.green : primaryProductColor;
             return {
                 color: styleConstants.white,
                 backgroundColor: bg,
@@ -157,8 +156,8 @@ class LibraryChoiceIcon extends React.Component<{
             };
         }
         return {
-            borderColor: styleConstants.gray68,
-            color: styleConstants.gray68,
+            borderColor: Color.offBlack64,
+            color: Color.offBlack64,
         };
     }
 
@@ -258,7 +257,6 @@ type ChoiceIconProps = {|
     // TODO(amy): if we go this "product" flag route, define this type
     // somewhere shared
     product: "sat" | "library",
-    primaryProductColor: string,
     reviewMode: boolean,
     previouslyAnswered: boolean,
     // TODO(mdr): The CrossOutButton needs a transparent-background ChoiceIcon,
@@ -267,9 +265,10 @@ type ChoiceIconProps = {|
     //     non-white background, aside from SAT, which uses a different icon?
     transparentBackground?: boolean,
 |};
+
 class ChoiceIcon extends React.Component<ChoiceIconProps> {
     static defaultProps: {|primaryProductColor: string|} = {
-        primaryProductColor: styleConstants.kaGreen,
+        primaryProductColor: Color.blue,
     };
 
     a11yText(letter: string): string {
@@ -440,9 +439,9 @@ const styles = StyleSheet.create({
     },
 
     libraryCircleIncorrectAnswered: {
-        backgroundColor: styleConstants.warning1,
-        borderColor: styleConstants.warning1,
-        color: styleConstants.white,
+        backgroundColor: Color.red,
+        borderColor: Color.red,
+        color: Color.white,
     },
 
     letter: {

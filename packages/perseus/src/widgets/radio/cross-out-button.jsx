@@ -3,13 +3,11 @@
  * The button that appears when you open the `CrossOutMenu`, enabling the user
  * to toggle a choice's `crossedOut` state.
  */
-import colors from "@khanacademy/wonder-blocks-color";
+import Color from "@khanacademy/wonder-blocks-color";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
-
-import {colors as oldColors} from "../../styles/global-styles.js";
 
 import ChoiceIcon from "./choice-icon.jsx";
 import {getChoiceLetter} from "./util.js";
@@ -37,7 +35,7 @@ export type CrossOutButtonProps = {
 
 export default class CrossOutButton extends React.PureComponent<CrossOutButtonProps> {
     static defaultProps: {|primaryProductColor: string|} = {
-        primaryProductColor: oldColors.kaGreen,
+        primaryProductColor: Color.blue,
     };
 
     /**
