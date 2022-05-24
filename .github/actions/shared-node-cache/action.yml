@@ -28,9 +28,9 @@ runs:
       uses: actions/cache@v2
       with:
         path: cypress/cache
-        key: ${{ runner.os }}-${{ inputs.node-version }}-cypress-${{ hashFiles('**/yarn.lock') }}
+        key: ${{ runner.os }}-${{ inputs.node-version }}-cypress-cache-${{ hashFiles('**/yarn.lock') }}
         restore-keys: |
-          ${{ runner.os }}-${{ inputs.node-version }}-cypress-
+          ${{ runner.os }}-${{ inputs.node-version }}-cypress--cache-
 
     - name: Install Dependencies
       if: steps.cache-node-modules.outputs.cache-hit != 'true'
