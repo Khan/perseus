@@ -107,7 +107,7 @@
     "publish:ci": "node utils/pre-publish-check-ci.js && git diff --stat --exit-code HEAD && yarn build && yarn extract-strings && changeset publish",
     "sloc": "sloc packages --exclude node_modules",
     "test": "yarn jest",
-    "storybook": "yarn build && start-storybook -p 6006",
+    "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   }
 }
