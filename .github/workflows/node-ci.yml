@@ -115,6 +115,62 @@ jobs:
         limited-trigger: ${{ steps.js-files.outputs.filtered }}
         limited: yarn jest --passWithNoTests --findRelatedTests {}
 
+  cypress:
+    name: Cypress Coverage
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node-version: [16.x]
+    steps:
+    - name: Checking out latest commit
+      uses: actions/checkout@v2
+
+    - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
+      uses: ./.github/actions/shared-node-cache
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Run test with coverage
+      run: yarn cypress:ci
+
+    - name: Generate report
+      run: yarn nyc report --reporter=lcov
+
+    - name: Upload Coverage
+      # We don't bother collecting a record of coverage for dependabot changes
+      if: ${{ github.actor != 'dependabot[bot]' }}
+      uses: codecov/codecov-action@v2
+      with:
+        files: ./coverage/coverage-final.json
+        fail_ci_if_error: true
+
+  coverage:
+    name: Jest Coverage
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node-version: [16.x]
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
+      uses: ./.github/actions/shared-node-cache
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Jest with coverage
+      run: yarn coverage
+
+    - name: Upload Coverage
+      # We don't bother collecting a record of coverage for dependabot changes
+      if: ${{ github.actor != 'dependabot[bot]' }}
+      uses: codecov/codecov-action@v2
+      with:
+        files: ./coverage/coverage-final.json
+        fail_ci_if_error: true
+
   check_builds:
     name: Check builds for changes in size
     runs-on: ${{ matrix.os }}
@@ -144,32 +200,6 @@ jobs:
         clean-script: "clean"
         # Build production
         build-script: "build:prodsizecheck"
-
-  coverage:
-    name: Test Coverage
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node-version: [16.x]
-    steps:
-    - uses: actions/checkout@v2
-
-    - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
-      uses: ./.github/actions/shared-node-cache
-      with:
-        node-version: ${{ matrix.node-version }}
-
-    # Collect and record coverage
-    - name: Run Jest with coverage
-      run: yarn coverage
-    - name: Upload Coverage
-      # We don't bother collecting a record of coverage for dependabot changes
-      if: ${{ github.actor != 'dependabot[bot]' }}
-      uses: codecov/codecov-action@v2
-      with:
-        files: ./coverage/coverage-final.json
-        fail_ci_if_error: true
 
   extract_strings:
     name: Extract i18n strings

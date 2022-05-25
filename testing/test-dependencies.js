@@ -126,3 +126,10 @@ export const storybookTestDependencies: PerseusDependencies = {
     // $FlowIgnore[incompatible-type]
     staticUrl: (str) => str,
 };
+
+export const cypressTestDependencies: PerseusDependencies = {
+    ...testDependencies,
+    TeX: TestTeX,
+    // $FlowIgnore[incompatible-type]
+    staticUrl: (str) => str,
+};

@@ -14,14 +14,16 @@ runs:
       with:
         node-version: ${{ inputs.node-version }}
 
-    - name: Cache node_modules
+    - name: Cache node_modules and cypress binary
       uses: actions/cache@v2
       id: cache-node-modules
       with:
-        path: node_modules
-        key: ${{ runner.os }}-${{ inputs.node-version }}-node_modules-${{ hashFiles('**/yarn.lock') }}
+        path: |
+          node_modules
+          ~/.cache/Cypress
+        key: ${{ runner.os }}-${{ inputs.node-version }}-v1-${{ hashFiles('**/yarn.lock') }}
         restore-keys: |
-          ${{ runner.os }}-${{ inputs.node-version }}-node_modules-
+          ${{ runner.os }}-${{ inputs.node-version }}-v1-
 
     - name: Install Dependencies
       if: steps.cache-node-modules.outputs.cache-hit != 'true'
