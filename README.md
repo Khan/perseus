@@ -27,7 +27,7 @@ Installs project dependencies
 
 ### Using Storybook
 
-The components and widgets of perseus are devleoped using [Storybook](https://github.com/storybookjs/storybook). After you clone the project and get dependencies installed, the next step is to start storybook using by running `yarn storybook`. This will start a server and give you a playground to use each component.
+The components and widgets of perseus are devleoped using [Storybook](https://github.com/storybookjs/storybook). After you clone the project and get dependencies installed, the next step is to start storybook by running `yarn storybook`. This will start a server and give you a playground to use each component.
 
 ## Contributing
 
