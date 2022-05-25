@@ -120,6 +120,13 @@ export const testDependencies: PerseusDependencies = {
     Log: LogForTesting,
 };
 
+export const storybookTestDependencies: PerseusDependencies = {
+    ...testDependencies,
+    TeX: TestTeX,
+    // $FlowIgnore[incompatible-type]
+    staticUrl: (str) => str,
+};
+
 export const cypressTestDependencies: PerseusDependencies = {
     ...testDependencies,
     TeX: TestTeX,
