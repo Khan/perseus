@@ -1,10 +1,13 @@
 // @flow
 
-// $FlowIgnore[cannot-resolve-module] // We don't have types for this library, but it's just adding jest-style matchers to 'expect'
 // eslint-disable-next-line import/no-unassigned-import
 import "cypress-jest-adapter";
 // eslint-disable-next-line import/no-unassigned-import
 import "cypress-wait-until";
+
+if (Cypress.env("CYPRESS_COVERAGE")) {
+    require("@cypress/code-coverage/support");
+}
 
 // Here we register our custom commands
 // NOTE: If we end up with a lot of custom commands, we should break
