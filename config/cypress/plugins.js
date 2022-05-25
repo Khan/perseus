@@ -52,7 +52,7 @@ module.exports = (on, config) => {
         }),
     );
 
-    if (config.env["COVERAGE"]) {
+    if (config.env["CYPRESS_COVERAGE"]) {
         require("@cypress/code-coverage/task")(on, config);
     }
 

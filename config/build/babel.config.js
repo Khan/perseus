@@ -14,6 +14,6 @@ module.exports = {
     plugins: createBabelPlugins({
         platform: "browser",
         format: "cjs",
-        coverage: process.env["COVERAGE"],
+        coverage: process.env["BABEL_COVERAGE"],
     }),
 };
