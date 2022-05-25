@@ -10,3 +10,4 @@ vendor
 LICENSE
 **/__genfiles__
 storybook-static
+cypress/

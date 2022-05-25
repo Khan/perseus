@@ -1,0 +1,8 @@
+{
+    "componentFolder": "packages/perseus/src",
+    "testFiles": "**/*.cypress.{js,ts,jsx,tsx}",
+    "fixturesFolder": false,
+    "pluginsFile": "./config/cypress/plugins.js",
+    "supportFile": "./config/cypress/support.js",
+    "video": false
+}

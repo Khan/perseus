@@ -21,7 +21,8 @@
     "@babel/preset-flow": "^7.16.7",
     "@babel/preset-react": "^7.16.0",
     "@changesets/cli": "^2.22.0",
-    "@cypress/react": "^5.9.4",
+    "@cypress/react": "^5.12.5",
+    "@cypress/webpack-dev-server": "^1.8.4",
     "@khanacademy/eslint-config": "^0.1.0",
     "@khanacademy/wonder-stuff-i18n": "^1.1.0",
     "@rollup/plugin-alias": "^3.1.9",
@@ -43,14 +44,14 @@
     "ancesdir": "^3.1.0",
     "babel-jest": "28",
     "babel-plugin-transform-flow-enums": "^0.0.2",
-    "cypress": "^9.4.1",
+    "cypress": "^9.6.1",
     "cypress-jest-adapter": "^0.1.1",
     "cypress-wait-until": "^1.7.2",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "eslint": "^8.13.0",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-cypress": "^2.11.3",
+    "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-disable": "^2.0.3",
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-flowtype": "^8.0.3",
@@ -91,6 +92,7 @@
     "rollup-plugin-preserve-shebangs": "^0.2.0",
     "rollup-plugin-styles": "^4.0.0",
     "sloc": "^0.2.1",
+    "webpack-dev-server": "^4.9.0",
     "winston": "^3.7.2"
   },
   "scripts": {
@@ -108,6 +110,8 @@
     "sloc": "sloc packages --exclude node_modules",
     "test": "yarn jest",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "cypress": "cypress open-ct",
+    "test:cypress": "cypress run-ct"
   }
 }
