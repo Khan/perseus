@@ -117,6 +117,6 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "cypress": "cypress open-ct",
-    "cypress:ci": "cross-env BABEL_COVERAGE=1 cypress run-ct --env CYPRESS_COVERAGE=1"
+    "cypress:ci": "cypress run-ct"
   }
 }
