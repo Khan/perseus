@@ -4,7 +4,7 @@ import * as PureMarkdown from "@khanacademy/pure-markdown";
 import Rule from "../rule.js";
 import TreeTransformer from "../tree-transformer.js";
 
-describe("Gorgon lint Rules class", () => {
+describe("PerseusLinter lint Rules class", () => {
     const markdown = `
 ## This Heading is in Title Case
 

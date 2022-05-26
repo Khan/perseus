@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unsafe */
 // @flow
-import * as Gorgon from "@khanacademy/perseus-linter";
+import * as PerseusLinter from "@khanacademy/perseus-linter";
 import $ from "jquery";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
@@ -87,7 +87,7 @@ class ItemRenderer extends React.Component<Props, State> {
         initialHintsVisible: 0,
         workAreaSelector: "#workarea",
         reviewMode: false,
-        linterContext: Gorgon.linterContextDefault,
+        linterContext: PerseusLinter.linterContextDefault,
     };
 
     constructor(props: Props) {
@@ -208,7 +208,7 @@ class ItemRenderer extends React.Component<Props, State> {
                 questionCompleted={this.state.questionCompleted}
                 reviewMode={this.props.reviewMode}
                 savedState={this.props.savedState}
-                linterContext={Gorgon.pushContextStack(
+                linterContext={PerseusLinter.pushContextStack(
                     this.props.linterContext,
                     "question",
                 )}
@@ -226,7 +226,7 @@ class ItemRenderer extends React.Component<Props, State> {
                 hints={this.props.item.hints}
                 hintsVisible={this.state.hintsVisible}
                 apiOptions={apiOptions}
-                linterContext={Gorgon.pushContextStack(
+                linterContext={PerseusLinter.pushContextStack(
                     this.props.linterContext,
                     "hints",
                 )}

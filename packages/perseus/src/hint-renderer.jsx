@@ -1,5 +1,5 @@
 // @flow
-import * as Gorgon from "@khanacademy/perseus-linter";
+import * as PerseusLinter from "@khanacademy/perseus-linter";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {StyleSheet, css} from "aphrodite";
 import classnames from "classnames";
@@ -35,7 +35,7 @@ type DefaultProps = {|
 /* Renders just a hint preview */
 class HintRenderer extends React.Component<Props> {
     static defaultProps: DefaultProps = {
-        linterContext: Gorgon.linterContextDefault,
+        linterContext: PerseusLinter.linterContextDefault,
     };
 
     getSerializedState: () => void = () => {
@@ -115,7 +115,7 @@ class HintRenderer extends React.Component<Props> {
                     images={hint.images}
                     apiOptions={rendererApiOptions}
                     findExternalWidgets={this.props.findExternalWidgets}
-                    linterContext={Gorgon.pushContextStack(
+                    linterContext={PerseusLinter.pushContextStack(
                         this.props.linterContext,
                         "hint",
                     )}

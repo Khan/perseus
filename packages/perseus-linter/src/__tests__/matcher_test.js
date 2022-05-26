@@ -8,7 +8,7 @@ import * as PureMarkdown from "@khanacademy/pure-markdown";
 import Selector from "../selector.js";
 import TreeTransformer from "../tree-transformer.js";
 
-describe("Gorgon selector matching:", () => {
+describe("PerseusLinter selector matching:", () => {
     const markdown = `
 ### A
 
