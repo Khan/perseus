@@ -1,5 +1,12 @@
 # @khanacademy/perseus-linter
 
+## 0.2.0
+
+### Minor Changes
+
+-   2578bd16: Rename NotGorgon to TranslationLinter
+-   2578bd16: Rename Gorgon to PerseusLinter
+
 ## 0.1.0
 
 ### Minor Changes

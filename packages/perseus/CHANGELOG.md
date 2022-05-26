@@ -1,5 +1,19 @@
 # @khanacademy/perseus
 
+## 0.3.0
+
+### Minor Changes
+
+-   2578bd16: Rename NotGorgon to TranslationLinter
+-   2578bd16: Rename Gorgon to PerseusLinter
+
+### Patch Changes
+
+-   4fb18745: Consume math-input .less directly instead of post-compilation
+-   Updated dependencies [2578bd16]
+-   Updated dependencies [2578bd16]
+    -   @khanacademy/perseus-linter@0.2.0
+
 ## 0.2.8
 
 ### Patch Changes
