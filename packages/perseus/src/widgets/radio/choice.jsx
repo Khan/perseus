@@ -1,18 +1,25 @@
 /* eslint-disable react/no-unsafe */
 // @flow
+import Button from "@khanacademy/wonder-blocks-button";
+import Clickable from "@khanacademy/wonder-blocks-clickable";
+import Color from "@khanacademy/wonder-blocks-color";
+import {View} from "@khanacademy/wonder-blocks-core";
+import {Strut} from "@khanacademy/wonder-blocks-layout";
+import {Popover, PopoverContent} from "@khanacademy/wonder-blocks-popover";
+import Spacing from "@khanacademy/wonder-blocks-spacing";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
+import Icon from "../../components/icon.jsx";
 import {ClassNames} from "../../perseus-api.jsx";
 import * as styleConstants from "../../styles/constants.js";
 import mediaQueries from "../../styles/media-queries.js";
 import sharedStyles from "../../styles/shared.js";
 
 import ChoiceIcon from "./choice-icon.jsx";
-import CrossOutMenuWrapper from "./cross-out-menu-wrapper.jsx";
 import OptionStatus from "./option-status.jsx";
 import ToggleableRadioButton from "./toggleable-radio-button.jsx";
 
@@ -27,6 +34,12 @@ const intermediateCheckboxPadding = `16px 16px`;
 const intermediateCheckboxPaddingPhone = `12px 16px`;
 
 export const TouchIgnoreTimeout = 10;
+
+const ellipsisHorizontalIcon = {
+    path: "M27.218 6.82l0 13.578q0 2.852-1.984 4.836t-4.836 1.984l-13.578 0q-2.852 0-4.836-1.984t-1.984-4.836l0-13.578q0-2.852 1.984-4.836t4.836-1.984l13.578 0q2.852 0 4.836 1.984t1.984 4.836zm36.27 0l0 13.578q0 2.852-1.984 4.836t-4.836 1.984l-13.578 0q-2.852 0-4.836-1.984t-1.984-4.836l0-13.578q0-2.852 1.984-4.836t4.836-1.984l13.578 0q2.852 0 4.836 1.984t1.984 4.836zm36.27 0l0 13.578q0 2.852-1.984 4.836t-4.836 1.984l-13.578 0q-2.852 0-4.836-1.984t-1.984-4.836l0-13.578q0-2.852 1.984-4.836t4.836-1.984l13.578 0q2.852 0 4.836 1.984t1.984 4.836z",
+    width: 100,
+    height: 27.284,
+};
 
 type State = {|
     isInputFocused: boolean,
@@ -126,86 +139,6 @@ class Choice extends React.Component<$FlowFixMe, State> {
         }
     }
 
-    componentWillUnmount() {
-        if (this.justFinishedTimeoutID != null) {
-            // TODO(jeff, CP-3128): Use Wonder Blocks Timing API
-            // eslint-disable-next-line no-restricted-syntax
-            clearTimeout(this.justFinishedTimeoutID);
-        }
-    }
-
-    onInputFocus: () => void = () => {
-        this.setState({isInputFocused: true});
-    };
-
-    onInputBlur: () => void = () => {
-        this.setState({isInputFocused: false});
-    };
-
-    onInputMouseDown: (SyntheticMouseEvent<> | SyntheticTouchEvent<>) => void =
-        (e) => {
-            if (e.type === "mousedown" && this.justFinishedTouch) {
-                return;
-            }
-
-            this.setState({isInputActive: true});
-
-            // Simulate Chrome's radio button behavior in all browsers: when the
-            // mouse goes down or up, the radio button should become focused.
-            // That way, the newly-selected answer becomes highlighted after click.
-            if (this.props.apiOptions.satStyling && this._input) {
-                this._input.focus();
-            }
-        };
-
-    onInputMouseUp: (SyntheticMouseEvent<> | SyntheticTouchEvent<>) => void = (
-        e,
-    ) => {
-        if (e.type === "mouseup" && this.justFinishedTouch) {
-            return;
-        }
-
-        // NOTE(emily): We do some special handling here of touch events to
-        // make the "active" effect look better. In particular, when you click
-        // using touch events, we get a series of events going
-        // touchstart -> (delay) -> touchend -> mousedown -> mouseup -> click
-        // In order to make sure that we don't turn the active state off and on
-        // and off again during the touchend -> mousedown -> mouseup series, we
-        // set a flag (this.justFinishedTouch) after the touchend, and ignore
-        // the mousedown and mouseup events. Then, a little while later, we
-        // turn the flag off. Instead of turning the active state off right at
-        // the beginning, we wait for a little bit to sync it up better with
-        // the click event.
-        if (e.type === "touchend") {
-            this.justFinishedTouch = true;
-
-            // TODO(jeff, CP-3128): Use Wonder Blocks Timing API
-            /* eslint-disable no-restricted-syntax */
-            if (this.justFinishedTimeoutID != null) {
-                clearTimeout(this.justFinishedTimeoutID);
-            }
-            this.justFinishedTimeoutID = setTimeout(() => {
-                this.setState({isInputActive: false});
-                this.justFinishedTouch = false;
-            }, TouchIgnoreTimeout);
-            /* eslint-enable no-restricted-syntax */
-            return;
-        }
-
-        this.setState({isInputActive: false});
-
-        // Simulate Chrome's radio button behavior in all browsers: when the
-        // mouse goes down or up, the radio button should become focused.
-        // That way, the newly-selected answer becomes highlighted after click.
-        if (this.props.apiOptions.satStyling && this._input) {
-            this._input.focus();
-        }
-    };
-
-    onInputMouseOut: () => void = () => {
-        this.setState({isInputActive: false});
-    };
-
     inputRef: ($FlowFixMe) => void = (ref) => {
         this._input = ref;
     };
@@ -235,7 +168,10 @@ class Choice extends React.Component<$FlowFixMe, State> {
         );
     };
 
-    renderChoiceIcon: () => React.Node = () => {
+    renderChoiceIcon: (isFocused: boolean, isPressed: boolean) => React.Node = (
+        isFocused,
+        isPressed,
+    ) => {
         const {radioStyleVersion, primaryProductColor} =
             this.props.apiOptions.styling;
         const finalStyles =
@@ -252,8 +188,8 @@ class Choice extends React.Component<$FlowFixMe, State> {
                 pos={this.props.pos}
                 correct={this.props.correct}
                 crossedOut={this.props.crossedOut}
-                pressed={this.state.isInputActive}
-                focused={this.state.isInputFocused}
+                pressed={isPressed}
+                focused={isFocused}
                 checked={this.props.checked}
                 showCorrectness={this.props.showCorrectness}
                 reviewMode={this.props.reviewMode}
@@ -262,45 +198,6 @@ class Choice extends React.Component<$FlowFixMe, State> {
                 previouslyAnswered={this.props.previouslyAnswered}
             />
         );
-    };
-
-    _setChecked: (boolean) => void = (willBeChecked) => {
-        if (willBeChecked) {
-            // If we're checking a crossed-out option, let's also uncross it.
-            this._sendChange({checked: true, crossedOut: false});
-        } else {
-            this._sendChange({checked: false});
-        }
-    };
-
-    // NOTE(mdr): This method expects to be auto-bound. If this component is
-    //     converted to an ES6 class, take care to auto-bind this method!
-    _setCrossedOut: (boolean) => void = (willBeCrossedOut) => {
-        if (willBeCrossedOut) {
-            // If we're crossing out a checked option, let's also uncheck it.
-            this._sendChange({checked: false, crossedOut: true});
-        } else {
-            this._sendChange({crossedOut: false});
-        }
-    };
-
-    // Call `this.props.onChange` with the given values. Any keys that are not
-    // specified will be filled in with the current value. (For example, if
-    // `checked` is specified but `crossedOut` is not, then `crossedOut` will
-    // be filled in with `this.props.crossedOut`.)
-    //
-    // This enables us to use shorthand inside this component, while
-    // maintaining a consistent API for the parent.
-    _sendChange: ($FlowFixMe) => void = (newValues) => {
-        const checked =
-            newValues.checked != null ? newValues.checked : this.props.checked;
-
-        const crossedOut =
-            newValues.crossedOut != null
-                ? newValues.crossedOut
-                : this.props.crossedOut;
-
-        this.props.onChange({checked, crossedOut});
     };
 
     /**
@@ -381,31 +278,6 @@ class Choice extends React.Component<$FlowFixMe, State> {
             ),
         };
 
-        let input = null;
-        if (this.props.type === "radio") {
-            // This is a special radio button that allows a user to deselect
-            // it by merely clicking/selecting it again.
-            input = (
-                <ToggleableRadioButton
-                    onChecked={(willBeChecked) =>
-                        this._setChecked(willBeChecked)
-                    }
-                    goToPrevChoice={this.props.goToPrevChoice}
-                    goToNextChoice={this.props.goToNextChoice}
-                    inputRef={this.inputRef}
-                    {...commonInputProps}
-                />
-            );
-        } else {
-            input = (
-                <input
-                    onChange={(event) => this._setChecked(event.target.checked)}
-                    ref={this.inputRef}
-                    {...commonInputProps}
-                />
-            );
-        }
-
         const {reviewMode, correct, checked} = this.props;
         // HACK: while most of the styling for rendering SAT items is handled
         // via aphrodite, we also need to assign normal CSS classnames here to
@@ -462,91 +334,155 @@ class Choice extends React.Component<$FlowFixMe, State> {
         // element instead
         const LabelOrDiv = this.props.editMode ? "div" : "label";
 
-        // We only show cross-out in certain products, and
-        // only when you're still _answering_ the question. We also show this
-        // for the SAT product area.
-        const crossOutEnabled = this.props.apiOptions.crossOutEnabled;
-        const showCrossOutMenu = crossOutEnabled && !this.props.showCorrectness;
-
         // We want to show the choices as dimmed out when the choices are
         // disabled. However, we don't want to do this in the SAT product and
         // we also don't want to do this when we're in review mode in the
         // content library.
         const showDimmed =
             (!sat && !reviewMode && this.props.apiOptions.readOnly) ||
-            (showCrossOutMenu && this.props.crossedOut);
+            this.props.crossedOut;
 
         return (
-            <div className={sat ? satRadioMenuContainer : undefined}>
-                <CrossOutMenuWrapper
-                    enabled={showCrossOutMenu}
-                    pos={this.props.pos}
-                    primaryProductColor={
-                        this.props.apiOptions.styling.primaryProductColor
+            <div
+                style={{
+                    dispay: "flex",
+                    flexDirection: "column",
+                }}
+            >
+                <LabelOrDiv
+                    htmlFor={
+                        !this.props.editMode ? commonInputProps.id : undefined
                     }
-                    crossedOut={this.props.crossedOut}
-                    onCrossedOutChange={this._setCrossedOut}
-                    isSatProduct={sat}
                 >
-                    <LabelOrDiv
-                        htmlFor={
-                            !this.props.editMode
-                                ? commonInputProps.id
-                                : undefined
-                        }
-                        className={className}
-                        style={{opacity: showDimmed ? 0.5 : 1.0}}
+                    <div
+                        style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            width: "100%",
+                            opacity: showDimmed ? 0.5 : 1.0,
+                        }}
                     >
-                        <div
+                        <Clickable
+                            onClick={() => {
+                                this.props.onChange({
+                                    checked: true,
+                                    crossedOut: false,
+                                });
+                            }}
                             className={descriptionClassName}
-                            onMouseDown={this.onInputMouseDown}
-                            onMouseUp={this.onInputMouseUp}
-                            onMouseOut={this.onInputMouseOut}
-                            onTouchStart={this.onInputMouseDown}
-                            onTouchEnd={this.onInputMouseUp}
+                            disabled={reviewMode}
+                            style={{
+                                flex: 1,
+                            }}
                         >
-                            <div className={checkboxAndOptionClassName}>
-                                <span className={checkboxContentClassName}>
-                                    {input}
-                                    {this.renderChoiceIcon()}
-                                </span>
-                                {/* A pseudo-label. <label> is slightly broken on iOS,
-                            so this works around that. Unfortunately, it is
-                            simplest to just work around that everywhere. */}
-                                <span
-                                    className={classNames(
-                                        ClassNames.RADIO.OPTION_CONTENT,
-                                        ClassNames.INTERACTIVE,
-                                        css(
-                                            sat && styles.satRadioOptionContent,
-                                            sat &&
-                                                reviewMode &&
-                                                styles.satReviewRadioOptionContent,
-                                        ),
-                                    )}
-                                    style={{cursor: "default"}}
-                                >
-                                    <div
-                                        className={css(
-                                            styles.optionStatusContainer,
-                                        )}
-                                    >
-                                        {this.renderOptionStatus()}
+                            {({hovered, focused, pressed}) => (
+                                <div>
+                                    <div className={checkboxAndOptionClassName}>
+                                        <span
+                                            className={checkboxContentClassName}
+                                        >
+                                            {this.renderChoiceIcon(
+                                                focused,
+                                                pressed,
+                                            )}
+                                        </span>
+                                        <span
+                                            className={classNames(
+                                                ClassNames.RADIO.OPTION_CONTENT,
+                                                ClassNames.INTERACTIVE,
+                                                css(
+                                                    sat &&
+                                                        styles.satRadioOptionContent,
+                                                    sat &&
+                                                        reviewMode &&
+                                                        styles.satReviewRadioOptionContent,
+                                                ),
+                                            )}
+                                            style={{cursor: "default"}}
+                                        >
+                                            <div
+                                                className={css(
+                                                    styles.optionStatusContainer,
+                                                )}
+                                            >
+                                                {this.renderOptionStatus()}
+                                            </div>
+                                            <div>{this.props.content}</div>
+                                        </span>
                                     </div>
-                                    <div>{this.props.content}</div>
-                                </span>
-                            </div>
-                            {this.props.showRationale && (
-                                <div
-                                    className={rationaleClassName}
-                                    data-test-id={`perseus-radio-rationale-content-${this.props.pos}`}
-                                >
-                                    {this.props.rationale}
                                 </div>
                             )}
+                        </Clickable>
+
+                        {this.props.apiOptions.crossOutEnabled && !reviewMode && (
+                            <Popover
+                                dismissEnabled
+                                content={({close}) => (
+                                    <PopoverContent
+                                        title="Cross out"
+                                        content="Cross out option"
+                                        closeButtonVisible
+                                        actions={
+                                            <View>
+                                                <Strut
+                                                    size={Spacing.medium_16}
+                                                />
+                                                <Button
+                                                    kind="primary"
+                                                    onClick={() => {
+                                                        if (
+                                                            !this.props
+                                                                .crossedOut
+                                                        ) {
+                                                            this.props.onChange(
+                                                                {
+                                                                    checked: false,
+                                                                    crossedOut: true,
+                                                                },
+                                                            );
+                                                        } else {
+                                                            this.props.onChange(
+                                                                {
+                                                                    crossedOut: false,
+                                                                },
+                                                            );
+                                                        }
+                                                        close();
+                                                    }}
+                                                >
+                                                    {this.props.crossedOut
+                                                        ? "Bring back"
+                                                        : "Cross out"}
+                                                </Button>
+                                            </View>
+                                        }
+                                    />
+                                )}
+                            >
+                                {({open}) => (
+                                    <Clickable onClick={open}>
+                                        {({hovered, focused, pressed}) => (
+                                            <Icon
+                                                icon={ellipsisHorizontalIcon}
+                                                size={3}
+                                                color={Color.offBlack64}
+                                            />
+                                        )}
+                                    </Clickable>
+                                )}
+                            </Popover>
+                        )}
+                    </div>
+
+                    {this.props.showRationale && (
+                        <div
+                            className={rationaleClassName}
+                            data-test-id={`perseus-radio-rationale-content-${this.props.pos}`}
+                        >
+                            {this.props.rationale}
                         </div>
-                    </LabelOrDiv>
-                </CrossOutMenuWrapper>
+                    )}
+                </LabelOrDiv>
             </div>
         );
     }

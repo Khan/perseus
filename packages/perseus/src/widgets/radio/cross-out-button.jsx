@@ -65,7 +65,7 @@ export default class CrossOutButton extends React.PureComponent<CrossOutButtonPr
         const {crossedOut, pos, primaryProductColor, theme} = this.props;
 
         const buttonAndTextColor =
-            theme === "day" ? primaryProductColor : colors.white;
+            theme === "day" ? primaryProductColor : Color.white;
 
         return (
             <button
