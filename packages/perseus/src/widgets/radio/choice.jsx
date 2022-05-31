@@ -21,7 +21,6 @@ import sharedStyles from "../../styles/shared.js";
 
 import ChoiceIcon from "./choice-icon.jsx";
 import OptionStatus from "./option-status.jsx";
-import ToggleableRadioButton from "./toggleable-radio-button.jsx";
 
 const focusedStyleMixin = {
     backgroundColor: styleConstants.satSelectedBackgroundColor,
