@@ -1,7 +1,8 @@
 // @flow
 /**
  * This component renders "lint" nodes in a markdown parse tree. Lint nodes
- * are inserted into the tree by the Gorgon linter (see src/gorgon/gorgon.js).
+ * are inserted into the tree by the Perseus linter (see
+ * perseus-linter/src/index).
  *
  * This component serves multiple purposes
  *

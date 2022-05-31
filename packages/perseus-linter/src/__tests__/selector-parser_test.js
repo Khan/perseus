@@ -1,7 +1,7 @@
 // @flow
 import Selector from "../selector.js";
 
-describe("gorgon selector parser", () => {
+describe("PerseusLinter selector parser", () => {
     const validExpressions = [
         "*",
         " * ",

@@ -1,60 +1,20 @@
 // @flow
 
+import Button from "@khanacademy/wonder-blocks-button";
 import Color from "@khanacademy/wonder-blocks-color";
-import {View} from "@khanacademy/wonder-blocks-core";
+import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
 import Spacing from "@khanacademy/wonder-blocks-spacing";
-import Tooltip from "@khanacademy/wonder-blocks-tooltip";
-import PropTypes from "prop-types";
 import * as React from "react";
-import _ from "underscore";
 
-import {ApiOptions} from "../perseus-api.jsx";
 import Renderer from "../renderer.jsx";
 
 import type {
     PerseusRenderer,
     PerseusDefinitionWidgetOptions,
 } from "../perseus-types.js";
-import type {
-    APIOptionsWithDefaults,
-    PerseusScore,
-    WidgetExports,
-    WidgetProps,
-} from "../types.js";
+import type {PerseusScore, WidgetExports, WidgetProps} from "../types.js";
 
-type DefinitionContentProps = {|
-    apiOptions: APIOptionsWithDefaults,
-    content: string,
-    trackInteraction: () => mixed,
-    widgets: PerseusRenderer["widgets"],
-|};
-
-class DefinitionContent extends React.Component<DefinitionContentProps> {
-    static propTypes = {
-        apiOptions: ApiOptions.propTypes,
-        content: PropTypes.string,
-        trackInteraction: PropTypes.func.isRequired,
-        widgets: PropTypes.objectOf(PropTypes.any),
-    };
-
-    componentDidMount() {
-        this.props.trackInteraction();
-    }
-
-    render(): React.Node {
-        return (
-            <View style={styles.tooltipBody}>
-                <Renderer
-                    apiOptions={this.props.apiOptions}
-                    content={this.props.content}
-                    widgets={this.props.widgets}
-                />
-            </View>
-        );
-    }
-}
-
-type RenderProps = PerseusDefinitionWidgetOptions; // transform = _.identity
+type RenderProps = PerseusDefinitionWidgetOptions;
 
 type Rubric = PerseusDefinitionWidgetOptions;
 
@@ -89,25 +49,38 @@ class Definition extends React.Component<DefinitionProps> {
     };
 
     render(): React.Node {
-        const content = (
-            <DefinitionContent
-                apiOptions={this.props.apiOptions}
-                content={this.props.definition}
-                key={this.props.definition}
-                trackInteraction={this.props.trackInteraction}
-                widgets={this.props.widgets}
-            />
-        );
-
         return (
-            // $FlowFixMe[incompatible-type]: content prop
-            <Tooltip content={content} placement="top">
-                <span className="perseus-widget-definition">
-                    <View style={styles.definitionLink}>
-                        {this.props.togglePrompt}
-                    </View>
-                </span>
-            </Tooltip>
+            <Popover
+                content={
+                    <PopoverContentCore
+                        color="white"
+                        style={styles.tooltipBody}
+                        closeButtonVisible={true}
+                    >
+                        <Renderer
+                            apiOptions={this.props.apiOptions}
+                            content={this.props.definition}
+                            widgets={this.props.widgets}
+                        />
+                    </PopoverContentCore>
+                }
+                placement="top"
+            >
+                {({open}) => (
+                    <span className="perseus-widget-definition">
+                        <Button
+                            size="small"
+                            kind="tertiary"
+                            onClick={() => {
+                                this.props.trackInteraction();
+                                open();
+                            }}
+                        >
+                            {this.props.togglePrompt}
+                        </Button>
+                    </span>
+                )}
+            </Popover>
         );
     }
 }
@@ -121,14 +94,6 @@ const styles = {
         lineHeight: "30px",
         margin: Spacing.xSmall_8,
     },
-
-    definitionLink: {
-        borderBottom: `dashed 1px ${Color.blue}`,
-        color: Color.blue,
-        cursor: "pointer",
-        display: "inline-block",
-        textDecoration: "none",
-    },
 };
 
 export default ({
@@ -137,5 +102,5 @@ export default ({
     accessible: true,
     defaultAlignment: "inline",
     widget: Definition,
-    transform: _.identity,
+    transform: (x: any) => x,
 }: WidgetExports<typeof Definition>);

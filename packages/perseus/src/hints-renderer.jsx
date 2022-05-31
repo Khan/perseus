@@ -1,5 +1,5 @@
 // @flow
-import * as Gorgon from "@khanacademy/perseus-linter";
+import * as PerseusLinter from "@khanacademy/perseus-linter";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {StyleSheet, css} from "aphrodite";
 import classnames from "classnames";
@@ -42,7 +42,7 @@ type State = {|
 // eslint-disable-next-line react/no-unsafe
 class HintsRenderer extends React.Component<Props, State> {
     static defaultProps: DefaultProps = {
-        linterContext: Gorgon.linterContextDefault,
+        linterContext: PerseusLinter.linterContextDefault,
     };
 
     // The isFinalHelpPage property determines if the user has requested help
@@ -180,7 +180,7 @@ class HintsRenderer extends React.Component<Props, State> {
                     key={"hintRenderer" + i}
                     apiOptions={apiOptions}
                     findExternalWidgets={this.props.findExternalWidgets}
-                    linterContext={Gorgon.pushContextStack(
+                    linterContext={PerseusLinter.pushContextStack(
                         this.props.linterContext,
                         "hints[" + i + "]",
                     )}

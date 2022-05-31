@@ -1,5 +1,6 @@
 // @flow
 import {mount} from "@cypress/react";
+import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import React from "react";
 
 import AssetContext from "../packages/perseus/src/asset-context.js";
@@ -39,16 +40,18 @@ const renderQuestion = (
     mount(
         <div className="framework-perseus">
             <AssetContext.Provider value={{assetStatuses, setAssetStatus}}>
-                <Perseus.Renderer
-                    ref={(node) => (renderer = node)}
-                    content={question.content}
-                    images={question.images}
-                    widgets={question.widgets}
-                    problemNum={0}
-                    apiOptions={apiOptions}
-                    reviewMode={reviewMode}
-                    onRender={onRender}
-                />
+                <RenderStateRoot>
+                    <Perseus.Renderer
+                        ref={(node) => (renderer = node)}
+                        content={question.content}
+                        images={question.images}
+                        widgets={question.widgets}
+                        problemNum={0}
+                        apiOptions={apiOptions}
+                        reviewMode={reviewMode}
+                        onRender={onRender}
+                    />
+                </RenderStateRoot>
             </AssetContext.Provider>
         </div>,
     );

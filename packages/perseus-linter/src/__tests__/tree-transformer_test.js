@@ -1,7 +1,7 @@
 // @flow
 import TreeTransformer from "../tree-transformer.js";
 
-describe("gorgon tree transformer", () => {
+describe("PerseusLinter tree transformer", () => {
     function clone(o) {
         return JSON.parse(JSON.stringify(o));
     }

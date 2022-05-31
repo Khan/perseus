@@ -21,6 +21,7 @@
 //
 // The current version exposes the following virtual events to jQuery bind methods:
 // "vmouseover vmousedown vmousemove vmouseup vclick vmouseout vmousecancel"
+import $ from "jquery";
 
 (function ($, window, document, undefined) {
     if (typeof $ === "undefined") {
@@ -542,4 +543,4 @@
             true,
         );
     }
-})(window.jQuery, window, document);
+})($, window, document);
