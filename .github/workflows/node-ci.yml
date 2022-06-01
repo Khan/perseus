@@ -16,39 +16,7 @@ jobs:
         os: [ubuntu-latest]
         node-version: [16.x]
     steps:
-      - name: "Checking out latest commit"
-        uses: actions/checkout@v2
-
-      - name: "Use Node.js ${{ matrix.node-version }} & Install & cache node_modules"
-        uses: Khan/actions@shared-node-cache-v0
-        with:
-          node-version: "${{ matrix.node-version }}"
-
-      - name: "Get All Changed Files"
-        id: changed
-        uses: jaredly/get-changed-files@v1.0.1
-        with:
-          format: json
-      - name: "Check for Changeset"
-        uses: actions/github-script@v6
-        with:
-          script: |
-              const inputFiles = JSON.parse(`${{ steps.changed.outputs.added_modified }}`);
-              core.debug("Changed files: " + inputFiles);
-
-              const hasChangeset = inputFiles.some(name => {
-                return /^\.changeset\/.*\.md/.test(name);
-              });
-              core.info(`This PR has a changeset: ${hasChangeset}`);
-
-              if (!hasChangeset) {
-                core.setFailed(
-                  "This PR does not have a changeset. You can add one by " +
-                  "running `yarn changeset` and following the prompts.\n" +
-                  "If this PR doesn't need a changeset, run `yarn changeset " +
-                  "--empty` and commit results."
-                );
-              }
+      - uses: Khan/actions@check-for-changeset-v0
 
   lint:
     name: Lint, Flow, and Test
@@ -67,23 +35,21 @@ jobs:
         node-version: ${{ matrix.node-version }}
 
     - name: Get All Changed Files
-      uses: jaredly/get-changed-files@v1.0.1
+      uses: Khan/actions@get-changed-files-v1
       id: changed
-      with:
-        format: json
 
     - id: js-files
       name: Find .js changed files
       uses: Khan/actions@filter-files-v0
       with:
-        changed-files: ${{ steps.changed.outputs.added_modified }}
+        changed-files: ${{ steps.changed.outputs.files }}
         extensions: '.js,.jsx'
 
     - id: eslint-reset
       uses: Khan/actions@filter-files-v0
       name: Files that would trigger a full eslint run
       with:
-        changed-files: ${{ steps.changed.outputs.added_modified }}
+        changed-files: ${{ steps.changed.outputs.files }}
         files: '.eslintrc.js,yarn.lock,.eslintignore'
 
     # Linting / type checking
@@ -104,7 +70,7 @@ jobs:
       uses: Khan/actions@filter-files-v0
       name: Files that would trigger a full jest run
       with:
-        changed-files: ${{ steps.changed.outputs.added_modified }}
+        changed-files: ${{ steps.changed.outputs.files }}
         files: 'jest.config.js,yarn.lock,test.config.js,test.transform.js'
 
     - name: Jest
