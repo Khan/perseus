@@ -37,8 +37,6 @@ jobs:
     - name: Get All Changed Files
       uses: Khan/actions@get-changed-files-v1
       id: changed
-      with:
-        format: json
 
     - id: js-files
       name: Find .js changed files
