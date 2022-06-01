@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: "Use Node.js ${{ matrix.node-version }} & Install & cache node_modules"
-        uses: ./.github/actions/shared-node-cache
+        uses: Khan/actions@shared-node-cache-v0
         with:
           node-version: "${{ matrix.node-version }}"
 
@@ -62,7 +62,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
-      uses: ./.github/actions/shared-node-cache
+      uses: Khan/actions@shared-node-cache-v0
       with:
         node-version: ${{ matrix.node-version }}
 
@@ -74,13 +74,13 @@ jobs:
 
     - id: js-files
       name: Find .js changed files
-      uses: ./.github/actions/filter-files
+      uses: Khan/actions@filter-files-v0
       with:
         changed-files: ${{ steps.changed.outputs.added_modified }}
         extensions: '.js,.jsx'
 
     - id: eslint-reset
-      uses: ./.github/actions/filter-files
+      uses: Khan/actions@filter-files-v0
       name: Files that would trigger a full eslint run
       with:
         changed-files: ${{ steps.changed.outputs.added_modified }}
@@ -88,7 +88,7 @@ jobs:
 
     # Linting / type checking
     - name: Eslint
-      uses: ./.github/actions/full-or-limited
+      uses: Khan/actions@full-or-limited-v0
       with:
         full-trigger: ${{ steps.eslint-reset.outputs.filtered }}
         full: yarn lint packages
@@ -101,14 +101,14 @@ jobs:
 
     # Run tests for our target matrix
     - id: jest-reset
-      uses: ./.github/actions/filter-files
+      uses: Khan/actions@filter-files-v0
       name: Files that would trigger a full jest run
       with:
         changed-files: ${{ steps.changed.outputs.added_modified }}
         files: 'jest.config.js,yarn.lock,test.config.js,test.transform.js'
 
     - name: Jest
-      uses: ./.github/actions/full-or-limited
+      uses: Khan/actions@full-or-limited-v0
       with:
         full-trigger: ${{ steps.jest-reset.outputs.filtered }}
         full: yarn jest
@@ -127,7 +127,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
-      uses: ./.github/actions/shared-node-cache
+      uses: Khan/actions@shared-node-cache-v0
       with:
         node-version: ${{ matrix.node-version }}
 
@@ -156,7 +156,7 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
-      uses: ./.github/actions/shared-node-cache
+      uses: Khan/actions@shared-node-cache-v0
       with:
         node-version: ${{ matrix.node-version }}
 
@@ -183,7 +183,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
-      uses: ./.github/actions/shared-node-cache
+      uses: Khan/actions@shared-node-cache-v0
       with:
         node-version: ${{ matrix.node-version }}
     # Make sure our packages aren't growing unexpectedly
@@ -212,7 +212,7 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
-      uses: ./.github/actions/shared-node-cache
+      uses: Khan/actions@shared-node-cache-v0
       with:
         node-version: ${{ matrix.node-version }}
 
