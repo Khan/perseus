@@ -112,8 +112,11 @@ module.exports = {
         /**
          * flowtype
          */
-        "flowtype/no-types-missing-file-annotation": "error",
+        "ft-flow/no-types-missing-file-annotation": "error",
         // "flowtype/no-existential-type": "error",
+        // These conflict with Prettier, so just disable them.
+        "ft-flow/generic-spacing": "off",
+        "ft-flow/space-after-type-colon": "off",
 
         /**
          * jest
