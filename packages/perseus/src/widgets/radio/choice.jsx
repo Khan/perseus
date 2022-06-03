@@ -208,74 +208,6 @@ class Choice extends React.Component<$FlowFixMe, State> {
 
     render(): React.Node {
         const sat = this.props.apiOptions.satStyling;
-        const isMobile = this.props.apiOptions.isMobile;
-
-        const {radioStyleVersion} = this.props.apiOptions.styling;
-        const finalStyles =
-            typeof radioStyleVersion === "undefined"
-                ? false
-                : radioStyleVersion === "final";
-
-        const className = classNames(
-            this.props.className,
-            "checkbox-label",
-            css(
-                styles.label,
-                isMobile && sharedStyles.disableTextSelection,
-                !sat && styles.responsiveLabel,
-                sat && styles.satLabel,
-            ),
-        );
-
-        const satRadioMenuContainer = classNames(
-            css(
-                this.state.isInputFocused && styles.satDescriptionInputFocused,
-                this.state.isInputActive && styles.satDescriptionInputActive,
-            ),
-        );
-
-        // If we're showing an answer to be incorrect, we render it as
-        // unchecked, regardless of the `checked` state we've stored.
-        //
-        // This is because the existence of a selected radio button makes it
-        // impossible to tab-navigate to any other choices (standard radio
-        // behavior), but the selected answer is now disabled and not tabbable,
-        // which means that non-mouse/non-touch users can't select another
-        // answer to try again!
-        //
-        // (This behavior is only necessary for type "radio", but we also apply
-        // it for type "checkbox", for consistency.)
-        const showingIncorrectness =
-            this.props.showCorrectness && !this.props.correct;
-        const inputIsChecked = this.props.checked && !showingIncorrectness;
-
-        // There's two different input components we could use (the builtin
-        // input component, or the ToggleableRadioButton component). These are
-        // the props that we will pass to either.
-        const commonInputProps = {
-            type: this.props.type,
-            name: this.props.groupName,
-            id: `${this.props.groupName}-choice-${this.props.pos}`,
-            checked: inputIsChecked,
-            disabled: this.props.disabled,
-            onFocus: this.onInputFocus,
-            onBlur: this.onInputBlur,
-            className: css(
-                // intermediate styles are not different for radio and
-                // checkbox, and have a separate active state.
-                !finalStyles && sharedStyles.perseusInteractive,
-                !finalStyles && styles.input,
-                !finalStyles && sharedStyles.responsiveInput,
-                !finalStyles && !sat && sharedStyles.responsiveRadioInput,
-                !finalStyles &&
-                    !sat &&
-                    this.state.isInputActive &&
-                    sharedStyles.responsiveRadioInputActive,
-                finalStyles && sharedStyles.perseusSrOnly,
-                sat && sharedStyles.perseusSrOnly,
-                sat && this.props.reviewMode && styles.satReviewInput,
-            ),
-        };
 
         const {reviewMode, correct, checked} = this.props;
         // HACK: while most of the styling for rendering SAT items is handled
@@ -481,16 +413,6 @@ const styles = StyleSheet.create({
         padding: "17px 14px",
     },
 
-    satDescriptionInputFocused: {
-        ...focusedStyleMixin,
-        display: "block",
-    },
-
-    satDescriptionInputActive: {
-        ...focusedStyleMixin,
-        backgroundColor: styleConstants.satActiveBackgroundColor,
-    },
-
     satDescriptionCorrect: {
         color: styleConstants.satCorrectColor,
     },
@@ -502,19 +424,6 @@ const styles = StyleSheet.create({
     satDescriptionIncorrectChecked: {
         color: styleConstants.satIncorrectColor,
         backgroundColor: styleConstants.satIncorrectBackgroundColor,
-    },
-
-    input: {
-        display: "inline-block",
-        width: 20,
-        margin: 3,
-        marginLeft: -20,
-        marginRight: 0,
-        float: "none",
-    },
-
-    satReviewInput: {
-        pointerEvents: "none",
     },
 
     satRadioOptionContent: {
@@ -568,25 +477,6 @@ const styles = StyleSheet.create({
     satReviewRationale: {
         marginTop: 13,
         marginLeft: 45,
-    },
-
-    label: {
-        display: "block",
-        transition: "opacity 0.2s ease-out",
-    },
-
-    responsiveLabel: {
-        WebkitTapHighlightColor: "transparent",
-        display: "flex",
-
-        // Ensure that all items consume the full height of the choice.
-        // That way, the cross-out menu click target is full-height,
-        // which makes it easier to click!
-        alignItems: "stretch",
-    },
-
-    satLabel: {
-        cursor: "pointer",
     },
 
     intermediateResponsiveCheckbox: {
