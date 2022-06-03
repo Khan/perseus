@@ -30,6 +30,7 @@ module.exports = {
         "plugin:storybook/recommended",
         // This config includes rules from @testing-library/jest-dom as well
         "plugin:testing-library/react",
+        "plugin:ft-flow/recommended",
     ],
     parser: "@babel/eslint-parser",
     parserOptions: {
@@ -46,6 +47,7 @@ module.exports = {
         "monorepo",
         "promise",
         "react-native",
+        "ft-flow",
     ],
     settings: {
         "import/resolver": {
