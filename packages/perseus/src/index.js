@@ -115,6 +115,7 @@ export type {
     RendererInterface,
     Version,
     VideoData,
+    VideoKind,
     WidgetDict,
     WidgetExports,
     WidgetInfo,

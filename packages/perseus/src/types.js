@@ -359,6 +359,8 @@ type InitialRequestUrlInterface = {|
     protocol: string,
 |};
 
+export type VideoKind = "YOUTUBE_ID" | "READABLE_ID";
+
 // An object for dependency injection, to allow different clients
 // to provide different methods for logging, translation, network
 // requests, etc.
@@ -392,7 +394,7 @@ export type PerseusDependencies = {|
     // framework.
     useVideo(
         id: string,
-        kind: "YOUTUBE_ID" | "READABLE_ID",
+        kind: VideoKind,
     ): Result<{|
         video: ?VideoData,
     |}>,
