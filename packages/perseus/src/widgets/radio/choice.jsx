@@ -406,8 +406,7 @@ class Choice extends React.Component<$FlowFixMe, State> {
             );
         }
 
-        const {reviewMode, correct, checked /*editMode*/} = this.props;
-        const editMode = true;
+        const {reviewMode, correct, checked} = this.props;
         // HACK: while most of the styling for rendering SAT items is handled
         // via aphrodite, we also need to assign normal CSS classnames here to
         // special-case the coloring of MathJax formulas (see .MathJax .math in
@@ -461,7 +460,7 @@ class Choice extends React.Component<$FlowFixMe, State> {
         // element inside, therefore we cannot use a label, which makes
         // selection of anything inside automatically select the input
         // element instead
-        const LabelOrDiv = editMode ? "div" : "label";
+        const LabelOrDiv = this.props.editMode ? "div" : "label";
 
         // We only show cross-out in certain products, and
         // only when you're still _answering_ the question. We also show this
@@ -490,7 +489,11 @@ class Choice extends React.Component<$FlowFixMe, State> {
                     isSatProduct={sat}
                 >
                     <LabelOrDiv
-                        htmlFor={!editMode ? commonInputProps.id : undefined}
+                        htmlFor={
+                            !this.props.editMode
+                                ? commonInputProps.id
+                                : undefined
+                        }
                         className={className}
                         style={{opacity: showDimmed ? 0.5 : 1.0}}
                     >
