@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 0.3.1
+
+### Patch Changes
+
+-   bfbcf273: Export new type: VideoKind (a parameter for the `useVideo` hook)
+
 ## 0.3.0
 
 ### Minor Changes
