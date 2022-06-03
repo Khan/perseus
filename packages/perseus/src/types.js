@@ -262,6 +262,9 @@ export type APIOptions = $ReadOnly<{|
         //   callsites should have been switched to using the "final"
         //   designs.
         radioStyleVersion?: "intermediate" | "final",
+
+        // TODO(Nicole): Remove this after landing wonderblock-ifying
+        // the radio widget
         primaryProductColor?: string,
     |},
 
