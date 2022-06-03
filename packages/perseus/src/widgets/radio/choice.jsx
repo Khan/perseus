@@ -327,12 +327,6 @@ class Choice extends React.Component<$FlowFixMe, State> {
             ),
         );
 
-        // In edit mode, we must allow selection of the contentEditable
-        // element inside, therefore we cannot use a label, which makes
-        // selection of anything inside automatically select the input
-        // element instead
-        const LabelOrDiv = this.props.editMode ? "div" : "label";
-
         // We want to show the choices as dimmed out when the choices are
         // disabled. However, we don't want to do this in the SAT product and
         // we also don't want to do this when we're in review mode in the
@@ -348,140 +342,125 @@ class Choice extends React.Component<$FlowFixMe, State> {
                     flexDirection: "column",
                 }}
             >
-                <LabelOrDiv
-                    htmlFor={
-                        !this.props.editMode ? commonInputProps.id : undefined
-                    }
+                <div
+                    style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        width: "100%",
+                        opacity: showDimmed ? 0.5 : 1.0,
+                    }}
                 >
-                    <div
+                    <Clickable
+                        onClick={() => {
+                            this.props.onChange({
+                                checked: true,
+                                crossedOut: false,
+                            });
+                        }}
+                        className={descriptionClassName}
+                        disabled={reviewMode}
                         style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            width: "100%",
-                            opacity: showDimmed ? 0.5 : 1.0,
+                            flex: 1,
                         }}
                     >
-                        <Clickable
-                            onClick={() => {
-                                this.props.onChange({
-                                    checked: true,
-                                    crossedOut: false,
-                                });
-                            }}
-                            className={descriptionClassName}
-                            disabled={reviewMode}
-                            style={{
-                                flex: 1,
-                            }}
-                        >
-                            {({hovered, focused, pressed}) => (
-                                <div>
-                                    <div className={checkboxAndOptionClassName}>
-                                        <span
-                                            className={checkboxContentClassName}
-                                        >
-                                            {this.renderChoiceIcon(
-                                                focused,
-                                                pressed,
-                                            )}
-                                        </span>
-                                        <span
-                                            className={classNames(
-                                                ClassNames.RADIO.OPTION_CONTENT,
-                                                ClassNames.INTERACTIVE,
-                                                css(
-                                                    sat &&
-                                                        styles.satRadioOptionContent,
-                                                    sat &&
-                                                        reviewMode &&
-                                                        styles.satReviewRadioOptionContent,
-                                                ),
-                                            )}
-                                            style={{cursor: "default"}}
-                                        >
-                                            <div
-                                                className={css(
-                                                    styles.optionStatusContainer,
-                                                )}
-                                            >
-                                                {this.renderOptionStatus()}
-                                            </div>
-                                            <div>{this.props.content}</div>
-                                        </span>
-                                    </div>
-                                </div>
-                            )}
-                        </Clickable>
-
-                        {this.props.apiOptions.crossOutEnabled && !reviewMode && (
-                            <Popover
-                                dismissEnabled
-                                content={({close}) => (
-                                    <PopoverContent
-                                        title="Cross out"
-                                        content="Cross out option"
-                                        closeButtonVisible
-                                        actions={
-                                            <View>
-                                                <Strut
-                                                    size={Spacing.medium_16}
-                                                />
-                                                <Button
-                                                    kind="primary"
-                                                    onClick={() => {
-                                                        if (
-                                                            !this.props
-                                                                .crossedOut
-                                                        ) {
-                                                            this.props.onChange(
-                                                                {
-                                                                    checked: false,
-                                                                    crossedOut: true,
-                                                                },
-                                                            );
-                                                        } else {
-                                                            this.props.onChange(
-                                                                {
-                                                                    crossedOut: false,
-                                                                },
-                                                            );
-                                                        }
-                                                        close();
-                                                    }}
-                                                >
-                                                    {this.props.crossedOut
-                                                        ? "Bring back"
-                                                        : "Cross out"}
-                                                </Button>
-                                            </View>
-                                        }
-                                    />
-                                )}
-                            >
-                                {({open}) => (
-                                    <Clickable onClick={open}>
-                                        {({hovered, focused, pressed}) => (
-                                            <Icon
-                                                icon={ellipsisHorizontalIcon}
-                                                size={3}
-                                                color={Color.offBlack64}
-                                            />
+                        {({hovered, focused, pressed}) => (
+                            <div>
+                                <div className={checkboxAndOptionClassName}>
+                                    <span className={checkboxContentClassName}>
+                                        {this.renderChoiceIcon(
+                                            focused,
+                                            pressed,
                                         )}
-                                    </Clickable>
-                                )}
-                            </Popover>
+                                    </span>
+                                    <span
+                                        className={classNames(
+                                            ClassNames.RADIO.OPTION_CONTENT,
+                                            ClassNames.INTERACTIVE,
+                                            css(
+                                                sat &&
+                                                    styles.satRadioOptionContent,
+                                                sat &&
+                                                    reviewMode &&
+                                                    styles.satReviewRadioOptionContent,
+                                            ),
+                                        )}
+                                        style={{cursor: "default"}}
+                                    >
+                                        <div
+                                            className={css(
+                                                styles.optionStatusContainer,
+                                            )}
+                                        >
+                                            {this.renderOptionStatus()}
+                                        </div>
+                                        <div>{this.props.content}</div>
+                                    </span>
+                                </div>
+                            </div>
                         )}
-                    </div>
+                    </Clickable>
 
-                    {this.props.showRationale && (
-                        <div
-                            className={rationaleClassName}
-                            data-test-id={`perseus-radio-rationale-content-${this.props.pos}`}
+                    {this.props.apiOptions.crossOutEnabled && !reviewMode && (
+                        <Popover
+                            dismissEnabled
+                            content={({close}) => (
+                                <PopoverContent
+                                    title="Cross out"
+                                    content="Cross out option"
+                                    closeButtonVisible
+                                    actions={
+                                        <View>
+                                            <Strut size={Spacing.medium_16} />
+                                            <Button
+                                                kind="primary"
+                                                onClick={() => {
+                                                    if (
+                                                        !this.props.crossedOut
+                                                    ) {
+                                                        this.props.onChange({
+                                                            checked: false,
+                                                            crossedOut: true,
+                                                        });
+                                                    } else {
+                                                        this.props.onChange({
+                                                            crossedOut: false,
+                                                        });
+                                                    }
+                                                    close();
+                                                }}
+                                            >
+                                                {this.props.crossedOut
+                                                    ? "Bring back"
+                                                    : "Cross out"}
+                                            </Button>
+                                        </View>
+                                    }
+                                />
+                            )}
                         >
-                            {this.props.rationale}
-                        </div>
+                            {({open}) => (
+                                <Clickable onClick={open}>
+                                    {({hovered, focused, pressed}) => (
+                                        <Icon
+                                            icon={ellipsisHorizontalIcon}
+                                            size={3}
+                                            color={Color.offBlack64}
+                                        />
+                                    )}
+                                </Clickable>
+                            )}
+                        </Popover>
                     )}
-                </LabelOrDiv>
+                </div>
+
+                {this.props.showRationale && (
+                    <div
+                        className={rationaleClassName}
+                        data-test-id={`perseus-radio-rationale-content-${this.props.pos}`}
+                    >
+                        {this.props.rationale}
+                    </div>
+                )}
             </div>
         );
     }
