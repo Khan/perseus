@@ -50,7 +50,7 @@ jobs:
       name: Files that would trigger a full eslint run
       with:
         changed-files: ${{ steps.changed.outputs.files }}
-        files: '.eslintrc.js,yarn.lock,.eslintignore'
+        files: '.eslintrc.js,package.json,yarn.lock,.eslintignore'
 
     # Linting / type checking
     - name: Eslint
@@ -71,7 +71,7 @@ jobs:
       name: Files that would trigger a full jest run
       with:
         changed-files: ${{ steps.changed.outputs.files }}
-        files: 'jest.config.js,yarn.lock,test.config.js,test.transform.js'
+        files: 'jest.config.js,package.json,yarn.lock,test.config.js,test.transform.js'
 
     - name: Jest
       uses: Khan/actions@full-or-limited-v0
