@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 0.5.4
+
+### Patch Changes
+
+-   f29b4975: Export the KeyConfigs type
+
 ## 0.5.3
 
 ### Patch Changes
