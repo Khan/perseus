@@ -1,3 +1,4 @@
+// @flow
 /**
  * Constants that define the various contexts in which a cursor can exist. The
  * active context is determined first by looking at the cursor's siblings (e.g.,
