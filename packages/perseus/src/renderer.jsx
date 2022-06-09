@@ -143,7 +143,7 @@ export type Widget = {|
 type Props = {|
     apiOptions?: APIOptions,
     alwaysUpdate?: boolean,
-    // eslint-disable-next-line flowtype/no-weak-types
+    // eslint-disable-next-line ft-flow/no-weak-types
     findExternalWidgets: Function,
     highlightedWidgets?: $ReadOnlyArray<any>,
     images: PerseusRenderer["images"],
@@ -214,7 +214,7 @@ class Renderer extends React.Component<Props, State> {
     lastRenderedMarkdown: React.Element<PerseusDependencies["KatexProvider"]>;
     reuseMarkdown: boolean;
     translationIndex: number;
-    // eslint-disable-next-line flowtype/no-mutable-array
+    // eslint-disable-next-line ft-flow/no-mutable-array
     widgetIds: Array<string>;
 
     static defaultProps: DefaultProps = {

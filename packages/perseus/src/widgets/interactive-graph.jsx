@@ -392,7 +392,7 @@ class InteractiveGraph extends React.Component<Props, State> {
     pointA: ?$FlowFixMe;
     pointB: ?$FlowFixMe;
     pointC: ?$FlowFixMe;
-    // eslint-disable-next-line flowtype/no-mutable-array
+    // eslint-disable-next-line ft-flow/no-mutable-array
     points: Array<$FlowFixMe>;
     polygon: ?$FlowFixMe;
     shouldResetGraphie: boolean;
@@ -1356,7 +1356,7 @@ class InteractiveGraph extends React.Component<Props, State> {
                 return true;
             }
 
-            // eslint-disable-next-line flowtype/no-mutable-array
+            // eslint-disable-next-line ft-flow/no-mutable-array
             const coords: Array<Coord> = _.invoke(this.points, "coord");
             coords[i] = coord;
 
@@ -2686,10 +2686,10 @@ class InteractiveGraph extends React.Component<Props, State> {
                 rubric.correct.type === "polygon" &&
                 state.coords != null
             ) {
-                const guess: Array<Coord> = state.coords?.slice(); // eslint-disable-line flowtype/no-mutable-array
+                const guess: Array<Coord> = state.coords?.slice(); // eslint-disable-line ft-flow/no-mutable-array
                 // $FlowFixMe[incompatible-type]
                 // $FlowFixMe[prop-missing]
-                const correct: Array<Coord> = rubric.correct.coords?.slice(); // eslint-disable-line flowtype/no-mutable-array
+                const correct: Array<Coord> = rubric.correct.coords?.slice(); // eslint-disable-line ft-flow/no-mutable-array
 
                 let match;
                 if (rubric.correct.match === "similar") {

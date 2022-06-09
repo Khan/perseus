@@ -2522,10 +2522,10 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@khanacademy/eslint-config@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@khanacademy/eslint-config/-/eslint-config-0.1.0.tgz#e2b2c935be685f76075ee83136752b184c1ac733"
-  integrity sha512-fskDM6GuRgZWmHHt2oUspcbsYNh6HNSB211372P98m3YRwkZNOeRCTFB7Byd3owfSm1z2jDYtUozgQv9zCWiVA==
+"@khanacademy/eslint-config@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@khanacademy/eslint-config/-/eslint-config-0.2.0.tgz#e9f57e743be10f74409eb79df7147081e0a8535f"
+  integrity sha512-yCzXifPo1Bo/r2YF7j92TEXAguBUSZOef2scwSD5upDJ5CR+pHW64tBtDfC2NVLm/72CilKXcroxJ7y9B92q1g==
 
 "@khanacademy/wonder-blocks-breadcrumbs@^1.0.30":
   version "1.0.30"

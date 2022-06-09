@@ -159,7 +159,7 @@ function compareElements(item0, item1) {
 /**
  * Draw an array of rendering instructions into a 2D canvas drawing context.
  */
-// eslint-disable-next-line flowtype/no-mutable-array
+// eslint-disable-next-line ft-flow/no-mutable-array
 function draw(ctx: $FlowFixMe, items: Array<$FlowFixMe>) {
     items.sort(compareElements).forEach(drawItem(ctx));
 }

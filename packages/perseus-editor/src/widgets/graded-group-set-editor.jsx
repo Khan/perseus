@@ -10,7 +10,7 @@ import GradedGroupEditor from "./graded-group-editor.jsx";
 type Props = $FlowFixMe;
 
 class GradedGroupSetEditor extends React.Component<Props> {
-    // eslint-disable-next-line flowtype/no-mutable-array
+    // eslint-disable-next-line ft-flow/no-mutable-array
     _editors: Array<$FlowFixMe>;
 
     static propTypes = {
