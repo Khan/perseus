@@ -58,7 +58,6 @@
     "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-disable": "^2.0.3",
     "eslint-plugin-eslint-comments": "^3.2.0",
-    "eslint-plugin-flowtype": "^8.0.3",
     "eslint-plugin-ft-flow": "^2.0.1",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jest": "^26.1.4",
