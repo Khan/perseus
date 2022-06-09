@@ -91,6 +91,7 @@ const styles = {
         fontSize: 20,
         fontWeight: 500,
         lineHeight: "30px",
+        margin: Spacing.xSmall_8,
     },
 };
 
