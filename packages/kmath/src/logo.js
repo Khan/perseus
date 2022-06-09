@@ -5,11 +5,11 @@
 //
 // Also located at http://ka-perseus-graphie.s3.amazonaws.com/42ef3cbadc3e6464124533191728c3c5c55c7355.svg
 
-// eslint-disable-next-line flowtype/no-types-missing-file-annotation
+// eslint-disable-next-line ft-flow/no-types-missing-file-annotation
 declare var init: $FlowFixMe;
-// eslint-disable-next-line flowtype/no-types-missing-file-annotation
+// eslint-disable-next-line ft-flow/no-types-missing-file-annotation
 declare var ellipse: $FlowFixMe;
-// eslint-disable-next-line flowtype/no-types-missing-file-annotation
+// eslint-disable-next-line ft-flow/no-types-missing-file-annotation
 declare var line: $FlowFixMe;
 
 const GREEN = "#28AE7B";

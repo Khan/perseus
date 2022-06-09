@@ -42,7 +42,7 @@ const scrollElementToOffset = (
     elementOrWindow: HTMLElement | WindowProxy,
     offset: number,
     duration: number = 0,
-    // eslint-disable-next-line flowtype/no-weak-types
+    // eslint-disable-next-line ft-flow/no-weak-types
     callback?: Function,
 ) => {
     const startPosition =
@@ -110,7 +110,7 @@ const SCROLL_ANIMATION_DURATION = 750; // ms
  */
 export const scrollElementIntoView = (
     element: Element,
-    // eslint-disable-next-line flowtype/no-weak-types
+    // eslint-disable-next-line ft-flow/no-weak-types
     callback?: Function,
 ) => {
     // Often times we scroll an element into with in reaction to some change in

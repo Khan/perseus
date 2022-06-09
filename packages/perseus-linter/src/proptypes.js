@@ -9,9 +9,9 @@ import type {LinterContextProps} from "./types.js";
 export const linterContextProps: React$PropType$Primitive<{
     contentType?: string,
     highlightLint?: boolean,
-    // eslint-disable-next-line flowtype/no-mutable-array
+    // eslint-disable-next-line ft-flow/no-mutable-array
     paths?: Array<string>,
-    // eslint-disable-next-line flowtype/no-mutable-array
+    // eslint-disable-next-line ft-flow/no-mutable-array
     stack?: Array<string>,
     ...
 }> = PropTypes.shape({

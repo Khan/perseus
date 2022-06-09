@@ -339,7 +339,7 @@ class ItemRenderer extends React.Component<Props, State> {
      * the form "answer-input-number 1", or the string "answer-area"
      * for the whole answer area (if the answer area is a single widget).
      */
-    // eslint-disable-next-line flowtype/no-weak-types
+    // eslint-disable-next-line ft-flow/no-weak-types
     _setWidgetProps(widgetId: string, newProps: any, callback: Function) {
         this.questionRenderer._setWidgetProps(widgetId, newProps, callback);
     }

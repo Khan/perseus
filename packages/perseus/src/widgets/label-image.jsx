@@ -85,7 +85,7 @@ type LabelImageState = {|
 
 class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
     // The rendered markers on the question image for labeling.
-    // eslint-disable-next-line flowtype/no-mutable-array
+    // eslint-disable-next-line ft-flow/no-mutable-array
     _markers: Array<?Marker>;
 
     // The popup component containing the answer choices.
