@@ -78,22 +78,97 @@ process.on("unhandledRejection", (err) => {
     console.error("Unhandled Promise Rejection:", err);
 });
 
-let consoleWarnsAndErrors = false;
-const resetConsoleWarnsAndErrors = () => {
-    consoleWarnsAndErrors = false;
-};
-const registerConsoleWarnsOrErrorCall = () => {
-    consoleWarnsAndErrors = true;
-};
-const reportUnhandledConsoleWarnAndErrors = () => {
-    if (consoleWarnsAndErrors) {
-        resetConsoleWarnsAndErrors();
-        throw new Error(
-            "Unhandled console warnings or errors.\n" +
-                "Use packages/perseus/src/logging/log.js to log, and make " +
-                "sure that your test case mocks the implementation of the " +
-                "Log.error call to handle your expected errors.",
+const reportUnhandledConsoleWarnAndErrors = (type, message, ...args) => {
+    // We push an error onto the current test's suppressedErrors.
+    // This may seem counterintuitive but according to the jest code,
+    // the suppressedErrors state contains errors from matchers that can fail
+    // tests, and from trying this out, we can see that it does exactly what we
+    // want.
+    // If we just threw an error, it seems to assign the error to the incorrect
+    // test case, whereas this does not.
+    const replaceStr = (message, ...args) => {
+        // This helper performs argument substitution to mimic what console.log
+        // would do.
+        let count = 0;
+        return message.replace(/%s/g, () => {
+            const substitution = args[count++];
+            if (typeof substitution === "string") {
+                return substitution;
+            }
+            return JSON.stringify(substitution);
+        });
+    };
+    const formattedMessage = replaceStr(message, ...args);
+    expect
+        .getState()
+        .suppressedErrors.push(
+            new Error(
+                `Unhandled console.${type} call.\n` +
+                    "If you expect this call, then suppress it using " +
+                    `jest.spyOn(console, "${type}").mockImplmentation(); ` +
+                    "otherwise, fix the test or code under test to no longer " +
+                    `result in this console.${type} call.\n\n` +
+                    formattedMessage,
+            ),
         );
+};
+
+// Track all of the console errors and warnings so that we can throw an
+// error to indicate they shouldn't be happening. We monkeypatch rather
+// than using spies so that folks can't just remove our checking with a
+// call to jest.resetAllMocks().
+// If a test legitimately expects a console.warn or console.error call, that
+// test should be using jest.spyOn with mockImplementation to suppress our
+// custom handling.
+globalThis.console.error = (...args) => {
+    reportUnhandledConsoleWarnAndErrors("error", ...args);
+};
+globalThis.console.warn = (...args) => {
+    const message = args[0];
+
+    const isReactUnsafe = (message, componentNames) =>
+        message &&
+        message.includes(
+            "See https://fb.me/react-unsafe-component-lifecycles for details.",
+        ) &&
+        componentNames;
+
+    const isReportableReactUnsafe = (message, componentNames) => {
+        // We ignore React lifecycle warnings for certain components so that
+        // we don't have to update these depedencies right now.
+        //
+        // TODO(FEI-3223): Update react-router-dom to 5.x
+        // TODO(FEI-3224): Remove react-motion
+        // TODO(FEI-3270): Remove all uses of wonder-blocks-modal-v1
+        //
+        // NOTE: This will also ignore lifecycle method warnings in any of
+        // our components in webapp with the same name.
+        const components = componentNames.split(", ");
+        const ignoredComponents = [
+            // react-router-dom
+            "Link",
+            "MemoryRouter",
+            "Redirect",
+            "Route",
+            "Router",
+            "StaticRouter",
+            "Switch",
+
+            // react-motion
+            "Motion",
+
+            // wonder-blocks-modal-v1
+            "ScrollDisabler",
+        ];
+
+        return !components.every((name) => ignoredComponents.includes(name));
+    };
+
+    if (
+        !isReactUnsafe(message, args[1]) ||
+        isReportableReactUnsafe(message, args[1])
+    ) {
+        reportUnhandledConsoleWarnAndErrors("warn", ...args);
     }
 };
 
@@ -102,73 +177,4 @@ beforeEach(() => {
     // Fake versions must be run/advanced by calling appropriate jest functions.
     // See https://jestjs.io/docs/en/jest-object#mock-timers.
     jest.useFakeTimers();
-
-    // Track all of the console errors and warnings so that we can throw an
-    // error later if any of them were called
-    resetConsoleWarnsAndErrors();
-    const originalError = globalThis.console.error;
-    jest.spyOn(globalThis.console, "error").mockImplementation((...args) => {
-        registerConsoleWarnsOrErrorCall();
-        originalError(...args);
-    });
-    const originalWarn = globalThis.console.warn;
-    jest.spyOn(globalThis.console, "warn").mockImplementation((...args) => {
-        const message = args[0];
-
-        if (
-            message &&
-            message.includes(
-                "See https://fb.me/react-unsafe-component-lifecycles for details.",
-            ) &&
-            args[1] // comma separated string of component names if defined
-        ) {
-            // We ignore React lifecycle warnings for certain components so that
-            // we don't have to update these depedencies right now.
-            //
-            // TODO(FEI-3223): Update react-router-dom to 5.x
-            // TODO(FEI-3224): Remove react-motion
-            // TODO(FEI-3270): Remove all uses of wonder-blocks-modal-v1
-            //
-            // NOTE: This will also ignore lifecycle method warnings in any of
-            // our components in webapp with the same name.
-            const components = args[1].split(", ");
-            const ignoredComponents = [
-                // react-router-dom
-                "Link",
-                "MemoryRouter",
-                "Redirect",
-                "Route",
-                "Router",
-                "StaticRouter",
-                "Switch",
-
-                // react-motion
-                "Motion",
-
-                // wonder-blocks-modal-v1
-                "ScrollDisabler",
-            ];
-
-            if (!components.every((name) => ignoredComponents.includes(name))) {
-                registerConsoleWarnsOrErrorCall();
-                originalWarn(...args);
-            }
-        } else {
-            registerConsoleWarnsOrErrorCall();
-            originalWarn(...args);
-        }
-    });
-});
-
-afterEach(() => {
-    // Make sure that any console errors or warnings trigger a test failure.
-    // Overwhelmingly these failures are due to real errors that are being
-    // hidden, so we should be attempting to fix them.
-    reportUnhandledConsoleWarnAndErrors();
-});
-
-afterAll(() => {
-    // We track to see if there were any console warnings or errors that came
-    // up *after* all the tests finished.
-    reportUnhandledConsoleWarnAndErrors();
 });
