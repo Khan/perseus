@@ -1,5 +1,13 @@
 # @khanacademy/perseus
 
+## 0.3.4
+
+### Patch Changes
+
+-   397c3660: Fix: remove gap between popover and popover anchor in definition widget
+-   Updated dependencies [6f8f1ac9]
+    -   @khanacademy/math-input@0.5.5
+
 ## 0.3.3
 
 ### Patch Changes
