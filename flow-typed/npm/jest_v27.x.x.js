@@ -27,7 +27,44 @@ export type KACustomMatcherTypes = {|
     // [Perseus-specific] Asserts that the given DOM element is somewhere
     // within a highlighted widget
     toBeHighlighted(): void,
-    toHaveNoA11yViolations(): void,
+
+    // KAS specific matchers
+    toBeExpr(string): void,
+    toBeSimplified(options?: $FlowFixMe): void,
+    toCollectAs(string): void,
+    toCollectAsRepr(string): void,
+    toCollectAsTex(string, options?: $FlowFixMe): void,
+    toCompileAs(
+        number,
+        vars?: {[string]: string | number | ((number) => number)},
+    ): void,
+    toEqualExpr(string): void,
+    toEqualExprAndForm(string): void,
+    toEvaluateAs(
+        number,
+        vars?: {[string]: string | number},
+        functions?: $ReadOnlyArray<string>,
+    ): void,
+    toExpandAs(string): void,
+    toExpandAsRepr(string): void,
+    toExpandAsTex(string): void,
+    toFactorAs(string): void,
+    toFactorAsAsTex(string): void,
+    toFactorAsRepr(string): void,
+    toHaveConsts($ReadOnlyArray<string>): void,
+    toHaveEqualUnits(string): void,
+    toHaveGCD(string): void,
+    toHaveMagnitude(number): void,
+    toHaveNorm(string): void,
+    toHaveStripNorm(string): void,
+    toHaveTheSameForm(string): void,
+    toHaveUnitVariable($FlowFixMe): void,
+    toParseAs(string, options?: $FlowFixMe): void,
+    toParseUnitsAsEqual(string): void,
+    toParseWithStructure(string, options?: $FlowFixMe): void,
+    toRenderTex(string, options?: $FlowFixMe): void,
+    toRenderTexOpt(string, ...optlist: $ReadOnlyArray<$FlowFixMe>): void,
+    toSimplifyAs(string): void,
 |};
 // <KA
 
