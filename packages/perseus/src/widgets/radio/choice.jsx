@@ -19,6 +19,7 @@ import mediaQueries from "../../styles/media-queries.js";
 
 import ChoiceIcon from "./choice-icon.jsx";
 import OptionStatus from "./option-status.jsx";
+import {getChoiceLetter} from "./util.js";
 
 const intermediateCheckboxPadding = `16px 16px`;
 const intermediateCheckboxPaddingPhone = `12px 16px`;
@@ -335,7 +336,12 @@ class Choice extends React.Component<$FlowFixMe, State> {
                             )}
                         >
                             {({open}) => (
-                                <Clickable onClick={open}>
+                                <Clickable
+                                    onClick={open}
+                                    aria-label={`Open menu for Choice ${getChoiceLetter(
+                                        this.props.pos,
+                                    )}`}
+                                >
                                     {({hovered, focused, pressed}) => (
                                         <Icon
                                             icon={ellipsisHorizontalIcon}

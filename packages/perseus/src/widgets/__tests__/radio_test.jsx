@@ -340,7 +340,7 @@ describe("single-choice question", () => {
                 crossOutEnabled: true,
             };
 
-            xit("should render cross-out menu button", () => {
+            it("should render cross-out menu button", () => {
                 // Arrange
 
                 // Act
