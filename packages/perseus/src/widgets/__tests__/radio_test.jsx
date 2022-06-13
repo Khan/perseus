@@ -223,7 +223,7 @@ describe("single-choice question", () => {
             expect(screen.getAllByRole("button")[0]).toHaveFocus();
         });
 
-        xit("should be able to navigate through 'None of the above' choice by keyboard", () => {
+        it("should be able to navigate through 'None of the above' choice by keyboard", () => {
             // Arrange
             const q = clone(question);
             ((q.widgets["radio 1"]
@@ -231,11 +231,12 @@ describe("single-choice question", () => {
             renderQuestion(q, apiOptions);
 
             // Act
-            userEvent.type(screen.getAllByRole("radio")[0], "{arrowup}");
-            userEvent.type(screen.getAllByRole("radio")[3], "{arrowup}");
+            userEvent.tab();
+            userEvent.tab();
+            userEvent.tab();
 
             // Assert
-            expect(screen.getAllByRole("radio")[2]).toHaveFocus();
+            expect(screen.getAllByRole("button")[2]).toHaveFocus();
         });
 
         xit.each([
