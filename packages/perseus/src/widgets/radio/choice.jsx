@@ -14,10 +14,8 @@ import * as React from "react";
 import _ from "underscore";
 
 import Icon from "../../components/icon.jsx";
-import {ClassNames} from "../../perseus-api.jsx";
 import * as styleConstants from "../../styles/constants.js";
 import mediaQueries from "../../styles/media-queries.js";
-import sharedStyles from "../../styles/shared.js";
 
 import ChoiceIcon from "./choice-icon.jsx";
 import OptionStatus from "./option-status.jsx";
@@ -224,25 +222,6 @@ class Choice extends React.Component<$FlowFixMe, State> {
             ),
         );
 
-        const checkboxContentClassName = classNames(
-            "checkbox",
-            css(
-                sharedStyles.perseusInteractive,
-                !sat && styles.choiceIconWrapper,
-                sat && styles.satCheckboxOptionContent,
-            ),
-        );
-
-        const checkboxAndOptionClassName = classNames(
-            "checkbox-and-option",
-            css(
-                !sat && styles.intermediateResponsiveCheckbox,
-                !sat &&
-                    reviewMode &&
-                    styles.intermediateResponsiveCheckboxReview,
-            ),
-        );
-
         const rationaleClassName = classNames(
             "perseus-radio-rationale-content",
             css(
@@ -289,38 +268,30 @@ class Choice extends React.Component<$FlowFixMe, State> {
                         }}
                     >
                         {({hovered, focused, pressed}) => (
-                            <div>
-                                <div className={checkboxAndOptionClassName}>
-                                    <span className={checkboxContentClassName}>
-                                        {this.renderChoiceIcon(
-                                            focused,
-                                            pressed,
-                                        )}
-                                    </span>
-                                    <span
-                                        className={classNames(
-                                            ClassNames.RADIO.OPTION_CONTENT,
-                                            ClassNames.INTERACTIVE,
-                                            css(
-                                                sat &&
-                                                    styles.satRadioOptionContent,
-                                                sat &&
-                                                    reviewMode &&
-                                                    styles.satReviewRadioOptionContent,
-                                            ),
-                                        )}
-                                        style={{cursor: "default"}}
-                                    >
-                                        <div
-                                            className={css(
-                                                styles.optionStatusContainer,
-                                            )}
-                                        >
-                                            {this.renderOptionStatus()}
-                                        </div>
-                                        <div>{this.props.content}</div>
-                                    </span>
-                                </div>
+                            <div
+                                style={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    justifyContent: "center",
+                                    alignContent: "center",
+                                    paddingTop: Spacing.xSmall_8,
+                                    paddingBottom: Spacing.xSmall_8,
+                                }}
+                            >
+                                <span>
+                                    {this.renderChoiceIcon(focused, pressed)}
+                                </span>
+                                <span
+                                    style={{
+                                        paddingLeft: Spacing.small_12,
+                                        textAlign: "left",
+                                        flex: 1,
+                                        paddingTop: 4,
+                                    }}
+                                >
+                                    <div>{this.renderOptionStatus()}</div>
+                                    <div>{this.props.content}</div>
+                                </span>
                             </div>
                         )}
                     </Clickable>
@@ -419,40 +390,6 @@ const styles = StyleSheet.create({
         backgroundColor: styleConstants.satIncorrectBackgroundColor,
     },
 
-    satRadioOptionContent: {
-        userSelect: "text",
-        display: "block",
-        marginLeft: 45,
-        // Overriding here, not sure why typically set
-        // to "cursor: default" in js
-        cursor: "inherit",
-    },
-
-    satReviewRadioOptionContent: {
-        fontWeight: "bold",
-    },
-
-    satCheckboxOptionContent: {
-        position: "absolute",
-        display: "block",
-        top: "50%",
-        margin: "-16px 0 0 0",
-        width: "auto",
-    },
-
-    choiceIconWrapper: {
-        display: "flex",
-        marginRight: 12,
-
-        // NOTE(mdr): Without this style, the bubbles shrink on iOS
-        //     when answer text gets long.
-        flexShrink: 0,
-    },
-
-    optionStatusContainer: {
-        display: "block",
-    },
-
     rationale: {
         display: "block",
     },
@@ -470,19 +407,6 @@ const styles = StyleSheet.create({
     satReviewRationale: {
         marginTop: 13,
         marginLeft: 45,
-    },
-
-    intermediateResponsiveCheckbox: {
-        display: "flex",
-        alignItems: "center",
-
-        padding: intermediateCheckboxPadding,
-        [mediaQueries.smOrSmaller]: {
-            padding: intermediateCheckboxPaddingPhone,
-        },
-    },
-    intermediateResponsiveCheckboxReview: {
-        alignItems: "flex-start",
     },
 });
 
