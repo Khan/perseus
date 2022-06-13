@@ -239,7 +239,7 @@ describe("single-choice question", () => {
             expect(screen.getAllByRole("button")[2]).toHaveFocus();
         });
 
-        xit.each([
+        it.each([
             ["No", "Yes"],
             ["False", "True"],
         ])("should enforce ordering for common answers: %j", (...answers) => {
@@ -258,7 +258,7 @@ describe("single-choice question", () => {
             // We click on the first item, which was the second (index == 1)
             // item in the original choices. But because of enforced ordering,
             // it is now at the top of the list (and thus our correct answer).
-            userEvent.click(screen.getAllByRole("radio")[0]);
+            userEvent.click(screen.getAllByRole("button")[0]);
 
             // Assert
             const items = screen.getAllByRole("listitem");
