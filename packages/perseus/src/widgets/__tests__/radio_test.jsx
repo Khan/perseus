@@ -33,7 +33,7 @@ const waitForTooltip = () => {
 };
 
 const answer = (index: number) => {
-    const radios = screen.getAllByRole("radio");
+    const radios = screen.getAllByRole("button");
     // userEvent.click() returns a very hard-to-understand error if passed an
     // element that is null/undefined (ie. if the index is invalid) so we
     // manually check and throw here to protect future me, and others :)
@@ -318,7 +318,7 @@ describe("single-choice question", () => {
             expect(passageRefRadio).toHaveTextContent("lines NaN–NaN");
         });
 
-        xit("Should render option statuses (rationales) for selected choices", () => {
+        it("Should render option statuses (rationales) for selected choices", () => {
             // Arrange
             const {renderer} = renderQuestion(question, apiOptions);
 
