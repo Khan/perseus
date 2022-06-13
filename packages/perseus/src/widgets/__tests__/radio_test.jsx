@@ -202,21 +202,25 @@ describe("single-choice question", () => {
             // Act
             userEvent.tab();
             expect(screen.getAllByRole("button")[0]).toHaveFocus();
+            userEvent.tab();
 
             // Assert
-            userEvent.tab();
             expect(screen.getAllByRole("button")[1]).toHaveFocus();
         });
 
-        xit("should be able to navigate up by keyboard", () => {
+        it("should be able to navigate up by keyboard", () => {
             // Arrange
             renderQuestion(question, apiOptions);
 
             // Act
-            userEvent.type(screen.getAllByRole("radio")[0], "{arrowup}");
+            userEvent.tab();
+            expect(screen.getAllByRole("button")[0]).toHaveFocus();
+            userEvent.tab();
+            expect(screen.getAllByRole("button")[1]).toHaveFocus();
+            userEvent.tab({shift: true});
 
             // Assert
-            expect(screen.getAllByRole("radio")[3]).toHaveFocus();
+            expect(screen.getAllByRole("button")[0]).toHaveFocus();
         });
 
         xit("should be able to navigate through 'None of the above' choice by keyboard", () => {
