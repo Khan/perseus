@@ -288,7 +288,7 @@ describe("single-choice question", () => {
             expect(items[1]).toHaveTextContent(answers[1]);
         });
 
-        xit("should transform inline passage-refs to references to passage widgets", () => {
+        it("should transform inline passage-refs to references to passage widgets", () => {
             // Arrange
 
             // Add a passage widget to the question content and then reference it
