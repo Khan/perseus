@@ -310,6 +310,9 @@ class Choice extends React.Component<$FlowFixMe, State> {
                                             <Strut size={Spacing.medium_16} />
                                             <Button
                                                 kind="primary"
+                                                aria-label={`Cross out Choice ${getChoiceLetter(
+                                                    this.props.pos,
+                                                )}`}
                                                 onClick={() => {
                                                     if (
                                                         !this.props.crossedOut

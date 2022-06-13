@@ -2,6 +2,7 @@
 
 import {screen, fireEvent} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import {act} from "react-dom/test-utils";
 import _ from "underscore";
 import "@testing-library/jest-dom"; // Imports custom mathers
 
@@ -32,15 +33,9 @@ const waitForTooltip = () => {
     jest.runOnlyPendingTimers();
 };
 
-const answer = (index: number) => {
-    const radios = screen.getAllByRole("button");
-    // userEvent.click() returns a very hard-to-understand error if passed an
-    // element that is null/undefined (ie. if the index is invalid) so we
-    // manually check and throw here to protect future me, and others :)
-    if (index > radios.length) {
-        throw new Error("Invalid array index for radio");
-    }
-    userEvent.click(radios[index]);
+const selectOption = (index: number) => {
+    const options = screen.getAllByRole("button");
+    userEvent.click(options[index]);
 };
 
 describe("single-choice question", () => {
@@ -76,7 +71,7 @@ describe("single-choice question", () => {
                     const {container} = renderQuestion(question, apiOptions);
 
                     // Act
-                    answer(correct);
+                    selectOption(correct);
 
                     // Assert
                     expect(container).toMatchSnapshot("correct answer");
@@ -87,7 +82,7 @@ describe("single-choice question", () => {
                     const {container} = renderQuestion(question, apiOptions);
 
                     // Act
-                    answer(incorrect[0]);
+                    selectOption(incorrect[0]);
 
                     // Assert
                     expect(container).toMatchSnapshot("incorrect answer");
@@ -100,7 +95,7 @@ describe("single-choice question", () => {
                     });
 
                     // Act
-                    answer(correct);
+                    selectOption(correct);
 
                     // Assert
                     expect(renderer).toHaveBeenAnsweredCorrectly();
@@ -131,7 +126,7 @@ describe("single-choice question", () => {
                         const {renderer} = renderQuestion(question, apiOptions);
 
                         // Act
-                        answer(incorrect);
+                        selectOption(incorrect);
 
                         // Assert
                         expect(renderer).toHaveBeenAnsweredIncorrectly();
@@ -160,7 +155,7 @@ describe("single-choice question", () => {
                     // Act
                     // Since this is a single-select setup, just select the first
                     // incorrect choice.
-                    answer(incorrect[0]);
+                    selectOption(incorrect[0]);
                     renderer.deselectIncorrectSelectedChoices();
 
                     // Assert
@@ -184,7 +179,7 @@ describe("single-choice question", () => {
                     renderQuestion(staticQuestion, apiOptions, {reviewMode});
 
                     // Act
-                    answer(correct);
+                    selectOption(correct);
 
                     // Assert
                     // Everything's read-only so no selections made
@@ -323,7 +318,7 @@ describe("single-choice question", () => {
             const {renderer} = renderQuestion(question, apiOptions);
 
             // Act
-            answer(incorrect[0]);
+            selectOption(incorrect[0]);
             renderer.showRationalesForCurrentlySelectedChoices();
 
             // Assert
@@ -364,7 +359,6 @@ describe("single-choice question", () => {
                         name: /Open menu for Choice B/,
                     }),
                 );
-                waitForTooltip();
 
                 // Assert
                 expect(
@@ -500,7 +494,7 @@ describe("single-choice question", () => {
         });
     });
 
-    xit("should be invalid when first rendered", () => {
+    it("should be invalid when first rendered", () => {
         // Arrange
         const apiOptions: APIOptions = {
             crossOutEnabled: false,
@@ -521,7 +515,7 @@ describe("single-choice question", () => {
         renderQuestion(question, apiOptions, {reviewMode: true});
 
         // Act
-        answer(correct);
+        selectOption(correct);
 
         // Assert
         expect(screen.getAllByText("Correct (selected)")).toHaveLength(1);
@@ -535,7 +529,7 @@ describe("single-choice question", () => {
         renderQuestion(question, apiOptions, {reviewMode: true});
 
         // Act
-        answer(incorrect[0]);
+        selectOption(incorrect[0]);
 
         // Assert
         expect(screen.getAllByText("Incorrect (selected)")).toHaveLength(1);
