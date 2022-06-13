@@ -267,7 +267,7 @@ describe("single-choice question", () => {
             expect(renderer).toHaveBeenAnsweredCorrectly();
         });
 
-        xit("should not change ordering of non-common answers", () => {
+        it("should not change ordering of non-common answers", () => {
             // Arrange
             const answers = ["Last", "First"];
             const q = clone(question);
