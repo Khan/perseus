@@ -22,13 +22,6 @@ import sharedStyles from "../../styles/shared.js";
 import ChoiceIcon from "./choice-icon.jsx";
 import OptionStatus from "./option-status.jsx";
 
-const focusedStyleMixin = {
-    backgroundColor: styleConstants.satSelectedBackgroundColor,
-    outline: `2px solid ${styleConstants.satBlue}`,
-    // Render the outline higher than the next element's border
-    zIndex: 1,
-};
-
 const intermediateCheckboxPadding = `16px 16px`;
 const intermediateCheckboxPaddingPhone = `12px 16px`;
 

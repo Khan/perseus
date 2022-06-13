@@ -1,8 +1,8 @@
 // @flow
 /* Component for rendering a letter icon in radio choice */
 
-import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import Color from "@khanacademy/wonder-blocks-color";
+import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
@@ -264,6 +264,8 @@ type ChoiceIconProps = {|
     //     general case, though? When does the choice container have a
     //     non-white background, aside from SAT, which uses a different icon?
     transparentBackground?: boolean,
+
+    primaryProductColor: string,
 |};
 
 class ChoiceIcon extends React.Component<ChoiceIconProps> {
