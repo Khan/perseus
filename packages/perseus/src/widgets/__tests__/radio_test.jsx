@@ -195,15 +195,17 @@ describe("single-choice question", () => {
             },
         );
 
-        xit("should be able to navigate down by keyboard", () => {
+        it("should be able to navigate down by keyboard", () => {
             // Arrange
             renderQuestion(question, apiOptions);
 
             // Act
-            userEvent.type(screen.getAllByRole("radio")[0], "{arrowdown}");
+            userEvent.tab();
+            expect(screen.getAllByRole("button")[0]).toHaveFocus();
 
             // Assert
-            expect(screen.getAllByRole("radio")[1]).toHaveFocus();
+            userEvent.tab();
+            expect(screen.getAllByRole("button")[1]).toHaveFocus();
         });
 
         xit("should be able to navigate up by keyboard", () => {
