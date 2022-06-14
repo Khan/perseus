@@ -103,7 +103,7 @@ describe("single-choice question", () => {
                 it("should accept the right answer (touch)", () => {
                     // Arrange
                     const {renderer} = renderQuestion(question, apiOptions);
-                    const correctRadio = screen.getAllByRole("radio")[correct];
+                    const correctRadio = screen.getAllByRole("button")[correct];
 
                     // Act
                     fireEvent.touchStart(correctRadio);
