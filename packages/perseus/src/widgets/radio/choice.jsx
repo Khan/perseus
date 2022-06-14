@@ -264,6 +264,7 @@ class Choice extends React.Component<$FlowFixMe, State> {
                         }}
                         className={descriptionClassName}
                         disabled={reviewMode}
+                        aria-selected={this.props.checked}
                         style={{
                             flex: 1,
                         }}

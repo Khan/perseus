@@ -141,7 +141,7 @@ describe("single-choice question", () => {
                     expect(gotFocus).toBeTrue();
                 });
 
-                xit("should deselect incorrect selected choices", () => {
+                it("should deselect incorrect selected choices", () => {
                     // Arrange
                     const {renderer} = renderQuestion(question, apiOptions, {
                         reviewMode,
@@ -154,8 +154,8 @@ describe("single-choice question", () => {
                     renderer.deselectIncorrectSelectedChoices();
 
                     // Assert
-                    screen.getAllByRole("radio").forEach((r) => {
-                        expect(r).not.toBeChecked();
+                    screen.getAllByRole("button").forEach((r) => {
+                        expect(r).not.toHaveAttribute("aria-selected", "true");
                     });
                 });
 
