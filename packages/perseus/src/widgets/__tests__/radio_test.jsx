@@ -130,11 +130,9 @@ describe("single-choice question", () => {
                     },
                 );
 
-                xit("calling .focus() on the renderer should succeed", () => {
+                it("calling .focus() on the renderer should succeed", () => {
                     // Arrange
-                    const {renderer} = renderQuestion(question, apiOptions, {
-                        reviewMode,
-                    });
+                    const {renderer} = renderQuestion(question, apiOptions);
 
                     // Act
                     const gotFocus = renderer.focus();
