@@ -2,7 +2,6 @@
 
 import {screen, fireEvent} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import {waitFor} from "react-dom/test-utils";
 import _ from "underscore";
 import "@testing-library/jest-dom"; // Imports custom mathers
 
@@ -24,14 +23,6 @@ import type {
     PerseusRadioWidgetOptions,
 } from "../../perseus-types.js";
 import type {APIOptions} from "../../types.js";
-
-const waitForTooltip = () => {
-    // We need to wait !!three!! render passes for the NewTooltip to be
-    // fully rendered.
-    jest.runOnlyPendingTimers();
-    jest.runOnlyPendingTimers();
-    jest.runOnlyPendingTimers();
-};
 
 const selectOption = (index: number) => {
     const options = screen.getAllByRole("button");
