@@ -517,7 +517,7 @@ describe("single-choice question", () => {
         expect(screen.getAllByText("Correct (selected)")).toHaveLength(1);
     });
 
-    xit("Should render incorrect option select statuses (rationales) when review mode enabled", () => {
+    it("Should render incorrect option select statuses (rationales) when review mode enabled", () => {
         // Arrange
         const apiOptions: APIOptions = {
             crossOutEnabled: false,
