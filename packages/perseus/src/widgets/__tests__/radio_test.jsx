@@ -100,7 +100,7 @@ describe("single-choice question", () => {
                     expect(renderer).toHaveBeenAnsweredCorrectly();
                 });
 
-                xit("should accept the right answer (touch)", () => {
+                it("should accept the right answer (touch)", () => {
                     // Arrange
                     const {renderer} = renderQuestion(question, apiOptions);
                     const correctRadio = screen.getAllByRole("radio")[correct];
