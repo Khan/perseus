@@ -118,7 +118,7 @@ describe("single-choice question", () => {
                     expect(renderer).toHaveBeenAnsweredCorrectly();
                 });
 
-                xit.each(incorrect)(
+                it.each(incorrect)(
                     "should reject incorrect answer - choice %d",
                     (incorrect: number) => {
                         // Arrange
