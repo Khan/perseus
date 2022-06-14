@@ -570,7 +570,7 @@ describe("multi-choice question", () => {
         expect(container).toMatchSnapshot("invalid state");
     });
 
-    xit("should be invalid when incorrect number of choices selected", () => {
+    it("should be invalid when incorrect number of choices selected", () => {
         // Arrange
         const apiOptions: APIOptions = {
             crossOutEnabled: false,
@@ -607,8 +607,8 @@ describe("multi-choice question", () => {
         );
 
         // Act
-        const boxes = screen.getAllByRole("checkbox");
-        userEvent.click(boxes[3]); // incorrect
+        const option = screen.getAllByRole("button");
+        userEvent.click(option[3]); // incorrect
 
         // Assert
         expect(renderer).toHaveInvalidInput(
