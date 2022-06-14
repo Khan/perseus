@@ -558,13 +558,13 @@ describe("multi-choice question", () => {
         expect(renderer).toHaveBeenAnsweredCorrectly();
     });
 
-    xit("should snapshot the same when invalid", () => {
+    it("should snapshot the same when invalid", () => {
         // Arrange
         const {container} = renderQuestion(question, apiOptions);
 
         // Act
-        const boxes = screen.getAllByRole("checkbox");
-        incorrect[0].forEach((i) => userEvent.click(boxes[i]));
+        const options = screen.getAllByRole("button");
+        incorrect[0].forEach((i) => userEvent.click(options[i]));
 
         // Assert
         expect(container).toMatchSnapshot("invalid state");
