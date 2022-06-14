@@ -66,7 +66,7 @@ describe("single-choice question", () => {
                     expect(container).toMatchSnapshot("first render");
                 });
 
-                xit("should snapshot the same with correct answer", () => {
+                it("should snapshot the same with correct answer", () => {
                     // Arrange
                     const {container} = renderQuestion(question, apiOptions);
 
@@ -77,7 +77,7 @@ describe("single-choice question", () => {
                     expect(container).toMatchSnapshot("correct answer");
                 });
 
-                xit("should snapshot the same with incorrect answer", () => {
+                it("should snapshot the same with incorrect answer", () => {
                     // Arrange
                     const {container} = renderQuestion(question, apiOptions);
 
