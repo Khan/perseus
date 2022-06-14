@@ -616,30 +616,30 @@ describe("multi-choice question", () => {
         );
     });
 
-    xit.each(incorrect)(
+    it.each(incorrect)(
         "should reject an incorrect answer - test #%#",
         (...choices) => {
             // Arrange
             const {renderer} = renderQuestion(question, apiOptions);
 
             // Act
-            const boxes = screen.getAllByRole("checkbox");
-            choices.forEach((i) => userEvent.click(boxes[i]));
+            const option = screen.getAllByRole("button");
+            choices.forEach((i) => userEvent.click(option[i]));
 
             // Assert
             expect(renderer).toHaveBeenAnsweredIncorrectly();
         },
     );
 
-    xit.each(invalid)(
+    it.each(invalid)(
         "should reject an invalid answer - test #%#",
         (...choices) => {
             // Arrange
             const {renderer} = renderQuestion(question, apiOptions);
 
             // Act
-            const boxes = screen.getAllByRole("checkbox");
-            choices.forEach((i) => userEvent.click(boxes[i]));
+            const option = screen.getAllByRole("button");
+            choices.forEach((i) => userEvent.click(option[i]));
 
             // Assert
             expect(renderer).toHaveInvalidInput();

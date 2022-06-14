@@ -7,11 +7,10 @@
  * between the states more immediately clear to users.
  */
 
+import Color from "@khanacademy/wonder-blocks-color";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
-
-import Color from "@khanacademy/wonder-blocks-color";
 
 class OptionStatus extends React.Component<{
     // Was this option the correct answer?
