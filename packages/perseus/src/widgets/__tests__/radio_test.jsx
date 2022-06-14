@@ -503,7 +503,7 @@ describe("single-choice question", () => {
         expect(renderer).toHaveInvalidInput();
     });
 
-    xit("Should render correct option select statuses (rationales) when review mode enabled", () => {
+    it("Should render correct option select statuses (rationales) when review mode enabled", () => {
         // Arrange
         const apiOptions: APIOptions = {
             crossOutEnabled: false,

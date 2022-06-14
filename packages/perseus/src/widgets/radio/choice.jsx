@@ -265,8 +265,7 @@ class Choice extends React.Component<$FlowFixMe, State> {
                         className={descriptionClassName}
                         disabled={
                             this.props.apiOptions.staticRender ||
-                            this.props.apiOptions.readOnly ||
-                            reviewMode
+                            this.props.apiOptions.readOnly
                         }
                         aria-label={`Select Choice ${getChoiceLetter(
                             this.props.pos,
