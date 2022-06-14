@@ -34,7 +34,8 @@ const waitForTooltip = () => {
 
 const selectOption = (index: number) => {
     const options = screen.getAllByRole("button");
-    userEvent.click(options[index]);
+    const selectButton = options[index];
+    userEvent.click(selectButton);
 };
 
 describe("single-choice question", () => {
@@ -87,15 +88,12 @@ describe("single-choice question", () => {
                     expect(container).toMatchSnapshot("incorrect answer");
                 });
 
-                xit("should accept the right answer (mouse)", () => {
+                it("should accept the right answer (mouse)", () => {
                     // Arrange
-                    const {renderer} = renderQuestion(question, apiOptions, {
-                        reviewMode,
-                    });
+                    const {renderer} = renderQuestion(question, apiOptions);
 
                     // Act
                     selectOption(correct);
-
                     // Assert
                     expect(renderer).toHaveBeenAnsweredCorrectly();
                 });
