@@ -546,13 +546,13 @@ describe("multi-choice question", () => {
         );
     });
 
-    xit("should accept the right answer", () => {
+    it("should accept the right answer", () => {
         // Arrange
         const {renderer} = renderQuestion(question, apiOptions);
 
         // Act
-        const boxes = screen.getAllByRole("checkbox");
-        correct.forEach((i) => userEvent.click(boxes[i]));
+        const options = screen.getAllByRole("button");
+        correct.forEach((i) => userEvent.click(options[i]));
 
         // Assert
         expect(renderer).toHaveBeenAnsweredCorrectly();
