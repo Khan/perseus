@@ -264,6 +264,7 @@ class Choice extends React.Component<$FlowFixMe, State> {
                         }}
                         className={descriptionClassName}
                         disabled={
+                            this.props.disabled ||
                             this.props.apiOptions.staticRender ||
                             this.props.apiOptions.readOnly
                         }

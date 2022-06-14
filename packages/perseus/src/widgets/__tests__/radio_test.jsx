@@ -151,8 +151,7 @@ describe("single-choice question", () => {
                     });
                 });
 
-                // TODO(Nicole): the widget seems like it's not getting the static prop
-                xit("should disable all radio inputs when static is true", () => {
+                it("should disable all radio inputs when static is true", () => {
                     // Arrange
                     const staticQuestion = {
                         ...question,
