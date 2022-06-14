@@ -159,6 +159,7 @@ describe("single-choice question", () => {
                     });
                 });
 
+                // TODO(Nicole): the widget seems like it's not getting the static prop
                 xit("should disable all radio inputs when static is true", () => {
                     // Arrange
                     const staticQuestion = {
@@ -178,8 +179,8 @@ describe("single-choice question", () => {
 
                     // Assert
                     // Everything's read-only so no selections made
-                    screen.getAllByRole("radio").forEach((r) => {
-                        expect(r).toBeDisabled();
+                    screen.getAllByRole("button").forEach((r) => {
+                        expect(r).toHaveAttribute("aria-disabled", "true");
                     });
                 });
             },

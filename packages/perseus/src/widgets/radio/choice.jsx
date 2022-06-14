@@ -263,7 +263,14 @@ class Choice extends React.Component<$FlowFixMe, State> {
                             });
                         }}
                         className={descriptionClassName}
-                        disabled={reviewMode}
+                        disabled={
+                            this.props.apiOptions.staticRender ||
+                            this.props.apiOptions.readOnly ||
+                            reviewMode
+                        }
+                        aria-label={`Select Choice ${getChoiceLetter(
+                            this.props.pos,
+                        )}`}
                         aria-selected={this.props.checked}
                         style={{
                             flex: 1,
@@ -314,6 +321,10 @@ class Choice extends React.Component<$FlowFixMe, State> {
                                                 aria-label={`Cross out Choice ${getChoiceLetter(
                                                     this.props.pos,
                                                 )}`}
+                                                disabled={
+                                                    this.props.apiOptions
+                                                        .readOnly || reviewMode
+                                                }
                                                 onClick={() => {
                                                     if (
                                                         !this.props.crossedOut
@@ -345,6 +356,9 @@ class Choice extends React.Component<$FlowFixMe, State> {
                                     aria-label={`Open menu for Choice ${getChoiceLetter(
                                         this.props.pos,
                                     )}`}
+                                    disabled={
+                                        this.props.apiOptions.staticRender
+                                    }
                                 >
                                     {({hovered, focused, pressed}) => (
                                         <Icon
