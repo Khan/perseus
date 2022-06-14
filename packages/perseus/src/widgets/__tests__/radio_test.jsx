@@ -424,29 +424,34 @@ describe("single-choice question", () => {
                 ).toHaveLength(0);
             });
 
-            xit("should dismiss cross-out button with {tab} key", () => {
+            it("should dismiss cross-out button with {tab} key", () => {
                 // Arrange
+
+                // Popper isn't a super well behaved component and warns that
+                // the component must be wrapped in act()
+                jest.spyOn(console, "error").mockImplementation(() => {});
+
                 renderQuestion(question, crossOutApiOptions);
                 userEvent.tab(); // Choice icon
                 userEvent.tab(); // Cross-out menu ellipsis
 
-                // Open
+                // Act
                 userEvent.keyboard("{space}");
-                waitForTooltip();
+                jest.runAllTimers();
 
                 expect(
-                    screen.queryAllByRole("button", {
+                    screen.getByRole("button", {
                         name: /Cross out Choice A/,
                     }),
-                ).toHaveLength(1);
+                ).toBeVisible();
 
-                // Act
-                userEvent.tab();
+                userEvent.keyboard("{space}");
+                jest.runAllTimers();
 
                 // Assert
                 expect(
                     screen.queryAllByRole("button", {
-                        name: /Cross out Choice B/,
+                        name: /Cross out Choice A/,
                     }),
                 ).toHaveLength(0);
             });
