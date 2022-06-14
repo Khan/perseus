@@ -455,50 +455,6 @@ describe("single-choice question", () => {
                     }),
                 ).toHaveLength(0);
             });
-
-            xit("should dismiss cross-out button with {Escape} key", () => {
-                // Arrange
-                renderQuestion(question, crossOutApiOptions);
-
-                userEvent.tab(); // Choice icon
-                userEvent.tab(); // Cross-out menu ellipsis
-                userEvent.keyboard("{space}"); // Open tooltip
-
-                // Global escape handler only set up after a clock tick
-                jest.runOnlyPendingTimers();
-
-                // Act
-                userEvent.keyboard("{esc}");
-
-                // Assert
-                expect(
-                    screen.queryAllByRole("button", {
-                        name: /Cross out Choice B/,
-                    }),
-                ).toHaveLength(0);
-            });
-
-            xit("should dismiss cross-out button with click outside tooltip", () => {
-                // Arrange
-                renderQuestion(question, crossOutApiOptions);
-
-                userEvent.tab(); // Choice icon
-                userEvent.tab(); // Cross-out menu ellipsis
-                userEvent.keyboard("{space}"); // Open tooltip
-
-                // Global escape handler only set up after a clock tick
-                jest.runOnlyPendingTimers();
-
-                // Act
-                userEvent.click((document.body: any));
-
-                // Assert
-                expect(
-                    screen.queryAllByRole("button", {
-                        name: /Cross out Choice B/,
-                    }),
-                ).toHaveLength(0);
-            });
         });
     });
 
