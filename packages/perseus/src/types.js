@@ -404,9 +404,7 @@ export type PerseusDependencies = {|
     // RequestInfo
     isDevServer: boolean,
     kaLocale: string,
-    isPhone: boolean,
     isMobile: boolean,
-    isTablet: boolean,
 |};
 
 export type APIOptionsWithDefaults = $ReadOnly<{|
