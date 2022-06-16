@@ -159,10 +159,10 @@ class Choice extends React.Component<$FlowFixMe, State> {
         );
     };
 
-    renderChoiceIcon: (isFocused: boolean, isPressed: boolean) => React.Node = (
-        isFocused,
-        isPressed,
-    ) => {
+    renderChoiceIcon: (args: {|
+        isFocused: boolean,
+        isPressed: boolean,
+    |}) => React.Node = ({isFocused, isPressed}) => {
         const {radioStyleVersion, primaryProductColor} =
             this.props.apiOptions.styling;
         const finalStyles =
@@ -272,6 +272,8 @@ class Choice extends React.Component<$FlowFixMe, State> {
                             this.props.pos,
                         )}`}
                         aria-selected={this.props.checked}
+                        aria-checked={this.props.checked}
+                        role={"checkbox"}
                         style={{
                             flex: 1,
                         }}
@@ -288,7 +290,10 @@ class Choice extends React.Component<$FlowFixMe, State> {
                                 }}
                             >
                                 <span>
-                                    {this.renderChoiceIcon(focused, pressed)}
+                                    {this.renderChoiceIcon({
+                                        isFocused: focused,
+                                        isPressed: pressed,
+                                    })}
                                 </span>
                                 <span
                                     style={{
