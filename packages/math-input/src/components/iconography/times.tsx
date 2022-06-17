@@ -15,26 +15,26 @@ const Times = (props: {color: string}): React.ReactNode => {
                 <path fill="none" d="M0 0h48v48H0z" />
                 <path fill="none" d="M12 12h24v24H12z" />
                 <path
+                    d="m20 20 8 8M28 20l-8 8"
                     stroke={props.color}
+                    strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="m20 20 8 8M28 20l-8 8"
                 />
                 <g transform="translate(-50 -518)">
                     <mask id="b" fill="#fff">
                         <use xlinkhref="#a" />
                     </mask>
-                    <use xlink:href="#a" fill="#FAFAFA" />
+                    <use fill="#FAFAFA" xlink:href="#a" />
                     <g mask="url(#b)">
                         <path fill="none" d="M50 518h48v48H50z" />
                         <path fill="none" d="M62 530h24v24H62z" />
                         <path
+                            d="m70 538 8 8M78 538l-8 8"
                             stroke="#3B3E40"
+                            strokeWidth="2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="m70 538 8 8M78 538l-8 8"
                         />
                     </g>
                 </g>

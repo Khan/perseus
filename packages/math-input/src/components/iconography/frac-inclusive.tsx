@@ -16,46 +16,46 @@ const Frac_inclusive = (props: {color: string}): React.ReactNode => {
                 <g transform="translate(12 12)">
                     <path fill="none" d="M0 0h24v24H0z" />
                     <path
-                        fill={props.color}
                         d="M8 16.997c0-.55.453-.997.997-.997h6.006c.55 0 .997.453.997.997v6.006c0 .55-.453.997-.997.997H8.997c-.55 0-.997-.453-.997-.997v-6.006ZM10 18h4v4h-4v-4Z"
+                        fill={props.color}
                     />
                     <rect
-                        width="20"
-                        height="2"
+                        fill="#3B3E40"
                         x="2"
                         y="11"
-                        fill="#3B3E40"
+                        width="20"
+                        height="2"
                         rx="1"
                     />
                     <path
-                        fill="#3B3E40"
                         d="M8 .997C8 .447 8.453 0 8.997 0h6.006c.55 0 .997.453.997.997v6.006c0 .55-.453.997-.997.997H8.997C8.447 8 8 7.547 8 7.003V.997ZM10 2h4v4h-4V2Z"
+                        fill="#3B3E40"
                     />
                 </g>
                 <g transform="translate(-118 -450)">
                     <mask id="b" fill="#fff">
                         <use xlinkhref="#a" />
                     </mask>
-                    <use xlink:href="#a" fill="#FAFAFA" />
+                    <use fill="#FAFAFA" xlink:href="#a" />
                     <g mask="url(#b)">
                         <path fill="none" d="M118 450h48v48h-48z" />
                         <g transform="translate(130 462)">
                             <path fill="none" d="M0 0h24v24H0z" />
                             <path
-                                fill="#3B3E40"
                                 d="M8 16.997c0-.55.453-.997.997-.997h6.006c.55 0 .997.453.997.997v6.006c0 .55-.453.997-.997.997H8.997c-.55 0-.997-.453-.997-.997v-6.006ZM10 18h4v4h-4v-4Z"
+                                fill="#3B3E40"
                             />
                             <rect
-                                width="20"
-                                height="2"
+                                fill="#3B3E40"
                                 x="2"
                                 y="11"
-                                fill="#3B3E40"
+                                width="20"
+                                height="2"
                                 rx="1"
                             />
                             <path
-                                fill="#3B3E40"
                                 d="M8 .997C8 .447 8.453 0 8.997 0h6.006c.55 0 .997.453.997.997v6.006c0 .55-.453.997-.997.997H8.997C8.447 8 8 7.547 8 7.003V.997ZM10 2h4v4h-4V2Z"
+                                fill="#3B3E40"
                             />
                         </g>
                     </g>

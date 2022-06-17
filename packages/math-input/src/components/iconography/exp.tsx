@@ -14,19 +14,19 @@ const Exp = (props: {color: string}): React.ReactNode => {
             <g fill="none" fillRule="evenodd">
                 <path fill="none" d="M0 0h48v48H0z" />
                 <path
-                    fill={props.color}
                     d="M28 16.997c0-.55.453-.997.997-.997h6.006c.55 0 .997.453.997.997v6.006c0 .55-.453.997-.997.997h-6.006c-.55 0-.997-.453-.997-.997v-6.006ZM30 18h4v4h-4v-4ZM14 21c0-.552.456-1 1.002-1h9.996A1 1 0 0 1 26 21v14c0 .552-.456 1-1.002 1h-9.996A1 1 0 0 1 14 35V21Zm2 1h8v12h-8V22Z"
+                    fill={props.color}
                 />
                 <g transform="translate(-502 -654)">
                     <mask id="b" fill="#fff">
                         <use xlinkhref="#a" />
                     </mask>
-                    <use xlink:href="#a" fill="#FAFAFA" />
+                    <use fill="#FAFAFA" xlink:href="#a" />
                     <g mask="url(#b)">
                         <path fill="none" d="M502 654h48v48h-48z" />
                         <path
-                            fill="#3B3E40"
                             d="M530 670.997c0-.55.453-.997.997-.997h6.006c.55 0 .997.453.997.997v6.006c0 .55-.453.997-.997.997h-6.006c-.55 0-.997-.453-.997-.997v-6.006Zm2 1.003h4v4h-4v-4ZM516 675c0-.552.456-1 1.002-1h9.996a1 1 0 0 1 1.002 1v14c0 .552-.456 1-1.002 1h-9.996a1 1 0 0 1-1.002-1v-14Zm2 1h8v12h-8v-12Z"
+                            fill="#3B3E40"
                         />
                     </g>
                 </g>

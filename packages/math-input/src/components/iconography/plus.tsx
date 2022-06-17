@@ -14,25 +14,25 @@ const Plus = (props: {color: string}): React.ReactNode => {
             <g fill="none" fillRule="evenodd">
                 <path fill="none" d="M0 0h48v48H0z" />
                 <path
+                    d="M19 24h10M24 29V19"
                     stroke={props.color}
+                    strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M19 24h10M24 29V19"
                 />
                 <g transform="translate(-50 -654)">
                     <mask id="b" fill="#fff">
                         <use xlinkhref="#a" />
                     </mask>
-                    <use xlink:href="#a" fill="#FAFAFA" />
+                    <use fill="#FAFAFA" xlink:href="#a" />
                     <g mask="url(#b)">
                         <path fill="none" d="M50 654h48v48H50z" />
                         <path
+                            d="M69 678h10M74 683v-10"
                             stroke="#3B3E40"
+                            strokeWidth="2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M69 678h10M74 683v-10"
                         />
                     </g>
                 </g>

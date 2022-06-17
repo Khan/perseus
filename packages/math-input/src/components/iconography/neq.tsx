@@ -15,26 +15,26 @@ const Neq = (props: {color: string}): React.ReactNode => {
                 <path fill="none" d="M0 0h48v48H0z" />
                 <path fill="none" d="M12 12h24v24H12z" />
                 <path
+                    d="m19 33 10-18M16 21h17M16 27h17"
                     stroke={props.color}
+                    strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="m19 33 10-18M16 21h17M16 27h17"
                 />
                 <g transform="translate(-434 -586)">
                     <mask id="b" fill="#fff">
                         <use xlinkhref="#a" />
                     </mask>
-                    <use xlink:href="#a" fill="#FAFAFA" />
+                    <use fill="#FAFAFA" xlink:href="#a" />
                     <g mask="url(#b)">
                         <path fill="none" d="M434 586h48v48h-48z" />
                         <path fill="none" d="M446 598h24v24h-24z" />
                         <path
+                            d="m453 619 10-18M450 607h17M450 613h17"
                             stroke="#3B3E40"
+                            strokeWidth="2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="m453 619 10-18M450 607h17M450 613h17"
                         />
                     </g>
                 </g>

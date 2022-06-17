@@ -16,24 +16,24 @@ const Lt = (props: {color: string}): React.ReactNode => {
                 <path fill="none" d="M12 12h24v24H12z" />
                 <path
                     stroke={props.color}
+                    strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    strokeWidth="2"
                     d="m32 30-16-6 16-6"
                 />
                 <g transform="translate(-366 -586)">
                     <mask id="b" fill="#fff">
                         <use xlinkhref="#a" />
                     </mask>
-                    <use xlink:href="#a" fill="#FAFAFA" />
+                    <use fill="#FAFAFA" xlink:href="#a" />
                     <g mask="url(#b)">
                         <path fill="none" d="M366 586h48v48h-48z" />
                         <path fill="none" d="M378 598h24v24h-24z" />
                         <path
                             stroke="#3B3E40"
+                            strokeWidth="2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
-                            strokeWidth="2"
                             d="m398 616-16-6 16-6"
                         />
                     </g>
