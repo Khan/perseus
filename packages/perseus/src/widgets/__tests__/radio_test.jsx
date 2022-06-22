@@ -33,8 +33,7 @@ const selectOption = (index: number) => {
         throw new Error("Invalid array index for radio");
     }
 
-    const selectButton = options[index];
-    userEvent.click(selectButton);
+    userEvent.click(options[index]);
 };
 
 describe("single-choice question", () => {
@@ -89,7 +88,9 @@ describe("single-choice question", () => {
 
                 it("should accept the right answer (mouse)", () => {
                     // Arrange
-                    const {renderer} = renderQuestion(question, apiOptions);
+                    const {renderer} = renderQuestion(question, apiOptions, {
+                        reviewMode,
+                    });
 
                     // Act
                     selectOption(correct);
@@ -132,7 +133,9 @@ describe("single-choice question", () => {
 
                 it("calling .focus() on the renderer should succeed", () => {
                     // Arrange
-                    const {renderer} = renderQuestion(question, apiOptions);
+                    const {renderer} = renderQuestion(question, apiOptions, {
+                        reviewMode,
+                    });
 
                     // Act
                     const gotFocus = renderer.focus();
