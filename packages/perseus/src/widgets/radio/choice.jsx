@@ -191,6 +191,21 @@ class Choice extends React.Component<$FlowFixMe, State> {
         );
     };
 
+    // Call `this.props.onChange` with the given values. Any keys that are not
+    // specified will be filled in with the current value. (For example, if
+    // `checked` is specified but `crossedOut` is not, then `crossedOut` will
+    // be filled in with `this.props.crossedOut`.)
+    //
+    // This enables us to use shorthand inside this component, while
+    // maintaining a consistent API for the parent.
+    _sendChange: ({|checked?: boolean, crossedOut?: boolean|}) => void = (
+        newValues,
+    ) => {
+        const checked = newValues.checked ?? this.props.checked;
+        const crossedOut = newValues.crossedOut ?? this.props.crossedOut;
+        this.props.onChange({checked, crossedOut});
+    };
+
     /**
      * Public method. Focus the choice's <input> element.
      */
@@ -257,7 +272,9 @@ class Choice extends React.Component<$FlowFixMe, State> {
                 >
                     <Clickable
                         onClick={() => {
-                            this.props.onChange({
+                            // If we're checking a crossed-out option, let's
+                            // also uncross it.
+                            this._sendChange({
                                 checked: true,
                                 crossedOut: false,
                             });
@@ -331,12 +348,16 @@ class Choice extends React.Component<$FlowFixMe, State> {
                                                     if (
                                                         !this.props.crossedOut
                                                     ) {
-                                                        this.props.onChange({
+                                                        // If we're crossing
+                                                        // out a checked
+                                                        // option, let's also
+                                                        // uncheck it.
+                                                        this._sendChange({
                                                             checked: false,
                                                             crossedOut: true,
                                                         });
                                                     } else {
-                                                        this.props.onChange({
+                                                        this._sendChange({
                                                             crossedOut: false,
                                                         });
                                                     }

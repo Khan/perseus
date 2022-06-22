@@ -1,6 +1,6 @@
 // @flow
 
-import {screen, fireEvent} from "@testing-library/react";
+import {act, screen, fireEvent} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import _ from "underscore";
 import "@testing-library/jest-dom"; // Imports custom mathers
@@ -350,9 +350,6 @@ describe("single-choice question", () => {
             it("should open the cross-out menu when button clicked", async () => {
                 // Arrange
 
-                // Popper isn't a super well behaved component and warns that
-                // the component must be wrapped in act()
-                jest.spyOn(console, "error").mockImplementation(() => {});
                 renderQuestion(question, crossOutApiOptions);
 
                 // Act
@@ -361,7 +358,9 @@ describe("single-choice question", () => {
                         name: /Open menu for Choice B/,
                     }),
                 );
-                jest.runAllTimers();
+                await act(async () => {
+                    await jest.runAllTimers();
+                });
 
                 // Assert
                 expect(
@@ -371,12 +370,8 @@ describe("single-choice question", () => {
                 ).toBeVisible();
             });
 
-            it("should open the cross-out menu when focused and spacebar pressed", () => {
+            it("should open the cross-out menu when focused and spacebar pressed", async () => {
                 // Arrange
-
-                // Popper isn't a super well behaved component and warns that
-                // the component must be wrapped in act()
-                jest.spyOn(console, "error").mockImplementation(() => {});
 
                 renderQuestion(question, crossOutApiOptions);
                 userEvent.tab(); // Choice icon
@@ -384,7 +379,9 @@ describe("single-choice question", () => {
 
                 // Act
                 userEvent.keyboard("{space}");
-                jest.runAllTimers();
+                await act(async () => {
+                    await jest.runAllTimers();
+                });
 
                 // Assert
                 expect(
@@ -394,12 +391,8 @@ describe("single-choice question", () => {
                 ).toBeVisible();
             });
 
-            it("should cross-out selection and dismiss button when clicked", () => {
+            it("should cross-out selection and dismiss button when clicked", async () => {
                 // Arrange
-
-                // Popper isn't a super well behaved component and warns that
-                // the component must be wrapped in act()
-                jest.spyOn(console, "error").mockImplementation(() => {});
 
                 renderQuestion(question, crossOutApiOptions);
                 userEvent.click(
@@ -407,7 +400,9 @@ describe("single-choice question", () => {
                         name: /Open menu for Choice B/,
                     }),
                 );
-                jest.runAllTimers();
+                await act(async () => {
+                    await jest.runAllTimers();
+                });
 
                 // Act
                 userEvent.click(
@@ -425,12 +420,8 @@ describe("single-choice question", () => {
                 ).toHaveLength(0);
             });
 
-            it("should dismiss cross-out button with {tab} key", () => {
+            it("should dismiss cross-out button with {tab} key", async () => {
                 // Arrange
-
-                // Popper isn't a super well behaved component and warns that
-                // the component must be wrapped in act()
-                jest.spyOn(console, "error").mockImplementation(() => {});
 
                 renderQuestion(question, crossOutApiOptions);
                 userEvent.tab(); // Choice icon
@@ -438,7 +429,9 @@ describe("single-choice question", () => {
 
                 // Act
                 userEvent.keyboard("{space}");
-                jest.runAllTimers();
+                await act(async () => {
+                    await jest.runAllTimers();
+                });
 
                 expect(
                     screen.getByRole("button", {
