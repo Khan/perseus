@@ -120,7 +120,11 @@ export type {
     WidgetExports,
     WidgetInfo,
 } from "./types.js";
-export type {InputNumberWidget, PerseusRenderer} from "./perseus-types.js";
+export type {
+    InputNumberWidget,
+    PerseusRadioWidgetOptions,
+    PerseusRenderer,
+} from "./perseus-types.js";
 export type {Format} from "./util/math.js";
 export type {Coord} from "./interactive2/types.js";
 export type {MarkerType} from "./widgets/label-image/types.js";

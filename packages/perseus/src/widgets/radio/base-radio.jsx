@@ -464,7 +464,7 @@ class BaseRadio extends React.Component<$FlowFixMe, $FlowFixMe> {
                 {shouldShowInstructions && (
                     <div className={instructionsClassName}>{instructions}</div>
                 )}
-                <ul className={className}>
+                <ul className={className} style={{listStyle: "none"}}>
                     {this.props.choices.map(function (choice, i) {
                         let Element = Choice;
                         const elementProps = {
