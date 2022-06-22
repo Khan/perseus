@@ -12,3 +12,8 @@ export {
 } from "./components/prop-types.js";
 export {default as Keypad} from "./components/provided-keypad.js";
 export {KeypadTypes} from "./consts.js";
+export {default as KeyConfigs} from "./data/key-configs.js";
+
+import * as CursorContexts from "./components/input/cursor-contexts.js";
+
+export {CursorContexts};

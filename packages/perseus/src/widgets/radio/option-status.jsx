@@ -7,11 +7,10 @@
  * between the states more immediately clear to users.
  */
 
+import Color from "@khanacademy/wonder-blocks-color";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
-
-import * as styleConstants from "../../styles/constants.js";
 
 class OptionStatus extends React.Component<{
     // Was this option the correct answer?
@@ -76,13 +75,13 @@ const styles = StyleSheet.create({
         textTransform: "uppercase",
     },
     correct: {
-        color: styleConstants.kaGreen,
+        color: Color.green,
     },
     incorrectAnswered: {
-        color: styleConstants.warning1,
+        color: Color.red,
     },
     incorrect: {
-        color: styleConstants.gray68,
+        color: Color.offBlack64,
     },
 });
 

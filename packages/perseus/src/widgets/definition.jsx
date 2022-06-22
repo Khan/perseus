@@ -3,7 +3,6 @@
 import Button from "@khanacademy/wonder-blocks-button";
 import Color from "@khanacademy/wonder-blocks-color";
 import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
-import Spacing from "@khanacademy/wonder-blocks-spacing";
 import * as React from "react";
 
 import Renderer from "../renderer.jsx";
@@ -88,11 +87,9 @@ class Definition extends React.Component<DefinitionProps> {
 const styles = {
     tooltipBody: {
         color: Color.offBlack,
-        display: "block",
         fontSize: 20,
         fontWeight: 500,
         lineHeight: "30px",
-        margin: Spacing.xSmall_8,
     },
 };
 

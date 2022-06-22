@@ -117,7 +117,7 @@ export default class TreeTransformer {
     // details. Note that this method uses the TraversalState object to store
     // information about the structure of the tree.
     _traverse(
-        // eslint-disable-next-line flowtype/no-mutable-array
+        // eslint-disable-next-line ft-flow/no-mutable-array
         n: TreeNode | Array<TreeNode>,
         state: TraversalState,
         f: TraversalCallback,
@@ -243,7 +243,7 @@ export class TraversalState {
     // node. This is hard for Flow to deal with, so you'll see a number of
     // Flow casts through the any type when working with these two properties.
     _currentNode: ?TreeNode;
-    // eslint-disable-next-line flowtype/no-mutable-array
+    // eslint-disable-next-line ft-flow/no-mutable-array
     _containers: Stack<TreeNode | Array<TreeNode>>;
     _indexes: Stack<string | number>;
     _ancestors: Stack<TreeNode>;
@@ -527,7 +527,7 @@ export class TraversalState {
  * the TraversalState class simpler in a number of places.
  */
 class Stack<T> {
-    // eslint-disable-next-line flowtype/no-mutable-array
+    // eslint-disable-next-line ft-flow/no-mutable-array
     stack: Array<T>;
 
     constructor(array: ?$ReadOnlyArray<T>) {

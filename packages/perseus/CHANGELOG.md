@@ -1,5 +1,47 @@
 # @khanacademy/perseus
 
+## 0.3.4
+
+### Patch Changes
+
+-   397c3660: Fix: remove gap between popover and popover anchor in definition widget
+-   Updated dependencies [6f8f1ac9]
+    -   @khanacademy/math-input@0.5.5
+
+## 0.3.3
+
+### Patch Changes
+
+-   Updated dependencies [f29b4975]
+    -   @khanacademy/math-input@0.5.4
+
+## 0.3.2
+
+### Patch Changes
+
+-   Updated dependencies [96288b87]
+    -   @khanacademy/math-input@0.5.3
+
+## 0.3.1
+
+### Patch Changes
+
+-   bfbcf273: Export new type: VideoKind (a parameter for the `useVideo` hook)
+
+## 0.3.0
+
+### Minor Changes
+
+-   2578bd16: Rename NotGorgon to TranslationLinter
+-   2578bd16: Rename Gorgon to PerseusLinter
+
+### Patch Changes
+
+-   4fb18745: Consume math-input .less directly instead of post-compilation
+-   Updated dependencies [2578bd16]
+-   Updated dependencies [2578bd16]
+    -   @khanacademy/perseus-linter@0.2.0
+
 ## 0.2.8
 
 ### Patch Changes

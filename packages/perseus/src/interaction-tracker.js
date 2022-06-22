@@ -12,13 +12,13 @@ class InteractionTracker {
     _tracked: boolean;
     setting: string;
     track: (extraData?: any) => void;
-    // eslint-disable-next-line flowtype/no-weak-types
+    // eslint-disable-next-line ft-flow/no-weak-types
     trackApi: Function;
     widgetID: string;
     widgetType: string;
 
     constructor(
-        // eslint-disable-next-line flowtype/no-weak-types
+        // eslint-disable-next-line ft-flow/no-weak-types
         trackApi: Function, // original apiOptions.trackInteraction
         widgetType: string,
         widgetID: string,

@@ -1,7 +1,7 @@
 // @flow
 
 import renderQuestionWithCypress from "../../../../../testing/render-question-with-cypress.jsx";
-import {testDependencies} from "../../../../../testing/test-dependencies.js";
+import {cypressTestDependencies} from "../../../../../testing/test-dependencies.js";
 import * as Perseus from "../../index.js";
 import {
     absoluteValueQuestion,
@@ -27,7 +27,7 @@ const LINES = "[data-interactive-kind-for-testing=movable-line] > svg > path";
 describe("Grapher widget", () => {
     beforeEach(() => {
         Perseus.init({skipMathJax: true});
-        Perseus.Dependencies.setDependencies(testDependencies);
+        Perseus.Dependencies.setDependencies(cypressTestDependencies);
     });
 
     describe("absolute value graph", () => {

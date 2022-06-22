@@ -185,7 +185,7 @@ export default class AnswerChoices extends React.Component<
     AnswerChoicesState,
 > {
     // The rendered answers elements.
-    // eslint-disable-next-line flowtype/no-mutable-array
+    // eslint-disable-next-line ft-flow/no-mutable-array
     _choices: Array<?AnswerChoice>;
 
     constructor(props: AnswerChoicesProps) {

@@ -104,9 +104,7 @@ class WithState extends React.Component<Empty, PerseusRadioWidgetOptions> {
                             ...props,
                         })
                     }
-                    // TODO(mdr): We found a new Flow error when upgrading:
-                    //     "widget (null) This type is incompatible with this._widget (LabelImageEditor)"
-                    // $FlowFixMe[incompatible-type](0.52.0->0.53.0)
+                    // $FlowFixMe[incompatible-type] - can be null
                     ref={(widget) => (this._widget = widget)}
                 />
             </div>

@@ -1,6 +1,6 @@
 // @flow
 
-import {screen, fireEvent} from "@testing-library/react";
+import {act, screen, fireEvent} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import _ from "underscore";
 import "@testing-library/jest-dom"; // Imports custom mathers
@@ -24,23 +24,16 @@ import type {
 } from "../../perseus-types.js";
 import type {APIOptions} from "../../types.js";
 
-const waitForTooltip = () => {
-    // We need to wait !!three!! render passes for the NewTooltip to be
-    // fully rendered.
-    jest.runOnlyPendingTimers();
-    jest.runOnlyPendingTimers();
-    jest.runOnlyPendingTimers();
-};
+const selectOption = (index: number) => {
+    const options = screen.getAllByRole("checkbox");
 
-const answer = (index: number) => {
-    const radios = screen.getAllByRole("radio");
-    // userEvent.click() returns a very hard-to-understand error if passed an
     // element that is null/undefined (ie. if the index is invalid) so we
     // manually check and throw here to protect future me, and others :)
-    if (index > radios.length) {
+    if (index > options.length) {
         throw new Error("Invalid array index for radio");
     }
-    userEvent.click(radios[index]);
+
+    userEvent.click(options[index]);
 };
 
 describe("single-choice question", () => {
@@ -76,7 +69,7 @@ describe("single-choice question", () => {
                     const {container} = renderQuestion(question, apiOptions);
 
                     // Act
-                    answer(correct);
+                    selectOption(correct);
 
                     // Assert
                     expect(container).toMatchSnapshot("correct answer");
@@ -87,7 +80,7 @@ describe("single-choice question", () => {
                     const {container} = renderQuestion(question, apiOptions);
 
                     // Act
-                    answer(incorrect[0]);
+                    selectOption(incorrect[0]);
 
                     // Assert
                     expect(container).toMatchSnapshot("incorrect answer");
@@ -100,8 +93,7 @@ describe("single-choice question", () => {
                     });
 
                     // Act
-                    answer(correct);
-
+                    selectOption(correct);
                     // Assert
                     expect(renderer).toHaveBeenAnsweredCorrectly();
                 });
@@ -109,7 +101,8 @@ describe("single-choice question", () => {
                 it("should accept the right answer (touch)", () => {
                     // Arrange
                     const {renderer} = renderQuestion(question, apiOptions);
-                    const correctRadio = screen.getAllByRole("radio")[correct];
+                    const correctRadio =
+                        screen.getAllByRole("checkbox")[correct];
 
                     // Act
                     fireEvent.touchStart(correctRadio);
@@ -131,7 +124,7 @@ describe("single-choice question", () => {
                         const {renderer} = renderQuestion(question, apiOptions);
 
                         // Act
-                        answer(incorrect);
+                        selectOption(incorrect);
 
                         // Assert
                         expect(renderer).toHaveBeenAnsweredIncorrectly();
@@ -160,11 +153,11 @@ describe("single-choice question", () => {
                     // Act
                     // Since this is a single-select setup, just select the first
                     // incorrect choice.
-                    answer(incorrect[0]);
+                    selectOption(incorrect[0]);
                     renderer.deselectIncorrectSelectedChoices();
 
                     // Assert
-                    screen.getAllByRole("radio").forEach((r) => {
+                    screen.getAllByRole("checkbox").forEach((r) => {
                         expect(r).not.toBeChecked();
                     });
                 });
@@ -184,12 +177,12 @@ describe("single-choice question", () => {
                     renderQuestion(staticQuestion, apiOptions, {reviewMode});
 
                     // Act
-                    answer(correct);
+                    selectOption(correct);
 
                     // Assert
                     // Everything's read-only so no selections made
-                    screen.getAllByRole("radio").forEach((r) => {
-                        expect(r).toBeDisabled();
+                    screen.getAllByRole("checkbox").forEach((r) => {
+                        expect(r).toHaveAttribute("aria-disabled", "true");
                     });
                 });
             },
@@ -200,10 +193,12 @@ describe("single-choice question", () => {
             renderQuestion(question, apiOptions);
 
             // Act
-            userEvent.type(screen.getAllByRole("radio")[0], "{arrowdown}");
+            userEvent.tab();
+            expect(screen.getAllByRole("checkbox")[0]).toHaveFocus();
+            userEvent.tab();
 
             // Assert
-            expect(screen.getAllByRole("radio")[1]).toHaveFocus();
+            expect(screen.getAllByRole("checkbox")[1]).toHaveFocus();
         });
 
         it("should be able to navigate up by keyboard", () => {
@@ -211,10 +206,14 @@ describe("single-choice question", () => {
             renderQuestion(question, apiOptions);
 
             // Act
-            userEvent.type(screen.getAllByRole("radio")[0], "{arrowup}");
+            userEvent.tab();
+            expect(screen.getAllByRole("checkbox")[0]).toHaveFocus();
+            userEvent.tab();
+            expect(screen.getAllByRole("checkbox")[1]).toHaveFocus();
+            userEvent.tab({shift: true});
 
             // Assert
-            expect(screen.getAllByRole("radio")[3]).toHaveFocus();
+            expect(screen.getAllByRole("checkbox")[0]).toHaveFocus();
         });
 
         it("should be able to navigate through 'None of the above' choice by keyboard", () => {
@@ -225,11 +224,12 @@ describe("single-choice question", () => {
             renderQuestion(q, apiOptions);
 
             // Act
-            userEvent.type(screen.getAllByRole("radio")[0], "{arrowup}");
-            userEvent.type(screen.getAllByRole("radio")[3], "{arrowup}");
+            userEvent.tab();
+            userEvent.tab();
+            userEvent.tab();
 
             // Assert
-            expect(screen.getAllByRole("radio")[2]).toHaveFocus();
+            expect(screen.getAllByRole("checkbox")[2]).toHaveFocus();
         });
 
         it.each([
@@ -251,7 +251,7 @@ describe("single-choice question", () => {
             // We click on the first item, which was the second (index == 1)
             // item in the original choices. But because of enforced ordering,
             // it is now at the top of the list (and thus our correct answer).
-            userEvent.click(screen.getAllByRole("radio")[0]);
+            userEvent.click(screen.getAllByRole("checkbox")[0]);
 
             // Assert
             const items = screen.getAllByRole("listitem");
@@ -316,7 +316,7 @@ describe("single-choice question", () => {
             const {renderer} = renderQuestion(question, apiOptions);
 
             // Act
-            answer(incorrect[0]);
+            selectOption(incorrect[0]);
             renderer.showRationalesForCurrentlySelectedChoices();
 
             // Assert
@@ -347,8 +347,9 @@ describe("single-choice question", () => {
                 ).toBeVisible();
             });
 
-            it("should open the cross-out menu when button clicked", () => {
+            it("should open the cross-out menu when button clicked", async () => {
                 // Arrange
+
                 renderQuestion(question, crossOutApiOptions);
 
                 // Act
@@ -357,7 +358,9 @@ describe("single-choice question", () => {
                         name: /Open menu for Choice B/,
                     }),
                 );
-                waitForTooltip();
+                await act(async () => {
+                    await jest.runAllTimers();
+                });
 
                 // Assert
                 expect(
@@ -367,33 +370,39 @@ describe("single-choice question", () => {
                 ).toBeVisible();
             });
 
-            it("should open the cross-out menu when focused and spacebar pressed", () => {
+            it("should open the cross-out menu when focused and spacebar pressed", async () => {
                 // Arrange
+
                 renderQuestion(question, crossOutApiOptions);
                 userEvent.tab(); // Choice icon
                 userEvent.tab(); // Cross-out menu ellipsis
 
                 // Act
                 userEvent.keyboard("{space}");
-                waitForTooltip();
+                await act(async () => {
+                    await jest.runAllTimers();
+                });
 
                 // Assert
                 expect(
                     screen.getByRole("button", {
                         name: /Cross out Choice A/,
                     }),
-                ).toHaveFocus();
+                ).toBeVisible();
             });
 
-            it("should cross-out selection and dismiss button when clicked", () => {
+            it("should cross-out selection and dismiss button when clicked", async () => {
                 // Arrange
+
                 renderQuestion(question, crossOutApiOptions);
                 userEvent.click(
                     screen.getByRole("button", {
                         name: /Open menu for Choice B/,
                     }),
                 );
-                waitForTooltip();
+                await act(async () => {
+                    await jest.runAllTimers();
+                });
 
                 // Act
                 userEvent.click(
@@ -401,7 +410,7 @@ describe("single-choice question", () => {
                         name: /Cross out Choice B/,
                     }),
                 );
-                jest.runOnlyPendingTimers();
+                jest.runAllTimers();
 
                 // Assert
                 expect(
@@ -409,84 +418,34 @@ describe("single-choice question", () => {
                         name: /Cross out Choice B/,
                     }),
                 ).toHaveLength(0);
-
-                // The choice widget maintains a "preview" of what the opposite
-                // state is for use in the "Cross-out button", but it's lazy in
-                // updating the preview (only changing it when the button is
-                // revealed). So once we cross-out a choice, we have two elements
-                // in the DOM with the `Cross out` text. :shrug:
-                expect(
-                    screen.queryAllByText("(Choice B, Crossed out)"),
-                ).toHaveLength(2);
             });
 
-            it("should dismiss cross-out button with {tab} key", () => {
+            it("should dismiss cross-out button with {tab} key", async () => {
                 // Arrange
+
                 renderQuestion(question, crossOutApiOptions);
                 userEvent.tab(); // Choice icon
                 userEvent.tab(); // Cross-out menu ellipsis
 
-                // Open
+                // Act
                 userEvent.keyboard("{space}");
-                waitForTooltip();
+                await act(async () => {
+                    await jest.runAllTimers();
+                });
 
+                expect(
+                    screen.getByRole("button", {
+                        name: /Cross out Choice A/,
+                    }),
+                ).toBeVisible();
+
+                userEvent.keyboard("{space}");
+                jest.runAllTimers();
+
+                // Assert
                 expect(
                     screen.queryAllByRole("button", {
                         name: /Cross out Choice A/,
-                    }),
-                ).toHaveLength(1);
-
-                // Act
-                userEvent.tab();
-
-                // Assert
-                expect(
-                    screen.queryAllByRole("button", {
-                        name: /Cross out Choice B/,
-                    }),
-                ).toHaveLength(0);
-            });
-
-            it("should dismiss cross-out button with {Escape} key", () => {
-                // Arrange
-                renderQuestion(question, crossOutApiOptions);
-
-                userEvent.tab(); // Choice icon
-                userEvent.tab(); // Cross-out menu ellipsis
-                userEvent.keyboard("{space}"); // Open tooltip
-
-                // Global escape handler only set up after a clock tick
-                jest.runOnlyPendingTimers();
-
-                // Act
-                userEvent.keyboard("{esc}");
-
-                // Assert
-                expect(
-                    screen.queryAllByRole("button", {
-                        name: /Cross out Choice B/,
-                    }),
-                ).toHaveLength(0);
-            });
-
-            it("should dismiss cross-out button with click outside tooltip", () => {
-                // Arrange
-                renderQuestion(question, crossOutApiOptions);
-
-                userEvent.tab(); // Choice icon
-                userEvent.tab(); // Cross-out menu ellipsis
-                userEvent.keyboard("{space}"); // Open tooltip
-
-                // Global escape handler only set up after a clock tick
-                jest.runOnlyPendingTimers();
-
-                // Act
-                userEvent.click((document.body: any));
-
-                // Assert
-                expect(
-                    screen.queryAllByRole("button", {
-                        name: /Cross out Choice B/,
                     }),
                 ).toHaveLength(0);
             });
@@ -514,7 +473,7 @@ describe("single-choice question", () => {
         renderQuestion(question, apiOptions, {reviewMode: true});
 
         // Act
-        answer(correct);
+        selectOption(correct);
 
         // Assert
         expect(screen.getAllByText("Correct (selected)")).toHaveLength(1);
@@ -528,7 +487,7 @@ describe("single-choice question", () => {
         renderQuestion(question, apiOptions, {reviewMode: true});
 
         // Act
-        answer(incorrect[0]);
+        selectOption(incorrect[0]);
 
         // Assert
         expect(screen.getAllByText("Incorrect (selected)")).toHaveLength(1);
@@ -554,8 +513,8 @@ describe("multi-choice question", () => {
         const {renderer} = renderQuestion(question, apiOptions);
 
         // Act
-        const boxes = screen.getAllByRole("checkbox");
-        correct.forEach((i) => userEvent.click(boxes[i]));
+        const options = screen.getAllByRole("checkbox");
+        correct.forEach((i) => userEvent.click(options[i]));
 
         // Assert
         expect(renderer).toHaveBeenAnsweredCorrectly();
@@ -566,8 +525,8 @@ describe("multi-choice question", () => {
         const {container} = renderQuestion(question, apiOptions);
 
         // Act
-        const boxes = screen.getAllByRole("checkbox");
-        incorrect[0].forEach((i) => userEvent.click(boxes[i]));
+        const options = screen.getAllByRole("checkbox");
+        incorrect[0].forEach((i) => userEvent.click(options[i]));
 
         // Assert
         expect(container).toMatchSnapshot("invalid state");
@@ -610,8 +569,8 @@ describe("multi-choice question", () => {
         );
 
         // Act
-        const boxes = screen.getAllByRole("checkbox");
-        userEvent.click(boxes[3]); // incorrect
+        const option = screen.getAllByRole("checkbox");
+        userEvent.click(option[3]); // incorrect
 
         // Assert
         expect(renderer).toHaveInvalidInput(
@@ -626,8 +585,8 @@ describe("multi-choice question", () => {
             const {renderer} = renderQuestion(question, apiOptions);
 
             // Act
-            const boxes = screen.getAllByRole("checkbox");
-            choices.forEach((i) => userEvent.click(boxes[i]));
+            const option = screen.getAllByRole("checkbox");
+            choices.forEach((i) => userEvent.click(option[i]));
 
             // Assert
             expect(renderer).toHaveBeenAnsweredIncorrectly();
@@ -641,8 +600,8 @@ describe("multi-choice question", () => {
             const {renderer} = renderQuestion(question, apiOptions);
 
             // Act
-            const boxes = screen.getAllByRole("checkbox");
-            choices.forEach((i) => userEvent.click(boxes[i]));
+            const option = screen.getAllByRole("checkbox");
+            choices.forEach((i) => userEvent.click(option[i]));
 
             // Assert
             expect(renderer).toHaveInvalidInput();

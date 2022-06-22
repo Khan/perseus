@@ -1,6 +1,6 @@
 // @flow
 /**
- * The Rule class represents a Gorgon lint rule. A Rule instance has a check()
+ * The Rule class represents a Perseus lint rule. A Rule instance has a check()
  * method that takes the same (node, state, content) arguments that a
  * TreeTransformer traversal callback function does. Call the check() method
  * during a tree traversal to determine whether the current node of the tree
@@ -9,7 +9,7 @@
  * an error message, and the start and end positions within the node's content
  * string of the lint.
  *
- * A Gorgon lint rule consists of a name, a severity, a selector, a pattern
+ * A Perseus lint rule consists of a name, a severity, a selector, a pattern
  * (RegExp) and two functions. The check() method uses the selector, pattern,
  * and functions as follows:
  *
@@ -178,7 +178,7 @@ export type LintTester = (
 export type AppliesTester = (context: LintRuleContextObject) => boolean;
 
 /**
- * A Rule object describes a Gorgon lint rule. See the comment at the top of
+ * A Rule object describes a Perseus lint rule. See the comment at the top of
  * this file for detailed description.
  */
 export default class Rule {

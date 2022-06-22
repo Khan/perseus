@@ -16,39 +16,7 @@ jobs:
         os: [ubuntu-latest]
         node-version: [16.x]
     steps:
-      - name: "Checking out latest commit"
-        uses: actions/checkout@v2
-
-      - name: "Use Node.js ${{ matrix.node-version }} & Install & cache node_modules"
-        uses: ./.github/actions/shared-node-cache
-        with:
-          node-version: "${{ matrix.node-version }}"
-
-      - name: "Get All Changed Files"
-        id: changed
-        uses: jaredly/get-changed-files@v1.0.1
-        with:
-          format: json
-      - name: "Check for Changeset"
-        uses: actions/github-script@v6
-        with:
-          script: |
-              const inputFiles = JSON.parse(`${{ steps.changed.outputs.added_modified }}`);
-              core.debug("Changed files: " + inputFiles);
-
-              const hasChangeset = inputFiles.some(name => {
-                return /^\.changeset\/.*\.md/.test(name);
-              });
-              core.info(`This PR has a changeset: ${hasChangeset}`);
-
-              if (!hasChangeset) {
-                core.setFailed(
-                  "This PR does not have a changeset. You can add one by " +
-                  "running `yarn changeset` and following the prompts.\n" +
-                  "If this PR doesn't need a changeset, run `yarn changeset " +
-                  "--empty` and commit results."
-                );
-              }
+      - uses: Khan/actions@check-for-changeset-v0
 
   lint:
     name: Lint, Flow, and Test
@@ -62,33 +30,31 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
-      uses: ./.github/actions/shared-node-cache
+      uses: Khan/actions@shared-node-cache-v0
       with:
         node-version: ${{ matrix.node-version }}
 
     - name: Get All Changed Files
-      uses: jaredly/get-changed-files@v1.0.1
+      uses: Khan/actions@get-changed-files-v1
       id: changed
-      with:
-        format: json
 
     - id: js-files
       name: Find .js changed files
-      uses: ./.github/actions/filter-files
+      uses: Khan/actions@filter-files-v0
       with:
-        changed-files: ${{ steps.changed.outputs.added_modified }}
+        changed-files: ${{ steps.changed.outputs.files }}
         extensions: '.js,.jsx'
 
     - id: eslint-reset
-      uses: ./.github/actions/filter-files
+      uses: Khan/actions@filter-files-v0
       name: Files that would trigger a full eslint run
       with:
-        changed-files: ${{ steps.changed.outputs.added_modified }}
-        files: '.eslintrc.js,yarn.lock,.eslintignore'
+        changed-files: ${{ steps.changed.outputs.files }}
+        files: '.eslintrc.js,package.json,yarn.lock,.eslintignore'
 
     # Linting / type checking
     - name: Eslint
-      uses: ./.github/actions/full-or-limited
+      uses: Khan/actions@full-or-limited-v0
       with:
         full-trigger: ${{ steps.eslint-reset.outputs.filtered }}
         full: yarn lint packages
@@ -101,19 +67,75 @@ jobs:
 
     # Run tests for our target matrix
     - id: jest-reset
-      uses: ./.github/actions/filter-files
+      uses: Khan/actions@filter-files-v0
       name: Files that would trigger a full jest run
       with:
-        changed-files: ${{ steps.changed.outputs.added_modified }}
-        files: 'jest.config.js,yarn.lock,test.config.js,test.transform.js'
+        changed-files: ${{ steps.changed.outputs.files }}
+        files: 'jest.config.js,package.json,yarn.lock,test.config.js,test.transform.js'
 
     - name: Jest
-      uses: ./.github/actions/full-or-limited
+      uses: Khan/actions@full-or-limited-v0
       with:
         full-trigger: ${{ steps.jest-reset.outputs.filtered }}
         full: yarn jest
         limited-trigger: ${{ steps.js-files.outputs.filtered }}
         limited: yarn jest --passWithNoTests --findRelatedTests {}
+
+  cypress:
+    name: Cypress Coverage
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node-version: [16.x]
+    steps:
+    - name: Checking out latest commit
+      uses: actions/checkout@v2
+
+    - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
+      uses: Khan/actions@shared-node-cache-v0
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Run test with coverage
+      run: yarn cypress:ci
+
+    - name: Generate report
+      run: yarn nyc report --reporter=lcov
+
+    - name: Upload Coverage
+      # We don't bother collecting a record of coverage for dependabot changes
+      if: ${{ github.actor != 'dependabot[bot]' }}
+      uses: codecov/codecov-action@v2
+      with:
+        files: ./coverage/coverage-final.json
+        fail_ci_if_error: true
+
+  coverage:
+    name: Jest Coverage
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node-version: [16.x]
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
+      uses: Khan/actions@shared-node-cache-v0
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Jest with coverage
+      run: yarn coverage
+
+    - name: Upload Coverage
+      # We don't bother collecting a record of coverage for dependabot changes
+      if: ${{ github.actor != 'dependabot[bot]' }}
+      uses: codecov/codecov-action@v2
+      with:
+        files: ./coverage/coverage-final.json
+        fail_ci_if_error: true
 
   check_builds:
     name: Check builds for changes in size
@@ -127,7 +149,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
-      uses: ./.github/actions/shared-node-cache
+      uses: Khan/actions@shared-node-cache-v0
       with:
         node-version: ${{ matrix.node-version }}
     # Make sure our packages aren't growing unexpectedly
@@ -145,32 +167,6 @@ jobs:
         # Build production
         build-script: "build:prodsizecheck"
 
-  coverage:
-    name: Test Coverage
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node-version: [16.x]
-    steps:
-    - uses: actions/checkout@v2
-
-    - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
-      uses: ./.github/actions/shared-node-cache
-      with:
-        node-version: ${{ matrix.node-version }}
-
-    # Collect and record coverage
-    - name: Run Jest with coverage
-      run: yarn coverage
-    - name: Upload Coverage
-      # We don't bother collecting a record of coverage for dependabot changes
-      if: ${{ github.actor != 'dependabot[bot]' }}
-      uses: codecov/codecov-action@v2
-      with:
-        files: ./coverage/coverage-final.json
-        fail_ci_if_error: true
-
   extract_strings:
     name: Extract i18n strings
     runs-on: ${{ matrix.os }}
@@ -182,7 +178,7 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
-      uses: ./.github/actions/shared-node-cache
+      uses: Khan/actions@shared-node-cache-v0
       with:
         node-version: ${{ matrix.node-version }}
 

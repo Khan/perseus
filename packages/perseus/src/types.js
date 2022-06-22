@@ -319,7 +319,7 @@ export type DomInsertCheckFn = (
 
 export type JIPT = {|
     useJIPT: boolean,
-    // eslint-disable-next-line flowtype/no-mutable-array
+    // eslint-disable-next-line ft-flow/no-mutable-array
     domInsertChecks: Array<DomInsertCheckFn>,
 |};
 
@@ -362,6 +362,8 @@ type InitialRequestUrlInterface = {|
     protocol: string,
 |};
 
+export type VideoKind = "YOUTUBE_ID" | "READABLE_ID";
+
 // An object for dependency injection, to allow different clients
 // to provide different methods for logging, translation, network
 // requests, etc.
@@ -395,7 +397,7 @@ export type PerseusDependencies = {|
     // framework.
     useVideo(
         id: string,
-        kind: "YOUTUBE_ID" | "READABLE_ID",
+        kind: VideoKind,
     ): Result<{|
         video: ?VideoData,
     |}>,
@@ -405,9 +407,7 @@ export type PerseusDependencies = {|
     // RequestInfo
     isDevServer: boolean,
     kaLocale: string,
-    isPhone: boolean,
     isMobile: boolean,
-    isTablet: boolean,
 |};
 
 export type APIOptionsWithDefaults = $ReadOnly<{|

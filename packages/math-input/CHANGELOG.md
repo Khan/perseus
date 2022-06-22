@@ -1,5 +1,23 @@
 # @khanacademy/math-input
 
+## 0.5.5
+
+### Patch Changes
+
+-   6f8f1ac9: Use wonder-blocks-i18n to determine the decimal separator
+
+## 0.5.4
+
+### Patch Changes
+
+-   f29b4975: Export the KeyConfigs type
+
+## 0.5.3
+
+### Patch Changes
+
+-   96288b87: Export CursorContexts
+
 ## 0.5.2
 
 ### Patch Changes

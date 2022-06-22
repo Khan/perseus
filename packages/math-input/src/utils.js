@@ -1,18 +1,15 @@
 // @flow
+import {getDecimalSeparator} from "@khanacademy/wonder-blocks-i18n";
 
 import {DecimalSeparators} from "./consts.js";
 
-// We expect `window.icu` to be exposed by the parent. When in doubt, we fall
-// back to a period. We can only depend on a subset of what localeplanet
-// provides, however -- the things in `icu-slim.js` (there's a copy in ../lib/
-// for reference).
-export let decimalSeparator: string;
-if (
-    typeof window !== "undefined" &&
-    window.icu &&
-    window.icu.getDecimalFormatSymbols().decimal_separator === ","
-) {
-    decimalSeparator = DecimalSeparators.COMMA;
-} else {
-    decimalSeparator = DecimalSeparators.PERIOD;
-}
+// NOTES(kevinb):
+// - In order to get the correct decimal separator for the current locale,
+//   the locale must bet set using `setLocale(kaLocale)` which can be
+//   imported from wonder-blocks-i18n.
+// - Some languages/locales use different decimal separators than the ones
+//   listed here.  Much of the Arab world uses U+066C.
+export const decimalSeparator: string =
+    getDecimalSeparator() === ","
+        ? DecimalSeparators.COMMA
+        : DecimalSeparators.PERIOD;

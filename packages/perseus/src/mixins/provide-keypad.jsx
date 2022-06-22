@@ -28,7 +28,7 @@ export type KeypadProps = {|
 
 export type KeypadApiOptions = {|
     customKeypad: boolean,
-    // eslint-disable-next-line flowtype/no-weak-types
+    // eslint-disable-next-line ft-flow/no-weak-types
     nativeKeypadProxy: Function,
 |};
 

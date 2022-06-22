@@ -86,11 +86,11 @@ class StructuredItemDiff extends React.Component<Props> {
      * from buildMapper(), is the same order they appear in in the shape.
      */
     static generateCompletePathsList(
-        // eslint-disable-next-line flowtype/no-mutable-array
+        // eslint-disable-next-line ft-flow/no-mutable-array
         beforeList: Array<ItemList>,
-        // eslint-disable-next-line flowtype/no-mutable-array
+        // eslint-disable-next-line ft-flow/no-mutable-array
         afterList: Array<ItemList>,
-        // eslint-disable-next-line flowtype/no-mutable-array
+        // eslint-disable-next-line ft-flow/no-mutable-array
         result: Array<Path>,
         shape: Shape,
         path: $ReadOnlyArray<any>,

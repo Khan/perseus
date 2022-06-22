@@ -1,6 +1,6 @@
 /* eslint-disable react/sort-comp */
 // @flow
-import * as Gorgon from "@khanacademy/perseus-linter";
+import * as PerseusLinter from "@khanacademy/perseus-linter";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
@@ -37,7 +37,7 @@ class InputWithExamples extends React.Component<$FlowFixMe, $FlowFixMe> {
 
         // A unique string identifying this InputWithExamples
         id: PropTypes.string.isRequired,
-        linterContext: Gorgon.linterContextProps,
+        linterContext: PerseusLinter.linterContextProps,
     };
 
     static defaultProps: $FlowFixMe = {
@@ -46,7 +46,7 @@ class InputWithExamples extends React.Component<$FlowFixMe, $FlowFixMe> {
         onFocus: function () {},
         onBlur: function () {},
         disabled: false,
-        linterContext: Gorgon.linterContextDefault,
+        linterContext: PerseusLinter.linterContextDefault,
     };
 
     state: $FlowFixMe = {
@@ -178,7 +178,7 @@ class InputWithExamples extends React.Component<$FlowFixMe, $FlowFixMe> {
                 <div id={this._getUniqueId()}>
                     <Renderer
                         content={examplesContent}
-                        linterContext={Gorgon.pushContextStack(
+                        linterContext={PerseusLinter.pushContextStack(
                             this.props.linterContext,
                             "input-with-examples",
                         )}

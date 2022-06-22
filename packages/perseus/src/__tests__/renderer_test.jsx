@@ -31,15 +31,15 @@ import type {
     PerseusInputNumberWidgetOptions,
 } from "../perseus-types.js";
 
-// NOTE(jeremy): We can't use an automatic mock for not-gorgon, because one of
-// it's "instance" methods is created using `debounce` and Jest doesn't provide
-// a mocked instance method for it (I suspect that Jest doesn't see that
-// symbol as an instance method).
+// NOTE(jeremy): We can't use an automatic mock for the translation linter,
+// because one of it's "instance" methods is created using `debounce` and Jest
+// doesn't provide a mocked instance method for it (I suspect that Jest doesn't
+// see that symbol as an instance method).
 const mockRunLinter = jest.fn();
 const mockApplyLintErrors = jest.fn();
-jest.mock("../not-gorgon.js", () => {
-    // We mock the NotGorgon constructor here setting things up so we can
-    // spy/verify calls to instances of NotGorgon
+jest.mock("../translation-linter.js", () => {
+    // We mock the TranslationLinter constructor here setting things up so we
+    // can spy/verify calls to instances of TranslationLinter
     return function () {
         return {
             runLinter: mockRunLinter,
@@ -106,7 +106,7 @@ describe("renderer", () => {
         });
     });
 
-    describe("linting (NotGorgon)", () => {
+    describe("linting (TranslationLinter)", () => {
         const extraProps = {
             linterContext: {
                 contentType: "exercise",
@@ -165,7 +165,7 @@ describe("renderer", () => {
 
             // Assert
             expect(renderer.state.jiptContent).toBeNull();
-            expect(renderer.state.notGorgonLintErrors).toHaveLength(0);
+            expect(renderer.state.translationLintErrors).toHaveLength(0);
             expect(renderer.state.lastUsedWidgetId).toBeNull();
 
             expect(renderer.state.widgetInfo).toStrictEqual(question1.widgets);

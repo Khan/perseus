@@ -5,7 +5,7 @@
  * composed of multiple (Renderer) sections concatenated together.
  */
 
-import * as Gorgon from "@khanacademy/perseus-linter";
+import * as PerseusLinter from "@khanacademy/perseus-linter";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import * as React from "react";
@@ -37,14 +37,14 @@ class ArticleRenderer extends React.Component<$FlowFixMe, $FlowFixMe> {
 
         // Whether to use the new Bibliotron styles for articles
         useNewStyles: PropTypes.bool,
-        linterContext: Gorgon.linterContextProps,
+        linterContext: PerseusLinter.linterContextProps,
         legacyPerseusLint: PropTypes.arrayOf(PropTypes.string),
     };
 
     static defaultProps: $FlowFixMe = {
         apiOptions: {},
         useNewStyles: false,
-        linterContext: Gorgon.linterContextDefault,
+        linterContext: PerseusLinter.linterContextDefault,
     };
 
     constructor(props: $FlowFixMe) {
@@ -197,7 +197,7 @@ class ArticleRenderer extends React.Component<$FlowFixMe, $FlowFixMe> {
                                 );
                             },
                         }}
-                        linterContext={Gorgon.pushContextStack(
+                        linterContext={PerseusLinter.pushContextStack(
                             this.props.linterContext,
                             "article",
                         )}
