@@ -271,12 +271,9 @@ class Choice extends React.Component<$FlowFixMe, State> {
                         aria-label={`Select Choice ${getChoiceLetter(
                             this.props.pos,
                         )}`}
-                        aria-selected={this.props.checked}
                         aria-checked={this.props.checked}
                         role={"checkbox"}
-                        style={{
-                            flex: 1,
-                        }}
+                        style={{flex: 1}}
                     >
                         {({hovered, focused, pressed}) => (
                             <div
