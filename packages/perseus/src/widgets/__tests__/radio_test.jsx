@@ -25,7 +25,14 @@ import type {
 import type {APIOptions} from "../../types.js";
 
 const selectOption = (index: number) => {
-    const options = screen.getAllByRole("button");
+    const options = screen.getAllByRole("checkbox");
+
+    // element that is null/undefined (ie. if the index is invalid) so we
+    // manually check and throw here to protect future me, and others :)
+    if (index > options.length) {
+        throw new Error("Invalid array index for radio");
+    }
+
     const selectButton = options[index];
     userEvent.click(selectButton);
 };
@@ -93,7 +100,8 @@ describe("single-choice question", () => {
                 it("should accept the right answer (touch)", () => {
                     // Arrange
                     const {renderer} = renderQuestion(question, apiOptions);
-                    const correctRadio = screen.getAllByRole("button")[correct];
+                    const correctRadio =
+                        screen.getAllByRole("checkbox")[correct];
 
                     // Act
                     fireEvent.touchStart(correctRadio);
@@ -146,8 +154,8 @@ describe("single-choice question", () => {
                     renderer.deselectIncorrectSelectedChoices();
 
                     // Assert
-                    screen.getAllByRole("button").forEach((r) => {
-                        expect(r).not.toHaveAttribute("aria-selected", "true");
+                    screen.getAllByRole("checkbox").forEach((r) => {
+                        expect(r).not.toBeChecked();
                     });
                 });
 
@@ -170,7 +178,7 @@ describe("single-choice question", () => {
 
                     // Assert
                     // Everything's read-only so no selections made
-                    screen.getAllByRole("button").forEach((r) => {
+                    screen.getAllByRole("checkbox").forEach((r) => {
                         expect(r).toHaveAttribute("aria-disabled", "true");
                     });
                 });
@@ -183,11 +191,11 @@ describe("single-choice question", () => {
 
             // Act
             userEvent.tab();
-            expect(screen.getAllByRole("button")[0]).toHaveFocus();
+            expect(screen.getAllByRole("checkbox")[0]).toHaveFocus();
             userEvent.tab();
 
             // Assert
-            expect(screen.getAllByRole("button")[1]).toHaveFocus();
+            expect(screen.getAllByRole("checkbox")[1]).toHaveFocus();
         });
 
         it("should be able to navigate up by keyboard", () => {
@@ -196,13 +204,13 @@ describe("single-choice question", () => {
 
             // Act
             userEvent.tab();
-            expect(screen.getAllByRole("button")[0]).toHaveFocus();
+            expect(screen.getAllByRole("checkbox")[0]).toHaveFocus();
             userEvent.tab();
-            expect(screen.getAllByRole("button")[1]).toHaveFocus();
+            expect(screen.getAllByRole("checkbox")[1]).toHaveFocus();
             userEvent.tab({shift: true});
 
             // Assert
-            expect(screen.getAllByRole("button")[0]).toHaveFocus();
+            expect(screen.getAllByRole("checkbox")[0]).toHaveFocus();
         });
 
         it("should be able to navigate through 'None of the above' choice by keyboard", () => {
@@ -218,7 +226,7 @@ describe("single-choice question", () => {
             userEvent.tab();
 
             // Assert
-            expect(screen.getAllByRole("button")[2]).toHaveFocus();
+            expect(screen.getAllByRole("checkbox")[2]).toHaveFocus();
         });
 
         it.each([
@@ -240,7 +248,7 @@ describe("single-choice question", () => {
             // We click on the first item, which was the second (index == 1)
             // item in the original choices. But because of enforced ordering,
             // it is now at the top of the list (and thus our correct answer).
-            userEvent.click(screen.getAllByRole("button")[0]);
+            userEvent.click(screen.getAllByRole("checkbox")[0]);
 
             // Assert
             const items = screen.getAllByRole("listitem");
@@ -509,7 +517,7 @@ describe("multi-choice question", () => {
         const {renderer} = renderQuestion(question, apiOptions);
 
         // Act
-        const options = screen.getAllByRole("button");
+        const options = screen.getAllByRole("checkbox");
         correct.forEach((i) => userEvent.click(options[i]));
 
         // Assert
@@ -521,7 +529,7 @@ describe("multi-choice question", () => {
         const {container} = renderQuestion(question, apiOptions);
 
         // Act
-        const options = screen.getAllByRole("button");
+        const options = screen.getAllByRole("checkbox");
         incorrect[0].forEach((i) => userEvent.click(options[i]));
 
         // Assert
@@ -565,7 +573,7 @@ describe("multi-choice question", () => {
         );
 
         // Act
-        const option = screen.getAllByRole("button");
+        const option = screen.getAllByRole("checkbox");
         userEvent.click(option[3]); // incorrect
 
         // Assert
@@ -581,7 +589,7 @@ describe("multi-choice question", () => {
             const {renderer} = renderQuestion(question, apiOptions);
 
             // Act
-            const option = screen.getAllByRole("button");
+            const option = screen.getAllByRole("checkbox");
             choices.forEach((i) => userEvent.click(option[i]));
 
             // Assert
@@ -596,7 +604,7 @@ describe("multi-choice question", () => {
             const {renderer} = renderQuestion(question, apiOptions);
 
             // Act
-            const option = screen.getAllByRole("button");
+            const option = screen.getAllByRole("checkbox");
             choices.forEach((i) => userEvent.click(option[i]));
 
             // Assert

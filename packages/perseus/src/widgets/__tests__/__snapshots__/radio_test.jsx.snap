@@ -72,10 +72,11 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="true"
                           aria-disabled="false"
                           aria-label="Select Choice A"
-                          aria-selected="true"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -158,10 +159,11 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="false"
                           aria-disabled="false"
                           aria-label="Select Choice B"
-                          aria-selected="false"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -244,10 +246,11 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="false"
                           aria-disabled="false"
                           aria-label="Select Choice C"
-                          aria-selected="false"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -330,10 +333,11 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="false"
                           aria-disabled="false"
                           aria-label="Select Choice D"
-                          aria-selected="false"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -511,10 +515,11 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="false"
                           aria-disabled="false"
                           aria-label="Select Choice A"
-                          aria-selected="false"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -610,10 +615,11 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="false"
                           aria-disabled="false"
                           aria-label="Select Choice B"
-                          aria-selected="false"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -696,10 +702,11 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="true"
                           aria-disabled="false"
                           aria-label="Select Choice C"
-                          aria-selected="true"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -782,10 +789,11 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="false"
                           aria-disabled="false"
                           aria-label="Select Choice D"
-                          aria-selected="false"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -954,10 +962,11 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="true"
                           aria-disabled="false"
                           aria-label="Select Choice A"
-                          aria-selected="true"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -1053,10 +1062,11 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="false"
                           aria-disabled="false"
                           aria-label="Select Choice B"
-                          aria-selected="false"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -1139,10 +1149,11 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="false"
                           aria-disabled="false"
                           aria-label="Select Choice C"
-                          aria-selected="false"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -1225,10 +1236,11 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="false"
                           aria-disabled="false"
                           aria-label="Select Choice D"
-                          aria-selected="false"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -1397,10 +1409,11 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="false"
                           aria-disabled="false"
                           aria-label="Select Choice A"
-                          aria-selected="false"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -1496,10 +1509,11 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="false"
                           aria-disabled="false"
                           aria-label="Select Choice B"
-                          aria-selected="false"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -1582,10 +1596,11 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="false"
                           aria-disabled="false"
                           aria-label="Select Choice C"
-                          aria-selected="false"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -1668,10 +1683,11 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="false"
                           aria-disabled="false"
                           aria-label="Select Choice D"
-                          aria-selected="false"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -1840,10 +1856,11 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="false"
                           aria-disabled="false"
                           aria-label="Select Choice A"
-                          aria-selected="false"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -1939,10 +1956,11 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="false"
                           aria-disabled="false"
                           aria-label="Select Choice B"
-                          aria-selected="false"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -2025,10 +2043,11 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="true"
                           aria-disabled="false"
                           aria-label="Select Choice C"
-                          aria-selected="true"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -2111,10 +2130,11 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="false"
                           aria-disabled="false"
                           aria-label="Select Choice D"
-                          aria-selected="false"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -2283,10 +2303,11 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="true"
                           aria-disabled="false"
                           aria-label="Select Choice A"
-                          aria-selected="true"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -2382,10 +2403,11 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="false"
                           aria-disabled="false"
                           aria-label="Select Choice B"
-                          aria-selected="false"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -2468,10 +2490,11 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="false"
                           aria-disabled="false"
                           aria-label="Select Choice C"
-                          aria-selected="false"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -2554,10 +2577,11 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="false"
                           aria-disabled="false"
                           aria-label="Select Choice D"
-                          aria-selected="false"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -2726,10 +2750,11 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="false"
                           aria-disabled="false"
                           aria-label="Select Choice A"
-                          aria-selected="false"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -2910,10 +2935,11 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="false"
                           aria-disabled="false"
                           aria-label="Select Choice B"
-                          aria-selected="false"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -3065,10 +3091,11 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="false"
                           aria-disabled="false"
                           aria-label="Select Choice C"
-                          aria-selected="false"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -3215,10 +3242,11 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="false"
                           aria-disabled="false"
                           aria-label="Select Choice D"
-                          aria-selected="false"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -3434,10 +3462,11 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="false"
                           aria-disabled="false"
                           aria-label="Select Choice A"
-                          aria-selected="false"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -3531,10 +3560,11 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="false"
                           aria-disabled="false"
                           aria-label="Select Choice B"
-                          aria-selected="false"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -3615,10 +3645,11 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="true"
                           aria-disabled="false"
                           aria-label="Select Choice C"
-                          aria-selected="true"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -3699,10 +3730,11 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="false"
                           aria-disabled="false"
                           aria-label="Select Choice D"
-                          aria-selected="false"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -3864,10 +3896,11 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="true"
                           aria-disabled="false"
                           aria-label="Select Choice A"
-                          aria-selected="true"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -3961,10 +3994,11 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="false"
                           aria-disabled="false"
                           aria-label="Select Choice B"
-                          aria-selected="false"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -4045,10 +4079,11 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="false"
                           aria-disabled="false"
                           aria-label="Select Choice C"
-                          aria-selected="false"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -4129,10 +4164,11 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="false"
                           aria-disabled="false"
                           aria-label="Select Choice D"
-                          aria-selected="false"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -4294,10 +4330,11 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="false"
                           aria-disabled="false"
                           aria-label="Select Choice A"
-                          aria-selected="false"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -4391,10 +4428,11 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="false"
                           aria-disabled="false"
                           aria-label="Select Choice B"
-                          aria-selected="false"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -4475,10 +4513,11 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="false"
                           aria-disabled="false"
                           aria-label="Select Choice C"
-                          aria-selected="false"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -4559,10 +4598,11 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="false"
                           aria-disabled="false"
                           aria-label="Select Choice D"
-                          aria-selected="false"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -4724,10 +4764,11 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="false"
                           aria-disabled="false"
                           aria-label="Select Choice A"
-                          aria-selected="false"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -4821,10 +4862,11 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="false"
                           aria-disabled="false"
                           aria-label="Select Choice B"
-                          aria-selected="false"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -4905,10 +4947,11 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="true"
                           aria-disabled="false"
                           aria-label="Select Choice C"
-                          aria-selected="true"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -4989,10 +5032,11 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="false"
                           aria-disabled="false"
                           aria-label="Select Choice D"
-                          aria-selected="false"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -5154,10 +5198,11 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="true"
                           aria-disabled="false"
                           aria-label="Select Choice A"
-                          aria-selected="true"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -5251,10 +5296,11 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="false"
                           aria-disabled="false"
                           aria-label="Select Choice B"
-                          aria-selected="false"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -5335,10 +5381,11 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="false"
                           aria-disabled="false"
                           aria-label="Select Choice C"
-                          aria-selected="false"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -5419,10 +5466,11 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="false"
                           aria-disabled="false"
                           aria-label="Select Choice D"
-                          aria-selected="false"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -5584,10 +5632,11 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="false"
                           aria-disabled="false"
                           aria-label="Select Choice A"
-                          aria-selected="false"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -5748,10 +5797,11 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="false"
                           aria-disabled="false"
                           aria-label="Select Choice B"
-                          aria-selected="false"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -5883,10 +5933,11 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="false"
                           aria-disabled="false"
                           aria-label="Select Choice C"
-                          aria-selected="false"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description sat-correct satDescription_2uhr9i-o_O-satDescriptionCorrect_toknon"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >
@@ -6013,10 +6064,11 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                         style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                       >
                         <button
+                          aria-checked="false"
                           aria-disabled="false"
                           aria-label="Select Choice D"
-                          aria-selected="false"
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
+                          role="checkbox"
                           tabindex="0"
                           type="button"
                         >

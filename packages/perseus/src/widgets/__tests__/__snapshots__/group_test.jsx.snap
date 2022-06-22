@@ -129,10 +129,11 @@ exports[`group widget should snapshot: initial render 1`] = `
                                           style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                                         >
                                           <button
+                                            aria-checked="false"
                                             aria-disabled="false"
                                             aria-label="Select Choice A"
-                                            aria-selected="false"
                                             class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                                            role="checkbox"
                                             tabindex="0"
                                             type="button"
                                           >
@@ -215,10 +216,11 @@ exports[`group widget should snapshot: initial render 1`] = `
                                           style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                                         >
                                           <button
+                                            aria-checked="false"
                                             aria-disabled="false"
                                             aria-label="Select Choice B"
-                                            aria-selected="false"
                                             class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                                            role="checkbox"
                                             tabindex="0"
                                             type="button"
                                           >
@@ -301,10 +303,11 @@ exports[`group widget should snapshot: initial render 1`] = `
                                           style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                                         >
                                           <button
+                                            aria-checked="false"
                                             aria-disabled="false"
                                             aria-label="Select Choice C"
-                                            aria-selected="false"
                                             class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                                            role="checkbox"
                                             tabindex="0"
                                             type="button"
                                           >
@@ -387,10 +390,11 @@ exports[`group widget should snapshot: initial render 1`] = `
                                           style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                                         >
                                           <button
+                                            aria-checked="false"
                                             aria-disabled="false"
                                             aria-label="Select Choice D"
-                                            aria-selected="false"
                                             class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                                            role="checkbox"
                                             tabindex="0"
                                             type="button"
                                           >
@@ -473,10 +477,11 @@ exports[`group widget should snapshot: initial render 1`] = `
                                           style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                                         >
                                           <button
+                                            aria-checked="false"
                                             aria-disabled="false"
                                             aria-label="Select Choice E"
-                                            aria-selected="false"
                                             class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                                            role="checkbox"
                                             tabindex="0"
                                             type="button"
                                           >

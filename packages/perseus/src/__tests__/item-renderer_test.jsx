@@ -701,18 +701,18 @@ describe("item renderer", () => {
                 ...itemWithInput,
                 question: multiChoiceQuestion,
             });
-            screen.getAllByRole("button").map((r) => userEvent.click(r));
+            screen.getAllByRole("checkbox").map((r) => userEvent.click(r));
             jest.runOnlyPendingTimers(); // due to setState()
 
             // Act
             renderer.deselectIncorrectSelectedChoices();
 
             // Assert
-            const checkboxes = screen.getAllByRole("button");
-            expect(checkboxes[0]).not.toHaveAttribute("aria-selected", "true");
-            expect(checkboxes[1]).not.toHaveAttribute("aria-selected", "true");
-            expect(checkboxes[2]).not.toHaveAttribute("aria-selected", "true");
-            expect(checkboxes[3]).toHaveAttribute("aria-selected", "true");
+            const checkboxes = screen.getAllByRole("checkbox");
+            expect(checkboxes[0]).not.toBeChecked();
+            expect(checkboxes[1]).not.toBeChecked();
+            expect(checkboxes[2]).not.toBeChecked();
+            expect(checkboxes[3]).toBeChecked();
         });
 
         it("should return serialized state for each widget and hints", () => {
