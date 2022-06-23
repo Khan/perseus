@@ -375,7 +375,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
               style="padding-bottom: 101.36%;"
             />
             <span
-              style="background: url(/images/spinner.gif) no-repeat; background-position: center; width: 100%; height: 100%; position: absolute; min-width: 20px;"
+              style="background: url(mocked-image/spinner.gif) no-repeat; background-position: center; width: 100%; height: 100%; position: absolute; min-width: 20px;"
             />
           </div>
         </div>
@@ -407,7 +407,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
               style="padding-bottom: 91.39%;"
             />
             <span
-              style="background: url(/images/spinner.gif) no-repeat; background-position: center; width: 100%; height: 100%; position: absolute; min-width: 20px;"
+              style="background: url(mocked-image/spinner.gif) no-repeat; background-position: center; width: 100%; height: 100%; position: absolute; min-width: 20px;"
             />
           </div>
             
@@ -884,7 +884,7 @@ exports[`categorizer widget should snapshot: first render 1`] = `
               style="padding-bottom: 101.36%;"
             />
             <span
-              style="background: url(/images/spinner.gif) no-repeat; background-position: center; width: 100%; height: 100%; position: absolute; min-width: 20px;"
+              style="background: url(mocked-image/spinner.gif) no-repeat; background-position: center; width: 100%; height: 100%; position: absolute; min-width: 20px;"
             />
           </div>
         </div>
@@ -916,7 +916,7 @@ exports[`categorizer widget should snapshot: first render 1`] = `
               style="padding-bottom: 91.39%;"
             />
             <span
-              style="background: url(/images/spinner.gif) no-repeat; background-position: center; width: 100%; height: 100%; position: absolute; min-width: 20px;"
+              style="background: url(mocked-image/spinner.gif) no-repeat; background-position: center; width: 100%; height: 100%; position: absolute; min-width: 20px;"
             />
           </div>
             

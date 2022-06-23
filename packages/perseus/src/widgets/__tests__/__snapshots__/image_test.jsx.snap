@@ -38,7 +38,7 @@ exports[`image widget - isMobile %b should snapshot: first render 1`] = `
                         style="padding-bottom: 82.14%;"
                       />
                       <span
-                        style="background: url(/images/spinner.gif) no-repeat; background-position: center; width: 100%; height: 100%; position: absolute; min-width: 20px;"
+                        style="background: url(mocked-image/spinner.gif) no-repeat; background-position: center; width: 100%; height: 100%; position: absolute; min-width: 20px;"
                       />
                     </div>
                     <span
@@ -246,7 +246,7 @@ exports[`image widget - isMobile %b should snapshot: first render 2`] = `
                         style="padding-bottom: 82.14%;"
                       />
                       <span
-                        style="background: url(/images/spinner.gif) no-repeat; background-position: center; width: 100%; height: 100%; position: absolute; min-width: 20px;"
+                        style="background: url(mocked-image/spinner.gif) no-repeat; background-position: center; width: 100%; height: 100%; position: absolute; min-width: 20px;"
                       />
                     </div>
                     <span

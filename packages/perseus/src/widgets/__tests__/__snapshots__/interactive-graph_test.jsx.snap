@@ -477,7 +477,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                   style="width: 400px; height: 400px;"
                 >
                   <span
-                    style="background: url(/images/spinner.gif) no-repeat; background-position: center; width: 100%; height: 100%; position: absolute; min-width: 20px;"
+                    style="background: url(mocked-image/spinner.gif) no-repeat; background-position: center; width: 100%; height: 100%; position: absolute; min-width: 20px;"
                   />
                 </div>
                 <div
@@ -892,7 +892,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                   style="width: 425px; height: 425px;"
                 >
                   <span
-                    style="background: url(/images/spinner.gif) no-repeat; background-position: center; width: 100%; height: 100%; position: absolute; min-width: 20px;"
+                    style="background: url(mocked-image/spinner.gif) no-repeat; background-position: center; width: 100%; height: 100%; position: absolute; min-width: 20px;"
                   />
                 </div>
                 <div
@@ -1282,7 +1282,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                   style="width: 425px; height: 425px;"
                 >
                   <span
-                    style="background: url(/images/spinner.gif) no-repeat; background-position: center; width: 100%; height: 100%; position: absolute; min-width: 20px;"
+                    style="background: url(mocked-image/spinner.gif) no-repeat; background-position: center; width: 100%; height: 100%; position: absolute; min-width: 20px;"
                   />
                 </div>
                 <div
@@ -2194,7 +2194,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                   style="width: 400px; height: 400px;"
                 >
                   <span
-                    style="background: url(/images/spinner.gif) no-repeat; background-position: center; width: 100%; height: 100%; position: absolute; min-width: 20px;"
+                    style="background: url(mocked-image/spinner.gif) no-repeat; background-position: center; width: 100%; height: 100%; position: absolute; min-width: 20px;"
                   />
                 </div>
                 <div
@@ -2609,7 +2609,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                   style="width: 425px; height: 425px;"
                 >
                   <span
-                    style="background: url(/images/spinner.gif) no-repeat; background-position: center; width: 100%; height: 100%; position: absolute; min-width: 20px;"
+                    style="background: url(mocked-image/spinner.gif) no-repeat; background-position: center; width: 100%; height: 100%; position: absolute; min-width: 20px;"
                   />
                 </div>
                 <div
@@ -2811,7 +2811,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                   style="width: 425px; height: 425px;"
                 >
                   <span
-                    style="background: url(/images/spinner.gif) no-repeat; background-position: center; width: 100%; height: 100%; position: absolute; min-width: 20px;"
+                    style="background: url(mocked-image/spinner.gif) no-repeat; background-position: center; width: 100%; height: 100%; position: absolute; min-width: 20px;"
                   />
                 </div>
                 <div

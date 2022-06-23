@@ -1489,7 +1489,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       style="padding-bottom: 100%;"
                     />
                     <span
-                      style="background: url(/images/spinner.gif) no-repeat; background-position: center; width: 100%; height: 100%; position: absolute; min-width: 20px;"
+                      style="background: url(mocked-image/spinner.gif) no-repeat; background-position: center; width: 100%; height: 100%; position: absolute; min-width: 20px;"
                     />
                   </div>
                   <div

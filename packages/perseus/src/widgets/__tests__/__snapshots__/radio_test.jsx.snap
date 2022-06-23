@@ -423,7 +423,7 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
               style="padding-bottom: 100%;"
             />
             <span
-              style="background: url(/images/spinner.gif) no-repeat; background-position: center; width: 100%; height: 100%; position: absolute; min-width: 20px;"
+              style="background: url(mocked-image/spinner.gif) no-repeat; background-position: center; width: 100%; height: 100%; position: absolute; min-width: 20px;"
             />
           </div>
         </div>
