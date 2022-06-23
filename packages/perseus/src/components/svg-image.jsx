@@ -5,6 +5,7 @@ import $ from "jquery";
 import * as React from "react";
 import _ from "underscore";
 
+import Spinner from "../../assets/images/spinner.gif";
 import {getDependencies} from "../dependencies.js";
 import {Errors, Log} from "../logging/log.js";
 import {PerseusError} from "../perseus-error.js";
@@ -119,7 +120,7 @@ function defaultPreloader(dimensions: Dimensions) {
     return (
         <span
             style={{
-                background: "url(/images/spinner.gif) no-repeat",
+                background: `url(${Spinner}) no-repeat`,
                 backgroundPosition: "center",
                 width: "100%",
                 height: "100%",
@@ -591,10 +592,7 @@ class SvgImage extends React.Component<Props, State> {
         const width = this.props.width && this.props.width * this.props.scale;
         const height =
             this.props.height && this.props.height * this.props.scale;
-        const dimensions = {
-            width: width,
-            height: height,
-        };
+        const dimensions = {width, height};
 
         // To make an image responsive, we need to know what its width and
         // height are in advance (before inserting it into the DOM) so that we
