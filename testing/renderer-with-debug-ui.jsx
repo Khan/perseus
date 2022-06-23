@@ -6,11 +6,10 @@ import {HeadingSmall} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 import ReactJson from "react-json-view";
 
-import {Dependencies, Renderer} from "../packages/perseus/src/index.js";
+import {Renderer} from "../packages/perseus/src/index.js";
 import {registerAllWidgetsForTesting} from "../packages/perseus/src/util/register-all-widgets-for-testing.js";
 
 import SideBySide from "./side-by-side.jsx";
-import {storybookTestDependencies} from "./test-dependencies.js";
 
 import type {PerseusRenderer} from "../packages/perseus/src/perseus-types.js";
 import type {APIOptions} from "../packages/perseus/src/types.js";
@@ -29,7 +28,6 @@ export const RendererWithDebugUI = ({
     registerAllWidgetsForTesting();
     const ref = React.useRef<?Renderer>(null);
     const [state, setState] = React.useState(null);
-    Dependencies.setDependencies(storybookTestDependencies);
 
     return (
         <SideBySide

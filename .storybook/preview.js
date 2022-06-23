@@ -1,12 +1,12 @@
 import * as React from "react";
 import Color from "@khanacademy/wonder-blocks-color";
 import {Dependencies} from "@khanacademy/perseus";
-import {testDependencies} from "../testing/test-dependencies";
+import {storybookTestDependencies} from "../testing/test-dependencies";
 
 // IMPORTANT: This code runs ONCE per story file, not per story within that file.
 // If you want code to run once per story, see `StorybookWrapper`.
 
-Dependencies.setDependencies(testDependencies);
+Dependencies.setDependencies(storybookTestDependencies);
 
 // These decorators apply to all stories, both inside and outside the fixture
 // framework.
