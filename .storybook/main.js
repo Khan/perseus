@@ -49,7 +49,6 @@ module.exports = {
                 ...webpackConfig.module,
                 rules: [
                     ...rulesWithoutCss,
-                    // sync-start:webpack-style-config 905510231 services/static/webpack/configs/webpack.common.js
                     {
                         test: /\.less$/,
                         /**
@@ -79,7 +78,6 @@ module.exports = {
                             },
                         ],
                     },
-                    // sync-end:webpack-style-config
                 ],
             },
         };
