@@ -128,6 +128,7 @@ const FixedToResponsive: $FlowFixMe = createReactClass({
             maxHeight: height,
         };
 
+        // NOTE(jeremy): This depends on styles defined in perseus-renderer.less
         const className = classNames(
             "fixed-to-responsive",
             this.props.className,

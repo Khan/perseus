@@ -22,6 +22,17 @@ export const MostlyEmptyPropsObject = (args: StoryArgs): React.Node => {
     return <SvgImage alt="ALT" />;
 };
 
+export const SvgImageThatDoesntLoad = (args: StoryArgs): React.Node => {
+    return (
+        <SvgImage
+            alt="ALT"
+            height={100}
+            width={500}
+            src={"http://httpstat.us/200?sleep=1000000"}
+        />
+    );
+};
+
 export const SvgImageBasic = (args: StoryArgs): React.Node => {
     return <SvgImage src={svgUrl} alt="ALT" />;
 };

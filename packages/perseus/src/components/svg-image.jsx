@@ -1,5 +1,6 @@
 /* eslint-disable no-useless-escape, react/no-unsafe */
 // @flow
+import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
 import classNames from "classnames";
 import $ from "jquery";
 import * as React from "react";
@@ -119,14 +120,19 @@ function defaultPreloader(dimensions: Dimensions) {
     return (
         <span
             style={{
-                background: "url(/images/spinner.gif) no-repeat",
-                backgroundPosition: "center",
+                top: 0,
+                left: 0,
                 width: "100%",
                 height: "100%",
                 position: "absolute",
                 minWidth: "20px",
+                display: "flex",
+                justifyContent: "center",
+                alignContent: "center",
             }}
-        />
+        >
+            <CircularSpinner size="medium" />
+        </span>
     );
 }
 
@@ -591,10 +597,7 @@ class SvgImage extends React.Component<Props, State> {
         const width = this.props.width && this.props.width * this.props.scale;
         const height =
             this.props.height && this.props.height * this.props.scale;
-        const dimensions = {
-            width: width,
-            height: height,
-        };
+        const dimensions = {width, height};
 
         // To make an image responsive, we need to know what its width and
         // height are in advance (before inserting it into the DOM) so that we
