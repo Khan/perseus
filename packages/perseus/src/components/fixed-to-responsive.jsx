@@ -126,6 +126,8 @@ const FixedToResponsive: $FlowFixMe = createReactClass({
         const style = {
             maxWidth: width,
             maxHeight: height,
+            position: "relative",
+            width: "100%",
         };
 
         const className = classNames(

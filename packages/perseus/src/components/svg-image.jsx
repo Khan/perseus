@@ -1,11 +1,11 @@
 /* eslint-disable no-useless-escape, react/no-unsafe */
 // @flow
+import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
 import classNames from "classnames";
 import $ from "jquery";
 import * as React from "react";
 import _ from "underscore";
 
-import Spinner from "../../assets/images/spinner.gif";
 import {getDependencies} from "../dependencies.js";
 import {Errors, Log} from "../logging/log.js";
 import {PerseusError} from "../perseus-error.js";
@@ -120,14 +120,19 @@ function defaultPreloader(dimensions: Dimensions) {
     return (
         <span
             style={{
-                background: `url(${Spinner}) no-repeat`,
-                backgroundPosition: "center",
+                top: 0,
+                left: 0,
                 width: "100%",
                 height: "100%",
                 position: "absolute",
                 minWidth: "20px",
+                display: "flex",
+                justifyContent: "center",
+                alignContent: "center",
             }}
-        />
+        >
+            <CircularSpinner size="medium" />
+        </span>
     );
 }
 
