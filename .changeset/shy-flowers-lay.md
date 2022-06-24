@@ -2,4 +2,4 @@
 "@khanacademy/perseus": minor
 ---
 
-Bundle spinner.gif and reference it using a relative path import
+Change default "preloader" for `SvgImage` to use a WonderBlocks spinner. This avoids the need to deal with a bundled spinner GIF entirely.
