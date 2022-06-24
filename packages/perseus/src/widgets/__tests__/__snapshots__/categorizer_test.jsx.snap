@@ -369,7 +369,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
         >
           <div
             class="fixed-to-responsive svg-image"
-            style="max-width: 220px; max-height: 223px; position: relative; width: 100%;"
+            style="max-width: 220px; max-height: 223px;"
           >
             <div
               style="padding-bottom: 101.36%;"
@@ -418,7 +418,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
         >
           <div
             class="fixed-to-responsive svg-image"
-            style="max-width: 244px; max-height: 223px; position: relative; width: 100%;"
+            style="max-width: 244px; max-height: 223px;"
           >
             <div
               style="padding-bottom: 91.39%;"
@@ -912,7 +912,7 @@ exports[`categorizer widget should snapshot: first render 1`] = `
         >
           <div
             class="fixed-to-responsive svg-image"
-            style="max-width: 220px; max-height: 223px; position: relative; width: 100%;"
+            style="max-width: 220px; max-height: 223px;"
           >
             <div
               style="padding-bottom: 101.36%;"
@@ -961,7 +961,7 @@ exports[`categorizer widget should snapshot: first render 1`] = `
         >
           <div
             class="fixed-to-responsive svg-image"
-            style="max-width: 244px; max-height: 223px; position: relative; width: 100%;"
+            style="max-width: 244px; max-height: 223px;"
           >
             <div
               style="padding-bottom: 91.39%;"

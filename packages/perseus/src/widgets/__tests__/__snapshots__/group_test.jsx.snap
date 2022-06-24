@@ -26,7 +26,7 @@ exports[`group widget should snapshot: initial render 1`] = `
               >
                 <div
                   class="fixed-to-responsive svg-image"
-                  style="max-width: 428px; max-height: 480px; position: relative; width: 100%;"
+                  style="max-width: 428px; max-height: 480px;"
                 >
                   <div
                     style="padding-bottom: 112.14999999999999%;"
@@ -1034,7 +1034,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                               >
                                 <div
                                   class="fixed-to-responsive svg-image"
-                                  style="max-width: 380px; max-height: 80px; position: relative; width: 100%;"
+                                  style="max-width: 380px; max-height: 80px;"
                                 >
                                   <div
                                     style="padding-bottom: 21.05%;"

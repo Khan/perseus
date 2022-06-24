@@ -1483,7 +1483,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                 >
                   <div
                     class="fixed-to-responsive svg-image"
-                    style="max-width: 400px; max-height: 400px; position: relative; width: 100%;"
+                    style="max-width: 400px; max-height: 400px;"
                   >
                     <div
                       style="padding-bottom: 100%;"

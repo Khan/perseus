@@ -417,7 +417,7 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
            
           <div
             class="fixed-to-responsive svg-image"
-            style="max-width: 428px; max-height: 428px; position: relative; width: 100%;"
+            style="max-width: 428px; max-height: 428px;"
           >
             <div
               style="padding-bottom: 100%;"

@@ -33,7 +33,7 @@ exports[`video widget should snapshot on mobile: first mobile render 1`] = `
             >
               <div
                 class="fixed-to-responsive"
-                style="max-width: 1280px; max-height: 720px; position: relative; width: 100%;"
+                style="max-width: 1280px; max-height: 720px;"
               >
                 <div
                   style="padding-bottom: 56.25%;"
@@ -114,7 +114,7 @@ exports[`video widget should snapshot: first render 1`] = `
             >
               <div
                 class="fixed-to-responsive"
-                style="max-width: 1280px; max-height: 720px; position: relative; width: 100%;"
+                style="max-width: 1280px; max-height: 720px;"
               >
                 <div
                   style="padding-bottom: 56.25%;"
