@@ -40,8 +40,6 @@ module.exports = {
     rootDir: path.join(__dirname, "../../"),
     transform: {
         "^.+\\.jsx?$": "<rootDir>/config/test/test.transform.js",
-        // Transform image imports into bare URL
-        "\\.(gif|jpg|png)$": "<rootDir>/config/test/image-transform.js",
     },
     restoreMocks: true,
     resetMocks: true,

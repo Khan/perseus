@@ -46,10 +46,6 @@ module.exports = (on, config) => {
                             test: /\.(less)$/,
                             use: ["style-loader", "css-loader", "less-loader"],
                         },
-                        {
-                            test: /\.(gif|jpg|png)$/,
-                            use: ["file-loader"],
-                        },
                     ],
                 },
             },
