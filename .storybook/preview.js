@@ -1,4 +1,5 @@
 import * as React from "react";
+import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import Color from "@khanacademy/wonder-blocks-color";
 import {Dependencies} from "@khanacademy/perseus";
 import {storybookTestDependencies} from "../testing/test-dependencies";
@@ -15,7 +16,11 @@ export const decorators = [
     // have the basics such as a router and GraphQL mocking.
     // This also ensures that page display changes and route changes
     // get logged instead of actually doing work.
-    // (Story, context) => <StorybookWrapper story={Story} />,
+    (Story, context) => (
+        <RenderStateRoot>
+            <Story />
+        </RenderStateRoot>
+    ),
 ];
 
 // These parameters apply to all stories, both inside and outside the fixture
