@@ -16,11 +16,7 @@ export const decorators = [
     // have the basics such as a router and GraphQL mocking.
     // This also ensures that page display changes and route changes
     // get logged instead of actually doing work.
-    (Story, context) => (
-        <RenderStateRoot>
-            <Story />
-        </RenderStateRoot>
-    ),
+    (Story, context) => <Story />,
 ];
 
 // These parameters apply to all stories, both inside and outside the fixture
