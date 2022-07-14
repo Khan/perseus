@@ -24,11 +24,9 @@ type DefinitionProps = {|
     widgets: PerseusRenderer["widgets"],
 |};
 
-type DefintionState = {|
-    popoverOpen: boolean,
-|};
+var activeDefinitionPopover: string | null = null;
 
-class Definition extends React.Component<DefinitionProps, DefintionState> {
+class Definition extends React.Component<DefinitionProps> {
     static defaultProps: $FlowFixMe = {
         togglePrompt: "define me",
         definition: "definition goes here",
@@ -43,11 +41,6 @@ class Definition extends React.Component<DefinitionProps, DefintionState> {
         };
     }
 
-    constructor(props: DefinitionProps) {
-        super(props);
-        this.state = {popoverOpen: false};
-    }
-
     getUserInput: () => UserInput = () => {
         return {};
     };
@@ -59,9 +52,10 @@ class Definition extends React.Component<DefinitionProps, DefintionState> {
     render(): React.Node {
         return (
             <Popover
-                opened={this.state.popoverOpen}
+                opened={activeDefinitionPopover == this.props.widgetId}
                 onClose={() => {
-                    this.setState({popoverOpen: false});
+                    activeDefinitionPopover = null;
+                    this.forceUpdate();
                 }}
                 content={
                     <PopoverContentCore
@@ -85,7 +79,8 @@ class Definition extends React.Component<DefinitionProps, DefintionState> {
                             kind="tertiary"
                             onClick={() => {
                                 this.props.trackInteraction();
-                                this.setState({popoverOpen: true});
+                                activeDefinitionPopover = this.props.widgetId;
+                                this.forceUpdate();
                             }}
                         >
                             {this.props.togglePrompt}
