@@ -3,6 +3,7 @@
 import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";
+import {TextField} from "@khanacademy/wonder-blocks-form";
 
 class TextInput extends React.Component<$FlowFixMe> {
     static propTypes = {
@@ -20,14 +21,26 @@ class TextInput extends React.Component<$FlowFixMe> {
         disabled: false,
     };
 
+    // render(): React.Node {
+    //     const {labelText, ...props} = this.props;
+    //     return (
+    //         <input
+    //             {...props}
+    //             type="text"
+    //             aria-label={labelText}
+    //             onChange={(e) => this.props.onChange(e.target.value)}
+    //         />
+    //     );
+    // }
+
     render(): React.Node {
         const {labelText, ...props} = this.props;
         return (
-            <input
+            <TextField
                 {...props}
                 type="text"
                 aria-label={labelText}
-                onChange={(e) => this.props.onChange(e.target.value)}
+                onChange={(value) => this.props.onChange(value)}
             />
         );
     }
