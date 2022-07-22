@@ -78,8 +78,10 @@ class InputWithExamples extends React.Component<$FlowFixMe, $FlowFixMe> {
 
     _getPropsForInputType: () => $FlowFixMe = () => {
         // Minimal set of props, used by each input type
+        const id = this._getUniqueId();
         const inputProps = {
-            "aria-describedby": this._getUniqueId(),
+            id: id,
+            "aria-describedby": id,
             ref: "input",
             className: this._getInputClassName(),
             labelText: this.props.labelText,

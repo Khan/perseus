@@ -5,42 +5,35 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import {TextField} from "@khanacademy/wonder-blocks-form";
 
-class TextInput extends React.Component<$FlowFixMe> {
-    static propTypes = {
-        value: PropTypes.string,
-        onChange: PropTypes.func.isRequired,
-        className: PropTypes.string,
-        labelText: PropTypes.string,
-        onFocus: PropTypes.func,
-        onBlur: PropTypes.func,
-        disabled: PropTypes.bool,
-    };
-
+type Props = {|
+    value: string,
+    onChange: ($FlowFixMe) => {},
+    className: string,
+    labelText: string,
+    onFocus: () => {},
+    onBlur: () => {},
+    disabled: boolean,
+    id: string,
+|};
+class TextInput extends React.Component<Props> {
     static defaultProps: $FlowFixMe = {
         value: "",
         disabled: false,
     };
 
-    // render(): React.Node {
-    //     const {labelText, ...props} = this.props;
-    //     return (
-    //         <input
-    //             {...props}
-    //             type="text"
-    //             aria-label={labelText}
-    //             onChange={(e) => this.props.onChange(e.target.value)}
-    //         />
-    //     );
-    // }
-
     render(): React.Node {
-        const {labelText, ...props} = this.props;
+        const {labelText, value, onFocus, onBlur, disabled} = this.props;
+
         return (
             <TextField
-                {...props}
+                disabled={disabled}
+                id={"abc"}
+                value={value}
                 type="text"
                 aria-label={labelText}
                 onChange={(value) => this.props.onChange(value)}
+                onFocus={onFocus}
+                onBlur={onBlur}
             />
         );
     }
