@@ -18,7 +18,6 @@ describe("graded-group-set", () => {
             ...testDependencies,
             JIPT: {
                 useJIPT: true,
-                domInsertChecks: [],
             },
         });
     });
