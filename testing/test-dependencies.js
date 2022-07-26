@@ -24,7 +24,6 @@ const LogForTesting: ILogger = {
 export const testDependencies: PerseusDependencies = {
     // JIPT
     JIPT: {
-        domInsertChecks: [],
         useJIPT: false,
     },
     graphieMovablesJiptLabels: {

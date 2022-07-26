@@ -319,8 +319,6 @@ export type DomInsertCheckFn = (
 
 export type JIPT = {|
     useJIPT: boolean,
-    // eslint-disable-next-line ft-flow/no-mutable-array
-    domInsertChecks: Array<DomInsertCheckFn>,
 |};
 
 export type JiptLabelStore = {|
