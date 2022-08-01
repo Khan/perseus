@@ -1,7 +1,7 @@
 /* eslint-disable react/sort-comp */
 // @flow
-import * as React from "react";
 import {TextField} from "@khanacademy/wonder-blocks-form";
+import * as React from "react";
 import ReactDOM from "react-dom";
 
 type Props = {|
