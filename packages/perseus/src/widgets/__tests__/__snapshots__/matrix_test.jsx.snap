@@ -91,8 +91,8 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                     class="matrix-input-field"
                   >
                     <input
-                      class="inside"
-                      style="height: 30px; width: 40px; margin: 3px;"
+                      class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3"
+                      id="abc"
                       type="text"
                       value=""
                     />
@@ -101,8 +101,8 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                     class="matrix-input-field"
                   >
                     <input
-                      class="outside"
-                      style="height: 30px; width: 40px; margin: 3px;"
+                      class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3"
+                      id="abc"
                       type="text"
                       value=""
                     />
@@ -111,8 +111,8 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                     class="matrix-input-field"
                   >
                     <input
-                      class="outside"
-                      style="height: 30px; width: 40px; margin: 3px;"
+                      class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3"
+                      id="abc"
                       type="text"
                       value=""
                     />
@@ -121,52 +121,8 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                     class="matrix-input-field"
                   >
                     <input
-                      class="outside"
-                      style="height: 30px; width: 40px; margin: 3px;"
-                      type="text"
-                      value=""
-                    />
-                  </span>
-                </div>
-                <div
-                  class="matrix-row"
-                >
-                  <span
-                    class="matrix-input-field"
-                  >
-                    <input
-                      class="outside"
-                      style="height: 30px; width: 40px; margin: 3px;"
-                      type="text"
-                      value=""
-                    />
-                  </span>
-                  <span
-                    class="matrix-input-field"
-                  >
-                    <input
-                      class="outside"
-                      style="height: 30px; width: 40px; margin: 3px;"
-                      type="text"
-                      value=""
-                    />
-                  </span>
-                  <span
-                    class="matrix-input-field"
-                  >
-                    <input
-                      class="outside"
-                      style="height: 30px; width: 40px; margin: 3px;"
-                      type="text"
-                      value=""
-                    />
-                  </span>
-                  <span
-                    class="matrix-input-field"
-                  >
-                    <input
-                      class="outside"
-                      style="height: 30px; width: 40px; margin: 3px;"
+                      class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3"
+                      id="abc"
                       type="text"
                       value=""
                     />
@@ -179,8 +135,8 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                     class="matrix-input-field"
                   >
                     <input
-                      class="outside"
-                      style="height: 30px; width: 40px; margin: 3px;"
+                      class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3"
+                      id="abc"
                       type="text"
                       value=""
                     />
@@ -189,8 +145,8 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                     class="matrix-input-field"
                   >
                     <input
-                      class="outside"
-                      style="height: 30px; width: 40px; margin: 3px;"
+                      class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3"
+                      id="abc"
                       type="text"
                       value=""
                     />
@@ -199,8 +155,8 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                     class="matrix-input-field"
                   >
                     <input
-                      class="outside"
-                      style="height: 30px; width: 40px; margin: 3px;"
+                      class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3"
+                      id="abc"
                       type="text"
                       value=""
                     />
@@ -209,8 +165,52 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                     class="matrix-input-field"
                   >
                     <input
-                      class="outside"
-                      style="height: 30px; width: 40px; margin: 3px;"
+                      class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3"
+                      id="abc"
+                      type="text"
+                      value=""
+                    />
+                  </span>
+                </div>
+                <div
+                  class="matrix-row"
+                >
+                  <span
+                    class="matrix-input-field"
+                  >
+                    <input
+                      class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3"
+                      id="abc"
+                      type="text"
+                      value=""
+                    />
+                  </span>
+                  <span
+                    class="matrix-input-field"
+                  >
+                    <input
+                      class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3"
+                      id="abc"
+                      type="text"
+                      value=""
+                    />
+                  </span>
+                  <span
+                    class="matrix-input-field"
+                  >
+                    <input
+                      class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3"
+                      id="abc"
+                      type="text"
+                      value=""
+                    />
+                  </span>
+                  <span
+                    class="matrix-input-field"
+                  >
+                    <input
+                      class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3"
+                      id="abc"
                       type="text"
                       value=""
                     />
@@ -313,8 +313,8 @@ exports[`matrix widget should snapshot: first render 1`] = `
                     class="matrix-input-field"
                   >
                     <input
-                      class="inside"
-                      style="height: 30px; width: 40px; margin: 3px;"
+                      class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3"
+                      id="abc"
                       type="text"
                       value=""
                     />
@@ -323,8 +323,8 @@ exports[`matrix widget should snapshot: first render 1`] = `
                     class="matrix-input-field"
                   >
                     <input
-                      class="outside"
-                      style="height: 30px; width: 40px; margin: 3px;"
+                      class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3"
+                      id="abc"
                       type="text"
                       value=""
                     />
@@ -333,8 +333,8 @@ exports[`matrix widget should snapshot: first render 1`] = `
                     class="matrix-input-field"
                   >
                     <input
-                      class="outside"
-                      style="height: 30px; width: 40px; margin: 3px;"
+                      class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3"
+                      id="abc"
                       type="text"
                       value=""
                     />
@@ -343,52 +343,8 @@ exports[`matrix widget should snapshot: first render 1`] = `
                     class="matrix-input-field"
                   >
                     <input
-                      class="outside"
-                      style="height: 30px; width: 40px; margin: 3px;"
-                      type="text"
-                      value=""
-                    />
-                  </span>
-                </div>
-                <div
-                  class="matrix-row"
-                >
-                  <span
-                    class="matrix-input-field"
-                  >
-                    <input
-                      class="outside"
-                      style="height: 30px; width: 40px; margin: 3px;"
-                      type="text"
-                      value=""
-                    />
-                  </span>
-                  <span
-                    class="matrix-input-field"
-                  >
-                    <input
-                      class="outside"
-                      style="height: 30px; width: 40px; margin: 3px;"
-                      type="text"
-                      value=""
-                    />
-                  </span>
-                  <span
-                    class="matrix-input-field"
-                  >
-                    <input
-                      class="outside"
-                      style="height: 30px; width: 40px; margin: 3px;"
-                      type="text"
-                      value=""
-                    />
-                  </span>
-                  <span
-                    class="matrix-input-field"
-                  >
-                    <input
-                      class="outside"
-                      style="height: 30px; width: 40px; margin: 3px;"
+                      class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3"
+                      id="abc"
                       type="text"
                       value=""
                     />
@@ -401,8 +357,8 @@ exports[`matrix widget should snapshot: first render 1`] = `
                     class="matrix-input-field"
                   >
                     <input
-                      class="outside"
-                      style="height: 30px; width: 40px; margin: 3px;"
+                      class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3"
+                      id="abc"
                       type="text"
                       value=""
                     />
@@ -411,8 +367,8 @@ exports[`matrix widget should snapshot: first render 1`] = `
                     class="matrix-input-field"
                   >
                     <input
-                      class="outside"
-                      style="height: 30px; width: 40px; margin: 3px;"
+                      class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3"
+                      id="abc"
                       type="text"
                       value=""
                     />
@@ -421,8 +377,8 @@ exports[`matrix widget should snapshot: first render 1`] = `
                     class="matrix-input-field"
                   >
                     <input
-                      class="outside"
-                      style="height: 30px; width: 40px; margin: 3px;"
+                      class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3"
+                      id="abc"
                       type="text"
                       value=""
                     />
@@ -431,8 +387,52 @@ exports[`matrix widget should snapshot: first render 1`] = `
                     class="matrix-input-field"
                   >
                     <input
-                      class="outside"
-                      style="height: 30px; width: 40px; margin: 3px;"
+                      class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3"
+                      id="abc"
+                      type="text"
+                      value=""
+                    />
+                  </span>
+                </div>
+                <div
+                  class="matrix-row"
+                >
+                  <span
+                    class="matrix-input-field"
+                  >
+                    <input
+                      class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3"
+                      id="abc"
+                      type="text"
+                      value=""
+                    />
+                  </span>
+                  <span
+                    class="matrix-input-field"
+                  >
+                    <input
+                      class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3"
+                      id="abc"
+                      type="text"
+                      value=""
+                    />
+                  </span>
+                  <span
+                    class="matrix-input-field"
+                  >
+                    <input
+                      class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3"
+                      id="abc"
+                      type="text"
+                      value=""
+                    />
+                  </span>
+                  <span
+                    class="matrix-input-field"
+                  >
+                    <input
+                      class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3"
+                      id="abc"
                       type="text"
                       value=""
                     />
