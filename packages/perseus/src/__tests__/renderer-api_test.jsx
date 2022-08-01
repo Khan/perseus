@@ -149,30 +149,6 @@ describe("Perseus API", function () {
     });
 
     describe("CSS ClassNames", function () {
-        describe("perseus-input", function () {
-            it("should be on the `input` element of an input-number", function () {
-                // Feel free to change this if you change the class name,
-                // but if you do, you must up the perseus api [major]
-                // version
-                expect(ClassNames.INPUT).toBe("perseus-input");
-
-                const renderer = renderQuestionArea(inputNumber1Item);
-
-                const input =
-                    // $FlowFixMe[prop-missing]
-                    // $FlowFixMe[incompatible-use]
-                    ReactDOM.findDOMNode(renderer).querySelector("input");
-                expect($(input).hasClass(ClassNames.INPUT)).toBe(true);
-
-                const perseusInput = ReactDOM.findDOMNode(
-                    renderer,
-                    // $FlowFixMe[incompatible-use]
-                    // $FlowFixMe[prop-missing]
-                ).querySelector(".perseus-input");
-                expect(input).toBe(perseusInput);
-            });
-        });
-
         describe("perseus-focused", function () {
             it("should be on an input-number exactly when focused", function () {
                 // Feel free to change this if you change the class name,
@@ -190,13 +166,13 @@ describe("Perseus API", function () {
                     // $FlowFixMe[prop-missing]
                     ReactDOM.findDOMNode(renderer).querySelector("input");
 
-                expect($(input).hasClass(ClassNames.FOCUSED)).toBe(false);
+                expect($(input).attr("class").includes("focused")).toBe(false);
 
                 TestUtils.Simulate.focus(input);
-                expect($(input).hasClass(ClassNames.FOCUSED)).toBe(true);
+                expect($(input).attr("class").includes("focused")).toBe(true);
 
                 TestUtils.Simulate.blur(input);
-                expect($(input).hasClass(ClassNames.FOCUSED)).toBe(false);
+                expect($(input).attr("class").includes("focused")).toBe(false);
             });
         });
     });
