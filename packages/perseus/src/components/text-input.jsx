@@ -1,9 +1,8 @@
 /* eslint-disable react/sort-comp */
 // @flow
-import PropTypes from "prop-types";
 import * as React from "react";
-import ReactDOM from "react-dom";
 import {TextField} from "@khanacademy/wonder-blocks-form";
+import ReactDOM from "react-dom";
 
 type Props = {|
     value: string,
