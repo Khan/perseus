@@ -21,12 +21,12 @@ class TextInput extends React.Component<Props> {
     };
 
     render(): React.Node {
-        const {labelText, value, onFocus, onBlur, disabled} = this.props;
+        const {labelText, value, onFocus, onBlur, disabled, id} = this.props;
 
         return (
             <TextField
                 disabled={disabled}
-                id={"abc"}
+                id={id}
                 value={value}
                 type="text"
                 aria-label={labelText}
