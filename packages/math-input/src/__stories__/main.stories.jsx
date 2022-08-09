@@ -5,7 +5,7 @@ import App from "../components/app.js";
 import "../../less/main.less";
 
 export default {
-    title: "Math Input/test",
+    title: "Math Input/integration test",
 };
 
 type StoryArgs = {||};

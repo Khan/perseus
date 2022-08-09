@@ -1,3 +1,5 @@
+// TODO: Is this file even used????
+
 import Color from "@khanacademy/wonder-blocks-color";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {StyleSheet} from "aphrodite";
@@ -316,6 +318,7 @@ class MathInput extends React.Component {
         // Pass this component's handleKey method to the keypad so it can call
         // it whenever it needs to trigger a keypress action.
         this.props.keypadElement.setKeyHandler((key) => {
+            // TODO: I think the problem is here
             const cursor = this.mathField.pressKey(key);
 
             // Trigger an `onChange` if the value in the input changed, and hide
@@ -753,6 +756,9 @@ class MathInput extends React.Component {
     };
 
     handleKeyUp = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+
         const mathQuillKey = this.domKeyToMathQuillKey(event.key);
 
         if (mathQuillKey) {
@@ -768,6 +774,8 @@ class MathInput extends React.Component {
                 this._hideCursorHandle();
             }
         }
+
+        return false;
     };
 
     getBorderWidthPx = () => {
@@ -847,6 +855,12 @@ class MathInput extends React.Component {
                     tabIndex={"0"}
                     ref={(node) => {
                         this.inputRef = node;
+                    }}
+                    onKeyDown={(event) => {
+                        // TODO(Nicole): WHY IS THIS NECESSARY???????????
+                        event.stopPropagation();
+                        event.preventDefault();
+                        return false;
                     }}
                     onKeyUp={this.handleKeyUp}
                 >

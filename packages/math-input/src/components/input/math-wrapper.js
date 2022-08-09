@@ -4,6 +4,8 @@
  * from MathQuill changes.
  */
 
+// TODO ACTUALLY THE PROBLEM IS HERE MAYBE? 2
+
 import $ from "jquery";
 import MathQuill from "mathquill";
 
