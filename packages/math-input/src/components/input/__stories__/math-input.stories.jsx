@@ -13,6 +13,7 @@ export const Test = (args: StoryArgs): React.Node => {
     return (
         <MathInput
             onFocus={action("focused")}
+            onFocus={action("blurred")}
             onChange={action("changed")}
             keypadElement={{
                 activate: () => {},

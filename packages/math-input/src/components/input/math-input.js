@@ -1,5 +1,3 @@
-// TODO: Is this file even used????
-
 import Color from "@khanacademy/wonder-blocks-color";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {StyleSheet} from "aphrodite";
@@ -318,7 +316,6 @@ class MathInput extends React.Component {
         // Pass this component's handleKey method to the keypad so it can call
         // it whenever it needs to trigger a keypress action.
         this.props.keypadElement.setKeyHandler((key) => {
-            // TODO: I think the problem is here
             const cursor = this.mathField.pressKey(key);
 
             // Trigger an `onChange` if the value in the input changed, and hide
@@ -763,19 +760,19 @@ class MathInput extends React.Component {
 
         if (mathQuillKey) {
             this.mathField.pressKey(mathQuillKey);
+            this.props.onChange(value, false);
 
-            // TODO(diedra): If the new value being added is off-screen to the right
-            // due to the max-width of the text box, scroll the box to show the newest
-            // value
-            const value = this.mathField.getContent();
-            if (this.props.value !== value) {
-                this.mathField.setContent(this.props.value);
-                this.props.onChange(value, false);
-                this._hideCursorHandle();
-            }
+            // TODO(Nicole): Commenting this out "fixes" thigns
+            // // TODO(diedra): If the new value being added is off-screen to the right
+            // // due to the max-width of the text box, scroll the box to show the newest
+            // // value
+            // const value = this.mathField.getContent();
+            // if (this.props.value !== value) {
+            //     this.mathField.setContent(this.props.value);
+            //     this.props.onChange(value, false);
+            //     this._hideCursorHandle();
+            // }
         }
-
-        return false;
     };
 
     getBorderWidthPx = () => {
