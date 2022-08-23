@@ -7,12 +7,16 @@ import ReactDOM from "react-dom";
 type Props = {|
     value: string,
     onChange: ($FlowFixMe) => {},
-    className: string,
-    labelText: string,
-    onFocus: () => {},
-    onBlur: () => {},
-    disabled: boolean,
-    id: string,
+    className?: string,
+    labelText?: string,
+    onFocus?: () => {},
+    onBlur?: () => {},
+    disabled?: boolean,
+    id?: string,
+    placeholder?: string,
+
+    // TODO: Remove this
+    style?: $FlowFixMe,
 |};
 
 type DefaultProps = {|
@@ -20,28 +24,48 @@ type DefaultProps = {|
     disabled: Props["disabled"],
 |};
 
+let lastId = 0;
+function uniqueIdForInput(prefix: string = "input-") {
+    lastId++;
+    return `${prefix}${lastId}`;
+}
+
 class TextInput extends React.Component<Props> {
     static defaultProps: DefaultProps = {
         value: "",
         disabled: false,
     };
 
+    id: string;
+
+    constructor(props: Props) {
+        super(props);
+        if (props.id) {
+            this.id = props.id;
+        } else {
+            this.id = uniqueIdForInput();
+        }
+    }
+
     render(): React.Node {
-        const {labelText, value, onFocus, onBlur, disabled, id} = this.props;
+        const {labelText, value, onFocus, onBlur, disabled, placeholder} =
+            this.props;
 
         return (
+            // $FlowIgnore
             <TextField
                 disabled={disabled}
-                id={id}
+                id={this.id}
                 value={value}
                 type="text"
                 aria-label={labelText}
                 onChange={(value) => this.props.onChange(value)}
+                placeholder={placeholder}
                 onFocus={onFocus}
                 onBlur={onBlur}
+                autocorrect="off"
                 autocapitalize="off"
                 autocomplete="off"
-                autocorrect="off"
             />
         );
     }
