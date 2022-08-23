@@ -14,8 +14,14 @@ type Props = {|
     disabled: boolean,
     id: string,
 |};
+
+type DefaultProps = {|
+    value: Props["value"],
+    disabled: Props["disabled"],
+|};
+
 class TextInput extends React.Component<Props> {
-    static defaultProps: $FlowFixMe = {
+    static defaultProps: DefaultProps = {
         value: "",
         disabled: false,
     };
