@@ -39,6 +39,9 @@ class TextInput extends React.Component<Props> {
                 onChange={(value) => this.props.onChange(value)}
                 onFocus={onFocus}
                 onBlur={onBlur}
+                autocapitalize="off"
+                autocomplete="off"
+                autocorrect="off"
             />
         );
     }
