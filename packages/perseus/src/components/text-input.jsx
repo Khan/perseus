@@ -74,9 +74,9 @@ class TextInput extends React.Component<Props> {
                 onFocus={onFocus}
                 onBlur={onBlur}
                 onKeyDown={onKeyDown}
-                autocorrect="off"
-                autocapitalize="off"
-                autocomplete="off"
+                autoCorrect="off"
+                autoCapitalize="off"
+                autoComplete="off"
             />
         );
     }
