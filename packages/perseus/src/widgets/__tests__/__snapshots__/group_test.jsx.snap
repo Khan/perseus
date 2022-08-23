@@ -636,13 +636,12 @@ exports[`group widget should snapshot: initial render 1`] = `
                                 <span>
                                   <div>
                                     <input
-                                      aria-describedby="input-with-examples-bnVtZXJpYy1pbnB1dCAx"
                                       aria-label="value rounded to the nearest ten"
                                       autocapitalize="off"
                                       autocomplete="off"
                                       autocorrect="off"
-                                      class="perseus-input perseus-interactive perseus-input-size-normal"
-                                      spellcheck="false"
+                                      class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3"
+                                      id="input-with-examples-bnVtZXJpYy1pbnB1dCAx"
                                       type="text"
                                       value=""
                                     />
@@ -847,13 +846,12 @@ exports[`group widget should snapshot: initial render 1`] = `
                                 <span>
                                   <div>
                                     <input
-                                      aria-describedby="input-with-examples-bnVtZXJpYy1pbnB1dCAy"
                                       aria-label="value rounded to the nearest hundred"
                                       autocapitalize="off"
                                       autocomplete="off"
                                       autocorrect="off"
-                                      class="perseus-input perseus-interactive perseus-input-size-normal"
-                                      spellcheck="false"
+                                      class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3"
+                                      id="input-with-examples-bnVtZXJpYy1pbnB1dCAy"
                                       type="text"
                                       value=""
                                     />

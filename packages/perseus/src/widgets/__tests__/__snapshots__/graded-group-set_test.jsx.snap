@@ -95,13 +95,12 @@ exports[`graded group widget should snapshot 1`] = `
                             <span>
                               <div>
                                 <input
-                                  aria-describedby="input-with-examples-bnVtZXJpYy1pbnB1dCAx"
                                   aria-label="Your answer:"
                                   autocapitalize="off"
                                   autocomplete="off"
                                   autocorrect="off"
-                                  class="perseus-input perseus-interactive perseus-input-size-normal"
-                                  spellcheck="false"
+                                  class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3"
+                                  id="input-with-examples-bnVtZXJpYy1pbnB1dCAx"
                                   type="text"
                                   value=""
                                 />

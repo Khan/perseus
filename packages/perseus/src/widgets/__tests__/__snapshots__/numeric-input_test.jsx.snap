@@ -99,13 +99,12 @@ exports[`numeric-input widget (options: {"satStyling":false}) question Should re
               <span>
                 <div>
                   <input
-                    aria-describedby="input-with-examples-bnVtZXJpYy1pbnB1dCAx"
                     aria-label="Your answer:"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="perseus-input perseus-interactive perseus-focused perseus-input-size-normal"
-                    spellcheck="false"
+                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3-o_O-focused_1z0d9ul"
+                    id="input-with-examples-bnVtZXJpYy1pbnB1dCAx"
                     type="text"
                     value="1252"
                   />
@@ -311,13 +310,12 @@ exports[`numeric-input widget (options: {"satStyling":false}) question Should re
               <span>
                 <div>
                   <input
-                    aria-describedby="input-with-examples-bnVtZXJpYy1pbnB1dCAx"
                     aria-label="Your answer:"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="perseus-input perseus-interactive perseus-input-size-normal"
-                    spellcheck="false"
+                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3"
+                    id="input-with-examples-bnVtZXJpYy1pbnB1dCAx"
                     type="text"
                     value=""
                   />
@@ -531,13 +529,12 @@ exports[`numeric-input widget (options: {"satStyling":true}) question Should ren
               <span>
                 <div>
                   <input
-                    aria-describedby="input-with-examples-bnVtZXJpYy1pbnB1dCAx"
                     aria-label="Your answer:"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="perseus-input perseus-interactive perseus-focused perseus-input-size-normal"
-                    spellcheck="false"
+                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3-o_O-focused_1z0d9ul"
+                    id="input-with-examples-bnVtZXJpYy1pbnB1dCAx"
                     type="text"
                     value="1252"
                   />
@@ -751,13 +748,12 @@ exports[`numeric-input widget (options: {"satStyling":true}) question Should ren
               <span>
                 <div>
                   <input
-                    aria-describedby="input-with-examples-bnVtZXJpYy1pbnB1dCAx"
                     aria-label="Your answer:"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="perseus-input perseus-interactive perseus-input-size-normal"
-                    spellcheck="false"
+                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3"
+                    id="input-with-examples-bnVtZXJpYy1pbnB1dCAx"
                     type="text"
                     value=""
                   />

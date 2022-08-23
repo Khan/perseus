@@ -421,8 +421,7 @@ export class NumericInput extends React.Component<Props, State> {
         const rubric = this.props.reviewModeRubric;
         const answers = this.getAnswerBlurb(rubric);
         const answerBlurb = answers[0];
-        const correct = answers[1];
-        const classes = this.getClasses(correct, rubric);
+        const classes = [];
 
         let labelText = this.props.labelText;
         if (labelText == null || labelText === "") {

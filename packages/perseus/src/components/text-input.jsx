@@ -1,33 +1,82 @@
 /* eslint-disable react/sort-comp */
 // @flow
-import PropTypes from "prop-types";
+import {TextField} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
-class TextInput extends React.Component<$FlowFixMe> {
-    static propTypes = {
-        value: PropTypes.string,
-        onChange: PropTypes.func.isRequired,
-        className: PropTypes.string,
-        labelText: PropTypes.string,
-        onFocus: PropTypes.func,
-        onBlur: PropTypes.func,
-        disabled: PropTypes.bool,
-    };
+type Props = {|
+    value: string | number | null,
+    onChange: (any) => void,
+    className?: string,
+    labelText?: string,
+    onFocus?: () => void,
+    onBlur?: () => void,
+    disabled?: boolean,
+    id?: string,
+    placeholder?: string,
+    onKeyDown?: () => void,
 
-    static defaultProps: $FlowFixMe = {
+    // TODO: Remove this
+    style?: $FlowFixMe,
+|};
+
+type DefaultProps = {|
+    value: Props["value"],
+    disabled: Props["disabled"],
+|};
+
+let lastId = 0;
+function uniqueIdForInput(prefix: string = "input-") {
+    lastId++;
+    return `${prefix}${lastId}`;
+}
+
+class TextInput extends React.Component<Props> {
+    static defaultProps: DefaultProps = {
         value: "",
         disabled: false,
     };
 
+    id: string;
+
+    constructor(props: Props) {
+        super(props);
+        if (props.id) {
+            this.id = props.id;
+        } else {
+            this.id = uniqueIdForInput();
+        }
+    }
+
     render(): React.Node {
-        const {labelText, ...props} = this.props;
+        const {
+            labelText,
+            value,
+            onFocus,
+            onBlur,
+            disabled,
+            placeholder,
+            onKeyDown,
+        } = this.props;
+
+        const formattedValue = value === null ? "" : value.toString();
+
         return (
-            <input
-                {...props}
+            // $FlowIgnore
+            <TextField
+                disabled={disabled}
+                id={this.id}
+                value={formattedValue}
                 type="text"
                 aria-label={labelText}
-                onChange={(e) => this.props.onChange(e.target.value)}
+                onChange={(value) => this.props.onChange(value)}
+                placeholder={placeholder}
+                onFocus={onFocus}
+                onBlur={onBlur}
+                onKeyDown={onKeyDown}
+                autoCorrect="off"
+                autoCapitalize="off"
+                autoComplete="off"
             />
         );
     }
