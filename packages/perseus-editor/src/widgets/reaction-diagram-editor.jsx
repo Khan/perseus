@@ -28,8 +28,8 @@ class ReactionDiagramWidgetEditor extends React.Component<Props> {
         return Changeable.change.apply(this, args);
     };
 
-    updateMolecule: (number) => ($FlowFixMe) => void = (idx) => {
-        return function (newValue) {
+    updateMolecule: (number) => (string) => void = (idx) => {
+        return function (newValue: string) {
             const newSmiles = [...this.props.smiles];
             newSmiles[idx] = newValue;
             this.change({smiles: newSmiles});
@@ -44,7 +44,7 @@ class ReactionDiagramWidgetEditor extends React.Component<Props> {
         }.bind(this);
     };
 
-    updateSeparators: (number, string) => ($FlowFixMe) => void = (
+    updateSeparators: (number, string) => (string) => void = (
         idx,
         propName,
     ) => {

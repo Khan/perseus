@@ -5,15 +5,16 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 
 type Props = {|
-    value: string,
-    onChange: (string) => {},
+    value: string | number | null,
+    onChange: (any) => void,
     className?: string,
     labelText?: string,
-    onFocus?: () => {},
-    onBlur?: () => {},
+    onFocus?: () => void,
+    onBlur?: () => void,
     disabled?: boolean,
     id?: string,
     placeholder?: string,
+    onKeyDown?: () => void,
 
     // TODO: Remove this
     style?: $FlowFixMe,
@@ -48,21 +49,31 @@ class TextInput extends React.Component<Props> {
     }
 
     render(): React.Node {
-        const {labelText, value, onFocus, onBlur, disabled, placeholder} =
-            this.props;
+        const {
+            labelText,
+            value,
+            onFocus,
+            onBlur,
+            disabled,
+            placeholder,
+            onKeyDown,
+        } = this.props;
+
+        const formattedValue = value === null ? "" : value.toString();
 
         return (
             // $FlowIgnore
             <TextField
                 disabled={disabled}
                 id={this.id}
-                value={value}
+                value={formattedValue}
                 type="text"
                 aria-label={labelText}
                 onChange={(value) => this.props.onChange(value)}
                 placeholder={placeholder}
                 onFocus={onFocus}
                 onBlur={onBlur}
+                onKeyDown={onKeyDown}
                 autocorrect="off"
                 autocapitalize="off"
                 autocomplete="off"
