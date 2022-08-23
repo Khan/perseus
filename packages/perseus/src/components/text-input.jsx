@@ -6,7 +6,7 @@ import ReactDOM from "react-dom";
 
 type Props = {|
     value: string,
-    onChange: ($FlowFixMe) => {},
+    onChange: (string) => {},
     className?: string,
     labelText?: string,
     onFocus?: () => {},

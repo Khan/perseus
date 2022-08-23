@@ -100,8 +100,11 @@ exports[`numeric-input widget (options: {"satStyling":false}) question Should re
                 <div>
                   <input
                     aria-label="Your answer:"
+                    autocapitalize="off"
+                    autocomplete="off"
+                    autocorrect="off"
                     class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3-o_O-focused_1z0d9ul"
-                    id="abc"
+                    id="input-with-examples-bnVtZXJpYy1pbnB1dCAx"
                     type="text"
                     value="1252"
                   />
@@ -308,8 +311,11 @@ exports[`numeric-input widget (options: {"satStyling":false}) question Should re
                 <div>
                   <input
                     aria-label="Your answer:"
+                    autocapitalize="off"
+                    autocomplete="off"
+                    autocorrect="off"
                     class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3"
-                    id="abc"
+                    id="input-with-examples-bnVtZXJpYy1pbnB1dCAx"
                     type="text"
                     value=""
                   />
@@ -524,8 +530,11 @@ exports[`numeric-input widget (options: {"satStyling":true}) question Should ren
                 <div>
                   <input
                     aria-label="Your answer:"
+                    autocapitalize="off"
+                    autocomplete="off"
+                    autocorrect="off"
                     class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3-o_O-focused_1z0d9ul"
-                    id="abc"
+                    id="input-with-examples-bnVtZXJpYy1pbnB1dCAx"
                     type="text"
                     value="1252"
                   />
@@ -740,8 +749,11 @@ exports[`numeric-input widget (options: {"satStyling":true}) question Should ren
                 <div>
                   <input
                     aria-label="Your answer:"
+                    autocapitalize="off"
+                    autocomplete="off"
+                    autocorrect="off"
                     class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3"
-                    id="abc"
+                    id="input-with-examples-bnVtZXJpYy1pbnB1dCAx"
                     type="text"
                     value=""
                   />
