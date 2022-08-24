@@ -6,6 +6,7 @@ import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
 import * as React from "react";
 
 import Renderer from "../renderer.jsx";
+import DefinitionContext from "../definition-context.js";
 
 import type {
     PerseusRenderer,
@@ -49,37 +50,45 @@ class Definition extends React.Component<DefinitionProps> {
 
     render(): React.Node {
         return (
-            <Popover
-                content={
-                    <PopoverContentCore
-                        color="white"
-                        style={styles.tooltipBody}
-                        closeButtonVisible={true}
+            <DefinitionContext.Consumer>
+                {({activeDefinitionId, setActiveDefinitionId}) => (
+                    <Popover
+                        content={
+                            <PopoverContentCore
+                                color="white"
+                                style={styles.tooltipBody}
+                                closeButtonVisible={true}
+                            >
+                                <Renderer
+                                    apiOptions={this.props.apiOptions}
+                                    content={this.props.definition}
+                                    widgets={this.props.widgets}
+                                />
+                            </PopoverContentCore>
+                        }
+                        opened={activeDefinitionId == this.props.widgetId}
+                        placement="top"
                     >
-                        <Renderer
-                            apiOptions={this.props.apiOptions}
-                            content={this.props.definition}
-                            widgets={this.props.widgets}
-                        />
-                    </PopoverContentCore>
-                }
-                placement="top"
-            >
-                {({open}) => (
-                    <span className="perseus-widget-definition">
-                        <Button
-                            size="small"
-                            kind="tertiary"
-                            onClick={() => {
-                                this.props.trackInteraction();
-                                open();
-                            }}
-                        >
-                            {this.props.togglePrompt}
-                        </Button>
-                    </span>
+                        {({open}) => (
+                            <span className="perseus-widget-definition">
+                                <Button
+                                    size="small"
+                                    kind="tertiary"
+                                    onClick={() => {
+                                        this.props.trackInteraction();
+                                        setActiveDefinitionId(
+                                            this.props.widgetId,
+                                        );
+                                        console.log(activeDefinitionId);
+                                    }}
+                                >
+                                    {this.props.togglePrompt}
+                                </Button>
+                            </span>
+                        )}
+                    </Popover>
                 )}
-            </Popover>
+            </DefinitionContext.Consumer>
         );
     }
 }
