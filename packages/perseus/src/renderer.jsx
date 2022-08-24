@@ -12,6 +12,7 @@ import SvgImage from "./components/svg-image.jsx";
 import TeX from "./components/tex.jsx";
 import ZoomableTeX from "./components/zoomable-tex.jsx";
 import Zoomable from "./components/zoomable.jsx";
+import {DefinitionProvider} from "./definition-context.js";
 import {getDependencies} from "./dependencies.js";
 import ErrorBoundary from "./error-boundary.jsx";
 import InteractionTracker from "./interaction-tracker.js";
@@ -27,7 +28,6 @@ import Util from "./util.js";
 import preprocessTex from "./util/katex-preprocess.js";
 import WidgetContainer from "./widget-container.jsx";
 import * as Widgets from "./widgets.js";
-import {DefinitionProvider} from "./definition-context.js";
 
 import type {PerseusRenderer, PerseusWidgetOptions} from "./perseus-types.js";
 import type {

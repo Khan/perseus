@@ -8,7 +8,7 @@ import type {Context} from "react";
 
 type DefintionContext = {
     activeDefinitionId: ?string,
-    setActiveDefinitionId: (string) => void,
+    setActiveDefinitionId: (?string) => void,
 };
 
 const defaultContext: DefintionContext = {
@@ -34,7 +34,7 @@ export class DefinitionProvider extends React.Component<
     };
 
     // Method to update state
-    setActiveDefinitionId = (activeDefinitionId: ?string) => {
+    setActiveDefinitionId = (activeDefinitionId: ?string): void => {
         this.setState((prevState: ProviderState) => ({activeDefinitionId}));
     };
 

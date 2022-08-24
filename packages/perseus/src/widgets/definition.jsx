@@ -5,8 +5,8 @@ import Color from "@khanacademy/wonder-blocks-color";
 import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
 import * as React from "react";
 
-import Renderer from "../renderer.jsx";
 import {DefinitionConsumer} from "../definition-context.js";
+import Renderer from "../renderer.jsx";
 
 import type {
     PerseusRenderer,
@@ -66,7 +66,7 @@ class Definition extends React.Component<DefinitionProps> {
                                 />
                             </PopoverContentCore>
                         }
-                        opened={activeDefinitionId == this.props.widgetId}
+                        opened={activeDefinitionId === this.props.widgetId}
                         onClose={() => setActiveDefinitionId(null)}
                         placement="top"
                     >
