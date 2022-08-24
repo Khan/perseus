@@ -4,7 +4,6 @@
  */
 
 import * as React from "react";
-import type {Context} from "react";
 
 type DefintionContext = {
     activeDefinitionId: ?string,
