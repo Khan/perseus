@@ -4,17 +4,56 @@
  */
 
 import * as React from "react";
+import type {Context} from "react";
 
-type Context = {
+type DefintionContext = {
     activeDefinitionId: ?string,
     setActiveDefinitionId: (string) => void,
 };
 
-const defaultContext: Context = {
+const defaultContext: DefintionContext = {
     activeDefinitionId: null,
     setActiveDefinitionId: () => {},
 };
 
-const context: React.Context<Context> = React.createContext(defaultContext);
+const DefinitionContext: React.Context<DefintionContext> =
+    React.createContext(defaultContext);
 
-export default context;
+type ProviderState = {
+    activeDefinitionId: ?string,
+};
+
+export type ProviderProps = {|children: any|};
+export class DefinitionProvider extends React.Component<
+    ProviderProps,
+    ProviderState,
+> {
+    // Context state
+    state: ProviderState = {
+        activeDefinitionId: null,
+    };
+
+    // Method to update state
+    setActiveDefinitionId = (activeDefinitionId: ?string) => {
+        this.setState((prevState: ProviderState) => ({activeDefinitionId}));
+    };
+
+    render(): React.Node {
+        const {children} = this.props;
+        const {activeDefinitionId} = this.state;
+        const {setActiveDefinitionId} = this;
+
+        return (
+            <DefinitionContext.Provider
+                value={{
+                    activeDefinitionId,
+                    setActiveDefinitionId,
+                }}
+            >
+                {children}
+            </DefinitionContext.Provider>
+        );
+    }
+}
+
+export const DefinitionConsumer = DefinitionContext.Consumer;

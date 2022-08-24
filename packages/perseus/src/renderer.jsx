@@ -27,7 +27,7 @@ import Util from "./util.js";
 import preprocessTex from "./util/katex-preprocess.js";
 import WidgetContainer from "./widget-container.jsx";
 import * as Widgets from "./widgets.js";
-import DefinitionContext from "./definition-context.js";
+import {DefinitionProvider} from "./definition-context.js";
 
 import type {PerseusRenderer, PerseusWidgetOptions} from "./perseus-types.js";
 import type {
@@ -176,7 +176,6 @@ type State = {|
     widgetProps: $ReadOnly<{|[id: string]: ?$FlowFixMe|}>,
     jiptContent: any,
     lastUsedWidgetId: ?string,
-    definitionPopoverId: ?string,
 |};
 
 type Context = {
@@ -254,8 +253,6 @@ class Renderer extends React.Component<Props, State> {
             // use this to set the `isLastUsedWidget` flag on the
             // corresponding widget.
             lastUsedWidgetId: null,
-
-            definitionPopoverId: null,
 
             ...this._getInitialWidgetState(props),
         };
@@ -1796,13 +1793,6 @@ class Renderer extends React.Component<Props, State> {
             });
         };
 
-    setActiveDefinitionId: (definitionPopoverId: string) => void = (
-        definitionPopoverId,
-    ) => {
-        this.setState({definitionPopoverId: definitionPopoverId});
-        console.log(this.state.definitionPopoverId);
-    };
-
     render(): React.Node {
         const apiOptions = this.getApiOptions();
         const {KatexProvider} = getDependencies();
@@ -1854,14 +1844,7 @@ class Renderer extends React.Component<Props, State> {
                 // this attribute and render the text with markdown.
                 return (
                     <KatexProvider>
-                        <DefinitionContext.Provider
-                            value={{
-                                activeDefinitionId:
-                                    this.state.definitionPopoverId,
-                                setActiveDefinitionId:
-                                    this.setActiveDefinitionId,
-                            }}
-                        >
+                        <DefinitionProvider>
                             <div
                                 data-perseus-component-index={
                                     this.translationIndex
@@ -1869,7 +1852,7 @@ class Renderer extends React.Component<Props, State> {
                             >
                                 {content}
                             </div>
-                        </DefinitionContext.Provider>
+                        </DefinitionProvider>
                     </KatexProvider>
                 );
             }
@@ -1929,14 +1912,9 @@ class Renderer extends React.Component<Props, State> {
 
         this.lastRenderedMarkdown = (
             <KatexProvider>
-                <DefinitionContext.Provider
-                    value={{
-                        activeDefinitionId: this.state.definitionPopoverId,
-                        setActiveDefinitionId: this.setActiveDefinitionId,
-                    }}
-                >
+                <DefinitionProvider>
                     <div className={className}>{markdownContents}</div>
-                </DefinitionContext.Provider>
+                </DefinitionProvider>
             </KatexProvider>
         );
         return this.lastRenderedMarkdown;

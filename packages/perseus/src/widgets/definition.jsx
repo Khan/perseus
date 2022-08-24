@@ -6,7 +6,7 @@ import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
 import * as React from "react";
 
 import Renderer from "../renderer.jsx";
-import DefinitionContext from "../definition-context.js";
+import {DefinitionConsumer} from "../definition-context.js";
 
 import type {
     PerseusRenderer,
@@ -50,7 +50,7 @@ class Definition extends React.Component<DefinitionProps> {
 
     render(): React.Node {
         return (
-            <DefinitionContext.Consumer>
+            <DefinitionConsumer>
                 {({activeDefinitionId, setActiveDefinitionId}) => (
                     <Popover
                         content={
@@ -67,28 +67,24 @@ class Definition extends React.Component<DefinitionProps> {
                             </PopoverContentCore>
                         }
                         opened={activeDefinitionId == this.props.widgetId}
+                        onClose={() => setActiveDefinitionId(null)}
                         placement="top"
                     >
-                        {({open}) => (
-                            <span className="perseus-widget-definition">
-                                <Button
-                                    size="small"
-                                    kind="tertiary"
-                                    onClick={() => {
-                                        this.props.trackInteraction();
-                                        setActiveDefinitionId(
-                                            this.props.widgetId,
-                                        );
-                                        console.log(activeDefinitionId);
-                                    }}
-                                >
-                                    {this.props.togglePrompt}
-                                </Button>
-                            </span>
-                        )}
+                        <span className="perseus-widget-definition">
+                            <Button
+                                size="small"
+                                kind="tertiary"
+                                onClick={() => {
+                                    this.props.trackInteraction();
+                                    setActiveDefinitionId(this.props.widgetId);
+                                }}
+                            >
+                                {this.props.togglePrompt}
+                            </Button>
+                        </span>
                     </Popover>
                 )}
-            </DefinitionContext.Consumer>
+            </DefinitionConsumer>
         );
     }
 }
