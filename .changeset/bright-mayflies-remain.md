@@ -1,13 +1,5 @@
 ---
-"perseus-build-settings": patch
-"@khanacademy/kas": patch
-"@khanacademy/kmath": patch
-"@khanacademy/math-input": patch
-"@khanacademy/perseus-editor": patch
-"@khanacademy/perseus-error": patch
-"@khanacademy/perseus-linter": patch
-"@khanacademy/pure-markdown": patch
-"@khanacademy/simple-markdown": patch
+"@khanacademy/perseus": minor
 ---
 
 Fix bug: 2 definitions displayed at once
