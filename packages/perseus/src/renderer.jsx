@@ -12,6 +12,7 @@ import SvgImage from "./components/svg-image.jsx";
 import TeX from "./components/tex.jsx";
 import ZoomableTeX from "./components/zoomable-tex.jsx";
 import Zoomable from "./components/zoomable.jsx";
+import {DefinitionProvider} from "./definition-context.js";
 import {getDependencies} from "./dependencies.js";
 import ErrorBoundary from "./error-boundary.jsx";
 import InteractionTracker from "./interaction-tracker.js";
@@ -1843,11 +1844,15 @@ class Renderer extends React.Component<Props, State> {
                 // this attribute and render the text with markdown.
                 return (
                     <KatexProvider>
-                        <div
-                            data-perseus-component-index={this.translationIndex}
-                        >
-                            {content}
-                        </div>
+                        <DefinitionProvider>
+                            <div
+                                data-perseus-component-index={
+                                    this.translationIndex
+                                }
+                            >
+                                {content}
+                            </div>
+                        </DefinitionProvider>
                     </KatexProvider>
                 );
             }
@@ -1907,7 +1912,9 @@ class Renderer extends React.Component<Props, State> {
 
         this.lastRenderedMarkdown = (
             <KatexProvider>
-                <div className={className}>{markdownContents}</div>
+                <DefinitionProvider>
+                    <div className={className}>{markdownContents}</div>
+                </DefinitionProvider>
             </KatexProvider>
         );
         return this.lastRenderedMarkdown;

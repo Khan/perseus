@@ -5,6 +5,7 @@ import Color from "@khanacademy/wonder-blocks-color";
 import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
 import * as React from "react";
 
+import {DefinitionConsumer} from "../definition-context.js";
 import Renderer from "../renderer.jsx";
 
 import type {
@@ -49,37 +50,41 @@ class Definition extends React.Component<DefinitionProps> {
 
     render(): React.Node {
         return (
-            <Popover
-                content={
-                    <PopoverContentCore
-                        color="white"
-                        style={styles.tooltipBody}
-                        closeButtonVisible={true}
+            <DefinitionConsumer>
+                {({activeDefinitionId, setActiveDefinitionId}) => (
+                    <Popover
+                        content={
+                            <PopoverContentCore
+                                color="white"
+                                style={styles.tooltipBody}
+                                closeButtonVisible={true}
+                            >
+                                <Renderer
+                                    apiOptions={this.props.apiOptions}
+                                    content={this.props.definition}
+                                    widgets={this.props.widgets}
+                                />
+                            </PopoverContentCore>
+                        }
+                        opened={activeDefinitionId === this.props.widgetId}
+                        onClose={() => setActiveDefinitionId(null)}
+                        placement="top"
                     >
-                        <Renderer
-                            apiOptions={this.props.apiOptions}
-                            content={this.props.definition}
-                            widgets={this.props.widgets}
-                        />
-                    </PopoverContentCore>
-                }
-                placement="top"
-            >
-                {({open}) => (
-                    <span className="perseus-widget-definition">
-                        <Button
-                            size="small"
-                            kind="tertiary"
-                            onClick={() => {
-                                this.props.trackInteraction();
-                                open();
-                            }}
-                        >
-                            {this.props.togglePrompt}
-                        </Button>
-                    </span>
+                        <span className="perseus-widget-definition">
+                            <Button
+                                size="small"
+                                kind="tertiary"
+                                onClick={() => {
+                                    this.props.trackInteraction();
+                                    setActiveDefinitionId(this.props.widgetId);
+                                }}
+                            >
+                                {this.props.togglePrompt}
+                            </Button>
+                        </span>
+                    </Popover>
                 )}
-            </Popover>
+            </DefinitionConsumer>
         );
     }
 }
