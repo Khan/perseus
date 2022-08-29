@@ -5,10 +5,10 @@
 
 import * as React from "react";
 
-type DefintionContext = {
+type DefintionContext = {|
     activeDefinitionId: ?string,
     setActiveDefinitionId: (?string) => void,
-};
+|};
 
 const defaultContext: DefintionContext = {
     activeDefinitionId: null,
