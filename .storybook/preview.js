@@ -1,5 +1,6 @@
 import * as React from "react";
 import Color from "@khanacademy/wonder-blocks-color";
+import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {Dependencies} from "@khanacademy/perseus";
 import {storybookTestDependencies} from "../testing/test-dependencies";
 
@@ -10,7 +11,13 @@ Dependencies.setDependencies(storybookTestDependencies);
 
 // These decorators apply to all stories, both inside and outside the fixture
 // framework.
-export const decorators = [];
+export const decorators = [
+    (Story) => (
+        <RenderStateRoot>
+            <Story />
+        </RenderStateRoot>
+    ),
+];
 
 // These parameters apply to all stories, both inside and outside the fixture
 // framework.
