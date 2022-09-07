@@ -39,24 +39,29 @@ describe("Interactive graph", () => {
             const getRenderer = renderQuestion(angleQuestion);
 
             // Act
-            cy.get(GRAPHIE).then((node) => {
-                const {left, top} = node[0].getBoundingClientRect();
+            cy.get(GRAPHIE)
+                .should("exist")
+                .then((node) => {
+                    const {left, top} = node[0].getBoundingClientRect();
 
-                // Move vertex to "A"
-                cy.get(POINTS)
-                    .eq(1)
-                    .dragTo({x: left + 160, y: top + 240});
+                    // Move vertex to "A"
+                    cy.get(POINTS)
+                        .eq(1)
+                        .should("exist")
+                        .dragTo({x: left + 160, y: top + 240});
 
-                // Move first ray to point B
-                cy.get(POINTS)
-                    .eq(0)
-                    .dragTo({x: left + 300, y: top + 100});
+                    // Move first ray to point B
+                    cy.get(POINTS)
+                        .eq(0)
+                        .should("exist")
+                        .dragTo({x: left + 300, y: top + 100});
 
-                // Move second ray to top-left dot
-                cy.get(POINTS)
-                    .eq(2)
-                    .dragTo({x: left + 70, y: top + 35});
-            });
+                    // Move second ray to top-left dot
+                    cy.get(POINTS)
+                        .eq(2)
+                        .should("exist")
+                        .dragTo({x: left + 70, y: top + 35});
+                });
 
             // Assert
             cy.then(() => {
@@ -75,24 +80,29 @@ describe("Interactive graph", () => {
             const getRenderer = renderQuestion(angleQuestion);
 
             // Act
-            cy.get(GRAPHIE).then((node) => {
-                const {left, top} = node[0].getBoundingClientRect();
+            cy.get(GRAPHIE)
+                .should("exist")
+                .then((node) => {
+                    const {left, top} = node[0].getBoundingClientRect();
 
-                // Move vertex to "A"
-                cy.get(POINTS)
-                    .eq(1)
-                    .dragTo({x: left + 0, y: top + 240});
+                    // Move vertex to "A"
+                    cy.get(POINTS)
+                        .eq(1)
+                        .should("exist")
+                        .dragTo({x: left + 0, y: top + 240});
 
-                // Move first ray to top-left black dot
-                cy.get(POINTS)
-                    .eq(0)
-                    .dragTo({x: left + 300, y: top + 120});
+                    // Move first ray to top-left black dot
+                    cy.get(POINTS)
+                        .eq(0)
+                        .should("exist")
+                        .dragTo({x: left + 300, y: top + 120});
 
-                // Move second ray to point through B
-                cy.get(POINTS)
-                    .eq(2)
-                    .dragTo({x: left + 70, y: top + 0});
-            });
+                    // Move second ray to point through B
+                    cy.get(POINTS)
+                        .eq(2)
+                        .should("exist")
+                        .dragTo({x: left + 70, y: top + 0});
+                });
 
             // Assert
             cy.then(() => {
@@ -113,19 +123,23 @@ describe("Interactive graph", () => {
             const getRenderer = renderQuestion(circleQuestion);
 
             // Act
-            cy.get(GRAPHIE).then((node) => {
-                const {left, top} = node[0].getBoundingClientRect();
+            cy.get(GRAPHIE)
+                .should("exist")
+                .then((node) => {
+                    const {left, top} = node[0].getBoundingClientRect();
 
-                // Move the center point
-                cy.get(POINTS)
-                    .eq(0)
-                    .dragTo({x: left + 160, y: top + 280});
+                    // Move the center point
+                    cy.get(POINTS)
+                        .eq(0)
+                        .should("exist")
+                        .dragTo({x: left + 160, y: top + 280});
 
-                // Resize the circle
-                cy.get(CIRCLES)
-                    .eq(0)
-                    .dragTo({x: left + 160, y: top + 320});
-            });
+                    // Resize the circle
+                    cy.get(CIRCLES)
+                        .eq(0)
+                        .should("exist")
+                        .dragTo({x: left + 160, y: top + 320});
+                });
 
             // Assert
             cy.then(() => {
@@ -144,19 +158,23 @@ describe("Interactive graph", () => {
             const getRenderer = renderQuestion(circleQuestion);
 
             // Act
-            cy.get(GRAPHIE).then((node) => {
-                const {left, top} = node[0].getBoundingClientRect();
+            cy.get(GRAPHIE)
+                .should("exist")
+                .then((node) => {
+                    const {left, top} = node[0].getBoundingClientRect();
 
-                // Move the center point
-                cy.get(POINTS)
-                    .eq(0)
-                    .dragTo({x: left + 160, y: top + 280});
+                    // Move the center point
+                    cy.get(POINTS)
+                        .eq(0)
+                        .should("exist")
+                        .dragTo({x: left + 160, y: top + 280});
 
-                // Resize the circle
-                cy.get(CIRCLES)
-                    .eq(0)
-                    .dragTo({x: left + 160, y: top + 390});
-            });
+                    // Resize the circle
+                    cy.get(CIRCLES)
+                        .eq(0)
+                        .should("exist")
+                        .dragTo({x: left + 160, y: top + 390});
+                });
 
             // Assert
             cy.then(() => {
@@ -180,22 +198,26 @@ describe("Interactive graph", () => {
             const getRenderer = renderQuestion(linearQuestion);
 
             // Act
-            cy.get(GRAPHIE).then((node) => {
-                const {left, top} = node[0].getBoundingClientRect();
+            cy.get(GRAPHIE)
+                .should("exist")
+                .then((node) => {
+                    const {left, top} = node[0].getBoundingClientRect();
 
-                cy.get(POINTS)
-                    .eq(0)
-                    .dragTo({
-                        x: left + (-1 + 10) * grid,
-                        y: top + topOffset + Math.abs(1 + 10 - 20) * grid,
-                    });
-                cy.get(POINTS)
-                    .eq(1)
-                    .dragTo({
-                        x: left + (0 + 10) * grid,
-                        y: top + topOffset + Math.abs(-2 + 10 - 20) * grid,
-                    });
-            });
+                    cy.get(POINTS)
+                        .eq(0)
+                        .should("exist")
+                        .dragTo({
+                            x: left + (-1 + 10) * grid,
+                            y: top + topOffset + Math.abs(1 + 10 - 20) * grid,
+                        });
+                    cy.get(POINTS)
+                        .eq(1)
+                        .should("exist")
+                        .dragTo({
+                            x: left + (0 + 10) * grid,
+                            y: top + topOffset + Math.abs(-2 + 10 - 20) * grid,
+                        });
+                });
 
             // Assert
             cy.then(() => {
@@ -214,22 +236,26 @@ describe("Interactive graph", () => {
             const getRenderer = renderQuestion(linearQuestion);
 
             // Act
-            cy.get(GRAPHIE).then((node) => {
-                const {left, top} = node[0].getBoundingClientRect();
+            cy.get(GRAPHIE)
+                .should("exist")
+                .then((node) => {
+                    const {left, top} = node[0].getBoundingClientRect();
 
-                cy.get(POINTS)
-                    .eq(0)
-                    .dragTo({
-                        x: left + grid * 1,
-                        y: top + topOffset + grid * 1,
-                    });
-                cy.get(POINTS)
-                    .eq(1)
-                    .dragTo({
-                        x: left + grid * 1,
-                        y: top + topOffset + grid * 19,
-                    });
-            });
+                    cy.get(POINTS)
+                        .eq(0)
+                        .should("exist")
+                        .dragTo({
+                            x: left + grid * 1,
+                            y: top + topOffset + grid * 1,
+                        });
+                    cy.get(POINTS)
+                        .eq(1)
+                        .should("exist")
+                        .dragTo({
+                            x: left + grid * 1,
+                            y: top + topOffset + grid * 19,
+                        });
+                });
 
             // Assert
             cy.then(() => {
@@ -252,41 +278,47 @@ describe("Interactive graph", () => {
             const getRenderer = renderQuestion(linearSystemQuestion);
 
             // Act
-            cy.get(GRAPHIE).then((node) => {
-                const {left, top} = node[0].getBoundingClientRect();
+            cy.get(GRAPHIE)
+                .should("exist")
+                .then((node) => {
+                    const {left, top} = node[0].getBoundingClientRect();
 
-                // Move the to point A
-                cy.get(POINTS)
-                    .eq(0)
-                    .dragTo({
-                        x: left + (-7 + 10) * grid,
-                        y: top + Math.abs(7 + 10 - 20) * grid,
-                    });
+                    // Move the to point A
+                    cy.get(POINTS)
+                        .eq(0)
+                        .should("exist")
+                        .dragTo({
+                            x: left + (-7 + 10) * grid,
+                            y: top + Math.abs(7 + 10 - 20) * grid,
+                        });
 
-                // Move the to point B
-                cy.get(POINTS)
-                    .eq(1)
-                    .dragTo({
-                        x: left + (0 + 10) * grid,
-                        y: top + Math.abs(-2 + 10 - 20) * grid,
-                    });
+                    // Move the to point B
+                    cy.get(POINTS)
+                        .eq(1)
+                        .should("exist")
+                        .dragTo({
+                            x: left + (0 + 10) * grid,
+                            y: top + Math.abs(-2 + 10 - 20) * grid,
+                        });
 
-                // // Move the to point C
-                cy.get(POINTS)
-                    .eq(2)
-                    .dragTo({
-                        x: left + (-3 + 10) * grid,
-                        y: top + Math.abs(-7 + 10 - 20) * grid,
-                    });
+                    // // Move the to point C
+                    cy.get(POINTS)
+                        .eq(2)
+                        .should("exist")
+                        .dragTo({
+                            x: left + (-3 + 10) * grid,
+                            y: top + Math.abs(-7 + 10 - 20) * grid,
+                        });
 
-                // // Move the to point D
-                cy.get(POINTS)
-                    .eq(3)
-                    .dragTo({
-                        x: left + (7 + 10) * grid,
-                        y: top + Math.abs(-3 + 10 - 20) * grid,
-                    });
-            });
+                    // // Move the to point D
+                    cy.get(POINTS)
+                        .eq(3)
+                        .should("exist")
+                        .dragTo({
+                            x: left + (7 + 10) * grid,
+                            y: top + Math.abs(-3 + 10 - 20) * grid,
+                        });
+                });
 
             // Assert
             cy.then(() => {
@@ -305,41 +337,47 @@ describe("Interactive graph", () => {
             const getRenderer = renderQuestion(linearSystemQuestion);
 
             // Act
-            cy.get(GRAPHIE).then((node) => {
-                const {left, top} = node[0].getBoundingClientRect();
+            cy.get(GRAPHIE)
+                .should("exist")
+                .then((node) => {
+                    const {left, top} = node[0].getBoundingClientRect();
 
-                // Move the to point A
-                cy.get(POINTS)
-                    .eq(0)
-                    .dragTo({
-                        x: left + (-9 + 10) * grid,
-                        y: top + Math.abs(9 + 10 - 20) * grid,
-                    });
+                    // Move the to point A
+                    cy.get(POINTS)
+                        .eq(0)
+                        .should("exist")
+                        .dragTo({
+                            x: left + (-9 + 10) * grid,
+                            y: top + Math.abs(9 + 10 - 20) * grid,
+                        });
 
-                // Move the to point B
-                cy.get(POINTS)
-                    .eq(1)
-                    .dragTo({
-                        x: left + (9 + 10) * grid,
-                        y: top + Math.abs(9 + 10 - 20) * grid,
-                    });
+                    // Move the to point B
+                    cy.get(POINTS)
+                        .eq(1)
+                        .should("exist")
+                        .dragTo({
+                            x: left + (9 + 10) * grid,
+                            y: top + Math.abs(9 + 10 - 20) * grid,
+                        });
 
-                // // Move the to point C
-                cy.get(POINTS)
-                    .eq(2)
-                    .dragTo({
-                        x: left + (-9 + 10) * grid,
-                        y: top + Math.abs(-9 + 10 - 20) * grid,
-                    });
+                    // // Move the to point C
+                    cy.get(POINTS)
+                        .eq(2)
+                        .should("exist")
+                        .dragTo({
+                            x: left + (-9 + 10) * grid,
+                            y: top + Math.abs(-9 + 10 - 20) * grid,
+                        });
 
-                // // Move the to point D
-                cy.get(POINTS)
-                    .eq(3)
-                    .dragTo({
-                        x: left + (9 + 10) * grid,
-                        y: top + Math.abs(-9 + 10 - 20) * grid,
-                    });
-            });
+                    // // Move the to point D
+                    cy.get(POINTS)
+                        .eq(3)
+                        .should("exist")
+                        .dragTo({
+                            x: left + (9 + 10) * grid,
+                            y: top + Math.abs(-9 + 10 - 20) * grid,
+                        });
+                });
 
             // Assert
             cy.then(() => {
@@ -364,6 +402,7 @@ describe("Interactive graph", () => {
             // Act
             cy.get(".graphie > svg > rect")
                 .first()
+                .should("exist")
                 .click((0 + 4) * grid, 4 * grid)
                 .click((-2.5 + 4) * grid, 4 * grid)
                 .click((-1 + 4) * grid, 4 * grid);
@@ -388,6 +427,7 @@ describe("Interactive graph", () => {
             cy.get(GRAPHIE).then((node) => {
                 cy.get(".graphie > svg > rect")
                     .first()
+                    .should("exist")
                     .click((-3 + 4) * grid, Math.abs(-3 + 4 - 8) * grid)
                     .click((0 + 4) * grid, Math.abs(0 + 4 - 8) * grid)
                     .click((3 + 4) * grid, Math.abs(3 + 4 - 8) * grid);
@@ -415,12 +455,23 @@ describe("Interactive graph", () => {
             const getRenderer = renderQuestion(question);
 
             /** Act */
-            cy.get(GRAPHIE).then((node) => {
-                // We're dragging the three points to form a 3/4/5 triangle
-                cy.get(POINTS).eq(0).dragTo({x: 92, y: 126});
-                cy.get(POINTS).eq(1).dragTo({x: 92, y: 298});
-                cy.get(POINTS).eq(2).dragTo({x: 320, y: 298});
-            });
+            cy.get(GRAPHIE)
+                .should("exist")
+                .then((node) => {
+                    // We're dragging the three points to form a 3/4/5 triangle
+                    cy.get(POINTS)
+                        .eq(0)
+                        .should("exist")
+                        .dragTo({x: 92, y: 126});
+                    cy.get(POINTS)
+                        .eq(1)
+                        .should("exist")
+                        .dragTo({x: 92, y: 298});
+                    cy.get(POINTS)
+                        .eq(2)
+                        .should("exist")
+                        .dragTo({x: 320, y: 298});
+                });
 
             // Assert
             cy.then(() => {
@@ -440,24 +491,29 @@ describe("Interactive graph", () => {
             const getRenderer = renderQuestion(question);
 
             /** Act */
-            cy.get(GRAPHIE).then((node) => {
-                // const {left, top} = node.position();
-                const {left, top} = node[0].getBoundingClientRect();
-                const x = left + 20;
-                const y = top + 20;
-                // If one point is off, it won't work
-                cy.get(POINTS)
-                    .eq(0)
-                    .dragTo({x: x + grid * 2, y: y});
+            cy.get(GRAPHIE)
+                .should("exist")
+                .then((node) => {
+                    // const {left, top} = node.position();
+                    const {left, top} = node[0].getBoundingClientRect();
+                    const x = left + 20;
+                    const y = top + 20;
+                    // If one point is off, it won't work
+                    cy.get(POINTS)
+                        .eq(0)
+                        .should("exist")
+                        .dragTo({x: x + grid * 2, y: y});
 
-                cy.get(POINTS)
-                    .eq(1)
-                    .dragTo({x: x, y: y + grid * 3});
+                    cy.get(POINTS)
+                        .eq(1)
+                        .should("exist")
+                        .dragTo({x: x, y: y + grid * 3});
 
-                cy.get(POINTS)
-                    .eq(2)
-                    .dragTo({x: x + grid * 4, y: y + grid * 3});
-            });
+                    cy.get(POINTS)
+                        .eq(2)
+                        .should("exist")
+                        .dragTo({x: x + grid * 4, y: y + grid * 3});
+                });
 
             // Assert
             cy.then(() => {
@@ -480,23 +536,27 @@ describe("Interactive graph", () => {
             const getRenderer = renderQuestion(rayQuestion);
 
             // Act
-            cy.get(GRAPHIE).then((node) => {
-                const {left, top} = node[0].getBoundingClientRect();
+            cy.get(GRAPHIE)
+                .should("exist")
+                .then((node) => {
+                    const {left, top} = node[0].getBoundingClientRect();
 
-                cy.get(POINTS)
-                    .eq(0)
-                    .dragTo({
-                        x: left + (5 + 10) * grid,
-                        y: top + Math.abs(3 + 10 - 20) * grid,
-                    });
+                    cy.get(POINTS)
+                        .eq(0)
+                        .should("exist")
+                        .dragTo({
+                            x: left + (5 + 10) * grid,
+                            y: top + Math.abs(3 + 10 - 20) * grid,
+                        });
 
-                cy.get(POINTS)
-                    .eq(1)
-                    .dragTo({
-                        x: left + (-5 + 10) * grid,
-                        y: top + Math.abs(-5 + 10 - 20) * grid,
-                    });
-            });
+                    cy.get(POINTS)
+                        .eq(1)
+                        .should("exist")
+                        .dragTo({
+                            x: left + (-5 + 10) * grid,
+                            y: top + Math.abs(-5 + 10 - 20) * grid,
+                        });
+                });
 
             // Assert
             cy.then(() => {
@@ -515,24 +575,28 @@ describe("Interactive graph", () => {
             const getRenderer = renderQuestion(rayQuestion);
 
             // Act
-            cy.get(GRAPHIE).then((node) => {
-                const {left, top} = node[0].getBoundingClientRect();
+            cy.get(GRAPHIE)
+                .should("exist")
+                .then((node) => {
+                    const {left, top} = node[0].getBoundingClientRect();
 
-                // Reversed direction
-                cy.get(POINTS)
-                    .eq(0)
-                    .dragTo({
-                        x: left + (7 + 10) * grid,
-                        y: top + Math.abs(-7 + 10 - 20) * grid,
-                    });
+                    // Reversed direction
+                    cy.get(POINTS)
+                        .eq(0)
+                        .should("exist")
+                        .dragTo({
+                            x: left + (7 + 10) * grid,
+                            y: top + Math.abs(-7 + 10 - 20) * grid,
+                        });
 
-                cy.get(POINTS)
-                    .eq(1)
-                    .dragTo({
-                        x: left + (3 + 10) * grid,
-                        y: top + Math.abs(3 + 10 - 20) * grid,
-                    });
-            });
+                    cy.get(POINTS)
+                        .eq(1)
+                        .should("exist")
+                        .dragTo({
+                            x: left + (3 + 10) * grid,
+                            y: top + Math.abs(3 + 10 - 20) * grid,
+                        });
+                });
 
             // Assert
             cy.then(() => {
@@ -555,23 +619,27 @@ describe("Interactive graph", () => {
             const getRenderer = renderQuestion(segmentQuestion);
 
             // Act
-            cy.get(GRAPHIE).then((node) => {
-                const {left, top} = node[0].getBoundingClientRect();
+            cy.get(GRAPHIE)
+                .should("exist")
+                .then((node) => {
+                    const {left, top} = node[0].getBoundingClientRect();
 
-                cy.get(POINTS)
-                    .eq(0)
-                    .dragTo({
-                        x: left + (-7 + 10) * grid,
-                        y: top + Math.abs(7 + 10 - 20) * grid,
-                    });
+                    cy.get(POINTS)
+                        .eq(0)
+                        .should("exist")
+                        .dragTo({
+                            x: left + (-7 + 10) * grid,
+                            y: top + Math.abs(7 + 10 - 20) * grid,
+                        });
 
-                cy.get(POINTS)
-                    .eq(1)
-                    .dragTo({
-                        x: left + (2 + 10) * grid,
-                        y: top + Math.abs(5 + 10 - 20) * grid,
-                    });
-            });
+                    cy.get(POINTS)
+                        .eq(1)
+                        .should("exist")
+                        .dragTo({
+                            x: left + (2 + 10) * grid,
+                            y: top + Math.abs(5 + 10 - 20) * grid,
+                        });
+                });
 
             // Assert
             cy.then(() => {
@@ -590,23 +658,27 @@ describe("Interactive graph", () => {
             const getRenderer = renderQuestion(segmentQuestion);
 
             // Act
-            cy.get(GRAPHIE).then((node) => {
-                const {left, top} = node[0].getBoundingClientRect();
+            cy.get(GRAPHIE)
+                .should("exist")
+                .then((node) => {
+                    const {left, top} = node[0].getBoundingClientRect();
 
-                cy.get(POINTS)
-                    .eq(0)
-                    .dragTo({
-                        x: left + (8 + 10) * grid,
-                        y: top + Math.abs(2 + 10 - 20) * grid,
-                    });
+                    cy.get(POINTS)
+                        .eq(0)
+                        .should("exist")
+                        .dragTo({
+                            x: left + (8 + 10) * grid,
+                            y: top + Math.abs(2 + 10 - 20) * grid,
+                        });
 
-                cy.get(POINTS)
-                    .eq(1)
-                    .dragTo({
-                        x: left + (8 + 10) * grid,
-                        y: top + Math.abs(-8 + 10 - 20) * grid,
-                    });
-            });
+                    cy.get(POINTS)
+                        .eq(1)
+                        .should("exist")
+                        .dragTo({
+                            x: left + (8 + 10) * grid,
+                            y: top + Math.abs(-8 + 10 - 20) * grid,
+                        });
+                });
 
             // Assert
             cy.then(() => {
@@ -629,23 +701,27 @@ describe("Interactive graph", () => {
             const getRenderer = renderQuestion(sinusoidQuestion);
 
             // Act
-            cy.get(GRAPHIE).then((node) => {
-                const {left, top} = node[0].getBoundingClientRect();
+            cy.get(GRAPHIE)
+                .should("exist")
+                .then((node) => {
+                    const {left, top} = node[0].getBoundingClientRect();
 
-                cy.get(POINTS)
-                    .eq(0)
-                    .dragTo({
-                        x: left + (1 + 10) * grid,
-                        y: top + Math.abs(2 + 10 - 20) * grid,
-                    });
+                    cy.get(POINTS)
+                        .eq(0)
+                        .should("exist")
+                        .dragTo({
+                            x: left + (1 + 10) * grid,
+                            y: top + Math.abs(2 + 10 - 20) * grid,
+                        });
 
-                cy.get(POINTS)
-                    .eq(1)
-                    .dragTo({
-                        x: left + (1.5 + 10) * grid,
-                        y: top + Math.abs(5 + 10 - 20) * grid,
-                    });
-            });
+                    cy.get(POINTS)
+                        .eq(1)
+                        .should("exist")
+                        .dragTo({
+                            x: left + (1.5 + 10) * grid,
+                            y: top + Math.abs(5 + 10 - 20) * grid,
+                        });
+                });
 
             // Assert
             cy.then(() => {
@@ -664,23 +740,27 @@ describe("Interactive graph", () => {
             const getRenderer = renderQuestion(sinusoidQuestion);
 
             // Act
-            cy.get(GRAPHIE).then((node) => {
-                const {left, top} = node[0].getBoundingClientRect();
+            cy.get(GRAPHIE)
+                .should("exist")
+                .then((node) => {
+                    const {left, top} = node[0].getBoundingClientRect();
 
-                cy.get(POINTS)
-                    .eq(0)
-                    .dragTo({
-                        x: left + (0 + 10) * grid,
-                        y: top + Math.abs(0 + 10 - 20) * grid,
-                    });
+                    cy.get(POINTS)
+                        .eq(0)
+                        .should("exist")
+                        .dragTo({
+                            x: left + (0 + 10) * grid,
+                            y: top + Math.abs(0 + 10 - 20) * grid,
+                        });
 
-                cy.get(POINTS)
-                    .eq(1)
-                    .dragTo({
-                        x: left + (5 + 10) * grid,
-                        y: top + Math.abs(9 + 10 - 20) * grid,
-                    });
-            });
+                    cy.get(POINTS)
+                        .eq(1)
+                        .should("exist")
+                        .dragTo({
+                            x: left + (5 + 10) * grid,
+                            y: top + Math.abs(9 + 10 - 20) * grid,
+                        });
+                });
 
             // Assert
             cy.then(() => {

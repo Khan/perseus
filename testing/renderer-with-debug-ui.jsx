@@ -1,6 +1,6 @@
 // @flow
 import Button from "@khanacademy/wonder-blocks-button";
-import {View, RenderStateRoot} from "@khanacademy/wonder-blocks-core";
+import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {HeadingSmall} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
@@ -34,17 +34,15 @@ export const RendererWithDebugUI = ({
             leftTitle="Widget"
             left={
                 <>
-                    <RenderStateRoot>
-                        <Renderer
-                            ref={ref}
-                            content={question.content}
-                            images={question.images}
-                            widgets={question.widgets}
-                            problemNum={0}
-                            apiOptions={apiOptions}
-                            reviewMode={reviewMode}
-                        />
-                    </RenderStateRoot>
+                    <Renderer
+                        ref={ref}
+                        content={question.content}
+                        images={question.images}
+                        widgets={question.widgets}
+                        problemNum={0}
+                        apiOptions={apiOptions}
+                        reviewMode={reviewMode}
+                    />
                     <View style={{flexDirection: "row", alignItems: "center"}}>
                         <Button
                             onClick={() => {
