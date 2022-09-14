@@ -15,7 +15,8 @@ import {StyleSheet, css} from "aphrodite";
 
 import type {WidgetExports} from "../types.js";
 import {red} from "../styles/constants";
-import RulerSVG from "./measurer-ruler.svg";
+import RulerSVG from "./measurer-sounds/ruler.svg";
+import SalSVG from "./measurer-sounds/sal.svg";
 import ticktick from "./measurer-sounds/tickticktick.m4a";
 import click from "./measurer-sounds/click.m4a";
 import pop from "./measurer-sounds/pop.m4a";
@@ -207,7 +208,7 @@ const Measurer: $FlowFixMe = createReactClass({
         };
 
         const focusRuler = () => {
-            document.querySelector("#ruler")?.focus();
+            document.querySelector("#sal")?.focus();
         }
 
         return (
@@ -237,10 +238,15 @@ const Measurer: $FlowFixMe = createReactClass({
 
                 {/* THE RULER */}
                 <div
-                    className={css(styles.ruler, styles.rulerRainbow)}
+                    className={css(styles.ruler, styles.rulerImage)}
                     style={{width: rulerWidth, left: this.state.leftEdge}}
                     tabIndex={0}
-                    id="ruler"
+                />
+                <div
+                    className={css(styles.sal)}
+                    style={{width: rulerWidth, left: this.state.leftEdge}}
+                    tabIndex={0}
+                    id="sal"
                     onKeyDown={(event) => {
                         if (event.key === "ArrowRight") {
                             if (this.state.mode === modes.extend) {
@@ -257,10 +263,6 @@ const Measurer: $FlowFixMe = createReactClass({
                             }
                         }
                     }}
-                />
-                <div
-                    className={css(styles.ruler, styles.rulerImage)}
-                    style={{width: rulerWidth, left: this.state.leftEdge}}
                 />
                 {/* END RULER */}
 
@@ -314,8 +316,22 @@ const Measurer: $FlowFixMe = createReactClass({
 const styles = StyleSheet.create({
     ruler: {
         top: 218,
-        height: 52,
+        height: 57,
         position: "absolute",
+        width: 388,
+        left: 15,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        backgroundPosition: "left",
+    },
+    sal: {
+        top: 190,
+        height: 35,
+        position: "absolute",
+        backgroundImage: `url("${SalSVG}")`,
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+
     },
     rulerRainbow: {
         background: `linear-gradient(
@@ -340,7 +356,7 @@ const styles = StyleSheet.create({
         backgroundSize: "cover",
     },
     buttonContainer: {
-        paddingTop: 270,
+        paddingTop: 290,
     },
 });
 
