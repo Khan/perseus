@@ -10,14 +10,25 @@ import _ from "underscore";
 import SvgImage from "../components/svg-image.jsx";
 import {ApiOptions} from "../perseus-api.jsx";
 import GraphUtils from "../util/graph-utils.js";
+import Button from "@khanacademy/wonder-blocks-button";
+import {StyleSheet, css} from "aphrodite";
 
 import type {WidgetExports} from "../types.js";
+import {red} from "../styles/constants";
+import RulerSVG from "./measurer-ruler.svg";
+import ticktick from "./measurer-sounds/tickticktick.m4a";
+import click from "./measurer-sounds/click.m4a";
+import pop from "./measurer-sounds/pop.m4a";
+import {length} from "../../../kmath/src/vector";
 
 const defaultImage = {
     url: null,
     top: 0,
     left: 0,
 };
+const defaultRulerLength = 50
+
+const modes = {position: "position_ruler", extend: "extend_ruler"};
 
 const Measurer: $FlowFixMe = createReactClass({
     displayName: "Measurer",
@@ -56,14 +67,149 @@ const Measurer: $FlowFixMe = createReactClass({
     },
 
     getInitialState: function () {
-        return {};
+        return {
+            length: defaultRulerLength,
+            mode: modes.position,
+            leftEdge: 0,
+        };
+    },
+
+    componentDidUpdate: function () {
+        const tickTickContext = new AudioContext();
+        const tickTickElement = document.querySelector("#ticktick");
+        // pass it into the audio context
+        if (
+            this.tickTickAudio == null &&
+            tickTickElement != null &&
+            tickTickElement instanceof HTMLMediaElement
+        ) {
+            const track =
+                tickTickContext.createMediaElementSource(tickTickElement);
+            track.connect(tickTickContext.destination);
+            this.tickTickAudio = tickTickElement;
+            // for debugging
+            window.tickTick = tickTickElement;
+        }
+
+        const clickContext = new AudioContext();
+        const clickElement = document.querySelector("#click");
+        // pass it into the audio context
+        if (
+            this.clickAudio == null &&
+            clickElement != null &&
+            clickElement instanceof HTMLMediaElement
+        ) {
+            const track = clickContext.createMediaElementSource(clickElement);
+            track.connect(clickContext.destination);
+            this.clickAudio = clickElement;
+            // for debugging
+            window.click = clickElement;
+        }
+
+        const popContext = new AudioContext();
+        const popElement = document.querySelector("#pop");
+        // pass it into the audio context
+        if (
+            this.popAudio == null &&
+            popElement != null &&
+            popElement instanceof HTMLMediaElement
+        ) {
+            const track = popContext.createMediaElementSource(popElement);
+            track.connect(popContext.destination);
+            this.popAudio = popElement;
+            // for debugging
+            window.pop = popElement;
+        }
     },
 
     render: function () {
         const image = _.extend({}, defaultImage, this.props.image);
+        const houseLeftEdge = 107;
+        const houseRightEdge = 230;
+        const rulerWidth = this.state.length;
+        const rulerRightPosition = this.state.leftEdge + rulerWidth;
 
-        // TODO(scottgrant): This isn't a11y-friendly! We should insist on
-        // finding some valid alt text when this widget is used.
+
+        const grow = () => {
+            this.setState({length: this.state.length + 1});
+            this.tickTickAudio.play();
+
+            if (this.tickTimeout) {
+                clearTimeout(this.tickTimeout);
+            }
+            this.tickTimeout = setTimeout(() => {
+                this.tickTickAudio.pause();
+            }, 400);
+
+            if (
+                houseLeftEdge == rulerRightPosition ||
+                houseRightEdge == rulerRightPosition
+            ) {
+                this.clickAudio.play();
+            }
+        };
+
+        const shrink = () => {
+            this.setState({length: this.state.length - 1});
+            this.popAudio.play();
+
+            if (this.popTimeout) {
+                clearTimeout(this.popTimeout);
+            }
+            this.popTimeout = setTimeout(() => {
+                this.popAudio.pause();
+            }, 400);
+
+            if (
+                houseLeftEdge == rulerRightPosition ||
+                houseRightEdge == rulerRightPosition
+            ) {
+                this.clickAudio.play();
+            }
+        };
+
+        const moveRight = () => {
+            this.setState({leftEdge: this.state.leftEdge + 1});
+            this.tickTickAudio.play();
+
+            if (this.tickTimeout) {
+                clearTimeout(this.tickTimeout);
+            }
+            this.tickTimeout = setTimeout(() => {
+                this.tickTickAudio.pause();
+            }, 400);
+
+            if (
+                houseLeftEdge == this.state.leftEdge ||
+                houseRightEdge == this.state.leftEdge
+            ) {
+                this.clickAudio.play();
+            }
+        };
+
+        const moveLeft = () => {
+            this.setState({leftEdge: this.state.leftEdge - 1});
+            this.popAudio.play();
+
+            if (this.popTimeout) {
+                clearTimeout(this.popTimeout);
+            }
+            this.popTimeout = setTimeout(() => {
+                this.popAudio.pause();
+            }, 400);
+
+            if (
+                houseLeftEdge == this.state.leftEdge ||
+                houseRightEdge == this.state.leftEdge
+            ) {
+                this.clickAudio.play();
+            }
+        };
+
+        const focusRuler = () => {
+            document.querySelector("#ruler")?.focus();
+        }
+
         return (
             <div
                 className={
@@ -72,6 +218,10 @@ const Measurer: $FlowFixMe = createReactClass({
                 }
                 style={{width: this.props.box[0], height: this.props.box[1]}}
             >
+                <audio id="ticktick" loop={true} src={ticktick}></audio>
+                <audio id="click" src={click}></audio>
+                <audio id="pop" loop={true} src={pop}></audio>
+
                 {image.url && (
                     <div
                         style={{
@@ -84,86 +234,69 @@ const Measurer: $FlowFixMe = createReactClass({
                         <SvgImage src={image.url} />
                     </div>
                 )}
-                {/* eslint-disable-next-line react/no-string-refs */}
-                <div className="graphie" ref="graphieDiv" />
+
+                {/* THE RULER */}
+                <div
+                    className={css(styles.ruler, styles.rulerRainbow)}
+                    style={{width: rulerWidth, left: this.state.leftEdge}}
+                    tabIndex={0}
+                    id="ruler"
+                    onKeyDown={(event) => {
+                        if (event.key === "ArrowRight") {
+                            if (this.state.mode === modes.extend) {
+                                grow();
+                            } else {
+                                moveRight();
+                            }
+                        }
+                        if (event.key === "ArrowLeft") {
+                            if (this.state.mode === modes.extend) {
+                                shrink();
+                            } else {
+                                moveLeft();
+                            }
+                        }
+                    }}
+                />
+                <div
+                    className={css(styles.ruler, styles.rulerImage)}
+                    style={{width: rulerWidth, left: this.state.leftEdge}}
+                />
+                {/* END RULER */}
+
+                <div className={css(styles.buttonContainer)}>
+                    <Button
+                        onClick={() => {
+                            this.setState({length: defaultRulerLength});
+                            focusRuler();
+                        }}
+                    >
+                        Reset
+                    </Button>
+                    <Button
+                        onClick={() => {
+                            this.setState({mode: modes.position});
+                            focusRuler();
+                        }}
+                    >
+                        Adjust ruler position
+                    </Button>
+                    <Button
+                        onClick={() => {
+                            this.setState({mode: modes.extend});
+                            focusRuler();
+                        }}
+                    >
+                        Measure length
+                    </Button>
+                    <div>
+                        {this.state.mode === modes.position &&
+                            "Positioning ruler"}
+                        {this.state.mode === modes.extend && "Measuring length"}
+                    </div>
+                </div>
             </div>
         );
-    },
-
-    componentDidMount: function () {
-        this.setupGraphie();
-    },
-
-    componentDidUpdate: function (prevProps) {
-        const shouldSetupGraphie = _.any(
-            [
-                "box",
-                "showProtractor",
-                "showRuler",
-                "rulerLabel",
-                "rulerTicks",
-                "rulerPixels",
-                "rulerLength",
-            ],
-            function (prop) {
-                return prevProps[prop] !== this.props[prop];
-            },
-            this,
-        );
-
-        if (shouldSetupGraphie) {
-            this.setupGraphie();
-        }
-    },
-
-    setupGraphie: function () {
-        // eslint-disable-next-line react/no-string-refs
-        const graphieDiv = ReactDOM.findDOMNode(this.refs.graphieDiv);
-        $(graphieDiv).empty();
-        const graphie = (this.graphie = GraphUtils.createGraphie(graphieDiv));
-
-        const scale = [40, 40];
-        const range = [
-            [0, this.props.box[0] / scale[0]],
-            [0, this.props.box[1] / scale[1]],
-        ];
-        graphie.init({
-            range: range,
-            scale: scale,
-        });
-        graphie.addMouseLayer({
-            allowScratchpad: true,
-            setDrawingAreaAvailable:
-                this.props.apiOptions.setDrawingAreaAvailable,
-        });
-
-        if (this.protractor) {
-            this.protractor.remove();
-        }
-
-        if (this.props.showProtractor) {
-            this.protractor = graphie.protractor([
-                this.props.protractorX,
-                this.props.protractorY,
-            ]);
-        }
-
-        if (this.ruler) {
-            this.ruler.remove();
-        }
-
-        if (this.props.showRuler) {
-            this.ruler = graphie.ruler({
-                center: [
-                    (range[0][0] + range[0][1]) / 2,
-                    (range[1][0] + range[1][1]) / 2,
-                ],
-                label: this.props.rulerLabel,
-                pixelsPerUnit: this.props.rulerPixels,
-                ticksPerUnit: this.props.rulerTicks,
-                units: this.props.rulerLength,
-            });
-        }
     },
 
     getUserInput: function () {
@@ -176,6 +309,39 @@ const Measurer: $FlowFixMe = createReactClass({
     },
 
     focus: $.noop,
+});
+
+const styles = StyleSheet.create({
+    ruler: {
+        top: 218,
+        height: 52,
+        position: "absolute",
+    },
+    rulerRainbow: {
+        background: `linear-gradient(
+            45deg,
+            rgba(255, 0, 0, 1) 0%,
+            rgba(255, 154, 0, 1) 10%,
+            rgba(208, 222, 33, 1) 20%,
+            rgba(79, 220, 74, 1) 30%,
+            rgba(63, 218, 216, 1) 40%,
+            rgba(47, 201, 226, 1) 50%,
+            rgba(28, 127, 238, 1) 60%,
+            rgba(95, 21, 242, 1) 70%,
+            rgba(186, 12, 248, 1) 80%,
+            rgba(251, 7, 217, 1) 90%,
+            rgba(255, 0, 0, 1) 100%
+        )`,
+    },
+    rulerImage: {
+        backgroundPosition: "left",
+        backgroundImage: `url("${RulerSVG}")`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+    },
+    buttonContainer: {
+        paddingTop: 270,
+    },
 });
 
 _.extend(Measurer, {

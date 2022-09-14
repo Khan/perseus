@@ -17,14 +17,14 @@ const props = {
       480
     ],
     "image": {
-      "url": "https://cdn.kastatic.org/ka-perseus-images/6318666cc0a7a7b35cca6cc2d25734cdebb5854a.png"
+      "url": "https://cdn.kastatic.org/ka-perseus-graphie/e36997b3927bcce261ac6b9156d2b8724df29152.png"
     },
     "rulerLabel": "",
     "rulerLength": 10,
     "rulerPixels": 40,
     "rulerTicks": 10,
-    "showProtractor": true,
-    "showRuler": false,
+    "showProtractor": false,
+    "showRuler": true,
     "static": false,
     "widgetId": "measurer 1",
     "alignment": "default",
