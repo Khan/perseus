@@ -1,5 +1,11 @@
 # @khanacademy/kas
 
+## 0.2.5
+
+### Patch Changes
+
+-   98d283ff: Fix storybook
+
 ## 0.2.4
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @khanacademy/perseus-linter
 
+## 0.2.1
+
+### Patch Changes
+
+-   98d283ff: Fix storybook
+-   Updated dependencies [98d283ff]
+    -   @khanacademy/perseus-error@0.1.1
+
 ## 0.2.0
 
 ### Minor Changes
