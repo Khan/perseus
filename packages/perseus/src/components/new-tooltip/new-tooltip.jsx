@@ -17,7 +17,9 @@
  *     a change in the target element's position, which might not be clear from
  *     the events that the tooltip is watching (e.g., scrolls).
  */
+
 import Tooltip from "@khanacademy/wonder-blocks-tooltip";
+import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
 
 import {StyleSheet, css} from "aphrodite";
 import PropTypes from "prop-types";
@@ -90,7 +92,7 @@ export const DefaultPropValues: DefaultProps = Object.freeze({
     showOnMount: false,
 });
 
-class NewTooltip extends React.PureComponent<Props, NewTooltipState> {
+class NewTooltip extends React.Component<Props, NewTooltipState> {
     // The root element, where we'll mount tooltips.
     _rootElement: HTMLElement;
 
@@ -127,14 +129,6 @@ class NewTooltip extends React.PureComponent<Props, NewTooltipState> {
             hovered: false,
             targetElementIsVisible: false,
         };
-    }
-
-    UNSAFE_componentWillReceiveProps(nextProps: Props) {
-        if (nextProps.dismissed != null) {
-            // We're serving as a "controlled component": our dismissed state
-            // always matches the incoming props.
-            this.setState({dismissed: nextProps.dismissed});
-        }
     }
 
     _findRootElement(): any {
@@ -197,14 +191,6 @@ class NewTooltip extends React.PureComponent<Props, NewTooltipState> {
         this.setState({targetElementIsVisible});
     };
 
-    _handleMouseEnter: () => void = () => {
-        this.setState({hovered: true});
-    };
-
-    _handleMouseLeave: () => void = () => {
-        this.setState({hovered: false});
-    };
-
     _handleDismiss: () => void = () => {
         if (this.props.dismissed == null) {
             // We're serving as an "uncontrolled component": our dismissed
@@ -219,15 +205,34 @@ class NewTooltip extends React.PureComponent<Props, NewTooltipState> {
     }
 
     render(): React.Element<any> {
-        const {children, toggleOnHover} = this.props;
         const {children: _, ...portalProps} = this.props;
 
-        const {side, content} = this.props;
+        const {side, content, toggleOnHover, children, inverted} = this.props;
+        const {dismissed} = this.state;
 
         return (
-            <Tooltip content={content} placement={side}>
-                {children}
-            </Tooltip>
+            <Popover
+                content={
+                    <PopoverContentCore color={inverted ? "darkBlue" : "white"}>
+                        {content}
+                    </PopoverContentCore>
+                }
+                placement={side}
+                opened={!dismissed && this.state.hovered}
+                onClose={this._handleDismiss}
+                dismissEnabled={false}
+            >
+                <div
+                    onMouseEnter={() => {
+                        this.setState({hovered: true});
+                    }}
+                    onMouseLeave={() => {
+                        this.setState({hovered: false});
+                    }}
+                >
+                    {children}
+                </div>
+            </Popover>
         );
 
         return (
