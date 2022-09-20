@@ -6,19 +6,10 @@
  */
 
 import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
-import {StyleSheet, css} from "aphrodite";
-import PropTypes from "prop-types";
 import * as React from "react";
 
-import {getDependencies} from "../../dependencies.js";
-import {Errors, Log} from "../../logging/log.js";
-import {PerseusError} from "../../perseus-error.js";
 import {colors} from "../../styles/global-styles.js";
-import {createVisibilityObserver} from "../visibility-observer/visibility-observer.js";
 
-import TooltipPortal from "./tooltip-portal.jsx";
-
-import type {VisibilityObserver} from "../visibility-observer/visibility-observer.js";
 import type {NewTooltipProps} from "./types.js";
 
 type NewTooltipState = {|
@@ -72,13 +63,11 @@ class NewTooltip extends React.Component<Props, NewTooltipState> {
         };
     }
 
-    _popoverContent = (content: any, inverted: boolean) => {
-        return (
-            <PopoverContentCore color={inverted ? "darkBlue" : "white"}>
-                {content}
-            </PopoverContentCore>
-        );
-    };
+    UNSAFE_componentWillReceiveProps(nextProps: Props) {
+        if (Object.keys(nextProps).includes("dismissed")) {
+            this.setState({dismissed: nextProps.dismissed});
+        }
+    }
 
     _shouldShowTooltip(): boolean {
         const {toggleOnHover, showOnMount} = this.props;
@@ -111,27 +100,48 @@ class NewTooltip extends React.Component<Props, NewTooltipState> {
             // state is managed by us, not by incoming props.
             this.setState({dismissed: true});
         }
+
         this.props.onDismiss && this.props.onDismiss();
     };
 
+    _popoverContentColor: () => "white" | "blue" | "darkBlue" = () => {
+        const {inverted, color} = this.props;
+        if (inverted) {
+            return "darkBlue";
+        } else if (color === "blue") {
+            return "blue";
+        }
+
+        return "white";
+    };
+
     render(): React.Element<any> {
-        const {children: _, ...portalProps} = this.props;
-
-        const {side, content, toggleOnHover, children, inverted} = this.props;
-
+        const {side, children, content, dismissOnClickClose} = this.props;
+        const {onMouseEnter, onMouseLeave} = this.props;
         return (
             <Popover
-                content={this._popoverContent(content, inverted)}
+                content={
+                    <PopoverContentCore
+                        color={this._popoverContentColor()}
+                        closeButtonVisible={dismissOnClickClose}
+                        style={{}}
+                    >
+                        {content}
+                    </PopoverContentCore>
+                }
                 placement={side}
                 opened={this._shouldShowTooltip()}
                 onClose={this._handleDismiss}
                 dismissEnabled={false}
+                testId="question-id"
             >
                 <div
                     onMouseEnter={() => {
+                        onMouseEnter && onMouseEnter();
                         this.setState({hovered: true});
                     }}
                     onMouseLeave={() => {
+                        onMouseLeave && onMouseLeave();
                         this.setState({hovered: false});
                     }}
                 >
@@ -139,48 +149,7 @@ class NewTooltip extends React.Component<Props, NewTooltipState> {
                 </div>
             </Popover>
         );
-
-        return (
-            <div
-                className={css(styles.targetElement)}
-                onMouseEnter={
-                    toggleOnHover ? this._handleMouseEnter : undefined
-                }
-                onMouseLeave={
-                    toggleOnHover ? this._handleMouseLeave : undefined
-                }
-                ref={(node) => (this._wrapper = node)}
-                data-tooltip-wrapper
-                data-test-id="question-id"
-            >
-                {children}
-                {this._targetElement && this._shouldShowTooltip() && (
-                    <TooltipPortal
-                        tooltipProps={portalProps}
-                        dismiss={this._handleDismiss}
-                        rootElement={this._rootElement}
-                        targetElement={this._targetElement}
-                        isAboveModal={!!this.context.modalContainerElement}
-                        ref={(node) => (this._tooltipPortal = node)}
-                    />
-                )}
-            </div>
-        );
     }
 }
-
-NewTooltip.contextTypes = {
-    modalContainerElement: PropTypes.instanceOf(HTMLElement),
-};
-
-const styles = StyleSheet.create({
-    targetElement: {
-        // NOTE(mdr): By setting this container to `display: inline`, we avoid
-        //     disrupting the call site's layout! Yay! Unfortunately, this
-        //     requires other hacks in order to do position tracking; see the
-        //     `cloneElement` call in `render`.
-        display: "inline",
-    },
-});
 
 export default NewTooltip;
