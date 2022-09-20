@@ -17,6 +17,8 @@
  *     a change in the target element's position, which might not be clear from
  *     the events that the tooltip is watching (e.g., scrolls).
  */
+import Tooltip from "@khanacademy/wonder-blocks-tooltip";
+
 import {StyleSheet, css} from "aphrodite";
 import PropTypes from "prop-types";
 import * as React from "react";
@@ -127,36 +129,12 @@ class NewTooltip extends React.PureComponent<Props, NewTooltipState> {
         };
     }
 
-    componentDidMount() {
-        this._isMounted = true;
-
-        this._registerVisibilityObserver();
-    }
-
     UNSAFE_componentWillReceiveProps(nextProps: Props) {
         if (nextProps.dismissed != null) {
             // We're serving as a "controlled component": our dismissed state
             // always matches the incoming props.
             this.setState({dismissed: nextProps.dismissed});
         }
-    }
-
-    UNSAFE_componentWillUpdate() {
-        // The component may receive a new root element via the context.
-        // For example, we may get a modal root element that has become
-        // available.
-
-        this._registerVisibilityObserver();
-    }
-
-    componentWillUnmount() {
-        this._isMounted = false;
-        if (this._targetElementMountTimeout) {
-            // TODO(jeff, WEB-1378): Use Wonder Blocks Timing API.
-            // eslint-disable-next-line no-restricted-syntax
-            clearTimeout(this._targetElementMountTimeout);
-        }
-        this._visibilityObserver.disconnect();
     }
 
     _findRootElement(): any {
@@ -180,115 +158,6 @@ class NewTooltip extends React.PureComponent<Props, NewTooltipState> {
             document.getElementById("outer-wrapper") ||
             document.body
         );
-    }
-
-    // When this component mounts inside a modal, we don't have the modal
-    // container in the context yet. That comes during the next cycle. If the
-    // tooltip is in the modal, it will be observing with respect to the app
-    // root for a moment (and won't display because it is obscured) and then
-    // it will get called again on the next update because the context changes.
-    // When it sees that the root is different, it will unregister the first
-    // and register the new one.
-    _registerVisibilityObserver() {
-        const rootElement = this._findRootElement();
-
-        if (!rootElement) {
-            throw new PerseusError(
-                "Failed to mount NewTooltip: " +
-                    "we need a #outer-wrapper or document.body element.",
-                Errors.Internal,
-            );
-        }
-
-        if (rootElement === this._rootElement) {
-            return;
-        }
-
-        this._rootElement = rootElement;
-
-        if (this._visibilityObserver) {
-            this._visibilityObserver.disconnect();
-        }
-
-        // Create a VisibilityObserver, and start by assuming the target
-        // element is invisible. On mount, we'll start observing the
-        // target, and check whether it's visible.
-        this._visibilityObserver = createVisibilityObserver(
-            rootElement,
-            this._handleVisibilityChange,
-        );
-
-        // Find our target element. We do this by walking down the DOM tree,
-        // until we find a node that doesn't have `data-tooltip-wrapper` on it.
-        //
-        // (This also enables us to compose tooltips: if you wrap an element
-        // in multiple tooltips, we'll skip *all* the wrapper elements, and
-        // find the correct element.)
-        //
-        // HACK(mdr): I'm not entirely satisfied with this :/ The whole tooltip
-        //     composition "API" is a bit of a hack to support different
-        //     tooltip props based on media query, and a *robust* way of
-        //     specifying that would probably be preferable... but, in the
-        //     meantime, I'd rather not invent new styling patterns (there's
-        //     already enough fragmentation!), and instead write some
-        //     well-encapsulated hacks that keep the public-facing API simple
-        //     and low on new concepts.
-        const wrapper = this._wrapper;
-        if (!wrapper) {
-            throw new PerseusError(
-                "NewTooltip expected a wrapper element after mount",
-                Errors.Internal,
-            );
-        }
-        let targetElement: HTMLElement = wrapper;
-        while (targetElement.hasAttribute("data-tooltip-wrapper")) {
-            targetElement = (targetElement.childNodes[0]: any);
-            if (!targetElement) {
-                throw new PerseusError(
-                    "NewTooltip expected wrapper element to have a child",
-                    Errors.Internal,
-                );
-            }
-        }
-        this._targetElement = targetElement;
-
-        // Now that we've mounted, update our TooltipPortal (by re-rendering)
-        // and our VisibilityObserver, so they can be aware of our new target
-        // element.
-        // TODO(jeff, WEB-1378): Use Wonder Blocks Timing API.
-        // eslint-disable-next-line no-restricted-syntax
-        this._targetElementMountTimeout = setTimeout(() => {
-            const targetElement = this._targetElement;
-            if (!targetElement) {
-                throw new PerseusError(
-                    "NewTooltip should have a target element after mounting.",
-                    Errors.Internal,
-                );
-            }
-
-            // While we're here, let's also check whether the element is
-            // block-like, as is required for position tracking to work. If
-            // not, warn the developer - but in prod, skip this, because
-            // it's slow.
-            if (getDependencies().isDevServer) {
-                if (getComputedStyle(targetElement).display === "inline") {
-                    Log.error(
-                        "Warning: The children of a NewTooltip element " +
-                            "must be block-like, but this element seems " +
-                            "to have `display: inline`. This could break " +
-                            "position tracking.",
-                        Errors.Internal,
-                    );
-                    Log.log("NewTooltip Target Element:", {
-                        targetElement: targetElement.outerHTML,
-                    });
-                }
-            }
-
-            this._visibilityObserver.setTargetElement(targetElement);
-
-            this.forceUpdate();
-        }, 0);
     }
 
     _shouldShowTooltip(): boolean {
@@ -349,9 +218,17 @@ class NewTooltip extends React.PureComponent<Props, NewTooltipState> {
         this._tooltipPortal && this._tooltipPortal.remeasure();
     }
 
-    render(): React.Element<"div"> {
+    render(): React.Element<any> {
         const {children, toggleOnHover} = this.props;
         const {children: _, ...portalProps} = this.props;
+
+        const {side, content} = this.props;
+
+        return (
+            <Tooltip content={content} placement={side}>
+                {children}
+            </Tooltip>
+        );
 
         return (
             <div
