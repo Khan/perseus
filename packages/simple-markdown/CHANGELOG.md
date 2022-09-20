@@ -1,5 +1,11 @@
 # @khanacademy/simple-markdown
 
+## 0.8.4
+
+### Patch Changes
+
+-   98d283ff: Fix storybook
+
 ## 0.8.3
 
 ### Patch Changes

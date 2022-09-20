@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 0.5.6
+
+### Patch Changes
+
+-   98d283ff: Fix storybook
+
 ## 0.5.5
 
 ### Patch Changes
