@@ -10,7 +10,7 @@ import _ from "underscore";
 import InputWithExamples from "../components/input-with-examples.jsx";
 import PossibleAnswers from "../components/possible-answers.jsx";
 import SimpleKeypadInput from "../components/simple-keypad-input.jsx";
-import {ApiOptions, ClassNames as ApiClassNames} from "../perseus-api.jsx";
+import {ApiOptions} from "../perseus-api.jsx";
 import TexWrangler from "../tex-wrangler.js";
 import KhanAnswerTypes from "../util/answer-types.js";
 import KhanMath from "../util/math.js";
@@ -290,18 +290,6 @@ export class NumericInput extends React.Component<Props, State> {
             }
         }
         return [answerBlurb, !!correct];
-    };
-
-    getClasses: (boolean, $FlowFixMe) => $FlowFixMe = (correct, rubric) => {
-        const classes = {};
-        classes["perseus-input-size-" + this.props.size] = true;
-        classes["perseus-input-right-align"] = this.props.rightAlign;
-        classes[ApiClassNames.CORRECT] =
-            rubric && correct && this.props.currentValue;
-        classes[ApiClassNames.INCORRECT] =
-            rubric && !correct && this.props.currentValue;
-        classes[ApiClassNames.UNANSWERED] = rubric && !this.props.currentValue;
-        return classes;
     };
 
     // TODO(Nicole, Jeremy): This is maybe never used and should be removed
