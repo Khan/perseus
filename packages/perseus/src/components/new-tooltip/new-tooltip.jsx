@@ -1,26 +1,11 @@
 /* eslint-disable react/no-unsafe */
 // @flow
 /**
- * This component has been obsoleted by the Wonder Blocks tooltip (https://wonder-blocks.netlify.app/#tooltip-1).
- * It is no longer a WIP.  The Wonder Blocks tooltip should be used in future development.
- *
- * This top-level component primarily manages high-level visibility state. It
- * renders the tooltip's target element inline, and renders a TooltipPortal
- * to get the tooltip content outside of any `overflow: hidden` containers.
- *
- * For usage information and help navigating this package, see `README.md`.
- * For prop type information, see `types.js`.
- *
- * Public methods:
- *   - `remeasure()`: Re-measure the target element's position, and update the
- *     tooltip's position. This is helpful to call when the parent is aware of
- *     a change in the target element's position, which might not be clear from
- *     the events that the tooltip is watching (e.g., scrolls).
+ * This component is a wrapper around Wonderblock's tooltip with the API
+ * that perseus expects
  */
 
-import Tooltip from "@khanacademy/wonder-blocks-tooltip";
 import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
-
 import {StyleSheet, css} from "aphrodite";
 import PropTypes from "prop-types";
 import * as React from "react";
@@ -41,28 +26,11 @@ type NewTooltipState = {|
     dismissed: boolean,
     // Whether the target element is currently being hovered.
     hovered: boolean,
-    // Whether the target element is currently visible, relative to the "root
-    // element" where we're mounting the tooltip.
-    //
-    // NOTE(mdr): This can be true (element is visible), false (element is not
-    //     visible), or null (unknown).
-    targetElementIsVisible: ?boolean,
 |};
 
 type Props = {|
     ...NewTooltipProps,
 
-    // The wrapped content that serves as the target of the tooltip.
-    //
-    // This must be a single React element, with block-like styles. (e.g.,
-    // `display: block`, `display: inline-block`, `display: flex`, etc.)
-    //
-    // Unfortunately, we can't reliably track the position of inline elements,
-    // and we can't wrap your children in a block-like element without
-    // potentially disrupting your call site's layout.
-    //
-    // So, your element will need to be block-like. Sorry for the extra
-    // constraint! (For details, see the `render` method of `NewTooltip`).
     children: React$Element<any>,
 |};
 
@@ -93,76 +61,28 @@ export const DefaultPropValues: DefaultProps = Object.freeze({
 });
 
 class NewTooltip extends React.Component<Props, NewTooltipState> {
-    // The root element, where we'll mount tooltips.
-    _rootElement: HTMLElement;
-
-    // The wrapper element that we created, to listen to mouse events.
-    _wrapper: ?HTMLElement;
-
-    // The target element itself: the child of the wrapper, provided by the
-    // caller.
-    _targetElement: ?HTMLElement;
-
-    // Our child TooltipPortal instance. Used to pass down `remeasure` calls.
-    _tooltipPortal: ?TooltipPortal;
-
-    // The VisibilityObserver, notifying us when the element enters or exits
-    // total invisibility. Will be null iff the browser doesn't support the
-    // necessary APIs.
-    _visibilityObserver: VisibilityObserver;
-
-    // Whether this component is mounted.
-    _isMounted: boolean;
-
-    // A timeout used in `componentDidMount`.
-    _targetElementMountTimeout: ?TimeoutID;
-
     static defaultProps: DefaultProps = DefaultPropValues;
 
     constructor(props: Props) {
         super(props);
 
-        this._isMounted = false;
-
         this.state = {
             dismissed: props.dismissed != null ? props.dismissed : false,
             hovered: false,
-            targetElementIsVisible: false,
         };
     }
 
-    _findRootElement(): any {
-        // In the Khan Academy webapp, the best place to mount is the
-        // #outer-wrapper element, because it's our outermost scroll container.
-        // But, if we're for some reason in a page without an #outer-wrapper,
-        // then mounting at the body element is probably a good guess.
-        // Also, if there is a modal anywhere in the context, it should be the
-        // root because it obscures the visibility of the higher containers.
-        //
-        // HACK(davidflanagan):
-        // Missions use a modal-like ../../tasks-package/task-container.jsx
-        // component that does not work like our standard modal, so we handle
-        // that with a special hardcoded case element id. When this component
-        // is converted to a wonder block, we should upgrade Modal to use
-        // the new context mechanism instead of the legacy mechanism and
-        // replace this mission-task-container id with context.
+    _popoverContent = (content: any, inverted: boolean) => {
         return (
-            this.context.modalContainerElement ||
-            document.getElementById("mission-task-container") ||
-            document.getElementById("outer-wrapper") ||
-            document.body
+            <PopoverContentCore color={inverted ? "darkBlue" : "white"}>
+                {content}
+            </PopoverContentCore>
         );
-    }
+    };
 
     _shouldShowTooltip(): boolean {
         const {toggleOnHover, showOnMount} = this.props;
-        const {dismissed, targetElementIsVisible} = this.state;
-
-        // If the target element isn't visible, then we shouldn't show the
-        // tooltip, regardless of configuration.
-        if (targetElementIsVisible === false) {
-            return false;
-        }
+        const {dismissed} = this.state;
 
         // If the tooltip was dismissed, or we're not sure yet, don't show it.
         if (dismissed) {
@@ -185,12 +105,6 @@ class NewTooltip extends React.Component<Props, NewTooltipState> {
         return false;
     }
 
-    _handleVisibilityChange: (targetElementIsVisible: boolean) => void = (
-        targetElementIsVisible: boolean,
-    ) => {
-        this.setState({targetElementIsVisible});
-    };
-
     _handleDismiss: () => void = () => {
         if (this.props.dismissed == null) {
             // We're serving as an "uncontrolled component": our dismissed
@@ -200,25 +114,16 @@ class NewTooltip extends React.Component<Props, NewTooltipState> {
         this.props.onDismiss && this.props.onDismiss();
     };
 
-    remeasure() {
-        this._tooltipPortal && this._tooltipPortal.remeasure();
-    }
-
     render(): React.Element<any> {
         const {children: _, ...portalProps} = this.props;
 
         const {side, content, toggleOnHover, children, inverted} = this.props;
-        const {dismissed} = this.state;
 
         return (
             <Popover
-                content={
-                    <PopoverContentCore color={inverted ? "darkBlue" : "white"}>
-                        {content}
-                    </PopoverContentCore>
-                }
+                content={this._popoverContent(content, inverted)}
                 placement={side}
-                opened={!dismissed && this.state.hovered}
+                opened={this._shouldShowTooltip()}
                 onClose={this._handleDismiss}
                 dismissEnabled={false}
             >
