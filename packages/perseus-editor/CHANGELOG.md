@@ -1,5 +1,25 @@
 # @khanacademy/perseus-editor
 
+## 0.4.0
+
+### Minor Changes
+
+-   8a49423f: Update radio widget with KA styling
+
+### Patch Changes
+
+-   98d283ff: Fix storybook
+-   Updated dependencies [fe5fedeb]
+-   Updated dependencies [c13a5c93]
+-   Updated dependencies [8a53d9e0]
+-   Updated dependencies [23662202]
+-   Updated dependencies [7f92fd27]
+-   Updated dependencies [8a49423f]
+-   Updated dependencies [988726bd]
+-   Updated dependencies [98d283ff]
+    -   @khanacademy/perseus@0.4.0
+    -   @khanacademy/kmath@0.0.6
+
 ## 0.3.9
 
 ### Patch Changes
