@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 0.6.0
+
+### Minor Changes
+
+-   8fcd2a28: Inline the import of mathquill.css in math-input's main.less
+
 ## 0.5.6
 
 ### Patch Changes
