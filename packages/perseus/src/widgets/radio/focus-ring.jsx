@@ -15,6 +15,8 @@ class FocusRing extends React.Component<{
     visible: boolean,
     // Color of the focus ring
     color: string,
+    // Whether a user can select multiple options or not
+    multipleSelect: boolean,
     ...
 }> {
     static defaultProps: {|color: string, visible: boolean|} = {
@@ -26,8 +28,10 @@ class FocusRing extends React.Component<{
         const borderColor = this.props.visible
             ? this.props.color
             : "transparent";
+        const borderRadius = this.props.multipleSelect ? 5 : "50%";
         const style = {
-            borderColor: borderColor,
+            borderColor,
+            borderRadius,
         };
         return (
             <span className={css(styles.ring)} style={style}>
@@ -41,7 +45,6 @@ const styles = StyleSheet.create({
     ring: {
         margin: "auto",
         display: "inline-block",
-        borderRadius: "50%",
         borderWidth: 2,
         padding: 2,
         borderStyle: "solid",

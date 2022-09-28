@@ -18,6 +18,7 @@ class SATChoiceIcon extends React.Component<{
     letter: string,
     a11yText: string,
     checked: boolean,
+    multipleSelect: boolean,
     correct: boolean,
     reviewMode: boolean,
     crossedOut: boolean,
@@ -26,16 +27,15 @@ class SATChoiceIcon extends React.Component<{
     // TODO(amy): figure out a better scheme for specifying these
     // styles that isn't such a pain to grok. See some neat ideas
     // from MDR in https://phabricator.khanacademy.org/D35249.
-    constructStyles(
-        reviewMode: boolean,
-        correct: boolean,
-        checked: boolean,
-    ): {
+    constructStyles(): {
         color: string,
         backgroundColor: ?string,
         borderColor: string,
+        borderRadius: number,
         ...
     } {
+        const {reviewMode, correct, checked, multipleSelect} = this.props;
+
         let backgroundColor;
         let borderColor = styleConstants.satBlue;
         let color = styleConstants.satBlue;
@@ -57,17 +57,20 @@ class SATChoiceIcon extends React.Component<{
             color = styleConstants.white;
             backgroundColor = styleConstants.satBlue;
         }
-        return {color, backgroundColor, borderColor};
+
+        let borderRadius;
+        if (multipleSelect) {
+            borderRadius = 3;
+        } else {
+            borderRadius = SAT_ICON_SIZE;
+        }
+
+        return {color, backgroundColor, borderColor, borderRadius};
     }
 
     render(): React.Node {
-        const {letter, a11yText, reviewMode, checked, correct, crossedOut} =
-            this.props;
-        const {color, backgroundColor, borderColor} = this.constructStyles(
-            reviewMode,
-            correct,
-            checked,
-        );
+        const {letter, a11yText, crossedOut} = this.props;
+        const {color, backgroundColor, borderColor} = this.constructStyles();
 
         return (
             <div className={css(styles.iconWrapper)}>
@@ -92,8 +95,10 @@ class LibraryChoiceIcon extends React.Component<{
     a11yText: string,
     checked: boolean,
     crossedOut: boolean,
-    pressed: boolean,
     focused: boolean,
+    hovered: boolean,
+    pressed: boolean,
+    multipleSelect: boolean,
     correct: ?boolean,
     reviewMode: boolean,
     showCorrectness: boolean,
@@ -131,34 +136,43 @@ class LibraryChoiceIcon extends React.Component<{
             checked,
             showCorrectness,
             pressed,
+            multipleSelect,
             primaryProductColor,
             correct,
             transparentBackground,
         } = this.props;
+
+        let backgroundColor;
+        let borderColor;
+        let color;
         if (!showCorrectness && pressed) {
-            return {
-                borderColor: primaryProductColor,
-                color: primaryProductColor,
-                backgroundColor: transparentBackground
-                    ? "transparent"
-                    : styleConstants.white,
-            };
-        }
-        if (checked) {
+            borderColor = primaryProductColor;
+            color = primaryProductColor;
+            backgroundColor = transparentBackground
+                ? "transparent"
+                : styleConstants.white;
+        } else if (checked) {
             // Note: kaGreen is not only the default product color,
             // but also the "correctness" color
             const bg =
                 showCorrectness && correct ? Color.green : primaryProductColor;
-            return {
-                color: styleConstants.white,
-                backgroundColor: bg,
-                borderColor: bg,
-            };
+            color = styleConstants.white;
+            backgroundColor = bg;
+            borderColor = bg;
+        } else {
+            borderColor = Color.offBlack64;
+            color = Color.offBlack64;
         }
-        return {
-            borderColor: Color.offBlack64,
-            color: Color.offBlack64,
-        };
+
+        // define shape
+        let borderRadius;
+        if (multipleSelect) {
+            borderRadius = 3;
+        } else {
+            borderRadius = LIBRARY_ICON_SIZE;
+        }
+
+        return {backgroundColor, borderColor, color, borderRadius};
     }
 
     render(): React.Node {
@@ -169,6 +183,8 @@ class LibraryChoiceIcon extends React.Component<{
             showCorrectness,
             correct,
             focused,
+            hovered,
+            multipleSelect,
             primaryProductColor,
             previouslyAnswered,
         } = this.props;
@@ -177,7 +193,11 @@ class LibraryChoiceIcon extends React.Component<{
 
         return (
             <div className={css(styles.iconWrapper)}>
-                <FocusRing color={primaryProductColor} visible={focused}>
+                <FocusRing
+                    color={primaryProductColor}
+                    visible={focused || hovered}
+                    multipleSelect={multipleSelect}
+                >
                     <div
                         style={dynamicStyles}
                         className={css(
@@ -250,13 +270,15 @@ type ChoiceIconProps = {|
     pos: number,
     checked: boolean,
     crossedOut: boolean,
-    pressed: boolean,
     focused: boolean,
+    hovered: boolean,
+    pressed: boolean,
     correct: boolean,
     showCorrectness: boolean,
     // TODO(amy): if we go this "product" flag route, define this type
     // somewhere shared
     product: "sat" | "library",
+    multipleSelect: boolean,
     reviewMode: boolean,
     previouslyAnswered: boolean,
     // TODO(mdr): The CrossOutButton needs a transparent-background ChoiceIcon,
@@ -335,9 +357,11 @@ class ChoiceIcon extends React.Component<ChoiceIconProps> {
             crossedOut,
             correct,
             product,
+            multipleSelect,
             showCorrectness,
-            pressed,
             focused,
+            hovered,
+            pressed,
             primaryProductColor,
             previouslyAnswered,
             transparentBackground,
@@ -354,6 +378,7 @@ class ChoiceIcon extends React.Component<ChoiceIconProps> {
                     checked={checked}
                     correct={correct}
                     crossedOut={crossedOut}
+                    multipleSelect={multipleSelect}
                 />
             );
         }
@@ -364,13 +389,15 @@ class ChoiceIcon extends React.Component<ChoiceIconProps> {
                 reviewMode={reviewMode}
                 checked={checked}
                 crossedOut={crossedOut}
-                pressed={pressed}
                 focused={focused}
+                hovered={hovered}
+                pressed={pressed}
                 correct={correct}
                 showCorrectness={showCorrectness}
                 primaryProductColor={primaryProductColor}
                 previouslyAnswered={previouslyAnswered}
                 transparentBackground={transparentBackground}
+                multipleSelect={multipleSelect}
             />
         );
     }
@@ -379,7 +406,6 @@ class ChoiceIcon extends React.Component<ChoiceIconProps> {
 const styles = StyleSheet.create({
     satCircle: {
         display: "block",
-        borderRadius: SAT_ICON_SIZE,
         borderStyle: "solid",
         borderWidth: 2,
         content: `''`,
@@ -406,7 +432,6 @@ const styles = StyleSheet.create({
         width: LIBRARY_ICON_SIZE,
         height: LIBRARY_ICON_SIZE,
         boxSizing: "border-box",
-        borderRadius: LIBRARY_ICON_SIZE,
         borderStyle: "solid",
         borderWidth: 2,
 

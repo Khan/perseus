@@ -17,10 +17,12 @@ const defaultObject = {
     crossedOut: false,
     checked: false,
     correct: true,
+    focused: false,
+    hovered: false,
     pressed: false,
+    multipleSelect: false,
     previouslyAnswered: false,
     product: "library",
-    focused: false,
     reviewMode: false,
     showCorrectness: false,
 };
@@ -32,10 +34,12 @@ const defaultObject = {
 // currently defined, so we give them values anyway.
 const satObject = {
     crossedOut: false,
+    focused: false,
+    hovered: false,
     pressed: false,
     checked: false,
-    focused: false,
     correct: true,
+    multipleSelect: false,
     previouslyAnswered: false,
     product: "sat",
     reviewMode: false,

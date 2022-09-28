@@ -98,10 +98,12 @@ export default class CrossOutButton extends React.PureComponent<CrossOutButtonPr
                     //     bit fragile, but for now it seems better than adding
                     //     complexity to the ChoiceIcon API!
                     primaryProductColor={buttonAndTextColor}
+                    focused={false}
+                    hovered={false}
                     pressed={true}
                     checked={false}
-                    focused={false}
                     correct={false}
+                    multipleSelect={false}
                     showCorrectness={false}
                     reviewMode={false}
                     previouslyAnswered={false}
