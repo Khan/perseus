@@ -8,7 +8,7 @@ import * as React from "react";
 
 import * as styleConstants from "../../styles/constants.js";
 
-class FocusRing extends React.Component<{
+type Props = {|
     children?: any,
     // Whether the focus ring is visible. Allows for positioning
     // the child identically regardless of whether the ring is visible.
@@ -17,11 +17,13 @@ class FocusRing extends React.Component<{
     color: string,
     // Whether a user can select multiple options or not
     multipleSelect: boolean,
-    ...
-}> {
-    static defaultProps: {|color: string, visible: boolean|} = {
+|};
+
+class FocusRing extends React.Component<Props> {
+    static defaultProps: Props = {
         visible: true,
         color: styleConstants.kaGreen,
+        multipleSelect: false,
     };
 
     render(): React.Element<"span"> {
