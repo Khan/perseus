@@ -38,22 +38,6 @@ type HighlightTooltipProps = {|
 class HighlightTooltip extends React.PureComponent<HighlightTooltipProps> {
     _tooltip: ?React.ElementRef<typeof NewTooltip>;
 
-    componentDidUpdate(oldProps: HighlightTooltipProps) {
-        // If the highlight focus might've changed, then tell the tooltip to
-        // remeasure itself. For "Add highlight", this happens when an existing
-        // selection is updated, e.g., by using the Shift+RightArrow shortcut.
-        // For "Remove highlight", this can happen when we quickly switch from
-        // targeting one highlight to another: we reuse the same
-        // HighlightTooltip instance, for improved performance.
-        if (
-            this.props.focusNode !== oldProps.focusNode ||
-            this.props.focusOffset !== oldProps.focusOffset ||
-            this.props.offsetParent !== oldProps.offsetParent
-        ) {
-            this._tooltip?.remeasure();
-        }
-    }
-
     _getFocusRect(): ?Rect {
         const {focusNode, focusOffset, offsetParent} = this.props;
 
