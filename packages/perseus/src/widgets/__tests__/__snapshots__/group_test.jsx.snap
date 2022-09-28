@@ -162,13 +162,13 @@ exports[`group widget should snapshot: initial render 1`] = `
                                                   class="iconWrapper_17y0hv9"
                                                 >
                                                   <span
-                                                    class="ring_en36io"
-                                                    style="border-color: transparent;"
+                                                    class="ring_ya75gi"
+                                                    style="border-color: transparent; border-radius: 50%;"
                                                   >
                                                     <div
-                                                      class="libraryCircle_1ytyy5d"
+                                                      class="libraryCircle_1tys2th"
                                                       data-is-radio-icon="true"
-                                                      style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64);"
+                                                      style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                                     >
                                                       <div
                                                         class="perseus-sr-only"
@@ -249,13 +249,13 @@ exports[`group widget should snapshot: initial render 1`] = `
                                                   class="iconWrapper_17y0hv9"
                                                 >
                                                   <span
-                                                    class="ring_en36io"
-                                                    style="border-color: transparent;"
+                                                    class="ring_ya75gi"
+                                                    style="border-color: transparent; border-radius: 50%;"
                                                   >
                                                     <div
-                                                      class="libraryCircle_1ytyy5d"
+                                                      class="libraryCircle_1tys2th"
                                                       data-is-radio-icon="true"
-                                                      style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64);"
+                                                      style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                                     >
                                                       <div
                                                         class="perseus-sr-only"
@@ -336,13 +336,13 @@ exports[`group widget should snapshot: initial render 1`] = `
                                                   class="iconWrapper_17y0hv9"
                                                 >
                                                   <span
-                                                    class="ring_en36io"
-                                                    style="border-color: transparent;"
+                                                    class="ring_ya75gi"
+                                                    style="border-color: transparent; border-radius: 50%;"
                                                   >
                                                     <div
-                                                      class="libraryCircle_1ytyy5d"
+                                                      class="libraryCircle_1tys2th"
                                                       data-is-radio-icon="true"
-                                                      style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64);"
+                                                      style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                                     >
                                                       <div
                                                         class="perseus-sr-only"
@@ -423,13 +423,13 @@ exports[`group widget should snapshot: initial render 1`] = `
                                                   class="iconWrapper_17y0hv9"
                                                 >
                                                   <span
-                                                    class="ring_en36io"
-                                                    style="border-color: transparent;"
+                                                    class="ring_ya75gi"
+                                                    style="border-color: transparent; border-radius: 50%;"
                                                   >
                                                     <div
-                                                      class="libraryCircle_1ytyy5d"
+                                                      class="libraryCircle_1tys2th"
                                                       data-is-radio-icon="true"
-                                                      style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64);"
+                                                      style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                                     >
                                                       <div
                                                         class="perseus-sr-only"
@@ -510,13 +510,13 @@ exports[`group widget should snapshot: initial render 1`] = `
                                                   class="iconWrapper_17y0hv9"
                                                 >
                                                   <span
-                                                    class="ring_en36io"
-                                                    style="border-color: transparent;"
+                                                    class="ring_ya75gi"
+                                                    style="border-color: transparent; border-radius: 50%;"
                                                   >
                                                     <div
-                                                      class="libraryCircle_1ytyy5d"
+                                                      class="libraryCircle_1tys2th"
                                                       data-is-radio-icon="true"
-                                                      style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64);"
+                                                      style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                                     >
                                                       <div
                                                         class="perseus-sr-only"

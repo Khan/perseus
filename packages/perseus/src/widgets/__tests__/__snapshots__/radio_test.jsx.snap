@@ -88,13 +88,13 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                                 class="iconWrapper_17y0hv9"
                               >
                                 <span
-                                  class="ring_en36io"
-                                  style="border-color: transparent;"
+                                  class="ring_ya75gi"
+                                  style="border-color: #1865f2; border-radius: 5px;"
                                 >
                                   <div
-                                    class="libraryCircle_1ytyy5d"
+                                    class="libraryCircle_1tys2th"
                                     data-is-radio-icon="true"
-                                    style="border-color: #1865f2; color: rgb(255, 255, 255); background-color: rgb(24, 101, 242);"
+                                    style="border-color: #1865f2; color: rgb(255, 255, 255); border-radius: 3px; background-color: rgb(24, 101, 242);"
                                   >
                                     <div
                                       class="perseus-sr-only"
@@ -175,13 +175,13 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                                 class="iconWrapper_17y0hv9"
                               >
                                 <span
-                                  class="ring_en36io"
-                                  style="border-color: transparent;"
+                                  class="ring_ya75gi"
+                                  style="border-color: transparent; border-radius: 5px;"
                                 >
                                   <div
-                                    class="libraryCircle_1ytyy5d"
+                                    class="libraryCircle_1tys2th"
                                     data-is-radio-icon="true"
-                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64);"
+                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 3px;"
                                   >
                                     <div
                                       class="perseus-sr-only"
@@ -262,13 +262,13 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                                 class="iconWrapper_17y0hv9"
                               >
                                 <span
-                                  class="ring_en36io"
-                                  style="border-color: transparent;"
+                                  class="ring_ya75gi"
+                                  style="border-color: transparent; border-radius: 5px;"
                                 >
                                   <div
-                                    class="libraryCircle_1ytyy5d"
+                                    class="libraryCircle_1tys2th"
                                     data-is-radio-icon="true"
-                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64);"
+                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 3px;"
                                   >
                                     <div
                                       class="perseus-sr-only"
@@ -349,13 +349,13 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                                 class="iconWrapper_17y0hv9"
                               >
                                 <span
-                                  class="ring_en36io"
-                                  style="border-color: transparent;"
+                                  class="ring_ya75gi"
+                                  style="border-color: transparent; border-radius: 5px;"
                                 >
                                   <div
-                                    class="libraryCircle_1ytyy5d"
+                                    class="libraryCircle_1tys2th"
                                     data-is-radio-icon="true"
-                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64);"
+                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 3px;"
                                   >
                                     <div
                                       class="perseus-sr-only"
@@ -548,13 +548,13 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                                 class="iconWrapper_17y0hv9"
                               >
                                 <span
-                                  class="ring_en36io"
-                                  style="border-color: transparent;"
+                                  class="ring_ya75gi"
+                                  style="border-color: transparent; border-radius: 50%;"
                                 >
                                   <div
-                                    class="libraryCircle_1ytyy5d"
+                                    class="libraryCircle_1tys2th"
                                     data-is-radio-icon="true"
-                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64);"
+                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                   >
                                     <div
                                       class="perseus-sr-only"
@@ -648,13 +648,13 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                                 class="iconWrapper_17y0hv9"
                               >
                                 <span
-                                  class="ring_en36io"
-                                  style="border-color: transparent;"
+                                  class="ring_ya75gi"
+                                  style="border-color: transparent; border-radius: 50%;"
                                 >
                                   <div
-                                    class="libraryCircle_1ytyy5d"
+                                    class="libraryCircle_1tys2th"
                                     data-is-radio-icon="true"
-                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64);"
+                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                   >
                                     <div
                                       class="perseus-sr-only"
@@ -735,13 +735,13 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                                 class="iconWrapper_17y0hv9"
                               >
                                 <span
-                                  class="ring_en36io"
-                                  style="border-color: transparent;"
+                                  class="ring_ya75gi"
+                                  style="border-color: #1865f2; border-radius: 50%;"
                                 >
                                   <div
-                                    class="libraryCircle_1ytyy5d"
+                                    class="libraryCircle_1tys2th"
                                     data-is-radio-icon="true"
-                                    style="border-color: #1865f2; color: rgb(255, 255, 255); background-color: rgb(24, 101, 242);"
+                                    style="border-color: #1865f2; color: rgb(255, 255, 255); border-radius: 24px; background-color: rgb(24, 101, 242);"
                                   >
                                     <div
                                       class="perseus-sr-only"
@@ -822,13 +822,13 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                                 class="iconWrapper_17y0hv9"
                               >
                                 <span
-                                  class="ring_en36io"
-                                  style="border-color: transparent;"
+                                  class="ring_ya75gi"
+                                  style="border-color: transparent; border-radius: 50%;"
                                 >
                                   <div
-                                    class="libraryCircle_1ytyy5d"
+                                    class="libraryCircle_1tys2th"
                                     data-is-radio-icon="true"
-                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64);"
+                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                   >
                                     <div
                                       class="perseus-sr-only"
@@ -995,13 +995,13 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                                 class="iconWrapper_17y0hv9"
                               >
                                 <span
-                                  class="ring_en36io"
-                                  style="border-color: transparent;"
+                                  class="ring_ya75gi"
+                                  style="border-color: #1865f2; border-radius: 50%;"
                                 >
                                   <div
-                                    class="libraryCircle_1ytyy5d"
+                                    class="libraryCircle_1tys2th"
                                     data-is-radio-icon="true"
-                                    style="border-color: #1865f2; color: rgb(255, 255, 255); background-color: rgb(24, 101, 242);"
+                                    style="border-color: #1865f2; color: rgb(255, 255, 255); border-radius: 24px; background-color: rgb(24, 101, 242);"
                                   >
                                     <div
                                       class="perseus-sr-only"
@@ -1095,13 +1095,13 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                                 class="iconWrapper_17y0hv9"
                               >
                                 <span
-                                  class="ring_en36io"
-                                  style="border-color: transparent;"
+                                  class="ring_ya75gi"
+                                  style="border-color: transparent; border-radius: 50%;"
                                 >
                                   <div
-                                    class="libraryCircle_1ytyy5d"
+                                    class="libraryCircle_1tys2th"
                                     data-is-radio-icon="true"
-                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64);"
+                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                   >
                                     <div
                                       class="perseus-sr-only"
@@ -1182,13 +1182,13 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                                 class="iconWrapper_17y0hv9"
                               >
                                 <span
-                                  class="ring_en36io"
-                                  style="border-color: transparent;"
+                                  class="ring_ya75gi"
+                                  style="border-color: transparent; border-radius: 50%;"
                                 >
                                   <div
-                                    class="libraryCircle_1ytyy5d"
+                                    class="libraryCircle_1tys2th"
                                     data-is-radio-icon="true"
-                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64);"
+                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                   >
                                     <div
                                       class="perseus-sr-only"
@@ -1269,13 +1269,13 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                                 class="iconWrapper_17y0hv9"
                               >
                                 <span
-                                  class="ring_en36io"
-                                  style="border-color: transparent;"
+                                  class="ring_ya75gi"
+                                  style="border-color: transparent; border-radius: 50%;"
                                 >
                                   <div
-                                    class="libraryCircle_1ytyy5d"
+                                    class="libraryCircle_1tys2th"
                                     data-is-radio-icon="true"
-                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64);"
+                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                   >
                                     <div
                                       class="perseus-sr-only"
@@ -1442,13 +1442,13 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                                 class="iconWrapper_17y0hv9"
                               >
                                 <span
-                                  class="ring_en36io"
-                                  style="border-color: transparent;"
+                                  class="ring_ya75gi"
+                                  style="border-color: transparent; border-radius: 50%;"
                                 >
                                   <div
-                                    class="libraryCircle_1ytyy5d"
+                                    class="libraryCircle_1tys2th"
                                     data-is-radio-icon="true"
-                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64);"
+                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                   >
                                     <div
                                       class="perseus-sr-only"
@@ -1542,13 +1542,13 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                                 class="iconWrapper_17y0hv9"
                               >
                                 <span
-                                  class="ring_en36io"
-                                  style="border-color: transparent;"
+                                  class="ring_ya75gi"
+                                  style="border-color: transparent; border-radius: 50%;"
                                 >
                                   <div
-                                    class="libraryCircle_1ytyy5d"
+                                    class="libraryCircle_1tys2th"
                                     data-is-radio-icon="true"
-                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64);"
+                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                   >
                                     <div
                                       class="perseus-sr-only"
@@ -1629,13 +1629,13 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                                 class="iconWrapper_17y0hv9"
                               >
                                 <span
-                                  class="ring_en36io"
-                                  style="border-color: transparent;"
+                                  class="ring_ya75gi"
+                                  style="border-color: transparent; border-radius: 50%;"
                                 >
                                   <div
-                                    class="libraryCircle_1ytyy5d"
+                                    class="libraryCircle_1tys2th"
                                     data-is-radio-icon="true"
-                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64);"
+                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                   >
                                     <div
                                       class="perseus-sr-only"
@@ -1716,13 +1716,13 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                                 class="iconWrapper_17y0hv9"
                               >
                                 <span
-                                  class="ring_en36io"
-                                  style="border-color: transparent;"
+                                  class="ring_ya75gi"
+                                  style="border-color: transparent; border-radius: 50%;"
                                 >
                                   <div
-                                    class="libraryCircle_1ytyy5d"
+                                    class="libraryCircle_1tys2th"
                                     data-is-radio-icon="true"
-                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64);"
+                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                   >
                                     <div
                                       class="perseus-sr-only"
@@ -1889,13 +1889,13 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                                 class="iconWrapper_17y0hv9"
                               >
                                 <span
-                                  class="ring_en36io"
-                                  style="border-color: transparent;"
+                                  class="ring_ya75gi"
+                                  style="border-color: transparent; border-radius: 50%;"
                                 >
                                   <div
-                                    class="libraryCircle_1ytyy5d"
+                                    class="libraryCircle_1tys2th"
                                     data-is-radio-icon="true"
-                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64);"
+                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                   >
                                     <div
                                       class="perseus-sr-only"
@@ -1989,13 +1989,13 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                                 class="iconWrapper_17y0hv9"
                               >
                                 <span
-                                  class="ring_en36io"
-                                  style="border-color: transparent;"
+                                  class="ring_ya75gi"
+                                  style="border-color: transparent; border-radius: 50%;"
                                 >
                                   <div
-                                    class="libraryCircle_1ytyy5d"
+                                    class="libraryCircle_1tys2th"
                                     data-is-radio-icon="true"
-                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64);"
+                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                   >
                                     <div
                                       class="perseus-sr-only"
@@ -2076,13 +2076,13 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                                 class="iconWrapper_17y0hv9"
                               >
                                 <span
-                                  class="ring_en36io"
-                                  style="border-color: transparent;"
+                                  class="ring_ya75gi"
+                                  style="border-color: #1865f2; border-radius: 50%;"
                                 >
                                   <div
-                                    class="libraryCircle_1ytyy5d"
+                                    class="libraryCircle_1tys2th"
                                     data-is-radio-icon="true"
-                                    style="border-color: #1865f2; color: rgb(255, 255, 255); background-color: rgb(24, 101, 242);"
+                                    style="border-color: #1865f2; color: rgb(255, 255, 255); border-radius: 24px; background-color: rgb(24, 101, 242);"
                                   >
                                     <div
                                       class="perseus-sr-only"
@@ -2163,13 +2163,13 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                                 class="iconWrapper_17y0hv9"
                               >
                                 <span
-                                  class="ring_en36io"
-                                  style="border-color: transparent;"
+                                  class="ring_ya75gi"
+                                  style="border-color: transparent; border-radius: 50%;"
                                 >
                                   <div
-                                    class="libraryCircle_1ytyy5d"
+                                    class="libraryCircle_1tys2th"
                                     data-is-radio-icon="true"
-                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64);"
+                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                   >
                                     <div
                                       class="perseus-sr-only"
@@ -2336,13 +2336,13 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                                 class="iconWrapper_17y0hv9"
                               >
                                 <span
-                                  class="ring_en36io"
-                                  style="border-color: transparent;"
+                                  class="ring_ya75gi"
+                                  style="border-color: #1865f2; border-radius: 50%;"
                                 >
                                   <div
-                                    class="libraryCircle_1ytyy5d"
+                                    class="libraryCircle_1tys2th"
                                     data-is-radio-icon="true"
-                                    style="border-color: #1865f2; color: rgb(255, 255, 255); background-color: rgb(24, 101, 242);"
+                                    style="border-color: #1865f2; color: rgb(255, 255, 255); border-radius: 24px; background-color: rgb(24, 101, 242);"
                                   >
                                     <div
                                       class="perseus-sr-only"
@@ -2436,13 +2436,13 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                                 class="iconWrapper_17y0hv9"
                               >
                                 <span
-                                  class="ring_en36io"
-                                  style="border-color: transparent;"
+                                  class="ring_ya75gi"
+                                  style="border-color: transparent; border-radius: 50%;"
                                 >
                                   <div
-                                    class="libraryCircle_1ytyy5d"
+                                    class="libraryCircle_1tys2th"
                                     data-is-radio-icon="true"
-                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64);"
+                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                   >
                                     <div
                                       class="perseus-sr-only"
@@ -2523,13 +2523,13 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                                 class="iconWrapper_17y0hv9"
                               >
                                 <span
-                                  class="ring_en36io"
-                                  style="border-color: transparent;"
+                                  class="ring_ya75gi"
+                                  style="border-color: transparent; border-radius: 50%;"
                                 >
                                   <div
-                                    class="libraryCircle_1ytyy5d"
+                                    class="libraryCircle_1tys2th"
                                     data-is-radio-icon="true"
-                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64);"
+                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                   >
                                     <div
                                       class="perseus-sr-only"
@@ -2610,13 +2610,13 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                                 class="iconWrapper_17y0hv9"
                               >
                                 <span
-                                  class="ring_en36io"
-                                  style="border-color: transparent;"
+                                  class="ring_ya75gi"
+                                  style="border-color: transparent; border-radius: 50%;"
                                 >
                                   <div
-                                    class="libraryCircle_1ytyy5d"
+                                    class="libraryCircle_1tys2th"
                                     data-is-radio-icon="true"
-                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64);"
+                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                   >
                                     <div
                                       class="perseus-sr-only"
@@ -2783,13 +2783,13 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                                 class="iconWrapper_17y0hv9"
                               >
                                 <span
-                                  class="ring_en36io"
-                                  style="border-color: transparent;"
+                                  class="ring_ya75gi"
+                                  style="border-color: transparent; border-radius: 50%;"
                                 >
                                   <div
-                                    class="libraryCircle_1ytyy5d-o_O-libraryCircleIncorrect_gxqnr9"
+                                    class="libraryCircle_1tys2th-o_O-libraryCircleIncorrect_gxqnr9"
                                     data-is-radio-icon="true"
-                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64);"
+                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                   >
                                     <div
                                       class="perseus-sr-only"
@@ -2968,13 +2968,13 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                                 class="iconWrapper_17y0hv9"
                               >
                                 <span
-                                  class="ring_en36io"
-                                  style="border-color: transparent;"
+                                  class="ring_ya75gi"
+                                  style="border-color: transparent; border-radius: 50%;"
                                 >
                                   <div
-                                    class="libraryCircle_1ytyy5d-o_O-libraryCircleIncorrect_gxqnr9"
+                                    class="libraryCircle_1tys2th-o_O-libraryCircleIncorrect_gxqnr9"
                                     data-is-radio-icon="true"
-                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64);"
+                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                   >
                                     <div
                                       class="perseus-sr-only"
@@ -3124,13 +3124,13 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                                 class="iconWrapper_17y0hv9"
                               >
                                 <span
-                                  class="ring_en36io"
-                                  style="border-color: transparent;"
+                                  class="ring_ya75gi"
+                                  style="border-color: transparent; border-radius: 50%;"
                                 >
                                   <div
-                                    class="libraryCircle_1ytyy5d-o_O-libraryCircleCorrect_ifnw95"
+                                    class="libraryCircle_1tys2th-o_O-libraryCircleCorrect_ifnw95"
                                     data-is-radio-icon="true"
-                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64);"
+                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                   >
                                     <div
                                       class="perseus-sr-only"
@@ -3275,13 +3275,13 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                                 class="iconWrapper_17y0hv9"
                               >
                                 <span
-                                  class="ring_en36io"
-                                  style="border-color: transparent;"
+                                  class="ring_ya75gi"
+                                  style="border-color: transparent; border-radius: 50%;"
                                 >
                                   <div
-                                    class="libraryCircle_1ytyy5d-o_O-libraryCircleIncorrect_gxqnr9"
+                                    class="libraryCircle_1tys2th-o_O-libraryCircleIncorrect_gxqnr9"
                                     data-is-radio-icon="true"
-                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64);"
+                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                   >
                                     <div
                                       class="perseus-sr-only"
@@ -3495,7 +3495,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                                 class="iconWrapper_17y0hv9"
                               >
                                 <div
-                                  class="satCircle_vfr2zr"
+                                  class="satCircle_1anqode"
                                   style="border-color: #0084ce;"
                                 />
                                 <div
@@ -3593,7 +3593,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                                 class="iconWrapper_17y0hv9"
                               >
                                 <div
-                                  class="satCircle_vfr2zr"
+                                  class="satCircle_1anqode"
                                   style="border-color: #0084ce;"
                                 />
                                 <div
@@ -3678,7 +3678,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                                 class="iconWrapper_17y0hv9"
                               >
                                 <div
-                                  class="satCircle_vfr2zr"
+                                  class="satCircle_1anqode"
                                   style="border-color: #0084ce; background-color: rgb(0, 132, 206);"
                                 />
                                 <div
@@ -3763,7 +3763,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                                 class="iconWrapper_17y0hv9"
                               >
                                 <div
-                                  class="satCircle_vfr2zr"
+                                  class="satCircle_1anqode"
                                   style="border-color: #0084ce;"
                                 />
                                 <div
@@ -3929,7 +3929,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                                 class="iconWrapper_17y0hv9"
                               >
                                 <div
-                                  class="satCircle_vfr2zr"
+                                  class="satCircle_1anqode"
                                   style="border-color: #0084ce; background-color: rgb(0, 132, 206);"
                                 />
                                 <div
@@ -4027,7 +4027,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                                 class="iconWrapper_17y0hv9"
                               >
                                 <div
-                                  class="satCircle_vfr2zr"
+                                  class="satCircle_1anqode"
                                   style="border-color: #0084ce;"
                                 />
                                 <div
@@ -4112,7 +4112,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                                 class="iconWrapper_17y0hv9"
                               >
                                 <div
-                                  class="satCircle_vfr2zr"
+                                  class="satCircle_1anqode"
                                   style="border-color: #0084ce;"
                                 />
                                 <div
@@ -4197,7 +4197,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                                 class="iconWrapper_17y0hv9"
                               >
                                 <div
-                                  class="satCircle_vfr2zr"
+                                  class="satCircle_1anqode"
                                   style="border-color: #0084ce;"
                                 />
                                 <div
@@ -4363,7 +4363,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                                 class="iconWrapper_17y0hv9"
                               >
                                 <div
-                                  class="satCircle_vfr2zr"
+                                  class="satCircle_1anqode"
                                   style="border-color: #0084ce;"
                                 />
                                 <div
@@ -4461,7 +4461,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                                 class="iconWrapper_17y0hv9"
                               >
                                 <div
-                                  class="satCircle_vfr2zr"
+                                  class="satCircle_1anqode"
                                   style="border-color: #0084ce;"
                                 />
                                 <div
@@ -4546,7 +4546,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                                 class="iconWrapper_17y0hv9"
                               >
                                 <div
-                                  class="satCircle_vfr2zr"
+                                  class="satCircle_1anqode"
                                   style="border-color: #0084ce;"
                                 />
                                 <div
@@ -4631,7 +4631,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                                 class="iconWrapper_17y0hv9"
                               >
                                 <div
-                                  class="satCircle_vfr2zr"
+                                  class="satCircle_1anqode"
                                   style="border-color: #0084ce;"
                                 />
                                 <div
@@ -4797,7 +4797,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                                 class="iconWrapper_17y0hv9"
                               >
                                 <div
-                                  class="satCircle_vfr2zr"
+                                  class="satCircle_1anqode"
                                   style="border-color: #0084ce;"
                                 />
                                 <div
@@ -4895,7 +4895,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                                 class="iconWrapper_17y0hv9"
                               >
                                 <div
-                                  class="satCircle_vfr2zr"
+                                  class="satCircle_1anqode"
                                   style="border-color: #0084ce;"
                                 />
                                 <div
@@ -4980,7 +4980,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                                 class="iconWrapper_17y0hv9"
                               >
                                 <div
-                                  class="satCircle_vfr2zr"
+                                  class="satCircle_1anqode"
                                   style="border-color: #0084ce; background-color: rgb(0, 132, 206);"
                                 />
                                 <div
@@ -5065,7 +5065,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                                 class="iconWrapper_17y0hv9"
                               >
                                 <div
-                                  class="satCircle_vfr2zr"
+                                  class="satCircle_1anqode"
                                   style="border-color: #0084ce;"
                                 />
                                 <div
@@ -5231,7 +5231,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                                 class="iconWrapper_17y0hv9"
                               >
                                 <div
-                                  class="satCircle_vfr2zr"
+                                  class="satCircle_1anqode"
                                   style="border-color: #0084ce; background-color: rgb(0, 132, 206);"
                                 />
                                 <div
@@ -5329,7 +5329,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                                 class="iconWrapper_17y0hv9"
                               >
                                 <div
-                                  class="satCircle_vfr2zr"
+                                  class="satCircle_1anqode"
                                   style="border-color: #0084ce;"
                                 />
                                 <div
@@ -5414,7 +5414,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                                 class="iconWrapper_17y0hv9"
                               >
                                 <div
-                                  class="satCircle_vfr2zr"
+                                  class="satCircle_1anqode"
                                   style="border-color: #0084ce;"
                                 />
                                 <div
@@ -5499,7 +5499,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                                 class="iconWrapper_17y0hv9"
                               >
                                 <div
-                                  class="satCircle_vfr2zr"
+                                  class="satCircle_1anqode"
                                   style="border-color: #0084ce;"
                                 />
                                 <div
@@ -5665,7 +5665,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                                 class="iconWrapper_17y0hv9"
                               >
                                 <div
-                                  class="satCircle_vfr2zr"
+                                  class="satCircle_1anqode"
                                   style="border-color: #0084ce;"
                                 />
                                 <div
@@ -5830,7 +5830,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                                 class="iconWrapper_17y0hv9"
                               >
                                 <div
-                                  class="satCircle_vfr2zr"
+                                  class="satCircle_1anqode"
                                   style="border-color: #0084ce;"
                                 />
                                 <div
@@ -5966,7 +5966,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                                 class="iconWrapper_17y0hv9"
                               >
                                 <div
-                                  class="satCircle_vfr2zr"
+                                  class="satCircle_1anqode"
                                   style="background-color: rgb(255, 255, 255); border-color: #009900;"
                                 />
                                 <div
@@ -6097,7 +6097,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                                 class="iconWrapper_17y0hv9"
                               >
                                 <div
-                                  class="satCircle_vfr2zr"
+                                  class="satCircle_1anqode"
                                   style="border-color: #0084ce;"
                                 />
                                 <div
