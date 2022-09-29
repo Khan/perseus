@@ -70,13 +70,15 @@ class SATChoiceIcon extends React.Component<{
 
     render(): React.Node {
         const {letter, a11yText, crossedOut} = this.props;
-        const {color, backgroundColor, borderColor} = this.constructStyles();
+        const {color, backgroundColor, borderColor, borderRadius} =
+            this.constructStyles();
 
         return (
             <div className={css(styles.iconWrapper)}>
                 <div
                     className={css(styles.satCircle)}
-                    style={{backgroundColor, borderColor}}
+                    data-test-id="choice-icon__sat-choice-icon"
+                    style={{backgroundColor, borderColor, borderRadius}}
                 />
                 <div style={{color}} className={css(styles.letter)}>
                     <span className="perseus-sr-only">{a11yText}</span>
@@ -200,6 +202,7 @@ class LibraryChoiceIcon extends React.Component<{
                 >
                     <div
                         style={dynamicStyles}
+                        data-test-id="choice-icon__library-choice-icon"
                         className={css(
                             styles.libraryCircle,
                             showCorrectness &&

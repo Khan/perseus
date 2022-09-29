@@ -36,7 +36,11 @@ class FocusRing extends React.Component<Props> {
             borderRadius,
         };
         return (
-            <span className={css(styles.ring)} style={style}>
+            <span
+                data-test-id="focus-ring"
+                className={css(styles.ring)}
+                style={style}
+            >
                 {this.props.children}
             </span>
         );
