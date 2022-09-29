@@ -1,7 +1,7 @@
 // @flow
 import * as React from "react";
 
-import ChoiceIcon from "../choice-icon.jsx";
+import ChoiceIcon from "../choice-icon/choice-icon.jsx";
 
 type StoryArgs = {||};
 
@@ -25,6 +25,7 @@ const defaultObject = {
     product: "library",
     reviewMode: false,
     showCorrectness: false,
+    transparentBackground: false,
 };
 
 // Note: the SAT icon is different from the general library
@@ -44,6 +45,7 @@ const satObject = {
     product: "sat",
     reviewMode: false,
     showCorrectness: false,
+    transparentBackground: false,
 };
 
 export const Position0Sat = (args: StoryArgs): React.Node => {
