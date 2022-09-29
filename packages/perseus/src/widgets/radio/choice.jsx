@@ -17,7 +17,7 @@ import Icon from "../../components/icon.jsx";
 import * as styleConstants from "../../styles/constants.js";
 import mediaQueries from "../../styles/media-queries.js";
 
-import ChoiceIcon from "./choice-icon.jsx";
+import ChoiceIcon from "./choice-icon/choice-icon.jsx";
 import OptionStatus from "./option-status.jsx";
 import {getChoiceLetter} from "./util.js";
 
@@ -192,6 +192,7 @@ class Choice extends React.Component<$FlowFixMe, State> {
                 product={this.props.apiOptions.satStyling ? "sat" : "library"}
                 primaryProductColor={primaryProductColor}
                 previouslyAnswered={this.props.previouslyAnswered}
+                transparentBackground={false}
             />
         );
     };

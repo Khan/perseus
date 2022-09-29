@@ -5,10 +5,11 @@ import * as React from "react";
 
 import "@testing-library/jest-dom"; // Imports custom mathers
 
-import ChoiceIcon from "../../radio/choice-icon.jsx";
-
-const SAT_ICON_SIZE = 25;
-const LIBRARY_ICON_SIZE = 24;
+import ChoiceIcon from "../../radio/choice-icon/choice-icon.jsx";
+import {
+    SAT_ICON_SIZE,
+    LIBRARY_ICON_SIZE,
+} from "../../radio/choice-icon/shared-styles.js";
 
 function renderChoiceIcon(options) {
     const defaultOptions = {
