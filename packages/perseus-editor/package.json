@@ -3,7 +3,7 @@
     "description": "Perseus editors",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "0.3.9",
+    "version": "0.4.1",
     "publishConfig": {
         "access": "public"
     },
@@ -21,8 +21,8 @@
         "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"
     },
     "dependencies": {
-        "@khanacademy/kmath": "^0.0.5",
-        "@khanacademy/perseus": "^0.3.4"
+        "@khanacademy/kmath": "^0.0.6",
+        "@khanacademy/perseus": "^0.4.1"
     },
     "devDependencies": {
         "@khanacademy/wonder-blocks-button": "^2.11.5",
@@ -33,7 +33,7 @@
         "classnames": "^1.1.4",
         "create-react-class": "^15.6.3",
         "jquery": "^2.1.1",
-        "perseus-build-settings": "^0.0.2",
+        "perseus-build-settings": "^0.0.3",
         "prop-types": "^15.6.1",
         "react": "16.14.0",
         "react-dom": "16.14.0",

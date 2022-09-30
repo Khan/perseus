@@ -1,5 +1,35 @@
 # @khanacademy/perseus
 
+## 0.4.1
+
+### Patch Changes
+
+-   Updated dependencies [8fcd2a28]
+    -   @khanacademy/math-input@0.6.0
+
+## 0.4.0
+
+### Minor Changes
+
+-   fe5fedeb: Fix bug: 2 definitions displayed at once
+-   c13a5c93: Wonderblock numeric-input
+-   7f92fd27: Remove JIPT.domInsertChecks from `PerseusDependencies` as its no longer used/needed by Perseus
+-   8a49423f: Update radio widget with KA styling
+-   988726bd: Change default "preloader" for `SvgImage` to use a WonderBlocks spinner. This avoids the need to deal with a bundled spinner GIF entirely.
+
+### Patch Changes
+
+-   8a53d9e0: removes unused function from numeric-input.jsx named getClasses
+-   23662202: Remove `isPhone` and `isTablet` from `PerseusDependencies`
+-   98d283ff: Fix storybook
+-   Updated dependencies [98d283ff]
+    -   @khanacademy/kas@0.2.5
+    -   @khanacademy/kmath@0.0.6
+    -   @khanacademy/math-input@0.5.6
+    -   @khanacademy/perseus-linter@0.2.1
+    -   @khanacademy/pure-markdown@0.1.1
+    -   @khanacademy/simple-markdown@0.8.4
+
 ## 0.3.4
 
 ### Patch Changes
