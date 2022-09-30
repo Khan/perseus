@@ -27,7 +27,7 @@ type LibraryChoiceIconProps = {
     showCorrectness: boolean,
     primaryProductColor: string,
     previouslyAnswered: boolean,
-    transparentBackground: boolean,
+    transparentBackground?: boolean,
 };
 
 function ChoiceInner(props: {
@@ -65,7 +65,7 @@ function getDynamicStyles(
     multipleSelect: boolean,
     primaryProductColor: string,
     correct: ?boolean,
-    transparentBackground: boolean,
+    transparentBackground?: boolean,
 ): {
     backgroundColor: ?string,
     borderColor: string,

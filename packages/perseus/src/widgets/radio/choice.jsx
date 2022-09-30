@@ -192,7 +192,6 @@ class Choice extends React.Component<$FlowFixMe, State> {
                 product={this.props.apiOptions.satStyling ? "sat" : "library"}
                 primaryProductColor={primaryProductColor}
                 previouslyAnswered={this.props.previouslyAnswered}
-                transparentBackground={false}
             />
         );
     };

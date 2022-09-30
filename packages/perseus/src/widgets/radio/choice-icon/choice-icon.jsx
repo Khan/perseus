@@ -29,7 +29,7 @@ type ChoiceIconProps = {|
     //     so I've added this prop. I'm not sure why we have backgrounds in the
     //     general case, though? When does the choice container have a
     //     non-white background, aside from SAT, which uses a different icon?
-    transparentBackground: boolean,
+    transparentBackground?: boolean,
 
     primaryProductColor?: string,
 |};
