@@ -20,12 +20,6 @@ type StoryArgs = {|
     primaryProductColor?: string,
 |};
 
-type Story = {|
-    title: string,
-    argTypes: $FlowFixMe,
-    args: StoryArgs,
-|};
-
 const defaultProps = {
     pos: 0,
     checked: false,
@@ -47,7 +41,7 @@ const defaultSATProps = {
     product: "sat",
 };
 
-export default ({
+export default {
     title: "Perseus/Widgets/Radio/Choice Icon",
     argTypes: {
         pos: {
@@ -59,7 +53,7 @@ export default ({
         },
     },
     args: defaultProps,
-}: Story);
+};
 
 export const Interactive = (args: StoryArgs): React.Node => {
     return <ChoiceIcon {...args} />;
