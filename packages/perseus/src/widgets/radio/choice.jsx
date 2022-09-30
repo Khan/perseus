@@ -275,7 +275,7 @@ class Choice extends React.Component<$FlowFixMe, State> {
                             // If we're checking a crossed-out option, let's
                             // also uncross it.
                             this._sendChange({
-                                checked: true,
+                                checked: !this.props.checked,
                                 crossedOut: false,
                             });
                         }}

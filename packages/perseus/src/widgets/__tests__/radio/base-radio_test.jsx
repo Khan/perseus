@@ -79,4 +79,87 @@ describe("base-radio", () => {
             });
         });
     });
+
+    describe("selecting and deselecting options", () => {
+        it("deselects multi-select choices", () => {
+            // Arrange
+            const apiOptions: APIOptions = {
+                styling: {radioStyleVersion: "final"},
+            };
+            let updatedValues = null;
+            const onChangeHandler = (newValues) => {
+                updatedValues = newValues;
+            };
+
+            render(
+                <BaseRadio
+                    multipleSelect={true}
+                    countChoices={false}
+                    numCorrect={1}
+                    editMode={false}
+                    labelWrap={false}
+                    apiOptions={apiOptions}
+                    choices={[
+                        {content: "Option 1", correct: false, checked: false},
+                        {content: "Option B", correct: false, checked: false},
+                        {content: "Option Gamma", correct: true, checked: true},
+                        {
+                            content: "Option Delta",
+                            correct: false,
+                            checked: false,
+                        },
+                    ]}
+                    onChange={onChangeHandler}
+                />,
+            );
+
+            // Act
+            userEvent.click(
+                screen.getByText("(Choice C, Checked)", {selector: "div"}),
+            );
+
+            // Assert
+            expect(updatedValues).toMatchObject({
+                checked: [false, false, false, false],
+            });
+        });
+
+        //Equivalent to "should toggle choice when inner element clicked" but with editMode set to false
+        it("select single select choices", () => {
+            // Arrange
+            const apiOptions: APIOptions = {
+                styling: {radioStyleVersion: "final"},
+            };
+            let updatedValues = null;
+            const onChangeHandler = (newValues) => {
+                updatedValues = newValues;
+            };
+
+            render(
+                <BaseRadio
+                    multipleSelect={false}
+                    countChoices={false}
+                    numCorrect={1}
+                    editMode={false}
+                    labelWrap={false}
+                    apiOptions={apiOptions}
+                    choices={[
+                        {content: "Option 1", correct: false},
+                        {content: "Option B", correct: false},
+                        {content: "Option Gamma", correct: true},
+                        {content: "Option Delta", correct: false},
+                    ]}
+                    onChange={onChangeHandler}
+                />,
+            );
+
+            // Act
+            userEvent.click(screen.getByText("(Choice C)", {selector: "div"}));
+
+            // Assert
+            expect(updatedValues).toMatchObject({
+                checked: [false, false, true, false],
+            });
+        });
+    });
 });
