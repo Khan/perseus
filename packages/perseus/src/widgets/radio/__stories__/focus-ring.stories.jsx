@@ -1,38 +1,38 @@
 // @flow
 import * as React from "react";
 
+import * as styleConstants from "../../../styles/constants.js";
 import FocusRing from "../focus-ring.jsx";
 
-type StoryArgs = {||};
+type StoryArgs = {|
+    children: React.Node,
+    color: string,
+    visible: boolean,
+|};
 
 type Story = {|
     title: string,
+    args: StoryArgs,
 |};
 
 export default ({
     title: "Perseus/Widgets/Radio/Focus Ring",
+    args: {children: "", color: styleConstants.kaGreen, visible: true},
 }: Story);
 
 export const EmptyPropsObject = (args: StoryArgs): React.Node => {
-    return <FocusRing />;
-};
+    // circle is just for demonstration
+    const circleStyles = {
+        height: "20px",
+        width: "20px",
+        background: args.color,
+        borderRadius: "50%",
+    };
 
-export const VisibleSetToTrue = (args: StoryArgs): React.Node => {
-    return <FocusRing visible={true} />;
-};
+    const customArgs = {
+        ...args,
+        children: args.children || <div style={circleStyles} />,
+    };
 
-export const VisibleSetToFalse = (args: StoryArgs): React.Node => {
-    return <FocusRing visible={false} />;
-};
-
-export const ColorRed = (args: StoryArgs): React.Node => {
-    return <FocusRing color="red" />;
-};
-
-export const SingleSpanChild = (args: StoryArgs): React.Node => {
-    return (
-        <FocusRing>
-            <span>test</span>
-        </FocusRing>
-    );
+    return <FocusRing {...customArgs} />;
 };
