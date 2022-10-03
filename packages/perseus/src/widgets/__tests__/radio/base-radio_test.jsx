@@ -71,7 +71,9 @@ describe("base-radio", () => {
             );
 
             // Act
-            userEvent.click(screen.getByText("(Choice C)", {selector: "div"}));
+            userEvent.click(
+                screen.getByRole("checkbox", {name: "Select Choice C"}),
+            );
 
             // Assert
             expect(updatedValues).toMatchObject({
@@ -114,9 +116,10 @@ describe("base-radio", () => {
             );
 
             // Act
-            userEvent.click(
-                screen.getByText("(Choice C, Checked)", {selector: "div"}),
-            );
+            const radioButton = screen.getByRole("checkbox", {
+                name: "Select Choice C",
+            });
+            userEvent.click(radioButton);
 
             // Assert
             expect(updatedValues).toMatchObject({
@@ -154,7 +157,9 @@ describe("base-radio", () => {
             );
 
             // Act
-            userEvent.click(screen.getByText("(Choice C)", {selector: "div"}));
+            userEvent.click(
+                screen.getByRole("checkbox", {name: "Select Choice C"}),
+            );
 
             // Assert
             expect(updatedValues).toMatchObject({
