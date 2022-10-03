@@ -10,7 +10,6 @@ import Renderer from "../../renderer.jsx";
 import Choice from "./choice.jsx";
 
 class ChoiceNoneAbove extends React.Component<$FlowFixMe> {
-    _choice: $FlowFixMe;
     static propTypes = {
         className: PropTypes.string,
         content: PropTypes.node,
@@ -19,10 +18,6 @@ class ChoiceNoneAbove extends React.Component<$FlowFixMe> {
 
     static defaultProps: $FlowFixMe = {
         showContent: true,
-    };
-
-    focusInput: () => void = () => {
-        this._choice.focusInput();
     };
 
     render(): React.Node {
@@ -44,7 +39,6 @@ class ChoiceNoneAbove extends React.Component<$FlowFixMe> {
                     content={i18n._("None of the above")}
                 />
             ),
-            ref: (el) => (this._choice = el),
         };
 
         return <Choice {...choiceProps} />;

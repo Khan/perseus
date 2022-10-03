@@ -7,7 +7,6 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
-import {Errors as PerseusErrors, Log} from "../../logging/log.js";
 import {ClassNames as ApiClassNames} from "../../perseus-api.jsx";
 import * as styleConstants from "../../styles/constants.js";
 import mediaQueries from "../../styles/media-queries.js";
@@ -267,6 +266,10 @@ class BaseRadio extends React.Component<$FlowFixMe, $FlowFixMe> {
         radioGroupName: _.uniqueId("perseus_radio_"),
     };
 
+    componentDidMount() {
+        this.choiceRefs = [];
+    }
+
     componentDidUpdate(prevProps: $FlowFixMe) {
         const {apiOptions, choices, isLastUsedWidget, reviewModeRubric} =
             this.props;
@@ -299,6 +302,10 @@ class BaseRadio extends React.Component<$FlowFixMe, $FlowFixMe> {
                 scrollElementIntoView(checkedNode);
             }
         }
+    }
+
+    registerChoiceRef(i, ref) {
+        this.choiceRefs[i] = ref;
     }
 
     // When a particular choice's `onChange` handler is called, indicating a
@@ -342,7 +349,7 @@ class BaseRadio extends React.Component<$FlowFixMe, $FlowFixMe> {
     focus: (number) => boolean = (i) => {
         // $FlowFixMe[incompatible-use]
         // $FlowFixMe[prop-missing]
-        ReactDOM.findDOMNode(this.refs["radio" + (i || 0)]).focus(); // eslint-disable-line react/no-string-refs
+        // ReactDOM.findDOMNode(this.refs["radio" + (i || 0)]).focus(); // eslint-disable-line react/no-string-refs
         return true;
     };
 
@@ -361,57 +368,6 @@ class BaseRadio extends React.Component<$FlowFixMe, $FlowFixMe> {
     deselectEnabled: () => boolean = () => {
         // We want to force enable deselect on mobile.
         return this.props.apiOptions.isMobile || this.props.deselectEnabled;
-    };
-
-    /**
-     * Find the choice at the given index (wrapped, if necessary), focus it,
-     * uncheck the old choice, and check the new choice (unless it's crossed
-     * out, in which case we only uncheck the old choice).
-     *
-     * This is very similar to standard up/down arrow behavior, except that we
-     * don't select crossed-out choices.
-     *
-     * Handles `goToPrevChoice` and `goToNextChoice` calls from our children.
-     */
-    goToChoice: (number) => void = (newChoiceIndex) => {
-        const numChoices = this.props.choices.length;
-
-        // Wrap the newChoiceIndex around the start/end, if necessary.
-        if (newChoiceIndex < 0) {
-            newChoiceIndex += numChoices;
-        }
-        if (newChoiceIndex >= numChoices) {
-            newChoiceIndex -= numChoices;
-        }
-
-        // Focus the new choice's input element.
-        // eslint-disable-next-line react/no-string-refs
-        const choiceInstance = this.refs[`radio${newChoiceIndex}`];
-        if (!choiceInstance) {
-            Log.error(
-                `found no choice at index ${newChoiceIndex}, even after ` +
-                    `wrapping it to be within bounds`,
-                PerseusErrors.Internal,
-                {loggedMetadata: {choices: JSON.stringify(this.props.choices)}},
-            );
-            return;
-        }
-        choiceInstance.focusInput();
-
-        // We aren't going to change any choices' crossed-out state, but we
-        // _are_ going to deselect all choices.
-        const newCrossedOutList = this.props.choices.map((c) => c.crossedOut);
-        const newCheckedList = this.props.choices.map((c) => false);
-
-        // And, if the new choice isn't crossed out, we'll select it.
-        if (!this.props.choices[newChoiceIndex].crossedOut) {
-            newCheckedList[newChoiceIndex] = true;
-        }
-
-        this.props.onChange({
-            checked: newCheckedList,
-            crossedOut: newCrossedOutList,
-        });
     };
 
     render(): React.Node {
@@ -468,7 +424,6 @@ class BaseRadio extends React.Component<$FlowFixMe, $FlowFixMe> {
                     {this.props.choices.map(function (choice, i) {
                         let Element = Choice;
                         const elementProps = {
-                            ref: `radio${i}`,
                             apiOptions: this.props.apiOptions,
                             checked: choice.checked,
                             crossedOut: choice.crossedOut,
@@ -494,8 +449,8 @@ class BaseRadio extends React.Component<$FlowFixMe, $FlowFixMe> {
                             onChange: (newValues) => {
                                 this.updateChoice(i, newValues);
                             },
-                            goToPrevChoice: () => this.goToChoice(i - 1),
-                            goToNextChoice: () => this.goToChoice(i + 1),
+                            registerRef: (ref) =>
+                                this.registerChoiceRef(i, ref),
                         };
 
                         if (choice.isNoneOfTheAbove) {
