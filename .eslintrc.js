@@ -10,10 +10,6 @@ const pkgAliases = pkgNames.map((pkgName) => {
     return [`@khanacademy/${pkgName}`, `./packages/${pkgName}/src/index.js`];
 });
 
-const pkgDirs = pkgNames.map((pkgName) => {
-    return `./packages/${pkgName}`;
-});
-
 const vendorAliases = fs
     .readdirSync(path.join(__dirname, "vendor"))
     .map((name) => {
@@ -35,7 +31,7 @@ module.exports = {
     parser: "@babel/eslint-parser",
     parserOptions: {
         babelOptions: {
-            configFile: "./config/build/babel.config.js",
+            configFile: path.join(__dirname, "./config/build/babel.config.js"),
         },
     },
     plugins: [
@@ -178,12 +174,6 @@ module.exports = {
             "always",
             {
                 ignorePackages: true,
-            },
-        ],
-        "import/no-extraneous-dependencies": [
-            "error",
-            {
-                packageDir: pkgDirs,
             },
         ],
         "import/no-restricted-paths": [
