@@ -39,6 +39,7 @@ describe("choice icon", () => {
             "multipleSelect: %s",
             (multipleSelect) => {
                 it("renders with the correct border radius", () => {
+                    // Arrange
                     let expectedRadius;
                     if (multipleSelect) {
                         expectedRadius = 3;
@@ -48,12 +49,14 @@ describe("choice icon", () => {
                         expectedRadius = LIBRARY_ICON_SIZE;
                     }
 
+                    // Act
                     renderChoiceIcon({product, multipleSelect});
 
                     const choiceWrapper = screen.getByTestId(
                         `choice-icon__${product}-choice-icon`,
                     );
 
+                    // Assert
                     expect(choiceWrapper).toHaveStyle(
                         `border-radius: ${expectedRadius}px`,
                     );
