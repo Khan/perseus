@@ -3,7 +3,7 @@
     "description": "Core Perseus API (includes renderers and widgets)",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "0.4.2",
+    "version": "0.4.3",
     "publishConfig": {
         "access": "public"
     },
@@ -21,12 +21,12 @@
         "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"
     },
     "dependencies": {
-        "@khanacademy/kas": "^0.2.5",
-        "@khanacademy/kmath": "^0.0.6",
-        "@khanacademy/math-input": "^0.6.1",
-        "@khanacademy/perseus-linter": "^0.2.1",
-        "@khanacademy/pure-markdown": "^0.1.1",
-        "@khanacademy/simple-markdown": "^0.8.4",
+        "@khanacademy/kas": "^0.2.6",
+        "@khanacademy/kmath": "^0.0.7",
+        "@khanacademy/math-input": "^0.6.2",
+        "@khanacademy/perseus-linter": "^0.2.2",
+        "@khanacademy/pure-markdown": "^0.1.2",
+        "@khanacademy/simple-markdown": "^0.8.5",
         "mathquill": "git+https://git@github.com/Khan/mathquill.git#a9ae54e057c5c1acc8244a5627acbff29901d992"
     },
     "devDependencies": {
@@ -55,7 +55,7 @@
         "intersection-observer": "^0.12.0",
         "jquery": "^2.1.1",
         "lodash.debounce": "^4.0.8",
-        "perseus-build-settings": "^0.0.3",
+        "perseus-build-settings": "^0.0.4",
         "prop-types": "^15.6.1",
         "react": "16.14.0",
         "react-dom": "16.14.0",

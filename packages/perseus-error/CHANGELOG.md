@@ -1,5 +1,11 @@
 # @khanacademy/perseus-error
 
+## 0.1.2
+
+### Patch Changes
+
+-   bf180fe1: Fix our use of import/no-extraneous-dependencies
+
 ## 0.1.1
 
 ### Patch Changes
