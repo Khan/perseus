@@ -1,5 +1,11 @@
 # perseus-build-settings
 
+## 0.0.4
+
+### Patch Changes
+
+-   bf180fe1: Fix our use of import/no-extraneous-dependencies
+
 ## 0.0.3
 
 ### Patch Changes

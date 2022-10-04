@@ -1,5 +1,11 @@
 # @khanacademy/simple-markdown
 
+## 0.8.5
+
+### Patch Changes
+
+-   bf180fe1: Fix our use of import/no-extraneous-dependencies
+
 ## 0.8.4
 
 ### Patch Changes
