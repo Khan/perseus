@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 0.6.1
+
+### Patch Changes
+
+-   1a91b6c2: Adds missing wonder-blocks deps, makes wonder-blocks peerDeps
+
 ## 0.6.0
 
 ### Minor Changes
