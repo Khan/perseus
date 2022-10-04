@@ -13,7 +13,9 @@ import * as styleConstants from "../../styles/constants.js";
 import FocusRing from "./focus-ring.jsx";
 import {getChoiceLetter} from "./util.js";
 
-const SAT_ICON_SIZE = 25;
+// exported for tests
+export const SAT_ICON_SIZE = 25;
+export const LIBRARY_ICON_SIZE = 24;
 class SATChoiceIcon extends React.Component<{
     letter: string,
     a11yText: string,
@@ -39,6 +41,7 @@ class SATChoiceIcon extends React.Component<{
         let backgroundColor;
         let borderColor = styleConstants.satBlue;
         let color = styleConstants.satBlue;
+        const borderRadius = multipleSelect ? 3 : SAT_ICON_SIZE;
         if (reviewMode) {
             if (correct) {
                 borderColor = styleConstants.satCorrectColor;
@@ -56,13 +59,6 @@ class SATChoiceIcon extends React.Component<{
         } else if (checked) {
             color = styleConstants.white;
             backgroundColor = styleConstants.satBlue;
-        }
-
-        let borderRadius;
-        if (multipleSelect) {
-            borderRadius = 3;
-        } else {
-            borderRadius = SAT_ICON_SIZE;
         }
 
         return {color, backgroundColor, borderColor, borderRadius};
@@ -89,8 +85,6 @@ class SATChoiceIcon extends React.Component<{
         );
     }
 }
-
-const LIBRARY_ICON_SIZE = 24;
 
 class LibraryChoiceIcon extends React.Component<{
     letter: string,
@@ -147,6 +141,7 @@ class LibraryChoiceIcon extends React.Component<{
         let backgroundColor;
         let borderColor;
         let color;
+        const borderRadius = multipleSelect ? 3 : LIBRARY_ICON_SIZE;
         if (!showCorrectness && pressed) {
             borderColor = primaryProductColor;
             color = primaryProductColor;
@@ -164,14 +159,6 @@ class LibraryChoiceIcon extends React.Component<{
         } else {
             borderColor = Color.offBlack64;
             color = Color.offBlack64;
-        }
-
-        // define shape
-        let borderRadius;
-        if (multipleSelect) {
-            borderRadius = 3;
-        } else {
-            borderRadius = LIBRARY_ICON_SIZE;
         }
 
         return {backgroundColor, borderColor, color, borderRadius};

@@ -10,17 +10,13 @@ import FocusRing from "../../radio/focus-ring.jsx";
 describe("choice icon", () => {
     describe.each([[true], [false]])("multipleSelect: %s", (multipleSelect) => {
         it("renders with the correct border radius", () => {
-            let expectedRadius;
-            if (multipleSelect) {
-                expectedRadius = "5px";
-            } else {
-                expectedRadius = "50%";
-            }
-
+            // Arrange/Act
             render(<FocusRing multipleSelect={multipleSelect} />);
 
             const focusRing = screen.getByTestId("focus-ring");
 
+            // Assert
+            const expectedRadius = multipleSelect ? "5px" : "50%";
             expect(focusRing).toHaveStyle(`border-radius: ${expectedRadius}`);
         });
     });

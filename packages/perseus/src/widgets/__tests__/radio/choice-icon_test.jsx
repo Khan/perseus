@@ -5,10 +5,10 @@ import * as React from "react";
 
 import "@testing-library/jest-dom"; // Imports custom mathers
 
-import ChoiceIcon from "../../radio/choice-icon.jsx";
-
-const SAT_ICON_SIZE = 25;
-const LIBRARY_ICON_SIZE = 24;
+import ChoiceIcon, {
+    SAT_ICON_SIZE,
+    LIBRARY_ICON_SIZE,
+} from "../../radio/choice-icon.jsx";
 
 function renderChoiceIcon(options) {
     const defaultOptions = {
@@ -38,6 +38,7 @@ describe("choice icon", () => {
             "multipleSelect: %s",
             (multipleSelect) => {
                 it("renders with the correct border radius", () => {
+                    // Arrange
                     let expectedRadius;
                     if (multipleSelect) {
                         expectedRadius = 3;
@@ -47,12 +48,14 @@ describe("choice icon", () => {
                         expectedRadius = LIBRARY_ICON_SIZE;
                     }
 
+                    // Act
                     renderChoiceIcon({product, multipleSelect});
 
                     const choiceWrapper = screen.getByTestId(
                         `choice-icon__${product}-choice-icon`,
                     );
 
+                    // Assert
                     expect(choiceWrapper).toHaveStyle(
                         `border-radius: ${expectedRadius}px`,
                     );
