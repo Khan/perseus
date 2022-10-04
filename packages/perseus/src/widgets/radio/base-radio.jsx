@@ -415,7 +415,7 @@ class BaseRadio extends React.Component<$FlowFixMe, $FlowFixMe> {
     };
 
     render(): React.Node {
-        // as far as I can tell this isn't used, too afraid to delete
+        // note(matthew): as far as I can tell this isn't used, too afraid to delete
         const inputType = this.props.multipleSelect ? "checkbox" : "radio";
         const rubric = this.props.reviewModeRubric;
         const reviewMode = !!rubric;
