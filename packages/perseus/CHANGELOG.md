@@ -1,5 +1,14 @@
 # @khanacademy/perseus
 
+## 0.4.2
+
+### Patch Changes
+
+-   b317b553: Update tooltip design
+-   1a91b6c2: Adds missing wonder-blocks deps, makes wonder-blocks peerDeps
+-   Updated dependencies [1a91b6c2]
+    -   @khanacademy/math-input@0.6.1
+
 ## 0.4.1
 
 ### Patch Changes
