@@ -10,7 +10,7 @@ import Spacing from "@khanacademy/wonder-blocks-spacing";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
-import {useState, useEffect} from "react";
+import {useState, useEffect, useRef} from "react";
 import _ from "underscore";
 
 import Icon from "../../components/icon.jsx";
@@ -102,6 +102,7 @@ type ChoiceProps = {|
     // boolean value specifying the new checked and crossed-out value of
     // this choice.
     onChange: (newValues: {checked: boolean, crossedOut: boolean}) => void,
+    registerRef: (ref: ?React.Ref<typeof Choice>) => void,
 |};
 
 function Choice(props: ChoiceProps): React.Node {
@@ -221,6 +222,7 @@ function Choice(props: ChoiceProps): React.Node {
                     aria-checked={checked ? "true" : "false"}
                     role={"checkbox"}
                     style={{flex: 1}}
+                    ref={inputRef}
                 >
                     {({hovered, focused, pressed}) => (
                         <div

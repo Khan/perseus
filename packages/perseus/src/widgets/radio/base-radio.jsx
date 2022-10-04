@@ -46,6 +46,8 @@ const ChoicesType = PropTypes.arrayOf(
 const radioBorderColor = styleConstants.radioBorderColor;
 
 class BaseRadio extends React.Component<$FlowFixMe, $FlowFixMe> {
+    choiceRefs: Array<React.Ref<typeof Choice>>;
+
     static propTypes = {
         apiOptions: PropTypes.shape({
             readOnly: PropTypes.bool,
@@ -304,7 +306,7 @@ class BaseRadio extends React.Component<$FlowFixMe, $FlowFixMe> {
         }
     }
 
-    registerChoiceRef(i, ref) {
+    registerChoiceRef(i: number, ref: React.Ref<typeof Choice>) {
         this.choiceRefs[i] = ref;
     }
 
@@ -347,9 +349,9 @@ class BaseRadio extends React.Component<$FlowFixMe, $FlowFixMe> {
     };
 
     focus: (number) => boolean = (i) => {
-        // $FlowFixMe[incompatible-use]
-        // $FlowFixMe[prop-missing]
-        // ReactDOM.findDOMNode(this.refs["radio" + (i || 0)]).focus(); // eslint-disable-line react/no-string-refs
+        const ref = this.choiceRefs[i || 0];
+        const node = ReactDOM.findDOMNode(ref.current);
+        node.focus();
         return true;
     };
 
