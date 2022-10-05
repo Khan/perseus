@@ -1,5 +1,13 @@
 # @khanacademy/perseus-linter
 
+## 0.2.2
+
+### Patch Changes
+
+-   bf180fe1: Fix our use of import/no-extraneous-dependencies
+-   Updated dependencies [bf180fe1]
+    -   @khanacademy/perseus-error@0.1.2
+
 ## 0.2.1
 
 ### Patch Changes
