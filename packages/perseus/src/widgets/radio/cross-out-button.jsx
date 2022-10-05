@@ -9,7 +9,7 @@ import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
-import ChoiceIcon from "./choice-icon.jsx";
+import ChoiceIcon from "./choice-icon/choice-icon.jsx";
 import {getChoiceLetter} from "./util.js";
 
 export type CrossOutButtonProps = {
