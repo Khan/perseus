@@ -214,23 +214,23 @@ export const Incorrect = (args: StoryArgs): React.Node => {
 };
 
 export const AllPositions = (args: StoryArgs): React.Node => {
-    const arr26 = Array(26).fill();
+    const allLetters = Array(26).fill();
     return (
         <>
             <p>Library</p>
-            {arr26.map((_, i: number) => (
+            {allLetters.map((_, i: number) => (
                 <ChoiceIcon {...defaultProps} pos={i} />
             ))}
             <br />
-            {arr26.map((_, i: number) => (
+            {allLetters.map((_, i: number) => (
                 <ChoiceIcon {...defaultProps} pos={i} multipleSelect={true} />
             ))}
             <p>SAT</p>
-            {arr26.map((_, i: number) => (
+            {allLetters.map((_, i: number) => (
                 <ChoiceIcon {...defaultSATProps} pos={i} />
             ))}
             <br />
-            {arr26.map((_, i: number) => (
+            {allLetters.map((_, i: number) => (
                 <ChoiceIcon
                     {...defaultSATProps}
                     pos={i}
