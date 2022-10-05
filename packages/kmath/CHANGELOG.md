@@ -1,5 +1,11 @@
 # @khanacademy/kmath
 
+## 0.0.7
+
+### Patch Changes
+
+-   bf180fe1: Fix our use of import/no-extraneous-dependencies
+
 ## 0.0.6
 
 ### Patch Changes

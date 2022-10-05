@@ -8,6 +8,7 @@ type StoryArgs = {|
     children: React.Node,
     color: string,
     visible: boolean,
+    multipleSelect: boolean,
 |};
 
 type Story = {|
@@ -17,21 +18,26 @@ type Story = {|
 
 export default ({
     title: "Perseus/Widgets/Radio/Focus Ring",
-    args: {children: "", color: styleConstants.kaGreen, visible: true},
+    args: {
+        children: "",
+        color: styleConstants.kaGreen,
+        visible: true,
+        multipleSelect: false,
+    },
 }: Story);
 
 export const Interactive = (args: StoryArgs): React.Node => {
-    // circle is just for demonstration
-    const circleStyles = {
+    // faux choice is just for demonstration
+    const fauxChoiceStyles = {
         height: "20px",
         width: "20px",
         background: args.color,
-        borderRadius: "50%",
+        borderRadius: args.multipleSelect ? "3px" : "50%",
     };
 
     const customArgs = {
         ...args,
-        children: args.children || <div style={circleStyles} />,
+        children: args.children || <div style={fauxChoiceStyles} />,
     };
 
     return <FocusRing {...customArgs} />;

@@ -157,13 +157,15 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                     class="iconWrapper_17y0hv9"
                                   >
                                     <span
-                                      class="ring_en36io"
-                                      style="border-color: transparent;"
+                                      class="ring_ya75gi"
+                                      data-test-id="focus-ring"
+                                      style="border-color: transparent; border-radius: 50%;"
                                     >
                                       <div
-                                        class="libraryCircle_1ytyy5d"
+                                        class="circle_1tys2th"
                                         data-is-radio-icon="true"
-                                        style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64);"
+                                        data-test-id="choice-icon__library-choice-icon"
+                                        style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                       >
                                         <div
                                           class="perseus-sr-only"
@@ -270,13 +272,15 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                     class="iconWrapper_17y0hv9"
                                   >
                                     <span
-                                      class="ring_en36io"
-                                      style="border-color: transparent;"
+                                      class="ring_ya75gi"
+                                      data-test-id="focus-ring"
+                                      style="border-color: transparent; border-radius: 50%;"
                                     >
                                       <div
-                                        class="libraryCircle_1ytyy5d"
+                                        class="circle_1tys2th"
                                         data-is-radio-icon="true"
-                                        style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64);"
+                                        data-test-id="choice-icon__library-choice-icon"
+                                        style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                       >
                                         <div
                                           class="perseus-sr-only"
@@ -383,13 +387,15 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                     class="iconWrapper_17y0hv9"
                                   >
                                     <span
-                                      class="ring_en36io"
-                                      style="border-color: transparent;"
+                                      class="ring_ya75gi"
+                                      data-test-id="focus-ring"
+                                      style="border-color: transparent; border-radius: 50%;"
                                     >
                                       <div
-                                        class="libraryCircle_1ytyy5d"
+                                        class="circle_1tys2th"
                                         data-is-radio-icon="true"
-                                        style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64);"
+                                        data-test-id="choice-icon__library-choice-icon"
+                                        style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                       >
                                         <div
                                           class="perseus-sr-only"
@@ -496,13 +502,15 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                     class="iconWrapper_17y0hv9"
                                   >
                                     <span
-                                      class="ring_en36io"
-                                      style="border-color: transparent;"
+                                      class="ring_ya75gi"
+                                      data-test-id="focus-ring"
+                                      style="border-color: transparent; border-radius: 50%;"
                                     >
                                       <div
-                                        class="libraryCircle_1ytyy5d"
+                                        class="circle_1tys2th"
                                         data-is-radio-icon="true"
-                                        style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64);"
+                                        data-test-id="choice-icon__library-choice-icon"
+                                        style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                       >
                                         <div
                                           class="perseus-sr-only"
@@ -609,13 +617,15 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                     class="iconWrapper_17y0hv9"
                                   >
                                     <span
-                                      class="ring_en36io"
-                                      style="border-color: transparent;"
+                                      class="ring_ya75gi"
+                                      data-test-id="focus-ring"
+                                      style="border-color: transparent; border-radius: 50%;"
                                     >
                                       <div
-                                        class="libraryCircle_1ytyy5d"
+                                        class="circle_1tys2th"
                                         data-is-radio-icon="true"
-                                        style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64);"
+                                        data-test-id="choice-icon__library-choice-icon"
+                                        style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                       >
                                         <div
                                           class="perseus-sr-only"

@@ -3,7 +3,7 @@
     "description": "Khan Academy's new expression editor for the mobile web.",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "0.6.0",
+    "version": "0.6.2",
     "publishConfig": {
         "access": "public"
     },
@@ -22,15 +22,15 @@
         "performance-now": "^0.2.0"
     },
     "devDependencies": {
-        "@khanacademy/wonder-blocks-clickable": "^2.2.0",
-        "@khanacademy/wonder-blocks-color": "^1.1.19",
-        "@khanacademy/wonder-blocks-core": "^3.2.0",
+        "@khanacademy/wonder-blocks-clickable": "^2.2.6",
+        "@khanacademy/wonder-blocks-color": "^1.1.20",
+        "@khanacademy/wonder-blocks-core": "^4.3.0",
         "@khanacademy/wonder-blocks-i18n": "^1.2.3",
         "aphrodite": "^1.1.0",
         "jquery": "^2.1.1",
         "katex": "^0.11.1",
         "mathquill": "git+https://git@github.com/Khan/mathquill.git#a9ae54e057c5c1acc8244a5627acbff29901d992",
-        "perseus-build-settings": "^0.0.3",
+        "perseus-build-settings": "^0.0.4",
         "prop-types": "15.6.1",
         "react": "^16.8.0",
         "react-dom": "^16.8.0",
@@ -41,9 +41,9 @@
         "redux": "^4.0.0"
     },
     "peerDependencies": {
-        "@khanacademy/wonder-blocks-clickable": "^2.2.0",
-        "@khanacademy/wonder-blocks-color": "^1.1.19",
-        "@khanacademy/wonder-blocks-core": "^3.2.0",
+        "@khanacademy/wonder-blocks-clickable": "^2.2.6",
+        "@khanacademy/wonder-blocks-color": "^1.1.20",
+        "@khanacademy/wonder-blocks-core": "^4.3.0",
         "@khanacademy/wonder-blocks-i18n": "^1.2.3",
         "aphrodite": "^1.1.0",
         "jquery": "^2.1.1",

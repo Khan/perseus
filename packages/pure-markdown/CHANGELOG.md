@@ -1,5 +1,14 @@
 # @khanacademy/pure-markdown
 
+## 0.1.2
+
+### Patch Changes
+
+-   bf180fe1: Fix our use of import/no-extraneous-dependencies
+-   Updated dependencies [bf180fe1]
+    -   @khanacademy/perseus-error@0.1.2
+    -   @khanacademy/simple-markdown@0.8.5
+
 ## 0.1.1
 
 ### Patch Changes
