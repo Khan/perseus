@@ -17,7 +17,7 @@ import Icon from "../../components/icon.jsx";
 import * as styleConstants from "../../styles/constants.js";
 import mediaQueries from "../../styles/media-queries.js";
 
-import ChoiceIcon from "./choice-icon.jsx";
+import ChoiceIcon from "./choice-icon/choice-icon.jsx";
 import OptionStatus from "./option-status.jsx";
 import {getChoiceLetter} from "./util.js";
 
@@ -56,6 +56,7 @@ class Choice extends React.Component<$FlowFixMe, State> {
             }),
             readOnly: PropTypes.bool,
         }),
+        multipleSelect: PropTypes.bool,
         checked: PropTypes.bool,
         className: PropTypes.string,
         rationale: PropTypes.node,
@@ -73,7 +74,7 @@ class Choice extends React.Component<$FlowFixMe, State> {
         reviewMode: PropTypes.bool,
         showRationale: PropTypes.bool,
         showCorrectness: PropTypes.bool,
-        type: PropTypes.string,
+        type: PropTypes.string, // seems unused?
 
         // Indicates whether the user has "crossed out" this choice, meaning
         // that they don't think it's correct. This value does not affect
@@ -105,6 +106,7 @@ class Choice extends React.Component<$FlowFixMe, State> {
         apiOptions: {
             styling: {},
         },
+        multipleSelect: false,
         checked: false,
         classSet: {},
         correct: false,
@@ -112,7 +114,7 @@ class Choice extends React.Component<$FlowFixMe, State> {
         editMode: false,
         onChange: function () {},
         showRationale: false,
-        type: "radio",
+        type: "radio", // seems unused?
         pos: 0,
         previouslyAnswered: false,
     };
@@ -161,8 +163,9 @@ class Choice extends React.Component<$FlowFixMe, State> {
 
     renderChoiceIcon: (args: {|
         isFocused: boolean,
+        isHovered: boolean,
         isPressed: boolean,
-    |}) => React.Node = ({isFocused, isPressed}) => {
+    |}) => React.Node = ({isFocused, isHovered, isPressed}) => {
         const {radioStyleVersion, primaryProductColor} =
             this.props.apiOptions.styling;
         const finalStyles =
@@ -179,9 +182,11 @@ class Choice extends React.Component<$FlowFixMe, State> {
                 pos={this.props.pos}
                 correct={this.props.correct}
                 crossedOut={this.props.crossedOut}
-                pressed={isPressed}
                 focused={isFocused}
+                hovered={isHovered}
+                pressed={isPressed}
                 checked={this.props.checked}
+                multipleSelect={this.props.multipleSelect}
                 showCorrectness={this.props.showCorrectness}
                 reviewMode={this.props.reviewMode}
                 product={this.props.apiOptions.satStyling ? "sat" : "library"}
@@ -306,6 +311,7 @@ class Choice extends React.Component<$FlowFixMe, State> {
                                 <span>
                                     {this.renderChoiceIcon({
                                         isFocused: focused,
+                                        isHovered: hovered,
                                         isPressed: pressed,
                                     })}
                                 </span>
