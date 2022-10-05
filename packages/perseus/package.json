@@ -54,6 +54,7 @@
         "eslint-plugin-import": "^2.26.0",
         "intersection-observer": "^0.12.0",
         "jquery": "^2.1.1",
+        "katex": "^0.11.1",
         "lodash.debounce": "^4.0.8",
         "perseus-build-settings": "^0.0.3",
         "prop-types": "^15.6.1",
