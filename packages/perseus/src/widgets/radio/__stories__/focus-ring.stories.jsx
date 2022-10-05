@@ -20,7 +20,7 @@ export default ({
     args: {children: "", color: styleConstants.kaGreen, visible: true},
 }: Story);
 
-export const EmptyPropsObject = (args: StoryArgs): React.Node => {
+export const Interactive = (args: StoryArgs): React.Node => {
     // circle is just for demonstration
     const circleStyles = {
         height: "20px",
