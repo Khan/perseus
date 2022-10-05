@@ -8,7 +8,7 @@ import * as React from "react";
 
 import * as styleConstants from "../../styles/constants.js";
 
-type FocusRingProps = {|
+type Props = {|
     children: React.Node,
     // Whether the focus ring is visible. Allows for positioning
     // the child identically regardless of whether the ring is visible.
@@ -17,8 +17,8 @@ type FocusRingProps = {|
     color: string,
 |};
 
-function FocusRing(props: FocusRingProps): React.Node {
-    const {visible = true, color = styleConstants.kaGreen, children} = props;
+function FocusRing(props: Props): React.Node {
+    const {visible, color, children} = props;
 
     const borderColor = visible ? color : "transparent";
     const style = {
@@ -31,6 +31,11 @@ function FocusRing(props: FocusRingProps): React.Node {
         </span>
     );
 }
+
+FocusRing.defaultProps = {
+    visible: true,
+    color: styleConstants.kaGreen,
+};
 
 const styles = StyleSheet.create({
     ring: {
