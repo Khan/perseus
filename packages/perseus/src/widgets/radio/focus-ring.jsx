@@ -9,7 +9,7 @@ import * as React from "react";
 import * as styleConstants from "../../styles/constants.js";
 
 type Props = {|
-    children?: any,
+    children?: React.Node,
     // Whether the focus ring is visible. Allows for positioning
     // the child identically regardless of whether the ring is visible.
     visible: boolean,
@@ -19,33 +19,31 @@ type Props = {|
     multipleSelect: boolean,
 |};
 
-class FocusRing extends React.Component<Props> {
-    static defaultProps: Props = {
-        visible: true,
-        color: styleConstants.kaGreen,
-        multipleSelect: false,
-    };
+function FocusRing(props: Props): React.Node {
+    const {visible, color, children, multipleSelect} = props;
 
-    render(): React.Element<"span"> {
-        const borderColor = this.props.visible
-            ? this.props.color
-            : "transparent";
-        const borderRadius = this.props.multipleSelect ? 5 : "50%";
-        const style = {
-            borderColor,
-            borderRadius,
-        };
-        return (
-            <span
-                data-test-id="focus-ring"
-                className={css(styles.ring)}
-                style={style}
-            >
-                {this.props.children}
-            </span>
-        );
-    }
+    const borderColor = visible ? color : "transparent";
+    const borderRadius = multipleSelect ? 5 : "50%";
+    const style = {
+        borderColor,
+        borderRadius,
+    };
+    return (
+        <span
+            data-test-id="focus-ring"
+            className={css(styles.ring)}
+            style={style}
+        >
+            {children}
+        </span>
+    );
 }
+
+FocusRing.defaultProps = {
+    visible: true,
+    color: styleConstants.kaGreen,
+    multipleSelect: false,
+};
 
 const styles = StyleSheet.create({
     ring: {
