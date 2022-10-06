@@ -435,6 +435,7 @@ class BaseRadio extends React.Component<$FlowFixMe, $FlowFixMe> {
                         this.choiceRefs[i] = ref;
                         const elementProps = {
                             apiOptions: this.props.apiOptions,
+                            multipleSelect: this.props.multipleSelect,
                             checked: choice.checked,
                             crossedOut: choice.crossedOut,
                             previouslyAnswered: choice.previouslyAnswered,

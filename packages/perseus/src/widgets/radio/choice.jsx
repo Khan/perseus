@@ -18,7 +18,7 @@ import {ApiOptions} from "../../perseus-api.jsx";
 import * as styleConstants from "../../styles/constants.js";
 import mediaQueries from "../../styles/media-queries.js";
 
-import ChoiceIcon from "./choice-icon.jsx";
+import ChoiceIcon from "./choice-icon/choice-icon.jsx";
 import OptionStatus from "./option-status.jsx";
 import {getChoiceLetter} from "./util.js";
 
@@ -70,6 +70,7 @@ export type ChoiceProps = {|
     reviewMode: boolean,
     showRationale: boolean,
     showCorrectness: boolean,
+    multipleSelect: boolean,
 
     // Indicates whether the user has "crossed out" this choice, meaning
     // that they don't think it's correct. This value does not affect
@@ -103,6 +104,7 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
         content,
         crossedOut,
         showCorrectness,
+        multipleSelect,
         onChange,
         reviewMode,
         correct,
@@ -230,7 +232,9 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
                                         pressed={pressed}
                                         focused={focused}
                                         checked={checked}
+                                        hovered={hovered}
                                         showCorrectness={showCorrectness}
+                                        multipleSelect={multipleSelect}
                                         reviewMode={reviewMode}
                                         product={
                                             apiOptions.satStyling

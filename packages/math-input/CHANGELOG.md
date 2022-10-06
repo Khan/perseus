@@ -1,5 +1,17 @@
 # @khanacademy/math-input
 
+## 0.6.2
+
+### Patch Changes
+
+-   bf180fe1: Fix our use of import/no-extraneous-dependencies
+
+## 0.6.1
+
+### Patch Changes
+
+-   1a91b6c2: Adds missing wonder-blocks deps, makes wonder-blocks peerDeps
+
 ## 0.6.0
 
 ### Minor Changes

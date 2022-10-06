@@ -1,157 +1,242 @@
 // @flow
 import * as React from "react";
 
-import ChoiceIcon from "../choice-icon.jsx";
+import ChoiceIcon from "../choice-icon/choice-icon.jsx";
 
-type StoryArgs = {||};
-
-type Story = {|
-    title: string,
+type StoryArgs = {|
+    pos: number,
+    checked: boolean,
+    crossedOut: boolean,
+    focused: boolean,
+    hovered: boolean,
+    pressed: boolean,
+    correct: boolean,
+    showCorrectness: boolean,
+    product: "sat" | "library",
+    multipleSelect: boolean,
+    reviewMode: boolean,
+    previouslyAnswered: boolean,
+    transparentBackground: boolean,
+    primaryProductColor?: string,
 |};
 
-export default ({
-    title: "Perseus/Widgets/Radio/Choice Icon",
-}: Story);
-
-const defaultObject = {
-    crossedOut: false,
+const defaultProps = {
+    pos: 0,
     checked: false,
-    correct: true,
+    crossedOut: false,
+    focused: false,
+    hovered: false,
     pressed: false,
-    previouslyAnswered: false,
+    correct: false,
+    showCorrectness: false,
     product: "library",
-    focused: false,
+    multipleSelect: false,
     reviewMode: false,
-    showCorrectness: false,
-};
-
-// Note: the SAT icon is different from the general library
-// icon displayed on KA. Therefore props like pressed,
-// previouslyAnswered and focused do not apply here.
-// That said, the props of the component still want them as they are
-// currently defined, so we give them values anyway.
-const satObject = {
-    crossedOut: false,
-    pressed: false,
-    checked: false,
-    focused: false,
-    correct: true,
     previouslyAnswered: false,
+    transparentBackground: false,
+};
+
+const defaultSATProps = {
+    ...defaultProps,
     product: "sat",
-    reviewMode: false,
-    showCorrectness: false,
 };
 
-export const Position0Sat = (args: StoryArgs): React.Node => {
-    return <ChoiceIcon {...satObject} pos={0} />;
+export default {
+    title: "Perseus/Widgets/Radio/Choice Icon",
+    argTypes: {
+        pos: {
+            control: {type: "number", min: 0, max: 25, step: 1},
+        },
+        product: {
+            options: ["library", "sat"],
+            control: {type: "radio"},
+        },
+    },
+    args: defaultProps,
 };
 
-export const Position1CrossedOutSat = (args: StoryArgs): React.Node => {
-    return <ChoiceIcon {...satObject} pos={1} crossedOut={true} />;
+export const Interactive = (args: StoryArgs): React.Node => {
+    return <ChoiceIcon {...args} />;
 };
 
-export const Position2SelectedSat = (args: StoryArgs): React.Node => {
+export const Default = (args: StoryArgs): React.Node => {
     return (
-        <ChoiceIcon {...satObject} pos={2} checked={true} crossedOut={false} />
-    );
-};
-
-export const Position2SelectedReviewModeSat = (args: StoryArgs): React.Node => {
-    return (
-        <ChoiceIcon
-            {...satObject}
-            pos={2}
-            checked={true}
-            crossedOut={false}
-            reviewMode={true}
-        />
-    );
-};
-
-export const Position2SelectedReviewModeCrossedOutSat = (
-    args: StoryArgs,
-): React.Node => {
-    return (
-        <ChoiceIcon
-            {...satObject}
-            pos={2}
-            checked={false}
-            crossedOut={true}
-            reviewMode={true}
-        />
-    );
-};
-
-export const Position0 = (args: StoryArgs): React.Node => {
-    return <ChoiceIcon {...defaultObject} pos={0} reviewMode={false} />;
-};
-
-export const Position1 = (args: StoryArgs): React.Node => {
-    return <ChoiceIcon {...defaultObject} pos={1} reviewMode={false} />;
-};
-
-export const Position2 = (args: StoryArgs): React.Node => {
-    return <ChoiceIcon {...defaultObject} pos={2} reviewMode={false} />;
-};
-
-export const Checked = (args: StoryArgs): React.Node => {
-    return (
-        <ChoiceIcon
-            {...defaultObject}
-            pos={0}
-            checked={true}
-            reviewMode={false}
-        />
+        <>
+            <p>Library</p>
+            <ChoiceIcon {...defaultProps} />
+            <ChoiceIcon {...defaultProps} multipleSelect={true} />
+            <p>SAT</p>
+            <ChoiceIcon {...defaultSATProps} />
+            <ChoiceIcon {...defaultSATProps} multipleSelect={true} />
+        </>
     );
 };
 
 export const Focused = (args: StoryArgs): React.Node => {
     return (
-        <ChoiceIcon
-            {...defaultObject}
-            focused={true}
-            pos={0}
-            checked={true}
-            reviewMode={false}
-        />
+        <>
+            <p>Library</p>
+            <ChoiceIcon {...defaultProps} focused={true} />
+            <ChoiceIcon
+                {...defaultProps}
+                focused={true}
+                multipleSelect={true}
+            />
+            <p>SAT</p>
+            <ChoiceIcon {...defaultSATProps} focused={true} />
+            <ChoiceIcon
+                {...defaultSATProps}
+                focused={true}
+                multipleSelect={true}
+            />
+        </>
     );
 };
 
-export const ShowCorrectnessCorrect = (args: StoryArgs): React.Node => {
+export const Checked = (args: StoryArgs): React.Node => {
     return (
-        <ChoiceIcon
-            {...defaultObject}
-            pos={0}
-            showCorrectness={true}
-            checked={true}
-            reviewMode={false}
-        />
-    );
-};
-
-export const ShowCorrectnessIncorrect = (args: StoryArgs): React.Node => {
-    return (
-        <ChoiceIcon
-            {...defaultObject}
-            pos={0}
-            correct={false}
-            showCorrectness={true}
-            reviewMode={false}
-        />
+        <>
+            <p>Library</p>
+            <ChoiceIcon {...defaultProps} checked={true} />
+            <ChoiceIcon
+                {...defaultProps}
+                checked={true}
+                multipleSelect={true}
+            />
+            <p>SAT</p>
+            <ChoiceIcon {...defaultSATProps} checked={true} />
+            <ChoiceIcon
+                {...defaultSATProps}
+                checked={true}
+                multipleSelect={true}
+            />
+        </>
     );
 };
 
 export const CrossedOut = (args: StoryArgs): React.Node => {
-    return <ChoiceIcon {...defaultObject} pos={0} crossedOut={true} />;
+    return (
+        <>
+            <p>Library</p>
+            <ChoiceIcon {...defaultProps} crossedOut={true} />
+            <ChoiceIcon
+                {...defaultProps}
+                crossedOut={true}
+                multipleSelect={true}
+            />
+            <p>SAT</p>
+            <ChoiceIcon {...defaultSATProps} crossedOut={true} />
+            <ChoiceIcon
+                {...defaultSATProps}
+                crossedOut={true}
+                multipleSelect={true}
+            />
+        </>
+    );
 };
 
-export const CrossedOutPressed = (args: StoryArgs): React.Node => {
+export const Correct = (args: StoryArgs): React.Node => {
     return (
-        <ChoiceIcon
-            {...defaultObject}
-            pos={0}
-            crossedOut={true}
-            pressed={true}
-        />
+        <>
+            <p>Library</p>
+            <ChoiceIcon
+                {...defaultProps}
+                checked={true}
+                correct={true}
+                showCorrectness={true}
+                reviewMode={true}
+            />
+            <ChoiceIcon
+                {...defaultProps}
+                checked={true}
+                correct={true}
+                showCorrectness={true}
+                reviewMode={true}
+                multipleSelect={true}
+            />
+            <p>SAT</p>
+            <ChoiceIcon
+                {...defaultSATProps}
+                checked={true}
+                correct={true}
+                showCorrectness={true}
+                reviewMode={true}
+            />
+            <ChoiceIcon
+                {...defaultSATProps}
+                checked={true}
+                correct={true}
+                showCorrectness={true}
+                reviewMode={true}
+                multipleSelect={true}
+            />
+        </>
+    );
+};
+
+export const Incorrect = (args: StoryArgs): React.Node => {
+    return (
+        <>
+            <p>Library</p>
+            <ChoiceIcon
+                {...defaultProps}
+                checked={true}
+                correct={false}
+                showCorrectness={true}
+                reviewMode={true}
+            />
+            <ChoiceIcon
+                {...defaultProps}
+                checked={true}
+                correct={false}
+                showCorrectness={true}
+                reviewMode={true}
+                multipleSelect={true}
+            />
+            <p>SAT</p>
+            <ChoiceIcon
+                {...defaultSATProps}
+                checked={true}
+                correct={false}
+                showCorrectness={true}
+                reviewMode={true}
+            />
+            <ChoiceIcon
+                {...defaultSATProps}
+                checked={true}
+                correct={false}
+                showCorrectness={true}
+                reviewMode={true}
+                multipleSelect={true}
+            />
+        </>
+    );
+};
+
+export const AllPositions = (args: StoryArgs): React.Node => {
+    const allLetters = Array(26).fill();
+    return (
+        <>
+            <p>Library</p>
+            {allLetters.map((_, i: number) => (
+                <ChoiceIcon {...defaultProps} pos={i} />
+            ))}
+            <br />
+            {allLetters.map((_, i: number) => (
+                <ChoiceIcon {...defaultProps} pos={i} multipleSelect={true} />
+            ))}
+            <p>SAT</p>
+            {allLetters.map((_, i: number) => (
+                <ChoiceIcon {...defaultSATProps} pos={i} />
+            ))}
+            <br />
+            {allLetters.map((_, i: number) => (
+                <ChoiceIcon
+                    {...defaultSATProps}
+                    pos={i}
+                    multipleSelect={true}
+                />
+            ))}
+        </>
     );
 };

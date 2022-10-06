@@ -13,6 +13,7 @@ type StoryArgs = {|
     reviewMode: boolean,
     showRationale: boolean,
     showCorrectness: boolean,
+    multipleSelect: boolean,
     crossedOut: boolean,
     previouslyAnswered: boolean,
 |};
@@ -34,6 +35,7 @@ export default ({
         reviewMode: false,
         showRationale: false,
         showCorrectness: false,
+        multipleSelect: false,
         crossedOut: false,
         previouslyAnswered: false,
     },

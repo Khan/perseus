@@ -1,5 +1,23 @@
 # @khanacademy/perseus-editor
 
+## 0.4.3
+
+### Patch Changes
+
+-   bf180fe1: Fix our use of import/no-extraneous-dependencies
+-   Updated dependencies [bf180fe1]
+    -   @khanacademy/kas@0.2.6
+    -   @khanacademy/kmath@0.0.7
+    -   @khanacademy/perseus@0.4.3
+
+## 0.4.2
+
+### Patch Changes
+
+-   Updated dependencies [b317b553]
+-   Updated dependencies [1a91b6c2]
+    -   @khanacademy/perseus@0.4.2
+
 ## 0.4.1
 
 ### Patch Changes
