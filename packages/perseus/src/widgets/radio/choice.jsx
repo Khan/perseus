@@ -14,12 +14,15 @@ import {useState, useEffect} from "react";
 import _ from "underscore";
 
 import Icon from "../../components/icon.jsx";
+import {ApiOptions} from "../../perseus-api.jsx";
 import * as styleConstants from "../../styles/constants.js";
 import mediaQueries from "../../styles/media-queries.js";
 
 import ChoiceIcon from "./choice-icon.jsx";
 import OptionStatus from "./option-status.jsx";
 import {getChoiceLetter} from "./util.js";
+
+import type {APIOptions} from "../../types.js";
 
 const intermediateCheckboxPadding = `16px 16px`;
 const intermediateCheckboxPaddingPhone = `12px 16px`;
@@ -31,36 +34,23 @@ const ellipsisHorizontalIcon = {
 };
 
 type ChoiceIconWrapperProps = {|
-    radioStyleVersion: "intermediate" | "final",
-    satStyling: boolean,
+    apiOptions: APIOptions,
     children: React.Node,
 |};
 
 function ChoiceIconWrapper(props: ChoiceIconWrapperProps) {
-    const {children, radioStyleVersion, satStyling} = props;
+    const {apiOptions, children} = props;
     const finalStyles =
-        typeof radioStyleVersion === "undefined"
+        typeof apiOptions.styling?.radioStyleVersion === "undefined"
             ? false
-            : radioStyleVersion === "final";
+            : apiOptions.styling.radioStyleVersion === "final";
 
-    if (!finalStyles && !satStyling) {
+    if (!finalStyles && !apiOptions.satStyling) {
         return null;
     }
 
     return children;
 }
-
-type APIOptions = {
-    satStyling: boolean,
-    isMobile: boolean,
-    styling: {
-        radioStyleVersion: "intermediate" | "final",
-        primaryProductColor: string,
-    },
-    readOnly: boolean,
-    crossOutEnabled: boolean,
-    staticRender: boolean,
-};
 
 type ChoiceProps = {|
     // TODO(kevinb) use Options.propTypes from perseus-api.jsx
@@ -152,20 +142,20 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
         onChange({checked: updatedChecked, crossedOut: updatedCrossedOut});
     }
 
-    const sat = apiOptions.satStyling;
     // HACK: while most of the styling for rendering SAT items is handled
     // via aphrodite, we also need to assign normal CSS classnames here to
     // special-case the coloring of MathJax formulas (see .MathJax .math in
     // stylesheets/task-package/tasks.less)
-    const satCorrectChoice = sat && reviewMode && correct;
-    const satIncorrectChecked = sat && reviewMode && !correct && checked;
+    const satCorrectChoice = apiOptions.satStyling && reviewMode && correct;
+    const satIncorrectChecked =
+        apiOptions.satStyling && reviewMode && !correct && checked;
     const descriptionClassName = classNames(
         "description",
         satCorrectChoice && "sat-correct",
         satIncorrectChecked && "sat-incorrect",
         css(
-            !sat && styles.description,
-            sat && styles.satDescription,
+            !apiOptions.satStyling && styles.description,
+            apiOptions.satStyling && styles.satDescription,
             satCorrectChoice && styles.satDescriptionCorrect,
             satCorrectChoice && checked && styles.satDescriptionCorrectChecked,
             satIncorrectChecked && styles.satDescriptionIncorrectChecked,
@@ -176,8 +166,8 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
         "perseus-radio-rationale-content",
         css(
             styles.rationale,
-            !sat && styles.nonSatRationale,
-            sat && styles.satReviewRationale,
+            !apiOptions.satStyling && styles.nonSatRationale,
+            apiOptions.satStyling && styles.satReviewRationale,
         ),
     );
 
@@ -186,7 +176,8 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
     // we also don't want to do this when we're in review mode in the
     // content library.
     const showDimmed =
-        (!sat && !reviewMode && apiOptions.readOnly) || crossedOut;
+        (!apiOptions.satStyling && !reviewMode && apiOptions.readOnly) ||
+        crossedOut;
 
     return (
         <div
@@ -236,12 +227,7 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
                             }}
                         >
                             <span>
-                                <ChoiceIconWrapper
-                                    radioStyleVersion={
-                                        apiOptions.styling.radioStyleVersion
-                                    }
-                                    satStyling={sat}
-                                >
+                                <ChoiceIconWrapper apiOptions={apiOptions}>
                                     <ChoiceIcon
                                         pos={pos}
                                         correct={correct}
@@ -258,7 +244,7 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
                                         }
                                         primaryProductColor={
                                             apiOptions.styling
-                                                .primaryProductColor
+                                                ?.primaryProductColor
                                         }
                                         previouslyAnswered={previouslyAnswered}
                                     />
@@ -279,7 +265,7 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
                                         crossedOut={crossedOut}
                                         previouslyAnswered={previouslyAnswered}
                                         reviewMode={reviewMode}
-                                        satStyling={sat}
+                                        satStyling={apiOptions.satStyling}
                                     />
                                 </div>
                                 <div>{content}</div>
@@ -373,7 +359,7 @@ Choice.defaultProps = {
     checked: false,
     onChange: (newValues: {checked: boolean, crossedOut: boolean}): void => {},
     correct: false,
-    apiOptions: ({}: APIOptions),
+    apiOptions: ApiOptions.defaults,
     previouslyAnswered: false,
     pos: 0,
     showRationale: false,

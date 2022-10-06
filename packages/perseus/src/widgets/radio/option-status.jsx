@@ -22,7 +22,7 @@ class OptionStatus extends React.Component<{
     // Did the user select this option as the answer earlier?
     previouslyAnswered: boolean,
     reviewMode: boolean,
-    satStyling: boolean,
+    satStyling?: boolean,
     ...
 }> {
     _renderText(): string {
