@@ -196,7 +196,7 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
                         // If we're checking a crossed-out option, let's
                         // also uncross it.
                         sendChange({
-                            checked: true,
+                            checked: !checked,
                             crossedOut: false,
                         });
                     }}
