@@ -10,7 +10,7 @@ import Spacing from "@khanacademy/wonder-blocks-spacing";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
-import {useState, useEffect, useRef} from "react";
+import {useState, useEffect} from "react";
 import _ from "underscore";
 
 import Icon from "../../components/icon.jsx";
@@ -23,8 +23,6 @@ import {getChoiceLetter} from "./util.js";
 
 const intermediateCheckboxPadding = `16px 16px`;
 const intermediateCheckboxPaddingPhone = `12px 16px`;
-
-export const TouchIgnoreTimeout = 10;
 
 const ellipsisHorizontalIcon = {
     path: "M27.218 6.82l0 13.578q0 2.852-1.984 4.836t-4.836 1.984l-13.578 0q-2.852 0-4.836-1.984t-1.984-4.836l0-13.578q0-2.852 1.984-4.836t4.836-1.984l13.578 0q2.852 0 4.836 1.984t1.984 4.836zm36.27 0l0 13.578q0 2.852-1.984 4.836t-4.836 1.984l-13.578 0q-2.852 0-4.836-1.984t-1.984-4.836l0-13.578q0-2.852 1.984-4.836t4.836-1.984l13.578 0q2.852 0 4.836 1.984t1.984 4.836zm36.27 0l0 13.578q0 2.852-1.984 4.836t-4.836 1.984l-13.578 0q-2.852 0-4.836-1.984t-1.984-4.836l0-13.578q0-2.852 1.984-4.836t4.836-1.984l13.578 0q2.852 0 4.836 1.984t1.984 4.836z",
@@ -52,22 +50,24 @@ function ChoiceIconWrapper(props: ChoiceIconWrapperProps) {
     return children;
 }
 
+type APIOptions = {
+    satStyling: boolean,
+    isMobile: boolean,
+    styling: {
+        radioStyleVersion: "intermediate" | "final",
+        primaryProductColor: string,
+    },
+    readOnly: boolean,
+    crossOutEnabled: boolean,
+    staticRender: boolean,
+};
+
 type ChoiceProps = {|
     // TODO(kevinb) use Options.propTypes from perseus-api.jsx
     // This change will also require make sure that item-renderer.jsx and
     // server-item-renderer.jsx have appropriate defaults for apiOptions
     // because many of the properties on Options.propTypes are required.
-    apiOptions: {
-        satStyling: boolean,
-        isMobile: boolean,
-        styling: {
-            radioStyleVersion: "intermediate" | "final",
-            primaryProductColor: string,
-        },
-        readOnly: boolean,
-        crossOutEnabled: boolean,
-        staticRender: boolean,
-    },
+    apiOptions: APIOptions,
     checked: boolean,
     rationale: React.Node,
     content: React.Node,
@@ -102,33 +102,33 @@ type ChoiceProps = {|
     // boolean value specifying the new checked and crossed-out value of
     // this choice.
     onChange: (newValues: {checked: boolean, crossedOut: boolean}) => void,
-    registerRef: (ref: ?React.Ref<typeof Choice>) => void,
 |};
 
-function Choice(props: ChoiceProps): React.Node {
+type WithForwardRef = {|forwardedRef: React.Ref<"button">|};
+
+type ChoicePropsWithForwardRef = {|
+    ...ChoiceProps,
+    ...WithForwardRef,
+|};
+
+function Choice(props: ChoicePropsWithForwardRef): React.Node {
     const {
-        disabled = false,
-        checked = false,
+        disabled,
+        checked,
         content,
         crossedOut,
         showCorrectness,
-        onChange = (newValues) => {},
+        onChange,
         reviewMode,
-        correct = false,
-        apiOptions = {},
-        previouslyAnswered = false,
-        pos = 0,
-        showRationale = false,
+        correct,
+        apiOptions,
+        previouslyAnswered,
+        pos,
+        showRationale,
         rationale,
-        registerRef,
+        forwardedRef,
     } = props;
     const [isInputFocused, setIsInputFocused] = useState(false);
-    const inputRef = useRef();
-
-    useEffect(() => {
-        registerRef(inputRef);
-        return () => registerRef();
-    });
 
     useEffect(() => {
         if (isInputFocused && disabled) {
@@ -222,7 +222,7 @@ function Choice(props: ChoiceProps): React.Node {
                     aria-checked={checked ? "true" : "false"}
                     role={"checkbox"}
                     style={{flex: 1}}
-                    ref={inputRef}
+                    ref={(forwardedRef: any)}
                 >
                     {({hovered, focused, pressed}) => (
                         <div
@@ -368,6 +368,17 @@ function Choice(props: ChoiceProps): React.Node {
     );
 }
 
+Choice.defaultProps = {
+    disabled: false,
+    checked: false,
+    onChange: (newValues: {checked: boolean, crossedOut: boolean}): void => {},
+    correct: false,
+    apiOptions: ({}: APIOptions),
+    previouslyAnswered: false,
+    pos: 0,
+    showRationale: false,
+};
+
 const styles = StyleSheet.create({
     description: {
         display: "inline-block",
@@ -416,4 +427,8 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Choice;
+type ExportProps = $Diff<React.ElementConfig<typeof Choice>, WithForwardRef>;
+
+export default (React.forwardRef<ExportProps, HTMLButtonElement>(
+    (props, ref) => <Choice {...props} forwardedRef={ref} />,
+): React.AbstractComponent<ExportProps, HTMLButtonElement>);

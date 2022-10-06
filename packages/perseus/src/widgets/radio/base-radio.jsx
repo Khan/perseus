@@ -46,7 +46,8 @@ const ChoicesType = PropTypes.arrayOf(
 const radioBorderColor = styleConstants.radioBorderColor;
 
 class BaseRadio extends React.Component<$FlowFixMe, $FlowFixMe> {
-    choiceRefs: Array<React.Ref<typeof Choice>>;
+    choiceRefs: Array<{current: ?HTMLDivElement}>;
+    state: $FlowFixMe;
 
     static propTypes = {
         apiOptions: PropTypes.shape({
@@ -259,17 +260,18 @@ class BaseRadio extends React.Component<$FlowFixMe, $FlowFixMe> {
         editMode: false,
     };
 
-    state: $FlowFixMe = {
-        // TODO(mdr): This keeps the ID stable across re-renders on the
-        //     same machine, but, at time of writing, the server's state
-        //     isn't rehydrated to the client during SSR, so the server and
-        //     client will generate different IDs and cause a mismatch
-        //     during SSR :(
-        radioGroupName: _.uniqueId("perseus_radio_"),
-    };
-
-    componentDidMount() {
+    constructor() {
+        super();
         this.choiceRefs = [];
+
+        this.state = {
+            // TODO(mdr): This keeps the ID stable across re-renders on the
+            //     same machine, but, at time of writing, the server's state
+            //     isn't rehydrated to the client during SSR, so the server and
+            //     client will generate different IDs and cause a mismatch
+            //     during SSR :(
+            radioGroupName: _.uniqueId("perseus_radio_"),
+        };
     }
 
     componentDidUpdate(prevProps: $FlowFixMe) {
@@ -304,10 +306,6 @@ class BaseRadio extends React.Component<$FlowFixMe, $FlowFixMe> {
                 scrollElementIntoView(checkedNode);
             }
         }
-    }
-
-    registerChoiceRef(i: number, ref: React.Ref<typeof Choice>) {
-        this.choiceRefs[i] = ref;
     }
 
     // When a particular choice's `onChange` handler is called, indicating a
@@ -350,8 +348,17 @@ class BaseRadio extends React.Component<$FlowFixMe, $FlowFixMe> {
 
     focus: (number) => boolean = (i) => {
         const ref = this.choiceRefs[i || 0];
-        const node = ReactDOM.findDOMNode(ref.current);
-        node.focus();
+        // note(matthew): we know this is only getting passed
+        // to a WB Clickable button, so we force it to be of
+        // type HTMLButtonElement
+        const anyNode = (ReactDOM.findDOMNode(ref.current): any);
+        const castNode = (anyNode: ?HTMLButtonElement);
+
+        if (castNode) {
+            castNode.focus();
+        } else {
+            return false;
+        }
         return true;
     };
 
@@ -425,6 +432,8 @@ class BaseRadio extends React.Component<$FlowFixMe, $FlowFixMe> {
                 <ul className={className} style={{listStyle: "none"}}>
                     {this.props.choices.map(function (choice, i) {
                         let Element = Choice;
+                        const ref = React.createRef();
+                        this.choiceRefs[i] = ref;
                         const elementProps = {
                             apiOptions: this.props.apiOptions,
                             checked: choice.checked,
@@ -451,8 +460,7 @@ class BaseRadio extends React.Component<$FlowFixMe, $FlowFixMe> {
                             onChange: (newValues) => {
                                 this.updateChoice(i, newValues);
                             },
-                            registerRef: (ref) =>
-                                this.registerChoiceRef(i, ref),
+                            ref,
                         };
 
                         if (choice.isNoneOfTheAbove) {
