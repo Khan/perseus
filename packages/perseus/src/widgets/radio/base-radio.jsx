@@ -380,7 +380,6 @@ class BaseRadio extends React.Component<$FlowFixMe, $FlowFixMe> {
     };
 
     render(): React.Node {
-        const inputType = this.props.multipleSelect ? "checkbox" : "radio";
         const rubric = this.props.reviewModeRubric;
         const reviewMode = !!rubric;
 
@@ -446,17 +445,12 @@ class BaseRadio extends React.Component<$FlowFixMe, $FlowFixMe> {
                             disabled:
                                 this.props.apiOptions.readOnly ||
                                 choice.disabled,
-                            editMode: this.props.editMode,
-                            groupName: this.state.radioGroupName,
-                            isLastChoice: i === this.props.choices.length - 1,
                             showCorrectness:
                                 reviewMode || !!choice.showCorrectness,
                             showRationale:
                                 choice.hasRationale &&
                                 (reviewMode || choice.showRationale),
-                            type: inputType,
                             pos: i,
-                            deselectEnabled: this.deselectEnabled(),
                             onChange: (newValues) => {
                                 this.updateChoice(i, newValues);
                             },

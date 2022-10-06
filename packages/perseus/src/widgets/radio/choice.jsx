@@ -52,7 +52,7 @@ function ChoiceIconWrapper(props: ChoiceIconWrapperProps) {
     return children;
 }
 
-type ChoiceProps = {|
+export type ChoiceProps = {|
     // TODO(kevinb) use Options.propTypes from perseus-api.jsx
     // This change will also require make sure that item-renderer.jsx and
     // server-item-renderer.jsx have appropriate defaults for apiOptions
@@ -62,11 +62,7 @@ type ChoiceProps = {|
     rationale: React.Node,
     content: React.Node,
     correct: boolean,
-    deselectEnabled: boolean,
     disabled: boolean,
-    editMode: boolean,
-    groupName: string,
-    isLastChoice: boolean, // Needed for border styling
     // This indicates the position of the choice relative to others
     // (so that we can display a nice little (A), (B), etc. next to it)
     // Also used to generate an id for each input.
@@ -74,7 +70,6 @@ type ChoiceProps = {|
     reviewMode: boolean,
     showRationale: boolean,
     showCorrectness: boolean,
-    type: string,
 
     // Indicates whether the user has "crossed out" this choice, meaning
     // that they don't think it's correct. This value does not affect
