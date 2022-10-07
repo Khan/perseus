@@ -64,6 +64,8 @@ module.exports = {
         "packages/*/src/**/*.js",
         "packages/*/src/**/*.jsx",
         "!packages/*/node_modules/",
+        "!**/__tests__/**",
+        "!**/__stories__/**",
     ],
     // Only output log messages on test failure. From:
     // https://github.com/facebook/jest/issues/4156#issuecomment-490764080
