@@ -219,15 +219,20 @@ export const AllPositions = (args: StoryArgs): React.Node => {
         <>
             <p>Library</p>
             {allLetters.map((_, i: number) => (
-                <ChoiceIcon {...defaultProps} pos={i} />
+                <ChoiceIcon {...defaultProps} pos={i} key={"choice" + i} />
             ))}
             <br />
             {allLetters.map((_, i: number) => (
-                <ChoiceIcon {...defaultProps} pos={i} multipleSelect={true} />
+                <ChoiceIcon
+                    {...defaultProps}
+                    pos={i}
+                    multipleSelect={true}
+                    key={"choice" + i}
+                />
             ))}
             <p>SAT</p>
             {allLetters.map((_, i: number) => (
-                <ChoiceIcon {...defaultSATProps} pos={i} />
+                <ChoiceIcon {...defaultSATProps} pos={i} key={"choice" + i} />
             ))}
             <br />
             {allLetters.map((_, i: number) => (
@@ -235,6 +240,7 @@ export const AllPositions = (args: StoryArgs): React.Node => {
                     {...defaultSATProps}
                     pos={i}
                     multipleSelect={true}
+                    key={"choice" + i}
                 />
             ))}
         </>
