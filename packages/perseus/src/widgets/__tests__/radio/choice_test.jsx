@@ -1,6 +1,7 @@
 // @flow
 
 import {render, screen} from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import * as React from "react";
 
 import "@testing-library/jest-dom"; // Imports custom mathers
@@ -156,5 +157,45 @@ describe("choice", () => {
 
         // Assert
         expect(screen.getByText("Incorrect (selected)")).toBeVisible();
+    });
+
+    it("can be checked", () => {
+        // Arrange
+        let checked = false;
+        renderChoice({
+            checked,
+            onChange: (next) => {
+                checked = next.checked;
+            },
+        });
+
+        // Act
+        const button = screen.getByRole("checkbox", {
+            name: "Select Choice A",
+        });
+        userEvent.click(button);
+
+        // Assert
+        expect(checked).toBeTrue();
+    });
+
+    it("can be unchecked", () => {
+        // Arrange
+        let checked = true;
+        renderChoice({
+            checked,
+            onChange: (next) => {
+                checked = next.checked;
+            },
+        });
+
+        // Act
+        const button = screen.getByRole("checkbox", {
+            name: "Select Choice A",
+        });
+        userEvent.click(button);
+
+        // Assert
+        expect(checked).toBeFalse();
     });
 });
