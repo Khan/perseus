@@ -12,7 +12,7 @@ import type {APIOptions} from "../../../types.js";
 
 describe("base-radio", () => {
     describe("edit mode", () => {
-        it.only("should render <li>'s for each choice", () => {
+        it("should render <li>'s for each choice", () => {
             // Arrange
             const apiOptions: APIOptions = {
                 styling: {radioStyleVersion: "final"},

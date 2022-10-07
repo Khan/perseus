@@ -347,7 +347,6 @@ class BaseRadio extends React.Component<$FlowFixMe, $FlowFixMe> {
     };
 
     getInstructionsText: () => string = () => {
-        throw new Error("foo");
         if (this.props.multipleSelect) {
             if (this.props.countChoices) {
                 return i18n._("Choose %(numCorrect)s answers:", {
