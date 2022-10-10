@@ -42,6 +42,8 @@ module.exports = {
         "jest",
         "monorepo",
         "promise",
+        "react",
+        "react-hooks",
         "react-native",
         "ft-flow",
     ],
@@ -220,6 +222,12 @@ module.exports = {
                 ],
             },
         ],
+
+        /**
+         * react-hooks
+         */
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "error",
 
         /**
          * react-native

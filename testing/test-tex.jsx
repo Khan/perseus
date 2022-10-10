@@ -40,6 +40,9 @@ export const TestTeX = (props: Props): React.Node => {
         if (onRender) {
             onRender();
         }
+        // NOTE(kevinb): We intentionally leave the deps list empty here
+        // since we want this code to only run once on mount.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
