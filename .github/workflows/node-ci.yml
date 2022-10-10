@@ -106,7 +106,7 @@ jobs:
     - name: Upload Coverage
       # We don't bother collecting a record of coverage for dependabot changes
       if: ${{ github.actor != 'dependabot[bot]' }}
-      uses: codecov/codecov-action@v2
+      uses: codecov/codecov-action@v3
       with:
         files: ./coverage/coverage-final.json
         fail_ci_if_error: true
