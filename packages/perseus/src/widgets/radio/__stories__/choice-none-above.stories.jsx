@@ -1,4 +1,5 @@
 // @flow
+import {action} from "@storybook/addon-actions";
 import * as React from "react";
 
 import ChoiceNoneAbove from "../choice-none-above.jsx";
@@ -31,7 +32,7 @@ const ChoiceDefaults = {
     crossedOut: false,
     previouslyAnswered: false,
     apiOptions: {},
-    onChange: () => {},
+    onChange: action("changed"),
 };
 
 export const Example = (args: StoryArgs): React.Node => {

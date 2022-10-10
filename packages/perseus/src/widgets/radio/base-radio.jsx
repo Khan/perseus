@@ -352,10 +352,10 @@ class BaseRadio extends React.Component<$FlowFixMe, $FlowFixMe> {
         // to a WB Clickable button, so we force it to be of
         // type HTMLButtonElement
         const anyNode = (ReactDOM.findDOMNode(ref.current): any);
-        const castNode = (anyNode: ?HTMLButtonElement);
+        const buttonNode = (anyNode: ?HTMLButtonElement);
 
-        if (castNode) {
-            castNode.focus();
+        if (buttonNode) {
+            buttonNode.focus();
         } else {
             return false;
         }

@@ -53,10 +53,6 @@ function ChoiceIconWrapper(props: ChoiceIconWrapperProps) {
 }
 
 export type ChoiceProps = {|
-    // TODO(kevinb) use Options.propTypes from perseus-api.jsx
-    // This change will also require make sure that item-renderer.jsx and
-    // server-item-renderer.jsx have appropriate defaults for apiOptions
-    // because many of the properties on Options.propTypes are required.
     apiOptions: APIOptions,
     checked: boolean,
     rationale: React.Node,
@@ -121,7 +117,7 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
         if (isInputFocused && disabled) {
             setIsInputFocused(false);
         }
-    });
+    }, [disabled, isInputFocused, setIsInputFocused]);
 
     // Call `this.props.onChange` with the given values. Any keys that are not
     // specified will be filled in with the current value. (For example, if
