@@ -90,6 +90,9 @@ const reportUnhandledConsoleWarnAndErrors = (type, message, ...args) => {
         // This helper performs argument substitution to mimic what console.log
         // would do.
         let count = 0;
+        if (typeof message !== "string") {
+            message = JSON.stringify(message);
+        }
         return message.replace(/%s/g, () => {
             const substitution = args[count++];
             if (typeof substitution === "string") {
@@ -120,57 +123,61 @@ const reportUnhandledConsoleWarnAndErrors = (type, message, ...args) => {
 // If a test legitimately expects a console.warn or console.error call, that
 // test should be using jest.spyOn with mockImplementation to suppress our
 // custom handling.
-globalThis.console.error = (...args) => {
-    reportUnhandledConsoleWarnAndErrors("error", ...args);
-};
-globalThis.console.warn = (...args) => {
-    const message = args[0];
-
-    const isReactUnsafe = (message, componentNames) =>
-        message &&
-        message.includes(
-            "See https://fb.me/react-unsafe-component-lifecycles for details.",
-        ) &&
-        componentNames;
-
-    const isReportableReactUnsafe = (message, componentNames) => {
-        // We ignore React lifecycle warnings for certain components so that
-        // we don't have to update these depedencies right now.
-        //
-        // TODO(FEI-3223): Update react-router-dom to 5.x
-        // TODO(FEI-3224): Remove react-motion
-        // TODO(FEI-3270): Remove all uses of wonder-blocks-modal-v1
-        //
-        // NOTE: This will also ignore lifecycle method warnings in any of
-        // our components in webapp with the same name.
-        const components = componentNames.split(", ");
-        const ignoredComponents = [
-            // react-router-dom
-            "Link",
-            "MemoryRouter",
-            "Redirect",
-            "Route",
-            "Router",
-            "StaticRouter",
-            "Switch",
-
-            // react-motion
-            "Motion",
-
-            // wonder-blocks-modal-v1
-            "ScrollDisabler",
-        ];
-
-        return !components.every((name) => ignoredComponents.includes(name));
+if (process.env.GLOBAL_CONSOLE_MOCK !== "false") {
+    globalThis.console.error = (...args) => {
+        reportUnhandledConsoleWarnAndErrors("error", ...args);
     };
+    globalThis.console.warn = (...args) => {
+        const message = args[0];
 
-    if (
-        !isReactUnsafe(message, args[1]) ||
-        isReportableReactUnsafe(message, args[1])
-    ) {
-        reportUnhandledConsoleWarnAndErrors("warn", ...args);
-    }
-};
+        const isReactUnsafe = (message, componentNames) =>
+            message &&
+            message.includes(
+                "See https://fb.me/react-unsafe-component-lifecycles for details.",
+            ) &&
+            componentNames;
+
+        const isReportableReactUnsafe = (message, componentNames) => {
+            // We ignore React lifecycle warnings for certain components so that
+            // we don't have to update these depedencies right now.
+            //
+            // TODO(FEI-3223): Update react-router-dom to 5.x
+            // TODO(FEI-3224): Remove react-motion
+            // TODO(FEI-3270): Remove all uses of wonder-blocks-modal-v1
+            //
+            // NOTE: This will also ignore lifecycle method warnings in any of
+            // our components in webapp with the same name.
+            const components = componentNames.split(", ");
+            const ignoredComponents = [
+                // react-router-dom
+                "Link",
+                "MemoryRouter",
+                "Redirect",
+                "Route",
+                "Router",
+                "StaticRouter",
+                "Switch",
+
+                // react-motion
+                "Motion",
+
+                // wonder-blocks-modal-v1
+                "ScrollDisabler",
+            ];
+
+            return !components.every((name) =>
+                ignoredComponents.includes(name),
+            );
+        };
+
+        if (
+            !isReactUnsafe(message, args[1]) ||
+            isReportableReactUnsafe(message, args[1])
+        ) {
+            reportUnhandledConsoleWarnAndErrors("warn", ...args);
+        }
+    };
+}
 
 beforeEach(() => {
     // Instructs Jest to use fake versions of the standard timer functions.
