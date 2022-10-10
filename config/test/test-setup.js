@@ -123,7 +123,7 @@ const reportUnhandledConsoleWarnAndErrors = (type, message, ...args) => {
 // If a test legitimately expects a console.warn or console.error call, that
 // test should be using jest.spyOn with mockImplementation to suppress our
 // custom handling.
-if (process.env["GLOBAL_CONSOLE_MOCK"] !== "false") {
+if (process.env.GLOBAL_CONSOLE_MOCK !== "false") {
     globalThis.console.error = (...args) => {
         reportUnhandledConsoleWarnAndErrors("error", ...args);
     };
