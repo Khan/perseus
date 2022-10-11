@@ -1,12 +1,10 @@
 // @flow
+import {action} from "@storybook/addon-actions";
 import * as React from "react";
 
 import ChoiceNoneAbove from "../choice-none-above.jsx";
 
 type StoryArgs = {|
-    // Eventually this?
-    // ...React.ElementConfig<ChoiceNoneAbove>,
-    className: string,
     content: React.Node,
     showContent?: boolean,
 |};
@@ -17,10 +15,27 @@ type ChoiceNoneAboveStory = {|
 |};
 
 export default ({
-    title: "Perseus/Widgets/Radio/None of the Above",
-    args: {className: "", showContent: false, content: ""},
+    title: "Perseus/Widgets/Radio/Choice None of the Above",
+    args: {showContent: false, content: "This is a possible choice"},
 }: ChoiceNoneAboveStory);
 
+const ChoiceDefaults = {
+    checked: false,
+    rationale: "This is a good rational",
+    correct: true,
+    disabled: false,
+    pos: 0,
+    reviewMode: false,
+    showRationale: false,
+    showCorrectness: false,
+    multipleSelect: false,
+    crossedOut: false,
+    previouslyAnswered: false,
+    apiOptions: {},
+    onChange: action("changed"),
+};
+
 export const Example = (args: StoryArgs): React.Node => {
-    return <ChoiceNoneAbove {...args} />;
+    const combineProps = {...ChoiceDefaults, ...args};
+    return <ChoiceNoneAbove {...combineProps} />;
 };

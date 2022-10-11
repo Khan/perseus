@@ -22,6 +22,8 @@ export const CheckedCorrectPreviouslyAnswered = (
             checked={true}
             correct={true}
             previouslyAnswered={true}
+            reviewMode={true}
+            satStyling={false}
         />
     );
 };
@@ -35,6 +37,8 @@ export const CheckedCorrectNotPreviouslyAnswered = (
             checked={true}
             correct={true}
             previouslyAnswered={false}
+            reviewMode={true}
+            satStyling={false}
         />
     );
 };
@@ -48,6 +52,8 @@ export const CheckedNotCorrectPreviouslyAnswered = (
             checked={true}
             correct={false}
             previouslyAnswered={true}
+            reviewMode={true}
+            satStyling={false}
         />
     );
 };
@@ -61,6 +67,8 @@ export const CheckedNotCorrectNotPreviouslyAnswered = (
             checked={true}
             correct={false}
             previouslyAnswered={false}
+            reviewMode={true}
+            satStyling={false}
         />
     );
 };
@@ -74,6 +82,8 @@ export const NotCheckedCorrectPreviouslyAnswered = (
             checked={false}
             correct={true}
             previouslyAnswered={true}
+            reviewMode={true}
+            satStyling={false}
         />
     );
 };
@@ -87,6 +97,8 @@ export const NotCheckedCorrectNotPreviouslyAnswered = (
             checked={false}
             correct={true}
             previouslyAnswered={false}
+            reviewMode={true}
+            satStyling={false}
         />
     );
 };
@@ -100,6 +112,8 @@ export const NotCheckedNotCorrectPreviouslyAnswered = (
             checked={false}
             correct={false}
             previouslyAnswered={true}
+            reviewMode={true}
+            satStyling={false}
         />
     );
 };
@@ -113,6 +127,8 @@ export const NotCheckedNotCorrectNotPreviouslyAnswered = (
             checked={false}
             correct={false}
             previouslyAnswered={false}
+            reviewMode={true}
+            satStyling={false}
         />
     );
 };

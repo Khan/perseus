@@ -21,6 +21,8 @@ class OptionStatus extends React.Component<{
     crossedOut: boolean,
     // Did the user select this option as the answer earlier?
     previouslyAnswered: boolean,
+    reviewMode: boolean,
+    satStyling?: boolean,
     ...
 }> {
     _renderText(): string {
@@ -44,8 +46,20 @@ class OptionStatus extends React.Component<{
         return i18n._("Incorrect");
     }
 
-    render(): React.Element<"div"> {
-        const {checked, correct, previouslyAnswered} = this.props;
+    render(): React.Node {
+        const {checked, correct, previouslyAnswered, reviewMode, satStyling} =
+            this.props;
+
+        // Option status is exclued for SAT
+        if (satStyling) {
+            return null;
+        }
+
+        // Option status is shown only in review mode, or for incorrectly
+        // answered items.
+        if (!reviewMode && !previouslyAnswered) {
+            return null;
+        }
 
         let textStyle;
         if (correct) {

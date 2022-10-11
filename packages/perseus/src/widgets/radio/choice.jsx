@@ -9,11 +9,12 @@ import {Popover, PopoverContent} from "@khanacademy/wonder-blocks-popover";
 import Spacing from "@khanacademy/wonder-blocks-spacing";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
-import PropTypes from "prop-types";
 import * as React from "react";
+import {useState, useEffect} from "react";
 import _ from "underscore";
 
 import Icon from "../../components/icon.jsx";
+import {ApiOptions} from "../../perseus-api.jsx";
 import * as styleConstants from "../../styles/constants.js";
 import mediaQueries from "../../styles/media-queries.js";
 
@@ -21,10 +22,10 @@ import ChoiceIcon from "./choice-icon/choice-icon.jsx";
 import OptionStatus from "./option-status.jsx";
 import {getChoiceLetter} from "./util.js";
 
+import type {APIOptions} from "../../types.js";
+
 const intermediateCheckboxPadding = `16px 16px`;
 const intermediateCheckboxPaddingPhone = `12px 16px`;
-
-export const TouchIgnoreTimeout = 10;
 
 const ellipsisHorizontalIcon = {
     path: "M27.218 6.82l0 13.578q0 2.852-1.984 4.836t-4.836 1.984l-13.578 0q-2.852 0-4.836-1.984t-1.984-4.836l0-13.578q0-2.852 1.984-4.836t4.836-1.984l13.578 0q2.852 0 4.836 1.984t1.984 4.836zm36.27 0l0 13.578q0 2.852-1.984 4.836t-4.836 1.984l-13.578 0q-2.852 0-4.836-1.984t-1.984-4.836l0-13.578q0-2.852 1.984-4.836t4.836-1.984l13.578 0q2.852 0 4.836 1.984t1.984 4.836zm36.27 0l0 13.578q0 2.852-1.984 4.836t-4.836 1.984l-13.578 0q-2.852 0-4.836-1.984t-1.984-4.836l0-13.578q0-2.852 1.984-4.836t4.836-1.984l13.578 0q2.852 0 4.836 1.984t1.984 4.836z",
@@ -32,169 +33,91 @@ const ellipsisHorizontalIcon = {
     height: 27.284,
 };
 
-type State = {|
-    isInputFocused: boolean,
-    isInputActive: boolean,
+type ChoiceIconWrapperProps = {|
+    apiOptions: APIOptions,
+    children: React.Node,
 |};
 
-class Choice extends React.Component<$FlowFixMe, State> {
-    justFinishedTouch: boolean;
-    justFinishedTimeoutID: TimeoutID;
-    _input: ?HTMLInputElement;
+function ChoiceIconWrapper(props: ChoiceIconWrapperProps) {
+    const {apiOptions, children} = props;
+    const finalStyles =
+        typeof apiOptions.styling?.radioStyleVersion === "undefined"
+            ? false
+            : apiOptions.styling.radioStyleVersion === "final";
 
-    static propTypes = {
-        // TODO(kevinb) use Options.propTypes from perseus-api.jsx
-        // This change will also require make sure that item-renderer.jsx and
-        // server-item-renderer.jsx have appropriate defaults for apiOptions
-        // because many of the properties on Options.propTypes are required.
-        apiOptions: PropTypes.shape({
-            satStyling: PropTypes.bool,
-            isMobile: PropTypes.bool,
-            styling: PropTypes.shape({
-                radioStyleVersion: PropTypes.oneOf(["intermediate", "final"]),
-                primaryProductColor: PropTypes.string,
-            }),
-            readOnly: PropTypes.bool,
-        }),
-        multipleSelect: PropTypes.bool,
-        checked: PropTypes.bool,
-        className: PropTypes.string,
-        rationale: PropTypes.node,
-        content: PropTypes.node,
-        correct: PropTypes.bool,
-        deselectEnabled: PropTypes.bool,
-        disabled: PropTypes.bool,
-        editMode: PropTypes.bool,
-        groupName: PropTypes.string,
-        isLastChoice: PropTypes.bool, // Needed for border styling
-        // This indicates the position of the choice relative to others
-        // (so that we can display a nice little (A), (B), etc. next to it)
-        // Also used to generate an id for each input.
-        pos: PropTypes.number,
-        reviewMode: PropTypes.bool,
-        showRationale: PropTypes.bool,
-        showCorrectness: PropTypes.bool,
-        type: PropTypes.string, // seems unused?
-
-        // Indicates whether the user has "crossed out" this choice, meaning
-        // that they don't think it's correct. This value does not affect
-        // scoring or other behavior; it's just a note for the user's
-        // reference.
-        crossedOut: PropTypes.bool,
-
-        // Indicates that the user has previously selected this answer. These
-        // answers may be rendered orange in review, rather than grey if
-        // incorrect.
-        previouslyAnswered: PropTypes.bool,
-
-        // A callback indicating that this choice has changed. Its argument is
-        // an object with two keys: `checked` and `crossedOut`. Each contains a
-        // boolean value specifying the new checked and crossed-out value of
-        // this choice.
-        onChange: PropTypes.func,
-
-        // Callbacks for when the user presses the up arrow or down arrow
-        // (respectively) to navigate between choices. When called, the parent
-        // finds the prev/next choice, focuses the input, and checks the radio
-        // button if appropriate. (The reason we have custom behavior is that
-        // we actually _don't_ want to auto-select crossed-out choices!)
-        goToPrevChoice: PropTypes.func.isRequired,
-        goToNextChoice: PropTypes.func.isRequired,
-    };
-
-    static defaultProps: $FlowFixMe = {
-        apiOptions: {
-            styling: {},
-        },
-        multipleSelect: false,
-        checked: false,
-        classSet: {},
-        correct: false,
-        disabled: false,
-        editMode: false,
-        onChange: function () {},
-        showRationale: false,
-        type: "radio", // seems unused?
-        pos: 0,
-        previouslyAnswered: false,
-    };
-
-    state: $FlowFixMe = {
-        isInputFocused: false,
-        isInputActive: false,
-    };
-
-    UNSAFE_componentWillUpdate(nextProps: $FlowFixMe) {
-        if (this.state.isInputFocused && nextProps.disabled) {
-            this.setState({
-                isInputFocused: false,
-            });
-        }
+    if (!finalStyles && !apiOptions.satStyling) {
+        return null;
     }
 
-    inputRef: ($FlowFixMe) => void = (ref) => {
-        this._input = ref;
-    };
+    return children;
+}
 
-    renderOptionStatus: () => React.Node = () => {
-        const {correct, checked, crossedOut, reviewMode, previouslyAnswered} =
-            this.props;
+export type ChoiceProps = {|
+    apiOptions: APIOptions,
+    checked: boolean,
+    rationale: React.Node,
+    content: React.Node,
+    correct: boolean,
+    disabled: boolean,
+    // This indicates the position of the choice relative to others
+    // (so that we can display a nice little (A), (B), etc. next to it)
+    // Also used to generate an id for each input.
+    pos: number,
+    reviewMode: boolean,
+    showRationale: boolean,
+    showCorrectness: boolean,
+    multipleSelect: boolean,
 
-        // Option status is exclued for SAT
-        if (this.props.apiOptions.satStyling) {
-            return null;
+    // Indicates whether the user has "crossed out" this choice, meaning
+    // that they don't think it's correct. This value does not affect
+    // scoring or other behavior; it's just a note for the user's
+    // reference.
+    crossedOut: boolean,
+
+    // Indicates that the user has previously selected this answer. These
+    // answers may be rendered orange in review, rather than grey if
+    // incorrect.
+    previouslyAnswered: boolean,
+
+    // A callback indicating that this choice has changed. Its argument is
+    // an object with two keys: `checked` and `crossedOut`. Each contains a
+    // boolean value specifying the new checked and crossed-out value of
+    // this choice.
+    onChange: (newValues: {checked: boolean, crossedOut: boolean}) => void,
+|};
+
+type WithForwardRef = {|forwardedRef: React.Ref<"button">|};
+
+type ChoicePropsWithForwardRef = {|
+    ...ChoiceProps,
+    ...WithForwardRef,
+|};
+
+function Choice(props: ChoicePropsWithForwardRef): React.Node {
+    const {
+        disabled,
+        checked,
+        content,
+        crossedOut,
+        showCorrectness,
+        multipleSelect,
+        onChange,
+        reviewMode,
+        correct,
+        apiOptions,
+        previouslyAnswered,
+        pos,
+        showRationale,
+        rationale,
+        forwardedRef,
+    } = props;
+    const [isInputFocused, setIsInputFocused] = useState(false);
+
+    useEffect(() => {
+        if (isInputFocused && disabled) {
+            setIsInputFocused(false);
         }
-
-        // Option status is shown only in review mode, or for incorrectly
-        // answered items.
-        if (!reviewMode && !previouslyAnswered) {
-            return null;
-        }
-
-        return (
-            <OptionStatus
-                checked={checked}
-                correct={correct}
-                crossedOut={crossedOut}
-                previouslyAnswered={previouslyAnswered}
-            />
-        );
-    };
-
-    renderChoiceIcon: (args: {|
-        isFocused: boolean,
-        isHovered: boolean,
-        isPressed: boolean,
-    |}) => React.Node = ({isFocused, isHovered, isPressed}) => {
-        const {radioStyleVersion, primaryProductColor} =
-            this.props.apiOptions.styling;
-        const finalStyles =
-            typeof radioStyleVersion === "undefined"
-                ? false
-                : radioStyleVersion === "final";
-
-        if (!finalStyles && !this.props.apiOptions.satStyling) {
-            return null;
-        }
-
-        return (
-            <ChoiceIcon
-                pos={this.props.pos}
-                correct={this.props.correct}
-                crossedOut={this.props.crossedOut}
-                focused={isFocused}
-                hovered={isHovered}
-                pressed={isPressed}
-                checked={this.props.checked}
-                multipleSelect={this.props.multipleSelect}
-                showCorrectness={this.props.showCorrectness}
-                reviewMode={this.props.reviewMode}
-                product={this.props.apiOptions.satStyling ? "sat" : "library"}
-                primaryProductColor={primaryProductColor}
-                previouslyAnswered={this.props.previouslyAnswered}
-            />
-        );
-    };
+    }, [disabled, isInputFocused, setIsInputFocused]);
 
     // Call `this.props.onChange` with the given values. Any keys that are not
     // specified will be filled in with the current value. (For example, if
@@ -203,217 +126,239 @@ class Choice extends React.Component<$FlowFixMe, State> {
     //
     // This enables us to use shorthand inside this component, while
     // maintaining a consistent API for the parent.
-    _sendChange: ({|checked?: boolean, crossedOut?: boolean|}) => void = (
-        newValues,
-    ) => {
-        const checked = newValues.checked ?? this.props.checked;
-        const crossedOut = newValues.crossedOut ?? this.props.crossedOut;
-        this.props.onChange({checked, crossedOut});
-    };
+    function sendChange(newValues: {|
+        checked?: boolean,
+        crossedOut?: boolean,
+    |}) {
+        const updatedChecked = newValues.checked ?? checked;
+        const updatedCrossedOut = newValues.crossedOut ?? crossedOut;
+        onChange({checked: updatedChecked, crossedOut: updatedCrossedOut});
+    }
 
-    /**
-     * Public method. Focus the choice's <input> element.
-     */
-    focusInput: () => void = () => {
-        this._input?.focus();
-    };
+    // HACK: while most of the styling for rendering SAT items is handled
+    // via aphrodite, we also need to assign normal CSS classnames here to
+    // special-case the coloring of MathJax formulas (see .MathJax .math in
+    // stylesheets/task-package/tasks.less)
+    const satCorrectChoice = apiOptions.satStyling && reviewMode && correct;
+    const satIncorrectChecked =
+        apiOptions.satStyling && reviewMode && !correct && checked;
+    const descriptionClassName = classNames(
+        "description",
+        satCorrectChoice && "sat-correct",
+        satIncorrectChecked && "sat-incorrect",
+        css(
+            !apiOptions.satStyling && styles.description,
+            apiOptions.satStyling && styles.satDescription,
+            satCorrectChoice && styles.satDescriptionCorrect,
+            satCorrectChoice && checked && styles.satDescriptionCorrectChecked,
+            satIncorrectChecked && styles.satDescriptionIncorrectChecked,
+        ),
+    );
 
-    render(): React.Node {
-        const sat = this.props.apiOptions.satStyling;
+    const rationaleClassName = classNames(
+        "perseus-radio-rationale-content",
+        css(
+            styles.rationale,
+            !apiOptions.satStyling && styles.nonSatRationale,
+            apiOptions.satStyling && styles.satReviewRationale,
+        ),
+    );
 
-        const {reviewMode, correct, checked} = this.props;
-        // HACK: while most of the styling for rendering SAT items is handled
-        // via aphrodite, we also need to assign normal CSS classnames here to
-        // special-case the coloring of MathJax formulas (see .MathJax .math in
-        // stylesheets/task-package/tasks.less)
-        const satCorrectChoice = sat && reviewMode && correct;
-        const satIncorrectChecked = sat && reviewMode && !correct && checked;
-        const descriptionClassName = classNames(
-            "description",
-            satCorrectChoice && "sat-correct",
-            satIncorrectChecked && "sat-incorrect",
-            css(
-                !sat && styles.description,
-                sat && styles.satDescription,
-                satCorrectChoice && styles.satDescriptionCorrect,
-                satCorrectChoice &&
-                    checked &&
-                    styles.satDescriptionCorrectChecked,
-                satIncorrectChecked && styles.satDescriptionIncorrectChecked,
-            ),
-        );
+    // We want to show the choices as dimmed out when the choices are
+    // disabled. However, we don't want to do this in the SAT product and
+    // we also don't want to do this when we're in review mode in the
+    // content library.
+    const showDimmed =
+        (!apiOptions.satStyling && !reviewMode && apiOptions.readOnly) ||
+        crossedOut;
 
-        const rationaleClassName = classNames(
-            "perseus-radio-rationale-content",
-            css(
-                styles.rationale,
-                !sat && styles.nonSatRationale,
-                sat && styles.satReviewRationale,
-            ),
-        );
-
-        // We want to show the choices as dimmed out when the choices are
-        // disabled. However, we don't want to do this in the SAT product and
-        // we also don't want to do this when we're in review mode in the
-        // content library.
-        const showDimmed =
-            (!sat && !reviewMode && this.props.apiOptions.readOnly) ||
-            this.props.crossedOut;
-
-        return (
+    return (
+        <div
+            style={{
+                dispay: "flex",
+                flexDirection: "column",
+            }}
+        >
             <div
                 style={{
-                    dispay: "flex",
-                    flexDirection: "column",
+                    display: "flex",
+                    flexDirection: "row",
+                    width: "100%",
+                    opacity: showDimmed ? 0.5 : 1.0,
                 }}
             >
-                <div
-                    style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        width: "100%",
-                        opacity: showDimmed ? 0.5 : 1.0,
+                <Clickable
+                    onClick={() => {
+                        // If we're checking a crossed-out option, let's
+                        // also uncross it.
+                        sendChange({
+                            checked: !checked,
+                            crossedOut: false,
+                        });
                     }}
+                    className={descriptionClassName}
+                    disabled={
+                        disabled ||
+                        apiOptions.staticRender ||
+                        apiOptions.readOnly
+                    }
+                    aria-label={`Select Choice ${getChoiceLetter(pos)}`}
+                    aria-checked={checked ? "true" : "false"}
+                    role={"checkbox"}
+                    style={{flex: 1}}
+                    ref={(forwardedRef: any)}
                 >
-                    <Clickable
-                        onClick={() => {
-                            // If we're checking a crossed-out option, let's
-                            // also uncross it.
-                            this._sendChange({
-                                checked: !this.props.checked,
-                                crossedOut: false,
-                            });
-                        }}
-                        className={descriptionClassName}
-                        disabled={
-                            this.props.disabled ||
-                            this.props.apiOptions.staticRender ||
-                            this.props.apiOptions.readOnly
-                        }
-                        aria-label={`Select Choice ${getChoiceLetter(
-                            this.props.pos,
-                        )}`}
-                        aria-checked={this.props.checked}
-                        role={"checkbox"}
-                        style={{flex: 1}}
-                    >
-                        {({hovered, focused, pressed}) => (
-                            <div
+                    {({hovered, focused, pressed}) => (
+                        <div
+                            style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "center",
+                                alignContent: "center",
+                                paddingTop: Spacing.xSmall_8,
+                                paddingBottom: Spacing.xSmall_8,
+                            }}
+                        >
+                            <span>
+                                <ChoiceIconWrapper apiOptions={apiOptions}>
+                                    <ChoiceIcon
+                                        pos={pos}
+                                        correct={correct}
+                                        crossedOut={crossedOut}
+                                        pressed={pressed}
+                                        focused={focused}
+                                        checked={checked}
+                                        hovered={hovered}
+                                        showCorrectness={showCorrectness}
+                                        multipleSelect={multipleSelect}
+                                        reviewMode={reviewMode}
+                                        product={
+                                            apiOptions.satStyling
+                                                ? "sat"
+                                                : "library"
+                                        }
+                                        primaryProductColor={
+                                            apiOptions.styling
+                                                ?.primaryProductColor
+                                        }
+                                        previouslyAnswered={previouslyAnswered}
+                                    />
+                                </ChoiceIconWrapper>
+                            </span>
+                            <span
                                 style={{
-                                    display: "flex",
-                                    flexDirection: "row",
-                                    justifyContent: "center",
-                                    alignContent: "center",
-                                    paddingTop: Spacing.xSmall_8,
-                                    paddingBottom: Spacing.xSmall_8,
+                                    paddingLeft: Spacing.small_12,
+                                    textAlign: "left",
+                                    flex: 1,
+                                    paddingTop: 4,
                                 }}
                             >
-                                <span>
-                                    {this.renderChoiceIcon({
-                                        isFocused: focused,
-                                        isHovered: hovered,
-                                        isPressed: pressed,
-                                    })}
-                                </span>
-                                <span
-                                    style={{
-                                        paddingLeft: Spacing.small_12,
-                                        textAlign: "left",
-                                        flex: 1,
-                                        paddingTop: 4,
-                                    }}
-                                >
-                                    <div>{this.renderOptionStatus()}</div>
-                                    <div>{this.props.content}</div>
-                                </span>
-                            </div>
-                        )}
-                    </Clickable>
-
-                    {this.props.apiOptions.crossOutEnabled && !reviewMode && (
-                        <Popover
-                            dismissEnabled
-                            content={({close}) => (
-                                <PopoverContent
-                                    title="Cross out"
-                                    content="Cross out option"
-                                    closeButtonVisible
-                                    actions={
-                                        <View>
-                                            <Strut size={Spacing.medium_16} />
-                                            <Button
-                                                kind="primary"
-                                                aria-label={`Cross out Choice ${getChoiceLetter(
-                                                    this.props.pos,
-                                                )}`}
-                                                disabled={
-                                                    this.props.apiOptions
-                                                        .readOnly || reviewMode
-                                                }
-                                                onClick={() => {
-                                                    if (
-                                                        !this.props.crossedOut
-                                                    ) {
-                                                        // If we're crossing
-                                                        // out a checked
-                                                        // option, let's also
-                                                        // uncheck it.
-                                                        this._sendChange({
-                                                            checked: false,
-                                                            crossedOut: true,
-                                                        });
-                                                    } else {
-                                                        this._sendChange({
-                                                            crossedOut: false,
-                                                        });
-                                                    }
-                                                    close();
-                                                }}
-                                            >
-                                                {this.props.crossedOut
-                                                    ? "Bring back"
-                                                    : "Cross out"}
-                                            </Button>
-                                        </View>
-                                    }
-                                />
-                            )}
-                        >
-                            {({open}) => (
-                                <Clickable
-                                    onClick={open}
-                                    aria-label={`Open menu for Choice ${getChoiceLetter(
-                                        this.props.pos,
-                                    )}`}
-                                    disabled={
-                                        this.props.apiOptions.staticRender
-                                    }
-                                >
-                                    {({hovered, focused, pressed}) => (
-                                        <Icon
-                                            icon={ellipsisHorizontalIcon}
-                                            size={3}
-                                            color={Color.offBlack64}
-                                        />
-                                    )}
-                                </Clickable>
-                            )}
-                        </Popover>
+                                <div>
+                                    <OptionStatus
+                                        checked={checked}
+                                        correct={correct}
+                                        crossedOut={crossedOut}
+                                        previouslyAnswered={previouslyAnswered}
+                                        reviewMode={reviewMode}
+                                        satStyling={apiOptions.satStyling}
+                                    />
+                                </div>
+                                <div>{content}</div>
+                            </span>
+                        </div>
                     )}
-                </div>
+                </Clickable>
 
-                {this.props.showRationale && (
-                    <div
-                        className={rationaleClassName}
-                        data-test-id={`perseus-radio-rationale-content-${this.props.pos}`}
+                {apiOptions.crossOutEnabled && !reviewMode && (
+                    <Popover
+                        dismissEnabled
+                        content={({close}) => (
+                            <PopoverContent
+                                title="Cross out"
+                                content="Cross out option"
+                                closeButtonVisible
+                                actions={
+                                    <View>
+                                        <Strut size={Spacing.medium_16} />
+                                        <Button
+                                            kind="primary"
+                                            aria-label={`Cross out Choice ${getChoiceLetter(
+                                                pos,
+                                            )}`}
+                                            disabled={
+                                                apiOptions.readOnly ||
+                                                reviewMode
+                                            }
+                                            onClick={() => {
+                                                if (!crossedOut) {
+                                                    // If we're crossing
+                                                    // out a checked
+                                                    // option, let's also
+                                                    // uncheck it.
+                                                    sendChange({
+                                                        checked: false,
+                                                        crossedOut: true,
+                                                    });
+                                                } else {
+                                                    sendChange({
+                                                        crossedOut: false,
+                                                    });
+                                                }
+                                                close();
+                                            }}
+                                        >
+                                            {crossedOut
+                                                ? "Bring back"
+                                                : "Cross out"}
+                                        </Button>
+                                    </View>
+                                }
+                            />
+                        )}
                     >
-                        {this.props.rationale}
-                    </div>
+                        {({open}) => (
+                            <Clickable
+                                onClick={open}
+                                aria-label={`Open menu for Choice ${getChoiceLetter(
+                                    pos,
+                                )}`}
+                                disabled={apiOptions.staticRender}
+                            >
+                                {({hovered, focused, pressed}) => (
+                                    <Icon
+                                        icon={ellipsisHorizontalIcon}
+                                        size={3}
+                                        color={Color.offBlack64}
+                                    />
+                                )}
+                            </Clickable>
+                        )}
+                    </Popover>
                 )}
             </div>
-        );
-    }
+
+            {showRationale && (
+                <div
+                    className={rationaleClassName}
+                    data-test-id={`perseus-radio-rationale-content-${pos}`}
+                >
+                    {rationale}
+                </div>
+            )}
+        </div>
+    );
 }
+
+Choice.defaultProps = {
+    disabled: false,
+    checked: false,
+    onChange: (newValues: {checked: boolean, crossedOut: boolean}): void => {},
+    correct: false,
+    apiOptions: ApiOptions.defaults,
+    previouslyAnswered: false,
+    pos: 0,
+    showRationale: false,
+};
 
 const styles = StyleSheet.create({
     description: {
@@ -463,4 +408,8 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Choice;
+type ExportProps = $Diff<React.ElementConfig<typeof Choice>, WithForwardRef>;
+
+export default (React.forwardRef<ExportProps, HTMLButtonElement>(
+    (props, ref) => <Choice {...props} forwardedRef={ref} />,
+): React.AbstractComponent<ExportProps, HTMLButtonElement>);

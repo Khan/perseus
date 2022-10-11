@@ -7,7 +7,6 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
-import {Errors as PerseusErrors, Log} from "../../logging/log.js";
 import {ClassNames as ApiClassNames} from "../../perseus-api.jsx";
 import * as styleConstants from "../../styles/constants.js";
 import mediaQueries from "../../styles/media-queries.js";
@@ -47,6 +46,9 @@ const ChoicesType = PropTypes.arrayOf(
 const radioBorderColor = styleConstants.radioBorderColor;
 
 class BaseRadio extends React.Component<$FlowFixMe, $FlowFixMe> {
+    choiceRefs: Array<{current: ?HTMLDivElement}>;
+    state: $FlowFixMe;
+
     static propTypes = {
         apiOptions: PropTypes.shape({
             readOnly: PropTypes.bool,
@@ -258,14 +260,19 @@ class BaseRadio extends React.Component<$FlowFixMe, $FlowFixMe> {
         editMode: false,
     };
 
-    state: $FlowFixMe = {
-        // TODO(mdr): This keeps the ID stable across re-renders on the
-        //     same machine, but, at time of writing, the server's state
-        //     isn't rehydrated to the client during SSR, so the server and
-        //     client will generate different IDs and cause a mismatch
-        //     during SSR :(
-        radioGroupName: _.uniqueId("perseus_radio_"),
-    };
+    constructor() {
+        super();
+        this.choiceRefs = [];
+
+        this.state = {
+            // TODO(mdr): This keeps the ID stable across re-renders on the
+            //     same machine, but, at time of writing, the server's state
+            //     isn't rehydrated to the client during SSR, so the server and
+            //     client will generate different IDs and cause a mismatch
+            //     during SSR :(
+            radioGroupName: _.uniqueId("perseus_radio_"),
+        };
+    }
 
     componentDidUpdate(prevProps: $FlowFixMe) {
         const {apiOptions, choices, isLastUsedWidget, reviewModeRubric} =
@@ -340,9 +347,18 @@ class BaseRadio extends React.Component<$FlowFixMe, $FlowFixMe> {
     };
 
     focus: (number) => boolean = (i) => {
-        // $FlowFixMe[incompatible-use]
-        // $FlowFixMe[prop-missing]
-        ReactDOM.findDOMNode(this.refs["radio" + (i || 0)]).focus(); // eslint-disable-line react/no-string-refs
+        const ref = this.choiceRefs[i || 0];
+        // note(matthew): we know this is only getting passed
+        // to a WB Clickable button, so we force it to be of
+        // type HTMLButtonElement
+        const anyNode = (ReactDOM.findDOMNode(ref.current): any);
+        const buttonNode = (anyNode: ?HTMLButtonElement);
+
+        if (buttonNode) {
+            buttonNode.focus();
+        } else {
+            return false;
+        }
         return true;
     };
 
@@ -363,60 +379,7 @@ class BaseRadio extends React.Component<$FlowFixMe, $FlowFixMe> {
         return this.props.apiOptions.isMobile || this.props.deselectEnabled;
     };
 
-    /**
-     * Find the choice at the given index (wrapped, if necessary), focus it,
-     * uncheck the old choice, and check the new choice (unless it's crossed
-     * out, in which case we only uncheck the old choice).
-     *
-     * This is very similar to standard up/down arrow behavior, except that we
-     * don't select crossed-out choices.
-     *
-     * Handles `goToPrevChoice` and `goToNextChoice` calls from our children.
-     */
-    goToChoice: (number) => void = (newChoiceIndex) => {
-        const numChoices = this.props.choices.length;
-
-        // Wrap the newChoiceIndex around the start/end, if necessary.
-        if (newChoiceIndex < 0) {
-            newChoiceIndex += numChoices;
-        }
-        if (newChoiceIndex >= numChoices) {
-            newChoiceIndex -= numChoices;
-        }
-
-        // Focus the new choice's input element.
-        // eslint-disable-next-line react/no-string-refs
-        const choiceInstance = this.refs[`radio${newChoiceIndex}`];
-        if (!choiceInstance) {
-            Log.error(
-                `found no choice at index ${newChoiceIndex}, even after ` +
-                    `wrapping it to be within bounds`,
-                PerseusErrors.Internal,
-                {loggedMetadata: {choices: JSON.stringify(this.props.choices)}},
-            );
-            return;
-        }
-        choiceInstance.focusInput();
-
-        // We aren't going to change any choices' crossed-out state, but we
-        // _are_ going to deselect all choices.
-        const newCrossedOutList = this.props.choices.map((c) => c.crossedOut);
-        const newCheckedList = this.props.choices.map((c) => false);
-
-        // And, if the new choice isn't crossed out, we'll select it.
-        if (!this.props.choices[newChoiceIndex].crossedOut) {
-            newCheckedList[newChoiceIndex] = true;
-        }
-
-        this.props.onChange({
-            checked: newCheckedList,
-            crossedOut: newCrossedOutList,
-        });
-    };
-
     render(): React.Node {
-        // note(matthew): as far as I can tell this isn't used, too afraid to delete
-        const inputType = this.props.multipleSelect ? "checkbox" : "radio";
         const rubric = this.props.reviewModeRubric;
         const reviewMode = !!rubric;
 
@@ -468,8 +431,9 @@ class BaseRadio extends React.Component<$FlowFixMe, $FlowFixMe> {
                 <ul className={className} style={{listStyle: "none"}}>
                     {this.props.choices.map(function (choice, i) {
                         let Element = Choice;
+                        const ref = React.createRef();
+                        this.choiceRefs[i] = ref;
                         const elementProps = {
-                            ref: `radio${i}`,
                             apiOptions: this.props.apiOptions,
                             multipleSelect: this.props.multipleSelect,
                             checked: choice.checked,
@@ -482,22 +446,16 @@ class BaseRadio extends React.Component<$FlowFixMe, $FlowFixMe> {
                             disabled:
                                 this.props.apiOptions.readOnly ||
                                 choice.disabled,
-                            editMode: this.props.editMode,
-                            groupName: this.state.radioGroupName,
-                            isLastChoice: i === this.props.choices.length - 1,
                             showCorrectness:
                                 reviewMode || !!choice.showCorrectness,
                             showRationale:
                                 choice.hasRationale &&
                                 (reviewMode || choice.showRationale),
-                            type: inputType,
                             pos: i,
-                            deselectEnabled: this.deselectEnabled(),
                             onChange: (newValues) => {
                                 this.updateChoice(i, newValues);
                             },
-                            goToPrevChoice: () => this.goToChoice(i - 1),
-                            goToNextChoice: () => this.goToChoice(i + 1),
+                            ref,
                         };
 
                         if (choice.isNoneOfTheAbove) {
