@@ -45,9 +45,8 @@ const ChoicesType = PropTypes.arrayOf(
 
 const radioBorderColor = styleConstants.radioBorderColor;
 
-class BaseRadio extends React.Component<$FlowFixMe, $FlowFixMe> {
+class BaseRadio extends React.Component<$FlowFixMe> {
     choiceRefs: Array<{current: ?HTMLDivElement}>;
-    state: $FlowFixMe;
 
     static propTypes = {
         apiOptions: PropTypes.shape({
@@ -263,15 +262,6 @@ class BaseRadio extends React.Component<$FlowFixMe, $FlowFixMe> {
     constructor() {
         super();
         this.choiceRefs = [];
-
-        this.state = {
-            // TODO(mdr): This keeps the ID stable across re-renders on the
-            //     same machine, but, at time of writing, the server's state
-            //     isn't rehydrated to the client during SSR, so the server and
-            //     client will generate different IDs and cause a mismatch
-            //     during SSR :(
-            radioGroupName: _.uniqueId("perseus_radio_"),
-        };
     }
 
     componentDidUpdate(prevProps: $FlowFixMe) {
