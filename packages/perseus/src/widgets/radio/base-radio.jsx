@@ -16,8 +16,8 @@ import {scrollElementIntoView} from "../../util/scroll-utils.js";
 import ChoiceNoneAbove from "./choice-none-above.jsx";
 import Choice from "./choice.jsx";
 
-import type {APIOptions} from "../../types.js";
 import type {PerseusRadioWidgetOptions} from "../../perseus-types";
+import type {APIOptions} from "../../types.js";
 import type {StyleDeclaration} from "aphrodite";
 
 const {captureScratchpadTouchStart} = Util;
