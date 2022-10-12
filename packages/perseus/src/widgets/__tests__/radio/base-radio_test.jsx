@@ -60,11 +60,7 @@ function renderBaseRadio(props) {
 
     const overwrittenProps = {...baseProps, ...props};
 
-    try {
-        return render(<BaseRadio {...overwrittenProps} />);
-    } catch (err) {
-        console.log(err);
-    }
+    return render(<BaseRadio {...overwrittenProps} />);
 }
 
 describe("base-radio", () => {
