@@ -19,6 +19,7 @@ import Choice from "./choice.jsx";
 
 import type {StyleDeclaration} from "aphrodite";
 import type {APIOptions} from "../../types.js";
+import type {PerseusRadioWidgetOptions} from "../../perseus-types";
 
 const {captureScratchpadTouchStart} = Util;
 
@@ -39,20 +40,18 @@ type ChoiceType = {|
     disabled: boolean,
 |};
 
-type ReviewModeRubric = {|
-    choices: ChoiceType[],
-|};
-
 type Props = {|
     apiOptions: APIOptions,
     choices: ChoiceType[],
-    deselectEnabled: boolean,
+    deselectEnabled?: boolean,
     editMode: boolean,
     labelWrap: boolean,
-    countChoices: boolean,
+    countChoices: ?boolean,
     numCorrect: number,
     multipleSelect: boolean,
-    reviewModeRubric: ReviewModeRubric,
+    // the logic checks whether this exists,
+    // so it must be optional
+    reviewModeRubric?: PerseusRadioWidgetOptions,
 
     // A callback indicating that this choice has changed. Its argument is
     // an object with two keys: `checked` and `crossedOut`. Each contains
@@ -63,7 +62,12 @@ type Props = {|
     // Whether this widget was the most recently used widget in this
     // Renderer. Determines whether we'll auto-scroll the page upon
     // entering review mode.
-    isLastUsedWidget: boolean,
+    isLastUsedWidget?: boolean,
+|};
+
+type DefaultProps = {|
+    editMode: Props["editMode"],
+    multipleSelect: Props["multipleSelect"],
 |};
 
 const radioBorderColor = styleConstants.radioBorderColor;
@@ -71,182 +75,9 @@ const radioBorderColor = styleConstants.radioBorderColor;
 class BaseRadio extends React.Component<Props> {
     choiceRefs: Array<{current: ?HTMLButtonElement}>;
 
-    static styles: StyleDeclaration = StyleSheet.create({
-        // eslint-disable-next-line react-native/no-unused-styles
-        instructions: {
-            display: "block",
-            color: styleConstants.gray17,
-            fontSize: 14,
-            lineHeight: 1.25,
-            fontStyle: "normal",
-            fontWeight: "bold",
-            marginBottom: 16,
-        },
-
-        // eslint-disable-next-line react-native/no-unused-styles
-        instructionsMobile: {
-            fontSize: 18,
-            [mediaQueries.smOrSmaller]: {
-                fontSize: 16,
-            },
-            // TODO(emily): We want this to match choice text, which turns
-            // to 20px at min-width 1200px, but this media query is
-            // min-width 1280px because our media queries don't exactly
-            // match pure. Make those match up.
-            [mediaQueries.xl]: {
-                fontSize: 20,
-            },
-        },
-
-        // eslint-disable-next-line react-native/no-unused-styles
-        radio: {
-            // Avoid centering
-            width: "100%",
-        },
-
-        // eslint-disable-next-line react-native/no-unused-styles
-        responsiveRadioContainer: {
-            borderBottom: `1px solid ${radioBorderColor}`,
-            borderTop: `1px solid ${radioBorderColor}`,
-            width: "auto",
-            [mediaQueries.smOrSmaller]: {
-                marginLeft: styleConstants.negativePhoneMargin,
-                marginRight: styleConstants.negativePhoneMargin,
-            },
-        },
-
-        // eslint-disable-next-line react-native/no-unused-styles
-        radioContainerFirstHighlighted: {
-            borderTop: `1px solid rgba(0, 0, 0, 0)`,
-        },
-
-        // eslint-disable-next-line react-native/no-unused-styles
-        radioContainerLastHighlighted: {
-            borderBottom: `1px solid rgba(0, 0, 0, 0)`,
-        },
-
-        // eslint-disable-next-line react-native/no-unused-styles
-        satRadio: {
-            background: "none",
-            marginLeft: 0,
-            userSelect: "none",
-        },
-
-        // eslint-disable-next-line react-native/no-unused-styles
-        satRadioOption: {
-            margin: 0,
-            padding: 0,
-            borderBottom: `1px solid #ccc`,
-            ":first-child": {
-                borderTop: `1px solid #ccc`,
-            },
-        },
-
-        // eslint-disable-next-line react-native/no-unused-styles
-        satRadioOptionCorrect: {
-            borderBottomColor: styleConstants.satCorrectBorderColor,
-            ":first-child": {
-                borderTopColor: styleConstants.satCorrectBorderColor,
-            },
-        },
-
-        // eslint-disable-next-line react-native/no-unused-styles
-        satRadioOptionIncorrect: {
-            borderBottomColor: styleConstants.satIncorrectBorderColor,
-            ":first-child": {
-                borderTopColor: styleConstants.satIncorrectBorderColor,
-            },
-        },
-
-        // eslint-disable-next-line react-native/no-unused-styles
-        satRadioOptionNextCorrect: {
-            borderBottomColor: styleConstants.satCorrectBorderColor,
-        },
-
-        // eslint-disable-next-line react-native/no-unused-styles
-        satRadioOptionNextIncorrect: {
-            borderBottomColor: styleConstants.satIncorrectBorderColor,
-        },
-
-        // eslint-disable-next-line react-native/no-unused-styles
-        satReviewRadioOption: {
-            pointerEvents: "none",
-        },
-
-        // eslint-disable-next-line react-native/no-unused-styles
-        item: {
-            marginLeft: 20,
-        },
-
-        // eslint-disable-next-line react-native/no-unused-styles
-        inlineItem: {
-            display: "inline-block",
-            paddingLeft: 20,
-            verticalAlign: "middle",
-            // See http://stackoverflow.com/q/8120466 for explanation of
-            // why vertical align property is needed
-        },
-
-        // eslint-disable-next-line react-native/no-unused-styles
-        responsiveItem: {
-            marginLeft: 0,
-            padding: 0,
-
-            ":not(:last-child)": {
-                borderBottom: `1px solid ${radioBorderColor}`,
-            },
-        },
-
-        // eslint-disable-next-line react-native/no-unused-styles
-        selectedItem: {
-            background: "white",
-        },
-
-        // eslint-disable-next-line react-native/no-unused-styles
-        aboveBackdrop: {
-            position: "relative",
-            // HACK(emily): We want selected choices to show up above our
-            // exercise backdrop, but below the exercise footer and
-            // "feedback popover" that shows up. This z-index is carefully
-            // coordinated between here and webapp. :(
-            zIndex: 1062,
-        },
-
-        // eslint-disable-next-line react-native/no-unused-styles
-        aboveBackdropMobile: {
-            boxShadow:
-                "0 0 4px 0 rgba(0, 0, 0, 0.2)," +
-                "0 0 2px 0 rgba(0, 0, 0, 0.1)",
-
-            ":not(:last-child)": {
-                borderBottom: `1px solid rgba(0, 0, 0, 0)`,
-            },
-        },
-
-        // eslint-disable-next-line react-native/no-unused-styles
-        nextHighlighted: {
-            ":not(:last-child)": {
-                borderBottom: `1px solid rgba(0, 0, 0, 0)`,
-            },
-        },
-
-        // eslint-disable-next-line react-native/no-unused-styles
-        responsiveContainer: {
-            overflow: "auto",
-            marginLeft: styleConstants.negativePhoneMargin,
-            marginRight: styleConstants.negativePhoneMargin,
-            paddingLeft: styleConstants.phoneMargin,
-            // paddingRight is handled by responsiveFieldset
-        },
-
-        // eslint-disable-next-line react-native/no-unused-styles
-        responsiveFieldset: {
-            paddingRight: styleConstants.phoneMargin,
-        },
-    });
-
-    static defaultProps: $FlowFixMe = {
+    static defaultProps: DefaultProps = {
         editMode: false,
+        multipleSelect: false,
     };
 
     constructor() {
@@ -363,14 +194,13 @@ class BaseRadio extends React.Component<Props> {
 
     deselectEnabled: () => boolean = () => {
         // We want to force enable deselect on mobile.
-        return this.props.apiOptions.isMobile || this.props.deselectEnabled;
+        return !!(this.props.apiOptions.isMobile || this.props.deselectEnabled);
     };
 
     render(): React.Node {
         const rubric = this.props.reviewModeRubric;
         const reviewMode = !!rubric;
 
-        const styles = BaseRadio.styles;
         const sat = this.props.apiOptions.satStyling;
 
         const isMobile = this.props.apiOptions.isMobile;
@@ -507,18 +337,21 @@ class BaseRadio extends React.Component<Props> {
                         // when selecting the button for the first time.
                         aphroditeClassName(true);
 
+                        let correctnessClass;
+                        // reviewMode is only true if there's a rubric
+                        // but Flow doesn't understand that
+                        if (reviewMode && rubric) {
+                            correctnessClass = rubric.choices[i].correct
+                                ? ApiClassNames.CORRECT
+                                : ApiClassNames.INCORRECT;
+                        }
                         const className = classNames(
                             aphroditeClassName(choice.checked),
                             // TODO(aria): Make test case for these API
                             // classNames
                             ApiClassNames.RADIO.OPTION,
                             choice.checked && ApiClassNames.RADIO.SELECTED,
-                            reviewMode &&
-                                rubric.choices[i].correct &&
-                                ApiClassNames.CORRECT,
-                            reviewMode &&
-                                !rubric.choices[i].correct &&
-                                ApiClassNames.INCORRECT,
+                            correctnessClass,
                         );
 
                         // In edit mode, the Choice renders a Div in order to
@@ -586,5 +419,178 @@ class BaseRadio extends React.Component<Props> {
         );
     }
 }
+
+const styles: StyleDeclaration = StyleSheet.create({
+    // eslint-disable-next-line react-native/no-unused-styles
+    instructions: {
+        display: "block",
+        color: styleConstants.gray17,
+        fontSize: 14,
+        lineHeight: 1.25,
+        fontStyle: "normal",
+        fontWeight: "bold",
+        marginBottom: 16,
+    },
+
+    // eslint-disable-next-line react-native/no-unused-styles
+    instructionsMobile: {
+        fontSize: 18,
+        [mediaQueries.smOrSmaller]: {
+            fontSize: 16,
+        },
+        // TODO(emily): We want this to match choice text, which turns
+        // to 20px at min-width 1200px, but this media query is
+        // min-width 1280px because our media queries don't exactly
+        // match pure. Make those match up.
+        [mediaQueries.xl]: {
+            fontSize: 20,
+        },
+    },
+
+    // eslint-disable-next-line react-native/no-unused-styles
+    radio: {
+        // Avoid centering
+        width: "100%",
+    },
+
+    // eslint-disable-next-line react-native/no-unused-styles
+    responsiveRadioContainer: {
+        borderBottom: `1px solid ${radioBorderColor}`,
+        borderTop: `1px solid ${radioBorderColor}`,
+        width: "auto",
+        [mediaQueries.smOrSmaller]: {
+            marginLeft: styleConstants.negativePhoneMargin,
+            marginRight: styleConstants.negativePhoneMargin,
+        },
+    },
+
+    // eslint-disable-next-line react-native/no-unused-styles
+    radioContainerFirstHighlighted: {
+        borderTop: `1px solid rgba(0, 0, 0, 0)`,
+    },
+
+    // eslint-disable-next-line react-native/no-unused-styles
+    radioContainerLastHighlighted: {
+        borderBottom: `1px solid rgba(0, 0, 0, 0)`,
+    },
+
+    // eslint-disable-next-line react-native/no-unused-styles
+    satRadio: {
+        background: "none",
+        marginLeft: 0,
+        userSelect: "none",
+    },
+
+    // eslint-disable-next-line react-native/no-unused-styles
+    satRadioOption: {
+        margin: 0,
+        padding: 0,
+        borderBottom: `1px solid #ccc`,
+        ":first-child": {
+            borderTop: `1px solid #ccc`,
+        },
+    },
+
+    // eslint-disable-next-line react-native/no-unused-styles
+    satRadioOptionCorrect: {
+        borderBottomColor: styleConstants.satCorrectBorderColor,
+        ":first-child": {
+            borderTopColor: styleConstants.satCorrectBorderColor,
+        },
+    },
+
+    // eslint-disable-next-line react-native/no-unused-styles
+    satRadioOptionIncorrect: {
+        borderBottomColor: styleConstants.satIncorrectBorderColor,
+        ":first-child": {
+            borderTopColor: styleConstants.satIncorrectBorderColor,
+        },
+    },
+
+    // eslint-disable-next-line react-native/no-unused-styles
+    satRadioOptionNextCorrect: {
+        borderBottomColor: styleConstants.satCorrectBorderColor,
+    },
+
+    // eslint-disable-next-line react-native/no-unused-styles
+    satRadioOptionNextIncorrect: {
+        borderBottomColor: styleConstants.satIncorrectBorderColor,
+    },
+
+    // eslint-disable-next-line react-native/no-unused-styles
+    satReviewRadioOption: {
+        pointerEvents: "none",
+    },
+
+    // eslint-disable-next-line react-native/no-unused-styles
+    item: {
+        marginLeft: 20,
+    },
+
+    // eslint-disable-next-line react-native/no-unused-styles
+    inlineItem: {
+        display: "inline-block",
+        paddingLeft: 20,
+        verticalAlign: "middle",
+        // See http://stackoverflow.com/q/8120466 for explanation of
+        // why vertical align property is needed
+    },
+
+    // eslint-disable-next-line react-native/no-unused-styles
+    responsiveItem: {
+        marginLeft: 0,
+        padding: 0,
+
+        ":not(:last-child)": {
+            borderBottom: `1px solid ${radioBorderColor}`,
+        },
+    },
+
+    // eslint-disable-next-line react-native/no-unused-styles
+    selectedItem: {
+        background: "white",
+    },
+
+    // eslint-disable-next-line react-native/no-unused-styles
+    aboveBackdrop: {
+        position: "relative",
+        // HACK(emily): We want selected choices to show up above our
+        // exercise backdrop, but below the exercise footer and
+        // "feedback popover" that shows up. This z-index is carefully
+        // coordinated between here and webapp. :(
+        zIndex: 1062,
+    },
+
+    // eslint-disable-next-line react-native/no-unused-styles
+    aboveBackdropMobile: {
+        boxShadow:
+            "0 0 4px 0 rgba(0, 0, 0, 0.2)," + "0 0 2px 0 rgba(0, 0, 0, 0.1)",
+
+        ":not(:last-child)": {
+            borderBottom: `1px solid rgba(0, 0, 0, 0)`,
+        },
+    },
+
+    // eslint-disable-next-line react-native/no-unused-styles
+    nextHighlighted: {
+        ":not(:last-child)": {
+            borderBottom: `1px solid rgba(0, 0, 0, 0)`,
+        },
+    },
+
+    // eslint-disable-next-line react-native/no-unused-styles
+    responsiveContainer: {
+        overflow: "auto",
+        marginLeft: styleConstants.negativePhoneMargin,
+        marginRight: styleConstants.negativePhoneMargin,
+        paddingLeft: styleConstants.phoneMargin,
+        // paddingRight is handled by responsiveFieldset
+    },
+
+    // eslint-disable-next-line react-native/no-unused-styles
+    responsiveFieldset: {
+        paddingRight: styleConstants.phoneMargin,
+    },
+});
 
 export default BaseRadio;
