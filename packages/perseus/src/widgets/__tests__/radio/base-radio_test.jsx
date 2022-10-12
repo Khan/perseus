@@ -161,9 +161,6 @@ describe("base-radio", () => {
         // Equivalent to "should toggle choice when inner element clicked" but with editMode set to false
         it("select single select choices", () => {
             // Arrange
-            const apiOptions: APIOptions = {
-                styling: {radioStyleVersion: "final"},
-            };
             let updatedValues = null;
             const onChangeHandler = (newValues) => {
                 updatedValues = newValues;

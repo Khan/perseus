@@ -2,7 +2,6 @@
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
-import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
@@ -17,9 +16,9 @@ import {scrollElementIntoView} from "../../util/scroll-utils.js";
 import ChoiceNoneAbove from "./choice-none-above.jsx";
 import Choice from "./choice.jsx";
 
-import type {StyleDeclaration} from "aphrodite";
 import type {APIOptions} from "../../types.js";
 import type {PerseusRadioWidgetOptions} from "../../perseus-types";
+import type {StyleDeclaration} from "aphrodite";
 
 const {captureScratchpadTouchStart} = Util;
 
