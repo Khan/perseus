@@ -1,16 +1,27 @@
 // @flow
+import {action} from "@storybook/addon-actions";
 import * as React from "react";
 
 import BaseRadio from "../base-radio.jsx";
 
-type StoryArgs = {||};
+type StoryArgs = {|
+    multipleSelect: boolean,
+    editMode: boolean,
+    countChoices: boolean,
+|};
 
 type Story = {|
     title: string,
+    args: StoryArgs,
 |};
 
 export default ({
     title: "Perseus/Widgets/Radio/Base Radio",
+    args: {
+        multipleSelect: false,
+        editMode: false,
+        countChoices: false,
+    },
 }: Story);
 
 function generateChoice(options) {
@@ -50,6 +61,15 @@ const defaultProps = {
             content: "Content 2",
             originalIndex: 1,
         }),
+        generateChoice({
+            content: "Content 3",
+            originalIndex: 2,
+            correct: true,
+        }),
+        generateChoice({
+            originalIndex: 3,
+            isNoneOfTheAbove: true,
+        }),
     ],
     deselectEnabled: false,
     editMode: false,
@@ -62,7 +82,7 @@ const defaultProps = {
     // an object with two keys: `checked` and `crossedOut`. Each contains
     // an array of boolean values, specifying the new checked and
     // crossed-out value of each choice.
-    onChange: ({checked, crossedOut}) => {},
+    onChange: action("changed"),
 
     // Whether this widget was the most recently used widget in this
     // Renderer. Determines whether we'll auto-scroll the page upon
@@ -70,6 +90,107 @@ const defaultProps = {
     isLastUsedWidget: false,
 };
 
-export const DefaultSettings = (args: StoryArgs): React.Node => {
-    return <BaseRadio {...defaultProps} />;
+export const Interactive = (args: StoryArgs): React.Node => {
+    const overwrittenProps = {...defaultProps, ...args};
+    return <BaseRadio {...overwrittenProps} />;
+};
+
+export const DefaultSingleSelect = (args: StoryArgs): React.Node => {
+    const overwrittenProps = {...defaultProps, multipleSelect: false};
+    return <BaseRadio {...overwrittenProps} />;
+};
+
+export const DefaultMultipleSelect = (args: StoryArgs): React.Node => {
+    const overwrittenProps = {...defaultProps, multipleSelect: true};
+    return <BaseRadio {...overwrittenProps} />;
+};
+
+export const DefaultMultipleSelectCountChoices = (
+    args: StoryArgs,
+): React.Node => {
+    const overwrittenProps = {
+        ...defaultProps,
+        multipleSelect: true,
+        numCorrect: 2,
+        countChoices: true,
+    };
+    return <BaseRadio {...overwrittenProps} />;
+};
+
+export const SingleSelected = (args: StoryArgs): React.Node => {
+    const choices = Array(4)
+        .fill(null)
+        .map((_, i) => generateChoice({content: `Choice ${i + 1}`}));
+    choices[1].checked = true;
+
+    const overwrittenProps = {...defaultProps, multipleSelect: false, choices};
+    return <BaseRadio {...overwrittenProps} />;
+};
+
+export const MultipleSelected = (args: StoryArgs): React.Node => {
+    const choices = Array(4)
+        .fill(null)
+        .map((_, i) => generateChoice({content: `Choice ${i + 1}`}));
+    choices[1].checked = true;
+    choices[2].checked = true;
+
+    const overwrittenProps = {...defaultProps, multipleSelect: true, choices};
+    return <BaseRadio {...overwrittenProps} />;
+};
+
+export const SingleKitchenSink = (args: StoryArgs): React.Node => {
+    const choices = Array(4)
+        .fill(null)
+        .map((_, i) => {
+            const choice = generateChoice({
+                content: `Choice ${i + 1}`,
+                rationale: "This is a neat rationale",
+                hasRationale: true,
+                showRationale: true,
+                correct: false,
+                showCorrectness: true,
+            });
+
+            return choice;
+        });
+    choices[1].checked = true;
+    choices[2].correct = true;
+
+    const overwrittenProps = {
+        ...defaultProps,
+        multipleSelect: false,
+        reviewModeRubric: {choices: (choices: $FlowFixMe)},
+        choices,
+    };
+    return <BaseRadio {...overwrittenProps} />;
+};
+
+export const MultipleKitchenSink = (args: StoryArgs): React.Node => {
+    const choices = Array(4)
+        .fill(null)
+        .map((_, i) => {
+            const choice = generateChoice({
+                content: `Choice ${i + 1}`,
+                rationale: "This is a neat rationale",
+                hasRationale: true,
+                showRationale: true,
+                correct: false,
+                showCorrectness: true,
+            });
+
+            return choice;
+        });
+    choices[1].checked = true;
+    choices[2].checked = true;
+    choices[2].correct = true;
+    choices[3].correct = true;
+
+    const overwrittenProps = {
+        ...defaultProps,
+        multipleSelect: true,
+        numCorrect: 2,
+        reviewModeRubric: {choices: (choices: $FlowFixMe)},
+        choices,
+    };
+    return <BaseRadio {...overwrittenProps} />;
 };
