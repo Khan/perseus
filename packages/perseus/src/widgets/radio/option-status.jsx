@@ -25,30 +25,46 @@ type OptionStatusProps = {|
     satStyling?: boolean,
 |};
 
-function OptionStatus(props: OptionStatusProps): React.Node {
-    function renderText(): string {
-        const {checked, correct, crossedOut} = props;
-        if (correct) {
-            // For correct answers, we surface checked _or_ crossedOut state,
-            // because any interaction with the correct answer is noteworthy!
-            if (checked) {
-                return i18n._("Correct (selected)");
-            }
-            if (crossedOut) {
-                return i18n._("Correct (but you crossed it out)");
-            }
-            return i18n._("Correct");
-        }
-        // But, for incorrect answers, we only surface checked state,
-        // because crossing out an incorrect answer is not noteworthy.
+function renderText(checked, correct, crossedOut): string {
+    if (correct) {
+        // For correct answers, we surface checked _or_ crossedOut state,
+        // because any interaction with the correct answer is noteworthy!
         if (checked) {
-            return i18n._("Incorrect (selected)");
+            return i18n._("Correct (selected)");
         }
-        return i18n._("Incorrect");
+        if (crossedOut) {
+            return i18n._("Correct (but you crossed it out)");
+        }
+        return i18n._("Correct");
+    }
+    // But, for incorrect answers, we only surface checked state,
+    // because crossing out an incorrect answer is not noteworthy.
+    if (checked) {
+        return i18n._("Incorrect (selected)");
+    }
+    return i18n._("Incorrect");
+}
+
+function OptionStatus(props: OptionStatusProps): React.Node {
+    const {
+        checked,
+        correct,
+        crossedOut,
+        previouslyAnswered,
+        reviewMode,
+        satStyling,
+    } = props;
+
+    // Option status is exclued for SAT
+    if (satStyling) {
+        return null;
     }
 
-    const {checked, correct, previouslyAnswered, reviewMode, satStyling} =
-        props;
+    // Option status is shown only in review mode, or for incorrectly
+    // answered items.
+    if (!reviewMode && !previouslyAnswered) {
+        return null;
+    }
 
     let textStyle;
     if (correct) {
@@ -61,7 +77,11 @@ function OptionStatus(props: OptionStatusProps): React.Node {
         }
     }
 
-    return <div className={css(styles.text, textStyle)}>{renderText()}</div>;
+    return (
+        <div className={css(styles.text, textStyle)}>
+            {renderText(checked, correct, crossedOut)}
+        </div>
+    );
 }
 
 // class OptionStatus extends React.Component<{
@@ -131,6 +151,14 @@ function OptionStatus(props: OptionStatusProps): React.Node {
 //         );
 //     }
 // }
+
+// OptionStatus.defaultProps = {
+//     correct: false,
+//     checked: false,
+//     crossedOut: false,
+//     previouslyAnswered: false,
+//     reviewMode: true,
+// };
 
 const styles = StyleSheet.create({
     text: {
