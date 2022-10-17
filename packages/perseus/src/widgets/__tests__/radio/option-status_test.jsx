@@ -25,47 +25,37 @@ describe("answer text", () => {
     describe.each([[true], [false]])("correct: %s", (correct) => {
         it("renders with the correct text based on correct prop", () => {
             // Arrange/Act
-            renderOptionStatus({correct: correct});
             const expectedText = correct ? "Correct" : "Incorrect";
 
-            // Assert - Will fail if the element has the incorrect inner text
+            renderOptionStatus({correct: correct});
             const optionStatus = screen.getByText(expectedText);
+
+            // Assert
+            expect(optionStatus).toHaveTextContent(expectedText);
         });
     });
 
     describe.each([[true], [false]])("checked: %s", (checked) => {
         it("renders with the correct text based on checked prop", () => {
             // Arrange/Act
-            renderOptionStatus({checked: checked});
             const expectedText = checked ? "Incorrect (selected)" : "Incorrect";
 
-            // Assert - Will fail if the element has the incorrect inner text
+            renderOptionStatus({checked: checked});
             const optionStatus = screen.getByText(expectedText);
+
+            // Assert
+            expect(optionStatus).toHaveTextContent(expectedText);
         });
     });
 
-    // describe.each([[true], [false]])(
-    //     "previouslyAnswered: %s",
-    //     (previouslyAnswered) => {
-    //         it("renders with the correct class based on previouslyAnswered prop", () => {
-    //             // Arrange/Act
-    //             renderOptionStatus({
-    //                 previouslyAnswered: previouslyAnswered,
-    //             });
-
-    //             // Assert - Will fail if the element has the incorrect inner text
-    //             const optionStatus = screen.getByText("Incorrect");
-    //         });
-    //     },
-    // );
-
-    it("renders with correct text based on crossedOut and correct", () => {
+    it("renders correctly based on crossedOut and correct", () => {
         // Arrange/Act
         renderOptionStatus({crossedOut: true, correct: true});
-
-        // Assert - Will fail if the element has the incorrect inner text
         const optionStatus = screen.getByText(
             "Correct (but you crossed it out)",
         );
+
+        // Assert
+        expect(optionStatus).toBeVisible();
     });
 });
