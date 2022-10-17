@@ -25,7 +25,11 @@ type OptionStatusProps = {|
     satStyling?: boolean,
 |};
 
-function renderText(checked, correct, crossedOut): string {
+function renderText(
+    checked: boolean,
+    correct: boolean,
+    crossedOut: boolean,
+): string {
     if (correct) {
         // For correct answers, we surface checked _or_ crossedOut state,
         // because any interaction with the correct answer is noteworthy!
