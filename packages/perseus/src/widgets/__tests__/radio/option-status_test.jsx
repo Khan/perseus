@@ -22,33 +22,37 @@ function renderOptionStatus(options) {
 }
 
 describe("answer text", () => {
-    describe.each([[true], [false]])("correct: %s", (correct) => {
-        it("renders with the correct text based on correct prop", () => {
+    it.each([
+        [true, "Correct"],
+        [false, "Incorrect"],
+    ])(
+        "renders with the correct text based on 'correct' prop: %s => %s",
+        (correct, expectedText) => {
             // Arrange/Act
-            const expectedText = correct ? "Correct" : "Incorrect";
-
             renderOptionStatus({correct: correct});
             const optionStatus = screen.getByText(expectedText);
 
             // Assert
             expect(optionStatus).toBeVisible();
-        });
-    });
+        },
+    );
 
-    describe.each([[true], [false]])("checked: %s", (checked) => {
-        it("renders with the correct text based on checked prop", () => {
+    it.each([
+        [true, "Incorrect (selected)"],
+        [false, "Incorrect"],
+    ])(
+        "renders with the correct text based on 'checked' prop: %s => %s",
+        (checked, expectedText) => {
             // Arrange/Act
-            const expectedText = checked ? "Incorrect (selected)" : "Incorrect";
-
-            renderOptionStatus({checked: checked});
+            renderOptionStatus({correct: false, checked: checked});
             const optionStatus = screen.getByText(expectedText);
 
             // Assert
             expect(optionStatus).toBeVisible();
-        });
-    });
+        },
+    );
 
-    it("renders correctly based on crossedOut and correct", () => {
+    it("renders correctly based on 'crossedOut' and 'correct'", () => {
         // Arrange/Act
         renderOptionStatus({crossedOut: true, correct: true});
         const optionStatus = screen.getByText(
