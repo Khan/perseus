@@ -6,30 +6,10 @@ import * as React from "react";
 
 import "@testing-library/jest-dom"; // Imports custom mathers
 
+import {generateChoice} from "../../__testdata__/base-radio_testdata.js";
 import BaseRadio from "../../radio/base-radio.jsx";
 
 import type {APIOptions} from "../../../types.js";
-
-function generateChoice(options) {
-    const base = {
-        checked: false,
-        crossedOut: false,
-        content: "",
-        rationale: "",
-        hasRationale: false,
-        showRationale: false,
-        showCorrectness: false,
-        correct: false,
-        originalIndex: 0,
-        isNoneOfTheAbove: false,
-        highlighted: false,
-        previouslyAnswered: false,
-        revealNoneOfTheAbove: false,
-        disabled: false,
-    };
-
-    return {...base, ...options};
-}
 
 function renderBaseRadio(props) {
     const apiOptions: APIOptions = {

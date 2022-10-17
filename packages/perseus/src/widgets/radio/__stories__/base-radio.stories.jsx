@@ -1,6 +1,7 @@
 // @flow
 import * as React from "react";
 
+import {generateChoice} from "../../__testdata__/base-radio_testdata.js";
 import BaseRadio from "../base-radio.jsx";
 
 type StoryArgs = {||};
@@ -12,27 +13,6 @@ type Story = {|
 export default ({
     title: "Perseus/Widgets/Radio/Base Radio",
 }: Story);
-
-function generateChoice(options) {
-    const base = {
-        checked: false,
-        crossedOut: false,
-        content: "",
-        rationale: "",
-        hasRationale: false,
-        showRationale: false,
-        showCorrectness: false,
-        correct: false,
-        originalIndex: 0,
-        isNoneOfTheAbove: false,
-        highlighted: false,
-        previouslyAnswered: false,
-        revealNoneOfTheAbove: false,
-        disabled: false,
-    };
-
-    return {...base, ...options};
-}
 
 const defaultProps = {
     apiOptions: {
