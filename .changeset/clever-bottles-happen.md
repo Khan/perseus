@@ -2,4 +2,4 @@
 "@khanacademy/perseus": patch
 ---
 
-converts OptionStatus component to functional component with new tests and stories
+Converts OptionStatus component to a functional component
