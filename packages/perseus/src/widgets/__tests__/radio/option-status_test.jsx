@@ -31,7 +31,7 @@ describe("answer text", () => {
             const optionStatus = screen.getByText(expectedText);
 
             // Assert
-            expect(optionStatus).toHaveTextContent(expectedText);
+            expect(optionStatus).toBeVisible();
         });
     });
 
@@ -44,7 +44,7 @@ describe("answer text", () => {
             const optionStatus = screen.getByText(expectedText);
 
             // Assert
-            expect(optionStatus).toHaveTextContent(expectedText);
+            expect(optionStatus).toBeVisible();
         });
     });
 
