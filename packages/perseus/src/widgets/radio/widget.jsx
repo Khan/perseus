@@ -16,6 +16,7 @@ import type {
     PerseusRadioWidgetOptions,
 } from "../../perseus-types.js";
 import type {PerseusScore, WidgetProps} from "../../types.js";
+import type {FocusFunction} from "./base-radio.jsx";
 
 // RenderProps is the return type for radio.jsx#transform
 export type RenderProps = {|
@@ -40,6 +41,8 @@ type Rubric = PerseusRadioWidgetOptions;
 type Props = WidgetProps<RenderProps, Rubric>;
 
 class Radio extends React.Component<Props> {
+    focusFunction: FocusFunction;
+
     static defaultProps: $FlowFixMe = {
         choices: [{}],
         displayCount: null,
@@ -105,10 +108,15 @@ class Radio extends React.Component<Props> {
     // that we pass a value to `.focus()` and it seems to have been used for
     // adding hints when editing.
     // See: https://github.com/Khan/perseus/blame/e18582b4b69959270b90e237ef1813899711ddfa/src/widgets/radio.js#L169
-    focus: ($FlowFixMe) => boolean = (i) => {
-        // eslint-disable-next-line react/no-string-refs
-        return this.refs.baseRadio.focus(i);
-    };
+    focus(i: ?number): boolean {
+        return this.focusFunction(i);
+    }
+
+    // lets BaseRadio regiser a focus callback so widget
+    // can focus an individual choice
+    registerFocusFunction(fun: FocusFunction): void {
+        this.focusFunction = fun;
+    }
 
     // When `BaseRadio`'s `onChange` handler is called, indicating a change in
     // our choices' state, we need to call our `onChange` handler in order to
@@ -324,8 +332,6 @@ class Radio extends React.Component<Props> {
 
         return (
             <BaseRadio
-                // eslint-disable-next-line react/no-string-refs
-                ref="baseRadio"
                 labelWrap={true}
                 multipleSelect={this.props.multipleSelect}
                 countChoices={this.props.countChoices}
@@ -336,6 +342,7 @@ class Radio extends React.Component<Props> {
                 deselectEnabled={this.props.deselectEnabled}
                 apiOptions={this.props.apiOptions}
                 isLastUsedWidget={this.props.isLastUsedWidget}
+                registerFocusFunction={(i) => this.registerFocusFunction(i)}
             />
         );
     }

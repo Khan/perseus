@@ -40,6 +40,8 @@ type ChoiceType = {|
     disabled: boolean,
 |};
 
+export type FocusFunction = (i: ?number) => boolean;
+
 type Props = {|
     apiOptions: APIOptions,
     choices: ChoiceType[],
@@ -58,6 +60,7 @@ type Props = {|
     // an array of boolean values, specifying the new checked and
     // crossed-out value of each choice.
     onChange: (newValues: {checked: boolean[], crossedOut: boolean[]}) => void,
+    registerFocusFunction?: (FocusFunction) => void,
 
     // Whether this widget was the most recently used widget in this
     // Renderer. Determines whether we'll auto-scroll the page upon
@@ -174,7 +177,26 @@ function BaseRadio(props: Props): React.Node {
         labelWrap,
         countChoices,
         numCorrect,
+        registerFocusFunction,
     } = props;
+
+    // register a callback with the parent that allows
+    // the parent to focus an individual choice
+    registerFocusFunction?.((i) => {
+        const ref = choiceRefs.current[i || 0];
+        // note(matthew): we know this is only getting passed
+        // to a WB Clickable button, so we force it to be of
+        // type HTMLButtonElement
+        const anyNode = (ReactDOM.findDOMNode(ref.current): any);
+        const buttonNode = (anyNode: ?HTMLButtonElement);
+
+        if (buttonNode) {
+            buttonNode.focus();
+        } else {
+            return false;
+        }
+        return true;
+    });
 
     const rubric = reviewModeRubric;
     const reviewMode = !!rubric;
@@ -186,7 +208,7 @@ function BaseRadio(props: Props): React.Node {
     const firstChoiceHighlighted = choices[0].highlighted;
     const lastChoiceHighlighted = choices[choices.length - 1].highlighted;
 
-    const className = classNames(
+    const className: $ReadOnlyArray<string> = classNames(
         "perseus-widget-radio",
         !editMode && "perseus-rendered-radio",
         css(
@@ -206,7 +228,7 @@ function BaseRadio(props: Props): React.Node {
         ),
     );
 
-    const instructionsClassName = classNames(
+    const instructionsClassName: $ReadOnlyArray<string> = classNames(
         "instructions",
         css(styles.instructions, isMobile && styles.instructionsMobile),
     );
@@ -322,7 +344,7 @@ function BaseRadio(props: Props): React.Node {
                             ? ApiClassNames.CORRECT
                             : ApiClassNames.INCORRECT;
                     }
-                    const className = classNames(
+                    const className: $ReadOnlyArray<string> = classNames(
                         aphroditeClassName(choice.checked),
                         // TODO(aria): Make test case for these API
                         // classNames
