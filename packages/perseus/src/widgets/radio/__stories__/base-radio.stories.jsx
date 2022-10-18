@@ -156,10 +156,19 @@ export const SingleKitchenSink = (args: StoryArgs): React.Node => {
     choices[1].checked = true;
     choices[2].correct = true;
 
+    const rubricChoices = choices.map(({correct}) => ({
+        // note(matthew): reviewModeRubric.choices requires content,
+        // but I don't see how it's getting used and Flow gets mad
+        // when I use choice.content because it's not a string.
+        // reviewModeRubric could probably use a look over.
+        content: "",
+        correct,
+    }));
+
     const overwrittenProps = {
         ...defaultProps,
         multipleSelect: false,
-        reviewModeRubric: {choices: (choices: $FlowFixMe)},
+        reviewModeRubric: {choices: rubricChoices},
         choices,
     };
     return <BaseRadio {...overwrittenProps} />;
@@ -185,11 +194,20 @@ export const MultipleKitchenSink = (args: StoryArgs): React.Node => {
     choices[2].correct = true;
     choices[3].correct = true;
 
+    const rubricChoices = choices.map((c) => ({
+        // note(matthew): reviewModeRubric.choices requires content,
+        // but I don't see how it's getting used and Flow gets mad
+        // when I use choice.content because it's not a string.
+        // reviewModeRubric could probably use a look over.
+        content: "",
+        correct: c.correct,
+    }));
+
     const overwrittenProps = {
         ...defaultProps,
         multipleSelect: true,
         numCorrect: 2,
-        reviewModeRubric: {choices: (choices: $FlowFixMe)},
+        reviewModeRubric: {choices: rubricChoices},
         choices,
     };
     return <BaseRadio {...overwrittenProps} />;

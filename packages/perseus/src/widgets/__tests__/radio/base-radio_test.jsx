@@ -249,11 +249,11 @@ describe("base-radio", () => {
             // Assert
             // note(matthewc) role=group is for the fieldset/legend
             // https://www.w3.org/TR/html-aria/
-            const expected = screen.getByRole("group", {
+            const group = screen.getByRole("group", {
                 name: "Choose 1 answer:",
             });
-            expect(expected).toBeInTheDocument();
-            expect(expected).toBeVisible();
+            expect(group).toBeInTheDocument();
+            expect(group).toBeVisible();
         });
 
         it("displays correct text for multi select (count choices off)", () => {
@@ -272,11 +272,11 @@ describe("base-radio", () => {
             // Assert
             // note(matthewc) role=group is for the fieldset/legend
             // https://www.w3.org/TR/html-aria/
-            const expected = screen.getByRole("group", {
+            const group = screen.getByRole("group", {
                 name: "Choose all answers that apply:",
             });
-            expect(expected).toBeInTheDocument();
-            expect(expected).toBeVisible();
+            expect(group).toBeInTheDocument();
+            expect(group).toBeVisible();
         });
 
         it("displays correct text for multi select (count choices on)", () => {
@@ -296,11 +296,11 @@ describe("base-radio", () => {
             // Assert
             // note(matthewc) role=group is for the fieldset/legend
             // https://www.w3.org/TR/html-aria/
-            const expected = screen.getByRole("group", {
+            const group = screen.getByRole("group", {
                 name: "Choose 2 answers:",
             });
-            expect(expected).toBeInTheDocument();
-            expect(expected).toBeVisible();
+            expect(group).toBeInTheDocument();
+            expect(group).toBeVisible();
         });
     });
 });
