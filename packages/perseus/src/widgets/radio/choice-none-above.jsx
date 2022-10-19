@@ -36,6 +36,9 @@ function ChoiceNoneAbove(props: PropsWithForwardRef): React.Node {
             // as the previous choice content renderer.
             // Note this destroys state, but since all we're doing
             // is outputting "None of the above", that is okay.
+            //
+            // todo(matthewc): this seems like way overkill
+            // just to render a string
             <Renderer
                 key="noneOfTheAboveRenderer"
                 content={i18n._("None of the above")}

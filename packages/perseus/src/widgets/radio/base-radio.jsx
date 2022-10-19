@@ -378,6 +378,7 @@ class BaseRadio extends React.Component<Props> {
                                     ) {
                                         this.updateChoice(i, {
                                             checked: !choice.checked,
+                                            crossedOut: choice.crossedOut,
                                         });
                                         return;
                                     }
