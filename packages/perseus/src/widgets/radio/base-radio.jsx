@@ -93,6 +93,9 @@ function BaseRadio(props: Props): React.Node {
     const prevReviewModeRubric = useRef();
     const choiceRefs = useRef([]);
 
+    // the lack of a dependency array is intentional, since we need to compare
+    // current reviewModeRubric and previous reviewModeRubric (prevReviewModeRubric),
+    // so we need to stash the previous value each time to compare if it changes.
     useEffect(() => {
         const {apiOptions, choices, isLastUsedWidget, reviewModeRubric} = props;
 
@@ -146,7 +149,10 @@ function BaseRadio(props: Props): React.Node {
     // `newValues` is an object with two keys: `checked` and `crossedOut`. Each
     // contains a boolean value specifying the new checked and crossed-out
     // value of this choice.
-    function updateChoice(choiceIndex, newValues) {
+    function updateChoice(
+        choiceIndex: number,
+        newValues: $ReadOnly<{checked?: boolean, crossedOut?: boolean}>,
+    ): void {
         const {multipleSelect, choices, onChange} = props;
 
         // Get the baseline `checked` values. If we're checking a new answer
@@ -202,11 +208,9 @@ function BaseRadio(props: Props): React.Node {
         return true;
     });
 
-    const rubric = reviewModeRubric;
-    const reviewMode = !!rubric;
-
+    // some commonly used shorthands
+    const reviewMode = !!reviewModeRubric;
     const sat = apiOptions.satStyling;
-
     const isMobile = apiOptions.isMobile;
 
     const firstChoiceHighlighted = choices[0].highlighted;
@@ -331,7 +335,9 @@ function BaseRadio(props: Props): React.Node {
                             satShowCorrectnessNext &&
                                 nextChoice.correct &&
                                 styles.satRadioOptionNextCorrect,
-                            sat && rubric && styles.satReviewRadioOption,
+                            sat &&
+                                reviewModeRubric &&
+                                styles.satReviewRadioOption,
                         );
                     };
 
@@ -343,8 +349,8 @@ function BaseRadio(props: Props): React.Node {
                     let correctnessClass;
                     // reviewMode is only true if there's a rubric
                     // but Flow doesn't understand that
-                    if (reviewMode && rubric) {
-                        correctnessClass = rubric.choices[i].correct
+                    if (reviewMode && reviewModeRubric) {
+                        correctnessClass = reviewModeRubric.choices[i].correct
                             ? ApiClassNames.CORRECT
                             : ApiClassNames.INCORRECT;
                     }
