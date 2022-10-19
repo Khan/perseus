@@ -23,7 +23,8 @@ import type {StyleDeclaration} from "aphrodite";
 
 const {captureScratchpadTouchStart} = Util;
 
-type ChoiceType = {|
+// exported for tests
+export type ChoiceType = {|
     checked: boolean,
     crossedOut: boolean,
     content: React.Node,
@@ -44,7 +45,7 @@ export type FocusFunction = (i: ?number) => boolean;
 
 type Props = {|
     apiOptions: APIOptions,
-    choices: ChoiceType[],
+    choices: $ReadOnlyArray<ChoiceType>,
     deselectEnabled?: boolean,
     editMode: boolean,
     labelWrap: boolean,
@@ -59,7 +60,10 @@ type Props = {|
     // an object with two keys: `checked` and `crossedOut`. Each contains
     // an array of boolean values, specifying the new checked and
     // crossed-out value of each choice.
-    onChange: (newValues: {checked: boolean[], crossedOut: boolean[]}) => void,
+    onChange: (newValues: {
+        checked: $ReadOnlyArray<?boolean>,
+        crossedOut: $ReadOnlyArray<?boolean>,
+    }) => void,
     registerFocusFunction?: (FocusFunction) => void,
 
     // Whether this widget was the most recently used widget in this
@@ -420,7 +424,6 @@ BaseRadio.defaultProps = {
 };
 
 const styles: StyleDeclaration = StyleSheet.create({
-    // eslint-disable-next-line react-native/no-unused-styles
     instructions: {
         display: "block",
         color: styleConstants.gray17,
@@ -431,7 +434,6 @@ const styles: StyleDeclaration = StyleSheet.create({
         marginBottom: 16,
     },
 
-    // eslint-disable-next-line react-native/no-unused-styles
     instructionsMobile: {
         fontSize: 18,
         [mediaQueries.smOrSmaller]: {
@@ -446,13 +448,11 @@ const styles: StyleDeclaration = StyleSheet.create({
         },
     },
 
-    // eslint-disable-next-line react-native/no-unused-styles
     radio: {
         // Avoid centering
         width: "100%",
     },
 
-    // eslint-disable-next-line react-native/no-unused-styles
     responsiveRadioContainer: {
         borderBottom: `1px solid ${styleConstants.radioBorderColor}`,
         borderTop: `1px solid ${styleConstants.radioBorderColor}`,
@@ -463,24 +463,20 @@ const styles: StyleDeclaration = StyleSheet.create({
         },
     },
 
-    // eslint-disable-next-line react-native/no-unused-styles
     radioContainerFirstHighlighted: {
         borderTop: `1px solid rgba(0, 0, 0, 0)`,
     },
 
-    // eslint-disable-next-line react-native/no-unused-styles
     radioContainerLastHighlighted: {
         borderBottom: `1px solid rgba(0, 0, 0, 0)`,
     },
 
-    // eslint-disable-next-line react-native/no-unused-styles
     satRadio: {
         background: "none",
         marginLeft: 0,
         userSelect: "none",
     },
 
-    // eslint-disable-next-line react-native/no-unused-styles
     satRadioOption: {
         margin: 0,
         padding: 0,
@@ -490,7 +486,6 @@ const styles: StyleDeclaration = StyleSheet.create({
         },
     },
 
-    // eslint-disable-next-line react-native/no-unused-styles
     satRadioOptionCorrect: {
         borderBottomColor: styleConstants.satCorrectBorderColor,
         ":first-child": {
@@ -498,7 +493,6 @@ const styles: StyleDeclaration = StyleSheet.create({
         },
     },
 
-    // eslint-disable-next-line react-native/no-unused-styles
     satRadioOptionIncorrect: {
         borderBottomColor: styleConstants.satIncorrectBorderColor,
         ":first-child": {
@@ -506,36 +500,22 @@ const styles: StyleDeclaration = StyleSheet.create({
         },
     },
 
-    // eslint-disable-next-line react-native/no-unused-styles
     satRadioOptionNextCorrect: {
         borderBottomColor: styleConstants.satCorrectBorderColor,
     },
 
-    // eslint-disable-next-line react-native/no-unused-styles
     satRadioOptionNextIncorrect: {
         borderBottomColor: styleConstants.satIncorrectBorderColor,
     },
 
-    // eslint-disable-next-line react-native/no-unused-styles
     satReviewRadioOption: {
         pointerEvents: "none",
     },
 
-    // eslint-disable-next-line react-native/no-unused-styles
     item: {
         marginLeft: 20,
     },
 
-    // eslint-disable-next-line react-native/no-unused-styles
-    inlineItem: {
-        display: "inline-block",
-        paddingLeft: 20,
-        verticalAlign: "middle",
-        // See http://stackoverflow.com/q/8120466 for explanation of
-        // why vertical align property is needed
-    },
-
-    // eslint-disable-next-line react-native/no-unused-styles
     responsiveItem: {
         marginLeft: 0,
         padding: 0,
@@ -544,13 +524,10 @@ const styles: StyleDeclaration = StyleSheet.create({
             borderBottom: `1px solid ${styleConstants.radioBorderColor}`,
         },
     },
-
-    // eslint-disable-next-line react-native/no-unused-styles
     selectedItem: {
         background: "white",
     },
 
-    // eslint-disable-next-line react-native/no-unused-styles
     aboveBackdrop: {
         position: "relative",
         // HACK(emily): We want selected choices to show up above our
@@ -560,7 +537,6 @@ const styles: StyleDeclaration = StyleSheet.create({
         zIndex: 1062,
     },
 
-    // eslint-disable-next-line react-native/no-unused-styles
     aboveBackdropMobile: {
         boxShadow:
             "0 0 4px 0 rgba(0, 0, 0, 0.2)," + "0 0 2px 0 rgba(0, 0, 0, 0.1)",
@@ -570,14 +546,12 @@ const styles: StyleDeclaration = StyleSheet.create({
         },
     },
 
-    // eslint-disable-next-line react-native/no-unused-styles
     nextHighlighted: {
         ":not(:last-child)": {
             borderBottom: `1px solid rgba(0, 0, 0, 0)`,
         },
     },
 
-    // eslint-disable-next-line react-native/no-unused-styles
     responsiveContainer: {
         overflow: "auto",
         marginLeft: styleConstants.negativePhoneMargin,
@@ -586,7 +560,6 @@ const styles: StyleDeclaration = StyleSheet.create({
         // paddingRight is handled by responsiveFieldset
     },
 
-    // eslint-disable-next-line react-native/no-unused-styles
     responsiveFieldset: {
         paddingRight: styleConstants.phoneMargin,
     },
