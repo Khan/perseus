@@ -3,132 +3,110 @@ import * as React from "react";
 
 import OptionStatus from "../option-status.jsx";
 
-type StoryArgs = {||};
+type StoryArgs = {|
+    crossedOut: boolean,
+    checked: boolean,
+    correct: boolean,
+    previouslyAnswered: boolean,
+    reviewMode: boolean,
+    satStyling: boolean,
+|};
 
 type Story = {|
     title: string,
+    args: StoryArgs,
 |};
 
 export default ({
     title: "Perseus/Widgets/Radio/Option Status",
+    args: {
+        crossedOut: false,
+        checked: false,
+        correct: false,
+        previouslyAnswered: false,
+        reviewMode: true,
+        satStyling: false,
+    },
 }: Story);
 
-export const CheckedCorrectPreviouslyAnswered = (
-    args: StoryArgs,
-): React.Node => {
-    return (
-        <OptionStatus
-            crossedOut={false}
-            checked={true}
-            correct={true}
-            previouslyAnswered={true}
-            reviewMode={true}
-            satStyling={false}
-        />
-    );
+export const Interactive = (args: StoryArgs): React.Node => {
+    return <OptionStatus {...args} />;
 };
 
-export const CheckedCorrectNotPreviouslyAnswered = (
-    args: StoryArgs,
-): React.Node => {
+export const AllPossibleOutputs = (args: StoryArgs): React.Node => {
     return (
-        <OptionStatus
-            crossedOut={false}
-            checked={true}
-            correct={true}
-            previouslyAnswered={false}
-            reviewMode={true}
-            satStyling={false}
-        />
-    );
-};
-
-export const CheckedNotCorrectPreviouslyAnswered = (
-    args: StoryArgs,
-): React.Node => {
-    return (
-        <OptionStatus
-            crossedOut={false}
-            checked={true}
-            correct={false}
-            previouslyAnswered={true}
-            reviewMode={true}
-            satStyling={false}
-        />
-    );
-};
-
-export const CheckedNotCorrectNotPreviouslyAnswered = (
-    args: StoryArgs,
-): React.Node => {
-    return (
-        <OptionStatus
-            crossedOut={false}
-            checked={true}
-            correct={false}
-            previouslyAnswered={false}
-            reviewMode={true}
-            satStyling={false}
-        />
-    );
-};
-
-export const NotCheckedCorrectPreviouslyAnswered = (
-    args: StoryArgs,
-): React.Node => {
-    return (
-        <OptionStatus
-            crossedOut={false}
-            checked={false}
-            correct={true}
-            previouslyAnswered={true}
-            reviewMode={true}
-            satStyling={false}
-        />
-    );
-};
-
-export const NotCheckedCorrectNotPreviouslyAnswered = (
-    args: StoryArgs,
-): React.Node => {
-    return (
-        <OptionStatus
-            crossedOut={false}
-            checked={false}
-            correct={true}
-            previouslyAnswered={false}
-            reviewMode={true}
-            satStyling={false}
-        />
-    );
-};
-
-export const NotCheckedNotCorrectPreviouslyAnswered = (
-    args: StoryArgs,
-): React.Node => {
-    return (
-        <OptionStatus
-            crossedOut={false}
-            checked={false}
-            correct={false}
-            previouslyAnswered={true}
-            reviewMode={true}
-            satStyling={false}
-        />
-    );
-};
-
-export const NotCheckedNotCorrectNotPreviouslyAnswered = (
-    args: StoryArgs,
-): React.Node => {
-    return (
-        <OptionStatus
-            crossedOut={false}
-            checked={false}
-            correct={false}
-            previouslyAnswered={false}
-            reviewMode={true}
-            satStyling={false}
-        />
+        <>
+            <div>
+                Checked Correct:
+                <OptionStatus
+                    crossedOut={false}
+                    checked={true}
+                    correct={true}
+                    previouslyAnswered={true}
+                    reviewMode={true}
+                    satStyling={false}
+                />
+            </div>
+            <hr />
+            <div>
+                Checked Not Correct:
+                <OptionStatus
+                    crossedOut={false}
+                    checked={true}
+                    correct={false}
+                    previouslyAnswered={true}
+                    reviewMode={true}
+                    satStyling={false}
+                />
+            </div>
+            <hr />
+            <div>
+                Not Checked Correct:
+                <OptionStatus
+                    crossedOut={false}
+                    checked={false}
+                    correct={true}
+                    previouslyAnswered={true}
+                    reviewMode={true}
+                    satStyling={false}
+                />
+            </div>
+            <hr />
+            <div>
+                Not Checked Not Correct Previously Answered:
+                <OptionStatus
+                    crossedOut={false}
+                    checked={false}
+                    correct={false}
+                    previouslyAnswered={true}
+                    reviewMode={true}
+                    satStyling={false}
+                />
+            </div>
+            <hr />
+            <div>
+                Not Checked Not Correct Not Previously Answered:
+                <OptionStatus
+                    crossedOut={false}
+                    checked={false}
+                    correct={false}
+                    previouslyAnswered={false}
+                    reviewMode={true}
+                    satStyling={false}
+                />
+            </div>
+            <hr />
+            <div>
+                Crossed Out Correct:
+                <OptionStatus
+                    crossedOut={true}
+                    checked={false}
+                    correct={true}
+                    previouslyAnswered={false}
+                    reviewMode={true}
+                    satStyling={false}
+                />
+            </div>
+        </>
     );
 };
