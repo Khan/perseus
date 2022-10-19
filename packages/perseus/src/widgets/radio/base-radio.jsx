@@ -32,7 +32,6 @@ export type ChoiceType = {|
     showRationale: boolean,
     showCorrectness: boolean,
     correct: boolean,
-    originalIndex: number,
     isNoneOfTheAbove: boolean,
     highlighted: boolean,
     previouslyAnswered: boolean,

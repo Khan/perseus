@@ -11,7 +11,6 @@ export function generateChoice(options: $Partial<ChoiceType>): ChoiceType {
         showRationale: false,
         showCorrectness: false,
         correct: false,
-        originalIndex: 0,
         isNoneOfTheAbove: false,
         highlighted: false,
         previouslyAnswered: false,

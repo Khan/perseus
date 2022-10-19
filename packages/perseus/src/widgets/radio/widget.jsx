@@ -16,6 +16,7 @@ import type {
     PerseusRadioWidgetOptions,
 } from "../../perseus-types.js";
 import type {PerseusScore, ChoiceState, WidgetProps} from "../../types.js";
+import type {ChoiceType} from "./base-radio.jsx";
 
 // RenderProps is the return type for radio.jsx#transform
 export type RenderProps = {|
@@ -49,7 +50,7 @@ class Radio extends React.Component<Props> {
         linterContext: linterContextDefault,
     };
 
-    _renderRenderer: (string) => React.Node = (content) => {
+    _renderRenderer: (?string) => React.Node = (content) => {
         content = content || "";
 
         let nextPassageRefId = 1;
@@ -138,7 +139,9 @@ class Radio extends React.Component<Props> {
         // mutate them.
         let newChoiceStates: $ReadOnlyArray<ChoiceState>;
         if (choiceStates) {
-            newChoiceStates = choiceStates.map((state) => ({...state}));
+            newChoiceStates = choiceStates.map((state: ChoiceState) => ({
+                ...state,
+            }));
         } else {
             newChoiceStates = choices.map(() => ({
                 selected: false,
@@ -183,25 +186,29 @@ class Radio extends React.Component<Props> {
                 const widgetCorrect =
                     score.type === "points" && score.total === score.earned;
 
-                const newStates = choiceStates.map((state) => ({
-                    ...state,
-                    highlighted: state.selected,
-                    // If the choice is selected, show the rationale now
-                    rationaleShown:
-                        state.selected ||
-                        // If the choice already had a rationale, keep it shown
-                        state.rationaleShown ||
-                        // If the widget is correctly answered, show the rationale
-                        // for all the choices
-                        widgetCorrect,
-                    // We use the same behavior for the readOnly flag as for
-                    // rationaleShown, but we keep it separate in case other
-                    // behaviors want to disable choices without showing rationales.
-                    readOnly: state.selected || state.readOnly || widgetCorrect,
-                    correctnessShown: state.selected || state.correctnessShown,
-                    previouslyAnswered:
-                        state.previouslyAnswered || state.selected,
-                }));
+                const newStates: $ReadOnlyArray<ChoiceState> = choiceStates.map(
+                    (state: ChoiceState): ChoiceState => ({
+                        ...state,
+                        highlighted: state.selected,
+                        // If the choice is selected, show the rationale now
+                        rationaleShown:
+                            state.selected ||
+                            // If the choice already had a rationale, keep it shown
+                            state.rationaleShown ||
+                            // If the widget is correctly answered, show the rationale
+                            // for all the choices
+                            widgetCorrect,
+                        // We use the same behavior for the readOnly flag as for
+                        // rationaleShown, but we keep it separate in case other
+                        // behaviors want to disable choices without showing rationales.
+                        readOnly:
+                            state.selected || state.readOnly || widgetCorrect,
+                        correctnessShown:
+                            state.selected || state.correctnessShown,
+                        previouslyAnswered:
+                            state.previouslyAnswered || state.selected,
+                    }),
+                );
 
                 this.props.onChange(
                     {
@@ -218,11 +225,15 @@ class Radio extends React.Component<Props> {
      */
     deselectIncorrectSelectedChoices: () => void = () => {
         if (this.props.choiceStates) {
-            const newStates = this.props.choiceStates.map((state, i) => ({
-                ...state,
-                selected: state.selected && !!this.props.choices[i].correct,
-                highlighted: false,
-            }));
+            const newStates: $ReadOnlyArray<ChoiceState> =
+                this.props.choiceStates.map(
+                    (state: ChoiceState, i): ChoiceState => ({
+                        ...state,
+                        selected:
+                            state.selected && !!this.props.choices[i].correct,
+                        highlighted: false,
+                    }),
+                );
 
             this.props.onChange(
                 {
@@ -235,12 +246,12 @@ class Radio extends React.Component<Props> {
     };
 
     render(): React.Node {
-        let choices = this.props.choices;
-        let choiceStates;
+        const choices: $ReadOnlyArray<PerseusRadioChoice> = this.props.choices;
+        let choiceStates: $ReadOnlyArray<ChoiceState>;
         if (this.props.static) {
-            choiceStates = _.map(choices, (val) => ({
-                selected: val.correct,
-                crossedOut: val.crossedOut,
+            choiceStates = choices.map((choice) => ({
+                selected: !!choice.correct,
+                crossedOut: false,
                 readOnly: true,
                 highlighted: false,
                 rationaleShown: true,
@@ -253,7 +264,7 @@ class Radio extends React.Component<Props> {
         } else if (this.props.values) {
             // Support legacy choiceStates implementation
             /* istanbul ignore next - props.values is deprecated */
-            choiceStates = _.map(this.props.values, (val) => ({
+            choiceStates = this.props.values.map((val) => ({
                 selected: val,
                 crossedOut: false,
                 readOnly: false,
@@ -263,7 +274,7 @@ class Radio extends React.Component<Props> {
                 previouslyAnswered: false,
             }));
         } else {
-            choiceStates = _.map(choices, () => ({
+            choiceStates = choices.map(() => ({
                 selected: false,
                 crossedOut: false,
                 readOnly: false,
@@ -274,58 +285,61 @@ class Radio extends React.Component<Props> {
             }));
         }
 
-        choices = _.map(choices, (choice, i) => {
-            const content =
-                choice.isNoneOfTheAbove && !choice.content
-                    ? // we use i18n._ instead of $_ here because the content
-                      // sent to a renderer needs to be a string, not a react
-                      // node (/renderable/fragment).
-                      i18n._("None of the above")
-                    : choice.content;
+        const choicesProp: $ReadOnlyArray<ChoiceType> = choices.map(
+            (choice: PerseusRadioChoice, i: number) => {
+                const content =
+                    choice.isNoneOfTheAbove && !choice.content
+                        ? // we use i18n._ instead of $_ here because the content
+                          // sent to a renderer needs to be a string, not a react
+                          // node (/renderable/fragment).
+                          i18n._("None of the above")
+                        : choice.content;
 
-            const {
-                selected,
-                crossedOut,
-                rationaleShown,
-                correctnessShown,
-                readOnly,
-                highlighted,
-                previouslyAnswered,
-            } = choiceStates[i];
+                const {
+                    selected,
+                    crossedOut,
+                    rationaleShown,
+                    correctnessShown,
+                    readOnly,
+                    highlighted,
+                    previouslyAnswered,
+                } = choiceStates[i];
 
-            const reviewChoice =
-                this.props.reviewModeRubric &&
-                this.props.reviewModeRubric.choices[i];
+                const reviewChoice =
+                    this.props.reviewModeRubric &&
+                    this.props.reviewModeRubric.choices[i];
 
-            return {
-                content: this._renderRenderer(content),
-                checked: selected,
-                // Current versions of the radio widget always pass in the
-                // "correct" value through the choices. Old serialized state
-                // for radio widgets doesn't have this though, so we have to
-                // pull the correctness out of the review mode rubric. This
-                // only works because all of the places we use
-                // `restoreSerializedState()` also turn on reviewMode, but is
-                // fine for now.
-                // TODO(emily): Come up with a more comprehensive way to solve
-                // this sort of "serialized state breaks when internal
-                // structure changes" problem.
-                correct:
-                    typeof choice.correct === "undefined"
+                return {
+                    content: this._renderRenderer(content),
+                    checked: selected,
+                    // Current versions of the radio widget always pass in the
+                    // "correct" value through the choices. Old serialized state
+                    // for radio widgets doesn't have this though, so we have to
+                    // pull the correctness out of the review mode rubric. This
+                    // only works because all of the places we use
+                    // `restoreSerializedState()` also turn on reviewMode, but is
+                    // fine for now.
+                    // TODO(emily): Come up with a more comprehensive way to solve
+                    // this sort of "serialized state breaks when internal
+                    // structure changes" problem.
+                    correct: !!(choice.correct === undefined
                         ? !!reviewChoice && reviewChoice.correct
-                        : choice.correct,
-                disabled: readOnly,
-                hasRationale: !!choice.clue,
-                rationale: this._renderRenderer(choice.clue),
-                showRationale: rationaleShown,
-                showCorrectness: correctnessShown,
-                isNoneOfTheAbove: choice.isNoneOfTheAbove,
-                revealNoneOfTheAbove: this.props.questionCompleted && selected,
-                crossedOut,
-                highlighted,
-                previouslyAnswered: previouslyAnswered,
-            };
-        });
+                        : choice.correct),
+                    disabled: readOnly,
+                    hasRationale: !!choice.clue,
+                    rationale: this._renderRenderer(choice.clue),
+                    showRationale: rationaleShown,
+                    showCorrectness: correctnessShown,
+                    isNoneOfTheAbove: !!choice.isNoneOfTheAbove,
+                    revealNoneOfTheAbove: !!(
+                        this.props.questionCompleted && selected
+                    ),
+                    crossedOut,
+                    highlighted,
+                    previouslyAnswered: previouslyAnswered,
+                };
+            },
+        );
 
         return (
             <BaseRadio
@@ -335,7 +349,7 @@ class Radio extends React.Component<Props> {
                 multipleSelect={this.props.multipleSelect}
                 countChoices={this.props.countChoices}
                 numCorrect={this.props.numCorrect}
-                choices={choices}
+                choices={choicesProp}
                 onChange={this.updateChoices}
                 reviewModeRubric={this.props.reviewModeRubric}
                 deselectEnabled={this.props.deselectEnabled}
