@@ -2,7 +2,6 @@
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
-import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
@@ -17,264 +16,79 @@ import {scrollElementIntoView} from "../../util/scroll-utils.js";
 import ChoiceNoneAbove from "./choice-none-above.jsx";
 import Choice from "./choice.jsx";
 
+import type {PerseusRadioWidgetOptions} from "../../perseus-types";
+import type {APIOptions} from "../../types.js";
 import type {StyleDeclaration} from "aphrodite";
 
 const {captureScratchpadTouchStart} = Util;
 
-const ChoicesType = PropTypes.arrayOf(
-    PropTypes.shape({
-        // Indicates whether this choice is checked.
-        checked: PropTypes.bool,
+// exported for tests
+export type ChoiceType = {|
+    checked: boolean,
+    crossedOut: boolean,
+    content: React.Node,
+    rationale: React.Node,
+    hasRationale: boolean,
+    showRationale: boolean,
+    showCorrectness: boolean,
+    correct: boolean,
+    originalIndex: number,
+    isNoneOfTheAbove: boolean,
+    highlighted: boolean,
+    previouslyAnswered: boolean,
+    revealNoneOfTheAbove: boolean,
+    disabled: boolean,
+|};
 
-        // Indicates whether the user has "crossed out" this choice, meaning
-        // that they don't think it's correct. This value does not affect
-        // scoring or other behavior; it's just a note for the user's
-        // reference.
-        crossedOut: PropTypes.bool,
+type Props = {|
+    apiOptions: APIOptions,
+    choices: $ReadOnlyArray<ChoiceType>,
+    deselectEnabled?: boolean,
+    editMode: boolean,
+    labelWrap: boolean,
+    countChoices: ?boolean,
+    numCorrect: number,
+    multipleSelect: boolean,
+    // the logic checks whether this exists,
+    // so it must be optional
+    reviewModeRubric?: PerseusRadioWidgetOptions,
 
-        content: PropTypes.node,
-        rationale: PropTypes.node,
-        hasRationale: PropTypes.bool,
-        showRationale: PropTypes.bool,
-        showCorrectness: PropTypes.bool,
-        correct: PropTypes.bool,
-        originalIndex: PropTypes.number,
-        isNoneOfTheAbove: PropTypes.bool,
-    }),
-);
+    // A callback indicating that this choice has changed. Its argument is
+    // an object with two keys: `checked` and `crossedOut`. Each contains
+    // an array of boolean values, specifying the new checked and
+    // crossed-out value of each choice.
+    onChange: (newValues: {
+        checked: $ReadOnlyArray<?boolean>,
+        crossedOut: $ReadOnlyArray<?boolean>,
+    }) => void,
+
+    // Whether this widget was the most recently used widget in this
+    // Renderer. Determines whether we'll auto-scroll the page upon
+    // entering review mode.
+    isLastUsedWidget?: boolean,
+|};
+
+type DefaultProps = {|
+    editMode: Props["editMode"],
+    multipleSelect: Props["multipleSelect"],
+|};
 
 const radioBorderColor = styleConstants.radioBorderColor;
 
-class BaseRadio extends React.Component<$FlowFixMe, $FlowFixMe> {
-    choiceRefs: Array<{current: ?HTMLDivElement}>;
-    state: $FlowFixMe;
+class BaseRadio extends React.Component<Props> {
+    choiceRefs: Array<{current: ?HTMLButtonElement}>;
 
-    static propTypes = {
-        apiOptions: PropTypes.shape({
-            readOnly: PropTypes.bool,
-            satStyling: PropTypes.bool,
-            isMobile: PropTypes.bool,
-            styling: PropTypes.shape({
-                radioStyleVersion: PropTypes.oneOf(["intermediate", "final"]),
-            }),
-            canScrollPage: PropTypes.bool,
-        }),
-        choices: ChoicesType,
-        deselectEnabled: PropTypes.bool,
-        editMode: PropTypes.bool,
-        labelWrap: PropTypes.bool,
-        countChoices: PropTypes.bool,
-        numCorrect: PropTypes.number,
-        multipleSelect: PropTypes.bool,
-        reviewModeRubric: PropTypes.shape({
-            choices: ChoicesType,
-        }),
-
-        // A callback indicating that this choice has changed. Its argument is
-        // an object with two keys: `checked` and `crossedOut`. Each contains
-        // an array of boolean values, specifying the new checked and
-        // crossed-out value of each choice.
-        onChange: PropTypes.func,
-
-        // Whether this widget was the most recently used widget in this
-        // Renderer. Determines whether we'll auto-scroll the page upon
-        // entering review mode.
-        isLastUsedWidget: PropTypes.bool,
-    };
-
-    static styles: StyleDeclaration = StyleSheet.create({
-        // eslint-disable-next-line react-native/no-unused-styles
-        instructions: {
-            display: "block",
-            color: styleConstants.gray17,
-            fontSize: 14,
-            lineHeight: 1.25,
-            fontStyle: "normal",
-            fontWeight: "bold",
-            marginBottom: 16,
-        },
-
-        // eslint-disable-next-line react-native/no-unused-styles
-        instructionsMobile: {
-            fontSize: 18,
-            [mediaQueries.smOrSmaller]: {
-                fontSize: 16,
-            },
-            // TODO(emily): We want this to match choice text, which turns
-            // to 20px at min-width 1200px, but this media query is
-            // min-width 1280px because our media queries don't exactly
-            // match pure. Make those match up.
-            [mediaQueries.xl]: {
-                fontSize: 20,
-            },
-        },
-
-        // eslint-disable-next-line react-native/no-unused-styles
-        radio: {
-            // Avoid centering
-            width: "100%",
-        },
-
-        // eslint-disable-next-line react-native/no-unused-styles
-        responsiveRadioContainer: {
-            borderBottom: `1px solid ${radioBorderColor}`,
-            borderTop: `1px solid ${radioBorderColor}`,
-            width: "auto",
-            [mediaQueries.smOrSmaller]: {
-                marginLeft: styleConstants.negativePhoneMargin,
-                marginRight: styleConstants.negativePhoneMargin,
-            },
-        },
-
-        // eslint-disable-next-line react-native/no-unused-styles
-        radioContainerFirstHighlighted: {
-            borderTop: `1px solid rgba(0, 0, 0, 0)`,
-        },
-
-        // eslint-disable-next-line react-native/no-unused-styles
-        radioContainerLastHighlighted: {
-            borderBottom: `1px solid rgba(0, 0, 0, 0)`,
-        },
-
-        // eslint-disable-next-line react-native/no-unused-styles
-        satRadio: {
-            background: "none",
-            marginLeft: 0,
-            userSelect: "none",
-        },
-
-        // eslint-disable-next-line react-native/no-unused-styles
-        satRadioOption: {
-            margin: 0,
-            padding: 0,
-            borderBottom: `1px solid #ccc`,
-            ":first-child": {
-                borderTop: `1px solid #ccc`,
-            },
-        },
-
-        // eslint-disable-next-line react-native/no-unused-styles
-        satRadioOptionCorrect: {
-            borderBottomColor: styleConstants.satCorrectBorderColor,
-            ":first-child": {
-                borderTopColor: styleConstants.satCorrectBorderColor,
-            },
-        },
-
-        // eslint-disable-next-line react-native/no-unused-styles
-        satRadioOptionIncorrect: {
-            borderBottomColor: styleConstants.satIncorrectBorderColor,
-            ":first-child": {
-                borderTopColor: styleConstants.satIncorrectBorderColor,
-            },
-        },
-
-        // eslint-disable-next-line react-native/no-unused-styles
-        satRadioOptionNextCorrect: {
-            borderBottomColor: styleConstants.satCorrectBorderColor,
-        },
-
-        // eslint-disable-next-line react-native/no-unused-styles
-        satRadioOptionNextIncorrect: {
-            borderBottomColor: styleConstants.satIncorrectBorderColor,
-        },
-
-        // eslint-disable-next-line react-native/no-unused-styles
-        satReviewRadioOption: {
-            pointerEvents: "none",
-        },
-
-        // eslint-disable-next-line react-native/no-unused-styles
-        item: {
-            marginLeft: 20,
-        },
-
-        // eslint-disable-next-line react-native/no-unused-styles
-        inlineItem: {
-            display: "inline-block",
-            paddingLeft: 20,
-            verticalAlign: "middle",
-            // See http://stackoverflow.com/q/8120466 for explanation of
-            // why vertical align property is needed
-        },
-
-        // eslint-disable-next-line react-native/no-unused-styles
-        responsiveItem: {
-            marginLeft: 0,
-            padding: 0,
-
-            ":not(:last-child)": {
-                borderBottom: `1px solid ${radioBorderColor}`,
-            },
-        },
-
-        // eslint-disable-next-line react-native/no-unused-styles
-        selectedItem: {
-            background: "white",
-        },
-
-        // eslint-disable-next-line react-native/no-unused-styles
-        aboveBackdrop: {
-            position: "relative",
-            // HACK(emily): We want selected choices to show up above our
-            // exercise backdrop, but below the exercise footer and
-            // "feedback popover" that shows up. This z-index is carefully
-            // coordinated between here and webapp. :(
-            zIndex: 1062,
-        },
-
-        // eslint-disable-next-line react-native/no-unused-styles
-        aboveBackdropMobile: {
-            boxShadow:
-                "0 0 4px 0 rgba(0, 0, 0, 0.2)," +
-                "0 0 2px 0 rgba(0, 0, 0, 0.1)",
-
-            ":not(:last-child)": {
-                borderBottom: `1px solid rgba(0, 0, 0, 0)`,
-            },
-        },
-
-        // eslint-disable-next-line react-native/no-unused-styles
-        nextHighlighted: {
-            ":not(:last-child)": {
-                borderBottom: `1px solid rgba(0, 0, 0, 0)`,
-            },
-        },
-
-        // eslint-disable-next-line react-native/no-unused-styles
-        responsiveContainer: {
-            overflow: "auto",
-            marginLeft: styleConstants.negativePhoneMargin,
-            marginRight: styleConstants.negativePhoneMargin,
-            paddingLeft: styleConstants.phoneMargin,
-            // paddingRight is handled by responsiveFieldset
-        },
-
-        // eslint-disable-next-line react-native/no-unused-styles
-        responsiveFieldset: {
-            paddingRight: styleConstants.phoneMargin,
-        },
-    });
-
-    static defaultProps: $FlowFixMe = {
+    static defaultProps: DefaultProps = {
         editMode: false,
+        multipleSelect: false,
     };
 
     constructor() {
         super();
         this.choiceRefs = [];
-
-        this.state = {
-            // TODO(mdr): This keeps the ID stable across re-renders on the
-            //     same machine, but, at time of writing, the server's state
-            //     isn't rehydrated to the client during SSR, so the server and
-            //     client will generate different IDs and cause a mismatch
-            //     during SSR :(
-            radioGroupName: _.uniqueId("perseus_radio_"),
-        };
     }
 
-    componentDidUpdate(prevProps: $FlowFixMe) {
+    componentDidUpdate(prevProps: Props) {
         const {apiOptions, choices, isLastUsedWidget, reviewModeRubric} =
             this.props;
 
@@ -299,11 +113,15 @@ class BaseRadio extends React.Component<$FlowFixMe, $FlowFixMe> {
         ) {
             const checkedIndex = choices.findIndex((c) => c.checked);
             if (checkedIndex >= 0) {
-                const checkedNode: $FlowFixMe = ReactDOM.findDOMNode(
-                    // eslint-disable-next-line react/no-string-refs
-                    this.refs["radio" + checkedIndex],
-                );
-                scrollElementIntoView(checkedNode);
+                const ref = this.choiceRefs[checkedIndex];
+                // note(matthew): we know this is only getting passed
+                // to a WB Clickable button, so we force it to be of
+                // type HTMLButtonElement
+                const anyNode = (ReactDOM.findDOMNode(ref.current): any);
+                const buttonNode = (anyNode: ?HTMLButtonElement);
+                if (buttonNode) {
+                    scrollElementIntoView(buttonNode);
+                }
             }
         }
     }
@@ -322,7 +140,10 @@ class BaseRadio extends React.Component<$FlowFixMe, $FlowFixMe> {
     // `newValues` is an object with two keys: `checked` and `crossedOut`. Each
     // contains a boolean value specifying the new checked and crossed-out
     // value of this choice.
-    updateChoice: (number, $FlowFixMe) => void = (choiceIndex, newValues) => {
+    updateChoice: (
+        number,
+        newValues: $ReadOnly<{checked?: boolean, crossedOut?: boolean}>,
+    ) => void = (choiceIndex, newValues) => {
         // Get the baseline `checked` values. If we're checking a new answer
         // and multiple-select is not on, we should clear all choices to be
         // unchecked. Otherwise, we should copy the old checked values.
@@ -376,14 +197,13 @@ class BaseRadio extends React.Component<$FlowFixMe, $FlowFixMe> {
 
     deselectEnabled: () => boolean = () => {
         // We want to force enable deselect on mobile.
-        return this.props.apiOptions.isMobile || this.props.deselectEnabled;
+        return !!(this.props.apiOptions.isMobile || this.props.deselectEnabled);
     };
 
     render(): React.Node {
         const rubric = this.props.reviewModeRubric;
         const reviewMode = !!rubric;
 
-        const styles = BaseRadio.styles;
         const sat = this.props.apiOptions.satStyling;
 
         const isMobile = this.props.apiOptions.isMobile;
@@ -520,18 +340,21 @@ class BaseRadio extends React.Component<$FlowFixMe, $FlowFixMe> {
                         // when selecting the button for the first time.
                         aphroditeClassName(true);
 
+                        let correctnessClass;
+                        // reviewMode is only true if there's a rubric
+                        // but Flow doesn't understand that
+                        if (reviewMode && rubric) {
+                            correctnessClass = rubric.choices[i].correct
+                                ? ApiClassNames.CORRECT
+                                : ApiClassNames.INCORRECT;
+                        }
                         const className = classNames(
                             aphroditeClassName(choice.checked),
                             // TODO(aria): Make test case for these API
                             // classNames
                             ApiClassNames.RADIO.OPTION,
                             choice.checked && ApiClassNames.RADIO.SELECTED,
-                            reviewMode &&
-                                rubric.choices[i].correct &&
-                                ApiClassNames.CORRECT,
-                            reviewMode &&
-                                !rubric.choices[i].correct &&
-                                ApiClassNames.INCORRECT,
+                            correctnessClass,
                         );
 
                         // In edit mode, the Choice renders a Div in order to
@@ -598,5 +421,148 @@ class BaseRadio extends React.Component<$FlowFixMe, $FlowFixMe> {
         );
     }
 }
+
+const styles: StyleDeclaration = StyleSheet.create({
+    instructions: {
+        display: "block",
+        color: styleConstants.gray17,
+        fontSize: 14,
+        lineHeight: 1.25,
+        fontStyle: "normal",
+        fontWeight: "bold",
+        marginBottom: 16,
+    },
+
+    instructionsMobile: {
+        fontSize: 18,
+        [mediaQueries.smOrSmaller]: {
+            fontSize: 16,
+        },
+        // TODO(emily): We want this to match choice text, which turns
+        // to 20px at min-width 1200px, but this media query is
+        // min-width 1280px because our media queries don't exactly
+        // match pure. Make those match up.
+        [mediaQueries.xl]: {
+            fontSize: 20,
+        },
+    },
+
+    radio: {
+        // Avoid centering
+        width: "100%",
+    },
+
+    responsiveRadioContainer: {
+        borderBottom: `1px solid ${radioBorderColor}`,
+        borderTop: `1px solid ${radioBorderColor}`,
+        width: "auto",
+        [mediaQueries.smOrSmaller]: {
+            marginLeft: styleConstants.negativePhoneMargin,
+            marginRight: styleConstants.negativePhoneMargin,
+        },
+    },
+
+    radioContainerFirstHighlighted: {
+        borderTop: `1px solid rgba(0, 0, 0, 0)`,
+    },
+
+    radioContainerLastHighlighted: {
+        borderBottom: `1px solid rgba(0, 0, 0, 0)`,
+    },
+
+    satRadio: {
+        background: "none",
+        marginLeft: 0,
+        userSelect: "none",
+    },
+
+    satRadioOption: {
+        margin: 0,
+        padding: 0,
+        borderBottom: `1px solid #ccc`,
+        ":first-child": {
+            borderTop: `1px solid #ccc`,
+        },
+    },
+
+    satRadioOptionCorrect: {
+        borderBottomColor: styleConstants.satCorrectBorderColor,
+        ":first-child": {
+            borderTopColor: styleConstants.satCorrectBorderColor,
+        },
+    },
+
+    satRadioOptionIncorrect: {
+        borderBottomColor: styleConstants.satIncorrectBorderColor,
+        ":first-child": {
+            borderTopColor: styleConstants.satIncorrectBorderColor,
+        },
+    },
+
+    satRadioOptionNextCorrect: {
+        borderBottomColor: styleConstants.satCorrectBorderColor,
+    },
+
+    satRadioOptionNextIncorrect: {
+        borderBottomColor: styleConstants.satIncorrectBorderColor,
+    },
+
+    satReviewRadioOption: {
+        pointerEvents: "none",
+    },
+
+    item: {
+        marginLeft: 20,
+    },
+
+    responsiveItem: {
+        marginLeft: 0,
+        padding: 0,
+
+        ":not(:last-child)": {
+            borderBottom: `1px solid ${radioBorderColor}`,
+        },
+    },
+
+    selectedItem: {
+        background: "white",
+    },
+
+    aboveBackdrop: {
+        position: "relative",
+        // HACK(emily): We want selected choices to show up above our
+        // exercise backdrop, but below the exercise footer and
+        // "feedback popover" that shows up. This z-index is carefully
+        // coordinated between here and webapp. :(
+        zIndex: 1062,
+    },
+
+    aboveBackdropMobile: {
+        boxShadow:
+            "0 0 4px 0 rgba(0, 0, 0, 0.2)," + "0 0 2px 0 rgba(0, 0, 0, 0.1)",
+
+        ":not(:last-child)": {
+            borderBottom: `1px solid rgba(0, 0, 0, 0)`,
+        },
+    },
+
+    nextHighlighted: {
+        ":not(:last-child)": {
+            borderBottom: `1px solid rgba(0, 0, 0, 0)`,
+        },
+    },
+
+    responsiveContainer: {
+        overflow: "auto",
+        marginLeft: styleConstants.negativePhoneMargin,
+        marginRight: styleConstants.negativePhoneMargin,
+        paddingLeft: styleConstants.phoneMargin,
+        // paddingRight is handled by responsiveFieldset
+    },
+
+    responsiveFieldset: {
+        paddingRight: styleConstants.phoneMargin,
+    },
+});
 
 export default BaseRadio;
