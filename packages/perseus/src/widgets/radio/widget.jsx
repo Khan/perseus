@@ -15,7 +15,7 @@ import type {
     PerseusRadioChoice,
     PerseusRadioWidgetOptions,
 } from "../../perseus-types.js";
-import type {PerseusScore, WidgetProps} from "../../types.js";
+import type {PerseusScore, ChoiceState, WidgetProps} from "../../types.js";
 
 // RenderProps is the return type for radio.jsx#transform
 export type RenderProps = {|
@@ -123,7 +123,12 @@ class Radio extends React.Component<Props> {
     //
     // NOTE(mdr): This method expects to be auto-bound. If this component is
     //     converted to an ES6 class, take care to auto-bind this method!
-    updateChoices: ($FlowFixMe) => void = (newValueLists) => {
+    updateChoices: (
+        newValueLists: $ReadOnly<{
+            checked: $ReadOnlyArray<boolean>,
+            crossedOut: $ReadOnlyArray<boolean>,
+        }>,
+    ) => void = (newValueLists) => {
         const {choiceStates, choices} = this.props;
 
         // Construct the baseline `choiceStates` objects. If this is the user's
@@ -131,7 +136,7 @@ class Radio extends React.Component<Props> {
         // new objects with all fields set to the default values. Otherwise, we
         // should clone the old `choiceStates` objects, in preparation to
         // mutate them.
-        let newChoiceStates;
+        let newChoiceStates: $ReadOnlyArray<ChoiceState>;
         if (choiceStates) {
             newChoiceStates = choiceStates.map((state) => ({...state}));
         } else {
@@ -148,7 +153,7 @@ class Radio extends React.Component<Props> {
 
         // Mutate the new `choiceState` objects, according to the new `checked`
         // and `crossedOut` values provided in `newValueLists`.
-        newChoiceStates.forEach((choiceState, i) => {
+        newChoiceStates.forEach((choiceState: ChoiceState, i) => {
             choiceState.selected = newValueLists.checked[i];
             choiceState.crossedOut = newValueLists.crossedOut[i];
         });
