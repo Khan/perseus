@@ -394,11 +394,24 @@ class Radio extends React.Component<Props> {
                 ),
             };
         }
-        /* jshint -W018 */
-        const correct = _.all(userInput.choicesSelected, (selected, i) => {
+        // /* jshint -W018 */
+        // const correct = _.all(userInput.choicesSelected, (selected, i) => {
+        //     let isCorrect;
+        //     if (userInput.noneOfTheAboveIndex === i) {
+        //         isCorrect = _.all(rubric.choices, (choice, j) => {
+        //             return i === j || !choice.correct;
+        //         });
+        //     } else {
+        //         isCorrect = !!rubric.choices[i].correct;
+        //     }
+        //     return isCorrect === selected;
+        // });
+        // /* jshint +W018 */
+
+        const correct = userInput.choicesSelected.every((selected, i) => {
             let isCorrect;
             if (userInput.noneOfTheAboveIndex === i) {
-                isCorrect = _.all(rubric.choices, (choice, j) => {
+                isCorrect = rubric.choices.every((choice, j) => {
                     return i === j || !choice.correct;
                 });
             } else {
@@ -406,7 +419,6 @@ class Radio extends React.Component<Props> {
             }
             return isCorrect === selected;
         });
-        /* jshint +W018 */
 
         return {
             type: "points",
