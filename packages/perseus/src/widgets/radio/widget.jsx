@@ -360,8 +360,7 @@ class Radio extends React.Component<Props> {
     }
 
     static validate(userInput: UserInput, rubric: Rubric): PerseusScore {
-        const numSelected = _.reduce(
-            userInput.choicesSelected,
+        const numSelected = userInput.choicesSelected.reduce(
             (sum, selected) => {
                 return sum + (selected ? 1 : 0);
             },
