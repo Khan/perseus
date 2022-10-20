@@ -27,6 +27,7 @@ export type RenderProps = {|
     choices: $ReadOnlyArray<PerseusRadioChoice>,
     selectedChoices: $ReadOnlyArray<PerseusRadioChoice["correct"]>,
     choiceStates?: $ReadOnlyArray<ChoiceState>,
+    values?: $ReadOnlyArray<boolean>,
 |};
 
 type UserInput = {|
@@ -279,7 +280,6 @@ class Radio extends React.Component<Props> {
             }));
         } else if (this.props.choiceStates) {
             choiceStates = this.props.choiceStates;
-            // $FlowFixMe[prop-missing]
         } else if (this.props.values) {
             // Support legacy choiceStates implementation
             /* istanbul ignore next - props.values is deprecated */
@@ -392,7 +392,7 @@ class Radio extends React.Component<Props> {
                 message: null,
             };
         }
-        // $FlowFixMe[invalid-compare]
+
         if (userInput.numCorrect > 1 && numSelected !== userInput.numCorrect) {
             return {
                 type: "invalid",
@@ -457,9 +457,8 @@ class Radio extends React.Component<Props> {
             const numCorrect = props.numCorrect;
 
             for (let i = 0; i < choicesSelected.length; i++) {
-                // $FlowFixMe[prop-missing]
                 const index = props.choices[i].originalIndex;
-                // $FlowFixMe[incompatible-use]
+
                 choicesSelected[index] = choiceStates[i].selected;
 
                 if (props.choices[i].isNoneOfTheAbove) {
@@ -481,7 +480,6 @@ class Radio extends React.Component<Props> {
             // Support legacy choiceState implementation
         }
         /* istanbul ignore if - props.values is deprecated */
-        // $FlowFixMe[prop-missing]
         if (props.values) {
             let noneOfTheAboveIndex = null;
             let noneOfTheAboveSelected = false;
