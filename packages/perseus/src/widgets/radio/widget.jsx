@@ -471,23 +471,31 @@ class Radio extends React.Component<Props> {
             let noneOfTheAboveIndex = null;
             let noneOfTheAboveSelected = false;
 
-            const values = props.values.slice();
+            const choicesSelected = props.values.map((value) => !!value);
             const countChoices = props.countChoices;
             const numCorrect = props.numCorrect;
+            const valuesLength = props.values?.length || 0;
 
-            for (let i = 0; i < props.values.length; i++) {
+            for (let i = 0; i < valuesLength; i++) {
                 const index = props.choices[i].originalIndex;
-                values[index] = props.values[i];
+                if (
+                    index &&
+                    index < choicesSelected.length &&
+                    props.values &&
+                    i < props.values.length
+                ) {
+                    choicesSelected[index] = props.values[i];
+                }
 
                 if (props.choices[i].isNoneOfTheAbove) {
                     noneOfTheAboveIndex = index;
-                    if (values[i]) {
+                    if (choicesSelected[i]) {
                         noneOfTheAboveSelected = true;
                     }
                 }
             }
             return {
-                choicesSelected: values,
+                choicesSelected,
                 noneOfTheAboveIndex,
                 noneOfTheAboveSelected,
                 countChoices,
