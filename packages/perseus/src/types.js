@@ -75,6 +75,16 @@ export type Version = {|
 
 export type EditorMode = "edit" | "preview" | "json";
 
+export type ChoiceState = {|
+    selected: boolean,
+    crossedOut: boolean,
+    highlighted: boolean,
+    rationaleShown: boolean,
+    correctnessShown: boolean,
+    previouslyAnswered: boolean,
+    readOnly: boolean,
+|};
+
 export type ChangeHandler = (
     {|
         hints?: $ReadOnlyArray<Hint>,
@@ -97,7 +107,7 @@ export type ChangeHandler = (
         value?: $FlowFixMe,
 
         // widgets/radio/widget.jsx
-        choiceStates?: $ReadOnlyArray<$FlowFixMe>,
+        choiceStates?: $ReadOnlyArray<ChoiceState>,
 
         // widgets/numeric-input.jsx
         currentValue?: string,
