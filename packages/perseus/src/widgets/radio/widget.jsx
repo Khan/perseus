@@ -26,7 +26,7 @@ export type RenderProps = {|
     deselectEnabled?: boolean,
     choices: $ReadOnlyArray<PerseusRadioChoice>,
     selectedChoices: $ReadOnlyArray<PerseusRadioChoice["correct"]>,
-    choiceStates?: $ReadOnlyArray<$FlowFixMe>,
+    choiceStates?: $ReadOnlyArray<ChoiceState>,
 |};
 
 type UserInput = {|
