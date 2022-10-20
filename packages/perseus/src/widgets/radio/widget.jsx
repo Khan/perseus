@@ -39,8 +39,23 @@ type UserInput = {|
 type Rubric = PerseusRadioWidgetOptions;
 type Props = WidgetProps<RenderProps, Rubric>;
 
+type DefaultProps = {|
+    choices: Array<Object>,
+    // Wanted to references props here, but there's an error
+    // between the type and the default prop; seems like there
+    // needs to be at least one key value pair in the object
+    // for content
+    // choices: Props["choices"],
+    // choices: $ReadOnlyArray<PerseusRadioChoice>,
+    displayCount: PerseusRadioWidgetOptions["displayCount"],
+    multipleSelect: Props["multipleSelect"],
+    countChoices: Props["countChoices"],
+    deselectEnabled: Props["deselectEnabled"],
+    linterContext: Props["linterContext"],
+|};
+
 class Radio extends React.Component<Props> {
-    static defaultProps: $FlowFixMe = {
+    static defaultProps: DefaultProps = {
         choices: [{}],
         displayCount: null,
         multipleSelect: false,
