@@ -496,7 +496,7 @@ class Radio extends React.Component<Props> {
         }
         // Nothing checked
         return {
-            choicesSelected: _.map(props.choices, () => false),
+            choicesSelected: props.choices.map(() => false),
         };
     }
 }
