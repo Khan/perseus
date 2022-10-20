@@ -393,7 +393,11 @@ class Radio extends React.Component<Props> {
             };
         }
 
-        if (userInput.numCorrect > 1 && numSelected !== userInput.numCorrect) {
+        if (
+            userInput.numCorrect &&
+            userInput.numCorrect > 1 &&
+            numSelected !== userInput.numCorrect
+        ) {
             return {
                 type: "invalid",
                 message: i18n._("Please choose the correct number of answers."),
