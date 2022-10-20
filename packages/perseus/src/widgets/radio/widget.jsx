@@ -3,7 +3,6 @@
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import * as React from "react";
-import _ from "underscore";
 
 import Renderer from "../../renderer.jsx";
 import Util from "../../util.js";
@@ -58,7 +57,12 @@ class Radio extends React.Component<Props> {
 
         const modContent = content.replace(
             /\{\{passage-ref (\d+) (\d+)(?: "([^"]*)")?\}\}/g,
-            (match, passageNum, refNum, summaryText) => {
+            (
+                match: string,
+                passageNum: string,
+                refNum: string,
+                summaryText: string,
+            ) => {
                 const widgetId = "passage-ref " + nextPassageRefId;
                 nextPassageRefId++;
 
