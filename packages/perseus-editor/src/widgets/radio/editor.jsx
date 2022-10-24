@@ -179,8 +179,6 @@ class RadioEditor extends React.Component<$FlowFixMe> {
                 </div>
 
                 <BaseRadio
-                    // eslint-disable-next-line react/no-string-refs
-                    ref="baseRadio"
                     multipleSelect={this.props.multipleSelect}
                     countChoices={this.props.countChoices}
                     numCorrect={numCorrect}
