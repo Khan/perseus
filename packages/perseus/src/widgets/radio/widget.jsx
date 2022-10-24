@@ -108,8 +108,12 @@ class Radio extends React.Component<Props> {
     // that we pass a value to `.focus()` and it seems to have been used for
     // adding hints when editing.
     // See: https://github.com/Khan/perseus/blame/e18582b4b69959270b90e237ef1813899711ddfa/src/widgets/radio.js#L169
-    focus(i: ?number): boolean {
-        return this.focusFunction(i);
+    focus(choiceIndex: ?number): boolean {
+        if (this.focusFunction) {
+            return this.focusFunction(choiceIndex);
+        }
+
+        return false;
     }
 
     // lets BaseRadio regiser a focus callback so widget

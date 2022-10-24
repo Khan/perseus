@@ -41,7 +41,7 @@ export type ChoiceType = {|
     disabled: boolean,
 |};
 
-export type FocusFunction = (i: ?number) => boolean;
+export type FocusFunction = (choiceIndex: ?number) => boolean;
 
 type Props = {|
     apiOptions: APIOptions,
@@ -89,16 +89,24 @@ function getInstructionsText(
 }
 
 function BaseRadio(props: Props): React.Node {
+    const {
+        apiOptions,
+        reviewModeRubric,
+        choices,
+        editMode,
+        multipleSelect,
+        labelWrap,
+        countChoices,
+        numCorrect,
+        isLastUsedWidget,
+        registerFocusFunction,
+    } = props;
+
     // useEffect doesn't have previous props
     const prevReviewModeRubric = useRef();
     const choiceRefs = useRef([]);
 
-    // the lack of a dependency array is intentional, since we need to compare
-    // current reviewModeRubric and previous reviewModeRubric (prevReviewModeRubric),
-    // so we need to stash the previous value each time to compare if it changes.
     useEffect(() => {
-        const {apiOptions, choices, isLastUsedWidget, reviewModeRubric} = props;
-
         // Switching into review mode can sometimes cause the selected answer
         // to scroll out of view - for example, when we reveal all those tall
         // rationales. This can be disorienting for the user.
@@ -133,7 +141,7 @@ function BaseRadio(props: Props): React.Node {
         }
 
         prevReviewModeRubric.current = reviewModeRubric;
-    });
+    }, [apiOptions, choices, isLastUsedWidget, reviewModeRubric]);
 
     // When a particular choice's `onChange` handler is called, indicating a
     // change in a single choice's values, we need to call our `onChange`
@@ -178,22 +186,10 @@ function BaseRadio(props: Props): React.Node {
         });
     }
 
-    const {
-        apiOptions,
-        reviewModeRubric,
-        choices,
-        editMode,
-        multipleSelect,
-        labelWrap,
-        countChoices,
-        numCorrect,
-        registerFocusFunction,
-    } = props;
-
     // register a callback with the parent that allows
     // the parent to focus an individual choice
-    registerFocusFunction?.((i) => {
-        const ref = choiceRefs.current[i || 0];
+    registerFocusFunction?.((choiceIndex) => {
+        const ref = choiceRefs.current[choiceIndex || 0];
         // note(matthew): we know this is only getting passed
         // to a WB Clickable button, so we force it to be of
         // type HTMLButtonElement
