@@ -87,7 +87,6 @@ class WithState extends React.Component<Empty, PerseusRadioWidgetOptions> {
     apiOptions: APIOptions = {
         satStyling: false,
         styling: {
-            radioStyleVersion: "final",
             primaryProductColor: "red",
         },
     };

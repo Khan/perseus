@@ -28,9 +28,6 @@ export default ({
 const defaultProps = {
     apiOptions: {
         satStyling: false,
-        styling: {
-            radioStyleVersion: "final",
-        },
     },
     choices: [
         generateChoice({

@@ -14,9 +14,7 @@ import BaseRadio from "../../radio/base-radio.jsx";
 import type {APIOptions} from "../../../types.js";
 
 function renderBaseRadio(props) {
-    const apiOptions: APIOptions = {
-        styling: {radioStyleVersion: "final"},
-    };
+    const apiOptions: APIOptions = Object.freeze({});
 
     const baseProps = {
         apiOptions,
