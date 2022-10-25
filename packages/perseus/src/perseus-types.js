@@ -970,6 +970,8 @@ export type PerseusRadioChoice = {|
     widgets?: {|[string]: PerseusWidget|},
     // Indicates the original index
     originalIndex?: number,
+    // Indicates whether the option has been crossed out or not
+    crossedOut?: boolean,
 |};
 // sync-end:perseus-data-format-radio-choice
 
