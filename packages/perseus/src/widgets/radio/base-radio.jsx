@@ -177,7 +177,6 @@ function BaseRadio(props: Props): React.Node {
 
         // Update this choice's `checked` and `crossedOut` values.
         newCheckedList[choiceIndex] = newValues.checked;
-
         newCrossedOutList[choiceIndex] = newValues.crossedOut;
 
         onChange({
