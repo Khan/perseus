@@ -42,12 +42,6 @@ type Props = WidgetProps<RenderProps, Rubric>;
 
 type DefaultProps = {|
     choices: Array<Object>,
-    // Wanted to references props here, but there's an error
-    // between the type and the default prop; seems like there
-    // needs to be at least one key value pair in the object
-    // for content
-    // choices: Props["choices"],
-    // choices: $ReadOnlyArray<PerseusRadioChoice>,
     displayCount: PerseusRadioWidgetOptions["displayCount"],
     multipleSelect: Props["multipleSelect"],
     countChoices: Props["countChoices"],
@@ -423,19 +417,6 @@ class Radio extends React.Component<Props> {
                 ),
             };
         }
-        // /* jshint -W018 */
-        // const correct = _.all(userInput.choicesSelected, (selected, i) => {
-        //     let isCorrect;
-        //     if (userInput.noneOfTheAboveIndex === i) {
-        //         isCorrect = _.all(rubric.choices, (choice, j) => {
-        //             return i === j || !choice.correct;
-        //         });
-        //     } else {
-        //         isCorrect = !!rubric.choices[i].correct;
-        //     }
-        //     return isCorrect === selected;
-        // });
-        // /* jshint +W018 */
 
         const correct = userInput.choicesSelected.every((selected, i) => {
             let isCorrect;
