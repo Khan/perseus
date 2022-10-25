@@ -42,7 +42,6 @@ type Props = WidgetProps<RenderProps, Rubric>;
 
 type DefaultProps = {|
     choices: Array<Object>,
-    displayCount: PerseusRadioWidgetOptions["displayCount"],
     multipleSelect: Props["multipleSelect"],
     countChoices: Props["countChoices"],
     deselectEnabled: Props["deselectEnabled"],
@@ -54,7 +53,6 @@ class Radio extends React.Component<Props> {
 
     static defaultProps: DefaultProps = {
         choices: [{}],
-        displayCount: null,
         multipleSelect: false,
         countChoices: false,
         deselectEnabled: false,

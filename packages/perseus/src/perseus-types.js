@@ -944,7 +944,7 @@ export type PerseusRadioWidgetOptions = {|
     onePerLine?: boolean,
     // deprecated
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
-    displayCount?: ?number,
+    displayCount?: *,
 
     // v0 props
     // `noneOfTheAbove` is still in use (but only set to `false`).
