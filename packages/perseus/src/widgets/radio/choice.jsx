@@ -187,6 +187,23 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
                     opacity: showDimmed ? 0.5 : 1.0,
                 }}
             >
+                <div>
+                    <input
+                        type="radio"
+                        id="dewey"
+                        name="test"
+                        value="A - Hello"
+                    />
+                    <label for="dewey">A - Hello</label>
+
+                    <input
+                        type="radio"
+                        id="louie"
+                        name="test"
+                        value="B - Goodbye"
+                    />
+                    <label for="louie">B - Goodbye</label>
+                </div>
                 <Clickable
                     onClick={() => {
                         // If we're checking a crossed-out option, let's
