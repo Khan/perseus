@@ -1,7 +1,7 @@
 // @flow
 export default {
     apiVersion: {
-        major: 11,
+        major: 12,
         minor: 0,
     },
     itemDataVersion: {

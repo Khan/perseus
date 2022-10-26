@@ -200,29 +200,25 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
                                 paddingBottom: Spacing.xSmall_8,
                             }}
                         >
-                            <span>
-                                <ChoiceIcon
-                                    pos={pos}
-                                    correct={correct}
-                                    crossedOut={crossedOut}
-                                    pressed={pressed}
-                                    focused={focused}
-                                    checked={checked}
-                                    hovered={hovered}
-                                    showCorrectness={showCorrectness}
-                                    multipleSelect={multipleSelect}
-                                    reviewMode={reviewMode}
-                                    product={
-                                        apiOptions.satStyling
-                                            ? "sat"
-                                            : "library"
-                                    }
-                                    primaryProductColor={
-                                        apiOptions.styling?.primaryProductColor
-                                    }
-                                    previouslyAnswered={previouslyAnswered}
-                                />
-                            </span>
+                            <ChoiceIcon
+                                pos={pos}
+                                correct={correct}
+                                crossedOut={crossedOut}
+                                pressed={pressed}
+                                focused={focused}
+                                checked={checked}
+                                hovered={hovered}
+                                showCorrectness={showCorrectness}
+                                multipleSelect={multipleSelect}
+                                reviewMode={reviewMode}
+                                product={
+                                    apiOptions.satStyling ? "sat" : "library"
+                                }
+                                primaryProductColor={
+                                    apiOptions.styling?.primaryProductColor
+                                }
+                                previouslyAnswered={previouslyAnswered}
+                            />
                             <span
                                 style={{
                                     paddingLeft: Spacing.small_12,
