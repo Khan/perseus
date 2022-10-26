@@ -41,7 +41,7 @@ type Rubric = PerseusRadioWidgetOptions;
 type Props = WidgetProps<RenderProps, Rubric>;
 
 type DefaultProps = {|
-    choices: Array<Object>,
+    choices: Props["choices"],
     multipleSelect: Props["multipleSelect"],
     countChoices: Props["countChoices"],
     deselectEnabled: Props["deselectEnabled"],
@@ -52,7 +52,7 @@ class Radio extends React.Component<Props> {
     focusFunction: FocusFunction;
 
     static defaultProps: DefaultProps = {
-        choices: [{}],
+        choices: [],
         multipleSelect: false,
         countChoices: false,
         deselectEnabled: false,
@@ -160,22 +160,17 @@ class Radio extends React.Component<Props> {
         // new objects with all fields set to the default values. Otherwise, we
         // should clone the old `choiceStates` objects, in preparation to
         // mutate them.
-        let newChoiceStates: $ReadOnlyArray<ChoiceState>;
-        if (choiceStates) {
-            newChoiceStates = choiceStates.map((state: ChoiceState) => ({
-                ...state,
-            }));
-        } else {
-            newChoiceStates = choices.map(() => ({
-                selected: false,
-                crossedOut: false,
-                highlighted: false,
-                rationaleShown: false,
-                correctnessShown: false,
-                previouslyAnswered: false,
-                readOnly: false,
-            }));
-        }
+        const newChoiceStates = choiceStates
+            ? choiceStates.map((state: ChoiceState) => ({...state}))
+            : choices.map(() => ({
+                  selected: false,
+                  crossedOut: false,
+                  highlighted: false,
+                  rationaleShown: false,
+                  correctnessShown: false,
+                  previouslyAnswered: false,
+                  readOnly: false,
+              }));
 
         // Mutate the new `choiceState` objects, according to the new `checked`
         // and `crossedOut` values provided in `newValueLists`.
@@ -274,7 +269,7 @@ class Radio extends React.Component<Props> {
         if (this.props.static) {
             choiceStates = choices.map((choice) => ({
                 selected: !!choice.correct,
-                crossedOut: !!choice.crossedOut,
+                crossedOut: false,
                 readOnly: true,
                 highlighted: false,
                 rationaleShown: true,
@@ -344,9 +339,10 @@ class Radio extends React.Component<Props> {
                     // TODO(emily): Come up with a more comprehensive way to solve
                     // this sort of "serialized state breaks when internal
                     // structure changes" problem.
-                    correct: !!(choice.correct === undefined
-                        ? !!reviewChoice && reviewChoice.correct
-                        : choice.correct),
+                    correct:
+                        choice.correct === undefined
+                            ? !!reviewChoice && !!reviewChoice.correct
+                            : choice.correct,
                     disabled: readOnly,
                     hasRationale: !!choice.clue,
                     rationale: this._renderRenderer(choice.clue),
@@ -450,6 +446,9 @@ class Radio extends React.Component<Props> {
             const numCorrect = props.numCorrect;
 
             for (let i = 0; i < choicesSelected.length; i++) {
+                // Note(TB): This check added to account for originalIndex
+                // being optional, which was set while increasing
+                // Flow coverage.
                 if (props.choices[i].originalIndex != null) {
                     const index = props.choices[i].originalIndex;
 
@@ -479,10 +478,10 @@ class Radio extends React.Component<Props> {
             let noneOfTheAboveIndex = null;
             let noneOfTheAboveSelected = false;
 
-            const choicesSelected = props.values.map((value) => !!value);
+            const choicesSelected = props.values.map(Boolean);
             const countChoices = props.countChoices;
             const numCorrect = props.numCorrect;
-            const valuesLength = props.values?.length || 0;
+            const valuesLength = props.values?.length ?? 0;
 
             for (let i = 0; i < valuesLength; i++) {
                 const index = props.choices[i].originalIndex;
