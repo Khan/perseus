@@ -92,14 +92,8 @@ function inputPathsEqual(
     );
 }
 
-// Keep `rWidgetRule` in sync with `WIDGET_RE`
-// in content_internal/perseus_traversal.py
-// sync-start:widget-id-regex 1271666319 services/content-editing/perseus/translation/content_traversal.go
-// sync-start:widget-id-regex 680240484 services/static/javascript/perseus-merged-editor-package/editor.jsx
-// sync-start:widget-id-regex 1400368396 content_internal/perseus_traversal.py
 const rWidgetRule: RegExp = /^\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]/;
 const rTypeFromWidgetId: RegExp = /^([a-z-]+) ([0-9]+)$/;
-// sync-end:widget-id-regex
 
 const rWidgetParts: RegExp = new RegExp(rWidgetRule.source + "$");
 const snowman = "\u2603";

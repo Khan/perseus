@@ -1315,9 +1315,6 @@ class Editor extends React.Component<EditorProps, EditorState> {
             );
         }
 
-        // sync-start:widget-id-regex 1271666319 services/content-editing/perseus/translation/content_traversal.go
-        // sync-start:widget-id-regex 447601219 services/static/javascript/perseus-all-package/util.js
-        // sync-start:widget-id-regex 1400368396 content_internal/perseus_traversal.py
         const contentWithoutWidgets = this.props.content.replace(
             /\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]/g,
             "",
@@ -1326,7 +1323,6 @@ class Editor extends React.Component<EditorProps, EditorState> {
         const noWidgets = !/\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]/g.test(
             this.props.content,
         );
-        // sync-end:widget-id-regex
 
         const warningStyle = {
             borderTop: "none",

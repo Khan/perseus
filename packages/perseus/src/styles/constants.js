@@ -113,7 +113,5 @@ export const publishBlockingErrorColor = "#be2612";
 export const radioBorderColor = "#BABEC2";
 export const checkedColor = "#71B307";
 
-// sync-start:article-max-width 986452807 services/static/javascript/perseus-all-package/styles/variables.less
 export const articleMaxWidthInPx = 688;
 export const articleMaxWidthTableInPx = 512;
-// sync-end:article-max-width
