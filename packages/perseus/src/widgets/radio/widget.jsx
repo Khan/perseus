@@ -14,7 +14,12 @@ import type {
     PerseusRadioChoice,
     PerseusRadioWidgetOptions,
 } from "../../perseus-types.js";
-import type {PerseusScore, WidgetProps, ChoiceState} from "../../types.js";
+import type {
+    PerseusScore,
+    WidgetProps,
+    ChoiceState,
+    RadioChoiceWithMetadata,
+} from "../../types.js";
 import type {FocusFunction, ChoiceType} from "./base-radio.jsx";
 
 // RenderProps is the return type for radio.jsx#transform
@@ -24,7 +29,7 @@ export type RenderProps = {|
     multipleSelect?: boolean,
     countChoices?: boolean,
     deselectEnabled?: boolean,
-    choices: $ReadOnlyArray<PerseusRadioChoice>,
+    choices: $ReadOnlyArray<RadioChoiceWithMetadata>,
     selectedChoices: $ReadOnlyArray<PerseusRadioChoice["correct"]>,
     choiceStates?: $ReadOnlyArray<ChoiceState>,
     values?: $ReadOnlyArray<boolean>,
@@ -59,7 +64,9 @@ class Radio extends React.Component<Props> {
         linterContext: linterContextDefault,
     };
 
-    _renderRenderer: (?string) => React.Node = (content) => {
+    _renderRenderer: (content?: string) => React.Node = (
+        content?: string = "",
+    ) => {
         content = content || "";
 
         let nextPassageRefId = 1;
@@ -264,7 +271,7 @@ class Radio extends React.Component<Props> {
     };
 
     render(): React.Node {
-        const choices: $ReadOnlyArray<PerseusRadioChoice> = this.props.choices;
+        const {choices} = this.props;
         let choiceStates: $ReadOnlyArray<ChoiceState>;
         if (this.props.static) {
             choiceStates = choices.map((choice) => ({
@@ -303,7 +310,7 @@ class Radio extends React.Component<Props> {
         }
 
         const choicesProp: $ReadOnlyArray<ChoiceType> = choices.map(
-            (choice: PerseusRadioChoice, i: number) => {
+            (choice, i) => {
                 const content =
                     choice.isNoneOfTheAbove && !choice.content
                         ? // we use i18n._ instead of $_ here because the content
@@ -446,20 +453,15 @@ class Radio extends React.Component<Props> {
             const numCorrect = props.numCorrect;
 
             for (let i = 0; i < choicesSelected.length; i++) {
-                // Note(TB): This check added to account for originalIndex
-                // being optional, which was set while increasing
-                // Flow coverage.
-                if (props.choices[i].originalIndex != null) {
-                    const index = props.choices[i].originalIndex;
+                const index = props.choices[i].originalIndex;
 
-                    choicesSelected[index] = choiceStates[i].selected;
+                choicesSelected[index] = choiceStates[i].selected;
 
-                    if (props.choices[i].isNoneOfTheAbove) {
-                        noneOfTheAboveIndex = index;
+                if (props.choices[i].isNoneOfTheAbove) {
+                    noneOfTheAboveIndex = index;
 
-                        if (choicesSelected[i]) {
-                            noneOfTheAboveSelected = true;
-                        }
+                    if (choicesSelected[i]) {
+                        noneOfTheAboveSelected = true;
                     }
                 }
             }
