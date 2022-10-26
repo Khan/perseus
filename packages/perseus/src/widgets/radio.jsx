@@ -6,11 +6,8 @@ import Util from "../util.js";
 
 import Radio from "./radio/widget.jsx";
 
-import type {
-    PerseusRadioWidgetOptions,
-    PerseusRadioChoice,
-} from "../perseus-types.js";
-import type {WidgetExports} from "../types.js";
+import type {PerseusRadioWidgetOptions} from "../perseus-types.js";
+import type {WidgetExports, RadioChoiceWithMetadata} from "../types.js";
 import type {RenderProps} from "./radio/widget.jsx";
 
 const {shuffle, random} = Util;
@@ -43,15 +40,16 @@ const _choiceTransform = (
     };
 
     const _addNoneOfAbove = function (
-        choices: $ReadOnlyArray<PerseusRadioChoice>,
-    ): $ReadOnlyArray<PerseusRadioChoice> {
+        choices: $ReadOnlyArray<RadioChoiceWithMetadata>,
+    ) {
         let noneOfTheAbove = null;
 
-        const newChoices = _.reject(choices, function (choice, index) {
+        const newChoices = choices.filter((choice, index) => {
             if (choice.isNoneOfTheAbove) {
                 noneOfTheAbove = choice;
-                return true;
+                return false;
             }
+            return true;
         });
 
         // Place the "None of the above" options last
@@ -63,8 +61,8 @@ const _choiceTransform = (
     };
 
     const enforceOrdering = (
-        choices: $ReadOnlyArray<PerseusRadioChoice>,
-    ): $ReadOnlyArray<PerseusRadioChoice> => {
+        choices: $ReadOnlyArray<RadioChoiceWithMetadata>,
+    ) => {
         const content = choices.map((c) => c.content);
         if (ReversedChoices.some((reversed) => _.isEqual(content, reversed))) {
             return [choices[1], choices[0]];
@@ -73,13 +71,14 @@ const _choiceTransform = (
     };
 
     // Add meta-information to choices
-    let choices = widgetOptions.choices.slice();
-    choices = _.map(choices, (choice, i) => {
-        return _.extend({}, choice, {
-            originalIndex: i,
-            correct: Boolean(choice.correct),
+    const choices: $ReadOnlyArray<RadioChoiceWithMetadata> =
+        widgetOptions.choices.map((choice, i): RadioChoiceWithMetadata => {
+            return {
+                ...choice,
+                originalIndex: i,
+                correct: Boolean(choice.correct),
+            };
         });
-    });
 
     // Apply all the transforms. Note that the order we call these is
     // important!

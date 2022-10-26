@@ -968,10 +968,6 @@ export type PerseusRadioChoice = {|
     // deprecated
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
     widgets?: {|[string]: PerseusWidget|},
-    // Indicates the original index
-    originalIndex?: number,
-    // Indicates whether the option has been crossed out or not
-    crossedOut?: boolean,
 |};
 // sync-end:perseus-data-format-radio-choice
 

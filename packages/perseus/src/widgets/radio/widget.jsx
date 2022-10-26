@@ -14,7 +14,12 @@ import type {
     PerseusRadioChoice,
     PerseusRadioWidgetOptions,
 } from "../../perseus-types.js";
-import type {PerseusScore, WidgetProps, ChoiceState} from "../../types.js";
+import type {
+    PerseusScore,
+    WidgetProps,
+    ChoiceState,
+    RadioChoiceWithMetadata,
+} from "../../types.js";
 import type {FocusFunction, ChoiceType} from "./base-radio.jsx";
 
 // RenderProps is the return type for radio.jsx#transform
@@ -24,7 +29,7 @@ export type RenderProps = {|
     multipleSelect?: boolean,
     countChoices?: boolean,
     deselectEnabled?: boolean,
-    choices: $ReadOnlyArray<PerseusRadioChoice>,
+    choices: $ReadOnlyArray<RadioChoiceWithMetadata>,
     selectedChoices: $ReadOnlyArray<PerseusRadioChoice["correct"]>,
     choiceStates?: $ReadOnlyArray<ChoiceState>,
     values?: $ReadOnlyArray<boolean>,
@@ -41,7 +46,7 @@ type Rubric = PerseusRadioWidgetOptions;
 type Props = WidgetProps<RenderProps, Rubric>;
 
 type DefaultProps = {|
-    choices: Array<Object>,
+    choices: Props["choices"],
     multipleSelect: Props["multipleSelect"],
     countChoices: Props["countChoices"],
     deselectEnabled: Props["deselectEnabled"],
@@ -52,16 +57,16 @@ class Radio extends React.Component<Props> {
     focusFunction: FocusFunction;
 
     static defaultProps: DefaultProps = {
-        choices: [{}],
+        choices: [],
         multipleSelect: false,
         countChoices: false,
         deselectEnabled: false,
         linterContext: linterContextDefault,
     };
 
-    _renderRenderer: (?string) => React.Node = (content) => {
-        content = content || "";
-
+    _renderRenderer: (content?: string) => React.Node = (
+        content?: string = "",
+    ) => {
         let nextPassageRefId = 1;
         const widgets = {};
 
@@ -269,12 +274,12 @@ class Radio extends React.Component<Props> {
     };
 
     render(): React.Node {
-        const choices: $ReadOnlyArray<PerseusRadioChoice> = this.props.choices;
+        const {choices} = this.props;
         let choiceStates: $ReadOnlyArray<ChoiceState>;
         if (this.props.static) {
             choiceStates = choices.map((choice) => ({
                 selected: !!choice.correct,
-                crossedOut: !!choice.crossedOut,
+                crossedOut: false,
                 readOnly: true,
                 highlighted: false,
                 rationaleShown: true,
@@ -308,7 +313,7 @@ class Radio extends React.Component<Props> {
         }
 
         const choicesProp: $ReadOnlyArray<ChoiceType> = choices.map(
-            (choice: PerseusRadioChoice, i: number) => {
+            (choice, i) => {
                 const content =
                     choice.isNoneOfTheAbove && !choice.content
                         ? // we use i18n._ instead of $_ here because the content
@@ -344,9 +349,10 @@ class Radio extends React.Component<Props> {
                     // TODO(emily): Come up with a more comprehensive way to solve
                     // this sort of "serialized state breaks when internal
                     // structure changes" problem.
-                    correct: !!(choice.correct === undefined
-                        ? !!reviewChoice && reviewChoice.correct
-                        : choice.correct),
+                    correct:
+                        choice.correct === undefined
+                            ? !!reviewChoice && !!reviewChoice.correct
+                            : choice.correct,
                     disabled: readOnly,
                     hasRationale: !!choice.clue,
                     rationale: this._renderRenderer(choice.clue),
