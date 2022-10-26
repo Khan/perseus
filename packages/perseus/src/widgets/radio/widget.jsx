@@ -456,17 +456,15 @@ class Radio extends React.Component<Props> {
             const numCorrect = props.numCorrect;
 
             for (let i = 0; i < choicesSelected.length; i++) {
-                if (props.choices[i].originalIndex != null) {
-                    const index = props.choices[i].originalIndex;
+                const index = props.choices[i].originalIndex;
 
-                    choicesSelected[index] = choiceStates[i].selected;
+                choicesSelected[index] = choiceStates[i].selected;
 
-                    if (props.choices[i].isNoneOfTheAbove) {
-                        noneOfTheAboveIndex = index;
+                if (props.choices[i].isNoneOfTheAbove) {
+                    noneOfTheAboveIndex = index;
 
-                        if (choicesSelected[i]) {
-                            noneOfTheAboveSelected = true;
-                        }
+                    if (choicesSelected[i]) {
+                        noneOfTheAboveSelected = true;
                     }
                 }
             }
