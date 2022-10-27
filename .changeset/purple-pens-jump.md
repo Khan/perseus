@@ -2,4 +2,4 @@
 "@khanacademy/perseus": patch
 ---
 
-Increases flow coverage for widget to 100%
+Increases flow coverage for Radio's Widget component to 100%
