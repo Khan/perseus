@@ -194,7 +194,7 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
                         name="test"
                         value="A - Hello"
                     />
-                    <label for="dewey">A - Hello</label>
+                    <label htmlFor="dewey">A - Hello</label>
 
                     <input
                         type="radio"
@@ -202,7 +202,7 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
                         name="test"
                         value="B - Goodbye"
                     />
-                    <label for="louie">B - Goodbye</label>
+                    <label htmlFor="louie">B - Goodbye</label>
                 </div>
                 <Clickable
                     onClick={() => {
