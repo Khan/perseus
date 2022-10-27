@@ -67,8 +67,6 @@ class Radio extends React.Component<Props> {
     _renderRenderer: (content?: string) => React.Node = (
         content?: string = "",
     ) => {
-        content = content || "";
-
         let nextPassageRefId = 1;
         const widgets = {};
 
