@@ -476,25 +476,19 @@ class Radio extends React.Component<Props> {
             // Support legacy choiceState implementation
         }
         /* istanbul ignore if - props.values is deprecated */
-        if (props.values) {
+        const {values} = props;
+        if (values) {
             let noneOfTheAboveIndex = null;
             let noneOfTheAboveSelected = false;
 
-            const choicesSelected = props.values.map(Boolean);
+            const choicesSelected = [...values];
             const countChoices = props.countChoices;
             const numCorrect = props.numCorrect;
-            const valuesLength = props.values?.length ?? 0;
+            const valuesLength = values.length;
 
             for (let i = 0; i < valuesLength; i++) {
                 const index = props.choices[i].originalIndex;
-                if (
-                    index &&
-                    index < choicesSelected.length &&
-                    props.values &&
-                    i < props.values.length
-                ) {
-                    choicesSelected[index] = props.values[i];
-                }
+                choicesSelected[index] = values[i];
 
                 if (props.choices[i].isNoneOfTheAbove) {
                     noneOfTheAboveIndex = index;
