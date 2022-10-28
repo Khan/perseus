@@ -189,7 +189,7 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
                     opacity: showDimmed ? 0.5 : 1.0,
                 }}
             >
-                <div className="perseus-sr-only">
+                <div>
                     <input
                         type="radio"
                         id={ids}
@@ -197,9 +197,7 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
                         value={content}
                         checked={checked ? "true" : "false"}
                     />
-                    <label htmlFor={ids}>{`Select Choice ${getChoiceLetter(
-                        pos,
-                    )}`}</label>
+                    <label htmlFor={ids}>{content}</label>
                 </div>
                 <Clickable
                     onClick={() => {
