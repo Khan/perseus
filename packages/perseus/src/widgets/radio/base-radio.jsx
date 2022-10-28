@@ -33,7 +33,6 @@ export type ChoiceType = {|
     showRationale: boolean,
     showCorrectness: boolean,
     correct: boolean,
-    originalIndex: number,
     isNoneOfTheAbove: boolean,
     highlighted: boolean,
     previouslyAnswered: boolean,
@@ -61,8 +60,8 @@ type Props = {|
     // an array of boolean values, specifying the new checked and
     // crossed-out value of each choice.
     onChange: (newValues: {
-        checked: $ReadOnlyArray<?boolean>,
-        crossedOut: $ReadOnlyArray<?boolean>,
+        checked: $ReadOnlyArray<boolean>,
+        crossedOut: $ReadOnlyArray<boolean>,
     }) => void,
     registerFocusFunction?: (FocusFunction) => void,
 
@@ -159,7 +158,7 @@ function BaseRadio(props: Props): React.Node {
     // value of this choice.
     function updateChoice(
         choiceIndex: number,
-        newValues: $ReadOnly<{checked?: boolean, crossedOut?: boolean}>,
+        newValues: $ReadOnly<{checked: boolean, crossedOut: boolean}>,
     ): void {
         const {multipleSelect, choices, onChange} = props;
 

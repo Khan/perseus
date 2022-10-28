@@ -35,19 +35,15 @@ const defaultProps = {
     choices: [
         generateChoice({
             content: "Content 1",
-            originalIndex: 0,
         }),
         generateChoice({
             content: "Content 2",
-            originalIndex: 1,
         }),
         generateChoice({
             content: "Content 3",
-            originalIndex: 2,
             correct: true,
         }),
         generateChoice({
-            originalIndex: 3,
             isNoneOfTheAbove: true,
         }),
     ],
