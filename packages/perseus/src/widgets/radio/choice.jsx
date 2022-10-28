@@ -3,7 +3,7 @@
 import Button from "@khanacademy/wonder-blocks-button";
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import Color from "@khanacademy/wonder-blocks-color";
-import {View} from "@khanacademy/wonder-blocks-core";
+import {View, useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {Popover, PopoverContent} from "@khanacademy/wonder-blocks-popover";
 import Spacing from "@khanacademy/wonder-blocks-spacing";
@@ -172,6 +172,8 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
         (!apiOptions.satStyling && !reviewMode && apiOptions.readOnly) ||
         crossedOut;
 
+    const ids = useUniqueIdWithMock();
+
     return (
         <div
             style={{
@@ -187,22 +189,17 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
                     opacity: showDimmed ? 0.5 : 1.0,
                 }}
             >
-                <div>
+                <div className="perseus-sr-only">
                     <input
                         type="radio"
-                        id="dewey"
-                        name="test"
-                        value="A - Hello"
+                        id={ids}
+                        name="choice"
+                        value={content}
+                        checked={checked ? "true" : "false"}
                     />
-                    <label htmlFor="dewey">A - Hello</label>
-
-                    <input
-                        type="radio"
-                        id="louie"
-                        name="test"
-                        value="B - Goodbye"
-                    />
-                    <label htmlFor="louie">B - Goodbye</label>
+                    <label htmlFor={ids}>{`Select Choice ${getChoiceLetter(
+                        pos,
+                    )}`}</label>
                 </div>
                 <Clickable
                     onClick={() => {
