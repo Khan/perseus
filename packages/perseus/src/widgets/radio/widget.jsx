@@ -32,6 +32,8 @@ export type RenderProps = {|
     choices: $ReadOnlyArray<RadioChoiceWithMetadata>,
     selectedChoices: $ReadOnlyArray<PerseusRadioChoice["correct"]>,
     choiceStates?: $ReadOnlyArray<ChoiceState>,
+    // Depreciated; support for legacy way of handling changes
+    // Adds proptype for prop that is used but was lacking type
     values?: $ReadOnlyArray<boolean>,
 |};
 
