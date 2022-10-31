@@ -3,7 +3,6 @@
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import * as React from "react";
-import _ from "underscore";
 
 import Renderer from "../../renderer.jsx";
 import Util from "../../util.js";
@@ -15,8 +14,13 @@ import type {
     PerseusRadioChoice,
     PerseusRadioWidgetOptions,
 } from "../../perseus-types.js";
-import type {PerseusScore, WidgetProps} from "../../types.js";
-import type {FocusFunction} from "./base-radio.jsx";
+import type {
+    PerseusScore,
+    WidgetProps,
+    ChoiceState,
+    RadioChoiceWithMetadata,
+} from "../../types.js";
+import type {FocusFunction, ChoiceType} from "./base-radio.jsx";
 
 // RenderProps is the return type for radio.jsx#transform
 export type RenderProps = {|
@@ -25,9 +29,12 @@ export type RenderProps = {|
     multipleSelect?: boolean,
     countChoices?: boolean,
     deselectEnabled?: boolean,
-    choices: $ReadOnlyArray<PerseusRadioChoice>,
+    choices: $ReadOnlyArray<RadioChoiceWithMetadata>,
     selectedChoices: $ReadOnlyArray<PerseusRadioChoice["correct"]>,
-    choiceStates?: $ReadOnlyArray<$FlowFixMe>,
+    choiceStates?: $ReadOnlyArray<ChoiceState>,
+    // Depreciated; support for legacy way of handling changes
+    // Adds proptype for prop that is used but was lacking type
+    values?: $ReadOnlyArray<boolean>,
 |};
 
 type UserInput = {|
@@ -40,27 +47,39 @@ type UserInput = {|
 type Rubric = PerseusRadioWidgetOptions;
 type Props = WidgetProps<RenderProps, Rubric>;
 
+type DefaultProps = {|
+    choices: Props["choices"],
+    multipleSelect: Props["multipleSelect"],
+    countChoices: Props["countChoices"],
+    deselectEnabled: Props["deselectEnabled"],
+    linterContext: Props["linterContext"],
+|};
+
 class Radio extends React.Component<Props> {
     focusFunction: FocusFunction;
 
-    static defaultProps: $FlowFixMe = {
-        choices: [{}],
-        displayCount: null,
+    static defaultProps: DefaultProps = {
+        choices: [],
         multipleSelect: false,
         countChoices: false,
         deselectEnabled: false,
         linterContext: linterContextDefault,
     };
 
-    _renderRenderer: (string) => React.Node = (content) => {
-        content = content || "";
-
+    _renderRenderer: (content?: string) => React.Node = (
+        content?: string = "",
+    ) => {
         let nextPassageRefId = 1;
         const widgets = {};
 
         const modContent = content.replace(
             /\{\{passage-ref (\d+) (\d+)(?: "([^"]*)")?\}\}/g,
-            (match, passageNum, refNum, summaryText) => {
+            (
+                match: string,
+                passageNum: string,
+                refNum: string,
+                summaryText: string,
+            ) => {
                 const widgetId = "passage-ref " + nextPassageRefId;
                 nextPassageRefId++;
 
@@ -135,7 +154,12 @@ class Radio extends React.Component<Props> {
     //
     // NOTE(mdr): This method expects to be auto-bound. If this component is
     //     converted to an ES6 class, take care to auto-bind this method!
-    updateChoices: ($FlowFixMe) => void = (newValueLists) => {
+    updateChoices: (
+        newValueLists: $ReadOnly<{
+            checked: $ReadOnlyArray<boolean>,
+            crossedOut: $ReadOnlyArray<boolean>,
+        }>,
+    ) => void = (newValueLists) => {
         const {choiceStates, choices} = this.props;
 
         // Construct the baseline `choiceStates` objects. If this is the user's
@@ -143,24 +167,21 @@ class Radio extends React.Component<Props> {
         // new objects with all fields set to the default values. Otherwise, we
         // should clone the old `choiceStates` objects, in preparation to
         // mutate them.
-        let newChoiceStates;
-        if (choiceStates) {
-            newChoiceStates = choiceStates.map((state) => ({...state}));
-        } else {
-            newChoiceStates = choices.map(() => ({
-                selected: false,
-                crossedOut: false,
-                highlighted: false,
-                rationaleShown: false,
-                correctnessShown: false,
-                previouslyAnswered: false,
-                readOnly: false,
-            }));
-        }
+        const newChoiceStates = choiceStates
+            ? choiceStates.map((state: ChoiceState) => ({...state}))
+            : choices.map(() => ({
+                  selected: false,
+                  crossedOut: false,
+                  highlighted: false,
+                  rationaleShown: false,
+                  correctnessShown: false,
+                  previouslyAnswered: false,
+                  readOnly: false,
+              }));
 
         // Mutate the new `choiceState` objects, according to the new `checked`
         // and `crossedOut` values provided in `newValueLists`.
-        newChoiceStates.forEach((choiceState, i) => {
+        newChoiceStates.forEach((choiceState: ChoiceState, i) => {
             choiceState.selected = newValueLists.checked[i];
             choiceState.crossedOut = newValueLists.crossedOut[i];
         });
@@ -190,25 +211,29 @@ class Radio extends React.Component<Props> {
                 const widgetCorrect =
                     score.type === "points" && score.total === score.earned;
 
-                const newStates = choiceStates.map((state) => ({
-                    ...state,
-                    highlighted: state.selected,
-                    // If the choice is selected, show the rationale now
-                    rationaleShown:
-                        state.selected ||
-                        // If the choice already had a rationale, keep it shown
-                        state.rationaleShown ||
-                        // If the widget is correctly answered, show the rationale
-                        // for all the choices
-                        widgetCorrect,
-                    // We use the same behavior for the readOnly flag as for
-                    // rationaleShown, but we keep it separate in case other
-                    // behaviors want to disable choices without showing rationales.
-                    readOnly: state.selected || state.readOnly || widgetCorrect,
-                    correctnessShown: state.selected || state.correctnessShown,
-                    previouslyAnswered:
-                        state.previouslyAnswered || state.selected,
-                }));
+                const newStates: $ReadOnlyArray<ChoiceState> = choiceStates.map(
+                    (state: ChoiceState): ChoiceState => ({
+                        ...state,
+                        highlighted: state.selected,
+                        // If the choice is selected, show the rationale now
+                        rationaleShown:
+                            state.selected ||
+                            // If the choice already had a rationale, keep it shown
+                            state.rationaleShown ||
+                            // If the widget is correctly answered, show the rationale
+                            // for all the choices
+                            widgetCorrect,
+                        // We use the same behavior for the readOnly flag as for
+                        // rationaleShown, but we keep it separate in case other
+                        // behaviors want to disable choices without showing rationales.
+                        readOnly:
+                            state.selected || state.readOnly || widgetCorrect,
+                        correctnessShown:
+                            state.selected || state.correctnessShown,
+                        previouslyAnswered:
+                            state.previouslyAnswered || state.selected,
+                    }),
+                );
 
                 this.props.onChange(
                     {
@@ -225,11 +250,15 @@ class Radio extends React.Component<Props> {
      */
     deselectIncorrectSelectedChoices: () => void = () => {
         if (this.props.choiceStates) {
-            const newStates = this.props.choiceStates.map((state, i) => ({
-                ...state,
-                selected: state.selected && !!this.props.choices[i].correct,
-                highlighted: false,
-            }));
+            const newStates: $ReadOnlyArray<ChoiceState> =
+                this.props.choiceStates.map(
+                    (state: ChoiceState, i): ChoiceState => ({
+                        ...state,
+                        selected:
+                            state.selected && !!this.props.choices[i].correct,
+                        highlighted: false,
+                    }),
+                );
 
             this.props.onChange(
                 {
@@ -242,12 +271,12 @@ class Radio extends React.Component<Props> {
     };
 
     render(): React.Node {
-        let choices = this.props.choices;
-        let choiceStates;
+        const {choices} = this.props;
+        let choiceStates: $ReadOnlyArray<ChoiceState>;
         if (this.props.static) {
-            choiceStates = _.map(choices, (val) => ({
-                selected: val.correct,
-                crossedOut: val.crossedOut,
+            choiceStates = choices.map((choice) => ({
+                selected: !!choice.correct,
+                crossedOut: false,
                 readOnly: true,
                 highlighted: false,
                 rationaleShown: true,
@@ -256,11 +285,10 @@ class Radio extends React.Component<Props> {
             }));
         } else if (this.props.choiceStates) {
             choiceStates = this.props.choiceStates;
-            // $FlowFixMe[prop-missing]
         } else if (this.props.values) {
             // Support legacy choiceStates implementation
             /* istanbul ignore next - props.values is deprecated */
-            choiceStates = _.map(this.props.values, (val) => ({
+            choiceStates = this.props.values.map((val) => ({
                 selected: val,
                 crossedOut: false,
                 readOnly: false,
@@ -270,7 +298,7 @@ class Radio extends React.Component<Props> {
                 previouslyAnswered: false,
             }));
         } else {
-            choiceStates = _.map(choices, () => ({
+            choiceStates = choices.map(() => ({
                 selected: false,
                 crossedOut: false,
                 readOnly: false,
@@ -281,58 +309,62 @@ class Radio extends React.Component<Props> {
             }));
         }
 
-        choices = _.map(choices, (choice, i) => {
-            const content =
-                choice.isNoneOfTheAbove && !choice.content
-                    ? // we use i18n._ instead of $_ here because the content
-                      // sent to a renderer needs to be a string, not a react
-                      // node (/renderable/fragment).
-                      i18n._("None of the above")
-                    : choice.content;
+        const choicesProp: $ReadOnlyArray<ChoiceType> = choices.map(
+            (choice, i) => {
+                const content =
+                    choice.isNoneOfTheAbove && !choice.content
+                        ? // we use i18n._ instead of $_ here because the content
+                          // sent to a renderer needs to be a string, not a react
+                          // node (/renderable/fragment).
+                          i18n._("None of the above")
+                        : choice.content;
 
-            const {
-                selected,
-                crossedOut,
-                rationaleShown,
-                correctnessShown,
-                readOnly,
-                highlighted,
-                previouslyAnswered,
-            } = choiceStates[i];
+                const {
+                    selected,
+                    crossedOut,
+                    rationaleShown,
+                    correctnessShown,
+                    readOnly,
+                    highlighted,
+                    previouslyAnswered,
+                } = choiceStates[i];
 
-            const reviewChoice =
-                this.props.reviewModeRubric &&
-                this.props.reviewModeRubric.choices[i];
+                const reviewChoice =
+                    this.props.reviewModeRubric &&
+                    this.props.reviewModeRubric.choices[i];
 
-            return {
-                content: this._renderRenderer(content),
-                checked: selected,
-                // Current versions of the radio widget always pass in the
-                // "correct" value through the choices. Old serialized state
-                // for radio widgets doesn't have this though, so we have to
-                // pull the correctness out of the review mode rubric. This
-                // only works because all of the places we use
-                // `restoreSerializedState()` also turn on reviewMode, but is
-                // fine for now.
-                // TODO(emily): Come up with a more comprehensive way to solve
-                // this sort of "serialized state breaks when internal
-                // structure changes" problem.
-                correct:
-                    typeof choice.correct === "undefined"
-                        ? !!reviewChoice && reviewChoice.correct
-                        : choice.correct,
-                disabled: readOnly,
-                hasRationale: !!choice.clue,
-                rationale: this._renderRenderer(choice.clue),
-                showRationale: rationaleShown,
-                showCorrectness: correctnessShown,
-                isNoneOfTheAbove: choice.isNoneOfTheAbove,
-                revealNoneOfTheAbove: this.props.questionCompleted && selected,
-                crossedOut,
-                highlighted,
-                previouslyAnswered: previouslyAnswered,
-            };
-        });
+                return {
+                    content: this._renderRenderer(content),
+                    checked: selected,
+                    // Current versions of the radio widget always pass in the
+                    // "correct" value through the choices. Old serialized state
+                    // for radio widgets doesn't have this though, so we have to
+                    // pull the correctness out of the review mode rubric. This
+                    // only works because all of the places we use
+                    // `restoreSerializedState()` also turn on reviewMode, but is
+                    // fine for now.
+                    // TODO(emily): Come up with a more comprehensive way to solve
+                    // this sort of "serialized state breaks when internal
+                    // structure changes" problem.
+                    correct:
+                        choice.correct === undefined
+                            ? !!reviewChoice && !!reviewChoice.correct
+                            : choice.correct,
+                    disabled: readOnly,
+                    hasRationale: !!choice.clue,
+                    rationale: this._renderRenderer(choice.clue),
+                    showRationale: rationaleShown,
+                    showCorrectness: correctnessShown,
+                    isNoneOfTheAbove: !!choice.isNoneOfTheAbove,
+                    revealNoneOfTheAbove: !!(
+                        this.props.questionCompleted && selected
+                    ),
+                    crossedOut,
+                    highlighted,
+                    previouslyAnswered: previouslyAnswered,
+                };
+            },
+        );
 
         return (
             <BaseRadio
@@ -340,7 +372,7 @@ class Radio extends React.Component<Props> {
                 multipleSelect={this.props.multipleSelect}
                 countChoices={this.props.countChoices}
                 numCorrect={this.props.numCorrect}
-                choices={choices}
+                choices={choicesProp}
                 onChange={this.updateChoices}
                 reviewModeRubric={this.props.reviewModeRubric}
                 deselectEnabled={this.props.deselectEnabled}
@@ -352,8 +384,7 @@ class Radio extends React.Component<Props> {
     }
 
     static validate(userInput: UserInput, rubric: Rubric): PerseusScore {
-        const numSelected = _.reduce(
-            userInput.choicesSelected,
+        const numSelected = userInput.choicesSelected.reduce(
             (sum, selected) => {
                 return sum + (selected ? 1 : 0);
             },
@@ -366,8 +397,12 @@ class Radio extends React.Component<Props> {
                 message: null,
             };
         }
-        // $FlowFixMe[invalid-compare]
-        if (userInput.numCorrect > 1 && numSelected !== userInput.numCorrect) {
+
+        if (
+            userInput.numCorrect &&
+            userInput.numCorrect > 1 &&
+            numSelected !== userInput.numCorrect
+        ) {
             return {
                 type: "invalid",
                 message: i18n._("Please choose the correct number of answers."),
@@ -383,11 +418,11 @@ class Radio extends React.Component<Props> {
                 ),
             };
         }
-        /* jshint -W018 */
-        const correct = _.all(userInput.choicesSelected, (selected, i) => {
+
+        const correct = userInput.choicesSelected.every((selected, i) => {
             let isCorrect;
             if (userInput.noneOfTheAboveIndex === i) {
-                isCorrect = _.all(rubric.choices, (choice, j) => {
+                isCorrect = rubric.choices.every((choice, j) => {
                     return i === j || !choice.correct;
                 });
             } else {
@@ -395,7 +430,6 @@ class Radio extends React.Component<Props> {
             }
             return isCorrect === selected;
         });
-        /* jshint +W018 */
 
         return {
             type: "points",
@@ -419,9 +453,8 @@ class Radio extends React.Component<Props> {
             const numCorrect = props.numCorrect;
 
             for (let i = 0; i < choicesSelected.length; i++) {
-                // $FlowFixMe[prop-missing]
                 const index = props.choices[i].originalIndex;
-                // $FlowFixMe[incompatible-use]
+
                 choicesSelected[index] = choiceStates[i].selected;
 
                 if (props.choices[i].isNoneOfTheAbove) {
@@ -443,28 +476,29 @@ class Radio extends React.Component<Props> {
             // Support legacy choiceState implementation
         }
         /* istanbul ignore if - props.values is deprecated */
-        // $FlowFixMe[prop-missing]
-        if (props.values) {
+        const {values} = props;
+        if (values) {
             let noneOfTheAboveIndex = null;
             let noneOfTheAboveSelected = false;
 
-            const values = props.values.slice();
+            const choicesSelected = [...values];
             const countChoices = props.countChoices;
             const numCorrect = props.numCorrect;
+            const valuesLength = values.length;
 
-            for (let i = 0; i < props.values.length; i++) {
+            for (let i = 0; i < valuesLength; i++) {
                 const index = props.choices[i].originalIndex;
-                values[index] = props.values[i];
+                choicesSelected[index] = values[i];
 
                 if (props.choices[i].isNoneOfTheAbove) {
                     noneOfTheAboveIndex = index;
-                    if (values[i]) {
+                    if (choicesSelected[i]) {
                         noneOfTheAboveSelected = true;
                     }
                 }
             }
             return {
-                choicesSelected: values,
+                choicesSelected,
                 noneOfTheAboveIndex,
                 noneOfTheAboveSelected,
                 countChoices,
@@ -473,7 +507,7 @@ class Radio extends React.Component<Props> {
         }
         // Nothing checked
         return {
-            choicesSelected: _.map(props.choices, () => false),
+            choicesSelected: props.choices.map(() => false),
         };
     }
 }

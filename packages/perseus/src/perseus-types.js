@@ -4,9 +4,6 @@
 
 import type {Coord} from "./interactive2/types.js";
 
-// sync-start:perseus-data-format 445282759 services/content-editing/perseus/perseus_data.go
-
-// sync-start:perseus-data-format-perseus-item 1142141354 services/content-editing/perseus/perseus_data.go
 export type PerseusItem = {|
     // The details of the question being asked to the user.
     question: PerseusRenderer,
@@ -21,22 +18,16 @@ export type PerseusItem = {|
     // Deprecated field
     answer: *,
 |};
-// sync-end:perseus-data-format-perseus-item
 
-// sync-start:perseus-data-format-perseus-article 702711982 services/content-editing/perseus/perseus_data.go
 export type PerseusArticle = $ReadOnlyArray<PerseusRenderer>;
-// sync-end:perseus-data-format-perseus-article
 
-// sync-start:perseus-data-format-perseus-version 402776191 services/content-editing/perseus/perseus_data.go
 export type Version = {|
     // The major part of the version
     major: number,
     // The minor part of the version
     minor: number,
 |};
-// sync-end:perseus-data-format-perseus-version
 
-// sync-start:perseus-data-format-perseus-renderer 43032456 services/content-editing/perseus/perseus_data.go
 export type PerseusRenderer = {|
     // Translatable Markdown content to be rendered.  May include references to
     // widgets (as [[☃ widgetName]]) or images (as ![image text](imageUrl)).
@@ -54,18 +45,14 @@ export type PerseusRenderer = {|
     // A dictionary of {[imageUrl]: PerseusImageDetail}.
     images: {|[string]: PerseusImageDetail|},
 |};
-// sync-end:perseus-data-format-perseus-renderer
 
-// sync-start:perseus-data-format-image-size 1357702236 services/content-editing/perseus/translation/types.go
 export type PerseusImageDetail = {|
     // The width of the image
     width: number,
     // the height of the image
     height: number,
 |};
-// sync-end:perseus-data-format-image-size
 
-// sync-start:perseus-data-format-answer-area 2042787453 services/content-editing/perseus/perseus_data.go
 export type PerseusAnswerArea = {|
     // The user might benefit from using a statistics Z Table like https://www.ztable.net/
     zTable: boolean,
@@ -78,9 +65,7 @@ export type PerseusAnswerArea = {|
     // The user might benefit from using a Periodic Table of Elements.  Provided on Khan Academy when true
     periodicTable: boolean,
 |};
-// sync-end:perseus-data-format-answer-area
 
-// sync-start:perseus-data-format-perseus-header 444775300 services/content-editing/perseus/perseus_data.go
 type Widget<Type: string, Options> = {|
     // The "type" of widget which will define what the Options field looks like
     type: Type,
@@ -102,7 +87,6 @@ type Widget<Type: string, Options> = {|
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
     version?: Version,
 |};
-// sync-end:perseus-data-format-perseus-header
 
 // prettier-ignore
 export type CategorizerWidget = Widget<"categorizer", PerseusCategorizerWidgetOptions>;
@@ -228,7 +212,6 @@ export type PerseusWidget =
     | UnitInputWidget
     | VideoWidget;
 
-// sync-start:perseus-data-format-image-background 705138305 services/content-editing/perseus/perseus_data.go
 export type PerseusImageBackground = {|
     // The URL of the image
     url: ?string,
@@ -254,9 +237,7 @@ export type PerseusImageBackground = {|
     // it isn't necessary at all.
     bottom?: number,
 |};
-// sync-end:perseus-data-format-image-background
 
-// sync-start:perseus-data-format-categorizer 196107932 services/content-editing/perseus/perseus_data.go
 export type PerseusCategorizerWidgetOptions = {|
     // Translatable text; a list of items to categorize. e.g. ["banana", "yellow", "apple", "purple", "shirt"]
     items: $ReadOnlyArray<string>,
@@ -273,7 +254,6 @@ export type PerseusCategorizerWidgetOptions = {|
     // Internal editor configuration. Can be ignored by consumers.
     linterContext?: PerseusLinterContext,
 |};
-// sync-end:perseus-data-format-categorizer
 
 export type PerseusLinterContext = {|
     contentType: string,
@@ -281,7 +261,6 @@ export type PerseusLinterContext = {|
     stack: $ReadOnlyArray<string>,
 |};
 
-// sync-start:perseus-data-format-definition 1136634440 services/content-editing/perseus/perseus_data.go
 export type PerseusDefinitionWidgetOptions = {|
     // Translatable text; the word to define. e.g. "vertex"
     togglePrompt: string,
@@ -290,9 +269,7 @@ export type PerseusDefinitionWidgetOptions = {|
     // Always false. Not used for this widget
     static: boolean,
 |};
-// sync-end:perseus-data-format-definition
 
-// sync-start:perseus-data-format-dropdown 680573227 services/content-editing/perseus/perseus_data.go
 export type PerseusDropdownWidgetOptions = {|
     // A list of choices for the dropdown
     choices: $ReadOnlyArray<PerseusDropdownChoice>,
@@ -301,18 +278,14 @@ export type PerseusDropdownWidgetOptions = {|
     // Always false.  Not used for this widget
     static: boolean,
 |};
-// sync-end:perseus-data-format-dropdown
 
-// sync-start:perseus-data-format-dropdown-choice 1551360173 services/content-editing/perseus/perseus_data.go
 export type PerseusDropdownChoice = {|
     // Translatable text; The text for the option. e.g. "Banana" or "Orange"
     content: string,
     // Whether this is the correct option or not
     correct: boolean,
 |};
-// sync-end:perseus-data-format-dropdown-choice
 
-// sync-start:perseus-data-format-explanation 1697542234 services/content-editing/perseus/perseus_data.go
 export type PerseusExplanationWidgetOptions = {|
     // Translatable Text; The clickable text to expand an explanation.  e.g. "What is an apple?"
     showPrompt: string,
@@ -325,9 +298,7 @@ export type PerseusExplanationWidgetOptions = {|
     // Always false.  Not used for this widget
     static: boolean,
 |};
-// sync-end:perseus-data-format-explanation
 
-// sync-start:perseus-data-format-expression 786922927 services/content-editing/perseus/perseus_data.go
 export type PerseusExpressionWidgetOptions = {|
     // The expression forms the answer may come in
     answerForms: $ReadOnlyArray<PerseusExpressionAnswerForm>,
@@ -343,9 +314,7 @@ export type PerseusExpressionWidgetOptions = {|
     // appears in item data in the datastore.
     buttonsVisible?: "always" | "never" | "focused",
 |};
-// sync-end:perseus-data-format-expression
 
-// sync-start:perseus-data-format-expression-answer-form 786922927 services/content-editing/perseus/perseus_data.go
 export type PerseusExpressionAnswerForm = {|
     // The Katex form of the expression.  e.g. "x\\cdot3=y"
     value: string,
@@ -359,9 +328,7 @@ export type PerseusExpressionAnswerForm = {|
     // NOTE: perseus-format.js says this is required even though it isn't necessary.
     key?: string,
 |};
-// sync-end:perseus-data-format-expression-answer-form
 
-// sync-start:perseus-data-format-graded-group 1776015670 services/content-editing/perseus/perseus_data.go
 export type PerseusGradedGroupWidgetOptions = {|
     // Translatable Text; A title to be displayed for the group.
     title: string,
@@ -380,16 +347,12 @@ export type PerseusGradedGroupWidgetOptions = {|
     // See PerseusRenderer.images
     images: {|[string]: PerseusImageDetail|},
 |};
-// sync-end:perseus-data-format-graded-group
 
-// sync-start:perseus-data-format-graded-group-set 692073834 services/content-editing/perseus/perseus_data.go
 export type PerseusGradedGroupSetWidgetOptions = {|
     // A list of Widget Groups
     gradedGroups: $ReadOnlyArray<PerseusGradedGroupWidgetOptions>,
 |};
-// sync-end:perseus-data-format-graded-group-set
 
-// sync-start:perseus-data-format-grapher 666534562 services/content-editing/perseus/perseus_data.go
 export type PerseusGrapherWidgetOptions = {|
     availableTypes: $ReadOnlyArray<
         | "absolute_value"
@@ -479,15 +442,11 @@ export type PerseusGrapherWidgetOptions = {|
         valid?: boolean | string,
     |},
 |};
-// sync-end:perseus-data-format-grapher
 
-// sync-start:perseus-data-format-group 683548434 services/content-editing/perseus/perseus_data.go
 export type PerseusGroupWidgetOptions = {|
     ...PerseusRenderer,
 |};
-// sync-end:perseus-data-format-group
 
-// sync-start:perseus-data-format-image 1902443006 services/content-editing/perseus/perseus_data.go
 export type PerseusImageWidgetOptions = {|
     // Translatable Markdown; Text to be shown for the title of the image
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
@@ -513,9 +472,7 @@ export type PerseusImageWidgetOptions = {|
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
     box?: $ReadOnlyArray<number>,
 |};
-// sync-end:perseus-data-format-image
 
-// sync-start:perseus-data-format-image-label 1815359548 services/content-editing/perseus/perseus_data.go
 export type PerseusImageLabel = {|
     // Translatable Text; The content of the label to display
     content: string,
@@ -524,9 +481,7 @@ export type PerseusImageLabel = {|
     // The point on the image to display the label
     coordinates: $ReadOnlyArray<number>,
 |};
-// sync-end:perseus-data-format-image-label
 
-// sync-start:perseus-data-format-interactive-graph 1553046458 services/content-editing/perseus/perseus_data.go
 export type PerseusInteractiveGraphWidgetOptions = {|
     // The tick steps. default [1, 1]
     // NOTE(kevinb): perseus_data.go defines this as Array<number>
@@ -563,9 +518,6 @@ export type PerseusInteractiveGraphWidgetOptions = {|
     // The correct kind of graph, if being used to select function type
     correct: PerseusGraphType,
 |};
-// sync-end:perseus-data-format-interactive-graph
-
-// sync-start:perseus-data-format-graph-type 1191842797 services/content-editing/perseus/perseus_data.go
 
 export type PerseusGraphType =
     | PerseusGraphTypeAngle
@@ -673,9 +625,6 @@ export type PerseusGraphTypeRay = {|
     ...PerseusGraphTypeCommon,
 |};
 
-// sync-end:perseus-data-format-graph-type
-
-// sync-start:perseus-data-format-label-image 2032676206 services/content-editing/perseus/perseus_data.go
 export type PerseusLabelImageWidgetOptions = {|
     // Translatable Text; Katex representation of choices
     choices: $ReadOnlyArray<string>,
@@ -696,9 +645,7 @@ export type PerseusLabelImageWidgetOptions = {|
     // Always false.  Not used for this widget
     static: boolean,
 |};
-// sync-end:perseus-data-format-label-image
 
-// sync-start:perseus-data-format-label-image-marker 1027558334 services/content-editing/perseus/perseus_data.go
 export type PerseusLabelImageMarker = {|
     // A list of correct answers for this marker.  Often only one but can have multiple
     answers: $ReadOnlyArray<string>,
@@ -709,9 +656,7 @@ export type PerseusLabelImageMarker = {|
     // Y Coordinate location of the marker on the image
     y: number,
 |};
-// sync-end:perseus-data-format-label-image-marker
 
-// sync-start:perseus-data-format-matcher 601321477 services/content-editing/perseus/perseus_data.go
 export type PerseusMatcherWidgetOptions = {|
     // Translatable Text; Labels to adorn the headings for the columns.  Only 2 values [left, right]. e.g. ["Concepts", "Things"]
     labels: $ReadOnlyArray<string>,
@@ -724,9 +669,7 @@ export type PerseusMatcherWidgetOptions = {|
     // Adds padding to the rows.  Padding is good for text, but not needed for images.
     padding: boolean,
 |};
-// sync-end:perseus-data-format-matcher
 
-// sync-start:perseus-data-format-matrix 1000243376 services/content-editing/perseus/perseus_data.go
 export type PerseusMatrixWidgetOptions = {|
     // Translatable Text; Shown before the matrix
     prefix: string,
@@ -741,9 +684,7 @@ export type PerseusMatrixWidgetOptions = {|
     // Whether this is meant to statically display the answers (true) or be used as an input field, graded against the answers
     static: boolean,
 |};
-// sync-end:perseus-data-format-matrix
 
-// sync-start:perseus-data-format-measurer 150148873 services/content-editing/perseus/perseus_data.go
 export type PerseusMeasurerWidgetOptions = {|
     // The image that the user is meant to measure
     image: PerseusImageBackground,
@@ -764,9 +705,7 @@ export type PerseusMeasurerWidgetOptions = {|
     // Always false.  Not used for this widget
     static: boolean,
 |};
-// sync-end:perseus-data-format-measurer
 
-// sync-start:perseus-data-format-numeric-input 1220587654 services/content-editing/perseus/perseus_data.go
 export type PerseusNumericInputWidgetOptions = {|
     // A list of all the possible correct and incorrect answers
     answers: $ReadOnlyArray<PerseusNumericInputAnswer>,
@@ -792,9 +731,7 @@ export type PerseusNumericInputWidgetOptions = {|
         name: "integer" | "decimal" | "proper" | "improper" | "mixed" | "pi",
     |}>,
 |};
-// sync-end:perseus-data-format-numeric-input
 
-// sync-start:perseus-data-format-numeric-input-answer 2103478468 services/content-editing/perseus/perseus_data.go
 export type PerseusNumericInputAnswer = {|
     // Translatable Display; A description for why this answer is correct, wrong, or ungraded
     message: string,
@@ -813,9 +750,7 @@ export type PerseusNumericInputAnswer = {|
     // Unsimplified answers are Ungraded, Accepted, or Wrong. Options: "required", "correct", or "enforced"
     simplify: ?string,
 |};
-// sync-end:perseus-data-format-numeric-input-answer
 
-// sync-start:perseus-data-format-number-line 786922927 services/content-editing/perseus/perseus_data.go
 export type PerseusNumberLineWidgetOptions = {|
     // The position of the endpoints of the number line. Setting the range constrains the position of the answer and the labels.
     range: $ReadOnlyArray<number>,
@@ -846,9 +781,7 @@ export type PerseusNumberLineWidgetOptions = {|
     // When true, the answer is displayed and is immutable
     static: boolean,
 |};
-// sync-end:perseus-data-format-number-line
 
-// sync-start:perseus-data-format-orderer 42703989 services/content-editing/perseus/perseus_data.go
 export type PerseusOrdererWidgetOptions = {|
     // All of the options available to the user. Place the cards in the correct order. The same card can be used more than once in the answer but will only be displayed once at the top of a stack of identical cards.
     options: $ReadOnlyArray<PerseusRenderer>,
@@ -861,9 +794,7 @@ export type PerseusOrdererWidgetOptions = {|
     // Use the "horizontal" layout for short text and small images. The "vertical" layout is best for longer text (e.g. proofs).
     layout: string,
 |};
-// sync-end:perseus-data-format-orderer
 
-// sync-start:perseus-data-format-passage 1782937597 services/content-editing/perseus/perseus_data.go
 export type PerseusPassageWidgetOptions = {|
     // Translatable Text; To add footnotes, add ^ characters where they belong in the passage. Then, add ^ in the footnotes area to reference the footnotes in the passage.
     footnotes: string,
@@ -876,9 +807,7 @@ export type PerseusPassageWidgetOptions = {|
     // Always false.  Not used for this widget
     static: boolean,
 |};
-// sync-end:perseus-data-format-passage
 
-// sync-start:perseus-data-format-passage-ref 786922927 services/content-editing/perseus/perseus_data.go
 export type PerseusPassageRefWidgetOptions = {|
     // The passage number
     passageNumber: number,
@@ -887,9 +816,7 @@ export type PerseusPassageRefWidgetOptions = {|
     // Short summary of the referenced section. This will be included in parentheses and quotes automatically.
     summaryText: string,
 |};
-// sync-end:perseus-data-format-passage-ref
 
-// sync-start:perseus-data-format-plotter 1511242700 services/content-editing/perseus/perseus_data.go
 export type PerseusPlotterWidgetOptions = {|
     // Translatable Text; The Axis labels. e.g. ["X Label", "Y Label"]
     labels: $ReadOnlyArray<string>,
@@ -918,9 +845,7 @@ export type PerseusPlotterWidgetOptions = {|
     // deprecated
     plotDimensions: $ReadOnlyArray<number>,
 |};
-// sync-end:perseus-data-format-plotter
 
-// sync-start:perseus-data-format-radio 1165510766 services/content-editing/perseus/perseus_data.go
 export type PerseusRadioWidgetOptions = {|
     // The choices provided to the user.
     choices: $ReadOnlyArray<PerseusRadioChoice>,
@@ -950,9 +875,7 @@ export type PerseusRadioWidgetOptions = {|
     // `noneOfTheAbove` is still in use (but only set to `false`).
     noneOfTheAbove?: false,
 |};
-// sync-end:perseus-data-format-radio
 
-// sync-start:perseus-data-format-radio-choice 1184662431 services/content-editing/perseus/perseus_data.go
 export type PerseusRadioChoice = {|
     // Translatable Markdown; The label for this choice
     content: string,
@@ -969,16 +892,12 @@ export type PerseusRadioChoice = {|
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
     widgets?: {|[string]: PerseusWidget|},
 |};
-// sync-end:perseus-data-format-radio-choice
 
-// sync-start:perseus-data-format-sequence 1719933825 services/content-editing/perseus/perseus_data.go
 export type PerseusSequenceWidgetOptions = {|
     // A list of Renderers to display in sequence
     json: $ReadOnlyArray<PerseusRenderer>,
 |};
-// sync-end:perseus-data-format-sequence
 
-// sync-start:perseus-data-format-simulator 235177664 services/content-editing/perseus/perseus_data.go
 export type PerseusSimulatorWidgetOptions = {|
     // Translatable Text; The X Axis
     xAxisLabel: string,
@@ -991,9 +910,7 @@ export type PerseusSimulatorWidgetOptions = {|
     // The number of times to run the simulation
     numTrials: number,
 |};
-// sync-end:perseus-data-format-simulator
 
-// sync-start:perseus-data-format-sorter 1524711769 services/content-editing/perseus/perseus_data.go
 export type PerseusSorterWidgetOptions = {|
     // Translatable Text; The correct answer (in the correct order). The user will see the cards in a randomized order.
     correct: $ReadOnlyArray<string>,
@@ -1002,9 +919,7 @@ export type PerseusSorterWidgetOptions = {|
     // Use the "horizontal" layout for short text and small images. The "vertical" layout is best for longer text and larger images.
     layout: string,
 |};
-// sync-end:perseus-data-format-sorter
 
-// sync-start:perseus-data-format-table 1956164389 services/content-editing/perseus/perseus_data.go
 export type PerseusTableWidgetOptions = {|
     // Translatable Text; A list of column headers
     headers: $ReadOnlyArray<string>,
@@ -1015,9 +930,7 @@ export type PerseusTableWidgetOptions = {|
     // Translatable Text; A 2-dimensional array of text to populate the table with
     answers: $ReadOnlyArray<$ReadOnlyArray<string>>,
 |};
-// sync-end:perseus-data-format-table
 
-// sync-start:perseus-data-format-transformer 28164718 services/content-editing/perseus/perseus_data.go
 export type PerseusTransformerWidgetOptions = {|
     correct: {|
         shape: {|
@@ -1197,9 +1110,6 @@ export type PerseusTransformerToolConstraints = {|
     fixed: boolean,
 |};
 
-// sync-end:perseus-data-format-transformer
-
-// sync-start:perseus-data-format-interaction 1099589221 services/content-editing/perseus/perseus_data.go
 export type PerseusInteractionWidgetOptions = {|
     // The definition of the graph
     graph: PerseusInteractionGraph,
@@ -1208,9 +1118,7 @@ export type PerseusInteractionWidgetOptions = {|
     // Always false.  Not used for this widget
     static: boolean,
 |};
-// sync-end:perseus-data-format-interaction
 
-// sync-start:perseus-data-format-interaction-graph 174409695 services/content-editing/perseus/perseus_data.go
 export type PerseusInteractionGraph = {|
     // "canvas", "graph"
     editableSettings?: $ReadOnlyArray<"canvas" | "graph">,
@@ -1245,9 +1153,7 @@ export type PerseusInteractionGraph = {|
     // This controls the number (and position) of the tick marks for the X and Y axis. e.g. [1, 1]
     tickStep: $ReadOnlyArray<number>,
 |};
-// sync-end:perseus-data-format-interaction-graph
 
-// sync-start:perseus-data-format-interaction-element 865922566 services/content-editing/perseus/perseus_data.go
 export type PerseusInteractionElement =
     | {|
           type: "function",
@@ -1298,9 +1204,6 @@ export type PerseusInteractionElement =
           options: PerseusInteractionRectangleElementOptions,
       |};
 
-// sync-end:perseus-data-format-interaction-element
-
-// sync-start:perseus-data-format-interaction-function 81160594 services/content-editing/perseus/perseus_data.go
 export type PerseusInteractionFunctionElementOptions = {|
     // The definition of the function to draw on the graph.  e.g "x^2 + 1"
     value: string,
@@ -1317,9 +1220,7 @@ export type PerseusInteractionFunctionElementOptions = {|
     // The thickness of the stroke
     strokeWidth: number,
 |};
-// sync-end:perseus-data-format-interaction-function
 
-// sync-start:perseus-data-format-interaction-label 1111537285 services/content-editing/perseus/perseus_data.go
 export type PerseusInteractionLabelElementOptions = {|
     // Translatable Text; the content of the label
     label: string,
@@ -1330,9 +1231,7 @@ export type PerseusInteractionLabelElementOptions = {|
     // The Y location of the label
     coordY: string,
 |};
-// sync-end:perseus-data-format-interaction-label
 
-// sync-start:perseus-data-format-interaction-line 1331716694 services/content-editing/perseus/perseus_data.go
 export type PerseusInteractionLineElementOptions = {|
     // A color code for the line segment.  e.g. "#FFOOAF"
     color: string,
@@ -1351,9 +1250,7 @@ export type PerseusInteractionLineElementOptions = {|
     // Does the line have an arrow point to it? options: "", "->"
     arrows: string,
 |};
-// sync-end:perseus-data-format-interaction-line
 
-// sync-start:perseus-data-format-interaction-movable-line 1201996829 services/content-editing/perseus/perseus_data.go
 export type PerseusInteractionMovableLineElementOptions = {|
     // The start of the line segment (X)
     startX: string,
@@ -1382,9 +1279,7 @@ export type PerseusInteractionMovableLineElementOptions = {|
     // The highest possible Y value
     constraintYMax: string,
 |};
-// sync-end:perseus-data-format-interaction-movable-line
 
-// sync-start:perseus-data-format-interaction-movable-point 993274163 services/content-editing/perseus/perseus_data.go
 export type PerseusInteractionMovablePointElementOptions = {|
     // The X position of the point
     startX: string,
@@ -1407,9 +1302,7 @@ export type PerseusInteractionMovablePointElementOptions = {|
     // The highest possible Y value
     constraintYMax: string,
 |};
-// sync-end:perseus-data-format-interaction-movable-point
 
-// sync-start:perseus-data-format-interaction-parametric 2038394914 services/content-editing/perseus/perseus_data.go
 export type PerseusInteractionParametricElementOptions = {|
     // The function for the X coordinate. e.g. "\\cos(t)"
     x: string,
@@ -1426,9 +1319,7 @@ export type PerseusInteractionParametricElementOptions = {|
     // The thickness of the stroke
     strokeWidth: number,
 |};
-// sync-end:perseus-data-format-interaction-parametric
 
-// sync-start:perseus-data-format-interaction-point 489666139 services/content-editing/perseus/perseus_data.go
 export type PerseusInteractionPointElementOptions = {|
     // The color of the point.  e.g. "black"
     color: string,
@@ -1437,9 +1328,7 @@ export type PerseusInteractionPointElementOptions = {|
     // The Y coordinate of the point
     coordY: string,
 |};
-// sync-end:perseus-data-format-interaction-point
 
-// sync-start:perseus-data-format-interaction-rectangle 999004794 services/content-editing/perseus/perseus_data.go
 export type PerseusInteractionRectangleElementOptions = {|
     // The fill color.  e.g. "#EDD19B"
     color: string,
@@ -1452,9 +1341,7 @@ export type PerseusInteractionRectangleElementOptions = {|
     // The height of the rectangle
     height: string,
 |};
-// sync-end:perseus-data-format-interaction-rectangle
 
-// sync-start:perseus-data-format-cs-program 786922927 services/content-editing/perseus/perseus_data.go
 export type PerseusCSProgramWidgetOptions = {|
     // The ID of the CS program to embed
     programID: string,
@@ -1480,9 +1367,7 @@ export type PerseusCSProgramSetting = {|
     // The value of the setting
     value: string,
 |};
-// sync-end:perseus-data-format-cs-program
 
-// sync-start:perseus-data-format-iframe 786922927 services/content-editing/perseus/perseus_data.go
 export type PerseusIFrameWidgetOptions = {|
     // A URL to display OR a CS Program ID
     url: string,
@@ -1499,16 +1384,12 @@ export type PerseusIFrameWidgetOptions = {|
     // Always false
     static: boolean,
 |};
-// sync-end:perseus-data-format-iframe
 
-// sync-start:perseus-data-format-video 786922927 services/content-editing/perseus/perseus_data.go
 export type PerseusVideoWidgetOptions = {|
     location: string,
     static?: boolean,
 |};
-// sync-end:perseus-data-format-video
 
-// sync-start:perseus-data-format-input-number 786922927 services/content-editing/perseus/perseus_data.go
 export type PerseusInputNumberWidgetOptions = {|
     answerType?:
         | "number"
@@ -1526,33 +1407,16 @@ export type PerseusInputNumberWidgetOptions = {|
     value: string | number | boolean,
     customKeypad?: boolean,
 |};
-// sync-end:perseus-data-format-input-number
 
 // TODO(FEI-3983): Create proper flow types for these.
-// sync-start:perseus-data-format-example-graphie 786922927 services/content-editing/perseus/perseus_data.go
 export type PerseusExampleGraphieWidgetOptions = $FlowFixMe;
-// sync-end:perseus-data-format-example-graphie
-// sync-start:perseus-data-format-example 786922927 services/content-editing/perseus/perseus_data.go
 export type PerseusExampleWidgetOptions = $FlowFixMe;
-// sync-end:perseus-data-format-example
-// sync-start:perseus-data-format-lights-puzzle 786922927 services/content-editing/perseus/perseus_data.go
 export type PerseusLightsPuzzleWidgetOptions = $FlowFixMe;
-// sync-end:perseus-data-format-lights-puzzle
-// sync-start:perseus-data-format-molecule-renderer 786922927 services/content-editing/perseus/perseus_data.go
 export type PerseusMoleculeRendererWidgetOptions = $FlowFixMe;
-// sync-end:perseus-data-format-molecule-renderer
-// sync-start:perseus-data-format-passage-ref-target 786922927 services/content-editing/perseus/perseus_data.go
 export type PerseusPassageRefTargetWidgetOptions = $FlowFixMe;
-// sync-end:perseus-data-format-passage-ref-target
-// sync-start:perseus-data-format-reaction-diagram 786922927 services/content-editing/perseus/perseus_data.go
 export type PerseusReactionDiagramWidgetOptions = $FlowFixMe;
-// sync-end:perseus-data-format-reaction-diagram
-// sync-start:perseus-data-format-simple-markdown-tester 786922927 services/content-editing/perseus/perseus_data.go
 export type PerseusSimpleMarkdownTesterWidgetOptions = $FlowFixMe;
-// sync-end:perseus-data-format-simple-markdown-tester
-// sync-start:perseus-data-format-unit-input 786922927 services/content-editing/perseus/perseus_data.go
 export type PerseusUnitInputWidgetOptions = $FlowFixMe;
-// sync-end:perseus-data-format-unit-input
 
 export type PerseusWidgetOptions =
     | PerseusCategorizerWidgetOptions
@@ -1593,5 +1457,3 @@ export type PerseusWidgetOptions =
     | PerseusTransformerWidgetOptions
     | PerseusUnitInputWidgetOptions
     | PerseusVideoWidgetOptions;
-
-// sync-end:perseus-data-format
