@@ -329,8 +329,8 @@ class Passage extends React.Component<PassageProps, PassageState> {
             // use the ref itself.
             $refText = $ref;
         }
-        const height = $refText.height();
-        const vPos = $refText.offset().top;
+        const height: number = $refText.height();
+        const vPos: number = $refText.offset().top;
 
         let line = this._convertPosToLineNumber(vPos + height);
         if (height === 0) {
@@ -347,8 +347,8 @@ class Passage extends React.Component<PassageProps, PassageState> {
     }
 
     _convertPosToLineNumber(absoluteVPos: number): number {
-        const $content = $(ReactDOM.findDOMNode(this._contentRef));
-        const relativeVPos = absoluteVPos - $content.offset().top;
+        const content = ReactDOM.findDOMNode(this._contentRef);
+        const relativeVPos = absoluteVPos - $(content).offset().top;
         const lineHeight = this._getLineHeight();
 
         const line = Math.round(relativeVPos / lineHeight);
@@ -489,7 +489,7 @@ class Passage extends React.Component<PassageProps, PassageState> {
     }
 
     render(): React.Element<"div"> {
-        let lineNumbers;
+        let lineNumbers: $ReadOnlyArray<React.Node>;
         const nLines = this.state.nLines;
         if (this.props.showLineNumbers && nLines) {
             // lineN is the line number in the current passage
