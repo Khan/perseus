@@ -1,10 +1,9 @@
 // @flow
-
-type JQueryCollection = $FlowFixMe;
+import $ from "jquery";
 
 export const getLineHeightForNode = (
-    $line1: JQueryCollection,
-    $line2: JQueryCollection,
+    line1: HTMLDivElement,
+    line2: HTMLDivElement,
 ): number => {
-    return $line2.offset().top - $line1.offset().top;
+    return $(line2).offset().top - $(line1).offset().top;
 };

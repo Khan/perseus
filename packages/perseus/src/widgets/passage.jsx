@@ -38,18 +38,19 @@ class LineHeightMeasurer extends React.Component<{...}> {
     }
 
     forceMeasureLineHeight() {
-        const $body = $(this.body);
-        const $end = $(this.end);
+        if (this.body && this.end) {
+            // Add some text which magically fills an entire line.
+            this.body.textContent = " \u0080";
 
-        // Add some text which magically fills an entire line.
-        $body.text(" \u0080");
+            // Now, the line height is the difference between the top of the
+            // second line and the top of the first line.
+            this._cachedLineHeight = getLineHeightForNode(this.body, this.end);
+        }
 
-        // Now, the line height is the difference between the top of the
-        // second line and the top of the first line.
-        this._cachedLineHeight = getLineHeightForNode($body, $end);
-
-        // Clear out the first line so it doesn't overlap the passage.
-        $body.text("");
+        if (this.body) {
+            // Clear out the first line so it doesn't overlap the passage.
+            this.body.textContent = "";
+        }
     }
 
     render(): React.Node {
