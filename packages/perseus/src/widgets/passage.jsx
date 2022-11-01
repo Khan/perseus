@@ -20,16 +20,14 @@ import type {ChangeableProps} from "../mixins/changeable.jsx";
 import type {PerseusPassageWidgetOptions} from "../perseus-types.js";
 import type {PerseusScore, WidgetExports, WidgetProps} from "../types.js";
 
-type JQueryCollection = $FlowFixMe;
-
 // A fake paragraph to measure the line height of the passage. In CSS we always
 // set the line height to 22 pixels, but when using the browser zoom feature,
 // the line height often ends up being a fractional number of pixels close to
 // 22 pixels.
 class LineHeightMeasurer extends React.Component<{...}> {
     _cachedLineHeight: number;
-    $body: JQueryCollection;
-    $end: JQueryCollection;
+    body: ?HTMLDivElement;
+    end: ?HTMLDivElement;
 
     measureLineHeight(): number {
         if (typeof this._cachedLineHeight !== "number") {
@@ -40,15 +38,18 @@ class LineHeightMeasurer extends React.Component<{...}> {
     }
 
     forceMeasureLineHeight() {
+        const $body = $(this.body);
+        const $end = $(this.end);
+
         // Add some text which magically fills an entire line.
-        this.$body.text(" \u0080");
+        $body.text(" \u0080");
 
         // Now, the line height is the difference between the top of the
         // second line and the top of the first line.
-        this._cachedLineHeight = getLineHeightForNode(this.$body, this.$end);
+        this._cachedLineHeight = getLineHeightForNode($body, $end);
 
         // Clear out the first line so it doesn't overlap the passage.
-        this.$body.text("");
+        $body.text("");
     }
 
     render(): React.Node {
@@ -56,10 +57,10 @@ class LineHeightMeasurer extends React.Component<{...}> {
             <div className={css(styles.measurer)}>
                 <div>
                     <div
-                        ref={(e) => (this.$body = $(e))}
+                        ref={(ref) => (this.body = ref)}
                         className="paragraph"
                     />
-                    <div ref={(e) => (this.$end = $(e))} />
+                    <div ref={(ref) => (this.end = ref)} />
                 </div>
             </div>
         );
@@ -124,8 +125,9 @@ type Reference = {
 };
 
 class Passage extends React.Component<PassageProps, PassageState> {
+    _contentRef: ?HTMLDivElement;
+    _lineHeightMeasurerRef: ?LineHeightMeasurer;
     _onResize: () => {...};
-    _lineHeightMeasurer: LineHeightMeasurer;
     _stylesAppiedTimer: TimeoutID;
 
     static defaultProps: DefaultPassageProps = {
@@ -157,7 +159,7 @@ class Passage extends React.Component<PassageProps, PassageState> {
             // height changes we expect are subpixel changes when the user
             // zooms in/out, and the only way to listen for zoom events is to
             // listen for resize events.
-            this._lineHeightMeasurer.forceMeasureLineHeight();
+            this._lineHeightMeasurerRef?.forceMeasureLineHeight();
             this._updateState();
         }, 500);
         window.addEventListener("resize", this._onResize);
@@ -231,8 +233,7 @@ class Passage extends React.Component<PassageProps, PassageState> {
     }
 
     _measureLines(): number {
-        // eslint-disable-next-line react/no-string-refs
-        const $renderer = $(ReactDOM.findDOMNode(this.refs.content));
+        const $renderer = $(ReactDOM.findDOMNode(this._contentRef));
         const contentsHeight = $renderer.height();
         const lineHeight = this._getLineHeight();
         const nLines = Math.round(contentsHeight / lineHeight);
@@ -259,7 +260,7 @@ class Passage extends React.Component<PassageProps, PassageState> {
     }
 
     _getLineHeight(): number {
-        return this._lineHeightMeasurer.measureLineHeight();
+        return this._lineHeightMeasurerRef?.measureLineHeight() || 0;
     }
 
     getLineCount(): number {
@@ -279,7 +280,6 @@ class Passage extends React.Component<PassageProps, PassageState> {
 
     _getStartRefLineNumber(referenceNumber: number): ?number {
         const refRef = PassageMarkdown.START_REF_PREFIX + referenceNumber;
-        // eslint-disable-next-line react/no-string-refs
         const ref = this.refs[refRef];
         if (!ref) {
             return null;
@@ -305,7 +305,6 @@ class Passage extends React.Component<PassageProps, PassageState> {
 
     _getEndRefLineNumber(referenceNumber: number): ?number {
         const refRef = PassageMarkdown.END_REF_PREFIX + referenceNumber;
-        // eslint-disable-next-line react/no-string-refs
         const ref = this.refs[refRef];
         if (!ref) {
             return null;
@@ -338,8 +337,7 @@ class Passage extends React.Component<PassageProps, PassageState> {
     }
 
     _convertPosToLineNumber(absoluteVPos: number): number {
-        // eslint-disable-next-line react/no-string-refs
-        const $content = $(ReactDOM.findDOMNode(this.refs.content));
+        const $content = $(ReactDOM.findDOMNode(this._contentRef));
         const relativeVPos = absoluteVPos - $content.offset().top;
         const lineHeight = this._getLineHeight();
 
@@ -349,7 +347,6 @@ class Passage extends React.Component<PassageProps, PassageState> {
 
     _getRefContent(referenceNumber: number): ?string {
         const refRef = PassageMarkdown.START_REF_PREFIX + referenceNumber;
-        // eslint-disable-next-line react/no-string-refs
         const ref = this.refs[refRef];
         if (!ref) {
             return null;
@@ -459,13 +456,9 @@ class Passage extends React.Component<PassageProps, PassageState> {
                 }
                 serializedHighlights={this.props.highlights}
             >
-                {/* eslint-disable-next-line react/no-string-refs */}
-                <div ref="content">
+                <div ref={(ref) => (this._contentRef = ref)}>
                     <LineHeightMeasurer
-                        // TODO(mdr): We found a new Flow error when upgrading:
-                        //     "e (null) This type is incompatible with this._lineHeightMeasurer (LineHeightMeasurer)"
-                        // $FlowFixMe[incompatible-type](0.52.0->0.53.0)
-                        ref={(e) => (this._lineHeightMeasurer = e)}
+                        ref={(ref) => (this._lineHeightMeasurerRef = ref)}
                     />
                     {PassageMarkdown.output(parsed)}
                 </div>
