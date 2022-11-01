@@ -18,7 +18,12 @@ import PassageMarkdown from "./passage/passage-markdown.jsx";
 import type {SerializedHighlightSet} from "../components/highlighting/types.js";
 import type {ChangeableProps} from "../mixins/changeable.jsx";
 import type {PerseusPassageWidgetOptions} from "../perseus-types.js";
-import type {PerseusScore, WidgetExports, WidgetProps} from "../types.js";
+import type {
+    PerseusScore,
+    WidgetExports,
+    WidgetInfo,
+    WidgetProps,
+} from "../types";
 
 // A fake paragraph to measure the line height of the passage. In CSS we always
 // set the line height to 22 pixels, but when using the browser zoom feature,
@@ -89,9 +94,12 @@ type RenderProps = {|
     showLineNumbers: PerseusPassageWidgetOptions["showLineNumbers"],
 |};
 
+type FindWidgetsCallback = (id: string, widgetInfo: WidgetInfo) => boolean;
+
 type PassageProps = {|
     ...ChangeableProps,
     ...WidgetProps<RenderProps, Rubric>,
+    findWidgets: (FindWidgetsCallback) => $ReadOnlyArray<Passage>,
     highlights: SerializedHighlightSet,
 |};
 
@@ -234,8 +242,8 @@ class Passage extends React.Component<PassageProps, PassageState> {
     }
 
     _measureLines(): number {
-        const $renderer = $(ReactDOM.findDOMNode(this._contentRef));
-        const contentsHeight = $renderer.height();
+        const renderer = ReactDOM.findDOMNode(this._contentRef);
+        const contentsHeight: number = $(renderer).height();
         const lineHeight = this._getLineHeight();
         const nLines = Math.round(contentsHeight / lineHeight);
         return nLines;
@@ -243,15 +251,16 @@ class Passage extends React.Component<PassageProps, PassageState> {
 
     _getInitialLineNumber(): number {
         let isPassageBeforeThisPassage = true;
-        const passagesBeforeUs = this.props.findWidgets((id, widgetInfo) => {
-            if (widgetInfo.type !== "passage") {
-                return false;
-            }
-            if (id === this.props.widgetId) {
-                isPassageBeforeThisPassage = false;
-            }
-            return isPassageBeforeThisPassage;
-        });
+        const passagesBeforeUs: $ReadOnlyArray<Passage> =
+            this.props.findWidgets((id, widgetInfo) => {
+                if (widgetInfo.type !== "passage") {
+                    return false;
+                }
+                if (id === this.props.widgetId) {
+                    isPassageBeforeThisPassage = false;
+                }
+                return isPassageBeforeThisPassage;
+            });
 
         return passagesBeforeUs
             .map((passageWidget) => {
