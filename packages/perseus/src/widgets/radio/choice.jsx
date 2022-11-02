@@ -84,6 +84,7 @@ export type ChoiceProps = {|
     // boolean value specifying the new checked and crossed-out value of
     // this choice.
     onChange: (newValues: {checked: boolean, crossedOut: boolean}) => void,
+    questionId: string,
 |};
 
 type WithForwardRef = {|forwardedRef: React.Ref<"button">|};
@@ -110,6 +111,7 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
         showRationale,
         rationale,
         forwardedRef,
+        questionId,
     } = props;
     const [isInputFocused, setIsInputFocused] = useState(false);
 
@@ -173,6 +175,7 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
         crossedOut;
 
     const ids = useUniqueIdWithMock();
+    const newId = ids.get("choice");
 
     return (
         <div
@@ -189,15 +192,24 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
                     opacity: showDimmed ? 0.5 : 1.0,
                 }}
             >
-                <div>
+                <div className="perseus-sr-only">
                     <input
-                        type="radio"
-                        id={ids}
-                        name="choice"
-                        value={content}
-                        checked={checked ? "true" : "false"}
+                        type={multipleSelect ? "checkbox" : "radio"}
+                        id={newId}
+                        name={questionId}
+                        checked={checked}
+                        onChange={() => {
+                            // If we're checking a crossed-out option, let's
+                            // also uncross it.
+                            sendChange({
+                                checked: !checked,
+                                crossedOut: false,
+                            });
+                        }}
                     />
-                    <label htmlFor={ids}>{content}</label>
+                    <label htmlFor={newId}>
+                        {`${getChoiceLetter(pos)} `} {content}
+                    </label>
                 </div>
                 <Clickable
                     onClick={() => {
@@ -214,9 +226,6 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
                         apiOptions.staticRender ||
                         apiOptions.readOnly
                     }
-                    aria-label={`Select Choice ${getChoiceLetter(pos)}`}
-                    aria-checked={checked ? "true" : "false"}
-                    role={"checkbox"}
                     style={{flex: 1}}
                     ref={(forwardedRef: any)}
                 >
@@ -230,6 +239,7 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
                                 paddingTop: Spacing.xSmall_8,
                                 paddingBottom: Spacing.xSmall_8,
                             }}
+                            aria-hidden="true"
                         >
                             <span>
                                 <ChoiceIconWrapper apiOptions={apiOptions}>
