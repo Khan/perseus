@@ -33,6 +33,7 @@ const ChoiceDefaults = {
     previouslyAnswered: false,
     apiOptions: {},
     onChange: action("changed"),
+    questionId: "",
 };
 
 export const Example = (args: StoryArgs): React.Node => {

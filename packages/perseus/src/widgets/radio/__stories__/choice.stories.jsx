@@ -18,6 +18,7 @@ type StoryArgs = {|
     crossedOut: boolean,
     previouslyAnswered: boolean,
     onChange: (newValues: {checked: boolean, crossedOut: boolean}) => void,
+    questionId: string,
 |};
 
 type Story = {|
@@ -39,6 +40,7 @@ const defaultProps = {
     crossedOut: false,
     previouslyAnswered: false,
     onChange: action("changed"),
+    questionId: "",
 };
 
 export default ({
