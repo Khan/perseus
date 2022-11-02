@@ -1,4 +1,5 @@
 // @flow
+import {useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
@@ -243,13 +244,17 @@ function BaseRadio(props: Props): React.Node {
     const shouldShowInstructions = !sat;
 
     const responsiveClassName = css(styles.responsiveFieldset);
+    const ids = useUniqueIdWithMock();
+    const questionId = ids.get("question");
     const fieldset = (
         <fieldset
             className={`perseus-widget-radio-fieldset ${responsiveClassName}`}
         >
             <legend className="perseus-sr-only">{instructions}</legend>
             {shouldShowInstructions && (
-                <div className={instructionsClassName}>{instructions}</div>
+                <div className={instructionsClassName} aria-hidden="true">
+                    {instructions}
+                </div>
             )}
             <ul className={className} style={{listStyle: "none"}}>
                 {choices.map(function (choice, i) {
@@ -276,6 +281,7 @@ function BaseRadio(props: Props): React.Node {
                             updateChoice(i, newValues);
                         },
                         ref,
+                        questionId,
                     };
 
                     if (choice.isNoneOfTheAbove) {
