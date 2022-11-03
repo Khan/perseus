@@ -18,6 +18,7 @@ import {ApiOptions} from "../../perseus-api.jsx";
 import * as styleConstants from "../../styles/constants.js";
 import mediaQueries from "../../styles/media-queries.js";
 
+import getA11yText from "./choice-a11y-text.js";
 import ChoiceIcon from "./choice-icon/choice-icon.jsx";
 import OptionStatus from "./option-status.jsx";
 import {getChoiceLetter} from "./util.js";
@@ -177,6 +178,15 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
     const ids = useUniqueIdWithMock();
     const newId = ids.get("choice");
 
+    const letter = getChoiceLetter(pos);
+    const a11yText = getA11yText(
+        letter,
+        checked,
+        correct,
+        crossedOut,
+        showCorrectness,
+    );
+
     return (
         <div
             style={{
@@ -206,9 +216,10 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
                                 crossedOut: false,
                             });
                         }}
+                        disabled={disabled}
                     />
                     <label htmlFor={newId}>
-                        {`${getChoiceLetter(pos)} `} {content}
+                        {a11yText} &nbsp; {content}
                     </label>
                 </div>
                 <Clickable
@@ -228,6 +239,7 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
                     }
                     style={{flex: 1}}
                     ref={(forwardedRef: any)}
+                    aria-hidden="true"
                 >
                     {({hovered, focused, pressed}) => (
                         <div
@@ -239,7 +251,6 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
                                 paddingTop: Spacing.xSmall_8,
                                 paddingBottom: Spacing.xSmall_8,
                             }}
-                            aria-hidden="true"
                         >
                             <span>
                                 <ChoiceIconWrapper apiOptions={apiOptions}>
