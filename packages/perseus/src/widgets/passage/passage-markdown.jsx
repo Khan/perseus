@@ -56,7 +56,7 @@ class RefStart extends React.Component<RefStartProps> {
         return <span style={REF_STYLE}>{i18n.doNotTranslate("_")}</span>;
     }
 
-    getRefContent = () => {
+    getRefContent: () => React.Node = () => {
         return this.props.refContent;
     };
 }
@@ -116,7 +116,7 @@ const rules: $FlowFixMe = {
         // $FlowFixMe[prop-missing]
         // $FlowFixMe[incompatible-use]
         order: SimpleMarkdown.defaultRules.escape.order + 0.2,
-        match: function (source: string, state) {
+        match: function (source: string) {
             const capture = /^\{\{/.exec(source);
             if (capture) {
                 // We need to do extra processing here to capture the
@@ -190,7 +190,7 @@ const rules: $FlowFixMe = {
                 refContent: refContent,
             };
         },
-        react: (node: RefStartNode, output, state) => {
+        react: function (node: RefStartNode, output) {
             if (node.ref == null) {
                 return null;
             }
@@ -204,6 +204,8 @@ const rules: $FlowFixMe = {
                 return null;
             }
 
+            // note(matthewc) the refs created here become the refs
+            // pulled from `this.refs` in passage.jsx
             return (
                 <RefStart
                     ref={START_REF_PREFIX + node.ref}
@@ -235,8 +237,10 @@ const rules: $FlowFixMe = {
                 ref: ref,
             };
         },
-        react: (node: RefEndNode, output, state) => {
+        react: function (node: RefEndNode) {
             if (node.ref != null) {
+                // note(matthewc) the refs created here become the refs
+                // pulled from `this.refs` in passage.jsx
                 return (
                     <RefEnd
                         ref={END_REF_PREFIX + node.ref}
@@ -269,7 +273,7 @@ const rules: $FlowFixMe = {
                 space: capture[2].length > 0,
             };
         },
-        react: (node: LabelNode, output, state) => {
+        react: (node: LabelNode) => {
             return [
                 <span
                     key="visual-square"
@@ -304,7 +308,7 @@ const rules: $FlowFixMe = {
                 space: capture[2].length > 0,
             };
         },
-        react: (node: LabelNode, output, state) => {
+        react: (node: LabelNode): React.Node => {
             return [
                 <span
                     key="visual-circle"
@@ -342,7 +346,7 @@ const rules: $FlowFixMe = {
                 space: capture[2].length > 0,
             };
         },
-        react: (node: LabelNode, output, state) => {
+        react: (node: LabelNode) => {
             return [
                 <span
                     key="visual-brackets"
@@ -375,7 +379,7 @@ const rules: $FlowFixMe = {
                 content: capture[1],
             };
         },
-        react: (node: HighlightNode, output, state) => {
+        react: (node: HighlightNode) => {
             return [
                 <span key={0} className="perseus-highlight">
                     {node.content}
@@ -400,7 +404,7 @@ const rules: $FlowFixMe = {
                 content: capture[1],
             };
         },
-        react: (node: HighlightNode, output, state) => {
+        react: (node: HighlightNode) => {
             return [
                 <span key={0} className="perseus-review-highlight">
                     {node.content}
@@ -467,7 +471,6 @@ const CIRCLE_LABEL_STYLE = {
     textAlign: "center",
 };
 
-// $FlowFixMe[prop-missing]
 const builtParser = SimpleMarkdown.parserFor(rules);
 const parse: (string, $FlowFixMe) => $FlowFixMe = (source, state) => {
     state = state || {};
@@ -477,12 +480,10 @@ const parse: (string, $FlowFixMe) => $FlowFixMe = (source, state) => {
 
 export default {
     parse: parse,
-    // $FlowFixMe[prop-missing]
     output: (SimpleMarkdown.reactFor(
-        // $FlowFixMe[prop-missing]
         SimpleMarkdown.ruleOutput(rules, "react"),
     ): $FlowFixMe),
-    START_REF_PREFIX: START_REF_PREFIX,
-    END_REF_PREFIX: END_REF_PREFIX,
+    START_REF_PREFIX,
+    END_REF_PREFIX,
     _rulesForTesting: rules,
 };

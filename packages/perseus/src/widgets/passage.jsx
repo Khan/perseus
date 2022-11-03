@@ -286,6 +286,11 @@ class Passage extends React.Component<PassageProps, PassageState> {
      * These are functions to support the passage refs inter-widgets feature
      * where other widgets can fetch the line numbers of a reference inside of
      * a passage.
+     *
+     * todo(matthewc): The refs are created by PassageMarkdown's refStart and refEnd,
+     * somehow bubbling up to Passage's `this.refs`. This runs against
+     * current best practices for refs by using string refs, but also
+     * by breaking our expectation of explicit data flow.
      */
 
     _getStartRefLineNumber(referenceNumber: number): ?number {
