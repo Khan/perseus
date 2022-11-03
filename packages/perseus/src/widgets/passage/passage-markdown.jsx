@@ -6,14 +6,18 @@ import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import * as React from "react";
 import _ from "underscore";
 
-import type {Capture, Parser} from "@khanacademy/simple-markdown";
+import type {
+    Capture,
+    Parser,
+    SingleASTNode,
+} from "@khanacademy/simple-markdown";
 
-type ParseState = {
+export type ParseState = {
     currentRef: number[],
     useRefs: boolean,
     lastRef: number,
-    firstSentenceRef?: string,
-    firstQuestionRef?: string,
+    firstSentenceRef: ?string,
+    firstQuestionRef: ?string,
     lastFootnote: {id: number, text: string},
 };
 
@@ -48,6 +52,8 @@ const INITIAL_PARSE_STATE: ParseState = {
     currentRef: [],
     useRefs: true,
     lastRef: 0,
+    firstSentenceRef: null,
+    firstQuestionRef: null,
     lastFootnote: {id: 0, text: ""},
 };
 
@@ -67,9 +73,7 @@ class RefEnd extends React.Component<{}> {
     }
 }
 
-const rules: $FlowFixMe = {
-    // $FlowFixMe[prop-missing]
-    // $FlowFixMe[incompatible-use]
+const rules = {
     newline: SimpleMarkdown.defaultRules.newline,
     // $FlowFixMe[prop-missing]
     // $FlowFixMe[incompatible-use]
@@ -116,7 +120,7 @@ const rules: $FlowFixMe = {
         // $FlowFixMe[prop-missing]
         // $FlowFixMe[incompatible-use]
         order: SimpleMarkdown.defaultRules.escape.order + 0.2,
-        match: function (source: string) {
+        match: function (source) {
             const capture = /^\{\{/.exec(source);
             if (capture) {
                 // We need to do extra processing here to capture the
@@ -146,19 +150,16 @@ const rules: $FlowFixMe = {
                     closeIndex++;
                 }
 
-                const refText = source.slice(2, closeIndex);
-
                 // A "magic" capture that matches the opening {{
                 // but captures the full ref text internally :D
-                return [capture[0], refText];
+                // unfortunately the "magic" makes Flow upset,
+                // so there's this questionable workaround
+                capture[1] = source.slice(2, closeIndex);
+                return capture;
             }
             return null;
         },
-        parse: (
-            capture: Capture,
-            parse: Parser,
-            state: ParseState,
-        ): RefStartNode => {
+        parse: (capture, parse, state: ParseState): RefStartNode => {
             if (!state.useRefs) {
                 return {
                     ref: null,
@@ -221,11 +222,7 @@ const rules: $FlowFixMe = {
         order: SimpleMarkdown.defaultRules.escape.order + 0.3,
         // $FlowFixMe[prop-missing]
         match: SimpleMarkdown.inlineRegex(/^\}\}/),
-        parse: (
-            capture: Capture,
-            parse: Parser,
-            state: ParseState,
-        ): RefEndNode => {
+        parse: (capture, parse, state: ParseState): RefEndNode => {
             if (!state.useRefs) {
                 return {
                     ref: null,
@@ -260,11 +257,7 @@ const rules: $FlowFixMe = {
         order: SimpleMarkdown.defaultRules.escape.order + 0.4,
         // $FlowFixMe[prop-missing]
         match: SimpleMarkdown.inlineRegex(/^\[\[(\w+)\]\]( *)/),
-        parse: (
-            capture: Capture,
-            parse: Parser,
-            state: ParseState,
-        ): LabelNode => {
+        parse: (capture, parse, state: ParseState): LabelNode => {
             if (!state.firstQuestionRef) {
                 state.firstQuestionRef = capture[1];
             }
@@ -298,11 +291,7 @@ const rules: $FlowFixMe = {
         order: SimpleMarkdown.defaultRules.escape.order + 0.5,
         // $FlowFixMe[prop-missing]
         match: SimpleMarkdown.inlineRegex(/^\(\((\w+)\)\)( *)/),
-        parse: (
-            capture: Capture,
-            parse: Parser,
-            state: ParseState,
-        ): LabelNode => {
+        parse: (capture, parse, state: ParseState): LabelNode => {
             return {
                 content: capture[1],
                 space: capture[2].length > 0,
@@ -333,11 +322,7 @@ const rules: $FlowFixMe = {
         order: SimpleMarkdown.defaultRules.escape.order + 0.6,
         // $FlowFixMe[prop-missing]
         match: SimpleMarkdown.inlineRegex(/^\[(\d+)\]( *)/),
-        parse: (
-            capture: Capture,
-            parse: Parser,
-            state: ParseState,
-        ): LabelNode => {
+        parse: (capture, parse, state: ParseState): LabelNode => {
             if (!state.firstSentenceRef) {
                 state.firstSentenceRef = capture[1];
             }
@@ -370,11 +355,7 @@ const rules: $FlowFixMe = {
         match: SimpleMarkdown.inlineRegex(
             /^{highlighting.start}(.+?){highlighting.end}/,
         ),
-        parse: (
-            capture: Capture,
-            parse: Parser,
-            state: ParseState,
-        ): HighlightNode => {
+        parse: (capture, parse, state: ParseState): HighlightNode => {
             return {
                 content: capture[1],
             };
@@ -395,11 +376,7 @@ const rules: $FlowFixMe = {
         match: SimpleMarkdown.inlineRegex(
             /^{review-highlighting.start}(.+?){review-highlighting.end}/,
         ),
-        parse: (
-            capture: Capture,
-            parse: Parser,
-            state: ParseState,
-        ): HighlightNode => {
+        parse: (capture, parse, state: ParseState): HighlightNode => {
             return {
                 content: capture[1],
             };
@@ -472,18 +449,24 @@ const CIRCLE_LABEL_STYLE = {
 };
 
 const builtParser = SimpleMarkdown.parserFor(rules);
-const parse: (string, $FlowFixMe) => $FlowFixMe = (source, state) => {
+const parse: (string, ?ParseState) => Array<SingleASTNode> = (
+    source,
+    state,
+) => {
     state = state || {};
     const paragraphedSource = source + "\n\n";
     return builtParser(paragraphedSource, _.extend(state, INITIAL_PARSE_STATE));
 };
 
+const output: (Array<SingleASTNode>) => React.Node = SimpleMarkdown.reactFor(
+    SimpleMarkdown.ruleOutput(rules, "react"),
+);
+
 export default {
     parse: parse,
-    output: (SimpleMarkdown.reactFor(
-        SimpleMarkdown.ruleOutput(rules, "react"),
-    ): $FlowFixMe),
+    output: output,
     START_REF_PREFIX,
     END_REF_PREFIX,
-    _rulesForTesting: rules,
+    INITIAL_PARSE_STATE,
+    _rulesForTesting: (rules: $FlowFixMe),
 };

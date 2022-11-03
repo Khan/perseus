@@ -24,6 +24,8 @@ import type {
     WidgetInfo,
     WidgetProps,
 } from "../types";
+import type {ParseState} from "./passage/passage-markdown.jsx";
+import type {SingleASTNode} from "@khanacademy/simple-markdown";
 
 // A fake paragraph to measure the line height of the passage. In CSS we always
 // set the line height to 22 pixels, but when using the browser zoom feature,
@@ -117,13 +119,6 @@ type PassageState = {|
     startLineNumbersAfter: number,
     stylesAreApplied: boolean,
 |};
-
-// State kept track of by the PassageMarkdown parser.
-type PassageParseState = {
-    firstQuestionRef: ?any,
-    firstSentenceRef: ?any,
-    ...
-};
 
 // Information about a passage reference, used in inter-widgets.
 type Reference = {
@@ -415,7 +410,7 @@ class Passage extends React.Component<PassageProps, PassageState> {
      * Functions to render the passage widget.
      */
 
-    _renderInstructions(parseState: PassageParseState): React.Element<any> {
+    _renderInstructions(parseState: ParseState): React.Element<any> {
         const firstQuestionNumber = parseState.firstQuestionRef;
         const firstSentenceRef = parseState.firstSentenceRef;
 
@@ -455,7 +450,7 @@ class Passage extends React.Component<PassageProps, PassageState> {
         return JIPT.useJIPT && this.props.passageText.indexOf("crwdns") !== -1;
     }
 
-    _renderContent(parsed: $ReadOnlyArray<any>): React.Element<any> {
+    _renderContent(parsed: Array<SingleASTNode>): React.Element<any> {
         // Wait until Aphrodite styles are applied before enabling highlights,
         // so that we measure the correct positions.
         const enabled = this.state.stylesAreApplied;
@@ -487,7 +482,7 @@ class Passage extends React.Component<PassageProps, PassageState> {
         return !isEmpty;
     }
 
-    _renderFootnotes(): React.Element<any> {
+    _renderFootnotes(): React.Node {
         const rawContent = this.props.footnotes;
         const parsed = PassageMarkdown.parse(rawContent);
         return PassageMarkdown.output(parsed);
@@ -515,10 +510,7 @@ class Passage extends React.Component<PassageProps, PassageState> {
             });
         }
 
-        const parseState: PassageParseState = {
-            firstSentenceRef: null,
-            firstQuestionRef: null,
-        };
+        const parseState: ParseState = {};
 
         // Replace the vertical double quote characters quoting text with
         // an unicode left and right double quote characters. This would
@@ -529,7 +521,7 @@ class Passage extends React.Component<PassageProps, PassageState> {
             re,
             "\u201c$2\u201d",
         );
-        const parsedContent: $ReadOnlyArray<*> = PassageMarkdown.parse(
+        const parsedContent = PassageMarkdown.parse(
             doubleQuoteParsedContent,
             parseState,
         );
