@@ -246,16 +246,15 @@ class Passage extends React.Component<PassageProps, PassageState> {
 
     _getInitialLineNumber(): number {
         let isPassageBeforeThisPassage = true;
-        const passagesBeforeUs: $ReadOnlyArray<Passage> =
-            this.props.findWidgets((id, widgetInfo) => {
-                if (widgetInfo.type !== "passage") {
-                    return false;
-                }
-                if (id === this.props.widgetId) {
-                    isPassageBeforeThisPassage = false;
-                }
-                return isPassageBeforeThisPassage;
-            });
+        const passagesBeforeUs = this.props.findWidgets((id, widgetInfo) => {
+            if (widgetInfo.type !== "passage") {
+                return false;
+            }
+            if (id === this.props.widgetId) {
+                isPassageBeforeThisPassage = false;
+            }
+            return isPassageBeforeThisPassage;
+        });
 
         return passagesBeforeUs
             .map((passageWidget) => {
