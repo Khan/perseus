@@ -1,5 +1,6 @@
 // @flow
 
+import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {render, screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as React from "react";
@@ -42,7 +43,11 @@ function renderBaseRadio(props) {
 
     const overwrittenProps = {...baseProps, ...props};
 
-    return render(<BaseRadio {...overwrittenProps} />);
+    return render(
+        <RenderStateRoot>
+            <BaseRadio {...overwrittenProps} />
+        </RenderStateRoot>,
+    );
 }
 
 describe("base-radio", () => {
@@ -71,7 +76,7 @@ describe("base-radio", () => {
 
         // Assert
         expect(
-            screen.getByRole("checkbox", {name: "Select Choice E"}),
+            screen.getByRole("listitem", {name: "Select Choice E"}),
         ).toBeInTheDocument();
         expect(screen.getByText("None of the above")).toBeInTheDocument();
     });
