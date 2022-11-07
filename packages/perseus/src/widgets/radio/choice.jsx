@@ -34,25 +34,6 @@ const ellipsisHorizontalIcon = {
     height: 27.284,
 };
 
-type ChoiceIconWrapperProps = {|
-    apiOptions: APIOptions,
-    children: React.Node,
-|};
-
-function ChoiceIconWrapper(props: ChoiceIconWrapperProps) {
-    const {apiOptions, children} = props;
-    const finalStyles =
-        typeof apiOptions.styling?.radioStyleVersion === "undefined"
-            ? false
-            : apiOptions.styling.radioStyleVersion === "final";
-
-    if (!finalStyles && !apiOptions.satStyling) {
-        return null;
-    }
-
-    return children;
-}
-
 export type ChoiceProps = {|
     apiOptions: APIOptions,
     checked: boolean,
@@ -255,32 +236,25 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
                                 paddingBottom: Spacing.xSmall_8,
                             }}
                         >
-                            <span>
-                                <ChoiceIconWrapper apiOptions={apiOptions}>
-                                    <ChoiceIcon
-                                        pos={pos}
-                                        correct={correct}
-                                        crossedOut={crossedOut}
-                                        pressed={pressed}
-                                        focused={focused}
-                                        checked={checked}
-                                        hovered={hovered}
-                                        showCorrectness={showCorrectness}
-                                        multipleSelect={multipleSelect}
-                                        reviewMode={reviewMode}
-                                        product={
-                                            apiOptions.satStyling
-                                                ? "sat"
-                                                : "library"
-                                        }
-                                        primaryProductColor={
-                                            apiOptions.styling
-                                                ?.primaryProductColor
-                                        }
-                                        previouslyAnswered={previouslyAnswered}
-                                    />
-                                </ChoiceIconWrapper>
-                            </span>
+                            <ChoiceIcon
+                                pos={pos}
+                                correct={correct}
+                                crossedOut={crossedOut}
+                                pressed={pressed}
+                                focused={focused}
+                                checked={checked}
+                                hovered={hovered}
+                                showCorrectness={showCorrectness}
+                                multipleSelect={multipleSelect}
+                                reviewMode={reviewMode}
+                                product={
+                                    apiOptions.satStyling ? "sat" : "library"
+                                }
+                                primaryProductColor={
+                                    apiOptions.styling?.primaryProductColor
+                                }
+                                previouslyAnswered={previouslyAnswered}
+                            />
                             <span
                                 style={{
                                     paddingLeft: Spacing.small_12,

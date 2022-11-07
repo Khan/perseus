@@ -16,7 +16,7 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
           class="paragraph"
         >
           <strong>
-            Select all input values for which 
+            Select all input values for which
             <span
               style="white-space: nowrap;"
             >
@@ -84,7 +84,7 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                             for="choiceId-818035920000"
                           >
                             (Choice A, Checked)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -205,7 +205,7 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                             for="choiceId-818035920000"
                           >
                             (Choice B)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -326,7 +326,7 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                             for="choiceId-818035920000"
                           >
                             (Choice C)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -447,7 +447,7 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                             for="choiceId-818035920000"
                           >
                             (Choice D)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -542,7 +542,7 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
         <div
           class="paragraph"
         >
-           
+
           <div
             class="fixed-to-responsive svg-image"
             style="max-width: 428px; max-height: 428px;"
@@ -593,7 +593,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
         <div
           class="paragraph"
         >
-          Which of the following values of 
+          Which of the following values of
           <span
             style="white-space: nowrap;"
           >
@@ -605,7 +605,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
             </span>
             <span />
           </span>
-           satisfies the equation 
+           satisfies the equation
           <span
             style="white-space: nowrap;"
           >
@@ -672,7 +672,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                             for="choiceId-818035920000"
                           >
                             (Choice A)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -697,7 +697,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                                       </span>
                                       <span />
                                     </span>
-                                     and 
+                                     and
                                     <span
                                       style="white-space: nowrap;"
                                     >
@@ -775,7 +775,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                                           </span>
                                           <span />
                                         </span>
-                                         and 
+                                         and
                                         <span
                                           style="white-space: nowrap;"
                                         >
@@ -819,7 +819,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                             for="choiceId-818035920000"
                           >
                             (Choice B)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -940,7 +940,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                             for="choiceId-818035920000"
                           >
                             (Choice C, Checked)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -1061,7 +1061,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                             for="choiceId-818035920000"
                           >
                             (Choice D)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -1075,7 +1075,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                                   <div
                                     class="paragraph"
                                   >
-                                    No value of 
+                                    No value of
                                     <span
                                       style="white-space: nowrap;"
                                     >
@@ -1143,7 +1143,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                                       <div
                                         class="paragraph"
                                       >
-                                        No value of 
+                                        No value of
                                         <span
                                           style="white-space: nowrap;"
                                         >
@@ -1193,7 +1193,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
         <div
           class="paragraph"
         >
-          Which of the following values of 
+          Which of the following values of
           <span
             style="white-space: nowrap;"
           >
@@ -1205,7 +1205,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
             </span>
             <span />
           </span>
-           satisfies the equation 
+           satisfies the equation
           <span
             style="white-space: nowrap;"
           >
@@ -1272,7 +1272,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                             for="choiceId-818035920000"
                           >
                             (Choice A, Checked)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -1297,7 +1297,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                                       </span>
                                       <span />
                                     </span>
-                                     and 
+                                     and
                                     <span
                                       style="white-space: nowrap;"
                                     >
@@ -1375,7 +1375,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                                           </span>
                                           <span />
                                         </span>
-                                         and 
+                                         and
                                         <span
                                           style="white-space: nowrap;"
                                         >
@@ -1419,7 +1419,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                             for="choiceId-818035920000"
                           >
                             (Choice B)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -1540,7 +1540,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                             for="choiceId-818035920000"
                           >
                             (Choice C)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -1661,7 +1661,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                             for="choiceId-818035920000"
                           >
                             (Choice D)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -1675,7 +1675,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                                   <div
                                     class="paragraph"
                                   >
-                                    No value of 
+                                    No value of
                                     <span
                                       style="white-space: nowrap;"
                                     >
@@ -1743,7 +1743,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                                       <div
                                         class="paragraph"
                                       >
-                                        No value of 
+                                        No value of
                                         <span
                                           style="white-space: nowrap;"
                                         >
@@ -1793,7 +1793,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
         <div
           class="paragraph"
         >
-          Which of the following values of 
+          Which of the following values of
           <span
             style="white-space: nowrap;"
           >
@@ -1805,7 +1805,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
             </span>
             <span />
           </span>
-           satisfies the equation 
+           satisfies the equation
           <span
             style="white-space: nowrap;"
           >
@@ -1872,7 +1872,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                             for="choiceId-818035920000"
                           >
                             (Choice A)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -1897,7 +1897,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                                       </span>
                                       <span />
                                     </span>
-                                     and 
+                                     and
                                     <span
                                       style="white-space: nowrap;"
                                     >
@@ -1975,7 +1975,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                                           </span>
                                           <span />
                                         </span>
-                                         and 
+                                         and
                                         <span
                                           style="white-space: nowrap;"
                                         >
@@ -2019,7 +2019,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                             for="choiceId-818035920000"
                           >
                             (Choice B)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -2140,7 +2140,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                             for="choiceId-818035920000"
                           >
                             (Choice C)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -2261,7 +2261,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                             for="choiceId-818035920000"
                           >
                             (Choice D)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -2275,7 +2275,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                                   <div
                                     class="paragraph"
                                   >
-                                    No value of 
+                                    No value of
                                     <span
                                       style="white-space: nowrap;"
                                     >
@@ -2343,7 +2343,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                                       <div
                                         class="paragraph"
                                       >
-                                        No value of 
+                                        No value of
                                         <span
                                           style="white-space: nowrap;"
                                         >
@@ -2393,7 +2393,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
         <div
           class="paragraph"
         >
-          Which of the following values of 
+          Which of the following values of
           <span
             style="white-space: nowrap;"
           >
@@ -2405,7 +2405,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
             </span>
             <span />
           </span>
-           satisfies the equation 
+           satisfies the equation
           <span
             style="white-space: nowrap;"
           >
@@ -2472,7 +2472,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                             for="choiceId-818035920000"
                           >
                             (Choice A)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -2497,7 +2497,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                                       </span>
                                       <span />
                                     </span>
-                                     and 
+                                     and
                                     <span
                                       style="white-space: nowrap;"
                                     >
@@ -2575,7 +2575,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                                           </span>
                                           <span />
                                         </span>
-                                         and 
+                                         and
                                         <span
                                           style="white-space: nowrap;"
                                         >
@@ -2619,7 +2619,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                             for="choiceId-818035920000"
                           >
                             (Choice B)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -2740,7 +2740,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                             for="choiceId-818035920000"
                           >
                             (Choice C, Checked)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -2861,7 +2861,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                             for="choiceId-818035920000"
                           >
                             (Choice D)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -2875,7 +2875,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                                   <div
                                     class="paragraph"
                                   >
-                                    No value of 
+                                    No value of
                                     <span
                                       style="white-space: nowrap;"
                                     >
@@ -2943,7 +2943,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                                       <div
                                         class="paragraph"
                                       >
-                                        No value of 
+                                        No value of
                                         <span
                                           style="white-space: nowrap;"
                                         >
@@ -2993,7 +2993,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
         <div
           class="paragraph"
         >
-          Which of the following values of 
+          Which of the following values of
           <span
             style="white-space: nowrap;"
           >
@@ -3005,7 +3005,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
             </span>
             <span />
           </span>
-           satisfies the equation 
+           satisfies the equation
           <span
             style="white-space: nowrap;"
           >
@@ -3072,7 +3072,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                             for="choiceId-818035920000"
                           >
                             (Choice A, Checked)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -3097,7 +3097,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                                       </span>
                                       <span />
                                     </span>
-                                     and 
+                                     and
                                     <span
                                       style="white-space: nowrap;"
                                     >
@@ -3175,7 +3175,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                                           </span>
                                           <span />
                                         </span>
-                                         and 
+                                         and
                                         <span
                                           style="white-space: nowrap;"
                                         >
@@ -3219,7 +3219,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                             for="choiceId-818035920000"
                           >
                             (Choice B)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -3340,7 +3340,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                             for="choiceId-818035920000"
                           >
                             (Choice C)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -3461,7 +3461,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                             for="choiceId-818035920000"
                           >
                             (Choice D)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -3475,7 +3475,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                                   <div
                                     class="paragraph"
                                   >
-                                    No value of 
+                                    No value of
                                     <span
                                       style="white-space: nowrap;"
                                     >
@@ -3543,7 +3543,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                                       <div
                                         class="paragraph"
                                       >
-                                        No value of 
+                                        No value of
                                         <span
                                           style="white-space: nowrap;"
                                         >
@@ -3593,7 +3593,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
         <div
           class="paragraph"
         >
-          Which of the following values of 
+          Which of the following values of
           <span
             style="white-space: nowrap;"
           >
@@ -3605,7 +3605,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
             </span>
             <span />
           </span>
-           satisfies the equation 
+           satisfies the equation
           <span
             style="white-space: nowrap;"
           >
@@ -3672,7 +3672,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                             for="choiceId-818035920000"
                           >
                             (Choice A, Incorrect)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -3697,7 +3697,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                                       </span>
                                       <span />
                                     </span>
-                                     and 
+                                     and
                                     <span
                                       style="white-space: nowrap;"
                                     >
@@ -3793,7 +3793,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                                           </span>
                                           <span />
                                         </span>
-                                         and 
+                                         and
                                         <span
                                           style="white-space: nowrap;"
                                         >
@@ -3843,11 +3843,11 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                                   </span>
                                   <span />
                                 </span>
-                                ) calculates 
+                                ) calculates
                                 <em>
                                   only
                                 </em>
-                                 the positive square root when performed on a number, so 
+                                 the positive square root when performed on a number, so
                                 <span
                                   style="white-space: nowrap;"
                                 >
@@ -3859,11 +3859,11 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                                   </span>
                                   <span />
                                 </span>
-                                 is equal to 
+                                 is equal to
                                 <em>
                                   only
                                 </em>
-                                 
+
                                 <span
                                   style="white-space: nowrap;"
                                 >
@@ -3904,7 +3904,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                             for="choiceId-818035920000"
                           >
                             (Choice B, Incorrect)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -4037,7 +4037,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                               <div
                                 class="paragraph"
                               >
-                                While 
+                                While
                                 <span
                                   style="white-space: nowrap;"
                                 >
@@ -4061,7 +4061,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                                   </span>
                                   <span />
                                 </span>
-                                ) calculates 
+                                ) calculates
                                 <em>
                                   only
                                 </em>
@@ -4094,7 +4094,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                             for="choiceId-818035920000"
                           >
                             (Choice C, Correct)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -4238,7 +4238,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                                   </span>
                                   <span />
                                 </span>
-                                 is the positive square root of 
+                                 is the positive square root of
                                 <span
                                   style="white-space: nowrap;"
                                 >
@@ -4279,7 +4279,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                             for="choiceId-818035920000"
                           >
                             (Choice D, Incorrect)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -4293,7 +4293,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                                   <div
                                     class="paragraph"
                                   >
-                                    No value of 
+                                    No value of
                                     <span
                                       style="white-space: nowrap;"
                                     >
@@ -4379,7 +4379,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                                       <div
                                         class="paragraph"
                                       >
-                                        No value of 
+                                        No value of
                                         <span
                                           style="white-space: nowrap;"
                                         >
@@ -4463,7 +4463,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
         <div
           class="paragraph"
         >
-          Which of the following values of 
+          Which of the following values of
           <span
             style="white-space: nowrap;"
           >
@@ -4475,7 +4475,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
             </span>
             <span />
           </span>
-           satisfies the equation 
+           satisfies the equation
           <span
             style="white-space: nowrap;"
           >
@@ -4536,7 +4536,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                             for="choiceId-818035920000"
                           >
                             (Choice A)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -4561,7 +4561,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                                       </span>
                                       <span />
                                     </span>
-                                     and 
+                                     and
                                     <span
                                       style="white-space: nowrap;"
                                     >
@@ -4638,7 +4638,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                                           </span>
                                           <span />
                                         </span>
-                                         and 
+                                         and
                                         <span
                                           style="white-space: nowrap;"
                                         >
@@ -4682,7 +4682,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                             for="choiceId-818035920000"
                           >
                             (Choice B)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -4802,7 +4802,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                             for="choiceId-818035920000"
                           >
                             (Choice C, Checked)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -4922,7 +4922,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                             for="choiceId-818035920000"
                           >
                             (Choice D)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -4936,7 +4936,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                                   <div
                                     class="paragraph"
                                   >
-                                    No value of 
+                                    No value of
                                     <span
                                       style="white-space: nowrap;"
                                     >
@@ -5003,7 +5003,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                                       <div
                                         class="paragraph"
                                       >
-                                        No value of 
+                                        No value of
                                         <span
                                           style="white-space: nowrap;"
                                         >
@@ -5053,7 +5053,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
         <div
           class="paragraph"
         >
-          Which of the following values of 
+          Which of the following values of
           <span
             style="white-space: nowrap;"
           >
@@ -5065,7 +5065,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
             </span>
             <span />
           </span>
-           satisfies the equation 
+           satisfies the equation
           <span
             style="white-space: nowrap;"
           >
@@ -5126,7 +5126,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                             for="choiceId-818035920000"
                           >
                             (Choice A, Checked)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -5151,7 +5151,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                                       </span>
                                       <span />
                                     </span>
-                                     and 
+                                     and
                                     <span
                                       style="white-space: nowrap;"
                                     >
@@ -5228,7 +5228,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                                           </span>
                                           <span />
                                         </span>
-                                         and 
+                                         and
                                         <span
                                           style="white-space: nowrap;"
                                         >
@@ -5272,7 +5272,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                             for="choiceId-818035920000"
                           >
                             (Choice B)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -5392,7 +5392,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                             for="choiceId-818035920000"
                           >
                             (Choice C)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -5512,7 +5512,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                             for="choiceId-818035920000"
                           >
                             (Choice D)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -5526,7 +5526,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                                   <div
                                     class="paragraph"
                                   >
-                                    No value of 
+                                    No value of
                                     <span
                                       style="white-space: nowrap;"
                                     >
@@ -5593,7 +5593,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                                       <div
                                         class="paragraph"
                                       >
-                                        No value of 
+                                        No value of
                                         <span
                                           style="white-space: nowrap;"
                                         >
@@ -5643,7 +5643,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
         <div
           class="paragraph"
         >
-          Which of the following values of 
+          Which of the following values of
           <span
             style="white-space: nowrap;"
           >
@@ -5655,7 +5655,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
             </span>
             <span />
           </span>
-           satisfies the equation 
+           satisfies the equation
           <span
             style="white-space: nowrap;"
           >
@@ -5716,7 +5716,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                             for="choiceId-818035920000"
                           >
                             (Choice A)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -5741,7 +5741,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                                       </span>
                                       <span />
                                     </span>
-                                     and 
+                                     and
                                     <span
                                       style="white-space: nowrap;"
                                     >
@@ -5818,7 +5818,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                                           </span>
                                           <span />
                                         </span>
-                                         and 
+                                         and
                                         <span
                                           style="white-space: nowrap;"
                                         >
@@ -5862,7 +5862,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                             for="choiceId-818035920000"
                           >
                             (Choice B)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -5982,7 +5982,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                             for="choiceId-818035920000"
                           >
                             (Choice C)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -6102,7 +6102,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                             for="choiceId-818035920000"
                           >
                             (Choice D)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -6116,7 +6116,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                                   <div
                                     class="paragraph"
                                   >
-                                    No value of 
+                                    No value of
                                     <span
                                       style="white-space: nowrap;"
                                     >
@@ -6183,7 +6183,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                                       <div
                                         class="paragraph"
                                       >
-                                        No value of 
+                                        No value of
                                         <span
                                           style="white-space: nowrap;"
                                         >
@@ -6233,7 +6233,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
         <div
           class="paragraph"
         >
-          Which of the following values of 
+          Which of the following values of
           <span
             style="white-space: nowrap;"
           >
@@ -6245,7 +6245,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
             </span>
             <span />
           </span>
-           satisfies the equation 
+           satisfies the equation
           <span
             style="white-space: nowrap;"
           >
@@ -6306,7 +6306,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                             for="choiceId-818035920000"
                           >
                             (Choice A)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -6331,7 +6331,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                                       </span>
                                       <span />
                                     </span>
-                                     and 
+                                     and
                                     <span
                                       style="white-space: nowrap;"
                                     >
@@ -6408,7 +6408,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                                           </span>
                                           <span />
                                         </span>
-                                         and 
+                                         and
                                         <span
                                           style="white-space: nowrap;"
                                         >
@@ -6452,7 +6452,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                             for="choiceId-818035920000"
                           >
                             (Choice B)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -6572,7 +6572,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                             for="choiceId-818035920000"
                           >
                             (Choice C, Checked)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -6692,7 +6692,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                             for="choiceId-818035920000"
                           >
                             (Choice D)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -6706,7 +6706,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                                   <div
                                     class="paragraph"
                                   >
-                                    No value of 
+                                    No value of
                                     <span
                                       style="white-space: nowrap;"
                                     >
@@ -6773,7 +6773,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                                       <div
                                         class="paragraph"
                                       >
-                                        No value of 
+                                        No value of
                                         <span
                                           style="white-space: nowrap;"
                                         >
@@ -6823,7 +6823,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
         <div
           class="paragraph"
         >
-          Which of the following values of 
+          Which of the following values of
           <span
             style="white-space: nowrap;"
           >
@@ -6835,7 +6835,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
             </span>
             <span />
           </span>
-           satisfies the equation 
+           satisfies the equation
           <span
             style="white-space: nowrap;"
           >
@@ -6896,7 +6896,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                             for="choiceId-818035920000"
                           >
                             (Choice A, Checked)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -6921,7 +6921,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                                       </span>
                                       <span />
                                     </span>
-                                     and 
+                                     and
                                     <span
                                       style="white-space: nowrap;"
                                     >
@@ -6998,7 +6998,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                                           </span>
                                           <span />
                                         </span>
-                                         and 
+                                         and
                                         <span
                                           style="white-space: nowrap;"
                                         >
@@ -7042,7 +7042,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                             for="choiceId-818035920000"
                           >
                             (Choice B)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -7162,7 +7162,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                             for="choiceId-818035920000"
                           >
                             (Choice C)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -7282,7 +7282,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                             for="choiceId-818035920000"
                           >
                             (Choice D)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -7296,7 +7296,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                                   <div
                                     class="paragraph"
                                   >
-                                    No value of 
+                                    No value of
                                     <span
                                       style="white-space: nowrap;"
                                     >
@@ -7363,7 +7363,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                                       <div
                                         class="paragraph"
                                       >
-                                        No value of 
+                                        No value of
                                         <span
                                           style="white-space: nowrap;"
                                         >
@@ -7413,7 +7413,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
         <div
           class="paragraph"
         >
-          Which of the following values of 
+          Which of the following values of
           <span
             style="white-space: nowrap;"
           >
@@ -7425,7 +7425,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
             </span>
             <span />
           </span>
-           satisfies the equation 
+           satisfies the equation
           <span
             style="white-space: nowrap;"
           >
@@ -7486,7 +7486,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                             for="choiceId-818035920000"
                           >
                             (Choice A, Incorrect)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -7511,7 +7511,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                                       </span>
                                       <span />
                                     </span>
-                                     and 
+                                     and
                                     <span
                                       style="white-space: nowrap;"
                                     >
@@ -7588,7 +7588,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                                           </span>
                                           <span />
                                         </span>
-                                         and 
+                                         and
                                         <span
                                           style="white-space: nowrap;"
                                         >
@@ -7638,11 +7638,11 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                                   </span>
                                   <span />
                                 </span>
-                                ) calculates 
+                                ) calculates
                                 <em>
                                   only
                                 </em>
-                                 the positive square root when performed on a number, so 
+                                 the positive square root when performed on a number, so
                                 <span
                                   style="white-space: nowrap;"
                                 >
@@ -7654,11 +7654,11 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                                   </span>
                                   <span />
                                 </span>
-                                 is equal to 
+                                 is equal to
                                 <em>
                                   only
                                 </em>
-                                 
+
                                 <span
                                   style="white-space: nowrap;"
                                 >
@@ -7699,7 +7699,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                             for="choiceId-818035920000"
                           >
                             (Choice B, Incorrect)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -7813,7 +7813,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                               <div
                                 class="paragraph"
                               >
-                                While 
+                                While
                                 <span
                                   style="white-space: nowrap;"
                                 >
@@ -7837,7 +7837,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                                   </span>
                                   <span />
                                 </span>
-                                ) calculates 
+                                ) calculates
                                 <em>
                                   only
                                 </em>
@@ -7870,7 +7870,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                             for="choiceId-818035920000"
                           >
                             (Choice C, Correct)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -7995,7 +7995,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                                   </span>
                                   <span />
                                 </span>
-                                 is the positive square root of 
+                                 is the positive square root of
                                 <span
                                   style="white-space: nowrap;"
                                 >
@@ -8036,7 +8036,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                             for="choiceId-818035920000"
                           >
                             (Choice D, Incorrect)
-                               
+                              
                             <span
                               class="mock-KatexProvider"
                             >
@@ -8050,7 +8050,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                                   <div
                                     class="paragraph"
                                   >
-                                    No value of 
+                                    No value of
                                     <span
                                       style="white-space: nowrap;"
                                     >
@@ -8117,7 +8117,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                                       <div
                                         class="paragraph"
                                       >
-                                        No value of 
+                                        No value of
                                         <span
                                           style="white-space: nowrap;"
                                         >
