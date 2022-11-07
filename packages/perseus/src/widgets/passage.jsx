@@ -45,19 +45,22 @@ class LineHeightMeasurer extends React.Component<{...}> {
     }
 
     forceMeasureLineHeight() {
-        if (this.body && this.end) {
-            // Add some text which magically fills an entire line.
-            this.body.textContent = " \u0080";
+        const body = this.body;
+        const end = this.end;
 
-            // Now, the line height is the difference between the top of the
-            // second line and the top of the first line.
-            this._cachedLineHeight = getLineHeightForNode(this.body, this.end);
+        if (!body || !end) {
+            return;
         }
 
-        if (this.body) {
-            // Clear out the first line so it doesn't overlap the passage.
-            this.body.textContent = "";
-        }
+        // Add some text which magically fills an entire line.
+        body.textContent = " \u0080";
+
+        // Now, the line height is the difference between the top of the
+        // second line and the top of the first line.
+        this._cachedLineHeight = getLineHeightForNode(body, end);
+
+        // Clear out the first line so it doesn't overlap the passage.
+        body.textContent = "";
     }
 
     render(): React.Node {
@@ -509,7 +512,7 @@ class Passage extends React.Component<PassageProps, PassageState> {
             });
         }
 
-        const parseState: ParseState = {};
+        const parseState: ParseState = PassageMarkdown.getInitialParseState();
 
         // Replace the vertical double quote characters quoting text with
         // an unicode left and right double quote characters. This would

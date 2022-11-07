@@ -10,52 +10,56 @@ import type {
     Capture,
     Parser,
     SingleASTNode,
+    State,
 } from "@khanacademy/simple-markdown";
 
-export type ParseState = {
+export type ParseState = {|
+    ...State,
     currentRef: number[],
     useRefs: boolean,
     lastRef: number,
     firstSentenceRef: ?string,
     firstQuestionRef: ?string,
     lastFootnote: {id: number, text: string},
-};
+|};
 
-type FootnoteType = {
+type FootnoteType = {|
     id: number,
     text: string,
-};
+|};
 
-type RefStartNode = {
+type RefStartNode = {|
     ref: ?number,
     refContent: React.Node,
-};
+|};
 
-type RefEndNode = {
+type RefEndNode = {|
     ref: ?number,
-};
+|};
 
-type LabelNode = {
+type LabelNode = {|
     content: string,
     space: boolean,
-};
+|};
 
-type HighlightNode = {
+type HighlightNode = {|
     content: string,
-};
+|};
 
-type RefStartProps = {
+type RefStartProps = {|
     refContent: React.Node,
-};
+|};
 
-const INITIAL_PARSE_STATE: ParseState = {
-    currentRef: [],
-    useRefs: true,
-    lastRef: 0,
-    firstSentenceRef: null,
-    firstQuestionRef: null,
-    lastFootnote: {id: 0, text: ""},
-};
+function getInitialParseState(): ParseState {
+    return {
+        currentRef: [],
+        useRefs: true,
+        lastRef: 0,
+        firstSentenceRef: null,
+        firstQuestionRef: null,
+        lastFootnote: {id: 0, text: ""},
+    };
+}
 
 class RefStart extends React.Component<RefStartProps> {
     render(): React.Node {
@@ -173,7 +177,7 @@ const rules = {
                         // passage, for instance!
                         useRefs: false,
                     },
-                    INITIAL_PARSE_STATE,
+                    getInitialParseState(),
                 ),
             );
 
@@ -182,8 +186,9 @@ const rules = {
                 refContent: refContent,
             };
         },
-        react: function (node: RefStartNode, output) {
-            if (node.ref == null) {
+        react: (node: RefStartNode, output) => {
+            const ref = node.ref;
+            if (ref == null) {
                 return null;
             }
 
@@ -192,16 +197,12 @@ const rules = {
             // our state by the double-output here :).
             const refContent = output(node.refContent, {});
 
-            if (node.ref == null) {
-                return null;
-            }
-
             // note(matthewc) the refs created here become the refs
             // pulled from `this.refs` in passage.jsx
             return (
                 <RefStart
-                    ref={START_REF_PREFIX + node.ref}
-                    key={START_REF_PREFIX + node.ref}
+                    ref={START_REF_PREFIX + ref}
+                    key={START_REF_PREFIX + ref}
                     refContent={refContent}
                 />
             );
@@ -222,7 +223,7 @@ const rules = {
                 ref: ref,
             };
         },
-        react: function (node: RefEndNode) {
+        react: (node: RefEndNode) => {
             if (node.ref != null) {
                 // note(matthewc) the refs created here become the refs
                 // pulled from `this.refs` in passage.jsx
@@ -418,7 +419,10 @@ const parse: (string, ?ParseState) => Array<SingleASTNode> = (
 ) => {
     state = state || {};
     const paragraphedSource = source + "\n\n";
-    return builtParser(paragraphedSource, _.extend(state, INITIAL_PARSE_STATE));
+    return builtParser(
+        paragraphedSource,
+        _.extend(state, getInitialParseState()),
+    );
 };
 
 const output: (Array<SingleASTNode>) => React.Node = SimpleMarkdown.reactFor(
@@ -426,9 +430,9 @@ const output: (Array<SingleASTNode>) => React.Node = SimpleMarkdown.reactFor(
 );
 
 export default {
-    parse: parse,
-    output: output,
+    parse,
+    output,
     START_REF_PREFIX,
     END_REF_PREFIX,
-    INITIAL_PARSE_STATE,
+    getInitialParseState,
 };
