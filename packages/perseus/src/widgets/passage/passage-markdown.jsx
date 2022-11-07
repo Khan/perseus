@@ -23,6 +23,8 @@ export type ParseState = {|
     lastFootnote: {id: number, text: string},
 |};
 
+type OutputFun = $FlowFixMe;
+
 type FootnoteType = {|
     id: number,
     text: string,
@@ -109,7 +111,7 @@ const rules = {
             state.lastFootnote = footnote;
             return footnote;
         },
-        react: (node: FootnoteType, output, state) => {
+        react: (node: FootnoteType, output: OutputFun, state: ParseState) => {
             return <sup key={state.key}>{node.text}</sup>;
         },
     },
@@ -154,7 +156,11 @@ const rules = {
             }
             return null;
         },
-        parse: (capture, parse, state: ParseState): RefStartNode => {
+        parse: (
+            capture: Capture,
+            parse: Parser,
+            state: ParseState,
+        ): RefStartNode => {
             if (!state.useRefs) {
                 return {
                     ref: null,
@@ -186,7 +192,7 @@ const rules = {
                 refContent: refContent,
             };
         },
-        react: (node: RefStartNode, output) => {
+        react: (node: RefStartNode, output: OutputFun, state: ParseState) => {
             const ref = node.ref;
             if (ref == null) {
                 return null;
@@ -211,7 +217,11 @@ const rules = {
     refEnd: {
         order: SimpleMarkdown.defaultRules.escape.order + 0.3,
         match: SimpleMarkdown.inlineRegex(/^\}\}/),
-        parse: (capture, parse, state: ParseState): RefEndNode => {
+        parse: (
+            capture: Capture,
+            parse: Parser,
+            state: ParseState,
+        ): RefEndNode => {
             if (!state.useRefs) {
                 return {
                     ref: null,
@@ -223,7 +233,7 @@ const rules = {
                 ref: ref,
             };
         },
-        react: (node: RefEndNode) => {
+        react: (node: RefEndNode, output: OutputFun, state: ParseState) => {
             if (node.ref != null) {
                 // note(matthewc) the refs created here become the refs
                 // pulled from `this.refs` in passage.jsx
@@ -243,7 +253,11 @@ const rules = {
     squareLabel: {
         order: SimpleMarkdown.defaultRules.escape.order + 0.4,
         match: SimpleMarkdown.inlineRegex(/^\[\[(\w+)\]\]( *)/),
-        parse: (capture, parse, state: ParseState): LabelNode => {
+        parse: (
+            capture: Capture,
+            parse: Parser,
+            state: ParseState,
+        ): LabelNode => {
             if (!state.firstQuestionRef) {
                 state.firstQuestionRef = capture[1];
             }
@@ -252,7 +266,7 @@ const rules = {
                 space: capture[2].length > 0,
             };
         },
-        react: (node: LabelNode) => {
+        react: (node: LabelNode, output: OutputFun, state: ParseState) => {
             return [
                 <span
                     key="visual-square"
@@ -274,13 +288,21 @@ const rules = {
     circleLabel: {
         order: SimpleMarkdown.defaultRules.escape.order + 0.5,
         match: SimpleMarkdown.inlineRegex(/^\(\((\w+)\)\)( *)/),
-        parse: (capture, parse, state: ParseState): LabelNode => {
+        parse: (
+            capture: Capture,
+            parse: Parser,
+            state: ParseState,
+        ): LabelNode => {
             return {
                 content: capture[1],
                 space: capture[2].length > 0,
             };
         },
-        react: (node: LabelNode): React.Node => {
+        react: (
+            node: LabelNode,
+            output: OutputFun,
+            state: ParseState,
+        ): React.Node => {
             return [
                 <span
                     key="visual-circle"
@@ -302,7 +324,11 @@ const rules = {
     squareBracketRef: {
         order: SimpleMarkdown.defaultRules.escape.order + 0.6,
         match: SimpleMarkdown.inlineRegex(/^\[(\d+)\]( *)/),
-        parse: (capture, parse, state: ParseState): LabelNode => {
+        parse: (
+            capture: Capture,
+            parse: Parser,
+            state: ParseState,
+        ): LabelNode => {
             if (!state.firstSentenceRef) {
                 state.firstSentenceRef = capture[1];
             }
@@ -311,7 +337,7 @@ const rules = {
                 space: capture[2].length > 0,
             };
         },
-        react: (node: LabelNode) => {
+        react: (node: LabelNode, output: OutputFun, state: ParseState) => {
             return [
                 <span
                     key="visual-brackets"
@@ -332,12 +358,16 @@ const rules = {
         match: SimpleMarkdown.inlineRegex(
             /^{highlighting.start}(.+?){highlighting.end}/,
         ),
-        parse: (capture, parse, state: ParseState): HighlightNode => {
+        parse: (
+            capture: Capture,
+            parse: Parser,
+            state: ParseState,
+        ): HighlightNode => {
             return {
                 content: capture[1],
             };
         },
-        react: (node: HighlightNode) => {
+        react: (node: HighlightNode, output: OutputFun, state: ParseState) => {
             return [
                 <span key={0} className="perseus-highlight">
                     {node.content}
@@ -350,12 +380,16 @@ const rules = {
         match: SimpleMarkdown.inlineRegex(
             /^{review-highlighting.start}(.+?){review-highlighting.end}/,
         ),
-        parse: (capture, parse, state: ParseState): HighlightNode => {
+        parse: (
+            capture: Capture,
+            parse: Parser,
+            state: ParseState,
+        ): HighlightNode => {
             return {
                 content: capture[1],
             };
         },
-        react: (node: HighlightNode) => {
+        react: (node: HighlightNode, output: OutputFun, state: ParseState) => {
             return [
                 <span key={0} className="perseus-review-highlight">
                     {node.content}
