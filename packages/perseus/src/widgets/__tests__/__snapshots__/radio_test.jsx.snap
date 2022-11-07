@@ -83,35 +83,33 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
-                              <div
-                                class="iconWrapper_17y0hv9"
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
+                              <span
+                                class="ring_ya75gi"
+                                data-test-id="focus-ring"
+                                style="border-color: #1865f2; border-radius: 5px;"
                               >
-                                <span
-                                  class="ring_ya75gi"
-                                  data-test-id="focus-ring"
-                                  style="border-color: #1865f2; border-radius: 5px;"
+                                <div
+                                  class="circle_1tys2th"
+                                  data-is-radio-icon="true"
+                                  data-test-id="choice-icon__library-choice-icon"
+                                  style="border-color: #1865f2; color: rgb(255, 255, 255); border-radius: 3px; background-color: rgb(24, 101, 242);"
                                 >
                                   <div
-                                    class="circle_1tys2th"
-                                    data-is-radio-icon="true"
-                                    data-test-id="choice-icon__library-choice-icon"
-                                    style="border-color: #1865f2; color: rgb(255, 255, 255); border-radius: 3px; background-color: rgb(24, 101, 242);"
+                                    class="perseus-sr-only"
                                   >
-                                    <div
-                                      class="perseus-sr-only"
-                                    >
-                                      (Choice A, Checked)
-                                    </div>
-                                    <div
-                                      aria-hidden="true"
-                                    >
-                                      A
-                                    </div>
+                                    (Choice A, Checked)
                                   </div>
-                                </span>
-                              </div>
-                            </span>
+                                  <div
+                                    aria-hidden="true"
+                                  >
+                                    A
+                                  </div>
+                                </div>
+                              </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -172,35 +170,33 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
-                              <div
-                                class="iconWrapper_17y0hv9"
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
+                              <span
+                                class="ring_ya75gi"
+                                data-test-id="focus-ring"
+                                style="border-color: transparent; border-radius: 5px;"
                               >
-                                <span
-                                  class="ring_ya75gi"
-                                  data-test-id="focus-ring"
-                                  style="border-color: transparent; border-radius: 5px;"
+                                <div
+                                  class="circle_1tys2th"
+                                  data-is-radio-icon="true"
+                                  data-test-id="choice-icon__library-choice-icon"
+                                  style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 3px;"
                                 >
                                   <div
-                                    class="circle_1tys2th"
-                                    data-is-radio-icon="true"
-                                    data-test-id="choice-icon__library-choice-icon"
-                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 3px;"
+                                    class="perseus-sr-only"
                                   >
-                                    <div
-                                      class="perseus-sr-only"
-                                    >
-                                      (Choice B)
-                                    </div>
-                                    <div
-                                      aria-hidden="true"
-                                    >
-                                      B
-                                    </div>
+                                    (Choice B)
                                   </div>
-                                </span>
-                              </div>
-                            </span>
+                                  <div
+                                    aria-hidden="true"
+                                  >
+                                    B
+                                  </div>
+                                </div>
+                              </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -261,35 +257,33 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
-                              <div
-                                class="iconWrapper_17y0hv9"
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
+                              <span
+                                class="ring_ya75gi"
+                                data-test-id="focus-ring"
+                                style="border-color: transparent; border-radius: 5px;"
                               >
-                                <span
-                                  class="ring_ya75gi"
-                                  data-test-id="focus-ring"
-                                  style="border-color: transparent; border-radius: 5px;"
+                                <div
+                                  class="circle_1tys2th"
+                                  data-is-radio-icon="true"
+                                  data-test-id="choice-icon__library-choice-icon"
+                                  style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 3px;"
                                 >
                                   <div
-                                    class="circle_1tys2th"
-                                    data-is-radio-icon="true"
-                                    data-test-id="choice-icon__library-choice-icon"
-                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 3px;"
+                                    class="perseus-sr-only"
                                   >
-                                    <div
-                                      class="perseus-sr-only"
-                                    >
-                                      (Choice C)
-                                    </div>
-                                    <div
-                                      aria-hidden="true"
-                                    >
-                                      C
-                                    </div>
+                                    (Choice C)
                                   </div>
-                                </span>
-                              </div>
-                            </span>
+                                  <div
+                                    aria-hidden="true"
+                                  >
+                                    C
+                                  </div>
+                                </div>
+                              </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -350,35 +344,33 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
-                              <div
-                                class="iconWrapper_17y0hv9"
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
+                              <span
+                                class="ring_ya75gi"
+                                data-test-id="focus-ring"
+                                style="border-color: transparent; border-radius: 5px;"
                               >
-                                <span
-                                  class="ring_ya75gi"
-                                  data-test-id="focus-ring"
-                                  style="border-color: transparent; border-radius: 5px;"
+                                <div
+                                  class="circle_1tys2th"
+                                  data-is-radio-icon="true"
+                                  data-test-id="choice-icon__library-choice-icon"
+                                  style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 3px;"
                                 >
                                   <div
-                                    class="circle_1tys2th"
-                                    data-is-radio-icon="true"
-                                    data-test-id="choice-icon__library-choice-icon"
-                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 3px;"
+                                    class="perseus-sr-only"
                                   >
-                                    <div
-                                      class="perseus-sr-only"
-                                    >
-                                      (Choice D)
-                                    </div>
-                                    <div
-                                      aria-hidden="true"
-                                    >
-                                      D
-                                    </div>
+                                    (Choice D)
                                   </div>
-                                </span>
-                              </div>
-                            </span>
+                                  <div
+                                    aria-hidden="true"
+                                  >
+                                    D
+                                  </div>
+                                </div>
+                              </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -551,35 +543,33 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
-                              <div
-                                class="iconWrapper_17y0hv9"
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
+                              <span
+                                class="ring_ya75gi"
+                                data-test-id="focus-ring"
+                                style="border-color: transparent; border-radius: 50%;"
                               >
-                                <span
-                                  class="ring_ya75gi"
-                                  data-test-id="focus-ring"
-                                  style="border-color: transparent; border-radius: 50%;"
+                                <div
+                                  class="circle_1tys2th"
+                                  data-is-radio-icon="true"
+                                  data-test-id="choice-icon__library-choice-icon"
+                                  style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                 >
                                   <div
-                                    class="circle_1tys2th"
-                                    data-is-radio-icon="true"
-                                    data-test-id="choice-icon__library-choice-icon"
-                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
+                                    class="perseus-sr-only"
                                   >
-                                    <div
-                                      class="perseus-sr-only"
-                                    >
-                                      (Choice A)
-                                    </div>
-                                    <div
-                                      aria-hidden="true"
-                                    >
-                                      A
-                                    </div>
+                                    (Choice A)
                                   </div>
-                                </span>
-                              </div>
-                            </span>
+                                  <div
+                                    aria-hidden="true"
+                                  >
+                                    A
+                                  </div>
+                                </div>
+                              </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -653,35 +643,33 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
-                              <div
-                                class="iconWrapper_17y0hv9"
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
+                              <span
+                                class="ring_ya75gi"
+                                data-test-id="focus-ring"
+                                style="border-color: transparent; border-radius: 50%;"
                               >
-                                <span
-                                  class="ring_ya75gi"
-                                  data-test-id="focus-ring"
-                                  style="border-color: transparent; border-radius: 50%;"
+                                <div
+                                  class="circle_1tys2th"
+                                  data-is-radio-icon="true"
+                                  data-test-id="choice-icon__library-choice-icon"
+                                  style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                 >
                                   <div
-                                    class="circle_1tys2th"
-                                    data-is-radio-icon="true"
-                                    data-test-id="choice-icon__library-choice-icon"
-                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
+                                    class="perseus-sr-only"
                                   >
-                                    <div
-                                      class="perseus-sr-only"
-                                    >
-                                      (Choice B)
-                                    </div>
-                                    <div
-                                      aria-hidden="true"
-                                    >
-                                      B
-                                    </div>
+                                    (Choice B)
                                   </div>
-                                </span>
-                              </div>
-                            </span>
+                                  <div
+                                    aria-hidden="true"
+                                  >
+                                    B
+                                  </div>
+                                </div>
+                              </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -742,35 +730,33 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
-                              <div
-                                class="iconWrapper_17y0hv9"
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
+                              <span
+                                class="ring_ya75gi"
+                                data-test-id="focus-ring"
+                                style="border-color: #1865f2; border-radius: 50%;"
                               >
-                                <span
-                                  class="ring_ya75gi"
-                                  data-test-id="focus-ring"
-                                  style="border-color: #1865f2; border-radius: 50%;"
+                                <div
+                                  class="circle_1tys2th"
+                                  data-is-radio-icon="true"
+                                  data-test-id="choice-icon__library-choice-icon"
+                                  style="border-color: #1865f2; color: rgb(255, 255, 255); border-radius: 24px; background-color: rgb(24, 101, 242);"
                                 >
                                   <div
-                                    class="circle_1tys2th"
-                                    data-is-radio-icon="true"
-                                    data-test-id="choice-icon__library-choice-icon"
-                                    style="border-color: #1865f2; color: rgb(255, 255, 255); border-radius: 24px; background-color: rgb(24, 101, 242);"
+                                    class="perseus-sr-only"
                                   >
-                                    <div
-                                      class="perseus-sr-only"
-                                    >
-                                      (Choice C, Checked)
-                                    </div>
-                                    <div
-                                      aria-hidden="true"
-                                    >
-                                      C
-                                    </div>
+                                    (Choice C, Checked)
                                   </div>
-                                </span>
-                              </div>
-                            </span>
+                                  <div
+                                    aria-hidden="true"
+                                  >
+                                    C
+                                  </div>
+                                </div>
+                              </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -831,35 +817,33 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
-                              <div
-                                class="iconWrapper_17y0hv9"
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
+                              <span
+                                class="ring_ya75gi"
+                                data-test-id="focus-ring"
+                                style="border-color: transparent; border-radius: 50%;"
                               >
-                                <span
-                                  class="ring_ya75gi"
-                                  data-test-id="focus-ring"
-                                  style="border-color: transparent; border-radius: 50%;"
+                                <div
+                                  class="circle_1tys2th"
+                                  data-is-radio-icon="true"
+                                  data-test-id="choice-icon__library-choice-icon"
+                                  style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                 >
                                   <div
-                                    class="circle_1tys2th"
-                                    data-is-radio-icon="true"
-                                    data-test-id="choice-icon__library-choice-icon"
-                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
+                                    class="perseus-sr-only"
                                   >
-                                    <div
-                                      class="perseus-sr-only"
-                                    >
-                                      (Choice D)
-                                    </div>
-                                    <div
-                                      aria-hidden="true"
-                                    >
-                                      D
-                                    </div>
+                                    (Choice D)
                                   </div>
-                                </span>
-                              </div>
-                            </span>
+                                  <div
+                                    aria-hidden="true"
+                                  >
+                                    D
+                                  </div>
+                                </div>
+                              </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -1006,35 +990,33 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
-                              <div
-                                class="iconWrapper_17y0hv9"
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
+                              <span
+                                class="ring_ya75gi"
+                                data-test-id="focus-ring"
+                                style="border-color: #1865f2; border-radius: 50%;"
                               >
-                                <span
-                                  class="ring_ya75gi"
-                                  data-test-id="focus-ring"
-                                  style="border-color: #1865f2; border-radius: 50%;"
+                                <div
+                                  class="circle_1tys2th"
+                                  data-is-radio-icon="true"
+                                  data-test-id="choice-icon__library-choice-icon"
+                                  style="border-color: #1865f2; color: rgb(255, 255, 255); border-radius: 24px; background-color: rgb(24, 101, 242);"
                                 >
                                   <div
-                                    class="circle_1tys2th"
-                                    data-is-radio-icon="true"
-                                    data-test-id="choice-icon__library-choice-icon"
-                                    style="border-color: #1865f2; color: rgb(255, 255, 255); border-radius: 24px; background-color: rgb(24, 101, 242);"
+                                    class="perseus-sr-only"
                                   >
-                                    <div
-                                      class="perseus-sr-only"
-                                    >
-                                      (Choice A, Checked)
-                                    </div>
-                                    <div
-                                      aria-hidden="true"
-                                    >
-                                      A
-                                    </div>
+                                    (Choice A, Checked)
                                   </div>
-                                </span>
-                              </div>
-                            </span>
+                                  <div
+                                    aria-hidden="true"
+                                  >
+                                    A
+                                  </div>
+                                </div>
+                              </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -1108,35 +1090,33 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
-                              <div
-                                class="iconWrapper_17y0hv9"
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
+                              <span
+                                class="ring_ya75gi"
+                                data-test-id="focus-ring"
+                                style="border-color: transparent; border-radius: 50%;"
                               >
-                                <span
-                                  class="ring_ya75gi"
-                                  data-test-id="focus-ring"
-                                  style="border-color: transparent; border-radius: 50%;"
+                                <div
+                                  class="circle_1tys2th"
+                                  data-is-radio-icon="true"
+                                  data-test-id="choice-icon__library-choice-icon"
+                                  style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                 >
                                   <div
-                                    class="circle_1tys2th"
-                                    data-is-radio-icon="true"
-                                    data-test-id="choice-icon__library-choice-icon"
-                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
+                                    class="perseus-sr-only"
                                   >
-                                    <div
-                                      class="perseus-sr-only"
-                                    >
-                                      (Choice B)
-                                    </div>
-                                    <div
-                                      aria-hidden="true"
-                                    >
-                                      B
-                                    </div>
+                                    (Choice B)
                                   </div>
-                                </span>
-                              </div>
-                            </span>
+                                  <div
+                                    aria-hidden="true"
+                                  >
+                                    B
+                                  </div>
+                                </div>
+                              </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -1197,35 +1177,33 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
-                              <div
-                                class="iconWrapper_17y0hv9"
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
+                              <span
+                                class="ring_ya75gi"
+                                data-test-id="focus-ring"
+                                style="border-color: transparent; border-radius: 50%;"
                               >
-                                <span
-                                  class="ring_ya75gi"
-                                  data-test-id="focus-ring"
-                                  style="border-color: transparent; border-radius: 50%;"
+                                <div
+                                  class="circle_1tys2th"
+                                  data-is-radio-icon="true"
+                                  data-test-id="choice-icon__library-choice-icon"
+                                  style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                 >
                                   <div
-                                    class="circle_1tys2th"
-                                    data-is-radio-icon="true"
-                                    data-test-id="choice-icon__library-choice-icon"
-                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
+                                    class="perseus-sr-only"
                                   >
-                                    <div
-                                      class="perseus-sr-only"
-                                    >
-                                      (Choice C)
-                                    </div>
-                                    <div
-                                      aria-hidden="true"
-                                    >
-                                      C
-                                    </div>
+                                    (Choice C)
                                   </div>
-                                </span>
-                              </div>
-                            </span>
+                                  <div
+                                    aria-hidden="true"
+                                  >
+                                    C
+                                  </div>
+                                </div>
+                              </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -1286,35 +1264,33 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
-                              <div
-                                class="iconWrapper_17y0hv9"
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
+                              <span
+                                class="ring_ya75gi"
+                                data-test-id="focus-ring"
+                                style="border-color: transparent; border-radius: 50%;"
                               >
-                                <span
-                                  class="ring_ya75gi"
-                                  data-test-id="focus-ring"
-                                  style="border-color: transparent; border-radius: 50%;"
+                                <div
+                                  class="circle_1tys2th"
+                                  data-is-radio-icon="true"
+                                  data-test-id="choice-icon__library-choice-icon"
+                                  style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                 >
                                   <div
-                                    class="circle_1tys2th"
-                                    data-is-radio-icon="true"
-                                    data-test-id="choice-icon__library-choice-icon"
-                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
+                                    class="perseus-sr-only"
                                   >
-                                    <div
-                                      class="perseus-sr-only"
-                                    >
-                                      (Choice D)
-                                    </div>
-                                    <div
-                                      aria-hidden="true"
-                                    >
-                                      D
-                                    </div>
+                                    (Choice D)
                                   </div>
-                                </span>
-                              </div>
-                            </span>
+                                  <div
+                                    aria-hidden="true"
+                                  >
+                                    D
+                                  </div>
+                                </div>
+                              </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -1461,35 +1437,33 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
-                              <div
-                                class="iconWrapper_17y0hv9"
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
+                              <span
+                                class="ring_ya75gi"
+                                data-test-id="focus-ring"
+                                style="border-color: transparent; border-radius: 50%;"
                               >
-                                <span
-                                  class="ring_ya75gi"
-                                  data-test-id="focus-ring"
-                                  style="border-color: transparent; border-radius: 50%;"
+                                <div
+                                  class="circle_1tys2th"
+                                  data-is-radio-icon="true"
+                                  data-test-id="choice-icon__library-choice-icon"
+                                  style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                 >
                                   <div
-                                    class="circle_1tys2th"
-                                    data-is-radio-icon="true"
-                                    data-test-id="choice-icon__library-choice-icon"
-                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
+                                    class="perseus-sr-only"
                                   >
-                                    <div
-                                      class="perseus-sr-only"
-                                    >
-                                      (Choice A)
-                                    </div>
-                                    <div
-                                      aria-hidden="true"
-                                    >
-                                      A
-                                    </div>
+                                    (Choice A)
                                   </div>
-                                </span>
-                              </div>
-                            </span>
+                                  <div
+                                    aria-hidden="true"
+                                  >
+                                    A
+                                  </div>
+                                </div>
+                              </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -1563,35 +1537,33 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
-                              <div
-                                class="iconWrapper_17y0hv9"
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
+                              <span
+                                class="ring_ya75gi"
+                                data-test-id="focus-ring"
+                                style="border-color: transparent; border-radius: 50%;"
                               >
-                                <span
-                                  class="ring_ya75gi"
-                                  data-test-id="focus-ring"
-                                  style="border-color: transparent; border-radius: 50%;"
+                                <div
+                                  class="circle_1tys2th"
+                                  data-is-radio-icon="true"
+                                  data-test-id="choice-icon__library-choice-icon"
+                                  style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                 >
                                   <div
-                                    class="circle_1tys2th"
-                                    data-is-radio-icon="true"
-                                    data-test-id="choice-icon__library-choice-icon"
-                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
+                                    class="perseus-sr-only"
                                   >
-                                    <div
-                                      class="perseus-sr-only"
-                                    >
-                                      (Choice B)
-                                    </div>
-                                    <div
-                                      aria-hidden="true"
-                                    >
-                                      B
-                                    </div>
+                                    (Choice B)
                                   </div>
-                                </span>
-                              </div>
-                            </span>
+                                  <div
+                                    aria-hidden="true"
+                                  >
+                                    B
+                                  </div>
+                                </div>
+                              </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -1652,35 +1624,33 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
-                              <div
-                                class="iconWrapper_17y0hv9"
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
+                              <span
+                                class="ring_ya75gi"
+                                data-test-id="focus-ring"
+                                style="border-color: transparent; border-radius: 50%;"
                               >
-                                <span
-                                  class="ring_ya75gi"
-                                  data-test-id="focus-ring"
-                                  style="border-color: transparent; border-radius: 50%;"
+                                <div
+                                  class="circle_1tys2th"
+                                  data-is-radio-icon="true"
+                                  data-test-id="choice-icon__library-choice-icon"
+                                  style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                 >
                                   <div
-                                    class="circle_1tys2th"
-                                    data-is-radio-icon="true"
-                                    data-test-id="choice-icon__library-choice-icon"
-                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
+                                    class="perseus-sr-only"
                                   >
-                                    <div
-                                      class="perseus-sr-only"
-                                    >
-                                      (Choice C)
-                                    </div>
-                                    <div
-                                      aria-hidden="true"
-                                    >
-                                      C
-                                    </div>
+                                    (Choice C)
                                   </div>
-                                </span>
-                              </div>
-                            </span>
+                                  <div
+                                    aria-hidden="true"
+                                  >
+                                    C
+                                  </div>
+                                </div>
+                              </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -1741,35 +1711,33 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
-                              <div
-                                class="iconWrapper_17y0hv9"
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
+                              <span
+                                class="ring_ya75gi"
+                                data-test-id="focus-ring"
+                                style="border-color: transparent; border-radius: 50%;"
                               >
-                                <span
-                                  class="ring_ya75gi"
-                                  data-test-id="focus-ring"
-                                  style="border-color: transparent; border-radius: 50%;"
+                                <div
+                                  class="circle_1tys2th"
+                                  data-is-radio-icon="true"
+                                  data-test-id="choice-icon__library-choice-icon"
+                                  style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                 >
                                   <div
-                                    class="circle_1tys2th"
-                                    data-is-radio-icon="true"
-                                    data-test-id="choice-icon__library-choice-icon"
-                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
+                                    class="perseus-sr-only"
                                   >
-                                    <div
-                                      class="perseus-sr-only"
-                                    >
-                                      (Choice D)
-                                    </div>
-                                    <div
-                                      aria-hidden="true"
-                                    >
-                                      D
-                                    </div>
+                                    (Choice D)
                                   </div>
-                                </span>
-                              </div>
-                            </span>
+                                  <div
+                                    aria-hidden="true"
+                                  >
+                                    D
+                                  </div>
+                                </div>
+                              </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -1916,35 +1884,33 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
-                              <div
-                                class="iconWrapper_17y0hv9"
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
+                              <span
+                                class="ring_ya75gi"
+                                data-test-id="focus-ring"
+                                style="border-color: transparent; border-radius: 50%;"
                               >
-                                <span
-                                  class="ring_ya75gi"
-                                  data-test-id="focus-ring"
-                                  style="border-color: transparent; border-radius: 50%;"
+                                <div
+                                  class="circle_1tys2th"
+                                  data-is-radio-icon="true"
+                                  data-test-id="choice-icon__library-choice-icon"
+                                  style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                 >
                                   <div
-                                    class="circle_1tys2th"
-                                    data-is-radio-icon="true"
-                                    data-test-id="choice-icon__library-choice-icon"
-                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
+                                    class="perseus-sr-only"
                                   >
-                                    <div
-                                      class="perseus-sr-only"
-                                    >
-                                      (Choice A)
-                                    </div>
-                                    <div
-                                      aria-hidden="true"
-                                    >
-                                      A
-                                    </div>
+                                    (Choice A)
                                   </div>
-                                </span>
-                              </div>
-                            </span>
+                                  <div
+                                    aria-hidden="true"
+                                  >
+                                    A
+                                  </div>
+                                </div>
+                              </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -2018,35 +1984,33 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
-                              <div
-                                class="iconWrapper_17y0hv9"
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
+                              <span
+                                class="ring_ya75gi"
+                                data-test-id="focus-ring"
+                                style="border-color: transparent; border-radius: 50%;"
                               >
-                                <span
-                                  class="ring_ya75gi"
-                                  data-test-id="focus-ring"
-                                  style="border-color: transparent; border-radius: 50%;"
+                                <div
+                                  class="circle_1tys2th"
+                                  data-is-radio-icon="true"
+                                  data-test-id="choice-icon__library-choice-icon"
+                                  style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                 >
                                   <div
-                                    class="circle_1tys2th"
-                                    data-is-radio-icon="true"
-                                    data-test-id="choice-icon__library-choice-icon"
-                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
+                                    class="perseus-sr-only"
                                   >
-                                    <div
-                                      class="perseus-sr-only"
-                                    >
-                                      (Choice B)
-                                    </div>
-                                    <div
-                                      aria-hidden="true"
-                                    >
-                                      B
-                                    </div>
+                                    (Choice B)
                                   </div>
-                                </span>
-                              </div>
-                            </span>
+                                  <div
+                                    aria-hidden="true"
+                                  >
+                                    B
+                                  </div>
+                                </div>
+                              </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -2107,35 +2071,33 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
-                              <div
-                                class="iconWrapper_17y0hv9"
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
+                              <span
+                                class="ring_ya75gi"
+                                data-test-id="focus-ring"
+                                style="border-color: #1865f2; border-radius: 50%;"
                               >
-                                <span
-                                  class="ring_ya75gi"
-                                  data-test-id="focus-ring"
-                                  style="border-color: #1865f2; border-radius: 50%;"
+                                <div
+                                  class="circle_1tys2th"
+                                  data-is-radio-icon="true"
+                                  data-test-id="choice-icon__library-choice-icon"
+                                  style="border-color: #1865f2; color: rgb(255, 255, 255); border-radius: 24px; background-color: rgb(24, 101, 242);"
                                 >
                                   <div
-                                    class="circle_1tys2th"
-                                    data-is-radio-icon="true"
-                                    data-test-id="choice-icon__library-choice-icon"
-                                    style="border-color: #1865f2; color: rgb(255, 255, 255); border-radius: 24px; background-color: rgb(24, 101, 242);"
+                                    class="perseus-sr-only"
                                   >
-                                    <div
-                                      class="perseus-sr-only"
-                                    >
-                                      (Choice C, Checked)
-                                    </div>
-                                    <div
-                                      aria-hidden="true"
-                                    >
-                                      C
-                                    </div>
+                                    (Choice C, Checked)
                                   </div>
-                                </span>
-                              </div>
-                            </span>
+                                  <div
+                                    aria-hidden="true"
+                                  >
+                                    C
+                                  </div>
+                                </div>
+                              </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -2196,35 +2158,33 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
-                              <div
-                                class="iconWrapper_17y0hv9"
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
+                              <span
+                                class="ring_ya75gi"
+                                data-test-id="focus-ring"
+                                style="border-color: transparent; border-radius: 50%;"
                               >
-                                <span
-                                  class="ring_ya75gi"
-                                  data-test-id="focus-ring"
-                                  style="border-color: transparent; border-radius: 50%;"
+                                <div
+                                  class="circle_1tys2th"
+                                  data-is-radio-icon="true"
+                                  data-test-id="choice-icon__library-choice-icon"
+                                  style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                 >
                                   <div
-                                    class="circle_1tys2th"
-                                    data-is-radio-icon="true"
-                                    data-test-id="choice-icon__library-choice-icon"
-                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
+                                    class="perseus-sr-only"
                                   >
-                                    <div
-                                      class="perseus-sr-only"
-                                    >
-                                      (Choice D)
-                                    </div>
-                                    <div
-                                      aria-hidden="true"
-                                    >
-                                      D
-                                    </div>
+                                    (Choice D)
                                   </div>
-                                </span>
-                              </div>
-                            </span>
+                                  <div
+                                    aria-hidden="true"
+                                  >
+                                    D
+                                  </div>
+                                </div>
+                              </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -2371,35 +2331,33 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
-                              <div
-                                class="iconWrapper_17y0hv9"
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
+                              <span
+                                class="ring_ya75gi"
+                                data-test-id="focus-ring"
+                                style="border-color: #1865f2; border-radius: 50%;"
                               >
-                                <span
-                                  class="ring_ya75gi"
-                                  data-test-id="focus-ring"
-                                  style="border-color: #1865f2; border-radius: 50%;"
+                                <div
+                                  class="circle_1tys2th"
+                                  data-is-radio-icon="true"
+                                  data-test-id="choice-icon__library-choice-icon"
+                                  style="border-color: #1865f2; color: rgb(255, 255, 255); border-radius: 24px; background-color: rgb(24, 101, 242);"
                                 >
                                   <div
-                                    class="circle_1tys2th"
-                                    data-is-radio-icon="true"
-                                    data-test-id="choice-icon__library-choice-icon"
-                                    style="border-color: #1865f2; color: rgb(255, 255, 255); border-radius: 24px; background-color: rgb(24, 101, 242);"
+                                    class="perseus-sr-only"
                                   >
-                                    <div
-                                      class="perseus-sr-only"
-                                    >
-                                      (Choice A, Checked)
-                                    </div>
-                                    <div
-                                      aria-hidden="true"
-                                    >
-                                      A
-                                    </div>
+                                    (Choice A, Checked)
                                   </div>
-                                </span>
-                              </div>
-                            </span>
+                                  <div
+                                    aria-hidden="true"
+                                  >
+                                    A
+                                  </div>
+                                </div>
+                              </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -2473,35 +2431,33 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
-                              <div
-                                class="iconWrapper_17y0hv9"
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
+                              <span
+                                class="ring_ya75gi"
+                                data-test-id="focus-ring"
+                                style="border-color: transparent; border-radius: 50%;"
                               >
-                                <span
-                                  class="ring_ya75gi"
-                                  data-test-id="focus-ring"
-                                  style="border-color: transparent; border-radius: 50%;"
+                                <div
+                                  class="circle_1tys2th"
+                                  data-is-radio-icon="true"
+                                  data-test-id="choice-icon__library-choice-icon"
+                                  style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                 >
                                   <div
-                                    class="circle_1tys2th"
-                                    data-is-radio-icon="true"
-                                    data-test-id="choice-icon__library-choice-icon"
-                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
+                                    class="perseus-sr-only"
                                   >
-                                    <div
-                                      class="perseus-sr-only"
-                                    >
-                                      (Choice B)
-                                    </div>
-                                    <div
-                                      aria-hidden="true"
-                                    >
-                                      B
-                                    </div>
+                                    (Choice B)
                                   </div>
-                                </span>
-                              </div>
-                            </span>
+                                  <div
+                                    aria-hidden="true"
+                                  >
+                                    B
+                                  </div>
+                                </div>
+                              </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -2562,35 +2518,33 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
-                              <div
-                                class="iconWrapper_17y0hv9"
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
+                              <span
+                                class="ring_ya75gi"
+                                data-test-id="focus-ring"
+                                style="border-color: transparent; border-radius: 50%;"
                               >
-                                <span
-                                  class="ring_ya75gi"
-                                  data-test-id="focus-ring"
-                                  style="border-color: transparent; border-radius: 50%;"
+                                <div
+                                  class="circle_1tys2th"
+                                  data-is-radio-icon="true"
+                                  data-test-id="choice-icon__library-choice-icon"
+                                  style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                 >
                                   <div
-                                    class="circle_1tys2th"
-                                    data-is-radio-icon="true"
-                                    data-test-id="choice-icon__library-choice-icon"
-                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
+                                    class="perseus-sr-only"
                                   >
-                                    <div
-                                      class="perseus-sr-only"
-                                    >
-                                      (Choice C)
-                                    </div>
-                                    <div
-                                      aria-hidden="true"
-                                    >
-                                      C
-                                    </div>
+                                    (Choice C)
                                   </div>
-                                </span>
-                              </div>
-                            </span>
+                                  <div
+                                    aria-hidden="true"
+                                  >
+                                    C
+                                  </div>
+                                </div>
+                              </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -2651,35 +2605,33 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
-                              <div
-                                class="iconWrapper_17y0hv9"
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
+                              <span
+                                class="ring_ya75gi"
+                                data-test-id="focus-ring"
+                                style="border-color: transparent; border-radius: 50%;"
                               >
-                                <span
-                                  class="ring_ya75gi"
-                                  data-test-id="focus-ring"
-                                  style="border-color: transparent; border-radius: 50%;"
+                                <div
+                                  class="circle_1tys2th"
+                                  data-is-radio-icon="true"
+                                  data-test-id="choice-icon__library-choice-icon"
+                                  style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                 >
                                   <div
-                                    class="circle_1tys2th"
-                                    data-is-radio-icon="true"
-                                    data-test-id="choice-icon__library-choice-icon"
-                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
+                                    class="perseus-sr-only"
                                   >
-                                    <div
-                                      class="perseus-sr-only"
-                                    >
-                                      (Choice D)
-                                    </div>
-                                    <div
-                                      aria-hidden="true"
-                                    >
-                                      D
-                                    </div>
+                                    (Choice D)
                                   </div>
-                                </span>
-                              </div>
-                            </span>
+                                  <div
+                                    aria-hidden="true"
+                                  >
+                                    D
+                                  </div>
+                                </div>
+                              </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -2826,47 +2778,45 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
-                              <div
-                                class="iconWrapper_17y0hv9"
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
+                              <span
+                                class="ring_ya75gi"
+                                data-test-id="focus-ring"
+                                style="border-color: transparent; border-radius: 50%;"
                               >
-                                <span
-                                  class="ring_ya75gi"
-                                  data-test-id="focus-ring"
-                                  style="border-color: transparent; border-radius: 50%;"
+                                <div
+                                  class="circle_1tys2th-o_O-circleIncorrect_gxqnr9"
+                                  data-is-radio-icon="true"
+                                  data-test-id="choice-icon__library-choice-icon"
+                                  style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                 >
                                   <div
-                                    class="circle_1tys2th-o_O-circleIncorrect_gxqnr9"
-                                    data-is-radio-icon="true"
-                                    data-test-id="choice-icon__library-choice-icon"
-                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
+                                    class="perseus-sr-only"
                                   >
-                                    <div
-                                      class="perseus-sr-only"
-                                    >
-                                      (Choice A, Incorrect)
-                                    </div>
-                                    <div
-                                      aria-hidden="true"
-                                    >
-                                      <svg
-                                        aria-hidden="true"
-                                        height="1em"
-                                        role="img"
-                                        style="vertical-align: middle;"
-                                        viewBox="0 0 24 24"
-                                        width="1em"
-                                      >
-                                        <path
-                                          d="M8,13 L16,13 C16.5522847,13 17,12.5522847 17,12 C17,11.4477153 16.5522847,11 16,11 L8,11 C7.44771525,11 7,11.4477153 7,12 C7,12.5522847 7.44771525,13 8,13 Z"
-                                          fill="currentColor"
-                                        />
-                                      </svg>
-                                    </div>
+                                    (Choice A, Incorrect)
                                   </div>
-                                </span>
-                              </div>
-                            </span>
+                                  <div
+                                    aria-hidden="true"
+                                  >
+                                    <svg
+                                      aria-hidden="true"
+                                      height="1em"
+                                      role="img"
+                                      style="vertical-align: middle;"
+                                      viewBox="0 0 24 24"
+                                      width="1em"
+                                    >
+                                      <path
+                                        d="M8,13 L16,13 C16.5522847,13 17,12.5522847 17,12 C17,11.4477153 16.5522847,11 16,11 L8,11 C7.44771525,11 7,11.4477153 7,12 C7,12.5522847 7.44771525,13 8,13 Z"
+                                        fill="currentColor"
+                                      />
+                                    </svg>
+                                  </div>
+                                </div>
+                              </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -3013,47 +2963,45 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
-                              <div
-                                class="iconWrapper_17y0hv9"
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
+                              <span
+                                class="ring_ya75gi"
+                                data-test-id="focus-ring"
+                                style="border-color: transparent; border-radius: 50%;"
                               >
-                                <span
-                                  class="ring_ya75gi"
-                                  data-test-id="focus-ring"
-                                  style="border-color: transparent; border-radius: 50%;"
+                                <div
+                                  class="circle_1tys2th-o_O-circleIncorrect_gxqnr9"
+                                  data-is-radio-icon="true"
+                                  data-test-id="choice-icon__library-choice-icon"
+                                  style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                 >
                                   <div
-                                    class="circle_1tys2th-o_O-circleIncorrect_gxqnr9"
-                                    data-is-radio-icon="true"
-                                    data-test-id="choice-icon__library-choice-icon"
-                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
+                                    class="perseus-sr-only"
                                   >
-                                    <div
-                                      class="perseus-sr-only"
-                                    >
-                                      (Choice B, Incorrect)
-                                    </div>
-                                    <div
-                                      aria-hidden="true"
-                                    >
-                                      <svg
-                                        aria-hidden="true"
-                                        height="1em"
-                                        role="img"
-                                        style="vertical-align: middle;"
-                                        viewBox="0 0 24 24"
-                                        width="1em"
-                                      >
-                                        <path
-                                          d="M8,13 L16,13 C16.5522847,13 17,12.5522847 17,12 C17,11.4477153 16.5522847,11 16,11 L8,11 C7.44771525,11 7,11.4477153 7,12 C7,12.5522847 7.44771525,13 8,13 Z"
-                                          fill="currentColor"
-                                        />
-                                      </svg>
-                                    </div>
+                                    (Choice B, Incorrect)
                                   </div>
-                                </span>
-                              </div>
-                            </span>
+                                  <div
+                                    aria-hidden="true"
+                                  >
+                                    <svg
+                                      aria-hidden="true"
+                                      height="1em"
+                                      role="img"
+                                      style="vertical-align: middle;"
+                                      viewBox="0 0 24 24"
+                                      width="1em"
+                                    >
+                                      <path
+                                        d="M8,13 L16,13 C16.5522847,13 17,12.5522847 17,12 C17,11.4477153 16.5522847,11 16,11 L8,11 C7.44771525,11 7,11.4477153 7,12 C7,12.5522847 7.44771525,13 8,13 Z"
+                                        fill="currentColor"
+                                      />
+                                    </svg>
+                                  </div>
+                                </div>
+                              </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -3171,47 +3119,45 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
-                              <div
-                                class="iconWrapper_17y0hv9"
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
+                              <span
+                                class="ring_ya75gi"
+                                data-test-id="focus-ring"
+                                style="border-color: transparent; border-radius: 50%;"
                               >
-                                <span
-                                  class="ring_ya75gi"
-                                  data-test-id="focus-ring"
-                                  style="border-color: transparent; border-radius: 50%;"
+                                <div
+                                  class="circle_1tys2th-o_O-circleCorrect_ifnw95"
+                                  data-is-radio-icon="true"
+                                  data-test-id="choice-icon__library-choice-icon"
+                                  style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                 >
                                   <div
-                                    class="circle_1tys2th-o_O-circleCorrect_ifnw95"
-                                    data-is-radio-icon="true"
-                                    data-test-id="choice-icon__library-choice-icon"
-                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
+                                    class="perseus-sr-only"
                                   >
-                                    <div
-                                      class="perseus-sr-only"
-                                    >
-                                      (Choice C, Correct)
-                                    </div>
-                                    <div
-                                      aria-hidden="true"
-                                    >
-                                      <svg
-                                        aria-hidden="true"
-                                        height="1em"
-                                        role="img"
-                                        style="vertical-align: middle; position: relative; top: -1px;"
-                                        viewBox="0 0 24 24"
-                                        width="1em"
-                                      >
-                                        <path
-                                          d="M8.70710678,12.2928932 C8.31658249,11.9023689 7.68341751,11.9023689 7.29289322,12.2928932 C6.90236893,12.6834175 6.90236893,13.3165825 7.29289322,13.7071068 L9.82842712,16.2426407 C10.2207367,16.6349502 10.8574274,16.6328935 11.2471942,16.2380576 L16.7116603,10.7025237 C17.0996535,10.3094846 17.0955629,9.67633279 16.7025237,9.28833966 C16.3094846,8.90034653 15.6763328,8.90443714 15.2883397,9.29747629 L10.5309507,14.1167372 L8.70710678,12.2928932 Z"
-                                          fill="currentColor"
-                                        />
-                                      </svg>
-                                    </div>
+                                    (Choice C, Correct)
                                   </div>
-                                </span>
-                              </div>
-                            </span>
+                                  <div
+                                    aria-hidden="true"
+                                  >
+                                    <svg
+                                      aria-hidden="true"
+                                      height="1em"
+                                      role="img"
+                                      style="vertical-align: middle; position: relative; top: -1px;"
+                                      viewBox="0 0 24 24"
+                                      width="1em"
+                                    >
+                                      <path
+                                        d="M8.70710678,12.2928932 C8.31658249,11.9023689 7.68341751,11.9023689 7.29289322,12.2928932 C6.90236893,12.6834175 6.90236893,13.3165825 7.29289322,13.7071068 L9.82842712,16.2426407 C10.2207367,16.6349502 10.8574274,16.6328935 11.2471942,16.2380576 L16.7116603,10.7025237 C17.0996535,10.3094846 17.0955629,9.67633279 16.7025237,9.28833966 C16.3094846,8.90034653 15.6763328,8.90443714 15.2883397,9.29747629 L10.5309507,14.1167372 L8.70710678,12.2928932 Z"
+                                        fill="currentColor"
+                                      />
+                                    </svg>
+                                  </div>
+                                </div>
+                              </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -3324,47 +3270,45 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
-                              <div
-                                class="iconWrapper_17y0hv9"
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
+                              <span
+                                class="ring_ya75gi"
+                                data-test-id="focus-ring"
+                                style="border-color: transparent; border-radius: 50%;"
                               >
-                                <span
-                                  class="ring_ya75gi"
-                                  data-test-id="focus-ring"
-                                  style="border-color: transparent; border-radius: 50%;"
+                                <div
+                                  class="circle_1tys2th-o_O-circleIncorrect_gxqnr9"
+                                  data-is-radio-icon="true"
+                                  data-test-id="choice-icon__library-choice-icon"
+                                  style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                 >
                                   <div
-                                    class="circle_1tys2th-o_O-circleIncorrect_gxqnr9"
-                                    data-is-radio-icon="true"
-                                    data-test-id="choice-icon__library-choice-icon"
-                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
+                                    class="perseus-sr-only"
                                   >
-                                    <div
-                                      class="perseus-sr-only"
-                                    >
-                                      (Choice D, Incorrect)
-                                    </div>
-                                    <div
-                                      aria-hidden="true"
-                                    >
-                                      <svg
-                                        aria-hidden="true"
-                                        height="1em"
-                                        role="img"
-                                        style="vertical-align: middle;"
-                                        viewBox="0 0 24 24"
-                                        width="1em"
-                                      >
-                                        <path
-                                          d="M8,13 L16,13 C16.5522847,13 17,12.5522847 17,12 C17,11.4477153 16.5522847,11 16,11 L8,11 C7.44771525,11 7,11.4477153 7,12 C7,12.5522847 7.44771525,13 8,13 Z"
-                                          fill="currentColor"
-                                        />
-                                      </svg>
-                                    </div>
+                                    (Choice D, Incorrect)
                                   </div>
-                                </span>
-                              </div>
-                            </span>
+                                  <div
+                                    aria-hidden="true"
+                                  >
+                                    <svg
+                                      aria-hidden="true"
+                                      height="1em"
+                                      role="img"
+                                      style="vertical-align: middle;"
+                                      viewBox="0 0 24 24"
+                                      width="1em"
+                                    >
+                                      <path
+                                        d="M8,13 L16,13 C16.5522847,13 17,12.5522847 17,12 C17,11.4477153 16.5522847,11 16,11 L8,11 C7.44771525,11 7,11.4477153 7,12 C7,12.5522847 7.44771525,13 8,13 Z"
+                                        fill="currentColor"
+                                      />
+                                    </svg>
+                                  </div>
+                                </div>
+                              </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -3546,32 +3490,30 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
                               <div
-                                class="iconWrapper_17y0hv9"
+                                class="satCircle_1anqode"
+                                data-test-id="choice-icon__sat-choice-icon"
+                                style="border-color: #0084ce; border-radius: 25px;"
+                              />
+                              <div
+                                class="letter_2ucovf"
+                                style="color: rgb(0, 132, 206);"
                               >
-                                <div
-                                  class="satCircle_1anqode"
-                                  data-test-id="choice-icon__sat-choice-icon"
-                                  style="border-color: #0084ce; border-radius: 25px;"
-                                />
-                                <div
-                                  class="letter_2ucovf"
-                                  style="color: rgb(0, 132, 206);"
+                                <span
+                                  class="perseus-sr-only"
                                 >
-                                  <span
-                                    class="perseus-sr-only"
-                                  >
-                                    (Choice A)
-                                  </span>
-                                  <span
-                                    aria-hidden="true"
-                                  >
-                                    A
-                                  </span>
-                                </div>
+                                  (Choice A)
+                                </span>
+                                <span
+                                  aria-hidden="true"
+                                >
+                                  A
+                                </span>
                               </div>
-                            </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -3645,32 +3587,30 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
                               <div
-                                class="iconWrapper_17y0hv9"
+                                class="satCircle_1anqode"
+                                data-test-id="choice-icon__sat-choice-icon"
+                                style="border-color: #0084ce; border-radius: 25px;"
+                              />
+                              <div
+                                class="letter_2ucovf"
+                                style="color: rgb(0, 132, 206);"
                               >
-                                <div
-                                  class="satCircle_1anqode"
-                                  data-test-id="choice-icon__sat-choice-icon"
-                                  style="border-color: #0084ce; border-radius: 25px;"
-                                />
-                                <div
-                                  class="letter_2ucovf"
-                                  style="color: rgb(0, 132, 206);"
+                                <span
+                                  class="perseus-sr-only"
                                 >
-                                  <span
-                                    class="perseus-sr-only"
-                                  >
-                                    (Choice B)
-                                  </span>
-                                  <span
-                                    aria-hidden="true"
-                                  >
-                                    B
-                                  </span>
-                                </div>
+                                  (Choice B)
+                                </span>
+                                <span
+                                  aria-hidden="true"
+                                >
+                                  B
+                                </span>
                               </div>
-                            </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -3731,32 +3671,30 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
                               <div
-                                class="iconWrapper_17y0hv9"
+                                class="satCircle_1anqode"
+                                data-test-id="choice-icon__sat-choice-icon"
+                                style="border-color: #0084ce; border-radius: 25px; background-color: rgb(0, 132, 206);"
+                              />
+                              <div
+                                class="letter_2ucovf"
+                                style="color: rgb(255, 255, 255);"
                               >
-                                <div
-                                  class="satCircle_1anqode"
-                                  data-test-id="choice-icon__sat-choice-icon"
-                                  style="border-color: #0084ce; border-radius: 25px; background-color: rgb(0, 132, 206);"
-                                />
-                                <div
-                                  class="letter_2ucovf"
-                                  style="color: rgb(255, 255, 255);"
+                                <span
+                                  class="perseus-sr-only"
                                 >
-                                  <span
-                                    class="perseus-sr-only"
-                                  >
-                                    (Choice C, Checked)
-                                  </span>
-                                  <span
-                                    aria-hidden="true"
-                                  >
-                                    C
-                                  </span>
-                                </div>
+                                  (Choice C, Checked)
+                                </span>
+                                <span
+                                  aria-hidden="true"
+                                >
+                                  C
+                                </span>
                               </div>
-                            </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -3817,32 +3755,30 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
                               <div
-                                class="iconWrapper_17y0hv9"
+                                class="satCircle_1anqode"
+                                data-test-id="choice-icon__sat-choice-icon"
+                                style="border-color: #0084ce; border-radius: 25px;"
+                              />
+                              <div
+                                class="letter_2ucovf"
+                                style="color: rgb(0, 132, 206);"
                               >
-                                <div
-                                  class="satCircle_1anqode"
-                                  data-test-id="choice-icon__sat-choice-icon"
-                                  style="border-color: #0084ce; border-radius: 25px;"
-                                />
-                                <div
-                                  class="letter_2ucovf"
-                                  style="color: rgb(0, 132, 206);"
+                                <span
+                                  class="perseus-sr-only"
                                 >
-                                  <span
-                                    class="perseus-sr-only"
-                                  >
-                                    (Choice D)
-                                  </span>
-                                  <span
-                                    aria-hidden="true"
-                                  >
-                                    D
-                                  </span>
-                                </div>
+                                  (Choice D)
+                                </span>
+                                <span
+                                  aria-hidden="true"
+                                >
+                                  D
+                                </span>
                               </div>
-                            </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -3984,32 +3920,30 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
                               <div
-                                class="iconWrapper_17y0hv9"
+                                class="satCircle_1anqode"
+                                data-test-id="choice-icon__sat-choice-icon"
+                                style="border-color: #0084ce; border-radius: 25px; background-color: rgb(0, 132, 206);"
+                              />
+                              <div
+                                class="letter_2ucovf"
+                                style="color: rgb(255, 255, 255);"
                               >
-                                <div
-                                  class="satCircle_1anqode"
-                                  data-test-id="choice-icon__sat-choice-icon"
-                                  style="border-color: #0084ce; border-radius: 25px; background-color: rgb(0, 132, 206);"
-                                />
-                                <div
-                                  class="letter_2ucovf"
-                                  style="color: rgb(255, 255, 255);"
+                                <span
+                                  class="perseus-sr-only"
                                 >
-                                  <span
-                                    class="perseus-sr-only"
-                                  >
-                                    (Choice A, Checked)
-                                  </span>
-                                  <span
-                                    aria-hidden="true"
-                                  >
-                                    A
-                                  </span>
-                                </div>
+                                  (Choice A, Checked)
+                                </span>
+                                <span
+                                  aria-hidden="true"
+                                >
+                                  A
+                                </span>
                               </div>
-                            </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -4083,32 +4017,30 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
                               <div
-                                class="iconWrapper_17y0hv9"
+                                class="satCircle_1anqode"
+                                data-test-id="choice-icon__sat-choice-icon"
+                                style="border-color: #0084ce; border-radius: 25px;"
+                              />
+                              <div
+                                class="letter_2ucovf"
+                                style="color: rgb(0, 132, 206);"
                               >
-                                <div
-                                  class="satCircle_1anqode"
-                                  data-test-id="choice-icon__sat-choice-icon"
-                                  style="border-color: #0084ce; border-radius: 25px;"
-                                />
-                                <div
-                                  class="letter_2ucovf"
-                                  style="color: rgb(0, 132, 206);"
+                                <span
+                                  class="perseus-sr-only"
                                 >
-                                  <span
-                                    class="perseus-sr-only"
-                                  >
-                                    (Choice B)
-                                  </span>
-                                  <span
-                                    aria-hidden="true"
-                                  >
-                                    B
-                                  </span>
-                                </div>
+                                  (Choice B)
+                                </span>
+                                <span
+                                  aria-hidden="true"
+                                >
+                                  B
+                                </span>
                               </div>
-                            </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -4169,32 +4101,30 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
                               <div
-                                class="iconWrapper_17y0hv9"
+                                class="satCircle_1anqode"
+                                data-test-id="choice-icon__sat-choice-icon"
+                                style="border-color: #0084ce; border-radius: 25px;"
+                              />
+                              <div
+                                class="letter_2ucovf"
+                                style="color: rgb(0, 132, 206);"
                               >
-                                <div
-                                  class="satCircle_1anqode"
-                                  data-test-id="choice-icon__sat-choice-icon"
-                                  style="border-color: #0084ce; border-radius: 25px;"
-                                />
-                                <div
-                                  class="letter_2ucovf"
-                                  style="color: rgb(0, 132, 206);"
+                                <span
+                                  class="perseus-sr-only"
                                 >
-                                  <span
-                                    class="perseus-sr-only"
-                                  >
-                                    (Choice C)
-                                  </span>
-                                  <span
-                                    aria-hidden="true"
-                                  >
-                                    C
-                                  </span>
-                                </div>
+                                  (Choice C)
+                                </span>
+                                <span
+                                  aria-hidden="true"
+                                >
+                                  C
+                                </span>
                               </div>
-                            </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -4255,32 +4185,30 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
                               <div
-                                class="iconWrapper_17y0hv9"
+                                class="satCircle_1anqode"
+                                data-test-id="choice-icon__sat-choice-icon"
+                                style="border-color: #0084ce; border-radius: 25px;"
+                              />
+                              <div
+                                class="letter_2ucovf"
+                                style="color: rgb(0, 132, 206);"
                               >
-                                <div
-                                  class="satCircle_1anqode"
-                                  data-test-id="choice-icon__sat-choice-icon"
-                                  style="border-color: #0084ce; border-radius: 25px;"
-                                />
-                                <div
-                                  class="letter_2ucovf"
-                                  style="color: rgb(0, 132, 206);"
+                                <span
+                                  class="perseus-sr-only"
                                 >
-                                  <span
-                                    class="perseus-sr-only"
-                                  >
-                                    (Choice D)
-                                  </span>
-                                  <span
-                                    aria-hidden="true"
-                                  >
-                                    D
-                                  </span>
-                                </div>
+                                  (Choice D)
+                                </span>
+                                <span
+                                  aria-hidden="true"
+                                >
+                                  D
+                                </span>
                               </div>
-                            </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -4422,32 +4350,30 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
                               <div
-                                class="iconWrapper_17y0hv9"
+                                class="satCircle_1anqode"
+                                data-test-id="choice-icon__sat-choice-icon"
+                                style="border-color: #0084ce; border-radius: 25px;"
+                              />
+                              <div
+                                class="letter_2ucovf"
+                                style="color: rgb(0, 132, 206);"
                               >
-                                <div
-                                  class="satCircle_1anqode"
-                                  data-test-id="choice-icon__sat-choice-icon"
-                                  style="border-color: #0084ce; border-radius: 25px;"
-                                />
-                                <div
-                                  class="letter_2ucovf"
-                                  style="color: rgb(0, 132, 206);"
+                                <span
+                                  class="perseus-sr-only"
                                 >
-                                  <span
-                                    class="perseus-sr-only"
-                                  >
-                                    (Choice A)
-                                  </span>
-                                  <span
-                                    aria-hidden="true"
-                                  >
-                                    A
-                                  </span>
-                                </div>
+                                  (Choice A)
+                                </span>
+                                <span
+                                  aria-hidden="true"
+                                >
+                                  A
+                                </span>
                               </div>
-                            </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -4521,32 +4447,30 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
                               <div
-                                class="iconWrapper_17y0hv9"
+                                class="satCircle_1anqode"
+                                data-test-id="choice-icon__sat-choice-icon"
+                                style="border-color: #0084ce; border-radius: 25px;"
+                              />
+                              <div
+                                class="letter_2ucovf"
+                                style="color: rgb(0, 132, 206);"
                               >
-                                <div
-                                  class="satCircle_1anqode"
-                                  data-test-id="choice-icon__sat-choice-icon"
-                                  style="border-color: #0084ce; border-radius: 25px;"
-                                />
-                                <div
-                                  class="letter_2ucovf"
-                                  style="color: rgb(0, 132, 206);"
+                                <span
+                                  class="perseus-sr-only"
                                 >
-                                  <span
-                                    class="perseus-sr-only"
-                                  >
-                                    (Choice B)
-                                  </span>
-                                  <span
-                                    aria-hidden="true"
-                                  >
-                                    B
-                                  </span>
-                                </div>
+                                  (Choice B)
+                                </span>
+                                <span
+                                  aria-hidden="true"
+                                >
+                                  B
+                                </span>
                               </div>
-                            </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -4607,32 +4531,30 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
                               <div
-                                class="iconWrapper_17y0hv9"
+                                class="satCircle_1anqode"
+                                data-test-id="choice-icon__sat-choice-icon"
+                                style="border-color: #0084ce; border-radius: 25px;"
+                              />
+                              <div
+                                class="letter_2ucovf"
+                                style="color: rgb(0, 132, 206);"
                               >
-                                <div
-                                  class="satCircle_1anqode"
-                                  data-test-id="choice-icon__sat-choice-icon"
-                                  style="border-color: #0084ce; border-radius: 25px;"
-                                />
-                                <div
-                                  class="letter_2ucovf"
-                                  style="color: rgb(0, 132, 206);"
+                                <span
+                                  class="perseus-sr-only"
                                 >
-                                  <span
-                                    class="perseus-sr-only"
-                                  >
-                                    (Choice C)
-                                  </span>
-                                  <span
-                                    aria-hidden="true"
-                                  >
-                                    C
-                                  </span>
-                                </div>
+                                  (Choice C)
+                                </span>
+                                <span
+                                  aria-hidden="true"
+                                >
+                                  C
+                                </span>
                               </div>
-                            </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -4693,32 +4615,30 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
                               <div
-                                class="iconWrapper_17y0hv9"
+                                class="satCircle_1anqode"
+                                data-test-id="choice-icon__sat-choice-icon"
+                                style="border-color: #0084ce; border-radius: 25px;"
+                              />
+                              <div
+                                class="letter_2ucovf"
+                                style="color: rgb(0, 132, 206);"
                               >
-                                <div
-                                  class="satCircle_1anqode"
-                                  data-test-id="choice-icon__sat-choice-icon"
-                                  style="border-color: #0084ce; border-radius: 25px;"
-                                />
-                                <div
-                                  class="letter_2ucovf"
-                                  style="color: rgb(0, 132, 206);"
+                                <span
+                                  class="perseus-sr-only"
                                 >
-                                  <span
-                                    class="perseus-sr-only"
-                                  >
-                                    (Choice D)
-                                  </span>
-                                  <span
-                                    aria-hidden="true"
-                                  >
-                                    D
-                                  </span>
-                                </div>
+                                  (Choice D)
+                                </span>
+                                <span
+                                  aria-hidden="true"
+                                >
+                                  D
+                                </span>
                               </div>
-                            </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -4860,32 +4780,30 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
                               <div
-                                class="iconWrapper_17y0hv9"
+                                class="satCircle_1anqode"
+                                data-test-id="choice-icon__sat-choice-icon"
+                                style="border-color: #0084ce; border-radius: 25px;"
+                              />
+                              <div
+                                class="letter_2ucovf"
+                                style="color: rgb(0, 132, 206);"
                               >
-                                <div
-                                  class="satCircle_1anqode"
-                                  data-test-id="choice-icon__sat-choice-icon"
-                                  style="border-color: #0084ce; border-radius: 25px;"
-                                />
-                                <div
-                                  class="letter_2ucovf"
-                                  style="color: rgb(0, 132, 206);"
+                                <span
+                                  class="perseus-sr-only"
                                 >
-                                  <span
-                                    class="perseus-sr-only"
-                                  >
-                                    (Choice A)
-                                  </span>
-                                  <span
-                                    aria-hidden="true"
-                                  >
-                                    A
-                                  </span>
-                                </div>
+                                  (Choice A)
+                                </span>
+                                <span
+                                  aria-hidden="true"
+                                >
+                                  A
+                                </span>
                               </div>
-                            </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -4959,32 +4877,30 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
                               <div
-                                class="iconWrapper_17y0hv9"
+                                class="satCircle_1anqode"
+                                data-test-id="choice-icon__sat-choice-icon"
+                                style="border-color: #0084ce; border-radius: 25px;"
+                              />
+                              <div
+                                class="letter_2ucovf"
+                                style="color: rgb(0, 132, 206);"
                               >
-                                <div
-                                  class="satCircle_1anqode"
-                                  data-test-id="choice-icon__sat-choice-icon"
-                                  style="border-color: #0084ce; border-radius: 25px;"
-                                />
-                                <div
-                                  class="letter_2ucovf"
-                                  style="color: rgb(0, 132, 206);"
+                                <span
+                                  class="perseus-sr-only"
                                 >
-                                  <span
-                                    class="perseus-sr-only"
-                                  >
-                                    (Choice B)
-                                  </span>
-                                  <span
-                                    aria-hidden="true"
-                                  >
-                                    B
-                                  </span>
-                                </div>
+                                  (Choice B)
+                                </span>
+                                <span
+                                  aria-hidden="true"
+                                >
+                                  B
+                                </span>
                               </div>
-                            </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -5045,32 +4961,30 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
                               <div
-                                class="iconWrapper_17y0hv9"
+                                class="satCircle_1anqode"
+                                data-test-id="choice-icon__sat-choice-icon"
+                                style="border-color: #0084ce; border-radius: 25px; background-color: rgb(0, 132, 206);"
+                              />
+                              <div
+                                class="letter_2ucovf"
+                                style="color: rgb(255, 255, 255);"
                               >
-                                <div
-                                  class="satCircle_1anqode"
-                                  data-test-id="choice-icon__sat-choice-icon"
-                                  style="border-color: #0084ce; border-radius: 25px; background-color: rgb(0, 132, 206);"
-                                />
-                                <div
-                                  class="letter_2ucovf"
-                                  style="color: rgb(255, 255, 255);"
+                                <span
+                                  class="perseus-sr-only"
                                 >
-                                  <span
-                                    class="perseus-sr-only"
-                                  >
-                                    (Choice C, Checked)
-                                  </span>
-                                  <span
-                                    aria-hidden="true"
-                                  >
-                                    C
-                                  </span>
-                                </div>
+                                  (Choice C, Checked)
+                                </span>
+                                <span
+                                  aria-hidden="true"
+                                >
+                                  C
+                                </span>
                               </div>
-                            </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -5131,32 +5045,30 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
                               <div
-                                class="iconWrapper_17y0hv9"
+                                class="satCircle_1anqode"
+                                data-test-id="choice-icon__sat-choice-icon"
+                                style="border-color: #0084ce; border-radius: 25px;"
+                              />
+                              <div
+                                class="letter_2ucovf"
+                                style="color: rgb(0, 132, 206);"
                               >
-                                <div
-                                  class="satCircle_1anqode"
-                                  data-test-id="choice-icon__sat-choice-icon"
-                                  style="border-color: #0084ce; border-radius: 25px;"
-                                />
-                                <div
-                                  class="letter_2ucovf"
-                                  style="color: rgb(0, 132, 206);"
+                                <span
+                                  class="perseus-sr-only"
                                 >
-                                  <span
-                                    class="perseus-sr-only"
-                                  >
-                                    (Choice D)
-                                  </span>
-                                  <span
-                                    aria-hidden="true"
-                                  >
-                                    D
-                                  </span>
-                                </div>
+                                  (Choice D)
+                                </span>
+                                <span
+                                  aria-hidden="true"
+                                >
+                                  D
+                                </span>
                               </div>
-                            </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -5298,32 +5210,30 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
                               <div
-                                class="iconWrapper_17y0hv9"
+                                class="satCircle_1anqode"
+                                data-test-id="choice-icon__sat-choice-icon"
+                                style="border-color: #0084ce; border-radius: 25px; background-color: rgb(0, 132, 206);"
+                              />
+                              <div
+                                class="letter_2ucovf"
+                                style="color: rgb(255, 255, 255);"
                               >
-                                <div
-                                  class="satCircle_1anqode"
-                                  data-test-id="choice-icon__sat-choice-icon"
-                                  style="border-color: #0084ce; border-radius: 25px; background-color: rgb(0, 132, 206);"
-                                />
-                                <div
-                                  class="letter_2ucovf"
-                                  style="color: rgb(255, 255, 255);"
+                                <span
+                                  class="perseus-sr-only"
                                 >
-                                  <span
-                                    class="perseus-sr-only"
-                                  >
-                                    (Choice A, Checked)
-                                  </span>
-                                  <span
-                                    aria-hidden="true"
-                                  >
-                                    A
-                                  </span>
-                                </div>
+                                  (Choice A, Checked)
+                                </span>
+                                <span
+                                  aria-hidden="true"
+                                >
+                                  A
+                                </span>
                               </div>
-                            </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -5397,32 +5307,30 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
                               <div
-                                class="iconWrapper_17y0hv9"
+                                class="satCircle_1anqode"
+                                data-test-id="choice-icon__sat-choice-icon"
+                                style="border-color: #0084ce; border-radius: 25px;"
+                              />
+                              <div
+                                class="letter_2ucovf"
+                                style="color: rgb(0, 132, 206);"
                               >
-                                <div
-                                  class="satCircle_1anqode"
-                                  data-test-id="choice-icon__sat-choice-icon"
-                                  style="border-color: #0084ce; border-radius: 25px;"
-                                />
-                                <div
-                                  class="letter_2ucovf"
-                                  style="color: rgb(0, 132, 206);"
+                                <span
+                                  class="perseus-sr-only"
                                 >
-                                  <span
-                                    class="perseus-sr-only"
-                                  >
-                                    (Choice B)
-                                  </span>
-                                  <span
-                                    aria-hidden="true"
-                                  >
-                                    B
-                                  </span>
-                                </div>
+                                  (Choice B)
+                                </span>
+                                <span
+                                  aria-hidden="true"
+                                >
+                                  B
+                                </span>
                               </div>
-                            </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -5483,32 +5391,30 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
                               <div
-                                class="iconWrapper_17y0hv9"
+                                class="satCircle_1anqode"
+                                data-test-id="choice-icon__sat-choice-icon"
+                                style="border-color: #0084ce; border-radius: 25px;"
+                              />
+                              <div
+                                class="letter_2ucovf"
+                                style="color: rgb(0, 132, 206);"
                               >
-                                <div
-                                  class="satCircle_1anqode"
-                                  data-test-id="choice-icon__sat-choice-icon"
-                                  style="border-color: #0084ce; border-radius: 25px;"
-                                />
-                                <div
-                                  class="letter_2ucovf"
-                                  style="color: rgb(0, 132, 206);"
+                                <span
+                                  class="perseus-sr-only"
                                 >
-                                  <span
-                                    class="perseus-sr-only"
-                                  >
-                                    (Choice C)
-                                  </span>
-                                  <span
-                                    aria-hidden="true"
-                                  >
-                                    C
-                                  </span>
-                                </div>
+                                  (Choice C)
+                                </span>
+                                <span
+                                  aria-hidden="true"
+                                >
+                                  C
+                                </span>
                               </div>
-                            </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -5569,32 +5475,30 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
                               <div
-                                class="iconWrapper_17y0hv9"
+                                class="satCircle_1anqode"
+                                data-test-id="choice-icon__sat-choice-icon"
+                                style="border-color: #0084ce; border-radius: 25px;"
+                              />
+                              <div
+                                class="letter_2ucovf"
+                                style="color: rgb(0, 132, 206);"
                               >
-                                <div
-                                  class="satCircle_1anqode"
-                                  data-test-id="choice-icon__sat-choice-icon"
-                                  style="border-color: #0084ce; border-radius: 25px;"
-                                />
-                                <div
-                                  class="letter_2ucovf"
-                                  style="color: rgb(0, 132, 206);"
+                                <span
+                                  class="perseus-sr-only"
                                 >
-                                  <span
-                                    class="perseus-sr-only"
-                                  >
-                                    (Choice D)
-                                  </span>
-                                  <span
-                                    aria-hidden="true"
-                                  >
-                                    D
-                                  </span>
-                                </div>
+                                  (Choice D)
+                                </span>
+                                <span
+                                  aria-hidden="true"
+                                >
+                                  D
+                                </span>
                               </div>
-                            </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -5736,32 +5640,30 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
                               <div
-                                class="iconWrapper_17y0hv9"
+                                class="satCircle_1anqode"
+                                data-test-id="choice-icon__sat-choice-icon"
+                                style="border-color: #0084ce; border-radius: 25px;"
+                              />
+                              <div
+                                class="letter_2ucovf"
+                                style="color: rgb(0, 132, 206);"
                               >
-                                <div
-                                  class="satCircle_1anqode"
-                                  data-test-id="choice-icon__sat-choice-icon"
-                                  style="border-color: #0084ce; border-radius: 25px;"
-                                />
-                                <div
-                                  class="letter_2ucovf"
-                                  style="color: rgb(0, 132, 206);"
+                                <span
+                                  class="perseus-sr-only"
                                 >
-                                  <span
-                                    class="perseus-sr-only"
-                                  >
-                                    (Choice A, Incorrect)
-                                  </span>
-                                  <span
-                                    aria-hidden="true"
-                                  >
-                                    A
-                                  </span>
-                                </div>
+                                  (Choice A, Incorrect)
+                                </span>
+                                <span
+                                  aria-hidden="true"
+                                >
+                                  A
+                                </span>
                               </div>
-                            </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -5902,32 +5804,30 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
                               <div
-                                class="iconWrapper_17y0hv9"
+                                class="satCircle_1anqode"
+                                data-test-id="choice-icon__sat-choice-icon"
+                                style="border-color: #0084ce; border-radius: 25px;"
+                              />
+                              <div
+                                class="letter_2ucovf"
+                                style="color: rgb(0, 132, 206);"
                               >
-                                <div
-                                  class="satCircle_1anqode"
-                                  data-test-id="choice-icon__sat-choice-icon"
-                                  style="border-color: #0084ce; border-radius: 25px;"
-                                />
-                                <div
-                                  class="letter_2ucovf"
-                                  style="color: rgb(0, 132, 206);"
+                                <span
+                                  class="perseus-sr-only"
                                 >
-                                  <span
-                                    class="perseus-sr-only"
-                                  >
-                                    (Choice B, Incorrect)
-                                  </span>
-                                  <span
-                                    aria-hidden="true"
-                                  >
-                                    B
-                                  </span>
-                                </div>
+                                  (Choice B, Incorrect)
+                                </span>
+                                <span
+                                  aria-hidden="true"
+                                >
+                                  B
+                                </span>
                               </div>
-                            </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -6039,32 +5939,30 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
                               <div
-                                class="iconWrapper_17y0hv9"
+                                class="satCircle_1anqode"
+                                data-test-id="choice-icon__sat-choice-icon"
+                                style="background-color: rgb(255, 255, 255); border-color: #009900; border-radius: 25px;"
+                              />
+                              <div
+                                class="letter_2ucovf"
+                                style="color: rgb(0, 153, 0);"
                               >
-                                <div
-                                  class="satCircle_1anqode"
-                                  data-test-id="choice-icon__sat-choice-icon"
-                                  style="background-color: rgb(255, 255, 255); border-color: #009900; border-radius: 25px;"
-                                />
-                                <div
-                                  class="letter_2ucovf"
-                                  style="color: rgb(0, 153, 0);"
+                                <span
+                                  class="perseus-sr-only"
                                 >
-                                  <span
-                                    class="perseus-sr-only"
-                                  >
-                                    (Choice C, Correct)
-                                  </span>
-                                  <span
-                                    aria-hidden="true"
-                                  >
-                                    C
-                                  </span>
-                                </div>
+                                  (Choice C, Correct)
+                                </span>
+                                <span
+                                  aria-hidden="true"
+                                >
+                                  C
+                                </span>
                               </div>
-                            </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >
@@ -6171,32 +6069,30 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           <div
                             style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                           >
-                            <span>
+                            <div
+                              class="iconWrapper_17y0hv9"
+                            >
                               <div
-                                class="iconWrapper_17y0hv9"
+                                class="satCircle_1anqode"
+                                data-test-id="choice-icon__sat-choice-icon"
+                                style="border-color: #0084ce; border-radius: 25px;"
+                              />
+                              <div
+                                class="letter_2ucovf"
+                                style="color: rgb(0, 132, 206);"
                               >
-                                <div
-                                  class="satCircle_1anqode"
-                                  data-test-id="choice-icon__sat-choice-icon"
-                                  style="border-color: #0084ce; border-radius: 25px;"
-                                />
-                                <div
-                                  class="letter_2ucovf"
-                                  style="color: rgb(0, 132, 206);"
+                                <span
+                                  class="perseus-sr-only"
                                 >
-                                  <span
-                                    class="perseus-sr-only"
-                                  >
-                                    (Choice D, Incorrect)
-                                  </span>
-                                  <span
-                                    aria-hidden="true"
-                                  >
-                                    D
-                                  </span>
-                                </div>
+                                  (Choice D, Incorrect)
+                                </span>
+                                <span
+                                  aria-hidden="true"
+                                >
+                                  D
+                                </span>
                               </div>
-                            </span>
+                            </div>
                             <span
                               style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                             >

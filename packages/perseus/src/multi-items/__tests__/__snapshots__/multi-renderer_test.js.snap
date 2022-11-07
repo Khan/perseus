@@ -152,35 +152,33 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                               <div
                                 style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                               >
-                                <span>
-                                  <div
-                                    class="iconWrapper_17y0hv9"
+                                <div
+                                  class="iconWrapper_17y0hv9"
+                                >
+                                  <span
+                                    class="ring_ya75gi"
+                                    data-test-id="focus-ring"
+                                    style="border-color: transparent; border-radius: 50%;"
                                   >
-                                    <span
-                                      class="ring_ya75gi"
-                                      data-test-id="focus-ring"
-                                      style="border-color: transparent; border-radius: 50%;"
+                                    <div
+                                      class="circle_1tys2th"
+                                      data-is-radio-icon="true"
+                                      data-test-id="choice-icon__library-choice-icon"
+                                      style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                     >
                                       <div
-                                        class="circle_1tys2th"
-                                        data-is-radio-icon="true"
-                                        data-test-id="choice-icon__library-choice-icon"
-                                        style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
+                                        class="perseus-sr-only"
                                       >
-                                        <div
-                                          class="perseus-sr-only"
-                                        >
-                                          (Choice A)
-                                        </div>
-                                        <div
-                                          aria-hidden="true"
-                                        >
-                                          A
-                                        </div>
+                                        (Choice A)
                                       </div>
-                                    </span>
-                                  </div>
-                                </span>
+                                      <div
+                                        aria-hidden="true"
+                                      >
+                                        A
+                                      </div>
+                                    </div>
+                                  </span>
+                                </div>
                                 <span
                                   style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                                 >
@@ -267,35 +265,33 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                               <div
                                 style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                               >
-                                <span>
-                                  <div
-                                    class="iconWrapper_17y0hv9"
+                                <div
+                                  class="iconWrapper_17y0hv9"
+                                >
+                                  <span
+                                    class="ring_ya75gi"
+                                    data-test-id="focus-ring"
+                                    style="border-color: transparent; border-radius: 50%;"
                                   >
-                                    <span
-                                      class="ring_ya75gi"
-                                      data-test-id="focus-ring"
-                                      style="border-color: transparent; border-radius: 50%;"
+                                    <div
+                                      class="circle_1tys2th"
+                                      data-is-radio-icon="true"
+                                      data-test-id="choice-icon__library-choice-icon"
+                                      style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                     >
                                       <div
-                                        class="circle_1tys2th"
-                                        data-is-radio-icon="true"
-                                        data-test-id="choice-icon__library-choice-icon"
-                                        style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
+                                        class="perseus-sr-only"
                                       >
-                                        <div
-                                          class="perseus-sr-only"
-                                        >
-                                          (Choice B)
-                                        </div>
-                                        <div
-                                          aria-hidden="true"
-                                        >
-                                          B
-                                        </div>
+                                        (Choice B)
                                       </div>
-                                    </span>
-                                  </div>
-                                </span>
+                                      <div
+                                        aria-hidden="true"
+                                      >
+                                        B
+                                      </div>
+                                    </div>
+                                  </span>
+                                </div>
                                 <span
                                   style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                                 >
@@ -382,35 +378,33 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                               <div
                                 style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                               >
-                                <span>
-                                  <div
-                                    class="iconWrapper_17y0hv9"
+                                <div
+                                  class="iconWrapper_17y0hv9"
+                                >
+                                  <span
+                                    class="ring_ya75gi"
+                                    data-test-id="focus-ring"
+                                    style="border-color: transparent; border-radius: 50%;"
                                   >
-                                    <span
-                                      class="ring_ya75gi"
-                                      data-test-id="focus-ring"
-                                      style="border-color: transparent; border-radius: 50%;"
+                                    <div
+                                      class="circle_1tys2th"
+                                      data-is-radio-icon="true"
+                                      data-test-id="choice-icon__library-choice-icon"
+                                      style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                     >
                                       <div
-                                        class="circle_1tys2th"
-                                        data-is-radio-icon="true"
-                                        data-test-id="choice-icon__library-choice-icon"
-                                        style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
+                                        class="perseus-sr-only"
                                       >
-                                        <div
-                                          class="perseus-sr-only"
-                                        >
-                                          (Choice C)
-                                        </div>
-                                        <div
-                                          aria-hidden="true"
-                                        >
-                                          C
-                                        </div>
+                                        (Choice C)
                                       </div>
-                                    </span>
-                                  </div>
-                                </span>
+                                      <div
+                                        aria-hidden="true"
+                                      >
+                                        C
+                                      </div>
+                                    </div>
+                                  </span>
+                                </div>
                                 <span
                                   style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                                 >
@@ -497,35 +491,33 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                               <div
                                 style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                               >
-                                <span>
-                                  <div
-                                    class="iconWrapper_17y0hv9"
+                                <div
+                                  class="iconWrapper_17y0hv9"
+                                >
+                                  <span
+                                    class="ring_ya75gi"
+                                    data-test-id="focus-ring"
+                                    style="border-color: transparent; border-radius: 50%;"
                                   >
-                                    <span
-                                      class="ring_ya75gi"
-                                      data-test-id="focus-ring"
-                                      style="border-color: transparent; border-radius: 50%;"
+                                    <div
+                                      class="circle_1tys2th"
+                                      data-is-radio-icon="true"
+                                      data-test-id="choice-icon__library-choice-icon"
+                                      style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                     >
                                       <div
-                                        class="circle_1tys2th"
-                                        data-is-radio-icon="true"
-                                        data-test-id="choice-icon__library-choice-icon"
-                                        style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
+                                        class="perseus-sr-only"
                                       >
-                                        <div
-                                          class="perseus-sr-only"
-                                        >
-                                          (Choice D)
-                                        </div>
-                                        <div
-                                          aria-hidden="true"
-                                        >
-                                          D
-                                        </div>
+                                        (Choice D)
                                       </div>
-                                    </span>
-                                  </div>
-                                </span>
+                                      <div
+                                        aria-hidden="true"
+                                      >
+                                        D
+                                      </div>
+                                    </div>
+                                  </span>
+                                </div>
                                 <span
                                   style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                                 >
@@ -612,35 +604,33 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                               <div
                                 style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
                               >
-                                <span>
-                                  <div
-                                    class="iconWrapper_17y0hv9"
+                                <div
+                                  class="iconWrapper_17y0hv9"
+                                >
+                                  <span
+                                    class="ring_ya75gi"
+                                    data-test-id="focus-ring"
+                                    style="border-color: transparent; border-radius: 50%;"
                                   >
-                                    <span
-                                      class="ring_ya75gi"
-                                      data-test-id="focus-ring"
-                                      style="border-color: transparent; border-radius: 50%;"
+                                    <div
+                                      class="circle_1tys2th"
+                                      data-is-radio-icon="true"
+                                      data-test-id="choice-icon__library-choice-icon"
+                                      style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                     >
                                       <div
-                                        class="circle_1tys2th"
-                                        data-is-radio-icon="true"
-                                        data-test-id="choice-icon__library-choice-icon"
-                                        style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
+                                        class="perseus-sr-only"
                                       >
-                                        <div
-                                          class="perseus-sr-only"
-                                        >
-                                          (Choice E)
-                                        </div>
-                                        <div
-                                          aria-hidden="true"
-                                        >
-                                          E
-                                        </div>
+                                        (Choice E)
                                       </div>
-                                    </span>
-                                  </div>
-                                </span>
+                                      <div
+                                        aria-hidden="true"
+                                      >
+                                        E
+                                      </div>
+                                    </div>
+                                  </span>
+                                </div>
                                 <span
                                   style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                                 >

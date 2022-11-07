@@ -123,38 +123,9 @@ export const ApiOptions = {
         //     values. For now, though, you must either specify all fields
         //     of `styling`, or omit the `styling` option entirely.
         styling: PropTypes.shape({
-            // Which version of radio widget styles to use in non-SAT
-            // contexts.
-            //
-            // "legacy" was the version of the widget display after XOM but
-            // before we started adding MCR styles. It doesn't have support
-            // for rationales. It has since been removed.
-            //
-            // "intermediate" is a design which adds several new additions
-            // to the "legacy" styles such as:
-            //  1. Using the XOM "desktop" styles (with a visible check icon
-            //     and lines in between choices) on mobile devices.
-            //  2. Designs for rationales
-            //  3. Using the single-select styles for multi-select styles
-            //
-            // "final" is a design which will build off of the
-            // "intermediate" designs and adds some improved designs as well
-            // as:
-            //  1. a/b/c/d/etc. letters inside of the prompt check box
-            //  2. New iconography and styles to indicate choice correctness
-            //
-            // The "legacy" and "intermediate" designs will be A/B tested
-            // against each other to ensure that its changes don't cause
-            // problems due to the new designs. Once the "intermediate"
-            // designs are finished, they will be A/B tested against the
-            // "final" designs.
-            //
-            // If no flag is provided, "legacy" styles will be shown.
-            //
-            // TODO(emily): Remove this by Aug 1, 2017, at which point all
-            //   callsites should have been switched to using the "final"
-            //   designs.
-            radioStyleVersion: PropTypes.oneOf(["intermediate", "final"]),
+            // TODO(Nicole): Remove this after landing wonderblock-ifying
+            // the radio widget
+            primaryProductColor: PropTypes.string,
         }),
 
         // The color used for the hint progress indicator (eg. 1 / 3)
@@ -214,7 +185,12 @@ export const ApiOptions = {
         setDrawingAreaAvailable?: (...a: $ReadOnlyArray<any>) => mixed,
         showAlignmentOptions: boolean,
         staticRender: boolean,
-        styling?: {radioStyleVersion?: "intermediate" | "final", ...},
+        styling?: {
+            // TODO(Nicole): Remove this after landing wonderblock-ifying
+            // the radio widget
+            primaryProductColor?: string,
+            ...
+        },
         trackInteraction?: (...a: $ReadOnlyArray<any>) => mixed,
         useDraftEditor?: boolean,
         widgetPlaceholder?: any,
@@ -241,9 +217,7 @@ export const ApiOptions = {
         },
         setDrawingAreaAvailable: function () {},
         useDraftEditor: false,
-        styling: {
-            radioStyleVersion: "final",
-        },
+        styling: {},
         canScrollPage: false,
         inModal: false,
         crossOutEnabled: false,
