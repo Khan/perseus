@@ -1,5 +1,6 @@
 // @flow
 
+import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {render, screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as React from "react";
@@ -23,22 +24,19 @@ function renderChoice(options) {
         crossedOut: false,
         previouslyAnswered: false,
         ref: {current: null},
+        questionId: "",
     };
 
     const overwrittenOptions = {...defaultOptions, ...options};
 
-    return render(<Choice {...overwrittenOptions} />);
+    return render(
+        <RenderStateRoot>
+            <Choice {...overwrittenOptions} />
+        </RenderStateRoot>,
+    );
 }
 
 describe("choice", () => {
-    it("renders choice content", () => {
-        // Arrange / Act
-        renderChoice();
-
-        // Assert
-        expect(screen.getByText("This is a possible choice")).toBeVisible();
-    });
-
     it("renders rationale", () => {
         // Arrange / Act
         renderChoice({showRationale: true});
@@ -47,37 +45,89 @@ describe("choice", () => {
         expect(screen.getByText("This is a good rationale")).toBeVisible();
     });
 
-    it("renders choice button", () => {
+    it("renders choice content", () => {
         // Arrange / Act
         renderChoice();
 
-        const button = screen.getByRole("checkbox", {
-            name: "Select Choice A",
+        // Assert
+        expect(screen.getByText("This is a possible choice")).toBeVisible();
+    });
+
+    it("renders screen reader choice input", () => {
+        // Arrange / Act
+        renderChoice();
+
+        const input = screen.getByRole("radio", {
+            name: "(Choice A) This is a possible choice",
         });
 
         // Assert
-        expect(button).toBeVisible();
+        expect(input).toBeVisible();
     });
 
-    it("has correct aria-checked when checked", () => {
+    it("renders choice button", () => {
+        // Arrange / Act
+        renderChoice({content: "Squirtle and Charmander are friends."});
+        // stopship - do I need to find a wy to access the button by name or data-test-id?
+        const button = screen.getByRole("button", {
+            hidden: true,
+        });
+
+        // Assert
+        expect(button).toHaveTextContent(
+            "Squirtle and Charmander are friends.",
+        );
+    });
+
+    it("has correct a11y text when checked", () => {
         // Arrange / Act
         renderChoice({checked: true});
 
-        const button = screen.getByRole("checkbox", {
-            name: "Select Choice A",
+        const button = screen.getByRole("radio", {
+            name: "(Choice A, Checked) This is a possible choice",
         });
 
         // Assert
         expect(button).toBeChecked();
     });
 
-    it("has correct aria-checked when unchecked", () => {
+    it("selects the choice by clicking the button", () => {
+        // Arrange / Act
+        const onChangeSpy = jest.fn();
+        renderChoice({onChange: onChangeSpy});
+
+        const button = screen.getByRole("button", {hidden: true});
+        userEvent.click(button);
+
+        // Assert
+        expect(onChangeSpy).toHaveBeenCalledWith({
+            checked: true,
+            crossedOut: false,
+        });
+    });
+
+    it("selects the choice by clicking the input", () => {
+        // Arrange / Act
+        const onChangeSpy = jest.fn();
+        renderChoice({onChange: onChangeSpy});
+
+        const input = screen.getByRole("radio", {
+            name: "(Choice A) This is a possible choice",
+        });
+        userEvent.click(input);
+
+        // Assert
+        expect(onChangeSpy).toHaveBeenCalledWith({
+            checked: true,
+            crossedOut: false,
+        });
+    });
+
+    it("registers as unchecked with checked set to false", () => {
         // Arrange / Act
         renderChoice({checked: false});
 
-        const button = screen.getByRole("checkbox", {
-            name: "Select Choice A",
-        });
+        const button = screen.getByRole("button", {hidden: true});
 
         // Assert
         expect(button).not.toBeChecked();
@@ -87,9 +137,7 @@ describe("choice", () => {
         // Arrange / Act
         renderChoice({disabled: true});
 
-        const button = screen.getByRole("checkbox", {
-            name: "Select Choice A",
-        });
+        const button = screen.getByRole("button", {hidden: true});
 
         // Assert
         expect(button.getAttribute("aria-disabled")).toBe("true");
@@ -99,9 +147,7 @@ describe("choice", () => {
         // Arrange / Act
         renderChoice({disabled: false});
 
-        const button = screen.getByRole("checkbox", {
-            name: "Select Choice A",
-        });
+        const button = screen.getByRole("button", {hidden: true});
 
         // Assert
         expect(button.getAttribute("aria-disabled")).toBe("false");
@@ -118,6 +164,21 @@ describe("choice", () => {
 
         // Assert
         expect(screen.getByText("Correct")).toBeVisible();
+    });
+
+    it("shows correct a11y text when in review mode", () => {
+        // Arrange / Act
+        renderChoice({
+            checked: false,
+            correct: true,
+            showCorrectness: true,
+            reviewMode: true,
+        });
+
+        // Assert
+        expect(
+            screen.getByText("(Choice A, Correct) This is a possible choice"),
+        ).toBeVisible();
     });
 
     it("shows correct selected when in review mode", () => {
@@ -170,9 +231,7 @@ describe("choice", () => {
         });
 
         // Act
-        const button = screen.getByRole("checkbox", {
-            name: "Select Choice A",
-        });
+        const button = screen.getByRole("button", {hidden: true});
         userEvent.click(button);
 
         // Assert
@@ -190,9 +249,7 @@ describe("choice", () => {
         });
 
         // Act
-        const button = screen.getByRole("checkbox", {
-            name: "Select Choice A",
-        });
+        const button = screen.getByRole("button", {hidden: true});
         userEvent.click(button);
 
         // Assert
