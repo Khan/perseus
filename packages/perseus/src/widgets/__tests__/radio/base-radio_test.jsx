@@ -76,7 +76,7 @@ describe("base-radio", () => {
 
         // Assert
         expect(
-            screen.getByRole("listitem", {name: "Select Choice E"}),
+            screen.getByRole("button", {hidden: true, name: "Select Choice E"}),
         ).toBeInTheDocument();
         expect(screen.getByText("None of the above")).toBeInTheDocument();
     });
