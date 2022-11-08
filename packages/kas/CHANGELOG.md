@@ -1,5 +1,11 @@
 # @khanacademy/kas
 
+## 0.2.7
+
+### Patch Changes
+
+-   f567f660: Update the eslint config to look at both the package.json for the package and the one from the root
+
 ## 0.2.6
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @khanacademy/perseus-error
 
+## 0.1.3
+
+### Patch Changes
+
+-   f567f660: Update the eslint config to look at both the package.json for the package and the one from the root
+
 ## 0.1.2
 
 ### Patch Changes

@@ -1,5 +1,39 @@
 # @khanacademy/perseus
 
+## 1.0.0
+
+### Major Changes
+
+-   f9e0cda6: Change API shape: remove radioStyleVersion, add primaryProductColor to styling
+
+### Minor Changes
+
+-   61a7084e: make multi-select options look more like checkboxes
+
+### Patch Changes
+
+-   2a3ac714: adds better flow coverage to base-radio.jsx
+-   28170809: refactors base-radio to be a functional component
+-   ea104d1c: Delete original choice icon now that it's been refactored and moved
+-   8c6c60f5: Converts OptionStatus component to a functional component
+-   80e2cafc: refactor focus-ring to functional component
+-   f567f660: Update the eslint config to look at both the package.json for the package and the one from the root
+-   e8a60745: increase story/test coverage of base-radio
+-   61a7084e: code cleanup for the choice-icon radio sub-component
+-   16eccaea: convert Radio's Choice component into a functional component
+-   eeaa9010: Add more Flow typing to passage and passage-markdown widgets
+-   d4d2b3a6: removes unused crossOutButton component
+-   46859806: Increases flow coverage for Radio's Widget component to 100%
+-   f5682ad6: fixes a bug in the multiselect radio widget to allow selected choices to be unselected
+-   Updated dependencies [f567f660]
+-   Updated dependencies [eeaa9010]
+    -   @khanacademy/kas@0.2.7
+    -   @khanacademy/kmath@0.0.8
+    -   @khanacademy/math-input@0.6.3
+    -   @khanacademy/perseus-linter@0.2.3
+    -   @khanacademy/pure-markdown@0.1.3
+    -   @khanacademy/simple-markdown@0.8.6
+
 ## 0.4.3
 
 ### Patch Changes
