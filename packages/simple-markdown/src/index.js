@@ -1994,6 +1994,7 @@ export type {
     Rules,
     ReactRules,
     HtmlRules,
+    SingleASTNode,
 };
 
 // $FlowFixMe

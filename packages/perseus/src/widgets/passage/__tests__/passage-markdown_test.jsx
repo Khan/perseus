@@ -7,7 +7,6 @@ import _ from "underscore";
 import PassageMarkdown from "../passage-markdown.jsx";
 
 const parse = PassageMarkdown.parse;
-const rules = PassageMarkdown._rulesForTesting;
 
 const validateParse = (parsed, expected) => {
     if (!_.isEqual(parsed, expected)) {
@@ -349,14 +348,6 @@ describe.skip("passage markdown", () => {
                     ],
                 },
             ]);
-        });
-    });
-
-    describe("orders", () => {
-        it("should always be numbers", () => {
-            _.each(rules, (rule) => {
-                expect(typeof rule.order === "number").toBeTruthy();
-            });
         });
     });
 

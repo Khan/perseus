@@ -18,9 +18,14 @@ import PassageMarkdown from "./passage/passage-markdown.jsx";
 import type {SerializedHighlightSet} from "../components/highlighting/types.js";
 import type {ChangeableProps} from "../mixins/changeable.jsx";
 import type {PerseusPassageWidgetOptions} from "../perseus-types.js";
-import type {PerseusScore, WidgetExports, WidgetProps} from "../types.js";
-
-type JQueryCollection = $FlowFixMe;
+import type {
+    PerseusScore,
+    WidgetExports,
+    WidgetInfo,
+    WidgetProps,
+} from "../types";
+import type {ParseState} from "./passage/passage-markdown.jsx";
+import type {SingleASTNode} from "@khanacademy/simple-markdown";
 
 // A fake paragraph to measure the line height of the passage. In CSS we always
 // set the line height to 22 pixels, but when using the browser zoom feature,
@@ -28,8 +33,8 @@ type JQueryCollection = $FlowFixMe;
 // 22 pixels.
 class LineHeightMeasurer extends React.Component<{...}> {
     _cachedLineHeight: number;
-    $body: JQueryCollection;
-    $end: JQueryCollection;
+    body: ?HTMLDivElement;
+    end: ?HTMLDivElement;
 
     measureLineHeight(): number {
         if (typeof this._cachedLineHeight !== "number") {
@@ -40,15 +45,22 @@ class LineHeightMeasurer extends React.Component<{...}> {
     }
 
     forceMeasureLineHeight() {
+        const body = this.body;
+        const end = this.end;
+
+        if (!body || !end) {
+            return;
+        }
+
         // Add some text which magically fills an entire line.
-        this.$body.text(" \u0080");
+        body.textContent = " \u0080";
 
         // Now, the line height is the difference between the top of the
         // second line and the top of the first line.
-        this._cachedLineHeight = getLineHeightForNode(this.$body, this.$end);
+        this._cachedLineHeight = getLineHeightForNode(body, end);
 
         // Clear out the first line so it doesn't overlap the passage.
-        this.$body.text("");
+        body.textContent = "";
     }
 
     render(): React.Node {
@@ -56,10 +68,10 @@ class LineHeightMeasurer extends React.Component<{...}> {
             <div className={css(styles.measurer)}>
                 <div>
                     <div
-                        ref={(e) => (this.$body = $(e))}
+                        ref={(ref) => (this.body = ref)}
                         className="paragraph"
                     />
-                    <div ref={(e) => (this.$end = $(e))} />
+                    <div ref={(ref) => (this.end = ref)} />
                 </div>
             </div>
         );
@@ -87,9 +99,12 @@ type RenderProps = {|
     showLineNumbers: PerseusPassageWidgetOptions["showLineNumbers"],
 |};
 
+type FindWidgetsCallback = (id: string, widgetInfo: WidgetInfo) => boolean;
+
 type PassageProps = {|
     ...ChangeableProps,
     ...WidgetProps<RenderProps, Rubric>,
+    findWidgets: (FindWidgetsCallback) => $ReadOnlyArray<Passage>,
     highlights: SerializedHighlightSet,
 |};
 
@@ -108,13 +123,6 @@ type PassageState = {|
     stylesAreApplied: boolean,
 |};
 
-// State kept track of by the PassageMarkdown parser.
-type PassageParseState = {
-    firstQuestionRef: ?any,
-    firstSentenceRef: ?any,
-    ...
-};
-
 // Information about a passage reference, used in inter-widgets.
 type Reference = {
     startLine: number,
@@ -124,8 +132,9 @@ type Reference = {
 };
 
 class Passage extends React.Component<PassageProps, PassageState> {
+    _contentRef: ?HTMLDivElement;
+    _lineHeightMeasurerRef: ?LineHeightMeasurer;
     _onResize: () => {...};
-    _lineHeightMeasurer: LineHeightMeasurer;
     _stylesAppiedTimer: TimeoutID;
 
     static defaultProps: DefaultPassageProps = {
@@ -157,7 +166,7 @@ class Passage extends React.Component<PassageProps, PassageState> {
             // height changes we expect are subpixel changes when the user
             // zooms in/out, and the only way to listen for zoom events is to
             // listen for resize events.
-            this._lineHeightMeasurer.forceMeasureLineHeight();
+            this._lineHeightMeasurerRef?.forceMeasureLineHeight();
             this._updateState();
         }, 500);
         window.addEventListener("resize", this._onResize);
@@ -231,9 +240,8 @@ class Passage extends React.Component<PassageProps, PassageState> {
     }
 
     _measureLines(): number {
-        // eslint-disable-next-line react/no-string-refs
-        const $renderer = $(ReactDOM.findDOMNode(this.refs.content));
-        const contentsHeight = $renderer.height();
+        const renderer = ReactDOM.findDOMNode(this._contentRef);
+        const contentsHeight: number = $(renderer).height();
         const lineHeight = this._getLineHeight();
         const nLines = Math.round(contentsHeight / lineHeight);
         return nLines;
@@ -259,7 +267,7 @@ class Passage extends React.Component<PassageProps, PassageState> {
     }
 
     _getLineHeight(): number {
-        return this._lineHeightMeasurer.measureLineHeight();
+        return this._lineHeightMeasurerRef?.measureLineHeight() || 0;
     }
 
     getLineCount(): number {
@@ -275,11 +283,15 @@ class Passage extends React.Component<PassageProps, PassageState> {
      * These are functions to support the passage refs inter-widgets feature
      * where other widgets can fetch the line numbers of a reference inside of
      * a passage.
+     *
+     * todo(matthewc): The refs are created by PassageMarkdown's refStart and refEnd,
+     * somehow bubbling up to Passage's `this.refs`. This runs against
+     * current best practices for refs by using string refs, but also
+     * by breaking our expectation of explicit data flow.
      */
 
     _getStartRefLineNumber(referenceNumber: number): ?number {
         const refRef = PassageMarkdown.START_REF_PREFIX + referenceNumber;
-        // eslint-disable-next-line react/no-string-refs
         const ref = this.refs[refRef];
         if (!ref) {
             return null;
@@ -305,7 +317,6 @@ class Passage extends React.Component<PassageProps, PassageState> {
 
     _getEndRefLineNumber(referenceNumber: number): ?number {
         const refRef = PassageMarkdown.END_REF_PREFIX + referenceNumber;
-        // eslint-disable-next-line react/no-string-refs
         const ref = this.refs[refRef];
         if (!ref) {
             return null;
@@ -320,8 +331,8 @@ class Passage extends React.Component<PassageProps, PassageState> {
             // use the ref itself.
             $refText = $ref;
         }
-        const height = $refText.height();
-        const vPos = $refText.offset().top;
+        const height: number = $refText.height();
+        const vPos: number = $refText.offset().top;
 
         let line = this._convertPosToLineNumber(vPos + height);
         if (height === 0) {
@@ -338,9 +349,8 @@ class Passage extends React.Component<PassageProps, PassageState> {
     }
 
     _convertPosToLineNumber(absoluteVPos: number): number {
-        // eslint-disable-next-line react/no-string-refs
-        const $content = $(ReactDOM.findDOMNode(this.refs.content));
-        const relativeVPos = absoluteVPos - $content.offset().top;
+        const content = ReactDOM.findDOMNode(this._contentRef);
+        const relativeVPos = absoluteVPos - $(content).offset().top;
         const lineHeight = this._getLineHeight();
 
         const line = Math.round(relativeVPos / lineHeight);
@@ -349,7 +359,6 @@ class Passage extends React.Component<PassageProps, PassageState> {
 
     _getRefContent(referenceNumber: number): ?string {
         const refRef = PassageMarkdown.START_REF_PREFIX + referenceNumber;
-        // eslint-disable-next-line react/no-string-refs
         const ref = this.refs[refRef];
         if (!ref) {
             return null;
@@ -403,7 +412,7 @@ class Passage extends React.Component<PassageProps, PassageState> {
      * Functions to render the passage widget.
      */
 
-    _renderInstructions(parseState: PassageParseState): React.Element<any> {
+    _renderInstructions(parseState: ParseState): React.Element<any> {
         const firstQuestionNumber = parseState.firstQuestionRef;
         const firstSentenceRef = parseState.firstSentenceRef;
 
@@ -443,7 +452,7 @@ class Passage extends React.Component<PassageProps, PassageState> {
         return JIPT.useJIPT && this.props.passageText.indexOf("crwdns") !== -1;
     }
 
-    _renderContent(parsed: $ReadOnlyArray<any>): React.Element<any> {
+    _renderContent(parsed: Array<SingleASTNode>): React.Element<any> {
         // Wait until Aphrodite styles are applied before enabling highlights,
         // so that we measure the correct positions.
         const enabled = this.state.stylesAreApplied;
@@ -459,13 +468,9 @@ class Passage extends React.Component<PassageProps, PassageState> {
                 }
                 serializedHighlights={this.props.highlights}
             >
-                {/* eslint-disable-next-line react/no-string-refs */}
-                <div ref="content">
+                <div ref={(ref) => (this._contentRef = ref)}>
                     <LineHeightMeasurer
-                        // TODO(mdr): We found a new Flow error when upgrading:
-                        //     "e (null) This type is incompatible with this._lineHeightMeasurer (LineHeightMeasurer)"
-                        // $FlowFixMe[incompatible-type](0.52.0->0.53.0)
-                        ref={(e) => (this._lineHeightMeasurer = e)}
+                        ref={(ref) => (this._lineHeightMeasurerRef = ref)}
                     />
                     {PassageMarkdown.output(parsed)}
                 </div>
@@ -479,14 +484,14 @@ class Passage extends React.Component<PassageProps, PassageState> {
         return !isEmpty;
     }
 
-    _renderFootnotes(): React.Element<any> {
+    _renderFootnotes(): React.Node {
         const rawContent = this.props.footnotes;
         const parsed = PassageMarkdown.parse(rawContent);
         return PassageMarkdown.output(parsed);
     }
 
     render(): React.Element<"div"> {
-        let lineNumbers;
+        let lineNumbers: $ReadOnlyArray<React.Node>;
         const nLines = this.state.nLines;
         if (this.props.showLineNumbers && nLines) {
             // lineN is the line number in the current passage
@@ -507,10 +512,7 @@ class Passage extends React.Component<PassageProps, PassageState> {
             });
         }
 
-        const parseState: PassageParseState = {
-            firstSentenceRef: null,
-            firstQuestionRef: null,
-        };
+        const parseState: ParseState = PassageMarkdown.getInitialParseState();
 
         // Replace the vertical double quote characters quoting text with
         // an unicode left and right double quote characters. This would
@@ -521,7 +523,7 @@ class Passage extends React.Component<PassageProps, PassageState> {
             re,
             "\u201c$2\u201d",
         );
-        const parsedContent: $ReadOnlyArray<*> = PassageMarkdown.parse(
+        const parsedContent = PassageMarkdown.parse(
             doubleQuoteParsedContent,
             parseState,
         );
