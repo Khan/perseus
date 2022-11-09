@@ -694,7 +694,7 @@ describe("item renderer", () => {
             ]);
         });
 
-        it("should forward deselectIncorrectSelectedChoices calls to questionRenderer", () => {
+        it.only("should forward deselectIncorrectSelectedChoices calls to questionRenderer", () => {
             // Arrange
             registerWidget("radio", RadioWidgetExport);
             const {renderer} = renderQuestion({
