@@ -694,13 +694,13 @@ describe("item renderer", () => {
             ]);
         });
 
-        it.only("should forward deselectIncorrectSelectedChoices calls to questionRenderer", () => {
+        it("should forward deselectIncorrectSelectedChoices calls to questionRenderer", () => {
             // Arrange
             registerWidget("radio", RadioWidgetExport);
             const {renderer} = renderQuestion({
                 ...itemWithInput,
                 question: multiChoiceQuestion,
-            }); // Note(Tamara): radio content not currently being rendered
+            });
             screen
                 .getAllByRole("button", {hidden: true})
                 .map((r) => userEvent.click(r));
