@@ -128,6 +128,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                     Choose 1 answer:
                                   </legend>
                                   <div
+                                    aria-hidden="true"
                                     class="instructions instructions_125m8j1"
                                   >
                                     Choose 1 answer:
@@ -138,6 +139,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                   >
                                     <li
                                       class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                                      data-test-checked="false"
                                     >
                                       <div
                                         style="flex-direction: column;"
@@ -145,12 +147,54 @@ exports[`group widget should snapshot: initial render 1`] = `
                                         <div
                                           style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                                         >
+                                          <div
+                                            class="perseus-sr-only"
+                                          >
+                                            <input
+                                              id="choiceId-818035920000"
+                                              name="questionId-818035920000"
+                                              type="radio"
+                                            />
+                                            <label
+                                              for="choiceId-818035920000"
+                                            >
+                                              (Choice A)
+                                                 
+                                              <span
+                                                class="mock-KatexProvider"
+                                              >
+                                                <div
+                                                  class="perseus-renderer perseus-renderer-responsive"
+                                                >
+                                                  <div
+                                                    class="paragraph perseus-paragraph-centered"
+                                                    data-perseus-paragraph-index="0"
+                                                  >
+                                                    <div
+                                                      class="perseus-block-math"
+                                                    >
+                                                      <div
+                                                        class="perseus-block-math-inner"
+                                                        style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
+                                                      >
+                                                        <span
+                                                          class="mock-TeX"
+                                                        >
+                                                          45
+                                                        </span>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </span>
+                                            </label>
+                                          </div>
                                           <button
-                                            aria-checked="false"
                                             aria-disabled="false"
-                                            aria-label="Select Choice A"
+                                            aria-hidden="true"
+                                            aria-label=""
                                             class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
-                                            role="checkbox"
+                                            data-test-id="button-A"
                                             tabindex="0"
                                             type="button"
                                           >
@@ -172,16 +216,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                                       data-test-id="choice-icon__library-choice-icon"
                                                       style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                                     >
-                                                      <div
-                                                        class="perseus-sr-only"
-                                                      >
-                                                        (Choice A)
-                                                      </div>
-                                                      <div
-                                                        aria-hidden="true"
-                                                      >
-                                                        A
-                                                      </div>
+                                                      A
                                                     </div>
                                                   </span>
                                                 </div>
@@ -227,6 +262,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                     </li>
                                     <li
                                       class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                                      data-test-checked="false"
                                     >
                                       <div
                                         style="flex-direction: column;"
@@ -234,12 +270,54 @@ exports[`group widget should snapshot: initial render 1`] = `
                                         <div
                                           style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                                         >
+                                          <div
+                                            class="perseus-sr-only"
+                                          >
+                                            <input
+                                              id="choiceId-818035920000"
+                                              name="questionId-818035920000"
+                                              type="radio"
+                                            />
+                                            <label
+                                              for="choiceId-818035920000"
+                                            >
+                                              (Choice B)
+                                                 
+                                              <span
+                                                class="mock-KatexProvider"
+                                              >
+                                                <div
+                                                  class="perseus-renderer perseus-renderer-responsive"
+                                                >
+                                                  <div
+                                                    class="paragraph perseus-paragraph-centered"
+                                                    data-perseus-paragraph-index="0"
+                                                  >
+                                                    <div
+                                                      class="perseus-block-math"
+                                                    >
+                                                      <div
+                                                        class="perseus-block-math-inner"
+                                                        style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
+                                                      >
+                                                        <span
+                                                          class="mock-TeX"
+                                                        >
+                                                          42
+                                                        </span>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </span>
+                                            </label>
+                                          </div>
                                           <button
-                                            aria-checked="false"
                                             aria-disabled="false"
-                                            aria-label="Select Choice B"
+                                            aria-hidden="true"
+                                            aria-label=""
                                             class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
-                                            role="checkbox"
+                                            data-test-id="button-B"
                                             tabindex="0"
                                             type="button"
                                           >
@@ -261,16 +339,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                                       data-test-id="choice-icon__library-choice-icon"
                                                       style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                                     >
-                                                      <div
-                                                        class="perseus-sr-only"
-                                                      >
-                                                        (Choice B)
-                                                      </div>
-                                                      <div
-                                                        aria-hidden="true"
-                                                      >
-                                                        B
-                                                      </div>
+                                                      B
                                                     </div>
                                                   </span>
                                                 </div>
@@ -316,6 +385,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                     </li>
                                     <li
                                       class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                                      data-test-checked="false"
                                     >
                                       <div
                                         style="flex-direction: column;"
@@ -323,12 +393,54 @@ exports[`group widget should snapshot: initial render 1`] = `
                                         <div
                                           style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                                         >
+                                          <div
+                                            class="perseus-sr-only"
+                                          >
+                                            <input
+                                              id="choiceId-818035920000"
+                                              name="questionId-818035920000"
+                                              type="radio"
+                                            />
+                                            <label
+                                              for="choiceId-818035920000"
+                                            >
+                                              (Choice C)
+                                                 
+                                              <span
+                                                class="mock-KatexProvider"
+                                              >
+                                                <div
+                                                  class="perseus-renderer perseus-renderer-responsive"
+                                                >
+                                                  <div
+                                                    class="paragraph perseus-paragraph-centered"
+                                                    data-perseus-paragraph-index="0"
+                                                  >
+                                                    <div
+                                                      class="perseus-block-math"
+                                                    >
+                                                      <div
+                                                        class="perseus-block-math-inner"
+                                                        style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
+                                                      >
+                                                        <span
+                                                          class="mock-TeX"
+                                                        >
+                                                          30
+                                                        </span>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </span>
+                                            </label>
+                                          </div>
                                           <button
-                                            aria-checked="false"
                                             aria-disabled="false"
-                                            aria-label="Select Choice C"
+                                            aria-hidden="true"
+                                            aria-label=""
                                             class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
-                                            role="checkbox"
+                                            data-test-id="button-C"
                                             tabindex="0"
                                             type="button"
                                           >
@@ -350,16 +462,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                                       data-test-id="choice-icon__library-choice-icon"
                                                       style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                                     >
-                                                      <div
-                                                        class="perseus-sr-only"
-                                                      >
-                                                        (Choice C)
-                                                      </div>
-                                                      <div
-                                                        aria-hidden="true"
-                                                      >
-                                                        C
-                                                      </div>
+                                                      C
                                                     </div>
                                                   </span>
                                                 </div>
@@ -405,6 +508,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                     </li>
                                     <li
                                       class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                                      data-test-checked="false"
                                     >
                                       <div
                                         style="flex-direction: column;"
@@ -412,12 +516,54 @@ exports[`group widget should snapshot: initial render 1`] = `
                                         <div
                                           style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                                         >
+                                          <div
+                                            class="perseus-sr-only"
+                                          >
+                                            <input
+                                              id="choiceId-818035920000"
+                                              name="questionId-818035920000"
+                                              type="radio"
+                                            />
+                                            <label
+                                              for="choiceId-818035920000"
+                                            >
+                                              (Choice D)
+                                                 
+                                              <span
+                                                class="mock-KatexProvider"
+                                              >
+                                                <div
+                                                  class="perseus-renderer perseus-renderer-responsive"
+                                                >
+                                                  <div
+                                                    class="paragraph perseus-paragraph-centered"
+                                                    data-perseus-paragraph-index="0"
+                                                  >
+                                                    <div
+                                                      class="perseus-block-math"
+                                                    >
+                                                      <div
+                                                        class="perseus-block-math-inner"
+                                                        style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
+                                                      >
+                                                        <span
+                                                          class="mock-TeX"
+                                                        >
+                                                          18
+                                                        </span>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </span>
+                                            </label>
+                                          </div>
                                           <button
-                                            aria-checked="false"
                                             aria-disabled="false"
-                                            aria-label="Select Choice D"
+                                            aria-hidden="true"
+                                            aria-label=""
                                             class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
-                                            role="checkbox"
+                                            data-test-id="button-D"
                                             tabindex="0"
                                             type="button"
                                           >
@@ -439,16 +585,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                                       data-test-id="choice-icon__library-choice-icon"
                                                       style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                                     >
-                                                      <div
-                                                        class="perseus-sr-only"
-                                                      >
-                                                        (Choice D)
-                                                      </div>
-                                                      <div
-                                                        aria-hidden="true"
-                                                      >
-                                                        D
-                                                      </div>
+                                                      D
                                                     </div>
                                                   </span>
                                                 </div>
@@ -494,6 +631,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                     </li>
                                     <li
                                       class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                                      data-test-checked="false"
                                     >
                                       <div
                                         style="flex-direction: column;"
@@ -501,12 +639,54 @@ exports[`group widget should snapshot: initial render 1`] = `
                                         <div
                                           style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                                         >
+                                          <div
+                                            class="perseus-sr-only"
+                                          >
+                                            <input
+                                              id="choiceId-818035920000"
+                                              name="questionId-818035920000"
+                                              type="radio"
+                                            />
+                                            <label
+                                              for="choiceId-818035920000"
+                                            >
+                                              (Choice E)
+                                                 
+                                              <span
+                                                class="mock-KatexProvider"
+                                              >
+                                                <div
+                                                  class="perseus-renderer perseus-renderer-responsive"
+                                                >
+                                                  <div
+                                                    class="paragraph perseus-paragraph-centered"
+                                                    data-perseus-paragraph-index="0"
+                                                  >
+                                                    <div
+                                                      class="perseus-block-math"
+                                                    >
+                                                      <div
+                                                        class="perseus-block-math-inner"
+                                                        style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
+                                                      >
+                                                        <span
+                                                          class="mock-TeX"
+                                                        >
+                                                          15
+                                                        </span>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </span>
+                                            </label>
+                                          </div>
                                           <button
-                                            aria-checked="false"
                                             aria-disabled="false"
-                                            aria-label="Select Choice E"
+                                            aria-hidden="true"
+                                            aria-label=""
                                             class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
-                                            role="checkbox"
+                                            data-test-id="button-E"
                                             tabindex="0"
                                             type="button"
                                           >
@@ -528,16 +708,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                                       data-test-id="choice-icon__library-choice-icon"
                                                       style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                                     >
-                                                      <div
-                                                        class="perseus-sr-only"
-                                                      >
-                                                        (Choice E)
-                                                      </div>
-                                                      <div
-                                                        aria-hidden="true"
-                                                      >
-                                                        E
-                                                      </div>
+                                                      E
                                                     </div>
                                                   </span>
                                                 </div>

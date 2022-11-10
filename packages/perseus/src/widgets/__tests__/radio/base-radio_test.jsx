@@ -76,9 +76,9 @@ describe("base-radio", () => {
 
         // Assert
         expect(
-            screen.getByRole("button", {hidden: true, name: "Select Choice E"}),
+            screen.getAllByRole("button", {hidden: true})[4],
         ).toBeInTheDocument();
-        expect(screen.getByText("None of the above")).toBeInTheDocument();
+        expect(screen.getAllByText("None of the above")).toHaveLength(2);
     });
 
     describe("edit mode", () => {
@@ -117,9 +117,7 @@ describe("base-radio", () => {
             });
 
             // Act
-            userEvent.click(
-                screen.getByRole("checkbox", {name: "Select Choice C"}),
-            );
+            userEvent.click(screen.getAllByRole("button", {hidden: true})[2]);
 
             // Assert
             expect(updatedValues).toMatchObject({
@@ -164,9 +162,9 @@ describe("base-radio", () => {
             });
 
             // Act
-            const radioButton = screen.getByRole("checkbox", {
-                name: "Select Choice C",
-            });
+            const radioButton = screen.getAllByRole("button", {
+                hidden: true,
+            })[2];
             userEvent.click(radioButton);
 
             // Assert
@@ -207,9 +205,7 @@ describe("base-radio", () => {
             });
 
             // Act
-            userEvent.click(
-                screen.getByRole("checkbox", {name: "Select Choice C"}),
-            );
+            userEvent.click(screen.getAllByRole("button", {hidden: true})[2]);
 
             // Assert
             expect(updatedValues).toMatchObject({

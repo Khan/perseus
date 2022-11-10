@@ -21,6 +21,12 @@ describe("group widget", () => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
+        jest.useFakeTimers("modern");
+        jest.setSystemTime(Date.parse("04 Dec 1995 00:12:00 GMT"));
+    });
+
+    afterEach(() => {
+        jest.useRealTimers();
     });
 
     it("should snapshot", () => {
@@ -365,7 +371,6 @@ describe("group widget", () => {
                 .getAllByRole("listitem")[4]
                 .getAttribute("data-test-checked"),
         ).toBe("true");
-        // expect(screen.getAllByRole("button", {hidden: true})[4]).toBeChecked();
         expect(screen.getAllByRole("textbox")[0]).toHaveValue("1000");
         expect(screen.getAllByRole("textbox")[1]).toHaveValue("9999");
     });
@@ -374,7 +379,7 @@ describe("group widget", () => {
         // Arrange
         const {renderer} = renderQuestion(question1);
         // Answer all widgets correctly
-        userEvent.click(screen.getAllByRole("listitem")[4]);
+        userEvent.click(screen.getAllByRole("button", {hidden: true})[4]);
         userEvent.type(screen.getAllByRole("textbox")[0], "230");
         userEvent.type(screen.getAllByRole("textbox")[1], "200");
 
@@ -410,7 +415,7 @@ describe("group widget", () => {
                 ],
               ],
               Object {
-                "earned": 3,
+                                "earned": 3,
                 "message": null,
                 "total": 3,
                 "type": "points",
@@ -458,7 +463,7 @@ describe("group widget", () => {
     it("should show rationales for contained widgets", () => {
         // Arrange
         const {renderer} = renderQuestion(question1);
-        userEvent.click(screen.getAllByRole("checkbox")[2]); // Incorrect!
+        userEvent.click(screen.getAllByRole("button", {hidden: true})[2]); // Incorrect!
 
         // Act
         renderer.showRationalesForCurrentlySelectedChoices();

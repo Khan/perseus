@@ -3,7 +3,7 @@
 import Button from "@khanacademy/wonder-blocks-button";
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import Color from "@khanacademy/wonder-blocks-color";
-import {View, useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
+import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {Popover, PopoverContent} from "@khanacademy/wonder-blocks-popover";
 import Spacing from "@khanacademy/wonder-blocks-spacing";
@@ -175,8 +175,10 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
         (!apiOptions.satStyling && !reviewMode && apiOptions.readOnly) ||
         crossedOut;
 
-    const ids = useUniqueIdWithMock();
-    const newId = ids.get("choice");
+    const generateChoiceId = () => {
+        return "choiceId-" + new Date().getTime();
+    };
+    const choiceId = generateChoiceId();
 
     const letter = getChoiceLetter(pos);
     const a11yText = getA11yText(
@@ -205,7 +207,7 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
                 <div className="perseus-sr-only">
                     <input
                         type={multipleSelect ? "checkbox" : "radio"}
-                        id={newId}
+                        id={choiceId}
                         name={questionId}
                         checked={checked}
                         onChange={() => {
@@ -218,7 +220,7 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
                         }}
                         disabled={disabled}
                     />
-                    <label htmlFor={newId}>
+                    <label htmlFor={choiceId}>
                         {a11yText} &nbsp; {content}
                     </label>
                 </div>

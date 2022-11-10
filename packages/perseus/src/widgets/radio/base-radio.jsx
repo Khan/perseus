@@ -1,5 +1,4 @@
 // @flow
-import {useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
@@ -244,8 +243,10 @@ function BaseRadio(props: Props): React.Node {
     const shouldShowInstructions = !sat;
 
     const responsiveClassName = css(styles.responsiveFieldset);
-    const ids = useUniqueIdWithMock();
-    const questionId = ids.get("question");
+    const generateQuestionId = () => {
+        return "questionId-" + new Date().getTime();
+    };
+    const questionId = generateQuestionId();
     const fieldset = (
         <fieldset
             className={`perseus-widget-radio-fieldset ${responsiveClassName}`}

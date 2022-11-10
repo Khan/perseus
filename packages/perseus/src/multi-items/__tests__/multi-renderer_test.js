@@ -93,6 +93,12 @@ describe("multi-item renderer", () => {
             testDependencies,
         );
         registerAllWidgetsForTesting();
+        jest.useFakeTimers("modern");
+        jest.setSystemTime(Date.parse("04 Dec 1995 00:12:00 GMT"));
+    });
+
+    afterEach(() => {
+        jest.useRealTimers();
     });
 
     it("should snapshot", () => {
@@ -136,7 +142,7 @@ describe("multi-item renderer", () => {
             // selected, a value is entered). You can see the result of this in the `choiceStates`
             // array in the captured state below where the choice at index 2 has
             // `"selected": true` (instead of false) and the input-number has a `currentValue`.
-            userEvent.click(screen.getAllByRole("listitem")[2]); // Correct
+            userEvent.click(screen.getAllByRole("button", {hidden: true})[2]); // Correct
             userEvent.paste(screen.getByRole("textbox"), "+42"); // Correct
 
             // Act
@@ -268,7 +274,7 @@ describe("multi-item renderer", () => {
             // Arrange
             const {renderer} = renderSimpleQuestion(question1);
 
-            userEvent.click(screen.getAllByRole("listitem")[2]);
+            userEvent.click(screen.getAllByRole("button", {hidden: true})[2]);
             userEvent.paste(screen.getByRole("textbox"), "99");
 
             // Act
@@ -525,11 +531,31 @@ describe("multi-item renderer", () => {
             renderer.restoreSerializedState(state);
 
             // Assert
-            expect(screen.getAllByRole("listitem")[0]).not.toBeChecked();
-            expect(screen.getAllByRole("listitem")[1]).not.toBeChecked();
-            expect(screen.getAllByRole("listitem")[2]).toBeChecked();
-            expect(screen.getAllByRole("listitem")[3]).not.toBeChecked();
-            expect(screen.getAllByRole("listitem")[4]).not.toBeChecked();
+            expect(
+                screen
+                    .getAllByRole("listitem")[0]
+                    .getAttribute("data-test-checked"),
+            ).toBe("false");
+            expect(
+                screen
+                    .getAllByRole("listitem")[1]
+                    .getAttribute("data-test-checked"),
+            ).toBe("false");
+            expect(
+                screen
+                    .getAllByRole("listitem")[2]
+                    .getAttribute("data-test-checked"),
+            ).toBe("true");
+            expect(
+                screen
+                    .getAllByRole("listitem")[3]
+                    .getAttribute("data-test-checked"),
+            ).toBe("false");
+            expect(
+                screen
+                    .getAllByRole("listitem")[4]
+                    .getAttribute("data-test-checked"),
+            ).toBe("false");
             expect(screen.getByRole("textbox")).toHaveValue("+42");
         });
 
@@ -586,7 +612,7 @@ describe("multi-item renderer", () => {
         // Arrange
         const {renderer} = renderSimpleQuestion(question1);
 
-        userEvent.click(screen.getAllByRole("checkbox")[3]); // Correct
+        userEvent.click(screen.getAllByRole("button", {hidden: true})[3]); // Correct
         userEvent.paste(screen.getByRole("textbox"), "-42"); // Correct
 
         // Act
@@ -747,7 +773,7 @@ describe("multi-item renderer", () => {
         // Arrange
         const {renderer} = renderSimpleQuestion(question1);
 
-        userEvent.click(screen.getAllByRole("checkbox")[3]); // Correct
+        userEvent.click(screen.getAllByRole("button", {hidden: true})[3]); // Correct
         userEvent.paste(screen.getByRole("textbox"), "-42"); // Correct
 
         // Act

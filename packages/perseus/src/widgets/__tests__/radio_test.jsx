@@ -25,7 +25,7 @@ import type {
 import type {APIOptions} from "../../types.js";
 
 const selectOption = (index: number) => {
-    const options = screen.getAllByRole("listitem");
+    const options = screen.getAllByRole("button", {hidden: true});
 
     // element that is null/undefined (ie. if the index is invalid) so we
     // manually check and throw here to protect future me, and others :)
@@ -42,6 +42,12 @@ describe("single-choice question", () => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
+        jest.useFakeTimers("modern");
+        jest.setSystemTime(Date.parse("04 Dec 1995 00:12:00 GMT"));
+    });
+
+    afterEach(() => {
+        jest.useRealTimers();
     });
 
     const [question, correct, incorrect] = questionAndAnswer;
@@ -101,8 +107,9 @@ describe("single-choice question", () => {
                 it("should accept the right answer (touch)", () => {
                     // Arrange
                     const {renderer} = renderQuestion(question, apiOptions);
-                    const correctRadio =
-                        screen.getAllByRole("checkbox")[correct];
+                    const correctRadio = screen.getAllByRole("button", {
+                        hidden: true,
+                    })[correct];
 
                     // Act
                     fireEvent.touchStart(correctRadio);
@@ -157,8 +164,10 @@ describe("single-choice question", () => {
                     renderer.deselectIncorrectSelectedChoices();
 
                     // Assert
-                    screen.getAllByRole("checkbox").forEach((r) => {
-                        expect(r).not.toBeChecked();
+                    screen.getAllByRole("listitem").forEach((r) => {
+                        expect(r.getAttribute("data-test-checked")).toBe(
+                            "false",
+                        );
                     });
                 });
 
@@ -181,9 +190,11 @@ describe("single-choice question", () => {
 
                     // Assert
                     // Everything's read-only so no selections made
-                    screen.getAllByRole("checkbox").forEach((r) => {
-                        expect(r).toHaveAttribute("aria-disabled", "true");
-                    });
+                    screen
+                        .getAllByRole("button", {hidden: true})
+                        .forEach((r) => {
+                            expect(r).toHaveAttribute("aria-disabled", "true");
+                        });
                 });
             },
         );
@@ -193,12 +204,18 @@ describe("single-choice question", () => {
             renderQuestion(question, apiOptions);
 
             // Act
+            userEvent.tab(); // Skip the SR only radio inout
             userEvent.tab();
-            expect(screen.getAllByRole("checkbox")[0]).toHaveFocus();
+            expect(
+                screen.getAllByRole("button", {hidden: true})[0],
+            ).toHaveFocus();
+            userEvent.tab(); // Skip the SR only radio input
             userEvent.tab();
 
             // Assert
-            expect(screen.getAllByRole("checkbox")[1]).toHaveFocus();
+            expect(
+                screen.getAllByRole("button", {hidden: true})[1],
+            ).toHaveFocus();
         });
 
         it("should be able to navigate up by keyboard", () => {
@@ -206,14 +223,23 @@ describe("single-choice question", () => {
             renderQuestion(question, apiOptions);
 
             // Act
+            userEvent.tab(); // Skip the SR only radio input
             userEvent.tab();
-            expect(screen.getAllByRole("checkbox")[0]).toHaveFocus();
+            expect(
+                screen.getAllByRole("button", {hidden: true})[0],
+            ).toHaveFocus();
+            userEvent.tab(); // Skip the SR only radio input
             userEvent.tab();
-            expect(screen.getAllByRole("checkbox")[1]).toHaveFocus();
+            expect(
+                screen.getAllByRole("button", {hidden: true})[1],
+            ).toHaveFocus();
+            userEvent.tab({shift: true}); // Skip the SR only radio input
             userEvent.tab({shift: true});
 
             // Assert
-            expect(screen.getAllByRole("checkbox")[0]).toHaveFocus();
+            expect(
+                screen.getAllByRole("button", {hidden: true})[0],
+            ).toHaveFocus();
         });
 
         it("should be able to navigate through 'None of the above' choice by keyboard", () => {
@@ -224,12 +250,17 @@ describe("single-choice question", () => {
             renderQuestion(q, apiOptions);
 
             // Act
+            userEvent.tab(); // Skip the SR only radio input
             userEvent.tab();
+            userEvent.tab(); // Skip the SR only radio input
             userEvent.tab();
+            userEvent.tab(); // Skip the SR only radio input
             userEvent.tab();
 
             // Assert
-            expect(screen.getAllByRole("checkbox")[2]).toHaveFocus();
+            expect(
+                screen.getAllByRole("button", {hidden: true})[2],
+            ).toHaveFocus();
         });
 
         it.each([
@@ -251,7 +282,7 @@ describe("single-choice question", () => {
             // We click on the first item, which was the second (index == 1)
             // item in the original choices. But because of enforced ordering,
             // it is now at the top of the list (and thus our correct answer).
-            userEvent.click(screen.getAllByRole("checkbox")[0]);
+            userEvent.click(screen.getAllByRole("button", {hidden: true})[0]);
 
             // Assert
             const items = screen.getAllByRole("listitem");
@@ -374,6 +405,7 @@ describe("single-choice question", () => {
                 // Arrange
 
                 renderQuestion(question, crossOutApiOptions);
+                userEvent.tab(); // SR only radio input
                 userEvent.tab(); // Choice icon
                 userEvent.tab(); // Cross-out menu ellipsis
 
@@ -424,6 +456,7 @@ describe("single-choice question", () => {
                 // Arrange
 
                 renderQuestion(question, crossOutApiOptions);
+                userEvent.tab(); // SR only radio input
                 userEvent.tab(); // Choice icon
                 userEvent.tab(); // Cross-out menu ellipsis
 
@@ -506,6 +539,12 @@ describe("multi-choice question", () => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
+        jest.useFakeTimers("modern");
+        jest.setSystemTime(Date.parse("04 Dec 1995 00:12:00 GMT"));
+    });
+
+    afterEach(() => {
+        jest.useRealTimers();
     });
 
     it("should accept the right answer", () => {

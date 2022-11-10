@@ -123,6 +123,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                       Choose 1 answer:
                     </legend>
                     <div
+                      aria-hidden="true"
                       class="instructions instructions_125m8j1"
                     >
                       Choose 1 answer:
@@ -133,6 +134,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                     >
                       <li
                         class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                        data-test-checked="false"
                       >
                         <div
                           style="flex-direction: column;"
@@ -140,12 +142,80 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                           <div
                             style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                           >
+                            <div
+                              class="perseus-sr-only"
+                            >
+                              <input
+                                id="choiceId-818035920000"
+                                name="questionId-818035920000"
+                                type="radio"
+                              />
+                              <label
+                                for="choiceId-818035920000"
+                              >
+                                (Choice A)
+                                   
+                                <span
+                                  class="mock-KatexProvider"
+                                >
+                                  <div
+                                    class="perseus-renderer perseus-renderer-responsive"
+                                  >
+                                    <div
+                                      class="paragraph"
+                                      data-perseus-paragraph-index="0"
+                                    >
+                                      <div
+                                        class="paragraph"
+                                      >
+                                        A triangle with side lengths of 
+                                        <span
+                                          style="white-space: nowrap;"
+                                        >
+                                          <span />
+                                          <span
+                                            class="mock-TeX"
+                                          >
+                                            3
+                                          </span>
+                                          <span />
+                                        </span>
+                                        , 
+                                        <span
+                                          style="white-space: nowrap;"
+                                        >
+                                          <span />
+                                          <span
+                                            class="mock-TeX"
+                                          >
+                                            4
+                                          </span>
+                                          <span />
+                                        </span>
+                                        , and 
+                                        <span
+                                          style="white-space: nowrap;"
+                                        >
+                                          <span />
+                                          <span
+                                            class="mock-TeX"
+                                          >
+                                            5
+                                          </span>
+                                          <span />
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </span>
+                              </label>
+                            </div>
                             <button
-                              aria-checked="false"
                               aria-disabled="false"
-                              aria-label="Select Choice A"
+                              aria-hidden="true"
+                              aria-label=""
                               class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
-                              role="checkbox"
+                              data-test-id="button-A"
                               tabindex="0"
                               type="button"
                             >
@@ -167,16 +237,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                         data-test-id="choice-icon__library-choice-icon"
                                         style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                       >
-                                        <div
-                                          class="perseus-sr-only"
-                                        >
-                                          (Choice A)
-                                        </div>
-                                        <div
-                                          aria-hidden="true"
-                                        >
-                                          A
-                                        </div>
+                                        A
                                       </div>
                                     </span>
                                   </div>
@@ -248,6 +309,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                       </li>
                       <li
                         class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                        data-test-checked="false"
                       >
                         <div
                           style="flex-direction: column;"
@@ -255,12 +317,80 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                           <div
                             style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                           >
+                            <div
+                              class="perseus-sr-only"
+                            >
+                              <input
+                                id="choiceId-818035920000"
+                                name="questionId-818035920000"
+                                type="radio"
+                              />
+                              <label
+                                for="choiceId-818035920000"
+                              >
+                                (Choice B)
+                                   
+                                <span
+                                  class="mock-KatexProvider"
+                                >
+                                  <div
+                                    class="perseus-renderer perseus-renderer-responsive"
+                                  >
+                                    <div
+                                      class="paragraph"
+                                      data-perseus-paragraph-index="0"
+                                    >
+                                      <div
+                                        class="paragraph"
+                                      >
+                                        A triangle with side lengths of 
+                                        <span
+                                          style="white-space: nowrap;"
+                                        >
+                                          <span />
+                                          <span
+                                            class="mock-TeX"
+                                          >
+                                            6
+                                          </span>
+                                          <span />
+                                        </span>
+                                        , 
+                                        <span
+                                          style="white-space: nowrap;"
+                                        >
+                                          <span />
+                                          <span
+                                            class="mock-TeX"
+                                          >
+                                            7
+                                          </span>
+                                          <span />
+                                        </span>
+                                        , and 
+                                        <span
+                                          style="white-space: nowrap;"
+                                        >
+                                          <span />
+                                          <span
+                                            class="mock-TeX"
+                                          >
+                                            10
+                                          </span>
+                                          <span />
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </span>
+                              </label>
+                            </div>
                             <button
-                              aria-checked="false"
                               aria-disabled="false"
-                              aria-label="Select Choice B"
+                              aria-hidden="true"
+                              aria-label=""
                               class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
-                              role="checkbox"
+                              data-test-id="button-B"
                               tabindex="0"
                               type="button"
                             >
@@ -282,16 +412,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                         data-test-id="choice-icon__library-choice-icon"
                                         style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                       >
-                                        <div
-                                          class="perseus-sr-only"
-                                        >
-                                          (Choice B)
-                                        </div>
-                                        <div
-                                          aria-hidden="true"
-                                        >
-                                          B
-                                        </div>
+                                        B
                                       </div>
                                     </span>
                                   </div>
@@ -363,6 +484,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                       </li>
                       <li
                         class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                        data-test-checked="false"
                       >
                         <div
                           style="flex-direction: column;"
@@ -370,12 +492,80 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                           <div
                             style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                           >
+                            <div
+                              class="perseus-sr-only"
+                            >
+                              <input
+                                id="choiceId-818035920000"
+                                name="questionId-818035920000"
+                                type="radio"
+                              />
+                              <label
+                                for="choiceId-818035920000"
+                              >
+                                (Choice C)
+                                   
+                                <span
+                                  class="mock-KatexProvider"
+                                >
+                                  <div
+                                    class="perseus-renderer perseus-renderer-responsive"
+                                  >
+                                    <div
+                                      class="paragraph"
+                                      data-perseus-paragraph-index="0"
+                                    >
+                                      <div
+                                        class="paragraph"
+                                      >
+                                        A triangle with side lengths of 
+                                        <span
+                                          style="white-space: nowrap;"
+                                        >
+                                          <span />
+                                          <span
+                                            class="mock-TeX"
+                                          >
+                                            10
+                                          </span>
+                                          <span />
+                                        </span>
+                                        , 
+                                        <span
+                                          style="white-space: nowrap;"
+                                        >
+                                          <span />
+                                          <span
+                                            class="mock-TeX"
+                                          >
+                                            12
+                                          </span>
+                                          <span />
+                                        </span>
+                                        , and 
+                                        <span
+                                          style="white-space: nowrap;"
+                                        >
+                                          <span />
+                                          <span
+                                            class="mock-TeX"
+                                          >
+                                            18
+                                          </span>
+                                          <span />
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </span>
+                              </label>
+                            </div>
                             <button
-                              aria-checked="false"
                               aria-disabled="false"
-                              aria-label="Select Choice C"
+                              aria-hidden="true"
+                              aria-label=""
                               class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
-                              role="checkbox"
+                              data-test-id="button-C"
                               tabindex="0"
                               type="button"
                             >
@@ -397,16 +587,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                         data-test-id="choice-icon__library-choice-icon"
                                         style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                       >
-                                        <div
-                                          class="perseus-sr-only"
-                                        >
-                                          (Choice C)
-                                        </div>
-                                        <div
-                                          aria-hidden="true"
-                                        >
-                                          C
-                                        </div>
+                                        C
                                       </div>
                                     </span>
                                   </div>
@@ -478,6 +659,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                       </li>
                       <li
                         class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                        data-test-checked="false"
                       >
                         <div
                           style="flex-direction: column;"
@@ -485,12 +667,80 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                           <div
                             style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                           >
+                            <div
+                              class="perseus-sr-only"
+                            >
+                              <input
+                                id="choiceId-818035920000"
+                                name="questionId-818035920000"
+                                type="radio"
+                              />
+                              <label
+                                for="choiceId-818035920000"
+                              >
+                                (Choice D)
+                                   
+                                <span
+                                  class="mock-KatexProvider"
+                                >
+                                  <div
+                                    class="perseus-renderer perseus-renderer-responsive"
+                                  >
+                                    <div
+                                      class="paragraph"
+                                      data-perseus-paragraph-index="0"
+                                    >
+                                      <div
+                                        class="paragraph"
+                                      >
+                                        A triangle with side lengths of 
+                                        <span
+                                          style="white-space: nowrap;"
+                                        >
+                                          <span />
+                                          <span
+                                            class="mock-TeX"
+                                          >
+                                            12
+                                          </span>
+                                          <span />
+                                        </span>
+                                        , 
+                                        <span
+                                          style="white-space: nowrap;"
+                                        >
+                                          <span />
+                                          <span
+                                            class="mock-TeX"
+                                          >
+                                            14
+                                          </span>
+                                          <span />
+                                        </span>
+                                        , and 
+                                        <span
+                                          style="white-space: nowrap;"
+                                        >
+                                          <span />
+                                          <span
+                                            class="mock-TeX"
+                                          >
+                                            20
+                                          </span>
+                                          <span />
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </span>
+                              </label>
+                            </div>
                             <button
-                              aria-checked="false"
                               aria-disabled="false"
-                              aria-label="Select Choice D"
+                              aria-hidden="true"
+                              aria-label=""
                               class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
-                              role="checkbox"
+                              data-test-id="button-D"
                               tabindex="0"
                               type="button"
                             >
@@ -512,16 +762,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                         data-test-id="choice-icon__library-choice-icon"
                                         style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                       >
-                                        <div
-                                          class="perseus-sr-only"
-                                        >
-                                          (Choice D)
-                                        </div>
-                                        <div
-                                          aria-hidden="true"
-                                        >
-                                          D
-                                        </div>
+                                        D
                                       </div>
                                     </span>
                                   </div>
@@ -593,6 +834,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                       </li>
                       <li
                         class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                        data-test-checked="false"
                       >
                         <div
                           style="flex-direction: column;"
@@ -600,12 +842,80 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                           <div
                             style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
                           >
+                            <div
+                              class="perseus-sr-only"
+                            >
+                              <input
+                                id="choiceId-818035920000"
+                                name="questionId-818035920000"
+                                type="radio"
+                              />
+                              <label
+                                for="choiceId-818035920000"
+                              >
+                                (Choice E)
+                                   
+                                <span
+                                  class="mock-KatexProvider"
+                                >
+                                  <div
+                                    class="perseus-renderer perseus-renderer-responsive"
+                                  >
+                                    <div
+                                      class="paragraph"
+                                      data-perseus-paragraph-index="0"
+                                    >
+                                      <div
+                                        class="paragraph"
+                                      >
+                                        A triangle with side lengths of 
+                                        <span
+                                          style="white-space: nowrap;"
+                                        >
+                                          <span />
+                                          <span
+                                            class="mock-TeX"
+                                          >
+                                            24
+                                          </span>
+                                          <span />
+                                        </span>
+                                        , 
+                                        <span
+                                          style="white-space: nowrap;"
+                                        >
+                                          <span />
+                                          <span
+                                            class="mock-TeX"
+                                          >
+                                            28
+                                          </span>
+                                          <span />
+                                        </span>
+                                        , and 
+                                        <span
+                                          style="white-space: nowrap;"
+                                        >
+                                          <span />
+                                          <span
+                                            class="mock-TeX"
+                                          >
+                                            40
+                                          </span>
+                                          <span />
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </span>
+                              </label>
+                            </div>
                             <button
-                              aria-checked="false"
                               aria-disabled="false"
-                              aria-label="Select Choice E"
+                              aria-hidden="true"
+                              aria-label=""
                               class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
-                              role="checkbox"
+                              data-test-id="button-E"
                               tabindex="0"
                               type="button"
                             >
@@ -627,16 +937,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                         data-test-id="choice-icon__library-choice-icon"
                                         style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                       >
-                                        <div
-                                          class="perseus-sr-only"
-                                        >
-                                          (Choice E)
-                                        </div>
-                                        <div
-                                          aria-hidden="true"
-                                        >
-                                          E
-                                        </div>
+                                        E
                                       </div>
                                     </span>
                                   </div>
