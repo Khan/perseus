@@ -415,7 +415,7 @@ describe("group widget", () => {
                 ],
               ],
               Object {
-                                "earned": 3,
+                "earned": 3,
                 "message": null,
                 "total": 3,
                 "type": "points",
