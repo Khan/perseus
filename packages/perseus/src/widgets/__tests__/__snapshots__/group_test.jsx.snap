@@ -90,7 +90,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                             class="paragraph"
                           >
                             <strong>
-                              In one week, how many more hours are in the periods with a
+                              In one week, how many more hours are in the periods with a 
                               <span
                                 style="white-space: nowrap;"
                               >
@@ -158,7 +158,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                               for="choiceId-818035920000"
                                             >
                                               (Choice A)
-                                                
+                                                 
                                               <span
                                                 class="mock-KatexProvider"
                                               >
@@ -277,7 +277,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                               for="choiceId-818035920000"
                                             >
                                               (Choice B)
-                                                
+                                                 
                                               <span
                                                 class="mock-KatexProvider"
                                               >
@@ -396,7 +396,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                               for="choiceId-818035920000"
                                             >
                                               (Choice C)
-                                                
+                                                 
                                               <span
                                                 class="mock-KatexProvider"
                                               >
@@ -515,7 +515,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                               for="choiceId-818035920000"
                                             >
                                               (Choice D)
-                                                
+                                                 
                                               <span
                                                 class="mock-KatexProvider"
                                               >
@@ -634,7 +634,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                               for="choiceId-818035920000"
                                             >
                                               (Choice E)
-                                                
+                                                 
                                               <span
                                                 class="mock-KatexProvider"
                                               >
@@ -766,7 +766,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                             class="paragraph"
                           >
                             <strong>
-                              What is
+                              What is 
                               <span
                                 style="white-space: nowrap;"
                               >
@@ -780,7 +780,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                               </span>
                                rounded to the nearest ten?
                             </strong>
-
+                               
                           </div>
                         </div>
                         <div
@@ -848,7 +848,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                                     </strong>
                                                   </li>
                                                   <li>
-                                                    an integer, like
+                                                    an integer, like 
                                                     <span
                                                       style="white-space: nowrap;"
                                                     >
@@ -862,11 +862,11 @@ exports[`group widget should snapshot: initial render 1`] = `
                                                     </span>
                                                   </li>
                                                   <li>
-                                                    a
+                                                    a 
                                                     <em>
                                                       simplified proper
                                                     </em>
-                                                     fraction, like
+                                                     fraction, like 
                                                     <span
                                                       style="white-space: nowrap;"
                                                     >
@@ -880,11 +880,11 @@ exports[`group widget should snapshot: initial render 1`] = `
                                                     </span>
                                                   </li>
                                                   <li>
-                                                    a
+                                                    a 
                                                     <em>
                                                       simplified improper
                                                     </em>
-                                                     fraction, like
+                                                     fraction, like 
                                                     <span
                                                       style="white-space: nowrap;"
                                                     >
@@ -898,7 +898,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                                     </span>
                                                   </li>
                                                   <li>
-                                                    a mixed number, like
+                                                    a mixed number, like 
                                                     <span
                                                       style="white-space: nowrap;"
                                                     >
@@ -912,11 +912,11 @@ exports[`group widget should snapshot: initial render 1`] = `
                                                     </span>
                                                   </li>
                                                   <li>
-                                                    an
+                                                    an 
                                                     <em>
                                                       exact
                                                     </em>
-                                                     decimal, like
+                                                     decimal, like 
                                                     <span
                                                       style="white-space: nowrap;"
                                                     >
@@ -930,7 +930,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                                     </span>
                                                   </li>
                                                   <li>
-                                                    a multiple of pi, like
+                                                    a multiple of pi, like 
                                                     <span
                                                       style="white-space: nowrap;"
                                                     >
@@ -942,7 +942,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                                       </span>
                                                       <span />
                                                     </span>
-                                                     or
+                                                     or 
                                                     <span
                                                       style="white-space: nowrap;"
                                                     >
@@ -976,7 +976,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                             class="paragraph"
                           >
                             <strong>
-                              What is
+                              What is 
                               <span
                                 style="white-space: nowrap;"
                               >
@@ -990,7 +990,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                               </span>
                                rounded to the nearest hundred?
                             </strong>
-
+                               
                           </div>
                         </div>
                         <div
@@ -1058,7 +1058,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                                     </strong>
                                                   </li>
                                                   <li>
-                                                    an integer, like
+                                                    an integer, like 
                                                     <span
                                                       style="white-space: nowrap;"
                                                     >
@@ -1072,11 +1072,11 @@ exports[`group widget should snapshot: initial render 1`] = `
                                                     </span>
                                                   </li>
                                                   <li>
-                                                    a
+                                                    a 
                                                     <em>
                                                       simplified proper
                                                     </em>
-                                                     fraction, like
+                                                     fraction, like 
                                                     <span
                                                       style="white-space: nowrap;"
                                                     >
@@ -1090,11 +1090,11 @@ exports[`group widget should snapshot: initial render 1`] = `
                                                     </span>
                                                   </li>
                                                   <li>
-                                                    a
+                                                    a 
                                                     <em>
                                                       simplified improper
                                                     </em>
-                                                     fraction, like
+                                                     fraction, like 
                                                     <span
                                                       style="white-space: nowrap;"
                                                     >
@@ -1108,7 +1108,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                                     </span>
                                                   </li>
                                                   <li>
-                                                    a mixed number, like
+                                                    a mixed number, like 
                                                     <span
                                                       style="white-space: nowrap;"
                                                     >
@@ -1122,11 +1122,11 @@ exports[`group widget should snapshot: initial render 1`] = `
                                                     </span>
                                                   </li>
                                                   <li>
-                                                    an
+                                                    an 
                                                     <em>
                                                       exact
                                                     </em>
-                                                     decimal, like
+                                                     decimal, like 
                                                     <span
                                                       style="white-space: nowrap;"
                                                     >
@@ -1140,7 +1140,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                                     </span>
                                                   </li>
                                                   <li>
-                                                    a multiple of pi, like
+                                                    a multiple of pi, like 
                                                     <span
                                                       style="white-space: nowrap;"
                                                     >
@@ -1152,7 +1152,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                                       </span>
                                                       <span />
                                                     </span>
-                                                     or
+                                                     or 
                                                     <span
                                                       style="white-space: nowrap;"
                                                     >

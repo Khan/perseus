@@ -16,7 +16,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
             class="paragraph perseus-paragraph-centered"
             data-perseus-paragraph-index="0"
           >
-
+            
 
           </div>
         </div>
@@ -38,7 +38,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
             <div
               class="paragraph"
             >
-              Triangle
+              Triangle 
               <span
                 style="white-space: nowrap;"
               >
@@ -50,7 +50,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                 </span>
                 <span />
               </span>
-               has side lengths of
+               has side lengths of 
               <span
                 style="white-space: nowrap;"
               >
@@ -62,7 +62,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                 </span>
                 <span />
               </span>
-              ,
+              , 
               <span
                 style="white-space: nowrap;"
               >
@@ -74,7 +74,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                 </span>
                 <span />
               </span>
-              , and
+              , and 
               <span
                 style="white-space: nowrap;"
               >
@@ -86,7 +86,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                 </span>
                 <span />
               </span>
-              . Which of the following triangles is congruent to triangle
+              . Which of the following triangles is congruent to triangle 
               <span
                 style="white-space: nowrap;"
               >
@@ -153,7 +153,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                 for="choiceId-818035920000"
                               >
                                 (Choice A)
-                                  
+                                   
                                 <span
                                   class="mock-KatexProvider"
                                 >
@@ -167,7 +167,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                       <div
                                         class="paragraph"
                                       >
-                                        A triangle with side lengths of
+                                        A triangle with side lengths of 
                                         <span
                                           style="white-space: nowrap;"
                                         >
@@ -179,7 +179,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                           </span>
                                           <span />
                                         </span>
-                                        ,
+                                        , 
                                         <span
                                           style="white-space: nowrap;"
                                         >
@@ -191,7 +191,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                           </span>
                                           <span />
                                         </span>
-                                        , and
+                                        , and 
                                         <span
                                           style="white-space: nowrap;"
                                         >
@@ -256,7 +256,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                           <div
                                             class="paragraph"
                                           >
-                                            A triangle with side lengths of
+                                            A triangle with side lengths of 
                                             <span
                                               style="white-space: nowrap;"
                                             >
@@ -268,7 +268,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                               </span>
                                               <span />
                                             </span>
-                                            ,
+                                            , 
                                             <span
                                               style="white-space: nowrap;"
                                             >
@@ -280,7 +280,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                               </span>
                                               <span />
                                             </span>
-                                            , and
+                                            , and 
                                             <span
                                               style="white-space: nowrap;"
                                             >
@@ -324,7 +324,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                 for="choiceId-818035920000"
                               >
                                 (Choice B)
-                                  
+                                   
                                 <span
                                   class="mock-KatexProvider"
                                 >
@@ -338,7 +338,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                       <div
                                         class="paragraph"
                                       >
-                                        A triangle with side lengths of
+                                        A triangle with side lengths of 
                                         <span
                                           style="white-space: nowrap;"
                                         >
@@ -350,7 +350,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                           </span>
                                           <span />
                                         </span>
-                                        ,
+                                        , 
                                         <span
                                           style="white-space: nowrap;"
                                         >
@@ -362,7 +362,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                           </span>
                                           <span />
                                         </span>
-                                        , and
+                                        , and 
                                         <span
                                           style="white-space: nowrap;"
                                         >
@@ -427,7 +427,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                           <div
                                             class="paragraph"
                                           >
-                                            A triangle with side lengths of
+                                            A triangle with side lengths of 
                                             <span
                                               style="white-space: nowrap;"
                                             >
@@ -439,7 +439,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                               </span>
                                               <span />
                                             </span>
-                                            ,
+                                            , 
                                             <span
                                               style="white-space: nowrap;"
                                             >
@@ -451,7 +451,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                               </span>
                                               <span />
                                             </span>
-                                            , and
+                                            , and 
                                             <span
                                               style="white-space: nowrap;"
                                             >
@@ -495,7 +495,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                 for="choiceId-818035920000"
                               >
                                 (Choice C)
-                                  
+                                   
                                 <span
                                   class="mock-KatexProvider"
                                 >
@@ -509,7 +509,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                       <div
                                         class="paragraph"
                                       >
-                                        A triangle with side lengths of
+                                        A triangle with side lengths of 
                                         <span
                                           style="white-space: nowrap;"
                                         >
@@ -521,7 +521,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                           </span>
                                           <span />
                                         </span>
-                                        ,
+                                        , 
                                         <span
                                           style="white-space: nowrap;"
                                         >
@@ -533,7 +533,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                           </span>
                                           <span />
                                         </span>
-                                        , and
+                                        , and 
                                         <span
                                           style="white-space: nowrap;"
                                         >
@@ -598,7 +598,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                           <div
                                             class="paragraph"
                                           >
-                                            A triangle with side lengths of
+                                            A triangle with side lengths of 
                                             <span
                                               style="white-space: nowrap;"
                                             >
@@ -610,7 +610,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                               </span>
                                               <span />
                                             </span>
-                                            ,
+                                            , 
                                             <span
                                               style="white-space: nowrap;"
                                             >
@@ -622,7 +622,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                               </span>
                                               <span />
                                             </span>
-                                            , and
+                                            , and 
                                             <span
                                               style="white-space: nowrap;"
                                             >
@@ -666,7 +666,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                 for="choiceId-818035920000"
                               >
                                 (Choice D)
-                                  
+                                   
                                 <span
                                   class="mock-KatexProvider"
                                 >
@@ -680,7 +680,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                       <div
                                         class="paragraph"
                                       >
-                                        A triangle with side lengths of
+                                        A triangle with side lengths of 
                                         <span
                                           style="white-space: nowrap;"
                                         >
@@ -692,7 +692,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                           </span>
                                           <span />
                                         </span>
-                                        ,
+                                        , 
                                         <span
                                           style="white-space: nowrap;"
                                         >
@@ -704,7 +704,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                           </span>
                                           <span />
                                         </span>
-                                        , and
+                                        , and 
                                         <span
                                           style="white-space: nowrap;"
                                         >
@@ -769,7 +769,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                           <div
                                             class="paragraph"
                                           >
-                                            A triangle with side lengths of
+                                            A triangle with side lengths of 
                                             <span
                                               style="white-space: nowrap;"
                                             >
@@ -781,7 +781,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                               </span>
                                               <span />
                                             </span>
-                                            ,
+                                            , 
                                             <span
                                               style="white-space: nowrap;"
                                             >
@@ -793,7 +793,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                               </span>
                                               <span />
                                             </span>
-                                            , and
+                                            , and 
                                             <span
                                               style="white-space: nowrap;"
                                             >
@@ -837,7 +837,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                 for="choiceId-818035920000"
                               >
                                 (Choice E)
-                                  
+                                   
                                 <span
                                   class="mock-KatexProvider"
                                 >
@@ -851,7 +851,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                       <div
                                         class="paragraph"
                                       >
-                                        A triangle with side lengths of
+                                        A triangle with side lengths of 
                                         <span
                                           style="white-space: nowrap;"
                                         >
@@ -863,7 +863,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                           </span>
                                           <span />
                                         </span>
-                                        ,
+                                        , 
                                         <span
                                           style="white-space: nowrap;"
                                         >
@@ -875,7 +875,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                           </span>
                                           <span />
                                         </span>
-                                        , and
+                                        , and 
                                         <span
                                           style="white-space: nowrap;"
                                         >
@@ -940,7 +940,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                           <div
                                             class="paragraph"
                                           >
-                                            A triangle with side lengths of
+                                            A triangle with side lengths of 
                                             <span
                                               style="white-space: nowrap;"
                                             >
@@ -952,7 +952,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                               </span>
                                               <span />
                                             </span>
-                                            ,
+                                            , 
                                             <span
                                               style="white-space: nowrap;"
                                             >
@@ -964,7 +964,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                               </span>
                                               <span />
                                             </span>
-                                            , and
+                                            , and 
                                             <span
                                               style="white-space: nowrap;"
                                             >
@@ -1000,7 +1000,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
             <div
               class="paragraph"
             >
-              Enter the number 3 into this field:
+              Enter the number 3 into this field: 
               <div
                 class="perseus-widget-container widget-nohighlight widget-inline-block"
               >
@@ -1057,7 +1057,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                     </strong>
                                   </li>
                                   <li>
-                                    an integer, like
+                                    an integer, like 
                                     <span
                                       style="white-space: nowrap;"
                                     >
@@ -1071,11 +1071,11 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                     </span>
                                   </li>
                                   <li>
-                                    an
+                                    an 
                                     <em>
                                       exact
                                     </em>
-                                     decimal, like
+                                     decimal, like 
                                     <span
                                       style="white-space: nowrap;"
                                     >
@@ -1089,11 +1089,11 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                     </span>
                                   </li>
                                   <li>
-                                    a
+                                    a 
                                     <em>
                                       simplified proper
                                     </em>
-                                     fraction, like
+                                     fraction, like 
                                     <span
                                       style="white-space: nowrap;"
                                     >
@@ -1107,11 +1107,11 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                     </span>
                                   </li>
                                   <li>
-                                    a
+                                    a 
                                     <em>
                                       simplified improper
                                     </em>
-                                     fraction, like
+                                     fraction, like 
                                     <span
                                       style="white-space: nowrap;"
                                     >
@@ -1125,7 +1125,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                     </span>
                                   </li>
                                   <li>
-                                    a mixed number, like
+                                    a mixed number, like 
                                     <span
                                       style="white-space: nowrap;"
                                     >
