@@ -407,8 +407,6 @@ function BaseRadio(props: Props): React.Node {
                             onTouchStart={
                                 !labelWrap ? null : captureScratchpadTouchStart
                             }
-                            //NOTE(Tamara): Allows tests to confirm checked status of the inner component
-                            data-test-checked={choice.checked}
                         >
                             <Element {...elementProps} />
                         </li>

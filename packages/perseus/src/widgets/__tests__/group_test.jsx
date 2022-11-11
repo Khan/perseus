@@ -366,11 +366,7 @@ describe("group widget", () => {
         renderer1.restoreSerializedState(state);
 
         // Assert
-        expect(
-            screen
-                .getAllByRole("listitem")[4]
-                .getAttribute("data-test-checked"),
-        ).toBe("true");
+        expect(screen.getAllByRole("radio")[4]).toBeChecked();
         expect(screen.getAllByRole("textbox")[0]).toHaveValue("1000");
         expect(screen.getAllByRole("textbox")[1]).toHaveValue("9999");
     });

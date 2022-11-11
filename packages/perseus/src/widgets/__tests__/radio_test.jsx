@@ -164,10 +164,8 @@ describe("single-choice question", () => {
                     renderer.deselectIncorrectSelectedChoices();
 
                     // Assert
-                    screen.getAllByRole("listitem").forEach((r) => {
-                        expect(r.getAttribute("data-test-checked")).toBe(
-                            "false",
-                        );
+                    screen.getAllByRole("radio").forEach((r) => {
+                        expect(r).not.toBeChecked();
                     });
                 });
 

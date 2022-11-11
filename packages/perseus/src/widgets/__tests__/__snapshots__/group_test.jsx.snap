@@ -139,7 +139,6 @@ exports[`group widget should snapshot: initial render 1`] = `
                                   >
                                     <li
                                       class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
-                                      data-test-checked="false"
                                     >
                                       <div
                                         style="flex-direction: column;"
@@ -261,7 +260,6 @@ exports[`group widget should snapshot: initial render 1`] = `
                                     </li>
                                     <li
                                       class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
-                                      data-test-checked="false"
                                     >
                                       <div
                                         style="flex-direction: column;"
@@ -383,7 +381,6 @@ exports[`group widget should snapshot: initial render 1`] = `
                                     </li>
                                     <li
                                       class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
-                                      data-test-checked="false"
                                     >
                                       <div
                                         style="flex-direction: column;"
@@ -505,7 +502,6 @@ exports[`group widget should snapshot: initial render 1`] = `
                                     </li>
                                     <li
                                       class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
-                                      data-test-checked="false"
                                     >
                                       <div
                                         style="flex-direction: column;"
@@ -627,7 +623,6 @@ exports[`group widget should snapshot: initial render 1`] = `
                                     </li>
                                     <li
                                       class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
-                                      data-test-checked="false"
                                     >
                                       <div
                                         style="flex-direction: column;"

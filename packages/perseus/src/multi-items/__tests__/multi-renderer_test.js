@@ -531,31 +531,11 @@ describe("multi-item renderer", () => {
             renderer.restoreSerializedState(state);
 
             // Assert
-            expect(
-                screen
-                    .getAllByRole("listitem")[0]
-                    .getAttribute("data-test-checked"),
-            ).toBe("false");
-            expect(
-                screen
-                    .getAllByRole("listitem")[1]
-                    .getAttribute("data-test-checked"),
-            ).toBe("false");
-            expect(
-                screen
-                    .getAllByRole("listitem")[2]
-                    .getAttribute("data-test-checked"),
-            ).toBe("true");
-            expect(
-                screen
-                    .getAllByRole("listitem")[3]
-                    .getAttribute("data-test-checked"),
-            ).toBe("false");
-            expect(
-                screen
-                    .getAllByRole("listitem")[4]
-                    .getAttribute("data-test-checked"),
-            ).toBe("false");
+            expect(screen.getAllByRole("radio")[0]).not.toBeChecked();
+            expect(screen.getAllByRole("radio")[1]).not.toBeChecked();
+            expect(screen.getAllByRole("radio")[2]).toBeChecked();
+            expect(screen.getAllByRole("radio")[3]).not.toBeChecked();
+            expect(screen.getAllByRole("radio")[4]).not.toBeChecked();
             expect(screen.getByRole("textbox")).toHaveValue("+42");
         });
 
