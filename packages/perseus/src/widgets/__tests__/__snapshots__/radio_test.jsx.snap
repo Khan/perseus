@@ -488,7 +488,6 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                                   style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 3px;"
                                 >
                                   D
-
                                 </div>
                               </span>
                             </div>
@@ -3234,7 +3233,6 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                                   style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                 >
                                   B
-
                                 </div>
                               </span>
                             </div>

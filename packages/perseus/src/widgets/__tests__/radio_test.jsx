@@ -401,6 +401,7 @@ describe("single-choice question", () => {
 
             it("should open the cross-out menu when focused and spacebar pressed", async () => {
                 // Arrange
+                jest.setTimeout(10000);
 
                 renderQuestion(question, crossOutApiOptions);
                 userEvent.tab(); // SR only radio input
