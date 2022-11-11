@@ -120,7 +120,6 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
-                          data-test-id="button-A"
                           tabindex="0"
                           type="button"
                         >
@@ -243,7 +242,6 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
-                          data-test-id="button-B"
                           tabindex="0"
                           type="button"
                         >
@@ -366,7 +364,6 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
-                          data-test-id="button-C"
                           tabindex="0"
                           type="button"
                         >
@@ -480,7 +477,6 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
-                          data-test-id="button-D"
                           tabindex="0"
                           type="button"
                         >
@@ -729,7 +725,6 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
-                          data-test-id="button-A"
                           tabindex="0"
                           type="button"
                         >
@@ -865,7 +860,6 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
-                          data-test-id="button-B"
                           tabindex="0"
                           type="button"
                         >
@@ -988,7 +982,6 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
-                          data-test-id="button-C"
                           tabindex="0"
                           type="button"
                         >
@@ -1114,7 +1107,6 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
-                          data-test-id="button-D"
                           tabindex="0"
                           type="button"
                         >
@@ -1337,7 +1329,6 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
-                          data-test-id="button-A"
                           tabindex="0"
                           type="button"
                         >
@@ -1473,7 +1464,6 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
-                          data-test-id="button-B"
                           tabindex="0"
                           type="button"
                         >
@@ -1596,7 +1586,6 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
-                          data-test-id="button-C"
                           tabindex="0"
                           type="button"
                         >
@@ -1722,7 +1711,6 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
-                          data-test-id="button-D"
                           tabindex="0"
                           type="button"
                         >
@@ -1945,7 +1933,6 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
-                          data-test-id="button-A"
                           tabindex="0"
                           type="button"
                         >
@@ -2081,7 +2068,6 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
-                          data-test-id="button-B"
                           tabindex="0"
                           type="button"
                         >
@@ -2204,7 +2190,6 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
-                          data-test-id="button-C"
                           tabindex="0"
                           type="button"
                         >
@@ -2330,7 +2315,6 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
-                          data-test-id="button-D"
                           tabindex="0"
                           type="button"
                         >
@@ -2553,7 +2537,6 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
-                          data-test-id="button-A"
                           tabindex="0"
                           type="button"
                         >
@@ -2689,7 +2672,6 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
-                          data-test-id="button-B"
                           tabindex="0"
                           type="button"
                         >
@@ -2812,7 +2794,6 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
-                          data-test-id="button-C"
                           tabindex="0"
                           type="button"
                         >
@@ -2938,7 +2919,6 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
-                          data-test-id="button-D"
                           tabindex="0"
                           type="button"
                         >
@@ -3161,7 +3141,6 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
-                          data-test-id="button-A"
                           tabindex="0"
                           type="button"
                         >
@@ -3297,7 +3276,6 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
-                          data-test-id="button-B"
                           tabindex="0"
                           type="button"
                         >
@@ -3420,7 +3398,6 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
-                          data-test-id="button-C"
                           tabindex="0"
                           type="button"
                         >
@@ -3546,7 +3523,6 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
-                          data-test-id="button-D"
                           tabindex="0"
                           type="button"
                         >
@@ -3769,7 +3745,6 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
-                          data-test-id="button-A"
                           tabindex="0"
                           type="button"
                         >
@@ -3990,7 +3965,6 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
-                          data-test-id="button-B"
                           tabindex="0"
                           type="button"
                         >
@@ -4182,7 +4156,6 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
-                          data-test-id="button-C"
                           tabindex="0"
                           type="button"
                         >
@@ -4372,7 +4345,6 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
-                          data-test-id="button-D"
                           tabindex="0"
                           type="button"
                         >
@@ -4641,7 +4613,6 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
-                          data-test-id="button-A"
                           tabindex="0"
                           type="button"
                         >
@@ -4776,7 +4747,6 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
-                          data-test-id="button-B"
                           tabindex="0"
                           type="button"
                         >
@@ -4898,7 +4868,6 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
-                          data-test-id="button-C"
                           tabindex="0"
                           type="button"
                         >
@@ -5023,7 +4992,6 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
-                          data-test-id="button-D"
                           tabindex="0"
                           type="button"
                         >
@@ -5239,7 +5207,6 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
-                          data-test-id="button-A"
                           tabindex="0"
                           type="button"
                         >
@@ -5374,7 +5341,6 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
-                          data-test-id="button-B"
                           tabindex="0"
                           type="button"
                         >
@@ -5496,7 +5462,6 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
-                          data-test-id="button-C"
                           tabindex="0"
                           type="button"
                         >
@@ -5621,7 +5586,6 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
-                          data-test-id="button-D"
                           tabindex="0"
                           type="button"
                         >
@@ -5837,7 +5801,6 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
-                          data-test-id="button-A"
                           tabindex="0"
                           type="button"
                         >
@@ -5972,7 +5935,6 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
-                          data-test-id="button-B"
                           tabindex="0"
                           type="button"
                         >
@@ -6094,7 +6056,6 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
-                          data-test-id="button-C"
                           tabindex="0"
                           type="button"
                         >
@@ -6219,7 +6180,6 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
-                          data-test-id="button-D"
                           tabindex="0"
                           type="button"
                         >
@@ -6435,7 +6395,6 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
-                          data-test-id="button-A"
                           tabindex="0"
                           type="button"
                         >
@@ -6570,7 +6529,6 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
-                          data-test-id="button-B"
                           tabindex="0"
                           type="button"
                         >
@@ -6692,7 +6650,6 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
-                          data-test-id="button-C"
                           tabindex="0"
                           type="button"
                         >
@@ -6817,7 +6774,6 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
-                          data-test-id="button-D"
                           tabindex="0"
                           type="button"
                         >
@@ -7033,7 +6989,6 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
-                          data-test-id="button-A"
                           tabindex="0"
                           type="button"
                         >
@@ -7168,7 +7123,6 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
-                          data-test-id="button-B"
                           tabindex="0"
                           type="button"
                         >
@@ -7290,7 +7244,6 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
-                          data-test-id="button-C"
                           tabindex="0"
                           type="button"
                         >
@@ -7415,7 +7368,6 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
-                          data-test-id="button-D"
                           tabindex="0"
                           type="button"
                         >
@@ -7631,7 +7583,6 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
-                          data-test-id="button-A"
                           tabindex="0"
                           type="button"
                         >
@@ -7833,7 +7784,6 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
-                          data-test-id="button-B"
                           tabindex="0"
                           type="button"
                         >
@@ -8006,7 +7956,6 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description sat-correct satDescription_2uhr9i-o_O-satDescriptionCorrect_toknon"
-                          data-test-id="button-C"
                           tabindex="0"
                           type="button"
                         >
@@ -8177,7 +8126,6 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           aria-hidden="true"
                           aria-label=""
                           class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
-                          data-test-id="button-D"
                           tabindex="0"
                           type="button"
                         >

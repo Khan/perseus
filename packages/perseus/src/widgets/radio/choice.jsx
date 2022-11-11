@@ -243,7 +243,6 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
                     ref={(forwardedRef: any)}
                     aria-hidden="true"
                     // Note(Tamara): Allows access to button after removing aria attributes
-                    testId={`button-${getChoiceLetter(pos)}`}
                 >
                     {({hovered, focused, pressed}) => (
                         <div

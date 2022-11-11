@@ -129,26 +129,6 @@ describe("choice button", () => {
         });
     });
 
-    it("registers as unchecked with checked set to false", () => {
-        // Arrange / Act
-        renderChoice({checked: false});
-
-        const button = screen.getByRole("listitem");
-
-        // Assert
-        expect(button.getAttribute("data-test-checked")).toBe("false");
-    });
-
-    it("registers as checked with checked set to true", () => {
-        // Arrange / Act
-        renderChoice({checked: true});
-
-        const button = screen.getByRole("button", {hidden: true});
-
-        // Assert
-        expect(button).toBeChecked();
-    });
-
     it("has correct aria-disabled when disabled", () => {
         // Arrange / Act
         renderChoice({disabled: true});
@@ -224,63 +204,83 @@ describe("choice input (screen reader only)", () => {
         });
     });
 
-    it("renders screen reader choice input", () => {
+    it("registers as unchecked with checked set to false", () => {
         // Arrange / Act
-        renderChoice();
+        renderChoice({checked: false});
 
         const input = screen.getByRole("radio", {
             name: "(Choice A) This is a possible choice",
         });
 
         // Assert
-        expect(input).toBeVisible();
+        expect(input).not.toBeChecked();
     });
 
-    it("has correct a11y text when checked", () => {
+    it("registers as checked with checked set to true", () => {
         // Arrange / Act
         renderChoice({checked: true});
 
-        const button = screen.getByRole("radio", {
+        const input = screen.getByRole("radio", {
             name: "(Choice A, Checked) This is a possible choice",
         });
 
         // Assert
-        expect(button).toBeChecked();
+        expect(input).toBeChecked();
     });
 
     it("has correct a11y text when crossed out", () => {
         // Arrange / Act
         renderChoice({crossedOut: true});
 
-        const button = screen.getByRole("radio", {
+        const input = screen.getByRole("radio", {
             name: "(Choice A, Crossed out) This is a possible choice",
         });
 
         // Assert
-        expect(button).toBeVisible();
+        expect(input).toBeVisible();
     });
 
     it("has correct a11y text when incorrect, crossed out, and showCorrectness is true", () => {
         // Arrange / Act
         renderChoice({crossedOut: true, correct: false, showCorrectness: true});
 
-        const button = screen.getByRole("radio", {
+        const input = screen.getByRole("radio", {
             name: "(Choice A, Crossed out, Incorrect) This is a possible choice",
         });
 
         // Assert
-        expect(button).toBeVisible();
+        expect(input).toBeVisible();
     });
 
     it("has correct a11y text when correct, crossed out, and showCorrectness is true", () => {
         // Arrange / Act
         renderChoice({crossedOut: true, correct: true, showCorrectness: true});
 
-        const button = screen.getByRole("radio", {
+        const input = screen.getByRole("radio", {
             name: "(Choice A, Crossed out, Correct) This is a possible choice",
         });
 
         // Assert
-        expect(button).toBeVisible();
+        expect(input).toBeVisible();
+    });
+
+    it("can be checked", () => {
+        // Arrange
+        let checked = false;
+        renderChoice({
+            checked,
+            onChange: (next) => {
+                checked = next.checked;
+            },
+        });
+
+        // Act
+        const input = screen.getByRole("radio", {
+            name: "(Choice A) This is a possible choice",
+        });
+        userEvent.click(input);
+
+        // Assert
+        expect(checked).toBe(true);
     });
 });

@@ -182,7 +182,7 @@ describe("base-radio", () => {
             };
 
             renderBaseRadio({
-                multipleSelect: true,
+                multipleSelect: false,
                 choices: [
                     generateChoice({
                         content: "Option 1",
@@ -210,6 +210,46 @@ describe("base-radio", () => {
             // Assert
             expect(updatedValues).toMatchObject({
                 checked: [false, false, true, false],
+            });
+        });
+
+        it("deselects previously selected choice", () => {
+            // Arrange
+            let updatedValues = null;
+            const onChangeHandler = (newValues) => {
+                updatedValues = newValues;
+            };
+
+            renderBaseRadio({
+                multipleSelect: false,
+                choices: [
+                    generateChoice({
+                        content: "Option 1",
+                        correct: false,
+                        checked: true,
+                    }),
+                    generateChoice({
+                        content: "Option B",
+                        correct: false,
+                    }),
+                    generateChoice({
+                        content: "Option Gamma",
+                        correct: true,
+                    }),
+                    generateChoice({
+                        content: "Option Delta",
+                        correct: false,
+                    }),
+                ],
+                onChange: onChangeHandler,
+            });
+
+            // Act
+            userEvent.click(screen.getAllByRole("radio")[1]);
+
+            // Assert
+            expect(updatedValues).toMatchObject({
+                checked: [false, true, false, false],
             });
         });
     });
