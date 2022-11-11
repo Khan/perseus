@@ -323,6 +323,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                               <label
                                 for="choiceId-818035920000"
                               >
+
                                 (Choice B)
                                    
                                 <span
