@@ -93,16 +93,11 @@ describe("multi-item renderer", () => {
             testDependencies,
         );
         registerAllWidgetsForTesting();
-        jest.useFakeTimers("modern");
-        jest.setSystemTime(Date.parse("04 Dec 1995 00:12:00 GMT"));
-    });
-
-    afterEach(() => {
-        jest.useRealTimers();
     });
 
     it("should snapshot", () => {
         // Arrange and Act
+        jest.setSystemTime(Date.parse("04 Dec 1995 00:12:00 GMT"));
         const {container} = renderSimpleQuestion(question1);
 
         // Assert

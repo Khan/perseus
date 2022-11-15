@@ -21,16 +21,12 @@ describe("group widget", () => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
-        jest.useFakeTimers("modern");
-        jest.setSystemTime(Date.parse("04 Dec 1995 00:12:00 GMT"));
-    });
-
-    afterEach(() => {
-        jest.useRealTimers();
     });
 
     it("should snapshot", () => {
         // Arrange and Act
+        jest.setSystemTime(Date.parse("04 Dec 1995 00:12:00 GMT"));
+
         const {container} = renderQuestion(question1);
 
         // Assert
