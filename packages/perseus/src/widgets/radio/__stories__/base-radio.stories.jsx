@@ -68,17 +68,21 @@ export const Interactive = (args: StoryArgs): React.Node => {
     return <BaseRadio {...overwrittenProps} />;
 };
 
-export const DefaultSingleSelect = (args: StoryArgs): React.Node => {
+export const SingleSelectWithNothingSelected = (
+    args: StoryArgs,
+): React.Node => {
     const overwrittenProps = {...defaultProps, multipleSelect: false};
     return <BaseRadio {...overwrittenProps} />;
 };
 
-export const DefaultMultipleSelect = (args: StoryArgs): React.Node => {
+export const MultipleSelectWithNothingSelected = (
+    args: StoryArgs,
+): React.Node => {
     const overwrittenProps = {...defaultProps, multipleSelect: true};
     return <BaseRadio {...overwrittenProps} />;
 };
 
-export const DefaultMultipleSelectCountChoices = (
+export const MultipleSelectWithCountChoicesLabel = (
     args: StoryArgs,
 ): React.Node => {
     const overwrittenProps = {

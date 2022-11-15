@@ -168,8 +168,96 @@ describe("base-radio", () => {
             });
         });
 
+        it("deselects single select choices", () => {
+            // Arrange
+            let updatedValues = null;
+            const onChangeHandler = (newValues) => {
+                updatedValues = newValues;
+            };
+
+            renderBaseRadio({
+                multipleSelect: false,
+                choices: [
+                    generateChoice({
+                        content: "Option 1",
+                        correct: false,
+                        checked: false,
+                    }),
+                    generateChoice({
+                        content: "Option B",
+                        correct: false,
+                        checked: false,
+                    }),
+                    generateChoice({
+                        content: "Option Gamma",
+                        correct: true,
+                        checked: true,
+                    }),
+                    generateChoice({
+                        content: "Option Delta",
+                        correct: false,
+                        checked: false,
+                    }),
+                ],
+                onChange: onChangeHandler,
+            });
+
+            // Act
+            const radioButton = screen.getByRole("checkbox", {
+                name: "Select Choice C",
+            });
+            userEvent.click(radioButton);
+
+            // Assert
+            expect(updatedValues).toMatchObject({
+                checked: [false, false, false, false],
+            });
+        });
+
         // Equivalent to "should toggle choice when inner element clicked" but with editMode set to false
         it("select single select choices", () => {
+            // Arrange
+            let updatedValues = null;
+            const onChangeHandler = (newValues) => {
+                updatedValues = newValues;
+            };
+
+            renderBaseRadio({
+                multipleSelect: false,
+                choices: [
+                    generateChoice({
+                        content: "Option 1",
+                        correct: false,
+                    }),
+                    generateChoice({
+                        content: "Option B",
+                        correct: false,
+                    }),
+                    generateChoice({
+                        content: "Option Gamma",
+                        correct: true,
+                    }),
+                    generateChoice({
+                        content: "Option Delta",
+                        correct: false,
+                    }),
+                ],
+                onChange: onChangeHandler,
+            });
+
+            // Act
+            userEvent.click(
+                screen.getByRole("checkbox", {name: "Select Choice C"}),
+            );
+
+            // Assert
+            expect(updatedValues).toMatchObject({
+                checked: [false, false, true, false],
+            });
+        });
+
+        // Equivalent to "should toggle choice when inner element clicked" but with editMode set to false
+        it("select mulit-select choices", () => {
             // Arrange
             let updatedValues = null;
             const onChangeHandler = (newValues) => {
