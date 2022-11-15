@@ -144,14 +144,11 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                             <div
                               class="perseus-sr-only"
                             >
-                              <input
-                                id="choiceId-818035920000"
-                                name="questionId-818035920000"
-                                type="radio"
-                              />
-                              <label
-                                for="choiceId-818035920000"
-                              >
+                              <label>
+                                <input
+                                  name="questionId-818035920000-0"
+                                  type="radio"
+                                />
                                 (Choice A)
                                    
                                 <span
@@ -315,14 +312,11 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                             <div
                               class="perseus-sr-only"
                             >
-                              <input
-                                id="choiceId-818035920000"
-                                name="questionId-818035920000"
-                                type="radio"
-                              />
-                              <label
-                                for="choiceId-818035920000"
-                              >
+                              <label>
+                                <input
+                                  name="questionId-818035920000-0"
+                                  type="radio"
+                                />
                                 (Choice B)
                                    
                                 <span
@@ -486,14 +480,11 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                             <div
                               class="perseus-sr-only"
                             >
-                              <input
-                                id="choiceId-818035920000"
-                                name="questionId-818035920000"
-                                type="radio"
-                              />
-                              <label
-                                for="choiceId-818035920000"
-                              >
+                              <label>
+                                <input
+                                  name="questionId-818035920000-0"
+                                  type="radio"
+                                />
                                 (Choice C)
                                    
                                 <span
@@ -657,14 +648,11 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                             <div
                               class="perseus-sr-only"
                             >
-                              <input
-                                id="choiceId-818035920000"
-                                name="questionId-818035920000"
-                                type="radio"
-                              />
-                              <label
-                                for="choiceId-818035920000"
-                              >
+                              <label>
+                                <input
+                                  name="questionId-818035920000-0"
+                                  type="radio"
+                                />
                                 (Choice D)
                                    
                                 <span
@@ -828,14 +816,11 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                             <div
                               class="perseus-sr-only"
                             >
-                              <input
-                                id="choiceId-818035920000"
-                                name="questionId-818035920000"
-                                type="radio"
-                              />
-                              <label
-                                for="choiceId-818035920000"
-                              >
+                              <label>
+                                <input
+                                  name="questionId-818035920000-0"
+                                  type="radio"
+                                />
                                 (Choice E)
                                    
                                 <span

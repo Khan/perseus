@@ -156,11 +156,6 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
         (!apiOptions.satStyling && !reviewMode && apiOptions.readOnly) ||
         crossedOut;
 
-    const generateChoiceId = () => {
-        return "choiceId-" + new Date().getTime();
-    };
-    const choiceId = generateChoiceId();
-
     const letter = getChoiceLetter(pos);
     const a11yText = getA11yText(
         letter,
@@ -186,22 +181,21 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
                 }}
             >
                 <div className="perseus-sr-only">
-                    <input
-                        type={multipleSelect ? "checkbox" : "radio"}
-                        id={choiceId}
-                        name={questionId}
-                        checked={checked}
-                        onChange={() => {
-                            // If we're checking a crossed-out option, let's
-                            // also uncross it.
-                            sendChange({
-                                checked: !checked,
-                                crossedOut: false,
-                            });
-                        }}
-                        disabled={disabled}
-                    />
-                    <label htmlFor={choiceId}>
+                    <label>
+                        <input
+                            type={multipleSelect ? "checkbox" : "radio"}
+                            name={questionId}
+                            checked={checked}
+                            onChange={() => {
+                                // If we're checking a crossed-out option, let's
+                                // also uncross it.
+                                sendChange({
+                                    checked: !checked,
+                                    crossedOut: false,
+                                });
+                            }}
+                            disabled={disabled}
+                        />
                         {a11yText} &nbsp; {content}
                     </label>
                 </div>

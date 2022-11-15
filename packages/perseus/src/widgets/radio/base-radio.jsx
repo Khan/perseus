@@ -243,8 +243,10 @@ function BaseRadio(props: Props): React.Node {
     const shouldShowInstructions = !sat;
 
     const responsiveClassName = css(styles.responsiveFieldset);
+
+    let id = 0;
     const generateQuestionId = () => {
-        return "questionId-" + new Date().getTime();
+        return `questionId-${Date.now()}-${id++}`;
     };
     const questionId = generateQuestionId();
     const fieldset = (
