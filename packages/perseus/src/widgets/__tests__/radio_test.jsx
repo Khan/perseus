@@ -104,9 +104,7 @@ describe("single-choice question", () => {
                 it("should accept the right answer (touch)", () => {
                     // Arrange
                     const {renderer} = renderQuestion(question, apiOptions);
-                    const correctRadio = screen.getAllByRole("button", {
-                        hidden: true,
-                    })[correct];
+                    const correctRadio = screen.getAllByRole("radio")[correct];
 
                     // Act
                     fireEvent.touchStart(correctRadio);
@@ -185,11 +183,9 @@ describe("single-choice question", () => {
 
                     // Assert
                     // Everything's read-only so no selections made
-                    screen
-                        .getAllByRole("button", {hidden: true})
-                        .forEach((r) => {
-                            expect(r).toHaveAttribute("aria-disabled", "true");
-                        });
+                    screen.getAllByRole("radio").forEach((r) => {
+                        expect(r).toHaveAttribute("aria-disabled", "true");
+                    });
                 });
             },
         );
@@ -199,18 +195,13 @@ describe("single-choice question", () => {
             renderQuestion(question, apiOptions);
 
             // Act
-            userEvent.tab(); // Skip the SR only radio inout
             userEvent.tab();
-            expect(
-                screen.getAllByRole("button", {hidden: true})[0],
-            ).toHaveFocus();
-            userEvent.tab(); // Skip the SR only radio input
+            expect(screen.getAllByRole("radio")[0]).toHaveFocus();
+            userEvent.tab(); // Skip the button for the first option
             userEvent.tab();
 
             // Assert
-            expect(
-                screen.getAllByRole("button", {hidden: true})[1],
-            ).toHaveFocus();
+            expect(screen.getAllByRole("radio")[1]).toHaveFocus();
         });
 
         it("should be able to navigate up by keyboard", () => {
@@ -218,23 +209,16 @@ describe("single-choice question", () => {
             renderQuestion(question, apiOptions);
 
             // Act
-            userEvent.tab(); // Skip the SR only radio input
             userEvent.tab();
-            expect(
-                screen.getAllByRole("button", {hidden: true})[0],
-            ).toHaveFocus();
-            userEvent.tab(); // Skip the SR only radio input
+            expect(screen.getAllByRole("radio")[0]).toHaveFocus();
+            userEvent.tab(); // Skip the button for the first option
             userEvent.tab();
-            expect(
-                screen.getAllByRole("button", {hidden: true})[1],
-            ).toHaveFocus();
-            userEvent.tab({shift: true}); // Skip the SR only radio input
+            expect(screen.getAllByRole("radio")[1]).toHaveFocus();
+            userEvent.tab({shift: true}); // Skip the button for the first option
             userEvent.tab({shift: true});
 
             // Assert
-            expect(
-                screen.getAllByRole("button", {hidden: true})[0],
-            ).toHaveFocus();
+            expect(screen.getAllByRole("radio")[0]).toHaveFocus();
         });
 
         it("should be able to navigate through 'None of the above' choice by keyboard", () => {
@@ -245,17 +229,14 @@ describe("single-choice question", () => {
             renderQuestion(q, apiOptions);
 
             // Act
-            userEvent.tab(); // Skip the SR only radio input
-            userEvent.tab();
-            userEvent.tab(); // Skip the SR only radio input
-            userEvent.tab();
-            userEvent.tab(); // Skip the SR only radio input
-            userEvent.tab();
+            userEvent.tab(); // first screen reader radio
+            userEvent.tab(); // first button
+            userEvent.tab(); // second screen reader radio
+            userEvent.tab(); // second button
+            userEvent.tab(); // third screen reader radio
 
             // Assert
-            expect(
-                screen.getAllByRole("button", {hidden: true})[2],
-            ).toHaveFocus();
+            expect(screen.getAllByRole("radio")[2]).toHaveFocus();
         });
 
         it.each([
@@ -277,7 +258,7 @@ describe("single-choice question", () => {
             // We click on the first item, which was the second (index == 1)
             // item in the original choices. But because of enforced ordering,
             // it is now at the top of the list (and thus our correct answer).
-            userEvent.click(screen.getAllByRole("button", {hidden: true})[0]);
+            userEvent.click(screen.getAllByRole("radio")[0]);
 
             // Assert
             const items = screen.getAllByRole("listitem");
@@ -421,7 +402,6 @@ describe("single-choice question", () => {
 
             it("should cross-out selection and dismiss button when clicked", async () => {
                 // Arrange
-
                 renderQuestion(question, crossOutApiOptions);
                 userEvent.click(
                     screen.getByRole("button", {
@@ -535,12 +515,6 @@ describe("multi-choice question", () => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
-        jest.useFakeTimers("modern");
-        jest.setSystemTime(Date.parse("04 Dec 1995 00:12:00 GMT"));
-    });
-
-    afterEach(() => {
-        jest.useRealTimers();
     });
 
     it("should accept the right answer", () => {
@@ -557,6 +531,7 @@ describe("multi-choice question", () => {
 
     it("should snapshot the same when invalid", () => {
         // Arrange
+        jest.setSystemTime(Date.parse("04 Dec 1995 00:12:00 GMT"));
         const {container} = renderQuestion(question, apiOptions);
 
         // Act

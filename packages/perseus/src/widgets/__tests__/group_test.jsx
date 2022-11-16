@@ -349,7 +349,7 @@ describe("group widget", () => {
 
         // Arrange
         const {renderer} = renderQuestion(question1);
-        userEvent.click(screen.getAllByRole("button", {hidden: true})[4]);
+        userEvent.click(screen.getAllByRole("radio")[4]);
         userEvent.type(screen.getAllByRole("textbox")[0], "1000");
         userEvent.type(screen.getAllByRole("textbox")[1], "9999");
 
@@ -371,7 +371,7 @@ describe("group widget", () => {
         // Arrange
         const {renderer} = renderQuestion(question1);
         // Answer all widgets correctly
-        userEvent.click(screen.getAllByRole("button", {hidden: true})[4]);
+        userEvent.click(screen.getAllByRole("radio")[4]);
         userEvent.type(screen.getAllByRole("textbox")[0], "230");
         userEvent.type(screen.getAllByRole("textbox")[1], "200");
 
@@ -455,7 +455,7 @@ describe("group widget", () => {
     it("should show rationales for contained widgets", () => {
         // Arrange
         const {renderer} = renderQuestion(question1);
-        userEvent.click(screen.getAllByRole("button", {hidden: true})[2]); // Incorrect!
+        userEvent.click(screen.getAllByRole("radio")[2]); // Incorrect!
 
         // Act
         renderer.showRationalesForCurrentlySelectedChoices();

@@ -94,7 +94,7 @@ export const question1: Item = {
                         deselectEnabled: false,
                         displayCount: null,
                         hasNoneOfTheAbove: false,
-                        multipleSelect: true,
+                        multipleSelect: false,
                         randomize: false,
                     },
                     static: false,

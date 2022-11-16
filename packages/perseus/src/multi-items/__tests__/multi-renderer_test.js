@@ -137,7 +137,7 @@ describe("multi-item renderer", () => {
             // selected, a value is entered). You can see the result of this in the `choiceStates`
             // array in the captured state below where the choice at index 2 has
             // `"selected": true` (instead of false) and the input-number has a `currentValue`.
-            userEvent.click(screen.getAllByRole("checkbox")[2]); // Correct
+            userEvent.click(screen.getAllByRole("radio")[2]); // Correct
             userEvent.paste(screen.getByRole("textbox"), "+42"); // Correct
 
             // Act
@@ -250,7 +250,7 @@ describe("multi-item renderer", () => {
                       "countChoices": false,
                       "deselectEnabled": false,
                       "hasNoneOfTheAbove": false,
-                      "multipleSelect": true,
+                      "multipleSelect": false,
                       "numCorrect": 1,
                       "selectedChoices": Array [
                         false,
@@ -269,7 +269,7 @@ describe("multi-item renderer", () => {
             // Arrange
             const {renderer} = renderSimpleQuestion(question1);
 
-            userEvent.click(screen.getAllByRole("checkbox")[2]);
+            userEvent.click(screen.getAllByRole("radio")[2]);
             userEvent.paste(screen.getByRole("textbox"), "99");
 
             // Act
@@ -385,7 +385,7 @@ describe("multi-item renderer", () => {
                       "countChoices": false,
                       "deselectEnabled": false,
                       "hasNoneOfTheAbove": false,
-                      "multipleSelect": true,
+                      "multipleSelect": false,
                       "numCorrect": 1,
                       "selectedChoices": Array [
                         false,

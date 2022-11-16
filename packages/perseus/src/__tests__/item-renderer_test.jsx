@@ -708,12 +708,12 @@ describe("item renderer", () => {
             renderer.deselectIncorrectSelectedChoices();
 
             // Assert
-            const inputs = screen.getAllByRole("checkbox");
+            const checkboxes = screen.getAllByRole("checkbox");
 
-            expect(inputs[0]).not.toBeChecked();
-            expect(inputs[1]).not.toBeChecked();
-            expect(inputs[2]).not.toBeChecked();
-            expect(inputs[3]).toBeChecked();
+            expect(checkboxes[0]).not.toBeChecked();
+            expect(checkboxes[1]).not.toBeChecked();
+            expect(checkboxes[2]).not.toBeChecked();
+            expect(checkboxes[3]).toBeChecked();
         });
 
         it("should return serialized state for each widget and hints", () => {
