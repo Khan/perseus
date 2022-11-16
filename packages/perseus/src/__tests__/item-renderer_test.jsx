@@ -701,9 +701,7 @@ describe("item renderer", () => {
                 ...itemWithInput,
                 question: multiChoiceQuestion,
             });
-            screen
-                .getAllByRole("button", {hidden: true})
-                .map((r) => userEvent.click(r));
+            screen.getAllByRole("checkbox").map((r) => userEvent.click(r));
             jest.runOnlyPendingTimers(); // due to setState()
 
             // Act

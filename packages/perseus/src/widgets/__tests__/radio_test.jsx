@@ -25,7 +25,7 @@ import type {
 import type {APIOptions} from "../../types.js";
 
 const selectOption = (index: number) => {
-    const options = screen.getAllByRole("button", {hidden: true});
+    const options = screen.getAllByRole("radio");
 
     // element that is null/undefined (ie. if the index is invalid) so we
     // manually check and throw here to protect future me, and others :)

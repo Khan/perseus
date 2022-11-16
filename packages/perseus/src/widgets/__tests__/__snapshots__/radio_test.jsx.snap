@@ -954,7 +954,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                               <span
                                 class="ring_ya75gi"
                                 data-test-id="focus-ring"
-                                style="border-color: #1865f2; border-radius: 50%;"
+                                style="border-color: transparent; border-radius: 50%;"
                               >
                                 <div
                                   class="circle_1tys2th"
@@ -1289,7 +1289,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                               <span
                                 class="ring_ya75gi"
                                 data-test-id="focus-ring"
-                                style="border-color: #1865f2; border-radius: 50%;"
+                                style="border-color: transparent; border-radius: 50%;"
                               >
                                 <div
                                   class="circle_1tys2th"
@@ -2694,7 +2694,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                               <span
                                 class="ring_ya75gi"
                                 data-test-id="focus-ring"
-                                style="border-color: #1865f2; border-radius: 50%;"
+                                style="border-color: transparent; border-radius: 50%;"
                               >
                                 <div
                                   class="circle_1tys2th"
@@ -3029,7 +3029,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                               <span
                                 class="ring_ya75gi"
                                 data-test-id="focus-ring"
-                                style="border-color: #1865f2; border-radius: 50%;"
+                                style="border-color: transparent; border-radius: 50%;"
                               >
                                 <div
                                   class="circle_1tys2th"

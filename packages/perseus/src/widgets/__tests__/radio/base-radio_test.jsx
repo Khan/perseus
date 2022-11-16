@@ -70,12 +70,11 @@ describe("base-radio", () => {
                     correct: true,
                 }),
             ],
+            multipleSelect: true,
         });
 
         // Assert
-        expect(
-            screen.getAllByRole("button", {hidden: true})[4],
-        ).toBeInTheDocument();
+        expect(screen.getAllByRole("checkbox")[4]).toBeInTheDocument();
         expect(screen.getAllByText("None of the above")).toHaveLength(2);
     });
 
@@ -112,10 +111,11 @@ describe("base-radio", () => {
                     generateChoice({content: "Option Delta", correct: false}),
                 ],
                 onChange: onChangeHandler,
+                multipleSelect: true,
             });
 
             // Act
-            userEvent.click(screen.getAllByRole("button", {hidden: true})[2]);
+            userEvent.click(screen.getAllByRole("checkbox")[2]);
 
             // Assert
             expect(updatedValues).toMatchObject({
