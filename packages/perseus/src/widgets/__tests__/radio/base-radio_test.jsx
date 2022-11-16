@@ -78,6 +78,12 @@ describe("base-radio", () => {
                 name: "(Choice E) None of the above",
             }),
         ).toBeInTheDocument();
+        expect(
+            screen.getByLabelText("(Choice E) None of the above"),
+        ).toBeInTheDocument();
+        // Note(Tamara): There should be two of these options: one for the
+        // screen reader only radio input and a button for learners
+        // using the visual choices
         expect(screen.getAllByText("None of the above")).toHaveLength(2);
     });
 
