@@ -183,9 +183,11 @@ describe("single-choice question", () => {
 
                     // Assert
                     // Everything's read-only so no selections made
-                    screen.getAllByRole("radio").forEach((r) => {
-                        expect(r).toHaveAttribute("aria-disabled", "true");
-                    });
+                    screen
+                        .getAllByRole("button", {hidden: true})
+                        .forEach((r) => {
+                            expect(r).toHaveAttribute("aria-disabled", "true");
+                        });
                 });
             },
         );

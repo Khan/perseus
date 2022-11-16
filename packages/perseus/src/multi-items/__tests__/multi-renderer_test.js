@@ -587,7 +587,7 @@ describe("multi-item renderer", () => {
         // Arrange
         const {renderer} = renderSimpleQuestion(question1);
 
-        userEvent.click(screen.getAllByRole("checkbox")[3]); // Correct
+        userEvent.click(screen.getAllByRole("radio")[3]); // Correct
         userEvent.paste(screen.getByRole("textbox"), "-42"); // Correct
 
         // Act
@@ -728,7 +728,7 @@ describe("multi-item renderer", () => {
                     "countChoices": false,
                     "deselectEnabled": false,
                     "hasNoneOfTheAbove": false,
-                    "multipleSelect": true,
+                    "multipleSelect": false,
                     "numCorrect": 1,
                     "selectedChoices": Array [
                       false,
@@ -748,7 +748,7 @@ describe("multi-item renderer", () => {
         // Arrange
         const {renderer} = renderSimpleQuestion(question1);
 
-        userEvent.click(screen.getAllByRole("checkbox")[3]); // Correct
+        userEvent.click(screen.getAllByRole("radio")[3]); // Correct
         userEvent.paste(screen.getByRole("textbox"), "-42"); // Correct
 
         // Act
@@ -886,7 +886,7 @@ describe("multi-item renderer", () => {
                     "countChoices": false,
                     "deselectEnabled": false,
                     "hasNoneOfTheAbove": false,
-                    "multipleSelect": true,
+                    "multipleSelect": false,
                     "numCorrect": 1,
                     "selectedChoices": Array [
                       false,
