@@ -113,6 +113,7 @@ describe("all choice options", () => {
     });
 });
 
+// Tests 1 of 2 element types used to select a choice
 describe("choice button", () => {
     it("selects the choice by clicking the button", () => {
         // Arrange / Act
@@ -186,6 +187,7 @@ describe("choice button", () => {
     });
 });
 
+// Tests 2 of 2 element types used to select a choice
 describe("choice input (screen reader only)", () => {
     it("selects the choice by clicking the input", () => {
         // Arrange / Act
