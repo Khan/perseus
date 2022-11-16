@@ -164,7 +164,9 @@ describe("base-radio", () => {
             });
 
             // Act
-            const radioButton = screen.getAllByRole("checkbox")[2];
+            const radioButton = screen.getByRole("checkbox", {
+                name: "(Choice C, Checked) Option Gamma",
+            });
             userEvent.click(radioButton);
 
             // Assert
