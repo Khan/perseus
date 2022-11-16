@@ -709,7 +709,6 @@ describe("item renderer", () => {
 
             // Assert
             const checkboxes = screen.getAllByRole("checkbox");
-
             expect(checkboxes[0]).not.toBeChecked();
             expect(checkboxes[1]).not.toBeChecked();
             expect(checkboxes[2]).not.toBeChecked();
