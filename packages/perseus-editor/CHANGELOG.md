@@ -1,5 +1,34 @@
 # @khanacademy/perseus-editor
 
+## 1.0.0
+
+### Major Changes
+
+-   f9e0cda6: Change API shape: remove radioStyleVersion, add primaryProductColor to styling
+
+### Patch Changes
+
+-   28170809: refactors base-radio to be a functional component
+-   f567f660: Update the eslint config to look at both the package.json for the package and the one from the root
+-   Updated dependencies [2a3ac714]
+-   Updated dependencies [28170809]
+-   Updated dependencies [ea104d1c]
+-   Updated dependencies [8c6c60f5]
+-   Updated dependencies [80e2cafc]
+-   Updated dependencies [f567f660]
+-   Updated dependencies [e8a60745]
+-   Updated dependencies [61a7084e]
+-   Updated dependencies [16eccaea]
+-   Updated dependencies [eeaa9010]
+-   Updated dependencies [d4d2b3a6]
+-   Updated dependencies [46859806]
+-   Updated dependencies [f9e0cda6]
+-   Updated dependencies [f5682ad6]
+-   Updated dependencies [61a7084e]
+    -   @khanacademy/perseus@1.0.0
+    -   @khanacademy/kas@0.2.7
+    -   @khanacademy/kmath@0.0.8
+
 ## 0.4.3
 
 ### Patch Changes
