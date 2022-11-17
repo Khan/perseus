@@ -243,16 +243,6 @@ function BaseRadio(props: Props): React.Node {
     const shouldShowInstructions = !sat;
 
     const responsiveClassName = css(styles.responsiveFieldset);
-    // Note(TB): Each set of questions needs its own unique name to be
-    // considered a radio group; this is what allows only one choice at
-    // a time to be selected for single select questions. Tried
-    // useUniqueIdWithMock from WB, but encountered errors we could not fix.
-    // When fixed, can replace generateQuestionId with the WB function.
-    let id = 0;
-    const generateQuestionId = () => {
-        return `questionId-${Date.now()}-${id++}`;
-    };
-    const questionId = generateQuestionId();
     const fieldset = (
         <fieldset
             className={`perseus-widget-radio-fieldset ${responsiveClassName}`}
@@ -288,7 +278,6 @@ function BaseRadio(props: Props): React.Node {
                             updateChoice(i, newValues);
                         },
                         ref,
-                        questionId,
                     };
 
                     if (choice.isNoneOfTheAbove) {

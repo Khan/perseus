@@ -1,6 +1,5 @@
 // @flow
 
-import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {render, screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as React from "react";
@@ -24,16 +23,11 @@ function renderChoice(options) {
         crossedOut: false,
         previouslyAnswered: false,
         ref: {current: null},
-        questionId: "",
     };
 
     const overwrittenOptions = {...defaultOptions, ...options};
 
-    return render(
-        <RenderStateRoot>
-            <Choice {...overwrittenOptions} />
-        </RenderStateRoot>,
-    );
+    return render(<Choice {...overwrittenOptions} />);
 }
 
 describe("all choice options", () => {

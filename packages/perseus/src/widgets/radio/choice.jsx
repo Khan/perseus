@@ -66,7 +66,6 @@ export type ChoiceProps = {|
     // boolean value specifying the new checked and crossed-out value of
     // this choice.
     onChange: (newValues: {checked: boolean, crossedOut: boolean}) => void,
-    questionId: string,
 |};
 
 type WithForwardRef = {|forwardedRef: React.Ref<"button">|};
@@ -75,6 +74,11 @@ type ChoicePropsWithForwardRef = {|
     ...ChoiceProps,
     ...WithForwardRef,
 |};
+
+let id = 0;
+function uniqueId() {
+    return `choice-${id++}`;
+}
 
 function Choice(props: ChoicePropsWithForwardRef): React.Node {
     const {
@@ -93,7 +97,6 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
         showRationale,
         rationale,
         forwardedRef,
-        questionId,
     } = props;
     const [isInputFocused, setIsInputFocused] = useState(false);
 
@@ -164,6 +167,7 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
         crossedOut,
         showCorrectness,
     );
+    const choiceId = uniqueId();
 
     return (
         <div
@@ -181,21 +185,21 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
                 }}
             >
                 <div className="perseus-sr-only">
-                    <label>
-                        <input
-                            type={multipleSelect ? "checkbox" : "radio"}
-                            name={questionId}
-                            checked={checked}
-                            onChange={() => {
-                                // If we're checking a crossed-out option, let's
-                                // also uncross it.
-                                sendChange({
-                                    checked: !checked,
-                                    crossedOut: false,
-                                });
-                            }}
-                            disabled={disabled}
-                        />
+                    <input
+                        type={multipleSelect ? "checkbox" : "radio"}
+                        id={choiceId}
+                        checked={checked}
+                        onChange={() => {
+                            // If we're checking a crossed-out option, let's
+                            // also uncross it.
+                            sendChange({
+                                checked: !checked,
+                                crossedOut: false,
+                            });
+                        }}
+                        disabled={disabled}
+                    />
+                    <label htmlFor={choiceId}>
                         {a11yText} &nbsp; {content}
                     </label>
                 </div>

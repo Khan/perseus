@@ -75,11 +75,13 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="checkbox"
-                            />
+                          <input
+                            id="choice-476"
+                            type="checkbox"
+                          />
+                          <label
+                            for="choice-476"
+                          >
                             (Choice A, Checked)
                                
                             <span
@@ -191,11 +193,13 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="checkbox"
-                            />
+                          <input
+                            id="choice-477"
+                            type="checkbox"
+                          />
+                          <label
+                            for="choice-477"
+                          >
                             (Choice B)
                                
                             <span
@@ -307,11 +311,13 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="checkbox"
-                            />
+                          <input
+                            id="choice-478"
+                            type="checkbox"
+                          />
+                          <label
+                            for="choice-478"
+                          >
                             (Choice C)
                                
                             <span
@@ -423,11 +429,13 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="checkbox"
-                            />
+                          <input
+                            id="choice-479"
+                            type="checkbox"
+                          />
+                          <label
+                            for="choice-479"
+                          >
                             (Choice D)
                                
                             <span
@@ -643,11 +651,13 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="radio"
-                            />
+                          <input
+                            id="choice-310"
+                            type="radio"
+                          />
+                          <label
+                            for="choice-310"
+                          >
                             (Choice A)
                                
                             <span
@@ -785,11 +795,13 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="radio"
-                            />
+                          <input
+                            id="choice-311"
+                            type="radio"
+                          />
+                          <label
+                            for="choice-311"
+                          >
                             (Choice B)
                                
                             <span
@@ -901,11 +913,13 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="radio"
-                            />
+                          <input
+                            id="choice-312"
+                            type="radio"
+                          />
+                          <label
+                            for="choice-312"
+                          >
                             (Choice C, Checked)
                                
                             <span
@@ -1017,11 +1031,13 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="radio"
-                            />
+                          <input
+                            id="choice-313"
+                            type="radio"
+                          />
+                          <label
+                            for="choice-313"
+                          >
                             (Choice D)
                                
                             <span
@@ -1223,11 +1239,13 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="radio"
-                            />
+                          <input
+                            id="choice-318"
+                            type="radio"
+                          />
+                          <label
+                            for="choice-318"
+                          >
                             (Choice A, Checked)
                                
                             <span
@@ -1365,11 +1383,13 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="radio"
-                            />
+                          <input
+                            id="choice-319"
+                            type="radio"
+                          />
+                          <label
+                            for="choice-319"
+                          >
                             (Choice B)
                                
                             <span
@@ -1481,11 +1501,13 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="radio"
-                            />
+                          <input
+                            id="choice-320"
+                            type="radio"
+                          />
+                          <label
+                            for="choice-320"
+                          >
                             (Choice C)
                                
                             <span
@@ -1597,11 +1619,13 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="radio"
-                            />
+                          <input
+                            id="choice-321"
+                            type="radio"
+                          />
+                          <label
+                            for="choice-321"
+                          >
                             (Choice D)
                                
                             <span
@@ -1803,11 +1827,13 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="radio"
-                            />
+                          <input
+                            id="choice-302"
+                            type="radio"
+                          />
+                          <label
+                            for="choice-302"
+                          >
                             (Choice A)
                                
                             <span
@@ -1945,11 +1971,13 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="radio"
-                            />
+                          <input
+                            id="choice-303"
+                            type="radio"
+                          />
+                          <label
+                            for="choice-303"
+                          >
                             (Choice B)
                                
                             <span
@@ -2061,11 +2089,13 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="radio"
-                            />
+                          <input
+                            id="choice-304"
+                            type="radio"
+                          />
+                          <label
+                            for="choice-304"
+                          >
                             (Choice C)
                                
                             <span
@@ -2177,11 +2207,13 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="radio"
-                            />
+                          <input
+                            id="choice-305"
+                            type="radio"
+                          />
+                          <label
+                            for="choice-305"
+                          >
                             (Choice D)
                                
                             <span
@@ -2383,11 +2415,13 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="radio"
-                            />
+                          <input
+                            id="choice-230"
+                            type="radio"
+                          />
+                          <label
+                            for="choice-230"
+                          >
                             (Choice A)
                                
                             <span
@@ -2525,11 +2559,13 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="radio"
-                            />
+                          <input
+                            id="choice-231"
+                            type="radio"
+                          />
+                          <label
+                            for="choice-231"
+                          >
                             (Choice B)
                                
                             <span
@@ -2641,11 +2677,13 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="radio"
-                            />
+                          <input
+                            id="choice-232"
+                            type="radio"
+                          />
+                          <label
+                            for="choice-232"
+                          >
                             (Choice C, Checked)
                                
                             <span
@@ -2757,11 +2795,13 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="radio"
-                            />
+                          <input
+                            id="choice-233"
+                            type="radio"
+                          />
+                          <label
+                            for="choice-233"
+                          >
                             (Choice D)
                                
                             <span
@@ -2963,11 +3003,13 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="radio"
-                            />
+                          <input
+                            id="choice-238"
+                            type="radio"
+                          />
+                          <label
+                            for="choice-238"
+                          >
                             (Choice A, Checked)
                                
                             <span
@@ -3105,11 +3147,13 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="radio"
-                            />
+                          <input
+                            id="choice-239"
+                            type="radio"
+                          />
+                          <label
+                            for="choice-239"
+                          >
                             (Choice B)
                                
                             <span
@@ -3221,11 +3265,13 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="radio"
-                            />
+                          <input
+                            id="choice-240"
+                            type="radio"
+                          />
+                          <label
+                            for="choice-240"
+                          >
                             (Choice C)
                                
                             <span
@@ -3337,11 +3383,13 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="radio"
-                            />
+                          <input
+                            id="choice-241"
+                            type="radio"
+                          />
+                          <label
+                            for="choice-241"
+                          >
                             (Choice D)
                                
                             <span
@@ -3543,11 +3591,13 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="radio"
-                            />
+                          <input
+                            id="choice-222"
+                            type="radio"
+                          />
+                          <label
+                            for="choice-222"
+                          >
                             (Choice A, Incorrect)
                                
                             <span
@@ -3770,11 +3820,13 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="radio"
-                            />
+                          <input
+                            id="choice-223"
+                            type="radio"
+                          />
+                          <label
+                            for="choice-223"
+                          >
                             (Choice B, Incorrect)
                                
                             <span
@@ -3955,11 +4007,13 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="radio"
-                            />
+                          <input
+                            id="choice-224"
+                            type="radio"
+                          />
+                          <label
+                            for="choice-224"
+                          >
                             (Choice C, Correct)
                                
                             <span
@@ -4135,11 +4189,13 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="radio"
-                            />
+                          <input
+                            id="choice-225"
+                            type="radio"
+                          />
+                          <label
+                            for="choice-225"
+                          >
                             (Choice D, Incorrect)
                                
                             <span
@@ -4387,11 +4443,13 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="radio"
-                            />
+                          <input
+                            id="choice-88"
+                            type="radio"
+                          />
+                          <label
+                            for="choice-88"
+                          >
                             (Choice A)
                                
                             <span
@@ -4528,11 +4586,13 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="radio"
-                            />
+                          <input
+                            id="choice-89"
+                            type="radio"
+                          />
+                          <label
+                            for="choice-89"
+                          >
                             (Choice B)
                                
                             <span
@@ -4643,11 +4703,13 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="radio"
-                            />
+                          <input
+                            id="choice-90"
+                            type="radio"
+                          />
+                          <label
+                            for="choice-90"
+                          >
                             (Choice C, Checked)
                                
                             <span
@@ -4758,11 +4820,13 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="radio"
-                            />
+                          <input
+                            id="choice-91"
+                            type="radio"
+                          />
+                          <label
+                            for="choice-91"
+                          >
                             (Choice D)
                                
                             <span
@@ -4957,11 +5021,13 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="radio"
-                            />
+                          <input
+                            id="choice-96"
+                            type="radio"
+                          />
+                          <label
+                            for="choice-96"
+                          >
                             (Choice A, Checked)
                                
                             <span
@@ -5098,11 +5164,13 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="radio"
-                            />
+                          <input
+                            id="choice-97"
+                            type="radio"
+                          />
+                          <label
+                            for="choice-97"
+                          >
                             (Choice B)
                                
                             <span
@@ -5213,11 +5281,13 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="radio"
-                            />
+                          <input
+                            id="choice-98"
+                            type="radio"
+                          />
+                          <label
+                            for="choice-98"
+                          >
                             (Choice C)
                                
                             <span
@@ -5328,11 +5398,13 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="radio"
-                            />
+                          <input
+                            id="choice-99"
+                            type="radio"
+                          />
+                          <label
+                            for="choice-99"
+                          >
                             (Choice D)
                                
                             <span
@@ -5527,11 +5599,13 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="radio"
-                            />
+                          <input
+                            id="choice-80"
+                            type="radio"
+                          />
+                          <label
+                            for="choice-80"
+                          >
                             (Choice A)
                                
                             <span
@@ -5668,11 +5742,13 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="radio"
-                            />
+                          <input
+                            id="choice-81"
+                            type="radio"
+                          />
+                          <label
+                            for="choice-81"
+                          >
                             (Choice B)
                                
                             <span
@@ -5783,11 +5859,13 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="radio"
-                            />
+                          <input
+                            id="choice-82"
+                            type="radio"
+                          />
+                          <label
+                            for="choice-82"
+                          >
                             (Choice C)
                                
                             <span
@@ -5898,11 +5976,13 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="radio"
-                            />
+                          <input
+                            id="choice-83"
+                            type="radio"
+                          />
+                          <label
+                            for="choice-83"
+                          >
                             (Choice D)
                                
                             <span
@@ -6097,11 +6177,13 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="radio"
-                            />
+                          <input
+                            id="choice-8"
+                            type="radio"
+                          />
+                          <label
+                            for="choice-8"
+                          >
                             (Choice A)
                                
                             <span
@@ -6238,11 +6320,13 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="radio"
-                            />
+                          <input
+                            id="choice-9"
+                            type="radio"
+                          />
+                          <label
+                            for="choice-9"
+                          >
                             (Choice B)
                                
                             <span
@@ -6353,11 +6437,13 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="radio"
-                            />
+                          <input
+                            id="choice-10"
+                            type="radio"
+                          />
+                          <label
+                            for="choice-10"
+                          >
                             (Choice C, Checked)
                                
                             <span
@@ -6468,11 +6554,13 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="radio"
-                            />
+                          <input
+                            id="choice-11"
+                            type="radio"
+                          />
+                          <label
+                            for="choice-11"
+                          >
                             (Choice D)
                                
                             <span
@@ -6667,11 +6755,13 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="radio"
-                            />
+                          <input
+                            id="choice-16"
+                            type="radio"
+                          />
+                          <label
+                            for="choice-16"
+                          >
                             (Choice A, Checked)
                                
                             <span
@@ -6808,11 +6898,13 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="radio"
-                            />
+                          <input
+                            id="choice-17"
+                            type="radio"
+                          />
+                          <label
+                            for="choice-17"
+                          >
                             (Choice B)
                                
                             <span
@@ -6923,11 +7015,13 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="radio"
-                            />
+                          <input
+                            id="choice-18"
+                            type="radio"
+                          />
+                          <label
+                            for="choice-18"
+                          >
                             (Choice C)
                                
                             <span
@@ -7038,11 +7132,13 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="radio"
-                            />
+                          <input
+                            id="choice-19"
+                            type="radio"
+                          />
+                          <label
+                            for="choice-19"
+                          >
                             (Choice D)
                                
                             <span
@@ -7237,11 +7333,13 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="radio"
-                            />
+                          <input
+                            id="choice-0"
+                            type="radio"
+                          />
+                          <label
+                            for="choice-0"
+                          >
                             (Choice A, Incorrect)
                                
                             <span
@@ -7445,11 +7543,13 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="radio"
-                            />
+                          <input
+                            id="choice-1"
+                            type="radio"
+                          />
+                          <label
+                            for="choice-1"
+                          >
                             (Choice B, Incorrect)
                                
                             <span
@@ -7611,11 +7711,13 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="radio"
-                            />
+                          <input
+                            id="choice-2"
+                            type="radio"
+                          />
+                          <label
+                            for="choice-2"
+                          >
                             (Choice C, Correct)
                                
                             <span
@@ -7772,11 +7874,13 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                         <div
                           class="perseus-sr-only"
                         >
-                          <label>
-                            <input
-                              name="questionId-818035920000-0"
-                              type="radio"
-                            />
+                          <input
+                            id="choice-3"
+                            type="radio"
+                          />
+                          <label
+                            for="choice-3"
+                          >
                             (Choice D, Incorrect)
                                
                             <span

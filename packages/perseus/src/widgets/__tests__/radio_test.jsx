@@ -56,7 +56,6 @@ describe("single-choice question", () => {
             (reviewMode: boolean) => {
                 it("should snapshot the same", () => {
                     // Arrange & Act
-                    jest.setSystemTime(Date.parse("04 Dec 1995 00:12:00 GMT"));
                     const {container} = renderQuestion(question, apiOptions, {
                         reviewMode,
                     });
@@ -67,7 +66,6 @@ describe("single-choice question", () => {
 
                 it("should snapshot the same with correct answer", () => {
                     // Arrange
-                    jest.setSystemTime(Date.parse("04 Dec 1995 00:12:00 GMT"));
                     const {container} = renderQuestion(question, apiOptions);
 
                     // Act
@@ -79,7 +77,6 @@ describe("single-choice question", () => {
 
                 it("should snapshot the same with incorrect answer", () => {
                     // Arrange
-                    jest.setSystemTime(Date.parse("04 Dec 1995 00:12:00 GMT"));
                     const {container} = renderQuestion(question, apiOptions);
 
                     // Act
@@ -533,7 +530,6 @@ describe("multi-choice question", () => {
 
     it("should snapshot the same when invalid", () => {
         // Arrange
-        jest.setSystemTime(Date.parse("04 Dec 1995 00:12:00 GMT"));
         const {container} = renderQuestion(question, apiOptions);
 
         // Act

@@ -144,11 +144,13 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                             <div
                               class="perseus-sr-only"
                             >
-                              <label>
-                                <input
-                                  name="questionId-818035920000-0"
-                                  type="radio"
-                                />
+                              <input
+                                id="choice-0"
+                                type="radio"
+                              />
+                              <label
+                                for="choice-0"
+                              >
                                 (Choice A)
                                    
                                 <span
@@ -312,11 +314,13 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                             <div
                               class="perseus-sr-only"
                             >
-                              <label>
-                                <input
-                                  name="questionId-818035920000-0"
-                                  type="radio"
-                                />
+                              <input
+                                id="choice-1"
+                                type="radio"
+                              />
+                              <label
+                                for="choice-1"
+                              >
                                 (Choice B)
                                    
                                 <span
@@ -480,11 +484,13 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                             <div
                               class="perseus-sr-only"
                             >
-                              <label>
-                                <input
-                                  name="questionId-818035920000-0"
-                                  type="radio"
-                                />
+                              <input
+                                id="choice-2"
+                                type="radio"
+                              />
+                              <label
+                                for="choice-2"
+                              >
                                 (Choice C)
                                    
                                 <span
@@ -648,11 +654,13 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                             <div
                               class="perseus-sr-only"
                             >
-                              <label>
-                                <input
-                                  name="questionId-818035920000-0"
-                                  type="radio"
-                                />
+                              <input
+                                id="choice-3"
+                                type="radio"
+                              />
+                              <label
+                                for="choice-3"
+                              >
                                 (Choice D)
                                    
                                 <span
@@ -816,11 +824,13 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                             <div
                               class="perseus-sr-only"
                             >
-                              <label>
-                                <input
-                                  name="questionId-818035920000-0"
-                                  type="radio"
-                                />
+                              <input
+                                id="choice-4"
+                                type="radio"
+                              />
+                              <label
+                                for="choice-4"
+                              >
                                 (Choice E)
                                    
                                 <span

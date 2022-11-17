@@ -149,11 +149,13 @@ exports[`group widget should snapshot: initial render 1`] = `
                                           <div
                                             class="perseus-sr-only"
                                           >
-                                            <label>
-                                              <input
-                                                name="questionId-818035920000-0"
-                                                type="radio"
-                                              />
+                                            <input
+                                              id="choice-5"
+                                              type="radio"
+                                            />
+                                            <label
+                                              for="choice-5"
+                                            >
                                               (Choice A)
                                                  
                                               <span
@@ -265,11 +267,13 @@ exports[`group widget should snapshot: initial render 1`] = `
                                           <div
                                             class="perseus-sr-only"
                                           >
-                                            <label>
-                                              <input
-                                                name="questionId-818035920000-0"
-                                                type="radio"
-                                              />
+                                            <input
+                                              id="choice-6"
+                                              type="radio"
+                                            />
+                                            <label
+                                              for="choice-6"
+                                            >
                                               (Choice B)
                                                  
                                               <span
@@ -381,11 +385,13 @@ exports[`group widget should snapshot: initial render 1`] = `
                                           <div
                                             class="perseus-sr-only"
                                           >
-                                            <label>
-                                              <input
-                                                name="questionId-818035920000-0"
-                                                type="radio"
-                                              />
+                                            <input
+                                              id="choice-7"
+                                              type="radio"
+                                            />
+                                            <label
+                                              for="choice-7"
+                                            >
                                               (Choice C)
                                                  
                                               <span
@@ -497,11 +503,13 @@ exports[`group widget should snapshot: initial render 1`] = `
                                           <div
                                             class="perseus-sr-only"
                                           >
-                                            <label>
-                                              <input
-                                                name="questionId-818035920000-0"
-                                                type="radio"
-                                              />
+                                            <input
+                                              id="choice-8"
+                                              type="radio"
+                                            />
+                                            <label
+                                              for="choice-8"
+                                            >
                                               (Choice D)
                                                  
                                               <span
@@ -613,11 +621,13 @@ exports[`group widget should snapshot: initial render 1`] = `
                                           <div
                                             class="perseus-sr-only"
                                           >
-                                            <label>
-                                              <input
-                                                name="questionId-818035920000-0"
-                                                type="radio"
-                                              />
+                                            <input
+                                              id="choice-9"
+                                              type="radio"
+                                            />
+                                            <label
+                                              for="choice-9"
+                                            >
                                               (Choice E)
                                                  
                                               <span
