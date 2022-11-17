@@ -25,7 +25,6 @@ describe("group widget", () => {
 
     it("should snapshot", () => {
         // Arrange and Act
-
         const {container} = renderQuestion(question1);
 
         // Assert
