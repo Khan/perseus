@@ -218,7 +218,7 @@ describe("base-radio", () => {
             });
         });
 
-        it("deselects previously selected choice", () => {
+        it("changes selected choice", () => {
             // Arrange
             let updatedValues = null;
             const onChangeHandler = (newValues) => {
