@@ -30,6 +30,15 @@ type HighlightTooltipProps = {|
     onMouseEnter?: () => mixed,
     onMouseLeave?: () => mixed,
 
+    // This is only to be used by tests and exists because
+    // tests don't seem to play nicely with building a highlight
+    // range in `_getFocusRect`
+    __testFocusRest?: {
+        top: number,
+        left: number,
+        height: number,
+    },
+
     focusNode: Node,
     focusOffset: number,
     offsetParent: Element,
@@ -89,7 +98,7 @@ class HighlightTooltip extends React.PureComponent<HighlightTooltipProps> {
     }
 
     render(): null | React.Node {
-        const focusRect = this._getFocusRect();
+        const focusRect = this.props.__testFocusRest || this._getFocusRect();
         if (!focusRect) {
             return null;
         }
