@@ -279,4 +279,24 @@ describe("choice input (screen reader only)", () => {
         // Assert
         expect(checked).toBe(true);
     });
+
+    it("can be unchecked", () => {
+        // Arrange
+        let checked = true;
+        renderChoice({
+            checked,
+            onChange: (next) => {
+                checked = next.checked;
+            },
+        });
+
+        // Act
+        const input = screen.getByRole("radio", {
+            name: "(Choice A, Checked) This is a possible choice",
+        });
+        userEvent.click(input);
+
+        // Assert
+        expect(checked).toBeFalse();
+    });
 });

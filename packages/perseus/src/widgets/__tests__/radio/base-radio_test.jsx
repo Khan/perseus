@@ -177,7 +177,7 @@ describe("base-radio", () => {
         });
 
         // Equivalent to "should toggle choice when inner element clicked" but with editMode set to false
-        it("select single select choices", () => {
+        it("selects single select choices", () => {
             // Arrange
             let updatedValues = null;
             const onChangeHandler = (newValues) => {
@@ -218,7 +218,7 @@ describe("base-radio", () => {
             });
         });
 
-        it("changes selected choice", () => {
+        it("deselects single select selected choice", () => {
             // Arrange
             let updatedValues = null;
             const onChangeHandler = (newValues) => {
@@ -250,11 +250,11 @@ describe("base-radio", () => {
             });
 
             // Act
-            userEvent.click(screen.getAllByRole("radio")[1]);
+            userEvent.click(screen.getAllByRole("radio")[0]);
 
             // Assert
             expect(updatedValues).toMatchObject({
-                checked: [false, true, false, false],
+                checked: [false, false, false, false],
             });
         });
     });
