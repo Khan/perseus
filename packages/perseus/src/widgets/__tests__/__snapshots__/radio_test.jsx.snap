@@ -77,6 +77,7 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                         >
                           <input
                             id="choice-476"
+                            tabindex="-1"
                             type="checkbox"
                           />
                           <label
@@ -195,6 +196,7 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                         >
                           <input
                             id="choice-477"
+                            tabindex="-1"
                             type="checkbox"
                           />
                           <label
@@ -313,6 +315,7 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                         >
                           <input
                             id="choice-478"
+                            tabindex="-1"
                             type="checkbox"
                           />
                           <label
@@ -431,6 +434,7 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                         >
                           <input
                             id="choice-479"
+                            tabindex="-1"
                             type="checkbox"
                           />
                           <label
@@ -653,6 +657,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                         >
                           <input
                             id="choice-310"
+                            tabindex="-1"
                             type="radio"
                           />
                           <label
@@ -797,6 +802,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                         >
                           <input
                             id="choice-311"
+                            tabindex="-1"
                             type="radio"
                           />
                           <label
@@ -915,6 +921,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                         >
                           <input
                             id="choice-312"
+                            tabindex="-1"
                             type="radio"
                           />
                           <label
@@ -1033,6 +1040,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                         >
                           <input
                             id="choice-313"
+                            tabindex="-1"
                             type="radio"
                           />
                           <label
@@ -1241,6 +1249,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                         >
                           <input
                             id="choice-318"
+                            tabindex="-1"
                             type="radio"
                           />
                           <label
@@ -1385,6 +1394,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                         >
                           <input
                             id="choice-319"
+                            tabindex="-1"
                             type="radio"
                           />
                           <label
@@ -1503,6 +1513,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                         >
                           <input
                             id="choice-320"
+                            tabindex="-1"
                             type="radio"
                           />
                           <label
@@ -1621,6 +1632,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                         >
                           <input
                             id="choice-321"
+                            tabindex="-1"
                             type="radio"
                           />
                           <label
@@ -1829,6 +1841,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                         >
                           <input
                             id="choice-302"
+                            tabindex="-1"
                             type="radio"
                           />
                           <label
@@ -1973,6 +1986,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                         >
                           <input
                             id="choice-303"
+                            tabindex="-1"
                             type="radio"
                           />
                           <label
@@ -2091,6 +2105,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                         >
                           <input
                             id="choice-304"
+                            tabindex="-1"
                             type="radio"
                           />
                           <label
@@ -2209,6 +2224,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                         >
                           <input
                             id="choice-305"
+                            tabindex="-1"
                             type="radio"
                           />
                           <label
@@ -2417,6 +2433,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         >
                           <input
                             id="choice-230"
+                            tabindex="-1"
                             type="radio"
                           />
                           <label
@@ -2561,6 +2578,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         >
                           <input
                             id="choice-231"
+                            tabindex="-1"
                             type="radio"
                           />
                           <label
@@ -2679,6 +2697,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         >
                           <input
                             id="choice-232"
+                            tabindex="-1"
                             type="radio"
                           />
                           <label
@@ -2797,6 +2816,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         >
                           <input
                             id="choice-233"
+                            tabindex="-1"
                             type="radio"
                           />
                           <label
@@ -3005,6 +3025,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         >
                           <input
                             id="choice-238"
+                            tabindex="-1"
                             type="radio"
                           />
                           <label
@@ -3149,6 +3170,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         >
                           <input
                             id="choice-239"
+                            tabindex="-1"
                             type="radio"
                           />
                           <label
@@ -3267,6 +3289,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         >
                           <input
                             id="choice-240"
+                            tabindex="-1"
                             type="radio"
                           />
                           <label
@@ -3385,6 +3408,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         >
                           <input
                             id="choice-241"
+                            tabindex="-1"
                             type="radio"
                           />
                           <label
@@ -3593,6 +3617,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         >
                           <input
                             id="choice-222"
+                            tabindex="-1"
                             type="radio"
                           />
                           <label
@@ -3822,6 +3847,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         >
                           <input
                             id="choice-223"
+                            tabindex="-1"
                             type="radio"
                           />
                           <label
@@ -4009,6 +4035,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         >
                           <input
                             id="choice-224"
+                            tabindex="-1"
                             type="radio"
                           />
                           <label
@@ -4191,6 +4218,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         >
                           <input
                             id="choice-225"
+                            tabindex="-1"
                             type="radio"
                           />
                           <label
@@ -4445,6 +4473,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                         >
                           <input
                             id="choice-88"
+                            tabindex="-1"
                             type="radio"
                           />
                           <label
@@ -4588,6 +4617,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                         >
                           <input
                             id="choice-89"
+                            tabindex="-1"
                             type="radio"
                           />
                           <label
@@ -4705,6 +4735,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                         >
                           <input
                             id="choice-90"
+                            tabindex="-1"
                             type="radio"
                           />
                           <label
@@ -4822,6 +4853,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                         >
                           <input
                             id="choice-91"
+                            tabindex="-1"
                             type="radio"
                           />
                           <label
@@ -5023,6 +5055,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                         >
                           <input
                             id="choice-96"
+                            tabindex="-1"
                             type="radio"
                           />
                           <label
@@ -5166,6 +5199,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                         >
                           <input
                             id="choice-97"
+                            tabindex="-1"
                             type="radio"
                           />
                           <label
@@ -5283,6 +5317,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                         >
                           <input
                             id="choice-98"
+                            tabindex="-1"
                             type="radio"
                           />
                           <label
@@ -5400,6 +5435,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                         >
                           <input
                             id="choice-99"
+                            tabindex="-1"
                             type="radio"
                           />
                           <label
@@ -5601,6 +5637,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                         >
                           <input
                             id="choice-80"
+                            tabindex="-1"
                             type="radio"
                           />
                           <label
@@ -5744,6 +5781,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                         >
                           <input
                             id="choice-81"
+                            tabindex="-1"
                             type="radio"
                           />
                           <label
@@ -5861,6 +5899,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                         >
                           <input
                             id="choice-82"
+                            tabindex="-1"
                             type="radio"
                           />
                           <label
@@ -5978,6 +6017,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                         >
                           <input
                             id="choice-83"
+                            tabindex="-1"
                             type="radio"
                           />
                           <label
@@ -6179,6 +6219,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                         >
                           <input
                             id="choice-8"
+                            tabindex="-1"
                             type="radio"
                           />
                           <label
@@ -6322,6 +6363,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                         >
                           <input
                             id="choice-9"
+                            tabindex="-1"
                             type="radio"
                           />
                           <label
@@ -6439,6 +6481,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                         >
                           <input
                             id="choice-10"
+                            tabindex="-1"
                             type="radio"
                           />
                           <label
@@ -6556,6 +6599,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                         >
                           <input
                             id="choice-11"
+                            tabindex="-1"
                             type="radio"
                           />
                           <label
@@ -6757,6 +6801,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                         >
                           <input
                             id="choice-16"
+                            tabindex="-1"
                             type="radio"
                           />
                           <label
@@ -6900,6 +6945,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                         >
                           <input
                             id="choice-17"
+                            tabindex="-1"
                             type="radio"
                           />
                           <label
@@ -7017,6 +7063,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                         >
                           <input
                             id="choice-18"
+                            tabindex="-1"
                             type="radio"
                           />
                           <label
@@ -7134,6 +7181,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                         >
                           <input
                             id="choice-19"
+                            tabindex="-1"
                             type="radio"
                           />
                           <label
@@ -7335,6 +7383,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                         >
                           <input
                             id="choice-0"
+                            tabindex="-1"
                             type="radio"
                           />
                           <label
@@ -7545,6 +7594,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                         >
                           <input
                             id="choice-1"
+                            tabindex="-1"
                             type="radio"
                           />
                           <label
@@ -7713,6 +7763,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                         >
                           <input
                             id="choice-2"
+                            tabindex="-1"
                             type="radio"
                           />
                           <label
@@ -7876,6 +7927,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                         >
                           <input
                             id="choice-3"
+                            tabindex="-1"
                             type="radio"
                           />
                           <label

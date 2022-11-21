@@ -151,6 +151,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                           >
                                             <input
                                               id="choice-5"
+                                              tabindex="-1"
                                               type="radio"
                                             />
                                             <label
@@ -269,6 +270,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                           >
                                             <input
                                               id="choice-6"
+                                              tabindex="-1"
                                               type="radio"
                                             />
                                             <label
@@ -387,6 +389,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                           >
                                             <input
                                               id="choice-7"
+                                              tabindex="-1"
                                               type="radio"
                                             />
                                             <label
@@ -505,6 +508,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                           >
                                             <input
                                               id="choice-8"
+                                              tabindex="-1"
                                               type="radio"
                                             />
                                             <label
@@ -623,6 +627,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                           >
                                             <input
                                               id="choice-9"
+                                              tabindex="-1"
                                               type="radio"
                                             />
                                             <label

@@ -146,6 +146,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                             >
                               <input
                                 id="choice-0"
+                                tabindex="-1"
                                 type="radio"
                               />
                               <label
@@ -316,6 +317,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                             >
                               <input
                                 id="choice-1"
+                                tabindex="-1"
                                 type="radio"
                               />
                               <label
@@ -486,6 +488,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                             >
                               <input
                                 id="choice-2"
+                                tabindex="-1"
                                 type="radio"
                               />
                               <label
@@ -656,6 +659,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                             >
                               <input
                                 id="choice-3"
+                                tabindex="-1"
                                 type="radio"
                               />
                               <label
@@ -826,6 +830,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                             >
                               <input
                                 id="choice-4"
+                                tabindex="-1"
                                 type="radio"
                               />
                               <label

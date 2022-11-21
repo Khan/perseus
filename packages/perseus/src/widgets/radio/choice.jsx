@@ -189,7 +189,7 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
                         type={multipleSelect ? "checkbox" : "radio"}
                         id={choiceId}
                         checked={checked}
-                        onChange={() => {
+                        onClick={() => {
                             // If we're checking a crossed-out option, let's
                             // also uncross it.
                             sendChange({
@@ -197,7 +197,9 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
                                 crossedOut: false,
                             });
                         }}
+                        onChange={() => {}}
                         disabled={disabled}
+                        tabIndex={-1}
                     />
                     <label htmlFor={choiceId}>
                         {a11yText} &nbsp; {content}

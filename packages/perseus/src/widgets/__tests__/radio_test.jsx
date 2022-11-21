@@ -195,12 +195,17 @@ describe("single-choice question", () => {
 
             // Act
             userEvent.tab();
-            expect(screen.getAllByRole("radio")[0]).toHaveFocus();
-            userEvent.tab(); // Skip the button for the first option
+            // Note(TB): The visual buttons are hidden from screen readers
+            // so they need to be identified as hidden
+            expect(
+                screen.getAllByRole("button", {hidden: true})[0],
+            ).toHaveFocus();
             userEvent.tab();
 
             // Assert
-            expect(screen.getAllByRole("radio")[1]).toHaveFocus();
+            expect(
+                screen.getAllByRole("button", {hidden: true})[1],
+            ).toHaveFocus();
         });
 
         it("should be able to navigate up by keyboard", () => {
@@ -209,15 +214,23 @@ describe("single-choice question", () => {
 
             // Act
             userEvent.tab();
-            expect(screen.getAllByRole("radio")[0]).toHaveFocus();
-            userEvent.tab(); // Skip the button for the first option
+            // Note(TB): The visual buttons are hidden from screen readers
+            // so they need to be identified as hidden
+            expect(
+                screen.getAllByRole("button", {hidden: true})[0],
+            ).toHaveFocus();
+
             userEvent.tab();
-            expect(screen.getAllByRole("radio")[1]).toHaveFocus();
-            userEvent.tab({shift: true}); // Skip the button for the first option
+            expect(
+                screen.getAllByRole("button", {hidden: true})[1],
+            ).toHaveFocus();
+
             userEvent.tab({shift: true});
 
             // Assert
-            expect(screen.getAllByRole("radio")[0]).toHaveFocus();
+            expect(
+                screen.getAllByRole("button", {hidden: true})[0],
+            ).toHaveFocus();
         });
 
         it("should be able to navigate through 'None of the above' choice by keyboard", () => {
@@ -228,14 +241,16 @@ describe("single-choice question", () => {
             renderQuestion(q, apiOptions);
 
             // Act
-            userEvent.tab(); // first screen reader radio
-            userEvent.tab(); // first button
-            userEvent.tab(); // second screen reader radio
-            userEvent.tab(); // second button
-            userEvent.tab(); // third screen reader radio
+            userEvent.tab();
+            userEvent.tab();
+            userEvent.tab();
 
             // Assert
-            expect(screen.getAllByRole("radio")[2]).toHaveFocus();
+            // Note(TB): The visual buttons are hidden from screen readers
+            // so they need to be identified as hidden
+            expect(
+                screen.getAllByRole("button", {hidden: true})[2],
+            ).toHaveFocus();
         });
 
         it.each([
@@ -378,10 +393,8 @@ describe("single-choice question", () => {
 
             it("should open the cross-out menu when focused and spacebar pressed", async () => {
                 // Arrange
-                jest.setTimeout(10000);
 
                 renderQuestion(question, crossOutApiOptions);
-                userEvent.tab(); // SR only radio input
                 userEvent.tab(); // Choice icon
                 userEvent.tab(); // Cross-out menu ellipsis
 
@@ -431,7 +444,6 @@ describe("single-choice question", () => {
                 // Arrange
 
                 renderQuestion(question, crossOutApiOptions);
-                userEvent.tab(); // SR only radio input
                 userEvent.tab(); // Choice icon
                 userEvent.tab(); // Cross-out menu ellipsis
 
