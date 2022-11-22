@@ -78,6 +78,7 @@ type ChoicePropsWithForwardRef = {|
 // Note(TB): Received errors when using useUniqueIdWithMock
 // so created this workaround function. Will update when
 // useUniqueIdWithMock is available.
+// https://khanacademy.atlassian.net/browse/FEI-4861?atlOrigin=eyJpIjoiNDJlZWMwNjM1NWJhNDBkMWFjY2FmN2I0ZjcxZmQxOGUiLCJwIjoiaiJ9
 let id = 0;
 function uniqueId() {
     return `choice-${id++}`;
