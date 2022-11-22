@@ -1,5 +1,12 @@
 # @khanacademy/simple-markdown
 
+## 0.8.6
+
+### Patch Changes
+
+-   f567f660: Update the eslint config to look at both the package.json for the package and the one from the root
+-   eeaa9010: Add more Flow typing to passage and passage-markdown widgets
+
 ## 0.8.5
 
 ### Patch Changes

@@ -18,6 +18,7 @@ import {ApiOptions} from "../../perseus-api.jsx";
 import * as styleConstants from "../../styles/constants.js";
 import mediaQueries from "../../styles/media-queries.js";
 
+import getA11yText from "./choice-a11y-text.js";
 import ChoiceIcon from "./choice-icon/choice-icon.jsx";
 import OptionStatus from "./option-status.jsx";
 import {getChoiceLetter} from "./util.js";
@@ -73,6 +74,15 @@ type ChoicePropsWithForwardRef = {|
     ...ChoiceProps,
     ...WithForwardRef,
 |};
+
+// Note(TB): Received errors when using useUniqueIdWithMock
+// so created this workaround function. Will update when
+// useUniqueIdWithMock is available.
+// https://khanacademy.atlassian.net/browse/FEI-4861?atlOrigin=eyJpIjoiNDJlZWMwNjM1NWJhNDBkMWFjY2FmN2I0ZjcxZmQxOGUiLCJwIjoiaiJ9
+let id = 0;
+function uniqueId() {
+    return `choice-${id++}`;
+}
 
 function Choice(props: ChoicePropsWithForwardRef): React.Node {
     const {
@@ -153,6 +163,16 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
         (!apiOptions.satStyling && !reviewMode && apiOptions.readOnly) ||
         crossedOut;
 
+    const letter = getChoiceLetter(pos);
+    const a11yText = getA11yText(
+        letter,
+        checked,
+        correct,
+        crossedOut,
+        showCorrectness,
+    );
+    const choiceId = uniqueId();
+
     return (
         <div
             style={{
@@ -168,6 +188,31 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
                     opacity: showDimmed ? 0.5 : 1.0,
                 }}
             >
+                <div className="perseus-sr-only">
+                    <input
+                        type={multipleSelect ? "checkbox" : "radio"}
+                        id={choiceId}
+                        checked={checked}
+                        onClick={() => {
+                            // If we're checking a crossed-out option, let's
+                            // also uncross it.
+                            sendChange({
+                                checked: !checked,
+                                crossedOut: false,
+                            });
+                        }}
+                        onChange={() => {}}
+                        disabled={
+                            disabled ||
+                            apiOptions.staticRender ||
+                            apiOptions.readOnly
+                        }
+                        tabIndex={-1}
+                    />
+                    <label htmlFor={choiceId}>
+                        {a11yText} &nbsp; {content}
+                    </label>
+                </div>
                 <Clickable
                     onClick={() => {
                         // If we're checking a crossed-out option, let's
@@ -183,11 +228,9 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
                         apiOptions.staticRender ||
                         apiOptions.readOnly
                     }
-                    aria-label={`Select Choice ${getChoiceLetter(pos)}`}
-                    aria-checked={checked ? "true" : "false"}
-                    role={"checkbox"}
                     style={{flex: 1}}
                     ref={(forwardedRef: any)}
+                    aria-hidden="true"
                 >
                     {({hovered, focused, pressed}) => (
                         <div

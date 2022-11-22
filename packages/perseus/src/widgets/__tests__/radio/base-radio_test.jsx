@@ -69,9 +69,17 @@ describe("base-radio", () => {
 
         // Assert
         expect(
-            screen.getByRole("checkbox", {name: "Select Choice E"}),
+            screen.getByRole("radio", {
+                name: "(Choice E) None of the above",
+            }),
         ).toBeInTheDocument();
-        expect(screen.getByText("None of the above")).toBeInTheDocument();
+        expect(
+            screen.getByLabelText("(Choice E) None of the above"),
+        ).toBeInTheDocument();
+        // Note(Tamara): There should be two of these options: one for the
+        // screen reader only radio input and a button for learners
+        // using the visual choices
+        expect(screen.getAllByText("None of the above")).toHaveLength(2);
     });
 
     describe("edit mode", () => {
@@ -111,7 +119,7 @@ describe("base-radio", () => {
 
             // Act
             userEvent.click(
-                screen.getByRole("checkbox", {name: "Select Choice C"}),
+                screen.getByRole("radio", {name: "(Choice C) Option Gamma"}),
             );
 
             // Assert
@@ -158,7 +166,53 @@ describe("base-radio", () => {
 
             // Act
             const radioButton = screen.getByRole("checkbox", {
-                name: "Select Choice C",
+                name: "(Choice C, Checked) Option Gamma",
+            });
+            userEvent.click(radioButton);
+
+            // Assert
+            expect(updatedValues).toMatchObject({
+                checked: [false, false, false, false],
+            });
+        });
+
+        it("deselects single select choices", () => {
+            // Arrange
+            let updatedValues = null;
+            const onChangeHandler = (newValues) => {
+                updatedValues = newValues;
+            };
+
+            renderBaseRadio({
+                multipleSelect: false,
+                choices: [
+                    generateChoice({
+                        content: "Option 1",
+                        correct: false,
+                        checked: false,
+                    }),
+                    generateChoice({
+                        content: "Option B",
+                        correct: false,
+                        checked: false,
+                    }),
+                    generateChoice({
+                        content: "Option Gamma",
+                        correct: true,
+                        checked: true,
+                    }),
+                    generateChoice({
+                        content: "Option Delta",
+                        correct: false,
+                        checked: false,
+                    }),
+                ],
+                onChange: onChangeHandler,
+            });
+
+            // Act
+            const radioButton = screen.getByRole("checkbox", {
+                name: "(Choice C, Checked) Option Gamma",
             });
             userEvent.click(radioButton);
 
@@ -215,7 +269,7 @@ describe("base-radio", () => {
         });
 
         // Equivalent to "should toggle choice when inner element clicked" but with editMode set to false
-        it("select single select choices", () => {
+        it("selects single select choices", () => {
             // Arrange
             let updatedValues = null;
             const onChangeHandler = (newValues) => {
@@ -265,7 +319,7 @@ describe("base-radio", () => {
             };
 
             renderBaseRadio({
-                multipleSelect: true,
+                multipleSelect: false,
                 choices: [
                     generateChoice({
                         content: "Option 1",
@@ -289,12 +343,52 @@ describe("base-radio", () => {
 
             // Act
             userEvent.click(
-                screen.getByRole("checkbox", {name: "Select Choice C"}),
+                screen.getByRole("radio", {name: "(Choice C) Option Gamma"}),
             );
 
             // Assert
             expect(updatedValues).toMatchObject({
                 checked: [false, false, true, false],
+            });
+        });
+
+        it("deselects single select selected choice", () => {
+            // Arrange
+            let updatedValues = null;
+            const onChangeHandler = (newValues) => {
+                updatedValues = newValues;
+            };
+
+            renderBaseRadio({
+                multipleSelect: false,
+                choices: [
+                    generateChoice({
+                        content: "Option 1",
+                        correct: false,
+                        checked: true,
+                    }),
+                    generateChoice({
+                        content: "Option B",
+                        correct: false,
+                    }),
+                    generateChoice({
+                        content: "Option Gamma",
+                        correct: true,
+                    }),
+                    generateChoice({
+                        content: "Option Delta",
+                        correct: false,
+                    }),
+                ],
+                onChange: onChangeHandler,
+            });
+
+            // Act
+            userEvent.click(screen.getAllByRole("radio")[0]);
+
+            // Assert
+            expect(updatedValues).toMatchObject({
+                checked: [false, false, false, false],
             });
         });
     });

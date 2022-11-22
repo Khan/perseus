@@ -249,7 +249,9 @@ function BaseRadio(props: Props): React.Node {
         >
             <legend className="perseus-sr-only">{instructions}</legend>
             {shouldShowInstructions && (
-                <div className={instructionsClassName}>{instructions}</div>
+                <div className={instructionsClassName} aria-hidden="true">
+                    {instructions}
+                </div>
             )}
             <ul className={className} style={{listStyle: "none"}}>
                 {choices.map(function (choice, i) {
