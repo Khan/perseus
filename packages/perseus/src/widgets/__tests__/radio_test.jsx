@@ -180,6 +180,9 @@ describe("single-choice question", () => {
 
                     // Assert
                     // Everything's read-only so no selections made
+                    // Note(TB): The visual buttons are hidden from screen readers
+                    // so they need to be identified as hidden
+                    // The visual button has the aria attributes
                     screen
                         .getAllByRole("button", {hidden: true})
                         .forEach((r) => {
@@ -196,7 +199,8 @@ describe("single-choice question", () => {
             // Act
             userEvent.tab();
             // Note(TB): The visual buttons are hidden from screen readers
-            // so they need to be identified as hidden
+            // so they need to be identified as hidden;
+            // cannot access screen reader buttons via tabbing
             expect(
                 screen.getAllByRole("button", {hidden: true})[0],
             ).toHaveFocus();

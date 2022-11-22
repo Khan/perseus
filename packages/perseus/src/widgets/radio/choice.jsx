@@ -201,7 +201,11 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
                             });
                         }}
                         onChange={() => {}}
-                        disabled={disabled}
+                        disabled={
+                            disabled ||
+                            apiOptions.staticRender ||
+                            apiOptions.readOnly
+                        }
                         tabIndex={-1}
                     />
                     <label htmlFor={choiceId}>
