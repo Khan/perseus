@@ -72,7 +72,7 @@ class Definition extends React.Component<DefinitionProps> {
                     >
                         <span className="perseus-widget-definition">
                             <Button
-                                size="small"
+                                size="medium"
                                 kind="tertiary"
                                 onClick={() => {
                                     this.props.trackInteraction();
