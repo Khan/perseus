@@ -75,6 +75,9 @@ type ChoicePropsWithForwardRef = {|
     ...WithForwardRef,
 |};
 
+// Note(TB): Received errors when using useUniqueIdWithMock
+// so created this workaround function. Will update when
+// useUniqueIdWithMock is available.
 let id = 0;
 function uniqueId() {
     return `choice-${id++}`;
