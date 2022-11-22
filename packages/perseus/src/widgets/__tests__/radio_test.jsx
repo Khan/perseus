@@ -25,7 +25,7 @@ import type {
 import type {APIOptions} from "../../types.js";
 
 const selectOption = (index: number) => {
-    const options = screen.getAllByRole("checkbox");
+    const options = screen.getAllByRole("radio");
 
     // element that is null/undefined (ie. if the index is invalid) so we
     // manually check and throw here to protect future me, and others :)
@@ -101,8 +101,7 @@ describe("single-choice question", () => {
                 it("should accept the right answer (touch)", () => {
                     // Arrange
                     const {renderer} = renderQuestion(question, apiOptions);
-                    const correctRadio =
-                        screen.getAllByRole("checkbox")[correct];
+                    const correctRadio = screen.getAllByRole("radio")[correct];
 
                     // Act
                     fireEvent.touchStart(correctRadio);
@@ -157,7 +156,7 @@ describe("single-choice question", () => {
                     renderer.deselectIncorrectSelectedChoices();
 
                     // Assert
-                    screen.getAllByRole("checkbox").forEach((r) => {
+                    screen.getAllByRole("radio").forEach((r) => {
                         expect(r).not.toBeChecked();
                     });
                 });
@@ -181,9 +180,14 @@ describe("single-choice question", () => {
 
                     // Assert
                     // Everything's read-only so no selections made
-                    screen.getAllByRole("checkbox").forEach((r) => {
-                        expect(r).toHaveAttribute("aria-disabled", "true");
-                    });
+                    // Note(TB): The visual buttons are hidden from screen readers
+                    // so they need to be identified as hidden
+                    // The visual button has the aria attributes
+                    screen
+                        .getAllByRole("button", {hidden: true})
+                        .forEach((r) => {
+                            expect(r).toHaveAttribute("aria-disabled", "true");
+                        });
                 });
             },
         );
@@ -194,11 +198,18 @@ describe("single-choice question", () => {
 
             // Act
             userEvent.tab();
-            expect(screen.getAllByRole("checkbox")[0]).toHaveFocus();
+            // Note(TB): The visual buttons are hidden from screen readers
+            // so they need to be identified as hidden;
+            // cannot access screen reader buttons via tabbing
+            expect(
+                screen.getAllByRole("button", {hidden: true})[0],
+            ).toHaveFocus();
             userEvent.tab();
 
             // Assert
-            expect(screen.getAllByRole("checkbox")[1]).toHaveFocus();
+            expect(
+                screen.getAllByRole("button", {hidden: true})[1],
+            ).toHaveFocus();
         });
 
         it("should be able to navigate up by keyboard", () => {
@@ -207,13 +218,23 @@ describe("single-choice question", () => {
 
             // Act
             userEvent.tab();
-            expect(screen.getAllByRole("checkbox")[0]).toHaveFocus();
+            // Note(TB): The visual buttons are hidden from screen readers
+            // so they need to be identified as hidden
+            expect(
+                screen.getAllByRole("button", {hidden: true})[0],
+            ).toHaveFocus();
+
             userEvent.tab();
-            expect(screen.getAllByRole("checkbox")[1]).toHaveFocus();
+            expect(
+                screen.getAllByRole("button", {hidden: true})[1],
+            ).toHaveFocus();
+
             userEvent.tab({shift: true});
 
             // Assert
-            expect(screen.getAllByRole("checkbox")[0]).toHaveFocus();
+            expect(
+                screen.getAllByRole("button", {hidden: true})[0],
+            ).toHaveFocus();
         });
 
         it("should be able to navigate through 'None of the above' choice by keyboard", () => {
@@ -229,7 +250,11 @@ describe("single-choice question", () => {
             userEvent.tab();
 
             // Assert
-            expect(screen.getAllByRole("checkbox")[2]).toHaveFocus();
+            // Note(TB): The visual buttons are hidden from screen readers
+            // so they need to be identified as hidden
+            expect(
+                screen.getAllByRole("button", {hidden: true})[2],
+            ).toHaveFocus();
         });
 
         it.each([
@@ -251,7 +276,7 @@ describe("single-choice question", () => {
             // We click on the first item, which was the second (index == 1)
             // item in the original choices. But because of enforced ordering,
             // it is now at the top of the list (and thus our correct answer).
-            userEvent.click(screen.getAllByRole("checkbox")[0]);
+            userEvent.click(screen.getAllByRole("radio")[0]);
 
             // Assert
             const items = screen.getAllByRole("listitem");
@@ -393,7 +418,6 @@ describe("single-choice question", () => {
 
             it("should cross-out selection and dismiss button when clicked", async () => {
                 // Arrange
-
                 renderQuestion(question, crossOutApiOptions);
                 userEvent.click(
                     screen.getByRole("button", {

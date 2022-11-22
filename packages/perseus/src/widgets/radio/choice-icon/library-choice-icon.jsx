@@ -15,7 +15,6 @@ import sharedStyles, {LIBRARY_ICON_SIZE} from "./shared-styles.js";
 
 type LibraryChoiceIconProps = {
     letter: string,
-    a11yText: string,
     checked: boolean,
     crossedOut: boolean,
     focused: boolean,
@@ -107,7 +106,6 @@ function getDynamicStyles(
 
 function LibraryChoiceIcon(props: LibraryChoiceIconProps): React.Node {
     const {
-        a11yText,
         checked,
         crossedOut,
         showCorrectness,
@@ -155,14 +153,11 @@ function LibraryChoiceIcon(props: LibraryChoiceIconProps): React.Node {
                     // radio icon
                     data-is-radio-icon={true}
                 >
-                    <div className="perseus-sr-only">{a11yText}</div>
-                    <div aria-hidden>
-                        <ChoiceInner
-                            letter={letter}
-                            showCorrectness={showCorrectness}
-                            correct={correct}
-                        />
-                    </div>
+                    <ChoiceInner
+                        letter={letter}
+                        showCorrectness={showCorrectness}
+                        correct={correct}
+                    />
                 </div>
             </FocusRing>
             {crossedOut && <CrossOutLine color={dynamicStyles.borderColor} />}

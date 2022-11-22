@@ -11,7 +11,6 @@ import sharedStyles, {SAT_ICON_SIZE} from "./shared-styles.js";
 
 type SATChoiceIconProps = {
     letter: string,
-    a11yText: string,
     checked: boolean,
     multipleSelect: boolean,
     correct: boolean,
@@ -66,15 +65,8 @@ function constructSATStyles(
 }
 
 function SATChoiceIcon(props: SATChoiceIconProps): React.Node {
-    const {
-        letter,
-        a11yText,
-        crossedOut,
-        reviewMode,
-        correct,
-        checked,
-        multipleSelect,
-    } = props;
+    const {letter, crossedOut, reviewMode, correct, checked, multipleSelect} =
+        props;
 
     const {color, backgroundColor, borderColor, borderRadius} =
         constructSATStyles(reviewMode, correct, checked, multipleSelect);
@@ -87,8 +79,7 @@ function SATChoiceIcon(props: SATChoiceIconProps): React.Node {
                 style={{backgroundColor, borderColor, borderRadius}}
             />
             <div style={{color}} className={css(styles.letter)}>
-                <span className="perseus-sr-only">{a11yText}</span>
-                <span aria-hidden="true">{letter}</span>
+                <span>{letter}</span>
             </div>
             {crossedOut && <CrossOutLine color={borderColor} sat={true} />}
         </div>

@@ -347,7 +347,7 @@ describe("group widget", () => {
 
         // Arrange
         const {renderer} = renderQuestion(question1);
-        userEvent.click(screen.getAllByRole("checkbox")[4]);
+        userEvent.click(screen.getAllByRole("radio")[4]);
         userEvent.type(screen.getAllByRole("textbox")[0], "1000");
         userEvent.type(screen.getAllByRole("textbox")[1], "9999");
 
@@ -360,7 +360,7 @@ describe("group widget", () => {
         renderer1.restoreSerializedState(state);
 
         // Assert
-        expect(screen.getAllByRole("checkbox")[4]).toBeChecked();
+        expect(screen.getAllByRole("radio")[4]).toBeChecked();
         expect(screen.getAllByRole("textbox")[0]).toHaveValue("1000");
         expect(screen.getAllByRole("textbox")[1]).toHaveValue("9999");
     });
@@ -369,7 +369,7 @@ describe("group widget", () => {
         // Arrange
         const {renderer} = renderQuestion(question1);
         // Answer all widgets correctly
-        userEvent.click(screen.getAllByRole("checkbox")[4]);
+        userEvent.click(screen.getAllByRole("radio")[4]);
         userEvent.type(screen.getAllByRole("textbox")[0], "230");
         userEvent.type(screen.getAllByRole("textbox")[1], "200");
 
@@ -453,7 +453,7 @@ describe("group widget", () => {
     it("should show rationales for contained widgets", () => {
         // Arrange
         const {renderer} = renderQuestion(question1);
-        userEvent.click(screen.getAllByRole("checkbox")[2]); // Incorrect!
+        userEvent.click(screen.getAllByRole("radio")[2]); // Incorrect!
 
         // Act
         renderer.showRationalesForCurrentlySelectedChoices();
