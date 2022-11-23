@@ -544,6 +544,49 @@ describe("multi-choice question", () => {
         expect(renderer).toHaveBeenAnsweredCorrectly();
     });
 
+    it("should check multiple options when multiple choices clicked", () => {
+        // Arrange
+        const apiOptions: APIOptions = {
+            crossOutEnabled: false,
+        };
+        const radio1Widget = ((question.widgets["radio 1"]: any): RadioWidget);
+        const radioOptions = radio1Widget.options;
+
+        const multipleCorrectChoicesQuestion: PerseusRenderer = {
+            ...question,
+            widgets: {
+                ...question.widgets,
+                "radio 1": ({
+                    ...radio1Widget,
+                    options: {
+                        ...radioOptions,
+                        choices: [
+                            {content: "$x=-6$", correct: true},
+                            {content: "$x=4$", correct: true},
+                            {content: "$x=7$", correct: false},
+                            {
+                                content: "There is no such input value.",
+                                isNoneOfTheAbove: true,
+                                correct: false,
+                            },
+                        ],
+                    },
+                }: RadioWidget),
+            },
+        };
+
+        renderQuestion(multipleCorrectChoicesQuestion, apiOptions);
+
+        // Act
+        const options = screen.getAllByRole("checkbox");
+        userEvent.click(options[2]);
+        userEvent.click(options[3]);
+
+        // Assert
+        expect(options[2]).toBeChecked();
+        expect(options[3]).toBeChecked();
+    });
+
     it("should snapshot the same when invalid", () => {
         // Arrange
         const {container} = renderQuestion(question, apiOptions);

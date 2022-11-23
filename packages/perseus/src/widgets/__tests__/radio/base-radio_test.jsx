@@ -130,7 +130,7 @@ describe("base-radio", () => {
     });
 
     describe("selecting and deselecting options", () => {
-        it("deselects multi-select choices", () => {
+        it("deselects multi-select choice", () => {
             // Arrange
             let updatedValues = null;
             const onChangeHandler = (newValues) => {
@@ -176,7 +176,7 @@ describe("base-radio", () => {
             });
         });
 
-        it("deselects single select choices", () => {
+        it("deselects single select choice", () => {
             // Arrange
             let updatedValues = null;
             const onChangeHandler = (newValues) => {
@@ -211,7 +211,7 @@ describe("base-radio", () => {
             });
 
             // Act
-            const radioButton = screen.getByRole("checkbox", {
+            const radioButton = screen.getByRole("radio", {
                 name: "(Choice C, Checked) Option Gamma",
             });
             userEvent.click(radioButton);
@@ -222,54 +222,8 @@ describe("base-radio", () => {
             });
         });
 
-        it("deselects single select choices", () => {
-            // Arrange
-            let updatedValues = null;
-            const onChangeHandler = (newValues) => {
-                updatedValues = newValues;
-            };
-
-            renderBaseRadio({
-                multipleSelect: false,
-                choices: [
-                    generateChoice({
-                        content: "Option 1",
-                        correct: false,
-                        checked: false,
-                    }),
-                    generateChoice({
-                        content: "Option B",
-                        correct: false,
-                        checked: false,
-                    }),
-                    generateChoice({
-                        content: "Option Gamma",
-                        correct: true,
-                        checked: true,
-                    }),
-                    generateChoice({
-                        content: "Option Delta",
-                        correct: false,
-                        checked: false,
-                    }),
-                ],
-                onChange: onChangeHandler,
-            });
-
-            // Act
-            const radioButton = screen.getByRole("checkbox", {
-                name: "Select Choice C",
-            });
-            userEvent.click(radioButton);
-
-            // Assert
-            expect(updatedValues).toMatchObject({
-                checked: [false, false, false, false],
-            });
-        });
-
         // Equivalent to "should toggle choice when inner element clicked" but with editMode set to false
-        it("selects single select choices", () => {
+        it("selects single select choice", () => {
             // Arrange
             let updatedValues = null;
             const onChangeHandler = (newValues) => {
@@ -301,7 +255,9 @@ describe("base-radio", () => {
 
             // Act
             userEvent.click(
-                screen.getByRole("checkbox", {name: "Select Choice C"}),
+                screen.getByRole("radio", {
+                    name: "(Choice C) Option Gamma",
+                }),
             );
 
             // Assert
@@ -311,7 +267,7 @@ describe("base-radio", () => {
         });
 
         // Equivalent to "should toggle choice when inner element clicked" but with editMode set to false
-        it("select mulit-select choices", () => {
+        it("selects multi-select choice", () => {
             // Arrange
             let updatedValues = null;
             const onChangeHandler = (newValues) => {
@@ -319,7 +275,7 @@ describe("base-radio", () => {
             };
 
             renderBaseRadio({
-                multipleSelect: false,
+                multipleSelect: true,
                 choices: [
                     generateChoice({
                         content: "Option 1",
