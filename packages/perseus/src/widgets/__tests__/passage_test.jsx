@@ -185,4 +185,30 @@ describe("passage widget", () => {
 
         expect(screen.getByText("Hello World")).toBeInTheDocument();
     });
+
+    it.only("should render first question instructions", () => {
+        renderPassage({passageText: "[[test]] Hello World"});
+
+        expect(screen.getByText("The symbol")).toBeInTheDocument();
+        expect(screen.getAllByText("[Marker for question test]")).toHaveLength(
+            2,
+        );
+        expect(
+            screen.getByText(
+                "indicates that question test references this portion of the passage",
+            ),
+        ).toBeInTheDocument();
+    });
+
+    it.only("should render first sentence instructions", () => {
+        renderPassage({passageText: "[[1]] Hello World"});
+
+        expect(screen.getByText("The symbol")).toBeInTheDocument();
+        expect(screen.getAllByText("[Marker for question 1]")).toHaveLength(2);
+        expect(
+            screen.getByText(
+                "indicates that question 1 references this portion of the passage",
+            ),
+        ).toBeInTheDocument();
+    });
 });
