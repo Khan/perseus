@@ -37,13 +37,13 @@ exports[`Definition widget should have a default snapshot: first render 1`] = `
             >
               <button
                 aria-disabled="false"
-                class="button_vr44p2-o_O-shared_lwskrm-o_O-default_1hl5pu8-o_O-small_xwkmkn"
+                class="button_vr44p2-o_O-shared_lwskrm-o_O-default_1hl5pu8"
                 role="button"
                 tabindex="0"
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-LabelSmall_hl4zs1-o_O-text_m8a8ki-o_O-textWithFocus_e296pg"
+                  class="text_f1191h-o_O-LabelLarge_5s82ln-o_O-text_m8a8ki-o_O-textWithFocus_e296pg"
                 >
                   the Pequots
                 </span>
@@ -95,13 +95,13 @@ exports[`Definition widget should have an open state snapshot: open state 1`] = 
             >
               <button
                 aria-disabled="false"
-                class="button_vr44p2-o_O-shared_lwskrm-o_O-default_1hl5pu8-o_O-small_xwkmkn"
+                class="button_vr44p2-o_O-shared_lwskrm-o_O-default_1hl5pu8"
                 role="button"
                 tabindex="0"
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-LabelSmall_hl4zs1-o_O-text_m8a8ki-o_O-textWithFocus_e296pg-o_O-focus_15mc0l2"
+                  class="text_f1191h-o_O-LabelLarge_5s82ln-o_O-text_m8a8ki-o_O-textWithFocus_e296pg-o_O-focus_15mc0l2"
                 >
                   the Pequots
                 </span>
