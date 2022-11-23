@@ -1,7 +1,10 @@
 // @flow
 
+import React from "react";
+import {render, screen} from "@testing-library/react";
 import "@testing-library/jest-dom";
 
+import {ApiOptions} from "../../perseus-api.jsx";
 import {testDependencies} from "../../../../../testing/test-dependencies.js";
 import * as Dependencies from "../../dependencies.js";
 import {question1, question2} from "../__testdata__/passage_testdata.js";
@@ -13,6 +16,40 @@ import {renderQuestion} from "./renderQuestion.jsx";
 import type {APIOptions} from "../../types.js";
 
 jest.mock("../passage/get-line-height-for-node.js");
+
+function renderPassage(overwrite) {
+    const widgetPropsBase = {
+        footnotes: "",
+        passageText: "",
+        passageTitle: "",
+        showLineNumbers: false,
+        static: true,
+    };
+
+    const base = {
+        ...widgetPropsBase,
+        alignment: null,
+        apiOptions: {
+            ...ApiOptions.defaults,
+        },
+        containerSizeClass: "small",
+        findWidgets: (callback) => [],
+        isLastUsedWidget: false,
+        onBlur: () => {},
+        onChange: () => {},
+        onFocus: () => {},
+        problemNum: 1,
+        reviewModeRubric: {
+            ...widgetPropsBase,
+        },
+        static: true,
+        trackInteraction: () => {},
+        widgetId: "passage",
+    };
+
+    const extended = {...base, ...overwrite};
+    return render(<PassageWidgetExport.widget {...extended} />);
+}
 
 describe("passage widget", () => {
     beforeEach(() => {
@@ -129,5 +166,23 @@ describe("passage widget", () => {
 
         // Assert
         expect(reference).toBe(null);
+    });
+
+    it("should render passage title", () => {
+        renderPassage({passageTitle: "Hello World"});
+
+        expect(screen.getByText("Hello World")).toBeInTheDocument();
+    });
+
+    it("should render passage text", () => {
+        renderPassage({passageText: "Hello World"});
+
+        expect(screen.getByText("Hello World")).toBeInTheDocument();
+    });
+
+    it("should render footnotes", () => {
+        renderPassage({footnotes: "Hello World"});
+
+        expect(screen.getByText("Hello World")).toBeInTheDocument();
     });
 });
