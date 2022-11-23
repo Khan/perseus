@@ -1,12 +1,12 @@
 // @flow
 
-import React from "react";
-import {render, screen} from "@testing-library/react";
 import "@testing-library/jest-dom";
+import {render, screen} from "@testing-library/react";
+import React from "react";
 
-import {ApiOptions} from "../../perseus-api.jsx";
 import {testDependencies} from "../../../../../testing/test-dependencies.js";
 import * as Dependencies from "../../dependencies.js";
+import {ApiOptions} from "../../perseus-api.jsx";
 import {question1, question2} from "../__testdata__/passage_testdata.js";
 import PassageWidgetExport from "../passage.jsx";
 import * as getLineHeightModule from "../passage/get-line-height-for-node.js";
@@ -186,7 +186,7 @@ describe("passage widget", () => {
         expect(screen.getByText("Hello World")).toBeInTheDocument();
     });
 
-    it.only("should render first question instructions", () => {
+    it("should render first question instructions", () => {
         renderPassage({passageText: "[[test]] Hello World"});
 
         expect(screen.getByText("The symbol")).toBeInTheDocument();
@@ -200,7 +200,7 @@ describe("passage widget", () => {
         ).toBeInTheDocument();
     });
 
-    it.only("should render first sentence instructions", () => {
+    it("should render first sentence instructions", () => {
         renderPassage({passageText: "[[1]] Hello World"});
 
         expect(screen.getByText("The symbol")).toBeInTheDocument();
