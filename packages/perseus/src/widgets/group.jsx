@@ -10,12 +10,13 @@ import Renderer from "../renderer.jsx";
 
 import type {PerseusGroupWidgetOptions} from "../perseus-types.js";
 import type {
+    APIOptions,
+    ChangeFn,
     FocusPath,
     PerseusScore,
     WidgetExports,
     WidgetProps,
-} from "../types.js";
-import type {APIOptions, ChangeFn} from "../types";
+} from "../types";
 
 type Rubric = PerseusGroupWidgetOptions;
 type RenderProps = PerseusGroupWidgetOptions; // exports has no 'transform'
