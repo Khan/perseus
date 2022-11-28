@@ -63,5 +63,55 @@ describe("choice icon", () => {
                 });
             },
         );
+
+        describe.each([[true], [false]])("correct: %s", (correct) => {
+            it("renders with the correct icon", () => {
+                // Arrange / Act
+
+                // Assert
+                if (product === "library") {
+                    // Arrange / Act
+                    renderChoiceIcon({
+                        product,
+                        correct,
+                        reviewMode: true,
+                        checked: true,
+                        showCorrectness: true,
+                    });
+
+                    const choiceWrapper = screen.getByTestId(
+                        `choice-icon__${product}-choice-icon`,
+                    );
+                    const choiceAttrib = choiceWrapper.getAttribute("class");
+
+                    // Assert
+                    if (correct) {
+                        expect(choiceAttrib).toContain("circleCorrect");
+                    } else {
+                        expect(choiceAttrib).toContain("circleIncorrect");
+                    }
+                } else {
+                    // Arrange / Act
+                    renderChoiceIcon({
+                        product,
+                        correct,
+                        reviewMode: true,
+                        checked: true,
+                    });
+
+                    const choiceWrapper = screen.getByTestId(
+                        `choice-icon__${product}-choice-icon`,
+                    );
+                    const choiceStyle = choiceWrapper.getAttribute("style");
+
+                    // Assert
+                    if (correct) {
+                        expect(choiceStyle).toContain("border-color: #009900");
+                    } else {
+                        expect(choiceStyle).toContain("border-color: #990000");
+                    }
+                }
+            });
+        });
     });
 });
