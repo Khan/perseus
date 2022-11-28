@@ -169,25 +169,25 @@ describe("passage widget", () => {
     });
 
     it("should render passage title", () => {
-        renderPassage({passageTitle: "Hello World"});
+        renderPassage({passageTitle: "Passage title"});
 
-        expect(screen.getByText("Hello World")).toBeInTheDocument();
+        expect(screen.getByText("Passage title")).toBeInTheDocument();
     });
 
     it("should render passage text", () => {
-        renderPassage({passageText: "Hello World"});
+        renderPassage({passageText: "Passage text"});
 
-        expect(screen.getByText("Hello World")).toBeInTheDocument();
+        expect(screen.getByText("Passage text")).toBeInTheDocument();
     });
 
     it("should render footnotes", () => {
-        renderPassage({footnotes: "Hello World"});
+        renderPassage({footnotes: "Footnote text"});
 
-        expect(screen.getByText("Hello World")).toBeInTheDocument();
+        expect(screen.getByText("Footnote text")).toBeInTheDocument();
     });
 
     it("should render first question instructions", () => {
-        renderPassage({passageText: "[[test]] Hello World"});
+        renderPassage({passageText: "[[test]] Passage text"});
 
         expect(screen.getByText("The symbol")).toBeInTheDocument();
         expect(screen.getAllByText("[Marker for question test]")).toHaveLength(
@@ -201,7 +201,7 @@ describe("passage widget", () => {
     });
 
     it("should render first sentence instructions", () => {
-        renderPassage({passageText: "[[1]] Hello World"});
+        renderPassage({passageText: "[[1]] Passage text"});
 
         expect(screen.getByText("The symbol")).toBeInTheDocument();
         expect(screen.getAllByText("[Marker for question 1]")).toHaveLength(2);
