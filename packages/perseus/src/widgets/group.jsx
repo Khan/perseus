@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-comp */
 // @flow
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import classNames from "classnames";
@@ -44,6 +43,61 @@ class Group extends React.Component<Props> {
         // the group with the correct number.
         this.forceUpdate();
     }
+
+    change: ChangeFn = (...args) => {
+        return Changeable.change.apply(this, args);
+    };
+
+    getUserInput: () => $FlowFixMe = () => {
+        return this.rendererRef?.getUserInput();
+    };
+
+    getSerializedState: () => $FlowFixMe = () => {
+        return this.rendererRef?.getSerializedState();
+    };
+
+    restoreSerializedState: ($FlowFixMe, $FlowFixMe) => null = (
+        state,
+        callback,
+    ) => {
+        this.rendererRef?.restoreSerializedState(state, callback);
+        // Tell our renderer that we have no props to change
+        // (all our changes were in state):
+        return null;
+    };
+
+    simpleValidate: (Rubric) => ?PerseusScore = (rubric) => {
+        return this.rendererRef?.score();
+    };
+
+    // Mobile API:
+    getInputPaths: () => ?$ReadOnlyArray<FocusPath> = () => {
+        return this.rendererRef?.getInputPaths();
+    };
+
+    setInputValue: (FocusPath, string, () => mixed) => void = (
+        path,
+        newValue,
+        callback,
+    ) => {
+        return this.rendererRef?.setInputValue(path, newValue, callback);
+    };
+
+    focus: () => ?boolean = () => {
+        return this.rendererRef?.focus();
+    };
+
+    focusInputPath: (FocusPath) => void = (path) => {
+        this.rendererRef?.focusPath(path);
+    };
+
+    blurInputPath: (FocusPath) => void = (path) => {
+        this.rendererRef?.blurPath(path);
+    };
+
+    showRationalesForCurrentlySelectedChoices: () => void = () => {
+        this.rendererRef?.showRationalesForCurrentlySelectedChoices();
+    };
 
     render(): React.Node {
         const apiOptions: APIOptions = {
@@ -121,61 +175,6 @@ class Group extends React.Component<Props> {
             </div>
         );
     }
-
-    change: ChangeFn = (...args) => {
-        return Changeable.change.apply(this, args);
-    };
-
-    getUserInput: () => $FlowFixMe = () => {
-        return this.rendererRef?.getUserInput();
-    };
-
-    getSerializedState: () => $FlowFixMe = () => {
-        return this.rendererRef?.getSerializedState();
-    };
-
-    restoreSerializedState: ($FlowFixMe, $FlowFixMe) => null = (
-        state,
-        callback,
-    ) => {
-        this.rendererRef?.restoreSerializedState(state, callback);
-        // Tell our renderer that we have no props to change
-        // (all our changes were in state):
-        return null;
-    };
-
-    simpleValidate: (Rubric) => ?PerseusScore = (rubric) => {
-        return this.rendererRef?.score();
-    };
-
-    // Mobile API:
-    getInputPaths: () => ?$ReadOnlyArray<FocusPath> = () => {
-        return this.rendererRef?.getInputPaths();
-    };
-
-    setInputValue: (FocusPath, string, () => mixed) => void = (
-        path,
-        newValue,
-        callback,
-    ) => {
-        return this.rendererRef?.setInputValue(path, newValue, callback);
-    };
-
-    focus: () => ?boolean = () => {
-        return this.rendererRef?.focus();
-    };
-
-    focusInputPath: (FocusPath) => void = (path) => {
-        this.rendererRef?.focusPath(path);
-    };
-
-    blurInputPath: (FocusPath) => void = (path) => {
-        this.rendererRef?.blurPath(path);
-    };
-
-    showRationalesForCurrentlySelectedChoices: () => void = () => {
-        this.rendererRef?.showRationalesForCurrentlySelectedChoices();
-    };
 }
 
 const traverseChildWidgets = function (
