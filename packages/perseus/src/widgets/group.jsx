@@ -15,7 +15,7 @@ import type {
     WidgetExports,
     WidgetProps,
 } from "../types.js";
-import type {APIOptions} from "../types";
+import type {APIOptions, ChangeFn} from "../types";
 
 type Rubric = PerseusGroupWidgetOptions;
 type RenderProps = PerseusGroupWidgetOptions; // exports has no 'transform'
@@ -68,7 +68,9 @@ class Group extends React.Component<Props> {
         // give ourselves number -1. To combat this, we forceUpdate in
         // componentDidMount so that we can number ourselves properly. But,
         // really we should have a more unidirectional flow. TODO(marcia): fix.
-        const number: number = this.props.findWidgets("group").indexOf(this);
+        const groupWidgets: $ReadOnlyArray<Group> =
+            this.props.findWidgets("group");
+        const number: number = groupWidgets.indexOf(this);
         const problemNumComponent = this.props.apiOptions.groupAnnotator(
             number,
             this.props.widgetId,
@@ -100,16 +102,10 @@ class Group extends React.Component<Props> {
                 })}
             >
                 {problemNumComponent}
-                {/**
-                 * We're passing a bunch of extra props to Renderer here that it
-                 * doesn't need.  We should replace {...this.props} with the individual
-                 * props that are needed.
-                 * TODO(FEI-4034): Only pass what the Renderer expects.
-                 */}
-                {/* $FlowFixMe[prop-missing] */}
-                {/* $FlowFixMe[incompatible-type] */}
                 <Renderer
-                    {...this.props}
+                    content={this.props.content}
+                    widgets={this.props.widgets}
+                    images={this.props.images}
                     ref={(ref) => (this.rendererRef = ref)}
                     apiOptions={apiOptions}
                     findExternalWidgets={this.props.findWidgets}
@@ -125,7 +121,7 @@ class Group extends React.Component<Props> {
         );
     }
 
-    change: ($FlowFixMe, $FlowFixMe, $FlowFixMe) => $FlowFixMe = (...args) => {
+    change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
     };
 
@@ -137,7 +133,7 @@ class Group extends React.Component<Props> {
         return this.rendererRef?.getSerializedState();
     };
 
-    restoreSerializedState: ($FlowFixMe, $FlowFixMe) => $FlowFixMe = (
+    restoreSerializedState: ($FlowFixMe, $FlowFixMe) => null = (
         state,
         callback,
     ) => {
@@ -156,12 +152,12 @@ class Group extends React.Component<Props> {
         return this.rendererRef?.getInputPaths();
     };
 
-    setInputValue: (FocusPath, string, $FlowFixMe) => void = (
+    setInputValue: (FocusPath, string, () => mixed) => void = (
         path,
         newValue,
-        cb,
+        callback,
     ) => {
-        return this.rendererRef?.setInputValue(path, newValue, cb);
+        return this.rendererRef?.setInputValue(path, newValue, callback);
     };
 
     focus: () => ?boolean = () => {
