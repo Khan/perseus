@@ -3,7 +3,6 @@
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import classNames from "classnames";
 import * as React from "react";
-import _ from "underscore";
 
 import * as Changeable from "../mixins/changeable.jsx";
 import {ApiOptions} from "../perseus-api.jsx";
@@ -69,7 +68,7 @@ class Group extends React.Component<Props> {
         // give ourselves number -1. To combat this, we forceUpdate in
         // componentDidMount so that we can number ourselves properly. But,
         // really we should have a more unidirectional flow. TODO(marcia): fix.
-        const number: number = _.indexOf(this.props.findWidgets("group"), this);
+        const number: number = this.props.findWidgets("group").indexOf(this);
         const problemNumComponent = this.props.apiOptions.groupAnnotator(
             number,
             this.props.widgetId,
@@ -186,7 +185,7 @@ const traverseChildWidgets = function (
     props: $FlowFixMe,
     traverseRenderer: $FlowFixMe,
 ): $FlowFixMe {
-    return _.extend({}, props, traverseRenderer(props));
+    return {...props, ...traverseRenderer(props)};
 };
 
 export default ({
