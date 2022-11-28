@@ -180,14 +180,19 @@ describe("single-choice question", () => {
 
                     // Assert
                     // Everything's read-only so no selections made
-                    // Note(TB): The visual buttons are hidden from screen readers
-                    // so they need to be identified as hidden
-                    // The visual button has the aria attributes
+                    // Note(TB): The visual buttons are hidden from screen
+                    // readers, so they need to be identified as hidden;
+                    // the visual button has the aria attributes
                     screen
                         .getAllByRole("button", {hidden: true})
                         .forEach((r) => {
                             expect(r).toHaveAttribute("aria-disabled", "true");
                         });
+                    // Note(TB): Confirms the screen reader only
+                    // radio options are also disabled
+                    screen.getAllByRole("radio").forEach((r) => {
+                        expect(r).toHaveAttribute("disabled");
+                    });
                 });
             },
         );
@@ -235,6 +240,21 @@ describe("single-choice question", () => {
             expect(
                 screen.getAllByRole("button", {hidden: true})[0],
             ).toHaveFocus();
+        });
+
+        it("should be able to select an option by keyboard", () => {
+            // Arrange
+            renderQuestion(question, apiOptions);
+
+            // Act
+            userEvent.tab();
+            // Note(TB): The visual buttons are hidden from screen readers
+            // so they need to be identified as hidden;
+            // cannot access screen reader buttons via tabbing
+            userEvent.keyboard("{space}");
+
+            // Assert
+            expect(screen.getAllByRole("radio")[0]).toBeChecked();
         });
 
         it("should be able to navigate through 'None of the above' choice by keyboard", () => {
@@ -516,6 +536,11 @@ describe("single-choice question", () => {
         // Assert
         expect(screen.getAllByText("Incorrect (selected)")).toHaveLength(1);
     });
+
+    // Need to find where I can pass in the value for widgetOptions.randomize
+    it("Should randomize options when randomize is true", () => {});
+
+    it("Should not randomize options when randomize is false", () => {});
 });
 
 describe("multi-choice question", () => {
@@ -544,7 +569,7 @@ describe("multi-choice question", () => {
         expect(renderer).toHaveBeenAnsweredCorrectly();
     });
 
-    it("should check multiple options when multiple choices clicked", () => {
+    it("should select multiple options when clicked", () => {
         // Arrange
         const apiOptions: APIOptions = {
             crossOutEnabled: false,
@@ -587,6 +612,51 @@ describe("multi-choice question", () => {
         expect(options[3]).toBeChecked();
     });
 
+    it("should deselect selected options when clicked", () => {
+        // Arrange
+        const apiOptions: APIOptions = {
+            crossOutEnabled: false,
+        };
+        const radio1Widget = ((question.widgets["radio 1"]: any): RadioWidget);
+        const radioOptions = radio1Widget.options;
+
+        const multipleCorrectChoicesQuestion: PerseusRenderer = {
+            ...question,
+            widgets: {
+                ...question.widgets,
+                "radio 1": ({
+                    ...radio1Widget,
+                    options: {
+                        ...radioOptions,
+                        choices: [
+                            {content: "$x=-6$", correct: true},
+                            {content: "$x=4$", correct: true},
+                            {content: "$x=7$", correct: false},
+                            {
+                                content: "There is no such input value.",
+                                isNoneOfTheAbove: true,
+                                correct: false,
+                            },
+                        ],
+                    },
+                }: RadioWidget),
+            },
+        };
+
+        renderQuestion(multipleCorrectChoicesQuestion, apiOptions);
+
+        // Act
+        const options = screen.getAllByRole("checkbox");
+        userEvent.click(options[2]);
+        userEvent.click(options[3]);
+        userEvent.click(options[2]);
+        userEvent.click(options[3]);
+
+        // Assert
+        expect(options[2]).not.toBeChecked();
+        expect(options[3]).not.toBeChecked();
+    });
+
     it("should snapshot the same when invalid", () => {
         // Arrange
         const {container} = renderQuestion(question, apiOptions);
@@ -597,6 +667,19 @@ describe("multi-choice question", () => {
 
         // Assert
         expect(container).toMatchSnapshot("invalid state");
+    });
+
+    it("should be invalid when first rendered", () => {
+        // Arrange
+        const apiOptions: APIOptions = {
+            crossOutEnabled: false,
+        };
+
+        // Act
+        const {renderer} = renderQuestion(question, apiOptions);
+
+        // Assert
+        expect(renderer).toHaveInvalidInput();
     });
 
     it("should be invalid when incorrect number of choices selected", () => {

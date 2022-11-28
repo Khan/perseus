@@ -236,18 +236,22 @@ describe("base-radio", () => {
                     generateChoice({
                         content: "Option 1",
                         correct: false,
+                        checked: false,
                     }),
                     generateChoice({
                         content: "Option B",
                         correct: false,
+                        checked: false,
                     }),
                     generateChoice({
                         content: "Option Gamma",
                         correct: true,
+                        checked: false,
                     }),
                     generateChoice({
                         content: "Option Delta",
                         correct: false,
+                        checked: false,
                     }),
                 ],
                 onChange: onChangeHandler,
@@ -299,52 +303,12 @@ describe("base-radio", () => {
 
             // Act
             userEvent.click(
-                screen.getByRole("radio", {name: "(Choice C) Option Gamma"}),
+                screen.getByRole("checkbox", {name: "(Choice C) Option Gamma"}),
             );
 
             // Assert
             expect(updatedValues).toMatchObject({
                 checked: [false, false, true, false],
-            });
-        });
-
-        it("deselects single select selected choice", () => {
-            // Arrange
-            let updatedValues = null;
-            const onChangeHandler = (newValues) => {
-                updatedValues = newValues;
-            };
-
-            renderBaseRadio({
-                multipleSelect: false,
-                choices: [
-                    generateChoice({
-                        content: "Option 1",
-                        correct: false,
-                        checked: true,
-                    }),
-                    generateChoice({
-                        content: "Option B",
-                        correct: false,
-                    }),
-                    generateChoice({
-                        content: "Option Gamma",
-                        correct: true,
-                    }),
-                    generateChoice({
-                        content: "Option Delta",
-                        correct: false,
-                    }),
-                ],
-                onChange: onChangeHandler,
-            });
-
-            // Act
-            userEvent.click(screen.getAllByRole("radio")[0]);
-
-            // Assert
-            expect(updatedValues).toMatchObject({
-                checked: [false, false, false, false],
             });
         });
     });
