@@ -18,7 +18,6 @@ import KhanMath from "../util/math.js";
 import type {
     MathFormat,
     PerseusNumericInputWidgetOptions,
-    PerseusNumericInputAnswer,
 } from "../perseus-types";
 import type {PerseusScore, WidgetExports, WidgetProps} from "../types.js";
 
@@ -121,14 +120,11 @@ export class NumericInput extends React.Component<Props, State> {
         };
     }
 
-    static getOneCorrectAnswerFromRubric(
-        rubric: Rubric,
-    ): ?PerseusNumericInputAnswer {
-        const correctAnswers = _.filter(
-            rubric.answers,
+    static getOneCorrectAnswerFromRubric(rubric: Rubric): ?string {
+        const correctAnswers = rubric.answers.filter(
             (answer) => answer.status === "correct",
         );
-        const answerStrings = _.map(correctAnswers, (answer) => {
+        const answerStrings = correctAnswers.map((answer) => {
             // Figure out how this answer is supposed to be
             // displayed
             let format = "decimal";
@@ -155,27 +151,36 @@ export class NumericInput extends React.Component<Props, State> {
     }
 
     static validate(useInput: UserInput, rubric: Rubric): PerseusScore {
-        const allAnswerForms = _.pluck(answerFormButtons, "value");
+        const allAnswerForms = answerFormButtons.map((e) => e["value"]);
 
-        const createValidator = (answer) =>
-            KhanAnswerTypes.number.createValidatorFunctional(answer.value, {
-                message: answer.message,
-                simplify:
-                    answer.status === "correct" ? answer.simplify : "optional",
-                inexact: true, // TODO(merlob) backfill / delete
-                maxError: answer.maxError,
-                forms:
-                    answer.strict &&
-                    answer.answerForms &&
-                    answer.answerForms.length !== 0
-                        ? answer.answerForms
-                        : allAnswerForms,
-            });
+        const createValidator = (answer) => {
+            const stringAnswer = `${answer.value}`;
+            return KhanAnswerTypes.number.createValidatorFunctional(
+                stringAnswer,
+                {
+                    message: answer.message,
+                    simplify:
+                        answer.status === "correct"
+                            ? answer.simplify
+                            : "optional",
+                    inexact: true, // TODO(merlob) backfill / delete
+                    maxError: answer.maxError,
+                    forms:
+                        answer.strict &&
+                        answer.answerForms &&
+                        answer.answerForms.length !== 0
+                            ? answer.answerForms
+                            : allAnswerForms,
+                },
+            );
+        };
 
         // We may have received TeX; try to parse it before grading.
         // If `currentValue` is not TeX, this should be a no-op.
         const currentValue = ParseTex(useInput.currentValue);
-        const correctAnswers = _.where(rubric.answers, {status: "correct"});
+        const correctAnswers = rubric.answers.filter(
+            (answer) => answer.status === "correct",
+        );
 
         const normalizedAnswerExpected = correctAnswers.every(
             (answer) => Math.abs(answer.value) <= 1,
@@ -185,8 +190,8 @@ export class NumericInput extends React.Component<Props, State> {
         // precisely or approximately and return the appropriate message:
         // - if precise, return the message that the answer came with
         // - if it needs to be simplified, etc., show that message
-        let result = _.find(
-            _.map(correctAnswers, (answer) => {
+        let result = correctAnswers
+            .map((answer) => {
                 // The coefficient is an attribute of the widget
                 let localValue = currentValue;
                 if (rubric.coefficient) {
@@ -203,15 +208,14 @@ export class NumericInput extends React.Component<Props, State> {
                         normalizedAnswerExpected,
                     ),
                 );
-            }),
-            (match) => match.correct || match.empty,
-        );
+            })
+            .find((match) => match.correct || match.empty);
 
         if (!result) {
             // Otherwise, if the guess is not correct
             const otherAnswers = [].concat(
-                _.where(rubric.answers, {status: "ungraded"}),
-                _.where(rubric.answers, {status: "wrong"}),
+                rubric.answers.filter((answer) => answer.status === "ungraded"),
+                rubric.answers.filter((answer) => answer.status === "wrong"),
             );
 
             // Look through all other answers and if one matches either
