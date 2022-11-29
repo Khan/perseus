@@ -1,9 +1,12 @@
 // @flow
 
 import "@testing-library/jest-dom";
+import {render, screen} from "@testing-library/react";
+import React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies.js";
 import * as Dependencies from "../../dependencies.js";
+import {ApiOptions} from "../../perseus-api.jsx";
 import {question1, question2} from "../__testdata__/passage_testdata.js";
 import PassageWidgetExport from "../passage.jsx";
 import * as getLineHeightModule from "../passage/get-line-height-for-node.js";
@@ -13,6 +16,40 @@ import {renderQuestion} from "./renderQuestion.jsx";
 import type {APIOptions} from "../../types.js";
 
 jest.mock("../passage/get-line-height-for-node.js");
+
+function renderPassage(overwrite) {
+    const widgetPropsBase = {
+        footnotes: "",
+        passageText: "",
+        passageTitle: "",
+        showLineNumbers: false,
+        static: true,
+    };
+
+    const base = {
+        ...widgetPropsBase,
+        alignment: null,
+        apiOptions: {
+            ...ApiOptions.defaults,
+        },
+        containerSizeClass: "small",
+        findWidgets: (callback) => [],
+        isLastUsedWidget: false,
+        onBlur: () => {},
+        onChange: () => {},
+        onFocus: () => {},
+        problemNum: 1,
+        reviewModeRubric: {
+            ...widgetPropsBase,
+        },
+        static: true,
+        trackInteraction: () => {},
+        widgetId: "passage",
+    };
+
+    const extended = {...base, ...overwrite};
+    return render(<PassageWidgetExport.widget {...extended} />);
+}
 
 describe("passage widget", () => {
     beforeEach(() => {
@@ -129,5 +166,49 @@ describe("passage widget", () => {
 
         // Assert
         expect(reference).toBe(null);
+    });
+
+    it("should render passage title", () => {
+        renderPassage({passageTitle: "Passage title"});
+
+        expect(screen.getByText("Passage title")).toBeInTheDocument();
+    });
+
+    it("should render passage text", () => {
+        renderPassage({passageText: "Passage text"});
+
+        expect(screen.getByText("Passage text")).toBeInTheDocument();
+    });
+
+    it("should render footnotes", () => {
+        renderPassage({footnotes: "Footnote text"});
+
+        expect(screen.getByText("Footnote text")).toBeInTheDocument();
+    });
+
+    it("should render first question instructions", () => {
+        renderPassage({passageText: "[[test]] Passage text"});
+
+        expect(screen.getByText("The symbol")).toBeInTheDocument();
+        expect(screen.getAllByText("[Marker for question test]")).toHaveLength(
+            2,
+        );
+        expect(
+            screen.getByText(
+                "indicates that question test references this portion of the passage",
+            ),
+        ).toBeInTheDocument();
+    });
+
+    it("should render first sentence instructions", () => {
+        renderPassage({passageText: "[[1]] Passage text"});
+
+        expect(screen.getByText("The symbol")).toBeInTheDocument();
+        expect(screen.getAllByText("[Marker for question 1]")).toHaveLength(2);
+        expect(
+            screen.getByText(
+                "indicates that question 1 references this portion of the passage",
+            ),
+        ).toBeInTheDocument();
     });
 });
