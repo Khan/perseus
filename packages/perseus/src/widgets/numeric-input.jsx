@@ -95,6 +95,8 @@ type State = {|
 |};
 
 export class NumericInput extends React.Component<Props, State> {
+    inputRef: ?(SimpleKeypadInput | InputWithExamples);
+
     static defaultProps: DefaultProps = {
         currentValue: "",
         size: "normal",
@@ -332,20 +334,16 @@ export class NumericInput extends React.Component<Props, State> {
     };
 
     focus: () => boolean = () => {
-        // eslint-disable-next-line react/no-string-refs
-        this.refs.input.focus();
+        this.inputRef?.focus();
         return true;
     };
 
-    focusInputPath: ($FlowFixMe) => void = (inputPath) => {
-        /* istanbul ignore next */
-        // eslint-disable-next-line react/no-string-refs
-        this.refs.input.focus();
+    focusInputPath: () => void = () => {
+        this.inputRef?.focus();
     };
 
-    blurInputPath: ($FlowFixMe) => void = (inputPath) => {
-        // eslint-disable-next-line react/no-string-refs
-        this.refs.input.blur();
+    blurInputPath: () => void = () => {
+        this.inputRef?.blur();
     };
 
     getInputPaths: () => $ReadOnlyArray<$ReadOnlyArray<string>> = () => {
@@ -429,8 +427,7 @@ export class NumericInput extends React.Component<Props, State> {
             // TODO(charlie): Support "Review Mode".
             return maybeRightAlignKeypadInput(
                 <SimpleKeypadInput
-                    // eslint-disable-next-line react/no-string-refs
-                    ref="input"
+                    ref={(ref) => (this.inputRef = ref)}
                     value={this.props.currentValue}
                     keypadElement={this.props.keypadElement}
                     onChange={this.handleChange}
@@ -442,8 +439,7 @@ export class NumericInput extends React.Component<Props, State> {
 
         const input = (
             <InputWithExamples
-                // eslint-disable-next-line react/no-string-refs
-                ref="input"
+                ref={(ref) => (this.inputRef = ref)}
                 value={this.props.currentValue}
                 onChange={this.handleChange}
                 className={classNames(classes)}
@@ -547,10 +543,10 @@ type RenderProps = {|
 // can accept several input forms with or without "%", the decision
 // to parse based on the presence of "%" in the input, is so that we
 // don't accidently scale the user typed value before grading, CP-930.
-export const maybeParsePercentInput: ($FlowFixMe, $FlowFixMe) => $FlowFixMe = (
-    inputValue,
-    normalizedAnswerExpected,
-) => {
+export const maybeParsePercentInput: (
+    string | number,
+    boolean,
+) => $FlowFixMe = (inputValue, normalizedAnswerExpected) => {
     // If the input value is not a string ending with "%", then there's
     // nothing more to do. The value will be graded as inputted by user.
     if (!(typeof inputValue === "string" && inputValue.endsWith("%"))) {
