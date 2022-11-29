@@ -1404,7 +1404,7 @@ export type PerseusInputNumberWidgetOptions = {|
     rightAlign?: boolean,
     simplify: "required" | "optional" | "enforced",
     size: "normal" | "small",
-    value: string | number | boolean,
+    value: string | number,
     customKeypad?: boolean,
 |};
 

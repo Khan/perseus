@@ -332,8 +332,13 @@ class InputNumber extends React.Component<Props> {
         if (rubric.answerType == null) {
             rubric.answerType = "number";
         }
+
+        // note(matthewc): this will get immediately parsed again by
+        // `KhanAnswerTypes.number.convertToPredicate`, but a string is
+        // expected here
+        const stringValue = `${rubric.value}`;
         const val = KhanAnswerTypes.number.createValidatorFunctional(
-            rubric.value,
+            stringValue,
             {
                 simplify: rubric.simplify,
                 inexact: rubric.inexact || undefined,
