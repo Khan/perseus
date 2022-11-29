@@ -16,10 +16,16 @@ import KhanAnswerTypes from "../util/answer-types.js";
 import KhanMath from "../util/math.js";
 
 import type {
+    MathFormat,
     PerseusNumericInputWidgetOptions,
     PerseusNumericInputAnswer,
-} from "../perseus-types.js";
+} from "../perseus-types";
 import type {PerseusScore, WidgetExports, WidgetProps} from "../types.js";
+
+type GenericAnswerForm = {|
+    simplify: ?string,
+    name: string,
+|};
 
 const ParseTex = TexWrangler.parseTex;
 
@@ -36,7 +42,7 @@ const answerFormButtons = [
     {title: "Numbers with \u03C0", value: "pi", content: "\u03C0"},
 ];
 
-const formExamples = {
+const formExamples: {[string]: (GenericAnswerForm) => string} = {
     integer: () => i18n._("an integer, like $6$"),
     proper: (form) =>
         form.simplify === "optional"
@@ -261,14 +267,13 @@ export class NumericInput extends React.Component<Props, State> {
             correct = score.type === "points" && score.earned === score.total;
 
             if (!correct) {
-                const correctAnswers = _.filter(
-                    rubric.answers,
+                const correctAnswers = rubric.answers.filter(
                     (answer) => answer.status === "correct",
                 );
-                const answerStrings = _.map(correctAnswers, (answer) => {
+                const answerStrings = correctAnswers.map((answer) => {
                     // Figure out how this answer is supposed to be
                     // displayed
-                    let format = "decimal";
+                    let format: MathFormat = "decimal";
                     if (answer.answerForms && answer.answerForms[0]) {
                         // NOTE(johnsullivan): This isn't exactly ideal, but
                         // it does behave well for all the currently known
@@ -300,7 +305,7 @@ export class NumericInput extends React.Component<Props, State> {
         const forms =
             this.props.answerForms?.length !== 0
                 ? this.props.answerForms
-                : _.map(_.keys(formExamples), (name) => {
+                : Object.keys(formExamples).map((name) => {
                       return {
                           name: name,
                           simplify: "required",
