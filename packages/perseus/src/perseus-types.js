@@ -706,9 +706,18 @@ export type PerseusMeasurerWidgetOptions = {|
     static: boolean,
 |};
 
+export type MathFormat =
+    | "integer"
+    | "mixed"
+    | "improper"
+    | "proper"
+    | "decimal"
+    | "percent"
+    | "pi";
+
 export type PerseusNumericInputAnswerForm = {|
     simplify: ?("required" | "correct" | "enforced"),
-    name: "integer" | "decimal" | "proper" | "improper" | "mixed" | "pi",
+    name: MathFormat,
 |};
 
 export type PerseusNumericInputWidgetOptions = {|
@@ -733,15 +742,6 @@ export type PerseusNumericInputWidgetOptions = {|
     // see TODO in numeric-input
     answerForms?: $ReadOnlyArray<PerseusNumericInputAnswerForm>,
 |};
-
-export type MathFormat =
-    | "integer"
-    | "mixed"
-    | "improper"
-    | "proper"
-    | "decimal"
-    | "percent"
-    | "pi";
 
 export type PerseusNumericInputAnswer = {|
     // Translatable Display; A description for why this answer is correct, wrong, or ungraded

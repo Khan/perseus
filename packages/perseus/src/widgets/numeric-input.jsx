@@ -17,9 +17,15 @@ import KhanMath from "../util/math.js";
 
 import type {
     MathFormat,
+    PerseusNumericInputAnswer,
     PerseusNumericInputWidgetOptions,
 } from "../perseus-types";
-import type {PerseusScore, WidgetExports, WidgetProps} from "../types.js";
+import type {
+    FocusPath,
+    PerseusScore,
+    WidgetExports,
+    WidgetProps,
+} from "../types";
 
 type GenericAnswerForm = {|
     simplify: ?string,
@@ -153,7 +159,7 @@ export class NumericInput extends React.Component<Props, State> {
     static validate(useInput: UserInput, rubric: Rubric): PerseusScore {
         const allAnswerForms = answerFormButtons.map((e) => e["value"]);
 
-        const createValidator = (answer) => {
+        const createValidator = (answer: PerseusNumericInputAnswer) => {
             const stringAnswer = `${answer.value}`;
             return KhanAnswerTypes.number.createValidatorFunctional(
                 stringAnswer,
@@ -220,7 +226,7 @@ export class NumericInput extends React.Component<Props, State> {
 
             // Look through all other answers and if one matches either
             // precisely or approximately return the answer's message
-            const match = _.find(otherAnswers, (answer) => {
+            const match = otherAnswers.find((answer) => {
                 const validate = createValidator(answer);
                 return validate(
                     maybeParsePercentInput(
@@ -334,7 +340,8 @@ export class NumericInput extends React.Component<Props, State> {
         const answerFormNames = _.uniq(
             this.props.answerForms?.map((form) => form.name),
         );
-        const allFormsAccepted = answerFormNames.length >= _.size(formExamples);
+        const allFormsAccepted =
+            answerFormNames.length >= Object.keys(formExamples).length;
         return !noFormsAccepted && !allFormsAccepted;
     };
 
@@ -362,12 +369,12 @@ export class NumericInput extends React.Component<Props, State> {
         return [[]];
     };
 
-    getGrammarTypeForPath: ($FlowFixMe) => string = (inputPath) => {
+    getGrammarTypeForPath: (FocusPath) => string = (inputPath) => {
         /* istanbul ignore next */
         return "number";
     };
 
-    setInputValue: ($FlowFixMe, $FlowFixMe, $FlowFixMe) => void = (
+    setInputValue: (FocusPath, string, $FlowFixMe) => void = (
         path,
         newValue,
         cb,
@@ -509,23 +516,19 @@ export const unionAnswerForms: ($FlowFixMe) => $FlowFixMe = function (
     // two elements are equal, and returns a list of unique elements. This is
     // just a helper function here, but works generally.
     const uniqueBy = function (list, iteratee) {
-        return _.reduce(
-            list,
-            (uniqueList, element) => {
-                // For each element, decide whether it's already in the list of
-                // unique items.
-                const inList = _.find(uniqueList, iteratee.bind(null, element));
-                if (inList) {
-                    return uniqueList;
-                }
-                return uniqueList.concat([element]);
-            },
-            [],
-        );
+        return list.reduce((uniqueList, element) => {
+            // For each element, decide whether it's already in the list of
+            // unique items.
+            const inList = _.find(uniqueList, iteratee.bind(null, element));
+            if (inList) {
+                return uniqueList;
+            }
+            return uniqueList.concat([element]);
+        }, []);
     };
 
     // Pull out all of the forms from the different lists.
-    const allForms = _.flatten(answerFormsList);
+    const allForms = answerFormsList.flat();
     // Pull out the unique forms using uniqueBy.
     const uniqueForms = uniqueBy(allForms, _.isEqual);
     // Sort them by the order they appear in the `formExamples` list.
@@ -589,7 +592,7 @@ const propsTransform = function (
         answerForms: unionAnswerForms(
             // Pull out the name of each form and whether that form has
             // required simplification.
-            _.map(widgetOptions.answers, (answer) => {
+            widgetOptions.answers.map((answer) => {
                 return _.map(answer.answerForms, (form) => {
                     return {
                         simplify: answer.simplify,
