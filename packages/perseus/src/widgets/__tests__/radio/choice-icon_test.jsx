@@ -65,7 +65,7 @@ describe("choice icon", () => {
         );
 
         describe.each([[true], [false]])("correct: %s", (correct) => {
-            it("renders with the correct icon", () => {
+            it("displays correctness as expected", () => {
                 // Arrange / Act
 
                 // Assert

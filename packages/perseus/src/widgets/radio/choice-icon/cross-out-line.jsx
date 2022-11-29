@@ -26,6 +26,7 @@ function CrossOutLine(props: {color: string, sat?: boolean, ...}): React.Node {
             height={crossOutLineSize}
             viewBox={`0 0 ${crossOutLineSize} ${crossOutLineSize}`}
             className={css(styles.crossOutLine)}
+            data-test-id="svg"
         >
             <line
                 // The line stretches from the bottom-left to top-right.

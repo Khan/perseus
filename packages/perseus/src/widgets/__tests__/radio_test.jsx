@@ -356,7 +356,7 @@ describe("single-choice question", () => {
             expect(passageRefRadio).toHaveTextContent("lines NaN–NaN");
         });
 
-        it("Should render option statuses (rationales) for selected choices", () => {
+        it("should render rationales for selected choices", () => {
             // Arrange
             const {renderer} = renderQuestion(question, apiOptions);
 
@@ -462,6 +462,38 @@ describe("single-choice question", () => {
                         name: /Cross out Choice B/,
                     }),
                 ).toHaveLength(0);
+
+                expect(screen.getByTestId("svg")).toBeVisible();
+            });
+
+            it("should remove cross-out line on selection", async () => {
+                // Arrange
+                renderQuestion(question, crossOutApiOptions);
+                userEvent.click(
+                    screen.getByRole("button", {
+                        name: /Open menu for Choice B/,
+                    }),
+                );
+                await act(async () => {
+                    await jest.runAllTimers();
+                });
+
+                // Act
+                userEvent.click(
+                    screen.getByRole("button", {
+                        name: /Cross out Choice B/,
+                    }),
+                );
+                jest.runAllTimers();
+
+                userEvent.click(
+                    screen.getByRole("radio", {
+                        name: "(Choice B, Crossed out) -8",
+                    }),
+                );
+
+                // Assert
+                expect(screen.queryByTestId("svg")).not.toBeInTheDocument();
             });
 
             it("should dismiss cross-out button with {tab} key", async () => {
@@ -541,6 +573,29 @@ describe("single-choice question", () => {
     it("Should randomize options when randomize is true", () => {});
 
     it("Should not randomize options when randomize is false", () => {});
+
+    it.each([0, 1, 2, 3])(
+        "should display all rationales when static is true - test-id: %s",
+        (num) => {
+            // Arrange / Act
+            const staticQuestion = {
+                ...question,
+                widgets: {
+                    ...question.widgets,
+                    "radio 1": {
+                        ...question.widgets["radio 1"],
+                        static: true,
+                    },
+                },
+            };
+            renderQuestion(staticQuestion);
+
+            // Assert
+            expect(
+                screen.getByTestId(`perseus-radio-rationale-content-${num}`),
+            ).toBeVisible();
+        },
+    );
 });
 
 describe("multi-choice question", () => {
