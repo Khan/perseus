@@ -8,6 +8,7 @@ import {ApiOptions} from "../perseus-api.jsx";
 import Renderer from "../renderer.jsx";
 
 import type {PerseusGroupWidgetOptions} from "../perseus-types.js";
+import type {Widget} from "../renderer.jsx";
 import type {
     APIOptions,
     ChangeFn,
@@ -15,7 +16,7 @@ import type {
     PerseusScore,
     WidgetExports,
     WidgetProps,
-} from "../types";
+} from "../types.js";
 
 type Rubric = PerseusGroupWidgetOptions;
 type RenderProps = PerseusGroupWidgetOptions; // exports has no 'transform'
@@ -123,7 +124,7 @@ class Group extends React.Component<Props> {
         // give ourselves number -1. To combat this, we forceUpdate in
         // componentDidMount so that we can number ourselves properly. But,
         // really we should have a more unidirectional flow. TODO(marcia): fix.
-        const groupWidgets: $ReadOnlyArray<Group> =
+        const groupWidgets: $ReadOnlyArray<Widget> =
             this.props.findWidgets("group");
         const number: number = groupWidgets.indexOf(this);
         const problemNumComponent = this.props.apiOptions.groupAnnotator(
