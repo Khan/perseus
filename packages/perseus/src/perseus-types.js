@@ -716,7 +716,7 @@ export type MathFormat =
     | "pi";
 
 export type PerseusNumericInputAnswerForm = {|
-    simplify: ?("required" | "correct" | "enforced"),
+    simplify: ?("required" | "correct" | "enforced" | "optional"),
     name: MathFormat,
 |};
 

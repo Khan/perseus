@@ -19,6 +19,7 @@ import type {
     MathFormat,
     PerseusNumericInputAnswer,
     PerseusNumericInputWidgetOptions,
+    PerseusNumericInputAnswerForm,
 } from "../perseus-types";
 import type {
     FocusPath,
@@ -26,11 +27,6 @@ import type {
     WidgetExports,
     WidgetProps,
 } from "../types";
-
-type GenericAnswerForm = {|
-    simplify: ?string,
-    name: string,
-|};
 
 const ParseTex = TexWrangler.parseTex;
 
@@ -47,7 +43,7 @@ const answerFormButtons = [
     {title: "Numbers with \u03C0", value: "pi", content: "\u03C0"},
 ];
 
-const formExamples: {[string]: (GenericAnswerForm) => string} = {
+const formExamples: {[string]: (PerseusNumericInputAnswerForm) => string} = {
     integer: () => i18n._("an integer, like $6$"),
     proper: (form) =>
         form.simplify === "optional"
@@ -337,7 +333,7 @@ export class NumericInput extends React.Component<Props, State> {
         // To check if all answer forms are accepted, we must first
         // find the *names* of all accepted forms, and see if they are
         // all present, ignoring duplicates
-        const answerFormNames = _.uniq(
+        const answerFormNames: $ReadOnlyArray<string> = _.uniq(
             this.props.answerForms?.map((form) => form.name),
         );
         const allFormsAccepted =
@@ -374,7 +370,7 @@ export class NumericInput extends React.Component<Props, State> {
         return "number";
     };
 
-    setInputValue: (FocusPath, string, $FlowFixMe) => void = (
+    setInputValue: (FocusPath, string, ?() => mixed) => void = (
         path,
         newValue,
         cb,
@@ -392,7 +388,7 @@ export class NumericInput extends React.Component<Props, State> {
         return NumericInput.getUserInputFromProps(this.props);
     };
 
-    handleChange: (string, $FlowFixMe) => void = (newValue, cb) => {
+    handleChange: (string, ?() => mixed) => void = (newValue, cb) => {
         this.props.onChange({currentValue: newValue}, cb);
         this.props.trackInteraction();
     };
@@ -505,7 +501,9 @@ export class NumericInput extends React.Component<Props, State> {
 // a given *problem* rather than for each possible [correct/wrong] *answer*.
 // When should two answers to a problem take different answer types?
 // See D27790 for more discussion.
-export const unionAnswerForms: ($FlowFixMe) => $FlowFixMe = function (
+export const unionAnswerForms: (
+    $ReadOnlyArray<$ReadOnlyArray<PerseusNumericInputAnswerForm>>,
+) => $ReadOnlyArray<PerseusNumericInputAnswerForm> = function (
     answerFormsList,
 ) {
     // Takes a list of lists of answer forms, and returns a list of the forms
@@ -532,8 +530,9 @@ export const unionAnswerForms: ($FlowFixMe) => $FlowFixMe = function (
     // Pull out the unique forms using uniqueBy.
     const uniqueForms = uniqueBy(allForms, _.isEqual);
     // Sort them by the order they appear in the `formExamples` list.
+    const formExampleKeys = Object.keys(formExamples);
     return _.sortBy(uniqueForms, (form) => {
-        return _.keys(formExamples).indexOf(form.name);
+        return formExampleKeys.indexOf(form.name);
     });
 };
 
@@ -558,7 +557,7 @@ type RenderProps = {|
 export const maybeParsePercentInput: (
     string | number,
     boolean,
-) => $FlowFixMe = (inputValue, normalizedAnswerExpected) => {
+) => string | number = (inputValue, normalizedAnswerExpected) => {
     // If the input value is not a string ending with "%", then there's
     // nothing more to do. The value will be graded as inputted by user.
     if (!(typeof inputValue === "string" && inputValue.endsWith("%"))) {
