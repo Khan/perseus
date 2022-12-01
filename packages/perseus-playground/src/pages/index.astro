@@ -1,25 +1,36 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import {Playground} from "../components/Playground.jsx"
----
+import {
+    Title
+} from "@khanacademy/wonder-blocks-typography";
 
+---
+<script></script>
 <Layout title="Welcome to Astro.">
 	<nav>
 		<div id="content">
-			<h1>Perseus Playground</h1>
+			<Title
+			client:only="react"
+			style={{
+				color: 'white'
+			}}>Perseus Playground</Title>
 		</div>
 	</nav>
 	<main>
-		<Playground name="Perseus Playground" />
+		<Playground
+		client:only="react"
+		name="Perseus Playground" />
 	</main>
 </Layout>
 
 <style>
 	nav {
 		background-color: #0b2149;
-		height: 44px;
+		height: 66px;
 		display: flex;
 		justify-content: center;
+		margin-bottom: 8px;
 	}
 
 	nav #content {
@@ -27,13 +38,8 @@ import {Playground} from "../components/Playground.jsx"
 		display: flex;
 		align-items: center;
 	}
-
-	nav #content h1 {
-		color: #ffffff;
-	}
 	main {
-		margin: auto;
-		padding: 1.5rem;
-		max-width: 60ch;
+		display: flex;
+		justify-content: center;
 	}
 </style>

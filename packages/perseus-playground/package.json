@@ -12,6 +12,8 @@
   },
   "dependencies": {
     "@astrojs/react": "^1.2.2",
+    "@khanacademy/perseus": "^1.0.0",
+    "@khanacademy/wonder-blocks-typography": "^1.1.34",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
     "astro": "^1.6.12",
