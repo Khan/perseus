@@ -4,14 +4,7 @@ import {number as knumber} from "@khanacademy/kmath";
 import $ from "jquery";
 import _ from "underscore";
 
-export type Format =
-    | "integer"
-    | "mixed"
-    | "improper"
-    | "proper"
-    | "decimal"
-    | "percent"
-    | "pi";
+import type {MathFormat} from "../perseus-types";
 
 const KhanMath = {
     // Simplify formulas before display
@@ -213,7 +206,7 @@ const KhanMath = {
     // Returns the format (string) of a given numeric string
     // Note: purposively more inclusive than answer-types' predicate.forms
     // That is, it is not necessarily true that interpreted input are numeric
-    getNumericFormat: function (text: string): ?Format {
+    getNumericFormat: function (text: string): ?MathFormat {
         text = $.trim(text);
         text = text.replace(/\u2212/, "-").replace(/([+-])\s+/g, "$1");
         if (text.match(/^[+-]?\d+$/)) {
@@ -238,7 +231,7 @@ const KhanMath = {
     },
 
     // Returns a string of the number in a specified format
-    toNumericString: function (number: number, format?: Format): string {
+    toNumericString: function (number: number, format?: MathFormat): string {
         if (number == null) {
             return "";
         }

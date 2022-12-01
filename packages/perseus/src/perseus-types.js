@@ -706,6 +706,20 @@ export type PerseusMeasurerWidgetOptions = {|
     static: boolean,
 |};
 
+export type MathFormat =
+    | "integer"
+    | "mixed"
+    | "improper"
+    | "proper"
+    | "decimal"
+    | "percent"
+    | "pi";
+
+export type PerseusNumericInputAnswerForm = {|
+    simplify: ?("required" | "correct" | "enforced" | "optional"),
+    name: MathFormat,
+|};
+
 export type PerseusNumericInputWidgetOptions = {|
     // A list of all the possible correct and incorrect answers
     answers: $ReadOnlyArray<PerseusNumericInputAnswer>,
@@ -726,22 +740,19 @@ export type PerseusNumericInputWidgetOptions = {|
 
     // Used by examples, maybe not used and should be removed in the future
     // see TODO in numeric-input
-    answerForms?: $ReadOnlyArray<{|
-        simplify: ?("required" | "correct" | "enforced"),
-        name: "integer" | "decimal" | "proper" | "improper" | "mixed" | "pi",
-    |}>,
+    answerForms?: $ReadOnlyArray<PerseusNumericInputAnswerForm>,
 |};
 
 export type PerseusNumericInputAnswer = {|
     // Translatable Display; A description for why this answer is correct, wrong, or ungraded
     message: string,
     // The expected answer
-    value: ?number,
+    value: number,
     // Whether this answer is "correct", "wrong", or "ungraded"
     status: string,
     // The forms available for this answer.  Options: "integer, ""decimal", "proper", "improper", "mixed", or "pi"
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
-    answerForms?: $ReadOnlyArray<string>,
+    answerForms?: $ReadOnlyArray<MathFormat>,
     // Whether the answerForms should be strictly matched
     strict: boolean,
     // A range of error +/- the value
@@ -1404,7 +1415,7 @@ export type PerseusInputNumberWidgetOptions = {|
     rightAlign?: boolean,
     simplify: "required" | "optional" | "enforced",
     size: "normal" | "small",
-    value: string | number | boolean,
+    value: string | number,
     customKeypad?: boolean,
 |};
 

@@ -529,14 +529,18 @@ describe("unionAnswerForms utility function", () => {
     it("removes duplicates", () => {
         // arrange
         const forms = [
-            {
-                status: "correct",
-                value: 1,
-            },
-            {
-                status: "correct",
-                value: 1,
-            },
+            [
+                {
+                    simplify: "required",
+                    name: "integer",
+                },
+            ],
+            [
+                {
+                    simplify: "required",
+                    name: "integer",
+                },
+            ],
         ];
 
         // act

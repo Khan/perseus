@@ -16,10 +16,17 @@ import KhanAnswerTypes from "../util/answer-types.js";
 import KhanMath from "../util/math.js";
 
 import type {
-    PerseusNumericInputWidgetOptions,
+    MathFormat,
     PerseusNumericInputAnswer,
-} from "../perseus-types.js";
-import type {PerseusScore, WidgetExports, WidgetProps} from "../types.js";
+    PerseusNumericInputWidgetOptions,
+    PerseusNumericInputAnswerForm,
+} from "../perseus-types";
+import type {
+    FocusPath,
+    PerseusScore,
+    WidgetExports,
+    WidgetProps,
+} from "../types";
 
 const ParseTex = TexWrangler.parseTex;
 
@@ -36,7 +43,7 @@ const answerFormButtons = [
     {title: "Numbers with \u03C0", value: "pi", content: "\u03C0"},
 ];
 
-const formExamples = {
+const formExamples: {[string]: (PerseusNumericInputAnswerForm) => string} = {
     integer: () => i18n._("an integer, like $6$"),
     proper: (form) =>
         form.simplify === "optional"
@@ -95,6 +102,8 @@ type State = {|
 |};
 
 export class NumericInput extends React.Component<Props, State> {
+    inputRef: ?(SimpleKeypadInput | InputWithExamples);
+
     static defaultProps: DefaultProps = {
         currentValue: "",
         size: "normal",
@@ -113,14 +122,11 @@ export class NumericInput extends React.Component<Props, State> {
         };
     }
 
-    static getOneCorrectAnswerFromRubric(
-        rubric: Rubric,
-    ): ?PerseusNumericInputAnswer {
-        const correctAnswers = _.filter(
-            rubric.answers,
+    static getOneCorrectAnswerFromRubric(rubric: Rubric): ?string {
+        const correctAnswers = rubric.answers.filter(
             (answer) => answer.status === "correct",
         );
-        const answerStrings = _.map(correctAnswers, (answer) => {
+        const answerStrings = correctAnswers.map((answer) => {
             // Figure out how this answer is supposed to be
             // displayed
             let format = "decimal";
@@ -147,27 +153,36 @@ export class NumericInput extends React.Component<Props, State> {
     }
 
     static validate(useInput: UserInput, rubric: Rubric): PerseusScore {
-        const allAnswerForms = _.pluck(answerFormButtons, "value");
+        const allAnswerForms = answerFormButtons.map((e) => e["value"]);
 
-        const createValidator = (answer) =>
-            KhanAnswerTypes.number.createValidatorFunctional(answer.value, {
-                message: answer.message,
-                simplify:
-                    answer.status === "correct" ? answer.simplify : "optional",
-                inexact: true, // TODO(merlob) backfill / delete
-                maxError: answer.maxError,
-                forms:
-                    answer.strict &&
-                    answer.answerForms &&
-                    answer.answerForms.length !== 0
-                        ? answer.answerForms
-                        : allAnswerForms,
-            });
+        const createValidator = (answer: PerseusNumericInputAnswer) => {
+            const stringAnswer = `${answer.value}`;
+            return KhanAnswerTypes.number.createValidatorFunctional(
+                stringAnswer,
+                {
+                    message: answer.message,
+                    simplify:
+                        answer.status === "correct"
+                            ? answer.simplify
+                            : "optional",
+                    inexact: true, // TODO(merlob) backfill / delete
+                    maxError: answer.maxError,
+                    forms:
+                        answer.strict &&
+                        answer.answerForms &&
+                        answer.answerForms.length !== 0
+                            ? answer.answerForms
+                            : allAnswerForms,
+                },
+            );
+        };
 
         // We may have received TeX; try to parse it before grading.
         // If `currentValue` is not TeX, this should be a no-op.
         const currentValue = ParseTex(useInput.currentValue);
-        const correctAnswers = _.where(rubric.answers, {status: "correct"});
+        const correctAnswers = rubric.answers.filter(
+            (answer) => answer.status === "correct",
+        );
 
         const normalizedAnswerExpected = correctAnswers.every(
             (answer) => Math.abs(answer.value) <= 1,
@@ -177,8 +192,8 @@ export class NumericInput extends React.Component<Props, State> {
         // precisely or approximately and return the appropriate message:
         // - if precise, return the message that the answer came with
         // - if it needs to be simplified, etc., show that message
-        let result = _.find(
-            _.map(correctAnswers, (answer) => {
+        let result = correctAnswers
+            .map((answer) => {
                 // The coefficient is an attribute of the widget
                 let localValue = currentValue;
                 if (rubric.coefficient) {
@@ -195,20 +210,19 @@ export class NumericInput extends React.Component<Props, State> {
                         normalizedAnswerExpected,
                     ),
                 );
-            }),
-            (match) => match.correct || match.empty,
-        );
+            })
+            .find((match) => match.correct || match.empty);
 
         if (!result) {
             // Otherwise, if the guess is not correct
             const otherAnswers = [].concat(
-                _.where(rubric.answers, {status: "ungraded"}),
-                _.where(rubric.answers, {status: "wrong"}),
+                rubric.answers.filter((answer) => answer.status === "ungraded"),
+                rubric.answers.filter((answer) => answer.status === "wrong"),
             );
 
             // Look through all other answers and if one matches either
             // precisely or approximately return the answer's message
-            const match = _.find(otherAnswers, (answer) => {
+            const match = otherAnswers.find((answer) => {
                 const validate = createValidator(answer);
                 return validate(
                     maybeParsePercentInput(
@@ -259,14 +273,13 @@ export class NumericInput extends React.Component<Props, State> {
             correct = score.type === "points" && score.earned === score.total;
 
             if (!correct) {
-                const correctAnswers = _.filter(
-                    rubric.answers,
+                const correctAnswers = rubric.answers.filter(
                     (answer) => answer.status === "correct",
                 );
-                const answerStrings = _.map(correctAnswers, (answer) => {
+                const answerStrings = correctAnswers.map((answer) => {
                     // Figure out how this answer is supposed to be
                     // displayed
-                    let format = "decimal";
+                    let format: MathFormat = "decimal";
                     if (answer.answerForms && answer.answerForms[0]) {
                         // NOTE(johnsullivan): This isn't exactly ideal, but
                         // it does behave well for all the currently known
@@ -298,7 +311,7 @@ export class NumericInput extends React.Component<Props, State> {
         const forms =
             this.props.answerForms?.length !== 0
                 ? this.props.answerForms
-                : _.map(_.keys(formExamples), (name) => {
+                : Object.keys(formExamples).map((name) => {
                       return {
                           name: name,
                           simplify: "required",
@@ -320,10 +333,11 @@ export class NumericInput extends React.Component<Props, State> {
         // To check if all answer forms are accepted, we must first
         // find the *names* of all accepted forms, and see if they are
         // all present, ignoring duplicates
-        const answerFormNames = _.uniq(
+        const answerFormNames: $ReadOnlyArray<string> = _.uniq(
             this.props.answerForms?.map((form) => form.name),
         );
-        const allFormsAccepted = answerFormNames.length >= _.size(formExamples);
+        const allFormsAccepted =
+            answerFormNames.length >= Object.keys(formExamples).length;
         return !noFormsAccepted && !allFormsAccepted;
     };
 
@@ -332,20 +346,16 @@ export class NumericInput extends React.Component<Props, State> {
     };
 
     focus: () => boolean = () => {
-        // eslint-disable-next-line react/no-string-refs
-        this.refs.input.focus();
+        this.inputRef?.focus();
         return true;
     };
 
-    focusInputPath: ($FlowFixMe) => void = (inputPath) => {
-        /* istanbul ignore next */
-        // eslint-disable-next-line react/no-string-refs
-        this.refs.input.focus();
+    focusInputPath: () => void = () => {
+        this.inputRef?.focus();
     };
 
-    blurInputPath: ($FlowFixMe) => void = (inputPath) => {
-        // eslint-disable-next-line react/no-string-refs
-        this.refs.input.blur();
+    blurInputPath: () => void = () => {
+        this.inputRef?.blur();
     };
 
     getInputPaths: () => $ReadOnlyArray<$ReadOnlyArray<string>> = () => {
@@ -355,12 +365,12 @@ export class NumericInput extends React.Component<Props, State> {
         return [[]];
     };
 
-    getGrammarTypeForPath: ($FlowFixMe) => string = (inputPath) => {
+    getGrammarTypeForPath: (FocusPath) => string = (inputPath) => {
         /* istanbul ignore next */
         return "number";
     };
 
-    setInputValue: ($FlowFixMe, $FlowFixMe, $FlowFixMe) => void = (
+    setInputValue: (FocusPath, string, ?() => mixed) => void = (
         path,
         newValue,
         cb,
@@ -378,7 +388,7 @@ export class NumericInput extends React.Component<Props, State> {
         return NumericInput.getUserInputFromProps(this.props);
     };
 
-    handleChange: (string, $FlowFixMe) => void = (newValue, cb) => {
+    handleChange: (string, ?() => mixed) => void = (newValue, cb) => {
         this.props.onChange({currentValue: newValue}, cb);
         this.props.trackInteraction();
     };
@@ -429,8 +439,7 @@ export class NumericInput extends React.Component<Props, State> {
             // TODO(charlie): Support "Review Mode".
             return maybeRightAlignKeypadInput(
                 <SimpleKeypadInput
-                    // eslint-disable-next-line react/no-string-refs
-                    ref="input"
+                    ref={(ref) => (this.inputRef = ref)}
                     value={this.props.currentValue}
                     keypadElement={this.props.keypadElement}
                     onChange={this.handleChange}
@@ -442,8 +451,7 @@ export class NumericInput extends React.Component<Props, State> {
 
         const input = (
             <InputWithExamples
-                // eslint-disable-next-line react/no-string-refs
-                ref="input"
+                ref={(ref) => (this.inputRef = ref)}
                 value={this.props.currentValue}
                 onChange={this.handleChange}
                 className={classNames(classes)}
@@ -493,7 +501,9 @@ export class NumericInput extends React.Component<Props, State> {
 // a given *problem* rather than for each possible [correct/wrong] *answer*.
 // When should two answers to a problem take different answer types?
 // See D27790 for more discussion.
-export const unionAnswerForms: ($FlowFixMe) => $FlowFixMe = function (
+export const unionAnswerForms: (
+    $ReadOnlyArray<$ReadOnlyArray<PerseusNumericInputAnswerForm>>,
+) => $ReadOnlyArray<PerseusNumericInputAnswerForm> = function (
     answerFormsList,
 ) {
     // Takes a list of lists of answer forms, and returns a list of the forms
@@ -504,28 +514,25 @@ export const unionAnswerForms: ($FlowFixMe) => $FlowFixMe = function (
     // two elements are equal, and returns a list of unique elements. This is
     // just a helper function here, but works generally.
     const uniqueBy = function (list, iteratee) {
-        return _.reduce(
-            list,
-            (uniqueList, element) => {
-                // For each element, decide whether it's already in the list of
-                // unique items.
-                const inList = _.find(uniqueList, iteratee.bind(null, element));
-                if (inList) {
-                    return uniqueList;
-                }
-                return uniqueList.concat([element]);
-            },
-            [],
-        );
+        return list.reduce((uniqueList, element) => {
+            // For each element, decide whether it's already in the list of
+            // unique items.
+            const inList = _.find(uniqueList, iteratee.bind(null, element));
+            if (inList) {
+                return uniqueList;
+            }
+            return uniqueList.concat([element]);
+        }, []);
     };
 
     // Pull out all of the forms from the different lists.
-    const allForms = _.flatten(answerFormsList);
+    const allForms = answerFormsList.flat();
     // Pull out the unique forms using uniqueBy.
     const uniqueForms = uniqueBy(allForms, _.isEqual);
     // Sort them by the order they appear in the `formExamples` list.
+    const formExampleKeys = Object.keys(formExamples);
     return _.sortBy(uniqueForms, (form) => {
-        return _.keys(formExamples).indexOf(form.name);
+        return formExampleKeys.indexOf(form.name);
     });
 };
 
@@ -547,10 +554,10 @@ type RenderProps = {|
 // can accept several input forms with or without "%", the decision
 // to parse based on the presence of "%" in the input, is so that we
 // don't accidently scale the user typed value before grading, CP-930.
-export const maybeParsePercentInput: ($FlowFixMe, $FlowFixMe) => $FlowFixMe = (
-    inputValue,
-    normalizedAnswerExpected,
-) => {
+export function maybeParsePercentInput(
+    inputValue: string | number,
+    normalizedAnswerExpected: boolean,
+): string | number {
     // If the input value is not a string ending with "%", then there's
     // nothing more to do. The value will be graded as inputted by user.
     if (!(typeof inputValue === "string" && inputValue.endsWith("%"))) {
@@ -575,7 +582,7 @@ export const maybeParsePercentInput: ($FlowFixMe, $FlowFixMe) => $FlowFixMe = (
 
     // Otherwise, we return input valuåe (number) stripped of the "%".
     return value;
-};
+}
 
 const propsTransform = function (
     widgetOptions: PerseusNumericInputWidgetOptions,
@@ -584,7 +591,7 @@ const propsTransform = function (
         answerForms: unionAnswerForms(
             // Pull out the name of each form and whether that form has
             // required simplification.
-            _.map(widgetOptions.answers, (answer) => {
+            widgetOptions.answers.map((answer) => {
                 return _.map(answer.answerForms, (form) => {
                     return {
                         simplify: answer.simplify,
