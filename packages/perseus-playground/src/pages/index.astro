@@ -4,12 +4,33 @@ import {Playground} from "../components/Playground.jsx"
 ---
 
 <Layout title="Welcome to Astro.">
+	<nav>
+		<div id="content">
+			<h1>Perseus Playground</h1>
+		</div>
+	</nav>
 	<main>
 		<Playground name="Perseus Playground" />
 	</main>
 </Layout>
 
 <style>
+	nav {
+		background-color: #0b2149;
+		height: 44px;
+		display: flex;
+		justify-content: center;
+	}
+
+	nav #content {
+		width: 800px;
+		display: flex;
+		align-items: center;
+	}
+
+	nav #content h1 {
+		color: #ffffff;
+	}
 	main {
 		margin: auto;
 		padding: 1.5rem;
