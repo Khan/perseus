@@ -2,4 +2,4 @@
 "@khanacademy/perseus": patch
 ---
 
-add shared types to perseus-types
+add shared PerseusNumericInputAnswerForm and MathFormat types to perseus-types

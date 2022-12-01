@@ -554,10 +554,10 @@ type RenderProps = {|
 // can accept several input forms with or without "%", the decision
 // to parse based on the presence of "%" in the input, is so that we
 // don't accidently scale the user typed value before grading, CP-930.
-export const maybeParsePercentInput: (
-    string | number,
-    boolean,
-) => string | number = (inputValue, normalizedAnswerExpected) => {
+export function maybeParsePercentInput(
+    inputValue: string | number,
+    normalizedAnswerExpected: boolean,
+): string | number {
     // If the input value is not a string ending with "%", then there's
     // nothing more to do. The value will be graded as inputted by user.
     if (!(typeof inputValue === "string" && inputValue.endsWith("%"))) {
@@ -582,7 +582,7 @@ export const maybeParsePercentInput: (
 
     // Otherwise, we return input valuåe (number) stripped of the "%".
     return value;
-};
+}
 
 const propsTransform = function (
     widgetOptions: PerseusNumericInputWidgetOptions,
