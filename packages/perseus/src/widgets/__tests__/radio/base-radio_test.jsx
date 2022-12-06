@@ -294,9 +294,7 @@ describe("base-radio", () => {
 
             // Act
             userEvent.click(
-                screen.getByRole("radio", {
-                    name: "(Choice C) Option Gamma",
-                }),
+                screen.getByRole("radio", {name: "(Choice C) Option Gamma"}),
             );
 
             // Assert
