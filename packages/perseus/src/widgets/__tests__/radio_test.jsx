@@ -201,7 +201,7 @@ describe("single-choice question", () => {
             // Arrange
             renderQuestion(question, apiOptions);
 
-            // Act
+            // Act / Assert
             userEvent.tab();
             // Note(TB): The visual buttons are hidden from screen readers
             // so they need to be identified as hidden;
@@ -209,9 +209,8 @@ describe("single-choice question", () => {
             expect(
                 screen.getAllByRole("button", {hidden: true})[0],
             ).toHaveFocus();
-            userEvent.tab();
 
-            // Assert
+            userEvent.tab();
             expect(
                 screen.getAllByRole("button", {hidden: true})[1],
             ).toHaveFocus();
@@ -248,9 +247,6 @@ describe("single-choice question", () => {
 
             // Act
             userEvent.tab();
-            // Note(TB): The visual buttons are hidden from screen readers
-            // so they need to be identified as hidden;
-            // cannot access screen reader buttons via tabbing
             userEvent.keyboard("{space}");
 
             // Assert
@@ -261,7 +257,7 @@ describe("single-choice question", () => {
             // Arrange
             const q = clone(question);
             ((q.widgets["radio 1"]
-                .options: any): PerseusRadioWidgetOptions).choices[3].isNoneOfTheAbove = true;
+                .options: any): PerseusRadioWidgetOptions).choices[1].isNoneOfTheAbove = true;
             renderQuestion(q, apiOptions);
 
             // Act
@@ -528,6 +524,23 @@ describe("single-choice question", () => {
         });
     });
 
+    it("should not display instructions when satStyling true", () => {
+        // Arrange
+        const apiOptions: APIOptions = {
+            satStyling: true,
+        };
+        renderQuestion(question, apiOptions);
+
+        const fieldSet = screen.getByRole("group");
+        // satIcon presence tested in choice-icon_test
+
+        // Assert
+        // Note(TB): The fieldset element does not contain instructions
+        // when satSyling is true, so there are only 2 child elements
+        // of the fieldset, not 3
+        expect(fieldSet.childElementCount).toEqual(2);
+    });
+
     it("should be invalid when first rendered", () => {
         // Arrange
         const apiOptions: APIOptions = {
@@ -569,9 +582,6 @@ describe("single-choice question", () => {
         expect(screen.getAllByText("Incorrect (selected)")).toHaveLength(1);
     });
 
-    // Need to find where I can pass in the value for widgetOptions.randomize
-    it("Should randomize options when randomize is true", () => {});
-
     it("Should not randomize options when randomize is false", () => {});
 
     it.each([0, 1, 2, 3])(
@@ -596,6 +606,27 @@ describe("single-choice question", () => {
             ).toBeVisible();
         },
     );
+
+    it("should register as correct when none of the above option selected", () => {
+        // Arrange
+        const q = clone(question);
+        const choices = ((q.widgets["radio 1"]
+            .options: any): PerseusRadioWidgetOptions).choices;
+        choices[2].correct = false;
+        choices[3].isNoneOfTheAbove = true;
+        choices[3].correct = true;
+
+        const {renderer} = renderQuestion(q);
+
+        // Act
+        const noneOption = screen.getByRole("radio", {
+            name: "(Choice D) None of the above",
+        });
+        userEvent.click(noneOption);
+
+        // Assert
+        expect(renderer).toHaveBeenAnsweredCorrectly();
+    });
 });
 
 describe("multi-choice question", () => {
@@ -812,4 +843,95 @@ describe("multi-choice question", () => {
             expect(renderer).toHaveInvalidInput();
         },
     );
+});
+
+describe("randomized question", () => {
+    const apiOptions: APIOptions = {
+        crossOutEnabled: false,
+    };
+    const [question] = multiChoiceQuestionAndAnswer;
+    const radio1Widget = ((question.widgets["radio 1"]: any): RadioWidget);
+    const radioOptions = radio1Widget.options;
+    const randomizeQuestion: PerseusRenderer = {
+        ...question,
+        widgets: {
+            ...question.widgets,
+            "radio 1": ({
+                ...radio1Widget,
+                options: {
+                    ...radioOptions,
+                    choices: [
+                        {content: "$x=-6$", correct: false},
+                        {content: "$x=4$", correct: true},
+                        {content: "$x=7$", correct: false},
+                        {
+                            content: "There is no such input value.",
+                            isNoneOfTheAbove: true,
+                            correct: false,
+                        },
+                    ],
+                    randomize: true,
+                },
+            }: RadioWidget),
+        },
+    };
+
+    beforeEach(() => {
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            testDependencies,
+        );
+    });
+
+    it("should snapshot the same after randomization based on the same seed", () => {
+        // Arrange / Act
+        const {container} = renderQuestion(randomizeQuestion, apiOptions);
+
+        // Assert
+        expect(container).toMatchSnapshot("first render");
+    });
+
+    it("should select and score correctly after randomization", () => {
+        // Arrange / Act
+        const {renderer} = renderQuestion(randomizeQuestion, apiOptions);
+        const option = screen.getByRole("checkbox", {name: /x=4/});
+        userEvent.click(option);
+
+        // Assert
+        expect(renderer).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("should deselect as expected after randomization", () => {
+        // Arrange / Act
+        renderQuestion(randomizeQuestion, apiOptions);
+        const option = screen.getByRole("checkbox", {name: /x=7/});
+        userEvent.click(option); // Select option
+        userEvent.click(option); // Deselect option
+        const options = screen.getAllByRole("checkbox");
+
+        // Assert
+        options.forEach((r) => {
+            expect(r).not.toBeChecked();
+        });
+    });
+
+    it("should have randomized options based on a constant seed", () => {
+        // Arrange / Act
+        // Note(TB): The randomization seed is determined by problemNum.
+        // This is set in renderQuestion to be zero, so randomization
+        // in tests should be constant.
+        renderQuestion(randomizeQuestion, apiOptions);
+        const options = screen.getAllByRole("checkbox");
+        const optionA = screen.getByRole("checkbox", {name: /x=4/});
+        const optionB = screen.getByRole("checkbox", {name: /x=-6/});
+        const optionC = screen.getByRole("checkbox", {name: /x=7/});
+        const optionD = screen.getByRole("checkbox", {
+            name: /None of the above/,
+        });
+
+        // Assert
+        expect(options[0]).toEqual(optionA);
+        expect(options[1]).toEqual(optionB);
+        expect(options[2]).toEqual(optionC);
+        expect(options[3]).toEqual(optionD);
+    });
 });
