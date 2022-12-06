@@ -582,8 +582,6 @@ describe("single-choice question", () => {
         expect(screen.getAllByText("Incorrect (selected)")).toHaveLength(1);
     });
 
-    it("Should not randomize options when randomize is false", () => {});
-
     it.each([0, 1, 2, 3])(
         "should display all rationales when static is true - test-id: %s",
         (num) => {
