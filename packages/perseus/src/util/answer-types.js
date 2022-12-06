@@ -106,7 +106,7 @@ export const errors = {
  *
  */
 
-const KhanAnswerTypes: $FlowFixMe = {
+const KhanAnswerTypes = {
     /*
      * predicate answer type
      *
@@ -653,8 +653,7 @@ const KhanAnswerTypes: $FlowFixMe = {
             correctAnswer: string,
             options: $FlowFixMe,
         ): Predicate {
-            // TODO(alpert): Don't think this $.trim is necessary
-            const correctFloat = parseFloat($.trim(correctAnswer));
+            const correctFloat = parseFloat(correctAnswer);
 
             return [
                 function (guess, maxError) {

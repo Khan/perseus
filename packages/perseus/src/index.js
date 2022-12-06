@@ -121,11 +121,11 @@ export type {
     WidgetInfo,
 } from "./types.js";
 export type {
+    MathFormat,
     InputNumberWidget,
     PerseusRadioWidgetOptions,
     PerseusRenderer,
 } from "./perseus-types.js";
-export type {Format} from "./util/math.js";
 export type {Coord} from "./interactive2/types.js";
 export type {MarkerType} from "./widgets/label-image/types.js";
 

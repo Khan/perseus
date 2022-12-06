@@ -3,7 +3,7 @@
     "description": "Perseus editors",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "publishConfig": {
         "access": "public"
     },
@@ -23,7 +23,7 @@
     "dependencies": {
         "@khanacademy/kas": "^0.2.7",
         "@khanacademy/kmath": "^0.0.8",
-        "@khanacademy/perseus": "^1.0.0"
+        "@khanacademy/perseus": "^1.1.0"
     },
     "devDependencies": {
         "@khanacademy/wonder-blocks-button": "^2.11.5",

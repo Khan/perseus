@@ -11,7 +11,7 @@ import _ from "underscore";
 import Util from "../util.js";
 import KhanMath from "../util/math.js";
 
-import type {Format} from "../util/math.js";
+import type {MathFormat} from "../perseus-types";
 
 const {firstNumericalParse, captureScratchpadTouchStart} = Util;
 const toNumericString = KhanMath.toNumericString;
@@ -242,7 +242,7 @@ class NumberInput extends React.Component<$FlowFixMe, $FlowFixMe> {
         }
     };
 
-    _setValue: (number, Format) => void = (val, format) => {
+    _setValue: (number, MathFormat) => void = (val, format) => {
         // eslint-disable-next-line react/no-string-refs
         $(ReactDOM.findDOMNode(this.refs.input)).val(
             toNumericString(val, format),

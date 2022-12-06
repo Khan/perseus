@@ -14,42 +14,35 @@ import {
     KeypadTypes,
     keypadElementPropType,
 } from "@khanacademy/math-input";
-import createReactClass from "create-react-class";
 import PropTypes from "prop-types";
 import * as React from "react";
 
-const SimpleKeypadInput: any = createReactClass({
-    displayName: "SimpleKeypadInput",
-
-    propTypes: {
-        keypadElement: keypadElementPropType,
-        onFocus: PropTypes.func,
-        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    },
-
-    componentDidMount: function () {
+export default class SimpleKeypadInput extends React.Component<$FlowFixMe> {
+    componentDidMount() {
         // TODO(scottgrant): This is a hack to remove the deprecated call to
         // this.isMounted() but is still considered an anti-pattern.
         this._isMounted = true;
-    },
+    }
 
-    componentWillUnmount: function () {
+    componentWillUnmount() {
         this._isMounted = false;
-    },
+    }
+
+    _isMounted: boolean = false;
 
     focus() {
         // $FlowFixMe[object-this-reference]
         this.refs.input.focus(); // eslint-disable-line react/no-string-refs
-    },
+    }
 
     blur() {
         // $FlowFixMe[object-this-reference]
         this.refs.input.blur(); // eslint-disable-line react/no-string-refs
-    },
+    }
 
-    getValue: function () {
+    getValue(): string | number {
         return this.props.value;
-    },
+    }
 
     render(): React.Node {
         // $FlowFixMe[object-this-reference]
@@ -85,7 +78,11 @@ const SimpleKeypadInput: any = createReactClass({
                 {...rest}
             />
         );
-    },
-});
+    }
+}
 
-export default SimpleKeypadInput;
+SimpleKeypadInput.propTypes = {
+    keypadElement: keypadElementPropType,
+    onFocus: PropTypes.func,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+};

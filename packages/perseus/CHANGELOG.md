@@ -1,5 +1,16 @@
 # @khanacademy/perseus
 
+## 1.1.0
+
+### Minor Changes
+
+-   178987d6: Creates a native accessibility experience for Radio widget
+
+### Patch Changes
+
+-   f046585a: add shared PerseusNumericInputAnswerForm and MathFormat types to perseus-types
+-   e342e6b2: Update CSS to match wonderblocks, round I
+
 ## 1.0.0
 
 ### Major Changes

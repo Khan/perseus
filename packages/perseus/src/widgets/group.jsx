@@ -1,16 +1,17 @@
-/* eslint-disable react/sort-comp */
 // @flow
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import classNames from "classnames";
 import * as React from "react";
-import _ from "underscore";
 
 import * as Changeable from "../mixins/changeable.jsx";
 import {ApiOptions} from "../perseus-api.jsx";
 import Renderer from "../renderer.jsx";
 
 import type {PerseusGroupWidgetOptions} from "../perseus-types.js";
+import type {Widget} from "../renderer.jsx";
 import type {
+    APIOptions,
+    ChangeFn,
     FocusPath,
     PerseusScore,
     WidgetExports,
@@ -28,6 +29,8 @@ type DefaultProps = {|
 |};
 
 class Group extends React.Component<Props> {
+    rendererRef: ?Renderer;
+
     static defaultProps: DefaultProps = {
         content: "",
         widgets: {},
@@ -42,24 +45,76 @@ class Group extends React.Component<Props> {
         this.forceUpdate();
     }
 
+    change: ChangeFn = (...args) => {
+        return Changeable.change.apply(this, args);
+    };
+
+    getUserInput: () => $FlowFixMe = () => {
+        return this.rendererRef?.getUserInput();
+    };
+
+    getSerializedState: () => $FlowFixMe = () => {
+        return this.rendererRef?.getSerializedState();
+    };
+
+    restoreSerializedState: ($FlowFixMe, $FlowFixMe) => null = (
+        state,
+        callback,
+    ) => {
+        this.rendererRef?.restoreSerializedState(state, callback);
+        // Tell our renderer that we have no props to change
+        // (all our changes were in state):
+        return null;
+    };
+
+    simpleValidate: (Rubric) => ?PerseusScore = (rubric) => {
+        return this.rendererRef?.score();
+    };
+
+    // Mobile API:
+    getInputPaths: () => ?$ReadOnlyArray<FocusPath> = () => {
+        return this.rendererRef?.getInputPaths();
+    };
+
+    setInputValue: (FocusPath, string, () => mixed) => void = (
+        path,
+        newValue,
+        callback,
+    ) => {
+        return this.rendererRef?.setInputValue(path, newValue, callback);
+    };
+
+    focus: () => ?boolean = () => {
+        return this.rendererRef?.focus();
+    };
+
+    focusInputPath: (FocusPath) => void = (path) => {
+        this.rendererRef?.focusPath(path);
+    };
+
+    blurInputPath: (FocusPath) => void = (path) => {
+        this.rendererRef?.blurPath(path);
+    };
+
+    showRationalesForCurrentlySelectedChoices: () => void = () => {
+        this.rendererRef?.showRationalesForCurrentlySelectedChoices();
+    };
+
     render(): React.Node {
-        const apiOptions = _.extend(
-            {},
-            ApiOptions.defaults,
-            this.props.apiOptions,
-            {
-                // Api Rewriting to support correct onFocus/onBlur
-                // events for the mobile API
-                onFocusChange: (newFocus, oldFocus) => {
-                    if (oldFocus) {
-                        this.props.onBlur(oldFocus);
-                    }
-                    if (newFocus) {
-                        this.props.onFocus(newFocus);
-                    }
-                },
+        const apiOptions: APIOptions = {
+            ...ApiOptions.defaults,
+            ...this.props.apiOptions,
+            // Api Rewriting to support correct onFocus/onBlur
+            // events for the mobile API
+            onFocusChange: (newFocus, oldFocus) => {
+                if (oldFocus) {
+                    this.props.onBlur(oldFocus);
+                }
+                if (newFocus) {
+                    this.props.onFocus(newFocus);
+                }
             },
-        );
+        };
 
         // Allow a problem number annotation to be added.
         // This is cyclical and should probably be reconsidered. In order to
@@ -69,7 +124,9 @@ class Group extends React.Component<Props> {
         // give ourselves number -1. To combat this, we forceUpdate in
         // componentDidMount so that we can number ourselves properly. But,
         // really we should have a more unidirectional flow. TODO(marcia): fix.
-        const number = _.indexOf(this.props.findWidgets("group"), this);
+        const groupWidgets: $ReadOnlyArray<Widget> =
+            this.props.findWidgets("group");
+        const number: number = groupWidgets.indexOf(this);
         const problemNumComponent = this.props.apiOptions.groupAnnotator(
             number,
             this.props.widgetId,
@@ -81,15 +138,12 @@ class Group extends React.Component<Props> {
         // alert our renderer (our parent) of the fact that some interaction
         // has occurred.
         const onInteractWithWidget = (id) => {
-            // eslint-disable-next-line react/no-string-refs
-            if (this.refs.renderer) {
-                // eslint-disable-next-line react/no-string-refs
-                this.change("widgets", this.refs.renderer.props.widgets);
+            if (this.rendererRef) {
+                this.change("widgets", this.rendererRef.props.widgets);
             }
         };
 
-        // eslint-disable-next-line react/no-string-refs
-        const score = this.refs.renderer && this.refs.renderer.score();
+        const score = this.rendererRef?.score();
         const isValid = score && score.type !== "invalid";
         const isInvalid = score && score.type === "invalid";
 
@@ -104,18 +158,11 @@ class Group extends React.Component<Props> {
                 })}
             >
                 {problemNumComponent}
-                {/**
-                 * We're passing a bunch of extra props to Renderer here that it
-                 * doesn't need.  We should replace {...this.props} with the individual
-                 * props that are needed.
-                 * TODO(FEI-4034): Only pass what the Renderer expects.
-                 */}
-                {/* $FlowFixMe[prop-missing] */}
-                {/* $FlowFixMe[incompatible-type] */}
                 <Renderer
-                    {...this.props}
-                    // eslint-disable-next-line react/no-string-refs
-                    ref="renderer"
+                    content={this.props.content}
+                    widgets={this.props.widgets}
+                    images={this.props.images}
+                    ref={(ref) => (this.rendererRef = ref)}
                     apiOptions={apiOptions}
                     findExternalWidgets={this.props.findWidgets}
                     reviewMode={!!this.props.reviewModeRubric}
@@ -129,78 +176,13 @@ class Group extends React.Component<Props> {
             </div>
         );
     }
-
-    change: ($FlowFixMe, $FlowFixMe, $FlowFixMe) => $FlowFixMe = (...args) => {
-        return Changeable.change.apply(this, args);
-    };
-
-    getUserInput: () => $FlowFixMe = () => {
-        // eslint-disable-next-line react/no-string-refs
-        return this.refs.renderer.getUserInput();
-    };
-
-    getSerializedState: () => $FlowFixMe = () => {
-        // eslint-disable-next-line react/no-string-refs
-        return this.refs.renderer.getSerializedState();
-    };
-
-    restoreSerializedState: ($FlowFixMe, $FlowFixMe) => $FlowFixMe = (
-        state,
-        callback,
-    ) => {
-        // eslint-disable-next-line react/no-string-refs
-        this.refs.renderer.restoreSerializedState(state, callback);
-        // Tell our renderer that we have no props to change
-        // (all our changes were in state):
-        return null;
-    };
-
-    simpleValidate: (Rubric) => PerseusScore = (rubric) => {
-        // eslint-disable-next-line react/no-string-refs
-        return this.refs.renderer.score();
-    };
-
-    // Mobile API:
-    getInputPaths: () => $ReadOnlyArray<FocusPath> = () => {
-        // eslint-disable-next-line react/no-string-refs
-        return this.refs.renderer.getInputPaths();
-    };
-
-    setInputValue: (FocusPath, string, $FlowFixMe) => void = (
-        path,
-        newValue,
-        cb,
-    ) => {
-        // eslint-disable-next-line react/no-string-refs
-        return this.refs.renderer.setInputValue(path, newValue, cb);
-    };
-
-    focus: () => ?boolean = () => {
-        // eslint-disable-next-line react/no-string-refs
-        return this.refs.renderer.focus();
-    };
-
-    focusInputPath: (FocusPath) => void = (path) => {
-        // eslint-disable-next-line react/no-string-refs
-        this.refs.renderer.focusPath(path);
-    };
-
-    blurInputPath: (FocusPath) => void = (path) => {
-        // eslint-disable-next-line react/no-string-refs
-        this.refs.renderer.blurPath(path);
-    };
-
-    showRationalesForCurrentlySelectedChoices: () => void = () => {
-        // eslint-disable-next-line react/no-string-refs
-        this.refs.renderer.showRationalesForCurrentlySelectedChoices();
-    };
 }
 
 const traverseChildWidgets = function (
     props: $FlowFixMe,
     traverseRenderer: $FlowFixMe,
 ): $FlowFixMe {
-    return _.extend({}, props, traverseRenderer(props));
+    return {...props, ...traverseRenderer(props)};
 };
 
 export default ({
