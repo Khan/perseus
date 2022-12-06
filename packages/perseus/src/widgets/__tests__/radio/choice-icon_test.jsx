@@ -66,9 +66,6 @@ describe("choice icon", () => {
 
         describe.each([[true], [false]])("correct: %s", (correct) => {
             it("displays correctness as expected", () => {
-                // Arrange / Act
-
-                // Assert
                 if (product === "library") {
                     // Arrange / Act
                     renderChoiceIcon({
