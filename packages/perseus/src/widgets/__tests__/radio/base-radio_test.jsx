@@ -82,6 +82,41 @@ describe("base-radio", () => {
         expect(screen.getAllByText("None of the above")).toHaveLength(2);
     });
 
+    it("registers as checked when none of the above choice is clicked", () => {
+        // Arrange
+        let updatedValues = null;
+        const onChangeHandler = (newValues) => {
+            updatedValues = newValues;
+        };
+
+        renderBaseRadio({
+            editMode: true,
+            choices: [
+                generateChoice({content: "Option 1", correct: false}),
+                generateChoice({content: "Option B", correct: false}),
+                generateChoice({content: "Option Gamma", correct: true}),
+                generateChoice({content: "Option Delta", correct: false}),
+                generateChoice({
+                    isNoneOfTheAbove: true,
+                    correct: true,
+                }),
+            ],
+            onChange: onChangeHandler,
+        });
+
+        const noneOption = screen.getByRole("radio", {
+            name: "(Choice E) None of the above",
+        });
+
+        // Act
+        userEvent.click(noneOption);
+
+        // Assert
+        expect(updatedValues).toMatchObject({
+            checked: [false, false, false, false, true],
+        });
+    });
+
     describe("edit mode", () => {
         it("should render <li>'s for each choice", () => {
             // Arrange / Act
