@@ -34,3 +34,25 @@ export default [
     "trackInteraction",
     "keypadElement",
 ];
+
+export const removeDenylistProps = (props: Object): Object => {
+    const {
+        key: __,
+        ref: ___,
+        containerSizeClass: ____,
+        widgetId: _____,
+        onChange: ______,
+        problemNum: _______,
+        apiOptions: ________,
+        questionCompleted: _________,
+        findWidgets: __________,
+        onRemove: ___________,
+        id: ____________,
+        onBlur: _____________,
+        onFocus: ______________,
+        trackInteraction: _______________,
+        keypadElement: ________________,
+        ...result
+    } = props;
+    return result;
+};
