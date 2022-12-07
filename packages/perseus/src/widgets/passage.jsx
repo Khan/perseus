@@ -124,7 +124,7 @@ type PassageState = {|
 |};
 
 // Information about a passage reference, used in inter-widgets.
-type Reference = {
+export type Reference = {
     startLine: number,
     endLine: number,
     content: ?string,
