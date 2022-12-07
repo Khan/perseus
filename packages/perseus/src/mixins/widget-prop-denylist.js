@@ -10,7 +10,7 @@
  *
  * This blacklists things that we know don't need to be serialized.
  */
-export default [
+const denylist = [
     // standard props "added" by react
     // (technically the renderer still adds them)
     "key",
@@ -35,24 +35,14 @@ export default [
     "keypadElement",
 ];
 
-export const removeDenylistProps = (props: Object): Object => {
-    const {
-        key: __,
-        ref: ___,
-        containerSizeClass: ____,
-        widgetId: _____,
-        onChange: ______,
-        problemNum: _______,
-        apiOptions: ________,
-        questionCompleted: _________,
-        findWidgets: __________,
-        onRemove: ___________,
-        id: ____________,
-        onBlur: _____________,
-        onFocus: ______________,
-        trackInteraction: _______________,
-        keypadElement: ________________,
-        ...result
-    } = props;
-    return result;
+export const removeDenylistProps = (props: $FlowFixMe): $FlowFixMe => {
+    const newProps = {...props};
+    for (const prop of denylist) {
+        if (prop in newProps) {
+            newProps[prop] = undefined;
+        }
+    }
+    return newProps;
 };
+
+export default denylist;
