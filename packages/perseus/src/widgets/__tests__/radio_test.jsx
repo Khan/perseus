@@ -253,11 +253,11 @@ describe("single-choice question", () => {
             expect(screen.getAllByRole("radio")[0]).toBeChecked();
         });
 
-        it("should be able to navigate through 'None of the above' choice by keyboard", () => {
+        it("should be able to navigate to 'None of the above' choice by keyboard", () => {
             // Arrange
             const q = clone(question);
             ((q.widgets["radio 1"]
-                .options: any): PerseusRadioWidgetOptions).choices[1].isNoneOfTheAbove = true;
+                .options: any): PerseusRadioWidgetOptions).choices[3].isNoneOfTheAbove = true;
             renderQuestion(q, apiOptions);
 
             // Act
