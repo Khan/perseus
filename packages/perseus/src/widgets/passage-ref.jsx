@@ -5,8 +5,10 @@ import * as React from "react";
 import _ from "underscore";
 
 import * as Changeable from "../mixins/changeable.jsx";
-import WidgetJsonifyDeprecated from "../mixins/widget-jsonify-deprecated.jsx";
+import {removeDenylistProps} from "../mixins/widget-prop-denylist.js";
 import PerseusMarkdown from "../perseus-markdown.jsx";
+
+import PassageWidgetExport from "./passage.jsx";
 
 import type {PerseusPassageRefWidgetOptions} from "../perseus-types.js";
 import type {
@@ -14,11 +16,20 @@ import type {
     PerseusScore,
     WidgetExports,
     WidgetProps,
+    LinterContextProps,
 } from "../types.js";
+import type {Reference} from "./passage.jsx";
 
 const EN_DASH = "\u2013";
 
-type UserInput = $FlowFixMe;
+type UserInput = {|
+    ...RenderProps,
+    static: ?boolean,
+    reviewModeRubric: Rubric,
+    linterContext: LinterContextProps,
+    isLastUsedWidget: boolean,
+    alignment: ?string,
+|};
 
 type RenderProps = {|
     passageNumber: PerseusPassageRefWidgetOptions["passageNumber"],
@@ -65,7 +76,7 @@ class PassageRef extends React.Component<Props, State> {
     }
 
     getUserInput: () => UserInput = () => {
-        return WidgetJsonifyDeprecated.getUserInput.call(this);
+        return removeDenylistProps(this.props);
     };
 
     render(): React.Node {
@@ -86,10 +97,9 @@ class PassageRef extends React.Component<Props, State> {
         }
 
         let summaryOutput;
-        if (this.props.summaryText) {
-            const summaryTree = PerseusMarkdown.parseInline(
-                this.props.summaryText,
-            );
+        const summaryText: string = this.props.summaryText;
+        if (summaryText) {
+            const summaryTree = PerseusMarkdown.parseInline(summaryText);
             summaryOutput = (
                 <span aria-hidden={true}>
                     {" "}
@@ -125,7 +135,18 @@ class PassageRef extends React.Component<Props, State> {
 
         this._deferredUpdateRange();
 
-        this._throttledUpdateRange = _.throttle(this._deferredUpdateRange, 500);
+        function throttle(func, timeFrame) {
+            let lastTime: number | Date = 0;
+            return function (...args): void {
+                const now = new Date();
+                if (now - lastTime >= timeFrame) {
+                    func(...args);
+                    lastTime = now;
+                }
+            };
+        }
+
+        this._throttledUpdateRange = throttle(this._deferredUpdateRange, 500);
         window.addEventListener("resize", this._throttledUpdateRange);
     }
 
@@ -144,11 +165,14 @@ class PassageRef extends React.Component<Props, State> {
     };
 
     _updateRange: () => void = () => {
-        const passage = this.props.findWidgets(
+        // Note(TB): findWidgets runs findInternal and findExternal;
+        // findExternal runs findInternal for the renderers involved;
+        // findInternal returns type $ReadOnlyArray<?Widget>
+        const passage: ?PassageWidgetExport.widget = this.props.findWidgets(
             "passage " + this.props.passageNumber,
         )[0];
 
-        let refInfo = null;
+        let refInfo: ?Reference = null;
         if (passage) {
             refInfo = passage.getReference(this.props.referenceNumber);
         }
