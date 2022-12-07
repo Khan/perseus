@@ -54,7 +54,6 @@ describe("base-radio", () => {
     it("renders a none of the above choice", () => {
         // Arrange / Act
         renderBaseRadio({
-            editMode: true,
             choices: [
                 generateChoice({content: "Option 1", correct: false}),
                 generateChoice({content: "Option B", correct: false}),
@@ -90,7 +89,6 @@ describe("base-radio", () => {
         };
 
         renderBaseRadio({
-            editMode: true,
             choices: [
                 generateChoice({content: "Option 1", correct: false}),
                 generateChoice({content: "Option B", correct: false}),
@@ -121,7 +119,6 @@ describe("base-radio", () => {
         it("should render <li>'s for each choice", () => {
             // Arrange / Act
             renderBaseRadio({
-                editMode: true,
                 choices: [
                     generateChoice({content: "Option 1", correct: false}),
                     generateChoice({content: "Option B", correct: false}),
@@ -142,7 +139,6 @@ describe("base-radio", () => {
             };
 
             renderBaseRadio({
-                editMode: true,
                 choices: [
                     generateChoice({content: "Option 1", correct: false}),
                     generateChoice({content: "Option B", correct: false}),
