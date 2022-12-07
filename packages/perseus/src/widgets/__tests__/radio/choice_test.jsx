@@ -109,7 +109,7 @@ describe("all choice options", () => {
 
 // Tests 1 of 2 element types used to select a choice
 describe("choice button", () => {
-    it.each([true, false])(
+    it.each([[true], [false]])(
         "selects the choice by clicking the option when multiple select is: %s",
         (multipleSelect: boolean) => {
             // Arrange / Act
@@ -186,7 +186,7 @@ describe("choice button", () => {
 
 // Tests 2 of 2 element types used to select a choice
 describe("choice input (screen reader only)", () => {
-    it.each([true, false])(
+    it.each([[true], [false]])(
         "selects the choice by clicking the option when multiple select is: %s",
         (multipleSelect: boolean) => {
             // Arrange / Act
