@@ -3,20 +3,18 @@
  * just returns all the widget's props rather than picking out those which were
  * input by the user.
  */
-import _ from "underscore";
-
-import WIDGET_PROP_BLACKLIST from "./widget-prop-blacklist.js";
+import {removeDenylistProps} from "./widget-prop-denylist.js";
 
 const WidgetJsonifyDeprecated = {
-    getUserInput: function (): $FlowFixMe {
+    getUserInput: function (): Object {
         // Omit props that get passed to all widgets
-        return _.omit(this.props, WIDGET_PROP_BLACKLIST);
+        return removeDenylistProps(this.props);
     },
 
     // Static version of `WidgetJsonifyDeprecated.getUserInput`
-    getUserInputFromProps: function (props: $FlowFixMe): $FlowFixMe {
+    getUserInputFromProps: function (props: Object): Object {
         // Omit props that get passed to all widgets
-        return _.omit(props, WIDGET_PROP_BLACKLIST);
+        return removeDenylistProps(props);
     },
 };
 
