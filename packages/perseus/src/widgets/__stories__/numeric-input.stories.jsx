@@ -49,12 +49,12 @@ export default {
         coefficient: false,
         currentValue: "8675309",
         rightAlign: false,
-        size: "normal",
     },
     argTypes: {
         size: {
             options: ["normal", "small"],
             control: {type: "radio"},
+            defaultValue: "normal",
         },
     },
 };
