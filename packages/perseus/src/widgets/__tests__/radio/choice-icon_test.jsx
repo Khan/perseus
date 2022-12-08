@@ -68,7 +68,7 @@ describe("choice icon", () => {
             it("displays correctness as expected for the library product", () => {
                 // Arrange / Act
                 renderChoiceIcon({
-                    product,
+                    product: "library",
                     correct,
                     reviewMode: true,
                     checked: true,
