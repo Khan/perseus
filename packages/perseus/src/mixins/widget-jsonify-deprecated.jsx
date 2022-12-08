@@ -6,13 +6,13 @@
 import {removeDenylistProps} from "./widget-prop-denylist.js";
 
 const WidgetJsonifyDeprecated = {
-    getUserInput: function (): Object {
+    getUserInput: function (): {...} {
         // Omit props that get passed to all widgets
         return removeDenylistProps(this.props);
     },
 
     // Static version of `WidgetJsonifyDeprecated.getUserInput`
-    getUserInputFromProps: function (props: Object): Object {
+    getUserInputFromProps: function (props: {...}): {...} {
         // Omit props that get passed to all widgets
         return removeDenylistProps(props);
     },
