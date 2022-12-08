@@ -531,16 +531,12 @@ describe("single-choice question", () => {
         const apiOptions: APIOptions = {
             satStyling: true,
         };
+
+        // Act
         renderQuestion(question, apiOptions);
 
-        const fieldSet = screen.getByRole("group");
-        // satIcon presence tested in choice-icon_test
-
         // Assert
-        // Note(TB): The fieldset element does not contain instructions
-        // when satSyling is true, so there are only 2 child elements
-        // of the fieldset, not 3
-        expect(fieldSet.childElementCount).toEqual(2);
+        expect(screen.queryByText("Choose 1 answer:")).not.toBeInTheDocument();
     });
 
     it("should be invalid when first rendered", () => {

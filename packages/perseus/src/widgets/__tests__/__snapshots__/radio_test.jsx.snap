@@ -5020,11 +5020,6 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
               <fieldset
                 class="perseus-widget-radio-fieldset responsiveFieldset_c0l5kf"
               >
-                <legend
-                  class="perseus-sr-only"
-                >
-                  Choose 1 answer:
-                </legend>
                 <ul
                   class="perseus-widget-radio perseus-rendered-radio radio_zdxht7-o_O-satRadio_1m9l1iz"
                   style="list-style: none;"
@@ -5602,11 +5597,6 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
               <fieldset
                 class="perseus-widget-radio-fieldset responsiveFieldset_c0l5kf"
               >
-                <legend
-                  class="perseus-sr-only"
-                >
-                  Choose 1 answer:
-                </legend>
                 <ul
                   class="perseus-widget-radio perseus-rendered-radio radio_zdxht7-o_O-satRadio_1m9l1iz"
                   style="list-style: none;"
@@ -6184,11 +6174,6 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
               <fieldset
                 class="perseus-widget-radio-fieldset responsiveFieldset_c0l5kf"
               >
-                <legend
-                  class="perseus-sr-only"
-                >
-                  Choose 1 answer:
-                </legend>
                 <ul
                   class="perseus-widget-radio perseus-rendered-radio radio_zdxht7-o_O-satRadio_1m9l1iz"
                   style="list-style: none;"
@@ -6766,11 +6751,6 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
               <fieldset
                 class="perseus-widget-radio-fieldset responsiveFieldset_c0l5kf"
               >
-                <legend
-                  class="perseus-sr-only"
-                >
-                  Choose 1 answer:
-                </legend>
                 <ul
                   class="perseus-widget-radio perseus-rendered-radio radio_zdxht7-o_O-satRadio_1m9l1iz"
                   style="list-style: none;"
@@ -7348,11 +7328,6 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
               <fieldset
                 class="perseus-widget-radio-fieldset responsiveFieldset_c0l5kf"
               >
-                <legend
-                  class="perseus-sr-only"
-                >
-                  Choose 1 answer:
-                </legend>
                 <ul
                   class="perseus-widget-radio perseus-rendered-radio radio_zdxht7-o_O-satRadio_1m9l1iz"
                   style="list-style: none;"
@@ -7930,11 +7905,6 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
               <fieldset
                 class="perseus-widget-radio-fieldset responsiveFieldset_c0l5kf"
               >
-                <legend
-                  class="perseus-sr-only"
-                >
-                  Choose 1 answer:
-                </legend>
                 <ul
                   class="perseus-widget-radio perseus-rendered-radio radio_zdxht7-o_O-satRadio_1m9l1iz"
                   style="list-style: none;"
