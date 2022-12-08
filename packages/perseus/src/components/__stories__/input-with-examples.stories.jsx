@@ -17,6 +17,7 @@ const defaultObject = {
     examples: [],
     id: "",
     onChange: () => {},
+    value: "",
 };
 const testExamples = ["Sample 1", "Sample 2", "Sample 3"];
 

@@ -470,8 +470,6 @@ export class NumericInput extends React.Component<Props, State> {
                 onBlur={this._handleBlur}
                 id={this.props.widgetId}
                 disabled={this.props.apiOptions.readOnly}
-                // $FlowFixMe[prop-missing]
-                highlightLint={this.props.highlightLint}
                 style={styles.input}
             />
         );
