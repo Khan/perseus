@@ -3,6 +3,7 @@
 
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
+import {StyleSheet} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
 import _ from "underscore";
@@ -419,7 +420,7 @@ export class NumericInput extends React.Component<Props, State> {
         const rubric = this.props.reviewModeRubric;
         const answers = this.getAnswerBlurb(rubric);
         const answerBlurb = answers[0];
-        const classes = [];
+        const classes = ["perseus-input-size-small"];
 
         let labelText = this.props.labelText;
         if (labelText == null || labelText === "") {
@@ -449,6 +450,15 @@ export class NumericInput extends React.Component<Props, State> {
             );
         }
 
+        const styles = StyleSheet.create({
+            input: {
+                textAlign: this.props.rightAlign ? "right" : "left",
+                width: this.props.size === "small" ? 40 : 80,
+                padding: 0,
+                height: "auto",
+            },
+        });
+
         const input = (
             <InputWithExamples
                 ref={(ref) => (this.inputRef = ref)}
@@ -465,6 +475,7 @@ export class NumericInput extends React.Component<Props, State> {
                 disabled={this.props.apiOptions.readOnly}
                 // $FlowFixMe[prop-missing]
                 highlightLint={this.props.highlightLint}
+                style={styles.input}
             />
         );
 

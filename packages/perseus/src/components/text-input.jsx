@@ -15,8 +15,6 @@ type Props = {|
     id?: string,
     placeholder?: string,
     onKeyDown?: () => void,
-
-    // TODO: Remove this
     style?: $FlowFixMe,
 |};
 
@@ -57,6 +55,7 @@ class TextInput extends React.Component<Props> {
             disabled,
             placeholder,
             onKeyDown,
+            style,
         } = this.props;
 
         const formattedValue = value === null ? "" : value.toString();
@@ -64,6 +63,7 @@ class TextInput extends React.Component<Props> {
         return (
             // $FlowIgnore
             <TextField
+                style={style}
                 disabled={disabled}
                 id={this.id}
                 value={formattedValue}

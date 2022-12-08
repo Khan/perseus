@@ -34,6 +34,7 @@ class InputWithExamples extends React.Component<$FlowFixMe, $FlowFixMe> {
         onFocus: PropTypes.func,
         onBlur: PropTypes.func,
         disabled: PropTypes.bool,
+        styles: PropTypes.string,
 
         // A unique string identifying this InputWithExamples
         id: PropTypes.string.isRequired,
@@ -89,6 +90,7 @@ class InputWithExamples extends React.Component<$FlowFixMe, $FlowFixMe> {
             onFocus: this._handleFocus,
             onBlur: this._handleBlur,
             disabled: this.props.disabled,
+            style: this.props.style,
         };
 
         if (this.props.type === TEX) {
