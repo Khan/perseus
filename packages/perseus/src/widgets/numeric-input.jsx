@@ -542,7 +542,7 @@ type RenderProps = {|
         name: "integer" | "decimal" | "proper" | "improper" | "mixed" | "pi",
     |}>,
     labelText: string,
-    size: string,
+    size: "normal" | "small",
     coefficient: boolean,
     rightAlign?: boolean,
     static: boolean,
