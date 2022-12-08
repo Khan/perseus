@@ -489,7 +489,9 @@ describe("single-choice question", () => {
                 );
 
                 // Assert
-                expect(screen.queryByTestId("svg")).not.toBeInTheDocument();
+                expect(
+                    screen.queryByTestId("cross-out-line"),
+                ).not.toBeInTheDocument();
             });
 
             it("should dismiss cross-out button with {tab} key", async () => {
