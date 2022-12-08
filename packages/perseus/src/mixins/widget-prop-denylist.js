@@ -9,6 +9,8 @@
  * circular JSON structures sometimes).
  *
  * This blacklists things that we know don't need to be serialized.
+ *
+ * TODO(TB): Go through and update usage of BLACKLIST to DENYLIST: https://khanacademy.atlassian.net/browse/LP-13149?atlOrigin=eyJpIjoiNTI0Y2UwNzQ0MzA4NDYzOGI1YWRmNjEwY2E5YzZlZWUiLCJwIjoiaiJ9
  */
 const denylist = [
     // standard props "added" by react
