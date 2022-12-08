@@ -459,7 +459,7 @@ describe("single-choice question", () => {
                     }),
                 ).toHaveLength(0);
 
-                expect(screen.getByTestId("svg")).toBeVisible();
+                expect(screen.getByTestId("cross-out-line")).toBeVisible();
             });
 
             it("should remove cross-out line on selection", async () => {
