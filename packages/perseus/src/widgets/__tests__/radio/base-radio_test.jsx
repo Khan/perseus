@@ -125,6 +125,7 @@ describe("base-radio", () => {
                     generateChoice({content: "Option Gamma", correct: true}),
                     generateChoice({content: "Option Delta", correct: false}),
                 ],
+                editMode: true,
             });
 
             // Assert
@@ -146,6 +147,7 @@ describe("base-radio", () => {
                     generateChoice({content: "Option Delta", correct: false}),
                 ],
                 onChange: onChangeHandler,
+                editMode: true,
             });
 
             // Act
