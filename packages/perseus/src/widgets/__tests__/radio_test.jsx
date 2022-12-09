@@ -201,16 +201,14 @@ describe("single-choice question", () => {
             // Arrange
             renderQuestion(question, apiOptions);
 
-            // Act / Assert
+            // Act
             userEvent.tab();
+            userEvent.tab();
+
+            // Assert
             // Note(TB): The visual buttons are hidden from screen readers
             // so they need to be identified as hidden;
             // cannot access screen reader buttons via tabbing
-            expect(
-                screen.getAllByRole("button", {hidden: true})[0],
-            ).toHaveFocus();
-
-            userEvent.tab();
             expect(
                 screen.getAllByRole("button", {hidden: true})[1],
             ).toHaveFocus();
