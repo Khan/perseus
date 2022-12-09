@@ -37,11 +37,11 @@ const denylist = [
     "keypadElement",
 ];
 
-export const removeDenylistProps = (props: $FlowFixMe): $FlowFixMe => {
+export const removeDenylistProps = (props: Object): Object => {
     const newProps = {...props};
     for (const prop of denylist) {
         if (prop in newProps) {
-            newProps[prop] = undefined;
+            delete newProps[prop];
         }
     }
     return newProps;
