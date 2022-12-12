@@ -578,28 +578,38 @@ describe("single-choice question", () => {
         expect(screen.getAllByText("Incorrect (selected)")).toHaveLength(1);
     });
 
-    it.each([0, 1, 2, 3])(
-        "should display all rationales when static is true - test-id: %s",
-        (num) => {
-            // Arrange / Act
-            const staticQuestion = {
-                ...question,
-                widgets: {
-                    ...question.widgets,
-                    "radio 1": {
-                        ...question.widgets["radio 1"],
-                        static: true,
-                    },
+    it("should display all rationales when static is true", () => {
+        // Arrange
+        const staticQuestion = {
+            ...question,
+            widgets: {
+                ...question.widgets,
+                "radio 1": {
+                    ...question.widgets["radio 1"],
+                    static: true,
                 },
-            };
-            renderQuestion(staticQuestion);
+            },
+        };
 
-            // Assert
-            expect(
-                screen.getByTestId(`perseus-radio-rationale-content-${num}`),
-            ).toBeVisible();
-        },
-    );
+        // Act
+        renderQuestion(staticQuestion);
+
+        // Assert
+        // Part of Choice A rationale
+        expect(
+            screen.getByText(
+                /the positive square root when performed on a number, so/,
+            ),
+        ).toBeVisible();
+        // Part of Choice B rationale
+        expect(screen.getByText(/, the square root operation/)).toBeVisible();
+        // Part of Choice C rationale
+        expect(
+            screen.getByText(/is the positive square root of/),
+        ).toBeVisible();
+        // Part of Choice D rationale
+        expect(screen.getAllByText(/satisfies the equation./)[3]).toBeVisible();
+    });
 
     it("should register as correct when none of the above option selected", () => {
         // Arrange

@@ -76,12 +76,12 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                           class="perseus-sr-only"
                         >
                           <input
-                            id="choice-576"
+                            id="choice-564"
                             tabindex="-1"
                             type="checkbox"
                           />
                           <label
-                            for="choice-576"
+                            for="choice-564"
                           >
                             (Choice A, Checked)
                                
@@ -195,12 +195,12 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                           class="perseus-sr-only"
                         >
                           <input
-                            id="choice-577"
+                            id="choice-565"
                             tabindex="-1"
                             type="checkbox"
                           />
                           <label
-                            for="choice-577"
+                            for="choice-565"
                           >
                             (Choice B)
                                
@@ -314,12 +314,12 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                           class="perseus-sr-only"
                         >
                           <input
-                            id="choice-578"
+                            id="choice-566"
                             tabindex="-1"
                             type="checkbox"
                           />
                           <label
-                            for="choice-578"
+                            for="choice-566"
                           >
                             (Choice C)
                                
@@ -433,12 +433,12 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                           class="perseus-sr-only"
                         >
                           <input
-                            id="choice-579"
+                            id="choice-567"
                             tabindex="-1"
                             type="checkbox"
                           />
                           <label
-                            for="choice-579"
+                            for="choice-567"
                           >
                             (Choice D)
                                
@@ -646,12 +646,12 @@ exports[`randomized question should snapshot the same after randomization based 
                           class="perseus-sr-only"
                         >
                           <input
-                            id="choice-700"
+                            id="choice-688"
                             tabindex="-1"
                             type="checkbox"
                           />
                           <label
-                            for="choice-700"
+                            for="choice-688"
                           >
                             (Choice A)
                                
@@ -765,12 +765,12 @@ exports[`randomized question should snapshot the same after randomization based 
                           class="perseus-sr-only"
                         >
                           <input
-                            id="choice-701"
+                            id="choice-689"
                             tabindex="-1"
                             type="checkbox"
                           />
                           <label
-                            for="choice-701"
+                            for="choice-689"
                           >
                             (Choice B)
                                
@@ -884,12 +884,12 @@ exports[`randomized question should snapshot the same after randomization based 
                           class="perseus-sr-only"
                         >
                           <input
-                            id="choice-702"
+                            id="choice-690"
                             tabindex="-1"
                             type="checkbox"
                           />
                           <label
-                            for="choice-702"
+                            for="choice-690"
                           >
                             (Choice C)
                                
@@ -1003,12 +1003,12 @@ exports[`randomized question should snapshot the same after randomization based 
                           class="perseus-sr-only"
                         >
                           <input
-                            id="choice-703"
+                            id="choice-691"
                             tabindex="-1"
                             type="checkbox"
                           />
                           <label
-                            for="choice-703"
+                            for="choice-691"
                           >
                             (Choice D)
                                
