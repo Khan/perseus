@@ -905,14 +905,16 @@ describe("randomized question", () => {
     });
 
     it("should deselect as expected after randomization", () => {
-        // Arrange / Act
+        // Arrange
         renderQuestion(randomizeQuestion, apiOptions);
         const option = screen.getByRole("checkbox", {name: /x=7/});
         userEvent.click(option); // Select option
+
+        // Act
         userEvent.click(option); // Deselect option
-        const options = screen.getAllByRole("checkbox");
 
         // Assert
+        const options = screen.getAllByRole("checkbox");
         options.forEach((r) => {
             expect(r).not.toBeChecked();
         });
