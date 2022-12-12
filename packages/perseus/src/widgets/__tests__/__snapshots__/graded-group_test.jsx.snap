@@ -463,7 +463,10 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                   </div>
                 </div>
               </span>
-              <p />
+              <p
+                aria-live="polite"
+                role="status"
+              />
               <button
                 aria-disabled="false"
                 class="button_vr44p2-o_O-shared_lwskrm-o_O-default_1w5v67"

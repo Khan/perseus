@@ -294,7 +294,11 @@ class GradedGroup extends React.Component<Props, State> {
                         {gradeStatus}
                     </div>
                 )}
-                {!apiOptions.isMobile && <p>{this.state.message}</p>}
+                {!apiOptions.isMobile && (
+                    <p role="status" aria-live="polite">
+                        {this.state.message}
+                    </p>
+                )}
                 {!apiOptions.isMobile && (
                     <Button
                         kind="secondary"
