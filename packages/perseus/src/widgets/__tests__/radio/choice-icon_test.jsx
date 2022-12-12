@@ -63,52 +63,79 @@ describe("choice icon", () => {
                 });
             },
         );
+    });
 
-        describe.each([[true], [false]])("correct: %s", (correct) => {
-            it("displays correctness as expected for the library product", () => {
-                // Arrange / Act
-                renderChoiceIcon({
-                    product: "library",
-                    correct,
-                    reviewMode: true,
-                    checked: true,
-                    showCorrectness: true,
-                });
-
-                const choiceWrapper = screen.getByTestId(
-                    `choice-icon__library-choice-icon`,
-                );
-                const choiceAttrib = choiceWrapper.getAttribute("class");
-
-                // Assert
-                if (correct) {
-                    expect(choiceAttrib).toContain("circleCorrect");
-                } else {
-                    expect(choiceAttrib).toContain("circleIncorrect");
-                }
-            });
-
-            it("displays correctness as expected for the sat product", () => {
-                // Arrange / Act
-                renderChoiceIcon({
-                    product: "sat",
-                    correct,
-                    reviewMode: true,
-                    checked: true,
-                });
-
-                const choiceWrapper = screen.getByTestId(
-                    `choice-icon__sat-choice-icon`,
-                );
-                const choiceStyle = choiceWrapper.getAttribute("style");
-
-                // Assert
-                if (correct) {
-                    expect(choiceStyle).toContain("border-color: #009900");
-                } else {
-                    expect(choiceStyle).toContain("border-color: #990000");
-                }
-            });
+    it("displays a true answer as expected for the library product", () => {
+        // Arrange & Act
+        renderChoiceIcon({
+            product: "library",
+            correct: true,
+            reviewMode: true,
+            checked: true,
+            showCorrectness: true,
         });
+
+        const choiceWrapper = screen.getByTestId(
+            `choice-icon__library-choice-icon`,
+        );
+        const choiceAttrib = choiceWrapper.getAttribute("class");
+
+        // Assert
+        expect(choiceAttrib).toContain("circleCorrect");
+    });
+
+    it("displays a false answer as expected for the library product", () => {
+        // Arrange & Act
+        renderChoiceIcon({
+            product: "library",
+            correct: false,
+            reviewMode: true,
+            checked: true,
+            showCorrectness: true,
+        });
+
+        const choiceWrapper = screen.getByTestId(
+            `choice-icon__library-choice-icon`,
+        );
+        const choiceAttrib = choiceWrapper.getAttribute("class");
+
+        // Assert
+        expect(choiceAttrib).toContain("circleIncorrect");
+    });
+
+    it("displays a true answer as expected for the sat product", () => {
+        // Arrange & Act
+        renderChoiceIcon({
+            product: "sat",
+            correct: true,
+            reviewMode: true,
+            checked: true,
+        });
+
+        const choiceWrapper = screen.getByTestId(
+            `choice-icon__sat-choice-icon`,
+        );
+        const choiceStyle = choiceWrapper.getAttribute("style");
+
+        // Assert
+        expect(choiceStyle).toContain("border-color: #009900");
+    });
+
+    it("displays a false answer as expected for the sat product", () => {
+        // Arrange & Act
+        renderChoiceIcon({
+            product: "sat",
+            correct: false,
+            reviewMode: true,
+            checked: true,
+        });
+
+        const choiceWrapper = screen.getByTestId(
+            `choice-icon__sat-choice-icon`,
+        );
+        const choiceStyle = choiceWrapper.getAttribute("style");
+
+        // Assert
+        expect(choiceStyle).toContain("border-color: #990000");
     });
 });
