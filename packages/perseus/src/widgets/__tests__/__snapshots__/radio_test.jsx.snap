@@ -794,7 +794,7 @@ exports[`randomized question should snapshot the same after randomization based 
                                       <span
                                         class="mock-TeX"
                                       >
-                                        x=-6
+                                        x=7
                                       </span>
                                     </div>
                                   </div>
@@ -857,7 +857,7 @@ exports[`randomized question should snapshot the same after randomization based 
                                           <span
                                             class="mock-TeX"
                                           >
-                                            x=-6
+                                            x=7
                                           </span>
                                         </div>
                                       </div>
@@ -913,7 +913,7 @@ exports[`randomized question should snapshot the same after randomization based 
                                       <span
                                         class="mock-TeX"
                                       >
-                                        x=7
+                                        x=-6
                                       </span>
                                     </div>
                                   </div>
@@ -976,7 +976,7 @@ exports[`randomized question should snapshot the same after randomization based 
                                           <span
                                             class="mock-TeX"
                                           >
-                                            x=7
+                                            x=-6
                                           </span>
                                         </div>
                                       </div>

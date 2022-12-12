@@ -373,9 +373,7 @@ describe("single-choice question", () => {
             };
 
             it("should render cross-out menu button", () => {
-                // Arrange
-
-                // Act
+                // Arrange & Act
                 renderQuestion(question, crossOutApiOptions);
 
                 // Assert
@@ -388,7 +386,6 @@ describe("single-choice question", () => {
 
             it("should open the cross-out menu when button clicked", async () => {
                 // Arrange
-
                 renderQuestion(question, crossOutApiOptions);
 
                 // Act
@@ -411,7 +408,6 @@ describe("single-choice question", () => {
 
             it("should open the cross-out menu when focused and spacebar pressed", async () => {
                 // Arrange
-
                 renderQuestion(question, crossOutApiOptions);
                 userEvent.tab(); // Choice icon
                 userEvent.tab(); // Cross-out menu ellipsis
@@ -494,7 +490,6 @@ describe("single-choice question", () => {
 
             it("should dismiss cross-out button with {tab} key", async () => {
                 // Arrange
-
                 renderQuestion(question, crossOutApiOptions);
                 userEvent.tab(); // Choice icon
                 userEvent.tab(); // Cross-out menu ellipsis
@@ -887,17 +882,26 @@ describe("randomized question", () => {
     });
 
     it("should snapshot the same after randomization based on the same seed", () => {
-        // Arrange / Act
-        const {container} = renderQuestion(randomizeQuestion, apiOptions);
+        // Note(TB): The randomization seed is determined by problemNum.
+        // If no number is provided, the default is 0.
+
+        // Arrange & Act
+        const {container} = renderQuestion(randomizeQuestion, apiOptions, {
+            problemNum: 3,
+        });
 
         // Assert
         expect(container).toMatchSnapshot("first render");
     });
 
     it("should select and score correctly after randomization", () => {
-        // Arrange / Act
-        const {renderer} = renderQuestion(randomizeQuestion, apiOptions);
+        // Arrange
+        const {renderer} = renderQuestion(randomizeQuestion, apiOptions, {
+            problemNum: 3,
+        });
         const option = screen.getByRole("checkbox", {name: /x=4/});
+
+        // Act
         userEvent.click(option);
 
         // Assert
@@ -906,7 +910,9 @@ describe("randomized question", () => {
 
     it("should deselect as expected after randomization", () => {
         // Arrange
-        renderQuestion(randomizeQuestion, apiOptions);
+        renderQuestion(randomizeQuestion, apiOptions, {
+            problemNum: 3,
+        });
         const option = screen.getByRole("checkbox", {name: /x=7/});
         userEvent.click(option); // Select option
 
@@ -921,15 +927,14 @@ describe("randomized question", () => {
     });
 
     it("should have randomized options based on a constant seed", () => {
-        // Arrange / Act
-        // Note(TB): The randomization seed is determined by problemNum.
-        // This is set in renderQuestion to be zero, so randomization
-        // in tests should be constant.
-        renderQuestion(randomizeQuestion, apiOptions);
+        // Arrange & Act
+        renderQuestion(randomizeQuestion, apiOptions, {
+            problemNum: 3,
+        });
         const options = screen.getAllByRole("checkbox");
         const optionA = screen.getByRole("checkbox", {name: /x=4/});
-        const optionB = screen.getByRole("checkbox", {name: /x=-6/});
-        const optionC = screen.getByRole("checkbox", {name: /x=7/});
+        const optionB = screen.getByRole("checkbox", {name: /x=7/});
+        const optionC = screen.getByRole("checkbox", {name: /x=-6/});
         const optionD = screen.getByRole("checkbox", {
             name: /None of the above/,
         });
