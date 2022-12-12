@@ -18,12 +18,14 @@ type Props = {|
     question: PerseusRenderer,
     apiOptions?: APIOptions,
     reviewMode?: boolean,
+    randomizeSeed?: number,
 |};
 
 export const RendererWithDebugUI = ({
     question,
     apiOptions,
     reviewMode = false,
+    randomizeSeed,
 }: Props): React.Node => {
     registerAllWidgetsForTesting();
     const ref = React.useRef<?Renderer>(null);
@@ -39,7 +41,7 @@ export const RendererWithDebugUI = ({
                         content={question.content}
                         images={question.images}
                         widgets={question.widgets}
-                        problemNum={0}
+                        problemNum={randomizeSeed ?? 0}
                         apiOptions={apiOptions}
                         reviewMode={reviewMode}
                     />

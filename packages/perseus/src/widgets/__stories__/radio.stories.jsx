@@ -18,6 +18,7 @@ type StoryArgs = {|
     // Radio Options
     static: boolean,
     randomize: boolean,
+    randomizeSeed: number,
 
     // API Options
     satStyling: boolean,
@@ -40,6 +41,7 @@ export default ({
         satStyling: false,
         crossOutEnabled: false,
         reviewMode: false,
+        randomizeSeed: 0,
     },
 }: Story);
 
@@ -79,6 +81,7 @@ export const SingleSelect = (args: StoryArgs): React.Node => {
             question={applyStoryArgs(questionWithPassage, args)}
             apiOptions={buildApiOptions(args)}
             reviewMode={args.reviewMode}
+            randomizeSeed={args.randomizeSeed}
         />
     );
 };
@@ -89,6 +92,7 @@ export const MultiSelect = (args: StoryArgs): React.Node => {
             question={applyStoryArgs(multiChoiceQuestion, args)}
             apiOptions={buildApiOptions(args)}
             reviewMode={args.reviewMode}
+            randomizeSeed={args.randomizeSeed}
         />
     );
 };
