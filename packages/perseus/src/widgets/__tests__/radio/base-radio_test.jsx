@@ -119,13 +119,13 @@ describe("base-radio", () => {
         it("should render <li>'s for each choice", () => {
             // Arrange / Act
             renderBaseRadio({
+                editMode: true,
                 choices: [
                     generateChoice({content: "Option 1", correct: false}),
                     generateChoice({content: "Option B", correct: false}),
                     generateChoice({content: "Option Gamma", correct: true}),
                     generateChoice({content: "Option Delta", correct: false}),
                 ],
-                editMode: true,
             });
 
             // Assert
@@ -140,6 +140,7 @@ describe("base-radio", () => {
             };
 
             renderBaseRadio({
+                editMode: true,
                 choices: [
                     generateChoice({content: "Option 1", correct: false}),
                     generateChoice({content: "Option B", correct: false}),
@@ -147,7 +148,6 @@ describe("base-radio", () => {
                     generateChoice({content: "Option Delta", correct: false}),
                 ],
                 onChange: onChangeHandler,
-                editMode: true,
             });
 
             // Act
