@@ -136,18 +136,7 @@ class PassageRef extends React.Component<Props, State> {
 
         this._deferredUpdateRange();
 
-        function throttle(func, timeFrame) {
-            let lastTime: number | Date = 0;
-            return function (...args): void {
-                const now = new Date();
-                if (now - lastTime >= timeFrame) {
-                    func(...args);
-                    lastTime = now;
-                }
-            };
-        }
-
-        this._throttledUpdateRange = throttle(this._deferredUpdateRange, 500);
+        this._throttledUpdateRange = _.throttle(this._deferredUpdateRange, 500);
         window.addEventListener("resize", this._throttledUpdateRange);
     }
 
