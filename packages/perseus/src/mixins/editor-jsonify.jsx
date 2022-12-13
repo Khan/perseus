@@ -1,6 +1,6 @@
 // @flow
 
-import {removeDenylistProps} from "./widget-prop-denylist.js";
+import {removeDenylistProps} from "./widget-prop-blacklist.js";
 
 const EditorJsonify = {
     serialize: function (): $FlowFixMe {

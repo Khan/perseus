@@ -15,7 +15,7 @@ import _ from "underscore";
 import {Errors} from "../logging/log.js";
 import {PerseusError} from "../perseus-error.js";
 
-import WIDGET_PROP_BLACKLIST from "./widget-prop-denylist.js";
+import WIDGET_PROP_BLACKLIST from "./widget-prop-blacklist.js";
 
 import type {ChangeFn} from "../types.js";
 

@@ -5,7 +5,7 @@ import * as React from "react";
 import _ from "underscore";
 
 import * as Changeable from "../mixins/changeable.jsx";
-import {removeDenylistProps} from "../mixins/widget-prop-denylist.js";
+import {removeDenylistProps} from "../mixins/widget-prop-blacklist.js";
 import PerseusMarkdown from "../perseus-markdown.jsx";
 
 import PassageWidgetExport from "./passage.jsx";
