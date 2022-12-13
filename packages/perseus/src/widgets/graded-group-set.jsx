@@ -14,6 +14,7 @@ import {
     phoneMargin,
     negativePhoneMargin,
 } from "../styles/constants.js";
+import a11y from "../util/a11y.js";
 
 import GradedGroupWidget from "./graded-group.jsx";
 
@@ -51,7 +52,11 @@ class Indicators extends React.Component<IndicatorsProps> {
                             styles.selectedIndicator,
                     )}
                     onClick={() => this.props.onChangeCurrentGroup(i)}
-                />,
+                >
+                    {i === this.props.currentGroup && (
+                        <span className={css(a11y.srOnly)}>current</span>
+                    )}
+                </div>,
             );
         }
         return <div className={css(styles.indicatorContainer)}>{items}</div>;
