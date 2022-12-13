@@ -1,5 +1,13 @@
 # @khanacademy/perseus
 
+## 1.1.1
+
+### Patch Changes
+
+-   5b86aba4: bugfix: add size and rightAlign back to numeric-input widget
+-   5b86aba4: bugfix for Matrix styles not getting passed through
+-   6b48ca35: A tiny change that adds some aria labels to our message container so that the content will be read to screen readers upon update.
+
 ## 1.1.0
 
 ### Minor Changes
