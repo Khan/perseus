@@ -4,6 +4,8 @@ import {TextField} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
+
 type Props = {|
     value: string | number | null,
     onChange: (any) => void,
@@ -15,7 +17,7 @@ type Props = {|
     id?: string,
     placeholder?: string,
     onKeyDown?: () => void,
-    style?: $FlowFixMe,
+    style?: StyleType,
 |};
 
 type DefaultProps = {|
