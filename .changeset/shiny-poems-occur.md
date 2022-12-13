@@ -1,3 +1,3 @@
 ---
-"@khanacademy/perseus": patch
+
 ---
