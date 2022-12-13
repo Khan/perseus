@@ -325,11 +325,20 @@ class Matrix extends React.Component<Props, State> {
                                             <NumberInput {...inputProps} />
                                         );
                                     } else {
-                                        const updatedProps = {...inputProps};
-                                        updatedProps.style = StyleSheet.create({
-                                            // eslint-disable-next-line react-native/no-unused-styles
-                                            input: inputProps.style,
-                                        }).input;
+                                        const updatedProps = {
+                                            ...inputProps,
+                                            style: StyleSheet.create({
+                                                // eslint-disable-next-line react-native/no-unused-styles
+                                                input: {
+                                                    ...inputProps.style,
+                                                    display: "inline-block",
+                                                    padding: 0,
+                                                    backgroundColor: outside
+                                                        ? "#f3f3f3"
+                                                        : "#fff",
+                                                },
+                                            }).input,
+                                        };
 
                                         MatrixInput = (
                                             <TextInput {...updatedProps} />

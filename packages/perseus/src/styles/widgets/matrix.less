@@ -43,11 +43,13 @@
         &.bracket-left {
             border-color: @bracketColor;
             border-left-width: @borderWidth;
+            border-right-width: 0;
             left: 3px;
         }
 
         &.bracket-right {
             border-color: @bracketColor;
+            border-left-width: 0;
             border-right-width: @borderWidth;
             margin-left: (1px - 2 * @borderWidth);
         }
