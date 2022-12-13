@@ -97,9 +97,10 @@ class PassageRef extends React.Component<Props, State> {
         }
 
         let summaryOutput;
-        const summaryText: string = this.props.summaryText;
-        if (summaryText) {
-            const summaryTree = PerseusMarkdown.parseInline(summaryText);
+        if (this.props.summaryText) {
+            const summaryTree = PerseusMarkdown.parseInline(
+                this.props.summaryText,
+            );
             summaryOutput = (
                 <span aria-hidden={true}>
                     {" "}
