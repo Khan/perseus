@@ -1,7 +1,6 @@
 /* eslint-disable react/sort-comp */
 // @flow
 import * as PerseusLinter from "@khanacademy/perseus-linter";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
@@ -14,42 +13,59 @@ import MathOutput from "./math-output.jsx";
 import TextInput from "./text-input.jsx";
 import Tooltip from "./tooltip.jsx";
 
+import type {LinterContextProps} from "../types.js";
+
 const {captureScratchpadTouchStart} = Util;
 const MATH = "math";
 const TEXT = "text";
 const TEX = "tex";
 
-class InputWithExamples extends React.Component<$FlowFixMe, $FlowFixMe> {
-    static propTypes = {
-        type: PropTypes.oneOf([MATH, TEXT, TEX]),
-        value: PropTypes.string,
-        onChange: PropTypes.func.isRequired,
-        className: PropTypes.string,
-        examples: PropTypes.arrayOf(PropTypes.string).isRequired,
-        shouldShowExamples: PropTypes.bool,
-        convertDotToTimes: PropTypes.bool,
-        buttonSet: PropTypes.string,
-        buttonsVisible: PropTypes.oneOf(["always", "never", "focused"]),
-        labelText: PropTypes.string,
-        onFocus: PropTypes.func,
-        onBlur: PropTypes.func,
-        disabled: PropTypes.bool,
+type Props = {|
+    type: "math" | "text" | "tex",
+    value: string,
+    onChange: $FlowFixMe,
+    className: string,
+    examples: $ReadOnlyArray<string>,
+    shouldShowExamples: boolean,
+    convertDotToTimes?: boolean,
+    buttonSet?: string,
+    buttonsVisible?: "always" | "never" | "focused",
+    labelText?: string,
+    onFocus: () => void,
+    onBlur: () => void,
+    disabled: boolean,
+    style?: $FlowFixMe,
+    id: string,
+    linterContext: LinterContextProps,
+|};
 
-        // A unique string identifying this InputWithExamples
-        id: PropTypes.string.isRequired,
-        linterContext: PerseusLinter.linterContextProps,
-    };
+type DefaultProps = {|
+    type: Props["type"],
+    shouldShowExamples: Props["shouldShowExamples"],
+    onFocus: Props["onFocus"],
+    onBlur: Props["onBlur"],
+    disabled: Props["disabled"],
+    linterContext: Props["linterContext"],
+    className: Props["className"],
+|};
 
-    static defaultProps: $FlowFixMe = {
+type State = {|
+    focused: boolean,
+    showExamples: boolean,
+|};
+
+class InputWithExamples extends React.Component<Props, State> {
+    static defaultProps: DefaultProps = {
         type: TEXT,
         shouldShowExamples: true,
         onFocus: function () {},
         onBlur: function () {},
         disabled: false,
         linterContext: PerseusLinter.linterContextDefault,
+        className: "",
     };
 
-    state: $FlowFixMe = {
+    state: State = {
         focused: false,
         showExamples: false,
     };
@@ -89,6 +105,7 @@ class InputWithExamples extends React.Component<$FlowFixMe, $FlowFixMe> {
             onFocus: this._handleFocus,
             onBlur: this._handleBlur,
             disabled: this.props.disabled,
+            style: this.props.style,
         };
 
         if (this.props.type === TEX) {

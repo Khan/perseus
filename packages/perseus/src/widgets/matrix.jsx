@@ -3,6 +3,7 @@
 // @flow
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
+import {StyleSheet} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -324,8 +325,23 @@ class Matrix extends React.Component<Props, State> {
                                             <NumberInput {...inputProps} />
                                         );
                                     } else {
+                                        const updatedProps = {
+                                            ...inputProps,
+                                            style: StyleSheet.create({
+                                                // eslint-disable-next-line react-native/no-unused-styles
+                                                input: {
+                                                    ...inputProps.style,
+                                                    display: "inline-block",
+                                                    padding: 0,
+                                                    backgroundColor: outside
+                                                        ? "#f3f3f3"
+                                                        : "#fff",
+                                                },
+                                            }).input,
+                                        };
+
                                         MatrixInput = (
-                                            <TextInput {...inputProps} />
+                                            <TextInput {...updatedProps} />
                                         );
                                     }
                                     return (

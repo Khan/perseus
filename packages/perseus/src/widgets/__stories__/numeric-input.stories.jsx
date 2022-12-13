@@ -7,12 +7,10 @@ import {question1} from "../__testdata__/numeric-input_testdata.js";
 import {NumericInput} from "../numeric-input.jsx";
 
 type StoryArgs = {|
+    coefficient: boolean,
     currentValue: string,
-|};
-
-type Story = {|
-    title: string,
-    args: StoryArgs,
+    rightAlign: boolean,
+    size: "normal" | "small",
 |};
 
 function generateProps(overwrite) {
@@ -21,6 +19,7 @@ function generateProps(overwrite) {
         answers: [],
         containerSizeClass: "medium",
         isLastUsedWidget: true,
+        coefficient: false,
         currentValue: "",
         problemNum: 0,
         reviewModeRubric: {
@@ -30,6 +29,8 @@ function generateProps(overwrite) {
             coefficient: false,
             static: false,
         },
+        rightAlign: false,
+        size: "normal",
         static: false,
         widgetId: "widgetId",
         findWidgets: action("findWidgets"),
@@ -42,12 +43,21 @@ function generateProps(overwrite) {
     return {...base, ...overwrite};
 }
 
-export default ({
+export default {
     title: "Perseus/Widgets/NumericInput",
     args: {
+        coefficient: false,
         currentValue: "8675309",
+        rightAlign: false,
     },
-}: Story);
+    argTypes: {
+        size: {
+            options: ["normal", "small"],
+            control: {type: "radio"},
+            defaultValue: "normal",
+        },
+    },
+};
 
 export const Question1 = (): React.Node => {
     return <RendererWithDebugUI question={question1} />;
@@ -57,4 +67,40 @@ export const Interactive = (args: StoryArgs): React.Node => {
     const props = generateProps(args);
 
     return <NumericInput {...props} />;
+};
+
+export const Sizes = (args: StoryArgs): React.Node => {
+    const smallProps = generateProps({...args, size: "small"});
+    const normalProps = generateProps({...args, size: "normal"});
+
+    return (
+        <div>
+            <label>
+                Small:
+                <NumericInput {...smallProps} />
+            </label>
+            <label>
+                Normal:
+                <NumericInput {...normalProps} />
+            </label>
+        </div>
+    );
+};
+
+export const TextAlignment = (args: StoryArgs): React.Node => {
+    const leftProps = generateProps({...args, rightAlign: false});
+    const rightProps = generateProps({...args, rightAlign: true});
+
+    return (
+        <div>
+            <label>
+                Left:
+                <NumericInput {...leftProps} />
+            </label>
+            <label>
+                Right:
+                <NumericInput {...rightProps} />
+            </label>
+        </div>
+    );
 };
