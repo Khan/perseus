@@ -491,7 +491,7 @@ export type WidgetProps<RenderProps, Rubric> = {|
     questionCompleted?: boolean,
     onFocus: (blurPath: FocusPath) => void,
     onBlur: (blurPath: FocusPath) => void,
-    findWidgets: (FilterCriterion) => $ReadOnlyArray<?Widget>,
+    findWidgets: (FilterCriterion) => $ReadOnlyArray<Widget>,
     reviewModeRubric: Rubric,
     onChange: ChangeHandler,
     trackInteraction: (extraData?: any) => void,
