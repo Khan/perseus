@@ -13,6 +13,7 @@ import * as Changeable from "../mixins/changeable.jsx";
 import {ApiOptions} from "../perseus-api.jsx";
 import Renderer from "../renderer.jsx";
 import {
+    gray68,
     gray76,
     phoneMargin,
     negativePhoneMargin,
@@ -433,7 +434,7 @@ const styles = StyleSheet.create({
 
     title: {
         fontSize: 12,
-        color: gray76,
+        color: gray68,
         textTransform: "uppercase",
         marginBottom: 11,
         letterSpacing: 0.8,
