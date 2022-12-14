@@ -47,7 +47,13 @@ exports[`graded group widget should snapshot 1`] = `
                     aria-label="Skip to Problem 1a"
                     class="indicator_1ezvcme-o_O-selectedIndicator_1v68a6x"
                     role="button"
-                  />
+                  >
+                    <span
+                      class="srOnly_19bpjuy"
+                    >
+                      Current
+                    </span>
+                  </div>
                   <div
                     aria-label="Skip to Problem 1b"
                     class="indicator_1ezvcme"
