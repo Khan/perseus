@@ -34,7 +34,7 @@ export const renderQuestion = (
                 content={question.content}
                 images={question.images}
                 widgets={question.widgets}
-                problemNum={extraProps?.problemNum ?? 0}
+                problemNum={0}
                 apiOptions={apiOptions}
                 {...extraProps}
             />

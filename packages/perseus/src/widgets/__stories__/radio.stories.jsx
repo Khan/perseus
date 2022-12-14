@@ -8,17 +8,12 @@ import {
     multiChoiceQuestion,
 } from "../__testdata__/radio_testdata.js";
 
-import type {
-    PerseusRenderer,
-    PerseusRadioWidgetOptions,
-} from "../../perseus-types.js";
+import type {PerseusRenderer} from "../../perseus-types.js";
 import type {APIOptions} from "../../types.js";
 
 type StoryArgs = {|
     // Radio Options
     static: boolean,
-    randomize: boolean,
-    randomizeSeed: number,
 
     // API Options
     satStyling: boolean,
@@ -37,11 +32,9 @@ export default ({
     title: "Perseus/Widgets/Radio",
     args: {
         static: false,
-        randomize: false,
         satStyling: false,
         crossOutEnabled: false,
         reviewMode: false,
-        randomizeSeed: 0,
     },
 }: Story);
 
@@ -57,13 +50,6 @@ const applyStoryArgs = (
     for (const [widgetId, widget] of Object.entries(question.widgets)) {
         q.widgets[widgetId] = {...widget, static: args.static};
     }
-
-    const radioOptions: PerseusRadioWidgetOptions =
-        q.widgets["radio 1"].options;
-    q.widgets["radio 1"].options = {
-        ...radioOptions,
-        randomize: args.randomize,
-    };
 
     return q;
 };
@@ -81,7 +67,6 @@ export const SingleSelect = (args: StoryArgs): React.Node => {
             question={applyStoryArgs(questionWithPassage, args)}
             apiOptions={buildApiOptions(args)}
             reviewMode={args.reviewMode}
-            randomizeSeed={args.randomizeSeed}
         />
     );
 };
@@ -92,7 +77,6 @@ export const MultiSelect = (args: StoryArgs): React.Node => {
             question={applyStoryArgs(multiChoiceQuestion, args)}
             apiOptions={buildApiOptions(args)}
             reviewMode={args.reviewMode}
-            randomizeSeed={args.randomizeSeed}
         />
     );
 };
