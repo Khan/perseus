@@ -2,4 +2,4 @@
 "@khanacademy/perseus": patch
 ---
 
-Another microfix that updates a title to use the next darker level of gray so that it can pass our a11y requirements.
+Update graded-group widget title to use a darker gray to meet a11y requirements
