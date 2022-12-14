@@ -36,7 +36,7 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
               class="perseus-graded-group"
             >
               <div
-                class="title_6pk9ag"
+                class="title_1lagzkb"
               >
                 Metabolic strategies of bacteria
               </div>
@@ -525,7 +525,7 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
               class="gradedGroup_14sgdtb perseus-graded-group"
             >
               <div
-                class="title_6pk9ag"
+                class="title_1lagzkb"
               >
                 Metabolic strategies of bacteria
               </div>
