@@ -54,7 +54,9 @@ class Indicators extends React.Component<IndicatorsProps> {
                     onClick={() => this.props.onChangeCurrentGroup(i)}
                 >
                     {i === this.props.currentGroup && (
-                        <span className={css(a11y.srOnly)}>current</span>
+                        <span className={css(a11y.srOnly)}>
+                            {i18n._("Current")}
+                        </span>
                     )}
                 </div>,
             );
