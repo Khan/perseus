@@ -103,6 +103,7 @@ export type {
     DeviceType,
     DomInsertCheckFn,
     EditorMode,
+    FocusPath,
     Hint,
     ImageDict,
     ImageUploader,
