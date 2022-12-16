@@ -9,8 +9,10 @@
  * circular JSON structures sometimes).
  *
  * This blacklists things that we know don't need to be serialized.
+ *
+ * TODO(TB): Go through and update usage of BLACKLIST to DENYLIST: https://khanacademy.atlassian.net/browse/LP-13149?atlOrigin=eyJpIjoiNTI0Y2UwNzQ0MzA4NDYzOGI1YWRmNjEwY2E5YzZlZWUiLCJwIjoiaiJ9
  */
-export default [
+const denylist = [
     // standard props "added" by react
     // (technically the renderer still adds them)
     "key",
@@ -34,3 +36,15 @@ export default [
     "trackInteraction",
     "keypadElement",
 ];
+
+export const removeDenylistProps = (props: Object): Object => {
+    const newProps = {...props};
+    for (const prop of denylist) {
+        if (prop in newProps) {
+            delete newProps[prop];
+        }
+    }
+    return newProps;
+};
+
+export default denylist;
