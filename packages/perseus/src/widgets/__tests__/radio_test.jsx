@@ -426,7 +426,7 @@ describe("single-choice question", () => {
                 ).toBeVisible();
             });
 
-            it("should cross-out selection and dismiss button when clicked", async () => {
+            it("should cross-out selection and dismiss button when clicked", () => {
                 // Arrange
                 renderQuestion(question, crossOutApiOptions);
                 userEvent.click(
@@ -434,9 +434,6 @@ describe("single-choice question", () => {
                         name: /Open menu for Choice B/,
                     }),
                 );
-                await act(async () => {
-                    await jest.runAllTimers();
-                });
 
                 // Act
                 userEvent.click(
@@ -444,7 +441,6 @@ describe("single-choice question", () => {
                         name: /Cross out Choice B/,
                     }),
                 );
-                jest.runAllTimers();
 
                 // Assert
                 expect(
@@ -464,9 +460,6 @@ describe("single-choice question", () => {
                         name: /Open menu for Choice B/,
                     }),
                 );
-                await act(async () => {
-                    await jest.runAllTimers();
-                });
 
                 // Act
                 userEvent.click(
