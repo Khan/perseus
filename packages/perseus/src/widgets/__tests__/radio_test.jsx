@@ -180,14 +180,19 @@ describe("single-choice question", () => {
 
                     // Assert
                     // Everything's read-only so no selections made
-                    // Note(TB): The visual buttons are hidden from screen readers
-                    // so they need to be identified as hidden
-                    // The visual button has the aria attributes
+                    // Note(TB): The visual buttons are hidden from screen
+                    // readers, so they need to be identified as hidden;
+                    // the visual button has the aria attributes
                     screen
                         .getAllByRole("button", {hidden: true})
                         .forEach((r) => {
                             expect(r).toHaveAttribute("aria-disabled", "true");
                         });
+                    // Note(TB): Confirms the screen reader only
+                    // radio options are also disabled
+                    screen.getAllByRole("radio").forEach((r) => {
+                        expect(r).toHaveAttribute("disabled");
+                    });
                 });
             },
         );
@@ -198,15 +203,12 @@ describe("single-choice question", () => {
 
             // Act
             userEvent.tab();
-            // Note(TB): The visual buttons are hidden from screen readers
-            // so they need to be identified as hidden;
-            // cannot access screen reader buttons via tabbing
-            expect(
-                screen.getAllByRole("button", {hidden: true})[0],
-            ).toHaveFocus();
             userEvent.tab();
 
             // Assert
+            // Note(TB): The visual buttons are hidden from screen readers
+            // so they need to be identified as hidden;
+            // cannot access screen reader buttons via tabbing
             expect(
                 screen.getAllByRole("button", {hidden: true})[1],
             ).toHaveFocus();
@@ -237,7 +239,19 @@ describe("single-choice question", () => {
             ).toHaveFocus();
         });
 
-        it("should be able to navigate through 'None of the above' choice by keyboard", () => {
+        it("should be able to select an option by keyboard", () => {
+            // Arrange
+            renderQuestion(question, apiOptions);
+
+            // Act
+            userEvent.tab();
+            userEvent.keyboard("{space}");
+
+            // Assert
+            expect(screen.getAllByRole("radio")[0]).toBeChecked();
+        });
+
+        it("should be able to navigate to 'None of the above' choice by keyboard", () => {
             // Arrange
             const q = clone(question);
             ((q.widgets["radio 1"]
@@ -336,7 +350,7 @@ describe("single-choice question", () => {
             expect(passageRefRadio).toHaveTextContent("lines NaN–NaN");
         });
 
-        it("Should render option statuses (rationales) for selected choices", () => {
+        it("should render rationales for selected choices", () => {
             // Arrange
             const {renderer} = renderQuestion(question, apiOptions);
 
@@ -359,9 +373,7 @@ describe("single-choice question", () => {
             };
 
             it("should render cross-out menu button", () => {
-                // Arrange
-
-                // Act
+                // Arrange & Act
                 renderQuestion(question, crossOutApiOptions);
 
                 // Assert
@@ -374,7 +386,6 @@ describe("single-choice question", () => {
 
             it("should open the cross-out menu when button clicked", async () => {
                 // Arrange
-
                 renderQuestion(question, crossOutApiOptions);
 
                 // Act
@@ -397,7 +408,6 @@ describe("single-choice question", () => {
 
             it("should open the cross-out menu when focused and spacebar pressed", async () => {
                 // Arrange
-
                 renderQuestion(question, crossOutApiOptions);
                 userEvent.tab(); // Choice icon
                 userEvent.tab(); // Cross-out menu ellipsis
@@ -416,7 +426,7 @@ describe("single-choice question", () => {
                 ).toBeVisible();
             });
 
-            it("should cross-out selection and dismiss button when clicked", async () => {
+            it("should cross-out selection and dismiss button when clicked", () => {
                 // Arrange
                 renderQuestion(question, crossOutApiOptions);
                 userEvent.click(
@@ -424,9 +434,34 @@ describe("single-choice question", () => {
                         name: /Open menu for Choice B/,
                     }),
                 );
-                await act(async () => {
-                    await jest.runAllTimers();
-                });
+
+                // Act
+                userEvent.click(
+                    screen.getByRole("button", {
+                        name: /Cross out Choice B/,
+                    }),
+                );
+
+                // Assert
+                expect(
+                    screen.queryAllByRole("button", {
+                        name: /Cross out Choice B/,
+                    }),
+                ).toHaveLength(0);
+
+                expect(
+                    screen.getByTestId("choice-icon__cross-out-line"),
+                ).toBeVisible();
+            });
+
+            it("should remove cross-out line on selection", async () => {
+                // Arrange
+                renderQuestion(question, crossOutApiOptions);
+                userEvent.click(
+                    screen.getByRole("button", {
+                        name: /Open menu for Choice B/,
+                    }),
+                );
 
                 // Act
                 userEvent.click(
@@ -436,17 +471,20 @@ describe("single-choice question", () => {
                 );
                 jest.runAllTimers();
 
+                userEvent.click(
+                    screen.getByRole("radio", {
+                        name: "(Choice B, Crossed out) -8",
+                    }),
+                );
+
                 // Assert
                 expect(
-                    screen.queryAllByRole("button", {
-                        name: /Cross out Choice B/,
-                    }),
-                ).toHaveLength(0);
+                    screen.queryByTestId("choice-icon__cross-out-line"),
+                ).not.toBeInTheDocument();
             });
 
             it("should dismiss cross-out button with {tab} key", async () => {
                 // Arrange
-
                 renderQuestion(question, crossOutApiOptions);
                 userEvent.tab(); // Choice icon
                 userEvent.tab(); // Cross-out menu ellipsis
@@ -474,6 +512,19 @@ describe("single-choice question", () => {
                 ).toHaveLength(0);
             });
         });
+    });
+
+    it("should not display instructions when satStyling true", () => {
+        // Arrange
+        const apiOptions: APIOptions = {
+            satStyling: true,
+        };
+
+        // Act
+        renderQuestion(question, apiOptions);
+
+        // Assert
+        expect(screen.queryByText("Choose 1 answer:")).not.toBeInTheDocument();
     });
 
     it("should be invalid when first rendered", () => {
@@ -516,6 +567,60 @@ describe("single-choice question", () => {
         // Assert
         expect(screen.getAllByText("Incorrect (selected)")).toHaveLength(1);
     });
+
+    it("should display all rationales when static is true", () => {
+        // Arrange
+        const staticQuestion = {
+            ...question,
+            widgets: {
+                ...question.widgets,
+                "radio 1": {
+                    ...question.widgets["radio 1"],
+                    static: true,
+                },
+            },
+        };
+
+        // Act
+        renderQuestion(staticQuestion);
+
+        // Assert
+        // Part of Choice A rationale
+        expect(
+            screen.getByText(
+                /the positive square root when performed on a number, so/,
+            ),
+        ).toBeVisible();
+        // Part of Choice B rationale
+        expect(screen.getByText(/, the square root operation/)).toBeVisible();
+        // Part of Choice C rationale
+        expect(
+            screen.getByText(/is the positive square root of/),
+        ).toBeVisible();
+        // Part of Choice D rationale
+        expect(screen.getAllByText(/satisfies the equation./)[3]).toBeVisible();
+    });
+
+    it("should register as correct when none of the above option selected", () => {
+        // Arrange
+        const q = clone(question);
+        const choices = ((q.widgets["radio 1"]
+            .options: any): PerseusRadioWidgetOptions).choices;
+        choices[2].correct = false;
+        choices[3].isNoneOfTheAbove = true;
+        choices[3].correct = true;
+
+        const {renderer} = renderQuestion(q);
+
+        // Act
+        const noneOption = screen.getByRole("radio", {
+            name: "(Choice D) None of the above",
+        });
+        userEvent.click(noneOption);
+
+        // Assert
+        expect(renderer).toHaveBeenAnsweredCorrectly();
+    });
 });
 
 describe("multi-choice question", () => {
@@ -544,6 +649,94 @@ describe("multi-choice question", () => {
         expect(renderer).toHaveBeenAnsweredCorrectly();
     });
 
+    it("should select multiple options when clicked", () => {
+        // Arrange
+        const apiOptions: APIOptions = {
+            crossOutEnabled: false,
+        };
+        const radio1Widget = ((question.widgets["radio 1"]: any): RadioWidget);
+        const radioOptions = radio1Widget.options;
+
+        const multipleCorrectChoicesQuestion: PerseusRenderer = {
+            ...question,
+            widgets: {
+                ...question.widgets,
+                "radio 1": ({
+                    ...radio1Widget,
+                    options: {
+                        ...radioOptions,
+                        choices: [
+                            {content: "$x=-6$", correct: true},
+                            {content: "$x=4$", correct: true},
+                            {content: "$x=7$", correct: false},
+                            {
+                                content: "There is no such input value.",
+                                isNoneOfTheAbove: true,
+                                correct: false,
+                            },
+                        ],
+                    },
+                }: RadioWidget),
+            },
+        };
+
+        renderQuestion(multipleCorrectChoicesQuestion, apiOptions);
+
+        // Act
+        const options = screen.getAllByRole("checkbox");
+        userEvent.click(options[2]);
+        userEvent.click(options[3]);
+
+        // Assert
+        expect(options[2]).toBeChecked();
+        expect(options[3]).toBeChecked();
+    });
+
+    it("should deselect selected options when clicked", () => {
+        // Arrange
+        const apiOptions: APIOptions = {
+            crossOutEnabled: false,
+        };
+        const radio1Widget = ((question.widgets["radio 1"]: any): RadioWidget);
+        const radioOptions = radio1Widget.options;
+
+        const multipleCorrectChoicesQuestion: PerseusRenderer = {
+            ...question,
+            widgets: {
+                ...question.widgets,
+                "radio 1": ({
+                    ...radio1Widget,
+                    options: {
+                        ...radioOptions,
+                        choices: [
+                            {content: "$x=-6$", correct: true},
+                            {content: "$x=4$", correct: true},
+                            {content: "$x=7$", correct: false},
+                            {
+                                content: "There is no such input value.",
+                                isNoneOfTheAbove: true,
+                                correct: false,
+                            },
+                        ],
+                    },
+                }: RadioWidget),
+            },
+        };
+
+        renderQuestion(multipleCorrectChoicesQuestion, apiOptions);
+
+        // Act
+        const options = screen.getAllByRole("checkbox");
+        userEvent.click(options[2]);
+        userEvent.click(options[3]);
+        userEvent.click(options[2]);
+        userEvent.click(options[3]);
+
+        // Assert
+        expect(options[2]).not.toBeChecked();
+        expect(options[3]).not.toBeChecked();
+    });
+
     it("should snapshot the same when invalid", () => {
         // Arrange
         const {container} = renderQuestion(question, apiOptions);
@@ -554,6 +747,19 @@ describe("multi-choice question", () => {
 
         // Assert
         expect(container).toMatchSnapshot("invalid state");
+    });
+
+    it("should be invalid when first rendered", () => {
+        // Arrange
+        const apiOptions: APIOptions = {
+            crossOutEnabled: false,
+        };
+
+        // Act
+        const {renderer} = renderQuestion(question, apiOptions);
+
+        // Assert
+        expect(renderer).toHaveInvalidInput();
     });
 
     it("should be invalid when incorrect number of choices selected", () => {

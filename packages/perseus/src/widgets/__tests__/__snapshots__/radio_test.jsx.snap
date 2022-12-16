@@ -76,12 +76,12 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                           class="perseus-sr-only"
                         >
                           <input
-                            id="choice-476"
+                            id="choice-564"
                             tabindex="-1"
                             type="checkbox"
                           />
                           <label
-                            for="choice-476"
+                            for="choice-564"
                           >
                             (Choice A, Checked)
                                
@@ -195,12 +195,12 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                           class="perseus-sr-only"
                         >
                           <input
-                            id="choice-477"
+                            id="choice-565"
                             tabindex="-1"
                             type="checkbox"
                           />
                           <label
-                            for="choice-477"
+                            for="choice-565"
                           >
                             (Choice B)
                                
@@ -314,12 +314,12 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                           class="perseus-sr-only"
                         >
                           <input
-                            id="choice-478"
+                            id="choice-566"
                             tabindex="-1"
                             type="checkbox"
                           />
                           <label
-                            for="choice-478"
+                            for="choice-566"
                           >
                             (Choice C)
                                
@@ -433,12 +433,12 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                           class="perseus-sr-only"
                         >
                           <input
-                            id="choice-479"
+                            id="choice-567"
                             tabindex="-1"
                             type="checkbox"
                           />
                           <label
-                            for="choice-479"
+                            for="choice-567"
                           >
                             (Choice D)
                                
@@ -656,12 +656,12 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           class="perseus-sr-only"
                         >
                           <input
-                            id="choice-310"
+                            id="choice-330"
                             tabindex="-1"
                             type="radio"
                           />
                           <label
-                            for="choice-310"
+                            for="choice-330"
                           >
                             (Choice A)
                                
@@ -801,12 +801,12 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           class="perseus-sr-only"
                         >
                           <input
-                            id="choice-311"
+                            id="choice-331"
                             tabindex="-1"
                             type="radio"
                           />
                           <label
-                            for="choice-311"
+                            for="choice-331"
                           >
                             (Choice B)
                                
@@ -920,12 +920,12 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           class="perseus-sr-only"
                         >
                           <input
-                            id="choice-312"
+                            id="choice-332"
                             tabindex="-1"
                             type="radio"
                           />
                           <label
-                            for="choice-312"
+                            for="choice-332"
                           >
                             (Choice C, Checked)
                                
@@ -1039,12 +1039,12 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           class="perseus-sr-only"
                         >
                           <input
-                            id="choice-313"
+                            id="choice-333"
                             tabindex="-1"
                             type="radio"
                           />
                           <label
-                            for="choice-313"
+                            for="choice-333"
                           >
                             (Choice D)
                                
@@ -1248,12 +1248,12 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           class="perseus-sr-only"
                         >
                           <input
-                            id="choice-318"
+                            id="choice-338"
                             tabindex="-1"
                             type="radio"
                           />
                           <label
-                            for="choice-318"
+                            for="choice-338"
                           >
                             (Choice A, Checked)
                                
@@ -1393,12 +1393,12 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           class="perseus-sr-only"
                         >
                           <input
-                            id="choice-319"
+                            id="choice-339"
                             tabindex="-1"
                             type="radio"
                           />
                           <label
-                            for="choice-319"
+                            for="choice-339"
                           >
                             (Choice B)
                                
@@ -1512,12 +1512,12 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           class="perseus-sr-only"
                         >
                           <input
-                            id="choice-320"
+                            id="choice-340"
                             tabindex="-1"
                             type="radio"
                           />
                           <label
-                            for="choice-320"
+                            for="choice-340"
                           >
                             (Choice C)
                                
@@ -1631,12 +1631,12 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           class="perseus-sr-only"
                         >
                           <input
-                            id="choice-321"
+                            id="choice-341"
                             tabindex="-1"
                             type="radio"
                           />
                           <label
-                            for="choice-321"
+                            for="choice-341"
                           >
                             (Choice D)
                                
@@ -1840,12 +1840,12 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           class="perseus-sr-only"
                         >
                           <input
-                            id="choice-302"
+                            id="choice-322"
                             tabindex="-1"
                             type="radio"
                           />
                           <label
-                            for="choice-302"
+                            for="choice-322"
                           >
                             (Choice A)
                                
@@ -1985,12 +1985,12 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           class="perseus-sr-only"
                         >
                           <input
-                            id="choice-303"
+                            id="choice-323"
                             tabindex="-1"
                             type="radio"
                           />
                           <label
-                            for="choice-303"
+                            for="choice-323"
                           >
                             (Choice B)
                                
@@ -2104,12 +2104,12 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           class="perseus-sr-only"
                         >
                           <input
-                            id="choice-304"
+                            id="choice-324"
                             tabindex="-1"
                             type="radio"
                           />
                           <label
-                            for="choice-304"
+                            for="choice-324"
                           >
                             (Choice C)
                                
@@ -2223,12 +2223,12 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           class="perseus-sr-only"
                         >
                           <input
-                            id="choice-305"
+                            id="choice-325"
                             tabindex="-1"
                             type="radio"
                           />
                           <label
-                            for="choice-305"
+                            for="choice-325"
                           >
                             (Choice D)
                                
@@ -2432,12 +2432,12 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           class="perseus-sr-only"
                         >
                           <input
-                            id="choice-230"
+                            id="choice-250"
                             tabindex="-1"
                             type="radio"
                           />
                           <label
-                            for="choice-230"
+                            for="choice-250"
                           >
                             (Choice A)
                                
@@ -2577,12 +2577,12 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           class="perseus-sr-only"
                         >
                           <input
-                            id="choice-231"
+                            id="choice-251"
                             tabindex="-1"
                             type="radio"
                           />
                           <label
-                            for="choice-231"
+                            for="choice-251"
                           >
                             (Choice B)
                                
@@ -2696,12 +2696,12 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           class="perseus-sr-only"
                         >
                           <input
-                            id="choice-232"
+                            id="choice-252"
                             tabindex="-1"
                             type="radio"
                           />
                           <label
-                            for="choice-232"
+                            for="choice-252"
                           >
                             (Choice C, Checked)
                                
@@ -2815,12 +2815,12 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           class="perseus-sr-only"
                         >
                           <input
-                            id="choice-233"
+                            id="choice-253"
                             tabindex="-1"
                             type="radio"
                           />
                           <label
-                            for="choice-233"
+                            for="choice-253"
                           >
                             (Choice D)
                                
@@ -3024,12 +3024,12 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           class="perseus-sr-only"
                         >
                           <input
-                            id="choice-238"
+                            id="choice-258"
                             tabindex="-1"
                             type="radio"
                           />
                           <label
-                            for="choice-238"
+                            for="choice-258"
                           >
                             (Choice A, Checked)
                                
@@ -3169,12 +3169,12 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           class="perseus-sr-only"
                         >
                           <input
-                            id="choice-239"
+                            id="choice-259"
                             tabindex="-1"
                             type="radio"
                           />
                           <label
-                            for="choice-239"
+                            for="choice-259"
                           >
                             (Choice B)
                                
@@ -3288,12 +3288,12 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           class="perseus-sr-only"
                         >
                           <input
-                            id="choice-240"
+                            id="choice-260"
                             tabindex="-1"
                             type="radio"
                           />
                           <label
-                            for="choice-240"
+                            for="choice-260"
                           >
                             (Choice C)
                                
@@ -3407,12 +3407,12 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           class="perseus-sr-only"
                         >
                           <input
-                            id="choice-241"
+                            id="choice-261"
                             tabindex="-1"
                             type="radio"
                           />
                           <label
-                            for="choice-241"
+                            for="choice-261"
                           >
                             (Choice D)
                                
@@ -3616,12 +3616,12 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           class="perseus-sr-only"
                         >
                           <input
-                            id="choice-222"
+                            id="choice-242"
                             tabindex="-1"
                             type="radio"
                           />
                           <label
-                            for="choice-222"
+                            for="choice-242"
                           >
                             (Choice A, Incorrect)
                                
@@ -3846,12 +3846,12 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           class="perseus-sr-only"
                         >
                           <input
-                            id="choice-223"
+                            id="choice-243"
                             tabindex="-1"
                             type="radio"
                           />
                           <label
-                            for="choice-223"
+                            for="choice-243"
                           >
                             (Choice B, Incorrect)
                                
@@ -4034,12 +4034,12 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           class="perseus-sr-only"
                         >
                           <input
-                            id="choice-224"
+                            id="choice-244"
                             tabindex="-1"
                             type="radio"
                           />
                           <label
-                            for="choice-224"
+                            for="choice-244"
                           >
                             (Choice C, Correct)
                                
@@ -4217,12 +4217,12 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           class="perseus-sr-only"
                         >
                           <input
-                            id="choice-225"
+                            id="choice-245"
                             tabindex="-1"
                             type="radio"
                           />
                           <label
-                            for="choice-225"
+                            for="choice-245"
                           >
                             (Choice D, Incorrect)
                                
@@ -4450,11 +4450,6 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
               <fieldset
                 class="perseus-widget-radio-fieldset responsiveFieldset_c0l5kf"
               >
-                <legend
-                  class="perseus-sr-only"
-                >
-                  Choose 1 answer:
-                </legend>
                 <ul
                   class="perseus-widget-radio perseus-rendered-radio radio_zdxht7-o_O-satRadio_1m9l1iz"
                   style="list-style: none;"
@@ -5032,11 +5027,6 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
               <fieldset
                 class="perseus-widget-radio-fieldset responsiveFieldset_c0l5kf"
               >
-                <legend
-                  class="perseus-sr-only"
-                >
-                  Choose 1 answer:
-                </legend>
                 <ul
                   class="perseus-widget-radio perseus-rendered-radio radio_zdxht7-o_O-satRadio_1m9l1iz"
                   style="list-style: none;"
@@ -5614,11 +5604,6 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
               <fieldset
                 class="perseus-widget-radio-fieldset responsiveFieldset_c0l5kf"
               >
-                <legend
-                  class="perseus-sr-only"
-                >
-                  Choose 1 answer:
-                </legend>
                 <ul
                   class="perseus-widget-radio perseus-rendered-radio radio_zdxht7-o_O-satRadio_1m9l1iz"
                   style="list-style: none;"
@@ -6196,11 +6181,6 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
               <fieldset
                 class="perseus-widget-radio-fieldset responsiveFieldset_c0l5kf"
               >
-                <legend
-                  class="perseus-sr-only"
-                >
-                  Choose 1 answer:
-                </legend>
                 <ul
                   class="perseus-widget-radio perseus-rendered-radio radio_zdxht7-o_O-satRadio_1m9l1iz"
                   style="list-style: none;"
@@ -6778,11 +6758,6 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
               <fieldset
                 class="perseus-widget-radio-fieldset responsiveFieldset_c0l5kf"
               >
-                <legend
-                  class="perseus-sr-only"
-                >
-                  Choose 1 answer:
-                </legend>
                 <ul
                   class="perseus-widget-radio perseus-rendered-radio radio_zdxht7-o_O-satRadio_1m9l1iz"
                   style="list-style: none;"
@@ -7360,11 +7335,6 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
               <fieldset
                 class="perseus-widget-radio-fieldset responsiveFieldset_c0l5kf"
               >
-                <legend
-                  class="perseus-sr-only"
-                >
-                  Choose 1 answer:
-                </legend>
                 <ul
                   class="perseus-widget-radio perseus-rendered-radio radio_zdxht7-o_O-satRadio_1m9l1iz"
                   style="list-style: none;"
