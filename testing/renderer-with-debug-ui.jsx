@@ -39,6 +39,7 @@ export const RendererWithDebugUI = ({
                         content={question.content}
                         images={question.images}
                         widgets={question.widgets}
+                        problemNum={0}
                         apiOptions={apiOptions}
                         reviewMode={reviewMode}
                     />
