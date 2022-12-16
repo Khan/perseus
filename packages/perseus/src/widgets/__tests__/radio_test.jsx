@@ -449,7 +449,9 @@ describe("single-choice question", () => {
                     }),
                 ).toHaveLength(0);
 
-                expect(screen.getByTestId("cross-out-line")).toBeVisible();
+                expect(
+                    screen.getByTestId("choice-icon__cross-out-line"),
+                ).toBeVisible();
             });
 
             it("should remove cross-out line on selection", async () => {
@@ -477,7 +479,7 @@ describe("single-choice question", () => {
 
                 // Assert
                 expect(
-                    screen.queryByTestId("cross-out-line"),
+                    screen.queryByTestId("choice-icon__cross-out-line"),
                 ).not.toBeInTheDocument();
             });
 
