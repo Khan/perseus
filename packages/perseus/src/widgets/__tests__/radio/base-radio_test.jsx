@@ -92,7 +92,7 @@ describe("base-radio", () => {
             choices: [
                 generateChoice({content: "Option 1", correct: false}),
                 generateChoice({content: "Option B", correct: false}),
-                generateChoice({content: "Option Gamma", correct: true}),
+                generateChoice({content: "Option Gamma", correct: false}),
                 generateChoice({content: "Option Delta", correct: false}),
                 generateChoice({
                     isNoneOfTheAbove: true,
