@@ -193,17 +193,13 @@ describe("choice input (screen reader only)", () => {
             const onChangeSpy = jest.fn();
             renderChoice({onChange: onChangeSpy, multipleSelect});
 
-            if (multipleSelect) {
-                const input = screen.getByRole("checkbox", {
+            const input = screen.getByRole(
+                multipleSelect ? "checkbox" : "radio",
+                {
                     name: "(Choice A) This is a possible choice",
-                });
-                userEvent.click(input);
-            } else {
-                const input = screen.getByRole("radio", {
-                    name: "(Choice A) This is a possible choice",
-                });
-                userEvent.click(input);
-            }
+                },
+            );
+            userEvent.click(input);
 
             // Assert
             expect(onChangeSpy).toHaveBeenCalledWith({
