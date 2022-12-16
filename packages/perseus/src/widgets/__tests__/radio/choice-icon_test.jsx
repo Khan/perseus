@@ -65,7 +65,7 @@ describe("choice icon", () => {
         );
     });
 
-    it("displays a true answer as expected for the library product", () => {
+    it("shows a checkmark for correct answers when product is set to library", () => {
         // Arrange & Act
         renderChoiceIcon({
             product: "library",
@@ -84,7 +84,7 @@ describe("choice icon", () => {
         expect(choiceAttrib).toContain("circleCorrect");
     });
 
-    it("displays a false answer as expected for the library product", () => {
+    it("shows a dash for incorrect answers when product is set to library", () => {
         // Arrange & Act
         renderChoiceIcon({
             product: "library",
@@ -103,7 +103,7 @@ describe("choice icon", () => {
         expect(choiceAttrib).toContain("circleIncorrect");
     });
 
-    it("displays a true answer as expected for the sat product", () => {
+    it("displays green border for correct answers when product is set to sat", () => {
         // Arrange & Act
         renderChoiceIcon({
             product: "sat",
@@ -121,7 +121,7 @@ describe("choice icon", () => {
         expect(choiceStyle).toContain("border-color: #009900");
     });
 
-    it("displays a false answer as expected for the sat product", () => {
+    it("displays red border for incorrect answers when product is set to sat", () => {
         // Arrange & Act
         renderChoiceIcon({
             product: "sat",
