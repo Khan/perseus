@@ -75,6 +75,8 @@ class PassageRef extends React.Component<Props, State> {
         );
     }
 
+    // TODO(TB): getUserInput needs to be updated to only return
+    // props input by the user. Currently returns all the widget's props.
     getUserInput: () => UserInput = () => {
         return removeDenylistProps(this.props);
     };
