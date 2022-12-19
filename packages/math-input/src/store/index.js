@@ -12,12 +12,9 @@ import VelocityTracker from "../components/velocity-tracker.js";
 import {
     DeviceOrientations,
     DeviceTypes,
-    EchoAnimationTypes,
-    KeyTypes,
     KeypadTypes,
     LayoutModes,
 } from "../consts.js";
-import KeyConfigs from "../data/key-configs.js";
 import Keys from "../data/keys.js";
 
 const keypadForType = {
@@ -27,10 +24,8 @@ const keypadForType = {
 
 export const createStore = (): $FlowFixMe => {
     const initialInputState: {|
-        keyHandler: $FlowFixMe,
         cursor: $FlowFixMe,
     |} = {
-        keyHandler: null,
         cursor: {
             context: CursorContexts.NONE,
         },
@@ -38,27 +33,6 @@ export const createStore = (): $FlowFixMe => {
 
     const inputReducer = function (state = initialInputState, action) {
         switch (action.type) {
-            case "SetKeyHandler":
-                return {
-                    ...state,
-                    keyHandler: action.keyHandler,
-                };
-
-            case "PressKey":
-                const keyConfig = KeyConfigs[action.key];
-                if (keyConfig.type !== KeyTypes.KEYPAD_NAVIGATION) {
-                    // This is probably an anti-pattern but it works for the
-                    // case where we don't actually control the state but we
-                    // still want to communicate with the other object
-                    return {
-                        ...state,
-                        cursor: state.keyHandler(keyConfig.id),
-                    };
-                }
-
-                // TODO(kevinb) get state from MathQuill and store it?
-                return state;
-
             case "SetCursor":
                 return {
                     ...state,
@@ -100,19 +74,19 @@ export const createStore = (): $FlowFixMe => {
                     ...action.configuration,
                 };
 
-            case "PressKey":
-                const keyConfig = KeyConfigs[action.key];
-                // NOTE(charlie): Our keypad system operates by triggering key
-                // presses with key IDs in a dumb manner, such that the keys
-                // don't know what they can do--instead, the store is
-                // responsible for interpreting key presses and triggering the
-                // right actions when they occur. Hence, we figure off a
-                // dismissal here rather than dispatching a dismiss action in
-                // the first place.
-                if (keyConfig.id === Keys.DISMISS) {
-                    return keypadReducer(state, {type: "DismissKeypad"});
-                }
-                return state;
+            // case "PressKey":
+            //     const keyConfig = KeyConfigs[action.key];
+            //     // NOTE(charlie): Our keypad system operates by triggering key
+            //     // presses with key IDs in a dumb manner, such that the keys
+            //     // don't know what they can do--instead, the store is
+            //     // responsible for interpreting key presses and triggering the
+            //     // right actions when they occur. Hence, we figure off a
+            //     // dismissal here rather than dispatching a dismiss action in
+            //     // the first place.
+            //     if (keyConfig.id === Keys.DISMISS) {
+            //         return keypadReducer(state, {type: "DismissKeypad"});
+            //     }
+            //     return state;
 
             default:
                 return state;
@@ -153,18 +127,6 @@ export const createStore = (): $FlowFixMe => {
                     ...state,
                     pageWidthPx: action.pageWidthPx,
                 };
-
-            case "PressKey":
-                const keyConfig = KeyConfigs[action.key];
-
-                // Reset the keypad page if the user performs a math operation.
-                if (
-                    keyConfig.type === KeyTypes.VALUE ||
-                    keyConfig.type === KeyTypes.OPERATOR
-                ) {
-                    return pagerReducer(state, {type: "ResetKeypadPage"});
-                }
-                return state;
 
             case "ResetKeypadPage":
                 return {
@@ -265,12 +227,15 @@ export const createStore = (): $FlowFixMe => {
                     });
                 },
                 onClick: (key, layoutProps, inPopover) => {
-                    store.dispatch({
-                        type: "PressKey",
-                        key,
-                        ...layoutProps,
-                        inPopover,
-                    });
+                    const {activeElement} = document;
+                    if (activeElement) {
+                        const event = new KeyboardEvent("keyup", {
+                            bubbles: true,
+                            cancelable: true,
+                            key: key,
+                        });
+                        activeElement.dispatchEvent(event);
+                    }
                 },
             },
             [],
@@ -328,41 +293,15 @@ export const createStore = (): $FlowFixMe => {
 
     // Used to generate unique animation IDs for the echo animations. The actual
     // values are irrelevant as long as they are unique.
-    let _lastAnimationId = 0;
+    // const _lastAnimationId = 0;
 
     const initialEchoState = {
         echoes: [],
     };
 
+    // TODO: move echo animation into the button component itself.
     const echoReducer = function (state = initialEchoState, action) {
         switch (action.type) {
-            case "PressKey":
-                const keyConfig = KeyConfigs[action.key];
-
-                // Add in the echo animation if the user performs a math
-                // operation.
-                if (
-                    keyConfig.type === KeyTypes.VALUE ||
-                    keyConfig.type === KeyTypes.OPERATOR
-                ) {
-                    return {
-                        ...state,
-                        echoes: [
-                            ...state.echoes,
-                            {
-                                animationId: "" + _lastAnimationId++,
-                                animationType: action.inPopover
-                                    ? EchoAnimationTypes.LONG_FADE_ONLY
-                                    : EchoAnimationTypes.FADE_ONLY,
-                                borders: action.borders,
-                                id: keyConfig.id,
-                                initialBounds: action.initialBounds,
-                            },
-                        ],
-                    };
-                }
-                return state;
-
             case "RemoveEcho":
                 const remainingEchoes = state.echoes.filter((echo) => {
                     return echo.animationId !== action.animationId;

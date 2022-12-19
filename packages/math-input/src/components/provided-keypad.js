@@ -29,6 +29,16 @@ class ProvidedKeypad extends React.Component<Props> {
 
     UNSAFE_componentWillMount() {
         this.store = createStore();
+
+        if (document.body) {
+            // $FlowIgnore[incompatible-call]: Flow doesn't like this custom event
+            document.body.addEventListener(
+                "cursor_context",
+                (e: CustomEvent) => {
+                    this.store.dispatch(setCursor(e.detail.cursor));
+                },
+            );
+        }
     }
 
     componentDidMount() {

@@ -315,29 +315,29 @@ class MathInput extends React.Component {
     focus = () => {
         // Pass this component's handleKey method to the keypad so it can call
         // it whenever it needs to trigger a keypress action.
-        this.props.keypadElement.setKeyHandler((key) => {
-            const cursor = this.mathField.pressKey(key);
+        // this.props.keypadElement.setKeyHandler((key) => {
+        //     const cursor = this.mathField.pressKey(key);
 
-            // Trigger an `onChange` if the value in the input changed, and hide
-            // the cursor handle whenever the user types a key. If the value
-            // changed as a result of a keypress, we need to be careful not to
-            // call `setState` until after `onChange` has resolved.
-            const hideCursor = () => {
-                this.setState({
-                    handle: {
-                        visible: false,
-                    },
-                });
-            };
-            const value = this.mathField.getContent();
-            if (this.props.value !== value) {
-                this.props.onChange(value, hideCursor);
-            } else {
-                hideCursor();
-            }
+        //     // Trigger an `onChange` if the value in the input changed, and hide
+        //     // the cursor handle whenever the user types a key. If the value
+        //     // changed as a result of a keypress, we need to be careful not to
+        //     // call `setState` until after `onChange` has resolved.
+        //     const hideCursor = () => {
+        //         this.setState({
+        //             handle: {
+        //                 visible: false,
+        //             },
+        //         });
+        //     };
+        //     const value = this.mathField.getContent();
+        //     if (this.props.value !== value) {
+        //         this.props.onChange(value, hideCursor);
+        //     } else {
+        //         hideCursor();
+        //     }
 
-            return cursor;
-        });
+        //     return cursor;
+        // });
 
         this.mathField.focus();
         this.props.onFocus && this.props.onFocus();
@@ -848,7 +848,15 @@ class MathInput extends React.Component {
                     ref={(node) => {
                         this.inputRef = node;
                     }}
-                    onKeyUp={this.handleKeyUp}
+                    onKeyUp={(e) => {
+                        const cursor = this.mathField.pressKey(e.key);
+
+                        // TODO: only dispatch this weheen the cursor context changes
+                        const event = new CustomEvent("cursor_context", {
+                            detail: {cursor},
+                        });
+                        document.body.dispatchEvent(event);
+                    }}
                 >
                     {/* NOTE(charlie): This element must be styled with inline
                     styles rather than with Aphrodite classes, as MathQuill

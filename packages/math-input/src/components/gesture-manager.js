@@ -140,6 +140,8 @@ class GestureManager {
                 swipeEnabled,
             );
         }
+
+        evt.preventDefault();
     }
 
     /**
@@ -161,6 +163,8 @@ class GestureManager {
                 x,
             );
         }
+
+        evt.preventDefault();
     }
 
     /**
@@ -179,6 +183,8 @@ class GestureManager {
                 evt.changedTouches[i].identifier,
             );
         }
+
+        evt.preventDefault();
     }
 
     /**
