@@ -27,7 +27,7 @@ type Props = {|
     ...React.ElementConfig<Renderer>,
     className?: string,
     // note (mcurtis): I think this should be $ReadOnlyArray<PerseusRenderer>,
-    // but things spiraled out of control when I tried and I tried to change it
+    // but things spiraled out of control when I tried to change it
     hints: $ReadOnlyArray<$FlowFixMe>,
     hintsVisible?: number,
 |};
