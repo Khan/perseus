@@ -26,6 +26,8 @@ import type {APIOptionsWithDefaults} from "./types.js";
 type Props = {|
     ...React.ElementConfig<Renderer>,
     className?: string,
+    // note (mcurtis): I think this should be $ReadOnlyArray<PerseusRenderer>,
+    // but things spiraled out of control when I tried and I tried to change it
     hints: $ReadOnlyArray<$FlowFixMe>,
     hintsVisible?: number,
 |};
@@ -72,11 +74,18 @@ class HintsRenderer extends React.Component<Props, State> {
             this._cacheHintImages();
         }
 
+        // Force number to make Flow happy
+        const prevHintsVisible = prevProps.hintsVisible || 0;
+        const nextHintsVisible = this.props.hintsVisible || 0;
+
         // When a new hint is displayed we immediately focus it
-        // $FlowFixMe[invalid-compare]
-        if (prevProps.hintsVisible < this.props.hintsVisible) {
-            // $FlowFixMe[unsafe-addition]
-            const pos = this.props.hintsVisible - 1;
+        // (keeping within the boundaries of hint count)
+        if (
+            prevHintsVisible < nextHintsVisible &&
+            nextHintsVisible <= this.props.hints.length &&
+            nextHintsVisible >= 0
+        ) {
+            const pos = nextHintsVisible - 1;
             // $FlowFixMe[prop-missing]
             // $FlowFixMe[incompatible-use]
             ReactDOM.findDOMNode(this.refs["hintRenderer" + pos]).focus(); // eslint-disable-line react/no-string-refs
