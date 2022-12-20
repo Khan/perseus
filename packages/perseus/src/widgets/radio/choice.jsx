@@ -241,6 +241,7 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
                                 alignContent: "center",
                                 paddingTop: Spacing.xSmall_8,
                                 paddingBottom: Spacing.xSmall_8,
+                                paddingLeft: Spacing.xSmall_8,
                             }}
                         >
                             <ChoiceIcon
