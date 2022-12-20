@@ -123,7 +123,7 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -139,7 +139,11 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                                   data-test-id="choice-icon__library-choice-icon"
                                   style="border-color: #1865f2; color: rgb(255, 255, 255); border-radius: 3px; background-color: rgb(24, 101, 242);"
                                 >
-                                  A
+                                  <div
+                                    class="innerWrapper_177sg8x"
+                                  >
+                                    A
+                                  </div>
                                 </div>
                               </span>
                             </div>
@@ -242,7 +246,7 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -258,7 +262,11 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                                   data-test-id="choice-icon__library-choice-icon"
                                   style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 3px;"
                                 >
-                                  B
+                                  <div
+                                    class="innerWrapper_177sg8x"
+                                  >
+                                    B
+                                  </div>
                                 </div>
                               </span>
                             </div>
@@ -361,7 +369,7 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -377,7 +385,11 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                                   data-test-id="choice-icon__library-choice-icon"
                                   style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 3px;"
                                 >
-                                  C
+                                  <div
+                                    class="innerWrapper_177sg8x"
+                                  >
+                                    C
+                                  </div>
                                 </div>
                               </span>
                             </div>
@@ -471,7 +483,7 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -487,7 +499,11 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                                   data-test-id="choice-icon__library-choice-icon"
                                   style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 3px;"
                                 >
-                                  D
+                                  <div
+                                    class="innerWrapper_177sg8x"
+                                  >
+                                    D
+                                  </div>
                                 </div>
                               </span>
                             </div>
@@ -716,7 +732,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -732,7 +748,11 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                                   data-test-id="choice-icon__library-choice-icon"
                                   style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                 >
-                                  A
+                                  <div
+                                    class="innerWrapper_177sg8x"
+                                  >
+                                    A
+                                  </div>
                                 </div>
                               </span>
                             </div>
@@ -848,7 +868,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -864,7 +884,11 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                                   data-test-id="choice-icon__library-choice-icon"
                                   style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                 >
-                                  B
+                                  <div
+                                    class="innerWrapper_177sg8x"
+                                  >
+                                    B
+                                  </div>
                                 </div>
                               </span>
                             </div>
@@ -967,7 +991,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -983,7 +1007,11 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                                   data-test-id="choice-icon__library-choice-icon"
                                   style="border-color: #1865f2; color: rgb(255, 255, 255); border-radius: 24px; background-color: rgb(24, 101, 242);"
                                 >
-                                  C
+                                  <div
+                                    class="innerWrapper_177sg8x"
+                                  >
+                                    C
+                                  </div>
                                 </div>
                               </span>
                             </div>
@@ -1089,7 +1117,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -1105,7 +1133,11 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                                   data-test-id="choice-icon__library-choice-icon"
                                   style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                 >
-                                  D
+                                  <div
+                                    class="innerWrapper_177sg8x"
+                                  >
+                                    D
+                                  </div>
                                 </div>
                               </span>
                             </div>
@@ -1308,7 +1340,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -1324,7 +1356,11 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                                   data-test-id="choice-icon__library-choice-icon"
                                   style="border-color: #1865f2; color: rgb(255, 255, 255); border-radius: 24px; background-color: rgb(24, 101, 242);"
                                 >
-                                  A
+                                  <div
+                                    class="innerWrapper_177sg8x"
+                                  >
+                                    A
+                                  </div>
                                 </div>
                               </span>
                             </div>
@@ -1440,7 +1476,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -1456,7 +1492,11 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                                   data-test-id="choice-icon__library-choice-icon"
                                   style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                 >
-                                  B
+                                  <div
+                                    class="innerWrapper_177sg8x"
+                                  >
+                                    B
+                                  </div>
                                 </div>
                               </span>
                             </div>
@@ -1559,7 +1599,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -1575,7 +1615,11 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                                   data-test-id="choice-icon__library-choice-icon"
                                   style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                 >
-                                  C
+                                  <div
+                                    class="innerWrapper_177sg8x"
+                                  >
+                                    C
+                                  </div>
                                 </div>
                               </span>
                             </div>
@@ -1681,7 +1725,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -1697,7 +1741,11 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                                   data-test-id="choice-icon__library-choice-icon"
                                   style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                 >
-                                  D
+                                  <div
+                                    class="innerWrapper_177sg8x"
+                                  >
+                                    D
+                                  </div>
                                 </div>
                               </span>
                             </div>
@@ -1900,7 +1948,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -1916,7 +1964,11 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                                   data-test-id="choice-icon__library-choice-icon"
                                   style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                 >
-                                  A
+                                  <div
+                                    class="innerWrapper_177sg8x"
+                                  >
+                                    A
+                                  </div>
                                 </div>
                               </span>
                             </div>
@@ -2032,7 +2084,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -2048,7 +2100,11 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                                   data-test-id="choice-icon__library-choice-icon"
                                   style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                 >
-                                  B
+                                  <div
+                                    class="innerWrapper_177sg8x"
+                                  >
+                                    B
+                                  </div>
                                 </div>
                               </span>
                             </div>
@@ -2151,7 +2207,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -2167,7 +2223,11 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                                   data-test-id="choice-icon__library-choice-icon"
                                   style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                 >
-                                  C
+                                  <div
+                                    class="innerWrapper_177sg8x"
+                                  >
+                                    C
+                                  </div>
                                 </div>
                               </span>
                             </div>
@@ -2273,7 +2333,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -2289,7 +2349,11 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                                   data-test-id="choice-icon__library-choice-icon"
                                   style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                 >
-                                  D
+                                  <div
+                                    class="innerWrapper_177sg8x"
+                                  >
+                                    D
+                                  </div>
                                 </div>
                               </span>
                             </div>
@@ -2492,7 +2556,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -2508,7 +2572,11 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                                   data-test-id="choice-icon__library-choice-icon"
                                   style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                 >
-                                  A
+                                  <div
+                                    class="innerWrapper_177sg8x"
+                                  >
+                                    A
+                                  </div>
                                 </div>
                               </span>
                             </div>
@@ -2624,7 +2692,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -2640,7 +2708,11 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                                   data-test-id="choice-icon__library-choice-icon"
                                   style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                 >
-                                  B
+                                  <div
+                                    class="innerWrapper_177sg8x"
+                                  >
+                                    B
+                                  </div>
                                 </div>
                               </span>
                             </div>
@@ -2743,7 +2815,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -2759,7 +2831,11 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                                   data-test-id="choice-icon__library-choice-icon"
                                   style="border-color: #1865f2; color: rgb(255, 255, 255); border-radius: 24px; background-color: rgb(24, 101, 242);"
                                 >
-                                  C
+                                  <div
+                                    class="innerWrapper_177sg8x"
+                                  >
+                                    C
+                                  </div>
                                 </div>
                               </span>
                             </div>
@@ -2865,7 +2941,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -2881,7 +2957,11 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                                   data-test-id="choice-icon__library-choice-icon"
                                   style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                 >
-                                  D
+                                  <div
+                                    class="innerWrapper_177sg8x"
+                                  >
+                                    D
+                                  </div>
                                 </div>
                               </span>
                             </div>
@@ -3084,7 +3164,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -3100,7 +3180,11 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                                   data-test-id="choice-icon__library-choice-icon"
                                   style="border-color: #1865f2; color: rgb(255, 255, 255); border-radius: 24px; background-color: rgb(24, 101, 242);"
                                 >
-                                  A
+                                  <div
+                                    class="innerWrapper_177sg8x"
+                                  >
+                                    A
+                                  </div>
                                 </div>
                               </span>
                             </div>
@@ -3216,7 +3300,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -3232,7 +3316,11 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                                   data-test-id="choice-icon__library-choice-icon"
                                   style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                 >
-                                  B
+                                  <div
+                                    class="innerWrapper_177sg8x"
+                                  >
+                                    B
+                                  </div>
                                 </div>
                               </span>
                             </div>
@@ -3335,7 +3423,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -3351,7 +3439,11 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                                   data-test-id="choice-icon__library-choice-icon"
                                   style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                 >
-                                  C
+                                  <div
+                                    class="innerWrapper_177sg8x"
+                                  >
+                                    C
+                                  </div>
                                 </div>
                               </span>
                             </div>
@@ -3457,7 +3549,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -3473,7 +3565,11 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                                   data-test-id="choice-icon__library-choice-icon"
                                   style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                 >
-                                  D
+                                  <div
+                                    class="innerWrapper_177sg8x"
+                                  >
+                                    D
+                                  </div>
                                 </div>
                               </span>
                             </div>
@@ -3676,7 +3772,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -3692,19 +3788,23 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                                   data-test-id="choice-icon__library-choice-icon"
                                   style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                 >
-                                  <svg
-                                    aria-hidden="true"
-                                    height="1em"
-                                    role="img"
-                                    style="vertical-align: middle;"
-                                    viewBox="0 0 24 24"
-                                    width="1em"
+                                  <div
+                                    class="innerWrapper_177sg8x"
                                   >
-                                    <path
-                                      d="M8,13 L16,13 C16.5522847,13 17,12.5522847 17,12 C17,11.4477153 16.5522847,11 16,11 L8,11 C7.44771525,11 7,11.4477153 7,12 C7,12.5522847 7.44771525,13 8,13 Z"
-                                      fill="currentColor"
-                                    />
-                                  </svg>
+                                    <svg
+                                      aria-hidden="true"
+                                      height="1em"
+                                      role="img"
+                                      style="vertical-align: middle;"
+                                      viewBox="0 0 24 24"
+                                      width="1em"
+                                    >
+                                      <path
+                                        d="M8,13 L16,13 C16.5522847,13 17,12.5522847 17,12 C17,11.4477153 16.5522847,11 16,11 L8,11 C7.44771525,11 7,11.4477153 7,12 C7,12.5522847 7.44771525,13 8,13 Z"
+                                        fill="currentColor"
+                                      />
+                                    </svg>
+                                  </div>
                                 </div>
                               </span>
                             </div>
@@ -3765,7 +3865,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         </button>
                       </div>
                       <div
-                        class="perseus-radio-rationale-content rationale_uhlm2-o_O-nonSatRationale_b3d4vx"
+                        class="perseus-radio-rationale-content rationale_uhlm2-o_O-nonSatRationale_10l5hr0"
                         data-test-id="perseus-radio-rationale-content-0"
                       >
                         <span
@@ -3893,7 +3993,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -3909,19 +4009,23 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                                   data-test-id="choice-icon__library-choice-icon"
                                   style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                 >
-                                  <svg
-                                    aria-hidden="true"
-                                    height="1em"
-                                    role="img"
-                                    style="vertical-align: middle;"
-                                    viewBox="0 0 24 24"
-                                    width="1em"
+                                  <div
+                                    class="innerWrapper_177sg8x"
                                   >
-                                    <path
-                                      d="M8,13 L16,13 C16.5522847,13 17,12.5522847 17,12 C17,11.4477153 16.5522847,11 16,11 L8,11 C7.44771525,11 7,11.4477153 7,12 C7,12.5522847 7.44771525,13 8,13 Z"
-                                      fill="currentColor"
-                                    />
-                                  </svg>
+                                    <svg
+                                      aria-hidden="true"
+                                      height="1em"
+                                      role="img"
+                                      style="vertical-align: middle;"
+                                      viewBox="0 0 24 24"
+                                      width="1em"
+                                    >
+                                      <path
+                                        d="M8,13 L16,13 C16.5522847,13 17,12.5522847 17,12 C17,11.4477153 16.5522847,11 16,11 L8,11 C7.44771525,11 7,11.4477153 7,12 C7,12.5522847 7.44771525,13 8,13 Z"
+                                        fill="currentColor"
+                                      />
+                                    </svg>
+                                  </div>
                                 </div>
                               </span>
                             </div>
@@ -3969,7 +4073,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         </button>
                       </div>
                       <div
-                        class="perseus-radio-rationale-content rationale_uhlm2-o_O-nonSatRationale_b3d4vx"
+                        class="perseus-radio-rationale-content rationale_uhlm2-o_O-nonSatRationale_10l5hr0"
                         data-test-id="perseus-radio-rationale-content-1"
                       >
                         <span
@@ -4081,7 +4185,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -4097,19 +4201,23 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                                   data-test-id="choice-icon__library-choice-icon"
                                   style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                 >
-                                  <svg
-                                    aria-hidden="true"
-                                    height="1em"
-                                    role="img"
-                                    style="vertical-align: middle; position: relative; top: -1px;"
-                                    viewBox="0 0 24 24"
-                                    width="1em"
+                                  <div
+                                    class="innerWrapper_177sg8x"
                                   >
-                                    <path
-                                      d="M8.70710678,12.2928932 C8.31658249,11.9023689 7.68341751,11.9023689 7.29289322,12.2928932 C6.90236893,12.6834175 6.90236893,13.3165825 7.29289322,13.7071068 L9.82842712,16.2426407 C10.2207367,16.6349502 10.8574274,16.6328935 11.2471942,16.2380576 L16.7116603,10.7025237 C17.0996535,10.3094846 17.0955629,9.67633279 16.7025237,9.28833966 C16.3094846,8.90034653 15.6763328,8.90443714 15.2883397,9.29747629 L10.5309507,14.1167372 L8.70710678,12.2928932 Z"
-                                      fill="currentColor"
-                                    />
-                                  </svg>
+                                    <svg
+                                      aria-hidden="true"
+                                      height="1em"
+                                      role="img"
+                                      style="vertical-align: middle; position: relative; top: -1px;"
+                                      viewBox="0 0 24 24"
+                                      width="1em"
+                                    >
+                                      <path
+                                        d="M8.70710678,12.2928932 C8.31658249,11.9023689 7.68341751,11.9023689 7.29289322,12.2928932 C6.90236893,12.6834175 6.90236893,13.3165825 7.29289322,13.7071068 L9.82842712,16.2426407 C10.2207367,16.6349502 10.8574274,16.6328935 11.2471942,16.2380576 L16.7116603,10.7025237 C17.0996535,10.3094846 17.0955629,9.67633279 16.7025237,9.28833966 C16.3094846,8.90034653 15.6763328,8.90443714 15.2883397,9.29747629 L10.5309507,14.1167372 L8.70710678,12.2928932 Z"
+                                        fill="currentColor"
+                                      />
+                                    </svg>
+                                  </div>
                                 </div>
                               </span>
                             </div>
@@ -4157,7 +4265,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         </button>
                       </div>
                       <div
-                        class="perseus-radio-rationale-content rationale_uhlm2-o_O-nonSatRationale_b3d4vx"
+                        class="perseus-radio-rationale-content rationale_uhlm2-o_O-nonSatRationale_10l5hr0"
                         data-test-id="perseus-radio-rationale-content-2"
                       >
                         <span
@@ -4267,7 +4375,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -4283,19 +4391,23 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                                   data-test-id="choice-icon__library-choice-icon"
                                   style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                 >
-                                  <svg
-                                    aria-hidden="true"
-                                    height="1em"
-                                    role="img"
-                                    style="vertical-align: middle;"
-                                    viewBox="0 0 24 24"
-                                    width="1em"
+                                  <div
+                                    class="innerWrapper_177sg8x"
                                   >
-                                    <path
-                                      d="M8,13 L16,13 C16.5522847,13 17,12.5522847 17,12 C17,11.4477153 16.5522847,11 16,11 L8,11 C7.44771525,11 7,11.4477153 7,12 C7,12.5522847 7.44771525,13 8,13 Z"
-                                      fill="currentColor"
-                                    />
-                                  </svg>
+                                    <svg
+                                      aria-hidden="true"
+                                      height="1em"
+                                      role="img"
+                                      style="vertical-align: middle;"
+                                      viewBox="0 0 24 24"
+                                      width="1em"
+                                    >
+                                      <path
+                                        d="M8,13 L16,13 C16.5522847,13 17,12.5522847 17,12 C17,11.4477153 16.5522847,11 16,11 L8,11 C7.44771525,11 7,11.4477153 7,12 C7,12.5522847 7.44771525,13 8,13 Z"
+                                        fill="currentColor"
+                                      />
+                                    </svg>
+                                  </div>
                                 </div>
                               </span>
                             </div>
@@ -4346,7 +4458,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         </button>
                       </div>
                       <div
-                        class="perseus-radio-rationale-content rationale_uhlm2-o_O-nonSatRationale_b3d4vx"
+                        class="perseus-radio-rationale-content rationale_uhlm2-o_O-nonSatRationale_10l5hr0"
                         data-test-id="perseus-radio-rationale-content-3"
                       >
                         <span
@@ -4527,7 +4639,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -4658,7 +4770,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -4776,7 +4888,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -4897,7 +5009,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -5104,7 +5216,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -5235,7 +5347,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -5353,7 +5465,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -5474,7 +5586,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -5681,7 +5793,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -5812,7 +5924,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -5930,7 +6042,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -6051,7 +6163,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -6258,7 +6370,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -6389,7 +6501,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -6507,7 +6619,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -6628,7 +6740,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -6835,7 +6947,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -6966,7 +7078,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -7084,7 +7196,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -7205,7 +7317,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -7412,7 +7524,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -7610,7 +7722,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -7779,7 +7891,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
@@ -7946,7 +8058,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           type="button"
                         >
                           <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                           >
                             <div
                               class="iconWrapper_17y0hv9"
