@@ -413,7 +413,7 @@ const styles = StyleSheet.create({
     nonSatRationale: {
         padding: intermediateCheckboxPadding,
         paddingTop: 0,
-        marginLeft: 44,
+        marginLeft: 54,
         [mediaQueries.smOrSmaller]: {
             padding: intermediateCheckboxPaddingPhone,
             paddingTop: 0,
