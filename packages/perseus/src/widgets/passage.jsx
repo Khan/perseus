@@ -84,6 +84,8 @@ const styles = StyleSheet.create({
         width: "100%",
         top: 0,
         left: 0,
+        // keep from blocking text selection
+        zIndex: -1,
     },
 });
 
