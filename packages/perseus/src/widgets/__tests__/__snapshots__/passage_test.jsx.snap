@@ -219,7 +219,7 @@ exports[`passage widget should snapshot multiple passages (mobile: false) 1`] = 
                         <div>
                           <div>
                             <div
-                              class="measurer_1ugaxv"
+                              class="measurer_vtwrnx"
                             >
                               <div>
                                 <div
@@ -711,7 +711,7 @@ exports[`passage widget should snapshot multiple passages (mobile: false) 1`] = 
                         <div>
                           <div>
                             <div
-                              class="measurer_1ugaxv"
+                              class="measurer_vtwrnx"
                             >
                               <div>
                                 <div
@@ -1090,7 +1090,7 @@ exports[`passage widget should snapshot multiple passages (mobile: true) 1`] = `
                         <div>
                           <div>
                             <div
-                              class="measurer_1ugaxv"
+                              class="measurer_vtwrnx"
                             >
                               <div>
                                 <div
@@ -1582,7 +1582,7 @@ exports[`passage widget should snapshot multiple passages (mobile: true) 1`] = `
                         <div>
                           <div>
                             <div
-                              class="measurer_1ugaxv"
+                              class="measurer_vtwrnx"
                             >
                               <div>
                                 <div
@@ -1840,7 +1840,7 @@ exports[`passage widget should snapshot simple passage (mobile: false) 1`] = `
                         <div>
                           <div>
                             <div
-                              class="measurer_1ugaxv"
+                              class="measurer_vtwrnx"
                             >
                               <div>
                                 <div
@@ -1941,7 +1941,7 @@ exports[`passage widget should snapshot simple passage (mobile: true) 1`] = `
                         <div>
                           <div>
                             <div
-                              class="measurer_1ugaxv"
+                              class="measurer_vtwrnx"
                             >
                               <div>
                                 <div
