@@ -1,5 +1,14 @@
 # @khanacademy/perseus-editor
 
+## 1.0.3
+
+### Patch Changes
+
+-   Updated dependencies [b8b0ff7e]
+-   Updated dependencies [1dad999d]
+-   Updated dependencies [cc5103be]
+    -   @khanacademy/perseus@1.1.2
+
 ## 1.0.2
 
 ### Patch Changes
