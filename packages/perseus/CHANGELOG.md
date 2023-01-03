@@ -1,5 +1,13 @@
 # @khanacademy/perseus
 
+## 1.1.2
+
+### Patch Changes
+
+-   b8b0ff7e: Update graded-group widget title to use a darker gray to meet a11y requirements
+-   1dad999d: bugfix: add indention back to Passage widget
+-   cc5103be: Small fix to communicate the "current" state of graded-group-sets to screen readers.
+
 ## 1.1.1
 
 ### Patch Changes
