@@ -13,12 +13,11 @@
  * still have to notify the tooltip to remeasure itself when the highlight
  * focus _changes_.
  */
+import Tooltip, {TooltipContent} from "@khanacademy/wonder-blocks-tooltip";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
 import {Log} from "../../../logging/log.js";
-import {colors} from "../../../styles/global-styles.js";
-import NewTooltip from "../../new-tooltip/new-tooltip.jsx";
 
 import {getRelativeRect} from "./util.js";
 
@@ -36,8 +35,6 @@ type HighlightTooltipProps = {|
 |};
 
 class HighlightTooltip extends React.PureComponent<HighlightTooltipProps> {
-    _tooltip: ?React.ElementRef<typeof NewTooltip>;
-
     _getFocusRect(): ?Rect {
         const {focusNode, focusOffset, offsetParent} = this.props;
 
@@ -94,7 +91,7 @@ class HighlightTooltip extends React.PureComponent<HighlightTooltipProps> {
             return null;
         }
 
-        const content = (
+        const innerContent: $FlowFixMe = (
             <div
                 className={css(styles.tooltipLabel)}
                 onClick={this.props.onClick}
@@ -102,6 +99,8 @@ class HighlightTooltip extends React.PureComponent<HighlightTooltipProps> {
                 {this.props.label}
             </div>
         );
+
+        const content = <TooltipContent>{innerContent}</TooltipContent>;
 
         return (
             <div
@@ -112,19 +111,9 @@ class HighlightTooltip extends React.PureComponent<HighlightTooltipProps> {
                     height: focusRect.height,
                 }}
             >
-                <NewTooltip
-                    content={content}
-                    color={colors.kaBlue}
-                    inverted={true}
-                    onClick={this.props.onClick}
-                    onMouseEnter={this.props.onMouseEnter}
-                    onMouseLeave={this.props.onMouseLeave}
-                    toggleOnHover={false}
-                    showOnMount={true}
-                    ref={(e) => (this._tooltip = e)}
-                >
+                <Tooltip content={content} opened={true}>
                     <div />
-                </NewTooltip>
+                </Tooltip>
             </div>
         );
     }
@@ -138,6 +127,7 @@ const styles = StyleSheet.create({
         // we lose our reference to the _actual_ text they want to highlight,
         // and the "Add highlight" action fails.
         userSelect: "none",
+        fontFamily: `"Lato", sans-serif`,
     },
 });
 
