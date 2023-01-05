@@ -6,7 +6,7 @@
  */
 
 import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
-import Tooltip from "@khanacademy/wonder-blocks-tooltip";
+import Tooltip, {TooltipContent} from "@khanacademy/wonder-blocks-tooltip";
 import * as React from "react";
 
 import {colors} from "../../styles/global-styles.js";
@@ -156,7 +156,11 @@ class NewTooltip extends React.Component<Props, NewTooltipState> {
         const {side, children, content} = this.props;
         const {onMouseEnter, onMouseLeave} = this.props;
         return (
-            <Tooltip content={content} placement={side} opened={true}>
+            <Tooltip
+                content={<TooltipContent>{content}</TooltipContent>}
+                placement={side}
+                opened={true}
+            >
                 <div
                     onMouseEnter={() => {
                         onMouseEnter && onMouseEnter();

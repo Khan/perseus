@@ -104,28 +104,28 @@ class HighlightTooltip extends React.PureComponent<HighlightTooltipProps> {
         );
 
         return (
-            <NewTooltip
-                content={content}
-                color={colors.kaBlue}
-                inverted={true}
-                onClick={this.props.onClick}
-                onMouseEnter={this.props.onMouseEnter}
-                onMouseLeave={this.props.onMouseLeave}
-                toggleOnHover={false}
-                showOnMount={true}
-                ref={(e) => (this._tooltip = e)}
+            <div
+                style={{
+                    position: "absolute",
+                    left: focusRect.left,
+                    top: focusRect.top,
+                    height: focusRect.height,
+                }}
             >
-                <div
-                    style={{
-                        position: "absolute",
-                        left: focusRect.left,
-                        top: focusRect.top,
-                        height: focusRect.height,
-                        width: focusRect.height,
-                        background: "pink",
-                    }}
-                />
-            </NewTooltip>
+                <NewTooltip
+                    content={content}
+                    color={colors.kaBlue}
+                    inverted={true}
+                    onClick={this.props.onClick}
+                    onMouseEnter={this.props.onMouseEnter}
+                    onMouseLeave={this.props.onMouseLeave}
+                    toggleOnHover={false}
+                    showOnMount={true}
+                    ref={(e) => (this._tooltip = e)}
+                >
+                    <div />
+                </NewTooltip>
+            </div>
         );
     }
 }
