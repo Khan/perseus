@@ -241,6 +241,7 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
                                 alignContent: "center",
                                 paddingTop: Spacing.xSmall_8,
                                 paddingBottom: Spacing.xSmall_8,
+                                paddingLeft: Spacing.xSmall_8,
                             }}
                         >
                             <ChoiceIcon
@@ -412,7 +413,7 @@ const styles = StyleSheet.create({
     nonSatRationale: {
         padding: intermediateCheckboxPadding,
         paddingTop: 0,
-        marginLeft: 44,
+        marginLeft: 54,
         [mediaQueries.smOrSmaller]: {
             padding: intermediateCheckboxPaddingPhone,
             paddingTop: 0,

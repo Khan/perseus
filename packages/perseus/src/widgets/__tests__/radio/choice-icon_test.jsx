@@ -64,4 +64,78 @@ describe("choice icon", () => {
             },
         );
     });
+
+    it("shows a checkmark for correct answers when product is set to library", () => {
+        // Arrange & Act
+        renderChoiceIcon({
+            product: "library",
+            correct: true,
+            reviewMode: true,
+            checked: true,
+            showCorrectness: true,
+        });
+
+        const choiceWrapper = screen.getByTestId(
+            `choice-icon__library-choice-icon`,
+        );
+        const choiceAttrib = choiceWrapper.getAttribute("class");
+
+        // Assert
+        expect(choiceAttrib).toContain("circleCorrect");
+    });
+
+    it("shows a dash for incorrect answers when product is set to library", () => {
+        // Arrange & Act
+        renderChoiceIcon({
+            product: "library",
+            correct: false,
+            reviewMode: true,
+            checked: true,
+            showCorrectness: true,
+        });
+
+        const choiceWrapper = screen.getByTestId(
+            `choice-icon__library-choice-icon`,
+        );
+        const choiceAttrib = choiceWrapper.getAttribute("class");
+
+        // Assert
+        expect(choiceAttrib).toContain("circleIncorrect");
+    });
+
+    it("displays green border for correct answers when product is set to sat", () => {
+        // Arrange & Act
+        renderChoiceIcon({
+            product: "sat",
+            correct: true,
+            reviewMode: true,
+            checked: true,
+        });
+
+        const choiceWrapper = screen.getByTestId(
+            `choice-icon__sat-choice-icon`,
+        );
+        const choiceStyle = choiceWrapper.getAttribute("style");
+
+        // Assert
+        expect(choiceStyle).toContain("border-color: #009900");
+    });
+
+    it("displays red border for incorrect answers when product is set to sat", () => {
+        // Arrange & Act
+        renderChoiceIcon({
+            product: "sat",
+            correct: false,
+            reviewMode: true,
+            checked: true,
+        });
+
+        const choiceWrapper = screen.getByTestId(
+            `choice-icon__sat-choice-icon`,
+        );
+        const choiceStyle = choiceWrapper.getAttribute("style");
+
+        // Assert
+        expect(choiceStyle).toContain("border-color: #990000");
+    });
 });

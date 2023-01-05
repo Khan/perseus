@@ -247,7 +247,9 @@ function BaseRadio(props: Props): React.Node {
         <fieldset
             className={`perseus-widget-radio-fieldset ${responsiveClassName}`}
         >
-            <legend className="perseus-sr-only">{instructions}</legend>
+            {shouldShowInstructions && (
+                <legend className="perseus-sr-only">{instructions}</legend>
+            )}
             {shouldShowInstructions && (
                 <div className={instructionsClassName} aria-hidden="true">
                     {instructions}

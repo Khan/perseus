@@ -153,11 +153,13 @@ function LibraryChoiceIcon(props: LibraryChoiceIconProps): React.Node {
                     // radio icon
                     data-is-radio-icon={true}
                 >
-                    <ChoiceInner
-                        letter={letter}
-                        showCorrectness={showCorrectness}
-                        correct={correct}
-                    />
+                    <div className={css(styles.innerWrapper)}>
+                        <ChoiceInner
+                            letter={letter}
+                            showCorrectness={showCorrectness}
+                            correct={correct}
+                        />
+                    </div>
                 </div>
             </FocusRing>
             {crossedOut && <CrossOutLine color={dynamicStyles.borderColor} />}
@@ -166,6 +168,15 @@ function LibraryChoiceIcon(props: LibraryChoiceIconProps): React.Node {
 }
 
 const styles = StyleSheet.create({
+    innerWrapper: {
+        width: LIBRARY_ICON_SIZE,
+        height: LIBRARY_ICON_SIZE,
+
+        // Center the contents of the icon.
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+    },
     circle: {
         // Make the circle
         width: LIBRARY_ICON_SIZE,
@@ -182,7 +193,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         fontSize: 12,
 
-        // Center the contents of the icon.
+        // Center the icon wrapper.
         display: "flex",
         alignItems: "center",
         justifyContent: "center",

@@ -55,7 +55,7 @@ exports[`passage-ref widget should render with invalid reference 1`] = `
                         <div>
                           <div>
                             <div
-                              class="measurer_1ugaxv"
+                              class="measurer_vtwrnx"
                             >
                               <div>
                                 <div
@@ -200,7 +200,7 @@ exports[`passage-ref widget should render with multi-line reference 1`] = `
                         <div>
                           <div>
                             <div
-                              class="measurer_1ugaxv"
+                              class="measurer_vtwrnx"
                             >
                               <div>
                                 <div
@@ -350,7 +350,7 @@ exports[`passage-ref widget should render with single-line reference 1`] = `
                         <div>
                           <div>
                             <div
-                              class="measurer_1ugaxv"
+                              class="measurer_vtwrnx"
                             >
                               <div>
                                 <div

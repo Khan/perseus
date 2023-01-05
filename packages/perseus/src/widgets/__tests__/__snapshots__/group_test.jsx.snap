@@ -197,7 +197,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                             type="button"
                                           >
                                             <div
-                                              style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                                              style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                                             >
                                               <div
                                                 class="iconWrapper_17y0hv9"
@@ -213,7 +213,11 @@ exports[`group widget should snapshot: initial render 1`] = `
                                                     data-test-id="choice-icon__library-choice-icon"
                                                     style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                                   >
-                                                    A
+                                                    <div
+                                                      class="innerWrapper_177sg8x"
+                                                    >
+                                                      A
+                                                    </div>
                                                   </div>
                                                 </span>
                                               </div>
@@ -316,7 +320,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                             type="button"
                                           >
                                             <div
-                                              style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                                              style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                                             >
                                               <div
                                                 class="iconWrapper_17y0hv9"
@@ -332,7 +336,11 @@ exports[`group widget should snapshot: initial render 1`] = `
                                                     data-test-id="choice-icon__library-choice-icon"
                                                     style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                                   >
-                                                    B
+                                                    <div
+                                                      class="innerWrapper_177sg8x"
+                                                    >
+                                                      B
+                                                    </div>
                                                   </div>
                                                 </span>
                                               </div>
@@ -435,7 +443,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                             type="button"
                                           >
                                             <div
-                                              style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                                              style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                                             >
                                               <div
                                                 class="iconWrapper_17y0hv9"
@@ -451,7 +459,11 @@ exports[`group widget should snapshot: initial render 1`] = `
                                                     data-test-id="choice-icon__library-choice-icon"
                                                     style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                                   >
-                                                    C
+                                                    <div
+                                                      class="innerWrapper_177sg8x"
+                                                    >
+                                                      C
+                                                    </div>
                                                   </div>
                                                 </span>
                                               </div>
@@ -554,7 +566,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                             type="button"
                                           >
                                             <div
-                                              style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                                              style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                                             >
                                               <div
                                                 class="iconWrapper_17y0hv9"
@@ -570,7 +582,11 @@ exports[`group widget should snapshot: initial render 1`] = `
                                                     data-test-id="choice-icon__library-choice-icon"
                                                     style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                                   >
-                                                    D
+                                                    <div
+                                                      class="innerWrapper_177sg8x"
+                                                    >
+                                                      D
+                                                    </div>
                                                   </div>
                                                 </span>
                                               </div>
@@ -673,7 +689,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                             type="button"
                                           >
                                             <div
-                                              style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px;"
+                                              style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                                             >
                                               <div
                                                 class="iconWrapper_17y0hv9"
@@ -689,7 +705,11 @@ exports[`group widget should snapshot: initial render 1`] = `
                                                     data-test-id="choice-icon__library-choice-icon"
                                                     style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                                   >
-                                                    E
+                                                    <div
+                                                      class="innerWrapper_177sg8x"
+                                                    >
+                                                      E
+                                                    </div>
                                                   </div>
                                                 </span>
                                               </div>

@@ -109,20 +109,23 @@ describe("all choice options", () => {
 
 // Tests 1 of 2 element types used to select a choice
 describe("choice button", () => {
-    it("selects the choice by clicking the button", () => {
-        // Arrange / Act
-        const onChangeSpy = jest.fn();
-        renderChoice({onChange: onChangeSpy});
+    it.each([[true], [false]])(
+        "selects the choice by clicking the option when multiple select is: %s",
+        (multipleSelect: boolean) => {
+            // Arrange / Act
+            const onChangeSpy = jest.fn();
+            renderChoice({onChange: onChangeSpy, multipleSelect});
 
-        const button = screen.getByRole("button", {hidden: true});
-        userEvent.click(button);
+            const button = screen.getByRole("button", {hidden: true});
+            userEvent.click(button);
 
-        // Assert
-        expect(onChangeSpy).toHaveBeenCalledWith({
-            checked: true,
-            crossedOut: false,
-        });
-    });
+            // Assert
+            expect(onChangeSpy).toHaveBeenCalledWith({
+                checked: true,
+                crossedOut: false,
+            });
+        },
+    );
 
     it("has correct aria-disabled when disabled", () => {
         // Arrange / Act
@@ -183,22 +186,28 @@ describe("choice button", () => {
 
 // Tests 2 of 2 element types used to select a choice
 describe("choice input (screen reader only)", () => {
-    it("selects the choice by clicking the input", () => {
-        // Arrange / Act
-        const onChangeSpy = jest.fn();
-        renderChoice({onChange: onChangeSpy});
+    it.each([[true], [false]])(
+        "selects the choice by clicking the option when multiple select is: %s",
+        (multipleSelect: boolean) => {
+            // Arrange / Act
+            const onChangeSpy = jest.fn();
+            renderChoice({onChange: onChangeSpy, multipleSelect});
 
-        const input = screen.getByRole("radio", {
-            name: "(Choice A) This is a possible choice",
-        });
-        userEvent.click(input);
+            const input = screen.getByRole(
+                multipleSelect ? "checkbox" : "radio",
+                {
+                    name: "(Choice A) This is a possible choice",
+                },
+            );
+            userEvent.click(input);
 
-        // Assert
-        expect(onChangeSpy).toHaveBeenCalledWith({
-            checked: true,
-            crossedOut: false,
-        });
-    });
+            // Assert
+            expect(onChangeSpy).toHaveBeenCalledWith({
+                checked: true,
+                crossedOut: false,
+            });
+        },
+    );
 
     it("registers as unchecked with checked set to false", () => {
         // Arrange / Act
