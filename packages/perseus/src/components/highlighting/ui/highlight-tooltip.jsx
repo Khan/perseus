@@ -95,7 +95,12 @@ class HighlightTooltip extends React.PureComponent<HighlightTooltipProps> {
         }
 
         const content = (
-            <div className={css(styles.tooltipLabel)}>{this.props.label}</div>
+            <div
+                className={css(styles.tooltipLabel)}
+                onClick={this.props.onClick}
+            >
+                {this.props.label}
+            </div>
         );
 
         return (
@@ -116,6 +121,8 @@ class HighlightTooltip extends React.PureComponent<HighlightTooltipProps> {
                         left: focusRect.left,
                         top: focusRect.top,
                         height: focusRect.height,
+                        width: focusRect.height,
+                        background: "pink",
                     }}
                 />
             </NewTooltip>

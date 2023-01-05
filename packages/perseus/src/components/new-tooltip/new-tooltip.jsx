@@ -6,6 +6,7 @@
  */
 
 import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
+import Tooltip from "@khanacademy/wonder-blocks-tooltip";
 import * as React from "react";
 
 import {colors} from "../../styles/global-styles.js";
@@ -115,7 +116,7 @@ class NewTooltip extends React.Component<Props, NewTooltipState> {
         return "white";
     };
 
-    render(): React.Element<any> {
+    renderPopover(): React.Element<any> {
         const {side, children, content, dismissOnClickClose} = this.props;
         const {onMouseEnter, onMouseLeave} = this.props;
         return (
@@ -149,6 +150,31 @@ class NewTooltip extends React.Component<Props, NewTooltipState> {
                 </div>
             </Popover>
         );
+    }
+
+    renderTooltip(): React.Element<any> {
+        const {side, children, content} = this.props;
+        const {onMouseEnter, onMouseLeave} = this.props;
+        return (
+            <Tooltip content={content} placement={side} opened={true}>
+                <div
+                    onMouseEnter={() => {
+                        onMouseEnter && onMouseEnter();
+                        this.setState({hovered: true});
+                    }}
+                    onMouseLeave={() => {
+                        onMouseLeave && onMouseLeave();
+                        this.setState({hovered: false});
+                    }}
+                >
+                    {children}
+                </div>
+            </Tooltip>
+        );
+    }
+
+    render(): React.Element<any> {
+        return this.renderTooltip();
     }
 }
 
