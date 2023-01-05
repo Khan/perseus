@@ -62,7 +62,6 @@ class SelectionTracker extends React.PureComponent<
     }
 
     componentDidUpdate(prevProps: SelectionTrackerProps) {
-        // console.log(nextProps);
         if (this.props.buildHighlight !== prevProps.buildHighlight) {
             // The highlight-building function changed, so the
             // proposedHighlight we built with it might be different, or no
@@ -135,7 +134,6 @@ class SelectionTracker extends React.PureComponent<
      */
     _updateTrackedSelection(): void {
         const focusAndRange = this._computeFocusAndRange();
-        // console.log({focusAndRange});
         if (!focusAndRange) {
             this.setState({trackedSelection: null});
             return;
