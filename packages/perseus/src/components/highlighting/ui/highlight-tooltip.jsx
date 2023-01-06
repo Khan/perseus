@@ -105,12 +105,17 @@ class HighlightTooltip extends React.PureComponent<HighlightTooltipProps> {
         const style = {
             position: "absolute",
             left: focusRect.left,
+            // offset the spacing WB provides around tooltips
             top: `calc(${Math.round(focusRect.top)}px + 0.95em)`,
             height: 0,
         };
 
         return (
-            <div style={style}>
+            <div
+                style={style}
+                onMouseEnter={this.props.onMouseEnter}
+                onMouseLeave={this.props.onMouseLeave}
+            >
                 <Tooltip content={content} opened={true}>
                     <div />
                 </Tooltip>
