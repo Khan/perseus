@@ -80,9 +80,10 @@ class SelectionTracker extends React.PureComponent<
         if (!wasListening && willListen) {
             window.addEventListener("mousedown", this._handleMouseDown);
             window.addEventListener("mouseup", this._handleMouseUp);
-            document.addEventListener("selectionchange", (e: $FlowFixMe) => {
-                this._handleSelectionChange();
-            });
+            document.addEventListener(
+                "selectionchange",
+                this._handleSelectionChange,
+            );
         } else if (wasListening && !willListen) {
             window.removeEventListener("mousedown", this._handleMouseDown);
             window.removeEventListener("mouseup", this._handleMouseUp);

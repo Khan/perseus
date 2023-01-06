@@ -2,4 +2,4 @@
 "@khanacademy/perseus": minor
 ---
 
-Fix Highlight-Tooltip bug and remove NewTooltip
+Fix passage widget bug bug where highlight is immediately lost when tooltip appears
