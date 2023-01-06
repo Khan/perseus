@@ -1,5 +1,17 @@
 # @khanacademy/perseus
 
+## 1.2.0
+
+### Minor Changes
+
+-   cede09bd: Fix passage widget bug bug where highlight is immediately lost when tooltip appears
+
+### Patch Changes
+
+-   5ba90816: CSS fix to remove gradient background on math
+-   96ddd9b7: Update package.json with yarn start command
+-   a90a52c6: Update body fonts
+
 ## 1.1.2
 
 ### Patch Changes
