@@ -102,15 +102,15 @@ class HighlightTooltip extends React.PureComponent<HighlightTooltipProps> {
 
         const content = <TooltipContent>{innerContent}</TooltipContent>;
 
+        const style = {
+            position: "absolute",
+            left: focusRect.left,
+            top: `calc(${Math.round(focusRect.top)}px + 0.95em)`,
+            height: 0,
+        };
+
         return (
-            <div
-                style={{
-                    position: "absolute",
-                    left: focusRect.left,
-                    top: focusRect.top,
-                    height: focusRect.height,
-                }}
-            >
+            <div style={style}>
                 <Tooltip content={content} opened={true}>
                     <div />
                 </Tooltip>
