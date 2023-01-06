@@ -13,7 +13,8 @@
  * still have to notify the tooltip to remeasure itself when the highlight
  * focus _changes_.
  */
-import Tooltip, {TooltipContent} from "@khanacademy/wonder-blocks-tooltip";
+import Spacing from "@khanacademy/wonder-blocks-spacing";
+import Tooltip from "@khanacademy/wonder-blocks-tooltip";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
@@ -91,7 +92,10 @@ class HighlightTooltip extends React.PureComponent<HighlightTooltipProps> {
             return null;
         }
 
-        const innerContent: $FlowFixMe = (
+        // using div instead of TooltipContent because
+        // TooltipContent wouldn't let me overwrite
+        // user-select and onClick
+        const content: $FlowFixMe = (
             <div
                 className={css(styles.tooltipLabel)}
                 onClick={this.props.onClick}
@@ -99,8 +103,6 @@ class HighlightTooltip extends React.PureComponent<HighlightTooltipProps> {
                 {this.props.label}
             </div>
         );
-
-        const content = <TooltipContent>{innerContent}</TooltipContent>;
 
         const style = {
             position: "absolute",
@@ -133,6 +135,7 @@ const styles = StyleSheet.create({
         // and the "Add highlight" action fails.
         userSelect: "none",
         fontFamily: `"Lato", sans-serif`,
+        padding: `10px ${Spacing.medium_16}px`,
     },
 });
 
