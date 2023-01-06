@@ -385,11 +385,17 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
               <div
                 class="default_xu2jcg-o_O-menuWrapper_wvrnr4"
               >
+                <span
+                  aria-atomic="true"
+                  aria-live="polite"
+                  aria-relevant="additions text"
+                  class="srOnly_19bpjuy"
+                  data-test-id="dropdown-live-region"
+                />
                 <button
                   aria-expanded="false"
                   aria-haspopup="listbox"
                   class="button_vr44p2-o_O-shared_u51dsh-o_O-default_kjzwx1-o_O-focus_1qpi544"
-                  tabindex="0"
                   type="button"
                 >
                   <span
@@ -456,11 +462,17 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
               <div
                 class="default_xu2jcg-o_O-menuWrapper_wvrnr4"
               >
+                <span
+                  aria-atomic="true"
+                  aria-live="polite"
+                  aria-relevant="additions text"
+                  class="srOnly_19bpjuy"
+                  data-test-id="dropdown-live-region"
+                />
                 <button
                   aria-expanded="false"
                   aria-haspopup="listbox"
                   class="button_vr44p2-o_O-shared_u51dsh-o_O-default_kjzwx1-o_O-focus_1qpi544"
-                  tabindex="0"
                   type="button"
                 >
                   <span
@@ -527,11 +539,17 @@ exports[`renderer snapshots initial render: initial render 1`] = `
               <div
                 class="default_xu2jcg-o_O-menuWrapper_wvrnr4"
               >
+                <span
+                  aria-atomic="true"
+                  aria-live="polite"
+                  aria-relevant="additions text"
+                  class="srOnly_19bpjuy"
+                  data-test-id="dropdown-live-region"
+                />
                 <button
                   aria-expanded="false"
                   aria-haspopup="listbox"
                   class="button_vr44p2-o_O-shared_u51dsh-o_O-default_kjzwx1"
-                  tabindex="0"
                   type="button"
                 >
                   <span
