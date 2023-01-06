@@ -136,6 +136,7 @@ const styles = StyleSheet.create({
         userSelect: "none",
         fontFamily: `"Lato", sans-serif`,
         padding: `10px ${Spacing.medium_16}px`,
+        cursor: "pointer",
     },
 });
 
