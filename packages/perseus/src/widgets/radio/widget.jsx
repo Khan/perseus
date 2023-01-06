@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-comp */
 // @flow
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
@@ -65,6 +64,134 @@ class Radio extends React.Component<Props> {
         deselectEnabled: false,
         linterContext: linterContextDefault,
     };
+
+    static validate(userInput: UserInput, rubric: Rubric): PerseusScore {
+        const numSelected = userInput.choicesSelected.reduce(
+            (sum, selected) => {
+                return sum + (selected ? 1 : 0);
+            },
+            0,
+        );
+
+        if (numSelected === 0) {
+            return {
+                type: "invalid",
+                message: null,
+            };
+        }
+
+        if (
+            userInput.numCorrect &&
+            userInput.numCorrect > 1 &&
+            numSelected !== userInput.numCorrect
+        ) {
+            return {
+                type: "invalid",
+                message: i18n._("Please choose the correct number of answers."),
+            };
+            // If NOTA and some other answer are checked, ...
+        }
+        if (userInput.noneOfTheAboveSelected && numSelected > 1) {
+            return {
+                type: "invalid",
+                message: i18n._(
+                    "'None of the above' may not be selected " +
+                        "when other answers are selected.",
+                ),
+            };
+        }
+
+        const correct = userInput.choicesSelected.every((selected, i) => {
+            let isCorrect;
+            if (userInput.noneOfTheAboveIndex === i) {
+                isCorrect = rubric.choices.every((choice, j) => {
+                    return i === j || !choice.correct;
+                });
+            } else {
+                isCorrect = !!rubric.choices[i].correct;
+            }
+            return isCorrect === selected;
+        });
+
+        return {
+            type: "points",
+            earned: correct ? 1 : 0,
+            total: 1,
+            message: null,
+        };
+    }
+
+    static getUserInputFromProps(props: Props): UserInput {
+        // Return checked inputs in the form {choicesSelected: [bool]}. (Dear
+        // future timeline implementers: this used to be {value: i} before
+        // multiple select was added)
+        if (props.choiceStates) {
+            let noneOfTheAboveIndex = null;
+            let noneOfTheAboveSelected = false;
+
+            const choiceStates = props.choiceStates;
+            const choicesSelected = choiceStates.map(() => false);
+            const countChoices = props.countChoices;
+            const numCorrect = props.numCorrect;
+
+            for (let i = 0; i < choicesSelected.length; i++) {
+                const index = props.choices[i].originalIndex;
+
+                choicesSelected[index] = choiceStates[i].selected;
+
+                if (props.choices[i].isNoneOfTheAbove) {
+                    noneOfTheAboveIndex = index;
+
+                    if (choicesSelected[i]) {
+                        noneOfTheAboveSelected = true;
+                    }
+                }
+            }
+
+            return {
+                countChoices,
+                choicesSelected,
+                numCorrect,
+                noneOfTheAboveIndex,
+                noneOfTheAboveSelected,
+            };
+            // Support legacy choiceState implementation
+        }
+        /* istanbul ignore if - props.values is deprecated */
+        const {values} = props;
+        if (values) {
+            let noneOfTheAboveIndex = null;
+            let noneOfTheAboveSelected = false;
+
+            const choicesSelected = [...values];
+            const countChoices = props.countChoices;
+            const numCorrect = props.numCorrect;
+            const valuesLength = values.length;
+
+            for (let i = 0; i < valuesLength; i++) {
+                const index = props.choices[i].originalIndex;
+                choicesSelected[index] = values[i];
+
+                if (props.choices[i].isNoneOfTheAbove) {
+                    noneOfTheAboveIndex = index;
+                    if (choicesSelected[i]) {
+                        noneOfTheAboveSelected = true;
+                    }
+                }
+            }
+            return {
+                choicesSelected,
+                noneOfTheAboveIndex,
+                noneOfTheAboveSelected,
+                countChoices,
+                numCorrect,
+            };
+        }
+        // Nothing checked
+        return {
+            choicesSelected: props.choices.map(() => false),
+        };
+    }
 
     _renderRenderer: (content?: string) => React.Node = (
         content?: string = "",
@@ -381,134 +508,6 @@ class Radio extends React.Component<Props> {
                 registerFocusFunction={(i) => this.registerFocusFunction(i)}
             />
         );
-    }
-
-    static validate(userInput: UserInput, rubric: Rubric): PerseusScore {
-        const numSelected = userInput.choicesSelected.reduce(
-            (sum, selected) => {
-                return sum + (selected ? 1 : 0);
-            },
-            0,
-        );
-
-        if (numSelected === 0) {
-            return {
-                type: "invalid",
-                message: null,
-            };
-        }
-
-        if (
-            userInput.numCorrect &&
-            userInput.numCorrect > 1 &&
-            numSelected !== userInput.numCorrect
-        ) {
-            return {
-                type: "invalid",
-                message: i18n._("Please choose the correct number of answers."),
-            };
-            // If NOTA and some other answer are checked, ...
-        }
-        if (userInput.noneOfTheAboveSelected && numSelected > 1) {
-            return {
-                type: "invalid",
-                message: i18n._(
-                    "'None of the above' may not be selected " +
-                        "when other answers are selected.",
-                ),
-            };
-        }
-
-        const correct = userInput.choicesSelected.every((selected, i) => {
-            let isCorrect;
-            if (userInput.noneOfTheAboveIndex === i) {
-                isCorrect = rubric.choices.every((choice, j) => {
-                    return i === j || !choice.correct;
-                });
-            } else {
-                isCorrect = !!rubric.choices[i].correct;
-            }
-            return isCorrect === selected;
-        });
-
-        return {
-            type: "points",
-            earned: correct ? 1 : 0,
-            total: 1,
-            message: null,
-        };
-    }
-
-    static getUserInputFromProps(props: Props): UserInput {
-        // Return checked inputs in the form {choicesSelected: [bool]}. (Dear
-        // future timeline implementers: this used to be {value: i} before
-        // multiple select was added)
-        if (props.choiceStates) {
-            let noneOfTheAboveIndex = null;
-            let noneOfTheAboveSelected = false;
-
-            const choiceStates = props.choiceStates;
-            const choicesSelected = choiceStates.map(() => false);
-            const countChoices = props.countChoices;
-            const numCorrect = props.numCorrect;
-
-            for (let i = 0; i < choicesSelected.length; i++) {
-                const index = props.choices[i].originalIndex;
-
-                choicesSelected[index] = choiceStates[i].selected;
-
-                if (props.choices[i].isNoneOfTheAbove) {
-                    noneOfTheAboveIndex = index;
-
-                    if (choicesSelected[i]) {
-                        noneOfTheAboveSelected = true;
-                    }
-                }
-            }
-
-            return {
-                countChoices,
-                choicesSelected,
-                numCorrect,
-                noneOfTheAboveIndex,
-                noneOfTheAboveSelected,
-            };
-            // Support legacy choiceState implementation
-        }
-        /* istanbul ignore if - props.values is deprecated */
-        const {values} = props;
-        if (values) {
-            let noneOfTheAboveIndex = null;
-            let noneOfTheAboveSelected = false;
-
-            const choicesSelected = [...values];
-            const countChoices = props.countChoices;
-            const numCorrect = props.numCorrect;
-            const valuesLength = values.length;
-
-            for (let i = 0; i < valuesLength; i++) {
-                const index = props.choices[i].originalIndex;
-                choicesSelected[index] = values[i];
-
-                if (props.choices[i].isNoneOfTheAbove) {
-                    noneOfTheAboveIndex = index;
-                    if (choicesSelected[i]) {
-                        noneOfTheAboveSelected = true;
-                    }
-                }
-            }
-            return {
-                choicesSelected,
-                noneOfTheAboveIndex,
-                noneOfTheAboveSelected,
-                countChoices,
-                numCorrect,
-            };
-        }
-        // Nothing checked
-        return {
-            choicesSelected: props.choices.map(() => false),
-        };
     }
 }
 

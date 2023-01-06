@@ -6,6 +6,7 @@ import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui
 import {
     questionWithPassage,
     multiChoiceQuestion,
+    multiChoiceQuestionSimple,
 } from "../__testdata__/radio_testdata.js";
 
 import type {PerseusRenderer} from "../../perseus-types.js";
@@ -65,6 +66,16 @@ export const SingleSelect = (args: StoryArgs): React.Node => {
     return (
         <RendererWithDebugUI
             question={applyStoryArgs(questionWithPassage, args)}
+            apiOptions={buildApiOptions(args)}
+            reviewMode={args.reviewMode}
+        />
+    );
+};
+
+export const MultiSelectSimple = (args: StoryArgs): React.Node => {
+    return (
+        <RendererWithDebugUI
+            question={applyStoryArgs(multiChoiceQuestionSimple, args)}
             apiOptions={buildApiOptions(args)}
             reviewMode={args.reviewMode}
         />

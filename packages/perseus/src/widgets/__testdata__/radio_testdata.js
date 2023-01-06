@@ -194,6 +194,58 @@ export const multiChoiceQuestion: PerseusRenderer = {
     },
 };
 
+export const multiChoiceQuestionSimple: PerseusRenderer = {
+    content: "What are some ways to say hello?\n\n[[\u2603 radio 1]]",
+    images: {},
+    widgets: {
+        "radio 1": ({
+            graded: true,
+            version: {
+                major: 1,
+                minor: 0,
+            },
+            static: false,
+            type: "radio",
+            options: {
+                onePerLine: true,
+                displayCount: null,
+                choices: [
+                    {
+                        content: "Hola",
+                        isNoneOfTheAbove: false,
+                        correct: true,
+                    },
+                    {
+                        content: "Hey",
+                        isNoneOfTheAbove: false,
+                        correct: true,
+                    },
+                    {
+                        content: "Hi",
+                        isNoneOfTheAbove: false,
+                        correct: true,
+                    },
+                    {
+                        content: "Goodbye",
+                        isNoneOfTheAbove: false,
+                        correct: false,
+                    },
+                    {
+                        content: "None of these",
+                        isNoneOfTheAbove: true,
+                        correct: false,
+                    },
+                ],
+                hasNoneOfTheAbove: true,
+                multipleSelect: true,
+                randomize: false,
+                deselectEnabled: false,
+            },
+            alignment: "default",
+        }: RadioWidget),
+    },
+};
+
 export const multiChoiceQuestionAndAnswer: [
     PerseusRenderer,
     $ReadOnlyArray<number>,
