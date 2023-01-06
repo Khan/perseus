@@ -800,7 +800,9 @@ describe("multi-choice question", () => {
 
         // Act
         const option = screen.getAllByRole("checkbox");
-        userEvent.click(option[3]); // incorrect
+        userEvent.click(option[0]); // correct
+        userEvent.click(option[1]); // correct
+        userEvent.click(option[2]); // incorrect
 
         // Assert
         expect(renderer).toHaveInvalidInput(
