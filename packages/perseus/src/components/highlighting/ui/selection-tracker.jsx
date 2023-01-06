@@ -24,7 +24,7 @@ export type TrackedSelection = {|
     proposedHighlight: DOMHighlight,
 |};
 
-type SelectionTrackerProps = {
+type SelectionTrackerProps = {|
     // A function that builds a DOMHighlight from the given DOMRange, if
     // possible. If it would not currently be valid to add a highlight over the
     // given DOMRange, returns null.
@@ -38,17 +38,15 @@ type SelectionTrackerProps = {
     ) => React.Element<any>,
     // If false, will not track selections.
     enabled: boolean,
-    ...
-};
+|};
 
-type SelectionTrackerState = {
+type SelectionTrackerState = {|
     // The current state of the mouse button. We distinguish between down,
     // down and the selection has changed since going down, and up.
     mouseState: "down" | "down-and-selecting" | "up",
     // The current TrackedSelection, if any.
     trackedSelection: ?TrackedSelection,
-    ...
-};
+|};
 
 class SelectionTracker extends React.PureComponent<
     SelectionTrackerProps,
@@ -63,15 +61,15 @@ class SelectionTracker extends React.PureComponent<
         this._updateListeners(false, this.props.enabled);
     }
 
-    UNSAFE_componentWillReceiveProps(nextProps: SelectionTrackerProps) {
-        if (this.props.buildHighlight !== nextProps.buildHighlight) {
+    componentDidUpdate(prevProps: SelectionTrackerProps) {
+        if (this.props.buildHighlight !== prevProps.buildHighlight) {
             // The highlight-building function changed, so the
             // proposedHighlight we built with it might be different, or no
             // longer be valid. Update accordingly.
-            this._updateTrackedSelection(nextProps.buildHighlight);
+            this._updateTrackedSelection();
         }
 
-        this._updateListeners(this.props.enabled, nextProps.enabled);
+        this._updateListeners(prevProps.enabled, this.props.enabled);
     }
 
     componentWillUnmount() {
@@ -133,37 +131,28 @@ class SelectionTracker extends React.PureComponent<
     }
 
     /**
-     * Compute the current TrackedSelection from the document state.
+     * Compute and update the TrackedSelection to reflect the document state.
      */
-    _computeTrackedSelection(
-        buildHighlight: (domRange: DOMRange) => ?DOMHighlight,
-    ): ?TrackedSelection {
+    _updateTrackedSelection(): void {
         const focusAndRange = this._computeFocusAndRange();
         if (!focusAndRange) {
-            return null;
+            this.setState({trackedSelection: null});
+            return;
         }
 
         const {focusNode, focusOffset, range} = focusAndRange;
-        const proposedHighlight = buildHighlight(range);
+        const proposedHighlight = this.props.buildHighlight(range);
         if (!proposedHighlight) {
-            return null;
+            this.setState({trackedSelection: null});
+            return;
         }
 
-        return {focusNode, focusOffset, proposedHighlight};
-    }
-
-    /**
-     * Update the TrackedSelection to reflect the document state.
-     */
-    _updateTrackedSelection(
-        buildHighlight: (domRange: DOMRange) => ?DOMHighlight,
-    ) {
-        const trackedSelection = this._computeTrackedSelection(buildHighlight);
+        const trackedSelection = {focusNode, focusOffset, proposedHighlight};
         this.setState({trackedSelection});
     }
 
     _handleSelectionChange: () => void = () => {
-        this._updateTrackedSelection(this.props.buildHighlight);
+        this._updateTrackedSelection();
 
         if (this.state.mouseState === "down") {
             this.setState({

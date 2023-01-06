@@ -13,12 +13,12 @@
  * still have to notify the tooltip to remeasure itself when the highlight
  * focus _changes_.
  */
+import Spacing from "@khanacademy/wonder-blocks-spacing";
+import Tooltip from "@khanacademy/wonder-blocks-tooltip";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
 import {Log} from "../../../logging/log.js";
-import {colors} from "../../../styles/global-styles.js";
-import NewTooltip from "../../new-tooltip/new-tooltip.jsx";
 
 import {getRelativeRect} from "./util.js";
 
@@ -36,8 +36,6 @@ type HighlightTooltipProps = {|
 |};
 
 class HighlightTooltip extends React.PureComponent<HighlightTooltipProps> {
-    _tooltip: ?React.ElementRef<typeof NewTooltip>;
-
     _getFocusRect(): ?Rect {
         const {focusNode, focusOffset, offsetParent} = this.props;
 
@@ -94,31 +92,36 @@ class HighlightTooltip extends React.PureComponent<HighlightTooltipProps> {
             return null;
         }
 
-        const content = (
-            <div className={css(styles.tooltipLabel)}>{this.props.label}</div>
+        // using div instead of TooltipContent because
+        // TooltipContent wouldn't let me overwrite
+        // user-select and onClick
+        const content: $FlowFixMe = (
+            <div
+                className={css(styles.tooltipLabel)}
+                onClick={this.props.onClick}
+            >
+                {this.props.label}
+            </div>
         );
 
+        const style = {
+            position: "absolute",
+            left: focusRect.left,
+            // offset the spacing WB provides around tooltips
+            top: `calc(${Math.round(focusRect.top)}px + 0.95em)`,
+            height: 0,
+        };
+
         return (
-            <NewTooltip
-                content={content}
-                color={colors.kaBlue}
-                inverted={true}
-                onClick={this.props.onClick}
+            <div
+                style={style}
                 onMouseEnter={this.props.onMouseEnter}
                 onMouseLeave={this.props.onMouseLeave}
-                toggleOnHover={false}
-                showOnMount={true}
-                ref={(e) => (this._tooltip = e)}
             >
-                <div
-                    style={{
-                        position: "absolute",
-                        left: focusRect.left,
-                        top: focusRect.top,
-                        height: focusRect.height,
-                    }}
-                />
-            </NewTooltip>
+                <Tooltip content={content} opened={true}>
+                    <div />
+                </Tooltip>
+            </div>
         );
     }
 }
@@ -131,6 +134,9 @@ const styles = StyleSheet.create({
         // we lose our reference to the _actual_ text they want to highlight,
         // and the "Add highlight" action fails.
         userSelect: "none",
+        fontFamily: `"Lato", sans-serif`,
+        padding: `10px ${Spacing.medium_16}px`,
+        cursor: "pointer",
     },
 });
 
