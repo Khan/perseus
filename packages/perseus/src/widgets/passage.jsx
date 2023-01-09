@@ -12,7 +12,6 @@ import HighlightableContent from "../components/highlighting/highlightable-conte
 import {getDependencies} from "../dependencies.js";
 import Renderer from "../renderer.jsx";
 
-import {getLineHeightForNode} from "./passage/get-line-height-for-node.js";
 import PassageMarkdown from "./passage/passage-markdown.jsx";
 
 import type {SerializedHighlightSet} from "../components/highlighting/types.js";
@@ -32,46 +31,27 @@ import type {SingleASTNode} from "@khanacademy/simple-markdown";
 // the line height often ends up being a fractional number of pixels close to
 // 22 pixels.
 class LineHeightMeasurer extends React.Component<{...}> {
-    _cachedLineHeight: number;
-    body: ?HTMLDivElement;
-    end: ?HTMLDivElement;
+    _line: ?HTMLDivElement;
 
     measureLineHeight(): number {
-        if (typeof this._cachedLineHeight !== "number") {
-            this.forceMeasureLineHeight();
+        if (!this._line) {
+            return 0;
         }
 
-        return this._cachedLineHeight;
-    }
-
-    forceMeasureLineHeight() {
-        const body = this.body;
-        const end = this.end;
-
-        if (!body || !end) {
-            return;
-        }
-
-        // Add some text which magically fills an entire line.
-        body.textContent = " \u0080";
-
-        // Now, the line height is the difference between the top of the
-        // second line and the top of the first line.
-        this._cachedLineHeight = getLineHeightForNode(body, end);
-
-        // Clear out the first line so it doesn't overlap the passage.
-        body.textContent = "";
+        return this._line.clientHeight;
     }
 
     render(): React.Node {
         return (
-            <div className={css(styles.measurer)}>
+            <div className={css(styles.measurer)} aria-hidden="true">
                 <div>
                     <div
-                        ref={(ref) => (this.body = ref)}
+                        ref={(ref) => (this._line = ref)}
                         className="paragraph"
-                    />
-                    <div ref={(ref) => (this.end = ref)} />
+                        id="passage-height-body"
+                    >
+                        Line Height Measurement
+                    </div>
                 </div>
             </div>
         );
@@ -81,9 +61,9 @@ class LineHeightMeasurer extends React.Component<{...}> {
 const styles = StyleSheet.create({
     measurer: {
         position: "absolute",
-        width: "100%",
         top: 0,
         left: 0,
+        visibility: "hidden",
         // keep from blocking text selection
         zIndex: -1,
     },
@@ -168,7 +148,7 @@ class Passage extends React.Component<PassageProps, PassageState> {
             // height changes we expect are subpixel changes when the user
             // zooms in/out, and the only way to listen for zoom events is to
             // listen for resize events.
-            this._lineHeightMeasurerRef?.forceMeasureLineHeight();
+            this._lineHeightMeasurerRef?.measureLineHeight();
             this._updateState();
         }, 500);
         window.addEventListener("resize", this._onResize);

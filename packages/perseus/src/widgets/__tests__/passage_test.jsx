@@ -9,13 +9,10 @@ import * as Dependencies from "../../dependencies.js";
 import {ApiOptions} from "../../perseus-api.jsx";
 import {question1, question2} from "../__testdata__/passage_testdata.js";
 import PassageWidgetExport from "../passage.jsx";
-import * as getLineHeightModule from "../passage/get-line-height-for-node.js";
 
 import {renderQuestion} from "./renderQuestion.jsx";
 
 import type {APIOptions} from "../../types.js";
-
-jest.mock("../passage/get-line-height-for-node.js");
 
 function renderPassage(overwrite) {
     const widgetPropsBase = {
@@ -53,10 +50,6 @@ function renderPassage(overwrite) {
 
 describe("passage widget", () => {
     beforeEach(() => {
-        jest.spyOn(getLineHeightModule, "getLineHeightForNode").mockReturnValue(
-            21,
-        );
-
         // passage widget uses the height of the entire rendered passage along
         // with the above line height calculations to determine the number of
         // lines rendered (as a way to provide line numbering).
