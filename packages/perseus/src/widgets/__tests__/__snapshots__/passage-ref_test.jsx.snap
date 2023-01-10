@@ -55,13 +55,13 @@ exports[`passage-ref widget should render with invalid reference 1`] = `
                         <div>
                           <div>
                             <div
-                              class="measurer_vtwrnx"
+                              aria-hidden="true"
+                              class="measurer_225hir"
                             >
-                              <div>
-                                <div
-                                  class="paragraph"
-                                />
-                                <div />
+                              <div
+                                class="paragraph"
+                              >
+                                Line Height Measurement
                               </div>
                             </div>
                             <div
@@ -200,13 +200,13 @@ exports[`passage-ref widget should render with multi-line reference 1`] = `
                         <div>
                           <div>
                             <div
-                              class="measurer_vtwrnx"
+                              aria-hidden="true"
+                              class="measurer_225hir"
                             >
-                              <div>
-                                <div
-                                  class="paragraph"
-                                />
-                                <div />
+                              <div
+                                class="paragraph"
+                              >
+                                Line Height Measurement
                               </div>
                             </div>
                             <div
@@ -350,13 +350,13 @@ exports[`passage-ref widget should render with single-line reference 1`] = `
                         <div>
                           <div>
                             <div
-                              class="measurer_vtwrnx"
+                              aria-hidden="true"
+                              class="measurer_225hir"
                             >
-                              <div>
-                                <div
-                                  class="paragraph"
-                                />
-                                <div />
+                              <div
+                                class="paragraph"
+                              >
+                                Line Height Measurement
                               </div>
                             </div>
                             <div

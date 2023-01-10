@@ -30,7 +30,7 @@ import type {SingleASTNode} from "@khanacademy/simple-markdown";
 // set the line height to 22 pixels, but when using the browser zoom feature,
 // the line height often ends up being a fractional number of pixels close to
 // 22 pixels.
-class LineHeightMeasurer extends React.Component<{...}> {
+export class LineHeightMeasurer extends React.Component<{...}> {
     _line: ?HTMLDivElement;
 
     measureLineHeight(): number {
@@ -44,14 +44,8 @@ class LineHeightMeasurer extends React.Component<{...}> {
     render(): React.Node {
         return (
             <div className={css(styles.measurer)} aria-hidden="true">
-                <div>
-                    <div
-                        ref={(ref) => (this._line = ref)}
-                        className="paragraph"
-                        id="passage-height-body"
-                    >
-                        Line Height Measurement
-                    </div>
+                <div ref={(ref) => (this._line = ref)} className="paragraph">
+                    Line Height Measurement
                 </div>
             </div>
         );

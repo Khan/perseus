@@ -8,7 +8,7 @@ import {testDependencies} from "../../../../../testing/test-dependencies.js";
 import * as Dependencies from "../../dependencies.js";
 import {ApiOptions} from "../../perseus-api.jsx";
 import {question1, question2} from "../__testdata__/passage_testdata.js";
-import PassageWidgetExport from "../passage.jsx";
+import PassageWidgetExport, {LineHeightMeasurer} from "../passage.jsx";
 
 import {renderQuestion} from "./renderQuestion.jsx";
 
@@ -58,6 +58,11 @@ describe("passage widget", () => {
             "offsetHeight",
             "get",
         ).mockReturnValue(200.0);
+
+        jest.spyOn(
+            LineHeightMeasurer.prototype,
+            "measureLineHeight",
+        ).mockReturnValue(20);
 
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
