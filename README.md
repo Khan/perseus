@@ -8,7 +8,7 @@ Perseus is Khan Academy's exercise system. This repo contains the code needed to
 
 <p align="center"><img src="sample.png" alt="sample of perseus in use" height="150px"/></p>
 
-This repo is a constellation of sub-repos for showing exercise content. Please see individual projects in in the `packages/` folder for more information about each sub-project.
+This repo is a constellation of sub-repos for showing exercise content. Please see individual projects in the `packages/` folder for more information about each sub-project.
 
 ## Getting started
 
@@ -27,7 +27,7 @@ Installs project dependencies
 
 ### Using Storybook
 
-The components and widgets of perseus are devleoped using [Storybook](https://github.com/storybookjs/storybook). After you clone the project and get dependencies installed, the next step is to start storybook by running `yarn storybook`. This will start a server and give you a playground to use each component.
+The components and widgets of perseus are developed using [Storybook](https://github.com/storybookjs/storybook). After you clone the project and get dependencies installed, the next step is to start storybook by running `yarn storybook`. This will start a server and give you a playground to use each component.
 
 ### Using Changesets
 
