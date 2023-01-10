@@ -1,5 +1,4 @@
 // @flow
-
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {StyleSheet, css} from "aphrodite";
@@ -26,10 +25,8 @@ import type {
 import type {ParseState} from "./passage/passage-markdown.jsx";
 import type {SingleASTNode} from "@khanacademy/simple-markdown";
 
-// A fake paragraph to measure the line height of the passage. In CSS we always
-// set the line height to 22 pixels, but when using the browser zoom feature,
-// the line height often ends up being a fractional number of pixels close to
-// 22 pixels.
+// A fake paragraph to measure the line height of the passage,
+// so we can adapt to browser zoom
 export class LineHeightMeasurer extends React.Component<{...}> {
     _line: ?HTMLDivElement;
 

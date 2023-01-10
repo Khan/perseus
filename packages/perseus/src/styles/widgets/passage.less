@@ -6,7 +6,7 @@
     //     typography, abandon this LESS entirely, and refactor to use the
     //     BodySerif component instead. (TP-3112)
     @font-size: 16px;
-    @line-height: 16px;
+    @line-height: 20px;
 
     .perseus-widget-passage {
         line-height: @line-height;
@@ -46,11 +46,15 @@
         margin: 0 0 10px;
     }
     .passage-text div.paragraph {
-        font-family: Lato, "Noto Sans", Helvetica, Corbel, sans-serif, Helvetica, Corbel, sans-serif;
+        font-family: "minion-pro", KaTeX_Main, Times, "Times New Roman", serif;
         font-weight: 400;
-        font-size: 14px;
-        line-height: 16px;
+        font-size: @font-size;
+        line-height: @line-height;
         text-indent: 20px;
+        // note(matthewc): If you need to change this,
+        // check line numbers line up correctly.
+        // The margin should probably be 0 or the line height
+        margin: 0;
 
         span {
             text-indent: 0;
