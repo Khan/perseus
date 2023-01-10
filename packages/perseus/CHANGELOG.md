@@ -1,5 +1,16 @@
 # @khanacademy/perseus
 
+## 1.3.0
+
+### Minor Changes
+
+-   e783be76: Fix passage fonts because content depends on it being an exact size
+
+### Patch Changes
+
+-   ec92d308: Fix bug with Passage where line numbers stopped abruptly
+-   dd55b5e4: Update gutter line numbers in passage
+
 ## 1.2.0
 
 ### Minor Changes
