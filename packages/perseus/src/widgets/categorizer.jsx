@@ -77,7 +77,7 @@ export class Categorizer extends React.Component<Props, State> {
             <table className={"categorizer-table " + css(styles.mobileTable)}>
                 <thead>
                     <tr>
-                        <th>&nbsp;</th>
+                        <td className={css(styles.emptyHeaderCell)} />
                         {this.props.categories.map((category, i) => {
                             // Array index is the correct key here, as that's
                             // how category grading actually works -- no way
@@ -283,6 +283,11 @@ const styles = StyleSheet.create({
         padding: 0,
         color: "#ccc",
         verticalAlign: "middle",
+    },
+
+    emptyHeaderCell: {
+        backgroundColor: "white",
+        borderBottom: "2px solid #ccc",
     },
 
     radioSpan: {
