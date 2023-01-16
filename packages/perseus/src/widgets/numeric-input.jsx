@@ -454,6 +454,7 @@ export class NumericInput extends React.Component<Props, State> {
                 width: this.props.size === "small" ? 40 : 80,
                 padding: 0,
                 height: "auto",
+                border: "1px solid rgba(33, 36, 44, 0.64) !important",
             },
         });
 
