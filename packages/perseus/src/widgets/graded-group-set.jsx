@@ -37,31 +37,32 @@ type IndicatorsProps = {|
 // navigation. Add in keyboard handling and tab indexes to make accessible.
 class Indicators extends React.Component<IndicatorsProps> {
     render(): React.Node {
-        const items = [];
-        for (let i = 0; i < this.props.numGroups; i++) {
-            items.push(
-                <div
-                    role="button"
-                    aria-label={i18n._("Skip to %(title)s", {
-                        title: this.props.groupTitles[i],
-                    })}
-                    key={i}
-                    className={css(
-                        styles.indicator,
-                        i === this.props.currentGroup &&
-                            styles.selectedIndicator,
-                    )}
-                    onClick={() => this.props.onChangeCurrentGroup(i)}
-                >
-                    {i === this.props.currentGroup && (
-                        <span className={css(a11y.srOnly)}>
-                            {i18n._("Current")}
-                        </span>
-                    )}
-                </div>,
-            );
-        }
-        return <div className={css(styles.indicatorContainer)}>{items}</div>;
+        return (
+            <ul className={css(styles.indicatorContainer)}>
+                {this.props.groupTitles.map((title, i) => (
+                    <li
+                        role="button"
+                        aria-label={i18n._("Skip to %(title)s", {
+                            title: this.props.groupTitles[i],
+                        })}
+                        key={i}
+                        className={css(
+                            styles.indicator,
+                            i === this.props.currentGroup &&
+                                styles.selectedIndicator,
+                        )}
+                        tabIndex={0}
+                        onClick={() => this.props.onChangeCurrentGroup(i)}
+                    >
+                        {i === this.props.currentGroup && (
+                            <span className={css(a11y.srOnly)}>
+                                {i18n._("Current")}
+                            </span>
+                        )}
+                    </li>
+                ))}
+            </ul>
+        );
     }
 }
 
@@ -262,6 +263,8 @@ const styles = StyleSheet.create({
     indicatorContainer: {
         display: "flex",
         flexDirection: "row",
+        listStyle: "none",
+        margin: "inherit",
     },
 
     indicator: {
