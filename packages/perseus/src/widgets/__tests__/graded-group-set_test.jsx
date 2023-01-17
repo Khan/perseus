@@ -118,17 +118,33 @@ describe("graded group widget", () => {
         ).not.toBeInTheDocument();
     });
 
-    it("should be able to jump to an arbitrary question using Indicators", () => {
-        // Arrange
-        renderQuestion(article1);
+    describe("should be able to jump to an arbitrary question using Indicators", () => {
+        it("by click", () => {
+            // Arrange
+            renderQuestion(article1);
 
-        // Act
-        userEvent.click(
-            screen.getByRole("button", {name: "Skip to Problem 1c"}),
-        );
+            // Act
+            userEvent.click(
+                screen.getByRole("button", {name: "Skip to Problem 1c"}),
+            );
 
-        // Assert
-        expect(screen.getByText("Problem 1c")).toBeVisible();
+            // Assert
+            expect(screen.getByText("Problem 1c")).toBeVisible();
+        });
+
+        it("by key", () => {
+            // Arrange
+            renderQuestion(article1);
+
+            // Act
+            userEvent.tab(); // 1a
+            userEvent.tab(); // 1b
+            userEvent.tab(); // 1c
+            userEvent.keyboard("[Enter]");
+
+            // Assert
+            expect(screen.getByText("Problem 1c")).toBeVisible();
+        });
     });
 
     it("should return input paths", () => {

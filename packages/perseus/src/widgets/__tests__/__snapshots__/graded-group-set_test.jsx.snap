@@ -40,31 +40,34 @@ exports[`graded group widget should snapshot 1`] = `
                 <div
                   class="spacer_bc4egv"
                 />
-                <div
-                  class="indicatorContainer_cjo0m2"
+                <ul
+                  class="indicatorContainer_13i3db2"
                 >
-                  <div
+                  <li
                     aria-label="Skip to Problem 1a"
                     class="indicator_1ezvcme-o_O-selectedIndicator_1v68a6x"
                     role="button"
+                    tabindex="0"
                   >
                     <span
                       class="srOnly_19bpjuy"
                     >
                       Current
                     </span>
-                  </div>
-                  <div
+                  </li>
+                  <li
                     aria-label="Skip to Problem 1b"
                     class="indicator_1ezvcme"
                     role="button"
+                    tabindex="0"
                   />
-                  <div
+                  <li
                     aria-label="Skip to Problem 1c"
                     class="indicator_1ezvcme"
                     role="button"
+                    tabindex="0"
                   />
-                </div>
+                </ul>
               </div>
               <div
                 class="perseus-graded-group"
