@@ -33,9 +33,13 @@ type IndicatorsProps = {|
     onChangeCurrentGroup: (groupNumber: number) => void,
 |};
 
-// TODO(jeremy): This indicator panel is not accessible for keyboard
-// navigation. Add in keyboard handling and tab indexes to make accessible.
 class Indicators extends React.Component<IndicatorsProps> {
+    handleKeyDown = (e: SyntheticKeyboardEvent<>, i: number) => {
+        if (e.key === "Enter") {
+            this.props.onChangeCurrentGroup(i);
+        }
+    };
+
     render(): React.Node {
         return (
             <ul className={css(styles.indicatorContainer)}>
@@ -53,6 +57,7 @@ class Indicators extends React.Component<IndicatorsProps> {
                         )}
                         tabIndex={0}
                         onClick={() => this.props.onChangeCurrentGroup(i)}
+                        onKeyDown={(e) => this.handleKeyDown(e, i)}
                     >
                         {i === this.props.currentGroup && (
                             <span className={css(a11y.srOnly)}>
