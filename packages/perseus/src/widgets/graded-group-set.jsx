@@ -28,7 +28,7 @@ const GradedGroup = GradedGroupWidget.widget;
 
 type IndicatorsProps = {|
     currentGroup: number,
-    groupTitles: $ReadOnlyArray<string>,
+    gradedGroups: $ReadOnlyArray<PerseusGradedGroupWidgetOptions>,
     onChangeCurrentGroup: (groupNumber: number) => void,
 |};
 
@@ -42,7 +42,7 @@ class Indicators extends React.Component<IndicatorsProps> {
     render(): React.Node {
         return (
             <ul className={css(styles.indicatorContainer)}>
-                {this.props.groupTitles.map((title, i) => (
+                {this.props.gradedGroups.map(({title}, i) => (
                     <li
                         role="button"
                         aria-label={i18n._("Skip to %(title)s", {
@@ -195,9 +195,7 @@ class GradedGroupSet extends React.Component<Props, State> {
                     <div className={css(styles.spacer)} />
                     <Indicators
                         currentGroup={this.state.currentGroup}
-                        groupTitles={this.props.gradedGroups.map(
-                            (g) => g.title,
-                        )}
+                        gradedGroups={this.props.gradedGroups}
                         onChangeCurrentGroup={(currentGroup) =>
                             this.setState({currentGroup})
                         }
