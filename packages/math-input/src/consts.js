@@ -6,7 +6,7 @@
 export type KeypadType = "FRACTION" | "EXPRESSION";
 
 // TODO: Retire this in favour of KeypadType (above)
-export const KeypadTypes: {[key: KeypadType]: KeypadType} = {
+export const KeypadTypes = {
     FRACTION: "FRACTION",
     EXPRESSION: "EXPRESSION",
 };
