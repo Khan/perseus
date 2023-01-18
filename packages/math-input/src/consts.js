@@ -3,10 +3,32 @@
  * Constants that are shared between multiple files.
  */
 
+export type KeypadType = "FRACTION" | "EXPRESSION";
+
+// TODO: Retire this in favour of KeypadType (above)
 export const KeypadTypes = {
     FRACTION: "FRACTION",
     EXPRESSION: "EXPRESSION",
 };
+
+export type KeyType =
+    | "EMPTY"
+    // For numerals, variables, and any other characters that themselves
+    // compose 'values'.
+    | "VALUE"
+    // For buttons that insert or adjust math in an input.
+    | "OPERATOR"
+    // For buttons that move the cursor in an input (including via
+    // deletion).
+    | "INPUT_NAVIGATION"
+    // For buttons that modify the broader keypad state (e.g., by changing
+    // the visible pane).
+    | "KEYPAD_NAVIGATION"
+    // For buttons that house multiple buttons and have no action
+    // themselves.
+    | "MANY"
+    // For the echo animation that appears on press.
+    | "ECHO";
 
 export const KeyTypes = {
     EMPTY: "EMPTY",

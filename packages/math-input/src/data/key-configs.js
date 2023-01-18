@@ -14,6 +14,7 @@ export type KeyConfig = {
     type: string,
     ariaLabel: string,
 };
+
 const KeyConfigs: Object = {
     // Basic math keys.
     [Keys.PLUS]: {
