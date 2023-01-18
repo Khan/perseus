@@ -139,10 +139,14 @@ describe("graded group widget", () => {
             // Act
             userEvent.tab(); // 1a
             userEvent.tab(); // 1b
+            userEvent.keyboard(" ");
+
+            // Assert
+            expect(screen.getByText("Problem 1b")).toBeVisible();
+
             userEvent.tab(); // 1c
             userEvent.keyboard("[Enter]");
 
-            // Assert
             expect(screen.getByText("Problem 1c")).toBeVisible();
         });
     });

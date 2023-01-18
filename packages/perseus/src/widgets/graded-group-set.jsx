@@ -28,14 +28,13 @@ const GradedGroup = GradedGroupWidget.widget;
 
 type IndicatorsProps = {|
     currentGroup: number,
-    numGroups: number,
     groupTitles: $ReadOnlyArray<string>,
     onChangeCurrentGroup: (groupNumber: number) => void,
 |};
 
 class Indicators extends React.Component<IndicatorsProps> {
     handleKeyDown = (e: SyntheticKeyboardEvent<>, i: number) => {
-        if (e.key === "Enter") {
+        if (e.key === "Enter" || e.key === " ") {
             this.props.onChangeCurrentGroup(i);
         }
     };
@@ -47,9 +46,9 @@ class Indicators extends React.Component<IndicatorsProps> {
                     <li
                         role="button"
                         aria-label={i18n._("Skip to %(title)s", {
-                            title: this.props.groupTitles[i],
+                            title,
                         })}
-                        key={i}
+                        key={title}
                         className={css(
                             styles.indicator,
                             i === this.props.currentGroup &&
@@ -195,7 +194,6 @@ class GradedGroupSet extends React.Component<Props, State> {
                     </div>
                     <div className={css(styles.spacer)} />
                     <Indicators
-                        numGroups={numGroups}
                         currentGroup={this.state.currentGroup}
                         groupTitles={this.props.gradedGroups.map(
                             (g) => g.title,
@@ -269,7 +267,7 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         listStyle: "none",
-        margin: "inherit",
+        margin: "unset",
     },
 
     indicator: {
