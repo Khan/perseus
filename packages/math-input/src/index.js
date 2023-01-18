@@ -17,3 +17,7 @@ export {default as KeyConfigs} from "./data/key-configs.js";
 import * as CursorContexts from "./components/input/cursor-contexts.js";
 
 export {CursorContexts};
+
+export type {KeypadType, KeyType} from "./consts.js";
+export type {Key} from "./data/keys.js";
+export type {CursorContext} from "./components/input/cursor-contexts.js";
