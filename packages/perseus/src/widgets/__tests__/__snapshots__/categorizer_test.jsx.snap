@@ -63,7 +63,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                 <thead>
                   <tr>
                     <td
-                      class="emptyHeaderCell_5b1nr3"
+                      class="emptyHeaderCell_1mttrgd"
                     />
                     <th
                       class="header_whrfk4"
@@ -510,7 +510,7 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                 <thead>
                   <tr>
                     <td
-                      class="emptyHeaderCell_5b1nr3"
+                      class="emptyHeaderCell_1mttrgd"
                     />
                     <th
                       class="header_whrfk4"
