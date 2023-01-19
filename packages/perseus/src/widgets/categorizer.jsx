@@ -286,7 +286,7 @@ const styles = StyleSheet.create({
     },
 
     emptyHeaderCell: {
-        backgroundColor: "white",
+        backgroundColor: "inherit",
         borderBottom: "2px solid #ccc",
     },
 
