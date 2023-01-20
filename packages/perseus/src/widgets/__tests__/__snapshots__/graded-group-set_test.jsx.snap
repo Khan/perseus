@@ -33,7 +33,7 @@ exports[`graded group widget should snapshot 1`] = `
                 class="top_cjo0m2"
               >
                 <div
-                  class="title_6pk9ag"
+                  class="title_vo78fw"
                 >
                   Problem 1a
                 </div>
@@ -45,7 +45,7 @@ exports[`graded group widget should snapshot 1`] = `
                 >
                   <li
                     aria-label="Skip to Problem 1a"
-                    class="indicator_1ezvcme-o_O-selectedIndicator_1v68a6x"
+                    class="indicator_qk5jgn-o_O-selectedIndicator_14jsc6v"
                     role="button"
                     tabindex="0"
                   >
@@ -57,13 +57,13 @@ exports[`graded group widget should snapshot 1`] = `
                   </li>
                   <li
                     aria-label="Skip to Problem 1b"
-                    class="indicator_1ezvcme"
+                    class="indicator_qk5jgn"
                     role="button"
                     tabindex="0"
                   />
                   <li
                     aria-label="Skip to Problem 1c"
-                    class="indicator_1ezvcme"
+                    class="indicator_qk5jgn"
                     role="button"
                     tabindex="0"
                   />
@@ -295,7 +295,7 @@ exports[`graded group widget should snapshot 1`] = `
                   </span>
                 </button>
                 <button
-                  class="showHintLink_112g8fo"
+                  class="showHintLink_oak3yy"
                   tabindex="0"
                 >
                   Explain

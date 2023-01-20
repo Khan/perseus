@@ -1,5 +1,6 @@
 // @flow
 import {linterContextDefault} from "@khanacademy/perseus-linter";
+import Color from "@khanacademy/wonder-blocks-color";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
@@ -7,10 +8,8 @@ import * as React from "react";
 import {getDependencies} from "../dependencies.js";
 import * as Changeable from "../mixins/changeable.jsx";
 import {
-    grayLight,
     gray76,
     tableBackgroundAccent,
-    kaGreen,
     phoneMargin,
     negativePhoneMargin,
 } from "../styles/constants.js";
@@ -255,7 +254,7 @@ const styles = StyleSheet.create({
 
     title: {
         fontSize: 12,
-        color: gray76,
+        color: Color.offBlack64,
         textTransform: "uppercase",
         marginBottom: 11,
         letterSpacing: 0.8,
@@ -271,14 +270,15 @@ const styles = StyleSheet.create({
     indicator: {
         width: 10,
         height: 10,
-        borderRadius: 5,
-        backgroundColor: grayLight,
+        borderRadius: "100%",
+        border: "3px solid",
+        borderColor: Color.blue,
         marginLeft: 5,
         cursor: "pointer",
     },
 
     selectedIndicator: {
-        backgroundColor: kaGreen,
+        backgroundColor: Color.blue,
     },
 
     container: {

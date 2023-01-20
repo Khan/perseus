@@ -260,7 +260,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
                   </span>
                 </button>
                 <button
-                  class="showHintLink_112g8fo"
+                  class="showHintLink_oak3yy"
                   tabindex="0"
                 >
                   Explain
@@ -497,7 +497,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
                   </span>
                 </button>
                 <button
-                  class="showHintLink_112g8fo"
+                  class="showHintLink_oak3yy"
                   tabindex="0"
                 >
                   Explain
@@ -734,7 +734,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
                   </span>
                 </button>
                 <button
-                  class="showHintLink_112g8fo"
+                  class="showHintLink_oak3yy"
                   tabindex="0"
                 >
                   Explain
