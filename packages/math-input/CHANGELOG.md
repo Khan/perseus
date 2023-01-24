@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 0.6.4
+
+### Patch Changes
+
+-   113953e8: Exports new types to support custom keypads: `CursorContext`, `KeypadType`, `KeyType`, and `Key`
+
 ## 0.6.3
 
 ### Patch Changes
