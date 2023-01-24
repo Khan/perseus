@@ -137,7 +137,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                       >
                         <div
                           class="description description_psmgei"
-                          style="flex-direction: column;"
+                          style="flex-direction: column; color: rgb(33, 36, 44);"
                         >
                           <div
                             style="display: flex; flex-direction: row; opacity: 1;"
@@ -314,7 +314,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                       >
                         <div
                           class="description description_psmgei"
-                          style="flex-direction: column;"
+                          style="flex-direction: column; color: rgb(33, 36, 44);"
                         >
                           <div
                             style="display: flex; flex-direction: row; opacity: 1;"
@@ -491,7 +491,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                       >
                         <div
                           class="description description_psmgei"
-                          style="flex-direction: column;"
+                          style="flex-direction: column; color: rgb(33, 36, 44);"
                         >
                           <div
                             style="display: flex; flex-direction: row; opacity: 1;"
@@ -668,7 +668,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                       >
                         <div
                           class="description description_psmgei"
-                          style="flex-direction: column;"
+                          style="flex-direction: column; color: rgb(33, 36, 44);"
                         >
                           <div
                             style="display: flex; flex-direction: row; opacity: 1;"
@@ -845,7 +845,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                       >
                         <div
                           class="description description_psmgei"
-                          style="flex-direction: column;"
+                          style="flex-direction: column; color: rgb(33, 36, 44);"
                         >
                           <div
                             style="display: flex; flex-direction: row; opacity: 1;"

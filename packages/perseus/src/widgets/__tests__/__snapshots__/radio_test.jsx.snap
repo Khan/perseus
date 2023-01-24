@@ -68,7 +68,7 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                   >
                     <div
                       class="description description_psmgei"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -193,7 +193,7 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                   >
                     <div
                       class="description description_psmgei"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -318,7 +318,7 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                   >
                     <div
                       class="description description_psmgei"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -443,7 +443,7 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                   >
                     <div
                       class="description description_psmgei"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -672,7 +672,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                   >
                     <div
                       class="description description_psmgei"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -823,7 +823,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                   >
                     <div
                       class="description description_psmgei"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -948,7 +948,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                   >
                     <div
                       class="description description_psmgei"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -1073,7 +1073,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                   >
                     <div
                       class="description description_psmgei"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -1288,7 +1288,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                   >
                     <div
                       class="description description_psmgei"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -1439,7 +1439,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                   >
                     <div
                       class="description description_psmgei"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -1564,7 +1564,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                   >
                     <div
                       class="description description_psmgei"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -1689,7 +1689,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                   >
                     <div
                       class="description description_psmgei"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -1904,7 +1904,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                   >
                     <div
                       class="description description_psmgei"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -2055,7 +2055,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                   >
                     <div
                       class="description description_psmgei"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -2180,7 +2180,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                   >
                     <div
                       class="description description_psmgei"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -2305,7 +2305,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                   >
                     <div
                       class="description description_psmgei"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -2520,7 +2520,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                   >
                     <div
                       class="description description_psmgei"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -2671,7 +2671,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                   >
                     <div
                       class="description description_psmgei"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -2796,7 +2796,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                   >
                     <div
                       class="description description_psmgei"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -2921,7 +2921,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                   >
                     <div
                       class="description description_psmgei"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -3136,7 +3136,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                   >
                     <div
                       class="description description_psmgei"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -3287,7 +3287,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                   >
                     <div
                       class="description description_psmgei"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -3412,7 +3412,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                   >
                     <div
                       class="description description_psmgei"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -3537,7 +3537,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                   >
                     <div
                       class="description description_psmgei"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -3752,7 +3752,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                   >
                     <div
                       class="description description_psmgei"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -3988,7 +3988,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                   >
                     <div
                       class="description description_psmgei"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -4182,7 +4182,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                   >
                     <div
                       class="description description_psmgei"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -4371,7 +4371,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                   >
                     <div
                       class="description description_psmgei"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -4627,7 +4627,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                   >
                     <div
                       class="description satDescription_paz1ug"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -4773,7 +4773,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                   >
                     <div
                       class="description satDescription_paz1ug"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -4893,7 +4893,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                   >
                     <div
                       class="description satDescription_paz1ug"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -5013,7 +5013,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                   >
                     <div
                       class="description satDescription_paz1ug"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -5212,7 +5212,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                   >
                     <div
                       class="description satDescription_paz1ug"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -5358,7 +5358,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                   >
                     <div
                       class="description satDescription_paz1ug"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -5478,7 +5478,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                   >
                     <div
                       class="description satDescription_paz1ug"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -5598,7 +5598,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                   >
                     <div
                       class="description satDescription_paz1ug"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -5797,7 +5797,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                   >
                     <div
                       class="description satDescription_paz1ug"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -5943,7 +5943,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                   >
                     <div
                       class="description satDescription_paz1ug"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -6063,7 +6063,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                   >
                     <div
                       class="description satDescription_paz1ug"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -6183,7 +6183,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                   >
                     <div
                       class="description satDescription_paz1ug"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -6382,7 +6382,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                   >
                     <div
                       class="description satDescription_paz1ug"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -6528,7 +6528,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                   >
                     <div
                       class="description satDescription_paz1ug"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -6648,7 +6648,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                   >
                     <div
                       class="description satDescription_paz1ug"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -6768,7 +6768,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                   >
                     <div
                       class="description satDescription_paz1ug"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -6967,7 +6967,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                   >
                     <div
                       class="description satDescription_paz1ug"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -7113,7 +7113,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                   >
                     <div
                       class="description satDescription_paz1ug"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -7233,7 +7233,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                   >
                     <div
                       class="description satDescription_paz1ug"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -7353,7 +7353,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                   >
                     <div
                       class="description satDescription_paz1ug"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -7552,7 +7552,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                   >
                     <div
                       class="description satDescription_paz1ug"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -7765,7 +7765,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                   >
                     <div
                       class="description satDescription_paz1ug"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -7936,7 +7936,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                   >
                     <div
                       class="description sat-correct satDescription_paz1ug"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
@@ -8102,7 +8102,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                   >
                     <div
                       class="description satDescription_paz1ug"
-                      style="flex-direction: column;"
+                      style="flex-direction: column; color: rgb(33, 36, 44);"
                     >
                       <div
                         style="display: flex; flex-direction: row; opacity: 1;"
