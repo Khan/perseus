@@ -60,22 +60,24 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                   Choose all answers that apply:
                 </div>
                 <ul
-                  class="perseus-widget-radio perseus-rendered-radio radio_zdxht7-o_O-responsiveRadioContainer_1ybwre2"
+                  class="perseus-widget-radio perseus-rendered-radio radio_1gyjybc-o_O-responsiveRadioContainer_1ybwre2"
                   style="list-style: none;"
                 >
                   <li
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd-o_O-selectedItem_p6cyk0 perseus-radio-option perseus-radio-selected"
                   >
                     <div
+                      class="description description_psmgei"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-564"
                             tabindex="-1"
                             type="checkbox"
@@ -118,7 +120,7 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -190,15 +192,17 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                   >
                     <div
+                      class="description description_psmgei"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-565"
                             tabindex="-1"
                             type="checkbox"
@@ -241,7 +245,7 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -313,15 +317,17 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                   >
                     <div
+                      class="description description_psmgei"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-566"
                             tabindex="-1"
                             type="checkbox"
@@ -364,7 +370,7 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -436,15 +442,17 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                   >
                     <div
+                      class="description description_psmgei"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-567"
                             tabindex="-1"
                             type="checkbox"
@@ -478,7 +486,7 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -656,22 +664,24 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                   Choose 1 answer:
                 </div>
                 <ul
-                  class="perseus-widget-radio perseus-rendered-radio radio_zdxht7-o_O-responsiveRadioContainer_1ybwre2"
+                  class="perseus-widget-radio perseus-rendered-radio radio_1gyjybc-o_O-responsiveRadioContainer_1ybwre2"
                   style="list-style: none;"
                 >
                   <li
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                   >
                     <div
+                      class="description description_psmgei"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-330"
                             tabindex="-1"
                             type="radio"
@@ -727,7 +737,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -812,15 +822,17 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                   >
                     <div
+                      class="description description_psmgei"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-331"
                             tabindex="-1"
                             type="radio"
@@ -863,7 +875,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -935,15 +947,17 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd-o_O-selectedItem_p6cyk0 perseus-radio-option perseus-radio-selected"
                   >
                     <div
+                      class="description description_psmgei"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-332"
                             tabindex="-1"
                             type="radio"
@@ -986,7 +1000,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -1058,15 +1072,17 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                   >
                     <div
+                      class="description description_psmgei"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-333"
                             tabindex="-1"
                             type="radio"
@@ -1112,7 +1128,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -1264,22 +1280,24 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                   Choose 1 answer:
                 </div>
                 <ul
-                  class="perseus-widget-radio perseus-rendered-radio radio_zdxht7-o_O-responsiveRadioContainer_1ybwre2"
+                  class="perseus-widget-radio perseus-rendered-radio radio_1gyjybc-o_O-responsiveRadioContainer_1ybwre2"
                   style="list-style: none;"
                 >
                   <li
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd-o_O-selectedItem_p6cyk0 perseus-radio-option perseus-radio-selected"
                   >
                     <div
+                      class="description description_psmgei"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-338"
                             tabindex="-1"
                             type="radio"
@@ -1335,7 +1353,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -1420,15 +1438,17 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                   >
                     <div
+                      class="description description_psmgei"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-339"
                             tabindex="-1"
                             type="radio"
@@ -1471,7 +1491,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -1543,15 +1563,17 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                   >
                     <div
+                      class="description description_psmgei"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-340"
                             tabindex="-1"
                             type="radio"
@@ -1594,7 +1616,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -1666,15 +1688,17 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                   >
                     <div
+                      class="description description_psmgei"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-341"
                             tabindex="-1"
                             type="radio"
@@ -1720,7 +1744,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -1872,22 +1896,24 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                   Choose 1 answer:
                 </div>
                 <ul
-                  class="perseus-widget-radio perseus-rendered-radio radio_zdxht7-o_O-responsiveRadioContainer_1ybwre2"
+                  class="perseus-widget-radio perseus-rendered-radio radio_1gyjybc-o_O-responsiveRadioContainer_1ybwre2"
                   style="list-style: none;"
                 >
                   <li
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                   >
                     <div
+                      class="description description_psmgei"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-322"
                             tabindex="-1"
                             type="radio"
@@ -1943,7 +1969,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -2028,15 +2054,17 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                   >
                     <div
+                      class="description description_psmgei"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-323"
                             tabindex="-1"
                             type="radio"
@@ -2079,7 +2107,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -2151,15 +2179,17 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                   >
                     <div
+                      class="description description_psmgei"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-324"
                             tabindex="-1"
                             type="radio"
@@ -2202,7 +2232,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -2274,15 +2304,17 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                   >
                     <div
+                      class="description description_psmgei"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-325"
                             tabindex="-1"
                             type="radio"
@@ -2328,7 +2360,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -2480,22 +2512,24 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                   Choose 1 answer:
                 </div>
                 <ul
-                  class="perseus-widget-radio perseus-rendered-radio radio_zdxht7-o_O-responsiveRadioContainer_1ybwre2"
+                  class="perseus-widget-radio perseus-rendered-radio radio_1gyjybc-o_O-responsiveRadioContainer_1ybwre2"
                   style="list-style: none;"
                 >
                   <li
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                   >
                     <div
+                      class="description description_psmgei"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-250"
                             tabindex="-1"
                             type="radio"
@@ -2551,7 +2585,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -2636,15 +2670,17 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                   >
                     <div
+                      class="description description_psmgei"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-251"
                             tabindex="-1"
                             type="radio"
@@ -2687,7 +2723,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -2759,15 +2795,17 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd-o_O-selectedItem_p6cyk0 perseus-radio-option perseus-radio-selected"
                   >
                     <div
+                      class="description description_psmgei"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-252"
                             tabindex="-1"
                             type="radio"
@@ -2810,7 +2848,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -2882,15 +2920,17 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                   >
                     <div
+                      class="description description_psmgei"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-253"
                             tabindex="-1"
                             type="radio"
@@ -2936,7 +2976,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -3088,22 +3128,24 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                   Choose 1 answer:
                 </div>
                 <ul
-                  class="perseus-widget-radio perseus-rendered-radio radio_zdxht7-o_O-responsiveRadioContainer_1ybwre2"
+                  class="perseus-widget-radio perseus-rendered-radio radio_1gyjybc-o_O-responsiveRadioContainer_1ybwre2"
                   style="list-style: none;"
                 >
                   <li
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd-o_O-selectedItem_p6cyk0 perseus-radio-option perseus-radio-selected"
                   >
                     <div
+                      class="description description_psmgei"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-258"
                             tabindex="-1"
                             type="radio"
@@ -3159,7 +3201,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -3244,15 +3286,17 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                   >
                     <div
+                      class="description description_psmgei"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-259"
                             tabindex="-1"
                             type="radio"
@@ -3295,7 +3339,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -3367,15 +3411,17 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                   >
                     <div
+                      class="description description_psmgei"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-260"
                             tabindex="-1"
                             type="radio"
@@ -3418,7 +3464,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -3490,15 +3536,17 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                   >
                     <div
+                      class="description description_psmgei"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-261"
                             tabindex="-1"
                             type="radio"
@@ -3544,7 +3592,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -3696,22 +3744,24 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                   Choose 1 answer:
                 </div>
                 <ul
-                  class="perseus-widget-radio perseus-rendered-radio radio_zdxht7-o_O-responsiveRadioContainer_1ybwre2"
+                  class="perseus-widget-radio perseus-rendered-radio radio_1gyjybc-o_O-responsiveRadioContainer_1ybwre2"
                   style="list-style: none;"
                 >
                   <li
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option perseus-incorrect"
                   >
                     <div
+                      class="description description_psmgei"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-242"
                             tabindex="-1"
                             type="radio"
@@ -3767,7 +3817,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -3937,15 +3987,17 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option perseus-incorrect"
                   >
                     <div
+                      class="description description_psmgei"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-243"
                             tabindex="-1"
                             type="radio"
@@ -3988,7 +4040,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -4129,15 +4181,17 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option perseus-correct"
                   >
                     <div
+                      class="description description_psmgei"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-244"
                             tabindex="-1"
                             type="radio"
@@ -4180,7 +4234,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -4316,15 +4370,17 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option perseus-incorrect"
                   >
                     <div
+                      class="description description_psmgei"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-245"
                             tabindex="-1"
                             type="radio"
@@ -4370,7 +4426,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -4563,22 +4619,24 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                 class="perseus-widget-radio-fieldset responsiveFieldset_c0l5kf"
               >
                 <ul
-                  class="perseus-widget-radio perseus-rendered-radio radio_zdxht7-o_O-satRadio_1m9l1iz"
+                  class="perseus-widget-radio perseus-rendered-radio radio_1gyjybc-o_O-satRadio_1m9l1iz"
                   style="list-style: none;"
                 >
                   <li
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-satRadioOption_um6ye7 perseus-radio-option"
                   >
                     <div
+                      class="description satDescription_paz1ug"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-88"
                             tabindex="-1"
                             type="radio"
@@ -4634,7 +4692,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -4714,15 +4772,17 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-satRadioOption_um6ye7 perseus-radio-option"
                   >
                     <div
+                      class="description satDescription_paz1ug"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-89"
                             tabindex="-1"
                             type="radio"
@@ -4765,7 +4825,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -4832,15 +4892,17 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-satRadioOption_um6ye7 perseus-radio-option perseus-radio-selected"
                   >
                     <div
+                      class="description satDescription_paz1ug"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-90"
                             tabindex="-1"
                             type="radio"
@@ -4883,7 +4945,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -4950,15 +5012,17 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-satRadioOption_um6ye7 perseus-radio-option"
                   >
                     <div
+                      class="description satDescription_paz1ug"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-91"
                             tabindex="-1"
                             type="radio"
@@ -5004,7 +5068,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -5140,22 +5204,24 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                 class="perseus-widget-radio-fieldset responsiveFieldset_c0l5kf"
               >
                 <ul
-                  class="perseus-widget-radio perseus-rendered-radio radio_zdxht7-o_O-satRadio_1m9l1iz"
+                  class="perseus-widget-radio perseus-rendered-radio radio_1gyjybc-o_O-satRadio_1m9l1iz"
                   style="list-style: none;"
                 >
                   <li
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-satRadioOption_um6ye7 perseus-radio-option perseus-radio-selected"
                   >
                     <div
+                      class="description satDescription_paz1ug"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-96"
                             tabindex="-1"
                             type="radio"
@@ -5211,7 +5277,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -5291,15 +5357,17 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-satRadioOption_um6ye7 perseus-radio-option"
                   >
                     <div
+                      class="description satDescription_paz1ug"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-97"
                             tabindex="-1"
                             type="radio"
@@ -5342,7 +5410,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -5409,15 +5477,17 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-satRadioOption_um6ye7 perseus-radio-option"
                   >
                     <div
+                      class="description satDescription_paz1ug"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-98"
                             tabindex="-1"
                             type="radio"
@@ -5460,7 +5530,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -5527,15 +5597,17 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-satRadioOption_um6ye7 perseus-radio-option"
                   >
                     <div
+                      class="description satDescription_paz1ug"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-99"
                             tabindex="-1"
                             type="radio"
@@ -5581,7 +5653,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -5717,22 +5789,24 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                 class="perseus-widget-radio-fieldset responsiveFieldset_c0l5kf"
               >
                 <ul
-                  class="perseus-widget-radio perseus-rendered-radio radio_zdxht7-o_O-satRadio_1m9l1iz"
+                  class="perseus-widget-radio perseus-rendered-radio radio_1gyjybc-o_O-satRadio_1m9l1iz"
                   style="list-style: none;"
                 >
                   <li
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-satRadioOption_um6ye7 perseus-radio-option"
                   >
                     <div
+                      class="description satDescription_paz1ug"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-80"
                             tabindex="-1"
                             type="radio"
@@ -5788,7 +5862,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -5868,15 +5942,17 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-satRadioOption_um6ye7 perseus-radio-option"
                   >
                     <div
+                      class="description satDescription_paz1ug"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-81"
                             tabindex="-1"
                             type="radio"
@@ -5919,7 +5995,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -5986,15 +6062,17 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-satRadioOption_um6ye7 perseus-radio-option"
                   >
                     <div
+                      class="description satDescription_paz1ug"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-82"
                             tabindex="-1"
                             type="radio"
@@ -6037,7 +6115,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -6104,15 +6182,17 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-satRadioOption_um6ye7 perseus-radio-option"
                   >
                     <div
+                      class="description satDescription_paz1ug"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-83"
                             tabindex="-1"
                             type="radio"
@@ -6158,7 +6238,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -6294,22 +6374,24 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                 class="perseus-widget-radio-fieldset responsiveFieldset_c0l5kf"
               >
                 <ul
-                  class="perseus-widget-radio perseus-rendered-radio radio_zdxht7-o_O-satRadio_1m9l1iz"
+                  class="perseus-widget-radio perseus-rendered-radio radio_1gyjybc-o_O-satRadio_1m9l1iz"
                   style="list-style: none;"
                 >
                   <li
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-satRadioOption_um6ye7 perseus-radio-option"
                   >
                     <div
+                      class="description satDescription_paz1ug"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-8"
                             tabindex="-1"
                             type="radio"
@@ -6365,7 +6447,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -6445,15 +6527,17 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-satRadioOption_um6ye7 perseus-radio-option"
                   >
                     <div
+                      class="description satDescription_paz1ug"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-9"
                             tabindex="-1"
                             type="radio"
@@ -6496,7 +6580,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -6563,15 +6647,17 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-satRadioOption_um6ye7 perseus-radio-option perseus-radio-selected"
                   >
                     <div
+                      class="description satDescription_paz1ug"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-10"
                             tabindex="-1"
                             type="radio"
@@ -6614,7 +6700,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -6681,15 +6767,17 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-satRadioOption_um6ye7 perseus-radio-option"
                   >
                     <div
+                      class="description satDescription_paz1ug"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-11"
                             tabindex="-1"
                             type="radio"
@@ -6735,7 +6823,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -6871,22 +6959,24 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                 class="perseus-widget-radio-fieldset responsiveFieldset_c0l5kf"
               >
                 <ul
-                  class="perseus-widget-radio perseus-rendered-radio radio_zdxht7-o_O-satRadio_1m9l1iz"
+                  class="perseus-widget-radio perseus-rendered-radio radio_1gyjybc-o_O-satRadio_1m9l1iz"
                   style="list-style: none;"
                 >
                   <li
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-satRadioOption_um6ye7 perseus-radio-option perseus-radio-selected"
                   >
                     <div
+                      class="description satDescription_paz1ug"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-16"
                             tabindex="-1"
                             type="radio"
@@ -6942,7 +7032,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -7022,15 +7112,17 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-satRadioOption_um6ye7 perseus-radio-option"
                   >
                     <div
+                      class="description satDescription_paz1ug"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-17"
                             tabindex="-1"
                             type="radio"
@@ -7073,7 +7165,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -7140,15 +7232,17 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-satRadioOption_um6ye7 perseus-radio-option"
                   >
                     <div
+                      class="description satDescription_paz1ug"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-18"
                             tabindex="-1"
                             type="radio"
@@ -7191,7 +7285,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -7258,15 +7352,17 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-satRadioOption_um6ye7 perseus-radio-option"
                   >
                     <div
+                      class="description satDescription_paz1ug"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-19"
                             tabindex="-1"
                             type="radio"
@@ -7312,7 +7408,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -7448,22 +7544,24 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                 class="perseus-widget-radio-fieldset responsiveFieldset_c0l5kf"
               >
                 <ul
-                  class="perseus-widget-radio perseus-rendered-radio radio_zdxht7-o_O-satRadio_1m9l1iz"
+                  class="perseus-widget-radio perseus-rendered-radio radio_1gyjybc-o_O-satRadio_1m9l1iz"
                   style="list-style: none;"
                 >
                   <li
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-satRadioOption_um6ye7-o_O-satReviewRadioOption_1dwq0yf perseus-radio-option perseus-incorrect"
                   >
                     <div
+                      class="description satDescription_paz1ug"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-0"
                             tabindex="-1"
                             type="radio"
@@ -7519,7 +7617,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -7666,15 +7764,17 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-satRadioOption_um6ye7-o_O-satReviewRadioOption_1dwq0yf perseus-radio-option perseus-incorrect"
                   >
                     <div
+                      class="description satDescription_paz1ug"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-1"
                             tabindex="-1"
                             type="radio"
@@ -7717,7 +7817,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -7835,15 +7935,17 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-satRadioOption_um6ye7-o_O-satReviewRadioOption_1dwq0yf perseus-radio-option perseus-correct"
                   >
                     <div
+                      class="description sat-correct satDescription_paz1ug"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-2"
                             tabindex="-1"
                             type="radio"
@@ -7886,7 +7988,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description sat-correct satDescription_2uhr9i-o_O-satDescriptionCorrect_toknon"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
@@ -7999,15 +8101,17 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                     class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-satRadioOption_um6ye7-o_O-satReviewRadioOption_1dwq0yf perseus-radio-option perseus-incorrect"
                   >
                     <div
+                      class="description satDescription_paz1ug"
                       style="flex-direction: column;"
                     >
                       <div
-                        style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                        style="display: flex; flex-direction: row; opacity: 1;"
                       >
                         <div
                           class="perseus-sr-only"
                         >
                           <input
+                            class="perseus-radio-option-content"
                             id="choice-3"
                             tabindex="-1"
                             type="radio"
@@ -8053,7 +8157,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description satDescription_2uhr9i"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                           tabindex="0"
                           type="button"
                         >
