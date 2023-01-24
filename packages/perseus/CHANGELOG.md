@@ -1,5 +1,13 @@
 # @khanacademy/perseus
 
+## 1.3.1
+
+### Patch Changes
+
+-   9b3bf30f: CSS bug fixes for SAT Radio widget
+-   Updated dependencies [113953e8]
+    -   @khanacademy/math-input@0.6.4
+
 ## 1.3.0
 
 ### Minor Changes
