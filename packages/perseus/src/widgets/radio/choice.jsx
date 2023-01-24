@@ -14,7 +14,7 @@ import {useState, useEffect} from "react";
 import _ from "underscore";
 
 import Icon from "../../components/icon.jsx";
-import {ApiOptions} from "../../perseus-api.jsx";
+import {ApiOptions, ClassNames} from "../../perseus-api.jsx";
 import * as styleConstants from "../../styles/constants.js";
 import mediaQueries from "../../styles/media-queries.js";
 
@@ -140,7 +140,6 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
         css(
             !apiOptions.satStyling && styles.description,
             apiOptions.satStyling && styles.satDescription,
-            satCorrectChoice && styles.satDescriptionCorrect,
             satCorrectChoice && checked && styles.satDescriptionCorrectChecked,
             satIncorrectChecked && styles.satDescriptionIncorrectChecked,
         ),
@@ -179,12 +178,12 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
                 dispay: "flex",
                 flexDirection: "column",
             }}
+            className={descriptionClassName}
         >
             <div
                 style={{
                     display: "flex",
                     flexDirection: "row",
-                    width: "100%",
                     opacity: showDimmed ? 0.5 : 1.0,
                 }}
             >
@@ -208,6 +207,7 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
                             apiOptions.readOnly
                         }
                         tabIndex={-1}
+                        className={ClassNames.RADIO.OPTION_CONTENT}
                     />
                     <label htmlFor={choiceId}>
                         {a11yText} &nbsp; {content}
@@ -222,7 +222,6 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
                             crossedOut: false,
                         });
                     }}
-                    className={descriptionClassName}
                     disabled={
                         disabled ||
                         apiOptions.staticRender ||
@@ -390,11 +389,7 @@ const styles = StyleSheet.create({
         boxSizing: "border-box",
         cursor: "pointer",
         marginLeft: 0,
-        padding: "17px 14px",
-    },
-
-    satDescriptionCorrect: {
-        color: styleConstants.satCorrectColor,
+        padding: "17px 14px 17px 0",
     },
 
     satDescriptionCorrectChecked: {
@@ -402,7 +397,6 @@ const styles = StyleSheet.create({
     },
 
     satDescriptionIncorrectChecked: {
-        color: styleConstants.satIncorrectColor,
         backgroundColor: styleConstants.satIncorrectBackgroundColor,
     },
 

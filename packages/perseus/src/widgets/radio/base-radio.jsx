@@ -454,8 +454,7 @@ const styles: StyleDeclaration = StyleSheet.create({
     },
 
     radio: {
-        // Avoid centering
-        width: "100%",
+        padding: 0,
     },
 
     responsiveRadioContainer: {

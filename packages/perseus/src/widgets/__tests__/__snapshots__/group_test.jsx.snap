@@ -134,22 +134,24 @@ exports[`group widget should snapshot: initial render 1`] = `
                                     Choose 1 answer:
                                   </div>
                                   <ul
-                                    class="perseus-widget-radio perseus-rendered-radio radio_zdxht7-o_O-responsiveRadioContainer_1ybwre2"
+                                    class="perseus-widget-radio perseus-rendered-radio radio_1gyjybc-o_O-responsiveRadioContainer_1ybwre2"
                                     style="list-style: none;"
                                   >
                                     <li
                                       class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                                     >
                                       <div
+                                        class="description description_psmgei"
                                         style="flex-direction: column;"
                                       >
                                         <div
-                                          style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                                          style="display: flex; flex-direction: row; opacity: 1;"
                                         >
                                           <div
                                             class="perseus-sr-only"
                                           >
                                             <input
+                                              class="perseus-radio-option-content"
                                               id="choice-5"
                                               tabindex="-1"
                                               type="radio"
@@ -192,7 +194,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                             aria-disabled="false"
                                             aria-hidden="true"
                                             aria-label=""
-                                            class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                                            class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                                             tabindex="0"
                                             type="button"
                                           >
@@ -264,15 +266,17 @@ exports[`group widget should snapshot: initial render 1`] = `
                                       class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                                     >
                                       <div
+                                        class="description description_psmgei"
                                         style="flex-direction: column;"
                                       >
                                         <div
-                                          style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                                          style="display: flex; flex-direction: row; opacity: 1;"
                                         >
                                           <div
                                             class="perseus-sr-only"
                                           >
                                             <input
+                                              class="perseus-radio-option-content"
                                               id="choice-6"
                                               tabindex="-1"
                                               type="radio"
@@ -315,7 +319,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                             aria-disabled="false"
                                             aria-hidden="true"
                                             aria-label=""
-                                            class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                                            class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                                             tabindex="0"
                                             type="button"
                                           >
@@ -387,15 +391,17 @@ exports[`group widget should snapshot: initial render 1`] = `
                                       class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                                     >
                                       <div
+                                        class="description description_psmgei"
                                         style="flex-direction: column;"
                                       >
                                         <div
-                                          style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                                          style="display: flex; flex-direction: row; opacity: 1;"
                                         >
                                           <div
                                             class="perseus-sr-only"
                                           >
                                             <input
+                                              class="perseus-radio-option-content"
                                               id="choice-7"
                                               tabindex="-1"
                                               type="radio"
@@ -438,7 +444,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                             aria-disabled="false"
                                             aria-hidden="true"
                                             aria-label=""
-                                            class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                                            class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                                             tabindex="0"
                                             type="button"
                                           >
@@ -510,15 +516,17 @@ exports[`group widget should snapshot: initial render 1`] = `
                                       class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                                     >
                                       <div
+                                        class="description description_psmgei"
                                         style="flex-direction: column;"
                                       >
                                         <div
-                                          style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                                          style="display: flex; flex-direction: row; opacity: 1;"
                                         >
                                           <div
                                             class="perseus-sr-only"
                                           >
                                             <input
+                                              class="perseus-radio-option-content"
                                               id="choice-8"
                                               tabindex="-1"
                                               type="radio"
@@ -561,7 +569,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                             aria-disabled="false"
                                             aria-hidden="true"
                                             aria-label=""
-                                            class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                                            class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                                             tabindex="0"
                                             type="button"
                                           >
@@ -633,15 +641,17 @@ exports[`group widget should snapshot: initial render 1`] = `
                                       class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                                     >
                                       <div
+                                        class="description description_psmgei"
                                         style="flex-direction: column;"
                                       >
                                         <div
-                                          style="display: flex; flex-direction: row; width: 100%; opacity: 1;"
+                                          style="display: flex; flex-direction: row; opacity: 1;"
                                         >
                                           <div
                                             class="perseus-sr-only"
                                           >
                                             <input
+                                              class="perseus-radio-option-content"
                                               id="choice-9"
                                               tabindex="-1"
                                               type="radio"
@@ -684,7 +694,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                             aria-disabled="false"
                                             aria-hidden="true"
                                             aria-label=""
-                                            class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv description description_psmgei"
+                                            class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_bc4egv"
                                             tabindex="0"
                                             type="button"
                                           >
