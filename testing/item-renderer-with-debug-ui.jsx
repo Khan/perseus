@@ -5,11 +5,10 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import * as React from "react";
 
-import {Dependencies, ItemRenderer} from "../packages/perseus/src/index.js";
+import {ItemRenderer} from "../packages/perseus/src/index.js";
 
 import KEScoreUI from "./ke-score-ui.js";
 import SideBySide from "./side-by-side.jsx";
-import {testDependencies} from "./test-dependencies.js";
 
 import type {PerseusItem} from "../packages/perseus/src/perseus-types.js";
 import type {APIOptions, KEScore} from "../packages/perseus/src/types.js";
@@ -25,8 +24,6 @@ export const ItemRendererWithDebugUI = ({
 }: Props): React.Node => {
     const ref = React.useRef<?ItemRenderer>(null);
     const [state, setState] = React.useState<?KEScore>(null);
-
-    Dependencies.setDependencies(testDependencies);
 
     return (
         <SideBySide

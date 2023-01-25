@@ -4,7 +4,18 @@ const path = require("path");
 const fs = require("fs");
 
 module.exports = {
-    stories: ["../packages/**/*.@(stories|fixturestories).@(js|jsx|ts|tsx)"],
+    stories: [
+        // NOTE(jeremy): This glob is extremely finicky! I would have written
+        // this as a negated match to exclude node_modules, but I was never
+        // able to get it to work. For example, the following regex included
+        // stories from wonder-blocks packages in node_modules.
+        //     "../packages!(/node_modules)/**/*@(.stories|.fixturestories).@(js|jsx|ts|tsx|mdx)",
+        // So, instead of fighting it, I changed this glob to restrict stories
+        // to be ones in any of our local packages 'src' dirs. This effectively
+        // eliminates stories showing up inside node_modules within any package
+        // dir.
+        "../packages/*/src/**/*@(.stories|.fixturestories).@(js|jsx)",
+    ],
     addons: [
         "@storybook/addon-links",
         "@storybook/addon-essentials",
