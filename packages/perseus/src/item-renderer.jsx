@@ -1,7 +1,6 @@
 /* eslint-disable react/no-unsafe */
 // @flow
 import * as PerseusLinter from "@khanacademy/perseus-linter";
-import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import $ from "jquery";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
