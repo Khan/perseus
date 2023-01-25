@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 1.3.3
+
+### Patch Changes
+
+-   47d2afc0: Force radio text to be dark for contrast
+
 ## 1.3.2
 
 ### Patch Changes
