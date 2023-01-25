@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unsafe */
 // @flow
 import * as PerseusLinter from "@khanacademy/perseus-linter";
+import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import $ from "jquery";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
@@ -180,57 +181,80 @@ class ItemRenderer extends React.Component<Props, State> {
         // TODO(LP-11406): Replace with React Portal
         // eslint-disable-next-line no-restricted-syntax
         ReactDOM.render(
-            // metadata (from item.question, aka PerseusRenderer)
-            // replace (also item.question, aka PerseusRenderer)
-            // savedState (I _think_ this is serializedState on Renderer)
-            // $FlowFixMe[prop-missing] metadata, replace, savedState (see above)
-            <Renderer
-                ref={(node) => {
-                    if (!node) {
-                        return;
-                    }
-                    this.questionRenderer = node;
+            /**
+             * `RenderStateRoot` is responsible for tracking whether it's
+             * the initial render or subsequent renders.  It's used by
+             * `useUniqueId` and will be used by `UniqueIDProvider` and
+             * `WithSSRPlaceholder` in the future.  We're placing it as
+             * high up in the render tree as possible to ensure that any
+             * components using that hook or those components will function
+             * correctly.
+             */
+            <RenderStateRoot throwIfNested={false}>
+                {/* metadata (from item.question, aka PerseusRenderer)  */}
+                {/* replace (also item.question, aka PerseusRenderer)  */}
+                {/* savedState (I _think_ this is serializedState on Renderer)  */}
+                {/* $FlowFixMe[prop-missing] metadata, replace, savedState (see above) */}
+                <Renderer
+                    ref={(node) => {
+                        if (!node) {
+                            return;
+                        }
+                        this.questionRenderer = node;
 
-                    // NOTE(jeremy): Why don't we just pass this into the
-                    // renderer as a prop?
-                    const {answerableCallback} = apiOptions;
-                    if (answerableCallback) {
-                        const isAnswerable =
-                            this.questionRenderer.emptyWidgets().length === 0;
-                        answerableCallback(isAnswerable);
-                    }
-                }}
-                keypadElement={this.keypadElement()}
-                problemNum={this.props.problemNum}
-                onInteractWithWidget={this.handleInteractWithWidget}
-                highlightedWidgets={this.state.questionHighlightedWidgets}
-                apiOptions={apiOptions}
-                questionCompleted={this.state.questionCompleted}
-                reviewMode={this.props.reviewMode}
-                savedState={this.props.savedState}
-                linterContext={PerseusLinter.pushContextStack(
-                    this.props.linterContext,
-                    "question",
-                )}
-                {...this.props.item.question}
-                legacyPerseusLint={this.props.legacyPerseusLint}
-            />,
+                        // NOTE(jeremy): Why don't we just pass this into the
+                        // renderer as a prop?
+                        const {answerableCallback} = apiOptions;
+                        if (answerableCallback) {
+                            const isAnswerable =
+                                this.questionRenderer.emptyWidgets().length ===
+                                0;
+                            answerableCallback(isAnswerable);
+                        }
+                    }}
+                    keypadElement={this.keypadElement()}
+                    problemNum={this.props.problemNum}
+                    onInteractWithWidget={this.handleInteractWithWidget}
+                    highlightedWidgets={this.state.questionHighlightedWidgets}
+                    apiOptions={apiOptions}
+                    questionCompleted={this.state.questionCompleted}
+                    reviewMode={this.props.reviewMode}
+                    savedState={this.props.savedState}
+                    linterContext={PerseusLinter.pushContextStack(
+                        this.props.linterContext,
+                        "question",
+                    )}
+                    {...this.props.item.question}
+                    legacyPerseusLint={this.props.legacyPerseusLint}
+                />
+            </RenderStateRoot>,
             workArea,
         );
 
         // TODO(LP-11406): Replace with React Portal
         // eslint-disable-next-line no-restricted-syntax
         ReactDOM.render(
-            <HintsRenderer
-                ref={(node) => (this.hintsRenderer = node)}
-                hints={this.props.item.hints}
-                hintsVisible={this.state.hintsVisible}
-                apiOptions={apiOptions}
-                linterContext={PerseusLinter.pushContextStack(
-                    this.props.linterContext,
-                    "hints",
-                )}
-            />,
+            /**
+             * `RenderStateRoot` is responsible for tracking whether it's
+             * the initial render or subsequent renders.  It's used by
+             * `useUniqueId` and will be used by `UniqueIDProvider` and
+             * `WithSSRPlaceholder` in the future.  We're placing it as
+             * high up in the render tree as possible to ensure that any
+             * components using that hook or those components will function
+             * correctly.
+             */
+            <RenderStateRoot throwIfNested={false}>
+                <HintsRenderer
+                    ref={(node) => (this.hintsRenderer = node)}
+                    hints={this.props.item.hints}
+                    hintsVisible={this.state.hintsVisible}
+                    apiOptions={apiOptions}
+                    linterContext={PerseusLinter.pushContextStack(
+                        this.props.linterContext,
+                        "hints",
+                    )}
+                />
+            </RenderStateRoot>,
             hintsArea,
         );
 
