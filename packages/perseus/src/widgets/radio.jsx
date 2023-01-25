@@ -7,8 +7,8 @@ import Util from "../util.js";
 import Radio from "./radio/widget.jsx";
 
 import type {PerseusRadioWidgetOptions} from "../perseus-types.js";
-import type {WidgetExports, RadioChoiceWithMetadata} from "../types.js";
-import type {RenderProps} from "./radio/widget.jsx";
+import type {WidgetExports} from "../types.js";
+import type {RenderProps, RadioChoiceWithMetadata} from "./radio/widget.jsx";
 
 const {shuffle, random} = Util;
 
