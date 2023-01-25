@@ -52,12 +52,12 @@
  */
 import {point as kpoint, vector as kvector} from "@khanacademy/kmath";
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import _ from "underscore";
 
 import InlineIcon from "../components/inline-icon.jsx";
 import {iconTrash} from "../icon-paths.js";
 import KhanColors from "../util/colors.js";
+import reactRender from "../util/react-render.js";
 import Tex from "../util/tex.js";
 
 import InteractiveUtil from "./interactive-util.js";
@@ -275,9 +275,7 @@ _.extend(MovablePoint.prototype, {
 
         const showTrashTooltip = () => {
             this._showTooltip((container) => {
-                // TODO(LP-11406): Replace with React Portal
-                // eslint-disable-next-line no-restricted-syntax
-                ReactDOM.render(
+                reactRender(
                     <span style={{fontSize: "2em"}}>
                         <InlineIcon
                             {...iconTrash}

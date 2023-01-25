@@ -16,6 +16,8 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
+import reactRender from "../util/react-render.js";
+
 import type {CSSProperties} from "aphrodite";
 
 export type KeypadProps = {|
@@ -83,9 +85,7 @@ const ProvideKeypad = {
             _this._keypadContainer = document.createElement("div");
             document.body?.appendChild(_this._keypadContainer);
 
-            // TODO(LP-11406): Replace with React Portal
-            // eslint-disable-next-line no-restricted-syntax
-            ReactDOM.render(
+            reactRender(
                 <Keypad
                     onElementMounted={(element) => {
                         // NOTE(kevinb): The reason why this setState works is

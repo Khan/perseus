@@ -13,6 +13,7 @@ import ProvideKeypad from "./mixins/provide-keypad.jsx";
 import {ApiOptions} from "./perseus-api.jsx";
 import Renderer from "./renderer.jsx";
 import Util from "./util.js";
+import reactRender from "./util/react-render.js";
 
 import type {KeypadProps} from "./mixins/provide-keypad.jsx";
 import type {PerseusItem} from "./perseus-types.js";
@@ -178,83 +179,56 @@ class ItemRenderer extends React.Component<Props, State> {
         // that have completely different places in the DOM, we have to do this
         // strangeness instead of relying on React's normal render() method.
         // TODO(alpert): Figure out how to clean this up somehow
-        // TODO(LP-11406): Replace with React Portal
-        // eslint-disable-next-line no-restricted-syntax
-        ReactDOM.render(
-            /**
-             * `RenderStateRoot` is responsible for tracking whether it's
-             * the initial render or subsequent renders.  It's used by
-             * `useUniqueId` and will be used by `UniqueIDProvider` and
-             * `WithSSRPlaceholder` in the future.  We're placing it as
-             * high up in the render tree as possible to ensure that any
-             * components using that hook or those components will function
-             * correctly.
-             */
-            <RenderStateRoot throwIfNested={false}>
-                {/* metadata (from item.question, aka PerseusRenderer)  */}
-                {/* replace (also item.question, aka PerseusRenderer)  */}
-                {/* savedState (I _think_ this is serializedState on Renderer)  */}
-                {/* $FlowFixMe[prop-missing] metadata, replace, savedState (see above) */}
-                <Renderer
-                    ref={(node) => {
-                        if (!node) {
-                            return;
-                        }
-                        this.questionRenderer = node;
+        reactRender(
+            // metadata (from item.question, aka PerseusRenderer)
+            // replace (also item.question, aka PerseusRenderer)
+            // savedState (I _think_ this is serializedState on Renderer)
+            // $FlowFixMe[prop-missing] metadata, replace, savedState (see above)
+            <Renderer
+                ref={(node) => {
+                    if (!node) {
+                        return;
+                    }
+                    this.questionRenderer = node;
 
-                        // NOTE(jeremy): Why don't we just pass this into the
-                        // renderer as a prop?
-                        const {answerableCallback} = apiOptions;
-                        if (answerableCallback) {
-                            const isAnswerable =
-                                this.questionRenderer.emptyWidgets().length ===
-                                0;
-                            answerableCallback(isAnswerable);
-                        }
-                    }}
-                    keypadElement={this.keypadElement()}
-                    problemNum={this.props.problemNum}
-                    onInteractWithWidget={this.handleInteractWithWidget}
-                    highlightedWidgets={this.state.questionHighlightedWidgets}
-                    apiOptions={apiOptions}
-                    questionCompleted={this.state.questionCompleted}
-                    reviewMode={this.props.reviewMode}
-                    savedState={this.props.savedState}
-                    linterContext={PerseusLinter.pushContextStack(
-                        this.props.linterContext,
-                        "question",
-                    )}
-                    {...this.props.item.question}
-                    legacyPerseusLint={this.props.legacyPerseusLint}
-                />
-            </RenderStateRoot>,
+                    // NOTE(jeremy): Why don't we just pass this into the
+                    // renderer as a prop?
+                    const {answerableCallback} = apiOptions;
+                    if (answerableCallback) {
+                        const isAnswerable =
+                            this.questionRenderer.emptyWidgets().length === 0;
+                        answerableCallback(isAnswerable);
+                    }
+                }}
+                keypadElement={this.keypadElement()}
+                problemNum={this.props.problemNum}
+                onInteractWithWidget={this.handleInteractWithWidget}
+                highlightedWidgets={this.state.questionHighlightedWidgets}
+                apiOptions={apiOptions}
+                questionCompleted={this.state.questionCompleted}
+                reviewMode={this.props.reviewMode}
+                savedState={this.props.savedState}
+                linterContext={PerseusLinter.pushContextStack(
+                    this.props.linterContext,
+                    "question",
+                )}
+                {...this.props.item.question}
+                legacyPerseusLint={this.props.legacyPerseusLint}
+            />,
             workArea,
         );
 
-        // TODO(LP-11406): Replace with React Portal
-        // eslint-disable-next-line no-restricted-syntax
-        ReactDOM.render(
-            /**
-             * `RenderStateRoot` is responsible for tracking whether it's
-             * the initial render or subsequent renders.  It's used by
-             * `useUniqueId` and will be used by `UniqueIDProvider` and
-             * `WithSSRPlaceholder` in the future.  We're placing it as
-             * high up in the render tree as possible to ensure that any
-             * components using that hook or those components will function
-             * correctly.
-             */
-            <RenderStateRoot throwIfNested={false}>
-                <HintsRenderer
-                    ref={(node) => (this.hintsRenderer = node)}
-                    hints={this.props.item.hints}
-                    hintsVisible={this.state.hintsVisible}
-                    apiOptions={apiOptions}
-                    linterContext={PerseusLinter.pushContextStack(
-                        this.props.linterContext,
-                        "hints",
-                    )}
-                />
-            </RenderStateRoot>,
+        reactRender(
+            <HintsRenderer
+                ref={(node) => (this.hintsRenderer = node)}
+                hints={this.props.item.hints}
+                hintsVisible={this.state.hintsVisible}
+                apiOptions={apiOptions}
+                linterContext={PerseusLinter.pushContextStack(
+                    this.props.linterContext,
+                    "hints",
+                )}
+            />,
             hintsArea,
         );
 
