@@ -692,7 +692,7 @@ function widgetShouldHighlight(widget: Widget): boolean {
     }
     switch (widget.type) {
         /**
-         * Highlight bar blacklist
+         * Highlight bar denylist
          */
         case "measurer":
         case "protractor":

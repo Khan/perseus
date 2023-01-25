@@ -15,7 +15,7 @@ import _ from "underscore";
 import {Errors} from "../logging/log.js";
 import {PerseusError} from "../perseus-error.js";
 
-import WIDGET_PROP_BLACKLIST from "./widget-prop-blacklist.js";
+import WIDGET_PROP_DENYLIST from "./widget-prop-denylist.js";
 
 import type {ChangeFn} from "../types.js";
 
@@ -37,7 +37,7 @@ const _changeMultiple = function (component, newProps, callback) {
     //   the conceptual state of our component
     // onChange comes from our parent to allow this modification,
     //   and doesn't conceptually represent the state of our component
-    const currProps = _.omit(component.props, WIDGET_PROP_BLACKLIST);
+    const currProps = _.omit(component.props, WIDGET_PROP_DENYLIST);
     const nextProps = _.extend(currProps, newProps);
     component.props.onChange(nextProps, callback);
 };

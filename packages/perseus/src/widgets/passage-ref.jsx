@@ -5,7 +5,7 @@ import * as React from "react";
 import _ from "underscore";
 
 import * as Changeable from "../mixins/changeable.jsx";
-import {removeDenylistProps} from "../mixins/widget-prop-blacklist.js";
+import {removeDenylistProps} from "../mixins/widget-prop-denylist.js";
 import PerseusMarkdown from "../perseus-markdown.jsx";
 
 import PassageWidgetExport from "./passage.jsx";
@@ -75,7 +75,7 @@ class PassageRef extends React.Component<Props, State> {
         );
     }
 
-    // TODO(TB): getUserInput needs to be updated to only return
+    // TODO(tamarab): getUserInput needs to be updated to only return
     // props input by the user. Currently returns all the widget's props.
     getUserInput: () => UserInput = () => {
         return removeDenylistProps(this.props);

@@ -1,6 +1,6 @@
 // @flow
 
-import {removeDenylistProps} from "../widget-prop-blacklist.js";
+import {removeDenylistProps} from "../widget-prop-denylist.js";
 
 describe("removeDenylistProps", () => {
     it("removes props that are in denylist from input", () => {

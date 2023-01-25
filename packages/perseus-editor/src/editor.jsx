@@ -10,7 +10,7 @@ import {
     PerseusMarkdown,
     Util,
     Widgets,
-    WIDGET_PROP_BLACKLIST,
+    WIDGET_PROP_DENYLIST,
 } from "@khanacademy/perseus";
 import $ from "jquery";
 // eslint-disable-next-line import/no-unresolved
@@ -133,7 +133,7 @@ type WidgetEditorState = {|
 const _upgradeWidgetInfo = (props: WidgetEditorProps): WidgetInfo => {
     // We can't call serialize here because this.refs.widget
     // doesn't exist before this component is mounted.
-    const filteredProps = _.omit(props, WIDGET_PROP_BLACKLIST);
+    const filteredProps = _.omit(props, WIDGET_PROP_DENYLIST);
     return Widgets.upgradeWidgetInfoToLatestVersion(filteredProps);
 };
 
