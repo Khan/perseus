@@ -177,6 +177,7 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
             style={{
                 dispay: "flex",
                 flexDirection: "column",
+                color: Color.offBlack,
             }}
             className={descriptionClassName}
         >
@@ -340,6 +341,14 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
                                     pos,
                                 )}`}
                                 disabled={apiOptions.staticRender}
+                                style={{
+                                    alignSelf: "center",
+                                    padding: "5px",
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    marginLeft: "10px",
+                                }}
                             >
                                 {({hovered, focused, pressed}) => (
                                     <Icon
