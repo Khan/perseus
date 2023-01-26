@@ -9,6 +9,7 @@ type StoryArgs = {|
 
 type Story = {|
     title: string,
+    args: StoryArgs,
 |};
 
 export default ({
