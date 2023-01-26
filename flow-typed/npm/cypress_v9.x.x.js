@@ -860,6 +860,7 @@ declare interface Cypress$ServerOptions {
     enable?: boolean;
     force404?: boolean;
     urlMatchingOptions?: {...};
+    // TODO(tamarab): Look into refactoring "whitelist" here to "allowlist"
     whitelist?: (...args: Array<any>) => any;
 }
 
