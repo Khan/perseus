@@ -97,10 +97,6 @@ const Demo = () => {
 
 export const CustomKeypad = (args: StoryArgs): React.Node => <Demo />;
 
-// export const ExpressionItem3 = (args: StoryArgs): React.Node => {
-//     return <RendererWithDebugUI question={expressionItem3.question} />;
-// };
-
 const styles = StyleSheet.create({
     keypad: {
         position: "absolute",
