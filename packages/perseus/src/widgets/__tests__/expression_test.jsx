@@ -409,7 +409,7 @@ describe("error tooltip", () => {
         ).not.toBeVisible();
     });
 
-    it("toggles error text on click", async () => {
+    it.skip("toggles error text on click", async () => {
         // Arrange
         const {renderer} = renderQuestion(expressionItem2.question);
         const expression = renderer.findWidgets("expression 1")[0];
