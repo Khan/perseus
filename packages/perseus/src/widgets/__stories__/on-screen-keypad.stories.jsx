@@ -47,13 +47,13 @@ const Content = (): React.Node => {
 };
 
 const Footer = (): React.Node => {
-    // TODO: get this from problemProgress from the exercise state store.
-
     return (
         <View
             style={[
                 styles.keypadContainer,
                 {
+                    // NOTE: in webapp we normally get this from problemProgress
+                    // from the exercise state store.
                     height: 240,
                 },
             ]}
