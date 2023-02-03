@@ -107,7 +107,7 @@
     "build:prodsizecheck": "yarn gen:parsers && rollup -c config/build/rollup.config.js --configEnvironment='production'",
     "watch": "rollup -c config/build/rollup.config.js --watch",
     "clean": "rm -rf packages/*/dist && rm -rf packages/*/node_modules && rm -rf .nyc_output",
-    "coverage": "yarn run jest --coverage",
+    "coverage": "cross-env NODE_OPTIONS=--max_old_space_size=4096 yarn run jest --coverage",
     "extract-strings": "./utils/extract-strings.js",
     "flow:ci": "flow check --max-workers 0",
     "lint": "eslint . --ext .js --ext .jsx",
