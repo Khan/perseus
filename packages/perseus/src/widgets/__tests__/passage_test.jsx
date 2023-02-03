@@ -116,7 +116,7 @@ describe("passage widget", () => {
 
         // Assert
         expect(score).toMatchInlineSnapshot(`
-            Object {
+            {
               "earned": 0,
               "message": null,
               "total": 0,

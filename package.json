@@ -74,7 +74,7 @@
     "fast-glob": "^3.2.11",
     "flow-bin": "^0.176.2",
     "flow-enums-runtime": "^0.0.6",
-    "jest": "28",
+    "jest": "^29.0.1",
     "jest-environment-jsdom": "^28.0.2",
     "jest-enzyme": "^7.1.2",
     "jest-extended": "^2.0.0",

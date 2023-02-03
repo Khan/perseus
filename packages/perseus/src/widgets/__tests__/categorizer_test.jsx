@@ -59,7 +59,7 @@ describe("categorizer widget", () => {
 
         // Assert
         expect(score).toMatchInlineSnapshot(`
-            Object {
+            {
               "message": "Make sure you select something for every row.",
               "type": "invalid",
             }
@@ -78,7 +78,7 @@ describe("categorizer widget", () => {
 
         // assert
         expect(score).toMatchInlineSnapshot(`
-            Object {
+            {
               "message": "Make sure you select something for every row.",
               "type": "invalid",
             }
@@ -137,7 +137,7 @@ describe("validating answers", () => {
         const score = Categorizer.validate(useInput, rubric);
 
         expect(score).toMatchInlineSnapshot(`
-            Object {
+            {
               "earned": 1,
               "message": null,
               "total": 1,
@@ -167,7 +167,7 @@ describe("validating answers", () => {
         const score = Categorizer.validate(useInput, rubric);
 
         expect(score).toMatchInlineSnapshot(`
-            Object {
+            {
               "earned": 0,
               "message": null,
               "total": 1,
@@ -196,7 +196,7 @@ describe("validating answers", () => {
         const score = Categorizer.validate(useInput, rubric);
 
         expect(score).toMatchInlineSnapshot(`
-            Object {
+            {
               "message": "Make sure you select something for every row.",
               "type": "invalid",
             }

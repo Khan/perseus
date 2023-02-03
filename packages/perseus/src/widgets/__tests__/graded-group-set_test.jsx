@@ -140,8 +140,8 @@ describe("graded group widget", () => {
 
         // Assert
         expect(inputPaths).toMatchInlineSnapshot(`
-            Array [
-              Array [
+            [
+              [
                 "graded-group-set 1",
                 "numeric-input 1",
               ],

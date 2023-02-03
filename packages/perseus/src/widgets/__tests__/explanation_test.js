@@ -152,8 +152,8 @@ describe("Explanation", function () {
 
         // Assert
         expect(userInput).toMatchInlineSnapshot(`
-            Array [
-              Object {},
+            [
+              {},
             ]
         `);
     });
@@ -167,8 +167,8 @@ describe("Explanation", function () {
 
         // Assert
         expect(score).toMatchInlineSnapshot(`
-            Object {
-              "explanation 1": Object {
+            {
+              "explanation 1": {
                 "earned": 0,
                 "message": null,
                 "total": 0,
@@ -187,7 +187,7 @@ describe("Explanation", function () {
             );
 
             expect(result).toMatchInlineSnapshot(`
-                Object {
+                {
                   "earned": 0,
                   "message": null,
                   "total": 0,

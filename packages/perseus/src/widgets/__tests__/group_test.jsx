@@ -169,10 +169,10 @@ describe("group widget", () => {
 
         // Assert
         expect(userInput).toMatchInlineSnapshot(`
-            Array [
-              Array [
-                Object {
-                  "choicesSelected": Array [
+            [
+              [
+                {
+                  "choicesSelected": [
                     false,
                     false,
                     false,
@@ -181,11 +181,11 @@ describe("group widget", () => {
                   ],
                 },
               ],
-              Array [
-                Object {
+              [
+                {
                   "currentValue": "99",
                 },
-                Object {
+                {
                   "currentValue": "",
                 },
                 null,
@@ -204,32 +204,32 @@ describe("group widget", () => {
 
         // Assert
         expect(state).toMatchInlineSnapshot(`
-            Object {
-              "group 1": Object {
-                "radio 1": Object {
-                  "choices": Array [
-                    Object {
+            {
+              "group 1": {
+                "radio 1": {
+                  "choices": [
+                    {
                       "content": "$45$",
                       "correct": false,
                       "originalIndex": 0,
                     },
-                    Object {
+                    {
                       "content": "$42$",
                       "correct": false,
                       "originalIndex": 1,
                     },
-                    Object {
+                    {
                       "clue": "Here's a clue, this isn't the correct answer!",
                       "content": "$30$",
                       "correct": false,
                       "originalIndex": 2,
                     },
-                    Object {
+                    {
                       "content": "$18$",
                       "correct": false,
                       "originalIndex": 3,
                     },
-                    Object {
+                    {
                       "content": "$15$",
                       "correct": true,
                       "originalIndex": 4,
@@ -240,7 +240,7 @@ describe("group widget", () => {
                   "hasNoneOfTheAbove": false,
                   "multipleSelect": false,
                   "numCorrect": 1,
-                  "selectedChoices": Array [
+                  "selectedChoices": [
                     false,
                     false,
                     false,
@@ -249,26 +249,26 @@ describe("group widget", () => {
                   ],
                 },
               },
-              "group 2": Object {
-                "image 1": Object {
+              "group 2": {
+                "image 1": {
                   "alt": "A number line labeled 200 to 300 with tick marks at every 5 units. The tick marks at 200, 210, 220, 230, 240, 250, 260, 270, 280, 290, and 300 are labeled. A red circle labeled A is between 220 tick mark and 230 tick mark.",
-                  "backgroundImage": Object {
+                  "backgroundImage": {
                     "height": 80,
                     "url": "web+graphie://ka-perseus-graphie.s3.amazonaws.com/3351ccf19e60c28a1d08664f5c16defa76ed0348",
                     "width": 380,
                   },
-                  "box": Array [
+                  "box": [
                     380,
                     80,
                   ],
                   "caption": "",
-                  "labels": Array [],
-                  "range": Array [
-                    Array [
+                  "labels": [],
+                  "range": [
+                    [
                       0,
                       10,
                     ],
-                    Array [
+                    [
                       0,
                       10,
                     ],
@@ -276,8 +276,8 @@ describe("group widget", () => {
                   "static": false,
                   "title": "",
                 },
-                "numeric-input 1": Object {
-                  "answerForms": Array [],
+                "numeric-input 1": {
+                  "answerForms": [],
                   "coefficient": false,
                   "currentValue": "99",
                   "labelText": "value rounded to the nearest ten",
@@ -286,8 +286,8 @@ describe("group widget", () => {
                   "size": "normal",
                   "static": false,
                 },
-                "numeric-input 2": Object {
-                  "answerForms": Array [],
+                "numeric-input 2": {
+                  "answerForms": [],
                   "coefficient": false,
                   "labelText": "value rounded to the nearest hundred",
                   "multipleNumberInput": false,
@@ -296,29 +296,29 @@ describe("group widget", () => {
                   "static": false,
                 },
               },
-              "radio 1": Object {
-                "choices": Array [
-                  Object {
+              "radio 1": {
+                "choices": [
+                  {
                     "content": "",
                     "correct": false,
                     "originalIndex": 0,
                   },
-                  Object {
+                  {
                     "content": "",
                     "correct": false,
                     "originalIndex": 1,
                   },
-                  Object {
+                  {
                     "content": "",
                     "correct": false,
                     "originalIndex": 2,
                   },
-                  Object {
+                  {
                     "content": "",
                     "correct": false,
                     "originalIndex": 3,
                   },
-                  Object {
+                  {
                     "content": "",
                     "correct": true,
                     "originalIndex": 4,
@@ -329,7 +329,7 @@ describe("group widget", () => {
                 "hasNoneOfTheAbove": false,
                 "multipleSelect": false,
                 "numCorrect": 1,
-                "selectedChoices": Array [
+                "selectedChoices": [
                   false,
                   false,
                   false,
@@ -377,11 +377,11 @@ describe("group widget", () => {
 
         // Assert
         expect(guessAndScore).toMatchInlineSnapshot(`
-            Array [
-              Array [
-                Array [
-                  Object {
-                    "choicesSelected": Array [
+            [
+              [
+                [
+                  {
+                    "choicesSelected": [
                       false,
                       false,
                       false,
@@ -394,17 +394,17 @@ describe("group widget", () => {
                     "numCorrect": 1,
                   },
                 ],
-                Array [
-                  Object {
+                [
+                  {
                     "currentValue": "230",
                   },
-                  Object {
+                  {
                     "currentValue": "200",
                   },
                   null,
                 ],
               ],
-              Object {
+              {
                 "earned": 3,
                 "message": null,
                 "total": 3,
@@ -423,12 +423,12 @@ describe("group widget", () => {
 
         // Assert
         expect(paths).toMatchInlineSnapshot(`
-            Array [
-              Array [
+            [
+              [
                 "group 2",
                 "numeric-input 1",
               ],
-              Array [
+              [
                 "group 2",
                 "numeric-input 2",
               ],

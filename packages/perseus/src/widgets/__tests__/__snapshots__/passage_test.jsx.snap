@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`passage widget should be able to return a valid reference 1`] = `
-Object {
-  "content": Array [
+{
+  "content": [
     <div
       className="paragraph"
     >
