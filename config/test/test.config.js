@@ -67,6 +67,7 @@ module.exports = {
         "!**/__tests__/**",
         "!**/__stories__/**",
     ],
+    coverageProvider: "v8",
     // Only output log messages on test failure. From:
     // https://github.com/facebook/jest/issues/4156#issuecomment-490764080
     // reporters: ["<rootDir>/config/test/log-on-fail-reporter.js"],
