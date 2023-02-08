@@ -267,7 +267,7 @@ export class NumericInput extends React.Component<Props, State> {
         let answerBlurb;
 
         /* Ignore this block because SAT is deprecated */
-        /* istanbul ignore next */
+        /* c8 ignore next */
         if (this.props.apiOptions.satStyling && rubric) {
             const score = this.simpleValidate(rubric);
             correct = score.type === "points" && score.earned === score.total;
@@ -361,12 +361,12 @@ export class NumericInput extends React.Component<Props, State> {
     getInputPaths: () => $ReadOnlyArray<$ReadOnlyArray<string>> = () => {
         // The widget itself is an input, so we return a single empty list to
         // indicate this.
-        /* istanbul ignore next */
+        /* c8 ignore next */
         return [[]];
     };
 
     getGrammarTypeForPath: (FocusPath) => string = (inputPath) => {
-        /* istanbul ignore next */
+        /* c8 ignore next */
         return "number";
     };
 
@@ -375,7 +375,7 @@ export class NumericInput extends React.Component<Props, State> {
         newValue,
         cb,
     ) => {
-        /* istanbul ignore next */
+        /* c8 ignore next */
         this.props.onChange(
             {
                 currentValue: newValue,
@@ -475,7 +475,7 @@ export class NumericInput extends React.Component<Props, State> {
         );
 
         /* This only gets used with SAT Content */
-        /* istanbul ignore next if */
+        /* c8 ignore next if */
         if (answerBlurb) {
             return (
                 <span className="perseus-input-with-answer-blurb">

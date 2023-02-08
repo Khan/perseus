@@ -257,7 +257,7 @@ export class Categorizer extends React.Component<Props, State> {
 const pageMargin = 16;
 
 // Stylesheets aren't directly testable
-/* istanbul ignore next */
+/* c8 ignore next */
 const styles = StyleSheet.create({
     mobileTable: {
         [mediaQueries.smOrSmaller]: {

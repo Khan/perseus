@@ -931,7 +931,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       </div>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{1}"
+                        data-math-formula="\\small{1}"
                         style="position: absolute; padding: 7px; color: black; left: 220px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -943,7 +943,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{2}"
+                        data-math-formula="\\small{2}"
                         style="position: absolute; padding: 7px; color: black; left: 240px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -955,7 +955,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{3}"
+                        data-math-formula="\\small{3}"
                         style="position: absolute; padding: 7px; color: black; left: 260px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -967,7 +967,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{4}"
+                        data-math-formula="\\small{4}"
                         style="position: absolute; padding: 7px; color: black; left: 280px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -979,7 +979,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{5}"
+                        data-math-formula="\\small{5}"
                         style="position: absolute; padding: 7px; color: black; left: 300px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -991,7 +991,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{6}"
+                        data-math-formula="\\small{6}"
                         style="position: absolute; padding: 7px; color: black; left: 320px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -1003,7 +1003,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{7}"
+                        data-math-formula="\\small{7}"
                         style="position: absolute; padding: 7px; color: black; left: 340px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -1015,7 +1015,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{8}"
+                        data-math-formula="\\small{8}"
                         style="position: absolute; padding: 7px; color: black; left: 360px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -1027,7 +1027,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{9}"
+                        data-math-formula="\\small{9}"
                         style="position: absolute; padding: 7px; color: black; left: 380px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -1039,7 +1039,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{\\\\llap{-}2}"
+                        data-math-formula="\\small{\\llap{-}2}"
                         style="position: absolute; padding: 7px; color: black; left: 160px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -1051,7 +1051,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{\\\\llap{-}3}"
+                        data-math-formula="\\small{\\llap{-}3}"
                         style="position: absolute; padding: 7px; color: black; left: 140px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -1063,7 +1063,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{\\\\llap{-}4}"
+                        data-math-formula="\\small{\\llap{-}4}"
                         style="position: absolute; padding: 7px; color: black; left: 120px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -1075,7 +1075,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{\\\\llap{-}5}"
+                        data-math-formula="\\small{\\llap{-}5}"
                         style="position: absolute; padding: 7px; color: black; left: 100px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -1087,7 +1087,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{\\\\llap{-}6}"
+                        data-math-formula="\\small{\\llap{-}6}"
                         style="position: absolute; padding: 7px; color: black; left: 80px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -1099,7 +1099,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{\\\\llap{-}7}"
+                        data-math-formula="\\small{\\llap{-}7}"
                         style="position: absolute; padding: 7px; color: black; left: 60px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -1111,7 +1111,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{\\\\llap{-}8}"
+                        data-math-formula="\\small{\\llap{-}8}"
                         style="position: absolute; padding: 7px; color: black; left: 40px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -1123,7 +1123,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{\\\\llap{-}9}"
+                        data-math-formula="\\small{\\llap{-}9}"
                         style="position: absolute; padding: 7px; color: black; left: 20px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -1135,7 +1135,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{1}"
+                        data-math-formula="\\small{1}"
                         style="position: absolute; padding: 7px; color: black; left: 200px; top: 180px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -1147,7 +1147,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{2}"
+                        data-math-formula="\\small{2}"
                         style="position: absolute; padding: 7px; color: black; left: 200px; top: 160px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -1159,7 +1159,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{3}"
+                        data-math-formula="\\small{3}"
                         style="position: absolute; padding: 7px; color: black; left: 200px; top: 140px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -1171,7 +1171,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{4}"
+                        data-math-formula="\\small{4}"
                         style="position: absolute; padding: 7px; color: black; left: 200px; top: 120px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -1183,7 +1183,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{5}"
+                        data-math-formula="\\small{5}"
                         style="position: absolute; padding: 7px; color: black; left: 200px; top: 100px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -1195,7 +1195,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{6}"
+                        data-math-formula="\\small{6}"
                         style="position: absolute; padding: 7px; color: black; left: 200px; top: 80px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -1207,7 +1207,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{7}"
+                        data-math-formula="\\small{7}"
                         style="position: absolute; padding: 7px; color: black; left: 200px; top: 60px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -1219,7 +1219,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{8}"
+                        data-math-formula="\\small{8}"
                         style="position: absolute; padding: 7px; color: black; left: 200px; top: 40px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -1231,7 +1231,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{9}"
+                        data-math-formula="\\small{9}"
                         style="position: absolute; padding: 7px; color: black; left: 200px; top: 20px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -1243,7 +1243,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{\\\\llap{-}2}"
+                        data-math-formula="\\small{\\llap{-}2}"
                         style="position: absolute; padding: 7px; color: black; left: 200px; top: 240px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -1255,7 +1255,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{\\\\llap{-}3}"
+                        data-math-formula="\\small{\\llap{-}3}"
                         style="position: absolute; padding: 7px; color: black; left: 200px; top: 260px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -1267,7 +1267,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{\\\\llap{-}4}"
+                        data-math-formula="\\small{\\llap{-}4}"
                         style="position: absolute; padding: 7px; color: black; left: 200px; top: 280px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -1279,7 +1279,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{\\\\llap{-}5}"
+                        data-math-formula="\\small{\\llap{-}5}"
                         style="position: absolute; padding: 7px; color: black; left: 200px; top: 300px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -1291,7 +1291,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{\\\\llap{-}6}"
+                        data-math-formula="\\small{\\llap{-}6}"
                         style="position: absolute; padding: 7px; color: black; left: 200px; top: 320px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -1303,7 +1303,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{\\\\llap{-}7}"
+                        data-math-formula="\\small{\\llap{-}7}"
                         style="position: absolute; padding: 7px; color: black; left: 200px; top: 340px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -1315,7 +1315,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{\\\\llap{-}8}"
+                        data-math-formula="\\small{\\llap{-}8}"
                         style="position: absolute; padding: 7px; color: black; left: 200px; top: 360px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -1327,7 +1327,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{\\\\llap{-}9}"
+                        data-math-formula="\\small{\\llap{-}9}"
                         style="position: absolute; padding: 7px; color: black; left: 200px; top: 380px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -2389,7 +2389,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       </div>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{1}"
+                        data-math-formula="\\small{1}"
                         style="position: absolute; padding: 7px; color: black; left: 220px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -2401,7 +2401,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{2}"
+                        data-math-formula="\\small{2}"
                         style="position: absolute; padding: 7px; color: black; left: 240px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -2413,7 +2413,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{3}"
+                        data-math-formula="\\small{3}"
                         style="position: absolute; padding: 7px; color: black; left: 260px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -2425,7 +2425,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{4}"
+                        data-math-formula="\\small{4}"
                         style="position: absolute; padding: 7px; color: black; left: 280px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -2437,7 +2437,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{5}"
+                        data-math-formula="\\small{5}"
                         style="position: absolute; padding: 7px; color: black; left: 300px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -2449,7 +2449,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{6}"
+                        data-math-formula="\\small{6}"
                         style="position: absolute; padding: 7px; color: black; left: 320px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -2461,7 +2461,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{7}"
+                        data-math-formula="\\small{7}"
                         style="position: absolute; padding: 7px; color: black; left: 340px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -2473,7 +2473,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{8}"
+                        data-math-formula="\\small{8}"
                         style="position: absolute; padding: 7px; color: black; left: 360px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -2485,7 +2485,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{9}"
+                        data-math-formula="\\small{9}"
                         style="position: absolute; padding: 7px; color: black; left: 380px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -2497,7 +2497,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{\\\\llap{-}2}"
+                        data-math-formula="\\small{\\llap{-}2}"
                         style="position: absolute; padding: 7px; color: black; left: 160px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -2509,7 +2509,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{\\\\llap{-}3}"
+                        data-math-formula="\\small{\\llap{-}3}"
                         style="position: absolute; padding: 7px; color: black; left: 140px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -2521,7 +2521,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{\\\\llap{-}4}"
+                        data-math-formula="\\small{\\llap{-}4}"
                         style="position: absolute; padding: 7px; color: black; left: 120px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -2533,7 +2533,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{\\\\llap{-}5}"
+                        data-math-formula="\\small{\\llap{-}5}"
                         style="position: absolute; padding: 7px; color: black; left: 100px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -2545,7 +2545,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{\\\\llap{-}6}"
+                        data-math-formula="\\small{\\llap{-}6}"
                         style="position: absolute; padding: 7px; color: black; left: 80px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -2557,7 +2557,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{\\\\llap{-}7}"
+                        data-math-formula="\\small{\\llap{-}7}"
                         style="position: absolute; padding: 7px; color: black; left: 60px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -2569,7 +2569,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{\\\\llap{-}8}"
+                        data-math-formula="\\small{\\llap{-}8}"
                         style="position: absolute; padding: 7px; color: black; left: 40px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -2581,7 +2581,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{\\\\llap{-}9}"
+                        data-math-formula="\\small{\\llap{-}9}"
                         style="position: absolute; padding: 7px; color: black; left: 20px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -2593,7 +2593,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{1}"
+                        data-math-formula="\\small{1}"
                         style="position: absolute; padding: 7px; color: black; left: 200px; top: 180px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -2605,7 +2605,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{2}"
+                        data-math-formula="\\small{2}"
                         style="position: absolute; padding: 7px; color: black; left: 200px; top: 160px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -2617,7 +2617,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{3}"
+                        data-math-formula="\\small{3}"
                         style="position: absolute; padding: 7px; color: black; left: 200px; top: 140px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -2629,7 +2629,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{4}"
+                        data-math-formula="\\small{4}"
                         style="position: absolute; padding: 7px; color: black; left: 200px; top: 120px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -2641,7 +2641,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{5}"
+                        data-math-formula="\\small{5}"
                         style="position: absolute; padding: 7px; color: black; left: 200px; top: 100px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -2653,7 +2653,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{6}"
+                        data-math-formula="\\small{6}"
                         style="position: absolute; padding: 7px; color: black; left: 200px; top: 80px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -2665,7 +2665,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{7}"
+                        data-math-formula="\\small{7}"
                         style="position: absolute; padding: 7px; color: black; left: 200px; top: 60px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -2677,7 +2677,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{8}"
+                        data-math-formula="\\small{8}"
                         style="position: absolute; padding: 7px; color: black; left: 200px; top: 40px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -2689,7 +2689,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{9}"
+                        data-math-formula="\\small{9}"
                         style="position: absolute; padding: 7px; color: black; left: 200px; top: 20px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -2701,7 +2701,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{\\\\llap{-}2}"
+                        data-math-formula="\\small{\\llap{-}2}"
                         style="position: absolute; padding: 7px; color: black; left: 200px; top: 240px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -2713,7 +2713,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{\\\\llap{-}3}"
+                        data-math-formula="\\small{\\llap{-}3}"
                         style="position: absolute; padding: 7px; color: black; left: 200px; top: 260px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -2725,7 +2725,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{\\\\llap{-}4}"
+                        data-math-formula="\\small{\\llap{-}4}"
                         style="position: absolute; padding: 7px; color: black; left: 200px; top: 280px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -2737,7 +2737,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{\\\\llap{-}5}"
+                        data-math-formula="\\small{\\llap{-}5}"
                         style="position: absolute; padding: 7px; color: black; left: 200px; top: 300px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -2749,7 +2749,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{\\\\llap{-}6}"
+                        data-math-formula="\\small{\\llap{-}6}"
                         style="position: absolute; padding: 7px; color: black; left: 200px; top: 320px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -2761,7 +2761,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{\\\\llap{-}7}"
+                        data-math-formula="\\small{\\llap{-}7}"
                         style="position: absolute; padding: 7px; color: black; left: 200px; top: 340px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -2773,7 +2773,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{\\\\llap{-}8}"
+                        data-math-formula="\\small{\\llap{-}8}"
                         style="position: absolute; padding: 7px; color: black; left: 200px; top: 360px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span
@@ -2785,7 +2785,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       </span>
                       <span
                         class="graphie-label"
-                        data-math-formula="\\\\small{\\\\llap{-}9}"
+                        data-math-formula="\\small{\\llap{-}9}"
                         style="position: absolute; padding: 7px; color: black; left: 200px; top: 380px; fill: none; stroke: #000000; opacity: 1;"
                       >
                         <span

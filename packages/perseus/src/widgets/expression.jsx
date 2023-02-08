@@ -122,7 +122,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
             // incorrectly. For example if the answer is using a symbol defined
             // in the function variables list for the expression.
             if (!expression.parsed) {
-                /* istanbul ignore next */
+                /* c8 ignore next */
                 Log.error(
                     "Unable to parse solution answer for expression",
                     PerseusErrors.InvalidInput,
@@ -365,12 +365,12 @@ export class Expression extends React.Component<Props, ExpressionState> {
     };
 
     _handleFocus: () => void = () => {
-        /* istanbul ignore next */
+        /* c8 ignore next */
         this.props.onFocus([]);
     };
 
     _handleBlur: () => void = () => {
-        /* istanbul ignore next */
+        /* c8 ignore next */
         this.props.onBlur([]);
     };
 
@@ -407,7 +407,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
     getInputPaths: () => $ReadOnlyArray<$ReadOnlyArray<any>> = () => {
         // The widget itself is an input, so we return a single empty list to
         // indicate this.
-        /* istanbul ignore next */
+        /* c8 ignore next */
         return [[]];
     };
 
@@ -415,7 +415,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
     getGrammarTypeForPath: (inputPath: string) => string = (
         inputPath: string,
     ) => {
-        /* istanbul ignore next */
+        /* c8 ignore next */
         return "expression";
     };
 
@@ -600,7 +600,7 @@ const keypadConfigurationForProps = (
 };
 
 const propUpgrades = {
-    /* istanbul ignore next */
+    /* c8 ignore next */
     "1": (v0props: $FlowFixMe): PerseusExpressionWidgetOptions => ({
         times: v0props.times,
         buttonSets: v0props.buttonSets,

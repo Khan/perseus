@@ -170,16 +170,16 @@ describe("renderer", () => {
 
             expect(renderer.state.widgetInfo).toStrictEqual(question1.widgets);
             expect(renderer.state.widgetProps).toMatchInlineSnapshot(`
-                            Object {
-                              "dropdown 1": Object {
-                                "choices": Array [
-                                  "greater than or equal to",
-                                  "less than or equal to",
-                                ],
-                                "placeholder": "greater/less than or equal to",
-                              },
-                            }
-                    `);
+                {
+                  "dropdown 1": {
+                    "choices": [
+                      "greater than or equal to",
+                      "less than or equal to",
+                    ],
+                    "placeholder": "greater/less than or equal to",
+                  },
+                }
+            `);
         });
 
         it("should derive type widget ID if type missing", () => {
@@ -1549,25 +1549,25 @@ describe("renderer", () => {
 
             // Assert
             expect(inputPaths).toMatchInlineSnapshot(`
-                Array [
-                  Array [
+                [
+                  [
                     "mock-widget 1",
                     "input 1",
                   ],
-                  Array [
+                  [
                     "mock-widget 2",
                     "input 2",
                   ],
-                  Array [
+                  [
                     "mock-widget 2",
                     "input 3",
                   ],
-                  Array [
+                  [
                     "mock-widget 3",
                     "input 4",
                     "sub-input 4.1",
                   ],
-                  Array [
+                  [
                     "mock-widget 3",
                     "input 5",
                   ],
@@ -1706,15 +1706,15 @@ describe("renderer", () => {
 
             // Assert
             expect(userInput).toMatchInlineSnapshot(`
-                Object {
-                  "dropdown 1": Object {
+                {
+                  "dropdown 1": {
                     "value": 1,
                   },
                   "image 1": null,
-                  "input-number 1": Object {
+                  "input-number 1": {
                     "currentValue": "100",
                   },
-                  "input-number 2": Object {
+                  "input-number 2": {
                     "currentValue": "200",
                   },
                 }
@@ -1745,12 +1745,12 @@ describe("renderer", () => {
 
             // Assert
             expect(examples).toMatchInlineSnapshot(`
-                Array [
+                [
                   "**Your answer should be** ",
                   "an integer, like $6$",
                   "a *proper* fraction, like $1/2$ or $6/10$",
                   "an *improper* fraction, like $10/7$ or $14/8$",
-                  "a mixed number, like $1\\\\ 3/4$",
+                  "a mixed number, like $1\\ 3/4$",
                 ]
             `);
         });

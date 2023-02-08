@@ -170,7 +170,7 @@ class InputNumber extends React.Component<Props> {
         let answerBlurb = null;
 
         // SAT is deprecated and not testable
-        /* istanbul ignore if */
+        /* c8 ignore if */
         if (this.props.apiOptions.satStyling && rubric) {
             const score = this.simpleValidate(rubric);
             correct = score.type === "points" && score.earned === score.total;
@@ -215,7 +215,7 @@ class InputNumber extends React.Component<Props> {
         );
 
         // SAT is deprecated, answer blurb is an SAT feature
-        /* istanbul ignore if */
+        /* c8 ignore if */
         if (answerBlurb) {
             return (
                 <span className="perseus-input-with-answer-blurb">
@@ -272,14 +272,14 @@ class InputNumber extends React.Component<Props> {
     getInputPaths: () => $ReadOnlyArray<Path> = () => {
         // The widget itself is an input, so we return a single empty list to
         // indicate this.
-        /* istanbul ignore next */
+        /* c8 ignore next */
         return [[]];
     };
 
     // Note: We believe that this isn't used anywhere but are leaving it during
     // the initial refactor
     getGrammarTypeForPath: (Path) => string = (path) => {
-        /* istanbul ignore next */
+        /* c8 ignore next */
         return "number";
     };
 

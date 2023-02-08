@@ -2132,7 +2132,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                   </span>
                   <span
                     class="graphie-label"
-                    data-math-formula="\\\\approx 2.2"
+                    data-math-formula="\\approx 2.2"
                     style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 246.45997239142687px; top: 162.4842995185723px; fill: none; stroke: #6495ED;"
                   >
                     <span
@@ -2144,7 +2144,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                   </span>
                   <span
                     class="graphie-label"
-                    data-math-formula="\\\\approx 2.2"
+                    data-math-formula="\\approx 2.2"
                     style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 153.54002760857313px; top: 162.48429951857227px; fill: none; stroke: #6495ED;"
                   >
                     <span

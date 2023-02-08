@@ -535,47 +535,47 @@ describe("item renderer", () => {
 
             // Assert
             expect(scores).toMatchInlineSnapshot(`
-                Object {
-                  "mock-widget 1": Object {
+                {
+                  "mock-widget 1": {
                     "correct": true,
                     "empty": false,
                     "guess": "user input for mock-widget 1",
                     "message": undefined,
-                    "state": Object {
+                    "state": {
                       "a": 1,
                       "b": "state",
                       "id": "mock-widget 1",
                     },
                   },
-                  "mock-widget 2": Object {
+                  "mock-widget 2": {
                     "correct": false,
                     "empty": true,
                     "guess": "user input for mock-widget 2",
                     "message": "please enter a value",
-                    "state": Object {
+                    "state": {
                       "a": 1,
                       "b": "state",
                       "id": "mock-widget 2",
                     },
                     "suppressAlmostThere": undefined,
                   },
-                  "mock-widget 3": Object {
+                  "mock-widget 3": {
                     "correct": true,
                     "empty": false,
                     "guess": "user input for mock-widget 3",
                     "message": undefined,
-                    "state": Object {
+                    "state": {
                       "a": 1,
                       "b": "state",
                       "id": "mock-widget 3",
                     },
                   },
-                  "mock-widget 4": Object {
+                  "mock-widget 4": {
                     "correct": false,
                     "empty": true,
                     "guess": "user input for mock-widget 4",
                     "message": "please enter a value",
-                    "state": Object {
+                    "state": {
                       "a": 1,
                       "b": "state",
                       "id": "mock-widget 4",

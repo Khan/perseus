@@ -466,14 +466,14 @@ describe("server item renderer", () => {
 
             // Assert
             expect(state).toMatchInlineSnapshot(`
-                Object {
-                  "hints": Array [
-                    Object {},
-                    Object {},
-                    Object {},
+                {
+                  "hints": [
+                    {},
+                    {},
+                    {},
                   ],
-                  "question": Object {
-                    "input-number 1": Object {
+                  "question": {
+                    "input-number 1": {
                       "answerType": "number",
                       "currentValue": "-42",
                       "rightAlign": undefined,

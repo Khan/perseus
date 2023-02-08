@@ -218,7 +218,7 @@ describe("static function validate", () => {
         const score = NumericInput.validate(useInput, rubric);
 
         expect(score).toMatchInlineSnapshot(`
-            Object {
+            {
               "earned": 1,
               "message": null,
               "total": 1,
@@ -252,7 +252,7 @@ describe("static function validate", () => {
         const score = NumericInput.validate(useInput, rubric);
 
         expect(score).toMatchInlineSnapshot(`
-            Object {
+            {
               "message": "We could not understand your answer. Please check your answer for extra text or symbols.",
               "type": "invalid",
             }
@@ -284,7 +284,7 @@ describe("static function validate", () => {
         const score = NumericInput.validate(useInput, rubric);
 
         expect(score).toMatchInlineSnapshot(`
-            Object {
+            {
               "earned": 1,
               "message": null,
               "total": 1,
@@ -318,7 +318,7 @@ describe("static function validate", () => {
         const score = NumericInput.validate(useInput, rubric);
 
         expect(score).toMatchInlineSnapshot(`
-            Object {
+            {
               "earned": 0,
               "message": null,
               "total": 1,
@@ -352,7 +352,7 @@ describe("static function validate", () => {
         const score = NumericInput.validate(useInput, rubric);
 
         expect(score).toMatchInlineSnapshot(`
-            Object {
+            {
               "earned": 1,
               "message": null,
               "total": 1,

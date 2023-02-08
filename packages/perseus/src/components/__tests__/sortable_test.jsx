@@ -141,25 +141,25 @@ describe("Sortable.itemsFromProps", () => {
 
         // Assert
         expect(items).toMatchInlineSnapshot(`
-            Array [
-              Object {
-                "endPosition": Object {},
+            [
+              {
+                "endPosition": {},
                 "height": 0,
                 "key": 0,
                 "option": "a",
                 "type": "static",
                 "width": 0,
               },
-              Object {
-                "endPosition": Object {},
+              {
+                "endPosition": {},
                 "height": 0,
                 "key": 1,
                 "option": "b",
                 "type": "static",
                 "width": 0,
               },
-              Object {
-                "endPosition": Object {},
+              {
+                "endPosition": {},
                 "height": 0,
                 "key": 2,
                 "option": "c",

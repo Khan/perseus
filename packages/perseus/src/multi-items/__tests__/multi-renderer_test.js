@@ -144,24 +144,24 @@ describe("multi-item renderer", () => {
 
             // Assert
             expect(state).toMatchInlineSnapshot(`
-                Object {
-                  "blurb": Object {},
-                  "hints": Array [
+                {
+                  "blurb": {},
+                  "hints": [
                     null,
                     null,
                     null,
                   ],
-                  "question": Object {
-                    "input-number 1": Object {
+                  "question": {
+                    "input-number 1": {
                       "answerType": "number",
                       "currentValue": "+42",
                       "rightAlign": undefined,
                       "simplify": "required",
                       "size": "normal",
                     },
-                    "radio 1": Object {
-                      "choiceStates": Array [
-                        Object {
+                    "radio 1": {
+                      "choiceStates": [
+                        {
                           "correctnessShown": false,
                           "crossedOut": false,
                           "highlighted": false,
@@ -170,7 +170,7 @@ describe("multi-item renderer", () => {
                           "readOnly": false,
                           "selected": false,
                         },
-                        Object {
+                        {
                           "correctnessShown": false,
                           "crossedOut": false,
                           "highlighted": false,
@@ -179,7 +179,7 @@ describe("multi-item renderer", () => {
                           "readOnly": false,
                           "selected": false,
                         },
-                        Object {
+                        {
                           "correctnessShown": false,
                           "crossedOut": false,
                           "highlighted": false,
@@ -188,7 +188,7 @@ describe("multi-item renderer", () => {
                           "readOnly": false,
                           "selected": true,
                         },
-                        Object {
+                        {
                           "correctnessShown": false,
                           "crossedOut": false,
                           "highlighted": false,
@@ -197,7 +197,7 @@ describe("multi-item renderer", () => {
                           "readOnly": false,
                           "selected": false,
                         },
-                        Object {
+                        {
                           "correctnessShown": false,
                           "crossedOut": false,
                           "highlighted": false,
@@ -207,14 +207,14 @@ describe("multi-item renderer", () => {
                           "selected": false,
                         },
                       ],
-                      "choices": Array [
-                        Object {
+                      "choices": [
+                        {
                           "clue": "Congruent triangles have the same side lengths.",
                           "content": "A triangle with side lengths of $3$, $4$, and $5$",
                           "correct": false,
                           "originalIndex": 0,
                         },
-                        Object {
+                        {
                           "clue": "Congruent triangles have the same side lengths.
 
                 This choice is similar to triangle $ABC$.",
@@ -222,21 +222,21 @@ describe("multi-item renderer", () => {
                           "correct": false,
                           "originalIndex": 1,
                         },
-                        Object {
+                        {
                           "clue": "Congruent triangles have the same side lengths.",
                           "content": "A triangle with side lengths of $10$, $12$, and $18$",
                           "correct": false,
                           "isNoneOfTheAbove": false,
                           "originalIndex": 2,
                         },
-                        Object {
+                        {
                           "clue": "Congruent triangles have the same side lengths.",
                           "content": "A triangle with side lengths of $12$, $14$, and $20$",
                           "correct": true,
                           "isNoneOfTheAbove": false,
                           "originalIndex": 3,
                         },
-                        Object {
+                        {
                           "clue": "Congruent triangles have the same side lengths.
 
                 This choice is similar to triangle $ABC$.",
@@ -251,7 +251,7 @@ describe("multi-item renderer", () => {
                       "hasNoneOfTheAbove": false,
                       "multipleSelect": false,
                       "numCorrect": 1,
-                      "selectedChoices": Array [
+                      "selectedChoices": [
                         false,
                         false,
                         false,
@@ -279,24 +279,24 @@ describe("multi-item renderer", () => {
 
             // Assert
             expect(state).toMatchInlineSnapshot(`
-                Object {
-                  "blurb": Object {},
-                  "hints": Array [
+                {
+                  "blurb": {},
+                  "hints": [
                     "uno",
                     "dos",
                     undefined,
                   ],
-                  "question": Object {
-                    "input-number 1": Object {
+                  "question": {
+                    "input-number 1": {
                       "answerType": "number",
                       "currentValue": "99",
                       "rightAlign": undefined,
                       "simplify": "required",
                       "size": "normal",
                     },
-                    "radio 1": Object {
-                      "choiceStates": Array [
-                        Object {
+                    "radio 1": {
+                      "choiceStates": [
+                        {
                           "correctnessShown": false,
                           "crossedOut": false,
                           "highlighted": false,
@@ -305,7 +305,7 @@ describe("multi-item renderer", () => {
                           "readOnly": false,
                           "selected": false,
                         },
-                        Object {
+                        {
                           "correctnessShown": false,
                           "crossedOut": false,
                           "highlighted": false,
@@ -314,7 +314,7 @@ describe("multi-item renderer", () => {
                           "readOnly": false,
                           "selected": false,
                         },
-                        Object {
+                        {
                           "correctnessShown": false,
                           "crossedOut": false,
                           "highlighted": false,
@@ -323,7 +323,7 @@ describe("multi-item renderer", () => {
                           "readOnly": false,
                           "selected": true,
                         },
-                        Object {
+                        {
                           "correctnessShown": false,
                           "crossedOut": false,
                           "highlighted": false,
@@ -332,7 +332,7 @@ describe("multi-item renderer", () => {
                           "readOnly": false,
                           "selected": false,
                         },
-                        Object {
+                        {
                           "correctnessShown": false,
                           "crossedOut": false,
                           "highlighted": false,
@@ -342,14 +342,14 @@ describe("multi-item renderer", () => {
                           "selected": false,
                         },
                       ],
-                      "choices": Array [
-                        Object {
+                      "choices": [
+                        {
                           "clue": "Congruent triangles have the same side lengths.",
                           "content": "A triangle with side lengths of $3$, $4$, and $5$",
                           "correct": false,
                           "originalIndex": 0,
                         },
-                        Object {
+                        {
                           "clue": "Congruent triangles have the same side lengths.
 
                 This choice is similar to triangle $ABC$.",
@@ -357,21 +357,21 @@ describe("multi-item renderer", () => {
                           "correct": false,
                           "originalIndex": 1,
                         },
-                        Object {
+                        {
                           "clue": "Congruent triangles have the same side lengths.",
                           "content": "A triangle with side lengths of $10$, $12$, and $18$",
                           "correct": false,
                           "isNoneOfTheAbove": false,
                           "originalIndex": 2,
                         },
-                        Object {
+                        {
                           "clue": "Congruent triangles have the same side lengths.",
                           "content": "A triangle with side lengths of $12$, $14$, and $20$",
                           "correct": true,
                           "isNoneOfTheAbove": false,
                           "originalIndex": 3,
                         },
-                        Object {
+                        {
                           "clue": "Congruent triangles have the same side lengths.
 
                 This choice is similar to triangle $ABC$.",
@@ -386,7 +386,7 @@ describe("multi-item renderer", () => {
                       "hasNoneOfTheAbove": false,
                       "multipleSelect": false,
                       "numCorrect": 1,
-                      "selectedChoices": Array [
+                      "selectedChoices": [
                         false,
                         false,
                         false,
@@ -594,25 +594,25 @@ describe("multi-item renderer", () => {
 
         // Assert
         expect(score).toMatchInlineSnapshot(`
-            Object {
-              "blurb": Object {
+            {
+              "blurb": {
                 "correct": true,
                 "empty": false,
-                "guess": Array [],
+                "guess": [],
                 "message": null,
-                "state": Object {},
+                "state": {},
               },
-              "hints": Array [
+              "hints": [
                 null,
                 null,
                 null,
               ],
-              "question": Object {
+              "question": {
                 "correct": true,
                 "empty": false,
-                "guess": Array [
-                  Object {
-                    "choicesSelected": Array [
+                "guess": [
+                  {
+                    "choicesSelected": [
                       false,
                       false,
                       false,
@@ -624,22 +624,22 @@ describe("multi-item renderer", () => {
                     "noneOfTheAboveSelected": false,
                     "numCorrect": 1,
                   },
-                  Object {
+                  {
                     "currentValue": "-42",
                   },
                 ],
                 "message": null,
-                "state": Object {
-                  "input-number 1": Object {
+                "state": {
+                  "input-number 1": {
                     "answerType": "number",
                     "currentValue": "-42",
                     "rightAlign": undefined,
                     "simplify": "required",
                     "size": "normal",
                   },
-                  "radio 1": Object {
-                    "choiceStates": Array [
-                      Object {
+                  "radio 1": {
+                    "choiceStates": [
+                      {
                         "correctnessShown": false,
                         "crossedOut": false,
                         "highlighted": false,
@@ -648,7 +648,7 @@ describe("multi-item renderer", () => {
                         "readOnly": false,
                         "selected": false,
                       },
-                      Object {
+                      {
                         "correctnessShown": false,
                         "crossedOut": false,
                         "highlighted": false,
@@ -657,7 +657,7 @@ describe("multi-item renderer", () => {
                         "readOnly": false,
                         "selected": false,
                       },
-                      Object {
+                      {
                         "correctnessShown": false,
                         "crossedOut": false,
                         "highlighted": false,
@@ -666,7 +666,7 @@ describe("multi-item renderer", () => {
                         "readOnly": false,
                         "selected": false,
                       },
-                      Object {
+                      {
                         "correctnessShown": false,
                         "crossedOut": false,
                         "highlighted": false,
@@ -675,7 +675,7 @@ describe("multi-item renderer", () => {
                         "readOnly": false,
                         "selected": true,
                       },
-                      Object {
+                      {
                         "correctnessShown": false,
                         "crossedOut": false,
                         "highlighted": false,
@@ -685,14 +685,14 @@ describe("multi-item renderer", () => {
                         "selected": false,
                       },
                     ],
-                    "choices": Array [
-                      Object {
+                    "choices": [
+                      {
                         "clue": "Congruent triangles have the same side lengths.",
                         "content": "A triangle with side lengths of $3$, $4$, and $5$",
                         "correct": false,
                         "originalIndex": 0,
                       },
-                      Object {
+                      {
                         "clue": "Congruent triangles have the same side lengths.
 
             This choice is similar to triangle $ABC$.",
@@ -700,21 +700,21 @@ describe("multi-item renderer", () => {
                         "correct": false,
                         "originalIndex": 1,
                       },
-                      Object {
+                      {
                         "clue": "Congruent triangles have the same side lengths.",
                         "content": "A triangle with side lengths of $10$, $12$, and $18$",
                         "correct": false,
                         "isNoneOfTheAbove": false,
                         "originalIndex": 2,
                       },
-                      Object {
+                      {
                         "clue": "Congruent triangles have the same side lengths.",
                         "content": "A triangle with side lengths of $12$, $14$, and $20$",
                         "correct": true,
                         "isNoneOfTheAbove": false,
                         "originalIndex": 3,
                       },
-                      Object {
+                      {
                         "clue": "Congruent triangles have the same side lengths.
 
             This choice is similar to triangle $ABC$.",
@@ -729,7 +729,7 @@ describe("multi-item renderer", () => {
                     "hasNoneOfTheAbove": false,
                     "multipleSelect": false,
                     "numCorrect": 1,
-                    "selectedChoices": Array [
+                    "selectedChoices": [
                       false,
                       false,
                       false,
@@ -755,19 +755,19 @@ describe("multi-item renderer", () => {
 
         // Assert
         expect(score).toMatchInlineSnapshot(`
-            Object {
+            {
               "correct": true,
               "empty": false,
-              "guess": Object {
-                "blurb": Array [],
-                "hints": Array [
+              "guess": {
+                "blurb": [],
+                "hints": [
                   null,
                   null,
                   null,
                 ],
-                "question": Array [
-                  Object {
-                    "choicesSelected": Array [
+                "question": [
+                  {
+                    "choicesSelected": [
                       false,
                       false,
                       false,
@@ -779,25 +779,25 @@ describe("multi-item renderer", () => {
                     "noneOfTheAboveSelected": false,
                     "numCorrect": 1,
                   },
-                  Object {
+                  {
                     "currentValue": "-42",
                   },
                 ],
               },
               "message": null,
-              "state": Array [
-                Object {},
-                Object {
-                  "input-number 1": Object {
+              "state": [
+                {},
+                {
+                  "input-number 1": {
                     "answerType": "number",
                     "currentValue": "-42",
                     "rightAlign": undefined,
                     "simplify": "required",
                     "size": "normal",
                   },
-                  "radio 1": Object {
-                    "choiceStates": Array [
-                      Object {
+                  "radio 1": {
+                    "choiceStates": [
+                      {
                         "correctnessShown": false,
                         "crossedOut": false,
                         "highlighted": false,
@@ -806,7 +806,7 @@ describe("multi-item renderer", () => {
                         "readOnly": false,
                         "selected": false,
                       },
-                      Object {
+                      {
                         "correctnessShown": false,
                         "crossedOut": false,
                         "highlighted": false,
@@ -815,7 +815,7 @@ describe("multi-item renderer", () => {
                         "readOnly": false,
                         "selected": false,
                       },
-                      Object {
+                      {
                         "correctnessShown": false,
                         "crossedOut": false,
                         "highlighted": false,
@@ -824,7 +824,7 @@ describe("multi-item renderer", () => {
                         "readOnly": false,
                         "selected": false,
                       },
-                      Object {
+                      {
                         "correctnessShown": false,
                         "crossedOut": false,
                         "highlighted": false,
@@ -833,7 +833,7 @@ describe("multi-item renderer", () => {
                         "readOnly": false,
                         "selected": true,
                       },
-                      Object {
+                      {
                         "correctnessShown": false,
                         "crossedOut": false,
                         "highlighted": false,
@@ -843,14 +843,14 @@ describe("multi-item renderer", () => {
                         "selected": false,
                       },
                     ],
-                    "choices": Array [
-                      Object {
+                    "choices": [
+                      {
                         "clue": "Congruent triangles have the same side lengths.",
                         "content": "A triangle with side lengths of $3$, $4$, and $5$",
                         "correct": false,
                         "originalIndex": 0,
                       },
-                      Object {
+                      {
                         "clue": "Congruent triangles have the same side lengths.
 
             This choice is similar to triangle $ABC$.",
@@ -858,21 +858,21 @@ describe("multi-item renderer", () => {
                         "correct": false,
                         "originalIndex": 1,
                       },
-                      Object {
+                      {
                         "clue": "Congruent triangles have the same side lengths.",
                         "content": "A triangle with side lengths of $10$, $12$, and $18$",
                         "correct": false,
                         "isNoneOfTheAbove": false,
                         "originalIndex": 2,
                       },
-                      Object {
+                      {
                         "clue": "Congruent triangles have the same side lengths.",
                         "content": "A triangle with side lengths of $12$, $14$, and $20$",
                         "correct": true,
                         "isNoneOfTheAbove": false,
                         "originalIndex": 3,
                       },
-                      Object {
+                      {
                         "clue": "Congruent triangles have the same side lengths.
 
             This choice is similar to triangle $ABC$.",
@@ -887,7 +887,7 @@ describe("multi-item renderer", () => {
                     "hasNoneOfTheAbove": false,
                     "multipleSelect": false,
                     "numCorrect": 1,
-                    "selectedChoices": Array [
+                    "selectedChoices": [
                       false,
                       false,
                       false,

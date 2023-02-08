@@ -7,7 +7,7 @@ const {parseToArray} = JiptParagraphs;
 describe("jipt-paragraphs", () => {
     it("should split paragraphs using custom JIPT SimpleMarkdown rules", () => {
         expect(parseToArray("  \n\nhello\n\n")).toMatchInlineSnapshot(`
-            Array [
+            [
               "  ",
               "hello",
             ]
@@ -23,9 +23,9 @@ describe("jipt-paragraphs", () => {
                     "computer programmer!",
             ),
         ).toMatchInlineSnapshot(`
-            Array [
+            [
               "Let's write the canonical Hello World in Javascript",
-              "const x = \\"hello world\\";
+              "const x = "hello world";
             console.log(x);",
               "**Congratulations, you are on your way to becoming a computer programmer!",
             ]
