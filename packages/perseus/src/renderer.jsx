@@ -487,7 +487,7 @@ class Renderer extends React.Component<Props, State> {
             // NOTE(jeremy): Further, the widgetId we were given does not even
             // look like a widget ID (ie. `widget-type \d+`). I can't figure
             // out how to trigger this line of code though.
-            /* istanbul ignore next line */
+            /* c8 ignore next line */
             return {};
         }
         return {
@@ -974,7 +974,7 @@ class Renderer extends React.Component<Props, State> {
                 // NOTE(jeremy): As far as I can tell, this if is _never_
                 // reached. As noted above, these are always QuestionParagraphs
                 // now.
-                /* istanbul ignore if */
+                /* c8 ignore if */
                 if (typeof nodeOut === "string" && lastWasString) {
                     /**
                      * $FlowIgnore[incompatible-type]
