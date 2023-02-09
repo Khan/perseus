@@ -65,6 +65,8 @@ module.exports = defineConfig({
             }
 
             config.env.reactDevtools = true;
+
+            return config;
         },
     },
 });
