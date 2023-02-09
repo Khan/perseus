@@ -6,6 +6,9 @@ import ReactDOM from "react-dom";
 
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
+import {BareKeypad} from "@khanacademy/math-input";
+import {facebookColor} from "../../../perseus-editor/node_modules/@khanacademy/perseus/src/styles/global-constants";
+
 type Props = {|
     value: string | number | null,
     onChange: (any) => void,
@@ -31,7 +34,11 @@ function uniqueIdForInput(prefix: string = "input-") {
     return `${prefix}${lastId}`;
 }
 
-class TextInput extends React.Component<Props> {
+type State = {
+    showKeypad: boolean,
+};
+
+class TextInput extends React.Component<Props, State> {
     static defaultProps: DefaultProps = {
         value: "",
         disabled: false,
@@ -41,6 +48,9 @@ class TextInput extends React.Component<Props> {
 
     constructor(props: Props) {
         super(props);
+        this.state = {
+            showKeypad: false,
+        };
         if (props.id) {
             this.id = props.id;
         } else {
@@ -63,23 +73,83 @@ class TextInput extends React.Component<Props> {
         const formattedValue = value === null ? "" : value.toString();
 
         return (
-            // $FlowIgnore
-            <TextField
-                style={style}
-                disabled={disabled}
-                id={this.id}
-                value={formattedValue}
-                type="text"
-                aria-label={labelText}
-                onChange={(value) => this.props.onChange(value)}
-                placeholder={placeholder}
-                onFocus={onFocus}
-                onBlur={onBlur}
-                onKeyDown={onKeyDown}
-                autoCorrect="off"
-                autoCapitalize="off"
-                autoComplete="off"
-            />
+            <div>
+                <TextField
+                    style={style}
+                    disabled={disabled}
+                    id={this.id}
+                    value={formattedValue}
+                    type="text"
+                    aria-label={labelText}
+                    onChange={(value) => {
+                        console.log("NEW", "onChange", value);
+                        this.props.onChange(value);
+                    }}
+                    placeholder={placeholder}
+                    onFocus={() => {
+                        onFocus && onFocus();
+                        this.setState({showKeypad: true});
+                        console.warn("NEW", "Show Keypad");
+                    }}
+                    onBlur={(event) => {
+                        onBlur && onBlur();
+                        // this.setState({showKeypad: false});
+                        console.warn("NEW", "Hide Keypad");
+
+                        event.preventDefault();
+                    }}
+                    onKeyDown={(key) => {
+                        console.log("NEW", "Key down", key);
+                        onKeyDown && onKeyDown(key);
+                    }}
+                    autoCorrect="off"
+                    autoCapitalize="off"
+                    autoComplete="off"
+                />
+                {this.state.showKeypad && (
+                    <BareKeypad
+                        onClickKey={(key) => {
+                            if (key.startsWith("NUM")) {
+                                const value = key.replace(/^NUM_/, "");
+                                const nextValue = formattedValue + "" + value;
+                                this.props.onChange(nextValue);
+                            } else if (key == "FRAC_INCLUSIVE") {
+                                const nextValue = formattedValue + "/";
+                                this.props.onChange(nextValue);
+                            } else if (key == "DECIMAL") {
+                                const nextValue = formattedValue + ".";
+                                this.props.onChange(nextValue);
+                            } else if (key == "NEGATIVE") {
+                                const nextValue = formattedValue + "-";
+                                this.props.onChange(nextValue);
+                            } else if (key == "TIMES") {
+                                const nextValue = formattedValue + "*";
+                                this.props.onChange(nextValue);
+                            } else if (key == "MINUS") {
+                                const nextValue = formattedValue + "-";
+                                this.props.onChange(nextValue);
+                            } else if (key == "PLUS") {
+                                const nextValue = formattedValue + "+";
+                                this.props.onChange(nextValue);
+                            } else if (key == "LEFT_PAREN") {
+                                const nextValue = formattedValue + "(";
+                                this.props.onChange(nextValue);
+                            } else if (key == "RIGHT_PAREN") {
+                                const nextValue = formattedValue + ")";
+                                this.props.onChange(nextValue);
+                            } else if (key == "BACKSPACE") {
+                                const nextValue = formattedValue.slice(0, -1);
+                                this.props.onChange(nextValue);
+                            } else if (key === "DISMISS") {
+                                this.setState({showKeypad: false});
+                            }
+                            console.warn("NEW", "Key pressed", key);
+                        }}
+                        preAlgebra={true}
+                        trigonometry={true}
+                    />
+                )}
+            </div>
         );
     }
 
