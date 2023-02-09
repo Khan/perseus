@@ -21,9 +21,9 @@
     "@babel/preset-flow": "^7.16.7",
     "@babel/preset-react": "^7.16.0",
     "@changesets/cli": "^2.22.0",
-    "@cypress/code-coverage": "^3.9.12",
-    "@cypress/react": "^5.12.5",
-    "@cypress/webpack-dev-server": "^1.8.4",
+    "@cypress/code-coverage": "^3.10.0",
+    "@cypress/react": "^7.0.2",
+    "@cypress/webpack-dev-server": "^3.2.3",
     "@khanacademy/eslint-config": "^0.2.0",
     "@khanacademy/wonder-stuff-i18n": "^1.1.0",
     "@rollup/plugin-alias": "^3.1.9",
@@ -49,7 +49,7 @@
     "babel-plugin-istanbul": "^6.1.1",
     "babel-plugin-transform-flow-enums": "^0.0.2",
     "cross-env": "^5.2.0",
-    "cypress": "^9.6.1",
+    "cypress": "^12.5.1",
     "cypress-jest-adapter": "^0.1.1",
     "cypress-wait-until": "^1.7.2",
     "enzyme": "^3.11.0",
@@ -119,7 +119,7 @@
     "storybook": "start-storybook -p 6006",
     "start": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "cypress": "cypress open-ct",
-    "cypress:ci": "cross-env BABEL_COVERAGE=1 cypress run-ct --env CYPRESS_COVERAGE=1"
+    "cypress": "cypress open --component",
+    "cypress:ci": "cross-env BABEL_COVERAGE=1 cypress run --component --env CYPRESS_COVERAGE=1"
   }
 }

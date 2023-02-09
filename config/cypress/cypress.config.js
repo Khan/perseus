@@ -1,26 +1,34 @@
-// Config for cypress
+/* eslint-disable import/no-commonjs */
+
 const fs = require("fs");
 const path = require("path");
 
-module.exports = (on, config) => {
-    const {startDevServer} = require("@cypress/webpack-dev-server");
+const {defineConfig} = require("cypress");
 
-    const aliases = {};
-    fs.readdirSync(path.join(__dirname, "../../packages")).forEach((name) => {
-        aliases["@khanacademy/" + name] = path.join(
-            __dirname,
-            "../../packages",
-            name,
-            "src/index.js",
-        );
-    });
-    fs.readdirSync(path.join(__dirname, "../../vendor")).forEach((name) => {
-        aliases[name] = path.join(__dirname, "../../vendor", name);
-    });
+const aliases = {};
+fs.readdirSync(path.join(__dirname, "../../packages")).forEach((name) => {
+    aliases["@khanacademy/" + name] = path.join(
+        __dirname,
+        "../../packages",
+        name,
+        "src/index.js",
+    );
+});
+fs.readdirSync(path.join(__dirname, "../../vendor")).forEach((name) => {
+    aliases[name] = path.join(__dirname, "../../vendor", name);
+});
 
-    on("dev-server:start", (options) =>
-        startDevServer({
-            options,
+module.exports = defineConfig({
+    fixturesFolder: false,
+    video: false,
+
+    component: {
+        specPattern: "packages/perseus/src/**/*.cypress.{js,ts,jsx,tsx}",
+        indexHtmlFile: "config/cypress/component-index.html",
+        supportFile: "config/cypress/support.js",
+        devServer: {
+            bundler: "webpack",
+            framework: "react",
             webpackConfig: {
                 resolve: {
                     alias: aliases,
@@ -49,13 +57,14 @@ module.exports = (on, config) => {
                     ],
                 },
             },
-        }),
-    );
+        },
 
-    if (config.env["CYPRESS_COVERAGE"]) {
-        require("@cypress/code-coverage/task")(on, config);
-    }
+        setupNodeEvents: (on, config) => {
+            if (config.env["CYPRESS_COVERAGE"]) {
+                require("@cypress/code-coverage/task")(on, config);
+            }
 
-    config.env.reactDevtools = true;
-    return config;
-};
+            config.env.reactDevtools = true;
+        },
+    },
+});
