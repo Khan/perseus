@@ -326,8 +326,6 @@ class RadioEditor extends React.Component<$FlowFixMe> {
     };
 
     onDelete: (number) => void = (choiceIndex) => {
-        console.log("delete", choiceIndex);
-
         const choices = this.props.choices.slice();
         const deleted = choices[choiceIndex];
 
