@@ -75,7 +75,11 @@ class ChoiceEditor extends React.Component<$FlowFixMe> {
             <a
                 className="simple-button orange delete-choice"
                 href="#"
-                onClick={this.props.onDelete}
+                onClick={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    this.props.onDelete();
+                }}
                 title="Remove this choice"
             >
                 <InlineIcon {...iconTrash} />
@@ -185,7 +189,7 @@ class RadioEditor extends React.Component<$FlowFixMe> {
                     editMode={true}
                     labelWrap={false}
                     apiOptions={this.props.apiOptions}
-                    choices={this.props.choices.map(function (choice, i) {
+                    choices={this.props.choices.map((choice, i) => {
                         return {
                             content: (
                                 <ChoiceEditor
@@ -208,8 +212,7 @@ class RadioEditor extends React.Component<$FlowFixMe> {
                                             );
                                         }
                                     }}
-                                    // eslint-disable-next-line react/jsx-no-bind
-                                    onDelete={this.onDelete.bind(this, i)}
+                                    onDelete={() => this.onDelete(i)}
                                     showDelete={this.props.choices.length >= 2}
                                 />
                             ),
@@ -322,9 +325,7 @@ class RadioEditor extends React.Component<$FlowFixMe> {
         this.props.onChange({choices: choices});
     };
 
-    onDelete: (number, $FlowFixMe) => void = (choiceIndex, e) => {
-        e.preventDefault();
-
+    onDelete: (number) => void = (choiceIndex) => {
         const choices = this.props.choices.slice();
         const deleted = choices[choiceIndex];
 

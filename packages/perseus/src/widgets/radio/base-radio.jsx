@@ -256,7 +256,7 @@ function BaseRadio(props: Props): React.Node {
                 </div>
             )}
             <ul className={className} style={{listStyle: "none"}}>
-                {choices.map(function (choice, i) {
+                {choices.map((choice, i) => {
                     let Element = Choice;
                     const ref = React.createRef();
                     choiceRefs.current[i] = ref;
@@ -277,6 +277,11 @@ function BaseRadio(props: Props): React.Node {
                             (reviewMode || choice.showRationale),
                         pos: i,
                         onChange: (newValues) => {
+                            // editMode selection is handled in clickHandler
+                            if (editMode) {
+                                return;
+                            }
+
                             updateChoice(i, newValues);
                         },
                         ref,
@@ -379,7 +384,7 @@ function BaseRadio(props: Props): React.Node {
                                 // radio icon, then we want to trigger the
                                 // check by flipping the choice of the icon.
                                 if (elem.getAttribute("data-is-radio-icon")) {
-                                    this.updateChoice(i, {
+                                    updateChoice(i, {
                                         checked: !choice.checked,
                                         crossedOut: choice.crossedOut,
                                     });
@@ -408,7 +413,7 @@ function BaseRadio(props: Props): React.Node {
                             <Element {...elementProps} />
                         </li>
                     );
-                }, this)}
+                })}
             </ul>
         </fieldset>
     );

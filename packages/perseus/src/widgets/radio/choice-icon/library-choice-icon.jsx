@@ -149,8 +149,8 @@ function LibraryChoiceIcon(props: LibraryChoiceIconProps): React.Node {
                             (checked || previouslyAnswered) &&
                             styles.circleIncorrectAnswered,
                     )}
-                    // used in BaseRadio to check if we actually clicked on the
-                    // radio icon
+                    // used in BaseRadio editMode to check
+                    // if we actually clicked on the radio icon
                     data-is-radio-icon={true}
                 >
                     <div className={css(styles.innerWrapper)}>

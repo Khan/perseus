@@ -696,6 +696,7 @@ class Editor extends React.Component<EditorProps, EditorState> {
     _handleKeyDown: (e: SyntheticKeyboardEvent<HTMLTextAreaElement>) => void = (
         e: SyntheticKeyboardEvent<HTMLTextAreaElement>,
     ) => {
+        e.stopPropagation();
         // Tab-completion of widgets. For example, to insert an image:
         // type `[[im`, then tab.
         if (e.key === "Tab") {
