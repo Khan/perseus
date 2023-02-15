@@ -278,7 +278,9 @@ function BaseRadio(props: Props): React.Node {
                         pos: i,
                         onChange: (newValues) => {
                             // editMode selection is handled in clickHandler
-                            if (editMode) return;
+                            if (editMode) {
+                                return;
+                            }
 
                             updateChoice(i, newValues);
                         },
