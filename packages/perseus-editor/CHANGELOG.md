@@ -1,5 +1,13 @@
 # @khanacademy/perseus-editor
 
+## 1.0.9
+
+### Patch Changes
+
+-   5a565227: bugfix for Radio editor selection and deletion
+-   Updated dependencies [5a565227]
+    -   @khanacademy/perseus@1.3.4
+
 ## 1.0.8
 
 ### Patch Changes
