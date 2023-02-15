@@ -132,7 +132,7 @@ describe("base-radio", () => {
             expect(screen.getAllByRole("listitem")).toHaveLength(4);
         });
 
-        it("should toggle choice when inner element clicked", () => {
+        it("should not toggle choice when inner element clicked", () => {
             // Arrange
             let updatedValues = null;
             const onChangeHandler = (newValues) => {
@@ -154,6 +154,31 @@ describe("base-radio", () => {
             userEvent.click(
                 screen.getByRole("radio", {name: "(Choice C) Option Gamma"}),
             );
+
+            // Assert
+            expect(updatedValues).toBeNull();
+        });
+
+        it("should toggle choice when data-is-radio-icon clicked", () => {
+            // Arrange
+            let updatedValues = null;
+            const onChangeHandler = (newValues) => {
+                updatedValues = newValues;
+            };
+
+            renderBaseRadio({
+                editMode: true,
+                choices: [
+                    generateChoice({content: "Option 1", correct: false}),
+                    generateChoice({content: "Option B", correct: false}),
+                    generateChoice({content: "Option Gamma", correct: true}),
+                    generateChoice({content: "Option Delta", correct: false}),
+                ],
+                onChange: onChangeHandler,
+            });
+
+            // Act
+            userEvent.click(screen.getAllByTestId("is-radio-icon")[2]);
 
             // Assert
             expect(updatedValues).toMatchObject({
