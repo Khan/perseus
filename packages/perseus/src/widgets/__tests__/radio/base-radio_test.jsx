@@ -159,7 +159,7 @@ describe("base-radio", () => {
             expect(updatedValues).toBeNull();
         });
 
-        it("should toggle choice when data-is-radio-icon clicked", () => {
+        it("should toggle choice when choice icon clicked", () => {
             // Arrange
             let updatedValues = null;
             const onChangeHandler = (newValues) => {
@@ -178,7 +178,9 @@ describe("base-radio", () => {
             });
 
             // Act
-            userEvent.click(screen.getAllByTestId("is-radio-icon")[2]);
+            userEvent.click(
+                screen.getAllByTestId("choice-icon__library-choice-icon")[2],
+            );
 
             // Assert
             expect(updatedValues).toMatchObject({

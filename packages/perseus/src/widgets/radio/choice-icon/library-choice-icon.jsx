@@ -152,7 +152,6 @@ function LibraryChoiceIcon(props: LibraryChoiceIconProps): React.Node {
                     // used in BaseRadio editMode to check
                     // if we actually clicked on the radio icon
                     data-is-radio-icon={true}
-                    data-test-id="is-radio-icon"
                 >
                     <div className={css(styles.innerWrapper)}>
                         <ChoiceInner
