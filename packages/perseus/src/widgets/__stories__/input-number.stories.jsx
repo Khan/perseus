@@ -54,6 +54,9 @@ export default {
         size: {
             control: {type: "select", options: ["normal", "small"]},
         },
+        rightAlign: {
+            control: {type: "boolean"},
+        },
     },
 };
 
