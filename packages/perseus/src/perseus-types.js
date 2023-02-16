@@ -1404,12 +1404,13 @@ export type PerseusVideoWidgetOptions = {|
 export type PerseusInputNumberWidgetOptions = {|
     answerType?:
         | "number"
-        | "percent"
+        | "decimal"
         | "integer"
-        | "improper"
         | "rational"
-        | "pi"
-        | "decimal",
+        | "improper"
+        | "mixed"
+        | "percent"
+        | "pi",
     inexact?: boolean,
     maxError?: number | string,
     rightAlign?: boolean,
