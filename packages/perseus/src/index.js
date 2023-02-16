@@ -121,6 +121,7 @@ export type {
     WidgetExports,
     WidgetInfo,
 } from "./types.js";
+export type {ParsedValue} from "./util.js";
 export type {
     MathFormat,
     InputNumberWidget,
