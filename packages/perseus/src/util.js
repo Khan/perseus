@@ -20,7 +20,7 @@ type WordAndPosition = {|
 
 type RNG = () => number;
 
-type ParsedValue = {|
+export type ParsedValue = {|
     value: number,
     exact: boolean,
 |};
