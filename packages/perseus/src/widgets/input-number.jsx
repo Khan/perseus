@@ -3,14 +3,23 @@
 // @flow
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
-import classNames from "classnames";
+import Spacing from "@khanacademy/wonder-blocks-spacing";
+import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
 
 import InputWithExamples from "../components/input-with-examples.jsx";
 import PossibleAnswers from "../components/possible-answers.jsx";
 import SimpleKeypadInput from "../components/simple-keypad-input.jsx";
-import {ClassNames as ApiClassNames, ApiOptions} from "../perseus-api.jsx";
+import {ApiOptions} from "../perseus-api.jsx";
+import {
+    satCorrectBackgroundColor,
+    satCorrectBorderColor,
+    satCorrectColor,
+    satIncorrectBackgroundColor,
+    satIncorrectBorderColor,
+    satIncorrectColor,
+} from "../styles/constants.js";
 import TexWrangler from "../tex-wrangler.js";
 import KhanAnswerTypes from "../util/answer-types.js";
 
@@ -187,14 +196,26 @@ class InputNumber extends React.Component<Props> {
             }
         }
 
-        const classes = {};
-        classes["perseus-input-size-" + this.props.size] = true;
-        classes["perseus-input-right-align"] = this.props.rightAlign;
-        classes[ApiClassNames.CORRECT] =
-            rubric && correct && this.props.currentValue;
-        classes[ApiClassNames.INCORRECT] =
-            rubric && !correct && this.props.currentValue;
-        classes[ApiClassNames.UNANSWERED] = rubric && !this.props.currentValue;
+        // Note: This is _very_ similar to what `numeric-input.jsx` does. If
+        // you modify this, double-check if you also need to modify that
+        // component.
+        const inputStyles = [
+            styles.default,
+            this.props.size === "small" ? styles.small : null,
+            this.props.rightAlign ? styles.rightAlign : styles.leftAlign,
+        ];
+        // Correct
+        if (rubric && correct && this.props.currentValue) {
+            inputStyles.push(styles.answerStateCorrect);
+        }
+        // Incorrect
+        if (rubric && !correct && this.props.currentValue) {
+            inputStyles.push(styles.answerStateIncorrect);
+        }
+        // Unanswered
+        if (rubric && !this.props.currentValue) {
+            inputStyles.push(styles.answerStateUnanswered);
+        }
 
         const input = (
             <InputWithExamples
@@ -202,7 +223,7 @@ class InputNumber extends React.Component<Props> {
                 ref="input"
                 value={this.props.currentValue}
                 onChange={this.handleChange}
-                className={classNames(classes)}
+                style={inputStyles}
                 type={this._getInputType()}
                 examples={this.examples()}
                 shouldShowExamples={this.shouldShowExamples()}
@@ -392,6 +413,39 @@ class InputNumber extends React.Component<Props> {
         return answerString;
     }
 }
+
+const styles = StyleSheet.create({
+    default: {
+        width: 80,
+        height: "auto",
+    },
+    small: {
+        width: 40,
+    },
+    leftAlign: {
+        paddingLeft: Spacing.xxxSmall_4,
+        paddingRight: 0,
+    },
+    rightAlign: {
+        textAlign: "right",
+        paddingLeft: 0,
+        paddingRight: Spacing.xxxSmall_4,
+    },
+    answerStateCorrect: {
+        color: satCorrectColor,
+        backgroundColor: satCorrectBackgroundColor,
+        border: `solid 1px ${satCorrectBorderColor}`,
+    },
+    answerStateIncorrect: {
+        color: satIncorrectColor,
+        backgroundColor: satIncorrectBackgroundColor,
+        border: `solid 1px ${satIncorrectBorderColor}`,
+    },
+    answerStateUnanswered: {
+        backgroundColor: "#eee",
+        border: "solid 1px #999",
+    },
+});
 
 const propTransform = (
     widgetOptions: PerseusInputNumberWidgetOptions,
