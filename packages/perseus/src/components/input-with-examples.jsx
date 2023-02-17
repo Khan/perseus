@@ -14,6 +14,7 @@ import TextInput from "./text-input.jsx";
 import Tooltip from "./tooltip.jsx";
 
 import type {LinterContextProps} from "../types.js";
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 const {captureScratchpadTouchStart} = Util;
 const MATH = "math";
@@ -34,7 +35,7 @@ type Props = {|
     onFocus: () => void,
     onBlur: () => void,
     disabled: boolean,
-    style?: $FlowFixMe,
+    style?: StyleType,
     id: string,
     linterContext: LinterContextProps,
 |};
@@ -154,6 +155,7 @@ class InputWithExamples extends React.Component<Props, State> {
                 return TextInput;
 
             default:
+                (this.props.type: empty);
                 return null;
         }
     };
