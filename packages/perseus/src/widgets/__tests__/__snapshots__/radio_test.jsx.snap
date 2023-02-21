@@ -120,7 +120,7 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -245,7 +245,7 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -370,7 +370,7 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -486,7 +486,7 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -737,7 +737,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -875,7 +875,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -1000,7 +1000,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -1128,7 +1128,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -1353,7 +1353,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -1491,7 +1491,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -1616,7 +1616,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -1744,7 +1744,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -1969,7 +1969,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -2107,7 +2107,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -2232,7 +2232,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -2360,7 +2360,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -2585,7 +2585,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -2723,7 +2723,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -2848,7 +2848,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -2976,7 +2976,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -3201,7 +3201,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -3339,7 +3339,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -3464,7 +3464,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -3592,7 +3592,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -3817,7 +3817,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -4040,7 +4040,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -4234,7 +4234,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -4426,7 +4426,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -4692,7 +4692,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -4825,7 +4825,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -4945,7 +4945,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -5068,7 +5068,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -5277,7 +5277,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -5410,7 +5410,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -5530,7 +5530,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -5653,7 +5653,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -5862,7 +5862,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -5995,7 +5995,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -6115,7 +6115,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -6238,7 +6238,7 @@ exports[`single-choice question satStyling: true reviewMode: false should snapsh
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -6447,7 +6447,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -6580,7 +6580,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -6700,7 +6700,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -6823,7 +6823,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -7032,7 +7032,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -7165,7 +7165,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -7285,7 +7285,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -7408,7 +7408,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -7617,7 +7617,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -7817,7 +7817,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -7988,7 +7988,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
@@ -8157,7 +8157,7 @@ exports[`single-choice question satStyling: true reviewMode: true should snapsho
                           aria-disabled="false"
                           aria-hidden="true"
                           aria-label=""
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1msdppf"
+                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
                           tabindex="0"
                           type="button"
                         >
