@@ -448,6 +448,9 @@ export class NumericInput extends React.Component<Props, State> {
             );
         }
 
+        // Note: This is _very_ similar to what `input-number.jsx` does. If
+        // you modify this, double-check if you also need to modify that
+        // component.
         const styles = StyleSheet.create({
             input: {
                 textAlign: this.props.rightAlign ? "right" : "left",

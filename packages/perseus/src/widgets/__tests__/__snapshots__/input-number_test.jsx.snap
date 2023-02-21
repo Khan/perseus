@@ -169,7 +169,7 @@ exports[`rendering static renders: static render 1`] = `
             class="perseus-widget-container widget-nohighlight widget-inline-block"
           >
             <span
-              class="math-output perseus-input perseus-interactive perseus-input-size-small"
+              class="math-output perseus-input perseus-interactive"
             >
               <div
                 style="text-align: center;"
