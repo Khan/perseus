@@ -1,12 +1,13 @@
 /* eslint-disable react/sort-comp */
 // @flow
-import {components, Util} from "@khanacademy/perseus";
-import PropTypes from "prop-types";
+import {components, Util, InputNumber} from "@khanacademy/perseus";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import BlurInput from "../components/blur-input.jsx";
+
+import type {ParsedValue} from "@khanacademy/perseus";
 
 const {InfoTip} = components;
 
@@ -45,22 +46,44 @@ const answerTypes = {
     },
 };
 
-type Props = $FlowFixMe;
+type Props = {|
+    value: number,
+    simplify: React.ElementConfig<typeof InputNumber.widget>["simplify"],
+    size: React.ElementConfig<typeof InputNumber.widget>["size"],
+    inexact: React.ElementConfig<
+        typeof InputNumber.widget,
+    >["reviewModeRubric"]["inexact"],
+    maxError: React.ElementConfig<
+        typeof InputNumber.widget,
+    >["reviewModeRubric"]["maxError"],
+    answerType: React.ElementConfig<typeof InputNumber.widget>["answerType"],
+    rightAlign: React.ElementConfig<typeof InputNumber.widget>["rightAlign"],
+
+    onChange: ({|
+        value?: ParsedValue | 0,
+        simplify?: Props["simplify"],
+        size?: Props["size"],
+        inexact?: Props["inexact"],
+        maxError?: Props["maxError"],
+        answerType?: Props["answerType"],
+        rightAlign?: Props["rightAlign"],
+    |}) => void,
+|};
+
+type DefaultProps = {|
+    value: Props["value"],
+    simplify: Props["simplify"],
+    size: Props["size"],
+    inexact: Props["inexact"],
+    maxError: Props["maxError"],
+    answerType: Props["answerType"],
+    rightAlign: Props["rightAlign"],
+|};
 
 class InputNumberEditor extends React.Component<Props> {
-    static propTypes = {
-        value: PropTypes.number,
-        simplify: PropTypes.oneOf(["required", "optional", "enforced"]),
-        size: PropTypes.oneOf(["normal", "small"]),
-        inexact: PropTypes.bool,
-        maxError: PropTypes.number,
-        answerType: PropTypes.string,
-        rightAlign: PropTypes.bool,
-    };
-
     static widgetName: "input-number" = "input-number";
 
-    static defaultProps: Props = {
+    static defaultProps: DefaultProps = {
         value: 0,
         simplify: "required",
         size: "normal",
@@ -245,25 +268,22 @@ class InputNumberEditor extends React.Component<Props> {
     };
 
     serialize: () => {|
-        value: $FlowFixMe,
-        simplify: $FlowFixMe,
-        size: $FlowFixMe,
-        inexact: $FlowFixMe,
-        maxError: $FlowFixMe,
-        answerType: $FlowFixMe,
-        rightAlign: $FlowFixMe,
-    |} = () => {
-        return _.pick(
-            this.props,
-            "value",
-            "simplify",
-            "size",
-            "inexact",
-            "maxError",
-            "answerType",
-            "rightAlign",
-        );
-    };
+        value: Props["value"],
+        simplify: Props["simplify"],
+        size: Props["size"],
+        inexact: Props["inexact"],
+        maxError: Props["maxError"],
+        answerType: Props["answerType"],
+        rightAlign: Props["rightAlign"],
+    |} = () => ({
+        value: this.props.value,
+        simplify: this.props.simplify,
+        size: this.props.size,
+        inexact: this.props.inexact,
+        maxError: this.props.maxError,
+        answerType: this.props.answerType,
+        rightAlign: this.props.rightAlign,
+    });
 }
 
 export default InputNumberEditor;
