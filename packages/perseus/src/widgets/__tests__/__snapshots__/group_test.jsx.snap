@@ -193,9 +193,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                           <button
                                             aria-disabled="false"
                                             aria-hidden="true"
-                                            aria-label=""
                                             class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
-                                            tabindex="0"
                                             type="button"
                                           >
                                             <div
@@ -318,9 +316,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                           <button
                                             aria-disabled="false"
                                             aria-hidden="true"
-                                            aria-label=""
                                             class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
-                                            tabindex="0"
                                             type="button"
                                           >
                                             <div
@@ -443,9 +439,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                           <button
                                             aria-disabled="false"
                                             aria-hidden="true"
-                                            aria-label=""
                                             class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
-                                            tabindex="0"
                                             type="button"
                                           >
                                             <div
@@ -568,9 +562,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                           <button
                                             aria-disabled="false"
                                             aria-hidden="true"
-                                            aria-label=""
                                             class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
-                                            tabindex="0"
                                             type="button"
                                           >
                                             <div
@@ -693,9 +685,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                           <button
                                             aria-disabled="false"
                                             aria-hidden="true"
-                                            aria-label=""
                                             class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
-                                            tabindex="0"
                                             type="button"
                                           >
                                             <div

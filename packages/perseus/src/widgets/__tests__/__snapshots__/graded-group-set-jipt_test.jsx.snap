@@ -250,7 +250,6 @@ exports[`graded-group-set should render all graded groups 1`] = `
                   aria-disabled="false"
                   class="button_vr44p2-o_O-shared_lwskrm-o_O-default_1w5v67"
                   role="button"
-                  tabindex="0"
                   type="button"
                 >
                   <span
@@ -487,7 +486,6 @@ exports[`graded-group-set should render all graded groups 1`] = `
                   aria-disabled="false"
                   class="button_vr44p2-o_O-shared_lwskrm-o_O-default_1w5v67"
                   role="button"
-                  tabindex="0"
                   type="button"
                 >
                   <span
@@ -724,7 +722,6 @@ exports[`graded-group-set should render all graded groups 1`] = `
                   aria-disabled="false"
                   class="button_vr44p2-o_O-shared_lwskrm-o_O-default_1w5v67"
                   role="button"
-                  tabindex="0"
                   type="button"
                 >
                   <span
