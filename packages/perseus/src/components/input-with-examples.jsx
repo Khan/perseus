@@ -17,9 +17,6 @@ import type {LinterContextProps} from "../types.js";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 const {captureScratchpadTouchStart} = Util;
-const MATH = "math";
-const TEXT = "text";
-const TEX = "tex";
 
 type Props = {|
     type: "math" | "text" | "tex",
@@ -57,7 +54,7 @@ type State = {|
 
 class InputWithExamples extends React.Component<Props, State> {
     static defaultProps: DefaultProps = {
-        type: TEXT,
+        type: "text",
         shouldShowExamples: true,
         onFocus: function () {},
         onBlur: function () {},
@@ -78,7 +75,7 @@ class InputWithExamples extends React.Component<Props, State> {
     _getInputClassName: () => string = () => {
         // <MathOutput> is a special component that manages its own class and
         // state, as it's a <span> that wants to act like an <input>.
-        if (this.props.type === TEX) {
+        if (this.props.type === "tex") {
             return this.props.className;
         }
 
@@ -109,7 +106,7 @@ class InputWithExamples extends React.Component<Props, State> {
             style: this.props.style,
         };
 
-        if (this.props.type === TEX) {
+        if (this.props.type === "tex") {
             return inputProps;
         }
 
@@ -120,7 +117,7 @@ class InputWithExamples extends React.Component<Props, State> {
         });
 
         // And add final props that are MATH- and TEXT-specific
-        if (this.props.type === MATH) {
+        if (this.props.type === "math") {
             return _.extend(
                 {
                     buttonSet: this.props.buttonSet,
@@ -130,7 +127,7 @@ class InputWithExamples extends React.Component<Props, State> {
                 inputProps,
             );
         }
-        if (this.props.type === TEXT) {
+        if (this.props.type === "text") {
             return _.extend(
                 {
                     autoCapitalize: "off",
@@ -145,13 +142,13 @@ class InputWithExamples extends React.Component<Props, State> {
 
     _getComponentForInputType: () => $FlowFixMe = () => {
         switch (this.props.type) {
-            case TEX:
+            case "tex":
                 return MathOutput;
 
-            case MATH:
+            case "math":
                 return MathInput;
 
-            case TEXT:
+            case "text":
                 return TextInput;
 
             default:
@@ -171,7 +168,7 @@ class InputWithExamples extends React.Component<Props, State> {
 
         // Static rendering, which doesn't include the 'tooltip' logic that the
         // other types require, and is hence handled separately.
-        if (this.props.type === TEX) {
+        if (this.props.type === "tex") {
             return input;
         }
 
