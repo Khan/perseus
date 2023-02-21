@@ -31,7 +31,10 @@ export default {
             control: {type: "number"},
         },
         simplify: {
-            control: {type: "select", options: ["optional", "required"]},
+            control: {
+                type: "select",
+                options: ["required", "optional", "enforced"],
+            },
         },
         answerType: {
             control: {
@@ -49,7 +52,10 @@ export default {
             },
         },
         size: {
-            control: {type: "select", options: ["normal", "large"]},
+            control: {type: "select", options: ["normal", "small"]},
+        },
+        rightAlign: {
+            control: {type: "boolean"},
         },
     },
 };
