@@ -228,7 +228,7 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
                         apiOptions.staticRender ||
                         apiOptions.readOnly
                     }
-                    style={{flex: 1, color: Color.offBlack}}
+                    style={{flex: 1, color: Color.offBlack, userSelect: "text"}}
                     ref={(forwardedRef: any)}
                     aria-hidden="true"
                 >
