@@ -205,11 +205,11 @@ class InputNumber extends React.Component<Props> {
             this.props.rightAlign ? styles.rightAlign : styles.leftAlign,
         ];
         // Correct
-        if (rubric && correct && this.props.currentValue) {
+        if (rubric && correct === true && this.props.currentValue) {
             inputStyles.push(styles.answerStateCorrect);
         }
         // Incorrect
-        if (rubric && !correct && this.props.currentValue) {
+        if (rubric && correct === false && this.props.currentValue) {
             inputStyles.push(styles.answerStateIncorrect);
         }
         // Unanswered
