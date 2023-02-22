@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 1.3.6
+
+### Patch Changes
+
+-   859d3c28: Fixes styling of input-number when answer is incorrect in review mode
+
 ## 1.3.5
 
 ### Patch Changes
