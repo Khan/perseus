@@ -39,11 +39,12 @@ jobs:
       id: changed
 
     - id: js-files
-      name: Find .js, .json changed files
+      name: Find .js changed files
       uses: Khan/actions@filter-files-v0
       with:
         changed-files: ${{ steps.changed.outputs.files }}
-        extensions: '.js,.jsx,.json'
+        extensions: '.js,.jsx'
+        files: 'yarn.lock'
 
     - id: eslint-reset
       uses: Khan/actions@filter-files-v0
