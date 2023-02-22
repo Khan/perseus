@@ -1,5 +1,12 @@
 # @khanacademy/perseus
 
+## 1.3.5
+
+### Patch Changes
+
+-   c4feda94: allow users to select text in radio choice
+-   6f79dc58: Fix regression in input-number widget to respect `size` and `rightAlign` options again.
+
 ## 1.3.4
 
 ### Patch Changes
