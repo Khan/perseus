@@ -9,7 +9,7 @@ import * as React from "react";
 import type {SerializedHighlightSet} from "./components/highlighting/types.js";
 import type {ILogger} from "./logging/log.js";
 import type {Item} from "./multi-items/item-types.js";
-import type {PerseusWidget, PerseusRadioChoice} from "./perseus-types.js";
+import type {PerseusWidget} from "./perseus-types.js";
 import type {SizeClass} from "./util/sizing-utils.js";
 import type {Result} from "@khanacademy/wonder-blocks-data";
 
@@ -83,12 +83,6 @@ export type ChoiceState = {|
     correctnessShown: boolean,
     previouslyAnswered: boolean,
     readOnly: boolean,
-|};
-
-export type RadioChoiceWithMetadata = {|
-    ...PerseusRadioChoice,
-    originalIndex: number,
-    correct: boolean,
 |};
 
 export type ChangeHandler = (

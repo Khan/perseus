@@ -13,12 +13,7 @@ import type {
     PerseusRadioChoice,
     PerseusRadioWidgetOptions,
 } from "../../perseus-types.js";
-import type {
-    PerseusScore,
-    WidgetProps,
-    ChoiceState,
-    RadioChoiceWithMetadata,
-} from "../../types.js";
+import type {PerseusScore, WidgetProps, ChoiceState} from "../../types.js";
 import type {FocusFunction, ChoiceType} from "./base-radio.jsx";
 
 // RenderProps is the return type for radio.jsx#transform
@@ -52,6 +47,12 @@ type DefaultProps = {|
     countChoices: Props["countChoices"],
     deselectEnabled: Props["deselectEnabled"],
     linterContext: Props["linterContext"],
+|};
+
+export type RadioChoiceWithMetadata = {|
+    ...PerseusRadioChoice,
+    originalIndex: number,
+    correct: boolean,
 |};
 
 class Radio extends React.Component<Props> {
