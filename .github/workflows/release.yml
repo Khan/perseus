@@ -5,6 +5,8 @@ on:
     branches:
       - main
 
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
 # This workflow will run changesets depending on two different scenarios:
 #
 # 1. If we are landing a specific commit into main (Author PR), then
