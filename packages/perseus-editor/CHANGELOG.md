@@ -1,5 +1,16 @@
 # @khanacademy/perseus-editor
 
+## 1.0.13
+
+### Patch Changes
+
+-   6a7f36be: Update wonder-stuff and wonder-blocks dependencies
+-   Updated dependencies [324a197c]
+-   Updated dependencies [f5693311]
+-   Updated dependencies [6a7f36be]
+-   Updated dependencies [7b94ca05]
+    -   @khanacademy/perseus@1.4.0
+
 ## 1.0.12
 
 ### Patch Changes

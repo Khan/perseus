@@ -3,7 +3,7 @@
     "description": "Core Perseus API (includes renderers and widgets)",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "1.3.7",
+    "version": "1.4.0",
     "publishConfig": {
         "access": "public"
     },
@@ -23,9 +23,9 @@
     "dependencies": {
         "@khanacademy/kas": "^0.2.7",
         "@khanacademy/kmath": "^0.0.8",
-        "@khanacademy/math-input": "^0.6.5",
-        "@khanacademy/perseus-linter": "^0.2.3",
-        "@khanacademy/pure-markdown": "^0.1.3",
+        "@khanacademy/math-input": "^0.6.6",
+        "@khanacademy/perseus-linter": "^0.2.4",
+        "@khanacademy/pure-markdown": "^0.1.4",
         "@khanacademy/simple-markdown": "^0.8.6",
         "mathquill": "git+https://git@github.com/Khan/mathquill.git#a9ae54e057c5c1acc8244a5627acbff29901d992"
     },

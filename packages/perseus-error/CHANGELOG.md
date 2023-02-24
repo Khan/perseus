@@ -1,5 +1,11 @@
 # @khanacademy/perseus-error
 
+## 0.1.4
+
+### Patch Changes
+
+-   6a7f36be: Update wonder-stuff and wonder-blocks dependencies
+
 ## 0.1.3
 
 ### Patch Changes

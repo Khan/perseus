@@ -1,5 +1,21 @@
 # @khanacademy/perseus
 
+## 1.4.0
+
+### Minor Changes
+
+-   324a197c: Quick font fixup
+-   f5693311: Indicators on exercises are now accessible via the keyboard! Additionally, they use explicit list markup! 🟢⚪⚪
+
+### Patch Changes
+
+-   6a7f36be: Update wonder-stuff and wonder-blocks dependencies
+-   7b94ca05: Update categorizer to have no empty "th" cells per a11y audit
+-   Updated dependencies [6a7f36be]
+    -   @khanacademy/math-input@0.6.6
+    -   @khanacademy/perseus-linter@0.2.4
+    -   @khanacademy/pure-markdown@0.1.4
+
 ## 1.3.7
 
 ### Patch Changes
