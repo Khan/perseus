@@ -1,4 +1,15 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Webpack App</title><meta name="viewport" content="width=device-width,initial-scale=1"><base target="_parent"><style>:not(.sb-show-preparing-story) > .sb-preparing-story,
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Webpack App</title><meta name="viewport" content="width=device-width,initial-scale=1"><base target="_parent"><style>/* While we aren't showing the main block yet, but still preparing, we want everything the user
+     has rendered, which may or may not be in #root, to be display none */
+  .sb-show-preparing-story:not(.sb-show-main) > :not(.sb-preparing-story) {
+    display: none;
+  }
+
+  .sb-show-preparing-docs:not(.sb-show-main) > :not(.sb-preparing-docs) {
+    display: none;
+  }
+
+  /* Hide our own blocks when we aren't supposed to be showing them */
+  :not(.sb-show-preparing-story) > .sb-preparing-story,
   :not(.sb-show-preparing-docs) > .sb-preparing-docs,
   :not(.sb-show-nopreview) > .sb-nopreview,
   :not(.sb-show-errordisplay) > .sb-errordisplay {
@@ -137,6 +148,9 @@
   .sb-preparing-story,
   .sb-preparing-docs {
     background-color: white;
+    /* Maximum possible z-index. It would be better to use stacking contexts to ensure it's always
+    on top, but this isn't possible as it would require making CSS changes that could affect user code */
+    z-index: 2147483647;
   }
 
   .sb-loader {
@@ -220,8 +234,8 @@
   .sb-argstableBlock td:nth-of-type(3) {
     width: 15%;
   }
-  .sb-argstableBlock th:laste-of-type,
-  .sb-argstableBlock td:laste-of-type {
+  .sb-argstableBlock th:last-of-type,
+  .sb-argstableBlock td:last-of-type {
     width: 25%;
     padding-right: 20px;
   }
@@ -324,7 +338,9 @@
         /* eslint-enable object-shorthand */
       })
     );
-  };</script><style>#root[hidden],
+  };</script><style>html, body {
+            padding: 16px 0px 0px 0px !important;
+        }</style><style>#root[hidden],
       #docs-root[hidden] {
         display: none !important;
       }</style></head><body><div class="sb-preparing-story sb-wrapper"><div class="sb-loader"></div></div><div class="sb-preparing-docs sb-wrapper"><div class="sb-previewBlock"><div class="sb-previewBlock_header"><div class="sb-previewBlock_icon"></div><div class="sb-previewBlock_icon"></div><div class="sb-previewBlock_icon"></div><div class="sb-previewBlock_icon"></div></div><div class="sb-previewBlock_body"><div class="sb-loader"></div></div></div><table aria-hidden="true" class="sb-argstableBlock"><thead class="sb-argstableBlock-head"><tr><th><span>Name</span></th><th><span>Description</span></th><th><span>Default</span></th><th><span>Control</span></th></tr></thead><tbody class="sb-argstableBlock-body"><tr><td><span>propertyName</span><span title="Required">*</span></td><td><div><span>This is a short description</span></div><div class="sb-argstableBlock-summary"><div><span class="sb-argstableBlock-code">summary</span></div></div></td><td><div><span class="sb-argstableBlock-code">defaultValue</span></div></td><td><button>Set string</button></td></tr><tr><td><span>propertyName</span><span>*</span></td><td><div><span>This is a short description</span></div><div class="sb-argstableBlock-summary"><div><span class="sb-argstableBlock-code">summary</span></div></div></td><td><div><span class="sb-argstableBlock-code">defaultValue</span></div></td><td><button>Set string</button></td></tr><tr><td><span>propertyName</span><span>*</span></td><td><div><span>This is a short description</span></div><div class="sb-argstableBlock-summary"><div><span class="sb-argstableBlock-code">summary</span></div></div></td><td><div><span class="sb-argstableBlock-code">defaultValue</span></div></td><td><button>Set string</button></td></tr></tbody></table></div><div class="sb-nopreview sb-wrapper"><div class="sb-nopreview_main"><h1 class="sb-nopreview_heading sb-heading">No Preview</h1><p>Sorry, but you either have no stories or none are selected somehow.</p><ul><li>Please check the Storybook config.</li><li>Try reloading the page.</li></ul><p>If the problem persists, check the browser console, or the terminal you've run Storybook from.</p></div></div><div class="sb-errordisplay sb-wrapper"><pre id="error-message" class="sb-heading"></pre><pre class="sb-errordisplay_code"><code id="error-stack"></code></pre></div><div id="root"></div><div id="docs-root"></div><script>window['CONFIG_TYPE'] = "PRODUCTION";
@@ -341,8 +357,10 @@
           
       
           
-            window['FEATURES'] = {"postcss":true,"emotionAlias":true,"warnOnLegacyHierarchySeparator":true};
+            window['FEATURES'] = {"postcss":true,"emotionAlias":false,"warnOnLegacyHierarchySeparator":true,"buildStoriesJson":false,"storyStoreV7":false,"modernInlineRender":false,"breakingChangesV7":false,"interactionsDebugger":false,"babelModeV7":false,"argTypeTargetsV7":false,"previewMdx2":false};
           
       
           
-            window['STORIES'] = [{"titlePrefix":"","directory":"./packages","files":"*/src/**/*@(.stories|.fixturestories).@(js|jsx)","importPathMatcher":"^\\.[\\\\/](?:packages\\/(?!\\.)(?=.)[^/]*?\\/src(?:\\/(?!\\.)(?:(?:(?!(?:^|\\/)\\.).)*?)\\/|\\/|$)(?!\\.)(?=.)[^/]*?(\\.stories|\\.fixturestories)\\.(js|jsx))$"}];</script><script src="runtime~main.235d91a7.iframe.bundle.js"></script><script src="vendors~main.8e4dd575.iframe.bundle.js"></script><script src="main.15be3389.iframe.bundle.js"></script></body></html>
+      
+          
+            window['STORIES'] = [{"titlePrefix":"","directory":"./packages","files":"*/src/**/*@(.stories|.fixturestories).@(js|jsx)","importPathMatcher":"^\\.[\\\\/](?:packages\\/(?!\\.)(?=.)[^/]*?\\/src(?:\\/(?!\\.)(?:(?:(?!(?:^|\\/)\\.).)*?)\\/|\\/|$)(?!\\.)(?=.)[^/]*?(\\.stories|\\.fixturestories)\\.(js|jsx))$"}];</script><script src="runtime~main.5ca5ac01.iframe.bundle.js"></script><script src="988.5d379778.iframe.bundle.js"></script><script src="main.f3554d24.iframe.bundle.js"></script></body></html>

@@ -43,16 +43,6 @@ object-assign
  */
 
 /*!
- * https://github.com/paulmillr/es6-shim
- * @license es6-shim Copyright 2013-2016 by Paul Miller (http://paulmillr.com)
- *   and contributors,  MIT License
- * es6-shim: v0.35.4
- * see https://github.com/paulmillr/es6-shim/blob/0.35.3/LICENSE
- * Details and documentation:
- * https://github.com/paulmillr/es6-shim/
- */
-
-/*!
  * is-plain-object <https://github.com/jonschlinkert/is-plain-object>
  *
  * Copyright (c) 2014-2017, Jon Schlinkert.
