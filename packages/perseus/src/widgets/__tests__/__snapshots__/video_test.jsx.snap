@@ -63,10 +63,9 @@ exports[`video widget should snapshot on mobile: first mobile render 1`] = `
                   class="default_xu2jcg-o_O-inlineStyles_sc01dy"
                 />
                 <a
-                  class="shared_1ff70zb-o_O-default_nelfll visited-no-recolor"
+                  class="shared_ken7mo-o_O-resting_nelfll visited-no-recolor"
                   href="/transcript/videoNotFound"
                   rel="noopener noreferrer"
-                  tabindex="0"
                   target="_blank"
                 >
                   See video transcript
@@ -144,10 +143,9 @@ exports[`video widget should snapshot: first render 1`] = `
                   class="default_xu2jcg-o_O-inlineStyles_sc01dy"
                 />
                 <a
-                  class="shared_1ff70zb-o_O-default_nelfll visited-no-recolor"
+                  class="shared_ken7mo-o_O-resting_nelfll visited-no-recolor"
                   href="/transcript/videoNotFound"
                   rel="noopener noreferrer"
-                  tabindex="0"
                   target="_blank"
                 >
                   See video transcript

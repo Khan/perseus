@@ -39,7 +39,6 @@ exports[`Definition widget should have a default snapshot: first render 1`] = `
                 aria-disabled="false"
                 class="button_vr44p2-o_O-shared_lwskrm-o_O-default_1hl5pu8"
                 role="button"
-                tabindex="0"
                 type="button"
               >
                 <span
@@ -97,7 +96,6 @@ exports[`Definition widget should have an open state snapshot: open state 1`] = 
                 aria-disabled="false"
                 class="button_vr44p2-o_O-shared_lwskrm-o_O-default_1hl5pu8"
                 role="button"
-                tabindex="0"
                 type="button"
               >
                 <span

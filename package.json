@@ -25,7 +25,7 @@
     "@cypress/react": "^7.0.2",
     "@cypress/webpack-dev-server": "^3.2.3",
     "@khanacademy/eslint-config": "^0.2.0",
-    "@khanacademy/wonder-stuff-i18n": "^1.1.0",
+    "@khanacademy/wonder-stuff-i18n": "^2.1.0",
     "@rollup/plugin-alias": "^3.1.9",
     "@rollup/plugin-babel": "^5.3.0",
     "@rollup/plugin-commonjs": "^22.0.0",
