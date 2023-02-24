@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 0.6.6
+
+### Patch Changes
+
+-   6a7f36be: Update wonder-stuff and wonder-blocks dependencies
+
 ## 0.6.5
 
 ### Patch Changes
