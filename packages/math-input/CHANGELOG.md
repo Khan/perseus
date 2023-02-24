@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 0.6.5
+
+### Patch Changes
+
+-   c238d540: Wrap all ReactDOM.render() calls in `<RenderStateRoot>` to ensure it propagates properly
+
 ## 0.6.4
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @khanacademy/perseus
 
+## 1.3.7
+
+### Patch Changes
+
+-   c238d540: Wrap all ReactDOM.render() calls in `<RenderStateRoot>` to ensure it propagates properly
+-   Updated dependencies [c238d540]
+    -   @khanacademy/math-input@0.6.5
+
 ## 1.3.6
 
 ### Patch Changes
