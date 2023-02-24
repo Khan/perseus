@@ -4,6 +4,9 @@ const path = require("path");
 const fs = require("fs");
 
 module.exports = {
+    core: {
+        builder: "webpack5",
+    },
     stories: [
         // NOTE(jeremy): This glob is extremely finicky! I would have written
         // this as a negated match to exclude node_modules, but I was never
