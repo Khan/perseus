@@ -1,5 +1,6 @@
 // @flow
 import {linterContextDefault} from "@khanacademy/perseus-linter";
+import Color from "@khanacademy/wonder-blocks-color";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
@@ -7,10 +8,8 @@ import * as React from "react";
 import {getDependencies} from "../dependencies.js";
 import * as Changeable from "../mixins/changeable.jsx";
 import {
-    grayLight,
     gray76,
     tableBackgroundAccent,
-    kaGreen,
     phoneMargin,
     negativePhoneMargin,
 } from "../styles/constants.js";
@@ -28,40 +27,45 @@ const GradedGroup = GradedGroupWidget.widget;
 
 type IndicatorsProps = {|
     currentGroup: number,
-    numGroups: number,
-    groupTitles: $ReadOnlyArray<string>,
+    gradedGroups: $ReadOnlyArray<PerseusGradedGroupWidgetOptions>,
     onChangeCurrentGroup: (groupNumber: number) => void,
 |};
 
-// TODO(jeremy): This indicator panel is not accessible for keyboard
-// navigation. Add in keyboard handling and tab indexes to make accessible.
 class Indicators extends React.Component<IndicatorsProps> {
-    render(): React.Node {
-        const items = [];
-        for (let i = 0; i < this.props.numGroups; i++) {
-            items.push(
-                <div
-                    role="button"
-                    aria-label={i18n._("Skip to %(title)s", {
-                        title: this.props.groupTitles[i],
-                    })}
-                    key={i}
-                    className={css(
-                        styles.indicator,
-                        i === this.props.currentGroup &&
-                            styles.selectedIndicator,
-                    )}
-                    onClick={() => this.props.onChangeCurrentGroup(i)}
-                >
-                    {i === this.props.currentGroup && (
-                        <span className={css(a11y.srOnly)}>
-                            {i18n._("Current")}
-                        </span>
-                    )}
-                </div>,
-            );
+    handleKeyDown = (e: SyntheticKeyboardEvent<>, i: number) => {
+        if (e.key === "Enter" || e.key === " ") {
+            this.props.onChangeCurrentGroup(i);
         }
-        return <div className={css(styles.indicatorContainer)}>{items}</div>;
+    };
+
+    render(): React.Node {
+        return (
+            <ul className={css(styles.indicatorContainer)}>
+                {this.props.gradedGroups.map(({title}, i) => (
+                    <li
+                        role="button"
+                        aria-label={i18n._("Skip to %(title)s", {
+                            title,
+                        })}
+                        key={title}
+                        className={css(
+                            styles.indicator,
+                            i === this.props.currentGroup &&
+                                styles.selectedIndicator,
+                        )}
+                        tabIndex={0}
+                        onClick={() => this.props.onChangeCurrentGroup(i)}
+                        onKeyDown={(e) => this.handleKeyDown(e, i)}
+                    >
+                        {i === this.props.currentGroup && (
+                            <span className={css(a11y.srOnly)}>
+                                {i18n._("Current")}
+                            </span>
+                        )}
+                    </li>
+                ))}
+            </ul>
+        );
     }
 }
 
@@ -189,11 +193,8 @@ class GradedGroupSet extends React.Component<Props, State> {
                     </div>
                     <div className={css(styles.spacer)} />
                     <Indicators
-                        numGroups={numGroups}
                         currentGroup={this.state.currentGroup}
-                        groupTitles={this.props.gradedGroups.map(
-                            (g) => g.title,
-                        )}
+                        gradedGroups={this.props.gradedGroups}
                         onChangeCurrentGroup={(currentGroup) =>
                             this.setState({currentGroup})
                         }
@@ -253,7 +254,7 @@ const styles = StyleSheet.create({
 
     title: {
         fontSize: 12,
-        color: gray76,
+        color: Color.offBlack64,
         textTransform: "uppercase",
         marginBottom: 11,
         letterSpacing: 0.8,
@@ -262,19 +263,22 @@ const styles = StyleSheet.create({
     indicatorContainer: {
         display: "flex",
         flexDirection: "row",
+        listStyle: "none",
+        margin: "unset",
     },
 
     indicator: {
         width: 10,
         height: 10,
-        borderRadius: 5,
-        backgroundColor: grayLight,
+        borderRadius: "100%",
+        border: "3px solid",
+        borderColor: Color.blue,
         marginLeft: 5,
         cursor: "pointer",
     },
 
     selectedIndicator: {
-        backgroundColor: kaGreen,
+        backgroundColor: Color.blue,
     },
 
     container: {
